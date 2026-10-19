@@ -52,11 +52,21 @@ def equip_request(payload,slots,allowed=INITIAL_SKILLS,character=None):
     updated[index]=skill
     return validate_slots(updated,allowed,character),struct.pack('>5i',0,index,skill,other,other_skill)
 
+def preset_payload(slots=DEFAULT_SLOTS,allowed=INITIAL_SKILLS,character=None):
+    slots=validate_slots(slots,allowed,character)
+    from els_server.domain.skill_traits import map_wire
+    tail=struct.pack('>II',0,0)
+    if (character or {}).get('force_inventory'):
+        from els_server.domain.boosting_2026_force_equipment import vectors
+        tail=vectors(character)
+    return struct.pack('>I',22)+b''.join(record(v) for v in slots)+map_wire(character)+tail
+
+
 def initialization_payload(slots=DEFAULT_SLOTS,uid=1001,allowed=INITIAL_SKILLS,learned_ranks=None,character=None):
     slots=validate_slots(slots,allowed,character)
     u32=lambda n:struct.pack('>I',n)
     from els_server.domain.skill_traits import map_wire
-    preset=u32(22)+b''.join(record(v) for v in slots)+map_wire(character)+u32(0)*2
+    preset=preset_payload(slots,allowed,character)
     ranks={v:1 for v in allowed} if learned_ranks is None else learned_ranks
     learned=u32(len(ranks))+b''.join(record(v,level) for v,level in ranks.items())
     from els_server.domain.skill_unlocks import ids_wire

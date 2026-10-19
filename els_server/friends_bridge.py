@@ -9,7 +9,7 @@ import re
 import ssl
 import socket
 from els_server.friends_wire import read_json,write_json
-from els_server.port_probe import PortProbe
+from els_server.friends_bootstrap import RelayBootstrapProbe
 
 
 @dataclass(frozen=True)
@@ -108,7 +108,7 @@ class Bridge:
             if error.reason!='APPLICATION_DATA_AFTER_CLOSE_NOTIFY':raise
         def discovery(address):self.game_address=address
         self.udp,self.probe=await asyncio.get_running_loop().create_datagram_endpoint(
-            lambda:PortProbe(self.log,self.account_ids,discovery),local_addr=('127.0.0.1',self.config.probe_port))
+            lambda:RelayBootstrapProbe(self,discovery),local_addr=('127.0.0.1',self.config.probe_port))
         try:self.listener=await asyncio.start_server(self.accept,'127.0.0.1',self.config.local_port,limit=65536)
         except BaseException:self.udp.close();await self.probe.closed;raise
         if self.relay_supported:

@@ -126,22 +126,26 @@ def restore(s,event,replies):
     return messages
 
 def periodic(s):
-    """Town peer restoration after actual membership/actor publication.
+    """Reconcile peers after22A, including bounded asynchronous actor creation.
 
-    Application drains the22A mailbox before returning these periodic Events.
-    Object references distinguish re-entry and refresh without object-id reuse.
+    A newly received22A can finish creating a native actor after the first
+    notices arrive. Send the latest absolute state at most once per second
+    for three additional opportunities; never replay an old captured state.
     """
     if not enabled(s) or s.phase!='town_ready':
-        s.luciel_peer_sync=None;return []
+        s.luciel_peer_sync=None;s.luciel_peer_restore_retry={};return []
     try:world,targets=peers(s)
     except ValueError:
-        s.luciel_peer_sync=None;return []
+        s.luciel_peer_sync=None;s.luciel_peer_restore_retry={};return []
     if world is None or s not in world.members:
-        s.luciel_peer_sync=None;return []
+        s.luciel_peer_sync=None;s.luciel_peer_restore_retry={};return []
     room=world.room(s);context=(s.shop_session_id,s.account.uid,world.members[s],room)
     previous=getattr(s,'luciel_peer_sync',None)
     same=previous is not None and previous[0][:3]==context[:3] and previous[0][3] is room
-    old=previous[1] if same else {};current={};messages=[]
+    old=previous[1] if same else {};current={};messages=[];retry={}
+    old_retry=getattr(s,'luciel_peer_restore_retry',{}) if same else {}
+    import time
+    now=time.monotonic()
     from els_server.protocol.protocol_codec import encode_event
     for other in targets:
         entry=room.get(other)
@@ -152,10 +156,24 @@ def periodic(s):
         marker=(actor_generation(other,room,entry),other.shop_session_id,active_value,value)
         current[key]=marker;last=old.get(key)
         same_actor=last is not None and len(last)==4 and last[0] is marker[0] and last[1]==marker[1]
-        if not same_actor or last[2]!=active_value:messages.append(active_notification(uid,active_value))
-        if not same_actor or last[3]!=value:messages.append(notification(uid,value))
+        active_changed=not same_actor or last[2]!=active_value
+        style_changed=not same_actor or last[3]!=value
+        if active_changed:messages.append(active_notification(uid,active_value))
+        if style_changed:messages.append(notification(uid,value))
+        if active_changed or style_changed:
+            retry[key]=(marker,now+1.0,3)
+        else:
+            pending=old_retry.get(key)
+            if (pending is not None and pending[0][0] is marker[0]
+                and pending[0][1:]==marker[1:] and pending[2]>0):
+                if now>=pending[1]:
+                    messages.extend((active_notification(uid,active_value),notification(uid,value)))
+                    if pending[2]>1:retry[key]=(marker,now+1.0,pending[2]-1)
+                else:retry[key]=pending
+    # Publishing both caches follows all throwing packet preparation. Removed,
+    # foreign, released, departed and previous-generation peers are not retained.
     for event in messages:encode_event(event)
-    s.luciel_peer_sync=(context,current)
+    s.luciel_peer_sync=(context,current);s.luciel_peer_restore_retry=retry
     return messages
 
 

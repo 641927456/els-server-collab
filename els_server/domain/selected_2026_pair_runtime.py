@@ -77,6 +77,11 @@ class SelectedAttendanceOnline:
         self.settings.initialize()
         if self.settings.snapshot()['enabled']['growth']:raise ValueError('Unsupported saved growth switch')
         self.catalog.register_inventory()
+        # Owned reward usability is independent of campaign enrollment/switches.
+        from els_server.domain.published_2026_bundles import enable
+        enable((Path(__file__).resolve().parents[1]/'data/published2026-bundles.json').read_bytes())
+        from els_server.domain.boosting_2026_force_rewards import register as register_owned_force
+        register_owned_force()
         with closing(sqlite3.connect(self.path)) as db:
             t=self._attendance(db);t.progress.initialize();self.schedule.install(t.progress);t.initialize()
         with closing(sqlite3.connect(self.path)) as db,db:
@@ -107,7 +112,7 @@ class SelectedAttendanceOnline:
         if self.state is None:raise ValueError('Selected activities unavailable')
         return dict(json.loads(canonical(self.state)),local_only=True,rules_locked=True,available_scopes=['attendance','online'],configuration=self.config,
             names=dict(growth='战斗力助力活动（候选未安装）',attendance='胡巴的签到（2026-06-17期）',online='2026共存的庆典-称号发放（2026-10-07期）'),
-            reward_summary=dict(growth='本次独立交付不包含成长运行依赖，开关禁用。',attendance='42天官网奖励；补签21次/每次7000万ED；最早漏签日自动补（本地规则）',online='每角色/每周累计在线30分钟，邮件称号券723809×1；使用起7日'))
+            reward_summary=dict(growth='成长任务链仍未安装，开关禁用；已有723635消耗包可按本期官网开箱。',attendance='42天官网奖励；补签21次/每次7000万ED；最早漏签日自动补（本地规则）',online='每角色/每周累计在线30分钟，邮件称号券723809×1；使用起7日'))
 
     def update(self,value):
         value=request(value)

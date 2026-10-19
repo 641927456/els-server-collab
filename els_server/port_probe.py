@@ -17,25 +17,34 @@ def probe_reply(data, address, account_ids=(1,)):
 
 
 class PortProbe(asyncio.DatagramProtocol):
-    def __init__(self, log, account_ids=(1,),on_discovery=None):
+    def __init__(self, log, account_ids=(1,),on_discovery=None,bootstrap_allowed=None):
         self.log=log;self.transport=None;self.window=0.0;self.count=0
         self.account_ids=account_ids
         self.on_discovery=on_discovery
+        self.bootstrap_allowed=bootstrap_allowed;self.game_address=None
         self.closed=asyncio.get_running_loop().create_future()
 
     def connection_made(self, transport):
         self.transport=transport
 
     def datagram_received(self, data, address):
-        reply=probe_reply(data,address,self.account_ids)
+        bootstrap=(len(data)==17 and data[0]==6)
+        if bootstrap:
+            uid,generation,_=struct.unpack('<QII',data[1:])
+            if (address!=self.game_address or generation!=0 or self.bootstrap_allowed is None
+                or not self.bootstrap_allowed(uid)):return
+            reply=b'\x07'+data[1:]
+        else:reply=probe_reply(data,address,self.account_ids)
         if reply is None:return
         now=time.monotonic()
         if now-self.window>=1:self.window=now;self.count=0
         if self.count>=32:return
         self.count+=1
-        if self.on_discovery:self.on_discovery(address)
+        if not bootstrap:
+            self.game_address=address
+            if self.on_discovery:self.on_discovery(address)
         self.transport.sendto(reply,address)
-        self.log('port_probe_replied',client_port=address[1])
+        self.log('dungeon_bootstrap_replied' if bootstrap else 'port_probe_replied',client_port=address[1])
 
     def error_received(self, error):
         self.log('port_probe_error',error=type(error).__name__)

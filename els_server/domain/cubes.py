@@ -16,4 +16,12 @@ def catalog():
     for t,row in regional().items():
         if t in result:raise ValueError('Duplicate regional cube')
         result[t]=MappingProxyType(row)
+    from els_server.domain.published_2026_bundles import entries
+    for bundle in entries():
+        if bundle['template'] in result:raise ValueError('Duplicate selected consumable bundle')
+        result[bundle['template']]=bundle
+    from els_server.domain.boosting_2026_force_rewards import entries as force_entries
+    for box in force_entries():
+        if box['template'] in result:raise ValueError('Duplicate selected force box')
+        result[box['template']]=box
     return MappingProxyType(result)

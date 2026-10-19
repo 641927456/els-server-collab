@@ -147,7 +147,7 @@ class RelayClient:
             if not isinstance(value,dict) or set(value)!={'epoch','uid','peers'}:raise ValueError('Relay manifest')
             uuid.UUID(value['epoch'])
             peers=value['peers']
-            if (not isinstance(peers,list) or not 2<=len(peers)<=6
+            if (not isinstance(peers,list) or not 1<=len(peers)<=6
                 or any(set(p)!={'uid','port'} or type(p['uid']) is not int or not 0<p['uid']<2**63
                        or type(p['port']) is not int or p['port']!=21100+i for i,p in enumerate(peers))
                 or len({p['uid'] for p in peers})!=len(peers) or value['uid'] not in {p['uid'] for p in peers}):raise ValueError('Relay peer roster')

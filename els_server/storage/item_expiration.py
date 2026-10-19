@@ -33,7 +33,7 @@ def forget(db,item_uid):
     if exists(db):db.execute('DELETE FROM item_expiration WHERE item_uid=?',(item_uid,))
 
 
-def remove_due(path,owner,*,now=None):
+def remove_due(path,owner,*,now=None,prepare_refresh=None):
     from els_server.storage.inventory_state import load_items
     from els_server.protocol.expiration_messages import notice
     owner=character_uid(owner);now=int(time.time()) if now is None else now
@@ -46,6 +46,9 @@ def remove_due(path,owner,*,now=None):
         if not due:return []
         items=[i for i in load_items(db,owner) if i['uid'] in due]
         answer=notice(items) # Validate/encode before any committed deletion.
+        refresh=None if prepare_refresh is None else prepare_refresh(items)
+        from els_server.protocol.protocol_codec import encode_event
+        for event in [answer]+([] if refresh is None else [refresh]):encode_event(event)
         db.execute('''CREATE TABLE IF NOT EXISTS expired_item_receipts (
             item_uid INTEGER PRIMARY KEY, owner INTEGER NOT NULL, expired_at INTEGER NOT NULL,
             removed_at INTEGER NOT NULL, item_json TEXT NOT NULL)''')
@@ -59,4 +62,4 @@ def remove_due(path,owner,*,now=None):
             db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item['uid'],owner))
             db.execute('INSERT INTO expired_item_receipts VALUES (?,?,?,?,?)',(item['uid'],owner,item['expires_at'],now,json.dumps(item,sort_keys=True)))
         load_items(db,owner)
-        return [answer]
+        return [answer]+([] if refresh is None else [refresh])
