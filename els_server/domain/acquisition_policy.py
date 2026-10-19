@@ -22,7 +22,9 @@ def excluded_equipment():
 
 
 def can_acquire(template):
-    return template not in excluded_equipment()
+    from els_server.domain.ordinary_accessories import definitions
+    accessory=definitions().get(template)
+    return template not in excluded_equipment() and not (accessory and accessory['compatibility_only'])
 
 
 def require_acquirable(template):

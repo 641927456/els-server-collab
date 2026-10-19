@@ -23,11 +23,13 @@ def assign(db,owner,uid,sealed,used):
 def _target(item):
     from els_server.domain.inventory_items import FASHION_EQUIP_SLOTS
     from els_server.domain.normal_equipment import definitions
+    from els_server.domain.ordinary_accessories import definitions as accessory_definitions
     from els_server.domain.item_expiration import require_current
     from els_server.domain.item_locks import require_unlocked
     from els_server.game_data import client_data
     if (item is None or item['count'] != 1 or
             not (item['group'] == 1 and item['template'] in definitions() or
+                 item['group'] == 2 and item['template'] in accessory_definitions() or
                  item['group'] in (7, 27) and item['template'] in FASHION_EQUIP_SLOTS)):
         raise ValueError('Seal operation requires owned bag equipment')
     require_current(item)
