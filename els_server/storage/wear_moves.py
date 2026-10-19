@@ -76,6 +76,10 @@ def move(path,payload,uid,*,account_id,session_id,sequence,validate=lambda:None)
         swapped=validate_item({**second,'group':source[0],'slot':source[1]}) if second else None
         for item in (moved,swapped):
             if item and item['group']==9:require_wearable(item,character)
+        from els_server.domain.ring_wear import require_compatible
+        projected={i['uid']:i for i in before};projected.update({i['uid']:i for i in (moved,swapped) if i})
+        for item in (moved,swapped):
+            if item:require_compatible(item,projected.values())
         response=move_ack([(source,swapped),(destination,moved)]);validate()
         if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='equipment_engrave_previews'").fetchone():
             db.execute('DELETE FROM equipment_engrave_previews WHERE item_uid IN (SELECT uid FROM inventory_items WHERE owner=? AND uid IN (?,?))',(uid,first['uid'],second['uid'] if second else 0))

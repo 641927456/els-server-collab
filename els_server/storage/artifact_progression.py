@@ -103,8 +103,8 @@ def action(path,uid,kind,payload,operation_id,*,account_id=None,randbelow=None,e
    if kind=='potential' and reset:store_material_uid(db,operation_id,uid,digest,changes,items)
   return events
 
-def move(path,payload,uid,*,account_id=None):
- import struct
+def move(path,payload,uid,*,account_id,session_id,sequence,validate=lambda:None):
+ import struct,uuid
  from els_server.domain.inventory_items import validate_item
  from els_server.domain.fashion_state import move_ack
  from els_server.storage.inventory_state import load_items
@@ -114,11 +114,21 @@ def move(path,payload,uid,*,account_id=None):
  if not isinstance(payload,bytes) or len(payload)!=11:raise ValueError('Artifact equipment request length')
  sg,ss,dg,ds,flag=struct.unpack('>BiBiB',payload);source=(sg,ss);destination=(dg,ds)
  if flag or source==destination or 24 not in (sg,dg):raise ValueError('Artifact equipment request fields')
+ if type(account_id) is not int or account_id<=0 or type(session_id) is not str:raise ValueError('Artifact wear identity')
+ connection=uuid.UUID(session_id)
+ if connection.version!=4 or str(connection)!=session_id or type(sequence) is not int or not 1<=sequence<2**32:raise ValueError('Artifact wear operation')
+ operation=session_id+':artifact104:'+str(uid)+':'+str(sequence)
+ digest=hashlib.sha256(struct.pack('>Q',uid)+payload).hexdigest();positions_json=json.dumps((source,destination),separators=(',',':'))
  with closing(sqlite3.connect(path,timeout=10)) as db,db:
-  db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+  db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');validate()
   character=load_character(db,uid,account_id);rules.require_artifact(character);limit=allowances(db,uid)[1]
   if any(not (g==24 and s in range(5) or g==1 and 0<=s<limit) for g,s in (source,destination)):raise ValueError('Artifact equipment position')
   items=load_items(db,uid);by_pos={(i['group'],i['slot']):i for i in items};first=by_pos.get(source);second=by_pos.get(destination)
+  exists=db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='wear_move_receipts'").fetchone()
+  old=db.execute('SELECT owner,account_id,request_hash,positions_json FROM wear_move_receipts WHERE operation_id=?',(operation,)).fetchone() if exists else None
+  if old is not None:
+   if old!=(uid,account_id,digest,positions_json):raise ValueError('Artifact wear receipt conflict')
+   response=move_ack([(source,first),(destination,second)]);validate();return response
   if first is None:raise ValueError('Artifact source is empty')
   for item in (first,second):
    if item:
@@ -127,7 +137,7 @@ def move(path,payload,uid,*,account_id=None):
   moved=validate_item(dict(first,group=dg,slot=ds));swapped=validate_item(dict(second,group=sg,slot=ss)) if second else None
   for item in (moved,swapped):
    if item and item['group']==24:rules.require_wearable(item,character)
-  response=move_ack([(source,swapped),(destination,moved)])
+  response=move_ack([(source,swapped),(destination,moved)]);validate()
   # Retained UIDs must not trigger CASCADE deletion of opened-slot state.
   # Temporary positions exist only inside this transaction, never on the wire.
   for item in (first,second):
@@ -137,6 +147,10 @@ def move(path,payload,uid,*,account_id=None):
   after=load_items(db,uid)
   stable=lambda rows:sorted(({k:v for k,v in i.items() if k not in ('group','slot')} for i in rows),key=lambda i:i['uid'])
   if stable(after)!=stable(items):raise ValueError('Artifact move changed instance data')
+  expected={i['uid']:i for i in items};expected.update({i['uid']:i for i in (moved,swapped) if i})
+  if expected!={i['uid']:i for i in after}:raise ValueError('Artifact move changed unrelated position')
   db.execute('CREATE TABLE IF NOT EXISTS artifact_moves (id INTEGER PRIMARY KEY, owner INTEGER NOT NULL, request BLOB NOT NULL, before_json TEXT NOT NULL, after_json TEXT NOT NULL)')
   db.execute('INSERT INTO artifact_moves(owner,request,before_json,after_json) VALUES (?,?,?,?)',(uid,payload,json.dumps([first,second]),json.dumps([swapped,moved])))
+  db.execute("CREATE TABLE IF NOT EXISTS wear_move_receipts (operation_id TEXT PRIMARY KEY,owner INTEGER NOT NULL REFERENCES characters(uid),account_id INTEGER NOT NULL,request_hash TEXT NOT NULL CHECK(length(request_hash)=64),positions_json TEXT NOT NULL)")
+  db.execute('INSERT INTO wear_move_receipts VALUES (?,?,?,?,?)',(operation,uid,account_id,digest,positions_json));validate()
   return response

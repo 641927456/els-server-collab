@@ -20,15 +20,16 @@ def assign(db,owner,uid,sealed,used):
     ensure(db);db.execute('INSERT INTO item_seals VALUES(?,?,?) ON CONFLICT(item_uid) DO UPDATE SET sealed=excluded.sealed,used=excluded.used',(uid,int(sealed),used))
 
 
-def _target(item):
+def _target(item,*,sealing):
     from els_server.domain.inventory_items import FASHION_EQUIP_SLOTS
     from els_server.domain.normal_equipment import definitions
     from els_server.domain.ordinary_accessories import definitions as accessory_definitions
+    from els_server.domain.artifact_progression import slots as artifact_slots
     from els_server.domain.item_expiration import require_current
     from els_server.domain.item_locks import require_unlocked
     from els_server.game_data import client_data
     if (item is None or item['count'] != 1 or
-            not (item['group'] == 1 and item['template'] in definitions() or
+            not (item['group'] == 1 and (item['template'] in definitions() or not sealing and artifact_slots(item['template'])) or
                  item['group'] == 2 and item['template'] in accessory_definitions() or
                  item['group'] in (7, 27) and item['template'] in FASHION_EQUIP_SLOTS)):
         raise ValueError('Seal operation requires owned bag equipment')
@@ -66,7 +67,7 @@ def change_seal(path, owner, payload, operation, *, sealing):
             return seal_ack([(p, by_position.get(p)) for p in old])
         by_uid = {i['uid']: i for i in before}
         target = by_uid.get(target_uid)
-        raw = _target(target)
+        raw = _target(target,sealing=sealing)
         sealed, used = target.get('sealed', False), target.get('seal_used', 0)
         validate(sealed, used)
         positions = [(target['group'], target['slot'])]
