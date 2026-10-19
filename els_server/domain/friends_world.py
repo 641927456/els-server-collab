@@ -194,8 +194,17 @@ class FriendsWorld:
         before=room[session]
         current=(session.account.character(),session.account.get_location(),session.account.get_inventory_snapshot()['items'])
         if before==current:return
-        room[session]=current
+        # Compare the actual public projection: a bag-only expiration must not
+        # reconstruct an unchanged remote actor. Never apply anything to self.
+        before_wire=wire.town_member(*before)
+        current_wire=wire.town_member(*current)
+        if before_wire==current_wire:
+            room[session]=current
+            return
         notice=wire.town_members(added=[current],removed=[session.account.uid])
+        # Encode before changing the published projection cache. A rejected
+        # instance must not suppress the next qualified refresh attempt.
+        room[session]=current
         for other in list(room):
             if other is not session:self.send(other,notice)
 

@@ -61,7 +61,7 @@ class FriendsSession(LocalSession):
             kinds={e.kind for e in result if e.event_id==0x201}
             luciel=self.account.character()['unit_type']==10
             career=luciel and event.kind in (0x219,0x80f) and bool(kinds&{0x29f,0x59f})
-            expiry=luciel and {0x1c6,0x105}<=kinds
+            expiry=0x1c6 in kinds
             if event.kind in (0x104,0x213) or career or expiry:
                 # Reuse the existing current-instance/learned-skill projection
                 # for peers only; never restore or heal the owner again.
@@ -87,7 +87,7 @@ class FriendsSession(LocalSession):
                 messages=self.activity_reply(messages)
             if self.phase=='town_ready':
                 kinds={e.kind for e in messages if e.event_id==0x201}
-                expiry=self.account.character()['unit_type']==10 and {0x1c6,0x105}<=kinds
+                expiry=0x1c6 in kinds
                 if 0x214 in kinds or expiry:self.application.world.appearance_changed(self)
         return self.mailbox.drain()+messages
 

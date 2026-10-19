@@ -62,7 +62,8 @@ def appearance_item(item,*,native_instance=False):
     # DTO+0C is bag group and +0D is slot. Public fields differ from inventory.
     # 87E060 preserves group/slot when installing the worn record.
     # 33 option vectors and both three-int arrays have required fixed counts.
-    # Preserve other families' existing wire contract in this LuCiel fix.
+    # The original public instance layout is common to every character family.
+    # The legacy compact branch remains only for explicit older fixture callers.
     if not native_instance:
         data=struct.pack('>QIBhBiB',item['uid'],item['template'],item.get('metadata',1),item['slot'],0,item['count'],0)
         return data+u32(0)+u32(33)+bytes(33*4)+u32(0)+bytes(9)+b'\xff'+u32(3)+bytes(12)+u32(3)+bytes(12)+bytes(8)
@@ -119,7 +120,7 @@ def town_member(character,location,items=()):
     # Group 1 is the equipment BAG, not worn gear. Never publish bag items as
     # equipment. The second native appearance/alternate vector stays empty.
     worn=[i for i in items if i['group']==9]
-    equipment=u32(len(worn))+b''.join(appearance_item(i,native_instance=character.get('unit_type')==10) for i in worn)
+    equipment=u32(len(worn))+b''.join(appearance_item(i,native_instance=True) for i in worn)
     alternate=u32(0)
     # Replace three variable fields from right to left, preserving witnessed
     # offsets. Optional pet/mount/guild state stays empty.
