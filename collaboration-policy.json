@@ -3,8 +3,18 @@
   "repository": "https://github.com/641927456/els-server-collab",
   "visibility_required": "private",
   "maintainer": "641927456",
-  "contributors_invited": [],
-  "main_write_access": "maintainer only until platform enforcement verified",
+  "contributors_invited": [
+    {
+      "login": "KinkOwO",
+      "github_user_id": 333476527,
+      "invitation_id": 338480118,
+      "permission": "write",
+      "status": "pending acceptance",
+      "authorized_at": "2026-10-19",
+      "main_policy": "fix/feature branches and PR review; no direct main pushes"
+    }
+  ],
+  "main_write_access": "Maintainer and explicitly authorized collaborator; PR-only by agreement, not enforced by platform",
   "production_credentials_in_CI": false,
   "automatic_server_deployment": false,
   "staging": {
@@ -25,5 +35,5 @@
   "created_at": "2026-10-19T17:08:23+08:00",
   "branch_protection_enforced": false,
   "branch_protection_limit": "GitHub HTTP403: current private-repository account plan requires Pro for branch protection",
-  "fallback": "Private repository retained; maintainer is currently the only collaborator with write/admin access; contributions collected and reviewed by maintainer until enforceable permissions are configured"
+  "fallback": "User explicitly authorized inviting KinkOwO with write access after disclosure of GitHub private-branch protection HTTP403. main changes require maintainer-reviewed PR by agreement; hooks and CODEOWNERS are advisory."
 }
