@@ -151,7 +151,8 @@ class FriendsDungeons:
         from els_server.domain.dungeon_routes import DungeonRun
         members=tuple(party['members']);seed=str(uuid.uuid4())
         # Compile the roster and source route before changing any session.
-        packet=party_dungeon_start(members,leader,identity,party['id'],bootstrap_port=leader.port_probe_port)
+        admitted_members={}
+        packet=party_dungeon_start(members,leader,identity,party['id'],bootstrap_port=leader.port_probe_port,member_captures=admitted_members)
         runs={s:DungeonRun(identity,seed,internal=bool(party.get('challenge'))) if identity!=30000 else None for s in members}
         participants=frozenset(s.account.uid for s in members)
         room=Room(party,members,leader,identity,seed,deadline=time.monotonic()+90)
@@ -162,6 +163,9 @@ class FriendsDungeons:
                 s.requested_challenge=allowed(s,identity)
             result=LocalSession.handle(s,event)
             if not any(e.kind==0x14a for e in result):raise SessionOrderError('Party admission changed during serialized start')
+            # LocalSession's solo preparation is discarded for a shared run.
+            # Retain this actor's exact admitted party member for later expiry.
+            s._capture_luciel_dungeon_hp(*admitted_members[s])
             s.dungeon_run=runs[s]
             s.reward_run_id=str(uuid.uuid5(uuid.UUID(seed),'reward:'+str(s.account.uid))) if s.reward_test else None
             s.dungeon_participants=participants

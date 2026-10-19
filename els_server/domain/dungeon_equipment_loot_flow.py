@@ -79,10 +79,19 @@ def accepted_death(s,event,npc,death,expired,*,randbelow=secrets.randbelow):
     shadow.dungeon_run.defeated={**run.defeated,npc['key']:bytes(event.payload)}
     shadow.defeated_npcs=shadow.dungeon_run.defeated;shadow.dungeon_clock=copy.copy(s.dungeon_clock)
     gate_reply=periodic(shadow)
+    from els_server.domain import legacy_pve_exp as exp_rules
+    experience=None
+    def accepted_effect(db,replayed):
+        nonlocal experience
+        from els_server.storage.legacy_pve_exp import commit
+        experience=commit(db,s.account.reward_store,exp_rules.identity(s,npc),event.payload,death['killer'],require_existing=replayed)
     def prepare(rows,replayed):
         reply=[death_ack()]
         world=dict(s.world_drops)
-        if not replayed:reply.append(empty_reward_death_notice(npc['key'],death['killer']))
+        if not replayed:
+            from els_server.domain.dungeon_lifecycle import experience_death_notice
+            if experience is None:reply.append(empty_reward_death_notice(npc['key'],death['killer']))
+            elif not experience['replayed']:reply.append(experience_death_notice(npc['key'],death['killer'],s.account.uid,experience['experience']))
         for row in rows:
             old=world.get(row['drop_id'])
             if old is not None and any(old.get(k)!=row[k] for k in ('owner','run_id','stage','npc_key','template')):raise ValueError('Loot sequence collides with an existing ground item')
@@ -94,7 +103,8 @@ def accepted_death(s,event,npc,death,expired,*,randbelow=secrets.randbelow):
         return dict(reply=reply,world=world,sequence=max([s.world_drop_sequence,*[r['drop_id']+1 for r in rows]]),
                     last=dict(rows[-1]) if rows else s.world_drop_issued)
     result=storage.issue(s.account.store.path,c,event.payload,npc['boss'],s.world_drop_sequence,
-                         death['xyz'][3:],legacy,prepare,randbelow=randbelow,rules=rules)
+                         death['xyz'][3:],legacy,prepare,randbelow=randbelow,rules=rules,
+                         accepted_effect=accepted_effect if exp_rules.enabled(s) and exp_rules.eligible(npc,expired) else None)
     # Only ordinary assignments remain after the successful SQL context exit.
     run.defeated=shadow.dungeon_run.defeated;run.next=shadow.dungeon_run.next;run.ready_at=shadow.dungeon_run.ready_at
     s.defeated_npcs=run.defeated;s.part_end_notified=shadow.part_end_notified
@@ -131,7 +141,7 @@ def clear_rewards(s,rule):
     if s.dungeon_run.identity not in MAPS:return None
     run=s.dungeon_run;identity(s,0)
     if run.next is None or run.next['kind']!=4 or not s.part_end_notified:return None
-    from els_server.domain.dungeon_clear import reward_clear_notice
+    from els_server.domain.dungeon_clear import reward_clear_notice,clear_identity_payload
     from els_server.protocol.local_messages import client_economy_fields
     from els_server.domain.local_artifact_rules import assess_run,clear_base
     elapsed=s.dungeon_clock.seconds();assessment=assess_run(run,elapsed)
@@ -141,17 +151,19 @@ def clear_rewards(s,rule):
            +bytes.fromhex(run.graph['source_sha256'])+deaths.digest())
     def encode(balances,best,economy):
         client_economy_fields(balances)
-        return reward_clear_notice(economy['ed'],economy['experience'],s.account.uid,elapsed_seconds=elapsed,best_seconds=best).payload
+        return reward_clear_notice(economy['ed'],economy['experience'],s.account.uid,elapsed_seconds=elapsed,best_seconds=best,map_id=run.identity).payload
     arguments=dict(run_id=s.reward_run_id,proof=proof,ed=rule['clear_ed'],experience=rule['clear_experience'],response_builder=encode,
         item_plan=[*rule['items'],inventory_plan(118445,catalog()['values']['fragment_on_validated_clear'])],
         dungeon_clear=(run.identity,elapsed),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(s) if getattr(s,'activity2026_awards',None) is not None else None)
+    from els_server.domain.legacy_pve_exp import enabled as exp_enabled,experience_limit
+    if exp_enabled(s):arguments.update(experience_limit=experience_limit(),resonance_source='clear')
     def prepare(receipt,current):
         reply=[]
         if receipt.get('items') and not s.clear_items_synced:reply.append(pickup_inventory_notice(current))
         committed=receipt.get('local_rules')
         if committed:
             a=committed['assessment'];reply.append(Event(0x201,kind=0x66b,payload=struct.pack('>ii',a['rank'],a['score'])))
-        reply.append(Event(0x201,kind=0xc1,payload=receipt['response']));encode_replies(reply)
+        reply.append(Event(0x201,kind=0xc1,payload=clear_identity_payload(receipt['response'],run.identity)));encode_replies(reply)
         return reply
     receipt,reply=storage.clear_reward(s.account.store.path,s.account.uid,s.account.reward_store,arguments,prepare)
     s.reward_receipt={'run_id':s.reward_run_id,**receipt}

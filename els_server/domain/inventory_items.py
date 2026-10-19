@@ -399,9 +399,15 @@ for _row in ordinary_accessory_definitions().values():
  TEMPLATE_BAG_GROUPS[_row['template']]=2
  TEMPLATE_MAX_STACKS[_row['template']]=1
 
+from els_server.domain.resonance import book_definitions as resonance_book_definitions
+for _row in resonance_book_definitions():
+ VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
+ TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
+ TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
+
 def validate_item(item):
  keys={'uid','template','metadata','count','group','slot'}
- if not isinstance(item,dict) or set(item)-{'attributes','durability','expires_at','enhancement','lock_until','option_groups','identified','enhancement_gauge','enhancement_guarantee','sealed','seal_used','artifact_socket_open','chip_tuning','reforge'}!=keys or any(type(item[k]) is not int for k in keys):raise ValueError('Invalid inventory item fields')
+ if not isinstance(item,dict) or set(item)-{'attributes','durability','expires_at','enhancement','lock_until','option_groups','identified','enhancement_gauge','enhancement_guarantee','sealed','seal_used','artifact_socket_open','chip_tuning','reforge','appearance_template','wardrobe_hanger'}!=keys or any(type(item[k]) is not int for k in keys):raise ValueError('Invalid inventory item fields')
  if not 1<=item['uid']<2**63 or item['template'] not in VERIFIED_TEMPLATES or item['metadata']!=VERIFIED_TEMPLATES[item['template']]:raise ValueError('Invalid inventory item identity/template')
  if item['template'] in ADVANCED_TIMED_TEMPLATES and 'expires_at' not in item:raise ValueError('Timed enhancement material requires explicit expiration')
  from els_server.game_data import client_data
@@ -419,6 +425,9 @@ def validate_item(item):
  bag=item['group']==TEMPLATE_BAG_GROUPS[item['template']] and 0<=item['slot']<wire_limit(item['group'])
  if not 1<=item['count']<=TEMPLATE_MAX_STACKS[item['template']] or not (equipped or bag):raise ValueError('Invalid local inventory count/slot')
  result=dict(item)
+ if 'appearance_template' in item or 'wardrobe_hanger' in item:
+  from els_server.domain.wardrobe import validate_state
+  validate_state(item)
  if 'lock_until' in item:
   from els_server.domain.item_locks import validate as validate_lock
   result['lock_until']=validate_lock(item['lock_until'])
@@ -497,6 +506,8 @@ def item_body(item):
   elif 0x3b0<=off<=0x3b3 and 'chip_tuning' in item:data[wire]=item['chip_tuning'][off-0x3b0]
   elif off in (0x397,0x39b,0x39f) and 'reforge' in item:struct.pack_into('>i',data,wire,item['reforge'][(off-0x397)//4])
   elif off==0x370 and 'lock_until' in item:struct.pack_into('>Q',data,wire,item['lock_until'])
+  elif off==0x378:struct.pack_into('>i',data,wire,item.get('appearance_template',0))
+  elif off==0x37c:data[wire]=int(item.get('wardrobe_hanger',False))
  if len(data)!=304:raise ValueError('Native item body bound')
  if 'expires_at' in item:
   from els_server.domain.item_expiration import date_string

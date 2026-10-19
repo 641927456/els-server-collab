@@ -71,22 +71,10 @@ def handle(s,event):
   from els_server.domain.dungeon_equipment_loot_flow import accepted_death
   loot_reply=accepted_death(s,event,npc,d,expired)
   if loot_reply is not None:return loot_reply
-  run.defeated[npc['key']]=bytes(event.payload);s.defeated_npcs=run.defeated
-  if expired:npc['active']=False
-  reply=[death_ack(),empty_reward_death_notice(npc['key'],d['killer'])]
-  if run.identity==38300 and npc['template']==1368:return reply+failed(s)
-  if s.drop_probe and npc['active'] and not npc['no_drop'] and not npc.get('ally') and npc.get('team',1)!=0:
-   from els_server.domain.dungeon_drops import ground_drop_notice
-   rule=local_rewards();amount=rule['boss_ed'] if npc['boss'] else rule['ordinary_ed']
-   from els_server.domain.gm_rates import allow_drop
-   if amount and allow_drop(s.reward_run_id,run.identity,(run.stage,run.part),npc['key'],npc['boss']):
-    key=s.world_drop_sequence;s.world_drop_sequence+=1;xyz=d['xyz'][3:]
-    notice=ground_drop_notice(key,xyz,uid=s.account.uid,template=rule['coin_template'])
-    s.world_drop_issued=dict(run_id=s.reward_run_id,stage=run.stage,part=run.part,npc_key=npc['key'],drop_id=key,
-       owner=s.account.uid,template=rule['coin_template'],ed=amount,quantity=0,xyz=list(xyz),
-       payload_hex=notice.payload.hex(),death_proof_sha256=hashlib.sha256(event.payload).hexdigest(),pickup_committed=False)
-    s.world_drops[key]=dict(s.world_drop_issued);reply.append(notice)
-  return reply+periodic(s)
+  from els_server.domain.legacy_pve_exp import accepted_death as experience_death
+  xp_reply=experience_death(s,event,npc,d,expired,finish_death)
+  if xp_reply is not None:return xp_reply
+  return finish_death(s,event,npc,d,expired,empty_reward_death_notice(npc['key'],d['killer']))
  if event.kind==0xb3:
   if len(event.payload)!=9 or event.payload[:5]!=bytes(5):return []
   value=struct.unpack_from('>f',event.payload,5)[0]
@@ -127,19 +115,44 @@ def handle(s,event):
   return reply+periodic(s)
  return None
 
+def finish_death(s,event,npc,d,expired,notice):
+ run=s.dungeon_run
+ run.defeated[npc['key']]=bytes(event.payload);s.defeated_npcs=run.defeated
+ if expired:npc['active']=False
+ reply=[death_ack(),notice]
+ if run.identity==38300 and npc['template']==1368:return reply+failed(s)
+ if s.drop_probe and npc['active'] and not npc['no_drop'] and not npc.get('ally') and npc.get('team',1)!=0:
+  from els_server.domain.dungeon_drops import ground_drop_notice
+  rule=local_rewards();amount=rule['boss_ed'] if npc['boss'] else rule['ordinary_ed']
+  from els_server.domain.gm_rates import allow_drop
+  if amount and allow_drop(s.reward_run_id,run.identity,(run.stage,run.part),npc['key'],npc['boss']):
+   key=s.world_drop_sequence;s.world_drop_sequence+=1;xyz=d['xyz'][3:]
+   notice=ground_drop_notice(key,xyz,uid=s.account.uid,template=rule['coin_template'])
+   s.world_drop_issued=dict(run_id=s.reward_run_id,stage=run.stage,part=run.part,npc_key=npc['key'],drop_id=key,
+      owner=s.account.uid,template=rule['coin_template'],ed=amount,quantity=0,xyz=list(xyz),
+      payload_hex=notice.payload.hex(),death_proof_sha256=hashlib.sha256(event.payload).hexdigest(),pickup_committed=False)
+   s.world_drops[key]=dict(s.world_drop_issued);reply.append(notice)
+ return reply+periodic(s)
+
+
 def clear(s):
  run=s.dungeon_run;rule=local_rewards()
+ from els_server.domain.legacy_pve_exp import clear_amount,experience_limit
+ compat_clear=clear_amount(s)
+ if compat_clear is not None:rule=dict(rule,clear_experience=compat_clear)
  from els_server.domain.gm_rates import clear_experience
- rule=dict(rule,clear_experience=clear_experience(s,rule['clear_experience']))
+ # Compatibility K already contains the run's pinned GM multiplier. Its
+ # 30% clear increment must not receive that multiplier a second time.
+ if compat_clear is None:rule=dict(rule,clear_experience=clear_experience(s,rule['clear_experience']))
  if getattr(s,'challenge_deadline',None) is not None and time.time()>=s.challenge_deadline:return failed(s)
  from els_server.domain.dungeon_equipment_loot_flow import clear_rewards
  loot_reply=clear_rewards(s,rule)
  if loot_reply is not None:return loot_reply
  if not s.reward_test:
   from els_server.domain.dungeon_clear import prototype_clear_notice
-  reply=[prototype_clear_notice(s.reward_probe)]
+  reply=[prototype_clear_notice(s.reward_probe,map_id=run.identity)]
  else:
-  from els_server.domain.dungeon_clear import reward_clear_notice
+  from els_server.domain.dungeon_clear import reward_clear_notice,clear_identity_payload
   from els_server.protocol.local_messages import client_economy_fields
   elapsed=s.dungeon_clock.seconds()
   from els_server.domain.local_artifact_rules import assess_run,clear_base
@@ -150,11 +163,11 @@ def clear(s):
          +bytes.fromhex(run.graph['source_sha256'])+deaths.digest())
   def encode(balances,best,economy):
    client_economy_fields(balances)
-   return reward_clear_notice(economy['ed'],economy['experience'],s.account.uid,elapsed_seconds=elapsed,best_seconds=best).payload
+   return reward_clear_notice(economy['ed'],economy['experience'],s.account.uid,elapsed_seconds=elapsed,best_seconds=best,map_id=run.identity).payload
   if getattr(s,'active_challenge',None) is not None and s.challenge_clear_effect is None:
    s.challenge_clear_effect={**s.active_challenge,'now':int(time.time())}
   receipt=s.account.reward_store.grant(s.reward_run_id,proof,rule['clear_ed'],rule['clear_experience'],encode,
-      item_plan=rule['items'] if s.item_test else None,dungeon_clear=(run.identity,elapsed),challenge_clear=getattr(s,'challenge_clear_effect',None),transaction=getattr(s,'reward_transaction',None),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(s) if getattr(s,'activity2026_awards',None) is not None else None)
+      item_plan=rule['items'] if s.item_test else None,dungeon_clear=(run.identity,elapsed),challenge_clear=getattr(s,'challenge_clear_effect',None),transaction=getattr(s,'reward_transaction',None),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(s) if getattr(s,'activity2026_awards',None) is not None else None,experience_limit=experience_limit() if compat_clear is not None else None,resonance_source='clear' if compat_clear is not None else None)
   s.reward_receipt={'run_id':s.reward_run_id,**receipt};reply=[]
   if s.item_test and receipt.get('items') and not s.clear_items_synced:
    from els_server.domain.dungeon_drops import pickup_inventory_notice
@@ -165,7 +178,7 @@ def clear(s):
   committed=receipt.get('local_rules')
   if committed:
    a=committed['assessment'];reply.append(Event(0x201,kind=0x66b,payload=struct.pack('>ii',a['rank'],a['score'])))
-  reply.append(Event(0x201,kind=0xc1,payload=receipt['response']))
+  reply.append(Event(0x201,kind=0xc1,payload=clear_identity_payload(receipt['response'],run.identity)))
   if getattr(s,'active_challenge',None) is not None and getattr(s,'reward_transaction',None) is None:
    from els_server.domain.challenge_flow import notification
    reply.append(notification(s))
@@ -176,7 +189,7 @@ def failed(s):
  if s.clear_notified:return []
  from els_server.domain.dungeon_clear import failed_clear_notice
  s.clear_notified=True;s.dungeon_failed=True;s.reward_receipt=None;s.dungeon_clock.pause()
- reply=[failed_clear_notice(s.account.uid,s.dungeon_clock.seconds())]
+ reply=[failed_clear_notice(s.account.uid,s.dungeon_clock.seconds(),map_id=getattr(s.dungeon_run,'identity',None))]
  if getattr(s,'active_challenge',None) is not None:
   from els_server.domain.challenge_flow import notification
   reply.append(notification(s))

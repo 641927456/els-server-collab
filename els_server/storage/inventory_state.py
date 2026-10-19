@@ -76,6 +76,8 @@ def load_items(db,owner=1001):
  attach_chip(db,items,owner)
  from els_server.storage.equipment_reforge import attach as attach_reforge
  attach_reforge(db,items,owner)
+ from els_server.storage.wardrobe import attach as attach_wardrobe
+ attach_wardrobe(db,items,owner)
  inventory_payload(items)  # Verify persisted identities/positions and wire before use.
  from els_server.storage.bag_capacity import allowances
  limits=allowances(db,owner)

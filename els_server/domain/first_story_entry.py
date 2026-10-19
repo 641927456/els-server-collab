@@ -305,9 +305,9 @@ def handle(s,event):
 
             # their actual resource quest IDs/quantities and manual claim.
 
-            from els_server.domain.dungeon_clear import reward_clear_notice
+            from els_server.domain.dungeon_clear import reward_clear_notice,clear_identity_payload
 
-            def encode(balances,best):return reward_clear_notice(0,0,s.account.uid,elapsed_seconds=s.dungeon_clock.seconds(),best_seconds=best).payload
+            def encode(balances,best):return reward_clear_notice(0,0,s.account.uid,elapsed_seconds=s.dungeon_clock.seconds(),best_seconds=best,map_id=run.identity).payload
 
             proof=(b'first-story-source-clear-v1'+bytes.fromhex(run.graph['source_sha256'])
 
@@ -321,7 +321,7 @@ def handle(s,event):
 
                 s.reward_receipt={'run_id':run.run_id,**receipt};s.clear_notified=True
 
-            return [Event(0x201,kind=0xbc,payload=i32(0)),Event(0x201,kind=0xc1,payload=s.reward_receipt['response'])]
+            return [Event(0x201,kind=0xbc,payload=i32(0)),Event(0x201,kind=0xc1,payload=clear_identity_payload(s.reward_receipt['response'],run.identity))]
 
         # Existing native part/stage transitions, with this source-bound graph.
 

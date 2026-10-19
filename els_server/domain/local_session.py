@@ -46,6 +46,8 @@ class LocalAccount:
             from els_server.storage.boosting_2026_force_equipment import snapshot as force_slot_snapshot
             character['force_inventory']=force_snapshot(self.store.path,self.uid)
             character['force_slots']=force_slot_snapshot(self.store.path,self.uid)
+            from els_server.storage.wardrobe import snapshot as wardrobe_snapshot
+            character['wardrobe']=wardrobe_snapshot(self.store.path,self.uid,self.account_id)
         return character
     def for_character(self,uid):
         if self.characters is None:
@@ -71,7 +73,7 @@ class LocalAccount:
         with self.lock:
             if self.reward_store is None:
                 from els_server.storage.reward_state import RewardState
-                self.reward_store=RewardState(self.store.path,self.uid)
+                self.reward_store=RewardState(self.store.path,self.uid,account_id=self.account_id)
         return self.reward_store
     def get_reward_balances(self):
         return self.enable_rewards().balances()
@@ -184,7 +186,7 @@ class LocalSession:
         self.luciel_dungeon_hp_source=None;self.luciel_dungeon_hp_max=None
         self.activity2026_awards=activity2026_awards
 
-    def saved_user_sync(self,*,clear_reward_only=False):
+    def saved_user_sync(self,*,clear_reward_only=False,resonance_snapshot=None):
         snapshot=self.account.get_inventory_snapshot() if self.item_test else {'balances':self.account.get_reward_balances() if self.reward_test else None,'items':None}
         # Existing inventory is restored by the native login map (2A).
         # D9 is an acquisition delta: unchanged rows become NEW and, in a
@@ -198,7 +200,11 @@ class LocalSession:
             # update the bag slots awarded by this run, at CURRENT counts.
             awarded={i['uid'] for i in (self.reward_receipt or {}).get('items',[])}
             updates=[i for i in snapshot['items'] or [] if i['uid'] in awarded]
-        return dungeon_messages.return_user_sync(self.account.get_location(),self.account.get_skills(),snapshot['balances'],snapshot['items'],self.account.character(),inventory_updates=updates)
+        character=self.account.character()
+        if resonance_snapshot is not None:
+            if character is None:raise ValueError('ERP sync requires owned character')
+            character=dict(character,resonance=resonance_snapshot)
+        return dungeon_messages.return_user_sync(self.account.get_location(),self.account.get_skills(),snapshot['balances'],snapshot['items'],character,inventory_updates=updates)
 
     def periodic_notifications(self):
         from els_server.domain.dungeon_flow import periodic
@@ -207,6 +213,8 @@ class LocalSession:
         from els_server.domain.title_flow import periodic as title_periodic
         messages=self.expiration_notifications()+self._periodic_notifications()+periodic(self)+mount_periodic(self)+title_periodic(self)
         answer=messages+observe(self,messages)
+        from els_server.domain.resonance_flow import synchronize as resonance_sync
+        answer=resonance_sync(self,answer)
         return self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
 
     def _capture_luciel_dungeon_hp(self,payload,spans):
@@ -356,6 +364,8 @@ class LocalSession:
         from els_server.domain.artifact_flow import observe as observe_artifact
         from els_server.domain.luciel_state import restore as restore_luciel
         answer=notices+before+reply+observe(self,reply)+observe_pet_progression(self,reply)+observe_mount(self)+observe_artifact(self,reply)+restore_luciel(self,event,reply)
+        from els_server.domain.resonance_flow import synchronize as resonance_sync
+        answer=resonance_sync(self,answer)
         return self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
 
     def responses(self,kind):
@@ -585,7 +595,7 @@ class LocalSession:
                 if self.clear_test and self.gate_stage==2 and not self.clear_notified:
                     if self.reward_test:
                         if self.reward_run_id is None or 0 not in self.defeated_npcs:raise SessionOrderError('Reward clear outside an allocated and verified run')
-                        from els_server.domain.dungeon_clear import reward_clear_notice,LOCAL_CLEAR_ED,LOCAL_CLEAR_EXPERIENCE
+                        from els_server.domain.dungeon_clear import reward_clear_notice,LOCAL_CLEAR_ED,LOCAL_CLEAR_EXPERIENCE,clear_identity_payload
                         from els_server.domain.gm_rates import clear_experience
                         gm_experience=clear_experience(self,LOCAL_CLEAR_EXPERIENCE)
                         proof=b'local-clear-v1'+struct.pack('>Qiii',self.account.uid,30000,2,5)+self.defeated_npcs[0]+event.payload
@@ -596,7 +606,7 @@ class LocalSession:
                             # Refuse totals that cannot be restored by the verified
                             # unit scalar widths; this runs before the SQL commit.
                             client_economy_fields(balances)
-                            return reward_clear_notice(economy['ed'],economy['experience'],self.account.uid,elapsed_seconds=elapsed,best_seconds=best).payload
+                            return reward_clear_notice(economy['ed'],economy['experience'],self.account.uid,elapsed_seconds=elapsed,best_seconds=best,map_id=30000).payload
                         # Explicit local reward policy, with independently decoded
                         # potion body. World drops and C1 item-choice fields remain
                         # separate work; this grants a durable real bag item.
@@ -613,10 +623,10 @@ class LocalSession:
                             updates=[i for i in self.account.get_inventory_snapshot()['items'] if i['uid'] in ids]
                             reply.append(pickup_inventory_notice(updates))
                             self.clear_items_synced=True
-                        reply.append(Event(0x201,kind=0xc1,payload=receipt['response']))
+                        reply.append(Event(0x201,kind=0xc1,payload=clear_identity_payload(receipt['response'],30000)))
                     else:
                         from els_server.domain.dungeon_clear import prototype_clear_notice
-                        reply.append(prototype_clear_notice(self.reward_probe))
+                        reply.append(prototype_clear_notice(self.reward_probe,map_id=30000))
                     self.clear_notified=True
                 if self.population_test and self.gate_stage<2:
                     from els_server.domain.dungeon_population import substage
@@ -668,6 +678,10 @@ class LocalSession:
             if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:
                 return [use_ack(result=-1)]
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
+            from els_server.storage.resonance_state import use_book as use_resonance_book
+            try:resonance=use_resonance_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)
+            except ValueError:return [use_ack(result=-1)]
+            if resonance is not None:return resonance['events']+[self.saved_user_sync()]
             from els_server.storage.boosting_2026_force_inventory import use_book as use_force_book
             try:force=use_force_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)
             except ValueError as error:return [use_ack(result=getattr(error,'result',-1))]
@@ -856,6 +870,22 @@ class LocalSession:
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
             try:return sort_category_inventory(self.account.store.path,self.account.uid,event.payload,operation)
             except ValueError:return category_failed()
+        if self.item_test and self.client_build=='dx11_260923' and kind in (0x4af,0x4b1) and event.event_id==0x202:
+            from els_server.protocol.wardrobe_messages import acknowledgement
+            from els_server.storage.wardrobe import change
+            from els_server.domain.tutorial_accessory import wear_context,validate_wear_context
+            failed=[acknowledgement(kind,result=-1)]
+            if (self.role!='game' or self.phase!='town_ready' or type(request_sequence)is not int
+                    or not 1<=request_sequence<2**32 or event.performers!=(0,)
+                    or event.uid!=0xffffffffffffffff or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):
+                return failed
+            operation=self.shop_session_id+':wardrobe:'+str(self.account.uid)+':'+str(request_sequence)
+            try:
+                captured=wear_context(self)
+                answer=change(self.account.store.path,self.account.uid,self.account.account_id,kind,event.payload,operation,
+                    validate=lambda:validate_wear_context(self,captured))
+                return [answer]
+            except ValueError:return failed
         if self.item_test and self.client_build=='dx11_260923' and kind in (0xbd6,0x663) and event.event_id==0x202:
             from els_server.protocol.inventory_management_messages import sort_ack,lock_ack
             from els_server.storage.inventory_management import sort_inventory,lock_item
@@ -1122,7 +1152,7 @@ class LocalSession:
                     # HP aggregate while native equipment/passive code stays intact.
                     from els_server.domain.character_stats import combat_values
                     initial_health_max=math.ceil(combat_values(character,saved['items'] if saved else None)[0])
-                answer=[player_initialization(self.account.get_location(),initialize_attributes=self.enter_dungeon,economy=saved['balances'] if saved else self.account.get_reward_balances() if self.reward_test else None,items=saved['items'] if saved else None,character=self.account.character(),restore_equipped=self.enter_dungeon),skill_slots_initialization(self.account.get_skills(),self.account.uid,self.account.character()),quest_initialization(self)]+optional_player_initializations(initialize_health=self.enter_dungeon,uid=self.account.uid,health_max=initial_health_max,luciel_active=(character.get('luciel_active_unit',0) if character['unit_type']==10 else 0))+[Event(0x201,kind=0x29,payload=i32(0))]
+                answer=[player_initialization(self.account.get_location(),initialize_attributes=self.enter_dungeon,economy=saved['balances'] if saved else self.account.get_reward_balances() if self.reward_test else None,items=saved['items'] if saved else None,character=self.account.character(),restore_equipped=self.enter_dungeon),skill_slots_initialization(self.account.get_skills(),self.account.uid,self.account.character()),quest_initialization(self)]+optional_player_initializations(initialize_health=self.enter_dungeon,uid=self.account.uid,health_max=initial_health_max,luciel_active=(character.get('luciel_active_unit',0) if character['unit_type']==10 else 0),wardrobe=character.get('wardrobe',{}))+[Event(0x201,kind=0x29,payload=i32(0))]
                 if self.item_test and self.client_build=='dx11_260923':
                     from els_server.storage.quick_slots import initialization
                     answer.insert(1,initialization(self.account.store.path,self.account.uid))

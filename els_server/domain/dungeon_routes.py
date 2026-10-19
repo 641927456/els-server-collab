@@ -65,6 +65,8 @@ class DungeonRun:
    self.rotation=[0,*pool[:self.encounter['rounds']-1]]
   self.defeated={};self.parts={};self.stage_wires={};self.next=None;self.ready_at=None;self.started_at=None;self.portal_requested=False
   self._load_stage(0)
+  from els_server.domain.legacy_pve_exp import bind_run
+  bind_run(self)
  def draw(self,label,total):
   return int.from_bytes(hashlib.sha256((self.run_id+':'+label).encode()).digest(),'big')%total
  def _load_stage(self,stage):

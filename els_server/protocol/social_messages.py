@@ -73,7 +73,7 @@ def appearance_item(item,*,native_instance=False):
         enhancement=validate(item['template'],item['enhancement'])
     # DTO+0F -> instance+18 is signed enhancement. DTO+10 -> instance+94
     # is an appearance-template override; inventory count does not belong here.
-    data=struct.pack('>QIBhbiB',item['uid'],item['template'],item['group'],item['slot'],enhancement,0,0)
+    data=struct.pack('>QIBhbiB',item['uid'],item['template'],item['group'],item['slot'],enhancement,item.get('appearance_template',0),0)
     attributes=u32(0)
     if 'attributes' in item:
         from els_server.domain.equipment_attributes import validate_slots
