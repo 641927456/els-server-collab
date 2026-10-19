@@ -390,6 +390,15 @@ for _row in _reforge_coupons():
  if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting reforge coupon definition')
  VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
 
+# Saved ordinary accessories use the existing native metadata0 DTO. New sources
+# remain separately gated in acquisition_policy; registration never grants items.
+from els_server.domain.ordinary_accessories import definitions as ordinary_accessory_definitions
+for _row in ordinary_accessory_definitions().values():
+ if _row['template'] in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_row['template']],TEMPLATE_BAG_GROUPS[_row['template']],TEMPLATE_MAX_STACKS[_row['template']])!=(_row['metadata'],2,1):raise ValueError('Conflicting ordinary accessory definition')
+ VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
+ TEMPLATE_BAG_GROUPS[_row['template']]=2
+ TEMPLATE_MAX_STACKS[_row['template']]=1
+
 def validate_item(item):
  keys={'uid','template','metadata','count','group','slot'}
  if not isinstance(item,dict) or set(item)-{'attributes','durability','expires_at','enhancement','lock_until','option_groups','identified','enhancement_gauge','enhancement_guarantee','sealed','seal_used','artifact_socket_open','chip_tuning','reforge'}!=keys or any(type(item[k]) is not int for k in keys):raise ValueError('Invalid inventory item fields')
@@ -402,8 +411,8 @@ def validate_item(item):
  if item['group']==9 and item['template'] in normal_equipment_definitions():
   from els_server.domain.equipment_requirements import catalog as requirements
   equipped=item['slot']==requirements()[1][definition['equip_position']]
- if item['template'] in (92110,92111,92112,92115,92116):
-  from els_server.domain.tutorial_accessory import accepts_equipped
+ if item['template'] in ordinary_accessory_definitions():
+  from els_server.domain.ordinary_accessories import accepts_equipped
   equipped=accepts_equipped(item)
  if item['group']==24:equipped=item['slot'] in artifact_slots(item['template'])
  from els_server.domain.bag_capacity import wire_limit
@@ -510,7 +519,7 @@ def item_body(item):
 def inventory_payload(items):
  from els_server.domain.bag_capacity import wire_limit
  from els_server.domain.equipment_requirements import catalog as requirements
- if not isinstance(items,list) or len(items)>sum(wire_limit(g) for g in set(TEMPLATE_BAG_GROUPS.values()))+5+len(set(FASHION_EQUIP_SLOTS.values())|set(requirements()[1].values())):raise ValueError('Inventory list bound')
+ if not isinstance(items,list) or len(items)>sum(wire_limit(g) for g in set(TEMPLATE_BAG_GROUPS.values()))+len(set(FASHION_EQUIP_SLOTS.values())|set(requirements()[1].values())|{s for r in ordinary_accessory_definitions().values() for s in r['slots']}):raise ValueError('Inventory list bound')
  checked=[validate_item(i) for i in items]
  if len({i['uid'] for i in checked})!=len(checked) or len({(i['group'],i['slot']) for i in checked})!=len(checked):raise ValueError('Duplicate inventory UID/slot')
  return struct.pack('>I',len(checked))+b''.join(struct.pack('>QBh',i['uid'],i['group'],i['slot'])+item_body(i)+b'\0'+bytes(8) for i in sorted(checked,key=lambda v:(v['group'],v['slot'])))

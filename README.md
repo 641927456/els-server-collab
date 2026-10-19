@@ -46,3 +46,5 @@ KinkOwO第一批接手顺序、允许修改的文件/函数、验收标准和避
 [V29组件更新登录器源码及构建方法](launchers/friends-v29/README.md)已纳入仓库；分享包从私有仓库 `launcher-v29` Release 下载。没有可复用环境时首次下载基础包，以后校验复用或只更新变化文件。本次Git/Release同步不部署服务器。
 
 本批任务/转职/城镇移动范围及验收边界见[独立修复记录](docs/JOURNEY_REVIEWED_SYNC_20261019.md)，本地与线上清单分开保留。
+
+当前全角色普通穿脱的服务端修复与未验边界见[穿脱说明](docs/OWNED_WEAR_20261019.md)，线上快照为 `snapshot/online-all-role-owned-wear-20261019-v1`，两端差异继续保留。
