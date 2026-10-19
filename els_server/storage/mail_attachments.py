@@ -56,6 +56,7 @@ def qualify(item,*,now):
     from els_server.domain.item_expiration import require_current
     from els_server.domain.item_locks import require_unlocked
     item=validate_item(item);definition=client_data().item(item['template'])
+    if item.get('wardrobe_hanger',False):raise MailError('Wardrobe hanger is bound and cannot be mailed')
     if item['group'] in (9,24,21) or item['group']!=TEMPLATE_BAG_GROUPS[item['template']]:
         raise MailError('Unequip item or remove character-only entitlement before mailing')
     require_current(item,now=now);require_unlocked(item,now=now)

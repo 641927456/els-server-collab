@@ -9,6 +9,7 @@ from els_server.domain.inventory_items import TEMPLATE_MAX_STACKS, FASHION_EQUIP
 from els_server.domain.item_expiration import require_current
 from els_server.domain.item_locks import settings, require_unlocked
 from els_server.domain.normal_equipment import definitions
+from els_server.domain.ordinary_accessories import definitions as accessory_definitions
 from els_server.protocol.inventory_management_messages import (
     sort_ack, category_sort_request, category_sort_ack, lock_request, lock_ack)
 from els_server.protocol.protocol_codec import Event
@@ -143,8 +144,9 @@ def lock_item(path, owner, payload, operation):
             # pet/mount activation items and consumables keep their own paths.
             normal = item is not None and item['template'] in definitions() and item['group'] in (1, 9)
             fashion = item is not None and item['template'] in FASHION_EQUIP_SLOTS and item['group'] in (7, 27, 9)
-            if item is None or not (normal or fashion) or item['count'] != 1:
-                raise ValueError('Lock requires owned equipment or costume')
+            accessory = item is not None and item['template'] in accessory_definitions() and item['group'] in (2, 9)
+            if item is None or not (normal or fashion or accessory) or item['count'] != 1:
+                raise ValueError('Lock requires owned equipment, costume or accessory')
             require_current(item)
             require_unlocked(item)
             maximum, daily = settings()

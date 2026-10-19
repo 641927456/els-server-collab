@@ -43,4 +43,13 @@ def empty_reward_death_notice(npc_id,killer):
     # No claim that these are the retail reward values or formulas.
     return Event(0x201,kind=0xaf,payload=struct.pack('>iiBQII?iiI',npc_id,0,0,killer,0,0,False,0,0,0))
 
+def experience_death_notice(npc_id,killer,owner,experience):
+    """Verified AF UID map: one primary increment; party/A/B/Artifact zero."""
+    if type(owner) is not int or not 1001<=owner<=2**63-1 or type(experience) is not int or not 0<=experience<=2**31-1:
+        raise ValueError('AF experience owner/amount bound')
+    empty=empty_reward_death_notice(npc_id,killer)
+    if not experience:return empty
+    record=struct.pack('>QiiiiQQ',owner,experience,0,0,0,0,0)
+    return Event(0x201,kind=0xaf,payload=empty.payload[:17]+struct.pack('>I',1)+record+empty.payload[21:])
+
 def part_end_notice(part):return Event(0x201,kind=0xba,payload=struct.pack('>b',part))

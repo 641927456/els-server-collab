@@ -5486,6 +5486,164 @@
       "SelectReward": {
         "m_iSelectionCount": 1
       }
+    },
+    "26830": {
+      "m_iFairLevel": 8,
+      "m_iPlayLevel": 8,
+      "m_iEpisodeGroupID": 2200,
+      "m_iID": 26830,
+      "FLAGS": "EpicGroupList_Under",
+      "m_fRandomRate": 0,
+      "m_iRandomGroupID": 0,
+      "m_eQuestType": 5,
+      "CHANGE_JOB_TYPE": 0,
+      "m_eStartNPCID": 10363,
+      "m_eEndNPCID": 10363,
+      "m_bIsPcBang": 0,
+      "m_bIsTimeEvent": 0,
+      "m_iFairDungeonID": 0,
+      "m_bRepeat": 0,
+      "m_eRepeatType": 0,
+      "m_iAfterQuestID": {
+        "0": null,
+        "1": 26840
+      },
+      "QuestCondition": {
+        "m_iLimitLevel": -1,
+        "m_iLevel": 8,
+        "m_iConditionItemNum": 0,
+        "m_iConditionItemID": 0,
+        "m_iEnableVillage": {
+          "0": null,
+          "1": 0
+        },
+        "m_iEnableField": {
+          "0": null,
+          "1": 0
+        },
+        "m_iEnableDungeon": {
+          "0": null,
+          "1": 0
+        },
+        "m_eUnitType": {
+          "1": 14
+        },
+        "m_eUnitClass": {
+          "1": 0
+        },
+        "m_vecBeforeQuestID": {
+          "0": null,
+          "1": 26820
+        }
+      },
+      "m_vecSubQuest": {
+        "0": null,
+        "1": 26830
+      },
+      "m_vecSubQuest_Group": {
+        "1": {
+          "0": null,
+          "1": 26830
+        }
+      },
+      "Reward": {
+        "m_iSP": 0,
+        "m_iBuff": 0,
+        "m_iEP": 0,
+        "m_iED": 0,
+        "m_iEXP": 0,
+        "m_bEnable": 1,
+        "m_eChangeUnitClass": 0,
+        "m_vecItem": {
+          "1": {
+            "m_iPeriod": 0,
+            "m_iQuantity": 1,
+            "m_iItemID": 92111,
+            "m_sSocketOption": 0
+          },
+          "2": {
+            "m_iPeriod": 0,
+            "m_iQuantity": 1,
+            "m_iItemID": 92112,
+            "m_sSocketOption": 0
+          }
+        }
+      },
+      "SelectReward": {
+        "m_iSelectionCount": 0
+      }
+    },
+    "26880": {
+      "m_iFairLevel": 19,
+      "m_iPlayLevel": 19,
+      "m_iEpisodeGroupID": 2210,
+      "m_iID": 26880,
+      "FLAGS": "EpicGroupList_Under",
+      "m_fRandomRate": 0,
+      "m_iRandomGroupID": 0,
+      "m_eQuestType": 5,
+      "CHANGE_JOB_TYPE": 0,
+      "m_eStartNPCID": 10363,
+      "m_eEndNPCID": 10363,
+      "m_bIsPcBang": 0,
+      "m_bIsTimeEvent": 0,
+      "m_iFairDungeonID": 0,
+      "m_bRepeat": 0,
+      "m_eRepeatType": 0,
+      "m_iAfterQuestID": {
+        "0": null,
+        "1": 26890
+      },
+      "QuestCondition": {
+        "m_iLimitLevel": -1,
+        "m_iLevel": 19,
+        "m_iConditionItemNum": 0,
+        "m_iConditionItemID": 0,
+        "m_iEnableVillage": {
+          "0": null,
+          "1": 0
+        },
+        "m_iEnableField": {
+          "0": null,
+          "1": 0
+        },
+        "m_iEnableDungeon": {
+          "0": null,
+          "1": 0
+        },
+        "m_eUnitType": {
+          "1": 14
+        },
+        "m_eUnitClass": {
+          "1": 0
+        },
+        "m_vecBeforeQuestID": {
+          "0": null,
+          "1": 26870
+        }
+      },
+      "m_vecSubQuest": {
+        "0": null,
+        "1": 26870
+      },
+      "m_vecSubQuest_Group": {
+        "1": {
+          "0": null,
+          "1": 26870
+        }
+      },
+      "Reward": {
+        "m_iSP": 0,
+        "m_iBuff": 0,
+        "m_iEP": 0,
+        "m_iED": 0,
+        "m_iEXP": 0,
+        "m_bEnable": 1,
+        "m_eChangeUnitClass": 0
+      },
+      "SelectReward": {
+        "m_iSelectionCount": 0
+      }
     }
   },
   "subquests": {
@@ -5952,6 +6110,22 @@
       "m_ClearCondition": {
         "m_eTalkNPCID": 10143
       }
+    },
+    "26830": {
+      "m_iID": 26830,
+      "m_eClearType": 1,
+      "m_bAutomaticDescription": 0,
+      "m_ClearCondition": {
+        "m_eTalkNPCID": 10363
+      }
+    },
+    "26870": {
+      "m_iID": 26870,
+      "m_eClearType": 1,
+      "m_bAutomaticDescription": 0,
+      "m_ClearCondition": {
+        "m_eTalkNPCID": 10363
+      }
     }
   },
   "npc": 10018,
@@ -6206,6 +6380,34 @@
         40202,
         1601
       ]
+    },
+    {
+      "template": 92111,
+      "metadata": 0,
+      "group": 2,
+      "record_sha256": "a95a2f72642a42fbef323b3b0358660d2b65a69346ecb7b951125fce02f10038",
+      "max_stack": 1,
+      "native": [
+        {
+          "count": 1,
+          "ok": 1,
+          "consumed": 304
+        }
+      ]
+    },
+    {
+      "template": 92112,
+      "metadata": 0,
+      "group": 2,
+      "record_sha256": "5b3137e276c91a9e6dca68a23385126549339dcf24f2e9c6d8e9ace48345e63b",
+      "max_stack": 1,
+      "native": [
+        {
+          "count": 1,
+          "ok": 1,
+          "consumed": 304
+        }
+      ]
     }
   ],
   "source_sha256": {
@@ -6414,8 +6616,41 @@
       "towns": {
         "20009": 636
       }
+    },
+    "10363": {
+      "houses": [
+        40263
+      ],
+      "towns": {
+        "20012": 1004
+      }
     }
   },
   "coverage_source_sha256": "3dd615f34b46b7c492214adf2c992e655a4aae90af247515ecdc24c14f051525",
-  "admission_review_sha256": "3da715cfafdc8f12b03808198b41dc4e1c46812c9408478557d1bf886ed8460c"
+  "admission_review_sha256": "3da715cfafdc8f12b03808198b41dc4e1c46812c9408478557d1bf886ed8460c",
+  "noah_extension_source": {
+    "quests": [
+      26830,
+      26880
+    ],
+    "house": 40263,
+    "NPC": 10363,
+    "scene": 1004,
+    "town": 20012,
+    "source_tables": [
+      {
+        "path": "G:\\els\\analysis\\main-side-quests-20261016\\sources\\FieldQuest.tables.json",
+        "sha256": "069952b835163e75e43e5f67a276d191dfb73d463a8618aeeb43de4b81e5cc11"
+      },
+      {
+        "path": "G:\\els\\analysis\\main-side-quests-20261016\\sources\\FieldSubQuest.tables.json",
+        "sha256": "eeca9473c7b2f0a222502016aa5723c371a2ceb2f24152ef4ef1e6eec7a67a53"
+      },
+      {
+        "path": "G:\\els\\analysis\\tutorial-quests-01a142ce\\v3-remaining\\resources\\DLG_Map_House.lua.tables.json",
+        "sha256": "ec9406064e33c9cd9fcc5dbdfc5c2fad3a63481228e7ab5a13b6af489f96b3f2"
+      }
+    ],
+    "existing_coverage_scope": "Original60town quests retain original coverage/admission hashes; this exact extension is separately source-bound here"
+  }
 }

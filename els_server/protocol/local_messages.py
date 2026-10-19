@@ -132,6 +132,8 @@ def character_unit(location=None,initialize_attributes=False,slots=None,economy=
                           '0x51d':artifact_wire(character),
                           '0x1b':wstring(character['name']),
                           '0x65':bytes([character['level']])})
+        from els_server.protocol.dungeon_record_messages import completed_map
+        overrides['0x10e']=completed_map(character.get('cleared_dungeons',()))
         overrides['0x448']=bytes([bool(character.get('pending_delete',False))])
         overrides['0x449']=struct.pack('>Q',character.get('delete_at',0))
         overrides['0x451']=struct.pack('>Q',character.get('delete_cooldown_until',0))
@@ -142,6 +144,9 @@ def character_unit(location=None,initialize_attributes=False,slots=None,economy=
         # 85BAD0 -> 87A6E0(Unit+48): DTO+54D -> encoded Unit+2950.
         # F5, 2A, D9, career and character-list snapshots share this field.
         overrides['0x54d']=struct.pack('>Q',validate_ep(character.get('ep',0)))
+        if 'resonance' in character:
+            from els_server.domain.resonance import wire as resonance_wire
+            overrides['0x471']=resonance_wire(character['resonance'])
         if economy is not None:
             from els_server.game_data import client_data
             thresholds=client_data().thresholds;level=character['level']
@@ -212,7 +217,7 @@ def skill_slots_initialization(slots=None,uid=1001,character=None):
     from els_server.domain.skill_rules import equippable_skills,learned_skills,upgraded_slots
     return Event(0x201,kind=0x55b,payload=initialization_payload(default_slots(character) if slots is None else upgraded_slots(slots,character),uid,equippable_skills(character),learned_skills(character),character))
 
-def optional_player_initializations(initialize_health=False,uid=1001,*,health_max=100,luciel_active=0):
+def optional_player_initializations(initialize_health=False,uid=1001,*,health_max=100,luciel_active=0,wardrobe=None):
     if type(health_max) is not int or not 1<=health_max<2**31:raise ValueError('Initial health maximum')
     if type(luciel_active) is not int or luciel_active not in (0,1):raise ValueError('Initial LuCiel selector')
     # All counts are empty; fixed nested records retain their actual field widths.
@@ -245,7 +250,8 @@ def optional_player_initializations(initialize_health=False,uid=1001,*,health_ma
     data+=u32(1)+stats if initialize_health else u32(0)
     data+=wstring('')*3+i32(0)
     messages.append(Event(0x201,kind=0x2f,payload=data))
-    messages.append(Event(0x201,kind=0x31,payload=i32(0)+u32(0)*2))
+    from els_server.protocol.wardrobe_messages import initialization as wardrobe_initialization
+    messages.append(wardrobe_initialization(wardrobe or {}))
     return messages
 
 def key_bindings_initialization(bindings=bytes(12)):

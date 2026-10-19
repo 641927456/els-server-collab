@@ -33,7 +33,7 @@ def digest(c,proof):
     if not isinstance(proof,bytes) or not proof or len(proof)>8192:raise ValueError('Loot death evidence')
     return hashlib.sha256(json.dumps(c,sort_keys=True,separators=(',',':')).encode()+proof).hexdigest()
 
-def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secrets.randbelow,rules=None):
+def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secrets.randbelow,rules=None,accepted_effect=None):
     c=(rules.context if rules is not None else context)(identity)
     proof_sha=digest(c,proof);policy=(rules.policy_for if rules is not None else policy_for)(c)
     if type(start_id) is not int or not 1<=start_id<2**31:raise ValueError('Loot sequence bound')
@@ -43,7 +43,9 @@ def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secre
         old=lookup(db,c)
         if old is not None:
             if old[:3]!=(c['dungeon'],proof_sha,policy):raise ValueError('Conflicting accepted loot death')
+            if accepted_effect is not None:accepted_effect(db,True)
             return prepare(json.loads(old[3]),True)
+        if accepted_effect is not None:accepted_effect(db,False)
         drawn=(rules.plans if rules is not None else plans)(c,boss,randbelow)
         rows=[]
         for index,entry in enumerate([*legacy,*drawn]):

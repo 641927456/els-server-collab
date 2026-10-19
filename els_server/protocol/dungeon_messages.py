@@ -97,7 +97,7 @@ def dungeon_start(slots=DEFAULT_SLOTS,character=None,items=None,dungeon_id=SUPPO
     return Event(0x201,kind=0x14a,payload=payload)
 
 
-def party_dungeon_start(members,leader,identity,room_id,*,bootstrap_port=None):
+def party_dungeon_start(members,leader,identity,room_id,*,bootstrap_port=None,member_captures=None):
     """One native slot per participant. Peer transport is configured separately.
 
     Current D9DDB0 reads a vector of member DTOs per slot. The first member
@@ -112,12 +112,16 @@ def party_dungeon_start(members,leader,identity,room_id,*,bootstrap_port=None):
         from els_server.game_data import client_data
         maximum=min(6,client_data().dungeon(identity)['m_MaxPlayerCount'])
     if not 2<=len(members)<=maximum or leader not in members:raise ValueError('Dungeon party size/leader')
-    teams=[]
+    teams=[];captured={}
     for index,s in enumerate(members):
         master=s is leader
-        body=member(s.account.get_skills(),s.account.character(),s.account.get_inventory_snapshot()['items'],account_id=s.identity['id'],peer_port=21100+index)
+        # Use the same verified absolute-HP initialization as solo admission.
+        # Collect actual roster bytes without mutating a playable session.
+        def capture(payload,spans):captured[s]=(payload,dict(spans))
+        body=member(s.account.get_skills(),s.account.character(),s.account.get_inventory_snapshot()['items'],account_id=s.identity['id'],peer_port=21100+index,capture=capture)
         teams.append(bytes([index,4,int(master)])+bytes(3)+i32(0)+u32(1)+body+u32(0)+bytes(4))
     payload=bytes(2)+room_info(identity,room_id=room_id,name='Friends',bootstrap_port=bootstrap_port)+u32(len(teams))+b''.join(teams)+u32(0)+wstring('')+u32(0)*3
+    if member_captures is not None:member_captures.update(captured)
     return Event(0x201,kind=0x14a,payload=payload)
 
 def initial_substage(client_build='legacy',npc_key=None,gate_test=False):
