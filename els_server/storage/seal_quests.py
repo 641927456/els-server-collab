@@ -128,11 +128,16 @@ class QuestState:
             items=load_items(db,uid);before=_state(db,uid,items);active=next((r for r in before['active'] if r['id']==qid),None)
             done=next((r for r in before['completed'] if r['id']==qid),None);replayed=bool(old)
             awards=[];consumed=[]
+            stage_changed=False
             if not old:
                 if kind=='accept':
                     if done:raise ValueError('Quest already rewarded')
                     require_eligible(character,q,completed_ids(db,uid),items,location=location)
                     if request.get('npc') not in (q['m_eStartNPCID'],10025) and q['m_eStartNPCID']!=0:raise ValueError('Quest start NPC mismatch')
+                    from els_server.domain.job_quests import catalog as job_catalog
+                    if str(qid) in job_catalog()['quests'] and any(
+                        row['id']!=qid and quest_catalog().quest(row['id'])['m_eQuestType'] in (2,9) for row in before['active']):
+                        raise ValueError('Another class advancement quest is active')
                     if active:replayed=True
                     else:
                         if len(before['active'])>=ACTIVE_QUEST_LIMIT:raise ValueError('Local active quest capacity')
@@ -184,7 +189,7 @@ class QuestState:
                                 db.execute('UPDATE inventory_items SET count=count-? WHERE owner=? AND uid=?',(take,uid,item['uid']));consumed.append(((item['group'],item['slot']),dict(item,count=item['count']-take)))
                             if not n:break
                     reward=q['Reward']
-                    if any(reward.get(k,0) for k in ('m_iSP','m_iBuff','m_eChangeUnitClass')):raise ValueError('Unsupported native quest reward')
+                    if any(reward.get(k,0) for k in ('m_iSP','m_iBuff')):raise ValueError('Unsupported native quest reward')
                     ep=reward.get('m_iEP',0)
                     from els_server.storage.ep_points import credit as credit_ep
                     credit_ep(db,uid,ep)
@@ -192,8 +197,11 @@ class QuestState:
                     plan=[]
                     for r in sequence(reward.get('m_vecItem',{}))+selection:
                         t=r['m_iItemID']
-                        if r['m_iPeriod'] or r['m_sSocketOption'] or t not in VERIFIED_TEMPLATES:raise ValueError('Unverified native quest reward item')
-                        plan.append(dict(template=t,metadata=VERIFIED_TEMPLATES[t],quantity=r['m_iQuantity'],group=TEMPLATE_BAG_GROUPS[t]))
+                        if r['m_sSocketOption'] or t not in VERIFIED_TEMPLATES:raise ValueError('Unverified native quest reward item')
+                        if r['m_iPeriod']:
+                            from els_server.domain.travel_pass import quest_reward_plan
+                            plan.append(quest_reward_plan(q,r,now=int(time.time())))
+                        else:plan.append(dict(template=t,metadata=VERIFIED_TEMPLATES[t],quantity=r['m_iQuantity'],group=TEMPLATE_BAG_GROUPS[t]))
                     awards=grant_items(db,plan,uid) if plan else []
                     ed,xp=reward['m_iED'],reward['m_iEXP']
                     if any(type(v) is not int or v<0 for v in (ed,xp)):raise ValueError('Quest reward balance')
@@ -203,6 +211,10 @@ class QuestState:
                         experience=db.execute('SELECT experience FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
                         level=client_data().level_for_experience(experience)
                         db.execute('UPDATE characters SET level=?,revision=revision+1 WHERE uid=? AND level<?',(level,uid,level))
+                    if reward.get('m_eChangeUnitClass',0):
+                        from els_server.storage.careers import apply_quest_transition
+                        old_career,new_career=apply_quest_transition(db,uid,q)
+                        stage_changed=(old_career['transcendence'],old_career['master'])!=(new_career['transcendence'],new_career['master'])
                     from els_server.storage.artifact_progression import complete_quest as complete_artifact_quest
                     complete_artifact_quest(db,uid,qid)
                     db.execute('DELETE FROM character_quests WHERE owner=? AND quest=?',(uid,qid))
@@ -223,6 +235,7 @@ class QuestState:
             from els_server.storage.reward_state import validate_balances
             balances=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(uid,)).fetchone())
             result=dict(replayed=replayed,state=state,character=character,balances=balances,items=items,updates=awards,consumed=consumed,slots=current_slots(db,character))
+            if stage_changed:result['stage_changed']=True
             # All responses, including full unit and inventory bodies, must be
             # encodable before SQL commit. No stale receipt inventory deltas.
             result['events']=encode(result)

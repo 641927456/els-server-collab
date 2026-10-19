@@ -44,3 +44,5 @@ KinkOwO第一批接手顺序、允许修改的文件/函数、验收标准和避
 最新已完成源码按本地与线上渠道分别保存，见 [同步说明](docs/COMPLETED_SYNC_20261019.md)。主分支保留本地单机实现；线上正式差异位于独立 `snapshot/online-luciel-loading-20261019-v2` 分支，禁止整树互盖。
 
 [V29组件更新登录器源码及构建方法](launchers/friends-v29/README.md)已纳入仓库；分享包从私有仓库 `launcher-v29` Release 下载。没有可复用环境时首次下载基础包，以后校验复用或只更新变化文件。本次Git/Release同步不部署服务器。
+
+本批任务/转职/城镇移动范围及验收边界见[独立修复记录](docs/JOURNEY_REVIEWED_SYNC_20261019.md)，本地与线上清单分开保留。

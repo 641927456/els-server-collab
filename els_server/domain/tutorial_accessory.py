@@ -1,19 +1,21 @@
-"""Three exact original starter accessories and their main/minor applications."""
+"""Five exact original starter accessories and their main/minor applications."""
 import functools,hashlib
 from els_server.game_data import client_data
 
 TEMPLATE=92110
-TEMPLATES=frozenset((92110,92111,92112))
+TEMPLATES=frozenset((92110,92111,92112,92115,92116))
 RECORDS={
  92110:('b7289025b7117826403420f5c020cd3076c9082981c6a5c7bad6674214b4306c',20,14,29,(0.,0.,0.,0.,0.,2.,0.)),
  92111:('a95a2f72642a42fbef323b3b0358660d2b65a69346ecb7b951125fce02f10038',22,16,31,(0.,2.,0.,0.,0.,0.,0.)),
  92112:('5b3137e276c91a9e6dca68a23385126549339dcf24f2e9c6d8e9ace48345e63b',23,17,32,(100.,0.,0.,0.,0.,0.,0.)),
+ 92115:('e19f9a31f00cbfba690171bd310824db3e39cf16cd85524e031175e768571239', 17, 11, 26, (0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 0.0)),
+ 92116:('dd2e4b558d0433a60ad784a96195df67b74c93249c03c88aec9ca467a0dd3fc6', 18, 12, 27, (0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 3.0)),
 }
 RECORD_SHA256=RECORDS[TEMPLATE][0]
 SLOT_STYLE={slot:side for record in RECORDS.values() for side,slot in enumerate(record[2:4])}
 APPLICATION_VERIFIED=True  # Finite default records; full combat is a separate gate.
 
-@functools.lru_cache(maxsize=3)
+@functools.lru_cache(maxsize=5)
 def definition(template=TEMPLATE):
     if template not in TEMPLATES:raise ValueError('Outside verified accessory scope')
     pin,position,main,minor,stats=RECORDS[template]
@@ -78,3 +80,25 @@ def wear_context(s):
 def validate_wear_context(s,captured):
     now=wear_context(s)
     if any(a is not b for a,b in zip(now[:6],captured[:6])) or now[6:]!=captured[6:]:raise ValueError('Accessory actor changed before commit')
+
+
+def minime_reward_definition():
+    """One current original quest reward, default bag instance only.
+
+    D9A550 reads the common DTO without template-dependent branches; existing
+    metadata0 native DTO/flat-copy results are reused for its shape. This is
+    source/static qualification, not a new30577 native-execution receipt.
+    TEMPLATES/SLOT_STYLE and APPLICATION_VERIFIED still cover only the five
+    earlier accessories. Minime wearing/effect application remains pending.
+    """
+    source=client_data().item(30577);raw=source['record']
+    pin='95361b0aa23bd1bfef478a6c78e07f419c5def43c97768978b6ba36c728aa5c0'
+    if (hashlib.sha256(raw).hexdigest()!=pin or source['item_type']!=3
+            or source['metadata']!=0 or source['equip_position']!=26
+            or raw[0xd1:0xd4]!=bytes(3) or raw[0xd7]!=5
+            or int.from_bytes(raw[0x34:0x38],'little')!=0):
+        raise ValueError('Original Minime quest reward source')
+    return dict(template=30577,metadata=0,group=2,max_stack=1,record_sha256=pin,
+        evidence_kind='current-template-and-shared-native-DTO-static',
+        per_template_native_execution=False,wear_enabled=False,
+        intrinsic_effect_IDs=[40602,4501,40002,46602,40202,1601])

@@ -4,11 +4,34 @@ The legacy CheckEpicQuest_NewQuestByAfterQuest supplies the flow contract;
 identities, conditions and objectives come exclusively from the pinned build.
 This accepts tasks only. It never completes an objective or grants a reward.
 """
-import json
+import hashlib,json
 from els_server.domain.seal_quests import quest_catalog,sequence,require_eligible,ACTIVE_QUEST_LIMIT
 
 
-def accept_after_reward(db,uid,parent,character,items,location,now):
+def _accepted_generation(db,uid,parent,identity,quest,now):
+    """Keep the same owner/action generation guard used by manual NPC accept.
+
+    The parent reward and its current after-edge have already been checked.
+    These are server automatic acceptance receipts, not client talk events.
+    They commit/roll back with the parent reward or restore snapshot.
+    """
+    from els_server.domain.town_dialogue import catalog as town_catalog
+    definition=town_catalog()['quests'].get(str(identity))
+    if definition is None:return now
+    if quest!=definition:raise ValueError('Automatic NPC task source changed')
+    operation=f'epic-after:{uid}:{parent}:{identity}'
+    if db.execute('SELECT 1 FROM quest_actions WHERE operation_id=?',(operation,)).fetchone():
+        # Active/completed tasks are skipped before reaching here. An orphan
+        # prior acceptance must not silently become a new accepted generation.
+        raise ValueError('Automatic NPC accept receipt without current task')
+    digest=hashlib.sha256(json.dumps([uid,'accept',dict(quest=identity,npc=0)],sort_keys=True).encode()).hexdigest()
+    cursor=db.execute('INSERT INTO quest_actions VALUES (?,?,?,?)',(operation,uid,'accept',digest))
+    generation=cursor.lastrowid
+    if type(generation) is not int or not 0<generation<2**63:raise ValueError('Automatic NPC acceptance generation')
+    return generation
+
+
+def accept_after_reward(db,uid,parent,character,items,location,now,*,excluded=()):
     catalog=quest_catalog()
     source=catalog.quest(parent)
     if source['m_eQuestType']!=5:return ()
@@ -21,7 +44,7 @@ def accept_after_reward(db,uid,parent,character,items,location,now):
     # select eligible branches. Missing definitions never become empty tasks.
     for identity in dict.fromkeys(sequence(source.get('m_iAfterQuestID',{}))):
         if len(active)>=ACTIVE_QUEST_LIMIT:break
-        if identity in active or identity in completed:continue
+        if identity in active or identity in completed or identity in excluded:continue
         quest=catalog.quests.get(identity)
         if quest is None or quest['m_eQuestType']!=5:continue
         if (quest.get('m_bIsPcBang') or quest.get('m_bIsTimeEvent') or quest.get('m_bRepeat')
@@ -35,6 +58,38 @@ def accept_after_reward(db,uid,parent,character,items,location,now):
         for sub in catalog.objectives(identity):
             if sub['m_eClearType']==24 and location[0]=='town' and location[1] in sequence(sub['m_ClearCondition']['m_eVillageID']):
                 counts[sub['m_iID']]=1
-        db.execute('INSERT INTO character_quests VALUES (?,?,?,?,?)',(uid,identity,now,now,json.dumps(counts,sort_keys=True)))
+        generation=_accepted_generation(db,uid,parent,identity,quest,now)
+        db.execute('INSERT INTO character_quests VALUES (?,?,?,?,?)',(uid,identity,now,generation,json.dumps(counts,sort_keys=True)))
         active.add(identity);accepted.append(identity)
+    return tuple(accepted)
+
+
+def restore_deferred(db,uid,character,items,location,now):
+    """Recheck explicit admitted edges at login/validated town arrival.
+
+    Only existing completion receipts supply parents. A delayed level, place
+    or capacity requirement may now pass. The ordinary eligibility function
+    still decides admission. Persisted manual abandon actions suppress repair;
+    no task/reward migration or fabricated completion is performed.
+    The caller owns the transaction and encodes its snapshot before commit.
+    """
+    catalog=quest_catalog()
+    completed={r[0] for r in db.execute('SELECT quest FROM completed_quests WHERE owner=?',(uid,))}
+    active={r[0] for r in db.execute('SELECT quest FROM character_quests WHERE owner=?',(uid,))}
+    if len(active)>=ACTIVE_QUEST_LIMIT:return ()
+    abandon_hashes={r[0] for r in db.execute("SELECT request_hash FROM quest_actions WHERE owner=? AND kind='abandon'",(uid,))}
+    parents=[];excluded=set()
+    for parent in sorted(completed):
+        source=catalog.quests.get(parent)
+        if source is None or source['m_eQuestType']!=5:continue
+        missing=[i for i in sequence(source.get('m_iAfterQuestID',{}))
+                 if i in catalog.quests and i not in completed and i not in active]
+        if not missing:continue
+        parents.append(parent)
+        for identity in missing:
+            digest=hashlib.sha256(json.dumps([uid,'abandon',dict(quest=identity)],sort_keys=True).encode()).hexdigest()
+            if digest in abandon_hashes:excluded.add(identity)
+    accepted=[]
+    for parent in parents:
+        accepted.extend(accept_after_reward(db,uid,parent,character,items,location,now,excluded=excluded))
     return tuple(accepted)

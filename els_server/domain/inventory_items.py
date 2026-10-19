@@ -182,11 +182,25 @@ for _row in skill_unlock_catalog()['books'].values():
 from els_server.domain.seal_quests import seal_catalog as seal_quest_catalog
 from els_server.domain.region_quests import region_catalog as region_quest_catalog
 from els_server.domain.story_quests import story_catalog as story_quest_catalog
-for _row in seal_quest_catalog()['reward_definitions']+region_quest_catalog().data['reward_definitions']+story_quest_catalog()['reward_definitions']:
+from els_server.domain.job_quests import catalog as job_quest_catalog
+for _row in seal_quest_catalog()['reward_definitions']+region_quest_catalog().data['reward_definitions']+story_quest_catalog()['reward_definitions']+job_quest_catalog()['reward_definitions']:
  if _row['template'] in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_row['template']],TEMPLATE_BAG_GROUPS[_row['template']],TEMPLATE_MAX_STACKS[_row['template']])!=(_row['metadata'],_row['group'],_row['max_stack']):raise ValueError('Conflicting quest reward classification')
  VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
  TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
  TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
+
+from els_server.domain.tutorial_accessory import minime_reward_definition
+_minime_reward=minime_reward_definition()
+if _minime_reward['template'] in VERIFIED_TEMPLATES:raise ValueError('Conflicting original Minime reward registration')
+VERIFIED_TEMPLATES[_minime_reward['template']]=_minime_reward['metadata']
+TEMPLATE_BAG_GROUPS[_minime_reward['template']]=_minime_reward['group']
+TEMPLATE_MAX_STACKS[_minime_reward['template']]=_minime_reward['max_stack']
+
+from els_server.domain.travel_pass import definition as travel_pass_definition
+_pass=travel_pass_definition()
+VERIFIED_TEMPLATES[_pass['template']]=_pass['metadata']
+TEMPLATE_BAG_GROUPS[_pass['template']]=_pass['group']
+TEMPLATE_MAX_STACKS[_pass['template']]=_pass['max_stack']
 
 from els_server.domain.pet_progression import catalog as pet_progression_catalog
 for _row in pet_progression_catalog()['definitions']:
@@ -388,7 +402,7 @@ def validate_item(item):
  if item['group']==9 and item['template'] in normal_equipment_definitions():
   from els_server.domain.equipment_requirements import catalog as requirements
   equipped=item['slot']==requirements()[1][definition['equip_position']]
- if item['template'] in (92110,92111,92112):
+ if item['template'] in (92110,92111,92112,92115,92116):
   from els_server.domain.tutorial_accessory import accepts_equipped
   equipped=accepts_equipped(item)
  if item['group']==24:equipped=item['slot'] in artifact_slots(item['template'])

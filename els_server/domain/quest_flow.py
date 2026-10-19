@@ -65,7 +65,11 @@ def handle(s,event,sequence):
             done=next(v for v in state['completed'] if v['id']==qid)
             result=wire.reward_ack(qid,r['character'],s.account.get_location(),r['slots'],r['balances'],r['items'],r['updates'],consumed=r['consumed'],replayed=r['replayed'],completed_at=done['completed_at'])
             from els_server.protocol.local_messages import skill_slots_initialization
-            events=[result,wire.initialization(state),skill_slots_initialization(r['slots'],s.account.uid,r['character'])]
+            events=[result]
+            if r.get('stage_changed'):
+                from els_server.protocol.career_messages import stage_notice
+                events.append(stage_notice(r['character']))
+            events.extend([wire.initialization(state),skill_slots_initialization(r['slots'],s.account.uid,r['character'])])
             if qid==54580:
                 from els_server.protocol.artifact_messages import notice as artifact_notice
                 events.append(artifact_notice(r['character'],not r['replayed']))

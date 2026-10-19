@@ -38,6 +38,16 @@ def use_career_item(path,uid,payload,operation_id):
 
 def apply_transition(db,uid,template):
     """Caller owns the transaction; shop and bag use the same state change."""
+    return _apply_transition(db,uid,lambda before:transition(before,template))
+
+
+def apply_quest_transition(db,uid,quest):
+    from els_server.domain.job_quests import quest_transition
+    return _apply_transition(db,uid,lambda before:quest_transition(before,quest))
+
+
+def _apply_transition(db,uid,change):
+    """Shared persistence and skill migration; caller supplies proven authority."""
     row=db.execute('SELECT uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters WHERE uid=?',(uid,)).fetchone()
     before=Characters._row(row)
     from els_server.storage.skill_expansion import is_expanded
@@ -47,7 +57,7 @@ def apply_transition(db,uid,template):
     artifact=db.execute('SELECT template,evolution,level,experience,potentials FROM character_artifacts WHERE uid=?',(uid,)).fetchone()
     before['artifact']=dict(zip(('template','evolution','level','experience','potentials'),artifact)) if artifact else None
     if artifact:before['artifact']['potentials']=json.loads(artifact[4])
-    after=transition(before,template)
+    after=change(before)
     # A route change can remove or replace learned skills. Persist the
     # new layout in the same transaction as the class/item change so a
     # reconnect never reloads skills belonging to the previous route.
