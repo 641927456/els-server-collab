@@ -18,27 +18,23 @@ class FriendsSession(LocalSession):
         self.coop_error=None
         super().__init__(account,**options)
 
-    def activity_reply(self,replies):
-        return self.activity2026_awards.finalize(self,replies) if self.activity2026_awards is not None else replies
-
     def handle(self,event,request_sequence=None):
         if self.released or not self.application.registry.enabled(self.identity['id']):raise SessionOrderError('Account is offline or disabled')
         if self.social_overflow:raise SessionOrderError('Social consumer is too slow')
         if self.coop_error:raise SessionOrderError(self.coop_error)
         result=self.application.world.field_bosses.request(self,event)
-        if result is not None:return self.activity_reply(result+self.mailbox.drain())
-        # Save the final native Lu/Ciel selector before dungeon exit detaches
-        # the admitted actor; other roles retain the existing dungeon route.
+        if result is not None:return result+self.mailbox.drain()
+        # Persist the native final selector before ordinary dungeon detach.
         from els_server.domain.luciel_native_end import handle as luciel_end_handle
         result=luciel_end_handle(self,event,request_sequence)
-        if result is not None:return self.activity_reply(result+self.mailbox.drain())
+        if result is not None:return result+self.mailbox.drain()
         result=self.application.world.dungeons.request(self,event,request_sequence)
-        if result is not None:return self.activity_reply(result+self.mailbox.drain())
+        if result is not None:return result+self.mailbox.drain()
         if event.event_id==0x202 and event.kind==0x85:
             return self.application.world.chat(self,event)+self.mailbox.drain()
         if event.event_id==0x202:
             result=self.application.world.party_request(self,event)
-            if result is not None:return self.activity_reply(result+self.mailbox.drain())
+            if result is not None:return result+self.mailbox.drain()
         selecting=event.event_id==0x202 and event.kind==0x28
         leases=self.application.playing
         acquired=False
@@ -84,7 +80,6 @@ class FriendsSession(LocalSession):
                 from els_server.domain.mount_flow import periodic as mount_periodic
                 from els_server.domain.title_flow import periodic as title_periodic
                 messages=self.expiration_notifications()+self._periodic_notifications()+mount_periodic(self)+title_periodic(self)
-                messages=self.activity_reply(messages)
             if self.phase=='town_ready':
                 kinds={e.kind for e in messages if e.event_id==0x201}
                 expiry=self.account.character()['unit_type']==10 and {0x1c6,0x105}<=kinds
@@ -98,9 +93,8 @@ class FriendsSession(LocalSession):
 
 
 class Application:
-    def __init__(self, config, *, activity2026_awards_factory=None):
+    def __init__(self, config):
         self.config=config
-        self.activity2026_awards_factory=activity2026_awards_factory
         self.executor=ThreadPoolExecutor(max_workers=1,thread_name_prefix='els-account')
         self.account=None
         self.registry=None;self.accounts={};self.playing={}
@@ -108,19 +102,7 @@ class Application:
         self.world=FriendsWorld()
 
     async def call(self, function, *args, **kwargs):
-        def invoke():
-            session=getattr(function,'__self__',None)
-            timer=getattr(getattr(session,'activity2026_awards',None),'online',None)
-            observed=isinstance(session,LocalSession) and function.__name__ in ('handle','periodic_notifications') and timer is not None
-            if observed:timer.observe(session)
-            try:
-                result=function(*args,**kwargs)
-            finally:
-                if observed:timer.observe(session)
-            flow=getattr(session,'activity2026_awards',None) if observed else None
-            after=getattr(flow,'after_reply',None)
-            return after(session,result) if after is not None else result
-        return await asyncio.get_running_loop().run_in_executor(self.executor,invoke)
+        return await asyncio.get_running_loop().run_in_executor(self.executor,partial(function,*args,**kwargs))
 
     async def start(self):
         def initialize():
@@ -147,11 +129,8 @@ class Application:
             from els_server.storage.accounts import Accounts
             self.registry=await self.call(Accounts,self.config.accounts_file)
 
-    def activity_options(self,account):
-        return {'activity2026_awards':self.activity2026_awards_factory(account)} if self.activity2026_awards_factory is not None else {}
-
     async def session(self,port_probe_port=1,identity=None):
-        if self.config.mode=='local':return await self.call(LocalSession,self.account,port_probe_port=port_probe_port,**self.config.session_options(),**self.activity_options(self.account))
+        if self.config.mode=='local':return await self.call(LocalSession,self.account,port_probe_port=port_probe_port,**self.config.session_options())
         if identity is None:raise SessionOrderError('Authentication required')
         def create():
             key=identity['id']
@@ -165,19 +144,13 @@ class Application:
                     from els_server.domain.roster_account import RosterAccount
                     account=RosterAccount(self.config.state_file,key,identity['name'])
                 account.enable_characters();self.accounts[key]=account
-            return FriendsSession(self,identity,self.accounts[key],port_probe_port=port_probe_port,**self.config.session_options(),**self.activity_options(self.accounts[key]))
+            return FriendsSession(self,identity,self.accounts[key],port_probe_port=port_probe_port,**self.config.session_options())
         return await self.call(create)
 
     async def release(self,session):
         from els_server.domain.mount_flow import close as close_mount
         await self.call(close_mount,session)
-        def release():
-            timer=getattr(getattr(session,'activity2026_awards',None),'online',None)
-            try:
-                if timer is not None:timer.observe(session,stop=True)
-            finally:
-                if isinstance(session,FriendsSession):session.release()
-        await self.call(release)
+        if isinstance(session,FriendsSession):await self.call(session.release)
 
     def close(self):
         # Running SQL is allowed to commit/rollback before releasing save ownership.

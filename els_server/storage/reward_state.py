@@ -25,7 +25,7 @@ class RewardState:
   try:r=db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(self.uid,)).fetchone()
   finally:db.close()
   return validate_balances(r)
- def grant(self,run_id,proof,ed,experience,response_builder=None,item_plan=None,inventory_response_builder=None,*,dungeon_clear=None,challenge_clear=None,transaction=None,clear_assessment=None,artifact_base=None,title_economy=None,title_dungeon=None,attendance_clear=None):
+ def grant(self,run_id,proof,ed,experience,response_builder=None,item_plan=None,inventory_response_builder=None,*,dungeon_clear=None,challenge_clear=None,transaction=None,clear_assessment=None,artifact_base=None,title_economy=None,title_dungeon=None):
   # A run UUID is allocated by the authenticated server, never by a client.
   if not isinstance(run_id,str) or str(uuid.UUID(run_id))!=run_id:raise ValueError('Noncanonical reward run UUID')
   if not isinstance(proof,bytes) or not proof or len(proof)>8192:raise ValueError('Reward evidence bound')
@@ -57,10 +57,6 @@ class RewardState:
    if (type(dungeon_clear) is not tuple or len(dungeon_clear)!=2 or
        any(type(v) is not int or not 0<=v<=2**31-1 for v in dungeon_clear) or dungeon_clear[0]==0 or inventory_response_builder is not None):raise ValueError('Invalid dungeon clear record')
    grant['dungeon_clear']=list(dungeon_clear)
-  if attendance_clear is not None:
-   from els_server.storage.attendance_2026_commit import AttendanceClearCommit
-   if type(attendance_clear) is not AttendanceClearCommit or attendance_clear.character!=self.uid or dungeon_clear is None:raise ValueError('Typed owned attendance clear required')
-   grant['attendance518']=attendance_clear.receipt_identity()
   if self.uid!=1001:grant['owner']=self.uid
   if item_plan is not None:
    from els_server.storage.inventory_state import ensure_inventory,grant_items,validate_plan,migrate_potion_bag,migrate_fashion_bag,normalize_legacy_potion_groups
@@ -72,7 +68,6 @@ class RewardState:
    if not db.in_transaction or Path(actual).resolve()!=self.path.resolve():raise ValueError('Reward transaction database/ownership')
   try:
    if transaction is None:db.execute('BEGIN IMMEDIATE')
-   savepoint='attendance_reward_'+uuid.uuid4().hex;db.execute('SAVEPOINT '+savepoint)
    if item_plan is not None:ensure_inventory(db);migrate_fashion_bag(db);migrate_potion_bag(db)
    existing=db.execute('SELECT proof_sha256,grant_json,response,balance_json FROM reward_receipts WHERE run_id=?',(run_id,)).fetchone()
    if existing:
@@ -83,7 +78,6 @@ class RewardState:
     comparable=dict(grant)
     if 'title_economy' not in saved_grant:comparable.pop('title_economy',None)
     if 'title_dungeon' not in saved_grant:comparable.pop('title_dungeon',None)
-    if 'attendance518' not in saved_grant:comparable.pop('attendance518',None) # never backfill an old clear
     if existing[0]!=digest or saved_grant!=comparable:raise RewardConflict('Reward retry conflicts with committed evidence or grant')
     reply={'response':bytes(existing[2]),'balances':json.loads(existing[3]),'replayed':True}
     if 'title_economy' in saved_grant:
@@ -97,7 +91,6 @@ class RewardState:
      saved=db.execute('SELECT items_json FROM reward_inventory_receipts WHERE run_id=?',(run_id,)).fetchone()
      if saved is None:raise RewardConflict('Missing committed inventory receipt')
      reply['items']=normalize_legacy_potion_groups(json.loads(saved[0]))
-    db.execute('RELEASE '+savepoint);savepoint=None
     if transaction is None:db.commit()
     return reply
    r=db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(self.uid,)).fetchone()
@@ -143,8 +136,6 @@ class RewardState:
    db.execute('INSERT INTO reward_receipts VALUES (?,?,?,?,?)',(run_id,digest,plan,response,json.dumps(updated,sort_keys=True)))
    if effect is not None:db.execute('INSERT INTO reward_title_receipts VALUES (?,?,?)',(run_id,self.uid,json.dumps(effect,sort_keys=True,separators=(',',':'))))
    if awarded is not None:db.execute('INSERT INTO reward_inventory_receipts VALUES (?,?)',(run_id,json.dumps(awarded,sort_keys=True)))
-   if attendance_clear is not None:attendance_clear.commit(db,self.uid,run_id,dungeon_clear)
-   db.execute('RELEASE '+savepoint);savepoint=None
    if transaction is None:db.commit()
    reply={'response':response,'balances':updated,'replayed':False}
    if effect is not None:reply['title_economy']=effect
@@ -154,8 +145,6 @@ class RewardState:
    if awarded is not None:reply['items']=awarded
    return reply
   except BaseException:
-   if locals().get('savepoint') is not None:
-    db.execute('ROLLBACK TO '+savepoint);db.execute('RELEASE '+savepoint)
    if transaction is None:db.rollback()
    raise
   finally:
