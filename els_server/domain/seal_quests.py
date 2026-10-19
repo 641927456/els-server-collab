@@ -58,6 +58,13 @@ class QuestCatalog:
                 identity=int(raw_id)
                 if identity in dest and dest[identity]!=value:raise ValueError('Conflicting town dialogue quest')
                 dest[identity]=value
+        from els_server.domain.job_quests import catalog as job_catalog
+        jobs=job_catalog()
+        for dest,key in ((self.quests,'quests'),(self.subquests,'subquests')):
+            for raw_id,value in jobs[key].items():
+                identity=int(raw_id)
+                if identity in dest and dest[identity]!=value:raise ValueError('Conflicting first-job quest')
+                dest[identity]=value
         for q in self.quests.values():
             if q['m_bRepeat'] or q['m_bIsTimeEvent']:raise ValueError('Unsupported quest schedule')
             from els_server.domain.quest_selection import options
@@ -80,6 +87,8 @@ def require_eligible(character,quest,completed,items,*,location=('town',20000)):
     from els_server.domain.character_rules import CLASSES
     from els_server.domain.careers import PARENTS
     from els_server.domain.skill_unlocks import unsealed_skills
+    from els_server.domain.job_quests import require_base_class
+    require_base_class(character,quest)
     c=quest['QuestCondition'];level=character['level'];cls=character['unit_class']
     if level<c['m_iLevel'] or c['m_iLimitLevel']>=0 and level>c['m_iLimitLevel']:raise ValueError('Quest level requirement')
     types=sequence(c['m_eUnitType'])

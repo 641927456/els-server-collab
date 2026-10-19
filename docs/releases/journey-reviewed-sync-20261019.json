@@ -1,0 +1,279 @@
+{
+  "status": "formally-installed-and-accepted",
+  "candidate_freeze_sha256": "dc9ab664c67d9a751e4d86344d337b4c7b60e830c429c1f8acbb282e435ff8e4",
+  "parent_releases": {
+    "local": "local-luciel-hp-entry-basis-20261019-v1",
+    "online": "luciel-hp-entry-basis-20261019-v1"
+  },
+  "planned_releases": {
+    "local": "local-journey-quest-travel-reviewed-20261019-v1",
+    "online": "journey-quest-travel-reviewed-20261019-v1"
+  },
+  "independent_units": [
+    {
+      "id": "deferred-admitted-epic-followup",
+      "scope": "已准入明确后续的冷登/成功回城补接；保留手动放弃，无自动领奖。"
+    },
+    {
+      "id": "three-early-story-definitions",
+      "tasks": [
+        100030,
+        100040,
+        25020
+      ],
+      "scope": "原任务条件/奖励和已有饰品及宠物道具消费者复用。"
+    },
+    {
+      "id": "two-elder-NPC-epics",
+      "tasks": [
+        100050,
+        100060
+      ],
+      "scope": "当前Village20001/scene263→house40005/40006→NPC10005/10006来源明确，复用FD/F3/FE和交奖事务；新增服务端自动接受动作代次，不放宽原对话守卫。"
+    },
+    {
+      "id": "two-elder-accessory-quests-and-finite-wear",
+      "tasks": [
+        100070,
+        100080
+      ],
+      "templates": [
+        92115,
+        92116
+      ],
+      "scope": "Original source rewards and exact native main/minor slots, existing104/105 SQL consumer, existing server-estimate/native-wire stat split; no new formulas, schema or client changes."
+    },
+    {
+      "id": "current-normal-first-job-quest-transactions",
+      "quests": 228,
+      "subquests": 20,
+      "terminal_targets": 60,
+      "source_NPCs": 7,
+      "source_dungeons": 6,
+      "scope": "Current source manual quest chains, one active class quest, exact current base-class guard, native F5/55B, shared persistence/skill migration; original box rewards cap1 and closed opening. Source and controlled SQL pass; native GUI remains open."
+    },
+    {
+      "id": "four-mid-story-NPC-links",
+      "tasks": [
+        100130,
+        100160,
+        100190,
+        100210
+      ],
+      "scope": "Exact current House/Village and original reward consumers; no new reward templates. Source-event model resumes original mainline through100230;100240 timed travel-pass reward held."
+    },
+    {
+      "id": "normal-second-job-quest-transactions",
+      "added_tasks": 276,
+      "terminal_targets": 60,
+      "combined_job_tasks": 504,
+      "source_dungeons": 12,
+      "scope": "Immediate source parent and35-level conditions, shared NPC/quest transactions/class+skill writers and F5/55B; original110850/300646 default instances only, opening held. Actual admissions and natural play are separate unverified layers."
+    },
+    {
+      "id": "normal-transcendence-quest-state",
+      "added_tasks": 20,
+      "combined_job_tasks": 524,
+      "controlled_second_classes": 60,
+      "scope": "Current QT9/1001 sets existing transcendence flag without changing class; shared skill persistence and first-success59F.70-level second-class fixtures; no natural admission proof.300647 instance only, opening held."
+    },
+    {
+      "id": "normal-third-job-quest-transactions",
+      "added_tasks": 300,
+      "combined_job_tasks": 824,
+      "terminal_targets": 60,
+      "source_objectives": 11,
+      "scope": "Level99 + saved transcendence + immediate second-class parent; existing source kill/quest-drop/clear counters, same careers/skill writer and F5/55B.60 class fixtures/ED/boxes/retry/rollback/cold skills pass; no natural admission or GUI proof.Three additional default box templates, contents/opening held."
+    },
+    {
+      "id": "timed-pass-and-conditional-ruben-NPC-followups",
+      "tasks": [
+        100240,
+        100250,
+        100260,
+        100270,
+        100280
+      ],
+      "scope": "原NPC/职业条件及7日原奖励，复用既有UID期限与事务；移动消费者尚未接通。"
+    },
+    {
+      "id": "ordinary-cobo-town-warp-authority",
+      "scope": "15原城镇普通58C/58D、当前费用和118149免付费、同事务扣费/IsWarp位置/回执，绑定225/227；特殊/野外/成长引导与VIP另待。"
+    },
+    {
+      "id": "ordinary-NPC-and-Atlas-rest-source-links",
+      "scope": "40条原NPC任务、共享子条件命名空间、复用三种已准入奖励定义，补Atlas1008场景与科宝入口；101040奖励30577仍待，不称完整1—99。"
+    },
+    {
+      "id": "original101040-minime-reward-to-bag",
+      "scope": "Exact original two-item atomic reward; one new default bag template30577; no wear/effect admission",
+      "files": [
+        "els_server/domain/tutorial_accessory.py",
+        "els_server/domain/inventory_items.py",
+        "els_server/domain/town_dialogue.py",
+        "els_server/data/town_dialogue_quests.json",
+        "els_server/data/town_dialogue_quests.manifest.json"
+      ]
+    }
+  ],
+  "runtime_delta": [
+    {
+      "path": "els_server/data/job_quests.json",
+      "size": 1306458,
+      "sha256": "f15340a8e6284c9e9d91563d2039c4bbcd6a27a6d70bd334b84261641df2eee1"
+    },
+    {
+      "path": "els_server/data/job_quests.manifest.json",
+      "size": 237,
+      "sha256": "633aa08deea2029e3716ae6008882813c18dd902bf1fbaf88ff0d6e264fd6c0e"
+    },
+    {
+      "path": "els_server/data/story_quests.json",
+      "size": 1106211,
+      "sha256": "413a8af01e6f65fe4e4e7211feccf67c9755c94391c4bcf6a392e669defa406e"
+    },
+    {
+      "path": "els_server/data/story_quests.manifest.json",
+      "size": 332,
+      "sha256": "96ad6ad2681ff90167d9fb0a7fa9528e30e63cc12ef3d3cd644e2948335cbe6e"
+    },
+    {
+      "path": "els_server/data/town_dialogue_quests.json",
+      "size": 139023,
+      "sha256": "03bc65de9aee712648df428d33ef2ebfb4f8315d54b2d6d957ac5ea6e2dcacc4"
+    },
+    {
+      "path": "els_server/data/town_dialogue_quests.manifest.json",
+      "size": 236,
+      "sha256": "4983d8a23ef4fed02694d7475ecd5b0fe9b65f7b5e3baf9571dce46a1456a9d7"
+    },
+    {
+      "path": "els_server/data/town_travel.json",
+      "size": 15389,
+      "sha256": "1fa7b7056528355962acdc79f986f61990a94ba439c15b4fde64d3f7821e326c"
+    },
+    {
+      "path": "els_server/data/town_travel.manifest.json",
+      "size": 236,
+      "sha256": "47f8e8310ef41b914fb8d27749dd70751cf18090c157b02db30d6d54e63317d3"
+    },
+    {
+      "path": "els_server/domain/character_stats.py",
+      "size": 8784,
+      "sha256": "fe95e60145b731927451211aa064d60064bb3a87772eac44a41fedf7776a8514"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "size": 37775,
+      "sha256": "d0535a0faed6596c3c8bf72c24482e06e73bc8c47d1b41981ad4dca92aeb20e2"
+    },
+    {
+      "path": "els_server/domain/job_quests.py",
+      "size": 6159,
+      "sha256": "65bb52d726786c4a2364780b856034da4b903ec6ebab83d2a6c58b73523c9e5e"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "size": 109004,
+      "sha256": "85c01304ecbd11262395d03daa4428a60dcf12d19975735391e2bde95f88ccf3"
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "size": 11794,
+      "sha256": "d1bb353ac056a3c2ca9dc828b8982b2ed5f96cd52d05746e1869f46c03ea58a8"
+    },
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "size": 11649,
+      "sha256": "918be7c0d4d648dc8c3187c2280eda3e5952139856da8b74c624fa2904ea5959"
+    },
+    {
+      "path": "els_server/domain/town_dialogue.py",
+      "size": 6302,
+      "sha256": "2587fe456f4d0009b14750804ae777e7d2d37881ba9d358636faf06797d82c01"
+    },
+    {
+      "path": "els_server/domain/town_travel.py",
+      "size": 2783,
+      "sha256": "5d652ba7b4e240f30ef7681ce8dbaf194378d3b0899a22a79bff64c4be2b642f"
+    },
+    {
+      "path": "els_server/domain/town_travel_flow.py",
+      "size": 2043,
+      "sha256": "2cdd312b524f0070fd6780d91614a31364d7b55b6d8ea55d488ef517f0a89452"
+    },
+    {
+      "path": "els_server/domain/travel_pass.py",
+      "size": 1384,
+      "sha256": "aa7086bc7e53589994827311c2754549121ffca16f04342b8ea8ad80a9c30018"
+    },
+    {
+      "path": "els_server/domain/tutorial_accessory.py",
+      "size": 6441,
+      "sha256": "8c3979eabf798a6dbe240d83628c0456aac0a64272c23815ae8b07ae404d328e"
+    },
+    {
+      "path": "els_server/domain/tutorial_quests.py",
+      "size": 4085,
+      "sha256": "3f8f771a976c40a6730d34a7fff64d54c9edcf6e0d5426f146a23dbca422754c"
+    },
+    {
+      "path": "els_server/protocol/town_travel_messages.py",
+      "size": 926,
+      "sha256": "635877efc68dfd07c55517957ce6cb15aac02da1237ce475ab7f0d150e53aa9b"
+    },
+    {
+      "path": "els_server/storage/careers.py",
+      "size": 6024,
+      "sha256": "e478958fb3ae839a70bfcf27002a19ff50a59e2d85463ff5a2afa0e63b9cee58"
+    },
+    {
+      "path": "els_server/storage/epic_followups.py",
+      "size": 5570,
+      "sha256": "bda3855a61301342687b0bbecbb2f6cea3147d7d6c785973ba35d46deef7366f"
+    },
+    {
+      "path": "els_server/storage/local_state.py",
+      "size": 8714,
+      "sha256": "ad38fdac850eb2c5faa372ec4da966597c0b7cf56224cfd1e416fd4ac5191049"
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "size": 21647,
+      "sha256": "590d3cfe3f94a100fe6bf1905f8b8a3402ab5100c9f09ef0062dc0737249cbca"
+    },
+    {
+      "path": "els_server/storage/town_travel.py",
+      "size": 3891,
+      "sha256": "cee45b2daea9954ff60bdbca42af0c568b6ccf4826e87d4377793c5d7dce5f4b"
+    }
+  ],
+  "local_online_differences_preserved": true,
+  "new_client_logic": 0,
+  "new_schema": false,
+  "launcher_version": 29,
+  "launcher_rebuild_required": false,
+  "natural_GUI": false,
+  "whole_1_to_99_complete": false,
+  "private_accounts_saves_keys_included": false,
+  "local_release": "local-journey-quest-travel-reviewed-20261019-v1",
+  "local_manifest_sha256": "92b8abe88693e74dcf599bd35396baf14dcb20c51b4a0ecbbdfabea951d30982",
+  "online_release": "journey-quest-travel-reviewed-20261019-v1",
+  "online_manifest_sha256": "a7039523f0648a9b020c45ee76277c672bebd73fcf916b8913d72da2b0fd93b0",
+  "local_business_files": 732,
+  "online_business_files": 668,
+  "online_backups": "C:/ElsFriends/backups/journey-quest-travel-reviewed-20261019-v1",
+  "local_backups": "releases/local/backups/before-local-journey-quest-travel-reviewed-20261019-v1",
+  "dual_SQLite_API_backups": true,
+  "normal_stop_and_full_SHA": true,
+  "online_observation_seconds": 124.48126600007527,
+  "local_observation_seconds": 121.14450709999073,
+  "public_TLS_paid_warp_and_cold_disconnect_accepted": true,
+  "QA_accounts_created_and_disabled": 1,
+  "source_evidence_hashes_verified": 79,
+  "online_new_parent_combination_checks": 2,
+  "python_sources_compiled": 607,
+  "protocol_roundtrip_and_runtime_check": true,
+  "existing_local_player_rows_schema_configuration_preserved": true,
+  "unfinished_systems_not_claimed_complete": true
+}

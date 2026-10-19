@@ -1,4 +1,4 @@
-"""Restore only a missing eligible original starter; never claim its reward."""
+"""Restore eligible starters/deferred admitted story edges, never rewards."""
 from contextlib import closing
 import json,sqlite3,time
 from els_server.domain.seal_quests import quest_catalog,require_eligible,sequence,ACTIVE_QUEST_LIMIT
@@ -50,6 +50,16 @@ def restore_initialization(state):
                 # No completed row, reward, EXP or inventory grant is written.
                 counts={s['m_iID']:1 for s in catalog.objectives(qid)}
                 db.execute('INSERT INTO character_quests VALUES (?,?,?,?,?)',(state.uid,qid,now,now,json.dumps(counts,sort_keys=True)))
+                snapshot=_state(db,state.uid,items);restored=True
+        # The existing validated selection/town-ready callers also recheck
+        # delayed current after-edges. Same-owner saved location supplies the
+        # context; map-panel selection never calls this path.
+        if saved is not None:
+            from els_server.storage.epic_followups import restore_deferred
+            now=int(time.time())
+            if not 0<now<2**63:raise ValueError('Story restoration timestamp')
+            accepted=restore_deferred(db,state.uid,character,items,('town',saved[0]),now)
+            if accepted:
                 snapshot=_state(db,state.uid,items);restored=True
         event=wire.initialization(snapshot)
         if not isinstance(event.payload,bytes) or len(event.payload)>65536:raise ValueError('Tutorial initialization bound')

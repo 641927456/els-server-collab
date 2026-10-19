@@ -344,6 +344,9 @@ class LocalSession:
 
     def _handle(self,event,request_sequence=None):
         kind=event.kind
+        from els_server.domain.town_travel_flow import handle as town_travel_handle
+        town_travel_reply=town_travel_handle(self,event,request_sequence)
+        if town_travel_reply is not None:return town_travel_reply
         if self.activity2026_awards is not None:
             from els_server.domain.local_bootstrap_clock import handle as bootstrap_clock_handle
             bootstrap_reply=bootstrap_clock_handle(self,event)
@@ -857,6 +860,7 @@ class LocalSession:
             return [Event(0x201,kind=response_kind,payload=answer),*updates]
         if self.item_test and self.client_build=='dx11_260923' and kind==0x104 and event.event_id==0x202:
             from els_server.domain.fashion_state import move_fashion,move_ack
+            from els_server.domain.tutorial_accessory import SLOT_STYLE as accessory_slots
             if self.role!='game' or self.phase!='town_ready':return [Event(0x201,kind=0x105,payload=move_ack(result=2005 if len(event.payload)==11 and 24 in (event.payload[0],event.payload[5]) else -1))]
             try:
                 if self.client_build=='dx11_260923' and len(event.payload)==11 and event.payload[0]==event.payload[5] and event.payload[0] in (2,3,4,5,6,21):
@@ -866,7 +870,7 @@ class LocalSession:
                     from els_server.storage.artifact_progression import move as move_artifact
                     ack=move_artifact(self.account.store.path,event.payload,self.account.uid,account_id=self.account.account_id)
                 elif self.normal_equipment_moves_enabled and len(event.payload)==11 and ({event.payload[0],event.payload[5]}=={2,9}
-                    or event.payload[0]==event.payload[5]==9 and all(struct.unpack_from('>i',event.payload,offset)[0] in (14,16,17,29,31,32) for offset in (1,6))):
+                    or event.payload[0]==event.payload[5]==9 and all(struct.unpack_from('>i',event.payload,offset)[0] in accessory_slots for offset in (1,6))):
                     from els_server.domain.tutorial_accessory import APPLICATION_VERIFIED,wear_context,validate_wear_context
                     if (not APPLICATION_VERIFIED or event.performers!=(0,) or event.uid!=0xffffffffffffffff
                         or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):raise ValueError('Tutorial accessory envelope or application gate')
@@ -1085,6 +1089,11 @@ class LocalSession:
                         and self.account.get_reward_balances()['experience']==0):
                     from els_server.domain.character_stats import combat_values
                     initial_health_max=math.ceil(combat_values(character,saved['items'] if saved else None)[0])
+                if self.enter_dungeon and character['unit_type']==10 and character['level']>1:
+                    # Candidate input experiment only: align the initial health
+                    # basis with the already sent naked HP input, not equipment.
+                    from els_server.domain.character_stats import combat_values
+                    initial_health_max=math.ceil(combat_values(character)[0])
                 answer=[player_initialization(self.account.get_location(),initialize_attributes=self.enter_dungeon,economy=saved['balances'] if saved else self.account.get_reward_balances() if self.reward_test else None,items=saved['items'] if saved else None,character=self.account.character(),restore_equipped=(self.enter_dungeon and character['level']==1 and self.account.get_reward_balances()['experience']==0)),skill_slots_initialization(self.account.get_skills(),self.account.uid,self.account.character()),quest_initialization(self)]+optional_player_initializations(initialize_health=self.enter_dungeon,uid=self.account.uid,health_max=initial_health_max)+[Event(0x201,kind=0x29,payload=i32(0))]
                 if self.item_test and self.client_build=='dx11_260923':
                     from els_server.storage.quick_slots import initialization
@@ -1129,6 +1138,8 @@ class LocalSession:
                         and self.account.get_reward_balances()['experience']==0)
                     if not native_noah_return:raise SessionOrderError('Invalid local town entry')
                 requested=struct.unpack_from('>i',event.payload)[0]
+                warp=getattr(self,'town_warp_transition',None)
+                if warp is not None and (requested!=warp['destination'] or event.payload[4]!=0):raise SessionOrderError('Town entry differs from committed warp')
                 if requested not in TOWN_SCENES:
                     return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
                 # 0xb78c10 consumes five int32 fields. The requested map is
@@ -1151,6 +1162,7 @@ class LocalSession:
                 if self.item_test and not self.inventory_town_sync_sent:
                     answer.append(self.saved_user_sync());self.inventory_town_sync_sent=True
                 self.dungeon_return_pending=False
+                self.town_warp_transition=None
                 if self.item_test and self.phase=='square_accepted':
                     # 227 proves the actor/scene is ready. Deliver the native
                     # equipment refresh immediately AFTER 228/D9, rather than

@@ -122,7 +122,7 @@ def equipment_contributes(item,character):
     # retain its contribution in authoritative server-side computations.
     from els_server.domain.item_expiration import expired
     if expired(item):return False
-    if item['template'] in (92110,92111,92112):
+    if item['template'] in (92110,92111,92112,92115,92116):
         from els_server.domain.tutorial_accessory import contributes
         return contributes(item,character)
     from els_server.domain.normal_equipment import definitions
