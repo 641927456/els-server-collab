@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "run": "analysis\\client-6c6b5180\\20261015-064059",
+  "source_record_hashes": {
+    "274160": "00819e0ded9d50852e2e32f2811419f2d4128a468c7ad88f1566807d872ee6f6",
+    "288318": "6f959c6b6dd2e5c9fe11f9bbeb81f73e29bd1f0467cb5bf51d242aedef14c0d7"
+  },
+  "rows": [
+    {
+      "event": "expansion_item_body_decoded",
+      "template": 274160,
+      "native_group": 4,
+      "timestamp": 1792017971526,
+      "ok": 1,
+      "size": 304,
+      "consumed": 304,
+      "fields_match": true,
+      "vectors_empty": true,
+      "native_template_id": 274160,
+      "native_name": "技能栏扩张券",
+      "private_data_item": {
+        "uid": "1001001",
+        "template_id": 274160,
+        "metadata": 0,
+        "count": 1
+      },
+      "applied_to_game": false,
+      "no_reward_persistence": true
+    },
+    {
+      "event": "expansion_item_body_decoded",
+      "template": 288318,
+      "native_group": 4,
+      "timestamp": 1792017971539,
+      "ok": 1,
+      "size": 304,
+      "consumed": 304,
+      "fields_match": true,
+      "vectors_empty": true,
+      "native_template_id": 288318,
+      "native_name": "技能栏扩张券（超越）",
+      "private_data_item": {
+        "uid": "1001001",
+        "template_id": 288318,
+        "metadata": 0,
+        "count": 1
+      },
+      "applied_to_game": false,
+      "no_reward_persistence": true
+    }
+  ],
+  "enabled_inventory_templates": [
+    274160
+  ],
+  "local_stack_limit": 99
+}

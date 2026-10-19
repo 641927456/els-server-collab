@@ -1,0 +1,5 @@
+#!/bin/sh
+if [ -x "python/python.exe" ]; then
+  exec "python/python.exe" -B tools/repository_guard.py --staged
+fi
+exec python -B tools/repository_guard.py --staged

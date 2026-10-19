@@ -1,0 +1,17 @@
+[server]
+host = "127.0.0.1"
+port = 19400
+profile = "integrated_dx11"
+state_file = "../state/development.sqlite3"
+log_dir = "../logs/server"
+max_connections = 16
+idle_timeout = 300.0
+frame_timeout = 15.0
+write_timeout = 10.0
+shutdown_timeout = 15.0
+log_max_bytes = 5242880
+log_backups = 4
+attribute_enchant_enabled = true
+normal_equipment_moves_enabled = true
+equipment_repair_enabled = true
+selected2026_pair_file = "../els_server/data/selected2026/local-pair.json"

@@ -1,0 +1,211 @@
+"""Bounded asyncio TCP service using the verified native wire codec."""
+import asyncio
+import secrets
+import struct
+import ssl
+from els_server.protocol.protocol_codec import (BOOTSTRAP_KEYS,Keys,Event,ProtocolError,
+    encode_event,encode_frame,decode_event,decode_frame,welcome_event)
+from els_server.domain.local_session import SessionOrderError
+from els_server.port_probe import PortProbe
+
+
+class GameServer:
+    def __init__(self,config,application,log):
+        self.config=config;self.application=application;self.log=log
+        self.listener=None;self.connections={};self.next_id=0;self.closing=False
+        self.probe_transport=None;self.probe_protocol=None;self.probe_port=None
+        self.metrics=dict(accepted=0,rejected=0,closed=0,protocol_errors=0,requests=0,responses=0)
+        from els_server.accounts_gateway import AccountGateway
+        self.account_gateway=AccountGateway(config,application)
+        from els_server.diagnostic_reports import UploadService
+        self.diagnostics=UploadService(config.state_file.parent/'diagnostics')
+        from els_server.friends_relay import RelayServer
+        self.relay=RelayServer(application,log)
+
+    async def start(self):
+        # Bind first, advertise the actual port in 1B only after both services
+        # are ready. An ephemeral loopback port avoids cross-instance conflicts.
+        tls=None
+        if self.config.mode=='friends':
+            tls=ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER);tls.minimum_version=ssl.TLSVersion.TLSv1_2
+            tls.load_cert_chain(self.config.tls_cert,self.config.tls_key)
+            # Native UDP discovery stays at each client's loopback bridge.
+            self.probe_port=self.config.client_probe_port
+        else:
+            self.probe_transport,self.probe_protocol=await asyncio.get_running_loop().create_datagram_endpoint(
+                lambda:PortProbe(self.log),local_addr=(self.config.host,0))
+            self.probe_port=self.probe_transport.get_extra_info('sockname')[1]
+        try:
+            self.listener=await asyncio.start_server(self.accept,self.config.host,self.config.port,
+                                                    limit=65536,backlog=self.config.max_connections,
+                                                    **({'ssl':tls,'ssl_handshake_timeout':self.config.authentication_timeout} if tls else {}))
+        except BaseException:
+            if self.probe_transport:self.probe_transport.close();await self.probe_protocol.closed
+            raise
+        address=self.listener.sockets[0].getsockname()
+        self.log('listening',address=list(address),profile=self.config.profile,probe_port=self.probe_port)
+        if self.config.mode=='friends':self.diagnostics.start()
+        return address
+
+    def accept(self,reader,writer):
+        if self.closing or len(self.connections)>=self.config.max_connections:
+            self.metrics['rejected']+=1;writer.close()
+            self.log('connection_rejected',reason='concurrent_limit' if not self.closing else 'shutdown')
+            return
+        self.next_id+=1;index=self.next_id
+        task=asyncio.create_task(self.handle(reader,writer,index),name=f'connection-{index}')
+        self.connections[task]=writer;self.metrics['accepted']+=1
+        def finished(task):
+            self.connections.pop(task,None);self.metrics['closed']+=1
+            if not task.cancelled() and task.exception():
+                self.log('connection_task_error',connection=index,error=repr(task.exception()))
+        task.add_done_callback(finished)
+
+    async def read_frame(self,reader):
+        # Idle peers and partial/slow frames have independent deadlines.
+        first=await asyncio.wait_for(reader.readexactly(1),self.config.idle_timeout)
+        async with asyncio.timeout(self.config.frame_timeout):
+            header=first+await reader.readexactly(7)
+            length=struct.unpack_from('<I',header)[0]
+            if not 40<=length<=1024*1024:raise ProtocolError('Invalid frame length')
+            return header+await reader.readexactly(length-8)
+
+    async def handle(self,reader,writer,index):
+        notifications=None;business=None
+        self.log('accepted',connection=index)
+        try:
+            identity=None;role=None;diagnostic_auth=None;relay_control=False
+            if self.config.mode=='friends':
+                from els_server.friends_wire import read_json,write_json
+                async with asyncio.timeout(self.config.authentication_timeout):
+                    try:
+                        auth=await read_json(reader)
+                        if auth.get('op')=='diagnostic_upload':
+                            diagnostic_auth=auth
+                        elif 'op' in auth:
+                            peer=writer.get_extra_info('peername')
+                            if auth.get('op') in ('tutorial_recovery_preview','tutorial_recovery_confirm'):
+                                reply=await self.account_gateway.recovery(auth,peer[0] if peer else '')
+                            else:
+                                reply=await self.application.call(self.account_gateway.handle,self.application.registry,auth,peer[0] if peer else '')
+                            await write_json(writer,reply)
+                            return
+                        if diagnostic_auth is None:
+                            if set(auth) not in ({'name','token'},{'name','token','role'},{'name','token','role','relay_control_version'}):raise ValueError('Authentication fields')
+                            role=auth.get('role')
+                            if 'role' in auth and (role!='relay' or not self.config.friends_coop_enabled):raise ValueError('Authentication role')
+                            if 'relay_control_version' in auth:
+                                if role!='relay' or type(auth['relay_control_version']) is not int or auth['relay_control_version']!=1:raise ValueError('Relay control version')
+                                relay_control=True
+                            identity=await self.application.call(self.application.registry.authenticate,auth['name'],auth['token'])
+                    except (ValueError,UnicodeError):
+                        self.log('authentication_rejected',connection=index)
+                        await write_json(writer,{'ok':False});return
+                    finally:
+                        if 'auth' in locals():del auth
+                    if diagnostic_auth is None:
+                        await write_json(writer,{'ok':True,'account_id':identity['id'],'probe_port':self.probe_port,'relay_version':1 if self.config.friends_coop_enabled else 0,'relay_control_version':1 if self.config.friends_coop_enabled else 0})
+                        self.log('authenticated',connection=index,account_id=identity['id'],role=role or 'native')
+                if diagnostic_auth is not None:
+                    # ZIP transfer has its own bounded deadline, outside the
+                    # short native authentication deadline. No game session.
+                    peer=writer.get_extra_info('peername')
+                    try:
+                        reply=await self.diagnostics.handle(self.application,reader,writer,diagnostic_auth,peer[0] if peer else '')
+                        if reply and reply.get('ok'):self.log('diagnostic_uploaded',connection=index,report_id=reply['report_id'])
+                    finally:diagnostic_auth.clear()
+                    return
+                if role=='relay':
+                    try:await self.relay.serve(reader,writer,identity,control=relay_control)
+                    except ValueError as error:raise ProtocolError(str(error)) from error
+                    return
+            business=await self.application.session(port_probe_port=self.probe_port,identity=identity)
+            keys=Keys(secrets.token_bytes(8),secrets.token_bytes(8));spi=secrets.randbelow(65535)+1
+            outgoing=2;incoming=1;heartbeat_sent=False
+            operation=asyncio.Lock()
+            async def write(wire):
+                writer.write(wire)
+                await asyncio.wait_for(writer.drain(),self.config.write_timeout)
+            async def send(messages):
+                nonlocal outgoing
+                for message in messages:
+                    wire=encode_frame(encode_event(message),keys,spi=spi,sequence=outgoing)
+                    outgoing+=1
+                    await write(wire)
+                    self.metrics['responses']+=1
+                    # Payloads and session keys belong only in the explicit capture tool.
+                    self.log('local_business_response_sent',connection=index,kind=message.kind,size=len(wire))
+            await write(encode_frame(encode_event(welcome_event(keys,spi)),BOOTSTRAP_KEYS))
+            self.log('generated_welcome_sent',connection=index)
+            async def notify_periodically():
+                while True:
+                    await asyncio.sleep(.05 if self.config.mode=='friends' else 1)
+                    async with operation:
+                        await send(await self.application.call(business.periodic_notifications))
+            notifications=asyncio.create_task(notify_periodically(),name=f'notifications-{index}')
+            # Propagate timer failures promptly even while waiting for a client packet.
+            def notification_done(task):
+                if not task.cancelled() and task.exception():writer.close()
+            notifications.add_done_callback(notification_done)
+            while not self.closing:
+                wire=await self.read_frame(reader)
+                frame=decode_frame(wire,keys,expected_sequence=incoming);incoming+=1
+                event=decode_event(frame.plaintext);self.metrics['requests']+=1
+                entry_fields={}
+                if event.event_id==0x202 and event.kind==0x7d4 and len(event.payload)==8:
+                    entry_mode,dungeon=struct.unpack('>ii',event.payload)
+                    entry_fields=dict(entry_mode=entry_mode,dungeon=dungeon)
+                self.log('client_request',connection=index,sequence=frame.sequence,
+                         event_id=event.event_id,kind=event.kind,size=len(wire),**entry_fields)
+                async with operation:
+                    if event.event_id==1026 and event.kind==3392 and not heartbeat_sent:
+                        await send([Event(0)]);heartbeat_sent=True
+                    before=business.phase
+                    messages=await self.application.call(business.handle,event,request_sequence=frame.sequence)
+                    if before!=business.phase:
+                        self.log('business_phase',connection=index,request=event.kind,before=before,after=business.phase)
+                    await send(messages)
+        except asyncio.IncompleteReadError:
+            pass
+        except (ProtocolError,SessionOrderError) as error:
+            self.metrics['protocol_errors']+=1
+            self.log('protocol_error',connection=index,error=str(error))
+        except TimeoutError:
+            self.log('connection_timeout',connection=index)
+        except (ConnectionError,OSError) as error:
+            self.log('connection_error',connection=index,error=type(error).__name__)
+        except Exception as error:
+            self.log('worker_error',connection=index,error=repr(error))
+        finally:
+            if notifications:
+                notifications.cancel()
+                results=await asyncio.gather(notifications,return_exceptions=True)
+                if results and isinstance(results[0],Exception):
+                    self.log('notification_error',connection=index,error=repr(results[0]))
+            if business is not None:await self.application.release(business)
+            writer.close()
+            try:await asyncio.wait_for(writer.wait_closed(),self.config.write_timeout)
+            except (OSError,TimeoutError):pass
+            self.log('connection_finished',connection=index)
+
+    async def close(self):
+        self.closing=True
+        self.account_gateway.begin_close()
+        if self.probe_transport:
+            self.probe_transport.close();await self.probe_protocol.closed
+        if self.listener:
+            self.listener.close()
+        tasks=list(self.connections)
+        for writer in list(self.connections.values()):writer.close()
+        if tasks:
+            done,pending=await asyncio.wait(tasks,timeout=self.config.shutdown_timeout)
+            for task in pending:task.cancel()
+            if pending:await asyncio.gather(*pending,return_exceptions=True)
+        # Python 3.13 Server.wait_closed can wait for active TLS transports.
+        # Close peers first, otherwise idle clients can stall shutdown for minutes.
+        if self.listener:
+            try:await asyncio.wait_for(self.listener.wait_closed(),self.config.shutdown_timeout)
+            except TimeoutError:self.log('listener_shutdown_timeout')
+        await self.account_gateway.close()
+        await self.diagnostics.close()
+        self.log('finished',**self.metrics,active=len(self.connections))

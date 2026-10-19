@@ -1,0 +1,10429 @@
+{
+  "attribute_rules": {
+    "armor_material_tiers": [
+      3,
+      5,
+      7
+    ],
+    "exclusive_groups": [
+      [
+        1,
+        2,
+        3
+      ],
+      [
+        4,
+        5,
+        6
+      ]
+    ],
+    "grade_names": {
+      "1": "UNIQUE",
+      "2": "ELITE",
+      "3": "RARE",
+      "4": "NORMAL",
+      "5": "LOW",
+      "6": "LEGEND"
+    },
+    "level_bounds": [
+      1,
+      100
+    ],
+    "material_templates": {
+      "1": 130048,
+      "2": 130049,
+      "3": 130051,
+      "4": 130050,
+      "5": 130053,
+      "6": 130052,
+      "7": 130047
+    },
+    "random_element": 7,
+    "special_templates": [],
+    "weapon_material_tiers": [
+      1,
+      2,
+      4,
+      6
+    ]
+  },
+  "cost_bytecode": {
+    "flags": 10,
+    "prototypes": [
+      {
+        "flags": 0,
+        "frame_size": 9,
+        "instructions": [
+          [
+            62,
+            4,
+            0,
+            0
+          ],
+          [
+            12,
+            6,
+            3,
+            0
+          ],
+          [
+            46,
+            4,
+            2,
+            2
+          ],
+          [
+            62,
+            5,
+            1,
+            0
+          ],
+          [
+            12,
+            7,
+            0,
+            0
+          ],
+          [
+            46,
+            5,
+            2,
+            2
+          ],
+          [
+            62,
+            6,
+            2,
+            0
+          ],
+          [
+            12,
+            8,
+            1,
+            0
+          ],
+          [
+            46,
+            6,
+            2,
+            2
+          ],
+          [
+            38,
+            7,
+            4,
+            2
+          ],
+          [
+            30,
+            7,
+            0,
+            7
+          ],
+          [
+            40,
+            7,
+            5,
+            7
+          ],
+          [
+            40,
+            7,
+            6,
+            7
+          ],
+          [
+            76,
+            7,
+            2,
+            0
+          ]
+        ],
+        "kgc": [
+          "GET_ED_FACTOR_BY_GRADE",
+          "GET_ATTRIB_FACTOR_BY_ENCHANT_COUNT",
+          "GET_EQUIP_FACTOR"
+        ],
+        "knum": [
+          100
+        ],
+        "parameters": 4,
+        "upvalues": ""
+      },
+      {
+        "flags": 0,
+        "frame_size": 2,
+        "instructions": [
+          [
+            62,
+            1,
+            0,
+            0
+          ],
+          [
+            65,
+            1,
+            1,
+            1
+          ],
+          [
+            5,
+            0,
+            1,
+            0
+          ],
+          [
+            88,
+            1,
+            3,
+            128
+          ],
+          [
+            24,
+            1,
+            2,
+            0
+          ],
+          [
+            76,
+            1,
+            2,
+            0
+          ],
+          [
+            88,
+            1,
+            20,
+            128
+          ],
+          [
+            62,
+            1,
+            0,
+            0
+          ],
+          [
+            65,
+            1,
+            2,
+            1
+          ],
+          [
+            5,
+            0,
+            1,
+            0
+          ],
+          [
+            88,
+            1,
+            3,
+            128
+          ],
+          [
+            24,
+            1,
+            4,
+            0
+          ],
+          [
+            76,
+            1,
+            2,
+            0
+          ],
+          [
+            88,
+            1,
+            13,
+            128
+          ],
+          [
+            62,
+            1,
+            0,
+            0
+          ],
+          [
+            65,
+            1,
+            3,
+            1
+          ],
+          [
+            5,
+            0,
+            1,
+            0
+          ],
+          [
+            88,
+            1,
+            3,
+            128
+          ],
+          [
+            24,
+            1,
+            6,
+            0
+          ],
+          [
+            76,
+            1,
+            2,
+            0
+          ],
+          [
+            88,
+            1,
+            6,
+            128
+          ],
+          [
+            62,
+            1,
+            0,
+            0
+          ],
+          [
+            65,
+            1,
+            4,
+            1
+          ],
+          [
+            5,
+            0,
+            1,
+            0
+          ],
+          [
+            88,
+            1,
+            2,
+            128
+          ],
+          [
+            24,
+            1,
+            8,
+            0
+          ],
+          [
+            76,
+            1,
+            2,
+            0
+          ],
+          [
+            24,
+            1,
+            0,
+            0
+          ],
+          [
+            76,
+            1,
+            2,
+            0
+          ]
+        ],
+        "kgc": [
+          "ITEM_GRADE",
+          "IG_RARE",
+          "IG_ELITE",
+          "IG_UNIQUE",
+          "IG_LEGEND"
+        ],
+        "knum": [],
+        "parameters": 1,
+        "upvalues": ""
+      },
+      {
+        "flags": 0,
+        "frame_size": 2,
+        "instructions": [
+          [
+            9,
+            0,
+            0,
+            0
+          ],
+          [
+            88,
+            1,
+            3,
+            128
+          ],
+          [
+            24,
+            1,
+            1,
+            0
+          ],
+          [
+            76,
+            1,
+            2,
+            0
+          ],
+          [
+            88,
+            1,
+            19,
+            128
+          ],
+          [
+            9,
+            0,
+            1,
+            0
+          ],
+          [
+            88,
+            1,
+            3,
+            128
+          ],
+          [
+            24,
+            1,
+            3,
+            0
+          ],
+          [
+            76,
+            1,
+            2,
+            0
+          ],
+          [
+            88,
+            1,
+            14,
+            128
+          ],
+          [
+            9,
+            0,
+            2,
+            0
+          ],
+          [
+            88,
+            1,
+            3,
+            128
+          ],
+          [
+            24,
+            1,
+            6,
+            0
+          ],
+          [
+            76,
+            1,
+            2,
+            0
+          ],
+          [
+            88,
+            1,
+            9,
+            128
+          ],
+          [
+            9,
+            0,
+            3,
+            0
+          ],
+          [
+            88,
+            1,
+            3,
+            128
+          ],
+          [
+            24,
+            1,
+            12,
+            0
+          ],
+          [
+            76,
+            1,
+            2,
+            0
+          ],
+          [
+            88,
+            1,
+            4,
+            128
+          ],
+          [
+            9,
+            0,
+            4,
+            0
+          ],
+          [
+            88,
+            1,
+            2,
+            128
+          ],
+          [
+            24,
+            1,
+            24,
+            0
+          ],
+          [
+            76,
+            1,
+            2,
+            0
+          ],
+          [
+            24,
+            1,
+            0,
+            0
+          ],
+          [
+            76,
+            1,
+            2,
+            0
+          ]
+        ],
+        "kgc": [],
+        "knum": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "parameters": 1,
+        "upvalues": ""
+      },
+      {
+        "flags": 0,
+        "frame_size": 2,
+        "instructions": [
+          [
+            11,
+            0,
+            2,
+            0
+          ],
+          [
+            88,
+            1,
+            3,
+            128
+          ],
+          [
+            24,
+            1,
+            1,
+            0
+          ],
+          [
+            76,
+            1,
+            2,
+            0
+          ],
+          [
+            88,
+            1,
+            2,
+            128
+          ],
+          [
+            25,
+            1,
+            0,
+            0
+          ],
+          [
+            76,
+            1,
+            2,
+            0
+          ],
+          [
+            75,
+            0,
+            1,
+            0
+          ]
+        ],
+        "kgc": [],
+        "knum": [
+          0.25
+        ],
+        "parameters": 1,
+        "upvalues": ""
+      },
+      {
+        "flags": 3,
+        "frame_size": 1,
+        "instructions": [
+          [
+            59,
+            0,
+            0,
+            0
+          ],
+          [
+            63,
+            0,
+            1,
+            0
+          ],
+          [
+            59,
+            0,
+            2,
+            0
+          ],
+          [
+            63,
+            0,
+            3,
+            0
+          ],
+          [
+            59,
+            0,
+            4,
+            0
+          ],
+          [
+            63,
+            0,
+            5,
+            0
+          ],
+          [
+            59,
+            0,
+            6,
+            0
+          ],
+          [
+            63,
+            0,
+            7,
+            0
+          ],
+          [
+            75,
+            0,
+            1,
+            0
+          ]
+        ],
+        "kgc": [
+          {
+            "child": 0
+          },
+          "GetAttribEnchantRequiredED",
+          {
+            "child": 1
+          },
+          "GET_ED_FACTOR_BY_GRADE",
+          {
+            "child": 2
+          },
+          "GET_ATTRIB_FACTOR_BY_ENCHANT_COUNT",
+          {
+            "child": 3
+          },
+          "GET_EQUIP_FACTOR"
+        ],
+        "knum": [],
+        "parameters": 0,
+        "upvalues": ""
+      }
+    ],
+    "root": 4
+  },
+  "cost_formula": {
+    "armor_divisor": 4,
+    "count_multipliers": [
+      1,
+      3,
+      6,
+      12,
+      24
+    ],
+    "grade_addends": {
+      "0": 0,
+      "1": 6,
+      "2": 4,
+      "3": 2,
+      "4": 0,
+      "5": 0,
+      "6": 8
+    },
+    "level_bounds": [
+      0,
+      255
+    ],
+    "scale": 100
+  },
+  "effects": [
+    {
+      "m_ExtraDamageType": 1001,
+      "m_FirstDamagePercent": 30,
+      "m_SecondDamagePercent": 45,
+      "m_ThirdDamagePercent": 60,
+      "m_Time": 5,
+      "m_fAttribReiterationRate": 0.1,
+      "m_fBlazeMpDrain": 3,
+      "m_fRate": 0.05
+    },
+    {
+      "bIsForNPC": 1,
+      "m_ExtraDamageType": 1001,
+      "m_FirstDamagePercent": 30,
+      "m_SecondDamagePercent": 45,
+      "m_ThirdDamagePercent": 60,
+      "m_Time": 5,
+      "m_fAttribReiterationRate": 0.1,
+      "m_fBlazeMpDrain": 3,
+      "m_fRate": 0.05
+    },
+    {
+      "m_ExtraDamageType": 1011,
+      "m_FirstDefenceDebuffPercent": 10,
+      "m_SecondDefenceDebuffPercent": 20,
+      "m_ThirdDefenceDebuffPercent": 30,
+      "m_Time": 10,
+      "m_arrAttackSpeedDecrease": {
+        "0": null,
+        "1": 10,
+        "2": 20,
+        "3": 30
+      },
+      "m_fAttribReiterationRate": 0.06,
+      "m_fRate": 0.06
+    },
+    {
+      "bIsForNPC": 1,
+      "m_ExtraDamageType": 1011,
+      "m_FirstDefenceDebuffPercent": 10,
+      "m_SecondDefenceDebuffPercent": 20,
+      "m_ThirdDefenceDebuffPercent": 30,
+      "m_Time": 10,
+      "m_arrAttackSpeedDecrease": {
+        "0": null,
+        "1": 10,
+        "2": 20,
+        "3": 30
+      },
+      "m_fAttribReiterationRate": 0.06,
+      "m_fRate": 0.06
+    },
+    {
+      "m_ExtraDamageType": 1101,
+      "m_FirstDamagePercent": 15,
+      "m_SecondDamagePercent": 22.5,
+      "m_ThirdDamagePercent": 30,
+      "m_Time": 15,
+      "m_arrMovementSpeedDecrease": {
+        "0": null,
+        "1": 20,
+        "2": 30,
+        "3": 40
+      },
+      "m_fAttribReiterationRate": 0.05,
+      "m_fRate": 0.05
+    },
+    {
+      "bIsForNPC": 1,
+      "m_ExtraDamageType": 1101,
+      "m_FirstDamagePercent": 15,
+      "m_SecondDamagePercent": 22.5,
+      "m_ThirdDamagePercent": 30,
+      "m_Time": 15,
+      "m_arrMovementSpeedDecrease": {
+        "0": null,
+        "1": 20,
+        "2": 30,
+        "3": 40
+      },
+      "m_fAttribReiterationRate": 0.05,
+      "m_fRate": 0.05
+    },
+    {
+      "m_ExtraDamageType": 1543,
+      "m_fPiercingDamageFactor": 40,
+      "m_fRate": 0.06
+    },
+    {
+      "bIsForNPC": 1,
+      "m_ExtraDamageType": 1543,
+      "m_fPiercingDamageFactor": 40,
+      "m_fRate": 0.06
+    },
+    {
+      "m_ExtraDamageType": 1654,
+      "m_fRate": 0.05,
+      "m_fShockDebuffDamageFactor": 0.3,
+      "m_fTimeStun": 3,
+      "m_iShockDebuffTime": 10
+    },
+    {
+      "bIsForNPC": 1,
+      "m_ExtraDamageType": 1654,
+      "m_fRate": 0.05,
+      "m_fShockDebuffDamageFactor": 0.3,
+      "m_fTimeStun": 3,
+      "m_iShockDebuffTime": 10
+    },
+    {
+      "m_ExtraDamageType": 1765,
+      "m_HPDrainPercent": 20,
+      "m_MPDrain": 2,
+      "m_fRate": 0.05
+    },
+    {
+      "bIsForNPC": 1,
+      "m_ExtraDamageType": 1765,
+      "m_HPDrainPercent": 20,
+      "m_MPDrain": 2,
+      "m_fRate": 0.05
+    },
+    {
+      "m_ExtraDamageType": 2002,
+      "m_FirstDamagePercent": 60,
+      "m_SecondDamagePercent": 90,
+      "m_ThirdDamagePercent": 120,
+      "m_Time": 5,
+      "m_fAttribReiterationRate": 0.16,
+      "m_fBlazeMpDrain": 4,
+      "m_fRate": 0.08
+    },
+    {
+      "bIsForNPC": 1,
+      "m_ExtraDamageType": 2002,
+      "m_FirstDamagePercent": 60,
+      "m_SecondDamagePercent": 90,
+      "m_ThirdDamagePercent": 120,
+      "m_Time": 5,
+      "m_fAttribReiterationRate": 0.16,
+      "m_fBlazeMpDrain": 4,
+      "m_fRate": 0.08
+    },
+    {
+      "m_ExtraDamageType": 2022,
+      "m_FirstDefenceDebuffPercent": 10,
+      "m_SecondDefenceDebuffPercent": 20,
+      "m_ThirdDefenceDebuffPercent": 30,
+      "m_Time": 10,
+      "m_arrAttackSpeedDecrease": {
+        "0": null,
+        "1": 10,
+        "2": 20,
+        "3": 30
+      },
+      "m_fAttribReiterationRate": 0.12,
+      "m_fRate": 0.12
+    },
+    {
+      "bIsForNPC": 1,
+      "m_ExtraDamageType": 2022,
+      "m_FirstDefenceDebuffPercent": 10,
+      "m_SecondDefenceDebuffPercent": 20,
+      "m_ThirdDefenceDebuffPercent": 30,
+      "m_Time": 13,
+      "m_arrAttackSpeedDecrease": {
+        "0": null,
+        "1": 10,
+        "2": 20,
+        "3": 30
+      },
+      "m_fAttribReiterationRate": 0.12,
+      "m_fRate": 0.12
+    },
+    {
+      "m_ExtraDamageType": 2202,
+      "m_FirstDamagePercent": 30,
+      "m_SecondDamagePercent": 45,
+      "m_ThirdDamagePercent": 60,
+      "m_Time": 15,
+      "m_arrMovementSpeedDecrease": {
+        "0": null,
+        "1": 20,
+        "2": 30,
+        "3": 40
+      },
+      "m_fAttribReiterationRate": 0.08,
+      "m_fRate": 0.08
+    },
+    {
+      "bIsForNPC": 1,
+      "m_ExtraDamageType": 2202,
+      "m_FirstDamagePercent": 30,
+      "m_SecondDamagePercent": 45,
+      "m_ThirdDamagePercent": 60,
+      "m_Time": 15,
+      "m_arrMovementSpeedDecrease": {
+        "0": null,
+        "1": 20,
+        "2": 30,
+        "3": 40
+      },
+      "m_fAttribReiterationRate": 0.08,
+      "m_fRate": 0.08
+    },
+    {
+      "m_ExtraDamageType": 3086,
+      "m_fPiercingDamageFactor": 40,
+      "m_fRate": 0.12
+    },
+    {
+      "bIsForNPC": 1,
+      "m_ExtraDamageType": 3086,
+      "m_fPiercingDamageFactor": 40,
+      "m_fRate": 0.12
+    },
+    {
+      "m_ExtraDamageType": 3308,
+      "m_fRate": 0.08,
+      "m_fShockDebuffDamageFactor": 0.3,
+      "m_fTimeStun": 3.5,
+      "m_iShockDebuffTime": 10
+    },
+    {
+      "bIsForNPC": 1,
+      "m_ExtraDamageType": 3308,
+      "m_fRate": 0.08,
+      "m_fShockDebuffDamageFactor": 0.3,
+      "m_fTimeStun": 3.5,
+      "m_iShockDebuffTime": 10
+    },
+    {
+      "m_ExtraDamageType": 3530,
+      "m_HPDrainPercent": 40,
+      "m_MPDrain": 3,
+      "m_fRate": 0.08
+    },
+    {
+      "bIsForNPC": 1,
+      "m_ExtraDamageType": 3530,
+      "m_HPDrainPercent": 40,
+      "m_MPDrain": 3,
+      "m_fRate": 0.08
+    },
+    {
+      "m_ExtraDamageType": 3003,
+      "m_FirstDamagePercent": 90,
+      "m_SecondDamagePercent": 135,
+      "m_ThirdDamagePercent": 180,
+      "m_Time": 5,
+      "m_fAttribReiterationRate": 0.2,
+      "m_fBlazeMpDrain": 5,
+      "m_fRate": 0.1
+    },
+    {
+      "m_ExtraDamageType": 3033,
+      "m_FirstDefenceDebuffPercent": 10,
+      "m_SecondDefenceDebuffPercent": 20,
+      "m_ThirdDefenceDebuffPercent": 30,
+      "m_Time": 10,
+      "m_arrAttackSpeedDecrease": {
+        "0": null,
+        "1": 10,
+        "2": 20,
+        "3": 30
+      },
+      "m_fAttribReiterationRate": 0.15,
+      "m_fRate": 0.15
+    },
+    {
+      "m_ExtraDamageType": 3303,
+      "m_FirstDamagePercent": 45,
+      "m_SecondDamagePercent": 67.5,
+      "m_ThirdDamagePercent": 90,
+      "m_Time": 15,
+      "m_arrMovementSpeedDecrease": {
+        "0": null,
+        "1": 20,
+        "2": 30,
+        "3": 40
+      },
+      "m_fAttribReiterationRate": 0.1,
+      "m_fRate": 0.1
+    },
+    {
+      "m_ExtraDamageType": 4629,
+      "m_fPiercingDamageFactor": 40,
+      "m_fRate": 0.15
+    },
+    {
+      "m_ExtraDamageType": 5295,
+      "m_HPDrainPercent": 60,
+      "m_MPDrain": 4,
+      "m_fRate": 0.09
+    },
+    {
+      "m_ExtraDamageType": 4004,
+      "m_FirstDamagePercent": 120,
+      "m_SecondDamagePercent": 180,
+      "m_ThirdDamagePercent": 240,
+      "m_Time": 5,
+      "m_fAttribReiterationRate": 0.24,
+      "m_fBlazeMpDrain": 6,
+      "m_fRate": 0.12
+    },
+    {
+      "m_ExtraDamageType": 4044,
+      "m_FirstDefenceDebuffPercent": 10,
+      "m_SecondDefenceDebuffPercent": 20,
+      "m_ThirdDefenceDebuffPercent": 30,
+      "m_Time": 10,
+      "m_arrAttackSpeedDecrease": {
+        "0": null,
+        "1": 10,
+        "2": 20,
+        "3": 30
+      },
+      "m_fAttribReiterationRate": 0.18,
+      "m_fRate": 0.18
+    },
+    {
+      "m_ExtraDamageType": 4404,
+      "m_FirstDamagePercent": 60,
+      "m_SecondDamagePercent": 90,
+      "m_ThirdDamagePercent": 120,
+      "m_Time": 15,
+      "m_arrMovementSpeedDecrease": {
+        "0": null,
+        "1": 20,
+        "2": 30,
+        "3": 40
+      },
+      "m_fAttribReiterationRate": 0.12,
+      "m_fRate": 0.12
+    },
+    {
+      "m_ExtraDamageType": 4962,
+      "m_fRate": 0.1,
+      "m_fShockDebuffDamageFactor": 0.3,
+      "m_fTimeStun": 4,
+      "m_iShockDebuffTime": 10
+    },
+    {
+      "m_ExtraDamageType": 6172,
+      "m_fPiercingDamageFactor": 40,
+      "m_fRate": 0.18
+    },
+    {
+      "m_ExtraDamageType": 6616,
+      "m_fRate": 0.12,
+      "m_fShockDebuffDamageFactor": 0.3,
+      "m_fTimeStun": 4.5,
+      "m_iShockDebuffTime": 10
+    },
+    {
+      "m_ExtraDamageType": 7060,
+      "m_HPDrainPercent": 80,
+      "m_MPDrain": 5,
+      "m_fRate": 0.1
+    }
+  ],
+  "missing_item_templates": [
+    127150,
+    127160,
+    127170,
+    127171,
+    127172,
+    127173,
+    135076,
+    135427,
+    135428,
+    135470,
+    135479,
+    135528,
+    153987,
+    153988,
+    154004,
+    161200,
+    161734,
+    161912,
+    162077,
+    162109,
+    162110,
+    162111,
+    162112,
+    162186,
+    163095,
+    187043,
+    187045,
+    187046,
+    188237,
+    188238,
+    188836,
+    188838,
+    188839,
+    188840,
+    188841,
+    188842,
+    188843,
+    188844,
+    189682,
+    189683,
+    190074,
+    190075,
+    190076,
+    190077,
+    190078,
+    300501,
+    711322,
+    711323,
+    711324,
+    711329,
+    711381,
+    722758,
+    60004196,
+    60004197,
+    60004198,
+    67006746,
+    85000016,
+    85002101,
+    85002810,
+    85002820,
+    85002830,
+    85002840,
+    85002850,
+    85002860,
+    90002373,
+    152000278
+  ],
+  "requirements": [
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 1,
+        "LEGEND": 2,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 1
+      },
+      "source_index": 1
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 1,
+        "LEGEND": 3,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 2
+      },
+      "source_index": 2
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 2,
+        "LEGEND": 3,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 2
+      },
+      "source_index": 3
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 2,
+        "LEGEND": 4,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 3
+      },
+      "source_index": 4
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 4,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 2,
+        "UNIQUE": 3
+      },
+      "source_index": 5
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 5,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 2,
+        "UNIQUE": 4
+      },
+      "source_index": 6
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 5,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 2,
+        "UNIQUE": 4
+      },
+      "source_index": 7
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 4,
+        "LEGEND": 6,
+        "LOW": 2,
+        "NORMAL": 2,
+        "RARE": 3,
+        "UNIQUE": 5
+      },
+      "source_index": 8
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 4,
+        "LEGEND": 6,
+        "LOW": 2,
+        "NORMAL": 2,
+        "RARE": 3,
+        "UNIQUE": 5
+      },
+      "source_index": 9
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 5,
+        "LEGEND": 7,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 4,
+        "UNIQUE": 6
+      },
+      "source_index": 10
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 5,
+        "LEGEND": 7,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 4,
+        "UNIQUE": 6
+      },
+      "source_index": 11
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 8,
+        "LOW": 4,
+        "NORMAL": 4,
+        "RARE": 5,
+        "UNIQUE": 7
+      },
+      "source_index": 12
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 8,
+        "LOW": 4,
+        "NORMAL": 4,
+        "RARE": 5,
+        "UNIQUE": 7
+      },
+      "source_index": 13
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 7,
+        "LEGEND": 9,
+        "LOW": 5,
+        "NORMAL": 5,
+        "RARE": 6,
+        "UNIQUE": 8
+      },
+      "source_index": 14
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 7,
+        "LEGEND": 9,
+        "LOW": 5,
+        "NORMAL": 5,
+        "RARE": 6,
+        "UNIQUE": 8
+      },
+      "source_index": 15
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 8,
+        "LEGEND": 10,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 7,
+        "UNIQUE": 9
+      },
+      "source_index": 16
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 8,
+        "LEGEND": 10,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 7,
+        "UNIQUE": 9
+      },
+      "source_index": 17
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 11,
+        "LOW": 7,
+        "NORMAL": 7,
+        "RARE": 8,
+        "UNIQUE": 10
+      },
+      "source_index": 18
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 11,
+        "LOW": 7,
+        "NORMAL": 7,
+        "RARE": 8,
+        "UNIQUE": 10
+      },
+      "source_index": 19
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 10,
+        "LEGEND": 12,
+        "LOW": 8,
+        "NORMAL": 8,
+        "RARE": 9,
+        "UNIQUE": 11
+      },
+      "source_index": 20
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 10,
+        "LEGEND": 12,
+        "LOW": 8,
+        "NORMAL": 8,
+        "RARE": 9,
+        "UNIQUE": 11
+      },
+      "source_index": 21
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 11,
+        "LEGEND": 13,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 10,
+        "UNIQUE": 12
+      },
+      "source_index": 22
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 11,
+        "LEGEND": 13,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 10,
+        "UNIQUE": 12
+      },
+      "source_index": 23
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 14,
+        "LOW": 10,
+        "NORMAL": 10,
+        "RARE": 11,
+        "UNIQUE": 13
+      },
+      "source_index": 24
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 14,
+        "LOW": 10,
+        "NORMAL": 10,
+        "RARE": 11,
+        "UNIQUE": 13
+      },
+      "source_index": 25
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 13,
+        "LEGEND": 15,
+        "LOW": 11,
+        "NORMAL": 11,
+        "RARE": 12,
+        "UNIQUE": 14
+      },
+      "source_index": 26
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 13,
+        "LEGEND": 15,
+        "LOW": 11,
+        "NORMAL": 11,
+        "RARE": 12,
+        "UNIQUE": 14
+      },
+      "source_index": 27
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 14,
+        "LEGEND": 16,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 13,
+        "UNIQUE": 15
+      },
+      "source_index": 28
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 14,
+        "LEGEND": 16,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 13,
+        "UNIQUE": 15
+      },
+      "source_index": 29
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 15,
+        "LEGEND": 17,
+        "LOW": 13,
+        "NORMAL": 13,
+        "RARE": 14,
+        "UNIQUE": 16
+      },
+      "source_index": 30
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 15,
+        "LEGEND": 17,
+        "LOW": 13,
+        "NORMAL": 13,
+        "RARE": 14,
+        "UNIQUE": 16
+      },
+      "source_index": 31
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 16,
+        "LEGEND": 18,
+        "LOW": 14,
+        "NORMAL": 14,
+        "RARE": 15,
+        "UNIQUE": 17
+      },
+      "source_index": 32
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 16,
+        "LEGEND": 18,
+        "LOW": 14,
+        "NORMAL": 14,
+        "RARE": 15,
+        "UNIQUE": 17
+      },
+      "source_index": 33
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 17,
+        "LEGEND": 19,
+        "LOW": 15,
+        "NORMAL": 15,
+        "RARE": 16,
+        "UNIQUE": 18
+      },
+      "source_index": 34
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 17,
+        "LEGEND": 19,
+        "LOW": 15,
+        "NORMAL": 15,
+        "RARE": 16,
+        "UNIQUE": 18
+      },
+      "source_index": 35
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 20,
+        "LOW": 16,
+        "NORMAL": 16,
+        "RARE": 17,
+        "UNIQUE": 19
+      },
+      "source_index": 36
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 20,
+        "LOW": 16,
+        "NORMAL": 16,
+        "RARE": 17,
+        "UNIQUE": 19
+      },
+      "source_index": 37
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 19,
+        "LEGEND": 21,
+        "LOW": 17,
+        "NORMAL": 17,
+        "RARE": 18,
+        "UNIQUE": 20
+      },
+      "source_index": 38
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 19,
+        "LEGEND": 21,
+        "LOW": 17,
+        "NORMAL": 17,
+        "RARE": 18,
+        "UNIQUE": 20
+      },
+      "source_index": 39
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 20,
+        "LEGEND": 22,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 19,
+        "UNIQUE": 21
+      },
+      "source_index": 40
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 20,
+        "LEGEND": 22,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 19,
+        "UNIQUE": 21
+      },
+      "source_index": 41
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 21,
+        "LEGEND": 23,
+        "LOW": 19,
+        "NORMAL": 19,
+        "RARE": 20,
+        "UNIQUE": 22
+      },
+      "source_index": 42
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 21,
+        "LEGEND": 23,
+        "LOW": 19,
+        "NORMAL": 19,
+        "RARE": 20,
+        "UNIQUE": 22
+      },
+      "source_index": 43
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 22,
+        "LEGEND": 24,
+        "LOW": 20,
+        "NORMAL": 20,
+        "RARE": 21,
+        "UNIQUE": 23
+      },
+      "source_index": 44
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 22,
+        "LEGEND": 24,
+        "LOW": 20,
+        "NORMAL": 20,
+        "RARE": 21,
+        "UNIQUE": 23
+      },
+      "source_index": 45
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 23,
+        "LEGEND": 25,
+        "LOW": 21,
+        "NORMAL": 21,
+        "RARE": 22,
+        "UNIQUE": 24
+      },
+      "source_index": 46
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 23,
+        "LEGEND": 25,
+        "LOW": 21,
+        "NORMAL": 21,
+        "RARE": 22,
+        "UNIQUE": 24
+      },
+      "source_index": 47
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 26,
+        "LOW": 22,
+        "NORMAL": 22,
+        "RARE": 23,
+        "UNIQUE": 25
+      },
+      "source_index": 48
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 26,
+        "LOW": 22,
+        "NORMAL": 22,
+        "RARE": 23,
+        "UNIQUE": 25
+      },
+      "source_index": 49
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 25,
+        "LEGEND": 27,
+        "LOW": 23,
+        "NORMAL": 23,
+        "RARE": 24,
+        "UNIQUE": 26
+      },
+      "source_index": 50
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 25,
+        "LEGEND": 27,
+        "LOW": 23,
+        "NORMAL": 23,
+        "RARE": 24,
+        "UNIQUE": 26
+      },
+      "source_index": 51
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 26,
+        "LEGEND": 28,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 25,
+        "UNIQUE": 27
+      },
+      "source_index": 52
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 26,
+        "LEGEND": 28,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 25,
+        "UNIQUE": 27
+      },
+      "source_index": 53
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 27,
+        "LEGEND": 29,
+        "LOW": 25,
+        "NORMAL": 25,
+        "RARE": 26,
+        "UNIQUE": 28
+      },
+      "source_index": 54
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 27,
+        "LEGEND": 29,
+        "LOW": 25,
+        "NORMAL": 25,
+        "RARE": 26,
+        "UNIQUE": 28
+      },
+      "source_index": 55
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 28,
+        "LEGEND": 30,
+        "LOW": 26,
+        "NORMAL": 26,
+        "RARE": 27,
+        "UNIQUE": 29
+      },
+      "source_index": 56
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 28,
+        "LEGEND": 30,
+        "LOW": 26,
+        "NORMAL": 26,
+        "RARE": 27,
+        "UNIQUE": 29
+      },
+      "source_index": 57
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 29,
+        "LEGEND": 31,
+        "LOW": 27,
+        "NORMAL": 27,
+        "RARE": 28,
+        "UNIQUE": 30
+      },
+      "source_index": 58
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 29,
+        "LEGEND": 31,
+        "LOW": 27,
+        "NORMAL": 27,
+        "RARE": 28,
+        "UNIQUE": 30
+      },
+      "source_index": 59
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 32,
+        "LOW": 28,
+        "NORMAL": 28,
+        "RARE": 29,
+        "UNIQUE": 31
+      },
+      "source_index": 60
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 32,
+        "LOW": 28,
+        "NORMAL": 28,
+        "RARE": 29,
+        "UNIQUE": 31
+      },
+      "source_index": 61
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 31,
+        "LEGEND": 33,
+        "LOW": 29,
+        "NORMAL": 29,
+        "RARE": 30,
+        "UNIQUE": 32
+      },
+      "source_index": 62
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 31,
+        "LEGEND": 33,
+        "LOW": 29,
+        "NORMAL": 29,
+        "RARE": 30,
+        "UNIQUE": 32
+      },
+      "source_index": 63
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 32,
+        "LEGEND": 34,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 31,
+        "UNIQUE": 33
+      },
+      "source_index": 64
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 32,
+        "LEGEND": 34,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 31,
+        "UNIQUE": 33
+      },
+      "source_index": 65
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 33,
+        "LEGEND": 35,
+        "LOW": 31,
+        "NORMAL": 31,
+        "RARE": 32,
+        "UNIQUE": 34
+      },
+      "source_index": 66
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 33,
+        "LEGEND": 35,
+        "LOW": 31,
+        "NORMAL": 31,
+        "RARE": 32,
+        "UNIQUE": 34
+      },
+      "source_index": 67
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 34,
+        "LEGEND": 36,
+        "LOW": 32,
+        "NORMAL": 32,
+        "RARE": 33,
+        "UNIQUE": 35
+      },
+      "source_index": 68
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 34,
+        "LEGEND": 36,
+        "LOW": 32,
+        "NORMAL": 32,
+        "RARE": 33,
+        "UNIQUE": 35
+      },
+      "source_index": 69
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 35,
+        "LEGEND": 37,
+        "LOW": 33,
+        "NORMAL": 33,
+        "RARE": 34,
+        "UNIQUE": 36
+      },
+      "source_index": 70
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 35,
+        "LEGEND": 37,
+        "LOW": 33,
+        "NORMAL": 33,
+        "RARE": 34,
+        "UNIQUE": 36
+      },
+      "source_index": 71
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 38,
+        "LOW": 34,
+        "NORMAL": 34,
+        "RARE": 35,
+        "UNIQUE": 37
+      },
+      "source_index": 72
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 38,
+        "LOW": 34,
+        "NORMAL": 34,
+        "RARE": 35,
+        "UNIQUE": 37
+      },
+      "source_index": 73
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 37,
+        "LEGEND": 39,
+        "LOW": 35,
+        "NORMAL": 35,
+        "RARE": 36,
+        "UNIQUE": 38
+      },
+      "source_index": 74
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 37,
+        "LEGEND": 39,
+        "LOW": 35,
+        "NORMAL": 35,
+        "RARE": 36,
+        "UNIQUE": 38
+      },
+      "source_index": 75
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 38,
+        "LEGEND": 40,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 37,
+        "UNIQUE": 39
+      },
+      "source_index": 76
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 38,
+        "LEGEND": 40,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 37,
+        "UNIQUE": 39
+      },
+      "source_index": 77
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 39,
+        "LEGEND": 41,
+        "LOW": 37,
+        "NORMAL": 37,
+        "RARE": 38,
+        "UNIQUE": 40
+      },
+      "source_index": 78
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 39,
+        "LEGEND": 41,
+        "LOW": 37,
+        "NORMAL": 37,
+        "RARE": 38,
+        "UNIQUE": 40
+      },
+      "source_index": 79
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 40,
+        "LEGEND": 42,
+        "LOW": 38,
+        "NORMAL": 38,
+        "RARE": 39,
+        "UNIQUE": 41
+      },
+      "source_index": 80
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 40,
+        "LEGEND": 42,
+        "LOW": 38,
+        "NORMAL": 38,
+        "RARE": 39,
+        "UNIQUE": 41
+      },
+      "source_index": 81
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 41,
+        "LEGEND": 43,
+        "LOW": 39,
+        "NORMAL": 39,
+        "RARE": 40,
+        "UNIQUE": 42
+      },
+      "source_index": 82
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 41,
+        "LEGEND": 43,
+        "LOW": 39,
+        "NORMAL": 39,
+        "RARE": 40,
+        "UNIQUE": 42
+      },
+      "source_index": 83
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 42,
+        "LEGEND": 44,
+        "LOW": 40,
+        "NORMAL": 40,
+        "RARE": 41,
+        "UNIQUE": 43
+      },
+      "source_index": 84
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 42,
+        "LEGEND": 44,
+        "LOW": 40,
+        "NORMAL": 40,
+        "RARE": 41,
+        "UNIQUE": 43
+      },
+      "source_index": 85
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 43,
+        "LEGEND": 45,
+        "LOW": 41,
+        "NORMAL": 41,
+        "RARE": 42,
+        "UNIQUE": 44
+      },
+      "source_index": 86
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 43,
+        "LEGEND": 45,
+        "LOW": 41,
+        "NORMAL": 41,
+        "RARE": 42,
+        "UNIQUE": 44
+      },
+      "source_index": 87
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 44,
+        "LEGEND": 46,
+        "LOW": 42,
+        "NORMAL": 42,
+        "RARE": 43,
+        "UNIQUE": 45
+      },
+      "source_index": 88
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 44,
+        "LEGEND": 46,
+        "LOW": 42,
+        "NORMAL": 42,
+        "RARE": 43,
+        "UNIQUE": 45
+      },
+      "source_index": 89
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 45,
+        "LEGEND": 47,
+        "LOW": 43,
+        "NORMAL": 43,
+        "RARE": 44,
+        "UNIQUE": 46
+      },
+      "source_index": 90
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 45,
+        "LEGEND": 47,
+        "LOW": 43,
+        "NORMAL": 43,
+        "RARE": 44,
+        "UNIQUE": 46
+      },
+      "source_index": 91
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 46,
+        "LEGEND": 48,
+        "LOW": 44,
+        "NORMAL": 44,
+        "RARE": 45,
+        "UNIQUE": 47
+      },
+      "source_index": 92
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 46,
+        "LEGEND": 48,
+        "LOW": 44,
+        "NORMAL": 44,
+        "RARE": 45,
+        "UNIQUE": 47
+      },
+      "source_index": 93
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 47,
+        "LEGEND": 49,
+        "LOW": 45,
+        "NORMAL": 45,
+        "RARE": 46,
+        "UNIQUE": 48
+      },
+      "source_index": 94
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 47,
+        "LEGEND": 49,
+        "LOW": 45,
+        "NORMAL": 45,
+        "RARE": 46,
+        "UNIQUE": 48
+      },
+      "source_index": 95
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 50,
+        "LOW": 46,
+        "NORMAL": 46,
+        "RARE": 47,
+        "UNIQUE": 49
+      },
+      "source_index": 96
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 50,
+        "LOW": 46,
+        "NORMAL": 46,
+        "RARE": 47,
+        "UNIQUE": 49
+      },
+      "source_index": 97
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 49,
+        "LEGEND": 51,
+        "LOW": 47,
+        "NORMAL": 47,
+        "RARE": 48,
+        "UNIQUE": 50
+      },
+      "source_index": 98
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 49,
+        "LEGEND": 51,
+        "LOW": 47,
+        "NORMAL": 47,
+        "RARE": 48,
+        "UNIQUE": 50
+      },
+      "source_index": 99
+    },
+    {
+      "enchant_type": 1,
+      "quantities": {
+        "ELITE": 50,
+        "LEGEND": 52,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 49,
+        "UNIQUE": 51
+      },
+      "source_index": 100
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 6,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 3
+      },
+      "source_index": 1
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 9,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 6
+      },
+      "source_index": 2
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 9,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 6
+      },
+      "source_index": 3
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 12,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 9
+      },
+      "source_index": 4
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 12,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 9
+      },
+      "source_index": 5
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 15,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 6,
+        "UNIQUE": 12
+      },
+      "source_index": 6
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 15,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 6,
+        "UNIQUE": 12
+      },
+      "source_index": 7
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 18,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 9,
+        "UNIQUE": 15
+      },
+      "source_index": 8
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 18,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 9,
+        "UNIQUE": 15
+      },
+      "source_index": 9
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 15,
+        "LEGEND": 21,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 12,
+        "UNIQUE": 18
+      },
+      "source_index": 10
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 15,
+        "LEGEND": 21,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 12,
+        "UNIQUE": 18
+      },
+      "source_index": 11
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 24,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 15,
+        "UNIQUE": 21
+      },
+      "source_index": 12
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 24,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 15,
+        "UNIQUE": 21
+      },
+      "source_index": 13
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 21,
+        "LEGEND": 27,
+        "LOW": 15,
+        "NORMAL": 15,
+        "RARE": 18,
+        "UNIQUE": 24
+      },
+      "source_index": 14
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 21,
+        "LEGEND": 27,
+        "LOW": 15,
+        "NORMAL": 15,
+        "RARE": 18,
+        "UNIQUE": 24
+      },
+      "source_index": 15
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 30,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 21,
+        "UNIQUE": 27
+      },
+      "source_index": 16
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 30,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 21,
+        "UNIQUE": 27
+      },
+      "source_index": 17
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 27,
+        "LEGEND": 33,
+        "LOW": 21,
+        "NORMAL": 21,
+        "RARE": 24,
+        "UNIQUE": 30
+      },
+      "source_index": 18
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 27,
+        "LEGEND": 33,
+        "LOW": 21,
+        "NORMAL": 21,
+        "RARE": 24,
+        "UNIQUE": 30
+      },
+      "source_index": 19
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 36,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 27,
+        "UNIQUE": 33
+      },
+      "source_index": 20
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 36,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 27,
+        "UNIQUE": 33
+      },
+      "source_index": 21
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 33,
+        "LEGEND": 39,
+        "LOW": 27,
+        "NORMAL": 27,
+        "RARE": 30,
+        "UNIQUE": 36
+      },
+      "source_index": 22
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 33,
+        "LEGEND": 39,
+        "LOW": 27,
+        "NORMAL": 27,
+        "RARE": 30,
+        "UNIQUE": 36
+      },
+      "source_index": 23
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 42,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 33,
+        "UNIQUE": 39
+      },
+      "source_index": 24
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 42,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 33,
+        "UNIQUE": 39
+      },
+      "source_index": 25
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 39,
+        "LEGEND": 45,
+        "LOW": 33,
+        "NORMAL": 33,
+        "RARE": 36,
+        "UNIQUE": 42
+      },
+      "source_index": 26
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 39,
+        "LEGEND": 45,
+        "LOW": 33,
+        "NORMAL": 33,
+        "RARE": 36,
+        "UNIQUE": 42
+      },
+      "source_index": 27
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 42,
+        "LEGEND": 48,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 39,
+        "UNIQUE": 45
+      },
+      "source_index": 28
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 42,
+        "LEGEND": 48,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 39,
+        "UNIQUE": 45
+      },
+      "source_index": 29
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 45,
+        "LEGEND": 51,
+        "LOW": 39,
+        "NORMAL": 39,
+        "RARE": 42,
+        "UNIQUE": 48
+      },
+      "source_index": 30
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 45,
+        "LEGEND": 51,
+        "LOW": 39,
+        "NORMAL": 39,
+        "RARE": 42,
+        "UNIQUE": 48
+      },
+      "source_index": 31
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 54,
+        "LOW": 42,
+        "NORMAL": 42,
+        "RARE": 45,
+        "UNIQUE": 51
+      },
+      "source_index": 32
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 54,
+        "LOW": 42,
+        "NORMAL": 42,
+        "RARE": 45,
+        "UNIQUE": 51
+      },
+      "source_index": 33
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 51,
+        "LEGEND": 57,
+        "LOW": 45,
+        "NORMAL": 45,
+        "RARE": 48,
+        "UNIQUE": 54
+      },
+      "source_index": 34
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 51,
+        "LEGEND": 57,
+        "LOW": 45,
+        "NORMAL": 45,
+        "RARE": 48,
+        "UNIQUE": 54
+      },
+      "source_index": 35
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 54,
+        "LEGEND": 60,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 51,
+        "UNIQUE": 57
+      },
+      "source_index": 36
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 54,
+        "LEGEND": 60,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 51,
+        "UNIQUE": 57
+      },
+      "source_index": 37
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 57,
+        "LEGEND": 63,
+        "LOW": 51,
+        "NORMAL": 51,
+        "RARE": 54,
+        "UNIQUE": 60
+      },
+      "source_index": 38
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 57,
+        "LEGEND": 63,
+        "LOW": 51,
+        "NORMAL": 51,
+        "RARE": 54,
+        "UNIQUE": 60
+      },
+      "source_index": 39
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 60,
+        "LEGEND": 66,
+        "LOW": 54,
+        "NORMAL": 54,
+        "RARE": 57,
+        "UNIQUE": 63
+      },
+      "source_index": 40
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 60,
+        "LEGEND": 66,
+        "LOW": 54,
+        "NORMAL": 54,
+        "RARE": 57,
+        "UNIQUE": 63
+      },
+      "source_index": 41
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 63,
+        "LEGEND": 69,
+        "LOW": 57,
+        "NORMAL": 57,
+        "RARE": 60,
+        "UNIQUE": 66
+      },
+      "source_index": 42
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 63,
+        "LEGEND": 69,
+        "LOW": 57,
+        "NORMAL": 57,
+        "RARE": 60,
+        "UNIQUE": 66
+      },
+      "source_index": 43
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 66,
+        "LEGEND": 72,
+        "LOW": 60,
+        "NORMAL": 60,
+        "RARE": 63,
+        "UNIQUE": 69
+      },
+      "source_index": 44
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 66,
+        "LEGEND": 72,
+        "LOW": 60,
+        "NORMAL": 60,
+        "RARE": 63,
+        "UNIQUE": 69
+      },
+      "source_index": 45
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 69,
+        "LEGEND": 75,
+        "LOW": 63,
+        "NORMAL": 63,
+        "RARE": 66,
+        "UNIQUE": 72
+      },
+      "source_index": 46
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 69,
+        "LEGEND": 75,
+        "LOW": 63,
+        "NORMAL": 63,
+        "RARE": 66,
+        "UNIQUE": 72
+      },
+      "source_index": 47
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 72,
+        "LEGEND": 78,
+        "LOW": 66,
+        "NORMAL": 66,
+        "RARE": 69,
+        "UNIQUE": 75
+      },
+      "source_index": 48
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 72,
+        "LEGEND": 78,
+        "LOW": 66,
+        "NORMAL": 66,
+        "RARE": 69,
+        "UNIQUE": 75
+      },
+      "source_index": 49
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 75,
+        "LEGEND": 81,
+        "LOW": 69,
+        "NORMAL": 69,
+        "RARE": 72,
+        "UNIQUE": 78
+      },
+      "source_index": 50
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 75,
+        "LEGEND": 81,
+        "LOW": 69,
+        "NORMAL": 69,
+        "RARE": 72,
+        "UNIQUE": 78
+      },
+      "source_index": 51
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 78,
+        "LEGEND": 84,
+        "LOW": 72,
+        "NORMAL": 72,
+        "RARE": 75,
+        "UNIQUE": 81
+      },
+      "source_index": 52
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 78,
+        "LEGEND": 84,
+        "LOW": 72,
+        "NORMAL": 72,
+        "RARE": 75,
+        "UNIQUE": 81
+      },
+      "source_index": 53
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 81,
+        "LEGEND": 87,
+        "LOW": 75,
+        "NORMAL": 75,
+        "RARE": 78,
+        "UNIQUE": 84
+      },
+      "source_index": 54
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 81,
+        "LEGEND": 87,
+        "LOW": 75,
+        "NORMAL": 75,
+        "RARE": 78,
+        "UNIQUE": 84
+      },
+      "source_index": 55
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 84,
+        "LEGEND": 90,
+        "LOW": 78,
+        "NORMAL": 78,
+        "RARE": 81,
+        "UNIQUE": 87
+      },
+      "source_index": 56
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 84,
+        "LEGEND": 90,
+        "LOW": 78,
+        "NORMAL": 78,
+        "RARE": 81,
+        "UNIQUE": 87
+      },
+      "source_index": 57
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 87,
+        "LEGEND": 93,
+        "LOW": 81,
+        "NORMAL": 81,
+        "RARE": 84,
+        "UNIQUE": 90
+      },
+      "source_index": 58
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 87,
+        "LEGEND": 93,
+        "LOW": 81,
+        "NORMAL": 81,
+        "RARE": 84,
+        "UNIQUE": 90
+      },
+      "source_index": 59
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 90,
+        "LEGEND": 96,
+        "LOW": 84,
+        "NORMAL": 84,
+        "RARE": 87,
+        "UNIQUE": 93
+      },
+      "source_index": 60
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 90,
+        "LEGEND": 96,
+        "LOW": 84,
+        "NORMAL": 84,
+        "RARE": 87,
+        "UNIQUE": 93
+      },
+      "source_index": 61
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 93,
+        "LEGEND": 99,
+        "LOW": 87,
+        "NORMAL": 87,
+        "RARE": 90,
+        "UNIQUE": 96
+      },
+      "source_index": 62
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 93,
+        "LEGEND": 99,
+        "LOW": 87,
+        "NORMAL": 87,
+        "RARE": 90,
+        "UNIQUE": 96
+      },
+      "source_index": 63
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 96,
+        "LEGEND": 102,
+        "LOW": 90,
+        "NORMAL": 90,
+        "RARE": 93,
+        "UNIQUE": 99
+      },
+      "source_index": 64
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 96,
+        "LEGEND": 102,
+        "LOW": 90,
+        "NORMAL": 90,
+        "RARE": 93,
+        "UNIQUE": 99
+      },
+      "source_index": 65
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 99,
+        "LEGEND": 105,
+        "LOW": 93,
+        "NORMAL": 93,
+        "RARE": 96,
+        "UNIQUE": 102
+      },
+      "source_index": 66
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 99,
+        "LEGEND": 105,
+        "LOW": 93,
+        "NORMAL": 93,
+        "RARE": 96,
+        "UNIQUE": 102
+      },
+      "source_index": 67
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 102,
+        "LEGEND": 108,
+        "LOW": 96,
+        "NORMAL": 96,
+        "RARE": 99,
+        "UNIQUE": 105
+      },
+      "source_index": 68
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 102,
+        "LEGEND": 108,
+        "LOW": 96,
+        "NORMAL": 96,
+        "RARE": 99,
+        "UNIQUE": 105
+      },
+      "source_index": 69
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 105,
+        "LEGEND": 111,
+        "LOW": 99,
+        "NORMAL": 99,
+        "RARE": 102,
+        "UNIQUE": 108
+      },
+      "source_index": 70
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 105,
+        "LEGEND": 111,
+        "LOW": 99,
+        "NORMAL": 99,
+        "RARE": 102,
+        "UNIQUE": 108
+      },
+      "source_index": 71
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 108,
+        "LEGEND": 114,
+        "LOW": 102,
+        "NORMAL": 102,
+        "RARE": 105,
+        "UNIQUE": 111
+      },
+      "source_index": 72
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 108,
+        "LEGEND": 114,
+        "LOW": 102,
+        "NORMAL": 102,
+        "RARE": 105,
+        "UNIQUE": 111
+      },
+      "source_index": 73
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 111,
+        "LEGEND": 117,
+        "LOW": 105,
+        "NORMAL": 105,
+        "RARE": 108,
+        "UNIQUE": 114
+      },
+      "source_index": 74
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 111,
+        "LEGEND": 117,
+        "LOW": 105,
+        "NORMAL": 105,
+        "RARE": 108,
+        "UNIQUE": 114
+      },
+      "source_index": 75
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 114,
+        "LEGEND": 120,
+        "LOW": 108,
+        "NORMAL": 108,
+        "RARE": 111,
+        "UNIQUE": 117
+      },
+      "source_index": 76
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 114,
+        "LEGEND": 120,
+        "LOW": 108,
+        "NORMAL": 108,
+        "RARE": 111,
+        "UNIQUE": 117
+      },
+      "source_index": 77
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 117,
+        "LEGEND": 123,
+        "LOW": 111,
+        "NORMAL": 111,
+        "RARE": 114,
+        "UNIQUE": 120
+      },
+      "source_index": 78
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 117,
+        "LEGEND": 123,
+        "LOW": 111,
+        "NORMAL": 111,
+        "RARE": 114,
+        "UNIQUE": 120
+      },
+      "source_index": 79
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 120,
+        "LEGEND": 126,
+        "LOW": 114,
+        "NORMAL": 114,
+        "RARE": 117,
+        "UNIQUE": 123
+      },
+      "source_index": 80
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 120,
+        "LEGEND": 126,
+        "LOW": 114,
+        "NORMAL": 114,
+        "RARE": 117,
+        "UNIQUE": 123
+      },
+      "source_index": 81
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 123,
+        "LEGEND": 129,
+        "LOW": 117,
+        "NORMAL": 117,
+        "RARE": 120,
+        "UNIQUE": 126
+      },
+      "source_index": 82
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 123,
+        "LEGEND": 129,
+        "LOW": 117,
+        "NORMAL": 117,
+        "RARE": 120,
+        "UNIQUE": 126
+      },
+      "source_index": 83
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 126,
+        "LEGEND": 132,
+        "LOW": 120,
+        "NORMAL": 120,
+        "RARE": 123,
+        "UNIQUE": 129
+      },
+      "source_index": 84
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 126,
+        "LEGEND": 132,
+        "LOW": 120,
+        "NORMAL": 120,
+        "RARE": 123,
+        "UNIQUE": 129
+      },
+      "source_index": 85
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 129,
+        "LEGEND": 135,
+        "LOW": 123,
+        "NORMAL": 123,
+        "RARE": 126,
+        "UNIQUE": 132
+      },
+      "source_index": 86
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 129,
+        "LEGEND": 135,
+        "LOW": 123,
+        "NORMAL": 123,
+        "RARE": 126,
+        "UNIQUE": 132
+      },
+      "source_index": 87
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 132,
+        "LEGEND": 138,
+        "LOW": 126,
+        "NORMAL": 126,
+        "RARE": 129,
+        "UNIQUE": 135
+      },
+      "source_index": 88
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 132,
+        "LEGEND": 138,
+        "LOW": 126,
+        "NORMAL": 126,
+        "RARE": 129,
+        "UNIQUE": 135
+      },
+      "source_index": 89
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 135,
+        "LEGEND": 141,
+        "LOW": 129,
+        "NORMAL": 129,
+        "RARE": 132,
+        "UNIQUE": 138
+      },
+      "source_index": 90
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 135,
+        "LEGEND": 141,
+        "LOW": 129,
+        "NORMAL": 129,
+        "RARE": 132,
+        "UNIQUE": 138
+      },
+      "source_index": 91
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 138,
+        "LEGEND": 144,
+        "LOW": 132,
+        "NORMAL": 132,
+        "RARE": 135,
+        "UNIQUE": 141
+      },
+      "source_index": 92
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 138,
+        "LEGEND": 144,
+        "LOW": 132,
+        "NORMAL": 132,
+        "RARE": 135,
+        "UNIQUE": 141
+      },
+      "source_index": 93
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 141,
+        "LEGEND": 147,
+        "LOW": 135,
+        "NORMAL": 135,
+        "RARE": 138,
+        "UNIQUE": 144
+      },
+      "source_index": 94
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 141,
+        "LEGEND": 147,
+        "LOW": 135,
+        "NORMAL": 135,
+        "RARE": 138,
+        "UNIQUE": 144
+      },
+      "source_index": 95
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 144,
+        "LEGEND": 150,
+        "LOW": 138,
+        "NORMAL": 138,
+        "RARE": 141,
+        "UNIQUE": 147
+      },
+      "source_index": 96
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 144,
+        "LEGEND": 150,
+        "LOW": 138,
+        "NORMAL": 138,
+        "RARE": 141,
+        "UNIQUE": 147
+      },
+      "source_index": 97
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 147,
+        "LEGEND": 153,
+        "LOW": 141,
+        "NORMAL": 141,
+        "RARE": 144,
+        "UNIQUE": 150
+      },
+      "source_index": 98
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 147,
+        "LEGEND": 153,
+        "LOW": 141,
+        "NORMAL": 141,
+        "RARE": 144,
+        "UNIQUE": 150
+      },
+      "source_index": 99
+    },
+    {
+      "enchant_type": 2,
+      "quantities": {
+        "ELITE": 150,
+        "LEGEND": 156,
+        "LOW": 144,
+        "NORMAL": 144,
+        "RARE": 147,
+        "UNIQUE": 153
+      },
+      "source_index": 100
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 1,
+        "LEGEND": 1,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 1
+      },
+      "source_index": 1
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 1,
+        "LEGEND": 1,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 1
+      },
+      "source_index": 2
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 1,
+        "LEGEND": 1,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 1
+      },
+      "source_index": 3
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 1,
+        "LEGEND": 1,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 1
+      },
+      "source_index": 4
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 1,
+        "LEGEND": 1,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 1
+      },
+      "source_index": 5
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 1,
+        "LEGEND": 2,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 1
+      },
+      "source_index": 6
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 1,
+        "LEGEND": 2,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 1
+      },
+      "source_index": 7
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 1,
+        "LEGEND": 2,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 2
+      },
+      "source_index": 8
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 1,
+        "LEGEND": 2,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 2
+      },
+      "source_index": 9
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 2,
+        "LEGEND": 2,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 2
+      },
+      "source_index": 10
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 2,
+        "LEGEND": 2,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 1,
+        "UNIQUE": 2
+      },
+      "source_index": 11
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 2,
+        "LEGEND": 2,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 2,
+        "UNIQUE": 2
+      },
+      "source_index": 12
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 2,
+        "LEGEND": 2,
+        "LOW": 1,
+        "NORMAL": 1,
+        "RARE": 2,
+        "UNIQUE": 2
+      },
+      "source_index": 13
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 2,
+        "LEGEND": 3,
+        "LOW": 2,
+        "NORMAL": 2,
+        "RARE": 2,
+        "UNIQUE": 2
+      },
+      "source_index": 14
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 2,
+        "LEGEND": 3,
+        "LOW": 2,
+        "NORMAL": 2,
+        "RARE": 2,
+        "UNIQUE": 2
+      },
+      "source_index": 15
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 2,
+        "LEGEND": 3,
+        "LOW": 2,
+        "NORMAL": 2,
+        "RARE": 2,
+        "UNIQUE": 3
+      },
+      "source_index": 16
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 2,
+        "LEGEND": 3,
+        "LOW": 2,
+        "NORMAL": 2,
+        "RARE": 2,
+        "UNIQUE": 3
+      },
+      "source_index": 17
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 3,
+        "LOW": 2,
+        "NORMAL": 2,
+        "RARE": 2,
+        "UNIQUE": 3
+      },
+      "source_index": 18
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 3,
+        "LOW": 2,
+        "NORMAL": 2,
+        "RARE": 2,
+        "UNIQUE": 3
+      },
+      "source_index": 19
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 3,
+        "LOW": 2,
+        "NORMAL": 2,
+        "RARE": 3,
+        "UNIQUE": 3
+      },
+      "source_index": 20
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 3,
+        "LOW": 2,
+        "NORMAL": 2,
+        "RARE": 3,
+        "UNIQUE": 3
+      },
+      "source_index": 21
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 4,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 3
+      },
+      "source_index": 22
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 4,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 3
+      },
+      "source_index": 23
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 4,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 4
+      },
+      "source_index": 24
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 4,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 4
+      },
+      "source_index": 25
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 4,
+        "LEGEND": 4,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 4
+      },
+      "source_index": 26
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 4,
+        "LEGEND": 4,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 4
+      },
+      "source_index": 27
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 4,
+        "LEGEND": 4,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 4,
+        "UNIQUE": 4
+      },
+      "source_index": 28
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 4,
+        "LEGEND": 4,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 4,
+        "UNIQUE": 4
+      },
+      "source_index": 29
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 4,
+        "LEGEND": 5,
+        "LOW": 4,
+        "NORMAL": 4,
+        "RARE": 4,
+        "UNIQUE": 4
+      },
+      "source_index": 30
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 4,
+        "LEGEND": 5,
+        "LOW": 4,
+        "NORMAL": 4,
+        "RARE": 4,
+        "UNIQUE": 4
+      },
+      "source_index": 31
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 4,
+        "LEGEND": 5,
+        "LOW": 4,
+        "NORMAL": 4,
+        "RARE": 4,
+        "UNIQUE": 5
+      },
+      "source_index": 32
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 4,
+        "LEGEND": 5,
+        "LOW": 4,
+        "NORMAL": 4,
+        "RARE": 4,
+        "UNIQUE": 5
+      },
+      "source_index": 33
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 5,
+        "LEGEND": 5,
+        "LOW": 4,
+        "NORMAL": 4,
+        "RARE": 4,
+        "UNIQUE": 5
+      },
+      "source_index": 34
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 5,
+        "LEGEND": 5,
+        "LOW": 4,
+        "NORMAL": 4,
+        "RARE": 4,
+        "UNIQUE": 5
+      },
+      "source_index": 35
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 5,
+        "LEGEND": 5,
+        "LOW": 4,
+        "NORMAL": 4,
+        "RARE": 5,
+        "UNIQUE": 5
+      },
+      "source_index": 36
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 5,
+        "LEGEND": 5,
+        "LOW": 4,
+        "NORMAL": 4,
+        "RARE": 5,
+        "UNIQUE": 5
+      },
+      "source_index": 37
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 5,
+        "LEGEND": 6,
+        "LOW": 5,
+        "NORMAL": 5,
+        "RARE": 5,
+        "UNIQUE": 5
+      },
+      "source_index": 38
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 5,
+        "LEGEND": 6,
+        "LOW": 5,
+        "NORMAL": 5,
+        "RARE": 5,
+        "UNIQUE": 5
+      },
+      "source_index": 39
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 5,
+        "LEGEND": 6,
+        "LOW": 5,
+        "NORMAL": 5,
+        "RARE": 5,
+        "UNIQUE": 6
+      },
+      "source_index": 40
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 5,
+        "LEGEND": 6,
+        "LOW": 5,
+        "NORMAL": 5,
+        "RARE": 5,
+        "UNIQUE": 6
+      },
+      "source_index": 41
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 6,
+        "LOW": 5,
+        "NORMAL": 5,
+        "RARE": 5,
+        "UNIQUE": 6
+      },
+      "source_index": 42
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 6,
+        "LOW": 5,
+        "NORMAL": 5,
+        "RARE": 5,
+        "UNIQUE": 6
+      },
+      "source_index": 43
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 6,
+        "LOW": 5,
+        "NORMAL": 5,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 44
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 6,
+        "LOW": 5,
+        "NORMAL": 5,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 45
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 7,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 46
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 7,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 47
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 7,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 7
+      },
+      "source_index": 48
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 7,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 7
+      },
+      "source_index": 49
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 7,
+        "LEGEND": 7,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 7
+      },
+      "source_index": 50
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 7,
+        "LEGEND": 7,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 7
+      },
+      "source_index": 51
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 7,
+        "LEGEND": 7,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 7,
+        "UNIQUE": 7
+      },
+      "source_index": 52
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 7,
+        "LEGEND": 7,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 7,
+        "UNIQUE": 7
+      },
+      "source_index": 53
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 7,
+        "LEGEND": 8,
+        "LOW": 7,
+        "NORMAL": 7,
+        "RARE": 7,
+        "UNIQUE": 7
+      },
+      "source_index": 54
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 7,
+        "LEGEND": 8,
+        "LOW": 7,
+        "NORMAL": 7,
+        "RARE": 7,
+        "UNIQUE": 7
+      },
+      "source_index": 55
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 7,
+        "LEGEND": 8,
+        "LOW": 7,
+        "NORMAL": 7,
+        "RARE": 7,
+        "UNIQUE": 8
+      },
+      "source_index": 56
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 7,
+        "LEGEND": 8,
+        "LOW": 7,
+        "NORMAL": 7,
+        "RARE": 7,
+        "UNIQUE": 8
+      },
+      "source_index": 57
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 8,
+        "LEGEND": 8,
+        "LOW": 7,
+        "NORMAL": 7,
+        "RARE": 7,
+        "UNIQUE": 8
+      },
+      "source_index": 58
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 8,
+        "LEGEND": 8,
+        "LOW": 7,
+        "NORMAL": 7,
+        "RARE": 7,
+        "UNIQUE": 8
+      },
+      "source_index": 59
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 8,
+        "LEGEND": 8,
+        "LOW": 7,
+        "NORMAL": 7,
+        "RARE": 8,
+        "UNIQUE": 8
+      },
+      "source_index": 60
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 8,
+        "LEGEND": 8,
+        "LOW": 7,
+        "NORMAL": 7,
+        "RARE": 8,
+        "UNIQUE": 8
+      },
+      "source_index": 61
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 8,
+        "LEGEND": 9,
+        "LOW": 8,
+        "NORMAL": 8,
+        "RARE": 8,
+        "UNIQUE": 8
+      },
+      "source_index": 62
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 8,
+        "LEGEND": 9,
+        "LOW": 8,
+        "NORMAL": 8,
+        "RARE": 8,
+        "UNIQUE": 8
+      },
+      "source_index": 63
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 8,
+        "LEGEND": 9,
+        "LOW": 8,
+        "NORMAL": 8,
+        "RARE": 8,
+        "UNIQUE": 9
+      },
+      "source_index": 64
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 8,
+        "LEGEND": 9,
+        "LOW": 8,
+        "NORMAL": 8,
+        "RARE": 8,
+        "UNIQUE": 9
+      },
+      "source_index": 65
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 9,
+        "LOW": 8,
+        "NORMAL": 8,
+        "RARE": 8,
+        "UNIQUE": 9
+      },
+      "source_index": 66
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 9,
+        "LOW": 8,
+        "NORMAL": 8,
+        "RARE": 8,
+        "UNIQUE": 9
+      },
+      "source_index": 67
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 9,
+        "LOW": 8,
+        "NORMAL": 8,
+        "RARE": 9,
+        "UNIQUE": 9
+      },
+      "source_index": 68
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 9,
+        "LOW": 8,
+        "NORMAL": 8,
+        "RARE": 9,
+        "UNIQUE": 9
+      },
+      "source_index": 69
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 10,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 9,
+        "UNIQUE": 9
+      },
+      "source_index": 70
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 10,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 9,
+        "UNIQUE": 9
+      },
+      "source_index": 71
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 10,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 9,
+        "UNIQUE": 10
+      },
+      "source_index": 72
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 10,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 9,
+        "UNIQUE": 10
+      },
+      "source_index": 73
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 10,
+        "LEGEND": 10,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 9,
+        "UNIQUE": 10
+      },
+      "source_index": 74
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 10,
+        "LEGEND": 10,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 9,
+        "UNIQUE": 10
+      },
+      "source_index": 75
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 10,
+        "LEGEND": 10,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 10,
+        "UNIQUE": 10
+      },
+      "source_index": 76
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 10,
+        "LEGEND": 11,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 10,
+        "UNIQUE": 10
+      },
+      "source_index": 77
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 10,
+        "LEGEND": 11,
+        "LOW": 10,
+        "NORMAL": 10,
+        "RARE": 10,
+        "UNIQUE": 10
+      },
+      "source_index": 78
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 10,
+        "LEGEND": 11,
+        "LOW": 10,
+        "NORMAL": 10,
+        "RARE": 10,
+        "UNIQUE": 11
+      },
+      "source_index": 79
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 10,
+        "LEGEND": 11,
+        "LOW": 10,
+        "NORMAL": 10,
+        "RARE": 10,
+        "UNIQUE": 11
+      },
+      "source_index": 80
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 11,
+        "LEGEND": 11,
+        "LOW": 10,
+        "NORMAL": 10,
+        "RARE": 10,
+        "UNIQUE": 11
+      },
+      "source_index": 81
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 11,
+        "LEGEND": 11,
+        "LOW": 10,
+        "NORMAL": 10,
+        "RARE": 10,
+        "UNIQUE": 11
+      },
+      "source_index": 82
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 11,
+        "LEGEND": 11,
+        "LOW": 10,
+        "NORMAL": 10,
+        "RARE": 11,
+        "UNIQUE": 11
+      },
+      "source_index": 83
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 11,
+        "LEGEND": 11,
+        "LOW": 10,
+        "NORMAL": 10,
+        "RARE": 11,
+        "UNIQUE": 11
+      },
+      "source_index": 84
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 11,
+        "LEGEND": 11,
+        "LOW": 11,
+        "NORMAL": 11,
+        "RARE": 11,
+        "UNIQUE": 11
+      },
+      "source_index": 85
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 11,
+        "LEGEND": 12,
+        "LOW": 11,
+        "NORMAL": 11,
+        "RARE": 11,
+        "UNIQUE": 11
+      },
+      "source_index": 86
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 11,
+        "LEGEND": 12,
+        "LOW": 11,
+        "NORMAL": 11,
+        "RARE": 11,
+        "UNIQUE": 11
+      },
+      "source_index": 87
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 11,
+        "LEGEND": 12,
+        "LOW": 11,
+        "NORMAL": 11,
+        "RARE": 11,
+        "UNIQUE": 12
+      },
+      "source_index": 88
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 11,
+        "LEGEND": 12,
+        "LOW": 11,
+        "NORMAL": 11,
+        "RARE": 11,
+        "UNIQUE": 12
+      },
+      "source_index": 89
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 12,
+        "LOW": 11,
+        "NORMAL": 11,
+        "RARE": 11,
+        "UNIQUE": 12
+      },
+      "source_index": 90
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 12,
+        "LOW": 11,
+        "NORMAL": 11,
+        "RARE": 11,
+        "UNIQUE": 12
+      },
+      "source_index": 91
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 13,
+        "LOW": 11,
+        "NORMAL": 11,
+        "RARE": 12,
+        "UNIQUE": 12
+      },
+      "source_index": 92
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 13,
+        "LOW": 11,
+        "NORMAL": 11,
+        "RARE": 12,
+        "UNIQUE": 12
+      },
+      "source_index": 93
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 13,
+        "LEGEND": 13,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 12
+      },
+      "source_index": 94
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 13,
+        "LEGEND": 13,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 12
+      },
+      "source_index": 95
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 13,
+        "LEGEND": 13,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 13
+      },
+      "source_index": 96
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 13,
+        "LEGEND": 13,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 13
+      },
+      "source_index": 97
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 13,
+        "LEGEND": 13,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 13,
+        "UNIQUE": 13
+      },
+      "source_index": 98
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 13,
+        "LEGEND": 13,
+        "LOW": 12,
+        "NORMAL": 13,
+        "RARE": 13,
+        "UNIQUE": 13
+      },
+      "source_index": 99
+    },
+    {
+      "enchant_type": 3,
+      "quantities": {
+        "ELITE": 13,
+        "LEGEND": 13,
+        "LOW": 13,
+        "NORMAL": 13,
+        "RARE": 13,
+        "UNIQUE": 13
+      },
+      "source_index": 100
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 12,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 1
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 18,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 12
+      },
+      "source_index": 2
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 18,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 12
+      },
+      "source_index": 3
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 24,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 18
+      },
+      "source_index": 4
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 24,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 18
+      },
+      "source_index": 5
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 30,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 12,
+        "UNIQUE": 24
+      },
+      "source_index": 6
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 30,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 12,
+        "UNIQUE": 24
+      },
+      "source_index": 7
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 36,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 18,
+        "UNIQUE": 30
+      },
+      "source_index": 8
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 36,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 18,
+        "UNIQUE": 30
+      },
+      "source_index": 9
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 42,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 24,
+        "UNIQUE": 36
+      },
+      "source_index": 10
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 42,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 24,
+        "UNIQUE": 36
+      },
+      "source_index": 11
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 48,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 30,
+        "UNIQUE": 42
+      },
+      "source_index": 12
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 48,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 30,
+        "UNIQUE": 42
+      },
+      "source_index": 13
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 42,
+        "LEGEND": 54,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 36,
+        "UNIQUE": 48
+      },
+      "source_index": 14
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 42,
+        "LEGEND": 54,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 36,
+        "UNIQUE": 48
+      },
+      "source_index": 15
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 60,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 42,
+        "UNIQUE": 54
+      },
+      "source_index": 16
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 60,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 42,
+        "UNIQUE": 54
+      },
+      "source_index": 17
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 54,
+        "LEGEND": 66,
+        "LOW": 42,
+        "NORMAL": 42,
+        "RARE": 48,
+        "UNIQUE": 60
+      },
+      "source_index": 18
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 54,
+        "LEGEND": 66,
+        "LOW": 42,
+        "NORMAL": 42,
+        "RARE": 48,
+        "UNIQUE": 60
+      },
+      "source_index": 19
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 60,
+        "LEGEND": 72,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 54,
+        "UNIQUE": 66
+      },
+      "source_index": 20
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 60,
+        "LEGEND": 72,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 54,
+        "UNIQUE": 66
+      },
+      "source_index": 21
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 66,
+        "LEGEND": 78,
+        "LOW": 54,
+        "NORMAL": 54,
+        "RARE": 60,
+        "UNIQUE": 72
+      },
+      "source_index": 22
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 66,
+        "LEGEND": 78,
+        "LOW": 54,
+        "NORMAL": 54,
+        "RARE": 60,
+        "UNIQUE": 72
+      },
+      "source_index": 23
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 72,
+        "LEGEND": 84,
+        "LOW": 60,
+        "NORMAL": 60,
+        "RARE": 66,
+        "UNIQUE": 78
+      },
+      "source_index": 24
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 72,
+        "LEGEND": 84,
+        "LOW": 60,
+        "NORMAL": 60,
+        "RARE": 66,
+        "UNIQUE": 78
+      },
+      "source_index": 25
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 78,
+        "LEGEND": 90,
+        "LOW": 66,
+        "NORMAL": 66,
+        "RARE": 72,
+        "UNIQUE": 84
+      },
+      "source_index": 26
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 78,
+        "LEGEND": 90,
+        "LOW": 66,
+        "NORMAL": 66,
+        "RARE": 72,
+        "UNIQUE": 84
+      },
+      "source_index": 27
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 84,
+        "LEGEND": 96,
+        "LOW": 72,
+        "NORMAL": 72,
+        "RARE": 78,
+        "UNIQUE": 90
+      },
+      "source_index": 28
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 84,
+        "LEGEND": 96,
+        "LOW": 72,
+        "NORMAL": 72,
+        "RARE": 78,
+        "UNIQUE": 90
+      },
+      "source_index": 29
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 90,
+        "LEGEND": 102,
+        "LOW": 78,
+        "NORMAL": 78,
+        "RARE": 84,
+        "UNIQUE": 96
+      },
+      "source_index": 30
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 90,
+        "LEGEND": 102,
+        "LOW": 78,
+        "NORMAL": 78,
+        "RARE": 84,
+        "UNIQUE": 96
+      },
+      "source_index": 31
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 96,
+        "LEGEND": 108,
+        "LOW": 84,
+        "NORMAL": 84,
+        "RARE": 90,
+        "UNIQUE": 102
+      },
+      "source_index": 32
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 96,
+        "LEGEND": 108,
+        "LOW": 84,
+        "NORMAL": 84,
+        "RARE": 90,
+        "UNIQUE": 102
+      },
+      "source_index": 33
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 102,
+        "LEGEND": 114,
+        "LOW": 90,
+        "NORMAL": 90,
+        "RARE": 96,
+        "UNIQUE": 108
+      },
+      "source_index": 34
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 102,
+        "LEGEND": 114,
+        "LOW": 90,
+        "NORMAL": 90,
+        "RARE": 96,
+        "UNIQUE": 108
+      },
+      "source_index": 35
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 108,
+        "LEGEND": 120,
+        "LOW": 96,
+        "NORMAL": 96,
+        "RARE": 102,
+        "UNIQUE": 114
+      },
+      "source_index": 36
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 108,
+        "LEGEND": 120,
+        "LOW": 96,
+        "NORMAL": 96,
+        "RARE": 102,
+        "UNIQUE": 114
+      },
+      "source_index": 37
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 114,
+        "LEGEND": 126,
+        "LOW": 102,
+        "NORMAL": 102,
+        "RARE": 108,
+        "UNIQUE": 120
+      },
+      "source_index": 38
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 114,
+        "LEGEND": 126,
+        "LOW": 102,
+        "NORMAL": 102,
+        "RARE": 108,
+        "UNIQUE": 120
+      },
+      "source_index": 39
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 120,
+        "LEGEND": 132,
+        "LOW": 108,
+        "NORMAL": 108,
+        "RARE": 114,
+        "UNIQUE": 126
+      },
+      "source_index": 40
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 120,
+        "LEGEND": 132,
+        "LOW": 108,
+        "NORMAL": 108,
+        "RARE": 114,
+        "UNIQUE": 126
+      },
+      "source_index": 41
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 126,
+        "LEGEND": 138,
+        "LOW": 114,
+        "NORMAL": 114,
+        "RARE": 120,
+        "UNIQUE": 132
+      },
+      "source_index": 42
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 126,
+        "LEGEND": 138,
+        "LOW": 114,
+        "NORMAL": 114,
+        "RARE": 120,
+        "UNIQUE": 132
+      },
+      "source_index": 43
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 132,
+        "LEGEND": 144,
+        "LOW": 120,
+        "NORMAL": 120,
+        "RARE": 126,
+        "UNIQUE": 138
+      },
+      "source_index": 44
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 132,
+        "LEGEND": 144,
+        "LOW": 120,
+        "NORMAL": 120,
+        "RARE": 126,
+        "UNIQUE": 138
+      },
+      "source_index": 45
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 138,
+        "LEGEND": 150,
+        "LOW": 126,
+        "NORMAL": 126,
+        "RARE": 132,
+        "UNIQUE": 144
+      },
+      "source_index": 46
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 138,
+        "LEGEND": 150,
+        "LOW": 126,
+        "NORMAL": 126,
+        "RARE": 132,
+        "UNIQUE": 144
+      },
+      "source_index": 47
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 144,
+        "LEGEND": 156,
+        "LOW": 132,
+        "NORMAL": 132,
+        "RARE": 138,
+        "UNIQUE": 150
+      },
+      "source_index": 48
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 144,
+        "LEGEND": 156,
+        "LOW": 132,
+        "NORMAL": 132,
+        "RARE": 138,
+        "UNIQUE": 150
+      },
+      "source_index": 49
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 150,
+        "LEGEND": 162,
+        "LOW": 138,
+        "NORMAL": 138,
+        "RARE": 144,
+        "UNIQUE": 156
+      },
+      "source_index": 50
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 150,
+        "LEGEND": 162,
+        "LOW": 138,
+        "NORMAL": 138,
+        "RARE": 144,
+        "UNIQUE": 156
+      },
+      "source_index": 51
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 156,
+        "LEGEND": 168,
+        "LOW": 144,
+        "NORMAL": 144,
+        "RARE": 150,
+        "UNIQUE": 162
+      },
+      "source_index": 52
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 156,
+        "LEGEND": 168,
+        "LOW": 144,
+        "NORMAL": 144,
+        "RARE": 150,
+        "UNIQUE": 162
+      },
+      "source_index": 53
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 162,
+        "LEGEND": 174,
+        "LOW": 150,
+        "NORMAL": 150,
+        "RARE": 156,
+        "UNIQUE": 168
+      },
+      "source_index": 54
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 162,
+        "LEGEND": 174,
+        "LOW": 150,
+        "NORMAL": 150,
+        "RARE": 156,
+        "UNIQUE": 168
+      },
+      "source_index": 55
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 168,
+        "LEGEND": 180,
+        "LOW": 156,
+        "NORMAL": 156,
+        "RARE": 162,
+        "UNIQUE": 174
+      },
+      "source_index": 56
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 168,
+        "LEGEND": 180,
+        "LOW": 156,
+        "NORMAL": 156,
+        "RARE": 162,
+        "UNIQUE": 174
+      },
+      "source_index": 57
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 174,
+        "LEGEND": 186,
+        "LOW": 162,
+        "NORMAL": 162,
+        "RARE": 168,
+        "UNIQUE": 180
+      },
+      "source_index": 58
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 174,
+        "LEGEND": 186,
+        "LOW": 162,
+        "NORMAL": 162,
+        "RARE": 168,
+        "UNIQUE": 180
+      },
+      "source_index": 59
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 180,
+        "LEGEND": 192,
+        "LOW": 168,
+        "NORMAL": 168,
+        "RARE": 174,
+        "UNIQUE": 186
+      },
+      "source_index": 60
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 180,
+        "LEGEND": 192,
+        "LOW": 168,
+        "NORMAL": 168,
+        "RARE": 174,
+        "UNIQUE": 186
+      },
+      "source_index": 61
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 186,
+        "LEGEND": 198,
+        "LOW": 174,
+        "NORMAL": 174,
+        "RARE": 180,
+        "UNIQUE": 192
+      },
+      "source_index": 62
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 186,
+        "LEGEND": 198,
+        "LOW": 174,
+        "NORMAL": 174,
+        "RARE": 180,
+        "UNIQUE": 192
+      },
+      "source_index": 63
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 192,
+        "LEGEND": 204,
+        "LOW": 180,
+        "NORMAL": 180,
+        "RARE": 186,
+        "UNIQUE": 198
+      },
+      "source_index": 64
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 192,
+        "LEGEND": 204,
+        "LOW": 180,
+        "NORMAL": 180,
+        "RARE": 186,
+        "UNIQUE": 198
+      },
+      "source_index": 65
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 198,
+        "LEGEND": 210,
+        "LOW": 186,
+        "NORMAL": 186,
+        "RARE": 192,
+        "UNIQUE": 204
+      },
+      "source_index": 66
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 198,
+        "LEGEND": 210,
+        "LOW": 186,
+        "NORMAL": 186,
+        "RARE": 192,
+        "UNIQUE": 204
+      },
+      "source_index": 67
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 204,
+        "LEGEND": 216,
+        "LOW": 192,
+        "NORMAL": 192,
+        "RARE": 198,
+        "UNIQUE": 210
+      },
+      "source_index": 68
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 204,
+        "LEGEND": 216,
+        "LOW": 192,
+        "NORMAL": 192,
+        "RARE": 198,
+        "UNIQUE": 210
+      },
+      "source_index": 69
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 210,
+        "LEGEND": 222,
+        "LOW": 198,
+        "NORMAL": 198,
+        "RARE": 204,
+        "UNIQUE": 216
+      },
+      "source_index": 70
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 210,
+        "LEGEND": 222,
+        "LOW": 198,
+        "NORMAL": 198,
+        "RARE": 204,
+        "UNIQUE": 216
+      },
+      "source_index": 71
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 216,
+        "LEGEND": 228,
+        "LOW": 204,
+        "NORMAL": 204,
+        "RARE": 210,
+        "UNIQUE": 222
+      },
+      "source_index": 72
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 216,
+        "LEGEND": 228,
+        "LOW": 204,
+        "NORMAL": 204,
+        "RARE": 210,
+        "UNIQUE": 222
+      },
+      "source_index": 73
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 222,
+        "LEGEND": 234,
+        "LOW": 210,
+        "NORMAL": 210,
+        "RARE": 216,
+        "UNIQUE": 228
+      },
+      "source_index": 74
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 222,
+        "LEGEND": 234,
+        "LOW": 210,
+        "NORMAL": 210,
+        "RARE": 216,
+        "UNIQUE": 228
+      },
+      "source_index": 75
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 228,
+        "LEGEND": 240,
+        "LOW": 216,
+        "NORMAL": 216,
+        "RARE": 222,
+        "UNIQUE": 234
+      },
+      "source_index": 76
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 228,
+        "LEGEND": 240,
+        "LOW": 216,
+        "NORMAL": 216,
+        "RARE": 222,
+        "UNIQUE": 234
+      },
+      "source_index": 77
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 234,
+        "LEGEND": 246,
+        "LOW": 222,
+        "NORMAL": 222,
+        "RARE": 228,
+        "UNIQUE": 240
+      },
+      "source_index": 78
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 234,
+        "LEGEND": 246,
+        "LOW": 222,
+        "NORMAL": 222,
+        "RARE": 228,
+        "UNIQUE": 240
+      },
+      "source_index": 79
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 240,
+        "LEGEND": 252,
+        "LOW": 228,
+        "NORMAL": 228,
+        "RARE": 234,
+        "UNIQUE": 246
+      },
+      "source_index": 80
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 240,
+        "LEGEND": 252,
+        "LOW": 228,
+        "NORMAL": 228,
+        "RARE": 234,
+        "UNIQUE": 246
+      },
+      "source_index": 81
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 246,
+        "LEGEND": 258,
+        "LOW": 234,
+        "NORMAL": 234,
+        "RARE": 240,
+        "UNIQUE": 252
+      },
+      "source_index": 82
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 246,
+        "LEGEND": 258,
+        "LOW": 234,
+        "NORMAL": 234,
+        "RARE": 240,
+        "UNIQUE": 252
+      },
+      "source_index": 83
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 252,
+        "LEGEND": 264,
+        "LOW": 240,
+        "NORMAL": 240,
+        "RARE": 246,
+        "UNIQUE": 258
+      },
+      "source_index": 84
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 252,
+        "LEGEND": 264,
+        "LOW": 240,
+        "NORMAL": 240,
+        "RARE": 246,
+        "UNIQUE": 258
+      },
+      "source_index": 85
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 258,
+        "LEGEND": 270,
+        "LOW": 246,
+        "NORMAL": 246,
+        "RARE": 252,
+        "UNIQUE": 264
+      },
+      "source_index": 86
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 258,
+        "LEGEND": 270,
+        "LOW": 246,
+        "NORMAL": 246,
+        "RARE": 252,
+        "UNIQUE": 264
+      },
+      "source_index": 87
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 264,
+        "LEGEND": 276,
+        "LOW": 252,
+        "NORMAL": 252,
+        "RARE": 258,
+        "UNIQUE": 270
+      },
+      "source_index": 88
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 264,
+        "LEGEND": 276,
+        "LOW": 252,
+        "NORMAL": 252,
+        "RARE": 258,
+        "UNIQUE": 270
+      },
+      "source_index": 89
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 270,
+        "LEGEND": 282,
+        "LOW": 258,
+        "NORMAL": 258,
+        "RARE": 264,
+        "UNIQUE": 276
+      },
+      "source_index": 90
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 270,
+        "LEGEND": 282,
+        "LOW": 258,
+        "NORMAL": 258,
+        "RARE": 264,
+        "UNIQUE": 276
+      },
+      "source_index": 91
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 276,
+        "LEGEND": 288,
+        "LOW": 264,
+        "NORMAL": 264,
+        "RARE": 270,
+        "UNIQUE": 282
+      },
+      "source_index": 92
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 276,
+        "LEGEND": 288,
+        "LOW": 264,
+        "NORMAL": 264,
+        "RARE": 270,
+        "UNIQUE": 282
+      },
+      "source_index": 93
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 282,
+        "LEGEND": 294,
+        "LOW": 270,
+        "NORMAL": 270,
+        "RARE": 276,
+        "UNIQUE": 288
+      },
+      "source_index": 94
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 282,
+        "LEGEND": 294,
+        "LOW": 270,
+        "NORMAL": 270,
+        "RARE": 276,
+        "UNIQUE": 288
+      },
+      "source_index": 95
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 288,
+        "LEGEND": 300,
+        "LOW": 276,
+        "NORMAL": 276,
+        "RARE": 282,
+        "UNIQUE": 294
+      },
+      "source_index": 96
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 288,
+        "LEGEND": 300,
+        "LOW": 276,
+        "NORMAL": 276,
+        "RARE": 282,
+        "UNIQUE": 294
+      },
+      "source_index": 97
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 294,
+        "LEGEND": 306,
+        "LOW": 282,
+        "NORMAL": 282,
+        "RARE": 288,
+        "UNIQUE": 300
+      },
+      "source_index": 98
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 294,
+        "LEGEND": 306,
+        "LOW": 282,
+        "NORMAL": 282,
+        "RARE": 288,
+        "UNIQUE": 300
+      },
+      "source_index": 99
+    },
+    {
+      "enchant_type": 4,
+      "quantities": {
+        "ELITE": 300,
+        "LEGEND": 312,
+        "LOW": 288,
+        "NORMAL": 288,
+        "RARE": 294,
+        "UNIQUE": 306
+      },
+      "source_index": 100
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 3,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 3
+      },
+      "source_index": 1
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 3,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 3
+      },
+      "source_index": 2
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 3,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 3
+      },
+      "source_index": 3
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 3,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 3
+      },
+      "source_index": 4
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 3,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 3
+      },
+      "source_index": 5
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 6,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 3
+      },
+      "source_index": 6
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 6,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 3
+      },
+      "source_index": 7
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 6,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 6
+      },
+      "source_index": 8
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 3,
+        "LEGEND": 6,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 6
+      },
+      "source_index": 9
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 6,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 6
+      },
+      "source_index": 10
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 6,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 3,
+        "UNIQUE": 6
+      },
+      "source_index": 11
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 6,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 12
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 6,
+        "LOW": 3,
+        "NORMAL": 3,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 13
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 9,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 14
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 9,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 15
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 9,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 9
+      },
+      "source_index": 16
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 9,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 9
+      },
+      "source_index": 17
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 9,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 9
+      },
+      "source_index": 18
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 9,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 9
+      },
+      "source_index": 19
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 9,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 9,
+        "UNIQUE": 9
+      },
+      "source_index": 20
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 9,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 9,
+        "UNIQUE": 9
+      },
+      "source_index": 21
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 12,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 9,
+        "UNIQUE": 9
+      },
+      "source_index": 22
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 12,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 9,
+        "UNIQUE": 9
+      },
+      "source_index": 23
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 12,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 9,
+        "UNIQUE": 12
+      },
+      "source_index": 24
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 9,
+        "LEGEND": 12,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 9,
+        "UNIQUE": 12
+      },
+      "source_index": 25
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 12,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 9,
+        "UNIQUE": 12
+      },
+      "source_index": 26
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 12,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 9,
+        "UNIQUE": 12
+      },
+      "source_index": 27
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 12,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 12,
+        "UNIQUE": 12
+      },
+      "source_index": 28
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 12,
+        "LOW": 9,
+        "NORMAL": 9,
+        "RARE": 12,
+        "UNIQUE": 12
+      },
+      "source_index": 29
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 15,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 12
+      },
+      "source_index": 30
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 15,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 12
+      },
+      "source_index": 31
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 15,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 15
+      },
+      "source_index": 32
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 15,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 15
+      },
+      "source_index": 33
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 15,
+        "LEGEND": 15,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 15
+      },
+      "source_index": 34
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 15,
+        "LEGEND": 15,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 15
+      },
+      "source_index": 35
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 15,
+        "LEGEND": 15,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 15,
+        "UNIQUE": 15
+      },
+      "source_index": 36
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 15,
+        "LEGEND": 15,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 15,
+        "UNIQUE": 15
+      },
+      "source_index": 37
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 15,
+        "LEGEND": 18,
+        "LOW": 15,
+        "NORMAL": 15,
+        "RARE": 15,
+        "UNIQUE": 15
+      },
+      "source_index": 38
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 15,
+        "LEGEND": 18,
+        "LOW": 15,
+        "NORMAL": 15,
+        "RARE": 15,
+        "UNIQUE": 15
+      },
+      "source_index": 39
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 15,
+        "LEGEND": 18,
+        "LOW": 15,
+        "NORMAL": 15,
+        "RARE": 15,
+        "UNIQUE": 18
+      },
+      "source_index": 40
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 15,
+        "LEGEND": 18,
+        "LOW": 15,
+        "NORMAL": 15,
+        "RARE": 15,
+        "UNIQUE": 18
+      },
+      "source_index": 41
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 18,
+        "LOW": 15,
+        "NORMAL": 15,
+        "RARE": 15,
+        "UNIQUE": 18
+      },
+      "source_index": 42
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 18,
+        "LOW": 15,
+        "NORMAL": 15,
+        "RARE": 15,
+        "UNIQUE": 18
+      },
+      "source_index": 43
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 18,
+        "LOW": 15,
+        "NORMAL": 15,
+        "RARE": 18,
+        "UNIQUE": 18
+      },
+      "source_index": 44
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 18,
+        "LOW": 15,
+        "NORMAL": 15,
+        "RARE": 18,
+        "UNIQUE": 18
+      },
+      "source_index": 45
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 21,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 18,
+        "UNIQUE": 18
+      },
+      "source_index": 46
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 21,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 18,
+        "UNIQUE": 18
+      },
+      "source_index": 47
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 21,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 18,
+        "UNIQUE": 21
+      },
+      "source_index": 48
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 21,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 18,
+        "UNIQUE": 21
+      },
+      "source_index": 49
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 21,
+        "LEGEND": 21,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 18,
+        "UNIQUE": 21
+      },
+      "source_index": 50
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 21,
+        "LEGEND": 21,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 18,
+        "UNIQUE": 21
+      },
+      "source_index": 51
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 21,
+        "LEGEND": 21,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 21,
+        "UNIQUE": 21
+      },
+      "source_index": 52
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 21,
+        "LEGEND": 21,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 21,
+        "UNIQUE": 21
+      },
+      "source_index": 53
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 21,
+        "LEGEND": 24,
+        "LOW": 21,
+        "NORMAL": 21,
+        "RARE": 21,
+        "UNIQUE": 21
+      },
+      "source_index": 54
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 21,
+        "LEGEND": 24,
+        "LOW": 21,
+        "NORMAL": 21,
+        "RARE": 21,
+        "UNIQUE": 21
+      },
+      "source_index": 55
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 21,
+        "LEGEND": 24,
+        "LOW": 21,
+        "NORMAL": 21,
+        "RARE": 21,
+        "UNIQUE": 24
+      },
+      "source_index": 56
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 21,
+        "LEGEND": 24,
+        "LOW": 21,
+        "NORMAL": 21,
+        "RARE": 21,
+        "UNIQUE": 24
+      },
+      "source_index": 57
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 24,
+        "LOW": 21,
+        "NORMAL": 21,
+        "RARE": 21,
+        "UNIQUE": 24
+      },
+      "source_index": 58
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 24,
+        "LOW": 21,
+        "NORMAL": 21,
+        "RARE": 21,
+        "UNIQUE": 24
+      },
+      "source_index": 59
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 24,
+        "LOW": 21,
+        "NORMAL": 21,
+        "RARE": 24,
+        "UNIQUE": 24
+      },
+      "source_index": 60
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 24,
+        "LOW": 21,
+        "NORMAL": 21,
+        "RARE": 24,
+        "UNIQUE": 24
+      },
+      "source_index": 61
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 27,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 24,
+        "UNIQUE": 24
+      },
+      "source_index": 62
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 27,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 24,
+        "UNIQUE": 24
+      },
+      "source_index": 63
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 27,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 24,
+        "UNIQUE": 27
+      },
+      "source_index": 64
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 27,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 24,
+        "UNIQUE": 27
+      },
+      "source_index": 65
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 27,
+        "LEGEND": 27,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 24,
+        "UNIQUE": 27
+      },
+      "source_index": 66
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 27,
+        "LEGEND": 27,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 24,
+        "UNIQUE": 27
+      },
+      "source_index": 67
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 27,
+        "LEGEND": 27,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 27,
+        "UNIQUE": 27
+      },
+      "source_index": 68
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 27,
+        "LEGEND": 27,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 27,
+        "UNIQUE": 27
+      },
+      "source_index": 69
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 27,
+        "LEGEND": 30,
+        "LOW": 27,
+        "NORMAL": 27,
+        "RARE": 27,
+        "UNIQUE": 27
+      },
+      "source_index": 70
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 27,
+        "LEGEND": 30,
+        "LOW": 27,
+        "NORMAL": 27,
+        "RARE": 27,
+        "UNIQUE": 27
+      },
+      "source_index": 71
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 27,
+        "LEGEND": 30,
+        "LOW": 27,
+        "NORMAL": 27,
+        "RARE": 27,
+        "UNIQUE": 30
+      },
+      "source_index": 72
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 27,
+        "LEGEND": 30,
+        "LOW": 27,
+        "NORMAL": 27,
+        "RARE": 27,
+        "UNIQUE": 30
+      },
+      "source_index": 73
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 30,
+        "LOW": 27,
+        "NORMAL": 27,
+        "RARE": 27,
+        "UNIQUE": 30
+      },
+      "source_index": 74
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 30,
+        "LOW": 27,
+        "NORMAL": 27,
+        "RARE": 27,
+        "UNIQUE": 30
+      },
+      "source_index": 75
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 30,
+        "LOW": 27,
+        "NORMAL": 27,
+        "RARE": 30,
+        "UNIQUE": 30
+      },
+      "source_index": 76
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 33,
+        "LOW": 27,
+        "NORMAL": 27,
+        "RARE": 30,
+        "UNIQUE": 30
+      },
+      "source_index": 77
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 33,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 30,
+        "UNIQUE": 30
+      },
+      "source_index": 78
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 33,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 30,
+        "UNIQUE": 33
+      },
+      "source_index": 79
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 33,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 30,
+        "UNIQUE": 33
+      },
+      "source_index": 80
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 33,
+        "LEGEND": 33,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 30,
+        "UNIQUE": 33
+      },
+      "source_index": 81
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 33,
+        "LEGEND": 33,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 30,
+        "UNIQUE": 33
+      },
+      "source_index": 82
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 33,
+        "LEGEND": 33,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 33,
+        "UNIQUE": 33
+      },
+      "source_index": 83
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 33,
+        "LEGEND": 33,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 33,
+        "UNIQUE": 33
+      },
+      "source_index": 84
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 33,
+        "LEGEND": 33,
+        "LOW": 33,
+        "NORMAL": 33,
+        "RARE": 33,
+        "UNIQUE": 33
+      },
+      "source_index": 85
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 33,
+        "LEGEND": 36,
+        "LOW": 33,
+        "NORMAL": 33,
+        "RARE": 33,
+        "UNIQUE": 33
+      },
+      "source_index": 86
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 33,
+        "LEGEND": 36,
+        "LOW": 33,
+        "NORMAL": 33,
+        "RARE": 33,
+        "UNIQUE": 33
+      },
+      "source_index": 87
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 33,
+        "LEGEND": 36,
+        "LOW": 33,
+        "NORMAL": 33,
+        "RARE": 33,
+        "UNIQUE": 36
+      },
+      "source_index": 88
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 33,
+        "LEGEND": 36,
+        "LOW": 33,
+        "NORMAL": 33,
+        "RARE": 33,
+        "UNIQUE": 36
+      },
+      "source_index": 89
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 36,
+        "LOW": 33,
+        "NORMAL": 33,
+        "RARE": 33,
+        "UNIQUE": 36
+      },
+      "source_index": 90
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 36,
+        "LOW": 33,
+        "NORMAL": 33,
+        "RARE": 33,
+        "UNIQUE": 36
+      },
+      "source_index": 91
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 39,
+        "LOW": 33,
+        "NORMAL": 33,
+        "RARE": 36,
+        "UNIQUE": 36
+      },
+      "source_index": 92
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 39,
+        "LOW": 33,
+        "NORMAL": 33,
+        "RARE": 36,
+        "UNIQUE": 36
+      },
+      "source_index": 93
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 39,
+        "LEGEND": 39,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 36,
+        "UNIQUE": 36
+      },
+      "source_index": 94
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 39,
+        "LEGEND": 39,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 36,
+        "UNIQUE": 36
+      },
+      "source_index": 95
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 39,
+        "LEGEND": 39,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 36,
+        "UNIQUE": 39
+      },
+      "source_index": 96
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 39,
+        "LEGEND": 39,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 36,
+        "UNIQUE": 39
+      },
+      "source_index": 97
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 39,
+        "LEGEND": 39,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 39,
+        "UNIQUE": 39
+      },
+      "source_index": 98
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 39,
+        "LEGEND": 39,
+        "LOW": 36,
+        "NORMAL": 39,
+        "RARE": 39,
+        "UNIQUE": 39
+      },
+      "source_index": 99
+    },
+    {
+      "enchant_type": 5,
+      "quantities": {
+        "ELITE": 39,
+        "LEGEND": 39,
+        "LOW": 39,
+        "NORMAL": 39,
+        "RARE": 39,
+        "UNIQUE": 39
+      },
+      "source_index": 100
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 24,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 12
+      },
+      "source_index": 1
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 36,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 24
+      },
+      "source_index": 2
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 36,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 24
+      },
+      "source_index": 3
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 48,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 36
+      },
+      "source_index": 4
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 48,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 36
+      },
+      "source_index": 5
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 60,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 24,
+        "UNIQUE": 48
+      },
+      "source_index": 6
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 60,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 24,
+        "UNIQUE": 48
+      },
+      "source_index": 7
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 72,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 36,
+        "UNIQUE": 60
+      },
+      "source_index": 8
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 72,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 36,
+        "UNIQUE": 60
+      },
+      "source_index": 9
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 60,
+        "LEGEND": 84,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 48,
+        "UNIQUE": 72
+      },
+      "source_index": 10
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 60,
+        "LEGEND": 84,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 48,
+        "UNIQUE": 72
+      },
+      "source_index": 11
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 72,
+        "LEGEND": 96,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 60,
+        "UNIQUE": 84
+      },
+      "source_index": 12
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 72,
+        "LEGEND": 96,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 60,
+        "UNIQUE": 84
+      },
+      "source_index": 13
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 84,
+        "LEGEND": 108,
+        "LOW": 60,
+        "NORMAL": 60,
+        "RARE": 72,
+        "UNIQUE": 96
+      },
+      "source_index": 14
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 84,
+        "LEGEND": 108,
+        "LOW": 60,
+        "NORMAL": 60,
+        "RARE": 72,
+        "UNIQUE": 96
+      },
+      "source_index": 15
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 96,
+        "LEGEND": 120,
+        "LOW": 72,
+        "NORMAL": 72,
+        "RARE": 84,
+        "UNIQUE": 108
+      },
+      "source_index": 16
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 96,
+        "LEGEND": 120,
+        "LOW": 72,
+        "NORMAL": 72,
+        "RARE": 84,
+        "UNIQUE": 108
+      },
+      "source_index": 17
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 108,
+        "LEGEND": 132,
+        "LOW": 84,
+        "NORMAL": 84,
+        "RARE": 96,
+        "UNIQUE": 120
+      },
+      "source_index": 18
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 108,
+        "LEGEND": 132,
+        "LOW": 84,
+        "NORMAL": 84,
+        "RARE": 96,
+        "UNIQUE": 120
+      },
+      "source_index": 19
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 120,
+        "LEGEND": 144,
+        "LOW": 96,
+        "NORMAL": 96,
+        "RARE": 108,
+        "UNIQUE": 132
+      },
+      "source_index": 20
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 120,
+        "LEGEND": 144,
+        "LOW": 96,
+        "NORMAL": 96,
+        "RARE": 108,
+        "UNIQUE": 132
+      },
+      "source_index": 21
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 132,
+        "LEGEND": 156,
+        "LOW": 108,
+        "NORMAL": 108,
+        "RARE": 120,
+        "UNIQUE": 144
+      },
+      "source_index": 22
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 132,
+        "LEGEND": 156,
+        "LOW": 108,
+        "NORMAL": 108,
+        "RARE": 120,
+        "UNIQUE": 144
+      },
+      "source_index": 23
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 144,
+        "LEGEND": 168,
+        "LOW": 120,
+        "NORMAL": 120,
+        "RARE": 132,
+        "UNIQUE": 156
+      },
+      "source_index": 24
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 144,
+        "LEGEND": 168,
+        "LOW": 120,
+        "NORMAL": 120,
+        "RARE": 132,
+        "UNIQUE": 156
+      },
+      "source_index": 25
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 156,
+        "LEGEND": 180,
+        "LOW": 132,
+        "NORMAL": 132,
+        "RARE": 144,
+        "UNIQUE": 168
+      },
+      "source_index": 26
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 156,
+        "LEGEND": 180,
+        "LOW": 132,
+        "NORMAL": 132,
+        "RARE": 144,
+        "UNIQUE": 168
+      },
+      "source_index": 27
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 168,
+        "LEGEND": 192,
+        "LOW": 144,
+        "NORMAL": 144,
+        "RARE": 156,
+        "UNIQUE": 180
+      },
+      "source_index": 28
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 168,
+        "LEGEND": 192,
+        "LOW": 144,
+        "NORMAL": 144,
+        "RARE": 156,
+        "UNIQUE": 180
+      },
+      "source_index": 29
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 180,
+        "LEGEND": 204,
+        "LOW": 156,
+        "NORMAL": 156,
+        "RARE": 168,
+        "UNIQUE": 192
+      },
+      "source_index": 30
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 180,
+        "LEGEND": 204,
+        "LOW": 156,
+        "NORMAL": 156,
+        "RARE": 168,
+        "UNIQUE": 192
+      },
+      "source_index": 31
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 192,
+        "LEGEND": 216,
+        "LOW": 168,
+        "NORMAL": 168,
+        "RARE": 180,
+        "UNIQUE": 204
+      },
+      "source_index": 32
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 192,
+        "LEGEND": 216,
+        "LOW": 168,
+        "NORMAL": 168,
+        "RARE": 180,
+        "UNIQUE": 204
+      },
+      "source_index": 33
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 204,
+        "LEGEND": 228,
+        "LOW": 180,
+        "NORMAL": 180,
+        "RARE": 192,
+        "UNIQUE": 216
+      },
+      "source_index": 34
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 204,
+        "LEGEND": 228,
+        "LOW": 180,
+        "NORMAL": 180,
+        "RARE": 192,
+        "UNIQUE": 216
+      },
+      "source_index": 35
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 216,
+        "LEGEND": 240,
+        "LOW": 192,
+        "NORMAL": 192,
+        "RARE": 204,
+        "UNIQUE": 228
+      },
+      "source_index": 36
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 216,
+        "LEGEND": 240,
+        "LOW": 192,
+        "NORMAL": 192,
+        "RARE": 204,
+        "UNIQUE": 228
+      },
+      "source_index": 37
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 228,
+        "LEGEND": 252,
+        "LOW": 204,
+        "NORMAL": 204,
+        "RARE": 216,
+        "UNIQUE": 240
+      },
+      "source_index": 38
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 228,
+        "LEGEND": 252,
+        "LOW": 204,
+        "NORMAL": 204,
+        "RARE": 216,
+        "UNIQUE": 240
+      },
+      "source_index": 39
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 240,
+        "LEGEND": 264,
+        "LOW": 216,
+        "NORMAL": 216,
+        "RARE": 228,
+        "UNIQUE": 252
+      },
+      "source_index": 40
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 240,
+        "LEGEND": 264,
+        "LOW": 216,
+        "NORMAL": 216,
+        "RARE": 228,
+        "UNIQUE": 252
+      },
+      "source_index": 41
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 252,
+        "LEGEND": 276,
+        "LOW": 228,
+        "NORMAL": 228,
+        "RARE": 240,
+        "UNIQUE": 264
+      },
+      "source_index": 42
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 252,
+        "LEGEND": 276,
+        "LOW": 228,
+        "NORMAL": 228,
+        "RARE": 240,
+        "UNIQUE": 264
+      },
+      "source_index": 43
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 264,
+        "LEGEND": 288,
+        "LOW": 240,
+        "NORMAL": 240,
+        "RARE": 252,
+        "UNIQUE": 276
+      },
+      "source_index": 44
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 264,
+        "LEGEND": 288,
+        "LOW": 240,
+        "NORMAL": 240,
+        "RARE": 252,
+        "UNIQUE": 276
+      },
+      "source_index": 45
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 276,
+        "LEGEND": 300,
+        "LOW": 252,
+        "NORMAL": 252,
+        "RARE": 264,
+        "UNIQUE": 288
+      },
+      "source_index": 46
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 276,
+        "LEGEND": 300,
+        "LOW": 252,
+        "NORMAL": 252,
+        "RARE": 264,
+        "UNIQUE": 288
+      },
+      "source_index": 47
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 288,
+        "LEGEND": 312,
+        "LOW": 264,
+        "NORMAL": 264,
+        "RARE": 276,
+        "UNIQUE": 300
+      },
+      "source_index": 48
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 288,
+        "LEGEND": 312,
+        "LOW": 264,
+        "NORMAL": 264,
+        "RARE": 276,
+        "UNIQUE": 300
+      },
+      "source_index": 49
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 300,
+        "LEGEND": 324,
+        "LOW": 276,
+        "NORMAL": 276,
+        "RARE": 288,
+        "UNIQUE": 312
+      },
+      "source_index": 50
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 300,
+        "LEGEND": 324,
+        "LOW": 276,
+        "NORMAL": 276,
+        "RARE": 288,
+        "UNIQUE": 312
+      },
+      "source_index": 51
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 312,
+        "LEGEND": 336,
+        "LOW": 288,
+        "NORMAL": 288,
+        "RARE": 300,
+        "UNIQUE": 324
+      },
+      "source_index": 52
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 312,
+        "LEGEND": 336,
+        "LOW": 288,
+        "NORMAL": 288,
+        "RARE": 300,
+        "UNIQUE": 324
+      },
+      "source_index": 53
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 324,
+        "LEGEND": 348,
+        "LOW": 300,
+        "NORMAL": 300,
+        "RARE": 312,
+        "UNIQUE": 336
+      },
+      "source_index": 54
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 324,
+        "LEGEND": 348,
+        "LOW": 300,
+        "NORMAL": 300,
+        "RARE": 312,
+        "UNIQUE": 336
+      },
+      "source_index": 55
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 336,
+        "LEGEND": 360,
+        "LOW": 312,
+        "NORMAL": 312,
+        "RARE": 324,
+        "UNIQUE": 348
+      },
+      "source_index": 56
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 336,
+        "LEGEND": 360,
+        "LOW": 312,
+        "NORMAL": 312,
+        "RARE": 324,
+        "UNIQUE": 348
+      },
+      "source_index": 57
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 348,
+        "LEGEND": 372,
+        "LOW": 324,
+        "NORMAL": 324,
+        "RARE": 336,
+        "UNIQUE": 360
+      },
+      "source_index": 58
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 348,
+        "LEGEND": 372,
+        "LOW": 324,
+        "NORMAL": 324,
+        "RARE": 336,
+        "UNIQUE": 360
+      },
+      "source_index": 59
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 360,
+        "LEGEND": 384,
+        "LOW": 336,
+        "NORMAL": 336,
+        "RARE": 348,
+        "UNIQUE": 372
+      },
+      "source_index": 60
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 360,
+        "LEGEND": 384,
+        "LOW": 336,
+        "NORMAL": 336,
+        "RARE": 348,
+        "UNIQUE": 372
+      },
+      "source_index": 61
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 372,
+        "LEGEND": 396,
+        "LOW": 348,
+        "NORMAL": 348,
+        "RARE": 360,
+        "UNIQUE": 384
+      },
+      "source_index": 62
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 372,
+        "LEGEND": 396,
+        "LOW": 348,
+        "NORMAL": 348,
+        "RARE": 360,
+        "UNIQUE": 384
+      },
+      "source_index": 63
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 384,
+        "LEGEND": 408,
+        "LOW": 360,
+        "NORMAL": 360,
+        "RARE": 372,
+        "UNIQUE": 396
+      },
+      "source_index": 64
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 384,
+        "LEGEND": 408,
+        "LOW": 360,
+        "NORMAL": 360,
+        "RARE": 372,
+        "UNIQUE": 396
+      },
+      "source_index": 65
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 396,
+        "LEGEND": 420,
+        "LOW": 372,
+        "NORMAL": 372,
+        "RARE": 384,
+        "UNIQUE": 408
+      },
+      "source_index": 66
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 396,
+        "LEGEND": 420,
+        "LOW": 372,
+        "NORMAL": 372,
+        "RARE": 384,
+        "UNIQUE": 408
+      },
+      "source_index": 67
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 408,
+        "LEGEND": 432,
+        "LOW": 384,
+        "NORMAL": 384,
+        "RARE": 396,
+        "UNIQUE": 420
+      },
+      "source_index": 68
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 408,
+        "LEGEND": 432,
+        "LOW": 384,
+        "NORMAL": 384,
+        "RARE": 396,
+        "UNIQUE": 420
+      },
+      "source_index": 69
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 420,
+        "LEGEND": 444,
+        "LOW": 396,
+        "NORMAL": 396,
+        "RARE": 408,
+        "UNIQUE": 432
+      },
+      "source_index": 70
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 420,
+        "LEGEND": 444,
+        "LOW": 396,
+        "NORMAL": 396,
+        "RARE": 408,
+        "UNIQUE": 432
+      },
+      "source_index": 71
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 432,
+        "LEGEND": 456,
+        "LOW": 408,
+        "NORMAL": 408,
+        "RARE": 420,
+        "UNIQUE": 444
+      },
+      "source_index": 72
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 432,
+        "LEGEND": 456,
+        "LOW": 408,
+        "NORMAL": 408,
+        "RARE": 420,
+        "UNIQUE": 444
+      },
+      "source_index": 73
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 444,
+        "LEGEND": 468,
+        "LOW": 420,
+        "NORMAL": 420,
+        "RARE": 432,
+        "UNIQUE": 456
+      },
+      "source_index": 74
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 444,
+        "LEGEND": 468,
+        "LOW": 420,
+        "NORMAL": 420,
+        "RARE": 432,
+        "UNIQUE": 456
+      },
+      "source_index": 75
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 456,
+        "LEGEND": 480,
+        "LOW": 432,
+        "NORMAL": 432,
+        "RARE": 444,
+        "UNIQUE": 468
+      },
+      "source_index": 76
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 456,
+        "LEGEND": 480,
+        "LOW": 432,
+        "NORMAL": 432,
+        "RARE": 444,
+        "UNIQUE": 468
+      },
+      "source_index": 77
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 468,
+        "LEGEND": 492,
+        "LOW": 444,
+        "NORMAL": 444,
+        "RARE": 456,
+        "UNIQUE": 480
+      },
+      "source_index": 78
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 468,
+        "LEGEND": 492,
+        "LOW": 444,
+        "NORMAL": 444,
+        "RARE": 456,
+        "UNIQUE": 480
+      },
+      "source_index": 79
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 480,
+        "LEGEND": 504,
+        "LOW": 456,
+        "NORMAL": 456,
+        "RARE": 468,
+        "UNIQUE": 492
+      },
+      "source_index": 80
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 480,
+        "LEGEND": 504,
+        "LOW": 456,
+        "NORMAL": 456,
+        "RARE": 468,
+        "UNIQUE": 492
+      },
+      "source_index": 81
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 492,
+        "LEGEND": 516,
+        "LOW": 468,
+        "NORMAL": 468,
+        "RARE": 480,
+        "UNIQUE": 504
+      },
+      "source_index": 82
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 492,
+        "LEGEND": 516,
+        "LOW": 468,
+        "NORMAL": 468,
+        "RARE": 480,
+        "UNIQUE": 504
+      },
+      "source_index": 83
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 504,
+        "LEGEND": 528,
+        "LOW": 480,
+        "NORMAL": 480,
+        "RARE": 492,
+        "UNIQUE": 516
+      },
+      "source_index": 84
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 504,
+        "LEGEND": 528,
+        "LOW": 480,
+        "NORMAL": 480,
+        "RARE": 492,
+        "UNIQUE": 516
+      },
+      "source_index": 85
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 516,
+        "LEGEND": 540,
+        "LOW": 492,
+        "NORMAL": 492,
+        "RARE": 504,
+        "UNIQUE": 528
+      },
+      "source_index": 86
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 516,
+        "LEGEND": 540,
+        "LOW": 492,
+        "NORMAL": 492,
+        "RARE": 504,
+        "UNIQUE": 528
+      },
+      "source_index": 87
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 528,
+        "LEGEND": 552,
+        "LOW": 504,
+        "NORMAL": 504,
+        "RARE": 516,
+        "UNIQUE": 540
+      },
+      "source_index": 88
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 528,
+        "LEGEND": 552,
+        "LOW": 504,
+        "NORMAL": 504,
+        "RARE": 516,
+        "UNIQUE": 540
+      },
+      "source_index": 89
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 540,
+        "LEGEND": 564,
+        "LOW": 516,
+        "NORMAL": 516,
+        "RARE": 528,
+        "UNIQUE": 552
+      },
+      "source_index": 90
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 540,
+        "LEGEND": 564,
+        "LOW": 516,
+        "NORMAL": 516,
+        "RARE": 528,
+        "UNIQUE": 552
+      },
+      "source_index": 91
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 552,
+        "LEGEND": 576,
+        "LOW": 528,
+        "NORMAL": 528,
+        "RARE": 540,
+        "UNIQUE": 564
+      },
+      "source_index": 92
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 552,
+        "LEGEND": 576,
+        "LOW": 528,
+        "NORMAL": 528,
+        "RARE": 540,
+        "UNIQUE": 564
+      },
+      "source_index": 93
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 564,
+        "LEGEND": 588,
+        "LOW": 540,
+        "NORMAL": 540,
+        "RARE": 552,
+        "UNIQUE": 576
+      },
+      "source_index": 94
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 564,
+        "LEGEND": 588,
+        "LOW": 540,
+        "NORMAL": 540,
+        "RARE": 552,
+        "UNIQUE": 576
+      },
+      "source_index": 95
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 576,
+        "LEGEND": 600,
+        "LOW": 552,
+        "NORMAL": 552,
+        "RARE": 564,
+        "UNIQUE": 588
+      },
+      "source_index": 96
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 576,
+        "LEGEND": 600,
+        "LOW": 552,
+        "NORMAL": 552,
+        "RARE": 564,
+        "UNIQUE": 588
+      },
+      "source_index": 97
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 588,
+        "LEGEND": 612,
+        "LOW": 564,
+        "NORMAL": 564,
+        "RARE": 576,
+        "UNIQUE": 600
+      },
+      "source_index": 98
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 588,
+        "LEGEND": 612,
+        "LOW": 564,
+        "NORMAL": 564,
+        "RARE": 576,
+        "UNIQUE": 600
+      },
+      "source_index": 99
+    },
+    {
+      "enchant_type": 6,
+      "quantities": {
+        "ELITE": 600,
+        "LEGEND": 624,
+        "LOW": 576,
+        "NORMAL": 576,
+        "RARE": 588,
+        "UNIQUE": 612
+      },
+      "source_index": 100
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 6,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 1
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 6,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 2
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 6,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 3
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 6,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 4
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 6,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 5
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 12,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 6
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 12,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 6
+      },
+      "source_index": 7
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 12,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 12
+      },
+      "source_index": 8
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 6,
+        "LEGEND": 12,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 12
+      },
+      "source_index": 9
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 12,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 12
+      },
+      "source_index": 10
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 12,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 6,
+        "UNIQUE": 12
+      },
+      "source_index": 11
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 12,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 12,
+        "UNIQUE": 12
+      },
+      "source_index": 12
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 12,
+        "LOW": 6,
+        "NORMAL": 6,
+        "RARE": 12,
+        "UNIQUE": 12
+      },
+      "source_index": 13
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 18,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 12
+      },
+      "source_index": 14
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 18,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 12
+      },
+      "source_index": 15
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 18,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 18
+      },
+      "source_index": 16
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 12,
+        "LEGEND": 18,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 18
+      },
+      "source_index": 17
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 18,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 18
+      },
+      "source_index": 18
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 18,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 12,
+        "UNIQUE": 18
+      },
+      "source_index": 19
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 18,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 18,
+        "UNIQUE": 18
+      },
+      "source_index": 20
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 18,
+        "LOW": 12,
+        "NORMAL": 12,
+        "RARE": 18,
+        "UNIQUE": 18
+      },
+      "source_index": 21
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 24,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 18,
+        "UNIQUE": 18
+      },
+      "source_index": 22
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 24,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 18,
+        "UNIQUE": 18
+      },
+      "source_index": 23
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 24,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 18,
+        "UNIQUE": 24
+      },
+      "source_index": 24
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 18,
+        "LEGEND": 24,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 18,
+        "UNIQUE": 24
+      },
+      "source_index": 25
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 24,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 18,
+        "UNIQUE": 24
+      },
+      "source_index": 26
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 24,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 18,
+        "UNIQUE": 24
+      },
+      "source_index": 27
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 24,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 24,
+        "UNIQUE": 24
+      },
+      "source_index": 28
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 24,
+        "LOW": 18,
+        "NORMAL": 18,
+        "RARE": 24,
+        "UNIQUE": 24
+      },
+      "source_index": 29
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 30,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 24,
+        "UNIQUE": 24
+      },
+      "source_index": 30
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 30,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 24,
+        "UNIQUE": 24
+      },
+      "source_index": 31
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 30,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 24,
+        "UNIQUE": 30
+      },
+      "source_index": 32
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 24,
+        "LEGEND": 30,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 24,
+        "UNIQUE": 30
+      },
+      "source_index": 33
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 30,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 24,
+        "UNIQUE": 30
+      },
+      "source_index": 34
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 30,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 24,
+        "UNIQUE": 30
+      },
+      "source_index": 35
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 30,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 30,
+        "UNIQUE": 30
+      },
+      "source_index": 36
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 30,
+        "LOW": 24,
+        "NORMAL": 24,
+        "RARE": 30,
+        "UNIQUE": 30
+      },
+      "source_index": 37
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 36,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 30,
+        "UNIQUE": 30
+      },
+      "source_index": 38
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 36,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 30,
+        "UNIQUE": 30
+      },
+      "source_index": 39
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 36,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 30,
+        "UNIQUE": 36
+      },
+      "source_index": 40
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 30,
+        "LEGEND": 36,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 30,
+        "UNIQUE": 36
+      },
+      "source_index": 41
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 36,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 30,
+        "UNIQUE": 36
+      },
+      "source_index": 42
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 36,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 30,
+        "UNIQUE": 36
+      },
+      "source_index": 43
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 36,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 36,
+        "UNIQUE": 36
+      },
+      "source_index": 44
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 36,
+        "LOW": 30,
+        "NORMAL": 30,
+        "RARE": 36,
+        "UNIQUE": 36
+      },
+      "source_index": 45
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 42,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 36,
+        "UNIQUE": 36
+      },
+      "source_index": 46
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 42,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 36,
+        "UNIQUE": 36
+      },
+      "source_index": 47
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 42,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 36,
+        "UNIQUE": 42
+      },
+      "source_index": 48
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 36,
+        "LEGEND": 42,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 36,
+        "UNIQUE": 42
+      },
+      "source_index": 49
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 42,
+        "LEGEND": 42,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 36,
+        "UNIQUE": 42
+      },
+      "source_index": 50
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 42,
+        "LEGEND": 42,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 36,
+        "UNIQUE": 42
+      },
+      "source_index": 51
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 42,
+        "LEGEND": 42,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 42,
+        "UNIQUE": 42
+      },
+      "source_index": 52
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 42,
+        "LEGEND": 42,
+        "LOW": 36,
+        "NORMAL": 36,
+        "RARE": 42,
+        "UNIQUE": 42
+      },
+      "source_index": 53
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 42,
+        "LEGEND": 48,
+        "LOW": 42,
+        "NORMAL": 42,
+        "RARE": 42,
+        "UNIQUE": 42
+      },
+      "source_index": 54
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 42,
+        "LEGEND": 48,
+        "LOW": 42,
+        "NORMAL": 42,
+        "RARE": 42,
+        "UNIQUE": 42
+      },
+      "source_index": 55
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 42,
+        "LEGEND": 48,
+        "LOW": 42,
+        "NORMAL": 42,
+        "RARE": 42,
+        "UNIQUE": 48
+      },
+      "source_index": 56
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 42,
+        "LEGEND": 48,
+        "LOW": 42,
+        "NORMAL": 42,
+        "RARE": 42,
+        "UNIQUE": 48
+      },
+      "source_index": 57
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 48,
+        "LOW": 42,
+        "NORMAL": 42,
+        "RARE": 42,
+        "UNIQUE": 48
+      },
+      "source_index": 58
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 48,
+        "LOW": 42,
+        "NORMAL": 42,
+        "RARE": 42,
+        "UNIQUE": 48
+      },
+      "source_index": 59
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 48,
+        "LOW": 42,
+        "NORMAL": 42,
+        "RARE": 48,
+        "UNIQUE": 48
+      },
+      "source_index": 60
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 48,
+        "LOW": 42,
+        "NORMAL": 42,
+        "RARE": 48,
+        "UNIQUE": 48
+      },
+      "source_index": 61
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 54,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 48,
+        "UNIQUE": 48
+      },
+      "source_index": 62
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 54,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 48,
+        "UNIQUE": 48
+      },
+      "source_index": 63
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 54,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 48,
+        "UNIQUE": 54
+      },
+      "source_index": 64
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 48,
+        "LEGEND": 54,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 48,
+        "UNIQUE": 54
+      },
+      "source_index": 65
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 54,
+        "LEGEND": 54,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 48,
+        "UNIQUE": 54
+      },
+      "source_index": 66
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 54,
+        "LEGEND": 54,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 48,
+        "UNIQUE": 54
+      },
+      "source_index": 67
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 54,
+        "LEGEND": 54,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 54,
+        "UNIQUE": 54
+      },
+      "source_index": 68
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 54,
+        "LEGEND": 54,
+        "LOW": 48,
+        "NORMAL": 48,
+        "RARE": 54,
+        "UNIQUE": 54
+      },
+      "source_index": 69
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 54,
+        "LEGEND": 60,
+        "LOW": 54,
+        "NORMAL": 54,
+        "RARE": 54,
+        "UNIQUE": 54
+      },
+      "source_index": 70
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 54,
+        "LEGEND": 60,
+        "LOW": 54,
+        "NORMAL": 54,
+        "RARE": 54,
+        "UNIQUE": 54
+      },
+      "source_index": 71
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 54,
+        "LEGEND": 60,
+        "LOW": 54,
+        "NORMAL": 54,
+        "RARE": 54,
+        "UNIQUE": 60
+      },
+      "source_index": 72
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 54,
+        "LEGEND": 60,
+        "LOW": 54,
+        "NORMAL": 54,
+        "RARE": 54,
+        "UNIQUE": 60
+      },
+      "source_index": 73
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 60,
+        "LEGEND": 60,
+        "LOW": 54,
+        "NORMAL": 54,
+        "RARE": 54,
+        "UNIQUE": 60
+      },
+      "source_index": 74
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 60,
+        "LEGEND": 60,
+        "LOW": 54,
+        "NORMAL": 54,
+        "RARE": 54,
+        "UNIQUE": 60
+      },
+      "source_index": 75
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 60,
+        "LEGEND": 60,
+        "LOW": 54,
+        "NORMAL": 54,
+        "RARE": 60,
+        "UNIQUE": 60
+      },
+      "source_index": 76
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 60,
+        "LEGEND": 66,
+        "LOW": 54,
+        "NORMAL": 54,
+        "RARE": 60,
+        "UNIQUE": 60
+      },
+      "source_index": 77
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 60,
+        "LEGEND": 66,
+        "LOW": 60,
+        "NORMAL": 60,
+        "RARE": 60,
+        "UNIQUE": 60
+      },
+      "source_index": 78
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 60,
+        "LEGEND": 66,
+        "LOW": 60,
+        "NORMAL": 60,
+        "RARE": 60,
+        "UNIQUE": 66
+      },
+      "source_index": 79
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 60,
+        "LEGEND": 66,
+        "LOW": 60,
+        "NORMAL": 60,
+        "RARE": 60,
+        "UNIQUE": 66
+      },
+      "source_index": 80
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 66,
+        "LEGEND": 66,
+        "LOW": 60,
+        "NORMAL": 60,
+        "RARE": 60,
+        "UNIQUE": 66
+      },
+      "source_index": 81
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 66,
+        "LEGEND": 66,
+        "LOW": 60,
+        "NORMAL": 60,
+        "RARE": 60,
+        "UNIQUE": 66
+      },
+      "source_index": 82
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 66,
+        "LEGEND": 66,
+        "LOW": 60,
+        "NORMAL": 60,
+        "RARE": 66,
+        "UNIQUE": 66
+      },
+      "source_index": 83
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 66,
+        "LEGEND": 66,
+        "LOW": 60,
+        "NORMAL": 60,
+        "RARE": 66,
+        "UNIQUE": 66
+      },
+      "source_index": 84
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 66,
+        "LEGEND": 66,
+        "LOW": 66,
+        "NORMAL": 66,
+        "RARE": 66,
+        "UNIQUE": 66
+      },
+      "source_index": 85
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 66,
+        "LEGEND": 72,
+        "LOW": 66,
+        "NORMAL": 66,
+        "RARE": 66,
+        "UNIQUE": 66
+      },
+      "source_index": 86
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 66,
+        "LEGEND": 72,
+        "LOW": 66,
+        "NORMAL": 66,
+        "RARE": 66,
+        "UNIQUE": 66
+      },
+      "source_index": 87
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 66,
+        "LEGEND": 72,
+        "LOW": 66,
+        "NORMAL": 66,
+        "RARE": 66,
+        "UNIQUE": 72
+      },
+      "source_index": 88
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 66,
+        "LEGEND": 72,
+        "LOW": 66,
+        "NORMAL": 66,
+        "RARE": 66,
+        "UNIQUE": 72
+      },
+      "source_index": 89
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 72,
+        "LEGEND": 72,
+        "LOW": 66,
+        "NORMAL": 66,
+        "RARE": 66,
+        "UNIQUE": 72
+      },
+      "source_index": 90
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 72,
+        "LEGEND": 72,
+        "LOW": 66,
+        "NORMAL": 66,
+        "RARE": 66,
+        "UNIQUE": 72
+      },
+      "source_index": 91
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 72,
+        "LEGEND": 78,
+        "LOW": 66,
+        "NORMAL": 66,
+        "RARE": 72,
+        "UNIQUE": 72
+      },
+      "source_index": 92
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 72,
+        "LEGEND": 78,
+        "LOW": 66,
+        "NORMAL": 66,
+        "RARE": 72,
+        "UNIQUE": 72
+      },
+      "source_index": 93
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 78,
+        "LEGEND": 78,
+        "LOW": 72,
+        "NORMAL": 72,
+        "RARE": 72,
+        "UNIQUE": 72
+      },
+      "source_index": 94
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 78,
+        "LEGEND": 78,
+        "LOW": 72,
+        "NORMAL": 72,
+        "RARE": 72,
+        "UNIQUE": 72
+      },
+      "source_index": 95
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 78,
+        "LEGEND": 78,
+        "LOW": 72,
+        "NORMAL": 72,
+        "RARE": 72,
+        "UNIQUE": 78
+      },
+      "source_index": 96
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 78,
+        "LEGEND": 78,
+        "LOW": 72,
+        "NORMAL": 72,
+        "RARE": 72,
+        "UNIQUE": 78
+      },
+      "source_index": 97
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 78,
+        "LEGEND": 78,
+        "LOW": 72,
+        "NORMAL": 72,
+        "RARE": 78,
+        "UNIQUE": 78
+      },
+      "source_index": 98
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 78,
+        "LEGEND": 78,
+        "LOW": 72,
+        "NORMAL": 78,
+        "RARE": 78,
+        "UNIQUE": 78
+      },
+      "source_index": 99
+    },
+    {
+      "enchant_type": 7,
+      "quantities": {
+        "ELITE": 78,
+        "LEGEND": 78,
+        "LOW": 78,
+        "NORMAL": 78,
+        "RARE": 78,
+        "UNIQUE": 78
+      },
+      "source_index": 100
+    }
+  ],
+  "scrolls": [
+    {
+      "ENCHANT_LEVEL": 5,
+      "ID": 130147
+    },
+    {
+      "ENCHANT_LEVEL": 6,
+      "ID": 130148
+    },
+    {
+      "ENCHANT_LEVEL": 7,
+      "ID": 130149
+    },
+    {
+      "ENCHANT_LEVEL": 8,
+      "ID": 130150
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 130151
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 130152
+    },
+    {
+      "ENCHANT_LEVEL": 11,
+      "ID": 117534
+    },
+    {
+      "ENCHANT_LEVEL": 12,
+      "ID": 117535
+    },
+    {
+      "ENCHANT_LEVEL": 5,
+      "ID": 130543,
+      "USE_TYPE": 2
+    },
+    {
+      "ENCHANT_LEVEL": 6,
+      "ID": 130544,
+      "USE_TYPE": 2
+    },
+    {
+      "ENCHANT_LEVEL": 7,
+      "ID": 133554,
+      "USE_TYPE": 2
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 5,
+      "ID": 132495
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 6,
+      "ID": 132496
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 132497
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 132498
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 132499
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 10,
+      "ID": 132500
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 11,
+      "ID": 154004
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 5,
+      "ID": 127150
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 6,
+      "ID": 127160
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 127170
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 127171
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 127172
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 10,
+      "ID": 127173
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 135076
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 135427,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 30,
+      "MIM_LV": 0
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 135428,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 40,
+      "MIM_LV": 30
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 135470,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 40,
+      "MIM_LV": 30
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 135479,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 40,
+      "MIM_LV": 30
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 135528,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 40,
+      "MIM_LV": 0
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 161200,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 40,
+      "MIM_LV": 0
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 153987,
+      "USE_TYPE": 2
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 153988,
+      "USE_TYPE": 2
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 161734,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 40,
+      "MIM_LV": 0
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 161912,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 40,
+      "MIM_LV": 0
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 162077,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 40,
+      "MIM_LV": 0
+    },
+    {
+      "ENCHANT_LEVEL": 7,
+      "ID": 162109,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 40,
+      "MIM_LV": 0
+    },
+    {
+      "ENCHANT_LEVEL": 8,
+      "ID": 162110,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 40,
+      "MIM_LV": 0
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 162111,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 40,
+      "MIM_LV": 0
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 162112,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 40,
+      "MIM_LV": 0
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 162186,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 40,
+      "MIM_LV": 0
+    },
+    {
+      "ENCHANT_LEVEL": 7,
+      "ID": 187043,
+      "USE_TYPE": 2
+    },
+    {
+      "ENCHANT_LEVEL": 8,
+      "ID": 187044,
+      "USE_TYPE": 2
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 187045,
+      "USE_TYPE": 2
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 187046,
+      "USE_TYPE": 2
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 187047
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 187048
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 187049
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 10,
+      "ID": 187050
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 6,
+      "ID": 188237
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 188238
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 188239
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 188240
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 163072
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 163073
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 163074
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 163075,
+      "USE_TYPE": 2
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 163076,
+      "USE_TYPE": 2
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 163077,
+      "USE_TYPE": 2
+    },
+    {
+      "ENCHANT_LEVEL": 7,
+      "ID": 163095
+    },
+    {
+      "ENCHANT_LEVEL": 8,
+      "ID": 163096
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 163097
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 163109
+    },
+    {
+      "ENCHANT_LEVEL": 13,
+      "ID": 163313
+    },
+    {
+      "ENCHANT_LEVEL": 5,
+      "ID": 190077
+    },
+    {
+      "ENCHANT_LEVEL": 6,
+      "ID": 190078
+    },
+    {
+      "ENCHANT_LEVEL": 7,
+      "ID": 188761
+    },
+    {
+      "ENCHANT_LEVEL": 8,
+      "ID": 188762
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 188763
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 188764
+    },
+    {
+      "ENCHANT_LEVEL": 11,
+      "ID": 190074
+    },
+    {
+      "ENCHANT_LEVEL": 12,
+      "ID": 190075
+    },
+    {
+      "ENCHANT_LEVEL": 13,
+      "ID": 190076
+    },
+    {
+      "ENCHANT_LEVEL": 8,
+      "ID": 188775,
+      "USE_TYPE": 1
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 188776,
+      "USE_TYPE": 1
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 188777,
+      "USE_TYPE": 1
+    },
+    {
+      "ENCHANT_LEVEL": 11,
+      "ID": 188778,
+      "USE_TYPE": 1
+    },
+    {
+      "ENCHANT_LEVEL": 12,
+      "ID": 188779,
+      "USE_TYPE": 1
+    },
+    {
+      "ENCHANT_LEVEL": 13,
+      "ID": 188780,
+      "USE_TYPE": 1
+    },
+    {
+      "ENCHANT_LEVEL": 8,
+      "ID": 165761,
+      "USE_TYPE": 1
+    },
+    {
+      "ENCHANT_LEVEL": 8,
+      "ID": 188781,
+      "USE_TYPE": 2
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 188782,
+      "USE_TYPE": 2
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 188783,
+      "USE_TYPE": 2
+    },
+    {
+      "ENCHANT_LEVEL": 11,
+      "ID": 188784,
+      "USE_TYPE": 2
+    },
+    {
+      "ENCHANT_LEVEL": 12,
+      "ID": 188785,
+      "USE_TYPE": 2
+    },
+    {
+      "ENCHANT_LEVEL": 13,
+      "ID": 188786,
+      "USE_TYPE": 2
+    },
+    {
+      "ENCHANT_LEVEL": 5,
+      "ID": 188836
+    },
+    {
+      "ENCHANT_LEVEL": 6,
+      "ID": 188837
+    },
+    {
+      "ENCHANT_LEVEL": 7,
+      "ID": 188838
+    },
+    {
+      "ENCHANT_LEVEL": 8,
+      "ID": 188839
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 188840
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 188841
+    },
+    {
+      "ENCHANT_LEVEL": 11,
+      "ID": 188842
+    },
+    {
+      "ENCHANT_LEVEL": 12,
+      "ID": 188843
+    },
+    {
+      "ENCHANT_LEVEL": 13,
+      "ID": 188844
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 189248
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 300501
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 189682
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 189683
+    },
+    {
+      "ENCHANT_LEVEL": 8,
+      "ID": 189805
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 189806
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 189807
+    },
+    {
+      "ENCHANT_LEVEL": 11,
+      "ID": 189808
+    },
+    {
+      "ENCHANT_LEVEL": 12,
+      "ID": 189809
+    },
+    {
+      "ENCHANT_LEVEL": 13,
+      "ID": 189810
+    },
+    {
+      "ENCHANT_LEVEL": 8,
+      "ID": 298063
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 298064
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 298065
+    },
+    {
+      "ENCHANT_LEVEL": 11,
+      "ID": 298066
+    },
+    {
+      "ENCHANT_LEVEL": 12,
+      "ID": 298067
+    },
+    {
+      "ENCHANT_LEVEL": 13,
+      "ID": 298068
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 297162
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 300258
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 300259
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 300260
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 300261
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 168354
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 168355
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 168356
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 168357
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 168554
+    },
+    {
+      "ENCHANT_LEVEL": 8,
+      "ID": 303656,
+      "USE_TYPE": 2
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 168403
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 135925
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 10,
+      "ID": 135926
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 11,
+      "ID": 135927
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 190665
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 190709
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 189686
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 711111
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 711128
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 711322
+    },
+    {
+      "ENCHANT_LEVEL": 11,
+      "ID": 711323
+    },
+    {
+      "ENCHANT_LEVEL": 12,
+      "ID": 711324
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 711329
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 711381
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 711917
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 713604
+    },
+    {
+      "ENCHANT_LEVEL": 9,
+      "ID": 713755
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 713651
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 714192
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 715120
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 717816
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 718135
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 718258
+    },
+    {
+      "ENCHANT_LEVEL": 10,
+      "ID": 720595
+    },
+    {
+      "ENCHANT_LEVEL": 11,
+      "ID": 722758
+    },
+    {
+      "ENCHANT_LEVEL": 11,
+      "ID": 723646,
+      "USE_TYPE": 2
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 60004196
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 60004197
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 60004198
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 3,
+      "ID": 60005987
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 5,
+      "ID": 60007250
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 6,
+      "ID": 60007260
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 60007270
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 60007280
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 60007290
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 10,
+      "ID": 60007300
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 11,
+      "ID": 60007310
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 6,
+      "ID": 67006746
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 3,
+      "ID": 84000003
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 4,
+      "ID": 84000065
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 4,
+      "ID": 85000016
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 85002101
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 6,
+      "ID": 85002326
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 5,
+      "ID": 85002810
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 6,
+      "ID": 85002820
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 85002830
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 85002840
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 85002850
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 10,
+      "ID": 85002860
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 100000770
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 5,
+      "ID": 152000278,
+      "USE_TYPE": 2
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 6,
+      "ID": 85002325,
+      "USE_TYPE": 2
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 90002373,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 30,
+      "MIM_LV": 0
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 10,
+      "ID": 100003121,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 70,
+      "MIM_LV": 0
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 5,
+      "ID": 100004844,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 20,
+      "MIM_LV": 0
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 5,
+      "ID": 100004845,
+      "LIMIT_EQUIP_LEVEL": 1,
+      "MAX_LV": 20,
+      "MIM_LV": 0,
+      "USE_TYPE": 2
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 7,
+      "ID": 100005617,
+      "USE_TYPE": 2
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 6,
+      "ID": 100005811,
+      "USE_TYPE": 2
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 8,
+      "ID": 100005812,
+      "USE_TYPE": 2
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 100005813,
+      "USE_TYPE": 2
+    },
+    {
+      "ENABLE_TRADE": 0,
+      "ENCHANT_LEVEL": 9,
+      "ID": 100006474
+    }
+  ],
+  "unresolved_effects": [
+    {
+      "m_ExtraDamageType": {
+        "global": "EXTRA_DAMAGE_TYPE.EDT_ENCHANT_DOUBLE_MASTER_SHOCK_OLD"
+      },
+      "m_fRate": 0.1,
+      "m_fTimeStun": 4
+    }
+  ]
+}

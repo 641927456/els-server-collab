@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "provenance": "local_policy",
+  "description": "已审查艾尔之树原生场景、NPC 注册及行为脚本，未发现按怪物分配的物品概率表。下列分配仅为逐 NPC 明示的本地替代规则：鸡和小偷 10 ED、班德斯 50 ED，食品只分配给箱子，其他怪物不再共享食品池。道具身份和效果来自客户端，金额、概率及通关奖励不是官方数值。",
+  "dungeons": {
+    "30000": {
+      "clear_ed": 120,
+      "clear_experience": 50,
+      "clear_items": [{"template": 77000, "quantity": 3}],
+      "world_drop": {"template": 77000, "quantity": 1},
+      "ground_loot": {
+        "assignment_source": "local_fallback",
+        "native_probabilities_known": false,
+        "npc_loot": {
+          "618": {"coin": {"template": 127000, "amount": 10}},
+          "201": {"coin": {"template": 127000, "amount": 10}},
+          "5": {"coin": {"template": 127010, "amount": 50}},
+          "20": {"food_templates": [70000, 70010, 70020, 70030, 70040, 70050]},
+          "625": {}, "626": {}, "632": {}
+        }
+      },
+      "drop_chances": {
+        "ordinary": [0, 1],
+        "boss": [0, 1],
+        "chest": [1, 1]
+      }
+    }
+  }
+}

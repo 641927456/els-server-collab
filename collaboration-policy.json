@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "repository": "https://github.com/641927456/els-server-collab",
+  "visibility_required": "private",
+  "maintainer": "641927456",
+  "contributors_invited": [],
+  "main_write_access": "maintainer only until platform enforcement verified",
+  "production_credentials_in_CI": false,
+  "automatic_server_deployment": false,
+  "staging": {
+    "host": "existing host; isolated instance",
+    "directory": "C:/ElsDevTest",
+    "remote_port": 19410,
+    "database": "new test-only accounts and saves",
+    "capacity": "low-concurrency; measured before/after startup"
+  },
+  "validation_layers": [
+    "source",
+    "transaction",
+    "protocol",
+    "native consumer",
+    "natural player",
+    "multiplayer"
+  ],
+  "created_at": "2026-10-19T17:08:23+08:00"
+}

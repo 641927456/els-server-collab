@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>本地活动 GM · 2026</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body><main><header><div><p class="eyebrow">LOCAL · 2026</p><h1>活动管理</h1></div><span class="badge">本地测试候选</span></header>
+<p class="intro">战斗力助力、胡巴签到、共存在线称号，各一项。启停保留进度和领奖记录。</p>
+<form id="login"><label>管理密钥<input id="key" type="password" autocomplete="off" required></label><button>连接本地服务</button></form>
+<p id="message" role="status" aria-live="polite">连接后读取当前状态。</p>
+<section id="editor" hidden><div class="toolbar"><span id="revision"></span><button id="refresh" type="button" class="secondary">刷新状态</button></div>
+<div id="rows"></div><form id="settings"><label>操作原因<input id="reason" minlength="2" maxlength="200" required placeholder="例如：开启本轮本地活动测试"></label>
+<div class="actions"><button id="save">保存启停设置</button><button id="retry" type="button" class="secondary" hidden>用原编号核对重试</button></div></form>
+<details><summary>本地复现周期及固定规则</summary><p>奖励按2026年国服本期官网与固定客户端道具库匹配；周期为明确配置的本地复现时间。完整原游戏图标、窗口及部分道具效果仍在验收。</p><pre id="calendar"></pre></details></section>
+<footer>此页面只管理本地候选。线上游戏服未部署本批活动。</footer></main></body></html>

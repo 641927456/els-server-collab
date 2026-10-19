@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "selection": "cn2026-coexistence-title-only",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "item_template": 723809,
+  "item_name": "[科宝]平定的和平传教士（7日）",
+  "quantity": 1,
+  "title_id": 13330,
+  "title_scope": "character",
+  "title_duration_days": 7,
+  "title_item_use_min_level": 1,
+  "activity_min_level": 10,
+  "online_seconds": 1800,
+  "activity_scope": "character_per_window",
+  "item_delete_at_rule": "2026-11-04 maintenance",
+  "mail_delete_at_rule": "2026-11-04 maintenance",
+  "exact_global_delete_epoch": null,
+  "original_activity_key": null,
+  "original_activity_code": null,
+  "original_reward_id": null,
+  "item_title_link_verified": true,
+  "grant_enabled": false,
+  "timing_distinction": "Seven-day period is the title mission duration, not a seven-day mail retention or automatic seven-day coupon expiration from delivery",
+  "title_event_end_forced_expiration_verified": false,
+  "selected_rule_url": "https://els.ztgame.com/html/news/1352832/000-1789-01aa0-383709.shtml",
+  "raw_client_sources": [
+    {
+      "path": "G:\\els\\analysis\\title-system-20261016\\resources\\TitleTable.lua.tables.json",
+      "sha256": "aa98d7b57f026f3551210bb2d41f9b8784ce0d329ea7e4882fd0d4e6d99a7201"
+    },
+    {
+      "path": "G:\\els\\analysis\\title-system-20261016\\resources\\TitleTableTrans.lua.tables.json",
+      "sha256": "d537eb73264eec0ee0aca71cd7f053605d67b7f34751cd3ab2397e5654b207f9"
+    },
+    {
+      "path": "G:\\els\\analysis\\title-system-20261016\\resources\\TitleMission.lua.tables.json",
+      "sha256": "5c256cd46342ff916133c8d541671bc70bef12179bbe94d46543abd54cff469b"
+    },
+    {
+      "path": "G:\\els\\analysis\\title-system-20261016\\resources\\SubTitleMission.lua.tables.json",
+      "sha256": "712caffb2777d058eb95b850d61dbd17c0eb2e45fd7926a60d40980801578a7e"
+    }
+  ],
+  "joins": {
+    "TitleTable": {
+      "function": "TitleManager.AddTitleInfo_LUA",
+      "arguments": [
+        {
+          "global": "TitleManager"
+        },
+        {
+          "m_ParticleName": "TITLE_13330",
+          "m_iSortNum": 11248,
+          "m_iTitleID": 13330,
+          "m_iOpenLevel": 0,
+          "m_eTitleType": 7,
+          "m_eUnitType": 0,
+          "m_eUnitClass": 0,
+          "m_bIsSecretTitle": 0,
+          "m_bAccountTitle": 0,
+          "m_bVisible": 1,
+          "SOCKET_OPTION": {
+            "0": null,
+            "1": 99264,
+            "2": 41181,
+            "3": 41182,
+            "4": 74097,
+            "5": 82143,
+            "6": 200348
+          }
+        }
+      ],
+      "pc": 12382
+    },
+    "TitleTableTrans": {
+      "function": "TitleManager.AddTitleInfoTrans_LUA",
+      "arguments": [
+        {
+          "global": "TitleManager"
+        },
+        {
+          "m_Description": "为了参加2026年共存的庆典的冒险家准备的称号。",
+          "m_TitleName": "平定的和平传教士",
+          "m_iTitleID": 13330,
+          "m_TitleName_KR": "평정의 평화 전도사"
+        }
+      ],
+      "pc": 2670
+    },
+    "TitleMission": {
+      "function": "TitleManager.AddTitleMissionInfo_LUA",
+      "arguments": [
+        {
+          "global": "TitleManager"
+        },
+        {
+          "m_iConditionLv": 1,
+          "m_MissionName": "평정의 평화 전도사",
+          "m_sPeriod": 7,
+          "m_iTitleID": 13330,
+          "m_iMissionID": 13330,
+          "m_eClearType": 14,
+          "m_eConditionUnitType": 0,
+          "m_eConditionUnitClass": 0,
+          "m_bAccountMission": 0,
+          "m_iConditionClearMissionID": {
+            "0": null,
+            "1": 0
+          },
+          "m_SubMission": {
+            "0": null,
+            "1": 13330
+          }
+        }
+      ],
+      "pc": 13151
+    },
+    "SubTitleMission": {
+      "function": "TitleManager.AddSubTitleMissionInfo_LUA",
+      "arguments": [
+        {
+          "global": "TitleManager"
+        },
+        {
+          "m_iID": 13330,
+          "m_eClearType": 14,
+          "m_bAutomaticDescription": 1,
+          "m_ClearCondition": {
+            "m_iItemID": 723809
+          }
+        }
+      ],
+      "pc": 14078
+    }
+  },
+  "template_record_sha256": "cddf5feab902164b5cce8846cdf2b314be05a38936b47017f99f2dd1c14f93e0",
+  "native_evidence": {
+    "path": "G:\\els\\analysis\\title-system-20261016\\item-native-proof.json",
+    "sha256": "c50bc663da699e33c917e06467cb47b0963e6fc34888333e97fafa2b0dd4d9d8",
+    "row": {
+      "template": 723809,
+      "ok": 1,
+      "consumed": 304,
+      "group": 4
+    }
+  },
+  "retained_title_implementation": [
+    {
+      "path": "G:\\els\\releases\\local\\local-level-titles-20261018-v1\\els_server\\storage\\titles.py",
+      "sha256": "eb4f5c4f475b33c416389fbfb0066fc30ec468a3832918fe78790b27c16bbbff",
+      "same_as_title_regression": true
+    },
+    {
+      "path": "G:\\els\\releases\\local\\local-level-titles-20261018-v1\\els_server\\domain\\titles.py",
+      "sha256": "1de397ca199037134209b9367c6118b92212b5a81f5f19e1b947700cc2d87719",
+      "same_as_title_regression": true
+    },
+    {
+      "path": "G:\\els\\releases\\local\\local-level-titles-20261018-v1\\els_server\\data\\titles.json",
+      "sha256": "cb1f0395cfc4cd07d22edafc8b5f03932c931c979ea707b2591e6834a44e58bd",
+      "same_as_title_regression": true
+    }
+  ],
+  "limits": [
+    "Original online activity key/code and RewardID still missing; do not enable inferred event or issue mail",
+    "Existing title consume starts7days at use; source behavior retained, no claim that event cleanup must also remove already acquired title",
+    "No original online title mailing trigger/folder/text or event recipient/expiry adapter proven",
+    "Official raw selection is preserved; its item_period_days label is superseded by this explicit title-duration distinction"
+  ]
+}

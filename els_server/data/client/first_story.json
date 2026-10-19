@@ -1,0 +1,6324 @@
+{
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "maps": {
+    "41150": {
+      "unit_type": 1,
+      "source": "Dungeon_Tutorial_Elsword.lua"
+    },
+    "41160": {
+      "unit_type": 2,
+      "source": "Dungeon_Tutorial_Aisha.lua"
+    },
+    "41170": {
+      "unit_type": 3,
+      "source": "Dungeon_Tutorial_Lena.lua"
+    },
+    "41190": {
+      "unit_type": 4,
+      "source": "Dungeon_Tutorial_Raven.lua"
+    },
+    "41180": {
+      "unit_type": 5,
+      "source": "Dungeon_Tutorial_Eve.lua"
+    },
+    "41290": {
+      "unit_type": 6,
+      "source": "Dungeon_Tutorial_Chung.lua"
+    },
+    "41210": {
+      "unit_type": 7,
+      "source": "Dungeon_Tutorial_Ara.lua"
+    },
+    "41220": {
+      "unit_type": 8,
+      "source": "Dungeon_Tutorial_EL.lua"
+    },
+    "41230": {
+      "unit_type": 9,
+      "source": "Dungeon_Tutorial_Add.lua"
+    },
+    "41240": {
+      "unit_type": 10,
+      "source": "Dungeon_Tutorial_Luciel.lua"
+    },
+    "41250": {
+      "unit_type": 11,
+      "source": "Dungeon_Tutorial_Rose.lua"
+    },
+    "41420": {
+      "unit_type": 12,
+      "source": "Dungeon_Tutorial_Ain.lua"
+    },
+    "41570": {
+      "unit_type": 13,
+      "source": "Dungeon_Tutorial_Laby.lua"
+    },
+    "34570": {
+      "unit_type": 14,
+      "source": "Dungeon_Tutorial_Noah.lua"
+    },
+    "35240": {
+      "unit_type": 15,
+      "source": "Dungeon_Tutorial_Lithia.lua"
+    }
+  },
+  "graphs": {
+    "Dungeon_Tutorial_Elsword.lua": {
+      "source_sha256": "97449d424a1c4b8fdb87a15c463cee292e1e726fe86ecab89d77b5ab4fbb8799",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2081,
+                      "source_index": 2,
+                      "points": [
+                        7
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2025,
+                      "source_index": 1,
+                      "points": [
+                        1
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2026,
+                      "source_index": 2,
+                      "points": [
+                        3
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2027,
+                      "source_index": 3,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2026,
+                      "source_index": 4,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 5,
+                      "points": [
+                        8
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2028,
+                      "source_index": 1,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 2,
+                      "points": [
+                        9
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            2025,
+            2026,
+            2028,
+            2079,
+            2081
+          ],
+          "allowed_summons": [
+            2025,
+            2026,
+            2028,
+            2079,
+            2081
+          ]
+        }
+      }
+    },
+    "Dungeon_Tutorial_Aisha.lua": {
+      "source_sha256": "220aac90bde68456d56787e6535fa76eaece65e406683e81c507b9198c7d531c",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2081,
+                      "source_index": 2,
+                      "points": [
+                        7
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2025,
+                      "source_index": 1,
+                      "points": [
+                        1
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2031,
+                      "source_index": 2,
+                      "points": [
+                        3
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2031,
+                      "source_index": 3,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2030,
+                      "source_index": 4,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 5,
+                      "points": [
+                        8
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2028,
+                      "source_index": 1,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 2,
+                      "points": [
+                        9
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            2025,
+            2030,
+            2031,
+            2028,
+            2079,
+            2081,
+            2077
+          ],
+          "allowed_summons": [
+            2025,
+            2028,
+            2030,
+            2031,
+            2077,
+            2079,
+            2081
+          ]
+        }
+      }
+    },
+    "Dungeon_Tutorial_Lena.lua": {
+      "source_sha256": "b908fe76174a4148c81d6cbaefa77acee6407e1668c86414193d6855d1792848",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2081,
+                      "source_index": 2,
+                      "points": [
+                        7
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2025,
+                      "source_index": 1,
+                      "points": [
+                        1
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2034,
+                      "source_index": 2,
+                      "points": [
+                        3
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2035,
+                      "source_index": 3,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2034,
+                      "source_index": 4,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 5,
+                      "points": [
+                        8
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2036,
+                      "source_index": 1,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 2,
+                      "points": [
+                        9
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            2025,
+            2034,
+            2035,
+            2036,
+            2079,
+            2081,
+            2070
+          ],
+          "allowed_summons": [
+            2025,
+            2034,
+            2035,
+            2036,
+            2070,
+            2079,
+            2081
+          ]
+        }
+      }
+    },
+    "Dungeon_Tutorial_Raven.lua": {
+      "source_sha256": "446e68a2ede02731fe7e9d5e1b3f7f889d35d7759888e6a53bf14b736738cc96",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2081,
+                      "source_index": 2,
+                      "points": [
+                        7
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2055,
+                      "source_index": 1,
+                      "points": [
+                        1
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2056,
+                      "source_index": 2,
+                      "points": [
+                        3
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2056,
+                      "source_index": 3,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2056,
+                      "source_index": 4,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 5,
+                      "points": [
+                        8
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2084,
+                      "source_index": 6,
+                      "points": [
+                        9
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2057,
+                      "source_index": 1,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 2,
+                      "points": [
+                        10
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            2055,
+            2056,
+            2057,
+            2079,
+            2081,
+            2084,
+            2068
+          ],
+          "allowed_summons": [
+            2055,
+            2056,
+            2057,
+            2068,
+            2079,
+            2081,
+            2084
+          ]
+        }
+      }
+    },
+    "Dungeon_Tutorial_Eve.lua": {
+      "source_sha256": "8d19d246ad8b19e08a7ce2adc2421271317de957f3944674fc4eea4540a47992",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2081,
+                      "source_index": 2,
+                      "points": [
+                        7
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2051,
+                      "source_index": 1,
+                      "points": [
+                        1
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2052,
+                      "source_index": 2,
+                      "points": [
+                        3
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2052,
+                      "source_index": 3,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2052,
+                      "source_index": 4,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 5,
+                      "points": [
+                        8
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2054,
+                      "source_index": 1,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 2,
+                      "points": [
+                        9
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            2051,
+            2052,
+            2054,
+            2079,
+            2081,
+            2071
+          ],
+          "allowed_summons": [
+            2051,
+            2052,
+            2054,
+            2071,
+            2079,
+            2081
+          ]
+        }
+      }
+    },
+    "Dungeon_Tutorial_Chung.lua": {
+      "source_sha256": "1e3e90e383c556d217d584f17cc50e20de78e2990c7f1c726851bd990a8a7b2e",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2081,
+                      "source_index": 2,
+                      "points": [
+                        7
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2058,
+                      "source_index": 1,
+                      "points": [
+                        1
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2038,
+                      "source_index": 2,
+                      "points": [
+                        3
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2038,
+                      "source_index": 3,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2038,
+                      "source_index": 4,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 5,
+                      "points": [
+                        8
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2061,
+                      "source_index": 1,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 2,
+                      "points": [
+                        9
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            2038,
+            2061,
+            2058,
+            2079,
+            2081,
+            2073,
+            2074,
+            2075
+          ],
+          "allowed_summons": [
+            2038,
+            2058,
+            2061,
+            2073,
+            2074,
+            2075,
+            2079,
+            2081
+          ]
+        }
+      }
+    },
+    "Dungeon_Tutorial_Ara.lua": {
+      "source_sha256": "70fd86bdb943594aefb697ab23b5018b170fafd9595e4af4d56428c5cc98c2d1",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2081,
+                      "source_index": 2,
+                      "points": [
+                        7
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2040,
+                      "source_index": 1,
+                      "points": [
+                        1
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2038,
+                      "source_index": 2,
+                      "points": [
+                        3
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2038,
+                      "source_index": 3,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2038,
+                      "source_index": 4,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 5,
+                      "points": [
+                        8
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2043,
+                      "source_index": 1,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 2,
+                      "points": [
+                        9
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            2040,
+            2038,
+            2043,
+            2081,
+            2079,
+            2069
+          ],
+          "allowed_summons": [
+            2038,
+            2040,
+            2043,
+            2069,
+            2079,
+            2081
+          ]
+        }
+      }
+    },
+    "Dungeon_Tutorial_EL.lua": {
+      "source_sha256": "b5c9b2d547461c0b0e219b2218cb4753127d3429eb45c354f3db64b2fe6da15b",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2081,
+                      "source_index": 2,
+                      "points": [
+                        7
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2037,
+                      "source_index": 1,
+                      "points": [
+                        1
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2060,
+                      "source_index": 2,
+                      "points": [
+                        3
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2060,
+                      "source_index": 3,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2060,
+                      "source_index": 4,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 5,
+                      "points": [
+                        8
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2039,
+                      "source_index": 1,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 2,
+                      "points": [
+                        9
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            2037,
+            2060,
+            2039,
+            2079,
+            2081,
+            2076,
+            2082
+          ],
+          "allowed_summons": [
+            2037,
+            2039,
+            2060,
+            2076,
+            2079,
+            2081,
+            2082
+          ]
+        }
+      }
+    },
+    "Dungeon_Tutorial_Add.lua": {
+      "source_sha256": "1c288afa7e0990d347b01b3b561d17974e673923a92ad78174d4850bf52b8c0f",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2081,
+                      "source_index": 2,
+                      "points": [
+                        7
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2055,
+                      "source_index": 1,
+                      "points": [
+                        1
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2049,
+                      "source_index": 2,
+                      "points": [
+                        3
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2049,
+                      "source_index": 3,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2049,
+                      "source_index": 4,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2084,
+                      "source_index": 5,
+                      "points": [
+                        9
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 6,
+                      "points": [
+                        8
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2050,
+                      "source_index": 1,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 2,
+                      "points": [
+                        10
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            2055,
+            2049,
+            2050,
+            2079,
+            2081,
+            2084,
+            2072
+          ],
+          "allowed_summons": [
+            2049,
+            2050,
+            2055,
+            2072,
+            2079,
+            2081,
+            2084
+          ]
+        }
+      }
+    },
+    "Dungeon_Tutorial_Luciel.lua": {
+      "source_sha256": "8696af819ef7c4af108d8301fd7a26cdc02ac4b7531c5022dedc6658e42799ce",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2081,
+                      "source_index": 2,
+                      "points": [
+                        7
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2044,
+                      "source_index": 1,
+                      "points": [
+                        1
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2045,
+                      "source_index": 2,
+                      "points": [
+                        3
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2045,
+                      "source_index": 3,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2045,
+                      "source_index": 4,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 5,
+                      "points": [
+                        8
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2047,
+                      "source_index": 1,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 2,
+                      "points": [
+                        9
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            2044,
+            2045,
+            2047,
+            2079,
+            2081,
+            2067
+          ],
+          "allowed_summons": [
+            2044,
+            2045,
+            2047,
+            2067,
+            2079,
+            2081
+          ]
+        }
+      }
+    },
+    "Dungeon_Tutorial_Rose.lua": {
+      "source_sha256": "13810c1a20f354c178767721e80eea915fe4f5858a5c6c23f5d492659ed557b8",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2081,
+                      "source_index": 2,
+                      "points": [
+                        1
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2181,
+                      "source_index": 1,
+                      "points": [
+                        3
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2184,
+                      "source_index": 2,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2183,
+                      "source_index": 3,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2183,
+                      "source_index": 4,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 5,
+                      "points": [
+                        9
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2182,
+                      "source_index": 1,
+                      "points": [
+                        7
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 2,
+                      "points": [
+                        8
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            2181,
+            2183,
+            2184,
+            2182,
+            2185,
+            2079,
+            2081
+          ],
+          "allowed_summons": [
+            2079,
+            2081,
+            2181,
+            2182,
+            2183,
+            2184,
+            2185
+          ]
+        }
+      }
+    },
+    "Dungeon_Tutorial_Ain.lua": {
+      "source_sha256": "466d5205049ee4f7bf1d49a4a36b5ad847219e4b24531fe99681e2be99e06a46",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2081,
+                      "source_index": 2,
+                      "points": [
+                        7
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2440,
+                      "source_index": 3,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2441,
+                      "source_index": 1,
+                      "points": [
+                        1
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2437,
+                      "source_index": 2,
+                      "points": [
+                        3
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2438,
+                      "source_index": 3,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2438,
+                      "source_index": 4,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 5,
+                      "points": [
+                        8
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2439,
+                      "source_index": 1,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 2,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            2441,
+            2437,
+            2438,
+            2439,
+            2440,
+            2079,
+            2081,
+            2185,
+            2186
+          ],
+          "allowed_summons": [
+            2079,
+            2081,
+            2185,
+            2186,
+            2437,
+            2438,
+            2439,
+            2440,
+            2441
+          ]
+        }
+      }
+    },
+    "Dungeon_Tutorial_Laby.lua": {
+      "source_sha256": "7dd001d0843ad89165a3c8e9fde42465a890395a10c30b063d5d55fcf0a29511",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2081,
+                      "source_index": 2,
+                      "points": [
+                        7
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 7315,
+                      "source_index": 1,
+                      "points": [
+                        1
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 7310,
+                      "source_index": 2,
+                      "points": [
+                        3
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 7311,
+                      "source_index": 3,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 7310,
+                      "source_index": 4,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 5,
+                      "points": [
+                        8
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 7312,
+                      "source_index": 1,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 2,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            7315,
+            7310,
+            7311,
+            7312,
+            2079,
+            2081,
+            7313,
+            7316
+          ],
+          "allowed_summons": [
+            2079,
+            2081,
+            7310,
+            7311,
+            7312,
+            7313,
+            7315,
+            7316
+          ]
+        }
+      }
+    },
+    "Dungeon_Tutorial_Noah.lua": {
+      "source_sha256": "7ea554c0594cbe0c09b8a1eb196b8f304701735da6a2d7a3c05aba16aa762919",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        1
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2081,
+                      "source_index": 2,
+                      "points": [
+                        2
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 8009,
+                      "source_index": 3,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 8008,
+                      "source_index": 1,
+                      "points": [
+                        11
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 8005,
+                      "source_index": 2,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 8005,
+                      "source_index": 3,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 8006,
+                      "source_index": 4,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 5,
+                      "points": [
+                        3
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 8010,
+                      "source_index": 6,
+                      "points": [
+                        11
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 8011,
+                      "source_index": 7,
+                      "points": [
+                        11
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 8007,
+                      "source_index": 1,
+                      "points": [
+                        8
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 2,
+                      "points": [
+                        8
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            8008,
+            8005,
+            8006,
+            8007,
+            8009,
+            2079,
+            2081,
+            8010,
+            8011
+          ],
+          "allowed_summons": [
+            2079,
+            2081,
+            8005,
+            8006,
+            8007,
+            8008,
+            8009,
+            8010,
+            8011
+          ]
+        }
+      }
+    },
+    "Dungeon_Tutorial_Lithia.lua": {
+      "source_sha256": "58100b652696632565633fc432e4bc070cd1b3587a5503f05cb7d257cd24d640",
+      "stages": {
+        "0": {
+          "parts": {
+            "0": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        1
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 9467,
+                      "source_index": 2,
+                      "points": [
+                        2
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 9284,
+                      "source_index": 3,
+                      "points": [
+                        2
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 1,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        1
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "1": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 9283,
+                      "source_index": 1,
+                      "points": [
+                        4
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 9280,
+                      "source_index": 2,
+                      "points": [
+                        5
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 9280,
+                      "source_index": 3,
+                      "points": [
+                        6
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 9281,
+                      "source_index": 4,
+                      "points": [
+                        7
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 5,
+                      "points": [
+                        3
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 9285,
+                      "source_index": 6,
+                      "points": [
+                        3
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 9286,
+                      "source_index": 7,
+                      "points": [
+                        3
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 2,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        2
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "2": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 9282,
+                      "source_index": 1,
+                      "points": [
+                        8
+                      ],
+                      "active": false,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 9288,
+                      "source_index": 2,
+                      "points": [
+                        8
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": false,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 2079,
+                      "source_index": 3,
+                      "points": [
+                        9
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 0,
+                  "required": [],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 0,
+                      "stage": 0,
+                      "part": 3,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        3
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "3": {
+              "groups": [
+                {
+                  "index": -1,
+                  "npcs": [
+                    {
+                      "template": 2079,
+                      "source_index": 1,
+                      "points": [
+                        11
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 9286,
+                      "source_index": 2,
+                      "points": [
+                        13
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 9287,
+                      "source_index": 3,
+                      "points": [
+                        11
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 9289,
+                      "source_index": 4,
+                      "points": [
+                        12
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 9290,
+                      "source_index": 5,
+                      "points": [
+                        12
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "template": 9463,
+                      "source_index": 6,
+                      "points": [
+                        12
+                      ],
+                      "active": true,
+                      "gage": true,
+                      "ally": false,
+                      "team": 1,
+                      "no_drop": true,
+                      "right": false,
+                      "boss": false,
+                      "boss_lines": 1,
+                      "key_code": -1,
+                      "source_key_code": -1,
+                      "rate": 100,
+                      "offset": [
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "kind": 3,
+                  "required": [
+                    9289
+                  ],
+                  "portal_lines": [],
+                  "delay": 0,
+                  "seconds": 0,
+                  "next": [
+                    {
+                      "kind": 4,
+                      "stage": 0,
+                      "part": 0,
+                      "weight": 100,
+                      "source_target": [
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "ready_npcs": [
+            9283,
+            9280,
+            9281,
+            9282,
+            9284,
+            2079,
+            9467,
+            9285,
+            9286,
+            9288,
+            9287,
+            9289,
+            9290,
+            9463
+          ],
+          "allowed_summons": [
+            2079,
+            9280,
+            9281,
+            9282,
+            9283,
+            9284,
+            9285,
+            9286,
+            9287,
+            9288,
+            9289,
+            9290,
+            9463,
+            9467
+          ]
+        }
+      }
+    }
+  },
+  "npcs": {
+    "2025": {
+      "strings": [
+        "",
+        "",
+        "Tutorial_Elsword_object.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 3000
+    },
+    "2026": {
+      "strings": [
+        "盗贼团：侦察兵",
+        "",
+        "Tutorial_Elsword_guard_small.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2028": {
+      "strings": [
+        "波尔德",
+        "",
+        "Tutorial_Elsword_boss_verde_e.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2079": {
+      "strings": [
+        "",
+        "",
+        "Tutotial_Dumy1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2081": {
+      "strings": [
+        "",
+        "",
+        "Tutotial_Dumy2.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2027": {
+      "strings": [
+        "盗贼团：佣兵",
+        "",
+        "Tutorial_Elsword_guard_big.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2030": {
+      "strings": [
+        "波鲁",
+        "",
+        "Tutorial_Aisha_pporu.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2031": {
+      "strings": [
+        "噗鲁",
+        "",
+        "Tutorial_Aisha_low_pporu.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2077": {
+      "strings": [
+        "",
+        "",
+        "Tutotial_Aisha_Dp1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "2034": {
+      "strings": [
+        "马勒斯",
+        "",
+        "Tutorial_Rena_zero.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2035": {
+      "strings": [
+        "土部",
+        "",
+        "Tutorial_Rena_low_toru.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 1500
+    },
+    "2036": {
+      "strings": [
+        "班德斯",
+        "",
+        "Tutorial_Rena_boss_benders.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2070": {
+      "strings": [
+        "",
+        "",
+        "Tutotial_Rena_Dp1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "2055": {
+      "strings": [
+        "",
+        "",
+        "Tutorial_Raven_object.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2056": {
+      "strings": [
+        "实验室警备兵",
+        "",
+        "Tutorial_Raven_9th_type2.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2057": {
+      "strings": [
+        "纳斯德训练兵：TYPE-S",
+        "",
+        "Tutorial_Raven_clone.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2084": {
+      "strings": [
+        "",
+        "",
+        "Tutorial_Raven_object2.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2068": {
+      "strings": [
+        "",
+        "",
+        "Tutotial_Raven_Dp1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "2051": {
+      "strings": [
+        "",
+        "",
+        "Tutorial_Eve_object.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 3000
+    },
+    "2052": {
+      "strings": [
+        "变形的纳斯德：TYPE-C",
+        "",
+        "Tutorial_Eve_thin_defect.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2054": {
+      "strings": [
+        "变形的纳斯德：TYPE-A",
+        "",
+        "Tutorial_Eve_boss_driller.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2071": {
+      "strings": [
+        "",
+        "",
+        "Tutotial_Eve_Dp1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "2038": {
+      "strings": [
+        "影夜波特沃克",
+        "",
+        "Tutorial_fort_walker.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 5000
+    },
+    "2061": {
+      "strings": [
+        "影夜首领",
+        "",
+        "Tutorial_Chung_shadow_master.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 20000
+    },
+    "2058": {
+      "strings": [
+        "",
+        "",
+        "Tutorial_Chung_object.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 1000
+    },
+    "2073": {
+      "strings": [
+        "",
+        "",
+        "Tutotial_Chung_Dp1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "2074": {
+      "strings": [
+        "",
+        "",
+        "Tutotial_Chung_Dp2.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "2075": {
+      "strings": [
+        "",
+        "",
+        "Tutotial_Chung_Dp3.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "2040": {
+      "strings": [
+        "",
+        "",
+        "Tutorial_Ara_object.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 3000
+    },
+    "2043": {
+      "strings": [
+        "维克多",
+        "",
+        "Tutorial_Ara_boss_victor.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2069": {
+      "strings": [
+        "",
+        "",
+        "Tutotial_Ara_Dp1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "2037": {
+      "strings": [
+        "",
+        "",
+        "Tutorial_Elesis_object.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 3000
+    },
+    "2060": {
+      "strings": [
+        "钢铁熔岩斗士",
+        "",
+        "Tutorial_Elesis_davil_fighter.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2039": {
+      "strings": [
+        "蓝色熔岩斯卡",
+        "",
+        "Tutorial_Elesis_boss_ska.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2076": {
+      "strings": [
+        "",
+        "",
+        "Tutotial_Elesis_Dp1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "2082": {
+      "strings": [
+        "",
+        "",
+        "Tutotial_Elesis_Dp2.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "2049": {
+      "strings": [
+        "巨剑警卫兵",
+        "",
+        "Tutorial_Add_soldier.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2050": {
+      "strings": [
+        "瓦利8号",
+        "",
+        "Tutorial_Add_wally_8th.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 60000
+    },
+    "2072": {
+      "strings": [
+        "",
+        "",
+        "Tutotial_Add_Dp1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "2044": {
+      "strings": [
+        "",
+        "",
+        "Tutorial_Luciel_object.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 3000
+    },
+    "2045": {
+      "strings": [
+        "梦魔：银库斯",
+        "",
+        "Tutorial_Luciel_icoos.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2047": {
+      "strings": [
+        "克丽丝",
+        "",
+        "Tutorial_Luciel_boss_karis.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2067": {
+      "strings": [
+        "",
+        "",
+        "Tutotial_Luciel_Dp1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "2181": {
+      "strings": [
+        "",
+        "",
+        "Tutorial_Rose_object.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 3000
+    },
+    "2183": {
+      "strings": [
+        "CODE_C_普罗托",
+        "",
+        "TUTORIAL_ROSE_PROTO.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2184": {
+      "strings": [
+        "巴梅柏",
+        "",
+        "TUTORIAL_ROSE_BERMEVA.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2182": {
+      "strings": [
+        "侦察官高阶圣殿骑士",
+        "",
+        "TUTORIAL_ROSE_HIGHTTEM.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2185": {
+      "strings": [
+        "",
+        "",
+        "TUTORIAL_ROSE_DP1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "2441": {
+      "strings": [
+        "",
+        "演出用马甲2",
+        "TUTORIAL_AIN_DUMMY2.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 3000
+    },
+    "2437": {
+      "strings": [
+        "鲁奇",
+        "鲁奇",
+        "TUTORIAL_AIN_CHICKEN.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2438": {
+      "strings": [
+        "树之骑士",
+        "树之骑士",
+        "TUTORIAL_AIN_TREEKNIGHT.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 6000
+    },
+    "2439": {
+      "strings": [
+        "妖精守护者",
+        "妖精守护者",
+        "TUTORIAL_AIN_FAIRY_GUARDIAN.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "2440": {
+      "strings": [
+        "",
+        "演出用马甲1",
+        "TUTORIAL_AIN_DUMMY1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "2186": {
+      "strings": [
+        "",
+        "",
+        "TUTORIAL_ROSE_DP2.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "7315": {
+      "strings": [
+        "",
+        "演出用马甲2",
+        "TUTORIAL_LABY_DUMMY2.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 3000
+    },
+    "7310": {
+      "strings": [
+        "比比",
+        "比比",
+        "TUTORIAL_LABY_BB.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "7311": {
+      "strings": [
+        "乌琦",
+        "乌琦",
+        "TUTORIAL_LABY_UKI.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "7312": {
+      "strings": [
+        "乌琦",
+        "乌琦",
+        "TUTORIAL_LABY_POCO.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "7313": {
+      "strings": [
+        "",
+        "路障",
+        "TUTORIAL_LABY_OBJECT.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "7316": {
+      "strings": [
+        "",
+        "演出用马甲3",
+        "TUTORIAL_LABY_DUMMY3.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "8008": {
+      "strings": [
+        "",
+        "路障",
+        "NOAH_TUTORIAL_OBJECT.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 3000
+    },
+    "8005": {
+      "strings": [
+        "遗迹蜘蛛",
+        "遗迹蜘蛛",
+        "NOAH_TUTORIAL_SPIDER.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "8006": {
+      "strings": [
+        "遗迹毒蛇",
+        "遗迹毒蛇",
+        "NOAH_TUTORIAL_SNAKE.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "8007": {
+      "strings": [
+        "遗迹魔像",
+        "遗迹魔像",
+        "NOAH_TUTORIAL_GOLEM.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "8009": {
+      "strings": [
+        "",
+        "演出用马甲1",
+        "NOAH_TUTORIAL_DUMMY1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "8010": {
+      "strings": [
+        "",
+        "演出用马甲2",
+        "NOAH_TUTORIAL_DUMMY2.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "8011": {
+      "strings": [
+        "",
+        "演出用马甲3",
+        "NOAH_TUTORIAL_DUMMY3.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "9283": {
+      "strings": [
+        "",
+        "",
+        "LITHIA_TUTORIAL_OBJECT.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 3000
+    },
+    "9280": {
+      "strings": [
+        "赫尼尔实验体",
+        "헤니르 실험체",
+        "LITHIA_TUTORIAL_SUBJECT.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "9281": {
+      "strings": [
+        "希尔芙",
+        "실피",
+        "LITHIA_TUTORIAL_SYLPHE.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "9282": {
+      "strings": [
+        "赫尼尔化的杜拉汉",
+        "헤니르화된 듀라한",
+        "LITHIA_TUTORIAL_BOSS.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "9284": {
+      "strings": [
+        "",
+        "연출용더미1",
+        "LITHIA_TUTORIAL_DUMMY1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "9467": {
+      "strings": [
+        "",
+        "",
+        "TUTORIAL_DUMMY2_NEW.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "9285": {
+      "strings": [
+        "",
+        "연출용더미2",
+        "LITHIA_TUTORIAL_DUMMY2.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "9286": {
+      "strings": [
+        "",
+        "연출용더미3",
+        "LITHIA_TUTORIAL_DUMMY3.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "9288": {
+      "strings": [
+        "",
+        "연출용더미2",
+        "LITHIA_TUTORIAL_DUMMY5.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "9287": {
+      "strings": [
+        "",
+        "연출용더미1",
+        "LITHIA_TUTORIAL_DUMMY4.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "9289": {
+      "strings": [
+        "",
+        "연출용더미3",
+        "LITHIA_TUTORIAL_DUMMY6.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    },
+    "9290": {
+      "strings": [
+        "",
+        "",
+        "LITHIA_TUTORIAL_END.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000
+    },
+    "9463": {
+      "strings": [
+        "",
+        "",
+        "LITHIA_TUTORIAL_END2.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null
+    }
+  },
+  "spawn_seed": "a186010058000000ffffffff000000000000000000000000000000000000000000000000000000000000000000000000000048c30000a04200000000010000000000000000000000000000000000000000000000000080bf00000000000080bf0000000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "attribute_seed": "010000000000c8420000a0400000a04000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003c1c4600000000000000000000000000",
+  "sources": {
+    "Dungeon_Tutorial_Elsword.lua": "97449d424a1c4b8fdb87a15c463cee292e1e726fe86ecab89d77b5ab4fbb8799",
+    "Tutorial_Elsword_object.lua": "636eccb00b07bcc5af744f8b92103d666a9c52f986d2d38b7df92d8e10f1d2ea",
+    "Tutorial_Elsword_guard_small.lua": "19b939084f453b43b9be7fb197583daafdc3a9c8fe14204d2ec4bc9f79a9b071",
+    "Tutorial_Elsword_boss_verde_e.lua": "49e04224cb5b9bff29f7922873470e4946c6dbe586feabed6d9b88b1d92b5452",
+    "Tutotial_Dumy1.lua": "29c89b20be8a6f857be8a25736829b81930dc24eb893d2137232c941d8b1df3e",
+    "Tutotial_Dumy2.lua": "2939724dfc1abb41a85bec95ad0187d8abbb2d6949cdf868fc79c29813c17d04",
+    "Tutorial_Elsword_guard_big.lua": "c46e7084376b1abb576ba9957cf653ba58f94c777f00fb6c0713b8d655338e18",
+    "Dungeon_Tutorial_Aisha.lua": "220aac90bde68456d56787e6535fa76eaece65e406683e81c507b9198c7d531c",
+    "Tutorial_Aisha_pporu.lua": "956cbbfffa4e26a6bb3676370f92eec4a490c3d07e23dc6db684ac44e93c0ede",
+    "Tutorial_Aisha_low_pporu.lua": "816c344d5dd3131f6989fa406ae3073067bf5dc1b071a3654030f2b6475ea5ca",
+    "Tutotial_Aisha_Dp1.lua": "26a2c90b463750b006791b81494ecdd97c5d0c0df6b196b0a8167bde47817a7b",
+    "Dungeon_Tutorial_Lena.lua": "b908fe76174a4148c81d6cbaefa77acee6407e1668c86414193d6855d1792848",
+    "Tutorial_Rena_zero.lua": "e7739f2945be4cecaa2ef11f4c81d4f70bf41fb48cfe9ff50364d45bcf795a0a",
+    "Tutorial_Rena_low_toru.lua": "9ccec7f7f791b9aa030118524f2ebe21de18e1be228fcbf9495dc4651a9ec709",
+    "Tutorial_Rena_boss_benders.lua": "8d50e194c6c034a37df05fdc3346d51f00a65e14cfba6c3281e1c70ad0baf7cb",
+    "Tutotial_Rena_Dp1.lua": "0a7cd05a3f7eca4b61e98368d6cca336fbaaa9daa73772313242e38a3ce4fb1b",
+    "Dungeon_Tutorial_Raven.lua": "446e68a2ede02731fe7e9d5e1b3f7f889d35d7759888e6a53bf14b736738cc96",
+    "Tutorial_Raven_object.lua": "8840932f9b6d3155bc7c16c7916637c7477be8b99776ad84f8a245e5849199b9",
+    "Tutorial_Raven_9th_type2.lua": "a390bb71b435c646b5b12238b9796d6f413972a00f7aea515fbc6a8f436f849d",
+    "Tutorial_Raven_clone.lua": "1fa50bec6a4ed43194bca639b7a9f4261c3e489aca67309ed4a24e6c407bf9df",
+    "Tutorial_Raven_object2.lua": "d9a0466b9cc1de1922ad2300ce6dd56e30fa6b259cc4e6721768a8ede90a2903",
+    "Tutotial_Raven_Dp1.lua": "a1cf15836a80b2452e53376224725510df37eb2b3f0baaafc84e794f089bd055",
+    "Dungeon_Tutorial_Eve.lua": "8d19d246ad8b19e08a7ce2adc2421271317de957f3944674fc4eea4540a47992",
+    "Tutorial_Eve_object.lua": "61af5fe82fb588b9f96148428276a235e1bbd682c2efe074174cf8adc1afb121",
+    "Tutorial_Eve_thin_defect.lua": "d57c0684a99bf5f0b05d0f4ac4ffe9fb3332ecdddab3f112c86599219d8d24dd",
+    "Tutorial_Eve_boss_driller.lua": "8d0169df888b3a7b8ef7f92522570f0b501c364a574976e60b9fa30a7fca491a",
+    "Tutotial_Eve_Dp1.lua": "9e917a4e547e970629686135bb6053b43c1043a614823d31fa9e5f8d688b83e0",
+    "Dungeon_Tutorial_Chung.lua": "1e3e90e383c556d217d584f17cc50e20de78e2990c7f1c726851bd990a8a7b2e",
+    "Tutorial_fort_walker.lua": "b2eb31af1b13b61030331ea8a06abae076e0cfc515913044b8e7f636c2b6b974",
+    "Tutorial_Chung_shadow_master.lua": "d0f6fa7d3a78d9bd2a172a2c2ad40c1db4207efe537046aec157e6d3b272cfad",
+    "Tutorial_Chung_object.lua": "070a7cea0becf0750cc94c026bc9ef7ef0e092a736b2742a34b942932fd86236",
+    "Tutotial_Chung_Dp1.lua": "6f1880cea62853ac692fe3cecd7a6a4b0ca47ca4418a1d89d969daf8926e0ae5",
+    "Tutotial_Chung_Dp2.lua": "d59c7a3a23f4cbb80f50c6b5721b2fa1e93501be688a9275514580a63e300a1b",
+    "Tutotial_Chung_Dp3.lua": "eefaa81afe54666fcb395e2294cd96ac10c5ffaa3bebf4cff565157aca42b0f9",
+    "Dungeon_Tutorial_Ara.lua": "70fd86bdb943594aefb697ab23b5018b170fafd9595e4af4d56428c5cc98c2d1",
+    "Tutorial_Ara_object.lua": "21f904c7cf1587803a8002e79be4589e627426dcd807b1eae14171f602c06d28",
+    "Tutorial_Ara_boss_victor.lua": "5578c4f3458aff2ba5dbbefe3f53de81388ee62b56152f36ddfc184861ab1faa",
+    "Tutotial_Ara_Dp1.lua": "36be5b44a4528d7c04207eab9049948919013b42632be1dea0caca3371c00c9a",
+    "Dungeon_Tutorial_EL.lua": "b5c9b2d547461c0b0e219b2218cb4753127d3429eb45c354f3db64b2fe6da15b",
+    "Tutorial_Elesis_object.lua": "c16cb399e0186d158f7b2d1b9d9b34b2b916f8f19f6ca349c42f22c1e79aecbd",
+    "Tutorial_Elesis_davil_fighter.lua": "c0753f69cba40cfc68eb51d597f3be97e274704d33ad99993a09700068d5a7f4",
+    "Tutorial_Elesis_boss_ska.lua": "e98adcfafa599b7aa590e8d2d0e032034023ee24ad8f17610236ee873ee53c92",
+    "Tutotial_Elesis_Dp1.lua": "a48b2f024cd551f17b1ed9302573e35260ce499c14bbe8bb424788a14b6d6629",
+    "Tutotial_Elesis_Dp2.lua": "524f6121d59fd8649ee646154f48954025027b5105a3b7e428817aac209edbd4",
+    "Dungeon_Tutorial_Add.lua": "1c288afa7e0990d347b01b3b561d17974e673923a92ad78174d4850bf52b8c0f",
+    "Tutorial_Add_soldier.lua": "780be1c1b95d1dc1c2d02b82510f43be3eac3d5783d3d7923668c0506e64531f",
+    "Tutorial_Add_wally_8th.lua": "390a3cc25efc5ff5af698795c70298b11e3d3cfe588c254794795abf083af61d",
+    "Tutotial_Add_Dp1.lua": "ab4cd683d3a1a94199c15ebcfb79f760d06d82a72a11c9341daafe52e4248189",
+    "Dungeon_Tutorial_Luciel.lua": "8696af819ef7c4af108d8301fd7a26cdc02ac4b7531c5022dedc6658e42799ce",
+    "Tutorial_Luciel_object.lua": "cd488379a198b3bb15285deb19bbe848236cfb4d43f6be47d513f21dc779b84d",
+    "Tutorial_Luciel_icoos.lua": "9fabea8d0de68b7ca3d5e6f9eb503c4ec0a120a181f3ae9e25ddf378572ce518",
+    "Tutorial_Luciel_boss_karis.lua": "e798cb3c8eed6be7716ff9df33d91b46becc49de9c53de5bf0a1a3ed4b8cc5f9",
+    "Tutotial_Luciel_Dp1.lua": "123d979213abcadaa4c5f8e9a567d3c50f0a0767c887bf898607c1cc2a1fe503",
+    "Dungeon_Tutorial_Rose.lua": "13810c1a20f354c178767721e80eea915fe4f5858a5c6c23f5d492659ed557b8",
+    "Tutorial_Rose_object.lua": "f838c1bbe62a15c08831b70411102ab92d327891d9a566ace78d4f237e8eed7b",
+    "TUTORIAL_ROSE_PROTO.lua": "a84c52b443a1d835ffe2e2e944ad697f451067c0bea8caae77eee403e59f4299",
+    "TUTORIAL_ROSE_BERMEVA.lua": "a5b7581a4e1626c72c4caf0b4fceffa8f050aacbdc82b58073c4e6d85e9d4d2a",
+    "TUTORIAL_ROSE_HIGHTTEM.lua": "0156a7bfb136eb6592c5a6068f7ec32b04379f976c418524845a09dc78d7c876",
+    "Tutorial_Rose_Dp1.lua": "572af5dd20bac61ca9da38fb0928b0abbf745e7ffdfc1d7cc3142a6b129963ba",
+    "Dungeon_Tutorial_Ain.lua": "466d5205049ee4f7bf1d49a4a36b5ad847219e4b24531fe99681e2be99e06a46",
+    "TUTORIAL_AIN_DUMMY2.lua": "65988b5f7fddd73a386c50a1ed468d1266834ae1691fdb4c38d82b8b772d6216",
+    "TUTORIAL_AIN_CHICKEN.lua": "20ff00583103eb3215b0b3a80cf178a245c5d134216497ae9b6873ca26b504ad",
+    "TUTORIAL_AIN_TREEKNIGHT.lua": "0848b2089bf4ead51fc1bcdee700d04f9bbce96185d71d1342b569303cfcdaca",
+    "TUTORIAL_AIN_FAIRY_GUARDIAN.lua": "7ed7b5e98cf9d61d6f1f5a297b48f4d68d96d8b1ca2b34c3f5882489081ccc6d",
+    "TUTORIAL_AIN_DUMMY1.lua": "6416e541ec5d1908188ae9b752bc6eb1a46af56319f7a306c648a67f503495b4",
+    "Tutorial_Rose_Dp2.lua": "9105562a44042560774416384b801dcf6faf4f114566ebc2f90ee640d03a3f9a",
+    "Dungeon_Tutorial_Laby.lua": "7dd001d0843ad89165a3c8e9fde42465a890395a10c30b063d5d55fcf0a29511",
+    "TUTORIAL_LABY_DUMMY2.lua": "15faac577f3cfd9372fb6731de7f317081198623b7103f5973d49e030a2a3bdf",
+    "Tutorial_Laby_BB.lua": "9c05400ca8d22892163ae1d3af3a6e63ea9f9f430ac39faa2e293e80b43c5b9e",
+    "Tutorial_Laby_Uki.lua": "ef360a9768d7b31b3cb5ec00d76ef76ebf0df40bc8d33fc5cb451066c9722dc4",
+    "Tutorial_Laby_Poco.lua": "23a24ea81704bfc52b8e20c82716b0a3edb229a181185dc3074fb15d7e02d1fa",
+    "TUTORIAL_LABY_OBJECT.lua": "6393f97d92d06a52515e416a0366e40abe3cf1fe5974dff02ea56ae5c176a529",
+    "TUTORIAL_LABY_DUMMY3.lua": "d01fa80c95774144d942dff4793c23a22d7a9b75a724a1dc5dd6c2fbab1ed76d",
+    "Dungeon_Tutorial_Noah.lua": "7ea554c0594cbe0c09b8a1eb196b8f304701735da6a2d7a3c05aba16aa762919",
+    "NOAH_TUTORIAL_OBJECT.lua": "df0f78b02fba628bed2f179b65eea286176314d4e2ebd75c361608e02752bdde",
+    "NOAH_TUTORIAL_SPIDER.lua": "4ff084dc68b8762fcd5c4861cf7705e7b9bbd48516fe7f6fd55a74faaed74c65",
+    "NOAH_TUTORIAL_SNAKE.lua": "0e87a306fb5859da837d24b5f2238ae59540af6bacc70ad5d80890fafb94cb87",
+    "NOAH_TUTORIAL_GOLEM.lua": "e9a8bca0db4ab828b48d843a60b1ebc7db5546c689fd0f83ffa9c6b8bf44f511",
+    "NOAH_TUTORIAL_DUMMY1.lua": "845dff511c95b43b8be255357743ea8bd126ecc272dc68b6456ac374749ae411",
+    "NOAH_TUTORIAL_DUMMY2.lua": "59fad2d2afbfd038f28385af99c689b9a1e8085022bc76af6c15bca8e2042d02",
+    "NOAH_TUTORIAL_DUMMY3.lua": "2ec22fe613d8b131e8641faf5edb3f5791feb38788185f831f2a3bd519d8feb3",
+    "Dungeon_Tutorial_Lithia.lua": "58100b652696632565633fc432e4bc070cd1b3587a5503f05cb7d257cd24d640",
+    "LITHIA_TUTORIAL_OBJECT.lua": "ced1b3b1a56c4f292264aa168f772383daa937949c3ef8fddb16b2904eaf9e99",
+    "LITHIA_TUTORIAL_SUBJECT.lua": "7b06d298b402a070e030c5505d3ce3fc53cbd8b5e2264593b979ce9cc156510b",
+    "LITHIA_TUTORIAL_SYLPHE.lua": "7e95d217a041f57ae6d6c663452de2263ad3f9669b9e1b452a45d85c811d5894",
+    "LITHIA_TUTORIAL_BOSS.lua": "8d52d15623fb28f8462e30e53e8cebeae49bf1c2043d2c2cdbf205dfcbf2286f",
+    "LITHIA_TUTORIAL_DUMMY1.lua": "8dcfa2cf983f411e0bbf997508d9f552bba012e10bfa9681f01bf68310715dba",
+    "TUTORIAL_DUMMY2_NEW.lua": "6268a42ca29ad0516872c45a7288b74680e177c9a104b18e765bca28bdb3c5da",
+    "LITHIA_TUTORIAL_DUMMY2.lua": "29ac8644c1d244ba08ecb9b9466fc24be3b23d5c6799f721c7ddaf8a2745adcb",
+    "LITHIA_TUTORIAL_DUMMY3.lua": "bceafcf8132dc6424261df3effa4a77f6247c523ffc85053d6eb8256fdef6be8",
+    "LITHIA_TUTORIAL_DUMMY5.lua": "3e60c69377f6121b5019d8b3d0d5d930a0546f03b7e7dc8f336f054f0c5cc4b9",
+    "LITHIA_TUTORIAL_DUMMY4.lua": "6a2743dcf251fc57609bd0d9445b12a58e1876bcc461847074da0435109f47cf",
+    "LITHIA_TUTORIAL_DUMMY6.lua": "32a589bd6f4e5abb979a51c6dd230ce1ab4e9b1cc3f65571b938558e57e24973",
+    "LITHIA_TUTORIAL_END.lua": "0887993affe93a332b350f184a19e06b97af090c4cab763781fef599f5506a4e",
+    "LITHIA_TUTORIAL_END2.lua": "0db4d2e56f55c0fa491e903600c07540a2b66389e9dd264b719b58ad5e617c72"
+  }
+}

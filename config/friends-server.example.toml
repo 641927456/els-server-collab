@@ -1,0 +1,16 @@
+# Example only. Create your own certificates and accounts before use.
+[server]
+mode = "friends"
+host = "127.0.0.1"
+port = 19400
+profile = "integrated_dx11"
+state_file = "../state/friends/game.sqlite3"
+accounts_file = "../state/friends/accounts.sqlite3"
+tls_cert = "../state/friends/server-cert.pem"
+tls_key = "../state/friends/server-key.pem"
+log_dir = "../logs/friends-server"
+max_connections = 16
+friends_coop_enabled = false
+attribute_enchant_enabled = true
+normal_equipment_moves_enabled = true
+equipment_repair_enabled = true

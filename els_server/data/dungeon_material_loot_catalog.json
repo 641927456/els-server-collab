@@ -1,0 +1,1385 @@
+{
+  "schema_version": 1,
+  "policy_id": "dungeon-material-loot-compatibility-v1",
+  "enabled": true,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "route_payload_sha256": "fbafa1cb884371bc173b74e216b09f9f0f71523c69cae02b00bc7e2c7cf092a5",
+  "maps": {
+    "33031": {
+      "dungeon": 33031,
+      "route_source": "dungeon_elder_secret_hell.lua",
+      "graph_sha256": "a0f60dcd5ecce34f06850c3708b824f150ec8136d374d4acdce3bb1807ca2d57",
+      "definition_sha256": "45292ba08e885599829d949382a99d87ee5f5ec6003adc2a5ca24134f38a035a",
+      "accepted_boss_sources": [
+        {
+          "stage": 1,
+          "part": 1,
+          "template": 534,
+          "source_index": 9
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 523,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        154065,
+        154066
+      ]
+    },
+    "33041": {
+      "dungeon": 33041,
+      "route_source": "dungeon_besma_secret_hell.lua",
+      "graph_sha256": "2e8d594beeff202e56be9e58d6cc1ac58f447c4369ffbd7e3c032707c12a6f75",
+      "definition_sha256": "3baaa5c89fde0be331868a4ec4ef42f241b740207218ebc46df7568fea00ebcc",
+      "accepted_boss_sources": [
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 525,
+          "source_index": 1
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 524,
+          "source_index": 2
+        }
+      ],
+      "finite_common_candidates": [
+        154065,
+        154066
+      ]
+    },
+    "33051": {
+      "dungeon": 33051,
+      "route_source": "dungeon_altera_secret_hell.lua",
+      "graph_sha256": "49f34aed7e6e628067f844324024563c1700e3647a237ec686c50351c4556e92",
+      "definition_sha256": "3fcde5484099818f601a1aad8dae1701263ba3512095632daba0e4e54c2a0732",
+      "accepted_boss_sources": [
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 581,
+          "source_index": 3
+        }
+      ],
+      "finite_common_candidates": [
+        154065,
+        154066
+      ]
+    },
+    "33191": {
+      "dungeon": 33191,
+      "route_source": "dungeon_velder_secret_hell.lua",
+      "graph_sha256": "c8ab3e734c3163e64649d82a4eec56340cd3dc24bc53dc99f0f6d36741e48705",
+      "definition_sha256": "ba3b4c16324eefbd6edec3a95a9626e2a9f7f8dd8556055c5af3e8a8d4da8e7d",
+      "accepted_boss_sources": [
+        {
+          "stage": 3,
+          "part": 0,
+          "template": 984,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        154065,
+        154066
+      ]
+    },
+    "33261": {
+      "dungeon": 33261,
+      "route_source": "dungeon_hamel_secret_hell.lua",
+      "graph_sha256": "2578a0e7f809296070986dd02c916bc7a1cd0e9f32d104bca03e425965dd090c",
+      "definition_sha256": "5eff081c9f443970443d0b3fba666fb78f070c15053e289f52293edaf421c7a9",
+      "accepted_boss_sources": [
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 1545,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        154065,
+        154066
+      ]
+    },
+    "34320": {
+      "dungeon": 34320,
+      "route_source": "dungeon_devildom2_henir.lua",
+      "graph_sha256": "b6905a338e4919afc3445aecf999828b6476bfccfe223bda084019998595021c",
+      "definition_sha256": "0b017c8c6008e3d6004e362bb64ea4e76a193220624b7dd9e089169c1709ab1d",
+      "accepted_boss_sources": [
+        {
+          "stage": 2,
+          "part": 1,
+          "template": 7519,
+          "source_index": 1
+        },
+        {
+          "stage": 2,
+          "part": 1,
+          "template": 7520,
+          "source_index": 2
+        },
+        {
+          "stage": 3,
+          "part": 0,
+          "template": 7511,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        118177,
+        118178
+      ],
+      "hit_coaward_templates": [
+        118186
+      ]
+    },
+    "34330": {
+      "dungeon": 34330,
+      "route_source": "dungeon_devildom2_tunnel.lua",
+      "graph_sha256": "4a470538f0eb1294f20c406119b8371a74b0db0bdc4580357fce96d66f522516",
+      "definition_sha256": "76736f8e59099f63532662bb9aa86380201bbcf327b54170ade1f9a1cffeb6a1",
+      "accepted_boss_sources": [
+        {
+          "stage": 3,
+          "part": 0,
+          "template": 7531,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        118177
+      ],
+      "hit_coaward_templates": [
+        118186
+      ]
+    },
+    "34340": {
+      "dungeon": 34340,
+      "route_source": "dungeon_devildom2_residence.lua",
+      "graph_sha256": "e0995cf9f2274bbb9b763fb384c46062ea87915428d4dca313c03d5fc4ecb3e1",
+      "definition_sha256": "38bcae0e7f97c1806a806aee3081a7bac3fb7ecbf2113c96ac7fd2f23fefdd63",
+      "accepted_boss_sources": [
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 7584,
+          "source_index": 1
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 7585,
+          "source_index": 2
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 7586,
+          "source_index": 3
+        }
+      ],
+      "finite_common_candidates": [
+        118177
+      ],
+      "hit_coaward_templates": [
+        118186
+      ]
+    },
+    "34350": {
+      "dungeon": 34350,
+      "route_source": "dungeon_devildom2_factory.lua",
+      "graph_sha256": "da42ed2edc201421e8d6a0ecaaf4ade75217b4785c08ff010a0850c81da6d6c0",
+      "definition_sha256": "6e159604f0fb8bd691709353eb851d5bc0d40b5ae1146df67d9c39f9aa5371a3",
+      "accepted_boss_sources": [
+        {
+          "stage": 1,
+          "part": 0,
+          "template": 7551,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        118177
+      ],
+      "hit_coaward_templates": [
+        118186
+      ]
+    },
+    "34360": {
+      "dungeon": 34360,
+      "route_source": "dungeon_devildom2_portal.lua",
+      "graph_sha256": "e5c9b9d1e6553e2e30a112a0fc06515ec73d02f0fc5bb8d5aa534efde650d214",
+      "definition_sha256": "36ff617a4eacd6b0ee24df6fee5c2cab44395a08b8503d29d3325d72d79f39ad",
+      "accepted_boss_sources": [
+        {
+          "stage": 0,
+          "part": 0,
+          "template": 7593,
+          "source_index": 19
+        },
+        {
+          "stage": 1,
+          "part": 0,
+          "template": 7596,
+          "source_index": 14
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 7601,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        118177
+      ],
+      "hit_coaward_templates": [
+        118186
+      ]
+    },
+    "34710": {
+      "dungeon": 34710,
+      "route_source": "dungeon_devildom_side1.lua",
+      "graph_sha256": "2211ae6755c22eeb3fde663258faf497831ab045f43b66c21848cb1eafcaba58",
+      "definition_sha256": "c15e35c1e165b48cbb84d0160f278c82ae883f6343caf82e041fcf64adceed7d",
+      "accepted_boss_sources": [
+        {
+          "stage": 3,
+          "part": 0,
+          "template": 8159,
+          "source_index": 1
+        },
+        {
+          "stage": 6,
+          "part": 0,
+          "template": 8157,
+          "source_index": 1
+        },
+        {
+          "stage": 7,
+          "part": 0,
+          "template": 8155,
+          "source_index": 1
+        },
+        {
+          "stage": 7,
+          "part": 0,
+          "template": 8156,
+          "source_index": 2
+        },
+        {
+          "stage": 5,
+          "part": 0,
+          "template": 8158,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        118206
+      ]
+    },
+    "34720": {
+      "dungeon": 34720,
+      "route_source": "dungeon_devildom_side2.lua",
+      "graph_sha256": "3238ea8132e0b1dec4e803f2c8f5970563f748175967416e73a224ba4d0f5c62",
+      "definition_sha256": "785e04fe39c95bdf0dc6365da4df5674fea686d57c8bc9c0de02242ac72ee42d",
+      "accepted_boss_sources": [
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 8176,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        118206
+      ]
+    },
+    "34760": {
+      "dungeon": 34760,
+      "route_source": "dungeon_devildom4_themepark.lua",
+      "graph_sha256": "ff7a84eb43a539de17c9f0432ac2056f4ab29abd0fd3fdc11ef81a3a82123571",
+      "definition_sha256": "4f7cc0e643d2605661791ee26ecf008ed4e71ffc942c8bcb2f25f3477f2fa7ee",
+      "accepted_boss_sources": [
+        {
+          "stage": 3,
+          "part": 0,
+          "template": 8286,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        118252
+      ]
+    },
+    "34770": {
+      "dungeon": 34770,
+      "route_source": "dungeon_devildom4_trickyhouse.lua",
+      "graph_sha256": "aae2cb6f388206f17adbe42a572a207531a4bb6abc8637bd42d4fa07f116ea00",
+      "definition_sha256": "8968699394f5f33872e45446c0dc6a2eee0d6a35df060dd72bc366127e31c87d",
+      "accepted_boss_sources": [
+        {
+          "stage": 1,
+          "part": 0,
+          "template": 8304,
+          "source_index": 1
+        },
+        {
+          "stage": 5,
+          "part": 0,
+          "template": 8301,
+          "source_index": 1
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 8302,
+          "source_index": 1
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 8303,
+          "source_index": 2
+        }
+      ],
+      "finite_common_candidates": [
+        118252
+      ]
+    },
+    "34780": {
+      "dungeon": 34780,
+      "route_source": "dungeon_devildom4_puppet.lua",
+      "graph_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0",
+      "definition_sha256": "167b0e35a5373bbce8563c1b8a84d23a1fd293208acd63cc7ca48510cf4fd09a",
+      "accepted_boss_sources": [
+        {
+          "stage": 1,
+          "part": 1,
+          "template": 8352,
+          "source_index": 3
+        },
+        {
+          "stage": 1,
+          "part": 2,
+          "template": 8353,
+          "source_index": 12
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 8351,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        118252
+      ]
+    },
+    "34790": {
+      "dungeon": 34790,
+      "route_source": "dungeon_devildom4_concert.lua",
+      "graph_sha256": "0c6b29e4d2bc595986d381eb8067f778e9b5077bb7da72a7bb5e46fd0852f3a0",
+      "definition_sha256": "1bdc89a17afaf0a1baaa8d3d7f00818bcb928e0f50f1bf0276d547a737dfa699",
+      "accepted_boss_sources": [
+        {
+          "stage": 0,
+          "part": 0,
+          "template": 8371,
+          "source_index": 5
+        },
+        {
+          "stage": 1,
+          "part": 0,
+          "template": 8370,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        118252
+      ]
+    },
+    "34800": {
+      "dungeon": 34800,
+      "route_source": "dungeon_devildom4_shadow.lua",
+      "graph_sha256": "3239dda07b43a5705f1a21ecbf3bf0f8c05ad4419b7ec3447170003e7affabee",
+      "definition_sha256": "6a110632e39c7255afe8923e60c2ab6ee84333dbcda49c706e560d8710163b4b",
+      "accepted_boss_sources": [
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 8392,
+          "source_index": 1
+        },
+        {
+          "stage": 4,
+          "part": 0,
+          "template": 8391,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        118252
+      ]
+    },
+    "35180": {
+      "dungeon": 35180,
+      "route_source": "dungeon_devildom3_secret.lua",
+      "graph_sha256": "d5b6640a465b16fdaae53d641ffa537987b8371b68711ff4aee7b0456be24bfc",
+      "definition_sha256": "bab5c05d027abea2e35944725ea48fe833c2fb44983b6cad4573a6ccff3f411f",
+      "accepted_boss_sources": [
+        {
+          "stage": 1,
+          "part": 0,
+          "template": 9681,
+          "source_index": 1
+        },
+        {
+          "stage": 1,
+          "part": 0,
+          "template": 9680,
+          "source_index": 2
+        }
+      ],
+      "finite_common_candidates": [
+        154065
+      ]
+    },
+    "35190": {
+      "dungeon": 35190,
+      "route_source": "dungeon_devildom4_secret.lua",
+      "graph_sha256": "9ead3c1c3c1fd3090426f632e0ed441ad99de6cd48a84830ccb2726bf0bd814d",
+      "definition_sha256": "2934f76a66e0764ad7dacd564ecbe62bf13df9da39d6f281624bd0aa66f7ef2c",
+      "accepted_boss_sources": [
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 12329,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        154065
+      ]
+    },
+    "41141": {
+      "dungeon": 41141,
+      "route_source": "dungeon_sander_secret_hell.lua",
+      "graph_sha256": "3dbc75834acd7c626cd476a7acd0ca7b674db0c1df41bec37ba6f91537bc9f11",
+      "definition_sha256": "9136cf12050dc256102fda2b61bc98caf81b409d1c3308ab139030e29736b280",
+      "accepted_boss_sources": [
+        {
+          "stage": 1,
+          "part": 2,
+          "template": 1946,
+          "source_index": 9
+        },
+        {
+          "stage": 3,
+          "part": 0,
+          "template": 1948,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        154065,
+        154066
+      ]
+    },
+    "41271": {
+      "dungeon": 41271,
+      "route_source": "dungeon_ranox_secret_hell.lua",
+      "graph_sha256": "db509a5a58f7504ea3c0a32e50f96355bdb0b334535771582eba28af985a419c",
+      "definition_sha256": "7da791b2c0f14440c6b459975168e7b2f53a7e5d5843425833c9276d3062a991",
+      "accepted_boss_sources": [
+        {
+          "stage": 1,
+          "part": 2,
+          "template": 2239,
+          "source_index": 4
+        },
+        {
+          "stage": 1,
+          "part": 2,
+          "template": 2240,
+          "source_index": 5
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 2241,
+          "source_index": 1
+        }
+      ],
+      "finite_common_candidates": [
+        154065,
+        154066
+      ]
+    },
+    "34510": {
+      "dungeon": 34510,
+      "route_source": "dungeon_devildom3_snowmount.lua",
+      "graph_sha256": "3ee2ff335678f3f118857d9833035b2b4afb78e460175b6f4e0244111ed15505",
+      "definition_sha256": "b503b093a44b0edf052f5a2c20c0a97476c6a876292506cb8c95df8348b1c1c6",
+      "finite_common_candidates": [
+        136042,
+        136047
+      ],
+      "accepted_boss_sources": [
+        {
+          "stage": 0,
+          "part": 1,
+          "template": 7885,
+          "source_index": 1
+        },
+        {
+          "stage": 3,
+          "part": 0,
+          "template": 7886,
+          "source_index": 1
+        }
+      ]
+    },
+    "34520": {
+      "dungeon": 34520,
+      "route_source": "dungeon_devildom3_village.lua",
+      "graph_sha256": "de0cad416e65326b1cb238ad69dbe5394a90341369e6ed20e37baccadb485f45",
+      "definition_sha256": "b06f8599ac57a4ac66da16780a48aa80255bb6d3cbe714671d3c2ae4541b72d2",
+      "finite_common_candidates": [
+        136045,
+        136047
+      ],
+      "accepted_boss_sources": [
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 7906,
+          "source_index": 1
+        }
+      ]
+    },
+    "34530": {
+      "dungeon": 34530,
+      "route_source": "dungeon_devildom3_suburbs.lua",
+      "graph_sha256": "e9d342db3a5300137a37664b01a276db1ac8b87df8200417c093be530c343415",
+      "definition_sha256": "1096606b53f14a11f057bb72a082feb0a36aa4ea5ad87c2529fc6cd41dee1815",
+      "finite_common_candidates": [
+        136042,
+        136045,
+        136048
+      ],
+      "accepted_boss_sources": [
+        {
+          "stage": 0,
+          "part": 0,
+          "template": 7923,
+          "source_index": 7
+        },
+        {
+          "stage": 0,
+          "part": 1,
+          "template": 7924,
+          "source_index": 2
+        },
+        {
+          "stage": 0,
+          "part": 1,
+          "template": 7925,
+          "source_index": 3
+        },
+        {
+          "stage": 0,
+          "part": 1,
+          "template": 7926,
+          "source_index": 4
+        },
+        {
+          "stage": 0,
+          "part": 1,
+          "template": 7927,
+          "source_index": 5
+        },
+        {
+          "stage": 1,
+          "part": 0,
+          "template": 7928,
+          "source_index": 1
+        }
+      ]
+    },
+    "34540": {
+      "dungeon": 34540,
+      "route_source": "dungeon_devildom3_train.lua",
+      "graph_sha256": "753c6a906e4a0cbb03c5e857c89d5d904ab4cc659035ca6be8289615c7e81f9e",
+      "definition_sha256": "0e56868f2beec727d8264384da17b1b3904684c385a59854fdfe962f9ee759f0",
+      "finite_common_candidates": [
+        136042,
+        136045
+      ],
+      "accepted_boss_sources": [
+        {
+          "stage": 1,
+          "part": 0,
+          "template": 7943,
+          "source_index": 1
+        }
+      ]
+    },
+    "34550": {
+      "dungeon": 34550,
+      "route_source": "dungeon_devildom3_raid1.lua",
+      "graph_sha256": "81f82e5bb8c94e845b5b628980996e4818bb0d6cb209c2ca228609232fafe8ca",
+      "definition_sha256": "b4b86db02f0ce1be06d36ad46b2938e247ae9d0d7d36848c13be4cb15cd29166",
+      "finite_common_candidates": [
+        136042,
+        136045,
+        136048
+      ],
+      "accepted_boss_sources": [
+        {
+          "stage": 0,
+          "part": 0,
+          "template": 7955,
+          "source_index": 1
+        },
+        {
+          "stage": 0,
+          "part": 0,
+          "template": 7956,
+          "source_index": 2
+        },
+        {
+          "stage": 1,
+          "part": 0,
+          "template": 7960,
+          "source_index": 1
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 7962,
+          "source_index": 1
+        }
+      ]
+    },
+    "34560": {
+      "dungeon": 34560,
+      "route_source": "dungeon_devildom3_raid2.lua",
+      "graph_sha256": "48b6c5318824156b5ca49798e9b2de682f24d2791feb0af48dc7e2975c5c3e14",
+      "definition_sha256": "3a784fc28f61a081c672946a5e447bbe9aed807d7eafc125fbdf62d7231205bb",
+      "finite_common_candidates": [
+        136042,
+        136045,
+        136048
+      ],
+      "accepted_boss_sources": [
+        {
+          "stage": 0,
+          "part": 0,
+          "template": 7971,
+          "source_index": 1
+        },
+        {
+          "stage": 1,
+          "part": 0,
+          "template": 7973,
+          "source_index": 1
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 7978,
+          "source_index": 1
+        }
+      ]
+    },
+    "34740": {
+      "dungeon": 34740,
+      "route_source": "dungeon_devildom3_raid1_story.lua",
+      "graph_sha256": "b22c6e71fea1ae54d56cbea4fd32c0603bc0b6a3946cb3a88e821ca9fccf9baf",
+      "definition_sha256": "31bbf8b1dd7ea5e3137bb27ca669b66b64fc31e9e750254fa2c21cf3320f06a2",
+      "finite_common_candidates": [
+        136042,
+        136045,
+        136048
+      ],
+      "accepted_boss_sources": [
+        {
+          "stage": 0,
+          "part": 0,
+          "template": 8213,
+          "source_index": 1
+        },
+        {
+          "stage": 0,
+          "part": 0,
+          "template": 8214,
+          "source_index": 2
+        },
+        {
+          "stage": 1,
+          "part": 0,
+          "template": 8218,
+          "source_index": 1
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 8220,
+          "source_index": 1
+        }
+      ]
+    },
+    "34750": {
+      "dungeon": 34750,
+      "route_source": "dungeon_devildom3_raid2_story.lua",
+      "graph_sha256": "2710404693325d076ba8dc109e6330275205faf7c78132d76e967ac76702be78",
+      "definition_sha256": "d5acbcb4e3226662a32b7dbad7d85ff990fb4ec31b43afc0da16c37cdcc2df52",
+      "finite_common_candidates": [
+        136042,
+        136045,
+        136048
+      ],
+      "accepted_boss_sources": [
+        {
+          "stage": 0,
+          "part": 0,
+          "template": 8229,
+          "source_index": 1
+        },
+        {
+          "stage": 1,
+          "part": 0,
+          "template": 8231,
+          "source_index": 1
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 8236,
+          "source_index": 1
+        }
+      ]
+    },
+    "35350": {
+      "dungeon": 35350,
+      "route_source": "dungeon_devildom6_workshop.lua",
+      "graph_sha256": "bc117a0857ec124e66d4bd938f1c78255d6137abf04b8cc8d7675a5a843ca0c3",
+      "definition_sha256": "1b7c5bbea290f727fcd4aff67b1ce621ae1ec111690b2334f2f0b4f96e91601a",
+      "finite_common_candidates": [
+        118376,
+        118377
+      ],
+      "accepted_boss_sources": [
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 9491,
+          "source_index": 1
+        }
+      ]
+    },
+    "35630": {
+      "dungeon": 35630,
+      "route_source": "dungeon_devildom3_raid1_single.lua",
+      "graph_sha256": "46c1cd36e5d877d9ff290884a1e34592eb56161b66af38d78a3a1e4294e7136e",
+      "definition_sha256": "ca542f4b0cc628bda5e650ef295ef467f2006637ca3784d351e85f0493a40f52",
+      "finite_common_candidates": [
+        136042,
+        136045,
+        136048
+      ],
+      "accepted_boss_sources": [
+        {
+          "stage": 0,
+          "part": 0,
+          "template": 12091,
+          "source_index": 1
+        },
+        {
+          "stage": 0,
+          "part": 0,
+          "template": 12092,
+          "source_index": 2
+        },
+        {
+          "stage": 1,
+          "part": 0,
+          "template": 12096,
+          "source_index": 1
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 12097,
+          "source_index": 1
+        }
+      ]
+    },
+    "35640": {
+      "dungeon": 35640,
+      "route_source": "dungeon_devildom3_raid2_single.lua",
+      "graph_sha256": "7f2c588656ec8d2d6b961ee85b209680d4a819ff3ed0a5a5b4bb252e4e7d4b9d",
+      "definition_sha256": "bef895821a143c9ce3209577da7066dcdb79e107c45c9bb032082767819f7a14",
+      "finite_common_candidates": [
+        136042,
+        136045,
+        136048
+      ],
+      "accepted_boss_sources": [
+        {
+          "stage": 0,
+          "part": 0,
+          "template": 12111,
+          "source_index": 1
+        },
+        {
+          "stage": 1,
+          "part": 0,
+          "template": 12112,
+          "source_index": 1
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 12116,
+          "source_index": 1
+        }
+      ]
+    },
+    "35890": {
+      "dungeon": 35890,
+      "route_source": "dungeon_devildom7_transport.lua",
+      "graph_sha256": "c81e55a2463fff33a3f06af82f14f5769700694401efcf61cec443a1175d0524",
+      "definition_sha256": "e34053a0c7df4a9ef1343abd0ec2288ef9131b9eca048bba100542bc22fcfba1",
+      "finite_common_candidates": [
+        119210,
+        119211
+      ],
+      "accepted_boss_sources": [
+        {
+          "stage": 3,
+          "part": 0,
+          "template": 12950,
+          "source_index": 1
+        }
+      ]
+    }
+  },
+  "items": {
+    "118177": {
+      "template": 118177,
+      "item_type": 6,
+      "record_sha256": "e27c30df793e1394093a1db7e7a4163a3b0118df670126df7f3264a36bf67a56",
+      "metadata": 2,
+      "group": 3,
+      "max_stack": 99,
+      "instance_kind": "ordinary-material-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 3,
+        "max_stack": 99,
+        "option_groups": {}
+      },
+      "native_proof": {
+        "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "d0_branches": 20,
+        "ground_body_sha256": "5a6a7fea65d0aa1f9fecad3153231e8af7a48167417276a291e7ee3b2105ec71",
+        "cf_d2_d3_count99_and_split1": true,
+        "source_report_sha256": "39d7fe72ecf8f903aecc2f9e147023fa3798049691071b36e9dd25bce6cd9578"
+      }
+    },
+    "118178": {
+      "template": 118178,
+      "item_type": 6,
+      "record_sha256": "d507ef98c7fa22057f372ae6e98c4750889b6341267e3d3cdea923926074fb89",
+      "metadata": 2,
+      "group": 3,
+      "max_stack": 99,
+      "instance_kind": "ordinary-material-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 3,
+        "max_stack": 99,
+        "option_groups": {}
+      },
+      "native_proof": {
+        "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "d0_branches": 20,
+        "ground_body_sha256": "51eb0b2b781162c39e02dd9abe95694d3152891993dc9c249c1c0de4eda4fb12",
+        "cf_d2_d3_count99_and_split1": true,
+        "source_report_sha256": "39d7fe72ecf8f903aecc2f9e147023fa3798049691071b36e9dd25bce6cd9578"
+      }
+    },
+    "118206": {
+      "template": 118206,
+      "item_type": 6,
+      "record_sha256": "372dd5cc58def11ed22f593963737409c5619d0efdf452eb73bc56b92f690e49",
+      "metadata": 2,
+      "group": 3,
+      "max_stack": 99,
+      "instance_kind": "ordinary-material-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 3,
+        "max_stack": 99,
+        "option_groups": {}
+      },
+      "native_proof": {
+        "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "d0_branches": 20,
+        "ground_body_sha256": "77154e56912780f4dcda01ee21be51f759552042caaf4cdd2ba97f4ebeb18767",
+        "cf_d2_d3_count99_and_split1": true,
+        "source_report_sha256": "39d7fe72ecf8f903aecc2f9e147023fa3798049691071b36e9dd25bce6cd9578"
+      }
+    },
+    "118252": {
+      "template": 118252,
+      "item_type": 6,
+      "record_sha256": "62179a6d3cac4fb4b94e87c0db3315b4879cc4578e8c3976d962d839f2399bf5",
+      "metadata": 2,
+      "group": 3,
+      "max_stack": 99,
+      "instance_kind": "ordinary-material-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 3,
+        "max_stack": 99,
+        "option_groups": {}
+      },
+      "native_proof": {
+        "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "d0_branches": 20,
+        "ground_body_sha256": "7882c07facd5fbd17a4c0e887494c437d657592c6be3a914a5433177a86f1b56",
+        "cf_d2_d3_count99_and_split1": true,
+        "source_report_sha256": "39d7fe72ecf8f903aecc2f9e147023fa3798049691071b36e9dd25bce6cd9578"
+      }
+    },
+    "154065": {
+      "template": 154065,
+      "item_type": 6,
+      "record_sha256": "672900a69a3ca6fcab53bf50ed9b0ada6f4f4d87e4bf3f1d5b69c4bb21923d3e",
+      "metadata": 2,
+      "group": 3,
+      "max_stack": 99,
+      "instance_kind": "ordinary-material-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 3,
+        "max_stack": 99,
+        "option_groups": {}
+      },
+      "native_proof": {
+        "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "d0_branches": 20,
+        "ground_body_sha256": "e3922a354f029f996ae5b1db365f794a899b919747a6f1d747b4189b20f847fd",
+        "cf_d2_d3_count99_and_split1": true,
+        "source_report_sha256": "39d7fe72ecf8f903aecc2f9e147023fa3798049691071b36e9dd25bce6cd9578"
+      }
+    },
+    "154066": {
+      "template": 154066,
+      "item_type": 6,
+      "record_sha256": "1f1c0cee9548d18b547b7cbb7dea56ec92bf848c023de82ddfbc7f7e979d6526",
+      "metadata": 2,
+      "group": 3,
+      "max_stack": 99,
+      "instance_kind": "ordinary-material-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 3,
+        "max_stack": 99,
+        "option_groups": {}
+      },
+      "native_proof": {
+        "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "d0_branches": 20,
+        "ground_body_sha256": "372b5b0c828364db5e8eb8f07e89f08f94fbaf664fb921bf8c48c1915600f5dd",
+        "cf_d2_d3_count99_and_split1": true,
+        "source_report_sha256": "39d7fe72ecf8f903aecc2f9e147023fa3798049691071b36e9dd25bce6cd9578"
+      }
+    },
+    "118186": {
+      "template": 118186,
+      "item_type": 7,
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 300,
+      "record_sha256": "7bffc33ae093888a38c4029c1dc99e9fa6afc83a9a9a9c8b381e89921a533692",
+      "instance_kind": "material-type7-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 4,
+        "max_stack": 300,
+        "option_groups": {}
+      },
+      "inherited_dto_evidence": {
+        "evidence_matrix_sha256": "68c62b04593dfb1ce12305895c84d434d4c091496fee27d2aa9e99170d973a01",
+        "report_sha256": "dbd92472b2ca5e28023a5256d82e76ab70311220f241695f6ace804e15f07115",
+        "report_row_pointer": "/rows/0",
+        "historical_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "count_cases": [
+          {
+            "count": 1,
+            "consumed": 304,
+            "wire_sha256": "24182f30b5d88447d970a5661bf2bd7fdc26a5cec86c9485a456d39523fa2dea"
+          },
+          {
+            "count": 300,
+            "consumed": 304,
+            "wire_sha256": "b66b02a9c2ae6d8753b09b0645d4648512e39e4af97ba1bd71c04913fe4b2aee"
+          }
+        ],
+        "evidence_status": "inherited-positive-DTO-only",
+        "cap_plus_one_rejection_proven": false,
+        "full_CF_D0_D2_D3_consumers_proven": false,
+        "historical_first_dependency_preimport_closure_proven": false
+      }
+    },
+    "118376": {
+      "template": 118376,
+      "item_type": 6,
+      "metadata": 2,
+      "group": 3,
+      "max_stack": 10000,
+      "record_sha256": "54d6127fafbf8ebe901d491f3704c2caf491b4776aedc4f4fcff345856722bbc",
+      "instance_kind": "material-type6-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 3,
+        "max_stack": 10000,
+        "option_groups": {}
+      },
+      "inherited_dto_evidence": {
+        "evidence_matrix_sha256": "68c62b04593dfb1ce12305895c84d434d4c091496fee27d2aa9e99170d973a01",
+        "report_sha256": "f4d2a0646c51503000ce1ee848937d151402660bc4b394937bceeb926f953717",
+        "report_row_pointer": "/rows/4",
+        "historical_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "count_cases": [
+          {
+            "count": 1,
+            "consumed": 304,
+            "wire_sha256": "d79dcc163bbc31d08f43d4becb7859a58b75b4cc17382d1564f1f6b5705f4f69"
+          },
+          {
+            "count": 10000,
+            "consumed": 304,
+            "wire_sha256": "1182b639c120190af6bb9642a0c8ff906d2a6af96d083cc650fee253a99b0c6a"
+          }
+        ],
+        "evidence_status": "inherited-positive-DTO-only",
+        "cap_plus_one_rejection_proven": false,
+        "full_CF_D0_D2_D3_consumers_proven": false,
+        "historical_first_dependency_preimport_closure_proven": false
+      }
+    },
+    "118377": {
+      "template": 118377,
+      "item_type": 6,
+      "metadata": 2,
+      "group": 3,
+      "max_stack": 20000,
+      "record_sha256": "74d79efd67685971417955924d16dc78c5a542524c16b6aa4bccc470d3f3ec21",
+      "instance_kind": "material-type6-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 3,
+        "max_stack": 20000,
+        "option_groups": {}
+      },
+      "inherited_dto_evidence": {
+        "evidence_matrix_sha256": "68c62b04593dfb1ce12305895c84d434d4c091496fee27d2aa9e99170d973a01",
+        "report_sha256": "f4d2a0646c51503000ce1ee848937d151402660bc4b394937bceeb926f953717",
+        "report_row_pointer": "/rows/5",
+        "historical_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "count_cases": [
+          {
+            "count": 1,
+            "consumed": 304,
+            "wire_sha256": "fe3dda9f9e68bc2d40ca371566ab0b82b171bea062da7b84a03ba0aa2f0588ea"
+          },
+          {
+            "count": 20000,
+            "consumed": 304,
+            "wire_sha256": "2a19303c717ce646e0822a2985c7af6639f56702de8b90ed58395ef8a820041f"
+          }
+        ],
+        "evidence_status": "inherited-positive-DTO-only",
+        "cap_plus_one_rejection_proven": false,
+        "full_CF_D0_D2_D3_consumers_proven": false,
+        "historical_first_dependency_preimport_closure_proven": false
+      }
+    },
+    "119210": {
+      "template": 119210,
+      "item_type": 6,
+      "metadata": 2,
+      "group": 3,
+      "max_stack": 10000,
+      "record_sha256": "53b51a8908671627db0dbd05e72f82a618c382747c1e5b112cd3db67d3c06cb4",
+      "instance_kind": "material-type6-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 3,
+        "max_stack": 10000,
+        "option_groups": {}
+      },
+      "inherited_dto_evidence": {
+        "evidence_matrix_sha256": "68c62b04593dfb1ce12305895c84d434d4c091496fee27d2aa9e99170d973a01",
+        "report_sha256": "f4d2a0646c51503000ce1ee848937d151402660bc4b394937bceeb926f953717",
+        "report_row_pointer": "/rows/6",
+        "historical_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "count_cases": [
+          {
+            "count": 1,
+            "consumed": 304,
+            "wire_sha256": "dba21734d351cd9001d4d24e7ff2c2d718ecb9b9c91f40e1c399dff5951bd95d"
+          },
+          {
+            "count": 10000,
+            "consumed": 304,
+            "wire_sha256": "f0307886e05f381fbeea9a4e015ae7bf174d0247b0eec050ba1a2599753e5782"
+          }
+        ],
+        "evidence_status": "inherited-positive-DTO-only",
+        "cap_plus_one_rejection_proven": false,
+        "full_CF_D0_D2_D3_consumers_proven": false,
+        "historical_first_dependency_preimport_closure_proven": false
+      }
+    },
+    "119211": {
+      "template": 119211,
+      "item_type": 6,
+      "metadata": 2,
+      "group": 3,
+      "max_stack": 20000,
+      "record_sha256": "32a35e5114d95e361a2a3ad08b0ae5c31eeb9be683659279d0d940b053f5a976",
+      "instance_kind": "material-type6-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 3,
+        "max_stack": 20000,
+        "option_groups": {}
+      },
+      "inherited_dto_evidence": {
+        "evidence_matrix_sha256": "68c62b04593dfb1ce12305895c84d434d4c091496fee27d2aa9e99170d973a01",
+        "report_sha256": "f4d2a0646c51503000ce1ee848937d151402660bc4b394937bceeb926f953717",
+        "report_row_pointer": "/rows/7",
+        "historical_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "count_cases": [
+          {
+            "count": 1,
+            "consumed": 304,
+            "wire_sha256": "3a8ddaf237e7adeea3769630e542a6e95326a05aed77ddd5f710ef5aa81b29a8"
+          },
+          {
+            "count": 20000,
+            "consumed": 304,
+            "wire_sha256": "cea65cadfd8bdc40f24b79cbf6903c8b02dfeac76042009c867d07801fcfa50f"
+          }
+        ],
+        "evidence_status": "inherited-positive-DTO-only",
+        "cap_plus_one_rejection_proven": false,
+        "full_CF_D0_D2_D3_consumers_proven": false,
+        "historical_first_dependency_preimport_closure_proven": false
+      }
+    },
+    "136042": {
+      "template": 136042,
+      "item_type": 7,
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 300,
+      "record_sha256": "b724c38c111343077f9df20763eeb19d9cc6e3ad5388f7f6b6799b94f9e77af4",
+      "instance_kind": "material-type7-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 4,
+        "max_stack": 300,
+        "option_groups": {}
+      },
+      "inherited_dto_evidence": {
+        "evidence_matrix_sha256": "68c62b04593dfb1ce12305895c84d434d4c091496fee27d2aa9e99170d973a01",
+        "report_sha256": "f4d2a0646c51503000ce1ee848937d151402660bc4b394937bceeb926f953717",
+        "report_row_pointer": "/rows/11",
+        "historical_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "count_cases": [
+          {
+            "count": 1,
+            "consumed": 304,
+            "wire_sha256": "70f9ce6126cda1507e93ad344daf143b2ddfff393eb64ed4a963c02b8c387cec"
+          },
+          {
+            "count": 300,
+            "consumed": 304,
+            "wire_sha256": "6b5b5208117cc19ec275b1971fd0747cec9911eba0b3b0ad556191ba79955ca8"
+          }
+        ],
+        "evidence_status": "inherited-positive-DTO-only",
+        "cap_plus_one_rejection_proven": false,
+        "full_CF_D0_D2_D3_consumers_proven": false,
+        "historical_first_dependency_preimport_closure_proven": false
+      }
+    },
+    "136045": {
+      "template": 136045,
+      "item_type": 7,
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 300,
+      "record_sha256": "b4e5876cd74a994edb144e29a13c1883b3d0f4428040cb815720cce451ed3dc0",
+      "instance_kind": "material-type7-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 4,
+        "max_stack": 300,
+        "option_groups": {}
+      },
+      "inherited_dto_evidence": {
+        "evidence_matrix_sha256": "68c62b04593dfb1ce12305895c84d434d4c091496fee27d2aa9e99170d973a01",
+        "report_sha256": "f4d2a0646c51503000ce1ee848937d151402660bc4b394937bceeb926f953717",
+        "report_row_pointer": "/rows/14",
+        "historical_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "count_cases": [
+          {
+            "count": 1,
+            "consumed": 304,
+            "wire_sha256": "ada511f7e5256400a1800701738cb71893385d9f445c1eb043231f293ac8d9f2"
+          },
+          {
+            "count": 300,
+            "consumed": 304,
+            "wire_sha256": "d49816871314016646af964e962ddb077392c6859ec41c00a8b429c64a4681c0"
+          }
+        ],
+        "evidence_status": "inherited-positive-DTO-only",
+        "cap_plus_one_rejection_proven": false,
+        "full_CF_D0_D2_D3_consumers_proven": false,
+        "historical_first_dependency_preimport_closure_proven": false
+      }
+    },
+    "136047": {
+      "template": 136047,
+      "item_type": 7,
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 300,
+      "record_sha256": "7274f40251d6b75ed46a568ebbb494743164aa3c3ff805f14fb7cb0d687e1335",
+      "instance_kind": "material-type7-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 4,
+        "max_stack": 300,
+        "option_groups": {}
+      },
+      "inherited_dto_evidence": {
+        "evidence_matrix_sha256": "68c62b04593dfb1ce12305895c84d434d4c091496fee27d2aa9e99170d973a01",
+        "report_sha256": "f4d2a0646c51503000ce1ee848937d151402660bc4b394937bceeb926f953717",
+        "report_row_pointer": "/rows/16",
+        "historical_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "count_cases": [
+          {
+            "count": 1,
+            "consumed": 304,
+            "wire_sha256": "bb239903d8da534a0da8b5759a3a80a74f72d26aaee0e9e7e53cc178d4809688"
+          },
+          {
+            "count": 300,
+            "consumed": 304,
+            "wire_sha256": "4d6bba6f23f8778800847666ec0df442d04a2b2376ccc0642f27529d53344d46"
+          }
+        ],
+        "evidence_status": "inherited-positive-DTO-only",
+        "cap_plus_one_rejection_proven": false,
+        "full_CF_D0_D2_D3_consumers_proven": false,
+        "historical_first_dependency_preimport_closure_proven": false
+      }
+    },
+    "136048": {
+      "template": 136048,
+      "item_type": 7,
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 300,
+      "record_sha256": "4e2ca382364843870cd38b1b06637f8f741ef5ceee74a379fc8a68b8b226ad83",
+      "instance_kind": "material-type7-default-v1",
+      "default_instance": {
+        "metadata": 2,
+        "group": 4,
+        "max_stack": 300,
+        "option_groups": {}
+      },
+      "inherited_dto_evidence": {
+        "evidence_matrix_sha256": "68c62b04593dfb1ce12305895c84d434d4c091496fee27d2aa9e99170d973a01",
+        "report_sha256": "f4d2a0646c51503000ce1ee848937d151402660bc4b394937bceeb926f953717",
+        "report_row_pointer": "/rows/17",
+        "historical_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "count_cases": [
+          {
+            "count": 1,
+            "consumed": 304,
+            "wire_sha256": "adbe2295c467346752924a89d9ce4576585a8f16cbd98d3a810aedfb4cc6cdc0"
+          },
+          {
+            "count": 300,
+            "consumed": 304,
+            "wire_sha256": "33b67304c563e0ef34e6e7137f6c009a8b49f551485599500acf9873932a4b33"
+          }
+        ],
+        "evidence_status": "inherited-positive-DTO-only",
+        "cap_plus_one_rejection_proven": false,
+        "full_CF_D0_D2_D3_consumers_proven": false,
+        "historical_first_dependency_preimport_closure_proven": false
+      }
+    }
+  },
+  "values": {
+    "boss_percent": 25,
+    "quantity": 1,
+    "selection": "uniform within this exact finite map COMMON subset",
+    "ordinary_extra": false,
+    "clear_extra": false
+  },
+  "provenance": "LOCALCOMPAT: original numeric COMMON membership and exact Boss signatures;25percent/uniform_one/quantity1/existing stack99 are local compatibility policy, not retail probabilities or quantities.",
+  "scope_sha256": "03f339c84176c1ead3ace75a071460b066e0246e3f702faf9f6d15fba1bd98ad",
+  "proposal_sha256": "fc4321ebb7b62ef0723c267221a80b7d94a946cb61d954f08515976ea8c53bcd",
+  "growth_extension": {
+    "rule_id": "material-nine-preserve-probability-designB-local-v1",
+    "old_hit_coaward_maps": [
+      34320,
+      34330,
+      34340,
+      34350,
+      34360
+    ],
+    "old_hit_coaward_template": 118186,
+    "old_hit_trigger_percent": 25,
+    "shared_extra_draws": 0,
+    "old_hit_material_rows_max": 2,
+    "new_twelve_maps": [
+      34510,
+      34520,
+      34530,
+      34540,
+      34550,
+      34560,
+      34740,
+      34750,
+      35350,
+      35630,
+      35640,
+      35890
+    ],
+    "new_map_uniform_trigger_percent": 25,
+    "quantity_per_row": 1,
+    "note": "Finite local compatibility: coaward is correlated with original hit. Not retail probability; expected material units on old five rises0.25 to0.5."
+  }
+}

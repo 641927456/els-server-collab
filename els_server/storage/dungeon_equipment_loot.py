@@ -1,0 +1,134 @@
+"""Draw-once server issues and atomic finite pickup/clear transactions."""
+import hashlib
+import json
+import secrets
+import sqlite3
+import uuid
+from contextlib import closing
+from pathlib import Path
+from els_server.domain.dungeon_equipment_loot_rules import POLICY,context,plans,inventory_plan,policy_for
+from els_server.storage.inventory_state import load_items,grant_items
+from els_server.domain.inventory_items import TEMPLATE_MAX_STACKS
+from els_server.storage.inventory_actions import _identity,_previous,_commit
+
+def connect(path):
+    db=sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10)
+    db.execute('PRAGMA foreign_keys=ON')
+    return db
+
+def ensure(db):
+    db.execute('''CREATE TABLE IF NOT EXISTS dungeon_equipment_loot_issues (
+        owner INTEGER NOT NULL REFERENCES characters(uid) ON DELETE CASCADE,
+        run_id TEXT NOT NULL,dungeon INTEGER NOT NULL,stage INTEGER NOT NULL,
+        part INTEGER NOT NULL,visits INTEGER NOT NULL,npc_key INTEGER NOT NULL,
+        proof_sha256 TEXT NOT NULL,policy_id TEXT NOT NULL,issues_json TEXT NOT NULL,
+        PRIMARY KEY(owner,run_id,stage,part,visits,npc_key))''')
+
+def key(c):return tuple(c[k] for k in ('owner','run_id','stage','part','visits','npc_key'))
+
+def lookup(db,c):
+    return db.execute('SELECT dungeon,proof_sha256,policy_id,issues_json FROM dungeon_equipment_loot_issues WHERE owner=? AND run_id=? AND stage=? AND part=? AND visits=? AND npc_key=?',key(c)).fetchone()
+
+def digest(c,proof):
+    if not isinstance(proof,bytes) or not proof or len(proof)>8192:raise ValueError('Loot death evidence')
+    return hashlib.sha256(json.dumps(c,sort_keys=True,separators=(',',':')).encode()+proof).hexdigest()
+
+def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secrets.randbelow,rules=None):
+    c=(rules.context if rules is not None else context)(identity)
+    proof_sha=digest(c,proof);policy=(rules.policy_for if rules is not None else policy_for)(c)
+    if type(start_id) is not int or not 1<=start_id<2**31:raise ValueError('Loot sequence bound')
+    with closing(connect(path)) as db,db:
+        db.execute('BEGIN IMMEDIATE');ensure(db)
+        if not db.execute('SELECT 1 FROM characters WHERE uid=?',(c['owner'],)).fetchone():raise ValueError('Loot owner missing')
+        old=lookup(db,c)
+        if old is not None:
+            if old[:3]!=(c['dungeon'],proof_sha,policy):raise ValueError('Conflicting accepted loot death')
+            return prepare(json.loads(old[3]),True)
+        drawn=(rules.plans if rules is not None else plans)(c,boss,randbelow)
+        rows=[]
+        for index,entry in enumerate([*legacy,*drawn]):
+            is_new=index>=len(legacy);drop_id=start_id+index
+            if drop_id>=2**31:raise ValueError('Loot sequence exhausted')
+            rows.append({**c,**entry,'drop_id':drop_id,'xyz':list(xyz),'ed':entry.get('ed',0),
+                         'source':policy if is_new else 'legacy-coin','pickup_committed':False,'claimed_uids':None,
+                         'death_proof_sha256':hashlib.sha256(proof).hexdigest()})
+        result=prepare(rows,False)
+        # All affected old/new death, CF and gate payloads have encoded before
+        # the issue record commits. Session memory is applied by the caller.
+        db.execute('INSERT INTO dungeon_equipment_loot_issues VALUES (?,?,?,?,?,?,?,?,?,?)',
+                   (c['owner'],c['run_id'],c['dungeon'],c['stage'],c['part'],c['visits'],c['npc_key'],proof_sha,policy,json.dumps(rows,sort_keys=True)))
+        return result
+
+def claim(path,identity,drop_id,template,prepare,*,rules=None):
+    c=(rules.context if rules is not None else context)(identity)
+    policy=(rules.policy_for if rules is not None else policy_for)(c)
+    if type(drop_id) is not int or type(template) is not int:raise ValueError('Loot claim identity')
+    with closing(connect(path)) as db,db:
+        db.execute('BEGIN IMMEDIATE')
+        if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='dungeon_equipment_loot_issues'").fetchone():raise ValueError('Loot was not issued')
+        old=lookup(db,c)
+        if old is None or old[0]!=c['dungeon'] or old[2]!=policy:raise ValueError('Loot was not issued to this run')
+        rows=json.loads(old[3]);row=next((r for r in rows if r['drop_id']==drop_id and r['source']==policy),None)
+        if row is None or row['template']!=template or any(row[k]!=c[k] for k in c):raise ValueError('Loot claim context mismatch')
+        from els_server.domain.dungeon_material_loot_catalog import POLICY as MATERIAL_POLICY,validate_issued as validate_material_issue
+        if rules is None and policy==MATERIAL_POLICY:validate_material_issue(row,c)
+        operation='equipment-pickup:'+str(uuid.uuid5(uuid.UUID(c['run_id']),':'.join(map(str,(*key(c),drop_id)))))
+        canonical=json.dumps(dict(context=c,drop_id=drop_id,proof_sha256=old[1],policy=policy),sort_keys=True).encode()
+        owner,request_hash=_identity(c['owner'],0xd0,canonical,operation)
+        prior=_previous(db,operation,request_hash);before=load_items(db,owner)
+        if prior is not None:
+            if row['claimed_uids'] is None:raise ValueError('Loot receipt/issue mismatch')
+            ids=set(row['claimed_uids']);current=[i for i in before if i['uid'] in ids]
+            result=prepare(current,True)
+            return result
+        if row['claimed_uids'] is not None:raise ValueError('Claimed loot has no receipt')
+        options=row['option_groups']
+        if rules is not None:
+            awarded=rules.grant(db,row,c)
+        elif policy==MATERIAL_POLICY:
+            awarded=grant_items(db,[inventory_plan(template,row['quantity'])],owner)
+            expected=row['instance_descriptor']['state']
+            if (len(awarded)!=1 or awarded[0]['template']!=template or type(awarded[0]['count']) is not int
+                or not 1<=awarded[0]['count']<=TEMPLATE_MAX_STACKS[template]
+                or (awarded[0]['metadata'],awarded[0]['group'])!=(expected['metadata'],expected['group'])
+                or awarded[0].get('option_groups',{})!=expected['option_groups']):
+                raise ValueError('Material loot registered factory changed')
+        elif policy!=POLICY:
+            from els_server.domain.dungeon_loot_catalog import validate_issued
+            validate_issued(row,c)
+            awarded=grant_items(db,[inventory_plan(template,row['quantity'])],owner)
+            expected=row['instance_descriptor']['state']
+            if (len(awarded)!=1 or awarded[0]['count']!=1 or awarded[0].get('durability')!=expected['durability']
+                or awarded[0].get('enhancement',0)!=expected['enhancement'] or awarded[0].get('option_groups',{})!=expected['option_groups']):
+                raise ValueError('Normal loot default factory changed')
+        elif template==118638:
+            from els_server.domain.equipment_chip_rules import source_options
+            if set(options)!={'1'}:raise ValueError('Chip issue options required')
+            source_options(options['1'])
+            awarded=grant_items(db,[inventory_plan(template,row['quantity'])],owner,chip_options=options)
+        else:awarded=grant_items(db,[inventory_plan(template,row['quantity'])],owner)
+        if policy==POLICY and options and template!=118638:
+            from els_server.domain.equipment_circuit_rules import validate_material
+            from els_server.storage.equipment_options import replace
+            validate_material(template,options.get('1',[]))
+            if len(awarded)!=1 or awarded[0]['count']!=1:raise ValueError('Circuit issue must grant one complete instance')
+            replace(db,owner,awarded[0]['uid'],{},options)
+        after=load_items(db,owner);ids={i['uid'] for i in awarded};current=[i for i in after if i['uid'] in ids]
+        result=prepare(current,False)
+        positions=[(i['group'],i['slot']) for i in current]
+        _commit(db,operation,request_hash,owner,0xd0,positions,before,after)
+        row['claimed_uids']=sorted(ids);row['pickup_committed']=True
+        db.execute('UPDATE dungeon_equipment_loot_issues SET issues_json=? WHERE owner=? AND run_id=? AND stage=? AND part=? AND visits=? AND npc_key=?',
+                   (json.dumps(rows,sort_keys=True),*key(c)))
+        return result
+
+def clear_reward(path,owner,reward_store,arguments,prepare):
+    if reward_store.uid!=owner or Path(reward_store.path).resolve()!=Path(path).resolve():raise ValueError('Clear reward owner/store mismatch')
+    with closing(connect(path)) as db,db:
+        db.execute('BEGIN IMMEDIATE')
+        receipt=reward_store.grant(**arguments,transaction=db)
+        # Use current UIDs even when the original clear receipt is replayed.
+        ids={i['uid'] for i in receipt.get('items',[])}
+        current=[i for i in load_items(db,owner) if i['uid'] in ids]
+        result=prepare(receipt,current)
+        return receipt,result

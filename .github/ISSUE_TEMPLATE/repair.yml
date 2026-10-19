@@ -1,0 +1,21 @@
+name: 独立修复
+description: 登记可单独验收的问题与范围
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 触发、预期与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 版本、来源、修改范围与共享依赖
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 验收标准、当前证据与未验边界
+    validations:
+      required: true

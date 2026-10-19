@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "provenance": "local_policy",
+  "scope": "Static solo routes beyond El Tree. Flat practice rewards, not retail loot tables or raid rewards.",
+  "clear_ed": 120,
+  "clear_experience": 50,
+  "clear_items": [{"template": 77000, "quantity": 3}],
+  "ordinary_ed": 5,
+  "boss_ed": 50,
+  "coin_template": 127000,
+  "encounter_policy": {
+    "scope": "Local finite encounter selection. Henir room order is not the official weekly schedule; source boss clear conditions remain required.",
+    "henir": {"35880": {"rounds": 6}, "38100": {"rounds": 20}},
+    "add_center": {"dungeon": 41400, "opening": 0, "rooms": [1, 2], "boss": 3},
+    "nil_condition_repair": {"Dungeon_En_Time2.lua": 0}
+  }
+}
