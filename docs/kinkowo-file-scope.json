@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "allocated_to": "KinkOwO",
+  "status": "allocation recorded; awaiting contributor acknowledgement",
+  "recorded_utc": "2026-10-19T10:09:39.348667+00:00",
+  "baseline_commit": "59cd78afe532cec715520bcb0d702be22b321d81",
+  "resource_release": "collab-runtime-v2",
+  "maintainer": "641927456",
+  "tasks": {
+    "KINK-00": {
+      "priority": "P0",
+      "kind": "environment/evidence",
+      "write": [
+        "docs/kinkowo/reports/KINK-00.md"
+      ]
+    },
+    "KINK-01": {
+      "priority": "P1-first",
+      "kind": "reproduced defect",
+      "write": [
+        "els_server/storage/mailbox_extras.py::status",
+        "tests/test_kinkowo_mail_status.py",
+        "docs/kinkowo/reports/KINK-01.md"
+      ]
+    },
+    "KINK-02": {
+      "priority": "P1",
+      "kind": "natural acceptance gap; fix only reproduced defects",
+      "write": [
+        "els_server/domain/player_mail_flow.py::handle",
+        "els_server/storage/player_mail.py::send",
+        "els_server/protocol/player_mail_messages.py",
+        "tests/test_kinkowo_player_mail_send.py",
+        "docs/kinkowo/reports/KINK-02.md"
+      ]
+    },
+    "KINK-03": {
+      "priority": "P2",
+      "kind": "acceptance gap; after KINK-01 merge",
+      "write": [
+        "els_server/domain/mailbox_extras.py::handle,periodic",
+        "els_server/storage/mailbox_extras.py::change,status",
+        "els_server/protocol/mailbox_extras.py",
+        "tests/test_kinkowo_mail_blacklist.py",
+        "docs/kinkowo/reports/KINK-03.md"
+      ]
+    }
+  },
+  "baseline_files": [
+    {
+      "path": "els_server/domain/player_mail_flow.py",
+      "sha256": "e24f0bc21f57874be577c875a2ec8eb212aae05109c22bce0820f9c0c0e236e2",
+      "same_as_observed_formal_local_snapshot": true
+    },
+    {
+      "path": "els_server/domain/player_mail_rules.py",
+      "sha256": "1ae9661a308fca14b9300044e1aaf4f584cddd371c2f3296d24e3883ba8b550e",
+      "same_as_observed_formal_local_snapshot": true
+    },
+    {
+      "path": "els_server/storage/player_mail.py",
+      "sha256": "a4cf79c05ae186d0debadef0f0dbb150674241b80ae3f7497ae781e68dcc6754",
+      "same_as_observed_formal_local_snapshot": true
+    },
+    {
+      "path": "els_server/domain/mail_flow.py",
+      "sha256": "71590eb4c5eb058c8aba0bde811baf8bf35573b8c6fe849b87d8bb2d6bafd53e",
+      "same_as_observed_formal_local_snapshot": true
+    },
+    {
+      "path": "els_server/storage/game_mail.py",
+      "sha256": "37f0f35c5f8e25c88dcc1925def6ac02a176e704b3dea7c05d11b21ac238fc40",
+      "same_as_observed_formal_local_snapshot": true
+    },
+    {
+      "path": "els_server/storage/mail_attachments.py",
+      "sha256": "bab46f386e2dd04b1ee8d87d53702dff8157bc4e0fed56abe8ea189a9c886e7a",
+      "same_as_observed_formal_local_snapshot": true
+    },
+    {
+      "path": "els_server/protocol/mail_attachment_messages.py",
+      "sha256": "2a4c7169f6faec568b57b47886f3a9f9f3cc518822b8f064f41b95ca0a617b7c",
+      "same_as_observed_formal_local_snapshot": true
+    },
+    {
+      "path": "els_server/domain/mailbox_extras.py",
+      "sha256": "008931d507f8b8575545604835acd3ce9bdfd5af5abe674fa167686973e3cb68",
+      "same_as_observed_formal_local_snapshot": true
+    },
+    {
+      "path": "els_server/storage/mailbox_extras.py",
+      "sha256": "329debefba12fffee14dcf15efb7befa6d49a37cc7aa8cf74cc8a4a705ee8a10",
+      "same_as_observed_formal_local_snapshot": true
+    },
+    {
+      "path": "els_server/protocol/mailbox_extras.py",
+      "sha256": "4c33798f6484d34d311658d770e1436a064538ce8e6a66c4b9994ce85848b82c",
+      "same_as_observed_formal_local_snapshot": true
+    },
+    {
+      "path": "els_server/protocol/player_mail_messages.py",
+      "sha256": "f45ad36495315a98b3d3ea61dd2d5657f250efffa290ea11afb4f3294e26765f",
+      "same_as_observed_formal_local_snapshot": true
+    }
+  ],
+  "mail_functions_not_listed_are_read_only": true,
+  "source_baseline_is_not_a_file_lock": true,
+  "technical_enforcement": false,
+  "common_files_change_requires_scope_update": true,
+  "first_fix_expected_failure_exit_code": 1,
+  "rules_document": "docs/KINKOWO_FIRST_TASKS.md"
+}
