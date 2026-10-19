@@ -16,15 +16,6 @@ from els_server.storage.equipment_receipt_state import current_changes
 
 
 def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.randbelow):
-    from els_server.domain.published_2026_bundles import enabled
-    definition=enabled().get(expected_template)
-    if definition is not None:
-        from els_server.storage.published_2026_bundles import open_bundle
-        return open_bundle(path,owner,payload,operation,definition=definition)
-    from els_server.domain.boosting_2026_force_rewards import boxes as force_boxes
-    if expected_template in force_boxes():
-        from els_server.storage.boosting_2026_force_rewards import open_box
-        return open_box(path,owner,expected_template,payload,operation)
     request=use_request(payload)
     if (request.option!=0 or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))
         or expected_template not in catalog()):raise ValueError('Unsupported fixed cube use')

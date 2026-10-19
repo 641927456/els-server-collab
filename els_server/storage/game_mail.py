@@ -119,9 +119,9 @@ def inbox(path,account,uid,*,page=1,now=None):
     with closing(sqlite3.connect(path,timeout=10)) as db:
         db.row_factory=sqlite3.Row;db.execute('BEGIN');_owner(db,account,uid)
         from els_server.storage.player_mail import visible_sql,decorate
-        count=db.execute('SELECT count(*) FROM game_mail WHERE account_id=? AND deleted_at IS NULL AND expires_at>? AND '+visible_sql(db),(account,now,uid)).fetchone()[0]
+        count=db.execute('SELECT count(*) FROM game_mail WHERE account_id=? AND deleted_at IS NULL AND expires_at>? AND '+visible_sql(),(account,now,uid)).fetchone()[0]
         rows=db.execute('''SELECT * FROM game_mail WHERE account_id=? AND deleted_at IS NULL
-            AND expires_at>? AND '''+visible_sql(db)+''' ORDER BY id DESC LIMIT 10 OFFSET ?''',(account,now,uid,(page-1)*10)).fetchall()
+            AND expires_at>? AND '''+visible_sql()+''' ORDER BY id DESC LIMIT 10 OFFSET ?''',(account,now,uid,(page-1)*10)).fetchall()
         return count,[decorate(db,dict(r),now=now) for r in rows]
 
 
@@ -174,8 +174,6 @@ def claim(path,account,uid,ids,encode,*,now=None,include_items=False,include_cla
                        (now,uid,now,row['id']))
         if include_claim_counts:
             if not include_items:raise MailError('Item-aware claim counts require item-aware encoder')
-            # Only newly committed escrow quantities produce receipt notices.
-            # Retries retain absolute state updates without announcing another grant.
             awarded={r['id']:{r['item']['template']:r['item']['count']}
                      for r in pending if r.get('item') is not None}
             return encode(ids,after,changes,awarded)
