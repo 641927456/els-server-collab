@@ -181,6 +181,7 @@ class LocalSession:
         self.drop_test=drop_test;self.pickup_receipt=None
         self.gate_stage=0;self.gate_stage_loading=False
         self.expiration_checked=None
+        self.luciel_dungeon_hp_source=None;self.luciel_dungeon_hp_max=None
         self.activity2026_awards=activity2026_awards
 
     def saved_user_sync(self,*,clear_reward_only=False):
@@ -208,13 +209,23 @@ class LocalSession:
         answer=messages+observe(self,messages)
         return self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
 
+    def _capture_luciel_dungeon_hp(self,payload,spans):
+        self.luciel_dungeon_hp_source=None;self.luciel_dungeon_hp_max=None
+        character=self.account.character()
+        if character['unit_type']!=10:return
+        import struct
+        if set(spans)!=set(('0x198','0x1b4','0x1d1')):raise ValueError('LuCiel admitted member spans')
+        self.luciel_dungeon_hp_source=(self.account.uid,payload,dict(spans))
+        self.luciel_dungeon_hp_max=struct.unpack_from('>f',payload,spans['0x198'][0])[0]
+
     def expiration_notifications(self):
         if not (self.item_test and self.client_build=='dx11_260923' and self.role=='game' and self.phase in ('town_ready','dungeon_active')):return []
         import time
         now=int(time.time());key=(self.account.uid,now)
         if key==self.expiration_checked:return []
         from els_server.storage.item_expiration import remove_due
-        def prepare_luciel_slots(items):
+        prepared_hp=[]
+        def prepare_luciel_slots(items,remaining):
             # load_items already validates every admitted owned instance.
             # All current worn slots need removal, including both costume sides.
             worn=[i for i in items if i['group']==9]
@@ -222,12 +233,20 @@ class LocalSession:
             character=self.account.character()
             if character['uid']!=self.account.uid:raise ValueError('Expiration actor mismatch')
             if character['unit_type']!=10:return None
-            # The native105 receiver clears the actual worn slot and rebuilds
-            # existing equipment/set/passive inputs. Never send a partial full
-            # actor or HP/MP/power placeholders during same-level item expiry.
             from els_server.domain.fashion_state import move_ack
-            return Event(0x201,kind=0x105,payload=move_ack([((i['group'],i['slot']),None) for i in worn]))
-        result=remove_due(self.account.store.path,self.account.uid,now=now,prepare_refresh=prepare_luciel_slots)
+            answer=[Event(0x201,kind=0x105,payload=move_ack([((i['group'],i['slot']),None) for i in worn]))]
+            source=self.luciel_dungeon_hp_source
+            if self.phase=='dungeon_active' and not self.dungeon_return_pending and source is not None and source[0]==self.account.uid:
+                from els_server.domain.character_stats import combat_values
+                maximum=combat_values(character,remaining)[0]
+                if maximum!=self.luciel_dungeon_hp_max:
+                    from els_server.protocol.dungeon_messages import luciel_hp_notification
+                    from els_server.protocol.luciel_messages import preference
+                    answer.append(luciel_hp_notification(source,maximum,preference(character)))
+                    prepared_hp.append(maximum)
+            return answer
+        result=remove_due(self.account.store.path,self.account.uid,now=now,prepare_remaining_refresh=prepare_luciel_slots)
+        if prepared_hp:self.luciel_dungeon_hp_max=prepared_hp[-1] # Only after the removal transaction committed.
         from els_server.storage.bank_state import remove_due as remove_due_bank
         result+=remove_due_bank(self.account.store.path,self.account.uid)
         self.expiration_checked=key
@@ -319,6 +338,8 @@ class LocalSession:
         before=observe(self,notices)
         reply=self._handle(event,request_sequence)
         if self.account.characters is not None and any(e.kind==0x2a for e in reply):
+            from els_server.domain.avatar_set_flow import initialization as avatar_set_initialization
+            reply.extend(avatar_set_initialization(self,reply))
             from els_server.domain.dungeon_rotation import notification
             reply.append(notification())
             from els_server.domain.title_flow import enabled as titles_enabled,restore as restore_titles
@@ -344,6 +365,9 @@ class LocalSession:
 
     def _handle(self,event,request_sequence=None):
         kind=event.kind
+        from els_server.domain.avatar_set_flow import handle as avatar_set_handle
+        avatar_set_reply=avatar_set_handle(self,event,request_sequence)
+        if avatar_set_reply is not None:return avatar_set_reply
         from els_server.domain.town_travel_flow import handle as town_travel_handle
         town_travel_reply=town_travel_handle(self,event,request_sequence)
         if town_travel_reply is not None:return town_travel_reply
@@ -1075,6 +1099,7 @@ class LocalSession:
                     # there is no old client inventory to notify at this point.
                     remove_due(self.account.store.path,self.account.uid)
                     self.expiration_checked=None
+                    self.luciel_dungeon_hp_source=None;self.luciel_dungeon_hp_max=None
                     from els_server.storage.career_purchase_recovery import recover
                     from els_server.storage.career_shop import notifications as career_notifications
                     character=self.account.character();location=self.account.get_location()
@@ -1093,11 +1118,11 @@ class LocalSession:
                     from els_server.domain.character_stats import combat_values
                     initial_health_max=math.ceil(combat_values(character,saved['items'] if saved else None)[0])
                 if self.enter_dungeon and character['unit_type']==10 and character['level']>1:
-                    # Candidate input experiment only: align the initial health
-                    # basis with the already sent naked HP input, not equipment.
+                    # Current2F restores absolute LuCiel HP; reuse the existing
+                    # HP aggregate while native equipment/passive code stays intact.
                     from els_server.domain.character_stats import combat_values
-                    initial_health_max=math.ceil(combat_values(character)[0])
-                answer=[player_initialization(self.account.get_location(),initialize_attributes=self.enter_dungeon,economy=saved['balances'] if saved else self.account.get_reward_balances() if self.reward_test else None,items=saved['items'] if saved else None,character=self.account.character(),restore_equipped=(self.enter_dungeon and (character['unit_type']==10 or (character['level']==1 and self.account.get_reward_balances()['experience']==0)))),skill_slots_initialization(self.account.get_skills(),self.account.uid,self.account.character()),quest_initialization(self)]+optional_player_initializations(initialize_health=self.enter_dungeon,uid=self.account.uid,health_max=initial_health_max)+[Event(0x201,kind=0x29,payload=i32(0))]
+                    initial_health_max=math.ceil(combat_values(character,saved['items'] if saved else None)[0])
+                answer=[player_initialization(self.account.get_location(),initialize_attributes=self.enter_dungeon,economy=saved['balances'] if saved else self.account.get_reward_balances() if self.reward_test else None,items=saved['items'] if saved else None,character=self.account.character(),restore_equipped=self.enter_dungeon),skill_slots_initialization(self.account.get_skills(),self.account.uid,self.account.character()),quest_initialization(self)]+optional_player_initializations(initialize_health=self.enter_dungeon,uid=self.account.uid,health_max=initial_health_max,luciel_active=(character.get('luciel_active_unit',0) if character['unit_type']==10 else 0))+[Event(0x201,kind=0x29,payload=i32(0))]
                 if self.item_test and self.client_build=='dx11_260923':
                     from els_server.storage.quick_slots import initialization
                     answer.insert(1,initialization(self.account.store.path,self.account.uid))
@@ -1210,6 +1235,7 @@ class LocalSession:
             self.dungeon_end_payload=bytes(payload)
             self.phase='map_loading';self.pending_map=None
             self.dungeon_return_pending=True
+            self.luciel_dungeon_hp_source=None;self.luciel_dungeon_hp_max=None
             self.inventory_town_sync_sent=True
             return [dungeon_messages.end_ack(),self.saved_user_sync(clear_reward_only=self.clear_notified)]
         if self.enter_dungeon and self.phase=='dungeon_active' and event.event_id==0x202 and kind==0xb3:
@@ -1350,7 +1376,7 @@ class LocalSession:
                 self.pickup_receipt=None
                 world=getattr(getattr(self,'application',None),'world',None)
                 room=world.party_of.get(self,{}) if world else (getattr(self,'solo_challenge_party',None) or {})
-                reply=[admission_ack(0),dungeon_start(self.account.get_skills(),self.account.character(),self.account.get_inventory_snapshot()['items'] if self.item_test else None,dungeon_id=identity,room_id=room.get('id',10001) if room.get('solo_challenge') else 10001,account_id=self.account.account_id,bootstrap_port=self.port_probe_port)]
+                reply=[admission_ack(0),dungeon_start(self.account.get_skills(),self.account.character(),self.account.get_inventory_snapshot()['items'] if self.item_test else None,dungeon_id=identity,room_id=room.get('id',10001) if room.get('solo_challenge') else 10001,account_id=self.account.account_id,bootstrap_port=self.port_probe_port,member_capture=self._capture_luciel_dungeon_hp)]
                 if challenge is not None:
                     from els_server.domain.challenge_flow import notification
                     reply.append(notification(self))

@@ -22,7 +22,7 @@ def skill_data(slots,character=None):
         force_owned=vector(character)
     return u32(22)+b''.join(record(v) for v in slots)+records(character)+learned+u32(0)+ids_wire(character)+b'\1\1'+preset+force_owned+b'\0'
 
-def member(slots,character=None,items=None,*,account_id=None,peer_port=None):
+def member(slots,character=None,items=None,*,account_id=None,peer_port=None,capture=None):
     from els_server.domain.character_stats import combat_attributes
     data=json.loads((PROJECT_ROOT/'analysis/dungeon-member-fixture.json').read_text())
     overrides={}
@@ -57,7 +57,21 @@ def member(slots,character=None,items=None,*,account_id=None,peer_port=None):
         from els_server.protocol.luciel_messages import preference,active_preference
         overrides['0x1d0']=bytes([active_preference(character)])
         overrides['0x1d1']=bytes([preference(character)])
-    return b''.join(overrides.get(f['offset'],skill_data(slots,character) if f['reader']=='0xcd7160' else combat_attributes(character,items) if f['reader']=='0xcd6df0' else bytes.fromhex(f['wire_hex'])) for f in data['fields'])
+        if capture is not None:
+            # Actor gauge initialization consumes absolute HP; the remaining six
+            # inputs stay naked for the client's own equipment/passive engine.
+            from els_server.domain.character_stats import combat_values
+            hp=struct.pack('>f',combat_values(character,items)[0])
+            for key in ('0x198','0x1b4'):overrides[key]=hp+combat_attributes(character)[4:]
+    parts=[overrides.get(f['offset'],skill_data(slots,character) if f['reader']=='0xcd7160' else combat_attributes(character,items) if f['reader']=='0xcd6df0' else bytes.fromhex(f['wire_hex'])) for f in data['fields']]
+    payload=b''.join(parts)
+    if capture is not None:
+        spans={};offset=0
+        for field,part in zip(data['fields'],parts):
+            if field['offset'] in ('0x198','0x1b4','0x1d1'):spans[field['offset']]=(offset,len(part))
+            offset+=len(part)
+        capture(payload,spans)
+    return payload
 
 def room_info(dungeon_id=SUPPORTED_DUNGEON,*,room_id=10001,name='LocalSingle',bootstrap_port=None):
     from els_server.game_data import client_data
@@ -76,14 +90,14 @@ def room_info(dungeon_id=SUPPORTED_DUNGEON,*,room_id=10001,name='LocalSingle',bo
     data+=b'\0'+i32(0)+bytes(8)*2
     return data
 
-def dungeon_start(slots=DEFAULT_SLOTS,character=None,items=None,dungeon_id=SUPPORTED_DUNGEON,*,room_id=10001,account_id=None,bootstrap_port=None):
+def dungeon_start(slots=DEFAULT_SLOTS,character=None,items=None,dungeon_id=SUPPORTED_DUNGEON,*,room_id=10001,account_id=None,bootstrap_port=None,member_capture=None):
     # 2f867a0: ushort, room, two vectors<CC0050>, name,
     # vector<CDA160 metadata records>, vector<ten floats>, vector<int>.
     # CC0050 byte 2 -> native slot+9E. 1360320 binds this member as
     # the dungeon master actor (+2E0 UID / +BA0 reference).
     # Master selection 1360490 includes 3..5; actor creation 135DF20
     # excludes 1..3. Type 4 satisfies both native branches (0 loses master).
-    team=b'\0\4\1'+bytes(3)+i32(0)+u32(1)+member(slots,character,items,account_id=account_id)+u32(0)+bytes(4)
+    team=b'\0\4\1'+bytes(3)+i32(0)+u32(1)+member(slots,character,items,account_id=account_id,capture=member_capture)+u32(0)+bytes(4)
     payload=bytes(2)+room_info(dungeon_id,room_id=room_id,bootstrap_port=bootstrap_port)+u32(1)+team+u32(0)+wstring('')+u32(0)*3
     return Event(0x201,kind=0x14a,payload=payload)
 
@@ -168,3 +182,28 @@ def return_user_sync(location,slots,economy=None,items=None,character=None,*,inv
     updates=[] if inventory_updates is None else inventory_updates
     bag=u32(0) if updates is None else inventory_payload([i for i in updates if i['group']!=9])
     return Event(0x201,kind=0xd9,payload=character_unit(location,True,slots,economy,items,character)+bag+u32(0)+b'\0')
+
+
+def luciel_hp_notification(source,health_max,style):
+    """Patch the actual admitted member; preserve every unrelated wire byte.
+
+    In particular the cached numeric field at DTO5C8 is opaque and retained.
+    No power, current HP/MP, skill, equipment or timer state is invented here.
+    The original70D consumer only restores its two attribute groups/style,
+    clamps HP and refreshes existing native effects;105 owns slot removal.
+    """
+    uid,payload,spans=source
+    from els_server.storage.character_schema import character_uid
+    from els_server.protocol.luciel_messages import style as valid_style
+    character_uid(uid);valid_style(style)
+    if not isinstance(payload,bytes) or set(spans)!=set(('0x198','0x1b4','0x1d1')):raise ValueError('Admitted LuCiel HP source')
+    if not isinstance(health_max,(int,float)) or not 0<health_max<=1e12:raise ValueError('LuCiel HP maximum')
+    updated=bytearray(payload);hp=struct.pack('>f',health_max)
+    for key in ('0x198','0x1b4'):
+        offset,size=spans[key]
+        if size!=28 or not 0<=offset<=len(payload)-size:raise ValueError('Admitted HP field span')
+        updated[offset:offset+4]=hp
+    offset,size=spans['0x1d1']
+    if size!=1 or not 0<=offset<len(payload):raise ValueError('Admitted style field span')
+    updated[offset]=style
+    return Event(0x201,kind=0x70d,payload=bytes(updated))
