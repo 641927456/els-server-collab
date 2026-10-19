@@ -32,14 +32,8 @@ def ensure(db):
     ensure_items(db)
 
 
-def visible_sql(db=None):
+def visible_sql():
     # One bound UID argument; administrative account mail has no meta row.
-    from els_server.storage.online_title_mail_scope import exists
-    if db is not None and exists(db):
-        return '''NOT EXISTS (SELECT 1 FROM (
-            SELECT recipient_uid FROM player_mail_meta WHERE mail_id=game_mail.id
-            UNION ALL SELECT recipient_uid FROM online2026_mail_scope WHERE mail_id=game_mail.id
-            ) p WHERE p.recipient_uid NOT IN (0,?))'''
     return '''NOT EXISTS (SELECT 1 FROM player_mail_meta p WHERE p.mail_id=game_mail.id
               AND p.recipient_uid NOT IN (0,?))'''
 
@@ -47,24 +41,10 @@ def visible_sql(db=None):
 def require_recipient(db,mail_id,uid):
     row=db.execute('SELECT recipient_uid FROM player_mail_meta WHERE mail_id=?',(mail_id,)).fetchone()
     if row is not None and row[0] not in (0,uid):raise MailError('Letter belongs to another character')
-    from els_server.storage.online_title_mail_scope import recipient
-    target=recipient(db,mail_id)
-    if target is not None and target!=uid:raise MailError('Event letter belongs to another character')
 
 
 def decorate(db,row,*,now=None):
     meta=db.execute('SELECT recipient_uid FROM player_mail_meta WHERE mail_id=?',(row['id'],)).fetchone()
-    from els_server.storage.online_title_mail_scope import recipient
-    target=recipient(db,row['id'])
-    if target is not None:
-        # Retail LT_EVENT_CHARACTER (71) requires its original RewardID table.
-        # The selected local event uses native LT_MESSAGE (5) direct-item mail;
-        # retain the existing folder0 route and original server recipient guard.
-        # This is explicit local compatibility, not the retail mail type.
-        row['mail_type']=5  # LT_MESSAGE: native direct item, local delivery compatibility
-        if meta is None:meta=(target,)
-    if row.get('campaign','').startswith('attendance2026-'):
-        row['mail_type']=5  # Account ownership remains enforced by game_mail.
     if meta and meta[0]:
         name=db.execute('SELECT name FROM characters WHERE uid=?',(meta[0],)).fetchone()
         if name:row['recipient']=name[0]
@@ -98,8 +78,7 @@ def expire_due(db,now,*,mail_ids=None):
         FROM game_mail g JOIN player_mail_meta p ON p.mail_id=g.id
         WHERE g.deleted_at IS NULL AND g.expires_at<=? AND p.returned_to IS NULL'''
         +restriction+' ORDER BY g.id LIMIT 100',args).fetchall()
-    from els_server.storage.online_title_mail_scope import retire_due
-    changed=retire_due(db,now,mail_ids=mail_ids)
+    changed=0
     for row in rows:
         mid,recipient_account,sender,title,body,ed,claimed,recipient_uid,sender_account,sender_uid,return_of=row
         item=attachments.pending(db,mid,now=now)
@@ -128,8 +107,7 @@ def maintenance(path,*,now=None):
             WHERE g.deleted_at IS NULL AND g.expires_at<=? AND p.returned_to IS NULL LIMIT 1''',(now,)).fetchone()
         item_due=db.execute('''SELECT 1 FROM player_mail_items WHERE claimed_at IS NULL AND moved_to IS NULL
             AND expired_at IS NULL AND expires_at<? LIMIT 1''',(now,)).fetchone()
-        from els_server.storage.online_title_mail_scope import has_due
-        if not due and not item_due and not has_due(db,now):return 0
+        if not due and not item_due:return 0
         db.execute('BEGIN IMMEDIATE');return expire_due(db,now)
 
 
@@ -167,7 +145,7 @@ def send(path,account,uid,request,operation,encode,*,now=None):
         if db.execute('SELECT 1 FROM mail_blacklist WHERE owner=? AND target=?',(target[0],uid)).fetchone():
             raise MailError('Recipient blocks this sender')
         count=db.execute('''SELECT count(*) FROM game_mail WHERE account_id=? AND deleted_at IS NULL
-            AND expires_at>? AND '''+visible_sql(db),(target[2],now,target[0])).fetchone()[0]
+            AND expires_at>? AND '''+visible_sql(),(target[2],now,target[0])).fetchone()[0]
         if count>=INBOX_LIMIT:raise MailError('Recipient inbox is full')
         sender=db.execute('SELECT name FROM characters WHERE uid=?',(uid,)).fetchone()[0]
         source=item=None;positions=[];price=0
