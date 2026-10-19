@@ -866,8 +866,13 @@ class LocalSession:
                     from els_server.storage.bag_moves import move_bag_items
                     ack=move_bag_items(self.account.store.path,event.payload,self.account.uid)
                 elif len(event.payload)==11 and 24 in (event.payload[0],event.payload[5]):
+                    from els_server.domain.tutorial_accessory import wear_context,validate_wear_context
+                    if (event.performers!=(0,) or event.uid!=0xffffffffffffffff
+                        or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):raise ValueError('Artifact wear envelope')
                     from els_server.storage.artifact_progression import move as move_artifact
-                    ack=move_artifact(self.account.store.path,event.payload,self.account.uid,account_id=self.account.account_id)
+                    captured=wear_context(self)
+                    ack=move_artifact(self.account.store.path,event.payload,self.account.uid,account_id=self.account.account_id,
+                        session_id=self.shop_session_id,sequence=request_sequence,validate=lambda:validate_wear_context(self,captured))
                 else:
                     from els_server.domain.tutorial_accessory import wear_context,validate_wear_context
                     if (event.performers!=(0,) or event.uid!=0xffffffffffffffff

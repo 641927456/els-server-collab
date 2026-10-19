@@ -15,6 +15,12 @@ RECORD_SHA256=RECORDS[TEMPLATE][0]
 SLOT_STYLE={slot:side for record in RECORDS.values() for side,slot in enumerate(record[2:4])}
 APPLICATION_VERIFIED=True  # Finite default records; full combat is a separate gate.
 
+def wear_slots(template):
+    original=definition(template)['slots']
+    if template!=92112:return original
+    e=client_data().resource('Enum.lua')['NOW_EQIP_SLOT_ID']
+    return original+(e['NESI_AC_RING2'],e['NESI_MINORUNIT_AC_RING2'])
+
 @functools.lru_cache(maxsize=5)
 def definition(template=TEMPLATE):
     if template not in TEMPLATES:raise ValueError('Outside verified accessory scope')
@@ -30,7 +36,7 @@ def accepts_equipped(item):
     if item.get('template') not in TEMPLATES:return False
     rule=definition(item['template'])
     return (APPLICATION_VERIFIED and item['metadata']==0 and item['count']==1
-            and item['group']==9 and item['slot'] in rule['slots'])
+            and item['group']==9 and item['slot'] in wear_slots(item['template']))
 
 def effective_style(character):
     from els_server.protocol.luciel_messages import preference,active_preference
@@ -49,7 +55,7 @@ def require_wearable(item,character,*,style=None):
         raise ValueError('Accessory owner identity')
     main,minor=definition(item['template'])['slots']
     if family==10:effective_style(character)
-    elif item['slot']!=main:raise ValueError('Minor accessory belongs to LuCiel')
+    elif item['slot'] not in wear_slots(item['template'])[::2]:raise ValueError('Minor accessory belongs to LuCiel')
     if set(item)-{'uid','template','metadata','count','group','slot','expires_at','lock_until'}:
         raise ValueError('Nondefault tutorial accessory instance')
 
@@ -59,7 +65,7 @@ def contributes(item,character):
     family=client_data().unit(character['unit_class'])['unitType']
     if family!=character['unit_type']:raise ValueError('Accessory contribution family')
     main,minor=definition(item['template'])['slots']
-    if family!=10:return item['slot']==main
+    if family!=10:return item['slot'] in wear_slots(item['template'])[::2]
     selected=effective_style(character)
     # Native897440/861F10 use both sides for HP; attack/defense select one.
     return item['template']==92112 or SLOT_STYLE[item['slot']]==selected

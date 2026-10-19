@@ -106,6 +106,7 @@ def require_wearable(item,character):
  from els_server.domain.item_expiration import require_current
  from els_server.domain.equipment_requirements import class_matches
  require_current(item);raw=client_data().item(item['template'])['record']
+ if item.get('sealed',False):raise ValueError('Unseal Artifact equipment before wearing')
  if item.get('identified') is False:raise ValueError('Artifact equipment must be identified before wearing')
  if item['slot'] not in slots(item['template']) or item['count']!=1:raise ValueError('Artifact equipment slot')
  if character['level']<raw[0xd1] or raw[0xd2] and raw[0xd2]!=character['unit_type'] or not class_matches(character['unit_class'],raw[0xd3]):raise ValueError('Artifact equipment character requirement')

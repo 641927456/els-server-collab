@@ -30,8 +30,13 @@ def definitions():
             or type(r['compatibility_only']) is not bool or type(r['restricted']) is not bool):raise ValueError('Accessory source record')
         # The same native companion bit already selects minor fashion slots.
         # Companion-only accessories must not become wearable on Lu's side.
-        resolved=tuple(r['slots'][1:]) if source[8]&4 else tuple(r['slots'])
-        result[t]=MappingProxyType({**r,'slots':resolved,'companion_only':bool(source[8]&4)})
+        main=(r['slots'][0],);minor=(r['slots'][1],)
+        # A ring template keeps EP_AC_RING in both ordinary ring slots. The
+        # second slot is a destination, not a separate EP_AC_RING2 template.
+        if source[0xd5]==ep['EP_AC_RING']:
+            main+=(ns['NESI_AC_RING2'],);minor+=(ns['NESI_MINORUNIT_AC_RING2'],)
+        if source[8]&4:main=()
+        result[t]=MappingProxyType({**r,'slots':main+minor,'main_slots':main,'companion_only':bool(source[8]&4)})
     if len(result)!=m['count']:raise ValueError('Accessory catalog coverage')
     return MappingProxyType(result)
 
@@ -50,7 +55,7 @@ def require_wearable(item,character):
     c=client_data();raw=c.item(item['template'])['record'];family=c.unit(character['unit_class'])['unitType']
     if family!=character['unit_type'] or type(character['level']) is not int or not 1<=character['level']<=99:raise ValueError('Accessory owner identity')
     if r['companion_only'] and family!=10:raise ValueError('Companion accessory belongs to LuCiel')
-    if family!=10 and item['slot']!=r['slots'][0]:raise ValueError('Minor accessory belongs to LuCiel')
+    if family!=10 and item['slot'] not in r['main_slots']:raise ValueError('Minor accessory belongs to LuCiel')
     flags=int.from_bytes(raw[4:8],'little');mode=(flags>>12)&15
     # 868240 mode1 only checks armor models for type2; accessories are type3.
     allowed=mode==1 or mode==2 and family==raw[0xd2] or mode==3 and class_matches(character['unit_class'],raw[0xd3])
