@@ -49,9 +49,9 @@ def require_wearable(item,character):
     r=definitions()[item['template']]
     if r['restricted']:raise ValueError('Unsupported special accessory permission')
     from els_server.domain.item_expiration import require_current
-    from els_server.domain.item_locks import require_unlocked
     from els_server.domain.equipment_requirements import class_matches
-    require_current(item);require_unlocked(item)
+    # A UID lock protects destructive/transfer operations; wearing retains it.
+    require_current(item)
     c=client_data();raw=c.item(item['template'])['record'];family=c.unit(character['unit_class'])['unitType']
     if family!=character['unit_type'] or type(character['level']) is not int or not 1<=character['level']<=99:raise ValueError('Accessory owner identity')
     if r['companion_only'] and family!=10:raise ValueError('Companion accessory belongs to LuCiel')
@@ -60,4 +60,4 @@ def require_wearable(item,character):
     # 868240 mode1 only checks armor models for type2; accessories are type3.
     allowed=mode==1 or mode==2 and family==raw[0xd2] or mode==3 and class_matches(character['unit_class'],raw[0xd3])
     if not flags&0xf00 or flags&0x10 or character['level']<raw[0xd1] or not allowed or not class_matches(character['unit_class'],raw[0xd3]):raise ValueError('Accessory template requirements')
-    if set(item)-{'uid','template','metadata','count','group','slot','expires_at','lock_until','sealed','seal_used'}:raise ValueError('Unsupported accessory instance data')
+    if set(item)-{'uid','template','metadata','count','group','slot','expires_at','lock_until','sealed','seal_used','appearance_template','wardrobe_hanger'}:raise ValueError('Unsupported accessory instance data')

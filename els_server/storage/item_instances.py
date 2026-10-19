@@ -5,7 +5,7 @@ from els_server.domain.inventory_items import validate_item
 def remove(db, owner, item):
     if not db.in_transaction:
         raise ValueError('Instance removal requires transaction')
-    for table in ('equipment_attributes', 'equipment_durability', 'equipment_enhancement', 'item_expiration', 'item_locks', 'equipment_options', 'equipment_identification', 'equipment_enhancement_progress', 'item_seals','artifact_equipment_state','equipment_chip_tuning','equipment_reforge_states','equipment_engrave_previews'):
+    for table in ('equipment_attributes', 'equipment_durability', 'equipment_enhancement', 'item_expiration', 'item_locks', 'equipment_options', 'equipment_identification', 'equipment_enhancement_progress', 'item_seals','artifact_equipment_state','equipment_chip_tuning','equipment_reforge_states','equipment_engrave_previews','wardrobe_item_state'):
         if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?", (table,)).fetchone():
             db.execute(f'DELETE FROM {table} WHERE item_uid=?', (item['uid'],))
     if db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?', (item['uid'], owner)).rowcount != 1:
@@ -54,6 +54,9 @@ def insert(db, owner, item):
     if 'sealed' in item or 'seal_used' in item:
         from els_server.storage.item_seals import assign
         assign(db,owner,item['uid'],item.get('sealed',False),item.get('seal_used',0))
+    if 'appearance_template' in item or 'wardrobe_hanger' in item:
+        from els_server.storage.wardrobe import assign as assign_wardrobe
+        assign_wardrobe(db,owner,item)
     return item
 
 

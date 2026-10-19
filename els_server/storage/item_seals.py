@@ -35,6 +35,8 @@ def _target(item,*,sealing):
         raise ValueError('Seal operation requires owned bag equipment')
     require_current(item)
     require_unlocked(item)
+    if sealing and item.get('wardrobe_hanger',False):
+        raise ValueError('Wardrobe hanger cannot be resealed')
     if item.get('identified') is False:
         raise ValueError('Unidentified seal target')
     raw = client_data().item(item['template'])['record']

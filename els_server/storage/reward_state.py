@@ -9,8 +9,9 @@ def validate_balances(row):
  if row is None or len(row)!=3 or any(type(v) is not int or not 0<=v<=2**63-1 for v in row):raise ValueError('Invalid persisted reward balances')
  return dict(zip(('ed','experience','revision'),row))
 class RewardState:
- def __init__(self,path,uid=1001):
+ def __init__(self,path,uid=1001,*,account_id=None):
   self.uid=character_uid(uid)
+  self.account_id=account_id
   self.path=Path(path);self.path.parent.mkdir(parents=True,exist_ok=True)
   with closing(self._connect()) as db,db:
    db.execute('BEGIN IMMEDIATE');migrate_character_schema(db)
@@ -25,7 +26,7 @@ class RewardState:
   try:r=db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(self.uid,)).fetchone()
   finally:db.close()
   return validate_balances(r)
- def grant(self,run_id,proof,ed,experience,response_builder=None,item_plan=None,inventory_response_builder=None,*,dungeon_clear=None,challenge_clear=None,transaction=None,clear_assessment=None,artifact_base=None,title_economy=None,title_dungeon=None,attendance_clear=None):
+ def grant(self,run_id,proof,ed,experience,response_builder=None,item_plan=None,inventory_response_builder=None,*,dungeon_clear=None,challenge_clear=None,transaction=None,clear_assessment=None,artifact_base=None,title_economy=None,title_dungeon=None,attendance_clear=None,experience_limit=None,resonance_source=None):
   # A run UUID is allocated by the authenticated server, never by a client.
   if not isinstance(run_id,str) or str(uuid.UUID(run_id))!=run_id:raise ValueError('Noncanonical reward run UUID')
   if not isinstance(proof,bytes) or not proof or len(proof)>8192:raise ValueError('Reward evidence bound')
@@ -34,6 +35,14 @@ class RewardState:
    if response_builder is not None or item_plan is None or not callable(inventory_response_builder):raise ValueError('Inventory response requires one builder and an item plan')
   elif not callable(response_builder):raise ValueError('Reward response builder required')
   grant={'ed':ed,'experience':experience}
+  if resonance_source is not None:
+   if resonance_source not in ('kill','clear') or (resonance_source=='clear')!=(dungeon_clear is not None):raise ValueError('ERP source boundary')
+   grant['resonance_source']=resonance_source
+   from els_server.domain.resonance import experience_multiplier
+   grant['resonance_multiplier']=experience_multiplier()
+  if experience_limit is not None:
+   if type(experience_limit) is not int or not 0<=experience_limit<=2**31-1:raise ValueError('Experience limit bound')
+   grant['experience_limit']=experience_limit
   if title_dungeon is not None and (title_economy!='ground_ed' or type(title_dungeon) is not int or not 1<=title_dungeon<=2**31-1):raise ValueError('Title coin requires an issued dungeon identity')
   if title_economy is not None:
    if title_economy not in ('clear','ground_ed') or inventory_response_builder is not None:raise ValueError('Invalid title economy source')
@@ -73,6 +82,9 @@ class RewardState:
   try:
    if transaction is None:db.execute('BEGIN IMMEDIATE')
    savepoint='attendance_reward_'+uuid.uuid4().hex;db.execute('SAVEPOINT '+savepoint)
+   if resonance_source is not None:
+    from els_server.storage import resonance_state as er
+    er.owner(db,self.uid,self.account_id)
    if item_plan is not None:ensure_inventory(db);migrate_fashion_bag(db);migrate_potion_bag(db)
    existing=db.execute('SELECT proof_sha256,grant_json,response,balance_json FROM reward_receipts WHERE run_id=?',(run_id,)).fetchone()
    if existing:
@@ -84,8 +96,16 @@ class RewardState:
     if 'title_economy' not in saved_grant:comparable.pop('title_economy',None)
     if 'title_dungeon' not in saved_grant:comparable.pop('title_dungeon',None)
     if 'attendance518' not in saved_grant:comparable.pop('attendance518',None) # never backfill an old clear
+    if 'experience_limit' not in saved_grant:comparable.pop('experience_limit',None)
+    if 'resonance_source' not in saved_grant:comparable.pop('resonance_source',None)
+    if 'resonance_multiplier' not in saved_grant:comparable.pop('resonance_multiplier',None) # old receipts never receive a top-up
     if existing[0]!=digest or saved_grant!=comparable:raise RewardConflict('Reward retry conflicts with committed evidence or grant')
     reply={'response':bytes(existing[2]),'balances':json.loads(existing[3]),'replayed':True}
+    if resonance_source is not None and 'resonance_source' in saved_grant:
+     award=er.receipt(db,run_id)
+     if award is not None:
+      if award['account_id']!=er.owner(db,self.uid,self.account_id) or award['owner']!=self.uid:raise RewardConflict('ERP receipt account changed')
+      reply['resonance_award']=award
     if 'title_economy' in saved_grant:
      effect=db.execute('SELECT owner,effect_json FROM reward_title_receipts WHERE run_id=?',(run_id,)).fetchone()
      if effect is None or effect[0]!=self.uid:raise RewardConflict('Missing/mismatched committed title reward')
@@ -107,6 +127,19 @@ class RewardState:
     from els_server.domain.title_economy import resolve
     effect=resolve(db,self.uid,title_economy,ed,experience,dungeon_clear[0] if title_economy=='clear' else title_dungeon)
     ed,experience=effect['ed'],effect['experience']
+   resonance_award=None
+   if resonance_source is not None and er.route(db,self.uid,self.account_id)=='resonance':
+    resonance_award=er.award(db,self.uid,run_id,proof,resonance_source,experience*grant['resonance_multiplier'],self.account_id)
+    experience=0
+    if effect is not None:
+     # C1 displays this newly committed ERP increment, never the run's K again.
+     effect=dict(effect,experience=resonance_award['effective'],resonance_experience=resonance_award['effective'])
+     effect['base_experience']=min(effect['base_experience']*grant['resonance_multiplier'],effect['experience']);effect['bonus_experience']=effect['experience']-effect['base_experience']
+   if experience_limit is not None and resonance_award is None:
+    experience=min(experience,max(0,experience_limit-r[1]))
+    if effect is not None:
+     effect=dict(effect,experience=experience,base_experience=min(effect['base_experience'],experience))
+     effect['bonus_experience']=experience-effect['base_experience']
    updated={'ed':r[0]+ed,'experience':r[1]+experience,'revision':r[2]+1}
    if max(updated.values())>2**63-1:raise ValueError('Reward balance overflow')
    # Level and earned experience commit together, behind the same idempotent
@@ -147,6 +180,7 @@ class RewardState:
    db.execute('RELEASE '+savepoint);savepoint=None
    if transaction is None:db.commit()
    reply={'response':response,'balances':updated,'replayed':False}
+   if resonance_award is not None:reply['resonance_award']=resonance_award
    if effect is not None:reply['title_economy']=effect
    if clear_assessment is not None:
     from els_server.storage.local_clear_rules import lookup_db

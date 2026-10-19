@@ -62,11 +62,39 @@ class FriendsSession(LocalSession):
             luciel=self.account.character()['unit_type']==10
             career=luciel and event.kind in (0x219,0x80f) and bool(kinds&{0x29f,0x59f})
             expiry=0x1c6 in kinds
-            if event.kind in (0x104,0x213) or career or expiry:
+            if event.kind in (0x104,0x213) or career or expiry or (event.kind==0x4b1 and any(e.kind==0x4b2 and e.payload[:4]==bytes(4) for e in result)):
                 # Reuse the existing current-instance/learned-skill projection
                 # for peers only; never restore or heal the owner again.
                 self.application.world.appearance_changed(self)
         return result+self.mailbox.drain()
+
+    def _relay_luciel_hp_expiry(self,messages):
+        # Retain the exact committed notice until every native member is ready.
+        # Room identity and source UID prevent a later admission from reusing it.
+        pending=getattr(self,'luciel_peer_hp_expiry_pending',None)
+        notices=tuple(e for e in messages if e.event_id==0x201 and e.kind==0x70d) if any(e.event_id==0x201 and e.kind==0x1c6 for e in messages) else ()
+        if not notices and pending is None:return
+        source=self.luciel_dungeon_hp_source
+        dispatcher=self.application.world.dungeons;room=dispatcher.room(self)
+        if self.released or source is None or source[0]!=self.account.uid or room is None:
+            self.luciel_peer_hp_expiry_pending=None;return
+        if notices:
+            pending=(room,self.account.uid,notices)
+            self.luciel_peer_hp_expiry_pending=pending
+        if pending[0] is not room or pending[1]!=self.account.uid:
+            self.luciel_peer_hp_expiry_pending=None;return
+        if room.phase!='active' or self.phase!='dungeon_active' or not self.dungeon_substage_synced:return
+        peers=[p for p in room.members if p is not self and not p.released and dispatcher.room(p) is room]
+        if any(p.phase!='dungeon_active' or not p.dungeon_substage_synced for p in peers):return
+        for peer in peers:dispatcher.send(peer,list(pending[2]))
+        self.luciel_peer_hp_expiry_pending=None
+
+    def expiration_notifications(self):
+        # Both request handling and the existing periodic path use this exit.
+        # Super returns only after atomic removal/encoding/cache commit.
+        messages=super().expiration_notifications()
+        self._relay_luciel_hp_expiry(messages)
+        return messages
 
     def periodic_notifications(self):
         from els_server.domain.group_challenge import tick
@@ -90,6 +118,7 @@ class FriendsSession(LocalSession):
                 expiry=0x1c6 in kinds
                 if 0x214 in kinds or expiry:self.application.world.appearance_changed(self)
         return self.mailbox.drain()+messages
+
 
     def release(self):
         self.application.world.disconnect(self)

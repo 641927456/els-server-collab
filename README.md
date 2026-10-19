@@ -56,3 +56,5 @@ KinkOwO第一批接手顺序、允许修改的文件/函数、验收标准和避
 既有饰品通关收益、完整数值范围及未验边界见[本批说明](docs/EQUIPMENT_CLEAR_ECONOMY_20261020.md)。
 
 全角色公开装备实例、到期同步与完整效果未验边界见[本批说明](docs/EQUIPMENT_PUBLIC_INSTANCE_LIFECYCLE_20261020.md)。
+
+本轮已审查修复及各渠道边界见[同步说明](docs/REVIEWED_SYNC_20261020.md)。

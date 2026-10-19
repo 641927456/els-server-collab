@@ -52,11 +52,15 @@ class Characters:
             from els_server.storage.character_lifecycle import decorate
             rows=decorate(db,rows)
             artifacts={r[0]:dict(template=r[1],evolution=r[2],level=r[3],experience=r[4],potentials=json.loads(r[5])) for r in db.execute('SELECT uid,template,evolution,level,experience,potentials FROM character_artifacts')}
+            has_dungeon_records=db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='dungeon_records'").fetchone() is not None
             for row in rows:
+                from els_server.storage.resonance_state import snapshot as resonance_snapshot
+                row['resonance']=resonance_snapshot(db,row['uid'],self.account_id)
                 from els_server.storage.titles import snapshot as title_snapshot,completed_for_equipment
                 row['title']=title_snapshot(db,row['uid'])['title']
                 row['title_completed_quests']=completed_for_equipment(db,row['uid'])
                 row['artifact']=artifacts.get(row['uid'])
+                row['cleared_dungeons']=tuple(r[0] for r in db.execute('SELECT map_id FROM dungeon_records WHERE uid=? ORDER BY map_id',(row['uid'],))) if has_dungeon_records else ()
                 from els_server.storage.ep_points import balance as ep_balance
                 ep=ep_balance(db,row['uid'])
                 if ep:row['ep']=ep
