@@ -42,6 +42,10 @@ class LocalAccount:
         if character is not None and self.store is not None:
             from els_server.storage.bank_state import snapshot as bank_snapshot
             character.update(bank_snapshot(self.store.path,self.uid))
+            from els_server.storage.boosting_2026_force_inventory import snapshot as force_snapshot
+            from els_server.storage.boosting_2026_force_equipment import snapshot as force_slot_snapshot
+            character['force_inventory']=force_snapshot(self.store.path,self.uid)
+            character['force_slots']=force_slot_snapshot(self.store.path,self.uid)
         return character
     def for_character(self,uid):
         if self.characters is None:
@@ -210,7 +214,20 @@ class LocalSession:
         now=int(time.time());key=(self.account.uid,now)
         if key==self.expiration_checked:return []
         from els_server.storage.item_expiration import remove_due
-        result=remove_due(self.account.store.path,self.account.uid,now=now)
+        def prepare_luciel_slots(items):
+            # load_items already validates every admitted owned instance.
+            # All current worn slots need removal, including both costume sides.
+            worn=[i for i in items if i['group']==9]
+            if not worn:return None
+            character=self.account.character()
+            if character['uid']!=self.account.uid:raise ValueError('Expiration actor mismatch')
+            if character['unit_type']!=10:return None
+            # The native105 receiver clears the actual worn slot and rebuilds
+            # existing equipment/set/passive inputs. Never send a partial full
+            # actor or HP/MP/power placeholders during same-level item expiry.
+            from els_server.domain.fashion_state import move_ack
+            return Event(0x201,kind=0x105,payload=move_ack([((i['group'],i['slot']),None) for i in worn]))
+        result=remove_due(self.account.store.path,self.account.uid,now=now,prepare_refresh=prepare_luciel_slots)
         from els_server.storage.bank_state import remove_due as remove_due_bank
         result+=remove_due_bank(self.account.store.path,self.account.uid)
         self.expiration_checked=key
@@ -337,6 +354,12 @@ class LocalSession:
         from els_server.domain.character_selection_flow import handle as selection_handle
         selection_reply=selection_handle(self,event)
         if selection_reply is not None:return selection_reply
+        from els_server.domain.luciel_native_end import handle as luciel_end_handle
+        luciel_end_reply=luciel_end_handle(self,event,request_sequence)
+        if luciel_end_reply is not None:return luciel_end_reply
+        from els_server.domain.luciel_native_status import handle as luciel_status_handle
+        luciel_status_reply=luciel_status_handle(self,event,request_sequence)
+        if luciel_status_reply is not None:return luciel_status_reply
         from els_server.domain.luciel_state import handle_active as luciel_active_handle
         luciel_active_reply=luciel_active_handle(self,event,request_sequence)
         if luciel_active_reply is not None:return luciel_active_reply
@@ -605,12 +628,23 @@ class LocalSession:
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
             try:return [choose(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)]
             except ValueError:return [acknowledgement(result=-1)]
+        if self.item_test and self.client_build=='dx11_260923' and kind==0x6d0 and event.event_id==0x202:
+            from els_server.domain.boosting_2026_force_equipment import acknowledgement as force_slot_ack
+            from els_server.storage.boosting_2026_force_equipment import action as force_slot_action
+            if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:return [force_slot_ack(result=-1)]
+            operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
+            try:return [force_slot_action(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)]
+            except ValueError as error:return [force_slot_ack(result=getattr(error,'result',-1))]
         if self.item_test and self.account.characters is not None and kind==0x219 and event.event_id==0x202:
             from els_server.protocol.career_messages import use_ack,career_notice,stage_notice
             from els_server.storage.careers import use_career_item
             if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:
                 return [use_ack(result=-1)]
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
+            from els_server.storage.boosting_2026_force_inventory import use_book as use_force_book
+            try:force=use_force_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)
+            except ValueError as error:return [use_ack(result=getattr(error,'result',-1))]
+            if force is not None:return force['events']+([self.saved_user_sync()] if force['replayed'] else [])
             from els_server.storage.artifact_progression import action as artifact_action
             try:artifact=artifact_action(self.account.store.path,self.account.uid,'potion',event.payload,operation,account_id=self.account.account_id)
             except ValueError:return [use_ack(result=2005)]
@@ -1295,12 +1329,13 @@ class LocalSession:
                 self.gate_stage=0;self.gate_stage_loading=False
                 self.clear_notified=False
                 self.dungeon_failed=False
+                self.dungeon_participants=frozenset((self.account.uid,))
                 self.reward_run_id=run_id if self.reward_test else None;self.reward_receipt=None;self.clear_items_synced=False
                 self.world_drops={};self.world_drop_issued=None;self.world_drop_sequence=910001
                 self.pickup_receipt=None
                 world=getattr(getattr(self,'application',None),'world',None)
                 room=world.party_of.get(self,{}) if world else (getattr(self,'solo_challenge_party',None) or {})
-                reply=[admission_ack(0),dungeon_start(self.account.get_skills(),self.account.character(),self.account.get_inventory_snapshot()['items'] if self.item_test else None,dungeon_id=identity,room_id=room.get('id',10001) if room.get('solo_challenge') else 10001,account_id=self.account.account_id)]
+                reply=[admission_ack(0),dungeon_start(self.account.get_skills(),self.account.character(),self.account.get_inventory_snapshot()['items'] if self.item_test else None,dungeon_id=identity,room_id=room.get('id',10001) if room.get('solo_challenge') else 10001,account_id=self.account.account_id,bootstrap_port=self.port_probe_port)]
                 if challenge is not None:
                     from els_server.domain.challenge_flow import notification
                     reply.append(notification(self))

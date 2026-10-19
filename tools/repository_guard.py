@@ -24,6 +24,11 @@ def violations(name,data):
     for match in CREDENTIAL.finditer(text):
         field,value=match.groups()
         if field.lower() in {'password','passwd'} and name in SYNTHETIC_PASSWORD_TESTS:continue
+        # The released C# self-test generates a fresh random fixture value.
+        # Permit only this exact non-secret prefix/context; other literals in
+        # the same file still fail the guard.
+        if (name=='launchers/friends-v29/Program.cs' and field.lower()=='password'
+                and value=='Fixture-Only-' and text[match.end():].startswith('"+Guid.NewGuid().ToString("N"),name="proof_password";')):continue
         if value.lower() in {'placeholder','replace_me','your_token_here','example_only'}:continue
         errors.append('literal credential candidate; review required');break
     return errors

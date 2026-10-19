@@ -3,7 +3,7 @@ import hashlib
 import json
 from pathlib import Path
 
-IMAGE_SHA256 = '3cc9fca449c7a543957c5cdf439c7ba81323efd4a4b3fe577ed0ff0e954a820a'
+IMAGE_SHA256 = 'c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229'
 
 
 def source(image):

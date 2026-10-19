@@ -27,6 +27,11 @@ class FriendsSession(LocalSession):
         if self.coop_error:raise SessionOrderError(self.coop_error)
         result=self.application.world.field_bosses.request(self,event)
         if result is not None:return self.activity_reply(result+self.mailbox.drain())
+        # Save the final native Lu/Ciel selector before dungeon exit detaches
+        # the admitted actor; other roles retain the existing dungeon route.
+        from els_server.domain.luciel_native_end import handle as luciel_end_handle
+        result=luciel_end_handle(self,event,request_sequence)
+        if result is not None:return self.activity_reply(result+self.mailbox.drain())
         result=self.application.world.dungeons.request(self,event,request_sequence)
         if result is not None:return self.activity_reply(result+self.mailbox.drain())
         if event.event_id==0x202 and event.kind==0x85:
@@ -52,8 +57,15 @@ class FriendsSession(LocalSession):
         self.application.world.synchronize(self)
         if self.phase=='town_ready' and event.event_id==0x202 and event.kind==0x22b:
             self.application.world.moved(self,event.payload)
-        if self.phase=='town_ready' and event.event_id==0x202 and event.kind in (0x104,0x213):
-            self.application.world.appearance_changed(self)
+        if self.phase=='town_ready' and event.event_id==0x202:
+            kinds={e.kind for e in result if e.event_id==0x201}
+            luciel=self.account.character()['unit_type']==10
+            career=luciel and event.kind in (0x219,0x80f) and bool(kinds&{0x29f,0x59f})
+            expiry=luciel and {0x1c6,0x105}<=kinds
+            if event.kind in (0x104,0x213) or career or expiry:
+                # Reuse the existing current-instance/learned-skill projection
+                # for peers only; never restore or heal the owner again.
+                self.application.world.appearance_changed(self)
         return result+self.mailbox.drain()
 
     def periodic_notifications(self):
@@ -73,7 +85,10 @@ class FriendsSession(LocalSession):
                 from els_server.domain.title_flow import periodic as title_periodic
                 messages=self.expiration_notifications()+self._periodic_notifications()+mount_periodic(self)+title_periodic(self)
                 messages=self.activity_reply(messages)
-            if self.phase=='town_ready' and any(e.kind==0x214 for e in messages):self.application.world.appearance_changed(self)
+            if self.phase=='town_ready':
+                kinds={e.kind for e in messages if e.event_id==0x201}
+                expiry=self.account.character()['unit_type']==10 and {0x1c6,0x105}<=kinds
+                if 0x214 in kinds or expiry:self.application.world.appearance_changed(self)
         return self.mailbox.drain()+messages
 
     def release(self):

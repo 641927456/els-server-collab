@@ -14,6 +14,7 @@ class GameServer:
         self.config=config;self.application=application;self.log=log
         self.listener=None;self.connections={};self.next_id=0;self.closing=False
         self.probe_transport=None;self.probe_protocol=None;self.probe_port=None
+        self.local_sessions=set()
         self.metrics=dict(accepted=0,rejected=0,closed=0,protocol_errors=0,requests=0,responses=0)
         from els_server.accounts_gateway import AccountGateway
         self.account_gateway=AccountGateway(config,application)
@@ -33,7 +34,7 @@ class GameServer:
             self.probe_port=self.config.client_probe_port
         else:
             self.probe_transport,self.probe_protocol=await asyncio.get_running_loop().create_datagram_endpoint(
-                lambda:PortProbe(self.log),local_addr=(self.config.host,0))
+                lambda:PortProbe(self.log,bootstrap_allowed=self.local_bootstrap_allowed),local_addr=(self.config.host,0))
             self.probe_port=self.probe_transport.get_extra_info('sockname')[1]
         try:
             self.listener=await asyncio.start_server(self.accept,self.config.host,self.config.port,
@@ -46,6 +47,12 @@ class GameServer:
         self.log('listening',address=list(address),profile=self.config.profile,probe_port=self.probe_port)
         if self.config.mode=='friends':self.diagnostics.start()
         return address
+
+    def local_bootstrap_allowed(self,uid):
+        return (not self.closing and self.config.mode=='local' and any(
+            s.account.uid==uid and s.role=='game' and s.enter_dungeon
+            and s.phase in ('dungeon_loading','dungeon_active')
+            and not s.dungeon_return_pending for s in self.local_sessions))
 
     def accept(self,reader,writer):
         if self.closing or len(self.connections)>=self.config.max_connections:
@@ -93,7 +100,7 @@ class GameServer:
                         if diagnostic_auth is None:
                             if set(auth) not in ({'name','token'},{'name','token','role'},{'name','token','role','relay_control_version'}):raise ValueError('Authentication fields')
                             role=auth.get('role')
-                            if 'role' in auth and (role!='relay' or not self.config.friends_coop_enabled):raise ValueError('Authentication role')
+                            if 'role' in auth and role!='relay':raise ValueError('Authentication role')
                             if 'relay_control_version' in auth:
                                 if role!='relay' or type(auth['relay_control_version']) is not int or auth['relay_control_version']!=1:raise ValueError('Relay control version')
                                 relay_control=True
@@ -104,7 +111,7 @@ class GameServer:
                     finally:
                         if 'auth' in locals():del auth
                     if diagnostic_auth is None:
-                        await write_json(writer,{'ok':True,'account_id':identity['id'],'probe_port':self.probe_port,'relay_version':1 if self.config.friends_coop_enabled else 0,'relay_control_version':1 if self.config.friends_coop_enabled else 0})
+                        await write_json(writer,{'ok':True,'account_id':identity['id'],'probe_port':self.probe_port,'relay_version':1,'relay_control_version':1})
                         self.log('authenticated',connection=index,account_id=identity['id'],role=role or 'native')
                 if diagnostic_auth is not None:
                     # ZIP transfer has its own bounded deadline, outside the
@@ -120,6 +127,7 @@ class GameServer:
                     except ValueError as error:raise ProtocolError(str(error)) from error
                     return
             business=await self.application.session(port_probe_port=self.probe_port,identity=identity)
+            if self.config.mode=='local':self.local_sessions.add(business)
             keys=Keys(secrets.token_bytes(8),secrets.token_bytes(8));spi=secrets.randbelow(65535)+1
             outgoing=2;incoming=1;heartbeat_sent=False
             operation=asyncio.Lock()
@@ -182,7 +190,9 @@ class GameServer:
                 results=await asyncio.gather(notifications,return_exceptions=True)
                 if results and isinstance(results[0],Exception):
                     self.log('notification_error',connection=index,error=repr(results[0]))
-            if business is not None:await self.application.release(business)
+            if business is not None:
+                self.local_sessions.discard(business)
+                await self.application.release(business)
             writer.close()
             try:await asyncio.wait_for(writer.wait_closed(),self.config.write_timeout)
             except (OSError,TimeoutError):pass

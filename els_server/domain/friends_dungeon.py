@@ -41,7 +41,22 @@ class FriendsDungeons:
     def manifest(self,application,account_id):
         if not application.registry.enabled(account_id):raise SessionOrderError('Account disabled')
         s=application.playing.get(account_id);r=self.transport_room(s)
-        if r is None or len(r.members)<2 or r.phase=='failed':return None
+        if r is None:
+            # A solo run still performs the original native relay6/7 bootstrap.
+            # No peer proxy/route is created: relay_target continues to reject
+            # every target outside an admitted shared room.
+            if (s is None or s.released or s.coop_error or s.role!='game'
+                or s.phase not in ('dungeon_loading','dungeon_active')
+                or not s.enter_dungeon or s.dungeon_return_pending
+                or s in self.world.party_of or s.account.account_id!=account_id
+                or s.identity['id']!=account_id
+                or getattr(s,'dungeon_participants',None)!=frozenset((s.account.uid,))):return None
+            try:
+                epoch=uuid.UUID(s.reward_run_id)
+            except (ValueError,TypeError,AttributeError):return None
+            if epoch.version!=4 or str(epoch)!=s.reward_run_id:return None
+            return dict(epoch=str(epoch),uid=s.account.uid,peers=[dict(uid=s.account.uid,port=21100)])
+        if len(r.members)<2 or r.phase=='failed':return None
         return dict(epoch=r.seed,uid=s.account.uid,peers=[dict(uid=m.account.uid,port=21100+i) for i,m in enumerate(r.members)])
 
     def relay_target(self,application,account_id,epoch,target):
@@ -136,7 +151,7 @@ class FriendsDungeons:
         from els_server.domain.dungeon_routes import DungeonRun
         members=tuple(party['members']);seed=str(uuid.uuid4())
         # Compile the roster and source route before changing any session.
-        packet=party_dungeon_start(members,leader,identity,party['id'])
+        packet=party_dungeon_start(members,leader,identity,party['id'],bootstrap_port=leader.port_probe_port)
         runs={s:DungeonRun(identity,seed,internal=bool(party.get('challenge'))) if identity!=30000 else None for s in members}
         participants=frozenset(s.account.uid for s in members)
         room=Room(party,members,leader,identity,seed,deadline=time.monotonic()+90)

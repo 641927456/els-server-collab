@@ -57,11 +57,44 @@ def chat_notice(character,account_id,text,channel=0):
     return Event(0x201,kind=0x87,payload=data)
 
 
-def appearance_item(item):
+def appearance_item(item,*,native_instance=False):
     # D9A9D0 public item DTO (37F), not the full D9A550 inventory DTO.
+    # DTO+0C is bag group and +0D is slot. Public fields differ from inventory.
+    # 87E060 preserves group/slot when installing the worn record.
     # 33 option vectors and both three-int arrays have required fixed counts.
-    data=struct.pack('>QIBhBiB',item['uid'],item['template'],item.get('metadata',1),item['slot'],0,item['count'],0)
-    return data+u32(0)+u32(33)+bytes(33*4)+u32(0)+bytes(9)+b'\xff'+u32(3)+bytes(12)+u32(3)+bytes(12)+bytes(8)
+    # Preserve other families' existing wire contract in this LuCiel fix.
+    if not native_instance:
+        data=struct.pack('>QIBhBiB',item['uid'],item['template'],item.get('metadata',1),item['slot'],0,item['count'],0)
+        return data+u32(0)+u32(33)+bytes(33*4)+u32(0)+bytes(9)+b'\xff'+u32(3)+bytes(12)+u32(3)+bytes(12)+bytes(8)
+    enhancement=0
+    if 'enhancement' in item:
+        from els_server.domain.equipment_enhancement import validate
+        enhancement=validate(item['template'],item['enhancement'])
+    # DTO+0F -> instance+18 is signed enhancement. DTO+10 -> instance+94
+    # is an appearance-template override; inventory count does not belong here.
+    data=struct.pack('>QIBhbiB',item['uid'],item['template'],item['group'],item['slot'],enhancement,0,0)
+    attributes=u32(0)
+    if 'attributes' in item:
+        from els_server.domain.equipment_attributes import validate_slots
+        slots=validate_slots(item['template'],item['attributes'])
+        if any(slots):attributes=u32(4)+struct.pack('>4i',*slots)
+    # D9A9D0 reads this first vector into DTO+15. 87E060 copies its
+    # four entries into the remote instance+1C..28 before installation.
+    groups={}
+    if 'option_groups' in item:
+        from els_server.domain.sage_sockets import validate as validate_options
+        groups=validate_options(item['template'],item['option_groups'])
+    # D9A9D0 DTO+2D is the same exact33 vector array as inventory DTO+25.
+    # Keep existing validated per-instance options in the public worn record.
+    options=u32(33)+b''.join(u32(len(groups.get(str(n),[])))+b''.join(struct.pack('>i',v) for v in groups.get(str(n),[])) for n in range(33))
+    reforge_level=0
+    if 'reforge' in item or '13' in groups:
+        from els_server.domain.equipment_reforge_rules import DEFAULT,validate_instance
+        validate_instance(item)
+        reforge_level=item.get('reforge',DEFAULT)[0]
+    # D9A9D0 DTO+356 -> 87E060 instance+180 -> 198E220 reforge stats.
+    # Public appearance carries the level; inventory-only life/failures stay out.
+    return data+attributes+options+u32(0)+b'\0'+struct.pack('>i',reforge_level)+bytes(4)+b'\xff'+u32(3)+bytes(12)+u32(3)+bytes(12)+bytes(8)
 
 
 def town_member(character,location,items=()):
@@ -73,6 +106,10 @@ def town_member(character,location,items=()):
     from els_server.domain.character_rules import transcendental_stage
     struct.pack_into('>i',raw,14,transcendental_stage(character))
     raw[18]=0xff;raw[21]=character['level']
+    if character.get('unit_type')==10:
+        from els_server.protocol.luciel_messages import active_preference
+        raw[18]=active_preference(character)
+        raw[20]=character['level'];raw[21]=0
     # DA0E50 reads the field after both appearance vectors into DTO+62;
     # 87E060 copies it into the remote actor's encoded title.
     struct.pack_into('>i',raw,30,character.get('title',0))
@@ -82,7 +119,7 @@ def town_member(character,location,items=()):
     # Group 1 is the equipment BAG, not worn gear. Never publish bag items as
     # equipment. The second native appearance/alternate vector stays empty.
     worn=[i for i in items if i['group']==9]
-    equipment=u32(len(worn))+b''.join(appearance_item(i) for i in worn)
+    equipment=u32(len(worn))+b''.join(appearance_item(i,native_instance=character.get('unit_type')==10) for i in worn)
     alternate=u32(0)
     # Replace three variable fields from right to left, preserving witnessed
     # offsets. Optional pet/mount/guild state stays empty.

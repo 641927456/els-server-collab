@@ -37,3 +37,10 @@ main表示审查后的代码，服务器运行版本另有部署回执；提交�
 见 CONTRIBUTING.md、docs/TESTING.md、docs/STAGING.md。历史全量资料在锁定资源包内，按实际提供范围引用，不补造缺失证据。
 
 KinkOwO第一批接手顺序、允许修改的文件/函数、验收标准和避让范围见 [第一批任务单](docs/KINKOWO_FIRST_TASKS.md) 与 [文件范围及基线](docs/kinkowo-file-scope.json)。先修已复现的邮件可见范围/未读计数问题，不并行重写主线、称号或活动。
+
+
+## 2026-10-19已完成内容与V29
+
+最新已完成源码按本地与线上渠道分别保存，见 [同步说明](docs/COMPLETED_SYNC_20261019.md)。主分支保留本地单机实现；线上正式差异位于独立 `snapshot/online-luciel-loading-20261019-v2` 分支，禁止整树互盖。
+
+[V29组件更新登录器源码及构建方法](launchers/friends-v29/README.md)已纳入仓库；分享包从私有仓库 `launcher-v29` Release 下载。没有可复用环境时首次下载基础包，以后校验复用或只更新变化文件。本次Git/Release同步不部署服务器。

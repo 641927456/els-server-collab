@@ -13,9 +13,14 @@ def skill_data(slots,character=None):
     from els_server.domain.skill_expansion import records
     slots=validate_slots(upgraded_slots(slots,character),allowed,character);learned=u32(len(ranks))+b''.join(record(v,level) for v,level in ranks.items())
     from els_server.domain.skill_traits import map_wire
-    preset=u32(22)+b''.join(record(v) for v in slots)+map_wire(character)+u32(0)*2
+    from els_server.domain.skill_state import preset_payload
+    preset=preset_payload(slots,allowed,character)
     from els_server.domain.skill_unlocks import ids_wire
-    return u32(22)+b''.join(record(v) for v in slots)+records(character)+learned+u32(0)+ids_wire(character)+b'\1\1'+preset+learned+b'\0'
+    force_owned=learned  # Preserve the existing non-owner wire format.
+    if (character or {}).get('force_inventory'):
+        from els_server.domain.boosting_2026_force_inventory import vector
+        force_owned=vector(character)
+    return u32(22)+b''.join(record(v) for v in slots)+records(character)+learned+u32(0)+ids_wire(character)+b'\1\1'+preset+force_owned+b'\0'
 
 def member(slots,character=None,items=None,*,account_id=None,peer_port=None):
     from els_server.domain.character_stats import combat_attributes
@@ -54,13 +59,15 @@ def member(slots,character=None,items=None,*,account_id=None,peer_port=None):
         overrides['0x1d1']=bytes([preference(character)])
     return b''.join(overrides.get(f['offset'],skill_data(slots,character) if f['reader']=='0xcd7160' else combat_attributes(character,items) if f['reader']=='0xcd6df0' else bytes.fromhex(f['wire_hex'])) for f in data['fields'])
 
-def room_info(dungeon_id=SUPPORTED_DUNGEON,*,room_id=10001,name='LocalSingle'):
+def room_info(dungeon_id=SUPPORTED_DUNGEON,*,room_id=10001,name='LocalSingle',bootstrap_port=None):
     from els_server.game_data import client_data
     if type(dungeon_id) is not int:raise ValueError('Dungeon identity')
     client_data().dungeon(dungeon_id)
     # CBDCC0, preserving constructor sentinels; B2 is the native map ID.
     data=b'\1'+struct.pack('>Q',room_id)+u32(0)+wstring(name)
-    data+=b'\0\1\0'+wstring('')+b'\0\0'+wstring('')+bytes(2)+wstring('')
+    # Current D9BCC0 -> 909B60 -> 487C90 consumes this endpoint.
+    if bootstrap_port is not None and (type(bootstrap_port) is not int or not 1<=bootstrap_port<=65535):raise ValueError('Dungeon bootstrap port')
+    data+=b'\0\1\0'+wstring('')+b'\0\0'+wstring('127.0.0.1' if bootstrap_port is not None else '')+struct.pack('>H',bootstrap_port or 0)+wstring('')
     data+=b'\0\xff\0'+i32(-1)+b'\0\0'+i32(0)+bytes(4)+bytes(8)+i32(0)
     # 11C99A0 creates byte mode from Party+40 (native clear record byte 6),
     # which is 0. 7D4's mode=1 chooses solo matching, not this room mode.
@@ -69,7 +76,7 @@ def room_info(dungeon_id=SUPPORTED_DUNGEON,*,room_id=10001,name='LocalSingle'):
     data+=b'\0'+i32(0)+bytes(8)*2
     return data
 
-def dungeon_start(slots=DEFAULT_SLOTS,character=None,items=None,dungeon_id=SUPPORTED_DUNGEON,*,room_id=10001,account_id=None):
+def dungeon_start(slots=DEFAULT_SLOTS,character=None,items=None,dungeon_id=SUPPORTED_DUNGEON,*,room_id=10001,account_id=None,bootstrap_port=None):
     # 2f867a0: ushort, room, two vectors<CC0050>, name,
     # vector<CDA160 metadata records>, vector<ten floats>, vector<int>.
     # CC0050 byte 2 -> native slot+9E. 1360320 binds this member as
@@ -77,11 +84,11 @@ def dungeon_start(slots=DEFAULT_SLOTS,character=None,items=None,dungeon_id=SUPPO
     # Master selection 1360490 includes 3..5; actor creation 135DF20
     # excludes 1..3. Type 4 satisfies both native branches (0 loses master).
     team=b'\0\4\1'+bytes(3)+i32(0)+u32(1)+member(slots,character,items,account_id=account_id)+u32(0)+bytes(4)
-    payload=bytes(2)+room_info(dungeon_id,room_id=room_id)+u32(1)+team+u32(0)+wstring('')+u32(0)*3
+    payload=bytes(2)+room_info(dungeon_id,room_id=room_id,bootstrap_port=bootstrap_port)+u32(1)+team+u32(0)+wstring('')+u32(0)*3
     return Event(0x201,kind=0x14a,payload=payload)
 
 
-def party_dungeon_start(members,leader,identity,room_id):
+def party_dungeon_start(members,leader,identity,room_id,*,bootstrap_port=None):
     """One native slot per participant. Peer transport is configured separately.
 
     Current D9DDB0 reads a vector of member DTOs per slot. The first member
@@ -101,7 +108,7 @@ def party_dungeon_start(members,leader,identity,room_id):
         master=s is leader
         body=member(s.account.get_skills(),s.account.character(),s.account.get_inventory_snapshot()['items'],account_id=s.identity['id'],peer_port=21100+index)
         teams.append(bytes([index,4 if master else 0,int(master)])+bytes(3)+i32(0)+u32(1)+body+u32(0)+bytes(4))
-    payload=bytes(2)+room_info(identity,room_id=room_id,name='Friends')+u32(len(teams))+b''.join(teams)+u32(0)+wstring('')+u32(0)*3
+    payload=bytes(2)+room_info(identity,room_id=room_id,name='Friends',bootstrap_port=bootstrap_port)+u32(len(teams))+b''.join(teams)+u32(0)+wstring('')+u32(0)*3
     return Event(0x201,kind=0x14a,payload=payload)
 
 def initial_substage(client_build='legacy',npc_key=None,gate_test=False):
