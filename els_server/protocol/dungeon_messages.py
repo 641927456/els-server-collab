@@ -121,7 +121,7 @@ def party_dungeon_start(members,leader,identity,room_id,*,bootstrap_port=None):
     for index,s in enumerate(members):
         master=s is leader
         body=member(s.account.get_skills(),s.account.character(),s.account.get_inventory_snapshot()['items'],account_id=s.identity['id'],peer_port=21100+index)
-        teams.append(bytes([index,4 if master else 0,int(master)])+bytes(3)+i32(0)+u32(1)+body+u32(0)+bytes(4))
+        teams.append(bytes([index,4,int(master)])+bytes(3)+i32(0)+u32(1)+body+u32(0)+bytes(4))
     payload=bytes(2)+room_info(identity,room_id=room_id,name='Friends',bootstrap_port=bootstrap_port)+u32(len(teams))+b''.join(teams)+u32(0)+wstring('')+u32(0)*3
     return Event(0x201,kind=0x14a,payload=payload)
 

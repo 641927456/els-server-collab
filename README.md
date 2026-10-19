@@ -54,3 +54,5 @@ KinkOwO第一批接手顺序、允许修改的文件/函数、验收标准和避
 原生套装选用、冷登穿戴实例恢复及验证边界见[后续说明](docs/EQUIPMENT_NATIVE_EFFECTS_20261019.md)。
 
 既有饰品通关收益、完整数值范围及未验边界见[本批说明](docs/EQUIPMENT_CLEAR_ECONOMY_20261020.md)。
+
+全角色公开装备实例、到期同步与完整效果未验边界见[本批说明](docs/EQUIPMENT_PUBLIC_INSTANCE_LIFECYCLE_20261020.md)。
