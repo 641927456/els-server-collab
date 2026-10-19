@@ -52,3 +52,5 @@ KinkOwO第一批接手顺序、允许修改的文件/函数、验收标准和避
 第二戒指与神物实例的后续服务端修复见[穿脱说明](docs/SPECIAL_WEAR_RING2_20261019.md)，两端源码快照和未验边界分别保留。
 
 原生套装选用、冷登穿戴实例恢复及验证边界见[后续说明](docs/EQUIPMENT_NATIVE_EFFECTS_20261019.md)。
+
+既有饰品通关收益、完整数值范围及未验边界见[本批说明](docs/EQUIPMENT_CLEAR_ECONOMY_20261020.md)。

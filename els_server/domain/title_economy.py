@@ -65,12 +65,17 @@ def resolve(db,uid,source,base_ed,base_exp,dungeon):
         for key in keys:
             if key not in REVIEWED|CONDITIONAL:continue
             field,rate,required=effects()[key]
-            if required and mode!=required:
+            # Current CN secret clear rewards accept only secret-specific
+            # options; these clear-only effects never augment ground coins.
+            if required and (mode!=required or source!='clear') or not required and mode==3:
                 skipped.append(key);continue
             options.append(key)
             if field==ED:ed_rate=f32(ed_rate+rate)
             elif source=='clear':exp_rate=f32(exp_rate+rate)
+    from els_server.domain.equipment_economy import resolve as equipment_effects
+    equipment=equipment_effects(db,uid,source,mode)
+    ed_rate=f32(ed_rate+equipment['ed_rate']);exp_rate=f32(exp_rate+equipment['experience_rate'])
     ed_extra=bonus(base_ed,ed_rate,ed=True);exp_extra=bonus(base_exp,exp_rate)
-    return dict(version=2,owner=uid,source=source,dungeon=dungeon,dungeon_type=mode,title=active,options=options,held_options=[],skipped_mode_options=skipped,
+    return dict(version=3,owner=uid,source=source,dungeon=dungeon,dungeon_type=mode,title=active,options=options,held_options=[],skipped_mode_options=skipped,equipment=equipment,
                 ed_rate=ed_rate,experience_rate=exp_rate,base_ed=base_ed,base_experience=base_exp,
                 bonus_ed=ed_extra,bonus_experience=exp_extra,ed=base_ed+ed_extra,experience=base_exp+exp_extra)
