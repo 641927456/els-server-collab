@@ -13,14 +13,9 @@ def skill_data(slots,character=None):
     from els_server.domain.skill_expansion import records
     slots=validate_slots(upgraded_slots(slots,character),allowed,character);learned=u32(len(ranks))+b''.join(record(v,level) for v,level in ranks.items())
     from els_server.domain.skill_traits import map_wire
-    from els_server.domain.skill_state import preset_payload
-    preset=preset_payload(slots,allowed,character)
+    preset=u32(22)+b''.join(record(v) for v in slots)+map_wire(character)+u32(0)*2
     from els_server.domain.skill_unlocks import ids_wire
-    force_owned=learned  # Preserve the existing non-owner wire format.
-    if (character or {}).get('force_inventory'):
-        from els_server.domain.boosting_2026_force_inventory import vector
-        force_owned=vector(character)
-    return u32(22)+b''.join(record(v) for v in slots)+records(character)+learned+u32(0)+ids_wire(character)+b'\1\1'+preset+force_owned+b'\0'
+    return u32(22)+b''.join(record(v) for v in slots)+records(character)+learned+u32(0)+ids_wire(character)+b'\1\1'+preset+learned+b'\0'
 
 def member(slots,character=None,items=None,*,account_id=None,peer_port=None,capture=None):
     from els_server.domain.character_stats import combat_attributes

@@ -154,7 +154,7 @@ def clear(s):
   if getattr(s,'active_challenge',None) is not None and s.challenge_clear_effect is None:
    s.challenge_clear_effect={**s.active_challenge,'now':int(time.time())}
   receipt=s.account.reward_store.grant(s.reward_run_id,proof,rule['clear_ed'],rule['clear_experience'],encode,
-      item_plan=rule['items'] if s.item_test else None,dungeon_clear=(run.identity,elapsed),challenge_clear=getattr(s,'challenge_clear_effect',None),transaction=getattr(s,'reward_transaction',None),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(s) if getattr(s,'activity2026_awards',None) is not None else None)
+      item_plan=rule['items'] if s.item_test else None,dungeon_clear=(run.identity,elapsed),challenge_clear=getattr(s,'challenge_clear_effect',None),transaction=getattr(s,'reward_transaction',None),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear')
   s.reward_receipt={'run_id':s.reward_run_id,**receipt};reply=[]
   if s.item_test and receipt.get('items') and not s.clear_items_synced:
    from els_server.domain.dungeon_drops import pickup_inventory_notice
