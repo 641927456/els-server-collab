@@ -20,6 +20,9 @@ def catalog():
 
 
 def ordinary(template):
+    if template in (710313,710314,710315):
+        from els_server.domain.apple_consumables import usable
+        return usable(template)
     # Enable only individually checked HP/MP potions. Other rows may
     # require buff, quest, event, targeting or reward behavior not yet wired.
     # minimum level, shared cooldown group, seconds, ordered native effects.
@@ -45,7 +48,8 @@ def ordinary(template):
     return r
 
 
-def require_usable(template,level):
+def require_usable(template,level,*,automatic=False):
+    if automatic and template in (710313,710314,710315):raise ValueError('Apple pet automation is not admitted')
     metadata=ordinary(template)
     if type(level) is not int or not 1<=level<=99:raise ValueError('Consumable character level')
     if level<bytes.fromhex(metadata['record_hex'])[0xd1]:raise ValueError('Consumable level requirement')
