@@ -147,7 +147,7 @@ def execute(path,owner,account_id,payload,operation,*,now,randbelow=secrets.rand
     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10)) as db:
         try:
             db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
-            current=snapshot(db,owner,account_id);state=ProfessionState(**current['state'])
+            current=_active_owner(db,owner,account_id);state=ProfessionState(**current['state'])
             items=load_items(db,owner);balances=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(owner,)).fetchone())
             ensure(db);old=db.execute('SELECT owner,account_id,request_hash,positions_json,audit_json FROM manufacture_receipts WHERE operation=?',(operation,)).fetchone()
             if old:
@@ -226,7 +226,7 @@ def select_alchemist(path,owner,account_id,payload):
     if select_request(payload)!=3:raise ValueError('This route implements alchemist crafting only')
     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10)) as db:
         try:
-            db.execute('BEGIN IMMEDIATE');old=snapshot(db,owner,account_id)
+            db.execute('BEGIN IMMEDIATE');old=_active_owner(db,owner,account_id)
             character=db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()
             if character[0]<40 or old['state']['profession'] not in (0,3):raise ValueError('Alchemist selection unavailable')
             state=ProfessionState(**old['state'])
@@ -235,3 +235,13 @@ def select_alchemist(path,owner,account_id,payload):
             wire=selection_ack(0,state,{},tail_u64=0,tail_i32=0,tail_flag_a=False,tail_flag_b=False)
             db.commit();return wire
         except BaseException:db.rollback();raise
+
+
+def _active_owner(db,owner,account_id):
+    """Keep lifecycle and ownership current inside the mutation transaction."""
+    from els_server.storage.character_lifecycle import states
+    current=snapshot(db,owner,account_id)
+    lifecycle=states(db,(owner,)).get(owner,{})
+    if lifecycle.get('requested_at') or lifecycle.get('finalized_at'):
+        raise ValueError('Crafting character is pending deletion or finalized')
+    return current
