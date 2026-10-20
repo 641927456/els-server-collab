@@ -1,7 +1,8 @@
 """0x611 allocation request for the pinned 2026 client; no network activation.
 
 D387F0 groups signed pending deltas by original m_usTabIndex and appends
-the selected character page. Refunds remain unavailable until verified.
+the selected character page. This positive planner stays unchanged; the
+native flow has a separately bounded710106reward-coin refund transaction.
 """
 from dataclasses import dataclass
 import struct
