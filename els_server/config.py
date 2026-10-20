@@ -33,10 +33,8 @@ class ServerConfig:
     max_registered_accounts: int = 64
     # Development gate until native peer transport and two-client play pass.
     friends_coop_enabled: bool = False
-    selected2026_pair_file: Path | None = None
 
     def __post_init__(self):
-        if self.selected2026_pair_file is not None and (not isinstance(self.selected2026_pair_file,Path) or self.host!='127.0.0.1' or self.profile!='integrated_dx11'):raise ValueError('Independent activities require an explicit local-only pack')
         if self.mode not in ('local','friends'):raise ValueError('Unknown server mode')
         if type(self.registration_enabled) is not bool or self.registration_enabled and self.mode!='friends':raise ValueError('Registration requires friends mode')
         if type(self.max_registered_accounts) is not int or not 2<=self.max_registered_accounts<=256:raise ValueError('Registration capacity')
@@ -68,7 +66,7 @@ class ServerConfig:
         values=document['server']
         unknown=set(values)-set(cls.__dataclass_fields__)
         if unknown:raise ValueError('Unknown configuration keys: '+', '.join(sorted(unknown)))
-        for name in ('state_file','log_dir','accounts_file','tls_cert','tls_key','selected2026_pair_file'):
+        for name in ('state_file','log_dir','accounts_file','tls_cert','tls_key'):
             default=getattr(cls(),name)
             value=values.get(name,str(default) if default is not None else None)
             if value is None:continue
