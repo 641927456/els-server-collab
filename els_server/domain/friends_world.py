@@ -244,6 +244,9 @@ class FriendsWorld:
         if channel==4:
             from els_server.domain.whisper import handle
             return handle(self,session,request,now)
+        if channel==0 and session.phase=='dungeon_active':
+            from els_server.domain.dungeon_chat import handle
+            return handle(self,session,text,now)
         party=self.party_of.get(session)
         if channel==0:
             if session not in self.members:return [wire.chat_ack(-1)]

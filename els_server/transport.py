@@ -166,13 +166,13 @@ class GameServer:
                     entry_fields=dict(entry_mode=entry_mode,dungeon=dungeon)
                 run=getattr(business,'dungeon_run',None)
                 if (event.event_id==0x202 and event.kind==0xad and run is not None
-                        and (run.identity,run.stage,run.part)==(35250,0,0)
-                        and memory1_diagnostic_count<8):
+                        and run.identity==35250
+                        and memory1_diagnostic_count<24):
                     memory1_diagnostic_count+=1
                     from els_server.domain.dungeon_lifecycle import death_report
                     try:
                         d=death_report(event.payload)
-                        entry_fields=dict(dungeon=35250,stage=0,part=0,retirement_probe=dict(
+                        entry_fields=dict(dungeon=35250,stage=run.stage,part=run.part,retirement_probe=dict(
                             index=d['index'],flag=d['flag'],source=d['source'],killer=d['killer'],
                             xyz=d['xyz'],status=d['status'],hp_bits=d['hp_bits'],last_uid=d['last_uid'],
                             extra_uid=d['extra_uid'],contribution_count=len(d['contribution']),

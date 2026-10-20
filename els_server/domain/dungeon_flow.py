@@ -21,6 +21,7 @@ def periodic(session):
      and getattr(s,'challenge_deadline',None) is not None and time.time()>=s.challenge_deadline):return failed(s)
  if (s.dungeon_run is None or s.phase!='dungeon_active' or not s.dungeon_substage_synced
      or s.part_end_notified or s.clear_notified):return []
+ if getattr(s.dungeon_run,'memory1_quest_barrier',frozenset())-set(s.dungeon_run.defeated):return []
  if s.dungeon_run.poll_ready():
   s.part_end_notified=True;s.dungeon_clock.pause()
   return [part_end_notice(s.dungeon_run.part)]
