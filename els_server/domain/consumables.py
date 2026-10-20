@@ -34,6 +34,7 @@ def ordinary(template):
               77420:(0,3,30,((13,15),(2,100))),
               77430:(0,3,30,((13,30),(2,100))),
               78902:(0,48,60,((2,150),)),78930:(60,4,30,((2,225),))}
+    expected[710000]=(0,15,30,((13,100),(19,100)))
     if template not in expected:raise ValueError('Consumable effect not implemented')
     level,group,seconds,effects=expected[template];r=catalog()[template]
     raw=bytes.fromhex(r['record_hex'])
