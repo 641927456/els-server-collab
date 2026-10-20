@@ -685,6 +685,10 @@ class LocalSession:
             if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:
                 return [use_ack(result=-1)]
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
+            from els_server.storage.boosting_2026_nested_capacity import use_ticket as use_capacity_ticket
+            try:capacity=use_capacity_ticket(self.account.store.path,self.account.uid,event.payload,operation)
+            except ValueError:return [use_ack(result=-1)]
+            if capacity is not None:return capacity['events']+([self.saved_user_sync()] if capacity['replayed'] else [])
             from els_server.storage.resonance_state import use_book as use_resonance_book
             try:resonance=use_resonance_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)
             except ValueError:return [use_ack(result=-1)]

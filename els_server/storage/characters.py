@@ -101,6 +101,21 @@ class Characters:
         if template['unitType']!=unit_type:raise ValueError('Client character template mismatch')
         if not isinstance(operation_id,str) or not 1<=len(operation_id)<=100:raise ValueError('Creation operation identity')
         digest=hashlib.sha256(json.dumps([name,unit_type],ensure_ascii=False).encode()).hexdigest()
+        # Cold source imports can parse large pinned client catalogs. Complete
+        # these read-only dependencies before acquiring SQLite's sole writer.
+        # Ownership, capacity, UID allocation, items and wire validation below
+        # still share the original atomic creation transaction.
+        from els_server.storage.character_lifecycle import check_creation,current_time,created
+        from els_server.storage.bag_capacity import grant_starting_fashion
+        from els_server.domain.tutorial_quests import starting_town
+        from els_server.storage.role_loadout import grant_loadout
+        from els_server.domain.character_rules import default_slots
+        from els_server.domain.skill_rules import equippable_skills
+        from els_server.domain.skill_state import encode_slots
+        from els_server.protocol.character_messages import create_ack
+        from els_server.domain.role_progression import catalog as role_catalog
+        from els_server.domain.equipment_requirements import catalog as equipment_catalog
+        town=starting_town(unit_type);role_catalog();equipment_catalog()
         with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
             db.execute('BEGIN IMMEDIATE')
             old=db.execute('SELECT request_hash,uid FROM character_creation_receipts WHERE operation_id=?',(operation_id,)).fetchone()
@@ -109,30 +124,22 @@ class Characters:
                 if db.execute('SELECT account_id FROM character_owners WHERE uid=?',(old[1],)).fetchone()!=(self.account_id,):raise ValueError('Creation receipt belongs to another account')
                 uid=old[1]
             else:
-                from els_server.storage.character_lifecycle import check_creation,current_time,created
                 now=current_time();check_creation(db,self.account_id,now)
                 if db.execute('SELECT 1 FROM characters WHERE name_key=?',(name.casefold(),)).fetchone():raise ValueError('Character name already exists')
                 uid=db.execute('SELECT MAX(uid)+1 FROM characters').fetchone()[0];character_uid(uid)
                 db.execute('INSERT INTO characters VALUES (?,?,?,?,?,1,0,0,0)',(uid,name,name.casefold(),unit_type,BASE_CLASSES[unit_type]))
                 db.execute('INSERT INTO character_owners VALUES (?,?)',(uid,self.account_id))
                 created(db,uid,self.account_id,now)
-                from els_server.storage.bag_capacity import grant_starting_fashion
                 starting_bags=grant_starting_fashion(db,uid)
                 # New identities and their role-specific starter items commit
                 # together; retry receipts never grant a second set.
-                from els_server.domain.tutorial_quests import starting_town
-                db.execute('INSERT INTO location VALUES (?,?,0,0,0,0,0,0)',(uid,starting_town(unit_type)))
+                db.execute('INSERT INTO location VALUES (?,?,0,0,0,0,0,0)',(uid,town))
                 db.execute('INSERT INTO reward_balances VALUES (?,0,0,0)',(uid,))
-                from els_server.storage.role_loadout import grant_loadout
                 character=dict(DEFAULT_CHARACTER,uid=uid,name=name,unit_type=unit_type,unit_class=BASE_CLASSES[unit_type],artifact=None,bag_capacities=starting_bags)
                 items=grant_loadout(db,character)
-                from els_server.domain.character_rules import default_slots
-                from els_server.domain.skill_rules import equippable_skills
-                from els_server.domain.skill_state import encode_slots
                 db.execute('INSERT INTO skill_slots VALUES (?,?,0)',(uid,encode_slots(default_slots(character),equippable_skills(character),character)))
                 # Refuse an unencodable initial character before committing any
                 # identity, equipment, sequence allocation or creation receipt.
-                from els_server.protocol.character_messages import create_ack
                 create_ack(character,items=items)
                 db.execute('INSERT INTO character_creation_receipts VALUES (?,?,?)',(operation_id,digest,uid))
         return self.get(uid)

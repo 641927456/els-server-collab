@@ -30,4 +30,9 @@ def catalog():
     for box in ((gear,) if gear is not None else ()) + tuple(fashion_entries()):
         if box['template'] in result:raise ValueError('Duplicate original growth gear box')
         result[box['template']]=box
+    from els_server.domain.boosting_2026_nested_capacity import entry as capacity_entry
+    capacity=capacity_entry()
+    if capacity is not None:
+        if capacity['template'] in result:raise ValueError('Duplicate nested capacity box')
+        result[capacity['template']]=capacity
     return MappingProxyType(result)

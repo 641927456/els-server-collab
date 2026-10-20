@@ -23,7 +23,7 @@ def starter(unit_type):
 
 def starting_town(unit_type):return starter(unit_type)[1]
 
-def restore_initialization(state):
+def restore_initialization(state,*,live=False):
     """Encode a same-owner snapshot before committing any missing root.
 
     Existing locations and all quest progress remain authoritative. Unknown
@@ -34,6 +34,7 @@ def restore_initialization(state):
         db.execute('BEGIN IMMEDIATE')
         character=load_character(db,state.uid,state.account_id);ensure(db)
         items=load_items(db,state.uid);snapshot=_state(db,state.uid,items)
+        previous={row['id'] for row in snapshot['active']}
         quest,town=starter(character['unit_type']);qid=quest['m_iID'];catalog=quest_catalog()
         progress={r['id'] for key in ('active','completed') for r in snapshot[key]}
         has_story=any(i not in catalog.quests or catalog.quest(i)['m_eQuestType']==5 for i in progress)
@@ -63,4 +64,11 @@ def restore_initialization(state):
                 snapshot=_state(db,state.uid,items);restored=True
         event=wire.initialization(snapshot)
         if not isinstance(event.payload,bytes) or len(event.payload)>65536:raise ValueError('Tutorial initialization bound')
+        if live:
+            # F0 invokes the original live quest/UI callbacks. Build all new
+            # acceptance notices before committing the deferred acceptance.
+            events=[event]+[wire.accepted(row) for row in snapshot['active'] if row['id'] not in previous]
+            from els_server.protocol.protocol_codec import encode_event
+            for notice in events:encode_event(notice)
+            return events,restored
         return event,restored
