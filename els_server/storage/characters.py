@@ -47,11 +47,23 @@ class Characters:
         return out
 
     def list(self):
+        return self._project()
+
+    def _project(self,uid=None):
+        # Share the full wire projection, but read only the requested owned
+        # identity for get(). No player state survives this connection.
         with closing(sqlite3.connect(self.path,timeout=10)) as db:
-            rows=[self._row(r) for r in db.execute('SELECT c.uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE o.account_id=? ORDER BY c.uid',(self.account_id,))]
+            query='SELECT c.uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE o.account_id=?'
+            parameters=(self.account_id,)
+            if uid is not None:
+                query+=' AND c.uid=?';parameters+=(uid,)
+            rows=[self._row(r) for r in db.execute(query+' ORDER BY c.uid',parameters)]
             from els_server.storage.character_lifecycle import decorate
             rows=decorate(db,rows)
-            artifacts={r[0]:dict(template=r[1],evolution=r[2],level=r[3],experience=r[4],potentials=json.loads(r[5])) for r in db.execute('SELECT uid,template,evolution,level,experience,potentials FROM character_artifacts')}
+            artifact_query='SELECT a.uid,a.template,a.evolution,a.level,a.experience,a.potentials FROM character_artifacts a JOIN character_owners o ON o.uid=a.uid WHERE o.account_id=?'
+            if uid is not None:artifact_query+=' AND a.uid=?'
+            visible={r['uid'] for r in rows}
+            artifacts={r[0]:dict(template=r[1],evolution=r[2],level=r[3],experience=r[4],potentials=json.loads(r[5])) for r in db.execute(artifact_query,parameters) if r[0] in visible}
             has_dungeon_records=db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='dungeon_records'").fetchone() is not None
             for row in rows:
                 from els_server.storage.resonance_state import snapshot as resonance_snapshot
@@ -100,7 +112,7 @@ class Characters:
 
     def get(self,uid):
         uid=character_uid(uid)
-        return next((r for r in self.list() if r['uid']==uid),None) or self._row(None)
+        return next(iter(self._project(uid)),None) or self._row(None)
 
     def name_available(self,name):
         validate_name(name)
