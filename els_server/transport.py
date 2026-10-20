@@ -200,18 +200,26 @@ class GameServer:
         except Exception as error:
             self.log('worker_error',connection=index,error=repr(error))
         finally:
-            if notifications:
-                notifications.cancel()
-                results=await asyncio.gather(notifications,return_exceptions=True)
-                if results and isinstance(results[0],Exception):
-                    self.log('notification_error',connection=index,error=repr(results[0]))
-            if business is not None:
-                self.local_sessions.discard(business)
-                await self.application.release(business)
-            writer.close()
-            try:await asyncio.wait_for(writer.wait_closed(),self.config.write_timeout)
-            except (OSError,TimeoutError):pass
-            self.log('connection_finished',connection=index)
+            try:
+                try:
+                    if notifications:
+                        notifications.cancel()
+                        results=await asyncio.gather(notifications,return_exceptions=True)
+                        if results and isinstance(results[0],Exception):
+                            self.log('notification_error',connection=index,error=repr(results[0]))
+                finally:
+                    # Shutdown may cancel the socket task while its timer is
+                    # draining. Still schedule the account's durable cleanup.
+                    if business is not None:
+                        self.local_sessions.discard(business)
+                        await self.application.release(business)
+            finally:
+                # A save/release failure remains visible to the task observer,
+                # but must never bypass transport closure.
+                writer.close()
+                try:await asyncio.wait_for(writer.wait_closed(),self.config.write_timeout)
+                except (OSError,TimeoutError):pass
+                self.log('connection_finished',connection=index)
 
     async def close(self):
         self.closing=True
