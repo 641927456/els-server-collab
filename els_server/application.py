@@ -153,6 +153,8 @@ class Application:
 
     async def start(self):
         def initialize():
+            from els_server.domain.owned_growth_items import install as install_owned_growth
+            install_owned_growth()
             from els_server.game_data import client_data
             client_data().npcs  # Verify both pinned definition packs before opening a save.
             from els_server.domain.reward_rules import dungeon_rewards

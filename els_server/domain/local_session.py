@@ -80,6 +80,8 @@ class LocalAccount:
     def get_reward_balances(self):
         return self.enable_rewards().balances()
     def enable_inventory(self):
+        from els_server.domain.owned_growth_items import install as install_owned_growth
+        install_owned_growth()
         self.enable_rewards()
         with self.lock:
             if self.inventory_store is None:

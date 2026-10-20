@@ -47,6 +47,9 @@ def handle(s,event):
  if event.kind==0xad:
   try:d=death_report(event.payload)
   except ValueError:return []
+  from els_server.domain.lithia_memory1_retirements import handle as memory1_retirement
+  retired=memory1_retirement(s,event,d)
+  if retired is not None:return retired
   if d['index'] in s.summon_keys:return None
   npc=next((n for n in run.current['npcs'] if n['key']==d['index']),None)
   hp=struct.unpack('>f',struct.pack('>I',d['hp_bits']))[0]
