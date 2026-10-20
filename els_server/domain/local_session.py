@@ -795,13 +795,8 @@ class LocalSession:
             answer=[Event(0x201,kind=0x205,payload=receipt['response'])]
             return answer+[self.saved_user_sync()] if receipt['requires_inventory_sync'] else answer
         if self.item_test and self.client_build=='dx11_260923' and kind in (0x113,0x65e) and event.event_id==0x202:
-            from els_server.storage.consumables import use
-            from els_server.protocol.consumable_messages import acknowledgement
-            if self.role!='game' or self.phase!='dungeon_active' or type(request_sequence) is not int or not 1<=request_sequence<2**32:
-                return [acknowledgement(result=-1,automatic=kind==0x65e)]
-            from els_server.domain.apple_consumables import native_stage_ready
-            try:return use(self.account.store.path,self.account.uid,event.payload,self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence),automatic_use=kind==0x65e,allow_apples=native_stage_ready(self))
-            except ValueError:return [acknowledgement(result=-1,automatic=kind==0x65e)]
+            from els_server.domain.consumable_flow import handle as consumable_handle
+            return consumable_handle(self,event,request_sequence)
         if self.item_test and self.client_build=='dx11_260923' and kind==0x8a1 and event.event_id==0x202:
             from els_server.storage.quick_slots import save_request,acknowledgement
             if self.role!='game' or self.phase not in ('town_ready','dungeon_active'):
