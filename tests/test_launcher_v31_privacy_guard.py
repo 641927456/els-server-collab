@@ -12,7 +12,7 @@ class LauncherV31PrivacyGuard(unittest.TestCase):
     def test_only_exact_two_program_paths_allow_generated_fixture(self):
         for version in ('29','31'):
             self.assertEqual(guard.violations('launchers/friends-v'+version+'/Program.cs',snippet()),[])
-        for name in ('Program.cs','launchers/friends-v31/Other.cs','launchers/friends-v31/nested/Program.cs','launchers/friends-v32/Program.cs','launchers/friends-v31/program.cs'):
+        for name in ('Program.cs','launchers/friends-v31/Other.cs','launchers/friends-v31/nested/Program.cs','launchers/friends-v34/Program.cs','launchers/friends-v31/program.cs'):
             self.assertIn('literal credential candidate; review required',guard.violations(name,snippet()))
 
     def test_fixed_values_and_other_fields_remain_blocked(self):

@@ -49,7 +49,7 @@ class V32Sources(unittest.TestCase):
         text=('string pass'+'word="Fixture-Only-"+Guid.NewGuid().ToString("N"),name="proof_password";').encode()
         self.assertEqual(guard.violations('launchers/friends-v32/Program.cs',text),[])
         self.assertTrue(guard.violations('launchers/friends-v32/Other.cs',text))
-        self.assertTrue(guard.violations('launchers/friends-v33/Program.cs',text))
+        self.assertTrue(guard.violations('launchers/friends-v34/Program.cs',text))
         self.assertTrue(guard.violations('launchers/friends-v32/Program.cs',text.replace(b'Guid.NewGuid()',b'Guid.Empty')))
         self.assertTrue(guard.violations('launchers/friends-v32/Program.cs',text.replace(b'Fixture-Only-',b'Unapproved-Literal-')))
     def test_other_credential_literals_still_fail(self):

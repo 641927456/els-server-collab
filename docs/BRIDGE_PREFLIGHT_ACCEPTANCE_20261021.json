@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "independent_fix": "Authenticated native preflight reuse and pre-forwarding recovery",
+  "bridge_sha256": "c591b100c84bc2b62f9e2d4d0c88b8c303d50234bc702c3811498d6a841ba1b3",
+  "server_release": "startup-bridge-native-reuse-20261021-v2",
+  "local_release": "local-startup-bridge-native-reuse-20261021-v2",
+  "launcher_release": "friends-bridge-native-reuse-20261021-v1",
+  "launcher_V": 33,
+  "launcher_sha256": "6593c3fcab74684a8a9219516eaf058b3b0b0a3b31d3b7ba7956628c6a5094a6",
+  "runtime_sha256": "cc6c8230dcbabee2670621739c7440316514ac2e3addc56fae064181b19e921e",
+  "online_observation_seconds": 124.38294670009054,
+  "local_observation_seconds": 124.15047049999703,
+  "launcher_observation_seconds": 127.39924479997717,
+  "dual_SQLite_API_backups": true,
+  "code_configuration_task_backups": true,
+  "player_stores_not_replaced": true,
+  "owned_QA_disabled": true,
+  "public_native_roster_selection_accepted": true,
+  "public_signed_updater_accepted": true,
+  "unchanged_components": 1081,
+  "changed_components": 1,
+  "changed_component_bytes": 15181,
+  "private_transport_cases": 8,
+  "real_server_TLS_cases": 2,
+  "delayed45second_TLS_test_passed": true,
+  "portable_delayed_claim_regression_passed": true,
+  "game_client_behavior_changes": 0,
+  "native42s_root_cause_complete": false,
+  "natural_GUI_after_fix": false,
+  "source_snapshots": {
+    "online": {
+      "branch": "snapshot/online-startup-bridge-native-reuse-20261021-v2",
+      "commit": "003227d9516230ee692a9fa0700a3e80e90a2541",
+      "exact_Git_blobs_verified": 610
+    },
+    "local": {
+      "branch": "snapshot/local-startup-bridge-native-reuse-20261021-v2",
+      "commit": "4c676f2e248ef9c0a2a228c907d41860bdc39c28",
+      "exact_Git_blobs_verified": 624
+    }
+  }
+}
