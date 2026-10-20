@@ -98,12 +98,17 @@ def _ticket_page_parts(client,client_sha,catalog_sha,key,group,part,allowed):
     with client.connect() as db:
         for offset in range(0,len(allowed),900):
             batch=allowed[offset:offset+900]
-            for template,role in db.execute('SELECT id,substr(record,211,1) FROM items WHERE id IN ('+','.join('?'for _ in batch)+')',batch):
-                units[template]=role[0]
+            for template,record,stats,bonus in db.execute('SELECT id,record,stats,stat_bonus FROM items WHERE id IN ('+','.join('?'for _ in batch)+')',batch):
+                units[template]=(record,stats,bonus)
     roles={}
     for template in allowed:
         if template not in units:raise ValueError('Unknown client item: '+str(template))
-        roles.setdefault(units[template],[]).append(template)
+        record,stats,bonus=units[template]
+        # ClientData.item decoded these fields before its caller inspected
+        # record[210]. Preserve errors in original template order, not SQL order.
+        struct.unpack('<7f',stats)
+        tuple(bonus)
+        roles.setdefault(record[210],[]).append(template)
     ints=lambda xs:struct.pack('>I',len(xs))+b''.join(struct.pack('>i',x)for x in xs)
     # Preserve the native group/role/template order and every reserved field.
     head=struct.pack('>Iii',1,key,group)+ints([part])+ints([])
