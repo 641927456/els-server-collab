@@ -1,4 +1,4 @@
-"""Prepare a reviewed two-card increment without running dashboard history."""
+"""Prepare reviewed card increments without running dashboard history."""
 import argparse
 import copy
 import datetime
@@ -9,7 +9,7 @@ from pathlib import Path
 import re
 
 ROOT=Path('G:/els').resolve()
-ALLOWED_CARDS={'boxes','quests'}
+ALLOWED_CARDS={'boxes','quests','sockets','special-socket'}
 TEXT_FIELDS={'summary','remaining','summary_short','remaining_short'}
 META_FIELDS={'local_release','local_manifest_sha256','local_manifest_sha','local_business_files','updated_at'}
 SOURCE_NAMES={'data':'progress-data.json','template':'dashboard.html','preview':'server-preview.html','shorts':'card-summaries.json'}
@@ -57,7 +57,8 @@ def prepare(source,facts_path,expected_facts_sha,output):
     preview=raw['preview'].decode('utf-8-sig').replace('\r\n','\n')
     require(html_data(preview)==data,'Snapshot JSON and HTML disagree')
     require(render(template,data)==preview,'Existing preview/template relationship changed')
-    require(set(facts['changes'])==ALLOWED_CARDS,'Only boxes and quests are allowed')
+    changed_cards=set(facts['changes'])
+    require(bool(changed_cards) and changed_cards<=ALLOWED_CARDS,'Only reviewed cards are allowed')
     require(set(facts['metadata'])==META_FIELDS,'Metadata scope')
     install=facts['installation']
     require(set(install)=={'receipt_path','receipt_sha256','pointer_sha256','manifest_sha256'},'Installation scope')
@@ -112,7 +113,7 @@ def prepare(source,facts_path,expected_facts_sha,output):
     for snapshot in (before,after):
         for field in META_FIELDS:snapshot.pop(field,None)
         for card in snapshot['systems']:
-            if card['id'] in ALLOWED_CARDS:
+            if card['id'] in changed_cards:
                 for field in TEXT_FIELDS|{'evidence'}:card.pop(field,None)
     require(before==after,'Unreviewed card/item/score or metadata changed')
     html=render(template,result)
@@ -130,7 +131,7 @@ def prepare(source,facts_path,expected_facts_sha,output):
     require(html_data((output/'public-preview.html').read_text(encoding='utf8'))['local_release']==receipt['release'],'Public local release differs')
     for path,sha in watched.items():require(digest(path.read_bytes())==sha,'Concurrent source change after rendering: '+str(path))
     report=dict(ok=True,isolated_output=True,shared_files_written=0,network_operations=0,history_executed=False,
-                changed_cards=sorted(ALLOWED_CARDS),allowed_metadata=sorted(META_FIELDS),scores_items_and_other_cards_preserved=True,
+                changed_cards=sorted(changed_cards),allowed_metadata=sorted(META_FIELDS),scores_items_and_other_cards_preserved=True,
                 short_hashes_synchronized=True,local_release=receipt['release'],local_observation_seconds=receipt['observation_seconds'],
                 public_export=exported,sources=[dict(path=str(p),sha256=s) for p,s in watched.items()],
                 files=[dict(path=p.name,sha256=digest(p.read_bytes())) for p in sorted(output.iterdir()) if p.is_file()])
