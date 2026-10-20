@@ -298,17 +298,19 @@ for _row in additional_magic_stone_catalog()['items'].values():
  TEMPLATE_BAG_GROUPS[_row['template']]=4
  TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
 
-from els_server.domain.manufacture_rules import inventory_definitions as manufacture_inventory_definitions
+from els_server.domain.manufacture_rules import inventory_definitions as manufacture_inventory_definitions, inventory_fashion_records, inventory_fashion_position
+from els_server.domain.companion_fashion import resolve_slots_from_records
+_manufacture_fashion_records=inventory_fashion_records()
 for _row in manufacture_inventory_definitions().values():
  if _row['template'] not in VERIFIED_TEMPLATES:
   VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
   TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
   TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
  if _row['group'] in (7,27):
-  from els_server.game_data import client_data as _manufacture_client_data
-  _position=_manufacture_client_data().item(_row['template'])['equip_position']
+  _position=inventory_fashion_position(_manufacture_fashion_records[_row['template']])
   if _position in FASHION_POSITIONS and _row['template'] not in FASHION_EQUIP_SLOTS:
-   FASHION_EQUIP_SLOTS.update(companion_fashion_slots({_row['template']:FASHION_POSITIONS[_position]}))
+   FASHION_EQUIP_SLOTS.update(resolve_slots_from_records({_row['template']:FASHION_POSITIONS[_position]}, {_row['template']:_manufacture_fashion_records[_row['template']][0]}))
+del _manufacture_fashion_records
 
 from els_server.domain.titles import catalog as title_catalog
 for _title_item in title_catalog()['items'].values():
