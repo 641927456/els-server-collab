@@ -683,6 +683,13 @@ class LocalSession:
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
             try:return [choose(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)]
             except ValueError:return [acknowledgement(result=-1)]
+        if self.item_test and self.client_build=='dx11_260923' and kind==0x460 and event.event_id==0x202:
+            from els_server.domain.boosting_2026_essence import acknowledgement as essence_ack
+            from els_server.storage.boosting_2026_essence import action as essence_action
+            if self.role!='game' or self.phase!='dungeon_active' or type(request_sequence) is not int or not 1<=request_sequence<2**32:return [essence_ack(result=-1)]
+            operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
+            try:return essence_action(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)['events']
+            except ValueError:return [essence_ack(result=-1)]
         if self.item_test and self.client_build=='dx11_260923' and kind==0x6ce and event.event_id==0x202:
             from els_server.domain.boosting_2026_force_extraction import acknowledgement as force_extract_ack
             from els_server.storage.boosting_2026_force_extraction import action as force_extract_action
@@ -1188,6 +1195,7 @@ class LocalSession:
                 self.shop_available_pending=False
                 saved=self.account.get_inventory_snapshot() if self.item_test else None
                 from els_server.domain.quest_flow import initialization as quest_initialization
+                from els_server.domain.first_story_entry import pending_tutorial
                 initial_health_max=100
                 character=self.account.character()
                 if (self.enter_dungeon and character['unit_type']==10 and character['level']==1
@@ -1199,7 +1207,7 @@ class LocalSession:
                     # HP aggregate while native equipment/passive code stays intact.
                     from els_server.domain.character_stats import combat_values
                     initial_health_max=math.ceil(combat_values(character,saved['items'] if saved else None)[0])
-                answer=[player_initialization(self.account.get_location(),initialize_attributes=self.enter_dungeon,economy=saved['balances'] if saved else self.account.get_reward_balances() if self.reward_test else None,items=saved['items'] if saved else None,character=self.account.character(),restore_equipped=self.enter_dungeon),skill_slots_initialization(self.account.get_skills(),self.account.uid,self.account.character()),quest_initialization(self)]+optional_player_initializations(initialize_health=self.enter_dungeon,uid=self.account.uid,health_max=initial_health_max,luciel_active=(character.get('luciel_active_unit',0) if character['unit_type']==10 else 0),wardrobe=character.get('wardrobe',{}),wardrobe_favorites=character.get('wardrobe_favorites',()))+[Event(0x201,kind=0x29,payload=i32(0))]
+                answer=[player_initialization(self.account.get_location(),initialize_attributes=self.enter_dungeon,economy=saved['balances'] if saved else self.account.get_reward_balances() if self.reward_test else None,items=saved['items'] if saved else None,character=self.account.character(),restore_equipped=self.enter_dungeon),skill_slots_initialization(self.account.get_skills(),self.account.uid,self.account.character()),quest_initialization(self)]+optional_player_initializations(initialize_health=self.enter_dungeon,uid=self.account.uid,health_max=initial_health_max,luciel_active=(character.get('luciel_active_unit',0) if character['unit_type']==10 else 0),wardrobe=character.get('wardrobe',{}),wardrobe_favorites=character.get('wardrobe_favorites',()),tutorial_pending=pending_tutorial(self))+[Event(0x201,kind=0x29,payload=i32(0))]
                 if self.item_test and self.client_build=='dx11_260923':
                     from els_server.storage.wardrobe import color_initializations,point_initialization
                     answer+=color_initializations(self.account.store.path,self.account.uid,self.account.account_id)
