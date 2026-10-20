@@ -20,8 +20,8 @@ class SyntheticClient:
         self.manifest=dict(client_sha256='synthetic-client',catalog_sha256=identity)
         self.connections=0;self.queries=[]
         with closing(sqlite3.connect(path)) as db,db:
-            db.execute('CREATE TABLE items(id INTEGER PRIMARY KEY,record BLOB)')
-            db.executemany('INSERT INTO items VALUES (?,?)',((key,bytes(210)+bytes([role])) for key,role in roles.items()))
+            db.execute('CREATE TABLE items(id INTEGER PRIMARY KEY,record BLOB,stats BLOB,stat_bonus BLOB)')
+            db.executemany('INSERT INTO items VALUES (?,?,?,?)',((key,bytes(210)+bytes([role]),bytes(28),bytes(7)) for key,role in roles.items()))
 
     @contextmanager
     def connect(self):
@@ -101,6 +101,23 @@ class TicketPageTests(unittest.TestCase):
         self.data['tickets']['10']['group_id']=0
         self.page()
         self.assertEqual(self.client.connections,71)
+
+    def test_decode_failures_follow_allowed_order_before_record_lookup(self):
+        # SQL returns smaller IDs first; the native page order starts at103.
+        self.data['ticket_allowed']['10']=[103,101]
+        with closing(sqlite3.connect(self.client.path))as db,db:
+            db.execute('UPDATE items SET stats=? WHERE id=103',(bytes(27),))
+            db.execute('UPDATE items SET record=? WHERE id=101',(b'',))
+        with self.assertRaisesRegex(struct.error,'unpack requires a buffer of 28 bytes'):self.page()
+        with closing(sqlite3.connect(self.client.path))as db,db:
+            db.execute('UPDATE items SET stats=?,stat_bonus=NULL WHERE id=103',(bytes(28),))
+        with self.assertRaisesRegex(TypeError,"'NoneType' object is not iterable"):self.page()
+        with closing(sqlite3.connect(self.client.path))as db,db:
+            db.execute('UPDATE items SET stat_bonus=? WHERE id=103',(bytes(7),))
+        with self.assertRaisesRegex(IndexError,'index out of range'):self.page()
+        self.data['ticket_allowed']['10']=[999,101]
+        with self.assertRaisesRegex(ValueError,'Unknown client item: 999'):self.page()
+        self.assertEqual(wire._ticket_page_parts.cache_info().currsize,0)
 
 
 if __name__=='__main__':unittest.main()
