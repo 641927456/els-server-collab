@@ -260,12 +260,6 @@ for _cube in fixed_cube_catalog().values():
  VERIFIED_TEMPLATES[_cube['template']]=_cube['metadata']
  TEMPLATE_BAG_GROUPS[_cube['template']]=4
  TEMPLATE_MAX_STACKS[_cube['template']]=99
-from els_server.domain.apple_consumables import inventory_definitions as apple_definitions
-for _row in apple_definitions():
- if _row['template'] in VERIFIED_TEMPLATES:raise ValueError('Conflicting apple inventory template')
- VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
- TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
- TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
 from els_server.domain.select_cubes import catalog as select_cube_catalog
 for _cube in select_cube_catalog().values():
  if _cube['template'] in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_cube['template']],TEMPLATE_BAG_GROUPS[_cube['template']],TEMPLATE_MAX_STACKS[_cube['template']])!=(_cube['metadata'],4,99):raise ValueError('Conflicting selection cube item')
@@ -417,20 +411,6 @@ from els_server.domain.wardrobe_extensions import catalog as wardrobe_extensions
 for _key,_row in wardrobe_extensions_catalog()['consumables'].items():
  _t=int(_key);_expected=(_row['metadata'],_row['group'],_row['max_stack'])
  if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting wardrobe source classification')
- VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
-
-# First plain-red transfer subset: exactly one already-owned ticket instance.
-# This is a bounded compatibility limit, not an asserted native stack maximum.
-from els_server.domain.equipment_spell_rules import ticket_definitions as _spell_tickets
-for _row in _spell_tickets():
- _t=_row['template'];_expected=(_row['metadata'],_row['group'],_row['max_stack'])
- if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting plain red transfer ticket')
- VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
-
-from els_server.domain.purifier_exchange_rules import inventory_definitions as purifier_inventory_definitions
-for _row in purifier_inventory_definitions():
- _t=_row['template'];_expected=(_row['metadata'],_row['group'],_row['max_stack'])
- if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting purifier exchange inventory definition')
  VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
 
 def validate_item(item):

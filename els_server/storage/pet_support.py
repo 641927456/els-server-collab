@@ -132,7 +132,7 @@ def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow):
                 candidates={}
                 for i in load_items(db,owner):
                     if i['group']==6:
-                        try:meta=require_usable(i['template'],level,automatic=True)
+                        try:meta=require_usable(i['template'],level)
                         except ValueError:continue
                         candidates[item_binding(i['template'])]=meta
                 for slot,key in ((0,'hp_binding'),(1,'mp_binding')):

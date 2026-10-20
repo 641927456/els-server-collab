@@ -163,9 +163,6 @@ def execute(path,owner,account_id,payload,operation,*,now,randbelow=secrets.rand
             if not inspect_profession(request.recipe_id,state)['fits']:raise ValueError('Craft profession requirement')
             demand=requirements(request.recipe_id,request.quantity)
             allocation=allocate(request,items,demand['materials'],now)
-            # Preserve installed original mystic sockets until crafting migration is qualified.
-            consumed_uids={a['uid'] for a in allocation}
-            if any(i['uid'] in consumed_uids and any(any(i.get('option_groups',{}).get(g,[])) for g in ('9','10','11','12')) for i in items):raise ValueError('Mystic socket crafting migration is not qualified')
             source=None
             if upgrade:
                 eligible=[i for i in items if any(a['uid']==i['uid'] and a['quantity']==1 for a in allocation)
