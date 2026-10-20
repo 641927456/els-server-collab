@@ -18,9 +18,16 @@ class AttendanceOnlineClock:
         self.schedule,self.eligibility=schedule,eligibility
         self.monotonic,self.epoch=monotonic,epoch
         self.identity=None;self.base=None;self.anchor=None;self.committed=0
-        self.last_monotonic=None;self.token=uuid.uuid4().hex
+        self.last_monotonic=None;self.token=uuid.uuid4().hex;self.closed=False
 
     def observe(self, session, *, stop=False):
+        if self.closed:return
+        try:return self._observe(session,stop=stop)
+        finally:
+            if stop:
+                self.closed=True;self.identity=None
+
+    def _observe(self, session, *, stop):
         mono,wall=self.monotonic(),self.epoch()
         if any(type(v) not in (int,float) or not math.isfinite(v) or v<0 for v in (mono,wall)):
             raise ValueError('Invalid server clock')
@@ -29,9 +36,10 @@ class AttendanceOnlineClock:
         self.last_monotonic=mono
         # Finish the interval belonging to the previously observed role before
         # switching identities. No process-persistent anchor can count downtime.
+        current=self.eligibility(session)
         if self.identity is not None:
             elapsed=mono-self.base
-            if abs(wall-(self.anchor+elapsed))<=2:
+            if current==self.identity and abs(wall-(self.anchor+elapsed))<=2:
                 end=self.anchor+int(elapsed)
                 start=self.anchor+self.committed
                 path,account,character,level=self.identity
@@ -52,7 +60,7 @@ class AttendanceOnlineClock:
                 # Wall-clock jumps may change campaign/day attribution. Preserve
                 # committed observations, drop the uncertain gap and re-anchor.
                 self.identity=None
-        current=None if stop else self.eligibility(session)
+        current=None if stop else current
         if current!=self.identity or self.identity is None:
             self.identity=current
             self.base=mono;self.anchor=int(wall);self.committed=0

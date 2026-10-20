@@ -242,7 +242,7 @@ class QuestState:
             if not isinstance(result['events'],list) or any(not isinstance(e.payload,bytes) or len(e.payload)>65536 for e in result['events']):raise ValueError('Quest response bound')
             return result
 
-    def record(self,event_id,event,proof):
+    def record(self,event_id,event,proof,*,validate=None,prepare=None):
         if not isinstance(event_id,str) or not 1<=len(event_id)<=200 or not isinstance(proof,bytes) or not proof:raise ValueError('Quest progress evidence')
         if event.get('kind') not in ('kill','clear','visit_town','visit_dungeon') or type(event.get('dungeon')) is not int or type(event.get('level')) is not int:raise ValueError('Quest progress event')
         if event['kind']=='kill' and type(event.get('npc')) is not int:raise ValueError('Quest NPC event')
@@ -252,9 +252,10 @@ class QuestState:
         with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
             db.execute('BEGIN IMMEDIATE');load_character(db,self.uid,self.account_id);ensure(db)
             old=db.execute('SELECT proof_hash,event_json FROM quest_progress_events WHERE owner=? AND event_id=?',(self.uid,event_id)).fetchone()
+            if validate is not None:validate(db)
             if old:
                 if old!=(digest,raw):raise ValueError('Conflicting quest progress retry')
-                return []
+                return prepare([],True) if prepare is not None else []
             state=_state(db,self.uid,load_items(db,self.uid));changed=[]
             for row in state['active']:
                 counts=dict(row['objectives'])
@@ -268,4 +269,4 @@ class QuestState:
             # create audit receipts for idle/no-task town or discovery polls.
             if not changed and event['kind'] in ('visit_town','visit_dungeon'):return []
             db.execute('INSERT INTO quest_progress_events VALUES (?,?,?,?)',(self.uid,event_id,digest,raw))
-            return events
+            return prepare(events,False) if prepare is not None else events

@@ -131,6 +131,7 @@ class GameServer:
             keys=Keys(secrets.token_bytes(8),secrets.token_bytes(8));spi=secrets.randbelow(65535)+1
             outgoing=2;incoming=1;heartbeat_sent=False
             operation=asyncio.Lock()
+            memory1_diagnostic_count=0
             async def write(wire):
                 writer.write(wire)
                 await asyncio.wait_for(writer.drain(),self.config.write_timeout)
@@ -163,6 +164,20 @@ class GameServer:
                 if event.event_id==0x202 and event.kind==0x7d4 and len(event.payload)==8:
                     entry_mode,dungeon=struct.unpack('>ii',event.payload)
                     entry_fields=dict(entry_mode=entry_mode,dungeon=dungeon)
+                run=getattr(business,'dungeon_run',None)
+                if (event.event_id==0x202 and event.kind==0xad and run is not None
+                        and (run.identity,run.stage,run.part)==(35250,0,0)
+                        and memory1_diagnostic_count<8):
+                    memory1_diagnostic_count+=1
+                    from els_server.domain.dungeon_lifecycle import death_report
+                    try:
+                        d=death_report(event.payload)
+                        entry_fields=dict(dungeon=35250,stage=0,part=0,retirement_probe=dict(
+                            index=d['index'],flag=d['flag'],source=d['source'],killer=d['killer'],
+                            xyz=d['xyz'],status=d['status'],hp_bits=d['hp_bits'],last_uid=d['last_uid'],
+                            extra_uid=d['extra_uid'],contribution_count=len(d['contribution']),
+                            counters_count=len(d['counters']),readiness=d['readiness']))
+                    except ValueError:entry_fields=dict(dungeon=35250,retirement_probe_error='malformed_AD')
                 self.log('client_request',connection=index,sequence=frame.sequence,
                          event_id=event.event_id,kind=event.kind,size=len(wire),**entry_fields)
                 async with operation:
