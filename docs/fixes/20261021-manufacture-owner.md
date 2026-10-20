@@ -12,4 +12,4 @@ Deployment: accepted online in `items-economy-atomic-receipts-20261021-v1` and i
 
 No schema, client, player database, credentials or new runtime resource asset changes. Natural player GUI coverage and other items/economy gaps remain pending.
 
-Depends on PR #101 (`current_lease`). This PR targets its branch and includes only this independent fix; no duplicate lease helper.
+Reuses PR #101 (`current_lease`), now merged into main. No duplicate lease helper; this PR contains only the independent economic fix.
