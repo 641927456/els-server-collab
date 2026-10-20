@@ -84,6 +84,20 @@ class Characters:
                     row['luciel_active_unit']=luciel_active_state(db,row['uid'])['active_unit']
             return rows
 
+    def identity(self,uid):
+        # Eligibility consumers require current owned identity/level only.
+        # Keep all extended projections in get()/list() for wire consumers.
+        uid=character_uid(uid)
+        with closing(sqlite3.connect(self.path,timeout=10)) as db:
+            row=db.execute('SELECT c.uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(uid,self.account_id)).fetchone()
+            value=self._row(row)
+            # list()/get() also reject finalized deletions; a narrow read
+            # must preserve that owner eligibility boundary.
+            if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_lifecycle'").fetchone():
+                state=db.execute('SELECT finalized_at FROM character_lifecycle WHERE uid=?',(uid,)).fetchone()
+                if state and state[0]:return self._row(None)
+            return value
+
     def get(self,uid):
         uid=character_uid(uid)
         return next((r for r in self.list() if r['uid']==uid),None) or self._row(None)

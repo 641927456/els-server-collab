@@ -1,0 +1,27 @@
+{
+  "status": "formally-installed-and-accepted",
+  "local_release": "local-shop-request-read-scope-20261020-v1",
+  "online_release": "shop-request-read-scope-20261020-v1",
+  "local_manifest_sha256": "5b983aff746c5f7c3745ffb03034c27f31f783c9fc4bd763b4e13979a2246a9b",
+  "online_manifest_sha256": "cb0aa0f989674f9c1b1a322bd4f89cc3fbabda71d725f51bbba166be6981b12c",
+  "service_files": [
+    "els_server/application.py",
+    "els_server/domain/attendance_2026_online.py",
+    "els_server/domain/local_session.py",
+    "els_server/storage/characters.py",
+    "els_server/storage/read_scope.py"
+  ],
+  "independent_units": 1,
+  "client_delta": 0,
+  "schema_delta": 0,
+  "public_native_shop_response_seconds": 0.382,
+  "previous_public_response_seconds": 51.032,
+  "native_wait_seconds": 20,
+  "pre_shop_idle_seconds": 180,
+  "SDK_startup_isolated": 3,
+  "full_original_SDK_gameplay_accepted": false,
+  "natural_opponent_retest_pending": true,
+  "dual_SQLite_API_and_120second_observation": true,
+  "old_validation_reused": true,
+  "private_data_included": false
+}

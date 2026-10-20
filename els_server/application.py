@@ -138,6 +138,10 @@ class Application:
 
     async def call(self, function, *args, **kwargs):
         def invoke():
+            from els_server.storage.read_scope import committed_reads
+            with committed_reads():
+                return invoke_with_reads()
+        def invoke_with_reads():
             session=getattr(function,'__self__',None)
             timer=getattr(getattr(session,'activity2026_awards',None),'online',None)
             observed=isinstance(session,LocalSession) and function.__name__ in ('handle','periodic_notifications') and timer is not None

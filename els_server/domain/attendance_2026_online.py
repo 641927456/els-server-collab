@@ -79,6 +79,8 @@ def selected_local_test_character(session):
                 or session.identity['id']!=account.account_id
                 or app.playing.get(account.account_id) is not session):
             return None
-    character=account.character()
+    # Read current owned eligibility fields without unrelated wire projections.
+    identity=getattr(account,'character_identity',account.character)
+    character=identity()
     if character is None or character['uid']!=account.uid or character['level']<10:return None
     return (str(account.store.path),account.account_id,account.uid,character['level'])

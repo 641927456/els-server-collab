@@ -37,7 +37,18 @@ class LocalAccount:
         from els_server.storage.master_presets import repair as repair_master_presets
         self.master_preset_repair=repair_master_presets(self.store.path)
         self.character_accounts[self.uid]=self
+    def character_identity(self):
+        from els_server.storage.read_scope import role_projection
+        return role_projection(self,self._character_identity_projection,projection='identity')
+
+    def _character_identity_projection(self):
+        return self.characters.identity(self.uid) if self.characters else None
+
     def character(self):
+        from els_server.storage.read_scope import role_projection
+        return role_projection(self,self._character_projection)
+
+    def _character_projection(self):
         character=self.characters.get(self.uid) if self.characters else None
         if character is not None and self.store is not None:
             from els_server.storage.bank_state import snapshot as bank_snapshot
