@@ -38,6 +38,8 @@ def active(db,owner):
     if not row or not row[0]:raise ValueError('Summoned pet required')
     pet=next((p for p in rows(db,owner,'pet') if p['uid']==row[0]),None)
     if pet is None:raise ValueError('Owned active pet required')
+    from els_server.storage.boosting_2026_limited_pet import require_current
+    require_current(pet)
     template(pet['unit']);return pet
 
 def evolve(db,owner,uid):

@@ -272,6 +272,8 @@ class LocalSession:
         if prepared_hp:self.luciel_dungeon_hp_max=prepared_hp[-1] # Only after the removal transaction committed.
         from els_server.storage.bank_state import remove_due as remove_due_bank
         result+=remove_due_bank(self.account.store.path,self.account.uid)
+        from els_server.storage.boosting_2026_limited_pet import periodic as limited_pet_periodic
+        result+=limited_pet_periodic(self.account.store.path,self.account.uid,at=now)
         self.expiration_checked=key
         return result
 

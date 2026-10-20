@@ -18,6 +18,8 @@ def rows(db,owner,kind=None):
     sql='SELECT uid,owner,kind,unit,name,source_item FROM companions WHERE owner=?';args=[owner]
     if kind:sql+=' AND kind=?';args.append(kind)
     result=[dict(zip(('uid','owner','kind','unit','name','source_item'),r)) for r in db.execute(sql+' ORDER BY uid',args)]
+    from els_server.storage.boosting_2026_limited_pet import attach as attach_limited
+    attach_limited(db,owner,result)
     from els_server.storage.pet_support import attach
     attach(db,owner,result)
     from els_server.storage.pet_progression import attach as attach_progression
@@ -31,6 +33,11 @@ def snapshot(path,owner,*,enter_world=False):
     with closing(sqlite3.connect(path,timeout=10)) as db:
         with db:
             ensure(db)
+            from els_server.storage.boosting_2026_limited_pet import present,expire_active,clear_pending,TABLE
+            if present(db) and db.execute('SELECT 1 FROM '+TABLE+' WHERE owner=?',(owner,)).fetchone():
+                if not db.in_transaction:db.execute('BEGIN IMMEDIATE')
+                expire_active(db,owner)
+                if enter_world:clear_pending(db,owner)
             # Fresh login restores ownership and the active pet. The original
             # scene starts on foot; riding requires a new native 42C request.
             if enter_world:
@@ -48,6 +55,10 @@ def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow):
         from els_server.storage.mount_state import handle as mount_handle
         return mount_handle(path,owner,kind,payload,operation)
     owner=character_uid(owner)
+    if kind==0x2e8:
+        from els_server.storage.boosting_2026_limited_pet import activate
+        limited=activate(path,owner,payload,operation)
+        if limited is not None:return limited
     if not isinstance(operation,str) or not 1<=len(operation)<=160:raise ValueError('Invalid companion operation')
     digest=hashlib.sha256(kind.to_bytes(4,'big')+payload).hexdigest()
     with closing(sqlite3.connect(path,timeout=10)) as db:
@@ -56,6 +67,10 @@ def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow):
             old=db.execute('SELECT digest,kind,response FROM companion_receipts WHERE owner=? AND operation=?',(owner,operation)).fetchone()
             if old:
                 if old[0]!=digest:raise ValueError('Conflicting companion retry')
+                if kind==0x2ec:
+                    from els_server.storage.boosting_2026_limited_pet import reconcile_summon
+                    current=reconcile_summon(db,owner,payload)
+                    if current is not None:db.commit();return current
                 db.commit();return wire.event(old[1],old[2])
             if kind in (0x2e8,0x432):
                 typ='pet' if kind==0x2e8 else 'mount'
@@ -95,6 +110,9 @@ def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow):
                     uid=wire.uid_request(payload,zero=True);typ='pet'
                     companion=next((p for p in rows(db,owner,typ) if p['uid']==uid),None)
                     if uid and companion is None:raise ValueError('Owned pet required')
+                    from els_server.storage.boosting_2026_limited_pet import require_current,clear_pending
+                    if companion:require_current(companion)
+                    clear_pending(db,owner)
                     db.execute('UPDATE companion_active SET pet=? WHERE owner=?',(uid,owner))
                     from els_server.storage.pet_progression import clock
                     clock(db,owner,uid)

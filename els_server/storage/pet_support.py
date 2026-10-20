@@ -48,6 +48,8 @@ def owned_pet(db,owner,uid):
     from els_server.storage.companion_state import rows
     pet=next((p for p in rows(db,owner,'pet') if p['uid']==uid),None)
     if pet is None:raise ValueError('Owned pet required')
+    from els_server.storage.boosting_2026_limited_pet import require_current
+    require_current(pet)
     return pet
 
 def consume(db,owner,item):
@@ -176,7 +178,9 @@ def active_effects(db,owner):
     if not db.execute("SELECT 1 FROM sqlite_master WHERE name='companion_active'").fetchone():return {}
     row=db.execute('SELECT pet FROM companion_active WHERE owner=?',(owner,)).fetchone()
     if not row or not row[0]:return {}
-    return effects(owned_pet(db,owner,row[0]).get('equipment',{}))
+    from els_server.storage.boosting_2026_limited_pet import ExpiredLimitedPet
+    try:return effects(owned_pet(db,owner,row[0]).get('equipment',{}))
+    except ExpiredLimitedPet:return {}
 
 
 def remote_pickup_enabled(path,owner):
@@ -184,4 +188,8 @@ def remote_pickup_enabled(path,owner):
     with closing(sqlite3.connect(path)) as db:
         tables={r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         if not {'companion_active','companions','pet_entitlements'}<=tables:return False
-        return bool(db.execute("SELECT 1 FROM companion_active a JOIN companions p ON p.uid=a.pet AND p.owner=a.owner AND p.kind='pet' JOIN pet_entitlements e ON e.pet=p.uid AND e.owner=p.owner WHERE a.owner=? AND e.pickup=1",(character_uid(owner),)).fetchone())
+        row=db.execute("SELECT a.pet FROM companion_active a JOIN companions p ON p.uid=a.pet AND p.owner=a.owner AND p.kind='pet' JOIN pet_entitlements e ON e.pet=p.uid AND e.owner=p.owner WHERE a.owner=? AND e.pickup=1",(character_uid(owner),)).fetchone()
+        if row is None:return False
+        from els_server.storage.boosting_2026_limited_pet import ExpiredLimitedPet
+        try:owned_pet(db,owner,row[0]);return True
+        except ExpiredLimitedPet:return False
