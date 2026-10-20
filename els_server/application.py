@@ -27,8 +27,7 @@ class FriendsSession(LocalSession):
         if self.coop_error:raise SessionOrderError(self.coop_error)
         result=self.application.world.field_bosses.request(self,event)
         if result is not None:return self.activity_reply(result+self.mailbox.drain())
-        # Save the final native Lu/Ciel selector before dungeon exit detaches
-        # the admitted actor; other roles retain the existing dungeon route.
+        # Persist the native final selector before ordinary dungeon detach.
         from els_server.domain.luciel_native_end import handle as luciel_end_handle
         result=luciel_end_handle(self,event,request_sequence)
         if result is not None:return self.activity_reply(result+self.mailbox.drain())
@@ -38,7 +37,7 @@ class FriendsSession(LocalSession):
             return self.application.world.chat(self,event)+self.mailbox.drain()
         if event.event_id==0x202:
             result=self.application.world.party_request(self,event)
-            if result is not None:return self.activity_reply(result+self.mailbox.drain())
+            if result is not None:return result+self.mailbox.drain()
         selecting=event.event_id==0x202 and event.kind==0x28
         leases=self.application.playing
         acquired=False
