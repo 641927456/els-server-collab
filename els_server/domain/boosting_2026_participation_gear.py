@@ -61,6 +61,7 @@ def preview(row,unit_class):
     return tuple(dict(template=r['template'],quantity=1) for r in outputs_for(unit_class)) if row.get('participation_gear') else row['entries']
 
 def cannot_enhance(template):
+    # This intrinsic restriction also holds when the activity is disabled.
     # Explicit box restriction from original KIM text. Do not infer the meaning
     # of the historical templates' differing flags bit or affect other items.
-    return enabled() and type(template) is int and 721881<=template<=721940
+    return type(template) is int and 721881<=template<=721940

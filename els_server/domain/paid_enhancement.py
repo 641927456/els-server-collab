@@ -31,6 +31,8 @@ def fee(template,level):
 
 
 def quote(item,mode=0):
+    from els_server.domain.boosting_2026_participation_gear import cannot_enhance
+    if cannot_enhance(item['template']):raise ValueError('Participation armor cannot be enhanced')
     d=client_data().item(item['template']);level=item.get('enhancement',0)
     if item['template'] not in definitions() or item['count']!=1 or item['group'] not in (1,9) or d['flags4']&0xa1:
         raise ValueError('Unsupported ordinary enhancement equipment')
