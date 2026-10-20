@@ -1,7 +1,9 @@
 # Current decomposition receipt projection
 
-Status: candidate validated privately; protected online/local acceptance pending.
+Status: protected online installation accepted; local installation pending running-game protection.
 Issue: #49. Owner: maintainer-coordinated independent server correction.
+
+Online release `server-gap-receipts-20261021-v1` passed protected backup/restart, the120-second observation requirement, exact831-file verification and public fresh-sequence absent-source `1C1` failure/continued-responsiveness checks. No successful public decomposition, economy grant or old outer-frame replay was performed. A running game currently blocks the independent local installation guard. Local promotion has not completed; this source PR does not bypass that protection or claim both channels installed. The coordinator will record the later local delivery separately.
 
 An internal ordinary-decomposition call reusing the same authenticated operation previously refreshed only historical inventory positions. A retained affected UID that later moved was omitted. Reuse the existing current-state receipt projection for `1C0`: old positions contain their present replacement or empty row, and retained affected UIDs add their current owned positions. Consumed or other-role UIDs are not recreated or selected by template.
 
