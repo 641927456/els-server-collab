@@ -81,6 +81,36 @@ def dye_request(payload):
     if len(dict(rows))!=n or any(p not in (0,1,2)or c<0 for p,c in rows)or flags[0]>1 or flags[1]>1 or flags[2]!=0 or flags[:2]==b'\1\1':raise ValueError('Dye request parts/flags')
     return uid,palette,dict(rows),bool(flags[0]),bool(flags[1])
 
+# Only immutable definition rows and byte strings live in this bounded cache.
+# ClientData validates the pack checksum before use. Its object identity plus
+# both pinned SHA identities and the complete page inputs prevent cross-pack
+# or changed-catalog reuse. Player state never enters this path.
+from functools import lru_cache
+from threading import Lock
+_ticket_page_lock=Lock()
+
+
+@lru_cache(maxsize=64)
+def _ticket_page_parts(client,client_sha,catalog_sha,key,group,part,allowed):
+    units={}
+    # Keep one immutable read-only connection per cold page, not per template.
+    # Bound placeholders for SQLite builds with the older variable limit.
+    with client.connect() as db:
+        for offset in range(0,len(allowed),900):
+            batch=allowed[offset:offset+900]
+            for template,role in db.execute('SELECT id,substr(record,211,1) FROM items WHERE id IN ('+','.join('?'for _ in batch)+')',batch):
+                units[template]=role[0]
+    roles={}
+    for template in allowed:
+        if template not in units:raise ValueError('Unknown client item: '+str(template))
+        roles.setdefault(units[template],[]).append(template)
+    ints=lambda xs:struct.pack('>I',len(xs))+b''.join(struct.pack('>i',x)for x in xs)
+    # Preserve the native group/role/template order and every reserved field.
+    head=struct.pack('>Iii',1,key,group)+ints([part])+ints([])
+    groups=struct.pack('>Iii',1,group,len(roles))+b''.join(struct.pack('>i',r)+ints(ts)for r,ts in sorted(roles.items()))
+    return bytes(4)+head+groups
+
+
 def ticket_information(payload):
     from els_server.domain.wardrobe_extensions import catalog
     from els_server.game_data import client_data
@@ -88,15 +118,15 @@ def ticket_information(payload):
     page,force=struct.unpack('>iB',payload)
     data=catalog();keys=sorted(int(k)for k,v in data['ticket_allowed'].items()if v)
     if not 0<=page<len(keys)or force>1:raise ValueError('Ticket info page')
-    key=str(keys[page]);ticket=data['tickets'][key];allowed=data['ticket_allowed'][key]
-    ints=lambda xs:struct.pack('>I',len(xs))+b''.join(struct.pack('>i',x)for x in xs)
-    # BC8A20/2C233E0: (template, group, position set, reserved set).
-    head=struct.pack('>Iii',1,int(key),ticket['group_id'])+ints([ticket['part']])+ints([])
-    # 2BE9FF0/2BDDB40: group -> map<unit_type, vector<template>>.
-    roles={}
-    for t in allowed:roles.setdefault(client_data().item(t)['record'][0xd2],[]).append(t)
-    groups=struct.pack('>Iii',1,ticket['group_id'],len(roles))+b''.join(struct.pack('>i',r)+ints(ts)for r,ts in sorted(roles.items()))
-    return Event(0x201,kind=0x564,payload=bytes(4)+head+groups+struct.pack('>iBB',page,int(page==len(keys)-1),force))
+    key=str(keys[page]);ticket=data['tickets'][key];allowed=tuple(data['ticket_allowed'][key])
+    client=client_data();manifest=client.manifest
+    if data['client_sha256']!=manifest['client_sha256']:raise ValueError('Wardrobe extension version')
+    # Serialize cold compilation as well as publication of cached bytes. The
+    # page/force flags remain request-local and are never part of shared state.
+    with _ticket_page_lock:
+        parts=_ticket_page_parts(client,manifest['client_sha256'],manifest['catalog_sha256'],int(key),ticket['group_id'],ticket['part'],allowed)
+    return Event(0x201,kind=0x564,payload=parts+struct.pack('>iBB',page,int(page==len(keys)-1),force))
+
 
 def color_notification(action,uid,template,colors,flag=0,previous=0):
     if action not in (0,1,2,3)or len(colors)!=3:raise ValueError('Dye notification')
