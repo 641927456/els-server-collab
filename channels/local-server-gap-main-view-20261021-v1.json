@@ -1008,8 +1008,8 @@
     },
     {
       "path": "els_server/domain/consumables.py",
-      "size": 4309,
-      "sha256": "397cf466d89bb13a31070dff4b1d192cf064d6ac1345c8d33511309b10213290"
+      "size": 4364,
+      "sha256": "1bfc861022377c4677193777a52fb419fa6380d2e35b1ca8d510c16e1a2f740e"
     },
     {
       "path": "els_server/domain/cubes.py",
@@ -3152,6 +3152,11 @@
       "sha256": "a3f86018385f4d236534e208c157a2548a3df1861dccc2e22b64998c5bec2b22"
     },
     {
+      "path": "tools/verify_quest_honey_apple.py",
+      "size": 6018,
+      "sha256": "3d7d8f677b3a9e065606c988ed285a386c38f072fefd4bf76457caf7b76f8d18"
+    },
+    {
       "path": "tools/verify_quest_recovery_potion.py",
       "size": 5419,
       "sha256": "483990bfd5533f5572b78693cfcf936e462bc0c835fb071760bfb5dcab86464e"
@@ -3162,8 +3167,8 @@
       "sha256": "a4e2fd46fe688bbf4157b740765428d750aaad3c667045888b193575114e7a20"
     }
   ],
-  "previous_snapshot": "channels/local-native-reward-consumables-source-v2-20261021.json",
-  "source_commit": "d4d56b746d5d615e0a1d5886170b5bc7e718c6f7",
+  "previous_snapshot": "channels/local-native-reward-consumables-source-v3-20261021.json",
+  "source_commit": "e453d21e6c1d20414cb43f67f6fce71dfb17ed76",
   "contains_accounts_or_saves": false,
   "automatic_deployment": false,
   "client_delta": 0,
@@ -3176,11 +3181,7 @@
   "new_main_only_server_files": [
     "els_server/data/apple_consumables.json",
     "els_server/data/apple_select_native.json",
-    "els_server/data/resonance2026-reset-items.json",
-    "els_server/domain/apple_consumables.py",
-    "els_server/domain/resonance_2026_reset_items.py",
-    "els_server/protocol/resonance_2026_reset.py",
-    "els_server/storage/resonance_2026_resets.py"
+    "els_server/domain/apple_consumables.py"
   ],
   "differences_from_frozen_local": [
     {
@@ -3189,7 +3190,8 @@
       "current_git_sha256": "a71ba683ce98e359dff9854e5158533b7443b421d51956738ef717f285114824",
       "newline_only": false,
       "AST_equal": false,
-      "main_view_preserved": true
+      "main_view_preserved": true,
+      "match_claimed": false
     },
     {
       "path": "els_server/data/select_cubes.json",
@@ -3197,7 +3199,8 @@
       "current_git_sha256": "c52dff6bf418becf024128eadd73c5c923aa22b599e9432a4586207d32494c05",
       "newline_only": false,
       "AST_equal": false,
-      "main_view_preserved": true
+      "main_view_preserved": true,
+      "match_claimed": false
     },
     {
       "path": "els_server/data/select_cubes.manifest.json",
@@ -3205,15 +3208,17 @@
       "current_git_sha256": "637ed7d81e9e7889aedc763f520bc41db309bea126de54acd3a7fc5c2916bc22",
       "newline_only": false,
       "AST_equal": false,
-      "main_view_preserved": true
+      "main_view_preserved": true,
+      "match_claimed": false
     },
     {
       "path": "els_server/domain/consumables.py",
       "frozen_local_sha256": "fd8fc3d996db6aa88f6b03150825d103328c55fee6989156414be6012b67bb30",
-      "current_git_sha256": "397cf466d89bb13a31070dff4b1d192cf064d6ac1345c8d33511309b10213290",
+      "current_git_sha256": "1bfc861022377c4677193777a52fb419fa6380d2e35b1ca8d510c16e1a2f740e",
       "newline_only": false,
       "AST_equal": false,
-      "main_view_preserved": true
+      "main_view_preserved": true,
+      "match_claimed": false
     },
     {
       "path": "els_server/domain/inventory_items.py",
@@ -3221,7 +3226,8 @@
       "current_git_sha256": "91890fd05551444c2e97d438523bb186721e96ee46ae8ea6318985b4a1db7b84",
       "newline_only": false,
       "AST_equal": false,
-      "main_view_preserved": true
+      "main_view_preserved": true,
+      "match_claimed": false
     },
     {
       "path": "els_server/domain/local_session.py",
@@ -3229,7 +3235,8 @@
       "current_git_sha256": "a8c116e48c968312a03067111af044c36b3f7f44d226a47889d39299dab63ac2",
       "newline_only": false,
       "AST_equal": false,
-      "main_view_preserved": true
+      "main_view_preserved": true,
+      "match_claimed": false
     },
     {
       "path": "els_server/domain/resonance_allocation_flow.py",
@@ -3237,7 +3244,8 @@
       "current_git_sha256": "329e4941069b9eba501866924f06ae04eb449233f9404dc600b08533e6824929",
       "newline_only": false,
       "AST_equal": false,
-      "main_view_preserved": true
+      "main_view_preserved": true,
+      "match_claimed": false
     },
     {
       "path": "els_server/domain/select_cubes.py",
@@ -3245,7 +3253,8 @@
       "current_git_sha256": "a2321cfc095bd32c6fbd11896860f9513c41abd98617bbe62381b9a1a52a5ffd",
       "newline_only": false,
       "AST_equal": false,
-      "main_view_preserved": true
+      "main_view_preserved": true,
+      "match_claimed": false
     },
     {
       "path": "els_server/protocol/resonance_2026_request.py",
@@ -3253,7 +3262,8 @@
       "current_git_sha256": "646b581c95fd253de9b0d9c4ecfa624973956d4a8a0463ed653f9c2ff30c862e",
       "newline_only": false,
       "AST_equal": false,
-      "main_view_preserved": true
+      "main_view_preserved": true,
+      "match_claimed": false
     },
     {
       "path": "els_server/storage/consumables.py",
@@ -3261,7 +3271,8 @@
       "current_git_sha256": "d03e254e29027602259c452d348f6d78aae701f5f9581befa23f6015ed027529",
       "newline_only": false,
       "AST_equal": false,
-      "main_view_preserved": true
+      "main_view_preserved": true,
+      "match_claimed": false
     },
     {
       "path": "els_server/storage/pet_support.py",
@@ -3269,7 +3280,8 @@
       "current_git_sha256": "c6482d98c1fbcb0b1b4af1b9b9109c8678866905fc7415ea4e3c03f12ab60770",
       "newline_only": false,
       "AST_equal": false,
-      "main_view_preserved": true
+      "main_view_preserved": true,
+      "match_claimed": false
     }
   ],
   "nonserver_source_rows_updated_to_actual_main": [],
@@ -3310,7 +3322,7 @@
     {
       "path": "els_server/domain/consumables.py",
       "deployed_sha256": "fd8fc3d996db6aa88f6b03150825d103328c55fee6989156414be6012b67bb30",
-      "main_view_sha256": "397cf466d89bb13a31070dff4b1d192cf064d6ac1345c8d33511309b10213290",
+      "main_view_sha256": "1bfc861022377c4677193777a52fb419fa6380d2e35b1ca8d510c16e1a2f740e",
       "newline_only": false,
       "AST_equal": false,
       "main_view_preserved": true,
@@ -3361,5 +3373,14 @@
       "main_view_preserved": true,
       "match_claimed": false
     }
+  ],
+  "original_frozen_main_only_server_files": [
+    "els_server/data/apple_consumables.json",
+    "els_server/data/apple_select_native.json",
+    "els_server/data/resonance2026-reset-items.json",
+    "els_server/domain/apple_consumables.py",
+    "els_server/domain/resonance_2026_reset_items.py",
+    "els_server/protocol/resonance_2026_reset.py",
+    "els_server/storage/resonance_2026_resets.py"
   ]
 }

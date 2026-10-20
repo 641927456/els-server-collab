@@ -58,7 +58,7 @@
       {
         "path": "els_server/domain/consumables.py",
         "deployed_sha256": "fd8fc3d996db6aa88f6b03150825d103328c55fee6989156414be6012b67bb30",
-        "main_view_sha256": "397cf466d89bb13a31070dff4b1d192cf064d6ac1345c8d33511309b10213290",
+        "main_view_sha256": "1bfc861022377c4677193777a52fb419fa6380d2e35b1ca8d510c16e1a2f740e",
         "newline_only": false,
         "AST_equal": false,
         "main_view_preserved": true,
@@ -113,11 +113,7 @@
     "new_main_only_server_files": [
       "els_server/data/apple_consumables.json",
       "els_server/data/apple_select_native.json",
-      "els_server/data/resonance2026-reset-items.json",
-      "els_server/domain/apple_consumables.py",
-      "els_server/domain/resonance_2026_reset_items.py",
-      "els_server/protocol/resonance_2026_reset.py",
-      "els_server/storage/resonance_2026_resets.py"
+      "els_server/domain/apple_consumables.py"
     ],
     "actual_formal_release": "local-server-gap-receipts-20261021-v1",
     "accepted_snapshot": "channels/local-server-gap-receipts-20261021-v1.json",
@@ -127,7 +123,9 @@
     "main_checkout_exact_runtime_match": false,
     "observation_seconds": 124.11648700002115,
     "observation_scope": "static-frozen-snapshot-and-local-state-before-activation",
-    "active_service_or_game_observation": false
+    "active_service_or_game_observation": false,
+    "main_source_view_predecessor_commit": "e453d21e6c1d20414cb43f67f6fce71dfb17ed76",
+    "main_source_view_rows": 632
   },
   "client_delta": 0,
   "schema_delta": 0,
