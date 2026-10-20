@@ -95,7 +95,7 @@ def appearance_item(item,*,native_instance=False):
         reforge_level=item.get('reforge',DEFAULT)[0]
     # D9A9D0 DTO+356 -> 87E060 instance+180 -> 198E220 reforge stats.
     # Public appearance carries the level; inventory-only life/failures stay out.
-    return data+attributes+options+u32(0)+b'\0'+struct.pack('>i',reforge_level)+bytes(4)+b'\xff'+u32(3)+bytes(12)+u32(3)+bytes(12)+bytes(8)
+    return data+attributes+options+u32(0)+b'\0'+struct.pack('>i',reforge_level)+bytes(4)+b'\xff'+struct.pack('>IiiiIiii',3,*item.get('dye_colors',[0,0,0]),3,*item.get('appearance_colors',[0,0,0]))+bytes(8)
 
 
 def town_member(character,location,items=()):

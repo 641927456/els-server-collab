@@ -163,13 +163,16 @@ def initial_part(part=0):
     if type(part) is not int or not 0<=part<128:raise ValueError('Dungeon part')
     return Event(0x201,kind=0xb7,payload=struct.pack('>b',part))
 
-def begin_substage(part=0):
+def begin_substage(part=0,*,npc_entries=()):
     # B511F0 case BD -> state v610 B58B20 -> B7B970 reader:
     # byte, bool, byte, vector<byte>, int. Game v620 F70470 invokes
     # v5D0 F6C8B0, which clears Game+620 and resumes actor updates.
     # Map 30000 does not consume the final timer (only A258/A29E do).
     if type(part) is not int or not 0<=part<128:raise ValueError('Dungeon part')
-    return Event(0x201,kind=0xbd,payload=struct.pack('>b',part)+bytes(2)+u32(0)+i32(-1))
+    # Current 1044D70 passes DTO+3 to 1076D70 / 1AEB4C0.
+    # The existing client fills Game+1060 and translates death IDs itself.
+    from els_server.protocol.npc_uid_map import uid_translation_vector
+    return Event(0x201,kind=0xbd,payload=struct.pack('>b',part)+bytes(2)+uid_translation_vector(npc_entries)+i32(-1))
 
 def end_ack():
     # Updated C504D0 / 2BDE570: i32*3, bool, nested i32*2,

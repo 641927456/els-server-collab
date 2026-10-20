@@ -405,9 +405,15 @@ for _row in resonance_book_definitions():
  TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
  TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
 
+from els_server.domain.wardrobe_extensions import catalog as wardrobe_extensions_catalog
+for _key,_row in wardrobe_extensions_catalog()['consumables'].items():
+ _t=int(_key);_expected=(_row['metadata'],_row['group'],_row['max_stack'])
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting wardrobe source classification')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
 def validate_item(item):
  keys={'uid','template','metadata','count','group','slot'}
- if not isinstance(item,dict) or set(item)-{'attributes','durability','expires_at','enhancement','lock_until','option_groups','identified','enhancement_gauge','enhancement_guarantee','sealed','seal_used','artifact_socket_open','chip_tuning','reforge','appearance_template','wardrobe_hanger'}!=keys or any(type(item[k]) is not int for k in keys):raise ValueError('Invalid inventory item fields')
+ if not isinstance(item,dict) or set(item)-{'attributes','durability','expires_at','enhancement','lock_until','option_groups','identified','enhancement_gauge','enhancement_guarantee','sealed','seal_used','artifact_socket_open','chip_tuning','reforge','appearance_template','wardrobe_hanger','dye_colors','appearance_colors'}!=keys or any(type(item[k]) is not int for k in keys):raise ValueError('Invalid inventory item fields')
  if not 1<=item['uid']<2**63 or item['template'] not in VERIFIED_TEMPLATES or item['metadata']!=VERIFIED_TEMPLATES[item['template']]:raise ValueError('Invalid inventory item identity/template')
  if item['template'] in ADVANCED_TIMED_TEMPLATES and 'expires_at' not in item:raise ValueError('Timed enhancement material requires explicit expiration')
  from els_server.game_data import client_data
@@ -425,6 +431,9 @@ def validate_item(item):
  bag=item['group']==TEMPLATE_BAG_GROUPS[item['template']] and 0<=item['slot']<wire_limit(item['group'])
  if not 1<=item['count']<=TEMPLATE_MAX_STACKS[item['template']] or not (equipped or bag):raise ValueError('Invalid local inventory count/slot')
  result=dict(item)
+ if 'dye_colors'in item or 'appearance_colors'in item:
+  from els_server.domain.wardrobe_extensions import color_state
+  color_state(item)
  if 'appearance_template' in item or 'wardrobe_hanger' in item:
   from els_server.domain.wardrobe import validate_state
   validate_state(item)
@@ -508,6 +517,7 @@ def item_body(item):
   elif off==0x370 and 'lock_until' in item:struct.pack_into('>Q',data,wire,item['lock_until'])
   elif off==0x378:struct.pack_into('>i',data,wire,item.get('appearance_template',0))
   elif off==0x37c:data[wire]=int(item.get('wardrobe_hanger',False))
+  elif off in (0x37d,0x389):struct.pack_into('>Iiii',data,wire,3,*item.get('dye_colors'if off==0x37d else'appearance_colors',[0,0,0]))
  if len(data)!=304:raise ValueError('Native item body bound')
  if 'expires_at' in item:
   from els_server.domain.item_expiration import date_string

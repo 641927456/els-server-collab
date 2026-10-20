@@ -34,7 +34,8 @@ def _known_links(db,uid):
     # item_instances adapter cannot reconstruct. Reject before removing it.
     supported={'equipment_attributes','equipment_durability','equipment_enhancement',
         'item_expiration','item_locks','equipment_options','equipment_identification',
-        'equipment_enhancement_progress','item_seals','artifact_equipment_state'}
+        'equipment_enhancement_progress','item_seals','artifact_equipment_state',
+        'wardrobe_item_state','wardrobe_dyes'}
     quote=lambda s:'"'+s.replace('"','""')+'"'
     for (table,) in db.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall():
         if table in supported:continue

@@ -82,7 +82,7 @@ def handle(s,event):
   reply=[Event(0x201,kind=0xb4,payload=bytes(4)),Event(0x201,kind=0xb5,payload=struct.pack('>iQ',0,s.account.uid))]
   if not s.dungeon_substage_synced:
    from els_server.protocol.dungeon_messages import initial_part,begin_substage
-   reply.extend([Event(0x201,kind=0xb6,payload=bytes(16)),initial_part(run.part),begin_substage(run.part)])
+   reply.extend([Event(0x201,kind=0xb6,payload=bytes(16)),initial_part(run.part),begin_substage(run.part,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))])
    s.dungeon_substage_synced=True;s.gate_stage_loading=False;s.dungeon_clock.resume();run.loaded()
   return reply+periodic(s)
  if event.kind==0xbb:
@@ -110,7 +110,7 @@ def handle(s,event):
    reply.append(run.population_event())
   else:
    from els_server.protocol.dungeon_messages import initial_part,begin_substage
-   reply.extend([initial_part(run.part),begin_substage(run.part)])
+   reply.extend([initial_part(run.part),begin_substage(run.part,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))])
    s.dungeon_clock.resume();run.loaded()
   return reply+periodic(s)
  return None

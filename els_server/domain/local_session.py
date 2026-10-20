@@ -48,6 +48,8 @@ class LocalAccount:
             character['force_slots']=force_slot_snapshot(self.store.path,self.uid)
             from els_server.storage.wardrobe import snapshot as wardrobe_snapshot
             character['wardrobe']=wardrobe_snapshot(self.store.path,self.uid,self.account_id)
+            from els_server.storage.wardrobe import favorite_snapshot
+            character['wardrobe_favorites']=favorite_snapshot(self.store.path,self.uid,self.account_id)
         return character
     def for_character(self,uid):
         if self.characters is None:
@@ -870,7 +872,13 @@ class LocalSession:
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
             try:return sort_category_inventory(self.account.store.path,self.account.uid,event.payload,operation)
             except ValueError:return category_failed()
-        if self.item_test and self.client_build=='dx11_260923' and kind in (0x4af,0x4b1) and event.event_id==0x202:
+        if self.item_test and self.client_build=='dx11_260923' and kind==0x563 and event.event_id==0x202:
+            from els_server.protocol.wardrobe_messages import ticket_information
+            if (self.role!='game' or self.phase not in ('player_initialized','skill_ui_ready','initialization_confirmed','map_loading','square_accepted','town_ready')or event.performers!=(0,)
+                    or event.uid!=0xffffffffffffffff or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):return []
+            try:return [ticket_information(event.payload)]
+            except ValueError:return []
+        if self.item_test and self.client_build=='dx11_260923' and kind in (0x4af,0x4b1,0xbee,0x4f4,0x565,0x6d7,0xad6) and event.event_id==0x202:
             from els_server.protocol.wardrobe_messages import acknowledgement
             from els_server.storage.wardrobe import change
             from els_server.domain.tutorial_accessory import wear_context,validate_wear_context
@@ -884,7 +892,7 @@ class LocalSession:
                 captured=wear_context(self)
                 answer=change(self.account.store.path,self.account.uid,self.account.account_id,kind,event.payload,operation,
                     validate=lambda:validate_wear_context(self,captured))
-                return [answer]
+                return answer if isinstance(answer,list)else[answer]
             except ValueError:return failed
         if self.item_test and self.client_build=='dx11_260923' and kind in (0xbd6,0x663) and event.event_id==0x202:
             from els_server.protocol.inventory_management_messages import sort_ack,lock_ack
@@ -1152,7 +1160,11 @@ class LocalSession:
                     # HP aggregate while native equipment/passive code stays intact.
                     from els_server.domain.character_stats import combat_values
                     initial_health_max=math.ceil(combat_values(character,saved['items'] if saved else None)[0])
-                answer=[player_initialization(self.account.get_location(),initialize_attributes=self.enter_dungeon,economy=saved['balances'] if saved else self.account.get_reward_balances() if self.reward_test else None,items=saved['items'] if saved else None,character=self.account.character(),restore_equipped=self.enter_dungeon),skill_slots_initialization(self.account.get_skills(),self.account.uid,self.account.character()),quest_initialization(self)]+optional_player_initializations(initialize_health=self.enter_dungeon,uid=self.account.uid,health_max=initial_health_max,luciel_active=(character.get('luciel_active_unit',0) if character['unit_type']==10 else 0),wardrobe=character.get('wardrobe',{}))+[Event(0x201,kind=0x29,payload=i32(0))]
+                answer=[player_initialization(self.account.get_location(),initialize_attributes=self.enter_dungeon,economy=saved['balances'] if saved else self.account.get_reward_balances() if self.reward_test else None,items=saved['items'] if saved else None,character=self.account.character(),restore_equipped=self.enter_dungeon),skill_slots_initialization(self.account.get_skills(),self.account.uid,self.account.character()),quest_initialization(self)]+optional_player_initializations(initialize_health=self.enter_dungeon,uid=self.account.uid,health_max=initial_health_max,luciel_active=(character.get('luciel_active_unit',0) if character['unit_type']==10 else 0),wardrobe=character.get('wardrobe',{}),wardrobe_favorites=character.get('wardrobe_favorites',()))+[Event(0x201,kind=0x29,payload=i32(0))]
+                if self.item_test and self.client_build=='dx11_260923':
+                    from els_server.storage.wardrobe import color_initializations,point_initialization
+                    answer+=color_initializations(self.account.store.path,self.account.uid,self.account.account_id)
+                    answer.append(point_initialization(self.account.store.path,self.account.uid,self.account.account_id))
                 if self.item_test and self.client_build=='dx11_260923':
                     from els_server.storage.quick_slots import initialization
                     answer.insert(1,initialization(self.account.store.path,self.account.uid))
@@ -1286,7 +1298,11 @@ class LocalSession:
                 # All three notifications are once-only for this first substage.
                 reply.append(Event(0x201,kind=0xb6,payload=bytes(16)))
                 reply.append(dungeon_messages.initial_part())
-                reply.append(dungeon_messages.begin_substage())
+                npc_entries=()
+                if self.client_build=='dx11_260923' and self.population_test:
+                    from els_server.domain.dungeon_population import population
+                    npc_entries=tuple((n['key'],n['template']) for n in population(self.gate_stage)['npcs'])
+                reply.append(dungeon_messages.begin_substage(npc_entries=npc_entries))
                 self.dungeon_substage_synced=True
                 self.dungeon_clock.resume()
                 self.gate_stage_loading=False
