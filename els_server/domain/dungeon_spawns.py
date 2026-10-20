@@ -97,7 +97,12 @@ def handle(s,event,sequence):
   wires.append(wire);initial.append(struct.pack('>i',key)+init)
  # C50040: NPC vector, four-byte flags map, scalar, byte vector,
  # 2BDD300 -> 2C19E70's instance initialization map, then two maps.
- packet=Event(0x201,kind=0x2d0,payload=struct.pack('>I',len(rows))+b''.join(wires)+bytes(12)+struct.pack('>I',len(initial))+b''.join(initial)+bytes(8))
+ # Current original 1AADAA0 -> C50040 -> 1AEB790 consumes this byte
+ # vector before native death lookup. Keep flags/scalar and init maps;
+ # reuse the installed BD encoder, without client or combat changes.
+ from els_server.protocol.npc_uid_map import uid_translation_vector
+ uid_map=uid_translation_vector((e['key'],e['template']) for e in entries)
+ packet=Event(0x201,kind=0x2d0,payload=struct.pack('>I',len(rows))+b''.join(wires)+bytes(8)+uid_map+struct.pack('>I',len(initial))+b''.join(initial)+bytes(8))
  # All decoding, bounds and serialization finish before changing the run.
  run.current['npcs'].extend(entries);run.dynamic_requests[sequence]=digest
  return [summon_ack(),packet]
