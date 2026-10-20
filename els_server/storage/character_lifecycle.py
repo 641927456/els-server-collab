@@ -14,9 +14,18 @@ class LifecycleError(ValueError):
 def exists(db):return db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_lifecycle'").fetchone() is not None
 def initialize(db):
     db.execute('CREATE TABLE IF NOT EXISTS character_lifecycle (uid INTEGER PRIMARY KEY REFERENCES characters(uid), account_id INTEGER NOT NULL, created_at INTEGER NOT NULL CHECK(created_at>=0), requested_at INTEGER NOT NULL DEFAULT 0, finalize_at INTEGER NOT NULL DEFAULT 0, restore_at INTEGER NOT NULL DEFAULT 0, cooldown_until INTEGER NOT NULL DEFAULT 0, finalized_at INTEGER NOT NULL DEFAULT 0)')
-def states(db):
+def states(db,uids=None):
     if not exists(db):return {}
-    return {r[0]:dict(zip(('uid','account_id','created_at','requested_at','finalize_at','restore_at','cooldown_until','finalized_at'),r)) for r in db.execute('SELECT * FROM character_lifecycle')}
+    query='SELECT * FROM character_lifecycle'
+    if uids is None:
+        rows=db.execute(query)
+    else:
+        # Keep each statement below SQLite's legacy 999-variable limit.
+        uids=tuple(dict.fromkeys(uids));rows=[]
+        for start in range(0,len(uids),900):
+            batch=uids[start:start+900]
+            rows.extend(db.execute(query+' WHERE uid IN ('+','.join('?' for _ in batch)+')',batch))
+    return {r[0]:dict(zip(('uid','account_id','created_at','requested_at','finalize_at','restore_at','cooldown_until','finalized_at'),r)) for r in rows}
 def visible_ids(db,account_id):
     rows=db.execute('SELECT uid FROM character_owners WHERE account_id=? ORDER BY uid',(account_id,)).fetchall();saved=states(db)
     return tuple(r[0] for r in rows if not saved.get(r[0],{}).get('finalized_at'))
@@ -28,7 +37,7 @@ def check_creation(db,account_id,now):
 def created(db,uid,account_id,now):
     initialize(db);db.execute('INSERT INTO character_lifecycle(uid,account_id,created_at) VALUES (?,?,?)',(uid,account_id,now))
 def decorate(db,roles):
-    saved=states(db);out=[]
+    roles=tuple(roles);saved=states(db,(c['uid'] for c in roles));out=[]
     for c in roles:
         s=saved.get(c['uid'],{})
         if s.get('finalized_at'):continue

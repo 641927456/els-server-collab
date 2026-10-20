@@ -24,12 +24,64 @@ def inventory_definitions():
     if hashlib.sha256(raw).hexdigest()!=policy()['inventory_sha256']:raise ValueError('Craft inventory identity')
     d=json.loads(raw)
     if d['client_sha256']!=client_data().manifest['client_sha256']:raise ValueError('Craft client mismatch')
-    result={}
-    for row in d['rows']:
-        item=client_data().item(row['template'])
-        if hashlib.sha256(item['record']).hexdigest()!=row['record_sha256']:raise ValueError('Craft item changed')
-        result[row['template']]=row
+    # Verify the same records in original row order using one immutable
+    # catalog connection. Bound each IN query; do not populate the item LRU
+    # with tens of thousands of rows used only for their record proof.
+    from itertools import islice
+    data=client_data();rows=iter(d['rows']);result={}
+    with data.connect() as db:
+        while chunk:=list(islice(rows,256)):
+            ids=[]
+            for row in chunk:
+                # Malformed fields still fail at their original ordered
+                # validation below, rather than masking an earlier bad SHA.
+                try:template=row['template']
+                except (KeyError,TypeError):continue
+                if type(template) is int and -2**63<=template<2**63:ids.append(template)
+            records={i:(record,stats,bonus) for i,record,stats,bonus in db.execute('SELECT id,record,stats,stat_bonus FROM items WHERE id IN ('+
+                ','.join('?' for _ in ids)+')',ids)} if ids else {}
+            for row in chunk:
+                template=row['template']
+                if type(template) is int and -2**63<=template<2**63:
+                    if template not in records:raise ValueError(f'Unknown client item: {template}')
+                    record,stats,bonus=records[template]
+                    struct.unpack('<7f',stats);tuple(bonus)
+                else:
+                    # Preserve SQLite coercion and errors for legacy malformed
+                    # keys; normal admitted rows use the bounded batch above.
+                    record=data.item(template)['record']
+                if hashlib.sha256(record).hexdigest()!=row['record_sha256']:raise ValueError('Craft item changed')
+                result[template]=row
     return result
+
+def inventory_fashion_records():
+    """Transient static rows for startup classification, never player items."""
+    from itertools import islice
+    definitions=inventory_definitions()
+    rows=iter(row for row in definitions.values() if row['group'] in (7,27))
+    result={}
+    with client_data().connect() as db:
+        while chunk:=list(islice(rows,256)):
+            ids=[row['template'] for row in chunk]
+            records={i:(record,position,stats,bonus) for i,record,position,stats,bonus in db.execute(
+                'SELECT id,record,equip_position,stats,stat_bonus FROM items WHERE id IN ('+
+                ','.join('?' for _ in ids)+')',ids)}
+            for row in chunk:
+                template=row['template']
+                if template not in records:raise ValueError(f'Unknown client item: {template}')
+                record,position,stats,bonus=records[template]
+                if hashlib.sha256(record).hexdigest()!=row['record_sha256']:raise ValueError('Craft item changed')
+                result[template]=(record,position,stats,bonus)
+    return result
+
+
+def inventory_fashion_position(row):
+    # Match data.item decoding at the original inventory-loop position.
+    # Do not predecode later records before earlier classification failures.
+    record,position,stats,bonus=row
+    struct.unpack('<7f',stats);tuple(bonus)
+    return position
+
 
 @functools.lru_cache(maxsize=1)
 def native_socket_data():
