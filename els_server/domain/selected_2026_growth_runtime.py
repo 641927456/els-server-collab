@@ -81,6 +81,8 @@ class SelectedGrowth(SelectedAttendanceOnline):
         register_title_rewards()
         from els_server.domain.boosting_2026_force_extraction import register as register_extraction
         register_extraction()
+        from els_server.domain.boosting_2026_accessories import register as register_accessories
+        register_accessories()
         self.growth_catalog.register_inventory()
         from els_server.domain.boosting_2026_reward_items import register_verified
         from els_server.domain.boosting_2026_chain_items import register_verified as register_chain

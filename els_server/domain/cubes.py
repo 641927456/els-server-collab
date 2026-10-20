@@ -40,4 +40,8 @@ def catalog():
     if title is not None:
         if title['template'] in result:raise ValueError('Duplicate selected title support box')
         result[title['template']]=title
+    from els_server.domain.boosting_2026_accessories import entries as accessory_entries
+    for box in accessory_entries():
+        if box['template'] in result:raise ValueError('Duplicate selected accessory box')
+        result[box['template']]=box
     return MappingProxyType(result)
