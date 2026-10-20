@@ -831,6 +831,9 @@ class LocalSession:
                 if kind==0xea:return purchase(self.account.store.path,self.account.uid,self.account.get_location()['map'],event.payload,operation)
                 return repurchase(self.account.store.path,self.account.uid,event.payload,operation,self.npc_history_id,self.account.get_location()['map'])
             except ValueError:return trade_failed()
+        from els_server.domain.purifier_exchange_flow import handle as purifier_exchange_handle
+        purifier_exchange_reply=purifier_exchange_handle(self,event,request_sequence)
+        if purifier_exchange_reply is not None:return purifier_exchange_reply
         from els_server.domain.ep_conversion_flow import handle as ep_conversion_handle
         ep_conversion_reply=ep_conversion_handle(self,event,request_sequence)
         if ep_conversion_reply is not None:return ep_conversion_reply

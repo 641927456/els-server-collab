@@ -1,4 +1,4 @@
-"""Deterministic red-column swap; one single-count plain transfer ticket."""
+"""Deterministic red-column swap; one unambiguous plain or Luriel count1 ticket."""
 import sqlite3
 from contextlib import closing
 from pathlib import Path
@@ -26,15 +26,14 @@ def perform(path,owner,payload,operation,encode=acknowledgement):
         for item in (left,right):
             require_current(item);require_unlocked(item)
         updated_left,updated_right=exchange(left,right,group,index)
-        # Two variant tickets are both valid in the native table, but their
-        # consumption priority is not proven. Do not guess when both exist.
+        # Both original red variants are valid. Require a single overall
+        # instance before count filtering, so neither variant nor UID priority
+        # is guessed when the native selection would be ambiguous.
         eligible=[i for i in before if i['template'] in (136058,136080)]
-        if any(i['template']==136080 for i in eligible):raise ValueError('Luriel red ticket priority is outside this subset')
-        eligible=[i for i in eligible if i['template']==136058]
         if len(eligible)!=1 or (eligible[0]['group'],eligible[0]['metadata'],eligible[0]['count'])!=(4,0,1):
-            raise ValueError('Exactly one owned single-count plain red transfer ticket required')
+            raise ValueError('Exactly one owned single-count red transfer ticket required')
         ticket=eligible[0];require_current(ticket);require_unlocked(ticket)
-        if ticket.get('sealed') or ticket.get('identified') is False:raise ValueError('Current ordinary unsealed red ticket required')
+        if ticket.get('sealed') or ticket.get('identified') is False:raise ValueError('Current unsealed red ticket required')
         replace(db,owner,left_uid,left.get('option_groups',{}),updated_left)
         replace(db,owner,right_uid,right.get('option_groups',{}),updated_right)
         remove(db,owner,ticket)
