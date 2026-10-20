@@ -68,7 +68,7 @@ def response_changes(items,positions,uid):
         if i['uid']==uid and pos not in positions:positions.append(pos)
     return [(p,current.get(p)) for p in positions]
 
-def perform(path,owner,payload,operation,*,install,randbelow=secrets.randbelow,encode=None):
+def perform(path,owner,payload,operation,*,install,account_id=None,randbelow=secrets.randbelow,encode=None):
     if type(install) is not bool:raise ValueError('Chip operation kind')
     uid,source=installation(payload) if install else (tuning(payload),None)
     kind=0x6e7 if install else 0xbb8;owner,digest=_identity(owner,kind,payload,operation)
@@ -76,6 +76,9 @@ def perform(path,owner,payload,operation,*,install,randbelow=secrets.randbelow,e
     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10)) as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
         if not db.execute('SELECT 1 FROM characters WHERE uid=?',(owner,)).fetchone():raise ValueError('Unknown chip owner')
+        if account_id is not None:
+            from els_server.storage.profession_state import require_owner
+            require_owner(db,owner,account_id)
         old=_previous(db,operation,digest);before=load_items(db,owner);balance=balances(db,owner)
         if old is not None:
             kwargs={} if install else dict(success=receipt_success(db,operation,uid))
