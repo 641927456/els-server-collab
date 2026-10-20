@@ -31,3 +31,7 @@ def tuning_ack(uid=0,ed=0,changes=(),result=0,success=False):
     bounds(uid,ed,result)
     if type(success) is not bool:raise ValueError('Chip tuning success flag')
     return Event(0x201,kind=0xbb9,payload=struct.pack('>iBQ',result,int(success),ed)+changes_wire(changes))
+
+def reset_unavailable_ack():
+    """Decoded BBC/BBD error only; no reset result, fee or quota is inferred."""
+    return Event(0x201,kind=0xbbd,payload=struct.pack('>iI',2005,0))

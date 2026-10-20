@@ -1,8 +1,12 @@
 """Authenticated finite chip installation/tuning, before generic socket dispatch."""
 import struct
-from els_server.protocol.equipment_chip_messages import installation,tuning,install_ack,tuning_ack
+from els_server.protocol.equipment_chip_messages import installation,tuning,install_ack,tuning_ack,reset_unavailable_ack
 
 def handle(s,event,sequence):
+    # The decoded reset request has an outstanding native BBD wait. Keep the
+    # unqualified reset transaction closed, but return its real failure shape.
+    if event.event_id==0x202 and event.kind==0xbbc and s.client_build=='dx11_260923':
+        return [reset_unavailable_ack()]
     if event.event_id!=0x202 or not s.item_test or s.client_build!='dx11_260923':return None
     is_install=event.kind==0x6e7 and isinstance(event.payload,bytes) and len(event.payload)>=6 and struct.unpack_from('>i',event.payload,len(event.payload)-5)[0]==15
     if not is_install and event.kind!=0xbb8:return None
