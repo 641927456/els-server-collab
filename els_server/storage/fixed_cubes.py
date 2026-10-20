@@ -25,6 +25,14 @@ def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.r
     if expected_template in force_boxes():
         from els_server.storage.boosting_2026_force_rewards import open_box
         return open_box(path,owner,expected_template,payload,operation)
+    from els_server.domain.boosting_2026_participation_gear import BOX,enabled as gear_enabled
+    if expected_template==BOX and gear_enabled():
+        from els_server.storage.boosting_2026_participation_gear import open_gear
+        return open_gear(path,owner,payload,operation)
+    from els_server.domain.boosting_2026_fashion_rewards import BOXES,entries as fashion_entries
+    if expected_template in BOXES and fashion_entries():
+        from els_server.storage.boosting_2026_fashion_rewards import open_fashion
+        return open_fashion(path,owner,expected_template,payload,operation)
     request=use_request(payload)
     if (request.option!=0 or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))
         or expected_template not in catalog()):raise ValueError('Unsupported fixed cube use')

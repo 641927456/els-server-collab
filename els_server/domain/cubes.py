@@ -24,4 +24,10 @@ def catalog():
     for box in force_entries():
         if box['template'] in result:raise ValueError('Duplicate selected force box')
         result[box['template']]=box
+    from els_server.domain.boosting_2026_participation_gear import entry as gear_entry
+    from els_server.domain.boosting_2026_fashion_rewards import entries as fashion_entries
+    gear=gear_entry()
+    for box in ((gear,) if gear is not None else ()) + tuple(fashion_entries()):
+        if box['template'] in result:raise ValueError('Duplicate original growth gear box')
+        result[box['template']]=box
     return MappingProxyType(result)

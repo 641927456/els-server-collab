@@ -41,7 +41,6 @@ def enable(raw):
         raise ValueError('Fixed item library changed')
     bundles={};policies={}
     for row in data['bundles']:
-        if row['template']!=723635:continue  # Independent owned-consumable use only.
         for item in (row,*row['entries']):
             actual=client.item(item['template'])
             if (actual['name']!=item['name'] or actual['metadata']!=item['metadata']
@@ -53,7 +52,7 @@ def enable(raw):
             policies[item['template']]=policy
         outputs=tuple(Output(**{k:r[k] for k in Output.__dataclass_fields__}) for r in row['entries'])
         bundles[row['template']]=PublishedBundle(row['template'],row['metadata'],row['group'],row['max_stack'],outputs)
-    if set(bundles)!={723635}:raise ValueError('Selected bundle scope changed')
+    if set(bundles)!={723612,723635}:raise ValueError('Selected bundle scope changed')
     if _enabled:
         if dict(_enabled)!=bundles:raise ValueError('Cannot replace active bundle contents')
         return _enabled
