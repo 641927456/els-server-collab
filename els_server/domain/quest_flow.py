@@ -92,8 +92,8 @@ def observe(s,replies=()):
         # 228 follows successful scene parsing and committed saved location;
         # neither map selection nor a rejected request supplies this witness.
         from els_server.domain.tutorial_quests import restore_initialization
-        event,starter_restored=restore_initialization(store(s))
-        if starter_restored:notices.append(event)
+        events,starter_restored=restore_initialization(store(s),live=True)
+        if starter_restored:notices.extend(events)
     # Recover the earlier snapshot-only28060 notification on validated scene
     # arrival. This reuses original F0/F3; it does not send F4 or alter SQL.
     arrived=(s.phase=='town_ready' and any(e.kind==0x228 and e.payload==bytes(4) for e in replies))
