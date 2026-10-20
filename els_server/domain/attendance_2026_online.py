@@ -5,6 +5,7 @@ policy still needs confirmation; construction is explicit and defaults off.
 """
 import math
 import sqlite3
+import logging
 import time
 import uuid
 from contextlib import closing
@@ -23,6 +24,12 @@ class AttendanceOnlineClock:
     def observe(self, session, *, stop=False):
         if self.closed:return
         try:return self._observe(session,stop=stop)
+        except sqlite3.OperationalError as error:
+            code=getattr(error,'sqlite_errorcode',None)
+            if stop or type(code) is not int or code & 255 not in (sqlite3.SQLITE_BUSY,sqlite3.SQLITE_LOCKED):raise
+            # Keep the original anchor/cursor. The next observation retries
+            # committed interval unions, never inventing or duplicating time.
+            logging.getLogger(__name__).warning('Attendance online persistence deferred: SQLite code=%s',code,exc_info=True)
         finally:
             if stop:
                 self.closed=True;self.identity=None

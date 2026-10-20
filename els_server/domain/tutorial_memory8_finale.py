@@ -8,6 +8,8 @@ FIND={'m_iID':28560,'m_eClearType':27,'m_bAutomaticDescription':0,
       'm_ClearCondition':{'m_eDungeonID':{'0':None,'1':35320,'2':35321,'3':35322},'m_eFindNPCID':{'0':None,'1':9431}}}
 RECEIPTS={qid:{'m_iID':qid,'m_eClearType':80,'m_bAutomaticDescription':0,
               'm_ClearCondition':{'m_iClearCount':1,'m_eQuestID':{'0':None,'1':qid-10}}} for qid in (28570,28580)}
+# Exact current FieldSubQuest28750: source region26650 reward receipt.
+RECEIPTS[28750]={'m_iID': 28750, 'm_eClearType': 80, 'm_bAutomaticDescription': 0, 'm_ClearCondition': {'m_iClearCount': 1, 'm_eQuestID': {'0': None, '1': 26650}}}
 
 def target(sub):
     if sub!=FIND and sub not in RECEIPTS.values():raise ValueError('Unsupported finale objective')
@@ -15,7 +17,8 @@ def target(sub):
 
 def receipt_progress(sub,completed):
     if sub not in RECEIPTS.values():raise ValueError('Unsupported finale completion receipt')
-    return int(sub['m_iID']-10 in completed)
+    identity=26650 if sub['m_iID']==28750 else sub['m_iID']-10
+    return int(identity in completed)
 
 @functools.lru_cache(maxsize=1)
 def sources():

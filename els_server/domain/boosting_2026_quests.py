@@ -4,6 +4,9 @@ This does not implement the unresolved8173 join. The schedule predicate and
 clock are server-owned injection, never values from a client packet.
 """
 from contextlib import closing
+from functools import wraps
+import logging
+from pathlib import Path
 import hashlib,json,sqlite3,struct
 from els_server.protocol import quest_messages as ordinary
 from els_server.protocol import boosting_2026_quest as wire
@@ -15,6 +18,25 @@ from els_server.storage.seal_quests import load_character,current_slots
 from els_server.storage.reward_state import validate_balances
 from els_server.domain.seal_quests import require_eligible
 from els_server.domain.boosting_2026 import BoostingDefinition
+
+
+def defer_automatic_lock(empty):
+    """Only automatic work can wait for a later normal finalize/reconnect.
+
+    Never applied to run admission, claims, or explicit task acceptance.
+    Rollback/close has completed before the exception reaches this boundary.
+    """
+    def decorate(method):
+        @wraps(method)
+        def call(*args,**kwargs):
+            try:return method(*args,**kwargs)
+            except sqlite3.OperationalError as error:
+                code=getattr(error,'sqlite_errorcode',None)
+                if type(code) is not int or code & 255 not in (sqlite3.SQLITE_BUSY,sqlite3.SQLITE_LOCKED):raise
+                logging.getLogger(__name__).warning('Deferred automatic growth %s after SQLite lock code=%s',method.__name__,code,exc_info=True)
+                return empty()
+        return call
+    return decorate
 
 
 class BoostingQuestBinding:
@@ -36,6 +58,60 @@ class BoostingQuestBinding:
         t=self._store(db);level=t.participation._owner_level(s.account.account_id,s.account.uid)
         bound=t.participation._read(s.account.account_id)
         return level==99 and bound is not None and bound.character_uid==s.account.uid
+
+    def _read_participant(self,s):
+        """Read-only exclusion before acquiring any automatic growth writer.
+
+        A positive preview never authorizes mutation: each existing write
+        transaction still rechecks ownership, level and the saved binding.
+        Do not cache a negative preview across a normal join or character swap.
+        """
+        path=Path(s.account.store.path).resolve()
+        with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True,timeout=10)) as db:
+            db.execute('BEGIN')
+            return self._participant(db,s)
+
+    def _automatic_work(self,s,kind):
+        """A read preview can exclude work; positive results never authorize it."""
+        path=Path(s.account.store.path).resolve()
+        with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True,timeout=10)) as db:
+            db.execute('BEGIN')
+            if not self._participant(db,s):return False
+            t=self._store(db);account=s.account.account_id;uid=s.account.uid
+            active=t.snapshot(account=account,character=uid)
+            if kind=='enroll':
+                if active is not None:return False
+                return self.definition.next_task(level=99,character_uid=uid,bound_character_uid=uid,
+                    completed=t._completed(account,uid)) is not None
+            if kind=='recover':
+                if active is None:return False
+                task=self.definition.task(active['id'])
+                if task.condition_kind!=8 or active['count']==task.required_count:return False
+                return db.execute('''SELECT 1 FROM boosting2026_task_runs r JOIN reward_receipts p ON p.run_id=r.run
+                    WHERE r.account=? AND r.character=? AND r.quest=? AND r.accepted_at=?
+                    AND r.consumed_proof IS NULL LIMIT 1''',(account,uid,active['id'],active['accepted_at'])).fetchone() is not None
+            if kind=='receipts':
+                return db.execute('''SELECT 1 FROM boosting2026_task_runs r JOIN reward_receipts p ON p.run_id=r.run
+                    WHERE r.account=? AND r.character=? AND r.consumed_proof IS NULL LIMIT 1''',(account,uid)).fetchone() is not None
+            if kind=='region':
+                from els_server.domain.boosting_2026_region_entries import ENTRIES
+                from els_server.domain.region_quests import region_catalog
+                from els_server.storage.seal_quests import completed_ids
+                if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_quests'").fetchone():return True
+                done=completed_ids(db,uid)
+                current={q for q, in db.execute('SELECT quest FROM character_quests WHERE owner=?',(uid,))}
+                if len(current)>=30:return False
+                pending=[q for q in ENTRIES if q not in current and q not in done]
+                if not pending:return False
+                character=load_character(db,uid,account);items=load_items(db,uid);catalog=region_catalog()
+                for qid in pending:
+                    q=catalog.data['quests'][str(qid)]['definition']
+                    if q['m_eQuestType']!=5 or q['m_bRepeat'] or q['m_bIsTimeEvent']:raise ValueError('Region entry source changed')
+                    try:require_eligible(character,q,done,items,location=('town',s.account.get_location()['map']))
+                    except ValueError:continue
+                    return True
+                return False
+            raise ValueError('Unknown automatic growth work')
 
     def _view(self,db,s):
         if not self._participant(db,s):return None,[]
@@ -102,10 +178,12 @@ class BoostingQuestBinding:
         # That lifecycle has its own dispatcher; do not disrupt it or attach
         # this solo bridge retrospectively to a different reward identity.
         if run.run_id!=s.reward_run_id:return
+        if not self._read_participant(s):return
         with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
             db.execute('BEGIN IMMEDIATE')
             if self._participant(db,s):self._store(db).admit_run(account=s.account.account_id,character=s.account.uid,run_id=run.run_id,dungeon=run.identity)
 
+    @defer_automatic_lock(list)
     def observe_clear(self,s):
         run=s.dungeon_run
         if run is None or not s.reward_test or not s.clear_notified or s.reward_receipt is None:return []
@@ -116,6 +194,19 @@ class BoostingQuestBinding:
         for key,value in sorted(run.defeated.items()):deaths.update(struct.pack('>iI',key,len(value))+value)
         proof=(b'local-static-clear-v2'+struct.pack('>Qiii',s.account.uid,run.identity,run.stage,run.part)
                +bytes.fromhex(run.graph['source_sha256'])+deaths.digest())
+        if not self._read_participant(s):return []
+        # A repeated clear still validates its durable proof, but a consumed
+        # record needs no writer. Missing admission never gets created here.
+        path=Path(s.account.store.path).resolve()
+        with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True,timeout=10)) as db:
+            db.execute('BEGIN')
+            if not self._participant(db,s):return []
+            saved=db.execute('SELECT consumed_proof FROM boosting2026_task_runs WHERE run=?',(run.run_id,)).fetchone()
+            if saved is None:return []
+            if saved[0] is not None:
+                row=self._store(db).observe_clear(account=s.account.account_id,character=s.account.uid,run_id=run.run_id,proof=proof)
+                if row is not None:raise ValueError('Consumed growth run changed on read')
+                return []
         with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
             db.execute('BEGIN IMMEDIATE')
             if not self._participant(db,s):return []
@@ -126,14 +217,17 @@ class BoostingQuestBinding:
             messages=[wire.progress(self.definition,row,owner_uid=s.account.uid)] if row else []
         return messages
 
+    @defer_automatic_lock(list)
     def recover_committed(self,s):
         """Restore only admitted authoritative receipts, independent of live run memory."""
+        if not self._automatic_work(s,'receipts'):return []
         with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
             db.execute('BEGIN IMMEDIATE')
             if not self._participant(db,s):return []
             rows=self._store(db).recover_committed(account=s.account.account_id,character=s.account.uid)
             return [wire.progress(self.definition,rows[-1],owner_uid=s.account.uid)] if rows else []
 
+    @defer_automatic_lock(lambda:None)
     def _enroll_next(self,s):
         """Server event activation, not a client-selected or retroactive clear.
 
@@ -144,6 +238,7 @@ class BoostingQuestBinding:
         if s.phase!='town_ready':return None
         now=self.clock()
         if not self.campaign_open(s,now):return None
+        if not self._automatic_work(s,'enroll'):return None
         with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
             db.execute('BEGIN IMMEDIATE')
             if not self._participant(db,s):return None
@@ -164,6 +259,7 @@ class BoostingQuestBinding:
             encode_event(message) # No persisted task if its original message cannot encode.
         return message
 
+    @defer_automatic_lock(list)
     def _resume_region_entries(self,s,replies):
         """Scoped compatibility scheduling for this selected growth participant.
 
@@ -179,6 +275,7 @@ class BoostingQuestBinding:
         if getattr(self,'_region_entry_owner',None)==owner and not refresh:return []
         from els_server.domain.boosting_2026_region_entries import resume
         from els_server.protocol.protocol_codec import encode_event
+        if not self._automatic_work(s,'region'):return []
         with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
             db.execute('BEGIN IMMEDIATE')
             if not self._participant(db,s):return []

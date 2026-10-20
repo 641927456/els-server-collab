@@ -261,7 +261,9 @@ class FriendsDungeons:
         # master alone changes the shared source cursor.
         if s is not r.leader:
             run=s.dungeon_run
-            valid=run is not None and event.payload==struct.pack('>b',run.part) and all(n['key'] in run.defeated for n in run.current['npcs'] if n['active'])
+            valid=(run is not None and s.dungeon_substage_synced and not s.clear_notified
+                   and event.payload==struct.pack('>b',run.part)
+                   and all(n['key'] in run.defeated for n in run.current['npcs'] if n['active'] and n.get('team',1)!=0))
             return [Event(0x201,kind=0xb9,payload=i32(0 if valid else -1))]
         result=LocalSession.handle(s,event)
         if result and result[0].payload==bytes(4):

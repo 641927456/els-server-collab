@@ -6,6 +6,7 @@ turn process downtime into online time. This module sends no client packets.
 """
 import math
 import sqlite3
+import logging
 import time
 import uuid
 from contextlib import closing
@@ -30,6 +31,12 @@ class OnlineTitleClock:
             return
         try:
             self._observe(session, stop=stop)
+        except sqlite3.OperationalError as error:
+            code=getattr(error,'sqlite_errorcode',None)
+            if stop or type(code) is not int or code & 255 not in (sqlite3.SQLITE_BUSY,sqlite3.SQLITE_LOCKED):raise
+            # _persist is atomic and the cursor advances only after commit.
+            # Retain that observed interval for the next ordinary observation.
+            logging.getLogger(__name__).warning('Online title persistence deferred: SQLite code=%s',code,exc_info=True)
         finally:
             if stop:
                 # Even a failed final flush may not accrue post-disconnect time.

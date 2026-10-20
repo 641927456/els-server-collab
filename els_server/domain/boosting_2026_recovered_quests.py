@@ -1,7 +1,7 @@
 """Cold-clear recovery extension of the sealed local session binding."""
 from contextlib import closing
 import sqlite3,struct
-from els_server.domain.boosting_2026_quests import BoostingQuestBinding
+from els_server.domain.boosting_2026_quests import BoostingQuestBinding,defer_automatic_lock
 from els_server.storage.boosting_2026_recovery import RecoverableRewards
 from els_server.protocol import boosting_2026_quest as wire
 from els_server.protocol import quest_messages as ordinary
@@ -10,7 +10,9 @@ from els_server.protocol import quest_messages as ordinary
 class RecoveringBoostingQuestBinding(BoostingQuestBinding):
     def _store(self,db):return RecoverableRewards(db,self.original)
 
+    @defer_automatic_lock(lambda:None)
     def _recover(self,s):
+        if not self._automatic_work(s,'recover'):return None
         with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
             db.execute('BEGIN IMMEDIATE')
             if not self._participant(db,s):return None
