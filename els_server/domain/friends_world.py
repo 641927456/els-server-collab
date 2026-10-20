@@ -14,14 +14,16 @@ class Mailbox:
 
     def append(self,message,move_uid=None):
         size=len(message.payload)
-        if move_uid is not None:
-            old=self.moves.get(move_uid)
-            if old is not None:self.bytes-=len(old.payload)
-            self.moves[move_uid]=message
-        else:self.messages.append(message)
-        self.bytes+=size
-        if len(self.messages)+len(self.moves)>256 or self.bytes>256*1024:
+        old=self.moves.get(move_uid) if move_uid is not None else None
+        count=len(self.messages)+len(self.moves)+(0 if old is not None else 1)
+        total=self.bytes+size-(len(old.payload) if old is not None else 0)
+        # Admission is atomic: a failed replacement retains the original move
+        # object, queue order and byte accounting for the teardown path.
+        if count>256 or total>256*1024:
             raise SessionOrderError('Social consumer is too slow')
+        if move_uid is not None:self.moves[move_uid]=message
+        else:self.messages.append(message)
+        self.bytes=total
 
     def drain(self):
         values=list(self.messages)+list(self.moves.values())
@@ -177,7 +179,7 @@ class FriendsWorld:
     def room(self,session):return self.towns.get(self.members.get(session),{})
 
     def send(self,session,message,move_uid=None):
-        if session.released:return
+        if session.released or getattr(session,'social_overflow',False):return
         try:session.mailbox.append(message,move_uid)
         except SessionOrderError:session.social_overflow=True
 
