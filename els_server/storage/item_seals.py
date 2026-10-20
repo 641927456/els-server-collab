@@ -65,8 +65,11 @@ def change_seal(path, owner, payload, operation, *, sealing):
         old = _previous(db, operation, digest)
         before = load_items(db, owner)
         if old is not None:
-            by_position = {(i['group'], i['slot']): i for i in before}
-            return seal_ack([(p, by_position.get(p)) for p in old])
+            # Retain current replacement occupants in historical slots and
+            # refresh the original target/stamp UIDs at their present slots.
+            # Replays never reapply the old seal state or consume a stamp.
+            from els_server.storage.equipment_receipt_state import current_changes
+            return seal_ack(current_changes(db, operation, owner, kind, old, before))
         by_uid = {i['uid']: i for i in before}
         target = by_uid.get(target_uid)
         raw = _target(target,sealing=sealing)
