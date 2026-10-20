@@ -58,6 +58,8 @@ def classify(members):
     # or an earlier failed check followed by a successful retry.
     try:attempt=json.loads(members.get('attempt.json',b'{}'))
     except (ValueError,UnicodeError,RecursionError):attempt={}
+    if isinstance(attempt,dict) and attempt.get('phase')=='component_update_failed':
+        return dict(code='launcher_component_update_failed',certainty='observed_stage',reason='运行组件更新未完成；这只确认所选启动器阶段，下载、校验或本地环境原因仍需核对。')
     if isinstance(attempt,dict) and attempt.get('phase')=='preflight_failed':
         latest=None
         for line in members.get('logs/client-check.log',b'')[:MAX_MEMBER].decode('utf-8-sig','replace').splitlines():

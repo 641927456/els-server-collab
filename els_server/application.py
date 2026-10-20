@@ -121,9 +121,11 @@ class FriendsSession(LocalSession):
 
 
     def release(self):
-        self.application.world.disconnect(self)
-        if self.application.playing.get(self.identity['id']) is self:self.application.playing.pop(self.identity['id'])
-        self.released=True
+        try:
+            self.application.world.disconnect(self)
+        finally:
+            if self.application.playing.get(self.identity['id']) is self:self.application.playing.pop(self.identity['id'])
+            self.released=True
 
 
 class Application:
@@ -207,14 +209,31 @@ class Application:
 
     async def release(self,session):
         from els_server.domain.mount_flow import close as close_mount
-        await self.call(close_mount,session)
         def release():
             timer=getattr(getattr(session,'activity2026_awards',None),'online',None)
             try:
-                if timer is not None:timer.observe(session,stop=True)
+                close_mount(session)
             finally:
-                if isinstance(session,FriendsSession):session.release()
-        await self.call(release)
+                try:
+                    if timer is not None:timer.observe(session,stop=True)
+                finally:
+                    if isinstance(session,FriendsSession):session.release()
+        # One worker operation owns all teardown stages. A failed persistence
+        # or timer operation must not strand the account's playing lease.
+        cleanup=asyncio.create_task(self.call(release))
+        try:
+            # Cancellation of a socket task must not cancel cleanup that is
+            # still waiting behind an earlier operation in the worker queue.
+            await asyncio.shield(cleanup)
+        except asyncio.CancelledError:
+            def report_failure(task):
+                if not task.cancelled():
+                    error=task.exception()
+                    if error is not None:
+                        task.get_loop().call_exception_handler(dict(
+                            message='Session cleanup failed after cancellation',exception=error))
+            cleanup.add_done_callback(report_failure)
+            raise
 
     def close(self):
         # Running SQL is allowed to commit/rollback before releasing save ownership.

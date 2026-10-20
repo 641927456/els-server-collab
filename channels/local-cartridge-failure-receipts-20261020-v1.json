@@ -3,7 +3,7 @@
   "channel": "local",
   "formal_release": null,
   "candidate_release": "local-cartridge-failure-receipts-20261020-v1",
-  "parent_release": "local-shop-request-read-scope-20261020-v1",
+  "parent_release": "local-reviewed-session-mount-20261020-v1",
   "formal_manifest_sha256": null,
   "acceptance_pending": true,
   "source_files": [
@@ -24,8 +24,8 @@
     },
     {
       "path": "els_server/application.py",
-      "size": 13025,
-      "sha256": "0ead83642c55b226329d15fa9f666f54a1b55d38c0f4aea7398df2278e97e7d0"
+      "size": 13717,
+      "sha256": "f71ecdd9545cbf68becbf15adc63de97e0047b235768bdbe76b0d9c2b8356510"
     },
     {
       "path": "els_server/config.py",
@@ -76,6 +76,11 @@
       "path": "els_server/data/bank_ed_limits.json",
       "size": 2524,
       "sha256": "221382880e35deea46d5b07a1d790421fd2de669784338efe104409251bd3589"
+    },
+    {
+      "path": "els_server/data/boosting2026-accessories.json",
+      "size": 31365,
+      "sha256": "c0cfcdd3438dfbee3bc53663cdf0fc86d106b2f2a9d4c2aa24d10fd5816bcc60"
     },
     {
       "path": "els_server/data/boosting2026-fashion90.json",
@@ -674,8 +679,8 @@
     },
     {
       "path": "els_server/diagnostic_reports.py",
-      "size": 22120,
-      "sha256": "c955b41ce57d06ebe4ae32318fe829cb7dcc50644dd8558410a8249e0c2a52ab"
+      "size": 22420,
+      "sha256": "8b1375a3da3e67bab45457b6e8c7c5bb9853e2d95b36f68a4e41b923def14b9e"
     },
     {
       "path": "els_server/domain/__init__.py",
@@ -838,6 +843,11 @@
       "sha256": "07b3c536ae599a82fbe3dea642e1f8a21e341c9b05dca7693443b2d50fa46e01"
     },
     {
+      "path": "els_server/domain/boosting_2026_accessories.py",
+      "size": 5074,
+      "sha256": "f3fe729548866bf3f6f12a8abe7b1dcf486225dc45e5d2a25c5e855957d23b8f"
+    },
+    {
       "path": "els_server/domain/boosting_2026_chain.py",
       "size": 4427,
       "sha256": "467f58bb9f751d97d7a1d4a1f6ec83d14bab89e6d988c8ad79266f99db254dd0"
@@ -969,8 +979,8 @@
     },
     {
       "path": "els_server/domain/cubes.py",
-      "size": 2315,
-      "sha256": "4a30cac9e62d054808a764d374c1145ef52e81f255390c8e71b0ddbb40ffdaca"
+      "size": 2566,
+      "sha256": "98beb36785715b7b240ca81264e86f0ce483a3b3ecabdf735d8d75efa62713e9"
     },
     {
       "path": "els_server/domain/decomposition_rules.py",
@@ -1634,8 +1644,8 @@
     },
     {
       "path": "els_server/domain/selected_2026_growth_runtime.py",
-      "size": 14294,
-      "sha256": "04d556a5dd75012e539e5c815915d34e8e3009aabe6b0ebc5509137249de4d9b"
+      "size": 14424,
+      "sha256": "fef2b634bb1d22fb93ec6688cd7471ecc66e377518b85d2210ff6e10278566e2"
     },
     {
       "path": "els_server/domain/selected_2026_pair_runtime.py",
@@ -2413,6 +2423,11 @@
       "sha256": "77469d8b59e161b08942171a25731713361f0c42813ee8f2b74078ad2fee00e9"
     },
     {
+      "path": "els_server/storage/boosting_2026_accessories.py",
+      "size": 3213,
+      "sha256": "ecdf805ae48574861ad5904b752d002754aa05b0fa047ddcc13fba9dca63f86c"
+    },
+    {
       "path": "els_server/storage/boosting_2026_chain_rewards.py",
       "size": 11147,
       "sha256": "990d70b15c56bdd8b5d5a1c6bd292f64a3ea7d42d30d1116445c592912a538eb"
@@ -2664,8 +2679,8 @@
     },
     {
       "path": "els_server/storage/fixed_cubes.py",
-      "size": 5459,
-      "sha256": "36b10f60af2277bffe9e7f915451d8c0bc9bcbc6e0c33d5d98577befd37d1fc7"
+      "size": 5737,
+      "sha256": "23c53358a00570d50ee2740c42991ba65ae1d96cb3e0c37bc0260329bfa95428"
     },
     {
       "path": "els_server/storage/game_mail.py",
@@ -2704,8 +2719,8 @@
     },
     {
       "path": "els_server/storage/inventory_state.py",
-      "size": 11519,
-      "sha256": "27af937b97b8d776656145341089558c823622977aceea7ee5219a6c1eb806b3"
+      "size": 11829,
+      "sha256": "dbba69e405aed8383812765eea578ccfd146b5cb29a641a15ff15f4cd11f8fab"
     },
     {
       "path": "els_server/storage/item_expiration.py",
@@ -2794,8 +2809,8 @@
     },
     {
       "path": "els_server/storage/mount_state.py",
-      "size": 6267,
-      "sha256": "6ee9656ba22f556bbf0373a634fdf19930058744eff53c57d0bf2647d1e2f893"
+      "size": 6366,
+      "sha256": "94dc98ff8511ca3214b2c869f0125c1e4b9a4befe8b403a66c0614c8b8e2635c"
     },
     {
       "path": "els_server/storage/npc_sale.py",
@@ -3004,8 +3019,8 @@
     },
     {
       "path": "els_server/transport.py",
-      "size": 14805,
-      "sha256": "5443d2971d9bf072ebd8922c57d04bde58c60d3193a2a46813bf97e378839cfc"
+      "size": 15026,
+      "sha256": "4ea40a8c657120ad1e94cc3e4e53d2980548c738626561d548282fa6ec3ef75a"
     },
     {
       "path": "tools/backup_friends_server.py",
@@ -3091,5 +3106,15 @@
   ],
   "whole_card_complete": false,
   "natural_GUI": false,
-  "online_game_deployed": false
+  "online_game_deployed": false,
+  "parent_manifest_sha256": "1848ec30f91a922d8fc1b990bf070b02c3384bcf29f2b50f9b8f54dd2f7a9e8a",
+  "format_only_runtime_source_differences": [
+    {
+      "path": "els_server/storage/mount_state.py",
+      "formal_runtime_sha256": "bf9b3342475c8afd2bc1bde4aa6a7e2ded26a4f144a10bb484227afa5106a55d",
+      "git_sha256": "94dc98ff8511ca3214b2c869f0125c1e4b9a4befe8b403a66c0614c8b8e2635c",
+      "normalized_text_equal": true
+    }
+  ],
+  "source_snapshot_matches_formal_runtime_semantics": true
 }
