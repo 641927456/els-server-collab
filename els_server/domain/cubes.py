@@ -35,4 +35,9 @@ def catalog():
     if capacity is not None:
         if capacity['template'] in result:raise ValueError('Duplicate nested capacity box')
         result[capacity['template']]=capacity
+    from els_server.domain.boosting_2026_title_rewards import entry as title_entry
+    title=title_entry()
+    if title is not None:
+        if title['template'] in result:raise ValueError('Duplicate selected title support box')
+        result[title['template']]=title
     return MappingProxyType(result)

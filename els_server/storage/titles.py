@@ -4,6 +4,8 @@ import hashlib,sqlite3,time
 from els_server.storage.character_schema import character_uid
 from els_server.domain.titles import catalog,definition,eligible,scope
 from els_server.protocol import title_messages as wire
+from els_server.protocol.protocol_codec import encode_event
+from els_server.domain.boosting_2026_title_rewards import is_coupon
 
 def character(db,uid):
     row=db.execute('SELECT c.uid,c.name,c.unit_type,c.unit_class,c.level,o.account_id FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=?',(character_uid(uid),)).fetchone()
@@ -98,6 +100,8 @@ def use_item(path,uid,payload,operation_id,now=None):
         if (c['level']<raw[209] or raw[210] not in (0,c['unit_type']) or raw[211] not in (0,c['unit_class'])):raise ValueError('Title item native character restrictions')
         if c['level']<rule['level'] or not eligible(c,title):raise ValueError('Title item requirements')
         if any(r['title']==title for r in owned(db,c,now)):raise ValueError('Title already owned')
+        selected=is_coupon(item['template'])
+        if selected and db.execute('SELECT revision FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]>=2**63-1:raise ValueError('Selected title revision overflow')
         remaining=dict(item,count=item['count']-1) if item['count']>1 else None
         ed=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
         ack=use_ack([((item['group'],item['slot']),remaining)],item['template'],ed)
@@ -113,5 +117,8 @@ def use_item(path,uid,payload,operation_id,now=None):
             from els_server.storage.item_locks import forget as forget_lock
             forget_lock(db,item_uid)
         db.execute('INSERT INTO title_item_receipts VALUES (?,?,?,?,?,?)',(operation_id,digest,uid,item['group'],item['slot'],title))
-        result=snapshot(db,uid,now);wire.initialization(result)
+        result=snapshot(db,uid,now);initial=wire.initialization(result)
+        if selected:
+            encode_event(ack);encode_event(initial)
+            db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(uid,))
         return dict(replayed=False,ack=ack,state=result)

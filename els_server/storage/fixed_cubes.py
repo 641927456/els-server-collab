@@ -37,6 +37,10 @@ def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.r
     if expected_template==capacity_box and capacity_items():
         from els_server.storage.boosting_2026_nested_capacity import open_box
         return open_box(path,owner,payload,operation)
+    from els_server.domain.boosting_2026_title_rewards import BOX as title_box,enabled as title_enabled
+    if expected_template==title_box and title_enabled():
+        from els_server.storage.boosting_2026_title_rewards import open_box
+        return open_box(path,owner,expected_template,payload,operation)
     request=use_request(payload)
     if (request.option!=0 or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))
         or expected_template not in catalog()):raise ValueError('Unsupported fixed cube use')
