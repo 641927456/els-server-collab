@@ -45,10 +45,10 @@ class FriendsWorld:
         self.invitations={s:v for s,v in self.invitations.items() if s is not session and v['inviter'] is not session}
 
     def party_snapshot(self,party,reset=False):
-        notice=wire.party_snapshot(party)
+        from els_server.domain.normal_party import roster_events
+        notices=roster_events(party,reset=reset)
         for member in list(party['members']):
-            if reset:self.send(member,wire.party_removed())
-            self.send(member,notice)
+            for notice in notices:self.send(member,notice)
 
     def leave_party(self,session):
         current=self.party_of.get(session)
@@ -59,6 +59,8 @@ class FriendsWorld:
         party=self.party_of.pop(session,None)
         if party is None:return
         party['members'].remove(session);party['ready'].discard(session)
+        from els_server.domain.normal_party import ordinary
+        if ordinary(party):party['ready'].clear();party.pop('admission',None)
         self.send(session,wire.party_removed(session.account.uid))
         if len(party['members'])<2:
             for other in list(party['members']):
@@ -85,7 +87,9 @@ class FriendsWorld:
             now=time.monotonic()
             while session.invite_times and now-session.invite_times[0]>=30:session.invite_times.popleft()
             if len(session.invite_times)>=5:return [wire.party_invite_ack(result=-1)]
-            try:uid,name,requested=wire.party_invite_request(event.payload,details=True)
+            try:
+                request=wire.party_invite_request(event.payload,settings=True)
+                uid,name,requested=(request[k] for k in ('uid','name','dungeon'))
             except (ValueError,UnicodeError):return [wire.party_invite_ack(result=-1)]
             target=next((s for s in self.members if s.account.character()['name']==name and uid in (0,s.account.uid)),None)
             party=self.party_of.get(session)
@@ -104,8 +108,13 @@ class FriendsWorld:
             if (target is None or target is session or target in self.party_of
                 or party is not None and (party['leader'] is not session or party['run'] is not None or len(party['members'])>=maximum)
                 or target in self.invitations and self.invitations[target]['expires']>now):return [wire.party_invite_ack(result=-1)]
+            ordinary_selection=None
+            if not raid and not (party and party.get('raid_party')):
+                from els_server.domain.normal_party import invite_selection
+                ordinary_selection=invite_selection(self,session,target,party,request)
+                if ordinary_selection is None:return [wire.party_invite_ack(result=-1)]
             session.invite_times.append(now)
-            self.invitations[target]={'inviter':session,'expires':now+30,'party':party,'raid_dungeon':requested if raid else None}
+            self.invitations[target]={'inviter':session,'expires':now+30,'party':party,'raid_dungeon':requested if raid else None,'ordinary_selection':ordinary_selection}
             self.send(target,wire.party_invited(session.account.character(),target.account.character()))
             return [wire.party_invite_ack(target.account.character())]
         if kind==0x139:
@@ -120,8 +129,12 @@ class FriendsWorld:
             native_identity=first==inviter.account.uid and second==0
             if (not native_identity and {first,second}!=uids or invite['expires']<time.monotonic() or inviter not in self.members
                 or session in self.party_of or self.party_of.get(inviter) is not invite['party']):return [wire.party_answer_ack(result=-1)]
+            if not accepted:
+                self.invitations.pop(session);return [wire.party_answer_ack(inviter.account.uid)]
+            if invite.get('ordinary_selection') is not None:
+                from els_server.domain.normal_party import accept
+                return accept(self,session,invite)
             self.invitations.pop(session)
-            if not accepted:return [wire.party_answer_ack(inviter.account.uid)]
             party=invite['party'];reset=party is not None
             from els_server.domain.raid_party import raid_definition,capacity
             requested=invite.get('raid_dungeon');raid=raid_definition(requested) if requested is not None else None
@@ -224,8 +237,13 @@ class FriendsWorld:
         now=time.monotonic()
         while session.chat_times and now-session.chat_times[0]>=5:session.chat_times.popleft()
         if len(session.chat_times)>=5:return [wire.chat_ack(-1)]
-        try:channel,text=wire.chat_request(event.payload)
+        try:
+            request=wire.chat_request(event.payload,details=True)
+            channel,text=request['channel'],request['text']
         except (ValueError,UnicodeError):return [wire.chat_ack(-1)]
+        if channel==4:
+            from els_server.domain.whisper import handle
+            return handle(self,session,request,now)
         party=self.party_of.get(session)
         if channel==0:
             if session not in self.members:return [wire.chat_ack(-1)]

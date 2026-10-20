@@ -35,7 +35,7 @@ def restore(path,uid,account_id):
         owner_side(db,uid,account_id);_,rows=snapshot(db,uid)
         return [restoration(rows)] if rows else []
 
-def apply(path,uid,payload,*,account_id,session_id,sequence,validate,encode=None):
+def apply(path,uid,payload,*,account_id,session_id,sequence,validate,encode=None,effect=None):
     from els_server.domain.avatar_sets import available,catalog
     from els_server.storage.inventory_state import load_items
     uid,operation=identity(uid,session_id,sequence);rows=request(payload)
@@ -65,4 +65,6 @@ def apply(path,uid,payload,*,account_id,session_id,sequence,validate,encode=None
         db.execute('CREATE TABLE IF NOT EXISTS avatar_set_apply_receipts(operation_id TEXT PRIMARY KEY,owner INTEGER NOT NULL REFERENCES characters(uid) ON DELETE CASCADE,account_id INTEGER NOT NULL,request_sha TEXT NOT NULL CHECK(length(request_sha)=64),revision INTEGER NOT NULL CHECK(revision>0))')
         db.execute('INSERT INTO avatar_set_selections VALUES (?,?,?,?) ON CONFLICT(uid) DO UPDATE SET revision=excluded.revision,document=excluded.document,sha256=excluded.sha256',(uid,revision,text,state_sha))
         db.execute('INSERT INTO avatar_set_apply_receipts VALUES (?,?,?,?,?)',(operation,uid,account_id,digest,revision));validate()
+        if effect is not None:effect(db,rows,side,operation)
+        validate()
         return answer

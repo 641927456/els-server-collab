@@ -30,7 +30,12 @@ def handle(s,event,sequence):
         if (event.performers!=(0,) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Avatar Apply envelope')
         captured=context(s)
         from els_server.storage.avatar_sets import apply
-        return [apply(s.account.store.path,s.account.uid,event.payload,account_id=s.account.account_id,session_id=s.shop_session_id,sequence=sequence,validate=lambda:validate(s,captured))]
+        extra=[];flow=getattr(s,'activity2026_awards',None)
+        observe=getattr(flow,'observe_avatar_apply',None)
+        def effect(db,rows,side,operation):
+            if observe is not None:extra.extend(observe(db,s,rows,side,operation))
+        answer=apply(s.account.store.path,s.account.uid,event.payload,account_id=s.account.account_id,session_id=s.shop_session_id,sequence=sequence,validate=lambda:validate(s,captured),effect=effect if observe is not None else None)
+        return [answer]+extra
     except ValueError:return [acknowledgement()]
 
 def initialization(s,replies):

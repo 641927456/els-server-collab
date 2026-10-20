@@ -160,6 +160,16 @@ class AccountResonance:
         if prior is not None:
             if prior!=(digest,):raise ResonanceConflict('Retired legacy account changed')
             return False
+        self.db.execute('''CREATE TABLE IF NOT EXISTS resonance2026_legacy_growth_audit(
+            account INTEGER NOT NULL,kind TEXT NOT NULL,identity INTEGER NOT NULL,
+            row_sha256 TEXT NOT NULL,PRIMARY KEY(account,kind,identity))''')
+        tables={r[0] for r in self.db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+        for table,kind,identity in (('boosting2026_join_rewards','join','0'),('boosting2026_task_rewards','task','quest')):
+            if table not in tables:continue
+            for growth_row in self.db.execute('SELECT * FROM '+table+' WHERE account=?',(account,)).fetchall():
+                key=0 if kind=='join' else growth_row[2]
+                self.db.execute('INSERT INTO resonance2026_legacy_growth_audit VALUES (?,?,?,?)',
+                    (account,kind,key,self._legacy_digest(growth_row)))
         for row in self.db.execute('SELECT operation,request_sha256,revision,level,cumulative_experience FROM resonance2026_receipts WHERE account=?',(account,)).fetchall():
             checked_integer(row[2],'legacy receipt revision',1,old[1])
             self._validate_pair(row[3],row[4])

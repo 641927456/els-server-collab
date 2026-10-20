@@ -31,28 +31,35 @@ class Reader:
         if self.offset!=len(self.payload):raise ValueError('Trailing social fields')
 
 
-def chat_request(payload):
+def chat_request(payload,*,details=False):
     # 1267850 writes type, sub-type, target UID, three strings, int, Q,
     # bool, int, Q, int, then DB3520's attachment map. No item-link sending.
     r=Reader(payload)
     channel=r.scalar('B');subtype=r.scalar('B');target=r.scalar('Q')
-    names=[r.text(24),r.text(24)];text=r.text(200)
+    # Original12278B0: recipient, actual message, auxiliary string.
+    # A plain native message has an empty auxiliary string.
+    recipient=r.text(24);message=r.text(200);auxiliary=r.text(200)
+    # The installed third-only protocol replay remains compatible.
+    text=message or auxiliary
     reserved=r.scalar('i');target2=r.scalar('Q');flag=r.scalar('B')
     value=r.scalar('i');opaque=r.scalar('Q');index=r.scalar('i');attachments=r.scalar('I')
     r.end()
-    if channel not in (0,1) or subtype!=0 or flag or attachments or not text.strip():
+    if channel not in (0,1,4) or subtype!=0 or flag or attachments or not text.strip():
         raise ValueError('Unsupported chat channel or attachment')
+    if channel==4 and not recipient:raise ValueError('Whisper recipient missing')
+    if details:return dict(channel=channel,text=text,recipient=recipient,target_uid=target)
     return channel,text
 
 
 def chat_ack(result=0):return Event(0x201,kind=0x86,payload=i32(result))
 
 
-def chat_notice(character,account_id,text,channel=0):
+def chat_notice(character,account_id,text,channel=0,*,recipient=None):
     # 1229200: type, account Q, int, character Q, name, name, target Q,
     # subtype, message, suffix, int, Q, int, DB3650 attachment map.
     data=bytes([channel])+struct.pack('>QiQ',account_id,-1,character['uid'])
-    data+=wstring(character['name'])+wstring('')+bytes(8)+b'\0'
+    if channel==4 and recipient is None:raise ValueError('Whisper recipient missing')
+    data+=wstring(character['name'])+wstring(recipient['name'] if recipient else '')+struct.pack('>Q',recipient['uid'] if recipient else 0)+b'\0'
     data+=wstring(text)+wstring('')+i32(0)+bytes(8)+i32(-1)+u32(0)
     return Event(0x201,kind=0x87,payload=data)
 
@@ -143,7 +150,7 @@ def town_movement(uid,payload):
     return Event(0x201,kind=0x22e,payload=data)
 
 
-def party_invite_request(payload,*,details=False):
+def party_invite_request(payload,*,details=False,settings=False):
     # 2E0D310 / 2BDD530. Decode all fields, while party policy is server-owned.
     r=Reader(payload);uid=r.scalar('Q');name=r.text(24);reason=r.scalar('i')
     kind=r.scalar('B');dungeon=r.scalar('i')
@@ -154,6 +161,7 @@ def party_invite_request(payload,*,details=False):
     if kind==3:
         from els_server.domain.raid_party import raid_definition
         if raid_definition(dungeon) is None:raise ValueError('Unsupported native raid invitation')
+    if settings:return dict(uid=uid,name=name,dungeon=dungeon,kind=kind,fields=tuple(fields))
     return (uid,name,dungeon) if details else (uid,name)
 
 

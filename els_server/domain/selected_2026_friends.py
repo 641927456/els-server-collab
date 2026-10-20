@@ -15,7 +15,7 @@ def install(app):
     from els_server.domain.selected_2026_pair_runtime import from_pack
     pack=Path(__file__).resolve().parents[1]/'data/selected2026/local-pair.json'
     if hashlib.sha256(pack.read_bytes()).hexdigest()!=PACK_SHA256:raise ValueError('Authorized reproduction calendar changed')
-    manager=from_pack(app.config.state_file,pack);manager.attach(app);manager.install()
+    manager=from_pack(app.config.state_file,pack);manager._friends_initial_pair=True;manager.attach(app);manager.install()
     if manager.state['revision']==0:
         manager.update(dict(operation_id=INITIAL_OPERATION,expected_revision=0,
             reason='User authorized existing local reproduction calendar for friends attendance and online title',

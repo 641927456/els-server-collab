@@ -76,7 +76,8 @@ def handle(world,session,event):
             deliveries=[(m,[removed]) for m in members]
         else:
             after={**party,'members':remaining,'ready':set()}
-            notices=[wire.party_removed(),wire.party_snapshot(after)]
+            from els_server.domain.normal_party import roster_events
+            notices=roster_events(after,reset=True)
             deliveries=[(target,[removed]),*[(m,notices) for m in remaining]]
         boxes=_prepared_boxes(deliveries,response)
         party['members'][:]=remaining;party['ready'].clear();party.pop('admission',None)

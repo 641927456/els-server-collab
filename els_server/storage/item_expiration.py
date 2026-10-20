@@ -40,6 +40,14 @@ def remove_due(path,owner,*,now=None,prepare_refresh=None,prepare_remaining_refr
     if type(now) is not int or now<0:raise ValueError('Invalid expiration clock')
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         if not exists(db):return []
+        # Idle maintenance is a read. Keep the owner-qualified probe in a
+        # consistent snapshot, then release it before taking the writer lock.
+        # The second query below is authoritative after any intervening write.
+        db.execute('BEGIN')
+        if not db.execute('''SELECT 1 FROM item_expiration e
+            JOIN inventory_items i ON i.uid=e.item_uid
+            WHERE i.owner=? AND e.expires_at<? LIMIT 1''',(owner,now)).fetchone():return []
+        db.rollback()
         db.execute('BEGIN IMMEDIATE')
         due={r[0] for r in db.execute('''SELECT e.item_uid FROM item_expiration e
             JOIN inventory_items i ON i.uid=e.item_uid WHERE i.owner=? AND e.expires_at<?''',(owner,now))}

@@ -1033,6 +1033,15 @@ class LocalSession:
                     require_current(item)
                 except ValueError:return [preview_ack(-1,cube_request.template)]
                 row=fixed_cubes()[cube_request.template];self.fixed_cube_preview_template=cube_request.template
+                if row.get('participation_gear'):
+                    from els_server.domain.boosting_2026_participation_gear import preview
+                    row=dict(row,entries=preview(row,self.account.character()['unit_class']))
+                elif row.get('role_fashion90'):
+                    from els_server.domain.boosting_2026_fashion_rewards import preview
+                    row=dict(row,entries=preview(cube_request.template,self.account.character(),cube_request.flag2))
+
+                self.ice_preview_ready=False
+
                 self.ice_preview_ready=False
                 return [preview_ack(0,cube_request.template,selection_count=row['selection_count'],entries=tuple((e['template'],0,e['quantity']) for e in row['entries']))]
             if not self.ice_test:return [preview_ack(-1,cube_request.template)]

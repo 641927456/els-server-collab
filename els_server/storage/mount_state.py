@@ -47,6 +47,12 @@ def tick(path,owner,*,now=None,disconnect=False):
  owner=character_uid(owner);now=timestamp(now)
  with closing(sqlite3.connect(path,timeout=10)) as db,db:
   if not db.execute("SELECT 1 FROM sqlite_master WHERE name='mount_runtime'").fetchone():return []
+  # A previously touched but currently unmounted character has no clock
+  # to settle. Release the read snapshot before a real mounted-state write.
+  db.execute('BEGIN')
+  row=db.execute('SELECT mount,mounted FROM companion_active WHERE owner=?',(owner,)).fetchone()
+  if not row or not row[0] or not row[1]:return []
+  db.rollback()
   db.execute('BEGIN IMMEDIATE');row=db.execute('SELECT mount,mounted FROM companion_active WHERE owner=?',(owner,)).fetchone()
   if not row or not row[0] or not row[1]:return []
   mount=settle(db,owner,owned(db,owner,row[0]),now)
