@@ -461,6 +461,9 @@ class LocalSession:
         from els_server.domain.exascale_color_flow import handle as color_handle
         color_reply=color_handle(self,event,request_sequence)
         if color_reply is not None:return color_reply
+        from els_server.domain.equipment_cartridge_flow import handle as cartridge_handle
+        cartridge_reply=cartridge_handle(self,event)
+        if cartridge_reply is not None:return cartridge_reply
         from els_server.domain.equipment_circuit_flow import handle as circuit_handle
         circuit_reply=circuit_handle(self,event,request_sequence)
         if circuit_reply is not None:return circuit_reply
