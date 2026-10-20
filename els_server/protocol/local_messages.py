@@ -217,7 +217,7 @@ def skill_slots_initialization(slots=None,uid=1001,character=None):
     from els_server.domain.skill_rules import equippable_skills,learned_skills,upgraded_slots
     return Event(0x201,kind=0x55b,payload=initialization_payload(default_slots(character) if slots is None else upgraded_slots(slots,character),uid,equippable_skills(character),learned_skills(character),character))
 
-def optional_player_initializations(initialize_health=False,uid=1001,*,health_max=100,luciel_active=0,wardrobe=None,wardrobe_favorites=()):
+def optional_player_initializations(initialize_health=False,uid=1001,*,health_max=100,luciel_active=0,wardrobe=None,wardrobe_favorites=(),tutorial_pending=False):
     if type(health_max) is not int or not 1<=health_max<2**31:raise ValueError('Initial health maximum')
     if type(luciel_active) is not int or luciel_active not in (0,1):raise ValueError('Initial LuCiel selector')
     # All counts are empty; fixed nested records retain their actual field widths.
@@ -231,8 +231,8 @@ def optional_player_initializations(initialize_health=False,uid=1001,*,health_ma
     flags=b'\x00'+i32(0)*8  # 0xb8af80
     data=i32(0)+b'\x00'+u32(0)+profile+flags+b'\x00\x00'
     # CC5D90+15B enables the tutorial room request (60), not ordinary solo
-    # dungeon control. Keep it false for the existing town-to-dungeon route.
-    data+=i32(0)*6+u32(0)*3+i32(0)*2+b'\x00'+i32(0)+struct.pack('>Q',0)
+    # dungeon control. The caller supplies a read-only owned first-entry check.
+    data+=i32(0)*6+u32(0)*3+i32(0)*2+bytes((bool(tutorial_pending),))+i32(0)+struct.pack('>Q',0)
     data+=u32(0)*4+i32(0)+u32(0)+b'\x00'+i32(0)+i32(0)*2+i32(0)+struct.pack('>Q',0)+u32(0)
     data+=b'\x00\x00'+i32(0)+u32(0)+b'\x00'+u32(0)*2
     messages.append(Event(0x201,kind=0x30,payload=data))

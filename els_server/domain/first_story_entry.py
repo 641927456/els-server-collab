@@ -22,7 +22,7 @@ MAPS={1:41150,2:41160,3:41170,4:41190,5:41180,6:41290,7:41210,8:41220,9:41230,10
 
 
 
-def request(payload,unit_type):
+def request(payload,unit_type,*,bootstrap_port=None):
 
     """Read bounded D9B710/D9BCC0 fields, retaining the native room byte layout."""
 
@@ -90,7 +90,18 @@ def request(payload,unit_type):
 
     if 'Tutorial' not in definition['dataFileName'] and unit_type<14:raise ValueError('Tutorial definition')
 
-    return fields[0xb2],payload[:locations[1]]+struct.pack('>Q',10001)+payload[locations[1]+8:]
+    if bootstrap_port is not None:
+        if type(bootstrap_port) is not int or not 1<=bootstrap_port<=65535:
+            raise ValueError('Tutorial bootstrap port')
+        # Reuse ordinary room_info's original D9BCC0 ->909B60 ->487C90
+        # discovery endpoint. The requested empty host/port0 otherwise leaves
+        # the native loading handshake broadcasting to255.255.255.255:0.
+        room=(payload[:locations[1]]+struct.pack('>Q',10001)
+              +payload[locations[1]+8:locations[0x52]]+wstring('127.0.0.1')
+              +struct.pack('>H',bootstrap_port)+payload[locations[0x74]:])
+    else:
+        room=payload[:locations[1]]+struct.pack('>Q',10001)+payload[locations[1]+8:]
+    return fields[0xb2],room
 
 
 
@@ -144,7 +155,7 @@ def handle(s,event):
 
         if character.get('pending_delete') or character['level']!=1 or s.account.get_reward_balances()['experience']!=0:return []
 
-        try:identity,room=request(event.payload,character['unit_type'])
+        try:identity,room=request(event.payload,character['unit_type'],bootstrap_port=s.port_probe_port)
 
         except (ValueError,UnicodeError,struct.error):return []
 
@@ -191,7 +202,7 @@ def handle(s,event):
 
         if not s.dungeon_substage_synced:
 
-            reply += [Event(0x201,kind=0xb6,payload=bytes(16)),initial_part(current['run'].part),begin_substage(current['run'].part,npc_entries=((n['key'],n['template']) for n in current['run'].current['npcs']) if current['run'].identity==41150 else ())]
+            reply += [Event(0x201,kind=0xb6,payload=bytes(16)),initial_part(current['run'].part),begin_substage(current['run'].part,npc_entries=((n['key'],n['template']) for n in current['run'].current['npcs']))]
 
 
             current['started']=True;s.dungeon_substage_synced=True
@@ -331,3 +342,40 @@ def handle(s,event):
 
     return None
 
+
+
+def pending_tutorial(session):
+    """Original first-entry flag for an owned, unprogressed created role.
+
+    Read existing creation/quest/clear receipts; never initialize or modify a
+    save here. In particular, zero-second historical clears still suppress
+    replay through their committed reward receipt, without a new marker.
+    """
+    if (session.client_build != 'dx11_260923' or session.role != 'game'
+            or not session.enter_dungeon or not session.item_test
+            or session.account.store is None or session.account.characters is None):
+        return False
+    from contextlib import closing
+    import json,sqlite3
+    from els_server.storage.characters import BASE_CLASSES
+    from els_server.domain.tutorial_quests import STARTERS
+    from els_server.domain.seal_quests import quest_catalog
+    account=session.account
+    path=account.store.path.resolve()
+    with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True,timeout=10)) as db:
+        db.execute('BEGIN')
+        row=db.execute('SELECT c.unit_type,c.unit_class,c.level,b.experience FROM characters c JOIN character_owners o ON o.uid=c.uid JOIN reward_balances b ON b.uid=c.uid WHERE c.uid=? AND o.account_id=?',(account.uid,account.account_id)).fetchone()
+        if row is None:return False
+        unit,cls,level,xp=row
+        if unit not in MAPS or cls!=BASE_CLASSES[unit] or level!=1 or xp!=0:return False
+        if not db.execute('SELECT 1 FROM character_creation_receipts WHERE uid=? LIMIT 1',(account.uid,)).fetchone():return False
+        qid=STARTERS[unit][0];catalog=quest_catalog()
+        active={r[0] for r in db.execute('SELECT quest FROM character_quests WHERE owner=?',(account.uid,))}
+        completed={r[0] for r in db.execute('SELECT quest FROM completed_quests WHERE owner=?',(account.uid,))}
+        if qid not in active or qid in completed:return False
+        if any(q not in catalog.quests or catalog.quest(q)['m_eQuestType']==5 and q!=qid for q in active|completed):return False
+        if db.execute('SELECT 1 FROM dungeon_records WHERE uid=? AND map_id=?',(account.uid,MAPS[unit])).fetchone():return False
+        # Existing grant JSON pins both owner and source map, including a
+        # valid zero-second clear omitted by the positive-time record table.
+        if db.execute("SELECT 1 FROM reward_receipts WHERE json_extract(grant_json,'$.owner')=? AND json_extract(grant_json,'$.dungeon_clear[0]')=? LIMIT 1",(account.uid,MAPS[unit])).fetchone():return False
+    return True
