@@ -1,0 +1,13 @@
+# Startup query optimization provenance
+
+The three reviewed server units reduce static-definition cold imports, wardrobe-ticket template reads, and owned-role projection queries. They change six server source files, preserving ordered validation, malformed-input errors, transaction ownership and payload content. Online and local keep their actual different parents and inventory variants; neither channel is replaced with the current main tree.
+
+The accepted immutable online and local runtime server Python/JSON bytes are recorded in separate snapshot branches. Their source manifests identify all 610 online and 614 local server sources exactly. The online branch also retains four inherited administrative files explicitly marked `deployed=false`; these are absent from its runtime. Nonserver sanitized entries come from earlier Git snapshots, never production configuration.
+
+`channels/active.json` distinguishes the current main source view from accepted formal channel snapshots. Main preserves later reviewed work, including red-mystic exchange. Differences from the accepted local tree remain explicit; this document does not call all main features deployed.
+
+V32 source and its signed component manifest are in `launchers/friends-v32`. Relative to V31, C# changes only the payload hash and version literals. The runtime changes only three support Python modules; 1079 other files stay unchanged. The generated bridge JavaScript remains byte-identical. Existing UI, SDK, updater, diagnostics, credentials and all game behavior are preserved. No binary archive, asset, account, raw log or signing key is committed.
+
+Formal deployment used independent SQLite API backups and preserved original rows and configurations. Online service observation exceeded 120 seconds. Local used at least 120 seconds of frozen-snapshot static observation and a separately guarded source-pointer activation after protected games/controllers exited; this is not a running local game/service observation. Public server checks used controlled own-account role and ticket requests: seven sampled ticket payloads match the frozen candidate; the complete page/force matrix remains private evidence. V32 public update checks cover component transfer, reuse, zero-download repetition and the signed executable update. These are protocol/update boundaries, not newly operated natural game GUI, multiplayer acceptance or isolated SDK timing. Full file verification remains enabled; end-to-end player speed after restart is still to be observed.
+
+The mutable online channel metadata links the accepted V32 launcher and clears the rebuild-pending flag. This follow-up does not rewrite the immutable server manifest, source snapshot or original acceptance record.
