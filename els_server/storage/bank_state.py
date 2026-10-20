@@ -112,6 +112,31 @@ def delete(db,owner,position,item):
     else:remove(db,owner,item)
 
 
+def current_transfer_changes(db,operation,owner,points,positions):
+    """Refresh only committed affected UIDs still owned by this character/account."""
+    row=db.execute('SELECT owner,kind,before_json,after_json FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()
+    if row is None or row[:2]!=(owner,0x551):raise ValueError('Bank receipt owner or kind mismatch')
+    try:
+        before,after=(json.loads(raw) for raw in row[2:])
+        if not isinstance(before,list) or not isinstance(after,list):raise ValueError('Bank receipt arrays')
+        affected=set()
+        for entry in before+after:
+            if not isinstance(entry,dict):raise ValueError('Bank receipt entry')
+            # Bank wrappers retain their original bag group in item_json;
+            # only the wrapper position identifies the historic bank slot.
+            if 'position' in entry:
+                point=tuple(entry['position']);item=entry['item']
+            else:point=(entry['group'],entry['slot']);item=entry
+            if point in points:
+                uid=item['uid']
+                if type(uid) is not int or not 0<uid<2**63:raise ValueError('Bank receipt UID')
+                affected.add(uid)
+    except (TypeError,KeyError,json.JSONDecodeError) as exc:
+        raise ValueError('Bank receipt history format') from exc
+    ordered=list(dict.fromkeys([*points,*[p for p,item in positions.items() if item['uid'] in affected]]))
+    return [(p,positions.get(p)) for p in ordered]
+
+
 def transfer(path,owner,payload,operation):
     source,destination,quantity,context,template=transfer_request(payload)
     owner,digest=_identity(owner,0x551,payload,operation)
@@ -122,7 +147,7 @@ def transfer(path,owner,payload,operation):
         before=load_items(db,owner);bank=load(db,owner)+load(db,owner,group=16)
         positions={(i['group'],i['slot']):i for i in before}
         positions.update((tuple(e['position']),e['item']) for e in bank)
-        if old is not None:return transfer_ack([(p,positions.get(p)) for p in old])
+        if old is not None:return transfer_ack(current_transfer_changes(db,operation,owner,old,positions))
         limits=allowances(db,owner);limits.update({g:capacity(db,owner,g) for g in (8,16)})
         if any(g not in limits or s>=limits[g] for g,s in (source,destination)):
             raise ValueError('Unowned bank/bag position')
