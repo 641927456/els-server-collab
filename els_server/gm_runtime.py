@@ -145,12 +145,6 @@ class Runtime:
 
     def execute(self, request):
         action, value = request.get('action'), request.get('value',{})
-        if self.app.config.mode=='local' and action not in ('selected2026-status','selected2026'):
-            raise ValueError('本地活动管理接口只开放本次签到和在线活动')
-        if action in ('selected2026-status','selected2026'):
-            manager=getattr(self.app,'activity2026_manager',None)
-            if manager is None:raise ValueError('本机未启用2026活动运行配置')
-            return manager.snapshot() if action=='selected2026-status' else manager.update(value)
         if action=='status':
             from els_server.domain.gm_rates import snapshot
             from els_server.domain.gm_events import snapshot as event_snapshot

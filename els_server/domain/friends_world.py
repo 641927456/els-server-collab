@@ -70,6 +70,9 @@ class FriendsWorld:
 
     def party_request(self,session,event):
         kind=event.kind
+        if event.event_id==0x202 and kind==0x145:
+            from els_server.domain.party_selection import select
+            return select(self,session,event)
         if kind not in (0x136,0x139,0x13f,0x14c):return None
         if session.phase!='town_ready' or session not in self.members:
             return [wire.party_invite_ack(result=-1)] if kind==0x136 else [wire.party_answer_ack(result=-1)] if kind==0x139 else []
