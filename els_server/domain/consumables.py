@@ -20,9 +20,6 @@ def catalog():
 
 
 def ordinary(template):
-    if template in (710313,710314,710315):
-        from els_server.domain.apple_consumables import usable
-        return usable(template)
     # Enable only individually checked HP/MP potions. Other rows may
     # require buff, quest, event, targeting or reward behavior not yet wired.
     # minimum level, shared cooldown group, seconds, ordered native effects.
@@ -34,9 +31,6 @@ def ordinary(template):
               77420:(0,3,30,((13,15),(2,100))),
               77430:(0,3,30,((13,30),(2,100))),
               78902:(0,48,60,((2,150),)),78930:(60,4,30,((2,225),))}
-    expected[710000]=(0,15,30,((13,100),(19,100)))
-    expected.update({79063:(0,2,30,((13,50),)),79064:(0,5,30,((19,50),))})
-    expected[79065]=(0,10,30,((19,50),(13,50)))
     if template not in expected:raise ValueError('Consumable effect not implemented')
     level,group,seconds,effects=expected[template];r=catalog()[template]
     raw=bytes.fromhex(r['record_hex'])
@@ -51,8 +45,7 @@ def ordinary(template):
     return r
 
 
-def require_usable(template,level,*,automatic=False):
-    if automatic and template in (710313,710314,710315,79065):raise ValueError('Apple pet automation is not admitted')
+def require_usable(template,level):
     metadata=ordinary(template)
     if type(level) is not int or not 1<=level<=99:raise ValueError('Consumable character level')
     if level<bytes.fromhex(metadata['record_hex'])[0xd1]:raise ValueError('Consumable level requirement')
