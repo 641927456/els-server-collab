@@ -2,7 +2,9 @@
 
 Reuses the pinned 610/611/612/79E/79F codecs and transactional page stores.
 The reviewed local one-page/no-bonus initial policy stays explicit. No
-campaign enrollment, XP grant, reset, page expansion or effect formula.
+campaign enrollment, XP grant, page expansion or effect formula.
+Negative611edits use only the already-published710106reward coin; temporary
+points, other reset items and category scrolls remain outside this route.
 """
 from contextlib import closing
 from functools import lru_cache
@@ -99,8 +101,16 @@ def handle(s,event,sequence):
             expected=current.revision if old is None else old[0]-1
             ops=ResonanceOperationsV2(db,*definitions())
             if event.kind==0x611:
-                reply=ops.allocate(account=account,character=character,operation=operation,
-                    expected_revision=expected,payload=event.payload,bonus_points=(),result=0,trailing_value=0)
+                request=ResonanceAllocationRequest.decode(event.payload)
+                if any(delta<0 for tab,values in request.groups for stat,delta in values):
+                    from els_server.domain.resonance_2026_reset_items import reset_items
+                    from els_server.storage.resonance_2026_resets import ResetOperations,initialize
+                    initialize(db)
+                    reply=ResetOperations(db,*definitions(),reset_items()).edit(account=account,character=character,
+                        operation=operation,expected_revision=expected,payload=event.payload,kind=0x611)
+                else:
+                    reply=ops.allocate(account=account,character=character,operation=operation,
+                        expected_revision=expected,payload=event.payload,bonus_points=(),result=0,trailing_value=0)
             else:
                 reply=ops.select(account=account,character=character,operation=operation,
                     expected_revision=expected,payload=event.payload,opaque_fields=ResonanceOpaqueFields(*metadata[1]))
