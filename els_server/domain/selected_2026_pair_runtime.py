@@ -37,10 +37,16 @@ def from_pack(path,pack_file):
         raw=p.read_bytes()
         if hashlib.sha256(raw).hexdigest()!=row['sha256']:raise ValueError('Activity resource changed')
         resources[key]=raw
-    return SelectedAttendanceOnline(path,data['configuration'],resources)
+    manager=SelectedAttendanceOnline(path,data['configuration'],resources)
+    extension=root/'local-growth.json'
+    if extension.exists():
+        from els_server.domain.selected_2026_growth_runtime import extend
+        manager=extend(manager,extension)
+    return manager
 
 
 class SelectedAttendanceOnline:
+    supports_growth=False
     def __init__(self,path,configuration,resources,*,epoch=time.time,monotonic=time.monotonic):
         if set(resources)!=RESOURCE_KEYS or any(type(v) is not bytes for v in resources.values()):
             raise ValueError('Pinned attendance/online resources required')
@@ -75,7 +81,7 @@ class SelectedAttendanceOnline:
 
     def install(self):
         self.settings.initialize()
-        if self.settings.snapshot()['enabled']['growth']:raise ValueError('Unsupported saved growth switch')
+        if self.settings.snapshot()['enabled']['growth'] and not self.supports_growth:raise ValueError('Unsupported saved growth switch')
         self.catalog.register_inventory()
         # Owned reward usability is independent of campaign enrollment/switches.
         from els_server.domain.published_2026_bundles import enable
@@ -91,7 +97,7 @@ class SelectedAttendanceOnline:
             d=OnlineTitleDelivery(p,self.resources['title_link']);d.initialize()
             d.register_policy(**self.config['online']['mail'],purpose=self.config['purpose'],provenance='Explicit local texts/deadline')
         self.state=self.settings.snapshot()
-        if self.state['enabled']['growth']:raise ValueError('Unsupported saved growth switch')
+        if self.state['enabled']['growth'] and not self.supports_growth:raise ValueError('Unsupported saved growth switch')
 
     def attach(self,app):
         if app.config.state_file!=self.path or self.app is not None:raise ValueError('Activity save mismatch or already attached')
@@ -116,7 +122,7 @@ class SelectedAttendanceOnline:
 
     def update(self,value):
         value=request(value)
-        if value['enabled']['growth']:raise ValueError('本次只安装签到和在线活动，成长开关不可启用')
+        if value['enabled']['growth'] and not self.supports_growth:raise ValueError('本次只安装签到和在线活动，成长开关不可启用')
         if self.app is None:raise ValueError('GM requires the owning application worker')
         review=self.settings.review(value)
         if review['revision']!=self.state['revision']:raise ValueError('活动配置被外部改动，请正常重启后读取')

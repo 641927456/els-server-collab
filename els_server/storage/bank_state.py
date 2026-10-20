@@ -52,6 +52,12 @@ def expire(db,owner):
 
 def remove_due(path,owner):
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+        # No expired owned instance means no write transaction is needed.
+        # Release the probe snapshot before obtaining the writer reservation;
+        # expire() reloads both containers after that reservation succeeds.
+        db.execute('BEGIN')
+        if not any(expired(e['item']) for e in load(db,owner,include_expired=True)+load(db,owner,include_expired=True,group=16)):return []
+        db.rollback()
         db.execute('BEGIN IMMEDIATE');due=expire(db,owner)
         if not due:return []
         # The original 105 reader also accepts bank wrapper positions.
