@@ -7,6 +7,7 @@ from els_server.storage.inventory_actions import _identity, _previous, _commit
 from els_server.storage.inventory_state import load_items, grant_items
 from els_server.storage.inventory_management import _updates
 from els_server.storage.item_instances import remove
+from els_server.storage.equipment_receipt_state import current_changes
 from els_server.protocol.protocol_codec import Event
 
 
@@ -19,10 +20,12 @@ def decompose(path, owner, payload, operation):
         old = _previous(db, operation, digest)
         before = load_items(db, owner)
         if old is not None:
-            current = {(i['group'], i['slot']): i for i in before}
-            # Avoid historical reward popups and duplicate NEW notifications.
+            # Retained affected UIDs may have moved since the first result.
+            # Refresh current owned instances, never historical rewards or a
+            # different item selected by template after an instance is gone.
+            changes = current_changes(db, operation, owner, 0x1c0, old, before)
             return ([Event(0x201, kind=0x1c1, payload=decompose_ack())] +
-                    _updates([(p, current.get(p)) for p in old]))
+                    _updates(changes))
         by_uid = {i['uid']: i for i in before}
         selected = [by_uid[uid] for uid in uids if uid in by_uid]
         if len(selected) != len(uids):
