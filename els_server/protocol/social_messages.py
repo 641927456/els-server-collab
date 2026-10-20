@@ -196,8 +196,10 @@ def party_info(identity,count,dungeon=30000,*,name='Friends',raid=False):
     maximum=source['maximum'] if source else 4
     if type(count) is not int or not 1<=count<=maximum:raise ValueError('Party count')
     raw=bytearray(83);struct.pack_into('>Q',raw,0,identity);raw[8]=3 if raid else 1
-    raw[13]=0;raw[14]=maximum;raw[15]=1;struct.pack_into('>i',raw,16,dungeon)
-    raw[20]=count;raw[21]=1;raw[25]=1
+    # DA01F0 ->2376A50: joined count ->settings+10; maximum ->+14;
+    # difficulty ->+0C. Membership must never overwrite difficulty.
+    raw[13]=count;raw[14]=maximum;raw[15]=1;struct.pack_into('>i',raw,16,dungeon)
+    raw[20]=0;raw[21]=1;raw[25]=1
     return bytes(raw[:9])+wstring(name)+bytes(raw[13:])
 
 

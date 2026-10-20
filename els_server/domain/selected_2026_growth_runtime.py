@@ -75,6 +75,8 @@ class SelectedGrowth(SelectedAttendanceOnline):
         from els_server.domain.boosting_2026_participation_gear import register as register_gear
         from els_server.domain.boosting_2026_fashion_rewards import register as register_fashion
         register_gear();register_fashion()
+        from els_server.domain.boosting_2026_nested_capacity import register as register_capacity
+        register_capacity()
         self.growth_catalog.register_inventory()
         from els_server.domain.boosting_2026_reward_items import register_verified
         from els_server.domain.boosting_2026_chain_items import register_verified as register_chain
