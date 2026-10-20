@@ -1,0 +1,55 @@
+{
+  "version": 31,
+  "release": "friends-startup-diagnostics-20261020-v1",
+  "status": "published-and-publicly-accepted",
+  "launcher_sha256": "a3f754c33179bd0c29af9660760eca93ed39d6f8ed6e1ae78af07b02c53e8726",
+  "launcher_size": 2799616,
+  "parent_version": 30,
+  "parent_launcher_sha256": "6d7235a777a7acbb2c83262d00cc2d0f39b08faf3375b5542cee9169fd3ff58c",
+  "runtime_sha256": "c3567c9ad4839e3e3e55e9a9c0781c9d282826f195aac925785dd15dca0d4a38",
+  "runtime_size": 157306926,
+  "runtime_files": 1082,
+  "unchanged_runtime_files": 1081,
+  "runtime_tool_delta": [
+    {
+      "path": "tools/friends_diagnostics.py",
+      "sha256": "d2cae16abe274cf8a587eced87edbd5d7e6ff1100d457e6391450ee005bc9eb0",
+      "size": 22396
+    }
+  ],
+  "game_client_behavior_changed": false,
+  "public_channel_published": true,
+  "public_acceptance_completed": true,
+  "game_started_in_launcher_review": false,
+  "full_game_GUI_or_multiplayer_claimed": false,
+  "local_targeted_tests_passed": 9,
+  "validation": {
+    "public_delta_reused_files": 1081,
+    "public_delta_downloaded_files": 1,
+    "public_delta_downloaded_bytes": 22396,
+    "unchanged_environment_downloaded_bytes": 0,
+    "actual_V30_to_V31_download": true,
+    "public_signed_channel": true,
+    "settings_unchanged": true,
+    "launcher_smoke_without_game": true,
+    "listener_observation_seconds": 127.47530189994723,
+    "all_listener_PIDs_preserved": true,
+    "failed_download_preserves_prior_environment": true,
+    "public_bootstrap_upload": {
+      "actual_NET_only": true,
+      "public_pinned_TLS": true,
+      "durable_report_verified": true,
+      "metadata_only": true,
+      "archive_bytes": 1807,
+      "classification": "launcher_component_update_failed",
+      "certainty": "observed_stage",
+      "fixed_stage_QA_fixture": true,
+      "QA_disabled_after_check": true,
+      "Python_or_game_started": false
+    },
+    "full_SDK_or_gameplay_claimed": false
+  },
+  "normal_next_start_required": true,
+  "desktop_entry_updated": true,
+  "source_only_portable_tests_passed": 7
+}
