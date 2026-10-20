@@ -91,6 +91,13 @@ class QuestState:
             db.execute('BEGIN IMMEDIATE');load_character(db,self.uid,self.account_id);ensure(db)
             return _state(db,self.uid,load_items(db,self.uid))
 
+    def notification_snapshot(self):
+        # Existing task state only: no initialization, completion or rewards.
+        with closing(sqlite3.connect(self.path,timeout=10)) as db:
+            db.execute('BEGIN');load_character(db,self.uid,self.account_id)
+            if not all(db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(t,)).fetchone() for t in ('character_quests','completed_quests')):return dict(active=[],completed=[])
+            return _state(db,self.uid,load_items(db,self.uid))
+
     def completed(self):
         with closing(sqlite3.connect(self.path,timeout=10)) as db:
             load_character(db,self.uid,self.account_id);return completed_ids(db,self.uid)
@@ -128,7 +135,7 @@ class QuestState:
             items=load_items(db,uid);before=_state(db,uid,items);active=next((r for r in before['active'] if r['id']==qid),None)
             done=next((r for r in before['completed'] if r['id']==qid),None);replayed=bool(old)
             awards=[];consumed=[]
-            stage_changed=False
+            stage_changed=False;accepted_after=()
             if not old:
                 if kind=='accept':
                     if done:raise ValueError('Quest already rewarded')
@@ -223,7 +230,7 @@ class QuestState:
                     if ep:saved_reward['ep']=ep
                     db.execute('INSERT INTO completed_quests VALUES (?,?,?,?)',(uid,qid,now,json.dumps(saved_reward,sort_keys=True)))
                     from els_server.storage.epic_followups import accept_after_reward
-                    accept_after_reward(db,uid,qid,load_character(db,uid,self.account_id),load_items(db,uid),location,now)
+                    accepted_after=accept_after_reward(db,uid,qid,load_character(db,uid,self.account_id),load_items(db,uid),location,now)
                 db.execute('INSERT INTO quest_actions VALUES (?,?,?,?)',(operation_id,uid,kind,digest))
             items=load_items(db,uid);character=load_character(db,uid,self.account_id);state=_state(db,uid,items)
             if kind=='claim' and replayed:
@@ -235,6 +242,7 @@ class QuestState:
             from els_server.storage.reward_state import validate_balances
             balances=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(uid,)).fetchone())
             result=dict(replayed=replayed,state=state,character=character,balances=balances,items=items,updates=awards,consumed=consumed,slots=current_slots(db,character))
+            result['accepted_after']=[row for row in state['active'] if row['id'] in accepted_after]
             if stage_changed:result['stage_changed']=True
             # All responses, including full unit and inventory bodies, must be
             # encodable before SQL commit. No stale receipt inventory deltas.

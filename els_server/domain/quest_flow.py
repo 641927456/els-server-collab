@@ -69,7 +69,11 @@ def handle(s,event,sequence):
             if r.get('stage_changed'):
                 from els_server.protocol.career_messages import stage_notice
                 events.append(stage_notice(r['character']))
-            events.extend([wire.initialization(state),skill_slots_initialization(r['slots'],s.account.uid,r['character'])])
+            # F0 is the original live new-task callback, distinct from the
+            # absolute login snapshot. Encode it inside the reward transaction.
+            events.append(wire.initialization(state))
+            events.extend(wire.accepted(row) for row in r.get('accepted_after',()))
+            events.append(skill_slots_initialization(r['slots'],s.account.uid,r['character']))
             if qid==54580:
                 from els_server.protocol.artifact_messages import notice as artifact_notice
                 events.append(artifact_notice(r['character'],not r['replayed']))
@@ -90,6 +94,22 @@ def observe(s,replies=()):
         from els_server.domain.tutorial_quests import restore_initialization
         event,starter_restored=restore_initialization(store(s))
         if starter_restored:notices.append(event)
+    # Recover the earlier snapshot-only28060 notification on validated scene
+    # arrival. This reuses original F0/F3; it does not send F4 or alter SQL.
+    arrived=(s.phase=='town_ready' and any(e.kind==0x228 and e.payload==bytes(4) for e in replies))
+    loaded=(run is not None and run.identity==35250 and s.dungeon_substage_synced and any(e.kind==0xbd for e in replies))
+    if arrived or loaded:
+        announced=getattr(s,'_memory1_ready_announced',frozenset())
+        for row in store(s).notification_snapshot()['active']:
+            if row['id']!=28060:continue
+            from els_server.domain.seal_quests import quest_catalog,target
+            q=quest_catalog().quest(28060)
+            key=(str(s.account.store.path),s.account.uid,row['id'],row['generation'])
+            if key in announced or not q.get('m_bAutoClearQuest') or s.account.character()['unit_type']!=15:continue
+            if not all(row['objectives'][sub['m_iID']]>=target(sub) for sub in quest_catalog().objectives(28060)):continue
+            if not (loaded or s.account.get_location()['map']==20014):continue
+            notices.extend([wire.accepted(row),wire.progress([row])])
+            announced=announced|{key};s._memory1_ready_announced=announced
     owner=(str(s.account.store.path),s.account.uid)
     passive=getattr(s,'_quest_passive_kinds',None)
     if starter_restored or passive is None or passive[0]!=owner or any(e.kind in (0xf0,0x2b,0xf5) for e in replies):
