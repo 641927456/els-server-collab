@@ -52,6 +52,14 @@ def sell(path, owner, payload, operation, session='local'):
         total = balance['ed'] + income
         if total >= 2**63 or balance['revision'] >= 2**63-1:
             raise ValueError('Sale balance overflow')
+        # 2C5C6D5..2C5C7DA uses service+480's level ED limit before
+        # native sale submission. Keep the same authority for forged requests;
+        # committed retries above returned before this new-operation check.
+        from els_server.domain.bank_rules import player_ed_limit
+        row=(db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()
+             if db.execute("SELECT 1 FROM sqlite_master WHERE name='characters'").fetchone() else (1,))
+        if row is None or total>player_ed_limit(row[0]):
+            raise ValueError('Sale exceeds character ED carrying limit')
         # Encode before changing persistent state; all failures roll back.
         wire = acknowledgement(total, changes, sold)
         for item, (_, remaining) in zip(selected, changes):
