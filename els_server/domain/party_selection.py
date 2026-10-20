@@ -18,11 +18,12 @@ def select(world,session,event):
     identity,difficulty,mode=struct.unpack('>ibb',event.payload)
     if difficulty!=0 or mode!=0:return ack(-1)
     from els_server.domain.dungeon_routes import route_catalog
-    from els_server.domain.raid_party import admission_size
+    from els_server.domain.raid_party import admission_size,raid_definition
     from els_server.domain.region_quests import account_dungeon_allowed
     identity=route_catalog().entry_identity(identity)
     members=tuple(party['members'])
-    if (not route_catalog().supports(identity) or not admission_size(party,identity)
+    if (not route_catalog().supports(identity) or raid_definition(identity) is not None
+        or not admission_size(party,identity)
         or any(s.released or s.phase!='town_ready' or s not in world.members
             or world.party_of.get(s) is not party or not account_dungeon_allowed(s.account,identity)
             for s in members)):

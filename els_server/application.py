@@ -177,6 +177,8 @@ class Application:
         if self.config.mode=='friends':
             from els_server.storage.accounts import Accounts
             self.registry=await self.call(Accounts,self.config.accounts_file)
+        from els_server.domain.selected_2026_friends import install as install_friends_activities
+        await self.call(install_friends_activities,self)
 
     def activity_options(self,account):
         return {'activity2026_awards':self.activity2026_awards_factory(account)} if self.activity2026_awards_factory is not None else {}
