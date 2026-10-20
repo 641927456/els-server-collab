@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "policy": "selected-cn2026-limited-Dana-v1",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "template": 721783,
+  "record_sha256": "04d651c886a24e82d6069006f161fe3e0ded39c722e06a6041d26ff8c65c8694",
+  "unit": 223,
+  "period_days": 90,
+  "step": 0,
+  "native_status": 3,
+  "free_pickup": true,
+  "activation": {
+    "outcomes": [
+      [
+        223,
+        1
+      ]
+    ],
+    "duration": 90,
+    "native_extra": 90
+  },
+  "pet_template": {
+    "EXTRACT_ITEM_ICON": "HQ_Shop_Item_550314.dds",
+    "EVOLUTION_ALL_STEP": 0,
+    "APPETITE": 1,
+    "CAPRICE": 1,
+    "COMMON_NAME": "다나",
+    "PET_ID": 223,
+    "ATTRIBUTE": 2,
+    "FREE_AUTO_LOOTING": 1,
+    "PET_STATUS": {
+      "0": null,
+      "1": 3
+    },
+    "INVENSLOT_WIDTH_SIZE": {
+      "0": null,
+      "1": 0
+    },
+    "INVENSLOT_HEIGHT_SIZE": {
+      "0": null,
+      "1": 0
+    },
+    "EVOLUTION_STEP_MAX": {
+      "0": null,
+      "1": 534240
+    },
+    "EVOLUTION_STEP_SCRIPTNAME": {
+      "0": null,
+      "1": "PET_DANA.lua"
+    },
+    "EVOLUTION_STEP_IMAGE": {
+      "1": {
+        "0": null,
+        "1": "DLG_UI_Common_Texture90_NEW.tga",
+        "2": "PET_DANA_PIC_1"
+      }
+    },
+    "EVOLUTION_STEP_GAME_IMAGE": {
+      "1": {
+        "0": null,
+        "1": "DLG_UI_Pet_Face_02.tga",
+        "2": "PET_DANA_GAUGE_1"
+      }
+    },
+    "ATTACK_SKILL_INFO": {
+      "1": {
+        "0": null,
+        "1": "DLG_SKILL_Pet_Ruben7.tga",
+        "2": "PET_DANS_S_1"
+      }
+    },
+    "CHEER_SKILL_INFO": {
+      "1": {
+        "0": null,
+        "1": "DLG_SKILL_Pet_Ruben.tga",
+        "2": "SKILL_CHEER"
+      }
+    },
+    "AURA_SKILL_INFO": {
+      "1": {
+        "0": null,
+        "1": "DLG_SKILL_Pet_P_11.tga",
+        "2": "PET_DANS_P_1"
+      },
+      "2": {
+        "0": null,
+        "1": "DLG_SKILL_Pet_P_11.tga",
+        "2": "PET_DANS_P_2"
+      },
+      "3": {
+        "0": null,
+        "1": "DLG_SKILL_Pet_P_11.tga",
+        "2": "PET_DANS_P_3"
+      }
+    },
+    "AURA_SKILL_1": {
+      "0": null,
+      "1": 3920,
+      "2": 13432
+    },
+    "AURA_SKILL_2": {
+      "0": null,
+      "1": 12121,
+      "2": 12002,
+      "3": 12022
+    },
+    "AURA_SKILL_3": {
+      "0": null,
+      "1": 40108
+    }
+  },
+  "official": {
+    "url": "https://els.ztgame.com/html/news/1352771/m_000-1784-01a76-606320.shtml",
+    "checked_at": "2026-10-18T07:39:34.710829+00:00",
+    "region": "CN",
+    "period": "2026-07-29",
+    "sha256": "c4160e1e2810041f2da32d9735e4237cd1838589ee59ba06cd874f06349adefd",
+    "status": 200
+  },
+  "sources": [
+    {
+      "path": "G:\\els\\analysis\\pet-mount-20261015\\activation-catalog.json",
+      "sha256": "93b5fbe445a6efb87bc12b1a5cb73ce5814b80e2b8da535b49e4c8c54d98af2f"
+    },
+    {
+      "path": "G:\\els\\analysis\\pet-mount-20261015\\resources\\PetData.tables.json",
+      "sha256": "820a92254ece5f9f56dcb338b1a3fce8be41a1fbe5827248297b7bb3a24e814e"
+    },
+    {
+      "path": "G:\\els\\analysis\\pet-skills-20261015\\progression-catalog.json",
+      "sha256": "eab5b12ebeadd2391b5752f6fa8cd00a02ab40be44897a722a1ab4889f61ad9b"
+    },
+    {
+      "path": "G:\\els\\analysis\\pet-mount-20261015\\decompiled\\0x2d9e500.c",
+      "sha256": "acbc9891a18dc513f302f5954e5b0ca061cb78879a7472a341b2ab883139fcf7"
+    },
+    {
+      "path": "G:\\els\\analysis\\pet-mount-20261015\\decompiled\\0x35e6b40.c",
+      "sha256": "ad7503f170b761df40f3d5e421bdcfe52928f4d52dfbe64c906f3cd6b5e9ad42"
+    },
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v62\\research\\limited-pet-v1\\native-0xd9c550.asm.txt",
+      "sha256": "fbbe72439f84486ccf5af3b0356a3a263e2d6d668002ef75004d6dc084a3bd13"
+    },
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v62\\research\\limited-pet-v1\\deadline-candidate-0x35f1c60.asm.txt",
+      "sha256": "aa096081da4ccae53f238dc6234c0b26608572b312e207577efba4706dd742a0"
+    },
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v62\\research\\limited-pet-v1\\deadline-read-candidates.json",
+      "sha256": "b02aeac739c85d5b8d043b1459d93a167750d61a2090419f8d8324bf56e0517e"
+    }
+  ],
+  "local_policy": [
+    "90days from committed activation; source duration90, exact retail maintenance/start epoch not recovered",
+    "Existing pet starting satiety3840, growth0, personality empty and nutrition0 retained",
+    "Expired ownership retained with original deadline; cannot summon/feed/equip/use automatic effects; active instance stopped once",
+    "No guessed renewal item or other timed companion SKU enabled"
+  ],
+  "native_wire": {
+    "deadline_epoch_dto": "0x3d",
+    "reader": "D9C550",
+    "countdown": "35F1D82 obtains original server time;35F1D8A subtracts it from DTO+3D;35F1DA5/JLE stops positive countdown at deadline<=now; seconds divide by3600/60",
+    "pickup_separate": "DTO+C2 is pickup permission and DTO+C3 its expiry; existing permanent free pickup uses true/0 and remains unchanged",
+    "limited_flag": "No invented pet-limited flag"
+  },
+  "remaining": [
+    "Full original activation dialog, countdown, list rendering and expiry scene stop liveGUI pending",
+    "Dana battle attacks/cheer/auras not claimed by lifecycle work"
+  ]
+}
