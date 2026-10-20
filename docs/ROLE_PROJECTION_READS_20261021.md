@@ -1,0 +1,11 @@
+# Complete role projection queries
+
+`LocalAccount.character_list()` gets the list, then calls `for_character()` for each role. Its ownership check previously called `Characters.get(uid)`, which rebuilt every owned role and its extended fields again. `get()` now shares the complete list projection while binding the selected account/UID. Artifact SQL joins existing ownership and ignores finalized tombstones before parsing their JSON. Lifecycle decoration scopes its reads to supplied role UIDs in batches of 900; `states(db)` without a UID filter retains its full-table contract.
+
+Only two storage source files change. All identity and write methods, the complete extended-field loop, and deletion deadline expressions remain unchanged. No schema, reward, client, launcher, cross-request player cache or channel metadata changes are included.
+
+Existing independent private old/new SQLite checks on both runtime parents are reused: 1/8/16 roles take 68/2133/7973 SELECTs before and 68/509/1013 after. All normal projection fields and deletion/restoration/expiry/current-read outcomes match. Selected malformed extensions still fail without writes; foreign or target-external artifact data no longer poisons a different target. The private profiles use the real list/ownership call chain with synthetic inventory/location DTO adapters. They do not prove full native login or public gameplay. The first cold immutable-resource parse remains about 30–32 seconds and is a separate optimization scope.
+
+The portable test uses temporary synthetic SQLite and a title DTO stub and the unchanged isolated skill-seal SQL reader, without retail resources, player databases, credentials or reward definitions. It covers complete owner/list/get fields, one-identity projection, malformed-artifact isolation, finalized deletion, current external commits/rollback, and the legacy 999-variable SQLite limit. Run `python -B -m unittest discover -s tests -p test_role_projection_reads.py`.
+
+Both online and formal local installation are pending maintainer deployment for this source unit. Merging the PR does not deploy a server; exact runtime acceptance and channel provenance are recorded separately by the maintainer.
