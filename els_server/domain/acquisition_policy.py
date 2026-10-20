@@ -21,7 +21,13 @@ def excluded_equipment():
             'SELECT id,name FROM items WHERE item_type IN (1,2,3)') if has_legacy_marker(name))
 
 
+# Historical CN2020 ticket compatibility: decode/consume existing saves only.
+# Current normal acquisition is unverified; all existing grant gates reject these.
+LEGACY_USE_ONLY_TICKETS = frozenset((711338,711339,711340,711341,711342,711343))
+
+
 def can_acquire(template):
+    if template in LEGACY_USE_ONLY_TICKETS:return False
     from els_server.domain.ordinary_accessories import definitions
     accessory=definitions().get(template)
     return template not in excluded_equipment() and not (accessory and accessory['compatibility_only'])
