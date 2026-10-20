@@ -260,6 +260,12 @@ for _cube in fixed_cube_catalog().values():
  VERIFIED_TEMPLATES[_cube['template']]=_cube['metadata']
  TEMPLATE_BAG_GROUPS[_cube['template']]=4
  TEMPLATE_MAX_STACKS[_cube['template']]=99
+from els_server.domain.apple_consumables import inventory_definitions as apple_definitions
+for _row in apple_definitions():
+ if _row['template'] in VERIFIED_TEMPLATES:raise ValueError('Conflicting apple inventory template')
+ VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
+ TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
+ TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
 from els_server.domain.select_cubes import catalog as select_cube_catalog
 for _cube in select_cube_catalog().values():
  if _cube['template'] in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_cube['template']],TEMPLATE_BAG_GROUPS[_cube['template']],TEMPLATE_MAX_STACKS[_cube['template']])!=(_cube['metadata'],4,99):raise ValueError('Conflicting selection cube item')
