@@ -29,7 +29,9 @@ def pet_record(p=None):
     data+=struct.pack('>bhiI',p.get('step',0),p.get('satiety',3840 if uid else 0),p.get('growth',0),len(personality))
     data+=b''.join(struct.pack('>ih',int(k),v) for k,v in sorted(personality.items(),key=lambda x:int(x[0])))
     gear=p.get('equipment',{})
-    data+=struct.pack('>QhI',0,p.get('nutrition',0),len(gear))+b''.join(struct.pack('>iii',int(slot),e['template'],e['socket']) for slot,e in sorted(gear.items(),key=lambda v:int(v[0])))
+    end=p.get('expires_at',0)
+    if type(end) is not int or not 0<=end<2**40:raise ValueError('Pet deadline bound')
+    data+=struct.pack('>QhI',end,p.get('nutrition',0),len(gear))+b''.join(struct.pack('>iii',int(slot),e['template'],e['socket']) for slot,e in sorted(gear.items(),key=lambda v:int(v[0])))
     data+=struct.pack('>hhB',0,0,0)
     data+=wstring('')*3+struct.pack('>BQB',bool(p.get('pickup')),0,0)+wstring('')+b'\0'
     data+=struct.pack('>iBQb',0,0,0,0)

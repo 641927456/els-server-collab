@@ -32,6 +32,8 @@ def use(path,uid,payload,operation_id,*,now=None,automatic_use=False):
             state=automatic(db,uid)
             active=db.execute('SELECT pet FROM companion_active WHERE owner=?',(uid,)).fetchone() if db.execute("SELECT 1 FROM sqlite_master WHERE name='companion_active'").fetchone() else None
             if not state['automatic'] or not active or not active[0] or (state['upgrade'] and not state['enabled']):raise ValueError('Active pet and automatic entitlement required')
+            from els_server.storage.pet_support import owned_pet
+            owned_pet(db,uid,active[0])
             binding=state['hp_binding' if slot==0 else 'mp_binding']
             interval=state['hp_seconds' if slot==0 else 'mp_seconds'] if state['upgrade'] else 0
             db.execute('CREATE TABLE IF NOT EXISTS pet_auto_cooldowns (owner INTEGER NOT NULL,slot INTEGER NOT NULL,ready_at REAL NOT NULL,PRIMARY KEY(owner,slot))')
