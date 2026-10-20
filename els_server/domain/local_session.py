@@ -796,7 +796,8 @@ class LocalSession:
             from els_server.protocol.consumable_messages import acknowledgement
             if self.role!='game' or self.phase!='dungeon_active' or type(request_sequence) is not int or not 1<=request_sequence<2**32:
                 return [acknowledgement(result=-1,automatic=kind==0x65e)]
-            try:return use(self.account.store.path,self.account.uid,event.payload,self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence),automatic_use=kind==0x65e)
+            from els_server.domain.apple_consumables import native_stage_ready
+            try:return use(self.account.store.path,self.account.uid,event.payload,self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence),automatic_use=kind==0x65e,allow_apples=native_stage_ready(self))
             except ValueError:return [acknowledgement(result=-1,automatic=kind==0x65e)]
         if self.item_test and self.client_build=='dx11_260923' and kind==0x8a1 and event.event_id==0x202:
             from els_server.storage.quick_slots import save_request,acknowledgement

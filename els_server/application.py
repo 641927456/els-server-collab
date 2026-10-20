@@ -54,6 +54,9 @@ class FriendsSession(LocalSession):
         if self.phase in ('closing','channels_ready') and leases.get(self.identity['id']) is self:
             self.application.world.leave_party(self)
             leases.pop(self.identity['id'],None)
+        if event.event_id==0x202 and event.kind==0x113:
+            from els_server.domain.apple_consumables import relay_committed_use
+            relay_committed_use(self,result)
         self.application.world.synchronize(self)
         if self.phase=='town_ready' and event.event_id==0x202 and event.kind==0x22b:
             self.application.world.moved(self,event.payload)
