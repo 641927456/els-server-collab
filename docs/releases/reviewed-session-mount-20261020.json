@@ -1,0 +1,48 @@
+{
+  "local_release": "local-reviewed-session-mount-20261020-v1",
+  "online_release": "reviewed-session-mount-20261020-v1",
+  "independent_server_units": 3,
+  "server_files": 4,
+  "delta": [
+    "els_server/application.py",
+    "els_server/transport.py",
+    "els_server/storage/mount_state.py",
+    "els_server/diagnostic_reports.py"
+  ],
+  "local_manifest_sha256": "1848ec30f91a922d8fc1b990bf070b02c3384bcf29f2b50f9b8f54dd2f7a9e8a",
+  "online_manifest_sha256": "3e66756489d06248ccd950b9ae3a3ab26c4e15873e1573d5fe75c462a88c89a3",
+  "public_TLS": {
+    "passed": true,
+    "actual_public_TLS": true,
+    "checks": [
+      "duplicate-playing-lease-rejected",
+      "ordinary-disconnect-reconnect-released",
+      "unchanged-shop-catalog-cart-deposit",
+      "town-disconnect-reconnect-released"
+    ],
+    "shop_catalog_bytes": 175901,
+    "shop_catalog_seconds": 0.30133599997498095,
+    "client_started": false,
+    "SDK_hooks": 0,
+    "mouse_keyboard_focus_actions": 0,
+    "no_purchase_or_reward_requests": true,
+    "own_QA_disabled": true,
+    "protocol_lifecycle_accepted": true,
+    "natural_GUI": false
+  },
+  "dual_SQLite_API": true,
+  "normal_stop": true,
+  "online_observation_seconds": 124.62728579994291,
+  "local_observation_seconds": 123.52099609992001,
+  "new_tables": false,
+  "client_changes": 0,
+  "whole_server_complete": false,
+  "source_normalizations": [
+    {
+      "path": "els_server/storage/mount_state.py",
+      "git_sha256": "94dc98ff8511ca3214b2c869f0125c1e4b9a4befe8b403a66c0614c8b8e2635c",
+      "deployed_sha256": "bf9b3342475c8afd2bc1bde4aa6a7e2ded26a4f144a10bb484227afa5106a55d",
+      "AST_equal": true
+    }
+  ]
+}
