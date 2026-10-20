@@ -80,6 +80,7 @@ def handle(path,owner,kind,payload,operation,*,now=None):
   if previous:
    if previous!=(digest,uid):raise ValueError('Conflicting riding retry')
    if kind==0x42c and active!=(uid,1):raise ValueError('Stale riding retry')
+   if kind==0x42f and (active!=(0,0) or mount['ridden']):raise ValueError('Stale dismount retry')
    return wire.summoned(0,mount) if kind==0x42c else wire.dismounted(0,uid,mount)
   if kind==0x42c:
    if mount['stamina']<=0 or (active!=(uid,1) and mount['stamina']<catalog()['enable_stamina']):raise ValueError('Mount is exhausted')
