@@ -378,6 +378,9 @@ class LocalSession:
                          character=self.account.character() if self.account.account_id!=1 else None)
 
     def _handle(self,event,request_sequence=None):
+        from els_server.domain.resonance_allocation_flow import handle as resonance_allocation_handle
+        resonance_allocation_reply=resonance_allocation_handle(self,event,request_sequence)
+        if resonance_allocation_reply is not None:return resonance_allocation_reply
         kind=event.kind
         from els_server.domain.avatar_set_flow import handle as avatar_set_handle
         avatar_set_reply=avatar_set_handle(self,event,request_sequence)

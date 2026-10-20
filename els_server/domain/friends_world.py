@@ -70,6 +70,9 @@ class FriendsWorld:
 
     def party_request(self,session,event):
         kind=event.kind
+        if event.event_id==0x202 and kind in (0x14e,0x151):
+            from els_server.domain.party_commands import handle
+            return handle(self,session,event)
         if event.event_id==0x202 and kind==0x145:
             from els_server.domain.party_selection import select
             return select(self,session,event)
@@ -152,6 +155,7 @@ class FriendsWorld:
             party=self.party_of.get(session)
             if party is None:return [wire.party_ready_notice(session.account.uid,False,-1)]
             ready=bool(event.payload[0])
+            if ready!=(session in party['ready']):party.pop('admission',None)
             if ready:party['ready'].add(session)
             else:party['ready'].discard(session)
             for other in party['members']:self.send(other,wire.party_ready_notice(session.account.uid,ready))
