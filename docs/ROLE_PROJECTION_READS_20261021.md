@@ -1,6 +1,6 @@
 # Complete role projection queries
 
-`LocalAccount.character_list()` gets the list, then calls `for_character()` for each role. Its ownership check previously called `Characters.get(uid)`, which rebuilt every owned role and its extended fields again. `get()` now shares the complete list projection while binding the selected account/UID. Artifact SQL joins existing ownership and ignores finalized tombstones before parsing their JSON. Lifecycle decoration scopes its reads to visible role UIDs in batches of 900; `states(db)` without a UID filter retains its full-table contract.
+`LocalAccount.character_list()` gets the list, then calls `for_character()` for each role. Its ownership check previously called `Characters.get(uid)`, which rebuilt every owned role and its extended fields again. `get()` now shares the complete list projection while binding the selected account/UID. Artifact SQL joins existing ownership and ignores finalized tombstones before parsing their JSON. Lifecycle decoration scopes its reads to supplied role UIDs in batches of 900; `states(db)` without a UID filter retains its full-table contract.
 
 Only two storage source files change. All identity and write methods, the complete extended-field loop, and deletion deadline expressions remain unchanged. No schema, reward, client, launcher, cross-request player cache or channel metadata changes are included.
 
