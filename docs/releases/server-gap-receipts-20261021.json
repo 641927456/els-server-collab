@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "scope": "Three reviewed server units: bounded peer queue, ordinary decomposition current-state receipt, complete native closed-reset failure.",
+  "source_PRs": [
+    54,
+    55,
+    56
+  ],
+  "online": {
+    "release": "server-gap-receipts-20261021-v1",
+    "accepted": true,
+    "manifest_sha256": "528e0b55b08c102fd6c722412eb98d51c4d70cfe1dcecf3a6933844b90328ea3",
+    "snapshot": "channels/online-server-gap-receipts-20261021-v1.json",
+    "branch": "snapshot/online-server-gap-receipts-20261021-v1",
+    "exact_formal_server_source_bytes": true,
+    "inherited_non_runtime_server_sources": [
+      "els_server/selected2026_gm.py"
+    ],
+    "historical_snapshot_not_latest_channel_claim": true,
+    "newer_active_snapshot_preserved": "channels/online-growth-reward-erp-refund-20261021-v1.json",
+    "newer_active_branch_preserved": "snapshot/online-growth-reward-erp-refund-20261021-v1"
+  },
+  "local": {
+    "candidate_release": "local-server-gap-receipts-20261021-v1",
+    "installed": true,
+    "acceptance_pending": false,
+    "source_view": "channels/local-server-gap-main-view-20261021-v1.json",
+    "formal_release": null,
+    "frozen_local_tree_matches_current_main": false,
+    "current_source_differences": [
+      {
+        "path": "els_server/application.py",
+        "deployed_sha256": "f71ecdd9545cbf68becbf15adc63de97e0047b235768bdbe76b0d9c2b8356510",
+        "main_view_sha256": "a71ba683ce98e359dff9854e5158533b7443b421d51956738ef717f285114824",
+        "newline_only": false,
+        "AST_equal": false,
+        "main_view_preserved": true,
+        "match_claimed": false
+      },
+      {
+        "path": "els_server/data/select_cubes.json",
+        "deployed_sha256": "9ba01a9f6cb946e8d6e5626b90ebdd892bbac0b6b5f9439574e68107289d2069",
+        "main_view_sha256": "c52dff6bf418becf024128eadd73c5c923aa22b599e9432a4586207d32494c05",
+        "newline_only": false,
+        "AST_equal": false,
+        "main_view_preserved": true,
+        "match_claimed": false
+      },
+      {
+        "path": "els_server/data/select_cubes.manifest.json",
+        "deployed_sha256": "37c5ee79666922170bbe26b43e4f284f319f02103b6012b24816004efa6b324e",
+        "main_view_sha256": "637ed7d81e9e7889aedc763f520bc41db309bea126de54acd3a7fc5c2916bc22",
+        "newline_only": false,
+        "AST_equal": false,
+        "main_view_preserved": true,
+        "match_claimed": false
+      },
+      {
+        "path": "els_server/domain/consumables.py",
+        "deployed_sha256": "fd8fc3d996db6aa88f6b03150825d103328c55fee6989156414be6012b67bb30",
+        "main_view_sha256": "1bfc861022377c4677193777a52fb419fa6380d2e35b1ca8d510c16e1a2f740e",
+        "newline_only": false,
+        "AST_equal": false,
+        "main_view_preserved": true,
+        "match_claimed": false
+      },
+      {
+        "path": "els_server/domain/inventory_items.py",
+        "deployed_sha256": "f0c065197322010cb9d11b0d37e80dd8ed6777726b47de08551160f94467d1d7",
+        "main_view_sha256": "91890fd05551444c2e97d438523bb186721e96ee46ae8ea6318985b4a1db7b84",
+        "newline_only": false,
+        "AST_equal": false,
+        "main_view_preserved": true,
+        "match_claimed": false
+      },
+      {
+        "path": "els_server/domain/local_session.py",
+        "deployed_sha256": "09fa072c3ff859594114f5be8663f6219c707de2a46f7166bd0d4123bb7b2142",
+        "main_view_sha256": "a8c116e48c968312a03067111af044c36b3f7f44d226a47889d39299dab63ac2",
+        "newline_only": false,
+        "AST_equal": false,
+        "main_view_preserved": true,
+        "match_claimed": false
+      },
+      {
+        "path": "els_server/domain/select_cubes.py",
+        "deployed_sha256": "8db065c2c8d29ab089ad075e968dfc10c9333a156b92e2bba73c8b4e5191ca6c",
+        "main_view_sha256": "a2321cfc095bd32c6fbd11896860f9513c41abd98617bbe62381b9a1a52a5ffd",
+        "newline_only": false,
+        "AST_equal": false,
+        "main_view_preserved": true,
+        "match_claimed": false
+      },
+      {
+        "path": "els_server/storage/consumables.py",
+        "deployed_sha256": "f651baae8566c569c83d47e0f5b6ed9130fc4dc6801acc3434d0731d558e5aa3",
+        "main_view_sha256": "d03e254e29027602259c452d348f6d78aae701f5f9581befa23f6015ed027529",
+        "newline_only": false,
+        "AST_equal": false,
+        "main_view_preserved": true,
+        "match_claimed": false
+      },
+      {
+        "path": "els_server/storage/pet_support.py",
+        "deployed_sha256": "69658283f5bdc3f470432cb7a93d614ca1e9fbe56802ca7fa9b09f57f01fea86",
+        "main_view_sha256": "c6482d98c1fbcb0b1b4af1b9b9109c8678866905fc7415ea4e3c03f12ab60770",
+        "newline_only": false,
+        "AST_equal": false,
+        "main_view_preserved": true,
+        "match_claimed": false
+      }
+    ],
+    "new_main_only_server_files": [
+      "els_server/data/apple_consumables.json",
+      "els_server/data/apple_select_native.json",
+      "els_server/domain/apple_consumables.py"
+    ],
+    "actual_formal_release": "local-server-gap-receipts-20261021-v1",
+    "accepted_snapshot": "channels/local-server-gap-receipts-20261021-v1.json",
+    "branch": "snapshot/local-server-gap-receipts-20261021-v1",
+    "actual_formal_manifest_sha256": "12831093577de86df80a3984ed9426371bee97fdc8ec27b9679d4d90e4c2cc81",
+    "actual_business_files": 849,
+    "main_checkout_exact_runtime_match": false,
+    "observation_seconds": 124.11648700002115,
+    "observation_scope": "static-frozen-snapshot-and-local-state-before-activation",
+    "active_service_or_game_observation": false,
+    "main_source_view_predecessor_commit": "e453d21e6c1d20414cb43f67f6fce71dfb17ed76",
+    "main_source_view_rows": 632
+  },
+  "client_delta": 0,
+  "schema_delta": 0,
+  "automatic_deployment": false,
+  "private_state_uploaded": false,
+  "public_acceptance": {
+    "fresh_sequence_failure_and_responsiveness": true,
+    "positive_decomposition_reset": false,
+    "economy_writes": false,
+    "natural_GUI": false
+  }
+}
