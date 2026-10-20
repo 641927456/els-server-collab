@@ -1,0 +1,60 @@
+{
+  "version": 32,
+  "release": "friends-startup-query-optimization-20261021-v1",
+  "status": "publicly-published-and-accepted",
+  "launcher_sha256": "ab334c9cc176504a651bea118b86364a49254fe4973057c2d9a2f7430eba8e89",
+  "launcher_size": 2799616,
+  "parent_version": 31,
+  "parent_launcher_sha256": "a3f754c33179bd0c29af9660760eca93ed39d6f8ed6e1ae78af07b02c53e8726",
+  "runtime_sha256": "7d2f7db2c07b9da8302d1278bb80d4070c97bcddc03dd0ac80765aa03a129860",
+  "runtime_size": 157308576,
+  "runtime_files": 1082,
+  "unchanged_runtime_files": 1079,
+  "runtime_support_delta": [
+    {
+      "path": "els_server/domain/companion_fashion.py",
+      "sha256": "ea9c273ac9cec7e8970c2ee331c22ed2e3a0b91132fc9ceab183570cc5038401",
+      "size": 3056,
+      "parent_sha256": "f906cfe83119df08201bd478b146dac396cad307eae7e9acc9ba12cf2f05bd78"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "sha256": "bbb1cd61a1e1ea765f99968be732afcf5ac03dbe3e7ec59e1dcccc4a0ff81912",
+      "size": 36467,
+      "parent_sha256": "f90d6488f37a5be8da0dde0bb8591dc018a6db9e74b783400c455e5b0b7e90f3"
+    },
+    {
+      "path": "els_server/domain/manufacture_rules.py",
+      "sha256": "9dd60d434fd417f8ab4b2ece26fc364da9cd1cd7dc67779d88e9eb2a0456ffb8",
+      "size": 7558,
+      "parent_sha256": "6b3cd5be4da907b2c82e51914e8b9a3e0c597e953715ceb920af61fa9aa8e9e2"
+    }
+  ],
+  "game_client_behavior_changed": false,
+  "shell_source_changes": [
+    "Program.PayloadHash literal",
+    "AutoUpdate.Version literal",
+    "runtime-files.signed.json"
+  ],
+  "public_channel_published": true,
+  "public_acceptance_completed": true,
+  "full_game_GUI_or_multiplayer_claimed": false,
+  "generated_JS_bytes": 26933,
+  "generated_JS_sha256": "e409b19342305f400d08f7085551b87d0684be9eeda5f6bee319639941387b14",
+  "signed_manifest_sha256": "60e77414505f60c70a43167dfc5437feac7f40e9615e9995fe53dbec5e54e4da",
+  "normal_next_start_required": true,
+  "automatic_deployment": false,
+  "installation_receipt_sha256": "e7da22e8319533c46f53738ac0aa3fb72b4f02ce0eeded59d1b9cfa81bf09b14",
+  "public_acceptance_receipt_sha256": "a093939c9bad63704c07f06bc1daafdfaf714c2d045d5ddbd059a3e71293000c",
+  "public_component_delta": {
+    "reused_files": 1079,
+    "downloaded_files": 3,
+    "downloaded_bytes": 47081,
+    "full_archive_downloaded": false,
+    "legacy_archive_reused": false,
+    "existing_environment_reused": false
+  },
+  "same_runtime_zero_download": true,
+  "actual_V31_to_V32_download": true,
+  "all_listener_PIDs_preserved": true
+}

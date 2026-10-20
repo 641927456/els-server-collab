@@ -1,0 +1,123 @@
+{
+  "schema": 1,
+  "scope": "Three independently reviewed server query/import optimizations and V32 with only three cold-load support modules.",
+  "source_PRs": [
+    71,
+    77,
+    78,
+    81
+  ],
+  "online": {
+    "release": "startup-query-optimization-20261021-v1",
+    "manifest_sha256": "e87d39ddd699939846e582d92c8aa22d3b9f59eed04460e643e2ea75e17c0e03",
+    "snapshot": "channels/online-startup-query-optimization-20261021-v1.json",
+    "branch": "snapshot/online-startup-query-optimization-20261021-v1",
+    "accepted": true,
+    "exact_formal_server_sources": 610,
+    "all_sanitized_source_rows": 621,
+    "acceptance": {
+      "observation_seconds": 125.47673700004816,
+      "all_business_files_verified": 837,
+      "dual_SQLite_API_backups": true,
+      "original_typed_rows_preserved": true,
+      "natural_GUI": false,
+      "actual_public_TLS": true,
+      "roster_seconds": 0.5846269000321627,
+      "selection_seconds": 0.14156729995738715,
+      "seven_sampled_ticket_payloads_equal": true,
+      "complete_45_page_force_pairs_private_only": true,
+      "economy_writes": false,
+      "own_QA_disabled": true
+    },
+    "inherited_non_runtime_server_sources": [
+      "els_server/data/apple_consumables.json",
+      "els_server/data/apple_select_native.json",
+      "els_server/domain/apple_consumables.py",
+      "els_server/selected2026_gm.py"
+    ],
+    "snapshot_commit": "e37e4205010f2e4efbbcdac9b52c5576881e5ac8",
+    "paired_launcher_release": "friends-startup-query-optimization-20261021-v1",
+    "launcher_rebuild_required": false,
+    "launcher_rebuild_completed": true,
+    "launcher_followup_receipt_sha256": "89b4e7af128c2efe3d951f77e772413437c4ab1987523dcaa11e70f57303f418",
+    "immutable_source_snapshot_unchanged": true
+  },
+  "local": {
+    "release": "local-startup-query-optimization-20261021-v1",
+    "manifest_sha256": "00654f060a0b1076e402fed854469734b631d176b827b002ece2f257cddb1a3f",
+    "snapshot": "channels/local-startup-query-optimization-20261021-v1.json",
+    "branch": "snapshot/local-startup-query-optimization-20261021-v1",
+    "accepted": true,
+    "exact_formal_server_sources": 614,
+    "all_sanitized_source_rows": 629,
+    "acceptance": {
+      "observation_seconds": 123.51608820003457,
+      "all_business_files_verified": 854,
+      "dual_SQLite_API_backups": true,
+      "original_typed_rows_preserved": true,
+      "natural_GUI": false,
+      "observation_kind": "Unselected immutable installed runtime and unchanged local state; not a live service/game observation",
+      "active_service_or_game_observation": false,
+      "normal_next_start_required": true
+    },
+    "inherited_non_runtime_server_sources": [],
+    "snapshot_commit": "34e34c7a888e60a4b3d5aa2f1cded7060b63b139"
+  },
+  "launcher": {
+    "release": "friends-startup-query-optimization-20261021-v1",
+    "version": 32,
+    "accepted": true,
+    "launcher_sha256": "ab334c9cc176504a651bea118b86364a49254fe4973057c2d9a2f7430eba8e89",
+    "runtime_sha256": "7d2f7db2c07b9da8302d1278bb80d4070c97bcddc03dd0ac80765aa03a129860",
+    "source": "launchers/friends-v32",
+    "runtime_support_files": 3,
+    "unchanged_runtime_files": 1079,
+    "game_client_behavior_delta": 0,
+    "generated_JS_sha256": "e409b19342305f400d08f7085551b87d0684be9eeda5f6bee319639941387b14",
+    "public_downloaded_files": 3,
+    "public_reused_files": 1079,
+    "public_downloaded_bytes": 47081,
+    "same_runtime_zero_download": true,
+    "actual_V31_to_V32_download": true
+  },
+  "main_source_view": "channels/local-source-startup-query-optimization-20261021-v1.json",
+  "main_source_differences_from_accepted_local": [
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "accepted_local_sha256": "2d4e89ed297d5355664e222b3316fb6c32bd2f96bcc5d9658fc89d02e09a1858",
+      "current_git_sha256": "c5174e650ce2637c091da43f29e69eefd61309d6e1b2b7164a65021f5fbc876d",
+      "main_source_preserved": true
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "accepted_local_sha256": "a8c116e48c968312a03067111af044c36b3f7f44d226a47889d39299dab63ac2",
+      "current_git_sha256": "48aededbdcbfa4dfb5dd6394c27d2a1ca1159206df6c47500d9808196d2ca895",
+      "main_source_preserved": true
+    },
+    {
+      "path": "els_server/domain/sage_sockets.py",
+      "accepted_local_sha256": "4267f70f1cdc3bbc33bdcffea6b0b2913525e8fd0e415b841b901291167f32ad",
+      "current_git_sha256": "38f4fbd2215ec49f595cc5aafd002e5f1a14ad903431969c340b2625d09bc1aa",
+      "main_source_preserved": true
+    },
+    {
+      "path": "els_server/storage/equipment_receipt_state.py",
+      "accepted_local_sha256": "ccb65fe45e7741224d04a06eb7756ef6c9c6e2a07c32d7f029295797d96f4a66",
+      "current_git_sha256": "77d6badbac6008fce57e8d0ebaef2a6fd9fa302b19ac55654251dbb49768c16a",
+      "main_source_preserved": true
+    },
+    {
+      "path": "els_server/storage/manufacture.py",
+      "accepted_local_sha256": "a1902734005346b9c9bf75b05ff1595a4fc5127d300c3068cc8939c2efb59363",
+      "current_git_sha256": "84a79d8c7db38d07f2798dc49ed0feb2b6f371313b79da598ef4c370c629451c",
+      "main_source_preserved": true
+    }
+  ],
+  "all_main_sources_claimed_deployed": false,
+  "database_schema_delta": 0,
+  "automatic_deployment": false,
+  "private_state_uploaded": false,
+  "natural_GUI_speed_claimed": false,
+  "actual_end_to_end_SDK_delay_isolated": false,
+  "existing_full_file_verification_retained": true
+}
