@@ -95,8 +95,12 @@ class FriendsDungeons:
     def admissible(self,party,leader,identity):
         from els_server.domain.dungeon_routes import route_catalog
         from els_server.domain.region_quests import account_dungeon_allowed
-        from els_server.domain.raid_party import admission_size
-        return (party['leader'] is leader and party['run'] is None and not party.get('challenge_pending') and admission_size(party,identity)
+        from els_server.domain.raid_party import admission_size,raid_definition
+        selected=route_catalog().entry_identity(party['dungeon'])
+        ordinary=not party.get('raid_party') and not party.get('challenge')
+        return ((identity==selected or party.get('challenge'))
+            and (not ordinary or raid_definition(identity) is None)
+            and party['leader'] is leader and party['run'] is None and not party.get('challenge_pending') and admission_size(party,identity)
             and (identity==30000 or route_catalog().supports(identity,internal=bool(party.get('challenge'))))
             and all(s.phase=='town_ready' and s in self.world.members and not s.released
                 and (s is leader or s in party['ready']) and account_dungeon_allowed(s.account,identity)
@@ -115,16 +119,32 @@ class FriendsDungeons:
                 identity=route_catalog().entry_identity(identity)
                 valid=(s.application.config.friends_coop_enabled and mode in (1,2) and self.admissible(party,s,identity))
                 if valid:
-                    party['admission']=(identity,time.monotonic()+30,tuple(party['members']))
+                    from els_server.domain.party_commands import selection_context
+                    party['admission']=(identity,time.monotonic()+30,tuple(party['members']),selection_context(party))
                 elif party['leader'] is s:party.pop('admission',None)
                 return [Event(0x201,kind=0x7d5,payload=i32(0 if valid else ENTRY_REQUIREMENTS_NOT_MET if mode in (1,2) else INVALID_DUNGEON_MODE)+i32(1))]
             admission=party.get('admission');payload=event.payload
-            valid=(s.application.config.friends_coop_enabled and admission is not None
-                and admission[1]>=time.monotonic() and tuple(party['members'])==admission[2]
-                and self.admissible(party,s,admission[0])
+            from els_server.domain.party_commands import selection_context
+            from els_server.domain.dungeon_routes import route_catalog
+            identity=route_catalog().entry_identity(party['dungeon'])
+            # An already consented challenge selects its qualified current node
+            # through the existing preflight, not the ordinary room-map setting.
+            if party.get('challenge') and admission is not None:identity=admission[0]
+            # Current original2D6D830 sends382 for an existing party; it does
+            # not require the solo/experimental7D4 preflight. The server's
+            # selected map and current ready roster remain authoritative.
+            native_normal=(admission is None and not any(party.get(k)
+                for k in ('raid_party','challenge','challenge_pending','solo_challenge'))
+                and party.get('difficulty',0)==0 and party.get('mode',0)==0)
+            preflight=(admission is not None and len(admission)==4
+                and admission[0]==identity and admission[1]>=time.monotonic()
+                and tuple(party['members'])==admission[2]
+                and selection_context(party)==admission[3])
+            valid=(s.application.config.friends_coop_enabled and (native_normal or preflight)
+                and event.payload_mode==0 and self.admissible(party,s,identity)
                 and 23<=len(payload)<=86 and any(struct.unpack_from('>I',payload,o)[0]==len(payload)-22 for o in range(19)))
             if not valid:return [Event(0x201,kind=0x383,payload=i32(-1)+wstring('')*2)]
-            self.start(party,s,admission[0],event)
+            self.start(party,s,identity,event)
             return [Event(0x201,kind=0x383,payload=bytes(4)+wstring('')*2)]
         if kind in (0x7d4,0x382):return []
         if kind==0x2ce:

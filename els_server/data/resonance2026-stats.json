@@ -1,0 +1,153 @@
+{
+  "schema": 1,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "rows": [
+    {
+      "stat_id": 1,
+      "symbol": "ERT_ALL_ATK_ABS",
+      "tab": 0,
+      "maximum": 999,
+      "per_point": 10,
+      "dungeon_only": false
+    },
+    {
+      "stat_id": 2,
+      "symbol": "ERT_ALL_DEF_ABS",
+      "tab": 0,
+      "maximum": 999,
+      "per_point": 10,
+      "dungeon_only": false
+    },
+    {
+      "stat_id": 4,
+      "symbol": "ERT_ALL_ELEMENTAL_DEF_ABS",
+      "tab": 0,
+      "maximum": 50,
+      "per_point": 10,
+      "dungeon_only": false
+    },
+    {
+      "stat_id": 16,
+      "symbol": "ERT_MAX_HP_REL",
+      "tab": 0,
+      "maximum": 50,
+      "per_point": 0.5,
+      "dungeon_only": false
+    },
+    {
+      "stat_id": 17,
+      "symbol": "ERT_MAX_MP_ABS",
+      "tab": 0,
+      "maximum": 50,
+      "per_point": 2,
+      "dungeon_only": false
+    },
+    {
+      "stat_id": 18,
+      "symbol": "ERT_ALL_SKILL_DAMAGE_REL",
+      "tab": 1,
+      "maximum": 100,
+      "per_point": 0.35,
+      "dungeon_only": true
+    },
+    {
+      "stat_id": 19,
+      "symbol": "ERT_POLARIZATION",
+      "tab": 1,
+      "maximum": 50,
+      "per_point": 0.15,
+      "dungeon_only": true
+    },
+    {
+      "stat_id": 20,
+      "symbol": "ERT_BOSS_DAMAGE_REL",
+      "tab": 1,
+      "maximum": 50,
+      "per_point": 0.3,
+      "dungeon_only": true
+    },
+    {
+      "stat_id": 21,
+      "symbol": "ERT_BOSS_DAMAGED_REL",
+      "tab": 1,
+      "maximum": 50,
+      "per_point": -0.4,
+      "dungeon_only": true
+    },
+    {
+      "stat_id": 22,
+      "symbol": "ERT_ADAPTABILITY",
+      "tab": 1,
+      "maximum": 100,
+      "per_point": 0.07,
+      "dungeon_only": true
+    },
+    {
+      "stat_id": 11,
+      "symbol": "ERT_SKILL_MP_COST_DOWN_REL",
+      "tab": 2,
+      "maximum": 100,
+      "per_point": -0.2,
+      "dungeon_only": false
+    },
+    {
+      "stat_id": 12,
+      "symbol": "ERT_SKILL_COOLTIME_DOWN_REL",
+      "tab": 2,
+      "maximum": 100,
+      "per_point": -0.2,
+      "dungeon_only": false
+    },
+    {
+      "stat_id": 13,
+      "symbol": "ERT_ADD_EXP_REL",
+      "tab": 2,
+      "maximum": 100,
+      "per_point": 2,
+      "dungeon_only": false
+    },
+    {
+      "stat_id": 14,
+      "symbol": "ERT_ADD_ED_REL",
+      "tab": 2,
+      "maximum": 100,
+      "per_point": 2,
+      "dungeon_only": false
+    },
+    {
+      "stat_id": 15,
+      "symbol": "ERT_ADD_DROPRATE_REL",
+      "tab": 2,
+      "maximum": 100,
+      "per_point": 2,
+      "dungeon_only": false
+    }
+  ],
+  "sources": [
+    {
+      "path": "G:\\els\\analysis\\client-6c6b5180\\resource-scripts\\Enum.lua",
+      "sha256": "6d3ba2fd8c98c8eb0fd43756843356fe530da79e4dd66cbdfcf4fd17ffc4c3f8",
+      "native_capture_manifest": "G:\\els\\analysis\\pet-mount-20261015\\resource-manifest.json",
+      "manifest_sha256": "85ef4876aa203b1a7d1ccc8897d173874bbc3e794b44ffed856a010633d3b282",
+      "current_directory_entry": {
+        "Name": "Enum.lua",
+        "Size": "1214274",
+        "CompressedSize": "346880",
+        "Checksum": "db4792b8",
+        "FileTime": "db4792b8",
+        "Algorithm": "3",
+        "MappedID": "68n8!dld",
+        "offset": 8008098
+      }
+    },
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v18\\research\\boosting678-page-semantics-v1\\ElResonanceTable.tables.json",
+      "sha256": "fa8e66c9b32370f349dc85a9a0c6b17cbab80856d6d6cff421e8d8b728f7521e"
+    }
+  ],
+  "limits": [
+    "Original enum and15stat definitions only; tab numbers not yet established as network grouping keys",
+    "Per-point numbers preserved as source values, not applied combat formulas",
+    "No initial point budget, reset currency, page ownership or growth-lift policy inferred"
+  ]
+}
