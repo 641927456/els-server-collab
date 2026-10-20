@@ -1,0 +1,7 @@
+# Explicit reviewed snapshot path exits before all historical imports and assertions.
+import sys as _reviewed_card_sys
+if any(a == "--reviewed-card-update" or a.startswith("--reviewed-card-update=") for a in _reviewed_card_sys.argv[1:]):
+    from pathlib import Path as _reviewed_card_Path
+    from reviewed_card_update import main as _reviewed_card_main
+    raise SystemExit(_reviewed_card_main(_reviewed_card_Path(__file__).resolve().parent))
+
