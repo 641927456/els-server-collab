@@ -22,9 +22,12 @@ def capacity(template):
  if not n:raise ValueError('Original equipment has no base socket slots')
  return n
 def validate(template,groups):
- if not isinstance(groups,dict) or set(groups)-{'0','1','13','14','15','16','18','19','20','21','27','28','31'}:raise ValueError('Unsupported option group')
+ if not isinstance(groups,dict) or set(groups)-{'0','1','13','14','15','16','18','19','20','21','25','27','28','31'}:raise ValueError('Unsupported option group')
  result={}
  for group,values in groups.items():
+  if group=='25':
+   from els_server.domain.boosting_2026_shadow import validate as validate_shadow
+   result[group]=validate_shadow(template,values);continue
   if group=='13':
    from els_server.domain.equipment_reforge_rules import options as reforge_options
    result[group]=reforge_options(template,values);continue
