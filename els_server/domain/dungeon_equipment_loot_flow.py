@@ -154,7 +154,7 @@ def clear_rewards(s,rule):
         return reward_clear_notice(economy['ed'],economy['experience'],s.account.uid,elapsed_seconds=elapsed,best_seconds=best,map_id=run.identity).payload
     arguments=dict(run_id=s.reward_run_id,proof=proof,ed=rule['clear_ed'],experience=rule['clear_experience'],response_builder=encode,
         item_plan=[*rule['items'],inventory_plan(118445,catalog()['values']['fragment_on_validated_clear'])],
-        dungeon_clear=(run.identity,elapsed),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(s) if getattr(s,'activity2026_awards',None) is not None else None)
+        dungeon_clear=(run.identity,elapsed),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear')
     from els_server.domain.legacy_pve_exp import enabled as exp_enabled,experience_limit
     if exp_enabled(s):arguments.update(experience_limit=experience_limit(),resonance_source='clear')
     def prepare(receipt,current):
