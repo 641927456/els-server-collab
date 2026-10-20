@@ -94,7 +94,7 @@ def status(path, account, uid, *, now=None):
         db.execute('BEGIN'); _owner(db, account, uid)
         count, unread, last = db.execute('''SELECT count(*),
             COALESCE(sum(read_at IS NULL),0),COALESCE(max(id),0)
-            FROM game_mail WHERE account_id=? AND deleted_at IS NULL AND expires_at>? AND '''+visible_sql(),
+            FROM game_mail WHERE account_id=? AND deleted_at IS NULL AND expires_at>? AND '''+visible_sql(db),
             (account,now,uid)).fetchone()
         return count, unread, last
 
