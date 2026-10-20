@@ -1238,7 +1238,15 @@ class LocalSession:
                 self.player_initialization_request=bytes(event.payload)
                 self.player_initialization_reply=tuple(answer)
             elif kind==0x6e9:answer=[Event(0x201,kind=0x6ea,payload=encode_layout(self.account.get_layout()))]
-            elif kind==0x5bf:answer=[Event(0x201,kind=0x5c0,payload=i32(0)*3)]
+            elif kind==0x5bf:
+                # DX11 13E4030 writes two i32 cursors. The current 2A restore
+                # sends the complete inventory map; no split rows remain.
+                # 138ECC0 consumes result/current/total, then sends 32 only
+                # when current == total. Reject invented continuation cursors
+                # instead of advancing initialization on malformed input.
+                if self.client_build=='dx11_260923' and event.payload!=bytes(8):
+                    raise SessionOrderError('Invalid inventory split cursors')
+                answer=[Event(0x201,kind=0x5c0,payload=i32(0)*3)]
             # 138F0E0: local DX11 has no inventory PIN configured; the ACK
             # must mark access ready. False enters 1C7 verification forever
             # instead of continuing to the original first tutorial request.

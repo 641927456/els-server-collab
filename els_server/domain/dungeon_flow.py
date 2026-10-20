@@ -48,12 +48,25 @@ def handle(s,event):
  if event.kind==0xad:
   try:d=death_report(event.payload)
   except ValueError:return []
-  from els_server.domain.lithia_memory1_retirements import handle as memory1_retirement
-  retired=memory1_retirement(s,event,d)
-  if retired is not None:return retired
-  from els_server.domain.story_controller_retirements import handle as story_retirement
-  retired=story_retirement(s,event,d)
-  if retired is not None:return retired
+  # Finite static-controller adapters must not consume an already admitted
+  # dynamic actor's original expiry. Retain the existing expiry decoder and
+  # exact server-allocated identity; zero is never an alias for another actor.
+  actor=next((n for n in run.current['npcs'] if n['key']==d['index']),None)
+  from els_server.domain.summons import valid_sentry_death
+  dynamic_expiry=actor is not None and actor.get('dynamic') and valid_sentry_death(d,s.account.uid)
+  if dynamic_expiry:
+   from els_server.domain.dungeon_equipment_loot_flow import current_lease
+   if (event.performers!=(0,) or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0
+       or s.role!='game' or not current_lease(s) or s.clear_notified
+       or getattr(s,'reward_transaction',None) is not None or getattr(s,'reward_run_id',None)!=run.run_id
+       or frozenset(getattr(s,'dungeon_participants',(s.account.uid,)))!=frozenset((s.account.uid,))):return []
+  else:
+   from els_server.domain.lithia_memory1_retirements import handle as memory1_retirement
+   retired=memory1_retirement(s,event,d)
+   if retired is not None:return retired
+   from els_server.domain.story_controller_retirements import handle as story_retirement
+   retired=story_retirement(s,event,d)
+   if retired is not None:return retired
   if d['index'] in s.summon_keys:return None
   npc=next((n for n in run.current['npcs'] if n['key']==d['index']),None)
   hp=struct.unpack('>f',struct.pack('>I',d['hp_bits']))[0]

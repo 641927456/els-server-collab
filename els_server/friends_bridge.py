@@ -8,8 +8,11 @@ from pathlib import Path
 import re
 import ssl
 import socket
+import time
 from els_server.friends_wire import read_json,write_json
 from els_server.friends_bootstrap import RelayBootstrapProbe
+
+RESERVED_NATIVE_TTL=120.0
 
 
 @dataclass(frozen=True)
@@ -40,6 +43,7 @@ class Bridge:
         self.account_ids=set();self.tasks=set();self.closing=False
         self.game_address=None;self.relay_supported=False;self.relay=None;self.relay_task=None
         self.relay_control_version=0;self.relay_control_active=False
+        self.reserved_native=None;self.reserved_expiry=None
 
     async def _close_writer(self,writer):
         writer.close()
@@ -54,10 +58,11 @@ class Bridge:
         context=ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
         context.check_hostname=False;context.verify_mode=ssl.CERT_NONE
         context.minimum_version=ssl.TLSVersion.TLSv1_2
-        writer=None
+        writer=None;stage='connect_tls';started=time.monotonic()
         try:
             async with asyncio.timeout(10):
                 reader,writer=await asyncio.open_connection(self.config.host,self.config.port,ssl=context,server_hostname=self.config.host)
+                connected=time.monotonic()
                 if role=='relay':
                     sock=writer.get_extra_info('socket')
                     if sock is not None:
@@ -66,13 +71,16 @@ class Bridge:
                             for option,value in (('TCP_KEEPIDLE',30),('TCP_KEEPINTVL',10),('TCP_KEEPCNT',3)):
                                 if hasattr(socket,option):sock.setsockopt(socket.IPPROTO_TCP,getattr(socket,option),value)
                         except OSError as error:self.log('relay_keepalive_unavailable',reason=type(error).__name__)
+                stage='certificate_pin'
                 certificate=writer.get_extra_info('ssl_object').getpeercert(binary_form=True)
                 if not hmac.compare_digest(hashlib.sha256(certificate).hexdigest(),self.config.certificate_sha256):raise ValueError('Server certificate fingerprint mismatch')
                 auth=dict(name=self.config.name,token=self.config.token)
                 if role is not None:auth['role']=role
                 control=role=='relay' and self.relay_control_version==1
                 if control:auth['relay_control_version']=1
+                stage='authentication_write'
                 await write_json(writer,auth)
+                stage='authentication_reply'
                 reply=await read_json(reader)
                 if reply.get('ok') is not True:raise ValueError('Account authentication failed')
                 identity=reply.get('account_id')
@@ -83,8 +91,10 @@ class Bridge:
                 if type(version) is not int or version not in (0,1):raise ValueError('Server relay control version differs')
                 self.relay_control_version=version
                 if role=='relay':self.relay_control_active=control and self.relay_control_version==1
+                self.log('bridge_remote_ready',role=role or 'native',connect_tls_ms=round((connected-started)*1000),authentication_ms=round((time.monotonic()-connected)*1000))
                 return reader,writer
-        except BaseException:
+        except BaseException as error:
+            self.log('bridge_remote_failed',stage=stage,role=role or 'native',reason=type(error).__name__,elapsed_ms=round((time.monotonic()-started)*1000))
             if writer:
                 try:await self._close_writer(writer)
                 except (ConnectionError,OSError,TimeoutError):pass
@@ -100,12 +110,13 @@ class Bridge:
 
     async def _start(self):
         reader,writer=await self.remote()
-        # The authenticated preflight intentionally discards the native welcome.
-        # It may arrive while TLS shutdown is in progress on a fast login.
-        try:await self._close_writer(writer)
-        except TimeoutError:pass
-        except ssl.SSLError as error:
-            if error.reason!='APPLICATION_DATA_AFTER_CLOSE_NOTIFY':raise
+        # Keep the verified preflight stream for exactly one native connection.
+        # Its original welcome stays unread and is forwarded byte-for-byte.
+        self.reserved_native=(reader,writer,time.monotonic())
+        async def expire_reserved():
+            await asyncio.sleep(RESERVED_NATIVE_TTL)
+            await self._release_reserved()
+        self.reserved_expiry=asyncio.create_task(expire_reserved())
         def discovery(address):self.game_address=address
         self.udp,self.probe=await asyncio.get_running_loop().create_datagram_endpoint(
             lambda:RelayBootstrapProbe(self,discovery),local_addr=('127.0.0.1',self.config.probe_port))
@@ -134,6 +145,39 @@ class Bridge:
         task=asyncio.create_task(self.handle(reader,writer));self.tasks.add(task)
         task.add_done_callback(self.tasks.discard)
 
+    async def _release_reserved(self):
+        reserved=self.reserved_native;self.reserved_native=None
+        if reserved is None:return
+        try:await self._close_writer(reserved[1])
+        except (ConnectionError,OSError,TimeoutError):pass
+
+    async def native_remote(self):
+        reserved=self.reserved_native;self.reserved_native=None
+        if self.reserved_expiry:
+            self.reserved_expiry.cancel()
+            await asyncio.gather(self.reserved_expiry,return_exceptions=True)
+            self.reserved_expiry=None
+        if reserved is not None:
+            reader,writer,created=reserved
+            if (time.monotonic()-created<RESERVED_NATIVE_TTL
+                    and not reader.at_eof() and not writer.is_closing()):
+                self.log('bridge_native_preflight_reused')
+                return reader,writer
+            try:await self._close_writer(writer)
+            except (ConnectionError,OSError,TimeoutError):pass
+        # Only authentication is repeated. No native welcome or game bytes have
+        # been forwarded here, so a purchase/save/selection can never be replayed.
+        deadline=time.monotonic()+10
+        for attempt in range(2):
+            remaining=deadline-time.monotonic()
+            if remaining<=0:raise TimeoutError('Native connection budget')
+            try:
+                async with asyncio.timeout(remaining):return await self.remote()
+            except (ConnectionError,OSError,TimeoutError,asyncio.IncompleteReadError):
+                if attempt or deadline-time.monotonic()<.2:raise
+                self.log('bridge_native_connect_retry',attempt=2)
+                await asyncio.sleep(.15)
+
     async def handle(self,reader,writer):
         remote_writer=None;pumps=[]
         async def copy(source,destination):
@@ -143,7 +187,7 @@ class Bridge:
                 destination.write(data)
                 await asyncio.wait_for(destination.drain(),15)
         try:
-            remote_reader,remote_writer=await self.remote()
+            remote_reader,remote_writer=await self.native_remote()
             pumps=[asyncio.create_task(copy(reader,remote_writer)),asyncio.create_task(copy(remote_reader,writer))]
             done,_=await asyncio.wait(pumps,return_when=asyncio.FIRST_COMPLETED)
             for task in done:task.result()
@@ -162,11 +206,13 @@ class Bridge:
         self.closing=True
         if self.listener:self.listener.close()
         tasks=list(self.tasks)
+        if self.reserved_expiry:tasks.append(self.reserved_expiry)
         if self.relay_task:tasks.append(self.relay_task)
         for task in tasks:task.cancel()
         try:
             if tasks:await asyncio.gather(*tasks,return_exceptions=True)
         finally:
+            await self._release_reserved()
             if self.udp:self.udp.close();await self.probe.closed
             # Python 3.13 waits for accepted streams; cancel their owners first.
             if self.listener:await asyncio.wait_for(self.listener.wait_closed(),5)
