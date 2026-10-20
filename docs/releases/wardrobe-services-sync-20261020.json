@@ -1,0 +1,100 @@
+{
+  "status": "formally-installed-and-accepted",
+  "scope": "Synchronize five accepted wardrobe units and the already delivered newer NPC parent; no new feature development or server redeployment.",
+  "local_release": "local-wardrobe-services-20261020-v2",
+  "local_manifest_sha256": "ba72b3e6ba7c8aba105d5a0b7ffacf405725b1cf53bea1017996bbfc5d93e542",
+  "online_release": "native-npc-uid-data-20261020-v1",
+  "online_manifest_sha256": "5d09f7c7496d7d436c74ce4295d828451ac5d99d41ba6e7f3fc508fa7d296567",
+  "wardrobe_online_delta_release": "wardrobe-services-20261020-v2",
+  "wardrobe_independent_units": 5,
+  "wardrobe_delta_files": 12,
+  "NPC_parent_independent_units": 1,
+  "unique_source_files_synced": 15,
+  "source_files": [
+    "els_server/application.py",
+    "els_server/data/wardrobe_extensions.json",
+    "els_server/domain/dungeon_flow.py",
+    "els_server/domain/inventory_items.py",
+    "els_server/domain/local_session.py",
+    "els_server/domain/ordinary_accessories.py",
+    "els_server/domain/wardrobe_extensions.py",
+    "els_server/protocol/dungeon_messages.py",
+    "els_server/protocol/local_messages.py",
+    "els_server/protocol/npc_uid_map.py",
+    "els_server/protocol/social_messages.py",
+    "els_server/protocol/wardrobe_messages.py",
+    "els_server/storage/item_instances.py",
+    "els_server/storage/mail_attachments.py",
+    "els_server/storage/wardrobe.py"
+  ],
+  "local_snapshot": "channels/local-wardrobe-services-20261020-v2.json",
+  "online_snapshot": "channels/online-wardrobe-services-20261020-v2.json",
+  "online_branch": "snapshot/online-wardrobe-services-20261020-v2",
+  "source_candidate_freeze_sha256": "3641ebde3744af6f159676ca7ecba1d79c8760ed7c6da0f189045a8db947ffab",
+  "local_observation_seconds": 120.17997689999174,
+  "online_business_files_verified": 699,
+  "online_live_configuration_sha256": "b1198b20f81372f8922c08c9594ef16cbed98e1f9fe1e6ad5f2c75f9c4b7ad83",
+  "online_runtime_already_current": true,
+  "no_online_deploy_required": true,
+  "public_TLS_already_accepted": true,
+  "private_TLS_two_account_sync_and_SQL_transfer_accepted": true,
+  "original_accounts_saves_config_preserved": true,
+  "local_online_channel_differences_preserved": true,
+  "normal_stop_dual_API_full_SHA_120s_original_release": true,
+  "existing_validation_reused": true,
+  "full_native_GUI": false,
+  "whole_shop_card_score": 94,
+  "score_changed": false,
+  "held": {
+    "ticket_definitions": 19,
+    "event_hidden_dye_templates": 588,
+    "unknown_special_instances": true,
+    "EP_catalog": true
+  },
+  "new_client_logic": 0,
+  "launcher_version": 29,
+  "launcher_rebuild": false,
+  "private_data_included": false,
+  "evidence_sha256": [
+    {
+      "label": "candidate-freeze.json",
+      "sha256": "e620e5f56a39e191c7f687bd93ecaf834bf2b03cd3b0f75a60e1a1a5298352f3"
+    },
+    {
+      "label": "verification-candidate-complete.json",
+      "sha256": "96048bb251cc399d0960eceeef590155978f0ed879afa63f840ae8b5457f5537"
+    },
+    {
+      "label": "verification-containers.json",
+      "sha256": "b4cac3f62f5987d7a98442937ba8299df7558c79dfca9ee97789540da142211a"
+    },
+    {
+      "label": "verification-new-boundaries.json",
+      "sha256": "7bf22a3ee460049420a005032f355763e119891ed5f97452b9cf2f9a9a599081"
+    },
+    {
+      "label": "private-tls-local.json",
+      "sha256": "2c78898e895d58844756e2ee0adb893d1dc8a3bbef61f340c17385c11c42489e"
+    },
+    {
+      "label": "private-tls-online.json",
+      "sha256": "2c78898e895d58844756e2ee0adb893d1dc8a3bbef61f340c17385c11c42489e"
+    },
+    {
+      "label": "verification-notification-v2.json",
+      "sha256": "ce0bf19ca5a33b4b75510bc27b5f968d252da12cfa7bce6b992f2f33e9943a08"
+    },
+    {
+      "label": "public-acceptance.json",
+      "sha256": "998de2844b53affdaff717906fe6aede73c4a349b9d8bac381db91c9b1edcfb9"
+    },
+    {
+      "label": "review-final.json",
+      "sha256": "4683c3fa9b46663ebd7e0d124129d088a26a4a89ce69f6bbbd1b756b71739dbe"
+    },
+    {
+      "label": "failure-adjudication-final.json",
+      "sha256": "49bfb66a25b31828962f382de9cd343104e799c5f88065f6698c22c5ac597303"
+    }
+  ]
+}

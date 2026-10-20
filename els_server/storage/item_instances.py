@@ -5,7 +5,7 @@ from els_server.domain.inventory_items import validate_item
 def remove(db, owner, item):
     if not db.in_transaction:
         raise ValueError('Instance removal requires transaction')
-    for table in ('equipment_attributes', 'equipment_durability', 'equipment_enhancement', 'item_expiration', 'item_locks', 'equipment_options', 'equipment_identification', 'equipment_enhancement_progress', 'item_seals','artifact_equipment_state','equipment_chip_tuning','equipment_reforge_states','equipment_engrave_previews','wardrobe_item_state'):
+    for table in ('equipment_attributes', 'equipment_durability', 'equipment_enhancement', 'item_expiration', 'item_locks', 'equipment_options', 'equipment_identification', 'equipment_enhancement_progress', 'item_seals','artifact_equipment_state','equipment_chip_tuning','equipment_reforge_states','equipment_engrave_previews','wardrobe_item_state','wardrobe_dyes'):
         if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?", (table,)).fetchone():
             db.execute(f'DELETE FROM {table} WHERE item_uid=?', (item['uid'],))
     if db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?', (item['uid'], owner)).rowcount != 1:
@@ -57,6 +57,9 @@ def insert(db, owner, item):
     if 'appearance_template' in item or 'wardrobe_hanger' in item:
         from els_server.storage.wardrobe import assign as assign_wardrobe
         assign_wardrobe(db,owner,item)
+    elif 'dye_colors'in item or 'appearance_colors'in item:
+        from els_server.storage.wardrobe import assign_colors
+        assign_colors(db,owner,item)
     return item
 
 

@@ -60,4 +60,4 @@ def require_wearable(item,character):
     # 868240 mode1 only checks armor models for type2; accessories are type3.
     allowed=mode==1 or mode==2 and family==raw[0xd2] or mode==3 and class_matches(character['unit_class'],raw[0xd3])
     if not flags&0xf00 or flags&0x10 or character['level']<raw[0xd1] or not allowed or not class_matches(character['unit_class'],raw[0xd3]):raise ValueError('Accessory template requirements')
-    if set(item)-{'uid','template','metadata','count','group','slot','expires_at','lock_until','sealed','seal_used','appearance_template','wardrobe_hanger'}:raise ValueError('Unsupported accessory instance data')
+    if set(item)-{'uid','template','metadata','count','group','slot','expires_at','lock_until','sealed','seal_used','appearance_template','wardrobe_hanger','dye_colors','appearance_colors'}:raise ValueError('Unsupported accessory instance data')
