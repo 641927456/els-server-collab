@@ -108,7 +108,11 @@ class FriendsWorld:
             invite=self.invitations.get(session)
             if invite is None:return [wire.party_answer_ack(result=-1)]
             inviter=invite['inviter'];uids={session.account.uid,inviter.account.uid}
-            if ({first,second}!=uids or invite['expires']<time.monotonic() or inviter not in self.members
+            # Native 2D60E80 puts the inviter UID first and a zero reserved
+            # qword second. The authenticated receiver and pending invitation
+            # bind the target; zero never selects another session.
+            native_identity=first==inviter.account.uid and second==0
+            if (not native_identity and {first,second}!=uids or invite['expires']<time.monotonic() or inviter not in self.members
                 or session in self.party_of or self.party_of.get(inviter) is not invite['party']):return [wire.party_answer_ack(result=-1)]
             self.invitations.pop(session)
             if not accepted:return [wire.party_answer_ack(inviter.account.uid)]

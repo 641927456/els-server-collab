@@ -191,7 +191,7 @@ def handle(s,event):
 
         if not s.dungeon_substage_synced:
 
-            reply += [Event(0x201,kind=0xb6,payload=bytes(16)),initial_part(current['run'].part),begin_substage(current['run'].part)]
+            reply += [Event(0x201,kind=0xb6,payload=bytes(16)),initial_part(current['run'].part),begin_substage(current['run'].part,npc_entries=((n['key'],n['template']) for n in current['run'].current['npcs']) if current['run'].identity==41150 else ())]
 
 
             current['started']=True;s.dungeon_substage_synced=True
