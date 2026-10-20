@@ -672,6 +672,16 @@ class LocalSession:
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
             try:return [choose(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)]
             except ValueError:return [acknowledgement(result=-1)]
+        if self.item_test and self.client_build=='dx11_260923' and kind==0x6ce and event.event_id==0x202:
+            from els_server.domain.boosting_2026_force_extraction import acknowledgement as force_extract_ack
+            from els_server.storage.boosting_2026_force_extraction import action as force_extract_action
+            if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:return [force_extract_ack(result=-1)]
+            operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
+            try:force=force_extract_action(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)
+            except ValueError:return [force_extract_ack(result=-1)]
+            events=force['events']
+            if force['replayed']:events.append(self.saved_user_sync())
+            return events
         if self.item_test and self.client_build=='dx11_260923' and kind==0x6d0 and event.event_id==0x202:
             from els_server.domain.boosting_2026_force_equipment import acknowledgement as force_slot_ack
             from els_server.storage.boosting_2026_force_equipment import action as force_slot_action
