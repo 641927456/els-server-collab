@@ -32,13 +32,15 @@ def use_request(payload,owner):
     if cash or source!=0 or target!=owner or context:raise ValueError('Unsupported native160 source/target/mode')
     return target
 
-def use_ack(owner,count,code=0):
+def use_ack(owner,count,code=0,*,dungeon=30000):
     # BA6E70 reads fouri32, bool andQ into packedDTO0..18.
-    return Event(0x201,kind=0x161,payload=struct.pack('>iiii?Q',code,30000,_count(count),0,False,owner))
+    if type(dungeon)is not int or not 0<dungeon<2**31:raise ValueError('Resurrection dungeon wire bound')
+    return Event(0x201,kind=0x161,payload=struct.pack('>iiii?Q',code,dungeon,_count(count),0,False,owner))
 
-def continuation(owner,count):
-    # Solo30000stage0 only: -1 is current native selection of an actual mapkey.
-    # Fourthword0 is unused outside currentspecialDungeonIDA1D6.
-    answer=[use_ack(owner,count),Event(0x201,kind=0x162,payload=struct.pack('>QQii',owner,owner,-1,0))]
+def continuation(owner,count,*,dungeon=30000,position=-1):
+    # The scene gate admits only audited ordinary modes. A shared room supplies
+    # one explicit source key; native -1 remains the qualified solo selector.
+    if type(position)is not int or not -1<=position<2**31:raise ValueError('Resurrection spawn wire bound')
+    answer=[use_ack(owner,count,dungeon=dungeon),Event(0x201,kind=0x162,payload=struct.pack('>QQii',owner,owner,position,0))]
     for e in answer:encode_event(e)
     return answer
