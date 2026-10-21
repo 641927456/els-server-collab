@@ -392,6 +392,13 @@ for _row in _essence_pouch_items():
  TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
  TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
 
+# Exact current-source manual magic potion; no acquisition provider is opened.
+from els_server.domain.consumables import manual_magic_potion_definition
+_manual_magic=manual_magic_potion_definition()
+_t=_manual_magic['template'];_expected=(_manual_magic['metadata'],_manual_magic['group'],_manual_magic['max_stack'])
+if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting manual magic potion definition')
+VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
 # User policy (2026-10-18): raise existing stackable items to at least 999.
 # Original catalog evidence stays immutable. Equipment/singletons stay at one;
 # native material stacks already above 999 retain their larger limits.
