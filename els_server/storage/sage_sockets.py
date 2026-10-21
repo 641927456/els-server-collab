@@ -11,10 +11,13 @@ from els_server.storage.inventory_state import load_items
 from els_server.storage.item_instances import remove
 from els_server.storage.npc_trade import balances,charge
 from els_server.storage.equipment_options import replace
-def socket(path,owner,payload,operation,randbelow=secrets.randbelow):
+def socket(path,owner,payload,operation,randbelow=secrets.randbelow,*,account_id=None):
  uid,materials=request(payload);owner,digest=_identity(owner,0x1c4,payload,operation)
  with closing(sqlite3.connect(path,timeout=10)) as db,db:
   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+  if account_id is not None:
+   from els_server.storage.profession_state import require_owner
+   require_owner(db,owner,account_id)
   old=_previous(db,operation,digest);before=load_items(db,owner);balance=balances(db,owner)
   current={(i['group'],i['slot']):i for i in before};by_uid={i['uid']:i for i in before}
   target=by_uid.get(uid)
