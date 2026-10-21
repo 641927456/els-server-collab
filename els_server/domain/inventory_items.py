@@ -384,6 +384,14 @@ for _row in _color_vouchers():
  TEMPLATE_BAG_GROUPS[_row['template']]=4
  TEMPLATE_MAX_STACKS[_row['template']]=999
 
+# Exact official Essence pouch; original metadata/flags and output cap1000.
+from els_server.domain.ep_essence_bag import definitions as _essence_pouch_items
+for _row in _essence_pouch_items():
+ if _row['template'] in VERIFIED_TEMPLATES:raise ValueError('Conflicting Essence pouch item')
+ VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
+ TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
+ TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
+
 # User policy (2026-10-18): raise existing stackable items to at least 999.
 # Original catalog evidence stays immutable. Equipment/singletons stay at one;
 # native material stacks already above 999 retain their larger limits.
