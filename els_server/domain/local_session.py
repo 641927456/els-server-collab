@@ -698,7 +698,8 @@ class LocalSession:
         if self.item_test and self.client_build=='dx11_260923' and kind==0x6ce and event.event_id==0x202:
             from els_server.domain.boosting_2026_force_extraction import acknowledgement as force_extract_ack
             from els_server.storage.boosting_2026_force_extraction import action as force_extract_action
-            if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:return [force_extract_ack(result=-1)]
+            from els_server.domain.equipment_chip_flow import current_lease
+            if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32 or self.account.store is None or self.account.store.uid!=self.account.uid or not current_lease(self):return [force_extract_ack(result=-1)]
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
             try:force=force_extract_action(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)
             except ValueError:return [force_extract_ack(result=-1)]
@@ -708,7 +709,8 @@ class LocalSession:
         if self.item_test and self.client_build=='dx11_260923' and kind==0x6d0 and event.event_id==0x202:
             from els_server.domain.boosting_2026_force_equipment import acknowledgement as force_slot_ack
             from els_server.storage.boosting_2026_force_equipment import action as force_slot_action
-            if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:return [force_slot_ack(result=-1)]
+            from els_server.domain.equipment_chip_flow import current_lease
+            if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32 or self.account.store is None or self.account.store.uid!=self.account.uid or not current_lease(self):return [force_slot_ack(result=-1)]
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
             try:return [force_slot_action(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)]
             except ValueError as error:return [force_slot_ack(result=getattr(error,'result',-1))]
@@ -727,7 +729,8 @@ class LocalSession:
             except ValueError:return [use_ack(result=-1)]
             if resonance is not None:return resonance['events']+[self.saved_user_sync()]
             from els_server.storage.boosting_2026_force_inventory import use_book as use_force_book
-            try:force=use_force_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)
+            from els_server.domain.equipment_chip_flow import current_lease
+            try:force=use_force_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation,session_authorized=bool(self.account.store is not None and self.account.store.uid==self.account.uid and current_lease(self)))
             except ValueError as error:return [use_ack(result=getattr(error,'result',-1))]
             if force is not None:return force['events']+([self.saved_user_sync()] if force['replayed'] else [])
             from els_server.storage.artifact_progression import action as artifact_action
