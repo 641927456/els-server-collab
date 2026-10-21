@@ -4,7 +4,7 @@ Reuses the pinned 610/611/612/79E/79F codecs and transactional page stores.
 The reviewed local one-page/no-bonus initial policy stays explicit. No
 campaign enrollment, XP grant, page expansion or effect formula.
 Negative611edits use published710106/163563coins; temporary points,
-other reset items and category scrolls remain outside this route.
+category613 accepts only the reviewed ordinary scroll positive refund route.
 """
 from contextlib import closing
 from functools import lru_cache
@@ -79,11 +79,11 @@ def failure(s,kind):
     state=ResonanceCharacterState(0,0,0,False,(),0,0,0,0,0,0,0)
     if kind==0x79e:return page_switch_reply(result=256,state=state)
     # Complete error DTO consumed before the original result-256 gate.
-    return Event(0x201,kind=0x612,payload=struct.pack('>iiQiBIIQBB',256,0,0,0,0,0,0,0,0,0))
+    return Event(0x201,kind=0x614 if kind==0x613 else 0x612,payload=struct.pack('>iiQiBIIQBB',256,0,0,0,0,0,0,0,0,0))
 
 
 def handle(s,event,sequence):
-    if event.event_id!=0x202 or event.kind not in (0x611,0x79e) or not enabled(s):return None
+    if event.event_id!=0x202 or event.kind not in (0x611,0x613,0x79e) or not enabled(s):return None
     if (type(sequence) is not int or not 1<=sequence<2**32 or event.performers!=(0,)
         or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):return []
     from els_server.domain.equipment_chip_flow import current_lease
@@ -92,6 +92,9 @@ def handle(s,event,sequence):
         if s.phase!='town_ready' or s.account.character()['level']<99:
             raise ValueError('Town and full-level character required')
         if event.kind==0x611:ResonanceAllocationRequest.decode(event.payload)
+        elif event.kind==0x613:
+            from els_server.protocol.resonance_2026_scroll import scroll_request
+            scroll_request(event.payload)
         else:page_switch_request(event.payload)
         with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
             db.execute('BEGIN IMMEDIATE');p,state=prepare(db,s)
@@ -115,6 +118,13 @@ def handle(s,event,sequence):
                 else:
                     reply=ops.allocate(account=account,character=character,operation=operation,
                         expected_revision=expected,payload=event.payload,bonus_points=(),result=0,trailing_value=0)
+            elif event.kind==0x613:
+                from els_server.domain.resonance_category_scroll import scroll_items
+                from els_server.storage.resonance_2026_scrolls import ScrollOperations
+                from els_server.storage.resonance_2026_resets import initialize
+                initialize(db)
+                reply=ScrollOperations(db,*definitions(),scroll_items()).edit(account=account,character=character,
+                    operation=operation,expected_revision=expected,payload=event.payload,kind=0x613)
             else:
                 reply=ops.select(account=account,character=character,operation=operation,
                     expected_revision=expected,payload=event.payload,opaque_fields=ResonanceOpaqueFields(*metadata[1]))
