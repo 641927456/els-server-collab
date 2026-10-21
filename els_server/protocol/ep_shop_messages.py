@@ -33,12 +33,17 @@ _PROFILES={723602:(100,1,1),723603:(10,1,2),723604:(5,1,3),710022:(15,100,4)}
 from els_server.domain.ep_pets import definitions as _ep_pet_definitions
 _PROFILES.update({row['template']:(row['price_ep'],row['quantity'],row['display_rank'])
                   for row in _ep_pet_definitions()})
+from els_server.domain.ep_guardian_necklaces import definitions as _ep_necklace_definitions
+# Local display order only; current named EPSC_AVATAR=2 is used below.
+_GUARDIAN_PROFILES={row['template']:(row['price_ep'],row['quantity'],rank)
+                    for rank,row in enumerate(_ep_necklace_definitions(),9)}
+_PROFILES.update(_GUARDIAN_PROFILES)
 _LIMITED=frozenset((723602,723603,723604))
 
 
 def catalogue_records(offers):
     from els_server.domain.ep_shop import Offer
-    if type(offers) is not tuple or len(offers)>8 or any(type(o) is not Offer for o in offers):
+    if type(offers) is not tuple or len(offers)>24 or any(type(o) is not Offer for o in offers):
         raise ValueError('Unqualified EP goods catalogue')
     if len({o.template for o in offers})!=len(offers):raise ValueError('Duplicate EP goods')
     rows=[]
@@ -55,8 +60,10 @@ def catalogue_records(offers):
             if limit is not None:raise ValueError('Manual potion must use explicit unlimited policy')
             maximum,scope=0,0
         # value0,category,opaque8,display_count,EPprice,max,scope26,
-        # opaque27,feature-group31,display-rank35. Current Enum consume=1.
-        value=struct.pack('>iiHiQiBiii',offer.template,1,0,offer.unit_quantity,
+        # opaque27,feature-group31,display-rank35. Original8 retain category1;
+        # only the qualified necklaces use current named EPSC_AVATAR=2.
+        value=struct.pack('>iiHiQiBiii',offer.template,
+                          2 if offer.template in _GUARDIAN_PROFILES else 1,0,offer.unit_quantity,
                           offer.unit_price,maximum,scope,0,0,profile[2])
         rows.append(struct.pack('>i',offer.template)+value)
     return struct.pack('>I',len(rows))+b''.join(rows)
