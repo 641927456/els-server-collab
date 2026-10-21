@@ -29,9 +29,23 @@ def handle(session,event,sequence):
     if event.kind in (0x438,0x43a):
         from els_server.storage.identification_ui import perform
         from els_server.protocol.identification_messages import acknowledgement as identification_ack
-        handler=lambda path,owner,payload,operation:perform(path,owner,event.kind,payload,operation)
-        encoder=lambda ed,result:identification_ack(event.kind,ed,result=result)
-        reply=event.kind+1
+        from els_server.domain.equipment_engrave_flow import current_lease
+        ed=0
+        try:
+            if (not current_lease(session) or session.role!='game' or session.phase!='town_ready'
+                    or session.account.characters is None or session.account.store is None
+                    or session.account.store.uid!=session.account.uid
+                    or type(sequence) is not int or not 1<=sequence<2**32
+                    or event.performers not in ((),(0,)) or event.uid!=0xffffffffffffffff
+                    or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):
+                raise ValueError('Identification session admission')
+            ed=session.account.get_reward_balances()['ed']
+            operation=session.shop_session_id+':'+str(session.account.uid)+':equipment:'+str(sequence)
+            if not current_lease(session):raise ValueError('Obsolete identification lease')
+            return perform(session.account.store.path,session.account.uid,event.kind,event.payload,operation,
+                           account_id=session.account.account_id)
+        except ValueError:
+            return [Event(0x201,kind=event.kind+1,payload=identification_ack(event.kind,ed,result=-1))]
     def failure():return [Event(0x201,kind=reply,payload=encoder(session.account.get_reward_balances()['ed'],result=-1))]
     if session.role!='game' or session.phase!='town_ready' or type(sequence) is not int or not 1<=sequence<2**32:return failure()
     operation=session.shop_session_id+':'+str(session.account.uid)+':equipment:'+str(sequence)
