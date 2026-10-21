@@ -57,6 +57,9 @@ class FriendsSession(LocalSession):
         if event.event_id==0x202 and event.kind==0x113:
             from els_server.domain.apple_consumables import relay_committed_use
             relay_committed_use(self,result)
+        if event.event_id==0x202 and event.kind in (0x2e8,0x2ec,0x432,0x42c,0x42f,0x2f5,0x2fb,0x8c7,0x219):
+            from els_server.domain.companion_peer_sync import invalidate as invalidate_companion_peer
+            invalidate_companion_peer(self)
         self.application.world.synchronize(self)
         if self.phase=='town_ready' and event.event_id==0x202 and event.kind==0x22b:
             self.application.world.moved(self,event.payload)
@@ -120,6 +123,8 @@ class FriendsSession(LocalSession):
                 kinds={e.kind for e in messages if e.event_id==0x201}
                 expiry=0x1c6 in kinds
                 if 0x214 in kinds or expiry:self.application.world.appearance_changed(self)
+            from els_server.domain.companion_peer_sync import receive as companion_peer_receive
+            messages+=companion_peer_receive(self,now=now)
         return self.mailbox.drain()+messages
 
 
