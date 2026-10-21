@@ -80,3 +80,58 @@ def handle(s,event,report):
     if seen is None:s._quest_seen_events=seen=set()
     seen.add(base)
     return replies
+
+# Private finite shared receiver sources. The original generic95 RULES stay unchanged.
+_SHARED_34320_SOURCES = ({'units': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 'dungeon': 34320, 'stage': 1, 'part': 1, 'template': 7523, 'source': {'template': 7523, 'source_index': 1, 'points': [23], 'active': True, 'gage': False, 'ally': False, 'team': 1, 'no_drop': True, 'right': False, 'boss': False, 'boss_lines': 1, 'key_code': -1, 'source_key_code': -1, 'rate': 100, 'offset': [0, 0, 0]}, 'graph_sha': 'b6905a338e4919afc3445aecf999828b6476bfccfe223bda084019998595021c', 'script': 'DEVILDOM2_HENIR_STAGE1_DUMMY.lua', 'script_sha': 'cbcb83524e671affbe471ecdec40811ec43dfb293f7e9ff0c25e0555f3d3286c', 'hp': 500, 'quests': [], 'map_quests': [26650], 'gate': True, 'requires_native_255': True}, {'units': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 'dungeon': 34320, 'stage': 2, 'part': 0, 'template': 7524, 'source': {'template': 7524, 'source_index': 2, 'points': [12], 'active': True, 'gage': False, 'ally': False, 'team': 1, 'no_drop': True, 'right': False, 'boss': False, 'boss_lines': 1, 'key_code': -1, 'source_key_code': -1, 'rate': 100, 'offset': [0, 0, 0]}, 'graph_sha': 'b6905a338e4919afc3445aecf999828b6476bfccfe223bda084019998595021c', 'script': 'DEVILDOM2_HENIR_STAGE2_DUMMY.lua', 'script_sha': '3124cfde6dfc4703fee57d1ee7c330d7621b732c639b9569bce8e4dfe1169ed0', 'hp': 500, 'quests': [], 'map_quests': [26650], 'gate': True, 'requires_native_255': True}, {'units': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 'dungeon': 34320, 'stage': 3, 'part': 0, 'template': 7513, 'source': {'template': 7513, 'source_index': 3, 'points': [1], 'active': True, 'gage': False, 'ally': False, 'team': 1, 'no_drop': True, 'right': False, 'boss': False, 'boss_lines': 1, 'key_code': -1, 'source_key_code': -1, 'rate': 100, 'offset': [0, 0, 0]}, 'graph_sha': 'b6905a338e4919afc3445aecf999828b6476bfccfe223bda084019998595021c', 'script': 'DEVILDOM2_HENIR_BOSS_END.lua', 'script_sha': '0009f71d546d4c16f835a89dc5db1efef7c2f24e40616d6deb1297063ad853a6', 'hp': 30000, 'quests': [], 'map_quests': [26650], 'gate': True, 'requires_native_255': True, 'gate_predecessor': {'template': 7511, 'source_index': 1, 'points': [1], 'active': True, 'gage': True, 'ally': False, 'team': 1, 'no_drop': False, 'right': False, 'boss': True, 'boss_lines': 60, 'key_code': -1, 'source_key_code': -1, 'rate': 100, 'offset': [0, 0, 0]}})
+
+def shared_34320_rule(run, npc, unit):
+    """Pure finite source check for the separately authorized shared receiver.
+
+    The existing solo handler and its owner-only readiness policy are unchanged.
+    This does not admit a report, advance a gate or infer any client AI state.
+    """
+    if type(unit) is not int or run.identity != 34320 or (run.stage, run.part, npc.get('template')) not in ((1, 1, 7523), (2, 0, 7524), (3, 0, 7513)) or npc.get('dynamic') or npc.get('ally') or (npc.get('team', 1) != 1):
+        return None
+    rows = [r for r in _SHARED_34320_SOURCES if (r['dungeon'], r['stage'], r['part'], r['template'], r['source']['source_index']) == (run.identity, run.stage, run.part, npc['template'], npc.get('source_index'))]
+    if len(rows) != 1:
+        return None
+    rule = rows[0]
+    if rule.get('maintenance_block') or not rule.get('requires_native_255') or rule.get('requires_no_active_hostiles') or rule['quests'] or (rule['map_quests'] != [26650]) or (unit not in rule.get('units', ())) or (not rule['gate']) or (not rule['source']['no_drop']) or (run.graph['source_sha256'] != rule['graph_sha']) or (run.graph != run.catalog.graph(run.identity)) or any((npc.get(k) != v for k, v in rule['source'].items())) or (run.catalog.manifest['source_sha256'].get(rule['script']) != rule['script_sha']) or (npc['hp'] != rule['hp']) or (npc['start_point'] not in rule['source']['points']):
+        return None
+    return rule
+
+def gate_predecessor_blocked(run):
+    """Read accepted current-instance facts before selecting a source gate.
+
+    This is a finite authority guard, not a client state/AI/timer producer.
+    No packet is saved, synthesized or replayed when the predecessor arrives.
+    """
+    if run is None:
+        return False
+    rules = [r for r in _SHARED_34320_SOURCES if r.get('gate_predecessor') is not None and (r['dungeon'], r['stage'], r['part']) == (run.identity, run.stage, run.part)]
+    for rule in rules:
+        if run.graph['source_sha256'] != rule['graph_sha'] or run.graph != run.catalog.graph(run.identity) or run.catalog.manifest['source_sha256'].get(rule['script']) != rule['script_sha']:
+            return True
+        actors = run.current['npcs']
+        targets = [n for n in actors if n['template'] == rule['template']]
+        if len(targets) != 1:
+            return True
+        target = targets[0]
+        if target.get('dynamic') or any((target.get(k) != v for k, v in rule['source'].items())) or target['hp'] != rule['hp'] or (target['start_point'] not in rule['source']['points']):
+            return True
+        proof = run.defeated.get(target['key'])
+        if proof is None:
+            continue
+        if not isinstance(proof, bytes) or not proof:
+            return True
+        source = rule['gate_predecessor']
+        predecessors = [n for n in actors if n['template'] == source['template']]
+        if len(predecessors) != 1:
+            return True
+        predecessor = predecessors[0]
+        if predecessor.get('dynamic') or any((predecessor.get(k) != v for k, v in source.items())) or predecessor['start_point'] not in source['points']:
+            return True
+        accepted = run.defeated.get(predecessor['key'])
+        if not isinstance(accepted, bytes) or not accepted:
+            return True
+    return False
