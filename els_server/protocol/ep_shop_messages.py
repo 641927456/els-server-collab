@@ -30,12 +30,15 @@ def purchase_ack(result,ep,counts,items):
 # server's display profile, not original retail catalogue values. Fields8/27
 # use the separately reviewed canonical-zero compatibility contract.
 _PROFILES={723602:(100,1,1),723603:(10,1,2),723604:(5,1,3),710022:(15,100,4)}
+from els_server.domain.ep_pets import definitions as _ep_pet_definitions
+_PROFILES.update({row['template']:(row['price_ep'],row['quantity'],row['display_rank'])
+                  for row in _ep_pet_definitions()})
 _LIMITED=frozenset((723602,723603,723604))
 
 
 def catalogue_records(offers):
     from els_server.domain.ep_shop import Offer
-    if type(offers) is not tuple or len(offers)>4 or any(type(o) is not Offer for o in offers):
+    if type(offers) is not tuple or len(offers)>8 or any(type(o) is not Offer for o in offers):
         raise ValueError('Unqualified EP goods catalogue')
     if len({o.template for o in offers})!=len(offers):raise ValueError('Duplicate EP goods')
     rows=[]
