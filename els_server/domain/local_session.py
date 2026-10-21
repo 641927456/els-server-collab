@@ -1066,13 +1066,22 @@ class LocalSession:
                 if self.role!='game' or self.phase!='town_ready':return [preview_ack(-1,cube_request.template)]
                 try:
                     if cube_request.keys not in ((),(0,)) or cube_request.flag1 not in (0,1) or cube_request.flag2 not in (0,1):raise ValueError('Fixed cube preview mode')
+                    if cube_request.template==168889:
+                        from els_server.domain.equipment_chip_flow import current_lease
+                        if self.account.store is None or self.account.store.uid!=self.account.uid or not current_lease(self):raise ValueError('Growing kit preview lease')
                     from els_server.domain.item_expiration import require_current
                     item=next((i for i in self.account.get_inventory_snapshot()['items'] if i['template']==cube_request.template and i['group']==4),None)
                     if item is None:raise ValueError('Missing fixed cube')
                     require_current(item)
                 except ValueError:return [preview_ack(-1,cube_request.template)]
                 row=fixed_cubes()[cube_request.template];self.fixed_cube_preview_template=cube_request.template
-                if row.get('participation_gear'):
+                if row.get('growing_adventure_kit'):
+                    from els_server.domain.growing_adventure_kit import outputs_for
+                    try:row=dict(row,entries=outputs_for(self.account.character()['unit_class']))
+                    except ValueError:
+                        self.fixed_cube_preview_template=None
+                        return [preview_ack(-1,cube_request.template)]
+                elif row.get('participation_gear'):
                     from els_server.domain.boosting_2026_participation_gear import preview
                     row=dict(row,entries=preview(row,self.account.character()['unit_class']))
                 elif row.get('role_fashion90'):
@@ -1094,6 +1103,9 @@ class LocalSession:
             cube_item=next((i for i in self.account.get_inventory_snapshot()['items'] if i['uid']==cube_use.uid),None)
             cube_template=cube_item['template'] if cube_item and cube_item['template'] in fixed_cubes() else self.fixed_cube_operations.get((self.account.uid,request_sequence),self.fixed_cube_preview_template)
             if cube_template is not None:
+                if cube_template==168889:
+                    from els_server.domain.equipment_chip_flow import current_lease
+                    if self.account.store is None or self.account.store.uid!=self.account.uid or not current_lease(self):return cube_result(0,code=-1)
                 if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:
                     return cube_result(self.account.get_reward_balances()['ed'],code=-1)
                 operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)

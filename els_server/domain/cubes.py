@@ -16,6 +16,9 @@ def catalog():
     pouch=essence_pouch()
     if pouch['template'] in result:raise ValueError('Duplicate Essence pouch')
     result[pouch['template']]=MappingProxyType(pouch)
+    from els_server.domain.growing_adventure_kit import BOX,entry
+    if BOX in result:raise ValueError('Duplicate growing adventure kit')
+    result[BOX]=MappingProxyType(entry())
     from els_server.domain.regional_boss_cubes import catalog as regional
     for t,row in regional().items():
         if t in result:raise ValueError('Duplicate regional cube')
