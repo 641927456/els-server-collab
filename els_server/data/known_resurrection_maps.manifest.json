@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
-  "payload_sha256": "34a113db0f91f222d5f75893157dd839345b8a6b2bc6ccf461e19f857f155112",
+  "payload_sha256": "56fc161281869be7c4543ee98b16c8f684e00722277ee842eae5a1692246060a",
   "source_evidence": [
     {
       "path": "analysis/client-6c6b5180/resource-scripts/Ruben_El_Tree_Stage1_LineMap.tables.json",
@@ -33,6 +33,11 @@
       2
     ],
     "30072": [
+      0,
+      1,
+      2
+    ],
+    "30092": [
       0,
       1,
       2
@@ -84,6 +89,28 @@
         0
       ],
       "encounter": null
+    },
+    {
+      "dungeon": 30092,
+      "definition_sha256": "3dca123eaf076499efeae0991083b94ddb22707fe89b3213b199afaaa2b0ad01",
+      "graph_source_sha256": "b87e706050ff1005c08f9b356e3a63dc66eb487d6147b6a64c8d7bbcc8304026",
+      "DUNGEON_CHECK_CONDITION": [
+        30
+      ],
+      "LimitedMaxResurrectionUseCount_present": false,
+      "stages": [
+        0,
+        1,
+        2
+      ],
+      "parts": [
+        0
+      ],
+      "encounter": null
     }
-  ]
+  ],
+  "solo30092_source_qualification": {
+    "path": "analysis/character-growth-100-01a1531c-20261021-v1/lifecycle/revival-multiplayer-20261021-v1/continuation-othermaps-multiplayer-20261022-v1/source-review/solo30092-source-qualification.json",
+    "sha256": "33230bb809fd022cc5980d644b64860624f8e8c9462699214b2949bc8e12db1b"
+  }
 }
