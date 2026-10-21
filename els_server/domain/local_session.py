@@ -275,7 +275,8 @@ class LocalSession:
         from els_server.storage.boosting_2026_limited_pet import periodic as limited_pet_periodic
         result+=limited_pet_periodic(self.account.store.path,self.account.uid,at=now)
         self.expiration_checked=key
-        return result
+        from els_server.domain.elixir_flow import periodic as world_elixir_periodic
+        return result+world_elixir_periodic(self)
 
     def _periodic_notifications(self):
         from els_server.domain.mailbox_extras import periodic as mail_periodic
@@ -363,6 +364,8 @@ class LocalSession:
         before=observe(self,notices)
         reply=self._handle(event,request_sequence)
         if self.account.characters is not None and any(e.kind==0x2a for e in reply):
+            from els_server.domain.elixir_flow import cold as world_elixir_cold
+            reply.extend(world_elixir_cold(self))
             from els_server.domain.avatar_set_flow import initialization as avatar_set_initialization
             reply.extend(avatar_set_initialization(self,reply))
             from els_server.domain.dungeon_rotation import notification
@@ -395,6 +398,9 @@ class LocalSession:
         resonance_allocation_reply=resonance_allocation_handle(self,event,request_sequence)
         if resonance_allocation_reply is not None:return resonance_allocation_reply
         kind=event.kind
+        from els_server.domain.elixir_flow import handle as world_elixir_handle
+        world_elixir_reply=world_elixir_handle(self,event,request_sequence)
+        if world_elixir_reply is not None:return world_elixir_reply
         from els_server.domain.avatar_set_flow import handle as avatar_set_handle
         avatar_set_reply=avatar_set_handle(self,event,request_sequence)
         if avatar_set_reply is not None:return avatar_set_reply

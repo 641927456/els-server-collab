@@ -448,6 +448,15 @@ for _row in purifier_inventory_definitions():
  if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting purifier exchange inventory definition')
  VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
 
+# Newly admitted old-owned blessed elixirs keep their qualified99 cap, after
+# the historical999 compatibility loop; no new global stack rule is inferred.
+from els_server.domain.elixir_items import inventory_definitions as elixir_definitions
+for _row in elixir_definitions():
+ if _row['template'] in VERIFIED_TEMPLATES:raise ValueError('Conflicting elixir inventory template')
+ VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
+ TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
+ TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
+
 def validate_item(item):
  keys={'uid','template','metadata','count','group','slot'}
  if not isinstance(item,dict) or set(item)-{'attributes','durability','expires_at','enhancement','lock_until','option_groups','identified','enhancement_gauge','enhancement_guarantee','sealed','seal_used','artifact_socket_open','chip_tuning','reforge','appearance_template','wardrobe_hanger','dye_colors','appearance_colors'}!=keys or any(type(item[k]) is not int for k in keys):raise ValueError('Invalid inventory item fields')
