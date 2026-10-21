@@ -1,4 +1,5 @@
 """Atomic NPC sales; request retries return current slots and current money."""
+from els_server.storage.item_actor import require_active_character
 import sqlite3
 import struct
 from contextlib import closing
@@ -24,7 +25,7 @@ def sell(path, owner, payload, operation, session='local'):
     owner, digest = _identity(owner, 0xec, canonical, operation)
     with closing(sqlite3.connect(path, timeout=10)) as db, db:
         db.execute('PRAGMA foreign_keys=ON')
-        db.execute('BEGIN IMMEDIATE')
+        db.execute('BEGIN IMMEDIATE');require_active_character(db,owner)
         old = _previous(db, operation, digest)
         before = load_items(db, owner)
         balance = validate_balances(db.execute(
