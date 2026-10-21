@@ -457,6 +457,10 @@ for _row in elixir_definitions():
  TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
  TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
 
+# Only newly admitted723603 keeps its source-qualified99 after old999 policy.
+if select_cube_catalog()[723603]['max_stack']!=99:raise ValueError('Elixir box stack source')
+TEMPLATE_MAX_STACKS[723603]=99
+
 def validate_item(item):
  keys={'uid','template','metadata','count','group','slot'}
  if not isinstance(item,dict) or set(item)-{'attributes','durability','expires_at','enhancement','lock_until','option_groups','identified','enhancement_gauge','enhancement_guarantee','sealed','seal_used','artifact_socket_open','chip_tuning','reforge','appearance_template','wardrobe_hanger','dye_colors','appearance_colors'}!=keys or any(type(item[k]) is not int for k in keys):raise ValueError('Invalid inventory item fields')
