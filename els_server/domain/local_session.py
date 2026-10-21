@@ -61,6 +61,8 @@ class LocalAccount:
             character['wardrobe']=wardrobe_snapshot(self.store.path,self.uid,self.account_id)
             from els_server.storage.wardrobe import favorite_snapshot
             character['wardrobe_favorites']=favorite_snapshot(self.store.path,self.uid,self.account_id)
+            from els_server.storage.resurrection_counter import snapshot as known_resurrection_count
+            character['known_resurrection_count']=known_resurrection_count(self.store.path,self.uid)
         return character
     def for_character(self,uid):
         if self.characters is None:
@@ -397,6 +399,9 @@ class LocalSession:
                          character=self.account.character() if self.account.account_id!=1 else None)
 
     def _handle(self,event,request_sequence=None):
+        from els_server.domain.known_resurrection_flow import handle as known_resurrection_handle
+        known_resurrection_reply=known_resurrection_handle(self,event,request_sequence)
+        if known_resurrection_reply is not None:return known_resurrection_reply
         from els_server.domain.resonance_allocation_flow import handle as resonance_allocation_handle
         resonance_allocation_reply=resonance_allocation_handle(self,event,request_sequence)
         if resonance_allocation_reply is not None:return resonance_allocation_reply
