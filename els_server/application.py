@@ -60,6 +60,9 @@ class FriendsSession(LocalSession):
         if event.event_id==0x202 and event.kind in (0x2e8,0x2ec,0x432,0x42c,0x42f,0x2f5,0x2fb,0x8c7,0x219):
             from els_server.domain.companion_peer_sync import invalidate as invalidate_companion_peer
             invalidate_companion_peer(self)
+        if event.event_id==0x202 and event.kind==0x219:
+            from els_server.domain.elixir_peer_sync import relay as relay_world_elixirs
+            relay_world_elixirs(self)
         self.application.world.synchronize(self)
         if self.phase=='town_ready' and event.event_id==0x202 and event.kind==0x22b:
             self.application.world.moved(self,event.payload)
@@ -100,6 +103,8 @@ class FriendsSession(LocalSession):
         # Super returns only after atomic removal/encoding/cache commit.
         messages=super().expiration_notifications()
         self._relay_luciel_hp_expiry(messages)
+        from els_server.domain.elixir_peer_sync import relay as relay_world_elixirs
+        relay_world_elixirs(self)
         return messages
 
     def periodic_notifications(self):

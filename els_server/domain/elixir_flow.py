@@ -14,7 +14,7 @@ def ready(s):
 def context(s,cold=False):
     if cold:return(s.account.uid,'selected')
     run=getattr(s,'dungeon_run',None)
-    return(s.account.uid,s.phase,getattr(s,'active_map',None),getattr(run,'run_id',None),getattr(run,'stage',None),getattr(run,'part',None),getattr(run,'visits',None))
+    return(s.account.uid,s.phase,getattr(s,'active_map',None),getattr(run,'run_id',None),getattr(run,'stage',None),getattr(run,'part',None),getattr(run,'visits',None),getattr(s,'gate_stage',None))
 
 def signature(s,state,cold=False):
     return(context(s,cold),state['revision'],tuple((r['template'],r['start'],r['end'])for r in state['rows']))
