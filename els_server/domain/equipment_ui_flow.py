@@ -32,6 +32,24 @@ def handle(session,event,sequence):
         handler=lambda path,owner,payload,operation:perform(path,owner,event.kind,payload,operation)
         encoder=lambda ed,result:identification_ack(event.kind,ed,result=result)
         reply=event.kind+1
+    if event.kind==0x21f:
+        from els_server.domain.equipment_engrave_flow import current_lease
+        ed=0
+        try:
+            if (not current_lease(session) or session.role!='game' or session.phase!='town_ready'
+                    or session.account.characters is None or session.account.store is None
+                    or session.account.store.uid!=session.account.uid
+                    or type(sequence) is not int or not 1<=sequence<2**32
+                    or event.performers not in ((),(0,)) or event.uid!=0xffffffffffffffff
+                    or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):
+                raise ValueError('Enhancement or restoration session admission')
+            ed=session.account.get_reward_balances()['ed']
+            operation=session.shop_session_id+':'+str(session.account.uid)+':equipment:'+str(sequence)
+            if not current_lease(session):raise ValueError('Obsolete equipment lease')
+            return handler(session.account.store.path,session.account.uid,event.payload,operation,
+                           account_id=session.account.account_id)
+        except ValueError:
+            return [Event(0x201,kind=reply,payload=encoder(ed,result=-1))]
     def failure():return [Event(0x201,kind=reply,payload=encoder(session.account.get_reward_balances()['ed'],result=-1))]
     if session.role!='game' or session.phase!='town_ready' or type(sequence) is not int or not 1<=sequence<2**32:return failure()
     operation=session.shop_session_id+':'+str(session.account.uid)+':equipment:'+str(sequence)
