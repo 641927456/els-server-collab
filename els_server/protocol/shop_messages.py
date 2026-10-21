@@ -36,6 +36,33 @@ def empty_cart_ack():
     return Event(0x201,kind=0x1f2,payload=bytes(4))
 
 
+def wish_list_unavailable_ack():
+    """Original1F4 failure: end pending wait without changing native cart."""
+    return Event(0x201,kind=0x1f4,payload=struct.pack('>iIB',-1,0,0))
+
+def wishlist_query_ack(items=()):
+    items=tuple(items)
+    if len(items)>1 or any(type(t) is not int or not 1<=t<2**31 for t in items):
+        raise ValueError('Finite wishlist response')
+    rows=b''.join(struct.pack('>ii',slot,t) for slot,t in enumerate(items))
+    return Event(0x201,kind=0x1f2,payload=struct.pack('>I',len(items))+rows)
+
+def wishlist_modify_request(payload):
+    if not isinstance(payload,bytes) or len(payload)!=9:
+        raise ValueError('Finite wishlist request width')
+    count,template,delete=struct.unpack('>IiB',payload)
+    if count!=1 or not 1<=template<2**31 or delete not in (0,1):
+        raise ValueError('Finite wishlist request')
+    return (template,),bool(delete)
+
+def wishlist_modify_ack(items,delete):
+    items=tuple(items)
+    if (type(delete) is not bool or len(items)!=1
+            or any(type(t) is not int or not 1<=t<2**31 for t in items)):
+        raise ValueError('Finite wishlist acknowledgement')
+    return Event(0x201,kind=0x1f4,payload=struct.pack('>iI',0,len(items))
+                 +b''.join(struct.pack('>i',t) for t in items)+bytes([delete]))
+
 def empty_deposit_ack(result=0):
     """D7B bought-item page, empty because this profile sells direct-bag ED items.
 

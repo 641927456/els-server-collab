@@ -1005,10 +1005,9 @@ class LocalSession:
             try:catalog_request(event.payload)
             except ValueError:return [empty_catalog_ack(False)]
             return [empty_catalog_ack()]
-        if self.shop_test and event.event_id==0x202 and kind==0x1f1:
-            from els_server.protocol.shop_messages import empty_cart_ack
-            if self.role!='game' or self.phase!='town_ready' or event.payload:return []
-            return [empty_cart_ack()]
+        if self.shop_test and event.event_id==0x202 and kind in (0x1f1,0x1f3):
+            from els_server.domain.wishlist_flow import handle as wishlist_handle
+            return wishlist_handle(self,event)
         if self.shop_test and event.event_id==0x202 and kind==0xd7a:
             from els_server.protocol.shop_messages import empty_deposit_ack
             if self.role!='game' or self.phase!='town_ready':return []
