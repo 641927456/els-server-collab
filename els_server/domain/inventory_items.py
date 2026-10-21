@@ -461,6 +461,14 @@ for _row in elixir_definitions():
 if select_cube_catalog()[723603]['max_stack']!=99:raise ValueError('Elixir box stack source')
 TEMPLATE_MAX_STACKS[723603]=99
 
+# One account-once native53520 reward, bounded to one unstacked instance.
+# Evidence is static same-client record + reviewed304 codec/private roundtrip,
+# deliberately not a fabricated native-execution receipt.
+from els_server.domain.erp_support_quest import item_definition as erp_support_item
+_erp_support=erp_support_item();_t=_erp_support['template']
+if _t in VERIFIED_TEMPLATES:raise ValueError('Conflicting ERP support reward')
+VERIFIED_TEMPLATES[_t]=_erp_support['metadata'];TEMPLATE_BAG_GROUPS[_t]=_erp_support['group'];TEMPLATE_MAX_STACKS[_t]=_erp_support['max_stack']
+
 def validate_item(item):
  keys={'uid','template','metadata','count','group','slot'}
  if not isinstance(item,dict) or set(item)-{'attributes','durability','expires_at','enhancement','lock_until','option_groups','identified','enhancement_gauge','enhancement_guarantee','sealed','seal_used','artifact_socket_open','chip_tuning','reforge','appearance_template','wardrobe_hanger','dye_colors','appearance_colors'}!=keys or any(type(item[k]) is not int for k in keys):raise ValueError('Invalid inventory item fields')
