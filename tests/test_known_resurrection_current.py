@@ -49,6 +49,38 @@ class KnownSourceResurrection(unittest.TestCase):
             if len(calls)==2:raise ValueError('changed playable context')
         with self.assertRaises(ValueError):self.open(self.boxes[0],'changed',guard=changed)
         self.assertEqual(self.state(),before)
+    def test_prepare_failure_leaves_counter_and_spend_ledger_absent(self):
+        self.open(self.boxes[0],'prepare-empty-ledger-credit')
+        before=self.state();prepared=[]
+        def reject(events):
+            prepared.append([event.kind for event in events])
+            raise ValueError('fixture peer queue preparation failure')
+        with self.assertRaisesRegex(ValueError,'peer queue preparation failure'):
+            spend(self.path,self.uid,self.request(),'prepare-empty-ledger-fail',str(uuid.uuid4()),1,
+                  account_id=2,guard=self.guard,position=1,prepare=reject)
+        self.assertEqual(prepared,[[0x161,0x162]])
+        self.assertEqual(snapshot(self.path,self.uid),10)
+        self.assertEqual(self.state(),before)
+        with closing(sqlite3.connect(self.path)) as db:
+            self.assertIsNone(db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='known_resurrection_spends'").fetchone())
+    def test_prepare_failure_preserves_prior_life_spend_and_counter(self):
+        self.open(self.boxes[0],'prepare-existing-ledger-credit')
+        run=str(uuid.uuid4())
+        spend(self.path,self.uid,self.request(),'prepare-existing-ledger-first',run,1,
+              account_id=2,guard=self.guard,position=1)
+        before=self.state();prepared=[]
+        def reject(events):
+            prepared.append([event.kind for event in events])
+            raise ValueError('fixture peer queue preparation failure')
+        with self.assertRaisesRegex(ValueError,'peer queue preparation failure'):
+            spend(self.path,self.uid,self.request(),'prepare-existing-ledger-fail',run,2,
+                  account_id=2,guard=self.guard,position=1,prepare=reject)
+        self.assertEqual(prepared,[[0x161,0x162]])
+        self.assertEqual(snapshot(self.path,self.uid),9)
+        self.assertEqual(self.state(),before)
+        with closing(sqlite3.connect(self.path)) as db:
+            self.assertEqual(db.execute('SELECT operation_id,owner,run,life FROM known_resurrection_spends').fetchall(),
+                             [('prepare-existing-ledger-first',self.uid,run,1)])
     def test_native_wire_is_ordinary_self_known_counter_only(self):
         self.assertEqual(use_request(self.request(),self.uid),self.uid)
         with self.assertRaises(ValueError):use_request(struct.pack('>?QQ?',True,0,self.uid,False),self.uid)
