@@ -1,0 +1,61 @@
+"""Portable known-source role resurrection counter; no image, client or network."""
+from contextlib import closing
+from pathlib import Path
+import sqlite3,struct,tempfile,unittest,uuid
+from els_server.domain.local_session import LocalAccount
+from els_server.storage.local_state import LocalState
+from els_server.storage.inventory_state import grant_items,load_items
+from els_server.storage.known_resurrection import open_box,spend
+from els_server.storage.resurrection_counter import snapshot
+from els_server.protocol.known_resurrection import continuation,use_request,death_request
+
+class KnownSourceResurrection(unittest.TestCase):
+    def setUp(self):
+        self.tmp=tempfile.TemporaryDirectory(prefix='known-C-portable-');self.addCleanup(self.tmp.cleanup)
+        self.path=Path(self.tmp.name)/'private.sqlite3'
+        a=LocalAccount(LocalState(self.path),2,'known-fixture');a.enable_characters()
+        self.uid=a.characters.create('KnownOne',1,'known-portable-role')['uid']
+        with closing(sqlite3.connect(self.path)) as db,db:
+            db.execute('BEGIN IMMEDIATE')
+            grant_items(db,[dict(template=190556,metadata=2,group=4,quantity=3)],self.uid)
+            self.boxes=[i['uid']for i in load_items(db,self.uid)if i['template']==190556]
+        self.guard=lambda:None
+    def use(self,box):return struct.pack('>QBBBIi',box,0,0,0,0,0)
+    def request(self):return struct.pack('>?QQ?',False,0,self.uid,False)
+    def state(self):
+        with closing(sqlite3.connect(self.path)) as db:return '\n'.join(db.iterdump())
+    def open(self,box,operation,**options):
+        return open_box(self.path,self.uid,self.use(box),operation,account_id=options.get('account_id',2),guard=options.get('guard',self.guard))
+    def test_current_counter_replay_and_once_per_life(self):
+        before=self.state();self.assertEqual(snapshot(self.path,self.uid),0);self.assertEqual(self.state(),before)
+        self.open(self.boxes[0],'open1')
+        run=str(uuid.uuid4())
+        first=spend(self.path,self.uid,self.request(),'spend1',run,1,account_id=2,guard=self.guard)
+        self.assertEqual(first['count'],9);self.assertEqual([e.kind for e in first['events']],[0x161,0x162])
+        self.assertEqual(struct.unpack_from('>i',self.open(self.boxes[0],'open1')[-1].payload,4)[0],9)
+        self.open(self.boxes[1],'open2')
+        self.assertEqual(struct.unpack_from('>i',self.open(self.boxes[0],'open1')[-1].payload,4)[0],19)
+        before=self.state()
+        self.assertEqual(spend(self.path,self.uid,self.request(),'spend1',run,1,account_id=2,guard=self.guard),dict(count=19,replayed=True))
+        with self.assertRaises(ValueError):spend(self.path,self.uid,self.request(),'other-operation',run,1,account_id=2,guard=self.guard)
+        self.assertEqual(self.state(),before)
+    def test_owner_and_changed_context_roll_back_entire_mutation(self):
+        before=self.state()
+        with self.assertRaises(ValueError):self.open(self.boxes[0],'foreign',account_id=3)
+        self.assertEqual(self.state(),before)
+        calls=[]
+        def changed():
+            calls.append(True)
+            if len(calls)==2:raise ValueError('changed playable context')
+        with self.assertRaises(ValueError):self.open(self.boxes[0],'changed',guard=changed)
+        self.assertEqual(self.state(),before)
+    def test_native_wire_is_ordinary_self_known_counter_only(self):
+        self.assertEqual(use_request(self.request(),self.uid),self.uid)
+        with self.assertRaises(ValueError):use_request(struct.pack('>?QQ?',True,0,self.uid,False),self.uid)
+        with self.assertRaises(ValueError):use_request(struct.pack('>?QQ?',False,0,self.uid+1,False),self.uid)
+        ack,notice=continuation(self.uid,9)
+        self.assertEqual(struct.unpack('>iiii?Q',ack.payload),(0,30000,9,0,False,self.uid))
+        self.assertEqual(struct.unpack('>QQii',notice.payload),(self.uid,self.uid,-1,0))
+        with self.assertRaises(ValueError):death_request(struct.pack('>iQQBffi?',-1,2**64-1,self.uid,0,float('nan'),0,-1,False))
+
+if __name__=='__main__':unittest.main()
