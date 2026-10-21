@@ -63,6 +63,11 @@ def wishlist_modify_ack(items,delete):
     return Event(0x201,kind=0x1f4,payload=struct.pack('>iI',0,len(items))
                  +b''.join(struct.pack('>i',t) for t in items)+bytes([delete]))
 
+def purchased_cash_unavailable_ack():
+    """Original D7D refusal: clear wait without applying inventory or slots."""
+    return Event(0x201,kind=0xd7d,payload=struct.pack('>iiIIi',-1,0,0,0,0))
+
+
 def empty_deposit_ack(result=0):
     """D7B bought-item page, empty because this profile sells direct-bag ED items.
 

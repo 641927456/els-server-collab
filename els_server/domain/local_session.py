@@ -1008,6 +1008,12 @@ class LocalSession:
         if self.shop_test and event.event_id==0x202 and kind in (0x1f1,0x1f3):
             from els_server.domain.wishlist_flow import handle as wishlist_handle
             return wishlist_handle(self,event)
+        if self.shop_test and event.event_id==0x202 and kind==0xd7c:
+            # Real cash entitlement and claim sources are not admitted.
+            # The native producer still needs its original wait-ending refusal.
+            from els_server.protocol.shop_messages import purchased_cash_unavailable_ack
+            return [purchased_cash_unavailable_ack()]
+
         if self.shop_test and event.event_id==0x202 and kind==0xd7a:
             from els_server.protocol.shop_messages import empty_deposit_ack
             if self.role!='game' or self.phase!='town_ready':return []
