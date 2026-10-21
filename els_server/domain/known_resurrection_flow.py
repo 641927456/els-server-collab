@@ -36,6 +36,7 @@ def _scene(s,sequence):
         extra,state=run_state(s);refs.extend(extra);values.append(state)
         epoch=s.reward_run_id;targets=()
     else:
+        if not keys:raise ValueError('Shared resurrection requires source-qualified spawn keys')
         from els_server.domain.friends_dungeon import Room
         from els_server.domain.friends_world import Mailbox
         from els_server.domain.normal_party import ordinary
