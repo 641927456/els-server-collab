@@ -1,4 +1,5 @@
 """Consume one owned fixed cube and deliver its original contents atomically."""
+from els_server.storage.item_actor import require_active_character
 import secrets,sqlite3,struct
 from contextlib import closing
 from els_server.domain.cubes import catalog
@@ -58,7 +59,7 @@ def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.r
         output=None if row.get('random') else row['entries'][0]
     owner,digest=_identity(owner,0x196,struct.pack('>i',expected_template)+payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');require_active_character(db,owner)
         old=_previous(db,operation,digest);before=load_items(db,owner);balance=balances(db,owner)
         if old is not None:
             return _updates(current_changes(db,operation,owner,0x196,old,before))+result(balance['ed'])
