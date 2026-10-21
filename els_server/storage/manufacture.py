@@ -22,6 +22,21 @@ from els_server.storage.manufacture_receipt_state import replay_refresh
 def operation_identity(operation):
     if type(operation) is not str or not 1<=len(operation)<=160:raise ValueError('Invalid manufacture operation ID')
 
+def double_title_equipped(db,owner,now):
+    # 1240 / socket 74064 is the currently equipped Ultimate Truth title.
+    # Use committed canonical ownership, scope, eligibility and expiry in this
+    # crafting transaction. Its other socket effect remains client-owned.
+    from els_server.storage.titles import exists,snapshot as title_snapshot
+    if exists(db,'title_ownership') or exists(db,'title_equipment'):
+        return title_snapshot(db,owner,now)['title']==1240
+    # Preserve the explicitly configured pre-title-system compatibility bridge
+    # only for old saves without canonical title state. Never override unequip
+    # or expiration with a stale bridge once canonical title state exists.
+    if exists(db,'manufacture_entitlements'):
+        row=db.execute('SELECT double_title FROM manufacture_entitlements WHERE owner=?',(owner,)).fetchone()
+        return bool(row and row[0]==1)
+    return False
+
 def ensure(db):
     db.execute('''CREATE TABLE IF NOT EXISTS manufacture_receipts (
         operation TEXT PRIMARY KEY,owner INTEGER NOT NULL,account_id INTEGER NOT NULL,
@@ -178,9 +193,7 @@ def execute(path,owner,account_id,payload,operation,*,now,randbelow=secrets.rand
             quota=None
             if request.recipe_id==LIMITED:
                 ensure_schema(db);quota=reserve(db,owner,account_id,request.recipe_id,request.quantity,now=now,region='CN')
-            double=False
-            if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='manufacture_entitlements'").fetchone():
-                row=db.execute('SELECT double_title FROM manufacture_entitlements WHERE owner=?',(owner,)).fetchone();double=bool(row and row[0]==1)
+            double=double_title_equipped(db,owner,now)
             rewards=Counter()
             for _ in range(request.quantity):
                 index=randbelow(len(pool)) if len(pool)>1 else 0
