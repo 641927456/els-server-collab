@@ -201,8 +201,18 @@ class FriendsWorld:
         # Existing login/227 initializes the local actor. Only peer records
         # travel here, avoiding a second restore of the local player.
         self.send(session,wire.town_members(added=list(room.values())))
+        from els_server.domain.character_custom import restored as custom_restored
+        for other,(character,_,_) in room.items():
+            # Match the actor already added above; use a fresh authoritative
+            # role/title projection rather than a cached expired title.
+            current=other.account.character()
+            if current['uid']==character['uid']:
+                for event in custom_restored(current):self.send(session,event)
         notice=wire.town_members(added=[own])
-        for other in list(room):self.send(other,notice)
+        own_custom=custom_restored(own[0])
+        for other in list(room):
+            self.send(other,notice)
+            for event in own_custom:self.send(other,event)
         room[session]=own;self.members[session]=key
 
     def moved(self,session,payload):
@@ -231,8 +241,24 @@ class FriendsWorld:
         # Encode before changing the published projection cache. A rejected
         # instance must not suppress the next qualified refresh attempt.
         room[session]=current
+        from els_server.domain.character_custom import restored as custom_restored
+        custom=custom_restored(current[0])
         for other in list(room):
-            if other is not session:self.send(other,notice)
+            if other is not session:
+                self.send(other,notice)
+                for event in custom:self.send(other,event)
+
+    def custom_changed(self,session,messages):
+        from els_server.domain.character_custom import admitted
+        room=self.room(session)
+        if not admitted(session) or session not in room or room[session][0]['uid']!=session.account.uid:return
+        current=(session.account.character(),session.account.get_location(),session.account.get_inventory_snapshot()['items'])
+        notices=[e for e in messages if e.event_id==0x201 and e.kind==0x18e and len(e.payload)>=16 and int.from_bytes(e.payload[:8],'big')==session.account.uid]
+        if not notices:return
+        room[session]=current
+        for other in list(room):
+            if other is not session and other.role=='game' and other.phase=='town_ready' and other.active_map==session.active_map:
+                for event in notices:self.send(other,event)
 
     def chat(self,session,event):
         if session.phase not in ('town_ready','dungeon_active') or session.role!='game':return [wire.chat_ack(-1)]
