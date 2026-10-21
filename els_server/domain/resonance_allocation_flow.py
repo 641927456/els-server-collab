@@ -43,6 +43,8 @@ def profiles(db):
 def prepare(db,s):
     from els_server.storage.resonance_state import snapshot
     p=profiles(db);p.pages.owner(s.account.account_id,s.account.uid)
+    from els_server.storage.item_actor import require_active_character
+    require_active_character(db,s.account.uid)
     if not snapshot(db,s.account.uid,s.account.account_id)['enabled']:
         raise ValueError('ERP is not opened by an authoritative source')
     p.initialize()
@@ -84,6 +86,8 @@ def handle(s,event,sequence):
     if event.event_id!=0x202 or event.kind not in (0x611,0x79e) or not enabled(s):return None
     if (type(sequence) is not int or not 1<=sequence<2**32 or event.performers!=(0,)
         or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):return []
+    from els_server.domain.equipment_chip_flow import current_lease
+    if s.account.store.uid!=s.account.uid or not current_lease(s):return [failure(s,event.kind)]
     try:
         if s.phase!='town_ready' or s.account.character()['level']<99:
             raise ValueError('Town and full-level character required')

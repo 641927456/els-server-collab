@@ -39,7 +39,9 @@ def saved(db,owner):
 def snapshot(path,owner):
     with closing(sqlite3.connect(path)) as db:return saved(db,owner)
 
-def use_book(path,owner,account_id,payload,operation,*,now=None):
+def use_book(path,owner,account_id,payload,operation,*,now=None,session_authorized=True):
+    # Internal storage callers are trusted; external native219 always passes a strict session qualification.
+    if type(session_authorized)is not bool:raise ValueError('Force session qualification type')
     if not isinstance(operation,str):raise ValueError('Force book operation identity')
     item_uid=use_request(payload);owner,digest=_identity(owner,0x219,b'selected-force-v1:'+payload,'force-book:'+operation);operation='force-book:'+operation
     if type(account_id) is not int or not 0<account_id<2**63:raise ValueError('Force book account identity')
@@ -51,11 +53,17 @@ def use_book(path,owner,account_id,payload,operation,*,now=None):
         if balance is None:raise ValueError('Force book reward balance')
         if old is not None:
             if db.execute('SELECT owner,kind FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()!=(owner,0x219):raise ValueError('Force book receipt owner/kind')
+            if not session_authorized:raise ValueError('Obsolete force book session')
+            from els_server.storage.item_actor import require_active_character
+            require_active_character(db,owner)
             event=use_ack(ed=balance[0]);encode_event(event)
             return dict(replayed=True,events=[event])
         items=load_items(db,owner);source=next((i for i in items if i['uid']==item_uid),None)
         rule=catalog().get(source['template']) if source else None
         if rule is None:return None
+        if not session_authorized:raise ValueError('Obsolete force book session')
+        from els_server.storage.item_actor import require_active_character
+        require_active_character(db,owner)
         if source['group']!=4:raise ValueError('Owned force consumable book required')
         if source.get('sealed',False):raise ValueError('Sealed force-book use is unsupported; keep the item unchanged')
         used=seal_used(source['template'],source.get('seal_used',0))
