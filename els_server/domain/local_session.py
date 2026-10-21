@@ -111,12 +111,15 @@ class LocalAccount:
             return self.skills
     def save_skills(self,slots):
         slots=validate_slots(slots,equippable_skills(self.character()),self.character())
-        with self.lock:self.skills=self.store.save_skills(slots) if self.store else slots
+        with self.lock:self.skills=self.store.save_skills(slots,account_id=self.account_id if self.characters is not None else None) if self.store else slots
     def equip_skill(self,payload):
         with self.lock:
-            character=self.character()
-            slots,ack=equip_request(payload,upgraded_slots(self.skills,character),equippable_skills(character),character)
-            self.skills=self.store.save_skills(slots) if self.store else slots
+            if self.store:
+                slots,ack=self.store.equip_skill(payload,account_id=self.account_id if self.characters is not None else None)
+            else:
+                character=self.character()
+                slots,ack=equip_request(payload,upgraded_slots(self.skills,character),equippable_skills(character),character)
+            self.skills=slots
             return ack
     def get_bindings(self):
         with self.lock:return self.bindings
@@ -1505,7 +1508,13 @@ class LocalSession:
                     reply.append(notification(self))
                 return reply
             if kind==0x122:
-                try:ack=self.account.equip_skill(event.payload)
+                try:
+                    from els_server.domain.equipment_chip_flow import current_lease
+                    if self.role!='game' or not current_lease(self):
+                        raise ValueError('Obsolete skill layout session')
+                    if getattr(self,'application',None) is not None and (self.account.characters is None or self.account.store is None or self.account.store.uid!=self.account.uid):
+                        raise ValueError('Skill layout character/store binding')
+                    ack=self.account.equip_skill(event.payload)
                 except ValueError:ack=i32(-1)+i32(-1)+i32(0)+i32(-1)+i32(0)
                 return [Event(0x201,kind=0x123,payload=ack)]
             if kind==0x6eb:
