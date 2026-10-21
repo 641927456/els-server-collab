@@ -12,6 +12,10 @@ def catalog():
     for t,row in selected().items():
         if t in result:raise ValueError('Duplicate inventory cube mode')
         result[t]=row
+    from els_server.domain.ep_essence_bag import entry as essence_pouch
+    pouch=essence_pouch()
+    if pouch['template'] in result:raise ValueError('Duplicate Essence pouch')
+    result[pouch['template']]=MappingProxyType(pouch)
     from els_server.domain.regional_boss_cubes import catalog as regional
     for t,row in regional().items():
         if t in result:raise ValueError('Duplicate regional cube')
