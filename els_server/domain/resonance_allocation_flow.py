@@ -3,8 +3,8 @@
 Reuses the pinned 610/611/612/79E/79F codecs and transactional page stores.
 The reviewed local one-page/no-bonus initial policy stays explicit. No
 campaign enrollment, XP grant, page expansion or effect formula.
-Negative611edits use only the already-published710106reward coin; temporary
-points, other reset items and category scrolls remain outside this route.
+Negative611edits use published710106/163563coins; temporary points,
+other reset items and category scrolls remain outside this route.
 """
 from contextlib import closing
 from functools import lru_cache
