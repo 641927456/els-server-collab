@@ -463,6 +463,9 @@ class LocalSession:
         from els_server.domain.equipment_engrave_flow import handle as engrave_handle
         engrave_reply=engrave_handle(self,event,request_sequence)
         if engrave_reply is not None:return engrave_reply
+        from els_server.domain.modern_synthesis_flow import handle as modern_synthesis
+        synthesis_reply=modern_synthesis(self,event,request_sequence)
+        if synthesis_reply is not None:return synthesis_reply
         from els_server.domain.equipment_chip_flow import handle as chip_handle
         chip_reply=chip_handle(self,event,request_sequence)
         if chip_reply is not None:return chip_reply
