@@ -4,6 +4,7 @@ The existing move reader applies absolute records for both affected positions.
 Stacking uses the same complete-instance key as inventory sorting, up to the
 registered stack limit. Retained UIDs never leave their inventory rows.
 """
+from els_server.storage.item_actor import require_active_character
 import json
 import sqlite3
 import struct
@@ -35,7 +36,7 @@ def move_bag_items(path, payload, uid=1001):
     source, destination = positions(payload)
     with closing(sqlite3.connect(path, timeout=10)) as db, db:
         db.execute('PRAGMA foreign_keys=ON')
-        db.execute('BEGIN IMMEDIATE')
+        db.execute('BEGIN IMMEDIATE');require_active_character(db,uid)
         limit = allowances(db, uid)[source[0]]
         if source[1] >= limit or destination[1] >= limit:
             raise ValueError('Unowned bag bag position')

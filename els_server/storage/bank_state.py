@@ -1,4 +1,5 @@
 """Character/private and account/shared bank instances, with atomic transfers."""
+from els_server.storage.item_actor import require_active_character
 import json,sqlite3,struct
 from contextlib import closing
 from els_server.domain.inventory_items import TEMPLATE_BAG_GROUPS,TEMPLATE_MAX_STACKS,validate_item
@@ -141,7 +142,7 @@ def transfer(path,owner,payload,operation):
     source,destination,quantity,context,template=transfer_request(payload)
     owner,digest=_identity(owner,0x551,payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');require_active_character(db,owner)
         old=_previous(db,operation,digest)
         expire(db,owner)
         before=load_items(db,owner);bank=load(db,owner)+load(db,owner,group=16)
@@ -192,7 +193,7 @@ def sort(path,owner,payload,operation):
     group=struct.unpack('>i',payload)[0]
     owner,digest=_identity(owner,0x372,payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('BEGIN IMMEDIATE');old=_previous(db,operation,digest)
+        db.execute('BEGIN IMMEDIATE');require_active_character(db,owner);old=_previous(db,operation,digest)
         expire(db,owner)
         before=load(db,owner,group=group)
         if old is not None:return sort_ack(group,[e['item']['uid'] for e in before])
@@ -233,7 +234,7 @@ def expand(path,owner,group,payload,operation,expected=None):
     kind=0x475 if group==8 else 0x54d
     owner,digest=_identity(owner,kind,payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('BEGIN IMMEDIATE');account_for(db,owner)
+        db.execute('BEGIN IMMEDIATE');require_active_character(db,owner);account_for(db,owner)
         old=_previous(db,operation,digest);balance=balances(db,owner)
         if old is not None:return expansion_ack(group,balance['ed'])
         current=capacity(db,owner,group);cost=expansion_cost(group,current)

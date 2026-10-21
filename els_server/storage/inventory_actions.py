@@ -3,6 +3,7 @@
 Receipt retries serialize CURRENT affected slots. They never repeat a decrement,
 allocate a second UID, or clear a replacement that moved into a historical slot.
 """
+from els_server.storage.item_actor import require_active_character
 import hashlib
 import json
 import sqlite3
@@ -52,7 +53,7 @@ def split_stack(path, uid, payload, operation):
     uid, digest = _identity(uid, 0x555, payload, operation)
     with closing(sqlite3.connect(path, timeout=10)) as db, db:
         db.execute('PRAGMA foreign_keys=ON')
-        db.execute('BEGIN IMMEDIATE')
+        db.execute('BEGIN IMMEDIATE');require_active_character(db,uid)
         old = _previous(db, operation, digest)
         items = load_items(db, uid)
         by_position = {(i['group'], i['slot']): i for i in items}
@@ -99,7 +100,7 @@ def discard(path, uid, payload, operation, *, with_updates=False):
     uid, digest = _identity(uid, 0x109, payload, operation)
     with closing(sqlite3.connect(path, timeout=10)) as db, db:
         db.execute('PRAGMA foreign_keys=ON')
-        db.execute('BEGIN IMMEDIATE')
+        db.execute('BEGIN IMMEDIATE');require_active_character(db,uid)
         old = _previous(db, operation, digest)
         items = load_items(db, uid)
         if old is not None:
