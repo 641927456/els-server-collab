@@ -399,6 +399,14 @@ _t=_manual_magic['template'];_expected=(_manual_magic['metadata'],_manual_magic[
 if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting manual magic potion definition')
 VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
 
+# Four exact permanent EP pet acquisition items; no pet activation producer.
+from els_server.domain.ep_pets import definitions as _ep_pet_items
+for _row in _ep_pet_items():
+ if _row['template'] in VERIFIED_TEMPLATES:raise ValueError('Conflicting EP pet inventory definition')
+ VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
+ TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
+ TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
+
 # User policy (2026-10-18): raise existing stackable items to at least 999.
 # Original catalog evidence stays immutable. Equipment/singletons stay at one;
 # native material stacks already above 999 retain their larger limits.
