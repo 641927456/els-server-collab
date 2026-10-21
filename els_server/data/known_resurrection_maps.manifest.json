@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
-  "payload_sha256": "844187be3c9f5e460393d84893a8287da1e92530abf3b0e61e10eba39703aaeb",
+  "payload_sha256": "34a113db0f91f222d5f75893157dd839345b8a6b2bc6ccf461e19f857f155112",
   "source_evidence": [
     {
       "path": "analysis/client-6c6b5180/resource-scripts/Ruben_El_Tree_Stage1_LineMap.tables.json",
@@ -22,13 +22,68 @@
       ]
     }
   ],
-  "qualified_scope": {
+  "world_binding_evidence": {
+    "path": "analysis/character-growth-100-01a1531c-20261021-v1/lifecycle/revival-multiplayer-20261021-v1/source-policy/current-world-linemap-binding-review-v1.json",
+    "sha256": "a631f341b41251c7859b8e335783bdaf05ed7d6e28cfbf136e7105b606931899"
+  },
+  "solo_native_selector_scope": {
+    "30000": [
+      0,
+      1,
+      2
+    ],
+    "30072": [
+      0,
+      1,
+      2
+    ]
+  },
+  "shared_explicit_key_scope": {
     "30000": [
       0
     ]
   },
-  "world_binding_evidence": {
-    "path": "analysis/character-growth-100-01a1531c-20261021-v1/lifecycle/revival-multiplayer-20261021-v1/source-policy/current-world-linemap-binding-review-v1.json",
-    "sha256": "a631f341b41251c7859b8e335783bdaf05ed7d6e28cfbf136e7105b606931899"
-  }
+  "native_selector_consumer_evidence": {
+    "path": "analysis/items-economy-100-01a15957-20261021-v1/boxes-revival/revival-common-spawn-v1/finite-known-counter-lane-design-v3.json",
+    "sha256": "7154cd807a97652d896f1255f8740471571f8ce99d0e1fdb16cfdb2f97bcc346",
+    "scope": "Generic scene+2D8 native -1 selection; does not transfer old artificial solo30000-only policy or claim native gameplay acceptance."
+  },
+  "map_rule_sources": [
+    {
+      "dungeon": 30000,
+      "definition_sha256": "851cd9ecbf364c72ab446b692e1b8571eed7be294a4b9ac4384ecc6af0c3a226",
+      "graph_source_sha256": "538106003b78814094693fb79ede43bba86c49de58ca5caae08be1e0effb10af",
+      "DUNGEON_CHECK_CONDITION": [
+        30
+      ],
+      "LimitedMaxResurrectionUseCount_present": false,
+      "stages": [
+        0,
+        1,
+        2
+      ],
+      "parts": [
+        0
+      ],
+      "encounter": null
+    },
+    {
+      "dungeon": 30072,
+      "definition_sha256": "e0068179bd8db570aebc76c564188f37437970a8cee3981614cf955736f4acac",
+      "graph_source_sha256": "b3a288f4b5048052792733eb2a03d9acfc9aa9be9908c8281d4d76df8137d230",
+      "DUNGEON_CHECK_CONDITION": [
+        30
+      ],
+      "LimitedMaxResurrectionUseCount_present": false,
+      "stages": [
+        0,
+        1,
+        2
+      ],
+      "parts": [
+        0
+      ],
+      "encounter": null
+    }
+  ]
 }
