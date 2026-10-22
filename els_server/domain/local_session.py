@@ -465,6 +465,9 @@ class LocalSession:
         from els_server.domain.pet_support_flow import handle as pet_support_handle
         pet_support_reply=pet_support_handle(self,event,request_sequence)
         if pet_support_reply is not None:return pet_support_reply
+        from els_server.domain.equipment_reforge_transfer_flow import handle as transfer_handle
+        transfer_reply=transfer_handle(self,event,request_sequence)
+        if transfer_reply is not None:return transfer_reply
         from els_server.domain.equipment_reforge_flow import handle as reforge_handle
         reforge_reply=reforge_handle(self,event,request_sequence)
         if reforge_reply is not None:return reforge_reply
