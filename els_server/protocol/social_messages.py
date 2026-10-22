@@ -51,7 +51,12 @@ def chat_request(payload,*,details=False):
     return channel,text
 
 
-def chat_ack(result=0):return Event(0x201,kind=0x86,payload=i32(result))
+def chat_ack(result=0):
+    # Native1228BD0 forwards failures to751120 ->79B330. Error -1 is
+    # outside the original0..C4D table and resolves to an empty string.
+    # Code1 is the client's existing generic failure, not a success.
+    if result==-1:result=1
+    return Event(0x201,kind=0x86,payload=i32(result))
 
 
 def chat_notice(character,account_id,text,channel=0,*,recipient=None):
