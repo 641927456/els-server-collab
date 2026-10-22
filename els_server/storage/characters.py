@@ -163,7 +163,12 @@ class Characters:
                 db.execute('INSERT INTO reward_balances VALUES (?,0,0,0)',(uid,))
                 character=dict(DEFAULT_CHARACTER,uid=uid,name=name,unit_type=unit_type,unit_class=BASE_CLASSES[unit_type],artifact=None,bag_capacities=starting_bags)
                 items=grant_loadout(db,character)
-                db.execute('INSERT INTO skill_slots VALUES (?,?,0)',(uid,encode_slots(default_slots(character),equippable_skills(character),character)))
+                # Native tutorial skill step admits A/C; sequential A/S
+                # left the second starter skill blocked until the next step.
+                # Only new rows change. Replays and saved player slots stay put.
+                starting_slots=list(default_slots(character))
+                starting_slots[3],starting_slots[1]=starting_slots[1],0
+                db.execute('INSERT INTO skill_slots VALUES (?,?,0)',(uid,encode_slots(tuple(starting_slots),equippable_skills(character),character)))
                 # Refuse an unencodable initial character before committing any
                 # identity, equipment, sequence allocation or creation receipt.
                 create_ack(character,items=items)
