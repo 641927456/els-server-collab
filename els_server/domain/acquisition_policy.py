@@ -21,7 +21,12 @@ def excluded_equipment():
             'SELECT id,name FROM items WHERE item_type IN (1,2,3)') if has_legacy_marker(name))
 
 
+# Exact CN includes-Lithia generation7 tickets: existing owned use only.
+# No current normal source is qualified; keep all new grant paths closed.
+LITHIA_GEN7_USE_ONLY_TICKETS = frozenset((718388,718389,718390,718391,718392,718393))
+
 def can_acquire(template):
+    if template in LITHIA_GEN7_USE_ONLY_TICKETS:return False
     from els_server.domain.ordinary_accessories import definitions
     accessory=definitions().get(template)
     return template not in excluded_equipment() and not (accessory and accessory['compatibility_only'])
