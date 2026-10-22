@@ -796,11 +796,22 @@ class LocalSession:
         if self.equipment_repair_enabled and kind==0x18c and event.event_id==0x202:
             from els_server.storage.equipment_repair import repair
             from els_server.protocol.repair_messages import acknowledgement
-            if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:
-                return [Event(0x201,kind=0x18d,payload=acknowledgement(self.account.get_reward_balances()['ed'],result=2))]
-            try:receipt=repair(self.account.store.path,self.account.uid,event.payload,self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence))
+            from els_server.domain.equipment_chip_flow import current_lease
+            if (not current_lease(self) or self.role!='game' or self.phase!='town_ready'
+                    or self.account is None or self.account.characters is None or self.account.store is None
+                    or self.account.store.uid!=self.account.uid
+                    or type(request_sequence) is not int or not 1<=request_sequence<2**32
+                    or event.performers not in ((),(0,)) or event.uid!=0xffffffffffffffff
+                    or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):
+                return [Event(0x201,kind=0x18d,payload=acknowledgement(0,result=2))]
+            ed=0
+            try:
+                ed=self.account.get_reward_balances()['ed']
+                if not current_lease(self):raise ValueError('Obsolete repair lease')
+                receipt=repair(self.account.store.path,self.account.uid,event.payload,self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence),
+                               account_id=self.account.account_id)
             except ValueError:
-                return [Event(0x201,kind=0x18d,payload=acknowledgement(self.account.get_reward_balances()['ed'],result=100))]
+                return [Event(0x201,kind=0x18d,payload=acknowledgement(ed,result=100))]
             answer=[Event(0x201,kind=0x18d,payload=receipt['response'])]
             return answer+[self.saved_user_sync()] if receipt['requires_inventory_sync'] else answer
         if self.attribute_enchant_enabled and kind==0x204 and event.event_id==0x202:
