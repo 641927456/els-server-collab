@@ -5,11 +5,17 @@ are recorded separately by the release review.
 """
 from pathlib import Path
 from contextlib import closing
-import sqlite3,struct,tempfile,unittest
+import hashlib,sqlite3,struct,tempfile,unittest
 from els_server.storage.account_key_bindings import load,save
 from els_server.domain.key_bindings import DEFAULT_BINDINGS
 
 class AccountKeyBindingsTests(unittest.TestCase):
+    def assertNativeDefault(self,payload):
+        # Source: untouched6c6b first397 and native482D90/3FFA290 replay.
+        self.assertEqual(len(payload),352)
+        self.assertEqual(struct.unpack_from('>I',payload)[0],85)
+        self.assertEqual(hashlib.sha256(payload).hexdigest(),'9fa8d15175635bb0197b298cb0fb8f238f2aaff0d36726cef75c9a1bbae978b1')
+
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.path=Path(self.tmp.name)/'game.sqlite3'
         with closing(sqlite3.connect(self.path)) as db,db:db.execute('CREATE TABLE untouched(value TEXT)')
@@ -19,13 +25,13 @@ class AccountKeyBindingsTests(unittest.TestCase):
     def rows(self):
         with closing(sqlite3.connect(self.path))as db,db:return db.execute('SELECT * FROM account_key_bindings ORDER BY account_id').fetchall()
     def test_empty_roster_cold_restore_and_account_isolation(self):
-        self.assertEqual(load(self.path,2),DEFAULT_BINDINGS)
+        self.assertNativeDefault(load(self.path,2))
         with closing(sqlite3.connect(self.path))as db,db:
             self.assertIsNone(db.execute("SELECT name FROM sqlite_master WHERE name='account_key_bindings'").fetchone())
         save(self.path,2,self.first);save(self.path,3,self.second)
         self.assertEqual(load(self.path,2),self.first)
         self.assertEqual(load(self.path,3),self.second)
-        self.assertEqual(load(self.path,4),DEFAULT_BINDINGS)
+        self.assertNativeDefault(load(self.path,4))
         save(self.path,2,self.first)
         self.assertEqual(self.rows(),[(2,self.first,1),(3,self.second,1)])
     def test_actual_SQL_abort_preserves_previous_preference(self):
@@ -43,7 +49,7 @@ class AccountKeyBindingsTests(unittest.TestCase):
             db.executemany('INSERT INTO key_bindings VALUES (?,?)',[(1001,self.first),(1002,self.second)])
         self.assertEqual(load(self.path,2),self.first)
         self.assertEqual(load(self.path,3),self.second)
-        self.assertEqual(load(self.path,4),DEFAULT_BINDINGS)
+        self.assertNativeDefault(load(self.path,4))
         save(self.path,3,self.first)
         with closing(sqlite3.connect(self.path))as db,db:
             self.assertEqual(db.execute('SELECT * FROM key_bindings ORDER BY uid').fetchall(),[(1001,self.first),(1002,self.second)])
@@ -56,5 +62,13 @@ class AccountKeyBindingsTests(unittest.TestCase):
         save(self.path,2,self.first)
         with closing(sqlite3.connect(self.path))as db,db:db.execute('UPDATE account_key_bindings SET payload=?',(b'broken',))
         with self.assertRaises(ValueError):load(self.path,2)
+
+    def test_saved_empty_reset_stays_empty_on_disk_but_restores_native_defaults(self):
+        self.assertNativeDefault(save(self.path,2,DEFAULT_BINDINGS))
+        before=self.rows()
+        self.assertEqual(before,[(2,DEFAULT_BINDINGS,1)])
+        self.assertNativeDefault(load(self.path,2))
+        self.assertNativeDefault(save(self.path,2,DEFAULT_BINDINGS))
+        self.assertEqual(self.rows(),before)
 
 if __name__=='__main__':unittest.main()
