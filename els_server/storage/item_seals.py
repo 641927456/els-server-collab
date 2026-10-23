@@ -31,7 +31,7 @@ def _target(item,*,sealing):
     from els_server.domain.item_locks import require_unlocked
     from els_server.game_data import client_data
     if (item is None or item['count'] != 1 or
-            not (item['group'] == 1 and (item['template'] in definitions() or not sealing and artifact_slots(item['template'])) or
+            not (item['group'] == 1 and (item['template'] in definitions() or artifact_slots(item['template'])) or
                  item['group'] == 2 and item['template'] in accessory_definitions() or
                  item['group'] in (7, 27) and item['template'] in FASHION_EQUIP_SLOTS)):
         raise ValueError('Seal operation requires owned bag equipment')
