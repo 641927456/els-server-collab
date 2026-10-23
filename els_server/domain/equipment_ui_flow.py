@@ -17,6 +17,11 @@ def handle(session,event,sequence):
         valid=(session.role=='game' and session.phase in phases and not event.payload
                and type(sequence) is int and 1<=sequence<2**32)
         return [configuration_ack(0 if valid else -1)]
+    if event.kind==0x5ff:
+        from els_server.protocol.blacksmith_enhancement_messages import is_candidate
+        if is_candidate(event.payload):
+            from els_server.domain.blacksmith_enhancement_flow import handle as smith_handle
+            return smith_handle(session,event,sequence)
     handler=enhance;encoder=acknowledgement;reply=0x600
     if event.kind==0x21f:
         from els_server.storage.equipment_restoration import restore
