@@ -22,6 +22,21 @@ from els_server.storage.manufacture_receipt_state import replay_refresh
 def operation_identity(operation):
     if type(operation) is not str or not 1<=len(operation)<=160:raise ValueError('Invalid manufacture operation ID')
 
+def double_title_equipped(db,owner,now):
+    # 1240 / socket 74064 is the currently equipped Ultimate Truth title.
+    # Use committed canonical ownership, scope, eligibility and expiry in this
+    # crafting transaction. Its other socket effect remains client-owned.
+    from els_server.storage.titles import exists,snapshot as title_snapshot
+    if exists(db,'title_ownership') or exists(db,'title_equipment'):
+        return title_snapshot(db,owner,now)['title']==1240
+    # Preserve the explicitly configured pre-title-system compatibility bridge
+    # only for old saves without canonical title state. Never override unequip
+    # or expiration with a stale bridge once canonical title state exists.
+    if exists(db,'manufacture_entitlements'):
+        row=db.execute('SELECT double_title FROM manufacture_entitlements WHERE owner=?',(owner,)).fetchone()
+        return bool(row and row[0]==1)
+    return False
+
 def ensure(db):
     db.execute('''CREATE TABLE IF NOT EXISTS manufacture_receipts (
         operation TEXT PRIMARY KEY,owner INTEGER NOT NULL,account_id INTEGER NOT NULL,
@@ -147,7 +162,7 @@ def execute(path,owner,account_id,payload,operation,*,now,randbelow=secrets.rand
     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10)) as db:
         try:
             db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
-            current=snapshot(db,owner,account_id);state=ProfessionState(**current['state'])
+            current=_active_owner(db,owner,account_id);state=ProfessionState(**current['state'])
             items=load_items(db,owner);balances=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(owner,)).fetchone())
             ensure(db);old=db.execute('SELECT owner,account_id,request_hash,positions_json,audit_json FROM manufacture_receipts WHERE operation=?',(operation,)).fetchone()
             if old:
@@ -178,9 +193,7 @@ def execute(path,owner,account_id,payload,operation,*,now,randbelow=secrets.rand
             quota=None
             if request.recipe_id==LIMITED:
                 ensure_schema(db);quota=reserve(db,owner,account_id,request.recipe_id,request.quantity,now=now,region='CN')
-            double=False
-            if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='manufacture_entitlements'").fetchone():
-                row=db.execute('SELECT double_title FROM manufacture_entitlements WHERE owner=?',(owner,)).fetchone();double=bool(row and row[0]==1)
+            double=double_title_equipped(db,owner,now)
             rewards=Counter()
             for _ in range(request.quantity):
                 index=randbelow(len(pool)) if len(pool)>1 else 0
@@ -226,7 +239,7 @@ def select_alchemist(path,owner,account_id,payload):
     if select_request(payload)!=3:raise ValueError('This route implements alchemist crafting only')
     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10)) as db:
         try:
-            db.execute('BEGIN IMMEDIATE');old=snapshot(db,owner,account_id)
+            db.execute('BEGIN IMMEDIATE');old=_active_owner(db,owner,account_id)
             character=db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()
             if character[0]<40 or old['state']['profession'] not in (0,3):raise ValueError('Alchemist selection unavailable')
             state=ProfessionState(**old['state'])
@@ -235,3 +248,13 @@ def select_alchemist(path,owner,account_id,payload):
             wire=selection_ack(0,state,{},tail_u64=0,tail_i32=0,tail_flag_a=False,tail_flag_b=False)
             db.commit();return wire
         except BaseException:db.rollback();raise
+
+
+def _active_owner(db,owner,account_id):
+    """Keep lifecycle and ownership current inside the mutation transaction."""
+    from els_server.storage.character_lifecycle import states
+    current=snapshot(db,owner,account_id)
+    lifecycle=states(db,(owner,)).get(owner,{})
+    if lifecycle.get('requested_at') or lifecycle.get('finalized_at'):
+        raise ValueError('Crafting character is pending deletion or finalized')
+    return current
