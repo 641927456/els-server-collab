@@ -113,6 +113,8 @@ def discard(path, uid, payload, operation, *, with_updates=False):
         item = next((i for i in items if i['uid'] == item_uid), None)
         if item is None or item['group'] not in (1, 2, 3, 4, 5, 6, 7, 21, 27):
             raise ValueError('Discard requires an owned bag item')
+        from els_server.domain.cartridge_registration_rules import require_unbound
+        require_unbound(db,item_uid)
         from els_server.domain.cartridge_selection_box import BOX
         if item['template']==BOX:
             raise ValueError('Cartridge box discard eligibility is not yet qualified')

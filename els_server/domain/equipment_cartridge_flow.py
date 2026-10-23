@@ -1,8 +1,6 @@
-"""Complete native failure acknowledgements for unqualified cartridge operations.
-
-The client owns the UI and its waiting state. Equip, removal and growth remain unavailable. Finite registration is separately
-qualified for existing singleton stock under account sharing and live actor checks.
-No collection initialization, SQL mutation, charge or success is manufactured.
+"""Finite singleton registration and current account D4D; native UI owns effects.
+Finite empty-carrier attach/exact-UID removal use original complete packets.
+Replacement, automatic relocation and growth remain closed.
 """
 from els_server.protocol.equipment_cartridge_messages import acknowledge, request
 
@@ -55,6 +53,22 @@ def _register(s,event,sequence):
         return [acknowledge(0xd4f,result=2005,identity=0,rows={},points=0)]
 
 
+def _binding(s,event,sequence):
+    try:
+        path,owner,account_id=_session(s)
+        request(event.kind,event.payload)
+        if (type(sequence)is not int or not 1<=sequence<2**32
+                or event.performers not in((),(0,))or event.uid!=0xffffffffffffffff
+                or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):
+            raise ValueError('Cartridge binding envelope')
+        from els_server.storage.account_cartridge_registration import perform_binding
+        authorize=_selected_authorizer(s,(path,owner,account_id))
+        operation=s.shop_session_id+':cartridge-bind-v1:'+str(account_id)+':'+str(owner)+':'+str(event.kind)+':'+str(sequence)
+        return perform_binding(path,owner,account_id,event.kind,event.payload,operation,authorize=authorize)
+    except ValueError:
+        return[acknowledge(event.kind+1,result=2005,identity=0,rows={},changes=())]
+
+
 def synchronize(s,messages):
     # Own errors must never discard unrelated periodic packets or mark sent.
     if (s.role!='game' or s.phase!='town_ready' or s.client_build!='dx11_260923'
@@ -82,6 +96,7 @@ def handle(s, event, sequence):
             or s.client_build != 'dx11_260923'):
         return None
     if event.kind==0xd4e:return _register(s,event,sequence)
+    if event.kind in(0xd50,0xd52):return _binding(s,event,sequence)
     identity = 0
     ed = 0
     try:

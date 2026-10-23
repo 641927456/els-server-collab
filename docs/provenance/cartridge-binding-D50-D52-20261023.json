@@ -1,0 +1,97 @@
+{
+  "schema": "cartridge-binding-D50-D52-redacted-provenance-v1",
+  "issue": 290,
+  "base_commit": "0e4c1cb25c3f4ddd4439fbd8fca51736494c5dc7",
+  "source_files": {
+    "els_server/data/cartridge_registration.json": "fb4e149d849d0844d0fa072d5eb0d5315bd738094a07161e67c9ee7ae56a4fd3",
+    "els_server/domain/cartridge_registration_rules.py": "964f7f55014710a651a59bc53a597a986e3c69fea72b31088b5f810f9ce8dfe4",
+    "els_server/storage/account_cartridge_registration.py": "edf5e045ad9f49bc84246785c09cffcb52ba0b6f1e7b1eb40b1539c1919a37d6",
+    "els_server/domain/inventory_items.py": "4b4522dd9110e1d6d1d2a5a1e21a59fb2351145e6d8776adbaf6484103455e55",
+    "els_server/storage/inventory_state.py": "b4b0cdf6d78c760c9ba86d673c27738b897ca82331c60a0856988d5be38a1a3a",
+    "els_server/domain/equipment_cartridge_flow.py": "2b4b163e52a5c2d563655c6f5a38168821dfddf6dcf28c6f2357182ad01b0982",
+    "els_server/storage/equipment_receipt_state.py": "92218577427376e7ad2759bd4d6caec2fbd27a89c9b1cc99e258304ea789f378",
+    "els_server/storage/item_instances.py": "550fdbc5505f2fb93bc889d8768215880eb06155db2bb3cf016d40539b7169f7",
+    "els_server/storage/inventory_actions.py": "06daf339ae07ec3a9c1300617531629924fb4ab9e5b2bb459a0329b803503973",
+    "els_server/storage/npc_sale.py": "8ae41aabd209c18cc0ef1edfe720f89628bd2b06c4e24a7419f5a2bcbe155747",
+    "els_server/storage/item_seals.py": "d7194792f3c905662ec8b18b5daa2932d6a5b966ad5b084588d23cc89de078bd",
+    "els_server/storage/bank_state.py": "86bd4e0b24a9b1a73600bdfb9641ae6a277273e2d9c76b1db356060a3e1f7cf9",
+    "els_server/storage/character_lifecycle.py": "158dfc1823425bf4f6951a0c8c14598da432f39e5674ae5c3863cdfa931587c6",
+    "els_server/storage/item_expiration.py": "53eec44b4c02a78004ac6042967f5276e6dace7f07edc9d74e511ae8a6ff3441",
+    "els_server/storage/seal_quests.py": "9d77329d5a9a6d7d0d357995015bbace8b3b512c08e9588152a68d919031f8f9",
+    "els_server/storage/mail_attachments.py": "e7160b0f9b4c4881ca12bb787d20da45f31d53e51a4a47d4015050090781e5e4"
+  },
+  "evidence": {
+    "business_v1_SOURCE": {
+      "sha256": "1376620372342b99979c44faac53384cf4781d961df8a2adf1192b2d3fb60586",
+      "bytes": 25949
+    },
+    "online_EPS_v2_SOURCE": {
+      "sha256": "7467e1bd1ac1a9b4f117fb5c768bf2ade807cae6a7f589f926600d7cb6687905",
+      "bytes": 4022
+    },
+    "local_completion": {
+      "sha256": "fee38b5cacc6f84a38b581e31b01d383f0cf90093550bfef9a35b37b19a06170",
+      "bytes": 7935
+    },
+    "online_completion": {
+      "sha256": "38db31c1b33cc1ff9ae5b4ce47ccffdb477f3b826fcaecba5d0fbc31aafadfdd",
+      "bytes": 959
+    },
+    "public_acceptance": {
+      "sha256": "e6e7ebd63b1c4776589af055df8e9167646df8899c249e8081ade48ec53f4ac6",
+      "bytes": 88086
+    },
+    "final_FILE_review": {
+      "sha256": "8fedab03a2ba6ca7ac9055572a13b2d6d7cea7e8b5d1f3f4728ba3adedcd809d",
+      "bytes": 17603
+    },
+    "root_selfreview": {
+      "sha256": "710ae7187e0549e5d58541cc08497ec66acbb3e10b928b7a1e909b39c0b2974c",
+      "bytes": 5034
+    },
+    "canonical_SOURCE": {
+      "sha256": "fac8ec9db1961e4f7e3f3be33357cbef5d4fc6f4cde6a496cc94cfdee9ebcb75",
+      "bytes": 56673
+    },
+    "canonical_SOURCE_review": {
+      "sha256": "3411d713f7397febe0463cbba0552e3dad078bebc2ce4707bd44ddcbb3f80157",
+      "bytes": 4816
+    },
+    "source_CI": {
+      "sha256": "118fd1b04403bef7ea35c5c47f205bf73acd2b9262248c01b0def4ec8f921de9",
+      "bytes": 648
+    }
+  },
+  "local_business": 951,
+  "local_bundle": 1413,
+  "online_business": 940,
+  "local_replacements": 16,
+  "online_replacements": 16,
+  "new_runtime_files": 0,
+  "local_manifest_sha256": "a37535154f770a2ebd4b905219529566e434f5e05e2daeb40b687f710dc1e390",
+  "online_manifest_sha256": "4bb0037405c28303d1f4e75e6e8d3e027def7f93b1be31c8d5881c1171c56c25",
+  "public_native_requests": 31,
+  "public_service_requests": 2,
+  "public_negative_refusals": 2,
+  "cold_inventory_records": 10,
+  "economic_commits": 0,
+  "source_schema_definitions": 1,
+  "widened_schema_definitions": 1,
+  "installation_eager_DDL": false,
+  "observed_new_tables": [],
+  "public_positive": false,
+  "GUI": false,
+  "natural_material_source": false,
+  "D54_enabled": false,
+  "whole_category_100": false,
+  "private_economic_evidence_reused_without_replay": true,
+  "client_changes": false,
+  "player_DB_rollback": false,
+  "source_CI": {
+    "compiled_python_sources": 814,
+    "privacy_checked_files": 1268,
+    "protocol_roundtrip": true,
+    "runtime_check": false
+  },
+  "raw_or_database_or_client_upload": false
+}

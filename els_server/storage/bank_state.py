@@ -80,10 +80,12 @@ def load(db,owner,include_expired=False,group=8):
     if not db.execute("SELECT 1 FROM sqlite_master WHERE name=? AND type='table'",(table,)).fetchone():return []
     entries=[]
     for uid,slot,raw in db.execute(f'SELECT uid,slot,item_json FROM {table} WHERE {key}=? ORDER BY slot',(identity,)):
-        stored=json.loads(raw)
+        from els_server.domain.cartridge_registration_rules import _unique_json,non_authority,require_unbound
+        stored=non_authority(_unique_json(raw))
         from els_server.domain.cartridge_selection_box import BOX,read_existing_box
         from els_server.storage.equipment_chip_reset_history import hydrate
         item=hydrate(db,validate_item(read_existing_box(stored) if type(stored) is dict and stored.get('template')==BOX else stored))
+        require_unbound(db,uid)
         if item['uid']!=uid or item['group']==9 or slot>=capacity(db,owner,group):raise ValueError('Bank persisted instance/slot mismatch')
         if db.execute('SELECT 1 FROM inventory_items WHERE uid=?',(uid,)).fetchone():raise ValueError('Bank instance is also in a bag')
         if include_expired or not expired(item):entries.append(dict(position=(group,slot),item=item))
@@ -97,6 +99,8 @@ def snapshot(path,owner):
 
 
 def put(db,owner,position,item):
+    from els_server.domain.cartridge_registration_rules import non_authority,require_unbound
+    non_authority(item);require_unbound(db,item['uid'])
     if position[0] in (8,16):
         from els_server.storage.equipment_chip_reset_history import hydrate,legacy
         item=legacy(hydrate(db,validate_item(item)))
@@ -167,8 +171,9 @@ def transfer(path,owner,payload,operation):
         # Context never selects a SQL owner. Accept only zero or an identity
         # already owned by this connection, regardless of caller variation.
         if context not in (0,owner,first['uid']):raise ValueError('Foreign bank transfer context')
+        from els_server.domain.cartridge_registration_rules import require_unbound
         for item in (first,second):
-            if item:require_current(item)
+            if item:require_current(item);require_unbound(db,item['uid'])
         if destination[0] in (8,16):require_storable(first,destination[0])
         if second and source[0] in (8,16):require_storable(second,source[0])
         if destination[0] not in (8,16) and destination[0]!=TEMPLATE_BAG_GROUPS[first['template']]:
