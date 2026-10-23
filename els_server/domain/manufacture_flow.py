@@ -35,6 +35,9 @@ def handle(session,event,sequence):
     if event.event_id==0x202 and event.kind==0x705:
         from els_server.domain.hunter_sphere_flow import handle as sphere_handle
         return sphere_handle(session,event,sequence)
+    if event.kind in (0x707,0x9ae):
+        from els_server.domain.flask_flow import handle as flask_handle
+        return flask_handle(session,event,sequence)
     if event.event_id!=0x202 or event.kind not in (0x198,0x4c2):return None
     from els_server.storage.manufacture import execute,select_profession
     from els_server.domain.manufacture_rules import policy

@@ -1,0 +1,103 @@
+{
+  "unit": "alchemist-flask",
+  "independent_source_repair": 1,
+  "scope": "Five held distinct UIDs debit1 each. Current fee bands/gauge/bonus retained. Explicit local pool130208/118205/118204,fee-tierweights80/10/10;70/15/15;50/25/25;30/35/35;20/40/40 and quantities1/1/2/3/5;XP min(1000,max(1,resale//1000)),cap10zero. ExistingAlchemycurve retained. Sevenclaims/week Wed10 UTC+8;opaque0;claimnoXP/no duplicate. Only two exactbonus readers added; existingcaps retained.",
+  "sources": "Current native fields and client tables first; official sources corroborate matched actions. Missing settlement values are explicitly user-authorized local policy, not retail claims.",
+  "atomicity": "Existing owned actor/phase/lease/binding qualification, true SQL costs/rewards/profession CAS/ledger and idempotent receipt; full native Event precommit encoding. Retry no duplicate charge/XP/reward/RNG; legacy sync after writer release.",
+  "schema": {
+    "new_optional_definitions": 1,
+    "install_DDL_statements": 0
+  },
+  "client_changes": 0,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "validation": "Reuses independently qualified component and actual protected three-unit delivery accepted by root. Source-main composition is independently checked; sourceCI is separate. No old business tests rerun.",
+  "composition": "Four new modules match accepted runtime raw bytes. Only this unit shared-hook delta is inserted onto latest reviewed merged main, preserving mainline and prior units. Main and combined runtime shared-hook hashes are intentionally different.",
+  "source_files": [
+    {
+      "path": "els_server/domain/flask_rules.py",
+      "candidate_sha256": "b8bd33be5b0ce60d24f25c9ebebb2e93bd399000ab32bb6d3d78841a69f45ae3",
+      "size": 5500,
+      "main_parent_sha256": null,
+      "new_leaf": true,
+      "actual_runtime_sha256_by_channel": {
+        "online": "b8bd33be5b0ce60d24f25c9ebebb2e93bd399000ab32bb6d3d78841a69f45ae3",
+        "local": "b8bd33be5b0ce60d24f25c9ebebb2e93bd399000ab32bb6d3d78841a69f45ae3"
+      },
+      "component_candidate_sha256": "b8bd33be5b0ce60d24f25c9ebebb2e93bd399000ab32bb6d3d78841a69f45ae3"
+    },
+    {
+      "path": "els_server/protocol/flask_messages.py",
+      "candidate_sha256": "616cec1f1edfee11eec2f160b02e45dab260c317b2d2efd1b2286ef3b2f8e369",
+      "size": 2880,
+      "main_parent_sha256": null,
+      "new_leaf": true,
+      "actual_runtime_sha256_by_channel": {
+        "online": "616cec1f1edfee11eec2f160b02e45dab260c317b2d2efd1b2286ef3b2f8e369",
+        "local": "616cec1f1edfee11eec2f160b02e45dab260c317b2d2efd1b2286ef3b2f8e369"
+      },
+      "component_candidate_sha256": "616cec1f1edfee11eec2f160b02e45dab260c317b2d2efd1b2286ef3b2f8e369"
+    },
+    {
+      "path": "els_server/storage/flask.py",
+      "candidate_sha256": "ff62dd1d6d155a153d380522aea950664694396370e4cba341a952b2c7c03b86",
+      "size": 11149,
+      "main_parent_sha256": null,
+      "new_leaf": true,
+      "actual_runtime_sha256_by_channel": {
+        "online": "ff62dd1d6d155a153d380522aea950664694396370e4cba341a952b2c7c03b86",
+        "local": "ff62dd1d6d155a153d380522aea950664694396370e4cba341a952b2c7c03b86"
+      },
+      "component_candidate_sha256": "ff62dd1d6d155a153d380522aea950664694396370e4cba341a952b2c7c03b86"
+    },
+    {
+      "path": "els_server/domain/flask_flow.py",
+      "candidate_sha256": "c31d816840bfc55ccf938fce03b5c4c2e98c2b0a365bcd6784e1e255d882e75f",
+      "size": 2553,
+      "main_parent_sha256": null,
+      "new_leaf": true,
+      "actual_runtime_sha256_by_channel": {
+        "online": "c31d816840bfc55ccf938fce03b5c4c2e98c2b0a365bcd6784e1e255d882e75f",
+        "local": "c31d816840bfc55ccf938fce03b5c4c2e98c2b0a365bcd6784e1e255d882e75f"
+      },
+      "component_candidate_sha256": "c31d816840bfc55ccf938fce03b5c4c2e98c2b0a365bcd6784e1e255d882e75f"
+    },
+    {
+      "path": "els_server/domain/manufacture_flow.py",
+      "candidate_sha256": "2eedab797bfd6f85e00210ebfe6704847d1b5d6b187c5a2108a0392276fffe34",
+      "size": 5041,
+      "main_parent_sha256": "4258cb15a930ce7e1c22bbd54b717fa5e09a0a91b8686c152f8c20535914617c",
+      "new_leaf": false,
+      "actual_runtime_sha256_by_channel": {
+        "online": "c8cf8ba8d812226303f924ab0a08ee9f0b522aa57c8fc035d6b0747134a68e6d",
+        "local": "c8cf8ba8d812226303f924ab0a08ee9f0b522aa57c8fc035d6b0747134a68e6d"
+      },
+      "component_candidate_sha256": "9fddc9d3ac9981727441093a74847dae1539d19fa22877a30d8d8fdfece81601"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "candidate_sha256": "45cdb158d60f728063c4c81c1a851535e89f6f2ac6b6a86a80045c582d94afef",
+      "size": 138788,
+      "main_parent_sha256": "398030351147324a818f55ed0915c2aee8c319dc21ad553f32e722282be7db42",
+      "new_leaf": false,
+      "actual_runtime_sha256_by_channel": {
+        "online": "c0ae681b5586680da61663423de318a0200a2903ca98991b32419758bce36e35",
+        "local": "e44e2c6101eb270e529bb97deb7f139ee7b32def40908fdbdb3a8b0f1352a657"
+      },
+      "component_candidate_sha256": "3b677dfcb378256c3b4c994630e5a17d1c0dac19f113e0828457838170f2b8f8"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "candidate_sha256": "d08792b148b51a54f76ae345db171cc764d55fe25aab61d61741f14e33811838",
+      "size": 50253,
+      "main_parent_sha256": "c86c3501832ebea33a1fd87893f8bf45fbf84d775a870aac388ffd54dc9dba61",
+      "new_leaf": false,
+      "actual_runtime_sha256_by_channel": {
+        "online": "6e5151a1c3020a31275138c1160c199d0fcd1504e034a385e065e95e15085316",
+        "local": "7f86c921197fd97e836d10b6055be14e810b453d499e1d02475e8e4f50fb8634"
+      },
+      "component_candidate_sha256": "6e5151a1c3020a31275138c1160c199d0fcd1504e034a385e065e95e15085316"
+    }
+  ],
+  "privacy": "No account, credential, playerDB, configuration, QA helper or raw capture. No runtime installation or automatic deployment."
+}

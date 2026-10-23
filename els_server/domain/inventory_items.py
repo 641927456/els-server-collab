@@ -677,3 +677,11 @@ _smith_material=_smith_client_data().item(118204)
 if (_smith_material['item_type'],_smith_material['metadata'],struct.unpack_from('<I',_smith_material['record'],0x10)[0])!=(6,2,1000) or hashlib.sha256(_smith_material['record']).hexdigest()!='35a2511b9161e41d6675d3111e99b2b4815ec2c898e9362ecb5c0d620de898b1':raise ValueError('Current smith material reader source')
 if 118204 in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[118204],TEMPLATE_BAG_GROUPS[118204],TEMPLATE_MAX_STACKS[118204])!=(2,3,1000):raise ValueError('Conflicting current smith material reader')
 VERIFIED_TEMPLATES[118204]=2;TEMPLATE_BAG_GROUPS[118204]=3;TEMPLATE_MAX_STACKS[118204]=1000
+# Current Flask accumulation rewards only: native type7, bag4, metadata2/cap500.
+# Explicit current reward table; does not open another acquisition source.
+from els_server.domain.flask_rules import special_inventory_definitions as _flask_bonus_definitions
+for _flask_bonus in _flask_bonus_definitions():
+ if _flask_bonus['template'] in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_flask_bonus['template']],TEMPLATE_BAG_GROUPS[_flask_bonus['template']],TEMPLATE_MAX_STACKS[_flask_bonus['template']])!=(_flask_bonus['metadata'],_flask_bonus['group'],_flask_bonus['max_stack']):raise ValueError('Conflicting current Flask bonus reader')
+ VERIFIED_TEMPLATES[_flask_bonus['template']]=_flask_bonus['metadata']
+ TEMPLATE_BAG_GROUPS[_flask_bonus['template']]=_flask_bonus['group']
+ TEMPLATE_MAX_STACKS[_flask_bonus['template']]=_flask_bonus['max_stack']
