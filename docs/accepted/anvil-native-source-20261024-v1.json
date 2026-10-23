@@ -1,0 +1,79 @@
+{
+  "unit": "modern-blacksmith-anvil",
+  "independent_source_repair": 1,
+  "scope": "Current modern noninventory hammer:1peruse,100000ED,8hours,capacity2*professionlevel. Explicit local initial0/ready0,XP100 withcap10zero,opaque0. No hammer expenditure or old anvil equipment pool.",
+  "sources": "Current native fields and client tables first; official sources corroborate matched actions. Missing settlement values are explicitly user-authorized local policy, not retail claims.",
+  "atomicity": "Existing owned actor/phase/lease/binding qualification, true SQL costs/rewards/profession CAS/ledger and idempotent receipt; full native Event precommit encoding. Retry no duplicate charge/XP/reward/RNG; legacy sync after writer release.",
+  "schema": {
+    "new_optional_definitions": 2,
+    "install_DDL_statements": 0
+  },
+  "client_changes": 0,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "validation": "Reuses independently qualified component and actual protected three-unit delivery accepted by root. Source-main composition is independently checked; sourceCI is separate. No old business tests rerun.",
+  "composition": "Four new modules match accepted runtime raw bytes. Only this unit shared-hook delta is inserted onto latest reviewed merged main, preserving mainline and prior units. Main and combined runtime shared-hook hashes are intentionally different.",
+  "source_files": [
+    {
+      "path": "els_server/domain/anvil_rules.py",
+      "candidate_sha256": "005c6a88afb67b076511c30b1c406d11b25140e86fccbb52cba2f5fea32b6ad7",
+      "size": 1552,
+      "main_parent_sha256": null,
+      "new_leaf": true,
+      "actual_runtime_sha256_by_channel": {
+        "online": "005c6a88afb67b076511c30b1c406d11b25140e86fccbb52cba2f5fea32b6ad7",
+        "local": "005c6a88afb67b076511c30b1c406d11b25140e86fccbb52cba2f5fea32b6ad7"
+      },
+      "component_candidate_sha256": "005c6a88afb67b076511c30b1c406d11b25140e86fccbb52cba2f5fea32b6ad7"
+    },
+    {
+      "path": "els_server/protocol/anvil_messages.py",
+      "candidate_sha256": "6437c0cec7659e6cc349f4c0278308372acb539c012c3fffcfea4feecccfee5e",
+      "size": 1135,
+      "main_parent_sha256": null,
+      "new_leaf": true,
+      "actual_runtime_sha256_by_channel": {
+        "online": "6437c0cec7659e6cc349f4c0278308372acb539c012c3fffcfea4feecccfee5e",
+        "local": "6437c0cec7659e6cc349f4c0278308372acb539c012c3fffcfea4feecccfee5e"
+      },
+      "component_candidate_sha256": "6437c0cec7659e6cc349f4c0278308372acb539c012c3fffcfea4feecccfee5e"
+    },
+    {
+      "path": "els_server/storage/anvil.py",
+      "candidate_sha256": "5e43f70b0b8af08c958040a13bb0b0473146ae8cce27acfaf739695d98035a66",
+      "size": 6137,
+      "main_parent_sha256": null,
+      "new_leaf": true,
+      "actual_runtime_sha256_by_channel": {
+        "online": "5e43f70b0b8af08c958040a13bb0b0473146ae8cce27acfaf739695d98035a66",
+        "local": "5e43f70b0b8af08c958040a13bb0b0473146ae8cce27acfaf739695d98035a66"
+      },
+      "component_candidate_sha256": "5e43f70b0b8af08c958040a13bb0b0473146ae8cce27acfaf739695d98035a66"
+    },
+    {
+      "path": "els_server/domain/anvil_flow.py",
+      "candidate_sha256": "723c6f416c63d366993b285a0ea978a135b44864e549b218cc2dca4edac13f1a",
+      "size": 2659,
+      "main_parent_sha256": null,
+      "new_leaf": true,
+      "actual_runtime_sha256_by_channel": {
+        "online": "723c6f416c63d366993b285a0ea978a135b44864e549b218cc2dca4edac13f1a",
+        "local": "723c6f416c63d366993b285a0ea978a135b44864e549b218cc2dca4edac13f1a"
+      },
+      "component_candidate_sha256": "723c6f416c63d366993b285a0ea978a135b44864e549b218cc2dca4edac13f1a"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "candidate_sha256": "398030351147324a818f55ed0915c2aee8c319dc21ad553f32e722282be7db42",
+      "size": 138673,
+      "main_parent_sha256": "beea377850a37d7ba749e680af010ab4b8c291865991e8db93a593ddf5815f84",
+      "new_leaf": false,
+      "actual_runtime_sha256_by_channel": {
+        "online": "c0ae681b5586680da61663423de318a0200a2903ca98991b32419758bce36e35",
+        "local": "e44e2c6101eb270e529bb97deb7f139ee7b32def40908fdbdb3a8b0f1352a657"
+      },
+      "component_candidate_sha256": "ce6d3f0d2dce5c3f87e5b6ffc21f873ec0be90b52daa9f85fe1b23471a010892"
+    }
+  ],
+  "privacy": "No account, credential, playerDB, configuration, QA helper or raw capture. No runtime installation or automatic deployment."
+}
