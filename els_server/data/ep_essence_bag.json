@@ -1,0 +1,120 @@
+{
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "input_template": 723604,
+  "output_template": 723609,
+  "quantity": 100,
+  "selection_count": 0,
+  "extra_ED": 0,
+  "extra_key": 0,
+  "output_deadline": null,
+  "source_decision_sha256": "81883a2692b5ddc6f6fbf9cc1c1bba828d94a1c9cd6eee95dc521c232520f19f",
+  "source_decision": "Official CN2026-07-29 exact EP product and same-day NA Essence(100)Pouch + current exact branded containment and unique output; missing numeric server group is not a replacement decision source.",
+  "official_CN": "https://els.ztgame.com/html/news/1352771/m_00c-1784-01a78-610694.shtml",
+  "official_NA": "https://elsword.koggames.com/2026/07/july-29th-patch-notes/",
+  "source_HTML_sha256": "73096258630b616d292184e8467bc8e48b16fdb9e5f1d15b2281c89f66ce52a6",
+  "native": {
+    "passed": true,
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+    "new_templates": 2,
+    "new_item_body_inputs": 5,
+    "reader": "D9A550",
+    "classifier": "19803A0",
+    "CPU": "Unicorn private mapped immutable existing runtime image, original code; CRT shims only",
+    "rows": [
+      {
+        "template": 723604,
+        "record_sha256": "7c0f0aa45bc60a01c2ae48cb096363855fca6782f21de63bbbdf5d02882fbca9",
+        "native_group": 4,
+        "metadata": 0,
+        "flags4": 4198402,
+        "flags8": 56,
+        "native_stack_field_i32_10": 0,
+        "cases": [
+          {
+            "count": 1,
+            "ok": 1,
+            "consumed": 304,
+            "template": 723604,
+            "metadata": 0,
+            "wire_sha256": "8987e3dd45a9b1b478670f7cbe2ff6d35102f9f71c1837fcdda231f906aaf055"
+          },
+          {
+            "count": 999,
+            "ok": 1,
+            "consumed": 304,
+            "template": 723604,
+            "metadata": 0,
+            "wire_sha256": "45718de7e88c572a0a8b17f5f12f14e148ed9aa484baf044e840048b905fa5bd"
+          }
+        ]
+      },
+      {
+        "template": 723609,
+        "record_sha256": "cece53580b171e2eabc70408f486eefbbf8b68329b9d1ef555c7da01c0156a91",
+        "native_group": 4,
+        "metadata": 2,
+        "flags4": 37752834,
+        "flags8": 56,
+        "native_stack_field_i32_10": 1000,
+        "cases": [
+          {
+            "count": 1,
+            "ok": 1,
+            "consumed": 304,
+            "template": 723609,
+            "metadata": 2,
+            "wire_sha256": "6a7585cf2b5d3a14670ad65790c5435252c27cbf21ec3ca8c1ea692a4d233a01"
+          },
+          {
+            "count": 100,
+            "ok": 1,
+            "consumed": 304,
+            "template": 723609,
+            "metadata": 2,
+            "wire_sha256": "784b3f09298ce40da109512938e81f4b95242b9a7c32087e8aa9238778582616"
+          },
+          {
+            "count": 1000,
+            "ok": 1,
+            "consumed": 304,
+            "template": 723609,
+            "metadata": 2,
+            "wire_sha256": "4c2f2b34b0bdfb9fa2ce241247fb6b1e4839c20193d4311b755405212a1e39f9"
+          }
+        ]
+      }
+    ],
+    "live_process_access": false,
+    "client_copy": false,
+    "client_changes": 0,
+    "old_successes_rerun": 0,
+    "stack_semantics": "Original D9A550 count999 input proves grammar only, not natural stacking. Bag native+10=0 supplies no proved stack cap; use conservative singleton1, untouched by existing min999 floor. Output native+10=1000 preserved."
+  },
+  "inventory": [
+    {
+      "template": 723604,
+      "name": "[路莉尔]艾尔精髓（100个）袋子",
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 1,
+      "record_sha256": "7c0f0aa45bc60a01c2ae48cb096363855fca6782f21de63bbbdf5d02882fbca9",
+      "flags4": 4198402,
+      "flags8": 56,
+      "description": "内含[路莉尔]艾尔精髓的袋子。\n\n艾尔精髓\n-蕴含神秘的艾尔之力的宝石，拥有强悍的力量。\n（使用超技能时消耗的道具）"
+    },
+    {
+      "template": 723609,
+      "name": "[路莉尔]艾尔精髓",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 1000,
+      "record_sha256": "cece53580b171e2eabc70408f486eefbbf8b68329b9d1ef555c7da01c0156a91",
+      "flags4": 37752834,
+      "flags8": 56,
+      "description": "蕴含神秘的艾尔之力的宝石，拥有强悍的力量。\n（使用超技能时消耗的道具）\n\n（可以右键点击艾尔结晶（火/水/风/地/暗/光）来获得。）"
+    }
+  ],
+  "period_policy": "Original owned source must be current; mapping adds no arbitrary output deadline and does not modify existing source expiration state. EP purchase/weekly reset and HyperActive use are outside scope."
+}

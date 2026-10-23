@@ -22,7 +22,7 @@ def capacity(template):
  if not n:raise ValueError('Original equipment has no base socket slots')
  return n
 def validate(template,groups):
- if not isinstance(groups,dict) or set(groups)-{'9','10','11','12','0','1','13','14','15','16','18','19','20','21','25','27','28','31'}:raise ValueError('Unsupported option group')
+ if not isinstance(groups,dict) or set(groups)-{'9','10','11','12','0','1','13','14','15','16','18','19','20','21','25','27','28','29','31'}:raise ValueError('Unsupported option group')
  result={}
  for group,values in groups.items():
   if group in ('9','10','11','12'):
@@ -40,6 +40,9 @@ def validate(template,groups):
   if group=='27':
    from els_server.domain.equipment_chip_rules import armor_options
    result[group]=armor_options(template,values);continue
+  if group=='29':
+   from els_server.domain.option_conversion_existing import validate as validate_existing_conversion
+   result[group]=validate_existing_conversion(template,values);continue
   if group=='28':
    from els_server.domain.equipment_circuit_rules import validate_grid
    result[group]=validate_grid(template,values);continue
