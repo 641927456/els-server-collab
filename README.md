@@ -36,8 +36,6 @@ main表示审查后的代码，服务器运行版本另有部署回执；提交�
 
 见 CONTRIBUTING.md、docs/TESTING.md、docs/STAGING.md。历史全量资料在锁定资源包内，按实际提供范围引用，不补造缺失证据。
 
-KinkOwO第一批接手顺序、允许修改的文件/函数、验收标准和避让范围见 [第一批任务单](docs/KINKOWO_FIRST_TASKS.md) 与 [文件范围及基线](docs/kinkowo-file-scope.json)。先修已复现的邮件可见范围/未读计数问题，不并行重写主线、称号或活动。
-
 
 ## 2026-10-19已完成内容与V29
 
