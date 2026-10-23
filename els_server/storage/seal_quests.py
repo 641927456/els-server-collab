@@ -61,6 +61,17 @@ def load_character(db,uid,account_id=None):
     ep=ep_balance(db,uid)
     if ep:row['ep']=ep
     row['skill_seal_groups']=saved_groups(db,uid);row['skill_row_expanded']=is_expanded(db,uid);row['bag_capacities']=saved_capacities(db,uid)
+    # F5 embeds the same full-unit fields as login/D9. Read current saved
+    # state inside this writer, so a quest reward cannot send fixture zeros
+    # for the owner's existing profession or account resonance.
+    if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_owners'").fetchone():
+        saved_owner=db.execute('SELECT account_id FROM character_owners WHERE uid=?',(uid,)).fetchone()
+        if saved_owner is not None:
+            from els_server.storage.resonance_state import snapshot as resonance_snapshot
+            from els_server.storage.profession_state import snapshot as profession_snapshot
+            row['resonance']=resonance_snapshot(db,uid,saved_owner[0])
+            profession=profession_snapshot(db,uid,saved_owner[0])
+            row['profession']=profession['state'];row['profession_revision']=profession['revision']
     return row
 
 def current_slots(db,character):
