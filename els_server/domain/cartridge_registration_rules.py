@@ -5,7 +5,7 @@ from pathlib import Path
 import functools,hashlib,json
 from els_server.game_data import client_data,CLIENT_SHA
 
-DATA_SHA='a14b601c32a51b2e1e86d0a19c90ba9e452d32cc79ce5139e9df53aaaddec0e9'
+DATA_SHA='750efac2a0c20a9d7d0186a00ac861c7cc9396f6f9efb3d17861aa6ec1e801e7'
 POLICY='cartridge-existing-singleton-register-account-v1'
 
 @functools.lru_cache(maxsize=1)
@@ -279,9 +279,74 @@ def growth_history_guard(db,account_id,kind):
  if len(by_op)!=len(dedicated)or len(by_generic)!=len(generic)or set(by_op)!=set(by_generic):raise ValueError('Unpaired Cartridge growth account/actor history')
  for op,row in by_op.items():
   if db.execute('SELECT account_id FROM character_owners WHERE uid=?',(row[3],)).fetchone()!=(account_id,):raise ValueError('Cartridge growth historical actor account')
-  before,after=growth_history_pair(row,by_generic[op])
+  before,after=growth_history_pair_any(row,by_generic[op])
   current=db.execute('SELECT level FROM account_cartridge_collection WHERE account_id=? AND cartridge_id=?',(account_id,row[4])).fetchone()
   revision=db.execute('SELECT revision FROM account_cartridge_state WHERE account_id=?',(account_id,)).fetchone()
   wallet=db.execute('SELECT revision FROM reward_balances WHERE uid=?',(row[3],)).fetchone()
   if(current is None or current[0]<after['account']['rows'][row[4]][1]or revision is None or revision[0]<after['account']['revision']
      or wallet is None or type(wallet[0])is not int or wallet[0]<after['wallet']['revision']):raise ValueError('Cartridge growth current state regressed or orphaned')
+
+# Independent finite policy. Original unbound policy/table/schema stay exact.
+BOUND_GROWTH_POLICY='cartridge-current-own-bound-one-step-native-current-level-fees-v1'
+
+def bound_growth_catalog():
+ g=catalog()['finite_own_bound_growth']
+ expected=dict(policy=BOUND_GROWTH_POLICY,base_growth_policy=GROWTH_POLICY,
+  selected_current_owner_only=True,containers=[1,9],minimum_current_level=1,
+  maximum_current_level=5,maximum_level=6,extra_ED=0,extra_materials=0,
+  source_review_sha256='97952c5ebeca392a4ff03f0a2932c20e9ff72a2e70289507f32a881f528adcb6',
+  history_review_sha256='42a70734550941d026e58dbd2e5eae36d31284c22082c761b5788fbf37c11da7')
+ if g!=expected:raise ValueError('Cartridge exact own-bound growth policy')
+ growth_catalog() # Same reviewed CURRENT-L fee rows, no new fee or free fallback.
+ return g
+
+def _bound_growth_history_item(item):
+ # Static original record validation only. Never load_items/project/read_account
+ # or evaluate a historical actor's current class, clock, lease or current UID.
+ if(type(item)is not dict or type(item.get('uid'))is not int or not 0<item['uid']<2**63
+    or item.get('template')not in binding_catalog()or item.get('metadata')!=1
+    or item.get('count')!=1 or item.get('group')not in(1,9)or'expires_at'in item
+    or item.get('sealed',False)is not False or item.get('identified',True)is not True
+    or type(item.get('durability'))is not int or item['durability']<=0
+    or type(item.get('enhancement',0))is not int or item.get('enhancement',0)<0
+    or'cartridge'not in item):raise ValueError('Cartridge original bound growth carrier')
+ from els_server.domain.inventory_items import validate_item
+ validate_item(item)
+ scalar(item['cartridge'])
+ return item
+
+def bound_growth_history_pair(row,generic):
+ import struct
+ bound_growth_catalog()
+ if row is None or generic is None or len(row)!=9 or len(generic)!=7:raise ValueError('Cartridge bound growth missing paired history')
+ op,digest,account,actor,identity,level,before_raw,after_raw,policy=row
+ if(type(op)is not str or not 1<=len(op)<=160 or type(digest)is not str
+    or type(account)is not int or not 0<account<2**63 or type(actor)is not int or not 1001<=actor<2**63
+    or type(identity)is not int or not 1<=identity<=19 or type(level)is not int or not 1<=level<=5
+    or policy!=BOUND_GROWTH_POLICY):raise ValueError('Cartridge bound growth receipt identity')
+ expected_hash=hashlib.sha256(str(actor).encode()+b':'+str(0xd54).encode()+b':'+struct.pack('>i',identity)).hexdigest()
+ if digest!=expected_hash or generic[:4]!=(op,digest,actor,0xd54):raise ValueError('Cartridge bound growth paired request/owner/kind')
+ positions,first,last=(_unique_json(raw)for raw in generic[4:])
+ if(type(positions)is not list or len(positions)!=1 or type(positions[0])is not list
+    or len(positions[0])!=2 or any(type(v)is not int for v in positions[0])
+    or type(first)is not list or type(last)is not list or len(first)!=1 or len(last)!=1):raise ValueError('Cartridge bound growth exact one-record history')
+ old,new=_bound_growth_history_item(first[0]),_bound_growth_history_item(last[0])
+ uid=old['uid']
+ if(positions!=[[old['group'],old['slot']]]or new['uid']!=uid
+    or{k:v for k,v in old.items()if k!='cartridge'}!={k:v for k,v in new.items()if k!='cartridge'}
+    or old['cartridge']!=[identity,level]or new['cartridge']!=[identity,level+1]):raise ValueError('Cartridge bound growth original scalar-only item transition')
+ before,after=_growth_snapshot(before_raw),_growth_snapshot(after_raw)
+ a,b=before['account'],after['account'];w,z=before['wallet'],after['wallet']
+ points,ed=growth_fee(identity,level)
+ if a['rows'].get(identity)!=(uid,level):raise ValueError('Cartridge bound growth original selected UID/level')
+ rows=dict(a['rows']);rows[identity]=(uid,level+1)
+ if(b['rows']!=rows or b['points']!=a['points']-points or b['revision']!=a['revision']+1
+    or z!=dict(w,ed=w['ed']-ed,revision=w['revision']+1)):raise ValueError('Cartridge bound growth original exact fee/level/revision transition')
+ return before,after
+
+def growth_history_pair_any(row,generic):
+ # Global reader proves only the original transition; later legitimate detach/
+ # rebind does not invalidate an old receipt. Current replay is separate below.
+ if row is not None and len(row)==9 and row[8]==BOUND_GROWTH_POLICY:
+  return bound_growth_history_pair(row,generic)
+ return growth_history_pair(row,generic) # Original empty-array proof is unchanged.

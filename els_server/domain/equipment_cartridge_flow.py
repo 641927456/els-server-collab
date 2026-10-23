@@ -1,10 +1,11 @@
 """Finite singleton registration and current account D4D; native UI owns effects.
 Finite empty-carrier attach/exact-UID removal use original complete packets.
-Replacement, automatic relocation and bound growth remain closed.
+Replacement, automatic relocation and other-role growth remain closed.
 """
 from els_server.protocol.equipment_cartridge_messages import acknowledge, request
 
 REQUEST_KINDS = frozenset((0xd4e, 0xd50, 0xd52, 0xd54))
+OWN_BOUND_GROWTH_WRITER_ENABLED=True
 
 
 def _session(s):
@@ -139,6 +140,10 @@ def _grow(s,event,sequence):
                 or event.performers not in((),(0,))or event.uid!=0xffffffffffffffff
                 or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):raise ValueError('Cartridge growth envelope')
         identity=selected_id;qualified_request=True
+        if not OWN_BOUND_GROWTH_WRITER_ENABLED:
+            from els_server.storage.account_cartridge_registration import snapshot
+            current=snapshot(path,owner,account_id,authorize=authorize)
+            if current['rows'].get(selected_id,(0,0))[0]:raise ValueError('Cartridge own-bound growth flow closed')
         from els_server.storage.account_cartridge_registration import perform_growth
         operation=s.shop_session_id+':cartridge-grow-v1:'+str(account_id)+':'+str(owner)+':'+str(sequence)
         return perform_growth(path,owner,account_id,event.payload,operation,authorize=authorize)

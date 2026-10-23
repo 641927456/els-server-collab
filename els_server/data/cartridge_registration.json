@@ -588,5 +588,21 @@
     "current_level_source_sha256": "c3612a1116dc2d959a2225bc7eeef2543c798c0c5e61d9d2aa2101e915ce4ebd",
     "category_source_peer_sha256": "2a5a7d93cdf081d712db22f01de1f1cd2fa46ab4db3f2975bbb2352f6c70c724",
     "account_authorization_sha256": "41349793189360285470fa6d0f478bcc0055a3fb9a19e9056d5d76fca220fe46"
+  },
+  "finite_own_bound_growth": {
+    "policy": "cartridge-current-own-bound-one-step-native-current-level-fees-v1",
+    "base_growth_policy": "cartridge-unbound-one-step-native-current-level-fees-v1",
+    "selected_current_owner_only": true,
+    "containers": [
+      1,
+      9
+    ],
+    "minimum_current_level": 1,
+    "maximum_current_level": 5,
+    "maximum_level": 6,
+    "extra_ED": 0,
+    "extra_materials": 0,
+    "source_review_sha256": "97952c5ebeca392a4ff03f0a2932c20e9ff72a2e70289507f32a881f528adcb6",
+    "history_review_sha256": "42a70734550941d026e58dbd2e5eae36d31284c22082c761b5788fbf37c11da7"
   }
 }

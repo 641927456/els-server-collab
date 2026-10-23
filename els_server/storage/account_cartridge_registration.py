@@ -315,9 +315,17 @@ def perform_growth(path,owner,account_id,payload,operation,*,authorize=None,enco
  (identity,)=request(0xd54,payload);owner,digest=_identity(owner,0xd54,payload,operation)
  with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');_authority(db,owner,account_id,authorize)
-  previous=_previous(db,operation,digest)
   current=_read(db,account_id);wallet=balances(db,owner);items=load_items(db,owner)
+  selected=current['rows'].get(identity)
+  if selected is not None and selected[0]:
+   if not OWN_BOUND_GROWTH_WRITER_ENABLED:raise ValueError('Cartridge own-bound growth writer closed')
+   _own_bound_growth_target(db,owner,account_id,identity,selected,items) # Current own qualifier BEFORE previous.
+  try:previous=_previous(db,operation,digest)
+  except(TypeError,KeyError,json.JSONDecodeError)as exc:raise ValueError('Malformed Cartridge growth previous')from exc
   if previous is not None:
+   from els_server.domain.cartridge_registration_rules import BOUND_GROWTH_POLICY
+   history=db.execute('SELECT policy_id FROM account_cartridge_growth_receipts WHERE operation_id=?',(operation,)).fetchone()if db.execute("SELECT 1 FROM sqlite_master WHERE name='account_cartridge_growth_receipts' AND type='table'").fetchone()else None
+   if history==(BOUND_GROWTH_POLICY,):return _retry_own_bound_growth(db,owner,account_id,identity,operation,digest,previous,current,wallet,items,authorize,encode)
    original,after=_growth_receipt(db,operation,digest,owner,account_id,identity,previous)
    pair=current['rows'].get(identity)
    if(pair is None or pair[0]!=0 or pair[1]<after['account']['rows'][identity][1]or current['revision']<after['account']['revision']or wallet['revision']<after['wallet']['revision']):
@@ -326,6 +334,7 @@ def perform_growth(path,owner,account_id,payload,operation,*,authorize=None,enco
    encode_event(event);_authority(db,owner,account_id,authorize);return[event]
   if db.execute("SELECT 1 FROM sqlite_master WHERE name='account_cartridge_growth_receipts' AND type='table'").fetchone()and db.execute('SELECT 1 FROM account_cartridge_growth_receipts WHERE operation_id=?',(operation,)).fetchone():raise ValueError('Unpaired Cartridge growth operation')
   pair=current['rows'].get(identity)
+  if pair is not None and pair[0]:return _perform_own_bound_growth(db,owner,account_id,identity,operation,digest,current,wallet,items,authorize,encode)
   if pair is None or pair[0]!=0:raise ValueError('Cartridge growth requires registered unbound selected ID')
   level=pair[1];points,ed=growth_fee(identity,level)
   if current['points']<points or wallet['ed']<ed or current['revision']>=2**63-1 or wallet['revision']>=2**63-1:raise ValueError('Cartridge growth fee/revision bound')
@@ -352,3 +361,109 @@ def growth_failure_balance(path,owner,account_id,*,authorize=None):
  from els_server.storage.npc_trade import balances
  with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=ro',uri=True,timeout=10))as db:
   db.execute('BEGIN');_authority(db,owner,account_id,authorize);value=balances(db,owner)['ed'];_authority(db,owner,account_id,authorize);return value
+
+# The closed variant changes this one switch, never schema/history readers.
+OWN_BOUND_GROWTH_WRITER_ENABLED=True
+
+def _own_bound_growth_target(db,owner,account_id,identity,pair,items):
+ from els_server.domain.cartridge_registration_rules import _raw_target,scalar,bound_growth_catalog
+ bound_growth_catalog()
+ if pair is None or pair[0]<=0:raise ValueError('Cartridge current bound target required')
+ uid,level=pair
+ if _raw_target(db,uid,account_id)[0]!=owner:raise ValueError('Cartridge growth other-role carrier HOLD')
+ matches=[i for i in items if i['uid']==uid]
+ if len(matches)!=1:raise ValueError('Cartridge current own bound UID missing')
+ item=_attach_intrinsic(matches[0])
+ if scalar(item.get('cartridge',[0,0]))!=[identity,level]:raise ValueError('Cartridge current bound projection mismatch')
+ require_current(item);require_unlocked(item)
+ from els_server.domain.equipment_instance import require_wearable
+ raw=db.execute('SELECT unit_type,unit_class,level FROM characters WHERE uid=?',(owner,)).fetchone()
+ if raw is None:raise ValueError('Cartridge growth current character missing')
+ require_wearable(item,dict(unit_type=raw[0],unit_class=raw[1],level=raw[2]))
+ return item
+
+def _bound_growth_receipt(db,operation,digest,owner,account_id,identity,previous):
+ from els_server.domain.cartridge_registration_rules import bound_growth_history_pair,_unique_json
+ row=db.execute('SELECT * FROM account_cartridge_growth_receipts WHERE operation_id=?',(operation,)).fetchone()
+ generic=db.execute('SELECT operation_id,request_hash,owner,kind,positions_json,before_json,after_json FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()
+ if row is None or row[:5]!=(operation,digest,account_id,owner,identity):raise ValueError('Cartridge bound growth retry identity')
+ before,after=bound_growth_history_pair(row,generic)
+ expected=[tuple(p)for p in _unique_json(generic[4])]
+ if previous!=expected:raise ValueError('Cartridge bound growth retry original position')
+ return before,after
+
+def _bound_growth_no_intermediate_binding(db,account_id,identity,growth_revision,current_revision):
+ # A detach+reattach to SAME UID must not revive an old growth success. Validate
+ # every account binding receipt before filtering by its proven selected ID;
+ # never trust an unvalidated cartridge_id column or unrelated revision bump.
+ import struct
+ rows=db.execute('SELECT operation_id,request_hash,actor_uid,target_uid,kind,cartridge_id,before_json,after_json FROM account_cartridge_binding_receipts WHERE account_id=?',(account_id,)).fetchall()
+ changed=False
+ for op,digest,actor,target,kind,selected,before_raw,after_raw in rows:
+  if(type(actor)is not int or type(target)is not int or not 0<target<2**63
+     or type(kind)is not int or kind not in(0xd50,0xd52)
+     or type(selected)is not int or not 1<=selected<=19):raise ValueError('Cartridge intermediate binding identity')
+  if db.execute('SELECT account_id FROM character_owners WHERE uid=?',(actor,)).fetchone()!=(account_id,):raise ValueError('Cartridge intermediate binding actor account')
+  payload=struct.pack('>Qi',target,selected)if kind==0xd50 else struct.pack('>Q',target)
+  actual_actor,actual_hash=_identity(actor,kind,payload,op)
+  if actual_actor!=actor or actual_hash!=digest:raise ValueError('Cartridge intermediate binding request hash')
+  try:positions=_previous(db,op,digest)
+  except(TypeError,KeyError,json.JSONDecodeError)as exc:raise ValueError('Malformed Cartridge intermediate positions')from exc
+  proven,revision=_binding_history(db,op,digest,actor,account_id,target,kind,selected if kind==0xd50 else None,positions)
+  if revision>current_revision:raise ValueError('Cartridge binding receipt revision ahead of account')
+  if proven==identity and revision>growth_revision:changed=True
+ return not changed
+
+def _retry_own_bound_growth(db,owner,account_id,identity,operation,digest,previous,current,wallet,items,authorize,encode):
+ if not OWN_BOUND_GROWTH_WRITER_ENABLED:raise ValueError('Cartridge own-bound growth writer closed')
+ original,after=_bound_growth_receipt(db,operation,digest,owner,account_id,identity,previous)
+ original_uid=after['account']['rows'][identity][0]
+ pair=current['rows'].get(identity)
+ valid=(pair is not None and pair[0]==original_uid and pair[1]>=after['account']['rows'][identity][1]
+        and current['revision']>=after['account']['revision']and wallet['revision']>=after['wallet']['revision'])
+ if valid:
+  try:_own_bound_growth_target(db,owner,account_id,identity,pair,items)
+  except ValueError:valid=False
+ if valid:valid=_bound_growth_no_intermediate_binding(db,account_id,identity,after['account']['revision'],current['revision'])
+ if not valid:
+  event=encode(0xd55,result=2005,identity=identity,rows={},changes=(),points=0,ed=wallet['ed'])
+ else:
+  changed=current_changes(db,operation,owner,0xd54,previous,items)
+  event=encode(0xd55,result=0,identity=identity,rows=current['rows'],changes=changed,points=current['points'],ed=wallet['ed'])
+ encode_event(event)
+ if valid:_own_bound_growth_target(db,owner,account_id,identity,pair,load_items(db,owner))
+ _authority(db,owner,account_id,authorize)
+ return[event]
+
+def _perform_own_bound_growth(db,owner,account_id,identity,operation,digest,current,wallet,items,authorize,encode):
+ from els_server.domain.cartridge_registration_rules import BOUND_GROWTH_POLICY,growth_fee
+ from els_server.storage.npc_trade import balances,charge
+ if not OWN_BOUND_GROWTH_WRITER_ENABLED:raise ValueError('Cartridge own-bound growth writer closed')
+ pair=current['rows'].get(identity)
+ item=_own_bound_growth_target(db,owner,account_id,identity,pair,items)
+ uid,level=pair;points,ed=growth_fee(identity,level)
+ if current['points']<points or wallet['ed']<ed or current['revision']>=2**63-1 or wallet['revision']>=2**63-1:raise ValueError('Cartridge bound growth fee/revision bound')
+ tables=('reward_balances','inventory_action_receipts','account_cartridge_state','account_cartridge_collection','account_cartridge_registration_receipts','account_cartridge_binding_receipts','account_cartridge_growth_receipts')
+ if db.execute("SELECT 1 FROM sqlite_master WHERE type='trigger' AND lower(tbl_name) IN ("+','.join('?'for _ in tables)+') LIMIT 1',tables).fetchone():raise ValueError('Unknown Cartridge bound growth write trigger')
+ _ensure_growth_schema(db)
+ rows=dict(current['rows']);rows[identity]=(uid,level+1)
+ updated=account_state(rows,current['points']-points,current['revision']+1)
+ absolute_ed=charge(db,owner,wallet,ed)
+ if db.execute('UPDATE account_cartridge_collection SET level=? WHERE account_id=? AND cartridge_id=? AND bound_uid=? AND level=?',(level+1,account_id,identity,uid,level)).rowcount!=1:raise ValueError('Cartridge bound growth conditional level/UID')
+ if db.execute('UPDATE account_cartridge_state SET points=?,revision=? WHERE account_id=? AND points=? AND revision=?',(updated['points'],updated['revision'],account_id,current['points'],current['revision'])).rowcount!=1:raise ValueError('Cartridge bound growth conditional points/revision')
+ actual=_read(db,account_id);actual_wallet=balances(db,owner);after_items=load_items(db,owner)
+ final=_own_bound_growth_target(db,owner,account_id,identity,updated['rows'][identity],after_items)
+ expected_items=[dict(i,cartridge=[identity,level+1])if i['uid']==uid else i for i in items]
+ if(actual!=updated or actual_wallet!=dict(wallet,ed=wallet['ed']-ed,revision=wallet['revision']+1)
+    or absolute_ed!=actual_wallet['ed']or after_items!=expected_items):raise ValueError('Cartridge bound growth unexpected account/wallet/item state')
+ position=(item['group'],item['slot'])
+ event=encode(0xd55,result=0,identity=identity,rows=actual['rows'],changes=[(position,final)],points=actual['points'],ed=actual_wallet['ed'])
+ encode_event(event) # Complete original D55 Event before either receipt/commit.
+ before_json=json.dumps(dict(account=_packed(current),wallet=wallet),sort_keys=True)
+ after_json=json.dumps(dict(account=_packed(actual),wallet=actual_wallet),sort_keys=True)
+ _commit(db,operation,digest,owner,0xd54,[position],[item],[final])
+ db.execute('INSERT INTO account_cartridge_growth_receipts VALUES(?,?,?,?,?,?,?,?,?)',(operation,digest,account_id,owner,identity,level,before_json,after_json,BOUND_GROWTH_POLICY))
+ if _read(db,account_id)!=updated:raise ValueError('Cartridge bound growth written paired state mismatch')
+ _own_bound_growth_target(db,owner,account_id,identity,updated['rows'][identity],load_items(db,owner))
+ _authority(db,owner,account_id,authorize)
+ return[event]
