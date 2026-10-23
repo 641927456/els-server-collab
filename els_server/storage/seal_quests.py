@@ -4,6 +4,7 @@ import hashlib,json,sqlite3,struct,time
 from els_server.domain.seal_quests import quest_catalog,sequence,require_eligible,target,objective_increment,ACTIVE_QUEST_LIMIT
 from els_server.storage.character_schema import character_uid
 from els_server.storage.inventory_state import load_items,grant_items
+from els_server.storage import erp_support_quest_scope as erp_scope
 
 
 class QuestIncomplete(ValueError):
@@ -24,7 +25,7 @@ def ensure(db):
 def completed_ids(db,uid):
     character_uid(uid)
     if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='completed_quests'").fetchone():return frozenset()
-    return frozenset(r[0] for r in db.execute('SELECT quest FROM completed_quests WHERE owner=?',(uid,)))
+    return frozenset(r[0] for r in erp_scope.completed_rows(db,uid))
 
 def load_character(db,uid,account_id=None):
     from els_server.storage.characters import Characters
@@ -54,7 +55,7 @@ def _inventory_count(items,template):
 
 def _state(db,uid,items):
     active=[];level=None;career=None
-    for q,at,g,raw in db.execute('SELECT quest,accepted_at,generation,objectives FROM character_quests WHERE owner=? ORDER BY quest',(uid,)):
+    for q,at,g,raw in erp_scope.active_rows(db,uid):
         counts={int(k):v for k,v in json.loads(raw).items()}
         subs=quest_catalog().objectives(q)
         if set(counts)!={sub['m_iID'] for sub in subs}:raise ValueError('Invalid persisted quest objective keys')
@@ -78,13 +79,13 @@ def _state(db,uid,items):
             if s['m_eClearType']==110:
                 a=db.execute('SELECT evolution FROM character_artifacts WHERE uid=?',(uid,)).fetchone()
                 counts[s['m_iID']]=min(target(s),a[0] if a else 0)
-        active.append(dict(id=q,owner=uid,accepted_at=at,generation=g,objectives=counts))
-    done=[dict(id=q,completed_at=at) for q,at in db.execute('SELECT quest,completed_at FROM completed_quests WHERE owner=? ORDER BY quest',(uid,))]
+        active.append(dict(id=q,owner=erp_scope.quest_owner(db,uid,q),accepted_at=at,generation=g,objectives=counts))
+    done=[dict(id=q,completed_at=at) for q,at in erp_scope.completed_rows(db,uid)]
     return dict(active=active,completed=done)
 
 class QuestState:
-    def __init__(self,path,uid=1001,*,account_id=None):
-        self.path=path;self.uid=character_uid(uid);self.account_id=account_id
+    def __init__(self,path,uid=1001,*,account_id=None,account_source_guard=None):
+        self.path=path;self.uid=character_uid(uid);self.account_id=account_id;self.account_source_guard=account_source_guard
 
     def snapshot(self):
         with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
@@ -107,7 +108,7 @@ class QuestState:
         with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
             db.execute('BEGIN');load_character(db,self.uid,self.account_id)
             if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_quests'").fetchone():return frozenset()
-            return frozenset(s['m_eClearType'] for qid, in db.execute('SELECT quest FROM character_quests WHERE owner=?',(self.uid,))
+            return frozenset(s['m_eClearType'] for qid,at,g,raw in erp_scope.active_rows(db,self.uid)
                              for s in quest_catalog().objectives(qid))
 
     def collection_snapshot(self):
@@ -115,7 +116,7 @@ class QuestState:
         with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
             db.execute('BEGIN');load_character(db,self.uid,self.account_id)
             if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_quests'").fetchone():return []
-            identities={qid for qid, in db.execute('SELECT quest FROM character_quests WHERE owner=?',(self.uid,))
+            identities={qid for qid,at,g,raw in erp_scope.active_rows(db,self.uid)
                         if any(s['m_eClearType'] in (3,31,80,81,110) for s in quest_catalog().objectives(qid))}
             if not identities:return []
             return [row for row in _state(db,self.uid,load_items(db,self.uid))['active'] if row['id'] in identities]
@@ -129,6 +130,7 @@ class QuestState:
         uid=self.uid;qid=request['quest'];q=quest_catalog().quest(qid)
         with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
             db.execute('BEGIN IMMEDIATE');character=load_character(db,uid,self.account_id);ensure(db)
+            if qid==erp_scope.QUEST:erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard)
             if location is None:location=('town',db.execute('SELECT town FROM location WHERE uid=?',(uid,)).fetchone()[0])
             old=db.execute('SELECT owner,kind,request_hash FROM quest_actions WHERE operation_id=?',(operation_id,)).fetchone()
             if old and old!=(uid,kind,digest):raise ValueError('Conflicting quest retry')
@@ -155,10 +157,10 @@ class QuestState:
                         # including abandon/reaccept within one wall-clock second.
                         from els_server.domain.town_dialogue import catalog as town_catalog
                         generation=now if str(qid) not in town_catalog()['quests'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
-                        db.execute('INSERT INTO character_quests VALUES (?,?,?,?,?)',(uid,qid,now,generation,json.dumps(counts,sort_keys=True)))
+                        erp_scope.insert_active(db,uid,qid,now,generation,json.dumps(counts,sort_keys=True))
                 elif kind=='abandon':
                     if done:raise ValueError('Completed quest cannot be abandoned')
-                    db.execute('DELETE FROM character_quests WHERE owner=? AND quest=?',(uid,qid))
+                    db.execute('DELETE FROM character_quests WHERE owner=? AND quest=?',(erp_scope.quest_owner(db,uid,qid),qid))
                 elif done:replayed=True
                 else:
                     # The original first F4 flag denotes skipped Epic rewards
@@ -186,6 +188,8 @@ class QuestState:
                         from els_server.domain.item_expiration import expired
                         for item in items:
                             if item['template']!=template or item['group']==9 or locked(item) or expired(item):continue
+                            from els_server.domain.cartridge_registration_rules import require_unbound
+                            require_unbound(db,item['uid'])
                             take=min(n,item['count']);n-=take
                             if take==item['count']:
                                 from els_server.storage.item_expiration import forget
@@ -224,17 +228,17 @@ class QuestState:
                         stage_changed=(old_career['transcendence'],old_career['master'])!=(new_career['transcendence'],new_career['master'])
                     from els_server.storage.artifact_progression import complete_quest as complete_artifact_quest
                     complete_artifact_quest(db,uid,qid)
-                    db.execute('DELETE FROM character_quests WHERE owner=? AND quest=?',(uid,qid))
+                    db.execute('DELETE FROM character_quests WHERE owner=? AND quest=?',(erp_scope.quest_owner(db,uid,qid),qid))
                     saved_reward=dict(ed=ed,experience=xp,items=awards,consumed_positions=[pos for pos,_ in consumed])
                     if selection:saved_reward['selected_templates']=[r['m_iItemID'] for r in selection]
                     if ep:saved_reward['ep']=ep
-                    db.execute('INSERT INTO completed_quests VALUES (?,?,?,?)',(uid,qid,now,json.dumps(saved_reward,sort_keys=True)))
+                    erp_scope.insert_completed(db,uid,qid,now,saved_reward)
                     from els_server.storage.epic_followups import accept_after_reward
-                    accepted_after=accept_after_reward(db,uid,qid,load_character(db,uid,self.account_id),load_items(db,uid),location,now)
+                    accepted_after=() if qid==erp_scope.QUEST else accept_after_reward(db,uid,qid,load_character(db,uid,self.account_id),load_items(db,uid),location,now)
                 db.execute('INSERT INTO quest_actions VALUES (?,?,?,?)',(operation_id,uid,kind,digest))
             items=load_items(db,uid);character=load_character(db,uid,self.account_id);state=_state(db,uid,items)
             if kind=='claim' and replayed:
-                saved=db.execute('SELECT reward_json FROM completed_quests WHERE owner=? AND quest=?',(uid,qid)).fetchone()
+                saved=erp_scope.reward_row(db,uid,qid)
                 if saved:
                     saved=json.loads(saved[0]);ids={i['uid'] for i in saved['items']}
                     awards=[i for i in items if i['uid'] in ids]
@@ -246,7 +250,9 @@ class QuestState:
             if stage_changed:result['stage_changed']=True
             # All responses, including full unit and inventory bodies, must be
             # encodable before SQL commit. No stale receipt inventory deltas.
+            if qid==erp_scope.QUEST:erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard)
             result['events']=encode(result)
+            if qid==erp_scope.QUEST:erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard)
             if not isinstance(result['events'],list) or any(not isinstance(e.payload,bytes) or len(e.payload)>65536 for e in result['events']):raise ValueError('Quest response bound')
             return result
 
@@ -266,11 +272,12 @@ class QuestState:
                 return prepare([],True) if prepare is not None else []
             state=_state(db,self.uid,load_items(db,self.uid));changed=[]
             for row in state['active']:
+                if row['id']==erp_scope.QUEST and not erp_scope.progress_allowed(db,self.uid,self.account_id,event_id,event,proof,self.account_source_guard):continue
                 counts=dict(row['objectives'])
                 for s in quest_catalog().objectives(row['id']):
                     i=s['m_iID'];counts[i]=min(target(s),counts[i]+objective_increment(s,event,roll_proof))
                 if counts!=row['objectives']:
-                    db.execute('UPDATE character_quests SET objectives=? WHERE owner=? AND quest=?',(json.dumps(counts,sort_keys=True),self.uid,row['id']));changed.append(dict(row,objectives=counts))
+                    db.execute('UPDATE character_quests SET objectives=? WHERE owner=? AND quest=?',(json.dumps(counts,sort_keys=True),erp_scope.quest_owner(db,self.uid,row['id']),row['id']));changed.append(dict(row,objectives=counts))
             from els_server.protocol.quest_messages import progress
             events=[progress(changed)] if changed else []
             # Passive observations may run before a rejected request. Do not

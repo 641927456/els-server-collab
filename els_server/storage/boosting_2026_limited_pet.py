@@ -76,7 +76,7 @@ def _delta(db,owner,row):
  pet,subject,source,group,slot,op,start,end,pending=row
  current=next((i for i in load_items(db,owner) if (i['group'],i['slot'])==(group,slot)),None)
  return wire.inventory_delta([current]) if current else wire.inventory_delta(removed=dict(uid=source,template=TEMPLATE,metadata=0,count=1,group=group,slot=slot))
-def activate(path,owner,payload,operation,*,at=None):
+def activate(path,owner,payload,operation,*,at=None,account_id=None):
  if not enabled():return None
  if not isinstance(operation,str) or not 1<=len(operation)<=160:raise ValueError('Limited pet operation identity')
  item_uid,name=wire.create_pet_request(payload);digest=hashlib.sha256((0x2e8).to_bytes(4,'big')+payload).hexdigest();value=now(at)
@@ -84,6 +84,11 @@ def activate(path,owner,payload,operation,*,at=None):
  from els_server.storage.inventory_state import load_items
  with closing(sqlite3.connect(path,timeout=10)) as db,db:
   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+  from els_server.storage.item_actor import require_active_character
+  require_active_character(db,owner)
+  if account_id is not None:
+   from els_server.storage.profession_state import require_owner
+   require_owner(db,owner,account_id)
   saved=db.execute('SELECT * FROM '+TABLE+' WHERE owner=? AND operation=?',(owner,operation)).fetchone() if present(db) else None
   if saved:
    receipt=db.execute('SELECT digest,kind FROM companion_receipts WHERE owner=? AND operation=?',(owner,operation)).fetchone()

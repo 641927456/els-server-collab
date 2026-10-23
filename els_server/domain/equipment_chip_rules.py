@@ -54,8 +54,8 @@ def reachable_probabilities(attempts,successes):
 def state(template,values):
     c=catalog()
     if not material(template) or not isinstance(values,(list,tuple)) or len(values)!=4 or any(type(v) is not int for v in values):raise ValueError('Chip tuning bytes')
-    attempts,successes,probability,reserved=values
-    if not 0<=successes<=attempts<=c['max_attempts'] or reserved:raise ValueError('Chip tuning counter bounds')
+    attempts,successes,probability,reset_used=values
+    if not 0<=successes<=attempts<=c['max_attempts'] or not 0<=reset_used<=3:raise ValueError('Chip tuning counter bounds')
     if (attempts==0 and probability not in (0,c['default_probability'])) or (attempts>0 and probability not in range(c['minimum_probability'],c['maximum_probability']+1,c['probability_step'])):raise ValueError('Chip tuning probability state')
     if (probability or c['default_probability']) not in reachable_probabilities(attempts,successes):raise ValueError('Unreachable compatible chip tuning state')
     return list(values)
@@ -80,10 +80,10 @@ def resolved(item):
 
 def advance(item,randbelow=secrets.randbelow):
     c=catalog();source_options(item.get('option_groups',{}).get('1',[]));old=state(item['template'],item.get('chip_tuning',[0,0,0,0]))
-    attempts,successes,probability,_=old
+    attempts,successes,probability,reset_used=old
     if attempts==c['max_attempts']:raise ValueError('Chip already has ten tuning attempts')
     success=draw(100,randbelow)<(probability or c['default_probability'])
     probability=max(c['minimum_probability'],min(c['maximum_probability'],(probability or c['default_probability'])+(-c['probability_step'] if success else c['probability_step'])))
-    updated=state(item['template'],[attempts+1,successes+int(success),probability,0])
+    updated=state(item['template'],[attempts+1,successes+int(success),probability,reset_used])
     # Original UI indexes this resource map with prior successes, not attempts.
     return updated,success,c['fees'][str(successes)]

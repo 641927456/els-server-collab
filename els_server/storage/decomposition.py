@@ -1,4 +1,5 @@
 """Atomic ordinary dismantling with current-state replay and no made-up rates."""
+from els_server.storage.item_actor import require_active_character
 import sqlite3
 from contextlib import closing
 from els_server.domain.decomposition_rules import quote, reward_definition
@@ -16,7 +17,7 @@ def decompose(path, owner, payload, operation):
     owner, digest = _identity(owner, 0x1c0, payload, operation)
     with closing(sqlite3.connect(path, timeout=10)) as db, db:
         db.execute('PRAGMA foreign_keys=ON')
-        db.execute('BEGIN IMMEDIATE')
+        db.execute('BEGIN IMMEDIATE');require_active_character(db,owner)
         old = _previous(db, operation, digest)
         before = load_items(db, owner)
         if old is not None:
