@@ -26,8 +26,11 @@ def qualified(s):
         or routes._data['graphs'][route['source']]['source_sha256']!=row['graph_source_sha256']):raise ValueError('Resurrection scene changed')
     stage=row['stages'].get(str(s.gate_stage));part=s.dungeon_run.part if s.dungeon_run is not None else 0
     if stage is None or part not in stage['parts']:raise ValueError('Resurrection substage not qualified')
-    keys=tuple(stage['keys'])
-    if not keys or any(type(k)is not int or not 0<=k<2**31 for k in keys):raise ValueError('Resurrection spawn keys invalid')
+    keys=tuple(stage.get('keys',()))
+    if not keys:
+        if stage.get('native_solo_selector')is not True:raise ValueError('Resurrection native selector not qualified')
+        return ()  # Shared admission rejects this; one native client selects its own loaded map key.
+    if any(type(k)is not int or not 0<=k<2**31 for k in keys):raise ValueError('Resurrection spawn keys invalid')
     return keys
 
 def shared_position(epoch,owner,life,keys):

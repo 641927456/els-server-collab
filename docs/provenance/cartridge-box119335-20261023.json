@@ -1,0 +1,206 @@
+{
+  "schema": "cartridge-box119335-source-provenance-v2",
+  "status": "both-installed-limited-public-service-negative-verified",
+  "base_commit": "fd8e86026defa8f35cbfcef4be760d4708066573",
+  "stack_dependencies": [
+    "PR269",
+    "PR277",
+    "PR281"
+  ],
+  "canonical_source": [
+    {
+      "relative": "els_server/domain/acquisition_policy.py",
+      "sha256": "62c8ad354f3f599b91aa76970d5d5361417629ac80c5d4b96f0d467652a361b4",
+      "bytes": 1829,
+      "runtime_source_sha256": "4814e1b2e1be7a27b61e0a219f351ffdcd1d49489b495a1ca6277af67c3b8b5c",
+      "action": "replace"
+    },
+    {
+      "relative": "els_server/domain/cubes.py",
+      "sha256": "dbb641e278175e75c108dc2da4101c01a75c877728a5f7b6e441f8459f42b0a8",
+      "bytes": 3226,
+      "runtime_source_sha256": "dbb641e278175e75c108dc2da4101c01a75c877728a5f7b6e441f8459f42b0a8",
+      "action": "replace"
+    },
+    {
+      "relative": "els_server/domain/inventory_items.py",
+      "sha256": "9670cbee09305eaca956901df591d05108a821300730f9b03440f68e8b266ec1",
+      "bytes": 46469,
+      "runtime_source_sha256": "6bd494acddad6ae14f319f69fb266ca2d19e13bdaab53b9c6e5efef8329c423d",
+      "action": "replace"
+    },
+    {
+      "relative": "els_server/domain/local_session.py",
+      "sha256": "986ae5a4b94ad62c41e58512d06c5a5aa0d360b000b96a28d76acdfe72165b99",
+      "bytes": 123548,
+      "runtime_source_sha256": "f5b42c26beeec8e4e90cc277346b470907350eab707659f250bbd5751318d9a7",
+      "action": "replace"
+    },
+    {
+      "relative": "els_server/storage/bag_moves.py",
+      "sha256": "fbe092d3f6d7e46a47f13d4cfe4facd3209e8a35ee9a49e17ab9d7a380c2a018",
+      "bytes": 5088,
+      "runtime_source_sha256": "fbe092d3f6d7e46a47f13d4cfe4facd3209e8a35ee9a49e17ab9d7a380c2a018",
+      "action": "replace"
+    },
+    {
+      "relative": "els_server/storage/bank_state.py",
+      "sha256": "ff842258ece6503fff718040b4f37a95bae9c75be64f7eabddd4c09cd451b2d0",
+      "bytes": 15871,
+      "runtime_source_sha256": "06bea6976035042e3cdab9994b75882bbaa9078c0cc77775ea0c4a594d637b3c",
+      "action": "replace"
+    },
+    {
+      "relative": "els_server/storage/inventory_actions.py",
+      "sha256": "49a394bd471e57673876bc22d044d6a1d0bb140388fda406f2971b7fa8e234a1",
+      "bytes": 8331,
+      "runtime_source_sha256": "a158292d8aa9682a478b53afc7cee29b0a844abbc2528346a1ef4762f1ef6ddf",
+      "action": "replace"
+    },
+    {
+      "relative": "els_server/storage/inventory_state.py",
+      "sha256": "c8c8f593d3f22bf304243551d4c9961719be9ac2a0914f9f384978b64d13f899",
+      "bytes": 12746,
+      "runtime_source_sha256": "c8c8f593d3f22bf304243551d4c9961719be9ac2a0914f9f384978b64d13f899",
+      "action": "replace"
+    },
+    {
+      "relative": "els_server/application.py",
+      "sha256": "14ca4d105def1fde517d3eb8278a3b2111c15dd49c87a277a076173059a1a613",
+      "bytes": 15010,
+      "runtime_source_sha256": "3200fb6ba991a79e41504bfa261520f47b666c3681b0c2f8a226dc04439160c5",
+      "action": "replace"
+    },
+    {
+      "relative": "els_server/data/cartridge_selection_box.json",
+      "sha256": "accceca5b601d16f6b869c844652a2b7dd6d90e554fc199721eb2364c3e27e06",
+      "bytes": 4718,
+      "runtime_source_sha256": "accceca5b601d16f6b869c844652a2b7dd6d90e554fc199721eb2364c3e27e06",
+      "action": "new"
+    },
+    {
+      "relative": "els_server/domain/cartridge_selection_box.py",
+      "sha256": "fbe0ca416a574f9b981a3747a378ca02d755c6cba9f6217619bb1e1df1d260a5",
+      "bytes": 18295,
+      "runtime_source_sha256": "fbe0ca416a574f9b981a3747a378ca02d755c6cba9f6217619bb1e1df1d260a5",
+      "action": "new"
+    },
+    {
+      "relative": "els_server/storage/cartridge_selection_box.py",
+      "sha256": "71e60f1e5c36f99b4c6fe3aa82a35766e40d31882db987486ddf3643bd7aa2f0",
+      "bytes": 7151,
+      "runtime_source_sha256": "71e60f1e5c36f99b4c6fe3aa82a35766e40d31882db987486ddf3643bd7aa2f0",
+      "action": "new"
+    }
+  ],
+  "SOURCE_freeze_sha256": "ecb11835146051d2d2287caf44ae3791922c55b2e28ec9f4176ad9a321964fb7",
+  "business_SOURCE_peer_sha256": "0f04b6e57978a2683e2feb10c9cda34e8ec4b52901c8d2999de396425910346c",
+  "local": {
+    "release": "local-equipment-cartridge-box119335-local-context-20261023-v1",
+    "manifest_sha256": "b688d004848b156b112005fd5b022dcc3114b9d5e61dd75493a4b082cb249036",
+    "business": 941,
+    "runtime": 1403,
+    "changed": 12,
+    "new": 3,
+    "replaced": 9,
+    "completion_sha256": "a4c65691123d8f8e4c1dd3246304749238d4bd11b8e03027a58c8d29502aaf1b",
+    "independent_FILE_sha256": "53f6cb396095203c9819dd38d9116104678c53f4ca48fad466ec2e083eecbe8c",
+    "validation_sha256": "4cbb6ad395a2e164647a513458bc3155b3a00af15554c6e5d96c99d122481b94",
+    "observation_seconds": 120.20588180003688,
+    "installed": true,
+    "post_online_metadata_only": true,
+    "post_online_runtime_reinstalled": false,
+    "post_online_payload_files_unchanged": 1403,
+    "post_online_reconciliation_sha256": "dfc4533d2e3857215c44690f497e4f44d3e5aa7a1c717e4a5a2cf6ac91b5fa8f",
+    "local_online_service_negative_verified": true,
+    "public_BOX_positive_verified": false,
+    "controlled_TEMP_positive_only": true
+  },
+  "online": {
+    "installed": true,
+    "artifact_sha256": "465a92efa94a9fb5a895009dc6cdf9ad9e75f6b0f6bc35e644685cfbabba835d",
+    "artifact_independent_FILE_sha256": "6d304ba783e8f15c70690180ee534448babbbde14d04af4a4ee3b44fabd729d0",
+    "public_positive_qualified": false,
+    "release": "equipment-cartridge-box119335-local-context-20261023-v1",
+    "manifest_sha256": "40cb94338354c3a27e7a0f84639272eaf1081a739f1e9fd22af510f7e3fde924",
+    "business": 931,
+    "changed": 11,
+    "new": 3,
+    "replaced": 8,
+    "completion_sha256": "6ebe24f53babbca303d8cb45c317b0bda30526b262c87aa7750e1014965f690a",
+    "acceptance_sha256": "5e50c5d60aaddd9f68586efb6215b565a0098cbbe4fb574fd0c9f4487dd51895",
+    "public_acceptance_sha256": "c71856cffd0f8aa4f882cc30747640a37b6982c4b21816850fbda9ca9976be9d",
+    "post_sha256": "0397cc3b15d3a897c933cddc6b2771e5c73ffe0c502b0e6c70b4df75d1590599",
+    "independent_final_FILE_sha256": "9c3039c93f658bb90365600398f3b293638ef14a779795c36fd5d6acd94d21e1",
+    "observation_seconds": 121.72064050007612,
+    "normal_stop_dual_SQLite_API_code_config_task_backups": true,
+    "installed_check_exit_code": 0,
+    "original_rows_preserved": true,
+    "public_service_negative_verified": true,
+    "native_requests": 32,
+    "service_requests": 2,
+    "BOX_selection_requests": 0,
+    "BOX_new_receipts": 0,
+    "ED_delta": 0,
+    "refusals": [
+      "full-empty-55A-without-owned-BOX",
+      "full-generic-197-invalid-UID0"
+    ],
+    "cold_complete2A_records": 10,
+    "own_SQL_unchanged": true,
+    "normal_API_disable": true,
+    "inventory_quest_town_phase_seed": false,
+    "new_DDL_by_install": 0,
+    "new_tables_by_normal_QA": 0
+  },
+  "Git_projection_SOURCE_peer_sha256": "2b282d6e16299378729b75a2710489f5d543a1987201e6ebb4253193d694e1bc",
+  "new_sources": 0,
+  "new_DDL": 0,
+  "client_changes": 0,
+  "GUI_verified": false,
+  "whole_card_complete": false,
+  "whole_page_complete": false,
+  "score_change": 0,
+  "actual_online_delivery_pending": false,
+  "lifecycle": {
+    "cleanup_sha256": "f502c2ad8aeb12be1efd6c2fd2cab6a6b6bdfcf0b79b60b56d5934e35ef781df",
+    "locks_released_sha256": "663e57e7f30624820d31149e09e9b14f351b8b8b88dffb31fb1a1047e117613c",
+    "exact_own_stage_and_task_removed": true,
+    "own_locks_released": true,
+    "necessary_backups_retained": true,
+    "player_database_rollback": false
+  },
+  "CI": {
+    "compiled_Python_sources": 800,
+    "privacy_guard_files": 1245,
+    "protocol_roundtrip": true,
+    "runtime_check_requested": false,
+    "old_runtime_tests_replayed": 0,
+    "evidence_sha256": "d52beb6dc5b807976473a5408894998747055e975d0c6cffcae847b8e33924c3",
+    "raw_execution_sha256": "fc61b72be45e8cd1830c8c1cc240720d27436d1e05c6c55d59acbbbdb87c9b8d",
+    "first_untracked_scope_not_accepted": true
+  },
+  "source_projection": {
+    "description": "12 source leaves contain only BOX119335 delta on declared Git parent; channel-format and preexisting runtime features preserved without whole-file normalization",
+    "shared_module_inverse_BYTE_or_AST_proof": true,
+    "bank_validate_item_wrapper_preserved": true,
+    "unmerged_runtime_Chip_load_patch_excluded": true,
+    "no_channel_wholefile_equality_claim": true
+  },
+  "preserved_failures": [
+    "First preflight SSH wait expired while its reader continued; terminal state and exact stage SHA were inspected before one reviewed retry.",
+    "First cleanup locally rejected missing authorization; no remote cleanup then. Existing reviewed binding followed by successful cleanup."
+  ],
+  "boundaries": {
+    "local_positive": "Controlled disposable historical inventory only",
+    "public": "Service-negative and cold load only; zero BOX selection",
+    "public_13_option_positive": false,
+    "legitimate_natural_inventory_qualification_pending": true,
+    "normal_acquisition": false,
+    "multiplayer": false,
+    "GUI": false,
+    "whole_card_complete": false,
+    "whole_page_complete": false,
+    "score_change": 0
+  }
+}
