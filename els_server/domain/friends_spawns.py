@@ -57,11 +57,14 @@ def _view(s):
 
 
 def _members(dispatcher, r):
+    from els_server.domain.equipment_chip_flow import current_lease
     if (tuple(r.party['members']) != r.members or r.party['leader'] is not r.leader
             or len({m.account.uid for m in r.members}) != len(r.members)):
         raise ValueError('Room roster changed')
     for m in r.members:
-        if (dispatcher.room(m) is not r or m.released or m.coop_error or m.social_overflow
+        if (m.application.world is not dispatcher.world or not current_lease(m)
+                or dispatcher.world.party_of.get(m) is not r.party or r.party.get('run') is not r
+                or dispatcher.room(m) is not r or m.released or m.coop_error or m.social_overflow
                 or not m.application.registry.enabled(m.identity['id'])):
             raise ValueError('Room member unavailable')
     generations = {_generation(r, m) for m in r.members}
