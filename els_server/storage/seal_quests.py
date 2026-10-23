@@ -1,10 +1,31 @@
 """Atomic quest state, progress evidence, inventory consumption and rewards."""
-from contextlib import closing
+from contextlib import closing,contextmanager
+from pathlib import Path
 import hashlib,json,sqlite3,struct,time
 from els_server.domain.seal_quests import quest_catalog,sequence,require_eligible,target,objective_increment,ACTIVE_QUEST_LIMIT
 from els_server.storage.character_schema import character_uid
 from els_server.storage.inventory_state import load_items,grant_items
 from els_server.storage import erp_support_quest_scope as erp_scope
+
+
+@contextmanager
+def _progress_connection(path,transaction):
+    """Own one writer normally; a shared caller owns its exact active writer."""
+    if transaction is None:
+        with closing(sqlite3.connect(path,timeout=10)) as db,db:
+            db.execute('BEGIN IMMEDIATE')
+            yield db
+        return
+    if not isinstance(transaction,sqlite3.Connection) or not transaction.in_transaction:
+        raise ValueError('Quest shared progress requires an active transaction')
+    attached=transaction.execute('PRAGMA database_list').fetchall()
+    main=[row[2] for row in attached if row[1]=='main']
+    if (len(main)!=1 or not main[0] or Path(main[0]).resolve()!=Path(path).resolve()
+            or any(row[1] not in ('main','temp') for row in attached)):
+        raise ValueError('Quest shared progress database mismatch')
+    yield transaction
+    if not transaction.in_transaction:
+        raise ValueError('Quest shared progress transaction ended')
 
 
 class QuestIncomplete(ValueError):
@@ -188,6 +209,8 @@ class QuestState:
                         from els_server.domain.item_expiration import expired
                         for item in items:
                             if item['template']!=template or item['group']==9 or locked(item) or expired(item):continue
+                            from els_server.domain.cartridge_registration_rules import require_unbound
+                            require_unbound(db,item['uid'])
                             take=min(n,item['count']);n-=take
                             if take==item['count']:
                                 from els_server.storage.item_expiration import forget
@@ -254,15 +277,17 @@ class QuestState:
             if not isinstance(result['events'],list) or any(not isinstance(e.payload,bytes) or len(e.payload)>65536 for e in result['events']):raise ValueError('Quest response bound')
             return result
 
-    def record(self,event_id,event,proof,*,validate=None,prepare=None):
+    def record(self,event_id,event,proof,*,validate=None,prepare=None,transaction=None):
         if not isinstance(event_id,str) or not 1<=len(event_id)<=200 or not isinstance(proof,bytes) or not proof:raise ValueError('Quest progress evidence')
         if event.get('kind') not in ('kill','clear','visit_town','visit_dungeon') or type(event.get('dungeon')) is not int or type(event.get('level')) is not int:raise ValueError('Quest progress event')
         if event['kind']=='kill' and type(event.get('npc')) is not int:raise ValueError('Quest NPC event')
         if event['kind']=='visit_town' and type(event.get('town')) is not int:raise ValueError('Quest town event')
         digest=hashlib.sha256(proof).hexdigest();raw=json.dumps(event,sort_keys=True)
         roll_proof=progress_proof(self.uid,event_id,proof)
-        with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
-            db.execute('BEGIN IMMEDIATE');load_character(db,self.uid,self.account_id);ensure(db)
+        if transaction is not None and (type(self.account_id) is not int or self.account_id<=0):
+            raise ValueError('Quest shared progress requires an account owner')
+        with _progress_connection(self.path,transaction) as db:
+            load_character(db,self.uid,self.account_id);ensure(db)
             old=db.execute('SELECT proof_hash,event_json FROM quest_progress_events WHERE owner=? AND event_id=?',(self.uid,event_id)).fetchone()
             if validate is not None:validate(db)
             if old:
