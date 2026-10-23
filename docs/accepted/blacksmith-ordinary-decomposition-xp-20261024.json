@@ -1,0 +1,88 @@
+{
+  "independent_unit": "ordinary-blacksmith-dismantle-XP",
+  "business_files": 4,
+  "client_changes": 0,
+  "problem": "Eligible ordinary equipment dismantling already commits rewards but gives stored blacksmiths no profession XP; retries must restore absolute saved profession state without duplicate XP or level notices.",
+  "scope": "Only existing ordinary701000 crystal decomposition of owned equipment, item level1..80. White-chip decomposition and advanced/raid/hero products remain outside this XP source.",
+  "policy": {
+    "kind": "explicit user-approved old70 fallback where current profession definitions supply no XP yields",
+    "gains": {
+      "1..29": 5,
+      "30..49": 15,
+      "50..69": 25,
+      "70..80": 40
+    },
+    "future_step_costs": [
+      400,
+      700,
+      1100,
+      1600,
+      5200,
+      10800,
+      18800,
+      29600,
+      43600
+    ],
+    "current_nonzero_required_preserved": true,
+    "unknown_required_zero_grants_zero": true,
+    "max_level_grants_zero": true,
+    "no_total_XP_reconstruction": true,
+    "no_read_time_state_migration": true,
+    "alchemy_unchanged": true,
+    "authority": "Inherited local-server rule, not claimed current retail values"
+  },
+  "sources": [
+    "Pinned current ordinary decomposition eligibility/rewards and native1C1 XP/4C4/D9 consumers",
+    "ELS70 GSUserInventory.cpp3141..3155 and ProfessionExpTable.lua; source packages are not included"
+  ],
+  "source_files": [
+    {
+      "path": "els_server/domain/profession_growth.py",
+      "main_parent_sha256": null,
+      "runtime_parent_sha256": null,
+      "parent_equivalence": "new-file",
+      "candidate_sha256": "bcdf3a0b315d8ed37c58d87868da077d4e922d822cbeb01593fef3d1a9c7cf2a"
+    },
+    {
+      "path": "els_server/storage/decomposition.py",
+      "main_parent_sha256": "72c4849ebf04e99e481c562649c7a82fca1e62b4d23433dd9b84838e78b15be4",
+      "runtime_parent_sha256": "72c4849ebf04e99e481c562649c7a82fca1e62b4d23433dd9b84838e78b15be4",
+      "parent_equivalence": "exact-parent-bytes",
+      "candidate_sha256": "58a362173a30c20bf9b8c9fd690c48f26bf0e9081662674fc9faf18769fd04e4"
+    },
+    {
+      "path": "els_server/protocol/inventory_management_messages.py",
+      "main_parent_sha256": "ba2ec1faf6c6e1fb88efad8730b193e090500685ea79290aea49a6acb5851756",
+      "runtime_parent_sha256": "ba2ec1faf6c6e1fb88efad8730b193e090500685ea79290aea49a6acb5851756",
+      "parent_equivalence": "exact-parent-bytes",
+      "candidate_sha256": "1f7cb252d66a949a5a49449705853bfdd47d26386f3305a483667e588222c6e3"
+    },
+    {
+      "path": "els_server/domain/white_chip_decomposition_flow.py",
+      "main_parent_sha256": "f6d3c6efcfcb5099f0aa8659394ef6ade7e3bb25881a050f2c1ef83dc874d3e7",
+      "runtime_parent_sha256": "f6d3c6efcfcb5099f0aa8659394ef6ade7e3bb25881a050f2c1ef83dc874d3e7",
+      "parent_equivalence": "exact-parent-bytes",
+      "candidate_sha256": "4ee9bec69f86824423c781701ecacd560857421d5cf410d42c4ea7cf97cb0ea7"
+    }
+  ],
+  "schema": {
+    "new_schema_definitions": 1,
+    "lazy_table": "blacksmith_decomposition_xp_receipts",
+    "existing_table_changes": false,
+    "eager_DDL": false,
+    "replay_or_read_backfill": false,
+    "purpose": "Optional owner/account/requested/granted/before/after audit linked to the existing inventory_action_receipt; original inventory before/after JSON list shapes retained"
+  },
+  "atomicity": "Item removal, unchanged rewards, profession CAS, original receipt and optional audit use one real SQL transaction. Full new1C1 and true4C4 encode before commit. Failure rolls back rows and lazy DDL.",
+  "retry": "XP0 and no repeated4C4. Release receipt transaction before current saved-user D9 synchronization; authorize before/after and validate read facade paths. Existing inventory repair remains allowed outside that released transaction.",
+  "evidence": {
+    "independent_review": "Approved exact candidate-v2 four leaves",
+    "controlled_SQL_and_actual_LocalSession": true,
+    "original_native_consumer_evidence_reused": true,
+    "unchanged_successful_checks_not_rerun": true,
+    "new_replay_cases": "Lost/partial reply absolute state recovery, existing missing-option circuit, encoder/actor/path/real-lock-wait rejection",
+    "natural_GUI": false,
+    "multiplayer_claim": false
+  },
+  "deployment": "Source commit/PR does not install or restart services. Protected runtime completion is checked separately before root publishes this source branch."
+}
