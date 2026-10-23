@@ -22,7 +22,7 @@ def raid_definition(identity):
 
 def capacity(party):
     if not party.get('raid_party'):
-        return 4
+        return party.get('recruitment',{}).get('maximum',4)
     source = raid_definition(party['dungeon'])
     return source['maximum'] if source else 4
 
@@ -44,6 +44,6 @@ def admission_size(party, identity):
         minimum=definition.get('m_MinPlayerCount',1)
         maximum=definition.get('m_MaxPlayerCount',4)
         return (type(minimum) is int and type(maximum) is int and 1<=minimum<=maximum
-            and max(2,minimum)<=count<=min(4,maximum))
+            and max(2,minimum)<=count<=min(capacity(party),maximum))
     definition = raid_definition(identity)
     return definition is not None and definition['minimum'] <= count <= definition['maximum']

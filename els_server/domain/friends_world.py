@@ -35,6 +35,7 @@ class FriendsWorld:
     def __init__(self):
         self.towns={};self.members={};self.parties={};self.party_of={}
         self.invitations={};self.next_party=900001
+        self.recruitment_candidates={};self.recruitment_cleanup_errors=deque(maxlen=32)
         from els_server.domain.friends_dungeon import FriendsDungeons
         self.dungeons=FriendsDungeons(self)
         from els_server.domain.field_boss import FieldBosses
@@ -59,6 +60,8 @@ class FriendsWorld:
             for notice in notices:self.send(member,notice)
 
     def leave_party(self,session):
+        from els_server.domain.party_recruitment import invalidate
+        invalidate(self,session)
         current=self.party_of.get(session)
         try:
             if current and (current.get('challenge') or current.get('challenge_pending')):
@@ -68,22 +71,33 @@ class FriendsWorld:
             try:
                 self.dungeons.detach(session)
             finally:
-                party=self.party_of.pop(session,None)
-                if party is not None:
-                    party['members'].remove(session);party['ready'].discard(session)
-                    from els_server.domain.normal_party import ordinary
-                    if ordinary(party):party['ready'].clear();party.pop('admission',None)
-                    self.send(session,wire.party_removed(session.account.uid))
-                    if len(party['members'])<2:
-                        for other in list(party['members']):
-                            self.party_of.pop(other,None);self.send(other,wire.party_removed(session.account.uid))
-                        self.parties.pop(party['id'],None)
-                    else:
-                        if party['leader'] is session:party['leader']=party['members'][0]
-                        self.party_snapshot(party,reset=True)
+                from els_server.domain.party_recruitment import leave as leave_recruitment
+                handled=leave_recruitment(self,session,forced=True)
+                if not handled:
+                    party=self.party_of.pop(session,None)
+                    if party is not None:
+                        party['members'].remove(session);party['ready'].discard(session)
+                        from els_server.domain.normal_party import ordinary
+                        if ordinary(party):party['ready'].clear();party.pop('admission',None)
+                        self.send(session,wire.party_removed(session.account.uid))
+                        if len(party['members'])<2:
+                            for other in list(party['members']):
+                                self.party_of.pop(other,None);self.send(other,wire.party_removed(session.account.uid))
+                            self.parties.pop(party['id'],None)
+                        else:
+                            if party['leader'] is session:party['leader']=party['members'][0]
+                            self.party_snapshot(party,reset=True)
 
     def party_request(self,session,event):
+        from els_server.domain import party_recruitment
+        result=party_recruitment.handle(self,session,event)
+        if result is not None:return result
         kind=event.kind
+        if event.event_id==0x202 and self.party_of.get(session,{}).get('recruitment'):
+            if kind==0x13f:
+                if len(event.payload)!=4:return []
+                return party_recruitment.leave(self,session)
+            if kind==0x145:return party_recruitment.select(self,session,event)
         if event.event_id==0x202 and kind in (0x14e,0x151):
             from els_server.domain.party_commands import handle
             return handle(self,session,event)
@@ -107,6 +121,7 @@ class FriendsWorld:
             party=self.party_of.get(session)
             from els_server.domain.raid_party import raid_definition,capacity
             raid=raid_definition(requested)
+            if raid and party is not None and party.get('recruitment'):return [wire.party_invite_ack(result=-1)]
             if party is not None and (party.get('challenge') or party.get('challenge_pending')):return [wire.party_invite_ack(result=-1)]
             # A request naming a current raid can create/promote that room;
             # ordinary invitations keep their existing four-player bound.
@@ -194,6 +209,8 @@ class FriendsWorld:
         except SessionOrderError:session.social_overflow=True
 
     def leave(self,session):
+        from els_server.domain.party_recruitment import invalidate
+        invalidate(self,session)
         key=self.members.pop(session,None)
         if key is None:return
         room=self.towns[key];room.pop(session,None)
