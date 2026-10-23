@@ -7,7 +7,20 @@ from els_server.storage.inventory_state import InventoryFull
 def enabled(s):
     return s.item_test and s.client_build=='dx11_260923' and s.account.characters is not None and s.account.store is not None
 
-def store(s):return QuestState(s.account.store.path,s.account.uid,account_id=s.account.account_id)
+def account_source_actor(s):
+    from els_server.domain.equipment_chip_flow import current_lease
+    return (enabled(s) and s.role=='game' and s.phase in ('town_ready','dungeon_active')
+        and not getattr(s,'released',False) and s.account.store.uid==s.account.uid and current_lease(s))
+
+def account_source_guard(s,db):
+    # Finite53520 lease/actor gate; other quest semantics remain unchanged.
+    from els_server.domain.equipment_chip_flow import current_lease
+    from els_server.storage.item_actor import require_active_character
+    if not account_source_actor(s):
+        raise ValueError('Obsolete ERP support quest actor/session')
+    require_active_character(db,s.account.uid)
+
+def store(s):return QuestState(s.account.store.path,s.account.uid,account_id=s.account.account_id,account_source_guard=lambda db:account_source_guard(s,db))
 
 def initialization(s):
     if enabled(s):
@@ -46,7 +59,9 @@ def handle(s,event,sequence):
         return dialogue_handle(s,event,sequence)
     if event.event_id!=0x202 or event.kind not in (0xee,0xfa,0xf4) or not enabled(s):return None
     qid=struct.unpack_from('>i',event.payload)[0] if len(event.payload)>=4 else 0
+    if qid==53520 and not account_source_actor(s):return []
     def failure(result=wire.QUEST_REWARD_UNAVAILABLE):
+        if qid==53520 and not account_source_actor(s):return []
         if event.kind==0xee:return [wire.accept_ack(result)]
         if event.kind==0xfa:return [initialization(s)]
         snapshot=s.account.get_inventory_snapshot()
@@ -55,6 +70,9 @@ def handle(s,event,sequence):
         or event.performers!=(0,) or event.uid!=0xffffffffffffffff or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):return failure()
     try:
         request=wire.request(event.kind,event.payload)
+        if qid==53520:
+            from els_server.domain.equipment_chip_flow import current_lease
+            if s.account.store.uid!=s.account.uid or not current_lease(s):return []
         kind={0xee:'accept',0xfa:'abandon',0xf4:'claim'}[event.kind]
         def encode(r):
             state=r['state']
