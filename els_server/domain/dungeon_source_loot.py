@@ -3,7 +3,7 @@ import functools,hashlib,json,uuid
 from els_server.paths import PROJECT_ROOT
 
 POLICY='legacy-source-loot-compatibility-v1'
-DATA_SHA='7e7ac58e6e74e1500c05c3a513a1bf68287510b344c8b48d141bb1e838c07a79'
+DATA_SHA='fdb180838a5740d3733611762082511c0834f2ce70c6f18280752c18864e5c82'
 _raw=(PROJECT_ROOT/'els_server/data/dungeon_source_loot.json').read_bytes()
 _scope=json.loads(_raw)
 MAPS=frozenset(map(int,_scope['maps']))
@@ -25,7 +25,7 @@ def catalog():
     if (hashlib.sha256(material_raw).hexdigest()!=c['material_proof_sha256'] or material['reader_consumed']!=304
         or material['reader_cases']!=21734 or material['runtime_sha256']!='c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229'):
         raise ValueError('Source loot inherited native material evidence')
-    materials={r['template']:r for r in material['rows'] if r['template'] in (109945,109955)}
+    materials={r['template']:r for r in material['rows'] if r['template'] in (109945,109955,130047)}
     if (c['schema_version']!=1 or c['policy_id']!=POLICY or c['client_sha256']!=CLIENT_SHA
         or c['scale']!=100000000 or c['catalog_sha256']!=data.manifest['catalog_sha256']
         or c['source_sha256']!='09f8a824a6894fc768a2574d07acecfe15443ef78230eee34970915233c9b4f8'
