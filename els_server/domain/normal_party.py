@@ -34,7 +34,12 @@ def invite_selection(world,session,target,party,request):
     if difficulty or mode or not route_catalog().supports(identity) or raid_definition(identity) is not None:return None
     members=[*(party['members'] if party else [session]),target]
     proposed=dict(members=members,dungeon=identity)
-    if not admission_size(proposed,identity) or any(not account_dungeon_allowed(m.account,identity) for m in members):return None
+    if party is not None and party.get('recruitment'):proposed['recruitment']=party['recruitment']
+    if proposed.get('recruitment'):
+        from els_server.domain.party_recruitment import source
+        try:source(proposed)
+        except ValueError:return None
+    elif not admission_size(proposed,identity) or any(not account_dungeon_allowed(m.account,identity) for m in members):return None
     return selected
 
 
@@ -53,17 +58,26 @@ def accept(world,session,invite):
     if party is not None and any(world.party_of.get(m) is not party for m in old_members):return denied()
     if session in world.party_of:return denied()
     after={**party,'members':members,'ready':set()} if party else dict(id=world.next_party,leader=inviter,members=members,ready=set(),dungeon=selection[0],difficulty=selection[1],mode=selection[2],run=None,raid_party=False)
-    if not admission_size(after,selection[0]) or any(not account_dungeon_allowed(m.account,selection[0]) for m in members):return denied()
+    if after.get('recruitment'):
+        from els_server.domain.party_recruitment import source
+        try:source(after)
+        except ValueError:return denied()
+    elif not admission_size(after,selection[0]) or any(not account_dungeon_allowed(m.account,selection[0]) for m in members):return denied()
     after.pop('admission',None)
     response=[wire.party_answer_ack(inviter.account.uid)]
     notices=roster_events(after,reset=party is not None)
-    boxes=_prepared_boxes([(m,notices) for m in members],response)
+    from els_server.domain.party_recruitment import removal_plan,prepare,actor
+    from els_server.domain.raid_party import capacity
+    recruitment_pending,recruitment_notices=removal_plan(world,applicant=session,party=party if party is not None and party.get('recruitment') and len(members)>=capacity(after) else None)
+    deliveries=[*recruitment_notices,*[(m,notices) for m in members]]
+    recruitment_related=bool(after.get('recruitment') or recruitment_notices)
+    boxes=prepare(world,{m:actor(world,m) for m in members},deliveries,response) if recruitment_related else _prepared_boxes(deliveries,response)
     # Commit only after source/phase checks, encoding and bounded queue copies.
     world.invitations.pop(session)
     if party is None:
         party=after;world.next_party+=1;world.parties[party['id']]=party;world.party_of[inviter]=party
     else:
         party['members'][:]=members;party['ready'].clear();party.pop('admission',None)
-    world.party_of[session]=party
+    world.party_of[session]=party;world.recruitment_candidates=recruitment_pending
     for m,box in boxes.items():m.mailbox=box
     return response

@@ -115,6 +115,10 @@ class FriendsDungeons:
                 room.party['run']=None;room.party['ready'].clear()
 
     def admissible(self,party,leader,identity):
+        if party.get('recruitment'):
+            from els_server.domain.party_recruitment import waiting
+            try:waiting(self.world,party)
+            except ValueError:return False
         from els_server.domain.dungeon_routes import route_catalog
         from els_server.domain.region_quests import account_dungeon_allowed
         from els_server.domain.raid_party import admission_size,raid_definition
