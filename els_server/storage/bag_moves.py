@@ -50,7 +50,8 @@ def move_bag_items(path, payload, uid=1001):
                 require_current(item)
         def stack_state(item):
             return {k: v for k, v in item.items() if k not in ('uid', 'slot', 'count')}
-        same_stack = second is not None and stack_state(first) == stack_state(second)
+        from els_server.domain.cartridge_selection_box import BOX,relocate_existing_box
+        same_stack = first['template']!=BOX and second is not None and stack_state(first) == stack_state(second)
         if same_stack:
             delta = min(first['count'], TEMPLATE_MAX_STACKS[first['template']] - second['count'])
             if delta == 0:
@@ -60,6 +61,9 @@ def move_bag_items(path, payload, uid=1001):
         else:
             remaining = dict(second, group=source[0], slot=source[1]) if second else None
             moved = dict(first, group=destination[0], slot=destination[1])
+        if first['template']==BOX:moved=relocate_existing_box(first,moved)
+        if second is not None and second['template']==BOX and remaining is not None:
+            remaining=relocate_existing_box(second,remaining)
         changes = [(source, remaining), (destination, moved)]
         for _, item in changes:
             if item is not None:
