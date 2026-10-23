@@ -16,7 +16,10 @@ from els_server.storage.item_instances import remove
 from els_server.storage.equipment_receipt_state import current_changes
 
 
-def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.randbelow):
+def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.randbelow,*,account_id=None):
+    if expected_template==715036:
+        from els_server.storage.wardrobe_ticket_box import open_box
+        return open_box(path,owner,payload,operation,account_id=account_id)
     from els_server.domain.published_2026_bundles import enabled
     definition=enabled().get(expected_template)
     if definition is not None:

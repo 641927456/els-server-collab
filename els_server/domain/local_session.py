@@ -1158,6 +1158,10 @@ class LocalSession:
                 if self.role!='game' or self.phase!='town_ready':return [preview_ack(-1,cube_request.template)]
                 try:
                     if cube_request.keys not in ((),(0,)) or cube_request.flag1 not in (0,1) or cube_request.flag2 not in (0,1):raise ValueError('Fixed cube preview mode')
+                    if cube_request.template==715036:
+                        from els_server.domain.wardrobe_ticket_box import require_session_context
+                        require_session_context(self,event,request_sequence)
+
                     if cube_request.template==168889:
                         from els_server.domain.equipment_chip_flow import current_lease
                         if self.account.store is None or self.account.store.uid!=self.account.uid or not current_lease(self):raise ValueError('Growing kit preview lease')
@@ -1195,13 +1199,22 @@ class LocalSession:
             cube_item=next((i for i in self.account.get_inventory_snapshot()['items'] if i['uid']==cube_use.uid),None)
             cube_template=cube_item['template'] if cube_item and cube_item['template'] in fixed_cubes() else self.fixed_cube_operations.get((self.account.uid,request_sequence),self.fixed_cube_preview_template)
             if cube_template is not None:
+                if cube_template==715036:
+                    from els_server.domain.wardrobe_ticket_box import require_session_context
+                    try:require_session_context(self,event,request_sequence)
+                    except ValueError:return cube_result(self.account.get_reward_balances()['ed'],code=-1)
+
                 if cube_template==168889:
                     from els_server.domain.equipment_chip_flow import current_lease
                     if self.account.store is None or self.account.store.uid!=self.account.uid or not current_lease(self):return cube_result(0,code=-1)
                 if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:
                     return cube_result(self.account.get_reward_balances()['ed'],code=-1)
                 operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
-                try:answer=open_cube(self.account.store.path,self.account.uid,cube_template,event.payload,operation)
+                try:
+                    if cube_template==715036:
+                        require_session_context(self,event,request_sequence)
+                        answer=open_cube(self.account.store.path,self.account.uid,cube_template,event.payload,operation,account_id=self.account.account_id)
+                    else:answer=open_cube(self.account.store.path,self.account.uid,cube_template,event.payload,operation)
                 except ValueError:return cube_result(self.account.get_reward_balances()['ed'],code=-1)
                 self.fixed_cube_operations[(self.account.uid,request_sequence)]=cube_template
                 return answer

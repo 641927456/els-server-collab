@@ -34,6 +34,7 @@ LITHIA_GEN7_USE_ONLY_TICKETS = frozenset((718388,718389,718390,718391,718392,718
 HISTORICAL_PAGE1_USE_ONLY_TICKETS = frozenset((713172,713173,713174,713175,713176,713177,713438,713439,713440,713441,713442,713443))
 
 def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None):
+    if template==715036:return False  # Existing owned box only; no grant source exception.
     if template in HISTORICAL_PAGE1_USE_ONLY_TICKETS:return False
     if template in LITHIA_GEN7_USE_ONLY_TICKETS:return False
     if template in LEGACY_USE_ONLY_TICKETS:return False

@@ -500,7 +500,15 @@ if cartridge_box_template in VERIFIED_TEMPLATES or cartridge_box_template in TEM
 TEMPLATE_BAG_GROUPS[cartridge_box_template]=4
 TEMPLATE_MAX_STACKS[cartridge_box_template]=1
 
+from els_server.domain.wardrobe_ticket_box import BOX as wardrobe_box_template
+if wardrobe_box_template in VERIFIED_TEMPLATES or wardrobe_box_template in TEMPLATE_BAG_GROUPS or wardrobe_box_template in TEMPLATE_MAX_STACKS:raise ValueError("Conflicting existing wardrobe box reader")
+TEMPLATE_BAG_GROUPS[wardrobe_box_template]=4
+TEMPLATE_MAX_STACKS[wardrobe_box_template]=1
+
 def validate_item(item):
+ if isinstance(item,dict) and item.get("template")==wardrobe_box_template:
+  from els_server.domain.wardrobe_ticket_box import validate_existing_box
+  return validate_existing_box(item)
  if isinstance(item,dict) and item.get('template')==cartridge_box_template:
   from els_server.domain.cartridge_selection_box import validate_existing_box
   return validate_existing_box(item)
