@@ -358,6 +358,15 @@ VERIFIED_TEMPLATES[_chip_registration['template']]=_chip_registration['metadata'
 TEMPLATE_BAG_GROUPS[_chip_registration['template']]=_chip_registration['group']
 TEMPLATE_MAX_STACKS[_chip_registration['template']]=_chip_registration['max_stack']
 
+from els_server.domain.equipment_chip_reset_items import catalog as _chip_reset_items
+for _reset_item in _chip_reset_items()['items'].values():
+ _t=_reset_item['template'];_expected=(_reset_item['metadata'],_reset_item['group'],_reset_item['source_max_stack'])
+ if _t in VERIFIED_TEMPLATES:
+  if (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t])!=_expected[:2]:raise ValueError('Conflicting reset ticket registration')
+  continue
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+
 from els_server.domain.equipment_reforge_rules import catalog as _reforge_catalog
 for _reforge_material in _reforge_catalog()['materials'].values():
  _t=_reforge_material['template']
@@ -398,6 +407,14 @@ _manual_magic=manual_magic_potion_definition()
 _t=_manual_magic['template'];_expected=(_manual_magic['metadata'],_manual_magic['group'],_manual_magic['max_stack'])
 if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting manual magic potion definition')
 VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+# Four exact permanent EP pet acquisition items; no pet activation producer.
+from els_server.domain.ep_pets import definitions as _ep_pet_items
+for _row in _ep_pet_items():
+ if _row['template'] in VERIFIED_TEMPLATES:raise ValueError('Conflicting EP pet inventory definition')
+ VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
+ TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
+ TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
 
 # User policy (2026-10-18): raise existing stackable items to at least 999.
 # Original catalog evidence stays immutable. Equipment/singletons stay at one;
@@ -461,9 +478,34 @@ for _row in elixir_definitions():
 if select_cube_catalog()[723603]['max_stack']!=99:raise ValueError('Elixir box stack source')
 TEMPLATE_MAX_STACKS[723603]=99
 
+# One account-once native53520 reward, bounded to one unstacked instance.
+# Evidence is static same-client record + reviewed304 codec/private roundtrip,
+# deliberately not a fabricated native-execution receipt.
+from els_server.domain.erp_support_quest import item_definition as erp_support_item
+_erp_support=erp_support_item();_t=_erp_support['template']
+if _t in VERIFIED_TEMPLATES:raise ValueError('Conflicting ERP support reward')
+VERIFIED_TEMPLATES[_t]=_erp_support['metadata'];TEMPLATE_BAG_GROUPS[_t]=_erp_support['group'];TEMPLATE_MAX_STACKS[_t]=_erp_support['max_stack']
+
+from els_server.domain.cartridge_registration_rules import materials as cartridge_materials
+for _row in cartridge_materials():
+ _t=_row['template'];_expected=(_row['metadata'],_row['group'],_row['max_stack'])
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting Cartridge material inventory definition')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+# Existing119335 is read through a private exact adapter, never a generic new grant.
+from els_server.domain.cartridge_selection_box import BOX as cartridge_box_template
+if cartridge_box_template in VERIFIED_TEMPLATES or cartridge_box_template in TEMPLATE_BAG_GROUPS or cartridge_box_template in TEMPLATE_MAX_STACKS:raise ValueError("Conflicting private Cartridge box admission")
+# These two entries only disable split/merge and retain the known bag mapping.
+# No VERIFIED_TEMPLATES entry: even source-flag bypasses cannot create this box.
+TEMPLATE_BAG_GROUPS[cartridge_box_template]=4
+TEMPLATE_MAX_STACKS[cartridge_box_template]=1
+
 def validate_item(item):
+ if isinstance(item,dict) and item.get('template')==cartridge_box_template:
+  from els_server.domain.cartridge_selection_box import validate_existing_box
+  return validate_existing_box(item)
  keys={'uid','template','metadata','count','group','slot'}
- if not isinstance(item,dict) or set(item)-{'attributes','durability','expires_at','enhancement','lock_until','option_groups','identified','enhancement_gauge','enhancement_guarantee','sealed','seal_used','artifact_socket_open','chip_tuning','reforge','appearance_template','wardrobe_hanger','dye_colors','appearance_colors'}!=keys or any(type(item[k]) is not int for k in keys):raise ValueError('Invalid inventory item fields')
+ if not isinstance(item,dict) or set(item)-{'attributes','durability','expires_at','enhancement','lock_until','option_groups','identified','enhancement_gauge','enhancement_guarantee','sealed','seal_used','artifact_socket_open','chip_tuning','reforge','appearance_template','wardrobe_hanger','dye_colors','appearance_colors','cartridge'}!=keys or any(type(item[k]) is not int for k in keys):raise ValueError('Invalid inventory item fields')
  if not 1<=item['uid']<2**63 or item['template'] not in VERIFIED_TEMPLATES or item['metadata']!=VERIFIED_TEMPLATES[item['template']]:raise ValueError('Invalid inventory item identity/template')
  if item['template'] in ADVANCED_TIMED_TEMPLATES and 'expires_at' not in item:raise ValueError('Timed enhancement material requires explicit expiration')
  from els_server.game_data import client_data
@@ -481,6 +523,10 @@ def validate_item(item):
  bag=item['group']==TEMPLATE_BAG_GROUPS[item['template']] and 0<=item['slot']<wire_limit(item['group'])
  if not 1<=item['count']<=TEMPLATE_MAX_STACKS[item['template']] or not (equipped or bag):raise ValueError('Invalid local inventory count/slot')
  result=dict(item)
+ if 'cartridge'in item:
+  from els_server.domain.cartridge_registration_rules import scalar,binding_catalog
+  result['cartridge']=scalar(item['cartridge'])
+  if result['cartridge']!=[0,0]and(item['template']not in binding_catalog()or item['group']not in(1,9)or item['count']!=1):raise ValueError('Cartridge projected carrier shape')
  if 'dye_colors'in item or 'appearance_colors'in item:
   from els_server.domain.wardrobe_extensions import color_state
   color_state(item)
@@ -565,6 +611,7 @@ def item_body(item):
   elif 0x3b0<=off<=0x3b3 and 'chip_tuning' in item:data[wire]=item['chip_tuning'][off-0x3b0]
   elif off in (0x397,0x39b,0x39f) and 'reforge' in item:struct.pack_into('>i',data,wire,item['reforge'][(off-0x397)//4])
   elif off==0x370 and 'lock_until' in item:struct.pack_into('>Q',data,wire,item['lock_until'])
+  elif off==0x3ec:struct.pack_into('>ii',data,wire,*item.get('cartridge',[0,0]))
   elif off==0x378:struct.pack_into('>i',data,wire,item.get('appearance_template',0))
   elif off==0x37c:data[wire]=int(item.get('wardrobe_hanger',False))
   elif off in (0x37d,0x389):struct.pack_into('>Iiii',data,wire,3,*item.get('dye_colors'if off==0x37d else'appearance_colors',[0,0,0]))
@@ -606,3 +653,9 @@ def inventory_restore_map(items):
  return struct.pack('>I',len(bag))+b''.join(
      struct.pack('>QQBh',i['uid'],i['uid'],i['group'],i['slot'])+
      item_body(i)+bytes(9) for i in bag)
+
+
+from els_server.domain.cartridge_exchange_rules import source_definition as cartridge_exchange_source
+_cartridge_exchange_source=cartridge_exchange_source();_t=_cartridge_exchange_source["template"]
+if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=(2,3,1000):raise ValueError("Conflicting black-fragment reader")
+VERIFIED_TEMPLATES[_t]=2;TEMPLATE_BAG_GROUPS[_t]=3;TEMPLATE_MAX_STACKS[_t]=1000
