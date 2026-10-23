@@ -1,4 +1,5 @@
 """Consume one owned fixed cube and deliver its original contents atomically."""
+from els_server.storage.item_actor import require_active_character
 import secrets,sqlite3,struct
 from contextlib import closing
 from els_server.domain.cubes import catalog
@@ -49,16 +50,22 @@ def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.r
     if (request.option!=0 or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))
         or expected_template not in catalog()):raise ValueError('Unsupported fixed cube use')
     row=catalog()[expected_template]
+    growing=(expected_template==168889 and row.get('growing_adventure_kit')is True)
     if row['selection_count']:
         if len(request.choices)!=1:raise ValueError('Select exactly one native cube item')
         output=next((e for e in row['entries'] if e['template']==request.choices[0]),None)
         if output is None:raise ValueError('Choice is outside this cube')
     else:
         if request.choices:raise ValueError('Fixed cube does not accept a choice')
-        output=None if row.get('random') else row['entries'][0]
+        output=None if row.get('random')or growing else row['entries'][0]
     owner,digest=_identity(owner,0x196,struct.pack('>i',expected_template)+payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');require_active_character(db,owner)
+        if growing:
+            from els_server.domain.growing_adventure_kit import outputs_for
+            role=db.execute('SELECT unit_class FROM characters WHERE uid=?',(owner,)).fetchone()
+            if role is None:raise ValueError('Growing kit owner missing')
+            kit_outputs=outputs_for(role[0])
         old=_previous(db,operation,digest);before=load_items(db,owner);balance=balances(db,owner)
         if old is not None:
             return _updates(current_changes(db,operation,owner,0x196,old,before))+result(balance['ed'])
@@ -73,15 +80,21 @@ def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.r
         source=(item['group'],item['slot'])
         if item['count']==1:remove(db,owner,item)
         else:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item['uid'],owner))
-        quantity=output['quantity'];plan=[]
-        while quantity:
-            delta=min(quantity,99);quantity-=delta
-            plan.append(dict(template=output['template'],metadata=VERIFIED_TEMPLATES[output['template']],
-                group=TEMPLATE_BAG_GROUPS[output['template']],quantity=delta))
+        outputs=kit_outputs if growing else(output,)
+        plan=[]
+        for selected in outputs:
+            quantity=selected['quantity']
+            while quantity:
+                delta=min(quantity,99);quantity-=delta
+                plan.append(dict(template=selected['template'],metadata=VERIFIED_TEMPLATES[selected['template']],
+                    group=TEMPLATE_BAG_GROUPS[selected['template']],quantity=delta))
         grants=grant_items(db,plan,owner)
         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
         positions=sorted({source,*[(i['group'],i['slot']) for i in grants]})
-        events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(output['template'],output['quantity'])])
+        events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(selected['template'],selected['quantity'])for selected in outputs])
+        if growing:
+            from els_server.protocol.protocol_codec import encode_event
+            for event in events:encode_event(event)
         db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))
         _commit(db,operation,digest,owner,0x196,positions,before,after)
         return events

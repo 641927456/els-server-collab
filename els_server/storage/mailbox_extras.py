@@ -36,7 +36,7 @@ def blacklist(path, account, uid):
 
 
 def change(path, account, uid, target, *, added, operation, encode, now=None):
-    from els_server.storage.game_mail import MailError, _owner
+    from els_server.storage.game_mail import MailError, _active_owner
     from els_server.storage.characters import validate_name
     if type(added) is not bool or not isinstance(operation, str) or not 1 <= len(operation) <= 160:
         raise MailError('Invalid blacklist operation')
@@ -47,7 +47,7 @@ def change(path, account, uid, target, *, added, operation, encode, now=None):
     digest = hashlib.sha256(json.dumps([added,target], ensure_ascii=True).encode()).hexdigest()
     now = int(time.time()) if now is None else now
     with closing(sqlite3.connect(path, timeout=10)) as db, db:
-        db.execute('BEGIN IMMEDIATE'); _owner(db, account, uid)
+        db.execute('BEGIN IMMEDIATE'); _active_owner(db, account, uid)
         old = db.execute('''SELECT account_id,owner,digest,target,name FROM
             mail_blacklist_receipts WHERE operation=?''', (operation,)).fetchone()
         if old:
@@ -94,7 +94,7 @@ def status(path, account, uid, *, now=None):
         db.execute('BEGIN'); _owner(db, account, uid)
         count, unread, last = db.execute('''SELECT count(*),
             COALESCE(sum(read_at IS NULL),0),COALESCE(max(id),0)
-            FROM game_mail WHERE account_id=? AND deleted_at IS NULL AND expires_at>? AND '''+visible_sql(),
+            FROM game_mail WHERE account_id=? AND deleted_at IS NULL AND expires_at>? AND '''+visible_sql(db),
             (account,now,uid)).fetchone()
         return count, unread, last
 
