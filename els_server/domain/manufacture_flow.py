@@ -3,6 +3,7 @@ import time,sqlite3,logging
 from els_server.protocol.protocol_codec import Event
 from els_server.protocol.manufacture_messages import manufacture_ack
 from els_server.protocol.profession_messages import ProfessionState,level_update,selection_ack
+from els_server.domain.equipment_chip_flow import current_lease
 
 def handle(session,event,sequence):
     if event.event_id!=0x202 or event.kind not in (0x198,0x4c2):return None
@@ -11,7 +12,8 @@ def handle(session,event,sequence):
     if policy()['mode']!='compatibility-v1':return None
     valid=(session.item_test and session.client_build=='dx11_260923' and session.role=='game'
            and session.phase=='town_ready' and type(sequence) is int and 1<=sequence<2**32
-           and session.account.store is not None and session.account.characters is not None)
+           and session.account.store is not None and session.account.characters is not None
+           and session.account.store.uid==session.account.uid and current_lease(session))
     if event.kind==0x4c2:
         try:
             if not valid:raise ValueError('Profession selection state')
@@ -26,7 +28,9 @@ def handle(session,event,sequence):
         receipt=execute(session.account.store.path,session.account.uid,session.account.account_id,event.payload,operation,now=int(time.time()))
     except (ValueError,sqlite3.Error) as exc:
         if isinstance(exc,sqlite3.Error):logging.getLogger(__name__).exception('Manufacture transaction rejected')
-        ed=session.account.get_reward_balances()['ed'] if session.account.store else 0
+        # An invalid selected facade/lease must not read a different store's
+        # wallet while forming the ordinary native failure response.
+        ed=session.account.get_reward_balances()['ed'] if valid and current_lease(session) else 0
         return [Event(0x201,kind=0x199,payload=manufacture_ack(result=-1,rewards={},changes=[],ed=ed,profession_xp=0,limit_id=0,limit_value=0))]
     answer=[Event(0x201,kind=0x199,payload=receipt['response'])]
     if receipt['leveled']:

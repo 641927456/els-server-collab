@@ -11,21 +11,28 @@ from els_server.protocol.protocol_codec import encode_event
 TABLE='selected_2026_force_inventory'
 
 def initialize(db):
+    if not db.in_transaction or db.execute('PRAGMA foreign_keys').fetchone()!=(1,):raise ValueError('Force schema requires caller transaction and enabled foreign keys')
     db.execute('''CREATE TABLE IF NOT EXISTS selected_2026_force_inventory (
         owner INTEGER NOT NULL REFERENCES characters(uid), skill INTEGER NOT NULL,
         rank INTEGER NOT NULL, source_template INTEGER NOT NULL,
-        seal_used INTEGER NOT NULL DEFAULT 0 CHECK(seal_used BETWEEN 0 AND 1 AND (rank=5 OR seal_used=0)),
+        seal_used INTEGER NOT NULL DEFAULT 0 CHECK(seal_used BETWEEN 0 AND 3 AND ((rank=3 AND seal_used=0) OR (rank=4 AND seal_used<=3) OR (rank=5 AND seal_used<=1))),
         PRIMARY KEY(owner,skill,rank),
         CHECK((skill=900401 AND rank=3 AND source_template=295707) OR
               (skill=900402 AND rank=3 AND source_template=295712) OR
               (skill=900406 AND rank=3 AND source_template=306002) OR
               (skill=900402 AND rank=5 AND source_template=295714) OR
-              (skill=900406 AND rank=5 AND source_template=306004)))''')
+              (skill=900406 AND rank=5 AND source_template=306004) OR
+              (skill=900401 AND rank=4 AND source_template=295708) OR
+              (skill=900402 AND rank=4 AND source_template=295713) OR
+              (skill=900406 AND rank=4 AND source_template=306003) OR
+              (skill=900401 AND rank=5 AND source_template=295709)))''')
     columns={row[1] for row in db.execute('PRAGMA table_info(selected_2026_force_inventory)')}
     if 'seal_used' not in columns:
         # Earlier candidate records always projected zero and could not
         # retain nonzero history. Preserve those legacy wire values.
-        db.execute('ALTER TABLE selected_2026_force_inventory ADD COLUMN seal_used INTEGER NOT NULL DEFAULT 0 CHECK(seal_used BETWEEN 0 AND 1 AND (rank=5 OR seal_used=0))')
+        db.execute('ALTER TABLE selected_2026_force_inventory ADD COLUMN seal_used INTEGER NOT NULL DEFAULT 0 CHECK(seal_used BETWEEN 0 AND 3 AND ((rank=3 AND seal_used=0) OR (rank=4 AND seal_used<=3) OR (rank=5 AND seal_used<=1)))')
+    from els_server.storage.force_rank4_schema import migrate
+    migrate(db)
 
 
 def saved(db,owner):
@@ -39,7 +46,9 @@ def saved(db,owner):
 def snapshot(path,owner):
     with closing(sqlite3.connect(path)) as db:return saved(db,owner)
 
-def use_book(path,owner,account_id,payload,operation,*,now=None):
+def use_book(path,owner,account_id,payload,operation,*,now=None,session_authorized=True):
+    # Internal storage callers are trusted; external native219 always passes a strict session qualification.
+    if type(session_authorized)is not bool:raise ValueError('Force session qualification type')
     if not isinstance(operation,str):raise ValueError('Force book operation identity')
     item_uid=use_request(payload);owner,digest=_identity(owner,0x219,b'selected-force-v1:'+payload,'force-book:'+operation);operation='force-book:'+operation
     if type(account_id) is not int or not 0<account_id<2**63:raise ValueError('Force book account identity')
@@ -51,13 +60,20 @@ def use_book(path,owner,account_id,payload,operation,*,now=None):
         if balance is None:raise ValueError('Force book reward balance')
         if old is not None:
             if db.execute('SELECT owner,kind FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()!=(owner,0x219):raise ValueError('Force book receipt owner/kind')
+            if not session_authorized:raise ValueError('Obsolete force book session')
+            from els_server.storage.item_actor import require_active_character
+            require_active_character(db,owner)
             event=use_ack(ed=balance[0]);encode_event(event)
             return dict(replayed=True,events=[event])
         items=load_items(db,owner);source=next((i for i in items if i['uid']==item_uid),None)
         rule=catalog().get(source['template']) if source else None
         if rule is None:return None
+        if not session_authorized:raise ValueError('Obsolete force book session')
+        from els_server.storage.item_actor import require_active_character
+        require_active_character(db,owner)
         if source['group']!=4:raise ValueError('Owned force consumable book required')
         if source.get('sealed',False):raise ValueError('Sealed force-book use is unsupported; keep the item unchanged')
+        if source['template'] in (295708,295713,306003,295709) and 'expires_at' in source:raise ValueError('Only permanent manufactured force upgrade books are qualified')
         used=seal_used(source['template'],source.get('seal_used',0))
         from els_server.domain.item_expiration import require_current
         from els_server.domain.item_locks import require_unlocked

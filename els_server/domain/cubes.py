@@ -12,6 +12,13 @@ def catalog():
     for t,row in selected().items():
         if t in result:raise ValueError('Duplicate inventory cube mode')
         result[t]=row
+    from els_server.domain.ep_essence_bag import entry as essence_pouch
+    pouch=essence_pouch()
+    if pouch['template'] in result:raise ValueError('Duplicate Essence pouch')
+    result[pouch['template']]=MappingProxyType(pouch)
+    from els_server.domain.growing_adventure_kit import BOX,entry
+    if BOX in result:raise ValueError('Duplicate growing adventure kit')
+    result[BOX]=MappingProxyType(entry())
     from els_server.domain.regional_boss_cubes import catalog as regional
     for t,row in regional().items():
         if t in result:raise ValueError('Duplicate regional cube')
@@ -44,4 +51,7 @@ def catalog():
     for box in accessory_entries():
         if box['template'] in result:raise ValueError('Duplicate selected accessory box')
         result[box['template']]=box
+    from els_server.domain.cartridge_selection_box import BOX as cartridge_box,entry as cartridge_entry
+    if cartridge_box in result:raise ValueError("Duplicate Cartridge choice box")
+    result[cartridge_box]=MappingProxyType(cartridge_entry())
     return MappingProxyType(result)

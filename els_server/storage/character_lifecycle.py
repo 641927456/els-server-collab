@@ -56,6 +56,9 @@ def change(path,account_id,uid,operation):
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.execute('BEGIN IMMEDIATE')
         if db.execute('SELECT account_id FROM character_owners WHERE uid=?',(uid,)).fetchone()!=(account_id,):raise LifecycleError('Character ownership')
+        if operation in ('schedule','finalize'):
+            from els_server.domain.cartridge_registration_rules import require_role_unbound
+            require_role_unbound(db,uid,account_id)
         s=states(db).get(uid,dict(created_at=0,requested_at=0,finalize_at=0,restore_at=0,cooldown_until=0,finalized_at=0))
         if s['finalized_at']:
             if operation=='finalize':return dict(uid=uid,operation=operation,until=s['finalized_at'])
