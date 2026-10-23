@@ -33,7 +33,7 @@ def _same_binding(session,binding):
 
 def handle(session,event,sequence):
     if event.event_id!=0x202 or event.kind not in (0x198,0x4c2):return None
-    from els_server.storage.manufacture import execute,select_alchemist
+    from els_server.storage.manufacture import execute,select_profession
     from els_server.domain.manufacture_rules import policy
     if policy()['mode']!='compatibility-v1':return None
     def context():
@@ -51,7 +51,7 @@ def handle(session,event,sequence):
                 reply=[Event(0x201,kind=0x4c3,payload=wire)]
                 for item in reply:encode_event(item)
                 return reply
-            wire=select_alchemist(binding[6],binding[4],binding[5],event.payload,
+            wire=select_profession(binding[6],binding[4],binding[5],event.payload,
                 authorize=authorize,prepare=prepare_selection)
         except (ValueError,sqlite3.Error) as exc:
             if isinstance(exc,sqlite3.Error):logging.getLogger(__name__).exception('Profession transaction rejected')

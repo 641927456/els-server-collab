@@ -241,16 +241,22 @@ def execute(path,owner,account_id,payload,operation,*,now,randbelow=secrets.rand
             db.commit();return receipt
         except BaseException:db.rollback();raise
 
-def select_alchemist(path,owner,account_id,payload,*,authorize=None,prepare=None):
+# User-authorized local policy, 2026-10-24. Not a retail XP curve.
+BLACKSMITH_LOCAL_INITIAL_REQUIRED = 400
+
+def select_profession(path,owner,account_id,payload,*,authorize=None,prepare=None):
     from els_server.protocol.profession_messages import select_request
-    if select_request(payload)!=3:raise ValueError('This route implements alchemist crafting only')
+    chosen=select_request(payload)
+    if chosen not in (2,3):raise ValueError('Only initial blacksmith/alchemist selection is admitted')
     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10)) as db:
         try:
             db.execute('BEGIN IMMEDIATE');_authorize(authorize);old=_active_owner(db,owner,account_id)
             character=db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()
-            if character[0]<40 or old['state']['profession'] not in (0,3):raise ValueError('Alchemist selection unavailable')
+            if character[0]<40 or old['state']['profession'] not in (0,chosen):raise ValueError('Initial profession selection unavailable')
             state=ProfessionState(**old['state'])
-            if state.profession==0:state=ProfessionState(3,1,0,{},0,policy()['level_thresholds']['1'])
+            if state.profession==0:
+                required=BLACKSMITH_LOCAL_INITIAL_REQUIRED if chosen==2 else policy()['level_thresholds']['1']
+                state=ProfessionState(chosen,1,0,{},0,required)
             replace(db,owner,account_id,old['revision'],state)
             wire=selection_ack(0,state,{},tail_u64=0,tail_i32=0,tail_flag_a=False,tail_flag_b=False)
             _authorize(authorize)
@@ -279,3 +285,9 @@ def _prepare(receipt,authorize,prepare):
     if prepare is not None:receipt['prepared_reply']=prepare(receipt)
     _authorize(authorize)
 
+
+def select_alchemist(path,owner,account_id,payload,*,authorize=None,prepare=None):
+    """Keep the historical type3-only internal API compatible."""
+    from els_server.protocol.profession_messages import select_request
+    if select_request(payload)!=3:raise ValueError('This route implements alchemist crafting only')
+    return select_profession(path,owner,account_id,payload,authorize=authorize,prepare=prepare)
