@@ -102,9 +102,12 @@ def accepted_death(s,event,npc,death,expired,*,randbelow=secrets.randbelow):
         reply.extend(gate_reply);encode_replies(reply)
         return dict(reply=reply,world=world,sequence=max([s.world_drop_sequence,*[r['drop_id']+1 for r in rows]]),
                     last=dict(rows[-1]) if rows else s.world_drop_issued)
-    result=storage.issue(s.account.store.path,c,event.payload,npc['boss'],s.world_drop_sequence,
-                         death['xyz'][3:],legacy,prepare,randbelow=randbelow,rules=rules,
-                         accepted_effect=accepted_effect if exp_rules.enabled(s) and exp_rules.eligible(npc,expired) else None)
+    try:
+        result=storage.issue(s.account.store.path,c,event.payload,npc['boss'],s.world_drop_sequence,
+                             death['xyz'][3:],legacy,prepare,randbelow=randbelow,rules=rules,
+                             accepted_effect=accepted_effect if exp_rules.enabled(s) and exp_rules.eligible(npc,expired) else None,
+                             account_id=s.account.account_id)
+    except storage.LootActorRejected:return []
     # Only ordinary assignments remain after the successful SQL context exit.
     run.defeated=shadow.dungeon_run.defeated;run.next=shadow.dungeon_run.next;run.ready_at=shadow.dungeon_run.ready_at
     s.defeated_npcs=run.defeated;s.part_end_notified=shadow.part_end_notified
@@ -127,7 +130,7 @@ def claim(s,request,drop):
         encode_replies(reply)
         return dict(reply=reply,replayed=replayed,items=items)
     from els_server.storage.inventory_state import InventoryFull
-    try:result=storage.claim(s.account.store.path,c,request['drop_id'],request['template'],prepare,rules=rules)
+    try:result=storage.claim(s.account.store.path,c,request['drop_id'],request['template'],prepare,rules=rules,account_id=s.account.account_id)
     except InventoryFull:return [Event(0x201,kind=0xd1,payload=struct.pack('>i',-1))]
     except ValueError:return []
     drop['pickup_committed']=True
