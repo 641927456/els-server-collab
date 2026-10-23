@@ -233,6 +233,12 @@ class FriendsDungeons:
         from els_server.domain.friends_spawns import retire
         sentry_reply=retire(self,r,s,event)
         if sentry_reply is not None:return sentry_reply
+        from els_server.domain.friends_story_retirements import retire as retire_story
+        story_reply=retire_story(self,r,s,event)
+        if story_reply is not None:return story_reply
+        from els_server.domain.friends_material_loot import accepted_death as material_death
+        material_reply=material_death(self,r,s,event)
+        if material_reply is not None:return material_reply
         if r.phase!='active':
             from els_server.domain.friends_spawns import retry_death, retry_static_death
             return retry_death(self,r,s,event) or retry_static_death(self,r,s,event)
@@ -251,6 +257,7 @@ class FriendsDungeons:
                     self.send(other,[e for e in LocalSession.handle(other,event) if e.kind!=0xae])
         self.part_wait(r)
         return reply
+
 
     def portal(self,r,s,event):
         if r.phase!='active':

@@ -21,17 +21,46 @@ def excluded_equipment():
             'SELECT id,name FROM items WHERE item_type IN (1,2,3)') if has_legacy_marker(name))
 
 
-# Exact CN historical page1 variants: existing owned use for enumerated roles1..9 targets only.
-# All other targets/roles and every new grant stay closed; no full-ticket range claim.
+CARTRIDGE_USE_ONLY_MATERIALS = frozenset((
+    119222,119223,119224,119225,119226,119227,119228,119229,119230,
+    119231,119232,119233,119234,119235,119236,119237,119238,119239,119240))
+
+# Reset variants remain existing-inventory use only; no new source.
+LEGACY_USE_ONLY_TICKETS = frozenset((118640,118641,118642,118657,118658,118659,711338,711339,711340,711341,711342,711343))
+
+
+LITHIA_GEN7_USE_ONLY_TICKETS = frozenset((718388,718389,718390,718391,718392,718393))
+
 HISTORICAL_PAGE1_USE_ONLY_TICKETS = frozenset((713172,713173,713174,713175,713176,713177,713438,713439,713440,713441,713442,713443))
 
-def can_acquire(template):
+def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None):
     if template in HISTORICAL_PAGE1_USE_ONLY_TICKETS:return False
+    if template in LITHIA_GEN7_USE_ONLY_TICKETS:return False
+    if template in LEGACY_USE_ONLY_TICKETS:return False
+    qualified=False
+    recipe_box=False
+    if cartridge_recipe679_source is not None:
+        if cartridge_box_source is not None or cartridge_select_source is not None:raise ValueError("Incompatible Cartridge sources")
+        from els_server.domain.cartridge_recipe679_rules import validate_recipe_source
+        validate_recipe_source(cartridge_recipe679_source).consume_template(template)
+        recipe_box=True
+    if cartridge_box_source is not None and cartridge_select_source is not None:raise ValueError("Incompatible Cartridge sources")
+    if cartridge_select_source is not None:
+        from els_server.domain.cartridge_exchange_rules import validate_select_source
+        validate_select_source(cartridge_select_source).consume_template(template)
+        qualified=True
+    if cartridge_box_source is not None:
+        from els_server.domain.cartridge_selection_box import validate_source
+        validate_source(cartridge_box_source).consume_template(template)
+        qualified=True
+    if template==119335 and not recipe_box:return False
+    if template==119216:return False
+    if template in CARTRIDGE_USE_ONLY_MATERIALS and not qualified:return False
     from els_server.domain.ordinary_accessories import definitions
     accessory=definitions().get(template)
     return template not in excluded_equipment() and not (accessory and accessory['compatibility_only'])
 
 
-def require_acquirable(template):
-    if not can_acquire(template):
+def require_acquirable(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None):
+    if not can_acquire(template,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source):
         raise ValueError(f'Legacy equipment acquisition disabled: {template}')
