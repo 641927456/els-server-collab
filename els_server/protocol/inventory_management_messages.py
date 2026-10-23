@@ -83,11 +83,12 @@ def decompose_request(payload):
     return uids
 
 
-def decompose_ack(changes=(), rewards=None, result=0):
+def decompose_ack(changes=(), rewards=None, result=0, *, profession_xp=0):
     rewards = rewards or {}
     # 22793A0: result, profession flag, reward counts, records, profession XP,
-    # bonus reward counts. The ordinary dismantle path has no profession bonus.
+    # bonus reward counts. Ordinary XP uses the current native scalar; no bonus pool.
+    if type(profession_xp) is not int or not 0<=profession_xp<2**31:raise ValueError('Decomposition XP bound')
     return (struct.pack('>iBI', result, 0, len(rewards)) +
             b''.join(struct.pack('>ii', t, n) for t, n in sorted(rewards.items())) +
             struct.pack('>I', len(changes)) +
-            b''.join(record(i) if i else empty_record(*p) for p, i in changes) + bytes(8))
+            b''.join(record(i) if i else empty_record(*p) for p, i in changes) + struct.pack('>iI',profession_xp,0))
