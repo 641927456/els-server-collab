@@ -26,7 +26,7 @@ CARTRIDGE_USE_ONLY_MATERIALS = frozenset((
     119231,119232,119233,119234,119235,119236,119237,119238,119239,119240))
 
 # Reset variants remain existing-inventory use only; no new source.
-LEGACY_USE_ONLY_TICKETS = frozenset((118640,118641,118642,118657,118658,118659))
+LEGACY_USE_ONLY_TICKETS = frozenset((118640,118641,118642,118657,118658,118659,711338,711339,711340,711341,711342,711343))
 
 
 def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None):
