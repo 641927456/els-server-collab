@@ -15,10 +15,13 @@ from els_server.domain.repair_pricing import require_baseline,catalog
 def payload(*uids):return struct.pack('>I',len(uids))+b''.join(struct.pack('>Q',u) for u in uids)+bytes(6)
 
 
+REPAIR_ACCOUNT_ID=1  # Explicit owner for this temporary database fixture.
+
+
 class RepairTransactionTests(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
-        self.path=Path(self.tmp.name)/'save.sqlite3';self.account=LocalAccount(LocalState(self.path));self.account.enable_characters()
+        self.path=Path(self.tmp.name)/'save.sqlite3';self.account=LocalAccount(LocalState(self.path),account_id=REPAIR_ACCOUNT_ID);self.account.enable_characters()
         self.other=self.account.characters.create('RepairOther',5,'other')['uid'];self.account.for_character(self.other)
         with closing(sqlite3.connect(self.path)) as db,db:
             self.items=grant_items(db,[dict(template=30224,metadata=1,quantity=1,group=1),dict(template=100,metadata=1,quantity=1,group=1)])
@@ -29,7 +32,7 @@ class RepairTransactionTests(unittest.TestCase):
     def snapshot(self):return self.account.get_inventory_snapshot()
 
     def test_paid_repair_restart_and_replay_preserve_newer_state(self):
-        before=self.snapshot();r=repair(self.path,1001,self.request,'one')
+        before=self.snapshot();r=repair(self.path,1001,self.request,'one',account_id=REPAIR_ACCOUNT_ID)
         self.assertEqual(r['evidence']['ed_cost'],11201);self.assertEqual(r['balances']['ed'],88799)
         self.assertEqual(len(r['evidence']['after']),2)
         self.assertEqual(struct.unpack_from('>iQiiI',r['response']),(0,88799,0,0,2))
@@ -39,36 +42,48 @@ class RepairTransactionTests(unittest.TestCase):
             db.execute('BEGIN IMMEDIATE')
             replace_durability(db,1001,self.items[0]['uid'],10000,7000)
             db.execute('UPDATE reward_balances SET ed=12345,revision=revision+1 WHERE uid=1001')
-        snapshot=self.snapshot();r=repair(self.path,1001,self.request,'one')
+        snapshot=self.snapshot();r=repair(self.path,1001,self.request,'one',account_id=REPAIR_ACCOUNT_ID)
         self.assertTrue(r['replayed'] and r['requires_inventory_sync']);self.assertEqual(r['balances']['ed'],12345)
         self.assertEqual(len(r['response']),24);self.assertEqual(r['inventory'],snapshot['items']);self.assertEqual(self.snapshot(),snapshot)
-        restarted=LocalAccount(LocalState(self.path));restarted.enable_characters();self.assertEqual(restarted.get_inventory_snapshot(),snapshot)
+        restarted=LocalAccount(LocalState(self.path),account_id=REPAIR_ACCOUNT_ID);restarted.enable_characters();self.assertEqual(restarted.get_inventory_snapshot(),snapshot)
 
     def test_conflicts_foreign_items_modes_and_insufficient_ed(self):
         before=self.snapshot()
         for owner,req in [(self.other,self.request),(99999,self.request),(1001,payload(99)),(1001,payload(self.items[0]['uid'],self.items[0]['uid'])),(1001,self.request[:-1]),(1001,self.request[:-1]+b'\1')]:
-            with self.assertRaises(ValueError):repair(self.path,owner,req,'invalid')
+            with self.assertRaises(ValueError):repair(self.path,owner,req,'invalid',account_id=REPAIR_ACCOUNT_ID)
         self.assertEqual(self.snapshot(),before)
         with closing(sqlite3.connect(self.path)) as db,db:db.execute('UPDATE reward_balances SET ed=11200 WHERE uid=1001')
         before=self.snapshot()
-        with self.assertRaises(ValueError):repair(self.path,1001,self.request,'short')
+        with self.assertRaises(ValueError):repair(self.path,1001,self.request,'short',account_id=REPAIR_ACCOUNT_ID)
         self.assertEqual(self.snapshot(),before)
 
     def test_encoding_failure_rolls_back_all_durability_and_ed(self):
         before=self.snapshot()
         with patch('els_server.storage.equipment_repair.acknowledgement',side_effect=RuntimeError('codec')):
-            with self.assertRaises(RuntimeError):repair(self.path,1001,self.request,'one')
+            with self.assertRaises(RuntimeError):repair(self.path,1001,self.request,'one',account_id=REPAIR_ACCOUNT_ID)
         self.assertEqual(self.snapshot(),before)
-        self.assertFalse(repair(self.path,1001,self.request,'one')['replayed'])
+        self.assertFalse(repair(self.path,1001,self.request,'one',account_id=REPAIR_ACCOUNT_ID)['replayed'])
 
     def test_competing_requests_and_id_conflict(self):
-        with ThreadPoolExecutor(max_workers=2) as pool:rows=list(pool.map(lambda op:repair(self.path,1001,self.request,op),['a','b']))
+        with ThreadPoolExecutor(max_workers=2) as pool:rows=list(pool.map(lambda op:repair(self.path,1001,self.request,op,account_id=REPAIR_ACCOUNT_ID),['a','b']))
         self.assertEqual(sum(r['evidence']['ed_cost'] for r in rows),11201)
         self.assertEqual(self.snapshot()['balances']['ed'],88799)
-        with self.assertRaises(ValueError):repair(self.path,1001,payload(self.items[0]['uid']),'a')
+        with self.assertRaises(ValueError):repair(self.path,1001,payload(self.items[0]['uid']),'a',account_id=REPAIR_ACCOUNT_ID)
         before=self.snapshot()
-        with ThreadPoolExecutor(max_workers=2) as pool:rows=list(pool.map(lambda _:repair(self.path,1001,self.request,'a'),range(2)))
+        with ThreadPoolExecutor(max_workers=2) as pool:rows=list(pool.map(lambda _:repair(self.path,1001,self.request,'a',account_id=REPAIR_ACCOUNT_ID),range(2)))
         self.assertTrue(all(r['replayed'] for r in rows));self.assertEqual(self.snapshot(),before)
+
+    def test_foreign_account_cannot_replay_owned_repair_receipt(self):
+        repair(self.path,1001,self.request,'owner-receipt',account_id=REPAIR_ACCOUNT_ID)
+        before=self.snapshot()
+        with closing(sqlite3.connect(self.path)) as db:
+            receipt_before=db.execute('SELECT request_hash,owner,evidence_json FROM equipment_repair_receipts WHERE operation_id=?',('owner-receipt',)).fetchone()
+        with self.assertRaises(ValueError):
+            repair(self.path,1001,self.request,'owner-receipt',account_id=REPAIR_ACCOUNT_ID+1)
+        self.assertEqual(self.snapshot(),before)
+        with closing(sqlite3.connect(self.path)) as db:
+            self.assertEqual(db.execute('SELECT request_hash,owner,evidence_json FROM equipment_repair_receipts WHERE operation_id=?',('owner-receipt',)).fetchone(),receipt_before)
+            self.assertEqual(db.execute('SELECT account_id FROM character_owners WHERE uid=?',(1001,)).fetchone(),(REPAIR_ACCOUNT_ID,))
 
     def test_unverified_discounts_are_never_authorized(self):
         d=catalog();self.assertEqual(len(d['template_effects']),158);self.assertEqual(len(d['title_effects']),6)
@@ -104,10 +119,10 @@ class RepairTransactionTests(unittest.TestCase):
             replace_durability(db,1001,free['uid'],10000,0)
             db.execute('UPDATE reward_balances SET ed=0,revision=? WHERE uid=1001',(2**63-1,))
         before=self.snapshot()
-        with self.assertRaises(ValueError):repair(self.path,1001,payload(free['uid']),'overflow')
+        with self.assertRaises(ValueError):repair(self.path,1001,payload(free['uid']),'overflow',account_id=REPAIR_ACCOUNT_ID)
         self.assertEqual(self.snapshot(),before)
         with closing(sqlite3.connect(self.path)) as db,db:db.execute('UPDATE reward_balances SET revision=1 WHERE uid=1001')
-        result=repair(self.path,1001,payload(free['uid']),'free')
+        result=repair(self.path,1001,payload(free['uid']),'free',account_id=REPAIR_ACCOUNT_ID)
         self.assertEqual(result['balances'],dict(ed=0,experience=0,revision=2))
         self.assertEqual(result['evidence']['after'][0]['durability'],10000)
 

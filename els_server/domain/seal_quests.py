@@ -65,6 +65,13 @@ class QuestCatalog:
                 identity=int(raw_id)
                 if identity in dest and dest[identity]!=value:raise ValueError('Conflicting first-job quest')
                 dest[identity]=value
+        from els_server.domain.erp_support_quest import catalog as erp_source_catalog
+        extension=erp_source_catalog()
+        for dest,key in ((self.quests,'quests'),(self.subquests,'subquests')):
+            for raw_id,value in extension[key].items():
+                identity=int(raw_id)
+                if identity in dest and dest[identity]!=value:raise ValueError('Conflicting ERP support quest')
+                dest[identity]=value
         for q in self.quests.values():
             if q['m_bRepeat'] or q['m_bIsTimeEvent']:raise ValueError('Unsupported quest schedule')
             from els_server.domain.quest_selection import options

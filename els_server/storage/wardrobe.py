@@ -280,7 +280,7 @@ def extension_change(path,owner,account_id,kind,payload,operation,*,validate):
             uid,palette,parts,point_mode,decolor=request;item=target(uid);t=item['template']
             count=data['dye_parts'].get(str(t),0)
             if not count or max(parts)>=count or t in data['dye_held']:raise ValueError('Unsupported dye template/part')
-            hair=definition(t)['equip_position']==2
+            hair=definition(t)['equip_position']==6
             rule=(data['decolor']if decolor else data['palettes']).get(str(palette))
             if rule is None or rule['hair']!=hair:raise ValueError('Dye palette target category')
             current=list(item.get('dye_colors',[0,0,0]));new=current.copy();n=len(parts)
