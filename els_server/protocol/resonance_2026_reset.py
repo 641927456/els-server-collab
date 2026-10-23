@@ -4,7 +4,7 @@ import struct
 from els_server.domain.fashion_state import move_ack
 
 def inventory_reply(event,changes):
-    if event.kind!=0x612 or event.payload[:4]!=bytes(4) or event.payload[-14:-10]!=bytes(4):
+    if event.kind not in (0x612,0x614) or event.payload[:4]!=bytes(4) or event.payload[-14:-10]!=bytes(4):
         raise ValueError('Complete successful no-item base reply required')
     if type(changes) is not tuple or len({p for p,_ in changes})!=len(changes):raise ValueError('Unique absolute inventory positions required')
     vector=move_ack(changes)[:-4]
