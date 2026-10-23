@@ -67,16 +67,118 @@ def _validate_actor(db,member):
     return character
 
 
+def _clear_claim_checked(s):
+    """An issued owner's in-flight D0 may follow peer clear/detach, never an active abort."""
+    from els_server.domain.friends_dungeon import FriendsDungeons,Room
+    from els_server.domain.dungeon_equipment_loot_flow import current_lease,identity
+    from els_server.domain.dungeon_material_loot_catalog import accepted_source
+    app=s.application;dispatcher=app.world.dungeons;room=dispatcher.room(s);run=s.dungeon_run
+    if (not isinstance(dispatcher,FriendsDungeons) or dispatcher.world is not app.world
+            or not isinstance(room,Room) or room.identity!=34320 or room.phase!='clear'
+            or not 2<=len(room.members)<=4 or s not in room.members or s not in app.world.members
+            or room.party.get('run') is not room or room.party.get('difficulty',0)!=0 or room.party.get('mode',0)!=0
+            or any(room.party.get(k) for k in ('raid_party','challenge','challenge_pending','solo_challenge'))
+            or not current_lease(s) or not app.registry.enabled(s.account.account_id)
+            or s.phase!='dungeon_active' or not s.dungeon_substage_synced or not s.clear_notified
+            or s.coop_error or s.social_overflow or getattr(s,'dungeon_failed',False)
+            or not s.reward_test or not s.item_test or not s.drop_probe or not s.drop_test
+            or s.client_build!='dx11_260923' or s.account.characters is None
+            or getattr(s,'reward_transaction',None) is not None
+            or getattr(s,'active_challenge',None) is not None or getattr(s,'challenge_deadline',None) is not None
+            or run is None or run.identity!=34320 or (run.stage,run.part)!=(3,0)
+            or not isinstance(run.next,dict) or run.next.get('kind')!=4):
+        raise MaterialRefusal('Material clear owner unavailable')
+    seed=uuid.UUID(room.seed)
+    if (str(seed)!=room.seed or seed.version!=4 or run.run_id!=room.seed
+            or s.reward_run_id!=str(uuid.uuid5(seed,'reward:'+str(s.account.uid)))):
+        raise MaterialRefusal('Material clear owner epoch changed')
+    connection=(s,s.shop_session_id,s.account.uid)
+    origin=getattr(room,'static_actor_origin',None)
+    generation=(room.seed,34320,run.run_id,run.stage,run.part,run.visits)
+    if (not isinstance(origin,tuple) or len(origin)!=5 or origin[0] is not room
+            or origin[2:4]!=(room.seed,34320) or not isinstance(origin[4],tuple)
+            or len(origin[4])!=len(room.members)
+            or not isinstance(origin[1],tuple) or len(origin[1])!=3
+            or any(not isinstance(entry,tuple) or len(entry)!=3
+                or not isinstance(entry[0],tuple) or len(entry[0])!=3 for entry in origin[4])
+            or any(entry[0][0] is not member for entry,member in zip(origin[4],room.members))
+            or origin[1][0] is not room.leader
+            or [entry for entry in origin[4] if entry[0][0] is s]!=[(connection,run,run.run_id)]
+            or getattr(room,'static_actor_generation',None)!=generation
+            or s.dungeon_participants!=frozenset(entry[0][2] for entry in origin[4])):
+        raise MaterialRefusal('Material clear original owner generation changed')
+    party=room.party;members=party.get('members');current=app.world.party_of.get(s)
+    if current is not None:
+        if (current is not party or not isinstance(members,list) or s not in members
+                or not 2<=len(members)<=len(room.members) or any(m not in room.members for m in members)
+                or app.world.parties.get(party['id']) is not party):
+            raise MaterialRefusal('Material clear current party changed')
+    elif (members!=[s] or party.get('ready') or 'admission' in party
+            or party['id'] in app.world.parties):
+        raise MaterialRefusal('Material clear party was not normally dissolved')
+    npcs=[n for n in run.current['npcs'] if n['template']==7511 and n['source_index']==1]
+    if len(npcs)!=1 or not accepted_source(run,npcs[0]):
+        raise MaterialRefusal('Material clear original final Boss changed')
+    npc=npcs[0];proof=run.defeated.get(npc['key'])
+    if not isinstance(proof,bytes) or not proof or len(proof)>8192:
+        raise MaterialRefusal('Material clear accepted death missing')
+    c=identity(s,npc['key']);path=Path(s.account.store.path).resolve()
+    if path!=Path(app.config.state_file).resolve() or path!=Path(s.account.characters.path).resolve():
+        raise MaterialRefusal('Material clear owner database is outside this application')
+    # Include concrete mutable identity/proof/party projections in the callback
+    # binding, not only references to objects whose contents can change.
+    return (dispatcher,room,generation,path,connection,origin,c,proof,
+        tuple(members),current is party,s.account,s.account.root,s.account.store)
+
+
+def _clear_claim_validate(db,s,bound):
+    from els_server.storage import dungeon_equipment_loot as storage
+    from els_server.domain.dungeon_material_loot_catalog import POLICY,validate_issued
+    import hashlib,json
+    if _clear_claim_checked(s)!=bound:raise MaterialRefusal('Material clear owner changed before commit')
+    attached=db.execute('PRAGMA database_list').fetchall()
+    main=[row[2] for row in attached if row[1]=='main']
+    if (len(main)!=1 or not main[0] or Path(main[0]).resolve()!=bound[3]
+            or any(row[1] not in ('main','temp') for row in attached)):
+        raise MaterialRefusal('Material clear pickup database changed')
+    _validate_actor(db,s)
+    c,proof=bound[6:8]
+    if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='dungeon_equipment_loot_issues'").fetchone():
+        raise MaterialRefusal('Material clear issue was not committed')
+    issued=storage.lookup(db,c)
+    if issued is None or issued[:3]!=(34320,storage.digest(c,proof),POLICY):
+        raise MaterialRefusal('Material clear issue proof changed')
+    saved=json.loads(issued[3])
+    if not isinstance(saved,list) or any(not isinstance(row,dict) for row in saved):
+        raise MaterialRefusal('Material clear saved issue shape changed')
+    rows=[row for row in saved if row.get('source')==POLICY]
+    if not rows:raise MaterialRefusal('Material clear owner has no material issue')
+    for row in rows:
+        if (any(row.get(k)!=c[k] for k in c)
+                or row.get('death_proof_sha256')!=hashlib.sha256(proof).hexdigest()):
+            raise MaterialRefusal('Material clear issued context changed')
+        validate_issued(row,c)
+    # Existing storage.claim separately validates the requested issued drop ID,
+    # template, source, claimed_uids/receipt, current inventory UIDs and capacity.
+    # Its same-writer callback runs again after response encoding, before commit.
+
+
 def claim_enabled(s,drop):
     from els_server.domain.dungeon_material_loot_catalog import POLICY
     if (s.dungeon_run is None or s.dungeon_run.identity!=34320 or drop.get('source')!=POLICY
             or drop.get('owner')!=s.account.uid or drop.get('run_id')!=s.reward_run_id):return False
-    try:_checked(s,claim=True)
+    try:
+        if getattr(s.application.world.dungeons.room(s),'phase',None)=='clear':_clear_claim_checked(s)
+        else:_checked(s,claim=True)
     except (ValueError,AttributeError,KeyError,TypeError):return False
     return True
 
 
 def claim_guard(s):
+    if getattr(s.application.world.dungeons.room(s),'phase',None)=='clear':
+        original=_clear_claim_checked(s)
+        def validate_clear(db):_clear_claim_validate(db,s,original)
+        return validate_clear
     original=_checked(s,claim=True)
     def validate(db):
         current=_checked(s,claim=True)
