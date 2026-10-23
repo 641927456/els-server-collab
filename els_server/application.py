@@ -64,6 +64,8 @@ class FriendsSession(LocalSession):
             from els_server.domain.elixir_peer_sync import relay as relay_world_elixirs
             relay_world_elixirs(self)
         self.application.world.synchronize(self)
+        if event.event_id==0x202 and event.kind==0x4cb:
+            self.application.world.custom_changed(self,result)
         if self.phase=='town_ready' and event.event_id==0x202 and event.kind==0x22b:
             self.application.world.moved(self,event.payload)
         if self.phase=='town_ready' and event.event_id==0x202:

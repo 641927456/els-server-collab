@@ -424,6 +424,9 @@ class LocalSession:
         from els_server.domain.known_resurrection_flow import handle as known_resurrection_handle
         known_resurrection_reply=known_resurrection_handle(self,event,request_sequence)
         if known_resurrection_reply is not None:return known_resurrection_reply
+        from els_server.domain.character_custom import handle as custom_handle
+        custom_reply=custom_handle(self,event,request_sequence)
+        if custom_reply is not None:return custom_reply
         from els_server.domain.resonance_allocation_flow import handle as resonance_allocation_handle
         resonance_allocation_reply=resonance_allocation_handle(self,event,request_sequence)
         if resonance_allocation_reply is not None:return resonance_allocation_reply
@@ -778,6 +781,11 @@ class LocalSession:
             try:resonance=use_resonance_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)
             except ValueError:return [use_ack(result=-1)]
             if resonance is not None:return resonance['events']+[self.saved_user_sync()]
+            from els_server.domain.character_custom import require_admitted as custom_admission
+            from els_server.storage.character_custom import use_book as use_custom_book
+            try:custom=use_custom_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation,validate=lambda:custom_admission(self))
+            except ValueError:return [use_ack(result=-1)]
+            if custom is not None:return custom['events']
             from els_server.storage.boosting_2026_force_inventory import use_book as use_force_book
             from els_server.domain.equipment_chip_flow import current_lease
             try:force=use_force_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation,session_authorized=bool(self.account.store is not None and self.account.store.uid==self.account.uid and current_lease(self)))
@@ -1427,6 +1435,9 @@ class LocalSession:
                     from els_server.domain.fashion_state import move_ack
                     items=[i for i in self.account.get_inventory_snapshot()['items'] if i['group']==9]
                     if items:answer.append(Event(0x201,kind=0x105,payload=move_ack([((9,i['slot']),i) for i in items])))
+                if self.item_test and self.phase=='square_accepted':
+                    from els_server.domain.character_custom import restored as custom_restored
+                    answer.extend(custom_restored(self.account.character()))
                 if self.shop_test and self.phase=='square_accepted':self.shop_available_pending=True
             elif kind==0x1a:
                 from els_server.protocol.local_messages import connection_ack
