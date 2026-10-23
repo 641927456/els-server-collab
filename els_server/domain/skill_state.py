@@ -64,6 +64,10 @@ def preset_payload(slots=DEFAULT_SLOTS,allowed=INITIAL_SKILLS,character=None):
 
 def initialization_payload(slots=DEFAULT_SLOTS,uid=1001,allowed=INITIAL_SKILLS,learned_ranks=None,character=None):
     slots=validate_slots(slots,allowed,character)
+    if (character or {}).get('ordinary_skill_pages',{}).get('count',1)>1:
+        from els_server.domain.ordinary_skill_pages import initialization
+        ranks={v:1 for v in allowed} if learned_ranks is None else learned_ranks
+        return initialization(slots,uid,allowed,ranks,character)
     u32=lambda n:struct.pack('>I',n)
     from els_server.domain.skill_traits import map_wire
     preset=preset_payload(slots,allowed,character)

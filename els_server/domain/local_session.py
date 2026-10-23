@@ -462,6 +462,9 @@ class LocalSession:
         from els_server.domain.character_selection_flow import handle as selection_handle
         selection_reply=selection_handle(self,event)
         if selection_reply is not None:return selection_reply
+        from els_server.domain.ordinary_skill_pages import handle as ordinary_pages_handle
+        ordinary_pages_reply=ordinary_pages_handle(self,event,request_sequence)
+        if ordinary_pages_reply is not None:return ordinary_pages_reply
         from els_server.domain.luciel_native_end import handle as luciel_end_handle
         luciel_end_reply=luciel_end_handle(self,event,request_sequence)
         if luciel_end_reply is not None:return luciel_end_reply
