@@ -235,6 +235,8 @@ class LocalSession:
         answer=messages+observe(self,messages)
         from els_server.domain.resonance_flow import synchronize as resonance_sync
         answer=resonance_sync(self,answer)
+        from els_server.domain.equipment_cartridge_flow import synchronize as cartridge_sync
+        answer=cartridge_sync(self,answer)
         return self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
 
     def _capture_luciel_dungeon_hp(self,payload,spans):
@@ -481,6 +483,9 @@ class LocalSession:
         from els_server.domain.equipment_engrave_flow import handle as engrave_handle
         engrave_reply=engrave_handle(self,event,request_sequence)
         if engrave_reply is not None:return engrave_reply
+        from els_server.domain.equipment_cartridge_flow import handle as cartridge_handle
+        cartridge_reply=cartridge_handle(self,event,request_sequence)
+        if cartridge_reply is not None:return cartridge_reply
         from els_server.domain.equipment_chip_flow import handle as chip_handle
         chip_reply=chip_handle(self,event,request_sequence)
         if chip_reply is not None:return chip_reply
@@ -1258,6 +1263,7 @@ class LocalSession:
                     self.career_purchase_recovery=recover(self.account.store.path,self.account.uid,self.account.account_id,
                         prepare=lambda db,before,after,replayed:career_notifications(db,self.account.uid,character,location,before,after,replayed))
                 self.completed.difference_update((0x28,0x6e9,0x5bf,0x32,0x225,0x227))
+                self.cartridge_sync_key=None
                 self.ed_catalog_loaded=False;self.ice_preview_ready=False
                 self.fixed_cube_preview_template=None;self.fixed_cube_operations.clear();self.npc_history_id=str(uuid.uuid4())
                 self.shop_available_pending=False
