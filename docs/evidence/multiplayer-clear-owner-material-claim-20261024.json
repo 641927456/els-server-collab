@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "unit_id": "multiplayer-clear-owner-material-claim",
+  "release": "multiplayer-clear-owner-material-claim-20261024-v1",
+  "independent_fix_count": 1,
+  "runtime_leaves": 2,
+  "base_main_commit": "3d6113f3f579f80ca6bbd78fe8ee7244dde63a1a",
+  "source_contract_v1_sha256": "4985051975666e771cd48da1e293bf1e957abba5b08a23a40bbac23372d7c981",
+  "final_source_contract_and_boundary_reports_pending": false,
+  "files": [
+    {
+      "path": "els_server/domain/friends_material_loot.py",
+      "changed_functions": [
+        "_clear_claim_checked",
+        "_clear_claim_validate",
+        "claim_enabled",
+        "claim_guard"
+      ],
+      "formal_parent_sha256": "2315e8187019a5dba9c37c347a1ed88e86105cb21f348b35063d516486e3a03c",
+      "formal_candidate_sha256": "903b91a50943d668b9f175d93e5aacdb65104bac91b205311d81d83f0de81981",
+      "main_parent_sha256": "2315e8187019a5dba9c37c347a1ed88e86105cb21f348b35063d516486e3a03c",
+      "main_prepared_sha256": "26030f2cfb960c5b69f4e0d5068cdc6c53254ffba606d1db8e55db863cde5e2c",
+      "unrelated_main_AST_preserved": true,
+      "main_newline_preserved": true
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+      "changed_functions": [
+        "claim"
+      ],
+      "formal_parent_sha256": "ffd61591f0cc0bbdde2ab6f0db20e12e4e779cd53f605ef67630e9bb32ee20f9",
+      "formal_candidate_sha256": "a3aec406da10f209184a7042f105267bb2bbabb018e82b23c448239f1411eb20",
+      "main_parent_sha256": "003735ee448f85e4ba694587faabce104b94308cc8dd24f45a70df0af9cbedcd",
+      "main_prepared_sha256": "bec325e12c7cdaf1be3fc107c34f4864108b317d17a11d0b6991d0c12281be8f",
+      "unrelated_main_AST_preserved": true,
+      "main_newline_preserved": true
+    }
+  ],
+  "actual_Application": false,
+  "verification_status": "Narrow controlled real SQLite issue, original BB clear/normal leave, owner D0 and write rollback/receipt checks passed. Application/native/natural/TLS are not claimed.",
+  "legal_scope": "Owner original active D0 may reach serialized worker after final all-member BB and another connection clear225/detach. A new D0 emitted after client C1 is not claimed.",
+  "native_CF_D0_D1_D2_D3_reused": true,
+  "old_business_and_economic_suites_replayed": 0,
+  "client_changes": 0,
+  "schema_changes": 0,
+  "new_drop_source_or_probability": false,
+  "natural_multiplayer": false,
+  "positive_public_material_pickup": false,
+  "whole_card_complete": false,
+  "automatic_deployment": false,
+  "formal_channels_active_unchanged": true,
+  "final_source_contract_sha256": "2a85fc9a1a6c76bedd4acf831b3ce211e9c010d1e28a5edbe224c15364e73278",
+  "final_source_contract_revision": 2,
+  "independent_source_review_sha256": "0dc5b8b80c059a50c59d4ea6db5b49d21ea6a6bd91129f2340145b6e272455e0",
+  "controlled_boundary_reports_sha256": {
+    "local": "b9a7457b5115daad851892f9077d701c7073eb30c447dcc2f5879353eb564f11",
+    "online": "19682464a2c44f4ad75daf81769bff984cab64d01ba67e07d4c93e81bd67f45c"
+  },
+  "controlled_real_SQL": true,
+  "online_SQL_executed": false,
+  "online_evidence": "Reused identical changed functions/consumed dependency controlled SQL result; no second economic run.",
+  "new_checks": [
+    "fixed-own-detach-unclaimed-coaward-refused-2",
+    "final7511-real-issue-and-original-BB-clear-3",
+    "baseline-clear-departure-refusal-3",
+    "arbitrary-missing-party-map-while-party-registered",
+    "foreign-party-3",
+    "own-generation-changed-3",
+    "clear-three-to-two-post-encoder-generation-drift-rollback",
+    "normal-clear-3-to-2-own-D0-commit-and-receipt-idempotency",
+    "own-detach-unclaimed-coaward-refused-3"
+  ],
+  "reused_checks": [
+    "final7511-real-issue-and-original-BB-clear-2",
+    "baseline-clear-departure-refusal-2",
+    "foreign-party-2",
+    "own-generation-changed-2",
+    "clear-owner-real-encoder-failure-before-commit",
+    "normal-clear-2-to-1-own-D0-commit-and-receipt-idempotency"
+  ],
+  "reused_checks_reexecuted": 0,
+  "retained_failures": [
+    "Attempt1 fixture setup failure retained.",
+    "Attempt2 own-detach solo fallback actually committed the coaward; the new selector and attempt3 reject that previously failing boundary."
+  ],
+  "limits": [
+    "Earned SQLite checkpoint reused; source actors/prior defeats/run/registry/RNG are explicit controlled fixture inputs.",
+    "Real original final BB handler and leave_party were exercised; no natural entrance or client C1 receipt is claimed.",
+    "No F4/five-material/old probability suite/cold-login/economic regression replay.",
+    "Public TLS, native GUI/world create/delete and natural material pickup remain unproven by these SQL checks."
+  ]
+}
