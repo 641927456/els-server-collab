@@ -55,7 +55,7 @@ def book_templates():
  from els_server.domain.resonance import book_definitions
  return {r['template']:r for r in book_definitions()}
 
-def use_book(path,uid,account_id,payload,operation):
+def use_book(path,uid,account_id,payload,operation,*,prepare=None):
  from els_server.protocol.career_messages import use_request,use_ack
  from els_server.storage.inventory_state import load_items
  item_uid=use_request(payload)
@@ -63,15 +63,24 @@ def use_book(path,uid,account_id,payload,operation):
  proof=hashlib.sha256(str((account_id,uid)).encode()+payload).hexdigest()
  with closing(sqlite3.connect(path,timeout=10)) as db,db:
   db.execute('BEGIN IMMEDIATE');owner(db,uid,account_id)
+  from els_server.storage.item_actor import require_active_character
+  from els_server.protocol.protocol_codec import encode_event
   if db.execute("SELECT 1 FROM sqlite_master WHERE name='resonance_book_receipts' AND type='table'").fetchone():
    old=db.execute('SELECT proof_sha256,bag_group,slot FROM resonance_book_receipts WHERE operation_id=?',(operation,)).fetchone()
    if old:
     if old[0]!=proof:raise ValueError('Conflicting ERP activation retry')
+    require_active_character(db,uid)
+    if prepare is not None:prepare()
     current=next((i for i in load_items(db,uid) if (i['group'],i['slot'])==old[1:]),None)
     ed=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
-    return dict(replayed=True,events=[use_ack([(old[1:],current)],ed=ed)])
+    event=use_ack([(old[1:],current)],ed=ed);encode_event(event)
+    if prepare is not None:prepare()
+    require_active_character(db,uid)
+    return dict(replayed=True,events=[event])
   item=next((x for x in load_items(db,uid) if x['uid']==item_uid),None)
   if item is None or item['template'] not in book_templates():return None
+  require_active_character(db,uid)
+  if prepare is not None:prepare()
   if item['group']!=4 or item.get('lock_until',0)>time.time() or item.get('sealed',False):raise ValueError('ERP book not usable in current owned slot')
   from els_server.domain.item_expiration import require_current
   require_current(item)
@@ -80,7 +89,6 @@ def use_book(path,uid,account_id,payload,operation):
   remaining=dict(item,count=item['count']-1) if item['count']>1 else None
   ed=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
   event=use_ack([((item['group'],item['slot']),remaining)],item['template'],ed)
-  from els_server.protocol.protocol_codec import encode_event
   encode_event(event)
   ensure(db);db.execute('INSERT INTO account_resonance VALUES (?,1,0,1) ON CONFLICT(account_id) DO UPDATE SET enabled=1,revision=account_resonance.revision+1',(account_id,))
   if remaining:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item_uid,uid))
@@ -89,5 +97,7 @@ def use_book(path,uid,account_id,payload,operation):
    forget(db,item_uid);db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item_uid,uid))
   db.execute('CREATE TABLE IF NOT EXISTS resonance_book_receipts (operation_id TEXT PRIMARY KEY, proof_sha256 TEXT NOT NULL, owner INTEGER NOT NULL, item_uid INTEGER NOT NULL, bag_group INTEGER NOT NULL, slot INTEGER NOT NULL)')
   db.execute('INSERT INTO resonance_book_receipts VALUES (?,?,?,?,?,?)',(operation,proof,uid,item_uid,item['group'],item['slot']))
+  if prepare is not None:prepare()
+  require_active_character(db,uid)
   return dict(replayed=False,events=[event])
 
