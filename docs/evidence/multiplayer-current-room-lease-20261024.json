@@ -1,0 +1,121 @@
+{
+  "schema": 1,
+  "candidate_revision": 2,
+  "base_main_commit": "079fad82f6b63f779498a088d6387fd468bf58bc",
+  "formal_channel_parent_commits": {
+    "local": "491fb009f600932597f0aa1912639e572a6ee89d",
+    "online": "fa8f120a57aad569b0dcc6c165f3340f1271f30c"
+  },
+  "scope": "Current account connection/root/selected role and room/party binding for shared relay manifests, opaque routing, and shared actor generations.",
+  "independent_fix_count": 1,
+  "runtime_leaves": 2,
+  "files": [
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "formal_parent_sha256": "b51d3fcf5e2c5bcbadeb01078631c02fd4ba92e76c95b4955673ead4c7dfea52",
+      "candidate_sha256": "573687ea8e24dcf9ec3afb98db0a8fd34f0439b407f104ee2e0692a973a4488e",
+      "main_parent_sha256": "f625a3d6dce473a2418625d6231f0bbce3538fab1f67acc7ba6fd2e5654c2d2e",
+      "main_prepared_sha256": "612371eb2cf3afdfc5a825d06e99ec38666ff020e60ee48eb7d3412f6d16ea54",
+      "same_bytes_across_formal_channels": true,
+      "main_original_newline_preserved": true,
+      "source_delta_operations": [
+        {
+          "kind": "insert",
+          "parent_start": 41,
+          "parent_end": 40,
+          "candidate_start": 41,
+          "candidate_end": 60
+        },
+        {
+          "kind": "insert",
+          "parent_start": 60,
+          "parent_end": 59,
+          "candidate_start": 80,
+          "candidate_end": 80
+        },
+        {
+          "kind": "insert",
+          "parent_start": 66,
+          "parent_end": 65,
+          "candidate_start": 87,
+          "candidate_end": 87
+        },
+        {
+          "kind": "replace",
+          "parent_start": 67,
+          "parent_end": 67,
+          "candidate_start": 89,
+          "candidate_end": 89
+        }
+      ]
+    },
+    {
+      "path": "els_server/domain/friends_spawns.py",
+      "formal_parent_sha256": "14a5bcc0c3213d2bb11e420d9925998037768bd41eeaa5660070893ed3c6718f",
+      "candidate_sha256": "1d958846ce90c2ca2ef117e5251c23a9ff1f12ee1016025a475331beeb03f2a3",
+      "main_parent_sha256": "14a5bcc0c3213d2bb11e420d9925998037768bd41eeaa5660070893ed3c6718f",
+      "main_prepared_sha256": "1d958846ce90c2ca2ef117e5251c23a9ff1f12ee1016025a475331beeb03f2a3",
+      "same_bytes_across_formal_channels": true,
+      "main_original_newline_preserved": true,
+      "source_delta_operations": [
+        {
+          "kind": "insert",
+          "parent_start": 60,
+          "parent_end": 59,
+          "candidate_start": 60,
+          "candidate_end": 60
+        },
+        {
+          "kind": "replace",
+          "parent_start": 64,
+          "parent_end": 64,
+          "candidate_start": 65,
+          "candidate_end": 67
+        }
+      ]
+    }
+  ],
+  "main_source_view_is_formal_runtime": false,
+  "historical_main_difference_preserved": "friends_dungeon.portal retains the preexisting main condition and blank-line formatting; formal parents have additional existing substage/clear/team filters. No whole-file replacement.",
+  "validation": {
+    "actual_Application": true,
+    "TLS": false,
+    "native_client": false,
+    "natural_multiplayer": false,
+    "official_drop_rules_changed": false,
+    "economic_checks_replayed": 0,
+    "isolated_cases": [
+      "playing-lease",
+      "account-root",
+      "selected-role",
+      "party-binding",
+      "party-run",
+      "wrong-world",
+      "current-positive-loading-active-framing-solo-bootstrap-normal-release"
+    ]
+  },
+  "source_review_status": "SOURCE_FILE_PASS_V2_LIMITED_SCOPE",
+  "deployed": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "client_changes": 0,
+  "schema_changes": 0,
+  "packet_or_probability_or_reward_changes": 0,
+  "source_contract_sha256": "794e6bd2d372830fd8d99e6fefb621eea0cc71b089ee2d647d15b6d19565486a",
+  "controlled_evidence_sha256": {
+    "local": "081bd69443ecbcf931546270ee5b9c18cf273281d88315acf52c90ab4dcd9602",
+    "online": "82806db712f3af20c9d32f8986021717e05a82cb0fa2bca7659a93d54bf2684e"
+  },
+  "source_review_sha256": "b0cf57b17f164dc4ab74a94a70fe7cdbd61e1d7d76e9f90011731f01f11db5f0",
+  "independent_lifecycle_probe_sha256": "6a59b985e3373b9c7a0ca3cd0ec1555716c554ef83b7f03b33b7c9e2e033b5d6",
+  "independent_lifecycle_probe_cases": [
+    "dungeon-clear-normal-detach",
+    "field-clear-normal-detach"
+  ],
+  "source_methods_AST_equivalent_to_formal_candidate": [
+    "_current_transport_member",
+    "_current_transport_roster",
+    "manifest",
+    "relay_target"
+  ]
+}

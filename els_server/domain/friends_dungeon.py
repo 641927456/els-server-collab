@@ -38,6 +38,26 @@ class FriendsDungeons:
 
     def transport_room(self,session):return self.room(session) or self.world.field_bosses.room(session)
 
+    def _current_transport_member(self,application,s,r):
+        from els_server.domain.equipment_chip_flow import current_lease
+        if (s is None or getattr(s,'application',None) is not application
+            or application.world is not self.world or s not in r.members
+            or self.transport_room(s) is not r or not current_lease(s)
+            or s.coop_error or not application.registry.enabled(s.account.account_id)):
+            return False
+        if self.room(s) is r:
+            return bool(s.phase in ('dungeon_loading','dungeon_active')
+                and r.party.get('run') is r and self.world.party_of.get(s) is r.party
+                and s in r.party['members'])
+        return s.phase=='field_active'
+
+    def _current_transport_roster(self,application,r):
+        # A completed room retains its original peer ports until the last
+        # result-scene member leaves. Departed members cannot send/receive,
+        # but must not revoke the remaining members' existing native route.
+        return all(self._current_transport_member(application,m,r)
+            for m in r.members if r.phase!='clear' or self.transport_room(m) is r)
+
     def manifest(self,application,account_id):
         if not application.registry.enabled(account_id):raise SessionOrderError('Account disabled')
         s=application.playing.get(account_id);r=self.transport_room(s)
@@ -57,14 +77,16 @@ class FriendsDungeons:
             if epoch.version!=4 or str(epoch)!=s.reward_run_id:return None
             return dict(epoch=str(epoch),uid=s.account.uid,peers=[dict(uid=s.account.uid,port=21100)])
         if len(r.members)<2 or r.phase=='failed':return None
+        if not self._current_transport_member(application,s,r) or not self._current_transport_roster(application,r):return None
         return dict(epoch=r.seed,uid=s.account.uid,peers=[dict(uid=m.account.uid,port=21100+i) for i,m in enumerate(r.members)])
 
     def relay_target(self,application,account_id,epoch,target):
         if not application.registry.enabled(account_id):raise SessionOrderError('Account disabled')
         s=application.playing.get(account_id);r=self.transport_room(s)
         if r is None or r.phase=='failed' or r.seed!=epoch or s.released or s.coop_error:return None
+        if not self._current_transport_member(application,s,r) or not self._current_transport_roster(application,r):return None
         other=next((m for m in r.members if m.account.uid==target and m is not s),None)
-        if other is None or self.transport_room(other) is not r or other.released or other.coop_error:return None
+        if other is None or not self._current_transport_member(application,other,r):return None
         if not application.registry.enabled(other.identity['id']):return None
         return other.identity['id'],s.account.uid
 
