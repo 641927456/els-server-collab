@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "metadata_issue": 334,
+  "source_PR": 333,
+  "source_contract_SHA256": "96496d86b00b0665ae727d11dfface0c62835bdd9923146ae0b13cf94c413661",
+  "source_publication_SHA256": "3b3cdd9a25fb2013523405faf8340b3fde268c623f0dcad9a2a766ed5c59585c",
+  "root_post_install_review_SHA256": "9a50b3d27cf9335fc7128faf97b0bf47ff5f5d0e3fbbaabc3fb492d1bc50d218",
+  "snapshots": {
+    "local": {
+      "ref": "snapshot/local-multiplayer-material-passive-observation-20261024-v1",
+      "branch": "snapshot/local-multiplayer-material-passive-observation-20261024-v1",
+      "commit": "960d69850b8e271a439b84e25cf011804e3a6119",
+      "parent": "fd2b679eb6e5ce963e7245b715f2789247f5779a",
+      "tree": "958f5ae474b8c38a3d22a01ee8c6fedf34867b5c",
+      "changed_paths": [
+        "els_server/dungeon34320_observation.py",
+        "els_server/transport.py"
+      ]
+    },
+    "online": {
+      "ref": "snapshot/online-multiplayer-material-passive-observation-20261024-v1",
+      "branch": "snapshot/online-multiplayer-material-passive-observation-20261024-v1",
+      "commit": "480075c2026a5068d0b11e723ab58f836fbeec62",
+      "parent": "42a438ade9b1fbca51abf48d3c50963b37377923",
+      "tree": "3a1bd4c3087ed8e82aef75a7d0f5a066dddc522d",
+      "changed_paths": [
+        "els_server/dungeon34320_observation.py",
+        "els_server/transport.py"
+      ]
+    }
+  },
+  "formal_releases": {
+    "local": "local-multiplayer-material-passive-observation-20261024-v1",
+    "online": "multiplayer-material-passive-observation-20261024-v1"
+  },
+  "formal_manifest_SHA256": {
+    "local": "5de0c8e81a3e7dd2e832865c17bd0984ed6a947b5c5c60da9b652a43d4328a0e",
+    "online": "4954587b0307de4e248c2c5907c01ffd234237b710c05e1999324f18667e6079"
+  },
+  "acceptance_SHA256": {
+    "local": "0f35552cabd203d42f73752628e8de462c01848b2f20edd0d8f3a4e688e0fe14",
+    "online": "4496b38d3c459697767013638413bfbeebe75c3808c1cadb5fdf130a97893e71"
+  },
+  "source_rows": {
+    "local": 719,
+    "online": 721
+  },
+  "unchanged_channel_differences": [
+    "els_server/__main__.py",
+    "els_server/application.py",
+    "els_server/config.py",
+    "els_server/domain/acquisition_policy.py",
+    "els_server/domain/cartridge_exchange_flow.py",
+    "els_server/domain/coupon_flow.py",
+    "els_server/domain/dungeon_clear.py",
+    "els_server/domain/first_story_entry.py",
+    "els_server/domain/inventory_items.py",
+    "els_server/domain/local_session.py",
+    "els_server/domain/sage_sockets.py",
+    "els_server/domain/town_travel_flow.py",
+    "els_server/friends_bootstrap.py",
+    "els_server/gm_runtime.py",
+    "els_server/protocol/coupon_messages.py",
+    "els_server/selected2026_gm.py",
+    "els_server/storage/coupon_codes.py",
+    "els_server/storage/equipment_receipt_state.py"
+  ],
+  "local1012_unchanged": true,
+  "main_and_launcher_selection_preserved": true,
+  "existing_reconciliations_preserved": true,
+  "diagnostic_units": 1,
+  "gameplay_repair_units": 0,
+  "changed_leaves_per_snapshot": 2,
+  "main_runtime_sources_changed_in_this_PR": 0,
+  "SQL_operations": 0,
+  "game_restarts": 0,
+  "client_changes": 0,
+  "natural": false
+}
