@@ -124,10 +124,23 @@ class LocalAccount:
             self.skills=slots
             return ack
     def get_bindings(self):
+        # Keyboard mappings belong to the authenticated account, including
+        # its still-empty roster. Preserve the established 28/399 send timing.
+        from els_server.storage.account_key_bindings import load,account_identity
+        account_identity(self.account_id)
+        path=getattr(self.root,'path',None) or (self.store.path if self.store else None)
+        if path is not None and self.characters is not None:
+            with self.root.lock:return load(path,self.account_id)
         with self.lock:return self.bindings
     def save_bindings(self,payload):
+        from els_server.storage.account_key_bindings import save,account_identity
+        account_identity(self.account_id)
         payload=validate_bindings(payload)
-        with self.lock:self.bindings=self.store.save_bindings(payload) if self.store else payload
+        path=getattr(self.root,'path',None) or (self.store.path if self.store else None)
+        if path is not None and self.characters is not None:
+            with self.root.lock:self.bindings=save(path,self.account_id,payload)
+        else:
+            with self.lock:self.bindings=self.store.save_bindings(payload) if self.store else payload
     def get_layout(self):
         with self.lock:return self.layout
     def save_layout(self,payload):
@@ -696,7 +709,9 @@ class LocalSession:
                     self.dungeon_substage_synced=False;self.part_end_notified=False;self.defeated_npcs={}
                     reply.append(next_stage)
                 return reply
-        if self.enter_town and kind==0x397 and event.event_id==0x202 and self.role=='game' and self.phase not in ['new','game_connected']:
+        if self.enter_town and kind==0x397 and event.event_id==0x202 and self.role=='game':
+            if self.phase not in ('game_authenticated','port_ready','session_ready','terms_ready','characters_ready','channels_ready','player_initialized','skill_ui_ready','initialization_confirmed','map_loading','square_accepted','town_ready','dungeon_loading','dungeon_active'):
+                return [Event(0x201,kind=0x398,payload=i32(-1))]
             try:self.account.save_bindings(event.payload)
             except ValueError:return [Event(0x201,kind=0x398,payload=i32(-1))]
             return [Event(0x201,kind=0x398,payload=i32(0))]
@@ -1300,8 +1315,8 @@ class LocalSession:
                     answer=[companion_initialization(companion_save) if e.kind==0x2d else e for e in answer]
                     from els_server.storage.pet_support import initialization as pet_automatic_initialization
                     answer.append(pet_automatic_initialization(self.account.store.path,self.account.uid))
-                # Keyboard maps are saved per character; the pre-selection
-                # roster map belongs to the account's original root identity.
+                # Restore the authenticated account keyboard preference after
+                # selection, preserving the established native 2A/399 timing.
                 answer.insert(1,key_bindings_initialization(self.account.get_bindings()))
                 self.player_initialization_request=bytes(event.payload)
                 self.player_initialization_reply=tuple(answer)
@@ -1391,8 +1406,8 @@ class LocalSession:
             else:answer=self.responses(kind)
             if returning_to_selection:answer=[character_gate_notice()]+answer
             if self.enter_town and kind==0x485:
-                # Character key maps are restored after selection (0x2A). Sending
-                # the root map here arms a stale missing-key popup for another role.
+                # Restore keys after selection (0x2A), as in the accepted parent.
+                # Do not arm the old pre-selection missing-key popup.
                 initial=[character_gate_notice()]
                 if self.account.characters is None:initial.insert(0,key_bindings_initialization(self.account.get_bindings()))
                 answer=initial+answer
