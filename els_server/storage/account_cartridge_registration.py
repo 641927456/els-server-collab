@@ -294,3 +294,61 @@ def perform_binding(path,owner,account_id,kind,payload,operation,*,authorize=Non
   _commit(db,operation,digest,owner,kind,[position],[item],[final])
   db.execute('INSERT INTO account_cartridge_binding_receipts VALUES (?,?,?,?,?,?,?,?,?,?)',(operation,digest,account_id,owner,target_uid,kind,identity,json.dumps(_packed(current),sort_keys=True),json.dumps(_packed(updated),sort_keys=True),BINDING_POLICY))
   _authority(db,owner,account_id,authorize);return[event]
+
+
+def _ensure_growth_schema(db):
+ from els_server.domain.cartridge_registration_rules import schema_kind,GROWTH_RECEIPT_SQL
+ _ensure_binding_schema(db)
+ if not db.execute("SELECT 1 FROM sqlite_master WHERE name='account_cartridge_growth_receipts' COLLATE NOCASE").fetchone():db.execute(GROWTH_RECEIPT_SQL)
+ if schema_kind(db)!='binding':raise ValueError('Cartridge exact five-table growth schema required')
+
+def _growth_receipt(db,operation,digest,owner,account_id,identity,previous):
+ from els_server.domain.cartridge_registration_rules import growth_history_pair
+ row=db.execute('SELECT * FROM account_cartridge_growth_receipts WHERE operation_id=?',(operation,)).fetchone()
+ generic=db.execute('SELECT operation_id,request_hash,owner,kind,positions_json,before_json,after_json FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()
+ if row is None or row[:5]!=(operation,digest,account_id,owner,identity)or previous!=[]:raise ValueError('Cartridge growth retry identity')
+ return growth_history_pair(row,generic)
+
+def perform_growth(path,owner,account_id,payload,operation,*,authorize=None,encode=acknowledge):
+ from els_server.domain.cartridge_registration_rules import GROWTH_POLICY,growth_fee
+ from els_server.storage.npc_trade import balances,charge
+ (identity,)=request(0xd54,payload);owner,digest=_identity(owner,0xd54,payload,operation)
+ with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
+  db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');_authority(db,owner,account_id,authorize)
+  previous=_previous(db,operation,digest)
+  current=_read(db,account_id);wallet=balances(db,owner);items=load_items(db,owner)
+  if previous is not None:
+   original,after=_growth_receipt(db,operation,digest,owner,account_id,identity,previous)
+   pair=current['rows'].get(identity)
+   if(pair is None or pair[0]!=0 or pair[1]<after['account']['rows'][identity][1]or current['revision']<after['account']['revision']or wallet['revision']<after['wallet']['revision']):
+    event=encode(0xd55,result=2005,identity=identity,rows={},changes=(),points=0,ed=wallet['ed'])
+   else:event=encode(0xd55,result=0,identity=identity,rows=current['rows'],changes=(),points=current['points'],ed=wallet['ed'])
+   encode_event(event);_authority(db,owner,account_id,authorize);return[event]
+  if db.execute("SELECT 1 FROM sqlite_master WHERE name='account_cartridge_growth_receipts' AND type='table'").fetchone()and db.execute('SELECT 1 FROM account_cartridge_growth_receipts WHERE operation_id=?',(operation,)).fetchone():raise ValueError('Unpaired Cartridge growth operation')
+  pair=current['rows'].get(identity)
+  if pair is None or pair[0]!=0:raise ValueError('Cartridge growth requires registered unbound selected ID')
+  level=pair[1];points,ed=growth_fee(identity,level)
+  if current['points']<points or wallet['ed']<ed or current['revision']>=2**63-1 or wallet['revision']>=2**63-1:raise ValueError('Cartridge growth fee/revision bound')
+  # Unknown trigger writes are not part of this finite source contract.
+  tables=('reward_balances','inventory_action_receipts','account_cartridge_state','account_cartridge_collection','account_cartridge_registration_receipts','account_cartridge_binding_receipts','account_cartridge_growth_receipts')
+  if db.execute("SELECT 1 FROM sqlite_master WHERE type='trigger' AND lower(tbl_name) IN ("+','.join('?'for _ in tables)+') LIMIT 1',tables).fetchone():raise ValueError('Unknown Cartridge growth write trigger')
+  _ensure_growth_schema(db)
+  rows=dict(current['rows']);rows[identity]=(0,level+1);updated=account_state(rows,current['points']-points,current['revision']+1)
+  absolute_ed=charge(db,owner,wallet,ed)
+  if db.execute('UPDATE account_cartridge_collection SET level=? WHERE account_id=? AND cartridge_id=? AND bound_uid=0 AND level=?',(level+1,account_id,identity,level)).rowcount!=1:raise ValueError('Cartridge growth conditional level')
+  if db.execute('UPDATE account_cartridge_state SET points=?,revision=? WHERE account_id=? AND points=? AND revision=?',(updated['points'],updated['revision'],account_id,current['points'],current['revision'])).rowcount!=1:raise ValueError('Cartridge growth conditional points/revision')
+  actual=_read(db,account_id);actual_wallet=balances(db,owner)
+  if actual!=updated or actual_wallet!=dict(wallet,ed=wallet['ed']-ed,revision=wallet['revision']+1)or absolute_ed!=actual_wallet['ed']or load_items(db,owner)!=items:raise ValueError('Cartridge growth affected unexpected state/inventory')
+  event=encode(0xd55,result=0,identity=identity,rows=actual['rows'],changes=(),points=actual['points'],ed=actual_wallet['ed']);encode_event(event)
+  before_json=json.dumps(dict(account=_packed(current),wallet=wallet),sort_keys=True)
+  after_json=json.dumps(dict(account=_packed(actual),wallet=actual_wallet),sort_keys=True)
+  _commit(db,operation,digest,owner,0xd54,[],[],[])
+  db.execute('INSERT INTO account_cartridge_growth_receipts VALUES(?,?,?,?,?,?,?,?,?)',(operation,digest,account_id,owner,identity,level,before_json,after_json,GROWTH_POLICY))
+  if _read(db,account_id)!=updated:raise ValueError('Cartridge growth written paired history/state mismatch')
+  _authority(db,owner,account_id,authorize);return[event]
+
+def growth_failure_balance(path,owner,account_id,*,authorize=None):
+ # A negative ACK cannot leak another actor wallet via a stale selection.
+ from els_server.storage.npc_trade import balances
+ with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=ro',uri=True,timeout=10))as db:
+  db.execute('BEGIN');_authority(db,owner,account_id,authorize);value=balances(db,owner)['ed'];_authority(db,owner,account_id,authorize);return value

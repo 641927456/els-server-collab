@@ -1,6 +1,6 @@
 """Finite singleton registration and current account D4D; native UI owns effects.
 Finite empty-carrier attach/exact-UID removal use original complete packets.
-Replacement, automatic relocation and growth remain closed.
+Replacement, automatic relocation and bound growth remain closed.
 """
 from els_server.protocol.equipment_cartridge_messages import acknowledge, request
 
@@ -97,6 +97,7 @@ def handle(s, event, sequence):
         return None
     if event.kind==0xd4e:return _register(s,event,sequence)
     if event.kind in(0xd50,0xd52):return _binding(s,event,sequence)
+    if event.kind==0xd54:return _grow(s,event,sequence)
     identity = 0
     ed = 0
     try:
@@ -125,3 +126,25 @@ def handle(s, event, sequence):
     if kind == 0xd55:
         extras['ed'] = ed
     return [acknowledge(kind, result=2005, identity=identity, rows={}, **extras)]
+
+
+def _grow(s,event,sequence):
+    identity=0;ed=0;selection=None;authorize=None;qualified_request=False
+    try:
+        path,owner,account_id=_session(s);selection=(path,owner,account_id)
+        authorize=_selected_authorizer(s,selection)
+        (selected_id,)=request(0xd54,event.payload)
+        if(type(event.event_id)is not int or type(event.kind)is not int
+                or type(sequence)is not int or not 1<=sequence<2**32
+                or event.performers not in((),(0,))or event.uid!=0xffffffffffffffff
+                or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):raise ValueError('Cartridge growth envelope')
+        identity=selected_id;qualified_request=True
+        from els_server.storage.account_cartridge_registration import perform_growth
+        operation=s.shop_session_id+':cartridge-grow-v1:'+str(account_id)+':'+str(owner)+':'+str(sequence)
+        return perform_growth(path,owner,account_id,event.payload,operation,authorize=authorize)
+    except ValueError:
+        if qualified_request and selection is not None and authorize is not None:
+            from els_server.storage.account_cartridge_registration import growth_failure_balance
+            try:ed=growth_failure_balance(*selection,authorize=authorize)
+            except ValueError:identity=0;ed=0
+        return[acknowledge(0xd55,result=2005,identity=identity,rows={},changes=(),points=0,ed=ed)]
