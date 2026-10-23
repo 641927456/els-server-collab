@@ -21,7 +21,12 @@ def excluded_equipment():
             'SELECT id,name FROM items WHERE item_type IN (1,2,3)') if has_legacy_marker(name))
 
 
+CARTRIDGE_USE_ONLY_MATERIALS = frozenset((
+    119222,119223,119224,119225,119226,119227,119228,119229,119230,
+    119231,119232,119233,119234,119235,119236,119237,119238,119239,119240))
+
 def can_acquire(template):
+    if template in CARTRIDGE_USE_ONLY_MATERIALS:return False
     from els_server.domain.ordinary_accessories import definitions
     accessory=definitions().get(template)
     return template not in excluded_equipment() and not (accessory and accessory['compatibility_only'])
