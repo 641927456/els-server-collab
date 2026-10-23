@@ -27,8 +27,10 @@ def catalog():
                 raise ValueError('Selection cube use mode')
             entries=row['entries']
             if not 2<=len(entries)<=6 or len({e['template'] for e in entries})!=len(entries):raise ValueError('Selection cube choice bound')
+            if t==723602 and tuple((e['template'],e['quantity']) for e in entries)!=((710313,50),(710315,50),(710314,50)):raise ValueError('Apple box original choices')
+            if t==723603 and(tuple((e['template'],e['quantity'])for e in entries)!=((710206,5),(710207,5),(710210,5)) or hashlib.sha256(raw).hexdigest()!='a1d6844860f4fc937f716e07335c1c200fded24beb3c9d83f10c2fe9ad8a2d75' or manifest['proof_sha256']!='2c1c6c53c4ce82eb771fd26eba774332c6e048e3b81bfd998b44713358c1457c'):raise ValueError('Elixir box source-owned contract')
             for e in entries:
-                if not 1<=e['quantity']<=10 or db.execute('SELECT id FROM items WHERE name=?',(e['name'],)).fetchall()!=[(e['template'],)]:
+                if not 1<=e['quantity']<=(50 if t==723602 else 10) or db.execute('SELECT id FROM items WHERE name=?',(e['name'],)).fetchall()!=[(e['template'],)]:
                     raise ValueError('Selection cube output identity')
             text='\n'.join('-'+e['name']+(str(e['quantity'])+'个' if e['quantity']!=1 else '') for e in entries)
             if row['description'].split('内含：\n',1)[1]!=text+'\n中其中一个':raise ValueError('Selection cube original contents')

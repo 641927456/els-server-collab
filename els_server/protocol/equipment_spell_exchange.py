@@ -7,8 +7,8 @@ def request(payload):
     if not isinstance(payload,bytes) or len(payload)!=24:raise ValueError('Mystic exchange request width')
     left,right,group,index=struct.unpack('>QQii',payload)
     if not 0<left<2**63 or not 0<right<2**63 or left==right:raise ValueError('Two distinct signed63 instance UIDs required')
-    # First independent current-CN subset: entire red column and plain ticket.
-    if (group,index)!=(10,-1):raise ValueError('Unqualified mystic exchange color/slot')
+    # Exact original colored-column subset; giant slots remain separate.
+    if group not in (9,10,11) or index!=-1:raise ValueError('Unqualified mystic exchange color/slot')
     return left,right,group,index
 
 def acknowledgement(changes=(),result=0):

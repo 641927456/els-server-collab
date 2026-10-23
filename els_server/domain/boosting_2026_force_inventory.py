@@ -1,9 +1,9 @@
-"""Five original selected-event force books; owned forces are not normal skills."""
+"""Original selected-event and four existing manufacture force books; no new source."""
 import functools,hashlib,json,struct
 from pathlib import Path
 from els_server.protocol.protocol_codec import Event
 
-REGISTRY_SHA='e0adb12f1e59a3f3048e7f4896fcc6172751c2f5887ec9bf59bc42025cedf048'
+REGISTRY_SHA='c004a7d27740c0889dc42973bbc3968a3d8da1ebf2ac477dcb291d6f187bef4a'
 
 class ForceRuleError(ValueError):
     def __init__(self,result,message):super().__init__(message);self.result=result
@@ -12,14 +12,18 @@ class ForceRuleError(ValueError):
 def catalog():
     path=Path(__file__).resolve().parents[1]/'data/boosting2026-force-inventory.json';raw=path.read_bytes()
     if hashlib.sha256(raw).hexdigest()!=REGISTRY_SHA:raise ValueError('Selected force original registry checksum')
-    source=json.loads(raw);rows=source['reward_books']
-    if len(rows)!=5 or {r['item'] for r in rows}!={295707,295712,306002,295714,306004}:raise ValueError('Selected force inventory scope')
+    source=json.loads(raw);rows=source['reward_books']+source['upgrade_books']
+    if len(rows)!=9 or {r['item'] for r in rows}!={295707,295712,306002,295714,306004,295708,295713,306003,295709}:raise ValueError('Selected force inventory scope')
     from els_server.game_data import client_data
     data=client_data()
+    native={(r['arguments'][1]['m_iSkillID'],int(rank)):template
+        for r in source['related_native_skill_rows']
+        for rank,template in r['arguments'][1]['m_iItemIDList'].items() if rank!='0'}
     for row in rows:
         item=data.item(row['item'])
         if (hashlib.sha256(item['record']).hexdigest()!=row['template_record_sha256'] or
-            row['required_stage']!=3 or row['native_rank'] not in (3,5) or
+            row['required_stage']!=3 or row['native_rank'] not in (3,4,5) or
+            native.get((row['skill'],row['native_rank']))!=row['item'] or
             ((item['flags4']>>20)&15)!=row['native_grade']):raise ValueError('Original force book definition mismatch')
     return {r['item']:r for r in rows}
 
@@ -46,7 +50,7 @@ def seal_used(template,value):
     if rule is None:raise ValueError('Selected force seal identity')
     from els_server.game_data import client_data
     maximum=client_data().item(template)['record'][0xd7]
-    if maximum not in (0,1) or type(value) is not int or not 0<=value<=maximum:
+    if maximum not in (0,1,3) or type(value) is not int or not 0<=value<=maximum:
         raise ValueError('Selected force original seal-history bound')
     return value
 

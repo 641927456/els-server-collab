@@ -25,10 +25,22 @@ def broadcast(world,party,event):
     for member in party['members']:world.send(member,event)
 
 
+def _current_member(world,party,member):
+    # Reuse the same owned-role lease as inventory/equipment operations.
+    # Native AE5/AEA only carry a bool, so they cannot authorize an old role
+    # or a different current connection on their own.
+    from els_server.domain.equipment_chip_flow import current_lease
+    app=getattr(member,'application',None)
+    return bool(app is not None and app.world is world
+        and world.party_of.get(member) is party and current_lease(member)
+        and app.registry.enabled(member.account.account_id))
+
+
 def validate(world,party,challenge,phase):
     minimum,maximum=limits(challenge,phase)
     members=tuple(party['members'])
     if not minimum<=len(members)<=maximum:raise ValueError('Challenge party size')
+    if not all(_current_member(world,party,m) for m in members):raise ValueError('Challenge participant lease or account changed')
     if len({Path(m.account.store.path).resolve() for m in members})!=1:raise ValueError('Challenge database')
     from els_server.domain.region_quests import account_dungeon_allowed
     parent=(34120+phase*10) if challenge==4 else (34540+phase*10)
@@ -60,7 +72,7 @@ def _context(world,party,pending):
             or member not in world.members or world.party_of.get(member) is not party
             or app.world is not world or app.playing.get(member.account.account_id) is not member
             or member.identity['id']!=member.account.account_id
-            or not app.registry.enabled(member.account.account_id)):return False
+            or not _current_member(world,party,member)):return False
     return True
 
 

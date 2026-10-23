@@ -19,7 +19,22 @@ def catalog():
     return {r['id']:r for r in rows}
 
 
+def manual_magic_potion_definition():
+    """One source-qualified manual potion; this does not open an EP offer."""
+    raw=bytes.fromhex(catalog()[710022]['record_hex'])
+    if hashlib.sha256(raw).hexdigest()!='0b87d5694633253a884210711329cc05a7932f0fdf4184f65d3793410c67203a':
+        raise ValueError('Manual magic potion source changed')
+    if (raw[7]&15,struct.unpack_from('<I',raw,0x10)[0])!=(2,500):
+        raise ValueError('Manual magic potion inventory source')
+    # Original19803A0 classification:6. Source stack500 participates in the
+    # existing owner-authorized999 minimum for ordinary stackable items.
+    return dict(template=710022,metadata=2,group=6,max_stack=500)
+
+
 def ordinary(template):
+    if template in (710313,710314,710315):
+        from els_server.domain.apple_consumables import usable
+        return usable(template)
     # Enable only individually checked HP/MP potions. Other rows may
     # require buff, quest, event, targeting or reward behavior not yet wired.
     # minimum level, shared cooldown group, seconds, ordered native effects.
@@ -31,6 +46,11 @@ def ordinary(template):
               77420:(0,3,30,((13,15),(2,100))),
               77430:(0,3,30,((13,30),(2,100))),
               78902:(0,48,60,((2,150),)),78930:(60,4,30,((2,225),))}
+    expected[710000]=(0,15,30,((13,100),(19,100)))
+    expected[710022]=(0,19,30,((19,100),))
+    expected.update({79063:(0,2,30,((13,50),)),79064:(0,5,30,((19,50),))})
+    expected[79065]=(0,10,30,((19,50),(13,50)))
+    expected[77110]=(0,14,30,((3,0),(5,0),(6,0)))
     if template not in expected:raise ValueError('Consumable effect not implemented')
     level,group,seconds,effects=expected[template];r=catalog()[template]
     raw=bytes.fromhex(r['record_hex'])
@@ -45,7 +65,8 @@ def ordinary(template):
     return r
 
 
-def require_usable(template,level):
+def require_usable(template,level,*,automatic=False):
+    if automatic and template in (710313,710314,710315,79065,77110,710022):raise ValueError('Apple pet automation is not admitted')
     metadata=ordinary(template)
     if type(level) is not int or not 1<=level<=99:raise ValueError('Consumable character level')
     if level<bytes.fromhex(metadata['record_hex'])[0xd1]:raise ValueError('Consumable level requirement')

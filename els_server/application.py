@@ -53,7 +53,18 @@ class FriendsSession(LocalSession):
         if self.phase in ('closing','channels_ready') and leases.get(self.identity['id']) is self:
             self.application.world.leave_party(self)
             leases.pop(self.identity['id'],None)
+        if event.event_id==0x202 and event.kind==0x113:
+            from els_server.domain.apple_consumables import relay_committed_use
+            relay_committed_use(self,result)
+        if event.event_id==0x202 and event.kind in (0x2e8,0x2ec,0x432,0x42c,0x42f,0x2f5,0x2fb,0x8c7,0x219):
+            from els_server.domain.companion_peer_sync import invalidate as invalidate_companion_peer
+            invalidate_companion_peer(self)
+        if event.event_id==0x202 and event.kind==0x219:
+            from els_server.domain.elixir_peer_sync import relay as relay_world_elixirs
+            relay_world_elixirs(self)
         self.application.world.synchronize(self)
+        if event.event_id==0x202 and event.kind==0x4cb:
+            self.application.world.custom_changed(self,result)
         if self.phase=='town_ready' and event.event_id==0x202 and event.kind==0x22b:
             self.application.world.moved(self,event.payload)
         if self.phase=='town_ready' and event.event_id==0x202:
@@ -93,6 +104,8 @@ class FriendsSession(LocalSession):
         # Super returns only after atomic removal/encoding/cache commit.
         messages=super().expiration_notifications()
         self._relay_luciel_hp_expiry(messages)
+        from els_server.domain.elixir_peer_sync import relay as relay_world_elixirs
+        relay_world_elixirs(self)
         return messages
 
     def periodic_notifications(self):
@@ -116,6 +129,8 @@ class FriendsSession(LocalSession):
                 kinds={e.kind for e in messages if e.event_id==0x201}
                 expiry=0x1c6 in kinds
                 if 0x214 in kinds or expiry:self.application.world.appearance_changed(self)
+            from els_server.domain.companion_peer_sync import receive as companion_peer_receive
+            messages+=companion_peer_receive(self,now=now)
         return self.mailbox.drain()+messages
 
 
@@ -189,7 +204,14 @@ class Application:
         return {'activity2026_awards':self.activity2026_awards_factory(account)} if self.activity2026_awards_factory is not None else {}
 
     async def session(self,port_probe_port=1,identity=None):
-        if self.config.mode=='local':return await self.call(LocalSession,self.account,port_probe_port=port_probe_port,**self.config.session_options(),**self.activity_options(self.account))
+        if self.config.mode=='local':
+            def create_local():
+                session=LocalSession(self.account,port_probe_port=port_probe_port,**self.config.session_options(),**self.activity_options(self.account))
+                # Dedicated reset witness; preserve generic local .application absence.
+                session._chip_reset_local_application=self
+                session._chip_reset_local_live=True
+                return session
+            return await self.call(create_local)
         if identity is None:raise SessionOrderError('Authentication required')
         def create():
             key=identity['id']
@@ -213,6 +235,8 @@ class Application:
             try:
                 close_mount(session)
             finally:
+                if type(session) is LocalSession and getattr(session,'_chip_reset_local_application',None) is self:
+                    session._chip_reset_local_live=False
                 try:
                     if timer is not None:timer.observe(session,stop=True)
                 finally:

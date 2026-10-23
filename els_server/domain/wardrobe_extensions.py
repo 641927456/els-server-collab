@@ -6,7 +6,7 @@ from els_server.game_data import CLIENT_SHA
 @functools.lru_cache(maxsize=1)
 def catalog():
     raw=(PROJECT_ROOT/'els_server/data/wardrobe_extensions.json').read_bytes()
-    if hashlib.sha256(raw).hexdigest()!='2d5f875a50b8b3f150d62f23f3506f2df1590e0ce595b022cc197f84e04a8fd5':raise ValueError('Wardrobe extension catalog checksum')
+    if hashlib.sha256(raw).hexdigest()!='6ffdd6eac86a4b0cb9993e9aa9c97e7a3ed93f13d943765e004c741951871cd0':raise ValueError('Wardrobe extension catalog checksum')
     data=json.loads(raw)
     if data['client_sha256']!=CLIENT_SHA:raise ValueError('Wardrobe extension version')
     return data
@@ -32,8 +32,8 @@ def ticket_selection(ticket,template,character):
 def unregister_group(template):
     from els_server.domain.wardrobe import definition
     pos=definition(template)['equip_position']
-    if pos==6 or 48<=pos<=59:return 1
-    if pos in (2,8,9):return 2
+    if pos==2 or 48<=pos<=59:return 1
+    if pos in (6,8,9):return 2
     if pos in (10,11):return 3
     if pos==38:return 4
     raise ValueError('Unsupported hanger removal equipment group')

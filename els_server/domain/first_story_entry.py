@@ -149,7 +149,7 @@ def handle(s,event):
 
         if current is not None and s.dungeon_run is current['run'] and owned and event.payload==current['request'] and s.phase in ('dungeon_loading','dungeon_active'):return [current['admission']]
 
-        if not owned or s.phase!='map_loading' or 0x32 not in s.completed or s.account.characters is None:return []
+        if not owned or s.phase!='map_loading' or 0x32 not in s.completed or s.account.characters is None or not pending_tutorial(s):return []
 
         character=s.account.character()
 
@@ -165,7 +165,7 @@ def handle(s,event):
 
         run=TutorialRun(identity)
 
-        s.first_story_entry=dict(map=identity,request=event.payload,admission=reply,started=False,run=run)
+        s.first_story_entry=dict(map=identity,request=event.payload,room=room,admission=reply,started=False,run=run)
 
         s.dungeon_id=identity;s.phase='dungeon_loading';s.dungeon_run=run;s.dungeon_requested=False;s.dungeon_substage_synced=False
 
@@ -272,31 +272,23 @@ def handle(s,event):
 
     if event.kind==0x110:
 
-        # C38760 -> 110 is the original result-exit handshake. Tutorial maps
-
-        # suppress the ordinary result window; the source-clear room is over.
-
-        # Game v278/1044730 -> 1AB3BF0 accepts a successful 68 independently
-
-        # of a pending 67 and runs its original v578 town continuation.
-
+        # C25B90 dispatches112 to C38A90. Its original consumer clears
+        # Main+1C2 (playing tutorial), sets Main+1C4 and calls BA7940.
+        # An unsolicited68 skips this lifecycle and leaves auto tutorial entry
+        # active when returning to character selection.111 alone cannot exit:
+        # the witnessed first tutorial has manager+292=manager+293=0.
         if not owned or event.payload or not s.clear_notified:return []
-
         reply=[Event(0x201,kind=0x111,payload=bytes(12))]
-
         if current.get('returned'):return reply
-
         if s.phase!='dungeon_active':return []
 
-        from els_server.protocol.dungeon_messages import end_ack
-
+        # C50AE0 reads original RoomInfo, two empty slot vectors and native
+        # ReturnToFieldInfo (two u64 and an empty set<u64>). No new rewards.
+        notice=Event(0x201,kind=0x112,payload=current['room']+bytes(28))
         sync=s.saved_user_sync(clear_reward_only=True)
-
         current['returned']=True;s.phase='map_loading';s.pending_map=None
-
         s.dungeon_return_pending=True;s.inventory_town_sync_sent=True
-
-        return reply+[end_ack(),sync]
+        return reply+[notice,sync]
 
     if event.kind==0xbb and owned and s.phase=='dungeon_active':
 

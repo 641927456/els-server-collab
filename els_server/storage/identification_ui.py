@@ -1,6 +1,7 @@
 """Reset scroll -> unidentified item -> paid-once scroll and free identification."""
 import sqlite3,secrets
 from contextlib import closing
+from els_server.storage.profession_state import require_owner
 from els_server.domain.identification_ui import require_template,catalog,draw_for_template
 from els_server.domain.item_expiration import require_current
 from els_server.domain.item_locks import require_unlocked
@@ -13,10 +14,11 @@ from els_server.storage.item_instances import remove
 from els_server.storage.npc_trade import balances
 from els_server.storage.equipment_options import replace as replace_options
 from els_server.storage.equipment_identification import replace as replace_identified
-def perform(path,owner,kind,payload,operation,randbelow=secrets.randbelow):
+def perform(path,owner,kind,payload,operation,randbelow=secrets.randbelow,*,account_id=None):
  uid,material_uid=request(kind,payload);owner,digest=_identity(owner,kind,payload,operation)
  with closing(sqlite3.connect(path,timeout=10)) as db,db:
   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+  if account_id is not None:require_owner(db,owner,account_id)
   old=_previous(db,operation,digest);before=load_items(db,owner);ed=balances(db,owner)['ed'];by_uid={i['uid']:i for i in before}
   if old is not None:
    current={(i['group'],i['slot']):i for i in before}

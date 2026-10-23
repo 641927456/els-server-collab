@@ -9,7 +9,7 @@ from els_server.domain.consumables import require_usable,recovery_cooldown_secon
 from els_server.protocol.consumable_messages import request,acknowledgement,effect
 
 
-def use(path,uid,payload,operation_id,*,now=None,automatic_use=False):
+def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apples=False,account_id=None):
     uid=character_uid(uid)
     slot=request(payload,automatic=automatic_use)
     if not isinstance(operation_id,str) or not 1<=len(operation_id)<=160:raise ValueError('Consumable operation identity')
@@ -20,6 +20,13 @@ def use(path,uid,payload,operation_id,*,now=None,automatic_use=False):
         db.execute('BEGIN IMMEDIATE')
         character=db.execute('SELECT level FROM characters WHERE uid=?',(uid,)).fetchone()
         if character is None:raise ValueError('Unknown consumable owner')
+        if account_id is not None:
+            from els_server.storage.profession_state import require_owner
+            require_owner(db,uid,account_id)
+        from els_server.storage.character_lifecycle import exists as lifecycle_exists
+        if lifecycle_exists(db):
+            lifecycle=db.execute('SELECT requested_at,finalized_at FROM character_lifecycle WHERE uid=?',(uid,)).fetchone()
+            if lifecycle and any(lifecycle):raise ValueError('Unavailable consumable character')
         if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='consumable_uses'").fetchone():
             old=db.execute('SELECT request_hash FROM consumable_uses WHERE operation_id=?',(operation_id,)).fetchone()
             if old:
@@ -46,7 +53,11 @@ def use(path,uid,payload,operation_id,*,now=None,automatic_use=False):
         if not matches:raise ValueError('No owned consumable')
         # Multiple equivalent templates require the native selection priority.
         if len({i['template'] for i in matches})!=1:raise ValueError('Ambiguous consumable template')
-        item=min(matches,key=lambda i:i['slot']);meta=require_usable(item['template'],character[0])
+        item=min(matches,key=lambda i:i['slot']);meta=require_usable(item['template'],character[0],automatic=automatic_use)
+        if item['template'] in (710313,710314,710315,77110):
+            if allow_apples is not True:raise ValueError('Apple native actor stage is not ready')
+            from els_server.domain.item_locks import require_unlocked
+            require_unlocked(item)
         db.execute('CREATE TABLE IF NOT EXISTS consumable_cooldowns (owner INTEGER NOT NULL REFERENCES characters(uid), cooldown_group INTEGER NOT NULL, ready_at REAL NOT NULL, PRIMARY KEY(owner,cooldown_group))')
         prior=db.execute('SELECT ready_at FROM consumable_cooldowns WHERE owner=? AND cooldown_group=?',(uid,meta['cooldown_group'])).fetchone()
         if prior and now<prior[0]:raise ValueError('Consumable is cooling down')

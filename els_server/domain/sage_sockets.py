@@ -22,7 +22,7 @@ def capacity(template):
  if not n:raise ValueError('Original equipment has no base socket slots')
  return n
 def validate(template,groups):
- if not isinstance(groups,dict) or set(groups)-{'9','10','11','12','0','1','13','14','15','16','18','19','20','21','25','27','28','31'}:raise ValueError('Unsupported option group')
+ if not isinstance(groups,dict) or set(groups)-{'9','10','11','12','0','1','13','14','15','16','18','19','20','21','25','27','28','29','31'}:raise ValueError('Unsupported option group')
  result={}
  for group,values in groups.items():
   if group in ('9','10','11','12'):
@@ -40,6 +40,9 @@ def validate(template,groups):
   if group=='27':
    from els_server.domain.equipment_chip_rules import armor_options
    result[group]=armor_options(template,values);continue
+  if group=='29':
+   from els_server.domain.option_conversion_existing import validate as validate_existing_conversion
+   result[group]=validate_existing_conversion(template,values);continue
   if group=='28':
    from els_server.domain.equipment_circuit_rules import validate_grid
    result[group]=validate_grid(template,values);continue
@@ -62,7 +65,8 @@ def validate(template,groups):
   n=capacity(template)
   from els_server.domain.atma_sockets import valid_option
   from els_server.domain.additional_magic_stones import valid_option as valid_additional
-  if not isinstance(values,(list,tuple)) or len(values)!=n or any(type(v) is not int or v!=0 and str(v) not in catalog()['options'] and not valid_option(template,v) and not valid_additional(template,v) for v in values):raise ValueError('Invalid socket option slots')
+  from els_server.domain.ordinary_magic_stones import valid_option as valid_ordinary
+  if not isinstance(values,(list,tuple)) or len(values)!=n or any(type(v) is not int or v!=0 and str(v) not in catalog()['options'] and not valid_option(template,v) and not valid_additional(template,v) and not valid_ordinary(template,v) for v in values):raise ValueError('Invalid socket option slots')
   result[group]=list(values)
  return result
 def distribution(item,stone=STONE):
@@ -70,6 +74,8 @@ def distribution(item,stone=STONE):
  weapon=d['equip_position']==2
  if item.get('enhancement',0)<0:raise ValueError('Broken equipment requires restoration')
  if stone!=STONE:
+  from els_server.domain.ordinary_magic_stones import catalog as ordinary_catalog,distribution as ordinary_distribution
+  if str(stone) in ordinary_catalog()['items']:return ordinary_distribution(item,stone)
   from els_server.domain.additional_magic_stones import catalog as additional_catalog,distribution as additional_distribution
   if str(stone) in additional_catalog()['items']:return additional_distribution(item,stone)
   from els_server.domain.atma_sockets import distribution as atma_distribution

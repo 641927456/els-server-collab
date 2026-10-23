@@ -7,7 +7,7 @@ explicit server policies, not claims about retail server configuration.
 """
 from contextlib import closing
 import hashlib,json,sqlite3,time
-from els_server.storage.game_mail import MailError,_owner,_text
+from els_server.storage.game_mail import MailError,_active_owner,_text
 from els_server.storage.characters import validate_name
 from els_server.domain.player_mail_rules import fee
 
@@ -150,7 +150,7 @@ def send(path,account,uid,request,operation,encode,*,now=None):
     digest=hashlib.sha256(canonical.encode()).hexdigest();now=int(time.time()) if now is None else now
     if type(now) is not int or not 1<=now<2**31:raise MailError('Invalid send timestamp')
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');_owner(db,account,uid)
+        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');_active_owner(db,account,uid)
         from els_server.storage import mail_attachments as attachments
         old=db.execute('''SELECT account_id,sender_uid,digest,mail_id,recipient,fee
             FROM player_mail_receipts WHERE operation=?''',(operation,)).fetchone()
