@@ -1,0 +1,445 @@
+{
+  "schema": "chip-reset-existing-stock-sanitized-delivery-provenance-v1",
+  "document_phase": "actual-delivery-independently-reviewed",
+  "date": "2026-10-23",
+  "issue": 286,
+  "branch": "fix/286-chip-reset-existing-stock",
+  "base_commit": "30bd1b5eb2d8632872c31934e36e62246c495038",
+  "base_PR": 285,
+  "Git_projection": {
+    "sources": 13,
+    "new": 5,
+    "shared_replacements": 8,
+    "final_maximum_with_two_docs": 15,
+    "runtime_delta_is_not_canonical_closure": true,
+    "unchanged_LocalSession_chip_dispatch": true,
+    "direct_AST_imports": 192,
+    "direct_existing_dependencies": 107,
+    "missing_imports": 0,
+    "files": [
+      {
+        "path": "els_server/application.py",
+        "action": "replace",
+        "sha256": "c8c21cc2a7509dac576bfcdc89307926fac37766ae7fb157045340e61a6a9def",
+        "bytes": 15598,
+        "same_BYTE_as_local950": false,
+        "inverse_BYTE_exact_to_base": true
+      },
+      {
+        "path": "els_server/data/equipment_chip_reset_items.json",
+        "action": "new",
+        "sha256": "d4f2efd8f35a895df498cc15958fd914c796e8c8c5072f14157baefc29ec898e",
+        "bytes": 3734,
+        "same_BYTE_as_local950": true,
+        "inverse_BYTE_exact_to_base": false
+      },
+      {
+        "path": "els_server/domain/acquisition_policy.py",
+        "action": "replace",
+        "sha256": "f6337260ab096e183391932a86f51cd3d880fcc2ce60ec3308db5f163d3c3d19",
+        "bytes": 3099,
+        "same_BYTE_as_local950": false,
+        "inverse_BYTE_exact_to_base": true
+      },
+      {
+        "path": "els_server/domain/equipment_chip_flow.py",
+        "action": "replace",
+        "sha256": "4c5e3e6ec489405e7cc49e03107664aa108f8e7b599ae8ceaa5a51f2c76c24f9",
+        "bytes": 7470,
+        "same_BYTE_as_local950": true,
+        "inverse_BYTE_exact_to_base": true
+      },
+      {
+        "path": "els_server/domain/equipment_chip_reset_items.py",
+        "action": "new",
+        "sha256": "94e34113a58a855768e723af141078cbacaa21d0038d10f7b325dbc2be4ecdec",
+        "bytes": 1236,
+        "same_BYTE_as_local950": true,
+        "inverse_BYTE_exact_to_base": false
+      },
+      {
+        "path": "els_server/domain/equipment_chip_rules.py",
+        "action": "replace",
+        "sha256": "3689381ba22a76a131e9d824e37234330b6ef3540de6cf2f6f9d8f3b382fa53d",
+        "bytes": 5578,
+        "same_BYTE_as_local950": true,
+        "inverse_BYTE_exact_to_base": true
+      },
+      {
+        "path": "els_server/domain/inventory_items.py",
+        "action": "replace",
+        "sha256": "823de7e550457242301f2641f0d2cdf0eac0e20b863e9e7a256a91b1afabe9f5",
+        "bytes": 47443,
+        "same_BYTE_as_local950": false,
+        "inverse_BYTE_exact_to_base": true
+      },
+      {
+        "path": "els_server/protocol/equipment_chip_reset_messages.py",
+        "action": "new",
+        "sha256": "6dfd0d6bbc87ce430567e82e2c24ddf9b69335f9d8b8ce74c0bca88502467614",
+        "bytes": 1420,
+        "same_BYTE_as_local950": true,
+        "inverse_BYTE_exact_to_base": false
+      },
+      {
+        "path": "els_server/storage/bank_state.py",
+        "action": "replace",
+        "sha256": "211ce0483902ac189a183dc72b60fcbbfc203530aa6c47581194e1ca5ed5c280",
+        "bytes": 16098,
+        "same_BYTE_as_local950": false,
+        "inverse_BYTE_exact_to_base": true
+      },
+      {
+        "path": "els_server/storage/equipment_chip.py",
+        "action": "replace",
+        "sha256": "fd502ee01c70041a34579ca86ff95183635288f603eb7bd03e501ed70b093c49",
+        "bytes": 7878,
+        "same_BYTE_as_local950": true,
+        "inverse_BYTE_exact_to_base": true
+      },
+      {
+        "path": "els_server/storage/equipment_chip_reset.py",
+        "action": "new",
+        "sha256": "9d07c36a2e7cd3540dfa8633e9943be98a7b0d6604761e7470510a401a975ec1",
+        "bytes": 7171,
+        "same_BYTE_as_local950": true,
+        "inverse_BYTE_exact_to_base": false
+      },
+      {
+        "path": "els_server/storage/equipment_chip_reset_history.py",
+        "action": "new",
+        "sha256": "6e0c3e2b099cb26a3fdc732653a592942356787b0db660031075131bd8f14f92",
+        "bytes": 2627,
+        "same_BYTE_as_local950": true,
+        "inverse_BYTE_exact_to_base": false
+      },
+      {
+        "path": "els_server/storage/item_instances.py",
+        "action": "replace",
+        "sha256": "a7768cbb562db409110d0f65d783216586203f4dfca09931ca9dad7a80c71caf",
+        "bytes": 4849,
+        "same_BYTE_as_local950": true,
+        "inverse_BYTE_exact_to_base": true
+      }
+    ]
+  },
+  "user_local_rule": {
+    "explicit_user_policy_date": "2026-10-22",
+    "preserve_base_options": true,
+    "matching_coupon_on_success": 1,
+    "ED_cost": 0,
+    "initial_raw_tuning": [
+      0,
+      0,
+      0
+    ],
+    "native_initial_success_percent": 50,
+    "used_increment": 1,
+    "per_UID_lifetime_max": 3,
+    "new_coupon_source_added": false,
+    "not_official_retail_policy_claim": true
+  },
+  "source_and_scope": {
+    "existing_owned_stock_only": true,
+    "six_prefixed_coupon_variants_new_acquisition_denied": true,
+    "source_metadata_stack300_preserved": true,
+    "inherited_registered_stack999_preserved": true,
+    "installation_DDL_proposed": 0,
+    "physical_lazy_setup_separate_from_install": true,
+    "ordinary_CN_source_corroborated_but_current_build_exact_template_rate_and_server_producer_not_completed": true,
+    "blessed_historical_CN_mall_route_known_current_SKU_price_stock_unverified": true,
+    "source_references": [
+      {
+        "id": "CN-current-guide",
+        "url": "https://els.ztgame.com/game/m_004-1741-003e2-321201.shtml",
+        "region": "CN",
+        "version": "Undated live game guide; current search index queried 2026-10-23; exact revision date unavailable",
+        "access": "Direct web open timed out twice. Search-index text and archived 2026-10-18 same page agree on relevant table; no claimed fresh full-body fetch.",
+        "use": "Current high-level entrance/source corroboration; no exact template reward transaction or new producer authorization."
+      },
+      {
+        "id": "CN-2024-mall-announcement",
+        "url": "https://els.ztgame.com/html/news/134da0e/004-1725-01852-936062.shtml",
+        "region": "CN",
+        "version": "2024-09-11 maintenance, year established by dated events in the same page",
+        "access": "Direct browser-source open succeeded on research date",
+        "use": "Named historical legitimate mall source; does not establish 2026-10-23 in-stock status or price; no new shop product accepted."
+      }
+    ],
+    "feature_lifetime_quota_schema_definitions_retained": 1,
+    "new_schema_definitions_in_runtime_two_writer_resume": 0,
+    "schema_definition_new_to_canonical_Git": 1
+  },
+  "actual_before_public": {
+    "local_runtime_already_installed": true,
+    "local_manifest_sha256": "f619c33026036949b1d0852e804eb19fbbf4334df9350e1eba2885149fac6bf1",
+    "local_business_files": 950,
+    "local_bundle_files": 1412,
+    "local_runtime_reinstallation_planned": false,
+    "online_candidate_business_files": 940,
+    "online_candidate_delta": 2,
+    "online_candidate_new": 0,
+    "online_candidate_replaced": 2,
+    "online_candidate_manifest_sha256": "25cf77847a7ee9f8573d233b9bb1da61ac6a96ab65de3289a3dfc5d0313c956d",
+    "fresh_preflight_passed": true,
+    "fresh_preflight_elapsed_seconds": 24.455435100011528,
+    "preflight_parent_and_management_leaf_counts": [
+      940,
+      50502
+    ]
+  },
+  "public_negative_plan": {
+    "actual_status": "executed-passed-negative-only",
+    "new_own_accounts": 1,
+    "new_own_roles": 1,
+    "normal_APIs_only": true,
+    "controlled_level99_only": true,
+    "native_request_count": 30,
+    "service_cap": 1,
+    "request_kind": 3004,
+    "request_payload_bytes": 16,
+    "missing_own_UIDs": true,
+    "expected_response_kind": 3005,
+    "expected_response_payload_bytes": 8,
+    "expected_response_result": 2005,
+    "expected_response_record_count": 0,
+    "expected_economic_commits": 0,
+    "complete_cold2A_and_own_projection": true,
+    "normal_disable_required": true,
+    "no_inventory_coupon_chip_ED_quest_town_phase_quota_seed": true,
+    "old_QA_enable": false,
+    "unknown_outcome": "Exact own receipt read-only inspection; never resend or infer terminal."
+  },
+  "history_preserved": [
+    "Original a639 private ordinary and blessed reset successes are reused without new reset/economic requests.",
+    "Two earlier public QA fixture metadata failures remain failed with0BBC and safely disabled owned QA; source metadata300 versus inherited inventory999 was a fixture assertion error, not a runtime rule repair.",
+    "This delivery first preflight timed out at original100second remote deadline, localelapsed106.12776269996539; no service mutation and worker later absent. Exact two ownstage leaves were removed before the only unchanged-source,unchanged-timeout retry. First cause remainsUNKNOWN."
+  ],
+  "recovery": {
+    "physical_files": 2,
+    "semantic_delta": 2,
+    "new": 0,
+    "replaced": 2,
+    "close_only_Chip_writer_entry_and_storage_flag": true,
+    "prior_13_compatibility_readers_and_UID_tombstones_retained": true,
+    "BOX_House_recipe679_other_writers_unchanged": true,
+    "no_player_database_rollback": true,
+    "local_post_online_receipt_uses_new_unique_name": true
+  },
+  "source_CI": {
+    "command": "python -B -X utf8 tools/ci_checks.py",
+    "exit_code": 0,
+    "Python_sources_compiled": 811,
+    "privacy_files_checked": 1261,
+    "protocol_roundtrip": true,
+    "runtime_check": false,
+    "source_checks_rerun_for_docs": false,
+    "final_staged15_guard": "maintainer only after actual delivery and independent docs review"
+  },
+  "final_actual_delivery": {
+    "online_release": "equipment-chip-reset-existing-stock-resume-20261023-v1",
+    "online_manifest_sha256": "25cf77847a7ee9f8573d233b9bb1da61ac6a96ab65de3289a3dfc5d0313c956d",
+    "business_files": 940,
+    "delta": 2,
+    "new": 0,
+    "replace": 2,
+    "observation_seconds": 121.42561749997549,
+    "formal_root_check_exit_code": 0,
+    "startup_original_rows_preserved": true,
+    "public_TLS": true,
+    "service_negative_passed": true,
+    "public_positive_passed": false,
+    "total_native_request_count": 30,
+    "service_requests": 1,
+    "full_refused_ACK_kind": 3005,
+    "full_refused_ACK_payload_bytes": 8,
+    "full_refused_ACK_result": 2005,
+    "full_refused_ACK_record_count": 0,
+    "economic_commits": 0,
+    "new_chip_reset_receipts": 0,
+    "ED_delta": 0,
+    "own_SQL_projection_unchanged": true,
+    "cold_full_records": 10,
+    "raw_archive_scope": "Full refusedBBD plus cold2A;30driver requests,not allframe archive",
+    "no_inventory_or_quest_town_phase_seed": true,
+    "normal_API_starter_only": true,
+    "controlled_level99_only": true,
+    "normal_disable_API_used": true,
+    "physical_tables_created_by_normal_API": [],
+    "physical_tables_created_by_negative_service": [],
+    "schema_existing_definitions_changed": [],
+    "SQL_or_DDL_zero_claim": false,
+    "local_manifest_sha256": "f619c33026036949b1d0852e804eb19fbbf4334df9350e1eba2885149fac6bf1",
+    "local_business_files": 950,
+    "local_bundle_files": 1412,
+    "local_metadata_only": true,
+    "local_runtime_reinstalled": false,
+    "local_player_DB_access": false,
+    "server_stage_task_cleanup_complete": true,
+    "own_locks_released": true,
+    "necessary_backups_retained": true
+  },
+  "final_independent_FILE_review": {
+    "label": "modern/chip-reset-existing-stock-public-and-postdelivery-actual-independent-FILE-review-v1/review-v1.json",
+    "sha256": "97ef6941cf66d3038250a008449ec1aeef2a487487495aba26d0b5930caca682",
+    "bytes": 20287
+  },
+  "final_root_selfreview": {
+    "label": "chip-reset-final-root-self-review-v1.json",
+    "sha256": "72b46db98d9ff6396c1a67bdcae72afe9ed24b77a57224c33a3c801644dfefcd",
+    "bytes": 11826
+  },
+  "evidence": {
+    "canonical_SOURCE": {
+      "label": "modern/chip-reset-existing-stock-canonical-Git-SOURCE-v1/source-freeze.json",
+      "sha256": "c9fa5a785f745b061b913dbde6d13130e064b420b811c2436b47713e09e24a75",
+      "bytes": 7655
+    },
+    "canonical_independent_SOURCE": {
+      "label": "modern/chip-reset-existing-stock-canonical-Git-independent-SOURCE-review-v1/review-v1.json",
+      "sha256": "a4de8f06d15bb3015144b70ffb798f4db11f2c2a1fcf5d5d3e02151b150f6e8a",
+      "bytes": 7812
+    },
+    "original_private_acceptance": {
+      "label": "modern/chip-reset-finite-validation-SOURCE-v3/root-finite-private-acceptance-v1.json",
+      "sha256": "a639403aee8a207b7625f89dfc33adf07de7aab086058d62372d6057b023ad9a",
+      "bytes": 6025
+    },
+    "old_failed_public_safe_close": {
+      "label": "Chip-failed-attempt2-safe-close-root-closeout-v1.json",
+      "sha256": "efc8fd3ac9141fdfa793bc8096230452d21a612079f44d2e5677a4a72cb4615c",
+      "bytes": 5886
+    },
+    "helper_metadata_correction_SOURCE": {
+      "label": "modern/chip-reset-helper-metadata-correction-SOURCE-v1/source-freeze.json",
+      "sha256": "a11f6ba04549c2971ac9d548f78d8ef8c9af0da5e357405f9f0411a63e545f1b",
+      "bytes": 5612
+    },
+    "helper_metadata_independent_SOURCE": {
+      "label": "modern/chip-reset-helper-metadata-correction-independent-SOURCE-review-v1/review-v1.json",
+      "sha256": "8e14082fe7ef4f1ffdd7abfc8148c4e59b5ec9c12542bf153b1d7c2519ea623b",
+      "bytes": 4366
+    },
+    "local_existing_runtime_completion": {
+      "label": "modern/recipe679-local-protection-CLOSED-SOURCE-v1/local-install/completion.json",
+      "sha256": "dc37e9081ef87c1520faaaf6ef253385135b1b79fa9c8a7630ba75e56e2542b5",
+      "bytes": 7446
+    },
+    "local_existing_runtime_independent_FILE": {
+      "label": "modern/recipe679-local-delivery-actual-independent-FILE-review-v1/review-v2.json",
+      "sha256": "791fad41219b780a00d33c73b7d078ec38e1519c0bfc04989e688e56ff2e01e1",
+      "bytes": 15033
+    },
+    "online_origin_artifact": {
+      "label": "modern/chip-reset-existing-stock-online-artifact-CLOSED-SOURCE-v1/actual/root-online-v1/check-receipt.json",
+      "sha256": "0d3a39f349bbdf077ecd6f701ed57873f1d54ccbb66ebe97f0ba5a5cdcfd4113",
+      "bytes": 72047
+    },
+    "online_artifact_independent_FILE": {
+      "label": "modern/chip-reset-existing-stock-online-artifact-actual-independent-FILE-review-v1/review-v1.json",
+      "sha256": "f987a8f7089b91dee162f7d5cb10845fc50728d9b2ec04e28572376f70ca68aa",
+      "bytes": 9907
+    },
+    "two_writer_protected_SOURCE": {
+      "label": "modern/chip-reset-existing-stock-finite-publication-CLOSED-SOURCE-v2/online-control-source-freeze.json",
+      "sha256": "05ea6602184f03aa0fb9d41ad1c9d67d96cc441b7c68d9cf2cd24f9b7a833e20",
+      "bytes": 31773
+    },
+    "two_writer_SOURCE_peer": {
+      "label": "modern/chip-reset-existing-stock-finite-publication-independent-SOURCE-review-v1/review-v2.json",
+      "sha256": "dacff63b409496dd360e0f5a8be5ef1723fa64e1546fa6c0090569a77ae20d6b",
+      "bytes": 3051
+    },
+    "prepared_FILE_peer": {
+      "label": "modern/chip-reset-existing-stock-prepared-independent-FILE-review-v1/review-v1.json",
+      "sha256": "06dcbac4cb708b07c9738efd0a90c6e8841e2707f2f608c833f69d92898a65e0",
+      "bytes": 9002
+    },
+    "first_preflight_failure_archive": {
+      "label": "modern/chip-reset-existing-stock-finite-publication-CLOSED-SOURCE-v2/preflight-attempt1-immutable-v1/archive.json",
+      "sha256": "efb1063a0ddeae41db341cad26c060dba2e79146a7b79494b563df824e6cf4ad",
+      "bytes": 1697
+    },
+    "first_preflight_failure": {
+      "label": "modern/chip-reset-existing-stock-finite-publication-CLOSED-SOURCE-v2/preflight-attempt1-immutable-v1/preflight-failure.json",
+      "sha256": "631f99764e2640adb4b3dfaad82095249ed45af743465c8157583a9ed4a5b7aa",
+      "bytes": 3724
+    },
+    "first_preflight_worker_exit_readonly": {
+      "label": "modern/chip-reset-existing-stock-finite-publication-CLOSED-SOURCE-v2/preflight-attempt1-immutable-v1/root-timeout-RO-inspection-v1.json",
+      "sha256": "694fea540d3aa3f04137ba685cfbb589f528bb39e242ebb7842d2e6ca8a2a6fd",
+      "bytes": 678
+    },
+    "same_source_bounded_retry": {
+      "label": "modern/chip-reset-existing-stock-finite-publication-CLOSED-SOURCE-v2/root-preflight-execution-v2.json",
+      "sha256": "1a5648d0440aa895a1bf94713fd9a5994c54c4a887c260f9a767f83601fe3629",
+      "bytes": 346
+    },
+    "current_acquisition_judgment": {
+      "label": "modern/chip-reset-current-acquisition-directed-SOURCE-v1/judgment-v1.json",
+      "sha256": "769415f8b47f5bee7e64da9a466c68bfb8a28946704d13cc40a39854871b89a0",
+      "bytes": 3448
+    },
+    "current_acquisition_SOURCE": {
+      "label": "modern/chip-reset-current-acquisition-directed-SOURCE-v1/source-freeze.json",
+      "sha256": "9198842223022ead1844017feb6bb22dcdd00e4990d39039e9a14e28eae4150b",
+      "bytes": 1172
+    },
+    "current_acquisition_web_boundaries": {
+      "label": "modern/chip-reset-current-acquisition-directed-SOURCE-v1/web-evidence-and-version-boundaries-v1.json",
+      "sha256": "c18c9c8e93a373468a58dbba8e46ac5175d7377b977468f6b501c10f6d84fad7",
+      "bytes": 5052
+    },
+    "source_CI": {
+      "label": "Git-chip-reset-existing-stock-delivery-v1/source-CI-execution-v1.json",
+      "sha256": "3fc6e6f02d84d2d48ca16e48741ffbff5f478044bd7ed9cd6913aebb9adde012",
+      "bytes": 420
+    },
+    "public_negative_acceptance": {
+      "label": "modern/chip-reset-existing-stock-finite-publication-CLOSED-SOURCE-v2/public-acceptance.json",
+      "sha256": "a84bfa4648a4b5b4e53278962ceed1e6698d610ddc31f716978d631a195591f5",
+      "bytes": 87400
+    },
+    "online_completion": {
+      "label": "modern/chip-reset-existing-stock-finite-publication-CLOSED-SOURCE-v2/online-completion.json",
+      "sha256": "f7aee0df3011bec0c32ea3b630526ef255ce5cc10615e5a75d3f4c2cb3da5ba6",
+      "bytes": 839
+    },
+    "online_acceptance": {
+      "label": "modern/chip-reset-existing-stock-finite-publication-CLOSED-SOURCE-v2/online-acceptance.json",
+      "sha256": "e2559a6b36e995d91e75c49d501b63d5717b43c96922b0b1da5bef757009922a",
+      "bytes": 90497
+    },
+    "online_post_observation": {
+      "label": "modern/chip-reset-existing-stock-finite-publication-CLOSED-SOURCE-v2/online-post.json",
+      "sha256": "6946e5e9a16e34e26401990079eae3751952ce05b309575539fc3569527fafb8",
+      "bytes": 374
+    },
+    "local_metadata_only_reconciliation": {
+      "label": "modern/chip-reset-existing-stock-finite-publication-CLOSED-SOURCE-v2/local-post-online-reconciliation.json",
+      "sha256": "7f4a6f73a9ca39700c1a067ef12fe89dc415ec6ccab23aa93725b1f48d5f45a9",
+      "bytes": 1506
+    },
+    "server_cleanup": {
+      "label": "modern/chip-reset-existing-stock-finite-publication-CLOSED-SOURCE-v2/cleanup.json",
+      "sha256": "8c01108bd9fed44d46f575a85a87552a55c57fc73ac492f0083679482d18b839",
+      "bytes": 166
+    },
+    "own_locks_released": {
+      "label": "modern/chip-reset-existing-stock-finite-publication-CLOSED-SOURCE-v2/locks-released.json",
+      "sha256": "663e57e7f30624820d31149e09e9b14f351b8b8b88dffb31fb1a1047e117613c",
+      "bytes": 51
+    }
+  },
+  "unverified": [
+    "Public positive reset and native GUI",
+    "Current-build exact normal chip/coupon output template and rate/qualification to server producer",
+    "Current blessed mall SKU,availability and price",
+    "Prefixed-variant active CN event/template mapping",
+    "Paid later tuning, bankGUI and full negative matrix",
+    "Whole equipment-growth100 percent"
+  ],
+  "whole_category_100": false,
+  "new_client_behavior": false,
+  "private_credentials_raw_captures_DB_and_runtime_assets_included": false
+}

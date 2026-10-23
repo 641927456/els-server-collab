@@ -1,6 +1,7 @@
 """Three Mirror conversion lines and 1+locked_count tickets commit exactly once."""
 import sqlite3,secrets
 from contextlib import closing
+from els_server.storage.profession_state import require_owner
 from els_server.domain.artifact_conversion import validate,draw
 from els_server.domain.artifact_progression import catalog
 from els_server.domain.item_expiration import require_current,expired
@@ -12,7 +13,7 @@ from els_server.storage.inventory_state import load_items
 from els_server.storage.npc_trade import balances
 from els_server.storage.equipment_options import replace
 from els_server.storage.artifact_progression import consume
-def perform(path,owner,payload,operation,randbelow=secrets.randbelow):
+def perform(path,owner,payload,operation,randbelow=secrets.randbelow,*,account_id=None):
  uid,groups,profession,mode=request(payload)
  if mode!=20 or profession or set(groups)!={31}:raise ValueError('Unsupported Artifact conversion mode')
  locked_options=groups[31]
@@ -20,6 +21,7 @@ def perform(path,owner,payload,operation,randbelow=secrets.randbelow):
  owner,digest=_identity(owner,0x6e7,payload,operation)
  with closing(sqlite3.connect(path,timeout=10)) as db,db:
   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+  if account_id is not None:require_owner(db,owner,account_id)
   old=_previous(db,operation,digest);before=load_items(db,owner);ed=balances(db,owner)['ed']
   item=next((i for i in before if i['uid']==uid),None)
   if old is not None:

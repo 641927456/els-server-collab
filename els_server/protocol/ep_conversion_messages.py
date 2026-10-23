@@ -1,4 +1,4 @@
-"""A69 empty request, A6A empty admitted catalogue/rates, A5C/A5D conversion."""
+"""A69 empty request, A6A bounded admitted goods/rates, A5C/A5D conversion."""
 import struct
 from els_server.domain.ep_points import validate
 from els_server.domain.ep_conversion import Rate,ConversionResult,ConversionRejected
@@ -21,10 +21,10 @@ def acknowledgement(ed,ep,result=0):
     validate(ep)
     return Event(0x201,kind=0xa5d,payload=struct.pack('>iQQ',_result(result),ed,ep))
 
-def catalogue(rate=None,result=0):
+def catalogue(rate=None,result=0,*,offers=()):
     result=_result(result)
     if result==0 and type(rate) is not Rate:raise ValueError('Missing admitted EP rate')
     ed,ep=(rate.ed_per_bundle,rate.ep_per_bundle) if result==0 else (0,0)
-    # No retail SKU is admitted. The original reader accepts an empty map;
-    # advertise only the independently source-qualified conversion units.
-    return Event(0x201,kind=0xa6a,payload=struct.pack('>iiQQ',result,0,ed,ep))
+    from els_server.protocol.ep_shop_messages import catalogue_records
+    goods=catalogue_records(offers) if result==0 else bytes(4)
+    return Event(0x201,kind=0xa6a,payload=struct.pack('>i',result)+goods+struct.pack('>QQ',ed,ep))
