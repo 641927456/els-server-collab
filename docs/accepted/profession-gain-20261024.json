@@ -1,0 +1,17 @@
+{
+  "scope": "当前职业表和制造配方没有职业经验收益参数。按用户明确的来源优先级，沿用70级服务端的成功制造经验：配方所需等级1～3为10、4～6为25、7～10为60，再乘数量。保留本服炼金初始100、升级门槛、满级0经验、旧存档与旧回执；不更改材料、费用、奖励数量或概率。旧收益仅作为本服沿用规则。",
+  "source_files": [
+    {
+      "path": "els_server/domain/manufacture_rules.py",
+      "sha256": "1dd5ba092184c6864712bb015ac52ca7b475a97996d291cf2b92da83e18f9fe9"
+    }
+  ],
+  "parent_dependency": "fix/318-profession-initial2",
+  "new_schema": false,
+  "client_changes": 0,
+  "independent_source_review": true,
+  "old_economic_checks_replayed": 0,
+  "controlled_SQL_and_wire": true,
+  "natural_GUI": false,
+  "installed_acceptance": "Recorded separately in deployment channel manifests; source PR alone does not prove installation."
+}
