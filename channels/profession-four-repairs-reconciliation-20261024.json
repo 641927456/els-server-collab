@@ -1,0 +1,272 @@
+{
+  "schema": 1,
+  "release": "profession-smith-decomposition-XP-20261024-v1",
+  "independent_repairs": 4,
+  "PRs": [
+    {
+      "unit_id": "profession-current-actor-transaction-guard",
+      "PR": 317,
+      "url": "https://github.com/641927456/els-server-collab/pull/317",
+      "merge_commit": "560aec43b4e9c834129755a23e11a5030916cd73",
+      "head": "db35e2746776dd26e7377e43c1207884870fc680"
+    },
+    {
+      "unit_id": "blacksmith-initial-local-policy400",
+      "PR": 319,
+      "url": "https://github.com/641927456/els-server-collab/pull/319",
+      "merge_commit": "35ff0cf5a12ef15acdd913a58c29264eb8dccfb5",
+      "head": "709b43d58616096662f999b4f27779b443868d2f"
+    },
+    {
+      "unit_id": "alchemy-manufacture-legacy-XP-gain",
+      "PR": 321,
+      "url": "https://github.com/641927456/els-server-collab/pull/321",
+      "merge_commit": "3d6113f3f579f80ca6bbd78fe8ee7244dde63a1a",
+      "head": "dfc11c09a22e3f8fb2b10bbd12c830b2ead7e4ea"
+    },
+    {
+      "unit_id": "ordinary-blacksmith-dismantle-XP",
+      "PR": 327,
+      "url": "https://github.com/641927456/els-server-collab/pull/327",
+      "merge_commit": "cdd2810451b801065a07e76671ffb9d189bd78c1",
+      "head": "40e27cc7d1ed2416995558d0a3987adce011e465"
+    }
+  ],
+  "formal_channels": {
+    "local": {
+      "release": "local-profession-smith-decomposition-XP-20261024-v1",
+      "manifest_sha256": "27aefbb10b4035422263fb5d1877608aaf5c9a53a66b2944f1d8d7e85258ddc5"
+    },
+    "online": {
+      "release": "profession-smith-decomposition-XP-20261024-v1",
+      "manifest_sha256": "216f96f2ab672637f9ea90d6b612fae838f5d718ed3cfb9c2091f6e81bf1a1f4"
+    }
+  },
+  "source_matrix": [
+    {
+      "id": "current-client-priority",
+      "source_class": "当前客户端静态定义与既有原生消费者",
+      "current_definition": "当前制造配方提供ID、结果候选、材料数量、ED、职业/最低等级、升级及场所限制；已核完整目录键与88条ProfessionTemplet注册没有声明制造XP收益。当前锤数、铁砧重置、材料数量及炼金累计ED特殊奖励有明确新版表，须优先使用。限定未命中不代表整个客户端没有其他XP来源。",
+      "native_reuse": "198/199、1C0/1C1的服务器XP增量与真升级4C4、重放D9/冷登2A复用既有原生消费者；不重写界面、计算、效果或计时。",
+      "boundary": "静态与既有消费者证据不是本轮完整自然GUI或玩家流程验收。"
+    },
+    {
+      "id": "unit1-current-actor-precommit-guards",
+      "source_class": "当前服务端权威校验与事务保护",
+      "scope": "制作/首次副职选择的当前账号、角色、阶段、存档路径与lease绑定；取得SQL写锁后及提交前重核；完整原格式回包预编码失败回滚。",
+      "source_rule": "身份和经济结果由服务端确认，复用当前原生界面/通知；不是新增职业经济规则。",
+      "acceptance_layer": "定向SQL/编码/actor检查与最终双端完成回执；完整自然GUI未验。"
+    },
+    {
+      "id": "unit2-blacksmith-initial400",
+      "source_class": "用户明确指定的本服初值，参照ELS70资料",
+      "scope": "40级正常首次选择职业2、等级1、总XP0、空计数、进度0、所需400；同职重试不重置，旧职业档保持；既有1%炼制折扣复用。",
+      "source_rule": "本服兼容初值，不冒称当前官服初值。",
+      "acceptance_layer": "实际初选/拒绝/同职重试、原格式回执、事务保存和冷登按最终双端完成回执核收；未证明其他职业或后续高级业务。"
+    },
+    {
+      "id": "unit3-alchemist-manufacture-gain",
+      "source_class": "已授权沿用的旧ELS70成功制造收益",
+      "old_source": "GSUserInventory.cpp:2849～2864；共享旧70修订实现，不是当前官服权威数字。",
+      "source_rule": "当前已准入炼金配方按最低职业等级1～3每件10、4～6每件25、7～10每件60，乘实际批量；保留既有满级0XP、本服初始100、当前100～25600兼容阈值、材料/ED、奖励产量/随机、称号与旧回执。",
+      "acceptance_layer": "新增公式/真实SQL/预编码回滚/旧回执不重算与冷读证据及最终双端回执；不扩Flask或特殊奖励动作。"
+    },
+    {
+      "id": "unit4-ordinary-blacksmith-dismantle-gain",
+      "source_class": "当前合法普通分解与已授权旧ELS70收益/后续阈值沿用",
+      "old_source": "GSUserInventory.cpp:3141～3155与ProfessionExpTable.lua；旧作者实现/声称Wiki曲线，以本服沿用标注，不冒称官服。",
+      "source_rule": "仅原已准入、quote701000、原装备等级1～80的普通持有实例；1～29/30～49/50～69/70～80给5/15/25/40XP。当前合法非零required优先，后续级成本400/700/1100/1600/5200/10800/18800/29600/43600；封顶只授实际所需增量。旧required0或满级不改state且0新XP，原分解保持；白芯和炼金不授本次XP。",
+      "transaction_and_schema": "原删除/晶体、职业CAS和原回执同SQL；真升级4C4预编码，重放XP0并恢复当前D9绝对state。新增1张惰性兼容审计表，记录实际授予及前后state；无既有表变形、无提前DDL、无读时迁移或重放补写。",
+      "acceptance_layer": "受控持有实例SQL、原格式公网报文/冷登和最终双端回执分层；不代表自然装备获取、游戏GUI或完整职业系统验收。"
+    },
+    {
+      "id": "remaining-contracts-and-boundaries",
+      "source_class": "当前已归档静态线索与仍未闭合合同",
+      "remaining": "猎人箱生成/个人与多人实例/开箱；现代铁砧21字节状态、锤数/重置消费者和奖励通知；Flask五槽实例请求/结果、费用/奖励/XP和累计ED特殊奖励账本；铁匠高级强化flag、118204消耗与600结果仍未完成。其他配方/兑换/材料来源、自然GUI及完整玩家流程保留。",
+      "fallback_boundary": "用户允许参考并沿用匹配业务的旧70作者设计/推导收益；不能用旧相邻系统奖池/数字创造尚未核定动作，不能套旧协议或重写客户端计时。",
+      "whole_card_complete": false,
+      "official_rules_claimed": false
+    }
+  ],
+  "GUI_boundary": "受控SQL、原格式公网TLS、冷登录及既有原生消费者证据分层；本轮未运行游戏GUI，未证明自然装备获取、完整制造/职业玩家流程、猎人、铁砧、Flask或高级强化。",
+  "official_rules_claimed": false,
+  "old_successful_checks_replayed": 0,
+  "game_runtime_operations": 0,
+  "player_database_operations": 0,
+  "original_immutable_records_rewritten": false,
+  "local1012_preserved": true,
+  "existing_accepted_snapshots_reused": true,
+  "existing_channel_metadata_PR": 329,
+  "accepted_source_equality": [
+    {
+      "channel": "local",
+      "accepted_commit": "3988a57c90d02aa2533e2c7bbf552d53af836a6e",
+      "completed_own_commit": "3c31cb342b922add381b11b7dd48d3676147b95a",
+      "metadata_child": "fd2b679eb6e5ce963e7245b715f2789247f5779a",
+      "server_source_tree": "dd6595c774ea93fbe425caeb1d243beaf4dea469",
+      "source_rows": 719,
+      "record_source_rows_equal": true,
+      "indexed_Python_JSON_source_blobs_equal": true,
+      "entire_server_source_tree_equal": false,
+      "retained_original_static_assets": [
+        {
+          "path": "els_server/data/selected2026/gm-static/app.js",
+          "sha256": "652a53c0a05c5a3b115aca6cddbfa8fd26913ba7d1c201195ec917d373d58108",
+          "unchanged_accepted_parent": true,
+          "formal_business_manifest_contains": true,
+          "source_row_scope": "Python/JSON only; inherited nonindexed assets are not a runtime-package claim"
+        },
+        {
+          "path": "els_server/data/selected2026/gm-static/index.html",
+          "sha256": "6da2606c9ca0bc5207280435538bbf99d45719cf98ff53023f44e2204694df7f",
+          "unchanged_accepted_parent": true,
+          "formal_business_manifest_contains": true,
+          "source_row_scope": "Python/JSON only; inherited nonindexed assets are not a runtime-package claim"
+        },
+        {
+          "path": "els_server/data/selected2026/gm-static/style.css",
+          "sha256": "b2c4690a23c6c8002fdb4533d6d6ee805aab6dc7bd89738847b47dcc912295f9",
+          "unchanged_accepted_parent": true,
+          "formal_business_manifest_contains": true,
+          "source_row_scope": "Python/JSON only; inherited nonindexed assets are not a runtime-package claim"
+        }
+      ],
+      "existing_record_immutable": true,
+      "source_and_privacy_checks_replayed": 0,
+      "old_selector": {
+        "channel": "local",
+        "snapshot": "channels/local-three-guards-20261023-v1.json",
+        "local_snapshot": "channels/local-three-guards-20261023-v1.json",
+        "online_snapshot": "channels/online-startup-query-optimization-20261021-v1.json",
+        "online_branch": "snapshot/online-startup-query-optimization-20261021-v1",
+        "formal_local_snapshot": "channels/local-three-guards-20261023-v1.json",
+        "formal_local_branch": "snapshot/local-three-guards-20261023-v1",
+        "automatic_deployment": false,
+        "accepted_local_snapshot": "channels/local-three-guards-20261023-v1.json",
+        "launcher_release": "friends-startup-query-optimization-20261021-v1",
+        "launcher_source": "launchers/friends-v32/release.json",
+        "source_view_is_formal_runtime": false
+      },
+      "metadata_only_default_selector_completed": true
+    },
+    {
+      "channel": "online",
+      "accepted_commit": "1b6e6ecc2974a4533c5e45d7d5ed2bb261a90295",
+      "completed_own_commit": "43a8c7b74b83ab83f78cbcf60f5b7bd59dbbdf23",
+      "metadata_child": "42a438ade9b1fbca51abf48d3c50963b37377923",
+      "server_source_tree": "7230d95dc20be9e6d00061d5a8fe02206b0fe4ee",
+      "source_rows": 721,
+      "record_source_rows_equal": true,
+      "indexed_Python_JSON_source_blobs_equal": true,
+      "entire_server_source_tree_equal": false,
+      "retained_original_static_assets": [
+        {
+          "path": "els_server/data/selected2026/gm-static/app.js",
+          "sha256": "652a53c0a05c5a3b115aca6cddbfa8fd26913ba7d1c201195ec917d373d58108",
+          "unchanged_accepted_parent": true,
+          "formal_business_manifest_contains": false,
+          "source_row_scope": "Python/JSON only; inherited nonindexed assets are not a runtime-package claim"
+        },
+        {
+          "path": "els_server/data/selected2026/gm-static/index.html",
+          "sha256": "6da2606c9ca0bc5207280435538bbf99d45719cf98ff53023f44e2204694df7f",
+          "unchanged_accepted_parent": true,
+          "formal_business_manifest_contains": false,
+          "source_row_scope": "Python/JSON only; inherited nonindexed assets are not a runtime-package claim"
+        },
+        {
+          "path": "els_server/data/selected2026/gm-static/style.css",
+          "sha256": "b2c4690a23c6c8002fdb4533d6d6ee805aab6dc7bd89738847b47dcc912295f9",
+          "unchanged_accepted_parent": true,
+          "formal_business_manifest_contains": false,
+          "source_row_scope": "Python/JSON only; inherited nonindexed assets are not a runtime-package claim"
+        }
+      ],
+      "existing_record_immutable": true,
+      "source_and_privacy_checks_replayed": 0,
+      "old_selector": {
+        "channel": "online",
+        "snapshot": "channels/online-native-menu-smile-20261023-v1.json",
+        "local_snapshot": "channels/local-source-startup-bridge-native-reuse-20261021-v2.json",
+        "online_snapshot": "channels/online-native-menu-smile-20261023-v1.json",
+        "online_branch": "snapshot/online-native-menu-smile-20261023-v1",
+        "formal_local_snapshot": "channels/local-startup-bridge-native-reuse-20261021-v2.json",
+        "formal_local_branch": "snapshot/local-startup-bridge-native-reuse-20261021-v2",
+        "automatic_deployment": false,
+        "accepted_local_snapshot": "channels/local-startup-bridge-native-reuse-20261021-v2.json",
+        "launcher_release": "friends-bridge-native-reuse-20261021-v1",
+        "launcher_source": "launchers/friends-v33/release.json",
+        "source_view_is_formal_runtime": false
+      },
+      "metadata_only_default_selector_completed": true
+    }
+  ],
+  "descriptive_history_deviations": {
+    "local": [],
+    "online": [
+      {
+        "object": "current_pointer",
+        "field": "parent_manifest_sha256",
+        "actual_manifest_bound_value": "2418fe9d11fa8d7071a8f529aa88a20484a4d3df244260035d29f201760e1317",
+        "exact_reconciliation_sha256": "632a979f417ead29f1e4077229a3bcec8a9bd652bd15a4a3bd25aa896c30d3d6",
+        "source": "SHA-bound complete published rollup parent chain, previous-current and accepted child",
+        "published_value": "7eb59ab65dd221ca9c125dc4d3680b125fb6d12a18ba039405c3a30c22b21469"
+      },
+      {
+        "object": "published_rollup",
+        "field": "delta",
+        "published_paths": [
+          "els_server/domain/dungeon_equipment_loot_flow.py",
+          "els_server/domain/friends_material_loot.py"
+        ],
+        "actual_manifest_file_delta": [
+          "els_server/domain/profession_growth.py",
+          "els_server/domain/white_chip_decomposition_flow.py",
+          "els_server/protocol/inventory_management_messages.py",
+          "els_server/storage/decomposition.py"
+        ],
+        "published_manifest_immutable": true
+      },
+      {
+        "object": "published_rollup",
+        "field": "new_runtime_files",
+        "actual_manifest_file_delta": [
+          "els_server/domain/profession_growth.py"
+        ],
+        "published_manifest_immutable": true,
+        "published_value": []
+      },
+      {
+        "object": "published_rollup",
+        "field": "replaced_runtime_files",
+        "actual_manifest_file_delta": [
+          "els_server/domain/white_chip_decomposition_flow.py",
+          "els_server/protocol/inventory_management_messages.py",
+          "els_server/storage/decomposition.py"
+        ],
+        "published_manifest_immutable": true,
+        "published_value": [
+          "els_server/domain/friends_material_loot.py",
+          "els_server/domain/dungeon_equipment_loot_flow.py"
+        ]
+      },
+      {
+        "object": "published_rollup",
+        "field": "unit_id",
+        "canonical_successor_identity_not_invented": true,
+        "published_manifest_immutable": true,
+        "exact_reconciliation_sha256": "632a979f417ead29f1e4077229a3bcec8a9bd652bd15a4a3bd25aa896c30d3d6",
+        "published_value": "multiplayer-clear-owner-material-claim"
+      },
+      {
+        "object": "published_rollup",
+        "field": "source_contract_sha256",
+        "canonical_successor_identity_not_invented": true,
+        "published_manifest_immutable": true,
+        "exact_reconciliation_sha256": "632a979f417ead29f1e4077229a3bcec8a9bd652bd15a4a3bd25aa896c30d3d6",
+        "published_value": "2a85fc9a1a6c76bedd4acf831b3ce211e9c010d1e28a5edbe224c15364e73278"
+      }
+    ]
+  },
+  "descriptive_history_authority": "Actual complete parent/child inventories, own qualified four-leaf plan, frozen acceptance and exact SHA-bound successor reconciliation; old published descriptive fields retained rather than rewritten."
+}
