@@ -642,6 +642,35 @@
         900.0
       ],
       "scene": 1214
+    },
+    "1010": {
+      "requirement": {
+        "REQUIRE_COMPLETE_QUEST_ID": 26670,
+        "ID": 1010,
+        "BEFORE": 1009,
+        "AFTER": 20013,
+        "REQUIRE_LEVEL": {
+          "MAX": 99,
+          "MIN": 99
+        },
+        "REQUIRE_DUNGEON": {},
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_45628"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -5245,
+        "StartPosId": 1701,
+        "StartPosZ": -210,
+        "StartPosY": 152,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -5245.0,
+        152.0,
+        -210.0
+      ],
+      "scene": 964
     }
   },
   "map_groups": {

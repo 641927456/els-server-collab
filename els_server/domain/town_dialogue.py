@@ -5,8 +5,8 @@ from els_server.game_data import CLIENT_SHA,client_data
 
 QUEST=13
 NPC=10018
-QUEST_IDS=frozenset((13, 6160, 6190, 6220, 7290, 7320, 7360, 26830, 26880, 26930, 27060, 27100, 100050, 100060, 100080, 100130, 100160, 100190, 100210, 100240, 100250, 100260, 100270, 100280, 100330, 100340, 100360, 100410, 100420, 100440, 100470, 100480, 100500, 100520, 100540, 100550, 100560, 100590, 100600, 100620, 100630, 100660, 100680, 100690, 100710, 100730, 100750, 100770, 100790, 100800, 100840, 100850, 100870, 100900, 100910, 100920, 100940, 100950, 100970, 100980, 100990, 101010, 101020, 101030, 101040))
-SUBQUEST_IDS=frozenset((13, 6160, 6190, 6220, 7290, 7320, 7360, 22313, 22333, 26830, 26870, 26930, 27060, 27100, 100050, 100060, 100080, 100130, 100160, 100190, 100210, 100240, 100250, 100260, 100270, 100280, 100330, 100340, 100360, 100410, 100420, 100440, 100470, 100480, 100500, 100520, 100540, 100550, 100560, 100590, 100600, 100620, 100630, 100660, 100680, 100690, 100710, 100730, 100750, 100770, 100790, 100800, 100840, 100850, 100870, 100900, 100910, 100920, 100950, 100970, 100990, 101030, 101040))
+QUEST_IDS=frozenset((13, 6160, 6190, 6220, 7290, 7320, 7360, 26830, 26880, 26930, 27060, 27100, 100050, 100060, 100080, 100130, 100160, 100190, 100210, 100240, 100250, 100260, 100270, 100280, 100330, 100340, 100360, 100410, 100420, 100440, 100470, 100480, 100500, 100520, 100540, 100550, 100560, 100590, 100600, 100620, 100630, 100660, 100680, 100690, 100710, 100730, 100750, 100770, 100790, 100800, 100840, 100850, 100870, 100900, 100910, 100920, 100940, 100950, 100970, 100980, 100990, 101010, 101020, 101030, 101040, 23690, 23700))
+SUBQUEST_IDS=frozenset((13, 6160, 6190, 6220, 7290, 7320, 7360, 22313, 22333, 26830, 26870, 26930, 27060, 27100, 100050, 100060, 100080, 100130, 100160, 100190, 100210, 100240, 100250, 100260, 100270, 100280, 100330, 100340, 100360, 100410, 100420, 100440, 100470, 100480, 100500, 100520, 100540, 100550, 100560, 100590, 100600, 100620, 100630, 100660, 100680, 100690, 100710, 100730, 100750, 100770, 100790, 100800, 100840, 100850, 100870, 100900, 100910, 100920, 100950, 100970, 100990, 101030, 101040, 23550))
 EARLY_EPIC_BINDINGS={100050:(10005,40005),100060:(10006,40006),100080:(10005,40005)}
 
 @functools.lru_cache(maxsize=1)
@@ -20,10 +20,10 @@ def catalog():
         or row['catalog_sha256']!=data.manifest['catalog_sha256']
         or {int(k) for k in row['quests']}!=QUEST_IDS or {int(k) for k in row['subquests']}!=SUBQUEST_IDS
         or row['npc']!=NPC or row['house']!=40017
-        or manifest['quests']!=65 or manifest['subquests']!=63):raise ValueError('Town dialogue catalog identity')
+        or manifest['quests']!=67 or manifest['subquests']!=64):raise ValueError('Town dialogue catalog identity')
     from els_server.storage.local_state import TOWN_SCENES
-    if len(row['towns'])!=14 or any(TOWN_SCENES.get(int(town))!=scene for town,scene in row['towns'].items()):raise ValueError('Town dialogue scene identity')
-    if set(row['npc_bindings'])!={'10010', '10005', '10006', '10030', '10071', '10018', '10056', '10015', '10078', '10040', '10020', '10145', '10001', '10029', '10067', '10144', '10012', '10021', '10002', '10057', '10039', '10000', '10143', '10363'}:raise ValueError('Town dialogue NPC set')
+    if len(row['towns'])!=15 or any(TOWN_SCENES.get(int(town))!=scene for town,scene in row['towns'].items()):raise ValueError('Town dialogue scene identity')
+    if set(row['npc_bindings'])!=({'10010', '10005', '10006', '10030', '10071', '10018', '10056', '10015', '10078', '10040', '10020', '10145', '10001', '10029', '10067', '10144', '10012', '10021', '10002', '10057', '10039', '10000', '10143', '10363'}|{'10360'}):raise ValueError('Town dialogue NPC set')
     for binding in row['npc_bindings'].values():
         if not binding['houses'] or not binding['towns'] or any(TOWN_SCENES.get(int(t))!=scene for t,scene in binding['towns'].items()):raise ValueError('Town dialogue NPC scene source')
     for key,sub in row['subquests'].items():
@@ -48,6 +48,19 @@ def catalog():
             or row['subquests'][str(identity)]['m_ClearCondition']!=dict(m_eTalkNPCID=npc)):
             raise ValueError('Mid-story NPC source identity')
     if row['npc_bindings']['10363']!=dict(houses=[40263],towns={'20012':1004}):raise ValueError('Noah diary exact scene binding')
+    # Exact current Aurora camp and original mainline26680 reward successor.
+    quest=row['quests']['23690']
+    if (quest['m_eQuestType']!=5 or quest['QuestCondition']['m_iLevel']!=99
+        or set(quest['QuestCondition']['m_eUnitType'].values())!=set(range(1,15))
+        or quest['m_vecSubQuest']!={'0':None,'1':23550}
+        or row['subquests']['23550']!=dict(m_iID=23550,m_eClearType=1,m_bAutomaticDescription=0,m_ClearCondition=dict(m_eTalkNPCID=10360))
+        or row['npc_bindings']['10360']!=dict(houses=[40257],towns={'1010':964})):
+        raise ValueError('Aurora original NPC10360 continuation identity')
+    successor=row['quests']['23700']
+    if (successor['m_eQuestType']!=5 or successor['QuestCondition']!=quest['QuestCondition']
+        or successor['m_vecSubQuest']!={'0':None,'1':23550}
+        or successor['m_iAfterQuestID']!={'0':None,'1':23710}):
+        raise ValueError('Aurora original second NPC10360 dialogue')
     from els_server.domain.job_quests import extend_town_dialogue
     return extend_town_dialogue(row)
 
