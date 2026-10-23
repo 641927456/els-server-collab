@@ -696,3 +696,11 @@ for _account_epic_reward in _account_epic_reward_definitions():
  _t=_account_epic_reward['template'];_expected=tuple(_account_epic_reward[k] for k in ('metadata','group','max_stack'))
  if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting finite account Epic reward reader')
  VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+# Original26750 rewards: unused singleton instances only. Housing use is separate.
+for _t,_digest,_flags in ((136034,'4376af863bbe3005333d2e4f2673780bc2a350bbd707fb4cab8ef595902f323d',4198410),(136039,'0567ac6833f56ac2722e347d7b0cd8b2d5d5ed6df70b3f71baaf0c53ea273398',4198402)):
+ from els_server.game_data import client_data as _housing_reward_client_data
+ _item=_housing_reward_client_data().item(_t)
+ if (hashlib.sha256(_item['record']).hexdigest()!=_digest or (_item['item_type'],_item['metadata'],_item['flags4'],_item['flags8'],struct.unpack_from('<I',_item['record'],0x10)[0])!=(7,0,_flags,56,0)):raise ValueError('Original26750 reward item source')
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=(0,4,1):raise ValueError('Conflicting original26750 reward reader')
+ VERIFIED_TEMPLATES[_t]=0;TEMPLATE_BAG_GROUPS[_t]=4;TEMPLATE_MAX_STACKS[_t]=1
