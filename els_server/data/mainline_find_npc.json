@@ -1,0 +1,6275 @@
+{
+  "schema_version": 1,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "quest_ids": [
+    22168,
+    24070,
+    24090,
+    24130,
+    24150,
+    24180,
+    24200,
+    24240,
+    24260,
+    24710,
+    24715,
+    24724,
+    24726,
+    24733,
+    24735,
+    24742,
+    24744,
+    24748,
+    24750,
+    24752,
+    24760,
+    24762,
+    24766,
+    24768,
+    24772,
+    24786,
+    24789,
+    24792,
+    24795,
+    24800,
+    24803,
+    24815,
+    24822,
+    24824,
+    24832,
+    24834,
+    24840,
+    24842,
+    24844,
+    24846,
+    24848
+  ],
+  "subquests": {
+    "24070": {
+      "source": {
+        "m_iID": 24070,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 34810,
+            "2": 35650,
+            "3": 35120
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 8440,
+            "2": 12131,
+            "3": 9050
+          }
+        }
+      },
+      "quests": [
+        24070
+      ],
+      "matches": [
+        {
+          "dungeon": 34810,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 8440,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 34810,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 8440
+        },
+        {
+          "dungeon": 35650,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12131,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35650,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12131
+        },
+        {
+          "dungeon": 35120,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9050,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35120,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9050
+        }
+      ]
+    },
+    "24090": {
+      "source": {
+        "m_iID": 24090,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 34810,
+            "2": 35650,
+            "3": 35120
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 8441,
+            "2": 12132,
+            "3": 9051
+          }
+        }
+      },
+      "quests": [
+        24090
+      ],
+      "matches": [
+        {
+          "dungeon": 34810,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 8441,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 250,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 34810,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 8441
+        },
+        {
+          "dungeon": 35650,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12132,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 250,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35650,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 12132
+        },
+        {
+          "dungeon": 35120,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9051,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 250,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35120,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9051
+        }
+      ]
+    },
+    "24130": {
+      "source": {
+        "m_iID": 24130,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 34820,
+            "2": 35660,
+            "3": 35130
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 8470,
+            "2": 12151,
+            "3": 9080
+          }
+        }
+      },
+      "quests": [
+        24130,
+        24180
+      ],
+      "matches": [
+        {
+          "dungeon": 34820,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 8470,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 70,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 34820,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 8470
+        },
+        {
+          "dungeon": 35660,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12151,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 70,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35660,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12151
+        },
+        {
+          "dungeon": 35130,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9080,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 70,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35130,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9080
+        }
+      ]
+    },
+    "24180": {
+      "source": {
+        "m_iID": 24180,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 34830,
+            "2": 35670,
+            "3": 35140
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 8490,
+            "2": 12171,
+            "3": 9100
+          }
+        }
+      },
+      "quests": [
+        24130,
+        24180
+      ],
+      "matches": [
+        {
+          "dungeon": 34830,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 8490,
+            "source_index": 1,
+            "points": [
+              4
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 34830,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 8490
+        },
+        {
+          "dungeon": 35670,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12171,
+            "source_index": 1,
+            "points": [
+              4
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35670,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12171
+        },
+        {
+          "dungeon": 35140,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9100,
+            "source_index": 1,
+            "points": [
+              4
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35140,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9100
+        }
+      ]
+    },
+    "24150": {
+      "source": {
+        "m_iID": 24150,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 34820,
+            "2": 35660,
+            "3": 35130
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 8471,
+            "2": 12152,
+            "3": 9081
+          }
+        }
+      },
+      "quests": [
+        24150,
+        24200
+      ],
+      "matches": [
+        {
+          "dungeon": 34820,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 8471,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 34820,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 8471
+        },
+        {
+          "dungeon": 35660,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12152,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35660,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 12152
+        },
+        {
+          "dungeon": 35130,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9081,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35130,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9081
+        }
+      ]
+    },
+    "24200": {
+      "source": {
+        "m_iID": 24200,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 34830,
+            "2": 35670,
+            "3": 35140
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 8491,
+            "2": 12172,
+            "3": 9101
+          }
+        }
+      },
+      "quests": [
+        24150,
+        24200
+      ],
+      "matches": [
+        {
+          "dungeon": 34830,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 8491,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 70,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 34830,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 8491
+        },
+        {
+          "dungeon": 35670,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12172,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 70,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35670,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 12172
+        },
+        {
+          "dungeon": 35140,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9101,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 70,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35140,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9101
+        }
+      ]
+    },
+    "24240": {
+      "source": {
+        "m_iID": 24240,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 34840,
+            "2": 35680,
+            "3": 35150
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 8510,
+            "2": 12191,
+            "3": 9120
+          }
+        }
+      },
+      "quests": [
+        24240
+      ],
+      "matches": [
+        {
+          "dungeon": 34840,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 8510,
+            "source_index": 1,
+            "points": [
+              11
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 250,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 34840,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 8510
+        },
+        {
+          "dungeon": 35680,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12191,
+            "source_index": 1,
+            "points": [
+              11
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 250,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35680,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12191
+        },
+        {
+          "dungeon": 35150,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9120,
+            "source_index": 1,
+            "points": [
+              11
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 250,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35150,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9120
+        }
+      ]
+    },
+    "24260": {
+      "source": {
+        "m_iID": 24260,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 34840,
+            "2": 35680,
+            "3": 35150
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 8511,
+            "2": 12192,
+            "3": 9121
+          }
+        }
+      },
+      "quests": [
+        24260
+      ],
+      "matches": [
+        {
+          "dungeon": 34840,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 8511,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 34840,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 8511
+        },
+        {
+          "dungeon": 35680,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12192,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35680,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 12192
+        },
+        {
+          "dungeon": 35150,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9121,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35150,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9121
+        }
+      ]
+    },
+    "24725": {
+      "source": {
+        "m_iID": 24725,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35450,
+            "2": 35490,
+            "3": 35530
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 9725,
+            "2": 9889,
+            "3": 9891
+          }
+        }
+      },
+      "quests": [
+        24724
+      ],
+      "matches": [
+        {
+          "dungeon": 35450,
+          "stage": 0,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 9889,
+            "source_index": 1,
+            "points": [
+              2
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35450,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9889
+        },
+        {
+          "dungeon": 35490,
+          "stage": 0,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 9891,
+            "source_index": 1,
+            "points": [
+              2
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35490,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9891
+        },
+        {
+          "dungeon": 35530,
+          "stage": 0,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 9725,
+            "source_index": 1,
+            "points": [
+              2
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35530,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9725
+        }
+      ]
+    },
+    "24727": {
+      "source": {
+        "m_iID": 24727,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35450,
+            "2": 35490,
+            "3": 35530
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 9726,
+            "2": 9890,
+            "3": 9892
+          }
+        }
+      },
+      "quests": [
+        24726
+      ],
+      "matches": [
+        {
+          "dungeon": 35450,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9890,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 250,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35450,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9890
+        },
+        {
+          "dungeon": 35490,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9892,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 250,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35490,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9892
+        },
+        {
+          "dungeon": 35530,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9726,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 250,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35530,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9726
+        }
+      ]
+    },
+    "24733": {
+      "source": {
+        "m_iID": 24733,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35460,
+            "2": 35500,
+            "3": 35540
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 9750,
+            "2": 9859,
+            "3": 9864
+          }
+        }
+      },
+      "quests": [
+        24733
+      ],
+      "matches": [
+        {
+          "dungeon": 35460,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9859,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35460,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9859
+        },
+        {
+          "dungeon": 35500,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9864,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35500,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9864
+        },
+        {
+          "dungeon": 35540,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9750,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35540,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9750
+        }
+      ]
+    },
+    "24735": {
+      "source": {
+        "m_iID": 24735,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35460,
+            "2": 35500,
+            "3": 35540
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 9751,
+            "2": 9860,
+            "3": 9865
+          }
+        }
+      },
+      "quests": [
+        24735
+      ],
+      "matches": [
+        {
+          "dungeon": 35460,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9860,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35460,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9860
+        },
+        {
+          "dungeon": 35500,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9865,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35500,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9865
+        },
+        {
+          "dungeon": 35540,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9751,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35540,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9751
+        }
+      ]
+    },
+    "24742": {
+      "source": {
+        "m_iID": 24742,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35470,
+            "2": 35510,
+            "3": 35550
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 9780,
+            "2": 9875,
+            "3": 9881
+          }
+        }
+      },
+      "quests": [
+        24742
+      ],
+      "matches": [
+        {
+          "dungeon": 35470,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9875,
+            "source_index": 1,
+            "points": [
+              8
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35470,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9875
+        },
+        {
+          "dungeon": 35510,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9881,
+            "source_index": 1,
+            "points": [
+              8
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35510,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9881
+        },
+        {
+          "dungeon": 35550,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9780,
+            "source_index": 1,
+            "points": [
+              8
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35550,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9780
+        }
+      ]
+    },
+    "24744": {
+      "source": {
+        "m_iID": 24744,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35470,
+            "2": 35510,
+            "3": 35550
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 9783,
+            "2": 9878,
+            "3": 9884
+          }
+        }
+      },
+      "quests": [
+        24744
+      ],
+      "matches": [
+        {
+          "dungeon": 35470,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9878,
+            "source_index": 2,
+            "points": [
+              2
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": true,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35470,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9878
+        },
+        {
+          "dungeon": 35510,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9884,
+            "source_index": 2,
+            "points": [
+              2
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": true,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35510,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9884
+        },
+        {
+          "dungeon": 35550,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9783,
+            "source_index": 2,
+            "points": [
+              2
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": true,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35550,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9783
+        }
+      ]
+    },
+    "24760": {
+      "source": {
+        "m_iID": 24760,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35690
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 12242
+          }
+        }
+      },
+      "quests": [
+        24760
+      ],
+      "matches": [
+        {
+          "dungeon": 35690,
+          "stage": 2,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12242,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 70,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35690,
+          "stage": 2,
+          "kind": "admitted-dynamic",
+          "npc": 12242
+        }
+      ]
+    },
+    "24762": {
+      "source": {
+        "m_iID": 24762,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35690
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 12241
+          }
+        }
+      },
+      "quests": [
+        24762
+      ],
+      "matches": [
+        {
+          "dungeon": 35690,
+          "stage": 4,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12241,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 150,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35690,
+          "stage": 4,
+          "kind": "admitted-dynamic",
+          "npc": 12241
+        }
+      ]
+    },
+    "24766": {
+      "source": {
+        "m_iID": 24766,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35700
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 12266
+          }
+        }
+      },
+      "quests": [
+        24766
+      ],
+      "matches": [
+        {
+          "dungeon": 35700,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 12266
+        }
+      ]
+    },
+    "24768": {
+      "source": {
+        "m_iID": 24768,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35700
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 12261
+          }
+        }
+      },
+      "quests": [
+        24768
+      ],
+      "matches": [
+        {
+          "dungeon": 35700,
+          "stage": 2,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12261,
+            "source_index": 6,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 100,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35700,
+          "stage": 2,
+          "kind": "admitted-dynamic",
+          "npc": 12261
+        }
+      ]
+    },
+    "24786": {
+      "source": {
+        "m_iID": 24786,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35720,
+            "2": 35800
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 12365,
+            "2": 12366,
+            "3": 12371,
+            "4": 12372
+          }
+        }
+      },
+      "quests": [
+        24786
+      ],
+      "matches": [
+        {
+          "dungeon": 35720,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12365,
+            "source_index": 1,
+            "points": [
+              2
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35720,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12366,
+            "source_index": 2,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35720,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12365
+        },
+        {
+          "dungeon": 35720,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12366
+        },
+        {
+          "dungeon": 35800,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12371,
+            "source_index": 1,
+            "points": [
+              2
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35800,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12372,
+            "source_index": 2,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35800,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12371
+        },
+        {
+          "dungeon": 35800,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12372
+        }
+      ]
+    },
+    "24789": {
+      "source": {
+        "m_iID": 24789,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35740,
+            "2": 35780,
+            "3": 35820
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 12386,
+            "2": 12393,
+            "3": 12394
+          }
+        }
+      },
+      "quests": [
+        24789
+      ],
+      "matches": [
+        {
+          "dungeon": 35740,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12386,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35740,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12386
+        },
+        {
+          "dungeon": 35780,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12393,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35780,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12393
+        },
+        {
+          "dungeon": 35820,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12394,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35820,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12394
+        }
+      ]
+    },
+    "24792": {
+      "source": {
+        "m_iID": 24792,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35750,
+            "2": 35790,
+            "3": 35830
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 12406,
+            "2": 12407,
+            "3": 12419
+          }
+        }
+      },
+      "quests": [
+        24792
+      ],
+      "matches": [
+        {
+          "dungeon": 35750,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12406,
+            "source_index": 1,
+            "points": [
+              2
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35750,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12406
+        },
+        {
+          "dungeon": 35790,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12407,
+            "source_index": 1,
+            "points": [
+              2
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35790,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12407
+        },
+        {
+          "dungeon": 35830,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12419,
+            "source_index": 1,
+            "points": [
+              2
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35830,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12419
+        }
+      ]
+    },
+    "24815": {
+      "source": {
+        "m_iID": 24815,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35890
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 12953
+          }
+        }
+      },
+      "quests": [
+        24815
+      ],
+      "matches": [
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 1,
+            "points": [
+              5
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 2,
+            "points": [
+              10
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 3,
+            "points": [
+              11
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 4,
+            "points": [
+              15
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 5,
+            "points": [
+              18
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 6,
+            "points": [
+              19
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 1,
+            "points": [
+              21
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 2,
+            "points": [
+              23
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 3,
+            "points": [
+              29
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 4,
+            "points": [
+              33
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 5,
+            "points": [
+              34
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 6,
+            "points": [
+              41
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 7,
+            "points": [
+              43
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 8,
+            "points": [
+              36
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 9,
+            "points": [
+              37
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 2,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 1,
+            "points": [
+              47
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 2,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 2,
+            "points": [
+              55
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 2,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 3,
+            "points": [
+              56
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 2,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 4,
+            "points": [
+              59
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 2,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 5,
+            "points": [
+              61
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "part": 2,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 6,
+            "points": [
+              63
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12953
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 1,
+            "points": [
+              5
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 2,
+            "points": [
+              9
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 3,
+            "points": [
+              11
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 4,
+            "points": [
+              16
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 5,
+            "points": [
+              21
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 6,
+            "points": [
+              25
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 7,
+            "points": [
+              28
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 8,
+            "points": [
+              33
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 9,
+            "points": [
+              29
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 1,
+            "points": [
+              36
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 2,
+            "points": [
+              46
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 3,
+            "points": [
+              48
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 4,
+            "points": [
+              50
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 5,
+            "points": [
+              58
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 6,
+            "points": [
+              57
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 7,
+            "points": [
+              54
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 8,
+            "points": [
+              63
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 9,
+            "points": [
+              70
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 10,
+            "points": [
+              66
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 12953
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 1,
+            "points": [
+              5
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 2,
+            "points": [
+              6
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 3,
+            "points": [
+              8
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 4,
+            "points": [
+              9
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 5,
+            "points": [
+              30
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 6,
+            "points": [
+              32
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 7,
+            "points": [
+              33
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 8,
+            "points": [
+              34
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 9,
+            "points": [
+              41
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 1,
+            "points": [
+              52
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 2,
+            "points": [
+              54
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 3,
+            "points": [
+              56
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 4,
+            "points": [
+              60
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 5,
+            "points": [
+              61
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 6,
+            "points": [
+              70
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 7,
+            "points": [
+              72
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "part": 1,
+          "kind": "static",
+          "source": {
+            "template": 12953,
+            "source_index": 8,
+            "points": [
+              74
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35890,
+          "stage": 2,
+          "kind": "admitted-dynamic",
+          "npc": 12953
+        }
+      ]
+    },
+    "24711": {
+      "source": {
+        "m_iID": 24711,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35370,
+            "2": 35390,
+            "3": 35410,
+            "4": 35430
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 9533,
+            "2": 9547,
+            "3": 9603,
+            "4": 9617
+          }
+        }
+      },
+      "quests": [
+        24710
+      ],
+      "matches": [
+        {
+          "dungeon": 35370,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9533,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35370,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9533
+        },
+        {
+          "dungeon": 35390,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9547,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35390,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9547
+        },
+        {
+          "dungeon": 35410,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9603,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35410,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9603
+        },
+        {
+          "dungeon": 35430,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9617,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 200,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35430,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9617
+        }
+      ]
+    },
+    "24714": {
+      "source": {
+        "m_iID": 24714,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35380,
+            "2": 35400,
+            "3": 35420,
+            "4": 35440
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 9561,
+            "2": 9670,
+            "3": 9673,
+            "4": 9676
+          }
+        }
+      },
+      "quests": [
+        24715
+      ],
+      "matches": [
+        {
+          "dungeon": 35380,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9670,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35380,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9670
+        },
+        {
+          "dungeon": 35400,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9673,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35400,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9673
+        },
+        {
+          "dungeon": 35420,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9561,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35420,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9561
+        },
+        {
+          "dungeon": 35440,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9676,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35440,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9676
+        }
+      ]
+    },
+    "24748": {
+      "source": {
+        "m_iID": 24748,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35570,
+            "2": 35580,
+            "3": 35590
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 9815,
+            "2": 9946,
+            "3": 9950
+          }
+        }
+      },
+      "quests": [
+        24748
+      ],
+      "matches": [
+        {
+          "dungeon": 35570,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9946,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 400,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35570,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9946
+        },
+        {
+          "dungeon": 35580,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9950,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 400,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35580,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9950
+        },
+        {
+          "dungeon": 35590,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9815,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 400,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35590,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9815
+        }
+      ]
+    },
+    "24750": {
+      "source": {
+        "m_iID": 24750,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35570,
+            "2": 35580,
+            "3": 35590
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 9825,
+            "2": 9947,
+            "3": 9951
+          }
+        }
+      },
+      "quests": [
+        24750
+      ],
+      "matches": [
+        {
+          "dungeon": 35570,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9947,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 450,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35570,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9947
+        },
+        {
+          "dungeon": 35580,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9951,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 450,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35580,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9951
+        },
+        {
+          "dungeon": 35590,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9825,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 450,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35590,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 9825
+        }
+      ]
+    },
+    "24752": {
+      "source": {
+        "m_iID": 24752,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35480,
+            "2": 35520,
+            "3": 35560
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 9836,
+            "2": 9948,
+            "3": 9952
+          }
+        }
+      },
+      "quests": [
+        24752
+      ],
+      "matches": [
+        {
+          "dungeon": 35480,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9948,
+            "source_index": 9,
+            "points": [
+              16
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 500,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35480,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9948
+        },
+        {
+          "dungeon": 35520,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9952,
+            "source_index": 9,
+            "points": [
+              16
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 500,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35520,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9952
+        },
+        {
+          "dungeon": 35560,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 9836,
+            "source_index": 9,
+            "points": [
+              16
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 500,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35560,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 9836
+        }
+      ]
+    },
+    "24773": {
+      "source": {
+        "m_iID": 24773,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35710
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 12281
+          }
+        }
+      },
+      "quests": [
+        24772
+      ],
+      "matches": [
+        {
+          "dungeon": 35710,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12281,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 150,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35710,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12281
+        }
+      ]
+    },
+    "24795": {
+      "source": {
+        "m_iID": 24795,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35770,
+            "2": 35850
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 12450,
+            "2": 12461
+          }
+        }
+      },
+      "quests": [
+        24795
+      ],
+      "matches": [
+        {
+          "dungeon": 35770,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12450,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35770,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12450
+        },
+        {
+          "dungeon": 35850,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12461,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35850,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12461
+        }
+      ]
+    },
+    "24800": {
+      "source": {
+        "m_iID": 24800,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35730,
+            "2": 35810
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 12376,
+            "2": 12382
+          }
+        }
+      },
+      "quests": [
+        24800
+      ],
+      "matches": [
+        {
+          "dungeon": 35730,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12376,
+            "source_index": 1,
+            "points": [
+              6
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35730,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12376
+        },
+        {
+          "dungeon": 35810,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12382,
+            "source_index": 1,
+            "points": [
+              6
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35810,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12382
+        }
+      ]
+    },
+    "24803": {
+      "source": {
+        "m_iID": 24803,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35760,
+            "2": 35840
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 12426,
+            "2": 12437
+          }
+        }
+      },
+      "quests": [
+        24803
+      ],
+      "matches": [
+        {
+          "dungeon": 35760,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12426,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35760,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12426
+        },
+        {
+          "dungeon": 35840,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12437,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35840,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12437
+        }
+      ]
+    },
+    "24822": {
+      "source": {
+        "m_iID": 24822,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35900,
+            "2": 35950
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 12970,
+            "2": 13130
+          }
+        }
+      },
+      "quests": [
+        24822
+      ],
+      "matches": [
+        {
+          "dungeon": 35900,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12970,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35900,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 12970
+        },
+        {
+          "dungeon": 35950,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13130,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35950,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 13130
+        }
+      ]
+    },
+    "24824": {
+      "source": {
+        "m_iID": 24824,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35900,
+            "2": 35950
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 12971,
+            "2": 13131
+          }
+        }
+      },
+      "quests": [
+        24824
+      ],
+      "matches": [
+        {
+          "dungeon": 35900,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 12971,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35900,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 12971
+        },
+        {
+          "dungeon": 35950,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13131,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35950,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 13131
+        }
+      ]
+    },
+    "24832": {
+      "source": {
+        "m_iID": 24832,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35910,
+            "2": 35960
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 13000,
+            "2": 13150
+          }
+        }
+      },
+      "quests": [
+        24832
+      ],
+      "matches": [
+        {
+          "dungeon": 35910,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13000,
+            "source_index": 1,
+            "points": [
+              11
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35910,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 13000
+        },
+        {
+          "dungeon": 35960,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13150,
+            "source_index": 1,
+            "points": [
+              11
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35960,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 13150
+        }
+      ]
+    },
+    "24834": {
+      "source": {
+        "m_iID": 24834,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35910,
+            "2": 35960
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 13001,
+            "2": 13151
+          }
+        }
+      },
+      "quests": [
+        24834
+      ],
+      "matches": [
+        {
+          "dungeon": 35910,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13001,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35910,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 13001
+        },
+        {
+          "dungeon": 35960,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13151,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35960,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 13151
+        }
+      ]
+    },
+    "24840": {
+      "source": {
+        "m_iID": 24840,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35920,
+            "2": 35970
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 13030,
+            "2": 13170
+          }
+        }
+      },
+      "quests": [
+        24840
+      ],
+      "matches": [
+        {
+          "dungeon": 35920,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13030,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35920,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 13030
+        },
+        {
+          "dungeon": 35970,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13170,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35970,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 13170
+        }
+      ]
+    },
+    "24842": {
+      "source": {
+        "m_iID": 24842,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35920,
+            "2": 35970
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 13031,
+            "2": 13171
+          }
+        }
+      },
+      "quests": [
+        24842
+      ],
+      "matches": [
+        {
+          "dungeon": 35920,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13031,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35920,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 13031
+        },
+        {
+          "dungeon": 35970,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13171,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35970,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 13171
+        }
+      ]
+    },
+    "24844": {
+      "source": {
+        "m_iID": 24844,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35930,
+            "2": 35980
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 13060,
+            "2": 13180
+          }
+        }
+      },
+      "quests": [
+        24844
+      ],
+      "matches": [
+        {
+          "dungeon": 35930,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13060,
+            "source_index": 1,
+            "points": [
+              4
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35930,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 13060
+        },
+        {
+          "dungeon": 35980,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13180,
+            "source_index": 1,
+            "points": [
+              4
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35980,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 13180
+        }
+      ]
+    },
+    "24846": {
+      "source": {
+        "m_iID": 24846,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35930,
+            "2": 35980
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 13061,
+            "2": 13181
+          }
+        }
+      },
+      "quests": [
+        24846
+      ],
+      "matches": [
+        {
+          "dungeon": 35930,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13061,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35930,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 13061
+        },
+        {
+          "dungeon": 35980,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13181,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 300,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35980,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 13181
+        }
+      ]
+    },
+    "24848": {
+      "source": {
+        "m_iID": 24848,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 35940,
+            "2": 35990
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 13100,
+            "2": 13190
+          }
+        }
+      },
+      "quests": [
+        24848
+      ],
+      "matches": [
+        {
+          "dungeon": 35940,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13100,
+            "source_index": 1,
+            "points": [
+              8
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 400,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35940,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 13100
+        },
+        {
+          "dungeon": 35990,
+          "stage": 0,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 13190,
+            "source_index": 1,
+            "points": [
+              8
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": true,
+            "boss_lines": 400,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 35990,
+          "stage": 0,
+          "kind": "admitted-dynamic",
+          "npc": 13190
+        }
+      ]
+    },
+    "22193": {
+      "source": {
+        "m_iID": 22193,
+        "m_eClearType": 27,
+        "m_bAutomaticDescription": 0,
+        "m_ClearCondition": {
+          "m_eDungeonID": {
+            "0": null,
+            "1": 33282
+          },
+          "m_eFindNPCID": {
+            "0": null,
+            "1": 1713
+          }
+        }
+      },
+      "quests": [
+        22168
+      ],
+      "matches": [
+        {
+          "dungeon": 33282,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 1713,
+            "source_index": 1,
+            "points": [
+              1
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": true,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 33282,
+          "stage": 1,
+          "part": 0,
+          "kind": "static",
+          "source": {
+            "template": 1713,
+            "source_index": 2,
+            "points": [
+              5
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": false,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "dungeon": 33282,
+          "stage": 1,
+          "kind": "admitted-dynamic",
+          "npc": 1713
+        }
+      ]
+    }
+  },
+  "graphs": {
+    "34810": "383f4d47f888da0fb26a96d2d26720a858559502be6b3fb82afac7c10e686520",
+    "35650": "1cc593d4dbeafaa5a454b1efc55d26c6f604f51ee391eb82528b2a0615f53094",
+    "35120": "a6c237b6144add936c4446661f3cc90e1870ce624e0a1e7fa124e77fd7569af1",
+    "34820": "e23dc98e2410f9fcf14d3ea034960df7566caf883a0dbe5e1af695b1c19e9476",
+    "35660": "3c0fbe0e56f68bf2a2204965cbfc4e91fdf4f30314871958f8bf4042782f9c9f",
+    "35130": "87079a900511ecca35bec80ad02e62d8a1332e983b216cae40c3b2d67003e7ad",
+    "34830": "fd1abe89dc44c00ae5a7aed3234ac990c2a05d78ec7372c7358f2ddeca43a6c0",
+    "35670": "bf10c23281b74fe0192898a2b2c973a1d219d7c078922076e50e5e09d2c36890",
+    "35140": "5b968101f9a62c4546d20bb09c67ce5b9fe4776d2460503c7415c837ccd5ec40",
+    "34840": "df689a5708c21104046baf939d74c59f5557b8d7f46521f05d91a084104e1cbe",
+    "35680": "5775c4d02b685ba93c35bc9558c527abf1fde7fa2505e67f332eb159689dafe6",
+    "35150": "51a1c7c8508feb891933a16fd63eb03811bce61269518a4569fcf4975a3026e6",
+    "35450": "ddfcd08538b40797dfdfa42af08e3b945fdda268db19131161513cb529396072",
+    "35490": "01c172061363fd76d7b34cb7a16f8087a05a6fc9a61f91ec91053b905f1f08c3",
+    "35530": "d66b73da990e94b88d349d6daf085efee7412328601fdac18dd09db3d7866e5f",
+    "35460": "3cd5f9f0ce7bb67c69693bdc386eff53197b8fd8b363cf552baf75d9d207f99b",
+    "35500": "715b6137a92d1c16460f669d0776b7a3449b555d26d64cea99af071c8afa2bb9",
+    "35540": "a5772b1e423a8cd8c9055d99dc2e5a4daf6e6be2994a3faadf97772ee8a16717",
+    "35470": "5062098230c27956b6806d43b387753afc39b1675c6fbd0cf4985f49cc24c88a",
+    "35510": "1205d41b2b2ae42f7e39b87bc75f880303f6bb1efc21f9a90fc2d35ce5aeb51e",
+    "35550": "e36d3351d31c64dfa338718fa34a73a05a1b4d1d28d8061fdd2711c3c4f84ffa",
+    "35690": "55c4f45216a764e01124e8f99cea59b063efb389b5b5f8e0d52897c82eb3d256",
+    "35700": "67d64a407a69ee19bc55708af2beaf35b947d029487c8501d821a6df253246c0",
+    "35720": "cfd4f6783889d5d8b476bde5103e1fed1547a31819a11afffc4ac4ffb294f466",
+    "35800": "868e3d81c51ea9d591970e97d38f5c3f2a8b15136f0b39fedb9c3485bbbd4dd0",
+    "35740": "af47ce5df36398edb905c4b32b1d7fa99ae183a34645d9d870fadeb7704ff030",
+    "35780": "c295aabaf45838fb318cdbca557db5216b51fc625ffe23a37fb8f27ac28f9fcb",
+    "35820": "ca04e51448284da996617da771ec44b10ae9085e983f134544241735d8f94753",
+    "35750": "542ceee52e2f8190ae390c4cdc16cf9ff163de9112c49d7fc9e47ae8fef1ba20",
+    "35790": "dc1e85bf432f519faa7076c1fd167036d0a01513709c332b1a8110eb542f42ac",
+    "35830": "1cd94abafcf560554c1e806ee3b079d671205ae8711a51800d2a9393cbb4de48",
+    "35890": "c81e55a2463fff33a3f06af82f14f5769700694401efcf61cec443a1175d0524",
+    "35370": "d37c1a019e97f13fac07e0da466d93a71256f702aa94fb0ab30994edd8d5b512",
+    "35390": "b662d8b93986128e146a0be1629cdf791f2008ec69564c92f0228eaff2819154",
+    "35410": "024a2b9904f4ba980f8fe4bdac617f1021d92de7cb9835ebdea23f9e8695807c",
+    "35430": "3e99d5ff9ff61bcb5f969d93d38f6fbf5942a4b1f1d339d407d0bb49302fc4b6",
+    "35380": "45e4e5dd33b29b87e6ffcbe1f802e886921bee87f1f791ce05bc9779f9da1017",
+    "35400": "447ddac2a5c1b0a9f5532050589aa9f8743967998c3ef3013bd80deea279bade",
+    "35420": "bffd7284bc47ae37d1fac113c6def2fc44a318b8acdcd698dbf558715136f2c3",
+    "35440": "cd733db9651d9e23d1ae9f4660d6d42f31a8c5b93c8d0ed08e56f8dd729787d1",
+    "35570": "2c040f1a8ba07001041510b7a95dbd16791c188f7f5f49a2e5a2d403066ddaad",
+    "35580": "4e138381849bee338c3e15f699e37013342c134f611a26557d1b4f24d666beec",
+    "35590": "6a25f3be1a8e9f288cdb40d57418c872cda69ed5082dd2d3feb0ee043b8a6e95",
+    "35480": "5e37d6329eede9d5525f08fc41980f53ab505ab6f5ebfc88c8f3560b7ddd97a8",
+    "35520": "21767a0457f02e4f230c587dd651d6b9f764fae8562d7ceeae7965899e3fbc4b",
+    "35560": "4d008b89223299d34609504a9a60697fe851f641c6ddbbbb14c3e9d811a6aaac",
+    "35710": "a027b7f201a053a888cebe8474579cab291b8e02add2ca29fae16d46c462d8ea",
+    "35770": "1153238b6265ccd5e344038a1299898aa1a4d9654f98c9168762df8e4ec14e35",
+    "35850": "bd6f3287c995f4b3f13959228ebc63879ffe3415920345795cd70797de6cff5c",
+    "35730": "8123b92820419434722d363448adb13e8b896576782092a625b60fc694e26133",
+    "35810": "786b4dc651899aaa4577e26df006f4f205116148b1cb1da5b99ff84ec1c44c90",
+    "35760": "c39159e0ae75adae193bd38c15de7f9de501ebe766ee13d8b0773c1854e03dfc",
+    "35840": "438478dc191b55d1d6464a4dfe9b1f91a75c316f4734a003041179cf900b56fb",
+    "35900": "3710799c0b56ab41d57b1a827afe0b7ee653acb336919928824aaf3dec22615e",
+    "35950": "69e30671a4c556cb42390d3e8a39731810fdaab2af5aa5a9e0d5b6442083e7ef",
+    "35910": "c02cd751fab6d9a6f3655fa5baba917ec385b85a41d043ed01e4f4cc0e919545",
+    "35960": "43b80f91b49d48ed01addbf2ff423446a2cd9ba8a5ea14a6c4a5fd1aad61e9e2",
+    "35920": "bc24261da2dc032b928b21b988594712c1db1f8014e321645f8845af363de3bc",
+    "35970": "c7add7bc56379819b276cdb7e3bb01aa3da80484cd5c566d3de322875e28af67",
+    "35930": "5c6e7267378a455dc6e82b5f870fc33471172081cb73c19587f5b58e94a9262a",
+    "35980": "f239efce98d15db4582ab00e66b933a930641d4e9caf448d77fd24c2012fc6b5",
+    "35940": "6dec621a22cec4f766f4ea93d31ddc8041b0d8871f35fbc8a011ee54619503f4",
+    "35990": "f6289ea3dc49c346e2bffa6c1d52c086ae412d41bcd902df7d4547b66a8f952a",
+    "33282": "a38c95834275def7544d914b0789483c5ac6ed636c440ff6f6dae144ae0bcbe9"
+  },
+  "trigger": "validated-loaded-part-or-accepted-native-NPC-create",
+  "source": "2014 FindNPC consumer adapted to current source vectors and original F3"
+}

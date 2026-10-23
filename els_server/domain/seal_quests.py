@@ -76,7 +76,9 @@ class QuestCatalog:
             if q['m_bRepeat'] or q['m_bIsTimeEvent']:raise ValueError('Unsupported quest schedule')
             from els_server.domain.quest_selection import options
             options(q)
-            if len(q['m_vecSubQuest_Group'])!=1:raise ValueError('Unsupported alternative objective group')
+            if len(q['m_vecSubQuest_Group'])!=1:
+                from els_server.domain.mainline_subquest_groups import validate
+                if not validate(q):raise ValueError('Unsupported alternative objective group')
             for i in sequence(q['m_vecSubQuest']):
                 if i not in self.subquests:raise ValueError('Missing native subquest')
 
@@ -139,6 +141,9 @@ def target(sub):
         if str(sub.get('m_iID')) in town_catalog()['subquests']:return town_target(sub)
         from els_server.domain.tutorial_dialogue import target as dialogue_target
         return dialogue_target(sub)
+    if kind==27:
+        from els_server.domain.mainline_find_npc import supported,target as find_target
+        if supported(sub):return find_target(sub)
     if kind in (27,80):
         from els_server.domain.tutorial_memory8_finale import target as finale_target
         return finale_target(sub)
@@ -183,6 +188,8 @@ def objective_increment(sub,event,proof):
         resolve=route_catalog().entry_identity
         if not any(resolve(i)==resolve(dungeon) for i in ids):return 0
     if kind==27:
+        from els_server.domain.mainline_find_npc import supported,increment as find_increment_native
+        if supported(sub):return find_increment_native(sub,event)
         from els_server.domain.tutorial_memory8_finale import find_increment
         return find_increment(sub,event)
     if kind==24:return int(event['kind']=='visit_town' and event.get('town') in sequence(c['m_eVillageID']))
