@@ -1,0 +1,21 @@
+{
+  "scope": "用户明确指定铁匠首次选择初值为职业2、等级1、总经验0、空计数、进度0、required400。接通原生选择、同事务存档、同职无副作用重试和冷登，并复用已有1%炼制折扣。保留炼金100和旧职业完整状态；不开放猎人、切换、后续铁匠成长或铁砧。400是本服兼容规则，不冒称官服数值。",
+  "source_files": [
+    {
+      "path": "els_server/domain/manufacture_flow.py",
+      "sha256": "2c0c4d312910701147110f224c07f5b0f889ae54f731c115f32d94620d1269d5"
+    },
+    {
+      "path": "els_server/storage/manufacture.py",
+      "sha256": "607f0cfd0427877d5e0a258456c145b633deecb4f251e2329f9a2b9b62d68ea3"
+    }
+  ],
+  "parent_dependency": "fix/314-profession-initial-policy-guards",
+  "new_schema": false,
+  "client_changes": 0,
+  "independent_source_review": true,
+  "old_economic_checks_replayed": 0,
+  "controlled_SQL_and_wire": true,
+  "natural_GUI": false,
+  "installed_acceptance": "Recorded separately in deployment channel manifests; source PR alone does not prove installation."
+}
