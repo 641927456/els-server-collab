@@ -22,6 +22,8 @@ def _character(db,owner,account):
     from els_server.storage.characters import Characters
     row=db.execute('SELECT c.uid,c.name,c.unit_type,c.unit_class,c.level,c.transcendence,c.master,c.revision FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(owner,account)).fetchone()
     if row is None:raise ValueError('Force loadout character owner')
+    from els_server.storage.item_actor import require_active_character
+    require_active_character(db,owner)
     character=Characters._row(row)
     artifact=db.execute('SELECT template,evolution,level,experience,potentials FROM character_artifacts WHERE uid=?',(owner,)).fetchone()
     character['artifact']=dict(zip(('template','evolution','level','experience','potentials'),artifact)) if artifact else None
