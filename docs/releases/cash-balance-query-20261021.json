@@ -1,0 +1,61 @@
+{
+  "scope": "Only native empty-body validation for the already-present no-cash balance query",
+  "client_changes": 0,
+  "schema_changes": 0,
+  "runtime_paths": [
+    "els_server/domain/local_session.py"
+  ],
+  "protocol": "202/1B2 empty -> 201/1B3 >iIBi4I (0,0,0,-1,0,0,0,0)",
+  "cash_business_opened": false,
+  "ED_to_cash": false,
+  "source_evidence": {
+    "matching_client_build": "dx11_260923",
+    "historical_native_empty_requests_MAC_verified": 12,
+    "current_response_reused_unchanged": true,
+    "legacy_reference_scope": "Protocol names/shape only; no regional billing amounts inferred"
+  },
+  "private_TLS": {
+    "local": {
+      "cases": 2,
+      "passed": true
+    },
+    "online": {
+      "cases": 2,
+      "passed": true
+    },
+    "meaning": "Controlled isolated instances; not natural GUI or public acceptance"
+  },
+  "no_original_logs_captures_accounts_or_keys_included": true,
+  "formal_publication_status": "online_and_independent_local_accepted",
+  "delivery_summary": {
+    "online": {
+      "release": "cash-auxiliary-contract-20261021-v6",
+      "accepted": true,
+      "public_TLS": true,
+      "normal_stop_dual_SQLite_API_backups_and_120s_observation": true,
+      "queries_read_only": true,
+      "other_account_rows_and_configuration_preserved": true
+    },
+    "local": {
+      "release": "local-cash-auxiliary-contract-20261021-v6",
+      "accepted": true,
+      "independent_local_backup": true,
+      "dual_SQLite_API_backups": true,
+      "all_installed_files_size_SHA_verified": true,
+      "observation_seconds_at_least": 120
+    },
+    "QA_history": {
+      "initial_setup_blocked_by_missing_historical_QA_account": true,
+      "initial_attempt_sent_no_game_requests": true,
+      "replacement_setup": "One restricted administrative QA account and one owned role",
+      "replacement_public_acceptance_passed": true,
+      "owned_QA_disabled_after_use": true
+    },
+    "natural_GUI": false,
+    "whole_goal_complete": false,
+    "scope_note": "Only the independent hunk in this PR; deployed v6 combined two separately reviewed guards. Git source view is not a full formal runtime snapshot.",
+    "private_accounts_logs_and_original_receipts_included": false,
+    "profile": "Current ordinary ED-shop profile; no cash ledger or unknown CustomEvent business admission",
+    "final_independent_review_passed": true
+  }
+}

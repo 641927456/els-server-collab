@@ -1,0 +1,11 @@
+# Four existing Force upgrade books
+
+The server previously recognized five books for three Force skills, leaving four books already produced by existing manufacture recipes unable to enter the owned-Force path. Admit 295708, 295713, 306003 and 295709 alongside those five books. The resulting nine books map to three skills at native ranks 3, 4 and 5; they are not nine different skills.
+
+Reuse the existing manufacture sources, costs, inventory transactions, notifications and client effects. Check the native skill/rank-to-book mapping and permanent-book eligibility. Expand only the known ownership and seal CHECK constraints, preserving ownership, slots, foreign keys, indexes and triggers inside the caller's transaction. Unknown schema references fail closed. Installation does not migrate the live player database. Compatible recovery retains the nine-book reader and pauses the newly admitted operations; an old five-book reader is not a valid rollback after new ownership is saved.
+
+Validation includes the qualified transaction and rollback checks, private TLS character entry and cold state, and the actual-parent SQLite backup-copy schema rehearsal. Online deployment passed its delivered interpreter check and 121.85 seconds of observation. Public controlled QA confirmed learning, equipping, positive equipped cold login, unequipping, extraction and post-extraction cold login; its account was disabled afterward. The controller-pin and pre-request QA-fixture failures were retained and corrected through separately reviewed operational controls, without changing these five runtime files.
+
+Independent local installation also passed both SQLite API backups, the delivered interpreter check and 122.47 seconds of observation, preserving all original database rows/schema and configuration. Online and local manifests remain separate; both owned publication locks were released after their respective delivery.
+
+Natural acquisition/manufacture, real client GUI, multiplayer combat and SDK startup are not established by this controlled QA. Client files, UI, formulas, effects and timers are unchanged. This is one independently accepted server repair, not completion of the whole Force card or character-growth category. Git merge is tracked separately from deployment.
