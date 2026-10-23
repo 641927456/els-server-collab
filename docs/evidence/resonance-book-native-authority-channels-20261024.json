@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "metadata_issue": 341,
+  "source_PR": 340,
+  "source_contract_SHA256": "fc94cc1b1bae3d0ec119439702b5f77993af4c016351959fefe2abb338644b2b",
+  "source_publication_SHA256": "ff07e34a1950b88f7cae947a9ee12f428796dcf3119e48cf7bfe315c8fdea11a",
+  "root_post_install_review_SHA256": "3d3516622c57980c4f21b013a4f943675353ae6e497317e8e2068865caaa9cff",
+  "snapshots": {
+    "local": {
+      "ref": "snapshot/local-resonance-book-native-authority-20261024-v1",
+      "branch": "snapshot/local-resonance-book-native-authority-20261024-v1",
+      "commit": "5afcf981ff108d845ba30b5fe643004580111464",
+      "parent": "42f16af2caa467f1065b6bb2f39a394e4a043a36",
+      "tree": "29798b844051a1047f70b91909668c847dbd7b7c",
+      "changed_paths": [
+        "els_server/domain/local_session.py",
+        "els_server/storage/resonance_state.py"
+      ]
+    },
+    "online": {
+      "ref": "snapshot/online-resonance-book-native-authority-20261024-v1",
+      "branch": "snapshot/online-resonance-book-native-authority-20261024-v1",
+      "commit": "c618915e47e8252469e5d92aa7e68a36333e0fe8",
+      "parent": "a87e8588e0ad7c4450551977ef4e1dbbcdb3e016",
+      "tree": "563f842b94c82d1d4c019738c03c8eb80de5ffef",
+      "changed_paths": [
+        "els_server/domain/local_session.py",
+        "els_server/storage/resonance_state.py"
+      ]
+    }
+  },
+  "formal_releases": {
+    "local": "local-resonance-book-native-authority-20261024-v1",
+    "online": "resonance-book-native-authority-20261024-v1"
+  },
+  "formal_manifest_SHA256": {
+    "local": "51c826b3f8d51d2aed35cf341eeb9519e34252bd58529188c93c9038e2f75648",
+    "online": "adea6cb37c16348a2ef224b9b5c83e7a9f73a90da7768956bca3504ce1c60db4"
+  },
+  "acceptance_SHA256": {
+    "local": "fb02b8814099f89eb385101d240a34fc479aae85d1e59510fd1d6948b08c680e",
+    "online": "ce0edf7851b4da3dc50d627c49cd0a2f98aae82ee506b8764406ea856abe81a5"
+  },
+  "source_rows": {
+    "local": 723,
+    "online": 725
+  },
+  "unchanged_channel_differences": [
+    "els_server/__main__.py",
+    "els_server/application.py",
+    "els_server/config.py",
+    "els_server/domain/acquisition_policy.py",
+    "els_server/domain/cartridge_exchange_flow.py",
+    "els_server/domain/coupon_flow.py",
+    "els_server/domain/dungeon_clear.py",
+    "els_server/domain/first_story_entry.py",
+    "els_server/domain/inventory_items.py",
+    "els_server/domain/local_session.py",
+    "els_server/domain/sage_sockets.py",
+    "els_server/domain/town_travel_flow.py",
+    "els_server/friends_bootstrap.py",
+    "els_server/gm_runtime.py",
+    "els_server/protocol/coupon_messages.py",
+    "els_server/selected2026_gm.py",
+    "els_server/storage/coupon_codes.py",
+    "els_server/storage/equipment_receipt_state.py"
+  ],
+  "local1012_unchanged": true,
+  "main_and_launcher_selection_preserved": true,
+  "existing_reconciliations_preserved": true,
+  "diagnostic_units": 0,
+  "gameplay_repair_units": 1,
+  "changed_leaves_per_snapshot": 2,
+  "main_runtime_sources_changed_in_this_PR": 0,
+  "SQL_operations": 0,
+  "game_restarts": 0,
+  "client_changes": 0,
+  "natural": false
+}
