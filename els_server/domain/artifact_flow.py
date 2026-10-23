@@ -48,7 +48,7 @@ def handle(s,event,sequence):
       or type(sequence) is not int or not 1<=sequence<2**32 or event.performers not in ((),(0,))
       or event.uid!=0xffffffffffffffff or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):return identify_failed()
   from els_server.storage.identification_ui import perform
-  try:return perform(s.account.store.path,s.account.uid,event.kind,event.payload,s.shop_session_id+':artifact-identify:'+str(s.account.uid)+':'+str(sequence))
+  try:return perform(s.account.store.path,s.account.uid,event.kind,event.payload,s.shop_session_id+':artifact-identify:'+str(s.account.uid)+':'+str(sequence),account_id=s.account.account_id)
   except ValueError:return identify_failed()
  if event.event_id!=0x202 or event.kind!=0x907 or not s.item_test or s.client_build!='dx11_260923':return None
  def failed():return [wire.potential_ack(result=2005)]
