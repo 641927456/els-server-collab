@@ -11,10 +11,13 @@ from els_server.storage.inventory_state import load_items
 from els_server.storage.item_instances import remove
 from els_server.storage.npc_trade import balances,charge
 from els_server.storage.equipment_options import replace
-def socket(path,owner,payload,operation,randbelow=secrets.randbelow):
+def socket(path,owner,payload,operation,randbelow=secrets.randbelow,*,account_id=None):
  uid,materials=request(payload);owner,digest=_identity(owner,0x1c4,payload,operation)
  with closing(sqlite3.connect(path,timeout=10)) as db,db:
   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+  if account_id is not None:
+   from els_server.storage.profession_state import require_owner
+   require_owner(db,owner,account_id)
   old=_previous(db,operation,digest);before=load_items(db,owner);balance=balances(db,owner)
   current={(i['group'],i['slot']):i for i in before};by_uid={i['uid']:i for i in before}
   target=by_uid.get(uid)
@@ -34,10 +37,11 @@ def socket(path,owner,payload,operation,randbelow=secrets.randbelow):
   counts=collections.Counter(materials.values())
   from els_server.domain.atma_sockets import catalog as atma_catalog
   from els_server.domain.additional_magic_stones import catalog as additional_catalog
+  from els_server.domain.ordinary_magic_stones import catalog as ordinary_catalog
   profiles={}
   for material_uid,count in counts.items():
    material=by_uid.get(material_uid)
-   if material is None or (material['template']!=STONE and str(material['template']) not in atma_catalog()['items'] and str(material['template']) not in additional_catalog()['items']) or material['count']<count:raise ValueError('Missing owned supported magic stones')
+   if material is None or (material['template']!=STONE and str(material['template']) not in atma_catalog()['items'] and str(material['template']) not in additional_catalog()['items'] and str(material['template']) not in ordinary_catalog()['items']) or material['count']<count:raise ValueError('Missing owned supported magic stones')
    require_current(material);require_unlocked(material)
    profiles[material_uid]=distribution(target,material['template']) # All admissions precede RNG.
   ed=charge(db,owner,balance,sum(fee(target,by_uid[m]['template']) for m in materials.values()))

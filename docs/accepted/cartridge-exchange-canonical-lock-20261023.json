@@ -1,0 +1,17 @@
+{
+  "schema": "cartridge-exchange-canonical-lock-correction-v1",
+  "trigger": "Final main runtime-check failed Cartridge exchange data identity after PR285 canonical projection.",
+  "origin_PR": 285,
+  "data": "els_server/data/cartridge_exchange.json",
+  "canonical_data_sha256": "59f89297943afb93d603a7c4cdca9f94c553ecd17c768266cf4d16dbc51bc7ec",
+  "prior_runtime_data_sha256": "c78a30a1ec958234c63ac2965c01845176709078864a641de9a2ed35aa538c99",
+  "reason": "PR285 made two provenance source paths relative in the canonical JSON, but its consumer retained the private runtime JSON SHA.",
+  "change": "Bind DATA_SHA to the exact existing reviewed canonical JSON; keep strict byte identity verification.",
+  "data_modified": false,
+  "business_rule_or_transaction_changes": false,
+  "local1012_changes": false,
+  "game_deployment": false,
+  "old_economic_tests_replayed": 0,
+  "prior_provenance": "docs/provenance/cartridge-house-recipe679-20261023.json",
+  "historical_provenance_rewritten": false
+}
