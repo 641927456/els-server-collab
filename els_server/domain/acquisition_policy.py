@@ -25,7 +25,12 @@ CARTRIDGE_USE_ONLY_MATERIALS = frozenset((
     119222,119223,119224,119225,119226,119227,119228,119229,119230,
     119231,119232,119233,119234,119235,119236,119237,119238,119239,119240))
 
+# Reset variants remain existing-inventory use only; no new source.
+LEGACY_USE_ONLY_TICKETS = frozenset((118640,118641,118642,118657,118658,118659))
+
+
 def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None):
+    if template in LEGACY_USE_ONLY_TICKETS:return False
     qualified=False
     recipe_box=False
     if cartridge_recipe679_source is not None:

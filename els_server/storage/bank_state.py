@@ -82,7 +82,8 @@ def load(db,owner,include_expired=False,group=8):
     for uid,slot,raw in db.execute(f'SELECT uid,slot,item_json FROM {table} WHERE {key}=? ORDER BY slot',(identity,)):
         stored=json.loads(raw)
         from els_server.domain.cartridge_selection_box import BOX,read_existing_box
-        item=validate_item(read_existing_box(stored) if type(stored) is dict and stored.get('template')==BOX else stored)
+        from els_server.storage.equipment_chip_reset_history import hydrate
+        item=hydrate(db,validate_item(read_existing_box(stored) if type(stored) is dict and stored.get('template')==BOX else stored))
         if item['uid']!=uid or item['group']==9 or slot>=capacity(db,owner,group):raise ValueError('Bank persisted instance/slot mismatch')
         if db.execute('SELECT 1 FROM inventory_items WHERE uid=?',(uid,)).fetchone():raise ValueError('Bank instance is also in a bag')
         if include_expired or not expired(item):entries.append(dict(position=(group,slot),item=item))
@@ -97,6 +98,8 @@ def snapshot(path,owner):
 
 def put(db,owner,position,item):
     if position[0] in (8,16):
+        from els_server.storage.equipment_chip_reset_history import hydrate,legacy
+        item=legacy(hydrate(db,validate_item(item)))
         ensure(db)
         table,key,identity=container(db,owner,position[0])
         if db.execute('SELECT 1 FROM inventory_items WHERE uid=?',(item['uid'],)).fetchone():raise ValueError('Bank UID remains in inventory')

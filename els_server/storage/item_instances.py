@@ -16,6 +16,8 @@ def insert(db, owner, item):
     if not db.in_transaction:
         raise ValueError('Instance insertion requires transaction')
     item = validate_item(item)
+    from els_server.storage.equipment_chip_reset_history import hydrate
+    item = hydrate(db,item)
     db.execute('INSERT INTO inventory_items VALUES (?,?,?,?,?,?,?)',
         (item['uid'], owner, item['template'], item['metadata'], item['count'], item['group'], item['slot']))
     if 'attributes' in item:
@@ -26,7 +28,7 @@ def insert(db, owner, item):
         replace_options(db, owner, item['uid'], {}, item['option_groups'])
     if 'chip_tuning' in item:
         from els_server.storage.equipment_chip import replace as replace_chip
-        replace_chip(db,owner,item['uid'],[0,0,0,0],item['chip_tuning'])
+        replace_chip(db,owner,item['uid'],[0,0,0,item['chip_tuning'][3]],item['chip_tuning'])
     if 'reforge' in item:
         from els_server.storage.equipment_reforge import replace as replace_reforge
         replace_reforge(db,owner,item['uid'],[0,100,0],item['reforge'])
