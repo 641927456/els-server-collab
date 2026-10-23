@@ -1,4 +1,5 @@
 """Shared bank ED and character ED move atomically, with absolute retry replies."""
+from els_server.storage.item_actor import require_active_character
 import sqlite3
 from contextlib import closing
 from els_server.storage.bank_state import account_for,capacity
@@ -22,7 +23,7 @@ def transfer(path,owner,payload,operation):
     deposit,amount=money_request(payload)
     owner,digest=_identity(owner,0x7d7,payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('BEGIN IMMEDIATE');account=account_for(db,owner)
+        db.execute('BEGIN IMMEDIATE');require_active_character(db,owner);account=account_for(db,owner)
         old=_previous(db,operation,digest);character=balances(db,owner);bank_ed,revision=balance(db,owner)
         if old is not None:return money_ack(deposit,bank_ed,character['ed'])
         if character['revision']>=2**63-1 or revision>=2**63-1:raise ValueError('Shared ED revision limit')
