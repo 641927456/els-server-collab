@@ -137,12 +137,15 @@ class GameServer:
             async def write(wire):
                 writer.write(wire)
                 await asyncio.wait_for(writer.drain(),self.config.write_timeout)
-            async def send(messages):
+            async def send(messages, *, send_path='request_reply', request_sequence=None, request_kind=None):
                 nonlocal outgoing
                 for message in messages:
-                    wire=encode_frame(encode_event(message),keys,spi=spi,sequence=outgoing)
+                    wire_sequence=outgoing
+                    wire=encode_frame(encode_event(message),keys,spi=spi,sequence=wire_sequence)
                     outgoing+=1
                     await write(wire)
+                    dungeon34320_trace.sent(business,message,wire_sequence,send_path=send_path,
+                        request_sequence=request_sequence,request_kind=request_kind)
                     self.metrics['responses']+=1
                     # Payloads and session keys belong only in the explicit capture tool.
                     self.log('local_business_response_sent',connection=index,kind=message.kind,size=len(wire))
@@ -152,7 +155,7 @@ class GameServer:
                 while True:
                     await asyncio.sleep(.05 if self.config.mode=='friends' else 1)
                     async with operation:
-                        await send(await self.application.call(business.periodic_notifications))
+                        await send(await self.application.call(business.periodic_notifications),send_path='periodic')
             notifications=asyncio.create_task(notify_periodically(),name=f'notifications-{index}')
             # Propagate timer failures promptly even while waiting for a client packet.
             def notification_done(task):
@@ -184,14 +187,14 @@ class GameServer:
                          event_id=event.event_id,kind=event.kind,size=len(wire),**entry_fields)
                 async with operation:
                     if event.event_id==1026 and event.kind==3392 and not heartbeat_sent:
-                        await send([Event(0)]);heartbeat_sent=True
+                        await send([Event(0)],send_path='heartbeat');heartbeat_sent=True
                     before=business.phase
                     trace34320_before=dungeon34320_trace.before(business,event,frame.sequence)
                     messages=await self.application.call(business.handle,event,request_sequence=frame.sequence)
                     dungeon34320_trace.after(trace34320_before,business,messages)
                     if before!=business.phase:
                         self.log('business_phase',connection=index,request=event.kind,before=before,after=business.phase)
-                    await send(messages)
+                    await send(messages,send_path='request_reply',request_sequence=frame.sequence,request_kind=event.kind)
         except asyncio.IncompleteReadError:
             pass
         except (ProtocolError,SessionOrderError) as error:
