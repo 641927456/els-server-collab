@@ -20,7 +20,11 @@ def ordinary_grades():
     return frozenset(grades[k] for k in ('IG_UNIQUE', 'IG_ELITE', 'IG_RARE', 'IG_NORMAL', 'IG_LOW'))
 
 
-def reward_definition():
+def reward_definition(template=701000):
+    if template==118445:
+        from els_server.domain.white_chip_decomposition import reward_definition as fragment_definition
+        return fragment_definition()
+    if template!=701000:raise ValueError('Unqualified decomposition product')
     path = PROJECT_ROOT/'analysis/sol-high-20261015/inventory-sort-lock-decompose/crystal-native.json'
     proof = json.loads(path.read_text(encoding='utf8'))
     row = client_data().item(701000)
@@ -41,6 +45,9 @@ def quote(item):
     item = validate_item(item)
     require_current(item)
     require_unlocked(item)
+    from els_server.domain.white_chip_decomposition import quote as chip_quote
+    special=chip_quote(item)
+    if special is not None:return special
     if item['group'] != 1 or item['count'] != 1 or item['template'] not in definitions():
         raise ValueError('Ordinary bag equipment required for decomposition')
     row = client_data().item(item['template'])

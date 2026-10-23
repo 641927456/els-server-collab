@@ -41,6 +41,8 @@ def sell(path, owner, payload, operation, session='local'):
             item = by_uid.get(uid)
             if item is None or quantity > item['count']:
                 raise ValueError('Sale exceeds owned item count')
+            from els_server.domain.cartridge_registration_rules import require_unbound
+            require_unbound(db,uid)
             price = unit_price(item)
             # Native 2C5C600 multiplies signed int unit price and count.
             if price*quantity >= 2**31:
