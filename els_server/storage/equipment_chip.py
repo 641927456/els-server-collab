@@ -24,11 +24,14 @@ def ensure(db):
         probability INTEGER NOT NULL CHECK(probability IN (0,30,40,50,60,70)))''')
 
 def attach(db,items,owner):
-    if not exists(db):return
+    from els_server.storage.equipment_chip_reset_history import hydrate
     owned={i['uid']:i for i in items}
-    for uid,attempts,successes,probability in db.execute('SELECT c.item_uid,c.attempts,c.successes,c.probability FROM equipment_chip_tuning c JOIN inventory_items i ON i.uid=c.item_uid WHERE i.owner=?',(owner,)):
-        item=owned.get(uid)
-        if item is not None:item['chip_tuning']=state(item['template'],[attempts,successes,probability,0])
+    if exists(db):
+        for uid,attempts,successes,probability in db.execute('SELECT c.item_uid,c.attempts,c.successes,c.probability FROM equipment_chip_tuning c JOIN inventory_items i ON i.uid=c.item_uid WHERE i.owner=?',(owner,)):
+            item=owned.get(uid)
+            if item is not None:item['chip_tuning']=state(item['template'],[attempts,successes,probability,0])
+    for item in items:
+        if item['template']==TEMPLATE:item.update(hydrate(db,item))
 
 def replace(db,owner,uid,expected,updated):
     if not db.in_transaction:raise ValueError('Chip state replacement requires transaction')
@@ -36,8 +39,11 @@ def replace(db,owner,uid,expected,updated):
     if row is None or row[0]!=TEMPLATE or row[1]!=1:raise ValueError('Owned single chip state required')
     expected=state(TEMPLATE,expected);updated=state(TEMPLATE,updated)
     old=db.execute('SELECT c.attempts,c.successes,c.probability FROM equipment_chip_tuning c JOIN inventory_items i ON i.uid=c.item_uid WHERE c.item_uid=? AND i.owner=?',(uid,owner)).fetchone() if exists(db) else None
-    if ([*old,0] if old else [0,0,0,0])!=expected:raise ValueError('Stale chip tuning state')
-    if updated==[0,0,0,0]:
+    from els_server.storage.equipment_chip_reset_history import used
+    count=used(db,uid)
+    if [*(old or (0,0,0)),count]!=expected:raise ValueError('Stale chip tuning state')
+    if updated[3]!=count:raise ValueError('Chip tuning cannot rewrite reset history')
+    if updated[:3]==[0,0,0]:
         if old:db.execute('DELETE FROM equipment_chip_tuning WHERE item_uid=?',(uid,))
         return
     ensure(db)
@@ -68,7 +74,7 @@ def response_changes(items,positions,uid):
         if i['uid']==uid and pos not in positions:positions.append(pos)
     return [(p,current.get(p)) for p in positions]
 
-def perform(path,owner,payload,operation,*,install,randbelow=secrets.randbelow,encode=None):
+def perform(path,owner,payload,operation,*,install,account_id=None,randbelow=secrets.randbelow,encode=None):
     if type(install) is not bool:raise ValueError('Chip operation kind')
     uid,source=installation(payload) if install else (tuning(payload),None)
     kind=0x6e7 if install else 0xbb8;owner,digest=_identity(owner,kind,payload,operation)
@@ -76,6 +82,9 @@ def perform(path,owner,payload,operation,*,install,randbelow=secrets.randbelow,e
     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10)) as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
         if not db.execute('SELECT 1 FROM characters WHERE uid=?',(owner,)).fetchone():raise ValueError('Unknown chip owner')
+        if account_id is not None:
+            from els_server.storage.profession_state import require_owner
+            require_owner(db,owner,account_id)
         old=_previous(db,operation,digest);before=load_items(db,owner);balance=balances(db,owner)
         if old is not None:
             kwargs={} if install else dict(success=receipt_success(db,operation,uid))
@@ -100,5 +109,6 @@ def perform(path,owner,payload,operation,*,install,randbelow=secrets.randbelow,e
         after=load_items(db,owner)
         response=encode(uid,ed,response_changes(after,positions,uid),**kwargs)
         encode_event(response)  # All native BB9/6E8 records complete before receipt/commit.
-        _commit(db,operation,digest,owner,kind,positions,before,after)
+        from els_server.storage.equipment_chip_reset_history import legacy
+        _commit(db,operation,digest,owner,kind,positions,[legacy(i) for i in before],[legacy(i) for i in after])
         return [response]
