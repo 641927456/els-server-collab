@@ -188,6 +188,8 @@ class QuestState:
                         from els_server.domain.item_expiration import expired
                         for item in items:
                             if item['template']!=template or item['group']==9 or locked(item) or expired(item):continue
+                            from els_server.domain.cartridge_registration_rules import require_unbound
+                            require_unbound(db,item['uid'])
                             take=min(n,item['count']);n-=take
                             if take==item['count']:
                                 from els_server.storage.item_expiration import forget

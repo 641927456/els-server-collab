@@ -1,0 +1,31 @@
+{
+  "scope": "Reject disabled accounts, stale selected characters and superseded connections when a group challenge starts, resumes, commits or completes a pending consent/cancellation lifecycle. Preserve the accepted phases, durable attempts, roster and native AE4/AE5/AE9/AEA behavior.",
+  "dependency_and_limits": "The source PR also synchronizes the existing consent/cancellation prerequisite and its phase_confirmation encoder because main lacks those already deployed definitions. This is source dependency reconciliation, not a new runtime release of additional challenge features. The local installation changes only group_challenge.py for this unit.",
+  "dependency": "Synchronizes the already deployed native consent/cancellation prerequisite (present in the accepted online source snapshot but missing from main); only the current-member guard is the new runtime delta.",
+  "local_release": "local-three-qualified-server-guards-20261023-v1",
+  "local_manifest_sha256": "032a8598d4152abf5e277bccf249e19edf32f0f3f89fd5ad1ecf968aacbb9c40",
+  "local_runtime_delta_total": 4,
+  "independent_repair_units_total": 3,
+  "local1012_branch_preserved": true,
+  "new_schema": false,
+  "client_changes": 0,
+  "local_observation_seconds": 120.82420190004632,
+  "dual_SQLite_backup_API": true,
+  "all_original_typed_rows_and_schema_preserved": true,
+  "existing_business_economic_checks_replayed": 0,
+  "new_checks": "Current-parent four-leaf composition/import and normal artifact check, installed fullSHA and preservation, 120second offline observation, post-install self review.",
+  "earlier_online_qualified_evidence_reused": true,
+  "new_public_QA_executed": false,
+  "full_natural_GUI_or_multiplayer_claimed": false,
+  "formal_game_online_redeployed": false,
+  "source_files": [
+    {
+      "path": "els_server/domain/group_challenge.py",
+      "sha256": "013722632039007d69572164d28ac6aec8c89ca9c400a9891c98a584d073259d"
+    },
+    {
+      "path": "els_server/protocol/challenge_messages.py",
+      "sha256": "b20902da4955468881be70af6a0252c044e2e9393165f14088801c9abbdb27db"
+    }
+  ]
+}

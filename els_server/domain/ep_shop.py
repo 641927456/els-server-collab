@@ -69,10 +69,17 @@ def catalog():
     return (Offer(723602,100,1,classes,limit),
             Offer(723603,10,1,classes,limit),
             Offer(723604,5,1,classes,limit),
-            Offer(710022,15,100,classes,None))+_pet_offers(classes)
+            Offer(710022,15,100,classes,None))+_pet_offers(classes)+_guardian_necklace_offers()
 
 
 def _pet_offers(classes):
     from els_server.domain.ep_pets import definitions
     return tuple(Offer(row['template'],row['price_ep'],row['quantity'],classes,None)
+                 for row in definitions())
+
+
+def _guardian_necklace_offers():
+    from els_server.domain.ep_guardian_necklaces import definitions
+    return tuple(Offer(row['template'],row['price_ep'],row['quantity'],
+                       frozenset(row['eligible_classes']),None)
                  for row in definitions())
