@@ -3,30 +3,50 @@ import struct,time,uuid
 from els_server.protocol.protocol_codec import Event
 from els_server.protocol import town_travel_messages as wire
 
+def _ordinary_actor(s):
+    from els_server.domain.equipment_chip_flow import current_lease
+    a=getattr(s,'account',None);app=getattr(s,'application',None)
+    return bool(a is not None and a.store is not None and a.store.uid==a.uid
+        and current_lease(s) and (app is None or app.registry.enabled(a.account_id)))
+
+def _ordinary_binding(s):
+    a=s.account
+    return (a,a.store,a.uid,a.account_id,s.shop_session_id)
+
 def handle(s,event,sequence):
     if event.event_id!=0x202 or event.kind!=0x58c:return None
     if not (s.enter_town and s.item_test and s.client_build=='dx11_260923' and s.account.characters is not None):return []
     destination=struct.unpack_from('>i',event.payload)[0] if len(event.payload)>=4 else 0
     if destination==1012:return _handle_village1012(s,event,sequence)
-    def failure():return [wire.acknowledgement(destination,s.account.get_reward_balances()['ed'],result=-1)]
+    def failure():
+        if not _ordinary_actor(s):return []
+        return [wire.acknowledgement(destination,s.account.get_reward_balances()['ed'],result=-1)]
+    if not _ordinary_actor(s):return failure()
     if (event.performers!=(0,) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0
         or type(sequence) is not int or not 0<=sequence<2**64 or s.role!='game'):return failure()
     pending=getattr(s,'town_warp_transition',None)
     if pending is not None:
-        if pending['payload']==event.payload and pending['sequence']==sequence and s.phase in ('map_loading','square_accepted'):
+        if (pending.get('actor_binding')==_ordinary_binding(s) and pending['payload']==event.payload
+            and pending['sequence']==sequence and s.phase in ('map_loading','square_accepted')):
             return [Event(0x201,kind=0x58d,payload=pending['response'])]
         return failure()
     if s.phase!='town_ready' or s.dungeon_return_pending:return failure()
     source=s.account.get_location()['map']
     if s.active_map!=source:return failure()
+    binding=_ordinary_binding(s)
+    account,store,uid,account_id,session_id=binding
+    def authorize():
+        return bool(_ordinary_actor(s) and _ordinary_binding(s)==binding and s.role=='game'
+            and s.phase=='town_ready' and not s.dungeon_return_pending and s.active_map==source
+            and s.account.get_location()['map']==source and getattr(s,'town_warp_transition',None) is None)
     try:
         wire.request(event.payload)
         from els_server.storage.town_travel import travel
         operation=str(uuid.uuid5(uuid.UUID(s.shop_session_id),f'town-warp:{s.account.uid}:{sequence}'))
-        result=travel(s.account.store.path,s.account.uid,s.account.account_id,source,event.payload,operation,now=int(time.time()))
+        result=travel(store.path,uid,account_id,source,event.payload,operation,now=int(time.time()),authorize=authorize)
     except (ValueError,OverflowError):return failure()
     with s.account.lock:s.account.location=s.account.store.load()
-    s.town_warp_transition=dict(destination=destination,payload=event.payload,sequence=sequence,response=result['response'],operation=operation)
+    s.town_warp_transition=dict(destination=destination,payload=event.payload,sequence=sequence,response=result['response'],operation=operation,actor_binding=binding)
     s.phase='map_loading';s.pending_map=None;s.inventory_town_sync_sent=False
     return [Event(0x201,kind=0x58d,payload=result['response'])]
 
