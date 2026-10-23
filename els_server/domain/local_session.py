@@ -1600,7 +1600,11 @@ class LocalSession:
                 except ValueError as e:raise SessionOrderError(str(e)) from e
                 return []  # Local movement is a notification, not an outstanding wait.
             if kind==0x1b2:
-                # 0xac2de0: result, uint, bool, index, four uint counters.
+                # B8FE10 sends only an ID; B92570 reads the 29-byte cash ACK.
+                # This profile has no cash/billing source; ED is independent.
+                if self.client_build=='dx11_260923' and event.payload:
+                    raise SessionOrderError('Cash balance query has no request body')
+                # result, legacy balance, only-type flag, type index, four cash values.
                 return [Event(0x201,kind=0x1b3,payload=i32(0)+u32(0)+b'\x00'+i32(-1)+u32(0)*4)]
             if kind==0xb6f:
                 return [Event(0x201,kind=0xb70,payload=i32(0)+u32(0)*3)]
