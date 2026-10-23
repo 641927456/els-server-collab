@@ -44,7 +44,7 @@ def request(payload):
     # C560F0 emits exactly three i32 values and one byte for kind6D0.
     if not isinstance(payload,bytes) or len(payload)!=13:raise ValueError('Force equipment request size')
     kind,index,skill,rank=struct.unpack('>iiiB',payload)
-    if kind not in (0,1) or skill<=0 or rank not in (3,5):raise ValueError('Selected passive force request')
+    if kind not in (0,1) or skill<=0 or rank not in (3,4,5):raise ValueError('Selected passive force request')
     if (kind==0 and index!=0) or (kind==1 and index not in range(PASSIVE_SLOTS)):raise ValueError('Force slot index')
     return kind,index,skill,rank
 
