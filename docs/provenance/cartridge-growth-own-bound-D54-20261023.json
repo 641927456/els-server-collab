@@ -1,0 +1,132 @@
+{
+  "schema": "cartridge-growth-own-bound-D54-redacted-provenance-v1",
+  "document_phase": "canonical_source_and_runtime_acceptance_provenance",
+  "issue": 294,
+  "base_commit": "d7951699cfbadbfb0926bb73528d6ce12eaf18d7",
+  "source_files": {
+    "els_server/data/cartridge_registration.json": "750efac2a0c20a9d7d0186a00ac861c7cc9396f6f9efb3d17861aa6ec1e801e7",
+    "els_server/domain/cartridge_registration_rules.py": "55ac2dd8cb55573c45c60cbb19dede453572c832b5ceb644d0199c664dadaeab",
+    "els_server/domain/equipment_cartridge_flow.py": "a879d5df69504ba7869401e112d885ce7fef2e8b3732815dc78e3e331f3f34a2",
+    "els_server/storage/account_cartridge_registration.py": "bfafe87acdf67cf2b28235be78a1f96ef957012508997944ddeb0e8a689fbb18",
+    "els_server/storage/equipment_receipt_state.py": "3f6920c6092b320a26001b63a4b0d0919df4221a1a057943091d175ec1633ed2"
+  },
+  "evidence": {
+    "business_SOURCE": {
+      "sha256": "1eca10a8bf8abd31035aafe331d8a6b439fdb8420b78dde90aea33c317c5b65e",
+      "bytes": 9237
+    },
+    "business_SOURCE_peer": {
+      "sha256": "67d66832a8d00b6cb68feb53535064c1f880366d0b69da2c055484eec5d9758d",
+      "bytes": 10068
+    },
+    "canonical_SOURCE": {
+      "sha256": "43916278e486ccdc8528de45a9a3f0d3a233f57683cdfe671102580fd8d44add",
+      "bytes": 22259
+    },
+    "canonical_SOURCE_peer": {
+      "sha256": "899b5a6bae67c8154b5e18ef6adcb4e5e49ebe8576f748ef1471dcc1effbd621",
+      "bytes": 4734
+    },
+    "context_actual_FILE": {
+      "sha256": "ad59801cbd71bff8e9eedaa215e5805aa6021bbe1fac79ca3377ae9b0b8d378d",
+      "bytes": 10764
+    },
+    "root_selfreview": {
+      "sha256": "d5a0ca334f2b02be6cd3397c8210df9369cc33c72cbcc5ebb2e9100ac293308f",
+      "bytes": 9164
+    },
+    "source_CI": {
+      "sha256": "e1c2136e30551c4ba99f8088d309c5a548d118b2f101409e595da90f4e62a537",
+      "bytes": 600
+    },
+    "local_completion": {
+      "sha256": "7571f5dffcec4a56ee7bc2bdcaefa39e8f4440eca073b1c36e70da0447070505",
+      "bytes": 6973
+    },
+    "local_FILE": {
+      "sha256": "17493d6108412bd69fa579c0c94616c1904227b5209158aa248e12c5bb943777",
+      "bytes": 8200
+    },
+    "online_completion": {
+      "sha256": "12face3835ae3be2d9564a30c9f3ebf25bff6ceb98f63ba37765dab8b161e50d",
+      "bytes": 1152
+    },
+    "online_acceptance": {
+      "sha256": "20f1b654c47f133bb49b122f826e7b7c160e6d17940942753953b09bc3446377",
+      "bytes": 91555
+    },
+    "public_acceptance": {
+      "sha256": "e02623fd2d867ecffc18bae3f1adb6b76f279cae30e6ddb020e6f3ffaff45510",
+      "bytes": 87890
+    },
+    "local_metadata_acceptance": {
+      "sha256": "ab56b21a50084fef6b77bb0f429d1ee3fcdddbf71770d1b6a5f28b27928b62ac",
+      "bytes": 2366
+    },
+    "cleanup": {
+      "sha256": "fb42295018b045b83b185c4ca7914a361d9a1d6352f4729c041879b211bd7a47",
+      "bytes": 166
+    },
+    "lockrelease": {
+      "sha256": "663e57e7f30624820d31149e09e9b14f351b8b8b88dffb31fb1a1047e117613c",
+      "bytes": 51
+    },
+    "actual_FILE": {
+      "sha256": "061a5171a88e4f11ed2a52f6bc71e1000a39a466bf6257989f95a399eba07e1d",
+      "bytes": 19246
+    }
+  },
+  "local_business": 951,
+  "local_bundle": 1413,
+  "online_business": 940,
+  "local_replacements": 5,
+  "online_replacements": 5,
+  "new_runtime_files": 0,
+  "local_manifest_sha256": "cc321291e6a4dfcc44b0427ee2584cd66da2e2e10cdc9a326b1a9364dfcca5f4",
+  "online_manifest_sha256": "591596e682ba65a35a811387600a9f7b407473f4843c95b21e2340f0cc53e5b8",
+  "local_observation_seconds": 121.69757389998995,
+  "online_observation_seconds": 122.20478299981914,
+  "installed_checks_exit": 0,
+  "public_native_driver_requests": 30,
+  "public_service_requests": 1,
+  "public_refusal_payload_bytes": 32,
+  "public_refusal_result": 2005,
+  "cold_inventory_records": 10,
+  "economic_growth_commits": 0,
+  "new_growth_receipts": 0,
+  "points_delta": 0,
+  "ED_delta": 0,
+  "source_new_definitions": 0,
+  "source_new_widened_definitions": 0,
+  "retained_growth_receipt_definitions": 1,
+  "retained_binding_receipt_definitions": 1,
+  "retained_widened_definitions": 1,
+  "retained_registration_definitions": 3,
+  "installation_eager_DDL": false,
+  "observed_new_tables": [],
+  "observed_schema_changes": [],
+  "first_genuine_growth_lazy_DDL_possible": true,
+  "finite_own_bound_extension_enabled": true,
+  "unbound_growth_retained": true,
+  "public_positive": false,
+  "own_bound_qualification_newly_verified": false,
+  "old_finite_3growth_4binding_1move_reused_without_replay": true,
+  "old_paid_whole_passed": false,
+  "old_missing_late_origins_resolved": false,
+  "natural_material_source": false,
+  "GUI": false,
+  "whole_category_100": false,
+  "client_changes": false,
+  "new_producer": false,
+  "player_DB_rollback": false,
+  "source_CI": {
+    "compiled_python_sources": 814,
+    "privacy_checked_files": 1272,
+    "protocol_roundtrip": true,
+    "runtime_check": false,
+    "executions": 1
+  },
+  "canonical_EPS": "Only ordered D54 append over canonical existing whitelist/body; intentional runtime channel variants retained.",
+  "raw_or_database_or_client_upload": false,
+  "transport_record": "Commit, PR, remote CI and fixed-progress transport status are recorded separately in the private delivery receipt."
+}

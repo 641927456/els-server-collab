@@ -1,0 +1,399 @@
+{
+  "schema": "cartridge-registration-delivery-sanitized-provenance-v1",
+  "document_phase": "canonical_source_and_runtime_acceptance_provenance",
+  "release": "equipment-cartridge-registration-current-local-context-20261023-v1",
+  "canonical": {
+    "base_commit": "7f8cc0f3d482b7dd4a5877e87e4ae0e72422f72a",
+    "dependent_PR": "https://github.com/641927456/els-server-collab/pull/287",
+    "files": [
+      {
+        "path": "els_server/domain/equipment_cartridge_flow.py",
+        "action": "new",
+        "sha256": "ec73a65d82132ea80630895544d2fa863a691bd24694ecad0791a9532043c910",
+        "bytes": 5741,
+        "same_BYTE_accepted_runtime": true
+      },
+      {
+        "path": "els_server/storage/account_cartridge_registration.py",
+        "action": "new",
+        "sha256": "cdc60a959c18df02555df0360dd95b7285cecab9f6248d358d44053d25cd0640",
+        "bytes": 15599,
+        "same_BYTE_accepted_runtime": true
+      },
+      {
+        "path": "els_server/protocol/equipment_cartridge_messages.py",
+        "action": "new",
+        "sha256": "b39e5fadb1ee8072a9e3695e59a976c1371cf1c026bb3df948bfbc85fe5ce326",
+        "bytes": 4094,
+        "same_BYTE_accepted_runtime": true
+      },
+      {
+        "path": "els_server/domain/local_session.py",
+        "action": "replace",
+        "sha256": "5f6bef0d93235f3904bc920fc3627cad61c9cfdb8eb651d6295636dbe4234ab9",
+        "bytes": 125246,
+        "same_BYTE_accepted_runtime": false
+      },
+      {
+        "path": "els_server/storage/equipment_receipt_state.py",
+        "action": "replace",
+        "sha256": "db4c6d680becf3297a1f17ce30d080e304abee86d11b6e58fb16862a5625fd13",
+        "bytes": 3247,
+        "same_BYTE_accepted_runtime": false
+      }
+    ],
+    "count": 5,
+    "new": 3,
+    "shared": 2,
+    "future_total_with_docs": 7,
+    "whole_Application_equal_runtime": false,
+    "scope": "LocalSession3hunks and receiptD4E addition preserve9ED; normalApp witness/helper compatibility only. Other keyboard/chat/world changes excluded; no entireApp/runtime overlay."
+  },
+  "runtime": {
+    "local_release": "local-equipment-cartridge-registration-current-local-context-20261023-v1",
+    "local_manifest_sha256": "85a3fdf770890639a7e0606b909f6c13952cc257e30ce1351e8a5ffec6bb5c06",
+    "local_business": 951,
+    "local_bundle": 1413,
+    "local_delta": 4,
+    "local_new": 1,
+    "local_replaced": 3,
+    "local_observation_seconds": 123.06665250007063,
+    "local_formal_check_exit": 0,
+    "online_manifest_sha256": "91703aa498618f2bc48dc2efc18d25a20e881f9e7cc000ab3b1f18c419c434c7",
+    "online_business": 940,
+    "online_delta": 1,
+    "online_new": 0,
+    "online_replaced": 1,
+    "online_observation_seconds": 127.35905899992213,
+    "online_formal_check_exit": 0,
+    "feedback": 200,
+    "original_rows_preserved": true,
+    "local_post_online_metadata_only": true,
+    "local_payload_reinstalled_after_online": false,
+    "dual_SQLite_API_typed_rows_schema_code_config_task_backups": true,
+    "normal_stop_listener_confirmation": true,
+    "player_database_rollback": false,
+    "own_stage_task_locks_cleaned": true,
+    "captured_heads_before_final_independent_metadata": {
+      "local": {
+        "captured_sha256": "6dd621455ba6d642f7f4f693488ef230e99a46658966521eb0b78dc607912a5e",
+        "bytes": 6808,
+        "release": "local-equipment-cartridge-registration-current-local-context-20261023-v1",
+        "manifest_sha256": "85a3fdf770890639a7e0606b909f6c13952cc257e30ce1351e8a5ffec6bb5c06"
+      },
+      "online": {
+        "captured_sha256": "0d8932c1e58001ad6ba286782248e3058d7dd6fa7c2427587a52ce74c268564d",
+        "bytes": 69897,
+        "release": "equipment-cartridge-registration-current-local-context-20261023-v1",
+        "manifest_sha256": "91703aa498618f2bc48dc2efc18d25a20e881f9e7cc000ab3b1f18c419c434c7"
+      },
+      "launchers": {
+        "captured_sha256": "bbd643dfb741dd3fabcf6d9ad279c40b5d396df08151085629a7d941aad3e0b9",
+        "bytes": 4326,
+        "release": "friends-bridge-native-reuse-20261021-v1",
+        "manifest_sha256": null
+      }
+    },
+    "final_captured_heads_after_three_field_FILE_metadata_reconciliation": {
+      "local": {
+        "captured_sha256": "6dd621455ba6d642f7f4f693488ef230e99a46658966521eb0b78dc607912a5e",
+        "bytes": 6808
+      },
+      "online": {
+        "captured_sha256": "69b34fe19d22e91d8f76b9ff9390a37cd09bd3ff4d1f845375aff1b4df85c7d5",
+        "bytes": 68394
+      },
+      "launchers": {
+        "captured_sha256": "bbd643dfb741dd3fabcf6d9ad279c40b5d396df08151085629a7d941aad3e0b9",
+        "bytes": 4326
+      }
+    },
+    "online_final_metadata_only_fields_replaced": 3
+  },
+  "rules": {
+    "user_local_policy_date": "2026-10-21",
+    "account_shared_collection_growth_points": true,
+    "same_ID_account_wide_single_equipment_is_full_policy_not_this_delivery": true,
+    "finite_registration_only": true,
+    "inherited_initial_level1_duplicate200_max50000": "Original finite pinned table policy retained, no new official or user numeric rule inferred.",
+    "new_source_or_producer": false,
+    "normal_material_source": "Unqualified by this delivery; existing valid singleton stock compatibility only.",
+    "other_routes_D50_D52_D54": "remain explicit refusal"
+  },
+  "verification": {
+    "new_local_context": {
+      "normal_Application_factory": true,
+      "normal_selected_role_stage_chain": true,
+      "requests": 26,
+      "own_warm_freshApp_cold": true,
+      "foreign_role_ownership_refusal": true,
+      "complete_warm_cold2A": true,
+      "release_wrong_root_store_UUID_stage_refused": true,
+      "read_only_authority_transaction": true,
+      "economic_commits": 0,
+      "no_phase_injection": true
+    },
+    "online_artifact": "Exact existing4a07 and independent80a FILE reused, not repeated.",
+    "old_private_SQL_TLS_economic": "Accepted original cdc6 storage and historical source/private transactions reused through0c20 closure. No old successful economics/SQL/TLS/sourcepair replay.",
+    "public": {
+      "negative_only": true,
+      "native_driver_requests": 30,
+      "service_requests": 1,
+      "request_kind": "0xD4E",
+      "request_bytes": 8,
+      "request_format": ">Q",
+      "request_instance": "Strict positive absent-owned singleton UID; no stock injected",
+      "ACK_kind": "0xD4F",
+      "ACK_bytes": 24,
+      "ACK_format": ">iiIIQ",
+      "ACK_values": [
+        2005,
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_failure_ACK_and_cold2A_archived": true,
+      "not_all30_frame_pairs_archived": true,
+      "cold_full_records": 10,
+      "economic_commits": 0,
+      "new_generic_and_account_receipts": 0,
+      "ED_delta": 0,
+      "own_SQL_collection_inventory_balance_projection_unchanged": true,
+      "new_normalAPI_role_controlled_level99_only": true,
+      "no_material_inventory_currency_quest_town_phase_seed": true,
+      "no_old_QA_enable": true,
+      "normal_disabled": true,
+      "physical_tables_created_by_normalAPI": [],
+      "physical_tables_created_by_negative_service": [],
+      "schema_existing_definitions_changed": [],
+      "registration_positive": false,
+      "account_shared_registration_positive": false,
+      "natural_player_GUI": false,
+      "cartridge_tables_physically_observed": "All three absent/None in every own-account observation; no successful registered collection table read."
+    }
+  },
+  "schema_boundary": {
+    "local_new_source_definitions": 3,
+    "online_new_source_definitions": 0,
+    "installation_DDL_statements": 0,
+    "first_valid_registration_lazy_DDL": "Original3 definitions may be created inside a future genuine successful transaction; not executed or accepted by this public negative. Normal API/setup/disable writes are separate from zero economic commits.",
+    "SQL_total_zero_claimed": false,
+    "original_three_account_table_definitions_retained": true,
+    "three_tables_physically_absent_in_all_own_observations": true
+  },
+  "history": {
+    "actual_D4E_failures_in_this_batch": 0,
+    "outer_v1": "Five HTTP200 assertions accidentally100 caught duringSOURCE;0actual execution, retained and corrected.",
+    "outer_v3": "Adoption helper used legacy approval fields instead of standard actualFILE schema; caught duringSOURCE;0actual adoption, retained and corrected.",
+    "outer_v2_to_v4": "One original9FILE preparation plus one controlled adoption:8BYTE identical, soleQA evidence_dir update; ZIPs not rebuilt.",
+    "SYSTEM_task_python_flags": "-B -X utf8",
+    "unrelated_Chip_SSH_timeout": "Not a D4E failure; not claimed as this batch evidence.",
+    "historical_679_cleanup": "Two empty directories retained after automatic deletion approval was blocked; no redelete here."
+  },
+  "remaining": [
+    "Public successful registration with lawful current material and normal acquisition qualification.",
+    "New public account-shared positive/cross-character registration proof; old controlled/private evidence remains separate.",
+    "D50/D52/D54 equip/removal/growth and account-wide sameID equipment exclusivity are not implemented by this registration delivery.",
+    "Natural client GUI/effects/timing and whole system completion unverified; existing client behavior reused.",
+    "Git commit/push/PR and fixed progress publication remain pending; final independent FILE/root review and necessary source CI are complete."
+  ],
+  "score_change": 0,
+  "whole_system_complete": false,
+  "evidence": [
+    {
+      "label": "modern/D4E-registration-current-canonical-Git-SOURCE-v1/source-freeze.json",
+      "sha256": "6c240e7410194aef2c7dcdf017226b869e91fe370cc67ab4611313c7b1f2eefe",
+      "bytes": 5416
+    },
+    {
+      "label": "modern/D4E-registration-current-canonical-Git-SOURCE-v1/plan-v1.json",
+      "sha256": "82b5ddf95edc876a08a7dd58d23ab742491c53077d2e9e003693ab0732abc080",
+      "bytes": 14653
+    },
+    {
+      "label": "modern/D4E-registration-current-canonical-Git-SOURCE-v1/projection-and-inverse-proof-v1.json",
+      "sha256": "6aa5a55dedc3ff0ad79601a5e09b5eafe6ab581e2684ed3316e9716e1bb3e98b",
+      "bytes": 16102
+    },
+    {
+      "label": "modern/D4E-registration-canonical-Git-independent-SOURCE-review-v1/review-v1.json",
+      "sha256": "6db954c785d3beb1b8b3da633d419fd73ca781a097d211b67cc0ce99a6560fd2",
+      "bytes": 5487
+    },
+    {
+      "label": "modern/D4E-current-Chip940-registration-local-context-SOURCE-v2/source-freeze.json",
+      "sha256": "8bf8777868d5ada78ba0648a89f639aab2d5753024eb77306d6185d3fca56c0d",
+      "bytes": 921
+    },
+    {
+      "label": "modern/D4E-current-Chip940-registration-independent-SOURCE-review-v1/review-v1.json",
+      "sha256": "0c20cfdf145f3b5875a2f82c9bf499dc9c4916702a12150f338eb3187ae7fee2",
+      "bytes": 43317
+    },
+    {
+      "label": "modern/D4E-current-registration-context-validation-CLOSED-SOURCE-v2/source-freeze.json",
+      "sha256": "8f0d7c0132db6941d8cf02e6aebe1bbd257f9f9f1f95805c11b43b32878b0a4a",
+      "bytes": 10769
+    },
+    {
+      "label": "modern/D4E-current-registration-context-validation-CLOSED-SOURCE-v2/actual/root-local-v1/validation-receipt.json",
+      "sha256": "2e037b7b4589358372cf57dc1811b1375b5112f7b41b60c1cee740cea0d43b88",
+      "bytes": 279301
+    },
+    {
+      "label": "modern/D4E-current-registration-context-validation-CLOSED-SOURCE-v2/actual/root-online-v1/validation-receipt.json",
+      "sha256": "4a07baf7258aa7d2ed0e078a8f9d3d953aa6eaeada675438f2d6d9671ed7c536",
+      "bytes": 22464
+    },
+    {
+      "label": "modern/D4E-current-registration-context-validation-actual-independent-FILE-review-v1/review-v1.json",
+      "sha256": "80a60c970d1ed9a572dd4998f035e10b883b8b531a27ef6c8e7d3ee2593f30a8",
+      "bytes": 17867
+    },
+    {
+      "label": "modern/D4E-registration-local-protection-CLOSED-SOURCE-v1/local-install/completion.json",
+      "sha256": "e47e34f7b3666103d4d9e23fc3f10f8104c0c7d34b6817a0a42a3fc62fd764e1",
+      "bytes": 6297
+    },
+    {
+      "label": "modern/D4E-registration-local-delivery-actual-independent-FILE-review-v1/review-v1.json",
+      "sha256": "12ff5c980a7470eb0f6aaa5ca4359b3ae61a56997c1aa400bb9243ee60ad492b",
+      "bytes": 25365
+    },
+    {
+      "label": "modern/D4E-registration-finite-publication-independent-SOURCE-review-v1/review-v1.json",
+      "sha256": "1897a45eba821298cf2545f2f4708d57c1c96343ef00375e24943a36a041be81",
+      "bytes": 28472
+    },
+    {
+      "label": "modern/D4E-registration-finite-publication-independent-SOURCE-review-v1/review-v3-HOLD.json",
+      "sha256": "e31c61ceed7fd049ea68705a13c017bfe203cec113ef6ed9a0d6a85683f9ba2c",
+      "bytes": 33940
+    },
+    {
+      "label": "modern/D4E-registration-finite-publication-independent-SOURCE-review-v1/review-v4.json",
+      "sha256": "c73ebe50825d4018095f9064a8144a3b87f1a451a2e9613f9f9d53c09ef03620",
+      "bytes": 5618
+    },
+    {
+      "label": "modern/D4E-registration-finite-publication-CLOSED-SOURCE-v2/preparation-receipt.json",
+      "sha256": "72359ea22ee4b0e2d6422e4e8aeea914dda686fa05938c969b66aa6e8bf9078d",
+      "bytes": 3296
+    },
+    {
+      "label": "modern/D4E-registration-online-prepared-independent-FILE-review-v1/review-v1.json",
+      "sha256": "0d1017422a06e3a4f222a70e7f67b2fd784465edafcaf0afdd2fa21f5acf9c31",
+      "bytes": 8312
+    },
+    {
+      "label": "modern/D4E-registration-finite-publication-CLOSED-SOURCE-v4/online-control-source-freeze.json",
+      "sha256": "331a3a4fff0bf58c2b12c55e3e6e350294154c97fd7da5d77e4bd48cecb90b9d",
+      "bytes": 23964
+    },
+    {
+      "label": "modern/D4E-registration-finite-publication-CLOSED-SOURCE-v4/preparation-receipt.json",
+      "sha256": "7618f80a0a777aca579186c4788ddf302f2574d34a44a61171829fee191fc899",
+      "bytes": 4758
+    },
+    {
+      "label": "modern/D4E-registration-finite-publication-CLOSED-SOURCE-v4/online-completion.json",
+      "sha256": "f1a585bc7ba05307310da2d2d606ed8d0ef75d2cff2152c78a40e55054c2ef8f",
+      "bytes": 863
+    },
+    {
+      "label": "modern/D4E-registration-finite-publication-CLOSED-SOURCE-v4/public-acceptance.json",
+      "sha256": "1a8ca3ffaf4b91c51f26b1119efd4c90b62f997b19681851005aa7faa8718065",
+      "bytes": 87455
+    },
+    {
+      "label": "modern/D4E-registration-finite-publication-CLOSED-SOURCE-v4/online-acceptance.json",
+      "sha256": "84878233ac8b60f24e270c9af9f3db8b95947703ea9830908ecd9a2d55df051f",
+      "bytes": 90648
+    },
+    {
+      "label": "modern/D4E-registration-finite-publication-CLOSED-SOURCE-v4/online-post.json",
+      "sha256": "752f9bfcb91c30a02e65b8a8af02744e9501d3b03102adfdeea8924ac85073f9",
+      "bytes": 386
+    },
+    {
+      "label": "modern/D4E-registration-finite-publication-CLOSED-SOURCE-v4/local-post-online-reconciliation.json",
+      "sha256": "8b82671fa9a98b78ca10c353f562985a301e7bbe3b74a27dd911e0a25a99375e",
+      "bytes": 1747
+    },
+    {
+      "label": "modern/D4E-registration-finite-publication-CLOSED-SOURCE-v4/cleanup.json",
+      "sha256": "0418c3f67c041090b74e506f38a56ee6aea4cf4c31364fa43cf19609ad1cc1f1",
+      "bytes": 166
+    },
+    {
+      "label": "modern/D4E-registration-finite-publication-CLOSED-SOURCE-v4/locks-released.json",
+      "sha256": "663e57e7f30624820d31149e09e9b14f351b8b8b88dffb31fb1a1047e117613c",
+      "bytes": 51
+    },
+    {
+      "label": "modern/D4E-registration-public-and-postdelivery-actual-independent-FILE-review-v1/review-v1.json",
+      "sha256": "9e99a408cf4f39f7d9605ae73b83e961ee2545bf16a31a8ffe99d3223d25f46a",
+      "bytes": 18997
+    },
+    {
+      "label": "modern/D4E-registration-public-and-postdelivery-actual-independent-FILE-review-v1/pending-metadata-and-local-bundle-addendum-v1.json",
+      "sha256": "5f0008a1adf5c14a109c1de35fbda8d40f59b521fcce510e44871565e5b65438",
+      "bytes": 2129
+    },
+    {
+      "label": "D4E-registration-final-root-self-review-v1.json",
+      "sha256": "7a95ab6c422aa875688a636bf1630b859e01a0fbcf8062e06dbb2848e859270a",
+      "bytes": 8851
+    },
+    {
+      "label": "Git-D4E-registration-delivery-v1/source-CI-execution-v1.json",
+      "sha256": "bc7e175da8410444ff9189c44e3d0b3e1d7004e9afc4caaeb7aec231e98cd52f",
+      "bytes": 447
+    },
+    {
+      "label": "modern/D4E-registration-finite-publication-CLOSED-SOURCE-v4/root-online-FILE-metadata-reconciliation-v1.json",
+      "sha256": "5d897c73886eea34cd27a38b6539ebcff8fed0ed7136486c3b64eaeb1eab14c4",
+      "bytes": 1227
+    }
+  ],
+  "final_actual_independent_FILE_review": {
+    "label": "modern/D4E-registration-public-and-postdelivery-actual-independent-FILE-review-v1/review-v1.json",
+    "sha256": "9e99a408cf4f39f7d9605ae73b83e961ee2545bf16a31a8ffe99d3223d25f46a",
+    "bytes": 18997
+  },
+  "final_root_self_review": {
+    "label": "D4E-registration-final-root-self-review-v1.json",
+    "sha256": "7a95ab6c422aa875688a636bf1630b859e01a0fbcf8062e06dbb2848e859270a",
+    "bytes": 8851
+  },
+  "Git_delivery": {
+    "issue": 288,
+    "issue_URL": "https://github.com/641927456/els-server-collab/issues/288",
+    "branch": "fix/288-cartridge-registration",
+    "source_CI": {
+      "receipt": {
+        "label": "Git-D4E-registration-delivery-v1/source-CI-execution-v1.json",
+        "sha256": "bc7e175da8410444ff9189c44e3d0b3e1d7004e9afc4caaeb7aec231e98cd52f",
+        "bytes": 447
+      },
+      "exit_code": 0,
+      "python_sources_compiled": 814,
+      "privacy_files_checked": 1266,
+      "protocol_roundtrip": true,
+      "runtime_check": false,
+      "repeated": false
+    },
+    "publication_status_record": "Tracked in the separate delivery receipt; mutable transport placeholders are intentionally omitted from source provenance."
+  },
+  "final_actual_independent_FILE_addendum": {
+    "label": "modern/D4E-registration-public-and-postdelivery-actual-independent-FILE-review-v1/pending-metadata-and-local-bundle-addendum-v1.json",
+    "sha256": "5f0008a1adf5c14a109c1de35fbda8d40f59b521fcce510e44871565e5b65438",
+    "bytes": 2129
+  },
+  "online_final_FILE_metadata_reconciliation": {
+    "label": "modern/D4E-registration-finite-publication-CLOSED-SOURCE-v4/root-online-FILE-metadata-reconciliation-v1.json",
+    "sha256": "5d897c73886eea34cd27a38b6539ebcff8fed0ed7136486c3b64eaeb1eab14c4",
+    "bytes": 1227
+  }
+}
