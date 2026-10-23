@@ -1,0 +1,97 @@
+{
+  "schema": "cartridge-existing-material-reader-delivery-provenance-v1",
+  "scope": "19 existing-owned singleton inventory/bank readers; generic grant deny; no Cartridge writer",
+  "base_commit": "40d42a80ffdaa5d4a6a37555f66b444f1de4dbcf",
+  "stack_dependencies": [
+    {
+      "PR": 269,
+      "commit": "61ebe61edc8d666d2c02c4d386cdc919bf2acbb5"
+    },
+    {
+      "PR": 277,
+      "commit": "40d42a80ffdaa5d4a6a37555f66b444f1de4dbcf"
+    }
+  ],
+  "canonical_sources": [
+    {
+      "relative": "els_server/data/cartridge_registration.json",
+      "sha256": "79da62130f6cb09ec917f3c073d1e5dc228bc24023f1cb15459b4f5d45351582",
+      "bytes": 5445
+    },
+    {
+      "relative": "els_server/domain/cartridge_registration_rules.py",
+      "sha256": "413b448a855c24b0ad9b491c0caf3b18c093495a943e05ff1798961be1a5671e",
+      "bytes": 3287
+    },
+    {
+      "relative": "els_server/domain/inventory_items.py",
+      "sha256": "19cb805c457a39b3194c67fbae737ac65091962ad86c4a48fee64914b4cbb48e",
+      "bytes": 45635
+    },
+    {
+      "relative": "els_server/domain/acquisition_policy.py",
+      "sha256": "35f57ff5647e7fdc824865c01c9d0a4762ad470d9d003b80a65acfbbd3b0969d",
+      "bytes": 1435
+    }
+  ],
+  "delivery": {
+    "local_release": "local-equipment-cartridge-existing-material-reader-20261023-v1",
+    "local_business_files": 938,
+    "local_runtime_files": 1400,
+    "local_delta": {
+      "new": 2,
+      "replace": 2
+    },
+    "local_pointer_sha256": "4ae009a3d3c05056b8913e38f6950bc69f3ff25d969195b19727da691092413c",
+    "local_manifest_sha256": "268260f637f9d7a7b2f7914c54deafbf70b29c2bd6e6f1ee451c4625aa7f0bb6",
+    "local_completion_sha256": "c46d0c1ca4d1e3ed8809e5b742219fb8df8719271117249ae381df3379c6f302",
+    "observation_seconds": 123.47676160000265,
+    "online_runtime_reinstalled": false,
+    "online_logic_already_included": true,
+    "online_pointer_sha256": "f685a0cf3aa659bbcf0a74ff0a8edd8da386f1a1d44c9f59d7fe31edfb077868",
+    "online_manifest_sha256": "3fdc82bdd7b23bee5aad833e4e5dfba4de891bcb7138404bce9d9ef1bc6d9fb9",
+    "launcher_pointer_sha256": "bbd643dfb741dd3fabcf6d9ad279c40b5d396df08151085629a7d941aad3e0b9",
+    "new_schema_definitions": 0,
+    "install_DDL": 0,
+    "original_database_rows_and_config_preserved": true,
+    "owned_locks_released": true
+  },
+  "evidence_sha256": {
+    "SOURCE_projection": "703aba4ecd07b0cc4353193b11b5dadd4e521b382d9b02fe37eb7280588d66a3",
+    "SOURCE_projection_independent_review": "037f432e70dd79925d036777fb705d5601b73eff4aa2bdbe30f04a992df48cc4",
+    "business_after_new12_association": "dd29eafcbc27cd218115dc1f1a5fe44e3dfe926e354b87024e4e1a2db358065d",
+    "business_independent_SOURCE_review": "f3a018e44ef7edcfa084e01e480a962bb3148b1c3ec00af163b73cc30e304aa0",
+    "validation": "e3a9b60f2d9ff0f4aca6e79d0cdf02abf997b4751390160e6a068c6848945f38",
+    "validation_independent_FILE_review": "d118c0813eac3b993dd45d2e25d0a6edfefc9d520e8c5ff1f13aa06d1ee027fe",
+    "actual_local_delivery_independent_FILE_review": "7db2d04195194ab8db7cba8c29b8cfe5b30a6cf1bc6f4cfa71136014010510dc",
+    "root_self_review": "4a00de5647900e7e71bba391ea86450d5583e28126b60bbe9c7df75400a062a9",
+    "cleanup": "8710e2ebf1fd8f9b266f2dc28a39a7e2de7c65879f675695e81e53f88eeac2c9"
+  },
+  "validation_scope": {
+    "temporary_fixture_only": true,
+    "production_player_SQL": 0,
+    "historical_material_UID_count": 19,
+    "rotations": 3,
+    "full2A_records_each": 29,
+    "full2A_bytes_each": 14169,
+    "invalid_persisted_refusals": 9,
+    "foreign_account_refusals": 4,
+    "generic_grant_refusals": 19,
+    "old_economic_SQL_TLS_sourcepair_repeats": 0,
+    "installed_artifact_exit": 0
+  },
+  "limitations": [
+    "No new material source, RNG, migration or global stack-cap claim.",
+    "No D4E registration/collection/points/equip writer, BOX119335 or recipe679 enabled.",
+    "No new19-material public-positive, natural GUI or multiplayer acceptance.",
+    "Score unchanged; whole equipment/growth goal incomplete."
+  ],
+  "cleanup": {
+    "temporary_SQL_fixture_auto_removed": true,
+    "unused_stale_binding_bytes_removed": 2028,
+    "empty_temporary_directories_removed": 1,
+    "frozen_tiny_overlay_retained_for_existing_evidence": true,
+    "client_copies_created": 0
+  },
+  "raw_SQL_logs_packets_configs_databases_uploaded": false
+}
