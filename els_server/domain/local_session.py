@@ -1388,7 +1388,20 @@ class LocalSession:
             except ValueError:return [use_ack(result=-1)]
             if capacity is not None:return capacity['events']+([self.saved_user_sync()] if capacity['replayed'] else [])
             from els_server.storage.resonance_state import use_book as use_resonance_book
-            try:resonance=use_resonance_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)
+            from els_server.domain.equipment_chip_flow import current_lease
+            resonance_account=self.account;resonance_store=self.account.store;resonance_root=self.account.root
+            resonance_owner=self.account.uid;resonance_account_id=self.account.account_id;resonance_session_id=self.shop_session_id
+            resonance_path=getattr(resonance_store,'path',None);resonance_app=getattr(self,'application',None);resonance_identity=getattr(self,'identity',None)
+            def prepare_resonance_book():
+                if (self.account is not resonance_account or self.account.store is not resonance_store
+                    or self.account.root is not resonance_root or resonance_store is None
+                    or resonance_store.path!=resonance_path or getattr(self,'application',None) is not resonance_app
+                    or getattr(self,'identity',None) is not resonance_identity
+                    or (self.account.uid,self.account.account_id,self.shop_session_id)!=(resonance_owner,resonance_account_id,resonance_session_id)
+                    or self.role!='game' or self.phase!='town_ready' or getattr(self,'released',False)
+                    or resonance_store.uid!=resonance_owner or not current_lease(self)):
+                    raise ValueError('ERP book current actor or lease changed')
+            try:resonance=use_resonance_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation,prepare=prepare_resonance_book)
             except ValueError:return [use_ack(result=-1)]
             if resonance is not None:return resonance['events']+[self.saved_user_sync()]
             from els_server.domain.character_custom import require_admitted as custom_admission
