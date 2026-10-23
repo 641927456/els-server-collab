@@ -3,6 +3,7 @@ import hashlib,json,sqlite3
 from contextlib import closing
 from els_server.storage.character_schema import character_uid
 from els_server.storage.inventory_state import load_items
+from els_server.storage.profession_state import require_owner
 from els_server.storage.reward_state import validate_balances
 from els_server.storage.equipment_durability import replace_durability
 from els_server.domain.normal_equipment import definitions
@@ -10,13 +11,14 @@ from els_server.domain.repair_pricing import character_quote
 from els_server.protocol.repair_messages import request,acknowledgement
 
 
-def repair(path,owner,payload,operation_id):
+def repair(path,owner,payload,operation_id,*,account_id):
     owner=character_uid(owner);req=request(payload)
     if req['flag_a'] or req['flag_b']:raise ValueError('Unsupported repair mode')
     if not isinstance(operation_id,str) or not 1<=len(operation_id)<=160:raise ValueError('Repair operation identity')
     digest=hashlib.sha256(str(owner).encode()+b':'+payload).hexdigest()
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+        require_owner(db,owner,account_id)
         row=db.execute('SELECT unit_type FROM characters WHERE uid=?',(owner,)).fetchone()
         if row is None:raise ValueError('Unknown repair owner')
         if row[0]!=10 and req['form']:raise ValueError('Foreign repair price side')
