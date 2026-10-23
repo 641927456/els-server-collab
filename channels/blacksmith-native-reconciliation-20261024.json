@@ -1,0 +1,143 @@
+{
+  "ok": true,
+  "unit": "advanced-blacksmith-no-hammer",
+  "source_PR": "https://github.com/641927456/els-server-collab/pull/337",
+  "source_merge_commit": "db44d7eb550ba713a5bcf22ff32bde46cb47a979",
+  "local": {
+    "channel": "local",
+    "release": "local-profession-blacksmith-native-enhancement-20261024-v1",
+    "parent_release": "local-multiplayer-material-passive-observation-20261024-v1",
+    "manifest_sha256": "8c3edba9113f64a6f884a16e3bc5267df63818a5fb458656e6fc8bb63efe9627",
+    "business_files": 963,
+    "runtime_files": 1425,
+    "unit": "advanced-blacksmith-no-hammer",
+    "independent_units": 1,
+    "source_PR": "https://github.com/641927456/els-server-collab/pull/337",
+    "source_merge_commit": "db44d7eb550ba713a5bcf22ff32bde46cb47a979",
+    "branch": "snapshot/local-blacksmith-native-20261024",
+    "parent_snapshot_branch": "snapshot/local-multiplayer-material-passive-observation-20261024-v1",
+    "parent_snapshot_commit": "960d69850b8e271a439b84e25cf011804e3a6119",
+    "files": [
+      {
+        "path": "els_server/domain/blacksmith_enhancement_rules.py",
+        "sha256": "9781d551d76506cc50b4a03585af6d92dc0225d4b2c59fac6815847ea1700bd2",
+        "bytes": 3852,
+        "source": "exact accepted local runtime leaf"
+      },
+      {
+        "path": "els_server/domain/blacksmith_enhancement_flow.py",
+        "sha256": "6a05cd65661c0f69360761ed8aab5a19ec5f6879659d6bbdc590582c1655fd0f",
+        "bytes": 1301,
+        "source": "exact accepted local runtime leaf"
+      },
+      {
+        "path": "els_server/protocol/blacksmith_enhancement_messages.py",
+        "sha256": "2423131344c760ffcc08007ff3248af09b4b564c259608a091dccec595676cd6",
+        "bytes": 1278,
+        "source": "exact accepted local runtime leaf"
+      },
+      {
+        "path": "els_server/storage/blacksmith_enhancement.py",
+        "sha256": "53e179535cb091f1b6b7b07435e5aedd81032e705e147d72f68d1546973ce495",
+        "bytes": 5764,
+        "source": "exact accepted local runtime leaf"
+      },
+      {
+        "path": "els_server/domain/equipment_ui_flow.py",
+        "sha256": "265efa951b96dad06f2e14e5a0e5db6e62978788a9e7a85312c0aca2efb556d0",
+        "bytes": 6056,
+        "source": "exact accepted local runtime leaf"
+      },
+      {
+        "path": "els_server/domain/inventory_items.py",
+        "sha256": "96ff092e1a67bd0a1386e50d0ccd33c409b129e2d7094d08b76b5f93c89bd246",
+        "bytes": 49552,
+        "source": "exact accepted local runtime leaf"
+      }
+    ],
+    "source_snapshot": "Parent snapshot plus exactly these six accepted channel-specific source leaves; retained source assets may differ intentionally from business payload.",
+    "preserves_single_player_branch": true,
+    "client_changes": 0,
+    "new_schema_definitions": 0,
+    "whole_card_complete": false,
+    "natural_GUI": false,
+    "automatic_deployment": false,
+    "private_guard_checked": true,
+    "contains_accounts_or_saves": false,
+    "completion_sha256": "2a4785398ccf8e0c0e7d97a16903ba5f644dbd6c675d7f91a26dd1f256f4158b",
+    "candidate_freeze_sha256": "17cd4e50abd501e382e9edf306e706b525232650cfb0a4157a1df46902f04b7d",
+    "commit": "42f16af2caa467f1065b6bb2f39a394e4a043a36",
+    "record_file": "channels/local-blacksmith-native-20261024.json"
+  },
+  "online": {
+    "channel": "online",
+    "release": "profession-blacksmith-native-enhancement-20261024-v1",
+    "parent_release": "multiplayer-material-passive-observation-20261024-v1",
+    "manifest_sha256": "451f8054d54bb16b6e64f9bcbbe27861a5a57cd1fd3a2e1d12a30cbe582670cb",
+    "business_files": 952,
+    "runtime_files": 952,
+    "unit": "advanced-blacksmith-no-hammer",
+    "independent_units": 1,
+    "source_PR": "https://github.com/641927456/els-server-collab/pull/337",
+    "source_merge_commit": "db44d7eb550ba713a5bcf22ff32bde46cb47a979",
+    "branch": "snapshot/online-blacksmith-native-20261024",
+    "parent_snapshot_branch": "snapshot/online-multiplayer-material-passive-observation-20261024-v1",
+    "parent_snapshot_commit": "480075c2026a5068d0b11e723ab58f836fbeec62",
+    "files": [
+      {
+        "path": "els_server/domain/blacksmith_enhancement_rules.py",
+        "sha256": "9781d551d76506cc50b4a03585af6d92dc0225d4b2c59fac6815847ea1700bd2",
+        "bytes": 3852,
+        "source": "exact accepted online runtime leaf"
+      },
+      {
+        "path": "els_server/domain/blacksmith_enhancement_flow.py",
+        "sha256": "6a05cd65661c0f69360761ed8aab5a19ec5f6879659d6bbdc590582c1655fd0f",
+        "bytes": 1301,
+        "source": "exact accepted online runtime leaf"
+      },
+      {
+        "path": "els_server/protocol/blacksmith_enhancement_messages.py",
+        "sha256": "2423131344c760ffcc08007ff3248af09b4b564c259608a091dccec595676cd6",
+        "bytes": 1278,
+        "source": "exact accepted online runtime leaf"
+      },
+      {
+        "path": "els_server/storage/blacksmith_enhancement.py",
+        "sha256": "53e179535cb091f1b6b7b07435e5aedd81032e705e147d72f68d1546973ce495",
+        "bytes": 5764,
+        "source": "exact accepted online runtime leaf"
+      },
+      {
+        "path": "els_server/domain/equipment_ui_flow.py",
+        "sha256": "265efa951b96dad06f2e14e5a0e5db6e62978788a9e7a85312c0aca2efb556d0",
+        "bytes": 6056,
+        "source": "exact accepted online runtime leaf"
+      },
+      {
+        "path": "els_server/domain/inventory_items.py",
+        "sha256": "5f44c268a9208aabebdc4a2dd53d10ba2fc2a924a2b3c623ca26d3b251b2cf69",
+        "bytes": 49709,
+        "source": "exact accepted online runtime leaf"
+      }
+    ],
+    "source_snapshot": "Parent snapshot plus exactly these six accepted channel-specific source leaves; retained source assets may differ intentionally from business payload.",
+    "preserves_single_player_branch": false,
+    "client_changes": 0,
+    "new_schema_definitions": 0,
+    "whole_card_complete": false,
+    "natural_GUI": false,
+    "automatic_deployment": false,
+    "private_guard_checked": true,
+    "contains_accounts_or_saves": false,
+    "completion_sha256": "2a4785398ccf8e0c0e7d97a16903ba5f644dbd6c675d7f91a26dd1f256f4158b",
+    "candidate_freeze_sha256": "17cd4e50abd501e382e9edf306e706b525232650cfb0a4157a1df46902f04b7d",
+    "commit": "a87e8588e0ad7c4450551977ef4e1dbbcdb3e016",
+    "record_file": "channels/online-blacksmith-native-20261024.json"
+  },
+  "local_byte_differences_preserved": true,
+  "channel_runtime_equality_claimed": false,
+  "old_successful_checks_replayed": 0,
+  "old_repairs_reinstalled": 0,
+  "remaining_hunter_anvil_flask_not_deployed": true
+}
