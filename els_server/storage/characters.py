@@ -70,6 +70,8 @@ class Characters:
                 row['resonance']=resonance_snapshot(db,row['uid'],self.account_id)
                 from els_server.storage.titles import snapshot as title_snapshot,completed_for_equipment
                 row['title']=title_snapshot(db,row['uid'])['title']
+                from els_server.storage.character_custom import snapshot as custom_snapshot
+                row['character_custom']=custom_snapshot(db,row['uid'])
                 row['title_completed_quests']=completed_for_equipment(db,row['uid'])
                 row['artifact']=artifacts.get(row['uid'])
                 row['cleared_dungeons']=tuple(r[0] for r in db.execute('SELECT map_id FROM dungeon_records WHERE uid=? ORDER BY map_id',(row['uid'],))) if has_dungeon_records else ()
