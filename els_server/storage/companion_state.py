@@ -50,20 +50,26 @@ def snapshot(path,owner,*,enter_world=False):
                 clock(db,owner,active[0])
             return {'companions':rows(db,owner),'pet':active[0],'mount':active[1],'mounted':bool(active[2])}
 
-def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow):
+def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow,account_id=None):
     if kind in (0x42c,0x42f):
         from els_server.storage.mount_state import handle as mount_handle
         return mount_handle(path,owner,kind,payload,operation)
     owner=character_uid(owner)
     if kind==0x2e8:
         from els_server.storage.boosting_2026_limited_pet import activate
-        limited=activate(path,owner,payload,operation)
+        limited=activate(path,owner,payload,operation,account_id=account_id)
         if limited is not None:return limited
     if not isinstance(operation,str) or not 1<=len(operation)<=160:raise ValueError('Invalid companion operation')
     digest=hashlib.sha256(kind.to_bytes(4,'big')+payload).hexdigest()
     with closing(sqlite3.connect(path,timeout=10)) as db:
         try:
-            db.execute('BEGIN IMMEDIATE');ensure(db)
+            db.execute('BEGIN IMMEDIATE')
+            from els_server.storage.item_actor import require_active_character
+            require_active_character(db,owner)
+            if account_id is not None:
+                from els_server.storage.profession_state import require_owner
+                require_owner(db,owner,account_id)
+            ensure(db)
             old=db.execute('SELECT digest,kind,response FROM companion_receipts WHERE owner=? AND operation=?',(owner,operation)).fetchone()
             if old:
                 if old[0]!=digest:raise ValueError('Conflicting companion retry')
