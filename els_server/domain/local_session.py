@@ -1361,6 +1361,36 @@ class LocalSession:
                         and self.account.get_reward_balances()['experience']==0)
                     if not native_noah_return:raise SessionOrderError('Invalid local town entry')
                 requested=struct.unpack_from('>i',event.payload)[0]
+                # Source Village20010 Start608 ->1009/1602 produces225(1009,0).
+                # This finite ordinary-role22375 consumer is separate from58C;
+                # unknown special-role routing stays closed, with no clear waiver.
+                native_varnimyr_rest=False
+                if requested==1009:
+                    if (event.payload==i32(1009)+b'\x00'
+                        and self.client_build=='dx11_260923' and self.enter_town
+                        and self.role=='game' and self.phase in ('map_loading','town_ready','square_accepted')
+                        and event.performers==(0,) and event.uid==event.target_uid==2**64-1 and event.payload_mode==0
+                        and type(request_sequence) is int and 1<=request_sequence<2**32
+                        and self.account.characters is not None and self.account.store is not None
+                        and TOWN_SCENES.get(1009)==851 and getattr(self,'town_warp_transition',None) is None):
+                        from contextlib import closing
+                        import sqlite3
+                        from els_server.storage.seal_quests import load_character,completed_ids
+                        with closing(sqlite3.connect(self.account.store.path,timeout=10)) as db:
+                            db.execute('BEGIN')
+                            character=load_character(db,self.account.uid,self.account.account_id)
+                            if character['unit_type'] in range(1,13) and character['level']==99:
+                                completed=completed_ids(db,self.account.uid)
+                                records={r[0] for r in db.execute('SELECT map_id FROM dungeon_records WHERE uid=?',(self.account.uid,))}
+                                saved=db.execute('SELECT town FROM location WHERE uid=?',(self.account.uid,)).fetchone()
+                                source=(saved==(20010,) and self.active_map==20010
+                                    and self.phase in ('town_ready','square_accepted') and not self.dungeon_return_pending)
+                                restore=(saved==(1009,) and self.active_map in (None,1009))
+                                task=(22375 in completed or db.execute('SELECT 1 FROM character_quests WHERE owner=? AND quest=22375',(self.account.uid,)).fetchone() is not None)
+                                native_varnimyr_rest=(26640 in completed and 30092 in records and task and (source or restore))
+                    if not native_varnimyr_rest:
+                        return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
+
                 warp=getattr(self,'town_warp_transition',None)
                 if warp is not None and (requested!=warp['destination'] or event.payload[4]!=0):raise SessionOrderError('Town entry differs from committed warp')
                 if requested==1012:
