@@ -1,0 +1,141 @@
+{
+  "schema": 1,
+  "unit": "ordinary-skill-pages-ED-local-policy",
+  "issue": 349,
+  "date": "2026-10-24",
+  "scope": "Current ordinary481 ED expansion and483 selection; complete482/484/55B,independent layouts/visible traits/owned forces,cold save and existing career transition compatibility.",
+  "source_base": "f2c70a3903f28d56545c352a689e49c66b9366ed",
+  "source_files": [
+    {
+      "path": "els_server/domain/ordinary_skill_pages.py",
+      "sha256": "b8a467bdb58324edf6048afb8cf0d8fd16a78769ddf05b40baaea01d805f585a",
+      "parent_sha256": null,
+      "blob_parent": null,
+      "runtime_sha256": "b8a467bdb58324edf6048afb8cf0d8fd16a78769ddf05b40baaea01d805f585a",
+      "proof": "Exact8-runtime source bytes, including2 peer-reviewed career-compatible helpers"
+    },
+    {
+      "path": "els_server/storage/ordinary_skill_pages.py",
+      "sha256": "327ba311a39b66dd48632e4105776369853561d162c32eeb473275e7afe55633",
+      "parent_sha256": null,
+      "blob_parent": null,
+      "runtime_sha256": "327ba311a39b66dd48632e4105776369853561d162c32eeb473275e7afe55633",
+      "proof": "Exact8-runtime source bytes, including2 peer-reviewed career-compatible helpers"
+    },
+    {
+      "path": "els_server/domain/skill_state.py",
+      "sha256": "1795c52cbd77c073cde42d164c14d8d2a7733e175be6f160a9efccf528dc9ac0",
+      "parent_sha256": "5f9f69195a8b5b247231576d0fbbf64fa3a6ddfdc35f3807ec550fb4d20daeb4",
+      "blob_parent": "93d591b564af18a3cb56d0c7ca6aea271a64d2ba",
+      "runtime_sha256": "1795c52cbd77c073cde42d164c14d8d2a7733e175be6f160a9efccf528dc9ac0",
+      "proof": "Exact8-runtime source bytes, including2 peer-reviewed career-compatible helpers"
+    },
+    {
+      "path": "els_server/storage/characters.py",
+      "sha256": "00ea6b3a22043b5be3985a747baa754bcf1021886f3e2362107759c9d197e25b",
+      "parent_sha256": "afd3b7758e661692b87eebb202dede5dc8ed558a9da82ef7ab36416355bd6299",
+      "blob_parent": "69eb1c2c837a15166e15660e099809fb72c6e5b6",
+      "runtime_sha256": "77f2617698befb8dd2c17dd73cc536cb3c0129f20017b2d83683d9114fa57e51",
+      "proof": "Original main CRLF preserved; normalized LF matches exact validated proposal. LocalSession still only3 dispatcher statements; Characters only3 optional read projection statements.",
+      "line_endings": "original-main-CRLF",
+      "normalized_LF_sha256": "77f2617698befb8dd2c17dd73cc536cb3c0129f20017b2d83683d9114fa57e51",
+      "previous_LF_source_sha256": "77f2617698befb8dd2c17dd73cc536cb3c0129f20017b2d83683d9114fa57e51"
+    },
+    {
+      "path": "els_server/storage/skill_unlocks.py",
+      "sha256": "e1d476775383bfe915dfe69f589c513d22486af0f399b0518ddfad81d187e107",
+      "parent_sha256": "2307645a30884571ccc12ba4b971dd6577ffba61c9aae35c2153e38cdda283a1",
+      "blob_parent": "b588086782b3af1fd25fa100f5513e230a8b7915",
+      "runtime_sha256": "e1d476775383bfe915dfe69f589c513d22486af0f399b0518ddfad81d187e107",
+      "proof": "Exact8-runtime source bytes, including2 peer-reviewed career-compatible helpers"
+    },
+    {
+      "path": "els_server/domain/skill_traits.py",
+      "sha256": "fba8b04897c5c4a91ee4bd8ef6140607f761d160414964eb47a05622e9112634",
+      "parent_sha256": "22da86a4a08a917b2560274d5732175086cd7d108e346af91b0c1ef9e8576256",
+      "blob_parent": "91032a98fda2879b088ec4b42b0f7c63060d1cf9",
+      "runtime_sha256": "fba8b04897c5c4a91ee4bd8ef6140607f761d160414964eb47a05622e9112634",
+      "proof": "Exact8-runtime source bytes, including2 peer-reviewed career-compatible helpers"
+    },
+    {
+      "path": "els_server/storage/skill_traits.py",
+      "sha256": "38ef619d85d02931b3335653e8468a75567e114eceddc3851bd9d1069e814b52",
+      "parent_sha256": "2103437d3ab7917894e2a018f80926331a398d6ac0339dc280cf9e148c8b435d",
+      "blob_parent": "786156a547043395bc87c7b227d603d0f1c92b35",
+      "runtime_sha256": "38ef619d85d02931b3335653e8468a75567e114eceddc3851bd9d1069e814b52",
+      "proof": "Exact8-runtime source bytes, including2 peer-reviewed career-compatible helpers"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "439edcc1a89ff1f358ad61fec8d7884912ff3d4bbbb3406a9558cdb363c5b72b",
+      "parent_sha256": "45cdb158d60f728063c4c81c1a851535e89f6f2ac6b6a86a80045c582d94afef",
+      "blob_parent": "a437d10680fa5dfa54660087c8c5ab6826504f3e",
+      "runtime_sha256": "e328d292767f0e48a98233e8d6435bbb32c0aab1265f49c321bd0607226e074c",
+      "proof": "Original main CRLF preserved; normalized LF matches exact validated proposal. LocalSession still only3 dispatcher statements; Characters only3 optional read projection statements.",
+      "line_endings": "original-main-CRLF",
+      "normalized_LF_sha256": "a6090423fcca71f9c899b59930a62914087a47bb064b2964def6aa1461fe501c",
+      "previous_LF_source_sha256": "a6090423fcca71f9c899b59930a62914087a47bb064b2964def6aa1461fe501c"
+    }
+  ],
+  "local_policy": {
+    "maximum_permanent_pages": 3,
+    "ED_per_additional_page": 10000000,
+    "select_free": true,
+    "new_page_empty": true,
+    "official_numeric_claim": false
+  },
+  "source_priority": "Current client first; officialCN guide and boundedElwiki search; missing fee/cap supplied by expressly authorized local policy.",
+  "normal_entry": "Current native UI717C -> state14/15/29 ->480/481. Natural GUI visibility/price display not claimed tested.",
+  "client_changes": 0,
+  "optional_lazy_tables": [
+    "ordinary_skill_page_states",
+    "ordinary_skill_page_snapshots",
+    "ordinary_skill_page_receipts"
+  ],
+  "install_DDL_statements": 0,
+  "canonical_active_tables_preserved": true,
+  "career_fix": "Old-route inactive skill IDs accepted only for same base character then current existing upgrade/equippable/trait visibility projection applied. Unavailable IDs become empty; foreign base character IDs reject. Raw inactive snapshots unchanged before explicit selection.",
+  "private_checks": {
+    "real_Application_GameServer_TLS": true,
+    "paid_expand_select_career_ticket_cold_login": true,
+    "foreign_snapshot_paid_full_SQL_rollback": true,
+    "precommit_encoding_and_actor_lease_guards": true
+  },
+  "public_check": {
+    "standard_level1_zeroED_role": true,
+    "insufficient_funds_refused": true,
+    "unowned_page_refused": true,
+    "page1_full_replies_and_cold_authentication": true,
+    "own_QA_disabled": true,
+    "unknown_commits": 0,
+    "paid_positive_private_only": true
+  },
+  "delivery": {
+    "local": {
+      "release": "local-ordinary-skill-pages-career-compatible-20261024-v2",
+      "manifest_sha256": "fd342e26b20b15a8e1db35d45af1e8b6634bca58591840d0784aa04a93af7ce3",
+      "parent_release": "local-native-party-recruitment-20261024-v1",
+      "parent_manifest_sha256": "6a5147ed1d4ac3dbcd40a75cacd77f3dbaeccc7fb997e81b91f85c91fc86b0d3"
+    },
+    "online": {
+      "release": "ordinary-skill-pages-ED-local-policy-20261024-v1",
+      "manifest_sha256": "41f72a4d05e32c332955dffaff29272c3ef8500c941e52926ebb03d4fa0f95a1",
+      "parent_release": "native-party-recruitment-20261024-v1",
+      "parent_manifest_sha256": "147b4a6080e30fe14e1607c5197a55c03a074d523814c3aafbbf915308b99a40"
+    }
+  },
+  "source_contract_sha256": "f586be2eb37339657cb77c207118bd30bdcb441087e17dedfe2b0ebd60ac103d",
+  "source_freeze_sha256": "82e26a7b40cc16ca77b1741689beea5e6468ad0d35c32657b18c465246d83f51",
+  "local_acceptance_sha256": "7b7233f9e0e66c3efc860147b1c971335b40a07dd85fd420e6173981361dff82",
+  "online_acceptance_sha256": "6f0321bc2e06bc692b42d9683aa670b07bb2b328129b1cfefb614eb81748bfbd",
+  "independent_career_review_sha256": "ee94f4e6439f4dddfc6c7ac8e7fb201d2b0592bf59793cd1ccfe0a2b317c576c",
+  "public_pre_setup_failure": "FrozenQAhelper upload omitted on first attempt; source files and business requests never executed. Exactintendedaccount/QAprivate absent verified,failed attempt preserved,helper uploaded by exactSHA,new attempt passed.",
+  "recovery": "Restore6 prior integration modules,retain2 dormant new helpers and all optional saved page state. Canonical active layout stays usable by the previous service. Never restore player databases.",
+  "remaining": [
+    "127273 coupon current SKU/normal purchase and219 use chain",
+    "Natural GUI and full character/native multiplayer acceptance"
+  ],
+  "old_successful_business_suites_replayed": false,
+  "whole_card_complete": false,
+  "source_line_endings": "Original main CRLF retained for LocalSession and Characters, LF-normalized bytes equal the validated proposal. Runtime manifests and accepted bytes remain unchanged."
+}
