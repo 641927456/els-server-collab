@@ -951,6 +951,9 @@ class LocalSession:
                 operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
                 return [Event(0x201,kind=kind+1,payload=(transfer if kind==0x551 else sort)(self.account.store.path,self.account.uid,event.payload,operation))]
             except ValueError:return bank_failed()
+        from els_server.domain.white_chip_decomposition_flow import handle as white_chip_decompose
+        white_chip_reply=white_chip_decompose(self,event,request_sequence)
+        if white_chip_reply is not None:return white_chip_reply
         if self.item_test and self.client_build=='dx11_260923' and kind==0x1c0 and event.event_id==0x202:
             from els_server.protocol.inventory_management_messages import decompose_ack
             from els_server.storage.decomposition import decompose
