@@ -1,0 +1,204 @@
+{
+  "schema": 1,
+  "metadata_issue": 328,
+  "own_source_PR": 323,
+  "own_history_PR": 325,
+  "own_history_snapshot_refs_preserved": {
+    "local": {
+      "branch": "snapshot/local-multiplayer-clear-owner-material-claim-20261024-v1",
+      "commit": "cb7f9c2ae9b0f6988ebe81bf246223557eae8f60",
+      "parent": "84a73dc27adf756cc771b7f36d3e87218263c71a",
+      "tree": "a5ff4203c054aa1bcbec70548277bece689a2959",
+      "changed_paths": [
+        "els_server/domain/dungeon_equipment_loot_flow.py",
+        "els_server/domain/friends_material_loot.py"
+      ],
+      "source_rows": 718,
+      "formal_release": "local-multiplayer-clear-owner-material-claim-20261024-v1",
+      "manifest_sha256": "b76c3006220df198abad46cae1d1b9d67d5a08cee6e04d9e7c9674092a026513",
+      "metadata_path": "channels/local-multiplayer-clear-owner-material-claim-20261024-v1.json"
+    },
+    "online": {
+      "branch": "snapshot/online-multiplayer-clear-owner-material-claim-20261024-v1",
+      "commit": "1e283c94ff31919469fbc6f400b91794c8048d3f",
+      "parent": "4228f2449b615d5fe44a61d0d08be3510fe4364a",
+      "tree": "8b3574654fe0b97999ce440deaf09efa06790570",
+      "changed_paths": [
+        "els_server/domain/dungeon_equipment_loot_flow.py",
+        "els_server/domain/friends_material_loot.py"
+      ],
+      "source_rows": 720,
+      "formal_release": "multiplayer-clear-owner-material-claim-20261024-v1",
+      "manifest_sha256": "2418fe9d11fa8d7071a8f529aa88a20484a4d3df244260035d29f201760e1317",
+      "metadata_path": "channels/online-multiplayer-clear-owner-material-claim-20261024-v1.json"
+    }
+  },
+  "current_source_snapshot_refs": {
+    "local": {
+      "branch": "snapshot/local-profession-smith-decomposition-XP-20261024-v1",
+      "commit": "3988a57c90d02aa2533e2c7bbf552d53af836a6e",
+      "parent": "cb7f9c2ae9b0f6988ebe81bf246223557eae8f60",
+      "tree": "178a05d4d17d55d7f62f6d642679e04e1349f0ad",
+      "changed_paths": [
+        "els_server/domain/profession_growth.py",
+        "els_server/domain/white_chip_decomposition_flow.py",
+        "els_server/protocol/inventory_management_messages.py",
+        "els_server/storage/decomposition.py"
+      ],
+      "source_rows": 719,
+      "formal_release": "local-profession-smith-decomposition-XP-20261024-v1",
+      "manifest_sha256": "27aefbb10b4035422263fb5d1877608aaf5c9a53a66b2944f1d8d7e85258ddc5",
+      "metadata_path": "channels/local-profession-smith-decomposition-XP-20261024-v1.json"
+    },
+    "online": {
+      "branch": "snapshot/online-profession-smith-decomposition-XP-20261024-v1",
+      "commit": "1b6e6ecc2974a4533c5e45d7d5ed2bb261a90295",
+      "parent": "1e283c94ff31919469fbc6f400b91794c8048d3f",
+      "tree": "e1fd8e5be8962eb035a85a971664ca965c47204b",
+      "changed_paths": [
+        "els_server/domain/profession_growth.py",
+        "els_server/domain/white_chip_decomposition_flow.py",
+        "els_server/protocol/inventory_management_messages.py",
+        "els_server/storage/decomposition.py"
+      ],
+      "source_rows": 721,
+      "formal_release": "profession-smith-decomposition-XP-20261024-v1",
+      "manifest_sha256": "216f96f2ab672637f9ea90d6b612fae838f5d718ed3cfb9c2091f6e81bf1a1f4",
+      "metadata_path": "channels/online-profession-smith-decomposition-XP-20261024-v1.json"
+    }
+  },
+  "formal_current_manifest_SHA256": {
+    "local": "27aefbb10b4035422263fb5d1877608aaf5c9a53a66b2944f1d8d7e85258ddc5",
+    "online": "216f96f2ab672637f9ea90d6b612fae838f5d718ed3cfb9c2091f6e81bf1a1f4"
+  },
+  "formal_parent_manifest_SHA256": {
+    "local": "b76c3006220df198abad46cae1d1b9d67d5a08cee6e04d9e7c9674092a026513",
+    "online": "2418fe9d11fa8d7071a8f529aa88a20484a4d3df244260035d29f201760e1317"
+  },
+  "formal_current_pointer_SHA256": {
+    "local": "a66e776bc0ff103370654e5386c08f09ae75824eeedf5c3795bcab07ddebd496",
+    "online": "9e404d8b416f28cf3ca8ac2cdb0358b314775b1b9fdd55867014fa8c94db180a",
+    "launchers": "bbd643dfb741dd3fabcf6d9ad279c40b5d396df08151085629a7d941aad3e0b9"
+  },
+  "external_acceptance_SHA256": {
+    "local": "2768cf3fdf008f2c0a4fd41be220880106c57f5989cdf7c83c60bb82bfa89b79",
+    "online": "1991fb0c23d8084aac2e75ae9639f423fe0590e1939d584d3b40e3b2d2f75339"
+  },
+  "reviewed_reconciliation_SHA256": "632a979f417ead29f1e4077229a3bcec8a9bd652bd15a4a3bd25aa896c30d3d6",
+  "independent_metadata_review_SHA256": "e0b73951919b807dfb4219f537585bbced3bbf40ce8427cbc780b1339d982f58",
+  "source_rows": {
+    "local": 719,
+    "online": 721
+  },
+  "successor_XP_delta": {
+    "added": 1,
+    "replaced": 3,
+    "total": 4
+  },
+  "own_repair_delta": {
+    "leaves": 2,
+    "independent_units": 1,
+    "unchanged_in_successor": true
+  },
+  "exact_metadata_deviations": {
+    "local": [],
+    "online": [
+      {
+        "object": "current_pointer",
+        "field": "parent_manifest_sha256",
+        "actual_manifest_bound_value": "2418fe9d11fa8d7071a8f529aa88a20484a4d3df244260035d29f201760e1317",
+        "exact_reconciliation_sha256": "632a979f417ead29f1e4077229a3bcec8a9bd652bd15a4a3bd25aa896c30d3d6",
+        "source": "SHA-bound complete published rollup parent chain, previous-current and accepted child",
+        "published_value": "7eb59ab65dd221ca9c125dc4d3680b125fb6d12a18ba039405c3a30c22b21469"
+      },
+      {
+        "object": "published_rollup",
+        "field": "delta",
+        "published_paths": [
+          "els_server/domain/dungeon_equipment_loot_flow.py",
+          "els_server/domain/friends_material_loot.py"
+        ],
+        "actual_manifest_file_delta": [
+          "els_server/domain/profession_growth.py",
+          "els_server/domain/white_chip_decomposition_flow.py",
+          "els_server/protocol/inventory_management_messages.py",
+          "els_server/storage/decomposition.py"
+        ],
+        "published_manifest_immutable": true
+      },
+      {
+        "object": "published_rollup",
+        "field": "new_runtime_files",
+        "actual_manifest_file_delta": [
+          "els_server/domain/profession_growth.py"
+        ],
+        "published_manifest_immutable": true,
+        "published_value": []
+      },
+      {
+        "object": "published_rollup",
+        "field": "replaced_runtime_files",
+        "actual_manifest_file_delta": [
+          "els_server/domain/white_chip_decomposition_flow.py",
+          "els_server/protocol/inventory_management_messages.py",
+          "els_server/storage/decomposition.py"
+        ],
+        "published_manifest_immutable": true,
+        "published_value": [
+          "els_server/domain/friends_material_loot.py",
+          "els_server/domain/dungeon_equipment_loot_flow.py"
+        ]
+      },
+      {
+        "object": "published_rollup",
+        "field": "unit_id",
+        "canonical_successor_identity_not_invented": true,
+        "published_manifest_immutable": true,
+        "exact_reconciliation_sha256": "632a979f417ead29f1e4077229a3bcec8a9bd652bd15a4a3bd25aa896c30d3d6",
+        "published_value": "multiplayer-clear-owner-material-claim"
+      },
+      {
+        "object": "published_rollup",
+        "field": "source_contract_sha256",
+        "canonical_successor_identity_not_invented": true,
+        "published_manifest_immutable": true,
+        "exact_reconciliation_sha256": "632a979f417ead29f1e4077229a3bcec8a9bd652bd15a4a3bd25aa896c30d3d6",
+        "published_value": "2a85fc9a1a6c76bedd4acf831b3ce211e9c010d1e28a5edbe224c15364e73278"
+      }
+    ]
+  },
+  "metadata_authority": "Exact SHA-bound complete parent/child inventories, published child acceptance and previous-current prove lineage; stale descriptive arrays/unit/contract fields are preserved as historical deviations and never used as XP business authority.",
+  "cross_channel_difference_paths": [
+    "els_server/__main__.py",
+    "els_server/application.py",
+    "els_server/config.py",
+    "els_server/domain/acquisition_policy.py",
+    "els_server/domain/cartridge_exchange_flow.py",
+    "els_server/domain/coupon_flow.py",
+    "els_server/domain/dungeon_clear.py",
+    "els_server/domain/first_story_entry.py",
+    "els_server/domain/inventory_items.py",
+    "els_server/domain/local_session.py",
+    "els_server/domain/sage_sockets.py",
+    "els_server/domain/town_travel_flow.py",
+    "els_server/friends_bootstrap.py",
+    "els_server/gm_runtime.py",
+    "els_server/protocol/coupon_messages.py",
+    "els_server/selected2026_gm.py",
+    "els_server/storage/coupon_codes.py",
+    "els_server/storage/equipment_receipt_state.py"
+  ],
+  "cross_channel_difference_count": 18,
+  "local1012_unchanged": true,
+  "XP_external_already_delivered": true,
+  "XP_not_retested_or_deployed_by_this_metadata_task": true,
+  "XP_external_declares_optional_lazy_table": "blacksmith_decomposition_xp_receipts",
+  "main_runtime_source_files_changed_in_PR": 0,
+  "foreign_pointers_or_immutable_manifests_rewritten": false,
+  "launcher_and_main_selection_unchanged": true,
+  "game_runtime_restarts": 0,
+  "SQL_writes": 0,
+  "natural_multiplayer": false,
+  "material_positive": false,
+  "world_object_consumption": false
+}
