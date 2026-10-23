@@ -1,4 +1,5 @@
 """Atomic stock purchases and session-scoped, eight-entry native buyback."""
+from els_server.storage.item_actor import require_active_character
 import json
 import sqlite3
 import struct
@@ -58,7 +59,7 @@ def purchase(path, owner, town, payload, operation):
     entries, merchant = purchase_request(payload)
     owner, digest = _identity(owner, 0xea, struct.pack('>i', town)+payload, operation)
     with closing(sqlite3.connect(path, timeout=10)) as db, db:
-        db.execute('PRAGMA foreign_keys=ON'); db.execute('BEGIN IMMEDIATE')
+        db.execute('PRAGMA foreign_keys=ON'); db.execute('BEGIN IMMEDIATE');require_active_character(db,owner)
         old = _previous(db, operation, digest)
         before = load_items(db, owner); balance = balances(db, owner)
         if old is not None:
@@ -79,7 +80,7 @@ def repurchase(path, owner, payload, operation, session='local', town=None):
     index, quantity, merchant, supplied = repurchase_request(payload)
     owner, digest = _identity(owner, 0x567, session.encode()+b'\0'+payload, operation)
     with closing(sqlite3.connect(path, timeout=10)) as db, db:
-        db.execute('PRAGMA foreign_keys=ON'); db.execute('BEGIN IMMEDIATE')
+        db.execute('PRAGMA foreign_keys=ON'); db.execute('BEGIN IMMEDIATE');require_active_character(db,owner)
         old = _previous(db, operation, digest)
         before = load_items(db, owner); balance = balances(db, owner)
         if old is not None:

@@ -15,6 +15,8 @@ def attach(db,items,owner):
 
 def assign(db,owner,uid,sealed,used):
     if not db.in_transaction:raise ValueError('Seal assignment requires transaction')
+    from els_server.domain.cartridge_registration_rules import require_unbound
+    require_unbound(db,uid)
     validate(sealed,used)
     if db.execute('SELECT 1 FROM inventory_items WHERE uid=? AND owner=?',(uid,owner)).fetchone() is None:raise ValueError('Seal owner mismatch')
     ensure(db);db.execute('INSERT INTO item_seals VALUES(?,?,?) ON CONFLICT(item_uid) DO UPDATE SET sealed=excluded.sealed,used=excluded.used',(uid,int(sealed),used))
@@ -70,6 +72,8 @@ def change_seal(path, owner, payload, operation, *, sealing):
         by_uid = {i['uid']: i for i in before}
         target = by_uid.get(target_uid)
         raw = _target(target,sealing=sealing)
+        from els_server.domain.cartridge_registration_rules import require_unbound
+        require_unbound(db,target_uid)
         sealed, used = target.get('sealed', False), target.get('seal_used', 0)
         validate(sealed, used)
         positions = [(target['group'], target['slot'])]
