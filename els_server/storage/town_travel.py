@@ -14,14 +14,18 @@ def travel(path,uid,account_id,source,payload,operation,*,now,context=None,autho
     if type(source) is not int or type(now) is not int or now<0:raise ValueError('Town warp source clock')
     if destination==1012:
         return _travel_village1012(path,uid,account_id,source,payload,operation,now=now,context=context,authorize=authorize,pending=pending)
+    def guard():
+        if authorize is not None and (not callable(authorize) or authorize() is not True):
+            raise ValueError('Ordinary town warp current actor changed')
     proof=json.dumps(dict(owner=uid,account=account_id,source=source,payload=payload.hex()),sort_keys=True,separators=(',',':'))
     digest=hashlib.sha256(proof.encode()).hexdigest()
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('BEGIN IMMEDIATE');character=load_character(db,uid,account_id)
+        db.execute('BEGIN IMMEDIATE');guard();character=load_character(db,uid,account_id)
         previous=db.execute('SELECT proof_sha256,grant_json,response,balance_json FROM reward_receipts WHERE run_id=?',(operation,)).fetchone()
         if previous:
             grant=json.loads(previous[1])
             if previous[0]!=digest or grant.get('kind')!='town_warp' or grant.get('owner')!=uid:raise RewardConflict('Conflicting town warp receipt')
+            guard()
             return dict(response=bytes(previous[2]),balances=json.loads(previous[3]),grant=grant,replayed=True)
         saved=db.execute('SELECT town FROM location WHERE uid=?',(uid,)).fetchone()
         if saved!=(source,) or str(source) not in rules.catalog()['towns']:raise ValueError('Town warp current source mismatch')
@@ -40,6 +44,9 @@ def travel(path,uid,account_id,source,payload,operation,*,now,context=None,autho
         grant=dict(kind='town_warp',owner=uid,source=source,destination=destination,fee=fee,pass_uid=passes[0]['uid'] if passes else None,flags=[free,special,growth])
         response=wire.acknowledgement(destination,after['ed']).payload
         if not isinstance(response,bytes) or len(response)!=32:raise ValueError('Town warp response encoding')
+        from els_server.protocol.protocol_codec import encode_event
+        encode_event(wire.acknowledgement(destination,after['ed']))
+        guard()
         # Store the source-defined IsWarp coordinates with the charge. A
         # disconnect before225/227 therefore cold-loads the paid destination.
         db.execute('UPDATE reward_balances SET ed=?,revision=? WHERE uid=?',(after['ed'],after['revision'],uid))
