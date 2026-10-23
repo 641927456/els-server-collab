@@ -424,9 +424,12 @@ class LocalSession:
         from els_server.domain.known_resurrection_flow import handle as known_resurrection_handle
         known_resurrection_reply=known_resurrection_handle(self,event,request_sequence)
         if known_resurrection_reply is not None:return known_resurrection_reply
-        from els_server.domain.coupon_failure_flow import handle as coupon_failure_handle
-        coupon_failure_reply=coupon_failure_handle(self,event,request_sequence)
-        if coupon_failure_reply is not None:return coupon_failure_reply
+        if getattr(self,'application',None) is None:
+            from els_server.domain.coupon_failure_flow import handle as coupon_handle
+        else:
+            from els_server.domain.coupon_flow import handle as coupon_handle
+        coupon_reply=coupon_handle(self,event,request_sequence)
+        if coupon_reply is not None:return coupon_reply
         from els_server.domain.character_custom import handle as custom_handle
         custom_reply=custom_handle(self,event,request_sequence)
         if custom_reply is not None:return custom_reply
