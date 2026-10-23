@@ -1,0 +1,27 @@
+{
+  "scope": "Current actor/envelope and transaction authorization for existing alchemist selection and manufacture; new reply precommit encoding; rollback receipt lookup before legacy inventory synchronization.",
+  "source_files": [
+    {
+      "path": "els_server/domain/manufacture_flow.py",
+      "sha256": "b2828697173a747f720ddffa335192915f0e199d8b21e10e79477f6079c59336"
+    },
+    {
+      "path": "els_server/storage/manufacture.py",
+      "sha256": "398e37559fd70d4845ca48cbbbec878b9fa5f518d0ac8517b82db42b6d1c835e"
+    }
+  ],
+  "new_schema": false,
+  "client_changes": 0,
+  "source_reviewed": true,
+  "baseline_failures": [
+    "codec-valid malformed native envelope accepted",
+    "account disabled while waiting for SQLite writer still selected profession"
+  ],
+  "correction": "The first candidate held a write transaction during full retry synchronization; the independently reviewed final source releases it first to preserve existing circuit repair behavior.",
+  "legacy_and_economic_rules_unchanged": true,
+  "unchanged_native_checks_reused": true,
+  "old_economic_checks_replayed": 0,
+  "new_checks": "Bounded temporary SQL and actual flow: actor/encoding rollback, malformed request, disabled-during-write-lock, same-account retry and existing missing-option circuit retry. Separate local/online channel acceptance follows protected delivery.",
+  "natural_GUI": false,
+  "deployment": "Source PR does not deploy or restart services."
+}

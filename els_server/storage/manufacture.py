@@ -153,7 +153,7 @@ def make_item(db,owner,template,items,source=None,*,randbelow=secrets.randbelow)
         if 'expires_at' in source:out['expires_at']=source['expires_at']
     return validate_item(out)
 
-def execute(path,owner,account_id,payload,operation,*,now,randbelow=secrets.randbelow):
+def execute(path,owner,account_id,payload,operation,*,now,randbelow=secrets.randbelow,authorize=None,prepare=None):
     operation_identity(operation);request=manufacture_request(payload);p=policy()
     if type(now) is not int or now<0 or request.quantity>p['max_batch']:raise ValueError('Craft request bound')
     digest=hashlib.sha256(payload).hexdigest();recipe=manufacture_data().recipe(request.recipe_id)
@@ -161,7 +161,7 @@ def execute(path,owner,account_id,payload,operation,*,now,randbelow=secrets.rand
     if upgrade and request.quantity!=1:raise ValueError('Upgrade requires one selected instance')
     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10)) as db:
         try:
-            db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+            db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');_authorize(authorize)
             current=_active_owner(db,owner,account_id);state=ProfessionState(**current['state'])
             items=load_items(db,owner);balances=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(owner,)).fetchone())
             ensure(db);old=db.execute('SELECT owner,account_id,request_hash,positions_json,audit_json FROM manufacture_receipts WHERE operation=?',(operation,)).fetchone()
@@ -170,7 +170,12 @@ def execute(path,owner,account_id,payload,operation,*,now,randbelow=secrets.rand
                 positions=json.loads(old[3]);by_pos={(i['group'],i['slot']):i for i in items}
                 refresh,legacy=replay_refresh(positions,old[4],items)
                 response=manufacture_ack(result=0,rewards={},changes=[(tuple(pos),by_pos.get(tuple(pos))) for pos in positions],ed=balances['ed'],profession_xp=0,limit_id=0,limit_value=0)
-                db.rollback();return dict(response=response,replayed=True,requires_inventory_sync=True,leveled=False,state=state,inventory=items,inventory_refresh=refresh,legacy_receipt_inventory_refresh=legacy)
+                receipt=dict(response=response,replayed=True,requires_inventory_sync=True,leveled=False,state=state,inventory=items,inventory_refresh=refresh,legacy_receipt_inventory_refresh=legacy)
+                # Full legacy sync may run existing inventory repair writers.
+                # Release the read/retry transaction before that preparation.
+                db.rollback()
+                _prepare(receipt,authorize,prepare)
+                return receipt
             character=db.execute('SELECT unit_type,unit_class,level FROM characters WHERE uid=?',(owner,)).fetchone()
             town=db.execute('SELECT town FROM location WHERE uid=?',(owner,)).fetchone()
             if character is None or town is None:raise ValueError('Crafting owner location missing')
@@ -231,21 +236,26 @@ def execute(path,owner,account_id,payload,operation,*,now,randbelow=secrets.rand
                        rewards=dict(rewards),cost=demand['base_ed'],xp=xp,profession=asdict(next_state),
                        affected_uids=sorted({i['uid'] for i in items+after if (i['group'],i['slot']) in set(positions)}))
             db.execute('INSERT INTO manufacture_receipts VALUES(?,?,?,?,?,?)',(operation,owner,account_id,digest,json.dumps(positions),json.dumps(audit,sort_keys=True)))
-            db.commit();return dict(response=response,replayed=False,requires_inventory_sync=False,leveled=leveled,state=next_state,inventory=after,audit=audit)
+            receipt=dict(response=response,replayed=False,requires_inventory_sync=False,leveled=leveled,state=next_state,inventory=after,audit=audit)
+            _prepare(receipt,authorize,prepare)
+            db.commit();return receipt
         except BaseException:db.rollback();raise
 
-def select_alchemist(path,owner,account_id,payload):
+def select_alchemist(path,owner,account_id,payload,*,authorize=None,prepare=None):
     from els_server.protocol.profession_messages import select_request
     if select_request(payload)!=3:raise ValueError('This route implements alchemist crafting only')
     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10)) as db:
         try:
-            db.execute('BEGIN IMMEDIATE');old=_active_owner(db,owner,account_id)
+            db.execute('BEGIN IMMEDIATE');_authorize(authorize);old=_active_owner(db,owner,account_id)
             character=db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()
             if character[0]<40 or old['state']['profession'] not in (0,3):raise ValueError('Alchemist selection unavailable')
             state=ProfessionState(**old['state'])
             if state.profession==0:state=ProfessionState(3,1,0,{},0,policy()['level_thresholds']['1'])
             replace(db,owner,account_id,old['revision'],state)
             wire=selection_ack(0,state,{},tail_u64=0,tail_i32=0,tail_flag_a=False,tail_flag_b=False)
+            _authorize(authorize)
+            if prepare is not None:prepare(wire)
+            _authorize(authorize)
             db.commit();return wire
         except BaseException:db.rollback();raise
 
@@ -258,3 +268,14 @@ def _active_owner(db,owner,account_id):
     if lifecycle.get('requested_at') or lifecycle.get('finalized_at'):
         raise ValueError('Crafting character is pending deletion or finalized')
     return current
+
+
+def _authorize(authorize):
+    if authorize is not None and not authorize():
+        raise ValueError('Manufacture current actor changed')
+
+def _prepare(receipt,authorize,prepare):
+    _authorize(authorize)
+    if prepare is not None:receipt['prepared_reply']=prepare(receipt)
+    _authorize(authorize)
+
