@@ -1401,6 +1401,8 @@ class LocalSession:
                         and self.account.get_reward_balances()['experience']==0)
                     if not native_noah_return:raise SessionOrderError('Invalid local town entry')
                 requested=struct.unpack_from('>i',event.payload)[0]
+                if requested==1011 and not _mainline1011_entry(self,event,request_sequence):
+                    return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
                 # Source Village20010 Start608 ->1009/1602 produces225(1009,0).
                 # This finite ordinary-role22375 consumer is separate from58C;
                 # unknown special-role routing stays closed, with no clear waiver.
@@ -1696,3 +1698,55 @@ class LocalSession:
             return self.responses(kind)
         # Undecoded auxiliary notices are observed but do not advance the phase.
         return []
+def _mainline1011_entry(s,event,sequence):
+    """Finite source1011 entry: paid warp, saved reader, or real adjacency."""
+    from els_server.domain.town_travel_flow import _ordinary_actor,_ordinary_binding
+    from contextlib import closing
+    import sqlite3
+    try:
+        if (not _ordinary_actor(s) or s.role!='game' or not s.enter_town or not s.item_test
+            or s.client_build!='dx11_260923' or s.account.characters is None
+            or event.event_id!=0x202 or event.kind!=0x225 or event.payload!=struct.pack('>iB',1011,0)
+            or event.performers!=(0,) or event.uid!=event.target_uid or event.uid!=2**64-1
+            or event.payload_mode!=0 or type(sequence) is not int or not 1<=sequence<2**32
+            or s.phase not in ('map_loading','square_accepted','town_ready')):
+            return False
+        from els_server.storage.seal_quests import load_character,completed_ids
+        with closing(sqlite3.connect(s.account.store.path.resolve().as_uri()+'?mode=ro',uri=True,timeout=10))as db:
+            db.execute('BEGIN');character=load_character(db,s.account.uid,s.account.account_id)
+            row=db.execute('SELECT town FROM location WHERE uid=?',(s.account.uid,)).fetchone()
+            if row is not None and row[0]!=1011:
+                # Git's independent225 path lacks the runtime's later generic
+                # destination gate. Restore only1011 changed-destination admission,
+                # with identity, level/quests and clear records from this snapshot.
+                from els_server.domain.town_travel import require_destination
+                records={r[0] for r in db.execute('SELECT map_id FROM dungeon_records WHERE uid=?',(s.account.uid,))}
+                require_destination(1011,character,completed_ids(db,s.account.uid),records)
+        if row is None or s.account.get_location()['map']!=row[0]:return False
+        saved=row[0];pending=getattr(s,'town_warp_transition',None)
+        if pending is not None:
+            # Ordinary58C commits the paid position before225/227. Reuse that
+            # exact actor/session transition rather than charging a second fee.
+            return bool(saved==1011 and isinstance(pending,dict)
+                and pending.get('actor_binding')==_ordinary_binding(s)
+                and pending.get('destination')==1011 and isinstance(pending.get('payload'),bytes)
+                and pending['payload'][:4]==struct.pack('>i',1011)
+                and s.phase in ('map_loading','square_accepted') and not s.dungeon_return_pending)
+        if saved==1011:
+            if not s.dungeon_return_pending:
+                return s.active_map in (None,1011)
+            # Retain only the existing same-origin solo clear return reader.
+            payload=getattr(s,'dungeon_end_payload',None)
+            run=getattr(s,'reward_run_id',None)
+            return bool(s.active_map==1011 and s.phase=='map_loading'
+                and getattr(s,'dungeon_participants',None)==frozenset((s.account.uid,))
+                and isinstance(payload,bytes) and 100<=len(payload)<=8192
+                and payload[:4]==struct.pack('>i',0x72)
+                and isinstance(run,str) and str(uuid.UUID(run))==run and uuid.UUID(run).version==4)
+        # Same-build Village edges:20013 Start804->1011/1707;
+        #1011 Start1710<->1012/1712. Changed destinations were gated above.
+        return bool(saved in (20013,1012) and s.active_map==saved
+            and s.phase in ('town_ready','square_accepted') and not s.dungeon_return_pending
+            and getattr(s,'pending_map',None) in (None,saved,1011))
+    except (ValueError,TypeError,KeyError,AttributeError,OverflowError):
+        return False
