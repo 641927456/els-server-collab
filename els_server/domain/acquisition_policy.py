@@ -29,7 +29,10 @@ CARTRIDGE_USE_ONLY_MATERIALS = frozenset((
 LEGACY_USE_ONLY_TICKETS = frozenset((118640,118641,118642,118657,118658,118659,711338,711339,711340,711341,711342,711343))
 
 
+LITHIA_GEN7_USE_ONLY_TICKETS = frozenset((718388,718389,718390,718391,718392,718393))
+
 def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None):
+    if template in LITHIA_GEN7_USE_ONLY_TICKETS:return False
     if template in LEGACY_USE_ONLY_TICKETS:return False
     qualified=False
     recipe_box=False
