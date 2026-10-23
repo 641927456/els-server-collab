@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "metadata_issue": 324,
+  "source_fix_PR": 323,
+  "source_main_merge_commit": "b526653ce1bbe4ae6ff9610db4ec926ac55f3f6f",
+  "source_main_is_formal_runtime": false,
+  "source_snapshot_refs": {
+    "local": {
+      "inherited_parent": {
+        "branch": "snapshot/local-profession-initial-policy-guards-20261024-v1",
+        "commit": "84a73dc27adf756cc771b7f36d3e87218263c71a",
+        "parent": "5175921af0961aa44584bbedae5ed0d1910516ce",
+        "tree": "3dd5ab186f5292c675c5c02f267c15a31c07f8e1",
+        "changed_paths": [
+          "els_server/domain/manufacture_flow.py",
+          "els_server/domain/manufacture_rules.py",
+          "els_server/storage/manufacture.py"
+        ],
+        "source_rows": 718,
+        "formal_release": "local-profession-initial-policy-guards-20261024-v1",
+        "manifest_sha256": "4d5dd9219fe280b72ca401edbb25b22042ecfb50a977d5ecc09fb0e1e1bfec0e",
+        "metadata_path": "channels/local-profession-initial-policy-guards-20261024-v1.json"
+      },
+      "current": {
+        "branch": "snapshot/local-multiplayer-clear-owner-material-claim-20261024-v1",
+        "commit": "cb7f9c2ae9b0f6988ebe81bf246223557eae8f60",
+        "parent": "84a73dc27adf756cc771b7f36d3e87218263c71a",
+        "tree": "a5ff4203c054aa1bcbec70548277bece689a2959",
+        "changed_paths": [
+          "els_server/domain/dungeon_equipment_loot_flow.py",
+          "els_server/domain/friends_material_loot.py"
+        ],
+        "source_rows": 718,
+        "formal_release": "local-multiplayer-clear-owner-material-claim-20261024-v1",
+        "manifest_sha256": "b76c3006220df198abad46cae1d1b9d67d5a08cee6e04d9e7c9674092a026513",
+        "metadata_path": "channels/local-multiplayer-clear-owner-material-claim-20261024-v1.json"
+      }
+    },
+    "online": {
+      "inherited_parent": {
+        "branch": "snapshot/online-profession-initial-policy-guards-20261024-v1",
+        "commit": "4228f2449b615d5fe44a61d0d08be3510fe4364a",
+        "parent": "9213121e5da4e1184468f973a35c4fd82acbf016",
+        "tree": "23735a9e62048dadb01b04b7992a05a23ca22211",
+        "changed_paths": [
+          "els_server/domain/manufacture_flow.py",
+          "els_server/domain/manufacture_rules.py",
+          "els_server/storage/manufacture.py"
+        ],
+        "source_rows": 720,
+        "formal_release": "profession-initial-policy-guards-20261024-v1",
+        "manifest_sha256": "7eb59ab65dd221ca9c125dc4d3680b125fb6d12a18ba039405c3a30c22b21469",
+        "metadata_path": "channels/online-profession-initial-policy-guards-20261024-v1.json"
+      },
+      "current": {
+        "branch": "snapshot/online-multiplayer-clear-owner-material-claim-20261024-v1",
+        "commit": "1e283c94ff31919469fbc6f400b91794c8048d3f",
+        "parent": "4228f2449b615d5fe44a61d0d08be3510fe4364a",
+        "tree": "8b3574654fe0b97999ce440deaf09efa06790570",
+        "changed_paths": [
+          "els_server/domain/dungeon_equipment_loot_flow.py",
+          "els_server/domain/friends_material_loot.py"
+        ],
+        "source_rows": 720,
+        "formal_release": "multiplayer-clear-owner-material-claim-20261024-v1",
+        "manifest_sha256": "2418fe9d11fa8d7071a8f529aa88a20484a4d3df244260035d29f201760e1317",
+        "metadata_path": "channels/online-multiplayer-clear-owner-material-claim-20261024-v1.json"
+      }
+    }
+  },
+  "formal_receipts_sha256": {
+    "local": {
+      "parent_manifest": "4d5dd9219fe280b72ca401edbb25b22042ecfb50a977d5ecc09fb0e1e1bfec0e",
+      "parent_acceptance": "982610247210b766d8550fdc428930f0fe3f02a4d6823efff79d1818ef7fcf4b",
+      "current_manifest": "b76c3006220df198abad46cae1d1b9d67d5a08cee6e04d9e7c9674092a026513",
+      "current_acceptance": "6508279ff53ca7ea023549fe718bd6cb01eb4baabd93385e745277eb2185e62b"
+    },
+    "online": {
+      "parent_manifest": "7eb59ab65dd221ca9c125dc4d3680b125fb6d12a18ba039405c3a30c22b21469",
+      "parent_acceptance": "87a89e2a534d2b5ad198fe6c2c12254f3b65d0b908eec2ac023f08db098559d2",
+      "current_manifest": "2418fe9d11fa8d7071a8f529aa88a20484a4d3df244260035d29f201760e1317",
+      "current_acceptance": "1c6e79c982e62323cd8b802230c26f6a449639ec56c8b5bd3eaa52b39e5fa110"
+    }
+  },
+  "source_contract_sha256": "2a85fc9a1a6c76bedd4acf831b3ce211e9c010d1e28a5edbe224c15364e73278",
+  "root_post_install_review_sha256": "822b27183ebd21e49865fc68ac5d5920063a5a4e7d32fd0d7f7a801021425d8f",
+  "source_rows": {
+    "local": 718,
+    "online": 720
+  },
+  "source_delta_counts": {
+    "already_installed_profession_parent": 3,
+    "current_repair": 2,
+    "total_since_old_selector": 5,
+    "current_independent_units": 1
+  },
+  "existing_cross_channel_difference_paths": [
+    "els_server/__main__.py",
+    "els_server/application.py",
+    "els_server/config.py",
+    "els_server/domain/acquisition_policy.py",
+    "els_server/domain/cartridge_exchange_flow.py",
+    "els_server/domain/coupon_flow.py",
+    "els_server/domain/dungeon_clear.py",
+    "els_server/domain/first_story_entry.py",
+    "els_server/domain/inventory_items.py",
+    "els_server/domain/local_session.py",
+    "els_server/domain/sage_sockets.py",
+    "els_server/domain/town_travel_flow.py",
+    "els_server/friends_bootstrap.py",
+    "els_server/gm_runtime.py",
+    "els_server/protocol/coupon_messages.py",
+    "els_server/selected2026_gm.py",
+    "els_server/storage/coupon_codes.py",
+    "els_server/storage/equipment_receipt_state.py"
+  ],
+  "existing_cross_channel_difference_count": 18,
+  "local1012_unchanged": true,
+  "current_selector_unchanged": true,
+  "latest_channel_not_claimed": true,
+  "concurrent_delivery_note": "Another authorized profession XP delivery can advance formal local. These records name accepted frozen releases only; active selector late binding is a separate explicit action.",
+  "formal_deployment_performed_by_Git": false,
+  "databases_or_configuration_included": false,
+  "profession_checks_or_installation_repeated": false,
+  "natural_multiplayer": false,
+  "material_positive": false,
+  "world_object_consumption": false
+}

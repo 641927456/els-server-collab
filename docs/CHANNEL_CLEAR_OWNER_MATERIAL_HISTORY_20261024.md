@@ -1,0 +1,9 @@
+# Accepted profession-parent and clear-owner source history
+
+Source repair #323 and its protected formal local/online installations are accepted. This PR registers immutable server Python/JSON source snapshots; `channels/active.json` stays unchanged. A concurrent authorized profession XP delivery can advance the local runtime, so the frozen versions below are not presented as the latest selected channels.
+
+The previous Git channel snapshots predate the already-installed profession guard parent. Each profession parent snapshot therefore carries exactly three accepted formal files: `manufacture_flow.py`, `manufacture_rules.py` and `storage/manufacture.py`. Each clear-owner child snapshot then changes only `friends_material_loot.py` and `dungeon_equipment_loot_flow.py`. The total difference from the old Git selectors is five source leaves per channel; the current repair remains two leaves and one independent repair. No profession business check or installation is repeated.
+
+All718local and720online Python/JSON source rows match their respective immutable formal manifests. Every unrelated source byte, local1012 and the18existing cross-channel distinctions remain inherited. Git main, including its newer source-only profession changes and existing formatting differences, is never used as formal runtime input. Exact manifests, source snapshot commits, receipt hashes and the separate parent/current changes are recorded in the four channel records and `docs/evidence/clear-owner-material-channel-history-20261024.json`.
+
+This is history registration only: no deployment, restart, SQL, player/configuration data, progress page or active selector change. The clear-owner repair has narrow controlled SQLite and new-artifact public TLS readiness evidence; Application, natural client world creation/deletion, positive public material pickup and full multiplayer completion remain unclaimed.
