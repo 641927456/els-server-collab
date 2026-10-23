@@ -109,7 +109,7 @@
   ],
   "inheritance": "Current main source was older than the accepted resonance runtime parent: story588->626 parent->640 current; dialogue70->110 parent->142 current; NPC26->33 parent->36 current. Missing accepted parent records/readers are necessary bounded inheritance, not this batch new repairs.",
   "main_protection": "Existing main Varnimyr NPC10025/subquest162120 check retained; main-only branches/comments/keys retained. No broad overwrite or gameplay relaxation.",
-  "composition": "Tables use recursive key CAS; existing main conflicts fail. Payload manifests recompute hashes/counts. Code uses minimal line/AST literal edits with original main preserved in private evidence. Runtime per-channel hashes differ intentionally from composed main source.",
+  "composition": "Tables use recursive key CAS; existing main conflicts fail. Payload manifests recompute hashes/counts. Code uses minimal line/AST literal edits with original main preserved in private evidence. Runtime per-channel hashes differ intentionally from composed main source. JSON raw-token spans preserve original line endings, insertion order, trailing newline and historical duplicate keys; manifests bind new exact payload bytes.",
   "schema": {
     "new_definitions": 0,
     "install_DDL_statements": 0
@@ -122,9 +122,9 @@
   "source_files": [
     {
       "path": "els_server/data/story_quests.json",
-      "candidate_sha256": "d156a5d9a853c33150a36a7599898d9c3dd2cb053c5d0221bf74c5acfc8ef509",
-      "git_composed_sha256": "d156a5d9a853c33150a36a7599898d9c3dd2cb053c5d0221bf74c5acfc8ef509",
-      "size": 1215665,
+      "candidate_sha256": "d7ab0d05f048c6bbb2f85fe1130d0aa98f68397a5d6d0e322cab29595ce0d28a",
+      "git_composed_sha256": "d7ab0d05f048c6bbb2f85fe1130d0aa98f68397a5d6d0e322cab29595ce0d28a",
+      "size": 1271976,
       "main_parent_sha256": "97c8906ce3bf3e922203d77ddbf4831dcc03c0e32495e37f71fd01144830a98d",
       "runtime_candidate_sha256_by_channel": {
         "online": "03e378194add6cd31a6737e29bb7c707547c8607a8d1cd3734ff80fa7e971339",
@@ -138,9 +138,9 @@
     },
     {
       "path": "els_server/data/story_quests.manifest.json",
-      "candidate_sha256": "86d676406d6f8edb3a7cd64fb17c781a9ec1f822746bb9ecfb539f897dff1030",
-      "git_composed_sha256": "86d676406d6f8edb3a7cd64fb17c781a9ec1f822746bb9ecfb539f897dff1030",
-      "size": 324,
+      "candidate_sha256": "65a1b209858f5c8d50f7ca8e7c6929495a840564814e6cdc4b1339f8ed647289",
+      "git_composed_sha256": "65a1b209858f5c8d50f7ca8e7c6929495a840564814e6cdc4b1339f8ed647289",
+      "size": 332,
       "main_parent_sha256": "a5d6eb2b58b1197b1a046345c6b270a64a601d6312c27ffe4fbac77fb1d19013",
       "runtime_candidate_sha256_by_channel": {
         "online": "44898fc16b23161126c3945d64cf4aab6e007aecf2903ac49507298db5374fc4",
@@ -170,9 +170,9 @@
     },
     {
       "path": "els_server/data/town_dialogue_quests.manifest.json",
-      "candidate_sha256": "ef6e84049bb33f4789a339d9d8989207b7b4e955ebaeb8a7839d00aa3784a7e5",
-      "git_composed_sha256": "ef6e84049bb33f4789a339d9d8989207b7b4e955ebaeb8a7839d00aa3784a7e5",
-      "size": 237,
+      "candidate_sha256": "05ccf48eebb62875b8b8c2fa0b8f7eaca06cab3ab2f551e23dde6e6533726fe8",
+      "git_composed_sha256": "05ccf48eebb62875b8b8c2fa0b8f7eaca06cab3ab2f551e23dde6e6533726fe8",
+      "size": 244,
       "main_parent_sha256": "186003f40908f55b4ea9ff53fbc750b629bc2da9f3625c818de98b05e2791c17",
       "runtime_candidate_sha256_by_channel": {
         "online": "776635a2cea95c7da68914b71d83e2260ef2986cbdced744807435e358d483a9",
@@ -202,9 +202,9 @@
     },
     {
       "path": "els_server/data/town_travel.manifest.json",
-      "candidate_sha256": "a05ab024ba67db84df58a966b6a462a8a2942b21ce8eb617bf5a77aace5710ab",
-      "git_composed_sha256": "a05ab024ba67db84df58a966b6a462a8a2942b21ce8eb617bf5a77aace5710ab",
-      "size": 236,
+      "candidate_sha256": "e09ce600f955ef3c38a06be23e9d32db5fe864a24af3449d9c0a2e43e15eba74",
+      "git_composed_sha256": "e09ce600f955ef3c38a06be23e9d32db5fe864a24af3449d9c0a2e43e15eba74",
+      "size": 243,
       "main_parent_sha256": "3b2fc28567a6e2e7eac2e1bd0c275534753d443d70fb7f0e764477c27dcf84a7",
       "runtime_candidate_sha256_by_channel": {
         "online": "96fd9e640bfcd11021401b57d8b1dda661f49b6bb803b573d2ac8a968484253a",
