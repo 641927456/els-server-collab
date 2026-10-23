@@ -367,7 +367,14 @@ class LocalSession:
         notices=self.expiration_notifications()
         from els_server.domain.quest_flow import observe
         before=observe(self,notices)
+        village1012_origin=None
+        if self.active_map==1012 and event.event_id==0x202 and event.kind in (0x37f,0x382):
+            from els_server.domain.town_travel_flow import capture_village1012_origin
+            village1012_origin=capture_village1012_origin(self,event)
         reply=self._handle(event,request_sequence)
+        if village1012_origin is not None:
+            from els_server.domain.town_travel_flow import finish_village1012_origin
+            finish_village1012_origin(self,village1012_origin)
         if self.account.characters is not None and any(e.kind==0x2a for e in reply):
             from els_server.domain.elixir_flow import cold as world_elixir_cold
             reply.extend(world_elixir_cold(self))
@@ -857,6 +864,12 @@ class LocalSession:
                 if kind==0xea:return purchase(self.account.store.path,self.account.uid,self.account.get_location()['map'],event.payload,operation)
                 return repurchase(self.account.store.path,self.account.uid,event.payload,operation,self.npc_history_id,self.account.get_location()['map'])
             except ValueError:return trade_failed()
+        from els_server.domain.cartridge_recipe679_flow import handle as recipe679_handle
+        recipe679_reply=recipe679_handle(self,event,request_sequence)
+        if recipe679_reply is not None:return recipe679_reply
+        from els_server.domain.cartridge_exchange_flow import handle as cartridge_exchange_handle
+        cartridge_exchange_reply=cartridge_exchange_handle(self,event,request_sequence)
+        if cartridge_exchange_reply is not None:return cartridge_exchange_reply
         from els_server.domain.purifier_exchange_flow import handle as purifier_exchange_handle
         purifier_exchange_reply=purifier_exchange_handle(self,event,request_sequence)
         if purifier_exchange_reply is not None:return purifier_exchange_reply
@@ -1312,6 +1325,10 @@ class LocalSession:
                 requested=struct.unpack_from('>i',event.payload)[0]
                 warp=getattr(self,'town_warp_transition',None)
                 if warp is not None and (requested!=warp['destination'] or event.payload[4]!=0):raise SessionOrderError('Town entry differs from committed warp')
+                if requested==1012:
+                    from els_server.domain.town_travel_flow import authorize_village1012_entry
+                    if not authorize_village1012_entry(self,event,request_sequence):
+                        return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
                 if requested not in TOWN_SCENES:
                     return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
                 # 0xb78c10 consumes five int32 fields. The requested map is

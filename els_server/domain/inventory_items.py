@@ -639,3 +639,9 @@ def inventory_restore_map(items):
  return struct.pack('>I',len(bag))+b''.join(
      struct.pack('>QQBh',i['uid'],i['uid'],i['group'],i['slot'])+
      item_body(i)+bytes(9) for i in bag)
+
+
+from els_server.domain.cartridge_exchange_rules import source_definition as cartridge_exchange_source
+_cartridge_exchange_source=cartridge_exchange_source();_t=_cartridge_exchange_source["template"]
+if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=(2,3,1000):raise ValueError("Conflicting black-fragment reader")
+VERIFIED_TEMPLATES[_t]=2;TEMPLATE_BAG_GROUPS[_t]=3;TEMPLATE_MAX_STACKS[_t]=1000
