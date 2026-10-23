@@ -1,6 +1,7 @@
 """Original 9CF/9D0 wedge use; flag, material and receipt are atomic."""
 import sqlite3,struct
 from contextlib import closing
+from els_server.storage.profession_state import require_owner
 from els_server.domain.artifact_progression import catalog,slots
 from els_server.domain.item_expiration import require_current
 from els_server.domain.item_locks import require_unlocked
@@ -19,10 +20,11 @@ def request(payload):
 def acknowledgement(changes=(),result=0):
  rows=list(changes)
  return Event(0x201,kind=0x9d0,payload=struct.pack('>iI',result,len(rows))+b''.join(empty_record(*p) if i is None else record(i) for p,i in rows))
-def perform(path,owner,payload,operation):
+def perform(path,owner,payload,operation,*,account_id=None):
  material_uid,target_uid=request(payload);owner,digest=_identity(owner,0x9cf,payload,operation)
  with closing(sqlite3.connect(path,timeout=10)) as db,db:
   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+  if account_id is not None:require_owner(db,owner,account_id)
   old=_previous(db,operation,digest);before=load_items(db,owner);by_uid={i['uid']:i for i in before}
   if old is not None:
    current={(i['group'],i['slot']):i for i in before}

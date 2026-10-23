@@ -52,6 +52,13 @@ class RegionQuestCatalog:
 
     def dungeon_allowed(self,dungeon,character,completed):
         if type(dungeon) is not int:return False
+        # These current special entrances share region10011's level70 gate,
+        # but each native dungeon definition requires level99. Reuse the
+        # source minimum at both selection and actual admission; no new
+        # rewards, tickets, matching or client-side calculation are added.
+        if dungeon in (34310,41131,120010):
+            from els_server.game_data import client_data
+            if character['level']<client_data().dungeon(dungeon)['m_MinLevel']:return False
         regions=self.data['dungeons'].get(str(dungeon))
         if not regions:return False
         # Some special regions have no AddLocalMapRequireInfo registration.
