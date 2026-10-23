@@ -477,7 +477,17 @@ _erp_support=erp_support_item();_t=_erp_support['template']
 if _t in VERIFIED_TEMPLATES:raise ValueError('Conflicting ERP support reward')
 VERIFIED_TEMPLATES[_t]=_erp_support['metadata'];TEMPLATE_BAG_GROUPS[_t]=_erp_support['group'];TEMPLATE_MAX_STACKS[_t]=_erp_support['max_stack']
 
+# Existing715036 is a private old-record reader, never a generic grant template.
+from els_server.domain.wardrobe_ticket_box import BOX as wardrobe_box_template
+if wardrobe_box_template in VERIFIED_TEMPLATES or wardrobe_box_template in TEMPLATE_BAG_GROUPS or wardrobe_box_template in TEMPLATE_MAX_STACKS:raise ValueError("Conflicting existing wardrobe box reader")
+# Only disable ordinary split/merge. One is not an asserted native stack cap.
+TEMPLATE_BAG_GROUPS[wardrobe_box_template]=4
+TEMPLATE_MAX_STACKS[wardrobe_box_template]=1
+
 def validate_item(item):
+ if isinstance(item,dict) and item.get("template")==wardrobe_box_template:
+  from els_server.domain.wardrobe_ticket_box import validate_existing_box
+  return validate_existing_box(item)
  keys={'uid','template','metadata','count','group','slot'}
  if not isinstance(item,dict) or set(item)-{'attributes','durability','expires_at','enhancement','lock_until','option_groups','identified','enhancement_gauge','enhancement_guarantee','sealed','seal_used','artifact_socket_open','chip_tuning','reforge','appearance_template','wardrobe_hanger','dye_colors','appearance_colors'}!=keys or any(type(item[k]) is not int for k in keys):raise ValueError('Invalid inventory item fields')
  if not 1<=item['uid']<2**63 or item['template'] not in VERIFIED_TEMPLATES or item['metadata']!=VERIFIED_TEMPLATES[item['template']]:raise ValueError('Invalid inventory item identity/template')

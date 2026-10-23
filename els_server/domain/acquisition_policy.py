@@ -22,6 +22,7 @@ def excluded_equipment():
 
 
 def can_acquire(template):
+    if template==715036:return False  # Existing owned box only; no grant source exception.
     from els_server.domain.ordinary_accessories import definitions
     accessory=definitions().get(template)
     return template not in excluded_equipment() and not (accessory and accessory['compatibility_only'])

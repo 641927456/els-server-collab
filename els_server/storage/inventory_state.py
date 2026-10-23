@@ -78,6 +78,10 @@ def load_items(db,owner=1001):
  attach_reforge(db,items,owner)
  from els_server.storage.wardrobe import attach as attach_wardrobe
  attach_wardrobe(db,items,owner)
+ from els_server.domain.wardrobe_ticket_box import BOX as wardrobe_box,read_existing_box as read_wardrobe_box
+ for index,item in enumerate(items):
+  if item["template"]==wardrobe_box:
+   items[index]=read_wardrobe_box(item)
  inventory_payload(items)  # Verify persisted identities/positions and wire before use.
  from els_server.storage.bag_capacity import allowances
  limits=allowances(db,owner)
