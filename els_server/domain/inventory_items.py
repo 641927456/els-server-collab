@@ -685,3 +685,14 @@ for _flask_bonus in _flask_bonus_definitions():
  VERIFIED_TEMPLATES[_flask_bonus['template']]=_flask_bonus['metadata']
  TEMPLATE_BAG_GROUPS[_flask_bonus['template']]=_flask_bonus['group']
  TEMPLATE_MAX_STACKS[_flask_bonus['template']]=_flask_bonus['max_stack']
+
+
+# Finite original AccountQuest reward readers. Keep unused712417 singleton;
+#710105 retains current native300 after the earlier global compatibility floor.
+# No item-use effect, timer, source other than the four exact quests, or old
+# saved item migration is introduced here.
+from els_server.domain.account_epic_quests import reward_item_definitions as _account_epic_reward_definitions
+for _account_epic_reward in _account_epic_reward_definitions():
+ _t=_account_epic_reward['template'];_expected=tuple(_account_epic_reward[k] for k in ('metadata','group','max_stack'))
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting finite account Epic reward reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected

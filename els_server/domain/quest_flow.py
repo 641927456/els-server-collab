@@ -59,9 +59,9 @@ def handle(s,event,sequence):
         return dialogue_handle(s,event,sequence)
     if event.event_id!=0x202 or event.kind not in (0xee,0xfa,0xf4) or not enabled(s):return None
     qid=struct.unpack_from('>i',event.payload)[0] if len(event.payload)>=4 else 0
-    if qid in (53520,54600) and not account_source_actor(s):return []
+    if qid in (37100,53500,53510,53520,53530,54600) and not account_source_actor(s):return []
     def failure(result=wire.QUEST_REWARD_UNAVAILABLE):
-        if qid in (53520,54600) and not account_source_actor(s):return []
+        if qid in (37100,53500,53510,53520,53530,54600) and not account_source_actor(s):return []
         if event.kind==0xee:return [wire.accept_ack(result)]
         if event.kind==0xfa:return [initialization(s)]
         snapshot=s.account.get_inventory_snapshot()

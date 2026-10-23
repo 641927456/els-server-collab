@@ -5,7 +5,7 @@ import hashlib,json,sqlite3,struct,time
 from els_server.domain.seal_quests import quest_catalog,sequence,require_eligible,target,objective_increment,ACTIVE_QUEST_LIMIT
 from els_server.storage.character_schema import character_uid
 from els_server.storage.inventory_state import load_items,grant_items
-from els_server.storage import erp_support_quest_scope as erp_scope
+from els_server.storage import account_epic_scope as erp_scope
 
 
 @contextmanager
@@ -162,7 +162,7 @@ class QuestState:
         uid=self.uid;qid=request['quest'];q=quest_catalog().quest(qid)
         with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
             db.execute('BEGIN IMMEDIATE');character=load_character(db,uid,self.account_id);ensure(db)
-            if qid==erp_scope.QUEST:erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard)
+            if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
             if location is None:location=('town',db.execute('SELECT town FROM location WHERE uid=?',(uid,)).fetchone()[0])
             old=db.execute('SELECT owner,kind,request_hash FROM quest_actions WHERE operation_id=?',(operation_id,)).fetchone()
             if old and old!=(uid,kind,digest):raise ValueError('Conflicting quest retry')
@@ -275,7 +275,7 @@ class QuestState:
                     if ep:saved_reward['ep']=ep
                     erp_scope.insert_completed(db,uid,qid,now,saved_reward)
                     from els_server.storage.epic_followups import accept_after_reward
-                    accepted_after=() if qid==erp_scope.QUEST else accept_after_reward(db,uid,qid,load_character(db,uid,self.account_id),load_items(db,uid),location,now)
+                    accepted_after=() if erp_scope.scoped(qid) else accept_after_reward(db,uid,qid,load_character(db,uid,self.account_id),load_items(db,uid),location,now)
                 db.execute('INSERT INTO quest_actions VALUES (?,?,?,?)',(operation_id,uid,kind,digest))
             items=load_items(db,uid);character=load_character(db,uid,self.account_id);state=_state(db,uid,items)
             if kind=='claim' and replayed:
@@ -291,9 +291,9 @@ class QuestState:
             if stage_changed:result['stage_changed']=True
             # All responses, including full unit and inventory bodies, must be
             # encodable before SQL commit. No stale receipt inventory deltas.
-            if qid==erp_scope.QUEST:erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard)
+            if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
             result['events']=encode(result)
-            if qid==erp_scope.QUEST:erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard)
+            if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
             if not isinstance(result['events'],list) or any(not isinstance(e.payload,bytes) or len(e.payload)>65536 for e in result['events']):raise ValueError('Quest response bound')
             return result
 
@@ -315,7 +315,7 @@ class QuestState:
                 return prepare([],True) if prepare is not None else []
             state=_state(db,self.uid,load_items(db,self.uid));changed=[]
             for row in state['active']:
-                if row['id']==erp_scope.QUEST and not erp_scope.progress_allowed(db,self.uid,self.account_id,event_id,event,proof,self.account_source_guard):continue
+                if erp_scope.scoped(row['id']) and not erp_scope.progress_allowed(db,self.uid,self.account_id,event_id,event,proof,self.account_source_guard,qid=row['id']):continue
                 counts=dict(row['objectives'])
                 for s in quest_catalog().objectives(row['id']):
                     from els_server.domain.mainline_subquest_groups import can_progress

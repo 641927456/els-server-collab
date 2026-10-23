@@ -72,6 +72,13 @@ class QuestCatalog:
                 identity=int(raw_id)
                 if identity in dest and dest[identity]!=value:raise ValueError('Conflicting ERP support quest')
                 dest[identity]=value
+        from els_server.domain.account_epic_quests import catalog as account_epic_catalog
+        account_epic=account_epic_catalog()
+        for dest,key in ((self.quests,'quests'),(self.subquests,'subquests')):
+            for raw_id,value in account_epic[key].items():
+                identity=int(raw_id)
+                if identity in dest and dest[identity]!=value:raise ValueError('Conflicting finite account Epic source')
+                dest[identity]=value
         for q in self.quests.values():
             if q['m_bRepeat'] or q['m_bIsTimeEvent']:raise ValueError('Unsupported quest schedule')
             from els_server.domain.quest_selection import options
