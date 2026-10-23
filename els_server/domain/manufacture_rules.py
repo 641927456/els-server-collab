@@ -114,10 +114,16 @@ def validate_sockets(template,values):
     return list(values)
 
 def xp_advance(state,minimum,quantity):
-    """Compatibility: 10*recipe minimum per craft, thresholds100*2^(level-1)."""
+    """Existing Alchemy curve, with authorized old70 manufacturing XP fallback."""
     if state.profession!=3 or not minimum or state.level>=10:return state,0,False
     if not 1<=state.level<=10:raise ValueError('Invalid alchemist level')
-    p=policy();delta=p['xp_per_required_level']*minimum*quantity
+    p=policy()
+    if type(minimum) is not int or not 1<=minimum<=10 or type(quantity) is not int or not 1<=quantity<=p['max_batch']:
+        raise ValueError('Manufacture profession XP input bound')
+    # Current pinned recipes/ProfessionTemplet declare no XP yield. User's
+    # 2026-10-24 fallback adopts old70 GSUserInventory success gains only;
+    # keep this server's initial100, thresholds and existing state unchanged.
+    delta=(10 if minimum<=3 else 25 if minimum<=6 else 60)*quantity
     if state.experience+delta>=2**31:raise ValueError('Profession XP overflow')
     level,progress=state.level,state.progress+delta
     required=state.required or p['level_thresholds'][str(level)]
