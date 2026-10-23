@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "source_fix_PR": 313,
+  "metadata_issue": 315,
+  "source_main_merge_commit": "fa5edad751739fa966acb268fe9e150252635e7e",
+  "source_main_is_formal_runtime": false,
+  "snapshots": {
+    "local": {
+      "branch": "snapshot/local-multiplayer-current-world-member-20261024-v1",
+      "parent": "491fb009f600932597f0aa1912639e572a6ee89d",
+      "commit": "5175921af0961aa44584bbedae5ed0d1910516ce",
+      "tree": "83edba24ac924949e4cc4bd3fb70934eca2c8621",
+      "changed_paths": [
+        "els_server/domain/friends_dungeon.py",
+        "els_server/domain/friends_spawns.py"
+      ],
+      "metadata_path": "channels/local-multiplayer-current-world-member-20261024-v1.json",
+      "source_rows": 718
+    },
+    "online": {
+      "branch": "snapshot/online-multiplayer-current-world-member-20261024-v1",
+      "parent": "fa8f120a57aad569b0dcc6c165f3340f1271f30c",
+      "commit": "9213121e5da4e1184468f973a35c4fd82acbf016",
+      "tree": "e37c596554df35f207987071ae1648faf15fe479",
+      "changed_paths": [
+        "els_server/domain/friends_dungeon.py",
+        "els_server/domain/friends_spawns.py"
+      ],
+      "metadata_path": "channels/online-multiplayer-current-world-member-20261024-v1.json",
+      "source_rows": 720
+    }
+  },
+  "source_row_counts": {
+    "local": 718,
+    "online": 720
+  },
+  "existing_cross_channel_difference_paths": [
+    "els_server/__main__.py",
+    "els_server/application.py",
+    "els_server/config.py",
+    "els_server/domain/acquisition_policy.py",
+    "els_server/domain/cartridge_exchange_flow.py",
+    "els_server/domain/coupon_flow.py",
+    "els_server/domain/dungeon_clear.py",
+    "els_server/domain/first_story_entry.py",
+    "els_server/domain/inventory_items.py",
+    "els_server/domain/local_session.py",
+    "els_server/domain/sage_sockets.py",
+    "els_server/domain/town_travel_flow.py",
+    "els_server/friends_bootstrap.py",
+    "els_server/gm_runtime.py",
+    "els_server/protocol/coupon_messages.py",
+    "els_server/selected2026_gm.py",
+    "els_server/storage/coupon_codes.py",
+    "els_server/storage/equipment_receipt_state.py"
+  ],
+  "existing_cross_channel_difference_count": 18,
+  "local1012": {
+    "path": "els_server/domain/town_travel_flow.py",
+    "size": 13388,
+    "sha256": "60baf4666e736ced6b947cfc014fcd33774f0689bad137c497e7316e89a03547"
+  },
+  "local_manifest_sha256": "f3833490a6125de1de85526928e0e2855f1f9833c84e2bfeb297ea4b464d4119",
+  "online_published_manifest_sha256": "559a173694be5d5e8481dc8a3eeff7e67c38c4db806e5635a98605a9c5bceef4",
+  "online_exact_scope_manifest_v2_sha256": "102d2bf426b496ff3d9ddefb5dd2dbe9d258f8f24c163e98df30cc932126519b",
+  "metadata_reconciliation_sha256": "07b9a3bf53ab230d8e4700fbd188e0c889d87c8dc9ae32edd6550a5bfb4730f2",
+  "root_post_install_review_sha256": "99c63d180ee71d756f91835f0448c62755f4463a6bd89c040994517c5ff1c128",
+  "acceptance_receipt_sha256": {
+    "local": "aa945eed5b7056132df53ca9904b5e261d1d91c177a245910641ed585e8b397a",
+    "online": "e976bde2e28b5e7645f8c201b2946f6f7e9af4f9631a79cbd03b5eb802f4583c"
+  },
+  "online_published_delta_field_deviation": {
+    "field": "delta",
+    "published_manifest_sha256": "559a173694be5d5e8481dc8a3eeff7e67c38c4db806e5635a98605a9c5bceef4",
+    "stale_paths": [
+      "els_server/protocol/social_messages.py"
+    ],
+    "authoritative_actual_changed_paths": [
+      "els_server/domain/friends_dungeon.py",
+      "els_server/domain/friends_spawns.py"
+    ],
+    "immutable_published_manifest_preserved": true,
+    "basis": "Explicit parent acknowledgement; complete source files/size/SHA, changed_* and exact two-leaf diff remain mandatory."
+  },
+  "selector_changed_fields": [
+    "accepted_local_snapshot",
+    "formal_local_branch",
+    "formal_local_commit",
+    "formal_local_snapshot",
+    "local_snapshot",
+    "online_branch",
+    "online_commit",
+    "online_snapshot"
+  ],
+  "formal_deployment_performed_by_Git": false,
+  "databases_or_configuration_included": false,
+  "natural_multiplayer": false,
+  "material_positive": false,
+  "world_object_consumption": false
+}
