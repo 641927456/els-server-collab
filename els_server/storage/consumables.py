@@ -9,7 +9,7 @@ from els_server.domain.consumables import require_usable,recovery_cooldown_secon
 from els_server.protocol.consumable_messages import request,acknowledgement,effect
 
 
-def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apples=False):
+def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apples=False,account_id=None):
     uid=character_uid(uid)
     slot=request(payload,automatic=automatic_use)
     if not isinstance(operation_id,str) or not 1<=len(operation_id)<=160:raise ValueError('Consumable operation identity')
@@ -20,6 +20,13 @@ def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apple
         db.execute('BEGIN IMMEDIATE')
         character=db.execute('SELECT level FROM characters WHERE uid=?',(uid,)).fetchone()
         if character is None:raise ValueError('Unknown consumable owner')
+        if account_id is not None:
+            from els_server.storage.profession_state import require_owner
+            require_owner(db,uid,account_id)
+        from els_server.storage.character_lifecycle import exists as lifecycle_exists
+        if lifecycle_exists(db):
+            lifecycle=db.execute('SELECT requested_at,finalized_at FROM character_lifecycle WHERE uid=?',(uid,)).fetchone()
+            if lifecycle and any(lifecycle):raise ValueError('Unavailable consumable character')
         if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='consumable_uses'").fetchone():
             old=db.execute('SELECT request_hash FROM consumable_uses WHERE operation_id=?',(operation_id,)).fetchone()
             if old:

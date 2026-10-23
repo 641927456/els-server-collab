@@ -1,4 +1,5 @@
 """Native104/105 wearing: owned positions, stable UIDs and connection receipts."""
+from els_server.storage.item_actor import require_active_character
 import hashlib,json,sqlite3,struct,uuid
 from contextlib import closing
 from els_server.domain.inventory_items import validate_item,FASHION_EQUIP_SLOTS,TEMPLATE_BAG_GROUPS
@@ -44,7 +45,7 @@ def move(path,payload,uid,*,account_id,session_id,sequence,validate=lambda:None)
     operation=session_id+':wear104:'+str(uid)+':'+str(sequence)
     digest=hashlib.sha256(struct.pack('>Q',uid)+payload).hexdigest();positions_json=json.dumps((source,destination),separators=(',',':'))
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');validate()
+        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');require_active_character(db,uid);validate()
         if db.execute('SELECT account_id FROM character_owners WHERE uid=?',(uid,)).fetchone()!=(account_id,):raise ValueError('Wear owner mismatch')
         row=db.execute('SELECT unit_type,unit_class,level FROM characters WHERE uid=?',(uid,)).fetchone()
         if row is None:raise ValueError('Wear character missing')
