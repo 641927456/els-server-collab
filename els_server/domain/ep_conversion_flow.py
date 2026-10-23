@@ -5,22 +5,26 @@ from els_server.protocol.ep_conversion_messages import acknowledgement,catalogue
 from els_server.storage.ep_conversion import convert,wallet
 
 def handle(session,event,sequence):
+    from els_server.domain.ep_shop_flow import handle as purchase_handle,context
+    purchased=purchase_handle(session,event,sequence)
+    if purchased is not None:return purchased
     if not (session.item_test and session.client_build=='dx11_260923' and event.event_id==0x202 and event.kind in (0xa69,0xa5c)):
         return None
     def failed(result,balances=(0,0)):
         return [catalogue(result=int(result)) if event.kind==0xa69 else acknowledgement(*balances,result=int(result))]
-    valid=(session.role=='game' and session.phase=='town_ready' and session.account.store is not None
-           and session.account.characters is not None and type(sequence) is int and 1<=sequence<2**32
-           and event.performers==(0,) and event.uid==event.target_uid==0xffffffffffffffff and event.payload_mode==0)
-    if not valid:return failed(ConversionResult.INVALID_STATE)
+    owned=context(session,event,sequence)
+    if owned is None:return failed(ConversionResult.INVALID_STATE)
     try:
-        path=session.account.store.path;uid=session.account.uid;account_id=session.account.account_id
-        balances=wallet(path,account_id=account_id,uid=uid)
+        path,account_id,uid=owned
         if event.kind==0xa69:
             if event.payload:raise ConversionRejected(ConversionResult.UNKNOWN)
             rate=policy()
             if type(rate) is not Rate:raise ConversionRejected(ConversionResult.UNAVAILABLE)
-            return [catalogue(rate)]
+            from els_server.storage.ep_shop import snapshot
+            from els_server.protocol.ep_shop_messages import count_snapshot
+            current=snapshot(path,account_id=account_id,uid=uid)
+            return [catalogue(rate,offers=current['offers']),count_snapshot(current['counts'])]
+        balances=wallet(path,account_id=account_id,uid=uid)
         operation=session.shop_session_id+':'+str(uid)+':ep-conversion:'+str(sequence)
         return [convert(path,event.payload,operation,account_id=account_id,uid=uid)]
     except (ValueError,sqlite3.Error) as error:

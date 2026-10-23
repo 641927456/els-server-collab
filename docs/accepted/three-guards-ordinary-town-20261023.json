@@ -1,0 +1,31 @@
+{
+  "scope": "Bind ordinary58C travel and its pending reply to the current playable account/selected character. Revalidate under the same SQL transaction before write or receipt replay, and encode the complete original Event before debit/location/receipt writes.",
+  "dependency_and_limits": "Keep original prices, 118149 bag-presence waiver, destinations, receipt shape and the specialized1012 route. In particular preserve its existing local-only _local_selected branch; do not copy an online-only version over it.",
+  "dependency": "PR #285 supplies the already deployed 1012 source/reader prerequisite. This PR changes only ordinary travel and retains the exact local-specific 1012 identity branch.",
+  "local_release": "local-three-qualified-server-guards-20261023-v1",
+  "local_manifest_sha256": "032a8598d4152abf5e277bccf249e19edf32f0f3f89fd5ad1ecf968aacbb9c40",
+  "local_runtime_delta_total": 4,
+  "independent_repair_units_total": 3,
+  "local1012_branch_preserved": true,
+  "new_schema": false,
+  "client_changes": 0,
+  "local_observation_seconds": 120.82420190004632,
+  "dual_SQLite_backup_API": true,
+  "all_original_typed_rows_and_schema_preserved": true,
+  "existing_business_economic_checks_replayed": 0,
+  "new_checks": "Current-parent four-leaf composition/import and normal artifact check, installed fullSHA and preservation, 120second offline observation, post-install self review.",
+  "earlier_online_qualified_evidence_reused": true,
+  "new_public_QA_executed": false,
+  "full_natural_GUI_or_multiplayer_claimed": false,
+  "formal_game_online_redeployed": false,
+  "source_files": [
+    {
+      "path": "els_server/domain/town_travel_flow.py",
+      "sha256": "60baf4666e736ced6b947cfc014fcd33774f0689bad137c497e7316e89a03547"
+    },
+    {
+      "path": "els_server/storage/town_travel.py",
+      "sha256": "7aa235e2799a98fea1ff0dbabb9f5bf7c6c7e8fd4c8039b653551bddba95e4b0"
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 import struct,uuid
 from els_server.protocol import companion_messages as wire
 from els_server.storage import companion_state as state
+from els_server.domain.equipment_chip_flow import current_lease
 
 KINDS={0x2e8,0x2ea,0x2ec,0x432,0x42a,0x42c,0x42f}
 
@@ -38,7 +39,8 @@ def handle(session,event,sequence):
         if kind==0x2ec:return wire.pet_summon(-1)
         return wire.mount_summon(-1,owner) if kind==0x42c else wire.mount_ride(-1,owner)
     allowed=('town_ready',) if kind in (0x2e8,0x432) else ('town_ready','dungeon_active')
-    if session.role!='game' or session.phase not in allowed:return [failure()]
+    if (session.role!='game' or session.phase not in allowed or session.account.store is None
+        or session.account.store.uid!=owner or not current_lease(session)):return [failure()]
     operation=session.shop_session_id+':'+(str(sequence) if sequence is not None else str(uuid.uuid4()))
-    try:return [state.handle(session.account.store.path,owner,kind,event.payload,operation)]
+    try:return [state.handle(session.account.store.path,owner,kind,event.payload,operation,account_id=session.account.account_id if session.account.characters is not None else None)]
     except (ValueError,UnicodeError):return [failure()]

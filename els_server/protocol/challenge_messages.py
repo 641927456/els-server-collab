@@ -17,3 +17,11 @@ def phase_notice(challenge=-1,phase=-1,progress=0,deadline=0,*,result=0,actor=0,
  if not 0<=progress<2**64 or not 0<=deadline<2**63 or not 0<=actor<2**64:raise ValueError('Challenge scalar bound')
  if len(members)>6 or len(set(members))!=len(members) or any(type(uid) is not int or not 1001<=uid<2**63 for uid in members):raise ValueError('Challenge member vector')
  return Event(0x201,kind=0xae6,payload=struct.pack('>iiQI',challenge,phase,progress,len(members))+b''.join(struct.pack('>Q',uid) for uid in members)+struct.pack('>QiQ',deadline,result,actor)+wstring(''))
+
+
+def phase_confirmation(kind,challenge,phase,actor):
+ if kind not in (0xae4,0xae9):raise ValueError('Unknown challenge confirmation')
+ if (challenge,phase) not in ((4,1),(4,2),(4,3),(5,1),(5,2)):raise ValueError('Unknown challenge phase')
+ if type(actor) is not int or not 1001<=actor<2**63:raise ValueError('Challenge proposer identity')
+ # Original2D7F2B0/2D808D0: two i32 values, then proposing character UID.
+ return Event(0x201,kind=kind,payload=struct.pack('>iiQ',challenge,phase,actor))

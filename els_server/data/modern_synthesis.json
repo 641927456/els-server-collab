@@ -1,0 +1,196 @@
+{
+  "policy": "atma-ordinary-stone-synthesis-compat-v1",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "items": {
+    "136210": {
+      "template": 136210,
+      "name": "亚特玛魔法石[微弱的力量]",
+      "grade": 4,
+      "record_sha256": "ce6760975ccd3770069757ed2978463f4a3efdd98bcd3961ceae40289a577a05"
+    },
+    "136211": {
+      "template": 136211,
+      "name": "亚特玛魔法石[完整的力量]",
+      "grade": 3,
+      "record_sha256": "6770f31f66b4843f5481fe662f18f5ef3d470547a0b0bf7cd5d5c030d74a83b8"
+    },
+    "136212": {
+      "template": 136212,
+      "name": "亚特玛魔法石[绽放的力量]",
+      "grade": 2,
+      "record_sha256": "b07f174935ff50fe40c21714131f2632eba07ba2341b5f8c93a949b85159109e"
+    },
+    "136213": {
+      "template": 136213,
+      "name": "亚特玛魔法石[盛开的力量]",
+      "grade": 1,
+      "record_sha256": "fdc769cf3f7efba00e846a7a36ef84af4d9e7cabc050373e34b49f6a8e1fab02"
+    },
+    "136214": {
+      "template": 136214,
+      "name": "亚特玛魔法石[微弱的智慧]",
+      "grade": 4,
+      "record_sha256": "4c47c772ad00711fee8d439bc2fe36a3c4768b88a8dba76fed2e56e0803c658a"
+    },
+    "136215": {
+      "template": 136215,
+      "name": "亚特玛魔法石[完整的智慧]",
+      "grade": 3,
+      "record_sha256": "bf14d5da3ccc18c6c004fa015776de4a30afc9787a72532c02fe70bcf81723b8"
+    },
+    "136216": {
+      "template": 136216,
+      "name": "亚特玛魔法石[绽放的智慧]",
+      "grade": 2,
+      "record_sha256": "5ecd3b7b1c4c4dcc134e9ce16a891d058dfe93db37fd010f997f029d92538327"
+    },
+    "136217": {
+      "template": 136217,
+      "name": "亚特玛魔法石[盛开的智慧]",
+      "grade": 1,
+      "record_sha256": "1028b46be7db1f664b8f061f07118de9c79d83a19ecf0be7d68bc0074bffaae5"
+    },
+    "136218": {
+      "template": 136218,
+      "name": "亚特玛魔法石[微弱的机敏]",
+      "grade": 4,
+      "record_sha256": "0b133986be372037146c95bfa0ba34d9327ab4f4b4ea1024c136b6087ac47d77"
+    },
+    "136219": {
+      "template": 136219,
+      "name": "亚特玛魔法石[完整的机敏]",
+      "grade": 3,
+      "record_sha256": "c5bdeac7b0d549b4362405595f366198fc920bdc7ae7444f45e8dff7c09e4c44"
+    },
+    "136220": {
+      "template": 136220,
+      "name": "亚特玛魔法石[绽放的机敏]",
+      "grade": 2,
+      "record_sha256": "ea45692238e13f5609fdfd51dd3615ef05221eb287bdc781602ed31986a43b9e"
+    },
+    "136221": {
+      "template": 136221,
+      "name": "亚特玛魔法石[盛开的机敏]",
+      "grade": 1,
+      "record_sha256": "c48f540f9372c5806c3f49d405c51f153eb950574a2927d1115adc8b806fc6f2"
+    },
+    "136222": {
+      "template": 136222,
+      "name": "亚特玛魔法石[微弱的经验]",
+      "grade": 4,
+      "record_sha256": "53dadeece846b5deb2eab8fc650e7cddfeff63868ee11a38d77041f36adf37ad"
+    },
+    "136223": {
+      "template": 136223,
+      "name": "亚特玛魔法石[完整的经验]",
+      "grade": 3,
+      "record_sha256": "aabe800c71637e4f9409103acd31cdd32eeee9e0d3b2d9bf9d92acb3faea2252"
+    },
+    "136224": {
+      "template": 136224,
+      "name": "亚特玛魔法石[绽放的经验]",
+      "grade": 2,
+      "record_sha256": "acec867d498b5e691aae918e696a0b7455814e92d14f6ae426a9bc966d600d9c"
+    },
+    "136225": {
+      "template": 136225,
+      "name": "亚特玛魔法石[盛开的经验]",
+      "grade": 1,
+      "record_sha256": "4ad668eabd86ad5e40afe505718c451fa565a54a721bd06e166b016d9c6f7db0"
+    }
+  },
+  "recipes": {
+    "4": {
+      "cost": 200000,
+      "upgrade_percent": 60,
+      "same_pool": [
+        136210,
+        136214,
+        136218,
+        136222
+      ],
+      "upgraded_pool": [
+        136211,
+        136215,
+        136219,
+        136223
+      ]
+    },
+    "3": {
+      "cost": 1000000,
+      "upgrade_percent": 30,
+      "same_pool": [
+        136211,
+        136215,
+        136219,
+        136223
+      ],
+      "upgraded_pool": [
+        136212,
+        136216,
+        136220,
+        136224
+      ]
+    },
+    "2": {
+      "cost": 5000000,
+      "upgrade_percent": 10,
+      "same_pool": [
+        136212,
+        136216,
+        136220,
+        136224
+      ],
+      "upgraded_pool": [
+        136213,
+        136217,
+        136221,
+        136225
+      ]
+    },
+    "1": {
+      "cost": 10000000,
+      "upgrade_percent": 0,
+      "same_pool": [
+        136213,
+        136217,
+        136221,
+        136225
+      ],
+      "upgraded_pool": [
+        136213,
+        136217,
+        136221,
+        136225
+      ]
+    }
+  },
+  "authority": "Original Lua fees/upgrade odds; original property84=1 ordinary stone result sets; explicit compatibility uniform1/4 family weighting. Not claimed CN retail family weights.",
+  "sources": [
+    {
+      "path": "analysis\\equipment-connect-01a142e9\\expansion-v2\\ItemSynthesisData.lua.tables.json",
+      "sha256": "d62132a11a29b522c17b643b27955c4f28a3bf990c29f72216c7214a21fb5e21"
+    },
+    {
+      "path": "analysis/sol-high-20261015/npc-bank-box/item.kim",
+      "sha256": "a3bcc9c926b19aa36f1c737ca53993b23da11c372bfd5adf3d740dc0b691ab8e"
+    },
+    {
+      "path": "analysis\\tutorial-quests-01a142ce\\v3-remaining\\resources\\DLG_Map_House.lua.tables.json",
+      "sha256": "ec9406064e33c9cd9fcc5dbdfc5c2fad3a63481228e7ab5a13b6af489f96b3f2"
+    },
+    {
+      "path": "analysis\\x2-village-opcode14-20261017-01a14a51\\outputs\\DLG_Map_Village.tables.json",
+      "sha256": "b79f1609a7a0d673ab165cc626961779acc791cb411a64a933edf7de03d1f072"
+    }
+  ],
+  "admission": "Ordinary16 valid existing instances only. Normal new material production remains unconnected; no new drop/shop/quest source.",
+  "npc": {
+    "town": 20013,
+    "world": 1023,
+    "house": 40274,
+    "npc": 10384,
+    "button": 59,
+    "menu_message": 15055
+  }
+}
