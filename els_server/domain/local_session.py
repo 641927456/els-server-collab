@@ -498,6 +498,9 @@ class LocalSession:
         from els_server.domain.equipment_circuit_flow import handle as circuit_handle
         circuit_reply=circuit_handle(self,event,request_sequence)
         if circuit_reply is not None:return circuit_reply
+        from els_server.domain.option_conversion_existing_flow import handle as existing_conversion_handle
+        existing_conversion_reply=existing_conversion_handle(self,event,request_sequence)
+        if existing_conversion_reply is not None:return existing_conversion_reply
         from els_server.domain.artifact_flow import handle as artifact_handle
         artifact_reply=artifact_handle(self,event,request_sequence)
         if artifact_reply is not None:return artifact_reply
