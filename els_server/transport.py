@@ -7,6 +7,7 @@ from els_server.protocol.protocol_codec import (BOOTSTRAP_KEYS,Keys,Event,Protoc
     encode_event,encode_frame,decode_event,decode_frame,welcome_event)
 from els_server.domain.local_session import SessionOrderError
 from els_server.port_probe import PortProbe
+from els_server.dungeon34320_observation import Trace34320
 
 
 class GameServer:
@@ -132,6 +133,7 @@ class GameServer:
             outgoing=2;incoming=1;heartbeat_sent=False
             operation=asyncio.Lock()
             memory1_diagnostic_count=0
+            dungeon34320_trace=Trace34320(self.log,index)
             async def write(wire):
                 writer.write(wire)
                 await asyncio.wait_for(writer.drain(),self.config.write_timeout)
@@ -184,7 +186,9 @@ class GameServer:
                     if event.event_id==1026 and event.kind==3392 and not heartbeat_sent:
                         await send([Event(0)]);heartbeat_sent=True
                     before=business.phase
+                    trace34320_before=dungeon34320_trace.before(business,event,frame.sequence)
                     messages=await self.application.call(business.handle,event,request_sequence=frame.sequence)
+                    dungeon34320_trace.after(trace34320_before,business,messages)
                     if before!=business.phase:
                         self.log('business_phase',connection=index,request=event.kind,before=before,after=business.phase)
                     await send(messages)

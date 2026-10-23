@@ -1,4 +1,4 @@
-"""Finite native own-report/known-C lane: solo30000stage0, no effect model."""
+"""Qualified ordinary own-revival and peer lifecycle; no client effect model."""
 from els_server.domain.equipment_chip_flow import current_lease
 from els_server.protocol.known_resurrection import death_request,death_ack,death_complete,use_request,use_ack,continuation
 from els_server.storage.known_resurrection import BOX,open_box,historical_box,spend
@@ -22,24 +22,82 @@ def _town(s,sequence):
 
 def _scene(s,sequence):
     a=_actor(s,sequence)
-    if s.dungeon_id!=30000 or s.gate_stage!=0:raise ValueError('Known resurrection finite map')
-    from els_server.domain.luciel_dungeon import run_state
-    refs,values=run_state(s)
-    if getattr(s,'dungeon_participants',frozenset((a.uid,)))!=frozenset((a.uid,)):
-        raise ValueError('Known resurrection requires solo native selector')
-    app=getattr(s,'application',None)
-    if app is not None:
-        world=app.world
-        if (world.dungeons.transport_room(s)is not None or world.dungeons.room(s)is not None
-            or s in world.party_of or s in world.members):raise ValueError('Known resurrection shared context')
+    from els_server.domain.luciel_dungeon import run_state,canonical
+    from els_server.domain.known_resurrection_maps import qualified
+    keys=qualified(s);app=getattr(s,'application',None)
+    world=app.world if app is not None else None
+    room=world.dungeons.transport_room(s) if world is not None else None
+    refs=[a,a.store,getattr(a,'root',a)];values=[a.uid,a.account_id,s.shop_session_id,s.phase]
     if (getattr(s,'solo_challenge_party',None)is not None or getattr(s,'active_challenge',None)is not None
         or getattr(s,'challenge_deadline',None)is not None):raise ValueError('Known resurrection special context')
-    return (a,a.store,getattr(a,'root',a),*refs),(a.uid,a.account_id,s.shop_session_id,s.phase,values)
+    if room is None:
+        if ((world is not None and (s in world.party_of or s in world.members))
+            or getattr(s,'dungeon_participants',frozenset((a.uid,)))!=frozenset((a.uid,))):raise ValueError('Known resurrection detached room')
+        extra,state=run_state(s);refs.extend(extra);values.append(state)
+        epoch=s.reward_run_id;targets=()
+    else:
+        if not keys:raise ValueError('Shared resurrection requires source-qualified spawn keys')
+        from els_server.domain.friends_dungeon import Room
+        from els_server.domain.friends_world import Mailbox
+        from els_server.domain.normal_party import ordinary
+        if (type(room)is not Room or world.dungeons.room(s)is not room or room.phase!='active'
+            or room.identity!=s.dungeon_id or not 2<=len(room.members)<=4 or not app.config.friends_coop_enabled
+            or not ordinary(room.party) or room.party.get('run')is not room
+            or room.party.get('difficulty',0)!=0 or room.party.get('mode',0)!=0
+            or tuple(room.party['members'])!=room.members or room.party['leader']is not room.leader
+            or room.leader not in room.members or s not in room.members):raise ValueError('Known resurrection ordinary room')
+        canonical(room.seed,4);epoch=room.seed;participants=frozenset(m.account.uid for m in room.members)
+        if len(participants)!=len(room.members):raise ValueError('Known resurrection duplicate actor')
+        refs.extend((app,world,room,room.party,room.members));values.extend((room.identity,room.seed,room.phase,room.leader))
+        generations=set()
+        for member in room.members:
+            if (member.application is not app or not current_lease(member) or member.social_overflow or member.coop_error
+                or not app.registry.enabled(member.identity['id']) or member.role!='game'
+                or member.client_build!='dx11_260923' or not member.item_test
+                or world.dungeons.transport_room(member)is not room or world.dungeons.room(member)is not room
+                or world.party_of.get(member)is not room.party or member.dungeon_participants!=participants
+                or member.gate_stage!=s.gate_stage or type(member.mailbox)is not Mailbox):raise ValueError('Known resurrection room member changed')
+            extra,state=run_state(member,room.seed)
+            if qualified(member)!=keys:raise ValueError('Known resurrection peer scene changed')
+            run=member.dungeon_run
+            generations.add((run.run_id,run.stage,run.part,run.visits) if run is not None else (room.seed,member.gate_stage))
+            refs.extend((member,member.account,member.account.store,member.identity,*extra))
+            values.extend((member.account.uid,member.account.account_id,member.shop_session_id,state))
+        if len(generations)!=1:raise ValueError('Known resurrection peer generation changed')
+        targets=tuple(m for m in room.members if m is not s)
+    return dict(refs=tuple(refs),values=tuple(values),epoch=epoch,keys=keys,targets=targets,shared=room is not None)
 
 def _same(expected,current):
-    old,values=expected;new,now=current
+    old,values=(expected['refs'],expected['values'])if isinstance(expected,dict)else expected
+    new,now=(current['refs'],current['values'])if isinstance(current,dict)else current
     if len(old)!=len(new)or any(a is not b for a,b in zip(old,new))or values!=now:
         raise ValueError('Known resurrection context changed')
+
+def _mailbox_snapshot(box):return (box,box.bytes,tuple(box.messages),tuple(box.moves.items()))
+
+def _prepare_peers(context,events):
+    from collections import deque
+    from els_server.domain.friends_world import Mailbox
+    from els_server.protocol.protocol_codec import encode_event
+    for event in events:encode_event(event)
+    prepared=[]
+    for target in context['targets']:
+        old=target.mailbox
+        if type(old)is not Mailbox:raise ValueError('Known resurrection peer mailbox type')
+        clone=Mailbox();clone.messages=deque(old.messages);clone.moves=dict(old.moves);clone.bytes=old.bytes
+        if clone.bytes!=sum(len(e.payload)for e in clone.messages)+sum(len(e.payload)for e in clone.moves.values()):raise ValueError('Known resurrection invalid peer queue')
+        for event in events:clone.append(event)
+        prepared.append((target,clone,_mailbox_snapshot(old)))
+    return tuple(prepared)
+
+def _validate_peers(prepared):
+    for target,clone,before in prepared:
+        if _mailbox_snapshot(target.mailbox)!=before:raise ValueError('Known resurrection peer queue changed')
+
+def _deliver_peers(prepared):
+    # No callbacks or encoding after the economic commit. Application serializes
+    # all participating sessions, as with the existing active-state broadcasts.
+    for target,clone,before in prepared:target.mailbox=clone
 
 def _operation(s,sequence):return s.shop_session_id+':'+str(s.account.uid)+':'+str(sequence)
 
@@ -53,18 +111,20 @@ def _source(s,request):
         run=s.dungeon_run
         if run is None:
             from els_server.domain.dungeon_population import population
-            entries=population(0)['npcs'];dead=s.defeated_npcs
+            entries=population(s.gate_stage)['npcs'];dead=s.defeated_npcs
         else:entries=run.current['npcs'];dead=run.defeated
         if not any(n['key']==request['killer']and n['active']and n['key']not in dead for n in entries):
             raise ValueError('Unknown current solo killer instance')
 
 def _life(s,context):
     state=getattr(s,'known_resurrection_life',None)
+    previous=state
     if state is not None:
         try:_same(state['context'],context)
         except ValueError:state=None
     if state is None:
-        state=dict(context=context,number=0,phase='alive',death_sequence=None,death_payload=None)
+        number=previous['number'] if previous is not None and previous.get('epoch')==context['epoch']else 0
+        state=dict(context=context,epoch=context['epoch'],number=number,phase='alive',death_sequence=None,death_payload=None)
         s.known_resurrection_life=state
     return state
 
@@ -109,24 +169,33 @@ def handle(s,event,sequence):
             if event.payload:raise ValueError('Native AA must be empty')
             if state['phase']=='dead':return []
             if state['phase']!='dying':raise ValueError('Native AA has no current A7')
-            state['phase']='dead';return [death_complete(s.account.uid)]
+            notice=death_complete(s.account.uid);prepared=_prepare_peers(context,[notice])
+            _same(context,_scene(s,sequence));_validate_peers(prepared)
+            state['phase']='dead';_deliver_peers(prepared);return [notice]
         use_request(event.payload,s.account.uid)
         if state['phase']!='dead':raise ValueError('Native160 has no completed current death')
-        life=state['number']
+        life=state['number'];prepared=[]
+        from els_server.domain.known_resurrection_maps import shared_position
+        position=shared_position(context['epoch'],s.account.uid,life,context['keys'])if context['shared']else -1
+        def prepare(events):
+            answer=_prepare_peers(context,[events[-1]])
+            prepared.extend(answer);return answer
         def guard():
-            _same(context,_scene(s,sequence))
+            _same(context,_scene(s,sequence));_validate_peers(prepared)
             if getattr(s,'known_resurrection_life',None)is not state or state['phase']!='dead'or state['number']!=life:
                 raise ValueError('Known resurrection life changed')
-        result=spend(s.account.store.path,s.account.uid,event.payload,_operation(s,sequence),s.reward_run_id,life,
-            account_id=s.account.account_id if s.account.characters is not None else None,guard=guard)
+        result=spend(s.account.store.path,s.account.uid,event.payload,_operation(s,sequence),context['epoch'],life,
+            account_id=s.account.account_id if s.account.characters is not None else None,guard=guard,
+            dungeon=s.dungeon_id,position=position,prepare=prepare)
         if result['replayed']:
             # A commit followed by an unknown handoff is reconciled by a fresh
             # entry; replaying162 could heal an already living native actor.
             raise ConnectionError('Known resurrection handoff needs fresh entry')
-        state['phase']='alive'
+        state['phase']='alive';_deliver_peers(result['prepared'])
         return result['events']
     except ValueError:
         if kind==0xa7:return [death_ack(-1)]
         if kind==0xaa:return []
         value=snapshot(s.account.store.path,s.account.uid) if getattr(s.account,'store',None)is not None else 0
-        return [use_ack(s.account.uid,value,-1)]
+        dungeon=s.dungeon_id if type(s.dungeon_id)is int and 0<s.dungeon_id<2**31 else 30000
+        return [use_ack(s.account.uid,value,-1,dungeon=dungeon)]

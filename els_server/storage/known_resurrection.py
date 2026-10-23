@@ -82,7 +82,7 @@ def historical_box(path,owner,payload,operation):
         uid=use_request(payload).uid
         return any(i.get('uid')==uid and i.get('template')==BOX for i in before)
 
-def spend(path,owner,payload,operation,run,life,*,account_id,guard):
+def spend(path,owner,payload,operation,run,life,*,account_id,guard,dungeon=30000,position=-1,prepare=None):
     owner=character_uid(owner)
     if type(run) is not str or str(uuid.UUID(run))!=run or uuid.UUID(run).version!=4:
         raise ValueError('Known resurrection run identity')
@@ -102,11 +102,12 @@ def spend(path,owner,payload,operation,run,life,*,account_id,guard):
         if current<=0:raise ValueError('No known source resurrection stones')
         from els_server.protocol.known_resurrection import continuation
         # Validate complete native replies before committing the economic change.
-        answer=continuation(owner,current-1)
+        answer=continuation(owner,current-1,dungeon=dungeon,position=position)
+        prepared=prepare(answer) if prepare is not None else None
         _authorize(db,owner,account_id,guard)
         _set(db,owner,current-1)
         db.execute('''CREATE TABLE IF NOT EXISTS known_resurrection_spends (
             operation_id TEXT PRIMARY KEY,request_hash TEXT NOT NULL,owner INTEGER NOT NULL,
             run TEXT NOT NULL,life INTEGER NOT NULL,UNIQUE(owner,run,life))''')
         db.execute('INSERT INTO known_resurrection_spends VALUES (?,?,?,?,?)',(operation,digest,owner,run,life))
-        return dict(count=current-1,replayed=False,events=answer)
+        return dict(count=current-1,replayed=False,events=answer,prepared=prepared)
