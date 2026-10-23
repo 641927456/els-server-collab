@@ -9,15 +9,17 @@ from els_server.protocol.protocol_codec import Event
 from els_server.storage.inventory_actions import _identity,_previous,_commit
 from els_server.storage.inventory_state import load_items
 from els_server.storage.equipment_receipt_state import current_changes
+from els_server.storage.profession_state import require_owner
 from els_server.storage.item_instances import remove
 from els_server.storage.npc_trade import balances,charge
 from els_server.storage.equipment_enhancement import replace
 
 
-def enhance(path,owner,payload,operation,randbelow=secrets.randbelow):
+def enhance(path,owner,payload,operation,randbelow=secrets.randbelow,*,account_id=None):
     uid,mode,context,hammer,auto_recovery=options(payload);owner,digest=_identity(owner,0x5ff,payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+        if account_id is not None:require_owner(db,owner,account_id)
         old=_previous(db,operation,digest);before=load_items(db,owner);balance=balances(db,owner)
         by_position={(i['group'],i['slot']):i for i in before}
         if old is not None:
