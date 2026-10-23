@@ -1,0 +1,9 @@
+# Accepted multiplayer current-member channel snapshots
+
+Source repair #313 and the independent protected local/online installations are complete. The channel selectors now identify the exact accepted server Python/JSON source snapshots, separately from main's reviewed source view.
+
+The local snapshot inherits commit `491fb009f600932597f0aa1912639e572a6ee89d`; online inherits `fa8f120a57aad569b0dcc6c165f3340f1271f30c`. Each commit replaces only `friends_dungeon.py` and `friends_spawns.py` using its formal installation bytes. All 718 local and 720 online source rows match the frozen manifests. Every other source byte remains inherited, including local1012, local management/startup support and online issuer behavior; the 18 existing cross-channel distinctions remain. Main's existing portal condition and newline difference remain separate and main was never a channel source.
+
+The published online runtime manifest SHA `559a173694be5d5e8481dc8a3eeff7e67c38c4db806e5635a98605a9c5bceef4` has a stale descriptive `delta` row for an older social_messages change. Its complete 947-file inventory, changed_* fields, two-leaf count and actual installed bytes are correct. The published manifest and pointer remain immutable. A new exact delivery-scope sidecar SHA `102d2bf426b496ff3d9ddefb5dd2dbe9d258f8f24c163e98df30cc932126519b` preserves that inventory and records the correct two replacements with source/review/installation bindings. This metadata deviation and its reconciliation are retained explicitly.
+
+Final receipt hashes, exact source snapshot commits and unchanged channel distinctions are recorded in `docs/evidence/multiplayer-formal-channel-sync-20261024.json` and the two channel records. This PR records existing installation results; it does not install, restart, change player data/configuration, or update progress. Natural multiplayer world create/delete/pickup, native world-object consumption and positive material pickup remain unverified.
