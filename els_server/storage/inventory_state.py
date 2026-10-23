@@ -78,6 +78,8 @@ def load_items(db,owner=1001):
  attach_reforge(db,items,owner)
  from els_server.storage.wardrobe import attach as attach_wardrobe
  attach_wardrobe(db,items,owner)
+ from els_server.domain.cartridge_registration_rules import project as project_cartridge
+ project_cartridge(db,items,owner)
  from els_server.domain.cartridge_selection_box import BOX as read_box,read_existing_box
  for index,item in enumerate(items):
   if item["template"]==read_box:

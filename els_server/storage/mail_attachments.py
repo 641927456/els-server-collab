@@ -26,7 +26,8 @@ def _transaction(db):
 
 def _snapshot(item):
     from els_server.domain.inventory_items import validate_item
-    return json.dumps(validate_item(item),sort_keys=True,separators=(',',':'))
+    from els_server.domain.cartridge_registration_rules import non_authority
+    return json.dumps(validate_item(non_authority(item)),sort_keys=True,separators=(',',':'))
 
 
 def _known_links(db,uid):
@@ -125,9 +126,12 @@ def retire_expired(db,now):
     _transaction(db)
     # Natural item expiry is independent of the letter's display deadline.
     # Retain the original JSON as an audit tombstone, never recreate the item.
-    rows=db.execute('''SELECT mail_id FROM player_mail_items WHERE claimed_at IS NULL
+    rows=db.execute('''SELECT mail_id,item_json FROM player_mail_items WHERE claimed_at IS NULL
         AND moved_to IS NULL AND expired_at IS NULL AND expires_at<? ORDER BY mail_id LIMIT 100''',(now,)).fetchall()
-    for (mid,) in rows:db.execute('UPDATE player_mail_items SET expired_at=? WHERE mail_id=?',(now,mid))
+    from els_server.domain.cartridge_registration_rules import _unique_json,non_authority
+    for mid,raw in rows:
+        non_authority(_unique_json(raw))
+        db.execute('UPDATE player_mail_items SET expired_at=? WHERE mail_id=?',(now,mid))
     return len(rows)
 
 
@@ -136,7 +140,8 @@ def pending(db,mail_id,*,now):
         AND claimed_at IS NULL AND moved_to IS NULL AND expired_at IS NULL''',(mail_id,)).fetchone()
     if row is None or row[2] is not None and row[2]<now:return None
     from els_server.domain.inventory_items import validate_item
-    item=validate_item(json.loads(row[1]))
+    from els_server.domain.cartridge_registration_rules import _unique_json,non_authority
+    item=validate_item(non_authority(_unique_json(row[1])))
     if item['uid']!=row[0] or item.get('expires_at')!=row[2]:raise MailError('Corrupt attachment escrow')
     return item
 

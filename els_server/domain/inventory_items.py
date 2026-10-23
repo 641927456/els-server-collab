@@ -505,7 +505,7 @@ def validate_item(item):
   from els_server.domain.cartridge_selection_box import validate_existing_box
   return validate_existing_box(item)
  keys={'uid','template','metadata','count','group','slot'}
- if not isinstance(item,dict) or set(item)-{'attributes','durability','expires_at','enhancement','lock_until','option_groups','identified','enhancement_gauge','enhancement_guarantee','sealed','seal_used','artifact_socket_open','chip_tuning','reforge','appearance_template','wardrobe_hanger','dye_colors','appearance_colors'}!=keys or any(type(item[k]) is not int for k in keys):raise ValueError('Invalid inventory item fields')
+ if not isinstance(item,dict) or set(item)-{'attributes','durability','expires_at','enhancement','lock_until','option_groups','identified','enhancement_gauge','enhancement_guarantee','sealed','seal_used','artifact_socket_open','chip_tuning','reforge','appearance_template','wardrobe_hanger','dye_colors','appearance_colors','cartridge'}!=keys or any(type(item[k]) is not int for k in keys):raise ValueError('Invalid inventory item fields')
  if not 1<=item['uid']<2**63 or item['template'] not in VERIFIED_TEMPLATES or item['metadata']!=VERIFIED_TEMPLATES[item['template']]:raise ValueError('Invalid inventory item identity/template')
  if item['template'] in ADVANCED_TIMED_TEMPLATES and 'expires_at' not in item:raise ValueError('Timed enhancement material requires explicit expiration')
  from els_server.game_data import client_data
@@ -523,6 +523,10 @@ def validate_item(item):
  bag=item['group']==TEMPLATE_BAG_GROUPS[item['template']] and 0<=item['slot']<wire_limit(item['group'])
  if not 1<=item['count']<=TEMPLATE_MAX_STACKS[item['template']] or not (equipped or bag):raise ValueError('Invalid local inventory count/slot')
  result=dict(item)
+ if 'cartridge'in item:
+  from els_server.domain.cartridge_registration_rules import scalar,binding_catalog
+  result['cartridge']=scalar(item['cartridge'])
+  if result['cartridge']!=[0,0]and(item['template']not in binding_catalog()or item['group']not in(1,9)or item['count']!=1):raise ValueError('Cartridge projected carrier shape')
  if 'dye_colors'in item or 'appearance_colors'in item:
   from els_server.domain.wardrobe_extensions import color_state
   color_state(item)
@@ -607,6 +611,7 @@ def item_body(item):
   elif 0x3b0<=off<=0x3b3 and 'chip_tuning' in item:data[wire]=item['chip_tuning'][off-0x3b0]
   elif off in (0x397,0x39b,0x39f) and 'reforge' in item:struct.pack_into('>i',data,wire,item['reforge'][(off-0x397)//4])
   elif off==0x370 and 'lock_until' in item:struct.pack_into('>Q',data,wire,item['lock_until'])
+  elif off==0x3ec:struct.pack_into('>ii',data,wire,*item.get('cartridge',[0,0]))
   elif off==0x378:struct.pack_into('>i',data,wire,item.get('appearance_template',0))
   elif off==0x37c:data[wire]=int(item.get('wardrobe_hanger',False))
   elif off in (0x37d,0x389):struct.pack_into('>Iiii',data,wire,3,*item.get('dye_colors'if off==0x37d else'appearance_colors',[0,0,0]))

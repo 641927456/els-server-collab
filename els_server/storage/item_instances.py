@@ -5,6 +5,8 @@ from els_server.domain.inventory_items import validate_item
 def remove(db, owner, item):
     if not db.in_transaction:
         raise ValueError('Instance removal requires transaction')
+    from els_server.domain.cartridge_registration_rules import require_unbound
+    require_unbound(db,item['uid'])
     for table in ('equipment_attributes', 'equipment_durability', 'equipment_enhancement', 'item_expiration', 'item_locks', 'equipment_options', 'equipment_identification', 'equipment_enhancement_progress', 'item_seals','artifact_equipment_state','equipment_chip_tuning','equipment_reforge_states','equipment_engrave_previews','wardrobe_item_state','wardrobe_dyes'):
         if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?", (table,)).fetchone():
             db.execute(f'DELETE FROM {table} WHERE item_uid=?', (item['uid'],))
@@ -15,6 +17,8 @@ def remove(db, owner, item):
 def insert(db, owner, item):
     if not db.in_transaction:
         raise ValueError('Instance insertion requires transaction')
+    from els_server.domain.cartridge_registration_rules import non_authority,require_unbound
+    non_authority(item);require_unbound(db,item['uid'])
     item = validate_item(item)
     from els_server.storage.equipment_chip_reset_history import hydrate
     item = hydrate(db,item)
