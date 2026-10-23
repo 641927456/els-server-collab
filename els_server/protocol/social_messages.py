@@ -202,19 +202,25 @@ def party_answer_ack(uid=0,result=0):return Event(0x201,kind=0x13a,payload=struc
 def party_removed(uid=0,reason=0):return Event(0x201,kind=0x13c,payload=struct.pack('>Qi',uid,reason))
 
 
-def party_info(identity,count,dungeon=30000,*,name='Friends',raid=False):
+def party_info(identity,count,dungeon=30000,*,name='Friends',raid=False,recruitment=None):
     # DA01F0 zero-vector witness: 83 bytes. Native 2376A50 copies these
     # fields into PartyManager's room settings; normal party type is 1.
     from els_server.domain.raid_party import raid_definition
     source=raid_definition(dungeon) if raid else None
     if raid and source is None:raise ValueError('Invalid raid room source')
-    maximum=source['maximum'] if source else 4
+    maximum=source['maximum'] if source else recruitment['maximum'] if recruitment else 4
     if type(count) is not int or not 1<=count<=maximum:raise ValueError('Party count')
     raw=bytearray(83);struct.pack_into('>Q',raw,0,identity);raw[8]=3 if raid else 1
     # DA01F0 ->2376A50: joined count ->settings+10; maximum ->+14;
     # difficulty ->+0C. Membership must never overwrite difficulty.
     raw[13]=count;raw[14]=maximum;raw[15]=1;struct.pack_into('>i',raw,16,dungeon)
     raw[20]=0;raw[21]=1;raw[25]=1
+    if recruitment is not None:
+        raw[21]=0;raw[32]=int(recruitment['published'])
+        struct.pack_into('>i',raw,33,recruitment['region'])
+        raw[37:39]=bytes(recruitment['flags'])
+        struct.pack_into('>i',raw,39,recruitment['listed'])
+        struct.pack_into('>q',raw,43,recruitment['sort_key'])
     return bytes(raw[:9])+wstring(name)+bytes(raw[13:])
 
 
@@ -235,7 +241,8 @@ def party_member(identity,session,index,leader=False,ready=False):
 
 def party_snapshot(party):
     members=party['members'];identity=party['id']
-    payload=i32(0)+u32(1)+party_info(identity,len(members),party['dungeon'],name='Challenge' if party.get('solo_challenge') or party.get('challenge') else 'Friends',raid=party.get('raid_party',False))
+    recruitment=party.get('recruitment')
+    payload=i32(0)+u32(1)+party_info(identity,len(members),party['dungeon'],name=recruitment['title'] if recruitment else 'Challenge' if party.get('solo_challenge') or party.get('challenge') else 'Friends',raid=party.get('raid_party',False),recruitment=recruitment)
     payload+=u32(len(members))+b''.join(party_member(identity,s,index,s is party['leader'],s in party['ready']) for index,s in enumerate(members))
     payload+=u32(0)+wstring('')+u16(0)+wstring('')
     return Event(0x201,kind=0x13b,payload=payload)
