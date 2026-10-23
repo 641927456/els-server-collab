@@ -233,6 +233,12 @@ class FriendsDungeons:
         from els_server.domain.friends_spawns import retire
         sentry_reply=retire(self,r,s,event)
         if sentry_reply is not None:return sentry_reply
+        from els_server.domain.friends_story_retirements import retire as retire_story
+        story_reply=retire_story(self,r,s,event)
+        if story_reply is not None:return story_reply
+        from els_server.domain.friends_material_loot import accepted_death as material_death
+        material_reply=material_death(self,r,s,event)
+        if material_reply is not None:return material_reply
         if r.phase!='active':
             from els_server.domain.friends_spawns import retry_death, retry_static_death
             return retry_death(self,r,s,event) or retry_static_death(self,r,s,event)
@@ -261,7 +267,9 @@ class FriendsDungeons:
         # master alone changes the shared source cursor.
         if s is not r.leader:
             run=s.dungeon_run
-            valid=run is not None and event.payload==struct.pack('>b',run.part) and all(n['key'] in run.defeated for n in run.current['npcs'] if n['active'])
+            valid=(run is not None and s.dungeon_substage_synced and not s.clear_notified
+                   and event.payload==struct.pack('>b',run.part)
+                   and all(n['key'] in run.defeated for n in run.current['npcs'] if n['active'] and n.get('team',1)!=0))
             return [Event(0x201,kind=0xb9,payload=i32(0 if valid else -1))]
         result=LocalSession.handle(s,event)
         if result and result[0].payload==bytes(4):

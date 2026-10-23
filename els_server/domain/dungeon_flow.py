@@ -22,6 +22,8 @@ def periodic(session):
  if (s.dungeon_run is None or s.phase!='dungeon_active' or not s.dungeon_substage_synced
      or s.part_end_notified or s.clear_notified):return []
  if getattr(s.dungeon_run,'memory1_quest_barrier',frozenset())-set(s.dungeon_run.defeated):return []
+ from els_server.domain.story_controller_retirements import gate_predecessor_blocked
+ if gate_predecessor_blocked(s.dungeon_run):return []
  if s.dungeon_run.poll_ready():
   s.part_end_notified=True;s.dungeon_clock.pause()
   return [part_end_notice(s.dungeon_run.part)]
@@ -113,6 +115,8 @@ def handle(s,event):
   if not s.part_end_notified:return []
   reply=[Event(0x201,kind=0xbc,payload=bytes(4))]
   if s.clear_notified:return reply
+  from els_server.domain.story_controller_retirements import gate_predecessor_blocked
+  if gate_predecessor_blocked(run):return []
   if not run.poll_ready():return []
   source=(run.stage,run.part,run.visits)
   target=run.next

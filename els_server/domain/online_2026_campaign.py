@@ -7,7 +7,7 @@ No client claim request or replacement of the global Access tree is added.
 """
 from contextlib import closing
 from dataclasses import replace
-import hashlib,math,sqlite3
+import hashlib,math,sqlite3,logging
 from els_server.domain.online_2026_clock import OnlineTitleClock
 from els_server.domain.online_2026_display import OnlineTitleDisplay
 from els_server.domain.online_2026_mail_notice import OnlineMailNotice,MailNoticePolicy
@@ -53,6 +53,24 @@ class OnlineTitleCampaign:
             self.mail.reset();self._force=True
 
     def notifications(self,s):
+        # This method composes notices locally; none is sent before return.
+        # A later read may fail after an earlier mail receipt committed. Restore
+        # only connection projection caches so the next scan emits that durable
+        # result again. Reward receipts and player state are never rolled back.
+        display=tuple(getattr(self.display,k) for k in ('_record','_context','_shape','_anchor'))
+        accepted=self.mail._accepted
+        scan=(self._context,self._next_scan,self._force)
+        try:return self._notifications(s)
+        except sqlite3.OperationalError as error:
+            code=getattr(error,'sqlite_errorcode',None)
+            if type(code) is not int or code & 255 not in (sqlite3.SQLITE_BUSY,sqlite3.SQLITE_LOCKED):raise
+            for key,value in zip(('_record','_context','_shape','_anchor'),display):setattr(self.display,key,value)
+            self.mail._accepted=accepted
+            self._context,self._next_scan,self._force=scan
+            logging.getLogger(__name__).warning('Online title notification deferred: SQLite code=%s',code,exc_info=True)
+            return []
+
+    def _notifications(self,s):
         if self.clock.closed:return []
         identity=self.mail_identity(s)
         context=(identity,self.clock.identity,self._enabled(s))

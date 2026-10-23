@@ -56,12 +56,15 @@ def repair_missing(path,owner,randbelow=None):
         return changed
 
 
-def perform(path,owner,payload,operation,encode=acknowledgement):
+def perform(path,owner,payload,operation,encode=acknowledgement,*,account_id=None):
     uid,slots,flag=request(payload)
     owner,digest=_identity(owner,0x6e7,payload,operation)
     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10)) as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
         if not db.execute('SELECT 1 FROM characters WHERE uid=?',(owner,)).fetchone():raise ValueError('Unknown circuit owner')
+        if account_id is not None:
+            from els_server.storage.profession_state import require_owner
+            require_owner(db,owner,account_id)
         old=_previous(db,operation,digest);before=load_items(db,owner);balance=balances(db,owner)
         if old is not None:
             return [encode(uid,balance['ed'],current_changes(db,operation,owner,0x6e7,old,before))]

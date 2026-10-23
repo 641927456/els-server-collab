@@ -5,8 +5,8 @@ from els_server.game_data import CLIENT_SHA,client_data
 
 QUEST=13
 NPC=10018
-QUEST_IDS=frozenset((27190, 27260, 27270, 27340, 27400, 27440, 27460, 25500, 25510, 13, 6160, 6190, 6220, 7290, 7320, 7360, 26830, 26880, 26930, 27060, 27100, 100050, 100060, 100080, 100130, 100160, 100190, 100210, 100240, 100250, 100260, 100270, 100280, 100330, 100340, 100360, 100410, 100420, 100440, 100470, 100480, 100500, 100520, 100540, 100550, 100560, 100590, 100600, 100620, 100630, 100660, 100680, 100690, 100710, 100730, 100750, 100770, 100790, 100800, 100840, 100850, 100870, 100900, 100910, 100920, 100940, 100950, 100970, 100980, 100990, 101010, 101020, 101030, 101040))
-SUBQUEST_IDS=frozenset((27190, 27260, 27270, 27340, 27400, 27440, 27460, 25500, 25510, 13, 6160, 6190, 6220, 7290, 7320, 7360, 22313, 22333, 26830, 26870, 26930, 27060, 27100, 100050, 100060, 100080, 100130, 100160, 100190, 100210, 100240, 100250, 100260, 100270, 100280, 100330, 100340, 100360, 100410, 100420, 100440, 100470, 100480, 100500, 100520, 100540, 100550, 100560, 100590, 100600, 100620, 100630, 100660, 100680, 100690, 100710, 100730, 100750, 100770, 100790, 100800, 100840, 100850, 100870, 100900, 100910, 100920, 100950, 100970, 100990, 101030, 101040))
+QUEST_IDS=frozenset((13, 6160, 6190, 6220, 7290, 7320, 7360, 22349, 22350, 22352, 22353, 22355, 22357, 22359, 22360, 22361, 22363, 22365, 22367, 22369, 22370, 22372, 22373, 22378, 22390, 22420, 22450, 22460, 22480, 22490, 22510, 22520, 22540, 22560, 22570, 23690, 23700, 25500, 25510, 26830, 26880, 26930, 27060, 27100, 27190, 27260, 27270, 27340, 27400, 27440, 27460, 28710, 28720, 28730, 28740, 28780, 28800, 100050, 100060, 100080, 100130, 100160, 100190, 100210, 100240, 100250, 100260, 100270, 100280, 100330, 100340, 100360, 100410, 100420, 100440, 100470, 100480, 100500, 100520, 100540, 100550, 100560, 100590, 100600, 100620, 100630, 100660, 100680, 100690, 100710, 100730, 100750, 100770, 100790, 100800, 100840, 100850, 100870, 100900, 100910, 100920, 100940, 100950, 100970, 100980, 100990, 101010, 101020, 101030, 101040))
+SUBQUEST_IDS=frozenset((13, 6160, 6190, 6220, 7290, 7320, 7360, 22313, 22333, 22350, 22354, 22540, 23550, 25500, 25510, 26830, 26870, 26930, 27060, 27100, 27190, 27260, 27270, 27340, 27400, 27440, 27460, 28720, 42511, 100050, 100060, 100080, 100130, 100160, 100190, 100210, 100240, 100250, 100260, 100270, 100280, 100330, 100340, 100360, 100410, 100420, 100440, 100470, 100480, 100500, 100520, 100540, 100550, 100560, 100590, 100600, 100620, 100630, 100660, 100680, 100690, 100710, 100730, 100750, 100770, 100790, 100800, 100840, 100850, 100870, 100900, 100910, 100920, 100950, 100970, 100990, 101030, 101040, 162120))
 EARLY_EPIC_BINDINGS={100050:(10005,40005),100060:(10006,40006),100080:(10005,40005)}
 
 @functools.lru_cache(maxsize=1)
@@ -20,10 +20,10 @@ def catalog():
         or row['catalog_sha256']!=data.manifest['catalog_sha256']
         or {int(k) for k in row['quests']}!=QUEST_IDS or {int(k) for k in row['subquests']}!=SUBQUEST_IDS
         or row['npc']!=NPC or row['house']!=40017
-        or manifest['quests']!=74 or manifest['subquests']!=72):raise ValueError('Town dialogue catalog identity')
+        or manifest['quests']!=110 or manifest['subquests']!=79):raise ValueError('Town dialogue catalog identity')
     from els_server.storage.local_state import TOWN_SCENES
-    if len(row['towns'])!=14 or any(TOWN_SCENES.get(int(town))!=scene for town,scene in row['towns'].items()):raise ValueError('Town dialogue scene identity')
-    if set(row['npc_bindings'])!={'10227', '10228', '10230', '10231', '10010', '10005', '10006', '10030', '10071', '10018', '10056', '10015', '10078', '10040', '10020', '10145', '10001', '10029', '10067', '10144', '10012', '10021', '10002', '10057', '10039', '10000', '10143', '10363'}:raise ValueError('Town dialogue NPC set')
+    if len(row['towns'])!=15 or any(TOWN_SCENES.get(int(town))!=scene for town,scene in row['towns'].items()):raise ValueError('Town dialogue scene identity')
+    if set(row['npc_bindings'])!={'10040', '10006', '10360', '10005', '10145', '10000', '10039', '10057', '10026', '10222', '10228', '10144', '10001', '10056', '10071', '10363', '10021', '10020', '10067', '10230', '10029', '10143', '10012', '10002', '10231', '10010', '10015', '10018', '10078', '10235', '10227', '10025', '10030'}:raise ValueError('Town dialogue NPC set')
     for binding in row['npc_bindings'].values():
         if not binding['houses'] or not binding['towns'] or any(TOWN_SCENES.get(int(t))!=scene for t,scene in binding['towns'].items()):raise ValueError('Town dialogue NPC scene source')
     for key,sub in row['subquests'].items():
@@ -62,6 +62,74 @@ def catalog():
             or row['subquests'][str(identity)]!=dict(m_iID=identity,m_eClearType=1,m_bAutomaticDescription=0,m_ClearCondition=dict(m_eTalkNPCID=npc))
             or row['npc_bindings'][str(npc)]!=dict(houses=[{10227:40173,10228:40174,10230:40176,10231:40177}[npc]],towns={'20010':778})):
             raise ValueError('Noah99 NPC exact source identity')
+    # Original ordinary-role Elysion chapter dialogue gaps, bounded to the
+    # already-qualified source houses. No new NPC location wildcard.
+    for identity in (22349,22350):
+        quest=row['quests'][str(identity)]
+        if (quest['m_eQuestType']!=5 or quest['QuestCondition']['m_iLevel']!=99
+            or set(quest['QuestCondition']['m_eUnitType'].values())!=set(range(1,13))):
+            raise ValueError('Ordinary99 chapter exact source identity')
+    if row['npc_bindings']['10026']!=dict(houses=[40029],towns={'20010':778}):
+        raise ValueError('Ordinary99 NPC10026 exact Elysion binding')
+    for identity in (22352,22353):
+        quest=row['quests'][str(identity)]
+        if (quest['m_eQuestType']!=5 or quest['QuestCondition']['m_iLevel']!=99
+            or set(quest['QuestCondition']['m_eUnitType'].values())!=set(range(1,13))):
+            raise ValueError('Ordinary99 next dialogue exact source identity')
+    for identity in (22355, 22357, 22359, 22360, 22361, 22363, 22365, 22367, 22369, 22370):
+        quest=row['quests'][str(identity)]
+        if (quest['m_eQuestType']!=5 or quest['QuestCondition']['m_iLevel']!=99
+            or set(quest['QuestCondition']['m_eUnitType'].values())!=set(range(1,13))):
+            raise ValueError('Ordinary99 chapter tail exact source identity')
+    quest=row['quests']['28710']
+    if (quest['QuestCondition']['m_eUnitType']!={'1':15}
+        or quest['QuestCondition']['m_iLevel']!=1
+        or quest['QuestCondition']['m_vecBeforeQuestID']!={'0':None,'1':28700}
+        or quest['m_vecSubQuest']!={'0':None,'1':27190}):
+        raise ValueError('Lithia departure next original dialogue source')
+    if row['npc_bindings']['10222']!=dict(houses=[40168],towns={'20010':778}):
+        raise ValueError('Lithia Elrianode source NPC10222 house40168')
+    for identity,parent in ((28720,28710),(28730,28720),(28740,28730)):
+        quest=row['quests'][str(identity)]
+        if (quest['QuestCondition']['m_eUnitType']!={'1':15}
+            or quest['QuestCondition']['m_vecBeforeQuestID']!={'0':None,'1':parent}
+            or quest['m_vecSubQuest']!={'0':None,'1':28720}):
+            raise ValueError('Lithia Elrianode exact NPC10222 tasks')
+    if row['npc_bindings']['10025']!=dict(houses=[40028],towns={'1009':851,'20010':778}):
+        raise ValueError('Ordinary Varnimyr original source NPC10025 scenes')
+    for identity in (22378,22390,22420):
+        quest=row['quests'][str(identity)]
+        if (quest['QuestCondition']['m_iLevel']!=99
+            or set(quest['QuestCondition']['m_eUnitType'].values())!=set(range(1,13))
+            or quest['m_vecSubQuest']!={'0':None,'1':162120}):
+            raise ValueError('Ordinary Varnimyr exact NPC10025 dialogue rows')
+    if row['npc_bindings']['10235']!=dict(houses=[40193],towns={'1009':851}):
+        raise ValueError('Ordinary Varnimyr original source NPC10235 scenes')
+    for identity in (22450,22460):
+        quest=row['quests'][str(identity)]
+        if (quest['QuestCondition']['m_iLevel']!=99
+            or set(quest['QuestCondition']['m_eUnitType'].values())!=set(range(1,13))
+            or quest['m_vecSubQuest']!={'0':None,'1':22540}):
+            raise ValueError('Ordinary Varnimyr exact NPC10235 dialogue rows')
+    for identity in (22480,22490,22510,22520,22540,22560,22570):
+        quest=row['quests'][str(identity)]
+        if (quest['QuestCondition']['m_iLevel']!=99
+            or set(quest['QuestCondition']['m_eUnitType'].values())!=set(range(1,13))
+            or quest['m_vecSubQuest']!={'0':None,'1':22540}):
+            raise ValueError('Original ordinary NPC10235 final seven dialogue rows')
+    # Exact current Aurora camp and original mainline26680 reward successor.
+    quest=row['quests']['23690']
+    if (quest['m_eQuestType']!=5 or quest['QuestCondition']['m_iLevel']!=99
+        or set(quest['QuestCondition']['m_eUnitType'].values())!=set(range(1,15))
+        or quest['m_vecSubQuest']!={'0':None,'1':23550}
+        or row['subquests']['23550']!=dict(m_iID=23550,m_eClearType=1,m_bAutomaticDescription=0,m_ClearCondition=dict(m_eTalkNPCID=10360))
+        or row['npc_bindings']['10360']!=dict(houses=[40257],towns={'1010':964})):
+        raise ValueError('Aurora original NPC10360 continuation identity')
+    successor=row['quests']['23700']
+    if (successor['m_eQuestType']!=5 or successor['QuestCondition']!=quest['QuestCondition']
+        or successor['m_vecSubQuest']!={'0':None,'1':23550}
+        or successor['m_iAfterQuestID']!={'0':None,'1':23710}):
+        raise ValueError('Aurora original second NPC10360 dialogue')
     from els_server.domain.job_quests import extend_town_dialogue
     return extend_town_dialogue(row)
 

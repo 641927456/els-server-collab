@@ -1,7 +1,7 @@
 """Pinned repair dependencies and default-instance equipment discounts.
 
 Owned title repair effects use the independently pinned native effect table.
-Explicitly timed inventory passes are supported; dual forms remain pending.
+Explicitly timed inventory passes and original LuCiel pricing sides are supported.
 """
 import functools,hashlib,json
 from els_server.game_data import client_data,CLIENT_SHA,DATA_DIR
@@ -21,17 +21,33 @@ def catalog():
     return d
 
 
+def price_side(character):
+    if character['unit_type']!=10:return 0
+    from els_server.protocol.luciel_messages import preference,active_preference
+    value=preference(character)
+    return active_preference(character) if value==2 else value
+
+
+def equipped_side(slot):
+    # Original197F880 and19D1E60: normal shared slots, then finite Ciel map.
+    if type(slot) is not int or not 0<=slot<2**15:raise ValueError('Repair equipped slot')
+    if slot in (1,3,5,7,9):return 2
+    return int(slot in (*range(20,35),36,38,40,42,*range(55,67)))
+
+
 def multiplier(character,items):
     d=catalog()
-    if character['unit_type']==10:raise ValueError('Dual-form repair pricing pending')
+    dual=character['unit_type']==10;side=price_side(character);deferred_titles=[]
     if character.get('repair_buffs'):raise ValueError('Buff repair pricing pending')
     total=0.;sources=[];passes=[]
     if character.get('title',0):
         from els_server.domain.titles import eligible
         if not eligible(character,character['title']):raise ValueError('Ineligible repair title')
         for effect in d['title_effects'].get(str(character['title']),[]):
-            value=d['effects'][str(effect)];total=f32(total+value)
-            sources.append(dict(title=character['title'],effect=effect,value=value))
+            value=d['effects'][str(effect)]
+            if dual:deferred_titles.append((effect,value))
+            else:
+                total=f32(total+value);sources.append(dict(title=character['title'],effect=effect,value=value))
     for item in sorted(items,key=lambda i:i.get('slot',0)):
         from els_server.domain.item_expiration import expired
         if expired(item):continue
@@ -43,9 +59,22 @@ def multiplier(character,items):
             # Native 865910 excludes warehouse/pet groups 8,13,14,16.
             if item['group']==4 and item.get('count',0)>0:passes.append(item['uid'])
         if item['group']==9:
-            for effect in d['template_effects'].get(str(item['template']),[]):
-                value=d['effects'][str(effect)];total=f32(total+value)
-                sources.append(dict(uid=item.get('uid'),template=item['template'],effect=effect,value=value))
+            if not dual or equipped_side(item['slot']) in (side,2):
+                for effect in d['template_effects'].get(str(item['template']),[]):
+                    value=d['effects'][str(effect)];total=f32(total+value)
+                    sources.append(dict(uid=item.get('uid'),template=item['template'],effect=effect,value=value))
+            if dual:
+                # Native865B0E..865C1B adds these two instance vectors even on
+                # the other side. Original full record->instance mapping is pinned.
+                for group in ('0','1'):
+                    for effect in item.get('option_groups',{}).get(group,[]):
+                        value=d['effects'].get(str(effect),0.)
+                        if value:
+                            total=f32(total+value)
+                            sources.append(dict(uid=item.get('uid'),option_group=group,effect=effect,value=value))
+    # Original865C24 title contribution follows all worn item contributions.
+    for effect,value in deferred_titles:
+        total=f32(total+value);sources.append(dict(title=character['title'],effect=effect,value=value))
     # 865910 adds template effects even when the instance is broken. Set effects
     # in this build all have zero repair discounts. Title discounts were added
     # separately above; persistent buffs remain unsupported.

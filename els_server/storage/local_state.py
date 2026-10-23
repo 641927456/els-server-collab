@@ -10,7 +10,7 @@ from els_server.domain.skill_state import DEFAULT_SLOTS,encode_slots,decode_slot
 # Measured StageManager map-to-scene table, 20261012-182806-702371.
 TOWN_SCENES={20000:258,20001:263,20002:262,20003:265,20004:326,
              20005:268,20006:417,20007:491,20008:582,20009:636,
-             20010:778,20011:894,20012:1004,20013:1023,20014:1106,1008:637}
+             20010:778,20011:894,20012:1004,20013:1023,20014:1106,1008:637,1009:851,1010:964,1012:1214}
 DEFAULT_LOCATION={'map':20000,'board':0,'progress':0,'xyz':(0.,0.,0.),'revision':0}
 
 def validate_location(map_id,board,progress,xyz):
@@ -75,10 +75,12 @@ class LocalState:
         with self.connect() as db:r=db.execute('SELECT payload FROM key_bindings WHERE uid=?',(self.uid,)).fetchone()
         return validate_bindings(r[0]) if r else DEFAULT_BINDINGS
     def load_skills(self):
+        with self.connect() as db:
+            return self._load_skills(db,self._skill_character(db))
+    def _load_skills(self,db,character):
         from els_server.domain.character_rules import default_slots
         from els_server.domain.skill_rules import equippable_skills,upgraded_slots
-        character=self.skill_character()
-        with self.connect() as db:r=db.execute('SELECT payload FROM skill_slots WHERE uid=?',(self.uid,)).fetchone()
+        r=db.execute('SELECT payload FROM skill_slots WHERE uid=?',(self.uid,)).fetchone()
         if r:
             if len(r[0])!=88:raise ValueError('Invalid saved skill slots size')
             old=struct.unpack('>22i',r[0])
@@ -96,21 +98,44 @@ class LocalState:
             return decode_slots(struct.pack('>22i',*upgraded_slots(old,character)),equippable_skills(character),character)
         return default_slots(character)
     def skill_character(self):
-        with self.connect() as db:
-            if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='characters'").fetchone():return None
-            row=db.execute('SELECT unit_class,level,transcendence,master FROM characters WHERE uid=?',(self.uid,)).fetchone()
-            if row:
-                from els_server.storage.skill_expansion import is_expanded
-                from els_server.storage.skill_unlocks import saved_groups
-                return dict(zip(('unit_class','level','transcendence','master'),row),skill_row_expanded=is_expanded(db,self.uid),skill_seal_groups=saved_groups(db,self.uid))
+        with self.connect() as db:return self._skill_character(db)
+    def _skill_character(self,db):
+        if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='characters'").fetchone():return None
+        row=db.execute('SELECT unit_class,level,transcendence,master FROM characters WHERE uid=?',(self.uid,)).fetchone()
+        if row:
+            from els_server.storage.skill_expansion import is_expanded
+            from els_server.storage.skill_unlocks import saved_groups
+            return dict(zip(('unit_class','level','transcendence','master'),row),skill_row_expanded=is_expanded(db,self.uid),skill_seal_groups=saved_groups(db,self.uid))
         return None
-    def save_skills(self,slots):
+    def _skill_actor(self,db,account_id):
+        from els_server.storage.item_actor import require_active_character
+        require_active_character(db,self.uid)
+        # A supplied account is mandatory at the authenticated network boundary.
+        # None retains the pre-existing trusted local/legacy storage API.
+        if account_id is not None:
+            if type(account_id) is not int or not 0<account_id<2**63:
+                raise ValueError('Skill layout account identity')
+            if db.execute('SELECT account_id FROM character_owners WHERE uid=?',(self.uid,)).fetchone()!=(account_id,):
+                raise ValueError('Skill layout character owner')
+        return self._skill_character(db)
+    def _save_skills(self,db,slots,character):
         from els_server.domain.skill_rules import equippable_skills
-        character=self.skill_character()
         payload=encode_slots(slots,equippable_skills(character),character)
+        db.execute('INSERT INTO skill_slots VALUES (?, ?,1) ON CONFLICT(uid) DO UPDATE SET payload=excluded.payload, revision=revision+1 WHERE payload<>excluded.payload',(self.uid,payload,))
+        return decode_slots(payload,equippable_skills(character),character)
+    def save_skills(self,slots,*,account_id=None):
         with self.connect() as db:
-            db.execute('INSERT INTO skill_slots VALUES (?, ?,1) ON CONFLICT(uid) DO UPDATE SET payload=excluded.payload, revision=revision+1 WHERE payload<>excluded.payload',(self.uid,payload,))
-        return self.load_skills()
+            db.execute('BEGIN IMMEDIATE')
+            character=self._skill_actor(db,account_id)
+            return self._save_skills(db,slots,character)
+    def equip_skill(self,payload,*,account_id=None):
+        from els_server.domain.skill_rules import equippable_skills
+        from els_server.domain.skill_state import equip_request
+        with self.connect() as db:
+            db.execute('BEGIN IMMEDIATE')
+            character=self._skill_actor(db,account_id)
+            slots,ack=equip_request(payload,self._load_skills(db,character),equippable_skills(character),character)
+            return self._save_skills(db,slots,character),ack
     def save_bindings(self,payload):
         payload=validate_bindings(payload)
         with self.connect() as db:

@@ -1,4 +1,5 @@
 """Atomic NPC sales; request retries return current slots and current money."""
+from els_server.storage.item_actor import require_active_character
 import sqlite3
 import struct
 from contextlib import closing
@@ -24,7 +25,7 @@ def sell(path, owner, payload, operation, session='local'):
     owner, digest = _identity(owner, 0xec, canonical, operation)
     with closing(sqlite3.connect(path, timeout=10)) as db, db:
         db.execute('PRAGMA foreign_keys=ON')
-        db.execute('BEGIN IMMEDIATE')
+        db.execute('BEGIN IMMEDIATE');require_active_character(db,owner)
         old = _previous(db, operation, digest)
         before = load_items(db, owner)
         balance = validate_balances(db.execute(
@@ -40,6 +41,8 @@ def sell(path, owner, payload, operation, session='local'):
             item = by_uid.get(uid)
             if item is None or quantity > item['count']:
                 raise ValueError('Sale exceeds owned item count')
+            from els_server.domain.cartridge_registration_rules import require_unbound
+            require_unbound(db,uid)
             price = unit_price(item)
             # Native 2C5C600 multiplies signed int unit price and count.
             if price*quantity >= 2**31:
@@ -52,6 +55,14 @@ def sell(path, owner, payload, operation, session='local'):
         total = balance['ed'] + income
         if total >= 2**63 or balance['revision'] >= 2**63-1:
             raise ValueError('Sale balance overflow')
+        # 2C5C6D5..2C5C7DA uses service+480's level ED limit before
+        # native sale submission. Keep the same authority for forged requests;
+        # committed retries above returned before this new-operation check.
+        from els_server.domain.bank_rules import player_ed_limit
+        row=(db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()
+             if db.execute("SELECT 1 FROM sqlite_master WHERE name='characters'").fetchone() else (1,))
+        if row is None or total>player_ed_limit(row[0]):
+            raise ValueError('Sale exceeds character ED carrying limit')
         # Encode before changing persistent state; all failures roll back.
         wire = acknowledgement(total, changes, sold)
         for item, (_, remaining) in zip(selected, changes):

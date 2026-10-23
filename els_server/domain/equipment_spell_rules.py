@@ -29,19 +29,19 @@ def option_ids(group):
     return frozenset(catalog()['options'][str(group)])
 
 def ticket_definitions():
-    """Plain/normal-NPC red tickets: one independent count1 instance each.
+    """Plain/normal-NPC colored tickets: one independent count1 instance each.
 
     This is bounded compatibility, not a native stack maximum. No new reward
-    or shop is registered here;136080's exact deterministic NPC source is
+    or shop is registered here;the colored tickets' exact deterministic NPC source is
     qualified separately and uses the shared223 economic transaction.
     """
     result=[]
-    for template in (136058,136080):
+    for template in (136058,136059,136060,136080,136081,136082):
         row=next(r for r in catalog()['tickets'] if r['template']==template)
         d=client_data().item(template)
         if ((d['item_type'],d['metadata'])!=(7,0)
                 or d['flags4']&33 or hashlib.sha256(d['record']).hexdigest()!=row['record_sha256']):
-            raise ValueError('Red transfer ticket original identity')
+            raise ValueError('Colored transfer ticket original identity')
         result.append(dict(template=template,metadata=0,group=4,max_stack=1))
     return result
 

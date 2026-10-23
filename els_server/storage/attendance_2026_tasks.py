@@ -17,17 +17,20 @@ class AttendanceTasks:
         self.db = progress.db
         self.schedule = schedule
 
+    def _validate_binding(self):
+        if self.db.execute('SELECT definition_sha256 FROM activity518_campaigns WHERE campaign=?',
+                           (self.progress.campaign,)).fetchone() != (self.progress.digest,):
+            raise ValueError('Campaign definition mismatch')
+        actual = tuple(self.db.execute('SELECT period,starts,ends FROM activity518_periods WHERE campaign=? ORDER BY starts',
+                                       (self.progress.campaign,)))
+        expected = tuple((p.key,p.starts,p.ends) for p in self.schedule.periods)
+        if actual != expected:
+            raise ValueError('Task schedule must match the installed campaign')
+
     @contextlib.contextmanager
     def _transaction(self):
         with self.progress._transaction():
-            if self.db.execute('SELECT definition_sha256 FROM activity518_campaigns WHERE campaign=?',
-                               (self.progress.campaign,)).fetchone() != (self.progress.digest,):
-                raise ValueError('Campaign definition mismatch')
-            actual = tuple(self.db.execute('SELECT period,starts,ends FROM activity518_periods WHERE campaign=? ORDER BY starts',
-                                           (self.progress.campaign,)))
-            expected = tuple((p.key,p.starts,p.ends) for p in self.schedule.periods)
-            if actual != expected:
-                raise ValueError('Task schedule must match the installed campaign')
+            self._validate_binding()
             yield
 
     def initialize(self):
