@@ -41,10 +41,16 @@ class FriendsWorld:
         self.field_bosses=FieldBosses(self)
 
     def disconnect(self,session):
-        self.field_bosses.detach(session)
-        self.leave(session)
-        self.leave_party(session)
-        self.invitations={s:v for s,v in self.invitations.items() if s is not session and v['inviter'] is not session}
+        try:
+            self.field_bosses.detach(session)
+        finally:
+            try:
+                self.leave(session)
+            finally:
+                try:
+                    self.leave_party(session)
+                finally:
+                    self.invitations={s:v for s,v in self.invitations.items() if s is not session and v['inviter'] is not session}
 
     def party_snapshot(self,party,reset=False):
         from els_server.domain.normal_party import roster_events
@@ -54,23 +60,27 @@ class FriendsWorld:
 
     def leave_party(self,session):
         current=self.party_of.get(session)
-        if current and (current.get('challenge') or current.get('challenge_pending')):
-            from els_server.domain.group_challenge import cancel
-            cancel(self,current)
-        self.dungeons.detach(session)
-        party=self.party_of.pop(session,None)
-        if party is None:return
-        party['members'].remove(session);party['ready'].discard(session)
-        from els_server.domain.normal_party import ordinary
-        if ordinary(party):party['ready'].clear();party.pop('admission',None)
-        self.send(session,wire.party_removed(session.account.uid))
-        if len(party['members'])<2:
-            for other in list(party['members']):
-                self.party_of.pop(other,None);self.send(other,wire.party_removed(session.account.uid))
-            self.parties.pop(party['id'],None)
-        else:
-            if party['leader'] is session:party['leader']=party['members'][0]
-            self.party_snapshot(party,reset=True)
+        try:
+            if current and (current.get('challenge') or current.get('challenge_pending')):
+                from els_server.domain.group_challenge import cancel
+                cancel(self,current)
+        finally:
+            try:
+                self.dungeons.detach(session)
+            finally:
+                party=self.party_of.pop(session,None)
+                if party is not None:
+                    party['members'].remove(session);party['ready'].discard(session)
+                    from els_server.domain.normal_party import ordinary
+                    if ordinary(party):party['ready'].clear();party.pop('admission',None)
+                    self.send(session,wire.party_removed(session.account.uid))
+                    if len(party['members'])<2:
+                        for other in list(party['members']):
+                            self.party_of.pop(other,None);self.send(other,wire.party_removed(session.account.uid))
+                        self.parties.pop(party['id'],None)
+                    else:
+                        if party['leader'] is session:party['leader']=party['members'][0]
+                        self.party_snapshot(party,reset=True)
 
     def party_request(self,session,event):
         kind=event.kind
