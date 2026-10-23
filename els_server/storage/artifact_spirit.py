@@ -1,6 +1,7 @@
 """Paid native previews and free Apply: owned, persistent, exactly-once transactions."""
 import hashlib,json,secrets,sqlite3
 from contextlib import closing
+from els_server.storage.profession_state import require_owner
 from els_server.domain.local_artifact_rules import draw_spirit,spirit_group,validate_spirit,policy,identity,generation
 from els_server.domain.item_expiration import require_current,expired
 from els_server.domain.item_locks import require_unlocked,locked
@@ -17,12 +18,13 @@ def signature(item):
  # requires its owner, an unequipped target and unchanged native option state.
  return hashlib.sha256(json.dumps({k:v for k,v in item.items() if k not in ('group','slot','lock_until')},sort_keys=True).encode()).hexdigest()
 
-def perform(path,owner,payload,operation,randbelow=secrets.randbelow,encode=acknowledgement):
+def perform(path,owner,payload,operation,randbelow=secrets.randbelow,encode=acknowledgement,*,account_id=None):
  uid,groups,profession,mode=request(payload)
  if profession or mode not in (7,8,9,10,13):raise ValueError('Unsupported spirit operation')
  owner,digest=_identity(owner,0x6e7,payload,operation)
  with closing(sqlite3.connect(path,timeout=10)) as db,db:
   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+  if account_id is not None:require_owner(db,owner,account_id)
   old=_previous(db,operation,digest);before=load_items(db,owner);ed=balances(db,owner)['ed']
   item=next((i for i in before if i['uid']==uid),None)
   db.execute('CREATE TABLE IF NOT EXISTS artifact_spirit_previews (item_uid INTEGER PRIMARY KEY,owner INTEGER NOT NULL,option_id INTEGER NOT NULL,expected_sha256 TEXT NOT NULL,mode INTEGER NOT NULL,policy_json TEXT NOT NULL)')
