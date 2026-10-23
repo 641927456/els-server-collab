@@ -177,7 +177,8 @@ class QuestState:
                         # Admitted town dialogue receipts bind a unique accepted action,
                         # including abandon/reaccept within one wall-clock second.
                         from els_server.domain.town_dialogue import catalog as town_catalog
-                        generation=now if str(qid) not in town_catalog()['quests'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
+                        from els_server.domain.mainline_find_npc import catalog as find_catalog
+                        generation=now if str(qid) not in town_catalog()['quests'] and qid not in find_catalog()['quest_ids'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
                         erp_scope.insert_active(db,uid,qid,now,generation,json.dumps(counts,sort_keys=True))
                 elif kind=='abandon':
                     if done:raise ValueError('Completed quest cannot be abandoned')
@@ -298,6 +299,8 @@ class QuestState:
                 if row['id']==erp_scope.QUEST and not erp_scope.progress_allowed(db,self.uid,self.account_id,event_id,event,proof,self.account_source_guard):continue
                 counts=dict(row['objectives'])
                 for s in quest_catalog().objectives(row['id']):
+                    from els_server.domain.mainline_subquest_groups import can_progress
+                    if not can_progress(quest_catalog().quest(row['id']),s,row['objectives']):continue
                     i=s['m_iID'];counts[i]=min(target(s),counts[i]+objective_increment(s,event,roll_proof))
                 if counts!=row['objectives']:
                     db.execute('UPDATE character_quests SET objectives=? WHERE owner=? AND quest=?',(json.dumps(counts,sort_keys=True),erp_scope.quest_owner(db,self.uid,row['id']),row['id']));changed.append(dict(row,objectives=counts))

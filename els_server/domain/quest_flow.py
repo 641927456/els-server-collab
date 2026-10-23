@@ -184,6 +184,8 @@ def observe(s,replies=()):
             s._quest_town_cursor=cursor
         s._quest_discovery_cursor=None
     if 27 in passive[1] and run is not None:
+        from els_server.domain.mainline_find_npc import observe as observe_mainline_find
+        notices+=observe_mainline_find(s,run,replies,store(s))
         from els_server.domain.tutorial_memory8_finale import encounter
         witness=encounter(s,run,store(s).snapshot())
         if witness is not None:notices+=store(s).record(*witness)
