@@ -501,5 +501,92 @@
         "part": 11
       }
     ]
+  },
+  "finite_growth": {
+    "policy": "cartridge-unbound-one-step-native-current-level-fees-v1",
+    "selected_unbound_only": true,
+    "minimum_current_level": 1,
+    "maximum_current_level": 5,
+    "maximum_level": 6,
+    "normal_ids": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "honor_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "normal_fees": [
+      [
+        1,
+        100,
+        10000000
+      ],
+      [
+        2,
+        300,
+        25000000
+      ],
+      [
+        3,
+        500,
+        65000000
+      ],
+      [
+        4,
+        700,
+        200000000
+      ],
+      [
+        5,
+        1100,
+        450000000
+      ]
+    ],
+    "honor_fees": [
+      [
+        1,
+        200,
+        20000000
+      ],
+      [
+        2,
+        600,
+        50000000
+      ],
+      [
+        3,
+        1000,
+        130000000
+      ],
+      [
+        4,
+        1400,
+        400000000
+      ],
+      [
+        5,
+        2200,
+        900000000
+      ]
+    ],
+    "current_level_source_sha256": "c3612a1116dc2d959a2225bc7eeef2543c798c0c5e61d9d2aa2101e915ce4ebd",
+    "category_source_peer_sha256": "2a5a7d93cdf081d712db22f01de1f1cd2fa46ab4db3f2975bbb2352f6c70c724",
+    "account_authorization_sha256": "41349793189360285470fa6d0f478bcc0055a3fb9a19e9056d5d76fca220fe46"
   }
 }
