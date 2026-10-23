@@ -13,7 +13,7 @@ from els_server.protocol.repair_messages import request,acknowledgement
 
 def repair(path,owner,payload,operation_id,*,account_id):
     owner=character_uid(owner);req=request(payload)
-    if req['flag_a'] or req['flag_b'] or req['form']:raise ValueError('Unsupported repair mode')
+    if req['flag_a'] or req['flag_b']:raise ValueError('Unsupported repair mode')
     if not isinstance(operation_id,str) or not 1<=len(operation_id)<=160:raise ValueError('Repair operation identity')
     digest=hashlib.sha256(str(owner).encode()+b':'+payload).hexdigest()
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
@@ -21,6 +21,7 @@ def repair(path,owner,payload,operation_id,*,account_id):
         require_owner(db,owner,account_id)
         row=db.execute('SELECT unit_type FROM characters WHERE uid=?',(owner,)).fetchone()
         if row is None:raise ValueError('Unknown repair owner')
+        if row[0]!=10 and req['form']:raise ValueError('Foreign repair price side')
         balance=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(owner,)).fetchone())
         items=load_items(db,owner)
         db.execute('''CREATE TABLE IF NOT EXISTS equipment_repair_receipts (
@@ -39,6 +40,12 @@ def repair(path,owner,payload,operation_id,*,account_id):
         if any(i['template'] not in definitions() for i in selected):raise ValueError('Unsupported repair equipment')
         from els_server.storage.titles import character as title_character,snapshot as title_snapshot
         context=title_character(db,owner);context['title']=title_snapshot(db,owner)['title']
+        if row[0]==10:
+            from els_server.storage.luciel_state import state,active_state
+            from els_server.domain.repair_pricing import price_side
+            context['luciel_style']=state(db,owner)['style']
+            context['luciel_active_unit']=active_state(db,owner)['active_unit']
+            if req['form']!=price_side(context):raise ValueError('Stale LuCiel repair price side')
         quote=character_quote(selected,context,items);cost=quote['total_ed']
         if balance['ed']<cost:raise ValueError('Insufficient repair ED')
         changed=[]
