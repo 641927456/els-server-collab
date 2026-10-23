@@ -51,6 +51,9 @@ def catalog():
     for box in accessory_entries():
         if box['template'] in result:raise ValueError('Duplicate selected accessory box')
         result[box['template']]=box
+    from els_server.domain.cartridge_selection_box import BOX as cartridge_box,entry as cartridge_entry
+    if cartridge_box in result:raise ValueError("Duplicate Cartridge choice box")
+    result[cartridge_box]=MappingProxyType(cartridge_entry())
     from els_server.domain.wardrobe_ticket_box import BOX as wardrobe_box,entry as wardrobe_entry
     if wardrobe_box in result:raise ValueError("Duplicate existing wardrobe ticket box")
     result[wardrobe_box]=MappingProxyType(wardrobe_entry())

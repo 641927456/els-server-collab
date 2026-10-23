@@ -15,6 +15,8 @@ def attach(db,items,owner):
 
 def assign(db,owner,uid,sealed,used):
     if not db.in_transaction:raise ValueError('Seal assignment requires transaction')
+    from els_server.domain.cartridge_registration_rules import require_unbound
+    require_unbound(db,uid)
     validate(sealed,used)
     if db.execute('SELECT 1 FROM inventory_items WHERE uid=? AND owner=?',(uid,owner)).fetchone() is None:raise ValueError('Seal owner mismatch')
     ensure(db);db.execute('INSERT INTO item_seals VALUES(?,?,?) ON CONFLICT(item_uid) DO UPDATE SET sealed=excluded.sealed,used=excluded.used',(uid,int(sealed),used))
@@ -29,7 +31,7 @@ def _target(item,*,sealing):
     from els_server.domain.item_locks import require_unlocked
     from els_server.game_data import client_data
     if (item is None or item['count'] != 1 or
-            not (item['group'] == 1 and (item['template'] in definitions() or not sealing and artifact_slots(item['template'])) or
+            not (item['group'] == 1 and (item['template'] in definitions() or artifact_slots(item['template'])) or
                  item['group'] == 2 and item['template'] in accessory_definitions() or
                  item['group'] in (7, 27) and item['template'] in FASHION_EQUIP_SLOTS)):
         raise ValueError('Seal operation requires owned bag equipment')
@@ -65,11 +67,16 @@ def change_seal(path, owner, payload, operation, *, sealing):
         old = _previous(db, operation, digest)
         before = load_items(db, owner)
         if old is not None:
-            by_position = {(i['group'], i['slot']): i for i in before}
-            return seal_ack([(p, by_position.get(p)) for p in old])
+            # Retain current replacement occupants in historical slots and
+            # refresh the original target/stamp UIDs at their present slots.
+            # Replays never reapply the old seal state or consume a stamp.
+            from els_server.storage.equipment_receipt_state import current_changes
+            return seal_ack(current_changes(db, operation, owner, kind, old, before))
         by_uid = {i['uid']: i for i in before}
         target = by_uid.get(target_uid)
         raw = _target(target,sealing=sealing)
+        from els_server.domain.cartridge_registration_rules import require_unbound
+        require_unbound(db,target_uid)
         sealed, used = target.get('sealed', False), target.get('seal_used', 0)
         validate(sealed, used)
         positions = [(target['group'], target['slot'])]

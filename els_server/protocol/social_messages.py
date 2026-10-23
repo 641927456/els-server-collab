@@ -44,14 +44,29 @@ def chat_request(payload,*,details=False):
     reserved=r.scalar('i');target2=r.scalar('Q');flag=r.scalar('B')
     value=r.scalar('i');opaque=r.scalar('Q');index=r.scalar('i');attachments=r.scalar('I')
     r.end()
-    if channel not in (0,1,4) or subtype!=0 or flag or attachments or not text.strip():
+    if channel not in (0,1,4) or subtype!=0 or attachments or not text.strip():
         raise ValueError('Unsupported chat channel or attachment')
+    if flag:
+        # Same-build native built-ins observed on the wire and registered by
+        # 1240CE0/1241930. 87's original consumer interprets their text itself.
+        # Keep custom/purchased motions and all unverified variants closed.
+        builtins={2506:'/笑',2508:'/哈哈',2509:'/哭',2513:'/生气',2515:'/不要'}
+        if (flag!=1 or channel!=0 or recipient or auxiliary
+            or target!=0xffffffffffffffff or reserved!=-1
+            or target2!=0xffffffffffffffff or opaque!=0 or index!=0
+            or builtins.get(value)!=message):
+            raise ValueError('Unsupported native built-in chat command')
     if channel==4 and not recipient:raise ValueError('Whisper recipient missing')
     if details:return dict(channel=channel,text=text,recipient=recipient,target_uid=target)
     return channel,text
 
 
-def chat_ack(result=0):return Event(0x201,kind=0x86,payload=i32(result))
+def chat_ack(result=0):
+    # Native1228BD0 forwards failures to751120 ->79B330. Error -1 is
+    # outside the original0..C4D table and resolves to an empty string.
+    # Code1 is the client's existing generic failure, not a success.
+    if result==-1:result=1
+    return Event(0x201,kind=0x86,payload=i32(result))
 
 
 def chat_notice(character,account_id,text,channel=0,*,recipient=None):
