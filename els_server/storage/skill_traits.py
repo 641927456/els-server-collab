@@ -25,17 +25,19 @@ def choose(path,uid,account_id,payload,operation):
         if db.execute('SELECT account_id FROM character_owners WHERE uid=?',(uid,)).fetchone()!=(account_id,):raise ValueError('Skill trait owner mismatch')
         row=db.execute('SELECT uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters WHERE uid=?',(uid,)).fetchone()
         character=Characters._row(row);character['skill_seal_groups']=saved_groups(db,uid)
+        from els_server.storage.ordinary_skill_pages import selected_page
+        page=selected_page(db,uid)
         base=validate(character,skill,note)
         current=saved(db,uid)
         if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='skill_trait_receipts'").fetchone():
             old=db.execute('SELECT request_hash,owner,skill FROM skill_trait_receipts WHERE operation=?',(operation,)).fetchone()
             if old:
                 if old!=(digest,uid,base):raise ValueError('Conflicting skill trait retry')
-                if base not in current:return acknowledgement(result=-1)
-                return acknowledgement(base,current[base])
+                if base not in current:return acknowledgement(result=-1,page=page)
+                return acknowledgement(base,current[base],page=page)
         if base in current and current[base]!=note:raise ValueError('Reset the existing skill trait first')
         character['skill_traits']=dict(current);character['skill_traits'][base]=note
-        map_wire(character);ack=acknowledgement(base,note)
+        map_wire(character);ack=acknowledgement(base,note,page=page)
         db.execute('CREATE TABLE IF NOT EXISTS character_skill_traits (owner INTEGER NOT NULL REFERENCES characters(uid),skill INTEGER NOT NULL CHECK(skill>0),note INTEGER NOT NULL CHECK(note BETWEEN 1 AND 22),revision INTEGER NOT NULL,PRIMARY KEY(owner,skill))')
         db.execute('CREATE TABLE IF NOT EXISTS skill_trait_receipts (operation TEXT PRIMARY KEY,request_hash TEXT NOT NULL,owner INTEGER NOT NULL,skill INTEGER NOT NULL)')
         db.execute('INSERT INTO character_skill_traits VALUES (?,?,?,1) ON CONFLICT(owner,skill) DO UPDATE SET note=excluded.note,revision=revision+1 WHERE note<>excluded.note',(uid,base,note))

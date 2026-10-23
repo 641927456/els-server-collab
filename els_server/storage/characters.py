@@ -86,6 +86,9 @@ class Characters:
                 from els_server.domain.skill_traits import visible as visible_traits
                 traits=saved_traits(db,row['uid'])
                 if traits:row['skill_traits']=visible_traits(row,traits)
+                from els_server.storage.ordinary_skill_pages import view as skill_pages_view
+                page_state=skill_pages_view(db,row['uid'])
+                if page_state['count']>1:row['ordinary_skill_pages']=page_state
                 from els_server.storage.bag_capacity import saved_capacities
                 row['bag_capacities']=saved_capacities(db,row['uid'])
                 from els_server.storage.profession_state import snapshot as profession_snapshot
