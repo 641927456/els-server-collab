@@ -32,11 +32,14 @@
     },
     {
       "path": "els_server/storage/characters.py",
-      "sha256": "77f2617698befb8dd2c17dd73cc536cb3c0129f20017b2d83683d9114fa57e51",
+      "sha256": "00ea6b3a22043b5be3985a747baa754bcf1021886f3e2362107759c9d197e25b",
       "parent_sha256": "afd3b7758e661692b87eebb202dede5dc8ed558a9da82ef7ab36416355bd6299",
       "blob_parent": "69eb1c2c837a15166e15660e099809fb72c6e5b6",
       "runtime_sha256": "77f2617698befb8dd2c17dd73cc536cb3c0129f20017b2d83683d9114fa57e51",
-      "proof": "Exact8-runtime source bytes, including2 peer-reviewed career-compatible helpers"
+      "proof": "Original main CRLF preserved; normalized LF matches exact validated proposal. LocalSession still only3 dispatcher statements; Characters only3 optional read projection statements.",
+      "line_endings": "original-main-CRLF",
+      "normalized_LF_sha256": "77f2617698befb8dd2c17dd73cc536cb3c0129f20017b2d83683d9114fa57e51",
+      "previous_LF_source_sha256": "77f2617698befb8dd2c17dd73cc536cb3c0129f20017b2d83683d9114fa57e51"
     },
     {
       "path": "els_server/storage/skill_unlocks.py",
@@ -64,11 +67,14 @@
     },
     {
       "path": "els_server/domain/local_session.py",
-      "sha256": "a6090423fcca71f9c899b59930a62914087a47bb064b2964def6aa1461fe501c",
+      "sha256": "439edcc1a89ff1f358ad61fec8d7884912ff3d4bbbb3406a9558cdb363c5b72b",
       "parent_sha256": "45cdb158d60f728063c4c81c1a851535e89f6f2ac6b6a86a80045c582d94afef",
       "blob_parent": "a437d10680fa5dfa54660087c8c5ab6826504f3e",
       "runtime_sha256": "e328d292767f0e48a98233e8d6435bbb32c0aab1265f49c321bd0607226e074c",
-      "proof": "Exactly3 original dispatcher statements; all current main statements retained"
+      "proof": "Original main CRLF preserved; normalized LF matches exact validated proposal. LocalSession still only3 dispatcher statements; Characters only3 optional read projection statements.",
+      "line_endings": "original-main-CRLF",
+      "normalized_LF_sha256": "a6090423fcca71f9c899b59930a62914087a47bb064b2964def6aa1461fe501c",
+      "previous_LF_source_sha256": "a6090423fcca71f9c899b59930a62914087a47bb064b2964def6aa1461fe501c"
     }
   ],
   "local_policy": {
@@ -130,5 +136,6 @@
     "Natural GUI and full character/native multiplayer acceptance"
   ],
   "old_successful_business_suites_replayed": false,
-  "whole_card_complete": false
+  "whole_card_complete": false,
+  "source_line_endings": "Original main CRLF retained for LocalSession and Characters, LF-normalized bytes equal the validated proposal. Runtime manifests and accepted bytes remain unchanged."
 }
