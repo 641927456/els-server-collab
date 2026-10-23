@@ -1607,6 +1607,9 @@ class LocalSession:
                 # result, legacy balance, only-type flag, type index, four cash values.
                 return [Event(0x201,kind=0x1b3,payload=i32(0)+u32(0)+b'\x00'+i32(-1)+u32(0)*4)]
             if kind==0xb6f:
+                # Current DX11 B6F is a CustomEvent reply, not this old query.
+                if self.client_build=='dx11_260923':
+                    raise SessionOrderError('Legacy auxiliary request is not valid for DX11')
                 return [Event(0x201,kind=0xb70,payload=i32(0)+u32(0)*3)]
             if kind==0x231:return [Event(0x201,kind=0x232,payload=i32(0))]
         if kind==0x48d:
