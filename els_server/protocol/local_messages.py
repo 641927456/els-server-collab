@@ -195,12 +195,15 @@ def player_initialization(location=None,initialize_attributes=False,economy=None
         from els_server.domain.fashion_state import record
         worn=sorted((i for i in items or [] if i['group']==9),key=lambda i:i['uid'])
         inventory=u32(struct.unpack_from('>I',inventory)[0]+len(worn))+inventory[4:]+b''.join(struct.pack('>Q',i['uid'])+record(i) for i in worn)
-    data+=capacity_map(character)+inventory+i32(0)*2+wstring('')+u32(0)*2+b'\x00'
+    from els_server.storage.resurrection_counter import validate_count as known_resurrection_count
+    known_c=known_resurrection_count((character or {}).get('known_resurrection_count',0))
+    data+=capacity_map(character)+inventory+i32(known_c)+i32(0)+wstring('')+u32(0)*2+b'\x00'
     data+=u32(0)+b'\x00'+i32(0)*2
     # 0xcdd450: byte, UID, two strings, two UIDs, byte, UID, three bytes.
     data+=b'\x00'+struct.pack('>Q',0)+wstring('')*2+struct.pack('>QQ',0,0)
     data+=b'\x00'+struct.pack('>Q',0)+b'\x00'*3
-    data+=u32(0)*2+b'\x01'+u32(0)  # ctor defaults boolean +0x6b8 to true
+    from els_server.protocol.character_custom_messages import owned_map as custom_owned_map
+    data+=u32(0)+custom_owned_map((character or {}).get('character_custom',{}).get('owned',{}))+b'\x01'+u32(0)  # DTO+6A8 owned custom map; +6B8 ctor true
     # Current DA3370 has THREE DB6FA0 records; each includes a final bool.
     # The legacy two-record tail made the native reader return false.
     data+=(u32(0)+b'\x00'+struct.pack('>f',0)+b'\x00')*3

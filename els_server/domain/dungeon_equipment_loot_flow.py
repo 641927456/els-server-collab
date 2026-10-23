@@ -102,9 +102,12 @@ def accepted_death(s,event,npc,death,expired,*,randbelow=secrets.randbelow):
         reply.extend(gate_reply);encode_replies(reply)
         return dict(reply=reply,world=world,sequence=max([s.world_drop_sequence,*[r['drop_id']+1 for r in rows]]),
                     last=dict(rows[-1]) if rows else s.world_drop_issued)
-    result=storage.issue(s.account.store.path,c,event.payload,npc['boss'],s.world_drop_sequence,
-                         death['xyz'][3:],legacy,prepare,randbelow=randbelow,rules=rules,
-                         accepted_effect=accepted_effect if exp_rules.enabled(s) and exp_rules.eligible(npc,expired) else None)
+    try:
+        result=storage.issue(s.account.store.path,c,event.payload,npc['boss'],s.world_drop_sequence,
+                             death['xyz'][3:],legacy,prepare,randbelow=randbelow,rules=rules,
+                             accepted_effect=accepted_effect if exp_rules.enabled(s) and exp_rules.eligible(npc,expired) else None,
+                             account_id=s.account.account_id)
+    except storage.LootActorRejected:return []
     # Only ordinary assignments remain after the successful SQL context exit.
     run.defeated=shadow.dungeon_run.defeated;run.next=shadow.dungeon_run.next;run.ready_at=shadow.dungeon_run.ready_at
     s.defeated_npcs=run.defeated;s.part_end_notified=shadow.part_end_notified
@@ -112,11 +115,32 @@ def accepted_death(s,event,npc,death,expired,*,randbelow=secrets.randbelow):
     s.world_drops=result['world'];s.world_drop_sequence=result['sequence'];s.world_drop_issued=result['last']
     return result['reply']
 
+def _claim_context(s,drop,rules):
+    c=identity(s,drop['npc_key'],dict(template=drop['source_template'],source_index=drop['source_index']) if rules is not None else None)
+    from els_server.domain.dungeon_material_loot_catalog import POLICY as MATERIAL_POLICY,map_rule
+    if rules is not None or drop.get('source')!=MATERIAL_POLICY or c['dungeon']!=34320 or drop.get('part')==c['part']:
+        return c
+    # The server-owned issued row keeps its original SQL identity when the
+    # loaded Stage2 advances from its two Bosses to the exit part.
+    issued=context({k:drop[k] for k in c})
+    if (c['stage']!=2 or c['part']!=2 or issued['part']!=1
+        or any(issued[k]!=c[k] for k in c if k!='part')
+        or s.dungeon_run.run_id!=c['run_id']):
+        raise ValueError('Material pickup left its issued stage/visit/run')
+    run=s.dungeon_run
+    npc=next((n for n in run.parts[1]['npcs'] if n['key']==issued['npc_key']),None)
+    if (npc is None or npc.get('dynamic') or not npc['active'] or not npc['boss']
+        or npc['no_drop'] or npc.get('ally') or npc.get('team',1)==0
+        or dict(stage=2,part=1,template=npc['template'],source_index=npc['source_index']) not in map_rule(34320)['accepted_boss_sources']
+        or hashlib.sha256(run.defeated.get(npc['key'],b'')).hexdigest()!=drop['death_proof_sha256']):
+        raise ValueError('Material pickup lost its original accepted Boss proof')
+    return issued
+
 def claim(s,request,drop):
     if not enabled(s):return []
     from els_server.domain import dungeon_source_loot as source_rules
     rules=source_rules if drop.get('source')==source_rules.POLICY else None
-    try:c=identity(s,drop['npc_key'],dict(template=drop['source_template'],source_index=drop['source_index']) if rules is not None else None)
+    try:c=_claim_context(s,drop,rules)
     except (ValueError,KeyError):return []
     if drop.get('source')!=(rules.policy_for(c) if rules is not None else policy_for(c)):return []
     if any(drop.get(k)!=c[k] for k in c) or request['template']!=drop['template'] or request['drop_id']!=drop['drop_id']:return []
@@ -127,7 +151,7 @@ def claim(s,request,drop):
         encode_replies(reply)
         return dict(reply=reply,replayed=replayed,items=items)
     from els_server.storage.inventory_state import InventoryFull
-    try:result=storage.claim(s.account.store.path,c,request['drop_id'],request['template'],prepare,rules=rules)
+    try:result=storage.claim(s.account.store.path,c,request['drop_id'],request['template'],prepare,rules=rules,account_id=s.account.account_id)
     except InventoryFull:return [Event(0x201,kind=0xd1,payload=struct.pack('>i',-1))]
     except ValueError:return []
     drop['pickup_committed']=True
