@@ -1,0 +1,141 @@
+{
+  "schema": "repair18C-minimal-source-provenance-v1",
+  "selected_base": "61ebe61edc8d666d2c02c4d386cdc919bf2acbb5",
+  "stacked_PR_dependency": 269,
+  "canonical_files": [
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "adc56a01fd9335008f8383a47c0cb7f4da973661d184a1b90a7d54f365396ce8",
+      "bytes": 123304
+    },
+    {
+      "path": "els_server/storage/equipment_repair.py",
+      "sha256": "21643dd54465249f17fb4e90bd95a10ad99b7a6c3286404a8f3b711ae92fa8b9",
+      "bytes": 4060
+    }
+  ],
+  "exact_channel_patches": [
+    {
+      "channel": "local",
+      "repository_path": "channels/source-patches/repair18C-owner-20261023-v1/local/els_server__domain__local_session.py.patch",
+      "path": "els_server/domain/local_session.py",
+      "projection_sha256": "adc56a01fd9335008f8383a47c0cb7f4da973661d184a1b90a7d54f365396ce8",
+      "projection_bytes": 123304,
+      "exact_channel_sha256": "88c8d5964e9a699c5ff2ae170db2fbe3e55011602880f7a8d2ba3e565d44c478",
+      "exact_channel_bytes": 131796,
+      "exact_reconstruction": true,
+      "provenance_only": true,
+      "patch_sha256": "b77476a317ba53c3599f401e01a058cb1a32263d17445a188b72343ac0bf5d1a",
+      "patch_bytes": 258104
+    },
+    {
+      "channel": "online",
+      "repository_path": "channels/source-patches/repair18C-owner-20261023-v1/online/els_server__domain__local_session.py.patch",
+      "path": "els_server/domain/local_session.py",
+      "projection_sha256": "adc56a01fd9335008f8383a47c0cb7f4da973661d184a1b90a7d54f365396ce8",
+      "projection_bytes": 123304,
+      "exact_channel_sha256": "9776825972585ef48955824e0c37c50ad369532784de9c554e969233704d00e4",
+      "exact_channel_bytes": 133191,
+      "exact_reconstruction": true,
+      "provenance_only": true,
+      "patch_sha256": "0bcbaa14de7b605b47a99e1c68ac2652465cf827f498f14fdabf89fe99d96583",
+      "patch_bytes": 260798
+    },
+    {
+      "channel": "both",
+      "repository_path": "channels/source-patches/repair18C-owner-20261023-v1/both/els_server__storage__equipment_repair.py.patch",
+      "path": "els_server/storage/equipment_repair.py",
+      "projection_sha256": "21643dd54465249f17fb4e90bd95a10ad99b7a6c3286404a8f3b711ae92fa8b9",
+      "projection_bytes": 4060,
+      "exact_channel_sha256": "844181c29591ac7db987fad0739b7aedf58cdcefddbf2bcd10c5b1eae5f0b8ef",
+      "exact_channel_bytes": 4599,
+      "exact_reconstruction": true,
+      "provenance_only": true,
+      "patch_sha256": "6a7be93bdcfb7864f73c932aca2d995d1d35b7fc2f173d47fa7169de909b4891",
+      "patch_bytes": 8888
+    }
+  ],
+  "canonical_identity_only": true,
+  "baseline_pricing_preserved": true,
+  "channel_pricing_context_not_new_feature": true,
+  "local_accepted": true,
+  "online_public_accepted": true,
+  "whole_card_complete": false,
+  "client_delta": 0,
+  "new_schema_definitions": 0,
+  "necessary_tracked_test_API_updates": [
+    {
+      "path": "tests/test_equipment_repair_transaction.py",
+      "sha256": "0dbefd6024d25e9ea87d0ce5cd8d27db8e195053a6a9b5e952814581f01405e4",
+      "bytes": 9433,
+      "original_pricing_assertions_preserved": true
+    },
+    {
+      "path": "tests/test_repair_discounts.py",
+      "sha256": "97ef6d213f349ccc465ca36a30e00aeef4b801f032bfa283fd5c89289f88a452",
+      "bytes": 4943,
+      "original_pricing_assertions_preserved": false,
+      "existing_registration_assumptions_corrected": {
+        "template132662_effect": 3002,
+        "template132662_multiplier": 0.9900000095367432,
+        "existing_slot63_templates": [
+          281015,
+          100003887,
+          110002986
+        ],
+        "all_other_effects_and_slots_preserved": true,
+        "all_146_registered_templates_still_tested": true,
+        "pricing_implementation_or_data_changed": false
+      }
+    },
+    {
+      "path": "tests/test_repair_pass.py",
+      "sha256": "e6ed291dbd5ef22e0b05684e776dfd73faa6c77920ebd9e9d0315029ce5dbffc",
+      "bytes": 6091,
+      "original_pricing_assertions_preserved": true
+    }
+  ],
+  "new_cross_account_same_operation_regressions": 1,
+  "tests_executed": true,
+  "actual_delivery": {
+    "local_installed": true,
+    "online_installed": true,
+    "online_public_controlled": true,
+    "local_runtime_reinstalled_after_online": false,
+    "online_observation_seconds": 121.42231890000403,
+    "local_observation_seconds": 123.73066890006885,
+    "public_acceptance_sha256": "90e3bfc910c13b0b5055da87617d28765a3be96e5eaa990a82d085de75ba59c8",
+    "independent_delivery_review_sha256": "5be32626bfe446d9b21f3b508ee8bae42898ee4849c7b4546b155e8b0afb9726",
+    "root_self_review_sha256": "4d10d767e52f2c9034b8da00168695f62e9adc5b4b54b89b5f76bd493c5d02ff",
+    "online_manifest_sha256": "13f7d04700d92150a149c1cf952190893e3c612ca25123853a78a2c1f4405901",
+    "local_manifest_sha256": "f3cfdf5334c2244532717218756054c4eef5da058cf6208098bfd045545e474b",
+    "stage_task_locks_cleaned": true,
+    "client_delta": 0,
+    "whole_card_complete": false,
+    "initial_runtime_self_review_sha256": "0bcb319f451238ef579b9a761bca4912aa0182788b0d70410a2921d40a8a9720"
+  },
+  "test_validation": {
+    "unique_cases": 14,
+    "initial_full_run_passed": 13,
+    "initial_full_run_failed": 1,
+    "corrected_failed_case_passed": 1,
+    "unchanged_successes_reused": 13,
+    "unchanged_successes_repeated": 0,
+    "full_run_after_correction": false,
+    "source_CI_compiled": 797,
+    "privacy_files": 1236,
+    "protocol_roundtrip": true,
+    "runtime_CI": false,
+    "failed_import_attempts_preserved": 3,
+    "production_database": false,
+    "prior_full_result_sha256": "153c575b095e05010e6e9a3a98f2d53b398dc3f5b2dddfea5132d53f4ea8b149",
+    "corrected_single_result_sha256": "bcdf56b47772640f2014ba5900af5a940f1845fa82def82c26a7b5b8d2caf055",
+    "final_source_CI_sha256": "9d30894a07e847acf10d23869c6b14dbfdee0636c1ae55a95926d1fa0485e36f"
+  },
+  "validation_static_resources_cleanup": {
+    "removed_files": 93,
+    "removed_bytes": 389297471,
+    "receipt_sha256": "751c9c52802e7d8fce64a94da3f8c130df61642963acca89b57d934277c348b1",
+    "formal_resources_retained": true
+  }
+}
