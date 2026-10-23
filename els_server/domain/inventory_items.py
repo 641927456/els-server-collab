@@ -358,6 +358,15 @@ VERIFIED_TEMPLATES[_chip_registration['template']]=_chip_registration['metadata'
 TEMPLATE_BAG_GROUPS[_chip_registration['template']]=_chip_registration['group']
 TEMPLATE_MAX_STACKS[_chip_registration['template']]=_chip_registration['max_stack']
 
+from els_server.domain.equipment_chip_reset_items import catalog as _chip_reset_items
+for _reset_item in _chip_reset_items()['items'].values():
+ _t=_reset_item['template'];_expected=(_reset_item['metadata'],_reset_item['group'],_reset_item['source_max_stack'])
+ if _t in VERIFIED_TEMPLATES:
+  if (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t])!=_expected[:2]:raise ValueError('Conflicting reset ticket registration')
+  continue
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+
 from els_server.domain.equipment_reforge_rules import catalog as _reforge_catalog
 for _reforge_material in _reforge_catalog()['materials'].values():
  _t=_reforge_material['template']
