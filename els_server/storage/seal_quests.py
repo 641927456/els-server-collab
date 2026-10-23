@@ -238,6 +238,14 @@ class QuestState:
                     awards=grant_items(db,plan,uid) if plan else []
                     ed,xp=reward['m_iED'],reward['m_iEXP']
                     if any(type(v) is not int or v<0 for v in (ed,xp)):raise ValueError('Quest reward balance')
+                    # Ordinary EXP uses the same current-client level ceiling
+                    # as normal combat. Never reduce an existing saved balance,
+                    # or reinterpret ordinary quest EXP as an ERP source.
+                    from els_server.game_data import client_data
+                    ordinary_limit=min(2**31-1,client_data().thresholds[-1])
+                    saved_experience=db.execute('SELECT experience FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
+                    if type(saved_experience) is not int or not 0<=saved_experience<2**63:raise ValueError('Quest saved experience')
+                    xp=min(xp,max(0,ordinary_limit-saved_experience))
                     db.execute('UPDATE reward_balances SET ed=ed+?,experience=experience+?,revision=revision+1 WHERE uid=?',(ed,xp,uid))
                     if xp:
                         from els_server.game_data import client_data
