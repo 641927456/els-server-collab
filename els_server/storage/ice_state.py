@@ -1,4 +1,5 @@
 """Local ice draws: consume, allocate reward and commit replayable result atomically."""
+from els_server.storage.item_actor import require_active_character
 import hashlib,json,secrets,sqlite3,struct
 from contextlib import closing
 from els_server.storage.character_schema import character_uid,stored_character_type
@@ -23,7 +24,7 @@ def draw(path,payload,operation_id,*,randbelow=secrets.randbelow,uid=1001):
     digest=hashlib.sha256(payload).hexdigest()
     with closing(sqlite3.connect(path,timeout=10)) as db:
         try:
-            db.execute('BEGIN IMMEDIATE');ensure_inventory(db)
+            db.execute('BEGIN IMMEDIATE');require_active_character(db,uid);ensure_inventory(db)
             db.execute('CREATE TABLE IF NOT EXISTS ice_draw_receipts (operation_id TEXT PRIMARY KEY,request_sha256 TEXT NOT NULL,consumed_uid INTEGER NOT NULL,outcome_json TEXT NOT NULL,response BLOB NOT NULL)')
             old=db.execute('SELECT request_sha256,response,consumed_uid,outcome_json FROM ice_draw_receipts WHERE operation_id=?',(operation_id,)).fetchone()
             if old:

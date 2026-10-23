@@ -102,6 +102,16 @@ def _owner(db,account,uid):
         raise MailError('Mail character ownership mismatch')
 
 
+def _active_owner(db,account,uid):
+    """Player mutations require a current saved role within the same transaction."""
+    if not db.in_transaction:raise MailError('Mail mutation requires transaction')
+    _owner(db,account,uid)
+    from els_server.storage.character_lifecycle import states
+    state=states(db,(uid,)).get(uid,{})
+    if state.get('requested_at') or state.get('finalized_at'):
+        raise MailError('Mail character is pending deletion or finalized')
+
+
 def _row(db,account,mail_id,uid,*,now=None):
     if type(mail_id) is not int or not 1<=mail_id<2**63:
         raise MailError('Invalid mail ID')
@@ -128,7 +138,7 @@ def inbox(path,account,uid,*,page=1,now=None):
 def read(path,account,uid,mail_id,encode,*,now=None):
     now=int(time.time()) if now is None else now
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.row_factory=sqlite3.Row;db.execute('BEGIN IMMEDIATE');_owner(db,account,uid)
+        db.row_factory=sqlite3.Row;db.execute('BEGIN IMMEDIATE');_active_owner(db,account,uid)
         row=_row(db,account,mail_id,uid,now=now)
         if row['expires_at']<=now:raise MailError('Mail expired',2985)
         if row['read_at'] is None:
@@ -150,7 +160,7 @@ def claim(path,account,uid,ids,encode,*,now=None,include_items=False,include_cla
     """
     _ids(ids);now=int(time.time()) if now is None else now
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.row_factory=sqlite3.Row;db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');_owner(db,account,uid)
+        db.row_factory=sqlite3.Row;db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');_active_owner(db,account,uid)
         rows=[_row(db,account,i,uid,now=now) for i in ids]
         if any(r['expires_at']<=now for r in rows):raise MailError('Mail expired',2985)
         balance=db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(uid,)).fetchone()
@@ -185,7 +195,7 @@ def claim(path,account,uid,ids,encode,*,now=None,include_items=False,include_cla
 def delete(path,account,uid,ids,encode,*,now=None):
     _ids(ids);now=int(time.time()) if now is None else now
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.row_factory=sqlite3.Row;db.execute('BEGIN IMMEDIATE');_owner(db,account,uid)
+        db.row_factory=sqlite3.Row;db.execute('BEGIN IMMEDIATE');_active_owner(db,account,uid)
         rows=[]
         for mail_id in ids:
             # Deletion retries are successful only for the same authenticated owner.

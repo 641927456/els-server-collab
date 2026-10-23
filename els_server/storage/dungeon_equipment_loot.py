@@ -11,6 +11,26 @@ from els_server.storage.inventory_state import load_items,grant_items
 from els_server.domain.inventory_items import TEMPLATE_MAX_STACKS
 from els_server.storage.inventory_actions import _identity,_previous,_commit
 
+
+class LootActorRejected(ValueError):
+    """The newly admitted material requires a current saved player actor."""
+
+
+def source_actor(db,identity,rows,account_id):
+    # Only the new130047 producer is extended here. Existing twelve item
+    # outcomes and all lottery mass remain unchanged.
+    if not any(row['template']==130047 for row in rows):return
+    from els_server.storage.item_actor import require_active_character
+    from els_server.storage.bank_state import account_for
+    try:
+        require_active_character(db,identity['owner'])
+        owner_account=account_for(db,identity['owner'])
+        if account_id is not None and owner_account!=account_id:
+            raise ValueError('Loot actor account changed')
+    except ValueError as error:
+        raise LootActorRejected(str(error)) from error
+
+
 def connect(path):
     db=sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10)
     db.execute('PRAGMA foreign_keys=ON')
@@ -33,7 +53,7 @@ def digest(c,proof):
     if not isinstance(proof,bytes) or not proof or len(proof)>8192:raise ValueError('Loot death evidence')
     return hashlib.sha256(json.dumps(c,sort_keys=True,separators=(',',':')).encode()+proof).hexdigest()
 
-def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secrets.randbelow,rules=None,accepted_effect=None):
+def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secrets.randbelow,rules=None,accepted_effect=None,account_id=None):
     c=(rules.context if rules is not None else context)(identity)
     proof_sha=digest(c,proof);policy=(rules.policy_for if rules is not None else policy_for)(c)
     if type(start_id) is not int or not 1<=start_id<2**31:raise ValueError('Loot sequence bound')
@@ -43,10 +63,12 @@ def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secre
         old=lookup(db,c)
         if old is not None:
             if old[:3]!=(c['dungeon'],proof_sha,policy):raise ValueError('Conflicting accepted loot death')
+            saved_rows=json.loads(old[3]);source_actor(db,c,saved_rows,account_id)
             if accepted_effect is not None:accepted_effect(db,True)
-            return prepare(json.loads(old[3]),True)
+            return prepare(saved_rows,True)
         if accepted_effect is not None:accepted_effect(db,False)
         drawn=(rules.plans if rules is not None else plans)(c,boss,randbelow)
+        source_actor(db,c,drawn,account_id)
         rows=[]
         for index,entry in enumerate([*legacy,*drawn]):
             is_new=index>=len(legacy);drop_id=start_id+index
@@ -61,7 +83,7 @@ def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secre
                    (c['owner'],c['run_id'],c['dungeon'],c['stage'],c['part'],c['visits'],c['npc_key'],proof_sha,policy,json.dumps(rows,sort_keys=True)))
         return result
 
-def claim(path,identity,drop_id,template,prepare,*,rules=None):
+def claim(path,identity,drop_id,template,prepare,*,rules=None,account_id=None):
     c=(rules.context if rules is not None else context)(identity)
     policy=(rules.policy_for if rules is not None else policy_for)(c)
     if type(drop_id) is not int or type(template) is not int:raise ValueError('Loot claim identity')
@@ -72,6 +94,7 @@ def claim(path,identity,drop_id,template,prepare,*,rules=None):
         if old is None or old[0]!=c['dungeon'] or old[2]!=policy:raise ValueError('Loot was not issued to this run')
         rows=json.loads(old[3]);row=next((r for r in rows if r['drop_id']==drop_id and r['source']==policy),None)
         if row is None or row['template']!=template or any(row[k]!=c[k] for k in c):raise ValueError('Loot claim context mismatch')
+        source_actor(db,c,(row,),account_id)
         from els_server.domain.dungeon_material_loot_catalog import POLICY as MATERIAL_POLICY,validate_issued as validate_material_issue
         if rules is None and policy==MATERIAL_POLICY:validate_material_issue(row,c)
         operation='equipment-pickup:'+str(uuid.uuid5(uuid.UUID(c['run_id']),':'.join(map(str,(*key(c),drop_id)))))

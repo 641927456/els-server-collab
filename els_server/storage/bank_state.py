@@ -1,4 +1,5 @@
 """Character/private and account/shared bank instances, with atomic transfers."""
+from els_server.storage.item_actor import require_active_character
 import json,sqlite3,struct
 from contextlib import closing
 from els_server.domain.inventory_items import TEMPLATE_BAG_GROUPS,TEMPLATE_MAX_STACKS,validate_item
@@ -79,7 +80,12 @@ def load(db,owner,include_expired=False,group=8):
     if not db.execute("SELECT 1 FROM sqlite_master WHERE name=? AND type='table'",(table,)).fetchone():return []
     entries=[]
     for uid,slot,raw in db.execute(f'SELECT uid,slot,item_json FROM {table} WHERE {key}=? ORDER BY slot',(identity,)):
-        item=validate_item(json.loads(raw))
+        from els_server.domain.cartridge_registration_rules import _unique_json,non_authority,require_unbound
+        stored=non_authority(_unique_json(raw))
+        from els_server.domain.cartridge_selection_box import BOX,read_existing_box
+        from els_server.storage.equipment_chip_reset_history import hydrate
+        item=hydrate(db,validate_item(read_existing_box(stored) if type(stored) is dict and stored.get('template')==BOX else stored))
+        require_unbound(db,uid)
         if item['uid']!=uid or item['group']==9 or slot>=capacity(db,owner,group):raise ValueError('Bank persisted instance/slot mismatch')
         if db.execute('SELECT 1 FROM inventory_items WHERE uid=?',(uid,)).fetchone():raise ValueError('Bank instance is also in a bag')
         if include_expired or not expired(item):entries.append(dict(position=(group,slot),item=item))
@@ -93,7 +99,11 @@ def snapshot(path,owner):
 
 
 def put(db,owner,position,item):
+    from els_server.domain.cartridge_registration_rules import non_authority,require_unbound
+    non_authority(item);require_unbound(db,item['uid'])
     if position[0] in (8,16):
+        from els_server.storage.equipment_chip_reset_history import hydrate,legacy
+        item=legacy(hydrate(db,validate_item(item)))
         ensure(db)
         table,key,identity=container(db,owner,position[0])
         if db.execute('SELECT 1 FROM inventory_items WHERE uid=?',(item['uid'],)).fetchone():raise ValueError('Bank UID remains in inventory')
@@ -101,7 +111,11 @@ def put(db,owner,position,item):
         if db.execute(f'SELECT 1 FROM {other} WHERE uid=?',(item['uid'],)).fetchone():raise ValueError('Bank UID remains in another container')
         db.execute(f'INSERT INTO {table} VALUES (?,?,?,?)',
             (item['uid'],identity,position[1],json.dumps(validate_item(item),sort_keys=True)))
-    else:insert(db,owner,dict(item,group=position[0],slot=position[1]))
+    else:
+        moved=dict(item,group=position[0],slot=position[1])
+        from els_server.domain.cartridge_selection_box import BOX,relocate_existing_box
+        if item['template']==BOX:moved=relocate_existing_box(item,moved)
+        insert(db,owner,moved)
 
 
 def delete(db,owner,position,item):
@@ -141,7 +155,7 @@ def transfer(path,owner,payload,operation):
     source,destination,quantity,context,template=transfer_request(payload)
     owner,digest=_identity(owner,0x551,payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');require_active_character(db,owner)
         old=_previous(db,operation,digest)
         expire(db,owner)
         before=load_items(db,owner);bank=load(db,owner)+load(db,owner,group=16)
@@ -157,14 +171,18 @@ def transfer(path,owner,payload,operation):
         # Context never selects a SQL owner. Accept only zero or an identity
         # already owned by this connection, regardless of caller variation.
         if context not in (0,owner,first['uid']):raise ValueError('Foreign bank transfer context')
+        from els_server.domain.cartridge_registration_rules import require_unbound
         for item in (first,second):
-            if item:require_current(item)
+            if item:require_current(item);require_unbound(db,item['uid'])
         if destination[0] in (8,16):require_storable(first,destination[0])
         if second and source[0] in (8,16):require_storable(second,source[0])
         if destination[0] not in (8,16) and destination[0]!=TEMPLATE_BAG_GROUPS[first['template']]:
             raise ValueError('Bank withdrawal has wrong item tab')
         if second and source[0] not in (8,16) and source[0]!=TEMPLATE_BAG_GROUPS[second['template']]:
             raise ValueError('Bank swap has wrong item tab')
+        from els_server.domain.cartridge_selection_box import BOX,relocate_existing_box
+        if first['template']==BOX and quantity!=first['count']:
+            raise ValueError('Cartridge box bank move retains whole original count')
         # Stack only identical complete states, excluding UID and position.
         signature=lambda i:{k:v for k,v in i.items() if k not in ('uid','group','slot','count')}
         merging=second is not None and signature(first)==signature(second) and TEMPLATE_MAX_STACKS[template]>1
@@ -175,6 +193,7 @@ def transfer(path,owner,payload,operation):
         remaining=dict(first,count=first['count']-quantity) if quantity<first['count'] else None
         if merging:moved=dict(second,count=second['count']+quantity)
         else:moved=dict(first,count=quantity,uid=next_uid(db) if remaining else first['uid'])
+        if first['template']==BOX:moved=relocate_existing_box(first,moved)
         swapped=second if second and not merging else remaining
         if swapped:put(db,owner,source,swapped)
         put(db,owner,destination,moved)
@@ -192,7 +211,7 @@ def sort(path,owner,payload,operation):
     group=struct.unpack('>i',payload)[0]
     owner,digest=_identity(owner,0x372,payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('BEGIN IMMEDIATE');old=_previous(db,operation,digest)
+        db.execute('BEGIN IMMEDIATE');require_active_character(db,owner);old=_previous(db,operation,digest)
         expire(db,owner)
         before=load(db,owner,group=group)
         if old is not None:return sort_ack(group,[e['item']['uid'] for e in before])
@@ -233,7 +252,7 @@ def expand(path,owner,group,payload,operation,expected=None):
     kind=0x475 if group==8 else 0x54d
     owner,digest=_identity(owner,kind,payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('BEGIN IMMEDIATE');account_for(db,owner)
+        db.execute('BEGIN IMMEDIATE');require_active_character(db,owner);account_for(db,owner)
         old=_previous(db,operation,digest);balance=balances(db,owner)
         if old is not None:return expansion_ack(group,balance['ed'])
         current=capacity(db,owner,group);cost=expansion_cost(group,current)
