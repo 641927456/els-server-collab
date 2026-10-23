@@ -1,0 +1,378 @@
+{
+  "schema": "cartridge-house-recipe679-sanitized-delivery-provenance-v1",
+  "date": "2026-10-23",
+  "issue": 284,
+  "base_commit": "56a61a6e10aa961429eba91a0a27c8f25191aa4b",
+  "stack_dependencies": [
+    "PR269",
+    "PR277",
+    "PR281",
+    "PR283"
+  ],
+  "scope": {
+    "canonical_sources": 19,
+    "new": 9,
+    "replace": 10,
+    "client_changes": 0,
+    "runtime_scripts_in_Git": false,
+    "new_schema_definitions": 0,
+    "new_fragment_source": false,
+    "D4E_collection_points_writer_included": false,
+    "whole_category_100": false
+  },
+  "sources": [
+    {
+      "path": "els_server/data/cartridge_exchange.json",
+      "action": "new",
+      "canonical_sha256": "59f89297943afb93d603a7c4cdca9f94c553ecd17c768266cf4d16dbc51bc7ec",
+      "bytes": 2838,
+      "local_runtime_source_sha256": "c78a30a1ec958234c63ac2965c01845176709078864a641de9a2ed35aa538c99",
+      "canonical_inverse_BYTE_exact": false
+    },
+    {
+      "path": "els_server/data/cartridge_recipe679.json",
+      "action": "new",
+      "canonical_sha256": "b94429937b28a6d382e2383639a966ce66bc7ddcc65a30433b8e44278af837fb",
+      "bytes": 1120,
+      "local_runtime_source_sha256": "b94429937b28a6d382e2383639a966ce66bc7ddcc65a30433b8e44278af837fb",
+      "canonical_inverse_BYTE_exact": false
+    },
+    {
+      "path": "els_server/domain/cartridge_exchange_flow.py",
+      "action": "new",
+      "canonical_sha256": "4257077a5b18f44f74dc7132b4b0faffe1b2e333419a08fb1ce47bda035839da",
+      "bytes": 5010,
+      "local_runtime_source_sha256": "4257077a5b18f44f74dc7132b4b0faffe1b2e333419a08fb1ce47bda035839da",
+      "canonical_inverse_BYTE_exact": false
+    },
+    {
+      "path": "els_server/domain/cartridge_exchange_rules.py",
+      "action": "new",
+      "canonical_sha256": "3da1c750a8e62ceaa1450ba4d0329c0f3c3c827a0200ed3b749235a2180d0c5a",
+      "bytes": 12029,
+      "local_runtime_source_sha256": "3da1c750a8e62ceaa1450ba4d0329c0f3c3c827a0200ed3b749235a2180d0c5a",
+      "canonical_inverse_BYTE_exact": false
+    },
+    {
+      "path": "els_server/domain/cartridge_recipe679_flow.py",
+      "action": "new",
+      "canonical_sha256": "a2724d7a43b9b1fdcef735c36e2eb496d7867af5f6cc7310b71e09bfc2c0dc6d",
+      "bytes": 2469,
+      "local_runtime_source_sha256": "a2724d7a43b9b1fdcef735c36e2eb496d7867af5f6cc7310b71e09bfc2c0dc6d",
+      "canonical_inverse_BYTE_exact": false
+    },
+    {
+      "path": "els_server/domain/cartridge_recipe679_rules.py",
+      "action": "new",
+      "canonical_sha256": "2303a678bd07492f82e87af8e0f6cc321fe4fc05ee0aaed7c91f42ecbfce8099",
+      "bytes": 11758,
+      "local_runtime_source_sha256": "2303a678bd07492f82e87af8e0f6cc321fe4fc05ee0aaed7c91f42ecbfce8099",
+      "canonical_inverse_BYTE_exact": false
+    },
+    {
+      "path": "els_server/protocol/cartridge_recipe679_messages.py",
+      "action": "new",
+      "canonical_sha256": "d20af8617c5b5bd5e203a494971dd39fecfaf4dc4240530f4564ea5184b273ed",
+      "bytes": 1713,
+      "local_runtime_source_sha256": "d20af8617c5b5bd5e203a494971dd39fecfaf4dc4240530f4564ea5184b273ed",
+      "canonical_inverse_BYTE_exact": false
+    },
+    {
+      "path": "els_server/storage/cartridge_exchange.py",
+      "action": "new",
+      "canonical_sha256": "b7cecffbaf8425bac7c4f6fb98533cb134bb3b32fb2d24d36c4c8db6af795402",
+      "bytes": 5963,
+      "local_runtime_source_sha256": "b7cecffbaf8425bac7c4f6fb98533cb134bb3b32fb2d24d36c4c8db6af795402",
+      "canonical_inverse_BYTE_exact": false
+    },
+    {
+      "path": "els_server/storage/cartridge_recipe679.py",
+      "action": "new",
+      "canonical_sha256": "ba298d87fb65f5219818a6c2d5e9e09953610aadd37447343c96aa264ac9949c",
+      "bytes": 7803,
+      "local_runtime_source_sha256": "ba298d87fb65f5219818a6c2d5e9e09953610aadd37447343c96aa264ac9949c",
+      "canonical_inverse_BYTE_exact": false
+    },
+    {
+      "path": "els_server/data/town_travel.json",
+      "action": "replace",
+      "canonical_sha256": "9fa8b54cfe5c0dd378a5ee1bc2056331c080a9b593f2e328dc137174b5c3cddd",
+      "bytes": 16010,
+      "local_runtime_source_sha256": "52e82a688f3406963f83d167b8e0edfeb15f77fbf512bc5103eae0b2985ba9d8",
+      "canonical_inverse_BYTE_exact": true
+    },
+    {
+      "path": "els_server/data/town_travel.manifest.json",
+      "action": "replace",
+      "canonical_sha256": "183ea09b49ed6f3d7c38ce40be61b9c4c4d16d7e5e07563f738692bac828659c",
+      "bytes": 236,
+      "local_runtime_source_sha256": "680b7500074d8c9158c6765aae78242e3471da9f11b9872c24ebf7a7b3c44acd",
+      "canonical_inverse_BYTE_exact": true
+    },
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "action": "replace",
+      "canonical_sha256": "a3d8fa705914b32df9dbe777ce657045543914ad22c4600e9cfdc1a3e43814b8",
+      "bytes": 2887,
+      "local_runtime_source_sha256": "619966b9213fd8a3ee7b93f20f23aed7d0713cf12dbee3aabb813f3f449cd9e1",
+      "canonical_inverse_BYTE_exact": true
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "action": "replace",
+      "canonical_sha256": "e0ec01f0a81e97c69a12ad9b858a807248968294940d5157788a1f2707d40d55",
+      "bytes": 46921,
+      "local_runtime_source_sha256": "63d27b9b3135c5f1dde98d73a35983e1dfe4e9ce3541c300b9a3a4961bf8d069",
+      "canonical_inverse_BYTE_exact": true
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "action": "replace",
+      "canonical_sha256": "6306e95a2fe13709c87e4fc0ffd12b2ebc1f7c566c46917a995e98ed8ef1c3b1",
+      "bytes": 124837,
+      "local_runtime_source_sha256": "8c5ece9112f4ea7cdf92037bf12972bd1f403fe5810fa669238a9c896d7c8c74",
+      "canonical_inverse_BYTE_exact": true
+    },
+    {
+      "path": "els_server/domain/town_travel_flow.py",
+      "action": "replace",
+      "canonical_sha256": "3bad9e7125d055be2270105156e5bdefb7e9760fcc51408227323d34a12947b9",
+      "bytes": 12380,
+      "local_runtime_source_sha256": "3bad9e7125d055be2270105156e5bdefb7e9760fcc51408227323d34a12947b9",
+      "canonical_inverse_BYTE_exact": true
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "action": "replace",
+      "canonical_sha256": "f2bf346786b2d5b98dc7a64ae8d9bf34adbb2a5c8300a15ab1566b7c06b62cfe",
+      "bytes": 14828,
+      "local_runtime_source_sha256": "f2bf346786b2d5b98dc7a64ae8d9bf34adbb2a5c8300a15ab1566b7c06b62cfe",
+      "canonical_inverse_BYTE_exact": true
+    },
+    {
+      "path": "els_server/storage/local_state.py",
+      "action": "replace",
+      "canonical_sha256": "0a4c08c51eeb4eb7aa5ec766ad69e47e3ed08dd79a116300fe8faf03fbf8a5e7",
+      "bytes": 10268,
+      "local_runtime_source_sha256": "fd4772ee718efcd9eb49688b1e2553bf6e08aae029b3e4d01f7e85e82ed78b3a",
+      "canonical_inverse_BYTE_exact": true
+    },
+    {
+      "path": "els_server/storage/town_travel.py",
+      "action": "replace",
+      "canonical_sha256": "e608616abc6043e5a20908ceaf7847602907be44829d577fddefd39c5b4e8477",
+      "bytes": 16196,
+      "local_runtime_source_sha256": "e608616abc6043e5a20908ceaf7847602907be44829d577fddefd39c5b4e8477",
+      "canonical_inverse_BYTE_exact": true
+    },
+    {
+      "path": "els_server/application.py",
+      "action": "replace",
+      "canonical_sha256": "35646866a1cf9920c731c993c3ba186eb945c0f6a0fe81bec249c3432d7f0e98",
+      "bytes": 15312,
+      "local_runtime_source_sha256": "b775c37a17403d4f39bf31d07e2a92c6c918f81ba7ae02483c2388847ca2946e",
+      "canonical_inverse_BYTE_exact": true
+    }
+  ],
+  "projection_notes": [
+    "Canonical Town adds only1012:16 to17; existing runtime local adds1012:17 to18. Existing six Town provenance entries are preserved.",
+    "Only two new exchange JSON provenance source.path values are made relative; other fields and source SHA/size locks remain unchanged.",
+    "Canonical Application adds only independent House40326 witness and finally revocation, retaining prior BOX witness. Runtime-only Chip witness is not introduced into this Git projection.",
+    "Canonical shared leaves use exact minimal hunks on the dependency branch, not complete runtime replacements."
+  ],
+  "delivery": {
+    "local": {
+      "release": "local-equipment-cartridge-house40326-recipe679-local-context-20261023-v1",
+      "manifest_sha256": "f619c33026036949b1d0852e804eb19fbbf4334df9350e1eba2885149fac6bf1",
+      "business_files": 950,
+      "runtime_files": 1412,
+      "delta": 19,
+      "new": 9,
+      "replace": 10,
+      "observation_seconds": 123.84465260000434,
+      "dual_SQLite_backup_API": true,
+      "all_typed_rows_and_schema_preserved": true,
+      "player_database_rollback": false
+    },
+    "online": {
+      "release": "equipment-cartridge-house40326-recipe679-local-context-20261023-v1",
+      "manifest_sha256": "fd30471e9426263e4f7665ca5f9767a269f80efef41bc7d7d64f3cbae5be9185",
+      "business_files": 940,
+      "delta": 18,
+      "new": 9,
+      "replace": 9,
+      "observation_seconds": 127.13685870007612,
+      "installed_check_exit_code": 0,
+      "startup_original_rows_preserved": true,
+      "local_reconciliation_payload_reinstalled": false,
+      "own_locks_released": true
+    }
+  },
+  "validation": {
+    "historical_private": {
+      "six_recipes_recipe679_travel9900_qualification_reused": true,
+      "new_economic_requests": 0,
+      "not_public_or_natural_proof": true
+    },
+    "local_context": {
+      "normal_requests": 26,
+      "new_economic_requests": 0,
+      "normal_Application_factory_and_release": true,
+      "saved_Village1012_warm_cold_context": true,
+      "controlled_temporary_save_fixture": true,
+      "natural_player_proof": false
+    },
+    "public": {
+      "total_native_request_count": 30,
+      "service_requests": 1,
+      "request_kind": 547,
+      "request_bytes": 37,
+      "response_kind": 548,
+      "response_bytes": 30,
+      "response_type_fields": [
+        1,
+        1
+      ],
+      "result": -1,
+      "economic_commits": 0,
+      "new_recipe679_receipts": 0,
+      "ED_delta": 0,
+      "own_SQL_projection_unchanged": true,
+      "cold_full_records": 10,
+      "normal_API_starter_only": true,
+      "controlled_level99_only": true,
+      "inventory_quest_town_phase_seed": false,
+      "normal_disable_API_used": true,
+      "native_GUI": false,
+      "natural_acquisition": false,
+      "positive_recipe679": false,
+      "physical_tables_created_by_normal_API": [],
+      "physical_tables_created_by_negative_service": [],
+      "schema_existing_definitions_changed": [],
+      "SQL_or_DDL_zero_claim": false,
+      "raw_archive_scope": "Complete refused224 and cold2A archived;30 is driver request count, not30 archived frame pairs."
+    },
+    "source_CI": {
+      "command": "python -B -X utf8 tools/ci_checks.py",
+      "Python_sources_compiled": 807,
+      "privacy_files_checked": 1254,
+      "protocol_roundtrip": true,
+      "runtime_check": false,
+      "source_checks_replayed_for_docs": false,
+      "final_staged21_document_guard": "run separately by maintainer after final docs review"
+    }
+  },
+  "failures_preserved": [
+    "Earlier controlled-local fixture saved1012 after constructing a cached actor; legitimate225 refused. Fixture was corrected by saving before normal for_character, without production/cache/phase mutation; failed receipt retained.",
+    "SOURCE-only public oracle initially used generic type3; independent review required specialized recipe type1 before the single real public request. No failed public request was executed for that SOURCE error."
+  ],
+  "unverified": [
+    "Public positive six-recipe exchange, recipe679 fragment conversion and9900ED Village travel",
+    "Current normal119216 acquisition or any new fragment/BOX producer",
+    "Natural player/GUI/multiplayer paths",
+    "Whole equipment-growth100 percent"
+  ],
+  "evidence": {
+    "local_protected_completion": {
+      "label": "modern/recipe679-local-protection-CLOSED-SOURCE-v1/local-install/completion.json",
+      "sha256": "dc37e9081ef87c1520faaaf6ef253385135b1b79fa9c8a7630ba75e56e2542b5",
+      "bytes": 7446
+    },
+    "local_independent_FILE": {
+      "label": "modern/recipe679-local-delivery-actual-independent-FILE-review-v1/review-v2.json",
+      "sha256": "791fad41219b780a00d33c73b7d078ec38e1519c0bfc04989e688e56ff2e01e1",
+      "bytes": 15033
+    },
+    "local_context_actual": {
+      "label": "modern/recipe679-local-context-validation-CLOSED-SOURCE-v5/actual/root-local-v1/validation-receipt.json",
+      "sha256": "493d8f3d0e066cb9937d8d37dd838ce570abeccf5870f882552542bd8bef63ad",
+      "bytes": 295081
+    },
+    "local_context_independent_FILE": {
+      "label": "modern/recipe679-local-context-validation-actual-independent-FILE-review-v1/review-v1.json",
+      "sha256": "339507f847aef81415d6a3788befc43c6ab91bbceb70523f0a9011b5b9a1635d",
+      "bytes": 11535
+    },
+    "historical_private_qualification": {
+      "label": "new-systems/cartridge-recipe679-local-validation-source-v1/root-finite-private-qualification-v1.json",
+      "sha256": "cecd769987a9db933002e8dda8fce3fe0c18bf6a560490d7daa74c0a234f085e",
+      "bytes": 8626
+    },
+    "local_fixture_failure_preserved": {
+      "label": "modern/recipe679-local-context-validation-CLOSED-SOURCE-v3/actual/root-local-v1/validation-receipt.json",
+      "sha256": "e8d49e4ecfb79758802d51557e2edbaa26173f7a7cb54503bd12c51d2d0efa91",
+      "bytes": 90904
+    },
+    "online_artifact": {
+      "label": "modern/recipe679-online-artifact-CLOSED-SOURCE-v1/actual/root-online-v1/check-receipt.json",
+      "sha256": "bbfa1704d1ab700fe9b23012e35298c1cbbf30ebcff7630341274d2ebae2aa26",
+      "bytes": 91549
+    },
+    "online_artifact_independent_FILE": {
+      "label": "modern/recipe679-online-artifact-actual-independent-FILE-review-v1/review-v1.json",
+      "sha256": "7c24e1346892bac2a0f8db0650d44e14d64a4495d05c2a4ba49e19602ebd5db5",
+      "bytes": 275900
+    },
+    "online_completion": {
+      "label": "modern/recipe679-finite-F-publication-CLOSED-SOURCE-v1/online-completion.json",
+      "sha256": "210c3d6f6006e76eeafb6952ba4589800bb7571aca470dffa80ebc979e4d4dc6",
+      "bytes": 851
+    },
+    "public_negative_acceptance": {
+      "label": "modern/recipe679-finite-F-publication-CLOSED-SOURCE-v1/public-acceptance.json",
+      "sha256": "f64b1bef9645175256e570bef77d23a29ce54ad88400e2a5b477cf3627a2d260",
+      "bytes": 87401
+    },
+    "online_post_observation": {
+      "label": "modern/recipe679-finite-F-publication-CLOSED-SOURCE-v1/online-post.json",
+      "sha256": "f61613fcdacf32a4084e040befdf41c48b90526d15b481d2dcbc18904b081a8d",
+      "bytes": 386
+    },
+    "cleanup": {
+      "label": "modern/recipe679-finite-F-publication-CLOSED-SOURCE-v1/cleanup.json",
+      "sha256": "509021550b48c68c9c5a63f582a0bbb275dfa0910223398a84b318594b6bec8f",
+      "bytes": 166
+    },
+    "own_locks_released": {
+      "label": "modern/recipe679-finite-F-publication-CLOSED-SOURCE-v1/locks-released.json",
+      "sha256": "663e57e7f30624820d31149e09e9b14f351b8b8b88dffb31fb1a1047e117613c",
+      "bytes": 51
+    },
+    "local_post_online_metadata_only": {
+      "label": "modern/recipe679-finite-F-publication-CLOSED-SOURCE-v1/local-post-online-reconciliation.json",
+      "sha256": "e289357030e2ce1007d982d94c6f9a2866bdb515ea93da1e1ab12ebf986a3303",
+      "bytes": 5299
+    },
+    "canonical_projection_SOURCE": {
+      "label": "modern/recipe679-minimal-Git-plan-SOURCE-v2/source-freeze.json",
+      "sha256": "b9c945a96a219b2aa84dff4eb60837e2fa2406303ac18cfe16d60b23edc16beb",
+      "bytes": 7397
+    },
+    "canonical_projection_independent_SOURCE": {
+      "label": "modern/recipe679-minimal-Git-independent-SOURCE-review-v1/review-v2.json",
+      "sha256": "6fd752f6dc49db852a02382f75025ca821a8d80d87515fb0882d8d820cdb9e23",
+      "bytes": 2094
+    },
+    "source_CI": {
+      "label": "Git-recipe679-delivery-v1/source-CI-execution-v1.json",
+      "sha256": "fb5ec3506fc69b61eb715837758e32ecda2470c20761394a72ae230e5cc42fec",
+      "bytes": 440
+    },
+    "QA_v1_SOURCE_HOLD": {
+      "label": "modern/recipe679-public-negative-QA-independent-SOURCE-review-v1/review-v1.json",
+      "sha256": "27e709ffff3e4da7656a6c60bb7644839b3676aac6ed6306d04928bf1407dc7b",
+      "bytes": 1227
+    },
+    "QA_v2_independent_SOURCE": {
+      "label": "modern/recipe679-public-negative-QA-independent-SOURCE-review-v1/review-v2.json",
+      "sha256": "2c94bb0717102f15c54886911bcf1d9c1f6e86c69bbc9d9cd3d7b19a3fda41c9",
+      "bytes": 1846
+    }
+  },
+  "final_online_independent_FILE": {
+    "label": "modern/recipe679-public-and-postdelivery-actual-independent-FILE-review-v1/review-v1.json",
+    "sha256": "bbdf4f993bbe7a477fb06ec803c7349a7e814dd43fff94bf2c608a8d56e43394",
+    "bytes": 23629
+  },
+  "final_online_independent_FILE_note": "Independent actual public and postdelivery FILE review passed the limited negative/cold scope and protected dual-channel delivery; no positive recipe, travel, natural source or GUI acceptance is implied. Private account, DB and raw-capture contents are retained outside Git."
+}

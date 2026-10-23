@@ -224,6 +224,44 @@
           "m_cUnitClass": 0
         }
       }
+    },
+    {
+      "template": 723603,
+      "name": "[路莉尔]灵药选择宝箱",
+      "description": "可选择其中一个灵药的宝箱。\n\n内含：\n-[路莉尔]祝福的本图斯的翅膀（灵药）5个\n-[路莉尔]祝福的特里普的冰珠（灵药）5个\n-[路莉尔]祝福的巨人化药水（灵药）5个\n中其中一个",
+      "entries": [
+        {
+          "template": 710206,
+          "quantity": 5,
+          "name": "[路莉尔]祝福的本图斯的翅膀（灵药）"
+        },
+        {
+          "template": 710207,
+          "quantity": 5,
+          "name": "[路莉尔]祝福的特里普的冰珠（灵药）"
+        },
+        {
+          "template": 710210,
+          "quantity": 5,
+          "name": "[路莉尔]祝福的巨人化药水（灵药）"
+        }
+      ],
+      "selection_count": 1,
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 99,
+      "record_sha256": "5dce4445448649a5c943818abba20c8310af1018221ef2024fcf3b83f54610e3",
+      "random_rule": {
+        "m_KeyItemID": 0,
+        "m_iGiveCount": 1,
+        "m_ItemID": 723603,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1,
+        "1": {
+          "m_iItemGroupID": 723603,
+          "m_cUnitClass": 0
+        }
+      }
     }
   ]
 }
