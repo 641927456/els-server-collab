@@ -203,7 +203,13 @@ class Application:
         return {'activity2026_awards':self.activity2026_awards_factory(account)} if self.activity2026_awards_factory is not None else {}
 
     async def session(self,port_probe_port=1,identity=None):
-        if self.config.mode=='local':return await self.call(LocalSession,self.account,port_probe_port=port_probe_port,**self.config.session_options(),**self.activity_options(self.account))
+        if self.config.mode=='local':
+            def create_local():
+                session=LocalSession(self.account,port_probe_port=port_probe_port,**self.config.session_options(),**self.activity_options(self.account))
+                session._box119335_local_application=self
+                session._box119335_local_live=True
+                return session
+            return await self.call(create_local)
         if identity is None:raise SessionOrderError('Authentication required')
         def create():
             key=identity['id']
@@ -227,6 +233,8 @@ class Application:
             try:
                 close_mount(session)
             finally:
+                if type(session) is LocalSession and getattr(session,'_box119335_local_application',None) is self:
+                    session._box119335_local_live=False
                 try:
                     if timer is not None:timer.observe(session,stop=True)
                 finally:

@@ -78,12 +78,20 @@ def load_items(db,owner=1001):
  attach_reforge(db,items,owner)
  from els_server.storage.wardrobe import attach as attach_wardrobe
  attach_wardrobe(db,items,owner)
+ from els_server.domain.cartridge_selection_box import BOX as read_box,read_existing_box
+ for index,item in enumerate(items):
+  if item["template"]==read_box:
+   items[index]=read_existing_box(item)
  inventory_payload(items)  # Verify persisted identities/positions and wire before use.
  from els_server.storage.bag_capacity import allowances
  limits=allowances(db,owner)
  if any(i['group'] not in (9,24) and i['slot']>=limits[i['group']] for i in items):raise ValueError('Item exceeds owned bag capacity')
  return items
-def validate_plan(plan,*,selected_accessory_box=None):
+def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None):
+ if cartridge_box_source is not None:
+  if selected_accessory_box is not None:raise ValueError("Incompatible inventory grant sources")
+  from els_server.domain.cartridge_selection_box import validate_source
+  validate_source(cartridge_box_source).validate_plan(plan)
  if not isinstance(plan,list) or not 1<=len(plan)<=36:raise ValueError('Inventory grant plan bound')
  if selected_accessory_box is not None:
   from els_server.domain.boosting_2026_accessories import validate_box_grants
@@ -91,7 +99,7 @@ def validate_plan(plan,*,selected_accessory_box=None):
  for p in plan:
   if not isinstance(p,dict) or set(p)-{'expires_at','enhancement'}!={'template','metadata','quantity','group'} or any(type(v) is not int for v in p.values()):raise ValueError('Invalid inventory grant plan')
   from els_server.domain.acquisition_policy import require_acquirable
-  if selected_accessory_box is None:require_acquirable(p['template'])
+  if selected_accessory_box is None:require_acquirable(p['template'],cartridge_box_source=cartridge_box_source)
   if 'enhancement' in p:
    from els_server.domain.equipment_enhancement import validate as validate_enhancement
    validate_enhancement(p['template'],p['enhancement'])
@@ -102,9 +110,13 @@ def validate_plan(plan,*,selected_accessory_box=None):
   if p['template']==REPAIR_PASS and ('expires_at' not in p or p['quantity']!=1):raise ValueError('Repair pass grant requires one explicitly timed instance')
   if p['template'] not in VERIFIED_TEMPLATES or p['metadata']!=VERIFIED_TEMPLATES[p['template']] or p['group']!=TEMPLATE_BAG_GROUPS[p['template']] or not 1<=p['quantity']<=LOCAL_MAX_STACK:raise ValueError('Unverified inventory grant template/count')
  return [dict(p) for p in plan]
-def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=None):
+def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=None,cartridge_box_source=None):
  owner=character_uid(owner)
- plan=validate_plan(plan,selected_accessory_box=selected_accessory_box);items=load_items(db,owner);changed={}
+ if cartridge_box_source is not None:
+  if selected_accessory_box is not None or chip_options is not None:raise ValueError("Incompatible inventory grant sources")
+  from els_server.domain.cartridge_selection_box import validate_source
+  validate_source(cartridge_box_source).bind_factory(db,owner,plan)
+ plan=validate_plan(plan,selected_accessory_box=selected_accessory_box,cartridge_box_source=cartridge_box_source);items=load_items(db,owner);changed={}
  from els_server.domain.equipment_chip_rules import TEMPLATE as CHIP,generate as chip_generate,source_options as chip_source
  approved_chip=None
  if chip_options is not None:

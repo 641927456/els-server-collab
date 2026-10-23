@@ -1088,6 +1088,9 @@ class LocalSession:
             # Keep the scene until its original 225/227 return handshake.
             if self.role!='game' or self.phase!='dungeon_active' or not self.clear_notified or event.payload:return []
             return [Event(0x201,kind=0x111,payload=bytes(12))]
+        from els_server.domain.cartridge_selection_box import handle as cartridge_box_handle
+        cartridge_box_reply=cartridge_box_handle(self,event,request_sequence)
+        if cartridge_box_reply is not None:return cartridge_box_reply
         if self.item_test and self.client_build=='dx11_260923' and event.event_id==0x202 and kind==0x559:
             from els_server.protocol.ice_messages import preview_request,preview_ack
             from els_server.domain.cubes import catalog as fixed_cubes
