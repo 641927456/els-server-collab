@@ -22,6 +22,8 @@ def assign(db,owner,item_uid,deadline):
     """Internal grant hook; never extends/replaces an existing deadline."""
     if not db.in_transaction:raise ValueError('Expiration requires explicit transaction')
     owner=character_uid(owner);deadline=validate(deadline)
+    from els_server.domain.cartridge_registration_rules import require_unbound
+    require_unbound(db,item_uid)
     if type(item_uid) is not int or not db.execute('SELECT 1 FROM inventory_items WHERE uid=? AND owner=?',(item_uid,owner)).fetchone():raise ValueError('Unknown owned timed item')
     db.execute('''CREATE TABLE IF NOT EXISTS item_expiration (
         item_uid INTEGER PRIMARY KEY REFERENCES inventory_items(uid) DEFERRABLE INITIALLY DEFERRED,
@@ -54,6 +56,8 @@ def remove_due(path,owner,*,now=None,prepare_refresh=None,prepare_remaining_refr
         if not due:return []
         owned=load_items(db,owner)
         items=[i for i in owned if i['uid'] in due]
+        from els_server.domain.cartridge_registration_rules import require_unbound
+        for item in items:require_unbound(db,item['uid'])
         answer=notice(items) # Validate/encode before any committed deletion.
         if prepare_refresh is not None and prepare_remaining_refresh is not None:raise ValueError('Ambiguous expiration refresh')
         prepared=(prepare_remaining_refresh(items,[i for i in owned if i['uid'] not in due]) if prepare_remaining_refresh is not None else None if prepare_refresh is None else prepare_refresh(items))
