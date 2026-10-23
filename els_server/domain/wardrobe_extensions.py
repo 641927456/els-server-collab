@@ -6,7 +6,7 @@ from els_server.game_data import CLIENT_SHA
 @functools.lru_cache(maxsize=1)
 def catalog():
     raw=(PROJECT_ROOT/'els_server/data/wardrobe_extensions.json').read_bytes()
-    if hashlib.sha256(raw).hexdigest()!='12301f1c1fda11ad4ed09ecdd507da08b83efdb919c9c60599f05a4154b65675':raise ValueError('Wardrobe extension catalog checksum')
+    if hashlib.sha256(raw).hexdigest()!='e742119abad57b251bff692f7905db526247f8ae543d91ba24185d1fe071945e':raise ValueError('Wardrobe extension catalog checksum')
     data=json.loads(raw)
     if data['client_sha256']!=CLIENT_SHA:raise ValueError('Wardrobe extension version')
     return data
