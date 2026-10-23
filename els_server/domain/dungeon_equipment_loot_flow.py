@@ -138,7 +138,10 @@ def _claim_context(s,drop,rules):
 
 def claim(s,request,drop):
     group_validate=None
-    if not enabled(s):
+    # Shared34320 retains UUID4 run identity and owner UUID5 reward identity.
+    # Detaching must not turn its remaining issued drops into solo claims.
+    if (not enabled(s) or s.dungeon_run is not None and s.dungeon_run.identity==34320
+            and s.reward_run_id!=s.dungeon_run.run_id):
         from els_server.domain.friends_material_loot import claim_enabled,claim_guard
         if not claim_enabled(s,drop):return []
         try:group_validate=claim_guard(s)
