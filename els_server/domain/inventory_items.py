@@ -670,3 +670,13 @@ from els_server.domain.cartridge_exchange_rules import source_definition as cart
 _cartridge_exchange_source=cartridge_exchange_source();_t=_cartridge_exchange_source["template"]
 if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=(2,3,1000):raise ValueError("Conflicting black-fragment reader")
 VERIFIED_TEMPLATES[_t]=2;TEMPLATE_BAG_GROUPS[_t]=3;TEMPLATE_MAX_STACKS[_t]=1000
+
+
+# Current118204 Sturdy Mithril reader only; no source or grant is introduced.
+# Same native type6/SORT_TYPE.ST_MATERIAL3 path as deployed701000; record+10
+# is the current1000 stack cap, above the existing999 compatibility floor.
+from els_server.game_data import client_data as _smith_client_data
+_smith_material=_smith_client_data().item(118204)
+if (_smith_material['item_type'],_smith_material['metadata'],struct.unpack_from('<I',_smith_material['record'],0x10)[0])!=(6,2,1000) or hashlib.sha256(_smith_material['record']).hexdigest()!='35a2511b9161e41d6675d3111e99b2b4815ec2c898e9362ecb5c0d620de898b1':raise ValueError('Current smith material reader source')
+if 118204 in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[118204],TEMPLATE_BAG_GROUPS[118204],TEMPLATE_MAX_STACKS[118204])!=(2,3,1000):raise ValueError('Conflicting current smith material reader')
+VERIFIED_TEMPLATES[118204]=2;TEMPLATE_BAG_GROUPS[118204]=3;TEMPLATE_MAX_STACKS[118204]=1000
