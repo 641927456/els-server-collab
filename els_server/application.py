@@ -208,6 +208,8 @@ class Application:
                 session=LocalSession(self.account,port_probe_port=port_probe_port,**self.config.session_options(),**self.activity_options(self.account))
                 session._box119335_local_application=self
                 session._box119335_local_live=True
+                session._cartridge40326_local_application=self
+                session._cartridge40326_local_live=True
                 return session
             return await self.call(create_local)
         if identity is None:raise SessionOrderError('Authentication required')
@@ -233,6 +235,8 @@ class Application:
             try:
                 close_mount(session)
             finally:
+                if type(session) is LocalSession and getattr(session,'_cartridge40326_local_application',None) is self:
+                    session._cartridge40326_local_live=False
                 if type(session) is LocalSession and getattr(session,'_box119335_local_application',None) is self:
                     session._box119335_local_live=False
                 try:
