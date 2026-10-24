@@ -77,3 +77,23 @@ def use(path,uid,account_id,payload,operation,*,authorize,prepare_replay=None,no
   saved=replace_profession(db,uid,account_id,growth['revision'],next_profession)if xp else growth
   db.execute('INSERT INTO profession_anvil_receipts VALUES(?,?,?,?,?,?,?,?,?)',(operation,digest,uid,account_id,rules['ed'],1,xp,updated['revision'],saved['revision']))
   authorize_now(authorize);return events
+
+
+def spend_one(db,uid,account_id):
+ """Consume one existing modern hammer inside the caller's owning writer.
+
+ No clock/deadline reset, regeneration, standalone transaction, schema creation
+ or new receipt format. The caller's exact5FF economic receipt owns idempotency.
+ """
+ if not db.in_transaction:raise ValueError('Anvil hammer sink requires owning transaction')
+ integer(uid,1,2**63-1,'Anvil hammer character');integer(account_id,1,2**63-1,'Anvil hammer account')
+ require_active_character(db,uid);require_owner(db,uid,account_id)
+ actor=db.execute('SELECT level FROM characters WHERE uid=?',(uid,)).fetchone()
+ if actor is None or type(actor[0])is not int or actor[0]<40:raise ValueError('Anvil hammer level40 admission')
+ growth=profession_snapshot(db,uid,account_id);rules=policy(ProfessionState(**growth['state']))
+ stored=snapshot(db,uid,account_id)
+ if not 1<=stored['hammers']<=rules['capacity']:raise ValueError('No admitted saved anvil hammer')
+ integer(stored['revision'],1,2**63-2,'Anvil hammer CAS revision')
+ if db.execute('UPDATE profession_anvil_states SET hammers=hammers-1,revision=revision+1 WHERE uid=? AND account_id=? AND revision=? AND hammers=?',(uid,account_id,stored['revision'],stored['hammers'])).rowcount!=1:
+  raise ValueError('Anvil hammer state changed')
+ return dict(hammers=stored['hammers']-1,ready_at=stored['ready_at'],revision=stored['revision']+1)
