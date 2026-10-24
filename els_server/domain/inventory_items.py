@@ -554,7 +554,13 @@ def validate_item(item):
   equipped=life_equipped(item)
  from els_server.domain.bag_capacity import wire_limit
  bag=item['group']==TEMPLATE_BAG_GROUPS[item['template']] and 0<=item['slot']<wire_limit(item['group'])
- if not 1<=item['count']<=TEMPLATE_MAX_STACKS[item['template']] or not (equipped or bag):raise ValueError('Invalid local inventory count/slot')
+ read_limit=TEMPLATE_MAX_STACKS[item['template']]
+ # Read-only forward compatibility for the exact existing essence instance.
+ # grant_items still uses the original global singleton allocation/merge cap.
+ if (item['template'],item['metadata'],item['group'])==(130208,2,4):
+  if (hashlib.sha256(definition['record']).hexdigest(),definition['item_type'],definition['metadata'],struct.unpack_from('<I',definition['record'],0x10)[0])!=('def908d624a81559b11442227ffde76f36174a71b6ca42d82d35f89ed02e4cb1',7,2,1000):raise ValueError('Saved130208 reader source changed')
+  read_limit=1000
+ if not 1<=item['count']<=read_limit or not (equipped or bag):raise ValueError('Invalid local inventory count/slot')
  result=dict(item)
  if 'cartridge'in item:
   from els_server.domain.cartridge_registration_rules import scalar,binding_catalog
@@ -604,7 +610,10 @@ def validate_item(item):
  validate_reforge(result)
  if 'identified' in item:
   from els_server.domain.identification_ui import require_template
-  require_template(item['template'])
+  if item['template']==30603 and item['identified']is True:
+   from els_server.domain.identification_ui import validate as validate_saved30603
+   validate_saved30603(30603,item.get('option_groups',{}).get('1',[]))
+  else:require_template(item['template'])
   if type(item['identified']) is not bool or item['count']!=1:raise ValueError('Invalid identification flag/count')
   if not item['identified']:
    from els_server.domain.artifact_identification import supported,unidentified_values
