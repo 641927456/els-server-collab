@@ -434,6 +434,9 @@ class LocalSession:
                          character=self.account.character() if self.account.account_id!=1 else None)
 
     def _handle(self,event,request_sequence=None):
+        from els_server.domain.skill_page_shop_flow import handle as skill_page_shop_handle
+        skill_page_shop_reply=skill_page_shop_handle(self,event,request_sequence)
+        if skill_page_shop_reply is not None:return skill_page_shop_reply
         from els_server.domain.erp_potion_flow import handle as erp_potion_handle
         erp_potion_reply=erp_potion_handle(self,event,request_sequence)
         if erp_potion_reply is not None:return erp_potion_reply

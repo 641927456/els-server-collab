@@ -33,7 +33,8 @@ def catalog(unit_type=None):
     from els_server.domain.bank_memberships import offers as bank_offers
     from els_server.domain.skill_book_shop import offers as skill_book_offers
     from els_server.domain.bag_capacity import additional_offers as bag_offers
-    result=tuple(p for p in costumes+single_offers(unit_type)+ice+extended+expansion+additional_offers(unit_type)+pet_support_offers()+bank_offers()+bag_offers()+skill_book_offers()
+    from els_server.domain.skill_page_shop import offer as skill_page_offer
+    result=tuple(p for p in costumes+single_offers(unit_type)+ice+extended+expansion+additional_offers(unit_type)+pet_support_offers()+bank_offers()+bag_offers()+skill_book_offers()+(skill_page_offer(),)
                  if can_acquire(p['template']) and p['template'] not in ice_equipment())
     if len({p['sku'] for p in result})!=len(result) or len({p['template'] for p in result})!=len(result):raise ValueError('Duplicate shop offer')
     return result
@@ -78,6 +79,9 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
     if not isinstance(operation_id,str) or not 1<=len(operation_id)<=100:
         raise ValueError('Invalid shop operation identity')
     products=ed_purchase_request(payload)
+    from els_server.domain.skill_page_shop import SKU as skill_page_sku
+    if any(sku==skill_page_sku for sku,n in products):
+        raise ValueError('Instant skill page service requires current session authority')
     from els_server.domain.shop_quantities import batchable,delivery_plan,MAX_DELIVERY
     offers={p['sku']:p for p in quantity_catalog()}
     if any(sku not in offers for sku,_ in products):
