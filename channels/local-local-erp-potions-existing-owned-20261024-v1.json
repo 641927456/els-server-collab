@@ -1,0 +1,199 @@
+{
+  "channel": "local",
+  "release": "local-erp-potions-existing-owned-20261024-v1",
+  "parent_release": "local-native-tenebros-transactions-20261024-v1",
+  "manifest_sha256": "09c55988351cee770071038a53d454fd18dcf1d1af87fb36e678dbba5b8ecb7c",
+  "scope_kind": "erp-potions-existing-owned",
+  "files": [
+    {
+      "path": "els_server/data/erp_potions_existing.json",
+      "sha256": "c0bedbb810042b1851971d64a27230d02efb5be9839f9aa8f1a46bbc40e3901e",
+      "size": 8340,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/erp_potion_flow.py",
+      "sha256": "624a0d1713e40be365d9240644015de11e53af105be415337a4f008020ae6ea5",
+      "size": 2790,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/erp_potions_existing.py",
+      "sha256": "f0af9af923fc050f19455e2e6195ae495f2ee3f662ae63067d36174a96f68b04",
+      "size": 3387,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "sha256": "1a2a18543f065a1ddf04df22191f1672fc1f398989347f8fad303a40431edb91",
+      "size": 54362,
+      "parent_sha256": "c7006f9fd35f161385fcdd17b67e874b3a87003be8bcc72bcd245513a6f3448b"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "34bd7bea95c22afcf9e65105fa77b765d04292df5e9e0fde6ce88098c0691c82",
+      "size": 142187,
+      "parent_sha256": "c660c58c6b602360c17f10209335d5c169889c84f8aa61ab0c2ddbbcb65387b6"
+    },
+    {
+      "path": "els_server/storage/erp_potions_existing.py",
+      "sha256": "82932bf98a3c19e1361e37be5c9697609bb8b994edc945ed2a7d870b4f317289",
+      "size": 5692,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "sha256": "6039fbd6fc67c72c7d529d4e475e022a9afe61e610a4f0e2ac59ee62d39b761c",
+      "size": 15408,
+      "parent_sha256": "63eade0cd5d0d10d3b52a121beec1af2afd8ccd089c855c7e0d3cbf9246a6bef"
+    }
+  ],
+  "source_PRs": [
+    "https://github.com/641927456/els-server-collab/pull/392"
+  ],
+  "local_only_source_catchup": false,
+  "client_changes": 0,
+  "new_schema_definitions": 1,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "automatic_deployment": false,
+  "source_view_is_formal_runtime": false,
+  "parent_snapshot_commit": "90e26470fc0e5cd111848ecff86531b064aa0ce5",
+  "contains_accounts_or_saves": false,
+  "parent_manifest_sha256": "aa90ae91a5af17b4acb9aeac7a67d092a33d81224652241bcb261761b1c22542",
+  "business_file_count": 1011,
+  "full_server_runtime_files_verified": 1473,
+  "manifest_runtime_file_count_raw": 1011,
+  "changed_runtime_file_count": 7,
+  "new_runtime_file_count": 4,
+  "replaced_runtime_file_count": 3,
+  "independent_units": 1,
+  "new_lazy_tables": [
+    "erp_potion_use_receipts"
+  ],
+  "eager_schema_migration": false,
+  "install_DDL_statements": 0,
+  "natural_multiplayer": false,
+  "public_positive_economy": false,
+  "active_selector_changed": false,
+  "main_source_changed": false,
+  "source_runtime_mapping": "PR392 canonical7 -> accepted Ten-parent actual local composition. All7 actual/canonical/Git SHA relations are retained in the original14row index, no blanket wholeblob equality.",
+  "evidence": {
+    "source_contract": {
+      "path": "analysis/engineering13-completion-20261024-v1/erp-potion-delivery-v1/source-contract.json",
+      "sha256": "4c256f0d8abcbd203403990c07d8f294385c558a69e6ed42ab59746ddb7f44b6",
+      "bytes": 1627731
+    },
+    "canonical_source_freeze": {
+      "path": "analysis/engineering13-completion-20261024-v1/erp-potion-consumer-v1/source-freeze.json",
+      "sha256": "af4de973c59838aacba5f9dceee6a99be47bb082fcba34632a549510371959a2",
+      "bytes": 3031
+    },
+    "source_PR392": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/erp-source-intake-FALSE-v1/PR392-current-Git-observation.json",
+      "sha256": "0c804afd466c9c9d606785c9334ffc9aa535675bd3da1a5e0dbdbb0f67247e5d",
+      "bytes": 1579
+    },
+    "source_PR392_binding": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/erp-source-intake-FALSE-v1/observation-binding-supplement.json",
+      "sha256": "e82a55ec22c4432640275d05209b02e9cb01c06d8bb765ffd2c4c7365a887417",
+      "bytes": 2149
+    },
+    "local_completion": {
+      "path": "analysis/engineering13-completion-20261024-v1/erp-potion-delivery-v1/local-install/completion.json",
+      "sha256": "377508a4e16b6fc894428f9613868bc053d8207a080c5d6d8b7067483cb645cb",
+      "bytes": 745031
+    },
+    "local_backup": {
+      "path": "analysis/engineering13-completion-20261024-v1/erp-potion-delivery-v1/local-install/backup.json",
+      "sha256": "48fc4d6792ff7e338aba6b6ccb8e79740aa3342f6374113c2370d9a797dd8b4b",
+      "bytes": 14472
+    },
+    "local_own_locks_released": {
+      "path": "analysis/engineering13-completion-20261024-v1/erp-potion-delivery-v1/local-install/locks-released.json",
+      "sha256": "d743c6531c5f951f52ad0f18ccc56abc4c1525e0f0788a230048764a3a09d010",
+      "bytes": 68
+    },
+    "formal_manifest": {
+      "path": "releases/local/local-erp-potions-existing-owned-20261024-v1/local-business-manifest.json",
+      "sha256": "09c55988351cee770071038a53d454fd18dcf1d1af87fb36e678dbba5b8ecb7c",
+      "bytes": 1080378
+    },
+    "parent_manifest": {
+      "path": "releases/local/local-native-tenebros-transactions-20261024-v1/local-business-manifest.json",
+      "sha256": "aa90ae91a5af17b4acb9aeac7a67d092a33d81224652241bcb261761b1c22542",
+      "bytes": 618395
+    },
+    "actual_dual_completion": {
+      "path": "analysis/engineering13-completion-20261024-v1/erp-potion-delivery-v1/actual-dual-delivery-completion-v1.json",
+      "sha256": "0d68489f3d61255fb6e7ec35b54fa151c00cbb22281d193d1ba707d804590209",
+      "bytes": 7694
+    },
+    "immutable_heads_index": {
+      "path": "analysis/engineering13-completion-20261024-v1/erp-potion-delivery-v1/final-heads-v1/heads.json",
+      "sha256": "41290a428a854c32b3ab846e0a0be68464da66b49d8bcbd26ea8f5a3f6a743ab",
+      "bytes": 1155
+    },
+    "immutable_head_snapshots": {
+      "local": {
+        "path": "analysis/engineering13-completion-20261024-v1/erp-potion-delivery-v1/final-heads-v1/local-pointer.raw.json",
+        "sha256": "3656c341ed3a4b4386fd79151e78dac27d12debeed5bc345e1452a258e50db30",
+        "bytes": 695565
+      },
+      "online": {
+        "path": "analysis/engineering13-completion-20261024-v1/erp-potion-delivery-v1/final-heads-v1/online-pointer.raw.json",
+        "sha256": "ac65f25dbb8f8b6abced5f81f7381d883f14a53a57795f1f3be76bdd1de00507",
+        "bytes": 1246685
+      },
+      "launchers": {
+        "path": "analysis/engineering13-completion-20261024-v1/erp-potion-delivery-v1/final-heads-v1/launchers-pointer.raw.json",
+        "sha256": "65a432e4c1fff59a31e46eb042c9bc9d6423c02295c50d0936defbd614a6274d",
+        "bytes": 4807
+      }
+    },
+    "manifest_delta": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/erp-dual-history-data-FALSE-v3/local-manifest-delta.json",
+      "sha256": "8edd1ccef9d469a65efa24d39183ab4ab4320e50ec97eba9f6e66f70fe5eb8d7",
+      "bytes": 1146
+    },
+    "final_ROOT_actual_dual_review": {
+      "path": "analysis/full-gap-execution-20261024-v1/review/erp-potion-actual-artifact-v1/actual-dual-delivery-review-v1.json",
+      "sha256": "5fb3cdd6700471994fd93e192dd04d951288db365d07d2e0ed73dd9520409632",
+      "bytes": 65700
+    },
+    "actual_source_parent_Git_map": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/erp-actual-source-Git-map-root-v1/actual-source-parent-Git-audit.json",
+      "sha256": "9d8dfed76c93ccb8268b3a300f8818804c811a6df12335b191d43a186ac72a03",
+      "bytes": 7404
+    },
+    "actual14_rows": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/erp-dual-history-data-FALSE-v3/14-actual-source-rows.json",
+      "sha256": "90b9e76627db9dedd327939c8ef6eba424d33617a46b847568c136dccf96eae7",
+      "bytes": 14058
+    }
+  },
+  "author_actual_dual_delivered": true,
+  "local_acceptance": {
+    "path": "analysis/engineering13-completion-20261024-v1/erp-potion-delivery-v1/local-install/completion.json",
+    "sha256": "377508a4e16b6fc894428f9613868bc053d8207a080c5d6d8b7067483cb645cb",
+    "bytes": 745031
+  },
+  "dual_handoff": {
+    "path": "analysis/engineering13-completion-20261024-v1/erp-potion-delivery-v1/actual-dual-delivery-completion-v1.json",
+    "sha256": "0d68489f3d61255fb6e7ec35b54fa151c00cbb22281d193d1ba707d804590209",
+    "bytes": 7694
+  },
+  "final_root_delivery_review": {
+    "path": "analysis/full-gap-execution-20261024-v1/review/erp-potion-actual-artifact-v1/actual-dual-delivery-review-v1.json",
+    "sha256": "5fb3cdd6700471994fd93e192dd04d951288db365d07d2e0ed73dd9520409632",
+    "bytes": 65700
+  },
+  "final_root_delivery_approval_pending": false,
+  "source_runtime_scope_excludes_PR401": true,
+  "boundary": "Accepted actual dual-delivery source history. Exact final ROOT review and source mapping retained. Source snapshot is not the formal runtime. No natural GUI, multiplayer, public positive economy, new installation or active-selector claim.",
+  "actual_source_parent_Git_map": {
+    "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/erp-actual-source-Git-map-root-v1/actual-source-parent-Git-audit.json",
+    "sha256": "9d8dfed76c93ccb8268b3a300f8818804c811a6df12335b191d43a186ac72a03",
+    "bytes": 7404
+  }
+}
