@@ -751,3 +751,10 @@ for _life_template in (135928,135929,135931):
  _life=_life_definition(_life_template);_expected=(_life['metadata'],_life['bag'],1)
  if _life_template in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_life_template],TEMPLATE_BAG_GROUPS[_life_template],TEMPLATE_MAX_STACKS[_life_template])!=_expected:raise ValueError('Conflicting original finite fishing reader')
  VERIFIED_TEMPLATES[_life_template],TEMPLATE_BAG_GROUPS[_life_template],TEMPLATE_MAX_STACKS[_life_template]=_expected
+
+# Original held fish and15 exchange outputs only; no fishing/catch producer.
+from els_server.domain.fish_exchange_rules import inventory_definitions as _fish_exchange_defs
+for _fish in _fish_exchange_defs():
+ _t=_fish['template'];_expected=tuple(_fish[k]for k in('metadata','group','max_stack'))
+ if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting fish exchange reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
