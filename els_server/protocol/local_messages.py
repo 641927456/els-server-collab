@@ -144,6 +144,9 @@ def character_unit(location=None,initialize_attributes=False,slots=None,economy=
         # 85BAD0 -> 87A6E0(Unit+48): DTO+54D -> encoded Unit+2950.
         # F5, 2A, D9, career and character-list snapshots share this field.
         overrides['0x54d']=struct.pack('>Q',validate_ep(character.get('ep',0)))
+        if 'el_search_collection' in character:
+            from els_server.domain.el_search_collection import wire as collection_wire
+            overrides['0x482']=collection_wire(character['el_search_collection'])
         if 'resonance' in character:
             from els_server.domain.resonance import wire as resonance_wire
             overrides['0x471']=resonance_wire(character['resonance'])

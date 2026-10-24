@@ -115,6 +115,9 @@ def _require_rigomor_collection_class(character,quest):
 
 
 def require_eligible(character,quest,completed,items,*,location=('town',20000)):
+    if quest.get('m_iID')==52700:
+        from els_server.storage.el_search_collection import WRITES_ENABLED as collection_writes_enabled
+        if not collection_writes_enabled:raise ValueError('Collection52700 acceptance/unfinished claim held')
     _require_rigomor_collection_class(character,quest)
     from els_server.domain.character_rules import CLASSES
     from els_server.domain.careers import PARENTS
@@ -158,9 +161,15 @@ def target(sub):
     if kind in (27,80):
         from els_server.domain.tutorial_memory8_finale import target as finale_target
         return finale_target(sub)
+    if kind==81 and sub.get('m_iID')==52702:
+        from els_server.domain.el_search_collection import career_target as collection_career_target
+        return collection_career_target(sub)
     if kind==81:
         from els_server.domain.tutorial_progression import career_target
         return career_target(sub)
+    if kind==121:
+        from els_server.domain.el_search_collection import ep_target
+        return ep_target(sub)
     if kind==31:
         level=c.get('m_iCharLevel')
         if type(level) is not int or not 1<=level<=99:raise ValueError('Unsupported native character level objective')

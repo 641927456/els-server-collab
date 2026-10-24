@@ -87,4 +87,6 @@ def _apply_transition(db,uid,change):
     if after['master']:
         from els_server.storage.master_presets import mark
         mark(db,after)
+    from els_server.storage.el_search_collection import career_changed
+    career_changed(db,uid,after)
     return before,after
