@@ -447,6 +447,9 @@ class LocalSession:
                          character=self.account.character() if self.account.account_id!=1 else None)
 
     def _handle(self,event,request_sequence=None):
+        from els_server.domain.housing_room_flow import handle as housing_room_handle
+        housing_room_reply=housing_room_handle(self,event,request_sequence)
+        if housing_room_reply is not None:return housing_room_reply
         from els_server.domain.housing_access_flow import handle as housing_access_handle
         housing_access_reply=housing_access_handle(self,event,request_sequence)
         if housing_access_reply is not None:return housing_access_reply

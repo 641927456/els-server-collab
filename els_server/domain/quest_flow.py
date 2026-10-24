@@ -82,7 +82,10 @@ def handle(s,event,sequence):
         return dialogue_handle(s,event,sequence)
     if event.event_id!=0x202 or event.kind not in (0xee,0xfa,0xf4) or not enabled(s):return None
     qid=struct.unpack_from('>i',event.payload)[0] if len(event.payload)>=4 else 0
-    if qid in (25600,25601,25602,26780,37100,53500,53510,53520,53530,54600,52700) and not account_source_actor(s):return []
+    if qid in (26770,25600,25601,25602,26780,37100,53500,53510,53520,53530,54600,52700) and not account_source_actor(s):return []
+    housing_binding=None
+    if qid==26770:
+        housing_binding=(s.account,s.account.store,s.account.characters,s.account.root,getattr(s,'application',None),s.account.uid,s.account.account_id,s.shop_session_id,s.phase,s.active_map,s.pending_map)
     fishing_binding=None
     if qid in(25600,25601,25602):
         from els_server.domain.account_fishing_tasks import actor_binding,current_actor,actor_guard
@@ -102,6 +105,20 @@ def handle(s,event,sequence):
         if qid==35630:return guarded_reply(guild_reply_guard,lambda:failure_events(result))
         return failure_events(result)
     def failure_events(result):
+        if housing_binding is not None:
+            def still_housing_actor():
+                if not account_source_actor(s):return False
+                current=(s.account,s.account.store,s.account.characters,s.account.root,getattr(s,'application',None),s.account.uid,s.account.account_id,s.shop_session_id,s.phase,s.active_map,s.pending_map)
+                return all(a is b for a,b in zip(housing_binding[:5],current[:5])) and housing_binding[5:]==current[5:]
+            if not still_housing_actor():return []
+            if event.kind==0xee:events=[wire.accept_ack(result)]
+            elif event.kind==0xfa:events=[initialization(s)]
+            else:
+                snapshot=s.account.get_inventory_snapshot()
+                events=[wire.reward_ack(qid,s.account.character(),s.account.get_location(),s.account.get_skills(),snapshot['balances'],snapshot['items'],result=result)]
+            from els_server.protocol.protocol_codec import encode_event
+            for reply in events:encode_event(reply)
+            return events if still_housing_actor() else []
         if fishing_binding is not None:
             if not current_actor(s,fishing_binding):return []
             try:
@@ -115,7 +132,7 @@ def handle(s,event,sequence):
                 return events if current_actor(s,fishing_binding)else[]
             except(ValueError,AttributeError,KeyError,TypeError):return []
         if skip_binding is not None and (not account_source_actor(s) or current_skip_binding()!=skip_binding):return []
-        if qid in (25600,25601,25602,26780,37100,53500,53510,53520,53530,54600,52700) and not account_source_actor(s):return []
+        if qid in (26770,25600,25601,25602,26780,37100,53500,53510,53520,53530,54600,52700) and not account_source_actor(s):return []
         if event.kind==0xee:return [wire.accept_ack(result)]
         if event.kind==0xfa:return [initialization(s)]
         snapshot=s.account.get_inventory_snapshot()
@@ -185,7 +202,7 @@ def handle(s,event,sequence):
                 events.append(artifact_notice(r['character'],not r['replayed']))
             return events
         location=('dungeon',s.dungeon_run.identity if s.dungeon_run else s.dungeon_id) if s.phase=='dungeon_active' else ('town',s.account.get_location()['map'])
-        if qid==52700:selected_store.account_source_guard=collection_source_guard(s)
+        if qid in (52700,26770):selected_store.account_source_guard=collection_source_guard(s)
         result=selected_store.action(kind,request,s.shop_session_id+':quest:'+str(s.account.uid)+':'+str(sequence),encode,location=location)
         return result['events']
     except QuestIncomplete:return failure(wire.QUEST_REQUIREMENTS_NOT_MET)
