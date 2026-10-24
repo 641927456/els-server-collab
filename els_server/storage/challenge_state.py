@@ -53,18 +53,31 @@ class ChallengeState:
  def connect(self):return sqlite3.connect(self.path,timeout=10)
  def current(self):
   with closing(self.connect()) as db:return read(db,self.uid)
- def begin(self,challenge,phase):
+ def _guard(self,db,account_id,prepare):
+  if prepare is not None:prepare()
+  if account_id is not None:
+   from els_server.storage.profession_state import require_owner
+   from els_server.storage.item_actor import require_active_character
+   require_owner(db,self.uid,account_id);require_active_character(db,self.uid)
+ def begin(self,challenge,phase,*,account_id=None,prepare=None,precommit=None):
   definition=phase_definition(challenge,phase);now=int(self.clock())
   with closing(self.connect()) as db,db:
-   db.execute('BEGIN IMMEDIATE');state=read(db,self.uid)
+   db.execute('BEGIN IMMEDIATE');self._guard(db,account_id,prepare);state=read(db,self.uid)
    if state and not state['complete'] and state['deadline']>now:
     if (state['challenge'],state['phase'])!=(challenge,phase):raise ValueError('Give up the active challenge before switching phases')
-    return state
-   db.execute('INSERT INTO challenge_attempts VALUES (?,?,?,?,?,0,0) ON CONFLICT(uid) DO UPDATE SET attempt=excluded.attempt,challenge=excluded.challenge,phase=excluded.phase,deadline=excluded.deadline,progress=0,complete=0',(self.uid,str(uuid.uuid4()),challenge,phase,now+definition['seconds']))
-   return read(db,self.uid)
+   else:
+    db.execute('INSERT INTO challenge_attempts VALUES (?,?,?,?,?,0,0) ON CONFLICT(uid) DO UPDATE SET attempt=excluded.attempt,challenge=excluded.challenge,phase=excluded.phase,deadline=excluded.deadline,progress=0,complete=0',(self.uid,str(uuid.uuid4()),challenge,phase,now+definition['seconds']))
+    state=read(db,self.uid)
+   if precommit is not None:precommit(state)
+   self._guard(db,account_id,prepare)
+   return state
  def admit(self,identity):
   state=self.current()
   if eligible(state,identity,int(self.clock())) is None:return None
   return dict(attempt=state['attempt'],dungeon=identity)
- def abandon(self):
-  with closing(self.connect()) as db,db:db.execute('DELETE FROM challenge_attempts WHERE uid=?',(self.uid,))
+ def abandon(self,*,account_id=None,prepare=None,precommit=None):
+  with closing(self.connect()) as db,db:
+   db.execute('BEGIN IMMEDIATE');self._guard(db,account_id,prepare)
+   db.execute('DELETE FROM challenge_attempts WHERE uid=?',(self.uid,))
+   if precommit is not None:precommit(None)
+   self._guard(db,account_id,prepare)
