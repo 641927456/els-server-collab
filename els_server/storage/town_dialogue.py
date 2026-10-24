@@ -14,11 +14,12 @@ def interact(store,npc,operation):
         character=load_character(db,store.uid,store.account_id)
         if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_quests'").fetchone():return None
         supported={int(q) for q in catalog()['quests']}
-        if not any(q in supported for q, in db.execute('SELECT quest FROM character_quests WHERE owner=?',(store.uid,))):return None
+        from els_server.storage import account_contract26780_scope as contract26780
+        if not any(q in supported for q, in db.execute('SELECT quest FROM character_quests WHERE owner=?',(store.uid,))) and not contract26780.has_active(db,store.uid):return None
         saved=db.execute('SELECT town FROM location WHERE uid=?',(store.uid,)).fetchone()
         if saved is None or str(saved[0]) not in catalog()['npc_bindings'][str(npc)]['towns']:raise ValueError('Town dialogue scene')
         items=load_items(db,store.uid);state=_state(db,store.uid,items)
-        matches=[];generations=[]
+        matches=[];generations=[];contract_sources=[]
         for active in state['active']:
             identity=active['id']
             if identity not in supported:continue
@@ -27,12 +28,17 @@ def interact(store,npc,operation):
             expected=tuple(catalog()['subquests'][str(s)] for s in sequence(q['m_vecSubQuest']))
             if q!=catalog()['quests'][str(identity)] or subs!=expected:raise ValueError('Town dialogue source')
             require_eligible(character,q,completed_ids(db,store.uid),items,location=('town',saved[0]))
-            if db.execute('SELECT owner,kind FROM quest_actions WHERE rowid=?',(active['generation'],)).fetchone()!=(store.uid,'accept'):raise ValueError('Town dialogue accepted generation')
+            provenance=None
+            if identity==contract26780.CONTRACT:
+                provenance=contract26780.dialogue_source(db,store,active,npc,saved[0]);contract_sources.append(active)
+            elif db.execute('SELECT owner,kind FROM quest_actions WHERE rowid=?',(active['generation'],)).fetchone()!=(store.uid,'accept'):raise ValueError('Town dialogue accepted generation')
             counts=dict(active['objectives'])
             for sub in subs:
                 if sub['m_eClearType']==1 and sub['m_ClearCondition'].get('m_eTalkNPCID')==npc:counts[sub['m_iID']]=1
             matches.append(dict(active,objectives=counts))
-            generations.append(dict(quest=identity,accepted_at=active['accepted_at'],accepted_action=active['generation']))
+            generation=dict(quest=identity,accepted_at=active['accepted_at'],accepted_action=active['generation'])
+            if provenance is not None:generation.update(contract26780=provenance)
+            generations.append(generation)
         if not matches:return None
         # Keep the original single-quest13 receipt shape byte for byte, so old
         # accepted generations and retries remain valid after this extension.
@@ -44,10 +50,18 @@ def interact(store,npc,operation):
         if old and old!=(digest,raw):raise ValueError('Conflicting town dialogue generation/retry')
         if old and any(next(r for r in state['active'] if r['id']==changed['id'])['objectives']!=changed['objectives'] for changed in matches):raise ValueError('Inconsistent town dialogue retry')
         if not old:
-            for changed in matches:db.execute('UPDATE character_quests SET objectives=? WHERE owner=? AND quest=?',(json.dumps(changed['objectives'],sort_keys=True),store.uid,changed['id']))
+            for changed in matches:
+                owner=changed['owner'] if changed['id']==contract26780.CONTRACT else store.uid
+                updated=db.execute('UPDATE character_quests SET objectives=? WHERE owner=? AND quest=?',(json.dumps(changed['objectives'],sort_keys=True),owner,changed['id'])).rowcount
+                if changed['id']==contract26780.CONTRACT and updated!=1:raise ValueError('Contract26780 canonical row retired')
             db.execute('INSERT INTO quest_progress_events VALUES (?,?,?,?)',(store.uid,operation,digest,raw))
         # A single source task can request its detail. With multiple matches,
         # leave focus0 rather than inventing a priority between source tasks.
         events=[quest_messages.progress(matches),tutorial_dialogue_messages.acknowledgement(matches[0]['id'] if len(matches)==1 else 0)]
+        if contract_sources:
+            from els_server.protocol.protocol_codec import encode_event
+            for active in contract_sources:contract26780.dialogue_source(db,store,active,npc,saved[0])
+            for event in events:encode_event(event)
+            for active in contract_sources:contract26780.dialogue_source(db,store,active,npc,saved[0])
         if any(not isinstance(e.payload,bytes) or len(e.payload)>65536 for e in events):raise ValueError('Town dialogue response bound')
         return events

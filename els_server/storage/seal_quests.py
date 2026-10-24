@@ -5,7 +5,7 @@ import hashlib,json,sqlite3,struct,time
 from els_server.domain.seal_quests import quest_catalog,sequence,require_eligible,target,objective_increment,ACTIVE_QUEST_LIMIT
 from els_server.storage.character_schema import character_uid
 from els_server.storage.inventory_state import load_items,grant_items
-from els_server.storage import account_epic_scope as erp_scope
+from els_server.storage import account_contract26780_scope as erp_scope
 
 
 @contextmanager
