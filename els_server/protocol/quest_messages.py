@@ -28,8 +28,8 @@ def request(kind,payload):
         flags=payload[12+8*n:]
         if any(i not in (0,1) for i in flags):raise ValueError('Quest reward flags')
         if any(a<=0 or a!=b for a,b in choices) or len({a for a,b in choices})!=len(choices):raise ValueError('Quest reward choice identities')
-        # Middle flags are set to 1 by the original ctor. They are UI
-        # preferences; none bypass server objective or inventory validation.
+        # 3046B60 ->7CFF80: flags[1] is Epic skip; flags[2:4] start as1.
+        # Storage validates skip admission independently of this wire boolean.
         row=dict(quest=quest,npc=npc,flags=tuple(flags))
         if choices:row['choices']=tuple(choices)
         return row
