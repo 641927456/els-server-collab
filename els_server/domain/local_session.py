@@ -605,6 +605,24 @@ class LocalSession:
             answer=handle(self,event)
             if answer is not None:return answer
         if self.enter_dungeon and event.event_id==0x202 and kind==0x2ce:
+            # Local diagnostic: record every Lua-script spawn request with its
+            # exact bytes so unrecognised objects can be mapped offline.
+            # Behaviour is unchanged; the dump is never sent to the client.
+            try:
+                import json as _json, time as _time
+                from els_server.paths import PROJECT_ROOT as _root
+                path=_root/'state/launcher/script-spawn-dump.jsonl'
+                path.parent.mkdir(parents=True,exist_ok=True)
+                run=getattr(self,'dungeon_run',None)
+                with path.open('a',encoding='utf8') as handle:
+                    handle.write(_json.dumps(dict(
+                        at=_time.strftime('%Y-%m-%dT%H:%M:%S'),
+                        size=len(event.payload),payload=event.payload.hex(),
+                        dungeon=getattr(run,'identity',None),stage=getattr(run,'stage',None),
+                        part=getattr(run,'part',None),
+                        unit_type=(self.account.character() or {}).get('unit_type'),
+                        sequence=request_sequence))+'\n')
+            except (OSError,TypeError,ValueError):pass
             from els_server.domain.dungeon_spawns import handle as scripted_spawn
             scripted_reply=scripted_spawn(self,event,request_sequence)
             if scripted_reply is not None:return scripted_reply

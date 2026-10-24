@@ -32,10 +32,16 @@ def handle(s,event,report):
         or getattr(s,'reward_run_id',None)!=run.run_id
         or frozenset(getattr(s,'dungeon_participants',(owner,)))!=frozenset((owner,))):return []
     npc=next((n for n in run.current['npcs'] if n['key']==report['index']),None)
-    if npc is None or npc.get('dynamic') or npc.get('ally') or npc.get('team',1)!=1:return []
+    if npc is None:return None
     matches=[r for r in rules if (r['stage'],r['part'],r['template'],r['source']['source_index'])==
              (run.stage,run.part,npc['template'],npc['source_index'])]
-    if len(matches)!=1:return []
+    if len(matches)!=1:
+        # Not a source-pinned controller of this route: doors, dummies and
+        # panels retire through the generic path, which acknowledges them
+        # without granting progress. Swallowing the report here left the
+        # client waiting on an actor that was already gone.
+        return None
+    if npc.get('dynamic') or npc.get('ally') or npc.get('team',1)!=1:return []
     rule=matches[0]
     if rule.get('maintenance_block'):return []
     if (s.account.character()['unit_type'] not in rule.get('units',(rule.get('unit'),)) or run.graph['source_sha256']!=rule['graph_sha']

@@ -68,7 +68,18 @@ def handle(s,event):
   # death payload; hostile combat actors retain participant-only identity.
   scripted=npc is not None and not npc['active'] and (npc['no_drop'] or npc.get('ally'))
   from els_server.domain.summons import valid_sentry_death
-  expired=npc is not None and npc.get('dynamic') and valid_sentry_death(d,s.account.uid)
+  # Declared scene controllers (class 103 .lua objects with ISACTIVE=false)
+  # retire through the same native expiry packet: no killer, no damage, and a
+  # readiness map that only names the owner. The pinned route graph does not
+  # set no_drop/ally on them, and they are not client-created, so neither
+  # branch above covers them - their report used to be dropped without an
+  # acknowledgement, which leaves the client waiting on an actor that is
+  # already gone. Retiring the actor here grants nothing: quest progress and
+  # rewards stay with the source-bound specialists that run before this one.
+  from els_server.domain.dungeon_spawns import scene_controller
+  scene=npc is not None and not npc['active'] and not npc.get('dynamic') and scene_controller(npc['template'])
+  expired=((npc is not None and npc.get('dynamic') and valid_sentry_death(d,s.account.uid))
+           or (scene and valid_sentry_death(d,s.account.uid)))
   identities=participants|frozenset((0,2**64-1)) if scripted or expired else participants
   if (npc is None or not s.dungeon_substage_synced or event.performers!=(0,) or d['flag'] not in (0,1) and not expired
       or any(d[name] not in identities for name in ('source','killer','last_uid'))

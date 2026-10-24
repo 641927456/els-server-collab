@@ -20,34 +20,35 @@ const icons={
  minimize:'<path d="M5 12h14"/>',maximize:'<rect x="5" y="5" width="14" height="14" rx="1"/>',restore:'<path d="M8 8V4h12v12h-4M4 8h12v12H4Z"/>',
  crystal:'<path d="m12 2 7 8-7 12-7-12Zm0 0v12m-7-4 7 4 7-4"/>',
  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/>',
- warning:'<path d="M12 3 2 21h20ZM12 9v5m0 3v.1"/>'
+ warning:'<path d="M12 3 2 21h20ZM12 9v5m0 3v.1"/>',
+ repo:'<circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="8" r="2.5"/><path d="M6 8.5v7M8.5 6h4A3.5 3.5 0 0 1 16 9.5M18 10.5V12a4 4 0 0 1-4 4h-4"/>'
 };
 const icon=(name)=>`<svg viewBox="0 0 24 24" aria-hidden="true">${icons[name]||icons.info}</svg>`;
 const esc=(value)=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const number=(value)=>Number(value||0).toLocaleString('zh-CN');
 const $=(s)=>document.querySelector(s);
-const routes={home:['冒险首页','home'],gm:['GM 工具','gm'],backups:['存档备份','backup'],features:['功能进度','features'],settings:['启动设置','settings'],logs:['运行日志','logs']};
+const routes={home:['冒险首页','home'],gm:['GM 工具','gm'],backups:['存档备份','backup'],features:['功能进度','features'],repo:['仓库同步','repo'],settings:['启动设置','settings'],logs:['运行日志','logs']};
 let token=location.hash.slice(1);
 if(token && !routes[token]){sessionStorage.setItem('els-launcher-token',token);history.replaceState(null,'','/');}
 else token=sessionStorage.getItem('els-launcher-token')||'';
-let page='home',tab='profile',state=null,characters=[],selected=Number(localStorage.getItem('els-character')||1001),chosenItem=null,epoch=0,mutating=false,closed=false,searchTimer,itemOffset=0,itemsQuery='',itemsGroup='all';
+let page='home',tab='profile',state=null,repoData=null,characters=[],selected=Number(localStorage.getItem('els-character')||1001),chosenItem=null,epoch=0,mutating=false,closed=false,searchTimer,itemOffset=0,itemsQuery='',itemsGroup='all';
 const main=$('#main');
 document.body.classList.toggle('motion-off',localStorage.getItem('els-reduce-motion')==='true');
 $('#refresh').innerHTML=icon('refresh');$('#close-app').innerHTML=icon('close');
 $('#minimize-app').innerHTML=icon('minimize');$('#maximize-app').innerHTML=icon('maximize');
 $('#navigation').innerHTML=Object.entries(routes).map(([key,[name,img]],i)=>`${i===4?'<div class="nav-separator"></div>':''}<button class="nav-item" data-nav="${key}" title="${name}" aria-label="${name}">${icon(img)}<span>${name}</span></button>`).join('');
 
-async function api(path,data){
+async function api(path,data,timeoutMs=45000){
  const options={headers:{'X-Launcher-Token':token}};
  if(data!==undefined){options.method='POST';options.headers['Content-Type']='application/json';options.body=JSON.stringify(data);}
  const controller=new AbortController();options.signal=controller.signal;
- const timeout=setTimeout(()=>controller.abort(),45000);
+ const timeout=setTimeout(()=>controller.abort(),timeoutMs);
  try{const response=await fetch('/api/'+path,options);let body;try{body=await response.json();}catch{throw Error('无法读取本地服务响应，请重新打开启动器');}if(!response.ok)throw Error(body.error||'请求未能完成');return body.data;}
  catch(e){if(e.name==='AbortError')throw Error('操作仍可能在后台处理。请先刷新数据，避免重新发起同一笔发放。');throw e;}
  finally{clearTimeout(timeout);}
 }
 function toast(text,error=false){const element=document.createElement('div');element.className='toast'+(error?' error':'');element.textContent=text;$('#toast-area').append(element);setTimeout(()=>element.remove(),6500);}
-function heading(title,sub,action=''){return `<div class="page-heading"><div><p class="eyebrow">${page==='home'?'YOUR LOCAL WORLD':page==='gm'?'GAME MASTER':page==='backups'?'SAVE & PROTECT':page==='features'?'WORLD IN PROGRESS':page==='logs'?'SESSION LOG':'LAUNCHER PREFERENCES'}</p><h1>${title}</h1><p>${sub}</p></div>${action}</div>`;}
+function heading(title,sub,action=''){return `<div class="page-heading"><div><p class="eyebrow">${page==='home'?'YOUR LOCAL WORLD':page==='gm'?'GAME MASTER':page==='backups'?'SAVE & PROTECT':page==='features'?'WORLD IN PROGRESS':page==='repo'?'REPOSITORY SYNC':page==='logs'?'SESSION LOG':'LAUNCHER PREFERENCES'}</p><h1>${title}</h1><p>${sub}</p></div>${action}</div>`;}
 function empty(text,img='box'){return `<div class="empty-state">${icon(img)}${text}</div>`;}
 function role(){return characters.find(c=>c.uid===selected)||characters[0];}
 function roleSummary(c){if(!c)return empty('还没有本地角色。首次进入游戏后，在角色界面创建。','user');return `<div class="role-summary"><div class="role-emblem ${c.unit_type===5?'blue':''}">${esc(c.role.slice(0,1))}</div><div class="role-info"><strong>${esc(c.name)}</strong><small><span class="level-tag">Lv. ${c.level}</span>${esc(c.role)} <span class="muted">· UID ${c.uid}</span></small></div></div>`;}
@@ -103,6 +104,58 @@ function renderSettings(){main.innerHTML=heading('按你的习惯，准备冒险
 function checkHTML(){return state?.check?state.check.rows.map(x=>`<div class="check-row ${x.ok?'':'failed'}">${icon(x.ok?'check':'warning')}<div><strong>${esc(x.name)}</strong><small>${esc(x.detail)}</small></div></div>`).join(''):`<p class="muted" style="font-size:11px;line-height:1.9">检查客户端版本、启动资源、服务端配表与存档完整性。<br>检查不会启动游戏，也不会修改角色。</p>`;}
 async function renderLogs(e){const data=await api('logs');if(e!==epoch)return;main.innerHTML=heading('让每一次启动，都有回声。','查看本启动器最近一次运行的检查与启动结果。',`<button class="button outlined" data-action="reload">${icon('refresh')}刷新日志</button>`)+`<section class="panel"><div class="panel-head"><h2>运行输出</h2><button class="button text" data-folder="logs">打开日志目录 ${icon('folder')}</button></div><pre class="log-output" id="log-output"></pre></section>`;$('#log-output').textContent=data;}
 
+async function renderRepo(e){
+ const data=await api('repo');if(e!==epoch)return;repoData=data;
+ const label=s=>s==='??'?'未跟踪':s.includes('R')?'重命名':s.includes('A')?'新增':s.includes('D')?'删除':'修改';
+ const pills=[];
+ if(data.changed.length)pills.push(`<span class="badge partial">未提交 ${data.changed.length}</span>`);
+ if(data.behind)pills.push(`<span class="badge partial">落后 ${data.behind}</span>`);
+ if(data.ahead)pills.push(`<span class="badge planned">领先 ${data.ahead}</span>`);
+ if(!pills.length)pills.push('<span class="badge">已同步</span>');
+ const id=data.identity;
+ main.innerHTML=heading('本地改动，随时和仓库同步。','提交会推送到 GitHub；拉取只快进或变基，不会覆盖未提交的文件。',`<button class="button outlined" data-action="reload">${icon('refresh')}刷新状态</button>`)+`
+ <section class="panel"><div class="panel-head"><h2>仓库状态</h2><div>${pills.join('')}</div></div>
+  <div class="path-row"><div class="path-value">${esc(data.repo)}</div></div>
+  <div class="check-row">${icon('check')}<div><strong>${esc(data.branch)} · ${esc(data.head)}</strong><small>${esc(data.when)} ${esc(data.subject)}</small></div></div>
+  <div class="check-row">${icon('info')}<div><strong>${esc(data.remote||'未配置远端')}</strong><small>${data.behind?'远端有新提交':'远端与本地一致'}${data.ahead?` · 本地有 ${data.ahead} 个未推送提交`:''}</small></div></div>
+  <div class="check-row">${icon('repo')}<div><strong>Git</strong><small>${esc(data.git||'未找到')}</small></div></div>
+ </section>
+ <div class="settings-grid">
+  <section class="panel"><div class="panel-head"><h2>提交到仓库</h2>${icon('repo')}</div>
+   <p class="subheading">暂存全部改动，创建提交并推送到 origin/main。提交前请确认下面的文件列表。</p>
+   ${data.changed.length?`<div class="table-wrap" style="max-height:220px;overflow:auto"><table><thead><tr><th>状态</th><th>文件</th></tr></thead><tbody>${data.changed.map(x=>`<tr><td>${label(x.status)}</td><td>${esc(x.path)}</td></tr>`).join('')}</tbody></table></div>`:empty('工作区没有未提交的改动','check')}
+   ${id.configured?`<p class="subheading">提交人：${esc(id.name)} &lt;${esc(id.email)}&gt;</p>`:`<label class="field-label" for="repo-name">提交人名称</label><input class="input" id="repo-name" value="${esc(id.suggest_name)}" placeholder="Git 用户名"><label class="field-label" for="repo-email">提交邮箱</label><input class="input" id="repo-email" value="${esc(id.suggest_email)}" placeholder="GitHub 邮箱"><p class="subheading">身份只写入本仓库的 .git/config，不会改动全局设置。</p>`}
+   <label class="field-label" for="repo-message">提交说明</label><textarea class="input" id="repo-message" maxlength="200" style="min-height:84px;resize:vertical" placeholder="说明本次改动"></textarea>
+   <div class="field-row" style="margin-top:12px"><button class="button primary" data-action="repo-commit" ${!data.changed.length&&!data.ahead?'disabled':''}>提交并推送 ${icon('arrow')}</button></div>
+  </section>
+  <section class="panel"><div class="panel-head"><h2>从仓库拉取</h2>${icon('refresh')}</div>
+   <p class="subheading">拉取 origin/main。工作区有未提交改动时会阻止拉取；本地有未推送提交时自动变基。</p>
+   <div class="notice">${icon('info')}<div>拉取会更新代码文件，新代码需要重新打开启动器后生效。运行资源包若有变化，请再用“更新单机版”同步。</div></div>
+   <div class="field-row"><button class="button outlined" data-action="repo-pull" ${!data.behind?'disabled':''}>${data.behind?`拉取 ${data.behind} 个提交`:'已是最新'}</button></div>
+  </section>
+ </div>
+ ${data.game_running?`<div class="mini-banner">${icon('warning')}游戏或服务端正在运行，提交和拉取会在退出后解锁。</div>`:''}`;
+}
+async function commitRepo(){
+ if(mutating)return;
+ const message=$('#repo-message')?.value.trim()||'';
+ if(!message){toast('请填写提交说明',true);$('#repo-message')?.focus();return;}
+ const name=$('#repo-name')?.value.trim(),email=$('#repo-email')?.value.trim();
+ if($('#repo-name')&&(!name||!email.includes('@'))){toast('请填写有效的提交人名称与邮箱',true);return;}
+ const count=repoData?.changed.length||0;
+ const summary=count?`将提交 ${count} 个文件`:'没有文件改动，将补推本地已有提交';
+ const ok=await confirmDialog('提交并推送到仓库？',`<p>${summary}，并推送到 origin/main。</p><div class="summary-box">${esc(message)}</div><p>若远端有新提交，会自动变基后再推送；变基失败会取消并保留本地提交。</p>`,'提交并推送','repo');
+ if(!ok)return;mutating=true;
+ try{const result=await api('repo/commit',{message,name,email},180000);toast(result.message);await navigate('repo');}catch(err){toast(err.message,true);}finally{mutating=false;}
+}
+async function pullRepo(){
+ if(mutating)return;
+ const ahead=repoData?.ahead||0;
+ const ok=await confirmDialog('从仓库拉取更新？',`<p>只更新代码副本，存档、日志与运行缓存不会被动。</p>${ahead?`<div class="summary-box">本地有 ${ahead} 个未推送提交，将自动变基到 origin/main。</div>`:''}`,'拉取更新','refresh');
+ if(!ok)return;
+ try{const result=await api('repo/pull',{},180000);toast(result.message);await navigate('repo');}catch(err){toast(err.message,true);}
+}
+
 async function navigate(next=page){
  if(!routes[next])return;const changed=page!==next;page=next;const e=++epoch;
  for(const b of document.querySelectorAll('[data-nav]'))if(b.classList.contains('nav-item')){b.classList.toggle('active',b.dataset.nav===page);if(b.dataset.nav===page)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');}
@@ -110,7 +163,7 @@ async function navigate(next=page){
  main.innerHTML='<div class="initial-loading"><div class="spinner"></div><p>正在读取本地数据…</p></div>';
  try{
   const [s,cs]=await Promise.all([api('state'),api('characters')]);if(e!==epoch)return;state=s;characters=cs;
-  if(page==='home')renderHome();else if(page==='gm')renderGM();else if(page==='backups')await renderBackups(e);else if(page==='features')await renderFeatures(e);else if(page==='settings')renderSettings();else await renderLogs(e);
+  if(page==='home')renderHome();else if(page==='gm')renderGM();else if(page==='backups')await renderBackups(e);else if(page==='features')await renderFeatures(e);else if(page==='repo')await renderRepo(e);else if(page==='settings')renderSettings();else await renderLogs(e);
   if(e===epoch){applyState();if(changed){window.scrollTo({top:0,behavior:'instant'});main.focus({preventScroll:true});}}
  }catch(err){if(e===epoch){main.innerHTML=`<div class="error-panel"><h2>暂时无法读取本地环境</h2><p>${esc(err.message)}</p><button class="button outlined" data-action="reload">${icon('refresh')}重试</button></div>`;toast(err.message,true);}}
  finally{if(e===epoch)main.setAttribute('aria-busy','false');}
@@ -173,6 +226,8 @@ document.addEventListener('click',async event=>{
  if(!action)return;
  try{
   if(action==='reload'){await navigate();return;}
+  if(action==='repo-commit'){await commitRepo();return;}
+  if(action==='repo-pull'){await pullRepo();return;}
   if(action==='town'){await reviewGM('town',20000);return;}
   if(action==='tutorial-start'&&role()?.tutorial_recovery){await reviewGM('tutorial_start',{version:role().tutorial_recovery.version});return;}
   if(action==='backup'){b.disabled=true;const old=b.innerHTML;b.innerHTML='<span class="spinner small"></span>备份中';try{const result=await api('backup',{});toast(result.message);if(page==='backups')await navigate();}finally{if(b.isConnected){b.disabled=false;b.innerHTML=old;}}return;}

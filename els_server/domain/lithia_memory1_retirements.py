@@ -14,9 +14,30 @@ POSITIONS={struct.pack('>6f',0,0,0,-2743.94,y,0) for y in (8230.0,8231.0)}
 CONTROLLERS={9468:(1,500,False),9294:(0,1000,True)}
 
 
+def dynamic_actor(run,index):
+    """True when the reported actor is one the client asked us to create.
+
+    Interaction panels (LITHIA_MEMORY1_PART1..5) are spawned by the dungeon's
+    own cmd blocks, not by the READY_NPC graph, and they retire themselves
+    through the same DYING report a controller uses. They are not quest
+    controllers, so their reports must reach the generic path.
+    """
+    return any(n['key']==index and n.get('dynamic') for n in run.current['npcs'])
+
+
 def handle(s,event,report):
     run=s.dungeon_run
     if run is None or run.identity!=35250 or report['flag']!=255:return None
+    # This module decides only the opening story controllers. Every other
+    # scripted actor of the route - the PART panels the client creates, the
+    # doors, triggers and dummies the graph declares - retires through the
+    # generic path, which acknowledges it without granting quest progress.
+    # Swallowing those here left the client waiting on an actor that was
+    # already gone, and kept the part from ever announcing its end.
+    actor=next((n for n in run.current['npcs'] if n['key']==report['index']),None)
+    if actor is None:return None
+    if (actor['template'] not in CONTROLLERS
+            and (run.stage,run.part,actor['template']) not in LATER_CONTROLLERS):return None
     if (run.stage,run.part)!=(0,0):return later(s,event,report)
     if (event.event_id!=0x202 or event.kind!=0xad or event.performers!=(0,)
             or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0
@@ -46,7 +67,10 @@ def handle(s,event,report):
                 and report['index'] in (0,key)
                 and report['hp_bits']==struct.unpack('>I',struct.pack('>f',hp))[0]):
             matches.append(npc)
-    if len(matches)!=1:return []
+    if len(matches)!=1:
+        # Hand a client-created scene object's own DYING report back to the
+        # generic retirement path instead of dropping it without an ack.
+        return None if dynamic_actor(run,report['index']) else []
     npc=matches[0];key=npc['key']
     from els_server.domain.dungeon_lifecycle import death_ack,empty_reward_death_notice
     previous=run.defeated.get(key)
@@ -108,7 +132,7 @@ def later(s,event,report):
     run=s.dungeon_run
     npc=next((n for n in run.current['npcs'] if n['key']==report['index']),None)
     rule=None if npc is None else LATER_CONTROLLERS.get((run.stage,run.part,npc['template']))
-    if rule is None:return []
+    if rule is None:return None if (npc is not None and npc.get('dynamic')) else []
     if (event.event_id!=0x202 or event.kind!=0xad or event.performers!=(0,)
             or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0
             or s.role!='game' or s.phase!='dungeon_active' or not s.dungeon_substage_synced
@@ -161,7 +185,20 @@ def later(s,event,report):
         # Native scripts can retire the gate actor before the task dummy in
         # the same frame. Keep the stage pending until its real task event is
         # committed; do not fabricate that event or an earned reward.
-        guard['barrier']=frozenset((15,)) if (run.stage,run.part)==(0,2) and 28090 not in done else frozenset((1,)) if (run.stage,run.part)==(1,0) and 28110 not in done else frozenset()
+        # Stage 0 part 2 holds until its own dummy (key 15) reports. The
+        # stage 1 finale holds until 9470 reports too: the client keeps that
+        # dummy's actor alive inside the same scene the whole time (trace
+        # 20261024-130855 shows key=1 created at 05:13:37.318 and destroyed
+        # only by the scene unload at 05:13:54), so the player can always
+        # reach it. Releasing on poll_ready() alone let the part end 37ms
+        # after 9310 retired and the clear unloaded the scene before 9470
+        # ever reported, leaving 28110 at 0/1 and the chain broken. The
+        # barrier self-releases through run.defeated once 9470 reports, and
+        # the challenge deadline remains the backstop if the report never
+        # arrives.
+        guard['barrier']=(frozenset((15,)) if (run.stage,run.part)==(0,2) and 28090 not in done
+                          else frozenset((1,)) if (run.stage,run.part)==(1,0) and 28110 not in done
+                          else frozenset())
 
     def prepare(notices,replayed):
         from els_server.domain.dungeon_flow import periodic
