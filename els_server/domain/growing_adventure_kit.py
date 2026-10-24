@@ -38,7 +38,10 @@ def outputs_for(unit_class):
     matches=[r for r in source()['kits']if r['current_family']==classes[unit_class]['family']and class_matches(unit_class,r['required_base_class'])]
     if len(matches)!=1:raise ValueError('Growing kit owner family')
     kit=matches[0]
-    return tuple(dict(template=t,quantity=1)for t in(kit['weapon_template'],*kit['ordinary_armor_templates']))
+    # Current CN growth equipment guide: the Epic full-set cube opens at+7.
+    # Initial instance data only; native scaling/effects remain unchanged.
+    # https://els.ztgame.com/game/m_000-1701-0038d-511559.shtml?ms=805&mt=909
+    return tuple(dict(template=t,quantity=1,enhancement=7)for t in(kit['weapon_template'],*kit['ordinary_armor_templates']))
 
 def entry():
     source()

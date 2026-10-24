@@ -17,8 +17,11 @@ def _accepted_generation(db,uid,parent,identity,quest,now):
     """
     from els_server.domain.town_dialogue import catalog as town_catalog
     definition=town_catalog()['quests'].get(str(identity))
-    if definition is None:return now
-    if quest!=definition:raise ValueError('Automatic NPC task source changed')
+    from els_server.domain.mainline_find_npc import catalog as find_catalog
+    finite_find=identity in find_catalog()['quest_ids']
+    if definition is None and not finite_find:return now
+    if definition is not None and quest!=definition:raise ValueError('Automatic NPC task source changed')
+    if finite_find and quest!=quest_catalog().quest(identity):raise ValueError('Automatic FindNPC task source changed')
     operation=f'epic-after:{uid}:{parent}:{identity}'
     if db.execute('SELECT 1 FROM quest_actions WHERE operation_id=?',(operation,)).fetchone():
         # Active/completed tasks are skipped before reaching here. An orphan

@@ -5,7 +5,7 @@ import hashlib,json,sqlite3,struct,time
 from els_server.domain.seal_quests import quest_catalog,sequence,require_eligible,target,objective_increment,ACTIVE_QUEST_LIMIT
 from els_server.storage.character_schema import character_uid
 from els_server.storage.inventory_state import load_items,grant_items
-from els_server.storage import erp_support_quest_scope as erp_scope
+from els_server.storage import account_contract26780_scope as erp_scope
 
 
 @contextmanager
@@ -61,6 +61,17 @@ def load_character(db,uid,account_id=None):
     ep=ep_balance(db,uid)
     if ep:row['ep']=ep
     row['skill_seal_groups']=saved_groups(db,uid);row['skill_row_expanded']=is_expanded(db,uid);row['bag_capacities']=saved_capacities(db,uid)
+    # F5 embeds the same full-unit fields as login/D9. Read current saved
+    # state inside this writer, so a quest reward cannot send fixture zeros
+    # for the owner's existing profession or account resonance.
+    if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_owners'").fetchone():
+        saved_owner=db.execute('SELECT account_id FROM character_owners WHERE uid=?',(uid,)).fetchone()
+        if saved_owner is not None:
+            from els_server.storage.resonance_state import snapshot as resonance_snapshot
+            from els_server.storage.profession_state import snapshot as profession_snapshot
+            row['resonance']=resonance_snapshot(db,uid,saved_owner[0])
+            profession=profession_snapshot(db,uid,saved_owner[0])
+            row['profession']=profession['state'];row['profession_revision']=profession['revision']
     return row
 
 def current_slots(db,character):
@@ -149,9 +160,17 @@ class QuestState:
         if type(now) is not int or not 0<now<2**63:raise ValueError('Quest timestamp')
         digest=hashlib.sha256(json.dumps([self.uid,kind,request],sort_keys=True).encode()).hexdigest()
         uid=self.uid;qid=request['quest'];q=quest_catalog().quest(qid)
+        from els_server.domain.epic_skip import requested as skip_requested,reward as skip_reward
+        skipping=kind=='claim' and skip_requested(request)
+        def skip_guard(db):
+            if not callable(self.account_source_guard) or type(self.account_id) is not int or self.account_id<=0:
+                raise ValueError('Epic skip requires current actor/session guard')
+            self.account_source_guard(db)
         with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
-            db.execute('BEGIN IMMEDIATE');character=load_character(db,uid,self.account_id);ensure(db)
-            if qid==erp_scope.QUEST:erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard)
+            db.execute('BEGIN IMMEDIATE');character=load_character(db,uid,self.account_id)
+            if skipping:skip_guard(db)
+            ensure(db)
+            if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
             if location is None:location=('town',db.execute('SELECT town FROM location WHERE uid=?',(uid,)).fetchone()[0])
             old=db.execute('SELECT owner,kind,request_hash FROM quest_actions WHERE operation_id=?',(operation_id,)).fetchone()
             if old and old!=(uid,kind,digest):raise ValueError('Conflicting quest retry')
@@ -177,30 +196,31 @@ class QuestState:
                         # Admitted town dialogue receipts bind a unique accepted action,
                         # including abandon/reaccept within one wall-clock second.
                         from els_server.domain.town_dialogue import catalog as town_catalog
-                        generation=now if str(qid) not in town_catalog()['quests'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
+                        from els_server.domain.mainline_find_npc import catalog as find_catalog
+                        generation=now if str(qid) not in town_catalog()['quests'] and qid not in find_catalog()['quest_ids'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
                         erp_scope.insert_active(db,uid,qid,now,generation,json.dumps(counts,sort_keys=True))
                 elif kind=='abandon':
                     if done:raise ValueError('Completed quest cannot be abandoned')
                     db.execute('DELETE FROM character_quests WHERE owner=? AND quest=?',(erp_scope.quest_owner(db,uid,qid),qid))
                 elif done:replayed=True
                 else:
-                    # The original first F4 flag denotes skipped Epic rewards
-                    # (half ED / no EXP or EP). Skipping is not implemented;
-                    # never reinterpret that request as a full-reward claim.
-                    if request.get('flags',(0,))[0]:raise ValueError('Quest skipping is unsupported')
+                    # 3046B60 ->7CFF80 forwards skip in the SECOND F4 flag.
+                    # The first native flag remains an unsupported mode.
+                    if request.get('flags',(0,))[0]:raise ValueError('Unsupported quest completion mode')
                     if active is None:raise ValueError('Quest has not been accepted')
                     require_eligible(character,q,completed_ids(db,uid),items,location=location)
                     # 3030D10 forwards the quest window's NPC context as-is;
                     # remote/quick completion uses zero (no NPC conversation).
                     if request.get('npc') not in (0,q['m_eEndNPCID'],10025):raise ValueError('Quest end NPC mismatch')
                     subs=quest_catalog().objectives(qid)
-                    if any(active['objectives'][s['m_iID']]<target(s) for s in subs):raise QuestIncomplete('Quest objectives are incomplete')
+                    reward=skip_reward(character,q,quest_catalog()) if skipping else q['Reward']
+                    if not skipping and any(active['objectives'][s['m_iID']]<target(s) for s in subs):raise QuestIncomplete('Quest objectives are incomplete')
                     from els_server.domain.quest_selection import selected_rewards
                     selection=selected_rewards(q,request.get('choices',()),character=character)
                     # Real collection items are consumed in the same transaction;
                     # quest-only drops live in the task counters, never the bag.
                     needs={}
-                    for s in subs:
+                    for s in (() if skipping else subs):
                         if s['m_eClearType']==3:
                             template=s['m_ClearCondition']['m_iCollectionItemID'];needs[template]=needs.get(template,0)+target(s)
                     for template,n in needs.items():
@@ -220,7 +240,6 @@ class QuestState:
                             else:
                                 db.execute('UPDATE inventory_items SET count=count-? WHERE owner=? AND uid=?',(take,uid,item['uid']));consumed.append(((item['group'],item['slot']),dict(item,count=item['count']-take)))
                             if not n:break
-                    reward=q['Reward']
                     if any(reward.get(k,0) for k in ('m_iSP','m_iBuff')):raise ValueError('Unsupported native quest reward')
                     ep=reward.get('m_iEP',0)
                     from els_server.storage.ep_points import credit as credit_ep
@@ -237,6 +256,14 @@ class QuestState:
                     awards=grant_items(db,plan,uid) if plan else []
                     ed,xp=reward['m_iED'],reward['m_iEXP']
                     if any(type(v) is not int or v<0 for v in (ed,xp)):raise ValueError('Quest reward balance')
+                    # Ordinary EXP uses the same current-client level ceiling
+                    # as normal combat. Never reduce an existing saved balance,
+                    # or reinterpret ordinary quest EXP as an ERP source.
+                    from els_server.game_data import client_data
+                    ordinary_limit=min(2**31-1,client_data().thresholds[-1])
+                    saved_experience=db.execute('SELECT experience FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
+                    if type(saved_experience) is not int or not 0<=saved_experience<2**63:raise ValueError('Quest saved experience')
+                    xp=min(xp,max(0,ordinary_limit-saved_experience))
                     db.execute('UPDATE reward_balances SET ed=ed+?,experience=experience+?,revision=revision+1 WHERE uid=?',(ed,xp,uid))
                     if xp:
                         from els_server.game_data import client_data
@@ -251,11 +278,12 @@ class QuestState:
                     complete_artifact_quest(db,uid,qid)
                     db.execute('DELETE FROM character_quests WHERE owner=? AND quest=?',(erp_scope.quest_owner(db,uid,qid),qid))
                     saved_reward=dict(ed=ed,experience=xp,items=awards,consumed_positions=[pos for pos,_ in consumed])
+                    if skipping:saved_reward['skipped']=True
                     if selection:saved_reward['selected_templates']=[r['m_iItemID'] for r in selection]
                     if ep:saved_reward['ep']=ep
                     erp_scope.insert_completed(db,uid,qid,now,saved_reward)
                     from els_server.storage.epic_followups import accept_after_reward
-                    accepted_after=() if qid==erp_scope.QUEST else accept_after_reward(db,uid,qid,load_character(db,uid,self.account_id),load_items(db,uid),location,now)
+                    accepted_after=() if erp_scope.scoped(qid) else accept_after_reward(db,uid,qid,load_character(db,uid,self.account_id),load_items(db,uid),location,now)
                 db.execute('INSERT INTO quest_actions VALUES (?,?,?,?)',(operation_id,uid,kind,digest))
             items=load_items(db,uid);character=load_character(db,uid,self.account_id);state=_state(db,uid,items)
             if kind=='claim' and replayed:
@@ -271,9 +299,11 @@ class QuestState:
             if stage_changed:result['stage_changed']=True
             # All responses, including full unit and inventory bodies, must be
             # encodable before SQL commit. No stale receipt inventory deltas.
-            if qid==erp_scope.QUEST:erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard)
+            if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
+            if skipping:skip_guard(db)
             result['events']=encode(result)
-            if qid==erp_scope.QUEST:erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard)
+            if skipping:skip_guard(db)
+            if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
             if not isinstance(result['events'],list) or any(not isinstance(e.payload,bytes) or len(e.payload)>65536 for e in result['events']):raise ValueError('Quest response bound')
             return result
 
@@ -295,9 +325,11 @@ class QuestState:
                 return prepare([],True) if prepare is not None else []
             state=_state(db,self.uid,load_items(db,self.uid));changed=[]
             for row in state['active']:
-                if row['id']==erp_scope.QUEST and not erp_scope.progress_allowed(db,self.uid,self.account_id,event_id,event,proof,self.account_source_guard):continue
+                if erp_scope.scoped(row['id']) and not erp_scope.progress_allowed(db,self.uid,self.account_id,event_id,event,proof,self.account_source_guard,qid=row['id']):continue
                 counts=dict(row['objectives'])
                 for s in quest_catalog().objectives(row['id']):
+                    from els_server.domain.mainline_subquest_groups import can_progress
+                    if not can_progress(quest_catalog().quest(row['id']),s,row['objectives']):continue
                     i=s['m_iID'];counts[i]=min(target(s),counts[i]+objective_increment(s,event,roll_proof))
                 if counts!=row['objectives']:
                     db.execute('UPDATE character_quests SET objectives=? WHERE owner=? AND quest=?',(json.dumps(counts,sort_keys=True),erp_scope.quest_owner(db,self.uid,row['id']),row['id']));changed.append(dict(row,objectives=counts))
