@@ -51,9 +51,9 @@ def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apple
         from els_server.domain.item_expiration import expired
         matches=[i for i in load_items(db,uid) if i['group']==6 and item_binding(i['template'])==binding and not expired(i,now=int(now))]
         if not matches:raise ValueError('No owned consumable')
-        # Multiple equivalent templates require the native selection priority.
-        if len({i['template'] for i in matches})!=1:raise ValueError('Ambiguous consumable template')
-        item=min(matches,key=lambda i:i['slot']);meta=require_usable(item['template'],character[0],automatic=automatic_use)
+        # Equivalent templates share one shortcut binding. Select the first
+        # owned position deterministically instead of rejecting the request.
+        item=min(matches,key=lambda i:(i['slot'],i['uid']));meta=require_usable(item['template'],character[0],automatic=automatic_use)
         if item['template'] in (710313,710314,710315,77110):
             if allow_apples is not True:raise ValueError('Apple native actor stage is not ready')
             from els_server.domain.item_locks import require_unlocked

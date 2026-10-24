@@ -53,17 +53,33 @@ def ordinary(template):
     expected.update({79063:(0,2,30,((13,50),)),79064:(0,5,30,((19,50),))})
     expected[79065]=(0,10,30,((19,50),(13,50)))
     expected[77110]=(0,14,30,((3,0),(5,0),(6,0)))
-    if template not in expected:raise ValueError('Consumable effect not implemented')
-    level,group,seconds,effects=expected[template];r=catalog()[template]
+    r=catalog().get(template)
+    if r is None:raise ValueError('Consumable effect not implemented')
     raw=bytes.fromhex(r['record_hex'])
-    # Every enabled row already has independent native inventory body proof.
-    # Pin the level field, too; the transaction checks the current character.
-    # Linked buffs and additional effects remain outside the supported set.
     from els_server.domain.inventory_items import VERIFIED_TEMPLATES,TEMPLATE_BAG_GROUPS
-    if VERIFIED_TEMPLATES.get(template)!=2 or TEMPLATE_BAG_GROUPS.get(template)!=6 or raw[0xd1]!=level or struct.unpack_from('<I',raw,0xa8)[0]:
-        raise ValueError('Ordinary potion condition not supported')
-    if r['effects']!=[struct.pack('<6I',kind,0,amount,0,0,0).hex() for kind,amount in effects] or (r['cooldown_group'],r['cooldown_seconds'])!=(group,seconds):
-        raise ValueError('Ordinary potion evidence changed')
+    if (VERIFIED_TEMPLATES.get(template)!=2 or TEMPLATE_BAG_GROUPS.get(template)!=6
+        or not 0<=raw[0xd1]<=99):raise ValueError('Ordinary potion condition not supported')
+    if template in expected:
+        level,group,seconds,effects=expected[template]
+        # Every enabled row already has independent native inventory body proof.
+        # Pin the level field, too; the transaction checks the current character.
+        # Linked buffs and additional effects remain outside the supported set.
+        if raw[0xd1]!=level or struct.unpack_from('<I',raw,0xa8)[0]:
+            raise ValueError('Ordinary potion condition not supported')
+        if r['effects']!=[struct.pack('<6I',kind,0,amount,0,0,0).hex() for kind,amount in effects] or (r['cooldown_group'],r['cooldown_seconds'])!=(group,seconds):
+            raise ValueError('Ordinary potion evidence changed')
+        return r
+    # Generic admission: the catalog record is SHA-locked and its native effect
+    # list is authoritative. Recovery and non-persistent buff/transform effects
+    # are applied by the client from the item template; only the owned stack is
+    # charged here. Quest, targeting and reward behaviours stay rejected.
+    effects=[struct.unpack('<6I',bytes.fromhex(h)) for h in r['effects']]
+    linked=struct.unpack_from('<I',raw,0xa8)[0]
+    allowed=(1,2,13,19,3,5,6,23,24)
+    if effects:
+        if any(e[0] not in allowed for e in effects):raise ValueError('Consumable effect not implemented')
+    elif not linked:
+        raise ValueError('Consumable effect not implemented')
     return r
 
 
