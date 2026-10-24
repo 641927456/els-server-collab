@@ -90,7 +90,23 @@ class QuestCatalog:
 @functools.lru_cache(maxsize=1)
 def quest_catalog():return QuestCatalog()
 
+
+# Finite new Rigomor IDs reuse legacy UC_NONE filtering and exact sets.
+_RIGOMOR_COLLECTION_QUESTS=frozenset((22730,22740,22750,22770,22780,22790,22810,22820,22830))
+
+def _require_rigomor_collection_class(character,quest):
+    if quest.get('m_iID') not in _RIGOMOR_COLLECTION_QUESTS:return
+    values=quest['QuestCondition']['m_eUnitClass']
+    classes={v for k,v in values.items() if str(k)!='0' and v is not None and v!=0}
+    if not classes:return
+    if any(type(v) is not int or v<1 for v in classes):
+        raise ValueError('Rigomor story class source')
+    if character['unit_class'] not in classes:
+        raise ValueError('Quest career requirement')
+
+
 def require_eligible(character,quest,completed,items,*,location=('town',20000)):
+    _require_rigomor_collection_class(character,quest)
     from els_server.domain.character_rules import CLASSES
     from els_server.domain.careers import PARENTS
     from els_server.domain.skill_unlocks import unsealed_skills

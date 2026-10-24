@@ -68,6 +68,9 @@ def restore_initialization(state,*,live=False):
             # F0 invokes the original live quest/UI callbacks. Build all new
             # acceptance notices before committing the deferred acceptance.
             events=[event]+[wire.accepted(row) for row in snapshot['active'] if row['id'] not in previous]
+            from els_server.domain.tutorial_memory8_finale import ready_hidden_receipt
+            ready=ready_hidden_receipt([row for row in snapshot['active'] if row['id'] not in previous])
+            if ready:events.append(wire.progress(ready))
             from els_server.protocol.protocol_codec import encode_event
             for notice in events:encode_event(notice)
             return events,restored

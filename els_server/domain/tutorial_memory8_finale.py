@@ -11,13 +11,20 @@ RECEIPTS={qid:{'m_iID':qid,'m_eClearType':80,'m_bAutomaticDescription':0,
 # Exact current FieldSubQuest28750: source region26650 reward receipt.
 RECEIPTS[28750]={'m_iID': 28750, 'm_eClearType': 80, 'm_bAutomaticDescription': 0, 'm_ClearCondition': {'m_iClearCount': 1, 'm_eQuestID': {'0': None, '1': 26650}}}
 
+# Exact current hidden post26690 receipt; native AutoClearQuest owns F4.
+RECEIPTS[54600]={'m_iID': 54600, 'm_eClearType': 80, 'm_bAutomaticDescription': 0, 'm_ClearCondition': {'m_iClearCount': 1, 'm_eQuestID': {'0': None, '1': 26690}}}
+
+def ready_hidden_receipt(rows):
+    return tuple(row for row in rows if row['id']==54600 and row['objectives']=={54600:1})
+
+
 def target(sub):
     if sub!=FIND and sub not in RECEIPTS.values():raise ValueError('Unsupported finale objective')
     return 1
 
 def receipt_progress(sub,completed):
     if sub not in RECEIPTS.values():raise ValueError('Unsupported finale completion receipt')
-    identity=26650 if sub['m_iID']==28750 else sub['m_iID']-10
+    identity=26690 if sub['m_iID']==54600 else 26650 if sub['m_iID']==28750 else sub['m_iID']-10
     return int(identity in completed)
 
 @functools.lru_cache(maxsize=1)

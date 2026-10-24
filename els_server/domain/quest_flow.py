@@ -59,9 +59,9 @@ def handle(s,event,sequence):
         return dialogue_handle(s,event,sequence)
     if event.event_id!=0x202 or event.kind not in (0xee,0xfa,0xf4) or not enabled(s):return None
     qid=struct.unpack_from('>i',event.payload)[0] if len(event.payload)>=4 else 0
-    if qid==53520 and not account_source_actor(s):return []
+    if qid in (53520,54600) and not account_source_actor(s):return []
     def failure(result=wire.QUEST_REWARD_UNAVAILABLE):
-        if qid==53520 and not account_source_actor(s):return []
+        if qid in (53520,54600) and not account_source_actor(s):return []
         if event.kind==0xee:return [wire.accept_ack(result)]
         if event.kind==0xfa:return [initialization(s)]
         snapshot=s.account.get_inventory_snapshot()
@@ -78,7 +78,11 @@ def handle(s,event,sequence):
             state=r['state']
             if kind=='accept':
                 active=next((v for v in state['active'] if v['id']==qid),None)
-                return [wire.accept_ack()]+([wire.accepted(active)] if active else [])
+                events=[wire.accept_ack()]+([wire.accepted(active)] if active else [])
+                from els_server.domain.tutorial_memory8_finale import ready_hidden_receipt
+                ready=ready_hidden_receipt([active] if active else [])
+                if ready:events.append(wire.progress(ready))
+                return events
             if kind=='abandon':return [wire.initialization(state)]
             done=next(v for v in state['completed'] if v['id']==qid)
             result=wire.reward_ack(qid,r['character'],s.account.get_location(),r['slots'],r['balances'],r['items'],r['updates'],consumed=r['consumed'],replayed=r['replayed'],completed_at=done['completed_at'])
@@ -91,6 +95,11 @@ def handle(s,event,sequence):
             # absolute login snapshot. Encode it inside the reward transaction.
             events.append(wire.initialization(state))
             events.extend(wire.accepted(row) for row in r.get('accepted_after',()))
+            # Original F3 triggers native AutoClearQuest -> A02D -> F4.
+            # Construct it inside the parent's claim transaction, never claim here.
+            from els_server.domain.tutorial_memory8_finale import ready_hidden_receipt
+            ready=ready_hidden_receipt(r.get('accepted_after',()))
+            if ready:events.append(wire.progress(ready))
             events.append(skill_slots_initialization(r['slots'],s.account.uid,r['character']))
             if qid==54580:
                 from els_server.protocol.artifact_messages import notice as artifact_notice
@@ -128,6 +137,22 @@ def observe(s,replies=()):
             if not (loaded or s.account.get_location()['map']==20014):continue
             notices.extend([wire.accepted(row),wire.progress([row])])
             announced=announced|{key};s._memory1_ready_announced=announced
+    # Existing active hidden receipt needs live F0/F3 after a validated arrival;
+    # a login 2B alone does not invoke the current F3 auto-claim callback.
+    # The exact generation is announced once per current authenticated session.
+    if (arrived or any(e.kind==0xf0 for e in tuple(replies)+tuple(notices))) and account_source_actor(s):
+        from els_server.domain.tutorial_memory8_finale import ready_hidden_receipt
+        announced=getattr(s,'_hidden54600_ready_announced',frozenset())
+        for row in ready_hidden_receipt(store(s).notification_snapshot()['active']):
+            key=(str(s.account.store.path),s.account.account_id,s.account.uid,row['id'],row['generation'])
+            if key in announced:continue
+            progress=wire.progress([row])
+            if not any(e.kind==0xf3 and e.payload==progress.payload for e in tuple(replies)+tuple(notices)):
+                accepted=wire.accepted(row)
+                from els_server.protocol.protocol_codec import encode_event
+                encode_event(accepted);encode_event(progress)
+                notices.extend([accepted,progress])
+            announced=announced|{key};s._hidden54600_ready_announced=announced
     owner=(str(s.account.store.path),s.account.uid)
     passive=getattr(s,'_quest_passive_kinds',None)
     if starter_restored or passive is None or passive[0]!=owner or any(e.kind in (0xf0,0x2b,0xf5) for e in replies):
