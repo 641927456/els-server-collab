@@ -1,0 +1,370 @@
+{
+  "schema": 1,
+  "V": 36,
+  "parent_source_commit": "f10bed302ecfbd8fe7106e85debd8c5de484db78",
+  "native_build_inputs": [
+    {
+      "logical_name": "Program.cs",
+      "repository_path": "launchers/friends-v36/Program.cs",
+      "sha256": "78e402cced6bf75ff83e26a8cbbe6ffadd9710eab4e06c46f42d5429667e5826",
+      "bytes": 67536
+    },
+    {
+      "logical_name": "AutoUpdate.cs",
+      "repository_path": "launchers/friends-v36/AutoUpdate.cs",
+      "sha256": "31a30d6b9acb2f59ab6242ac838ac2463165520a9afe349c34e2308e58a44a2c",
+      "bytes": 16019
+    },
+    {
+      "logical_name": "Diagnostics.cs",
+      "repository_path": "launchers/friends-v35/Diagnostics.cs",
+      "sha256": "5b4ee569ae520478c8d48587585c444955c56e2cb678d4270010dac1bffcef91",
+      "bytes": 19122
+    },
+    {
+      "logical_name": "LauncherBootstrapDiagnostics.cs",
+      "repository_path": "launchers/friends-v35/LauncherBootstrapDiagnostics.cs",
+      "sha256": "fd7f9205254b7a0782f75fa378f29c1a0f7aeb4dc8ec73faab8016ae5470ff09",
+      "bytes": 11644
+    },
+    {
+      "logical_name": "MotionControls.cs",
+      "repository_path": "launchers/friends-v35/MotionControls.cs",
+      "sha256": "384f6d0eeebdee39431f97805f91f4e105cf497184d838414e57a3eabacc3025",
+      "bytes": 17289
+    },
+    {
+      "logical_name": "MainDesign.cs",
+      "repository_path": "launchers/friends-v36/MainDesign.cs",
+      "sha256": "aca88b86952645fd62b9c3ce8c31878ee787a5d855b83f59d564524610cdc70d",
+      "bytes": 13720
+    },
+    {
+      "logical_name": "RegisterDesign.cs",
+      "repository_path": "launchers/friends-v35/RegisterDesign.cs",
+      "sha256": "f6ab27e3eb201b81193de7141adaede3190b0c362e3ce392a3cd0f9e4a88934f",
+      "bytes": 3752
+    },
+    {
+      "logical_name": "DesignProof.cs",
+      "repository_path": "launchers/friends-v35/DesignProof.cs",
+      "sha256": "00759819305c4eba600eaadfed1db93753e9268c349b52282b3cf4527f46a817",
+      "bytes": 6445
+    },
+    {
+      "logical_name": "ComponentRuntime.cs",
+      "repository_path": "launchers/friends-v35/ComponentRuntime.cs",
+      "sha256": "b4202753422be43ec507355934ec1ff65bc21415b257aa29052ab9f0fd502def",
+      "bytes": 17937
+    },
+    {
+      "logical_name": "LocalMode.cs",
+      "repository_path": "launchers/friends-v36/LocalMode.cs",
+      "sha256": "d48942d00721e7b9ab51b49a1576d191c190c6b8b5edbcca49c08427157d5cc3",
+      "bytes": 6904
+    },
+    {
+      "logical_name": "app.manifest",
+      "repository_path": "launchers/friends-v35/app.manifest",
+      "sha256": "d4d7d50428164a07c846f20387b19e213aeb090112973435e56d6305d70a5f48",
+      "bytes": 594
+    },
+    {
+      "logical_name": "runtime-files.signed.json",
+      "repository_path": "launchers/friends-v36/runtime-files.signed.json",
+      "sha256": "35687f7524d84989ef257374ee242fcb84450e7bf9724008ad48c18e4483e6a7",
+      "bytes": 204501
+    }
+  ],
+  "external_asset_lock": {
+    "repository_path": "launchers/friends-v35/build-assets.lock.json",
+    "sha256": "294a1e5407f5daa0072d83b2bde12a5587e9c79d34cfcfe07961b53899a2da56",
+    "bytes": 473
+  },
+  "original_source_freeze": {
+    "path": "analysis/unified-launcher-20261024-v1/freeze.json",
+    "sha256": "5dd6bc897fd3a573a94d2aaa952d0e51f4a1eca6302e904c45adfe2ca6d29242",
+    "bytes": 6747
+  },
+  "publication_freeze": {
+    "path": "analysis/unified-launcher-20261024-v1/publication-freeze.json",
+    "sha256": "472c6af0a442af5c4b3c81e808a04882f1da8e7039742b9027629dcbe282df40",
+    "bytes": 2967
+  },
+  "copied_runtime_sources": [
+    {
+      "path": "launchers/friends-v36/runtime-support/tools/client_compatibility_profiles.json",
+      "role": "exact-frozen-friends-runtime-delta",
+      "source": {
+        "path": "analysis/unified-launcher-20261024-v1/candidate/tools/client_compatibility_profiles.json",
+        "sha256": "17ef49dd2af1069268423bc783a0f0eb390eea8afb657c03cdeea5e6cc8be79b",
+        "bytes": 19461
+      },
+      "sha256": "17ef49dd2af1069268423bc783a0f0eb390eea8afb657c03cdeea5e6cc8be79b",
+      "bytes": 19461,
+      "source_blob_oid": "6a3d50f05c4c89020de85e3b1f2a051b78312318"
+    },
+    {
+      "path": "launchers/friends-v36/runtime-support/tools/launch_friends_client.py",
+      "role": "exact-frozen-friends-runtime-delta",
+      "source": {
+        "path": "analysis/unified-launcher-20261024-v1/candidate/tools/launch_friends_client.py",
+        "sha256": "25190fa6a28f63975890017425af2cc648afa9d802f84f5858976658eac079d9",
+        "bytes": 562
+      },
+      "sha256": "25190fa6a28f63975890017425af2cc648afa9d802f84f5858976658eac079d9",
+      "bytes": 562,
+      "source_blob_oid": "0a605ad31d864aaa0c856d2f725771dd307e4456"
+    },
+    {
+      "path": "launchers/friends-v36/runtime-support/tools/probe_updated_client.py",
+      "role": "exact-frozen-friends-runtime-delta",
+      "source": {
+        "path": "analysis/unified-launcher-20261024-v1/candidate/tools/probe_updated_client.py",
+        "sha256": "b4a7a70116b29af9c7af29aab2fff3e6d4521974e17b70bb649ebf6fb49aa811",
+        "bytes": 26452
+      },
+      "sha256": "b4a7a70116b29af9c7af29aab2fff3e6d4521974e17b70bb649ebf6fb49aa811",
+      "bytes": 26452,
+      "source_blob_oid": "359a198c727052efa8286c0083745a4ebd572e66"
+    },
+    {
+      "path": "launchers/friends-v36/runtime-support/tools/launch_client.py",
+      "role": "exact-frozen-friends-runtime-delta",
+      "source": {
+        "path": "analysis/unified-launcher-20261024-v1/candidate/tools/launch_client.py",
+        "sha256": "74f5c5406c93b526e1bb34cac36c5eb4ef8eeca4fbc3292d05c5de8f18f08142",
+        "bytes": 11292
+      },
+      "sha256": "74f5c5406c93b526e1bb34cac36c5eb4ef8eeca4fbc3292d05c5de8f18f08142",
+      "bytes": 11292,
+      "source_blob_oid": "d78791af9624e5571e130f301c415a684163f07e"
+    },
+    {
+      "path": "launchers/friends-v36/runtime-support/tools/launch_integrated_local.py",
+      "role": "exact-frozen-friends-runtime-delta",
+      "source": {
+        "path": "analysis/unified-launcher-20261024-v1/candidate/tools/launch_integrated_local.py",
+        "sha256": "20f08deac91b07950af1bbcdbfb451d1f96ad4b8f0c698f513c3d937dd696db3",
+        "bytes": 604
+      },
+      "sha256": "20f08deac91b07950af1bbcdbfb451d1f96ad4b8f0c698f513c3d937dd696db3",
+      "bytes": 604,
+      "source_blob_oid": "271eaead423ec7c5af90d22e91acd5f730fcc9c7"
+    },
+    {
+      "path": "launchers/friends-v36/runtime-support/local/launcher/__main__.py",
+      "role": "exact-immutable-local-manager-or-distinct-local-profile",
+      "source": {
+        "path": "releases/local/local-unified-launcher-20261024-v1/launcher/__main__.py",
+        "sha256": "e8bef4e3ff6fe517bb6bb84048df2dbe7de54ffe720169d3271e53bafae96295",
+        "bytes": 11426,
+        "immutable_local_manifest": {
+          "path": "releases/local/local-unified-launcher-20261024-v1/local-business-manifest.json",
+          "sha256": "eeaae9d1b5c0d908de5db985b818a9d295091728a0228f738c6f434547a669ff",
+          "bytes": 192225
+        }
+      },
+      "sha256": "e8bef4e3ff6fe517bb6bb84048df2dbe7de54ffe720169d3271e53bafae96295",
+      "bytes": 11426,
+      "source_blob_oid": "a02f6cf524d04efb5913d9b323b7e9f9ecedb226"
+    },
+    {
+      "path": "launchers/friends-v36/runtime-support/local/launcher/app.js",
+      "role": "exact-immutable-local-manager-or-distinct-local-profile",
+      "source": {
+        "path": "releases/local/local-unified-launcher-20261024-v1/launcher/app.js",
+        "sha256": "d40b520a069393f17c149a804cb30381f85392748bcbfd891b95287bdb015598",
+        "bytes": 32489,
+        "immutable_local_manifest": {
+          "path": "releases/local/local-unified-launcher-20261024-v1/local-business-manifest.json",
+          "sha256": "eeaae9d1b5c0d908de5db985b818a9d295091728a0228f738c6f434547a669ff",
+          "bytes": 192225
+        }
+      },
+      "sha256": "d40b520a069393f17c149a804cb30381f85392748bcbfd891b95287bdb015598",
+      "bytes": 32489,
+      "source_blob_oid": "6d691f7b3b905cbd493de8ec2459be31198c146b"
+    },
+    {
+      "path": "launchers/friends-v36/runtime-support/local/launcher/service.py",
+      "role": "exact-immutable-local-manager-or-distinct-local-profile",
+      "source": {
+        "path": "releases/local/local-unified-launcher-20261024-v1/launcher/service.py",
+        "sha256": "abbcf1004a1dac1b04090c409329127bc11a8656bea2c4e4289ef5589318a8c1",
+        "bytes": 28782,
+        "immutable_local_manifest": {
+          "path": "releases/local/local-unified-launcher-20261024-v1/local-business-manifest.json",
+          "sha256": "eeaae9d1b5c0d908de5db985b818a9d295091728a0228f738c6f434547a669ff",
+          "bytes": 192225
+        }
+      },
+      "sha256": "abbcf1004a1dac1b04090c409329127bc11a8656bea2c4e4289ef5589318a8c1",
+      "bytes": 28782,
+      "source_blob_oid": "9fbd61d67dbb7d7380c2ed30f0b4b4da126a6db7"
+    },
+    {
+      "path": "launchers/friends-v36/runtime-support/local/tools/open_local_manager.py",
+      "role": "exact-immutable-local-manager-or-distinct-local-profile",
+      "source": {
+        "path": "releases/local/local-unified-launcher-20261024-v1/tools/open_local_manager.py",
+        "sha256": "043a6b6215848cfd236a001d68774898af9687ae769a6b87dca4abb0c6ed00d8",
+        "bytes": 543,
+        "immutable_local_manifest": {
+          "path": "releases/local/local-unified-launcher-20261024-v1/local-business-manifest.json",
+          "sha256": "eeaae9d1b5c0d908de5db985b818a9d295091728a0228f738c6f434547a669ff",
+          "bytes": 192225
+        }
+      },
+      "sha256": "043a6b6215848cfd236a001d68774898af9687ae769a6b87dca4abb0c6ed00d8",
+      "bytes": 543,
+      "source_blob_oid": "247b4c12bb73d295c37a8ee32b650035e3601353"
+    },
+    {
+      "path": "launchers/friends-v36/runtime-support/local/tools/client_compatibility_profiles.json",
+      "role": "exact-immutable-local-manager-or-distinct-local-profile",
+      "source": {
+        "path": "releases/local/local-unified-launcher-20261024-v1/tools/client_compatibility_profiles.json",
+        "sha256": "c8e1830db19a5034eb178b5e31c8a90d899b48d41399a00b8d32d8b0ac6b3e62",
+        "bytes": 19461,
+        "immutable_local_manifest": {
+          "path": "releases/local/local-unified-launcher-20261024-v1/local-business-manifest.json",
+          "sha256": "eeaae9d1b5c0d908de5db985b818a9d295091728a0228f738c6f434547a669ff",
+          "bytes": 192225
+        }
+      },
+      "sha256": "c8e1830db19a5034eb178b5e31c8a90d899b48d41399a00b8d32d8b0ac6b3e62",
+      "bytes": 19461,
+      "source_blob_oid": "23cec2285e2683343f758ea2835da2b97e7c617f"
+    }
+  ],
+  "reused_parent_sources": [
+    {
+      "path": "launchers/friends-v35/Diagnostics.cs",
+      "sha256": "5b4ee569ae520478c8d48587585c444955c56e2cb678d4270010dac1bffcef91",
+      "bytes": 19122,
+      "source_main": "f10bed302ecfbd8fe7106e85debd8c5de484db78",
+      "source": {
+        "path": "analysis/unified-launcher-20261024-v1/source/Diagnostics.cs",
+        "sha256": "5b4ee569ae520478c8d48587585c444955c56e2cb678d4270010dac1bffcef91",
+        "bytes": 19122
+      },
+      "raw_same_V36": true
+    },
+    {
+      "path": "launchers/friends-v35/LauncherBootstrapDiagnostics.cs",
+      "sha256": "fd7f9205254b7a0782f75fa378f29c1a0f7aeb4dc8ec73faab8016ae5470ff09",
+      "bytes": 11644,
+      "source_main": "f10bed302ecfbd8fe7106e85debd8c5de484db78",
+      "source": {
+        "path": "analysis/unified-launcher-20261024-v1/source/LauncherBootstrapDiagnostics.cs",
+        "sha256": "fd7f9205254b7a0782f75fa378f29c1a0f7aeb4dc8ec73faab8016ae5470ff09",
+        "bytes": 11644
+      },
+      "raw_same_V36": true
+    },
+    {
+      "path": "launchers/friends-v35/MotionControls.cs",
+      "sha256": "384f6d0eeebdee39431f97805f91f4e105cf497184d838414e57a3eabacc3025",
+      "bytes": 17289,
+      "source_main": "f10bed302ecfbd8fe7106e85debd8c5de484db78",
+      "source": {
+        "path": "analysis/unified-launcher-20261024-v1/source/MotionControls.cs",
+        "sha256": "384f6d0eeebdee39431f97805f91f4e105cf497184d838414e57a3eabacc3025",
+        "bytes": 17289
+      },
+      "raw_same_V36": true
+    },
+    {
+      "path": "launchers/friends-v35/RegisterDesign.cs",
+      "sha256": "f6ab27e3eb201b81193de7141adaede3190b0c362e3ce392a3cd0f9e4a88934f",
+      "bytes": 3752,
+      "source_main": "f10bed302ecfbd8fe7106e85debd8c5de484db78",
+      "source": {
+        "path": "analysis/unified-launcher-20261024-v1/source/RegisterDesign.cs",
+        "sha256": "f6ab27e3eb201b81193de7141adaede3190b0c362e3ce392a3cd0f9e4a88934f",
+        "bytes": 3752
+      },
+      "raw_same_V36": true
+    },
+    {
+      "path": "launchers/friends-v35/DesignProof.cs",
+      "sha256": "00759819305c4eba600eaadfed1db93753e9268c349b52282b3cf4527f46a817",
+      "bytes": 6445,
+      "source_main": "f10bed302ecfbd8fe7106e85debd8c5de484db78",
+      "source": {
+        "path": "analysis/unified-launcher-20261024-v1/source/DesignProof.cs",
+        "sha256": "00759819305c4eba600eaadfed1db93753e9268c349b52282b3cf4527f46a817",
+        "bytes": 6445
+      },
+      "raw_same_V36": true
+    },
+    {
+      "path": "launchers/friends-v35/ComponentRuntime.cs",
+      "sha256": "b4202753422be43ec507355934ec1ff65bc21415b257aa29052ab9f0fd502def",
+      "bytes": 17937,
+      "source_main": "f10bed302ecfbd8fe7106e85debd8c5de484db78",
+      "source": {
+        "path": "analysis/unified-launcher-20261024-v1/source/ComponentRuntime.cs",
+        "sha256": "b4202753422be43ec507355934ec1ff65bc21415b257aa29052ab9f0fd502def",
+        "bytes": 17937
+      },
+      "raw_same_V36": true
+    },
+    {
+      "path": "launchers/friends-v35/app.manifest",
+      "sha256": "d4d7d50428164a07c846f20387b19e213aeb090112973435e56d6305d70a5f48",
+      "bytes": 594,
+      "source_main": "f10bed302ecfbd8fe7106e85debd8c5de484db78",
+      "source": {
+        "path": "analysis/unified-launcher-20261024-v1/source/app.manifest",
+        "sha256": "d4d7d50428164a07c846f20387b19e213aeb090112973435e56d6305d70a5f48",
+        "bytes": 594
+      },
+      "raw_same_V36": true
+    },
+    {
+      "path": "launchers/friends-v35/runtime-support/tools/dx11_resource_compat.js",
+      "sha256": "c9c2a34beb9b60252a273ab45c6b6bdc938501292573da1d9eb964e3f3b6c192",
+      "bytes": 3195,
+      "source_main": "f10bed302ecfbd8fe7106e85debd8c5de484db78",
+      "role": "same-in-both-V36-runtimes-exact-V35-resource-support"
+    },
+    {
+      "path": "launchers/friends-v35/runtime-support/tools/dx11_resource_compat.py",
+      "sha256": "c089e6d1cfa8ff19f410ad75f177c14c0da570600086f7e33d04f2481b9c4109",
+      "bytes": 1911,
+      "source_main": "f10bed302ecfbd8fe7106e85debd8c5de484db78",
+      "role": "same-in-both-V36-runtimes-exact-V35-resource-support"
+    },
+    {
+      "path": "launchers/friends-v35/runtime-support/tools/local_resource_index_compat.py",
+      "sha256": "482b67afa3a8df05f65bcc2a84174b9b421f2807fa6c37faafbdb06f890d4306",
+      "bytes": 3125,
+      "source_main": "f10bed302ecfbd8fe7106e85debd8c5de484db78",
+      "role": "same-in-both-V36-runtimes-exact-V35-resource-support"
+    },
+    {
+      "path": "launchers/friends-v35/runtime-support/tools/original_index_pins.json",
+      "sha256": "820694a58b1be584bd0474e0137ac3f40b5536a0850633228ac158e30663c729",
+      "bytes": 14299,
+      "source_main": "f10bed302ecfbd8fe7106e85debd8c5de484db78",
+      "role": "same-in-both-V36-runtimes-exact-V35-resource-support"
+    },
+    {
+      "path": "launchers/friends-v35/build-assets.lock.json",
+      "sha256": "294a1e5407f5daa0072d83b2bde12a5587e9c79d34cfcfe07961b53899a2da56",
+      "bytes": 473,
+      "source_main": "f10bed302ecfbd8fe7106e85debd8c5de484db78",
+      "role": "external-image-icon-asset-lock-only"
+    }
+  ],
+  "signed_runtime_manifest_sha256": "35687f7524d84989ef257374ee242fcb84450e7bf9724008ad48c18e4483e6a7",
+  "local_manifest": {
+    "path": "releases/local/local-unified-launcher-20261024-v1/local-business-manifest.json",
+    "sha256": "eeaae9d1b5c0d908de5db985b818a9d295091728a0228f738c6f434547a669ff",
+    "bytes": 192225
+  },
+  "binary_assets_in_repository": false,
+  "account_or_signing_material_in_repository": false
+}

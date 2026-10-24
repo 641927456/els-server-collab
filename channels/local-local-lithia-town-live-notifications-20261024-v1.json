@@ -1,0 +1,90 @@
+{
+  "channel": "local",
+  "release": "local-lithia-town-live-notifications-20261024-v1",
+  "parent_release": "local-fishing-guild-qualified-20261024-v1",
+  "manifest_sha256": "53eba78a3dfcebaa3a70bc167a13b2ab5f2099adf40582f8bfcc70edefedc412",
+  "parent_manifest_sha256": "68155db2bbb3eb58a3d7a76853fcad39c00dca41dbe069a3a314cafe980e1018",
+  "scope_kind": "lithia-town-live-notifications",
+  "files": [
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "sha256": "68b64b35d4b6382880feb760c616ee685eab8d1686ec33bd39865d3aca4a20e0",
+      "size": 21730,
+      "parent_sha256": "e7851b7e16ac4a94043a601a7412bbc299a3006571f86971ceb0ce1de0bd7fcd"
+    }
+  ],
+  "source_PRs": [
+    "https://github.com/641927456/els-server-collab/pull/420"
+  ],
+  "source_PR_merged_commits": {
+    "420": "850ac52204fc46ebe1470a44127be07850771f8a"
+  },
+  "parent_snapshot_commit": "e6a02dc5227c923d41ba89678b8587a55467be6f",
+  "source_file_count": 813,
+  "business_file_count": 1064,
+  "changed_source_file_count": 1,
+  "new_source_file_count": 0,
+  "replaced_source_file_count": 1,
+  "scope": "Only Lithia15 original town20014/town_ready claims28000,28010,28020,28030: original F5+actual successor F0, no live-login2B guide reset, no forced F5 callback for storage replay. Cold login2B, economy/SQL/preencoding/receipts, previous28040 entry/gate and other channels retained. No client/schema change; natural GUI/full story unverified.",
+  "independent_units": 1,
+  "new_schema": false,
+  "new_schema_definitions": 0,
+  "install_DDL_statements": 0,
+  "client_delta": 0,
+  "natural_GUI": false,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "historical_release_not_final_current": true,
+  "historical_delivery_accepted": true,
+  "evidence": {
+    "actual_dual_safe_handoff": {
+      "path": "analysis/lithia-online-flow-20261024-v1/continuation-v1/actual-dual-safe-handoff-v1.json",
+      "sha256": "19953d7f8866639170a0b8f3c74e45ed5c7564328dc36ebb42d84b087e06096e",
+      "bytes": 4011
+    },
+    "own_cleanup_and_release": {
+      "path": "analysis/lithia-online-flow-20261024-v1/continuation-v1/publication/completion.json",
+      "sha256": "0ac43b2bf55dc454370b8ccefa0318f88decc7268637b83c4cd1c3847202f33c",
+      "bytes": 706
+    },
+    "actual_channel_acceptance": {
+      "path": "analysis/lithia-online-flow-20261024-v1/continuation-v1/publication/local-install/completion.json",
+      "sha256": "e70b88ba9488175b7cfbb41beb68b7e516c8dbb31d9d6158ebec8618c0e17cf5",
+      "bytes": 3419
+    },
+    "actual_parent_validation": {
+      "path": "analysis/lithia-online-flow-20261024-v1/continuation-v1/actual-parent-validation.json",
+      "sha256": "8a1dc3a9bd0d4ea24aeb3c2fd36fbc2c29682eaeceb5167e5adb97a1908dff65",
+      "bytes": 4168
+    },
+    "actual_FILE_review": {
+      "path": "analysis/lithia-online-flow-20261024-v1/continuation-v1/delivery-actual-FILE-review-v1.json",
+      "sha256": "dd217f477e83c95757cebaeb9e63ecac3afb8bceee4dfabc3d41111aff21ebb0",
+      "bytes": 30206
+    },
+    "immutable_accepted_head_copy": {
+      "path": "analysis/lithia-online-flow-20261024-v1/continuation-v1/publication/local-accepted-current.json",
+      "sha256": "8921a77700737d27f2e7ca4bfecaf7b04962eec4319cfa6c43f2108b1ed88ac0",
+      "bytes": 3377
+    },
+    "actual_manifest": {
+      "path": "releases/local/local-lithia-town-live-notifications-20261024-v1/local-business-manifest.json",
+      "sha256": "53eba78a3dfcebaa3a70bc167a13b2ab5f2099adf40582f8bfcc70edefedc412",
+      "bytes": 196499
+    },
+    "actual_M52_parent_manifest": {
+      "path": "releases/local/local-fishing-guild-qualified-20261024-v1/local-business-manifest.json",
+      "sha256": "68155db2bbb3eb58a3d7a76853fcad39c00dca41dbe069a3a314cafe980e1018",
+      "bytes": 415924
+    }
+  },
+  "layered_limits": [
+    "Actual accepted420 single runtime leaf over exact M52 parent; original two notification blocks only.",
+    "Only four original Lithia town quests; cold2B, real successor F0, stored replay,28040 first entry, economy, transactions and all52 M52 leaves retained.",
+    "PR420 merge is a source-history association; main70f also contains uninstalled housing scope and must not be copied into this snapshot.",
+    "Final accepted runtime version within this frozen reconciliation; no live current pointer, selector or Git ref is changed by this record.",
+    "Natural GUI repetition/full later story and whole system acceptance remain unverified; formal root final metadata review remains a separate role."
+  ],
+  "final_runtime_snapshot_at_capture": true
+}

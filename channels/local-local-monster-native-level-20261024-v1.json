@@ -1,0 +1,44 @@
+{
+  "channel": "local",
+  "release": "local-monster-native-level-20261024-v1",
+  "parent_release": "local-player-core-gaps-20261024-v1",
+  "manifest_sha256": "3c6d45aabb2de357d62888193cd882a1c6f0d2df9c6c7700a9366e2447befaa8",
+  "parent_manifest_sha256": "67c06d10e82a542834fb46268e364e9d20313dec716f0b9c7d244adbc189c489",
+  "scope": "One independent server repair: supply current positive absolute m_NPCLevel / exact compiled source LEVEL overrides to the existing native NPC spawn level byte; preserve all HP/stat initialization, drop policy, routes and client. Exclude missing38300, relative120010 and3event routes. Natural combat/GUI and HP/drop completion remain unverified.",
+  "files": [
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "sha256": "76b57829a04d13598dd5aa9779cf95ac8b33a1fc4e159f079dbd3fb6f50305e9",
+      "size": 13207,
+      "parent_sha256": "337c0252edcb9b3567b6bddc745df3aa01b23e1b100beb62dafbd428abafecf9"
+    }
+  ],
+  "changed_runtime_file_count": 1,
+  "source_file_count": 813,
+  "business_file_count": 1064,
+  "independent_units": 1,
+  "client_delta": 0,
+  "new_schema": false,
+  "new_schema_definitions": 0,
+  "install_DDL_statements": 0,
+  "parent_snapshot_commit": "88261e03fe3ae452b609b59801e667ea424671ae",
+  "historical_delivery_accepted": true,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/local/local-monster-native-level-20261024-v1/local-business-manifest.json",
+      "sha256": "3c6d45aabb2de357d62888193cd882a1c6f0d2df9c6c7700a9366e2447befaa8",
+      "bytes": 196560
+    },
+    "actual_acceptance": {
+      "path": "releases/local/local-monster-native-level-20261024-v1/local-verification.json",
+      "sha256": "88404e70d1c6418fbcd94684f32f2053a892f58328ca2cf122c53379639ef4f2",
+      "bytes": 3364
+    }
+  },
+  "metadata_sync_installs": 0
+}
