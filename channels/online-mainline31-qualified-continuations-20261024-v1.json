@@ -1,0 +1,99 @@
+{
+  "channel": "online",
+  "release": "mainline31-qualified-continuations-20261024-v1",
+  "parent_release": "resonance-book-native-authority-20261024-v1",
+  "manifest_sha256": "37a6090e7a876d6cdc5bfdad59c0281b49d4c907185c71f42c3fcd9a3c808d85",
+  "scope_kind": "mainline31",
+  "files": [
+    {
+      "path": "els_server/data/story_quests.json",
+      "sha256": "03e378194add6cd31a6737e29bb7c707547c8607a8d1cd3734ff80fa7e971339",
+      "size": 1215665,
+      "parent_sha256": "0cd7bfa04929ab457478be12fd8969e8694784e47df73be59dd00474c1ea7ff3"
+    },
+    {
+      "path": "els_server/data/story_quests.manifest.json",
+      "sha256": "44898fc16b23161126c3945d64cf4aab6e007aecf2903ac49507298db5374fc4",
+      "size": 324,
+      "parent_sha256": "40154d97fc78f26f31cc87af9024f165145641e190af1ecf3c6d4e0d789f57ff"
+    },
+    {
+      "path": "els_server/data/town_dialogue_quests.json",
+      "sha256": "6ae834fdf870fe81e438fadf9349fad2bb82abcbceb2742041d4b45764ce0a76",
+      "size": 282232,
+      "parent_sha256": "81d06f610e07511f443fee22faed419cc617d81a6c4addf47800c4b8babc8a22"
+    },
+    {
+      "path": "els_server/data/town_dialogue_quests.manifest.json",
+      "sha256": "776635a2cea95c7da68914b71d83e2260ef2986cbdced744807435e358d483a9",
+      "size": 237,
+      "parent_sha256": "063978fda1dd284e163a4a98ad08d09dbc13ed3f00e0761edb5819a04d1a496b"
+    },
+    {
+      "path": "els_server/data/town_travel.json",
+      "sha256": "b3b40954b6e9767b4af88ae4ef58e7d3898e38699419ec1ff5f1939bc9e6b406",
+      "size": 17239,
+      "parent_sha256": "52e82a688f3406963f83d167b8e0edfeb15f77fbf512bc5103eae0b2985ba9d8"
+    },
+    {
+      "path": "els_server/data/town_travel.manifest.json",
+      "sha256": "96fd9e640bfcd11021401b57d8b1dda661f49b6bb803b573d2ac8a968484253a",
+      "size": 236,
+      "parent_sha256": "680b7500074d8c9158c6765aae78242e3471da9f11b9872c24ebf7a7b3c44acd"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "1abbebd39db80d15f18b16eb3a55cba65b048952da60ca84097d03ae0e586251",
+      "size": 140471,
+      "parent_sha256": "e3b0da0e4eb95f1afde3d1e42f2db928932777d0969f23c4cde42d27aef52b39"
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "sha256": "c8fc02640b1a68d9b503d665f34fc3b8e597a4d5d25f8c004270c62e3be045e2",
+      "size": 16026,
+      "parent_sha256": "53c1ccff5136616b78cc1b0155448e2f994b186f04bafb7e4b57476af3452416"
+    },
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "sha256": "c6afe9b58189d4bc1bf20e304fadafdc7c31a27a2ef8dd0657d4643bfe1e401f",
+      "size": 12838,
+      "parent_sha256": "5dddba05b65dedd0b47bd1412558591a2539f66e186a8aa32063393530aaf959"
+    },
+    {
+      "path": "els_server/domain/town_dialogue.py",
+      "sha256": "eca52baf2e82f4df347a309818e4ce00aca5a30a85d3e2bd594d18c44a696a98",
+      "size": 13544,
+      "parent_sha256": "fa5a48c6d7f857a603779e9615c70a33be9b6f209f7604c4bdda77bd44988b7a"
+    },
+    {
+      "path": "els_server/domain/tutorial_memory8_finale.py",
+      "sha256": "10ac1335ca89a085aaa121530f461242e854cd46cf93885062a2fda78f6c2d8b",
+      "size": 6770,
+      "parent_sha256": "266c5f601693fab2bc4834ea5d494f222164f3a78dcefa0f3b9506f60940089a"
+    },
+    {
+      "path": "els_server/domain/tutorial_quests.py",
+      "sha256": "389f9738e5304b76cb408116a4ebdc8d27994e8f08575c8a24919d2732396682",
+      "size": 4778,
+      "parent_sha256": "a7009f2a6be04c6c194a8f336d3118047e79b84070a64d9e6b94fc4592ec61b6"
+    },
+    {
+      "path": "els_server/storage/local_state.py",
+      "sha256": "7293088ebc218673671b54fc6af680e73b8bccb69b0acf637b8db4fff053d6ce",
+      "size": 10296,
+      "parent_sha256": "fd4772ee718efcd9eb49688b1e2553bf6e08aae029b3e4d01f7e85e82ed78b3a"
+    }
+  ],
+  "source_PRs": [
+    "https://github.com/641927456/els-server-collab/pull/348"
+  ],
+  "local_only_source_catchup": false,
+  "client_changes": 0,
+  "new_schema_definitions": 0,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "automatic_deployment": false,
+  "source_view_is_formal_runtime": false,
+  "parent_snapshot_commit": "c618915e47e8252469e5d92aa7e68a36333e0fe8",
+  "contains_accounts_or_saves": false
+}

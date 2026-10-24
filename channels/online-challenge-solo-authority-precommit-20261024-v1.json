@@ -1,0 +1,33 @@
+{
+  "channel": "online",
+  "release": "challenge-solo-authority-precommit-20261024-v1",
+  "parent_release": "profession-blacksmith-single-hammer-20261024-v1",
+  "manifest_sha256": "934b4a295c68d574efe5daa0ebb246cc24649f560a2954f54063d4cf9c2cb383",
+  "scope_kind": "challenge",
+  "files": [
+    {
+      "path": "els_server/domain/challenge_flow.py",
+      "sha256": "9b4a886dbaa2efa9a789ffb1aa64deac26d41fcaf6a9acbc1b8c4703fa60b599",
+      "size": 7483,
+      "parent_sha256": "7ca6e0a4dd70e79992cee7ad2abbefd16631c30f31713f0936394afa58fdaa7f"
+    },
+    {
+      "path": "els_server/storage/challenge_state.py",
+      "sha256": "61487dde0c9ae1308607fda37392b025d9b49f1bdc6f4853d59807526b792e8a",
+      "size": 4893,
+      "parent_sha256": "360779e6b13ba0292f45c02973f9980480f6cc7fe3c06c205ab566fcc454c93b"
+    }
+  ],
+  "source_PRs": [
+    "https://github.com/641927456/els-server-collab/pull/391"
+  ],
+  "local_only_source_catchup": false,
+  "client_changes": 0,
+  "new_schema_definitions": 0,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "automatic_deployment": false,
+  "source_view_is_formal_runtime": false,
+  "parent_snapshot_commit": "993da581059b38b33f024275dd7d485105797975",
+  "contains_accounts_or_saves": false
+}

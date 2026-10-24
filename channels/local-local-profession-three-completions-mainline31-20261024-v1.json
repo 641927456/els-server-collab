@@ -1,0 +1,119 @@
+{
+  "channel": "local",
+  "release": "local-profession-three-completions-mainline31-20261024-v1",
+  "parent_release": "local-mainline31-qualified-continuations-20261024-v1",
+  "manifest_sha256": "9b55fcc6bc7cb2c76baa754fa870a323463b60be4c53b8ef95c4d87b54a92fa9",
+  "scope_kind": "profession-three",
+  "files": [
+    {
+      "path": "els_server/domain/anvil_flow.py",
+      "sha256": "723c6f416c63d366993b285a0ea978a135b44864e549b218cc2dca4edac13f1a",
+      "size": 2659,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/anvil_rules.py",
+      "sha256": "005c6a88afb67b076511c30b1c406d11b25140e86fccbb52cba2f5fea32b6ad7",
+      "size": 1552,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/flask_flow.py",
+      "sha256": "c31d816840bfc55ccf938fce03b5c4c2e98c2b0a365bcd6784e1e255d882e75f",
+      "size": 2553,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/flask_rules.py",
+      "sha256": "b8bd33be5b0ce60d24f25c9ebebb2e93bd399000ab32bb6d3d78841a69f45ae3",
+      "size": 5500,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/hunter_sphere_flow.py",
+      "sha256": "24fcaadae3a6af28a0437d9d92492fbfd0adec333dc3a0cf623c3f46697e2770",
+      "size": 1214,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/hunter_sphere_rules.py",
+      "sha256": "c0a18d84d7609cf1cda6279f9d832371e27ca74a11ba628bcddf15d8a11d82f8",
+      "size": 2973,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "sha256": "7f86c921197fd97e836d10b6055be14e810b453d499e1d02475e8e4f50fb8634",
+      "size": 50408,
+      "parent_sha256": "96ff092e1a67bd0a1386e50d0ccd33c409b129e2d7094d08b76b5f93c89bd246"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "e44e2c6101eb270e529bb97deb7f139ee7b32def40908fdbdb3a8b0f1352a657",
+      "size": 139670,
+      "parent_sha256": "2fb260ca2b3fa28f33632e2e5a6f877ad641395f216a4939c5d308289eb97957"
+    },
+    {
+      "path": "els_server/domain/manufacture_flow.py",
+      "sha256": "c8cf8ba8d812226303f924ab0a08ee9f0b522aa57c8fc035d6b0747134a68e6d",
+      "size": 5038,
+      "parent_sha256": "2c0c4d312910701147110f224c07f5b0f889ae54f731c115f32d94620d1269d5"
+    },
+    {
+      "path": "els_server/protocol/anvil_messages.py",
+      "sha256": "6437c0cec7659e6cc349f4c0278308372acb539c012c3fffcfea4feecccfee5e",
+      "size": 1135,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/protocol/flask_messages.py",
+      "sha256": "616cec1f1edfee11eec2f160b02e45dab260c317b2d2efd1b2286ef3b2f8e369",
+      "size": 2880,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/protocol/hunter_sphere_messages.py",
+      "sha256": "79e53ed00572d838e160ca6a273bb17d91bc26dfb97dcba96a90fdcec19a5c74",
+      "size": 1804,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/anvil.py",
+      "sha256": "5e43f70b0b8af08c958040a13bb0b0473146ae8cce27acfaf739695d98035a66",
+      "size": 6137,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/flask.py",
+      "sha256": "ff62dd1d6d155a153d380522aea950664694396370e4cba341a952b2c7c03b86",
+      "size": 11149,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/hunter_sphere.py",
+      "sha256": "b49c8f38c8da7bd884adccfff3211e7aa0bce948ad4dc5ed94d5a73152e87720",
+      "size": 5559,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/manufacture.py",
+      "sha256": "3b8596bfa4514f4a5eb8635b2680dd15bbc249e2c7f9c8a141568db7d51889d8",
+      "size": 21259,
+      "parent_sha256": "607f0cfd0427877d5e0a258456c145b633deecb4f251e2329f9a2b9b62d68ea3"
+    }
+  ],
+  "source_PRs": [
+    "https://github.com/641927456/els-server-collab/pull/351",
+    "https://github.com/641927456/els-server-collab/pull/353",
+    "https://github.com/641927456/els-server-collab/pull/355"
+  ],
+  "local_only_source_catchup": false,
+  "client_changes": 0,
+  "new_schema_definitions": 3,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "automatic_deployment": false,
+  "source_view_is_formal_runtime": false,
+  "parent_snapshot_commit": "63e5619dde3bd8479081c8dca45ec82cb52c2fcb",
+  "contains_accounts_or_saves": false
+}
