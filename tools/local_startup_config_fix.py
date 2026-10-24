@@ -3,7 +3,7 @@ import hashlib,json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def startup_config_source(image):
-    if hashlib.sha256(image).hexdigest()!='3cc9fca449c7a543957c5cdf439c7ba81323efd4a4b3fe577ed0ff0e954a820a':
+    if hashlib.sha256(image).hexdigest()!='c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229':
         raise ValueError('Unverified runtime image for configuration compatibility fix')
     spec=json.loads((ROOT/'tools/startup_config_repair.json').read_text(encoding='utf8'))
     if hashlib.sha256(bytes.fromhex(spec['encrypted_hex'])).hexdigest()!=spec['encrypted_sha256']:

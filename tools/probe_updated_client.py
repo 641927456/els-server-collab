@@ -89,17 +89,17 @@ digest=hashlib.sha256(client.read_bytes()).hexdigest()
 if selection and digest!=selection['executable']['sha256']:raise SystemExit('Client changed after compatibility preflight; no client launched.')
 if any((q.info['name'] or '').lower() in ('x2.exe','x2_dx11.exe') for q in psutil.process_iter(['name'])):raise SystemExit('Existing client found; no launch or attach.')
 prepared_sources={}
+stack_adapter_failure=None
 profile=Path(selection['native_directory']) if selection else BASE/'analysis'/('client-'+digest[:8])
 if a.login_probe:
  # Complete disk verification BEFORE starting the client, so hashing cannot
  # delay installation while its native resource initialization is running.
  snapshot=(profile/'x2-runtime.bin').read_bytes()
  prepared_sources=prepare_native_sources(snapshot,client.parent,a.allow_client_variants,a.local_resource_index)
- if not a.remote_bridge:
-  from local_stack_limits import source as local_stack_source
-  prepared_sources['stack_limits']=local_stack_source(snapshot)
-  from local_shortcut_totals import source as local_shortcut_source
-  prepared_sources['shortcut_totals']=local_shortcut_source(snapshot)
+ from local_stack_limits import source as local_stack_source
+ prepared_sources['stack_limits']=local_stack_source(snapshot)
+ from local_shortcut_totals import source as local_shortcut_source
+ prepared_sources['shortcut_totals']=local_shortcut_source(snapshot)
 if a.server_config:
  from els_server.config import ServerConfig
  server_config=ServerConfig.load(a.server_config)
@@ -184,10 +184,11 @@ log=(run/'trace.jsonl').open('w',encoding='utf8');dump=dump_path.open('rb' if a.
 try:
  session=frida.attach(proc.pid);clear_received_at=None;clear_sequence=0;login_hooks_ready=False;startup_inventory=None;startup_shop=None;startup_artifact=None
  def receive(m,data):
-  global clear_received_at,clear_sequence,login_hooks_ready
+  global clear_received_at,clear_sequence,login_hooks_ready,stack_adapter_failure
   log.write(json.dumps(m,ensure_ascii=True)+'\n');log.flush()
   v=m.get('payload',{})
   if v.get('event')=='updated_login_hooks_ready':login_hooks_ready=True
+  if v.get('event')in('local_stack_template_caps','local_shortcut_exact_total')and v.get('status')in('guard-rejected','prefix-timeout'):stack_adapter_failure=v.get('status')
   if v.get('event')=='native_lifecycle_packet' and v.get('kind')==0xc1 and v.get('result')==1:
    clear_received_at=time.monotonic();clear_sequence+=1
   if v.get('event')=='snapshot_chunk':dump.seek(v['offset']);dump.write(data)
@@ -235,6 +236,9 @@ emit({event:'attached',base:image.base.toString(),size:image.size});
   startup_observer=None
  print(str(run),flush=True);start=time.monotonic();captured=False;captures=set();town_ready_time=None;dungeon_queued=False;last_command=None;extension=None;extension_stamp=None
  while proc.poll() is None and (a.play or a.until_stopped or time.monotonic()-start<a.seconds) and not (run/'client.stop').exists():
+  if stack_adapter_failure:
+   print('ELS_LAUNCH_ERROR: 当前客户端叠加适配未通过校验。',flush=True)
+   raise RuntimeError('Stack adapter rejected: '+stack_adapter_failure)
   if a.allow_client_variants and not login_hooks_ready and time.monotonic()-start>35:
    print('ELS_LAUNCH_ERROR: 当前客户端的运行接口与朋友服适配器不兼容，请将 game-launch.log 发给房主。',flush=True)
    raise RuntimeError('Native interface verification timed out; no game interface hooks installed')

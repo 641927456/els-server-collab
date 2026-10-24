@@ -390,12 +390,10 @@ class LauncherService:
             results.append(dict(name='客户端版本', ok=ok, detail='已验证 DX11 构建' if ok else '客户端版本不匹配'))
             if not ok:
                 raise ValueError('客户端版本不匹配，停止检查')
-            from tools.dx11_resource_compat import resource_compat_source
-            from tools.local_resource_index_compat import source
-            image = (ROOT/'analysis/client-6c6b5180/native-prefixes.bin').read_bytes()
-            resource_compat_source(image, self.client.parent)
-            source(image, self.client.parent)
-            results.append(dict(name='启动资源兼容', ok=True, detail='两个固定资源包与目录校验通过'))
+            from tools.launch_client import prepare_native_sources
+            image = (ROOT/'analysis/client-6c6b5180/x2-runtime.bin').read_bytes()
+            prepare_native_sources(image, self.client.parent)
+            results.append(dict(name='启动资源兼容', ok=True, detail='固定客户端资源、原生摘要与磁盘索引校验通过'))
             client_data()
             results.append(dict(name='服务端配表', ok=True, detail='配表哈希与版本通过'))
             if self.save.exists():
@@ -435,7 +433,8 @@ class LauncherService:
             python = Path(sys.executable).with_name('python.exe') if os.name == 'nt' else Path(sys.executable)
             with log_path.open('w', encoding='utf8') as log:
                 with self.lock:
-                    self.process = subprocess.Popen([str(python), str(ROOT/'tools/launch_integrated_local.py')],
+                    self.process = subprocess.Popen([str(python), str(ROOT/'tools/launch_client.py'),
+                        '--mode', 'local', '--client', str(self.client)],
                         cwd=ROOT, stdout=log, stderr=subprocess.STDOUT,
                         creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0,
                         env=dict(os.environ, PYTHONIOENCODING='utf-8', PYTHONUNBUFFERED='1'))
