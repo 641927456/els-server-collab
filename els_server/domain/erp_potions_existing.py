@@ -1,10 +1,12 @@
-"""Current eleven stackable ERP potions, existing owned instances only."""
+"""Current modern and retained single-use ERP potions; owned SQL instances only."""
 import functools,hashlib,json,struct
 from pathlib import Path
 from types import MappingProxyType
 
-TEMPLATES=tuple(range(136161,136172))
-PAYLOAD_SHA='c0bedbb810042b1851971d64a27230d02efb5be9839f9aa8f1a46bbc40e3901e'
+LEGACY_TEMPLATES=tuple(range(135938,135949))
+MODERN_TEMPLATES=tuple(range(136161,136172))
+TEMPLATES=LEGACY_TEMPLATES+MODERN_TEMPLATES
+PAYLOAD_SHA='968b5d177163acf36f064348d345f9bbb5d4cc87b9a9c5de461f9b2d22e8ac5b'
 
 @functools.lru_cache(maxsize=1)
 def definitions():
@@ -19,7 +21,7 @@ def definitions():
     for row in data['rows']:
         item=client_data().item(row['template']);record=item['record']
         if (hashlib.sha256(record).hexdigest()!=row['record_sha256'] or record.hex()!=row['record_hex']
-            or (item['metadata'],item['item_type'],row['metadata'],row['group'])!=(2,7,2,4)
+            or (item['metadata'],item['item_type'],row['metadata'],row['group'])!=((0,7,0,4)if row['template']in LEGACY_TEMPLATES else(2,7,2,4))
             or struct.unpack_from('<II',record,4)[1]!=56
             or (row['min_level'],row['max_level'])!=(1,0)
             or type(row['experience'])is not int or row['experience']<=0):
@@ -28,11 +30,15 @@ def definitions():
     return MappingProxyType(result)
 
 def request(payload):
-    # Native quantity lambda2368270 ->2260FD0 -> original219 writer.
+    # Original219: modern quantity callback flag1; retained nonstack item uses flag0 and secondary0.
     if type(payload)is not bytes or len(payload)!=29:raise ValueError('ERP potion use length')
     uid,quantity,a,b,n,flag=struct.unpack('>QQiiIB',payload)
-    if not 0<uid<2**63 or not 1<=quantity<2**31 or a or b or n or flag!=1:
-        raise ValueError('ERP potion native quantity parameters')
+    if not 0<uid<2**63 or a or b or n or flag not in(0,1):
+        raise ValueError('ERP potion native use parameters')
+    if flag==0:
+        if quantity:raise ValueError('ERP single use has no secondary UID')
+        return uid,1
+    if not 1<=quantity<2**31:raise ValueError('ERP potion native quantity parameters')
     return uid,quantity
 
 class _ExistingPotion(dict):
@@ -43,7 +49,8 @@ def read_existing(item):
     if (type(item)is not dict or set(item)-{'expires_at','lock_until','sealed','seal_used'}!=keys
         or any(type(item[k])is not int for k in keys)
         or not 0<item['uid']<2**63 or item['template']not in TEMPLATES
-        or (item['metadata'],item['group'])!=(2,4) or not 1<=item['count']<2**31):
+        or (item['metadata'],item['group'])!=((0,4)if item['template']in LEGACY_TEMPLATES else(2,4))
+        or not 1<=item['count']<2**31 or(item['template']in LEGACY_TEMPLATES and item['count']!=1)):
         raise ValueError('Existing ERP potion instance shape')
     from els_server.domain.bag_capacity import wire_limit
     if not 0<=item['slot']<wire_limit(4):raise ValueError('Existing ERP potion slot')
