@@ -1,0 +1,463 @@
+{
+  "channel": "local",
+  "release": "local-epic-mainline255-native-skip-20261024-v1",
+  "parent_release": "local-challenge-solo-authority-precommit-20261024-v1",
+  "manifest_sha256": "a567cdba3bde6fbf2a8d1cbe1ee30a2c9c4ac3064b70535130634c4c09127a1d",
+  "scope_kind": "mainline24",
+  "files": [
+    {
+      "path": "els_server/data/account_epic_quests.json",
+      "sha256": "ebd970042690201a5768d21c2a88907ce74de45e6c1d86b981d65ccf92a9015b",
+      "size": 20097,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/data/account_epic_quests.manifest.json",
+      "sha256": "0e3bd87c8dc0239f010d273f0905a85e97cb223a0bda856f6075430f902646fa",
+      "size": 177,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/data/mainline_find_npc.json",
+      "sha256": "16e11be14cf010b339b7e67007b998f8b875adf8ea4d6f33738a4bc1a1e1a88f",
+      "size": 143157,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/data/story_quests.json",
+      "sha256": "f8fca87dc262ac6d76ecadd494a48d492fb9e89b450db7a7cd90dcf0937a2adf",
+      "size": 1542551,
+      "parent_sha256": "03e378194add6cd31a6737e29bb7c707547c8607a8d1cd3734ff80fa7e971339"
+    },
+    {
+      "path": "els_server/data/story_quests.manifest.json",
+      "sha256": "be312b53f23770f1f2b54c03aea60c36ac35aa85f2b2e003d5bc2998707e0693",
+      "size": 324,
+      "parent_sha256": "44898fc16b23161126c3945d64cf4aab6e007aecf2903ac49507298db5374fc4"
+    },
+    {
+      "path": "els_server/data/town_dialogue_quests.json",
+      "sha256": "260832f4955b96fc48a65597a939b7e1f340f400637a27e184acbeee451288a8",
+      "size": 425999,
+      "parent_sha256": "6ae834fdf870fe81e438fadf9349fad2bb82abcbceb2742041d4b45764ce0a76"
+    },
+    {
+      "path": "els_server/data/town_dialogue_quests.manifest.json",
+      "sha256": "e8b3cde3c76c796966a9646c63fd265e6705a12a892cc38ca0205e846dd2ee11",
+      "size": 238,
+      "parent_sha256": "776635a2cea95c7da68914b71d83e2260ef2986cbdced744807435e358d483a9"
+    },
+    {
+      "path": "els_server/domain/account_epic_quests.py",
+      "sha256": "bc54257ebdbf01d7588ff576834e6e03f8200b096224994048d81321924de193",
+      "size": 2576,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/consumables.py",
+      "sha256": "4ac7b69398023a97e47d79474a1e2c42680b37b424548049d29d0af9485a0333",
+      "size": 5335,
+      "parent_sha256": "e16257256d5b018da361c386458b123bfaa9b587b3ae5ed3341043cd315a0cfb"
+    },
+    {
+      "path": "els_server/domain/growing_adventure_kit.py",
+      "sha256": "d9ec9e73f1f9e715e5540c3644f0404c801390f73456927a25e438926497381a",
+      "size": 3432,
+      "parent_sha256": "c969b5d9bba463f0b55a822070ac8abfdfb77a62b23f2a20fa23c797516af960"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "sha256": "1a682b35f2b9953994ea9110c3e9c25c7a9877471f11978b64da78661ce74842",
+      "size": 53079,
+      "parent_sha256": "7f86c921197fd97e836d10b6055be14e810b453d499e1d02475e8e4f50fb8634"
+    },
+    {
+      "path": "els_server/domain/mainline_find_npc.py",
+      "sha256": "c3444384392845d575fc086f637929b55ceec0c268cbb6d414c09f414548654b",
+      "size": 10047,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/mainline_subquest_groups.py",
+      "sha256": "b09e94d99f6ba00845652576526c2c2be25ec28b82a3a3d42a5f7173ae4668c7",
+      "size": 1561,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "sha256": "88e3b1554b3b8dc1dd49cf79c967420fa680e28f7c5d69e127a1791b5db90f58",
+      "size": 17305,
+      "parent_sha256": "c8fc02640b1a68d9b503d665f34fc3b8e597a4d5d25f8c004270c62e3be045e2"
+    },
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "sha256": "c28c4ca3653abb339231ec48d63a0eb589566dd521ff700234cf5871c782ef98",
+      "size": 13757,
+      "parent_sha256": "c6afe9b58189d4bc1bf20e304fadafdc7c31a27a2ef8dd0657d4643bfe1e401f"
+    },
+    {
+      "path": "els_server/domain/town_dialogue.py",
+      "sha256": "7592302c1739574f9788e6b775b4a763c98a6c8d7e22b5ce9779fad4bd0aa55d",
+      "size": 15357,
+      "parent_sha256": "eca52baf2e82f4df347a309818e4ce00aca5a30a85d3e2bd594d18c44a696a98"
+    },
+    {
+      "path": "els_server/storage/account_epic_scope.py",
+      "sha256": "ad7d566e913ed24767a6aa2988ab2f08da84398fcae612b1eed9d5b1554384f0",
+      "size": 9279,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/epic_followups.py",
+      "sha256": "11c348ec72e1a0f37a97afaeada4a4a3adb8ac1de76877236c0e91e359f5d00e",
+      "size": 5869,
+      "parent_sha256": "bda3855a61301342687b0bbecbb2f6cea3147d7d6c785973ba35d46deef7366f"
+    },
+    {
+      "path": "els_server/storage/fixed_cubes.py",
+      "sha256": "84948fd77a76c90af72cdf359591e82d9e7b2526131fdf876cbcd402995ece4a",
+      "size": 6809,
+      "parent_sha256": "06f118b1372de7cb62aa23f03707851ab9c896005e743c68ce0a9d54fe4995f7"
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "sha256": "ebccf293e0fbcc7b4818f51839b7908df14f79469d841e96127bbbf9c0f37110",
+      "size": 26847,
+      "parent_sha256": "e61761489107ac0c5cef422f5a684a8c5c6e39d3abb8571c3a0a1aafc78180fa"
+    },
+    {
+      "path": "els_server/storage/account_contract26780_scope.py",
+      "sha256": "bfb4c688af6376d6a4b082a62ade05cc00c6cbfd1f7ecafcb96c8454ef527df0",
+      "size": 7338,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/town_dialogue.py",
+      "sha256": "afc54c0dc7266b7180c8ec64554f85a56ed44f4cf361210bec7df064028d1978",
+      "size": 5456,
+      "parent_sha256": "f831c881a4b59572c0adb32ccd067e4bd6961e8fb33ac62d674e5266c2453d6c"
+    },
+    {
+      "path": "els_server/domain/epic_skip.py",
+      "sha256": "76426f77c38dfbb5b7e462b7486fa3fc14c926d7acc6b065570b623c16b95067",
+      "size": 1556,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/protocol/quest_messages.py",
+      "sha256": "32bd5184a8dd97a5087157d5979660891d5ee67c42716ed966277bdde38b6cfa",
+      "size": 4367,
+      "parent_sha256": "68a9ee53617e954336562a9fd48368881e0711d13ec6be8bdd7ed80cf55ae6da"
+    }
+  ],
+  "source_PRs": [
+    "https://github.com/641927456/els-server-collab/pull/364",
+    "https://github.com/641927456/els-server-collab/pull/365",
+    "https://github.com/641927456/els-server-collab/pull/366",
+    "https://github.com/641927456/els-server-collab/pull/367",
+    "https://github.com/641927456/els-server-collab/pull/368",
+    "https://github.com/641927456/els-server-collab/pull/370",
+    "https://github.com/641927456/els-server-collab/pull/372",
+    "https://github.com/641927456/els-server-collab/pull/374",
+    "https://github.com/641927456/els-server-collab/pull/378"
+  ],
+  "local_only_source_catchup": false,
+  "client_changes": 0,
+  "new_schema_definitions": 3,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "automatic_deployment": false,
+  "source_view_is_formal_runtime": false,
+  "parent_snapshot_commit": "250c8939892648c207c105c589410433b15370f9",
+  "contains_accounts_or_saves": false,
+  "local_history_only": true,
+  "parent_manifest_sha256": "cb0e45949cd64fe7e498505bdcface340c19a86a9d8de9ff094c13d24a72db7f",
+  "business_file_count": 995,
+  "runtime_file_count": 1457,
+  "changed_runtime_file_count": 24,
+  "new_runtime_file_count": 9,
+  "replaced_runtime_file_count": 15,
+  "independent_units": 9,
+  "independent_unit_ids": [
+    "regular249",
+    "xp-cap",
+    "F5-saved-profession-ERP",
+    "native-potions78985-78986",
+    "growing-kit168889",
+    "account4",
+    "town26750",
+    "account26780",
+    "native-epic-skip"
+  ],
+  "new_lazy_tables": [
+    "account_epic_scope_accounts",
+    "account_epic_scope_clears",
+    "account_contract26780_binding"
+  ],
+  "eager_schema_migration": false,
+  "install_DDL_statements": 0,
+  "actual_local_delivery_accepted": true,
+  "online_or_dual_delivery_claimed": false,
+  "active_selector_changed": false,
+  "main_source_changed": false,
+  "source_runtime_mapping": "Nine historical source PRs -> qualified thin24 -> actual Challenge-parent composition -> accepted installed local995/1457. Final rows name actual local bytes; they do not assert blanket equality to historical source Git whole blobs.",
+  "source_PR_acceptance": [
+    {
+      "PR_number": 364,
+      "head": "7cd6a6109054d1848bbbc80a5c5f59a8ce4de6bd",
+      "merge_commit": "a10d92b2ee0304c62e309e3f30fa96907d6cb8f2",
+      "merged_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-364-merged.json",
+        "sha256": "a21d9d22c4542da6d5a54f09181ea517352b6eb0aad6d904473f74cb3e2377af",
+        "bytes": 368
+      },
+      "CI_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-source-CI-v1.json",
+        "sha256": "696a1c552bd26eb893ce557f1ad25febc007f58777c734fac9cede1845fc74e3",
+        "bytes": 4658
+      },
+      "CI_pointer": "/0",
+      "exact_head_source_CI_reused": true,
+      "runtime_CI_skipped": true
+    },
+    {
+      "PR_number": 365,
+      "head": "a11399e6a1a3859330516f3c1fd2a34927528aed",
+      "merge_commit": "595cb7f1093583a6172e306f18aa6931f7e6364f",
+      "merged_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-365-merged.json",
+        "sha256": "4dd5cfc0a56d11b37ef15948beb49dea9cfe8f45f491f23242bf5c3bedb5cb3d",
+        "bytes": 368
+      },
+      "CI_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-source-CI-v1.json",
+        "sha256": "696a1c552bd26eb893ce557f1ad25febc007f58777c734fac9cede1845fc74e3",
+        "bytes": 4658
+      },
+      "CI_pointer": "/1",
+      "exact_head_source_CI_reused": true,
+      "runtime_CI_skipped": true
+    },
+    {
+      "PR_number": 366,
+      "head": "71d8028f5fd55a3680c16ca7318761816d731d3d",
+      "merge_commit": "f5d524692d5cecf320f165dd63d37f5ebb9fdc97",
+      "merged_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-366-merged.json",
+        "sha256": "e8b64c90f363457104d641d2bab48141a4b17093542f4216e659f6421a75fa09",
+        "bytes": 368
+      },
+      "CI_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-source-CI-v1.json",
+        "sha256": "696a1c552bd26eb893ce557f1ad25febc007f58777c734fac9cede1845fc74e3",
+        "bytes": 4658
+      },
+      "CI_pointer": "/2",
+      "exact_head_source_CI_reused": true,
+      "runtime_CI_skipped": true
+    },
+    {
+      "PR_number": 367,
+      "head": "c7a2e29376c5ba11a0a9a11029d989d6d4da4519",
+      "merge_commit": "4f223e3e4f1665c8c39bec2c76865ad4ffa6be4e",
+      "merged_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-367-merged.json",
+        "sha256": "466d3b6aeb61f92da66e3ce17a3338e9d7ed1c26e3f7c831b2b81c07efdbc786",
+        "bytes": 368
+      },
+      "CI_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-source-CI-v1.json",
+        "sha256": "696a1c552bd26eb893ce557f1ad25febc007f58777c734fac9cede1845fc74e3",
+        "bytes": 4658
+      },
+      "CI_pointer": "/3",
+      "exact_head_source_CI_reused": true,
+      "runtime_CI_skipped": true
+    },
+    {
+      "PR_number": 368,
+      "head": "6f3dd05b147f3de9919401d8ead65aa77f106a3f",
+      "merge_commit": "4360e9c744de7f59ae48a6abfe1648a26ee91760",
+      "merged_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-368-merged.json",
+        "sha256": "fa57f96ffc6a4f363bc0cf0d92ffe4c6eaa60262a7997c4d1c3b4a42ce5d837d",
+        "bytes": 368
+      },
+      "CI_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-source-CI-v1.json",
+        "sha256": "696a1c552bd26eb893ce557f1ad25febc007f58777c734fac9cede1845fc74e3",
+        "bytes": 4658
+      },
+      "CI_pointer": "/4",
+      "exact_head_source_CI_reused": true,
+      "runtime_CI_skipped": true
+    },
+    {
+      "PR_number": 370,
+      "head": "f4b9e94020a4411ca04b45855a018440899b31bd",
+      "merge_commit": "adb1926187ced6f4e2204c753bd7a2e136fc92d0",
+      "merged_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-370-merged.json",
+        "sha256": "94c0cdbb2bb3aac961701926ad8c0e4bee00b4743d366e4e77a1b28f55c5e2d8",
+        "bytes": 368
+      },
+      "CI_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-source-CI-370-v1.json",
+        "sha256": "6c695b7aa10e49437308c7e79859fee76ee8cb8fd0b5b5211a2282caace71703",
+        "bytes": 2481
+      },
+      "CI_pointer": "/0",
+      "exact_head_source_CI_reused": true,
+      "runtime_CI_skipped": true
+    },
+    {
+      "PR_number": 372,
+      "head": "05f1c4d45fa94972eccc238ac9f438879fd72f18",
+      "merge_commit": "b2b536ec5dc83f456820362cfe05e26b90714ccd",
+      "merged_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-372-merged.json",
+        "sha256": "ea303bfb21c7185d94d51d272840b36792892365511942a5eaad1841b242812e",
+        "bytes": 368
+      },
+      "CI_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-source-CI-372-v1.json",
+        "sha256": "f85dda6b803f6341b374998f59f16bc0f2be7e7792f17357721f7aedace34ac1",
+        "bytes": 2481
+      },
+      "CI_pointer": "/0",
+      "exact_head_source_CI_reused": true,
+      "runtime_CI_skipped": true
+    },
+    {
+      "PR_number": 374,
+      "head": "77cecf3ba3b019d47d4da65faf2fe7e12f1e66f6",
+      "merge_commit": "cc8fc4b986fd66415687194b9fd93a0e7bfc2b9b",
+      "merged_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-374-merged.json",
+        "sha256": "d94db1e3d7f063faf74eede43d73f7eb571e77c264ed932da979a0deb06f7e1c",
+        "bytes": 368
+      },
+      "CI_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-source-CI-374-v1.json",
+        "sha256": "a810567721c8894a46d424197f6df547b11a36b7745eac469db8e9296045820f",
+        "bytes": 2481
+      },
+      "CI_pointer": "/0",
+      "exact_head_source_CI_reused": true,
+      "runtime_CI_skipped": true
+    },
+    {
+      "PR_number": 378,
+      "head": "35e78633b1ff7fd75b9312393d3904d4f54e73f5",
+      "merge_commit": "257ebae74c1c39e624e3b558e02624aeeb45e8d6",
+      "merged_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-378-merged.json",
+        "sha256": "af5838ebc1e65eb84d1cc5bc4be51c5494b772998096d29bc3cb54ef29a11689",
+        "bytes": 368
+      },
+      "CI_receipt": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/git/PR-source-CI-378-v1.json",
+        "sha256": "bba8377ce2bed015dc12751dd0d8616cf83eb766a05ba910fb838c29d7ae73f0",
+        "bytes": 2481
+      },
+      "CI_pointer": "/0",
+      "exact_head_source_CI_reused": true,
+      "runtime_CI_skipped": true
+    }
+  ],
+  "evidence": {
+    "accepted_local_review": {
+      "path": "analysis/full-gap-execution-20261024-v1/review/mainline24-actual-intake-v1/actual-local-delivery-review-v1.json",
+      "sha256": "a72495a2a3d268e0ae426df8f719957287a0408a0d952e3ca39efd96e93e3308",
+      "bytes": 20745
+    },
+    "formal_local_manifest": {
+      "path": "releases/local/local-epic-mainline255-native-skip-20261024-v1/local-business-manifest.json",
+      "sha256": "a567cdba3bde6fbf2a8d1cbe1ee30a2c9c4ac3064b70535130634c4c09127a1d",
+      "bytes": 377115
+    },
+    "formal_bundle_manifest": {
+      "path": "releases/local/local-epic-mainline255-native-skip-20261024-v1/client-bundle-manifest.json",
+      "sha256": "920f6c4fb373852edda5c18051f06db77de7da50b74f5402a33d3e2f7a184bd2",
+      "bytes": 255219
+    },
+    "local_completion": {
+      "path": "analysis/epic-mainline-complete-20261024-v1/delivery-source-controls-v2/publication/local-install/completion.json",
+      "sha256": "1569c9fc154c750d6e947f13f1161c16a23e8c8610efdd789e511dd96723ceaf",
+      "bytes": 203524
+    },
+    "local_backup_receipt": {
+      "path": "analysis/epic-mainline-complete-20261024-v1/delivery-source-controls-v2/publication/local-install/backup.json",
+      "sha256": "9bf85aef9ccc83a3932e203ae723e896a4b1c46065ade9d06ce8056e7a429cd4",
+      "bytes": 14155
+    },
+    "local_locks_released": {
+      "path": "analysis/epic-mainline-complete-20261024-v1/delivery-source-controls-v2/publication/local-install/locks-released.json",
+      "sha256": "35bf9df1031f9d0513cb069b9a7c9a2b2c1be2e57d8e25821de6d25f2a0fb57f",
+      "bytes": 49
+    },
+    "parent_manifest": {
+      "path": "releases/local/local-challenge-solo-authority-precommit-20261024-v1/local-business-manifest.json",
+      "sha256": "cb0e45949cd64fe7e498505bdcface340c19a86a9d8de9ff094c13d24a72db7f",
+      "bytes": 586872
+    },
+    "candidate_freeze": {
+      "path": "analysis/epic-mainline-complete-20261024-v1/delivery-source-controls-v2/candidate-freeze.json",
+      "sha256": "d644ac1e25b154a8317f3072ff4e794d5dcffc6e3a04475c10db6447f806915a",
+      "bytes": 38706
+    },
+    "source_contract": {
+      "path": "analysis/epic-mainline-complete-20261024-v1/delivery-source-controls-v2/delivery-contract.json",
+      "sha256": "c000af07964fb4c822c778b094d6d068ac4e21130c1a6ea3e3a7b61148d56faa",
+      "bytes": 1140650
+    },
+    "qualified_thin_freeze": {
+      "path": "analysis/epic-mainline-complete-20261024-v1/qualified-source24-plus-skip-v1/freeze.json",
+      "sha256": "e672c473ca3166e940c145e76e53c51c6965ca926e73dc2f333fcf6096ba325a",
+      "bytes": 18611
+    },
+    "actual_qualified_composition": {
+      "path": "analysis/epic-mainline-complete-20261024-v1/delivery-source-controls-v2/actual-source-v1/composition.json",
+      "sha256": "5cb1f5b57ddbba8fc2d691814357e9c86b60f7828b20e1c47959b76b3239e7ef",
+      "bytes": 1220646
+    },
+    "composition_reviews": [
+      {
+        "path": "analysis/epic-mainline-complete-20261024-v1/review-compose-actual-source24-v5/review.json",
+        "sha256": "8f8e8d0aea7aad4c4b7706f9f34eff7f5d76201986f716471152f513b2d9690b",
+        "bytes": 2826
+      },
+      {
+        "path": "analysis/full-gap-execution-20261024-v1/review/mainline24-actual-intake-v1/independent-actual-source-v5-review.json",
+        "sha256": "a787d1e5348f0605db503932cc7186af271933a97ccd163ca6f13c9a07edd179",
+        "bytes": 19499
+      },
+      {
+        "path": "analysis/full-gap-execution-20261024-v1/review/mainline24-actual-intake-v1/actual-artifact-and-FILE-review-v1.json",
+        "sha256": "9dc183c837cac8f6f866cbb96f612c469896e3b65cdecb3bde46932d4459c03a",
+        "bytes": 89612
+      }
+    ],
+    "row_mapping": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/mainline24-local-snapshot-plan-FALSE-v1/24-local-runtime-rows.json",
+      "sha256": "262f0ba5943e9075c341aaa9a05b58a60507362d6b4eaacce134105c13aeb7c2",
+      "bytes": 89637
+    },
+    "manifest_delta": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/mainline24-local-snapshot-plan-FALSE-v1/manifest-delta-proof.json",
+      "sha256": "4c0811574ffc4302e1f8a7d89307c2e04387cc90767b2165068d774aa9542b8c",
+      "bytes": 2462
+    },
+    "source_PR_index": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/mainline24-local-snapshot-plan-FALSE-v1/9-source-PRs.json",
+      "sha256": "9ac20051c15e36eb41425e1fe764e357ca8ce419b570078dbde869e79f2d6d02",
+      "bytes": 8927
+    },
+    "snapshot_plan": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/mainline24-local-snapshot-plan-FALSE-v1/plan.FALSE.json",
+      "sha256": "4798576ae966025ffd66fc7406773d471bb3260a7840109890c228185b8f184a",
+      "bytes": 9889
+    }
+  },
+  "validation_boundary": "Existing source/private/artifact/installed-local evidence reused; no new business/CI/QA/natural GUI validation or online completion inferred. Source snapshot performs no deployment, runtime activation, current or main update."
+}
