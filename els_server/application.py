@@ -77,7 +77,7 @@ class FriendsSession(LocalSession):
             luciel=self.account.character()['unit_type']==10
             career=luciel and event.kind in (0x219,0x80f) and bool(kinds&{0x29f,0x59f})
             expiry=0x1c6 in kinds
-            if event.kind in (0x104,0x213) or career or expiry or (event.kind in (0x4b1,0x6d7,0xad6) and any(e.kind==event.kind+1 and e.payload[:4]==bytes(4) for e in result)):
+            if event.kind in (0x104,0x213) or career or expiry or (event.kind==0x8b1 and any(e.kind==0x8b2 and e.payload[:4]==bytes(4) for e in result)) or (event.kind in (0x4b1,0x6d7,0xad6) and any(e.kind==event.kind+1 and e.payload[:4]==bytes(4) for e in result)):
                 # Reuse the existing current-instance/learned-skill projection
                 # for peers only; never restore or heal the owner again.
                 self.application.world.appearance_changed(self)
