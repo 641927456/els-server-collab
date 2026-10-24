@@ -1,0 +1,45 @@
+{
+  "channel": "online",
+  "release": "native-tenebros-account-capacity-20261024-v1",
+  "parent_release": "ordinary-skill-pages-ED-local-policy-20261024-v1",
+  "manifest_sha256": "a05a3a11b39a5749f93b18cde77e3b45ad75baa419c166d4a3783230c60e0f78",
+  "scope_kind": "tenebros",
+  "files": [
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "71263cbd0618b41678290c07fbb0ba751e926c6891bd3a2cad0a3da2b6b59218",
+      "size": 141590,
+      "parent_sha256": "e328d292767f0e48a98233e8d6435bbb32c0aab1265f49c321bd0607226e074c"
+    },
+    {
+      "path": "els_server/domain/tenebros_capacity_flow.py",
+      "sha256": "009bffedfd39b5c37d4507078d7adb6176c9225961ed5541bf9240eda9e27aed",
+      "size": 3385,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/protocol/tenebros_capacity_messages.py",
+      "sha256": "e09740f3400d724f4aba345e589bd25ae35e8a082f8d5ac1513691edf088709a",
+      "size": 1263,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/tenebros_capacity.py",
+      "sha256": "ea95820501525ff7c2c67801da92952ad2464ef4720182e1be1216afdf91ba2a",
+      "size": 7415,
+      "parent_sha256": null
+    }
+  ],
+  "source_PRs": [
+    "https://github.com/641927456/els-server-collab/pull/346"
+  ],
+  "local_only_source_catchup": false,
+  "client_changes": 0,
+  "new_schema_definitions": 2,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "automatic_deployment": false,
+  "source_view_is_formal_runtime": false,
+  "parent_snapshot_commit": "08d3616700a75c1437fec9ef55dbffaa7cd4abf3",
+  "contains_accounts_or_saves": false
+}

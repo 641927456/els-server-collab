@@ -1,0 +1,45 @@
+{
+  "channel": "online",
+  "release": "profession-blacksmith-single-hammer-20261024-v1",
+  "parent_release": "profession-hunter-chest-source-20261024-v1",
+  "manifest_sha256": "a7ecd3c722ebd7c04b9270f770d82c393ce1fdec38c4f129736a63767b604465",
+  "scope_kind": "hammer",
+  "files": [
+    {
+      "path": "els_server/domain/blacksmith_enhancement_rules.py",
+      "sha256": "128636536a30cf404acf1d7f985cb63125a6766eb0d86f97625f0c5c09c15c4a",
+      "size": 4169,
+      "parent_sha256": "9781d551d76506cc50b4a03585af6d92dc0225d4b2c59fac6815847ea1700bd2"
+    },
+    {
+      "path": "els_server/protocol/blacksmith_enhancement_messages.py",
+      "sha256": "47dcb3a725d68a6aadfb251f4983147b9c76df0a71f1cf6edf3c4f5ff41dcf3a",
+      "size": 1992,
+      "parent_sha256": "2423131344c760ffcc08007ff3248af09b4b564c259608a091dccec595676cd6"
+    },
+    {
+      "path": "els_server/storage/blacksmith_enhancement.py",
+      "sha256": "e3d78a881fc6976e82e832fa43f2215a3a73931e33508690cb1090196d4f58fd",
+      "size": 6302,
+      "parent_sha256": "53e179535cb091f1b6b7b07435e5aedd81032e705e147d72f68d1546973ce495"
+    },
+    {
+      "path": "els_server/storage/anvil.py",
+      "sha256": "760ba93211681c3f28df62f6e28234f02182258ec7cdaf4d766416643cffd59c",
+      "size": 7530,
+      "parent_sha256": "5e43f70b0b8af08c958040a13bb0b0473146ae8cce27acfaf739695d98035a66"
+    }
+  ],
+  "source_PRs": [
+    "https://github.com/641927456/els-server-collab/pull/380"
+  ],
+  "local_only_source_catchup": false,
+  "client_changes": 0,
+  "new_schema_definitions": 0,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "automatic_deployment": false,
+  "source_view_is_formal_runtime": false,
+  "parent_snapshot_commit": "222c4261ad15c23fd02cd25dfcc16989760a23de",
+  "contains_accounts_or_saves": false
+}

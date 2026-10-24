@@ -1,0 +1,75 @@
+{
+  "channel": "online",
+  "release": "profession-hunter-chest-source-20261024-v1",
+  "parent_release": "native-tenebros-account-capacity-20261024-v1",
+  "manifest_sha256": "e72810cca7cb3241e9a2b99fd501d496f17d2e078e5da3be130d7fc36533a64a",
+  "scope_kind": "box",
+  "files": [
+    {
+      "path": "els_server/domain/drop_pickup.py",
+      "sha256": "180483aecf66961e20f298607dcb4ac2eaa98cffd0d4652173c46ac5448a82f2",
+      "size": 5437,
+      "parent_sha256": "a48f86f8b4d35baaf020e164eaa72e8b2d7301e82e623c5b79f00968c6b57237"
+    },
+    {
+      "path": "els_server/domain/dungeon_drops.py",
+      "sha256": "69cd10f62574971bab5603c549517ca0fa83883e5205bbb7fd1702419e675cf3",
+      "size": 4725,
+      "parent_sha256": "8cbf2345a1885f53f933c96fac95a41d0988d014540356fae946ebf12b865341"
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "sha256": "bb1e11ed0fa3bd90c50d990cc03eb3d4951e15b5c5312c0371c5bb43e57146f6",
+      "size": 14816,
+      "parent_sha256": "ea98c144b150ca5369723a6ed2c032372ea034a9ecf57f5dd8f9f40071d829ac"
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "sha256": "2f4657c359a193da9aee2130a32b1c840a59a43147af71aebac226c2652889b3",
+      "size": 20800,
+      "parent_sha256": "b99dc4c6f5af17b9dec7bdd149a4e89959fb284bb8e5c7be0b9b47739bc760e1"
+    },
+    {
+      "path": "els_server/domain/hunter_chest_flow.py",
+      "sha256": "1ed2418a662f7e10094a212b06c51b8450a35f65c65ba2668fa1fe6a93c1f50a",
+      "size": 14616,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/hunter_chest_rules.py",
+      "sha256": "f20cd2a48e75b35df68d65598751c91ec5c677f36e8da25ff767cbe25338d8dd",
+      "size": 3769,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "88d41e5f6a40a16d58187152cd5cc96aedc9aaab2614fdd53fb7f32bd2bbccff",
+      "size": 141782,
+      "parent_sha256": "71263cbd0618b41678290c07fbb0ba751e926c6891bd3a2cad0a3da2b6b59218"
+    },
+    {
+      "path": "els_server/protocol/hunter_chest_messages.py",
+      "sha256": "e004d5307161c21ed4fc08a288bce8aa789c443f9f352f80c226d0e88bc67f87",
+      "size": 2359,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/hunter_chest.py",
+      "sha256": "82e294c39d648232fbaeaa83f2c745bba295cf32842c7014c3c53a9f962d9c0f",
+      "size": 7520,
+      "parent_sha256": null
+    }
+  ],
+  "source_PRs": [
+    "https://github.com/641927456/els-server-collab/pull/376"
+  ],
+  "local_only_source_catchup": false,
+  "client_changes": 0,
+  "new_schema_definitions": 2,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "automatic_deployment": false,
+  "source_view_is_formal_runtime": false,
+  "parent_snapshot_commit": "b8981d0964f920a8836271c7668aa6f4817f2dd1",
+  "contains_accounts_or_saves": false
+}

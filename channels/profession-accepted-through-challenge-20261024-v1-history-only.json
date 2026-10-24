@@ -1,0 +1,380 @@
+{
+  "kind": "qualified-accepted-source-history-only",
+  "history": [
+    {
+      "channel": "local",
+      "kind": "mainline31",
+      "release": "local-mainline31-qualified-continuations-20261024-v1",
+      "branch": "snapshot/local-mainline31-qualified-continuations-20261024-v1",
+      "parent": "5afcf981ff108d845ba30b5fe643004580111464",
+      "commit": "63e5619dde3bd8479081c8dca45ec82cb52c2fcb",
+      "record_file": "channels/local-local-mainline31-qualified-continuations-20261024-v1.json",
+      "files": {
+        "els_server/data/story_quests.json": "03e378194add6cd31a6737e29bb7c707547c8607a8d1cd3734ff80fa7e971339",
+        "els_server/data/story_quests.manifest.json": "44898fc16b23161126c3945d64cf4aab6e007aecf2903ac49507298db5374fc4",
+        "els_server/data/town_dialogue_quests.json": "6ae834fdf870fe81e438fadf9349fad2bb82abcbceb2742041d4b45764ce0a76",
+        "els_server/data/town_dialogue_quests.manifest.json": "776635a2cea95c7da68914b71d83e2260ef2986cbdced744807435e358d483a9",
+        "els_server/data/town_travel.json": "b3b40954b6e9767b4af88ae4ef58e7d3898e38699419ec1ff5f1939bc9e6b406",
+        "els_server/data/town_travel.manifest.json": "96fd9e640bfcd11021401b57d8b1dda661f49b6bb803b573d2ac8a968484253a",
+        "els_server/domain/local_session.py": "2fb260ca2b3fa28f33632e2e5a6f877ad641395f216a4939c5d308289eb97957",
+        "els_server/domain/quest_flow.py": "c8fc02640b1a68d9b503d665f34fc3b8e597a4d5d25f8c004270c62e3be045e2",
+        "els_server/domain/seal_quests.py": "c6afe9b58189d4bc1bf20e304fadafdc7c31a27a2ef8dd0657d4643bfe1e401f",
+        "els_server/domain/town_dialogue.py": "eca52baf2e82f4df347a309818e4ce00aca5a30a85d3e2bd594d18c44a696a98",
+        "els_server/domain/tutorial_memory8_finale.py": "10ac1335ca89a085aaa121530f461242e854cd46cf93885062a2fda78f6c2d8b",
+        "els_server/domain/tutorial_quests.py": "389f9738e5304b76cb408116a4ebdc8d27994e8f08575c8a24919d2732396682",
+        "els_server/storage/local_state.py": "7293088ebc218673671b54fc6af680e73b8bccb69b0acf637b8db4fff053d6ce"
+      },
+      "reused": false,
+      "materialization_reused": true
+    },
+    {
+      "channel": "local",
+      "kind": "profession-three",
+      "release": "local-profession-three-completions-mainline31-20261024-v1",
+      "branch": "snapshot/local-profession-three-completions-mainline31-20261024-v1",
+      "parent": "63e5619dde3bd8479081c8dca45ec82cb52c2fcb",
+      "commit": "a32e26f1f79cf715f3b2387c7d17fce9cd620e29",
+      "record_file": "channels/local-local-profession-three-completions-mainline31-20261024-v1.json",
+      "files": {
+        "els_server/domain/anvil_flow.py": "723c6f416c63d366993b285a0ea978a135b44864e549b218cc2dca4edac13f1a",
+        "els_server/domain/anvil_rules.py": "005c6a88afb67b076511c30b1c406d11b25140e86fccbb52cba2f5fea32b6ad7",
+        "els_server/domain/flask_flow.py": "c31d816840bfc55ccf938fce03b5c4c2e98c2b0a365bcd6784e1e255d882e75f",
+        "els_server/domain/flask_rules.py": "b8bd33be5b0ce60d24f25c9ebebb2e93bd399000ab32bb6d3d78841a69f45ae3",
+        "els_server/domain/hunter_sphere_flow.py": "24fcaadae3a6af28a0437d9d92492fbfd0adec333dc3a0cf623c3f46697e2770",
+        "els_server/domain/hunter_sphere_rules.py": "c0a18d84d7609cf1cda6279f9d832371e27ca74a11ba628bcddf15d8a11d82f8",
+        "els_server/domain/inventory_items.py": "7f86c921197fd97e836d10b6055be14e810b453d499e1d02475e8e4f50fb8634",
+        "els_server/domain/local_session.py": "e44e2c6101eb270e529bb97deb7f139ee7b32def40908fdbdb3a8b0f1352a657",
+        "els_server/domain/manufacture_flow.py": "c8cf8ba8d812226303f924ab0a08ee9f0b522aa57c8fc035d6b0747134a68e6d",
+        "els_server/protocol/anvil_messages.py": "6437c0cec7659e6cc349f4c0278308372acb539c012c3fffcfea4feecccfee5e",
+        "els_server/protocol/flask_messages.py": "616cec1f1edfee11eec2f160b02e45dab260c317b2d2efd1b2286ef3b2f8e369",
+        "els_server/protocol/hunter_sphere_messages.py": "79e53ed00572d838e160ca6a273bb17d91bc26dfb97dcba96a90fdcec19a5c74",
+        "els_server/storage/anvil.py": "5e43f70b0b8af08c958040a13bb0b0473146ae8cce27acfaf739695d98035a66",
+        "els_server/storage/flask.py": "ff62dd1d6d155a153d380522aea950664694396370e4cba341a952b2c7c03b86",
+        "els_server/storage/hunter_sphere.py": "b49c8f38c8da7bd884adccfff3211e7aa0bce948ad4dc5ed94d5a73152e87720",
+        "els_server/storage/manufacture.py": "3b8596bfa4514f4a5eb8635b2680dd15bbc249e2c7f9c8a141568db7d51889d8"
+      },
+      "reused": false,
+      "materialization_reused": true
+    },
+    {
+      "channel": "local",
+      "kind": "local-skillpages",
+      "release": "local-ordinary-skill-pages-ED-local-policy-20261024-v1",
+      "branch": "snapshot/local-ordinary-skill-pages-ED-local-policy-20261024-v1",
+      "parent": "a32e26f1f79cf715f3b2387c7d17fce9cd620e29",
+      "commit": "13e5e2ee381ca1cf45bd26c3330ca8cde71f4111",
+      "record_file": "channels/local-local-ordinary-skill-pages-ED-local-policy-20261024-v1.json",
+      "files": {
+        "els_server/domain/ordinary_skill_pages.py": "e935b69453d9bf0c6be79313497779b359f49e48caa2ff9ed05f4edb9edd739b",
+        "els_server/storage/ordinary_skill_pages.py": "989e1b26ceed43182b52d5d65c3093cd9165c6ec0500c0e06650c93967c47233",
+        "els_server/domain/skill_state.py": "1795c52cbd77c073cde42d164c14d8d2a7733e175be6f160a9efccf528dc9ac0",
+        "els_server/storage/characters.py": "77f2617698befb8dd2c17dd73cc536cb3c0129f20017b2d83683d9114fa57e51",
+        "els_server/storage/skill_unlocks.py": "e1d476775383bfe915dfe69f589c513d22486af0f399b0518ddfad81d187e107",
+        "els_server/domain/skill_traits.py": "fba8b04897c5c4a91ee4bd8ef6140607f761d160414964eb47a05622e9112634",
+        "els_server/storage/skill_traits.py": "38ef619d85d02931b3335653e8468a75567e114eceddc3851bd9d1069e814b52",
+        "els_server/domain/local_session.py": "79dd7c3246f25e2725c8e7367cfbced6ce8e2a2652efffd9d50eb4324cff5502"
+      },
+      "reused": false,
+      "materialization_reused": true
+    },
+    {
+      "channel": "local",
+      "kind": "party",
+      "release": "local-native-party-recruitment-20261024-v1",
+      "branch": "snapshot/local-native-party-recruitment-20261024-v1",
+      "parent": "13e5e2ee381ca1cf45bd26c3330ca8cde71f4111",
+      "commit": "b58bb73fd19efffce11eebd0c1cfa7033fa458f9",
+      "record_file": "channels/local-local-native-party-recruitment-20261024-v1.json",
+      "files": {
+        "els_server/domain/friends_dungeon.py": "b99dc4c6f5af17b9dec7bdd149a4e89959fb284bb8e5c7be0b9b47739bc760e1",
+        "els_server/domain/friends_world.py": "083a2f5d471228bfb979115ebc7f7c4150ce8c8bafe288d40e8969298881e56c",
+        "els_server/domain/normal_party.py": "b704adda23935e7957739d40e4c581ebc54281778a36ddf0774ae228dacc18b5",
+        "els_server/domain/party_commands.py": "c469c42614d5506f05bdd20084dab39b15cb7de7b02943af35afb9d2ef55c865",
+        "els_server/domain/party_recruitment.py": "3e09fa3818547ba015bb76a2ff35ed29c90ba7d585d7f9b71cc7f1505fdf46aa",
+        "els_server/domain/raid_party.py": "82563f51c9be44b885e7dde2717a0b58a50172a3c375babb76b90157c4eb1872",
+        "els_server/protocol/party_recruitment_messages.py": "4042b8efc997d65e8961e206c9133cbb54f0ea5df63f58a06f490047f09791a7",
+        "els_server/protocol/social_messages.py": "feb295b00e9c34a597bef8c5d29c5180cb23cdf5e0added58efdc602494ae32a"
+      },
+      "reused": false,
+      "materialization_reused": true
+    },
+    {
+      "channel": "local",
+      "kind": "skill-compat",
+      "release": "local-ordinary-skill-pages-career-compatible-20261024-v2",
+      "branch": "snapshot/local-ordinary-skill-pages-career-compatible-20261024-v2",
+      "parent": "b58bb73fd19efffce11eebd0c1cfa7033fa458f9",
+      "commit": "7f86a762880d3a724a0245174b6d9394e07bff66",
+      "record_file": "channels/local-local-ordinary-skill-pages-career-compatible-20261024-v2.json",
+      "files": {
+        "els_server/domain/ordinary_skill_pages.py": "b8a467bdb58324edf6048afb8cf0d8fd16a78769ddf05b40baaea01d805f585a",
+        "els_server/storage/ordinary_skill_pages.py": "327ba311a39b66dd48632e4105776369853561d162c32eeb473275e7afe55633"
+      },
+      "reused": false,
+      "materialization_reused": true
+    },
+    {
+      "channel": "local",
+      "kind": "tenebros",
+      "release": "local-native-tenebros-account-capacity-20261024-v1",
+      "branch": "snapshot/local-native-tenebros-account-capacity-20261024-v1",
+      "parent": "7f86a762880d3a724a0245174b6d9394e07bff66",
+      "commit": "573c2baf1da28004a5805d6b505ce2ca942b8b20",
+      "record_file": "channels/local-local-native-tenebros-account-capacity-20261024-v1.json",
+      "files": {
+        "els_server/domain/local_session.py": "d47d7745dd2b0159503d938acdce5de09b14bf38bb82ed6f4823093a56199138",
+        "els_server/domain/tenebros_capacity_flow.py": "009bffedfd39b5c37d4507078d7adb6176c9225961ed5541bf9240eda9e27aed",
+        "els_server/protocol/tenebros_capacity_messages.py": "e09740f3400d724f4aba345e589bd25ae35e8a082f8d5ac1513691edf088709a",
+        "els_server/storage/tenebros_capacity.py": "ea95820501525ff7c2c67801da92952ad2464ef4720182e1be1216afdf91ba2a"
+      },
+      "reused": false,
+      "materialization_reused": true
+    },
+    {
+      "channel": "local",
+      "kind": "box",
+      "release": "local-profession-hunter-chest-source-20261024-v1",
+      "branch": "snapshot/local-profession-hunter-chest-source-20261024-v1",
+      "parent": "573c2baf1da28004a5805d6b505ce2ca942b8b20",
+      "commit": "73dcb1770feae3de5bb62c566f4127d16848db9e",
+      "record_file": "channels/local-local-profession-hunter-chest-source-20261024-v1.json",
+      "files": {
+        "els_server/domain/drop_pickup.py": "180483aecf66961e20f298607dcb4ac2eaa98cffd0d4652173c46ac5448a82f2",
+        "els_server/domain/dungeon_drops.py": "69cd10f62574971bab5603c549517ca0fa83883e5205bbb7fd1702419e675cf3",
+        "els_server/domain/dungeon_flow.py": "bb1e11ed0fa3bd90c50d990cc03eb3d4951e15b5c5312c0371c5bb43e57146f6",
+        "els_server/domain/friends_dungeon.py": "2f4657c359a193da9aee2130a32b1c840a59a43147af71aebac226c2652889b3",
+        "els_server/domain/hunter_chest_flow.py": "1ed2418a662f7e10094a212b06c51b8450a35f65c65ba2668fa1fe6a93c1f50a",
+        "els_server/domain/hunter_chest_rules.py": "f20cd2a48e75b35df68d65598751c91ec5c677f36e8da25ff767cbe25338d8dd",
+        "els_server/domain/local_session.py": "534647509ac88debf2456a857c18ee37b697d8425760b99c27db8e8c1fc84bdf",
+        "els_server/protocol/hunter_chest_messages.py": "e004d5307161c21ed4fc08a288bce8aa789c443f9f352f80c226d0e88bc67f87",
+        "els_server/storage/hunter_chest.py": "82e294c39d648232fbaeaa83f2c745bba295cf32842c7014c3c53a9f962d9c0f"
+      },
+      "reused": false,
+      "materialization_reused": true
+    },
+    {
+      "channel": "local",
+      "kind": "hammer",
+      "release": "local-profession-blacksmith-single-hammer-20261024-v1",
+      "branch": "snapshot/local-profession-blacksmith-single-hammer-20261024-v1",
+      "parent": "73dcb1770feae3de5bb62c566f4127d16848db9e",
+      "commit": "3181226d694812102ec631a3989de5e7b9207e7d",
+      "record_file": "channels/local-local-profession-blacksmith-single-hammer-20261024-v1.json",
+      "files": {
+        "els_server/domain/blacksmith_enhancement_rules.py": "128636536a30cf404acf1d7f985cb63125a6766eb0d86f97625f0c5c09c15c4a",
+        "els_server/protocol/blacksmith_enhancement_messages.py": "47dcb3a725d68a6aadfb251f4983147b9c76df0a71f1cf6edf3c4f5ff41dcf3a",
+        "els_server/storage/blacksmith_enhancement.py": "e3d78a881fc6976e82e832fa43f2215a3a73931e33508690cb1090196d4f58fd",
+        "els_server/storage/anvil.py": "760ba93211681c3f28df62f6e28234f02182258ec7cdaf4d766416643cffd59c"
+      },
+      "reused": false,
+      "materialization_reused": true
+    },
+    {
+      "channel": "local",
+      "kind": "challenge",
+      "release": "local-challenge-solo-authority-precommit-20261024-v1",
+      "branch": "snapshot/local-challenge-solo-authority-precommit-20261024-v1",
+      "parent": "3181226d694812102ec631a3989de5e7b9207e7d",
+      "commit": "250c8939892648c207c105c589410433b15370f9",
+      "record_file": "channels/local-local-challenge-solo-authority-precommit-20261024-v1.json",
+      "files": {
+        "els_server/domain/challenge_flow.py": "9b4a886dbaa2efa9a789ffb1aa64deac26d41fcaf6a9acbc1b8c4703fa60b599",
+        "els_server/storage/challenge_state.py": "61487dde0c9ae1308607fda37392b025d9b49f1bdc6f4853d59807526b792e8a"
+      },
+      "reused": false,
+      "materialization_reused": false
+    },
+    {
+      "channel": "online",
+      "kind": "mainline31",
+      "release": "mainline31-qualified-continuations-20261024-v1",
+      "branch": "snapshot/online-mainline31-qualified-continuations-20261024-v1",
+      "parent": "c618915e47e8252469e5d92aa7e68a36333e0fe8",
+      "commit": "3daf31f70cd3e122bdb53cefe6cebed48d0f2fbd",
+      "record_file": "channels/online-mainline31-qualified-continuations-20261024-v1.json",
+      "files": {
+        "els_server/data/story_quests.json": "03e378194add6cd31a6737e29bb7c707547c8607a8d1cd3734ff80fa7e971339",
+        "els_server/data/story_quests.manifest.json": "44898fc16b23161126c3945d64cf4aab6e007aecf2903ac49507298db5374fc4",
+        "els_server/data/town_dialogue_quests.json": "6ae834fdf870fe81e438fadf9349fad2bb82abcbceb2742041d4b45764ce0a76",
+        "els_server/data/town_dialogue_quests.manifest.json": "776635a2cea95c7da68914b71d83e2260ef2986cbdced744807435e358d483a9",
+        "els_server/data/town_travel.json": "b3b40954b6e9767b4af88ae4ef58e7d3898e38699419ec1ff5f1939bc9e6b406",
+        "els_server/data/town_travel.manifest.json": "96fd9e640bfcd11021401b57d8b1dda661f49b6bb803b573d2ac8a968484253a",
+        "els_server/domain/local_session.py": "1abbebd39db80d15f18b16eb3a55cba65b048952da60ca84097d03ae0e586251",
+        "els_server/domain/quest_flow.py": "c8fc02640b1a68d9b503d665f34fc3b8e597a4d5d25f8c004270c62e3be045e2",
+        "els_server/domain/seal_quests.py": "c6afe9b58189d4bc1bf20e304fadafdc7c31a27a2ef8dd0657d4643bfe1e401f",
+        "els_server/domain/town_dialogue.py": "eca52baf2e82f4df347a309818e4ce00aca5a30a85d3e2bd594d18c44a696a98",
+        "els_server/domain/tutorial_memory8_finale.py": "10ac1335ca89a085aaa121530f461242e854cd46cf93885062a2fda78f6c2d8b",
+        "els_server/domain/tutorial_quests.py": "389f9738e5304b76cb408116a4ebdc8d27994e8f08575c8a24919d2732396682",
+        "els_server/storage/local_state.py": "7293088ebc218673671b54fc6af680e73b8bccb69b0acf637b8db4fff053d6ce"
+      },
+      "reused": false,
+      "materialization_reused": true
+    },
+    {
+      "channel": "online",
+      "kind": "profession-three",
+      "release": "profession-three-completions-mainline31-20261024-v1",
+      "branch": "snapshot/online-profession-three-completions-mainline31-20261024-v1",
+      "parent": "3daf31f70cd3e122bdb53cefe6cebed48d0f2fbd",
+      "commit": "452725c8fe0b22dfc18f2599d20d301497e1b1d2",
+      "record_file": "channels/online-profession-three-completions-mainline31-20261024-v1.json",
+      "files": {
+        "els_server/domain/anvil_flow.py": "723c6f416c63d366993b285a0ea978a135b44864e549b218cc2dca4edac13f1a",
+        "els_server/domain/anvil_rules.py": "005c6a88afb67b076511c30b1c406d11b25140e86fccbb52cba2f5fea32b6ad7",
+        "els_server/domain/flask_flow.py": "c31d816840bfc55ccf938fce03b5c4c2e98c2b0a365bcd6784e1e255d882e75f",
+        "els_server/domain/flask_rules.py": "b8bd33be5b0ce60d24f25c9ebebb2e93bd399000ab32bb6d3d78841a69f45ae3",
+        "els_server/domain/hunter_sphere_flow.py": "24fcaadae3a6af28a0437d9d92492fbfd0adec333dc3a0cf623c3f46697e2770",
+        "els_server/domain/hunter_sphere_rules.py": "c0a18d84d7609cf1cda6279f9d832371e27ca74a11ba628bcddf15d8a11d82f8",
+        "els_server/domain/inventory_items.py": "6e5151a1c3020a31275138c1160c199d0fcd1504e034a385e065e95e15085316",
+        "els_server/domain/local_session.py": "c0ae681b5586680da61663423de318a0200a2903ca98991b32419758bce36e35",
+        "els_server/domain/manufacture_flow.py": "c8cf8ba8d812226303f924ab0a08ee9f0b522aa57c8fc035d6b0747134a68e6d",
+        "els_server/protocol/anvil_messages.py": "6437c0cec7659e6cc349f4c0278308372acb539c012c3fffcfea4feecccfee5e",
+        "els_server/protocol/flask_messages.py": "616cec1f1edfee11eec2f160b02e45dab260c317b2d2efd1b2286ef3b2f8e369",
+        "els_server/protocol/hunter_sphere_messages.py": "79e53ed00572d838e160ca6a273bb17d91bc26dfb97dcba96a90fdcec19a5c74",
+        "els_server/storage/anvil.py": "5e43f70b0b8af08c958040a13bb0b0473146ae8cce27acfaf739695d98035a66",
+        "els_server/storage/flask.py": "ff62dd1d6d155a153d380522aea950664694396370e4cba341a952b2c7c03b86",
+        "els_server/storage/hunter_sphere.py": "b49c8f38c8da7bd884adccfff3211e7aa0bce948ad4dc5ed94d5a73152e87720",
+        "els_server/storage/manufacture.py": "3b8596bfa4514f4a5eb8635b2680dd15bbc249e2c7f9c8a141568db7d51889d8"
+      },
+      "reused": false,
+      "materialization_reused": true
+    },
+    {
+      "channel": "online",
+      "kind": "party",
+      "release": "native-party-recruitment-20261024-v1",
+      "branch": "snapshot/online-native-party-recruitment-20261024-v1",
+      "parent": "452725c8fe0b22dfc18f2599d20d301497e1b1d2",
+      "commit": "69c394c6d76d45a8e6d752c0fb8ce31a75692584",
+      "record_file": "channels/online-native-party-recruitment-20261024-v1.json",
+      "files": {
+        "els_server/domain/friends_dungeon.py": "b99dc4c6f5af17b9dec7bdd149a4e89959fb284bb8e5c7be0b9b47739bc760e1",
+        "els_server/domain/friends_world.py": "083a2f5d471228bfb979115ebc7f7c4150ce8c8bafe288d40e8969298881e56c",
+        "els_server/domain/normal_party.py": "b704adda23935e7957739d40e4c581ebc54281778a36ddf0774ae228dacc18b5",
+        "els_server/domain/party_commands.py": "c469c42614d5506f05bdd20084dab39b15cb7de7b02943af35afb9d2ef55c865",
+        "els_server/domain/party_recruitment.py": "3e09fa3818547ba015bb76a2ff35ed29c90ba7d585d7f9b71cc7f1505fdf46aa",
+        "els_server/domain/raid_party.py": "82563f51c9be44b885e7dde2717a0b58a50172a3c375babb76b90157c4eb1872",
+        "els_server/protocol/party_recruitment_messages.py": "4042b8efc997d65e8961e206c9133cbb54f0ea5df63f58a06f490047f09791a7",
+        "els_server/protocol/social_messages.py": "feb295b00e9c34a597bef8c5d29c5180cb23cdf5e0added58efdc602494ae32a"
+      },
+      "reused": false,
+      "materialization_reused": true
+    },
+    {
+      "channel": "online",
+      "kind": "skill-compat",
+      "release": "ordinary-skill-pages-ED-local-policy-20261024-v1",
+      "branch": "snapshot/online-ordinary-skill-pages-ED-local-policy-20261024-v1",
+      "parent": "69c394c6d76d45a8e6d752c0fb8ce31a75692584",
+      "commit": "08d3616700a75c1437fec9ef55dbffaa7cd4abf3",
+      "record_file": "channels/online-ordinary-skill-pages-ED-local-policy-20261024-v1.json",
+      "files": {
+        "els_server/domain/ordinary_skill_pages.py": "b8a467bdb58324edf6048afb8cf0d8fd16a78769ddf05b40baaea01d805f585a",
+        "els_server/storage/ordinary_skill_pages.py": "327ba311a39b66dd48632e4105776369853561d162c32eeb473275e7afe55633",
+        "els_server/domain/skill_state.py": "1795c52cbd77c073cde42d164c14d8d2a7733e175be6f160a9efccf528dc9ac0",
+        "els_server/storage/characters.py": "77f2617698befb8dd2c17dd73cc536cb3c0129f20017b2d83683d9114fa57e51",
+        "els_server/storage/skill_unlocks.py": "e1d476775383bfe915dfe69f589c513d22486af0f399b0518ddfad81d187e107",
+        "els_server/domain/skill_traits.py": "fba8b04897c5c4a91ee4bd8ef6140607f761d160414964eb47a05622e9112634",
+        "els_server/storage/skill_traits.py": "38ef619d85d02931b3335653e8468a75567e114eceddc3851bd9d1069e814b52",
+        "els_server/domain/local_session.py": "e328d292767f0e48a98233e8d6435bbb32c0aab1265f49c321bd0607226e074c"
+      },
+      "reused": false,
+      "materialization_reused": true
+    },
+    {
+      "channel": "online",
+      "kind": "tenebros",
+      "release": "native-tenebros-account-capacity-20261024-v1",
+      "branch": "snapshot/online-native-tenebros-account-capacity-20261024-v1",
+      "parent": "08d3616700a75c1437fec9ef55dbffaa7cd4abf3",
+      "commit": "b8981d0964f920a8836271c7668aa6f4817f2dd1",
+      "record_file": "channels/online-native-tenebros-account-capacity-20261024-v1.json",
+      "files": {
+        "els_server/domain/local_session.py": "71263cbd0618b41678290c07fbb0ba751e926c6891bd3a2cad0a3da2b6b59218",
+        "els_server/domain/tenebros_capacity_flow.py": "009bffedfd39b5c37d4507078d7adb6176c9225961ed5541bf9240eda9e27aed",
+        "els_server/protocol/tenebros_capacity_messages.py": "e09740f3400d724f4aba345e589bd25ae35e8a082f8d5ac1513691edf088709a",
+        "els_server/storage/tenebros_capacity.py": "ea95820501525ff7c2c67801da92952ad2464ef4720182e1be1216afdf91ba2a"
+      },
+      "reused": false,
+      "materialization_reused": true
+    },
+    {
+      "channel": "online",
+      "kind": "box",
+      "release": "profession-hunter-chest-source-20261024-v1",
+      "branch": "snapshot/online-profession-hunter-chest-source-20261024-v1",
+      "parent": "b8981d0964f920a8836271c7668aa6f4817f2dd1",
+      "commit": "222c4261ad15c23fd02cd25dfcc16989760a23de",
+      "record_file": "channels/online-profession-hunter-chest-source-20261024-v1.json",
+      "files": {
+        "els_server/domain/drop_pickup.py": "180483aecf66961e20f298607dcb4ac2eaa98cffd0d4652173c46ac5448a82f2",
+        "els_server/domain/dungeon_drops.py": "69cd10f62574971bab5603c549517ca0fa83883e5205bbb7fd1702419e675cf3",
+        "els_server/domain/dungeon_flow.py": "bb1e11ed0fa3bd90c50d990cc03eb3d4951e15b5c5312c0371c5bb43e57146f6",
+        "els_server/domain/friends_dungeon.py": "2f4657c359a193da9aee2130a32b1c840a59a43147af71aebac226c2652889b3",
+        "els_server/domain/hunter_chest_flow.py": "1ed2418a662f7e10094a212b06c51b8450a35f65c65ba2668fa1fe6a93c1f50a",
+        "els_server/domain/hunter_chest_rules.py": "f20cd2a48e75b35df68d65598751c91ec5c677f36e8da25ff767cbe25338d8dd",
+        "els_server/domain/local_session.py": "88d41e5f6a40a16d58187152cd5cc96aedc9aaab2614fdd53fb7f32bd2bbccff",
+        "els_server/protocol/hunter_chest_messages.py": "e004d5307161c21ed4fc08a288bce8aa789c443f9f352f80c226d0e88bc67f87",
+        "els_server/storage/hunter_chest.py": "82e294c39d648232fbaeaa83f2c745bba295cf32842c7014c3c53a9f962d9c0f"
+      },
+      "reused": false,
+      "materialization_reused": true
+    },
+    {
+      "channel": "online",
+      "kind": "hammer",
+      "release": "profession-blacksmith-single-hammer-20261024-v1",
+      "branch": "snapshot/online-profession-blacksmith-single-hammer-20261024-v1",
+      "parent": "222c4261ad15c23fd02cd25dfcc16989760a23de",
+      "commit": "993da581059b38b33f024275dd7d485105797975",
+      "record_file": "channels/online-profession-blacksmith-single-hammer-20261024-v1.json",
+      "files": {
+        "els_server/domain/blacksmith_enhancement_rules.py": "128636536a30cf404acf1d7f985cb63125a6766eb0d86f97625f0c5c09c15c4a",
+        "els_server/protocol/blacksmith_enhancement_messages.py": "47dcb3a725d68a6aadfb251f4983147b9c76df0a71f1cf6edf3c4f5ff41dcf3a",
+        "els_server/storage/blacksmith_enhancement.py": "e3d78a881fc6976e82e832fa43f2215a3a73931e33508690cb1090196d4f58fd",
+        "els_server/storage/anvil.py": "760ba93211681c3f28df62f6e28234f02182258ec7cdaf4d766416643cffd59c"
+      },
+      "reused": false,
+      "materialization_reused": false
+    },
+    {
+      "channel": "online",
+      "kind": "challenge",
+      "release": "challenge-solo-authority-precommit-20261024-v1",
+      "branch": "snapshot/online-challenge-solo-authority-precommit-20261024-v1",
+      "parent": "993da581059b38b33f024275dd7d485105797975",
+      "commit": "5034ea0963e1dca77270ad3629bd3d9c4165fbec",
+      "record_file": "channels/online-challenge-solo-authority-precommit-20261024-v1.json",
+      "files": {
+        "els_server/domain/challenge_flow.py": "9b4a886dbaa2efa9a789ffb1aa64deac26d41fcaf6a9acbc1b8c4703fa60b599",
+        "els_server/storage/challenge_state.py": "61487dde0c9ae1308607fda37392b025d9b49f1bdc6f4853d59807526b792e8a"
+      },
+      "reused": false,
+      "materialization_reused": false
+    }
+  ],
+  "final_historical_sources": {
+    "local": {
+      "branch": "snapshot/local-challenge-solo-authority-precommit-20261024-v1",
+      "commit": "250c8939892648c207c105c589410433b15370f9",
+      "record": "channels/local-local-challenge-solo-authority-precommit-20261024-v1.json",
+      "release": "local-challenge-solo-authority-precommit-20261024-v1"
+    },
+    "online": {
+      "branch": "snapshot/online-challenge-solo-authority-precommit-20261024-v1",
+      "commit": "5034ea0963e1dca77270ad3629bd3d9c4165fbec",
+      "record": "channels/online-challenge-solo-authority-precommit-20261024-v1.json",
+      "release": "challenge-solo-authority-precommit-20261024-v1"
+    }
+  },
+  "current_selector_changed": false,
+  "history_does_not_declare_latest_runtime": true,
+  "independent_singleplayer_history_preserved": true,
+  "main_source_not_copied_to_runtime": true,
+  "automatic_deployment": false,
+  "runtime_operations": 0,
+  "player_database_access": 0,
+  "old_business_checks_replayed": 0,
+  "old_repairs_reinstalled": 0,
+  "natural_GUI_and_multiplayer_not_implied": true
+}
