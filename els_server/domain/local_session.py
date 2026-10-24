@@ -828,9 +828,9 @@ class LocalSession:
             try:resonance=use_resonance_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation,prepare=prepare_resonance_book)
             except ValueError:return [use_ack(result=-1)]
             if resonance is not None:return resonance['events']+[self.saved_user_sync()]
-            from els_server.domain.character_custom import require_admitted as custom_admission
+            from els_server.domain.character_custom import require_admitted as custom_admission,book_validator as pointmark_validator
             from els_server.storage.character_custom import use_book as use_custom_book
-            try:custom=use_custom_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation,validate=lambda:custom_admission(self))
+            try:custom=use_custom_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation,validate=lambda:custom_admission(self),validate_pointmark=pointmark_validator(self))
             except ValueError:return [use_ack(result=-1)]
             if custom is not None:return custom['events']
             from els_server.storage.boosting_2026_force_inventory import use_book as use_force_book
