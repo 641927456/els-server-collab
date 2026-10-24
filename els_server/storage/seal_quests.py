@@ -160,8 +160,16 @@ class QuestState:
         if type(now) is not int or not 0<now<2**63:raise ValueError('Quest timestamp')
         digest=hashlib.sha256(json.dumps([self.uid,kind,request],sort_keys=True).encode()).hexdigest()
         uid=self.uid;qid=request['quest'];q=quest_catalog().quest(qid)
+        from els_server.domain.epic_skip import requested as skip_requested,reward as skip_reward
+        skipping=kind=='claim' and skip_requested(request)
+        def skip_guard(db):
+            if not callable(self.account_source_guard) or type(self.account_id) is not int or self.account_id<=0:
+                raise ValueError('Epic skip requires current actor/session guard')
+            self.account_source_guard(db)
         with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
-            db.execute('BEGIN IMMEDIATE');character=load_character(db,uid,self.account_id);ensure(db)
+            db.execute('BEGIN IMMEDIATE');character=load_character(db,uid,self.account_id)
+            if skipping:skip_guard(db)
+            ensure(db)
             if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
             if location is None:location=('town',db.execute('SELECT town FROM location WHERE uid=?',(uid,)).fetchone()[0])
             old=db.execute('SELECT owner,kind,request_hash FROM quest_actions WHERE operation_id=?',(operation_id,)).fetchone()
@@ -196,23 +204,23 @@ class QuestState:
                     db.execute('DELETE FROM character_quests WHERE owner=? AND quest=?',(erp_scope.quest_owner(db,uid,qid),qid))
                 elif done:replayed=True
                 else:
-                    # The original first F4 flag denotes skipped Epic rewards
-                    # (half ED / no EXP or EP). Skipping is not implemented;
-                    # never reinterpret that request as a full-reward claim.
-                    if request.get('flags',(0,))[0]:raise ValueError('Quest skipping is unsupported')
+                    # 3046B60 ->7CFF80 forwards skip in the SECOND F4 flag.
+                    # The first native flag remains an unsupported mode.
+                    if request.get('flags',(0,))[0]:raise ValueError('Unsupported quest completion mode')
                     if active is None:raise ValueError('Quest has not been accepted')
                     require_eligible(character,q,completed_ids(db,uid),items,location=location)
                     # 3030D10 forwards the quest window's NPC context as-is;
                     # remote/quick completion uses zero (no NPC conversation).
                     if request.get('npc') not in (0,q['m_eEndNPCID'],10025):raise ValueError('Quest end NPC mismatch')
                     subs=quest_catalog().objectives(qid)
-                    if any(active['objectives'][s['m_iID']]<target(s) for s in subs):raise QuestIncomplete('Quest objectives are incomplete')
+                    reward=skip_reward(character,q,quest_catalog()) if skipping else q['Reward']
+                    if not skipping and any(active['objectives'][s['m_iID']]<target(s) for s in subs):raise QuestIncomplete('Quest objectives are incomplete')
                     from els_server.domain.quest_selection import selected_rewards
                     selection=selected_rewards(q,request.get('choices',()),character=character)
                     # Real collection items are consumed in the same transaction;
                     # quest-only drops live in the task counters, never the bag.
                     needs={}
-                    for s in subs:
+                    for s in (() if skipping else subs):
                         if s['m_eClearType']==3:
                             template=s['m_ClearCondition']['m_iCollectionItemID'];needs[template]=needs.get(template,0)+target(s)
                     for template,n in needs.items():
@@ -232,7 +240,6 @@ class QuestState:
                             else:
                                 db.execute('UPDATE inventory_items SET count=count-? WHERE owner=? AND uid=?',(take,uid,item['uid']));consumed.append(((item['group'],item['slot']),dict(item,count=item['count']-take)))
                             if not n:break
-                    reward=q['Reward']
                     if any(reward.get(k,0) for k in ('m_iSP','m_iBuff')):raise ValueError('Unsupported native quest reward')
                     ep=reward.get('m_iEP',0)
                     from els_server.storage.ep_points import credit as credit_ep
@@ -271,6 +278,7 @@ class QuestState:
                     complete_artifact_quest(db,uid,qid)
                     db.execute('DELETE FROM character_quests WHERE owner=? AND quest=?',(erp_scope.quest_owner(db,uid,qid),qid))
                     saved_reward=dict(ed=ed,experience=xp,items=awards,consumed_positions=[pos for pos,_ in consumed])
+                    if skipping:saved_reward['skipped']=True
                     if selection:saved_reward['selected_templates']=[r['m_iItemID'] for r in selection]
                     if ep:saved_reward['ep']=ep
                     erp_scope.insert_completed(db,uid,qid,now,saved_reward)
@@ -292,7 +300,9 @@ class QuestState:
             # All responses, including full unit and inventory bodies, must be
             # encodable before SQL commit. No stale receipt inventory deltas.
             if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
+            if skipping:skip_guard(db)
             result['events']=encode(result)
+            if skipping:skip_guard(db)
             if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
             if not isinstance(result['events'],list) or any(not isinstance(e.payload,bytes) or len(e.payload)>65536 for e in result['events']):raise ValueError('Quest response bound')
             return result
