@@ -28,7 +28,8 @@ def page_character(character,snapshot):
  # cannot be recreated by a dormant page's older snapshot.
  pairs={(r['skill'],r['rank'])for r in owned(character)}
  force=[tuple(p)if tuple(p)in pairs else (0,0)for p in snapshot['force']]
- result=dict(character,skill_traits=snapshot['traits'],force_slots=force)
+ from els_server.domain.skill_traits import visible
+ result=dict(character,skill_traits=visible(character,snapshot['traits']),force_slots=force)
  slots(result)
  return result
 
@@ -36,7 +37,13 @@ def page_slots(character,snapshot):
  from els_server.domain.skill_rules import upgraded_slots,equippable_skills
  from els_server.domain.role_progression import known_skills
  from els_server.domain.skill_state import validate_slots
- values=tuple(snapshot['slots']);known=known_skills(character['unit_class'])
+ #Use the existing career writer's learned/upgrade projection. A dormant
+ #same-character previous-route ID is valid stored input, but never grants a
+ #skill unavailable to the current route. Unknown/other-character IDs reject.
+ from els_server.domain.character_rules import CLASSES
+ cls=character['unit_class'];base=CLASSES[cls]['base_class']
+ known=set().union(*(known_skills(k)for k,v in CLASSES.items()if v['base_class']==base))
+ values=tuple(snapshot['slots'])
  if any(v and v not in known for v in values):raise ValueError('Dormant page contains foreign skill')
  return validate_slots(upgraded_slots(values,character),equippable_skills(character),character)
 

@@ -111,12 +111,12 @@ def action(path,owner,account,kind,payload,operation,*,validate):
    LocalState._save_skills(SimpleNamespace(uid=owner),db,slots,incoming)
    if present(db,'character_skill_traits'):
     db.execute('DELETE FROM character_skill_traits WHERE owner=?',(owner,))
-   if saved['traits']:
+   if incoming['skill_traits']:
     db.execute('CREATE TABLE IF NOT EXISTS character_skill_traits(owner INTEGER NOT NULL REFERENCES characters(uid),skill INTEGER NOT NULL CHECK(skill>0),note INTEGER NOT NULL CHECK(note BETWEEN 1 AND 22),revision INTEGER NOT NULL,PRIMARY KEY(owner,skill))')
     from els_server.domain.skill_traits import validate as validate_trait
-    for skill,note in saved['traits'].items():
-     #Preserve dormant original IDs, but require currently valid choice before
-     #placing it in the active canonical table. No foreign trait is installed.
+    for skill,note in incoming['skill_traits'].items():
+     #The full dormant snapshot was projected through current native trait
+     #definitions; only current valid choices enter the canonical table.
      validate_trait(incoming,skill,note)
      db.execute('INSERT INTO character_skill_traits VALUES(?,?,?,1)',(owner,skill,note))
    if present(db,'selected_2026_force_slots'):db.execute('DELETE FROM selected_2026_force_slots WHERE owner=?',(owner,))
