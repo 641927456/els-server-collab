@@ -257,8 +257,9 @@ def accepted_death(dispatcher,room,s,event,*,randbelow=secrets.randbelow):
                         if not replayed:reply.append(notice)
                     reply.extend(notices);reply.extend(periodic(shadow))
                     return dict(reply=reply,world=world,sequence=max([member.world_drop_sequence,*[r['drop_id']+1 for r in rows]]),last=dict(rows[-1]) if rows else member.world_drop_issued)
+                from els_server.domain.fishing_bait_loot import source as bait_source
                 issued=storage.issue(bound[3],c,event.payload,True,member.world_drop_sequence,death['xyz'][3:],legacy,prepare,
-                    randbelow=randbelow,account_id=member.account.account_id,transaction=db)
+                    randbelow=randbelow,account_id=member.account.account_id,transaction=db,bait=bait_source(member,next(n for n in member.dungeon_run.current['npcs'] if n['key']==npc['key']),dispatcher=dispatcher,room=room))
                 issues[member]=issued;deliveries[member]=issued['reply']
             boxes=_prepared_boxes([(member,deliveries[member]) for member in room.members if member is not s],deliveries[s])
             validate(db)

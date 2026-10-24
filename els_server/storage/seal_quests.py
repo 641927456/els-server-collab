@@ -5,7 +5,7 @@ import hashlib,json,sqlite3,struct,time
 from els_server.domain.seal_quests import quest_catalog,sequence,require_eligible,target,objective_increment,ACTIVE_QUEST_LIMIT
 from els_server.storage.character_schema import character_uid
 from els_server.storage.inventory_state import load_items,grant_items
-from els_server.storage import account_contract26780_scope as erp_scope
+from els_server.storage import account_fishing_tasks_scope as erp_scope
 
 
 @contextmanager
@@ -60,6 +60,9 @@ def load_character(db,uid,account_id=None):
     from els_server.storage.ep_points import balance as ep_balance
     ep=ep_balance(db,uid)
     if ep:row['ep']=ep
+    from els_server.storage.life_stamina import snapshot as life_snapshot
+    from els_server.storage.bank_state import account_for
+    row['life_stamina']=life_snapshot(db,uid,account_id if account_id is not None else account_for(db,uid))
     row['skill_seal_groups']=saved_groups(db,uid);row['skill_row_expanded']=is_expanded(db,uid);row['bag_capacities']=saved_capacities(db,uid)
     # F5 embeds the same full-unit fields as login/D9. Read current saved
     # state inside this writer, so a quest reward cannot send fixture zeros
@@ -70,6 +73,8 @@ def load_character(db,uid,account_id=None):
             from els_server.storage.resonance_state import snapshot as resonance_snapshot
             from els_server.storage.profession_state import snapshot as profession_snapshot
             row['resonance']=resonance_snapshot(db,uid,saved_owner[0])
+            from els_server.storage.guild_membership_state import snapshot as guild_snapshot
+            row['guild_membership']=guild_snapshot(db,uid,saved_owner[0])
             from els_server.storage.el_search_collection import snapshot as collection_snapshot
             collection=collection_snapshot(db,uid,saved_owner[0])
             if collection is not None:row['el_search_collection']=collection
@@ -83,10 +88,10 @@ def current_slots(db,character):
     row=db.execute('SELECT payload FROM skill_slots WHERE uid=?',(character['uid'],)).fetchone()
     return upgraded_slots(struct.unpack('>22i',row[0]),character) if row else default_slots(character)
 
-def _inventory_count(items,template):
+def _inventory_count(items,template,*,quest=None):
     from els_server.domain.item_expiration import expired
     from els_server.domain.item_locks import locked
-    return sum(i['count'] for i in items if i['template']==template and i['group']!=9 and not expired(i) and not locked(i))
+    return sum(i['count'] for i in items if i['template']==template and i['group']!=9 and not expired(i) and not locked(i) and (quest!=25600 or i['group']==3))
 
 def _state(db,uid,items):
     active=[];level=None;career=None
@@ -100,13 +105,16 @@ def _state(db,uid,items):
                 counts[sub['m_iID']]=receipt_progress(sub,completed_ids(db,uid))
         if set(counts)!={s['m_iID'] for s in subs} or any(type(n) is not int or not 0<=n<=target(s) for s in subs for n in [counts[s['m_iID']]]):raise ValueError('Invalid persisted quest objectives')
         for s in subs:
-            if s['m_eClearType']==3:counts[s['m_iID']]=min(target(s),_inventory_count(items,s['m_ClearCondition']['m_iCollectionItemID']))
+            if s['m_eClearType']==3:counts[s['m_iID']]=min(target(s),_inventory_count(items,s['m_ClearCondition']['m_iCollectionItemID'],quest=q))
             elif s['m_eClearType']==46:counts[s['m_iID']]=1
             elif s['m_eClearType']==31:
                 # Same-owner, same-transaction state; saved/client counters
                 # cannot satisfy a level objective. No level/EXP mutation.
                 if level is None:level=db.execute('SELECT level FROM characters WHERE uid=?',(uid,)).fetchone()[0]
                 counts[s['m_iID']]=int(level>=s['m_ClearCondition']['m_iCharLevel'])
+            if s['m_eClearType']==38:
+                from els_server.domain.guild_task35630 import joined
+                counts[s['m_iID']]=joined(db,uid,q,s)
             if s['m_eClearType']==81:
                 from els_server.domain.tutorial_progression import career_progress
                 if career is None:career=load_character(db,uid)
@@ -121,7 +129,7 @@ def _state(db,uid,items):
             if s['m_eClearType']==110:
                 a=db.execute('SELECT evolution FROM character_artifacts WHERE uid=?',(uid,)).fetchone()
                 counts[s['m_iID']]=min(target(s),a[0] if a else 0)
-        active.append(dict(id=q,owner=erp_scope.quest_owner(db,uid,q),accepted_at=at,generation=g,objectives=counts))
+        active.append(dict(id=q,owner=erp_scope.quest_owner(db,uid,q),accepted_at=at,generation=g,objectives=counts,**({'projection_owner':uid} if q in (25600,25601,25602) else {})))
     done=[dict(id=q,completed_at=at) for q,at in erp_scope.completed_rows(db,uid)]
     return dict(active=active,completed=done)
 
@@ -159,7 +167,7 @@ class QuestState:
             db.execute('BEGIN');load_character(db,self.uid,self.account_id)
             if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_quests'").fetchone():return []
             identities={qid for qid,at,g,raw in erp_scope.active_rows(db,self.uid)
-                        if any(s['m_eClearType'] in (3,31,80,81,110,121) for s in quest_catalog().objectives(qid))}
+                        if any(s['m_eClearType'] in (3,31,38,80,81,110,121) for s in quest_catalog().objectives(qid))}
             if not identities:return []
             return [row for row in _state(db,self.uid,load_items(db,self.uid))['active'] if row['id'] in identities]
 
@@ -178,6 +186,9 @@ class QuestState:
             self.account_source_guard(db)
         with _progress_connection(self.path,transaction) as db:
             character=load_character(db,uid,self.account_id)
+            if qid==35630:
+                from els_server.domain.guild_task35630 import action_guard as guild_action_guard
+                guild_action_guard(self,db,kind,request)
             if skipping:skip_guard(db)
             ensure(db)
             if qid==52700:
@@ -210,7 +221,7 @@ class QuestState:
                         # including abandon/reaccept within one wall-clock second.
                         from els_server.domain.town_dialogue import catalog as town_catalog
                         from els_server.domain.mainline_find_npc import catalog as find_catalog
-                        generation=now if str(qid) not in town_catalog()['quests'] and qid not in find_catalog()['quest_ids'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
+                        generation=now if qid!=35630 and qid not in (25600,25601,25602) and str(qid) not in town_catalog()['quests'] and qid not in find_catalog()['quest_ids'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
                         erp_scope.insert_active(db,uid,qid,now,generation,json.dumps(counts,sort_keys=True))
                 elif kind=='abandon':
                     if done:raise ValueError('Completed quest cannot be abandoned')
@@ -237,11 +248,11 @@ class QuestState:
                         if s['m_eClearType']==3:
                             template=s['m_ClearCondition']['m_iCollectionItemID'];needs[template]=needs.get(template,0)+target(s)
                     for template,n in needs.items():
-                        if _inventory_count(items,template)<n:raise QuestIncomplete('Quest collection changed')
+                        if _inventory_count(items,template,quest=qid)<n:raise QuestIncomplete('Quest collection changed')
                         from els_server.domain.item_locks import locked
                         from els_server.domain.item_expiration import expired
                         for item in items:
-                            if item['template']!=template or item['group']==9 or locked(item) or expired(item):continue
+                            if item['template']!=template or item['group']==9 or locked(item) or expired(item) or qid==25600 and item['group']!=3:continue
                             from els_server.domain.cartridge_registration_rules import require_unbound
                             require_unbound(db,item['uid'])
                             take=min(n,item['count']);n-=take
@@ -317,8 +328,13 @@ class QuestState:
             # encodable before SQL commit. No stale receipt inventory deltas.
             if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
             if skipping:skip_guard(db)
+            if qid==35630:guild_action_guard(self,db,kind,request)
             if qid==52700:collection_before_action(db,uid,self.account_id,kind,self.account_source_guard)
             result['events']=encode(result)
+            if qid==35630:
+                from els_server.protocol.protocol_codec import encode_event
+                for event in result['events']:encode_event(event)
+                guild_action_guard(self,db,kind,request)
             if qid==52700:collection_before_action(db,uid,self.account_id,kind,self.account_source_guard)
             if skipping:skip_guard(db)
             if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)

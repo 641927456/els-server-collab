@@ -10,7 +10,7 @@ from els_server.domain.skill_state import DEFAULT_SLOTS,encode_slots,decode_slot
 # Measured StageManager map-to-scene table, 20261012-182806-702371.
 TOWN_SCENES={20000:258,20001:263,20002:262,20003:265,20004:326,
              20005:268,20006:417,20007:491,20008:582,20009:636,
-             20010:778,20011:894,20012:1004,20013:1023,20014:1106,1008:637,1009:851,1010:964,1011:1131,1012:1214}
+             20010:778,20011:894,20012:1004,20013:1023,20014:1106,1008:637,1009:851,1010:964,1011:1131,1012:1214,1500:725}
 DEFAULT_LOCATION={'map':20000,'board':0,'progress':0,'xyz':(0.,0.,0.),'revision':0}
 
 def validate_location(map_id,board,progress,xyz):

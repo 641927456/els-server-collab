@@ -102,11 +102,13 @@ def accepted_death(s,event,npc,death,expired,*,randbelow=secrets.randbelow):
         reply.extend(gate_reply);encode_replies(reply)
         return dict(reply=reply,world=world,sequence=max([s.world_drop_sequence,*[r['drop_id']+1 for r in rows]]),
                     last=dict(rows[-1]) if rows else s.world_drop_issued)
+    from els_server.domain.fishing_bait_loot import source as bait_source
+    bait=bait_source(s,npc)
     try:
         result=storage.issue(s.account.store.path,c,event.payload,npc['boss'],s.world_drop_sequence,
                              death['xyz'][3:],legacy,prepare,randbelow=randbelow,rules=rules,
                              accepted_effect=accepted_effect if exp_rules.enabled(s) and exp_rules.eligible(npc,expired) else None,
-                             account_id=s.account.account_id)
+                             account_id=s.account.account_id,bait=bait)
     except storage.LootActorRejected:return []
     # Only ordinary assignments remain after the successful SQL context exit.
     run.defeated=shadow.dungeon_run.defeated;run.next=shadow.dungeon_run.next;run.ready_at=shadow.dungeon_run.ready_at

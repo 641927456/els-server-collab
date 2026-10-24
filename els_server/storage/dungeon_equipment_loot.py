@@ -86,11 +86,12 @@ def _issue_connection(path,transaction,*,identity,policy,boss,rules,account_id):
         raise ValueError('Shared material issue transaction ended before caller commit')
 
 
-def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secrets.randbelow,rules=None,accepted_effect=None,account_id=None,transaction=None):
+def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secrets.randbelow,rules=None,accepted_effect=None,account_id=None,transaction=None,bait=None):
     c=(rules.context if rules is not None else context)(identity)
     proof_sha=digest(c,proof);policy=(rules.policy_for if rules is not None else policy_for)(c)
     if type(start_id) is not int or not 1<=start_id<2**31:raise ValueError('Loot sequence bound')
     with _issue_connection(path,transaction,identity=c,policy=policy,boss=boss,rules=rules,account_id=account_id) as db:
+        if bait is not None:bait.validate(db)
         ensure(db)
         if not db.execute('SELECT 1 FROM characters WHERE uid=?',(c['owner'],)).fetchone():raise ValueError('Loot owner missing')
         old=lookup(db,c)
@@ -98,7 +99,9 @@ def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secre
             if old[:3]!=(c['dungeon'],proof_sha,policy):raise ValueError('Conflicting accepted loot death')
             saved_rows=json.loads(old[3]);source_actor(db,c,saved_rows,account_id)
             if accepted_effect is not None:accepted_effect(db,True)
-            return prepare(saved_rows,True)
+            result=prepare(saved_rows,True)
+            if bait is not None:bait.validate(db)
+            return result
         if accepted_effect is not None:accepted_effect(db,False)
         drawn=(rules.plans if rules is not None else plans)(c,boss,randbelow)
         source_actor(db,c,drawn,account_id)
@@ -109,11 +112,14 @@ def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secre
             rows.append({**c,**entry,'drop_id':drop_id,'xyz':list(xyz),'ed':entry.get('ed',0),
                          'source':policy if is_new else 'legacy-coin','pickup_committed':False,'claimed_uids':None,
                          'death_proof_sha256':hashlib.sha256(proof).hexdigest()})
+        if bait is not None:rows.extend(bait.issue(db,c,proof,start_id+len(rows),xyz,randbelow))
         result=prepare(rows,False)
+        if bait is not None:bait.validate(db)
         # All affected old/new death, CF and gate payloads have encoded before
         # the issue record commits. Session memory is applied by the caller.
         db.execute('INSERT INTO dungeon_equipment_loot_issues VALUES (?,?,?,?,?,?,?,?,?,?)',
                    (c['owner'],c['run_id'],c['dungeon'],c['stage'],c['part'],c['visits'],c['npc_key'],proof_sha,policy,json.dumps(rows,sort_keys=True)))
+        if bait is not None:bait.validate(db)
         return result
 
 def _validate_claim(db,identity,policy,rules,validate):
