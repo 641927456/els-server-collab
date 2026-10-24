@@ -8,7 +8,7 @@ def request(payload):
 
 def acknowledgement(quest=0,*,result=0):
     if type(quest) is not int or type(result) is not int:raise ValueError('Tutorial dialogue reply')
-    if quest not in (0,13,28030,28120,28130,28210,28300,28310,28360,28430,28440,28530,28620,28630,28640,28650,28660,28670,28680,28690):
+    if quest not in (0,13,25600,28030,28120,28130,28210,28300,28310,28360,28430,28440,28530,28620,28630,28640,28650,28660,28670,28680,28690):
         from els_server.domain.town_dialogue import catalog
         if str(quest) not in catalog()['quests']:raise ValueError('Unsupported town dialogue reply')
     # result, detail quest, uint64, six empty delta containers, bool,

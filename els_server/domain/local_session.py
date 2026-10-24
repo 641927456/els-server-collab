@@ -240,11 +240,13 @@ class LocalSession:
         return dungeon_messages.return_user_sync(self.account.get_location(),self.account.get_skills(),snapshot['balances'],snapshot['items'],character,inventory_updates=updates)
 
     def periodic_notifications(self):
+        from els_server.domain.fishing_attempt import periodic as fishing_periodic
+        fishing_notices=fishing_periodic(self)
         from els_server.domain.dungeon_flow import periodic
         from els_server.domain.quest_flow import observe
         from els_server.domain.mount_flow import periodic as mount_periodic
         from els_server.domain.title_flow import periodic as title_periodic
-        messages=self.expiration_notifications()+self._periodic_notifications()+periodic(self)+mount_periodic(self)+title_periodic(self)
+        messages=fishing_notices+self.expiration_notifications()+self._periodic_notifications()+periodic(self)+mount_periodic(self)+title_periodic(self)
         answer=messages+observe(self,messages)
         from els_server.domain.resonance_flow import synchronize as resonance_sync
         answer=resonance_sync(self,answer)
@@ -342,6 +344,9 @@ class LocalSession:
             if (any(abs(a-b)>10.125 for a,b in zip(request['player_xyz'],request['drop_xyz']))
                     or not remote_pickup_enabled(self.account.store.path,self.account.uid)):return []
 
+        from els_server.domain.fishing_bait_loot import claim as bait_claim
+        bait_reply=bait_claim(self,request,drop)
+        if bait_reply is not None:return bait_reply
         from els_server.domain.hunter_chest_flow import claim as hunter_claim
         hunter_reply=hunter_claim(self,request,drop)
         if hunter_reply is not None:return hunter_reply
@@ -395,6 +400,8 @@ class LocalSession:
             from els_server.domain.town_travel_flow import capture_village1012_origin
             village1012_origin=capture_village1012_origin(self,event)
         reply=self._handle(event,request_sequence)
+        from els_server.domain.fishing_attempt import invalidate as invalidate_fishing
+        invalidate_fishing(self)
         if self.phase!='town_ready' or self.active_map!=20013:
             from els_server.domain.tenebros_storage_flow import abandon as abandon_shadow
             abandon_shadow(self)
@@ -439,6 +446,9 @@ class LocalSession:
         from els_server.domain.housing_access_flow import handle as housing_access_handle
         housing_access_reply=housing_access_handle(self,event,request_sequence)
         if housing_access_reply is not None:return housing_access_reply
+        from els_server.domain.fishing_attempt import handle as fishing_handle
+        fishing_reply=fishing_handle(self,event,request_sequence)
+        if fishing_reply is not None:return fishing_reply
         from els_server.domain.skill_page_shop_flow import handle as skill_page_shop_handle
         skill_page_shop_reply=skill_page_shop_handle(self,event,request_sequence)
         if skill_page_shop_reply is not None:return skill_page_shop_reply
@@ -1422,6 +1432,8 @@ class LocalSession:
                 # Restore the authenticated account keyboard preference after
                 # selection, preserving the established native 2A/399 timing.
                 answer.insert(1,key_bindings_initialization(self.account.get_bindings()))
+                from els_server.domain.fishing_attempt import initialize_login as initialize_life
+                answer=initialize_life(self,answer)
                 self.player_initialization_request=bytes(event.payload)
                 self.player_initialization_reply=tuple(answer)
             elif kind==0x6e9:answer=[Event(0x201,kind=0x6ea,payload=encode_layout(self.account.get_layout()))]
