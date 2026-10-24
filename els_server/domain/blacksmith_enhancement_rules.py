@@ -1,7 +1,7 @@
-"""Current no-hammer smith enhancement; old70 XP is an explicit local fallback.
+"""Current smith enhancement with one optional hammer; old70 XP is local fallback.
 
 Current material matrix and KR published success table take priority. Ordinary
-enhancement, zero-mithril levels, hammers, auto-recovery and scene3 selections
+enhancement, zero-mithril levels, simultaneous hammers, auto-recovery and scene3 selections
 are outside this independent path.
 """
 import functools,hashlib,json
@@ -34,7 +34,8 @@ def xp_for_target(target):
     # ELS70 GSUserInventory3471..3502: advanced smith, non-debug, real mithril.
     return 100 if target>=13 else 70 if target>=11 else 40 if target>=9 else 20 if target>=7 else 10 if target>=5 else 5
 
-def quote(item,mode,state):
+def quote(item,mode,state,*,hammer=False):
+    if type(hammer) is not bool:raise ValueError('Smith hammer selector type')
     state_wire(state)
     if not isinstance(state,ProfessionState) or state.profession!=2 or not 1<=state.level<=10:
         raise ValueError('Current blacksmith profession required')
@@ -51,6 +52,10 @@ def quote(item,mode,state):
     # 10->11 is735/100000; never round it to basis points or use old jump procs.
     rates=[n*10 for n in RATES[level]];extra=RATES[level][0]//2
     rates[0]+=extra;rates[1]-=extra
+    if hammer:
+        # Official current smith+either hammer table: double only success,
+        # subtract the extra only from no-change; other outcomes stay intact.
+        rates[1]-=rates[0];rates[0]*=2
     if any(n<0 for n in rates) or sum(rates)!=DENOMINATOR:raise ValueError('Smith success table')
     return dict(q,material=template,quantity=quantity,rates=rates,denominator=DENOMINATOR,
                 xp=xp_for_target(level+1),ore_free=mode==1 and level in (7,8))
