@@ -1,0 +1,56 @@
+{
+  "channel": "online",
+  "release": "native-town-travel-requirement-details-20261024-v1",
+  "parent_release": "monster-native-level-20261024-v1",
+  "manifest_sha256": "072555660fc59b01d909575c1f088b07fa09eb368701c2308b5c514cb3008070",
+  "parent_manifest_sha256": "2cc5a7308b0f341f934f7ac49129a7f2d14c220af5a67a82b7ed95959825ed4a",
+  "scope": "Existing native result653 typed refusal details only: expose original destination requirement details. No new admission, destinations, fees, waiver, sources, phase, receipts or success semantics.",
+  "files": [
+    {
+      "path": "els_server/domain/town_travel.py",
+      "sha256": "419b6db963c581c0ced4062d031ffa498ec490616ccf95edd5bf7458169acf7d",
+      "size": 3340,
+      "parent_sha256": "5d652ba7b4e240f30ef7681ce8dbaf194378d3b0899a22a79bff64c4be2b642f"
+    },
+    {
+      "path": "els_server/domain/town_travel_flow.py",
+      "sha256": "5781a716d35df97bfad9da4b426a72c7fa8844d7dafbe69d03127b4f744bf7de",
+      "size": 14713,
+      "parent_sha256": "9b74c2f90facad85f93007e01289cba796576a5cb6318b2cb53fe97d1e178cd4"
+    },
+    {
+      "path": "els_server/protocol/town_travel_messages.py",
+      "sha256": "2108726b164aa4d943ddefbe5e1a172134853118df03b81c3e9909e5eeb89385",
+      "size": 1331,
+      "parent_sha256": "635877efc68dfd07c55517957ce6cb15aac02da1237ce475ab7f0d150e53aa9b"
+    }
+  ],
+  "changed_runtime_file_count": 3,
+  "source_file_count": 815,
+  "business_file_count": 1042,
+  "independent_units": 1,
+  "client_delta": 0,
+  "new_schema": false,
+  "new_schema_definitions": 0,
+  "install_DDL_statements": 0,
+  "parent_snapshot_commit": "0059c68308ddfc97e5da0c13120d2a7f2277ef27",
+  "historical_delivery_accepted": true,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/online/native-town-travel-requirement-details-20261024-v1/rollup-manifest.json",
+      "sha256": "072555660fc59b01d909575c1f088b07fa09eb368701c2308b5c514cb3008070",
+      "bytes": 188698
+    },
+    "actual_acceptance": {
+      "path": "releases/online/native-town-travel-requirement-details-20261024-v1/acceptance.json",
+      "sha256": "9ef08a053ce18fba854ce8c248d308ad0b3c56c530a49f8045a8232a8dbb9b94",
+      "bytes": 3749
+    }
+  },
+  "metadata_sync_installs": 0
+}
