@@ -1301,6 +1301,11 @@ class LocalSession:
                     if cube_template==715036:
                         require_session_context(self,event,request_sequence)
                         answer=open_cube(self.account.store.path,self.account.uid,cube_template,event.payload,operation,account_id=self.account.account_id)
+                    elif cube_template==723680:
+                        from els_server.domain.tenebros_capacity_flow import selected
+                        if (event.performers not in ((),(0,)) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Participation cube envelope')
+                        gear_path,gear_owner,gear_account,gear_prepare=selected(self)
+                        answer=open_cube(gear_path,gear_owner,cube_template,event.payload,operation,account_id=gear_account,prepare=gear_prepare)
                     else:answer=open_cube(self.account.store.path,self.account.uid,cube_template,event.payload,operation)
                 except ValueError:return cube_result(self.account.get_reward_balances()['ed'],code=-1)
                 self.fixed_cube_operations[(self.account.uid,request_sequence)]=cube_template
@@ -1578,6 +1583,9 @@ class LocalSession:
             self.role='game'
             if kind not in self.completed or kind in [0x485,0x490,0x225,0x227]:self.phase=after
             self.completed.add(kind)
+            if kind==0x227 and self.phase=='town_ready':
+                from els_server.storage.boosting_2026_gear_scroll_policy import reconcile_selected
+                answer+=reconcile_selected(self)
             if kind==0x39:self.account.accept_terms()
             return answer
         if self.enter_dungeon and self.client_build=='dx11_260923' and event.event_id==0x202 and kind==0x67:
