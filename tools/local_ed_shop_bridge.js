@@ -38,8 +38,12 @@ function ebStopFrame(){if(ebFrame){ebFrame.detach();ebFrame=null;}if(ebTimer){cl
 function ebOwnedUi(ui){return !ui.isNull()&&ui.readPointer().equals(ebM.base.add(0x4242a38));}
 function ebLocalPlayer(game){
  if(game.isNull())return false;const player=game.add(0xa0).readPointer();if(player.isNull())return false;
- // The local roster allocates 1001..1016, with a fixed 16-character limit.
- const uid=player.add(0x48).readU64();return uid.compare(1001)>=0&&uid.compare(1016)<=0;
+ // The selected local UserInfo belongs to this process's native manager.
+ // Friends assigns character UIDs globally; its roster limit is not a UID cap.
+ const manager=ebM.base.add(0x4817e70).readPointer();
+ if(manager.isNull()||!manager.add(0xc8).readPointer().equals(game))return false;
+ const uid=player.add(0x48).readU64();
+ return uid.compare(1001)>=0&&uid.compare('9223372036854775807')<0;
 }
 function ebOwnedState(s){
  if(s.isNull()||!s.readPointer().add(0x188).readPointer().equals(ebM.base.add(0x311c030))||!ebOwnedUi(s.add(0x440).readPointer()))return false;

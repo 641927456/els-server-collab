@@ -89,34 +89,6 @@ const timer=setInterval(()=>{
     }
    });
   }
-  if(enterDungeon&&gateIdentityTest&&populationTest){
-   // The paired Ain script requests Rose03. Finish only that foreign scene
-   // through its original Skip lifecycle before returning to the game frame.
-   // No replacement dialogue or original completion predicate is fabricated.
-   function ownAinTutorial(g){
-    if(g.isNull()||!g.readPointer().equals(game.base.add(0x41bfd28))||g.add(0x2d0).readS32()!==2)return null;
-    const app=game.base.add(0x4817e70).readPointer(),manager=app.add(0xc8).readPointer(),selected=manager.add(0xa0).readPointer(),party=app.add(0xa8).readPointer();
-    if(selected.isNull()||party.isNull()||party.add(0x10).readS32()!==41420)return null;
-    const definition=selected.add(0x29c0).readPointer(),actor=nativeCall(0x8571d0,'pointer',['pointer'])(g);
-    if(definition.isNull()||definition.readS32()!==12||actor.isNull()||!actor.add(0x1a3e0).readPointer().equals(selected))return null;
-    return selected.add(0x48).readU64().toString();
-   }
-
-   function sceneText(p){const n=p.add(16).readU64().toNumber(),cap=p.add(24).readU64().toNumber();if(n>64||cap<n)throw Error('Tutorial scene name bound');return (cap>7?p.readPointer():p).readUtf16String(n);}
-   Interceptor.attach(game.base.add(0x10509b0),{onEnter(a){this.ain=null;try{if(a[1].readCString()!=='Tutorial_Rose_03')return;const uid=ownAinTutorial(a[0]);if(uid!==null)this.ain={game:a[0],uid};}catch(e){note({event:'ain_scene_skip_guard_error',error:String(e)});}},onLeave(){if(this.ain===null)return;try{
-    if(ownAinTutorial(this.ain.game)!==this.ain.uid)return;
-    const app=game.base.add(0x4817e70).readPointer(),stx=app.add(0x4b0).readPointer(),movie=app.add(0x4a8).readPointer();let source=null;
-    if(!stx.isNull()&&sceneText(stx.add(0xd8))==='Tutorial_Rose_03'&&nativeCall(0x4ab640,'uint8',['pointer'])(stx.add(0x160))===1){nativeCall(0x1a3eb80,'void',['pointer','uint8'])(stx,1);source='STXFunc_EndEventScene original 1A3EB80';}
-    else if(!movie.isNull()&&movie.readPointer().equals(game.base.add(0x4242530))&&movie.add(8).readU8()===1&&sceneText(movie.add(0xa8))==='Tutorial_Rose_03'){nativeCall(0x1c96d20,'void',['pointer','uint8'])(movie,0);source='original movie Skip 1C96D20';}
-    if(source!==null){
-     // RF27 set CannotInput(9999) for this copied scene. Its original
-     // RF29 counterpart uses CannotInput(0.1), converted by the integer
-     // binding to zero. Undo only this skipped foreign scene's input hold.
-     nativeCall(0x1050c30,'void',['pointer','int'])(this.ain.game,0);
-     note({event:'ain_foreign_scene_original_skip_completed',uid:this.ain.uid,map:41420,scene:'Tutorial_Rose_03',source,before_game_frame_returns:true,original_completion_predicate_preserved:true,orphaned_scene_input_released_by_original_CannotInput:true,raw_actor_memory_writes:0,replacement_dialogue_invented:false});
-    }
-   }catch(e){note({event:'ain_scene_original_skip_error',error:String(e)});}}});
-  }
   if(enterDungeon){
    if(gateIdentityTest)Interceptor.attach(game.base.add(0x16d2090),{onEnter(a){
     // Shared death DTO enrichment, used by combat and expiry (16E1760).
@@ -137,18 +109,8 @@ const timer=setInterval(()=>{
      const begin=dungeonGame.add(0x378).readPointer(),end=dungeonGame.add(0x380).readPointer();
      if(end.sub(begin).toInt32()!==80*8||!begin.add(slot*8).readPointer().equals(actor))return;
      const found=nativeCall(0x1aa4a40,'pointer',['pointer','int'])(dungeonGame,id);
-     if(!found.equals(actor))return;
-     const hp=nativeCall(0x7d8b00,'float',['pointer'])(actor);
-     // Original captured Lithia controllers' DYING_END retires through 16E1760 while
-     // retaining positive HP. Preserve all ordinary zero-HP admission rules.
-     const caller=this.returnAddress.sub(game.base).toInt32(),definition=actor.add(0x19e20).readPointer();
-     const tutorialRetirement=populationTest&&actor.readPointer().equals(game.base.add(0x41ea620))
-       &&caller===0x16e199d&&dto.add(4).readU8()===255
-       &&dto.add(5).readU64().toString()==='18446744073709551615'
-       &&dto.add(13).readU64().toString()==='18446744073709551615'
-       &&!definition.isNull()&&[2084,9288,9289,9290,9463].includes(definition.readS32())&&Number.isFinite(hp)&&hp>0;
-     if(hp>0&&!tutorialRetirement)return;
-     dto.writeS32(id);note({event:'isolated_death_identity_repair',actor:actor.toString(),reported,native_uid:id,instance_index:slot,original_lookup_matches:true,vector_slot_matches:true,sentry,substage:stage,population_test:populationTest,tutorial_script_retirement:tutorialRetirement,hp,caller_rva:caller,source_template:tutorialRetirement?definition.readS32():null});
+     if(!found.equals(actor)||nativeCall(0x7d8b00,'float',['pointer'])(actor)>0)return;
+     dto.writeS32(id);note({event:'isolated_death_identity_repair',actor:actor.toString(),reported,native_uid:id,instance_index:slot,original_lookup_matches:true,vector_slot_matches:true,sentry,substage:stage,population_test:populationTest});
     }catch(e){note({event:'isolated_death_identity_repair_error',error:String(e)});}
    }});
    // Per-key diagnostic Interceptor intentionally omitted during normal play.
