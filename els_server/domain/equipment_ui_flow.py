@@ -78,8 +78,15 @@ def handle(session,event,sequence):
             ed=session.account.get_reward_balances()['ed']
             operation=session.shop_session_id+':'+str(session.account.uid)+':equipment:'+str(sequence)
             if not current_lease(session):raise ValueError('Obsolete identification lease')
-            return perform(session.account.store.path,session.account.uid,event.kind,event.payload,operation,
-                           account_id=session.account.account_id)
+            actor=session.account;store=actor.store;identity=(actor.uid,actor.account_id,session.shop_session_id,store.path)
+            def prepare_identification():
+                if(session.account is not actor or actor.store is not store
+                        or(actor.uid,actor.account_id,session.shop_session_id,store.path)!=identity
+                        or session.role!='game' or session.phase!='town_ready' or store.uid!=actor.uid
+                        or not current_lease(session)):
+                    raise ValueError('Identification actor or lease changed')
+            return perform(store.path,actor.uid,event.kind,event.payload,operation,
+                           account_id=actor.account_id,prepare=prepare_identification)
         except ValueError:
             return [Event(0x201,kind=event.kind+1,payload=identification_ack(event.kind,ed,result=-1))]
     if event.kind==0x5ff:

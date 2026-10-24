@@ -36,12 +36,16 @@ def template_pool(template):
  if row['groups']!=[pool['native_group']] or row['official_group']!=pool['official_group']:raise ValueError('Identification template pool mismatch')
  return pool
 def require_template(template):
+ from els_server.domain.accessory_identification import supported
+ if supported(template):return
  from els_server.domain.artifact_identification import supported
  if supported(template):return
  if str(template) not in catalog()['templates']:
   from els_server.domain.manufacture_rules import inventory_definitions
   if template not in inventory_definitions() or client_data().item(template)['item_type'] not in (1,2):raise ValueError('Unsupported compatibility identification item')
 def validate(template,values):
+ from els_server.domain.accessory_identification import supported,validate as accessory_validate
+ if supported(template):return accessory_validate(template,values)
  from els_server.domain.artifact_identification import supported,validate as artifact_validate
  if supported(template):return artifact_validate(template,values)
  require_template(template)
