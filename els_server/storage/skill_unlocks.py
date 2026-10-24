@@ -43,6 +43,13 @@ def saved_initialization(db,character):
     character=dict(character,skill_row_expanded=is_expanded(db,character['uid']))
     from els_server.storage.skill_traits import saved as saved_traits
     character['skill_traits']=saved_traits(db,character['uid'])
+    from els_server.storage.ordinary_skill_pages import view as skill_pages_view,_actor as skill_page_actor
+    page_state=skill_pages_view(db,character['uid'])
+    if page_state['count']>1:
+        account=db.execute('SELECT account_id FROM character_owners WHERE uid=?',(character['uid'],)).fetchone()
+        if account is None:raise ValueError('Skill page initialization owner')
+        character.update(skill_page_actor(db,character['uid'],account[0]))
+        character['ordinary_skill_pages']=page_state
     row=db.execute('SELECT payload FROM skill_slots WHERE uid=?',(character['uid'],)).fetchone()
     if row:
         if len(row[0])!=88:raise ValueError('Invalid saved skill preset size')

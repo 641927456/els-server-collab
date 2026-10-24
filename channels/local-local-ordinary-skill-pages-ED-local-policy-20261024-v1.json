@@ -1,0 +1,67 @@
+{
+  "channel": "local",
+  "release": "local-ordinary-skill-pages-ED-local-policy-20261024-v1",
+  "parent_release": "local-profession-three-completions-mainline31-20261024-v1",
+  "manifest_sha256": "36be921770783f4fbddf50776d65f74609ab7b72a0c38a04a69cb4b32d11874f",
+  "scope_kind": "local-skillpages",
+  "files": [
+    {
+      "path": "els_server/domain/ordinary_skill_pages.py",
+      "sha256": "e935b69453d9bf0c6be79313497779b359f49e48caa2ff9ed05f4edb9edd739b",
+      "size": 6906,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/ordinary_skill_pages.py",
+      "sha256": "989e1b26ceed43182b52d5d65c3093cd9165c6ec0500c0e06650c93967c47233",
+      "size": 9494,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/skill_state.py",
+      "sha256": "1795c52cbd77c073cde42d164c14d8d2a7733e175be6f160a9efccf528dc9ac0",
+      "size": 4310,
+      "parent_sha256": "5f9f69195a8b5b247231576d0fbbf64fa3a6ddfdc35f3807ec550fb4d20daeb4"
+    },
+    {
+      "path": "els_server/storage/characters.py",
+      "sha256": "77f2617698befb8dd2c17dd73cc536cb3c0129f20017b2d83683d9114fa57e51",
+      "size": 13444,
+      "parent_sha256": "afd3b7758e661692b87eebb202dede5dc8ed558a9da82ef7ab36416355bd6299"
+    },
+    {
+      "path": "els_server/storage/skill_unlocks.py",
+      "sha256": "e1d476775383bfe915dfe69f589c513d22486af0f399b0518ddfad81d187e107",
+      "size": 7821,
+      "parent_sha256": "2307645a30884571ccc12ba4b971dd6577ffba61c9aae35c2153e38cdda283a1"
+    },
+    {
+      "path": "els_server/domain/skill_traits.py",
+      "sha256": "fba8b04897c5c4a91ee4bd8ef6140607f761d160414964eb47a05622e9112634",
+      "size": 4434,
+      "parent_sha256": "22da86a4a08a917b2560274d5732175086cd7d108e346af91b0c1ef9e8576256"
+    },
+    {
+      "path": "els_server/storage/skill_traits.py",
+      "sha256": "38ef619d85d02931b3335653e8468a75567e114eceddc3851bd9d1069e814b52",
+      "size": 6007,
+      "parent_sha256": "2103437d3ab7917894e2a018f80926331a398d6ac0339dc280cf9e148c8b435d"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "79dd7c3246f25e2725c8e7367cfbced6ce8e2a2652efffd9d50eb4324cff5502",
+      "size": 139913,
+      "parent_sha256": "e44e2c6101eb270e529bb97deb7f139ee7b32def40908fdbdb3a8b0f1352a657"
+    }
+  ],
+  "source_PRs": [],
+  "local_only_source_catchup": true,
+  "client_changes": 0,
+  "new_schema_definitions": 3,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "automatic_deployment": false,
+  "source_view_is_formal_runtime": false,
+  "parent_snapshot_commit": "a32e26f1f79cf715f3b2387c7d17fce9cd620e29",
+  "contains_accounts_or_saves": false
+}

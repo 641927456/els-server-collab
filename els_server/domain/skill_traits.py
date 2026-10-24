@@ -72,10 +72,11 @@ def request(payload):
     return skill,note
 
 
-def acknowledgement(skill=0,note=0,result=0):
+def acknowledgement(skill=0,note=0,result=0,*,page=1):
     # 55B advertises active preset 1; BC2930 compares this one-based value
     # against unit+7F8 before applying the choice.
-    return Event(0x201,kind=0x55e,payload=struct.pack('>iiiB',result,skill,note,1))
+    if type(page)is not int or not 1<=page<=255:raise ValueError('Skill trait page')
+    return Event(0x201,kind=0x55e,payload=struct.pack('>iiiB',result,skill,note,page))
 
 
 def reset_request(payload):
