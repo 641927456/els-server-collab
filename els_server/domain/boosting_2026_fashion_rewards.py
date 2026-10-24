@@ -15,7 +15,7 @@ def register():
     data=json.loads(raw);client=client_data()
     if data['policy']!=POLICY or data['client_sha256']!=CLIENT_SHA or data['catalog_sha256']!=client.manifest['catalog_sha256']:
         raise ValueError('Role fashion90 fixed client')
-    from els_server.domain.inventory_items import VERIFIED_TEMPLATES as meta,TEMPLATE_BAG_GROUPS as groups,TEMPLATE_MAX_STACKS as stacks,FASHION_EQUIP_SLOTS as slots,FASHION_POSITIONS
+    from els_server.domain.inventory_items import VERIFIED_TEMPLATES as meta,TEMPLATE_BAG_GROUPS as groups,TEMPLATE_MAX_STACKS as stacks,FASHION_EQUIP_SLOTS as slots,FASHION_POSITIONS,GM_DERIVED_TEMPLATES
     from els_server.domain.companion_fashion import resolve_slots
     definitions={};policies={};expected_keys={str(f)+':0' for f in range(1,16)}|{'10:1'}
     for box in data['boxes']:
@@ -33,7 +33,7 @@ def register():
                     or not record[4]&1 or record[4]&32):raise ValueError('Role fashion90 original item/slot/class')
                 policy=(row['metadata'],27,1,slot);identity=row['template']
                 if identity in policies and policies[identity]!=policy:raise ValueError('Role fashion90 conflicting class policy')
-                if identity in meta and ((meta[identity],groups[identity],stacks[identity])!=policy[:3] or slots.get(identity)!=slot):raise ValueError('Role fashion90 existing registration conflict')
+                if identity in meta and identity not in GM_DERIVED_TEMPLATES and ((meta[identity],groups[identity],stacks[identity])!=policy[:3] or slots.get(identity)!=slot):raise ValueError('Role fashion90 existing registration conflict')
                 policies[identity]=policy
         definitions[t]=box
     if set(definitions)!=BOXES or len(policies)!=304:raise ValueError('Role fashion90 full output coverage')

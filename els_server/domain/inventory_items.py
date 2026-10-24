@@ -789,3 +789,36 @@ _life_potion=_life_potion_data().item(135953)
 if (hashlib.sha256(_life_potion['record']).hexdigest()!='77c91092e1ed47958b423f0a3d8123f9f5eae59a2987e49b935e8f6dd2011650' or (_life_potion['item_type'],_life_potion['metadata'],_life_potion['flags4'],_life_potion['flags8'],struct.unpack_from('<I',_life_potion['record'],0x10)[0])!=(7,2,573575178,56,300)):raise ValueError('Original25602 reward reader source')
 if 135953 in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[135953],TEMPLATE_BAG_GROUPS[135953],TEMPLATE_MAX_STACKS[135953])!=(2,4,300):raise ValueError('Conflicting original25602 reward reader')
 VERIFIED_TEMPLATES[135953]=2;TEMPLATE_BAG_GROUPS[135953]=4;TEMPLATE_MAX_STACKS[135953]=300
+
+# Owner-requested local +13 enhancement scrolls; the use chain lives in
+# els_server.storage.enhancement_scroll and adds no other acquisition source.
+from els_server.domain.enhancement_scroll import definitions as _enhancement_scroll_definitions
+for _scroll in _enhancement_scroll_definitions().values():
+ _t=_scroll['template'];_expected=(_scroll['metadata'],_scroll['group'],_scroll['max_stack'])
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting enhancement scroll reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+# Owner-requested local stack policy: El resonance potions stack to 999.
+# Registered directly here so inventory_items keeps no reverse import cycle.
+from els_server.game_data import client_data as _resonance_client_data
+for _resonance in (135948,*range(136161,136172)):
+ _resonance_item=_resonance_client_data().item(_resonance)
+ if (_resonance_item['item_type'],_resonance_item['metadata'])!=(7,0 if _resonance==135948 else 2):raise ValueError('Resonance potion local stack source')
+ if _resonance in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_resonance],TEMPLATE_BAG_GROUPS[_resonance])!=(_resonance_item['metadata'],4):raise ValueError('Conflicting resonance potion reader')
+ VERIFIED_TEMPLATES[_resonance]=_resonance_item['metadata'];TEMPLATE_BAG_GROUPS[_resonance]=4;TEMPLATE_MAX_STACKS[_resonance]=999
+
+# GM-admitted accessories and circuits must survive cold login. Registration
+# used to happen only inside the granting process, so a restart rejected the
+# already granted instances. Install the same derived mappings at module load.
+from els_server.domain.gm_item_catalog import entries as _gm_entries
+GM_DERIVED_TEMPLATES=set()
+for _gm_row in _gm_entries():
+    _gm_id=_gm_row['id']
+    if _gm_id in VERIFIED_TEMPLATES:continue
+    GM_DERIVED_TEMPLATES.add(_gm_id)
+    VERIFIED_TEMPLATES[_gm_id]=_gm_row['metadata']
+    TEMPLATE_BAG_GROUPS[_gm_id]=_gm_row['group']
+    TEMPLATE_MAX_STACKS[_gm_id]=_gm_row['stack']
+    if _gm_row['group'] in (7,27):
+        from els_server.game_data import client_data as _gm_client
+        FASHION_EQUIP_SLOTS[_gm_id]=FASHION_POSITIONS[_gm_client().item(_gm_id)['equip_position']]
