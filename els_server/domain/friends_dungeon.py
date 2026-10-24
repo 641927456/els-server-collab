@@ -251,11 +251,16 @@ class FriendsDungeons:
             for other in r.members:
                 self.send(other,[e for e in LocalSession.handle(other,event) if e.kind not in (0xb4,0xb5)])
             r.loaded.clear();r.phase='active';r.deadline=0
+            from els_server.domain.hunter_chest_flow import loaded as hunter_loaded
+            hunter_loaded(s,event,dispatcher=self,room=r,broadcast_all=True)
             self.part_wait(r)
         return [ack]
 
     def death(self,r,s,event):
         from els_server.domain.dungeon_lifecycle import death_report,death_ack
+        from els_server.domain.hunter_chest_flow import accepted_death as hunter_death
+        hunter_reply=hunter_death(s,event,dispatcher=self,room=r)
+        if hunter_reply is not None:return hunter_reply
         from els_server.domain.friends_spawns import retire
         sentry_reply=retire(self,r,s,event)
         if sentry_reply is not None:return sentry_reply
@@ -339,6 +344,9 @@ class FriendsDungeons:
         elif any(not m.dungeon_substage_synced for m in r.members):
             r.phase='substage';r.deadline=time.monotonic()+60
         else:r.phase='active';r.deadline=0
+        if r.phase=='active':
+            from els_server.domain.hunter_chest_flow import loaded as hunter_loaded
+            hunter_loaded(s,event,dispatcher=self,room=r,broadcast_all=True)
         self.part_wait(r)
         return [ack]
 
