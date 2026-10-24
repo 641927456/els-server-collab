@@ -55,15 +55,19 @@ def charge(db, owner, balance, amount):
     return balance['ed']-amount
 
 
-def purchase(path, owner, town, payload, operation):
+def purchase(path, owner, town, payload, operation, *, guild_account_id=None, guild_guard=None):
     entries, merchant = purchase_request(payload)
     owner, digest = _identity(owner, 0xea, struct.pack('>i', town)+payload, operation)
     with closing(sqlite3.connect(path, timeout=10)) as db, db:
         db.execute('PRAGMA foreign_keys=ON'); db.execute('BEGIN IMMEDIATE');require_active_character(db,owner)
+        from els_server.storage import guild_license_purchase as guild_license
+        guild_bound = guild_license.context(db,owner,guild_account_id,town,merchant,entries,guild_guard)
         old = _previous(db, operation, digest)
         before = load_items(db, owner); balance = balances(db, owner)
         if old is not None:
-            return [Event(0x201, kind=0xeb, payload=purchase_ack(balance['ed']))]+_updates(current_changes(db,operation,owner,0xea,old,before))
+            events = [Event(0x201, kind=0xeb, payload=purchase_ack(balance['ed']))]+_updates(current_changes(db,operation,owner,0xea,old,before))
+            return guild_license.precommit(events,guild_guard) if guild_bound else events
+        if guild_bound:guild_license.new_purchase(db,owner,guild_account_id,before)
         amount = sum(offer(town, merchant, t)*q for t, q in entries)
         if amount >= 2**31:
             raise ValueError('Merchant native signed price overflow')
@@ -73,7 +77,8 @@ def purchase(path, owner, town, payload, operation):
         wire = purchase_ack(ed, changes)
         after = load_items(db, owner)
         _commit(db, operation, digest, owner, 0xea, [(i['group'], i['slot']) for i in changes], before, after)
-        return [Event(0x201, kind=0xeb, payload=wire)]
+        events = [Event(0x201, kind=0xeb, payload=wire)]
+        return guild_license.precommit(events,guild_guard) if guild_bound else events
 
 
 def repurchase(path, owner, payload, operation, session='local', town=None):
