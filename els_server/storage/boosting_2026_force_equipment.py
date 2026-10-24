@@ -1,7 +1,7 @@
 """Selected-force loadout, native full-preset ACK and current-state retries."""
 import json,sqlite3,struct
 from contextlib import closing
-from els_server.domain.boosting_2026_force_equipment import request,changed,slots,acknowledgement
+from els_server.domain.boosting_2026_force_equipment import request,changed,active_request,active_changed,slots,active_slots,acknowledgement
 from els_server.storage.boosting_2026_force_inventory import saved as saved_owned,initialize as initialize_owned
 from els_server.storage.character_schema import character_uid
 from els_server.storage.inventory_actions import _identity,_previous,_commit
@@ -18,6 +18,17 @@ def saved(db,owner):
 def snapshot(path,owner):
     with closing(sqlite3.connect(path)) as db:return saved(db,owner)
 
+def saved_active(db,owner):
+    owner=character_uid(owner);result=[(0,0)]*8
+    if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='selected_2026_force_active_slots'").fetchone():
+        for index,skill,rank in db.execute('SELECT slot,skill,rank FROM selected_2026_force_active_slots WHERE owner=? ORDER BY slot',(owner,)):
+            if index not in range(8):raise ValueError('Saved active force slot index')
+            result[index]=(skill,rank)
+    return active_slots(dict(force_inventory=saved_owned(db,owner),force_active_slots=result))
+
+def snapshot_active(path,owner):
+    with closing(sqlite3.connect(path)) as db:return saved_active(db,owner)
+
 def _character(db,owner,account):
     from els_server.storage.characters import Characters
     row=db.execute('SELECT c.uid,c.name,c.unit_type,c.unit_class,c.level,c.transcendence,c.master,c.revision FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(owner,account)).fetchone()
@@ -31,7 +42,7 @@ def _character(db,owner,account):
     from els_server.storage.skill_expansion import is_expanded
     from els_server.storage.skill_unlocks import saved_groups
     from els_server.storage.skill_traits import saved as saved_traits
-    character.update(skill_row_expanded=is_expanded(db,owner),skill_seal_groups=saved_groups(db,owner),skill_traits=saved_traits(db,owner),force_inventory=saved_owned(db,owner),force_slots=saved(db,owner))
+    character.update(skill_row_expanded=is_expanded(db,owner),skill_seal_groups=saved_groups(db,owner),skill_traits=saved_traits(db,owner),force_inventory=saved_owned(db,owner),force_slots=saved(db,owner),force_active_slots=saved_active(db,owner))
     return character
 
 def _preset(db,character):
@@ -72,4 +83,30 @@ def action(path,owner,account,payload,operation):
             db.execute('UPDATE characters SET revision=revision+1 WHERE uid=?',(owner,))
         _commit(db,operation,digest,owner,0x6d0,[],[list(p) for p in before],[list(p) for p in after])
         assert saved(db,owner)==after
+        return event
+
+def active_action(path,owner,account,payload,operation):
+    active_request(payload)
+    if not isinstance(operation,str):raise ValueError('Active force slot operation identity')
+    operation='force-active-slot:'+operation;owner,digest=_identity(owner,0x6d0,payload,operation)
+    if type(account) is not int or not 0<account<2**63:raise ValueError('Active force equipment account')
+    with closing(sqlite3.connect(path,timeout=10)) as db,db:
+        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');character=_character(db,owner,account);old=_previous(db,operation,digest)
+        if old is not None:
+            if db.execute('SELECT owner,kind FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()!=(owner,0x6d0):raise ValueError('Active force equipment retry owner/kind')
+            event=acknowledgement(_preset(db,character));encode_event(event);return event
+        before=character['force_active_slots'];after=active_changed(character,payload);modified=after!=before
+        if modified and character['revision']>=2**63-1:raise ValueError('Force character revision overflow')
+        event=acknowledgement(_preset(db,dict(character,force_active_slots=after)));encode_event(event)
+        initialize_owned(db)
+        db.execute('''CREATE TABLE IF NOT EXISTS selected_2026_force_active_slots (
+            owner INTEGER NOT NULL,slot INTEGER NOT NULL CHECK(slot BETWEEN 0 AND 7),
+            skill INTEGER NOT NULL,rank INTEGER NOT NULL,PRIMARY KEY(owner,slot),UNIQUE(owner,skill),
+            FOREIGN KEY(owner,skill,rank) REFERENCES selected_2026_force_active_inventory(owner,skill,rank))''')
+        if modified:
+            db.execute('DELETE FROM selected_2026_force_active_slots WHERE owner=?',(owner,))
+            db.executemany('INSERT INTO selected_2026_force_active_slots VALUES (?,?,?,?)',[(owner,i,s,r) for i,(s,r) in enumerate(after) if s])
+            db.execute('UPDATE characters SET revision=revision+1 WHERE uid=?',(owner,))
+        _commit(db,operation,digest,owner,0x6d0,[],[list(p) for p in before],[list(p) for p in after])
+        assert saved_active(db,owner)==after
         return event

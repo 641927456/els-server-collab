@@ -34,11 +34,27 @@ def slots(character=None,*,visible=False):
         if not third_slot_unlocked(character):result[2]=(0,0)
     return tuple(result)
 
+def active_slots(character=None,*,visible=False):
+    values=(character or {}).get('force_active_slots',((0,0),)*ACTIVE_SLOTS)
+    if not isinstance(values,(tuple,list)) or len(values)!=ACTIVE_SLOTS:raise ValueError('Native active force slot count')
+    pairs={(r['skill'],r['rank']) for r in owned(character)};seen=set();result=[]
+    for pair in values:
+        if not isinstance(pair,(tuple,list)) or len(pair)!=2 or any(type(v) is not int for v in pair):raise ValueError('Force active slot identity')
+        pair=tuple(pair)
+        if pair!=(0,0):
+            if pair not in pairs:raise ValueError('Unowned equipped active force grade')
+            if pair[0] in seen:raise ValueError('Duplicate active force skill')
+            seen.add(pair[0])
+        result.append(pair)
+    return tuple(result)
+
 def vectors(character=None):
     passive=slots(character,visible=True)
+    active=active_slots(character,visible=True)
     # DAF6E0: two DB5B10 vectors, six-byte (ID,rank,bool) records.
     # 8FA130 writes three passive entries at+1DD4 and eight active at+1DEC.
-    return struct.pack('>I',PASSIVE_SLOTS)+b''.join(struct.pack('>iBB',s,r,0) for s,r in passive)+struct.pack('>I',ACTIVE_SLOTS)+bytes(ACTIVE_SLOTS*6)
+    return (struct.pack('>I',PASSIVE_SLOTS)+b''.join(struct.pack('>iBB',s,r,0) for s,r in passive)
+            +struct.pack('>I',ACTIVE_SLOTS)+b''.join(struct.pack('>iBB',s,r,0) for s,r in active))
 
 def request(payload):
     # C560F0 emits exactly three i32 values and one byte for kind6D0.
@@ -66,3 +82,23 @@ def changed(character,payload):
 def acknowledgement(preset=b'',result=0):
     if not preset:preset=bytes(16) # Four empty containers on a refusal.
     return Event(0x201,kind=0x6d1,payload=struct.pack('>i',result)+preset)
+
+def active_request(payload):
+    if not isinstance(payload,bytes) or len(payload)!=13:raise ValueError('Force active equip request size')
+    kind,index,skill,rank=struct.unpack('>iiiB',payload)
+    if kind not in (2,3) or skill<=0 or rank not in (3,4,5) and rank not in (1,2):
+        raise ValueError('Selected active force request')
+    if index not in range(ACTIVE_SLOTS):raise ValueError('Force active slot index')
+    return kind,index,skill,rank
+
+def active_changed(character,payload):
+    kind,index,skill,rank=active_request(payload)
+    from els_server.domain.character_rules import CLASSES
+    if CLASSES[character['unit_class']]['stage']<3 or character['level']<99:raise ForceRuleError(1903,'Third job force requirement')
+    if (skill,rank) not in {(r['skill'],r['rank']) for r in owned(character)}:raise ValueError('Force equipment requires exact owned grade')
+    result=list(active_slots(character))
+    if kind==3:
+        return tuple((0,0) if pair==(skill,rank) else pair for pair in result)
+    result=[(0,0) if pair[0]==skill else pair for pair in result]
+    result[index]=(skill,rank)
+    return active_slots(dict(character,force_active_slots=result))
