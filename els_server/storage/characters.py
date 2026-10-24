@@ -66,6 +66,8 @@ class Characters:
             artifacts={r[0]:dict(template=r[1],evolution=r[2],level=r[3],experience=r[4],potentials=json.loads(r[5])) for r in db.execute(artifact_query,parameters) if r[0] in visible}
             has_dungeon_records=db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='dungeon_records'").fetchone() is not None
             for row in rows:
+                from els_server.storage.life_stamina import snapshot as life_snapshot
+                row['life_stamina']=life_snapshot(db,row['uid'],self.account_id)
                 from els_server.storage.resonance_state import snapshot as resonance_snapshot
                 row['resonance']=resonance_snapshot(db,row['uid'],self.account_id)
                 from els_server.storage.el_search_collection import snapshot as collection_snapshot

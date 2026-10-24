@@ -147,6 +147,9 @@ def character_unit(location=None,initialize_attributes=False,slots=None,economy=
         if 'el_search_collection' in character:
             from els_server.domain.el_search_collection import wire as collection_wire
             overrides['0x482']=collection_wire(character['el_search_collection'])
+        if 'life_stamina' in character:
+            from els_server.protocol.fishing_messages import life_snapshot
+            overrides.update(life_snapshot(character['life_stamina']))
         if 'resonance' in character:
             from els_server.domain.resonance import wire as resonance_wire
             overrides['0x471']=resonance_wire(character['resonance'])
@@ -180,6 +183,10 @@ def character_unit(location=None,initialize_attributes=False,slots=None,economy=
         if items is not None and field['offset']=='0x13e':
             from els_server.protocol.artifact_messages import equipment_map as artifact_equipment_map
             data=artifact_equipment_map(items)
+        if field['offset']=='0x30b' and (character or {}).get('guild_membership') is not None:
+            from els_server.protocol.guild_membership_messages import saved_membership_wire
+            guild=character['guild_membership']
+            data=saved_membership_wire(guild['id'],guild['name'],guild['grade'],data)
         fields.append(overrides.get(field['offset'],data))
     return b''.join(fields)
 

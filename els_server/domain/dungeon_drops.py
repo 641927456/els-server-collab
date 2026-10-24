@@ -5,6 +5,7 @@ The CF layout is shared by verified bag potions, immediate food and ED coins.
 Physical spawn and pickup are separate gates; spawning grants no inventory/ED.
 """
 from els_server.domain.hunter_chest_rules import ground_templates
+from els_server.domain.fishing_bait_loot import TEMPLATES as BAIT_TEMPLATES
 import math
 import struct
 from els_server.protocol.protocol_codec import Event
@@ -14,7 +15,7 @@ def ground_drop_notice(drop_id, xyz, native_tail=(0, 0, 0),uid=1001,*,template=7
     from els_server.domain.dungeon_equipment_loot_rules import TEMPLATES as EQUIPMENT_LOOT_TEMPLATES
     from els_server.domain.dungeon_loot_catalog import TEMPLATES as NORMAL_LOOT_TEMPLATES,descriptor
     from els_server.domain.dungeon_source_loot import TEMPLATES as SOURCE_TEMPLATES,descriptor as source_descriptor
-    if type(template) is not int or template not in GROUND_TEMPLATES|EQUIPMENT_LOOT_TEMPLATES|NORMAL_LOOT_TEMPLATES|SOURCE_TEMPLATES|ground_templates():raise ValueError('Unverified ground template')
+    if type(template) is not int or template not in GROUND_TEMPLATES|EQUIPMENT_LOOT_TEMPLATES|NORMAL_LOOT_TEMPLATES|SOURCE_TEMPLATES|ground_templates()|BAIT_TEMPLATES:raise ValueError('Unverified ground template')
     if template in SOURCE_TEMPLATES:source_descriptor(template)
     if template in NORMAL_LOOT_TEMPLATES:descriptor(template)
     from els_server.domain.dungeon_material_loot_catalog import TEMPLATES as MATERIAL_TEMPLATES,descriptor as material_descriptor
@@ -37,7 +38,7 @@ def ground_pickup_notice(drop_id,uid=1001,*,template=77000,ed=0,bonus_ed=0):
     from els_server.domain.dungeon_equipment_loot_rules import TEMPLATES as EQUIPMENT_LOOT_TEMPLATES
     from els_server.domain.dungeon_loot_catalog import TEMPLATES as NORMAL_LOOT_TEMPLATES,descriptor
     from els_server.domain.dungeon_source_loot import TEMPLATES as SOURCE_TEMPLATES,descriptor as source_descriptor
-    if type(template) is not int or template not in GROUND_TEMPLATES|EQUIPMENT_LOOT_TEMPLATES|NORMAL_LOOT_TEMPLATES|SOURCE_TEMPLATES|ground_templates():raise ValueError('Unverified ground template')
+    if type(template) is not int or template not in GROUND_TEMPLATES|EQUIPMENT_LOOT_TEMPLATES|NORMAL_LOOT_TEMPLATES|SOURCE_TEMPLATES|ground_templates()|BAIT_TEMPLATES:raise ValueError('Unverified ground template')
     if template in SOURCE_TEMPLATES:source_descriptor(template)
     if template in NORMAL_LOOT_TEMPLATES:descriptor(template)
     from els_server.domain.dungeon_material_loot_catalog import TEMPLATES as MATERIAL_TEMPLATES,descriptor as material_descriptor

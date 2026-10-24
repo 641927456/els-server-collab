@@ -517,6 +517,9 @@ for _t in existing_erp_potions:
  TEMPLATE_MAX_STACKS[_t]=1  # disable ordinary split/merge; not a native stack cap
 
 def validate_item(item):
+ if isinstance(item,dict) and item.get('template')in range(136161,136172):
+  from els_server.domain.fish_exchange_erp import _IssuedPotion,validate_issued
+  if type(item)is _IssuedPotion:return validate_issued(item)
  if isinstance(item,dict) and item.get('template')in existing_erp_potions:
   from els_server.domain.erp_potions_existing import validate_existing
   # Existing independently admitted singleton factories retain normal validation.
@@ -544,6 +547,9 @@ def validate_item(item):
   from els_server.domain.ordinary_accessories import accepts_equipped
   equipped=accepts_equipped(item)
  if item['group']==24:equipped=item['slot'] in artifact_slots(item['template'])
+ if item['group'] in (22,23):
+  from els_server.domain.fishing_equipment import accepts_equipped as life_equipped
+  equipped=life_equipped(item)
  from els_server.domain.bag_capacity import wire_limit
  bag=item['group']==TEMPLATE_BAG_GROUPS[item['template']] and 0<=item['slot']<wire_limit(item['group'])
  if not 1<=item['count']<=TEMPLATE_MAX_STACKS[item['template']] or not (equipped or bag):raise ValueError('Invalid local inventory count/slot')
@@ -662,7 +668,7 @@ def item_body(item):
 def inventory_payload(items):
  from els_server.domain.bag_capacity import wire_limit
  from els_server.domain.equipment_requirements import catalog as requirements
- if not isinstance(items,list) or len(items)>sum(wire_limit(g) for g in set(TEMPLATE_BAG_GROUPS.values()))+len(set(FASHION_EQUIP_SLOTS.values())|set(requirements()[1].values())|{s for r in ordinary_accessory_definitions().values() for s in r['slots']}):raise ValueError('Inventory list bound')
+ if not isinstance(items,list) or len(items)>sum(wire_limit(g) for g in set(TEMPLATE_BAG_GROUPS.values()))+len(set(FASHION_EQUIP_SLOTS.values())|set(requirements()[1].values())|{s for r in ordinary_accessory_definitions().values() for s in r['slots']})+(4 if any(isinstance(i,dict) and i.get('group') in (22,23) for i in items) else 0):raise ValueError('Inventory list bound')
  checked=[validate_item(i) for i in items]
  if len({i['uid'] for i in checked})!=len(checked) or len({(i['group'],i['slot']) for i in checked})!=len(checked):raise ValueError('Duplicate inventory UID/slot')
  return struct.pack('>I',len(checked))+b''.join(struct.pack('>QBh',i['uid'],i['group'],i['slot'])+item_body(i)+b'\0'+bytes(8) for i in sorted(checked,key=lambda v:(v['group'],v['slot'])))
@@ -740,3 +746,39 @@ _contract26780_item=_contract26780_client_data().item(713275)
 if (hashlib.sha256(_contract26780_item['record']).hexdigest()!='3e05e84442189cbcd865e68a457cc7774aaa95d15bc45046fd90f23fb89977a1' or (_contract26780_item['item_type'],_contract26780_item['metadata'],_contract26780_item['flags4'],_contract26780_item['flags8'],struct.unpack_from('<I',_contract26780_item['record'],0x10)[0])!=(7,0,4198410,56,0)):raise ValueError('Original26780 reward item source')
 if 713275 in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[713275],TEMPLATE_BAG_GROUPS[713275],TEMPLATE_MAX_STACKS[713275])!=(0,4,1):raise ValueError('Conflicting contract26780 reader')
 VERIFIED_TEMPLATES[713275]=0;TEMPLATE_BAG_GROUPS[713275]=4;TEMPLATE_MAX_STACKS[713275]=1
+
+# Finite current guild creation license and original35630 reward readers.
+# Their acquisition and membership writers require their own qualification.
+from els_server.domain.guild_membership_items import definitions as _guild_item_definitions
+for _guild_item in _guild_item_definitions():
+ _t=_guild_item['template'];_expected=tuple(_guild_item[k] for k in ('metadata','group','max_stack'))
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting finite guild item reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+# Four exact original fishing readers; no source, timer or reward production.
+from els_server.domain.fishing_equipment import definition as _life_definition
+for _life_template in (135928,135929,135931):
+ _life=_life_definition(_life_template);_expected=(_life['metadata'],_life['bag'],1)
+ if _life_template in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_life_template],TEMPLATE_BAG_GROUPS[_life_template],TEMPLATE_MAX_STACKS[_life_template])!=_expected:raise ValueError('Conflicting original finite fishing reader')
+ VERIFIED_TEMPLATES[_life_template],TEMPLATE_BAG_GROUPS[_life_template],TEMPLATE_MAX_STACKS[_life_template]=_expected
+
+# Original held fish and15 exchange outputs only; no fishing/catch producer.
+from els_server.domain.fish_exchange_rules import inventory_definitions as _fish_exchange_defs
+for _fish in _fish_exchange_defs():
+ _t=_fish['template'];_expected=tuple(_fish[k]for k in('metadata','group','max_stack'))
+ if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting fish exchange reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+# Exact original25600 unused life gear; no equipped-fishing or item-use producer.
+for _fishing in [{'template': 135929, 'metadata': 1, 'group': 21, 'max_stack': 1, 'flags4': 557847296, 'flags8': 120, 'record_sha256': '46de956a17a7eba6715a710340bda6224a92f4c4fbc4dc0aaecf4a9ecea7103b', 'native_stack_word': 0}, {'template': 135931, 'metadata': 1, 'group': 21, 'max_stack': 1, 'flags4': 557847296, 'flags8': 120, 'record_sha256': 'bec59846b619d5683b074c752c5dba3a191e087450d04d72b7a54ea99a4ceec5', 'native_stack_word': 0}]:
+ from els_server.game_data import client_data as _fishing_data
+ _t=_fishing['template'];_d=_fishing_data().item(_t)
+ if (hashlib.sha256(_d['record']).hexdigest()!=_fishing['record_sha256'] or (_d['item_type'],_d['metadata'],_d['flags4'],_d['flags8'])!=(15,1,_fishing['flags4'],_fishing['flags8'])):raise ValueError('Original25600 life reward source')
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=(1,21,1):raise ValueError('Original25600 life reader conflict')
+ VERIFIED_TEMPLATES[_t]=1;TEMPLATE_BAG_GROUPS[_t]=21;TEMPLATE_MAX_STACKS[_t]=1
+
+# Exact original25602 unused life potion reward; no use or refresh endpoint.
+from els_server.game_data import client_data as _life_potion_data
+_life_potion=_life_potion_data().item(135953)
+if (hashlib.sha256(_life_potion['record']).hexdigest()!='77c91092e1ed47958b423f0a3d8123f9f5eae59a2987e49b935e8f6dd2011650' or (_life_potion['item_type'],_life_potion['metadata'],_life_potion['flags4'],_life_potion['flags8'],struct.unpack_from('<I',_life_potion['record'],0x10)[0])!=(7,2,573575178,56,300)):raise ValueError('Original25602 reward reader source')
+if 135953 in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[135953],TEMPLATE_BAG_GROUPS[135953],TEMPLATE_MAX_STACKS[135953])!=(2,4,300):raise ValueError('Conflicting original25602 reward reader')
+VERIFIED_TEMPLATES[135953]=2;TEMPLATE_BAG_GROUPS[135953]=4;TEMPLATE_MAX_STACKS[135953]=300
