@@ -13,18 +13,29 @@ def catalog():
         or len(d['towns'])!=m['towns'] or len(d['map_groups'])!=m['map_groups']):raise ValueError('Town travel source identity')
     return d
 
+class DestinationRequirementError(ValueError):
+    """Original58D result653: minimum level, dungeon ID, quest ID, reserved."""
+    def __init__(self,message,*,level=0,dungeon=0,quest=0):
+        self.details=(level,dungeon,quest,0)
+        if any(type(v)is not int or not 0<=v<2**31 for v in self.details):
+            raise ValueError('Town requirement response range')
+        super().__init__(message)
+
+
 def require_destination(destination,character,completed,dungeon_records):
     if type(destination) is not int or str(destination) not in catalog()['towns']:raise ValueError('Unsupported town destination')
     row=catalog()['towns'][str(destination)];r=row['requirement']
     types=sequence(r.get('EnableUnitType',{}))
     if types and character['unit_type'] not in types:raise ValueError('Town character type')
     minimum=max([r['REQUIRE_LEVEL']['MIN'],*[v['MIN_LEVEL'] for v in r.get('EnableUnitTypeLevel',{}).values() if v['UNIT_TYPE']==character['unit_type']]])
-    if character['level']<minimum:raise ValueError('Town minimum level')
-    if r.get('REQUIRE_COMPLETE_QUEST_ID') and r['REQUIRE_COMPLETE_QUEST_ID'] not in completed:raise ValueError('Town required quest')
+    if character['level']<minimum:raise DestinationRequirementError('Town minimum level',level=minimum)
+    if r.get('REQUIRE_COMPLETE_QUEST_ID') and r['REQUIRE_COMPLETE_QUEST_ID'] not in completed:raise DestinationRequirementError('Town required quest',quest=r['REQUIRE_COMPLETE_QUEST_ID'])
     from els_server.domain.dungeon_routes import route_catalog
     # Reuse the admitted current-layout alias (e.g.30090 ->30092). Do not
     # resurrect an excluded normal difficulty or infer an ID +/-2 family.
-    if any(route_catalog().entry_identity(i) not in dungeon_records for i in sequence(r.get('REQUIRE_DUNGEON',{}))):raise ValueError('Town required clear')
+    for required in sequence(r.get('REQUIRE_DUNGEON',{})):
+        if route_catalog().entry_identity(required) not in dungeon_records:
+            raise DestinationRequirementError('Town required clear',dungeon=required)
     return row
 
 def price(source,destination,level):
