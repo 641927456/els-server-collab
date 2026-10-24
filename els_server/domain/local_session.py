@@ -258,7 +258,9 @@ class LocalSession:
         answer=cartridge_sync(self,answer)
         from els_server.domain.tenebros_capacity_flow import synchronize as tenebros_capacity_sync
         answer=tenebros_capacity_sync(self,answer)
-        return self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
+        answer=self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
+        from els_server.domain.ariel_attendance_preview import project as ariel_preview
+        return ariel_preview(self,answer)
 
     def _capture_luciel_dungeon_hp(self,payload,spans):
         self.luciel_dungeon_hp_source=None;self.luciel_dungeon_hp_max=None
@@ -439,7 +441,9 @@ class LocalSession:
         answer=notices+before+reply+observe(self,reply)+observe_pet_progression(self,reply)+observe_mount(self)+observe_artifact(self,reply)+restore_luciel(self,event,reply)
         from els_server.domain.resonance_flow import synchronize as resonance_sync
         answer=resonance_sync(self,answer)
-        return self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
+        answer=self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
+        from els_server.domain.ariel_attendance_preview import project as ariel_preview
+        return ariel_preview(self,answer)
 
     def responses(self,kind):
         return responses(kind,self.client_build,account_id=self.account.account_id,
