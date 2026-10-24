@@ -597,7 +597,7 @@ class LauncherService:
                 notes.append('已创建本地提交')
             fetch = self._git('fetch', '--prune', 'origin', 'main', timeout=90)
             if fetch.returncode != 0:
-                raise ValueError('本地提交已完成，但无法连接 GitHub：'+self._git_detail(fetch)[:600])
+                raise ValueError(('已创建本地提交，但无法连接 GitHub：' if notes else '无法连接 GitHub：')+self._git_detail(fetch)[:600])
             behind = int(self._git('rev-list', '--count', 'HEAD..origin/main', timeout=15).stdout.strip() or 0)
             if behind:
                 rebase = self._git('rebase', 'origin/main', timeout=120)
@@ -607,7 +607,7 @@ class LauncherService:
                 notes.append(f'已变基到 origin/main（{behind} 个远端提交）')
             push = self._git('push', 'origin', 'main', timeout=180)
             if push.returncode != 0:
-                raise ValueError('已提交到本地，但推送失败：'+self._git_detail(push)[:600])
+                raise ValueError(('已提交到本地，但推送失败：' if notes else '推送失败：')+self._git_detail(push)[:600])
             notes.append('已推送到 origin/main')
             head = self._git('log', '-1', '--format=%h %s', timeout=10).stdout.strip()
             return dict(message='；'.join(notes), head=head)
