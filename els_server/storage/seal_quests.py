@@ -70,6 +70,9 @@ def load_character(db,uid,account_id=None):
             from els_server.storage.resonance_state import snapshot as resonance_snapshot
             from els_server.storage.profession_state import snapshot as profession_snapshot
             row['resonance']=resonance_snapshot(db,uid,saved_owner[0])
+            from els_server.storage.el_search_collection import snapshot as collection_snapshot
+            collection=collection_snapshot(db,uid,saved_owner[0])
+            if collection is not None:row['el_search_collection']=collection
             profession=profession_snapshot(db,uid,saved_owner[0])
             row['profession']=profession['state'];row['profession_revision']=profession['revision']
     return row
@@ -107,7 +110,14 @@ def _state(db,uid,items):
             if s['m_eClearType']==81:
                 from els_server.domain.tutorial_progression import career_progress
                 if career is None:career=load_character(db,uid)
-                counts[s['m_iID']]=career_progress(s,career)
+                if s['m_iID']==52702:
+                    from els_server.domain.el_search_collection import career_progress as collection_career_progress
+                    counts[s['m_iID']]=collection_career_progress(s,career)
+                else:counts[s['m_iID']]=career_progress(s,career)
+            if s['m_eClearType']==121:
+                from els_server.domain.el_search_collection import ep_target
+                from els_server.storage.ep_points import balance as current_ep
+                counts[s['m_iID']]=min(ep_target(s),current_ep(db,uid))
             if s['m_eClearType']==110:
                 a=db.execute('SELECT evolution FROM character_artifacts WHERE uid=?',(uid,)).fetchone()
                 counts[s['m_iID']]=min(target(s),a[0] if a else 0)
@@ -149,7 +159,7 @@ class QuestState:
             db.execute('BEGIN');load_character(db,self.uid,self.account_id)
             if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_quests'").fetchone():return []
             identities={qid for qid,at,g,raw in erp_scope.active_rows(db,self.uid)
-                        if any(s['m_eClearType'] in (3,31,80,81,110) for s in quest_catalog().objectives(qid))}
+                        if any(s['m_eClearType'] in (3,31,80,81,110,121) for s in quest_catalog().objectives(qid))}
             if not identities:return []
             return [row for row in _state(db,self.uid,load_items(db,self.uid))['active'] if row['id'] in identities]
 
@@ -170,6 +180,9 @@ class QuestState:
             db.execute('BEGIN IMMEDIATE');character=load_character(db,uid,self.account_id)
             if skipping:skip_guard(db)
             ensure(db)
+            if qid==52700:
+                from els_server.storage.el_search_collection import before_action as collection_before_action
+                collection_before_action(db,uid,self.account_id,kind,self.account_source_guard)
             if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
             if location is None:location=('town',db.execute('SELECT town FROM location WHERE uid=?',(uid,)).fetchone()[0])
             old=db.execute('SELECT owner,kind,request_hash FROM quest_actions WHERE operation_id=?',(operation_id,)).fetchone()
@@ -240,6 +253,9 @@ class QuestState:
                             else:
                                 db.execute('UPDATE inventory_items SET count=count-? WHERE owner=? AND uid=?',(take,uid,item['uid']));consumed.append(((item['group'],item['slot']),dict(item,count=item['count']-take)))
                             if not n:break
+                    if qid==52700:
+                        from els_server.storage.el_search_collection import activate as activate_collection
+                        activate_collection(db,uid,self.account_id,character,now)
                     if any(reward.get(k,0) for k in ('m_iSP','m_iBuff')):raise ValueError('Unsupported native quest reward')
                     ep=reward.get('m_iEP',0)
                     from els_server.storage.ep_points import credit as credit_ep
@@ -301,7 +317,9 @@ class QuestState:
             # encodable before SQL commit. No stale receipt inventory deltas.
             if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
             if skipping:skip_guard(db)
+            if qid==52700:collection_before_action(db,uid,self.account_id,kind,self.account_source_guard)
             result['events']=encode(result)
+            if qid==52700:collection_before_action(db,uid,self.account_id,kind,self.account_source_guard)
             if skipping:skip_guard(db)
             if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
             if not isinstance(result['events'],list) or any(not isinstance(e.payload,bytes) or len(e.payload)>65536 for e in result['events']):raise ValueError('Quest response bound')

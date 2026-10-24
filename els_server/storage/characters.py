@@ -68,6 +68,9 @@ class Characters:
             for row in rows:
                 from els_server.storage.resonance_state import snapshot as resonance_snapshot
                 row['resonance']=resonance_snapshot(db,row['uid'],self.account_id)
+                from els_server.storage.el_search_collection import snapshot as collection_snapshot
+                collection=collection_snapshot(db,row['uid'],self.account_id)
+                if collection is not None:row['el_search_collection']=collection
                 from els_server.storage.titles import snapshot as title_snapshot,completed_for_equipment
                 row['title']=title_snapshot(db,row['uid'])['title']
                 from els_server.storage.character_custom import snapshot as custom_snapshot

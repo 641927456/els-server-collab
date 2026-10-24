@@ -13,6 +13,13 @@ def notifications(db,uid,character,location,before,after,replayed):
     if not replayed:
         if character['revision']!=before['revision']:raise ValueError('Stale career refresh')
         character=dict(character,**after)
+    # The same career writer may have raised the account Collection rank.
+    # Refresh this field from that writer, not the caller's pre-change view.
+    from els_server.storage.el_search_collection import snapshot as collection_snapshot
+    saved_owner=db.execute('SELECT account_id FROM character_owners WHERE uid=?',(uid,)).fetchone()
+    if saved_owner is not None:
+        collection=collection_snapshot(db,uid,saved_owner[0])
+        if collection is not None:character=dict(character,el_search_collection=collection)
     row=db.execute('SELECT payload FROM skill_slots WHERE uid=?',(uid,)).fetchone()
     if row and len(row[0])!=88:raise ValueError('Invalid career skill preset')
     slots=struct.unpack('>22i',row[0]) if row else default_slots(character)

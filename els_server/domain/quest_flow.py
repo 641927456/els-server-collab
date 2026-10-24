@@ -50,6 +50,23 @@ def observed_run(s):
     return SimpleNamespace(identity=30000,run_id=s.reward_run_id,stage=s.gate_stage,part=stage['part'],
                            current=stage,defeated=s.defeated_npcs,graph={'source_sha256':digest})
 
+def collection_source_guard(s):
+    # A finite new economic operation binds the exact current native scene,
+    # actor graph and session generation before waiting on its SQL writer.
+    def capture():
+        if (not account_source_actor(s) or s.phase!='town_ready' or not s.enter_town
+            or s.dungeon_return_pending or not {0x225,0x227}.issubset(s.completed)
+            or s.pending_map!=s.active_map or s.account.get_location()['map']!=s.active_map):raise ValueError('Collection stable scene required')
+        return ((s.account,s.account.store,s.account.characters,getattr(s.account,'root',None),getattr(s,'application',None)),
+                (s.shop_session_id,s.account.account_id,s.account.uid,s.phase,s.active_map,s.pending_map))
+    captured=capture()
+    def guard(db):
+        account_source_guard(s,db)
+        refs,values=capture()
+        if values!=captured[1] or any(a is not b for a,b in zip(refs,captured[0])):raise ValueError('Collection actor generation changed')
+        if db.execute('SELECT town FROM location WHERE uid=?',(s.account.uid,)).fetchone()!=(s.active_map,):raise ValueError('Collection SQL scene mismatch')
+    return guard
+
 def handle(s,event,sequence):
     if event.event_id==0x202 and event.kind==0xfd and enabled(s):
         from els_server.domain.town_dialogue import handle as town_dialogue_handle
@@ -59,7 +76,7 @@ def handle(s,event,sequence):
         return dialogue_handle(s,event,sequence)
     if event.event_id!=0x202 or event.kind not in (0xee,0xfa,0xf4) or not enabled(s):return None
     qid=struct.unpack_from('>i',event.payload)[0] if len(event.payload)>=4 else 0
-    if qid in (26780,37100,53500,53510,53520,53530,54600) and not account_source_actor(s):return []
+    if qid in (26780,37100,53500,53510,53520,53530,54600,52700) and not account_source_actor(s):return []
     skip_binding=None
     def current_skip_binding():
         run=s.dungeon_run
@@ -67,7 +84,7 @@ def handle(s,event,sequence):
                 s.active_map,s.account.get_location()['map'],s.dungeon_id,run,None if run is None else run.identity)
     def failure(result=wire.QUEST_REWARD_UNAVAILABLE):
         if skip_binding is not None and (not account_source_actor(s) or current_skip_binding()!=skip_binding):return []
-        if qid in (26780,37100,53500,53510,53520,53530,54600) and not account_source_actor(s):return []
+        if qid in (26780,37100,53500,53510,53520,53530,54600,52700) and not account_source_actor(s):return []
         if event.kind==0xee:return [wire.accept_ack(result)]
         if event.kind==0xfa:return [initialization(s)]
         snapshot=s.account.get_inventory_snapshot()
@@ -76,7 +93,7 @@ def handle(s,event,sequence):
         or event.performers!=(0,) or event.uid!=0xffffffffffffffff or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):return failure()
     try:
         request=wire.request(event.kind,event.payload)
-        if qid==53520:
+        if qid in (53520,52700):
             from els_server.domain.equipment_chip_flow import current_lease
             if s.account.store.uid!=s.account.uid or not current_lease(s):return []
         kind={0xee:'accept',0xfa:'abandon',0xf4:'claim'}[event.kind]
@@ -117,11 +134,15 @@ def handle(s,event,sequence):
             ready=ready_hidden_receipt(r.get('accepted_after',()))
             if ready:events.append(wire.progress(ready))
             events.append(skill_slots_initialization(r['slots'],s.account.uid,r['character']))
+            if qid==52700 and 'el_search_collection' in r['character']:
+                from els_server.protocol.el_search_collection_messages import notice as collection_notice
+                events.append(collection_notice(r['character']['el_search_collection']))
             if qid==54580:
                 from els_server.protocol.artifact_messages import notice as artifact_notice
                 events.append(artifact_notice(r['character'],not r['replayed']))
             return events
         location=('dungeon',s.dungeon_run.identity if s.dungeon_run else s.dungeon_id) if s.phase=='dungeon_active' else ('town',s.account.get_location()['map'])
+        if qid==52700:selected_store.account_source_guard=collection_source_guard(s)
         result=selected_store.action(kind,request,s.shop_session_id+':quest:'+str(s.account.uid)+':'+str(sequence),encode,location=location)
         return result['events']
     except QuestIncomplete:return failure(wire.QUEST_REQUIREMENTS_NOT_MET)
@@ -250,7 +271,7 @@ def observe(s,replies=()):
         rows=store(s).collection_snapshot();current={};changed=[]
         old=previous[1] if previous is not None and previous[0]==owner else {}
         for row in rows:
-            signature=(row['generation'],{sub['m_iID']:row['objectives'][sub['m_iID']] for sub in quest_catalog().objectives(row['id']) if sub['m_eClearType'] in (3,31,80,81,110)})
+            signature=(row['generation'],{sub['m_iID']:row['objectives'][sub['m_iID']] for sub in quest_catalog().objectives(row['id']) if sub['m_eClearType'] in (3,31,80,81,110,121)})
             current[row['id']]=signature
             if row['id'] in old and old[row['id']]!=signature:changed.append(row)
         if changed:notices.append(wire.progress(changed))
