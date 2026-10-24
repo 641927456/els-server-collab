@@ -60,4 +60,13 @@ def require_wearable(item,character):
     # 868240 mode1 only checks armor models for type2; accessories are type3.
     allowed=mode==1 or mode==2 and family==raw[0xd2] or mode==3 and class_matches(character['unit_class'],raw[0xd3])
     if not flags&0xf00 or flags&0x10 or character['level']<raw[0xd1] or not allowed or not class_matches(character['unit_class'],raw[0xd3]):raise ValueError('Accessory template requirements')
-    if set(item)-{'uid','template','metadata','count','group','slot','expires_at','lock_until','sealed','seal_used','appearance_template','wardrobe_hanger','dye_colors','appearance_colors'}:raise ValueError('Unsupported accessory instance data')
+    optional=set()
+    if item['template']==30603:
+        from els_server.domain.accessory_identification import validate as validate_identification
+        values=item.get('option_groups',{}).get('1',[])
+        # An old worn instance with no initialized state remains readable. New
+        # equips from bag2 must have the committed original two-line result.
+        if item.get('identified')is not True or not values:raise ValueError('Accessory must be identified before wearing')
+        validate_identification(item['template'],values)
+        optional={'identified','option_groups'}
+    if set(item)-({'uid','template','metadata','count','group','slot','expires_at','lock_until','sealed','seal_used','appearance_template','wardrobe_hanger','dye_colors','appearance_colors'}|optional):raise ValueError('Unsupported accessory instance data')
