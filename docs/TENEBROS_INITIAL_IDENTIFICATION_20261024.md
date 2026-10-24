@@ -1,0 +1,9 @@
+# Native Tenebros initial identification
+
+The existing client sends9EF with the owned target UID, but the server has no corresponding initial-identification transaction. This change selects one eligible owned scroll and returns the three native group25 option IDs through9F0/full item records. Already identified gear cannot be identified again; empty gear remains readable and removable, but cannot be newly worn.
+
+The explicit2026-10-24 local-server policy charges one scroll and zero ED. Effect types are uniform within the exact template/line pool. Ten native tiers use10..1 weights for ordinary scrolls and1..10 for blessed scrolls. Eligible ordinary variants precede blessed; dated scrolls are ordered by expiry with permanent last, then UID only breaks equal-priority ties. These are local rules, not claimed official probabilities.
+
+The finite catalog extends the prior selected60 validator to180 verified templates and600 original IDs, preserving the prior60 memberships. It adds only missing inventory readers for the finite existing materials/tickets; existing stack policies remain. It creates no acquisition channel, effects, UI, timer or client changes. SameSQL identity/current instance/expiry/lock guards, precommit encoding, receipts and current-slot replay retain exact inventory and wallet effects. No new table or installDDL.
+
+Validation:13 new private real-Application/SQLite cases and independent source review; root integration additionally verified actual privateTLS FriendsSession→LocalSession routing. Frozen source/proof hashes are retained by the maintainer. Natural client GUI, public positive economic QA and formal deployment remain separate. Code rollback after new180 group25 writes must retain the reviewed read-only validator/catalog/admission floor; never restore a player database.
