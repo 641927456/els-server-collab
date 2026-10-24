@@ -97,7 +97,11 @@ def load_items(db,owner=1001):
  limits=allowances(db,owner)
  if any(i['group'] not in (9,22,23,24) and i['slot']>=limits[i['group']] for i in items):raise ValueError('Item exceeds owned bag capacity')
  return items
-def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None):
+def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None):
+ if fish_erp_source is not None:
+  if any(x is not None for x in(selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source)):raise ValueError('Incompatible fish ERP grant source')
+  from els_server.domain.fish_exchange_erp import validate_source as validate_fish_erp_source
+  validate_fish_erp_source(fish_erp_source).validate_plan(plan)
  if cartridge_recipe679_source is not None:
   if cartridge_box_source is not None or cartridge_select_source is not None or selected_accessory_box is not None:raise ValueError("Incompatible inventory grant sources")
   from els_server.domain.cartridge_recipe679_rules import validate_recipe_source
@@ -130,8 +134,12 @@ def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,c
    if p!=dict(template=119335,metadata=0,group=4,quantity=1):raise ValueError('Recipe679 private singleton plan')
   elif p['template'] not in VERIFIED_TEMPLATES or p['metadata']!=VERIFIED_TEMPLATES[p['template']] or p['group']!=TEMPLATE_BAG_GROUPS[p['template']] or not 1<=p['quantity']<=LOCAL_MAX_STACK:raise ValueError('Unverified inventory grant template/count')
  return [dict(p) for p in plan]
-def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None):
+def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None):
  owner=character_uid(owner)
+ if fish_erp_source is not None:
+  if any(x is not None for x in(chip_options,selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source)):raise ValueError('Incompatible fish ERP factory source')
+  from els_server.domain.fish_exchange_erp import validate_source as validate_fish_erp_source
+  validate_fish_erp_source(fish_erp_source).bind_factory(db,owner,plan)
  if cartridge_recipe679_source is not None:
   if cartridge_box_source is not None or cartridge_select_source is not None or selected_accessory_box is not None or chip_options is not None:raise ValueError("Incompatible inventory grant sources")
   from els_server.domain.cartridge_recipe679_rules import validate_recipe_source
@@ -144,7 +152,7 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
   if selected_accessory_box is not None or chip_options is not None:raise ValueError("Incompatible inventory grant sources")
   from els_server.domain.cartridge_selection_box import validate_source
   validate_source(cartridge_box_source).bind_factory(db,owner,plan)
- plan=validate_plan(plan,selected_accessory_box=selected_accessory_box,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source);items=load_items(db,owner);changed={}
+ plan=validate_plan(plan,selected_accessory_box=selected_accessory_box,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,fish_erp_source=fish_erp_source);items=load_items(db,owner);changed={}
  from els_server.domain.equipment_chip_rules import TEMPLATE as CHIP,generate as chip_generate,source_options as chip_source
  approved_chip=None
  if chip_options is not None:
@@ -154,10 +162,12 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
  limits=allowances(db,owner)
  for p in plan:
   remaining=p['quantity']
-  for i in items:
-   if (i['template'],i['metadata'],i['group'])==(p['template'],p['metadata'],p['group']) and i.get('expires_at')==p.get('expires_at') and TEMPLATE_MAX_STACKS[i['template']]>1 and i['count']<TEMPLATE_MAX_STACKS[i['template']]:
+  for index,i in enumerate(items):
+   if (i['template'],i['metadata'],i['group'])==(p['template'],p['metadata'],p['group']) and i.get('expires_at')==p.get('expires_at') and TEMPLATE_MAX_STACKS[i['template']]>1 and i['count']<TEMPLATE_MAX_STACKS[i['template']] and (fish_erp_source is None or fish_erp_source.can_stack(i,p)):
     delta=min(remaining,TEMPLATE_MAX_STACKS[i['template']]-i['count']);i['count']+=delta;remaining-=delta
-    db.execute('UPDATE inventory_items SET count=? WHERE uid=? AND owner=?',(i['count'],i['uid'],owner));changed[i['uid']]=dict(i)
+    db.execute('UPDATE inventory_items SET count=? WHERE uid=? AND owner=?',(i['count'],i['uid'],owner))
+    if fish_erp_source is not None:i=fish_erp_source.admit_instance(dict(i));items[index]=i
+    changed[i['uid']]=i if fish_erp_source is not None else dict(i)
     if not remaining:break
   while remaining:
    occupied={i['slot'] for i in items if i['group']==p['group']};slot=next((n for n in range(limits[p['group']]) if n not in occupied),None)
@@ -169,6 +179,7 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
    if p.get('enhancement'):i['enhancement']=p['enhancement']
    if i['template']==CHIP:i['option_groups']={'1':list(approved_chip['1'])} if approved_chip is not None else chip_generate()
    if cartridge_recipe679_source is not None:i=validate_recipe_source(cartridge_recipe679_source).admit_instance(i)
+   if fish_erp_source is not None:i=fish_erp_source.admit_instance(i)
    validate_item(i)
    db.execute('UPDATE inventory_sequence SET next_uid=? WHERE id=1',(uid+1,))
    db.execute('INSERT INTO inventory_items VALUES (?,?,?,?,?,?,?)',(uid,owner,i['template'],i['metadata'],i['count'],i['group'],slot))
@@ -179,7 +190,7 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
     from els_server.storage.item_expiration import assign
     assign(db,owner,uid,i['expires_at'])
    from els_server.domain.normal_equipment import definitions as normal_equipment_definitions
-   if i['template'] in normal_equipment_definitions():
+   if i['template'] in normal_equipment_definitions() or i['template'] in (135928,135929,135931):
     from els_server.domain.equipment_durability import maximum
     from els_server.storage.equipment_durability import replace_durability
     i['durability']=replace_durability(db,owner,uid,0,maximum(i['template']))
@@ -188,7 +199,8 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
     replace_enhancement(db,owner,uid,0,i['enhancement'])
    from els_server.storage.artifact_generation import initialize
    initialize(db,owner,i)
-   items.append(i);changed[uid]=dict(i);remaining-=i['count']
+   items.append(i);changed[uid]=i if fish_erp_source is not None else dict(i);remaining-=i['count']
+ if fish_erp_source is not None:fish_erp_source.verify_after()
  inventory_payload(items)
  return list(changed.values())
 class InventoryState:

@@ -52,15 +52,21 @@ def exchange(path,owner,payload,operation,*,account_id,guard,now=None):
         demand=r.source_quantity*r.quantity
         if sum(i['count']for i in candidates)<demand:raise ValueError('Insufficient unlocked held original fish')
         # Draw only after owned source quantity validates, under this write lock.
+        erp_source=None
+        from els_server.domain.fish_exchange_erp import begin,supports
+        if supports(r):erp_source=begin(db,owner,account_id,payload,operation,before,guard)
         awards=Counter()
         for _ in range(r.quantity):
             if r.exchange_type==2:
                 roll=secrets.randbelow(100);chosen=None
+                if erp_source is not None:erp_source.draw(roll)
                 for row in rows:
                     roll-=row['rate']
                     if roll<0:chosen=row;break
                 if chosen is None:raise ValueError('Original fish exchange rate sum')
-            else:chosen=rows[0]
+            else:
+                chosen=rows[0]
+                if erp_source is not None:erp_source.choose(chosen)
             awards[chosen['destination']]+=chosen['quantity']
         positions=[]
         for item in sorted(candidates,key=lambda i:(i['slot'],i['uid'])):
@@ -69,13 +75,20 @@ def exchange(path,owner,payload,operation,*,account_id,guard,now=None):
             if take==item['count']:remove(db,owner,item)
             elif db.execute('UPDATE inventory_items SET count=count-? WHERE uid=? AND owner=? AND count=?',(take,item['uid'],owner,item['count'])).rowcount!=1:raise ValueError('Fish exchange source changed')
         grants=[dict(template=t,metadata=VERIFIED_TEMPLATES[t],group=TEMPLATE_BAG_GROUPS[t],quantity=min(999,n-offset))for t,n in sorted(awards.items())for offset in range(0,n,999)]
-        added=grant_items(db,grants,owner)
+        added=grant_items(db,grants,owner,fish_erp_source=erp_source)
         positions=list(dict.fromkeys(positions+[(i['group'],i['slot'])for i in added]))
         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
         changes=[(p,current.get(p))for p in positions]
         answer=[Event(0x201,kind=0x224,payload=wire.acknowledgement(balance['ed'],changes,sorted(awards.items()),exchange_type=r.exchange_type))]
         for event in answer:encode_event(event)
         check()
+        if erp_source is not None:erp_source.verify_after()
         if not WRITES_ENABLED:raise ValueError('Fish exchange held before commit')
         _commit(db,operation,digest,owner,0x223,positions,before,after)
-        return answer
+        from els_server.storage.account_fishing_tasks_scope import record_exchange
+        notices=record_exchange(db,owner,account_id,operation,payload,guard)
+        for event in notices:encode_event(event)
+        check()
+        if erp_source is not None:erp_source.verify_after()
+        if not WRITES_ENABLED:raise ValueError('Fish exchange held after task notification')
+        return answer+notices

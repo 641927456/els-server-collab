@@ -79,6 +79,18 @@ class QuestCatalog:
                 identity=int(raw_id)
                 if identity in dest and dest[identity]!=value:raise ValueError('Conflicting finite account Epic source')
                 dest[identity]=value
+        from els_server.domain.account_fishing25600 import catalog as fishing_catalog
+        for dest,key in ((self.quests,'quests'),(self.subquests,'subquests')):
+            for raw_id,value in fishing_catalog()[key].items():
+                identity=int(raw_id)
+                if identity in dest and dest[identity]!=value:raise ValueError('Conflicting original25600 source')
+                dest[identity]=value
+        from els_server.domain.account_fishing_tasks import catalog as fishing_followups
+        for dest,key in ((self.quests,'quests'),(self.subquests,'subquests')):
+            for raw_id,value in fishing_followups()[key].items():
+                identity=int(raw_id)
+                if identity in dest and dest[identity]!=value:raise ValueError('Conflicting original fishing followup source')
+                dest[identity]=value
         for q in self.quests.values():
             if q['m_bRepeat'] or q['m_bIsTimeEvent']:raise ValueError('Unsupported quest schedule')
             from els_server.domain.quest_selection import options
@@ -145,8 +157,14 @@ def require_eligible(character,quest,completed,items,*,location=('town',20000)):
         if 0 not in allowed and location[1] not in allowed:raise ValueError('Quest location requirement')
 
 def target(sub):
+    if sub.get('m_iID') in (25602,25603):
+        from els_server.domain.account_fishing_tasks import target as fishing_target
+        return fishing_target(sub)
     c=sub['m_ClearCondition'];kind=sub['m_eClearType']
     if kind==1:
+        if sub.get('m_iID')==25600:
+            from els_server.domain.account_fishing25600 import target as fishing_target
+            return fishing_target(sub)
         from els_server.domain.town_dialogue import catalog as town_catalog,target as town_target
         if str(sub.get('m_iID')) in town_catalog()['subquests']:return town_target(sub)
         from els_server.domain.tutorial_dialogue import target as dialogue_target
