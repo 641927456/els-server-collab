@@ -91,6 +91,7 @@ def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.r
                 delta=min(quantity,99);quantity-=delta
                 plan.append(dict(template=selected['template'],metadata=VERIFIED_TEMPLATES[selected['template']],
                     group=TEMPLATE_BAG_GROUPS[selected['template']],quantity=delta))
+                if growing:plan[-1]['enhancement']=selected['enhancement']
         grants=grant_items(db,plan,owner)
         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
         positions=sorted({source,*[(i['group'],i['slot']) for i in grants]})

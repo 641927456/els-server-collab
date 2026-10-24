@@ -59,9 +59,15 @@ def handle(s,event,sequence):
         return dialogue_handle(s,event,sequence)
     if event.event_id!=0x202 or event.kind not in (0xee,0xfa,0xf4) or not enabled(s):return None
     qid=struct.unpack_from('>i',event.payload)[0] if len(event.payload)>=4 else 0
-    if qid in (53520,54600) and not account_source_actor(s):return []
+    if qid in (26780,37100,53500,53510,53520,53530,54600) and not account_source_actor(s):return []
+    skip_binding=None
+    def current_skip_binding():
+        run=s.dungeon_run
+        return (s.account,s.account.store,s.account.uid,s.account.account_id,s.shop_session_id,s.phase,
+                s.active_map,s.account.get_location()['map'],s.dungeon_id,run,None if run is None else run.identity)
     def failure(result=wire.QUEST_REWARD_UNAVAILABLE):
-        if qid in (53520,54600) and not account_source_actor(s):return []
+        if skip_binding is not None and (not account_source_actor(s) or current_skip_binding()!=skip_binding):return []
+        if qid in (26780,37100,53500,53510,53520,53530,54600) and not account_source_actor(s):return []
         if event.kind==0xee:return [wire.accept_ack(result)]
         if event.kind==0xfa:return [initialization(s)]
         snapshot=s.account.get_inventory_snapshot()
@@ -74,6 +80,16 @@ def handle(s,event,sequence):
             from els_server.domain.equipment_chip_flow import current_lease
             if s.account.store.uid!=s.account.uid or not current_lease(s):return []
         kind={0xee:'accept',0xfa:'abandon',0xf4:'claim'}[event.kind]
+        from els_server.domain.epic_skip import requested as skip_requested
+        selected_store=store(s)
+        if kind=='claim' and skip_requested(request):
+            if not account_source_actor(s):return []
+            skip_binding=current_skip_binding()
+            def guarded_skip(db):
+                if not account_source_actor(s) or current_skip_binding()!=skip_binding:
+                    raise ValueError('Retired Epic skip actor/session')
+                account_source_guard(s,db)
+            selected_store=QuestState(s.account.store.path,s.account.uid,account_id=s.account.account_id,account_source_guard=guarded_skip)
         def encode(r):
             state=r['state']
             if kind=='accept':
@@ -106,7 +122,7 @@ def handle(s,event,sequence):
                 events.append(artifact_notice(r['character'],not r['replayed']))
             return events
         location=('dungeon',s.dungeon_run.identity if s.dungeon_run else s.dungeon_id) if s.phase=='dungeon_active' else ('town',s.account.get_location()['map'])
-        result=store(s).action(kind,request,s.shop_session_id+':quest:'+str(s.account.uid)+':'+str(sequence),encode,location=location)
+        result=selected_store.action(kind,request,s.shop_session_id+':quest:'+str(s.account.uid)+':'+str(sequence),encode,location=location)
         return result['events']
     except QuestIncomplete:return failure(wire.QUEST_REQUIREMENTS_NOT_MET)
     except InventoryFull:return failure(wire.QUEST_REWARD_BAG_FULL)
@@ -184,6 +200,8 @@ def observe(s,replies=()):
             s._quest_town_cursor=cursor
         s._quest_discovery_cursor=None
     if 27 in passive[1] and run is not None:
+        from els_server.domain.mainline_find_npc import observe as observe_mainline_find
+        notices+=observe_mainline_find(s,run,replies,store(s))
         from els_server.domain.tutorial_memory8_finale import encounter
         witness=encounter(s,run,store(s).snapshot())
         if witness is not None:notices+=store(s).record(*witness)
