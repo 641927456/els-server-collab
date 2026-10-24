@@ -1,0 +1,187 @@
+{
+  "channel": "online",
+  "release": "collection52700-native-registration-20261024-v1",
+  "parent_release": "skill-page-shop-immediate-ED-20261024-v1",
+  "manifest_sha256": "7c54f25ccc70af67bb866e030ce7b1fb3d2b5232ed51e2df3b480f4196fda03c",
+  "parent_manifest_sha256": "7c629d37b64e06c80939616d9281ed9546ed5f2242843cc35f595e81391f665c",
+  "scope_kind": "collection52700",
+  "files": [
+    {
+      "path": "els_server/data/el_search_collection.json",
+      "sha256": "accab2b4243c52b5961ff0e8a3343311603da14f06721bec37f4ad2acef646e8",
+      "size": 26993,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/data/el_search_collection.manifest.json",
+      "sha256": "f62571c1772971dc42476e0e8f6d9b0f5d1f06371e0b85f1d9b67cab58f8173e",
+      "size": 171,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/data/story_quests.json",
+      "sha256": "c520d676326f17ba8e070314686e8209e511d315de82596947d15a335449241f",
+      "size": 1545521,
+      "parent_sha256": "f8fca87dc262ac6d76ecadd494a48d492fb9e89b450db7a7cd90dcf0937a2adf"
+    },
+    {
+      "path": "els_server/data/story_quests.manifest.json",
+      "sha256": "019fecab6a94ceaebe1414ba1fef57a5675f5d0aca6ebc284fd045c8109073ee",
+      "size": 324,
+      "parent_sha256": "be312b53f23770f1f2b54c03aea60c36ac35aa85f2b2e003d5bc2998707e0693"
+    },
+    {
+      "path": "els_server/domain/el_search_collection.py",
+      "sha256": "f4a0421a69ba1d4be23813d11da9c3a6d90fb3ddc5f19882caba89b913abef28",
+      "size": 4502,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "sha256": "cc0e662398e546b2e4ab7f86941cc596dee0d0052c7358f745ef0f93e4285a33",
+      "size": 18855,
+      "parent_sha256": "88e3b1554b3b8dc1dd49cf79c967420fa680e28f7c5d69e127a1791b5db90f58"
+    },
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "sha256": "b82dafbfc5bd1daa067698291074d22fdb7dbbfdcbc060b82323ad7eeba81534",
+      "size": 14322,
+      "parent_sha256": "c28c4ca3653abb339231ec48d63a0eb589566dd521ff700234cf5871c782ef98"
+    },
+    {
+      "path": "els_server/protocol/el_search_collection_messages.py",
+      "sha256": "76ee60b7cf2dd2c895ccd74eba71f3d82fab72576d06e7677578f7432e5ba0d1",
+      "size": 258,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/protocol/local_messages.py",
+      "sha256": "6175fd38c140359de0ef52de7c599182193358b02ae9101720779fa16ab864a3",
+      "size": 19180,
+      "parent_sha256": "1091ad07355eb2ce713517a83e9f04a8312ad08e0de85e59a9dad3ca2b63978a"
+    },
+    {
+      "path": "els_server/storage/career_shop.py",
+      "sha256": "bb3cf9a4275d399125be8159a9e4df63f4f5ba0bdcc9515cab144a194a28bf26",
+      "size": 2210,
+      "parent_sha256": "c2f4c089d4c0a3bbb7029727c49a887b9f72b1a40689fba60c678b00dfc81f71"
+    },
+    {
+      "path": "els_server/storage/careers.py",
+      "sha256": "ffadc97255cc6e81ac4620f1d287d09816fa80099633fb58c45b404b21f67e87",
+      "size": 6130,
+      "parent_sha256": "e478958fb3ae839a70bfcf27002a19ff50a59e2d85463ff5a2afa0e63b9cee58"
+    },
+    {
+      "path": "els_server/storage/characters.py",
+      "sha256": "12ee8a15330301b4d75951822187b2056e3145e2433aedf73bf9e807c3526d94",
+      "size": 13703,
+      "parent_sha256": "77f2617698befb8dd2c17dd73cc536cb3c0129f20017b2d83683d9114fa57e51"
+    },
+    {
+      "path": "els_server/storage/el_search_collection.py",
+      "sha256": "b185c92e9ba9a27556b8ee63dd0304a44539eaebf1eaccd65c7b3afec9990889",
+      "size": 6732,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "sha256": "e8233b5001e72c417f2a0b219d19680c03262d940cc609d5d1727be4cda83be8",
+      "size": 28281,
+      "parent_sha256": "ebccf293e0fbcc7b4818f51839b7908df14f79469d841e96127bbbf9c0f37110"
+    }
+  ],
+  "source_PRs": [
+    "https://github.com/641927456/els-server-collab/pull/397"
+  ],
+  "source_PR_merged_commits": {
+    "397": "eda6d037a3e25819486ecfa50ac1c55bcca4dc4c"
+  },
+  "parent_snapshot_commit": "0aa2e73306abbb70bd256d45af851a2951c14251",
+  "source_file_count": 781,
+  "business_file_count": 1008,
+  "changed_source_file_count": 14,
+  "new_source_file_count": 5,
+  "replaced_source_file_count": 9,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "historical_release_not_final_current": true,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/online/collection52700-native-registration-20261024-v1/rollup-manifest.json",
+      "sha256": "7c54f25ccc70af67bb866e030ce7b1fb3d2b5232ed51e2df3b480f4196fda03c",
+      "bytes": 372352
+    },
+    "actual_parent_manifest": {
+      "path": "releases/online/skill-page-shop-immediate-ED-20261024-v1/rollup-manifest.json",
+      "sha256": "7c629d37b64e06c80939616d9281ed9546ed5f2242843cc35f595e81391f665c",
+      "bytes": 1778276
+    },
+    "acceptance_roles": {
+      "original_completion": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/delivery-collection52700-unified-v1/completion-v1.json",
+        "sha256": "7aae6bc223c8537f9361576da69545028172c04cb265e2047f625b5514b2de65",
+        "bytes": 6564
+      },
+      "final_actual_dual_review": {
+        "path": "analysis/full-gap-execution-20261024-v1/review/collection52700-actual-artifact-v1/actual-dual-delivery-review-v1.json",
+        "sha256": "558b5338d6ffa42f415a1b03e44cdd37301e270a16d2444d5d61bfed6065b404",
+        "bytes": 36748
+      },
+      "source_qualification": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/delivery-collection52700-unified-v1/qualification.json",
+        "sha256": "765452908cd083fae506fab3ef8838ea180d981e3c143fc181debb0d0bd00d60",
+        "bytes": 1955002
+      },
+      "local_acceptance": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/delivery-collection52700-unified-v1/publication/local-install/completion.json",
+        "sha256": "4a3035fdad6a79abe84798bfaf37a9367ecd1783d715a8e30e2b5fb73dc988a2",
+        "bytes": 200531
+      },
+      "online_acceptance": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/delivery-collection52700-unified-v1/publication/online-acceptance.json",
+        "sha256": "7f450d7519c06e459fe3730eef8397a02f5d555a7df48fe89d2bd9d438b8bdac",
+        "bytes": 374798
+      },
+      "local_own_lock_release": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/delivery-collection52700-unified-v1/publication/local-install/locks-released.json",
+        "sha256": "35bf9df1031f9d0513cb069b9a7c9a2b2c1be2e57d8e25821de6d25f2a0fb57f",
+        "bytes": 49
+      },
+      "online_own_lock_release": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/delivery-collection52700-unified-v1/publication/locks-released.json",
+        "sha256": "4775f7c162eacf157533137a06ef3137fc86b7df1b1c19c87060223de1a7bfa2",
+        "bytes": 47
+      },
+      "cleanup": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/delivery-collection52700-unified-v1/publication/cleanup.json",
+        "sha256": "2190478fedb4ed183c32b940e7a802d58a4cae71e4eab4365ec3c3684b6fe2fe",
+        "bytes": 221
+      },
+      "local_online_reconciliation": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/delivery-collection52700-unified-v1/publication/local-post-online-reconciliation.json",
+        "sha256": "f27ac3ffb015a8c54692b21f0eb0cb744981512e9096f164d6c134a8f4b0c264",
+        "bytes": 297
+      }
+    },
+    "declared_full_source_map": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/M52-history-source-preparation-v1/online/collection52700-native-registration-20261024-v1-full-source-map.json",
+      "sha256": "b094a579859e035fa42eddd229311ed30a26e4ce6ad6a949e331fe91f565918e",
+      "bytes": 126337
+    }
+  },
+  "layered_limits": [
+    "Original14-leaf actual dual action and two lazy definitions only; public smoke does not prove public economic activation or whole collection/GUI.",
+    "Only exact immutable release history; snapshot parent commit remains unbound.",
+    "Runtime byte/source matching and all other parent tree preservation remain new materializer gates; no copy of main70f to runtime.",
+    "No current selector, runtime operation, score change or system completion acceptance is granted by this record."
+  ],
+  "independent_units": 1,
+  "new_schema": true,
+  "new_schema_definitions": 2,
+  "install_DDL_statements": 0,
+  "client_delta": 0,
+  "natural_GUI": false,
+  "whole_card_complete": false
+}
