@@ -25,8 +25,44 @@ def catalog():
     return c
 
 
-def material(template):return catalog()['materials'].get(str(template))
+def material(template):
+    row=catalog()['materials'].get(str(template))
+    return row if row is not None else derived_materials().get(str(template))
 def target(template):return catalog()['targets'].get(str(template))
+
+
+SHAPES={'I-1':1,'I-2':2,'T-1':3,'T-2':4,'T-3':5,'T-4':6,
+        'L-1':7,'L-2':8,'L-3':9,'L-4':10}
+COLORS={'演算':1,'循环':2,'复原':3}
+
+
+@functools.lru_cache(maxsize=1)
+def derived_materials():
+    """Popular/T-family circuits share the policy shape/color option pool.
+
+    The pinned policy enumerates 72 I/L records; the current client also ships
+    the popular-prefix family and T-1..T-4 with the same record layout and the
+    same 10-shape x 3-color option table.
+    """
+    import re
+    from els_server.game_data import client_data
+    pools={}
+    for row in catalog()['options'].values():
+        pools.setdefault((row['m_eCircuitItemShapeType'],row['m_eCircuitItemColorType']),[]).append(row['ID'])
+    data=client_data()
+    with data.connect() as db:
+        rows=db.execute("SELECT id,name,equip_position,metadata,item_type FROM items WHERE name LIKE '%型%增幅电路（%'").fetchall()
+    result={}
+    for template,name,part,metadata,item_type in rows:
+        if item_type!=2 or str(template) in catalog()['materials']:continue
+        shape=re.search(r'(I-[12]|T-[1-4]|L-[1-4])型',name)
+        color=re.search(r'（(演算|循环|复原)）',name)
+        if shape is None or color is None:continue
+        options=pools.get((SHAPES[shape.group(1)],COLORS[color.group(1)]),[])
+        if not options or part not in (8,9,10,11):continue
+        result[str(template)]=dict(template=template,part=part,shape=SHAPES[shape.group(1)],
+            color=COLORS[color.group(1)],options=options,metadata=metadata,max_stack=1,registered_group=1)
+    return result
 
 
 def validate_material(template,values):

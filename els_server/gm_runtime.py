@@ -82,7 +82,7 @@ class Runtime:
         return s
 
     def give(self, value):
-        from els_server.domain.reward_rules import item_plan
+        from els_server.domain.gm_item_catalog import plan as item_plan
         from els_server.storage.inventory_state import grant_items, InventoryFull
         from els_server.domain.dungeon_drops import pickup_inventory_notice
         key = operation(value)
