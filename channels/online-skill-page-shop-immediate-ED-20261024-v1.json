@@ -1,0 +1,150 @@
+{
+  "channel": "online",
+  "release": "skill-page-shop-immediate-ED-20261024-v1",
+  "parent_release": "erp-potions-existing-owned-20261024-v1",
+  "manifest_sha256": "7c629d37b64e06c80939616d9281ed9546ed5f2242843cc35f595e81391f665c",
+  "parent_manifest_sha256": "2daed7bcb462ffe940fd965085668236da03926eaf96e9dab9f4deecc255f00b",
+  "scope_kind": "skill-page-shop-immediate-ED",
+  "files": [
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "9a287d77583b6bafe368da9bb1b6825b91e07e185baac464b998d46d3690d7c9",
+      "size": 143652,
+      "parent_sha256": "760aa77cd9b52186f935f119a6439403f26c8a758628876562dcaad5933ac26a"
+    },
+    {
+      "path": "els_server/domain/skill_page_shop.py",
+      "sha256": "184f8fa7ddb18b8398cee70b8ab37ca06b85524f5d9be0e73a94b53926e4fb75",
+      "size": 1028,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/skill_page_shop_flow.py",
+      "sha256": "ec317563219cbc594d81ce76450ded82d4263f8a3aab10cb81ad42c4b54945be",
+      "size": 2206,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/shop_state.py",
+      "sha256": "8dc4ac7eca19a0370b946a04c0406556b059618ef376157d56235f7a93b515a8",
+      "size": 14848,
+      "parent_sha256": "a89002d593e61e3364e1f9cc7ba7ac80f463b8ea795554dd8e88aac666b3e2bc"
+    },
+    {
+      "path": "els_server/storage/skill_page_shop.py",
+      "sha256": "344eacc4cab4df4c7dda903de968ceef4da6bd1b4d43ec019c27cc94068dadd2",
+      "size": 3313,
+      "parent_sha256": null
+    }
+  ],
+  "source_PRs": [
+    "https://github.com/641927456/els-server-collab/pull/393"
+  ],
+  "source_PR_merged_commit": "816a7fde03219c5e370bf156297c1fbd1ea63b4f",
+  "parent_snapshot_commit": "76506b54e0a652b4680c8735ea4b936fde41d821",
+  "business_file_count": 1003,
+  "changed_runtime_file_count": 5,
+  "new_runtime_file_count": 3,
+  "replaced_runtime_file_count": 2,
+  "independent_units": 1,
+  "new_schema_definitions": 1,
+  "new_lazy_tables": [
+    "skill_page_shop_receipts"
+  ],
+  "eager_schema_migration": false,
+  "install_DDL_statements": 0,
+  "client_changes": 0,
+  "natural_GUI": false,
+  "natural_multiplayer": false,
+  "public_positive_economy": false,
+  "whole_card_complete": false,
+  "automatic_deployment": false,
+  "source_view_is_formal_runtime": false,
+  "contains_accounts_or_saves": false,
+  "active_selector_changed": false,
+  "main_source_changed": false,
+  "author_actual_dual_delivered": true,
+  "final_root_delivery_review": {
+    "path": "analysis/full-gap-execution-20261024-v1/review/skill-page-shop-actual-artifact-v1/actual-dual-delivery-review-v1.json",
+    "sha256": "5fa7b7e995656933ae78faf6dce0fe176c2f6dd0f8b15def10410ba795f0aaaf",
+    "bytes": 51749
+  },
+  "final_root_delivery_approval_pending": false,
+  "source_runtime_mapping": "Only this unit composed onto actual ERP parent; local_session canonical/Git/runtime hashes remain distinct. No blanket wholeblob source/runtime equivalence.",
+  "evidence": {
+    "source_contract": {
+      "path": "analysis/engineering13-completion-20261024-v1/skill-page-shop-delivery-v1/source-contract.json",
+      "sha256": "469822e3f76254bbb41748c43d01c30bf1d26241d17028f8de3d36e4fc08c7bf",
+      "bytes": 2204172
+    },
+    "canonical_source_freeze": {
+      "path": "analysis/engineering13-completion-20261024-v1/skill-page-shop-consumer-v2/source-freeze.json",
+      "sha256": "b3d30d3342d8ffc99eebf686346e534a067116c384965d061504e7d0897e7883",
+      "bytes": 4733
+    },
+    "source_review": {
+      "path": "analysis/full-gap-execution-20261024-v1/review/skill-page-shop-consumer-v1/independent-source-evidence-review.json",
+      "sha256": "a27941d83e075d527824a89da8fde6b934e792c6db72bfe4e0ba1bf93895969e",
+      "bytes": 13874
+    },
+    "source_PR393_completion": {
+      "path": "analysis/engineering13-completion-20261024-v1/skill-page-shop-delivery-v1/source-git-v2/source-completion.json",
+      "sha256": "cd91336c8ace1c8eb5cb33a16166fdaeb2e12248a121860503b170fabb4bcacb",
+      "bytes": 1831
+    },
+    "author_dual_completion": {
+      "path": "analysis/engineering13-completion-20261024-v1/skill-page-shop-delivery-v1/actual-dual-delivery-completion-v1.json",
+      "sha256": "31cc27bda12a40f5db789f91a80075942ea5d36aa4cfa0e1c8b84228eba440d3",
+      "bytes": 7056
+    },
+    "immutable_heads": {
+      "path": "analysis/engineering13-completion-20261024-v1/skill-page-shop-delivery-v1/final-heads-v1/heads.json",
+      "sha256": "0ef2a4dea25d825786f00f1eec3aa9442af4cb6a10a9f53ea0d45fbd56efa83b",
+      "bytes": 1175
+    },
+    "immutable_head_snapshots": {
+      "local": {
+        "path": "analysis/engineering13-completion-20261024-v1/skill-page-shop-delivery-v1/final-heads-v1/local-pointer.raw.json",
+        "sha256": "cd7def2d0536b8975bc759d3bc0e967143a43abb8f537adcfbf54301fdd0ec08",
+        "bytes": 772034
+      },
+      "online": {
+        "path": "analysis/engineering13-completion-20261024-v1/skill-page-shop-delivery-v1/final-heads-v1/online-pointer.raw.json",
+        "sha256": "d98357b733b6c11deff7289d316fca28a519acee18b7677d32da7e4eeb1abbd4",
+        "bytes": 1738031
+      },
+      "launchers": {
+        "path": "analysis/engineering13-completion-20261024-v1/skill-page-shop-delivery-v1/final-heads-v1/launchers-pointer.raw.json",
+        "sha256": "65a432e4c1fff59a31e46eb042c9bc9d6423c02295c50d0936defbd614a6274d",
+        "bytes": 4807
+      }
+    },
+    "formal_manifest": {
+      "path": "releases/online/skill-page-shop-immediate-ED-20261024-v1/rollup-manifest.json",
+      "sha256": "7c629d37b64e06c80939616d9281ed9546ed5f2242843cc35f595e81391f665c",
+      "bytes": 1778276
+    },
+    "parent_manifest": {
+      "path": "releases/online/erp-potions-existing-owned-20261024-v1/rollup-manifest.json",
+      "sha256": "2daed7bcb462ffe940fd965085668236da03926eaf96e9dab9f4deecc255f00b",
+      "bytes": 1276720
+    },
+    "manifest_delta": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/shop-dual-history-data-FALSE-v1/online-manifest-delta.json",
+      "sha256": "5eaa738eb5e0b285f58b8df6af85a60788504662ac07267f67c0d9f75fe6ceb2",
+      "bytes": 1311
+    },
+    "central_ROOT_final_actual_review": {
+      "path": "analysis/full-gap-execution-20261024-v1/review/skill-page-shop-actual-artifact-v1/actual-dual-delivery-review-v1.json",
+      "sha256": "5fa7b7e995656933ae78faf6dce0fe176c2f6dd0f8b15def10410ba795f0aaaf",
+      "bytes": 51749
+    }
+  },
+  "boundary": "Accepted actual dual-delivery source history. Exact final ROOT review and source mapping retained. Source snapshot is not formal runtime; original standalone and compatibility branches preserved. No new installation, selector, natural GUI, multiplayer or public positive economy claim.",
+  "actual_dual_verified_by_central_root": true,
+  "actual_source_parent_Git_map": {
+    "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/shop-actual-source-Git-map-root-v1/actual-source-parent-Git-audit.json",
+    "sha256": "2cd9ed1f49672629b0f2dde301057c0d7090229a384bb07d9c0e2d30ca40ba4f",
+    "bytes": 4558
+  }
+}
