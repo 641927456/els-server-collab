@@ -13,6 +13,7 @@ OWNED='character_custom_permanent'
 SELECTED='character_custom_permanent_selection'
 SIDE_SELECTED='character_custom_permanent_selection_slots'
 FACE_SELECTED='character_custom_permanent_face_selection'
+POINT_SELECTED='character_custom_secret_pointmark_selection'
 
 def exists(db,name):return bool(db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(name,)).fetchone())
 
@@ -57,11 +58,21 @@ def snapshot(db,owner):
             value=slot_value(2,canonical(row[0]))
             if value not in owned.get(2,[]):raise ValueError('Saved face selection is not owned')
             selected[2]=value
+    if exists(db,POINT_SELECTED):
+        row=db.execute('SELECT custom_id FROM character_custom_secret_pointmark_selection WHERE owner=?',(owner,)).fetchone()
+        if row:
+            value=slot_value(28,canonical(row[0]))
+            if value not in owned.get(28,[]):raise ValueError('Saved PointMark selection is not owned')
+            selected[28]=value
     return dict(owned=owned,selected=selected)
 
 def initialize_side(db):
     # Additive only: never migrate/rebuild the original owner-PK slot1 table.
     db.execute('CREATE TABLE IF NOT EXISTS character_custom_permanent_selection_slots (owner INTEGER NOT NULL REFERENCES characters(uid),slot INTEGER NOT NULL CHECK(slot IN (7,8,13,14,24,25,26,27)),custom_id INTEGER NOT NULL CHECK(custom_id>=0),PRIMARY KEY(owner,slot))')
+
+def initialize_pointmark(db):
+    # Additive finite PointMark slot only; no old selection CHECK is rebuilt.
+    db.execute('CREATE TABLE IF NOT EXISTS character_custom_secret_pointmark_selection (owner INTEGER PRIMARY KEY REFERENCES characters(uid),custom_id INTEGER NOT NULL CHECK(custom_id=19002))')
 
 def initialize_face(db):
     # Additive face-only storage; preserve both old selection tables and CHECKs.
@@ -84,7 +95,7 @@ def identity(db,owner,account_id,family=1):
     owner=character_uid(owner)
     if type(account_id) is not int or not 0<account_id<2**63:raise ValueError('Custom account identity')
     row=db.execute('SELECT c.unit_type,c.unit_class,c.level FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(owner,account_id)).fetchone()
-    if row is None or (row[0] not in FACE_UNITS if family==2 else row[0]!=1):raise ValueError('Custom owner role qualification')
+    if row is None or (row[0] not in FACE_UNITS if family==2 else row[0] not in range(1,16) if family==28 else row[0]!=1):raise ValueError('Custom owner role qualification')
     if exists(db,'character_lifecycle'):
         state=db.execute('SELECT requested_at,finalized_at FROM character_lifecycle WHERE uid=?',(owner,)).fetchone()
         if state and any(state):raise ValueError('Custom character is pending/finalized deletion')
@@ -99,7 +110,7 @@ def _check_receipt(db,operation,owner,kind):
     if db.execute('SELECT owner,kind FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()!=(owner,kind):
         raise ValueError('Custom receipt owner/kind')
 
-def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None):
+def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None,validate_pointmark=None):
     item_uid=use_request(payload);now=clock(now)
     operation='custom-book:'+operation
     owner,digest=_identity(owner,0x219,b'custom-book-v1:'+payload,operation)
@@ -120,6 +131,9 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None):
             before=json.loads(raw_receipt)
             if len(before)!=1 or before[0]['uid']!=item_uid or before[0]['template'] not in rules:raise ValueError('Custom book receipt source')
             receipt_rule=rules[before[0]['template']]
+        def pointmark_check():
+            if (receipt_rule or rule)['type']==28 and validate_pointmark is not None:validate_pointmark()
+        pointmark_check()
         role=identity(db,owner,account_id,(receipt_rule or rule)['type'])
         if (receipt_rule or rule)['type']==2:face_requirement(db,owner,receipt_rule or rule)
         balance=db.execute('SELECT ed,revision FROM reward_balances WHERE uid=?',(owner,)).fetchone()
@@ -133,6 +147,7 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None):
             events=[use_ack([(p,current.get(p)) for p in positions],ed=balance[0]),wire.registered(value)]
             for event in events:encode_event(event)
             if validate is not None:validate()
+            pointmark_check()
             return dict(replayed=True,events=events)
         if source['group']!=4 or source.get('sealed',False) or source.get('seal_used',0) or 'expires_at' in source:
             raise ValueError('Only permanent unsealed owned primary custom books are admitted')
@@ -150,6 +165,7 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None):
         events=[use_ack([((source['group'],source['slot']),remaining)],source['template'],balance[0]),wire.registered(value)]
         for event in events:encode_event(event)
         if validate is not None:validate()
+        pointmark_check()
         initialize(db)
         db.execute('INSERT INTO character_custom_permanent VALUES (?,?,?)',(owner,value['custom_id'],source['template']))
         if remaining:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item_uid,owner))
@@ -186,6 +202,9 @@ def select(path,owner,account_id,payload,operation,*,now=None,validate=None):
             if slot==1:
                 initialize(db)
                 db.execute('INSERT INTO character_custom_permanent_selection VALUES (?,?) ON CONFLICT(owner) DO UPDATE SET custom_id=excluded.custom_id',(owner,value['custom_id']))
+            elif slot==28:
+                initialize_pointmark(db)
+                db.execute('INSERT INTO character_custom_secret_pointmark_selection VALUES (?,?) ON CONFLICT(owner) DO UPDATE SET custom_id=excluded.custom_id',(owner,value['custom_id']))
             elif slot==2:
                 initialize_face(db)
                 db.execute('INSERT INTO character_custom_permanent_face_selection VALUES (?,?) ON CONFLICT(owner) DO UPDATE SET custom_id=excluded.custom_id',(owner,value['custom_id']))

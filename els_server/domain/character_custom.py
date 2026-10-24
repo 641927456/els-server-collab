@@ -8,15 +8,15 @@ from pathlib import Path
 
 DATE1='2001-01-01 00:00:00'
 DATE2='2050-01-01 00:00:00'
-SLOT_TYPES={1:1,2:2,7:7,8:7,13:7,14:7,24:24,25:24,26:24,27:24}
+SLOT_TYPES={1:1,2:2,7:7,8:7,13:7,14:7,24:24,25:24,26:24,27:24,28:28}
 FACE_UNITS=frozenset({1,2,3,4,5,6,7,8,9,11,12,13,14,15})
-COUNTS={1:52,2:321,7:85,24:71}
+COUNTS={1:52,2:321,7:85,24:71,28:1}
 FREE_EMOTES=frozenset({17000,17033,17034,17035,17036})
 
 @functools.lru_cache(maxsize=1)
 def catalog():
     data=json.loads((Path(__file__).parents[1]/'data/character_custom_permanent.json').read_text(encoding='utf8'))
-    if (data['client_sha256']!='6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709' or len(data['books'])!=529
+    if (data['client_sha256']!='6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709' or len(data['books'])!=530
         or data['free_emote_ids']!=sorted(FREE_EMOTES)):
         raise ValueError('Permanent custom catalog identity')
     from els_server.domain.inventory_items import VERIFIED_TEMPLATES,TEMPLATE_BAG_GROUPS
@@ -24,11 +24,17 @@ def catalog():
     for r in data['books']:
         if (type(r['book']) is not int or type(r['custom_id']) is not int or r['book'] in rules
             or r['type'] not in COUNTS or r['slot']!=r['type']
-            or r['unit_type'] not in (FACE_UNITS if r['type']==2 else {1})
+            or r['unit_type'] not in (FACE_UNITS if r['type']==2 else {0} if r['type']==28 else {1})
             or r['book'] not in VERIFIED_TEMPLATES or TEMPLATE_BAG_GROUPS[r['book']]!=4):
             raise ValueError('Permanent custom catalog qualification')
+        if r['type']==28:
+            from els_server.game_data import client_data
+            import hashlib
+            expected={'book':481315,'custom_id':19002,'type':28,'slot':28,'unit_type':0,'native_item_sha256':'b8f0e7554e97b65265ad943b40e544d1497c74c67779f3e04cc439700918de48'}
+            if r!=expected or hashlib.sha256(client_data().item(481315)['record']).hexdigest()!=r['native_item_sha256']:
+                raise ValueError('Original secret PointMark source')
         rules[r['book']]=r
-    if (len({r['custom_id'] for r in rules.values()})!=529
+    if (len({r['custom_id'] for r in rules.values()})!=530
         or {t:sum(r['type']==t for r in rules.values())for t in COUNTS}!=COUNTS
         or {0,*FREE_EMOTES,*free_catalog().values()}&{r['custom_id']for r in rules.values()}):raise ValueError('Permanent custom ID ambiguity')
     return rules
@@ -60,7 +66,7 @@ def custom_type(custom_id):
 
 def slot_value(slot,value):
     family=selection_type(slot)
-    if value!=canonical(value.get('custom_id')) or (value['custom_id']==0 and family in (2,24)) or custom_type(value['custom_id']) not in (None,family):
+    if value!=canonical(value.get('custom_id')) or (value['custom_id']==0 and family in (2,24,28)) or custom_type(value['custom_id']) not in (None,family):
         raise ValueError('Custom selected slot/family mismatch')
     return value
 
@@ -70,6 +76,7 @@ def free_ids(unit_class,slot=1):
     from els_server.domain.careers import PARENTS
     from els_server.domain.character_rules import CLASSES
     if slot==2:return set()  # No face free/default producer admitted.
+    if selection_type(slot)==28:return set()  # No unproved free/default PointMark producer.
     if unit_class not in free_catalog():raise ValueError('Elsword custom career identity')
     family=selection_type(slot)
     if family==7:return {0}
@@ -100,6 +107,18 @@ def handle(s,event,sequence):
         return select(s.account.store.path,s.account.uid,s.account.account_id,event.payload,
                       s.shop_session_id+':'+str(s.account.uid)+':'+str(sequence),validate=lambda:validate(s,captured))['events']
     except ValueError:return [acknowledgement(result=-1)]
+
+def book_validator(s):
+    # Lazy: unrecognized219 items never acquire custom admission requirements.
+    # Recognized books reuse the same exact actor/scene contract as Apply.
+    captured=None
+    def check():
+        nonlocal captured
+        require_admitted(s)
+        from els_server.domain.avatar_set_flow import context,validate
+        if captured is None:captured=context(s)
+        validate(s,captured)
+    return check
 
 def require_admitted(s):
     if not admitted(s):raise ValueError('Custom book requires current DX11 town game lease')

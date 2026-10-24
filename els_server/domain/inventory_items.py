@@ -716,6 +716,15 @@ for _t,_digest,_flags in ((136034,'4376af863bbe3005333d2e4f2673780bc2a350bbd707f
  if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=(0,4,1):raise ValueError('Conflicting original26750 reward reader')
  VERIFIED_TEMPLATES[_t]=0;TEMPLATE_BAG_GROUPS[_t]=4;TEMPLATE_MAX_STACKS[_t]=1
 
+# Exact32080 material and character PointMark reward readers; no new loot source.
+for _t,_kind,_meta,_word,_digest in ((118357,7,2,500,'bd35c97bcefe8cae2c937d15fb2204808f6e9bf3d228187a2855f80784e2efbc'),(481315,14,0,0,'b8f0e7554e97b65265ad943b40e544d1497c74c67779f3e04cc439700918de48')):
+ from els_server.game_data import client_data as _secret_reward_client_data
+ _item=_secret_reward_client_data().item(_t)
+ if (hashlib.sha256(_item['record']).hexdigest()!=_digest or (_item['item_type'],_item['metadata'],struct.unpack_from('<I',_item['record'],0x10)[0])!=(_kind,_meta,_word)):raise ValueError('Original32080 item source')
+ _expected=(_meta,4,_word or 1)
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting original32080 reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
 # Original26780 reward only: unused singleton713275, no housing/use state.
 from els_server.game_data import client_data as _contract26780_client_data
 _contract26780_item=_contract26780_client_data().item(713275)
