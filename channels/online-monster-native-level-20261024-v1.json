@@ -1,0 +1,44 @@
+{
+  "channel": "online",
+  "release": "monster-native-level-20261024-v1",
+  "parent_release": "player-core-gaps-20261024-v1",
+  "manifest_sha256": "2cc5a7308b0f341f934f7ac49129a7f2d14c220af5a67a82b7ed95959825ed4a",
+  "parent_manifest_sha256": "7ca00e9b61de2a957de6dcad489b47b11227a209b8cd6096a2e876c915b9569c",
+  "scope": "One independent server repair: supply current positive absolute m_NPCLevel / exact compiled source LEVEL overrides to the existing native NPC spawn level byte; preserve all HP/stat initialization, drop policy, routes and client. Exclude missing38300, relative120010 and3event routes. Natural combat/GUI and HP/drop completion remain unverified.",
+  "files": [
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "sha256": "76b57829a04d13598dd5aa9779cf95ac8b33a1fc4e159f079dbd3fb6f50305e9",
+      "size": 13207,
+      "parent_sha256": "337c0252edcb9b3567b6bddc745df3aa01b23e1b100beb62dafbd428abafecf9"
+    }
+  ],
+  "changed_runtime_file_count": 1,
+  "source_file_count": 815,
+  "business_file_count": 1042,
+  "independent_units": 1,
+  "client_delta": 0,
+  "new_schema": false,
+  "new_schema_definitions": 0,
+  "install_DDL_statements": 0,
+  "parent_snapshot_commit": "98700c29b86fda8e2fa17555d0f8e3d202ef7138",
+  "historical_delivery_accepted": true,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/online/monster-native-level-20261024-v1/rollup-manifest.json",
+      "sha256": "2cc5a7308b0f341f934f7ac49129a7f2d14c220af5a67a82b7ed95959825ed4a",
+      "bytes": 192855
+    },
+    "actual_acceptance": {
+      "path": "releases/online/monster-native-level-20261024-v1/acceptance.json",
+      "sha256": "ef51ab845e7eb48b1cd74f8eba4278289e1fc66fc74110893815ed5fd83b8afc",
+      "bytes": 9533
+    }
+  },
+  "metadata_sync_installs": 0
+}
