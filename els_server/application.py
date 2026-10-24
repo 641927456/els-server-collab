@@ -33,7 +33,11 @@ class FriendsSession(LocalSession):
         result=luciel_end_handle(self,event,request_sequence)
         if result is not None:return self.activity_reply(result+self.mailbox.drain())
         result=self.application.world.dungeons.request(self,event,request_sequence)
-        if result is not None:return self.activity_reply(result+self.mailbox.drain())
+        if result is not None:
+            if self.phase!='town_ready' or self.active_map!=20013:
+                from els_server.domain.tenebros_storage_flow import abandon as abandon_shadow
+                abandon_shadow(self)
+            return self.activity_reply(result+self.mailbox.drain())
         if event.event_id==0x202 and event.kind==0x85:
             return self.application.world.chat(self,event)+self.mailbox.drain()
         if event.event_id==0x202:
@@ -237,7 +241,11 @@ class Application:
         def release():
             timer=getattr(getattr(session,'activity2026_awards',None),'online',None)
             try:
-                close_mount(session)
+                from els_server.domain.tenebros_storage_flow import abandon as abandon_shadow
+                try:
+                    abandon_shadow(session)
+                finally:
+                    close_mount(session)
             finally:
                 if type(session) is LocalSession and getattr(session,'_chip_reset_local_application',None) is self:
                     session._chip_reset_local_live=False

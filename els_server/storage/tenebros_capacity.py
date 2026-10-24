@@ -80,13 +80,18 @@ def snapshot(path,owner,account_id,*,prepare):
         return current
 
 
-def perform(path,owner,account_id,payload,operation,*,prepare,encode=wire.acknowledge):
+def perform(path,owner,account_id,payload,operation,*,prepare,encode=None):
     part=wire.request(payload)
     wire.integer(account_id,1,2**63-1)
     owner,digest=_identity(owner,0x9f2,struct.pack('>Qi',account_id,part),operation)
     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10)) as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
         guard(db,owner,account_id,prepare,npc=True)
+        if encode is None:
+            def encode(part,extra,ed):
+                from els_server.storage.tenebros_storage import cells
+                extras=read(db,account_id)['extras']
+                return wire.acknowledge(part,extra,ed,options=cells(db,owner,account_id,extras)[part])
         current=read(db,account_id);wallet=balances(db,owner)
         old=db.execute('SELECT digest,account_id,owner,part FROM tenebros_capacity_receipts WHERE operation=?',(operation,)).fetchone() if schema(db) else None
         if old is not None:
