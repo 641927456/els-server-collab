@@ -48,15 +48,82 @@ def validate(world,party,challenge,phase):
     return members
 
 
-def cancel(world,party):
-    state=party.get('challenge')
-    # Keep the attempt reachable until the durable cancellation commits.
-    # A failed database write must remain retryable by the same native request.
-    if state:challenge_group.abandon(party['leader'].account.store.path,state['attempt'])
+def _authority(world,party,members,extra):
+    leader=party['leader']
+    captured=tuple((m,m.account,m.account.root,m.account.store,m.account.characters,
+        m.account.uid,m.account.account_id,m.identity,Path(m.account.store.path).resolve()) for m in members)
+    owners={uid:account_id for _,_,_,_,_,uid,account_id,_,_ in captured}
+    if len(owners)!=len(members):raise ValueError('Challenge duplicate owned role')
+    def guard():
+        if (tuple(party['members'])!=members or party['leader'] is not leader
+            or party['run'] is not None):raise ValueError('Challenge transaction party changed')
+        for m,account,root,store,characters,uid,account_id,identity,path in captured:
+            if (m.account is not account or account.root is not root or account.store is not store
+                or account.characters is not characters or m.identity is not identity
+                or (account.uid,account.account_id,store.uid)!=(uid,account_id,uid)
+                or Path(store.path).resolve()!=path or m.phase!='town_ready'
+                or m not in world.members or not _current_member(world,party,m)):
+                raise ValueError('Challenge transaction actor changed')
+        extra()
+    guard();return owners,guard
+
+
+def _force_cancel(world,party):
+    # Existing FriendsWorld lifecycle calls this before it removes the party
+    # member, but disconnect has already removed town membership. This is
+    # server cleanup of the original attempt, not a native consent request.
+    members=tuple(party['members']);leader=party['leader']
+    state=party.get('challenge');start=party.get('challenge_pending');cancel_pending=party.get('challenge_cancel_pending')
+    captured=tuple((m,m.account,m.account.uid,m.account.account_id,Path(m.account.store.path).resolve()) for m in members)
+    owners={uid:account_id for _,_,uid,account_id,_ in captured}
+    if len(owners)!=len(members) or leader not in members:raise ValueError('Challenge cleanup roster')
+    paths={path for _,_,_,_,path in captured}
+    if len(paths)!=1:raise ValueError('Challenge cleanup database')
+    def guard():
+        if (world.parties.get(party['id']) is not party or tuple(party['members'])!=members
+            or party['leader'] is not leader or party.get('challenge') is not state
+            or party.get('challenge_pending') is not start
+            or party.get('challenge_cancel_pending') is not cancel_pending):
+            raise ValueError('Challenge lifecycle cleanup changed')
+        for m,account,uid,account_id,path in captured:
+            if (world.party_of.get(m) is not party or m.account is not account
+                or (account.uid,account.account_id)!=(uid,account_id)
+                or Path(account.store.path).resolve()!=path):
+                raise ValueError('Challenge lifecycle source identity changed')
+    from els_server.protocol.protocol_codec import encode_event
+    prepared=[]
+    def precommit(_):
+        notice=phase_notice();encode_event(notice);prepared.append(notice)
+    guard()
+    if state is not None:
+        challenge_group.abandon(next(iter(paths)),state['attempt'],uids=tuple(owners),
+            leader=leader.account.uid,owners=owners,prepare=guard,precommit=precommit,active=False)
+    else:
+        precommit(None);guard()
+    party.pop('challenge',None);party.pop('challenge_pending',None);party.pop('challenge_cancel_pending',None)
+    for member in members:
+        if _current_member(world,party,member):world.send(member,prepared[0])
+
+
+def cancel(world,party,pending=None):
+    if pending is None:return _force_cancel(world,party)
+    state=party.get('challenge');members=tuple(party['members'])
+    def extra():
+        if (party.get('challenge_cancel_pending') is not pending
+            or not _valid_pending(world,party,pending,abandon=True)
+            or pending['accepted']!=set(members)):
+            raise ValueError('Challenge cancellation consent changed')
+    owners,guard=_authority(world,party,members,extra)
+    from els_server.protocol.protocol_codec import encode_event
+    prepared=[]
+    def precommit(_):
+        notice=phase_notice();encode_event(phase_ack(0xae8));encode_event(notice);prepared.append(notice)
+    challenge_group.abandon(party['leader'].account.store.path,state['attempt'],
+        uids=tuple(owners),leader=party['leader'].account.uid,owners=owners,prepare=guard,precommit=precommit)
     party.pop('challenge',None)
     party.pop('challenge_pending',None)
     party.pop('challenge_cancel_pending',None)
-    broadcast(world,party,phase_notice())
+    broadcast(world,party,prepared[0])
 
 
 def _context(world,party,pending):
@@ -97,16 +164,31 @@ def _drop_invalid(world,party,key,*,abandon):
     if pending and not _valid_pending(world,party,pending,abandon=abandon):party.pop(key,None)
 
 
+def _begin(world,party,challenge,phase,pending=None):
+    members=validate(world,party,challenge,phase);leader=party['leader'];previous=party.get('challenge')
+    def extra():
+        if validate(world,party,challenge,phase)!=members or party.get('challenge') is not previous:
+            raise ValueError('Challenge transaction context changed')
+        if pending is not None and (party.get('challenge_pending') is not pending
+            or not _valid_pending(world,party,pending,abandon=False)
+            or pending['accepted']!=set(members)):
+            raise ValueError('Challenge start consent changed')
+    owners,guard=_authority(world,party,members,extra)
+    from els_server.protocol.protocol_codec import encode_event
+    prepared=[]
+    def precommit(state):
+        notice=phase_notice(**{k:state[k] for k in ('challenge','phase','progress','deadline')},
+            actor=leader.account.uid,members=[m.account.uid for m in members])
+        encode_event(phase_ack(0xae3));encode_event(notice);prepared.append(notice)
+    state=challenge_group.begin(leader.account.store.path,tuple(owners),leader.account.uid,
+        challenge,phase,owners=owners,prepare=guard,precommit=precommit)
+    return state,prepared[0]
+
+
 def _commit_start(world,party,pending):
-    # Admission/ownership and the durable roster are rechecked at commit.
-    members=validate(world,party,pending['challenge'],pending['phase'])
-    if members!=pending['members']:raise ValueError('Challenge proposal roster changed')
-    leader=party['leader']
-    state=challenge_group.begin(leader.account.store.path,[m.account.uid for m in members],
-        leader.account.uid,pending['challenge'],pending['phase'])
+    state,notice=_begin(world,party,pending['challenge'],pending['phase'],pending)
     party.pop('challenge_pending',None);party['challenge']=state
-    broadcast(world,party,phase_notice(**{k:state[k] for k in ('challenge','phase','progress','deadline')},
-        actor=leader.account.uid,members=[m.account.uid for m in members]))
+    broadcast(world,party,notice)
 
 
 def _handle(s,event):
@@ -126,8 +208,9 @@ def _handle(s,event):
             state=party.get('challenge')
             if state and not state['complete'] and state['deadline']>int(time.time()):
                 if (state['challenge'],state['phase'])!=(challenge,phase):raise ValueError('Abandon the current phase first')
-                challenge_group.begin(s.account.store.path,[m.account.uid for m in members],s.account.uid,challenge,phase)
-                broadcast(world,party,phase_notice(**{k:state[k] for k in ('challenge','phase','progress','deadline')},actor=s.account.uid,members=[m.account.uid for m in members]))
+                state,notice=_begin(world,party,challenge,phase)
+                party['challenge']=state
+                broadcast(world,party,notice)
                 return [phase_ack(ack)]
             old=party.get('challenge_pending')
             if old:
@@ -146,7 +229,9 @@ def _handle(s,event):
         if state is None:return [phase_ack(ack)]
         old=party.get('challenge_cancel_pending')
         if old:
-            if old['accepted']==set(old['members']):cancel(world,party)
+            if old['accepted']==set(old['members']):
+                try:cancel(world,party,old)
+                except ValueError:return [phase_ack(ack,-1)]
         else:
             pending=_proposal(party,state['challenge'],state['phase'])
             if not _valid_pending(world,party,pending,abandon=True):return [phase_ack(ack,-1)]
@@ -165,11 +250,14 @@ def _handle(s,event):
         party.pop(key,None);return [phase_ack(ack)]
     pending['accepted'].add(s)
     if pending['accepted']==set(pending['members']):
-        if kind==0xaea:cancel(world,party)
+        if kind==0xaea:
+            try:cancel(world,party,pending)
+            except ValueError:return [phase_ack(ack,-1)]
         else:
             try:_commit_start(world,party,pending)
             except ValueError:
-                party.pop(key,None);return [phase_ack(ack,-1)]
+                if not _valid_pending(world,party,pending,abandon=False):party.pop(key,None)
+                return [phase_ack(ack,-1)]
     return [phase_ack(ack)]
 
 
