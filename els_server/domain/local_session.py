@@ -530,6 +530,9 @@ class LocalSession:
         from els_server.domain.tenebros_identification_flow import handle as tenebros_identification_handle
         tenebros_identification_reply=tenebros_identification_handle(self,event,request_sequence)
         if tenebros_identification_reply is not None:return tenebros_identification_reply
+        from els_server.domain.tenebros_conversion_flow import handle as tenebros_conversion_handle
+        tenebros_conversion_reply=tenebros_conversion_handle(self,event,request_sequence)
+        if tenebros_conversion_reply is not None:return tenebros_conversion_reply
         from els_server.domain.tenebros_capacity_flow import handle as tenebros_capacity_handle
         tenebros_capacity_reply=tenebros_capacity_handle(self,event,request_sequence)
         if tenebros_capacity_reply is not None:return tenebros_capacity_reply
