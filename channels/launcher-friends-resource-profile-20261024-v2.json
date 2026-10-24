@@ -7,7 +7,7 @@
     "size": 2799616
   },
   "payload_sha256": "21695e310ce5e1d93ff75c2798d5bfd7437fefee0ecfcc518a89b3cf23dcedf2",
-  "source_Git_current_complete": false,
+  "source_Git_current_complete": true,
   "actual_acceptance": {
     "public_TLS_accepted": true,
     "full_public_V34_to_V35_update_accepted": true,
@@ -36,10 +36,12 @@
     "bytes": 4807
   },
   "frozen_launcher_current_raw_sha256": "65a432e4c1fff59a31e46eb042c9bc9d6423c02295c50d0936defbd614a6274d",
-  "scope": "Actual V35 launcher metadata only. No source catchup, build, CI, install, updater/configuration or runtime change.",
-  "source_catchup_gap": "The observed main tree has launcher source through V33 and no V35 source directory. V35 source catchup remains separate and is not claimed complete.",
+  "scope": "Actual V35 launcher metadata and corresponding versioned source archive. Source catchup performs no build, install, updater/configuration or runtime change.",
+  "source_catchup_gap": null,
   "activation_performed": false,
   "automatic_deployment": false,
   "whole_gameplay_acceptance_claimed": false,
-  "source_observed_main_commit": "3c3a7022f34a5d4b40d9654685935f38b28f0639"
+  "source_observed_main_commit": "3c3a7022f34a5d4b40d9654685935f38b28f0639",
+  "previous_source_catchup_gap": "The observed main tree has launcher source through V33 and no V35 source directory. V35 source catchup remains separate and is not claimed complete.",
+  "source_archive": "launchers/friends-v35/release.json"
 }
