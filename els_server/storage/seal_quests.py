@@ -163,7 +163,7 @@ class QuestState:
             if not identities:return []
             return [row for row in _state(db,self.uid,load_items(db,self.uid))['active'] if row['id'] in identities]
 
-    def action(self,kind,request,operation_id,encode,*,now=None,location=None):
+    def action(self,kind,request,operation_id,encode,*,now=None,location=None,transaction=None):
         if kind not in ('accept','abandon','claim'):raise ValueError('Quest action')
         if not isinstance(operation_id,str) or not 1<=len(operation_id)<=200:raise ValueError('Quest operation identity')
         now=int(time.time()) if now is None else now
@@ -176,8 +176,8 @@ class QuestState:
             if not callable(self.account_source_guard) or type(self.account_id) is not int or self.account_id<=0:
                 raise ValueError('Epic skip requires current actor/session guard')
             self.account_source_guard(db)
-        with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
-            db.execute('BEGIN IMMEDIATE');character=load_character(db,uid,self.account_id)
+        with _progress_connection(self.path,transaction) as db:
+            character=load_character(db,uid,self.account_id)
             if skipping:skip_guard(db)
             ensure(db)
             if qid==52700:
