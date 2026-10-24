@@ -1,0 +1,7 @@
+# Four current regular palettes
+
+Add daily/natural hair palettes481213/481214 and costume palettes482109/482110 to native dyeing category37. Each costs50ED under the existing local ordinary permanent shop policy; this is not a conversion from the official cash price. Keep the current1/10/50/100 quantity variants and999 stack limit. Other35 seasonal/event palette variants receive no new source.
+
+The existing80F purchase and AD6 dye handlers remain authoritative. Palette purchases additionally require the current selected character, session lease, SQL active owner and account ownership after the write lock and before commit. Encode the complete810 event before committing inventory, ED and the existing receipt. Replays use current inventory and balances without a second debit or historical restoration. No client, schema or installation migration is added.
+
+Validation: both real private Application/TLS channels passed18 checks with482 actual module hashes bound to the immutable parent or these three source leaves. Four purchases and dye consumption, cold loading, replay, owner/envelope/phase rejection and pre-commit encoding rollback passed. Finite catalog checks cover15 native role types and16 product/quantity variants. Current-parent composition and public production acceptance remain pending. Natural BuyPalette confirmation/shop navigation and GUI visibility remain unverified. Stacked on #453; closes #456 after review.
