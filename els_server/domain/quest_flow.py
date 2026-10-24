@@ -79,7 +79,12 @@ def handle(s,event,sequence):
         town_reply=town_dialogue_handle(s,event,sequence)
         if town_reply is not None:return town_reply
         from els_server.domain.tutorial_dialogue import handle as dialogue_handle
-        return dialogue_handle(s,event,sequence)
+        dialogue_reply=dialogue_handle(s,event,sequence)
+        if dialogue_reply is not None:return dialogue_reply
+        # Every NPC interaction needs an FE reply. Unbound NPCs previously
+        # produced no packet, leaving the client dialogue waiting forever.
+        from els_server.protocol import tutorial_dialogue_messages as dialogue_wire
+        return [dialogue_wire.acknowledgement()]
     if event.event_id!=0x202 or event.kind not in (0xee,0xfa,0xf4) or not enabled(s):return None
     qid=struct.unpack_from('>i',event.payload)[0] if len(event.payload)>=4 else 0
     if qid in (26770,25600,25601,25602,26780,37100,53500,53510,53520,53530,54600,52700) and not account_source_actor(s):return []
@@ -205,9 +210,27 @@ def handle(s,event,sequence):
         if qid in (52700,26770):selected_store.account_source_guard=collection_source_guard(s)
         result=selected_store.action(kind,request,s.shop_session_id+':quest:'+str(s.account.uid)+':'+str(sequence),encode,location=location)
         return result['events']
-    except QuestIncomplete:return failure(wire.QUEST_REQUIREMENTS_NOT_MET)
-    except InventoryFull:return failure(wire.QUEST_REWARD_BAG_FULL)
-    except ValueError:return failure()
+    except QuestIncomplete:
+        _debug_rejection(qid,event.kind,'requirements-not-met')
+        return failure(wire.QUEST_REQUIREMENTS_NOT_MET)
+    except InventoryFull:
+        _debug_rejection(qid,event.kind,'bag-full')
+        return failure(wire.QUEST_REWARD_BAG_FULL)
+    except ValueError as error:
+        _debug_rejection(qid,event.kind,str(error))
+        return failure()
+
+
+def _debug_rejection(qid,kind,reason):
+    try:
+        import json,time
+        from els_server.paths import PROJECT_ROOT
+        path=PROJECT_ROOT/'state/local-quest-debug.jsonl'
+        if not path.parent.exists():return
+        with path.open('a',encoding='utf8') as handle:
+            handle.write(json.dumps(dict(ts=int(time.time()),quest=qid,kind=kind,reason=reason),ensure_ascii=False)+'\n')
+    except Exception:
+        pass
 
 def observe(s,replies=()):
     if not enabled(s) or s.role!='game' or s.phase not in ('town_ready','dungeon_active'):return []
@@ -332,7 +355,7 @@ def observe(s,replies=()):
         rows=store(s).collection_snapshot();current={};changed=[]
         old=previous[1] if previous is not None and previous[0]==owner else {}
         for row in rows:
-            signature=(row['generation'],{sub['m_iID']:row['objectives'][sub['m_iID']] for sub in quest_catalog().objectives(row['id']) if sub['m_eClearType'] in (3,31,38,80,81,110,121)})
+            signature=(row['generation'],{sub['m_iID']:row['objectives'][sub['m_iID']] for sub in quest_catalog().objectives(row['id']) if sub['m_eClearType'] in (3,31,32,38,80,81,110,121)})
             current[row['id']]=signature
             if row['id'] in old and old[row['id']]!=signature:changed.append(row)
         if changed:notices.append(wire.progress(changed))

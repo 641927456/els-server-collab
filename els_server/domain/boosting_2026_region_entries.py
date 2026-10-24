@@ -13,22 +13,24 @@ from els_server.storage.inventory_state import load_items
 
 ENTRIES=(26640,26650)
 
-def resume(db,uid,account_id,*,now,location):
+def resume(db,uid,account_id,*,now,location,entries=ENTRIES):
     if type(now) is not int or not 0<now<2**63:raise ValueError('Region entry timestamp')
     character=load_character(db,uid,account_id)
     if character['level']!=99:return []
     ensure(db);completed=completed_ids(db,uid)
     active={q for q, in db.execute('SELECT quest FROM character_quests WHERE owner=?',(uid,))}
     items=load_items(db,uid);catalog=region_catalog();messages=[]
-    for qid in ENTRIES:
+    for qid in entries:
         if qid in active or qid in completed:continue
-        q=catalog.data['quests'][str(qid)]['definition']
-        if q['m_eQuestType']!=5 or q['m_bRepeat'] or q['m_bIsTimeEvent']:raise ValueError('Region entry source changed')
+        row=catalog.data['quests'].get(str(qid))
+        if row is None:continue
+        q=row['definition']
+        if q['m_eQuestType']!=5 or q['m_bRepeat'] or q['m_bIsTimeEvent']:continue
         try:require_eligible(character,q,completed,items,location=location)
         except ValueError:continue
         if len(active)>=30:break
         subs=[catalog.data['subquests'][str(i)]['definition'] for i in sequence(q['m_vecSubQuest'])]
-        if not subs or any(target(s)<1 for s in subs):raise ValueError('Region entry objective definition')
+        if not subs or any(target(s)<1 for s in subs):continue
         counts={s['m_iID']:0 for s in subs}
         row=dict(id=qid,owner=uid,accepted_at=now,generation=now,objectives=counts)
         message=accepted(row)
