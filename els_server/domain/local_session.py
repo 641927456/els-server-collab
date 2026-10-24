@@ -527,6 +527,9 @@ class LocalSession:
         from els_server.domain.modern_synthesis_flow import handle as modern_synthesis
         synthesis_reply=modern_synthesis(self,event,request_sequence)
         if synthesis_reply is not None:return synthesis_reply
+        from els_server.domain.tenebros_identification_flow import handle as tenebros_identification_handle
+        tenebros_identification_reply=tenebros_identification_handle(self,event,request_sequence)
+        if tenebros_identification_reply is not None:return tenebros_identification_reply
         from els_server.domain.tenebros_capacity_flow import handle as tenebros_capacity_handle
         tenebros_capacity_reply=tenebros_capacity_handle(self,event,request_sequence)
         if tenebros_capacity_reply is not None:return tenebros_capacity_reply
