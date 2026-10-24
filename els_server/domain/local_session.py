@@ -960,6 +960,9 @@ class LocalSession:
         from els_server.domain.cartridge_recipe679_flow import handle as recipe679_handle
         recipe679_reply=recipe679_handle(self,event,request_sequence)
         if recipe679_reply is not None:return recipe679_reply
+        from els_server.domain.fish_exchange_flow import handle as fish_exchange_handle
+        fish_exchange_reply=fish_exchange_handle(self,event,request_sequence)
+        if fish_exchange_reply is not None:return fish_exchange_reply
         from els_server.domain.cartridge_exchange_flow import handle as cartridge_exchange_handle
         cartridge_exchange_reply=cartridge_exchange_handle(self,event,request_sequence)
         if cartridge_exchange_reply is not None:return cartridge_exchange_reply

@@ -741,3 +741,10 @@ _contract26780_item=_contract26780_client_data().item(713275)
 if (hashlib.sha256(_contract26780_item['record']).hexdigest()!='3e05e84442189cbcd865e68a457cc7774aaa95d15bc45046fd90f23fb89977a1' or (_contract26780_item['item_type'],_contract26780_item['metadata'],_contract26780_item['flags4'],_contract26780_item['flags8'],struct.unpack_from('<I',_contract26780_item['record'],0x10)[0])!=(7,0,4198410,56,0)):raise ValueError('Original26780 reward item source')
 if 713275 in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[713275],TEMPLATE_BAG_GROUPS[713275],TEMPLATE_MAX_STACKS[713275])!=(0,4,1):raise ValueError('Conflicting contract26780 reader')
 VERIFIED_TEMPLATES[713275]=0;TEMPLATE_BAG_GROUPS[713275]=4;TEMPLATE_MAX_STACKS[713275]=1
+
+# Original held fish and15 exchange outputs only; no fishing/catch producer.
+from els_server.domain.fish_exchange_rules import inventory_definitions as _fish_exchange_defs
+for _fish in _fish_exchange_defs():
+ _t=_fish['template'];_expected=tuple(_fish[k]for k in('metadata','group','max_stack'))
+ if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting fish exchange reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
