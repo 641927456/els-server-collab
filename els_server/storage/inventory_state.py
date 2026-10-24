@@ -88,6 +88,10 @@ def load_items(db,owner=1001):
  for index,item in enumerate(items):
   if item["template"]==wardrobe_box:
    items[index]=read_wardrobe_box(item)
+ from els_server.domain.erp_potions_existing import TEMPLATES as erp_potions,read_existing as read_erp_potion
+ for index,item in enumerate(items):
+  if item['template']in erp_potions:
+   items[index]=read_erp_potion(item)
  inventory_payload(items)  # Verify persisted identities/positions and wire before use.
  from els_server.storage.bag_capacity import allowances
  limits=allowances(db,owner)

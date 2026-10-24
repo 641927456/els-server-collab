@@ -434,6 +434,9 @@ class LocalSession:
                          character=self.account.character() if self.account.account_id!=1 else None)
 
     def _handle(self,event,request_sequence=None):
+        from els_server.domain.erp_potion_flow import handle as erp_potion_handle
+        erp_potion_reply=erp_potion_handle(self,event,request_sequence)
+        if erp_potion_reply is not None:return erp_potion_reply
         from els_server.domain.known_resurrection_flow import handle as known_resurrection_handle
         known_resurrection_reply=known_resurrection_handle(self,event,request_sequence)
         if known_resurrection_reply is not None:return known_resurrection_reply
