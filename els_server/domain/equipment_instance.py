@@ -33,7 +33,7 @@ def require_wearable(item,character):
     if item['template'] in restricted_templates():raise ValueError('Unimplemented dynamic equipment permission')
     if validate(item['template'],item.get('durability',0))<=0:raise ValueError('Equipment durability exhausted or missing')
     if not inspect_eligibility(item['template'],character['unit_class'],character['level'])['template_requirements_met']:raise ValueError('Equipment template requirements not met')
-    from els_server.domain.boosting_2026_shadow import require_identified
+    from els_server.domain.tenebros_rules import require_identified
     require_identified(item)
 
 

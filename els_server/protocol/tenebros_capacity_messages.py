@@ -18,7 +18,10 @@ def capacities(extras):
     return tuple(integer(v,0,3) for v in extras)
 
 
-def row(extra):
+def row(extra, options=None):
+    if options is not None:
+        from els_server.protocol.tenebros_storage_messages import storage_row
+        return storage_row(extra,options)
     # Current native missing-part initializer allocates six zero option IDs.
     # This capacity-only server has no shadow-option deposit/withdraw writer.
     return struct.pack('>iI6i',integer(extra,0,3),6,0,0,0,0,0,0)
@@ -29,6 +32,6 @@ def state(extras):
         struct.pack('>i',part)+row(extra) for part,extra in enumerate(capacities(extras))))
 
 
-def acknowledge(part=0,extra=0,ed=0,*,result=0):
+def acknowledge(part=0,extra=0,ed=0,*,result=0,options=None):
     return Event(0x201,kind=0x9f3,payload=struct.pack('>iQi',
-        integer(result,-2**31,2**31-1),integer(ed,0,2**63-1),integer(part,0,3))+row(extra))
+        integer(result,-2**31,2**31-1),integer(ed,0,2**63-1),integer(part,0,3))+row(extra,options))

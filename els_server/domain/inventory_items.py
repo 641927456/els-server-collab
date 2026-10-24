@@ -689,6 +689,17 @@ for _flask_bonus in _flask_bonus_definitions():
  TEMPLATE_MAX_STACKS[_flask_bonus['template']]=_flask_bonus['max_stack']
 
 
+# Finite native material admission; raw stack=0 means one nonstackable item.
+# No acquisition channel added; preserve already admitted stack policies.
+from els_server.domain.tenebros_rules import catalog as _tenebros_catalog
+for _tid, _spec in _tenebros_catalog()["admission"].items():
+ _tid=int(_tid)
+ if _tid in VERIFIED_TEMPLATES:
+  if (VERIFIED_TEMPLATES[_tid],TEMPLATE_BAG_GROUPS[_tid])!=(_spec["metadata"],_spec["group"]):raise ValueError("Tenebros material admission conflict")
+  continue
+ VERIFIED_TEMPLATES[_tid]=_spec["metadata"]
+ TEMPLATE_BAG_GROUPS[_tid]=_spec["group"]
+ TEMPLATE_MAX_STACKS[_tid]=max(1,_spec["max_stack"])
 # Finite original AccountQuest reward readers. Keep unused712417 singleton;
 #710105 retains current native300 after the earlier global compatibility floor.
 # No item-use effect, timer, source other than the four exact quests, or old
