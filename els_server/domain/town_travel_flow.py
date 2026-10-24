@@ -165,6 +165,20 @@ def authorize_village1012_entry(s, event, sequence):
             authorize=lambda: bool(_village1012_identity(s) and s.account is account and account.store is store
                 and s.shop_session_id == session_id and getattr(s, 'town_warp_transition', None) is None
                 and s.phase in ('map_loading', 'square_accepted', 'town_ready')))
+        # Current Village1011 Start1710 links to1012 Start1712. This is the
+        # original walking225/227 path, not a paid58C transition. Keep the
+        # source-bound reader here; the caller still applies1012's current
+        # level99/completed27600 gates before acknowledging225. Only227 saves
+        # the arrived position; no fee, receipt, quest or reward is created.
+        if saved['location']['town'] == 1011 and account.get_location()['map'] == 1011:
+            from els_server.domain.town_travel import catalog
+            towns = catalog()['towns']
+            return bool(_village1012_identity(s) and s.account is account and account.store is store
+                and s.shop_session_id == session_id and s.active_map == 1011
+                and s.phase in ('town_ready', 'square_accepted') and not s.dungeon_return_pending
+                and getattr(s, 'pending_map', None) in (None, 1011, 1012)
+                and towns['1011']['requirement']['AFTER'] == 1012
+                and towns['1012']['requirement']['BEFORE'] == 1011)
         if saved['location']['town'] != 1012 or account.get_location()['map'] != 1012:
             return False
         if s.dungeon_return_pending:
