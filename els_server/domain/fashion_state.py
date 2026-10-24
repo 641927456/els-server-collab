@@ -37,7 +37,10 @@ def move_ack(changes=(),result=0):
 def equipment_map(items):
  # D9B170 +12E -> DB0AC0/DD0470: int equipment slot -> DB4F80 item wrapper.
  equipped=sorted((validate_item(i) for i in items if i['group']==9),key=lambda i:i['slot'])
- return struct.pack('>I',len(equipped))+b''.join(struct.pack('>i',i['slot'])+record(i) for i in equipped)
+ from els_server.domain.fishing_equipment import equipment_entries as life_entries
+ entries=[(i['slot'],i) for i in equipped]+life_entries(items)
+ if len({slot for slot,_ in entries})!=len(entries):raise ValueError('Duplicate full-unit equipment key')
+ return struct.pack('>I',len(entries))+b''.join(struct.pack('>i',slot)+record(i) for slot,i in sorted(entries,key=lambda row:row[0]))
 
 def move_fashion(path,payload,uid=1001):
  uid=character_uid(uid)

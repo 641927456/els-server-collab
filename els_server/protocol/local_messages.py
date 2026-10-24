@@ -147,6 +147,9 @@ def character_unit(location=None,initialize_attributes=False,slots=None,economy=
         if 'el_search_collection' in character:
             from els_server.domain.el_search_collection import wire as collection_wire
             overrides['0x482']=collection_wire(character['el_search_collection'])
+        if 'life_stamina' in character:
+            from els_server.protocol.fishing_messages import life_snapshot
+            overrides.update(life_snapshot(character['life_stamina']))
         if 'resonance' in character:
             from els_server.domain.resonance import wire as resonance_wire
             overrides['0x471']=resonance_wire(character['resonance'])
