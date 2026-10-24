@@ -48,6 +48,32 @@ def quote(item):
     from els_server.domain.white_chip_decomposition import quote as chip_quote
     special=chip_quote(item)
     if special is not None:return special
+    # Owner-requested local policy: the 72 circuit materials are special items
+    # (level 99) with no verified retail dismantle table. They yield floor of
+    # the template ED price per 1,000 as Magical Crystals; no profession XP.
+    from els_server.domain.equipment_circuit_rules import material as circuit_material
+    if circuit_material(item['template']) is not None:
+        if item['group']!=1 or item['count']!=1:
+            raise ValueError('Owned circuit material required for decomposition')
+        raw=client_data().item(item['template'])['record']
+        resale=struct.unpack_from('<i',raw,0x1c)[0]
+        quantity=resale//1000
+        if quantity<1:raise ValueError('Circuit material has no decomposition value')
+        return dict(template=701000,quantity=quantity,resale_ed=resale,
+                    input_template=item['template'],record_sha256=hashlib.sha256(raw).hexdigest(),
+                    local_policy='circuit-material-floor-1000')
+    # Owner-requested local policy: fashion and ice-avatar pieces (groups 7/27)
+    # are client-decomposable but have no verified retail yield table here.
+    # They give max(1, template price // 1000) Magical Crystals; no profession XP.
+    if item['group'] in (7, 27):
+        raw = client_data().item(item['template'])['record']
+        if item['count'] != 1:
+            raise ValueError('Owned single fashion item required for decomposition')
+        resale = struct.unpack_from('<i', raw, 0x1c)[0]
+        quantity = max(1, resale//1000)
+        return dict(template=701000, quantity=quantity, resale_ed=resale,
+                    input_template=item['template'], record_sha256=hashlib.sha256(raw).hexdigest(),
+                    local_policy='fashion-floor-1000')
     if item['group'] != 1 or item['count'] != 1 or item['template'] not in definitions():
         raise ValueError('Ordinary bag equipment required for decomposition')
     row = client_data().item(item['template'])

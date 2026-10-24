@@ -49,7 +49,7 @@ def decompose(path, owner, payload, operation, *, account_id=None, encode=decomp
         quotes = [quote(i) for i in selected]
         # Current ordinary701000 quote only; modern white-chip118445 rewards stay separate.
         requested_xp=sum(ordinary_blacksmith_xp(client_data().item(item['template'])['record'][0xd1])
-            for item,q in zip(selected,quotes) if q['template']==701000)
+            for item,q in zip(selected,quotes) if q['template']==701000 and 'local_policy' not in q)
         growth=None;xp=0;leveled=False;growth_audit=None
         if requested_xp and account_id is not None:
             from els_server.protocol.profession_messages import ProfessionState

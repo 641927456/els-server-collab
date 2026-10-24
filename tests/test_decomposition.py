@@ -132,6 +132,29 @@ class DecompositionTests(unittest.TestCase):
         self.assertEqual(self.crystals(), 126)
         self.assertEqual(len([i for i in self.items() if i['template'] == 701000]), 1)
 
+    def test_circuit_material_local_policy(self):
+        circuit = self.grant(118554)
+        self.assertEqual(quote(circuit)['quantity'], 87)
+        self.assertEqual(quote(circuit)['local_policy'], 'circuit-material-floor-1000')
+        balance = self.account.get_reward_balances()
+        response = decompose(self.path, 1001, request(circuit['uid']), 'circuit')
+        self.assertEqual(struct.unpack_from('>iBIii', response[0].payload), (0, 0, 1, 701000, 87))
+        self.assertEqual(self.crystals(), 87)
+        self.assertFalse({circuit['uid']} & {i['uid'] for i in self.items()})
+        self.assertEqual(self.account.get_reward_balances(), balance)
+
+    def test_fashion_local_policy(self):
+        plain = self.grant(800403)   # price 0 -> one crystal floor
+        accessory = self.grant(89602)  # price 134400 -> 134 crystals
+        self.assertEqual(quote(plain)['quantity'], 1)
+        self.assertEqual(quote(plain)['local_policy'], 'fashion-floor-1000')
+        self.assertEqual(quote(accessory)['quantity'], 134)
+        balance = self.account.get_reward_balances()
+        response = decompose(self.path, 1001, request(plain['uid'], accessory['uid']), 'fashion')
+        self.assertEqual(struct.unpack_from('>iBIii', response[0].payload), (0, 0, 1, 701000, 135))
+        self.assertEqual(self.crystals(), 135)
+        self.assertEqual(self.account.get_reward_balances(), balance)
+
     def test_real_dispatch_and_invalid_phase(self):
         session = LocalSession(self.account, enter_town=True, enter_dungeon=True,
                                client_build='dx11_260923', npc_slot_test=True, gate_test=True,
