@@ -1,0 +1,174 @@
+{
+  "schema": 1,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "type": 3,
+  "duration_days": 30,
+  "preview_only": true,
+  "activation_enabled": false,
+  "source_template_definitions": [
+    {
+      "template": 118189,
+      "name": "[路莉尔]祝福的海绿石之种（10%）",
+      "record_sha256": "c8f4b0643dd4fb9e388171ccdb3f035d81d758e3a60fec99f9e389aca96aa2ec"
+    },
+    {
+      "template": 710079,
+      "name": "[路莉尔]祝福的时空卷轴",
+      "record_sha256": "b90d7c72a4c8f279115b95de0a5a36d34db51f654ec19ca88c58e714fc62f42d"
+    },
+    {
+      "template": 710084,
+      "name": "[路莉尔]贤者的魔法石",
+      "record_sha256": "e41ea950550040e4a476f6ab5e83af2c867bd6a879549e7cad195079bc382c99"
+    },
+    {
+      "template": 710193,
+      "name": "[路莉尔]斗志药水",
+      "record_sha256": "6c2a3c49394f5f383f76774e54cd2a6df51676f66c79ec0df97b67167ebeefbe"
+    },
+    {
+      "template": 715753,
+      "name": "[路莉尔]苹果选择宝箱",
+      "record_sha256": "81cfec045f12ae8c5c5649095db5d57e57dc5b86c1e8a418236b159f4c7eb699"
+    },
+    {
+      "template": 720016,
+      "name": "[路莉尔]隐藏副本扫荡券",
+      "record_sha256": "eca89f1195c9112470cd5764ae168203b71722da2b8a7e6578038e334393330f"
+    },
+    {
+      "template": 721053,
+      "name": "[路莉尔]阿莉尔的签到礼物药水",
+      "record_sha256": "d4d5a5f161706c957870213915b563e0683ed0a9e4fee611929652aa1a6163f8"
+    },
+    {
+      "template": 721054,
+      "name": "[路莉尔]阿莉尔的特别签到礼物选择宝箱",
+      "record_sha256": "8664ef12c0ccc0e66c574fcb58980affcc4ec4d8a7e93b7b7b6727008dde72f5"
+    },
+    {
+      "template": 721055,
+      "name": "[科宝]艾尔搜查队收集册-互助效果使用券（10日）",
+      "record_sha256": "b037080c797c04ecc5f6be15a9a29858e4b39a469872196d956df4b1f3a76321"
+    },
+    {
+      "template": 721056,
+      "name": "[科宝]钓鱼VIP服务使用券（10日）",
+      "record_sha256": "f9b29d2bd13e095fce61a946872b62fe0d5005c09c0f3189c6403fc1b7644153"
+    }
+  ],
+  "rows": [
+    {
+      "index": 0,
+      "reward_id": 7737,
+      "template": 721053,
+      "quantity": 200,
+      "period_hint": 0
+    },
+    {
+      "index": 1,
+      "reward_id": 7738,
+      "template": 721055,
+      "quantity": 1,
+      "period_hint": 0
+    },
+    {
+      "index": 2,
+      "reward_id": 7739,
+      "template": 715753,
+      "quantity": 1,
+      "period_hint": 0
+    },
+    {
+      "index": 3,
+      "reward_id": 7740,
+      "template": 710084,
+      "quantity": 30,
+      "period_hint": 0
+    },
+    {
+      "index": 4,
+      "reward_id": 7741,
+      "template": 721054,
+      "quantity": 1,
+      "period_hint": 0
+    },
+    {
+      "index": 5,
+      "reward_id": 7742,
+      "template": 721056,
+      "quantity": 1,
+      "period_hint": 0
+    },
+    {
+      "index": 6,
+      "reward_id": 7743,
+      "template": 721053,
+      "quantity": 200,
+      "period_hint": 0
+    },
+    {
+      "index": 7,
+      "reward_id": 7744,
+      "template": 118189,
+      "quantity": 2,
+      "period_hint": 0
+    },
+    {
+      "index": 8,
+      "reward_id": 7745,
+      "template": 715753,
+      "quantity": 1,
+      "period_hint": 0
+    },
+    {
+      "index": 9,
+      "reward_id": 7746,
+      "template": 720016,
+      "quantity": 5,
+      "period_hint": 0
+    },
+    {
+      "index": 10,
+      "reward_id": 7747,
+      "template": 721055,
+      "quantity": 1,
+      "period_hint": 0
+    },
+    {
+      "index": 11,
+      "reward_id": 7748,
+      "template": 710193,
+      "quantity": 30,
+      "period_hint": 0
+    },
+    {
+      "index": 12,
+      "reward_id": 7749,
+      "template": 721053,
+      "quantity": 200,
+      "period_hint": 0
+    },
+    {
+      "index": 13,
+      "reward_id": 7750,
+      "template": 721056,
+      "quantity": 1,
+      "period_hint": 0
+    },
+    {
+      "index": 14,
+      "reward_id": 7751,
+      "template": 710079,
+      "quantity": 30,
+      "period_hint": 0
+    }
+  ],
+  "metadata_binding": "Read-only semantic binding from current CN official15-day sequence and current client same named exact item descriptions, not recovered retail server RewardID->Template table and not award authorization.",
+  "source": {
+    "premium": "PremiumAttendanceData.lua (fixed current-client extraction)",
+    "premium_sha256": "4879a1bc91366fd1defcd4ddb4c279d979e3816d0f504b3ad2f578bfd5a62ff7",
+    "official": "https://els.ztgame.com/game/000-1762-003e7-759893.shtml?ms=999"
+  },
+  "wire_period_boundary": "Unit of native signed-short reward period is not independently fixed;0 means no supplied period hint. Official claimed-item90days is documentary only and not encoded."
+}
