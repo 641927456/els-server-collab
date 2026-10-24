@@ -566,8 +566,6 @@ class LauncherService:
         message = str(data.get('message') or '').strip()
         name = str(data.get('name') or '').strip()
         email = str(data.get('email') or '').strip()
-        if not message:
-            raise ValueError('请填写提交说明')
         if len(message) > 200:
             raise ValueError('提交说明最多 200 个字符')
         if name or email:
@@ -591,6 +589,8 @@ class LauncherService:
                 raise ValueError('没有可提交的改动')
             notes = []
             if staged:
+                if not message:
+                    raise ValueError('请填写提交说明')
                 commit = self._git('commit', '-m', message, timeout=120)
                 if commit.returncode != 0:
                     raise ValueError('提交失败：'+self._git_detail(commit)[:600])

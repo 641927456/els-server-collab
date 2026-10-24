@@ -139,11 +139,12 @@ async function renderRepo(e){
 async function commitRepo(){
  if(mutating)return;
  const message=$('#repo-message')?.value.trim()||'';
- if(!message){toast('请填写提交说明',true);$('#repo-message')?.focus();return;}
  const name=$('#repo-name')?.value.trim(),email=$('#repo-email')?.value.trim();
- if($('#repo-name')&&(!name||!email.includes('@'))){toast('请填写有效的提交人名称与邮箱',true);return;}
  const count=repoData?.changed.length||0;
- const summary=count?`将提交 ${count} 个文件`:'没有文件改动，将补推本地已有提交';
+ if(count&&!message){toast('请填写提交说明',true);$('#repo-message')?.focus();return;}
+ if(!count&&!message&&!(repoData?.ahead)){toast('没有可提交的改动',true);return;}
+ if($('#repo-name')&&(!name||!email.includes('@'))){toast('请填写有效的提交人名称与邮箱',true);return;}
+ const summary=count?`将提交 ${count} 个文件`:`没有文件改动，将补推本地 ${repoData?.ahead||0} 个提交`;
  const ok=await confirmDialog('提交并推送到仓库？',`<p>${summary}，并推送到 origin/main。</p><div class="summary-box">${esc(message)}</div><p>若远端有新提交，会自动变基后再推送；变基失败会取消并保留本地提交。</p>`,'提交并推送','repo');
  if(!ok)return;mutating=true;
  try{const result=await api('repo/commit',{message,name,email},180000);toast(result.message);await navigate('repo');}catch(err){toast(err.message,true);}finally{mutating=false;}
