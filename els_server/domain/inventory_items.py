@@ -508,7 +508,17 @@ if wardrobe_box_template in VERIFIED_TEMPLATES or wardrobe_box_template in TEMPL
 TEMPLATE_BAG_GROUPS[wardrobe_box_template]=4
 TEMPLATE_MAX_STACKS[wardrobe_box_template]=1
 
+# Existing ERP potion readers confer no generic grant or merge authority.
+from els_server.domain.erp_potions_existing import TEMPLATES as existing_erp_potions
+for _t in existing_erp_potions:
+ if _t in VERIFIED_TEMPLATES or _t in TEMPLATE_BAG_GROUPS or _t in TEMPLATE_MAX_STACKS:raise ValueError('Conflicting existing ERP potion reader')
+ TEMPLATE_BAG_GROUPS[_t]=4
+ TEMPLATE_MAX_STACKS[_t]=1  # disable ordinary split/merge; not a native stack cap
+
 def validate_item(item):
+ if isinstance(item,dict) and item.get('template')in existing_erp_potions:
+  from els_server.domain.erp_potions_existing import validate_existing
+  return validate_existing(item)
  if isinstance(item,dict) and item.get("template")==wardrobe_box_template:
   from els_server.domain.wardrobe_ticket_box import validate_existing_box
   return validate_existing_box(item)
