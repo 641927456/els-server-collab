@@ -453,6 +453,9 @@ class LocalSession:
         from els_server.domain.avatar_set_flow import handle as avatar_set_handle
         avatar_set_reply=avatar_set_handle(self,event,request_sequence)
         if avatar_set_reply is not None:return avatar_set_reply
+        from els_server.domain.fishing_village1500 import handle as fishing1500_handle
+        fishing1500_reply=fishing1500_handle(self,event,request_sequence)
+        if fishing1500_reply is not None:return fishing1500_reply
         from els_server.domain.town_travel_flow import handle as town_travel_handle
         town_travel_reply=town_travel_handle(self,event,request_sequence)
         if town_travel_reply is not None:return town_travel_reply
