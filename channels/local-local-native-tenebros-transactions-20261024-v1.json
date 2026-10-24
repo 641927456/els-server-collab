@@ -1,0 +1,294 @@
+{
+  "channel": "local",
+  "release": "local-native-tenebros-transactions-20261024-v1",
+  "parent_release": "local-epic-mainline255-native-skip-20261024-v1",
+  "manifest_sha256": "aa90ae91a5af17b4acb9aeac7a67d092a33d81224652241bcb261761b1c22542",
+  "scope_kind": "tenebros-transactions20",
+  "files": [
+    {
+      "path": "els_server/application.py",
+      "sha256": "88ab916b3ca52e6a80a8a52431656d2c75cc9ce460189333c19a85808e8d2183",
+      "size": 16471,
+      "parent_sha256": "b775c37a17403d4f39bf31d07e2a92c6c918f81ba7ae02483c2388847ca2946e"
+    },
+    {
+      "path": "els_server/data/tenebros_native.json",
+      "sha256": "18220032e7afca6fdeb560dd31e0e493b35bc22b0a971e2df82753368334de46",
+      "size": 540410,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/equipment_instance.py",
+      "sha256": "9a6a8356cfbc6bf9170973e7c91e5fd5602a081dc499632074e298656ed73345",
+      "size": 3555,
+      "parent_sha256": "81882d25bb851acc74c2e0e3c7b8ec4bb2be2f2af55b4823db2551828b805ed4"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "sha256": "c7006f9fd35f161385fcdd17b67e874b3a87003be8bcc72bcd245513a6f3448b",
+      "size": 53725,
+      "parent_sha256": "1a682b35f2b9953994ea9110c3e9c25c7a9877471f11978b64da78661ce74842"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "c660c58c6b602360c17f10209335d5c169889c84f8aa61ab0c2ddbbcb65387b6",
+      "size": 141966,
+      "parent_sha256": "534647509ac88debf2456a857c18ee37b697d8425760b99c27db8e8c1fc84bdf"
+    },
+    {
+      "path": "els_server/domain/sage_sockets.py",
+      "sha256": "bd378f1ab9cedfb948986d211c842ec681dd15ddb5319d840aa8e09f03ae8c07",
+      "size": 6089,
+      "parent_sha256": "7d982782ff6fa45d8d8de5802218dc45663ba3aa4313804023d72a9946bd9c07"
+    },
+    {
+      "path": "els_server/domain/tenebros_capacity_flow.py",
+      "sha256": "e1a7f775d275228715d18e02ed918b88cb6460f46deed26590f1e31f058246e0",
+      "size": 2860,
+      "parent_sha256": "009bffedfd39b5c37d4507078d7adb6176c9225961ed5541bf9240eda9e27aed"
+    },
+    {
+      "path": "els_server/domain/tenebros_conversion_flow.py",
+      "sha256": "0f4ee81819f6fd59844059d061f3e9e2de7386d5305460f0a57e622f81d2a2e8",
+      "size": 1280,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/tenebros_conversion_rules.py",
+      "sha256": "6af74499859d63315e7a50ca93813b3b45a94194bc7caaf075a9bba0f4c0f7f3",
+      "size": 2681,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/tenebros_identification_flow.py",
+      "sha256": "ec9182aef975e518a7f53d399fdf8e8ecceb769af5a3501180dd0aa295cf37a1",
+      "size": 1175,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/tenebros_rules.py",
+      "sha256": "f24963fa7d43618b1954a2eabaed972abe5f2b28853fd87196dd6ef0c85baca2",
+      "size": 3588,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/tenebros_storage_flow.py",
+      "sha256": "56d40ada4cef6754c0293f762a5e9442c51c55b7150bcf58e2e0bb4d335dbe47",
+      "size": 3621,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/protocol/tenebros_capacity_messages.py",
+      "sha256": "de3105e524962af36efa8591b0fcec92cef7ba9a5a5a6d2df613205e910a6fca",
+      "size": 1446,
+      "parent_sha256": "e09740f3400d724f4aba345e589bd25ae35e8a082f8d5ac1513691edf088709a"
+    },
+    {
+      "path": "els_server/protocol/tenebros_conversion_messages.py",
+      "sha256": "edca87d3cedb09994693840e4390997865bc4a36c17f4caf894f839a6c5a846f",
+      "size": 1113,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/protocol/tenebros_identification_messages.py",
+      "sha256": "4d3063487955062335ca8f26e75becab3c25e3fb2d7f49ad7e2c791f7f53a2c2",
+      "size": 917,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/protocol/tenebros_storage_messages.py",
+      "sha256": "59f59e3896f332d2f5302eadf53f54a04e06b1421fef3aed78808f31353cde48",
+      "size": 4112,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/tenebros_capacity.py",
+      "sha256": "bff4db699e0c7c9f2f0e4d43423afafc377b75e3644dd814a93adf8e73dd7e61",
+      "size": 7695,
+      "parent_sha256": "ea95820501525ff7c2c67801da92952ad2464ef4720182e1be1216afdf91ba2a"
+    },
+    {
+      "path": "els_server/storage/tenebros_conversion.py",
+      "sha256": "0a7e0f768b5dbe88e1946167ff1eec2963b456e7f33294b763545e9188250959",
+      "size": 6011,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/tenebros_identification.py",
+      "sha256": "4d627d3f835fcd2a2481deac3e8516bc60bf1d30954e79f59860d6e9217c6344",
+      "size": 10071,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/tenebros_storage.py",
+      "sha256": "0adcf947937220c0a3c605151b6f303dfaf3e1e48f805b1febb2e2b76befdcc6",
+      "size": 24762,
+      "parent_sha256": null
+    }
+  ],
+  "source_PRs": [
+    "https://github.com/641927456/els-server-collab/pull/382",
+    "https://github.com/641927456/els-server-collab/pull/386",
+    "https://github.com/641927456/els-server-collab/pull/390"
+  ],
+  "local_only_source_catchup": false,
+  "client_changes": 0,
+  "new_schema_definitions": 3,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "automatic_deployment": false,
+  "source_view_is_formal_runtime": false,
+  "parent_snapshot_commit": "38aef5cfed56011e24527de4d6b39528c4093261",
+  "contains_accounts_or_saves": false,
+  "parent_manifest_sha256": "a567cdba3bde6fbf2a8d1cbe1ee30a2c9c4ac3064b70535130634c4c09127a1d",
+  "business_file_count": 1007,
+  "full_server_runtime_files_verified": 1469,
+  "manifest_runtime_file_count_raw": 1007,
+  "changed_runtime_file_count": 20,
+  "new_runtime_file_count": 12,
+  "replaced_runtime_file_count": 8,
+  "independent_units": 3,
+  "new_lazy_tables": [
+    "tenebros_effect_storage",
+    "tenebros_effect_pending",
+    "tenebros_effect_operations"
+  ],
+  "eager_schema_migration": false,
+  "install_DDL_statements": 0,
+  "author_actual_local_completion_available": true,
+  "final_root_delivery_approval_pending": false,
+  "natural_multiplayer": false,
+  "public_positive": false,
+  "active_selector_changed": false,
+  "main_source_changed": false,
+  "source_runtime_mapping": "Three sourcePRs382/386/390 -> canonical source -> actual Mainline24-parent local composition. Final20 bytes come from actual channel candidates; historical Git whole blobs are not assumed equal. Eight shared inverse-parent proof and root650f raw/Git audit are reused.",
+  "evidence": {
+    "formal_manifest": {
+      "path": "releases/local/local-native-tenebros-transactions-20261024-v1/local-business-manifest.json",
+      "sha256": "aa90ae91a5af17b4acb9aeac7a67d092a33d81224652241bcb261761b1c22542",
+      "bytes": 618395
+    },
+    "parent_manifest": {
+      "path": "releases/local/local-epic-mainline255-native-skip-20261024-v1/local-business-manifest.json",
+      "sha256": "a567cdba3bde6fbf2a8d1cbe1ee30a2c9c4ac3064b70535130634c4c09127a1d",
+      "bytes": 377115
+    },
+    "local_completion": {
+      "path": "analysis/client-native-server-connections-20261024-v1/tenebros-transactions-v1/local-delivery/local-install/completion.json",
+      "sha256": "53a459fb8fc801229648e09ba62790e86aa0d4c2409637293b04146608b3f390",
+      "bytes": 635126
+    },
+    "local_backup": {
+      "path": "analysis/client-native-server-connections-20261024-v1/tenebros-transactions-v1/local-delivery/local-install/backup.json",
+      "sha256": "bf99d23ccf3747f75a201508847059ac3d318998d6fda938e233ec143c57d7e2",
+      "bytes": 14713
+    },
+    "local_own_locks_released": {
+      "path": "analysis/client-native-server-connections-20261024-v1/tenebros-transactions-v1/local-delivery/local-install/locks-released.json",
+      "sha256": "d0bf94f6a476b803a5f3d17c3b57a5af703cfb4899dbdbfccdda57e73178a659",
+      "bytes": 53
+    },
+    "author_post_install_review": {
+      "path": "analysis/client-native-server-connections-20261024-v1/tenebros-transactions-v1/post-install-review.json",
+      "sha256": "b9dd422ef8b95bc5a7c3e1e8a6925e5e647185ed3096bc549435992cff820572",
+      "bytes": 6236
+    },
+    "online_ROOT_checkpoint": {
+      "path": "analysis/full-gap-execution-20261024-v1/review/tenebros-transactions20-actual-controls-v1/independent-actual-QA-online-cleanup-checkpoint-v1.json",
+      "sha256": "0b1647987a21df4f419ad62e07ba7924996f7e9fafea99abc50da153f5806722",
+      "bytes": 10814
+    },
+    "source_PR_map": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/ten20-actual-candidate-map-FALSE-v1/3-source-PR-map.json",
+      "sha256": "e26e9ade9411e6f5018e2e93e66a998051b0ebd37ca5fbf602bb3644d9960157",
+      "bytes": 6587
+    },
+    "actual_candidate_map": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/ten20-actual-candidate-map-FALSE-v1/candidate-map.FALSE.json",
+      "sha256": "275cabc1ddde52047cbc02b374a96395a871e0b70a2b6aac48ef0c69abccff32",
+      "bytes": 4425
+    },
+    "runtime_contract": {
+      "path": "analysis/client-native-server-connections-20261024-v1/tenebros-transactions-v1/actual-composition-v1/runtime-contract.json",
+      "sha256": "112d61310a5355d005de6df17ccf24ac7f1382f6f0f4c55802a63d59ecff7f3e",
+      "bytes": 709183
+    },
+    "canonical_source_contract": {
+      "path": "analysis/client-native-server-connections-20261024-v1/tenebros-transactions-v1/source-freeze-v1/source-contract.json",
+      "sha256": "56b1abf65d612da1c4d4b93cba8d3184224e08a7f25917fea88054062ae458cd",
+      "bytes": 43619
+    },
+    "canonical_source_freeze": {
+      "path": "analysis/client-native-server-connections-20261024-v1/tenebros-transactions-v1/source-freeze-v1/source-freeze.json",
+      "sha256": "0686207fda26d11ab24b0df5c9bb2e70e7bf75d093d994c251a81e4e79b005b8",
+      "bytes": 59268
+    },
+    "independent_source_adoption": {
+      "path": "analysis/client-native-server-connections-20261024-v1/tenebros-transactions-v1/runtime-adoption-review.json",
+      "sha256": "2ead3442745a18c5926ee1e8ff1639d39fa72d3401e23f9dc46bba154a3735f8",
+      "bytes": 15145
+    },
+    "root_actual_source_parent_Git_map": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/ten20-actual-source-Git-map-root-v1/candidate-raw-and-parent-Git-audit.json",
+      "sha256": "650f8b11877fdbbd416d33122fbcf24a66d483994e397b4ca8c403d260636246",
+      "bytes": 13703
+    },
+    "local20_map": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/ten20-local-and-dual-metadata-proposal-FALSE-v2/20-local-source-rows.json",
+      "sha256": "9f78eac656c9ace529a7a76c60cdf34fafffd3ca2930ed0b519f0fd19c2ae571",
+      "bytes": 66307
+    },
+    "manifest_delta": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/ten20-local-and-dual-metadata-proposal-FALSE-v2/local-manifest-delta.json",
+      "sha256": "11dfa91da1dddd1aaa1e60bc9c96f89d73324e0f39a5cf73647401a5bebb6285",
+      "bytes": 2020
+    },
+    "final_author_heads": {
+      "path": "analysis/client-native-server-connections-20261024-v1/tenebros-transactions-v1/final-heads-v1/heads.json",
+      "sha256": "88e6df55d6a203de620586ecbf219d49d6f10864d511c1e45ab6623e5f8ce469",
+      "bytes": 1292
+    },
+    "immutable_final_head_snapshots": {
+      "local": {
+        "path": "analysis/client-native-server-connections-20261024-v1/tenebros-transactions-v1/final-heads-v1/local-pointer.raw.json",
+        "sha256": "37a56b610942c9d8754a5fcf32688ec646ccc8acf0b9f5b05f4eee99fe1fbc70",
+        "bytes": 618815
+      },
+      "online": {
+        "path": "analysis/client-native-server-connections-20261024-v1/tenebros-transactions-v1/final-heads-v1/online-pointer.raw.json",
+        "sha256": "8762ca3339329919a4c72e231399a492ffb3ad57df2bc5a9078cd826502148b7",
+        "bytes": 796024
+      },
+      "launchers": {
+        "path": "analysis/client-native-server-connections-20261024-v1/tenebros-transactions-v1/final-heads-v1/launchers-pointer.raw.json",
+        "sha256": "65a432e4c1fff59a31e46eb042c9bc9d6423c02295c50d0936defbd614a6274d",
+        "bytes": 4807
+      }
+    },
+    "author_dual_handoff": {
+      "path": "analysis/client-native-server-connections-20261024-v1/tenebros-transactions-v1/actual-dual-delivery-handoff-v1.json",
+      "sha256": "68438394756e002d2fa48b5b84f1ca8bc902c917ae8b8d1d3febf5b9479376bd",
+      "bytes": 4846
+    },
+    "final_ROOT_actual_dual_review": {
+      "path": "analysis/full-gap-execution-20261024-v1/review/tenebros-transactions20-actual-artifacts-v1/actual-dual-delivery-review-v1.json",
+      "sha256": "cfc8f0046e478aee720fea786fdc0631379071746286b7cf62e190d2485cf42d",
+      "bytes": 25460
+    },
+    "online_private_cleanup_independent_review": {
+      "path": "analysis/full-gap-execution-20261024-v1/review/tenebros-transactions20-actual-controls-v1/independent-actual-QA-online-cleanup-checkpoint-v1.json",
+      "sha256": "0b1647987a21df4f419ad62e07ba7924996f7e9fafea99abc50da153f5806722",
+      "bytes": 10814
+    },
+    "actual_terminal_heads": {
+      "path": "analysis/client-native-server-connections-20261024-v1/tenebros-transactions-v1/final-heads-v1/heads.json",
+      "sha256": "88e6df55d6a203de620586ecbf219d49d6f10864d511c1e45ab6623e5f8ce469",
+      "bytes": 1292
+    }
+  },
+  "boundary": "Accepted exact channel source history after protected dual delivery. Source snapshot performs no runtime installation, current/main/active writes, DB operation, or repeated validation. Public evidence is five native refusals and cold login; natural GUI/NPC, public positive-economy and multiplayer remain unverified.",
+  "delivery_batches": 1,
+  "gameplay_independent_repairs": 3,
+  "count_semantics": "Author post-install new_independent_repairs1 denotes one delivery batch; manifest/gameplay independent units3 are distinct. No source receipt rewritten.",
+  "actual_dual_delivery_accepted": true
+}
