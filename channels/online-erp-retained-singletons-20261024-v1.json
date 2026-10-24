@@ -1,0 +1,134 @@
+{
+  "channel": "online",
+  "release": "erp-retained-singletons-20261024-v1",
+  "parent_release": "lithia-first-entry-quest-handoff-20261024-v1",
+  "manifest_sha256": "3f2b727736a9d9a540f20dccfbe510de697dc554f6230fc757881b08cb8f6c99",
+  "parent_manifest_sha256": "d6ddab1a749bf59d05b5fcd8d4ab1b8fcdb55ba64ddc18ebaaf7f01d25e422eb",
+  "scope_kind": "erp-retained",
+  "files": [
+    {
+      "path": "els_server/data/erp_potions_existing.json",
+      "sha256": "968b5d177163acf36f064348d345f9bbb5d4cc87b9a9c5de461f9b2d22e8ac5b",
+      "size": 16481,
+      "parent_sha256": "c0bedbb810042b1851971d64a27230d02efb5be9839f9aa8f1a46bbc40e3901e"
+    },
+    {
+      "path": "els_server/domain/erp_potions_existing.py",
+      "sha256": "3ca9744e2f0afe3ddf60222a978f19e75e68389d8c7c2d22174c778787058476",
+      "size": 3875,
+      "parent_sha256": "f0af9af923fc050f19455e2e6195ae495f2ee3f662ae63067d36174a96f68b04"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "sha256": "b22a7b8a39f2f44590edd17f82aff7b9ce18c7331fb94258000f7d3570871197",
+      "size": 55046,
+      "parent_sha256": "3b49589cf380eb6415c475c7038a91f01c5cd98a87a6eee8759fcaacaae82b73"
+    },
+    {
+      "path": "els_server/storage/erp_potions_existing.py",
+      "sha256": "ff0d5a5d48a08f639626d648e5e16cccc83b90dc88874d59b5fbe5520018c827",
+      "size": 5872,
+      "parent_sha256": "82932bf98a3c19e1361e37be5c9697609bb8b994edc945ed2a7d870b4f317289"
+    }
+  ],
+  "source_PRs": [
+    "https://github.com/641927456/els-server-collab/pull/412"
+  ],
+  "source_PR_merged_commits": {
+    "412": "93347e6f8d87e509fea6dc119218d44115b6d486"
+  },
+  "parent_snapshot_commit": "3efa2d28d2cb978af637560e0b6fb89db9195234",
+  "source_file_count": 782,
+  "business_file_count": 1009,
+  "changed_source_file_count": 4,
+  "new_source_file_count": 0,
+  "replaced_source_file_count": 4,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "historical_release_not_final_current": true,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/online/erp-retained-singletons-20261024-v1/rollup-manifest.json",
+      "sha256": "3f2b727736a9d9a540f20dccfbe510de697dc554f6230fc757881b08cb8f6c99",
+      "bytes": 382275
+    },
+    "actual_parent_manifest": {
+      "path": "releases/online/lithia-first-entry-quest-handoff-20261024-v1/rollup-manifest.json",
+      "sha256": "d6ddab1a749bf59d05b5fcd8d4ab1b8fcdb55ba64ddc18ebaaf7f01d25e422eb",
+      "bytes": 187553
+    },
+    "acceptance_roles": {
+      "original_completion_pending_retained": {
+        "path": "analysis/engineering13-completion-20261024-v1/erp-retained-parent-v2-delivery-v1/actual-dual-delivery-completion-v1.json",
+        "sha256": "4f3f1795ecc314269ec1b63908b038a8c12b5d0b58a30ea701b410f0d8e2c489",
+        "bytes": 8332
+      },
+      "later_final_actual_dual_review": {
+        "path": "analysis/full-gap-execution-20261024-v1/review/erp-legacy-owned-actual-artifact-v1/actual-dual-delivery-review-v2.json",
+        "sha256": "7ac5aa8861536015eb50c11ca7e8d2bb298c625048c29c589f9424f9a67c9319",
+        "bytes": 63793
+      },
+      "later_actual_dual_progress_review": {
+        "path": "analysis/full-gap-execution-20261024-v1/review/erp-retained-final-progress-v1/independent-actual-dual-and-progress-review-v1.json",
+        "sha256": "f667d37dc52d2b5dfc1f5d6e7076555410b7d45e0542f9b368a4addcd5e999b5",
+        "bytes": 14706
+      },
+      "source_contract": {
+        "path": "analysis/engineering13-completion-20261024-v1/erp-retained-parent-v2-delivery-v1/source-contract.json",
+        "sha256": "f7c017a9815f5b11d4e251753d894d449530ae40ffcb8f3861ebfd4850cdb217",
+        "bytes": 36415
+      },
+      "local_acceptance": {
+        "path": "analysis/engineering13-completion-20261024-v1/erp-retained-parent-v2-delivery-v1/local-install/completion.json",
+        "sha256": "2dc3c199f4c7932e0b93d44b7a3bcca882cda0cef031a70c463b8b75fb8bf55b",
+        "bytes": 14269
+      },
+      "online_acceptance": {
+        "path": "analysis/engineering13-completion-20261024-v1/erp-retained-parent-v2-delivery-v1/publication/online-acceptance.json",
+        "sha256": "fc6479563d023057a5f9c0970df61891ebb1529972eb80eb1f772c7fbc8040bf",
+        "bytes": 375062
+      },
+      "local_own_lock_release": {
+        "path": "analysis/engineering13-completion-20261024-v1/erp-retained-parent-v2-delivery-v1/local-install/locks-released.json",
+        "sha256": "d743c6531c5f951f52ad0f18ccc56abc4c1525e0f0788a230048764a3a09d010",
+        "bytes": 68
+      },
+      "online_own_lock_release": {
+        "path": "analysis/engineering13-completion-20261024-v1/erp-retained-parent-v2-delivery-v1/publication/locks-released.json",
+        "sha256": "4775f7c162eacf157533137a06ef3137fc86b7df1b1c19c87060223de1a7bfa2",
+        "bytes": 47
+      },
+      "cleanup": {
+        "path": "analysis/engineering13-completion-20261024-v1/erp-retained-parent-v2-delivery-v1/publication/cleanup.json",
+        "sha256": "3ec62432680e2a541a0bc0e9a9c044817201b66f7635b1a40937071a67617fa9",
+        "bytes": 221
+      },
+      "protected_successor_final_review": {
+        "path": "analysis/full-gap-execution-20261024-v1/review/fish-guild-actual-artifact-v1/actual-dual-delivery-review-v1.json",
+        "sha256": "b0f171a35d6a0b289a0fc4e0e2ad591eef2b9f6a40bb0ded96744ddf9a039d5f",
+        "bytes": 39464
+      }
+    },
+    "declared_full_source_map": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/M52-history-source-preparation-v1/online/erp-retained-singletons-20261024-v1-full-source-map.json",
+      "sha256": "77b1552d572f2ac9fb187d7db2d64ac55c05520e6d3a24b8d57ab7bd12c5fd5d",
+      "bytes": 126474
+    }
+  },
+  "layered_limits": [
+    "Original completion remains pending in its original phase. Later7ac5 actual final and tail review supply separate final roles; no backfill, task-stop inference or new public economic/GUI pass.",
+    "Only exact immutable release history; snapshot parent commit remains unbound.",
+    "Runtime byte/source matching and all other parent tree preservation remain new materializer gates; no copy of main70f to runtime.",
+    "No current selector, runtime operation, score change or system completion acceptance is granted by this record.",
+    "Early online_install_pending and independent_final_review_pending values remain in immutable originals; later separate final roles reconcile the accepted delivery."
+  ],
+  "independent_units": 1,
+  "new_schema": false,
+  "new_schema_definitions": 0,
+  "install_DDL_statements": 0,
+  "client_delta": 0,
+  "natural_GUI": false,
+  "original_completion_phase_pending_retained": true,
+  "later_final_review_roles_supplied": true
+}

@@ -1,0 +1,154 @@
+{
+  "release": "unified-launcher-20261024-v1",
+  "V": 36,
+  "parent_release": "friends-resource-profile-20261024-v2",
+  "parent_source_commit": "f10bed302ecfbd8fe7106e85debd8c5de484db78",
+  "EXE": {
+    "sha256": "1b50f784a569941af3133a198fa3d78330e2d4d42f3d4bb77f1ab8e99c5c6c19",
+    "size": 2807296
+  },
+  "payload_sha256": "8f51aeef525e863b80967ee9c03ad8b93f7e7e82b5208cf684b3075ff5943ce1",
+  "payload_size": 157317437,
+  "runtime_members": 1085,
+  "version36_delta": 5,
+  "version36_reused": 1080,
+  "local_release": "local-unified-launcher-20261024-v1",
+  "local_runtime_delta": 13,
+  "public_signed_runtime_manifest_sha256": "35687f7524d84989ef257374ee242fcb84450e7bf9724008ad48c18e4483e6a7",
+  "runtime_member_manifest": {
+    "path": "analysis/unified-launcher-20261024-v1/runtime-files.json",
+    "sha256": "29961c84aa426556497353a0b62af20e4f5bb67c88c6ce6dcfc84b8edd896151",
+    "bytes": 195319
+  },
+  "local_delivery_manifest": {
+    "path": "releases/local/local-unified-launcher-20261024-v1/local-business-manifest.json",
+    "sha256": "eeaae9d1b5c0d908de5db985b818a9d295091728a0228f738c6f434547a669ff",
+    "bytes": 192225
+  },
+  "fixed_client": {
+    "profile": "cn-dx11-6c6b5180",
+    "executable_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+    "resource_archive_fingerprints": [
+      {
+        "file": "data035.kom",
+        "sha256": "5adc3150a1c8dcb35e3015d2e0e208320ec926e6008ff445ebb9f9fa4692a241"
+      },
+      {
+        "file": "data036.kom",
+        "sha256": "56bb739e04e856e2ebf4c93c0df0cca7c181914e65d7cf4d140e167f593c6601"
+      }
+    ],
+    "scope": "Existing witnessed client/resource profile; no new official-version or unseen-client approval."
+  },
+  "shared_startup_entry": "tools/launch_client.py",
+  "shared_native_process_driver": "tools/probe_updated_client.py",
+  "shared_native_UI": true,
+  "standalone_GM_and_save_isolation_preserved": true,
+  "formal_local_and_friends_preflight_accepted": true,
+  "changed_shared_core_refused": true,
+  "signed_V35_to_V36_update_accepted": true,
+  "historical_online_observation_seconds": 127.28503499994986,
+  "historical_local_observation_seconds": 125.51643209997565,
+  "natural_player_login_verified": false,
+  "town_dungeon_multiplayer_accepted": false,
+  "original_client_files_modified": 0,
+  "gameplay_Hooks_added": 0,
+  "historical_captured_launcher_pointer": {
+    "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/latest-Lithia-parent-capture-v1/launchers-current.json",
+    "sha256": "07353ffba2655954b8a28166ab4fe7f5896444f81435c2206415563bda534855",
+    "bytes": 5101
+  },
+  "capture_is_current_safe_terminal_acceptance": false,
+  "metadata_only_source_record": true,
+  "Git_does_not_deploy": true,
+  "evidence": {
+    "authorization.json": {
+      "path": "analysis/unified-launcher-20261024-v1/authorization.json",
+      "sha256": "b14bb53a725450734e004c722078eafc3c3067f51a1e56a89b9b4c28a6bdc4c5",
+      "bytes": 794
+    },
+    "freeze.json": {
+      "path": "analysis/unified-launcher-20261024-v1/freeze.json",
+      "sha256": "5dd6bc897fd3a573a94d2aaa952d0e51f4a1eca6302e904c45adfe2ca6d29242",
+      "bytes": 6747
+    },
+    "publication-freeze.json": {
+      "path": "analysis/unified-launcher-20261024-v1/publication-freeze.json",
+      "sha256": "472c6af0a442af5c4b3c81e808a04882f1da8e7039742b9027629dcbe282df40",
+      "bytes": 2967
+    },
+    "qualification.json": {
+      "path": "analysis/unified-launcher-20261024-v1/qualification.json",
+      "sha256": "4b73246c916970dbfd1faf84d13d8d3efb4acfe427317dd7786784b6b61d31e4",
+      "bytes": 1004
+    },
+    "completion.json": {
+      "path": "analysis/unified-launcher-20261024-v1/completion.json",
+      "sha256": "0d9d17458cde7f7f4662c8a148f3801a823431bdc0325a578a773547e0e32a49",
+      "bytes": 1330
+    },
+    "installation.json": {
+      "path": "analysis/unified-launcher-20261024-v1/installation.json",
+      "sha256": "019b5c20e15fb92465c3a9b06b22991571e0e378b50cde030db5202ccc3945d0",
+      "bytes": 5628
+    },
+    "local-installation.json": {
+      "path": "analysis/unified-launcher-20261024-v1/local-installation.json",
+      "sha256": "e18f32ff1991631e63c8ee0c25e3c2e468e7707f630401f1210ef8cb8372c1c1",
+      "bytes": 2835
+    },
+    "public-acceptance.json": {
+      "path": "analysis/unified-launcher-20261024-v1/public-acceptance.json",
+      "sha256": "2869c42e201bcb35401dcc1ca0890908801c8710700d36536e100c2a6ac49510",
+      "bytes": 870
+    },
+    "locks-released.json": {
+      "path": "analysis/unified-launcher-20261024-v1/locks-released.json",
+      "sha256": "bc7ad5ed63df260ad30efa565d73a849daf12a1f8435340400b670c0be02a484",
+      "bytes": 104
+    },
+    "local-locks-released.json": {
+      "path": "analysis/unified-launcher-20261024-v1/local-locks-released.json",
+      "sha256": "663e57e7f30624820d31149e09e9b14f351b8b8b88dffb31fb1a1047e117613c",
+      "bytes": 51
+    },
+    "checks_final-tests.json": {
+      "path": "analysis/unified-launcher-20261024-v1/checks/final-tests.json",
+      "sha256": "5aaed1383d28b00f3b45b14e0222b7093f64efc351e72e127667746f0ec9d777",
+      "bytes": 788
+    },
+    "checks_formal-friends-wrapper-preflight.json": {
+      "path": "analysis/unified-launcher-20261024-v1/checks/formal-friends-wrapper-preflight.json",
+      "sha256": "b59b52626a731ba9cad1941bcf33f272ec17c5ee39cd05a7244a6cdae7de2094",
+      "bytes": 1079
+    },
+    "checks_local-wrapper-preflight.json": {
+      "path": "analysis/unified-launcher-20261024-v1/checks/local-wrapper-preflight.json",
+      "sha256": "6c4a4d8110b0d9e92d9f77826fc2528a585bd3409447025a4f110d115cdcb3d1",
+      "bytes": 1076
+    },
+    "checks_shared-core-corruption-refused.json": {
+      "path": "analysis/unified-launcher-20261024-v1/checks/shared-core-corruption-refused.json",
+      "sha256": "a48becfc809d1c3445d3ad508fd5175456452692d438e076ad5e316270ffd6cc",
+      "bytes": 65
+    },
+    "checks_password-regression.json": {
+      "path": "analysis/unified-launcher-20261024-v1/checks/password-regression.json",
+      "sha256": "a3e43dadb069654d29248e7edb28a73eb05aa972df893d2c8dfac8b4ca6fd309",
+      "bytes": 84
+    },
+    "publication-attempt1_preservation-map.json": {
+      "path": "analysis/unified-launcher-20261024-v1/publication-attempt1/preservation-map.json",
+      "sha256": "a17fb3764f9631ead9ffdea71ceb441e3102d808953d4cb4ca94c2d809fe4c74",
+      "bytes": 19005
+    }
+  },
+  "channel": "launchers",
+  "source_archive_commit": "70f2dcd831bdbdf5756ae4fc46d3cfce2b84229c",
+  "source_archive_path": "launchers/friends-v36/release.json",
+  "source_archive_sha256": "0534231184b0526a0a0f0cd225e3105c49fb748c4ffd1c68f91f3aa2d0ad75ab",
+  "source_archive_bytes": 6420,
+  "actual_pointer_sha256": "07353ffba2655954b8a28166ab4fe7f5896444f81435c2206415563bda534855",
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false
+}
