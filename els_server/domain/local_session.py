@@ -1510,6 +1510,16 @@ class LocalSession:
                                 saved=db.execute('SELECT town FROM location WHERE uid=?',(self.account.uid,)).fetchone()
                                 source=(saved==(20010,) and self.active_map==20010
                                     and self.phase in ('town_ready','square_accepted') and not self.dungeon_return_pending)
+                                # Same-build1010 Start1703 ->1009 Start1604 is the
+                                # reciprocal ordinary return, not a paid58C route.
+                                # Keep all existing1009 level/quest/clear/type gates.
+                                if saved==(1010,) and self.active_map==1010:
+                                    from els_server.domain.town_travel_flow import _ordinary_actor
+                                    from els_server.domain.town_travel import catalog as town_catalog
+                                    source=bool(_ordinary_actor(self) and self.account.get_location()['map']==1010
+                                        and self.phase in ('town_ready','square_accepted') and not self.dungeon_return_pending
+                                        and getattr(self,'pending_map',None) in (None,1010,1009)
+                                        and town_catalog()['towns']['1010']['requirement']['BEFORE']==1009)
                                 restore=(saved==(1009,) and self.active_map in (None,1009))
                                 task=(22375 in completed or db.execute('SELECT 1 FROM character_quests WHERE owner=? AND quest=22375',(self.account.uid,)).fetchone() is not None)
                                 native_varnimyr_rest=(26640 in completed and 30092 in records and task and (source or restore))
