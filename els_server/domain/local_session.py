@@ -419,6 +419,8 @@ class LocalSession:
                 if active:reply.append(title_equipment(active))
         from els_server.domain.anvil_flow import synchronize as anvil_sync
         reply=anvil_sync(self,reply)
+        from els_server.domain.housing_access_flow import synchronize as housing_access_cold
+        reply=housing_access_cold(self,reply)
         from els_server.domain.pet_progression_flow import observe as observe_pet_progression
         from els_server.domain.mount_flow import observe as observe_mount
         from els_server.domain.artifact_flow import observe as observe_artifact
@@ -434,6 +436,9 @@ class LocalSession:
                          character=self.account.character() if self.account.account_id!=1 else None)
 
     def _handle(self,event,request_sequence=None):
+        from els_server.domain.housing_access_flow import handle as housing_access_handle
+        housing_access_reply=housing_access_handle(self,event,request_sequence)
+        if housing_access_reply is not None:return housing_access_reply
         from els_server.domain.skill_page_shop_flow import handle as skill_page_shop_handle
         skill_page_shop_reply=skill_page_shop_handle(self,event,request_sequence)
         if skill_page_shop_reply is not None:return skill_page_shop_reply
@@ -960,6 +965,9 @@ class LocalSession:
         from els_server.domain.cartridge_recipe679_flow import handle as recipe679_handle
         recipe679_reply=recipe679_handle(self,event,request_sequence)
         if recipe679_reply is not None:return recipe679_reply
+        from els_server.domain.fish_exchange_flow import handle as fish_exchange_handle
+        fish_exchange_reply=fish_exchange_handle(self,event,request_sequence)
+        if fish_exchange_reply is not None:return fish_exchange_reply
         from els_server.domain.cartridge_exchange_flow import handle as cartridge_exchange_handle
         cartridge_exchange_reply=cartridge_exchange_handle(self,event,request_sequence)
         if cartridge_exchange_reply is not None:return cartridge_exchange_reply
