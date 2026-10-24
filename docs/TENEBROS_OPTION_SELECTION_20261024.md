@@ -1,0 +1,7 @@
+# Native Tenebros option selection
+
+The existing B0E ticket request now changes exactly one of three already identified shadow lines, consumes one exact owned ticket, and returns B0F native full item records. There is no ED charge or random reroll. This depends on the reviewed finite Tenebros validator/catalog added by initial identification.
+
+All six ticket lists are from the pinned same-version table, with exact target/line/ticket restrictions. Support tickets718665/718666 retain their actual prescribed IDs, including800076; they do not inherit standard maximum choices. Target identity, other two lines and all other instance fields are retained. Empty/unidentified, expired, locked, foreign or unsupported instances are rejected. OneSQL transaction preencodes and checks exact effects; retries project current slots without a second consumption or restoring historical options. No new schema or acquisition channel.
+
+Validation:22 new private real-Application/SQLite cases, independent source review and actual privateTLS full dispatch. Initial failures caused by missing reader admission and test-overlay composition were preserved and corrected. Natural GUI/public positive and deployment are separately recorded; main merge does not publish a runtime. Read-only compatibility must remain when reverting economic writers after new normal-template option data has been saved; no playerDB rollback.
