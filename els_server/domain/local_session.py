@@ -693,6 +693,9 @@ class LocalSession:
             from els_server.domain.town_travel_flow import capture_village1012_origin
             village1012_origin=capture_village1012_origin(self,event)
         reply=self._handle(event,request_sequence)
+        if self.phase!='town_ready' or self.active_map!=20013:
+            from els_server.domain.tenebros_storage_flow import abandon as abandon_shadow
+            abandon_shadow(self)
         if village1012_origin is not None:
             from els_server.domain.town_travel_flow import finish_village1012_origin
             finish_village1012_origin(self,village1012_origin)
@@ -901,6 +904,15 @@ class LocalSession:
         from els_server.domain.equipment_cartridge_flow import handle as cartridge_handle
         cartridge_reply=cartridge_handle(self,event,request_sequence)
         if cartridge_reply is not None:return cartridge_reply
+        from els_server.domain.tenebros_identification_flow import handle as tenebros_identification_handle
+        tenebros_identification_reply=tenebros_identification_handle(self,event,request_sequence)
+        if tenebros_identification_reply is not None:return tenebros_identification_reply
+        from els_server.domain.tenebros_conversion_flow import handle as tenebros_conversion_handle
+        tenebros_conversion_reply=tenebros_conversion_handle(self,event,request_sequence)
+        if tenebros_conversion_reply is not None:return tenebros_conversion_reply
+        from els_server.domain.tenebros_storage_flow import handle as tenebros_storage_handle
+        tenebros_storage_reply=tenebros_storage_handle(self,event,request_sequence)
+        if tenebros_storage_reply is not None:return tenebros_storage_reply
         from els_server.domain.tenebros_capacity_flow import handle as tenebros_capacity_handle
         tenebros_capacity_reply=tenebros_capacity_handle(self,event,request_sequence)
         if tenebros_capacity_reply is not None:return tenebros_capacity_reply
@@ -2341,7 +2353,12 @@ class LocalSession:
 
                     raise SessionOrderError('Pending deletion character cannot enter game')
 
-                try:self.account=self.account.for_character(chosen_uid)
+                # Selection is validated before discarding the old paid candidate.
+                try:next_account=self.account.for_character(chosen_uid)
+                except ValueError as e:raise SessionOrderError(str(e)) from e
+                from els_server.domain.tenebros_storage_flow import abandon as abandon_shadow
+                abandon_shadow(self)
+                try:self.account=next_account
 
                 except ValueError as e:raise SessionOrderError(str(e)) from e
 
@@ -2374,6 +2391,7 @@ class LocalSession:
                 self.cartridge_sync_key=None
                 self.tenebros_capacity_sync_key=None
 
+                self.tenebros_storage_sync_key=None
                 self.ed_catalog_loaded=False;self.ice_preview_ready=False
 
                 self.fixed_cube_preview_template=None;self.fixed_cube_operations.clear();self.npc_history_id=str(uuid.uuid4())

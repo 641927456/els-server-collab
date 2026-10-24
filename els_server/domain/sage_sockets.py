@@ -29,7 +29,7 @@ def validate(template,groups):
    from els_server.domain.equipment_spell_rules import options as spell_options
    result[group]=spell_options(template,int(group),values);continue
   if group=='25':
-   from els_server.domain.boosting_2026_shadow import validate as validate_shadow
+   from els_server.domain.tenebros_rules import validate as validate_shadow
    result[group]=validate_shadow(template,values);continue
   if group=='13':
    from els_server.domain.equipment_reforge_rules import options as reforge_options
