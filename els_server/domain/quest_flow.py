@@ -154,7 +154,14 @@ def handle(s,event,sequence):
                 return events
             if kind=='abandon':return [wire.initialization(state)]
             done=next(v for v in state['completed'] if v['id']==qid)
-            result=wire.reward_ack(qid,r['character'],s.account.get_location(),r['slots'],r['balances'],r['items'],r['updates'],consumed=r['consumed'],replayed=r['replayed'],completed_at=done['completed_at'])
+            # The original2B consumer resets live tutorial guide state. These
+            # four source town quests use F5+F0; cold login still uses2B.
+            lithia_town_live=(qid in (28000,28010,28020,28030)
+                and r['character']['unit_type']==15 and s.phase=='town_ready'
+                and s.active_map==20014 and s.account.get_location()['map']==20014)
+            # F5's final boolean FORCES its native completion callback. A
+            # stored replay is not permission to replay the scene without a wait.
+            result=wire.reward_ack(qid,r['character'],s.account.get_location(),r['slots'],r['balances'],r['items'],r['updates'],consumed=r['consumed'],replayed=False if lithia_town_live else r['replayed'],completed_at=done['completed_at'])
             from els_server.protocol.local_messages import skill_slots_initialization
             events=[result]
             if r.get('stage_changed'):
@@ -162,7 +169,7 @@ def handle(s,event,sequence):
                 events.append(stage_notice(r['character']))
             # F0 is the original live new-task callback, distinct from the
             # absolute login snapshot. Encode it inside the reward transaction.
-            events.append(wire.initialization(state))
+            if not lithia_town_live:events.append(wire.initialization(state))
             events.extend(wire.accepted(row) for row in r.get('accepted_after',()))
             # Original F3 triggers native AutoClearQuest -> A02D -> F4.
             # Construct it inside the parent's claim transaction, never claim here.
