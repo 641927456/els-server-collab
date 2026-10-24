@@ -34,7 +34,9 @@ def catalog(unit_type=None):
     from els_server.domain.skill_book_shop import offers as skill_book_offers
     from els_server.domain.bag_capacity import additional_offers as bag_offers
     from els_server.domain.skill_page_shop import offer as skill_page_offer
-    result=tuple(p for p in costumes+single_offers(unit_type)+ice+extended+expansion+additional_offers(unit_type)+pet_support_offers()+bank_offers()+bag_offers()+skill_book_offers()+(skill_page_offer(),)
+    from els_server.domain.shop_local_offers import offers as local_shop_offers
+    local=local_shop_offers()
+    result=tuple(p for p in costumes+single_offers(unit_type)+ice+extended+expansion+local+additional_offers(unit_type)+pet_support_offers()+bank_offers()+bag_offers()+skill_book_offers()+(skill_page_offer(),)
                  if can_acquire(p['template']) and p['template'] not in ice_equipment())
     if len({p['sku'] for p in result})!=len(result) or len({p['template'] for p in result})!=len(result):raise ValueError('Duplicate shop offer')
     return result
@@ -86,6 +88,9 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
     offers={p['sku']:p for p in quantity_catalog()}
     if any(sku not in offers for sku,_ in products):
         raise ValueError('Unknown local shop SKU')
+    from els_server.domain.shop_local_offers import BULK_PACKS
+    if any(offers[sku]['template'] in BULK_PACKS for sku,_ in products):
+        if len(products)!=1 or products[0][1]!=1:raise ValueError('Buy one local bulk pack at a time')
     from els_server.domain.careers import RULES as CAREER_RULES
     from els_server.domain.skill_book_shop import BOOKS
     career_products=[(offers[sku]['template'],n*offers[sku]['quantity']) for sku,n in products if offers[sku]['template'] in CAREER_RULES]

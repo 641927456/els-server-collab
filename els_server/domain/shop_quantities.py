@@ -20,8 +20,8 @@ def variants(offers):
     result=[]
     for p in offers:
         result.append(dict(p))
+        if p['quantity']!=1:continue
         if not batchable(p):continue
-        if p['quantity']!=1:raise ValueError('Batch shop requires a unit offer')
         for index,size in enumerate(SIZES[1:],1):
             sku=SKU_BASE+4*p['template']+index
             price=p['price']*size
@@ -34,10 +34,14 @@ def variants(offers):
 def delivery_plan(rows,offers,products):
     """Shop-only bound and split; keep the shared grant and stack limits intact."""
     from els_server.domain.inventory_items import LOCAL_MAX_STACK
+    from els_server.domain.shop_local_offers import BULK_PACKS
     batch={offers[sku]['template'] for sku,n in products if batchable(offers[sku])}
     total=sum(p['quantity'] for p in rows)
     ordinary=sum(p['quantity'] for p in rows if p['template'] not in batch)
-    if ordinary>36 or total>(MAX_DELIVERY if batch else 36):
+    limit=MAX_DELIVERY
+    if batch and rows and all(p['template'] in BULK_PACKS for p in rows):
+        limit=BULK_PACKS[rows[0]['template']]
+    if ordinary>36 or total>(limit if batch else 36):
         raise ValueError('Expanded shop delivery quantity limit')
     plan=[]
     for p in rows:
