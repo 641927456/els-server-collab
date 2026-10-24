@@ -191,6 +191,9 @@ class QuestState:
                 guild_action_guard(self,db,kind,request)
             if skipping:skip_guard(db)
             ensure(db)
+            if qid==26770:
+                from els_server.domain.housing_room_quest import before_action as housing_before_action
+                housing_before_action(db,uid,self.account_id,kind,self.account_source_guard)
             if qid==52700:
                 from els_server.storage.el_search_collection import before_action as collection_before_action
                 collection_before_action(db,uid,self.account_id,kind,self.account_source_guard)
@@ -221,7 +224,7 @@ class QuestState:
                         # including abandon/reaccept within one wall-clock second.
                         from els_server.domain.town_dialogue import catalog as town_catalog
                         from els_server.domain.mainline_find_npc import catalog as find_catalog
-                        generation=now if qid!=35630 and qid not in (25600,25601,25602) and str(qid) not in town_catalog()['quests'] and qid not in find_catalog()['quest_ids'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
+                        generation=now if qid!=26770 and qid!=35630 and qid not in (25600,25601,25602) and str(qid) not in town_catalog()['quests'] and qid not in find_catalog()['quest_ids'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
                         erp_scope.insert_active(db,uid,qid,now,generation,json.dumps(counts,sort_keys=True))
                 elif kind=='abandon':
                     if done:raise ValueError('Completed quest cannot be abandoned')
@@ -330,7 +333,9 @@ class QuestState:
             if skipping:skip_guard(db)
             if qid==35630:guild_action_guard(self,db,kind,request)
             if qid==52700:collection_before_action(db,uid,self.account_id,kind,self.account_source_guard)
+            if qid==26770:housing_before_action(db,uid,self.account_id,kind,self.account_source_guard)
             result['events']=encode(result)
+            if qid==26770:housing_before_action(db,uid,self.account_id,kind,self.account_source_guard)
             if qid==35630:
                 from els_server.protocol.protocol_codec import encode_event
                 for event in result['events']:encode_event(event)

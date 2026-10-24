@@ -440,6 +440,8 @@ class LocalSession:
                 if active:reply.append(title_equipment(active))
         from els_server.domain.anvil_flow import synchronize as anvil_sync
         reply=anvil_sync(self,reply)
+        from els_server.domain.housing_access_flow import synchronize as housing_access_cold
+        reply=housing_access_cold(self,reply)
         from els_server.domain.pet_progression_flow import observe as observe_pet_progression
         from els_server.domain.mount_flow import observe as observe_mount
         from els_server.domain.artifact_flow import observe as observe_artifact
@@ -455,6 +457,12 @@ class LocalSession:
                          character=self.account.character() if self.account.account_id!=1 else None)
 
     def _handle(self,event,request_sequence=None):
+        from els_server.domain.housing_room_flow import handle as housing_room_handle
+        housing_room_reply=housing_room_handle(self,event,request_sequence)
+        if housing_room_reply is not None:return housing_room_reply
+        from els_server.domain.housing_access_flow import handle as housing_access_handle
+        housing_access_reply=housing_access_handle(self,event,request_sequence)
+        if housing_access_reply is not None:return housing_access_reply
         from els_server.domain.fishing_attempt import handle as fishing_handle
         fishing_reply=fishing_handle(self,event,request_sequence)
         if fishing_reply is not None:return fishing_reply

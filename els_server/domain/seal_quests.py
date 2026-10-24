@@ -198,6 +198,9 @@ def target(sub):
     if kind==121:
         from els_server.domain.el_search_collection import ep_target
         return ep_target(sub)
+    if kind==75:
+        from els_server.domain.housing_room_quest import target as housing_target
+        return housing_target(sub)
     if kind==31:
         level=c.get('m_iCharLevel')
         if type(level) is not int or not 1<=level<=99:raise ValueError('Unsupported native character level objective')
