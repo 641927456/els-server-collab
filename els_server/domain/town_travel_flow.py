@@ -2,6 +2,7 @@
 import struct,time,uuid
 from els_server.protocol.protocol_codec import Event
 from els_server.protocol import town_travel_messages as wire
+from els_server.domain.town_travel import DestinationRequirementError
 
 def _ordinary_actor(s):
     from els_server.domain.equipment_chip_flow import current_lease
@@ -18,9 +19,10 @@ def handle(s,event,sequence):
     if not (s.enter_town and s.item_test and s.client_build=='dx11_260923' and s.account.characters is not None):return []
     destination=struct.unpack_from('>i',event.payload)[0] if len(event.payload)>=4 else 0
     if destination==1012:return _handle_village1012(s,event,sequence)
-    def failure():
+    def failure(requirement=None):
         if not _ordinary_actor(s):return []
-        return [wire.acknowledgement(destination,s.account.get_reward_balances()['ed'],result=-1)]
+        return [wire.acknowledgement(destination,s.account.get_reward_balances()['ed'],
+            result=653 if requirement is not None else -1,details=requirement.details if requirement is not None else (0,0,0,0))]
     if not _ordinary_actor(s):return failure()
     if (event.performers!=(0,) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0
         or type(sequence) is not int or not 0<=sequence<2**64 or s.role!='game'):return failure()
@@ -44,6 +46,7 @@ def handle(s,event,sequence):
         from els_server.storage.town_travel import travel
         operation=str(uuid.uuid5(uuid.UUID(s.shop_session_id),f'town-warp:{s.account.uid}:{sequence}'))
         result=travel(store.path,uid,account_id,source,event.payload,operation,now=int(time.time()),authorize=authorize)
+    except DestinationRequirementError as error:return failure(error)
     except (ValueError,OverflowError):return failure()
     with s.account.lock:s.account.location=s.account.store.load()
     s.town_warp_transition=dict(destination=destination,payload=event.payload,sequence=sequence,response=result['response'],operation=operation,actor_binding=binding)
@@ -70,14 +73,15 @@ def _village1012_envelope(s, event, sequence, kind):
         and event.uid == event.target_uid == 2**64-1 and event.payload_mode == 0)
 
 
-def _village1012_failure(s):
+def _village1012_failure(s,requirement=None):
     from els_server.storage.town_travel import village1012_snapshot
     try:
         if not _village1012_identity(s):
             return []  # No owned actor is available for a currency response.
         saved = village1012_snapshot(s.account.store.path, s.account.uid, s.account.account_id,
                                     authorize=lambda: _village1012_identity(s))
-        return [wire.acknowledgement(1012, saved['balance']['ed'], result=-1)]
+        return [wire.acknowledgement(1012, saved['balance']['ed'],
+            result=653 if requirement is not None else -1,details=requirement.details if requirement is not None else (0,0,0,0))]
     except (ValueError, KeyError, TypeError, AttributeError):
         return []
 
@@ -135,6 +139,8 @@ def _handle_village1012(s, event, sequence):
         s.pending_map = None
         s.inventory_town_sync_sent = False
         return [Event(0x201, kind=0x58d, payload=result['response'])]
+    except DestinationRequirementError as error:
+        return _village1012_failure(s,error)
     except (ValueError, OverflowError, KeyError, TypeError, AttributeError):
         return _village1012_failure(s)
 
