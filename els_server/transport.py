@@ -10,6 +10,26 @@ from els_server.port_probe import PortProbe
 from els_server.dungeon34320_observation import Trace34320
 
 
+def _log_creation_result(log,connection,sequence,event,messages):
+    """Record a generated result, never names, payloads or player state.
+
+    Creation may already be committed. Diagnostic parsing/logging must not
+    prevent its original reply or change the operation's result.
+    """
+    if event.event_id!=0x202 or event.kind!=0x489:return
+    try:
+        from els_server.protocol.character_messages import create_request
+        try:unit_type=create_request(event.payload)['unit_type']
+        except (ValueError,UnicodeError):unit_type=None
+        reply=next((m for m in messages if m.event_id==0x201 and m.kind==0x25),None)
+        result=struct.unpack_from('>i',reply.payload)[0] if reply is not None and len(reply.payload)>=4 else None
+        log('character_create_result',connection=connection,sequence=sequence,unit_type=unit_type,result=result)
+    except Exception:
+        # This optional observation cannot turn a committed success into a
+        # dropped reply, retry, disconnect or additional state mutation.
+        pass
+
+
 class GameServer:
     def __init__(self,config,application,log):
         self.config=config;self.application=application;self.log=log
@@ -192,6 +212,7 @@ class GameServer:
                     trace34320_before=dungeon34320_trace.before(business,event,frame.sequence)
                     messages=await self.application.call(business.handle,event,request_sequence=frame.sequence)
                     dungeon34320_trace.after(trace34320_before,business,messages)
+                    _log_creation_result(self.log,index,frame.sequence,event,messages)
                     if before!=business.phase:
                         self.log('business_phase',connection=index,request=event.kind,before=before,after=business.phase)
                     await send(messages,send_path='request_reply',request_sequence=frame.sequence,request_kind=event.kind)
