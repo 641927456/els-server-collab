@@ -1,0 +1,50 @@
+{
+  "channel": "local",
+  "release": "local-group-challenge-transaction-boundary-20261024-v1",
+  "parent_release": "local-gm-ed-billion-preset-20261024-v1",
+  "manifest_sha256": "65ee3de5609ad47484f4c18a79533dbd3c7efdf78e9ffb726b05e2801311d05c",
+  "parent_manifest_sha256": "4a56fd0f88183eb1a18af176f072d66994d07303b4572ac707e294907d0ce8c9",
+  "scope": "Lock-time current owned roster and post-write recheck, native precommit encoding for begin/retry/cancel; existing same SQL attempt state. No new admission, phase, rewards, protocol or8player claims. Existing trusted lifecycle two-argument cancellation remains separate from native consent and accepts inactive owned departing roles only for original-attempt cleanup.",
+  "files": [
+    {
+      "path": "els_server/domain/group_challenge.py",
+      "sha256": "b3569a71d09b33d695cf8d432365e3b31c23434706e041cc0c1776817e611050",
+      "size": 15496,
+      "parent_sha256": "013722632039007d69572164d28ac6aec8c89ca9c400a9891c98a584d073259d"
+    },
+    {
+      "path": "els_server/storage/challenge_group.py",
+      "sha256": "6b98d42157f185a7979020ab161f76857ebc54c05852b72f20c3dfaba8c88469",
+      "size": 4248,
+      "parent_sha256": "71a00872f8bc937ab55b9e890b7d20dd330a206c02724df7da22ce209d472603"
+    }
+  ],
+  "changed_runtime_file_count": 2,
+  "source_file_count": 813,
+  "business_file_count": 1064,
+  "independent_units": 1,
+  "client_delta": 0,
+  "new_schema": false,
+  "new_schema_definitions": 0,
+  "install_DDL_statements": 0,
+  "parent_snapshot_commit": "7995cd6cb10b7b567e730c2d6e295eaf35d1c11b",
+  "historical_delivery_accepted": true,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/local/local-group-challenge-transaction-boundary-20261024-v1/local-business-manifest.json",
+      "sha256": "65ee3de5609ad47484f4c18a79533dbd3c7efdf78e9ffb726b05e2801311d05c",
+      "bytes": 192209
+    },
+    "actual_acceptance": {
+      "path": "releases/local/local-group-challenge-transaction-boundary-20261024-v1/local-verification.json",
+      "sha256": "58d45506646d7c830f42105890c2a2a90e26fc8a055c4b0e1acd7a27857b5f4b",
+      "bytes": 3580
+    }
+  },
+  "metadata_sync_installs": 0
+}

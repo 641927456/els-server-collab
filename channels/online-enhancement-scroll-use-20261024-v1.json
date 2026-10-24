@@ -1,0 +1,62 @@
+{
+  "channel": "online",
+  "release": "enhancement-scroll-use-20261024-v1",
+  "parent_release": "native-town-travel-requirement-details-20261024-v1",
+  "manifest_sha256": "2825824ef9ff0f776b2d7da7620457cc3c81eff00267654866b92fd47b79eb3b",
+  "parent_manifest_sha256": "072555660fc59b01d909575c1f088b07fa09eb368701c2308b5c514cb3008070",
+  "scope": "Original221/222 for130149/130150/130151/130152 only, current source levels7/8/9/10, already admitted owned inventory. Existing normal unequipped equipment only; no new grants, source, fees or RNG.",
+  "files": [
+    {
+      "path": "els_server/domain/equipment_ui_flow.py",
+      "sha256": "34600892bffb3d93a0d6df2ce16150b8003330b0922c7dca2932a9278495d1b3",
+      "size": 7056,
+      "parent_sha256": "265efa951b96dad06f2e14e5a0e5db6e62978788a9e7a85312c0aca2efb556d0"
+    },
+    {
+      "path": "els_server/enchant_data.py",
+      "sha256": "c02bab584a094767fd9b3fcec53d22c4ccc3a50b426313fc92151eb422fbe025",
+      "size": 5408,
+      "parent_sha256": "f3f6e408a5758725e194699ab0ffc9fed0e10a610f1cea17cd8d64d83350e931"
+    },
+    {
+      "path": "els_server/storage/enhancement_scroll.py",
+      "sha256": "563e88191719a25cb8d73d628275a679a39b2fed36a61fb80cad8713a7565cb8",
+      "size": 4103,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/equipment_receipt_state.py",
+      "sha256": "1c26a696243e6e59236ce04faf1e3b7bd45331181247c34a7ee75978f71afc23",
+      "size": 3289,
+      "parent_sha256": "7387dbdb5e25f165ab716513f046721d8ea3729b96edbe0f7139614e01a88a67"
+    }
+  ],
+  "changed_runtime_file_count": 4,
+  "source_file_count": 816,
+  "business_file_count": 1043,
+  "independent_units": 1,
+  "client_delta": 0,
+  "new_schema": false,
+  "new_schema_definitions": 0,
+  "install_DDL_statements": 0,
+  "parent_snapshot_commit": "2c24e021f8e460760d28f56409a24d09f7a78017",
+  "historical_delivery_accepted": true,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/online/enhancement-scroll-use-20261024-v1/rollup-manifest.json",
+      "sha256": "2825824ef9ff0f776b2d7da7620457cc3c81eff00267654866b92fd47b79eb3b",
+      "bytes": 193939
+    },
+    "actual_acceptance": {
+      "path": "releases/online/enhancement-scroll-use-20261024-v1/acceptance.json",
+      "sha256": "37d37244728175bf99e8ab01fbc546960ca636126c0aaf7ca2a04ddb5e5218ad",
+      "bytes": 8306
+    }
+  },
+  "metadata_sync_installs": 0
+}
