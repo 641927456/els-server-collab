@@ -1,7 +1,7 @@
 """One real SQL transaction: owned potion decrement, ERP, receipt and encoding."""
 from contextlib import closing
 import hashlib,sqlite3,struct
-from els_server.domain.erp_potions_existing import TEMPLATES,definitions,request
+from els_server.domain.erp_potions_existing import LEGACY_TEMPLATES,TEMPLATES,definitions,request
 from els_server.storage.resonance_state import owner,snapshot
 from els_server.storage.item_actor import require_active_character
 from els_server.storage.inventory_state import load_items
@@ -45,6 +45,8 @@ def perform(path,uid,account_id,payload,operation,*,prepare,notices):
             return dict(events=[event,*sync],keys=keys,replayed=True)
         item=next((i for i in items if i['uid']==item_uid),None)
         if item is None or item['template']not in TEMPLATES:raise ValueError('ERP potion owned instance missing')
+        if payload[-1]!=(0 if item['template']in LEGACY_TEMPLATES else 1):
+            raise ValueError('ERP potion request does not match current instance kind')
         from els_server.domain.item_expiration import require_current
         from els_server.domain.item_locks import require_unlocked
         require_current(item);require_unlocked(item)
