@@ -55,8 +55,10 @@ class LocalAccount:
             character.update(bank_snapshot(self.store.path,self.uid))
             from els_server.storage.boosting_2026_force_inventory import snapshot as force_snapshot
             from els_server.storage.boosting_2026_force_equipment import snapshot as force_slot_snapshot
+            from els_server.storage.boosting_2026_force_equipment import snapshot_active as force_active_slot_snapshot
             character['force_inventory']=force_snapshot(self.store.path,self.uid)
             character['force_slots']=force_slot_snapshot(self.store.path,self.uid)
+            character['force_active_slots']=force_active_slot_snapshot(self.store.path,self.uid)
             from els_server.storage.wardrobe import snapshot as wardrobe_snapshot
             character['wardrobe']=wardrobe_snapshot(self.store.path,self.uid,self.account_id)
             from els_server.storage.wardrobe import favorite_snapshot
@@ -252,12 +254,27 @@ class LocalSession:
         answer=messages+observe(self,messages)
         from els_server.domain.resonance_flow import synchronize as resonance_sync
         answer=resonance_sync(self,answer)
+        from els_server.domain.resonance_unlock_flow import periodic as resonance_unlock_periodic
+        answer+=resonance_unlock_periodic(self)
+        from els_server.domain.region_entry_flow import periodic as region_entry_periodic
+        answer+=region_entry_periodic(self)
         from els_server.domain.flask_flow import periodic as flask_periodic
         answer+=flask_periodic(self)
         from els_server.domain.equipment_cartridge_flow import synchronize as cartridge_sync
         answer=cartridge_sync(self,answer)
         from els_server.domain.tenebros_capacity_flow import synchronize as tenebros_capacity_sync
         answer=tenebros_capacity_sync(self,answer)
+        # The wardrobe manager is installed by the login 0x31, but the client
+        # only enables the closet button after the town scene is ready. Resend
+        # the current authoritative state once per session on that transition.
+        if (self.phase=='town_ready' and not getattr(self,'_wardrobe_ready_sent',False)
+                and self.account.characters is not None and self.account.store is not None):
+            from els_server.protocol.wardrobe_messages import initialization as wardrobe_initialization
+            from els_server.storage.wardrobe import snapshot as wardrobe_snapshot,favorite_snapshot
+            answer.append(wardrobe_initialization(
+                wardrobe_snapshot(self.account.store.path,self.account.uid,self.account.account_id),
+                favorite_snapshot(self.account.store.path,self.account.uid,self.account.account_id)))
+            self._wardrobe_ready_sent=True
         return self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
 
     def _capture_luciel_dungeon_hp(self,payload,spans):
@@ -478,6 +495,9 @@ class LocalSession:
         resonance_allocation_reply=resonance_allocation_handle(self,event,request_sequence)
         if resonance_allocation_reply is not None:return resonance_allocation_reply
         kind=event.kind
+        from els_server.domain.enhancement_scroll_flow import handle as enhancement_scroll_handle
+        enhancement_scroll_reply=enhancement_scroll_handle(self,event,request_sequence)
+        if enhancement_scroll_reply is not None:return enhancement_scroll_reply
         from els_server.domain.elixir_flow import handle as world_elixir_handle
         world_elixir_reply=world_elixir_handle(self,event,request_sequence)
         if world_elixir_reply is not None:return world_elixir_reply
@@ -833,7 +853,11 @@ class LocalSession:
             from els_server.domain.equipment_chip_flow import current_lease
             if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32 or self.account.store is None or self.account.store.uid!=self.account.uid or not current_lease(self):return [force_slot_ack(result=-1)]
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
-            try:return [force_slot_action(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)]
+            try:
+                if len(event.payload)==13 and struct.unpack_from('>i',event.payload)[0] in (2,3):
+                    from els_server.storage.boosting_2026_force_equipment import active_action as force_active_action
+                    return [force_active_action(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)]
+                return [force_slot_action(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)]
             except ValueError as error:return [force_slot_ack(result=getattr(error,'result',-1))]
         if self.item_test and self.account.characters is not None and kind==0x219 and event.event_id==0x202:
             from els_server.protocol.career_messages import use_ack,career_notice,stage_notice
@@ -1464,7 +1488,7 @@ class LocalSession:
             # instead of continuing to the original first tutorial request.
             elif kind==0x32:answer=[Event(0x201,kind=0x33,payload=i32(0)+bytes([self.client_build=='dx11_260923']))]
             elif kind==0x225:
-                if len(event.payload)!=5:raise SessionOrderError('Invalid local town entry')
+                if len(event.payload)!=5:return [Event(0x201,kind=0x226,payload=i32(-1)+i32(0)+i32(0)*3)]
                 if event.payload[4]!=0:
                     # B934A0's explicit native default-position branch sends
                     # 225(town, 1). Only the witnessed Noah source-clear return
@@ -1482,7 +1506,8 @@ class LocalSession:
                         and story.get('run') is not None and self.dungeon_run is story['run']
                         and character is not None and character['unit_type']==14 and character['level']==1
                         and self.account.get_reward_balances()['experience']==0)
-                    if not native_noah_return:raise SessionOrderError('Invalid local town entry')
+                    if not native_noah_return:
+                        return [Event(0x201,kind=0x226,payload=i32(-1)+i32(struct.unpack_from('>i',event.payload)[0])+i32(0)*3)]
                 requested=struct.unpack_from('>i',event.payload)[0]
                 if requested==1011 and not _mainline1011_entry(self,event,request_sequence):
                     return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]

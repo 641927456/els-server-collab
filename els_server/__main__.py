@@ -6,6 +6,7 @@ from dataclasses import asdict,replace
 import json
 from pathlib import Path
 import signal
+import time
 from els_server.config import ServerConfig
 from els_server.application import Application
 from els_server.observability import EventLog
@@ -66,8 +67,21 @@ async def serve(config,stop_file=None,gm_runtime_port=None,gm_home=None):
                         temporary=endpoint.with_suffix('.'+panel_nonce+'.tmp')
                         temporary.write_text(json.dumps(info)+'\n',encoding='utf8');temporary.replace(endpoint)
                         log('local_activity_panel_ready',url=info['url'],endpoint=str(endpoint))
+                mail_due=0.0
                 while not stop.is_set() and not (stop_file and stop_file.exists()):
                     if gm:await app.call(gm.tick)
+                    if persistent and time.monotonic()>=mail_due:
+                        mail_due=time.monotonic()+1.0
+                        try:
+                            from els_server.storage.gm_mail_queue import process as process_gm_mail
+                            delivered=await app.call(process_gm_mail,config.state_file)
+                            if delivered:log('gm_item_mail_delivered',count=delivered)
+                        except Exception as error:log('gm_item_mail_failed',error=repr(error))
+                        try:
+                            from els_server.storage.gm_scroll_queue import process as process_gm_scroll
+                            used=await app.call(process_gm_scroll,app,config.state_file)
+                            if used:log('gm_scroll_used',count=used)
+                        except Exception as error:log('gm_scroll_failed',error=repr(error))
                     try:await asyncio.wait_for(stop.wait(),.25)
                     except TimeoutError:pass
             finally:
