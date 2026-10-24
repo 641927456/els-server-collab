@@ -443,6 +443,8 @@ class LocalSession:
         answer+=flask_periodic(self)
         from els_server.domain.equipment_cartridge_flow import synchronize as cartridge_sync
         answer=cartridge_sync(self,answer)
+        from els_server.domain.tenebros_capacity_flow import synchronize as tenebros_capacity_sync
+        answer=tenebros_capacity_sync(self,answer)
         return self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
 
 
@@ -895,6 +897,9 @@ class LocalSession:
         from els_server.domain.equipment_cartridge_flow import handle as cartridge_handle
         cartridge_reply=cartridge_handle(self,event,request_sequence)
         if cartridge_reply is not None:return cartridge_reply
+        from els_server.domain.tenebros_capacity_flow import handle as tenebros_capacity_handle
+        tenebros_capacity_reply=tenebros_capacity_handle(self,event,request_sequence)
+        if tenebros_capacity_reply is not None:return tenebros_capacity_reply
         from els_server.domain.equipment_chip_flow import handle as chip_handle
 
         chip_reply=chip_handle(self,event,request_sequence)
@@ -2363,6 +2368,7 @@ class LocalSession:
 
                 self.completed.difference_update((0x28,0x6e9,0x5bf,0x32,0x225,0x227))
                 self.cartridge_sync_key=None
+                self.tenebros_capacity_sync_key=None
 
                 self.ed_catalog_loaded=False;self.ice_preview_ready=False
 
