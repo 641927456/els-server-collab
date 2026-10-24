@@ -47,17 +47,7 @@ def handle(s,event,sequence):
 
 
 def synchronize(s,messages):
-    if s.role!='game' or s.phase!='town_ready' or s.client_build!='dx11_260923' or not s.item_test:return messages
-    try:
-        from els_server.storage.tenebros_capacity import snapshot
-        from els_server.protocol.protocol_codec import encode_event
-        path,owner,account_id,prepare=selected(s)
-        current=snapshot(path,owner,account_id,prepare=prepare)
-        key=(s.shop_session_id,account_id,owner,current['revision'])
-        if getattr(s,'tenebros_capacity_sync_key',None)==key:return messages
-        notice=wire.state(current['extras']);encode_event(notice);prepare(None)
-        s.tenebros_capacity_sync_key=key;s.tenebros_capacity_sync_error=None
-        return [*messages,notice]
-    except Exception as exc:
-        s.tenebros_capacity_sync_error=type(exc).__name__
-        return messages
+    # A single native 9F1 projects shared capacity and this character's effects.
+    # Sending the former zero vector after storage would erase the client view.
+    from els_server.domain.tenebros_storage_flow import synchronize as synchronize_storage
+    return synchronize_storage(s,messages)
