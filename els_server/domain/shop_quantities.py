@@ -34,13 +34,14 @@ def variants(offers):
 def delivery_plan(rows,offers,products):
     """Shop-only bound and split; keep the shared grant and stack limits intact."""
     from els_server.domain.inventory_items import LOCAL_MAX_STACK
-    from els_server.domain.shop_local_offers import BULK_PACKS
+    from els_server.domain.shop_local_offers import bulk_packs
+    packs=bulk_packs()
     batch={offers[sku]['template'] for sku,n in products if batchable(offers[sku])}
     total=sum(p['quantity'] for p in rows)
     ordinary=sum(p['quantity'] for p in rows if p['template'] not in batch)
     limit=MAX_DELIVERY
-    if batch and rows and all(p['template'] in BULK_PACKS for p in rows):
-        limit=BULK_PACKS[rows[0]['template']]
+    if batch and rows and all(p['template'] in packs for p in rows):
+        limit=packs[rows[0]['template']]
     if ordinary>36 or total>(limit if batch else 36):
         raise ValueError('Expanded shop delivery quantity limit')
     plan=[]

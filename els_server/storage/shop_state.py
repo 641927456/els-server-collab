@@ -57,10 +57,12 @@ def home_lists(unit_type=1):
         featured.extend([p['template'] for p in extended_shop_catalog()['offers']
                          if p['category']//10==family and bytes.fromhex(p['record_hex'])[210] in (0,unit_type)][:3])
     offered={p['template'] for p in catalog(unit_type)}
+    from els_server.domain.shop_local_offers import offers as local_offers
+    local=[p['template'] for p in local_offers()]
     from els_server.domain.fashion_bundles import offers as bundle_offers
     return tuple([t for t in dict.fromkeys(group) if t in offered] for group in
-                 (fashion[:18]+usable[:6],fashion[:6]+usable[:6]+featured,
-                  fashion[:12]+[p['template'] for p in bundle_offers(unit_type)][:12]))
+                 (local+fashion[:18]+usable[:6],local+fashion[:6]+usable[:6]+featured,
+                  local+fashion[:12]+[p['template'] for p in bundle_offers(unit_type)][:12]))
 
 
 def quantity_catalog(unit_type=None):
@@ -88,8 +90,9 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
     offers={p['sku']:p for p in quantity_catalog()}
     if any(sku not in offers for sku,_ in products):
         raise ValueError('Unknown local shop SKU')
-    from els_server.domain.shop_local_offers import BULK_PACKS
-    if any(offers[sku]['template'] in BULK_PACKS for sku,_ in products):
+    from els_server.domain.shop_local_offers import bulk_packs
+    packs=bulk_packs()
+    if any(offers[sku]['template'] in packs for sku,_ in products):
         if len(products)!=1 or products[0][1]!=1:raise ValueError('Buy one local bulk pack at a time')
     from els_server.domain.careers import RULES as CAREER_RULES
     from els_server.domain.skill_book_shop import BOOKS

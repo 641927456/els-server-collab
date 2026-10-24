@@ -150,6 +150,8 @@ class FriendsSession(LocalSession):
 class Application:
     def __init__(self, config, *, activity2026_awards_factory=None):
         self.config=config
+        from els_server.domain import shop_local_offers
+        shop_local_offers.configure(config.state_file.parent/'local-shop-offers.json')
         self.activity2026_awards_factory=activity2026_awards_factory
         self.executor=ThreadPoolExecutor(max_workers=1,thread_name_prefix='els-account')
         self.account=None
