@@ -36,17 +36,16 @@ def template_pool(template):
  if row['groups']!=[pool['native_group']] or row['official_group']!=pool['official_group']:raise ValueError('Identification template pool mismatch')
  return pool
 def require_template(template):
+ from els_server.domain.accessory_identification import supported
+ if supported(template):return
  from els_server.domain.artifact_identification import supported
  if supported(template):return
  if str(template) not in catalog()['templates']:
   from els_server.domain.manufacture_rules import inventory_definitions
   if template not in inventory_definitions() or client_data().item(template)['item_type'] not in (1,2):raise ValueError('Unsupported compatibility identification item')
 def validate(template,values):
- # Saved30603 reader only. require_template and every business admission remain unchanged.
- if template==30603:
-  if CLIENT_SHA!='6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709'or hashlib.sha256(client_data().item(30603)['record']).hexdigest()!='a53341030d3cd98636188c44955a5715ff69fa52775eacb9453da529db93699b':raise ValueError('Saved30603 reader source changed')
-  if not isinstance(values,(list,tuple))or len(values)!=2 or any(type(v)is not int or v not in (5604, 5606, 5608, 40002, 40003, 40004, 40102, 40103, 40104, 40202, 40203, 40204, 40304, 40306, 40308, 40402, 40403, 40404, 40502, 40503, 40504, 40602, 40603, 40604, 40706, 40709, 40712, 40806, 40809, 40812, 40906, 40909, 40912, 41002, 41003, 41004, 46602, 46603, 46604, 60329, 60330)for v in values):raise ValueError('Saved30603 two-line identification vector')
-  return list(values)
+ from els_server.domain.accessory_identification import supported,validate as accessory_validate
+ if supported(template):return accessory_validate(template,values)
  from els_server.domain.artifact_identification import supported,validate as artifact_validate
  if supported(template):return artifact_validate(template,values)
  require_template(template)
