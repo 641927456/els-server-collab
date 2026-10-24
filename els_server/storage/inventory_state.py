@@ -95,7 +95,7 @@ def load_items(db,owner=1001):
  inventory_payload(items)  # Verify persisted identities/positions and wire before use.
  from els_server.storage.bag_capacity import allowances
  limits=allowances(db,owner)
- if any(i['group'] not in (9,24) and i['slot']>=limits[i['group']] for i in items):raise ValueError('Item exceeds owned bag capacity')
+ if any(i['group'] not in (9,22,23,24) and i['slot']>=limits[i['group']] for i in items):raise ValueError('Item exceeds owned bag capacity')
  return items
 def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None):
  if cartridge_recipe679_source is not None:

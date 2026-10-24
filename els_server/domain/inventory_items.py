@@ -537,6 +537,9 @@ def validate_item(item):
   from els_server.domain.ordinary_accessories import accepts_equipped
   equipped=accepts_equipped(item)
  if item['group']==24:equipped=item['slot'] in artifact_slots(item['template'])
+ if item['group'] in (22,23):
+  from els_server.domain.fishing_equipment import accepts_equipped as life_equipped
+  equipped=life_equipped(item)
  from els_server.domain.bag_capacity import wire_limit
  bag=item['group']==TEMPLATE_BAG_GROUPS[item['template']] and 0<=item['slot']<wire_limit(item['group'])
  if not 1<=item['count']<=TEMPLATE_MAX_STACKS[item['template']] or not (equipped or bag):raise ValueError('Invalid local inventory count/slot')
@@ -655,7 +658,7 @@ def item_body(item):
 def inventory_payload(items):
  from els_server.domain.bag_capacity import wire_limit
  from els_server.domain.equipment_requirements import catalog as requirements
- if not isinstance(items,list) or len(items)>sum(wire_limit(g) for g in set(TEMPLATE_BAG_GROUPS.values()))+len(set(FASHION_EQUIP_SLOTS.values())|set(requirements()[1].values())|{s for r in ordinary_accessory_definitions().values() for s in r['slots']}):raise ValueError('Inventory list bound')
+ if not isinstance(items,list) or len(items)>sum(wire_limit(g) for g in set(TEMPLATE_BAG_GROUPS.values()))+len(set(FASHION_EQUIP_SLOTS.values())|set(requirements()[1].values())|{s for r in ordinary_accessory_definitions().values() for s in r['slots']})+(4 if any(isinstance(i,dict) and i.get('group') in (22,23) for i in items) else 0):raise ValueError('Inventory list bound')
  checked=[validate_item(i) for i in items]
  if len({i['uid'] for i in checked})!=len(checked) or len({(i['group'],i['slot']) for i in checked})!=len(checked):raise ValueError('Duplicate inventory UID/slot')
  return struct.pack('>I',len(checked))+b''.join(struct.pack('>QBh',i['uid'],i['group'],i['slot'])+item_body(i)+b'\0'+bytes(8) for i in sorted(checked,key=lambda v:(v['group'],v['slot'])))
@@ -741,6 +744,13 @@ _contract26780_item=_contract26780_client_data().item(713275)
 if (hashlib.sha256(_contract26780_item['record']).hexdigest()!='3e05e84442189cbcd865e68a457cc7774aaa95d15bc45046fd90f23fb89977a1' or (_contract26780_item['item_type'],_contract26780_item['metadata'],_contract26780_item['flags4'],_contract26780_item['flags8'],struct.unpack_from('<I',_contract26780_item['record'],0x10)[0])!=(7,0,4198410,56,0)):raise ValueError('Original26780 reward item source')
 if 713275 in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[713275],TEMPLATE_BAG_GROUPS[713275],TEMPLATE_MAX_STACKS[713275])!=(0,4,1):raise ValueError('Conflicting contract26780 reader')
 VERIFIED_TEMPLATES[713275]=0;TEMPLATE_BAG_GROUPS[713275]=4;TEMPLATE_MAX_STACKS[713275]=1
+
+# Four exact original fishing readers; no source, timer or reward production.
+from els_server.domain.fishing_equipment import definition as _life_definition
+for _life_template in (135928,135929,135931):
+ _life=_life_definition(_life_template);_expected=(_life['metadata'],_life['bag'],1)
+ if _life_template in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_life_template],TEMPLATE_BAG_GROUPS[_life_template],TEMPLATE_MAX_STACKS[_life_template])!=_expected:raise ValueError('Conflicting original finite fishing reader')
+ VERIFIED_TEMPLATES[_life_template],TEMPLATE_BAG_GROUPS[_life_template],TEMPLATE_MAX_STACKS[_life_template]=_expected
 
 # Original held fish and15 exchange outputs only; no fishing/catch producer.
 from els_server.domain.fish_exchange_rules import inventory_definitions as _fish_exchange_defs

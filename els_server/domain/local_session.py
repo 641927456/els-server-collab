@@ -1104,6 +1104,9 @@ class LocalSession:
                 else:answer,updates=discard(self.account.store.path,self.account.uid,event.payload,operation,with_updates=True)
             except ValueError:answer=failed(result=-1)
             return [Event(0x201,kind=response_kind,payload=answer),*updates]
+        if self.item_test and self.client_build=='dx11_260923' and kind==0x104 and event.event_id==0x202 and len(event.payload)==11 and any(g in (22,23) for g in (event.payload[0],event.payload[5])):
+            from els_server.domain.fishing_equipment import handle as life_equipment_handle
+            return life_equipment_handle(self,event,request_sequence)
         if self.item_test and self.client_build=='dx11_260923' and kind==0x104 and event.event_id==0x202:
             from els_server.domain.fashion_state import move_fashion,move_ack
             if self.role!='game' or self.phase!='town_ready':return [Event(0x201,kind=0x105,payload=move_ack(result=2005 if len(event.payload)==11 and 24 in (event.payload[0],event.payload[5]) else -1))]
