@@ -209,7 +209,8 @@ def observe(s,replies=()):
             proof=(run.run_id+':'+run.graph['source_sha256']+':'+str(run.stage)+':'+str(run.part)).encode()
             base='discovery:'+run.run_id+':'+str(run.stage)+':'+str(run.part)+':'+str(getattr(s,'_quest_discovery_epoch',0))
             event=dict(kind='visit_dungeon',dungeon=run.identity,level=s.account.character()['level'])
-            notices+=store(s).record(base,event,proof)
+            from els_server.domain.lithia_first_entry import record_visit
+            notices+=record_visit(s,run,store(s),base,event,proof)
             s._quest_discovery_cursor=cursor
     elif 24 in passive[1] and s.phase=='town_ready':
         owner=(str(s.account.store.path),s.account.uid)
