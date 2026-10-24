@@ -214,6 +214,8 @@ class Application:
                 session=LocalSession(self.account,port_probe_port=port_probe_port,**self.config.session_options(),**self.activity_options(self.account))
                 session._chip_reset_local_application=self
                 session._chip_reset_local_live=True
+                session._c1_local_application=self
+                session._c1_local_live=True
                 session._box119335_local_application=self
                 session._box119335_local_live=True
                 session._cartridge40326_local_application=self
@@ -247,6 +249,10 @@ class Application:
                 finally:
                     close_mount(session)
             finally:
+                if type(session) is LocalSession and getattr(session,'_c1_local_application',None) is self:
+                    session._c1_local_live=False
+                    if getattr(self,'_c1_local_context',None) is getattr(session,'_c1_hp_context',None):
+                        self._c1_local_context=None
                 if type(session) is LocalSession and getattr(session,'_chip_reset_local_application',None) is self:
                     session._chip_reset_local_live=False
                 if type(session) is LocalSession and getattr(session,'_cartridge40326_local_application',None) is self:

@@ -52,9 +52,11 @@ def npc_initialization(catalog,template,hp):
  return init+b''.join(attrs[o:o+4][::-1] for o in range(0,0x60,4))+bytes(2)
 
 class DungeonRun:
- def __init__(self,identity,run_id,*,clock=time.monotonic,internal=False):
+ def __init__(self,identity,run_id,*,clock=time.monotonic,internal=False,hp_context=None):
   self.catalog=route_catalog();self.graph=self.catalog.graph(identity,internal=internal);self.identity=identity
   self.run_id=str(uuid.UUID(run_id));self.clock=clock;self.stage=0;self.part=0
+  self.hp_context=hp_context
+  if hp_context is not None:hp_context.bind_run(self)
   self.encounter=self.graph.get('encounter');self.completed_stages=set();self.visits=0
   self.round=0;self.rotation=[]
   self.dynamic_requests={}
@@ -76,7 +78,8 @@ class DungeonRun:
    suppressed={p['npc'] for p in self.encounter['portals'] if p['stage'] in self.completed_stages}
   for part_id,part in sorted(self.graph['stages'][str(stage)]['parts'].items(),key=lambda kv:int(kv[0])):
    base=part['groups'][0]['npcs'];alternatives=[g for g in part['groups'][1:] if g['npcs']]
-   chosen=alternatives[self.draw(f'group:{stage}:{part_id}',len(alternatives))]['npcs'] if alternatives else []
+   chosen_group=alternatives[self.draw(f'group:{stage}:{part_id}',len(alternatives))] if alternatives else None
+   chosen=chosen_group['npcs'] if chosen_group else []
    entries=[]
    for index,source in enumerate([*base,*chosen]):
     if 'options' in source:
@@ -90,6 +93,8 @@ class DungeonRun:
     template=source['template'];native=data['npcs'][str(template)]
     if template in suppressed:key+=1;continue
     hp=native['script_max_hp'] or (5000 if source['boss'] else 500)
+    if self.hp_context is not None:
+     hp=self.hp_context.source_hp(self,stage,int(part_id),-1 if index<len(base) else chosen_group['index'],source,hp)
     point=source['points'][self.draw(f'point:{stage}:{part_id}:{index}',len(source['points']))]
     raw=bytearray.fromhex(data['spawn_seed']);struct.pack_into('<iii',raw,0,key,template,source['key_code'])
     struct.pack_into('<i',raw,0x28,point);struct.pack_into('<3f',raw,0x30,*source['offset'])
@@ -124,7 +129,9 @@ class DungeonRun:
   return list(range(first,first+count))
  def loaded(self):
   if self.started_at is None:self.started_at=self.clock()
- def population_event(self):return self.stage_wires[self.stage]
+ def population_event(self):
+  if self.hp_context is not None:self.hp_context.check(self,emitting=True)
+  return self.stage_wires[self.stage]
  def condition_ready(self,c):
   if self.encounter and self.encounter['kind']=='henir_local_rotation':
    expected=next(r['condition'] for r in self.encounter['pool'] if r['stage']==self.stage)

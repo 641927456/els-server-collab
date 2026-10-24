@@ -692,7 +692,7 @@ class LocalSession:
                 expected_id=data['index'];allowed_ids=(0,1) if self.gate_test else (0,)
                 if self.population_test:
                     from els_server.domain.dungeon_population import population
-                    stage=population(self.gate_stage);allowed_ids=tuple(n['key'] for n in stage['npcs'])
+                    stage=population(self.gate_stage,hp_context=getattr(self,'_c1_hp_context',None));allowed_ids=tuple(n['key'] for n in stage['npcs'])
                 participants=getattr(self,'dungeon_participants',frozenset((self.account.uid,)))
                 if (not self.dungeon_substage_synced or event.performers!=(0,) or data['flag'] not in (0,1) or expected_id not in allowed_ids
                         or any(data[name] not in participants for name in ('source','killer','last_uid'))
@@ -776,7 +776,7 @@ class LocalSession:
                     self.clear_notified=True
                 if self.population_test and self.gate_stage<2:
                     from els_server.domain.dungeon_population import substage
-                    next_stage=substage(self.gate_stage+1,boss_gauge=self.boss_gauge_test)
+                    next_stage=substage(self.gate_stage+1,boss_gauge=self.boss_gauge_test,hp_context=getattr(self,'_c1_hp_context',None))
                     self.gate_stage+=1;self.gate_stage_loading=True
                     self.dungeon_substage_synced=False;self.part_end_notified=False;self.defeated_npcs={}
                     reply.append(next_stage)
@@ -1643,7 +1643,7 @@ class LocalSession:
                 npc_entries=()
                 if self.client_build=='dx11_260923' and self.population_test:
                     from els_server.domain.dungeon_population import population
-                    npc_entries=tuple((n['key'],n['template']) for n in population(self.gate_stage)['npcs'])
+                    npc_entries=tuple((n['key'],n['template']) for n in population(self.gate_stage,hp_context=getattr(self,'_c1_hp_context',None))['npcs'])
                 reply.append(dungeon_messages.begin_substage(npc_entries=npc_entries))
                 self.dungeon_substage_synced=True
                 self.dungeon_clock.resume()
@@ -1667,7 +1667,7 @@ class LocalSession:
                     initial=self.dungeon_run.population_event()
                 elif self.population_test:
                     from els_server.domain.dungeon_population import substage
-                    initial=substage(0)
+                    initial=substage(0,hp_context=getattr(self,'_c1_hp_context',None))
                 else:initial=initial_substage(self.client_build,0 if self.npc_slot_test else None,gate_test=self.gate_test)
                 reply.extend([Event(0x201,kind=0x96,payload=b''),initial])
             return reply
@@ -1738,7 +1738,9 @@ class LocalSession:
                 from els_server.domain.dungeon_routes import DungeonRun
                 run_id=str(uuid.uuid4())
                 # Compile the initial packet before changing connection state.
-                run=DungeonRun(identity,run_id,internal=challenge is not None) if identity!=SUPPORTED_DUNGEON else None
+                from els_server.domain.dungeon_hp_c1 import prepare as prepare_hp_c1
+                hp_context=prepare_hp_c1(self,event,identity,run_id,challenge)
+                run=DungeonRun(identity,run_id,internal=challenge is not None,hp_context=hp_context) if identity!=SUPPORTED_DUNGEON else None
                 from els_server.domain.event_dungeons import is_reviewed
                 if is_reviewed(identity):
                     from els_server.domain.event_admission import start as start_event
@@ -1760,6 +1762,8 @@ class LocalSession:
                 self.dungeon_failed=False
                 self.dungeon_participants=frozenset((self.account.uid,))
                 self.reward_run_id=run_id if self.reward_test else None;self.reward_receipt=None;self.clear_items_synced=False
+                self._c1_hp_context=hp_context
+                if hp_context is not None:hp_context.activate(run)
                 self.world_drops={};self.world_drop_issued=None;self.world_drop_sequence=910001
                 self.pickup_receipt=None
                 world=getattr(getattr(self,'application',None),'world',None)

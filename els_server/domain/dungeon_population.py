@@ -7,13 +7,14 @@ from els_server.protocol.protocol_codec import Event
 from els_server.game_data import client_data
 ROOT=PROJECT_ROOT/'analysis/client-6c6b5180'
 SHA='6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709'
-def population(stage):
+def population(stage,*,hp_context=None):
  if type(stage) is not int or stage not in range(3):raise ValueError('Unsupported population stage')
  # Definitions belong to the pinned client build, like ClientData's catalogs.
  # Cache only verified serialized data; callers still receive fresh nested
  # objects, so Boss-gauge overrides or diagnostics cannot alter later spawns.
- return json.loads(_verified_population(stage))
-
+ part=json.loads(_verified_population(stage))
+ if hp_context is not None:part['npcs']=hp_context.legacy_population(stage,part['npcs'])
+ return part
 @functools.lru_cache(maxsize=3)
 def _verified_population(stage):
  data=json.loads((ROOT/'population-test-fixture.json').read_text(encoding='utf8'))
@@ -29,8 +30,8 @@ def _verified_population(stage):
   if (npc['key']!=key or struct.unpack_from('<ii',raw)!=(key,npc['template']) or
       encode_npc(resource_dto(raw),0).hex()!=npc['wire_hex'] or struct.unpack_from('>i',init)[0]!=npc['template']):raise ValueError('Population identity/wire mismatch')
  return json.dumps(part)
-def substage(stage,boss_gauge=False):
- part=population(stage);npcs=part['npcs']
+def substage(stage,boss_gauge=False,*,hp_context=None):
+ part=population(stage,hp_context=hp_context);npcs=part['npcs']
  if boss_gauge and stage==2:
   boss=npcs[0];source=boss['source_group']
   if boss['template']!=5 or source.get('HAVE_BOSS_GAGE')!={'global':'TRUE'} or source.get('BOSS_GAUGE_HP_LINES')!=1:raise ValueError('Unverified Boss gauge source')
