@@ -60533,6 +60533,122 @@
       "SelectReward": {
         "m_iSelectionCount": 1
       }
+    },
+    "52700": {
+      "m_iFairLevel": 99,
+      "m_iPlayLevel": 99,
+      "m_iEpisodeGroupID": 20100,
+      "m_iID": 52700,
+      "m_fRandomRate": 0,
+      "m_iRandomGroupID": 0,
+      "m_eQuestType": 5,
+      "CHANGE_JOB_TYPE": 0,
+      "m_eStartNPCID": 10017,
+      "m_eEndNPCID": 10017,
+      "m_bIsPcBang": 0,
+      "m_bIsTimeEvent": 0,
+      "m_iFairDungeonID": 0,
+      "m_bRepeat": 0,
+      "m_eRepeatType": 0,
+      "m_iAfterQuestID": {
+        "0": null,
+        "1": 0
+      },
+      "QuestCondition": {
+        "m_iLimitLevel": -1,
+        "m_iLevel": 99,
+        "m_iConditionItemNum": 0,
+        "m_iConditionItemID": 0,
+        "m_iEnableVillage": {
+          "0": null,
+          "1": 1000,
+          "2": 1001,
+          "3": 1002,
+          "4": 1003,
+          "5": 1004,
+          "6": 1005,
+          "7": 1006,
+          "8": 1007,
+          "9": 1008,
+          "10": 1500,
+          "11": 1501,
+          "12": 1503,
+          "13": 20000,
+          "14": 20001,
+          "15": 20002,
+          "16": 20003,
+          "17": 20004,
+          "18": 20005,
+          "19": 20006,
+          "20": 20007,
+          "21": 20008,
+          "22": 20009,
+          "23": 20010,
+          "24": 20011,
+          "25": 20012,
+          "26": 20013
+        },
+        "m_iEnableField": {
+          "0": null,
+          "1": 40000,
+          "2": 40001,
+          "3": 40010,
+          "4": 40011,
+          "5": 40012,
+          "6": 40013,
+          "7": 40014,
+          "8": 40015,
+          "9": 40016,
+          "10": 40017,
+          "11": 40018,
+          "12": 40019,
+          "13": 40020,
+          "14": 40021,
+          "15": 40022,
+          "16": 40023,
+          "17": 40024,
+          "18": 40025,
+          "19": 40029,
+          "20": 40030,
+          "21": 40031,
+          "22": 40032,
+          "23": 40035,
+          "24": 40036,
+          "25": 40037
+        },
+        "m_iEnableDungeon": {},
+        "m_eUnitType": {
+          "1": 0
+        },
+        "m_eUnitClass": {
+          "1": 0
+        },
+        "m_vecBeforeQuestID": {}
+      },
+      "m_vecSubQuest": {
+        "0": null,
+        "1": 52701,
+        "2": 52702
+      },
+      "m_vecSubQuest_Group": {
+        "1": {
+          "0": null,
+          "1": 52701,
+          "2": 52702
+        }
+      },
+      "Reward": {
+        "m_iSP": 0,
+        "m_iBuff": 0,
+        "m_iEP": 0,
+        "m_iED": 0,
+        "m_iEXP": 0,
+        "m_bEnable": 1,
+        "m_eChangeUnitClass": 0
+      },
+      "SelectReward": {
+        "m_iSelectionCount": 1
+      }
     }
   },
   "subquests": {
@@ -70695,6 +70811,24 @@
       "m_ClearCondition": {
         "m_iCollectionItemID": 118357,
         "m_iCollectionItemNum": 400
+      }
+    },
+    "52701": {
+      "m_iID": 52701,
+      "m_eClearType": 121,
+      "m_bAutomaticDescription": 0,
+      "m_ClearCondition": {
+        "m_iClearCount": 500
+      }
+    },
+    "52702": {
+      "m_iID": 52702,
+      "m_eClearType": 81,
+      "m_bAutomaticDescription": 0,
+      "m_ClearCondition": {
+        "m_iClearCount": 1,
+        "m_iUnitClassType": 1,
+        "m_iTranscendentalClassType": null
       }
     }
   },
