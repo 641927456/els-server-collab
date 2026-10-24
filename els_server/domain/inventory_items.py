@@ -754,6 +754,13 @@ if (hashlib.sha256(_contract26780_item['record']).hexdigest()!='3e05e84442189cbc
 if 713275 in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[713275],TEMPLATE_BAG_GROUPS[713275],TEMPLATE_MAX_STACKS[713275])!=(0,4,1):raise ValueError('Conflicting contract26780 reader')
 VERIFIED_TEMPLATES[713275]=0;TEMPLATE_BAG_GROUPS[713275]=4;TEMPLATE_MAX_STACKS[713275]=1
 
+# Finite current guild creation license and original35630 reward readers.
+# Their acquisition and membership writers require their own qualification.
+from els_server.domain.guild_membership_items import definitions as _guild_item_definitions
+for _guild_item in _guild_item_definitions():
+ _t=_guild_item['template'];_expected=tuple(_guild_item[k] for k in ('metadata','group','max_stack'))
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting finite guild item reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
 # Four exact original fishing readers; no source, timer or reward production.
 from els_server.domain.fishing_equipment import definition as _life_definition
 for _life_template in (135928,135929,135931):

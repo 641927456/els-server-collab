@@ -72,6 +72,9 @@ def handle(s,event,sequence):
         from els_server.domain.account_fishing25600 import handle as fishing_handle
         fishing_reply=fishing_handle(s,event,sequence)
         if fishing_reply is not None:return fishing_reply
+        from els_server.domain.guild_task_flow import dialogue as guild_dialogue
+        guild_reply=guild_dialogue(s,event,sequence)
+        if guild_reply is not None:return guild_reply
         from els_server.domain.town_dialogue import handle as town_dialogue_handle
         town_reply=town_dialogue_handle(s,event,sequence)
         if town_reply is not None:return town_reply
@@ -85,12 +88,20 @@ def handle(s,event,sequence):
         from els_server.domain.account_fishing_tasks import actor_binding,current_actor,actor_guard
         try:fishing_binding=actor_binding(s)
         except(ValueError,AttributeError,KeyError,TypeError):return []
+    guild_reply_guard=None
+    if qid==35630:
+        from els_server.domain.guild_license_flow import reply_capture, guarded_reply
+        guild_reply_guard=reply_capture(s)
+        if guild_reply_guard is None:return []
     skip_binding=None
     def current_skip_binding():
         run=s.dungeon_run
         return (s.account,s.account.store,s.account.uid,s.account.account_id,s.shop_session_id,s.phase,
                 s.active_map,s.account.get_location()['map'],s.dungeon_id,run,None if run is None else run.identity)
     def failure(result=wire.QUEST_REWARD_UNAVAILABLE):
+        if qid==35630:return guarded_reply(guild_reply_guard,lambda:failure_events(result))
+        return failure_events(result)
+    def failure_events(result):
         if fishing_binding is not None:
             if not current_actor(s,fishing_binding):return []
             try:
@@ -119,6 +130,9 @@ def handle(s,event,sequence):
         kind={0xee:'accept',0xfa:'abandon',0xf4:'claim'}[event.kind]
         from els_server.domain.epic_skip import requested as skip_requested
         selected_store=store(s)
+        if qid==35630:
+            from els_server.domain.guild_task_flow import guarded_store
+            selected_store=guarded_store(s)
         if fishing_binding is not None:selected_store.account_source_guard=actor_guard(s,fishing_binding)
         if kind=='claim' and skip_requested(request):
             if not account_source_actor(s):return []
@@ -294,7 +308,7 @@ def observe(s,replies=()):
         rows=store(s).collection_snapshot();current={};changed=[]
         old=previous[1] if previous is not None and previous[0]==owner else {}
         for row in rows:
-            signature=(row['generation'],{sub['m_iID']:row['objectives'][sub['m_iID']] for sub in quest_catalog().objectives(row['id']) if sub['m_eClearType'] in (3,31,80,81,110,121)})
+            signature=(row['generation'],{sub['m_iID']:row['objectives'][sub['m_iID']] for sub in quest_catalog().objectives(row['id']) if sub['m_eClearType'] in (3,31,38,80,81,110,121)})
             current[row['id']]=signature
             if row['id'] in old and old[row['id']]!=signature:changed.append(row)
         if changed:notices.append(wire.progress(changed))

@@ -73,6 +73,8 @@ def load_character(db,uid,account_id=None):
             from els_server.storage.resonance_state import snapshot as resonance_snapshot
             from els_server.storage.profession_state import snapshot as profession_snapshot
             row['resonance']=resonance_snapshot(db,uid,saved_owner[0])
+            from els_server.storage.guild_membership_state import snapshot as guild_snapshot
+            row['guild_membership']=guild_snapshot(db,uid,saved_owner[0])
             from els_server.storage.el_search_collection import snapshot as collection_snapshot
             collection=collection_snapshot(db,uid,saved_owner[0])
             if collection is not None:row['el_search_collection']=collection
@@ -110,6 +112,9 @@ def _state(db,uid,items):
                 # cannot satisfy a level objective. No level/EXP mutation.
                 if level is None:level=db.execute('SELECT level FROM characters WHERE uid=?',(uid,)).fetchone()[0]
                 counts[s['m_iID']]=int(level>=s['m_ClearCondition']['m_iCharLevel'])
+            if s['m_eClearType']==38:
+                from els_server.domain.guild_task35630 import joined
+                counts[s['m_iID']]=joined(db,uid,q,s)
             if s['m_eClearType']==81:
                 from els_server.domain.tutorial_progression import career_progress
                 if career is None:career=load_character(db,uid)
@@ -162,7 +167,7 @@ class QuestState:
             db.execute('BEGIN');load_character(db,self.uid,self.account_id)
             if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_quests'").fetchone():return []
             identities={qid for qid,at,g,raw in erp_scope.active_rows(db,self.uid)
-                        if any(s['m_eClearType'] in (3,31,80,81,110,121) for s in quest_catalog().objectives(qid))}
+                        if any(s['m_eClearType'] in (3,31,38,80,81,110,121) for s in quest_catalog().objectives(qid))}
             if not identities:return []
             return [row for row in _state(db,self.uid,load_items(db,self.uid))['active'] if row['id'] in identities]
 
@@ -181,6 +186,9 @@ class QuestState:
             self.account_source_guard(db)
         with _progress_connection(self.path,transaction) as db:
             character=load_character(db,uid,self.account_id)
+            if qid==35630:
+                from els_server.domain.guild_task35630 import action_guard as guild_action_guard
+                guild_action_guard(self,db,kind,request)
             if skipping:skip_guard(db)
             ensure(db)
             if qid==52700:
@@ -213,7 +221,7 @@ class QuestState:
                         # including abandon/reaccept within one wall-clock second.
                         from els_server.domain.town_dialogue import catalog as town_catalog
                         from els_server.domain.mainline_find_npc import catalog as find_catalog
-                        generation=now if qid not in (25600,25601,25602) and str(qid) not in town_catalog()['quests'] and qid not in find_catalog()['quest_ids'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
+                        generation=now if qid not in (25600,25601,25602) and qid!=35630 and str(qid) not in town_catalog()['quests'] and qid not in find_catalog()['quest_ids'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
                         erp_scope.insert_active(db,uid,qid,now,generation,json.dumps(counts,sort_keys=True))
                 elif kind=='abandon':
                     if done:raise ValueError('Completed quest cannot be abandoned')
@@ -320,8 +328,13 @@ class QuestState:
             # encodable before SQL commit. No stale receipt inventory deltas.
             if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
             if skipping:skip_guard(db)
+            if qid==35630:guild_action_guard(self,db,kind,request)
             if qid==52700:collection_before_action(db,uid,self.account_id,kind,self.account_source_guard)
             result['events']=encode(result)
+            if qid==35630:
+                from els_server.protocol.protocol_codec import encode_event
+                for event in result['events']:encode_event(event)
+                guild_action_guard(self,db,kind,request)
             if qid==52700:collection_before_action(db,uid,self.account_id,kind,self.account_source_guard)
             if skipping:skip_guard(db)
             if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)

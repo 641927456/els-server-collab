@@ -91,6 +91,13 @@ class QuestCatalog:
                 identity=int(raw_id)
                 if identity in dest and dest[identity]!=value:raise ValueError('Conflicting original fishing followup source')
                 dest[identity]=value
+        from els_server.domain.guild_task35630 import catalog as guild_task_catalog
+        guild_task=guild_task_catalog()
+        for dest,key in ((self.quests,'quests'),(self.subquests,'subquests')):
+            for raw_id,value in guild_task[key].items():
+                identity=int(raw_id)
+                if identity in dest and dest[identity]!=value:raise ValueError('Conflicting finite guild source')
+                dest[identity]=value
         for q in self.quests.values():
             if q['m_bRepeat'] or q['m_bIsTimeEvent']:raise ValueError('Unsupported quest schedule')
             from els_server.domain.quest_selection import options
@@ -161,6 +168,9 @@ def target(sub):
         from els_server.domain.account_fishing_tasks import target as fishing_target
         return fishing_target(sub)
     c=sub['m_ClearCondition'];kind=sub['m_eClearType']
+    if sub.get('m_iID') in (35630,35631):
+        from els_server.domain.guild_task35630 import target as guild_target
+        return guild_target(sub)
     if kind==1:
         if sub.get('m_iID')==25600:
             from els_server.domain.account_fishing25600 import target as fishing_target

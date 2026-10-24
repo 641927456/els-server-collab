@@ -63,6 +63,8 @@ class LocalAccount:
             character['wardrobe_favorites']=favorite_snapshot(self.store.path,self.uid,self.account_id)
             from els_server.storage.resurrection_counter import snapshot as known_resurrection_count
             character['known_resurrection_count']=known_resurrection_count(self.store.path,self.uid)
+            from els_server.storage.guild_membership_state import cold as guild_membership_cold
+            character['guild_membership']=guild_membership_cold(self.store.path,self.uid,self.account_id)
         return character
     def for_character(self,uid):
         if self.characters is None:
@@ -411,6 +413,8 @@ class LocalSession:
         if self.account.characters is not None and any(e.kind==0x2a for e in reply):
             from els_server.domain.elixir_flow import cold as world_elixir_cold
             reply.extend(world_elixir_cold(self))
+            from els_server.domain.guild_membership_flow import cold as guild_membership_cold
+            reply.extend(guild_membership_cold(self))
             from els_server.domain.avatar_set_flow import initialization as avatar_set_initialization
             reply.extend(avatar_set_initialization(self,reply))
             from els_server.domain.dungeon_rotation import notification
@@ -959,6 +963,12 @@ class LocalSession:
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
             try:return sell(self.account.store.path,self.account.uid,event.payload,operation,self.npc_history_id)
             except ValueError:return sale_failed()
+        from els_server.domain.guild_membership_flow import handle as guild_membership_handle
+        guild_membership_reply=guild_membership_handle(self,event,request_sequence)
+        if guild_membership_reply is not None:return guild_membership_reply
+        from els_server.domain.guild_license_flow import handle as guild_license_handle
+        guild_license_reply=guild_license_handle(self,event,request_sequence)
+        if guild_license_reply is not None:return guild_license_reply
         if self.item_test and self.client_build=='dx11_260923' and kind in (0xea,0x567) and event.event_id==0x202:
             from els_server.protocol.npc_trade_messages import purchase_ack,repurchase_ack
             from els_server.storage.npc_trade import purchase,repurchase
