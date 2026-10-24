@@ -50,6 +50,9 @@ def handle(s,event):
  if event.kind==0xad:
   try:d=death_report(event.payload)
   except ValueError:return []
+  from els_server.domain.hunter_chest_flow import accepted_death as hunter_death
+  hunter_reply=hunter_death(s,event)
+  if hunter_reply is not None:return hunter_reply
   from els_server.domain.lithia_memory1_retirements import handle as memory1_retirement
   retired=memory1_retirement(s,event,d)
   if retired is not None:return retired
@@ -93,7 +96,8 @@ def handle(s,event):
    from els_server.protocol.dungeon_messages import initial_part,begin_substage
    reply.extend([Event(0x201,kind=0xb6,payload=bytes(16)),initial_part(run.part),begin_substage(run.part,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))])
    s.dungeon_substage_synced=True;s.gate_stage_loading=False;s.dungeon_clock.resume();run.loaded()
-  return reply+periodic(s)
+  from els_server.domain.hunter_chest_flow import solo_loaded
+  return reply+solo_loaded(s,event)+periodic(s)
  if event.kind==0xbb:
   if len(event.payload)!=1:return []
   part=struct.unpack('>b',event.payload)[0]
@@ -123,7 +127,8 @@ def handle(s,event):
    from els_server.protocol.dungeon_messages import initial_part,begin_substage
    reply.extend([initial_part(run.part),begin_substage(run.part,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))])
    s.dungeon_clock.resume();run.loaded()
-  return reply+periodic(s)
+  from els_server.domain.hunter_chest_flow import solo_loaded
+  return reply+solo_loaded(s,event)+periodic(s)
  return None
 
 def finish_death(s,event,npc,d,expired,notice):
