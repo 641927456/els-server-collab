@@ -704,3 +704,10 @@ for _t,_digest,_flags in ((136034,'4376af863bbe3005333d2e4f2673780bc2a350bbd707f
  if (hashlib.sha256(_item['record']).hexdigest()!=_digest or (_item['item_type'],_item['metadata'],_item['flags4'],_item['flags8'],struct.unpack_from('<I',_item['record'],0x10)[0])!=(7,0,_flags,56,0)):raise ValueError('Original26750 reward item source')
  if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=(0,4,1):raise ValueError('Conflicting original26750 reward reader')
  VERIFIED_TEMPLATES[_t]=0;TEMPLATE_BAG_GROUPS[_t]=4;TEMPLATE_MAX_STACKS[_t]=1
+
+# Original26780 reward only: unused singleton713275, no housing/use state.
+from els_server.game_data import client_data as _contract26780_client_data
+_contract26780_item=_contract26780_client_data().item(713275)
+if (hashlib.sha256(_contract26780_item['record']).hexdigest()!='3e05e84442189cbcd865e68a457cc7774aaa95d15bc45046fd90f23fb89977a1' or (_contract26780_item['item_type'],_contract26780_item['metadata'],_contract26780_item['flags4'],_contract26780_item['flags8'],struct.unpack_from('<I',_contract26780_item['record'],0x10)[0])!=(7,0,4198410,56,0)):raise ValueError('Original26780 reward item source')
+if 713275 in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[713275],TEMPLATE_BAG_GROUPS[713275],TEMPLATE_MAX_STACKS[713275])!=(0,4,1):raise ValueError('Conflicting contract26780 reader')
+VERIFIED_TEMPLATES[713275]=0;TEMPLATE_BAG_GROUPS[713275]=4;TEMPLATE_MAX_STACKS[713275]=1
