@@ -594,6 +594,10 @@ class LocalSession:
 
                     or not remote_pickup_enabled(self.account.store.path,self.account.uid)):return []
 
+        from els_server.domain.hunter_chest_flow import claim as hunter_claim
+        hunter_reply=hunter_claim(self,request,drop)
+        if hunter_reply is not None:return hunter_reply
+
         from els_server.domain.dungeon_equipment_loot_rules import TEMPLATES as EQUIPMENT_LOOT_TEMPLATES
 
         from els_server.domain.dungeon_source_loot import POLICY as SOURCE_LOOT_POLICY

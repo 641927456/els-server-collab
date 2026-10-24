@@ -53,6 +53,9 @@ def handle(s,event):
   # Finite static-controller adapters must not consume an already admitted
   # dynamic actor's original expiry. Retain the existing expiry decoder and
   # exact server-allocated identity; zero is never an alias for another actor.
+  from els_server.domain.hunter_chest_flow import accepted_death as hunter_death
+  hunter_reply=hunter_death(s,event)
+  if hunter_reply is not None:return hunter_reply
   actor=next((n for n in run.current['npcs'] if n['key']==d['index']),None)
   from els_server.domain.summons import valid_sentry_death
   dynamic_expiry=actor is not None and actor.get('dynamic') and valid_sentry_death(d,s.account.uid)
@@ -106,7 +109,8 @@ def handle(s,event):
    from els_server.protocol.dungeon_messages import initial_part,begin_substage
    reply.extend([Event(0x201,kind=0xb6,payload=bytes(16)),initial_part(run.part),begin_substage(run.part,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))])
    s.dungeon_substage_synced=True;s.gate_stage_loading=False;s.dungeon_clock.resume();run.loaded()
-  return reply+periodic(s)
+  from els_server.domain.hunter_chest_flow import solo_loaded
+  return reply+solo_loaded(s,event)+periodic(s)
  if event.kind==0xbb:
   if len(event.payload)!=1:return []
   part=struct.unpack('>b',event.payload)[0]
@@ -136,7 +140,8 @@ def handle(s,event):
    from els_server.protocol.dungeon_messages import initial_part,begin_substage
    reply.extend([initial_part(run.part),begin_substage(run.part,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))])
    s.dungeon_clock.resume();run.loaded()
-  return reply+periodic(s)
+  from els_server.domain.hunter_chest_flow import solo_loaded
+  return reply+solo_loaded(s,event)+periodic(s)
  return None
 
 def finish_death(s,event,npc,d,expired,notice):
