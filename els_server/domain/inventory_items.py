@@ -793,3 +793,10 @@ _life_potion=_life_potion_data().item(135953)
 if (hashlib.sha256(_life_potion['record']).hexdigest()!='77c91092e1ed47958b423f0a3d8123f9f5eae59a2987e49b935e8f6dd2011650' or (_life_potion['item_type'],_life_potion['metadata'],_life_potion['flags4'],_life_potion['flags8'],struct.unpack_from('<I',_life_potion['record'],0x10)[0])!=(7,2,573575178,56,300)):raise ValueError('Original25602 reward reader source')
 if 135953 in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[135953],TEMPLATE_BAG_GROUPS[135953],TEMPLATE_MAX_STACKS[135953])!=(2,4,300):raise ValueError('Conflicting original25602 reward reader')
 VERIFIED_TEMPLATES[135953]=2;TEMPLATE_BAG_GROUPS[135953]=4;TEMPLATE_MAX_STACKS[135953]=300
+
+# Exact existing El Essence: current KIM stack1000; old quest reward singleton
+# was a bounded issuance amount, not this item's native stacking limit.
+_essence=_smith_client_data().item(130208)
+if (hashlib.sha256(_essence["record"]).hexdigest(),_essence["item_type"],_essence["metadata"],struct.unpack_from("<I",_essence["record"],0x10)[0])!=("def908d624a81559b11442227ffde76f36174a71b6ca42d82d35f89ed02e4cb1",7,2,1000):raise ValueError("Current El Essence source")
+if (VERIFIED_TEMPLATES[130208],TEMPLATE_BAG_GROUPS[130208])!=(2,4):raise ValueError("El Essence inventory classification")
+TEMPLATE_MAX_STACKS[130208]=1000
