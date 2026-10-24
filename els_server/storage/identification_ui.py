@@ -40,7 +40,8 @@ def perform(path,owner,kind,payload,operation,randbelow=secrets.randbelow,*,acco
   else:
    if identified:raise ValueError('Identify requires an unidentified item, not a free reroll')
    from els_server.domain.artifact_identification import supported,identify_values
-   updated={**previous,'1':identify_values(item['template'],previous.get('1',[]),randbelow) if supported(item['template']) else [draw_for_template(item['template'],randbelow(10000))]};flag=True
+   from els_server.domain.identification_ui import slot_count
+   updated={**previous,'1':identify_values(item['template'],previous.get('1',[]),randbelow) if supported(item['template']) else [draw_for_template(item['template'],randbelow(10000)) for _ in range(slot_count(item['template']))]};flag=True
   if kind==0x438 and item['template'] in (168915,168916,168917,168918) and not previous.get('31'):
    from els_server.domain.artifact_conversion import draw as conversion_draw
    updated['31']=conversion_draw([0,0,0],{},randbelow)
