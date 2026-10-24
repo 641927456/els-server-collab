@@ -1096,6 +1096,18 @@ class LocalSession:
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
             try:return sort_category_inventory(self.account.store.path,self.account.uid,event.payload,operation)
             except ValueError:return category_failed()
+        if kind==0x51c:
+            from els_server.protocol.wardrobe_messages import opening_request
+            from els_server.domain.avatar_set_flow import context,validate
+            from els_server.storage.wardrobe import opening_info
+            if (not self.item_test or self.client_build!='dx11_260923' or event.event_id!=0x202
+                or self.role!='game' or self.phase!='town_ready' or type(request_sequence)is not int
+                or not 1<=request_sequence<2**32 or event.performers
+                or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):return []
+            try:
+                opening_request(event.payload);captured=context(self)
+                return opening_info(self.account.store.path,self.account.uid,self.account.account_id,validate=lambda:validate(self,captured))
+            except ValueError:return []
         if self.item_test and self.client_build=='dx11_260923' and kind==0x563 and event.event_id==0x202:
             from els_server.protocol.wardrobe_messages import ticket_information
             if (self.role!='game' or self.phase not in ('player_initialized','skill_ui_ready','initialization_confirmed','map_loading','square_accepted','town_ready')or event.performers!=(0,)

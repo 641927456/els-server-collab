@@ -340,3 +340,25 @@ def points_notification(db,owner,account_id):
 def point_initialization(path,owner,account_id):
     with closing(sqlite3.connect(path,timeout=10))as db:
         db.execute('BEGIN');return points_notification(db,owner,account_id)
+
+def opening_info(path,owner,account_id,*,validate=lambda:None):
+    """Current identity, existing registry integrity and normal UI restrictions.
+
+    This profile configures no additional time-control UI bans. The normal
+    legacy builder's empty restriction set is the actual default, not an
+    ownership grant. Existing registry and all writer admission remain intact.
+    """
+    from pathlib import Path
+    from els_server.protocol.wardrobe_messages import opening_information
+    from els_server.protocol.protocol_codec import encode_event
+    owner=character_uid(owner)
+    if type(account_id)is not int or not 0<account_id<2**63:raise ValueError('Wardrobe opening account')
+    with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=ro',uri=True,timeout=10))as db:
+        db.execute('PRAGMA query_only=ON');db.execute('BEGIN');validate()
+        if db.execute('SELECT c.uid FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(owner,account_id)).fetchone()is None:
+            raise ValueError('Wardrobe opening current owner')
+        if present(db,'character_lifecycle'):
+            state=db.execute('SELECT requested_at,finalized_at FROM character_lifecycle WHERE uid=?',(owner,)).fetchone()
+            if state and any(state):raise ValueError('Wardrobe opening deleted owner')
+        counts(db,owner,account_id);favorites(db,owner,account_id)
+        event=opening_information();encode_event(event);validate();return [event]
