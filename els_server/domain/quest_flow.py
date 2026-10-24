@@ -69,6 +69,12 @@ def collection_source_guard(s):
 
 def handle(s,event,sequence):
     if event.event_id==0x202 and event.kind==0xfd and enabled(s):
+        from els_server.domain.account_fishing25600 import handle as fishing_handle
+        fishing_reply=fishing_handle(s,event,sequence)
+        if fishing_reply is not None:return fishing_reply
+        from els_server.domain.guild_task_flow import dialogue as guild_dialogue
+        guild_reply=guild_dialogue(s,event,sequence)
+        if guild_reply is not None:return guild_reply
         from els_server.domain.town_dialogue import handle as town_dialogue_handle
         town_reply=town_dialogue_handle(s,event,sequence)
         if town_reply is not None:return town_reply
@@ -76,15 +82,40 @@ def handle(s,event,sequence):
         return dialogue_handle(s,event,sequence)
     if event.event_id!=0x202 or event.kind not in (0xee,0xfa,0xf4) or not enabled(s):return None
     qid=struct.unpack_from('>i',event.payload)[0] if len(event.payload)>=4 else 0
-    if qid in (26780,37100,53500,53510,53520,53530,54600,52700) and not account_source_actor(s):return []
+    if qid in (25600,25601,25602,26780,37100,53500,53510,53520,53530,54600,52700) and not account_source_actor(s):return []
+    fishing_binding=None
+    if qid in(25600,25601,25602):
+        from els_server.domain.account_fishing_tasks import actor_binding,current_actor,actor_guard
+        try:fishing_binding=actor_binding(s)
+        except(ValueError,AttributeError,KeyError,TypeError):return []
+    guild_reply_guard=None
+    if qid==35630:
+        from els_server.domain.guild_license_flow import reply_capture, guarded_reply
+        guild_reply_guard=reply_capture(s)
+        if guild_reply_guard is None:return []
     skip_binding=None
     def current_skip_binding():
         run=s.dungeon_run
         return (s.account,s.account.store,s.account.uid,s.account.account_id,s.shop_session_id,s.phase,
                 s.active_map,s.account.get_location()['map'],s.dungeon_id,run,None if run is None else run.identity)
     def failure(result=wire.QUEST_REWARD_UNAVAILABLE):
+        if qid==35630:return guarded_reply(guild_reply_guard,lambda:failure_events(result))
+        return failure_events(result)
+    def failure_events(result):
+        if fishing_binding is not None:
+            if not current_actor(s,fishing_binding):return []
+            try:
+                if event.kind==0xee:events=[wire.accept_ack(result)]
+                elif event.kind==0xfa:events=[initialization(s)]
+                else:
+                    snapshot=s.account.get_inventory_snapshot()
+                    events=[wire.reward_ack(qid,s.account.character(),s.account.get_location(),s.account.get_skills(),snapshot['balances'],snapshot['items'],result=result)]
+                from els_server.protocol.protocol_codec import encode_event
+                for reply in events:encode_event(reply)
+                return events if current_actor(s,fishing_binding)else[]
+            except(ValueError,AttributeError,KeyError,TypeError):return []
         if skip_binding is not None and (not account_source_actor(s) or current_skip_binding()!=skip_binding):return []
-        if qid in (26780,37100,53500,53510,53520,53530,54600,52700) and not account_source_actor(s):return []
+        if qid in (25600,25601,25602,26780,37100,53500,53510,53520,53530,54600,52700) and not account_source_actor(s):return []
         if event.kind==0xee:return [wire.accept_ack(result)]
         if event.kind==0xfa:return [initialization(s)]
         snapshot=s.account.get_inventory_snapshot()
@@ -99,10 +130,15 @@ def handle(s,event,sequence):
         kind={0xee:'accept',0xfa:'abandon',0xf4:'claim'}[event.kind]
         from els_server.domain.epic_skip import requested as skip_requested
         selected_store=store(s)
+        if qid==35630:
+            from els_server.domain.guild_task_flow import guarded_store
+            selected_store=guarded_store(s)
+        if fishing_binding is not None:selected_store.account_source_guard=actor_guard(s,fishing_binding)
         if kind=='claim' and skip_requested(request):
             if not account_source_actor(s):return []
             skip_binding=current_skip_binding()
             def guarded_skip(db):
+                if fishing_binding is not None:actor_guard(s,fishing_binding)(db)
                 if not account_source_actor(s) or current_skip_binding()!=skip_binding:
                     raise ValueError('Retired Epic skip actor/session')
                 account_source_guard(s,db)
@@ -279,7 +315,7 @@ def observe(s,replies=()):
         rows=store(s).collection_snapshot();current={};changed=[]
         old=previous[1] if previous is not None and previous[0]==owner else {}
         for row in rows:
-            signature=(row['generation'],{sub['m_iID']:row['objectives'][sub['m_iID']] for sub in quest_catalog().objectives(row['id']) if sub['m_eClearType'] in (3,31,80,81,110,121)})
+            signature=(row['generation'],{sub['m_iID']:row['objectives'][sub['m_iID']] for sub in quest_catalog().objectives(row['id']) if sub['m_eClearType'] in (3,31,38,80,81,110,121)})
             current[row['id']]=signature
             if row['id'] in old and old[row['id']]!=signature:changed.append(row)
         if changed:notices.append(wire.progress(changed))

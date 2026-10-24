@@ -5,6 +5,7 @@ Modes 0/2/4 also match original semantic DTOs and real network requests.
 This decoder grants nothing; the server validates issued identity/ownership.
 """
 from els_server.domain.hunter_chest_rules import ground_templates
+from els_server.domain.fishing_bait_loot import TEMPLATES as BAIT_TEMPLATES
 from els_server.paths import PROJECT_ROOT
 import functools
 import hashlib
@@ -56,7 +57,7 @@ def decode_mode(payload,mode):
             if template in MATERIAL_TEMPLATES:material_descriptor(template)
             from els_server.domain.dungeon_source_loot import TEMPLATES as SOURCE_TEMPLATES,descriptor as source_descriptor
             if template in SOURCE_TEMPLATES:source_descriptor(template)
-            if template not in GROUND_TEMPLATES|EQUIPMENT_LOOT_TEMPLATES|NORMAL_LOOT_TEMPLATES|SOURCE_TEMPLATES|ground_templates() or hashlib.sha256(struct.pack('>I',77000)+body[4:]).hexdigest()!=BODY_SHA:
+            if template not in GROUND_TEMPLATES|EQUIPMENT_LOOT_TEMPLATES|NORMAL_LOOT_TEMPLATES|SOURCE_TEMPLATES|ground_templates()|BAIT_TEMPLATES or hashlib.sha256(struct.pack('>I',77000)+body[4:]).hexdigest()!=BODY_SHA:
                 raise ValueError('Unverified native pickup request body')
             v['template']=template
             cursor+=320

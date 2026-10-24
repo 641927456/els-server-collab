@@ -44,7 +44,7 @@ def active_record(row):
     limits={s['m_iID']:target(s) for s in quest_catalog().objectives(row['id'])}
     # D01840/D01640 consume the final byte as authoritative completion for
     # kill/clear objectives; count alone does not enable the reward button.
-    return struct.pack('>iQQI',row['id'],character_uid(row['owner']),0,len(objectives))+b''.join(struct.pack('>iHB',s,n,int(n>=limits[s])) for s,n in sorted(objectives.items()))
+    return struct.pack('>iQQI',row['id'],character_uid(row.get('projection_owner',row['owner']) if row['id'] in (25600,25601,25602) else row['owner']),0,len(objectives))+b''.join(struct.pack('>iHB',s,n,int(n>=limits[s])) for s,n in sorted(objectives.items()))
 
 def completed_record(row):return struct.pack('>iiQQ',row['id'],1,row['completed_at'],0)
 

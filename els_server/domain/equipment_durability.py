@@ -33,7 +33,10 @@ def evidence():
 
 def maximum(template):
     evidence()
-    if template not in definitions():raise ValueError('Unverified durability equipment')
+    if template in (135928,135929,135931):
+        from els_server.domain.fishing_equipment import definition
+        definition(template)
+    elif template not in definitions():raise ValueError('Unverified durability equipment')
     value=struct.unpack_from('<h',client_data().item(template)['record'],0xc8)[0]
     if not 0<value<=32767:raise ValueError('Native durability maximum')
     return value

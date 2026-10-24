@@ -63,6 +63,8 @@ class LocalAccount:
             character['wardrobe_favorites']=favorite_snapshot(self.store.path,self.uid,self.account_id)
             from els_server.storage.resurrection_counter import snapshot as known_resurrection_count
             character['known_resurrection_count']=known_resurrection_count(self.store.path,self.uid)
+            from els_server.storage.guild_membership_state import cold as guild_membership_cold
+            character['guild_membership']=guild_membership_cold(self.store.path,self.uid,self.account_id)
         return character
     def for_character(self,uid):
         if self.characters is None:
@@ -240,11 +242,13 @@ class LocalSession:
         return dungeon_messages.return_user_sync(self.account.get_location(),self.account.get_skills(),snapshot['balances'],snapshot['items'],character,inventory_updates=updates)
 
     def periodic_notifications(self):
+        from els_server.domain.fishing_attempt import periodic as fishing_periodic
+        fishing_notices=fishing_periodic(self)
         from els_server.domain.dungeon_flow import periodic
         from els_server.domain.quest_flow import observe
         from els_server.domain.mount_flow import periodic as mount_periodic
         from els_server.domain.title_flow import periodic as title_periodic
-        messages=self.expiration_notifications()+self._periodic_notifications()+periodic(self)+mount_periodic(self)+title_periodic(self)
+        messages=fishing_notices+self.expiration_notifications()+self._periodic_notifications()+periodic(self)+mount_periodic(self)+title_periodic(self)
         answer=messages+observe(self,messages)
         from els_server.domain.resonance_flow import synchronize as resonance_sync
         answer=resonance_sync(self,answer)
@@ -342,6 +346,9 @@ class LocalSession:
             if (any(abs(a-b)>10.125 for a,b in zip(request['player_xyz'],request['drop_xyz']))
                     or not remote_pickup_enabled(self.account.store.path,self.account.uid)):return []
 
+        from els_server.domain.fishing_bait_loot import claim as bait_claim
+        bait_reply=bait_claim(self,request,drop)
+        if bait_reply is not None:return bait_reply
         from els_server.domain.hunter_chest_flow import claim as hunter_claim
         hunter_reply=hunter_claim(self,request,drop)
         if hunter_reply is not None:return hunter_reply
@@ -395,6 +402,8 @@ class LocalSession:
             from els_server.domain.town_travel_flow import capture_village1012_origin
             village1012_origin=capture_village1012_origin(self,event)
         reply=self._handle(event,request_sequence)
+        from els_server.domain.fishing_attempt import invalidate as invalidate_fishing
+        invalidate_fishing(self)
         if self.phase!='town_ready' or self.active_map!=20013:
             from els_server.domain.tenebros_storage_flow import abandon as abandon_shadow
             abandon_shadow(self)
@@ -404,6 +413,8 @@ class LocalSession:
         if self.account.characters is not None and any(e.kind==0x2a for e in reply):
             from els_server.domain.elixir_flow import cold as world_elixir_cold
             reply.extend(world_elixir_cold(self))
+            from els_server.domain.guild_membership_flow import cold as guild_membership_cold
+            reply.extend(guild_membership_cold(self))
             from els_server.domain.avatar_set_flow import initialization as avatar_set_initialization
             reply.extend(avatar_set_initialization(self,reply))
             from els_server.domain.dungeon_rotation import notification
@@ -439,6 +450,9 @@ class LocalSession:
         from els_server.domain.housing_access_flow import handle as housing_access_handle
         housing_access_reply=housing_access_handle(self,event,request_sequence)
         if housing_access_reply is not None:return housing_access_reply
+        from els_server.domain.fishing_attempt import handle as fishing_handle
+        fishing_reply=fishing_handle(self,event,request_sequence)
+        if fishing_reply is not None:return fishing_reply
         from els_server.domain.skill_page_shop_flow import handle as skill_page_shop_handle
         skill_page_shop_reply=skill_page_shop_handle(self,event,request_sequence)
         if skill_page_shop_reply is not None:return skill_page_shop_reply
@@ -949,6 +963,12 @@ class LocalSession:
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
             try:return sell(self.account.store.path,self.account.uid,event.payload,operation,self.npc_history_id)
             except ValueError:return sale_failed()
+        from els_server.domain.guild_membership_flow import handle as guild_membership_handle
+        guild_membership_reply=guild_membership_handle(self,event,request_sequence)
+        if guild_membership_reply is not None:return guild_membership_reply
+        from els_server.domain.guild_license_flow import handle as guild_license_handle
+        guild_license_reply=guild_license_handle(self,event,request_sequence)
+        if guild_license_reply is not None:return guild_license_reply
         if self.item_test and self.client_build=='dx11_260923' and kind in (0xea,0x567) and event.event_id==0x202:
             from els_server.protocol.npc_trade_messages import purchase_ack,repurchase_ack
             from els_server.storage.npc_trade import purchase,repurchase
@@ -1422,6 +1442,8 @@ class LocalSession:
                 # Restore the authenticated account keyboard preference after
                 # selection, preserving the established native 2A/399 timing.
                 answer.insert(1,key_bindings_initialization(self.account.get_bindings()))
+                from els_server.domain.fishing_attempt import initialize_login as initialize_life
+                answer=initialize_life(self,answer)
                 self.player_initialization_request=bytes(event.payload)
                 self.player_initialization_reply=tuple(answer)
             elif kind==0x6e9:answer=[Event(0x201,kind=0x6ea,payload=encode_layout(self.account.get_layout()))]
