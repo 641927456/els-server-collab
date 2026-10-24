@@ -248,6 +248,8 @@ class LocalSession:
         answer=messages+observe(self,messages)
         from els_server.domain.resonance_flow import synchronize as resonance_sync
         answer=resonance_sync(self,answer)
+        from els_server.domain.flask_flow import periodic as flask_periodic
+        answer+=flask_periodic(self)
         from els_server.domain.equipment_cartridge_flow import synchronize as cartridge_sync
         answer=cartridge_sync(self,answer)
         return self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
@@ -415,6 +417,8 @@ class LocalSession:
                 from els_server.protocol.title_messages import equipment as title_equipment
                 active=title_state(self.account.store.path,self.account.uid)['title']
                 if active:reply.append(title_equipment(active))
+        from els_server.domain.anvil_flow import synchronize as anvil_sync
+        reply=anvil_sync(self,reply)
         from els_server.domain.pet_progression_flow import observe as observe_pet_progression
         from els_server.domain.mount_flow import observe as observe_mount
         from els_server.domain.artifact_flow import observe as observe_artifact
@@ -484,6 +488,9 @@ class LocalSession:
         from els_server.domain.mail_flow import handle as mail_handle
         mail_reply=mail_handle(self,event)
         if mail_reply is not None:return mail_reply
+        from els_server.domain.anvil_flow import handle as anvil_handle
+        anvil_reply=anvil_handle(self,event,request_sequence)
+        if anvil_reply is not None:return anvil_reply
         from els_server.domain.manufacture_flow import handle as manufacture_handle
         manufacture_reply=manufacture_handle(self,event,request_sequence)
         if manufacture_reply is not None:return manufacture_reply
