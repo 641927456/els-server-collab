@@ -647,8 +647,8 @@ def item_body(item):
   elif off==0x3ac and 'enhancement_guarantee' in item:struct.pack_into('>i',data,wire,item['enhancement_guarantee'])
   elif off==0x34d:
    if 'identified'in item:data[wire]=0 if item['identified']else 2
-   elif item['template']==30603:
-    from els_server.domain.accessory_identification import initial_pending
+   else:
+    from els_server.domain.identification_ui import initial_pending
     if initial_pending(item):data[wire]=2
   elif off==0x3a7 and 'artifact_socket_open' in item:data[wire]=int(item['artifact_socket_open'])
   elif 0x3b0<=off<=0x3b3 and 'chip_tuning' in item:data[wire]=item['chip_tuning'][off-0x3b0]
