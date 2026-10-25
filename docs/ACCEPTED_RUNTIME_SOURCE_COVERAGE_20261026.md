@@ -32,3 +32,12 @@ are identified by hash only; this archive is not a standalone runtime package.
 
 V37/V38 launcher-source work and third-party PR #487 belong to their existing
 authors and are not included in this change. See issue #497.
+
+During synchronization both accepted channels advanced to
+`boss13100-native-resistance-20261026-v1`. The immutable v1 archive remains
+unchanged. `references/accepted-runtime-20261026-v2/manifest.json` appends only
+the three already accepted `raid_npc_stats` sources and binds the complete
+effective source digests for both successors. The same verifier checks the base
+and successor together; it does not repeat gameplay or installation tests.
+Original line endings and pre-existing whitespace are preserved in archived
+inputs because their accepted SHA256 contracts bind exact bytes.

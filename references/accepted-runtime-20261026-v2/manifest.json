@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "kind": "exact-accepted-source-successor",
+  "base_manifest": "references/accepted-runtime-20261026-v1/manifest.json",
+  "base_manifest_sha256": "2ddfb82b488b54fe1f2a46a364e8e4eeffcb7aac0f0067690fc2e4958b0651de",
+  "channels": {
+    "online": {
+      "release": "boss13100-native-resistance-20261026-v1",
+      "business_manifest_sha256": "f6ee2cef9def1391c6b77f9bfffee6b14fd7d5f7c4784e1af80e37238dabcf80",
+      "accepted_observation_seconds": 121.56382869999652,
+      "source_count": 895,
+      "effective_source_digest": "2933baaa4dd71b710efd6df6c110bf77a54b44e9c4ed9d549a0e24b794d37e7d",
+      "overrides": [
+        {
+          "path": "els_server/data/raid_npc_stats.json",
+          "archive": "shared/els_server/data/raid_npc_stats.json",
+          "size": 213689,
+          "sha256": "1d6aa3e128e6c2020c08af33c5a57ad8966742e9ea1a473970951169a491c99b",
+          "before_sha256": "13fb21652ab69a525ddf479ecf8837b0bb80e55e158ef20adbbca90b298d95d9"
+        },
+        {
+          "path": "els_server/data/raid_npc_stats.manifest.json",
+          "archive": "shared/els_server/data/raid_npc_stats.manifest.json",
+          "size": 206,
+          "sha256": "a14c182bc1f1b359d91404c09708c5c3cee189d0893da32c1f7db7c9cc3e6e1b",
+          "before_sha256": "412bdb3613912d32d9b3f2b4a404ba39932d4c63b91815c062e0ae88be1c16d8"
+        },
+        {
+          "path": "els_server/domain/raid_npc_stats.py",
+          "archive": "shared/els_server/domain/raid_npc_stats.py",
+          "size": 3193,
+          "sha256": "ef32c61f471f610cffe0a630665adf9e0dfb1206f2fcbc260dc07f21406c7bc1",
+          "before_sha256": "a8ed300bcb58e3e36d3c4ddbb9d89d5611ccde6f1bc445b8dfe2ddf02bfb2fe1"
+        }
+      ]
+    },
+    "local": {
+      "release": "local-boss13100-native-resistance-20261026-v1",
+      "business_manifest_sha256": "e07575fc7bc7eebec3b6a1c17476a98be4ef78482b070e38c6f0c8062ba52b83",
+      "accepted_observation_seconds": 124.32189939985983,
+      "source_count": 896,
+      "effective_source_digest": "2c34f2ee779f7cf4a44d71228ec8b29159ef3f83680c32680c1bcc864f888e71",
+      "overrides": [
+        {
+          "path": "els_server/data/raid_npc_stats.json",
+          "archive": "shared/els_server/data/raid_npc_stats.json",
+          "size": 213689,
+          "sha256": "1d6aa3e128e6c2020c08af33c5a57ad8966742e9ea1a473970951169a491c99b",
+          "before_sha256": "13fb21652ab69a525ddf479ecf8837b0bb80e55e158ef20adbbca90b298d95d9"
+        },
+        {
+          "path": "els_server/data/raid_npc_stats.manifest.json",
+          "archive": "shared/els_server/data/raid_npc_stats.manifest.json",
+          "size": 206,
+          "sha256": "a14c182bc1f1b359d91404c09708c5c3cee189d0893da32c1f7db7c9cc3e6e1b",
+          "before_sha256": "412bdb3613912d32d9b3f2b4a404ba39932d4c63b91815c062e0ae88be1c16d8"
+        },
+        {
+          "path": "els_server/domain/raid_npc_stats.py",
+          "archive": "shared/els_server/domain/raid_npc_stats.py",
+          "size": 3193,
+          "sha256": "ef32c61f471f610cffe0a630665adf9e0dfb1206f2fcbc260dc07f21406c7bc1",
+          "before_sha256": "a8ed300bcb58e3e36d3c4ddbb9d89d5611ccde6f1bc445b8dfe2ddf02bfb2fe1"
+        }
+      ]
+    }
+  },
+  "physical_source_files": 3,
+  "deployment_performed": false,
+  "gameplay_changes": 0,
+  "client_files_included": false,
+  "private_state_included": false
+}
