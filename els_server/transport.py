@@ -169,6 +169,14 @@ class GameServer:
                 if event.event_id==0x202 and event.kind==0x7d4 and len(event.payload)==8:
                     entry_mode,dungeon=struct.unpack('>ii',event.payload)
                     entry_fields=dict(entry_mode=entry_mode,dungeon=dungeon)
+                if event.event_id==0x202 and event.kind==0x58c:
+                    entry_fields=dict(town_warp_payload_bytes=len(event.payload),
+                        native_performers=event.performers,
+                        native_sentinel_uids=event.uid==event.target_uid==2**64-1,
+                        native_payload_mode=event.payload_mode)
+                    if len(event.payload)==7:
+                        destination,free,special,growth=struct.unpack('>i3B',event.payload)
+                        entry_fields.update(town_destination=destination,warp_flags=[free,special,growth])
                 run=getattr(business,'dungeon_run',None)
                 if (event.event_id==0x202 and event.kind==0xad and run is not None
                         and run.identity==35250
@@ -191,6 +199,12 @@ class GameServer:
                     before=business.phase
                     trace34320_before=dungeon34320_trace.before(business,event,frame.sequence)
                     messages=await self.application.call(business.handle,event,request_sequence=frame.sequence)
+                    if event.event_id==0x202 and event.kind==0x58c:
+                        results=[struct.unpack_from('>i',m.payload)[0] for m in messages
+                            if m.event_id==0x201 and m.kind==0x58d and len(m.payload)>=4]
+                        self.log('town_warp_diagnostic',connection=index,sequence=frame.sequence,
+                            phase=business.phase,results=results,
+                            rejection=getattr(business,'_town_warp_rejection',None))
                     dungeon34320_trace.after(trace34320_before,business,messages)
                     if before!=business.phase:
                         self.log('business_phase',connection=index,request=event.kind,before=before,after=business.phase)

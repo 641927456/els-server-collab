@@ -16,25 +16,27 @@ def _ordinary_binding(s):
 
 def handle(s,event,sequence):
     if event.event_id!=0x202 or event.kind!=0x58c:return None
+    s._town_warp_rejection=None
     if not (s.enter_town and s.item_test and s.client_build=='dx11_260923' and s.account.characters is not None):return []
     destination=struct.unpack_from('>i',event.payload)[0] if len(event.payload)>=4 else 0
     if destination==1012:return _handle_village1012(s,event,sequence)
-    def failure(requirement=None):
+    def failure(requirement=None,reason='ordinary_warp_context'):
+        s._town_warp_rejection=reason
         if not _ordinary_actor(s):return []
         return [wire.acknowledgement(destination,s.account.get_reward_balances()['ed'],
             result=653 if requirement is not None else -1,details=requirement.details if requirement is not None else (0,0,0,0))]
-    if not _ordinary_actor(s):return failure()
+    if not _ordinary_actor(s):return failure(reason='obsolete_actor')
     if (event.performers!=(0,) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0
-        or type(sequence) is not int or not 0<=sequence<2**64 or s.role!='game'):return failure()
+        or type(sequence) is not int or not 0<=sequence<2**64 or s.role!='game'):return failure(reason='native_envelope')
     pending=getattr(s,'town_warp_transition',None)
     if pending is not None:
         if (pending.get('actor_binding')==_ordinary_binding(s) and pending['payload']==event.payload
             and pending['sequence']==sequence and s.phase in ('map_loading','square_accepted')):
             return [Event(0x201,kind=0x58d,payload=pending['response'])]
-        return failure()
-    if s.phase!='town_ready' or s.dungeon_return_pending:return failure()
+        return failure(reason='another_warp_pending')
+    if s.phase!='town_ready' or s.dungeon_return_pending:return failure(reason='not_stable_town')
     source=s.account.get_location()['map']
-    if s.active_map!=source:return failure()
+    if s.active_map!=source:return failure(reason='active_saved_town_mismatch')
     binding=_ordinary_binding(s)
     account,store,uid,account_id,session_id=binding
     def authorize():
@@ -46,8 +48,8 @@ def handle(s,event,sequence):
         from els_server.storage.town_travel import travel
         operation=str(uuid.uuid5(uuid.UUID(s.shop_session_id),f'town-warp:{s.account.uid}:{sequence}'))
         result=travel(store.path,uid,account_id,source,event.payload,operation,now=int(time.time()),authorize=authorize)
-    except DestinationRequirementError as error:return failure(error)
-    except (ValueError,OverflowError):return failure()
+    except DestinationRequirementError as error:return failure(error,reason=str(error))
+    except (ValueError,OverflowError) as error:return failure(reason=str(error))
     with s.account.lock:s.account.location=s.account.store.load()
     s.town_warp_transition=dict(destination=destination,payload=event.payload,sequence=sequence,response=result['response'],operation=operation,actor_binding=binding)
     s.phase='map_loading';s.pending_map=None;s.inventory_town_sync_sent=False
