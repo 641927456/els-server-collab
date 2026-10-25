@@ -71,7 +71,7 @@ class EnchantData:
         if type(item_id) is not int:raise ValueError('Scroll identity')
         try:row=copy.deepcopy(self._scrolls[item_id])
         except KeyError:raise ValueError('Unknown enchant scroll') from None
-        return dict(definition=row,item_present=item_id not in self._missing,activation_implemented=False)
+        return dict(definition=row,item_present=item_id not in self._missing,activation_implemented=item_id in (130149,130150,130151,130152))
 
 @functools.lru_cache(maxsize=1)
 def enchant_data():return EnchantData()
