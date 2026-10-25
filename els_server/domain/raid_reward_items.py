@@ -19,7 +19,11 @@ def catalog():
  return d
 
 def definitions():return tuple(catalog()['items'])
-def boxes():return catalog()['boxes']
+def boxes():
+ from els_server.domain.formal_pve_economy import policy as ordinary_policy
+ result=dict(catalog()['boxes']);extra=ordinary_policy()['native_bundle_boxes']
+ if set(result)&set(extra):raise ValueError('Conflicting exact native bundle identity')
+ return {**result,**extra}
 def source_only_templates():
  # Existing generic grants remain closed for new readers, Cartridge materials,
  # black fragments and original owned-only accessory readers. Other already
@@ -27,7 +31,8 @@ def source_only_templates():
  from els_server.domain.equipment_circuit_rules import catalog as circuit_catalog
  from els_server.game_data import client_data
  c=client_data()
- return frozenset(catalog()['new_material_readers'])|frozenset(int(t)for t in circuit_catalog()['materials']if c.item(int(t))['name'].startswith('T-'))
+ from els_server.domain.formal_pve_economy import policy as ordinary_policy
+ return frozenset(catalog()['new_material_readers'])|frozenset(ordinary_policy()['new_reader_ids'])|frozenset(int(t)for t in circuit_catalog()['materials']if c.item(int(t))['name'].startswith('T-'))
 
 def plain_plan(plan):return json.dumps(plan,sort_keys=True,separators=(',',':'))
 def ensure_sources(db):
@@ -72,7 +77,7 @@ def validate_source(source):
 
 def _issue_source(db,owner,operation,kind,source,plan,guard):
  """Only called after a phase or owned-box writer has validated its authority."""
- if kind not in('phase','box','pity')or not callable(guard)or guard(db)is not True:raise ValueError('Raid writer source authority')
+ if kind not in('phase','box','pity','ordinary')or not callable(guard)or guard(db)is not True:raise ValueError('Raid writer source authority')
  if type(owner)is not int or owner<1001 or not isinstance(plan,list)or not 1<=len(plan)<=36:raise ValueError('Raid source owner/plan')
  from els_server.storage.item_actor import require_active_character
  require_active_character(db,owner);ensure_sources(db)

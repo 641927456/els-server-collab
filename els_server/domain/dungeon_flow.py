@@ -96,6 +96,9 @@ def handle(s,event):
   previous=run.defeated.get(npc['key'])
   if previous is not None:return [death_ack()] if previous==event.payload else []
   if s.clear_notified:return []
+  from els_server.domain.pve_economy_flow import prepared_death
+  prepared=prepared_death(s,event,npc,d,expired)
+  if prepared is not None:return prepared
   from els_server.domain.dungeon_equipment_loot_flow import accepted_death
   loot_reply=accepted_death(s,event,npc,d,expired)
   if loot_reply is not None:return loot_reply
@@ -156,7 +159,7 @@ def finish_death(s,event,npc,d,expired,notice):
  from els_server.domain.raid_economy_flow import managed as raid_managed
  if not raid_managed(s) and s.drop_probe and npc['active'] and not npc['no_drop'] and not npc.get('ally') and npc.get('team',1)!=0:
   from els_server.domain.dungeon_drops import ground_drop_notice
-  rule=local_rewards();amount=rule['boss_ed'] if npc['boss'] else rule['ordinary_ed']
+  rule=local_rewards();amount=__import__('els_server.domain.formal_pve_economy',fromlist=['coin']).coin(run.identity,npc['boss'],rule['boss_ed'] if npc['boss'] else rule['ordinary_ed'])
   from els_server.domain.gm_rates import allow_drop
   if amount and allow_drop(s.reward_run_id,run.identity,(run.stage,run.part),npc['key'],npc['boss']):
    key=s.world_drop_sequence;s.world_drop_sequence+=1;xyz=d['xyz'][3:]
@@ -209,7 +212,7 @@ def clear(s):
   if getattr(s,'active_challenge',None) is not None and s.challenge_clear_effect is None:
    s.challenge_clear_effect={**s.active_challenge,'now':int(time.time())}
   receipt=s.account.reward_store.grant(s.reward_run_id,proof,rule['clear_ed'],rule['clear_experience'],encode,
-      item_plan=(rule['items'] or None) if s.item_test else None,dungeon_clear=(run.identity,elapsed),challenge_clear=getattr(s,'challenge_clear_effect',None),transaction=getattr(s,'reward_transaction',None),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(raid_supply['original_session'] if raid_supply is not None else s) if getattr(s,'activity2026_awards',None) is not None else None,experience_limit=experience_limit() if compat_clear is not None else None,resonance_source='clear' if compat_clear is not None else None,raid_reward_source=raid_supply['source'] if raid_supply is not None else None,daily_special=None if raid_supply is not None else __import__('els_server.domain.ariel_daily_special',fromlist=['prepare']).prepare(s))
+      item_plan=(rule['items'] or None) if s.item_test else None,dungeon_clear=(run.identity,elapsed),challenge_clear=getattr(s,'challenge_clear_effect',None),transaction=getattr(s,'reward_transaction',None),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(raid_supply['original_session'] if raid_supply is not None else s) if getattr(s,'activity2026_awards',None) is not None else None,experience_limit=experience_limit() if compat_clear is not None else None,resonance_source='clear' if compat_clear is not None else None,raid_reward_source=raid_supply['source'] if raid_supply is not None else None,daily_special=raid_supply.get('daily_special') if raid_supply is not None else __import__('els_server.domain.ariel_daily_special',fromlist=['prepare']).prepare(s))
   s.reward_receipt={'run_id':s.reward_run_id,**receipt};reply=[]
   if s.item_test and receipt.get('items') and not s.clear_items_synced:
    from els_server.domain.dungeon_drops import pickup_inventory_notice

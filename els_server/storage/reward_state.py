@@ -40,7 +40,11 @@ class RewardState:
    source=_mirror_source(silver_source)
    if daily_special is not None or raid_reward_source is not None or transaction is not source.db or source.owner!=self.uid or source.run_id!=run_id or source.proof_sha256!=hashlib.sha256(proof).hexdigest():raise ValueError('Mirror reward source operation/owner/writer/proof')
    grant['silver_mirror_source']={'run_id':run_id,'proof_sha256':source.proof_sha256}
-  if daily_special is not None and raid_reward_source is not None:raise ValueError('Daily-special and Raid typed sources are mutually exclusive')
+  if daily_special is not None and raid_reward_source is not None:
+   # The ordinary finite clear uses an independent sealed inventory plan.
+   # Daily items still pass their own factory; Raid phase/box/pity cannot mix.
+   from els_server.domain.raid_reward_items import validate_source as _ordinary_source
+   if _ordinary_source(raid_reward_source).kind!='ordinary':raise ValueError('Daily-special and Raid typed sources are mutually exclusive')
   if raid_reward_source is not None:
    from els_server.domain.raid_reward_items import validate_source as _raid_source
    source=_raid_source(raid_reward_source)

@@ -103,7 +103,10 @@ def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secre
             if bait is not None:bait.validate(db)
             return result
         if accepted_effect is not None:accepted_effect(db,False)
-        drawn=(rules.plans if rules is not None else plans)(c,boss,randbelow)
+        from els_server.storage.elixir_economy import bonus as elixir_bonus
+        bonus_operation='elixir-drop:'+str(uuid.uuid5(uuid.UUID(c['run_id']),':'.join(map(str,key(c)))))
+        drop_bp=elixir_bonus(db,c['owner'],c['dungeon'],'drop',bonus_operation,dict(c,proof_sha256=proof_sha,policy=policy))
+        drawn=(rules.plans if rules is not None else plans)(c,boss,randbelow,drop_bp=drop_bp)
         source_actor(db,c,drawn,account_id)
         rows=[]
         for index,entry in enumerate([*legacy,*drawn]):

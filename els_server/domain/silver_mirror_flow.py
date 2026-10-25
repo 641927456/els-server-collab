@@ -112,6 +112,8 @@ def clear_rewards(s,rule):
         return reward_clear_notice(economy['ed'],economy['experience'],s.account.uid,elapsed_seconds=elapsed,best_seconds=best,map_id=run.identity).payload
     from els_server.domain.silver_mirror_rewards import rewards,CircuitSource,ClearSource
     from els_server.domain.reward_rules import item_plan
+    from els_server.domain.legacy_pve_exp import enabled as legacy_exp_enabled,experience_limit
+    compat_experience=legacy_exp_enabled(s)
     from els_server.storage.inventory_state import load_items,grant_items
     from els_server.domain.dungeon_drops import pickup_inventory_notice
     with closing(sqlite3.connect(s.account.store.path,timeout=10))as db,db:
@@ -119,7 +121,7 @@ def clear_rewards(s,rule):
         completed=store.complete(db,s.account.uid,s.account.account_id,run.run_id,s.shop_session_id,run.identity,run.graph['source_sha256'],proof,lambda:authority(s,expected))
         selected,circuit=rewards(store.seed(db,run.run_id),completed['result'])
         plan=[item_plan(t,n)for t,n in selected]
-        receipt=s.account.reward_store.grant(run.run_id,proof,rule['clear_ed'],rule['clear_experience'],response,item_plan=plan or None,dungeon_clear=(run.identity,elapsed),transaction=db,clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',silver_source=ClearSource(db,s.account.uid,run.run_id)if plan else None)
+        receipt=s.account.reward_store.grant(run.run_id,proof,rule['clear_ed'],rule['clear_experience'],response,item_plan=plan or None,dungeon_clear=(run.identity,elapsed),transaction=db,clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',silver_source=ClearSource(db,s.account.uid,run.run_id)if plan else None,experience_limit=experience_limit()if compat_experience else None,resonance_source='clear'if compat_experience else None,attendance_clear=s.activity2026_awards.prepare_clear(s)if getattr(s,'activity2026_awards',None)is not None else None)
         db.execute('CREATE TABLE IF NOT EXISTS silver_mirror_awards(run_id TEXT PRIMARY KEY,plan_json TEXT NOT NULL,t_items_json TEXT NOT NULL)')
         saved=db.execute('SELECT plan_json,t_items_json FROM silver_mirror_awards WHERE run_id=?',(run.run_id,)).fetchone()
         fingerprint=json.dumps([selected,circuit],sort_keys=True)

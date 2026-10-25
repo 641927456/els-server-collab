@@ -92,6 +92,12 @@ def load_items(db,owner=1001):
  for index,item in enumerate(items):
   if item['template']in erp_potions:
    items[index]=read_erp_potion(item)
+ from els_server.domain.teacher_elixir_boxes import BOXES as teacher_boxes,read_existing as read_teacher_box
+ for index,item in enumerate(items):
+  if item['template']in teacher_boxes:items[index]=read_teacher_box(item)
+ from els_server.domain.life_potions_existing import TEMPLATES as life_potions,read_existing as read_life_potion
+ for index,item in enumerate(items):
+  if item['template']in life_potions:items[index]=read_life_potion(item)
  inventory_payload(items)  # Verify persisted identities/positions and wire before use.
  from els_server.storage.bag_capacity import allowances
  limits=allowances(db,owner)
@@ -198,6 +204,9 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
    if 'expires_at' in p:i['expires_at']=p['expires_at']
    if p.get('enhancement'):i['enhancement']=p['enhancement']
    if i['template']==CHIP:i['option_groups']={'1':list(approved_chip['1'])} if approved_chip is not None else chip_generate()
+   from els_server.domain.equipment_circuit_rules import material as circuit_material,generate as circuit_generate
+   typed_circuit=raid_reward_source is not None and circuit_material(i['template'])is not None
+   if typed_circuit:i['option_groups']=circuit_generate(i['template'])
    if cartridge_recipe679_source is not None:i=validate_recipe_source(cartridge_recipe679_source).admit_instance(i)
    if fish_erp_source is not None:i=fish_erp_source.admit_instance(i)
    if silver_source is not None and silver_source.options is not None:i['option_groups']=dict(silver_source.options)
@@ -207,7 +216,7 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
    if silver_source is not None and silver_source.options is not None:
     from els_server.storage.equipment_options import replace as replace_mirror_options
     replace_mirror_options(db,owner,uid,{},i['option_groups'])
-   if i['template']==CHIP:
+   if i['template']==CHIP or typed_circuit:
     from els_server.storage.equipment_options import replace as replace_chip_options
     replace_chip_options(db,owner,uid,{},i['option_groups'])
    if 'expires_at' in i:

@@ -1,16 +1,13 @@
 {
   "schema_version": 1,
   "provenance": "local_policy",
-  "description": "已审查艾尔之树原生场景、NPC 注册及行为脚本，未发现按怪物分配的物品概率表。下列分配仅为逐 NPC 明示的本地替代规则：鸡和小偷 10 ED、班德斯 50 ED，食品只分配给箱子，其他怪物不再共享食品池。道具身份和效果来自客户端，金额、概率及通关奖励不是官方数值。",
+  "description": "本服正式普通来源规则：艾尔之树逐只沿旧等级经验曲线，真实击杀事务与有效怪物实例一致；清图经验取实际已提交击杀经验的float32 30%。金币按固定NPC等级平方×2、Boss再×10，原生食品只沿既有箱子分配；不再配置固定初级药水兜底。既有120ED清图保留为本服规则，概率和金额不冒称官服。",
   "dungeons": {
     "30000": {
       "clear_ed": 120,
-      "clear_experience": 50,
+      "clear_experience": 0,
       "clear_items": [],
-      "world_drop": {
-        "template": 77000,
-        "quantity": 1
-      },
+      "world_drop": null,
       "ground_loot": {
         "assignment_source": "local_fallback",
         "native_probabilities_known": false,
@@ -61,7 +58,8 @@
           1,
           1
         ]
-      }
+      },
+      "clear_experience_source": "float32 30% of actually committed kill EXP; no fixed fallback"
     }
   }
 }

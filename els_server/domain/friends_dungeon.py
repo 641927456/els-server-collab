@@ -216,6 +216,8 @@ class FriendsDungeons:
             s.dungeon_run=runs[s]
             s.reward_run_id=str(uuid.uuid5(uuid.UUID(seed),'reward:'+str(s.account.uid))) if s.reward_test else None
             s.dungeon_participants=participants
+            from els_server.domain.pve_economy_flow import bind_story
+            bind_story(s)
             self.rooms[s]=room
             self.world.synchronize(s)
             self.send(s,[packet])
@@ -271,6 +273,9 @@ class FriendsDungeons:
         from els_server.domain.friends_material_loot import accepted_death as material_death
         material_reply=material_death(self,r,s,event)
         if material_reply is not None:return material_reply
+        from els_server.domain.pve_economy_flow import group_death
+        ordinary_reply=group_death(self,r,s,event)
+        if ordinary_reply is not None:return ordinary_reply
         if r.phase!='active':
             from els_server.domain.friends_spawns import retry_death, retry_static_death
             return retry_death(self,r,s,event) or retry_static_death(self,r,s,event)
@@ -334,12 +339,22 @@ class FriendsDungeons:
             from els_server.domain.group_challenge import refresh
             refresh(r.party)
             for other,messages in deliveries:self.send(other,messages)
-        elif r.leader.dungeon_run.next['kind']!=0 and raid_economy_managed(r.leader):
+        elif ((r.leader.dungeon_run is None and r.identity==30000 and r.leader.gate_stage==2)or(r.leader.dungeon_run is not None and r.leader.dungeon_run.next['kind']==4))and __import__('els_server.domain.formal_pve_economy',fromlist=['definition']).definition(r.identity)is not None:
+            from els_server.domain.pve_economy_flow import clear as clear_ordinary
+            import sqlite3
+            try:clear_ordinary(r.members,event,s,room=r)
+            except(ValueError,sqlite3.Error,OverflowError,struct.error):
+                r.ended.discard(s);return []
+            except BaseException:
+                r.ended.discard(s);raise
+        elif raid_economy_managed(r.leader) and r.leader.dungeon_run.next['kind']!=0:
             from els_server.domain.raid_economy_flow import settle as settle_raid_phase
             import sqlite3
             try:settle_raid_phase(r.members,event,room=r)
             except (ValueError,sqlite3.Error,OverflowError,struct.error):
                 r.ended.discard(s);return []
+            except BaseException:
+                r.ended.discard(s);raise
         else:
             for other in r.members:
                 self.send(other,[e for e in LocalSession.handle(other,event) if e.kind!=0xbc])

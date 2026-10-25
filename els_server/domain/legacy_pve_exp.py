@@ -21,7 +21,12 @@ def bind_run(run):
     if row is not None:
         if row['graph_sha256']!=run.graph['source_sha256']:raise ValueError('Legacy EXP route source changed')
         from els_server.domain.gm_rates import snapshot
-        rate=snapshot()['experience_bp'];base=p['levels'][str(row['npc_level'])]
+        rate=snapshot()['experience_bp'];base_level=row.get('experience_base_level',row['npc_level'])
+        if 'experience_base_level'in row:
+            from els_server.game_data import client_data
+            current=client_data().dungeon(run.identity)
+            if run.identity!=120010 or base_level!=99 or row['npc_level']!=1 or current.get('m_bRelativeMonsterLevel')!=1 or current.get('m_MinLevel')!=99:raise ValueError('Relative EXP local reference/source')
+        base=p['levels'][str(base_level)]
         run.legacy_experience=dict(policy=p['policy'],policy_sha256=hashlib.sha256(json.dumps(p,sort_keys=True).encode()).hexdigest(),
             npc_level=row['npc_level'],table_experience=base,experience_bp=rate,base_experience=min(2**31-1,base*rate//10000))
 
@@ -42,8 +47,12 @@ def eligible(npc,expired=False):
 
 def identity(s,npc):
     r=s.dungeon_run
+    numbers=dict(r.legacy_experience)
+    resolved=r.catalog.static_npc_level(r.identity,r.graph,r.stage,r.part,npc)
+    if resolved is not None and resolved!=numbers['npc_level']:
+        base=policy()['levels'][str(resolved)];numbers.update(npc_level=resolved,table_experience=base,base_experience=min(2**31-1,base*numbers['experience_bp']//10000))
     return dict(owner=s.account.uid,run_id=s.reward_run_id,dungeon=r.identity,stage=r.stage,part=r.part,
-        visits=r.visits,npc_key=npc['key'],template=npc['template'],graph_sha256=r.graph['source_sha256'],**r.legacy_experience)
+        visits=r.visits,npc_key=npc['key'],template=npc['template'],source_index=npc['source_index'],boss=bool(npc['boss']),graph_sha256=r.graph['source_sha256'],**numbers)
 
 def experience_limit():
     from els_server.game_data import client_data

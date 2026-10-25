@@ -71,7 +71,7 @@ def accepted_death(s,event,npc,death,expired,*,randbelow=secrets.randbelow):
     c=identity(s,npc['key'],npc if rules is not None else None)
     if npc['key'] in run.defeated:raise ValueError('Loot hook requires a newly accepted death')
     from els_server.domain.dungeon_flow import local_rewards,periodic
-    rule=local_rewards();amount=rule['boss_ed'] if npc['boss'] else rule['ordinary_ed']
+    rule=local_rewards();amount=__import__('els_server.domain.formal_pve_economy',fromlist=['coin']).coin(run.identity,npc['boss'],rule['boss_ed'] if npc['boss'] else rule['ordinary_ed'])
     from els_server.domain.gm_rates import allow_drop
     legacy=[dict(template=rule['coin_template'],quantity=0,ed=amount,option_groups={})] if npc['active'] and amount and allow_drop(s.reward_run_id,run.identity,(run.stage,run.part),npc['key'],npc['boss']) else []
     # Prepare the native gate transition on shadow state. poll_ready mutates
