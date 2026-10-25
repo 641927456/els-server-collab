@@ -3,7 +3,7 @@ import functools,hashlib,json,uuid
 from els_server.paths import PROJECT_ROOT
 
 POLICY='legacy-source-loot-compatibility-v1'
-DATA_SHA='fdb180838a5740d3733611762082511c0834f2ce70c6f18280752c18864e5c82'
+DATA_SHA='26ed0aa4982d74aaca54ee58b2d244523150f18dcd58d72cb5bb50e9864828a6'
 _raw=(PROJECT_ROOT/'els_server/data/dungeon_source_loot.json').read_bytes()
 _scope=json.loads(_raw)
 MAPS=frozenset(map(int,_scope['maps']))
@@ -60,6 +60,17 @@ def catalog():
             if t not in GROUND_FOOD or item['item_type']!=9 or row['state']!={}:raise ValueError('Source loot unverified food')
         elif row['kind']=='normal':
             if t not in NORMAL or row['state']!=normal_descriptor(t)['state']:raise ValueError('Source loot normal instance')
+        elif row['kind']=='normal-inherited-default':
+            from els_server.domain.normal_equipment import definitions as normal_definitions
+            from els_server.domain.equipment_durability import maximum
+            admitted={30197:(30092,'RAVEN')}
+            if t not in admitted or t not in normal_definitions():raise ValueError('Inherited source weapon finite proof')
+            proof=json.loads((PROJECT_ROOT/'els_server/data/normal_equipment.manifest.json').read_bytes())
+            state=dict(durability=maximum(t),enhancement=0,option_groups={})
+            sample=dict(uid=1,template=t,metadata=1,group=1,slot=0,count=1,durability=state['durability'])
+            dungeon,unit=admitted[t];current=data.dungeon(dungeon).get('BOSS_DROP_ITEM',{}).get(unit,{})
+            if (t not in current.values() or row['state']!=state or row['native_normal_proof_sha256']!=proof['proof_sha256']
+                or row['body_sha256']!=hashlib.sha256(item_body(sample)).hexdigest()):raise ValueError('Inherited source weapon current/default identity')
         elif row['kind']=='existing-material':
             if t not in materials or materials[t]['record_sha256']!=row['record_sha256']:raise ValueError('Source loot material scope')
             expected=dict(metadata=VERIFIED_TEMPLATES[t],group=TEMPLATE_BAG_GROUPS[t],max_stack=TEMPLATE_MAX_STACKS[t])
@@ -130,7 +141,7 @@ def grant(db,row,identity):
     awarded=grant_items(db,[item_plan(t,1)],identity['owner'])
     if len(awarded)!=1 or awarded[0]['template']!=t:raise ValueError('Source loot registered factory result')
     item=awarded[0]
-    if expected['kind']=='normal':
+    if expected['kind'] in ('normal','normal-inherited-default'):
         state=expected['state']
         if item['count']!=1 or item.get('durability')!=state['durability'] or item.get('enhancement',0)!=state['enhancement'] or item.get('option_groups',{})!=state['option_groups']:raise ValueError('Source loot default equipment state')
     elif (item['metadata'],item['group'])!=(expected['state']['metadata'],expected['state']['group']) or not 1<=item['count']<=expected['state']['max_stack']:
