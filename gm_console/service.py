@@ -55,10 +55,10 @@ class Service:
             with sock.makefile('rb') as stream:raw=stream.readline(2*1024*1024)
         try:answer=json.loads(raw)
         except (UnicodeError,json.JSONDecodeError):
-            if action in ('coupon-issue','coupon-revoke'):raise OSError('Coupon RPC result unknown; inspect original operation') from None
+            if action in ('coupon-issue','coupon-revoke','cash-credit'):raise OSError('Ledger RPC result unknown; inspect original operation') from None
             raise
-        if action in ('coupon-issue','coupon-revoke') and (not isinstance(answer,dict) or answer.get('outcome_unknown')is True):
-            raise OSError('Coupon RPC result unknown; inspect original operation')
+        if action in ('coupon-issue','coupon-revoke','cash-credit') and (not isinstance(answer,dict) or answer.get('outcome_unknown')is True):
+            raise OSError('Ledger RPC result unknown; inspect original operation')
         if not answer.get('ok'):raise ValueError(answer.get('error','管理操作失败'))
         return answer['result']
 
@@ -354,6 +354,11 @@ class Service:
         if not self.running():raise ValueError('游戏服务未启动，无法核查兑换码')
         return self.rpc(action,value)
 
+    def cash_read(self,action,value):
+        if action not in ('cash-balance','cash-operation'):raise ValueError('Cash read action')
+        if not self.running():raise ValueError('游戏服务未启动，无法核查独立账号现金')
+        return self.rpc(action,value)
+
     def mutate(self,action,value):
         # Coupon requests have no raw-code field. Reject unknown fields before
         # generic audit persistence, rather than recording an accidental secret.
@@ -361,6 +366,8 @@ class Service:
             fields={'operation_id','reason','count','max_redemptions','starts_at','expires_at','account_id','rewards'} if action=='coupon-issue' else {'operation_id','reason','batch_id'}
             if not isinstance(value,dict) or set(value)!=fields:raise ValueError('Coupon management fields')
             if action=='coupon-issue' and (not isinstance(value['rewards'],list) or any(not isinstance(r,dict) or set(r)!={'template','quantity'} for r in value['rewards'])):raise ValueError('Coupon reward fields')
+        if action=='cash-credit':
+            if not isinstance(value,dict) or set(value)!={'operation_id','account_id','amount','expected_balance','reason'}:raise ValueError('Cash management fields')
         key=operation(value);digest=hashlib.sha256(canonical([action,value]).encode()).hexdigest()
         with self.lock:
             if self.shutting_down:raise ValueError('管理器正在正常停止，管理写入已暂停')
@@ -369,12 +376,24 @@ class Service:
                 if old:
                     if old[0]!=digest:raise ValueError('操作编号与已提交内容冲突')
                     if old[1]=='done':
+                        if action=='cash-credit':
+                            found=self.cash_read('cash-operation',dict(operation_id=key,account_id=value['account_id']))
+                            if not found['committed']:raise ValueError('充值回执暂不可核实；不创建替代充值')
+                            return dict(found['receipt'],replayed=True)
                         if action=='coupon-issue':
                             found=self.coupon_read('coupon-operation',dict(operation_id=key,action=action))
                             if not found['committed']:raise ValueError('发行回执暂不可核实；未创建替代码')
                             return dict(found['receipt'],replayed=True)
                         return dict(json.loads(old[2]),replayed=True)
-                    if action in ('coupon-issue','coupon-revoke')and old[1]in('unknown','pending','failed'):
+                    if action=='cash-credit' and old[1]in('unknown','pending','failed'):
+                        # Only an explicit same-UUID POST may inspect, then retry.
+                        found=self.cash_read('cash-operation',dict(operation_id=key,account_id=value['account_id']))
+                        if found['committed']:
+                            receipt=dict(found['receipt'],replayed=True)
+                            db.execute('UPDATE operations SET status=?,result=? WHERE id=?',('done',canonical(receipt),key))
+                            return receipt
+                        db.execute('UPDATE operations SET status=?,result=NULL WHERE id=?',('pending',key))
+                    elif action in ('coupon-issue','coupon-revoke')and old[1]in('unknown','pending','failed'):
                         # An explicit original POST first inspects the durable
                         # decision. No failure path auto-resends or changesUUID.
                         found=self.coupon_read('coupon-operation',dict(operation_id=key,action=action))
@@ -395,7 +414,7 @@ class Service:
                 elif action=='stop':result=self.stop(value)
                 elif action=='backup':result=self.backup()
                 elif action=='set-level':result=self.set_level(value)
-                elif action in ('give','announce','rates','events','cancel-announcement','coupon-issue','coupon-revoke'):
+                elif action in ('give','announce','rates','events','cancel-announcement','coupon-issue','coupon-revoke','cash-credit'):
                     if not self.running():raise ValueError('游戏服务未启动，在线管理操作不可用')
                     result=self.rpc(action,value)
                 else:raise ValueError('未知操作')

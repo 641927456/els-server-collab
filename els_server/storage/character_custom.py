@@ -199,6 +199,8 @@ def select(path,owner,account_id,payload,operation,*,now=None,validate=None):
         for event in events:encode_event(event)
         if validate is not None:validate()
         if old is None:
+            from els_server.domain.ariel_attendance_mark import clear_ordinary
+            clear_ordinary(db,owner,slot)
             if slot==1:
                 initialize(db)
                 db.execute('INSERT INTO character_custom_permanent_selection VALUES (?,?) ON CONFLICT(owner) DO UPDATE SET custom_id=excluded.custom_id',(owner,value['custom_id']))

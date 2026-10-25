@@ -194,6 +194,8 @@ def clear_rewards(s,rule):
     arguments=dict(run_id=s.reward_run_id,proof=proof,ed=rule['clear_ed'],experience=rule['clear_experience'],response_builder=encode,
         item_plan=[*rule['items'],inventory_plan(118445,catalog()['values']['fragment_on_validated_clear'])],
         dungeon_clear=(run.identity,elapsed),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(s) if getattr(s,'activity2026_awards',None) is not None else None)
+    from els_server.domain.ariel_daily_special import prepare as prepare_daily_special
+    arguments['daily_special']=prepare_daily_special(s)
     from els_server.domain.legacy_pve_exp import enabled as exp_enabled,experience_limit
     if exp_enabled(s):arguments.update(experience_limit=experience_limit(),resonance_source='clear')
     def prepare(receipt,current):
@@ -202,7 +204,9 @@ def clear_rewards(s,rule):
         committed=receipt.get('local_rules')
         if committed:
             a=committed['assessment'];reply.append(Event(0x201,kind=0x66b,payload=struct.pack('>ii',a['rank'],a['score'])))
-        reply.append(Event(0x201,kind=0xc1,payload=clear_identity_payload(receipt['response'],run.identity)));encode_replies(reply)
+        reply.append(Event(0x201,kind=0xc1,payload=clear_identity_payload(receipt['response'],run.identity)))
+        if 'ariel_daily_status'in receipt:reply.append(receipt['ariel_daily_status'])
+        encode_replies(reply)
         return reply
     receipt,reply=storage.clear_reward(s.account.store.path,s.account.uid,s.account.reward_store,arguments,prepare)
     s.reward_receipt={'run_id':s.reward_run_id,**receipt}
