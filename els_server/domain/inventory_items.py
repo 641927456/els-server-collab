@@ -422,6 +422,11 @@ for _row in _ep_pet_items():
 for _template,_source_limit in tuple(TEMPLATE_MAX_STACKS.items()):
  if 1<_source_limit<LOCAL_MAX_STACK:TEMPLATE_MAX_STACKS[_template]=LOCAL_MAX_STACK
 
+if 136112 not in VERIFIED_TEMPLATES:
+ VERIFIED_TEMPLATES[136112]=2
+ TEMPLATE_BAG_GROUPS[136112]=4
+ TEMPLATE_MAX_STACKS[136112]=300
+
 # Newly qualified ED coupons keep their native500 cap; existing999 policy above
 # remains unchanged for all previously admitted items.
 from els_server.domain.equipment_reforge_coupons import definitions as _reforge_coupons
