@@ -1,0 +1,2067 @@
+{
+  "schema": 1,
+  "policy": "assembly-native-20261026-v1",
+  "admissions_enabled": true,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "native": {
+    "spa_type": 2,
+    "buff_template": 1433,
+    "factor": 1538,
+    "world_flag": 0,
+    "store_flag": 0,
+    "duration_seconds": 1800,
+    "stay_seconds": 360,
+    "price_ed": 500000,
+    "avatar_rates": {
+      "120": 0.7,
+      "121": 0.5
+    },
+    "cash_priority": 121
+  },
+  "towns": {
+    "1009": {
+      "name": "集结地：红炎的境界",
+      "scene": 851,
+      "lines": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "seller": {
+        "house": 40193,
+        "npc_ids": [
+          10235
+        ],
+        "native_CN_name": "小元素精灵",
+        "house_type": 22,
+        "button_type": 34,
+        "button_enum": "NCBT_GET_BUFF",
+        "position": [
+          -172,
+          1760,
+          735
+        ],
+        "join_area": 800,
+        "original_get_buff_buttons": [
+          {
+            "Type": 34,
+            "Quote": {
+              "StringID": {
+                "global": "STR_ID_66532"
+              }
+            }
+          }
+        ],
+        "source_record": {
+          "NPCMeshName": "Motion_NPC_RAID_FAIRY.x",
+          "EventQuestInfoPosY": 343,
+          "EventQuestInfoPosX": 669,
+          "QuestInfoPosY": 253,
+          "QuestInfoPosX": 727,
+          "JoinArea": 800,
+          "Type": 22,
+          "NPC_CONVERSATION_UI_CONFIG": {
+            "NPCName": {
+              "global": "STR_ID_65899"
+            },
+            "NPCRole": {
+              "global": "STR_ID_50073"
+            },
+            "Quote": {
+              "TalkStart": {
+                "StringID": {
+                  "global": "STR_ID_50074"
+                }
+              },
+              "TalkEnd": {
+                "StringID": {
+                  "global": "STR_ID_50075"
+                }
+              },
+              "TalkQuest": {
+                "StringID": {
+                  "global": "STR_ID_50076"
+                }
+              }
+            },
+            "BUTTON": {
+              "1": {
+                "Type": 10,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_50077"
+                  }
+                }
+              },
+              "2": {
+                "Type": 27,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_50077"
+                  }
+                }
+              },
+              "3": {
+                "Type": 11,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_66436"
+                  }
+                }
+              },
+              "4": {
+                "Type": 34,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_66532"
+                  }
+                }
+              }
+            }
+          },
+          "NPCMeshPos": {
+            "0": null,
+            "1": -172,
+            "2": 1760,
+            "3": 735
+          },
+          "NPCMeshRot": {
+            "0": null,
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "NPCMeshScale": {
+            "0": null,
+            "1": 1.5,
+            "2": 1.5,
+            "3": 1.5
+          },
+          "TalkLoopAniNpc": 1,
+          "NPCJoinTalk": {
+            "0": null,
+            "1": "LITTLE_SPIRIT_Wait_Talk.ogg",
+            "2": "LITTLE_SPIRIT_Quest_Talk.ogg"
+          },
+          "NPCByeTalk": {
+            "0": null,
+            "1": "LITTLE_SPIRIT_Bye_Talk.ogg",
+            "2": "LITTLE_SPIRIT_Etc_Talk.ogg"
+          },
+          "NPC_ID_LIST": {
+            "1": 10235
+          }
+        }
+      },
+      "spa_type": 2
+    },
+    "1010": {
+      "name": "集结地：奥罗拉据点区域",
+      "scene": 964,
+      "lines": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "seller": {
+        "house": 40257,
+        "npc_ids": [
+          10360
+        ],
+        "native_CN_name": "阿塞拉",
+        "house_type": 22,
+        "button_type": 34,
+        "button_enum": "NCBT_GET_BUFF",
+        "position": [
+          -2820,
+          195,
+          175
+        ],
+        "join_area": 360,
+        "original_get_buff_buttons": [
+          {
+            "Type": 34,
+            "Quote": {
+              "StringID": {
+                "global": "STR_ID_66533"
+              }
+            }
+          }
+        ],
+        "source_record": {
+          "NPCMeshName": "Motion_DEVILDOM3_REST_ACELA.x",
+          "EventQuestInfoPosY": 343,
+          "EventQuestInfoPosX": 669,
+          "QuestInfoPosY": 253,
+          "QuestInfoPosX": 727,
+          "JoinArea": 360,
+          "NPCAniTex": "Motion_DEVILDOM3_REST_ACELA.XET",
+          "Type": 22,
+          "NPC_CONVERSATION_UI_CONFIG": {
+            "NPCName": {
+              "global": "STR_ID_65900"
+            },
+            "NPCRole": {
+              "global": "STR_ID_55376"
+            },
+            "Quote": {
+              "TalkStart": {
+                "StringID": {
+                  "global": "STR_ID_55371"
+                }
+              },
+              "TalkEnd": {
+                "StringID": {
+                  "global": "STR_ID_55374"
+                }
+              },
+              "TalkQuest": {
+                "StringID": {
+                  "global": "STR_ID_55372"
+                }
+              }
+            },
+            "BUTTON": {
+              "1": {
+                "Type": 10,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_55375"
+                  }
+                }
+              },
+              "2": {
+                "Type": 27,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_55375"
+                  }
+                }
+              },
+              "3": {
+                "Type": 11,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_55377"
+                  }
+                }
+              },
+              "4": {
+                "Type": 5,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_55378"
+                  }
+                }
+              },
+              "5": {
+                "Type": 36,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_66444"
+                  }
+                }
+              },
+              "6": {
+                "Type": 34,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_66533"
+                  }
+                }
+              }
+            }
+          },
+          "NPCMeshPos": {
+            "0": null,
+            "1": -2820,
+            "2": 195,
+            "3": 175
+          },
+          "NPCMeshRot": {
+            "0": null,
+            "1": 0,
+            "2": 25,
+            "3": 0
+          },
+          "NPCMeshScale": {
+            "0": null,
+            "1": 1,
+            "2": 1,
+            "3": 1
+          },
+          "TalkLoopAniNpc": 1,
+          "NPCJoinTalk": {
+            "0": null,
+            "1": "NPC_ACELA_Wait_Talk1.ogg",
+            "2": "NPC_ACELA_Wait_Talk2.ogg"
+          },
+          "NPCByeTalk": {
+            "0": null,
+            "1": "NPC_ACELA_Bye_Talk1.ogg",
+            "2": "NPC_ACELA_Bye_Talk2.ogg"
+          },
+          "AlwaysShow": 1,
+          "NPC_ID_LIST": {
+            "1": 10360
+          }
+        }
+      },
+      "spa_type": 2
+    },
+    "20013": {
+      "name": "梦歌魅利亚",
+      "scene": 1023,
+      "lines": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107
+      ],
+      "seller": {
+        "house": 40271,
+        "npc_ids": [
+          10381
+        ],
+        "native_CN_name": "瓦西里",
+        "house_type": 22,
+        "button_type": 34,
+        "button_enum": "NCBT_GET_BUFF",
+        "position": [
+          -610,
+          800,
+          -1355
+        ],
+        "join_area": 450,
+        "original_get_buff_buttons": [
+          {
+            "Type": 34,
+            "Quote": {
+              "StringID": {
+                "global": "STR_ID_66451"
+              }
+            }
+          }
+        ],
+        "source_record": {
+          "JoinArea": 450,
+          "NPCMeshName": "Motion_INCOOLORD_VASILY.x",
+          "EventQuestInfoPosY": 343,
+          "EventQuestInfoPosX": 669,
+          "QuestInfoPosY": 253,
+          "QuestInfoPosX": 727,
+          "NPCAniTex": "Motion_INCOOLORD_VASILY.XET",
+          "Type": 22,
+          "NPC_CONVERSATION_UI_CONFIG": {
+            "NPCName": {
+              "global": "STR_ID_65901"
+            },
+            "NPCRole": {
+              "global": "STR_ID_60585"
+            },
+            "Quote": {
+              "TalkStart": {
+                "StringID": {
+                  "global": "STR_ID_60557"
+                }
+              },
+              "TalkEnd": {
+                "StringID": {
+                  "global": "STR_ID_60558"
+                }
+              },
+              "TalkQuest": {
+                "StringID": {
+                  "global": "STR_ID_60559"
+                }
+              }
+            },
+            "BUTTON": {
+              "1": {
+                "Type": 37,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_66460"
+                  }
+                },
+                "ExtraData": {
+                  "0": null,
+                  "1": 0
+                }
+              },
+              "2": {
+                "Type": 11,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_66459"
+                  }
+                }
+              },
+              "3": {
+                "Type": 5,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_66458"
+                  }
+                }
+              },
+              "4": {
+                "Type": 36,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_66457"
+                  }
+                }
+              },
+              "5": {
+                "Type": 61,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_72836"
+                  }
+                }
+              },
+              "6": {
+                "Type": 49,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_66455"
+                  }
+                }
+              },
+              "7": {
+                "Type": 48,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_66454"
+                  }
+                }
+              },
+              "8": {
+                "Type": 14,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_66453"
+                  }
+                },
+                "ExtraData": {
+                  "0": null,
+                  "1": 1
+                }
+              },
+              "9": {
+                "Type": 51,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_66452"
+                  }
+                }
+              },
+              "10": {
+                "Type": 34,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_66451"
+                  }
+                }
+              }
+            }
+          },
+          "NPCMeshPos": {
+            "0": null,
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "NPCMeshRot": {
+            "0": null,
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "NPCMeshScale": {
+            "0": null,
+            "1": 1,
+            "2": 1,
+            "3": 1
+          },
+          "NPCJoinTalk": {
+            "0": null,
+            "1": "VASILY_VOICE_Wait_Talk1.ogg"
+          },
+          "NPCByeTalk": {
+            "0": null,
+            "1": "VASILY_VOICE_Bye_Talk1.ogg"
+          },
+          "NPC_ID_LIST": {
+            "1": 10381
+          },
+          "COMMON_NPC_LOCATION": {
+            "1": {
+              "0": null,
+              "1": 1023,
+              "2": -610,
+              "3": 800,
+              "4": -1355,
+              "5": 0,
+              "6": 45,
+              "7": 0,
+              "8": 450
+            }
+          },
+          "TALK_BOX": {
+            "1": {
+              "MESSAGE": {
+                "global": "STR_ID_60560"
+              }
+            },
+            "2": {
+              "MESSAGE": {
+                "global": "STR_ID_60562"
+              }
+            },
+            "3": {
+              "MESSAGE": {
+                "global": "STR_ID_60563"
+              }
+            }
+          },
+          "RenderParamPerFrame": {
+            "1": {
+              "FrameIndex": 4,
+              "RenderType": 3
+            }
+          }
+        }
+      },
+      "spa_type": 2
+    },
+    "1011": {
+      "name": "集结地：钢铁城壁临时据点",
+      "scene": 1131,
+      "lines": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74
+      ],
+      "seller": {
+        "house": 40310,
+        "npc_ids": [
+          10424
+        ],
+        "native_CN_name": "海云",
+        "house_type": 22,
+        "button_type": 34,
+        "button_enum": "NCBT_GET_BUFF",
+        "position": [
+          -515,
+          2370,
+          -145
+        ],
+        "join_area": 460,
+        "original_get_buff_buttons": [
+          {
+            "Type": 34,
+            "Quote": {
+              "StringID": {
+                "global": "STR_ID_68569"
+              }
+            }
+          }
+        ],
+        "source_record": {
+          "JoinArea": 460,
+          "NPCMeshName": "Motion_DEVILDOM6_REST_HAIVAN.x",
+          "EventQuestInfoPosY": 343,
+          "EventQuestInfoPosX": 669,
+          "QuestInfoPosY": 253,
+          "QuestInfoPosX": 727,
+          "NPCAniTex": "Motion_DEVILDOM6_REST_HAIVAN.XET",
+          "Type": 22,
+          "NPC_CONVERSATION_UI_CONFIG": {
+            "NPCName": {
+              "global": "STR_ID_68234"
+            },
+            "NPCRole": {
+              "global": "STR_ID_68235"
+            },
+            "Quote": {
+              "TalkStart": {
+                "StringID": {
+                  "global": "STR_ID_68538"
+                }
+              },
+              "TalkEnd": {
+                "StringID": {
+                  "global": "STR_ID_68539"
+                }
+              },
+              "TalkQuest": {
+                "StringID": {
+                  "global": "STR_ID_68541"
+                }
+              }
+            },
+            "BUTTON": {
+              "1": {
+                "Type": 57,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_69559"
+                  }
+                }
+              },
+              "2": {
+                "Type": 56,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_69122"
+                  }
+                }
+              },
+              "3": {
+                "Type": 2,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_68551"
+                  }
+                }
+              },
+              "4": {
+                "Type": 11,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_68550"
+                  }
+                }
+              },
+              "5": {
+                "Type": 5,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_68550"
+                  }
+                }
+              },
+              "6": {
+                "Type": 48,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_68549"
+                  }
+                }
+              },
+              "7": {
+                "Type": 14,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_69559"
+                  }
+                },
+                "ExtraData": {
+                  "0": null,
+                  "1": 1
+                }
+              },
+              "8": {
+                "Type": 53,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_68546"
+                  }
+                }
+              },
+              "9": {
+                "Type": 54,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_68547"
+                  }
+                }
+              },
+              "10": {
+                "Type": 55,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_68548"
+                  }
+                }
+              },
+              "11": {
+                "Type": 34,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_68569"
+                  }
+                }
+              }
+            }
+          },
+          "NPCMeshPos": {
+            "0": null,
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "NPCMeshRot": {
+            "0": null,
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "NPCMeshScale": {
+            "0": null,
+            "1": 1,
+            "2": 1,
+            "3": 1
+          },
+          "NPCJoinTalk": {
+            "0": null,
+            "1": "HAIVAN_Voice_Wait_Talk1.ogg"
+          },
+          "NPCByeTalk": {
+            "0": null,
+            "1": "HAIVAN_Voice_Bye_Talk1.ogg",
+            "2": "HAIVAN_Voice_Bye_Talk2.ogg"
+          },
+          "NPC_ID_LIST": {
+            "1": 10424
+          },
+          "COMMON_NPC_LOCATION": {
+            "1": {
+              "0": null,
+              "1": 1131,
+              "2": -515,
+              "3": 2370,
+              "4": -145,
+              "5": 0,
+              "6": 0,
+              "7": 0,
+              "8": 460
+            }
+          },
+          "TALK_BOX": {
+            "1": {
+              "MESSAGE": {
+                "global": "STR_ID_68552"
+              }
+            },
+            "2": {
+              "MESSAGE": {
+                "global": "STR_ID_68553"
+              }
+            }
+          },
+          "RenderParamPerFrame": {
+            "1": {
+              "FrameIndex": 4,
+              "RenderType": 3
+            }
+          }
+        }
+      },
+      "spa_type": 2
+    },
+    "1012": {
+      "name": "集结地：F分部",
+      "scene": 1214,
+      "lines": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38
+      ],
+      "seller": {
+        "house": 40326,
+        "npc_ids": [
+          10500
+        ],
+        "native_CN_name": "菲塔",
+        "house_type": 22,
+        "button_type": 34,
+        "button_enum": "NCBT_GET_BUFF",
+        "position": [
+          -1500,
+          8070,
+          1090
+        ],
+        "join_area": 400,
+        "original_get_buff_buttons": [
+          {
+            "Type": 34,
+            "Quote": {
+              "StringID": {
+                "global": "STR_ID_74305"
+              }
+            }
+          }
+        ],
+        "source_record": {
+          "NPCMeshName": "Motion_DEVILDOM7_REST_DARKELF.x",
+          "EventQuestInfoPosY": 343,
+          "EventQuestInfoPosX": 669,
+          "QuestInfoPosY": 253,
+          "QuestInfoPosX": 727,
+          "JoinArea": 400,
+          "WAIT03_MOTION_NAME": "Wait03",
+          "WAIT02_MOTION_NAME": "Wait02",
+          "WAIT01_MOTION_NAME": "Wait01",
+          "NPCAniTex": "Motion_DEVILDOM7_REST_DARKELF.XET",
+          "Type": 22,
+          "NPC_CONVERSATION_UI_CONFIG": {
+            "NPCName": {
+              "global": "STR_ID_73721"
+            },
+            "NPCRole": {
+              "global": "STR_ID_73722"
+            },
+            "Quote": {
+              "TalkStart": {
+                "StringID": {
+                  "global": "STR_ID_74294"
+                }
+              },
+              "TalkEnd": {
+                "StringID": {
+                  "global": "STR_ID_74296"
+                }
+              },
+              "TalkQuest": {
+                "StringID": {
+                  "global": "STR_ID_74298"
+                }
+              }
+            },
+            "BUTTON": {
+              "1": {
+                "Type": 11,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_74351"
+                  }
+                }
+              },
+              "2": {
+                "Type": 5,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_74303"
+                  }
+                }
+              },
+              "3": {
+                "Type": 65,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_74845"
+                  }
+                }
+              },
+              "4": {
+                "Type": 34,
+                "Quote": {
+                  "StringID": {
+                    "global": "STR_ID_74305"
+                  }
+                }
+              }
+            }
+          },
+          "NPCMeshPos": {
+            "0": null,
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "NPCMeshRot": {
+            "0": null,
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "NPCMeshScale": {
+            "0": null,
+            "1": 1,
+            "2": 1,
+            "3": 1
+          },
+          "NPCJoinTalk": {
+            "0": null,
+            "1": "PETA_Voice_Wait_Talk1.ogg",
+            "2": "PETA_Voice_Wait_Talk2.ogg"
+          },
+          "NPCByeTalk": {
+            "0": null,
+            "1": "PETA_Voice_Bye_Talk1.ogg",
+            "2": "PETA_Voice_Bye_Talk2.ogg"
+          },
+          "CUSTOM_MOTION_EFFECT": {
+            "1": {
+              "MOTION": "Wait03",
+              "EFFECTSET": "EffectSet_DEVILDOM7_REST_DARKELF_Wait03"
+            }
+          },
+          "NPC_ID_LIST": {
+            "1": 10500
+          },
+          "COMMON_NPC_LOCATION": {
+            "1": {
+              "0": null,
+              "1": 1214,
+              "2": -1500,
+              "3": 8070,
+              "4": 1090,
+              "5": 0,
+              "6": -20,
+              "7": 0,
+              "8": 400
+            }
+          },
+          "TALK_BOX": {
+            "1": {
+              "MESSAGE": {
+                "global": "STR_ID_74306"
+              }
+            },
+            "2": {
+              "MESSAGE": {
+                "global": "STR_ID_74307"
+              }
+            }
+          }
+        }
+      },
+      "spa_type": 2
+    }
+  },
+  "uniforms": [
+    {
+      "template": 316096,
+      "name": "[路莉尔]诺亚精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 14,
+      "required_class": 204,
+      "minor": false,
+      "record_sha256": "a501d5696a70baf839d624d9ec235061002fe80ed3c5f1a9fdcfb0ec0f97aecf"
+    },
+    {
+      "template": 328301,
+      "name": "艾索德精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 1,
+      "required_class": 1,
+      "minor": false,
+      "record_sha256": "bce5065f79b7b8776aebcfe50d337fae22690593e275bd8034698c30094dfdef"
+    },
+    {
+      "template": 328302,
+      "name": "爱莎精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 2,
+      "required_class": 2,
+      "minor": false,
+      "record_sha256": "7484d9d48678cc86918b56a58ac3eaf1365486528d033850f0756bbf00c4cc0c"
+    },
+    {
+      "template": 328303,
+      "name": "蕾娜精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 3,
+      "required_class": 3,
+      "minor": false,
+      "record_sha256": "10814422dfd1bd6692d78ce7fd8059c013ed0d59d3cda3e41a5d44120a0e9bba"
+    },
+    {
+      "template": 328304,
+      "name": "雷文精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 4,
+      "required_class": 4,
+      "minor": false,
+      "record_sha256": "c36cd6f7291da6b1d19e1cc66109765076c2bac1f6eb3058e06e4ae0d81f5c99"
+    },
+    {
+      "template": 328305,
+      "name": "伊芙精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 5,
+      "required_class": 5,
+      "minor": false,
+      "record_sha256": "45559a77bdf98eb1b467f40355ab86b360a9b305b17f5fca68ddd954aae6811e"
+    },
+    {
+      "template": 328306,
+      "name": "澄精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 6,
+      "required_class": 6,
+      "minor": false,
+      "record_sha256": "e5026e703a519c544fbcf95217dfa69d159d33a35330132cf4e02b92612f9f90"
+    },
+    {
+      "template": 328307,
+      "name": "艾拉精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 7,
+      "required_class": 7,
+      "minor": false,
+      "record_sha256": "bb02ba4c4e6fcd322fa20a03830743533148cdf31c101c91545bab787d1bc25e"
+    },
+    {
+      "template": 328308,
+      "name": "艾丽希斯精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 8,
+      "required_class": 8,
+      "minor": false,
+      "record_sha256": "bd8d0835aa1d5a3823119cf77c3cf9c21bc93550812f13e61abe713b1f6fa901"
+    },
+    {
+      "template": 328309,
+      "name": "艾迪精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 9,
+      "required_class": 9,
+      "minor": false,
+      "record_sha256": "806486956a70158f64ee8557f1aa458be9da2bb4855d5a52222fa85429e44b5b"
+    },
+    {
+      "template": 328310,
+      "name": "露精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 10,
+      "required_class": 200,
+      "minor": false,
+      "record_sha256": "bbfbb1f32958f332c4fa7128c0b97c630bcf39b179da8744f31a93f4d3e5a202"
+    },
+    {
+      "template": 328311,
+      "name": "希尔精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 36,
+      "role": 10,
+      "required_class": 200,
+      "minor": true,
+      "record_sha256": "d8618bc2b4e2dbe67256dd36be5c768f3337e2775b595b389138ab44a360bb1f"
+    },
+    {
+      "template": 328312,
+      "name": "萝丝精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 11,
+      "required_class": 201,
+      "minor": false,
+      "record_sha256": "d5000750ef0d9b4d5ede0bc5854a5a72257163a213d08ae503b9d381669502ea"
+    },
+    {
+      "template": 328313,
+      "name": "艾因精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 12,
+      "required_class": 202,
+      "minor": false,
+      "record_sha256": "277865e8a7c4ae8f87a25b2d8eb9344621d5565ee8797c98c2c7d1d1c504f5bc"
+    },
+    {
+      "template": 328314,
+      "name": "娜薇精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 13,
+      "required_class": 203,
+      "minor": false,
+      "record_sha256": "ece44786d7090e1223dba7db72f5f1221ab32658bfc44edb5bc374be26e52e7f"
+    },
+    {
+      "template": 328315,
+      "name": "诺亚精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 14,
+      "required_class": 204,
+      "minor": false,
+      "record_sha256": "b8ad699b00fe6fd6ed0d7196742990be32a7e6b38d98770df31ad06fb01f29e7"
+    },
+    {
+      "template": 334713,
+      "name": "莉缇娅精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 15,
+      "required_class": 205,
+      "minor": false,
+      "record_sha256": "aa54397f04a4934bdc13d8170e0e94caafc12c8af213d40a0007aa81cadc3500"
+    },
+    {
+      "template": 715242,
+      "name": "[阿莉尔]艾索德精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 1,
+      "required_class": 1,
+      "minor": false,
+      "record_sha256": "0d5c8dd35c84e916299fda632c3e1082aadefc286d1eba8bc603bb016d3692b5"
+    },
+    {
+      "template": 715243,
+      "name": "[阿莉尔]爱莎精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 2,
+      "required_class": 2,
+      "minor": false,
+      "record_sha256": "468c5a51297e3aad02a374ac09173134704a05dc66f5eadb5c2edfc6317614ae"
+    },
+    {
+      "template": 715244,
+      "name": "[阿莉尔]蕾娜精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 3,
+      "required_class": 3,
+      "minor": false,
+      "record_sha256": "c82cd15c491c2eb6ff0ba4a1e326cd3fea3ed7cb9bec0189a11744521c059b52"
+    },
+    {
+      "template": 715245,
+      "name": "[阿莉尔]雷文精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 4,
+      "required_class": 4,
+      "minor": false,
+      "record_sha256": "802eaa71842e73ccd3d5250630fe6882ec4c83929b6a2780ea497699da1d5c76"
+    },
+    {
+      "template": 715246,
+      "name": "[阿莉尔]伊芙精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 5,
+      "required_class": 5,
+      "minor": false,
+      "record_sha256": "f34767fc2dcf21ace3fa013d7a80650be0f5384bac4feb70e6188a66e18d7696"
+    },
+    {
+      "template": 715247,
+      "name": "[阿莉尔]澄精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 6,
+      "required_class": 6,
+      "minor": false,
+      "record_sha256": "0086042437df1f10481ab40602b418e5a7e7485e0c752e5665789aa8519149a8"
+    },
+    {
+      "template": 715248,
+      "name": "[阿莉尔]艾拉精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 7,
+      "required_class": 7,
+      "minor": false,
+      "record_sha256": "ad5a2e5514d1b3fb0bbb2266c471f4edc403a3fa8dd8ae7ba1715eac452ad31e"
+    },
+    {
+      "template": 715249,
+      "name": "[阿莉尔]艾丽希斯精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 8,
+      "required_class": 8,
+      "minor": false,
+      "record_sha256": "90932ca9cc8dd07f422cccfaaaf1e4e30aa94bc4e2faf408d6667f505457f55f"
+    },
+    {
+      "template": 715250,
+      "name": "[阿莉尔]艾迪精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 9,
+      "required_class": 9,
+      "minor": false,
+      "record_sha256": "4372fcdcfce21577ffe4cc7891b923b6b41bac9ed4b2d8e910b1b05529572292"
+    },
+    {
+      "template": 715251,
+      "name": "[阿莉尔]露精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 10,
+      "required_class": 200,
+      "minor": false,
+      "record_sha256": "3e2e26456103eaad59e686b0ebfea6a8d57be19fdaea1c779d29314da6333e2c"
+    },
+    {
+      "template": 715252,
+      "name": "[阿莉尔]希尔精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 36,
+      "role": 10,
+      "required_class": 200,
+      "minor": true,
+      "record_sha256": "f7af4b91dc73c58b1ddabc0a1460041d991592626440119501147f46a600eb81"
+    },
+    {
+      "template": 715253,
+      "name": "[阿莉尔]萝丝精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 11,
+      "required_class": 201,
+      "minor": false,
+      "record_sha256": "e48af4b05d81ff1e87528cfcadca45e6f95535e1127483e3e9d8a8db966fd237"
+    },
+    {
+      "template": 715254,
+      "name": "[阿莉尔]艾因精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 12,
+      "required_class": 202,
+      "minor": false,
+      "record_sha256": "0f5214ae8b0fcccf9471113108c7690ddf50df072fe102c302b6f88ed62be9e1"
+    },
+    {
+      "template": 715255,
+      "name": "[阿莉尔]娜薇精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 13,
+      "required_class": 203,
+      "minor": false,
+      "record_sha256": "577553a2419d22ac516da4935b0a98d1fce12356a0b87cde3209947dba1cbcc1"
+    },
+    {
+      "template": 715256,
+      "name": "[阿莉尔]诺亚精锐攻击队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 14,
+      "required_class": 204,
+      "minor": false,
+      "record_sha256": "e9953dee7582094f54eb27c9c0846b026676843735a563eaaed1a9ad5a6534dc"
+    },
+    {
+      "template": 716740,
+      "name": "[阿莉尔]艾索德精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 1,
+      "required_class": 1,
+      "minor": false,
+      "record_sha256": "23a189f7824e817f17aaf7a197eaf6477b6581f3ff7d2a74b98d29871ea51127"
+    },
+    {
+      "template": 716741,
+      "name": "[阿莉尔]爱莎精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 2,
+      "required_class": 2,
+      "minor": false,
+      "record_sha256": "8bef4e001a8ce69660c781d8a64b7eed46a55802d96eab71e2a8e332a707019e"
+    },
+    {
+      "template": 716742,
+      "name": "[阿莉尔]蕾娜精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 3,
+      "required_class": 3,
+      "minor": false,
+      "record_sha256": "191a8c0c10fb1953c82153b67b102527cacc298e11c7a5c2633c729c656a8875"
+    },
+    {
+      "template": 716743,
+      "name": "[阿莉尔]雷文精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 4,
+      "required_class": 4,
+      "minor": false,
+      "record_sha256": "a53ce4715ec3626a08f00c3a4e59ca927d76b93a4aa5e76a56c190b5d63a911f"
+    },
+    {
+      "template": 716744,
+      "name": "[阿莉尔]伊芙精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 5,
+      "required_class": 5,
+      "minor": false,
+      "record_sha256": "fcea15e88801165ed6c48e6135af4502725a4b629966b6658ef5b2530d798335"
+    },
+    {
+      "template": 716745,
+      "name": "[阿莉尔]澄精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 6,
+      "required_class": 6,
+      "minor": false,
+      "record_sha256": "6e3136a631b541c8398f72fa13395b73d8ed63372e8fe0389cb8f80eea013b9a"
+    },
+    {
+      "template": 716746,
+      "name": "[阿莉尔]艾拉精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 7,
+      "required_class": 7,
+      "minor": false,
+      "record_sha256": "e6987f6e39f1f4a7d5f43cf1f4fa9eb7990f7eb4167c36622093e6031bbfda13"
+    },
+    {
+      "template": 716747,
+      "name": "[阿莉尔]艾丽希斯精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 8,
+      "required_class": 8,
+      "minor": false,
+      "record_sha256": "5064d870a4ed92a0995221455e57bf78d5ddd1492d1ddecbb8658f0f065a7f40"
+    },
+    {
+      "template": 716748,
+      "name": "[阿莉尔]艾迪精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 9,
+      "required_class": 9,
+      "minor": false,
+      "record_sha256": "1d52cb03a01708f9019e75a9ca10cecdcc8e958730206b3db8483418e781cc45"
+    },
+    {
+      "template": 716749,
+      "name": "[阿莉尔]露精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 10,
+      "required_class": 200,
+      "minor": false,
+      "record_sha256": "6864ad3a50d068223733dc7c62a2d68cca13a3e20e4138c6f46c97c867d191c7"
+    },
+    {
+      "template": 716750,
+      "name": "[阿莉尔]希尔精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 36,
+      "role": 10,
+      "required_class": 200,
+      "minor": true,
+      "record_sha256": "64b1c5a26f667fe93841c1bdb91d332e7e397d308b462d2c34fced780702e2eb"
+    },
+    {
+      "template": 716751,
+      "name": "[阿莉尔]萝丝精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 11,
+      "required_class": 201,
+      "minor": false,
+      "record_sha256": "2a956bf401f94afd42e3937da225ebc3fa4bf12611f5e5e40b66b64ee82b05e5"
+    },
+    {
+      "template": 716752,
+      "name": "[阿莉尔]艾因精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 12,
+      "required_class": 202,
+      "minor": false,
+      "record_sha256": "f8e30e291e75fb9a7034f26a0eda6c120f64d31f965e95e1cb574e72e6718276"
+    },
+    {
+      "template": 716753,
+      "name": "[阿莉尔]娜薇精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 13,
+      "required_class": 203,
+      "minor": false,
+      "record_sha256": "f3ac40372668456feb218b875857ceb0b80d12b60fe3423af2715812120e76c1"
+    },
+    {
+      "template": 716754,
+      "name": "[阿莉尔]诺亚精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 14,
+      "required_class": 204,
+      "minor": false,
+      "record_sha256": "ca3c5c3d774cb8626fb75eb2289b0a1b9dba25e7ed7c39d19e1f5e56c96fb8a3"
+    },
+    {
+      "template": 717846,
+      "name": "[阿莉尔]莉缇娅精锐搜查队制服-红炎的境界",
+      "division": 120,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 15,
+      "required_class": 205,
+      "minor": false,
+      "record_sha256": "283508731137fe2b2a8b007cad2a187e349909d3018b90dfe9a5ca6d5ab34b89"
+    },
+    {
+      "template": 307676,
+      "name": "艾索德精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 1,
+      "required_class": 1,
+      "minor": false,
+      "record_sha256": "e25c3299d6f84d692a095c9cce307592e5f7d6063cc647790b66903c4b7298e6"
+    },
+    {
+      "template": 307677,
+      "name": "爱莎精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 2,
+      "required_class": 2,
+      "minor": false,
+      "record_sha256": "79569e42589305fd445ccf2c81210831b31725d06a54b1c8573e8c46ce872f48"
+    },
+    {
+      "template": 307678,
+      "name": "蕾娜精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 3,
+      "required_class": 3,
+      "minor": false,
+      "record_sha256": "4775798f7b4876916fa83ab281330376b68f6a5772f362040a6eeb5415983b18"
+    },
+    {
+      "template": 307679,
+      "name": "雷文精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 4,
+      "required_class": 4,
+      "minor": false,
+      "record_sha256": "c9233b48d01a04b3ba726d2a1f3b97e23e42b3d334ea61053af531ec4a0fc222"
+    },
+    {
+      "template": 307680,
+      "name": "伊芙精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 5,
+      "required_class": 5,
+      "minor": false,
+      "record_sha256": "6d011f3f02dd51ba01b3571ebf4c8ff88724f2054c1166f2623d62a80c92f7ca"
+    },
+    {
+      "template": 307681,
+      "name": "澄精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 6,
+      "required_class": 6,
+      "minor": false,
+      "record_sha256": "b61003e719a6b06df0c388a7e24c27fd219f4013c6527692a3b34d3f94ba87f9"
+    },
+    {
+      "template": 307682,
+      "name": "艾拉精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 7,
+      "required_class": 7,
+      "minor": false,
+      "record_sha256": "fc8d9ec144c79b393b378c8e0bca87803cd564059c1e9845c232de0f3f23e651"
+    },
+    {
+      "template": 307683,
+      "name": "艾丽希斯精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 8,
+      "required_class": 8,
+      "minor": false,
+      "record_sha256": "c4b1463e8cdb62cf2b43181427c0e339d7e7380a2d3ef0d8718d8a5dcca597de"
+    },
+    {
+      "template": 307684,
+      "name": "艾迪精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 9,
+      "required_class": 9,
+      "minor": false,
+      "record_sha256": "8e5ac98638e8866b180c0369cd22be210c0d0a8d0e61f0a8ac98f811d1ff2910"
+    },
+    {
+      "template": 307685,
+      "name": "露精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 10,
+      "required_class": 200,
+      "minor": false,
+      "record_sha256": "3ee107dace957b4e92692085c110b689f87d313817c60ab31965aa6e93ba8880"
+    },
+    {
+      "template": 307686,
+      "name": "希尔精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 36,
+      "role": 10,
+      "required_class": 200,
+      "minor": true,
+      "record_sha256": "20f22b47a3eda29b9990784acded9129df28273065722bb0c17fe0c60553955c"
+    },
+    {
+      "template": 307687,
+      "name": "萝丝精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 11,
+      "required_class": 201,
+      "minor": false,
+      "record_sha256": "fd13f7ad2e8a177f8da12d701e7d712179af2d56eaacb516986c7cd4f18a0005"
+    },
+    {
+      "template": 307688,
+      "name": "艾因精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 12,
+      "required_class": 202,
+      "minor": false,
+      "record_sha256": "e9ca9a4e915a5e0bc38c82b40983ef8a2d71f373a8a46910a5bfc957204d4074"
+    },
+    {
+      "template": 307689,
+      "name": "娜薇精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 13,
+      "required_class": 203,
+      "minor": false,
+      "record_sha256": "22173f0ebbbf7424048bd6f2258f196bba4689ba00e559d055200ff3855408a5"
+    },
+    {
+      "template": 316095,
+      "name": "诺亚精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 14,
+      "required_class": 204,
+      "minor": false,
+      "record_sha256": "1985ef3c436d1b458d39fab4a311cb1eb450fabb2eed3cb1458c938f1e220d30"
+    },
+    {
+      "template": 333343,
+      "name": "莉缇娅精锐搜查队制服-红炎的境界",
+      "division": 121,
+      "metadata": 0,
+      "group": 7,
+      "max_stack": 1,
+      "equipment_slot": 35,
+      "role": 15,
+      "required_class": 205,
+      "minor": false,
+      "record_sha256": "e465a65938fe0b641ae5b62892c3e019ffc0f6f45bfa06cbbf419392d8519c16"
+    }
+  ],
+  "unresolved_old_uniforms": [
+    308439,
+    308440,
+    308441,
+    308442,
+    308443,
+    308444,
+    308445,
+    308446,
+    308447,
+    308448,
+    308449,
+    308450,
+    308451,
+    308452
+  ],
+  "new_item_sources": false,
+  "local_rules": {
+    "stay": "continuous online same admitted scene; disconnect, leave, actor or effective uniform change resets unfinished waiting",
+    "refresh": "successful stay interval or new paid operation replaces the same one buff with a fresh 1800s; no duration stacking",
+    "offline": "persist authoritative absolute end; real time continues offline; reconnect never extends end",
+    "clock": "server transaction epoch and monotonic online observation only; client timestamps confer no credit"
+  },
+  "sources": [
+    {
+      "path": "G:\\els\\analysis\\assembly-completion-20261026-v1\\authorization.json",
+      "sha256": "9016d36520900d60c6eaca337ec9862b5794b49e4126fbe938b44697138d983c"
+    },
+    {
+      "path": "G:\\els\\analysis\\assembly-completion-20261026-v1\\peer-review\\fresh-static-review.json",
+      "sha256": "e34552c7cdce113a92db76a22852100c5c6fe0da7fd79d4edb5817072abef267"
+    },
+    {
+      "path": "G:\\els\\analysis\\assembly-completion-20261026-v1\\peer-review\\uniform-review.json",
+      "sha256": "bf2b6a8c823f5aaf4df7d7bed0d6e4142a6de910858665096711146c8a9cbbed"
+    },
+    {
+      "path": "G:\\els\\analysis\\silver-mirror-completion-20261025-v1\\assembly-client-sources.json",
+      "sha256": "97b41a99cdb95d96130a1c6bc66788e397094bce1799634087efd92065c9a0ea"
+    }
+  ]
+}

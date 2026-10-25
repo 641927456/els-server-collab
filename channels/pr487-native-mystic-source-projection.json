@@ -5,8 +5,8 @@
   "channels": [
     {
       "channel": "online",
-      "parent_release": "native-battle-special-elixirs-20261025-v1",
-      "parent_manifest_sha256": "a3a7d8fce6440a6c4db35e56ceb137ef0ed9e1139d74ae4d4c3665e91a2e665f",
+      "parent_release": "native-economic-elixirs-20261026-v1",
+      "parent_manifest_sha256": "67e42733389ab31accd194015a26056bcfeb6283f905c45902e5ffc4ad3debb1",
       "files": [
         {
           "relative": "els_server/data/equipment_spell.json",
@@ -151,8 +151,8 @@
     },
     {
       "channel": "local",
-      "parent_release": "local-native-battle-special-elixirs-20261025-v1",
-      "parent_manifest_sha256": "b339b2bb93ee5bd9427c261937c3116002c62f2a516c52d0144362f40f93251e",
+      "parent_release": "local-native-wisdom-exp-potions-20261026-v1",
+      "parent_manifest_sha256": "de797e56c9ea9346464222a78d0907c7ef2713d4d346d9f841849028da22bacd",
       "files": [
         {
           "relative": "els_server/data/equipment_spell.json",
@@ -184,8 +184,8 @@
           "relative": "els_server/domain/inventory_items.py",
           "new_file": false,
           "source_path": null,
-          "parent_sha256": "1656c5456e4bf299eacc519444704e454d3c79167d190cd298c2bfc2eb3787f5",
-          "candidate_sha256": "a15dcd885b670eb19e6c6886d274480e463d1dbac024a0d140921e3f6b7f20eb",
+          "parent_sha256": "0e57f37bb96edc7409f4bbc52d0bcfff3ab73b42c98a857726fe7ca053c63834",
+          "candidate_sha256": "571347c2c18a7187a4e2c7ca3821bdf0a110996f5ca78caf88208eda5ef9ea9b",
           "operations": [
             {
               "old_hex": "666f72205f742c5f7220696e20617269656c5f6461696c795f646566696e6974696f6e7328292e6974656d7328293a0d0a205f65787065637465643d285f725b276d65746164617461275d2c5f725b2767726f7570275d2c5f725b276d61785f737461636b275d290d0a206966205f7420696e2056455249464945445f54454d504c4154455320616e64202856455249464945445f54454d504c415445535b5f745d2c54454d504c4154455f4241475f47524f5550535b5f745d2c54454d504c4154455f4d41585f535441434b535b5f745d29213d5f65787065637465643a72616973652056616c75654572726f722827436f6e666c696374696e67206461696c792d7370656369616c206974656d2072656164657227290d0a2056455249464945445f54454d504c415445535b5f745d2c54454d504c4154455f4241475f47524f5550535b5f745d2c54454d504c4154455f4d41585f535441434b535b5f745d3d5f65787065637465640d0a",
@@ -197,8 +197,8 @@
           "relative": "els_server/domain/local_session.py",
           "new_file": false,
           "source_path": null,
-          "parent_sha256": "21d7757457211a87e1d95172cffe0215d6e8ec8fc770b7a5dc5736f84a8ae9cb",
-          "candidate_sha256": "1a72fcc7f91f8eca576d1cfa7a0e5a9066309aac7d7c1e65a425a16e2e39d371",
+          "parent_sha256": "44b79ae52599b9d7de613be0c565fdc8515c4bdbe1b614c02a9f5b15f8e9c17d",
+          "candidate_sha256": "20d8def94a8164af0131e612cd2ab2bdb41daeab49eb477229ca4553580b7583",
           "operations": [
             {
               "old_hex": "202020202020202066726f6d20656c735f7365727665722e646f6d61696e2e65717569706d656e745f7370656c6c5f65786368616e67655f666c6f7720696d706f72742068616e646c65206173207370656c6c5f65786368616e67655f68616e646c650d0a",
@@ -295,5 +295,9 @@
         }
       ]
     }
-  ]
+  ],
+  "source_merge": "28c4e7c33bbf1e423a8edb34b74a54c8f09239a2",
+  "delivery_receipt": "docs/PR487_DUAL_DELIVERY_20261026.json",
+  "actual_local_parent_rebased_after_queue": true,
+  "online_original_projection_retained": true
 }
