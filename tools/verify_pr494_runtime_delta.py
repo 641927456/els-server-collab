@@ -16,7 +16,7 @@ def verify():
         assert len(data['parent_manifest_sha256'])==64
         rows=data['delta'];assert sorted(r['path']for r in rows)==manifest['delta_paths']
         assert sorted(r['path']for r in rows if r['parent_sha256']is None)==manifest['new_paths']
-        assert len(rows)==11 and len(manifest['new_paths'])==3
+        assert len(rows)==12 and len(manifest['new_paths'])==3
         for row in rows:
             rel=PurePosixPath(row['path']);location=PurePosixPath(row['archive'])
             assert not rel.is_absolute()and '..'not in rel.parts and ':'not in str(rel)and '\\'not in str(rel)
