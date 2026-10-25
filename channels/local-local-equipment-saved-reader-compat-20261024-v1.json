@@ -1,0 +1,50 @@
+{
+  "channel": "local",
+  "release": "local-equipment-saved-reader-compat-20261024-v1",
+  "parent_release": "local-housing-access-room-independent-20261024-v1",
+  "manifest_sha256": "90877084a5281c9b09c8cf3e3ff1f9a3adbfb7aad6b267bd7a1fcfd25c7f88e6",
+  "parent_manifest_sha256": "5d5e7fd775b8bb01cce73fc64d02e4308be0d6e2a369d4b2562c62da6972fc30",
+  "scope": "Saved30603 exact two-line/41 OptionID native read and exact saved130208 read count<=1000 only. Global essence factory cap remains1; require_template/write routes/native byte34D unchanged. One required existing identified-flag reader calls the same finite two-line verifier for true30603 only.",
+  "files": [
+    {
+      "path": "els_server/domain/identification_ui.py",
+      "sha256": "640062ed63eff0b3c98ad66e816f2255b50dc05626e88941afe68db902bbac7f",
+      "size": 6435,
+      "parent_sha256": "52ade9f19781350595672998e676e195fb0e91bafda8ab0de8d17f4468570ce4"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "sha256": "cf00998b4777bb5a497a265144a8b2e9f6006c734e9dd9394e08da09679ab423",
+      "size": 59944,
+      "parent_sha256": "a95a3cc4d4595ce82f02154793ee124b47dbb13ce239c2c823bc44527b51fefa"
+    }
+  ],
+  "changed_runtime_file_count": 2,
+  "source_file_count": 821,
+  "business_file_count": 1072,
+  "independent_units": 1,
+  "client_delta": 0,
+  "new_schema": false,
+  "new_schema_definitions": 0,
+  "install_DDL_statements": 0,
+  "parent_snapshot_commit": "c6cba1e3a563cb2a55c9f8fcbb87ab6e27697ce5",
+  "historical_delivery_accepted": true,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/local/local-equipment-saved-reader-compat-20261024-v1/local-business-manifest.json",
+      "sha256": "90877084a5281c9b09c8cf3e3ff1f9a3adbfb7aad6b267bd7a1fcfd25c7f88e6",
+      "bytes": 198332
+    },
+    "actual_acceptance": {
+      "path": "releases/local/local-equipment-saved-reader-compat-20261024-v1/local-verification.json",
+      "sha256": "5dfe1bd3fc91a6c535dfc893319b95b9c13be78853adcec5f17bc75d5b4a31d4",
+      "bytes": 3477
+    }
+  },
+  "metadata_sync_installs": 0
+}
