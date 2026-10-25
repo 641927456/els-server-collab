@@ -1296,6 +1296,7 @@ class LocalSession:
             except ValueError:return [preview_ack(-1,0)]
             if cube_request.template in fixed_cubes():
                 if self.role!='game' or self.phase!='town_ready':return [preview_ack(-1,cube_request.template)]
+                row=fixed_cubes()[cube_request.template]
                 try:
                     if cube_request.keys not in ((),(0,)) or cube_request.flag1 not in (0,1) or cube_request.flag2 not in (0,1):raise ValueError('Fixed cube preview mode')
                     if cube_request.template==715036:
@@ -1309,14 +1310,14 @@ class LocalSession:
                     item=next((i for i in self.account.get_inventory_snapshot()['items'] if i['template']==cube_request.template and i['group']==4),None)
                     if item is None:raise ValueError('Missing fixed cube')
                     require_current(item)
-                    from els_server.domain.regional_boss_cubes_legacy import BOXES as legacy_boxes,require_primary
+                    from els_server.domain.regional_boss_cubes_legacy import BOXES as legacy_boxes,pool_for
                     if cube_request.template in legacy_boxes:
                         from els_server.domain.item_locks import require_unlocked
                         require_unlocked(item)
                         role=self.account.character()
-                        require_primary(fixed_cubes()[cube_request.template],role['unit_type'],role['unit_class'])
+                        row=pool_for(row,role['unit_type'],role['unit_class'])
                 except ValueError:return [preview_ack(-1,cube_request.template)]
-                row=fixed_cubes()[cube_request.template];self.fixed_cube_preview_template=cube_request.template
+                self.fixed_cube_preview_template=cube_request.template
                 if row.get('growing_adventure_kit'):
                     from els_server.domain.growing_adventure_kit import outputs_for
                     try:row=dict(row,entries=outputs_for(self.account.character()['unit_class']))

@@ -37,9 +37,13 @@ class DynamicRetirementTests(unittest.TestCase):
         actor = npc(18, 9324, 1000)
         actor.pop('source_index')
         session, run = fixture(actor)
-        event = Event(0x202, performers=(0,), kind=0xad, payload=native255(18, 1000))
-        with patch('els_server.domain.dungeon_equipment_loot_flow.current_lease', return_value=True):
-            self.assertEqual(story.handle(session, event, death_report(event.payload)), [])
+        for flag in (255, 0, 1):
+            raw = bytearray(native255(18, 1000))
+            raw[4] = flag
+            event = Event(0x202, performers=(0,), kind=0xad, payload=bytes(raw))
+            with patch('els_server.domain.dungeon_equipment_loot_flow.current_lease', return_value=True):
+                self.assertEqual(story.handle(session, event, death_report(event.payload)), [])
+        self.assertFalse(story.source_pinned(run, actor))
         self.assertFalse(run.defeated)
 
 

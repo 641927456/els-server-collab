@@ -1,0 +1,22 @@
+# 莉缇娅持有的十种旧地域BOSS箱
+
+本项使用原生unit15/base205分支60353～60362，并按用户2026-10-26明确选择，为这十个alternate组分别制定有限本服补充：对应地区官网已公示的86种结果和当前权重，每次扣原持有箱1件、0ED、发1件。不新增箱来源，不改原玩家物品。它不是已证的官服alternate原始表，也不是运行时借用primary奖池。
+
+## 来源和范围
+
+当前原始item.kim的记录+0x3c指向UTF16说明池，十条原文均为“内含可在某地区获得的BOSS道具的宝箱”。说明明确地区，但未逐项列出结果、概率或职业例外。当前磁盘data036.kom及其目录与原374E40解码源相等，记录与当前客户端catalog相等。407个实际KOM目录全扩展核查、8243份已解码KL的完整常量池/随机API定向复核及原生管理员组列表ACK路径没有补出alternate组内表；这一结果不冒称全客户端388份旧格式/任意间接代码已穷尽。官网225对应86项及权重复查通过，但没有内部alternate ID映射。上述核查和描述原文保留于analysis/memory2-lithia-cubes-completion-20261026-v1/cubes/。
+
+用户在核查后明确批准“按地区范围采用该本服补充（推荐）”。授权SHA256为6dc2fdb497154e30e4c07a8beb5e689bfb086e2bb9b2e91db07059cba6c838f9，绑定原未批准提案SHA256 9c7dffec3ec99aace90b4510bb8d9950c8222abbc68a5250ec93275b4fe4c13b；原提案不追改。
+
+## 实现
+
+- 原regional_boss_cubes_legacy.json仍为28100c20b5171d1d0720904579338a7ffaa36934fd861bafdeeaa95dc4d04947，原86主池、14基础角色分支、权重和消费者保持。
+- 新regional_boss_cubes_lithia.json保存独立的10组/86项，绑定授权、提案、客户端、catalog及原primary摘要；它是新增必需运行资源。丢失、损坏、未获批准或LITHIA_ALTERNATE_ENABLED关闭时，unit15拒绝且不扣箱。不会借primary静默兜底，其他14分支仍可使用原池。
+- native_group按当前客户端m_cUnitClass及真实SQL unit_type/unit_class定位组；pool_for返回该组的已核池。预览沿原0x559生成原条目；使用沿原0x196/197，仍仅mode0。
+- fixed_cubes与私有typed来源分别从同一writer内的真实角色重算池；来源同时绑定原UID、owner、SQL扣1件、原角色分支和精确结果计划，跨阶段改职业即拒绝。原有效期、锁定、容量、全部来源互斥、双actor guard、整回执预编码、回滚、幂等和存档均保留，不新增表或DDL。
+
+## 验证与交付边界
+
+私有SQLite覆盖全部15基础角色的真实开箱、86个alternate结果的两侧权重边界、外来owner/过期/锁定/容量/模式/假与混合来源、完整编码及末次actor失败回滚、原角色变化、并发及冷重放。另86个unit15真实SQL结果经原2271D30/22704B0/234B540读者核收，捕获的typed来源确为205/60353～60362；没有通过改客户端制造结果。
+
+候选与私有验证不代表双端已安装，也不代表自然GUI或战斗通过。最终从实际正式父包最小核收，保留疲劳通知修正、其他会话及两端差异；恢复时只关闭LITHIA_ALTERNATE_ENABLED，保留数据、原primary和已产生物品的原生读者，不恢复玩家/账号库。
