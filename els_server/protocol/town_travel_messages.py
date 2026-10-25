@@ -9,6 +9,14 @@ def request(payload):
     if special or growth:raise ValueError('Special town warp context not qualified')
     return destination,free,special,growth
 
+# Native79B330: -1 maps to an empty string;1355 is "ED不足。".
+# Both codes are ordinary failures in the original751120 caller of58D.
+GENERAL_FAILURE = 1
+INSUFFICIENT_ED = 1355
+
+def failure_code(reason):
+    return INSUFFICIENT_ED if reason in ('Town warp insufficient ED','Village1012 insufficient ED') else GENERAL_FAILURE
+
 def acknowledgement(destination,ed,*,result=0,details=(0,0,0,0)):
     if type(destination) is not int or not -2**31<=destination<2**31 or type(ed) is not int or not 0<=ed<2**63:raise ValueError('Town warp response values')
     if type(result)is not int or not -2**31<=result<2**31:
