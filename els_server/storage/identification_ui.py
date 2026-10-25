@@ -27,12 +27,15 @@ def perform(path,owner,kind,payload,operation,randbelow=secrets.randbelow,*,acco
    current={(i['group'],i['slot']):i for i in before}
    return [Event(0x201,kind=kind+1,payload=acknowledgement(kind,ed,current_changes(db,operation,owner,kind,old,before)))]
   item=by_uid.get(uid)
+  from els_server.domain.boosting_gear_identification import supported as activity_supported,draw as activity_draw
+  activity=item is not None and activity_supported(item['template'])
+  if activity and kind!=0x438:raise ValueError('Activity armor ordinary initial identification only')
   from els_server.domain.accessory_identification import supported as accessory_supported,draw as accessory_draw
   accessory=item is not None and accessory_supported(item['template'])
   if accessory and(kind!=0x438 or item['group']!=2):raise ValueError('Accessory initial identification requires original bag item')
   if item is None or item['count']!=1 or(item['group']!=1 and not accessory):raise ValueError('Owned unequipped identification item required')
   require_template(item['template']);require_current(item);require_unlocked(item)
-  from els_server.domain.accessory_identification import initial_pending
+  from els_server.domain.identification_ui import initial_pending
   identified=item.get('identified',not initial_pending(item));previous=item.get('option_groups',{});positions=[(item['group'],item['slot'])]
   if kind==0x43a:
    if not identified:raise ValueError('Item is already unidentified')
@@ -47,7 +50,7 @@ def perform(path,owner,kind,payload,operation,randbelow=secrets.randbelow,*,acco
   else:
    if identified:raise ValueError('Identify requires an unidentified item, not a free reroll')
    from els_server.domain.artifact_identification import supported,identify_values
-   updated={**previous,'1':accessory_draw(randbelow) if accessory else identify_values(item['template'],previous.get('1',[]),randbelow) if supported(item['template']) else [draw_for_template(item['template'],randbelow(10000))]};flag=True
+   updated={**previous,'1':activity_draw(randbelow) if activity else accessory_draw(randbelow) if accessory else identify_values(item['template'],previous.get('1',[]),randbelow) if supported(item['template']) else [draw_for_template(item['template'],randbelow(10000))]};flag=True
   if kind==0x438 and item['template'] in (168915,168916,168917,168918) and not previous.get('31'):
    from els_server.domain.artifact_conversion import draw as conversion_draw
    updated['31']=conversion_draw([0,0,0],{},randbelow)

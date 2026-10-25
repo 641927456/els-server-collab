@@ -35,7 +35,14 @@ def template_pool(template):
  pool=c['pools'][row['pool']]
  if row['groups']!=[pool['native_group']] or row['official_group']!=pool['official_group']:raise ValueError('Identification template pool mismatch')
  return pool
+def initial_pending(item):
+ from els_server.domain.accessory_identification import initial_pending as accessory_pending
+ from els_server.domain.boosting_gear_identification import initial_pending as activity_pending
+ return accessory_pending(item) or activity_pending(item)
+
 def require_template(template):
+ from els_server.domain.boosting_gear_identification import supported as activity_supported,catalog as activity_catalog
+ if activity_supported(template):activity_catalog();return
  from els_server.domain.accessory_identification import supported
  if supported(template):return
  from els_server.domain.artifact_identification import supported
@@ -44,6 +51,8 @@ def require_template(template):
   from els_server.domain.manufacture_rules import inventory_definitions
   if template not in inventory_definitions() or client_data().item(template)['item_type'] not in (1,2):raise ValueError('Unsupported compatibility identification item')
 def validate(template,values):
+ from els_server.domain.boosting_gear_identification import supported as activity_supported,validate as activity_validate
+ if activity_supported(template):return activity_validate(template,values)
  from els_server.domain.accessory_identification import supported,validate as accessory_validate
  if supported(template):return accessory_validate(template,values)
  from els_server.domain.artifact_identification import supported,validate as artifact_validate

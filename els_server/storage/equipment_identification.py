@@ -15,7 +15,7 @@ def replace(db,owner,uid,expected,updated):
  previous=db.execute('SELECT identified FROM equipment_identification WHERE item_uid=?',(uid,)).fetchone()
  default=True
  if previous is None:
-  from els_server.domain.accessory_identification import initial_pending
+  from els_server.domain.identification_ui import initial_pending
   groups={}
   if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='equipment_options'").fetchone():
    import json
