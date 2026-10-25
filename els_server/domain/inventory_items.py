@@ -835,3 +835,60 @@ for _row in _mystic_fill_definitions():
   if (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t])!=(_row['metadata'],_row['group']):raise ValueError('Conflicting original mystic stone reader')
  else:
   VERIFIED_TEMPLATES[_t]=_row['metadata'];TEMPLATE_BAG_GROUPS[_t]=_row['group'];TEMPLATE_MAX_STACKS[_t]=_row['max_stack']
+
+
+from els_server.domain.silver_mirror_catalog import definitions as _mirror_definitions
+for _row in _mirror_definitions():
+ _t=_row['template'];_expected=(_row['metadata'],_row['group'],_row['max_stack'])
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting Mirror native item')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+# Exact original48 T readers reuse the already verified circuit generator.
+# Registration itself does not qualify a new raid reward source.
+from els_server.domain.equipment_circuit_rules import catalog as circuit_inventory_catalog
+for _circuit in circuit_inventory_catalog()['materials'].values():
+ _t=_circuit['template'];_expected=(_circuit['metadata'],_circuit['registered_group'],_circuit['max_stack'])
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting original circuit material reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+# Finite original raid readers. Actual new production requires a typed phase
+# or owned-box source in the same writer; no generic grant is enabled here.
+from els_server.domain.raid_reward_items import definitions as raid_reward_reader_definitions
+for _raid_reader in raid_reward_reader_definitions():
+ _t=_raid_reader['template'];_expected=tuple(_raid_reader[k]for k in('metadata','group','max_stack'))
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting original raid reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+# Five current native material bundles. Their producer and original owned-use
+# consumer are qualified together; generic acquisition stays source-closed.
+from els_server.domain.formal_pve_economy import policy as native_ordinary_bundle_policy
+for _bundle_id in native_ordinary_bundle_policy()['new_reader_ids']:
+ _bundle=native_ordinary_bundle_policy()['items'][str(_bundle_id)];_expected=tuple(_bundle[k]for k in('metadata','group','max_stack'))
+ if _bundle_id in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_bundle_id],TEMPLATE_BAG_GROUPS[_bundle_id],TEMPLATE_MAX_STACKS[_bundle_id])!=_expected:raise ValueError('Conflicting native ordinary bundle reader')
+ VERIFIED_TEMPLATES[_bundle_id],TEMPLATE_BAG_GROUPS[_bundle_id],TEMPLATE_MAX_STACKS[_bundle_id]=_expected
+
+# Eight exact current Ariel reward/coupon readers. Keep all established tuples.
+from els_server.domain.ariel_attendance_rules import definitions as ariel_attendance_definitions
+for _t,_r in ariel_attendance_definitions().items():
+ _expected=(_r['metadata'],_r['group'],_r['max_stack'])
+ # Keep the newly accepted consumable provider's exact721053 tuple999.
+ # The unchanged pinned Ariel/native record still proves its native500.
+ if _t==721053 and _expected==(2,6,500) and (VERIFIED_TEMPLATES.get(_t),TEMPLATE_BAG_GROUPS.get(_t),TEMPLATE_MAX_STACKS.get(_t))==(2,6,999):continue
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting Ariel item reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+# Exact ordinary daily-special readers; preserve every established tuple.
+from els_server.domain.ariel_daily_special_rules import definitions as ariel_daily_definitions
+for _t,_r in ariel_daily_definitions().items():
+ _expected=(_r['metadata'],_r['group'],_r['max_stack'])
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting daily-special item reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+# Exact existing-owned Mystic stone readers. Preserve established stack rules.
+from els_server.domain.spell_socket_rules import definitions as _mystic_fill_definitions
+for _row in _mystic_fill_definitions():
+ _t=_row['template']
+ if _t in VERIFIED_TEMPLATES:
+  if (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t])!=(_row['metadata'],_row['group']):raise ValueError('Conflicting original mystic stone reader')
+ else:
+  VERIFIED_TEMPLATES[_t]=_row['metadata'];TEMPLATE_BAG_GROUPS[_t]=_row['group'];TEMPLATE_MAX_STACKS[_t]=_row['max_stack']

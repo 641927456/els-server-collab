@@ -1,4 +1,4 @@
-"""Exact native255 admission; resource-free callback model, not natural gameplay."""
+"""Exact native255 admission against current resources; not natural gameplay."""
 from dataclasses import replace
 import sys
 import unittest
@@ -7,7 +7,8 @@ from types import SimpleNamespace as NS
 from unittest.mock import patch
 
 from els_server.domain import story_controller_retirements as target
-from test_tunnel_native_retirements import fixture, OWNER
+from test_lithia_memory8_retirements import fixture
+from test_lithia_memory8_offfield_expiry import OWNER
 
 IDENTITIES = [(35260, 0, 0, 9319, 12), (35260, 0, 1, 9324, 7)]
 GUARDED = [(35260, 0, 0, 9319, 12)]
@@ -17,12 +18,10 @@ def identity(row):
     return tuple(row[k] for k in ('dungeon','stage','part','template'))+(row['source']['source_index'],)
 
 def model_fixture(rule, *, quest=True):
-    # Only an in-memory model is parameterized; this never mutates a real run.
+    # Current source population plus an isolated callback store; no player DB.
     earned=(rule['quests'] or rule['map_quests'])[0] if quest else 0
-    session,event,report,store=fixture(rule,unit=UNIT,quest=earned)
-    session.dungeon_run.identity=rule['dungeon']
-    session.dungeon_run.stage=rule['stage']
-    session.dungeon_run.part=rule['part']
+    session,event,report,store=fixture(rule,quest=earned)
+    session.part_end_notified=False
     return session,event,report,store
 
 class Native255Guard(unittest.TestCase):
@@ -93,7 +92,7 @@ class Native255Guard(unittest.TestCase):
             for change in ('source','owner','quest','hp','unit','lease'):
                 with self.subTest(source=identity(rule),change=change):
                     s,e,r,store=model_fixture(rule,quest=change!='quest')
-                    if change=='source':s.dungeon_run.current['npcs'][0]['points']=[999999]
+                    if change=='source':next(n for n in s.dungeon_run.current['npcs'] if n['key']==r['index'])['points']=[999999]
                     if change=='owner':r['readiness']={OWNER+1:0}
                     if change=='hp':r['hp_bits']=0
                     if change=='unit':s.account.character=lambda:{'unit_type':16,'level':99}

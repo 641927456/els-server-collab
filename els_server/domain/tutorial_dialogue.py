@@ -62,13 +62,7 @@ def inactive_increment(sub,event):
         return door_increment(sub,event)
     expected=inactive_quest(event.get('dungeon'),event.get('npc'))
     condition=sub['m_ClearCondition']
-    # 9470's own DYING report never arrives inside the stage1/part0 scene
-    # (trace 20261024-130855: the client unloads that actor with the scene),
-    # so the source-pinned part condition - retiring 9310 - carries the
-    # dummy's task event. Only this exact task/dummy pair may consume it.
-    retired=(event.get('kind')=='retire' and expected==28110 and event.get('retired_by')==9310)
-    return int(expected is not None and event.get('tutorial_quest')==expected
-               and (event.get('kind')=='kill' or retired)
+    return int(expected is not None and event.get('tutorial_quest')==expected and event.get('kind')=='kill'
                and sub['m_iID']==expected and sub['m_eClearType']==2 and condition.get('m_iKillNum')==1
                and event['npc'] in condition.get('m_eKillNPCID',{}).values()
                and event.get('dungeon') in condition.get('m_eDungeonID',{}).values())
