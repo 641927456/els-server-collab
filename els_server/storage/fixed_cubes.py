@@ -16,7 +16,7 @@ from els_server.storage.item_instances import remove
 from els_server.storage.equipment_receipt_state import current_changes
 
 
-def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.randbelow,*,account_id=None):
+def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.randbelow,*,account_id=None,prepare=None):
     if expected_template==715036:
         from els_server.storage.wardrobe_ticket_box import open_box
         return open_box(path,owner,payload,operation,account_id=account_id)
@@ -32,7 +32,7 @@ def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.r
     from els_server.domain.boosting_2026_participation_gear import BOX,enabled as gear_enabled
     if expected_template==BOX and gear_enabled():
         from els_server.storage.boosting_2026_participation_gear import open_gear
-        return open_gear(path,owner,payload,operation)
+        return open_gear(path,owner,payload,operation,account_id=account_id,prepare=prepare)
     from els_server.domain.boosting_2026_fashion_rewards import BOXES,entries as fashion_entries
     if expected_template in BOXES and fashion_entries():
         from els_server.storage.boosting_2026_fashion_rewards import open_fashion

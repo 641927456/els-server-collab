@@ -15,3 +15,15 @@ def acknowledgement(ed=0,uid=0,changes=(),options=(),result=0):
  return (struct.pack('>iQQI',result,ed,uid,len(rows))+
   b''.join(empty_record(*p) if i is None else record(i) for p,i in rows)+
   struct.pack('>IiI',0,0,len(values))+b''.join(struct.pack('>i',v) for v in values))
+
+def apply_request(wire):
+ if not isinstance(wire,bytes)or len(wire)<12:raise ValueError('Socket Apply request size')
+ uid,count=struct.unpack_from('>QI',wire)
+ if not 0<uid<2**63 or not 0<=count<=6 or len(wire)!=12+12*count:raise ValueError('Socket Apply request bounds')
+ rows=[struct.unpack_from('>iQ',wire,12+12*k)for k in range(count)]
+ if len({k for k,v in rows})!=count or any(not 0<=k<6 or not 0<v<2**31 for k,v in rows):raise ValueError('Socket Apply choices')
+ return uid,dict(rows)
+
+def apply_acknowledgement(uid=0,*,changes=(),result=0):
+ rows=list(changes)
+ return struct.pack('>iQI',result,uid,len(rows))+b''.join(empty_record(*p)if i is None else record(i)for p,i in rows)

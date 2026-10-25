@@ -551,7 +551,13 @@ def validate_item(item):
   equipped=life_equipped(item)
  from els_server.domain.bag_capacity import wire_limit
  bag=item['group']==TEMPLATE_BAG_GROUPS[item['template']] and 0<=item['slot']<wire_limit(item['group'])
- if not 1<=item['count']<=TEMPLATE_MAX_STACKS[item['template']] or not (equipped or bag):raise ValueError('Invalid local inventory count/slot')
+ read_limit=TEMPLATE_MAX_STACKS[item['template']]
+ # Read-only forward compatibility for the exact existing essence instance.
+ # grant_items still uses the original global singleton allocation/merge cap.
+ if (item['template'],item['metadata'],item['group'])==(130208,2,4):
+  if (hashlib.sha256(definition['record']).hexdigest(),definition['item_type'],definition['metadata'],struct.unpack_from('<I',definition['record'],0x10)[0])!=('def908d624a81559b11442227ffde76f36174a71b6ca42d82d35f89ed02e4cb1',7,2,1000):raise ValueError('Saved130208 reader source changed')
+  read_limit=1000
+ if not 1<=item['count']<=read_limit or not (equipped or bag):raise ValueError('Invalid local inventory count/slot')
  result=dict(item)
  if 'cartridge'in item:
   from els_server.domain.cartridge_registration_rules import scalar,binding_catalog
@@ -601,7 +607,10 @@ def validate_item(item):
  validate_reforge(result)
  if 'identified' in item:
   from els_server.domain.identification_ui import require_template
-  require_template(item['template'])
+  if item['template']==30603 and item['identified']is True:
+   from els_server.domain.identification_ui import validate as validate_saved30603
+   validate_saved30603(30603,item.get('option_groups',{}).get('1',[]))
+  else:require_template(item['template'])
   if type(item['identified']) is not bool or item['count']!=1:raise ValueError('Invalid identification flag/count')
   if not item['identified']:
    from els_server.domain.artifact_identification import supported,unidentified_values
@@ -636,7 +645,11 @@ def item_body(item):
   elif off==12 and 'enhancement' in item:struct.pack_into('>b',data,wire,item['enhancement'])
   elif off==0x3a8 and 'enhancement_gauge' in item:struct.pack_into('>i',data,wire,item['enhancement_gauge'])
   elif off==0x3ac and 'enhancement_guarantee' in item:struct.pack_into('>i',data,wire,item['enhancement_guarantee'])
-  elif off==0x34d and 'identified' in item:data[wire]=0 if item['identified'] else 2
+  elif off==0x34d:
+   if 'identified'in item:data[wire]=0 if item['identified']else 2
+   elif item['template']==30603:
+    from els_server.domain.accessory_identification import initial_pending
+    if initial_pending(item):data[wire]=2
   elif off==0x3a7 and 'artifact_socket_open' in item:data[wire]=int(item['artifact_socket_open'])
   elif 0x3b0<=off<=0x3b3 and 'chip_tuning' in item:data[wire]=item['chip_tuning'][off-0x3b0]
   elif off in (0x397,0x39b,0x39f) and 'reforge' in item:struct.pack_into('>i',data,wire,item['reforge'][(off-0x397)//4])
@@ -789,3 +802,10 @@ _life_potion=_life_potion_data().item(135953)
 if (hashlib.sha256(_life_potion['record']).hexdigest()!='77c91092e1ed47958b423f0a3d8123f9f5eae59a2987e49b935e8f6dd2011650' or (_life_potion['item_type'],_life_potion['metadata'],_life_potion['flags4'],_life_potion['flags8'],struct.unpack_from('<I',_life_potion['record'],0x10)[0])!=(7,2,573575178,56,300)):raise ValueError('Original25602 reward reader source')
 if 135953 in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[135953],TEMPLATE_BAG_GROUPS[135953],TEMPLATE_MAX_STACKS[135953])!=(2,4,300):raise ValueError('Conflicting original25602 reward reader')
 VERIFIED_TEMPLATES[135953]=2;TEMPLATE_BAG_GROUPS[135953]=4;TEMPLATE_MAX_STACKS[135953]=300
+
+# Exact existing El Essence: current KIM stack1000; old quest reward singleton
+# was a bounded issuance amount, not this item's native stacking limit.
+_essence=_smith_client_data().item(130208)
+if (hashlib.sha256(_essence["record"]).hexdigest(),_essence["item_type"],_essence["metadata"],struct.unpack_from("<I",_essence["record"],0x10)[0])!=("def908d624a81559b11442227ffde76f36174a71b6ca42d82d35f89ed02e4cb1",7,2,1000):raise ValueError("Current El Essence source")
+if (VERIFIED_TEMPLATES[130208],TEMPLATE_BAG_GROUPS[130208])!=(2,4):raise ValueError("El Essence inventory classification")
+TEMPLATE_MAX_STACKS[130208]=1000

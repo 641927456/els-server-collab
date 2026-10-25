@@ -1,0 +1,50 @@
+{
+  "channel": "online",
+  "release": "group-challenge-transaction-boundary-20261024-v1",
+  "parent_release": "lithia-town-live-notifications-20261024-v1",
+  "manifest_sha256": "02c027e765bc5ecbec680384c85ed4c07aa0a93075f2feb9dab577ec42cea4a4",
+  "parent_manifest_sha256": "384ac79d1d67c13cfbc78c1eda7b71ae367e95e46622ebb0a413476033f7548a",
+  "scope": "Lock-time current owned roster and post-write recheck, native precommit encoding for begin/retry/cancel; existing same SQL attempt state. No new admission, phase, rewards, protocol or8player claims. Existing trusted lifecycle two-argument cancellation remains separate from native consent and accepts inactive owned departing roles only for original-attempt cleanup.",
+  "files": [
+    {
+      "path": "els_server/domain/group_challenge.py",
+      "sha256": "b3569a71d09b33d695cf8d432365e3b31c23434706e041cc0c1776817e611050",
+      "size": 15496,
+      "parent_sha256": "013722632039007d69572164d28ac6aec8c89ca9c400a9891c98a584d073259d"
+    },
+    {
+      "path": "els_server/storage/challenge_group.py",
+      "sha256": "6b98d42157f185a7979020ab161f76857ebc54c05852b72f20c3dfaba8c88469",
+      "size": 4248,
+      "parent_sha256": "71a00872f8bc937ab55b9e890b7d20dd330a206c02724df7da22ce209d472603"
+    }
+  ],
+  "changed_runtime_file_count": 2,
+  "source_file_count": 815,
+  "business_file_count": 1042,
+  "independent_units": 1,
+  "client_delta": 0,
+  "new_schema": false,
+  "new_schema_definitions": 0,
+  "install_DDL_statements": 0,
+  "parent_snapshot_commit": "17bb67b8b43e59bf34e179be4fd12a77958db2dd",
+  "historical_delivery_accepted": true,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/online/group-challenge-transaction-boundary-20261024-v1/rollup-manifest.json",
+      "sha256": "02c027e765bc5ecbec680384c85ed4c07aa0a93075f2feb9dab577ec42cea4a4",
+      "bytes": 189141
+    },
+    "actual_acceptance": {
+      "path": "releases/online/group-challenge-transaction-boundary-20261024-v1/acceptance.json",
+      "sha256": "dfd33ca3f250013188e15e8b2877f68689ac1d3bebd8ac2e0dcd72197a42c4fa",
+      "bytes": 3820
+    }
+  },
+  "metadata_sync_installs": 0
+}
