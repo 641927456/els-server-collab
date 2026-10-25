@@ -18,6 +18,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_black_market_sources_20261026.py')])
     if (ROOT/'references/f-chip-circuit-transfer-20261026-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_F_chip_circuit_sources.py')])
+    if any((ROOT/'references').glob('f-service-*-20261026-v1/manifest.json')):
+        run([sys.executable,'-B',str(ROOT/'tools/verify_f_service_component_sources.py')])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
     count=0
     for name in filter(None,names):
