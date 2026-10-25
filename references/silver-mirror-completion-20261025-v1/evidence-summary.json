@@ -1,0 +1,109 @@
+{
+  "ok": true,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "source_priority": [
+    "pinned current client",
+    "CN official",
+    "Wiki with regional/version differences retained",
+    "explicitly authorized missing-value local policy"
+  ],
+  "user_authorized_missing_values": true,
+  "official": {
+    "guaranteed_quantity": 1,
+    "guaranteed_stone": 136228,
+    "memory_threshold": 4,
+    "reset": "Wednesday 10:00 UTC+8",
+    "weekly_rewards": 5
+  },
+  "local_policy": {
+    "artifact_chance_per_10000": 2500,
+    "artifact_parts": "uniform among three; special includes ring",
+    "buff_weights": "uniform without replacement; exclude retained buffs",
+    "circuit_chance_per_10000": 500,
+    "circuit_templates": "uniform among exact48 native T records",
+    "counter_scope": "per character; explicit local scope where unspecified",
+    "force_e_chance_per_10000": 100,
+    "fragment_quantity": 1,
+    "item_quantity": 1,
+    "provenance": "User-authorized missing values; not official rates",
+    "special_artifact_chance_per_10000": 5000,
+    "weekly_order": "sha256 shared weekly seed; alternating special"
+  },
+  "story_practice": "six independent original entries; no normal weekly progress, retained normal Buff or new Silver loot",
+  "native_protocols": [
+    "CCC choice BE i32",
+    "CCA40B",
+    "C05 complete Raid+dye+Mirror snapshot",
+    "861 weekly map",
+    "3A3 native world buffs"
+  ],
+  "proofs": {
+    "pair-checks-raid-parent-v2/result.json": {
+      "sha256": "beb4327780091cae5561ebac690fb209b6dfccd298a9b875ec6e7f6c53caad48",
+      "passed": true
+    },
+    "native-check-v1.json": {
+      "sha256": "1e4960b50d33aeb8e52b7ad410dbc9ed25f79dad5a2af57af349b119fca8dcde",
+      "passed": true
+    },
+    "recovery-check-v1.json": {
+      "sha256": "3b51d2b114c339163746a626d240a3551a3583893f32e288f4acac509bbfdadf",
+      "passed": true
+    },
+    "peer-contract-review/candidate-contract-audit-v4.json": {
+      "sha256": "d9ed347a149c249f0be81e392c6ef14489d9a84b09058db060fe099dc369f969",
+      "passed": true
+    },
+    "peer-contract-review/helper-contract-audit-v1.json": {
+      "sha256": "6ba6981c15e2df21312c93747bbfce5938142daf3520838bf30fdbf1e4533d02",
+      "passed": true
+    },
+    "delivery-v1/publication/public-harness-private-v1.json": {
+      "sha256": "bac464aeed190d7da04904e1b66ff2aafdd32d4fce0ff4f2db4cacda5528a811",
+      "passed": true
+    }
+  },
+  "sources": [
+    {
+      "title": "国服银镜幽谷指南",
+      "url": "https://els.ztgame.com/game/m_000-1769-003eb-676650.shtml?ms=977&mt=1003"
+    },
+    {
+      "title": "BWIKI银镜幽谷",
+      "url": "https://wiki.biligame.com/elsword/银镜幽谷"
+    },
+    {
+      "title": "KOG2026-02-11补丁",
+      "url": "https://elsword.koggames.com/2026/02/february-11th-patch-notes/"
+    },
+    {
+      "title": "国服神器指南",
+      "url": "https://els.ztgame.com/game/m_006-1769-003ec-753513.shtml?ms=805&mt=1004"
+    },
+    {
+      "title": "国服增幅电路更新",
+      "url": "https://els.ztgame.com/game/m_003-1788-003f7-160629.shtml?ms=805&mt=1015"
+    }
+  ],
+  "private_verification": [
+    "actual Application/business dispatch",
+    "real TLS/native frames and cold reconnect",
+    "precommit encoding failure rollback",
+    "same SQL transaction/actor/source/run/proof",
+    "idempotent choices and clear",
+    "six cycles including exhausted weekly rewards",
+    "four owned invitation sources",
+    "normal/story one revival",
+    "complete count snapshot and original Raid C06",
+    "native static readers through isolated emulator",
+    "compatible recovery retaining all readers",
+    "owned QA cleanup and registration capacity"
+  ],
+  "natural_GUI": false,
+  "natural_battle": false,
+  "multiplayer_Silver": false,
+  "formal_player_database_test": false,
+  "public_TLS": false,
+  "dual_installation": false,
+  "publication": "pending authorized queue and final actual-parent freeze"
+}
