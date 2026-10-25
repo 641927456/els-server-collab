@@ -32,6 +32,19 @@ def manual_magic_potion_definition():
 
 
 def ordinary(template):
+    if template in (130467,710193,723674):
+        # Exact existing owned Fighting Spirit records. Native115 consumes
+        # A8 factors204/3517 -> non-world/non-stored212/3344, including timers.
+        r=catalog()[template];raw=bytes.fromhex(r['record_hex'])
+        pins={130467:'7299fb414a12255226ec2b402c7b863862ae37415be984688e2c6b72f3d94a65',
+              710193:'6c2a3c49394f5f383f76774e54cd2a6df51676f66c79ec0df97b67167ebeefbe',
+              723674:'5ca413679223b57d6a9af1127408a7ed3eb79f0ec2ea4859bc805c7f0ecbbb06'}
+        from els_server.domain.inventory_items import VERIFIED_TEMPLATES,TEMPLATE_BAG_GROUPS
+        if (hashlib.sha256(raw).hexdigest()!=pins[template]
+            or VERIFIED_TEMPLATES.get(template)!=2 or TEMPLATE_BAG_GROUPS.get(template)!=6
+            or (r['cooldown_group'],r['cooldown_seconds'],r['effects'],raw[0xd1])!=(12,30,[],0)):
+            raise ValueError('Fighting Spirit original source changed')
+        return r
     if template in (710313,710314,710315):
         from els_server.domain.apple_consumables import usable
         return usable(template)
@@ -68,7 +81,7 @@ def ordinary(template):
 
 
 def require_usable(template,level,*,automatic=False):
-    if automatic and template in (710313,710314,710315,79065,77110,710022):raise ValueError('Apple pet automation is not admitted')
+    if automatic and template in (710313,710314,710315,79065,77110,710022,130467,710193,723674):raise ValueError('Apple pet automation is not admitted')
     metadata=ordinary(template)
     if type(level) is not int or not 1<=level<=99:raise ValueError('Consumable character level')
     if level<bytes.fromhex(metadata['record_hex'])[0xd1]:raise ValueError('Consumable level requirement')

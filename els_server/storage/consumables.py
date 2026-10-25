@@ -54,7 +54,7 @@ def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apple
         # Multiple equivalent templates require the native selection priority.
         if len({i['template'] for i in matches})!=1:raise ValueError('Ambiguous consumable template')
         item=min(matches,key=lambda i:i['slot']);meta=require_usable(item['template'],character[0],automatic=automatic_use)
-        if item['template'] in (710313,710314,710315,77110):
+        if item['template'] in (710313,710314,710315,77110,130467,710193,723674):
             if allow_apples is not True:raise ValueError('Apple native actor stage is not ready')
             from els_server.domain.item_locks import require_unlocked
             require_unlocked(item)
