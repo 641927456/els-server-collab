@@ -809,3 +809,20 @@ _essence=_smith_client_data().item(130208)
 if (hashlib.sha256(_essence["record"]).hexdigest(),_essence["item_type"],_essence["metadata"],struct.unpack_from("<I",_essence["record"],0x10)[0])!=("def908d624a81559b11442227ffde76f36174a71b6ca42d82d35f89ed02e4cb1",7,2,1000):raise ValueError("Current El Essence source")
 if (VERIFIED_TEMPLATES[130208],TEMPLATE_BAG_GROUPS[130208])!=(2,4):raise ValueError("El Essence inventory classification")
 TEMPLATE_MAX_STACKS[130208]=1000
+
+# Eight exact current Ariel reward/coupon readers. Keep all established tuples.
+from els_server.domain.ariel_attendance_rules import definitions as ariel_attendance_definitions
+for _t,_r in ariel_attendance_definitions().items():
+ _expected=(_r['metadata'],_r['group'],_r['max_stack'])
+ # Keep the newly accepted consumable provider's exact721053 tuple999.
+ # The unchanged pinned Ariel/native record still proves its native500.
+ if _t==721053 and _expected==(2,6,500) and (VERIFIED_TEMPLATES.get(_t),TEMPLATE_BAG_GROUPS.get(_t),TEMPLATE_MAX_STACKS.get(_t))==(2,6,999):continue
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting Ariel item reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+# Exact ordinary daily-special readers; preserve every established tuple.
+from els_server.domain.ariel_daily_special_rules import definitions as ariel_daily_definitions
+for _t,_r in ariel_daily_definitions().items():
+ _expected=(_r['metadata'],_r['group'],_r['max_stack'])
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting daily-special item reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected

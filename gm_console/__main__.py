@@ -44,6 +44,12 @@ def handler(service):
                     elif path=='/api/coupon-operation':
                         q=parse_qs(urlsplit(self.path).query)
                         data=service.coupon_read('coupon-operation',dict(operation_id=q.get('operation_id',[''])[0],action=q.get('action',[''])[0]))
+                    elif path=='/api/cash-balance':
+                        q=parse_qs(urlsplit(self.path).query)
+                        data=service.cash_read('cash-balance',dict(account_id=int(q.get('account_id',['0'])[0])))
+                    elif path=='/api/cash-operation':
+                        q=parse_qs(urlsplit(self.path).query)
+                        data=service.cash_read('cash-operation',dict(account_id=int(q.get('account_id',['0'])[0]),operation_id=q.get('operation_id',[''])[0]))
                     elif path=='/api/logs':data=service.logs()
                     elif path=='/api/accounts':
                         q=parse_qs(urlsplit(self.path).query)
@@ -79,7 +85,7 @@ def handler(service):
                 value=json.loads(self.rfile.read(size))
                 if not isinstance(value,dict):raise ValueError('请求需要是对象')
                 action=urlsplit(self.path).path.removeprefix('/api/')
-                if action not in ('start','stop','give','announce','rates','events','backup','cancel-announcement','set-level','coupon-issue','coupon-revoke'):return self.reply(404,dict(error='接口不存在'))
+                if action not in ('start','stop','give','announce','rates','events','backup','cancel-announcement','set-level','coupon-issue','coupon-revoke','cash-credit'):return self.reply(404,dict(error='接口不存在'))
                 return self.reply(200,dict(ok=True,result=service.mutate(action,value)))
             except Exception as e:return self.reply(400,dict(error=str(e) if isinstance(e,ValueError) else '操作失败，请检查日志'))
     return Handler
