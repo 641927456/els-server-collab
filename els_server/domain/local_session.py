@@ -258,7 +258,9 @@ class LocalSession:
         answer=cartridge_sync(self,answer)
         from els_server.domain.tenebros_capacity_flow import synchronize as tenebros_capacity_sync
         answer=tenebros_capacity_sync(self,answer)
-        return self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
+        answer=self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
+        from els_server.domain.ariel_attendance_preview import project as ariel_preview
+        return ariel_preview(self,answer)
 
     def _capture_luciel_dungeon_hp(self,payload,spans):
         self.luciel_dungeon_hp_source=None;self.luciel_dungeon_hp_max=None
@@ -439,7 +441,9 @@ class LocalSession:
         answer=notices+before+reply+observe(self,reply)+observe_pet_progression(self,reply)+observe_mount(self)+observe_artifact(self,reply)+restore_luciel(self,event,reply)
         from els_server.domain.resonance_flow import synchronize as resonance_sync
         answer=resonance_sync(self,answer)
-        return self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
+        answer=self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
+        from els_server.domain.ariel_attendance_preview import project as ariel_preview
+        return ariel_preview(self,answer)
 
     def responses(self,kind):
         return responses(kind,self.client_build,account_id=self.account.account_id,
@@ -605,6 +609,24 @@ class LocalSession:
             answer=handle(self,event)
             if answer is not None:return answer
         if self.enter_dungeon and event.event_id==0x202 and kind==0x2ce:
+            # Local diagnostic: record every Lua-script spawn request with its
+            # exact bytes so unrecognised objects can be mapped offline.
+            # Behaviour is unchanged; the dump is never sent to the client.
+            try:
+                import json as _json, time as _time
+                from els_server.paths import PROJECT_ROOT as _root
+                path=_root/'state/launcher/script-spawn-dump.jsonl'
+                path.parent.mkdir(parents=True,exist_ok=True)
+                run=getattr(self,'dungeon_run',None)
+                with path.open('a',encoding='utf8') as handle:
+                    handle.write(_json.dumps(dict(
+                        at=_time.strftime('%Y-%m-%dT%H:%M:%S'),
+                        size=len(event.payload),payload=event.payload.hex(),
+                        dungeon=getattr(run,'identity',None),stage=getattr(run,'stage',None),
+                        part=getattr(run,'part',None),
+                        unit_type=(self.account.character() or {}).get('unit_type'),
+                        sequence=request_sequence))+'\n')
+            except (OSError,TypeError,ValueError):pass
             from els_server.domain.dungeon_spawns import handle as scripted_spawn
             scripted_reply=scripted_spawn(self,event,request_sequence)
             if scripted_reply is not None:return scripted_reply
@@ -1000,6 +1022,14 @@ class LocalSession:
         from els_server.domain.ep_conversion_flow import handle as ep_conversion_handle
         ep_conversion_reply=ep_conversion_handle(self,event,request_sequence)
         if ep_conversion_reply is not None:return ep_conversion_reply
+        from els_server.domain.el_shard_flow import handle as el_shard_handle
+        el_shard_reply=el_shard_handle(self,event,request_sequence)
+        if el_shard_reply is not None:return el_shard_reply
+
+        from els_server.domain.el_shard_identification_flow import handle as shard_identify_handle
+        shard_identify_reply=shard_identify_handle(self,event,request_sequence)
+        if shard_identify_reply is not None:return shard_identify_reply
+
         from els_server.domain.equipment_ui_flow import handle as equipment_ui_handle
         equipment_ui_reply=equipment_ui_handle(self,event,request_sequence)
         if equipment_ui_reply is not None:return equipment_ui_reply
@@ -1301,6 +1331,11 @@ class LocalSession:
                     if cube_template==715036:
                         require_session_context(self,event,request_sequence)
                         answer=open_cube(self.account.store.path,self.account.uid,cube_template,event.payload,operation,account_id=self.account.account_id)
+                    elif cube_template==723680:
+                        from els_server.domain.tenebros_capacity_flow import selected
+                        if (event.performers not in ((),(0,)) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Participation cube envelope')
+                        gear_path,gear_owner,gear_account,gear_prepare=selected(self)
+                        answer=open_cube(gear_path,gear_owner,cube_template,event.payload,operation,account_id=gear_account,prepare=gear_prepare)
                     else:answer=open_cube(self.account.store.path,self.account.uid,cube_template,event.payload,operation)
                 except ValueError:return cube_result(self.account.get_reward_balances()['ed'],code=-1)
                 self.fixed_cube_operations[(self.account.uid,request_sequence)]=cube_template
@@ -1578,6 +1613,9 @@ class LocalSession:
             self.role='game'
             if kind not in self.completed or kind in [0x485,0x490,0x225,0x227]:self.phase=after
             self.completed.add(kind)
+            if kind==0x227 and self.phase=='town_ready':
+                from els_server.storage.boosting_2026_gear_scroll_policy import reconcile_selected
+                answer+=reconcile_selected(self)
             if kind==0x39:self.account.accept_terms()
             return answer
         if self.enter_dungeon and self.client_build=='dx11_260923' and event.event_id==0x202 and kind==0x67:

@@ -172,7 +172,7 @@ class GameServer:
                 run=getattr(business,'dungeon_run',None)
                 if (event.event_id==0x202 and event.kind==0xad and run is not None
                         and run.identity==35250
-                        and memory1_diagnostic_count<24):
+                        and memory1_diagnostic_count<512):
                     memory1_diagnostic_count+=1
                     from els_server.domain.dungeon_lifecycle import death_report
                     try:
