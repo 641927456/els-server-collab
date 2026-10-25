@@ -13,3 +13,9 @@ Source/private validation is complete. Formal installation/public acceptance and
 ## Actual v2 parent inheritance
 
 The actual online/local parents advanced to consumable-expansion v2. `channels/ariel-cash-attendance-actual-v2-parent-bridge.json` binds their exact manifests and replays the unchanged original source recipe: every Ariel existing parent leaf is byte-identical, all12 new leaves are still absent, and all five new consumable/elixir dependency leaves are retained. The23 business Git blobs and original v9 source/Git freezes are unchanged. This is source inheritance proof, not approval of package metadata, changed-dependency execution or deployment. Final actual-package/controller/public acceptance remain separately required.
+
+## Separately accepted Raid parents
+
+The actual parents subsequently advanced to formal-raid-economy. The old v9 recipe remains historical: five existing leaf contexts changed. `channels/ariel-cash-attendance-raid-parent-source-projection-v10.json` now supplies new reversible operations for all41 game leaves plus the unchanged2 management leaves, keyed to the exact new parent manifests. It preserves all26 accepted Raid changes, including the five overlaps, and records the added before-SQL mutually-exclusive Raid/daily-special guard. No old candidate digest is reused for those five rebased leaves.
+
+The23 public business blobs are unchanged because main does not contain the separately delivered Raid implementation; an incomplete Raid API or parent tree is not imported into this feature PR. The runtime recipe explicitly requires that independently accepted component first. This new source/inverse review is not actual new-parent private, public or natural GUI qualification; final package/controller/QA binding is still required.
