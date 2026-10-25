@@ -12,6 +12,7 @@ def verify():
     assert manifest['client_delta']==0 and manifest['install_DDL_statements']==0
     assert manifest['runtime_overlay_not_main'] is True
     assert manifest['private_configuration_or_player_data_included'] is False
+    assert manifest['final_parent_qualification_verified'] is True and HEX.fullmatch(manifest['qualification_sha256'])
     assert set(manifest['channels'])=={'online','local'}
     seen=set();counts={};sources={}
     for channel,data in manifest['channels'].items():

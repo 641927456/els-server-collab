@@ -1,5 +1,5 @@
 {
-  "status": "final source frozen; final-parent integration qualification pending; not installed",
+  "status": "final-parent integration qualified; source PR awaiting merge; formal installation pending",
   "code_validation": {
     "real_11_member_native_TLS": true,
     "underfilled_5_no_debit": true,
@@ -18,5 +18,108 @@
   "natural_GUI": false,
   "natural_battle": false,
   "formal_installation": false,
-  "history_failures_preserved": true
+  "history_failures_preserved": true,
+  "final_qualification_sha256": "63fe7989f1fee33800ced411bcea2bb599e43cb1736e1f58401fdc72e2b3455e",
+  "runtime_binding_sha256": "224657fb41a3a8a804b1ba35f63cce8a81b8d720096a83b4342640379cc03667",
+  "final_qualification_verified": true,
+  "proofs": [
+    {
+      "name": "runtime-frozen-all-online-v1.json",
+      "sha256": "37e3ace02098459e97360ca5de5d15d957c22fb28064590e1f1ffcbc0f6e4aab",
+      "ok": true,
+      "checks": 11,
+      "cases": 0
+    },
+    {
+      "name": "runtime-frozen-all-local-v1.json",
+      "sha256": "b21074ffeee5e281ff9abb1ebac4d5c23761f98a787fcb922ca0a19e9162ebb9",
+      "ok": true,
+      "checks": 10,
+      "cases": 0
+    },
+    {
+      "name": "runtime-frozen-online11-v1.json",
+      "sha256": "84604f3d89799b20a2494d3b29178dbb41c2bb32f523598f11693ef18ae83fc4",
+      "ok": true,
+      "checks": 7,
+      "cases": 0
+    },
+    {
+      "name": "private-state-frozen-cold-v1.json",
+      "sha256": "f0957f5fd97086ae65b0d3dd745611d4dca92e642caf43e223052fb453bd698f",
+      "ok": true,
+      "checks": 14,
+      "cases": 0
+    },
+    {
+      "name": "weekly-hook-v2.json",
+      "sha256": "689ed0da3b454b71d2caaae9128a59b1595947e1f0b0599658bef7939b049236",
+      "ok": true,
+      "checks": 4,
+      "cases": 0
+    },
+    {
+      "name": "boxes-frozen-online-v1.json",
+      "sha256": "7272c1fb7bd491cb398f89f9f88b52bd1880376cdab415904e76e659711855a0",
+      "ok": true,
+      "checks": 4,
+      "cases": 247
+    },
+    {
+      "name": "boxes-frozen-local-v1.json",
+      "sha256": "9afd04811e779c4cf90ec0b7875e1dfe206bb913e6f392abe2a19d74e9956075",
+      "ok": true,
+      "checks": 4,
+      "cases": 247
+    },
+    {
+      "name": "runtime-frozen-local1-v1.json",
+      "sha256": "a6252ed81bdc5d3070ece57d2e901a7b81ba66e705f9c857899ee77106ee8752",
+      "ok": true,
+      "checks": 7,
+      "cases": 0
+    },
+    {
+      "name": "runtime-frozen-online5-v1.json",
+      "sha256": "a078394557646203fe8db5af6c67cb2dd80e0f8eb2ac9a9ba6130ab66f0993b4",
+      "ok": true,
+      "checks": 4,
+      "cases": 0
+    },
+    {
+      "name": "native-reward-readers-v2.json",
+      "sha256": "cfdb6bc0c45df2426ea7264619859f0360d8d2963a2149e04352e151ddaf06a7",
+      "ok": true,
+      "checks": 0,
+      "cases": 53
+    },
+    {
+      "name": "native-gate-positive-v1.json",
+      "sha256": "f1507e4787bb545aaa28f97a12130fc83ce0973b95d31901732d21076aaa2bc0",
+      "ok": true,
+      "checks": 0,
+      "cases": 3
+    },
+    {
+      "name": "native-result-vectors-v1.json",
+      "sha256": "162d80a4b72ab8c8795ac18766ef8511d28794f576972f1ad57109d05475b5cc",
+      "ok": true,
+      "checks": 0,
+      "cases": 28
+    },
+    {
+      "name": "qualified-component-v2.json",
+      "sha256": "ddb2d959e955a0a884b34270f1d895922ca4ba21e223785771122cf2af18e616",
+      "ok": true,
+      "checks": 0,
+      "cases": 0
+    },
+    {
+      "name": "recovery-qualified-v1.json",
+      "sha256": "d79a6e4f4c90c43ee7ec5c710791ef6b033ce8a28614cb3c451ffcdb34750423",
+      "ok": true,
+      "checks": 0,
+      "cases": 0
+    }
+  ]
 }
