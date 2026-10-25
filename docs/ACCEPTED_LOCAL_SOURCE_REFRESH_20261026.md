@@ -22,3 +22,9 @@ on the collaboration main branch under issue #497.
 The subsequent accepted `local-boss13100-native-resistance-20261026-v1`
 source adds only three existing `raid_npc_stats` revisions. Its separate
 historical source index preserves the earlier source commit and index.
+
+The final captured epoch, `local-native-economic-elixirs-20261026-v1`, adds
+three source files and revises fourteen existing ones. All 899 eligible source
+files match its immutable accepted manifest. The new historical index is
+`channels/local-native-economic-elixirs-20261026-v1.json`; earlier indexes and
+V38's original common baseline remain unchanged.
