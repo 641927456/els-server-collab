@@ -42,8 +42,11 @@ class CubeTests(fixture.SaleTests):
         item=self.grant(980050);events=self.use(item)
         stacks=[i for i in self.items() if i['template']==78360]
         self.assertEqual(sum(i['count'] for i in stacks),300)
-        self.assertTrue(all(1<=i['count']<=99 for i in stacks))
-        self.assertEqual(len(stacks),4);self.assertEqual(struct.unpack_from('>I',events[0].payload)[0],5)
+        from els_server.domain.inventory_items import TEMPLATE_MAX_STACKS
+        limit=TEMPLATE_MAX_STACKS[78360];expected_stacks=(300+limit-1)//limit
+        self.assertTrue(all(1<=i['count']<=limit for i in stacks))
+        self.assertEqual(len(stacks),expected_stacks)
+        self.assertEqual(struct.unpack_from('>I',events[0].payload)[0],expected_stacks+1)
 
     def test_bag_full_rolls_back_cube_revision_reward_and_uid_allocation(self):
         item=self.grant(130172,2);before=self.dump()

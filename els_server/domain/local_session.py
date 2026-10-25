@@ -1309,6 +1309,12 @@ class LocalSession:
                     item=next((i for i in self.account.get_inventory_snapshot()['items'] if i['template']==cube_request.template and i['group']==4),None)
                     if item is None:raise ValueError('Missing fixed cube')
                     require_current(item)
+                    from els_server.domain.regional_boss_cubes_legacy import BOXES as legacy_boxes,require_primary
+                    if cube_request.template in legacy_boxes:
+                        from els_server.domain.item_locks import require_unlocked
+                        require_unlocked(item)
+                        role=self.account.character()
+                        require_primary(fixed_cubes()[cube_request.template],role['unit_type'],role['unit_class'])
                 except ValueError:return [preview_ack(-1,cube_request.template)]
                 row=fixed_cubes()[cube_request.template];self.fixed_cube_preview_template=cube_request.template
                 if row.get('growing_adventure_kit'):
@@ -1334,6 +1340,7 @@ class LocalSession:
             from els_server.protocol.cube_messages import result as cube_result
             from els_server.protocol.ice_messages import use_request
             from els_server.domain.cubes import catalog as fixed_cubes
+            from els_server.domain.regional_boss_cubes_legacy import BOXES as legacy_cube_boxes
             try:cube_use=use_request(event.payload)
             except ValueError:return cube_result(self.account.get_reward_balances()['ed'],code=-1)
             cube_item=next((i for i in self.account.get_inventory_snapshot()['items'] if i['uid']==cube_use.uid),None)
@@ -1359,6 +1366,14 @@ class LocalSession:
                         if (event.performers not in ((),(0,)) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Participation cube envelope')
                         gear_path,gear_owner,gear_account,gear_prepare=selected(self)
                         answer=open_cube(gear_path,gear_owner,cube_template,event.payload,operation,account_id=gear_account,prepare=gear_prepare)
+                    elif cube_template in legacy_cube_boxes:
+                        from els_server.domain.tenebros_capacity_flow import selected
+                        if (event.performers not in ((),(0,)) or event.uid!=2**64-1
+                            or event.target_uid!=2**64-1 or event.payload_mode!=0):
+                            raise ValueError('Regional cube native envelope')
+                        box_path,box_owner,box_account,box_prepare=selected(self)
+                        answer=open_cube(box_path,box_owner,cube_template,event.payload,operation,
+                                         account_id=box_account,prepare=box_prepare)
                     else:answer=open_cube(self.account.store.path,self.account.uid,cube_template,event.payload,operation)
                 except ValueError:return cube_result(self.account.get_reward_balances()['ed'],code=-1)
                 self.fixed_cube_operations[(self.account.uid,request_sequence)]=cube_template

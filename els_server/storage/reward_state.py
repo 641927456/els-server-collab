@@ -26,7 +26,7 @@ class RewardState:
   try:r=db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(self.uid,)).fetchone()
   finally:db.close()
   return validate_balances(r)
- def grant(self,run_id,proof,ed,experience,response_builder=None,item_plan=None,inventory_response_builder=None,*,dungeon_clear=None,challenge_clear=None,transaction=None,clear_assessment=None,artifact_base=None,title_economy=None,title_dungeon=None,attendance_clear=None,experience_limit=None,resonance_source=None,daily_special=None):
+ def grant(self,run_id,proof,ed,experience,response_builder=None,item_plan=None,inventory_response_builder=None,*,dungeon_clear=None,challenge_clear=None,transaction=None,clear_assessment=None,artifact_base=None,title_economy=None,title_dungeon=None,attendance_clear=None,experience_limit=None,resonance_source=None,raid_reward_source=None,silver_source=None,daily_special=None):
   # A run UUID is allocated by the authenticated server, never by a client.
   if not isinstance(run_id,str) or str(uuid.UUID(run_id))!=run_id:raise ValueError('Noncanonical reward run UUID')
   if not isinstance(proof,bytes) or not proof or len(proof)>8192:raise ValueError('Reward evidence bound')
@@ -35,6 +35,21 @@ class RewardState:
    if response_builder is not None or item_plan is None or not callable(inventory_response_builder):raise ValueError('Inventory response requires one builder and an item plan')
   elif not callable(response_builder):raise ValueError('Reward response builder required')
   grant={'ed':ed,'experience':experience}
+  if silver_source is not None:
+   from els_server.domain.silver_mirror_rewards import validate_source as _mirror_source
+   source=_mirror_source(silver_source)
+   if daily_special is not None or raid_reward_source is not None or transaction is not source.db or source.owner!=self.uid or source.run_id!=run_id or source.proof_sha256!=hashlib.sha256(proof).hexdigest():raise ValueError('Mirror reward source operation/owner/writer/proof')
+   grant['silver_mirror_source']={'run_id':run_id,'proof_sha256':source.proof_sha256}
+  if daily_special is not None and raid_reward_source is not None:
+   # The ordinary finite clear uses an independent sealed inventory plan.
+   # Daily items still pass their own factory; Raid phase/box/pity cannot mix.
+   from els_server.domain.raid_reward_items import validate_source as _ordinary_source
+   if _ordinary_source(raid_reward_source).kind!='ordinary':raise ValueError('Daily-special and Raid typed sources are mutually exclusive')
+  if raid_reward_source is not None:
+   from els_server.domain.raid_reward_items import validate_source as _raid_source
+   source=_raid_source(raid_reward_source)
+   if transaction is None or source.owner!=self.uid or source.operation!=run_id:raise ValueError('Raid reward source operation/owner/writer')
+   grant['raid_reward_source']=source.receipt_identity()
   if resonance_source is not None:
    if resonance_source not in ('kill','clear') or (resonance_source=='clear')!=(dungeon_clear is not None):raise ValueError('ERP source boundary')
    grant['resonance_source']=resonance_source
@@ -77,7 +92,7 @@ class RewardState:
   if self.uid!=1001:grant['owner']=self.uid
   if item_plan is not None:
    from els_server.storage.inventory_state import ensure_inventory,grant_items,validate_plan,migrate_potion_bag,migrate_fashion_bag,normalize_legacy_potion_groups
-   item_plan=validate_plan(item_plan);grant['items']=item_plan
+   item_plan=validate_plan(item_plan,raid_reward_source=raid_reward_source,silver_source=silver_source);grant['items']=item_plan
   digest=hashlib.sha256(proof).hexdigest();plan=json.dumps(grant,sort_keys=True,separators=(',',':'))
   db=transaction if transaction is not None else self._connect()
   if transaction is not None:
@@ -168,7 +183,7 @@ class RewardState:
     commit_local_rules(db,self.uid,run_id,clear_assessment,artifact_base)
    # Encoding runs inside the transaction. The protocol builder uses
    # per-run grants or verified totals; any failure rolls back everything.
-   awarded=grant_items(db,item_plan,self.uid) if item_plan is not None else None
+   awarded=grant_items(db,item_plan,self.uid,raid_reward_source=raid_reward_source,silver_source=silver_source) if item_plan is not None else None
    daily_detail=None;daily_status=None
    if daily_special is not None:
     from els_server.storage import ariel_daily_special as daily_store

@@ -1,0 +1,30 @@
+# 十个既有地域BOSS箱的有限主池接通
+
+范围为130159、130160、130161、130162、130645、131262、133471、160662、160774、162020的已有持有箱，不新增箱来源，不改现有玩家物品、客户端或未知晋级箱。本项将PR494作为候选，与当前main和实际正式接口逐项核收；安装状态另以最终发布回执为准。
+
+## 有限事实与必要依赖
+
+86项primary奖励的官方名称、数量及权重逐项核对归档公示225；JSON保留官网地址、HTML摘要、两份源件摘要、完整有限RandomItem分支和每一产物的当前客户端record摘要。固定数据SHA256为28100c20b5171d1d0720904579338a7ffaa36934fd861bafdeeaa95dc4d04947，客户端catalog为a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba。
+
+原始构建证据（非新增运行时依赖）：
+
+- analysis/sol-high-20261015/equipment-ui/official-probability-225.json，SHA256 9e9bcbfad45c2043cdd660f26eb3f10042f21db4ef6ab8632deae841bc1b927c。
+- analysis/sol-high-20261015/npc-bank-box/RandomItem.lua.tables.json，SHA256 618bacd86fa68ab92d40e8d98ce51da4d536e0f57c45801e3375704616e8699c。
+
+实际正式包已包含两源。Git可携带运行时仅要求新增JSON、domain/regional_boss_cubes_legacy.py与storage/regional_boss_cube_source.py，使用原有已锁定client catalog和原生物品工厂。loader核本地JSON、catalog与86个record，不强读未随Git携带的完整原始表。发布清单必须收录上述必要资源；未安装可选JSON时只不登记这十箱，其他已合格箱继续工作。已安装JSON损坏则拒绝校验，不能静默采用别的奖池。
+
+## 原生职业分支
+
+以同一SQL事务内characters.unit_type及unit_class核真实角色，先确认当前class所属unitType，再以BASE_CLASSES查RandomItem.m_cUnitClass。1～14均明确选择primary60343～60352；15原生205选择alternate60353～60362，其完整池未知，因此预览与使用都须拒绝，不抽签、不扣箱。不能因primary产物为职业无关饰品而替代alternate。
+
+## 事务与来源保护
+
+使用入口必须带原account_id及可调用的当前App/session prepare(db)，同一SQL事务内require_owner核归属；首次与重放都在读回执前和返回前核actor。只对这十箱创建私有typed来源：捕获原持有UID、owner、原始物品状态及整个owner库存SQL快照，要求同一真实事务内恰好扣1件，原生有效期、锁定、容量与物品工厂保持。来源只接受原抽中的一条精确计划，绑定原连接与owner，消费一次，且SAVEPOINT验证阻止commit/rollback之后复活；任意自称grant_source的mapping没有资格。与已有cartridge、fish、daily及实际正式包中的raid/silver等来源全部互斥。
+
+奖励及完整0xad8/0x197回执均在提交前编码，prepare失败同样回滚。幂等账本仍沿原owner/template/payload摘要，重复请求只返回当前库存更新，不重抽或再弹奖品。普通cube仍仅接受原option0；本项没有全局放开option1，也不改其他礼包、返还或选择分支。
+
+## 验证边界
+
+28项定向用例通过，私有临时SQLite验证覆盖全部86项奖励及权重两侧边界、14个primary角色和进阶class、15号角色十箱拒绝、foreign owner、expiry/lock/fullbag、伪造及混合来源、箱外模板、完整回执编码/prepare失败回滚、源重用与跨事务、部分堆叠、并发重复及冷读回放；原三箱和未知九个晋级箱作回归。运行记录在analysis/pr494-repair-20261026-v1下。
+
+实际正式包的raid_reward_source、silver_source、daily_special_source及本服经验/掉落/灵药/集结地、单机专有分支必须保留，以最小新增参数和互斥检查移植，禁止整叶覆盖。源码与私库通过不代表已安装、自然GUI或实战通过；最终双端发布、120秒观察、公网自有QA与清理由发布所有者另行核收。

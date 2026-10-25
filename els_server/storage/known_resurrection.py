@@ -37,7 +37,7 @@ def open_box(path,owner,payload,operation,*,account_id,guard):
     from els_server.protocol.ice_messages import use_request
     from els_server.protocol.known_resurrection import box_result
     request=use_request(payload)
-    if request.option or request.choices or any(v not in (0,1)for v in(request.flag1,request.flag2,request.flag3)):
+    if request.option not in (0,1) or request.choices or any(v not in (0,1)for v in(request.flag1,request.flag2,request.flag3)):
         raise ValueError('Known resurrection box use mode')
     owner,digest=_identity(owner,0x196,struct.pack('>i',BOX)+payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
