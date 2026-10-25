@@ -1,0 +1,97 @@
+{
+  "channel": "local",
+  "release": "local-unified-launcher-20261024-v1",
+  "parent_release": "local-skill-page-shop-immediate-ED-20261024-v1",
+  "manifest_sha256": "eeaae9d1b5c0d908de5db985b818a9d295091728a0228f738c6f434547a669ff",
+  "parent_manifest_sha256": "d285362af219209ba7c6a619bd77ad1f82ac70e9b7669cf3d700a4cdbc389a29",
+  "scope_kind": "unified-launcher",
+  "files": [],
+  "source_PRs": [],
+  "source_PR_merged_commits": {},
+  "parent_snapshot_commit": "8a91c44eaa9adaee97d67f25e649e968ec16d684",
+  "source_file_count": 774,
+  "business_file_count": 1025,
+  "changed_source_file_count": 0,
+  "new_source_file_count": 0,
+  "replaced_source_file_count": 0,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "historical_release_not_final_current": true,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/local/local-unified-launcher-20261024-v1/local-business-manifest.json",
+      "sha256": "eeaae9d1b5c0d908de5db985b818a9d295091728a0228f738c6f434547a669ff",
+      "bytes": 192225
+    },
+    "actual_parent_manifest": {
+      "path": "releases/local/local-skill-page-shop-immediate-ED-20261024-v1/local-business-manifest.json",
+      "sha256": "d285362af219209ba7c6a619bd77ad1f82ac70e9b7669cf3d700a4cdbc389a29",
+      "bytes": 1158089
+    },
+    "acceptance_roles": {
+      "original_completion": {
+        "path": "analysis/unified-launcher-20261024-v1/completion.json",
+        "sha256": "0d9d17458cde7f7f4662c8a148f3801a823431bdc0325a578a773547e0e32a49",
+        "bytes": 1330
+      },
+      "source_qualification": {
+        "path": "analysis/unified-launcher-20261024-v1/qualification.json",
+        "sha256": "4b73246c916970dbfd1faf84d13d8d3efb4acfe427317dd7786784b6b61d31e4",
+        "bytes": 1004
+      },
+      "local_acceptance": {
+        "path": "analysis/unified-launcher-20261024-v1/local-installation.json",
+        "sha256": "e18f32ff1991631e63c8ee0c25e3c2e468e7707f630401f1210ef8cb8372c1c1",
+        "bytes": 2835
+      },
+      "online_launcher_acceptance": {
+        "path": "analysis/unified-launcher-20261024-v1/installation.json",
+        "sha256": "019b5c20e15fb92465c3a9b06b22991571e0e378b50cde030db5202ccc3945d0",
+        "bytes": 5628
+      },
+      "local_own_lock_release": {
+        "path": "analysis/unified-launcher-20261024-v1/local-locks-released.json",
+        "sha256": "663e57e7f30624820d31149e09e9b14f351b8b8b88dffb31fb1a1047e117613c",
+        "bytes": 51
+      },
+      "online_launcher_own_lock_release": {
+        "path": "analysis/unified-launcher-20261024-v1/locks-released.json",
+        "sha256": "bc7ad5ed63df260ad30efa565d73a849daf12a1f8435340400b670c0be02a484",
+        "bytes": 104
+      },
+      "cleanup": {
+        "path": "analysis/unified-launcher-20261024-v1/cleanup.json",
+        "sha256": "1d67102a4d6b99fe037b79f29ffd42fd3e4908a176c0cecd139814513cbf6fb1",
+        "bytes": 1762
+      },
+      "source_archive_only_PR428": {
+        "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/launcher36-source-Git-v1/merge-actual-v2/root-actual-source-completion.json",
+        "sha256": "11a5ff9c72151eaad4c9b902fa2aff504d9dab85c43ce34717067bae9bb38889",
+        "bytes": 3672
+      }
+    },
+    "declared_full_source_map": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/M52-history-source-preparation-v1/local/local-unified-launcher-20261024-v1-full-source-map.json",
+      "sha256": "ccd9ad7c880b148c9bc3910dee33ed9341ad1696ad7ea64b42bf3b189be9420c",
+      "bytes": 125169
+    }
+  },
+  "layered_limits": [
+    "Source0 server-history carry; V36 PR428 archives launcher source only and is not a runtime code PR. No gameplay unit or server schema inferred.",
+    "Only exact immutable release history; snapshot parent commit remains unbound.",
+    "Runtime byte/source matching and all other parent tree preservation remain new materializer gates; no copy of main70f to runtime.",
+    "No current selector, runtime operation, score change or system completion acceptance is granted by this record.",
+    "Launcher startup behavior changed under its own original authorization; source0 here describes els_server source only, not a claim that launcher behavior was unchanged."
+  ],
+  "natural_GUI": false,
+  "source_archive_PRs": [
+    {
+      "PR": 428,
+      "merge": "70f2dcd831bdbdf5756ae4fc46d3cfce2b84229c",
+      "role": "already-delivered-launcher-source-archive-only"
+    }
+  ],
+  "original_client_files_modified": 0,
+  "source_zero_delta_carry_only": true
+}

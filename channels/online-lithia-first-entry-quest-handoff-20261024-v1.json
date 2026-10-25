@@ -1,0 +1,115 @@
+{
+  "channel": "online",
+  "release": "lithia-first-entry-quest-handoff-20261024-v1",
+  "parent_release": "collection52700-native-registration-20261024-v1",
+  "manifest_sha256": "d6ddab1a749bf59d05b5fcd8d4ab1b8fcdb55ba64ddc18ebaaf7f01d25e422eb",
+  "parent_manifest_sha256": "7c54f25ccc70af67bb866e030ce7b1fb3d2b5232ed51e2df3b480f4196fda03c",
+  "scope_kind": "lithia-first-entry",
+  "files": [
+    {
+      "path": "els_server/domain/lithia_first_entry.py",
+      "sha256": "9f6e1517c861fbe6ccd537c4befef29f29ec0802a35e15d46fb131fb97638bd4",
+      "size": 5541,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "sha256": "3d31a34ee01b695a885101122ebea0e6c9b0958bdccbb62af6363dc7d19dbd59",
+      "size": 19221,
+      "parent_sha256": "cc0e662398e546b2e4ab7f86941cc596dee0d0052c7358f745ef0f93e4285a33"
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "sha256": "e34f0781cfd9ba0a1a5c8486a7dfd756e85010ed23c99303599251839c0f5474",
+      "size": 28262,
+      "parent_sha256": "e8233b5001e72c417f2a0b219d19680c03262d940cc609d5d1727be4cda83be8"
+    }
+  ],
+  "source_PRs": [
+    "https://github.com/641927456/els-server-collab/pull/416"
+  ],
+  "source_PR_merged_commits": {
+    "416": "9bbed51e91c630f0277c572ee828111a9c924157"
+  },
+  "parent_snapshot_commit": "2d140fcf4095697bac783062ed03275f6f63a6cf",
+  "source_file_count": 782,
+  "business_file_count": 1009,
+  "changed_source_file_count": 3,
+  "new_source_file_count": 1,
+  "replaced_source_file_count": 2,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "historical_release_not_final_current": true,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/online/lithia-first-entry-quest-handoff-20261024-v1/rollup-manifest.json",
+      "sha256": "d6ddab1a749bf59d05b5fcd8d4ab1b8fcdb55ba64ddc18ebaaf7f01d25e422eb",
+      "bytes": 187553
+    },
+    "actual_parent_manifest": {
+      "path": "releases/online/collection52700-native-registration-20261024-v1/rollup-manifest.json",
+      "sha256": "7c54f25ccc70af67bb866e030ce7b1fb3d2b5232ed51e2df3b480f4196fda03c",
+      "bytes": 372352
+    },
+    "acceptance_roles": {
+      "original_completion": {
+        "path": "analysis/lithia-online-flow-20261024-v1/publication-v3/completion.json",
+        "sha256": "d2cd8f33e32e6427e4d7f8c53e6d7ac15df56a4ad5a94a05095da78a621aae31",
+        "bytes": 783
+      },
+      "source_review": {
+        "path": "analysis/lithia-online-flow-20261024-v1/publication-v3/source-review.json",
+        "sha256": "b555c1dd8677c20276f603fa60024e69d174b047dd06786d35a378d9f8b0c3f4",
+        "bytes": 2816
+      },
+      "local_acceptance": {
+        "path": "analysis/lithia-online-flow-20261024-v1/publication-v3/local-install/completion.json",
+        "sha256": "27e6604a0914ecd539b566974cdb4df59f3a9e86f40d2afb0cf25d5e9858f2d1",
+        "bytes": 3642
+      },
+      "online_acceptance": {
+        "path": "analysis/lithia-online-flow-20261024-v1/publication-v3/online-acceptance.json",
+        "sha256": "beae56e5079bbb7f58b04673fea669e893ffdb6d3e8c82104b032eb636c659c8",
+        "bytes": 3956
+      },
+      "own_task_cleanup": {
+        "path": "analysis/lithia-online-flow-20261024-v1/publication-v3/task-cleanup.json",
+        "sha256": "1c5561c67a78507f42ef4d2c560490f8ffb1be0d6b7ebc58d4e6a0ba1f762b62",
+        "bytes": 274
+      },
+      "own_locks_released_role": {
+        "path": "analysis/lithia-online-flow-20261024-v1/publication-v3/completion.json",
+        "sha256": "d2cd8f33e32e6427e4d7f8c53e6d7ac15df56a4ad5a94a05095da78a621aae31",
+        "bytes": 783
+      },
+      "protected_successor_actual_completion": {
+        "path": "analysis/epic-mainline-complete-20261024-v1/fish-guild-release-20261024-v1/actual-completion-v1/actual-completion.json",
+        "sha256": "b383b0cf46c9863b311280b8de66f48ee67a396fbfffa1c0aab646e7533b5c32",
+        "bytes": 7461
+      },
+      "protected_successor_final_review": {
+        "path": "analysis/full-gap-execution-20261024-v1/review/fish-guild-actual-artifact-v1/actual-dual-delivery-review-v1.json",
+        "sha256": "b0f171a35d6a0b289a0fc4e0e2ad591eef2b9f6a40bb0ded96744ddf9a039d5f",
+        "bytes": 39464
+      }
+    },
+    "declared_full_source_map": {
+      "path": "analysis/profession-remaining-20261024-v1/records/final-channel-reconciliation/M52-history-source-preparation-v1/online/lithia-first-entry-quest-handoff-20261024-v1-full-source-map.json",
+      "sha256": "2d09160297f3115cf0ab7f3ffee0fb4eb292abc489000aff0250a58be9c79a85",
+      "bytes": 126491
+    }
+  },
+  "layered_limits": [
+    "Original first-entry handoff PR416 only. Original town repeated completion remained unresolved; later PR420 is not accepted or installed by this historical record.",
+    "Only exact immutable release history; snapshot parent commit remains unbound.",
+    "Runtime byte/source matching and all other parent tree preservation remain new materializer gates; no copy of main70f to runtime.",
+    "No current selector, runtime operation, score change or system completion acceptance is granted by this record."
+  ],
+  "independent_units": 1,
+  "new_schema": false,
+  "new_schema_definitions": 0,
+  "install_DDL_statements": 0,
+  "client_delta": 0,
+  "natural_GUI": false
+}

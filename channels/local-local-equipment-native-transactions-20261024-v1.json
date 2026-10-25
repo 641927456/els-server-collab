@@ -1,0 +1,176 @@
+{
+  "channel": "local",
+  "release": "local-equipment-native-transactions-20261024-v1",
+  "parent_release": "local-equipment-saved-reader-compat-20261024-v1",
+  "manifest_sha256": "517e65c5e54a99b4e09a27b6cc0fb39f62bd5243156d64bca8782ef07c44f0b0",
+  "parent_manifest_sha256": "90877084a5281c9b09c8cf3e3ff1f9a3adbfb7aad6b267bd7a1fcfd25c7f88e6",
+  "scope": "Five independently reviewed finite native units: socket preview/Apply;30603 initial identification;130048..130053 extraction;130047 identification;authorized723680 new-box/qualified-old-receipt four118259. No client change, acquisition expansion outside authorized723680, install migration or unrelated state change.",
+  "files": [
+    {
+      "path": "els_server/application.py",
+      "sha256": "659484a629a96ca0afc953b96967d23fa4fc78e6fbe09bc2f6d344fba7e7b4a2",
+      "size": 16561,
+      "parent_sha256": "88ab916b3ca52e6a80a8a52431656d2c75cc9ce460189333c19a85808e8d2183"
+    },
+    {
+      "path": "els_server/data/accessory_identification.json",
+      "sha256": "d73724bdb404856457b3797b1a8ce3e07d3fb2f1517a03e2ffa90c17625a6448",
+      "size": 25386,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/accessory_identification.py",
+      "sha256": "4706c2add8135e10e9d658bd1a2c013ec4ae7e6dce871523f3b7d003d255a314",
+      "size": 2702,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/el_shard_flow.py",
+      "sha256": "a8969fb5087e15960bbe6681d857e8925b1c9cb23ff6a07c823ff8766ba0efb0",
+      "size": 1744,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/el_shard_identification.py",
+      "sha256": "fd1c950a27fc2d1ddb9a15af00659ecaf18d46ebdb45dab6f3edafd137afbe3b",
+      "size": 1161,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/el_shard_identification_flow.py",
+      "sha256": "d7f8c8f0eef3b0cf703ce2ddc1f109d4efd49d414bba219188c72e5bd0707c19",
+      "size": 1697,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/equipment_ui_flow.py",
+      "sha256": "f887e5760305ad3a166a7fbe6ac5dc67dea1515d5e20fcef16d744e3003bc640",
+      "size": 8496,
+      "parent_sha256": "34600892bffb3d93a0d6df2ce16150b8003330b0922c7dca2932a9278495d1b3"
+    },
+    {
+      "path": "els_server/domain/identification_ui.py",
+      "sha256": "45abd76eb86f0421547938502ffbf2f762c24c6f239cd683b0f6cd1721b6eaf3",
+      "size": 5759,
+      "parent_sha256": "640062ed63eff0b3c98ad66e816f2255b50dc05626e88941afe68db902bbac7f"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "sha256": "bbd853e1b0094886053d89f61410ff926647244c5ddbfd72769df40241b7c008",
+      "size": 59152,
+      "parent_sha256": "cf00998b4777bb5a497a265144a8b2e9f6006c734e9dd9394e08da09679ab423"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "7c407da4e5dff73c72697ddafb537bd242fb563c68300439b942c04877a3e98b",
+      "size": 146721,
+      "parent_sha256": "ba93e754958979e454cc3b6c598243bc0113b7c7324b73074b7b347ef147ec5f"
+    },
+    {
+      "path": "els_server/domain/ordinary_accessories.py",
+      "sha256": "940098c515a38ed63625f7e90e7c82b3d9589c9286ba28bf732cb8d173e29c52",
+      "size": 5278,
+      "parent_sha256": "76c02c4001f15dbe7d0ad173ca35d7ba84fd192ef684da17ce006ed6013bf2b0"
+    },
+    {
+      "path": "els_server/protocol/el_shard_identification_messages.py",
+      "sha256": "5d507a43244c66987c7ed77f7942ecf8a6f32e6f4f98cda0c09789a225687fac",
+      "size": 847,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/protocol/el_shard_messages.py",
+      "sha256": "b62891d3462d89366a59bbfef9bf70b2d85c7159f9de32ad729872927bddc359",
+      "size": 855,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/protocol/socket_messages.py",
+      "sha256": "5f55460c9fc2831d291fcf27571eab102157d0b574095efee0f8e1600a4aeb38",
+      "size": 1823,
+      "parent_sha256": "6963f47ca224fb19c9e60d6f4aeac55f21999b9762864bc219d24bec5cff75f9"
+    },
+    {
+      "path": "els_server/storage/boosting_2026_gear_scroll_policy.py",
+      "sha256": "212f7d207dca67ae7425005d3a44a8fb22942ca49ecbecbd21dc89d931fbcabb",
+      "size": 8755,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/boosting_2026_participation_gear.py",
+      "sha256": "3419da287b26fab137f210e5fe70da0dd1e385d7d4f3a73e219bc2fe812b6d15",
+      "size": 4205,
+      "parent_sha256": "d932df0a3a36d6f773d0f4cef6dc12f1455cabba47f17bcce3e3b2542cbedae7"
+    },
+    {
+      "path": "els_server/storage/el_shard_extraction.py",
+      "sha256": "cfcb48f6ef2480dd419e7264d882d33fd9d95b0b296c0d67451c8966f761e0e6",
+      "size": 3368,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/el_shard_identification.py",
+      "sha256": "dbe6a915174d16031858db6da1cadc0d20f245c5cb507b18e06853e5e2fae628",
+      "size": 4624,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/equipment_identification.py",
+      "sha256": "da2887d731e2948a122635383f6b90abc8e32e6b7a11486a8dcbedd00e4345f6",
+      "size": 2075,
+      "parent_sha256": "b2d3040b77f0322d574e2fb5f340f547d9ae22c2fb8acabef569f13db0780cde"
+    },
+    {
+      "path": "els_server/storage/equipment_receipt_state.py",
+      "sha256": "98dff509cd420ce29585a229f1a7c2c5cafc49d27414945c9ac44231ffbb9ae1",
+      "size": 3307,
+      "parent_sha256": "feb7ad4c92dcdf8a3ca23e413e17cbef983e8671b669747bed4e84db98fa6028"
+    },
+    {
+      "path": "els_server/storage/fixed_cubes.py",
+      "sha256": "9b65ac6b4bdc1bf033ed865e39403ffe16ee77fbb787be2ba1af54f491dce9e6",
+      "size": 6860,
+      "parent_sha256": "84948fd77a76c90af72cdf359591e82d9e7b2526131fdf876cbcd402995ece4a"
+    },
+    {
+      "path": "els_server/storage/identification_ui.py",
+      "sha256": "6ad9f61f4263f046f7eadeadf4039ddf96e52f3ea13c2e5ef5218015a427cbd9",
+      "size": 4580,
+      "parent_sha256": "dc3a048d0756bc24871385bab84a2caebc0d3c51ad92a2ee68f9e4e383e40579"
+    },
+    {
+      "path": "els_server/storage/sage_sockets.py",
+      "sha256": "f7aedb52d3af2f50e70b829a6c64da7abb2d64e90227b274805ff0a2f9862744",
+      "size": 9411,
+      "parent_sha256": "fb8dc07142d46324f3641a978a69460a9c67d3c033e645c1ef9e73be89a9bf97"
+    }
+  ],
+  "changed_runtime_file_count": 23,
+  "source_file_count": 831,
+  "business_file_count": 1082,
+  "independent_units": 5,
+  "client_delta": 0,
+  "new_schema": true,
+  "new_schema_definitions": 2,
+  "install_DDL_statements": 0,
+  "parent_snapshot_commit": "01c78f16f01280bdfa6ae0ea915b1560d4dc78ff",
+  "historical_delivery_accepted": true,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/local/local-equipment-native-transactions-20261024-v1/local-business-manifest.json",
+      "sha256": "517e65c5e54a99b4e09a27b6cc0fb39f62bd5243156d64bca8782ef07c44f0b0",
+      "bytes": 207443
+    },
+    "actual_acceptance": {
+      "path": "releases/local/local-equipment-native-transactions-20261024-v1/local-verification.json",
+      "sha256": "548bde29a704949868b5d062b78c81478438f4ea0e356c8e9f866e370e66ca6d",
+      "bytes": 5633
+    }
+  },
+  "metadata_sync_installs": 0
+}
