@@ -1,0 +1,491 @@
+{
+  "schema": 1,
+  "policy": "black-market-native-20261026-v1",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "admissions_enabled": true,
+  "tiers": {
+    "1": {
+      "min_ed": 5000000,
+      "max_ed": 100000000,
+      "entries": [
+        {
+          "template": 119333,
+          "quantity": 1
+        },
+        {
+          "template": 119216,
+          "quantity": 2
+        },
+        {
+          "template": 119325,
+          "quantity": 3
+        },
+        {
+          "template": 119329,
+          "quantity": 1
+        },
+        {
+          "template": 136199,
+          "quantity": 1
+        },
+        {
+          "template": 119210,
+          "quantity": 1000
+        }
+      ]
+    },
+    "2": {
+      "min_ed": 5000000,
+      "max_ed": 100000000,
+      "entries": [
+        {
+          "template": 119334,
+          "quantity": 1
+        },
+        {
+          "template": 119216,
+          "quantity": 4
+        },
+        {
+          "template": 119325,
+          "quantity": 5
+        },
+        {
+          "template": 119329,
+          "quantity": 3
+        },
+        {
+          "template": 136199,
+          "quantity": 3
+        },
+        {
+          "template": 136201,
+          "quantity": 1
+        },
+        {
+          "template": 119210,
+          "quantity": 2000
+        }
+      ]
+    },
+    "3": {
+      "min_ed": 50000000,
+      "max_ed": 1000000000,
+      "entries": [
+        {
+          "template": 119323,
+          "quantity": 1
+        },
+        {
+          "template": 119338,
+          "quantity": 1
+        },
+        {
+          "template": 119336,
+          "quantity": 1
+        },
+        {
+          "template": 119325,
+          "quantity": 10
+        },
+        {
+          "template": 119335,
+          "quantity": 1
+        },
+        {
+          "template": 136199,
+          "quantity": 10
+        },
+        {
+          "template": 136201,
+          "quantity": 5
+        }
+      ]
+    },
+    "4": {
+      "min_ed": 70000000,
+      "max_ed": 1000000000,
+      "entries": [
+        {
+          "template": 119215,
+          "quantity": 1
+        },
+        {
+          "template": 119339,
+          "quantity": 1
+        },
+        {
+          "template": 62270,
+          "quantity": 1
+        },
+        {
+          "template": 62271,
+          "quantity": 1
+        },
+        {
+          "template": 119337,
+          "quantity": 1
+        },
+        {
+          "template": 119325,
+          "quantity": 15
+        },
+        {
+          "template": 136199,
+          "quantity": 15
+        },
+        {
+          "template": 136201,
+          "quantity": 7
+        }
+      ]
+    },
+    "5": {
+      "min_ed": 100000000,
+      "max_ed": 3000000000,
+      "entries": [
+        {
+          "template": 136239,
+          "quantity": 1
+        },
+        {
+          "template": 119343,
+          "quantity": 1
+        },
+        {
+          "template": 119340,
+          "quantity": 1
+        },
+        {
+          "template": 119325,
+          "quantity": 20
+        },
+        {
+          "template": 136199,
+          "quantity": 20
+        },
+        {
+          "template": 136201,
+          "quantity": 10
+        }
+      ]
+    }
+  },
+  "items": [
+    {
+      "template": 62270,
+      "name": "[阿莉尔]最大数值T型增幅电路选择宝箱",
+      "metadata": 0,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 1,
+      "record_sha256": "48f644840efefbcb55613e8d3ce431d87b4a3619e8da6ae23c2d172ade40feed",
+      "already_registered": false,
+      "raw_max": 0,
+      "zero_max_policy": "singleton operation bound, not native stacking semantics"
+    },
+    {
+      "template": 62271,
+      "name": "[阿莉尔]最大数值L型增幅电路选择宝箱",
+      "metadata": 0,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 1,
+      "record_sha256": "a9cfb34bfde545a679aebe227962db277cde23bab73f9fd82229c17d2b140f4f",
+      "already_registered": false,
+      "raw_max": 0,
+      "zero_max_policy": "singleton operation bound, not native stacking semantics"
+    },
+    {
+      "template": 119210,
+      "name": "甲烷安瓿瓶",
+      "metadata": 2,
+      "item_type": 6,
+      "group": 3,
+      "max_stack": 10000,
+      "record_sha256": "53b51a8908671627db0dbd05e72f82a618c382747c1e5b112cd3db67d3c06cb4",
+      "already_registered": true,
+      "raw_max": 10000,
+      "zero_max_policy": null
+    },
+    {
+      "template": 119215,
+      "name": "稳定的格雷烷核心",
+      "metadata": 2,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 1000,
+      "record_sha256": "4eba9730e003f0a06cdb2d57c8a3e6018bd4d517106cb9ddd235f2ef509221d0",
+      "already_registered": true,
+      "raw_max": 1000,
+      "zero_max_policy": null
+    },
+    {
+      "template": 119216,
+      "name": "黑色碎片",
+      "metadata": 2,
+      "item_type": 6,
+      "group": 3,
+      "max_stack": 1000,
+      "record_sha256": "ec98dcd5d39d9c740a3b617e79e7222d46f328c8c4554dac62a45a95e4eee29b",
+      "already_registered": true,
+      "raw_max": 1000,
+      "zero_max_policy": null
+    },
+    {
+      "template": 119323,
+      "name": "格雷烷核心",
+      "metadata": 2,
+      "item_type": 6,
+      "group": 3,
+      "max_stack": 999,
+      "record_sha256": "0ed6dd8eb77ca902ae5251e95f3380c75e541dee465d2741bf610dd3deef79c1",
+      "already_registered": true,
+      "raw_max": 1000,
+      "zero_max_policy": null
+    },
+    {
+      "template": 119325,
+      "name": "[阿莉尔]防具效果变换石",
+      "metadata": 2,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 500,
+      "record_sha256": "216dd8a7090763338bbe473b941189ba7f32b7b578a496fa2ed9bbb97872eb3e",
+      "already_registered": true,
+      "raw_max": 500,
+      "zero_max_policy": null
+    },
+    {
+      "template": 119329,
+      "name": "[阿莉尔]防具效果保留券",
+      "metadata": 2,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 500,
+      "record_sha256": "ad9bc38c9b7282a8cd73786ac2ace6188f138b1792fee74287c45ec7abc36775",
+      "already_registered": false,
+      "raw_max": 500,
+      "zero_max_policy": null
+    },
+    {
+      "template": 119333,
+      "name": "普通卡带宝箱",
+      "metadata": 0,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 1,
+      "record_sha256": "9fb620cb9ba1b047d4ad89412f5e190fe86b2457a2a442dcc27fa16b34b33310",
+      "already_registered": false,
+      "raw_max": 0,
+      "zero_max_policy": "singleton operation bound, not native stacking semantics"
+    },
+    {
+      "template": 119334,
+      "name": "卡带宝箱",
+      "metadata": 0,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 1,
+      "record_sha256": "73b494b751c95f1f4fb906dd029510de5b5a54bd0c2a65986a9192b6e10ef8b6",
+      "already_registered": false,
+      "raw_max": 0,
+      "zero_max_policy": "singleton operation bound, not native stacking semantics"
+    },
+    {
+      "template": 119335,
+      "name": "普通卡带选择宝箱",
+      "metadata": 0,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 1,
+      "record_sha256": "0289a52855f5eb4aafc301c3530ff64f6e3744ed45f56fb94613556ce61d0928",
+      "already_registered": false,
+      "raw_max": 0,
+      "zero_max_policy": "singleton operation bound, not native stacking semantics"
+    },
+    {
+      "template": 119336,
+      "name": "超级卡带宝箱",
+      "metadata": 0,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 1,
+      "record_sha256": "f4f9684762e3e41aa9b83f4a2f7b7c6b11a69e5cd9bd640161c80261024693f7",
+      "already_registered": false,
+      "raw_max": 0,
+      "zero_max_policy": "singleton operation bound, not native stacking semantics"
+    },
+    {
+      "template": 119337,
+      "name": "超级卡带选择宝箱",
+      "metadata": 0,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 1,
+      "record_sha256": "0866838fffffd532d90f8ad13e8603c8b4a2157e663bfdaa5ef3cf4b05e06c6d",
+      "already_registered": false,
+      "raw_max": 0,
+      "zero_max_policy": "singleton operation bound, not native stacking semantics"
+    },
+    {
+      "template": 119338,
+      "name": "[阿莉尔]涅博隆作战服原型选择宝箱",
+      "metadata": 0,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 1,
+      "record_sha256": "3aff06611cd88e439b3c697d9bebb2e776b260dae488aa1ca00f390780cae746",
+      "already_registered": false,
+      "raw_max": 0,
+      "zero_max_policy": "singleton operation bound, not native stacking semantics"
+    },
+    {
+      "template": 119339,
+      "name": "涅博隆作战服原型选择宝箱",
+      "metadata": 0,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 1,
+      "record_sha256": "27744bb254575ed8521b2f35c88d1af83a994fcd15567f1cc45fa269d2511f69",
+      "already_registered": false,
+      "raw_max": 0,
+      "zero_max_policy": "singleton operation bound, not native stacking semantics"
+    },
+    {
+      "template": 119340,
+      "name": "[阿莉尔]T型复制电路选择宝箱",
+      "metadata": 0,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 1,
+      "record_sha256": "a8b04a18457fac6564ffa129b30f7e8cfbc9e150be320b5eff1528e8f2000af7",
+      "already_registered": false,
+      "raw_max": 0,
+      "zero_max_policy": "singleton operation bound, not native stacking semantics"
+    },
+    {
+      "template": 119343,
+      "name": "[阿莉尔]变换效果数值1阶段提升券（防具专用）",
+      "metadata": 0,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 1,
+      "record_sha256": "7a8b87292afe03190a3b7e3808c1e488c760b032b811955b3d531084100e1b04",
+      "already_registered": false,
+      "raw_max": 0,
+      "zero_max_policy": "singleton operation bound, not native stacking semantics"
+    },
+    {
+      "template": 136199,
+      "name": "[阿莉尔]核心数据备份模块",
+      "metadata": 2,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 500,
+      "record_sha256": "f582813f30d8785989587a74e72712d1668db3b47f2f57fef881f783a2bfe7c1",
+      "already_registered": false,
+      "raw_max": 500,
+      "zero_max_policy": null
+    },
+    {
+      "template": 136201,
+      "name": "核心数据备份模块",
+      "metadata": 2,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 500,
+      "record_sha256": "9513c98c966ba37f80de311dc8a4034ccf2e9b713bb6b6acd942d8ed70023214",
+      "already_registered": true,
+      "raw_max": 500,
+      "zero_max_policy": null
+    },
+    {
+      "template": 136239,
+      "name": "[阿莉尔]变换效果数值1阶段提升券（武器专用）",
+      "metadata": 0,
+      "item_type": 7,
+      "group": 4,
+      "max_stack": 1,
+      "record_sha256": "fbccdb72712aea0521f66ede67d8e07576474258b95b0acdc17d395a5017e6c6",
+      "already_registered": false,
+      "raw_max": 0,
+      "zero_max_policy": "singleton operation bound, not native stacking semantics"
+    }
+  ],
+  "native": {
+    "town": 1012,
+    "scene": 1214,
+    "house": 40326,
+    "npc": 10500,
+    "button": 65,
+    "weekly_source": 35940,
+    "ticket_cap": 2,
+    "bid_seconds": 10,
+    "min_online": 6,
+    "max_online": 11,
+    "small_lots": 3,
+    "large_lots": 4,
+    "large_from": 9,
+    "bid_percent": 105,
+    "distribution_percent": 90
+  },
+  "official": {
+    "timezone": "UTC+08:00",
+    "weekdays": [
+      1,
+      5
+    ],
+    "queue_hour": 20,
+    "queue_seconds": 360,
+    "reset": "existing CN Wednesday10 shared raid weekly ledger",
+    "within_tier": "uniform",
+    "close_after_matching": "no reentry and no chance refund"
+  },
+  "local": {
+    "tier_weights": [
+      50,
+      25,
+      15,
+      8,
+      2
+    ],
+    "opening_ed": "fixed exact native MIN_VALUE_ED per tier; selection policy only, MAX retained and not used as a bid ceiling",
+    "independent_lots": true,
+    "queue_order": "FIFO; balanced6..11 room partition to admit all eligible real queued actors",
+    "ready_seconds": 10,
+    "between_seconds": 5,
+    "final_seconds": 4,
+    "unbid": "no award and no ED movement",
+    "mail_retention_days": 365,
+    "offline_refund": "native character-owned refund mail",
+    "single_player": {
+      "mode": "local",
+      "minimum": 1,
+      "lots": 3,
+      "fake_participants": false,
+      "winning_ed": "all sunk",
+      "distribution": 0
+    },
+    "unknown_old_ticket_progress": "no migration or backfill"
+  },
+  "sources": [
+    {
+      "path": "G:\\els\\analysis\\npc-client-native-values-20261025-v1\\continuation-v2\\global-resources\\data036.kom\\BlackMarketData.lua",
+      "sha256": "246b3b6f453d69d774f32461c537b361b8fe315de15a180694ef3df85707cd47"
+    },
+    {
+      "url": "https://els.ztgame.com/game/000-1789-003f9-573969.shtml?ms=1017",
+      "region": "CN",
+      "reviewed": "2026-10-26"
+    },
+    {
+      "path": "peer-review/reward-source-review-v1.json",
+      "sha256": "58baf665b4d933c6d83dde218a572086c0bc0a4308f2f4fb9824fedc87311925"
+    }
+  ],
+  "authorization_sha256": "9230ad2120094a35cff9083866944db8a8c10300e18483fc7e5de9705b73a3dc",
+  "single_player_authorization_sha256": "be6ad3cf475cc1a2356946613f7efac0e62fbd9a26f8487d124982e625c2d284",
+  "natural_GUI_verified": false
+}

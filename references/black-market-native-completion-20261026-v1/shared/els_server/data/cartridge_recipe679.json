@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "policy_id": "house40326-recipe679-owned20-single-box-compat-v1",
+  "official": false,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "request": [
+    40326,
+    0,
+    119216,
+    20,
+    0,
+    1,
+    1,
+    1,
+    0
+  ],
+  "economy": {
+    "source_quantity": 20,
+    "destination_quantity": 1,
+    "ed_delta": 0
+  },
+  "recipe": {
+    "index": 679,
+    "house": 40326,
+    "type": 1,
+    "source": 119216,
+    "destination": 119335,
+    "server_group": -1,
+    "period": 0,
+    "category": 0,
+    "raw_rate": 100
+  },
+  "source": {
+    "template": 119216,
+    "metadata": 2,
+    "group": 3,
+    "max_stack": 1000,
+    "record_sha256": "ec98dcd5d39d9c740a3b617e79e7222d46f328c8c4554dac62a45a95e4eee29b"
+  },
+  "box_record_sha256": "0289a52855f5eb4aafc301c3530ff64f6e3744ed45f56fb94613556ce61d0928",
+  "scope": "Only existing legitimate ownedstock20 -> one sourceauthorizedBOX; no normal fragment producer, no genericBOX grant, no retailfree/unlimited claim."
+}
