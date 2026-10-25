@@ -1,0 +1,269 @@
+{
+  "schema": 1,
+  "kind": "exact-accepted-source-successor",
+  "base_manifest": "references/accepted-runtime-20261026-v2/manifest.json",
+  "base_manifest_sha256": "578ac352a9ed995636735fd2b4116d2a31d494743b70aebc8eabfea1a824b835",
+  "channels": {
+    "online": {
+      "release": "native-economic-elixirs-20261026-v1",
+      "business_manifest_sha256": "67e42733389ab31accd194015a26056bcfeb6283f905c45902e5ffc4ad3debb1",
+      "accepted_observation_seconds": 121.7783083999966,
+      "source_count": 898,
+      "effective_source_digest": "82c364275f4c64acc3507e4a248211b2464538a52bb4dd3d0d66a4c9a6cee493",
+      "overrides": [
+        {
+          "path": "els_server/data/consumable_extensions.json",
+          "archive": "shared/els_server/data/consumable_extensions.json",
+          "size": 148013,
+          "sha256": "b9079b008195377cfbeea1f06f59ee59ff20d848f8fe24c09d2a28553282d0dc",
+          "before_sha256": "9b77b6861a5dcde648fc27a5d296dc5a4e6c84afcb8bd43c9a67cd300f03f9bb"
+        },
+        {
+          "path": "els_server/data/elixir_economy.json",
+          "archive": "shared/els_server/data/elixir_economy.json",
+          "size": 3127,
+          "sha256": "cc20d66d0262e937a947e9068e80fd54ebfb17e86ae9530058da6c3978325e2e",
+          "before_sha256": null
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive": "online/els_server/domain/acquisition_policy.py",
+          "size": 6328,
+          "sha256": "590f01387c0f6ca8c3b6bc3f434b0d3da4c46d729046d7ac5f31525daeb68199",
+          "before_sha256": "e3c436369cb1a8fc4730088f847cf5155556754971ff77a049d08a61105f3d92"
+        },
+        {
+          "path": "els_server/domain/consumable_extensions.py",
+          "archive": "shared/els_server/domain/consumable_extensions.py",
+          "size": 2674,
+          "sha256": "a8f8613815d19300de676e667a5f624b9344b9791dad0f7ac1217e587d78bb40",
+          "before_sha256": "12e7a00244a92f58aff10d6fe6b8fe2a938ad8447b055c507d33412909ac10c8"
+        },
+        {
+          "path": "els_server/domain/dungeon_equipment_loot_rules.py",
+          "archive": "shared/els_server/domain/dungeon_equipment_loot_rules.py",
+          "size": 6620,
+          "sha256": "baac9dd4bed3117537a7e0d530fd9063e2d7c7cb21561cc0e2432ab454742295",
+          "before_sha256": "6369ca0f79cfef9ba8b69c053bb2226e3973df95da55212c389937ad1061dcf1"
+        },
+        {
+          "path": "els_server/domain/dungeon_loot_catalog.py",
+          "archive": "shared/els_server/domain/dungeon_loot_catalog.py",
+          "size": 7764,
+          "sha256": "ae03c1e1905e23987e6dc12aef6bd59a33369e24025e8f2ac879797cabd5a58e",
+          "before_sha256": "685116c503d19b7a380228d1caa1c799e31282b170200f018fbb12e01f976925"
+        },
+        {
+          "path": "els_server/domain/dungeon_material_loot_catalog.py",
+          "archive": "shared/els_server/domain/dungeon_material_loot_catalog.py",
+          "size": 21558,
+          "sha256": "51ba09fd9cf0aa67febd54387efd3bde1fb658044bb4aa3cf74f5b1cb0e6dacf",
+          "before_sha256": "53a367dc06475e458cb9462ab500195c7123386912a9b45429f5f5a2c6f797a9"
+        },
+        {
+          "path": "els_server/domain/dungeon_source_loot.py",
+          "archive": "shared/els_server/domain/dungeon_source_loot.py",
+          "size": 10470,
+          "sha256": "84d6498b563fbc0fe15d6460195465772ab12baeb282205d5cb40a712041613d",
+          "before_sha256": "17cd47e39b623023107e9115065d158eaf7cfb4734e2725311622e9020963a13"
+        },
+        {
+          "path": "els_server/domain/elixir_economy.py",
+          "archive": "shared/els_server/domain/elixir_economy.py",
+          "size": 4388,
+          "sha256": "6ac564e99353de776a5d2c5e4b50ebe900291874ae30ae1516ea5e0519b080ed",
+          "before_sha256": null
+        },
+        {
+          "path": "els_server/domain/formal_pve_economy.py",
+          "archive": "shared/els_server/domain/formal_pve_economy.py",
+          "size": 3024,
+          "sha256": "68d1bae8bd8392c9f67fddf6ea9d7e2a493d27f42ba603e8180cdd10d6b80acb",
+          "before_sha256": "5ab4e807761fa90122f6e55c4473010fff2a1a64650803d022eef7b1397967ad"
+        },
+        {
+          "path": "els_server/domain/pve_economy_flow.py",
+          "archive": "shared/els_server/domain/pve_economy_flow.py",
+          "size": 21843,
+          "sha256": "40035ff38572711e86269627851b5aafa9018467a042ced01d89170dac6f1ce4",
+          "before_sha256": "6262d4af3bfaf9ef8f280b6bf7bb575b09c6804fd67d3df23759349b5433dab7"
+        },
+        {
+          "path": "els_server/protocol/world_buff_messages.py",
+          "archive": "shared/els_server/protocol/world_buff_messages.py",
+          "size": 2208,
+          "sha256": "26c18dc5aadbd6b1ec3649014e4f938a9ef99ad3a67e6838b0962cc946ef5377",
+          "before_sha256": "bd1f5a7b2b9a701a46f58d1b93def9bc1a2c2de8a8c31dd8e82e5d1da529d97d"
+        },
+        {
+          "path": "els_server/storage/dungeon_equipment_loot.py",
+          "archive": "shared/els_server/storage/dungeon_equipment_loot.py",
+          "size": 13543,
+          "sha256": "01f08fc8d0904b04fa83a6ee36398cc27dc17ec041774b09d3856de2a243f9ab",
+          "before_sha256": "e0d88007f5ba5bd6ff44af33d33a7a7498ac06dde79dde63c41b89cf6e6443db"
+        },
+        {
+          "path": "els_server/storage/elixir_economy.py",
+          "archive": "shared/els_server/storage/elixir_economy.py",
+          "size": 3946,
+          "sha256": "32027abcc3ed9e7d78710d8a73aaa1fb8b299748cc702a909b75f796a3809954",
+          "before_sha256": null
+        },
+        {
+          "path": "els_server/storage/fishing_bait_loot.py",
+          "archive": "shared/els_server/storage/fishing_bait_loot.py",
+          "size": 5848,
+          "sha256": "1e5c714f9b427c54129ea927c324ba2534e58442f46f4bf52eb2ef344961f33c",
+          "before_sha256": "7a563f0d6aa8445160bf85cf5e85a33f60120dfd3bb9b49d98cdfd124a005525"
+        },
+        {
+          "path": "els_server/storage/legacy_pve_exp.py",
+          "archive": "shared/els_server/storage/legacy_pve_exp.py",
+          "size": 7642,
+          "sha256": "dd6afd27e724d2cb9d9524f43f1b36f4a64e2b3af2d2fd3fa738009a2e4fbc3f",
+          "before_sha256": "d0c230cdce4d2574b3860f0bcd71a2a92b65b57e0c280acb6c50409acc2cc835"
+        },
+        {
+          "path": "els_server/storage/world_elixirs.py",
+          "archive": "shared/els_server/storage/world_elixirs.py",
+          "size": 17347,
+          "sha256": "a9accd0946318b19268e06f6fd8f7ec26d3606a5528504bc873b3fb412bb1e16",
+          "before_sha256": "a635a96d54d0550ae5980403a653acacbde6f8c2ff8da28a3468719708448903"
+        }
+      ]
+    },
+    "local": {
+      "release": "local-native-economic-elixirs-20261026-v1",
+      "business_manifest_sha256": "eb1cccf7a114db94da43571463b816bf587681edce760164d9ea143e2d2ea4c1",
+      "accepted_observation_seconds": 123.00397680001333,
+      "source_count": 899,
+      "effective_source_digest": "5b16a490156a4a3cfb7d8ab4e777bb9903a23eea970caa270ccf422b680b2f58",
+      "overrides": [
+        {
+          "path": "els_server/data/consumable_extensions.json",
+          "archive": "shared/els_server/data/consumable_extensions.json",
+          "size": 148013,
+          "sha256": "b9079b008195377cfbeea1f06f59ee59ff20d848f8fe24c09d2a28553282d0dc",
+          "before_sha256": "12f8e2347f1544c0d93eff08c77dc1a6080789c6b90a92e19ecee2d8782d452c"
+        },
+        {
+          "path": "els_server/data/elixir_economy.json",
+          "archive": "shared/els_server/data/elixir_economy.json",
+          "size": 3127,
+          "sha256": "cc20d66d0262e937a947e9068e80fd54ebfb17e86ae9530058da6c3978325e2e",
+          "before_sha256": null
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive": "local/els_server/domain/acquisition_policy.py",
+          "size": 6169,
+          "sha256": "b4e38d48778bd112127d8217a052a5cac97315d338953d8454cc7cfee0e08f05",
+          "before_sha256": "46516465484746273e8a5ecdd8ffec0f326f86cc26e4207b59d55b182faf68ff"
+        },
+        {
+          "path": "els_server/domain/consumable_extensions.py",
+          "archive": "shared/els_server/domain/consumable_extensions.py",
+          "size": 2674,
+          "sha256": "a8f8613815d19300de676e667a5f624b9344b9791dad0f7ac1217e587d78bb40",
+          "before_sha256": "f248e2608b6746cd04eeb088b4afefda342c656f9478b67930495e447b9c08db"
+        },
+        {
+          "path": "els_server/domain/dungeon_equipment_loot_rules.py",
+          "archive": "shared/els_server/domain/dungeon_equipment_loot_rules.py",
+          "size": 6620,
+          "sha256": "baac9dd4bed3117537a7e0d530fd9063e2d7c7cb21561cc0e2432ab454742295",
+          "before_sha256": "6369ca0f79cfef9ba8b69c053bb2226e3973df95da55212c389937ad1061dcf1"
+        },
+        {
+          "path": "els_server/domain/dungeon_loot_catalog.py",
+          "archive": "shared/els_server/domain/dungeon_loot_catalog.py",
+          "size": 7764,
+          "sha256": "ae03c1e1905e23987e6dc12aef6bd59a33369e24025e8f2ac879797cabd5a58e",
+          "before_sha256": "685116c503d19b7a380228d1caa1c799e31282b170200f018fbb12e01f976925"
+        },
+        {
+          "path": "els_server/domain/dungeon_material_loot_catalog.py",
+          "archive": "shared/els_server/domain/dungeon_material_loot_catalog.py",
+          "size": 21558,
+          "sha256": "51ba09fd9cf0aa67febd54387efd3bde1fb658044bb4aa3cf74f5b1cb0e6dacf",
+          "before_sha256": "53a367dc06475e458cb9462ab500195c7123386912a9b45429f5f5a2c6f797a9"
+        },
+        {
+          "path": "els_server/domain/dungeon_source_loot.py",
+          "archive": "shared/els_server/domain/dungeon_source_loot.py",
+          "size": 10470,
+          "sha256": "84d6498b563fbc0fe15d6460195465772ab12baeb282205d5cb40a712041613d",
+          "before_sha256": "17cd47e39b623023107e9115065d158eaf7cfb4734e2725311622e9020963a13"
+        },
+        {
+          "path": "els_server/domain/elixir_economy.py",
+          "archive": "shared/els_server/domain/elixir_economy.py",
+          "size": 4388,
+          "sha256": "6ac564e99353de776a5d2c5e4b50ebe900291874ae30ae1516ea5e0519b080ed",
+          "before_sha256": null
+        },
+        {
+          "path": "els_server/domain/formal_pve_economy.py",
+          "archive": "shared/els_server/domain/formal_pve_economy.py",
+          "size": 3024,
+          "sha256": "68d1bae8bd8392c9f67fddf6ea9d7e2a493d27f42ba603e8180cdd10d6b80acb",
+          "before_sha256": "5ab4e807761fa90122f6e55c4473010fff2a1a64650803d022eef7b1397967ad"
+        },
+        {
+          "path": "els_server/domain/pve_economy_flow.py",
+          "archive": "shared/els_server/domain/pve_economy_flow.py",
+          "size": 21843,
+          "sha256": "40035ff38572711e86269627851b5aafa9018467a042ced01d89170dac6f1ce4",
+          "before_sha256": "6262d4af3bfaf9ef8f280b6bf7bb575b09c6804fd67d3df23759349b5433dab7"
+        },
+        {
+          "path": "els_server/protocol/world_buff_messages.py",
+          "archive": "shared/els_server/protocol/world_buff_messages.py",
+          "size": 2208,
+          "sha256": "26c18dc5aadbd6b1ec3649014e4f938a9ef99ad3a67e6838b0962cc946ef5377",
+          "before_sha256": "bd1f5a7b2b9a701a46f58d1b93def9bc1a2c2de8a8c31dd8e82e5d1da529d97d"
+        },
+        {
+          "path": "els_server/storage/dungeon_equipment_loot.py",
+          "archive": "shared/els_server/storage/dungeon_equipment_loot.py",
+          "size": 13543,
+          "sha256": "01f08fc8d0904b04fa83a6ee36398cc27dc17ec041774b09d3856de2a243f9ab",
+          "before_sha256": "e0d88007f5ba5bd6ff44af33d33a7a7498ac06dde79dde63c41b89cf6e6443db"
+        },
+        {
+          "path": "els_server/storage/elixir_economy.py",
+          "archive": "shared/els_server/storage/elixir_economy.py",
+          "size": 3946,
+          "sha256": "32027abcc3ed9e7d78710d8a73aaa1fb8b299748cc702a909b75f796a3809954",
+          "before_sha256": null
+        },
+        {
+          "path": "els_server/storage/fishing_bait_loot.py",
+          "archive": "shared/els_server/storage/fishing_bait_loot.py",
+          "size": 5848,
+          "sha256": "1e5c714f9b427c54129ea927c324ba2534e58442f46f4bf52eb2ef344961f33c",
+          "before_sha256": "7a563f0d6aa8445160bf85cf5e85a33f60120dfd3bb9b49d98cdfd124a005525"
+        },
+        {
+          "path": "els_server/storage/legacy_pve_exp.py",
+          "archive": "shared/els_server/storage/legacy_pve_exp.py",
+          "size": 7642,
+          "sha256": "dd6afd27e724d2cb9d9524f43f1b36f4a64e2b3af2d2fd3fa738009a2e4fbc3f",
+          "before_sha256": "d0c230cdce4d2574b3860f0bcd71a2a92b65b57e0c280acb6c50409acc2cc835"
+        },
+        {
+          "path": "els_server/storage/world_elixirs.py",
+          "archive": "shared/els_server/storage/world_elixirs.py",
+          "size": 17347,
+          "sha256": "a9accd0946318b19268e06f6fd8f7ec26d3606a5528504bc873b3fb412bb1e16",
+          "before_sha256": "a635a96d54d0550ae5980403a653acacbde6f8c2ff8da28a3468719708448903"
+        }
+      ]
+    }
+  },
+  "physical_source_files": 18,
+  "deployment_performed": false,
+  "gameplay_changes": 0,
+  "client_files_included": false,
+  "private_state_included": false
+}

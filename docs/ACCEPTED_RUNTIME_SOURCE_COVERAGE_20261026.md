@@ -41,3 +41,9 @@ effective source digests for both successors. The same verifier checks the base
 and successor together; it does not repeat gameplay or installation tests.
 Original line endings and pre-existing whitespace are preserved in archived
 inputs because their accepted SHA256 contracts bind exact bytes.
+
+The last captured accepted epoch is `native-economic-elixirs-20261026-v1`.
+The v3 manifest appends its 17 changed/added source paths per channel, preserves
+both previous archives, and restores the complete effective 898 online / 899
+local source files. Its gameplay and public acceptance belong to the original
+delivery; this synchronization adds no gameplay behavior or server deployment.

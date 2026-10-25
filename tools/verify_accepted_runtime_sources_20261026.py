@@ -50,28 +50,35 @@ def verify(local_source_root=None):
     actual = {p.relative_to(ARCHIVE).as_posix() for p in ARCHIVE.rglob('*') if p.is_file()}
     assert actual == seen | {'manifest.json'}
     assert len(seen) == manifest['physical_source_files']
-    successor_root = ROOT / 'references/accepted-runtime-20261026-v2'
-    successor_file = successor_root / 'manifest.json'
     successor_count = 0
-    if successor_file.is_file():
+    previous_manifest = ARCHIVE / 'manifest.json'
+    for revision in (2, 3):
+        successor_root = ROOT / ('references/accepted-runtime-20261026-v' + str(revision))
+        successor_file = successor_root / 'manifest.json'
+        if not successor_file.is_file():
+            assert revision != 2 or not (ROOT / 'references/accepted-runtime-20261026-v3/manifest.json').exists()
+            break
         successor = json.loads(successor_file.read_bytes())
         assert successor['schema'] == 1 and successor['kind'] == 'exact-accepted-source-successor'
-        assert successor['base_manifest'] == ARCHIVE.relative_to(ROOT).as_posix() + '/manifest.json'
-        assert successor['base_manifest_sha256'] == hashlib.sha256((ARCHIVE / 'manifest.json').read_bytes()).hexdigest()
+        assert successor['base_manifest'] == previous_manifest.relative_to(ROOT).as_posix()
+        assert successor['base_manifest_sha256'] == hashlib.sha256(previous_manifest.read_bytes()).hexdigest()
         assert successor['gameplay_changes'] == 0 and not successor['deployment_performed']
         assert not successor['private_state_included'] and not successor['client_files_included']
         assert set(successor['channels']) == set(effective)
         successor_seen = set()
         for channel, description in successor['channels'].items():
             assert description['accepted_observation_seconds'] >= 120
-            assert description['source_count'] == len(effective[channel])
             changed = set()
             for row in description['overrides']:
                 rel = safe(row['path'])
                 location = safe(row['archive'])
-                assert str(location) == 'shared/' + str(rel)
-                assert str(rel) not in changed and str(rel) in effective[channel]
-                assert effective[channel][str(rel)]['sha256'] == row['before_sha256']
+                assert str(location) in ('shared/' + str(rel), channel + '/' + str(rel))
+                assert str(rel) not in changed
+                if row['before_sha256'] is None:
+                    assert str(rel) not in effective[channel]
+                else:
+                    assert str(rel) in effective[channel]
+                    assert effective[channel][str(rel)]['sha256'] == row['before_sha256']
                 path = successor_root / location
                 assert not path.is_symlink() and path.resolve().is_relative_to(successor_root.resolve())
                 raw = path.read_bytes()
@@ -85,15 +92,19 @@ def verify(local_source_root=None):
                 effective[channel][str(rel)] = dict(size=len(raw), sha256=row['sha256'])
                 changed.add(str(rel))
                 successor_seen.add(str(location))
+            assert description['source_count'] == len(effective[channel])
             values = sorted((name, row['size'], row['sha256']) for name, row in effective[channel].items())
             digest = hashlib.sha256(json.dumps(values, separators=(',', ':'), ensure_ascii=True).encode()).hexdigest()
             assert digest == description['effective_source_digest']
             result[channel]['release'] = description['release']
-            result[channel]['successor_sources'] = len(changed)
+            result[channel]['successor_sources'] = result[channel].get('successor_sources', 0) + len(changed)
+            result[channel]['source_files'] = len(effective[channel])
+            result[channel]['python_compiled'] = sum(n.endswith('.py') for n in effective[channel])
         actual = {p.relative_to(successor_root).as_posix() for p in successor_root.rglob('*') if p.is_file()}
         assert actual == successor_seen | {'manifest.json'}
         assert len(successor_seen) == successor['physical_source_files']
-        successor_count = len(successor_seen)
+        successor_count += len(successor_seen)
+        previous_manifest = successor_file
     if local_source_root is not None:
         for name, row in effective['local'].items():
             raw = (local_source_root / safe(name)).read_bytes()
