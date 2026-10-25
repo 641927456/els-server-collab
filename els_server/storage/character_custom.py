@@ -214,3 +214,27 @@ def select(path,owner,account_id,payload,operation,*,now=None,validate=None):
             _commit(db,operation,digest,owner,0x4cb,[],[],[])
         snapshot(db,owner)
         return dict(replayed=old is not None,events=events)
+
+def opening_info(path,owner,account_id,*,validate=None):
+    """Read current identity and project the published normal cash catalog.
+
+    Both cash availability lists are genuinely empty in the same D79 catalog.
+    Owned custom IDs and present books remain in their existing 31/4CD/2A
+    paths; no schema, grant, registration, selection or payment occurs here.
+    """
+    from pathlib import Path
+    from els_server.protocol.shop_messages import empty_catalog_ack
+    owner=character_uid(owner)
+    if type(account_id)is not int or not 0<account_id<2**63:raise ValueError('Custom opening account')
+    with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=ro',uri=True,timeout=10))as db:
+        db.execute('PRAGMA query_only=ON');db.execute('BEGIN')
+        if validate is not None:validate()
+        role=db.execute('SELECT c.uid FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(owner,account_id)).fetchone()
+        if role is None:raise ValueError('Custom opening current owner')
+        if exists(db,'character_lifecycle'):
+            state=db.execute('SELECT requested_at,finalized_at FROM character_lifecycle WHERE uid=?',(owner,)).fetchone()
+            if state and any(state):raise ValueError('Custom opening deleted owner')
+        cash_catalog=empty_catalog_ack();encode_event(cash_catalog)
+        event=wire.opening_information(cash_catalog);encode_event(event)
+        if validate is not None:validate()
+        return [event]

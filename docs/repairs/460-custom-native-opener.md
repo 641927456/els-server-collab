@@ -1,0 +1,9 @@
+# Native character customization opening information
+
+The existing native menu sends empty634 and waits for635 before creating its window. The server previously handled later custom selection and restoration but omitted this initial exchange. Add the missing read-only exchange in three existing character_custom files; existing generic dispatch reaches it.
+
+The two635 vectors describe normal cash purchase availability. They are not registered custom ownership, inventory books or apply permission. Both vectors are projected from the same existing intentionally empty D78/D79 normal cash catalog; any changed catalog contract refuses a stale empty reply. The independent ED catalog, owned31/4CD state, selection, currency and inventory retain their existing paths. No new cash offers, client behavior, schema or installation migration is introduced.
+
+Admission requires the current original-build game session, town-ready phase, current lease, exact empty envelope and sequence. A query-only SQL read transaction verifies current account ownership and lifecycle, checks the captured identity/generation before and after reading, and encodes both authority and full635 reply before returning. It performs no SQL writes.
+
+Validation: pinned current original request, parser and BuyCustom cash navigation chain; both actual parent private Application/TLS baselines lack635. Corrected candidates pass eleven relevant checks per channel, including nonempty registered/book state remaining separate, actual D79 authority, changed authority rejection, frame/owner/phase/generation rejection, repeat/cold reads and encoding failure with unchanged SQL. Existing private raw635 replies contain two zero counts. Public production acceptance and natural GUI rendering remain pending. Stacked on #457; closes #460 after review.
