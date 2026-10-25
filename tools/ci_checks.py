@@ -12,6 +12,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_accepted_runtime_sources_20261026.py')])
     if (ROOT/'references/pr494-reviewed-runtime-delta-20261026-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pr494_runtime_delta.py')])
+    if (ROOT/'references/black-market-native-completion-20261026-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_black_market_sources_20261026.py')])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
     count=0
     for name in filter(None,names):
