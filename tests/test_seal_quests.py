@@ -292,4 +292,16 @@ class SealQuestTests(unittest.TestCase):
         self.assertEqual(observe(s),[])
         self.assertEqual(observe(self.s,[Event(0x201,kind=0xd9)])[0].kind,0x2b)
 
+    def test_retire_from_the_finale_part_controller_completes_28110_once(self):
+        with closing(sqlite3.connect(self.path)) as db,db:
+            db.execute('INSERT INTO character_quests VALUES (?,?,?,?,?)',
+                       (1001,28110,1,1,json.dumps({'28110':0})))
+        updated=self.record('retire',35250,npc=9470,tutorial_quest=28110,retired_by=9310)
+        self.assertEqual([e.kind for e in updated],[0xf3])
+        active={row['id']:row['objectives'] for row in self.q.snapshot()['active']}
+        self.assertEqual(active[28110],{28110:1})
+        # The same part condition cannot be replayed from another controller.
+        self.assertEqual(self.record('retire',35250,npc=9470,tutorial_quest=28110,retired_by=9460),[])
+        self.assertEqual({row['id']:row['objectives'] for row in self.q.snapshot()['active']}[28110],{28110:1})
+
 if __name__=='__main__':unittest.main()

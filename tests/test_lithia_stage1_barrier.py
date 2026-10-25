@@ -1,9 +1,11 @@
-"""Stage1 finale barrier: 9470 must retire before the part can end.
+"""Stage1 finale: retiring 9310 ends the part and completes 28110.
 
 Trace 20261024-130855 proved the client keeps 9470's actor alive inside the
-stage1/part0 scene until unload, so the part end must wait for its DYING
-report; releasing the barrier on poll_ready() alone unloaded the scene before
-9470 ever reported and left quest 28110 at 0/1 forever.
+stage1/part0 scene until unload, so 9470 never sends its own DYING report.
+Waiting for it deadlocked the part and left quest 28110 at 0/1 forever. The
+pinned graph makes retiring 9310 the part condition, so that accepted
+retirement carries the dummy task's event; the stage0 part2 barrier (key 15)
+is unchanged.
 """
 import copy
 import json
@@ -94,7 +96,7 @@ def call(s, e, r, store):
         return target.handle(s, e, r)
 
 
-class Stage1FinaleBarrier(unittest.TestCase):
+class Stage1Finale(unittest.TestCase):
     def by_key(self, key):
         return next(n for n in NPCS if n['key'] == key)
 
@@ -105,34 +107,39 @@ class Stage1FinaleBarrier(unittest.TestCase):
             self.assertEqual([x.kind for x in call(s, event(), report(self.by_key(1)), store)],
                              [0xae, 0xaf])
             self.assertEqual(store.calls, 1)
+            self.assertEqual(store.witnesses[0]['kind'], 'kill')
             self.assertEqual(store.witnesses[0].get('tutorial_quest'), 28110)
         finally:
             store.db.close()
 
-    def test_story_dummy9310_cannot_end_the_part_before_9470(self):
+    def test_story_dummy9310_retirement_credits_28110_and_ends_the_part(self):
         store = QuestStore()
         try:
             s = session()
             kinds = [x.kind for x in call(s, event(), report(self.by_key(2)), store)]
-            self.assertEqual(kinds, [0xae, 0xaf])
-            self.assertNotIn(0xba, kinds)
-            self.assertFalse(s.part_end_notified)
-            self.assertEqual(s.dungeon_run.memory1_quest_barrier, frozenset((1,)))
+            self.assertEqual(kinds, [0xae, 0xaf, 0xba])
+            self.assertTrue(s.part_end_notified)
+            self.assertEqual(s.dungeon_run.memory1_quest_barrier, frozenset())
             self.assertEqual(set(s.dungeon_run.defeated), {2})
+            self.assertEqual(store.calls, 1)
+            witness = store.witnesses[0]
+            self.assertEqual((witness['kind'], witness['npc'], witness['tutorial_quest'],
+                              witness['retired_by']), ('retire', 9470, 28110, 9310))
+            self.assertEqual(witness['dungeon'], 35250)
         finally:
             store.db.close()
 
-    def test_full_native_order_9310_then_9470_ends_the_part(self):
+    def test_late_9470_report_after_part_end_is_only_acknowledged(self):
         store = QuestStore()
         try:
             s = session()
-            self.assertEqual([x.kind for x in call(s, event(), report(self.by_key(2)), store)],
-                             [0xae, 0xaf])
-            self.assertFalse(s.part_end_notified)
+            call(s, event(), report(self.by_key(2)), store)
+            self.assertTrue(s.part_end_notified)
             kinds = [x.kind for x in call(s, event(), report(self.by_key(1)), store)]
-            self.assertEqual(kinds, [0xae, 0xaf, 0xba])
+            self.assertEqual(kinds, [0xae, 0xaf])
             self.assertTrue(s.part_end_notified)
             self.assertEqual(set(s.dungeon_run.defeated), {1, 2})
+            self.assertEqual(store.calls, 2)
         finally:
             store.db.close()
 
@@ -143,27 +150,38 @@ class Stage1FinaleBarrier(unittest.TestCase):
             kinds = [x.kind for x in call(s, event(), report(self.by_key(1)), store)]
             self.assertEqual(kinds, [0xae, 0xaf])
             self.assertFalse(s.part_end_notified)
-            # Barrier names 9470 itself, already defeated: no effect.
-            self.assertEqual(s.dungeon_run.memory1_quest_barrier, frozenset((1,)))
+            self.assertEqual(s.dungeon_run.memory1_quest_barrier, frozenset())
         finally:
             store.db.close()
 
-    def test_replay_after_barrier_release_stays_idempotent(self):
+    def test_replay_of_the_finale_retirement_stays_idempotent(self):
         store = QuestStore()
         try:
             s = session()
             call(s, event(), report(self.by_key(2)), store)
-            call(s, event(), report(self.by_key(1)), store)
-            self.assertEqual([x.kind for x in call(s, event(), report(self.by_key(1)), store)],
+            self.assertEqual([x.kind for x in call(s, event(), report(self.by_key(2)), store)],
                              [0xae])
-            self.assertEqual(store.calls, 2)
+            self.assertEqual(store.calls, 1)
         finally:
             store.db.close()
 
-    def test_unearned_quest_stage_rejects_the_retirement(self):
+    def test_unearned_quest_stage_rejects_the_finale_retirement(self):
         store = QuestStore()
         try:
-            s = session(defeated={2: b'native-255-fixture'})
+            s = session()
+            store.db.execute('DELETE FROM completed_quests WHERE quest=28100')
+            store.db.commit()
+            self.assertEqual(call(s, event(), report(self.by_key(2)), store), [])
+            self.assertNotIn(2, s.dungeon_run.defeated)
+            self.assertFalse(s.part_end_notified)
+            self.assertEqual(store.calls, 1)
+        finally:
+            store.db.close()
+
+    def test_unearned_quest_stage_rejects_the_dummy_kill(self):
+        store = QuestStore()
+        try:
+            s = session()
             store.db.execute('DELETE FROM completed_quests WHERE quest=28100')
             store.db.commit()
             self.assertEqual(call(s, event(), report(self.by_key(1)), store), [])
@@ -171,6 +189,20 @@ class Stage1FinaleBarrier(unittest.TestCase):
             self.assertEqual(store.calls, 1)
         finally:
             store.db.close()
+
+
+class InactiveRetireBinding(unittest.TestCase):
+    def test_retire_only_counts_for_28110_from_9310(self):
+        from els_server.domain.seal_quests import quest_catalog
+        from els_server.domain.tutorial_dialogue import inactive_increment
+        sub = next(s for s in quest_catalog().objectives(28110))
+        event = dict(kind='retire', dungeon=35250, npc=9470,
+                     tutorial_quest=28110, retired_by=9310)
+        self.assertEqual(inactive_increment(sub, event), 1)
+        self.assertEqual(inactive_increment(sub, {**event, 'retired_by': 9460}), 0)
+        self.assertEqual(inactive_increment(sub, {**event, 'kind': 'clear'}), 0)
+        other = quest_catalog().objectives(28090)[0]
+        self.assertEqual(inactive_increment(other, event), 0)
 
 
 if __name__ == '__main__':

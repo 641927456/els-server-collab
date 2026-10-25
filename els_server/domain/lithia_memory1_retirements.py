@@ -156,11 +156,25 @@ def later(s,event,report):
     previous=run.defeated.get(key)
     if previous is not None:return [death_ack()] if previous==event.payload else []
     from els_server.domain.quest_flow import store
-    state=store(s);base=run.run_id+':'+str(run.stage)+':'+str(run.part)+':kill:'+str(key)
-    witness=dict(kind='kill',dungeon=35250,npc=npc['template'],level=s.account.character()['level'])
-    from els_server.domain.tutorial_dialogue import inactive_quest
-    identity=inactive_quest(35250,npc['template']) if not npc['active'] else None
-    if identity is not None:witness['tutorial_quest']=identity
+    state=store(s)
+    if (run.stage,run.part)==(1,0) and npc['template']==9310:
+        # The finale's own task dummy 9470 never sends DYING: trace
+        # 20261024-130855 shows key=1 created at 05:13:37.318 and destroyed
+        # only by the scene unload at 05:13:54, after the part had ended and
+        # the clear unloaded it. The pinned graph makes retiring 9310 the
+        # part condition (kind 3 required=[9310] -> kind 4 clear), so that
+        # accepted retirement carries 28110's task event. Nothing is
+        # fabricated: the source condition that ends the part is the one
+        # committed, and only 9470's exact task may consume it.
+        base=run.run_id+':1:0:retire:'+str(key)
+        witness=dict(kind='retire',dungeon=35250,npc=9470,tutorial_quest=28110,
+                     retired_by=npc['template'],level=s.account.character()['level'])
+    else:
+        base=run.run_id+':'+str(run.stage)+':'+str(run.part)+':kill:'+str(key)
+        witness=dict(kind='kill',dungeon=35250,npc=npc['template'],level=s.account.character()['level'])
+        from els_server.domain.tutorial_dialogue import inactive_quest
+        identity=inactive_quest(35250,npc['template']) if not npc['active'] else None
+        if identity is not None:witness['tutorial_quest']=identity
     shadow=copy.copy(s);shadow.dungeon_run=copy.copy(run)
     shadow.dungeon_run.defeated={**run.defeated,key:bytes(event.payload)}
     shadow.defeated_npcs=shadow.dungeon_run.defeated;shadow.dungeon_clock=copy.copy(s.dungeon_clock)
@@ -185,19 +199,11 @@ def later(s,event,report):
         # Native scripts can retire the gate actor before the task dummy in
         # the same frame. Keep the stage pending until its real task event is
         # committed; do not fabricate that event or an earned reward.
-        # Stage 0 part 2 holds until its own dummy (key 15) reports. The
-        # stage 1 finale holds until 9470 reports too: the client keeps that
-        # dummy's actor alive inside the same scene the whole time (trace
-        # 20261024-130855 shows key=1 created at 05:13:37.318 and destroyed
-        # only by the scene unload at 05:13:54), so the player can always
-        # reach it. Releasing on poll_ready() alone let the part end 37ms
-        # after 9310 retired and the clear unloaded the scene before 9470
-        # ever reported, leaving 28110 at 0/1 and the chain broken. The
-        # barrier self-releases through run.defeated once 9470 reports, and
-        # the challenge deadline remains the backstop if the report never
-        # arrives.
+        # Stage 0 part 2 holds until its own dummy (key 15) reports. Stage 1
+        # part 0 has no such barrier: its dummy 9470 is never reported inside
+        # the scene (see the finale witness above), so waiting on it deadlocks
+        # the part and leaves 28110 stuck at 0/1.
         guard['barrier']=(frozenset((15,)) if (run.stage,run.part)==(0,2) and 28090 not in done
-                          else frozenset((1,)) if (run.stage,run.part)==(1,0) and 28110 not in done
                           else frozenset())
 
     def prepare(notices,replayed):
