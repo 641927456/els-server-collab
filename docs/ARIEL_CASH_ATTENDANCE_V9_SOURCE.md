@@ -34,3 +34,7 @@ Public native QA used one owned account and two normal roles: original managemen
 Both owned QA tasks and plaintext credentials were removed, the real writer barrier passed, authentication cleanup preserved all game saves and verified one registration slot actually freed. Backups and code-first recovery evidence remain retained; both publication locks were released. The seven optional schema definitions still require no installation DDL. No client changes, player database restore, natural GUI or natural battle acceptance is claimed.
 
 Completion receipt SHA256: `d0965069a6d715221bbcffd4531259c85eb51303bfbe86368cf3184dd1f044fc`. Independent dual-delivery acceptance SHA256: `59ee9407d6e39ee3bd7f67287fbe937bfe915e17c280f6c44ba58c17769f6fd4`. These public summaries intentionally exclude private player/QA identities, credentials, SQL and packet captures.
+
+## Source review correction, 2026-10-25
+
+A fresh runtime preflight found that the committed daily reward JSON had LF bytes while its reader pins the accepted CRLF artifact. Restored that file to the accepted SHA256 `5ce1402b5d7109470e9f3a2d67bd05e95fbc5db3d3a1214556f877191c757fcb`; the parsed JSON is identical and the hash guard remains intact. The corrected checkout passes the full `tools/ci_checks.py --with-runtime` entry. This source packaging correction does not change either deployed runtime or any save.
