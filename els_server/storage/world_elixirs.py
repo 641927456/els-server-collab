@@ -44,11 +44,11 @@ def _ordinary_state(db,owner,now):
 
 def _group(template):
     group=catalog()[template].get('supplemental_group',0)
-    if group not in(0,310777,722990)or(group and group!=template):raise ValueError('Elixir explicit native group')
+    if group not in(0,310777,722990,190401,310775,310776)or(group and group!=template):raise ValueError('Elixir explicit native group')
     return group
 
 
-def _state(db,owner,now):
+def _battle_state(db,owner,now):
     ordinary=_ordinary_state(db,owner,now)
     if any(_group(r['template'])for r in ordinary['rows']):raise ValueError('Supplement in ordinary elixir state')
     rows=list(ordinary['rows']);revision=ordinary['revision']
@@ -68,7 +68,7 @@ def _state(db,owner,now):
     return dict(owner=owner,revision=revision,rows=sorted(rows,key=lambda r:(_group(r['template']),r['template'])))
 
 
-def _put(db,owner,template,source,start,end,operation):
+def _battle_put(db,owner,template,source,start,end,operation):
     group=_group(template)
     if group:
         db.execute('CREATE TABLE IF NOT EXISTS world_elixir_supplements(owner INTEGER NOT NULL REFERENCES characters(uid),group_id INTEGER NOT NULL CHECK(group_id IN(310777,722990)),revision INTEGER NOT NULL CHECK(revision>0),template INTEGER NOT NULL,source_uid INTEGER NOT NULL,starts_at INTEGER NOT NULL,ends_at INTEGER NOT NULL,operation_id TEXT NOT NULL,PRIMARY KEY(owner,group_id))')
@@ -79,6 +79,39 @@ def _put(db,owner,template,source,start,end,operation):
         old=db.execute('SELECT revision FROM world_elixir_state WHERE owner=?',(owner,)).fetchone();revision=old[0]+1 if old else 1
         if not 1<=revision<2**63:raise ValueError('Ordinary elixir revision overflow')
         db.execute('INSERT INTO world_elixir_state VALUES(?,?,?,?,?,?,?) ON CONFLICT(owner) DO UPDATE SET revision=excluded.revision,template=excluded.template,source_uid=excluded.source_uid,starts_at=excluded.starts_at,ends_at=excluded.ends_at,operation_id=excluded.operation_id',(owner,revision,template,source,start,end,operation))
+
+
+ECONOMY_GROUPS=(190401,310775,310776)
+ECONOMY_TABLE_SQL='CREATE TABLE world_elixir_economy_state(owner INTEGER NOT NULL REFERENCES characters(uid),group_id INTEGER NOT NULL CHECK(group_id IN(190401,310775,310776)),revision INTEGER NOT NULL CHECK(revision>0),template INTEGER NOT NULL,source_uid INTEGER NOT NULL,starts_at INTEGER NOT NULL,ends_at INTEGER NOT NULL,operation_id TEXT NOT NULL,PRIMARY KEY(owner,group_id))'
+
+def _state(db,owner,now):
+    current=_battle_state(db,owner,now);rows=list(current['rows']);revision=current['revision']
+    if _exists(db,'world_elixir_economy_state'):
+        saved=db.execute('SELECT group_id,revision,template,source_uid,starts_at,ends_at,operation_id FROM world_elixir_economy_state WHERE owner=? ORDER BY group_id',(owner,)).fetchall()
+        if len(saved)>3:raise ValueError('Elixir finite economic groups')
+        for group,rev,template,source,start,end,operation in saved:
+            if group not in ECONOMY_GROUPS or type(rev)is not int or not 1<=rev<2**63:raise ValueError('Elixir economic group/revision')
+            revision+=rev
+            if template==0:
+                if(source,start,end,operation)!=(0,0,0,''):raise ValueError('Elixir empty economic group')
+                continue
+            if template!=group or _group(template)!=group or any(type(v)is not int for v in(source,start,end))or not 0<source<2**63 or not 1<=start<end<2**31 or end-start!=catalog()[template]['period_seconds']:raise ValueError('Elixir economic source/duration')
+            _source(db,operation,owner,source,template)
+            if now<end:rows.append(dict(owner=owner,template=template,source_uid=source,start=start,end=end))
+    if not 0<=revision<2**63:raise ValueError('Elixir total revision overflow')
+    # Closing new admissions for compatible code recovery suspends their wire
+    # effects without erasing owned saved deadlines or inventory/award history.
+    rows=[r for r in rows if catalog()[r['template']].get('admitted',True)]
+    return dict(owner=owner,revision=revision,rows=sorted(rows,key=lambda r:(_group(r['template']),r['template'])))
+
+
+def _put(db,owner,template,source,start,end,operation):
+    group=_group(template)
+    if group not in ECONOMY_GROUPS:return _battle_put(db,owner,template,source,start,end,operation)
+    db.execute(ECONOMY_TABLE_SQL.replace('CREATE TABLE ','CREATE TABLE IF NOT EXISTS ',1))
+    old=db.execute('SELECT revision FROM world_elixir_economy_state WHERE owner=? AND group_id=?',(owner,group)).fetchone();revision=old[0]+1 if old else 1
+    if not 1<=revision<2**63:raise ValueError('Elixir economic group revision overflow')
+    db.execute('INSERT INTO world_elixir_economy_state VALUES(?,?,?,?,?,?,?,?) ON CONFLICT(owner,group_id) DO UPDATE SET revision=excluded.revision,template=excluded.template,source_uid=excluded.source_uid,starts_at=excluded.starts_at,ends_at=excluded.ends_at,operation_id=excluded.operation_id',(owner,group,revision,template,source,start,end,operation))
 
 
 def snapshot(path,owner,account_id,*,now=None):
@@ -163,7 +196,8 @@ def expire(path,owner,account_id,prepare,*,now=None):
     def due(db):
         ordinary=bool(_exists(db,'world_elixir_state')and db.execute('SELECT 1 FROM world_elixir_state WHERE owner=? AND template!=0 AND ends_at<=?',(owner,now)).fetchone())
         supplements=bool(_exists(db,'world_elixir_supplements')and db.execute('SELECT 1 FROM world_elixir_supplements WHERE owner=? AND template!=0 AND ends_at<=?',(owner,now)).fetchone())
-        return ordinary or supplements
+        economy=bool(_exists(db,'world_elixir_economy_state')and db.execute('SELECT 1 FROM world_elixir_economy_state WHERE owner=? AND template!=0 AND ends_at<=?',(owner,now)).fetchone())
+        return ordinary or supplements or economy
     with closing(sqlite3.connect(path,timeout=10))as probe:
         probe.execute('BEGIN');_owner(probe,owner,account_id)
         if not due(probe):return None
@@ -175,6 +209,8 @@ def expire(path,owner,account_id,prepare,*,now=None):
             db.execute("UPDATE world_elixir_state SET revision=revision+1,template=0,source_uid=0,starts_at=0,ends_at=0,operation_id='' WHERE owner=? AND template!=0 AND ends_at<=?",(owner,now))
         if _exists(db,'world_elixir_supplements'):
             db.execute("UPDATE world_elixir_supplements SET revision=revision+1,template=0,source_uid=0,starts_at=0,ends_at=0,operation_id='' WHERE owner=? AND template!=0 AND ends_at<=?",(owner,now))
+        if _exists(db,'world_elixir_economy_state'):
+            db.execute("UPDATE world_elixir_economy_state SET revision=revision+1,template=0,source_uid=0,starts_at=0,ends_at=0,operation_id='' WHERE owner=? AND template!=0 AND ends_at<=?",(owner,now))
         state=_state(db,owner,now);events=prepare(db,state,None)
         for event in events:encode_event(event)
         return dict(events=events,state=state)

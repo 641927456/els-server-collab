@@ -65,18 +65,18 @@ def integer_draw(size,randbelow):
     if type(value) is not int or not 0<=value<size:raise ValueError('Loot random result bound')
     return value
 
-def plans(identity,boss,randbelow=secrets.randbelow):
+def plans(identity,boss,randbelow=secrets.randbelow,*,drop_bp=0):
     identity=context(identity)
     if identity['dungeon'] in MATERIAL_MAPS:
         from els_server.domain.dungeon_material_loot_catalog import plans as material_plans
-        return material_plans(identity,boss,randbelow)
+        return material_plans(identity,boss,randbelow,drop_bp=drop_bp)
     if identity['dungeon'] not in MAPS:
         from els_server.domain.dungeon_loot_catalog import plans as normal_plans
-        return normal_plans(identity,boss,randbelow)
+        return normal_plans(identity,boss,randbelow,drop_bp=drop_bp)
     if type(boss) is not bool:raise ValueError('Loot source boss flag')
     c=catalog();values=c['values']
     if boss:
-        if integer_draw(100,randbelow)>=values['boss_extra_item_percent']:return []
+        if not __import__('els_server.domain.elixir_economy',fromlist=['hit']).hit(values['boss_extra_item_percent'],100,randbelow,drop_bp):return []
         pool=c['maps'][str(identity['dungeon'])]['finite_boss_candidates']
         template=pool[integer_draw(len(pool),randbelow)]
         if template==118638:
@@ -86,7 +86,7 @@ def plans(identity,boss,randbelow=secrets.randbelow):
             from els_server.domain.equipment_circuit_rules import generate
             options=generate(template,randbelow)
         return [dict(template=template,quantity=1,option_groups=options)]
-    if integer_draw(100,randbelow)>=values['ordinary_fragment_percent']:return []
+    if not __import__('els_server.domain.elixir_economy',fromlist=['hit']).hit(values['ordinary_fragment_percent'],100,randbelow,drop_bp):return []
     return [dict(template=118445,quantity=values['ordinary_fragment_quantity'],option_groups={})]
 
 def inventory_plan(template,quantity):

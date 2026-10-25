@@ -96,7 +96,7 @@ def accepted_source(run,npc):
         and any(n is npc for n in run.current['npcs'])
         and dict(stage=run.stage,part=run.part,template=npc['template'],source_index=npc['source_index']) in rule['accepted_boss_sources'])
 
-def plans(identity,boss,randbelow):
+def plans(identity,boss,randbelow,*,drop_bp=0):
     rule=map_rule(identity['dungeon'])
     if type(boss) is not bool:raise ValueError('Normal loot Boss category')
     if not boss:return []
@@ -104,6 +104,6 @@ def plans(identity,boss,randbelow):
         value=randbelow(size)
         if type(value) is not int or not 0<=value<size:raise ValueError('Normal loot random result bound')
         return value
-    if draw(100)>=25:return []
+    if not __import__('els_server.domain.elixir_economy',fromlist=['hit']).hit(25,100,randbelow,drop_bp):return []
     pool=rule['finite_common_candidates'];t=pool[draw(len(pool))]
     return [dict(template=t,quantity=1,option_groups={},instance_descriptor=descriptor(t))]

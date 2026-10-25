@@ -24,7 +24,7 @@ def world_row(owner,row):
 
 def snapshot(owner,rows,*,profiles=None):
     groups=[catalog()[r['template']].get('supplemental_group',0)for r in rows if not r.get('_silver')]
-    if len(rows)>5 or len(groups)>3 or len(groups)!=len(set(groups))or any(g not in(0,310777,722990)for g in groups)or sum(bool(r.get('_silver'))for r in rows)>2 or len({r['template']for r in rows})!=len(rows):raise ValueError('Finite world snapshot groups')
+    if len(rows)>8 or len(groups)>6 or len(groups)!=len(set(groups))or any(g not in(0,310777,722990,190401,310775,310776)for g in groups)or sum(bool(r.get('_silver'))for r in rows)>2 or len({r['template']for r in rows})!=len(rows):raise ValueError('Finite world snapshot groups')
     data=struct.pack('>I',len(rows))+b''.join(world_row(owner,r)for r in rows)
     if profiles is None:return Event(0x201,kind=0x3a2,payload=data)
     if not isinstance(profiles,tuple) or len(profiles)!=2 or any(not isinstance(v,bytes)or len(v)!=28 for v in profiles):raise ValueError('Original world base profiles')

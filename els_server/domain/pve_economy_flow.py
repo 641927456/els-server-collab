@@ -208,7 +208,11 @@ def clear(members,event,requester,room=None):
   for s in members:
    mid=s.dungeon_run.identity if s.dungeon_run is not None else 30000;before=load_character(db,s.account.uid,s.account.account_id)
    boss_proof=_boss_source_witness(db,s)
-   plan=rules.clear_items(mid,s.reward_run_id,s.account.uid,before,group=room is not None);experience=rules.clear_bonus(run_total(db,s.account.uid,s.reward_run_id,clear_basis=True))
+   from els_server.storage.elixir_economy import bonus as elixir_bonus
+   bonus_context=dict(owner=s.account.uid,dungeon=mid,run_id=s.reward_run_id,graph_sha256=rules.definition(mid)['graph_sha256'])
+   previous=bool(db.execute('SELECT 1 FROM reward_receipts WHERE run_id=?',(s.reward_run_id,)).fetchone())
+   drop_bp=elixir_bonus(db,s.account.uid,mid,'drop','elixir-clear:'+s.reward_run_id,bonus_context,already_issued=previous)
+   plan=rules.clear_items(mid,s.reward_run_id,s.account.uid,before,group=room is not None,drop_bp=drop_bp);experience=rules.clear_bonus(run_total(db,s.account.uid,s.reward_run_id,clear_basis=True))
    # These two ordinary original maps already had a guaranteed solo fragment
    # clear branch. Preserve that independent reward through the new writer.
    from els_server.domain.dungeon_equipment_loot_rules import MAPS as equipment_maps,catalog as equipment_policy,inventory_plan

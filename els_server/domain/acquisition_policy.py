@@ -58,6 +58,7 @@ def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=Non
         validate_source(raid_reward_source).validate_template(template)
     from els_server.domain.raid_reward_items import source_only_templates
     if template in source_only_templates()and raid_reward_source is None and not daily_shared:return False
+    if template in(190401,310775,310776,722760,722761):return False  # Original owned economic elixirs only.
     if template in(310777,722762,722990):return False  # Existing owned native battle elixirs only.
     if template in(135952,135954,135955):return False  # Current owned life potion aliases only.
     if template in(715920,718310):return False  # Original owned teacher bundles only.

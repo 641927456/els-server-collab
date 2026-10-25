@@ -26,7 +26,7 @@ def clear_bonus(total):
  if type(total)is not int or total<0:raise ValueError('Ordinary committed kill EXP bound')
  f32=lambda v:struct.unpack('<f',struct.pack('<f',v))[0]
  return min(2**31-1,int(f32(f32(total)*f32(0.3))))
-def clear_items(identity,run_id,owner,character,group=False):
+def clear_items(identity,run_id,owner,character,group=False,*,drop_bp=0):
  from els_server.domain.reward_rules import item_plan
  from els_server.game_data import client_data
  d=definition(identity)
@@ -34,5 +34,7 @@ def clear_items(identity,run_id,owner,character,group=False):
  p=policy();family=client_data().unit(character['unit_class'])['unitType']
  pool=sorted({t for values in d['current_display_pool'].values()for t in values if p['items'][str(t)]['wear_family']in(0,family)})
  seed=uuid.UUID(run_id).bytes+f':{identity}:{owner}:ordinary-clear-v1'.encode();digest=hashlib.sha256(seed).digest()
- if not pool or int.from_bytes(digest[:16],'big')%10000>=p['local']['current_boss_display_completion_bp']:return []
+ if type(drop_bp)is not int or not 0<=drop_bp<=10000:raise ValueError('Ordinary clear drop bonus')
+ scale=100000000 if drop_bp else 10000;threshold=min(scale,p['local']['current_boss_display_completion_bp']*(10000+drop_bp))if drop_bp else p['local']['current_boss_display_completion_bp']
+ if not pool or int.from_bytes(digest[:16],'big')%scale>=threshold:return []
  return [item_plan(pool[int.from_bytes(digest[16:],'big')%len(pool)],p['local']['quantity'])]

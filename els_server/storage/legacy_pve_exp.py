@@ -55,7 +55,12 @@ def commit(db,store,c,proof,killer,*,require_existing=False):
     total=db.execute('SELECT experience FROM reward_balances WHERE uid=?',(c['owner'],)).fetchone()
     if total is None:raise ValueError('Kill EXP balance missing')
     mode=er.route(db,c['owner'],getattr(store,'account_id',None))
-    amount=c['base_experience'] if mode=='resonance' else (0 if character[0]>=99 else min(c['base_experience'],max(0,experience_limit()-total[0])))
+    from els_server.storage.elixir_economy import bonus as elixir_bonus
+    from els_server.domain.elixir_economy import percentage
+    bonus_operation='elixir-kill:'+str(uuid.uuid5(run,':'.join(map(str,key))))
+    bonus_bp=elixir_bonus(db,c['owner'],c['dungeon'],'experience',bonus_operation,c)
+    boosted=min(2**31-1,percentage(c['base_experience'],bonus_bp))
+    amount=boosted if mode=='resonance' else (0 if character[0]>=99 else min(boosted,max(0,experience_limit()-total[0])))
     operation=str(uuid.uuid5(run,':'.join(map(str,('ordinary-kill-exp-v1',*key)))))
     evidence=b'ordinary-kill-exp-v1\0'+canonical.encode()+b'\0'+bytes.fromhex(digest)
     def encode(balances):
