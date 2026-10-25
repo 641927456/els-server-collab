@@ -33,7 +33,12 @@ LITHIA_GEN7_USE_ONLY_TICKETS = frozenset((718388,718389,718390,718391,718392,718
 
 HISTORICAL_PAGE1_USE_ONLY_TICKETS = frozenset((713172,713173,713174,713175,713176,713177,713438,713439,713440,713441,713442,713443))
 
-def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None):
+def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,daily_special_source=None):
+    daily_shared=False
+    if daily_special_source is not None:
+        if any(v is not None for v in(cartridge_box_source,cartridge_select_source,cartridge_recipe679_source)):raise ValueError('Incompatible daily acquisition sources')
+        from els_server.storage.ariel_daily_special import validate_source as daily_source
+        daily_shared=daily_source(daily_special_source).validate_template(template)
     if template==715036:return False  # Existing owned box only; no grant source exception.
     if template in HISTORICAL_PAGE1_USE_ONLY_TICKETS:return False
     if template in LITHIA_GEN7_USE_ONLY_TICKETS:return False
@@ -62,6 +67,6 @@ def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=Non
     return template not in excluded_equipment() and not (accessory and accessory['compatibility_only'])
 
 
-def require_acquirable(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None):
-    if not can_acquire(template,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source):
+def require_acquirable(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,daily_special_source=None):
+    if not can_acquire(template,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,daily_special_source=daily_special_source):
         raise ValueError(f'Legacy equipment acquisition disabled: {template}')

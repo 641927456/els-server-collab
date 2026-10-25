@@ -31,7 +31,10 @@ def grant(db,value,owner,run_id,dungeon_clear,*,now=time.time):
         multiplier=2 if before==0 and current['active']else 1
         plan=plans(value.dungeon,value.unit,multiplier)
         ensure_inventory(db);migrate_fashion_bag(db);migrate_potion_bag(db)
-        awarded=grant_items(db,plan,owner);after=before+1
+        source=_DailySource(_DAILY_FACTORY_SEAL,db,value,moment,before,current,plan)
+        try:awarded=grant_items(db,plan,owner,daily_special_source=source)
+        finally:source.close()
+        after=before+1
         db.execute('INSERT INTO ariel_daily_special_counts VALUES (?,?,?,?) ON CONFLICT(owner,dungeon,day) DO UPDATE SET count=excluded.count',(owner,value.dungeon,today,after))
     detail=dict(owner=owner,account=value.account,dungeon=value.dungeon,day=today,before=before,after=after,quota=r['daily_count'],
         multiplier=multiplier,premium_period=current['purchase_id']if current['active']else None,grant=before<r['daily_count'])
@@ -71,3 +74,68 @@ def snapshot(path,account,owner,*,validate,now=time.time):
 
 def save(db,run_id,owner,detail):
     db.execute('INSERT INTO ariel_daily_special_receipts VALUES (?,?,?)',(run_id,owner,json.dumps(detail,sort_keys=True,separators=(',',':'))))
+
+# Only the original daily writer issues this ephemeral authority, after count,
+# entitlement and the exact native plan have been resolved in that transaction.
+_DAILY_FACTORY_SEAL=object()
+_DAILY_SHARED_MATERIALS=frozenset((135879,135882,135885))
+
+class _DailySource:
+    __slots__=('_seal','_db','_value','_moment','_before','_current','_plan','_used','_alive','_path','_savepoint','owner')
+    def __init__(self,seal,db,value,moment,before,current,plan):
+        if seal is not _DAILY_FACTORY_SEAL:raise ValueError('Private daily source constructor')
+        self._seal=seal;self._db=db;self._value=value;self._moment=moment;self._before=before
+        self._current=json.dumps(current,sort_keys=True);self._plan=json.dumps(plan,sort_keys=True)
+        from pathlib import Path
+        import sqlite3,uuid
+        if type(db)is not sqlite3.Connection or not db.in_transaction:raise ValueError('Daily source original writer required')
+        self._used=False;self._alive=True;self.owner=value.character
+        self._path=Path(value.session.account.store.path).resolve()
+        self._savepoint='ariel_daily_source_'+uuid.uuid4().hex
+        db.execute('SAVEPOINT '+self._savepoint)
+        self._validate()
+    def _validate(self):
+        import sqlite3
+        from pathlib import Path
+        from els_server.storage.ariel_attendance import owner,state,day
+        if self._seal is not _DAILY_FACTORY_SEAL or not self._alive or type(self._db)is not sqlite3.Connection or not self._db.in_transaction:
+            raise ValueError('Daily source outside original writer lifetime')
+        value=self._value;r=value.validate();owner(self._db,value.account,self.owner)
+        main=[row[2]for row in self._db.execute('PRAGMA database_list')if row[1]=='main']
+        if len(main)!=1 or Path(main[0]).resolve()!=self._path or Path(value.session.account.store.path).resolve()!=self._path:
+            raise ValueError('Daily source original database changed')
+        # COMMIT/ROLLBACK drops this marker. Never recreate it after failure,
+        # even when the same connection begins again with identical rows.
+        self._db.execute('RELEASE SAVEPOINT '+self._savepoint)
+        self._db.execute('SAVEPOINT '+self._savepoint)
+        today=day(self._moment)
+        row=self._db.execute('SELECT count FROM ariel_daily_special_counts WHERE owner=? AND dungeon=? AND day=?',(self.owner,value.dungeon,today)).fetchone()
+        if (0 if row is None else row[0])!=self._before or not 0<=self._before<r['daily_count']:
+            raise ValueError('Daily source original quota changed')
+        current=state(self._db,value.account,self._moment)
+        if json.dumps(current,sort_keys=True)!=self._current:raise ValueError('Daily source original entitlement changed')
+        from els_server.domain.ariel_daily_special_rules import plans
+        multiplier=2 if self._before==0 and current['active']else 1
+        if json.dumps(plans(value.dungeon,value.unit,multiplier),sort_keys=True)!=self._plan:
+            raise ValueError('Daily source original plan changed')
+        return self
+    def validate_plan(self,plan):
+        self._validate()
+        if json.dumps(plan,sort_keys=True)!=self._plan:raise ValueError('Daily source exact plan required')
+        return self
+    def validate_template(self,template):
+        self._validate()
+        if type(template)is not int or template not in {p['template']for p in json.loads(self._plan)}:
+            raise ValueError('Daily source template outside exact plan')
+        return template in _DAILY_SHARED_MATERIALS
+    def bind_factory(self,db,owner,plan):
+        if self._used or db is not self._db or type(owner)is not int or owner!=self.owner:
+            raise ValueError('Daily source foreign/reused factory')
+        self.validate_plan(plan);self._used=True
+    def close(self):
+        if self._alive:
+            self._alive=False;self._db.execute('RELEASE SAVEPOINT '+self._savepoint)
+
+def validate_source(source):
+    if type(source)is not _DailySource:raise ValueError('Typed original daily source required')
+    return source._validate()
