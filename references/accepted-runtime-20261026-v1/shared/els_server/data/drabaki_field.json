@@ -1,0 +1,717 @@
+{
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "source": {
+    "REQUIRE_LEVEL": 99,
+    "MAX_NUMBER_OF_MONSTER_IN_THIS_BATTLE_FIELD": 20,
+    "MAX_JOIN_USER_COUNT": 8,
+    "limitCombatCapability": 150000,
+    "REQUIRE_ITEM_LEVEL": 180,
+    "BATTLE_FIELD_LOADING_TEXTURE_NAME_L": "HQ_LoadingDungeon_2018Drabaki.tga",
+    "STANDARD_MONSTER_LEVEL": 99,
+    "NPC_TABLE_FILE_NAME": "FIELD_BOSSRAID_2018_DRABAKI.lua",
+    "LINE_MAP_FILE_NAME": "Field_Boss_Raid_2018_Drabaki_Linemap.lua",
+    "BATTLE_FIELD_TYPE": 4,
+    "BATTLE_FIELD_ID": 40046,
+    "ENTER_VILLAGE_MAP_ID": 20000,
+    "RETURN_VILLAGE_ID": 20000,
+    "WORLD_ID": 804,
+    "EnableUnitTypeLevel": {
+      "1": {
+        "MIN_LEVEL": 70,
+        "UNIT_TYPE": 13
+      },
+      "2": {
+        "MIN_LEVEL": 70,
+        "UNIT_TYPE": 14
+      }
+    },
+    "BATTLE_FIELD_NAME": {
+      "global": "STR_ID_30630"
+    },
+    "BATTLE_FIELD_PORTAL_MOVING_INFO": {
+      "1": {
+        "LINE_NUMBER": 10,
+        "POSITION_INDEX_TO_MOVE": 1,
+        "PORTAL_MOVE_TYPE": 2,
+        "PLACE_ID_TO_MOVE": 40000
+      }
+    },
+    "BATTLE_FIELD_PARTICLE_LIMIT_INFO": {
+      "LIMIT_MINOR_PARTICLE_EMITRATE": 20,
+      "LIMIT_MAJOR_PARTICLE_SEQUENCE_NUM": 500,
+      "LIMIT_MAJOR_PARTICLE_EMITRATE": 20,
+      "LIMIT_MINOR_PARTICLE_SEQUENCE_NUM": 500
+    }
+  },
+  "groups": [
+    {
+      "group": 1,
+      "template": 2015,
+      "point": 2
+    },
+    {
+      "group": 2,
+      "template": 6401,
+      "point": 2
+    },
+    {
+      "group": 3,
+      "template": 6402,
+      "point": 2
+    },
+    {
+      "group": 4,
+      "template": 6403,
+      "point": 4
+    },
+    {
+      "group": 5,
+      "template": 6404,
+      "point": 2
+    },
+    {
+      "group": 6,
+      "template": 6405,
+      "point": 2
+    },
+    {
+      "group": 7,
+      "template": 6406,
+      "point": 2
+    },
+    {
+      "group": 8,
+      "template": 6407,
+      "point": 2
+    },
+    {
+      "group": 9,
+      "template": 6408,
+      "point": 2
+    },
+    {
+      "group": 10,
+      "template": 6409,
+      "point": 2
+    },
+    {
+      "group": 11,
+      "template": 6410,
+      "point": 2
+    },
+    {
+      "group": 12,
+      "template": 6411,
+      "point": 2
+    },
+    {
+      "group": 13,
+      "template": 6412,
+      "point": 2
+    },
+    {
+      "group": 14,
+      "template": 6413,
+      "point": 2
+    },
+    {
+      "group": 15,
+      "template": 6414,
+      "point": 2
+    }
+  ],
+  "positions": {
+    "1": {
+      "xyz": [
+        -4519.82,
+        0,
+        0
+      ],
+      "right": true,
+      "line": 1
+    },
+    "2": {
+      "xyz": [
+        -6.89612,
+        0,
+        0
+      ],
+      "right": true,
+      "line": 4
+    },
+    "3": {
+      "xyz": [
+        -4270.27,
+        0,
+        0
+      ],
+      "right": true,
+      "line": 1
+    },
+    "4": {
+      "xyz": [
+        -4061.55,
+        0,
+        0
+      ],
+      "right": true,
+      "line": 1
+    },
+    "5": {
+      "xyz": [
+        -3836.74,
+        0,
+        0
+      ],
+      "right": true,
+      "line": 1
+    },
+    "6": {
+      "xyz": [
+        -3616.79,
+        0,
+        0
+      ],
+      "right": true,
+      "line": 2
+    },
+    "7": {
+      "xyz": [
+        -3389.37,
+        0,
+        0
+      ],
+      "right": true,
+      "line": 2
+    },
+    "8": {
+      "xyz": [
+        -3111.24,
+        0,
+        0
+      ],
+      "right": true,
+      "line": 2
+    },
+    "9": {
+      "xyz": [
+        -2829.97,
+        0,
+        0
+      ],
+      "right": true,
+      "line": 2
+    },
+    "10": {
+      "xyz": [
+        -2542.94,
+        0,
+        0
+      ],
+      "right": true,
+      "line": 2
+    },
+    "11": {
+      "xyz": [
+        -2228.22,
+        0,
+        0
+      ],
+      "right": true,
+      "line": 3
+    },
+    "12": {
+      "xyz": [
+        -1924.74,
+        0,
+        0
+      ],
+      "right": true,
+      "line": 3
+    },
+    "13": {
+      "xyz": [
+        3691.68,
+        240,
+        0
+      ],
+      "right": false,
+      "line": 21
+    },
+    "14": {
+      "xyz": [
+        -1638.38,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 3
+    },
+    "15": {
+      "xyz": [
+        -1373.44,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 3
+    },
+    "16": {
+      "xyz": [
+        -1112.34,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 4
+    },
+    "17": {
+      "xyz": [
+        -837.533,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 4
+    },
+    "18": {
+      "xyz": [
+        -576.433,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 4
+    },
+    "19": {
+      "xyz": [
+        -318.785,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 4
+    },
+    "20": {
+      "xyz": [
+        -105.813,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 4
+    },
+    "21": {
+      "xyz": [
+        203.382,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 5
+    },
+    "22": {
+      "xyz": [
+        426.662,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 5
+    },
+    "23": {
+      "xyz": [
+        663.714,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 5
+    },
+    "24": {
+      "xyz": [
+        908.29,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 5
+    },
+    "25": {
+      "xyz": [
+        1141.21,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 5
+    },
+    "26": {
+      "xyz": [
+        1374.5,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 6
+    },
+    "27": {
+      "xyz": [
+        1614.36,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 6
+    },
+    "28": {
+      "xyz": [
+        1850.22,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 6
+    },
+    "29": {
+      "xyz": [
+        2118.06,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 6
+    },
+    "30": {
+      "xyz": [
+        2370.51,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 6
+    },
+    "31": {
+      "xyz": [
+        2456.4,
+        480,
+        0
+      ],
+      "right": false,
+      "line": 20
+    },
+    "32": {
+      "xyz": [
+        2668.91,
+        480,
+        0
+      ],
+      "right": false,
+      "line": 20
+    },
+    "33": {
+      "xyz": [
+        2908.95,
+        480,
+        0
+      ],
+      "right": false,
+      "line": 20
+    },
+    "34": {
+      "xyz": [
+        3145.01,
+        480,
+        0
+      ],
+      "right": false,
+      "line": 20
+    },
+    "35": {
+      "xyz": [
+        2937.3,
+        240,
+        0
+      ],
+      "right": false,
+      "line": 21
+    },
+    "36": {
+      "xyz": [
+        3208.68,
+        240,
+        0
+      ],
+      "right": false,
+      "line": 21
+    },
+    "37": {
+      "xyz": [
+        3521.59,
+        240,
+        0
+      ],
+      "right": false,
+      "line": 21
+    },
+    "38": {
+      "xyz": [
+        3806.81,
+        240,
+        0
+      ],
+      "right": false,
+      "line": 21
+    },
+    "39": {
+      "xyz": [
+        4073.61,
+        240,
+        0
+      ],
+      "right": false,
+      "line": 21
+    },
+    "40": {
+      "xyz": [
+        2662.02,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 7
+    },
+    "41": {
+      "xyz": [
+        2938.77,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 7
+    },
+    "42": {
+      "xyz": [
+        3203.78,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 7
+    },
+    "43": {
+      "xyz": [
+        3487.8,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 7
+    },
+    "44": {
+      "xyz": [
+        3732.8,
+        0,
+        0
+      ],
+      "right": false,
+      "line": 8
+    }
+  },
+  "npcs": {
+    "2015": {
+      "strings": [
+        "",
+        "",
+        "RAID_WAITING.lua",
+        "",
+        "",
+        ""
+      ],
+      "local_hp": 5000,
+      "script_max_hp": null
+    },
+    "6401": {
+      "strings": [
+        "螭龙德拉瓦基",
+        "德拉瓦基",
+        "BOSSRAID_2018_DRABAKI.lua",
+        "",
+        "",
+        ""
+      ],
+      "local_hp": 5000,
+      "script_max_hp": null
+    },
+    "6402": {
+      "strings": [
+        "",
+        "环境NPC",
+        "BOSSRAID_2018_ENVIRONMENT.lua",
+        "",
+        "",
+        ""
+      ],
+      "local_hp": 5000,
+      "script_max_hp": null
+    },
+    "6403": {
+      "strings": [
+        "",
+        "演出用马甲",
+        "BOSSRAID_2018_EVENT.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": 30000,
+      "local_hp": 30000
+    },
+    "6404": {
+      "strings": [
+        "",
+        "BOSS击败掉落马甲",
+        "BOSSRAID_2018_KILLDROP.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null,
+      "local_hp": 5000
+    },
+    "6405": {
+      "strings": [
+        "",
+        "掉落马甲",
+        "BOSSRAID_2018_DROP1.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null,
+      "local_hp": 5000
+    },
+    "6406": {
+      "strings": [
+        "",
+        "掉落马甲",
+        "BOSSRAID_2018_DROP2.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null,
+      "local_hp": 5000
+    },
+    "6407": {
+      "strings": [
+        "",
+        "掉落马甲",
+        "BOSSRAID_2018_DROP3.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null,
+      "local_hp": 5000
+    },
+    "6408": {
+      "strings": [
+        "",
+        "掉落马甲",
+        "BOSSRAID_2018_DROP4.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null,
+      "local_hp": 5000
+    },
+    "6409": {
+      "strings": [
+        "",
+        "掉落马甲",
+        "BOSSRAID_2018_DROP5.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null,
+      "local_hp": 5000
+    },
+    "6410": {
+      "strings": [
+        "",
+        "掉落马甲",
+        "BOSSRAID_2018_DROP6.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null,
+      "local_hp": 5000
+    },
+    "6411": {
+      "strings": [
+        "",
+        "掉落马甲",
+        "BOSSRAID_2018_DROP7.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null,
+      "local_hp": 5000
+    },
+    "6412": {
+      "strings": [
+        "",
+        "掉落马甲",
+        "BOSSRAID_2018_DROP8.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null,
+      "local_hp": 5000
+    },
+    "6413": {
+      "strings": [
+        "",
+        "掉落马甲",
+        "BOSSRAID_2018_DROP9.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null,
+      "local_hp": 5000
+    },
+    "6414": {
+      "strings": [
+        "",
+        "掉落马甲",
+        "BOSSRAID_2018_DROP10.lua",
+        "",
+        "",
+        ""
+      ],
+      "script_max_hp": null,
+      "local_hp": 5000
+    }
+  },
+  "local_policy": {
+    "max_players": 6,
+    "time_limit_seconds": 480,
+    "policy": "friends prototype; existing local rewards; no retail rank/weekly rules"
+  },
+  "source_sha256": {
+    "FIELD_BOSSRAID_2018_DRABAKI.lua": "296fbac4af0ccc9feaa95aaf490467d0bfdac3da6ff157b24521e45b2751260d",
+    "native-npc-strings.json": "4e5fad6e5bc27affb8f29aa86a98ccae7cf34639ba84d18bc91944f8766200cf",
+    "BattleFieldData.lua": "802d196c11022c6e8ce7c1b9df29a2afd9c3c71325d7c19d757dfe7ec059c30f",
+    "BOSSRAID_2018_DRABAKI.lua": "159af3e1e696919430b8449fbc6709b2bfd2e7e248e830c15c792e04bdc22767",
+    "BOSSRAID_2018_ENVIRONMENT.lua": "fc41320f95c342fb47783590ea768db680e60092506797ac752dc9ccc36d82d2",
+    "Field_Boss_Raid_2018_Drabaki.lua": "6889393b84f3cf7d9e5c14594b16e46bf38d0f7315189b143c3788c3ac56f203",
+    "Field_Boss_Raid_2018_Drabaki_Linemap.lua": "0d130ffae55a37c6e4fa4e3cd6bf20da96e4eb7e772a5788a5f2fe4571a3f47d"
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "policy": "user-approved-cn20260729-force-support-v1",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "boxes": [
+    {
+      "template": 723616,
+      "name": "[科宝]战斗力助力原力支援宝箱",
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "record_sha256": "555da6b108be961f7e86584eda64e6a07f26cdfa3fca9d789932afe9ac99626d",
+      "selection_count": 0,
+      "outputs": [
+        {
+          "template": 720746,
+          "quantity": 1,
+          "name": "[科宝]战斗力助力原力（稀有）选择宝箱"
+        },
+        {
+          "template": 723617,
+          "quantity": 1,
+          "name": "[科宝]战斗力助力原力（华丽）选择宝箱"
+        }
+      ],
+      "original_random_rule": {
+        "function": "g_pRandomItemManager.AddRandomItemTemplet",
+        "arguments": [
+          {
+            "global": "g_pRandomItemManager"
+          },
+          {
+            "m_KeyItemID": 0,
+            "m_iGiveCount": 0,
+            "m_ItemID": 723616,
+            "m_RequiredKeyCount": 0,
+            "m_UseCondition": 1,
+            "1": {
+              "m_iItemGroupID": 723616,
+              "m_cUnitClass": 0
+            }
+          }
+        ],
+        "pc": 198029
+      }
+    },
+    {
+      "template": 720746,
+      "name": "[科宝]战斗力助力原力（稀有）选择宝箱",
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "record_sha256": "fee11d8ffc40a35f67da688c91ef9ee532fd043f9cfa8a47bc86afa27a273e98",
+      "selection_count": 1,
+      "outputs": [
+        {
+          "template": 295712,
+          "quantity": 1,
+          "name": "[原力]肉斩骨断"
+        },
+        {
+          "template": 306002,
+          "quantity": 1,
+          "name": "[原力]侵蚀的气息"
+        },
+        {
+          "template": 295707,
+          "quantity": 1,
+          "name": "[原力]伊丽菲亚的气息"
+        }
+      ],
+      "original_random_rule": {
+        "function": "g_pRandomItemManager.AddRandomItemTemplet",
+        "arguments": [
+          {
+            "global": "g_pRandomItemManager"
+          },
+          {
+            "m_KeyItemID": 0,
+            "m_iGiveCount": 1,
+            "m_ItemID": 720746,
+            "m_RequiredKeyCount": 0,
+            "m_UseCondition": 1,
+            "1": {
+              "m_iItemGroupID": 720746,
+              "m_cUnitClass": 0
+            }
+          }
+        ],
+        "pc": 186944
+      }
+    },
+    {
+      "template": 723617,
+      "name": "[科宝]战斗力助力原力（华丽）选择宝箱",
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "record_sha256": "8d3335944393d8a6b0d214df7bcb5c4fb4d87d4f2d0aa75768109f74d6dae6d4",
+      "selection_count": 1,
+      "outputs": [
+        {
+          "template": 295714,
+          "quantity": 1,
+          "name": "[原力]肉斩骨断"
+        },
+        {
+          "template": 306004,
+          "quantity": 1,
+          "name": "[原力]侵蚀的气息"
+        }
+      ],
+      "original_random_rule": {
+        "function": "g_pRandomItemManager.AddRandomItemTemplet",
+        "arguments": [
+          {
+            "global": "g_pRandomItemManager"
+          },
+          {
+            "m_KeyItemID": 0,
+            "m_iGiveCount": 1,
+            "m_ItemID": 723617,
+            "m_RequiredKeyCount": 0,
+            "m_UseCondition": 1,
+            "1": {
+              "m_iItemGroupID": 723617,
+              "m_cUnitClass": 0
+            }
+          }
+        ],
+        "pc": 198042
+      }
+    }
+  ],
+  "items": [
+    {
+      "template": 295712,
+      "name": "[原力]肉斩骨断",
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "grade": 3,
+      "record_sha256": "39a7d28e6c1341f110cf3cba34bf956b7ce94fe26ca368de7385a5713f87b51d",
+      "description": "学习通用技能[原力]肉斩骨断。\n\n[技能情报]\n物理/魔法攻击力减少，但给BOSS怪物造成的伤害增加。\n（物理/魔法攻击力减少效果在对战中也会适用。）\n#CE50000（无法与精神挑战者重复适用）#CX"
+    },
+    {
+      "template": 306002,
+      "name": "[原力]侵蚀的气息",
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "grade": 3,
+      "record_sha256": "8db8e60395b94453eb0e07412678873abb12139593d043b27948f1fe3bcc0648",
+      "description": "学习通用技能[原力]侵蚀的气息。\n\n[技能情报]\n最大MP永久性增加。\n维持非战斗状态时，每秒恢复MP，但每秒减少HP。\n#CE50000（无法与永恒维度重复适用）#CX"
+    },
+    {
+      "template": 295707,
+      "name": "[原力]伊丽菲亚的气息",
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "grade": 3,
+      "record_sha256": "c32f9e24ae85ef5ad6803916e085afb21290782733e532599414213b88fd4e55",
+      "description": "学习通用技能[原力]伊丽菲亚的气息。\n\n[技能情报]\n最大HP永久性增加。\n维持非战斗状态时，每秒恢复HP。\n#CE50000（无法与予你救赎重复适用）#CX"
+    },
+    {
+      "template": 295714,
+      "name": "[原力]肉斩骨断",
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "grade": 1,
+      "record_sha256": "d40e259905b8ce80412dfa557097e1d0ef5dcc176962445fdc49e34fab570840",
+      "description": "学习通用技能[原力]肉斩骨断。\n\n[技能情报]\n物理/魔法攻击力减少，但给BOSS怪物造成的伤害增加。\n（物理/魔法攻击力减少效果在对战中也会适用。）\n#CE50000（无法与精神挑战者重复适用）#CX"
+    },
+    {
+      "template": 306004,
+      "name": "[原力]侵蚀的气息",
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "grade": 1,
+      "record_sha256": "e1eb4f3f71198c4f194bd0902156bebbde70ebd72b80301c3813caf52ad5df33",
+      "description": "学习通用技能[原力]侵蚀的气息。\n\n[技能情报]\n最大MP永久性增加。\n维持非战斗状态时，每秒恢复MP，但每秒减少HP。\n#CE50000（无法与永恒维度重复适用）#CX"
+    }
+  ],
+  "grade_enum": {
+    "IG_ELITE": 2,
+    "IG_LEGEND": 6,
+    "IG_LOW": 5,
+    "IG_NONE": 0,
+    "IG_NORMAL": 4,
+    "IG_RARE": 3,
+    "IG_UNIQUE": 1
+  },
+  "official_source": {
+    "url": "https://els.ztgame.com/html/news/1352771/m_000-1784-01a76-606320.shtml",
+    "checked_at": "2026-10-18T07:39:34.710829+00:00",
+    "region": "CN",
+    "period": "2026-07-29",
+    "sha256": "c4160e1e2810041f2da32d9735e4237cd1838589ee59ba06cd874f06349adefd",
+    "status": 200
+  },
+  "sources": [
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v65\\research\\force-rewards-v1\\source-candidates.json",
+      "sha256": "78ad8c754d9f6d587cd0ab5fb8b93b2193b2b787121f609609ccfb379284dde6"
+    },
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v65\\research\\force-rewards-v1\\output-candidates.json",
+      "sha256": "d47df10d3e07bc7e723c26c3ff4098a4d50ff60029ac1b6da139a3b46aafb3b4"
+    },
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v59\\research\\participation-gear-v1\\official-mobile.html",
+      "sha256": "c4160e1e2810041f2da32d9735e4237cd1838589ee59ba06cd874f06349adefd"
+    }
+  ],
+  "mapping_policy": "Official names/grades/quantities matched exactly to fixedKIM library under user authorization; retail ItemGroup registry not recovered.",
+  "max_stack_policy": "Current local999 special-item inventory bound, not recovered retail stacking entitlement",
+  "version_difference": "Older720745 gives elite support and unique evolution stone; excluded. Current723616 text calls unique child support, while actual723617 name/description/RandomItem GiveCount1 and CN20260729 official prove choose-one.",
+  "remaining": [
+    "Force book learning/force inventory/equipment/extraction persistence and protocol",
+    "Force passive combat effects and complete original choice/skill GUI"
+  ]
+}

@@ -1,0 +1,361 @@
+{
+  "schema_version": 1,
+  "policy": "user-approved-cn20260729-title-support-v1",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "box": {
+    "template": 723673,
+    "name": "[科宝]战斗力助力称号（90日）支援宝箱",
+    "metadata": 0,
+    "item_type": 7,
+    "record_hex": "d90a0b0002104000380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c635b804f235b80400000000000000000000000000000000000000000000000000000000000000000000000054b57f0300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000064bf7603d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+    "record_sha256": "319e0a22d81b9d391e2db0dbf7dc72a9e968614fed46729c927db2441a32051b",
+    "texts": {
+      "0x38": "[科宝]战斗力助力称号（90日）支援宝箱",
+      "0x3c": "给冒险家们提供支援！\n\n内含：\n-[科宝]普雷加斯封印者（90日）\n-[科宝]解放的影子（90日）\n-[科宝]顺其自然（90日）\n-[科宝]钢铁机械的袭击（90日）\n-[阿莉尔]艾尔精髓500个",
+      "0x64": "2050-01-01 9:59"
+    },
+    "registered": false,
+    "group": null,
+    "max_stack": null,
+    "title_item_rule": null,
+    "title_definition": null,
+    "requirements": [
+      0,
+      0,
+      0
+    ]
+  },
+  "outputs": [
+    {
+      "template": 721789,
+      "quantity": 1,
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "name": "[科宝]普雷加斯封印者（90日）",
+      "record_sha256": "dd7803a924e2878d72bc7309d52e804184c72572d1c9b503c5af1a009df58810"
+    },
+    {
+      "template": 721790,
+      "quantity": 1,
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "name": "[科宝]解放的影子（90日）",
+      "record_sha256": "64a42cbab98cb30912f05c81bac8c1a2b224ea3a8a37891e0631e44eb0d70119"
+    },
+    {
+      "template": 721791,
+      "quantity": 1,
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "name": "[科宝]顺其自然（90日）",
+      "record_sha256": "f48811e64609867b1ddf8d75d2356a48a4c1bebaa11132a8838bae76fe201d25"
+    },
+    {
+      "template": 721792,
+      "quantity": 1,
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "name": "[科宝]钢铁机械的袭击（90日）",
+      "record_sha256": "273bd7711d560e839ac246195a64eca6784083eaef1e58c0d907a2482be22a4a"
+    },
+    {
+      "template": 723610,
+      "quantity": 500,
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 999,
+      "name": "[阿莉尔]艾尔精髓",
+      "record_sha256": "2ae3da52374ff77a4fc9d9fe9fa721535b8e2553656444360ec6242568d21925"
+    }
+  ],
+  "coupons": [
+    {
+      "template": 721789,
+      "name": "[科宝]普雷加斯封印者（90日）",
+      "metadata": 0,
+      "item_type": 7,
+      "record_hex": "7d030b000a10400038000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000036f8b5045af8b504000000000000000000000000000000000000000000000000000000000000000000000000985b7e03000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000960a7803d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "record_sha256": "dd7803a924e2878d72bc7309d52e804184c72572d1c9b503c5af1a009df58810",
+      "texts": {
+        "0x38": "[科宝]普雷加斯封印者（90日）",
+        "0x3c": "使用时，可获得‘普雷加斯封印者（90日）’称号。",
+        "0x64": "2050-01-01 9:59"
+      },
+      "registered": true,
+      "group": 4,
+      "max_stack": 999,
+      "title_item_rule": {
+        "title": 13250,
+        "mission": 13250,
+        "period_days": 90,
+        "level": 99,
+        "sub": 13250,
+        "template": 721789,
+        "name": "[科宝]普雷加斯封印者（90日）",
+        "group": 4,
+        "metadata": 0,
+        "max_stack": 99,
+        "record_sha256": "dd7803a924e2878d72bc7309d52e804184c72572d1c9b503c5af1a009df58810"
+      },
+      "title_definition": {
+        "m_ParticleName": "TITLE_2100",
+        "m_iSortNum": 11240,
+        "m_iTitleID": 13250,
+        "m_iOpenLevel": 99,
+        "m_eTitleType": 7,
+        "m_eUnitType": 0,
+        "m_eUnitClass": 0,
+        "m_bIsSecretTitle": 0,
+        "m_bAccountTitle": 0,
+        "m_bVisible": 1,
+        "SOCKET_OPTION": {
+          "0": null,
+          "1": 99267,
+          "2": 74044,
+          "3": 100003019,
+          "4": 82143,
+          "5": 200111,
+          "6": 200112,
+          "7": 20210
+        },
+        "name": "普雷加斯封印者（90日）",
+        "description": "重新封印了古代魔兽，给普鲁纳姆找回了和平……\n至少暂时是这样。"
+      },
+      "requirements": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "template": 721790,
+      "name": "[科宝]解放的影子（90日）",
+      "metadata": 0,
+      "item_type": 7,
+      "record_hex": "7e030b000a1040003800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008ef8b504aef8b504000000000000000000000000000000000000000000000000000000000000000000000000ba5b7e0300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000060187b03d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "record_sha256": "64a42cbab98cb30912f05c81bac8c1a2b224ea3a8a37891e0631e44eb0d70119",
+      "texts": {
+        "0x38": "[科宝]解放的影子（90日）",
+        "0x3c": "使用时，可获得‘解放的影子（90日）’称号。",
+        "0x64": "2050-01-01 9:59"
+      },
+      "registered": true,
+      "group": 4,
+      "max_stack": 999,
+      "title_item_rule": {
+        "title": 13260,
+        "mission": 13260,
+        "period_days": 90,
+        "level": 99,
+        "sub": 13260,
+        "template": 721790,
+        "name": "[科宝]解放的影子（90日）",
+        "group": 4,
+        "metadata": 0,
+        "max_stack": 99,
+        "record_sha256": "64a42cbab98cb30912f05c81bac8c1a2b224ea3a8a37891e0631e44eb0d70119"
+      },
+      "title_definition": {
+        "m_ParticleName": "TITLE_2160",
+        "m_iSortNum": 11241,
+        "m_iTitleID": 13260,
+        "m_iOpenLevel": 99,
+        "m_eTitleType": 7,
+        "m_eUnitType": 0,
+        "m_eUnitClass": 0,
+        "m_bIsSecretTitle": 0,
+        "m_bAccountTitle": 0,
+        "m_bVisible": 1,
+        "SOCKET_OPTION": {
+          "0": null,
+          "1": 99267,
+          "2": 200124,
+          "3": 32153,
+          "4": 200125,
+          "5": 200355
+        },
+        "name": "解放的影子（90日）",
+        "description": "连影子都已经悄然离去的王座上，只萦绕着寂寥的氛围。"
+      },
+      "requirements": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "template": 721791,
+      "name": "[科宝]顺其自然（90日）",
+      "metadata": 0,
+      "item_type": 7,
+      "record_hex": "7f030b000a104000380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000def8b504fcf8b504000000000000000000000000000000000000000000000000000000000000000000000000dc5b7e0300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000086be7d03d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "record_sha256": "f48811e64609867b1ddf8d75d2356a48a4c1bebaa11132a8838bae76fe201d25",
+      "texts": {
+        "0x38": "[科宝]顺其自然（90日）",
+        "0x3c": "使用时，可获得‘顺其自然（90日）’称号。",
+        "0x64": "2050-01-01 9:59"
+      },
+      "registered": true,
+      "group": 4,
+      "max_stack": 999,
+      "title_item_rule": {
+        "title": 13270,
+        "mission": 13270,
+        "period_days": 90,
+        "level": 99,
+        "sub": 13270,
+        "template": 721791,
+        "name": "[科宝]顺其自然（90日）",
+        "group": 4,
+        "metadata": 0,
+        "max_stack": 99,
+        "record_sha256": "f48811e64609867b1ddf8d75d2356a48a4c1bebaa11132a8838bae76fe201d25"
+      },
+      "title_definition": {
+        "m_ParticleName": "TITLE_2210",
+        "m_iSortNum": 11244,
+        "m_iTitleID": 13270,
+        "m_iOpenLevel": 99,
+        "m_eTitleType": 7,
+        "m_eUnitType": 0,
+        "m_eUnitClass": 0,
+        "m_bIsSecretTitle": 0,
+        "m_bAccountTitle": 0,
+        "m_bVisible": 1,
+        "SOCKET_OPTION": {
+          "0": null,
+          "1": 99264,
+          "2": 43210,
+          "3": 43310,
+          "4": 200129,
+          "5": 200130,
+          "6": 200131,
+          "7": 200132,
+          "8": 200133,
+          "9": 200134,
+          "10": 200135
+        },
+        "name": "顺其自然（90日）",
+        "description": "风吹云散，落叶归根。\n就算是片刻的喧嚣，最后也终将回归始源。"
+      },
+      "requirements": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "template": 721792,
+      "name": "[科宝]钢铁机械的袭击（90日）",
+      "metadata": 0,
+      "item_type": 7,
+      "record_hex": "80030b000a1040003800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002af9b5044ef9b504000000000000000000000000000000000000000000000000000000000000000000000000fe5b7e03000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b4f6cb02d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "record_sha256": "273bd7711d560e839ac246195a64eca6784083eaef1e58c0d907a2482be22a4a",
+      "texts": {
+        "0x38": "[科宝]钢铁机械的袭击（90日）",
+        "0x3c": "使用时，可获得‘钢铁机械的袭击（90日）’称号。",
+        "0x64": "2050-01-01 9:59"
+      },
+      "registered": true,
+      "group": 4,
+      "max_stack": 999,
+      "title_item_rule": {
+        "title": 13280,
+        "mission": 13280,
+        "period_days": 90,
+        "level": 99,
+        "sub": 13280,
+        "template": 721792,
+        "name": "[科宝]钢铁机械的袭击（90日）",
+        "group": 4,
+        "metadata": 0,
+        "max_stack": 99,
+        "record_sha256": "273bd7711d560e839ac246195a64eca6784083eaef1e58c0d907a2482be22a4a"
+      },
+      "title_definition": {
+        "m_ParticleName": "TITLE_2250",
+        "m_iSortNum": 11245,
+        "m_iTitleID": 13280,
+        "m_iOpenLevel": 99,
+        "m_eTitleType": 7,
+        "m_eUnitType": 0,
+        "m_eUnitClass": 0,
+        "m_bIsSecretTitle": 0,
+        "m_bAccountTitle": 0,
+        "m_bVisible": 1,
+        "SOCKET_OPTION": {
+          "0": null,
+          "1": 99264,
+          "2": 200158,
+          "3": 200159,
+          "4": 200160,
+          "5": 200161,
+          "6": 60200160,
+          "7": 60200161,
+          "8": 32153
+        },
+        "name": "钢铁机械的袭击（90日）",
+        "description": "爬到城壁上就能见到那些家伙。\n它们高度约有1700品兹，\n拥有庞大而坚固的钢铁身躯。\n那些家伙闪闪发光的炮孔绝不会放过任何一个敌人。"
+      },
+      "requirements": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "original_random_rule": {
+    "function": "g_pRandomItemManager.AddRandomItemTemplet",
+    "arguments": [
+      {
+        "global": "g_pRandomItemManager"
+      },
+      {
+        "m_KeyItemID": 0,
+        "m_iGiveCount": 0,
+        "m_ItemID": 723673,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1,
+        "1": {
+          "m_iItemGroupID": 723673,
+          "m_cUnitClass": 0
+        }
+      }
+    ],
+    "pc": 198289
+  },
+  "official_source": {
+    "url": "https://els.ztgame.com/html/news/1352771/m_000-1784-01a76-606320.shtml",
+    "checked_at": "2026-10-18T07:39:34.710829+00:00",
+    "region": "CN",
+    "period": "2026-07-29",
+    "sha256": "c4160e1e2810041f2da32d9735e4237cd1838589ee59ba06cd874f06349adefd",
+    "status": 200
+  },
+  "sources": [
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v64\\research\\title-rewards-v1\\source-candidates.json",
+      "sha256": "ada2d1521b7ded8fbf84d577a530a76e88b59eb79f98f78956952e3039969a7e"
+    },
+    {
+      "path": "G:\\els\\releases\\local\\local-chip-finished-install-20261018-v1\\els_server\\data\\titles.json",
+      "sha256": "cb1f0395cfc4cd07d22edafc8b5f03932c931c979ea707b2591e6834a44e58bd"
+    },
+    {
+      "path": "G:\\els\\releases\\local\\local-chip-finished-install-20261018-v1\\els_server\\data\\titles.manifest.json",
+      "sha256": "4cf46c1ab18852148ab49fbbb98fea4eb528c7954af74a16c1d55297120b5712"
+    }
+  ],
+  "mapping_policy": "Exact official/KIM names mapped to fixed local library under user authorization; four exact90day coupon IDs and exactAriel essence. Retail group-content registry not recovered.",
+  "lifecycle": "Box grants coupons, never title ownership; original title registry grants character-owned90day title on coupon use at level99. Existing use-time start and title expiry rule reused, no second title schema.",
+  "essence_effect": "Original description says hyper-active skill material;500 inventory grant/stack persisted here, battle consumption path remains to verify. Legacy essence130208 not aliased or overwritten.",
+  "remaining": [
+    "Hyper-active essence consumption path",
+    "Full title book/activation/equipment/expiry GUI and title combat effects"
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "schema": 1,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "group": "one mutually exclusive ordinary elixir group",
+  "owned_compatibility_only": true,
+  "opens_EP_purchase": false,
+  "opens_723603": false,
+  "definitions": [
+    {
+      "template": 710206,
+      "name": "[路莉尔]祝福的本图斯的翅膀（灵药）",
+      "metadata": 2,
+      "item_type": 7,
+      "record_sha256": "ac4038e2df6f3892c50544ff03c9637dde18a4224c2f3d4a4b54e1e66a19ba53",
+      "group": 4,
+      "max_stack": 99,
+      "factor": 425,
+      "buff_template": 396,
+      "period_seconds": 1800
+    },
+    {
+      "template": 710207,
+      "name": "[路莉尔]祝福的特里普的冰珠（灵药）",
+      "metadata": 2,
+      "item_type": 7,
+      "record_sha256": "903731973b54753277eeb0162442ecefe8269e6f0e8992f3dc4b5c01949177fb",
+      "group": 4,
+      "max_stack": 99,
+      "factor": 426,
+      "buff_template": 397,
+      "period_seconds": 1800
+    },
+    {
+      "template": 710210,
+      "name": "[路莉尔]祝福的巨人化药水（灵药）",
+      "metadata": 2,
+      "item_type": 7,
+      "record_sha256": "56e23dbd02f80d6981376910d9f0cd0ad786995d05d9de71891fc3378142178b",
+      "group": 4,
+      "max_stack": 99,
+      "factor": 429,
+      "buff_template": 400,
+      "period_seconds": 1800
+    }
+  ],
+  "native_rows": [
+    {
+      "template": 710206,
+      "record_sha256": "ac4038e2df6f3892c50544ff03c9637dde18a4224c2f3d4a4b54e1e66a19ba53",
+      "native_group": 4,
+      "cases": [
+        {
+          "count": 1,
+          "ok": 1,
+          "consumed": 304,
+          "template": 710206,
+          "metadata": 2,
+          "wire_sha256": "e964023f23e9d392d451121101e7607f357ab9877947a01b6350394708c54393"
+        },
+        {
+          "count": 99,
+          "ok": 1,
+          "consumed": 304,
+          "template": 710206,
+          "metadata": 2,
+          "wire_sha256": "9bbffb0d05b345fb1af054183858a129f7a6de77c5fe492aee9ce254e95e3ca4"
+        }
+      ]
+    },
+    {
+      "template": 710207,
+      "record_sha256": "903731973b54753277eeb0162442ecefe8269e6f0e8992f3dc4b5c01949177fb",
+      "native_group": 4,
+      "cases": [
+        {
+          "count": 1,
+          "ok": 1,
+          "consumed": 304,
+          "template": 710207,
+          "metadata": 2,
+          "wire_sha256": "d6fd5fca80013ce524a97ef56cce423a2345dec495ac41f4399d8bb081ac2b25"
+        },
+        {
+          "count": 99,
+          "ok": 1,
+          "consumed": 304,
+          "template": 710207,
+          "metadata": 2,
+          "wire_sha256": "4487f103812f08920a0ec99dcce53853e76794d9def0df523bd593221ea14589"
+        }
+      ]
+    },
+    {
+      "template": 710210,
+      "record_sha256": "56e23dbd02f80d6981376910d9f0cd0ad786995d05d9de71891fc3378142178b",
+      "native_group": 4,
+      "cases": [
+        {
+          "count": 1,
+          "ok": 1,
+          "consumed": 304,
+          "template": 710210,
+          "metadata": 2,
+          "wire_sha256": "8dac4df25d28405ce6705d11b621f8517c1b20ba0ffeaf392cd337822e44e162"
+        },
+        {
+          "count": 99,
+          "ok": 1,
+          "consumed": 304,
+          "template": 710210,
+          "metadata": 2,
+          "wire_sha256": "31fee57b3a3492a6e98887aed4ebe8260a5ab82edd4f3f5028fa58eae9df903a"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "path": "ep-select-containers-v1/item-native/result.json",
+      "sha256": "f04a886e44e572d1763dfee60d78b5faaed248ff421739bb2393839d23231c08"
+    },
+    {
+      "path": "elixir-mapping-review-v1/mapping-source-table.json",
+      "sha256": "e14f45e10eb22e081c2fbaf34b7c223e0218717eb9df8741e25d20b8ca916972"
+    },
+    {
+      "path": "elixir-town-gate-closure-v2/closure-contract.json",
+      "sha256": "9a124348dcc087303ad0b6918a937626d9bcb14f2dcc3959853ea503c7b7cf0c"
+    }
+  ]
+}

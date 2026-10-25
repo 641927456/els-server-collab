@@ -1,0 +1,1790 @@
+{
+  "schema_version": 1,
+  "policy": "user-approved-cn20260729-role-gear-v1",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "box": {
+    "template": 723680,
+    "name": "[科宝]+11强化+21炼制赤血魔影全套宝箱",
+    "metadata": 0,
+    "item_type": 7,
+    "equip_position": 0,
+    "flags4": 4198402,
+    "flags8": 56,
+    "record_hex": "e00a0b0002104000380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000183ab804483ab80400000000000000000000000000000000000000000000000000000000000000000000000010b97f03000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c68e7b03d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+    "record_sha256": "80ab9a4a8375dbfb39a450c9ac0fef78449dc3e23e19e948f7cda264c8e34fab",
+    "texts": {
+      "0x38": "[科宝]+11强化+21炼制赤血魔影全套宝箱",
+      "0x3c": "可获得+11强化、+21炼制的‘[阿莉尔]赤血魔影防具’4种的宝箱。\n开启时可获得符合当前游戏中的角色的装备。\n\n#CEE0000开启该宝箱后获得的道具无法强化。#CX",
+      "0x64": "2050-01-01 9:59"
+    },
+    "normal_admitted": false,
+    "reforge_target": null
+  },
+  "original_random_item": {
+    "function": "g_pRandomItemManager.AddRandomItemTemplet",
+    "arguments": [
+      {
+        "global": "g_pRandomItemManager"
+      },
+      {
+        "m_KeyItemID": 0,
+        "m_iGiveCount": 0,
+        "m_ItemID": 723680,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 2,
+        "1": {
+          "m_iItemGroupID": 100723680,
+          "m_cUnitClass": 1
+        },
+        "2": {
+          "m_iItemGroupID": 100723681,
+          "m_cUnitClass": 2
+        },
+        "3": {
+          "m_iItemGroupID": 100723682,
+          "m_cUnitClass": 3
+        },
+        "4": {
+          "m_iItemGroupID": 100723683,
+          "m_cUnitClass": 4
+        },
+        "5": {
+          "m_iItemGroupID": 100723687,
+          "m_cUnitClass": 8
+        },
+        "6": {
+          "m_iItemGroupID": 100723684,
+          "m_cUnitClass": 5
+        },
+        "7": {
+          "m_iItemGroupID": 100723685,
+          "m_cUnitClass": 6
+        },
+        "8": {
+          "m_iItemGroupID": 100723686,
+          "m_cUnitClass": 7
+        },
+        "9": {
+          "m_iItemGroupID": 100723688,
+          "m_cUnitClass": 9
+        },
+        "10": {
+          "m_iItemGroupIDForMinorUnit": 100723689,
+          "m_iItemGroupID": 100723689,
+          "m_cUnitClass": 200
+        },
+        "11": {
+          "m_iItemGroupID": 100723690,
+          "m_cUnitClass": 201
+        },
+        "12": {
+          "m_iItemGroupID": 100723691,
+          "m_cUnitClass": 202
+        },
+        "13": {
+          "m_iItemGroupID": 100723692,
+          "m_cUnitClass": 203
+        },
+        "14": {
+          "m_iItemGroupID": 100723693,
+          "m_cUnitClass": 204
+        },
+        "15": {
+          "m_iItemGroupID": 100723694,
+          "m_cUnitClass": 205
+        }
+      }
+    ],
+    "pc": 198372
+  },
+  "families": {
+    "1": {
+      "base_class": 1,
+      "original_group_id": 100723680,
+      "outputs": [
+        {
+          "template": 721881,
+          "name": "[阿莉尔]赤血魔影上衣（艾索德）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "8e1ab1113bf3d495914b7b256637dbaf0e0f785940a7bab4c3650c38f828adb5",
+          "position": 8,
+          "same_name_alternative": 720598
+        },
+        {
+          "template": 721882,
+          "name": "[阿莉尔]赤血魔影下衣（艾索德）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "2cebfc6f8fc47737e95692685785335cff1b7c683f454a63f2fa9c502b8655c5",
+          "position": 9,
+          "same_name_alternative": 720599
+        },
+        {
+          "template": 721883,
+          "name": "[阿莉尔]赤血魔影手套（艾索德）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "a7365bfcf5faaa30a14168fefe77ec56b8dc311de38bc5ab2317f1626d541c48",
+          "position": 10,
+          "same_name_alternative": 720600
+        },
+        {
+          "template": 721884,
+          "name": "[阿莉尔]赤血魔影鞋子（艾索德）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "4df624214d95d1ec71763918b380c403d2116632cee0383fc3898d536f521462",
+          "position": 11,
+          "same_name_alternative": 720601
+        }
+      ]
+    },
+    "2": {
+      "base_class": 2,
+      "original_group_id": 100723681,
+      "outputs": [
+        {
+          "template": 721885,
+          "name": "[阿莉尔]赤血魔影上衣（爱莎）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "5dfd0baeeaf7e773b077e27c7b49b9bdd9414e27ad5b055ab44c68b28a3ba263",
+          "position": 8,
+          "same_name_alternative": 720602
+        },
+        {
+          "template": 721886,
+          "name": "[阿莉尔]赤血魔影下衣（爱莎）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "808c369d37f5e433dad0cf35a5cfd2ea163b889c1a19b1e70f0c3e8e72643843",
+          "position": 9,
+          "same_name_alternative": 720603
+        },
+        {
+          "template": 721887,
+          "name": "[阿莉尔]赤血魔影手套（爱莎）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "807166781506760b0f1bb27b90cda1c1f6812d9516dba64fec44cd900dbde4ee",
+          "position": 10,
+          "same_name_alternative": 720604
+        },
+        {
+          "template": 721888,
+          "name": "[阿莉尔]赤血魔影鞋子（爱莎）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "9e37920cbdf2debbdd25d9a6b5e1f4f3415376793e1c90271fe7771704ca3cd8",
+          "position": 11,
+          "same_name_alternative": 720605
+        }
+      ]
+    },
+    "3": {
+      "base_class": 3,
+      "original_group_id": 100723682,
+      "outputs": [
+        {
+          "template": 721889,
+          "name": "[阿莉尔]赤血魔影上衣（蕾娜）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "4bf7effac9771497af5d894ae5252f6e23a862f20ba52fa03d366a83b6c49425",
+          "position": 8,
+          "same_name_alternative": 720606
+        },
+        {
+          "template": 721890,
+          "name": "[阿莉尔]赤血魔影下衣（蕾娜）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "d8b539273945c9f5e9a22680268a452c4ad0b4b92112af8fa38c257d5eb633de",
+          "position": 9,
+          "same_name_alternative": 720607
+        },
+        {
+          "template": 721891,
+          "name": "[阿莉尔]赤血魔影手套（蕾娜）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "15cb30970a29089b6898ccd3d4e7d36ab3187074136e7f8baa4174b9584c4b69",
+          "position": 10,
+          "same_name_alternative": 720608
+        },
+        {
+          "template": 721892,
+          "name": "[阿莉尔]赤血魔影鞋子（蕾娜）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "1478c7782c095b1aae82d530c49d96549b1d9c519bf5566ac331602435ea348e",
+          "position": 11,
+          "same_name_alternative": 720609
+        }
+      ]
+    },
+    "4": {
+      "base_class": 4,
+      "original_group_id": 100723683,
+      "outputs": [
+        {
+          "template": 721893,
+          "name": "[阿莉尔]赤血魔影上衣（雷文）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "6e1766d544d242427267b95b14e981ee7fd1c852a9343bf79a5baa34f838b6cc",
+          "position": 8,
+          "same_name_alternative": 720610
+        },
+        {
+          "template": 721894,
+          "name": "[阿莉尔]赤血魔影下衣（雷文）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "edf95d063ea48d7c4162a51d853edcaa3b91cb83cbb172c5d41c870fcb508489",
+          "position": 9,
+          "same_name_alternative": 720611
+        },
+        {
+          "template": 721895,
+          "name": "[阿莉尔]赤血魔影手套（雷文）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "9ad3ecf48c5abc75317cf08d3af28cb48c5fe728f967d5fbad50665c00509fc9",
+          "position": 10,
+          "same_name_alternative": 720612
+        },
+        {
+          "template": 721896,
+          "name": "[阿莉尔]赤血魔影鞋子（雷文）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "227c38e599fa8c7b3b36e1a656ec890c22deca6ca59623f1f6de36cc4231403d",
+          "position": 11,
+          "same_name_alternative": 720613
+        }
+      ]
+    },
+    "5": {
+      "base_class": 5,
+      "original_group_id": 100723684,
+      "outputs": [
+        {
+          "template": 721897,
+          "name": "[阿莉尔]赤血魔影上衣（伊芙）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "1747c3990475e706095a09ce85fd7d8e066c38ee3019ddc2b8cca8c1d3930204",
+          "position": 8,
+          "same_name_alternative": 720614
+        },
+        {
+          "template": 721898,
+          "name": "[阿莉尔]赤血魔影下衣（伊芙）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "2208fe005a694719f5a5d72826cfda6eec41340ae4ff45e4bcfe93f597049838",
+          "position": 9,
+          "same_name_alternative": 720615
+        },
+        {
+          "template": 721899,
+          "name": "[阿莉尔]赤血魔影手套（伊芙）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "164c8589e171d786f36667ca00619b74f25c45457d723370829583baf0746a98",
+          "position": 10,
+          "same_name_alternative": 720616
+        },
+        {
+          "template": 721900,
+          "name": "[阿莉尔]赤血魔影鞋子（伊芙）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "55daad11cfcc7d245f0f325381ea2ab7c6c05173842234b75c20e36ce9d4b156",
+          "position": 11,
+          "same_name_alternative": 720617
+        }
+      ]
+    },
+    "6": {
+      "base_class": 6,
+      "original_group_id": 100723685,
+      "outputs": [
+        {
+          "template": 721901,
+          "name": "[阿莉尔]赤血魔影上衣（澄）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "eccf902fcfd57ac301087df03a485ecb5953556d89397f07f8d7f9c581696e34",
+          "position": 8,
+          "same_name_alternative": 720618
+        },
+        {
+          "template": 721902,
+          "name": "[阿莉尔]赤血魔影下衣（澄）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "0c6aa49cb7cf6d99b8a480d9632f146f7602742b47cb50d7d37664db2e8b4c5f",
+          "position": 9,
+          "same_name_alternative": 720619
+        },
+        {
+          "template": 721903,
+          "name": "[阿莉尔]赤血魔影手套（澄）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "628146dd34b5447457105c20477903013361317647edd7041fde3bbf586bbe7e",
+          "position": 10,
+          "same_name_alternative": 720620
+        },
+        {
+          "template": 721904,
+          "name": "[阿莉尔]赤血魔影鞋子（澄）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "f30abee17cfd2e92c984088cf1bc90c70b03e97e5569a64bc2f605fd0d0e2b3a",
+          "position": 11,
+          "same_name_alternative": 720621
+        }
+      ]
+    },
+    "7": {
+      "base_class": 7,
+      "original_group_id": 100723686,
+      "outputs": [
+        {
+          "template": 721905,
+          "name": "[阿莉尔]赤血魔影上衣（艾拉）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "a7b3646345a48111f56bcd790a01d9a25b0350e46f3d42c82df30de312bea8b6",
+          "position": 8,
+          "same_name_alternative": 720622
+        },
+        {
+          "template": 721906,
+          "name": "[阿莉尔]赤血魔影下衣（艾拉）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "7fbbeb2b1e6672ad41a348a8bb934189fab261455740862b3f96916d47cb5b4f",
+          "position": 9,
+          "same_name_alternative": 720623
+        },
+        {
+          "template": 721907,
+          "name": "[阿莉尔]赤血魔影手套（艾拉）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "dc52eaf82f0b2496eda57c3fd7595b47dec6fb9906abe6477efdce50fd0ab717",
+          "position": 10,
+          "same_name_alternative": 720624
+        },
+        {
+          "template": 721908,
+          "name": "[阿莉尔]赤血魔影鞋子（艾拉）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "75064a45084769965d6d0f4f6a1ec60ef9f5bccb60518b13b7d4d4651b61e82d",
+          "position": 11,
+          "same_name_alternative": 720625
+        }
+      ]
+    },
+    "8": {
+      "base_class": 8,
+      "original_group_id": 100723687,
+      "outputs": [
+        {
+          "template": 721909,
+          "name": "[阿莉尔]赤血魔影上衣（艾丽希斯）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "ddb8a66c06b7a6d5b1fd7b78cd15fdd96718dc98c608004021de04fc0004659e",
+          "position": 8,
+          "same_name_alternative": 720626
+        },
+        {
+          "template": 721910,
+          "name": "[阿莉尔]赤血魔影下衣（艾丽希斯）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "66346f12c6a695c6464bc8d8378c2e773d350646dbca6e9adbd559db84f3c343",
+          "position": 9,
+          "same_name_alternative": 720627
+        },
+        {
+          "template": 721911,
+          "name": "[阿莉尔]赤血魔影手套（艾丽希斯）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "6763e4ea547c255f2d331de76a182408b6cc4110bae16b070e1d37a6dc47fc54",
+          "position": 10,
+          "same_name_alternative": 720628
+        },
+        {
+          "template": 721912,
+          "name": "[阿莉尔]赤血魔影鞋子（艾丽希斯）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "22b8fbde81d6d548d0428e63ee0e9545f0eaa92980a2341c0dce142bb96c87d1",
+          "position": 11,
+          "same_name_alternative": 720629
+        }
+      ]
+    },
+    "9": {
+      "base_class": 9,
+      "original_group_id": 100723688,
+      "outputs": [
+        {
+          "template": 721913,
+          "name": "[阿莉尔]赤血魔影上衣（艾迪）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "7404cd2d3a8fca2f191b44f7ee964e46df20d9ce57fa8d510073bcf4c63dfa47",
+          "position": 8,
+          "same_name_alternative": 720630
+        },
+        {
+          "template": 721914,
+          "name": "[阿莉尔]赤血魔影下衣（艾迪）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "32e88208451933572f32e95fbc829b03d5f2b41d03097d255a72cdfb9483c1c2",
+          "position": 9,
+          "same_name_alternative": 720631
+        },
+        {
+          "template": 721915,
+          "name": "[阿莉尔]赤血魔影手套（艾迪）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "d261c262287009462338a43f00a0d1cbbb7c786cd312531a67ace0c860d1eb7c",
+          "position": 10,
+          "same_name_alternative": 720632
+        },
+        {
+          "template": 721916,
+          "name": "[阿莉尔]赤血魔影鞋子（艾迪）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "177754f57109b7070146ec67f59ac24054c9fdb59b9b548a24d167b7b005ba0f",
+          "position": 11,
+          "same_name_alternative": 720633
+        }
+      ]
+    },
+    "10": {
+      "base_class": 200,
+      "original_group_id": 100723689,
+      "outputs": [
+        {
+          "template": 721917,
+          "name": "[阿莉尔]赤血魔影上衣（露／希尔）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "88cf3f5e47b5eef93c74aed95885fc94df6bd39c3c71683b65985c8e15963dd9",
+          "position": 8,
+          "same_name_alternative": 720634
+        },
+        {
+          "template": 721918,
+          "name": "[阿莉尔]赤血魔影下衣（露／希尔）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "b22396b952baf2da8b8ab13992ea3db7acdb9ee22fc843d34ca6c76a54e147e3",
+          "position": 9,
+          "same_name_alternative": 720635
+        },
+        {
+          "template": 721919,
+          "name": "[阿莉尔]赤血魔影手套（露／希尔）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "0aaffb489b69b67e4abd41656c280446f1d55369a2a047bedf5717fa0e2518ed",
+          "position": 10,
+          "same_name_alternative": 720636
+        },
+        {
+          "template": 721920,
+          "name": "[阿莉尔]赤血魔影鞋子（露／希尔）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "67dea6ef356347e6864d92092aeeb0c0cb25d7ac30f7e25b95ad961c64db59f2",
+          "position": 11,
+          "same_name_alternative": 720637
+        }
+      ]
+    },
+    "11": {
+      "base_class": 201,
+      "original_group_id": 100723690,
+      "outputs": [
+        {
+          "template": 721921,
+          "name": "[阿莉尔]赤血魔影上衣（萝丝）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "1f7fcfb355d61a8e46359462f1e4be61dfbb8fb068cf8bcc19122b18de29465f",
+          "position": 8,
+          "same_name_alternative": 720638
+        },
+        {
+          "template": 721922,
+          "name": "[阿莉尔]赤血魔影下衣（萝丝）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "b0bf542c3c8cd587fa955e65591305803e980ae559cb41d7a94ee667c5a9a909",
+          "position": 9,
+          "same_name_alternative": 720639
+        },
+        {
+          "template": 721923,
+          "name": "[阿莉尔]赤血魔影手套（萝丝）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "467864cb58cdcdebe670b97174c98f54d2253189917fa780a33c0ebf0156ddff",
+          "position": 10,
+          "same_name_alternative": 720640
+        },
+        {
+          "template": 721924,
+          "name": "[阿莉尔]赤血魔影鞋子（萝丝）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "5b304f1542633950049f38e4521827f9d16237dc4d41a43e4b43b19096c36d50",
+          "position": 11,
+          "same_name_alternative": 720641
+        }
+      ]
+    },
+    "12": {
+      "base_class": 202,
+      "original_group_id": 100723691,
+      "outputs": [
+        {
+          "template": 721925,
+          "name": "[阿莉尔]赤血魔影上衣（艾因）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "3fea3f65818d2fa6aa7c31427be11f8905ef36af587321e820a79afd1ac90a21",
+          "position": 8,
+          "same_name_alternative": 720642
+        },
+        {
+          "template": 721926,
+          "name": "[阿莉尔]赤血魔影下衣（艾因）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "28c1ca2916a9a38fd4e0f50769cf3c74888c316d1fe2c02c3569bd21f7bb374f",
+          "position": 9,
+          "same_name_alternative": 720643
+        },
+        {
+          "template": 721927,
+          "name": "[阿莉尔]赤血魔影手套（艾因）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "a4847b8c6b710196098149764ac88813bd94343758684d33d357754d25df4a13",
+          "position": 10,
+          "same_name_alternative": 720644
+        },
+        {
+          "template": 721928,
+          "name": "[阿莉尔]赤血魔影鞋子（艾因）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "06602a30a28bec839867bc14af2ffc6fdb9c2844ec5a9b1bc826b727b20a4e37",
+          "position": 11,
+          "same_name_alternative": 720645
+        }
+      ]
+    },
+    "13": {
+      "base_class": 203,
+      "original_group_id": 100723692,
+      "outputs": [
+        {
+          "template": 721929,
+          "name": "[阿莉尔]赤血魔影上衣（娜薇）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "53152d9866ae1f54d4b4cd6eb6c7af4438dc96cd20fd9ae3dab8f2bd90998b61",
+          "position": 8,
+          "same_name_alternative": 720646
+        },
+        {
+          "template": 721930,
+          "name": "[阿莉尔]赤血魔影下衣（娜薇）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "10c623cf97e3efffde7088b606e455bb1d52be528492ffb3ce4e994f0d6396c6",
+          "position": 9,
+          "same_name_alternative": 720647
+        },
+        {
+          "template": 721931,
+          "name": "[阿莉尔]赤血魔影手套（娜薇）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "408bddb8d6bd84481e250f44cc59fed3972a969b04607b14088cad80449b8c1f",
+          "position": 10,
+          "same_name_alternative": 720648
+        },
+        {
+          "template": 721932,
+          "name": "[阿莉尔]赤血魔影鞋子（娜薇）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "599ef4251740eb5b78dc9b723b1d20c69f9efad7232f5ab3506863eeaa39597f",
+          "position": 11,
+          "same_name_alternative": 720649
+        }
+      ]
+    },
+    "14": {
+      "base_class": 204,
+      "original_group_id": 100723693,
+      "outputs": [
+        {
+          "template": 721933,
+          "name": "[阿莉尔]赤血魔影上衣（诺亚）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "d9e6e549d8bd33faefea5b4c87d915f1d1ea9467690fb4c635a9a91d850c01b7",
+          "position": 8,
+          "same_name_alternative": 720650
+        },
+        {
+          "template": 721934,
+          "name": "[阿莉尔]赤血魔影下衣（诺亚）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "12841278dd4e2293d751cdd4a453295064179f964a649f68a8f36a3df7d3e4d4",
+          "position": 9,
+          "same_name_alternative": 720651
+        },
+        {
+          "template": 721935,
+          "name": "[阿莉尔]赤血魔影手套（诺亚）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "273795d4db767a70b619c15e400e1f3ca54f798194b7cb4e903fa85192d30579",
+          "position": 10,
+          "same_name_alternative": 720652
+        },
+        {
+          "template": 721936,
+          "name": "[阿莉尔]赤血魔影鞋子（诺亚）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "cd40e5d58249d194d4fd99d7ee5c407ab932be67c736afa3feaa2859726cdb98",
+          "position": 11,
+          "same_name_alternative": 720653
+        }
+      ]
+    },
+    "15": {
+      "base_class": 205,
+      "original_group_id": 100723694,
+      "outputs": [
+        {
+          "template": 721937,
+          "name": "[阿莉尔]赤血魔影上衣（莉缇娅）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "c3817f8cc2ac275e9ba8555c4c718b22d44161457837155c3101358179c11353",
+          "position": 8,
+          "same_name_alternative": 720654
+        },
+        {
+          "template": 721938,
+          "name": "[阿莉尔]赤血魔影下衣（莉缇娅）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "da69e13c76acf612df3558e09c98a3bd99dcf53ff1c535e97b2c29ce85cbaf9e",
+          "position": 9,
+          "same_name_alternative": 720655
+        },
+        {
+          "template": 721939,
+          "name": "[阿莉尔]赤血魔影手套（莉缇娅）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "bab2e81cc23ed8b2802d48aac4708789677efb581bf906d8db898c59e64f70d0",
+          "position": 10,
+          "same_name_alternative": 720656
+        },
+        {
+          "template": 721940,
+          "name": "[阿莉尔]赤血魔影鞋子（莉缇娅）",
+          "metadata": 1,
+          "group": 1,
+          "max_stack": 1,
+          "quantity": 1,
+          "enhancement": 11,
+          "reforge": [
+            21,
+            100,
+            0
+          ],
+          "reforge_options": [
+            43006,
+            224046,
+            43006,
+            224046,
+            200113,
+            224047,
+            400165
+          ],
+          "record_sha256": "a43eeeb8d124b165f5e7a643fa33a9acafa26f14c1d8d74196993b1b065740bc",
+          "position": 11,
+          "same_name_alternative": 720657
+        }
+      ]
+    }
+  },
+  "official_source": {
+    "url": "https://els.ztgame.com/html/news/1352771/m_000-1784-01a76-606320.shtml",
+    "checked_at": "2026-10-18T07:39:34.710829+00:00",
+    "region": "CN",
+    "period": "2026-07-29",
+    "sha256": "c4160e1e2810041f2da32d9735e4237cd1838589ee59ba06cd874f06349adefd",
+    "status": 200
+  },
+  "local_alias_policy": "User-approved official reward names plus fixed local item library. Choose721881..721940 among identical-name/stat pairs; do not claim recovered retail group contents. Enhancement forbidden by box text/official rule, not by inferred flags-bit semantics.",
+  "default_instance_policy": "Existing local factory durability maximum, reforge life100/failures0. Official enhancement11/reforge21, fixed milestone options from original class2 table. No invented sockets, appraisal or bonus rolls.",
+  "sources": [
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v59\\research\\participation-gear-v1\\gear-candidates.json",
+      "sha256": "732741eed8633eb88e368c567b4b3d246df308972db650d297022455a4bdd24c"
+    },
+    {
+      "path": "G:\\els\\analysis\\sol-high-20261015\\npc-bank-box\\RandomItem.lua",
+      "sha256": "8504949a3378f8ac9efcd539332599839502e4e75f1305dc12dc154795555176"
+    },
+    {
+      "path": "G:\\els\\analysis\\sol-high-20261015\\npc-bank-box\\RandomItem.lua.tables.json",
+      "sha256": "618bacd86fa68ab92d40e8d98ce51da4d536e0f57c45801e3375704616e8699c"
+    },
+    {
+      "path": "G:\\els\\analysis\\sol-high-20261015\\npc-bank-box\\resource-proof.json",
+      "sha256": "fead3790447c2444df7794da8f87d0467b146d8f70ed0d0e2805629f50c3c1b4"
+    },
+    {
+      "path": "G:\\els\\analysis\\sol-high-20261015\\npc-bank-box\\item-kim-proof.json",
+      "sha256": "0e1a1e3a00bfea9255ce7c0633be21c7ecc752cc5cfc021dd3e1c4324dd741f0"
+    }
+  ],
+  "limits": [
+    "Original groupID->contents table not recovered; disclosed local name mapping authorized by user",
+    "No original GUI acceptance; original mode2 means character condition, not a user-selected class",
+    "Official event-end cleanup timestamp not guessed; existing explicit local calendar remains"
+  ]
+}

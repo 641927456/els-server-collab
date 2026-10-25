@@ -1,0 +1,67 @@
+{
+  "configuration": {
+    "policy": "selected2026-independent-attendance-online-local-v1",
+    "purpose": "explicit_local_test",
+    "attendance": {
+      "campaign": "combined-518",
+      "first_date": "2026-10-19",
+      "starts": 1792375200,
+      "ends": 1796004000,
+      "mail": {
+        "sender": "本地活动",
+        "title": "胡巴的签到奖励",
+        "body": "2026官网奖励明细；本地测试排期",
+        "deadline": 1796090400
+      }
+    },
+    "online": {
+      "campaign": "three-online-2026",
+      "weeks": [
+        [
+          1,
+          1792375200,
+          1792980000
+        ],
+        [
+          2,
+          1792980000,
+          1793584800
+        ],
+        [
+          3,
+          1793584800,
+          1794189600
+        ],
+        [
+          4,
+          1794189600,
+          1794794400
+        ]
+      ],
+      "mail": {
+        "sender": "本地活动",
+        "title": "2026共存庆典称号奖励",
+        "body": "累计在线30分钟奖励；本地测试排期",
+        "deadline": 1794880800
+      }
+    }
+  },
+  "resources": {
+    "attendance": {
+      "file": "attendance.json",
+      "sha256": "cd4affa146f5f515b2cf7b883632eea18fd221a261f86884c8a4aa181cb36431"
+    },
+    "rewards": {
+      "file": "rewards.json",
+      "sha256": "6160498a1c277d9b3d0819edbbce816991f4a7268acd7fc5069f1772060279a9"
+    },
+    "online_selection": {
+      "file": "online_selection.json",
+      "sha256": "077035ffbeecf791a6473580ffc1deaf009f41939dd0664cdd97a4ca9126cbdb"
+    },
+    "title_link": {
+      "file": "title_link.json",
+      "sha256": "34b60391c162147cb22f1aecbdff53aa96fa9b97a603fbd858aea7991fa10b32"
+    }
+  }
+}

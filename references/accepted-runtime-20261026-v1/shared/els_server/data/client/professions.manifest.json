@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "sha256": "c63550c89bae1b79b3f91c5552e57be65c05624ce7acacc6c3ce731b9393d9ef",
+  "registration_counts": {
+    "AddProfessionTemplet_LUA": 3,
+    "SetMaxAccumulatedBonusCount": 1,
+    "SetMaxAccumulatedEDByLevel": 10,
+    "SetAccumulatedEDSpecialItem": 10,
+    "SetResetAnvilPeriod": 1,
+    "AddSpecialMaterialItemDataByLevel": 13,
+    "AddMaxBlackSmithHammerByLevel": 10,
+    "SetSpecialMaterialItemID": 1,
+    "AddResolveMaterialQuantity": 14,
+    "SetDiscountPercentageReforgingFee": 10,
+    "SetProfessionItemUseCountByLevel": 11,
+    "SetProfessionFreeChangeMaxCount": 1,
+    "SetProfessionFreeChangeCostED": 3
+  },
+  "source_bytecode_sha256": "f3d76c4fdfab0c46284c78620aa25fa31258364abf7622765c451c0e411f8814",
+  "source_archive_sha256": "56bb739e04e856e2ebf4c93c0df0cca7c181914e65d7cf4d140e167f593c6601",
+  "proof": "analysis/integration-20261015/profession-resources/native-offline-proof.json",
+  "proof_sha256": "4528b1e8ac718930030e370505ad588404d40155a0e7de0c6ea182050298cd57",
+  "limits": [
+    "Native resource definitions, not a recovered server profession implementation.",
+    "No initial-selection state or profession experience thresholds are declared here.",
+    "Callback arguments retain original names/order; fees, probabilities and reward transactions need their own consumer evidence.",
+    "No character profession, crafting, growth or item grants are changed by loading this catalog."
+  ]
+}

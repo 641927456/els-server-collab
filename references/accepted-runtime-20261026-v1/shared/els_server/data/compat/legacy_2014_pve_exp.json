@@ -1,0 +1,890 @@
+{
+  "schema_version": 1,
+  "policy": "user-legacy2014-pve-exp-v1",
+  "provenance": "user_authorized_legacy_2014_extension",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "levels": {
+    "1": 9,
+    "2": 18,
+    "3": 27,
+    "4": 36,
+    "5": 46,
+    "6": 57,
+    "7": 67,
+    "8": 78,
+    "9": 90,
+    "10": 101,
+    "11": 114,
+    "12": 126,
+    "13": 139,
+    "14": 153,
+    "15": 167,
+    "16": 182,
+    "17": 197,
+    "18": 212,
+    "19": 229,
+    "20": 246,
+    "21": 263,
+    "22": 281,
+    "23": 300,
+    "24": 320,
+    "25": 340,
+    "26": 361,
+    "27": 383,
+    "28": 406,
+    "29": 429,
+    "30": 454,
+    "31": 479,
+    "32": 506,
+    "33": 533,
+    "34": 561,
+    "35": 591,
+    "36": 622,
+    "37": 653,
+    "38": 686,
+    "39": 721,
+    "40": 756,
+    "41": 793,
+    "42": 832,
+    "43": 872,
+    "44": 913,
+    "45": 956,
+    "46": 1001,
+    "47": 1047,
+    "48": 1095,
+    "49": 1145,
+    "50": 1197,
+    "51": 1252,
+    "52": 1308,
+    "53": 1366,
+    "54": 1427,
+    "55": 1490,
+    "56": 1556,
+    "57": 1624,
+    "58": 1695,
+    "59": 1768,
+    "60": 1845,
+    "61": 1925,
+    "62": 2007,
+    "63": 2093,
+    "64": 2183,
+    "65": 2276,
+    "66": 2372,
+    "67": 2473,
+    "68": 2577,
+    "69": 2685,
+    "70": 2798,
+    "71": 2916,
+    "72": 3037,
+    "73": 3164,
+    "74": 3296,
+    "75": 3433,
+    "76": 3575,
+    "77": 3723,
+    "78": 3877,
+    "79": 4037,
+    "80": 4203,
+    "81": 4375,
+    "82": 4555,
+    "83": 4743,
+    "84": 4938,
+    "85": 5141,
+    "86": 5352,
+    "87": 5572,
+    "88": 5801,
+    "89": 6040,
+    "90": 6288,
+    "91": 6547,
+    "92": 6816,
+    "93": 7096,
+    "94": 7388,
+    "95": 7692,
+    "96": 8008,
+    "97": 8338,
+    "98": 8681,
+    "99": 9037,
+    "100": 9409
+  },
+  "original_levels": [
+    1,
+    80
+  ],
+  "extension": {
+    "levels": [
+      81,
+      100
+    ],
+    "formula": "floor(4203 * (4203/4037) ** (level-80))",
+    "official_current_values": false
+  },
+  "clear": {
+    "rate": 0.3,
+    "basis": "committed effective ordinary kill EXP in this run",
+    "rounding": "float32 product, truncate"
+  },
+  "kill_multipliers": "Existing GM experience_bp pinned at run admission; no guessed grade/level-difference/party/guild/coupon/event bonus; clear does not reapply GM",
+  "scope": "new admitted ordinary solo runs; hostile active static actors; character EXP below native level99 cap",
+  "maps": {
+    "30000": {
+      "npc_level": 2,
+      "graph_sha256": "538106003b78814094693fb79ede43bba86c49de58ca5caae08be1e0effb10af"
+    },
+    "30072": {
+      "npc_level": 11,
+      "graph_sha256": "b3a288f4b5048052792733eb2a03d9acfc9aa9be9908c8281d4d76df8137d230"
+    },
+    "30092": {
+      "npc_level": 7,
+      "graph_sha256": "b87e706050ff1005c08f9b356e3a63dc66eb487d6147b6a64c8d7bbcc8304026"
+    },
+    "30102": {
+      "npc_level": 14,
+      "graph_sha256": "dec89fc8bc3589fda858bd427abe737f59792d4cdb662b151a3afece127e2fac"
+    },
+    "30172": {
+      "npc_level": 17,
+      "graph_sha256": "3afcfd4f19ee836a57a8e7db5ee1637cc20806185c888f23a7654a7325c5b4b2"
+    },
+    "30182": {
+      "npc_level": 21,
+      "graph_sha256": "beb270845a77bef951e89efe21f3910a2d72b0fade4de3ffe8fe2f054de1a295"
+    },
+    "30192": {
+      "npc_level": 27,
+      "graph_sha256": "0da5cb743399e949e3221f14460349191771454e19db2029d77d7d55f9a120b9"
+    },
+    "30212": {
+      "npc_level": 24,
+      "graph_sha256": "bb040bea7889dd2c6b1e1ca3d85e050f5cb97e4fddd1af5753e00e5f63160099"
+    },
+    "30242": {
+      "npc_level": 29,
+      "graph_sha256": "eb4d00505a3d8d5270e1a36796debaf87097d4f8f1b1e21b7538389849128841"
+    },
+    "30252": {
+      "npc_level": 32,
+      "graph_sha256": "f965765a2687f6226f1d41c31f18e0d989840d7c162fc56239d4f0bb8a0bdfd8"
+    },
+    "30262": {
+      "npc_level": 34,
+      "graph_sha256": "026cef6fd807cbe6da671c0b958763c3a062a4343647b6530013d4f35599e0a9"
+    },
+    "30282": {
+      "npc_level": 36,
+      "graph_sha256": "3da2896f31f56f9f1c1239455bd40dbab24c87b46b63409ca6e47a54f956ca5d"
+    },
+    "30302": {
+      "npc_level": 39,
+      "graph_sha256": "92fb9a602537def90092736f0403c60aefa3cee613a3947cbc67a4422f8b8b15"
+    },
+    "32602": {
+      "npc_level": 42,
+      "graph_sha256": "75a899c90d57a7ea19c0aa7413cc60911baf7952f4d43d4d19716edfe870d858"
+    },
+    "32952": {
+      "npc_level": 44,
+      "graph_sha256": "5a9a0e4207664389059a0403dd0b27fe9517a8790bfdb4c0457f684a8054f7a4"
+    },
+    "32982": {
+      "npc_level": 47,
+      "graph_sha256": "0f2ba14f8aa34b03a12f2a9166b344b7894bdceaa56647cdbba5fec96a21f86c"
+    },
+    "33012": {
+      "npc_level": 49,
+      "graph_sha256": "b7eebcc1fd466c09be00a2e2ab9a5c22b48711c1dd43b9b32554caa07fa3c63b"
+    },
+    "33062": {
+      "npc_level": 52,
+      "graph_sha256": "07f7d3871f8b8cc5aa6ac2cd323d78e8b6a3860b7d560b7cba093ed470f48471"
+    },
+    "33082": {
+      "npc_level": 54,
+      "graph_sha256": "c58e9e8324bd04e5eeed0b8234ca1f3df129c81e3db5efd65fb149b4dc140368"
+    },
+    "33092": {
+      "npc_level": 57,
+      "graph_sha256": "c53ca760b30121b619ab4576048679d936bba18f1fddcf8edf896c034bee05c7"
+    },
+    "33122": {
+      "npc_level": 59,
+      "graph_sha256": "c1acb1aa4f56c31d12058ca7f32eb8f1f6a36e0c22b5f7d40614e88bf175b98b"
+    },
+    "33142": {
+      "npc_level": 62,
+      "graph_sha256": "7b2d7257c1724cceaa116dae2de107ff9be6baeb14fc7888d68f783f6ffc1b52"
+    },
+    "33162": {
+      "npc_level": 64,
+      "graph_sha256": "3e482045d760c13969260a722c263aedcb32f4d3756fe80e8eb5dc7d5b4d1d82"
+    },
+    "33182": {
+      "npc_level": 67,
+      "graph_sha256": "d9dfc8ca84404b5937e13e3a250b635fbd5ea62a5def67c4616fc556590a0ee2"
+    },
+    "33202": {
+      "npc_level": 69,
+      "graph_sha256": "c5c13300ddb677fa274194036820b79be46c5f19b1c406e17f01497175344fa2"
+    },
+    "33232": {
+      "npc_level": 71,
+      "graph_sha256": "2ad86a70dc61c61d3df3dbeaccf3d09fb2253b99a7db57242eb214a514bbe365"
+    },
+    "33242": {
+      "npc_level": 74,
+      "graph_sha256": "9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a"
+    },
+    "33252": {
+      "npc_level": 76,
+      "graph_sha256": "f8fcbe09cad35b426a3221cff7173febb0acb457eea3ab57296c53d391df248e"
+    },
+    "33282": {
+      "npc_level": 79,
+      "graph_sha256": "a38c95834275def7544d914b0789483c5ac6ed636c440ff6f6dae144ae0bcbe9"
+    },
+    "33292": {
+      "npc_level": 81,
+      "graph_sha256": "df17537593b3892881263dd98f051a6da04ec6fbe059c063975fd916db825e3b"
+    },
+    "33302": {
+      "npc_level": 83,
+      "graph_sha256": "112ff72dafc176c7402a932e707743314ddffbc2ba328c0759511a8f305ec62f"
+    },
+    "33312": {
+      "npc_level": 85,
+      "graph_sha256": "2d90340883af2f5643bd6782f3c7b506683358a34a5d2f7d1a5a8aab89bac1c1"
+    },
+    "33322": {
+      "npc_level": 87,
+      "graph_sha256": "09e9169df1004f1ab340afc673921f861560b9f1b5c9b375e8451007c89086be"
+    },
+    "33332": {
+      "npc_level": 89,
+      "graph_sha256": "7d9b0870bda9338fbeeb123d81be36edb74ff2ad660a5001cf05edfa5afde0de"
+    },
+    "33342": {
+      "npc_level": 90,
+      "graph_sha256": "7b9486a4f342ce1592c96bf4ddcac5df23cd61a1e4c61de0a852f9877a0f626b"
+    },
+    "33352": {
+      "npc_level": 91,
+      "graph_sha256": "f6396fb34037cdcd3f72d231f351c3e23c3a23407e4a0d5a642963b208f6f856"
+    },
+    "33872": {
+      "npc_level": 92,
+      "graph_sha256": "b2fc7a644eb702d4840af7c0ad7ba9fa7926e3182d6e1ef0335193228ad807c2"
+    },
+    "33881": {
+      "npc_level": 93,
+      "graph_sha256": "8a32a9853d4709a8e8e1ee4000f20c78b2767391755ce7ecea3bf33710a4ea8c"
+    },
+    "33891": {
+      "npc_level": 95,
+      "graph_sha256": "e4bb437fbd97673d8b17024b07013afab1c2baad334f85835da540d800ffb5e4"
+    },
+    "33901": {
+      "npc_level": 97,
+      "graph_sha256": "24b45ca412b55654727a09b63d6c0fde146bdd57e4fbe3a299233b493cdf8de2"
+    },
+    "34000": {
+      "npc_level": 99,
+      "graph_sha256": "8e0ac4e8bb714df7cde41c2731f9ce4816395fe1a8373ab6a28c6e3dc9c5fbc9"
+    },
+    "34010": {
+      "npc_level": 99,
+      "graph_sha256": "42dd2c9af39c602c9967c0ce9e73247886029e994dd6ceb0966b2ee12fd3e9b1"
+    },
+    "34020": {
+      "npc_level": 99,
+      "graph_sha256": "366251c9a091fe23cf81d875ac6a5cea05ba90a7231d943f722f073b19b2462d"
+    },
+    "34030": {
+      "npc_level": 99,
+      "graph_sha256": "e35fd1ef4cb80eca213ed4206a0602631b85c8717f63d8a4b9c60af2f6030bae"
+    },
+    "34040": {
+      "npc_level": 99,
+      "graph_sha256": "46ea487517cf7fd2e96970f87153b3ba47ce8d8bc5993e7b10f61749f401ede6"
+    },
+    "34050": {
+      "npc_level": 99,
+      "graph_sha256": "f61f3d5ce1e2ef2ad2109e2bc8597d07c0cb5e7a3c73a4e7506dbf331e43c551"
+    },
+    "34060": {
+      "npc_level": 99,
+      "graph_sha256": "54a2d968cdcf563eae3592d597b930bceebb56321ac8e3aad53179000ec3d20b"
+    },
+    "34090": {
+      "npc_level": 99,
+      "graph_sha256": "57f327e11988b929cbf655cf07f1ca51c1501970bc5113db14f65ce9c1a49ffb"
+    },
+    "34100": {
+      "npc_level": 99,
+      "graph_sha256": "f985d4e332c3f6da74d87c68fab5df141787a9cc7a340c1e2cc5877873b11db1"
+    },
+    "34110": {
+      "npc_level": 99,
+      "graph_sha256": "dccdfeac85dcc0eeb8fb95e9a52e33a3eeb35f592123819c26dc5b3c76890704"
+    },
+    "34120": {
+      "npc_level": 99,
+      "graph_sha256": "bf9b90689d5d582cc8a3231252c2761fd71652dc6f4d1e279b7a3a3f486e1a00"
+    },
+    "34160": {
+      "npc_level": 99,
+      "graph_sha256": "56439479c7fc3a8bbf377b1c6775154e34adf433f1d8d7b7cbbff4385cc57c4b"
+    },
+    "34170": {
+      "npc_level": 99,
+      "graph_sha256": "a0abf30c185c3a3caa6279b3d3cf1db72569c53fb609601f629a84d4149e47ef"
+    },
+    "34180": {
+      "npc_level": 99,
+      "graph_sha256": "2c09fdfdd3d1316e7b718cb4e14092e5f5ee0e1cd355b3f49f254f0e78a7d334"
+    },
+    "34190": {
+      "npc_level": 99,
+      "graph_sha256": "e7886f5c2d3095a618b05584774cbc7c775724b127a720523c383293dc7d1296"
+    },
+    "34200": {
+      "npc_level": 5,
+      "graph_sha256": "13fcdb503c5b1b584ba779a8a8e08cf429952b1b46353522868f7c06692c75c0"
+    },
+    "34210": {
+      "npc_level": 15,
+      "graph_sha256": "48004e258381a5b287832a4eba0006f2987e7e5e762926fa20ea503f4ee6b137"
+    },
+    "34220": {
+      "npc_level": 22,
+      "graph_sha256": "35379d6ecb09b300ceb5916063132671175e4c398bdb13c8226c6351a22aada0"
+    },
+    "34230": {
+      "npc_level": 29,
+      "graph_sha256": "55ffbb379a62c28dec5650fb6490a4d6f617633591f7782cdc3dd39ccfa91a83"
+    },
+    "34240": {
+      "npc_level": 36,
+      "graph_sha256": "12aa4d83836bfbcea59537dbe1b05d0932dd93d967b100415dd3c39a568135ec"
+    },
+    "34250": {
+      "npc_level": 44,
+      "graph_sha256": "588b575aacfbd8e6eb264eda485bbedf0ff18c02a8629c53c7d459c4acd72adf"
+    },
+    "34260": {
+      "npc_level": 53,
+      "graph_sha256": "89cb670bc15f356c2bb7fb03f2f047337bf0d444f8f4d5f2bc629043a6236ae1"
+    },
+    "34270": {
+      "npc_level": 61,
+      "graph_sha256": "a94dcbf8ca7c43d06cfd0eed1e570d9eb46361fb42aae31325050557dfdba7f3"
+    },
+    "34280": {
+      "npc_level": 70,
+      "graph_sha256": "569e420d1e616b699a1638cdb4a2a21efbce47fc42c0bf6d66213283d32f9a07"
+    },
+    "34290": {
+      "npc_level": 80,
+      "graph_sha256": "c0b59cc694291c3652f83e1c9435a0a64b2a4ba75ccb0a492197c4638cf2b3b7"
+    },
+    "34300": {
+      "npc_level": 90,
+      "graph_sha256": "71db7b96d942fae310f95015b157060d1a56f73564a7671fdab595804d5bb493"
+    },
+    "34320": {
+      "npc_level": 99,
+      "graph_sha256": "b6905a338e4919afc3445aecf999828b6476bfccfe223bda084019998595021c"
+    },
+    "34330": {
+      "npc_level": 99,
+      "graph_sha256": "4a470538f0eb1294f20c406119b8371a74b0db0bdc4580357fce96d66f522516"
+    },
+    "34340": {
+      "npc_level": 99,
+      "graph_sha256": "e0995cf9f2274bbb9b763fb384c46062ea87915428d4dca313c03d5fc4ecb3e1"
+    },
+    "34350": {
+      "npc_level": 99,
+      "graph_sha256": "da42ed2edc201421e8d6a0ecaaf4ade75217b4785c08ff010a0850c81da6d6c0"
+    },
+    "34370": {
+      "npc_level": 99,
+      "graph_sha256": "8eca42284f32ac370afd061262d54ef2d194f25dec0bfc4a2b42ecd16810d585"
+    },
+    "34380": {
+      "npc_level": 99,
+      "graph_sha256": "2cc21a540190f815ad286551a369a1f87ae52c2adf4677f3639e756d6c50c79b"
+    },
+    "34390": {
+      "npc_level": 99,
+      "graph_sha256": "8da85dcaca627f50d6a5bbacfa06507929f8e358a5be630e02b0f8577869642d"
+    },
+    "34400": {
+      "npc_level": 99,
+      "graph_sha256": "d7dadf378781f4872d6f62bb09adfa4d2a0e7b43b3cbbf67c09e93936767e110"
+    },
+    "34410": {
+      "npc_level": 99,
+      "graph_sha256": "711210520778f1e582e7f1fa9f3a22afc13ca89ad3a0165cbf8c0dc87c909e03"
+    },
+    "34420": {
+      "npc_level": 99,
+      "graph_sha256": "93ac0876a5ad462005f157c1c833f7ac8a9920d30cfb869aca8eef1be2210e4b"
+    },
+    "34430": {
+      "npc_level": 99,
+      "graph_sha256": "b1a1a0455e7301b2b7bc6702ab81665e0273399288f9ffb2db76a024532ceea4"
+    },
+    "34440": {
+      "npc_level": 99,
+      "graph_sha256": "48657ec06348394ad7c8404329a92c77cf3875ea3fb3aa81b6def938579b5747"
+    },
+    "34450": {
+      "npc_level": 99,
+      "graph_sha256": "8bc305025a1831aa63755c10b8b67196ea0cd7ee53787754a19fbcf6c76a32d3"
+    },
+    "34460": {
+      "npc_level": 99,
+      "graph_sha256": "8ab3870594d27271dc525de77ebf008ca616812683efcf85e7e9b3af38c21673"
+    },
+    "34470": {
+      "npc_level": 99,
+      "graph_sha256": "0abf05be6e17400d258f4ca76f45affbc41838a3e3a78e5c3c0ba1e765389589"
+    },
+    "34480": {
+      "npc_level": 99,
+      "graph_sha256": "cb10e07fa8bcce9205ec158dcd03588ebadff6cea6850f7f009c2f7dcc3328a6"
+    },
+    "34490": {
+      "npc_level": 99,
+      "graph_sha256": "82276e87e637b36621cdf4a3729549ed5067bb9f8ff789cd818cd5d615e88be8"
+    },
+    "34500": {
+      "npc_level": 99,
+      "graph_sha256": "9d04a93a5487fd8e054d15a24fb80da52de3e6c48fcfad495193ef2de210949d"
+    },
+    "34510": {
+      "npc_level": 99,
+      "graph_sha256": "3ee2ff335678f3f118857d9833035b2b4afb78e460175b6f4e0244111ed15505"
+    },
+    "34520": {
+      "npc_level": 99,
+      "graph_sha256": "de0cad416e65326b1cb238ad69dbe5394a90341369e6ed20e37baccadb485f45"
+    },
+    "34530": {
+      "npc_level": 99,
+      "graph_sha256": "e9d342db3a5300137a37664b01a276db1ac8b87df8200417c093be530c343415"
+    },
+    "34540": {
+      "npc_level": 99,
+      "graph_sha256": "753c6a906e4a0cbb03c5e857c89d5d904ab4cc659035ca6be8289615c7e81f9e"
+    },
+    "34580": {
+      "npc_level": 5,
+      "graph_sha256": "597f9ea96dbb7f398c887697c822301dc12e20d2427f6739bfd33f579a860dce"
+    },
+    "34590": {
+      "npc_level": 15,
+      "graph_sha256": "a5aad38c009a1081fb3a5dbf91acb0a6bc8a0e62ee82ed913e9ea99b0eebaf37"
+    },
+    "34600": {
+      "npc_level": 22,
+      "graph_sha256": "18bd698e95eec415053438deb0a4c085109e3069eacd19bb4609b10e34917219"
+    },
+    "34610": {
+      "npc_level": 29,
+      "graph_sha256": "3278a6a45bbbc8f65f5a6d3fba251adb0b5e2f77c7e0ac87fab9132d24aba9fc"
+    },
+    "34620": {
+      "npc_level": 35,
+      "graph_sha256": "66695f79578f5c60763ce3218fec17ace5a9fc215d598d2c4cabfe9eb58320f4"
+    },
+    "34630": {
+      "npc_level": 44,
+      "graph_sha256": "26b9d62f658cfd6ebbbe4fe873cf4290f49dba6715fa1e1a6f27cd0295b50b5f"
+    },
+    "34640": {
+      "npc_level": 57,
+      "graph_sha256": "3cb1368064ea525057c789943cccdbcba9b251a059d264f251cc11d3d1ee533b"
+    },
+    "34650": {
+      "npc_level": 68,
+      "graph_sha256": "71d2a893bdf66b6a48f7cea98369804d12b0bb74e6e66a0189c10e38c83f470a"
+    },
+    "34660": {
+      "npc_level": 77,
+      "graph_sha256": "daeb1418bdb9d9ddcb6987f4005f9c3d2cccb3ed4d5ce9217cb437575a6ddef9"
+    },
+    "34670": {
+      "npc_level": 86,
+      "graph_sha256": "43f7c916deefbd03a782b7817a86f0bdc8b1726b845f909424556bf96d7b3d9d"
+    },
+    "34680": {
+      "npc_level": 94,
+      "graph_sha256": "47d8cee8daa7ef7c8e2e8d513c4a1802879a4411fdab9b1ee81646406eeaee5b"
+    },
+    "34690": {
+      "npc_level": 99,
+      "graph_sha256": "b12f3e24a0f85360ab5aab56cc9cdf57f2193f83335863d39729eae27622a976"
+    },
+    "34700": {
+      "npc_level": 99,
+      "graph_sha256": "47938295da0de16095a5a67b26b81df122ed8b015487fb654542c237f2a66b6e"
+    },
+    "34710": {
+      "npc_level": 100,
+      "graph_sha256": "2211ae6755c22eeb3fde663258faf497831ab045f43b66c21848cb1eafcaba58"
+    },
+    "34720": {
+      "npc_level": 100,
+      "graph_sha256": "3238ea8132e0b1dec4e803f2c8f5970563f748175967416e73a224ba4d0f5c62"
+    },
+    "34760": {
+      "npc_level": 100,
+      "graph_sha256": "ff7a84eb43a539de17c9f0432ac2056f4ab29abd0fd3fdc11ef81a3a82123571"
+    },
+    "34770": {
+      "npc_level": 100,
+      "graph_sha256": "aae2cb6f388206f17adbe42a572a207531a4bb6abc8637bd42d4fa07f116ea00"
+    },
+    "34780": {
+      "npc_level": 100,
+      "graph_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0"
+    },
+    "34790": {
+      "npc_level": 100,
+      "graph_sha256": "0c6b29e4d2bc595986d381eb8067f778e9b5077bb7da72a7bb5e46fd0852f3a0"
+    },
+    "34800": {
+      "npc_level": 100,
+      "graph_sha256": "3239dda07b43a5705f1a21ecbf3bf0f8c05ad4419b7ec3447170003e7affabee"
+    },
+    "34810": {
+      "npc_level": 100,
+      "graph_sha256": "383f4d47f888da0fb26a96d2d26720a858559502be6b3fb82afac7c10e686520"
+    },
+    "34820": {
+      "npc_level": 100,
+      "graph_sha256": "e23dc98e2410f9fcf14d3ea034960df7566caf883a0dbe5e1af695b1c19e9476"
+    },
+    "34830": {
+      "npc_level": 100,
+      "graph_sha256": "fd1abe89dc44c00ae5a7aed3234ac990c2a05d78ec7372c7358f2ddeca43a6c0"
+    },
+    "34840": {
+      "npc_level": 100,
+      "graph_sha256": "df689a5708c21104046baf939d74c59f5557b8d7f46521f05d91a084104e1cbe"
+    },
+    "35080": {
+      "npc_level": 100,
+      "graph_sha256": "7be2bc7bc6636de6a7bb5d62e9e90e470ad65f6a5153f1e9617d75fe48fb549c"
+    },
+    "35090": {
+      "npc_level": 100,
+      "graph_sha256": "72bddd85273702560b22616f5cf47795128f0ecafae674ac23c74ee1d380fcfc"
+    },
+    "35100": {
+      "npc_level": 100,
+      "graph_sha256": "4f9fd1bf57aa26c0c686728b5ace50c9f7221ebbd0bcc27a248acbccc4b712c6"
+    },
+    "35120": {
+      "npc_level": 100,
+      "graph_sha256": "a6c237b6144add936c4446661f3cc90e1870ce624e0a1e7fa124e77fd7569af1"
+    },
+    "35130": {
+      "npc_level": 100,
+      "graph_sha256": "87079a900511ecca35bec80ad02e62d8a1332e983b216cae40c3b2d67003e7ad"
+    },
+    "35140": {
+      "npc_level": 100,
+      "graph_sha256": "5b968101f9a62c4546d20bb09c67ce5b9fe4776d2460503c7415c837ccd5ec40"
+    },
+    "35150": {
+      "npc_level": 100,
+      "graph_sha256": "51a1c7c8508feb891933a16fd63eb03811bce61269518a4569fcf4975a3026e6"
+    },
+    "35250": {
+      "npc_level": 6,
+      "graph_sha256": "d71dba419ad369412c4e98a7f0d450f351c0ec533d9d0cb6abec4d50a2251e04"
+    },
+    "35260": {
+      "npc_level": 20,
+      "graph_sha256": "3dd4f08d0d5271cc9d83937fddface52ce0730378e0c1f28d13220437ab54821"
+    },
+    "35261": {
+      "npc_level": 20,
+      "graph_sha256": "099d4c3188ea8b790447babface8681b47b76e19962bf147a30d038cabc00b60"
+    },
+    "35262": {
+      "npc_level": 20,
+      "graph_sha256": "cf94d5de410a1ce99318080b29c42519cf2ebb014a1ed063d1c104c12fcdfdd6"
+    },
+    "35270": {
+      "npc_level": 35,
+      "graph_sha256": "4c2f03e3df3ab002695bf8347eb6c3a2fc99b0bc0deae28d0a18423b47460aa3"
+    },
+    "35271": {
+      "npc_level": 35,
+      "graph_sha256": "d3ebb37e2c4012b75804855a5b030ead529b4a7061aa0dfd7e2f6cc70add1816"
+    },
+    "35280": {
+      "npc_level": 50,
+      "graph_sha256": "a37147db67a60e8f1975134cbfea4337e3e402d6b851e50c26187106e95c1ffc"
+    },
+    "35281": {
+      "npc_level": 50,
+      "graph_sha256": "5defdd4fb4c2068691b7cf660b74a9b5db88ae989cb2b0a87c07b1eeaf2999fe"
+    },
+    "35282": {
+      "npc_level": 50,
+      "graph_sha256": "a1c454a40bb8a9444613d556f23d18de5dda7f52a194839bd7bf2530317ce445"
+    },
+    "35290": {
+      "npc_level": 60,
+      "graph_sha256": "dd9c58d5250519dfa1a4d1bec1893619c304f0e02effb12a672feb092416ab15"
+    },
+    "35291": {
+      "npc_level": 60,
+      "graph_sha256": "8f76c7023dfb33ccf19864984ec2cafc10c3db1f843d022dab4db6da718022c5"
+    },
+    "35300": {
+      "npc_level": 70,
+      "graph_sha256": "6c3680d654020e27525f9e7c3d5920c1b6b71a87d2dbed373af563ff6a03077b"
+    },
+    "35301": {
+      "npc_level": 70,
+      "graph_sha256": "3b7feb6b68743dc3bd7f77f03a792a5c9e87a08803dcc84f63d9c421693a345f"
+    },
+    "35302": {
+      "npc_level": 70,
+      "graph_sha256": "c39033a7eebb7f07bc78789ca0ce14558dd1bc7c148e57e75cda60b1b89fd9e1"
+    },
+    "35310": {
+      "npc_level": 80,
+      "graph_sha256": "3df9bd4129b3b49a1eedab003de53574e8fddf54357c16b6869afb4d389fba47"
+    },
+    "35311": {
+      "npc_level": 80,
+      "graph_sha256": "8ef23f63a278492a8a07935ac274cea285a0119a357395d90642abb38df090ee"
+    },
+    "35320": {
+      "npc_level": 90,
+      "graph_sha256": "696e2f7ad0e4685ea9dea807e03bf7eb54a953c7d9b08453deae8bb0dcba79e3"
+    },
+    "35321": {
+      "npc_level": 90,
+      "graph_sha256": "1861ded3d8a7e8d67475e98a27449215227de7b19f907f3943675fa9ddad4e16"
+    },
+    "35322": {
+      "npc_level": 90,
+      "graph_sha256": "d110b77689c39fd9db46b26c8ae24894bb2bdb747fb4aea53ab2f4e2f3f36050"
+    },
+    "35340": {
+      "npc_level": 100,
+      "graph_sha256": "c65eec1f5122894e35dfd69928a32ec0d121aa4640de91562c2ac6ab28fbafcc"
+    },
+    "35350": {
+      "npc_level": 100,
+      "graph_sha256": "bc117a0857ec124e66d4bd938f1c78255d6137abf04b8cc8d7675a5a843ca0c3"
+    },
+    "35360": {
+      "npc_level": 100,
+      "graph_sha256": "d469d5f21de31b706756eb6c437276406cd15f226d3ef52de82f0a208d12648a"
+    },
+    "35370": {
+      "npc_level": 100,
+      "graph_sha256": "d37c1a019e97f13fac07e0da466d93a71256f702aa94fb0ab30994edd8d5b512"
+    },
+    "35600": {
+      "npc_level": 99,
+      "graph_sha256": "0d1eaaad4c09fa85def105432045d09587768ec1d8451ce81495a0fa78940a93"
+    },
+    "35610": {
+      "npc_level": 99,
+      "graph_sha256": "3856585228680b04722bbbb210238bf6522f76b9ca8a5ae5ca351053cce9af9e"
+    },
+    "35620": {
+      "npc_level": 99,
+      "graph_sha256": "3542a23f4a3693feb4452a4537d78cce8405cf5434bfb2b2d94dc3828a668e57"
+    },
+    "35630": {
+      "npc_level": 99,
+      "graph_sha256": "46c1cd36e5d877d9ff290884a1e34592eb56161b66af38d78a3a1e4294e7136e"
+    },
+    "35640": {
+      "npc_level": 99,
+      "graph_sha256": "7f2c588656ec8d2d6b961ee85b209680d4a819ff3ed0a5a5b4bb252e4e7d4b9d"
+    },
+    "35650": {
+      "npc_level": 100,
+      "graph_sha256": "1cc593d4dbeafaa5a454b1efc55d26c6f604f51ee391eb82528b2a0615f53094"
+    },
+    "35660": {
+      "npc_level": 100,
+      "graph_sha256": "3c0fbe0e56f68bf2a2204965cbfc4e91fdf4f30314871958f8bf4042782f9c9f"
+    },
+    "35670": {
+      "npc_level": 100,
+      "graph_sha256": "bf10c23281b74fe0192898a2b2c973a1d219d7c078922076e50e5e09d2c36890"
+    },
+    "35680": {
+      "npc_level": 100,
+      "graph_sha256": "5775c4d02b685ba93c35bc9558c527abf1fde7fa2505e67f332eb159689dafe6"
+    },
+    "35690": {
+      "npc_level": 100,
+      "graph_sha256": "55c4f45216a764e01124e8f99cea59b063efb389b5b5f8e0d52897c82eb3d256"
+    },
+    "35700": {
+      "npc_level": 100,
+      "graph_sha256": "67d64a407a69ee19bc55708af2beaf35b947d029487c8501d821a6df253246c0"
+    },
+    "35720": {
+      "npc_level": 100,
+      "graph_sha256": "cfd4f6783889d5d8b476bde5103e1fed1547a31819a11afffc4ac4ffb294f466"
+    },
+    "35730": {
+      "npc_level": 100,
+      "graph_sha256": "8123b92820419434722d363448adb13e8b896576782092a625b60fc694e26133"
+    },
+    "35740": {
+      "npc_level": 100,
+      "graph_sha256": "af47ce5df36398edb905c4b32b1d7fa99ae183a34645d9d870fadeb7704ff030"
+    },
+    "35750": {
+      "npc_level": 100,
+      "graph_sha256": "542ceee52e2f8190ae390c4cdc16cf9ff163de9112c49d7fc9e47ae8fef1ba20"
+    },
+    "35760": {
+      "npc_level": 100,
+      "graph_sha256": "c39159e0ae75adae193bd38c15de7f9de501ebe766ee13d8b0773c1854e03dfc"
+    },
+    "35770": {
+      "npc_level": 100,
+      "graph_sha256": "1153238b6265ccd5e344038a1299898aa1a4d9654f98c9168762df8e4ec14e35"
+    },
+    "35780": {
+      "npc_level": 100,
+      "graph_sha256": "c295aabaf45838fb318cdbca557db5216b51fc625ffe23a37fb8f27ac28f9fcb"
+    },
+    "35790": {
+      "npc_level": 100,
+      "graph_sha256": "dc1e85bf432f519faa7076c1fd167036d0a01513709c332b1a8110eb542f42ac"
+    },
+    "35800": {
+      "npc_level": 100,
+      "graph_sha256": "868e3d81c51ea9d591970e97d38f5c3f2a8b15136f0b39fedb9c3485bbbd4dd0"
+    },
+    "35810": {
+      "npc_level": 100,
+      "graph_sha256": "786b4dc651899aaa4577e26df006f4f205116148b1cb1da5b99ff84ec1c44c90"
+    },
+    "35820": {
+      "npc_level": 100,
+      "graph_sha256": "ca04e51448284da996617da771ec44b10ae9085e983f134544241735d8f94753"
+    },
+    "35830": {
+      "npc_level": 100,
+      "graph_sha256": "1cd94abafcf560554c1e806ee3b079d671205ae8711a51800d2a9393cbb4de48"
+    },
+    "35840": {
+      "npc_level": 100,
+      "graph_sha256": "438478dc191b55d1d6464a4dfe9b1f91a75c316f4734a003041179cf900b56fb"
+    },
+    "35850": {
+      "npc_level": 100,
+      "graph_sha256": "bd6f3287c995f4b3f13959228ebc63879ffe3415920345795cd70797de6cff5c"
+    },
+    "35890": {
+      "npc_level": 100,
+      "graph_sha256": "c81e55a2463fff33a3f06af82f14f5769700694401efcf61cec443a1175d0524"
+    },
+    "35950": {
+      "npc_level": 100,
+      "graph_sha256": "69e30671a4c556cb42390d3e8a39731810fdaab2af5aa5a9e0d5b6442083e7ef"
+    },
+    "35960": {
+      "npc_level": 100,
+      "graph_sha256": "43b80f91b49d48ed01addbf2ff423446a2cd9ba8a5ea14a6c4a5fd1aad61e9e2"
+    },
+    "35970": {
+      "npc_level": 100,
+      "graph_sha256": "c7add7bc56379819b276cdb7e3bb01aa3da80484cd5c566d3de322875e28af67"
+    },
+    "35980": {
+      "npc_level": 100,
+      "graph_sha256": "f239efce98d15db4582ab00e66b933a930641d4e9caf448d77fd24c2012fc6b5"
+    },
+    "35990": {
+      "npc_level": 100,
+      "graph_sha256": "f6289ea3dc49c346e2bffa6c1d52c086ae412d41bcd902df7d4547b66a8f952a"
+    },
+    "41400": {
+      "npc_level": 90,
+      "graph_sha256": "4f2e699405bc182f1892bfb2868fca428668290bd2178d87d072446adaab8a3b"
+    },
+    "41430": {
+      "npc_level": 1,
+      "graph_sha256": "281832de098ccc0e4c0cffc49bb281bd0168fb9b7def6fac0507e05136ecc968"
+    },
+    "41480": {
+      "npc_level": 40,
+      "graph_sha256": "cfa5b87ea61cc343f5347f497a1cb303f18be6df6a1bdd11e3bff74547deba67"
+    },
+    "41490": {
+      "npc_level": 40,
+      "graph_sha256": "5573ca1db761bda7de68f7fb420d1a80f386d0ed0dcbd80fce2719ca57611aff"
+    },
+    "41500": {
+      "npc_level": 40,
+      "graph_sha256": "3f5e999f1e8c4dc3c63525d7dfc231ec8b40abcadeacb2e4d2ae82cb2c7fe2e0"
+    },
+    "41510": {
+      "npc_level": 40,
+      "graph_sha256": "cfa5b87ea61cc343f5347f497a1cb303f18be6df6a1bdd11e3bff74547deba67"
+    },
+    "41612": {
+      "npc_level": 5,
+      "graph_sha256": "5f901cb577b4e461a15159bc117cba49cea5a859e0fb38b78c91c8126d1e5736"
+    },
+    "120000": {
+      "npc_level": 87,
+      "graph_sha256": "515e9b530c8b5af50675a28db32949f71ea757371fc2b8ca8e2683f05715e9e4"
+    },
+    "120010": {
+      "npc_level": 1,
+      "graph_sha256": "515e9b530c8b5af50675a28db32949f71ea757371fc2b8ca8e2683f05715e9e4",
+      "experience_base_level": 99,
+      "experience_base_provenance": "Authorized local EXP reference: current minimum admitted character level99; original relative NPC level is unproven. The old internal npc_level1 compatibility field and all HP/native level behavior remain unchanged."
+    },
+    "140010": {
+      "npc_level": 99,
+      "graph_sha256": "98380b109b1994e8873a73a66422a9361c2a8a29c1f534276c2d95b698e166a9"
+    },
+    "140020": {
+      "npc_level": 99,
+      "graph_sha256": "d58963edc618f34bec4d7e2d48c9338d6f7689ce26520c66c66d87cc25a3c6a4"
+    },
+    "140030": {
+      "npc_level": 99,
+      "graph_sha256": "8981d9c79080786f46c77b5e95e2fa1c2840ad2d95c6f8ecc513c76af38e1059"
+    }
+  },
+  "sources": [
+    {
+      "path": "G:\\els\\analysis\\legacy-full-reuse-assessment-20261019-v1\\expanded-Elsword-Libs\\JP_TW_EU_CN_US\\Trunk\\KncWX2Server\\ServerResource\\CN\\NpcExpTable.lua",
+      "sha256": "4fcd2a0ecb4f367f394b6b948aa683634b308794af7e5bcc9ad7618efb1e467c"
+    },
+    {
+      "path": "G:\\els\\analysis\\legacy-package-review-20261019-v1\\source-march-reference\\JP_TW_EU_CN_US\\Trunk\\KncWX2Server\\CenterServer\\KDropTable.cpp",
+      "sha256": "aa506e038588b27b47e26ba5b74df420bfb7592369fd4f7e57083e28c23390b3"
+    },
+    {
+      "path": "G:\\els\\analysis\\legacy-package-review-20261019-v1\\source-march-reference\\JP_TW_EU_CN_US\\Trunk\\KncWX2Server\\CenterServer\\RoomUserManager.cpp",
+      "sha256": "409016aab78b859e7c6775a75087d26b8b3691c1e0988e4c3ad95e2a05e949ca"
+    },
+    {
+      "path": "G:\\els\\analysis\\legacy-package-review-20261019-v1\\source-march-reference\\JP_TW_EU_CN_US\\Trunk\\KncWX2Server\\CenterServer\\ResultProcess.cpp",
+      "sha256": "50596dfe8c6ab90897596618760b4154a18995743ff03bbbffaa584aa0d09c11"
+    }
+  ],
+  "route_payload_sha256": "fbafa1cb884371bc173b74e216b09f9f0f71523c69cae02b00bc7e2c7cf092a5"
+}

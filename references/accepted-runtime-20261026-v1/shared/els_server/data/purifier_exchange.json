@@ -1,0 +1,240 @@
+{
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "definitions": [
+    {
+      "template": 136109,
+      "name": "红色深渊的魔力石",
+      "metadata": 2,
+      "group": 4,
+      "raw_max_stack": 300,
+      "max_stack": 300,
+      "record_sha256": "a81d3d7364a8831b554f8e3d776d70963cfd5223b7f865037a8a91b726b9df42"
+    },
+    {
+      "template": 136110,
+      "name": "蓝色深渊的魔力石",
+      "metadata": 2,
+      "group": 4,
+      "raw_max_stack": 300,
+      "max_stack": 300,
+      "record_sha256": "32febf757f509a56b2ab65325b6c2a61f4e6f339c209fd6b3961a558e449c823"
+    },
+    {
+      "template": 136111,
+      "name": "黄色深渊的魔力石",
+      "metadata": 2,
+      "group": 4,
+      "raw_max_stack": 300,
+      "max_stack": 300,
+      "record_sha256": "3e76f003128f1b9ea651ea4335f8f018c87b8357903d5394a579e4630e0b9fc6"
+    },
+    {
+      "template": 136115,
+      "name": "深渊的气息净化剂",
+      "metadata": 2,
+      "group": 4,
+      "raw_max_stack": 500,
+      "max_stack": 500,
+      "record_sha256": "cb8160a7c4a9cf11804c79b227ee3ff3be27754f6f4100c8c86d8f1b61316c3d"
+    }
+  ],
+  "recipes": [
+    {
+      "source_quantity": 7,
+      "destination": 136109,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40272,
+          3,
+          136115,
+          136109,
+          1,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 7
+          }
+        ],
+        "pc": 6886
+      }
+    },
+    {
+      "source_quantity": 7,
+      "destination": 136110,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40272,
+          3,
+          136115,
+          136110,
+          1,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 7
+          }
+        ],
+        "pc": 6897
+      }
+    },
+    {
+      "source_quantity": 7,
+      "destination": 136111,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40272,
+          3,
+          136115,
+          136111,
+          1,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 7
+          }
+        ],
+        "pc": 6908
+      }
+    },
+    {
+      "source_quantity": 40,
+      "destination": 136080,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40272,
+          3,
+          136115,
+          136080,
+          1,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 40
+          }
+        ],
+        "pc": 6919
+      }
+    },
+    {
+      "source_quantity": 40,
+      "destination": 136081,
+      "quantity": 1,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40272,
+          3,
+          136115,
+          136081,
+          1,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 40
+          }
+        ],
+        "pc": 6930
+      }
+    },
+    {
+      "source_quantity": 40,
+      "destination": 136082,
+      "quantity": 1,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40272,
+          3,
+          136115,
+          136082,
+          1,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 40
+          }
+        ],
+        "pc": 6941
+      }
+    }
+  ],
+  "entry": {
+    "town": 20013,
+    "world": 1023,
+    "house": 40272,
+    "npc": 10382,
+    "button": 11
+  },
+  "source_qualification": {
+    "current_official_normal_source": [
+      {
+        "url": "https://els.ztgame.com/game/m_008-1735-003dd-289014.shtml",
+        "queried_date": "2026-10-21",
+        "region": "CN",
+        "page": "current official Abyss guide",
+        "finding": "Per-stage weekly claim and possible dungeon drops can yield 深渊的气息净化剂; Abyss mystic stones remain current. This is not a complete rate/quantity table."
+      },
+      {
+        "url": "https://els.ztgame.com/game/000-1661-00360-226068.shtml?ms=805&mt=864",
+        "queried_date": "2026-10-21",
+        "region": "CN",
+        "finding": "Current Dark Ghost weapon guide confirms stage purifier source, and existing mystic stone imbuing NPC capability."
+      }
+    ],
+    "no_new_material_grants": true,
+    "current_server_stage_source_not_claimed": true,
+    "normal_current_NPC_exchange_for_legitimate_existing_stacks": true,
+    "136115_DTO": "Static identical type7/meta2/no-special-ID 304-byte full reader+constructor branch reused; exact136115 not newly executed.",
+    "136109_136110_136111_DTO": "Existing count1/max300 full native reader evidence reused unchanged.",
+    "source_review": {
+      "path": "analysis\\purifier-source-review-20261021-v1\\source-review.json",
+      "sha256": "e64b85d857d9c3a2f9fb6eba1fbd683036a8aad0236681a15950a2e07a6b4dae"
+    },
+    "original_full_reader_evidence": {
+      "path": "analysis\\equipment-connect-01a142e9\\v12-remaining-growth-readonly\\native-spell-materials.json",
+      "sha256": "b2e0dd9914c137190720057a761a41d7b2176e2b52d9b95a6f71b581d88cfb2b"
+    },
+    "136080": "Independent equipment_spell_rules.ticket_definitions(), group4/meta0/max1. Rawmax0 is not asserted to equal1."
+  },
+  "supported_native_mode": "manual select3, sourceUID0, batch1, native_flag1/native_index0; no random or unproven batch mode",
+  "original_sources": [
+    {
+      "path": "G:\\els\\analysis\\tutorial-quests-01a142ce\\v3-remaining\\resources\\DLG_Map_House.lua.tables.json",
+      "sha256": "ec9406064e33c9cd9fcc5dbdfc5c2fad3a63481228e7ab5a13b6af489f96b3f2",
+      "bytes": 2138175
+    },
+    {
+      "path": "G:\\els\\analysis\\x2-village-opcode14-20261017-01a14a51\\outputs\\DLG_Map_Village.tables.json",
+      "sha256": "b79f1609a7a0d673ab165cc626961779acc791cb411a64a933edf7de03d1f072",
+      "bytes": 172591
+    },
+    {
+      "path": "G:\\els\\analysis\\equipment-connect-01a142e9\\expansion-v2\\ItemExchangeTable.lua.tables.json",
+      "sha256": "1a86a91e1751c1e763ff0f0f77fc45ec8a0bf2138fadf3e579e85fd569e26215",
+      "bytes": 255375
+    }
+  ]
+}
