@@ -1,0 +1,50 @@
+{
+  "channel": "online",
+  "release": "equipment-saved-reader-compat-20261024-v1",
+  "parent_release": "housing-access-room-independent-20261024-v1",
+  "manifest_sha256": "a3e8d53ace77882bc28f086752bfbd3ce08052867f99cea64358c8cc02008bbd",
+  "parent_manifest_sha256": "ad3f8277c4fedbb0a3b930fefc0739c127516caa33c926ea3e175292e2ef9410",
+  "scope": "Saved30603 exact two-line/41 OptionID native read and exact saved130208 read count<=1000 only. Global essence factory cap remains1; require_template/write routes/native byte34D unchanged. One required existing identified-flag reader calls the same finite two-line verifier for true30603 only.",
+  "files": [
+    {
+      "path": "els_server/domain/identification_ui.py",
+      "sha256": "640062ed63eff0b3c98ad66e816f2255b50dc05626e88941afe68db902bbac7f",
+      "size": 6435,
+      "parent_sha256": "52ade9f19781350595672998e676e195fb0e91bafda8ab0de8d17f4468570ce4"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "sha256": "cf82846a80552a3389a08f3026993557fc381a1fafbcea3508f7d977fbbeae6d",
+      "size": 60101,
+      "parent_sha256": "6f669a8865270d3416cc6abff9f1882b1200855a6ef407cc3b99557fefefe0ce"
+    }
+  ],
+  "changed_runtime_file_count": 2,
+  "source_file_count": 823,
+  "business_file_count": 1050,
+  "independent_units": 1,
+  "client_delta": 0,
+  "new_schema": false,
+  "new_schema_definitions": 0,
+  "install_DDL_statements": 0,
+  "parent_snapshot_commit": "54706fd95e29a3645b0d211c8bbb1d96d71fa578",
+  "historical_delivery_accepted": true,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/online/equipment-saved-reader-compat-20261024-v1/rollup-manifest.json",
+      "sha256": "a3e8d53ace77882bc28f086752bfbd3ce08052867f99cea64358c8cc02008bbd",
+      "bytes": 194627
+    },
+    "actual_acceptance": {
+      "path": "releases/online/equipment-saved-reader-compat-20261024-v1/acceptance.json",
+      "sha256": "0ca2c5ea2fe2743cfa460578fb02f0b553cbd65cd25ed81298790132f6e5c9b8",
+      "bytes": 8415
+    }
+  },
+  "metadata_sync_installs": 0
+}

@@ -59,6 +59,38 @@ class SealQuestTests(unittest.TestCase):
         reopened=QuestState(self.path,account_id=1)
         self.assertEqual(reopened.completed(),{6980,6990});self.assertEqual(reopened.snapshot()['active'],[])
 
+    def test_job_quest_class_change_rebuilds_career_context(self):
+        self.set_class(1,15)
+        with closing(sqlite3.connect(self.path)) as db,db:
+            db.execute('INSERT OR REPLACE INTO completed_quests VALUES (?,?,?,?)',(1001,103020,1,'{}'))
+        self.assertEqual([e.kind for e in self.action(0xee,103030)],[0xef,0xf0])
+        self.record('clear',30182,rank=None)
+        # flags[1] selects Epic skip, so the plain claim spells it as zero.
+        payload=struct.pack('>iiI5B',103030,10008,0,0,0,1,1,0)
+        self.seq+=1;reply=self.s.handle(Event(0x202,performers=(0,),kind=0xf4,payload=payload),self.seq)
+        kinds=[e.kind for e in reply]
+        # D9/career packets carry empty legacy quest vectors, so observe()
+        # republishes 2B after the 29F career rebuild.
+        self.assertEqual(kinds[:3],[0xf5,0x2b,0x29f]);self.assertEqual(kinds[3],0x55b)
+        self.assertEqual(self.a.character()['unit_class'],10)
+        notice=next(e for e in reply if e.kind==0x29f)
+        self.assertEqual(notice.payload[21:23],struct.pack('>H',10))
+
+    def test_lithia_first_job_quest_rebuilds_career_context(self):
+        with closing(sqlite3.connect(self.path)) as db,db:
+            db.execute('UPDATE characters SET unit_type=15,unit_class=205,level=20 WHERE uid=1001')
+            for predecessor in (53670,53671):
+                db.execute('INSERT OR REPLACE INTO completed_quests VALUES (?,?,?,?)',(1001,predecessor,1,'{}'))
+        self.assertEqual([e.kind for e in self.action(0xee,53672)],[0xef,0xf0])
+        # Town dialogue 0xFD writes the 1-talk objective; the claim is separate.
+        with closing(sqlite3.connect(self.path)) as db,db:
+            db.execute('UPDATE character_quests SET objectives=? WHERE owner=? AND quest=?',(json.dumps({28030:1}),1001,53672))
+        payload=struct.pack('>iiI5B',53672,10394,0,0,0,1,1,0)
+        self.seq+=1;reply=self.s.handle(Event(0x202,performers=(0,),kind=0xf4,payload=payload),self.seq)
+        self.assertEqual([e.kind for e in reply[:4]],[0xf5,0x2b,0x29f,0x55b])
+        self.assertEqual(self.a.character()['unit_class'],92)
+        self.assertEqual(next(e for e in reply if e.kind==0x29f).payload[21:23],struct.pack('>H',92))
+
     def test_early_claim_level_class_predecessor_and_bad_wire_rejected(self):
         before=self.dump()
         self.assertNotEqual(self.action(0xee,6990)[0].payload,bytes(4));self.assertEqual(self.dump(),before)
@@ -291,5 +323,17 @@ class SealQuestTests(unittest.TestCase):
         from els_server.domain.quest_flow import observe
         self.assertEqual(observe(s),[])
         self.assertEqual(observe(self.s,[Event(0x201,kind=0xd9)])[0].kind,0x2b)
+
+    def test_retire_from_the_finale_part_controller_completes_28110_once(self):
+        with closing(sqlite3.connect(self.path)) as db,db:
+            db.execute('INSERT INTO character_quests VALUES (?,?,?,?,?)',
+                       (1001,28110,1,1,json.dumps({'28110':0})))
+        updated=self.record('retire',35250,npc=9470,tutorial_quest=28110,retired_by=9310)
+        self.assertEqual([e.kind for e in updated],[0xf3])
+        active={row['id']:row['objectives'] for row in self.q.snapshot()['active']}
+        self.assertEqual(active[28110],{28110:1})
+        # The same part condition cannot be replayed from another controller.
+        self.assertEqual(self.record('retire',35250,npc=9470,tutorial_quest=28110,retired_by=9460),[])
+        self.assertEqual({row['id']:row['objectives'] for row in self.q.snapshot()['active']}[28110],{28110:1})
 
 if __name__=='__main__':unittest.main()
