@@ -39,6 +39,8 @@ def _previous(db, operation, digest):
 
 
 def _commit(db, operation, digest, uid, kind, positions, before, after):
+    from els_server.storage.spell_socket_pending import invalidate_moved
+    invalidate_moved(db,uid,before,after)
     db.execute('''CREATE TABLE IF NOT EXISTS inventory_action_receipts (
         operation_id TEXT PRIMARY KEY, request_hash TEXT NOT NULL, owner INTEGER NOT NULL,
         kind INTEGER NOT NULL, positions_json TEXT NOT NULL, before_json TEXT NOT NULL,
