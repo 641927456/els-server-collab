@@ -54,6 +54,35 @@ def travel(path,uid,account_id,source,payload,operation,*,now,context=None,autho
         db.execute('INSERT INTO reward_receipts VALUES (?,?,?,?,?)',(operation,digest,json.dumps(grant,sort_keys=True),response,json.dumps(after,sort_keys=True)))
         return dict(response=response,balances=after,grant=grant,replayed=False)
 
+def ordinary_committed_entry(path,uid,account_id,source,payload,operation,response,*,authorize):
+    """Read-only proof for native225 flag1 after this session's paid58C."""
+    from pathlib import Path
+    if not callable(authorize) or authorize() is not True:raise ValueError('Town entry actor changed')
+    destination,free,special,growth=wire.request(payload)
+    if destination==1012 or source==destination:raise ValueError('Ordinary committed entry source')
+    proof=json.dumps(dict(owner=uid,account=account_id,source=source,payload=payload.hex()),sort_keys=True,separators=(',',':'))
+    digest=hashlib.sha256(proof.encode()).hexdigest()
+    with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=ro',uri=True,timeout=10))as db:
+        db.execute('PRAGMA query_only=ON');db.execute('BEGIN');load_character(db,uid,account_id)
+        old=db.execute('SELECT proof_sha256,grant_json,response,balance_json FROM reward_receipts WHERE run_id=?',(operation,)).fetchone()
+        if old is None or old[0]!=digest:raise ValueError('Town entry missing exact committed receipt')
+        grant=json.loads(old[1]);after=validate_balances(tuple(json.loads(old[3])[k]for k in('ed','experience','revision')))
+        if(not isinstance(grant,dict)or set(grant)!={'kind','owner','source','destination','fee','pass_uid','flags'}
+                or grant['kind']!='town_warp' or grant['owner']!=uid or grant['source']!=source
+                or grant['destination']!=destination or grant['flags']!=[free,special,growth]
+                or type(grant['fee'])is not int or grant['fee']<0):raise ValueError('Town entry receipt context')
+        pass_uid=grant['pass_uid']
+        if pass_uid is not None:
+            if type(pass_uid)is not int or not 0<pass_uid<2**63 or grant['fee']!=0:raise ValueError('Town entry waiver receipt')
+        elif free:raise ValueError('Town entry unproved free receipt')
+        expected=wire.acknowledgement(destination,after['ed']).payload
+        if not isinstance(response,bytes)or response!=bytes(old[2])or response!=expected:raise ValueError('Town entry committed response')
+        location=db.execute('SELECT town,board,progress,x,y,z FROM location WHERE uid=?',(uid,)).fetchone()
+        point=rules.catalog()['towns'][str(destination)]['xyz']
+        if location!=(destination,0,0,*point):raise ValueError('Town entry current paid location')
+        if authorize() is not True:raise ValueError('Town entry actor changed')
+        return True
+
 # Only the new1012 route uses this policy. Parent routes/receipts stay intact.
 VILLAGE1012_POLICY = 'qualified-cobo-village1012-v1'
 VILLAGE1012_WRITER_ENABLED = True

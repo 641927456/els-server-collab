@@ -1538,6 +1538,8 @@ class LocalSession:
             elif kind==0x32:answer=[Event(0x201,kind=0x33,payload=i32(0)+bytes([self.client_build=='dx11_260923']))]
             elif kind==0x225:
                 if len(event.payload)!=5:raise SessionOrderError('Invalid local town entry')
+                from els_server.domain.town_travel_flow import authorize_native_warp_entry
+                native_committed_warp=authorize_native_warp_entry(self,event,request_sequence)
                 if event.payload[4]!=0:
                     # B934A0's explicit native default-position branch sends
                     # 225(town, 1). Only the witnessed Noah source-clear return
@@ -1555,9 +1557,9 @@ class LocalSession:
                         and story.get('run') is not None and self.dungeon_run is story['run']
                         and character is not None and character['unit_type']==14 and character['level']==1
                         and self.account.get_reward_balances()['experience']==0)
-                    if not native_noah_return:raise SessionOrderError('Invalid local town entry')
+                    if not (native_noah_return or native_committed_warp):raise SessionOrderError('Invalid local town entry')
                 requested=struct.unpack_from('>i',event.payload)[0]
-                if requested==1011 and not _mainline1011_entry(self,event,request_sequence):
+                if requested==1011 and not (native_committed_warp or _mainline1011_entry(self,event,request_sequence)):
                     return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
                 # Current ordinary portals20010/608 and1010/1703 reach1009.
                 # Native MapData requires99+26640 for all current1..15 types;
@@ -1591,7 +1593,7 @@ class LocalSession:
                         return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
 
                 warp=getattr(self,'town_warp_transition',None)
-                if warp is not None and (requested!=warp['destination'] or event.payload[4]!=0):raise SessionOrderError('Town entry differs from committed warp')
+                if warp is not None and (requested!=warp['destination'] or event.payload[4]!=0 and not native_committed_warp):raise SessionOrderError('Town entry differs from committed warp')
                 if requested==1012:
                     from els_server.domain.town_travel_flow import authorize_village1012_entry
                     if not authorize_village1012_entry(self,event,request_sequence):
