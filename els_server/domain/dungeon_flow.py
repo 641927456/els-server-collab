@@ -77,7 +77,12 @@ def handle(s,event):
   # already gone. Retiring the actor here grants nothing: quest progress and
   # rewards stay with the source-bound specialists that run before this one.
   from els_server.domain.dungeon_spawns import scene_controller
-  scene=npc is not None and not npc['active'] and not npc.get('dynamic') and scene_controller(npc['template'])
+  from els_server.domain.story_controller_retirements import source_pinned
+  # Class-103 Lua objects may be source-declared active and still self-retire
+  # (LITHIA_MEMORY2_FLOWER reports native 255); the class, not ISACTIVE, decides.
+  # Source-pinned controllers stay on the strict rule path and are excluded here.
+  scene=(npc is not None and not npc.get('dynamic') and scene_controller(npc['template'])
+         and not source_pinned(run,npc))
   expired=((npc is not None and npc.get('dynamic') and valid_sentry_death(d,s.account.uid))
            or (scene and valid_sentry_death(d,s.account.uid)))
   identities=participants|frozenset((0,2**64-1)) if scripted or expired else participants

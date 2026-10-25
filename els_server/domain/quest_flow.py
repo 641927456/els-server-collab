@@ -193,6 +193,11 @@ def handle(s,event,sequence):
             from els_server.domain.tutorial_memory8_finale import ready_hidden_receipt
             ready=ready_hidden_receipt(r.get('accepted_after',()))
             if ready:events.append(wire.progress(ready))
+            # B9C380 kind29F rebuilds the career/skill-tree context; the F5 unit
+            # alone leaves the current client's skill page empty after a job quest.
+            if r.get('class_changed'):
+                from els_server.protocol.career_messages import career_notice
+                events.append(career_notice(r['character'],s.account.get_location(),r['slots'],r['balances'],r['items']))
             events.append(skill_slots_initialization(r['slots'],s.account.uid,r['character']))
             if qid==52700 and 'el_search_collection' in r['character']:
                 from els_server.protocol.el_search_collection_messages import notice as collection_notice

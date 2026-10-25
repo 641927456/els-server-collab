@@ -204,7 +204,7 @@ class QuestState:
             items=load_items(db,uid);before=_state(db,uid,items);active=next((r for r in before['active'] if r['id']==qid),None)
             done=next((r for r in before['completed'] if r['id']==qid),None);replayed=bool(old)
             awards=[];consumed=[]
-            stage_changed=False;accepted_after=()
+            stage_changed=False;class_changed=False;accepted_after=()
             if not old:
                 if kind=='accept':
                     if done:raise ValueError('Quest already rewarded')
@@ -303,6 +303,7 @@ class QuestState:
                     if reward.get('m_eChangeUnitClass',0):
                         from els_server.storage.careers import apply_quest_transition
                         old_career,new_career=apply_quest_transition(db,uid,q)
+                        class_changed=old_career['unit_class']!=new_career['unit_class']
                         stage_changed=(old_career['transcendence'],old_career['master'])!=(new_career['transcendence'],new_career['master'])
                     from els_server.storage.artifact_progression import complete_quest as complete_artifact_quest
                     complete_artifact_quest(db,uid,qid)
@@ -327,6 +328,7 @@ class QuestState:
             result=dict(replayed=replayed,state=state,character=character,balances=balances,items=items,updates=awards,consumed=consumed,slots=current_slots(db,character))
             result['accepted_after']=[row for row in state['active'] if row['id'] in accepted_after]
             if stage_changed:result['stage_changed']=True
+            if class_changed:result['class_changed']=True
             # All responses, including full unit and inventory bodies, must be
             # encodable before SQL commit. No stale receipt inventory deltas.
             if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
