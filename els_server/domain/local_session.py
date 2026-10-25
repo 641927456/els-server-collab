@@ -1486,9 +1486,9 @@ class LocalSession:
                 requested=struct.unpack_from('>i',event.payload)[0]
                 if requested==1011 and not _mainline1011_entry(self,event,request_sequence):
                     return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
-                # Source Village20010 Start608 ->1009/1602 produces225(1009,0).
-                # This finite ordinary-role22375 consumer is separate from58C;
-                # unknown special-role routing stays closed, with no clear waiver.
+                # Current ordinary portals20010/608 and1010/1703 reach1009.
+                # Native MapData requires99+26640 for all current1..15 types;
+                # FindVillage22375 is counted after arrival, not an entry gate.
                 native_varnimyr_rest=False
                 if requested==1009:
                     if (event.payload==i32(1009)+b'\x00'
@@ -1501,28 +1501,19 @@ class LocalSession:
                         from contextlib import closing
                         import sqlite3
                         from els_server.storage.seal_quests import load_character,completed_ids
+                        from els_server.domain.town_travel_flow import _ordinary_actor
                         with closing(sqlite3.connect(self.account.store.path,timeout=10)) as db:
                             db.execute('BEGIN')
                             character=load_character(db,self.account.uid,self.account.account_id)
-                            if character['unit_type'] in range(1,13) and character['level']==99:
-                                completed=completed_ids(db,self.account.uid)
-                                records={r[0] for r in db.execute('SELECT map_id FROM dungeon_records WHERE uid=?',(self.account.uid,))}
-                                saved=db.execute('SELECT town FROM location WHERE uid=?',(self.account.uid,)).fetchone()
-                                source=(saved==(20010,) and self.active_map==20010
-                                    and self.phase in ('town_ready','square_accepted') and not self.dungeon_return_pending)
-                                # Same-build1010 Start1703 ->1009 Start1604 is the
-                                # reciprocal ordinary return, not a paid58C route.
-                                # Keep all existing1009 level/quest/clear/type gates.
-                                if saved==(1010,) and self.active_map==1010:
-                                    from els_server.domain.town_travel_flow import _ordinary_actor
-                                    from els_server.domain.town_travel import catalog as town_catalog
-                                    source=bool(_ordinary_actor(self) and self.account.get_location()['map']==1010
-                                        and self.phase in ('town_ready','square_accepted') and not self.dungeon_return_pending
-                                        and getattr(self,'pending_map',None) in (None,1010,1009)
-                                        and town_catalog()['towns']['1010']['requirement']['BEFORE']==1009)
-                                restore=(saved==(1009,) and self.active_map in (None,1009))
-                                task=(22375 in completed or db.execute('SELECT 1 FROM character_quests WHERE owner=? AND quest=22375',(self.account.uid,)).fetchone() is not None)
-                                native_varnimyr_rest=(26640 in completed and 30092 in records and task and (source or restore))
+                            saved=db.execute('SELECT town FROM location WHERE uid=?',(self.account.uid,)).fetchone()
+                            bound=bool(_ordinary_actor(self) and saved is not None
+                                and self.account.get_location()['map']==saved[0]
+                                and getattr(self,'pending_map',None) in (None,saved[0],1009))
+                            source=bool(bound and saved in ((20010,),(1010,)) and self.active_map==saved[0]
+                                and self.phase in ('town_ready','square_accepted') and not self.dungeon_return_pending)
+                            restore=bool(bound and saved==(1009,) and self.active_map in (None,1009))
+                            native_varnimyr_rest=(character['unit_type'] in range(1,16) and character['level']==99
+                                and 26640 in completed_ids(db,self.account.uid) and (source or restore))
                     if not native_varnimyr_rest:
                         return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
 
