@@ -204,7 +204,7 @@ class QuestState:
             items=load_items(db,uid);before=_state(db,uid,items);active=next((r for r in before['active'] if r['id']==qid),None)
             done=next((r for r in before['completed'] if r['id']==qid),None);replayed=bool(old)
             awards=[];consumed=[]
-            stage_changed=False;accepted_after=()
+            stage_changed=False;class_changed=False;accepted_after=()
             if not old:
                 if kind=='accept':
                     if done:raise ValueError('Quest already rewarded')
@@ -303,6 +303,7 @@ class QuestState:
                     if reward.get('m_eChangeUnitClass',0):
                         from els_server.storage.careers import apply_quest_transition
                         old_career,new_career=apply_quest_transition(db,uid,q)
+                        class_changed=old_career['unit_class']!=new_career['unit_class']
                         stage_changed=(old_career['transcendence'],old_career['master'])!=(new_career['transcendence'],new_career['master'])
                     from els_server.storage.artifact_progression import complete_quest as complete_artifact_quest
                     complete_artifact_quest(db,uid,qid)
@@ -316,17 +317,25 @@ class QuestState:
                     accepted_after=() if erp_scope.scoped(qid) else accept_after_reward(db,uid,qid,load_character(db,uid,self.account_id),load_items(db,uid),location,now)
                 db.execute('INSERT INTO quest_actions VALUES (?,?,?,?)',(operation_id,uid,kind,digest))
             items=load_items(db,uid);character=load_character(db,uid,self.account_id);state=_state(db,uid,items)
+            career_refresh=class_changed
             if kind=='claim' and replayed:
                 saved=erp_scope.reward_row(db,uid,qid)
                 if saved:
                     saved=json.loads(saved[0]);ids={i['uid'] for i in saved['items']}
                     awards=[i for i in items if i['uid'] in ids]
                     consumed=[(tuple(pos),next((i for i in items if (i['group'],i['slot'])==tuple(pos)),None)) for pos in saved.get('consumed_positions',[])]
+                    # The existing success receipt and pinned quest reward
+                    # authorize a fresh CURRENT career snapshot on retry.
+                    # No transition or reward is repeated, including for old
+                    # receipts that predate the career notification fix.
+                    career_refresh=bool(q['Reward'].get('m_eChangeUnitClass',0))
             from els_server.storage.reward_state import validate_balances
             balances=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(uid,)).fetchone())
             result=dict(replayed=replayed,state=state,character=character,balances=balances,items=items,updates=awards,consumed=consumed,slots=current_slots(db,character))
             result['accepted_after']=[row for row in state['active'] if row['id'] in accepted_after]
             if stage_changed:result['stage_changed']=True
+            if class_changed:result['class_changed']=True
+            if career_refresh:result['career_refresh']=True
             # All responses, including full unit and inventory bodies, must be
             # encodable before SQL commit. No stale receipt inventory deltas.
             if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)
@@ -348,8 +357,8 @@ class QuestState:
 
     def record(self,event_id,event,proof,*,validate=None,prepare=None,transaction=None):
         if not isinstance(event_id,str) or not 1<=len(event_id)<=200 or not isinstance(proof,bytes) or not proof:raise ValueError('Quest progress evidence')
-        if event.get('kind') not in ('kill','clear','visit_town','visit_dungeon') or type(event.get('dungeon')) is not int or type(event.get('level')) is not int:raise ValueError('Quest progress event')
-        if event['kind']=='kill' and type(event.get('npc')) is not int:raise ValueError('Quest NPC event')
+        if event.get('kind') not in ('kill','clear','visit_town','visit_dungeon','retire') or type(event.get('dungeon')) is not int or type(event.get('level')) is not int:raise ValueError('Quest progress event')
+        if event['kind'] in ('kill','retire') and type(event.get('npc')) is not int:raise ValueError('Quest NPC event')
         if event['kind']=='visit_town' and type(event.get('town')) is not int:raise ValueError('Quest town event')
         digest=hashlib.sha256(proof).hexdigest();raw=json.dumps(event,sort_keys=True)
         roll_proof=progress_proof(self.uid,event_id,proof)

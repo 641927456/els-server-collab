@@ -127,6 +127,7 @@ class Handler(BaseHTTPRequestHandler):
             elif path == '/api/history': result = service.history()
             elif path == '/api/logs': result = service.logs()
             elif path == '/api/features': result = service.features()
+            elif path == '/api/repo': result = service.repo_state()
             else: return self.respond(dict(error='Not found'), 404)
             self.respond(dict(data=result))
         except (ValueError, RuntimeError) as e:
@@ -154,6 +155,9 @@ class Handler(BaseHTTPRequestHandler):
             elif path == '/api/gm': result = service.mutate(data)
             elif path == '/api/backup': result = service.backup()
             elif path == '/api/open': result = service.open_folder(data.get('which'))
+            elif path == '/api/repo/commit': result = service.repo_commit(data)
+            elif path == '/api/repo/pull': result = service.repo_pull()
+            elif path == '/api/repo/refresh': result = service.repo_state(refresh=True)
             elif path == '/api/window':
                 if not self.server.native_window:raise ValueError('当前窗口未使用原生容器')
                 result = self.server.native_window.action(data.get('action'))
