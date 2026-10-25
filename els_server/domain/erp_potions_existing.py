@@ -6,9 +6,6 @@ from types import MappingProxyType
 LEGACY_TEMPLATES=tuple(range(135938,135949))
 MODERN_TEMPLATES=tuple(range(136161,136172))
 TEMPLATES=LEGACY_TEMPLATES+MODERN_TEMPLATES
-# Owner-requested local shop pack: this retained potion is sold and stacked
-# locally. The use transaction already decrements partial counts.
-LOCAL_STACKABLE=frozenset((135948,))
 PAYLOAD_SHA='968b5d177163acf36f064348d345f9bbb5d4cc87b9a9c5de461f9b2d22e8ac5b'
 
 @functools.lru_cache(maxsize=1)
@@ -53,9 +50,7 @@ def read_existing(item):
         or any(type(item[k])is not int for k in keys)
         or not 0<item['uid']<2**63 or item['template']not in TEMPLATES
         or (item['metadata'],item['group'])!=((0,4)if item['template']in LEGACY_TEMPLATES else(2,4))
-        or not 1<=item['count']<2**31
-        or (item['template']in LEGACY_TEMPLATES and item['template']not in LOCAL_STACKABLE
-            and item['count']!=1)):
+        or not 1<=item['count']<2**31 or(item['template']in LEGACY_TEMPLATES and item['count']!=1)):
         raise ValueError('Existing ERP potion instance shape')
     from els_server.domain.bag_capacity import wire_limit
     if not 0<=item['slot']<wire_limit(4):raise ValueError('Existing ERP potion slot')

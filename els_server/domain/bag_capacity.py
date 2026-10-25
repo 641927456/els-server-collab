@@ -26,9 +26,6 @@ def wire_limit(group):
 
 def capacities(character=None):
     result={g:LOCAL_BASE for g in BAG_GROUPS}
-    # Owner-requested local policy: fashion and ice-avatar tabs start fully open
-    # for every character, including saves created before this policy.
-    result.update(STARTING_FASHION_CAPACITIES)
     result[QUICK_SLOT_GROUP]=LOCAL_QUICK_SLOTS
     for key,value in (character or {}).get('bag_capacities',{}).items():
         group=int(key)

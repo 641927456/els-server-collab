@@ -28,7 +28,7 @@ def initialization(s):
         # Failed/abandoned quest requests also use this encoder in town.
         if s.role=='game' and s.phase in ('characters_ready','channels_ready'):
             from els_server.domain.tutorial_quests import restore_initialization
-            return restore_initialization(store(s))[0]
+            return restore_initialization(store(s),defer_starter_arrival=s.enter_dungeon)[0]
         return wire.initialization(store(s).snapshot())
     from els_server.protocol.local_messages import inventory_initialization
     return inventory_initialization()
@@ -79,12 +79,7 @@ def handle(s,event,sequence):
         town_reply=town_dialogue_handle(s,event,sequence)
         if town_reply is not None:return town_reply
         from els_server.domain.tutorial_dialogue import handle as dialogue_handle
-        dialogue_reply=dialogue_handle(s,event,sequence)
-        if dialogue_reply is not None:return dialogue_reply
-        # Every NPC interaction needs an FE reply. Unbound NPCs previously
-        # produced no packet, leaving the client dialogue waiting forever.
-        from els_server.protocol import tutorial_dialogue_messages as dialogue_wire
-        return [dialogue_wire.acknowledgement()]
+        return dialogue_handle(s,event,sequence)
     if event.event_id!=0x202 or event.kind not in (0xee,0xfa,0xf4) or not enabled(s):return None
     qid=struct.unpack_from('>i',event.payload)[0] if len(event.payload)>=4 else 0
     if qid in (26770,25600,25601,25602,26780,37100,53500,53510,53520,53530,54600,52700) and not account_source_actor(s):return []
@@ -198,6 +193,13 @@ def handle(s,event,sequence):
             from els_server.domain.tutorial_memory8_finale import ready_hidden_receipt
             ready=ready_hidden_receipt(r.get('accepted_after',()))
             if ready:events.append(wire.progress(ready))
+            # B9C380 kind29F rebuilds the career/skill-tree context; the F5 unit
+            # alone leaves the current client's skill page empty after a job quest.
+            # Successful retries also rebuild from current authoritative
+            # state; class_changed itself remains a first-transition fact.
+            if r.get('career_refresh'):
+                from els_server.protocol.career_messages import career_notice
+                events.append(career_notice(r['character'],s.account.get_location(),r['slots'],r['balances'],r['items']))
             events.append(skill_slots_initialization(r['slots'],s.account.uid,r['character']))
             if qid==52700 and 'el_search_collection' in r['character']:
                 from els_server.protocol.el_search_collection_messages import notice as collection_notice
@@ -210,27 +212,9 @@ def handle(s,event,sequence):
         if qid in (52700,26770):selected_store.account_source_guard=collection_source_guard(s)
         result=selected_store.action(kind,request,s.shop_session_id+':quest:'+str(s.account.uid)+':'+str(sequence),encode,location=location)
         return result['events']
-    except QuestIncomplete:
-        _debug_rejection(qid,event.kind,'requirements-not-met')
-        return failure(wire.QUEST_REQUIREMENTS_NOT_MET)
-    except InventoryFull:
-        _debug_rejection(qid,event.kind,'bag-full')
-        return failure(wire.QUEST_REWARD_BAG_FULL)
-    except ValueError as error:
-        _debug_rejection(qid,event.kind,str(error))
-        return failure()
-
-
-def _debug_rejection(qid,kind,reason):
-    try:
-        import json,time
-        from els_server.paths import PROJECT_ROOT
-        path=PROJECT_ROOT/'state/local-quest-debug.jsonl'
-        if not path.parent.exists():return
-        with path.open('a',encoding='utf8') as handle:
-            handle.write(json.dumps(dict(ts=int(time.time()),quest=qid,kind=kind,reason=reason),ensure_ascii=False)+'\n')
-    except Exception:
-        pass
+    except QuestIncomplete:return failure(wire.QUEST_REQUIREMENTS_NOT_MET)
+    except InventoryFull:return failure(wire.QUEST_REWARD_BAG_FULL)
+    except ValueError:return failure()
 
 def observe(s,replies=()):
     if not enabled(s) or s.role!='game' or s.phase not in ('town_ready','dungeon_active'):return []
@@ -301,8 +285,34 @@ def observe(s,replies=()):
         if getattr(s,'_quest_town_cursor',None)!=cursor:
             import uuid
             token=uuid.uuid4().hex
-            notices+=store(s).record('town:'+token,dict(kind='visit_town',town=town,dungeon=0,level=s.account.character()['level']),token.encode())
-            s._quest_town_cursor=cursor
+            from els_server.domain.tutorial_quests import first_arrival_pending,STARTERS
+            selected_store=store(s)
+            if account_source_actor(s) and not first_arrival_pending(selected_store):
+                arrival={};qid,starter_town=STARTERS[s.account.character()['unit_type']]
+                def validate_arrival(db):
+                    account_source_guard(s,db)
+                    if (s.phase!='town_ready' or s.active_map!=town
+                        or not {0x225,0x227}.issubset(s.completed)
+                        or db.execute('SELECT town FROM location WHERE uid=?',(s.account.uid,)).fetchone()!=(town,)):
+                        raise ValueError('Quest arrival scene changed')
+                    arrival['db']=db
+                    arrival['before']=db.execute('SELECT accepted_at,generation,objectives FROM character_quests WHERE owner=? AND quest=?',(s.account.uid,qid)).fetchone() if town==starter_town else None
+                def prepare_arrival(events,replayed):
+                    # The full original F0 seeds the right-side task name;
+                    # F3 then carries the actual committed objective edge.
+                    # No F4/F5, reward or forced main-window open is added.
+                    import json
+                    before=arrival.get('before')
+                    if events and before is not None and not any(json.loads(before[2]).values()):
+                        after=arrival['db'].execute('SELECT accepted_at,generation,objectives FROM character_quests WHERE owner=? AND quest=?',(s.account.uid,qid)).fetchone()
+                        if after is not None and after[:2]==before[:2] and all(json.loads(after[2]).values()):
+                            row=dict(id=qid,owner=s.account.uid,accepted_at=after[0],generation=after[1],objectives={int(k):v for k,v in json.loads(after[2]).items()})
+                            events=[wire.accepted(row)]+events
+                    from els_server.protocol.protocol_codec import encode_event
+                    for event in events:encode_event(event)
+                    return events
+                notices+=selected_store.record('town:'+token,dict(kind='visit_town',town=town,dungeon=0,level=s.account.character()['level']),token.encode(),validate=validate_arrival,prepare=prepare_arrival)
+                s._quest_town_cursor=cursor
         s._quest_discovery_cursor=None
     if 27 in passive[1] and run is not None:
         from els_server.domain.mainline_find_npc import observe as observe_mainline_find
@@ -355,7 +365,7 @@ def observe(s,replies=()):
         rows=store(s).collection_snapshot();current={};changed=[]
         old=previous[1] if previous is not None and previous[0]==owner else {}
         for row in rows:
-            signature=(row['generation'],{sub['m_iID']:row['objectives'][sub['m_iID']] for sub in quest_catalog().objectives(row['id']) if sub['m_eClearType'] in (3,31,32,38,80,81,110,121)})
+            signature=(row['generation'],{sub['m_iID']:row['objectives'][sub['m_iID']] for sub in quest_catalog().objectives(row['id']) if sub['m_eClearType'] in (3,31,38,80,81,110,121)})
             current[row['id']]=signature
             if row['id'] in old and old[row['id']]!=signature:changed.append(row)
         if changed:notices.append(wire.progress(changed))

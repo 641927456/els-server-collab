@@ -68,7 +68,23 @@ def handle(s,event):
   # death payload; hostile combat actors retain participant-only identity.
   scripted=npc is not None and not npc['active'] and (npc['no_drop'] or npc.get('ally'))
   from els_server.domain.summons import valid_sentry_death
-  expired=npc is not None and npc.get('dynamic') and valid_sentry_death(d,s.account.uid)
+  # Declared scene controllers (class 103 .lua objects with ISACTIVE=false)
+  # retire through the same native expiry packet: no killer, no damage, and a
+  # readiness map that only names the owner. The pinned route graph does not
+  # set no_drop/ally on them, and they are not client-created, so neither
+  # branch above covers them - their report used to be dropped without an
+  # acknowledgement, which leaves the client waiting on an actor that is
+  # already gone. Retiring the actor here grants nothing: quest progress and
+  # rewards stay with the source-bound specialists that run before this one.
+  from els_server.domain.dungeon_spawns import scene_controller
+  from els_server.domain.story_controller_retirements import source_pinned
+  # Class-103 Lua objects may be source-declared active and still self-retire
+  # (LITHIA_MEMORY2_FLOWER reports native 255); the class, not ISACTIVE, decides.
+  # Source-pinned controllers stay on the strict rule path and are excluded here.
+  scene=(npc is not None and not npc.get('dynamic') and scene_controller(npc['template'])
+         and not source_pinned(run,npc))
+  expired=((npc is not None and npc.get('dynamic') and valid_sentry_death(d,s.account.uid))
+           or (scene and valid_sentry_death(d,s.account.uid)))
   identities=participants|frozenset((0,2**64-1)) if scripted or expired else participants
   if (npc is None or not s.dungeon_substage_synced or event.performers!=(0,) or d['flag'] not in (0,1) and not expired
       or any(d[name] not in identities for name in ('source','killer','last_uid'))
@@ -183,7 +199,7 @@ def clear(s):
   if getattr(s,'active_challenge',None) is not None and s.challenge_clear_effect is None:
    s.challenge_clear_effect={**s.active_challenge,'now':int(time.time())}
   receipt=s.account.reward_store.grant(s.reward_run_id,proof,rule['clear_ed'],rule['clear_experience'],encode,
-      item_plan=rule['items'] if s.item_test else None,dungeon_clear=(run.identity,elapsed),challenge_clear=getattr(s,'challenge_clear_effect',None),transaction=getattr(s,'reward_transaction',None),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(s) if getattr(s,'activity2026_awards',None) is not None else None,experience_limit=experience_limit() if compat_clear is not None else None,resonance_source='clear' if compat_clear is not None else None)
+      item_plan=rule['items'] if s.item_test else None,dungeon_clear=(run.identity,elapsed),challenge_clear=getattr(s,'challenge_clear_effect',None),transaction=getattr(s,'reward_transaction',None),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(s) if getattr(s,'activity2026_awards',None) is not None else None,experience_limit=experience_limit() if compat_clear is not None else None,resonance_source='clear' if compat_clear is not None else None,daily_special=__import__('els_server.domain.ariel_daily_special',fromlist=['prepare']).prepare(s))
   s.reward_receipt={'run_id':s.reward_run_id,**receipt};reply=[]
   if s.item_test and receipt.get('items') and not s.clear_items_synced:
    from els_server.domain.dungeon_drops import pickup_inventory_notice
@@ -195,6 +211,7 @@ def clear(s):
   if committed:
    a=committed['assessment'];reply.append(Event(0x201,kind=0x66b,payload=struct.pack('>ii',a['rank'],a['score'])))
   reply.append(Event(0x201,kind=0xc1,payload=clear_identity_payload(receipt['response'],run.identity)))
+  if 'ariel_daily_status'in receipt:reply.append(receipt['ariel_daily_status'])
   if getattr(s,'active_challenge',None) is not None and getattr(s,'reward_transaction',None) is None:
    from els_server.domain.challenge_flow import notification
    reply.append(notification(s))

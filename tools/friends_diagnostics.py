@@ -106,22 +106,8 @@ def windows_events(start,end,pid=None):
     except (OSError,subprocess.TimeoutExpired,ValueError):pass
     return dict(status='unavailable',events=[])
 
-def diagnostic_payload(path,data):
-    # V29 moved verified runtimes out of versions/. Keep both layouts, but
-    # never admit an arbitrary sibling, the parent itself, or a linked tree.
-    candidate=Path(path)
-    for name in ('versions','component-runtimes'):
-        root=Path(data)/name
-        try:
-            resolved=inside(candidate,root)
-            if resolved==root.resolve():raise ValueError('Missing diagnostic runtime leaf')
-            inside(root,data)
-            return resolved
-        except ValueError:pass
-    raise ValueError('Diagnostic runtime outside supported launcher roots')
-
 def collect(request,output):
-    data=Path(request['data_root']).resolve();payload=diagnostic_payload(request['payload_root'],data)
+    data=Path(request['data_root']).resolve();payload=inside(request['payload_root'],data/'versions')
     attempt=request.get('attempt_id');members={};omissions=[];secrets_list=[request.get('token','')]
     if attempt is not None and not valid_attempt(attempt):raise ValueError('Invalid diagnostic attempt')
     logs=inside(data/'logs/attempts'/attempt,data) if attempt else data/'logs'

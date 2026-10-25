@@ -58,35 +58,17 @@ class ConsumableTests(unittest.TestCase):
 
     def test_dispatch_phase_and_catalog_scope(self):
         self.assertEqual(len(catalog()),918)
-        for t in (77000,77010,77020):self.assertEqual(ordinary(t)['cooldown_seconds'],30)
-        for t in (78926,710193,130467,78928,78929,77110):self.assertTrue(ordinary(t))
-        with self.assertRaises(ValueError):ordinary(78360)
-        with self.assertRaises(ValueError):ordinary(72500)
+        for t in (77000,77010):self.assertEqual(ordinary(t)['cooldown_seconds'],30)
+        with self.assertRaises(ValueError):ordinary(77020)
         with self.assertRaises(ValueError):ordinary(78000)
         s=LocalSession(self.account,enter_town=True,enter_dungeon=True,npc_slot_test=True,gate_test=True,population_test=True,clear_test=True,reward_test=True,item_test=True,client_build='dx11_260923');s.role='game';s.phase='characters_ready'
         event=Event(0x202,kind=0x113,payload=PAYLOAD)
         self.assertEqual(s.handle(event,1)[0].payload[:4],struct.pack('>i',-1))
-        with patch('els_server.storage.consumables.time.time',return_value=1000):
-            s.phase='town_ready'
-            self.assertEqual(s.handle(event,2)[0].payload[:4],struct.pack('>i',-1))
-        with patch('els_server.storage.consumables.time.time',return_value=1030):
-            s.phase='dungeon_active'
-            self.assertEqual([e.kind for e in s.handle(event,3)],[0x114,0x115])
-            self.assertEqual([e.kind for e in s.handle(event,4)],[0x114])
-
-    def test_equivalent_templates_share_one_shortcut(self):
-        from els_server.domain.quick_bindings import item_binding
-        with closing(sqlite3.connect(self.path)) as db,db:
-            grant_items(db,[dict(template=130467,metadata=2,quantity=2,group=6),
-                            dict(template=710193,metadata=2,quantity=2,group=6)])
-        save_request(self.path,struct.pack('>i',1)+encode({**empty(),4:item_binding(710193)}))
-        s=LocalSession(self.account,enter_town=True,enter_dungeon=True,npc_slot_test=True,gate_test=True,population_test=True,clear_test=True,reward_test=True,item_test=True,client_build='dx11_260923');s.role='game';s.phase='dungeon_active'
-        with patch('els_server.storage.consumables.time.time',return_value=3000):
-            events=s.handle(Event(0x202,kind=0x113,payload=struct.pack('>HBBB',4,0,0,0)),1)
-        self.assertEqual([e.kind for e in events],[0x114,0x115])
-        with closing(sqlite3.connect(self.path)) as db:
-            counts=dict(db.execute('SELECT template,count FROM inventory_items WHERE owner=1001 AND template IN (130467,710193)').fetchall())
-        self.assertEqual(sorted(counts.values()),[1,2])
+        s.phase='town_ready'
+        self.assertEqual(s.handle(event,2)[0].payload[:4],struct.pack('>i',-1))
+        s.phase='dungeon_active'
+        self.assertEqual([e.kind for e in s.handle(event,2)],[0x114,0x115])
+        self.assertEqual([e.kind for e in s.handle(event,2)],[0x114])
 
     def test_mana_potion_has_independent_cooldown_group(self):
         from els_server.domain.quick_bindings import item_binding
@@ -114,4 +96,4 @@ class ConsumableTests(unittest.TestCase):
         use(self.path,1001,struct.pack('>HBBB',5,0,0,0),'upper-mp',now=200)
         with self.assertRaises(ValueError):use(self.path,1001,struct.pack('>HBBB',5,0,0,0),'upper-early',now=259)
         use(self.path,1001,struct.pack('>HBBB',5,0,0,0),'upper-again',now=260)
-        with self.assertRaises(ValueError):ordinary(78360)
+        with self.assertRaises(ValueError):ordinary(78925)

@@ -57,3 +57,15 @@ def selected_notice(uid,title,values):
     selection_map(values)
     lists=_u32(len(values))+b''.join(bytes([k])+_u32(1)+info(v)for k,v in sorted(values.items()))
     return Event(0x201,kind=0x18e,payload=struct.pack('>QI',uid,0)+struct.pack('>i',title)+lists)
+
+def opening_information(cash_catalog):
+    """23AD020: two cash-sale ID vectors, no result/status prefix.
+
+    The existing D79 authority currently publishes no normal cash products.
+    Fail closed if that authority changes: never publish stale hardcoded
+    availability or substitute the independent ED catalog/owned SQL state.
+    """
+    if (not isinstance(cash_catalog,Event)or cash_catalog.event_id!=0x201
+        or cash_catalog.kind!=0xd79 or cash_catalog.payload!=b'\x01'+bytes(36)):
+        raise ValueError('Custom opener cash catalog contract changed')
+    return Event(0x201,kind=0x635,payload=bytes(8))

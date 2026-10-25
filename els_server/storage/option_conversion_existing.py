@@ -28,7 +28,7 @@ def perform(path,owner,payload,operation,randbelow=secrets.randbelow,encode=ackn
   item=next((i for i in before if i['uid']==uid),None)
   if old is not None:
    event=encode(uid if item is not None else 0,balance['ed'],current_changes(db,operation,owner,0x6e7,old,before));encode_event(event);_authority(db,owner,account_id,authorize);return [event]
-  if item is None or item['group'] not in (1,9) or item['count']!=1 or item.get('identified')is False or item.get('sealed')or item.get('enhancement',0)<0:raise ValueError('Owned identified unsealed weapon required')
+  if item is None or item['group']!=1 or item['count']!=1 or item.get('identified')is False or item.get('sealed')or item.get('enhancement',0)<0:raise ValueError('Owned identified unsealed unequipped weapon required')
   require_current(item);require_unlocked(item);previous=item.get('option_groups',{})
   from els_server.domain.option_conversion_existing import validate
   values=validate(item['template'],previous.get('29',[]));fee=catalog()['compatibility']['fee_ed']

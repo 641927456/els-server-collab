@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from els_server.game_data import CLIENT_SHA,client_data
 
-DATA_SHA='5232e7ebb658790f048389bbe56a40e0f120a529901485ea8f93178f7126e705'
+DATA_SHA='ffebf33276d97561460ae518896573c9b3f71c6fd4571ded27eef7e836edfbaf'
 
 @functools.lru_cache(maxsize=1)
 def catalog():

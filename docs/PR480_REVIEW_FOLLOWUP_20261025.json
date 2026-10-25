@@ -1,0 +1,60 @@
+{
+  "issue": "PR #480 review follow-up",
+  "parent_sha": "8db013b2463a1008267bb20dd78fbf10e466e117",
+  "original_base_sha": "32fd679f1fde34e4249bd7bb5552d83e3099a9fe",
+  "existing_work": {
+    "accepted_v35_main_commit": "01f4286",
+    "accepted_v35_record_branch_commit": "f264d3aa4fed2c2a2f896d3502ac02d5d081960f",
+    "accepted_v36_main_commit": "70f2dcd",
+    "accepted_v36_record_branch_commit": "ab3695f18469aa8f129720805e47d0f66daeb1e2",
+    "resource_script_reused_from": "launchers/friends-v35/runtime-support/tools/dx11_resource_compat.js",
+    "resource_script_byte_identical_to_accepted_archive": true,
+    "root_collaboration_runtime_contract_retained": "3cc9fca449c7a543957c5cdf439c7ba81323efd4a4b3fe577ed0ff0e954a820a",
+    "versioned_launcher_archives_modified": false
+  },
+  "repairs": [
+    {
+      "finding": "resource-digest-learning",
+      "change": "Use accepted V35 fixed digest algorithm, verify exact EXE plus all36 archive SHA256 pins before emitting fixed-profile source; retain finite legacy variant mode; register updated JS and Python digests."
+    },
+    {
+      "finding": "dynamic-source-index",
+      "change": "Restore dynamic actor guard before static source_index access; hand native expiry to generic no-reward path; reject static actors missing source metadata."
+    },
+    {
+      "finding": "direct-main-push",
+      "change": "Create/reuse fix/feature/sync review branch; push explicit branch ref without force or rebase; expose PR comparison link; preserve failed-push commit and branch for retry."
+    },
+    {
+      "finding": "stale-remote-state",
+      "change": "UI POST refresh fetches exact remote main ref; fetch errors do not claim synchronization; main pull only fast-forwards a clean, non-diverged checkout."
+    }
+  ],
+  "verification": {
+    "new_focused_tests": {
+      "passed": 16,
+      "failed": 0
+    },
+    "original_pr_related_regressions": {
+      "passed": 27,
+      "failed": 0
+    },
+    "actual_formal_friends_entry_preflight": {
+      "entry": "tools/launch_friends_client.py --allow-client-variants --check",
+      "exit_code": 0,
+      "exact_client_resources_verified": true,
+      "network_connection_started": false,
+      "game_spawned": false
+    },
+    "native_callback_simulation": "Fixed known witness passes; changed/unknown measured digest fails without learning it.",
+    "real_local_git_remotes": "No GitHub mutation in tests; remote main preserved on branch submission, retry and concurrent branch-push rejection.",
+    "production_data": "No player/account databases read, replaced or restored.",
+    "historical_test_failures": "Existing seal and launcher fixture failures retained in original review; not changed or reclassified as passing.",
+    "natural_or_multiplayer_gameplay": false
+  },
+  "delivery": {
+    "scope": "Local follow-up candidate on independent branch; original PR and main unchanged",
+    "installed": false,
+    "published": false
+  }
+}

@@ -93,6 +93,18 @@ def admitted(s):
             and s.account.characters is not None and s.account.store is not None and current_lease(s))
 
 def handle(s,event,sequence):
+    if event.kind==0x634:
+        # Original CharInfo opener requests cash purchase availability, not
+        # registered ownership, inventory books or an application permission.
+        if (event.event_id!=0x202 or event.payload or not admitted(s)
+            or type(sequence)is not int or not 1<=sequence<2**32 or event.performers
+            or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):return []
+        try:
+            from els_server.domain.avatar_set_flow import context,validate
+            from els_server.storage.character_custom import opening_info
+            captured=context(s)
+            return opening_info(s.account.store.path,s.account.uid,s.account.account_id,validate=lambda:validate(s,captured))
+        except ValueError:return []
     if event.event_id!=0x202 or event.kind!=0x4cb:return None
     from els_server.protocol.character_custom_messages import acknowledgement
     if (not admitted(s) or type(sequence) is not int or not 1<=sequence<2**32

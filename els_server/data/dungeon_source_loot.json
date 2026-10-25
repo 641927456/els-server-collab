@@ -121,6 +121,19 @@
       },
       "body_sha256": "57ef898514d9365f3988ecd0c36683121676a1aeefa41e66d0c673dbe91a9f48",
       "evidence": "existing manufacture_inventory native DTO and original130172 fixed cube output; shared CF/D0/D2 envelopes; no new native execution; existing server stack999 vs record500 retained"
+    },
+    "30197": {
+      "template": 30197,
+      "record_sha256": "8f6db7e2dc1135fb5613aa228d1949c65da09f94776f948e0412c2145f405c61",
+      "kind": "normal-inherited-default",
+      "state": {
+        "durability": 10000,
+        "enhancement": 0,
+        "option_groups": {}
+      },
+      "body_sha256": "ae7dabc2398aae9e1930d8cb531fa10aecb9e152efc361143cac59e4500be506",
+      "native_normal_proof_sha256": "6d4ad5b0617c155710bacdeb521a0b5d5aa3c2e2d5911054060acde9f642bdc8",
+      "evidence": "Current acquisition Elwiki990722/Chinese-name source and BOSS_DROP_ITEM.RAVEN map30092; old row30092:364group2043 probability9percent adopted by explicit local authorization; onebase draw; only30197; other outcome mass blank; inherited normal native factory."
     }
   },
   "maps": {
@@ -194,6 +207,15 @@
           "row": "30092:21",
           "active": false,
           "boss": false
+        },
+        {
+          "stage": 2,
+          "part": 0,
+          "template": 364,
+          "source_index": 1,
+          "row": "30092:364",
+          "active": true,
+          "boss": true
         }
       ]
     },
@@ -34094,6 +34116,27 @@
           "kind": "group"
         }
       ]
+    },
+    "30092:364": {
+      "legacy_row": [
+        30092,
+        364
+      ],
+      "line": 4846,
+      "cases": [
+        {
+          "id": 30197,
+          "ticks": 9000000,
+          "kind": "item"
+        }
+      ],
+      "local_output_policy": {
+        "authorization_sha256": "a57e09663a7f038a4d55b244730d7ddcb843a255927bef8312b9ecc3647ecd92",
+        "single_base_draw": true,
+        "only_template": 30197,
+        "quantity": 1,
+        "unsupported_mass": "remaining91percent blank; no other new source outcomes"
+      }
     }
   },
   "groups": {

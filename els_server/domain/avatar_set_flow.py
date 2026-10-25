@@ -9,7 +9,7 @@ def context(s):
     if (not enabled(s) or s.phase!='town_ready' or not s.enter_town or s.dungeon_return_pending
         or getattr(s,'released',False) or getattr(s,'social_overflow',False) or getattr(s,'coop_error',None)
         or not {0x225,0x227}.issubset(s.completed) or s.pending_map!=s.active_map
-        or s.active_map not in range(20000,20015) or not 1<=TOWN_SCENES.get(s.active_map,0)<=1215
+        or (s.active_map not in range(20000,20015) and s.active_map not in range(1008,1013)) or not 1<=TOWN_SCENES.get(s.active_map,0)<=1215
         or s.account.get_location()['map']!=s.active_map):raise ValueError('Avatar Apply requires a stable village')
     app=getattr(s,'application',None);refs=[s.account,s.account.store,s.account.characters,app]
     values=[s.shop_session_id,s.account.account_id,s.account.uid,s.active_map,s.pending_map,repr(s.account.get_location())]

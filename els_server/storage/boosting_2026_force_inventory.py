@@ -9,7 +9,6 @@ from els_server.protocol.career_messages import use_request,use_ack
 from els_server.protocol.protocol_codec import encode_event
 
 TABLE='selected_2026_force_inventory'
-ACTIVE_TABLE='selected_2026_force_active_inventory'
 
 def initialize(db):
     if not db.in_transaction or db.execute('PRAGMA foreign_keys').fetchone()!=(1,):raise ValueError('Force schema requires caller transaction and enabled foreign keys')
@@ -34,24 +33,15 @@ def initialize(db):
         db.execute('ALTER TABLE selected_2026_force_inventory ADD COLUMN seal_used INTEGER NOT NULL DEFAULT 0 CHECK(seal_used BETWEEN 0 AND 3 AND ((rank=3 AND seal_used=0) OR (rank=4 AND seal_used<=3) OR (rank=5 AND seal_used<=1)))')
     from els_server.storage.force_rank4_schema import migrate
     migrate(db)
-    # Local policy: active force skills keep their own ownership table so the
-    # verified passive-skill CHECK contract stays untouched.
-    db.execute('''CREATE TABLE IF NOT EXISTS selected_2026_force_active_inventory (
-        owner INTEGER NOT NULL REFERENCES characters(uid), skill INTEGER NOT NULL,
-        rank INTEGER NOT NULL, source_template INTEGER NOT NULL,
-        PRIMARY KEY(owner,skill,rank))''')
 
 
 def saved(db,owner):
     owner=character_uid(owner)
-    values=[]
-    if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(TABLE,)).fetchone():
-        columns={row[1] for row in db.execute('PRAGMA table_info(selected_2026_force_inventory)')}
-        field='seal_used' if 'seal_used' in columns else '0'
-        values=[dict(skill=s,rank=r,template=t,seal_used=u) for s,r,t,u in db.execute('SELECT skill,rank,source_template,'+field+' FROM selected_2026_force_inventory WHERE owner=? ORDER BY skill,rank',(owner,))]
-    if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(ACTIVE_TABLE,)).fetchone():
-        values+=[dict(skill=s,rank=r,template=t,seal_used=0) for s,r,t in db.execute('SELECT skill,rank,source_template FROM '+ACTIVE_TABLE+' WHERE owner=? ORDER BY skill,rank',(owner,))]
-    return owned(dict(force_inventory=values)) if values or db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(TABLE,)).fetchone() else ()
+    if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(TABLE,)).fetchone():return ()
+    columns={row[1] for row in db.execute('PRAGMA table_info(selected_2026_force_inventory)')}
+    field='seal_used' if 'seal_used' in columns else '0'
+    values=[dict(skill=s,rank=r,template=t,seal_used=u) for s,r,t,u in db.execute('SELECT skill,rank,source_template,'+field+' FROM selected_2026_force_inventory WHERE owner=? ORDER BY skill,rank',(owner,))]
+    return owned(dict(force_inventory=values))
 
 def snapshot(path,owner):
     with closing(sqlite3.connect(path)) as db:return saved(db,owner)
@@ -100,10 +90,7 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,session_authoriz
         events=[use_ack([((source['group'],source['slot']),remaining)],template=source['template'],ed=balance[0]),learned_notice(rule,used)]
         for event in events:encode_event(event)
         initialize(db)
-        if rule.get('local_policy')=='local-active-force-v1':
-            db.execute('INSERT INTO '+ACTIVE_TABLE+'(owner,skill,rank,source_template) VALUES (?,?,?,?)',(owner,rule['skill'],rule['native_rank'],source['template']))
-        else:
-            db.execute('INSERT INTO selected_2026_force_inventory(owner,skill,rank,source_template,seal_used) VALUES (?,?,?,?,?)',(owner,rule['skill'],rule['native_rank'],source['template'],used))
+        db.execute('INSERT INTO selected_2026_force_inventory(owner,skill,rank,source_template,seal_used) VALUES (?,?,?,?,?)',(owner,rule['skill'],rule['native_rank'],source['template'],used))
         if remaining:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item_uid,owner))
         else:
             from els_server.storage.item_expiration import forget

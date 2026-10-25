@@ -25,28 +25,7 @@ def catalog():
             row['required_stage']!=3 or row['native_rank'] not in (3,4,5) or
             native.get((row['skill'],row['native_rank']))!=row['item'] or
             ((item['flags4']>>20)&15)!=row['native_grade']):raise ValueError('Original force book definition mismatch')
-    result={r['item']:r for r in rows}
-    for template,(skill,rank) in LOCAL_ACTIVE.items():
-        result[template]=dict(item=template,skill=skill,native_rank=rank,required_stage=3,
-                              native_grade=1,local_policy='local-active-force-v1')
-    # Full force-book catalog resolved from CoboDex English names. Only active
-    # / mod skills are admitted here; passive books stay in the native registry.
-    extra=Path(__file__).resolve().parents[1]/'data/force-book-catalog.json'
-    if extra.exists():
-        for template,book in json.loads(extra.read_text('utf8'))['books'].items():
-            template=int(template)
-            if template in result:continue
-            skill=data.skill(book['skill'])
-            if skill.get('m_eType') not in (13,18,20) or book['rank'] not in (1,2,3,4,5):
-                raise ValueError('Force book catalog definition')
-            result[template]=dict(item=template,skill=book['skill'],native_rank=book['rank'],
-                                  required_stage=3,native_grade=book['rank'],
-                                  local_policy='local-active-force-v1')
-    return result
-
-# Local policy: active force skills use their own 9002xx / 901xxx skill ids.
-# Rank is fixed by the book grade for common actives, 1 for mod skills.
-LOCAL_ACTIVE={295724:(900200,1),300551:(901013,1)}
+    return {r['item']:r for r in rows}
 
 def owned(character):
     values=(character or {}).get('force_inventory',())

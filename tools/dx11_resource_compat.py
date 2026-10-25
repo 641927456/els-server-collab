@@ -12,10 +12,12 @@ def pinned_client_profile(client_directory):
     return measured==spec['client_sha256']
 
 
-def resource_compat_source(image,client_directory,*,use_pinned_profile=False):
-    if hashlib.sha256(image).hexdigest()!='c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229':
+def resource_compat_source(image,client_directory,*,use_pinned_profile=None):
+    if hashlib.sha256(image).hexdigest()!='3cc9fca449c7a543957c5cdf439c7ba81323efd4a4b3fe577ed0ff0e954a820a':
         raise ValueError('Unverified resource-checking client image')
     spec=json.loads((ROOT/'tools/dx11_resource_compat.json').read_text(encoding='utf8'))
+    if use_pinned_profile is None:
+        use_pinned_profile=pinned_client_profile(client_directory)
     if use_pinned_profile and not pinned_client_profile(client_directory):
         raise ValueError('Pinned resource profile requires the exact witnessed client EXE')
     for row in (spec['entries'] if use_pinned_profile else spec['compatibility']):

@@ -1,0 +1,363 @@
+{
+  "ok": true,
+  "source_only": true,
+  "installed": false,
+  "previous_source_commit": "eb8523ab13a9548cd7cfb0194aa8998aaba0528d",
+  "previous_runtime_recipe": {
+    "path": "channels/ariel-cash-attendance-v9-source-projection.json",
+    "sha256": "6ac9477e5606de76a6c59b5a008bb80c034ed7318e22e5c0247b94ea6a3bbed0"
+  },
+  "original_source_freeze_sha256": "159eeb66a94436a28ed32e1211402745908bab17e331d61146f149c2eb06ff98",
+  "actual_v2_root_bridge": {
+    "path": "analysis/user-issues-01a16dd4-20261024-v1/source-review/Root-ariel-actual-v2-parent-preservation-v1-review.json",
+    "sha256": "691273144e5b096bfbb338939b22901b7545be0fb604d02eaa5e3af8dbd7125b"
+  },
+  "channels": {
+    "online": {
+      "parent_release": "native-consumable-expansion-20261025-v2",
+      "parent_manifest_sha256": "18bcc6740cedd56e495fc14865406fc6b7302a0825420892b2a4679d4ac3df7c",
+      "parent_pointer_sha256": "0ae5927a2ec1cea194ec9b96fcad8d57ae429982267cd79d6cdd1ba09c608052",
+      "business_files": 1070,
+      "previous_parent_release": "native-consumable-expansion-20261025-v1",
+      "new_parent_leaves_inherited_without_Ariel_change": [
+        {
+          "path": "els_server/data/consumable_extensions.json",
+          "size": 142840,
+          "sha256": "c3d7a81a9e444c39eace9d6de0e9b19451d8a0ab0d2eeb5d31d55d56f8674222"
+        },
+        {
+          "path": "els_server/domain/consumable_extensions.py",
+          "size": 2716,
+          "sha256": "ec7fbcdb230071194df386e75281d2943b0bbd4b878e1935ebc06c750de6e2b6"
+        },
+        {
+          "path": "els_server/domain/elixir_items.py",
+          "size": 2106,
+          "sha256": "afefd40fd77e686a0f67af112d24549a65c871eee77af7536f2676618d54f810"
+        },
+        {
+          "path": "els_server/storage/consumables.py",
+          "size": 7973,
+          "sha256": "fc7142630a64d8beea622cd7bbf9616bae75a3de03bf58478d9f71bf3b2e2d6a"
+        },
+        {
+          "path": "els_server/storage/world_elixirs.py",
+          "size": 10397,
+          "sha256": "37db7447af2a2141b1ed2352e798fb22b061819754321b2556073c6b1d4c679e"
+        }
+      ],
+      "Ariel_leaves": [
+        {
+          "path": "els_server/domain/local_session.py",
+          "parent_sha256": "7c2f901ed66defbf8a5af969cf88d1be978dee5cac9aff141c0fd096e88a10fd",
+          "candidate_sha256": "89d45a8e777fee86f928ce81000240181ecf48b9bfdc18eeff4b5d8905c1dd35",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "parent_sha256": "64c4af27874d5fa7fd222f3d4c799ade1f58671ba2981272bab61f3851084406",
+          "candidate_sha256": "766a71d5326804fb092cf9a698f5a56ab9e70a1c9b62999f8280904bf95d3a55",
+          "new_file": false
+        },
+        {
+          "path": "els_server/gm_runtime.py",
+          "parent_sha256": "da1d3e00089cceaed158873953d01bfaac23e4c6e005c7863281e30591d438a6",
+          "candidate_sha256": "914152cb8d8fe75fe016f08e6c965eef27f7b53ab4aeb4b74edcfc3085e32219",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/character_custom.py",
+          "parent_sha256": "48df2ad9a46bd32707dfc531638cc83d3d834867d5dcba3cf3ebf6a5ab479668",
+          "candidate_sha256": "aa3241688e45319ee45d6c60f3b6be3ed7c584635f5a94ddf033f8c85727c668",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/title_economy.py",
+          "parent_sha256": "b9fd7fc4db5496949231781b521678d854590410911ab810cd8d7eb69e02a939",
+          "candidate_sha256": "d84b6c392f8831be180281220ca2db79fcce51b0ebe3c1cf69ae0e598ec58912",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/reward_state.py",
+          "parent_sha256": "6ab1d34c0a032fbb603f46821c92d48607003010b13eec8c8963899155313be2",
+          "candidate_sha256": "31b279c59f516a9482d6f57f511ee91695c731b6f1b710427ff0ca0a698a7336",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/dungeon_flow.py",
+          "parent_sha256": "d5e0697f98810d9d95e59f785ad512c276397a32e1cb58e374782cb238442400",
+          "candidate_sha256": "0f3c870e630b68446bb99827f1a441f6497a896a3ced67dea60f3b2cbd545c5f",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+          "parent_sha256": "3fa88c70fd426bb6817df2cecf4acb081368504ce9d20fb6a09fef7bcbcb87c2",
+          "candidate_sha256": "290b1cc9a5babae49bb97721583db1b6e89a44bb7fb9557867f7df99d18bc84c",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/ariel_cash.py",
+          "parent_sha256": null,
+          "candidate_sha256": "bdd68e8a37095e6b884b21baff1115ad3107a6744091e59e15bead6781cb8237",
+          "new_file": true
+        },
+        {
+          "path": "els_server/storage/ariel_attendance.py",
+          "parent_sha256": null,
+          "candidate_sha256": "0ac41fa78e1dbeba64d83d15f7c8b9cb96521dae5893d2f930d3cc6233977a56",
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/ariel_attendance_rules.py",
+          "parent_sha256": null,
+          "candidate_sha256": "d2ba8fcb3743c17a4df324c7fd0e472fbf2c083af109a90d1732d4ea4898e8bc",
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/ariel_attendance_flow.py",
+          "parent_sha256": null,
+          "candidate_sha256": "a93a2034935ae6e180b5cf72834a1db8f7bb5aac01c7552f79ced4a632dc2c36",
+          "new_file": true
+        },
+        {
+          "path": "els_server/protocol/ariel_attendance_messages.py",
+          "parent_sha256": null,
+          "candidate_sha256": "e72821b4547b188a039bb8e67b18fc4d4f6d6198fa48ca07a2aa4a9aa5350639",
+          "new_file": true
+        },
+        {
+          "path": "els_server/protocol/ariel_attendance_catalog.py",
+          "parent_sha256": null,
+          "candidate_sha256": "afd8f000756c18550e6e41c5979da9156b1ff638bddd449ef42eb863f419c764",
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/ariel_attendance_mark.py",
+          "parent_sha256": null,
+          "candidate_sha256": "51d0545d091e6ae644375602e8c04b52a7d185ff76ea2e8be039ab830f0e319e",
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/ariel_daily_special.py",
+          "parent_sha256": null,
+          "candidate_sha256": "959a7bcb09ac4049f6370c86f84892768f76868d863ec3d8e755e36d83164cea",
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/ariel_daily_special_rules.py",
+          "parent_sha256": null,
+          "candidate_sha256": "d5a25fb2f1eb39445ad6f7c8bdb16140817af06caffe03ca1f0757071314efb4",
+          "new_file": true
+        },
+        {
+          "path": "els_server/storage/ariel_daily_special.py",
+          "parent_sha256": null,
+          "candidate_sha256": "285c503295dc6cfa42a4d9d07363220c82c1f54d05c6ee43370df8215678d0d2",
+          "new_file": true
+        },
+        {
+          "path": "els_server/data/ariel_daily_special.json",
+          "parent_sha256": null,
+          "candidate_sha256": "5ce1402b5d7109470e9f3a2d67bd05e95fbc5db3d3a1214556f877191c757fcb",
+          "new_file": true
+        },
+        {
+          "path": "els_server/protocol/ariel_daily_special_messages.py",
+          "parent_sha256": null,
+          "candidate_sha256": "677e448b23b541846be4e7d3831926a3b48126593a17ef5fe82bbc5fc807a324",
+          "new_file": true
+        }
+      ],
+      "existing_parent_leaves_byte_identical_to_v9": true,
+      "new12_still_absent": true,
+      "recipe_reference": "channels/ariel-cash-attendance-v9-source-projection.json"
+    },
+    "local": {
+      "parent_release": "local-native-consumable-expansion-20261025-v2",
+      "parent_manifest_sha256": "040173886861153d0ee10630e6123c49bc1ffcba12b689224e8c8e736d19cf8f",
+      "parent_pointer_sha256": "955ca83a4a275bb86d3c9e7e22dd68b6813bfa71a4fd999e3876131e23eb06cd",
+      "business_files": 1092,
+      "previous_parent_release": "local-native-consumable-expansion-20261025-v1",
+      "new_parent_leaves_inherited_without_Ariel_change": [
+        {
+          "path": "els_server/data/consumable_extensions.json",
+          "size": 142840,
+          "sha256": "c3d7a81a9e444c39eace9d6de0e9b19451d8a0ab0d2eeb5d31d55d56f8674222"
+        },
+        {
+          "path": "els_server/domain/consumable_extensions.py",
+          "size": 2716,
+          "sha256": "ec7fbcdb230071194df386e75281d2943b0bbd4b878e1935ebc06c750de6e2b6"
+        },
+        {
+          "path": "els_server/domain/elixir_items.py",
+          "size": 2106,
+          "sha256": "afefd40fd77e686a0f67af112d24549a65c871eee77af7536f2676618d54f810"
+        },
+        {
+          "path": "els_server/storage/consumables.py",
+          "size": 7973,
+          "sha256": "fc7142630a64d8beea622cd7bbf9616bae75a3de03bf58478d9f71bf3b2e2d6a"
+        },
+        {
+          "path": "els_server/storage/world_elixirs.py",
+          "size": 10397,
+          "sha256": "37db7447af2a2141b1ed2352e798fb22b061819754321b2556073c6b1d4c679e"
+        }
+      ],
+      "Ariel_leaves": [
+        {
+          "path": "els_server/domain/local_session.py",
+          "parent_sha256": "a2ac4454ec8429cbe33fca3e693bd932d439f97bb79e7258f96962639bd36f7b",
+          "candidate_sha256": "0cab3307772de2cdb2ee6e01401f38faf135e5842ac316a02ca5afb2804dee33",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "parent_sha256": "426b6960f49d90b20cafacd74495a9c4614193aad9a01c19b42fc9ae9d1b5dd2",
+          "candidate_sha256": "2b967ce1325bc442b252c344a86d197f8f8a7a72b919528389b268bddf1a2073",
+          "new_file": false
+        },
+        {
+          "path": "els_server/gm_runtime.py",
+          "parent_sha256": "2ce7ddac06cfda5831c7285932b22eaf95edff7b6da94f493adf9b54cf7ea8bf",
+          "candidate_sha256": "c3a3fda777df3b440702e3fd7ab7a1944af2ebaa28a96a765c2309267fba3b68",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/character_custom.py",
+          "parent_sha256": "48df2ad9a46bd32707dfc531638cc83d3d834867d5dcba3cf3ebf6a5ab479668",
+          "candidate_sha256": "aa3241688e45319ee45d6c60f3b6be3ed7c584635f5a94ddf033f8c85727c668",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/title_economy.py",
+          "parent_sha256": "b9fd7fc4db5496949231781b521678d854590410911ab810cd8d7eb69e02a939",
+          "candidate_sha256": "d84b6c392f8831be180281220ca2db79fcce51b0ebe3c1cf69ae0e598ec58912",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/reward_state.py",
+          "parent_sha256": "6ab1d34c0a032fbb603f46821c92d48607003010b13eec8c8963899155313be2",
+          "candidate_sha256": "31b279c59f516a9482d6f57f511ee91695c731b6f1b710427ff0ca0a698a7336",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/dungeon_flow.py",
+          "parent_sha256": "d5e0697f98810d9d95e59f785ad512c276397a32e1cb58e374782cb238442400",
+          "candidate_sha256": "0f3c870e630b68446bb99827f1a441f6497a896a3ced67dea60f3b2cbd545c5f",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+          "parent_sha256": "3fa88c70fd426bb6817df2cecf4acb081368504ce9d20fb6a09fef7bcbcb87c2",
+          "candidate_sha256": "290b1cc9a5babae49bb97721583db1b6e89a44bb7fb9557867f7df99d18bc84c",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/ariel_cash.py",
+          "parent_sha256": null,
+          "candidate_sha256": "bdd68e8a37095e6b884b21baff1115ad3107a6744091e59e15bead6781cb8237",
+          "new_file": true
+        },
+        {
+          "path": "els_server/storage/ariel_attendance.py",
+          "parent_sha256": null,
+          "candidate_sha256": "0ac41fa78e1dbeba64d83d15f7c8b9cb96521dae5893d2f930d3cc6233977a56",
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/ariel_attendance_rules.py",
+          "parent_sha256": null,
+          "candidate_sha256": "d2ba8fcb3743c17a4df324c7fd0e472fbf2c083af109a90d1732d4ea4898e8bc",
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/ariel_attendance_flow.py",
+          "parent_sha256": null,
+          "candidate_sha256": "a93a2034935ae6e180b5cf72834a1db8f7bb5aac01c7552f79ced4a632dc2c36",
+          "new_file": true
+        },
+        {
+          "path": "els_server/protocol/ariel_attendance_messages.py",
+          "parent_sha256": null,
+          "candidate_sha256": "e72821b4547b188a039bb8e67b18fc4d4f6d6198fa48ca07a2aa4a9aa5350639",
+          "new_file": true
+        },
+        {
+          "path": "els_server/protocol/ariel_attendance_catalog.py",
+          "parent_sha256": null,
+          "candidate_sha256": "afd8f000756c18550e6e41c5979da9156b1ff638bddd449ef42eb863f419c764",
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/ariel_attendance_mark.py",
+          "parent_sha256": null,
+          "candidate_sha256": "51d0545d091e6ae644375602e8c04b52a7d185ff76ea2e8be039ab830f0e319e",
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/ariel_daily_special.py",
+          "parent_sha256": null,
+          "candidate_sha256": "959a7bcb09ac4049f6370c86f84892768f76868d863ec3d8e755e36d83164cea",
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/ariel_daily_special_rules.py",
+          "parent_sha256": null,
+          "candidate_sha256": "d5a25fb2f1eb39445ad6f7c8bdb16140817af06caffe03ca1f0757071314efb4",
+          "new_file": true
+        },
+        {
+          "path": "els_server/storage/ariel_daily_special.py",
+          "parent_sha256": null,
+          "candidate_sha256": "285c503295dc6cfa42a4d9d07363220c82c1f54d05c6ee43370df8215678d0d2",
+          "new_file": true
+        },
+        {
+          "path": "els_server/data/ariel_daily_special.json",
+          "parent_sha256": null,
+          "candidate_sha256": "5ce1402b5d7109470e9f3a2d67bd05e95fbc5db3d3a1214556f877191c757fcb",
+          "new_file": true
+        },
+        {
+          "path": "els_server/selected2026_gm.py",
+          "parent_sha256": "6c128cef7705b5cb58acd93919c0971e035228e128bac561ec188f2e5f62010f",
+          "candidate_sha256": "974a616e1375c6bd0d5b45b4b6d9b50eb0045ff560c726a6454b3a34e5aa6ba3",
+          "new_file": false
+        },
+        {
+          "path": "els_server/protocol/ariel_daily_special_messages.py",
+          "parent_sha256": null,
+          "candidate_sha256": "677e448b23b541846be4e7d3831926a3b48126593a17ef5fe82bbc5fc807a324",
+          "new_file": true
+        }
+      ],
+      "existing_parent_leaves_byte_identical_to_v9": true,
+      "new12_still_absent": true,
+      "recipe_reference": "channels/ariel-cash-attendance-v9-source-projection.json"
+    }
+  },
+  "management": [
+    {
+      "relative": "gm_console/service.py",
+      "parent_sha256": "6ca2075801249d58c856d67e1e853dfe615a3073fb4b5e234acdc88bec9c2990",
+      "candidate_sha256": "0126432e76a364e0dd4ae855a0ef2440ebefee302561521e561db2b5345b150f",
+      "source_path": "gm_console/service.py",
+      "newline": "CRLF",
+      "source_normalization": "CRLF_TO_LF"
+    },
+    {
+      "relative": "gm_console/__main__.py",
+      "parent_sha256": "13e0d62877035035fa39879e8cd038b9b26171f5bc719532638c672950e9dce0",
+      "candidate_sha256": "44a2cb901aa616549579e7dc449227db9b320e990eb06804277a733723c2480b",
+      "source_path": "gm_console/__main__.py",
+      "newline": "LF",
+      "source_normalization": "CRLF_TO_LF"
+    }
+  ],
+  "whole_channel_leaves_verified": 43,
+  "business_blobs_changed": 0,
+  "qualification_boundary": "V9 source/private evidence remains historical and intact. This bridge qualifies exact source byte projection to the two v2 parents, retaining all five changed dependency leaves. It does not qualify a future package/controller or bypass renewed finite721053 changed-consumer checks and actual-package/public QA.",
+  "actual_package_reference": "Final actual prepared/freeze must bind the current package separately; no publication approval is supplied by this document."
+}

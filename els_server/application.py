@@ -77,7 +77,8 @@ class FriendsSession(LocalSession):
             luciel=self.account.character()['unit_type']==10
             career=luciel and event.kind in (0x219,0x80f) and bool(kinds&{0x29f,0x59f})
             expiry=0x1c6 in kinds
-            if event.kind in (0x104,0x213) or career or expiry or (event.kind in (0x4b1,0x6d7,0xad6) and any(e.kind==event.kind+1 and e.payload[:4]==bytes(4) for e in result)):
+            mystic=event.kind==0x6e7 and any(e.event_id==0x201 and e.kind==0x6e8 and len(e.payload)>=40 and e.payload[:4]==bytes(4) and e.payload[-16:-12]==bytes((0,0,0,4)) for e in result)
+            if event.kind in (0x104,0x213) or career or expiry or mystic or (event.kind==0x8b1 and any(e.kind==0x8b2 and e.payload[:4]==bytes(4) for e in result)) or (event.kind in (0x4b1,0x6d7,0xad6) and any(e.kind==event.kind+1 and e.payload[:4]==bytes(4) for e in result)):
                 # Reuse the existing current-instance/learned-skill projection
                 # for peers only; never restore or heal the owner again.
                 self.application.world.appearance_changed(self)
@@ -150,8 +151,6 @@ class FriendsSession(LocalSession):
 class Application:
     def __init__(self, config, *, activity2026_awards_factory=None):
         self.config=config
-        from els_server.domain import shop_local_offers
-        shop_local_offers.configure(config.state_file.parent/'local-shop-offers.json')
         self.activity2026_awards_factory=activity2026_awards_factory
         self.executor=ThreadPoolExecutor(max_workers=1,thread_name_prefix='els-account')
         self.account=None
@@ -216,6 +215,8 @@ class Application:
                 session=LocalSession(self.account,port_probe_port=port_probe_port,**self.config.session_options(),**self.activity_options(self.account))
                 session._chip_reset_local_application=self
                 session._chip_reset_local_live=True
+                session._c1_local_application=self
+                session._c1_local_live=True
                 session._box119335_local_application=self
                 session._box119335_local_live=True
                 session._cartridge40326_local_application=self
@@ -249,6 +250,10 @@ class Application:
                 finally:
                     close_mount(session)
             finally:
+                if type(session) is LocalSession and getattr(session,'_c1_local_application',None) is self:
+                    session._c1_local_live=False
+                    if getattr(self,'_c1_local_context',None) is getattr(session,'_c1_hp_context',None):
+                        self._c1_local_context=None
                 if type(session) is LocalSession and getattr(session,'_chip_reset_local_application',None) is self:
                     session._chip_reset_local_live=False
                 if type(session) is LocalSession and getattr(session,'_cartridge40326_local_application',None) is self:

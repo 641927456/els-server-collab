@@ -14,9 +14,30 @@ POSITIONS={struct.pack('>6f',0,0,0,-2743.94,y,0) for y in (8230.0,8231.0)}
 CONTROLLERS={9468:(1,500,False),9294:(0,1000,True)}
 
 
+def dynamic_actor(run,index):
+    """True when the reported actor is one the client asked us to create.
+
+    Interaction panels (LITHIA_MEMORY1_PART1..5) are spawned by the dungeon's
+    own cmd blocks, not by the READY_NPC graph, and they retire themselves
+    through the same DYING report a controller uses. They are not quest
+    controllers, so their reports must reach the generic path.
+    """
+    return any(n['key']==index and n.get('dynamic') for n in run.current['npcs'])
+
+
 def handle(s,event,report):
     run=s.dungeon_run
     if run is None or run.identity!=35250 or report['flag']!=255:return None
+    # This module decides only the opening story controllers. Every other
+    # scripted actor of the route - the PART panels the client creates, the
+    # doors, triggers and dummies the graph declares - retires through the
+    # generic path, which acknowledges it without granting quest progress.
+    # Swallowing those here left the client waiting on an actor that was
+    # already gone, and kept the part from ever announcing its end.
+    actor=next((n for n in run.current['npcs'] if n['key']==report['index']),None)
+    if actor is None:return None
+    if (actor['template'] not in CONTROLLERS
+            and (run.stage,run.part,actor['template']) not in LATER_CONTROLLERS):return None
     if (run.stage,run.part)!=(0,0):return later(s,event,report)
     if (event.event_id!=0x202 or event.kind!=0xad or event.performers!=(0,)
             or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0
@@ -46,7 +67,10 @@ def handle(s,event,report):
                 and report['index'] in (0,key)
                 and report['hp_bits']==struct.unpack('>I',struct.pack('>f',hp))[0]):
             matches.append(npc)
-    if len(matches)!=1:return []
+    if len(matches)!=1:
+        # Hand a client-created scene object's own DYING report back to the
+        # generic retirement path instead of dropping it without an ack.
+        return None if dynamic_actor(run,report['index']) else []
     npc=matches[0];key=npc['key']
     from els_server.domain.dungeon_lifecycle import death_ack,empty_reward_death_notice
     previous=run.defeated.get(key)
@@ -108,7 +132,7 @@ def later(s,event,report):
     run=s.dungeon_run
     npc=next((n for n in run.current['npcs'] if n['key']==report['index']),None)
     rule=None if npc is None else LATER_CONTROLLERS.get((run.stage,run.part,npc['template']))
-    if rule is None:return []
+    if rule is None:return None if (npc is not None and npc.get('dynamic')) else []
     if (event.event_id!=0x202 or event.kind!=0xad or event.performers!=(0,)
             or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0
             or s.role!='game' or s.phase!='dungeon_active' or not s.dungeon_substage_synced
@@ -132,11 +156,25 @@ def later(s,event,report):
     previous=run.defeated.get(key)
     if previous is not None:return [death_ack()] if previous==event.payload else []
     from els_server.domain.quest_flow import store
-    state=store(s);base=run.run_id+':'+str(run.stage)+':'+str(run.part)+':kill:'+str(key)
-    witness=dict(kind='kill',dungeon=35250,npc=npc['template'],level=s.account.character()['level'])
-    from els_server.domain.tutorial_dialogue import inactive_quest
-    identity=inactive_quest(35250,npc['template']) if not npc['active'] else None
-    if identity is not None:witness['tutorial_quest']=identity
+    state=store(s)
+    if (run.stage,run.part)==(1,0) and npc['template']==9310:
+        # The finale's own task dummy 9470 never sends DYING: trace
+        # 20261024-130855 shows key=1 created at 05:13:37.318 and destroyed
+        # only by the scene unload at 05:13:54, after the part had ended and
+        # the clear unloaded it. The pinned graph makes retiring 9310 the
+        # part condition (kind 3 required=[9310] -> kind 4 clear), so that
+        # accepted retirement carries 28110's task event. Nothing is
+        # fabricated: the source condition that ends the part is the one
+        # committed, and only 9470's exact task may consume it.
+        base=run.run_id+':1:0:retire:'+str(key)
+        witness=dict(kind='retire',dungeon=35250,npc=9470,tutorial_quest=28110,
+                     retired_by=npc['template'],level=s.account.character()['level'])
+    else:
+        base=run.run_id+':'+str(run.stage)+':'+str(run.part)+':kill:'+str(key)
+        witness=dict(kind='kill',dungeon=35250,npc=npc['template'],level=s.account.character()['level'])
+        from els_server.domain.tutorial_dialogue import inactive_quest
+        identity=inactive_quest(35250,npc['template']) if not npc['active'] else None
+        if identity is not None:witness['tutorial_quest']=identity
     shadow=copy.copy(s);shadow.dungeon_run=copy.copy(run)
     shadow.dungeon_run.defeated={**run.defeated,key:bytes(event.payload)}
     shadow.defeated_npcs=shadow.dungeon_run.defeated;shadow.dungeon_clock=copy.copy(s.dungeon_clock)
@@ -161,7 +199,12 @@ def later(s,event,report):
         # Native scripts can retire the gate actor before the task dummy in
         # the same frame. Keep the stage pending until its real task event is
         # committed; do not fabricate that event or an earned reward.
-        guard['barrier']=frozenset((15,)) if (run.stage,run.part)==(0,2) and 28090 not in done else frozenset((1,)) if (run.stage,run.part)==(1,0) and 28110 not in done else frozenset()
+        # Stage 0 part 2 holds until its own dummy (key 15) reports. Stage 1
+        # part 0 has no such barrier: its dummy 9470 is never reported inside
+        # the scene (see the finale witness above), so waiting on it deadlocks
+        # the part and leaves 28110 stuck at 0/1.
+        guard['barrier']=(frozenset((15,)) if (run.stage,run.part)==(0,2) and 28090 not in done
+                          else frozenset())
 
     def prepare(notices,replayed):
         from els_server.domain.dungeon_flow import periodic

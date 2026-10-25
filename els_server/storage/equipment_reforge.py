@@ -56,7 +56,7 @@ def require_item(item,*,equipment,now,restore_target=False):
     if not (equipment and restore_target is True and (target(item['template']) or {}).get('reforge_class')==1):
         require_unlocked(item,now=now)
     if equipment:
-        if item['group'] not in (1,9) or item['count']!=1 or item.get('identified') is False or target(item['template']) is None:raise ValueError('Reforge identified owned bag target required')
+        if item['group']!=1 or item['count']!=1 or item.get('identified') is False or target(item['template']) is None:raise ValueError('Reforge identified owned bag target required')
         state(item['template'],item.get('reforge',DEFAULT));validate_instance(item)
     else:
         row=catalog()['materials'].get(str(item['template']))

@@ -6,7 +6,7 @@ from els_server.game_data import CLIENT_SHA,client_data
 @functools.lru_cache(maxsize=1)
 def catalog():
  raw=(Path(__file__).resolve().parents[1]/'data/identification_ui.json').read_bytes()
- if hashlib.sha256(raw).hexdigest()!='d3aea05f18612d6af04147f2540e7556944d463a9cb7357cdfc2a590141c7668':raise ValueError('Identification source changed')
+ if hashlib.sha256(raw).hexdigest()!='140d8f615bd21a2fbab6e0875459e34eb9d6af64115f4e07d533ccc4512f59a3':raise ValueError('Identification source changed')
  c=json.loads(raw)
  if c['client_sha256']!=CLIENT_SHA or c['catalog_sha256']!=client_data().manifest['catalog_sha256']:raise ValueError('Identification build mismatch')
  for s in c['sources']:
@@ -36,15 +36,16 @@ def template_pool(template):
  if row['groups']!=[pool['native_group']] or row['official_group']!=pool['official_group']:raise ValueError('Identification template pool mismatch')
  return pool
 def require_template(template):
+ from els_server.domain.accessory_identification import supported
+ if supported(template):return
  from els_server.domain.artifact_identification import supported
  if supported(template):return
  if str(template) not in catalog()['templates']:
   from els_server.domain.manufacture_rules import inventory_definitions
   if template not in inventory_definitions() or client_data().item(template)['item_type'] not in (1,2):raise ValueError('Unsupported compatibility identification item')
-def slot_count(template):
- row=catalog()['templates'].get(str(template))
- return row.get('identify_slots',1) if row else 1
 def validate(template,values):
+ from els_server.domain.accessory_identification import supported,validate as accessory_validate
+ if supported(template):return accessory_validate(template,values)
  from els_server.domain.artifact_identification import supported,validate as artifact_validate
  if supported(template):return artifact_validate(template,values)
  require_template(template)
@@ -54,7 +55,7 @@ def validate(template,values):
   if not isinstance(legacy,list) or any(type(t) is not int for t in legacy) or len(legacy)!=20 or set(legacy)!={61857,61858,61859,61860,61861,61862,61863,61864,61865,61866,61948,61949,61950,61951,61952,61953,61954,61955,61956,61957}:raise ValueError('Identification historical compatibility targets')
   historical=catalog()['historical_1020_option_ids']
   allowed={**{str(v):allowed[str(v)] for v in historical},**pool['options']} if template in legacy else pool['options']
- if not isinstance(values,(list,tuple)) or len(values) not in (0,slot_count(template)) or any(type(v) is not int or str(v) not in allowed for v in values):raise ValueError('Invalid original identification vector')
+ if not isinstance(values,(list,tuple)) or len(values) not in (0,1) or any(type(v) is not int or str(v) not in allowed for v in values):raise ValueError('Invalid original identification vector')
  return list(values)
 def draw(roll):
  if type(roll) is not int or not 0<=roll<10000:raise ValueError('Identification random range')

@@ -16,11 +16,10 @@ from els_server.domain.shop_listing import include_extended,NPC_MEDICINES
 from els_server.domain.shop_additions import offers as additional_offers
 from els_server.domain.pet_support import offers as pet_support_offers
 from els_server.domain.bank_memberships import offers as bank_offers
-from els_server.domain.shop_local_offers import offers as local_shop_offers
 
 offers=catalog();extended=extended_shop_catalog()['offers']
 assert len(extended)==6328
-assert len(offers)==272+1+len(bundle_catalog()['offers'])+sum(include_extended(p) for p in extended)+len(additional_offers())+len(pet_support_offers())+len(bank_offers())+len(local_shop_offers())
+assert len(offers)==272+1+len(bundle_catalog()['offers'])+sum(include_extended(p) for p in extended)+len(additional_offers())+len(pet_support_offers())+len(bank_offers())
 assert not NPC_MEDICINES & {p['template'] for p in offers}
 assert not any(p['category']//10==1 for p in offers)
 assert sum(p['sku']==ORDINARY_SKU for p in offers)==1

@@ -34,9 +34,8 @@ def catalog(unit_type=None):
     from els_server.domain.skill_book_shop import offers as skill_book_offers
     from els_server.domain.bag_capacity import additional_offers as bag_offers
     from els_server.domain.skill_page_shop import offer as skill_page_offer
-    from els_server.domain.shop_local_offers import offers as local_shop_offers
-    local=local_shop_offers()
-    result=tuple(p for p in costumes+single_offers(unit_type)+ice+extended+expansion+local+additional_offers(unit_type)+pet_support_offers()+bank_offers()+bag_offers()+skill_book_offers()+(skill_page_offer(),)
+    from els_server.domain.palette_shop import offers as palette_offers
+    result=tuple(p for p in palette_offers()+costumes+single_offers(unit_type)+ice+extended+expansion+additional_offers(unit_type)+pet_support_offers()+bank_offers()+bag_offers()+skill_book_offers()+(skill_page_offer(),)
                  if can_acquire(p['template']) and p['template'] not in ice_equipment())
     if len({p['sku'] for p in result})!=len(result) or len({p['template'] for p in result})!=len(result):raise ValueError('Duplicate shop offer')
     return result
@@ -57,12 +56,10 @@ def home_lists(unit_type=1):
         featured.extend([p['template'] for p in extended_shop_catalog()['offers']
                          if p['category']//10==family and bytes.fromhex(p['record_hex'])[210] in (0,unit_type)][:3])
     offered={p['template'] for p in catalog(unit_type)}
-    from els_server.domain.shop_local_offers import offers as local_offers
-    local=[p['template'] for p in local_offers()]
     from els_server.domain.fashion_bundles import offers as bundle_offers
     return tuple([t for t in dict.fromkeys(group) if t in offered] for group in
-                 (local+fashion[:18]+usable[:6],local+fashion[:6]+usable[:6]+featured,
-                  local+fashion[:12]+[p['template'] for p in bundle_offers(unit_type)][:12]))
+                 (fashion[:18]+usable[:6],fashion[:6]+usable[:6]+featured,
+                  fashion[:12]+[p['template'] for p in bundle_offers(unit_type)][:12]))
 
 
 def quantity_catalog(unit_type=None):
@@ -73,7 +70,7 @@ def quantity_catalog(unit_type=None):
                  if p['template'] not in CAREER_RULES or p['quantity']==1)
 
 
-def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_skill_books=None):
+def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_skill_books=None,prepare_palette=None):
     from els_server.domain.bag_capacity import PRODUCT_GROUPS
     from els_server.storage.bag_capacity import expand
     from els_server.domain.bank_memberships import PRODUCTS as BANK_PRODUCTS
@@ -83,6 +80,10 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
     if not isinstance(operation_id,str) or not 1<=len(operation_id)<=100:
         raise ValueError('Invalid shop operation identity')
     products=ed_purchase_request(payload)
+    from els_server.domain.palette_shop import guarded_request
+    palette=guarded_request(payload)
+    if palette and not callable(prepare_palette):raise ValueError('Current palette actor callback required')
+    if not palette and prepare_palette is not None:raise ValueError('Unexpected palette actor callback')
     from els_server.domain.skill_page_shop import SKU as skill_page_sku
     if any(sku==skill_page_sku for sku,n in products):
         raise ValueError('Instant skill page service requires current session authority')
@@ -90,10 +91,6 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
     offers={p['sku']:p for p in quantity_catalog()}
     if any(sku not in offers for sku,_ in products):
         raise ValueError('Unknown local shop SKU')
-    from els_server.domain.shop_local_offers import bulk_packs
-    packs=bulk_packs()
-    if any(offers[sku]['template'] in packs for sku,_ in products):
-        if len(products)!=1 or products[0][1]!=1:raise ValueError('Buy one local bulk pack at a time')
     from els_server.domain.careers import RULES as CAREER_RULES
     from els_server.domain.skill_book_shop import BOOKS
     career_products=[(offers[sku]['template'],n*offers[sku]['quantity']) for sku,n in products if offers[sku]['template'] in CAREER_RULES]
@@ -112,8 +109,15 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
     cost=sum(offers[sku]['price']*n for sku,n in products)
     digest=hashlib.sha256(payload).hexdigest()
     with closing(sqlite3.connect(path,timeout=10)) as db:
+        def prepared_response(response):
+            if palette:
+                prepare_palette(db)
+                from els_server.protocol.protocol_codec import Event,encode_event
+                encode_event(Event(0x201,kind=0x810,payload=response))
+            return response
         try:
             db.execute('BEGIN IMMEDIATE')
+            if palette:prepare_palette(db)
             ensure_inventory(db)
             db.execute('CREATE TABLE IF NOT EXISTS shop_purchase_receipts (operation_id TEXT PRIMARY KEY, request_sha256 TEXT NOT NULL, cost INTEGER NOT NULL CHECK(cost>=0), response BLOB NOT NULL, items_json TEXT NOT NULL, balances_json TEXT NOT NULL)')
             old=db.execute('SELECT request_sha256,response FROM shop_purchase_receipts WHERE operation_id=?',(operation_id,)).fetchone()
@@ -122,15 +126,17 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
                 if book_products:
                     ed=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
                     if prepare_skill_books is not None:prepare_skill_books(db,None,None,True)
+                    response=prepared_response(ed_purchase_ack(0,[],ed).payload)
                     db.commit()
-                    return ed_purchase_ack(0,[],ed).payload
+                    return response
                 if career_products:
                     # Never apply a transition twice, or re-display an old item
                     # UID/ED balance from purchases predating automatic use.
                     ed=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
                     if prepare_career is not None:prepare_career(db,None,None,True)
+                    response=prepared_response(ed_purchase_ack(0,[],ed).payload)
                     db.commit()
-                    return ed_purchase_ack(0,[],ed).payload
+                    return response
                 # Every inventory product can move, expire or be consumed.
                 # Once any saved item or ED changes, an old 810 must not restore
                 # historical positions, item state or an earlier ED balance.
@@ -141,6 +147,7 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
                 import struct
                 if ed!=struct.unpack_from('>Q',old[1],len(old[1])-8)[0] or any(current.get(i['uid'])!=i for i in saved):
                     response=ed_purchase_ack(0,[],ed).payload
+                    response=prepared_response(response)
                     db.commit()
                     return response
                 from els_server.domain.skill_expansion import ORDINARY_SKU
@@ -148,9 +155,10 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
                     or all(sku==ORDINARY_SKU or offers[sku]['template'] in PRODUCT_GROUPS for sku,n in products)):
                     # A replay after another purchase must not display an old ED balance.
                     ed=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
-                    return ed_purchase_ack(0,[],ed).payload
+                    return prepared_response(ed_purchase_ack(0,[],ed).payload)
+                response=prepared_response(old[1])
                 db.commit()
-                return old[1]
+                return response
             unit_type=stored_character_type(db,uid)
             allowed={p['sku'] for p in quantity_catalog(unit_type)}
             if any(sku not in allowed for sku,_ in products):raise ValueError('Shop product is not available for this character')
@@ -199,6 +207,7 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
             if book_state is not None and prepare_skill_books is not None:
                 prepare_skill_books(db,*book_state,False)
             db.execute('INSERT INTO shop_purchase_receipts VALUES (?,?,?,?,?,?)',(operation_id,digest,cost,response,json.dumps(items,sort_keys=True),json.dumps(balances,sort_keys=True)))
+            response=prepared_response(response)
             db.commit()
             return response
         except BaseException:

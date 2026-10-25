@@ -23,7 +23,32 @@ def starter(unit_type):
 
 def starting_town(unit_type):return starter(unit_type)[1]
 
-def restore_initialization(state,*,live=False):
+def unprogressed_tutorial_creation(db,uid,character):
+    """Existing normal creation/clear evidence; saved town is not arrival."""
+    from els_server.storage.characters import BASE_CLASSES
+    from els_server.domain.first_story_entry import MAPS
+    unit=character['unit_type']
+    if (unit not in MAPS or character['unit_class']!=BASE_CLASSES[unit]
+        or character['level']!=1
+        or db.execute('SELECT experience FROM reward_balances WHERE uid=?',(uid,)).fetchone()!=(0,)
+        or not db.execute('SELECT 1 FROM character_creation_receipts WHERE uid=? LIMIT 1',(uid,)).fetchone()):return False
+    if db.execute('SELECT 1 FROM dungeon_records WHERE uid=? AND map_id=?',(uid,MAPS[unit])).fetchone():return False
+    return not db.execute("SELECT 1 FROM reward_receipts WHERE json_extract(grant_json,'$.owner')=? AND json_extract(grant_json,'$.dungeon_clear[0]')=? LIMIT 1",(uid,MAPS[unit])).fetchone()
+
+def first_arrival_pending(state):
+    # Never rewrite an existing ready/completed/unknown historical task. This
+    # read only prevents an unprogressed creation from skipping its tutorial
+    # via a town load; the existing committed clear receipt ends the gate.
+    with closing(sqlite3.connect(state.path.as_uri()+'?mode=ro',uri=True,timeout=10)) as db:
+        db.execute('BEGIN')
+        character=load_character(db,state.uid,state.account_id)
+        qid=STARTERS[character['unit_type']][0]
+        row=db.execute('SELECT objectives FROM character_quests WHERE owner=? AND quest=?',(state.uid,qid)).fetchone()
+        if row is None or db.execute('SELECT 1 FROM completed_quests WHERE owner=? AND quest=?',(state.uid,qid)).fetchone():return False
+        if any(json.loads(row[0]).values()):return False
+        return unprogressed_tutorial_creation(db,state.uid,character)
+
+def restore_initialization(state,*,live=False,defer_starter_arrival=False):
     """Encode a same-owner snapshot before committing any missing root.
 
     Existing locations and all quest progress remain authoritative. Unknown
@@ -46,10 +71,12 @@ def restore_initialization(state,*,live=False):
             else:
                 now=int(time.time())
                 if not 0<now<2**63:raise ValueError('Tutorial timestamp')
-                # This source objective is actual village arrival, also
-                # initialized by ordinary manual accept in QuestState.action.
+                # Only this new root may defer its first arrival. Existing
+                # progress is never lowered; a default saved town alone is
+                # insufficient for an owned new tutorial creation.
                 # No completed row, reward, EXP or inventory grant is written.
-                counts={s['m_iID']:1 for s in catalog.objectives(qid)}
+                arrived=not (defer_starter_arrival and unprogressed_tutorial_creation(db,state.uid,character))
+                counts={s['m_iID']:int(arrived) for s in catalog.objectives(qid)}
                 db.execute('INSERT INTO character_quests VALUES (?,?,?,?,?)',(state.uid,qid,now,now,json.dumps(counts,sort_keys=True)))
                 snapshot=_state(db,state.uid,items);restored=True
         # The existing validated selection/town-ready callers also recheck

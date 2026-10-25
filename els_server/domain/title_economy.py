@@ -75,7 +75,13 @@ def resolve(db,uid,source,base_ed,base_exp,dungeon):
     from els_server.domain.equipment_economy import resolve as equipment_effects
     equipment=equipment_effects(db,uid,source,mode)
     ed_rate=f32(ed_rate+equipment['ed_rate']);exp_rate=f32(exp_rate+equipment['experience_rate'])
+    from els_server.domain.ariel_attendance_mark import economy as ariel_mark_economy
+    ariel=ariel_mark_economy(db,uid,source)
+    exp_rate=f32(exp_rate+ariel['experience_rate'])
     ed_extra=bonus(base_ed,ed_rate,ed=True);exp_extra=bonus(base_exp,exp_rate)
-    return dict(version=3,owner=uid,source=source,dungeon=dungeon,dungeon_type=mode,title=active,options=options,held_options=[],skipped_mode_options=skipped,equipment=equipment,
+    result=dict(version=3,owner=uid,source=source,dungeon=dungeon,dungeon_type=mode,title=active,options=options,held_options=[],skipped_mode_options=skipped,equipment=equipment,
                 ed_rate=ed_rate,experience_rate=exp_rate,base_ed=base_ed,base_experience=base_exp,
                 bonus_ed=ed_extra,bonus_experience=exp_extra,ed=base_ed+ed_extra,experience=base_exp+exp_extra)
+
+    if ariel['experience_rate']:result['ariel_mark']=ariel
+    return result
