@@ -14,7 +14,9 @@ from els_server.storage.profession_state import require_owner
 from els_server.storage.item_instances import remove
 from els_server.storage.equipment_enhancement import replace
 
-SCROLLS=frozenset((130149,130150,130151,130152))
+# User-approved local policy: retain the target trade state; not a native ENABLE_TRADE interpretation.
+TRADE_STATE_PRESERVING_SCROLLS={132495:5,132496:6,132497:7,132498:8,60007270:7}
+SCROLLS=frozenset((130149,130150,130151,130152,*TRADE_STATE_PRESERVING_SCROLLS))
 
 def apply(path,owner,payload,operation,*,account_id=None,prepare=None):
  if not isinstance(payload,bytes)or len(payload)!=16:raise ValueError('Enhancement scroll request size')
@@ -39,7 +41,10 @@ def apply(path,owner,payload,operation,*,account_id=None,prepare=None):
   from els_server.domain.boosting_2026_participation_gear import cannot_enhance
   if cannot_enhance(target['template'])or d['flags4']&0xa1 or d['item_type']not in(1,2):raise ValueError('Equipment cannot receive enhancement scroll')
   rule=client_data().enchanting.scroll(material['template'])['definition']
-  if set(rule)-{'ID','ENCHANT_LEVEL'}:raise ValueError('Unreviewed scroll restriction')
+  if material['template']in TRADE_STATE_PRESERVING_SCROLLS:
+   expected={'ID':material['template'],'ENCHANT_LEVEL':TRADE_STATE_PRESERVING_SCROLLS[material['template']],'ENABLE_TRADE':0}
+   if rule!=expected or any(type(v)is not int for v in rule.values()):raise ValueError('Unreviewed local scroll policy row')
+  elif set(rule)-{'ID','ENCHANT_LEVEL'}:raise ValueError('Unreviewed scroll restriction')
   level=rule['ENCHANT_LEVEL'];previous=target.get('enhancement',0)
   if type(level)is not int or not 1<=level<=13 or not 0<=previous<level:raise ValueError('Scroll must increase an unbroken target')
   if material['count']==1:remove(db,owner,material)
