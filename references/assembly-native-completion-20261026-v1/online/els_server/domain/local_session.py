@@ -1002,6 +1002,9 @@ class LocalSession:
 
         if color_reply is not None:return color_reply
 
+        from els_server.domain.spell_socket_flow import handle as spell_fill_handle
+        spell_fill_reply=spell_fill_handle(self,event,request_sequence)
+        if spell_fill_reply is not None:return spell_fill_reply
         from els_server.domain.equipment_spell_exchange_flow import handle as spell_exchange_handle
         spell_exchange_reply=spell_exchange_handle(self,event,request_sequence)
         if spell_exchange_reply is not None:return spell_exchange_reply

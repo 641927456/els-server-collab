@@ -5,8 +5,8 @@
   "client_changes": 0,
   "channels": {
     "online": {
-      "parent_release": "native-economic-elixirs-20261026-v1",
-      "parent_manifest_sha256": "67e42733389ab31accd194015a26056bcfeb6283f905c45902e5ffc4ad3debb1",
+      "parent_release": "reviewed-pr487-native-mystic-20261026-v1",
+      "parent_manifest_sha256": "7a7b8ea887490e9d82211f26e3608a47fd2e7d37916e5e2a154f121b3d2fb406",
       "files": [
         {
           "runtime_path": "els_server/data/assembly.json",
@@ -41,14 +41,14 @@
         {
           "runtime_path": "els_server/domain/inventory_items.py",
           "source": "online/els_server/domain/inventory_items.py",
-          "sha256": "b9d08a7f01ed83c551ac68e1fe941e0e73325de5312ad8dfb1e1377f86fae1d6",
-          "parent_sha256": "b2f827f8932de4f92c8c88bfb3bef1b04673fff7e95d4e7533d853b95053366d"
+          "sha256": "4de321f36486c76f5d66ba2c1bcccf91cf5f7dbb993d0f80da3b6ec300b2f6dd",
+          "parent_sha256": "e9f3e534fbe2d8d6fdd8912b7e04649eb3c1acf022f0f84a156f8cd57cda9e1d"
         },
         {
           "runtime_path": "els_server/domain/local_session.py",
           "source": "online/els_server/domain/local_session.py",
-          "sha256": "22327661195b6ab4049efe3cea4309ca1b04261e6ae35aa80bbddb15b6e00955",
-          "parent_sha256": "3d15ddd9cfd0b06a89bdf4ab9c519e092d11e7caa6ef2e50b4d4638c1197b978"
+          "sha256": "769fd24a1acaaea64dbc29a8478e5b2a974ed2ee4f1b8e60f0069df439453903",
+          "parent_sha256": "018b90941bc16ef3a45df9852e81c3acd7eb7c102b271e3b9c343079ee95d935"
         },
         {
           "runtime_path": "els_server/domain/silver_mirror_flow.py",
@@ -160,5 +160,9 @@
         }
       ]
     }
-  }
+  },
+  "production_installation": true,
+  "dual_installation": true,
+  "publication": "qualified independent online and standalone installed; see delivery.json",
+  "delivery_record": "delivery.json"
 }

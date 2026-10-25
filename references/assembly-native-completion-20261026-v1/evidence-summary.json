@@ -1,8 +1,8 @@
 {
   "ok": true,
   "proofs": {
-    "private-final-online-v1.json": {
-      "sha256": "0b8cd07045507a6859b90931cd4e2f29cd9e22cbadd1f89702d1bd35f2ae46d0",
+    "private-publish-online-v2.json": {
+      "sha256": "2ade2e2d9b1433f4d0629b1331ca3245c033e6680a5e42f9b3a598377888e3d1",
       "passed": true,
       "mode": "friends",
       "coexisting_sources": 9,
@@ -26,8 +26,8 @@
       ],
       "private_databases_removed": true
     },
-    "private-final-local-LOCAL-v1.json": {
-      "sha256": "c7142ebab4dc46c5962a8bbbd9a645a9e353897ed999249948f54e213c39d438",
+    "private-publish-local-LOCAL-v1.json": {
+      "sha256": "231398141f08121dce23e22b62b5e815c430ccc6168f2bf89c1631fd06187ddf",
       "passed": true,
       "mode": "local",
       "coexisting_sources": 9,
@@ -51,8 +51,8 @@
       ],
       "private_databases_removed": true
     },
-    "private-final-local-friends-v1.json": {
-      "sha256": "14c7cc6aa981ef3db968f39c01b89a8c6e02833b73de6391eb0ddbdecdcfb100",
+    "private-publish-local-friends-v1.json": {
+      "sha256": "15a5cdabab121842c6565aaf1e8c2c1f91134aa7e0987472b1f68eff905e452c",
       "passed": true,
       "mode": "friends",
       "coexisting_sources": 9,
@@ -188,8 +188,11 @@
     "Black Market65 has current native resources but its full runtime chain is unqualified and outside this Type2 increment.",
     "14 old uniforms have no matching current catalog record; no guessed aliases or new sources."
   ],
-  "publication": "pending exclusive publication slot and final actual-parent verification",
+  "publication": "qualified independent online and standalone installed; see delivery.json",
   "natural_GUI": false,
   "natural_battle": false,
-  "raw_packets_or_logs_exported": false
+  "raw_packets_or_logs_exported": false,
+  "production_installation": true,
+  "dual_installation": true,
+  "delivery_record": "delivery.json"
 }

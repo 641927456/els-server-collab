@@ -866,3 +866,12 @@ for _t,_r in ariel_daily_definitions().items():
  _expected=(_r['metadata'],_r['group'],_r['max_stack'])
  if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting daily-special item reader')
  VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+# Exact existing-owned Mystic stone readers. Preserve established stack rules.
+from els_server.domain.spell_socket_rules import definitions as _mystic_fill_definitions
+for _row in _mystic_fill_definitions():
+ _t=_row['template']
+ if _t in VERIFIED_TEMPLATES:
+  if (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t])!=(_row['metadata'],_row['group']):raise ValueError('Conflicting original mystic stone reader')
+ else:
+  VERIFIED_TEMPLATES[_t]=_row['metadata'];TEMPLATE_BAG_GROUPS[_t]=_row['group'];TEMPLATE_MAX_STACKS[_t]=_row['max_stack']
