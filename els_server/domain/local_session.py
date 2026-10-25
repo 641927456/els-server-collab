@@ -1018,6 +1018,14 @@ class LocalSession:
         from els_server.domain.ep_conversion_flow import handle as ep_conversion_handle
         ep_conversion_reply=ep_conversion_handle(self,event,request_sequence)
         if ep_conversion_reply is not None:return ep_conversion_reply
+        from els_server.domain.el_shard_flow import handle as el_shard_handle
+        el_shard_reply=el_shard_handle(self,event,request_sequence)
+        if el_shard_reply is not None:return el_shard_reply
+
+        from els_server.domain.el_shard_identification_flow import handle as shard_identify_handle
+        shard_identify_reply=shard_identify_handle(self,event,request_sequence)
+        if shard_identify_reply is not None:return shard_identify_reply
+
         from els_server.domain.equipment_ui_flow import handle as equipment_ui_handle
         equipment_ui_reply=equipment_ui_handle(self,event,request_sequence)
         if equipment_ui_reply is not None:return equipment_ui_reply
