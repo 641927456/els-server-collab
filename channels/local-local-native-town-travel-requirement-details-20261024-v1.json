@@ -1,0 +1,56 @@
+{
+  "channel": "local",
+  "release": "local-native-town-travel-requirement-details-20261024-v1",
+  "parent_release": "local-monster-native-level-20261024-v1",
+  "manifest_sha256": "fdb9f8c0b3c3a98bc836d534cda5d8c4efc5209cb27341a8b4d803c4c6f137ac",
+  "parent_manifest_sha256": "3c6d45aabb2de357d62888193cd882a1c6f0d2df9c6c7700a9366e2447befaa8",
+  "scope": "Existing native result653 typed refusal details only: expose original destination requirement details. No new admission, destinations, fees, waiver, sources, phase, receipts or success semantics.",
+  "files": [
+    {
+      "path": "els_server/domain/town_travel.py",
+      "sha256": "419b6db963c581c0ced4062d031ffa498ec490616ccf95edd5bf7458169acf7d",
+      "size": 3340,
+      "parent_sha256": "5d652ba7b4e240f30ef7681ce8dbaf194378d3b0899a22a79bff64c4be2b642f"
+    },
+    {
+      "path": "els_server/domain/town_travel_flow.py",
+      "sha256": "2bb3de282b0d5705bc7c3bd83269ab74ddf41896836353d968553defd9643ce6",
+      "size": 14946,
+      "parent_sha256": "8dad2b57f0e8d48609909b2bf741d0f71203ead68de11ce2ab9efb9383c8dc37"
+    },
+    {
+      "path": "els_server/protocol/town_travel_messages.py",
+      "sha256": "2108726b164aa4d943ddefbe5e1a172134853118df03b81c3e9909e5eeb89385",
+      "size": 1331,
+      "parent_sha256": "635877efc68dfd07c55517957ce6cb15aac02da1237ce475ab7f0d150e53aa9b"
+    }
+  ],
+  "changed_runtime_file_count": 3,
+  "source_file_count": 813,
+  "business_file_count": 1064,
+  "independent_units": 1,
+  "client_delta": 0,
+  "new_schema": false,
+  "new_schema_definitions": 0,
+  "install_DDL_statements": 0,
+  "parent_snapshot_commit": "e4365e75a85f234374e66919668afa077efc447a",
+  "historical_delivery_accepted": true,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/local/local-native-town-travel-requirement-details-20261024-v1/local-business-manifest.json",
+      "sha256": "fdb9f8c0b3c3a98bc836d534cda5d8c4efc5209cb27341a8b4d803c4c6f137ac",
+      "bytes": 192293
+    },
+    "actual_acceptance": {
+      "path": "releases/local/local-native-town-travel-requirement-details-20261024-v1/local-verification.json",
+      "sha256": "937a7873ec683d50472c77325fec958e5531e59b93815b63f72a55b30450258c",
+      "bytes": 3517
+    }
+  },
+  "metadata_sync_installs": 0
+}
