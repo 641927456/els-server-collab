@@ -15,7 +15,7 @@ def ensure(db):
 def commit(db,store,c,proof,killer,*,require_existing=False):
     from els_server.domain.dungeon_lifecycle import experience_death_notice
     from els_server.domain.legacy_pve_exp import experience_limit
-    if not db.in_transaction or set(c)!=set(FIELDS) or store.uid!=c['owner']:raise ValueError('Kill EXP transaction/context')
+    if not db.in_transaction or set(c)not in(set(FIELDS),set(FIELDS)|{'source_index','boss'}) or store.uid!=c['owner']:raise ValueError('Kill EXP transaction/context')
     actual=db.execute('PRAGMA database_list').fetchone()[2]
     if Path(actual).resolve()!=Path(store.path).resolve():raise ValueError('Kill EXP transaction database/ownership')
     from els_server.storage import resonance_state as er
@@ -28,6 +28,17 @@ def commit(db,store,c,proof,killer,*,require_existing=False):
         raise ValueError('Kill EXP pinned multiplier/source')
     if any(len(bytes.fromhex(c[k]))!=32 for k in ('graph_sha256','policy_sha256')):raise ValueError('Kill EXP source digest')
     if not isinstance(proof,bytes) or not proof or len(proof)>8192:raise ValueError('Kill EXP proof')
+    if 'source_index'in c:
+        from els_server.domain.dungeon_routes import route_catalog
+        if type(c['source_index'])is not int or c['source_index']<1 or type(c['boss'])is not bool:raise ValueError('Kill EXP original source role type')
+        graph=route_catalog().graph(c['dungeon'])
+        if graph['source_sha256']!=c['graph_sha256']:raise ValueError('Kill EXP original source graph')
+        def leaves(row):
+            if 'options'in row:
+                for child in row['options']:yield from leaves(child)
+            else:yield row
+        part=graph['stages'][str(c['stage'])]['parts'][str(c['part'])]
+        if not any((n['template'],n['source_index'],bool(n['boss']))==(c['template'],c['source_index'],c['boss'])and n['active']and not n['no_drop']and not n.get('ally')and n.get('team',1)!=0 for group in part['groups']for row in group['npcs']for n in leaves(row)):raise ValueError('Kill EXP exact original source role')
     run=uuid.UUID(c['run_id']);canonical=json.dumps(c,sort_keys=True,separators=(',',':'))
     digest=hashlib.sha256(proof).hexdigest();key=tuple(c[k] for k in ('owner','run_id','stage','part','visits','npc_key'))
     ensure(db)

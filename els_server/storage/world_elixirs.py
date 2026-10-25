@@ -26,7 +26,7 @@ def _clock(now):
     if type(now)is not int or not 1<=now<2**31-7200:raise ValueError('Elixir epoch bounds')
     return now
 
-def _state(db,owner,now):
+def _ordinary_state(db,owner,now):
     if not _exists(db,'world_elixir_state'):return dict(owner=owner,revision=0,rows=[])
     r=db.execute('SELECT revision,template,source_uid,starts_at,ends_at,operation_id FROM world_elixir_state WHERE owner=?',(owner,)).fetchone()
     if r is None:return dict(owner=owner,revision=0,rows=[])
@@ -41,6 +41,45 @@ def _state(db,owner,now):
         _source(db,operation,owner,source,template)
         rows=[dict(owner=owner,template=template,source_uid=source,start=starts,end=ends)]if now<ends else []
     return dict(owner=owner,revision=revision,rows=rows)
+
+def _group(template):
+    group=catalog()[template].get('supplemental_group',0)
+    if group not in(0,310777,722990)or(group and group!=template):raise ValueError('Elixir explicit native group')
+    return group
+
+
+def _state(db,owner,now):
+    ordinary=_ordinary_state(db,owner,now)
+    if any(_group(r['template'])for r in ordinary['rows']):raise ValueError('Supplement in ordinary elixir state')
+    rows=list(ordinary['rows']);revision=ordinary['revision']
+    if _exists(db,'world_elixir_supplements'):
+        saved=db.execute('SELECT group_id,revision,template,source_uid,starts_at,ends_at,operation_id FROM world_elixir_supplements WHERE owner=? ORDER BY group_id',(owner,)).fetchall()
+        if len(saved)>2:raise ValueError('Elixir finite additional rows')
+        for group,rev,template,source,start,end,operation in saved:
+            if group not in(310777,722990)or type(rev)is not int or not 1<=rev<2**63:raise ValueError('Elixir additional group/revision')
+            revision+=rev
+            if template==0:
+                if(source,start,end,operation)!=(0,0,0,''):raise ValueError('Elixir inactive additional state')
+                continue
+            if template!=group or _group(template)!=group or any(type(v)is not int for v in(source,start,end))or not 0<source<2**63 or not 1<=start<end<2**31 or end-start!=catalog()[template]['period_seconds']:raise ValueError('Elixir additional source/duration')
+            _source(db,operation,owner,source,template)
+            if now<end:rows.append(dict(owner=owner,template=template,source_uid=source,start=start,end=end))
+    if not 0<=revision<2**63:raise ValueError('Elixir aggregate revision overflow')
+    return dict(owner=owner,revision=revision,rows=sorted(rows,key=lambda r:(_group(r['template']),r['template'])))
+
+
+def _put(db,owner,template,source,start,end,operation):
+    group=_group(template)
+    if group:
+        db.execute('CREATE TABLE IF NOT EXISTS world_elixir_supplements(owner INTEGER NOT NULL REFERENCES characters(uid),group_id INTEGER NOT NULL CHECK(group_id IN(310777,722990)),revision INTEGER NOT NULL CHECK(revision>0),template INTEGER NOT NULL,source_uid INTEGER NOT NULL,starts_at INTEGER NOT NULL,ends_at INTEGER NOT NULL,operation_id TEXT NOT NULL,PRIMARY KEY(owner,group_id))')
+        old=db.execute('SELECT revision FROM world_elixir_supplements WHERE owner=? AND group_id=?',(owner,group)).fetchone();revision=old[0]+1 if old else 1
+        if not 1<=revision<2**63:raise ValueError('Additional elixir revision overflow')
+        db.execute('INSERT INTO world_elixir_supplements VALUES(?,?,?,?,?,?,?,?) ON CONFLICT(owner,group_id) DO UPDATE SET revision=excluded.revision,template=excluded.template,source_uid=excluded.source_uid,starts_at=excluded.starts_at,ends_at=excluded.ends_at,operation_id=excluded.operation_id',(owner,group,revision,template,source,start,end,operation))
+    else:
+        old=db.execute('SELECT revision FROM world_elixir_state WHERE owner=?',(owner,)).fetchone();revision=old[0]+1 if old else 1
+        if not 1<=revision<2**63:raise ValueError('Ordinary elixir revision overflow')
+        db.execute('INSERT INTO world_elixir_state VALUES(?,?,?,?,?,?,?) ON CONFLICT(owner) DO UPDATE SET revision=excluded.revision,template=excluded.template,source_uid=excluded.source_uid,starts_at=excluded.starts_at,ends_at=excluded.ends_at,operation_id=excluded.operation_id',(owner,revision,template,source,start,end,operation))
+
 
 def snapshot(path,owner,account_id,*,now=None):
     now=_clock(now)
@@ -97,12 +136,13 @@ def use(path,owner,account_id,payload,operation,prepare,*,now=None):
         require_current(item,now=now);require_unlocked(item,now=now)
         level=db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()[0]
         if level<catalog()[item['template']].get('minimum_level',0):raise ValueError('Elixir level requirement')
-        if additional==1 and state['rows']:
+        if additional==1 and any(_group(r['template'])==_group(item['template'])for r in state['rows']):
             # No DDL/receipt/expiry cleanup: the original confirmation is 0-write.
             return dict(events=[use_ack(result=403)],state=state,replayed=False,result=403)
         if state['revision']>=2**63-1:raise ValueError('Elixir revision overflow')
         after=dict(item,count=item['count']-1)if item['count']>1 else None
-        new=dict(owner=owner,revision=state['revision']+1,rows=[dict(owner=owner,template=item['template'],source_uid=item_uid,start=now,end=now+catalog()[item['template']]['period_seconds'])])
+        row=dict(owner=owner,template=item['template'],source_uid=item_uid,start=now,end=now+catalog()[item['template']]['period_seconds'])
+        new=dict(owner=owner,revision=state['revision']+1,rows=sorted([r for r in state['rows']if _group(r['template'])!=_group(item['template'])]+[row],key=lambda r:(_group(r['template']),r['template'])))
         remaining=[after if i['uid']==item_uid else i for i in items if i['uid']!=item_uid or after]
         # Preflight the exact ACK and canonical full-set notification inside
         # this transaction. Encoder/profile failure cannot consume a stack.
@@ -114,28 +154,31 @@ def use(path,owner,account_id,payload,operation,prepare,*,now=None):
         else:
             from els_server.storage.item_instances import remove
             remove(db,owner,item)
-        db.execute('INSERT INTO world_elixir_state VALUES(?,?,?,?,?,?,?) ON CONFLICT(owner) DO UPDATE SET revision=excluded.revision,template=excluded.template,source_uid=excluded.source_uid,starts_at=excluded.starts_at,ends_at=excluded.ends_at,operation_id=excluded.operation_id',(owner,new['revision'],item['template'],item_uid,now,new['rows'][0]['end'],operation))
+        _put(db,owner,item['template'],item_uid,now,row['end'],operation)
         _commit(db,operation,digest,owner,0x219,[(item['group'],item['slot'])],[item],[after]if after else [])
         return dict(events=events,state=new,replayed=False,result=0)
 
 def expire(path,owner,account_id,prepare,*,now=None):
     now=_clock(now)
-    # The ordinary idle path is read-only; do not acquire a writer every second.
+    def due(db):
+        ordinary=bool(_exists(db,'world_elixir_state')and db.execute('SELECT 1 FROM world_elixir_state WHERE owner=? AND template!=0 AND ends_at<=?',(owner,now)).fetchone())
+        supplements=bool(_exists(db,'world_elixir_supplements')and db.execute('SELECT 1 FROM world_elixir_supplements WHERE owner=? AND template!=0 AND ends_at<=?',(owner,now)).fetchone())
+        return ordinary or supplements
     with closing(sqlite3.connect(path,timeout=10))as probe:
         probe.execute('BEGIN');_owner(probe,owner,account_id)
-        if not _exists(probe,'world_elixir_state'):return None
-        due=probe.execute('SELECT 1 FROM world_elixir_state WHERE owner=? AND template!=0 AND ends_at<=?',(owner,now)).fetchone()
-        if not due:return None
+        if not due(probe):return None
     with closing(sqlite3.connect(path,timeout=10))as db,db:
-        db.execute('BEGIN IMMEDIATE');_owner(db,owner,account_id);state=_state(db,owner,now)
-        if not state['revision']or state['rows']:return None
-        old=db.execute('SELECT template,ends_at FROM world_elixir_state WHERE owner=?',(owner,)).fetchone()
-        if not old or not old[0]or now<old[1]:return None
-        if state['revision']>=2**63-1:raise ValueError('Elixir revision overflow')
-        state=dict(state,revision=state['revision']+1);events=prepare(db,state,None)
+        db.execute('BEGIN IMMEDIATE');_owner(db,owner,account_id)
+        if not due(db):return None
+        _state(db,owner,now)  # Validate every original receipt before cleanup.
+        if _exists(db,'world_elixir_state'):
+            db.execute("UPDATE world_elixir_state SET revision=revision+1,template=0,source_uid=0,starts_at=0,ends_at=0,operation_id='' WHERE owner=? AND template!=0 AND ends_at<=?",(owner,now))
+        if _exists(db,'world_elixir_supplements'):
+            db.execute("UPDATE world_elixir_supplements SET revision=revision+1,template=0,source_uid=0,starts_at=0,ends_at=0,operation_id='' WHERE owner=? AND template!=0 AND ends_at<=?",(owner,now))
+        state=_state(db,owner,now);events=prepare(db,state,None)
         for event in events:encode_event(event)
-        db.execute("UPDATE world_elixir_state SET revision=?,template=0,source_uid=0,starts_at=0,ends_at=0,operation_id='' WHERE owner=?",(state['revision'],owner))
         return dict(events=events,state=state)
+
 
 def notice(path,owner,account_id,prepare,*,now=None):
     now=_clock(now)

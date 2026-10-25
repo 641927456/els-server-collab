@@ -6,7 +6,7 @@ from els_server.game_data import CLIENT_SHA,client_data
 @functools.lru_cache(maxsize=1)
 def catalog():
     raw=(Path(__file__).resolve().parents[1]/'data/consumable_extensions.json').read_bytes()
-    if hashlib.sha256(raw).hexdigest()!='1e71a298d33d1ee0bb9a757162e96232d1a86e965172561afa5d1bef931ac937':raise ValueError('Consumable extension identity')
+    if hashlib.sha256(raw).hexdigest()!='12f8e2347f1544c0d93eff08c77dc1a6080789c6b90a92e19ecee2d8782d452c':raise ValueError('Consumable extension identity')
     data=json.loads(raw)
     if data['schema']!=1 or data['client_sha256']!=CLIENT_SHA or not data['owned_use_only'] or data['new_acquisition_sources']:raise ValueError('Consumable extension scope')
     out={}

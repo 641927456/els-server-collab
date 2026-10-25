@@ -32,7 +32,7 @@ def dungeon_rewards(dungeon_id):
     drop=rule['world_drop']
     # Legacy bag-item plan remains pinned; native immediate food/currency
     # use ground_loot below and never pass through inventory grants.
-    if drop!={'template':77000,'quantity':1}:
+    if drop is not None:
         raise ValueError('World-drop pickup schema requires additional native verification')
     chances=rule['drop_chances']
     if set(chances)!={'ordinary','boss','chest'}:raise ValueError('Drop source categories')
@@ -41,7 +41,7 @@ def dungeon_rewards(dungeon_id):
                 or not 0<=pair[0]<=pair[1] or not 1<=pair[1]<=1000000):raise ValueError('Drop chance bounds')
     return dict(clear_ed=rule['clear_ed'],clear_experience=rule['clear_experience'],
                 clear_items=[item_plan(**v) for v in rule['clear_items']],
-                world_drop=item_plan(drop['template'],drop['quantity']),provenance='local_policy')
+                world_drop=None,provenance='local_policy')
 
 
 def ground_loot(dungeon_id,npc,run_id,stage,clear_key):
@@ -69,7 +69,7 @@ def ground_loot(dungeon_id,npc,run_id,stage,clear_key):
             raise ValueError('Unverified ground ED policy')
         from els_server.domain.gm_rates import allow_drop
         if allow_drop(run_id,dungeon_id,stage,npc['key']):
-            drops.append(dict(template=coin['template'],ed=coin['amount'],quantity=0))
+            drops.append(dict(template=coin['template'],ed=__import__('els_server.domain.formal_pve_economy',fromlist=['coin']).coin(dungeon_id,stage==2 and npc['key']==clear_key,coin['amount']),quantity=0))
     if pool and should_drop(dungeon_id,npc,run_id,stage,clear_key):
         seed=uuid.UUID(run_id).bytes+f':food:{dungeon_id}:{stage}:{npc["key"]}'.encode()
         template=pool[int.from_bytes(hashlib.sha256(seed).digest(),'big')%len(pool)]

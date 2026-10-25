@@ -36,7 +36,7 @@ def _checked(s,*,dispatcher=None,room=None,claim=False):
     paths=set()
     for member in room.members:
         account=member.account
-        if (member.application is not app or member not in dispatcher.world.members
+        if (member.application is not app or member in dispatcher.world.members
                 or dispatcher.world.party_of.get(member) is not room.party
                 or dispatcher.room(member) is not room or not current_lease(member)
                 or member.dungeon_run.run_id!=room.seed or account.store is None or account.store.uid!=account.uid
@@ -75,7 +75,7 @@ def _clear_claim_checked(s):
     app=s.application;dispatcher=app.world.dungeons;room=dispatcher.room(s);run=s.dungeon_run
     if (not isinstance(dispatcher,FriendsDungeons) or dispatcher.world is not app.world
             or not isinstance(room,Room) or room.identity!=34320 or room.phase!='clear'
-            or not 2<=len(room.members)<=4 or s not in room.members or s not in app.world.members
+            or not 2<=len(room.members)<=4 or s not in room.members or s in app.world.members
             or room.party.get('run') is not room or room.party.get('difficulty',0)!=0 or room.party.get('mode',0)!=0
             or any(room.party.get(k) for k in ('raid_party','challenge','challenge_pending','solo_challenge'))
             or not current_lease(s) or not app.registry.enabled(s.account.account_id)
@@ -193,7 +193,7 @@ def claim_guard(s):
 
 def accepted_death(dispatcher,room,s,event,*,randbelow=secrets.randbelow):
     if room.identity!=34320 or not 2<=len(room.members)<=4 or s.dungeon_run is None:return None
-    from els_server.domain.dungeon_lifecycle import death_report,death_ack,empty_reward_death_notice
+    from els_server.domain.dungeon_lifecycle import death_report,death_ack,empty_reward_death_notice,experience_death_notice
     try:death=death_report(event.payload)
     except ValueError:return []
     run=s.dungeon_run;npc=next((n for n in run.current['npcs'] if n['key']==death['index']),None)
@@ -241,11 +241,17 @@ def accepted_death(dispatcher,room,s,event,*,randbelow=secrets.randbelow):
                 c=identity(member,npc['key']);shadow=staged[member]
                 witness=dict(kind='kill',dungeon=34320,npc=npc['template'],level=characters[member]['level'])
                 notices=store(member).record(base,witness,event.payload,validate=validate,transaction=db)
-                amount=local_rule['boss_ed']
+                amount=__import__('els_server.domain.formal_pve_economy',fromlist=['coin']).coin(34320,True,local_rule['boss_ed'])
+                xp=None
+                def accepted_effect(writer,replayed):
+                    nonlocal xp
+                    from els_server.storage.legacy_pve_exp import commit
+                    from els_server.domain.legacy_pve_exp import identity as experience_identity
+                    xp=commit(writer,member.account.reward_store,experience_identity(member,npc),event.payload,death['killer'],require_existing=replayed)
                 legacy=[dict(template=local_rule['coin_template'],quantity=0,ed=amount,option_groups={})] if amount and allow_drop(member.reward_run_id,34320,(run.stage,run.part),npc['key'],True) else []
                 def prepare(rows,replayed):
                     reply=[death_ack()] if member is s else []
-                    if not replayed:reply.append(empty_reward_death_notice(npc['key'],death['killer']))
+                    if not replayed:reply.append(experience_death_notice(npc['key'],death['killer'],member.account.uid,xp['experience']))
                     world=dict(member.world_drops)
                     for row in rows:
                         old=world.get(row['drop_id'])
@@ -259,7 +265,7 @@ def accepted_death(dispatcher,room,s,event,*,randbelow=secrets.randbelow):
                     return dict(reply=reply,world=world,sequence=max([member.world_drop_sequence,*[r['drop_id']+1 for r in rows]]),last=dict(rows[-1]) if rows else member.world_drop_issued)
                 from els_server.domain.fishing_bait_loot import source as bait_source
                 issued=storage.issue(bound[3],c,event.payload,True,member.world_drop_sequence,death['xyz'][3:],legacy,prepare,
-                    randbelow=randbelow,account_id=member.account.account_id,transaction=db,bait=bait_source(member,next(n for n in member.dungeon_run.current['npcs'] if n['key']==npc['key']),dispatcher=dispatcher,room=room))
+                    randbelow=randbelow,account_id=member.account.account_id,transaction=db,accepted_effect=accepted_effect,bait=bait_source(member,next(n for n in member.dungeon_run.current['npcs'] if n['key']==npc['key']),dispatcher=dispatcher,room=room))
                 issues[member]=issued;deliveries[member]=issued['reply']
             boxes=_prepared_boxes([(member,deliveries[member]) for member in room.members if member is not s],deliveries[s])
             validate(db)

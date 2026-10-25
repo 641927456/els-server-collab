@@ -389,7 +389,9 @@ class LocalSession:
                 notice=ground_pickup_notice(drop['drop_id'],self.account.uid,template=drop['template'],ed=drop['ed'])
                 receipt=self.account.reward_store.grant(receipt_id,proof,drop['ed'],0,response_builder=lambda balances:notice.payload)
             else:
-                receipt=self.account.reward_store.grant(receipt_id,proof,0,0,item_plan=[dungeon_rewards(30000)['world_drop']],inventory_response_builder=lambda balances,items:pickup_inventory_notice(items).payload)
+                legacy_plan=dungeon_rewards(30000)['world_drop']
+                if legacy_plan is None:return [Event(0x201,kind=0xd1,payload=i32(-1))]
+                receipt=self.account.reward_store.grant(receipt_id,proof,0,0,item_plan=[legacy_plan],inventory_response_builder=lambda balances,items:pickup_inventory_notice(items).payload)
         except InventoryFull:return [Event(0x201,kind=0xd1,payload=i32(-1))]
         drop['pickup_committed']=True
         self.pickup_receipt={'run_id':receipt_id,'dungeon_run_id':self.reward_run_id,'drop_id':drop['drop_id'],**receipt}
@@ -474,6 +476,9 @@ class LocalSession:
                          character=self.account.character() if self.account.account_id!=1 else None)
 
     def _handle(self,event,request_sequence=None):
+        from els_server.domain.pve_economy_flow import solo as ordinary_economy
+        ordinary_reply=ordinary_economy(self,event)
+        if ordinary_reply is not None:return ordinary_reply
         from els_server.domain.raid_reward_flow import handle as raid_reward_handle
         raid_reward_reply=raid_reward_handle(self,event,request_sequence)
         if raid_reward_reply is not None:return raid_reward_reply
@@ -492,6 +497,12 @@ class LocalSession:
         from els_server.domain.skill_page_shop_flow import handle as skill_page_shop_handle
         skill_page_shop_reply=skill_page_shop_handle(self,event,request_sequence)
         if skill_page_shop_reply is not None:return skill_page_shop_reply
+        from els_server.domain.teacher_elixir_boxes import handle as teacher_elixir_handle
+        teacher_elixir_reply=teacher_elixir_handle(self,event,request_sequence)
+        if teacher_elixir_reply is not None:return teacher_elixir_reply
+        from els_server.domain.life_potions_existing import handle as life_potion_handle
+        life_potion_reply=life_potion_handle(self,event,request_sequence)
+        if life_potion_reply is not None:return life_potion_reply
         from els_server.domain.erp_potion_flow import handle as erp_potion_handle
         erp_potion_reply=erp_potion_handle(self,event,request_sequence)
         if erp_potion_reply is not None:return erp_potion_reply
@@ -775,7 +786,9 @@ class LocalSession:
                         if self.reward_run_id is None or 0 not in self.defeated_npcs:raise SessionOrderError('Reward clear outside an allocated and verified run')
                         from els_server.domain.dungeon_clear import reward_clear_notice,LOCAL_CLEAR_ED,LOCAL_CLEAR_EXPERIENCE,clear_identity_payload
                         from els_server.domain.gm_rates import clear_experience
-                        gm_experience=clear_experience(self,LOCAL_CLEAR_EXPERIENCE)
+                        supply=getattr(self,'_pve_clear_supply',None)
+                        if supply is not None and(supply['owner']is not self or supply['transaction']is not getattr(self,'reward_transaction',None)or not supply['transaction'].in_transaction or not getattr(self,'_pve_internal',False)):raise ValueError('Ordinary El Tree original clear writer')
+                        gm_experience=supply['experience']if supply is not None else clear_experience(self,LOCAL_CLEAR_EXPERIENCE)
                         proof=b'local-clear-v1'+struct.pack('>Qiii',self.account.uid,30000,2,5)+self.defeated_npcs[0]+event.payload
                         # Failures leave clear_notified false. A retry uses the
                         # same UUID and either retries or reads its saved C1.
@@ -789,8 +802,8 @@ class LocalSession:
                         # potion body. World drops and C1 item-choice fields remain
                         # separate work; this grants a durable real bag item.
                         from els_server.domain.reward_rules import dungeon_rewards
-                        item_plan=(dungeon_rewards(30000)['clear_items'] or None) if self.item_test else None
-                        receipt=self.account.reward_store.grant(self.reward_run_id,proof,LOCAL_CLEAR_ED,gm_experience,encode_grant,item_plan=item_plan,dungeon_clear=(30000,elapsed),title_economy='clear',attendance_clear=self.activity2026_awards.prepare_clear(self) if self.activity2026_awards is not None else None)
+                        item_plan=(supply['plan']or None)if supply is not None else ((dungeon_rewards(30000)['clear_items'] or None) if self.item_test else None)
+                        receipt=self.account.reward_store.grant(self.reward_run_id,proof,LOCAL_CLEAR_ED,gm_experience,encode_grant,item_plan=item_plan,dungeon_clear=(30000,elapsed),title_economy='clear',attendance_clear=self.activity2026_awards.prepare_clear(supply['original_session']if supply is not None else self) if self.activity2026_awards is not None else None,transaction=getattr(self,'reward_transaction',None),experience_limit=__import__('els_server.domain.legacy_pve_exp',fromlist=['experience_limit']).experience_limit()if supply is not None else None,resonance_source='clear'if supply is not None else None,raid_reward_source=supply['source']if supply is not None else None)
                         self.reward_receipt={'run_id':self.reward_run_id,**receipt}
                         if self.item_test and receipt.get('items') and not self.clear_items_synced:
                             # D3 records real acquisitions in Game+16D8. Send
@@ -798,7 +811,7 @@ class LocalSession:
                             # Refresh counts from storage if recovering a receipt.
                             from els_server.domain.dungeon_drops import pickup_inventory_notice
                             ids={i['uid'] for i in receipt['items']}
-                            updates=[i for i in self.account.get_inventory_snapshot()['items'] if i['uid'] in ids]
+                            updates=receipt['items']if supply is not None else [i for i in self.account.get_inventory_snapshot()['items'] if i['uid'] in ids]
                             reply.append(pickup_inventory_notice(updates))
                             self.clear_items_synced=True
                         reply.append(Event(0x201,kind=0xc1,payload=clear_identity_payload(receipt['response'],30000)))
@@ -1869,6 +1882,9 @@ class LocalSession:
                 self.dungeon_failed=False
                 self.dungeon_participants=frozenset((self.account.uid,))
                 self.reward_run_id=run_id if self.reward_test else None;self.reward_receipt=None;self.clear_items_synced=False
+
+                from els_server.domain.pve_economy_flow import bind_story
+                bind_story(self)
 
                 self._c1_hp_context=hp_context
 

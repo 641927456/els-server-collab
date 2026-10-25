@@ -523,6 +523,13 @@ for _row in _mirror_definitions():
  VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
 
 def validate_item(item):
+ if isinstance(item,dict)and item.get('template')in(135952,135953,135954,135955):
+  from els_server.domain.life_potions_existing import _ExistingLifePotion,validate_existing
+  if type(item)is _ExistingLifePotion:return validate_existing(item)
+  if item['template']!=135953:raise ValueError('Life potion requires owned SQL reader')
+ if isinstance(item,dict)and item.get('template')in(715920,718310):
+  from els_server.domain.teacher_elixir_boxes import validate_existing
+  return validate_existing(item)
  if isinstance(item,dict) and item.get('template')in range(136161,136172):
   from els_server.domain.fish_exchange_erp import _IssuedPotion,validate_issued
   if type(item)is _IssuedPotion:return validate_issued(item)
@@ -824,6 +831,14 @@ for _row in _consumable_extensions():
   if (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS.get(_t))!=(_row['metadata'],_row['group']):raise ValueError('Conflicting consumable extension')
  else:
   VERIFIED_TEMPLATES[_t]=_row['metadata'];TEMPLATE_BAG_GROUPS[_t]=_row['group'];TEMPLATE_MAX_STACKS[_t]=max(_row['max_stack'],LOCAL_MAX_STACK)if _row['max_stack']>1 else 1
+
+# Five current native material bundles. Their producer and original owned-use
+# consumer are qualified together; generic acquisition stays source-closed.
+from els_server.domain.formal_pve_economy import policy as native_ordinary_bundle_policy
+for _bundle_id in native_ordinary_bundle_policy()['new_reader_ids']:
+ _bundle=native_ordinary_bundle_policy()['items'][str(_bundle_id)];_expected=tuple(_bundle[k]for k in('metadata','group','max_stack'))
+ if _bundle_id in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_bundle_id],TEMPLATE_BAG_GROUPS[_bundle_id],TEMPLATE_MAX_STACKS[_bundle_id])!=_expected:raise ValueError('Conflicting native ordinary bundle reader')
+ VERIFIED_TEMPLATES[_bundle_id],TEMPLATE_BAG_GROUPS[_bundle_id],TEMPLATE_MAX_STACKS[_bundle_id]=_expected
 
 # Eight exact current Ariel reward/coupon readers. Keep all established tuples.
 from els_server.domain.ariel_attendance_rules import definitions as ariel_attendance_definitions
