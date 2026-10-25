@@ -136,3 +136,22 @@ def ticket_information(payload):
 def color_notification(action,uid,template,colors,flag=0,previous=0):
     if action not in (0,1,2,3)or len(colors)!=3:raise ValueError('Dye notification')
     return Event(0x201,kind=0xad5,payload=struct.pack('>iQiIiiiBQ',action,uid,template,3,*colors,flag,previous))
+
+def opening_request(payload):
+    # Original inventory/shortcut uses house0 and UI type43 -> selector3.
+    if payload!=struct.pack('>ii',0,3):raise ValueError('Wardrobe opening house/selector')
+
+def opening_information(temporary_registration_bans=()):
+    """2302830 full51D: result,house,setA,setB,mapC,setD,selector,mapE.
+
+    Selector3 consumes only setD, then shows the original wardrobe. Other
+    branch containers are inapplicable; owned registry remains original31.
+    Current profile has no extra temporary UI registration prohibitions.
+    Existing writer qualification, ownership and transactions stay unchanged.
+    """
+    values=tuple(temporary_registration_bans)
+    if (len(values)>72885 or values!=tuple(sorted(set(values)))
+        or any(type(v)is not int or not 0<v<2**31 for v in values)):
+        raise ValueError('Wardrobe temporary UI restrictions')
+    return Event(0x201,kind=0x51d,payload=struct.pack('>iiIII',0,0,0,0,0)
+        +struct.pack('>I',len(values))+b''.join(struct.pack('>i',v)for v in values)+struct.pack('>iI',3,0))
