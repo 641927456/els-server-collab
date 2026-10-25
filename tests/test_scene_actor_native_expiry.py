@@ -1,4 +1,4 @@
-"""Class-103 scene actors retire through the generic AD path, active or not.
+"""Every source-declared actor retires through the generic AD path, active or not.
 
 LITHIA_MEMORY2_FLOWER is source-declared ISACTIVE but the client retires it
 with the native 255 report. Rejecting that report left the flowers' actors
@@ -33,8 +33,8 @@ def npc(key,template,hp,active=True):
 
 
 def fixture(actor):
-    run=NS(identity=35260,run_id='scene-expiry',stage=0,part=1,
-           current={'npcs':[actor]},defeated={},next=None,ready_at=None)
+    run=NS(identity=35260,run_id='scene-expiry',stage=0,part=1,graph={'source_sha256':''},
+           current={'npcs':[actor]},defeated={},retreated=set(),next=None,ready_at=None)
     session=NS(dungeon_run=run,account=NS(uid=OWNER),role='game',phase='dungeon_active',
                dungeon_substage_synced=True,clear_notified=False,part_end_notified=True,
                dungeon_participants=frozenset((OWNER,)),reward_run_id=run.run_id,reward_transaction=None,
@@ -74,12 +74,17 @@ class SceneActorNativeExpiry(unittest.TestCase):
         self.assertEqual([e.kind for e in reply],[0xae,0xaf])
         self.assertEqual(set(run.defeated),{0})
 
-    def test_combat_actor_still_rejects_native_expiry(self):
+    def test_combat_actor_also_retires_on_a_valid_native_expiry(self):
+        # Admission is the packet shape, not the actor class: 35320's Drosera and
+        # platform bugs are class 0 and strand their rooms when refused.
         self.assertFalse(scene_controller(9312))
         actor=npc(0,9312,800,active=True)
         s,run=fixture(actor)
-        self.assertEqual(call(s,Event(0x202,performers=(0,),kind=0xad,payload=native255(0,800))),[])
-        self.assertFalse(run.defeated)
+        reply=call(s,Event(0x202,performers=(0,),kind=0xad,payload=native255(0,800)))
+        self.assertEqual([e.kind for e in reply],[0xae,0xaf])
+        self.assertEqual(set(run.defeated),{0})
+        self.assertFalse(actor['active'])
+        self.assertFalse(s.clear_notified)
 
     def test_source_pinned_controller_is_not_consumed_by_generic_path(self):
         actor=npc(18,9324,1000,active=True)

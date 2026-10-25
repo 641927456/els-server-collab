@@ -169,6 +169,26 @@ class GameServer:
                 if event.event_id==0x202 and event.kind==0x7d4 and len(event.payload)==8:
                     entry_mode,dungeon=struct.unpack('>ii',event.payload)
                     entry_fields=dict(entry_mode=entry_mode,dungeon=dungeon)
+                # Cube open/preview diagnostics: parsed fields only, never raw bytes.
+                # A parse_error here means the codec grammar and this client disagree.
+                if event.event_id==0x202 and event.kind==0x559:
+                    from els_server.protocol.ice_messages import preview_request
+                    try:
+                        preview=preview_request(event.payload)
+                        entry_fields=dict(entry_fields,cube_preview=dict(template=preview.template,
+                            keys=len(preview.keys),flag1=preview.flag1,flag2=preview.flag2))
+                    except ValueError:
+                        entry_fields=dict(entry_fields,cube_preview=dict(
+                            parse_error=True,length=len(event.payload)))
+                elif event.event_id==0x202 and event.kind==0x196:
+                    from els_server.protocol.ice_messages import use_request
+                    try:
+                        opened=use_request(event.payload)
+                        entry_fields=dict(entry_fields,cube_use=dict(uid=opened.uid,
+                            choices=len(opened.choices),option=opened.option))
+                    except ValueError:
+                        entry_fields=dict(entry_fields,cube_use=dict(
+                            parse_error=True,length=len(event.payload)))
                 run=getattr(business,'dungeon_run',None)
                 if (event.event_id==0x202 and event.kind==0xad and run is not None
                         and run.identity==35250

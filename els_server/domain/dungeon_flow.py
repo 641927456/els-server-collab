@@ -7,6 +7,48 @@ from els_server.protocol.protocol_codec import Event
 from els_server.domain.dungeon_lifecycle import death_report,death_ack,empty_reward_death_notice,part_end_notice
 from els_server.domain.reward_rules import item_plan
 
+# A story boss can leave the field at a scripted HP phase instead of dying, and the
+# client performs that exit locally. That leaves the room's sentinel 9452 (1000 HP)
+# untouched, and the client never reports it, so nothing the server accepts can
+# satisfy the room's kind-3 condition. All three LITHIA_MEMORY8 routes end in the
+# same room: 35320 stage3 part0 (session 20261025-203712: the room's 8 accepted 0xad
+# deaths are all its own dynamic 9432 wave, each corpse destroyed ~3.88s later, key 0
+# (9431) went 5000 -> 0 -> 2995 and walked onto the upper platform, and 9452 stayed at
+# 1000 until the run was abandoned), 35322 stage0 part0 (session 20261025-220926: the
+# wave spawns and dies 14:10:48-59, 9452 at 1000, no 0xba), and 35321 stage2 part0
+# (same room shape). In 20261025-212603 the client shows its own 「右边的大门打开了」
+# banner once the wave is gone. The client authenticates only the wave it spawns
+# itself through 0x2ce, so the last accepted death of that wave retires the sentinel
+# the room names. Retreated is not defeated: no quest, loot or EXP.
+WAVE_RETREATS=((35320,'696e2f7ad0e4685ea9dea807e03bf7eb54a953c7d9b08453deae8bb0dcba79e3',3,0,9432,(9452,)),
+               (35321,'1861ded3d8a7e8d67475e98a27449215227de7b19f907f3943675fa9ddad4e16',2,0,9432,(9452,)),
+               (35322,'d110b77689c39fd9db46b26c8ae24894bb2bdb747fb4aea53ab2f4e2f3f36050',0,0,9432,(9452,)))
+
+def wave_retreat(run,npc):
+ if not npc.get('dynamic'):return ()
+ for dungeon,graph_sha,stage,part,wave,sentinels in WAVE_RETREATS:
+  if ((run.identity,run.graph['source_sha256'],run.stage,run.part,npc['template'])
+      !=(dungeon,graph_sha,stage,part,wave)):continue
+  members=[n['key'] for n in run.current['npcs']
+           if n.get('dynamic') and n['template']==wave]
+  if (members and all(k in run.defeated or k in run.retreated for k in members)
+      and any(t['kind']==4 for c in run.current['conditions'] for t in c['next'])):return sentinels
+ return ()
+
+def end_room_retreat_only(run):
+ """The end room's kind 3 sentinel only left through the wave retreat.
+
+ Its source script retires it after the fight the opened gate leads to; the
+ wave that cleared the room produced the gate notice, not the ending. Answering
+ the part request here ends the run before that fight happens.
+ """
+ for c in run.current['conditions']:
+  if not any(t['kind']==4 for t in c['next']) or c['kind']!=3 or not run.condition_ready(c):continue
+  keys=[n['key'] for n in run.current['npcs'] if n['template'] in c['required']]
+  if keys and all(k in run.defeated or k in run.retreated for k in keys):
+   return any(k in run.retreated and k not in run.defeated for k in keys)
+ return False
+
 @functools.lru_cache(maxsize=1)
 def local_rewards():
  r=json.loads((PROJECT_ROOT/'config/dungeon_local_rules.json').read_text(encoding='utf8'))
@@ -68,23 +110,28 @@ def handle(s,event):
   # death payload; hostile combat actors retain participant-only identity.
   scripted=npc is not None and not npc['active'] and (npc['no_drop'] or npc.get('ally'))
   from els_server.domain.summons import valid_sentry_death
-  # Declared scene controllers (class 103 .lua objects with ISACTIVE=false)
-  # retire through the same native expiry packet: no killer, no damage, and a
-  # readiness map that only names the owner. The pinned route graph does not
-  # set no_drop/ally on them, and they are not client-created, so neither
-  # branch above covers them - their report used to be dropped without an
-  # acknowledgement, which leaves the client waiting on an actor that is
-  # already gone. Retiring the actor here grants nothing: quest progress and
-  # rewards stay with the source-bound specialists that run before this one.
-  from els_server.domain.dungeon_spawns import scene_controller
   from els_server.domain.story_controller_retirements import source_pinned
-  # Class-103 Lua objects may be source-declared active and still self-retire
-  # (LITHIA_MEMORY2_FLOWER reports native 255); the class, not ISACTIVE, decides.
-  # Source-pinned controllers stay on the strict rule path and are excluded here.
-  scene=(npc is not None and not npc.get('dynamic') and scene_controller(npc['template'])
-         and not source_pinned(run,npc))
+  # A source-declared actor that has left the field still has to clear out of the
+  # part's condition. Its client removes it and reports the death with no killer,
+  # no contribution and no counters - the native 255 expiry packet - and refusing
+  # that packet strands the room, because nothing else will ever report that key.
+  # Nothing declares which actor leaves the field, so this cannot be an enumerated
+  # allow-list; valid_sentry_death is what keeps the packet honest. Observed three
+  # ways in the same family: LITHIA_MEMORY2_FLOWER self-retires by script (barrier
+  # 9324, class 103), one of 35320 stage1 part0's five LITHIA_MEMORY8_PLANT_DROSERA
+  # expires once the player kills the other four (session 20261025-165751, request
+  # 5511), and two of 35320 stage0 part1's four LITHIA_MEMORY8_BUG are knocked off
+  # the platform and die below the world at full HP with no killer (session
+  # 20261025-193058, requests 475 and 481; their corpses stayed in the client's
+  # actor list until the run was abandoned). Both are combat class, so the earlier
+  # class-based test could not cover either.
+  # Actors that a retirement rule names stay on that rule's strict path, so a
+  # killerless packet can never take an objective's credit for free. Retiring here
+  # grants nothing: no drop, no experience, no quest progress, and the source-bound
+  # specialists above still own every reward.
+  expiry=(npc is not None and not npc.get('dynamic') and not source_pinned(run,npc))
   expired=((npc is not None and npc.get('dynamic') and valid_sentry_death(d,s.account.uid))
-           or (scene and valid_sentry_death(d,s.account.uid)))
+           or (expiry and valid_sentry_death(d,s.account.uid)))
   identities=participants|frozenset((0,2**64-1)) if scripted or expired else participants
   if (npc is None or not s.dungeon_substage_synced or event.performers!=(0,) or d['flag'] not in (0,1) and not expired
       or any(d[name] not in identities for name in ('source','killer','last_uid'))
@@ -128,6 +175,7 @@ def handle(s,event):
   source=(run.stage,run.part,run.visits)
   target=run.next
   if target['kind']==4:
+   if end_room_retreat_only(run):return reply
    run.completed_transition=dict(target=source,parts=(struct.pack('>b',run.part),))
    reply.extend(clear(s));return reply
   # Prepare the stage before committing the cursor so encoding failure does
@@ -151,6 +199,9 @@ def finish_death(s,event,npc,d,expired,notice):
  run=s.dungeon_run
  run.defeated[npc['key']]=bytes(event.payload);s.defeated_npcs=run.defeated
  if expired:npc['active']=False
+ retreated=wave_retreat(run,npc)
+ if retreated:
+  run.retreated.update(n['key'] for n in run.current['npcs'] if n['template'] in retreated)
  reply=[death_ack(),notice]
  if run.identity==38300 and npc['template']==1368:return reply+failed(s)
  if s.drop_probe and npc['active'] and not npc['no_drop'] and not npc.get('ally') and npc.get('team',1)!=0:

@@ -1,0 +1,1854 @@
+{
+ "schema_version": 1,
+ "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+ "source_catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+ "official_url": "https://elsword.nexon.com/News/Probability/View?n4ArticleSN=225",
+ "official_html_sha256": "b8df5914fc9a06d85a907f34ce54a21116ad15fba3d1a6ceedb972de16aca9a0",
+ "sources": [
+  {
+   "path": "analysis/sol-high-20261015/equipment-ui/official-probability-225.json",
+   "sha256": "9e9bcbfad45c2043cdd660f26eb3f10042f21db4ef6ab8632deae841bc1b927c"
+  },
+  {
+   "path": "analysis/sol-high-20261015/npc-bank-box/RandomItem.lua.tables.json",
+   "sha256": "618bacd86fa68ab92d40e8d98ce51da4d536e0f57c45801e3375704616e8699c"
+  }
+ ],
+ "definitions": [
+  {
+   "template": 130159,
+   "name": "魔奇BOSS宝箱",
+   "official_section": "루벤보스큐브",
+   "primary_group": 60343,
+   "alternate_group": 60353,
+   "selection_count": 0,
+   "random": true,
+   "grant_source": "regional_boss_cube",
+   "entries": [
+    {
+     "template": 30163,
+     "quantity": 1,
+     "name": "班德斯的项链",
+     "weight": 3300,
+     "official_name": "벤더스의 목걸이"
+    },
+    {
+     "template": 30164,
+     "quantity": 1,
+     "name": "巨猩王的尾巴",
+     "weight": 3300,
+     "official_name": "몽키킹의 꼬리"
+    },
+    {
+     "template": 30165,
+     "quantity": 1,
+     "name": "钢铁的犬齿",
+     "weight": 3400,
+     "official_name": "강철의 송곳니"
+    }
+   ],
+   "random_rule": {
+    "m_KeyItemID": 0,
+    "m_iGiveCount": -1,
+    "m_ItemID": 130159,
+    "m_RequiredKeyCount": 0,
+    "m_UseCondition": 2,
+    "1": {
+     "m_iItemGroupID": 60343,
+     "m_cUnitClass": 1
+    },
+    "2": {
+     "m_iItemGroupID": 60343,
+     "m_cUnitClass": 2
+    },
+    "3": {
+     "m_iItemGroupID": 60343,
+     "m_cUnitClass": 3
+    },
+    "4": {
+     "m_iItemGroupID": 60343,
+     "m_cUnitClass": 4
+    },
+    "5": {
+     "m_iItemGroupID": 60343,
+     "m_cUnitClass": 8
+    },
+    "6": {
+     "m_iItemGroupID": 60343,
+     "m_cUnitClass": 5
+    },
+    "7": {
+     "m_iItemGroupID": 60343,
+     "m_cUnitClass": 6
+    },
+    "8": {
+     "m_iItemGroupID": 60343,
+     "m_cUnitClass": 7
+    },
+    "9": {
+     "m_iItemGroupID": 60343,
+     "m_cUnitClass": 9
+    },
+    "10": {
+     "m_iItemGroupIDForMinorUnit": 60343,
+     "m_iItemGroupID": 60343,
+     "m_cUnitClass": 200
+    },
+    "11": {
+     "m_iItemGroupID": 60343,
+     "m_cUnitClass": 201
+    },
+    "12": {
+     "m_iItemGroupID": 60343,
+     "m_cUnitClass": 202
+    },
+    "13": {
+     "m_iItemGroupID": 60343,
+     "m_cUnitClass": 203
+    },
+    "14": {
+     "m_iItemGroupID": 60343,
+     "m_cUnitClass": 204
+    },
+    "15": {
+     "m_iItemGroupID": 60353,
+     "m_cUnitClass": 205
+    }
+   }
+  },
+  {
+   "template": 130160,
+   "name": "艾德BOSS宝箱",
+   "official_section": "엘더보스큐브",
+   "primary_group": 60344,
+   "alternate_group": 60354,
+   "selection_count": 0,
+   "random": true,
+   "grant_source": "regional_boss_cube",
+   "entries": [
+    {
+     "template": 30166,
+     "quantity": 1,
+     "name": "蝙蝠围巾",
+     "weight": 3300,
+     "official_name": "박쥐 머플러"
+    },
+    {
+     "template": 30167,
+     "quantity": 1,
+     "name": "班德斯的魔力项链",
+     "weight": 3300,
+     "official_name": "벤더스의 마력 목걸이"
+    },
+    {
+     "template": 30168,
+     "quantity": 1,
+     "name": "瓦利8号的核心",
+     "weight": 3400,
+     "official_name": "월리8호의 핵"
+    }
+   ],
+   "random_rule": {
+    "m_KeyItemID": 0,
+    "m_iGiveCount": -1,
+    "m_ItemID": 130160,
+    "m_RequiredKeyCount": 0,
+    "m_UseCondition": 2,
+    "1": {
+     "m_iItemGroupID": 60344,
+     "m_cUnitClass": 1
+    },
+    "2": {
+     "m_iItemGroupID": 60344,
+     "m_cUnitClass": 2
+    },
+    "3": {
+     "m_iItemGroupID": 60344,
+     "m_cUnitClass": 3
+    },
+    "4": {
+     "m_iItemGroupID": 60344,
+     "m_cUnitClass": 4
+    },
+    "5": {
+     "m_iItemGroupID": 60344,
+     "m_cUnitClass": 8
+    },
+    "6": {
+     "m_iItemGroupID": 60344,
+     "m_cUnitClass": 5
+    },
+    "7": {
+     "m_iItemGroupID": 60344,
+     "m_cUnitClass": 6
+    },
+    "8": {
+     "m_iItemGroupID": 60344,
+     "m_cUnitClass": 7
+    },
+    "9": {
+     "m_iItemGroupID": 60344,
+     "m_cUnitClass": 9
+    },
+    "10": {
+     "m_iItemGroupIDForMinorUnit": 60344,
+     "m_iItemGroupID": 60344,
+     "m_cUnitClass": 200
+    },
+    "11": {
+     "m_iItemGroupID": 60344,
+     "m_cUnitClass": 201
+    },
+    "12": {
+     "m_iItemGroupID": 60344,
+     "m_cUnitClass": 202
+    },
+    "13": {
+     "m_iItemGroupID": 60344,
+     "m_cUnitClass": 203
+    },
+    "14": {
+     "m_iItemGroupID": 60344,
+     "m_cUnitClass": 204
+    },
+    "15": {
+     "m_iItemGroupID": 60354,
+     "m_cUnitClass": 205
+    }
+   }
+  },
+  {
+   "template": 130161,
+   "name": "贝斯马BOSS宝箱",
+   "official_section": "베스마보스큐브",
+   "primary_group": 60345,
+   "alternate_group": 60355,
+   "selection_count": 0,
+   "random": true,
+   "grant_source": "regional_boss_cube",
+   "entries": [
+    {
+     "template": 30169,
+     "quantity": 1,
+     "name": "毒蝎护卫",
+     "weight": 3300,
+     "official_name": "스콜피온 가드"
+    },
+    {
+     "template": 30170,
+     "quantity": 1,
+     "name": "蕴含黑暗的头饰",
+     "weight": 3300,
+     "official_name": "어둠이 깃든 머리장식"
+    },
+    {
+     "template": 30171,
+     "quantity": 1,
+     "name": "贝罗克的胡须",
+     "weight": 3400,
+     "official_name": "베라우크의 수염"
+    }
+   ],
+   "random_rule": {
+    "m_KeyItemID": 0,
+    "m_iGiveCount": -1,
+    "m_ItemID": 130161,
+    "m_RequiredKeyCount": 0,
+    "m_UseCondition": 2,
+    "1": {
+     "m_iItemGroupID": 60345,
+     "m_cUnitClass": 1
+    },
+    "2": {
+     "m_iItemGroupID": 60345,
+     "m_cUnitClass": 2
+    },
+    "3": {
+     "m_iItemGroupID": 60345,
+     "m_cUnitClass": 3
+    },
+    "4": {
+     "m_iItemGroupID": 60345,
+     "m_cUnitClass": 4
+    },
+    "5": {
+     "m_iItemGroupID": 60345,
+     "m_cUnitClass": 8
+    },
+    "6": {
+     "m_iItemGroupID": 60345,
+     "m_cUnitClass": 5
+    },
+    "7": {
+     "m_iItemGroupID": 60345,
+     "m_cUnitClass": 6
+    },
+    "8": {
+     "m_iItemGroupID": 60345,
+     "m_cUnitClass": 7
+    },
+    "9": {
+     "m_iItemGroupID": 60345,
+     "m_cUnitClass": 9
+    },
+    "10": {
+     "m_iItemGroupIDForMinorUnit": 60345,
+     "m_iItemGroupID": 60345,
+     "m_cUnitClass": 200
+    },
+    "11": {
+     "m_iItemGroupID": 60345,
+     "m_cUnitClass": 201
+    },
+    "12": {
+     "m_iItemGroupID": 60345,
+     "m_cUnitClass": 202
+    },
+    "13": {
+     "m_iItemGroupID": 60345,
+     "m_cUnitClass": 203
+    },
+    "14": {
+     "m_iItemGroupID": 60345,
+     "m_cUnitClass": 204
+    },
+    "15": {
+     "m_iItemGroupID": 60355,
+     "m_cUnitClass": 205
+    }
+   }
+  },
+  {
+   "template": 130162,
+   "name": "厄泰拉BOSS宝箱",
+   "official_section": "알테라보스큐브",
+   "primary_group": 60346,
+   "alternate_group": 60356,
+   "selection_count": 0,
+   "random": true,
+   "grant_source": "regional_boss_cube",
+   "entries": [
+    {
+     "template": 30172,
+     "quantity": 1,
+     "name": "伤痕纹身",
+     "weight": 2500,
+     "official_name": "스카 타투"
+    },
+    {
+     "template": 30173,
+     "quantity": 1,
+     "name": "火之吊坠",
+     "weight": 2500,
+     "official_name": "불의 펜던트"
+    },
+    {
+     "template": 30174,
+     "quantity": 1,
+     "name": "水之吊坠",
+     "weight": 2500,
+     "official_name": "물의 펜던트"
+    },
+    {
+     "template": 30175,
+     "quantity": 1,
+     "name": "纳斯德之王的魔力核心",
+     "weight": 2500,
+     "official_name": "킹 나소드의 마력 코어"
+    }
+   ],
+   "random_rule": {
+    "m_KeyItemID": 0,
+    "m_iGiveCount": -1,
+    "m_ItemID": 130162,
+    "m_RequiredKeyCount": 0,
+    "m_UseCondition": 2,
+    "1": {
+     "m_iItemGroupID": 60346,
+     "m_cUnitClass": 1
+    },
+    "2": {
+     "m_iItemGroupID": 60346,
+     "m_cUnitClass": 2
+    },
+    "3": {
+     "m_iItemGroupID": 60346,
+     "m_cUnitClass": 3
+    },
+    "4": {
+     "m_iItemGroupID": 60346,
+     "m_cUnitClass": 4
+    },
+    "5": {
+     "m_iItemGroupID": 60346,
+     "m_cUnitClass": 8
+    },
+    "6": {
+     "m_iItemGroupID": 60346,
+     "m_cUnitClass": 5
+    },
+    "7": {
+     "m_iItemGroupID": 60346,
+     "m_cUnitClass": 6
+    },
+    "8": {
+     "m_iItemGroupID": 60346,
+     "m_cUnitClass": 7
+    },
+    "9": {
+     "m_iItemGroupID": 60346,
+     "m_cUnitClass": 9
+    },
+    "10": {
+     "m_iItemGroupIDForMinorUnit": 60346,
+     "m_iItemGroupID": 60346,
+     "m_cUnitClass": 200
+    },
+    "11": {
+     "m_iItemGroupID": 60346,
+     "m_cUnitClass": 201
+    },
+    "12": {
+     "m_iItemGroupID": 60346,
+     "m_cUnitClass": 202
+    },
+    "13": {
+     "m_iItemGroupID": 60346,
+     "m_cUnitClass": 203
+    },
+    "14": {
+     "m_iItemGroupID": 60346,
+     "m_cUnitClass": 204
+    },
+    "15": {
+     "m_iItemGroupID": 60356,
+     "m_cUnitClass": 205
+    }
+   }
+  },
+  {
+   "template": 130645,
+   "name": "沛塔BOSS宝箱",
+   "official_section": "페이타보스큐브",
+   "primary_group": 60347,
+   "alternate_group": 60357,
+   "selection_count": 0,
+   "random": true,
+   "grant_source": "regional_boss_cube",
+   "entries": [
+    {
+     "template": 30177,
+     "quantity": 1,
+     "name": "杜拉汉头部",
+     "weight": 1800,
+     "official_name": "듀라한 헤드"
+    },
+    {
+     "template": 30178,
+     "quantity": 1,
+     "name": "浮游石肩章",
+     "weight": 1800,
+     "official_name": "부유석 견장"
+    },
+    {
+     "template": 30179,
+     "quantity": 1,
+     "name": "束缚的铁链 -无名指-",
+     "weight": 1800,
+     "official_name": "속박의 쇠사슬-약지-"
+    },
+    {
+     "template": 30180,
+     "quantity": 1,
+     "name": "主人的花冠",
+     "weight": 1800,
+     "official_name": "주인의 화관"
+    },
+    {
+     "template": 30181,
+     "quantity": 1,
+     "name": "野性的纹章",
+     "weight": 1000,
+     "official_name": "야성의 문장"
+    },
+    {
+     "template": 30182,
+     "quantity": 1,
+     "name": "波尔德之尾",
+     "weight": 1800,
+     "official_name": "베르드의 꼬리"
+    }
+   ],
+   "random_rule": {
+    "m_KeyItemID": 0,
+    "m_iGiveCount": -1,
+    "m_ItemID": 130645,
+    "m_RequiredKeyCount": 0,
+    "m_UseCondition": 2,
+    "1": {
+     "m_iItemGroupID": 60347,
+     "m_cUnitClass": 1
+    },
+    "2": {
+     "m_iItemGroupID": 60347,
+     "m_cUnitClass": 2
+    },
+    "3": {
+     "m_iItemGroupID": 60347,
+     "m_cUnitClass": 3
+    },
+    "4": {
+     "m_iItemGroupID": 60347,
+     "m_cUnitClass": 4
+    },
+    "5": {
+     "m_iItemGroupID": 60347,
+     "m_cUnitClass": 8
+    },
+    "6": {
+     "m_iItemGroupID": 60347,
+     "m_cUnitClass": 5
+    },
+    "7": {
+     "m_iItemGroupID": 60347,
+     "m_cUnitClass": 6
+    },
+    "8": {
+     "m_iItemGroupID": 60347,
+     "m_cUnitClass": 7
+    },
+    "9": {
+     "m_iItemGroupID": 60347,
+     "m_cUnitClass": 9
+    },
+    "10": {
+     "m_iItemGroupIDForMinorUnit": 60347,
+     "m_iItemGroupID": 60347,
+     "m_cUnitClass": 200
+    },
+    "11": {
+     "m_iItemGroupID": 60347,
+     "m_cUnitClass": 201
+    },
+    "12": {
+     "m_iItemGroupID": 60347,
+     "m_cUnitClass": 202
+    },
+    "13": {
+     "m_iItemGroupID": 60347,
+     "m_cUnitClass": 203
+    },
+    "14": {
+     "m_iItemGroupID": 60347,
+     "m_cUnitClass": 204
+    },
+    "15": {
+     "m_iItemGroupID": 60357,
+     "m_cUnitClass": 205
+    }
+   }
+  },
+  {
+   "template": 131262,
+   "name": "拜德BOSS宝箱",
+   "official_section": "벨더보스큐브",
+   "primary_group": 60348,
+   "alternate_group": 60358,
+   "selection_count": 0,
+   "random": true,
+   "grant_source": "regional_boss_cube",
+   "entries": [
+    {
+     "template": 30183,
+     "quantity": 1,
+     "name": "黑暗钢铁手镯",
+     "weight": 1400,
+     "official_name": "다크스틸 브레슬릿"
+    },
+    {
+     "template": 30184,
+     "quantity": 1,
+     "name": "暗精灵的眼泪",
+     "weight": 1500,
+     "official_name": "다크 엘프의 눈물"
+    },
+    {
+     "template": 30185,
+     "quantity": 1,
+     "name": "背刀",
+     "weight": 1500,
+     "official_name": "백 나이프"
+    },
+    {
+     "template": 30186,
+     "quantity": 1,
+     "name": "格雷特战场护臂",
+     "weight": 1400,
+     "official_name": "글리터 배틀 암가드"
+    },
+    {
+     "template": 30187,
+     "quantity": 1,
+     "name": "炸弹傀儡",
+     "weight": 1400,
+     "official_name": "퍼핏 밤"
+    },
+    {
+     "template": 30188,
+     "quantity": 1,
+     "name": "斯普利冈羽毛头盔",
+     "weight": 1400,
+     "official_name": "스프리건 페더 스컬"
+    },
+    {
+     "template": 30189,
+     "quantity": 1,
+     "name": "黑暗鳞片",
+     "weight": 1400,
+     "official_name": "다크 스케일"
+    }
+   ],
+   "random_rule": {
+    "m_KeyItemID": 0,
+    "m_iGiveCount": -1,
+    "m_ItemID": 131262,
+    "m_RequiredKeyCount": 0,
+    "m_UseCondition": 2,
+    "1": {
+     "m_iItemGroupID": 60348,
+     "m_cUnitClass": 1
+    },
+    "2": {
+     "m_iItemGroupID": 60348,
+     "m_cUnitClass": 2
+    },
+    "3": {
+     "m_iItemGroupID": 60348,
+     "m_cUnitClass": 3
+    },
+    "4": {
+     "m_iItemGroupID": 60348,
+     "m_cUnitClass": 4
+    },
+    "5": {
+     "m_iItemGroupID": 60348,
+     "m_cUnitClass": 8
+    },
+    "6": {
+     "m_iItemGroupID": 60348,
+     "m_cUnitClass": 5
+    },
+    "7": {
+     "m_iItemGroupID": 60348,
+     "m_cUnitClass": 6
+    },
+    "8": {
+     "m_iItemGroupID": 60348,
+     "m_cUnitClass": 7
+    },
+    "9": {
+     "m_iItemGroupID": 60348,
+     "m_cUnitClass": 9
+    },
+    "10": {
+     "m_iItemGroupIDForMinorUnit": 60348,
+     "m_iItemGroupID": 60348,
+     "m_cUnitClass": 200
+    },
+    "11": {
+     "m_iItemGroupID": 60348,
+     "m_cUnitClass": 201
+    },
+    "12": {
+     "m_iItemGroupID": 60348,
+     "m_cUnitClass": 202
+    },
+    "13": {
+     "m_iItemGroupID": 60348,
+     "m_cUnitClass": 203
+    },
+    "14": {
+     "m_iItemGroupID": 60348,
+     "m_cUnitClass": 204
+    },
+    "15": {
+     "m_iItemGroupID": 60358,
+     "m_cUnitClass": 205
+    }
+   }
+  },
+  {
+   "template": 133471,
+   "name": "哈梅尔BOSS宝箱",
+   "official_section": "하멜보스큐브",
+   "primary_group": 60349,
+   "alternate_group": 60359,
+   "selection_count": 0,
+   "random": true,
+   "grant_source": "regional_boss_cube",
+   "entries": [
+    {
+     "template": 30190,
+     "quantity": 1,
+     "name": "高级黑暗之证",
+     "weight": 1400,
+     "official_name": "높은 어둠의 증표"
+    },
+    {
+     "template": 30191,
+     "quantity": 1,
+     "name": "蓝色鳞片",
+     "weight": 1500,
+     "official_name": "블루 스케일"
+    },
+    {
+     "template": 30192,
+     "quantity": 1,
+     "name": "光之尾",
+     "weight": 1500,
+     "official_name": "빛의 꼬리"
+    },
+    {
+     "template": 30193,
+     "quantity": 1,
+     "name": "冠军戒指",
+     "weight": 1400,
+     "official_name": "챔피언 링"
+    },
+    {
+     "template": 30194,
+     "quantity": 1,
+     "name": "亨德尔·拜斯",
+     "weight": 1400,
+     "official_name": "헨델바이츠"
+    },
+    {
+     "template": 30195,
+     "quantity": 1,
+     "name": "魔族之角",
+     "weight": 1400,
+     "official_name": "데모니악 혼"
+    },
+    {
+     "template": 30196,
+     "quantity": 1,
+     "name": "蜘蛛头骨",
+     "weight": 1400,
+     "official_name": "스파이더 스컬"
+    }
+   ],
+   "random_rule": {
+    "m_KeyItemID": 0,
+    "m_iGiveCount": -1,
+    "m_ItemID": 133471,
+    "m_RequiredKeyCount": 0,
+    "m_UseCondition": 2,
+    "1": {
+     "m_iItemGroupID": 60349,
+     "m_cUnitClass": 1
+    },
+    "2": {
+     "m_iItemGroupID": 60349,
+     "m_cUnitClass": 2
+    },
+    "3": {
+     "m_iItemGroupID": 60349,
+     "m_cUnitClass": 3
+    },
+    "4": {
+     "m_iItemGroupID": 60349,
+     "m_cUnitClass": 4
+    },
+    "5": {
+     "m_iItemGroupID": 60349,
+     "m_cUnitClass": 8
+    },
+    "6": {
+     "m_iItemGroupID": 60349,
+     "m_cUnitClass": 5
+    },
+    "7": {
+     "m_iItemGroupID": 60349,
+     "m_cUnitClass": 6
+    },
+    "8": {
+     "m_iItemGroupID": 60349,
+     "m_cUnitClass": 7
+    },
+    "9": {
+     "m_iItemGroupID": 60349,
+     "m_cUnitClass": 9
+    },
+    "10": {
+     "m_iItemGroupIDForMinorUnit": 60349,
+     "m_iItemGroupID": 60349,
+     "m_cUnitClass": 200
+    },
+    "11": {
+     "m_iItemGroupID": 60349,
+     "m_cUnitClass": 201
+    },
+    "12": {
+     "m_iItemGroupID": 60349,
+     "m_cUnitClass": 202
+    },
+    "13": {
+     "m_iItemGroupID": 60349,
+     "m_cUnitClass": 203
+    },
+    "14": {
+     "m_iItemGroupID": 60349,
+     "m_cUnitClass": 204
+    },
+    "15": {
+     "m_iItemGroupID": 60359,
+     "m_cUnitClass": 205
+    }
+   }
+  },
+  {
+   "template": 160662,
+   "name": "桑德斯BOSS宝箱",
+   "official_section": "샌더보스큐브",
+   "primary_group": 60350,
+   "alternate_group": 60360,
+   "selection_count": 0,
+   "random": true,
+   "grant_source": "regional_boss_cube",
+   "entries": [
+    {
+     "template": 30247,
+     "quantity": 1,
+     "name": "瓦督的石口罩",
+     "weight": 800,
+     "official_name": "왈도의 스톤 마스크"
+    },
+    {
+     "template": 30248,
+     "quantity": 1,
+     "name": "瓦督的愤怒吊坠",
+     "weight": 800,
+     "official_name": "왈도의 레이지 펜던트"
+    },
+    {
+     "template": 30253,
+     "quantity": 1,
+     "name": "卡莱诺的魔法头盔",
+     "weight": 700,
+     "official_name": "켈라이노의 마법투구"
+    },
+    {
+     "template": 30254,
+     "quantity": 1,
+     "name": "卡莱诺的钢铁右翼",
+     "weight": 700,
+     "official_name": "켈라이노의 오른쪽 강철날개"
+    },
+    {
+     "template": 30255,
+     "quantity": 1,
+     "name": "卡莱诺的刀尖肩甲",
+     "weight": 700,
+     "official_name": "켈라이노의 칼날견갑"
+    },
+    {
+     "template": 30263,
+     "quantity": 1,
+     "name": "托克塔的巫毒假面",
+     "weight": 700,
+     "official_name": "트락타의 부두 가면"
+    },
+    {
+     "template": 30264,
+     "quantity": 1,
+     "name": "托克塔的巫毒肩甲",
+     "weight": 700,
+     "official_name": "트락타의 부두 견갑"
+    },
+    {
+     "template": 30266,
+     "quantity": 1,
+     "name": "大酋长的风刀",
+     "weight": 700,
+     "official_name": "대 추장의 윈드 블레이드"
+    },
+    {
+     "template": 30267,
+     "quantity": 1,
+     "name": "大酋长的臂盾",
+     "weight": 700,
+     "official_name": "대 추장의 암 가드"
+    },
+    {
+     "template": 30269,
+     "quantity": 1,
+     "name": "别西卜臂环",
+     "weight": 700,
+     "official_name": "벨제바브 암 링"
+    },
+    {
+     "template": 30270,
+     "quantity": 1,
+     "name": "蝙蝠耳饰",
+     "weight": 700,
+     "official_name": "뱃트 이어커프"
+    },
+    {
+     "template": 30271,
+     "quantity": 1,
+     "name": "蝙蝠尾翼",
+     "weight": 700,
+     "official_name": "뱃트 윙츠"
+    },
+    {
+     "template": 30272,
+     "quantity": 1,
+     "name": "魅魔女王王冠",
+     "weight": 700,
+     "official_name": "서큐버스 퀸 크라운"
+    },
+    {
+     "template": 30274,
+     "quantity": 1,
+     "name": "小蝙蝠翅膀",
+     "weight": 700,
+     "official_name": "스몰 뱃트 윙"
+    }
+   ],
+   "random_rule": {
+    "m_KeyItemID": 0,
+    "m_iGiveCount": -1,
+    "m_ItemID": 160662,
+    "m_RequiredKeyCount": 0,
+    "m_UseCondition": 2,
+    "1": {
+     "m_iItemGroupID": 60350,
+     "m_cUnitClass": 1
+    },
+    "2": {
+     "m_iItemGroupID": 60350,
+     "m_cUnitClass": 2
+    },
+    "3": {
+     "m_iItemGroupID": 60350,
+     "m_cUnitClass": 3
+    },
+    "4": {
+     "m_iItemGroupID": 60350,
+     "m_cUnitClass": 4
+    },
+    "5": {
+     "m_iItemGroupID": 60350,
+     "m_cUnitClass": 8
+    },
+    "6": {
+     "m_iItemGroupID": 60350,
+     "m_cUnitClass": 5
+    },
+    "7": {
+     "m_iItemGroupID": 60350,
+     "m_cUnitClass": 6
+    },
+    "8": {
+     "m_iItemGroupID": 60350,
+     "m_cUnitClass": 7
+    },
+    "9": {
+     "m_iItemGroupID": 60350,
+     "m_cUnitClass": 9
+    },
+    "10": {
+     "m_iItemGroupIDForMinorUnit": 60350,
+     "m_iItemGroupID": 60350,
+     "m_cUnitClass": 200
+    },
+    "11": {
+     "m_iItemGroupID": 60350,
+     "m_cUnitClass": 201
+    },
+    "12": {
+     "m_iItemGroupID": 60350,
+     "m_cUnitClass": 202
+    },
+    "13": {
+     "m_iItemGroupID": 60350,
+     "m_cUnitClass": 203
+    },
+    "14": {
+     "m_iItemGroupID": 60350,
+     "m_cUnitClass": 204
+    },
+    "15": {
+     "m_iItemGroupID": 60360,
+     "m_cUnitClass": 205
+    }
+   }
+  },
+  {
+   "template": 160774,
+   "name": "拉诺斯BOSS宝箱",
+   "official_section": "라녹스보스큐브",
+   "primary_group": 60351,
+   "alternate_group": 60361,
+   "selection_count": 0,
+   "random": true,
+   "grant_source": "regional_boss_cube",
+   "entries": [
+    {
+     "template": 30329,
+     "quantity": 1,
+     "name": "肯塔的燃烧头饰",
+     "weight": 500,
+     "official_name": "켄타의 타오르는 서클릿"
+    },
+    {
+     "template": 30330,
+     "quantity": 1,
+     "name": "肯塔的迷你纹样",
+     "weight": 500,
+     "official_name": "켄타의 쁘띠 문양"
+    },
+    {
+     "template": 30331,
+     "quantity": 1,
+     "name": "肯塔的燃烧手镯",
+     "weight": 500,
+     "official_name": "켄타의 타오르는 브레슬릿"
+    },
+    {
+     "template": 30332,
+     "quantity": 1,
+     "name": "斯德因的钢铁铁砧",
+     "weight": 500,
+     "official_name": "스데잉의 강철모루"
+    },
+    {
+     "template": 30333,
+     "quantity": 1,
+     "name": "斯德因的钢铁肩甲",
+     "weight": 500,
+     "official_name": "스데잉의 강철견갑"
+    },
+    {
+     "template": 30334,
+     "quantity": 1,
+     "name": "斯德因的络腮胡",
+     "weight": 500,
+     "official_name": "스데잉의 덥수룩한 수염"
+    },
+    {
+     "template": 30354,
+     "quantity": 1,
+     "name": "塞雷纳的宝石胸针",
+     "weight": 500,
+     "official_name": "세이레나의 보석 브로치"
+    },
+    {
+     "template": 30355,
+     "quantity": 1,
+     "name": "塞雷纳的宝石头冠",
+     "weight": 500,
+     "official_name": "세이레나의 보석 티아라"
+    },
+    {
+     "template": 30356,
+     "quantity": 1,
+     "name": "塞雷纳的权威",
+     "weight": 600,
+     "official_name": "세이레나의 권위"
+    },
+    {
+     "template": 30357,
+     "quantity": 1,
+     "name": "依格尼亚的耳环",
+     "weight": 600,
+     "official_name": "이그니아의 귀걸이"
+    },
+    {
+     "template": 30358,
+     "quantity": 1,
+     "name": "依格尼亚的长枪",
+     "weight": 600,
+     "official_name": "이그니아의 창"
+    },
+    {
+     "template": 30359,
+     "quantity": 1,
+     "name": "依格尼亚的战斗护腕",
+     "weight": 600,
+     "official_name": "이그니아의 전투 팔찌"
+    },
+    {
+     "template": 30360,
+     "quantity": 1,
+     "name": "伊芙利坦的拘束肩章",
+     "weight": 600,
+     "official_name": "이플리탄의 구속 견장"
+    },
+    {
+     "template": 30361,
+     "quantity": 1,
+     "name": "伊芙利坦的黄金爪",
+     "weight": 600,
+     "official_name": "이플리탄의 황금 발톱"
+    },
+    {
+     "template": 30362,
+     "quantity": 1,
+     "name": "伊芙利坦的封印手套",
+     "weight": 600,
+     "official_name": "이플리탄의 봉인 수갑"
+    },
+    {
+     "template": 30363,
+     "quantity": 1,
+     "name": "斯卡的野蛮披风",
+     "weight": 600,
+     "official_name": "스카의 야만 망토"
+    },
+    {
+     "template": 30364,
+     "quantity": 1,
+     "name": "斯卡的锋利肩甲",
+     "weight": 600,
+     "official_name": "스카의 날카로운 견갑"
+    },
+    {
+     "template": 30365,
+     "quantity": 1,
+     "name": "斯卡的断角",
+     "weight": 600,
+     "official_name": "스카의 부러진 뿔 투구"
+    }
+   ],
+   "random_rule": {
+    "m_KeyItemID": 0,
+    "m_iGiveCount": -1,
+    "m_ItemID": 160774,
+    "m_RequiredKeyCount": 0,
+    "m_UseCondition": 2,
+    "1": {
+     "m_iItemGroupID": 60351,
+     "m_cUnitClass": 1
+    },
+    "2": {
+     "m_iItemGroupID": 60351,
+     "m_cUnitClass": 2
+    },
+    "3": {
+     "m_iItemGroupID": 60351,
+     "m_cUnitClass": 3
+    },
+    "4": {
+     "m_iItemGroupID": 60351,
+     "m_cUnitClass": 4
+    },
+    "5": {
+     "m_iItemGroupID": 60351,
+     "m_cUnitClass": 8
+    },
+    "6": {
+     "m_iItemGroupID": 60351,
+     "m_cUnitClass": 5
+    },
+    "7": {
+     "m_iItemGroupID": 60351,
+     "m_cUnitClass": 6
+    },
+    "8": {
+     "m_iItemGroupID": 60351,
+     "m_cUnitClass": 7
+    },
+    "9": {
+     "m_iItemGroupID": 60351,
+     "m_cUnitClass": 9
+    },
+    "10": {
+     "m_iItemGroupIDForMinorUnit": 60351,
+     "m_iItemGroupID": 60351,
+     "m_cUnitClass": 200
+    },
+    "11": {
+     "m_iItemGroupID": 60351,
+     "m_cUnitClass": 201
+    },
+    "12": {
+     "m_iItemGroupID": 60351,
+     "m_cUnitClass": 202
+    },
+    "13": {
+     "m_iItemGroupID": 60351,
+     "m_cUnitClass": 203
+    },
+    "14": {
+     "m_iItemGroupID": 60351,
+     "m_cUnitClass": 204
+    },
+    "15": {
+     "m_iItemGroupID": 60361,
+     "m_cUnitClass": 205
+    }
+   }
+  },
+  {
+   "template": 162020,
+   "name": "艾丽西昂BOSS宝箱",
+   "official_section": "엘리시온보스큐브",
+   "primary_group": 60352,
+   "alternate_group": 60362,
+   "selection_count": 0,
+   "random": true,
+   "grant_source": "regional_boss_cube",
+   "entries": [
+    {
+     "template": 30426,
+     "quantity": 1,
+     "name": "德卡的单片眼镜",
+     "weight": 470,
+     "official_name": "데칼의 모노클"
+    },
+    {
+     "template": 30427,
+     "quantity": 1,
+     "name": "德卡的迪西昂试剂管",
+     "weight": 470,
+     "official_name": "데칼의 디시온 시험관"
+    },
+    {
+     "template": 30428,
+     "quantity": 1,
+     "name": "德卡的手动装置",
+     "weight": 470,
+     "official_name": "데칼의 핸드 기어"
+    },
+    {
+     "template": 30429,
+     "quantity": 1,
+     "name": "监督标记尾翼",
+     "weight": 470,
+     "official_name": "서베일런 표적 윙츠"
+    },
+    {
+     "template": 30430,
+     "quantity": 1,
+     "name": "监督面具",
+     "weight": 470,
+     "official_name": "서베일런 마스크"
+    },
+    {
+     "template": 30431,
+     "quantity": 1,
+     "name": "监督迪西蒂姆项链",
+     "weight": 470,
+     "official_name": "서베일런 디시티움 펜던트"
+    },
+    {
+     "template": 30432,
+     "quantity": 1,
+     "name": "玛雅的迪西蒂姆腰带",
+     "weight": 470,
+     "official_name": "마야의 디시티움 벨트"
+    },
+    {
+     "template": 30433,
+     "quantity": 1,
+     "name": "玛雅的指挥官王冠",
+     "weight": 470,
+     "official_name": "마야의 커맨더 크라운"
+    },
+    {
+     "template": 30434,
+     "quantity": 1,
+     "name": "玛雅的核心纹样",
+     "weight": 480,
+     "official_name": "마야의 코어 문양"
+    },
+    {
+     "template": 30563,
+     "quantity": 1,
+     "name": "支配的标志",
+     "weight": 480,
+     "official_name": "지배의 표식"
+    },
+    {
+     "template": 30564,
+     "quantity": 1,
+     "name": "漆黑的翅膀（上衣）",
+     "weight": 480,
+     "official_name": "검게 물든 날개 (상의)"
+    },
+    {
+     "template": 30565,
+     "quantity": 1,
+     "name": "漆黑的翅膀（下衣）",
+     "weight": 480,
+     "official_name": "검게 물든 날개 (하의)"
+    },
+    {
+     "template": 30566,
+     "quantity": 1,
+     "name": "赫尔巴欧的头饰",
+     "weight": 480,
+     "official_name": "헤르바온의 서클릿"
+    },
+    {
+     "template": 30567,
+     "quantity": 1,
+     "name": "赫尔巴欧的护符",
+     "weight": 480,
+     "official_name": "헤르바온의 탈리스만"
+    },
+    {
+     "template": 30568,
+     "quantity": 1,
+     "name": "普潘的尾巴",
+     "weight": 480,
+     "official_name": "푸팡의 꼬리"
+    },
+    {
+     "template": 30569,
+     "quantity": 1,
+     "name": "黑色太阳",
+     "weight": 480,
+     "official_name": "검은 태양"
+    },
+    {
+     "template": 30570,
+     "quantity": 1,
+     "name": "索雷斯的红黑色假面",
+     "weight": 480,
+     "official_name": "솔레스의 검붉은 가면"
+    },
+    {
+     "template": 30571,
+     "quantity": 1,
+     "name": "黑炎翅膀",
+     "weight": 480,
+     "official_name": "흑염의 날개"
+    },
+    {
+     "template": 30574,
+     "quantity": 1,
+     "name": "魔奇尼安的共鸣石",
+     "weight": 480,
+     "official_name": "루베니안의 공명석"
+    },
+    {
+     "template": 30575,
+     "quantity": 1,
+     "name": "光之太阳",
+     "weight": 480,
+     "official_name": "빛의 태양"
+    },
+    {
+     "template": 30576,
+     "quantity": 1,
+     "name": "共鸣的耳环",
+     "weight": 480,
+     "official_name": "공명의 귀걸이"
+    }
+   ],
+   "random_rule": {
+    "m_KeyItemID": 0,
+    "m_iGiveCount": -1,
+    "m_ItemID": 162020,
+    "m_RequiredKeyCount": 0,
+    "m_UseCondition": 2,
+    "1": {
+     "m_iItemGroupID": 60352,
+     "m_cUnitClass": 1
+    },
+    "2": {
+     "m_iItemGroupID": 60352,
+     "m_cUnitClass": 2
+    },
+    "3": {
+     "m_iItemGroupID": 60352,
+     "m_cUnitClass": 3
+    },
+    "4": {
+     "m_iItemGroupID": 60352,
+     "m_cUnitClass": 4
+    },
+    "5": {
+     "m_iItemGroupID": 60352,
+     "m_cUnitClass": 8
+    },
+    "6": {
+     "m_iItemGroupID": 60352,
+     "m_cUnitClass": 5
+    },
+    "7": {
+     "m_iItemGroupID": 60352,
+     "m_cUnitClass": 6
+    },
+    "8": {
+     "m_iItemGroupID": 60352,
+     "m_cUnitClass": 7
+    },
+    "9": {
+     "m_iItemGroupID": 60352,
+     "m_cUnitClass": 9
+    },
+    "10": {
+     "m_iItemGroupIDForMinorUnit": 60352,
+     "m_iItemGroupID": 60352,
+     "m_cUnitClass": 200
+    },
+    "11": {
+     "m_iItemGroupID": 60352,
+     "m_cUnitClass": 201
+    },
+    "12": {
+     "m_iItemGroupID": 60352,
+     "m_cUnitClass": 202
+    },
+    "13": {
+     "m_iItemGroupID": 60352,
+     "m_cUnitClass": 203
+    },
+    "14": {
+     "m_iItemGroupID": 60352,
+     "m_cUnitClass": 204
+    },
+    "15": {
+     "m_iItemGroupID": 60362,
+     "m_cUnitClass": 205
+    }
+   }
+  }
+ ],
+ "items": {
+  "30163": {
+   "template": 30163,
+   "name": "班德斯的项链",
+   "record_sha256": "7b7112ce8e3cce7d44e664a089da859cf3bcc016825d0e302a967e13131bd27b"
+  },
+  "30164": {
+   "template": 30164,
+   "name": "巨猩王的尾巴",
+   "record_sha256": "ed12b2ec90e5ef8b588e7ed965896b19574704613830117131888c98fe55ae47"
+  },
+  "30165": {
+   "template": 30165,
+   "name": "钢铁的犬齿",
+   "record_sha256": "035e4197b5b5b1c9d3f0c478e1bdf95b797cb919ada418dd3aeb7fd6af46356a"
+  },
+  "30166": {
+   "template": 30166,
+   "name": "蝙蝠围巾",
+   "record_sha256": "42898f823042c8f146f13f30ea2e4049ebd51cde3786600bcdee9e563792825a"
+  },
+  "30167": {
+   "template": 30167,
+   "name": "班德斯的魔力项链",
+   "record_sha256": "52626fdf3e01ece4a5a28a8b2d4ce89b1fb55d25d845d3aa504bde6a9f1c79d9"
+  },
+  "30168": {
+   "template": 30168,
+   "name": "瓦利8号的核心",
+   "record_sha256": "852a4f2019243e388e6babb9b8fb5e0ad66742bf7554bc50a48a8ba9e94229b4"
+  },
+  "30169": {
+   "template": 30169,
+   "name": "毒蝎护卫",
+   "record_sha256": "6daed0cbfec53b097e43170f871e234e92cd9f0713ffbac90230c636e5958c95"
+  },
+  "30170": {
+   "template": 30170,
+   "name": "蕴含黑暗的头饰",
+   "record_sha256": "d37a8dc686538627f9a85708db44d383f1b94fcdee1fe2e24a95818fd72020ea"
+  },
+  "30171": {
+   "template": 30171,
+   "name": "贝罗克的胡须",
+   "record_sha256": "897ba5c31fc6f48810c865f1eb703f722ea066309ef79b43c7063b2c3a0aa3e2"
+  },
+  "30172": {
+   "template": 30172,
+   "name": "伤痕纹身",
+   "record_sha256": "bd310ddb033373153dbc0009ac926cfeb3c31f0e8bcf8674124157a18a0de90f"
+  },
+  "30173": {
+   "template": 30173,
+   "name": "火之吊坠",
+   "record_sha256": "d343618f0b15decddf7677c8f866bcda69f47826bbcd7b6219b6d7c4d09adb24"
+  },
+  "30174": {
+   "template": 30174,
+   "name": "水之吊坠",
+   "record_sha256": "bee151d2e4c471c9ed0d8eaccbf6e45366c69eab264b8511509562f62e61f7c1"
+  },
+  "30175": {
+   "template": 30175,
+   "name": "纳斯德之王的魔力核心",
+   "record_sha256": "31b507b491bb01da138ecb61e1df4f269516b527253a4ec8e56efe92756d2e32"
+  },
+  "30177": {
+   "template": 30177,
+   "name": "杜拉汉头部",
+   "record_sha256": "59d1b369bce07e4e62e8a627db6ff348ef6b4a2b2a73ee7572df0adbb74e2e44"
+  },
+  "30178": {
+   "template": 30178,
+   "name": "浮游石肩章",
+   "record_sha256": "f1672e8ad7d032adf16ff657b56cc7652b5db4c58f638f74c899cfc33b63288f"
+  },
+  "30179": {
+   "template": 30179,
+   "name": "束缚的铁链 -无名指-",
+   "record_sha256": "e393ffdcdd481a7b7bce64bc938639cf217b26dd0a97e4131ef7c81d654347fc"
+  },
+  "30180": {
+   "template": 30180,
+   "name": "主人的花冠",
+   "record_sha256": "fb5c55b878d2d1b16a672a6772ce4da8887266e33589de8dd718030e7a01e2ab"
+  },
+  "30181": {
+   "template": 30181,
+   "name": "野性的纹章",
+   "record_sha256": "14e8730c041fc4be9a8e7b808ad206abfdb175c75e2ed286cd1ee220638ee414"
+  },
+  "30182": {
+   "template": 30182,
+   "name": "波尔德之尾",
+   "record_sha256": "45ea45c3777149a3b38afdc4508ba88939447b0aa1e0caefabc4cb7b6a9eab09"
+  },
+  "30183": {
+   "template": 30183,
+   "name": "黑暗钢铁手镯",
+   "record_sha256": "d4829e5d1bbd49ac3b4eddaa2ad5c86ec47453e61e802242679c60171ae54149"
+  },
+  "30184": {
+   "template": 30184,
+   "name": "暗精灵的眼泪",
+   "record_sha256": "448bd9daa609cfa48bd2f91f95efcdafa3a0e5bda0bddacb9c8efae4da4c6fa3"
+  },
+  "30185": {
+   "template": 30185,
+   "name": "背刀",
+   "record_sha256": "ca22fb37b35c610c1f75670112ac0cdfa3875423b835a62d3193c9edeb7c92a3"
+  },
+  "30186": {
+   "template": 30186,
+   "name": "格雷特战场护臂",
+   "record_sha256": "f97ba0ec6fc3b6df75ec43c4342dc6c2f8d497932f41a81a9a1a722fda473bb7"
+  },
+  "30187": {
+   "template": 30187,
+   "name": "炸弹傀儡",
+   "record_sha256": "eec7a45c931c76414f3ca9cbb76eea8405021d5421663e85b86ea7ec0cfc9ab2"
+  },
+  "30188": {
+   "template": 30188,
+   "name": "斯普利冈羽毛头盔",
+   "record_sha256": "e1252ba6d72517ff3382e4c2aa6dc19ee857cd480d1fe3a216371960265aa256"
+  },
+  "30189": {
+   "template": 30189,
+   "name": "黑暗鳞片",
+   "record_sha256": "3ee3b8da7e6dbbec471e608b8c052234a175dbe5f6a6c49820433275be7d54d5"
+  },
+  "30190": {
+   "template": 30190,
+   "name": "高级黑暗之证",
+   "record_sha256": "437e73713ede7e3d99ea4fc5bb26a7a15274381d0daf9a4dcaacabe6c3ff8d3a"
+  },
+  "30191": {
+   "template": 30191,
+   "name": "蓝色鳞片",
+   "record_sha256": "c1a865f1e9951fbc92944110d63c2b4b01ab33d4ffa96e6bb7b4ae6a65f7d340"
+  },
+  "30192": {
+   "template": 30192,
+   "name": "光之尾",
+   "record_sha256": "4e9523e78631d8fa492d0f616d62b66dd67259d88b3d6c4dfa7482eae1185247"
+  },
+  "30193": {
+   "template": 30193,
+   "name": "冠军戒指",
+   "record_sha256": "d0c8764991eb322039a82ebebf8fc8e4182927f535739ed2478966cec43b9210"
+  },
+  "30194": {
+   "template": 30194,
+   "name": "亨德尔·拜斯",
+   "record_sha256": "2cd7e04d037c01510a0b806eb0f1573156185362c389c24bd81a3d9b0abd2384"
+  },
+  "30195": {
+   "template": 30195,
+   "name": "魔族之角",
+   "record_sha256": "eb9018a1a242c28a1784d17c455df6c9b43e1b415909d43f25110acb1606fe29"
+  },
+  "30196": {
+   "template": 30196,
+   "name": "蜘蛛头骨",
+   "record_sha256": "086e8078d2753abceacec23269048b68bd56aaf1911f9c17607b3134905f82b7"
+  },
+  "30247": {
+   "template": 30247,
+   "name": "瓦督的石口罩",
+   "record_sha256": "cfea21c2728220b3e305f8975eacef1499be0badf6ba4fc074888f07b514d2f0"
+  },
+  "30248": {
+   "template": 30248,
+   "name": "瓦督的愤怒吊坠",
+   "record_sha256": "efe4e9719179c73ce5afb50af9c10c08cb16805f8f85f880d62fff58a8d6e21b"
+  },
+  "30253": {
+   "template": 30253,
+   "name": "卡莱诺的魔法头盔",
+   "record_sha256": "20b986b1d33d7f5c8cf5d3d8b335d19283da230773c0a69f8c6747d821109fcb"
+  },
+  "30254": {
+   "template": 30254,
+   "name": "卡莱诺的钢铁右翼",
+   "record_sha256": "2a2dee5ae1ac9a341d7877be7f8a5d9547dc7231a9a27fde340bb7425111f911"
+  },
+  "30255": {
+   "template": 30255,
+   "name": "卡莱诺的刀尖肩甲",
+   "record_sha256": "9e2477aa905abfde6fe33082ab177f875aedd0e61c2e6c0085d564a75adb3115"
+  },
+  "30263": {
+   "template": 30263,
+   "name": "托克塔的巫毒假面",
+   "record_sha256": "e86930f11523c4aececc110a1d9baa7e1db11ed44138a1722affec4bff70c8ef"
+  },
+  "30264": {
+   "template": 30264,
+   "name": "托克塔的巫毒肩甲",
+   "record_sha256": "b6d16f3dda0cbdf5a02845df63131008243d6c6c3e5d2abe298aff6808de7df6"
+  },
+  "30266": {
+   "template": 30266,
+   "name": "大酋长的风刀",
+   "record_sha256": "072cd56d92dcc9c6d718be7a7f5f55e71577ac7c29465f8013619be4ecc23f01"
+  },
+  "30267": {
+   "template": 30267,
+   "name": "大酋长的臂盾",
+   "record_sha256": "fb65b7474ac9866fc63cb03a5e0ca6e70792352453cc1e735e18daa7c99b4f9b"
+  },
+  "30269": {
+   "template": 30269,
+   "name": "别西卜臂环",
+   "record_sha256": "1041377fdd6d87041358344022ccb3000e3fd67feab054bb9228000b324bdccf"
+  },
+  "30270": {
+   "template": 30270,
+   "name": "蝙蝠耳饰",
+   "record_sha256": "d4e8aa5c34b904f9263de486f6150c9d2098aacfc165432ba0220f94c66e7f26"
+  },
+  "30271": {
+   "template": 30271,
+   "name": "蝙蝠尾翼",
+   "record_sha256": "62309764b526eb08216121b34fc12a980a3f96816f51d7397a6742f50c10c411"
+  },
+  "30272": {
+   "template": 30272,
+   "name": "魅魔女王王冠",
+   "record_sha256": "632cacfd2ad54f0170cfa16117bfd972e061cc30e2fcf77b5af01f7f177e7066"
+  },
+  "30274": {
+   "template": 30274,
+   "name": "小蝙蝠翅膀",
+   "record_sha256": "f98d5eedefea3f54281dac11084c6f9f0432c609966a10ad08b9da246cdde552"
+  },
+  "30329": {
+   "template": 30329,
+   "name": "肯塔的燃烧头饰",
+   "record_sha256": "107a9e3376e0df0dd9234abb2921a679fb9ba2588e67b21ff4e264dc64c7d9c0"
+  },
+  "30330": {
+   "template": 30330,
+   "name": "肯塔的迷你纹样",
+   "record_sha256": "97627573cec407d720db6112757a0899984d6d679d6b4524fe19b5e92307b98f"
+  },
+  "30331": {
+   "template": 30331,
+   "name": "肯塔的燃烧手镯",
+   "record_sha256": "a89fe2aaa1749d5d5d7d1c96520c299a58d131fc7a505df8c9f4d55636791f1e"
+  },
+  "30332": {
+   "template": 30332,
+   "name": "斯德因的钢铁铁砧",
+   "record_sha256": "a0d6f8ba14ae54dbc7f99f79b107b58a0dc7f81745da536a7c4aa502ae658354"
+  },
+  "30333": {
+   "template": 30333,
+   "name": "斯德因的钢铁肩甲",
+   "record_sha256": "5b149dc46b307d45f73e6b60d5215aa10c8c47c9b6da6123fba6b35839d8c808"
+  },
+  "30334": {
+   "template": 30334,
+   "name": "斯德因的络腮胡",
+   "record_sha256": "543a61fdf560eb2e96f16c30b512b1110de987ec1c75001d786843c8d7656718"
+  },
+  "30354": {
+   "template": 30354,
+   "name": "塞雷纳的宝石胸针",
+   "record_sha256": "b06daac8fcd6568f26b36ade18cd3bb06d7d00dffbc4cbaad432ac96c05b808b"
+  },
+  "30355": {
+   "template": 30355,
+   "name": "塞雷纳的宝石头冠",
+   "record_sha256": "602d45abc157c149d7f330de1c781d3c175cec85febdf10af05fe3afb79250df"
+  },
+  "30356": {
+   "template": 30356,
+   "name": "塞雷纳的权威",
+   "record_sha256": "43e894fc778b4c2d7b7a9b8d3412332baa64e3846c62f19662f061225367c358"
+  },
+  "30357": {
+   "template": 30357,
+   "name": "依格尼亚的耳环",
+   "record_sha256": "cac6872b54ca70f0f1e9a85bebee2f997a04bea96b99018f9b730f4dad43fda3"
+  },
+  "30358": {
+   "template": 30358,
+   "name": "依格尼亚的长枪",
+   "record_sha256": "153d904c2192d211b5c90b663a4718e7f75c700bad9e9b3db40a364c31b1702a"
+  },
+  "30359": {
+   "template": 30359,
+   "name": "依格尼亚的战斗护腕",
+   "record_sha256": "4452bec9a54afaef1b67841918b8a49eb27cbdccaf2f3e376cc7085e0f6bccfe"
+  },
+  "30360": {
+   "template": 30360,
+   "name": "伊芙利坦的拘束肩章",
+   "record_sha256": "d6318768f935bcd78408b8ab2d2e76a08a6d47a040a23b0e0712bd91a4f5522e"
+  },
+  "30361": {
+   "template": 30361,
+   "name": "伊芙利坦的黄金爪",
+   "record_sha256": "ae35e335f0924ce480ebdd03a00577ebf358cbd71a59dc208d8f47a887379147"
+  },
+  "30362": {
+   "template": 30362,
+   "name": "伊芙利坦的封印手套",
+   "record_sha256": "aae5763f0a0fea33c4d7bb23bd7362cf8b62bf6669246abecb93bf735a2f8f69"
+  },
+  "30363": {
+   "template": 30363,
+   "name": "斯卡的野蛮披风",
+   "record_sha256": "9072a2ad5d52d2fbe98dbd4e90a3919d2655bc2de972d26b5104a5d20215b974"
+  },
+  "30364": {
+   "template": 30364,
+   "name": "斯卡的锋利肩甲",
+   "record_sha256": "f8039b3f60603822c6e5c71564105e411b094488c17d4d988b7178637b4a0662"
+  },
+  "30365": {
+   "template": 30365,
+   "name": "斯卡的断角",
+   "record_sha256": "e15a9dcea63f2ce624067891c5c4aa5de53ceb7f8d1aba57687537c5a7870345"
+  },
+  "30426": {
+   "template": 30426,
+   "name": "德卡的单片眼镜",
+   "record_sha256": "473faec9a7f682ef27e0ecb7baa453cb86e272a14bc5890b2ffa15e42ae99fca"
+  },
+  "30427": {
+   "template": 30427,
+   "name": "德卡的迪西昂试剂管",
+   "record_sha256": "7aadac560ad539276f62d80f6ef5936c881545126dc89034dbb51e394e647672"
+  },
+  "30428": {
+   "template": 30428,
+   "name": "德卡的手动装置",
+   "record_sha256": "ac4415795c378553d099fd53830d46fe4dc65f3efb5288df1530ce50598910a5"
+  },
+  "30429": {
+   "template": 30429,
+   "name": "监督标记尾翼",
+   "record_sha256": "aefe45dbb5535e25c2888f990d75299d89d83dae71df3cd312c34c0a75157650"
+  },
+  "30430": {
+   "template": 30430,
+   "name": "监督面具",
+   "record_sha256": "ffab9e777782cae2a1e385aaf8ccdd33450bd803b2bb88690d1385f7c0e9f4d7"
+  },
+  "30431": {
+   "template": 30431,
+   "name": "监督迪西蒂姆项链",
+   "record_sha256": "a105253e50058ff14b8adcdb1ceb500a61cdcc32a4662e745249950d69d655ab"
+  },
+  "30432": {
+   "template": 30432,
+   "name": "玛雅的迪西蒂姆腰带",
+   "record_sha256": "18683dc3e87ce165699879638449d7dbad7fa77bf08de1ae2608a5c255e875af"
+  },
+  "30433": {
+   "template": 30433,
+   "name": "玛雅的指挥官王冠",
+   "record_sha256": "86c7827ccb98d686a04b6d30c5510b1209582591f9ac9fe00ae4ee192a6385c8"
+  },
+  "30434": {
+   "template": 30434,
+   "name": "玛雅的核心纹样",
+   "record_sha256": "f25b644086183735e0a640857a78a1fb51b89611aee8ab0a418500a714df8719"
+  },
+  "30563": {
+   "template": 30563,
+   "name": "支配的标志",
+   "record_sha256": "67608c454c80b27dc2286dfa0d07a704f2fbd9e74909000c39f1bcaa8167a7a2"
+  },
+  "30564": {
+   "template": 30564,
+   "name": "漆黑的翅膀（上衣）",
+   "record_sha256": "fcdc08631fcbe18a82c28353e74f71474f61b2ac987b79d6b4f551700ab47040"
+  },
+  "30565": {
+   "template": 30565,
+   "name": "漆黑的翅膀（下衣）",
+   "record_sha256": "2caf87dfb23c6592b2e43a47db570f5f6581195c2a6645bc8b56ee41f233ab2b"
+  },
+  "30566": {
+   "template": 30566,
+   "name": "赫尔巴欧的头饰",
+   "record_sha256": "4a8807c957ebdb7caec46424d12fc3689fa28bd8605cdc36524fcf65b7151d0b"
+  },
+  "30567": {
+   "template": 30567,
+   "name": "赫尔巴欧的护符",
+   "record_sha256": "ebb993f8743a5ae3325da17b14b229e59622d83964a752fa4fdd7b8dd69e3912"
+  },
+  "30568": {
+   "template": 30568,
+   "name": "普潘的尾巴",
+   "record_sha256": "4046b6533638c3592e8a7b384032b15f7b4961374c632701912a12ff94544ef5"
+  },
+  "30569": {
+   "template": 30569,
+   "name": "黑色太阳",
+   "record_sha256": "37789e034b1f6ffa0553c0353404aca15611af09a9e80136108c77fd461184b6"
+  },
+  "30570": {
+   "template": 30570,
+   "name": "索雷斯的红黑色假面",
+   "record_sha256": "cefeaf102bfd6db1860256e3765ed6fc8a8e721bdc5dff9d2c70cf1a3b670b1f"
+  },
+  "30571": {
+   "template": 30571,
+   "name": "黑炎翅膀",
+   "record_sha256": "072c33b5f86cfb1cc4d6dbea355b8cfb48a20c04492131185b6136292fd5aaa7"
+  },
+  "30574": {
+   "template": 30574,
+   "name": "魔奇尼安的共鸣石",
+   "record_sha256": "00166c927afc2129d0e2e48a756bb51642695c1314ab1dd6babe0d850d32d6a2"
+  },
+  "30575": {
+   "template": 30575,
+   "name": "光之太阳",
+   "record_sha256": "40d36e1ec252292773aa19c81e45788e988213cd7e7d90d195fa07b6e8196b1d"
+  },
+  "30576": {
+   "template": 30576,
+   "name": "共鸣的耳环",
+   "record_sha256": "d5d8f9b827ff7eedbe7bf684f33c930719ed63dde24ad86c63e87a7018d5ac88"
+  }
+ },
+ "excluded": "The client maps branch 15 (unit_type 15, Lithia) to the paired alternate group (primary+10) for these cubes; that pool is not covered by the official disclosure and is not inferred here. Rewards are class-independent accessories, so the disclosed pool is served for every character."
+}

@@ -77,7 +77,7 @@ class DungeonRun:
    pool=[r['stage'] for r in self.encounter['pool'] if r['stage']!=0]
    pool.sort(key=lambda stage:self.draw('henir-room:'+str(stage),2**128))
    self.rotation=[0,*pool[:self.encounter['rounds']-1]]
-  self.defeated={};self.parts={};self.stage_wires={};self.next=None;self.ready_at=None;self.started_at=None;self.portal_requested=False
+  self.defeated={};self.retreated=set();self.parts={};self.stage_wires={};self.next=None;self.ready_at=None;self.started_at=None;self.portal_requested=False
   self._load_stage(0)
   from els_server.domain.legacy_pve_exp import bind_run
   bind_run(self)
@@ -154,7 +154,7 @@ class DungeonRun:
    return bool(keys) and (any(k in dead for k in keys) if kind==2 else all(k in dead for k in keys))
   if kind==3:
    required=[n['key'] for n in npcs if n['template'] in c['required']]
-   return bool(required) and all(k in dead for k in required)
+   return bool(required) and all(k in dead or k in self.retreated for k in required)
   if kind==6:return self.started_at is not None and self.clock()-self.started_at>=c['seconds']
   return False
  def poll_ready(self):
@@ -187,5 +187,5 @@ class DungeonRun:
    self.completed_stages.add(self.stage)
    self.round+=1
    self._load_stage(target['stage']);self.part=target['part'];transition='stage'
-  self.next=None;self.ready_at=None;self.started_at=None;self.portal_requested=False
+  self.next=None;self.ready_at=None;self.started_at=None;self.portal_requested=False;self.retreated=set()
   return transition

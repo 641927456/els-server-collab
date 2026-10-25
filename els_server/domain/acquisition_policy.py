@@ -4,6 +4,7 @@ Keep legacy definitions available to decode and operate existing inventory.
 Only new grants and offer/pool membership are restricted here.
 """
 import functools
+import collections.abc
 import re
 import unicodedata
 from els_server.game_data import client_data
@@ -33,13 +34,24 @@ LITHIA_GEN7_USE_ONLY_TICKETS = frozenset((718388,718389,718390,718391,718392,718
 
 HISTORICAL_PAGE1_USE_ONLY_TICKETS = frozenset((713172,713173,713174,713175,713176,713177,713438,713439,713440,713441,713442,713443))
 
-def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None):
+def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,regional_cube_source=None):
     if template==715036:return False  # Existing owned box only; no grant source exception.
     if template in HISTORICAL_PAGE1_USE_ONLY_TICKETS:return False
     if template in LITHIA_GEN7_USE_ONLY_TICKETS:return False
     if template in LEGACY_USE_ONLY_TICKETS:return False
     qualified=False
     recipe_box=False
+    cube=False
+    if regional_cube_source is not None:
+        # A regional boss cube is a disclosed retail source, so its own reward list
+        # qualifies templates that are otherwise kept for existing inventory only.
+        if any(x is not None for x in (cartridge_box_source,cartridge_select_source,cartridge_recipe679_source)):
+            raise ValueError('Incompatible cube sources')
+        row=regional_cube_source
+        if (not isinstance(row,collections.abc.Mapping) or row.get('grant_source')!='regional_boss_cube'
+                or row.get('random') is not True or row.get('selection_count')!=0):raise ValueError('Regional cube source schema')
+        if template not in {entry['template'] for entry in row['entries']}:raise ValueError('Regional cube source mismatch')
+        cube=True
     if cartridge_recipe679_source is not None:
         if cartridge_box_source is not None or cartridge_select_source is not None:raise ValueError("Incompatible Cartridge sources")
         from els_server.domain.cartridge_recipe679_rules import validate_recipe_source
@@ -59,9 +71,10 @@ def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=Non
     if template in CARTRIDGE_USE_ONLY_MATERIALS and not qualified:return False
     from els_server.domain.ordinary_accessories import definitions
     accessory=definitions().get(template)
-    return template not in excluded_equipment() and not (accessory and accessory['compatibility_only'])
+    return (template not in excluded_equipment()
+            and (cube or not (accessory and accessory['compatibility_only'])))
 
 
-def require_acquirable(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None):
-    if not can_acquire(template,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source):
+def require_acquirable(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,regional_cube_source=None):
+    if not can_acquire(template,regional_cube_source=regional_cube_source,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source):
         raise ValueError(f'Legacy equipment acquisition disabled: {template}')

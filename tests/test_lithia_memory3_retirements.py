@@ -45,11 +45,11 @@ class Memory3Retirements(unittest.TestCase):
                 'els_server.domain.dungeon_flow':NS(periodic=lambda actor:[])}))
             return target.handle(s,e,r)
 
-    def test_relaxation_is_declared_on_35270_only(self):
+    def test_relaxation_is_declared_on_the_scene_dungeons_only(self):
         self.assertEqual([identity(r) for r in self.rules],IDENTITIES)
         self.assertTrue(all(r.get('retire_without_quest') for r in self.rules))
-        self.assertFalse([identity(r) for r in target.RULES
-                          if r['dungeon']!=35270 and r.get('retire_without_quest')])
+        self.assertEqual(sorted({r['dungeon'] for r in target.RULES
+                                 if r.get('retire_without_quest')}),[35270,35290,35320,35321])
 
     def test_unearned_epic_quest_does_not_strand_scene_dummy(self):
         for rule in self.rules:

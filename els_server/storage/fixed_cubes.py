@@ -50,7 +50,11 @@ def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.r
         from els_server.storage.boosting_2026_accessories import open_box
         return open_box(path,owner,expected_template,payload,operation)
     request=use_request(payload)
-    if (request.option!=0 or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))
+    # The trailing mode word is per box, not a constant: session 20261025-140312
+    # shows 313105/313107 confirming with 0 while the growing adventure kit
+    # (uid 1001089) and the resurrection box confirm with 1. Rewards never depend
+    # on it, so both are accepted and anything else is still rejected.
+    if (request.option not in (0,1) or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))
         or expected_template not in catalog()):raise ValueError('Unsupported fixed cube use')
     row=catalog()[expected_template]
     growing=(expected_template==168889 and row.get('growing_adventure_kit')is True)
@@ -92,7 +96,7 @@ def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.r
                 plan.append(dict(template=selected['template'],metadata=VERIFIED_TEMPLATES[selected['template']],
                     group=TEMPLATE_BAG_GROUPS[selected['template']],quantity=delta))
                 if growing:plan[-1]['enhancement']=selected['enhancement']
-        grants=grant_items(db,plan,owner)
+        grants=grant_items(db,plan,owner,regional_cube_source=row if row.get('grant_source')=='regional_boss_cube' else None)
         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
         positions=sorted({source,*[(i['group'],i['slot']) for i in grants]})
         events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(selected['template'],selected['quantity'])for selected in outputs])

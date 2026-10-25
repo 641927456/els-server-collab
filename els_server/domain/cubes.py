@@ -23,6 +23,10 @@ def catalog():
     for t,row in regional().items():
         if t in result:raise ValueError('Duplicate regional cube')
         result[t]=MappingProxyType(row)
+    from els_server.domain.regional_boss_cubes_legacy import catalog as legacy_regional
+    for t,row in legacy_regional().items():
+        if t in result:raise ValueError('Duplicate legacy regional cube')
+        result[t]=MappingProxyType(row)
     from els_server.domain.published_2026_bundles import entries
     for bundle in entries():
         if bundle['template'] in result:raise ValueError('Duplicate selected consumable bundle')
