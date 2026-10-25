@@ -14,6 +14,7 @@ def source_pinned(run,npc):
     Pinned controllers keep the strict rule path; the generic scene-expiry
     branch must not consume a mismatch the rule itself rejected.
     """
+    if npc.get('dynamic'):return False
     return any((r['stage'],r['part'],r['template'],r['source']['source_index'])==
                (run.stage,run.part,npc['template'],npc['source_index'])
                for r in RULES if r['dungeon']==run.identity)
@@ -43,7 +44,10 @@ def handle(s,event,report):
         or getattr(s,'reward_run_id',None)!=run.run_id
         or frozenset(getattr(s,'dungeon_participants',(owner,)))!=frozenset((owner,))):return []
     npc=next((n for n in run.current['npcs'] if n['key']==report['index']),None)
-    if npc is None:return None
+    if npc is None:return None
+    # Dynamic actors have no static source_index; use generic native expiry.
+    if npc.get('dynamic'):return None
+    if type(npc.get('source_index')) is not int:return []
     matches=[r for r in rules if (r['stage'],r['part'],r['template'],r['source']['source_index'])==
              (run.stage,run.part,npc['template'],npc['source_index'])]
     if len(matches)!=1:
@@ -52,7 +56,7 @@ def handle(s,event,report):
         # without granting progress. Swallowing the report here left the
         # client waiting on an actor that was already gone.
         return None
-    if npc.get('dynamic') or npc.get('ally') or npc.get('team',1)!=1:return []
+    if npc.get('ally') or npc.get('team',1)!=1:return []
     rule=matches[0]
     if rule.get('maintenance_block'):return []
     if (s.account.character()['unit_type'] not in rule.get('units',(rule.get('unit'),)) or run.graph['source_sha256']!=rule['graph_sha']
