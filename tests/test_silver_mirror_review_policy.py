@@ -20,7 +20,7 @@ class SilverMirrorReview(unittest.TestCase):
         index = json.loads((REVIEW / 'source-index.json').read_bytes())
         self.assertEqual(set(index['channels']), {'online', 'local'})
         for channel in index['channels'].values():
-            self.assertEqual(len(channel['files']), 28)
+            self.assertEqual(len(channel['files']), 30)
             for row in channel['files']:
                 path = (REVIEW / row['source']).resolve()
                 self.assertTrue(path.is_relative_to(REVIEW.resolve()))

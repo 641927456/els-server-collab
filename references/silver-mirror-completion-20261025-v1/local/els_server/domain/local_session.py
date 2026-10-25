@@ -464,7 +464,9 @@ class LocalSession:
         answer=raid_reward_sync(self,answer)
         answer=self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
         from els_server.domain.ariel_attendance_preview import project as ariel_preview
-        return ariel_preview(self,answer)
+        answer=ariel_preview(self,answer)
+        from els_server.domain.ariel_attendance_flow import synchronization as ariel_state_sync
+        return ariel_state_sync(self,answer)
 
     def responses(self,kind):
         return responses(kind,self.client_build,account_id=self.account.account_id,
@@ -475,6 +477,9 @@ class LocalSession:
         from els_server.domain.raid_reward_flow import handle as raid_reward_handle
         raid_reward_reply=raid_reward_handle(self,event,request_sequence)
         if raid_reward_reply is not None:return raid_reward_reply
+        from els_server.domain.ariel_attendance_flow import handle as ariel_attendance_handle
+        ariel_attendance_reply=ariel_attendance_handle(self,event,request_sequence)
+        if ariel_attendance_reply is not None:return ariel_attendance_reply
         from els_server.domain.housing_room_flow import handle as housing_room_handle
         housing_room_reply=housing_room_handle(self,event,request_sequence)
         if housing_room_reply is not None:return housing_room_reply

@@ -38,40 +38,36 @@
     "3A3 native world buffs"
   ],
   "proofs": {
-    "pair-checks-raid-parent-v2/result.json": {
-      "sha256": "beb4327780091cae5561ebac690fb209b6dfccd298a9b875ec6e7f6c53caad48",
+    "pair-checks-raid-parent-v5/result.json": {
+      "sha256": "759c6d4bc7cbd58b3519656a61a8372291865b2269a42d3b0c15ed60693eaaa6",
       "passed": true
     },
-    "native-check-v1.json": {
-      "sha256": "1e4960b50d33aeb8e52b7ad410dbc9ed25f79dad5a2af57af349b119fca8dcde",
+    "native-check-merged861-v1.json": {
+      "sha256": "6917eaa185442b92ee534058f1266780217f4ebb38f1f269bc11fbf8246820e6",
       "passed": true
     },
-    "recovery-check-v1.json": {
+    "recovery-check-v2.json": {
       "sha256": "3b51d2b114c339163746a626d240a3551a3583893f32e288f4acac509bbfdadf",
       "passed": true
     },
-    "peer-contract-review/candidate-contract-audit-v4.json": {
-      "sha256": "d9ed347a149c249f0be81e392c6ef14489d9a84b09058db060fe099dc369f969",
+    "peer-contract-review/candidate-contract-audit-v6.json": {
+      "sha256": "e6d878c4790fe2ceb57c0b048cd8338be6edd8bedf7e18d58222fabd307a15a1",
       "passed": true
     },
-    "peer-contract-review/helper-contract-audit-v1.json": {
-      "sha256": "6ba6981c15e2df21312c93747bbfce5938142daf3520838bf30fdbf1e4533d02",
+    "peer-contract-review/helper-contract-audit-v2.json": {
+      "sha256": "4a77a754db18bbb87a30d1b8bc8f5e83d632ede2429e4818392a3e3846116fb2",
       "passed": true
     },
-    "delivery-v1/publication/public-harness-private-v1.json": {
-      "sha256": "bac464aeed190d7da04904e1b66ff2aafdd32d4fce0ff4f2db4cacda5528a811",
+    "all-routes-check-v4.json": {
+      "sha256": "96627120b9368177ac80e6e2bff575107322738b1bf3a9243846de7b613e47eb",
       "passed": true
     },
-    "all-routes-binding.json": {
-      "sha256": "3703c0225dfe8d3cdb824aa9f64a57b7d16c0be6431139219e4d54e848c8b903",
+    "all-routes-check-v5.json": {
+      "sha256": "eee023dc8bf533df5607bf24bf2b8347b79f61f68373f0859a40dd531e8fb34a",
       "passed": true
     },
-    "all-routes-check-v2.json": {
-      "sha256": "90d0e36eaa78d2d21d1809d1b6421d6c3f92df471f03d5e44aeffba07300d51a",
-      "passed": true
-    },
-    "all-routes-check-v3.json": {
-      "sha256": "0a3034f18981b6368e93be3faef7a3cceaaa45b0cc204f163ab49386b5b325dc",
+    "delivery-v2/publication/public-harness-private-v1.json": {
+      "sha256": "e074f5dd4092efb97c68b509098a31151e659d67f3f3c643e655c13cf2f953d8",
       "passed": true
     }
   },
@@ -117,7 +113,7 @@
   "formal_player_database_test": false,
   "public_TLS": false,
   "dual_installation": false,
-  "publication": "pending authorized queue and final actual-parent freeze",
+  "publication": "final package frozen; online maintenance running; acceptance and dual installation still pending",
   "private_all_route_coverage": {
     "channels": 2,
     "targets_each": 14,
@@ -126,5 +122,52 @@
     "clock_and_memory_fixtures": true,
     "story_counter_and_buff_values_preserved": true,
     "story_receipt_revision_only": true
-  }
+  },
+  "prior_qualification_proofs": {
+    "pair-checks-raid-parent-v2/result.json": {
+      "sha256": "beb4327780091cae5561ebac690fb209b6dfccd298a9b875ec6e7f6c53caad48",
+      "passed": true
+    },
+    "native-check-v1.json": {
+      "sha256": "1e4960b50d33aeb8e52b7ad410dbc9ed25f79dad5a2af57af349b119fca8dcde",
+      "passed": true
+    },
+    "recovery-check-v1.json": {
+      "sha256": "3b51d2b114c339163746a626d240a3551a3583893f32e288f4acac509bbfdadf",
+      "passed": true
+    },
+    "peer-contract-review/candidate-contract-audit-v4.json": {
+      "sha256": "d9ed347a149c249f0be81e392c6ef14489d9a84b09058db060fe099dc369f969",
+      "passed": true
+    },
+    "peer-contract-review/helper-contract-audit-v1.json": {
+      "sha256": "6ba6981c15e2df21312c93747bbfce5938142daf3520838bf30fdbf1e4533d02",
+      "passed": true
+    },
+    "delivery-v1/publication/public-harness-private-v1.json": {
+      "sha256": "bac464aeed190d7da04904e1b66ff2aafdd32d4fce0ff4f2db4cacda5528a811",
+      "passed": true
+    },
+    "all-routes-binding.json": {
+      "sha256": "3703c0225dfe8d3cdb824aa9f64a57b7d16c0be6431139219e4d54e848c8b903",
+      "passed": true
+    },
+    "all-routes-check-v2.json": {
+      "sha256": "90d0e36eaa78d2d21d1809d1b6421d6c3f92df471f03d5e44aeffba07300d51a",
+      "passed": true
+    },
+    "all-routes-check-v3.json": {
+      "sha256": "0a3034f18981b6368e93be3faef7a3cceaaa45b0cc204f163ab49386b5b325dc",
+      "passed": true
+    }
+  },
+  "shared_861_snapshot": {
+    "normal_daily_entries": 20,
+    "Mirror_weekly_entries": 1,
+    "wire_bytes": 739,
+    "same_SQL_view": true,
+    "native_full_reader_and_getters_verified": true,
+    "nonzero_counts_and_cold_reconnect": true
+  },
+  "source_freeze_sha256": "064dc9a4d5d2274f315879c2db46d8fa66818837b4d9f081e40c89c808925bf3"
 }

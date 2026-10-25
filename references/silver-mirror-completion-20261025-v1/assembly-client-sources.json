@@ -419,12 +419,98 @@
     }
   },
   "cautions": [
-    "1433 and1538 are matching client template/factor candidates; localization/current producer still needs binding",
     "Template is nonworld and nonstored; do not substitute Silver3A3 stored-world behavior",
     "Native immediate1433 search hit1399f10/139a420 appears to be protocol599 UI, not proof of this Buff producer",
     "Village SPA_INFO Type2 is static native facility configuration, not proof of timer/reward transaction completion"
   ],
   "formal_mutations": 0,
   "client_changes": 0,
-  "natural_GUI": false
+  "natural_GUI": false,
+  "spa_data_source": {
+    "resource": {
+      "ok": true,
+      "archive": "data036.kom",
+      "archive_sha256": "56bb739e04e856e2ebf4c93c0df0cca7c181914e65d7cf4d140e167f593c6601",
+      "entry": {
+        "Name": "SpaData.lua",
+        "Size": "3326",
+        "CompressedSize": "1056",
+        "Checksum": "8c650d57",
+        "FileTime": "8c650d57",
+        "Algorithm": "3",
+        "MappedID": "WY^41Wbt",
+        "offset": 26707673
+      },
+      "plain_sha256": "9f116dc16a7a832e308adb33f0bc84380bc47b718e888e2a89ea00b77bff0a65",
+      "runtime_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+      "call_count": 51,
+      "client_changes": 0,
+      "live_game_access": false
+    },
+    "decoded_calls_sha256": "81cd85de30775f1c48a4634fb9025d042d9f4a59207e022ea7746ea6b54b1ae3"
+  },
+  "type2_static_chain": {
+    "stay_requirement": [
+      {
+        "arguments": [
+          2,
+          360
+        ],
+        "pc": 21
+      }
+    ],
+    "buff_template": [
+      {
+        "arguments": [
+          2,
+          1433
+        ],
+        "pc": 133
+      }
+    ],
+    "purchase_ED": [
+      {
+        "arguments": [
+          2,
+          500000
+        ],
+        "pc": 276
+      }
+    ],
+    "avatar_price_coefficients": [
+      {
+        "arguments": [
+          2,
+          120,
+          0.7
+        ],
+        "pc": 346
+      },
+      {
+        "arguments": [
+          2,
+          121,
+          0.5
+        ],
+        "pc": 355
+      }
+    ],
+    "avatar_time_coefficients": [
+      {
+        "arguments": [
+          120,
+          0.7
+        ],
+        "pc": 70
+      },
+      {
+        "arguments": [
+          121,
+          0.5
+        ],
+        "pc": 77
+      }
+    ],
+    "interpretation": "Static current-client Type2 ->1433 ->factor1538 bound. 360 matches official6minutes; formula direction for0.7/0.5 is left raw until native consumer proof. Does not prove server timer/request/debit/save/effect delivery."
+  }
 }

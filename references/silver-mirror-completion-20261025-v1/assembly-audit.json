@@ -1,7 +1,7 @@
 {
   "ok": true,
   "kind": "assembly entry and completeness audit only; no assembly implementation changes",
-  "at": "2026-10-25T09:59:38.589114+00:00",
+  "at": "2026-10-25T10:15:01.879896+00:00",
   "parents": {
     "online": {
       "release": "native-raid-npc-base-stats-20261025-v2",
@@ -121,12 +121,21 @@
   ],
   "conclusion": "Scene/entry/server prerequisites exist in formal code. Full assembly stay-BUFF, uniform acceleration/discount and NPC500000ED effect transaction are not yet established by this audit. Do not mark whole assembly feature complete.",
   "missing_proofs": [
-    "exact current native stay timer input and producer",
-    "native Buff template/factor for assembly effect and all required fields",
-    "uniform native acceleration/discount consumer binding",
-    "NPC purchase request, debit, same source effect/expiry and saved reader; do not make a fake success ACK"
+    "native timer/request and notification source",
+    "complete server actor/scene/timer authorization",
+    "native uniform coefficient consumer",
+    "NPC purchase debit/effect expiry and saved reader in real transaction"
   ],
   "no_client_changes": true,
   "no_player_control": true,
-  "no_formal_mutations": true
+  "no_formal_mutations": true,
+  "client_static_evidence": {
+    "path": "assembly-client-sources.json",
+    "sha256": "97b41a99cdb95d96130a1c6bc66788e397094bce1799634087efd92065c9a0ea"
+  },
+  "closed_static_proofs": [
+    "five locations SPA_INFO Type2",
+    "current SpaData Type2: stay360, Buff1433, purchase500000ED",
+    "Buff1433 factor1538; nonworld and nonstored"
+  ]
 }

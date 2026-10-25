@@ -826,3 +826,20 @@ for _row in _consumable_extensions():
   if (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS.get(_t))!=(_row['metadata'],_row['group']):raise ValueError('Conflicting consumable extension')
  else:
   VERIFIED_TEMPLATES[_t]=_row['metadata'];TEMPLATE_BAG_GROUPS[_t]=_row['group'];TEMPLATE_MAX_STACKS[_t]=max(_row['max_stack'],LOCAL_MAX_STACK)if _row['max_stack']>1 else 1
+
+# Eight exact current Ariel reward/coupon readers. Keep all established tuples.
+from els_server.domain.ariel_attendance_rules import definitions as ariel_attendance_definitions
+for _t,_r in ariel_attendance_definitions().items():
+ _expected=(_r['metadata'],_r['group'],_r['max_stack'])
+ # Keep the newly accepted consumable provider's exact721053 tuple999.
+ # The unchanged pinned Ariel/native record still proves its native500.
+ if _t==721053 and _expected==(2,6,500) and (VERIFIED_TEMPLATES.get(_t),TEMPLATE_BAG_GROUPS.get(_t),TEMPLATE_MAX_STACKS.get(_t))==(2,6,999):continue
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting Ariel item reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
+# Exact ordinary daily-special readers; preserve every established tuple.
+from els_server.domain.ariel_daily_special_rules import definitions as ariel_daily_definitions
+for _t,_r in ariel_daily_definitions().items():
+ _expected=(_r['metadata'],_r['group'],_r['max_stack'])
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting daily-special item reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected

@@ -6,8 +6,8 @@
   "production_installation": false,
   "channels": {
     "online": {
-      "parent_release": "native-raid-npc-base-stats-20261025-v2",
-      "parent_manifest_sha256": "6d8a45d38363cc50b30e34e69a06585a4b7e0fa153ef2f4b37d1e12f69757ab5",
+      "parent_release": "native-consumable-expansion-20261025-v7",
+      "parent_manifest_sha256": "f67901bc7b512c6c01f3cf2f1ffc854cb1f40209176aeeda2a3652fb76a29b98",
       "files": [
         {
           "runtime_path": "config/dungeon_rotation_local.json",
@@ -26,16 +26,16 @@
         {
           "runtime_path": "els_server/domain/acquisition_policy.py",
           "source": "online/els_server/domain/acquisition_policy.py",
-          "sha256": "70c055afff47a0eea47a2fcfbcdd3a57207a7c7143b2f96b472351ffa12a3c9a",
-          "size": 5457,
-          "parent_sha256": "b84675f625bfa2a936d4c94cb89b2f99cac23b8fd961233f1640639eae66823d"
+          "sha256": "248eed1b91216efa4d79af5c7169cc7712745d458393733c98be4c9766bf2817",
+          "size": 5935,
+          "parent_sha256": "bce4568f4b8f5d262d6e3b16566f3e8a3bd5a6851f3716d0fb6407e06cc33ee7"
         },
         {
           "runtime_path": "els_server/domain/dungeon_flow.py",
           "source": "shared/els_server/domain/dungeon_flow.py",
-          "sha256": "0ea260ae9f73a860f4e73da58c7a2511946a58a0d5f10918f6a11f2939547f89",
-          "size": 15667,
-          "parent_sha256": "5ce1cf036774ee2c0e317d410fa43b63d0bc1a7e63861d709a7cfdab6860b7a4"
+          "sha256": "16ffc590f4986ec2e0a8fb50888d4bb8342c3e93da3c4cc84d5c769a1030e98d",
+          "size": 15882,
+          "parent_sha256": "5f85dc0b9d9a0cab9be97df5e47b3a0841045a6c1b1b7ef2a90b37a000399175"
         },
         {
           "runtime_path": "els_server/domain/dungeon_rotation.py",
@@ -54,9 +54,9 @@
         {
           "runtime_path": "els_server/domain/inventory_items.py",
           "source": "online/els_server/domain/inventory_items.py",
-          "sha256": "b376d8b0a5a443d61dd1559340eef99ac27873348da4d37335e85f2c60a6b6c4",
-          "size": 62512,
-          "parent_sha256": "b4e0e1458a34dd65393be8ccc827e5e09a1fdc9603325d1f5d3df4f821e754e7"
+          "sha256": "dcca39c2eb2ab37b5f99c0de993f8a679dd9eec80a584929517f0bd6966ac672",
+          "size": 63043,
+          "parent_sha256": "fcc9b8d4bccc6811327f7ee80283bd99fc31cb0ea1c543051d4f9153e9f490cb"
         },
         {
           "runtime_path": "els_server/domain/known_resurrection_flow.py",
@@ -75,9 +75,9 @@
         {
           "runtime_path": "els_server/domain/local_session.py",
           "source": "online/els_server/domain/local_session.py",
-          "sha256": "139f5443b313177c01590204c9fb4aca3032514e2700cb6b308346360de26619",
-          "size": 151179,
-          "parent_sha256": "0cd57a08000f730e546ff1798c04cb4d891597ac1d3e102f5ff83e4baa0a755e"
+          "sha256": "769c19b6d1920efe0fca2031b6e4614c99819eaa6d3938558c859a642d93dfec",
+          "size": 151574,
+          "parent_sha256": "2ae8b2bda317acd9c2f91c39c64f87a9101cc64c18f6b1eca8307e6e7a5f1689"
         },
         {
           "runtime_path": "els_server/domain/raid_economy_flow.py",
@@ -129,6 +129,13 @@
           "parent_sha256": null
         },
         {
+          "runtime_path": "els_server/protocol/ariel_daily_special_messages.py",
+          "source": "shared/els_server/protocol/ariel_daily_special_messages.py",
+          "sha256": "2ab1299ed06ac5cd617062969808f319943e96ea5ccdf0d4c408d759c1a5e85b",
+          "size": 1496,
+          "parent_sha256": "677e448b23b541846be4e7d3831926a3b48126593a17ef5fe82bbc5fc807a324"
+        },
+        {
           "runtime_path": "els_server/protocol/content_count_messages.py",
           "source": "shared/els_server/protocol/content_count_messages.py",
           "sha256": "9ccf5013948b8105da1d76af7dbaae4365e1f79e7fdc589bc98324d3c72a3748",
@@ -145,8 +152,8 @@
         {
           "runtime_path": "els_server/protocol/weekly_dungeon_counts.py",
           "source": "shared/els_server/protocol/weekly_dungeon_counts.py",
-          "sha256": "54cc0aa3adfb92e70bee85d4b6eabca8c8dd63881c2686f35225b03004c3ff2c",
-          "size": 790,
+          "sha256": "28f0634b1107d6835addd0e6f2af764b2fd7a9d7aa329671c9be30e9b7dfd4e1",
+          "size": 478,
           "parent_sha256": null
         },
         {
@@ -157,11 +164,18 @@
           "parent_sha256": "20244b8ee898bb4f27c1fce9b16a1f5ce1630a49a413a58d6b0fb6d8ca3268ca"
         },
         {
+          "runtime_path": "els_server/storage/ariel_daily_special.py",
+          "source": "shared/els_server/storage/ariel_daily_special.py",
+          "sha256": "6f1504f494737eb9f466ab068b1d3fcb16b766b5350c939b1b23687fe9c4700b",
+          "size": 10141,
+          "parent_sha256": "ebdc6e4899e48bfb8a1956bf89b8c1ff8137f8385e74b4c3e7f57474a08ae3ca"
+        },
+        {
           "runtime_path": "els_server/storage/inventory_state.py",
           "source": "shared/els_server/storage/inventory_state.py",
-          "sha256": "baca1b973ef92b62d2b36f7e87e2b1d52934d6f501ce7b2f4e24862b16ad0961",
-          "size": 18460,
-          "parent_sha256": "ad8b1e8b61788ce76859981d3d4409717e2b5381e51e3764f348b35b09cd1661"
+          "sha256": "dd78ffa58ee60c9a380f2d43d6ccaca24e785fbaee5ff6f69803d4ba2a3085d0",
+          "size": 19240,
+          "parent_sha256": "ab110109f1c4bdd50917a6fd795b74778debc76a145948c3ab7497f91557b15f"
         },
         {
           "runtime_path": "els_server/storage/known_resurrection.py",
@@ -180,9 +194,9 @@
         {
           "runtime_path": "els_server/storage/reward_state.py",
           "source": "shared/els_server/storage/reward_state.py",
-          "sha256": "84220eaf893496d41125843a8fa5225db319d91e36a0c89360894ce8c344ad0a",
-          "size": 16358,
-          "parent_sha256": "5ba02f361c4cf50c6ab8771cd29eff1b9e377b713da6431d4d9c3c7b727332c0"
+          "sha256": "23ba41c29e7b3e0fc49091844bb11824f9e91355830d1801b408dcb2bfbade21",
+          "size": 18232,
+          "parent_sha256": "8612bddc941c2917d3f9b9b8230fda3769e3493938c286272cb1eeabcd6e83d5"
         },
         {
           "runtime_path": "els_server/storage/silver_mirror_invitation.py",
@@ -208,8 +222,8 @@
       ]
     },
     "local": {
-      "parent_release": "local-native-raid-npc-base-stats-20261025-v2",
-      "parent_manifest_sha256": "d1feee8fc9a6573bd3e8aec191df822e6b5ac2cb770c82d0bf3d79fd9beb9ac2",
+      "parent_release": "local-native-consumable-expansion-20261025-v7",
+      "parent_manifest_sha256": "5868abbd0f5a547d2dfe209c52b16e29c5edf0d611d19b0bb48234b41242bca5",
       "files": [
         {
           "runtime_path": "config/dungeon_rotation_local.json",
@@ -228,16 +242,16 @@
         {
           "runtime_path": "els_server/domain/acquisition_policy.py",
           "source": "local/els_server/domain/acquisition_policy.py",
-          "sha256": "0cda6a13b30146b66fc98471f90a20018c1064e6fd2114c6db01136a1a24bf62",
-          "size": 5297,
-          "parent_sha256": "0804c0e245bead153a72610f5bffc743093b8fefd684fc5d412a49ca44f014f0"
+          "sha256": "1310819cd6d418e11cfa8a2142654c226e2b81f1f7ad528e4d72c9ff5b501b08",
+          "size": 5776,
+          "parent_sha256": "f34d3ea5e833c3f7011003d034494a51d387ee8f282d3493e0867f0ff3f0f15d"
         },
         {
           "runtime_path": "els_server/domain/dungeon_flow.py",
           "source": "shared/els_server/domain/dungeon_flow.py",
-          "sha256": "0ea260ae9f73a860f4e73da58c7a2511946a58a0d5f10918f6a11f2939547f89",
-          "size": 15667,
-          "parent_sha256": "5ce1cf036774ee2c0e317d410fa43b63d0bc1a7e63861d709a7cfdab6860b7a4"
+          "sha256": "16ffc590f4986ec2e0a8fb50888d4bb8342c3e93da3c4cc84d5c769a1030e98d",
+          "size": 15882,
+          "parent_sha256": "5f85dc0b9d9a0cab9be97df5e47b3a0841045a6c1b1b7ef2a90b37a000399175"
         },
         {
           "runtime_path": "els_server/domain/dungeon_rotation.py",
@@ -256,9 +270,9 @@
         {
           "runtime_path": "els_server/domain/inventory_items.py",
           "source": "local/els_server/domain/inventory_items.py",
-          "sha256": "9a80b2ecd6d1be5436b6f155e6b701819c12be6a41e0d37805ab850f7135f1fc",
-          "size": 61529,
-          "parent_sha256": "02edc5201740c8803c7c238c6b86bd82294499e779fbb10bd2855cce59c8558f"
+          "sha256": "bd66610175a67a8bd518488e883b610a4740c4886820c995f708b044a147af42",
+          "size": 62888,
+          "parent_sha256": "2f16afe72c97dd1e7eeaee8428078664351ecd7973d29edb07f883bb5148cc1c"
         },
         {
           "runtime_path": "els_server/domain/known_resurrection_flow.py",
@@ -277,9 +291,9 @@
         {
           "runtime_path": "els_server/domain/local_session.py",
           "source": "local/els_server/domain/local_session.py",
-          "sha256": "0f3286e71cd66b29a7b913504d1781ec08debdfe14c4af4709a43bd8bab7633a",
-          "size": 151939,
-          "parent_sha256": "1b3e12c78658be3c6c2bc267a7e7a8a72e0483628a20887d17433b21bd64ce59"
+          "sha256": "38073b7a76fb66db6e253dd189c2c9fbd26bff474471a6e94c37f8f5c6210ee8",
+          "size": 150366,
+          "parent_sha256": "a597f08aaab90123a8bc505f7afa992f72052320920fc99fc7b57a77908a1815"
         },
         {
           "runtime_path": "els_server/domain/raid_economy_flow.py",
@@ -331,6 +345,13 @@
           "parent_sha256": null
         },
         {
+          "runtime_path": "els_server/protocol/ariel_daily_special_messages.py",
+          "source": "shared/els_server/protocol/ariel_daily_special_messages.py",
+          "sha256": "2ab1299ed06ac5cd617062969808f319943e96ea5ccdf0d4c408d759c1a5e85b",
+          "size": 1496,
+          "parent_sha256": "677e448b23b541846be4e7d3831926a3b48126593a17ef5fe82bbc5fc807a324"
+        },
+        {
           "runtime_path": "els_server/protocol/content_count_messages.py",
           "source": "shared/els_server/protocol/content_count_messages.py",
           "sha256": "9ccf5013948b8105da1d76af7dbaae4365e1f79e7fdc589bc98324d3c72a3748",
@@ -347,8 +368,8 @@
         {
           "runtime_path": "els_server/protocol/weekly_dungeon_counts.py",
           "source": "shared/els_server/protocol/weekly_dungeon_counts.py",
-          "sha256": "54cc0aa3adfb92e70bee85d4b6eabca8c8dd63881c2686f35225b03004c3ff2c",
-          "size": 790,
+          "sha256": "28f0634b1107d6835addd0e6f2af764b2fd7a9d7aa329671c9be30e9b7dfd4e1",
+          "size": 478,
           "parent_sha256": null
         },
         {
@@ -359,11 +380,18 @@
           "parent_sha256": "20244b8ee898bb4f27c1fce9b16a1f5ce1630a49a413a58d6b0fb6d8ca3268ca"
         },
         {
+          "runtime_path": "els_server/storage/ariel_daily_special.py",
+          "source": "shared/els_server/storage/ariel_daily_special.py",
+          "sha256": "6f1504f494737eb9f466ab068b1d3fcb16b766b5350c939b1b23687fe9c4700b",
+          "size": 10141,
+          "parent_sha256": "ebdc6e4899e48bfb8a1956bf89b8c1ff8137f8385e74b4c3e7f57474a08ae3ca"
+        },
+        {
           "runtime_path": "els_server/storage/inventory_state.py",
           "source": "shared/els_server/storage/inventory_state.py",
-          "sha256": "baca1b973ef92b62d2b36f7e87e2b1d52934d6f501ce7b2f4e24862b16ad0961",
-          "size": 18460,
-          "parent_sha256": "ad8b1e8b61788ce76859981d3d4409717e2b5381e51e3764f348b35b09cd1661"
+          "sha256": "dd78ffa58ee60c9a380f2d43d6ccaca24e785fbaee5ff6f69803d4ba2a3085d0",
+          "size": 19240,
+          "parent_sha256": "ab110109f1c4bdd50917a6fd795b74778debc76a145948c3ab7497f91557b15f"
         },
         {
           "runtime_path": "els_server/storage/known_resurrection.py",
@@ -382,9 +410,9 @@
         {
           "runtime_path": "els_server/storage/reward_state.py",
           "source": "shared/els_server/storage/reward_state.py",
-          "sha256": "84220eaf893496d41125843a8fa5225db319d91e36a0c89360894ce8c344ad0a",
-          "size": 16358,
-          "parent_sha256": "5ba02f361c4cf50c6ab8771cd29eff1b9e377b713da6431d4d9c3c7b727332c0"
+          "sha256": "23ba41c29e7b3e0fc49091844bb11824f9e91355830d1801b408dcb2bfbade21",
+          "size": 18232,
+          "parent_sha256": "8612bddc941c2917d3f9b9b8230fda3769e3493938c286272cb1eeabcd6e83d5"
         },
         {
           "runtime_path": "els_server/storage/silver_mirror_invitation.py",

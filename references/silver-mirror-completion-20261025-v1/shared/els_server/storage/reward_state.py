@@ -26,7 +26,7 @@ class RewardState:
   try:r=db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(self.uid,)).fetchone()
   finally:db.close()
   return validate_balances(r)
- def grant(self,run_id,proof,ed,experience,response_builder=None,item_plan=None,inventory_response_builder=None,*,dungeon_clear=None,challenge_clear=None,transaction=None,clear_assessment=None,artifact_base=None,title_economy=None,title_dungeon=None,attendance_clear=None,experience_limit=None,resonance_source=None,raid_reward_source=None,silver_source=None):
+ def grant(self,run_id,proof,ed,experience,response_builder=None,item_plan=None,inventory_response_builder=None,*,dungeon_clear=None,challenge_clear=None,transaction=None,clear_assessment=None,artifact_base=None,title_economy=None,title_dungeon=None,attendance_clear=None,experience_limit=None,resonance_source=None,raid_reward_source=None,silver_source=None,daily_special=None):
   # A run UUID is allocated by the authenticated server, never by a client.
   if not isinstance(run_id,str) or str(uuid.UUID(run_id))!=run_id:raise ValueError('Noncanonical reward run UUID')
   if not isinstance(proof,bytes) or not proof or len(proof)>8192:raise ValueError('Reward evidence bound')
@@ -38,8 +38,9 @@ class RewardState:
   if silver_source is not None:
    from els_server.domain.silver_mirror_rewards import validate_source as _mirror_source
    source=_mirror_source(silver_source)
-   if raid_reward_source is not None or transaction is not source.db or source.owner!=self.uid or source.run_id!=run_id or source.proof_sha256!=hashlib.sha256(proof).hexdigest():raise ValueError('Mirror reward source operation/owner/writer/proof')
+   if daily_special is not None or raid_reward_source is not None or transaction is not source.db or source.owner!=self.uid or source.run_id!=run_id or source.proof_sha256!=hashlib.sha256(proof).hexdigest():raise ValueError('Mirror reward source operation/owner/writer/proof')
    grant['silver_mirror_source']={'run_id':run_id,'proof_sha256':source.proof_sha256}
+  if daily_special is not None and raid_reward_source is not None:raise ValueError('Daily-special and Raid typed sources are mutually exclusive')
   if raid_reward_source is not None:
    from els_server.domain.raid_reward_items import validate_source as _raid_source
    source=_raid_source(raid_reward_source)
@@ -80,6 +81,10 @@ class RewardState:
    from els_server.storage.attendance_2026_commit import AttendanceClearCommit
    if type(attendance_clear) is not AttendanceClearCommit or attendance_clear.character!=self.uid or dungeon_clear is None:raise ValueError('Typed owned attendance clear required')
    grant['attendance518']=attendance_clear.receipt_identity()
+  if daily_special is not None:
+   from els_server.domain.ariel_daily_special import DailySpecialClear
+   if type(daily_special)is not DailySpecialClear or daily_special.character!=self.uid or daily_special.reward_run_id!=run_id or dungeon_clear is None or daily_special.dungeon!=dungeon_clear[0]:raise ValueError('Typed owned daily-special clear required')
+   grant['ariel_daily_special']=daily_special.receipt_identity()
   if self.uid!=1001:grant['owner']=self.uid
   if item_plan is not None:
    from els_server.storage.inventory_state import ensure_inventory,grant_items,validate_plan,migrate_potion_bag,migrate_fashion_bag,normalize_legacy_potion_groups
@@ -106,6 +111,7 @@ class RewardState:
     if 'title_economy' not in saved_grant:comparable.pop('title_economy',None)
     if 'title_dungeon' not in saved_grant:comparable.pop('title_dungeon',None)
     if 'attendance518' not in saved_grant:comparable.pop('attendance518',None) # never backfill an old clear
+    if 'ariel_daily_special' not in saved_grant:comparable.pop('ariel_daily_special',None) # never top up an old clear
     if 'experience_limit' not in saved_grant:comparable.pop('experience_limit',None)
     if 'resonance_source' not in saved_grant:comparable.pop('resonance_source',None)
     if 'resonance_multiplier' not in saved_grant:comparable.pop('resonance_multiplier',None) # old receipts never receive a top-up
@@ -123,7 +129,16 @@ class RewardState:
     if clear_assessment is not None:
      from els_server.storage.local_clear_rules import lookup_db
      reply['local_rules']=lookup_db(db,self.uid,run_id)
-    if item_plan is not None:
+    if 'ariel_daily_special' in saved_grant:
+     from els_server.storage.ariel_daily_special import lookup
+     reply['ariel_daily_special']=lookup(db,run_id,self.uid)
+     from els_server.storage.ariel_daily_special import notification
+     from els_server.storage.ariel_attendance import clock
+     import time
+     reply['ariel_daily_status']=notification(db,daily_special.account,self.uid,clock(time.time))
+     daily_special.validate()
+    if item_plan is not None or 'ariel_daily_special' in saved_grant:
+     from els_server.storage.inventory_state import normalize_legacy_potion_groups
      saved=db.execute('SELECT items_json FROM reward_inventory_receipts WHERE run_id=?',(run_id,)).fetchone()
      if saved is None:raise RewardConflict('Missing committed inventory receipt')
      reply['items']=normalize_legacy_potion_groups(json.loads(saved[0]))
@@ -165,6 +180,14 @@ class RewardState:
    # Encoding runs inside the transaction. The protocol builder uses
    # per-run grants or verified totals; any failure rolls back everything.
    awarded=grant_items(db,item_plan,self.uid,raid_reward_source=raid_reward_source,silver_source=silver_source) if item_plan is not None else None
+   daily_detail=None;daily_status=None
+   if daily_special is not None:
+    from els_server.storage import ariel_daily_special as daily_store
+    daily_detail,daily_items,daily_status=daily_store.grant(db,daily_special,self.uid,run_id,dungeon_clear)
+    awarded=list({i['uid']:i for i in [*(awarded or []),*daily_items]}.values())
+    from els_server.domain.dungeon_drops import pickup_inventory_notice
+    from els_server.protocol.protocol_codec import encode_event
+    if awarded:encode_event(pickup_inventory_notice(awarded))
    if challenge_clear is not None:
     from els_server.storage.challenge_state import commit_clear
     commit_clear(db,self.uid,challenge_clear)
@@ -182,11 +205,13 @@ class RewardState:
    else:
     response=(inventory_response_builder(dict(updated),[dict(i) for i in awarded]) if inventory_response_builder is not None else response_builder(dict(updated),dict(effect)) if effect is not None else response_builder(dict(updated)))
    if not isinstance(response,bytes) or not 1<=len(response)<=65536:raise ValueError('Invalid reward response')
+   if daily_special is not None:daily_special.validate()
    db.execute('UPDATE reward_balances SET ed=?,experience=?,revision=? WHERE uid=?',(updated['ed'],updated['experience'],updated['revision'],self.uid))
    db.execute('INSERT INTO reward_receipts VALUES (?,?,?,?,?)',(run_id,digest,plan,response,json.dumps(updated,sort_keys=True)))
    if effect is not None:db.execute('INSERT INTO reward_title_receipts VALUES (?,?,?)',(run_id,self.uid,json.dumps(effect,sort_keys=True,separators=(',',':'))))
    if awarded is not None:db.execute('INSERT INTO reward_inventory_receipts VALUES (?,?)',(run_id,json.dumps(awarded,sort_keys=True)))
    if attendance_clear is not None:attendance_clear.commit(db,self.uid,run_id,dungeon_clear)
+   if daily_special is not None:daily_store.save(db,run_id,self.uid,daily_detail)
    db.execute('RELEASE '+savepoint);savepoint=None
    if transaction is None:db.commit()
    reply={'response':response,'balances':updated,'replayed':False}
@@ -195,6 +220,7 @@ class RewardState:
    if clear_assessment is not None:
     from els_server.storage.local_clear_rules import lookup_db
     reply['local_rules']=lookup_db(db,self.uid,run_id)
+   if daily_special is not None:reply.update(ariel_daily_special=daily_detail,ariel_daily_status=daily_status)
    if awarded is not None:reply['items']=awarded
    return reply
   except BaseException:
