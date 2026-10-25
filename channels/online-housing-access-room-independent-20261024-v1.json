@@ -1,0 +1,116 @@
+{
+  "channel": "online",
+  "release": "housing-access-room-independent-20261024-v1",
+  "parent_release": "enhancement-scroll-use-20261024-v1",
+  "manifest_sha256": "ad3f8277c4fedbb0a3b930fefc0739c127516caa33c926ea3e175292e2ef9410",
+  "parent_manifest_sha256": "2825824ef9ff0f776b2d7da7620457cc3c81eff00267654866b92fd47b79eb3b",
+  "scope": "Original136034 first seven-day access and original26770 own-room admission/return/three rewards; no visitors/furniture/natural-GUI or multiplayer claim",
+  "files": [
+    {
+      "path": "els_server/data/story_quests.json",
+      "sha256": "0cb47c1197bed148c6d650b35d6ebe16a8417adb68e087b01dee40266d8459cd",
+      "size": 1549956,
+      "parent_sha256": "c520d676326f17ba8e070314686e8209e511d315de82596947d15a335449241f"
+    },
+    {
+      "path": "els_server/data/story_quests.manifest.json",
+      "sha256": "6f21356488ae68b96986c368fb981f4a68c7a411b69087983d281ad06e1495db",
+      "size": 324,
+      "parent_sha256": "019fecab6a94ceaebe1414ba1fef57a5675f5d0aca6ebc284fd045c8109073ee"
+    },
+    {
+      "path": "els_server/domain/housing_access_flow.py",
+      "sha256": "fac48f155ac799f0f13cb0a7c7f79d549e77382352672449b946c5f28cea63d7",
+      "size": 3348,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/housing_room_flow.py",
+      "sha256": "1cc847ea712b6e2e341ed700b4a446198dd6c80b8609ebbcfabcb37121611f2f",
+      "size": 8312,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/housing_room_quest.py",
+      "sha256": "feb49b43835e2bfcd7e3cf7c92a6156f76c2428181d324a8e1caedddc31bb438",
+      "size": 2287,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "b6b4059db347d834b9c9d6c8e7bb7a1835b6ccedc915f8ba334ced7b3d380657",
+      "size": 146714,
+      "parent_sha256": "b50e447bb97eff55efdf23c147744a0c6eb82426e6e553221bacd758146cb203"
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "sha256": "1065d030c722f79c98a5dc1bffbdb092fa31de4992fb40e54492bd7be77233a6",
+      "size": 23074,
+      "parent_sha256": "68b64b35d4b6382880feb760c616ee685eab8d1686ec33bd39865d3aca4a20e0"
+    },
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "sha256": "58394a360d12259ede9cbc93125bb11e20981ddfecf231611e162f0e2f34dc15",
+      "size": 15993,
+      "parent_sha256": "dc4435fa20ab96a829df164c7ac37e5802da7be91f799cf4faf9f21664bc9a8e"
+    },
+    {
+      "path": "els_server/protocol/housing_access_messages.py",
+      "sha256": "c50675720105fef705a243da383747f14681fd302b9365f68bc461ef5189bd5f",
+      "size": 829,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/protocol/housing_messages.py",
+      "sha256": "4b336730711dc87fc12602256b72a6385d669a9cdbcdd3f647b266e8749f2c9e",
+      "size": 3936,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/housing_access.py",
+      "sha256": "0170f312c04f72e680496eed7a22f3b05dccb256eac464ed88e53f57d009cea8",
+      "size": 5141,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/housing_rooms.py",
+      "sha256": "0ee3eab487ecaaa6c53c21ccd197c4c2f0e0df26bc174768c812321ec3c3cb25",
+      "size": 6853,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "sha256": "7f7853d471bc679c73a1dcfd96d544fe85552b447a66c67790ba98cc7dc2c5c6",
+      "size": 29609,
+      "parent_sha256": "29ba1e1357dbeb8686d6bcc94c18fab18787866f2fedd6d890c16ca2c106d5aa"
+    }
+  ],
+  "changed_runtime_file_count": 13,
+  "source_file_count": 823,
+  "business_file_count": 1050,
+  "independent_units": 2,
+  "client_delta": 0,
+  "new_schema": true,
+  "new_schema_definitions": 3,
+  "install_DDL_statements": 0,
+  "parent_snapshot_commit": "d4d0c23fb88882a9b98f2ba129d908208419473a",
+  "historical_delivery_accepted": true,
+  "source_view_is_formal_runtime": false,
+  "automatic_deployment": false,
+  "contains_accounts_or_saves": false,
+  "natural_GUI": false,
+  "whole_card_complete": false,
+  "evidence": {
+    "actual_manifest": {
+      "path": "releases/online/housing-access-room-independent-20261024-v1/rollup-manifest.json",
+      "sha256": "ad3f8277c4fedbb0a3b930fefc0739c127516caa33c926ea3e175292e2ef9410",
+      "bytes": 193428
+    },
+    "actual_acceptance": {
+      "path": "releases/online/housing-access-room-independent-20261024-v1/acceptance.json",
+      "sha256": "329c152f2c5fac91feab07cea55b10a4d0081642708dc6047b6868737e55c443",
+      "bytes": 5019
+    }
+  },
+  "metadata_sync_installs": 0
+}
