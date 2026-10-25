@@ -1186,8 +1186,11 @@ class LocalSession:
             from els_server.domain.fishing_equipment import handle as life_equipment_handle
             return life_equipment_handle(self,event,request_sequence)
         if self.item_test and self.client_build=='dx11_260923' and kind==0x104 and event.event_id==0x202:
+            self._wear_rejection=None
             from els_server.domain.fashion_state import move_fashion,move_ack
-            if self.role!='game' or self.phase!='town_ready':return [Event(0x201,kind=0x105,payload=move_ack(result=2005 if len(event.payload)==11 and 24 in (event.payload[0],event.payload[5]) else -1))]
+            if self.role!='game' or self.phase!='town_ready':
+                self._wear_rejection='wear_not_town_ready'
+                return [Event(0x201,kind=0x105,payload=move_ack(result=2005 if len(event.payload)==11 and 24 in (event.payload[0],event.payload[5]) else 1))]
             try:
                 if self.client_build=='dx11_260923' and len(event.payload)==11 and event.payload[0]==event.payload[5] and event.payload[0] in (2,3,4,5,6,21):
                     from els_server.storage.bag_moves import move_bag_items
@@ -1212,7 +1215,12 @@ class LocalSession:
                     captured=wear_context(self)
                     ack=move_wear(self.account.store.path,event.payload,self.account.uid,account_id=self.account.account_id,
                         session_id=self.shop_session_id,sequence=request_sequence,validate=lambda:validate_wear_context(self,captured))
-            except ValueError:ack=move_ack(result=2005 if len(event.payload)==11 and 24 in (event.payload[0],event.payload[5]) else -1)
+            except ValueError as error:
+                self._wear_rejection=str(error)
+                # The original105 caller uses751120/79B330. Minus1 has no
+                # text; retain2005 for artifacts and use the original messages.
+                code=1999 if str(error)=='Activity armor requires ordinary initial identification' else 1
+                ack=move_ack(result=2005 if len(event.payload)==11 and 24 in (event.payload[0],event.payload[5]) else code)
             return [Event(0x201,kind=0x105,payload=ack)]
         if self.shop_test and event.event_id==0x202 and kind==0xd78:
             from els_server.protocol.shop_messages import catalog_request,empty_catalog_ack
