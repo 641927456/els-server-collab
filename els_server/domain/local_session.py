@@ -1239,7 +1239,10 @@ class LocalSession:
             from els_server.storage.skill_unlocks import purchase_notifications as skill_book_purchase_notifications
             def prepare_skill_books(db,character,previous,replayed):
                 career_updates.extend(skill_book_purchase_notifications(db,self.account.uid,character,previous,replayed))
-            try:payload=purchase(self.account.store.path,event.payload,operation,self.account.uid,prepare_career=prepare_career,prepare_skill_books=prepare_skill_books)
+            try:
+                from els_server.domain.palette_shop import guarded_request,purchase_context
+                palette_prepare=purchase_context(self,event,request_sequence)if guarded_request(event.payload)else None
+                payload=purchase(self.account.store.path,event.payload,operation,self.account.uid,prepare_career=prepare_career,prepare_skill_books=prepare_skill_books,prepare_palette=palette_prepare)
             except ValueError:return [ed_purchase_ack(-1,[],0)]
             answer=[Event(0x201,kind=0x810,payload=payload)]
             from els_server.storage.shop_state import bank_purchase_refresh
