@@ -1,15 +1,16 @@
 """Finite static scene retirements; never infer retirement from class103 alone.
 
-Memory2 flower source identities and script control flow are established. The
-candidate admission remains off until its original DYING_END report producer
-has been qualified. This module has no persistence, quest or reward consumer.
+Memory2's six original flower sources use the pinned DYING_END script and
+CX2GUNPC factory. Original expiry DTO/map/writer code establishes the admitted
+wire contract; the server only consumes an actual authenticated report. This
+module has no persistence, quest or reward consumer.
 """
 import copy
 import math
 import struct
 
 # Code-first recovery disables only the new admission; keep this reader.
-SCENE_ACTOR_RETIREMENTS_ENABLED=False
+SCENE_ACTOR_RETIREMENTS_ENABLED=True
 GRAPH_SHA='3dd4f08d0d5271cc9d83937fddface52ce0730378e0c1f28d13220437ab54821'
 SCRIPT='LITHIA_MEMORY2_FLOWER.lua'
 SCRIPT_SHA='8498135f543cd12f05694ca1db6d9a7e48519df3e3036472d8a6fa32aa6bca0b'

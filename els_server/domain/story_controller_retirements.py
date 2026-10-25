@@ -30,7 +30,7 @@ def source_pinned(run,npc):
     Pinned controllers keep the strict rule path; the generic scene-expiry
     branch must not consume a mismatch the rule itself rejected.
     """
-    if npc.get('dynamic'):return False
+    if npc.get('dynamic') or npc.get('source_index') is None:return False
     return any((r['stage'],r['part'],r['template'],r['source']['source_index'])==
                (run.stage,run.part,npc['template'],npc['source_index'])
                for r in RULES if r['dungeon']==run.identity)
@@ -46,6 +46,7 @@ def handle(s,event,report):
         # These source-pinned invulnerable scene actors retire through their
         # original DYING_END producer. Do not let generic combat AD consume them.
         actor=next((n for n in run.current['npcs'] if n['key']==report['index']),None)
+        if actor is not None and not actor.get('dynamic') and actor.get('source_index') is None:return []
         if actor is not None and not actor.get('dynamic') and any(
             r.get('requires_native_255') and
             (r['stage'],r['part'],r['template'],r['source']['source_index'])==
@@ -61,7 +62,7 @@ def handle(s,event,report):
         or getattr(s,'reward_run_id',None)!=run.run_id
         or frozenset(getattr(s,'dungeon_participants',(owner,)))!=frozenset((owner,))):return []
     npc=next((n for n in run.current['npcs'] if n['key']==report['index']),None)
-    if npc is None or npc.get('dynamic') or npc.get('ally') or npc.get('team',1)!=1:return []
+    if npc is None or npc.get('dynamic') or npc.get('ally') or npc.get('team',1)!=1 or npc.get('source_index') is None:return []
     matches=[r for r in rules if (r['stage'],r['part'],r['template'],r['source']['source_index'])==
              (run.stage,run.part,npc['template'],npc['source_index'])]
     if len(matches)!=1:return []

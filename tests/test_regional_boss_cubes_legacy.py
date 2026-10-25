@@ -115,15 +115,19 @@ class LegacyRegionalCubeTests(unittest.TestCase):
   s.role='game';s.phase='town_ready';s.active_map=20013;s.completed.update((0x28,0x225,0x227))
   return s
 
- def test_lithia_preview_and_native_use_reject_primary_pool(self):
+ def test_lithia_approved_alternate_native_preview_and_use(self):
+  from els_server.domain.regional_boss_cubes_legacy import pool_for
   with closing(sqlite3.connect(self.path)) as db,db:
    db.execute('UPDATE characters SET unit_type=15,unit_class=205 WHERE uid=1001')
-  item=self.grant(130159);s=self.session();before=self.dump()
+  row=pool_for(catalog()[130159],15,205);self.assertEqual(row['resolved_group'],60353)
+  item=self.grant(130159);s=self.session()
   reply=s.handle(Event(0x202,kind=0x559,payload=struct.pack('>iIBB',130159,0,0,0)),1)
-  self.assertNotEqual(struct.unpack_from('>i',reply[0].payload)[0],0)
+  self.assertEqual(struct.unpack_from('>i',reply[0].payload)[0],0)
+  self.assertEqual(struct.unpack_from('>I',reply[0].payload,17)[0],len(row['entries']))
   answer=s.handle(Event(0x202,kind=0x196,payload=payload(item['uid'])),2)
-  self.assertNotEqual(struct.unpack_from('>i',answer[-1].payload)[0],0)
-  self.assertEqual(self.dump(),before)
+  self.assertEqual(struct.unpack_from('>i',next(e for e in answer if e.kind==0x197).payload)[0],0)
+  self.assertNotIn(item['uid'],{i['uid']for i in self.items()})
+  self.assertEqual(sum(i['count']for i in self.items()if i['template']in{e['template']for e in row['entries']}),1)
 
  def test_stale_session_and_foreign_envelope_reject_native_use(self):
   item=self.grant(130159);s=self.session();before=self.dump()
@@ -155,14 +159,15 @@ class LegacyRegionalCubeTests(unittest.TestCase):
   open_cube(self.path,1001,130159,payload(item['uid']),'advanced-primary',lambda n:0)
   self.assertNotIn(item['uid'],{i['uid'] for i in self.items()})
 
- def test_unknown_lithia_alternate_pool_refuses_all_ten_without_draw_or_debit(self):
-  with closing(sqlite3.connect(self.path)) as db,db:
-   db.execute('UPDATE characters SET unit_type=15,unit_class=205 WHERE uid=1001')
-  for template in catalog():
-   item=self.grant(template);before=self.dump()
-   with self.assertRaises(ValueError):
-    open_cube(self.path,1001,template,payload(item['uid']),'unknown-'+str(template),lambda n:self.fail('Unknown pool drew'))
-   self.assertEqual(self.dump(),before)
+ def test_disabled_lithia_alternate_pool_refuses_all_ten_without_draw_or_debit(self):
+  with patch('els_server.domain.regional_boss_cubes_legacy.LITHIA_ALTERNATE_ENABLED',False):
+   with closing(sqlite3.connect(self.path)) as db,db:
+    db.execute('UPDATE characters SET unit_type=15,unit_class=205 WHERE uid=1001')
+   for template in catalog():
+    item=self.grant(template);before=self.dump()
+    with self.assertRaises(ValueError):
+     open_cube(self.path,1001,template,payload(item['uid']),'unknown-'+str(template),lambda n:self.fail('Unknown pool drew'))
+    self.assertEqual(self.dump(),before)
 
  def test_expiration_lock_full_bag_invalid_mode_and_wrong_preview_roll_back(self):
   from els_server.storage.item_expiration import assign as expire

@@ -61,7 +61,7 @@ def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.r
     if (request.option!=0 or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))
         or expected_template not in catalog()):raise ValueError('Unsupported fixed cube use')
     row=catalog()[expected_template]
-    from els_server.domain.regional_boss_cubes_legacy import BOXES,require_primary
+    from els_server.domain.regional_boss_cubes_legacy import BOXES,pool_for
     legacy=expected_template in BOXES
     growing=(expected_template==168889 and row.get('growing_adventure_kit')is True)
     if row['selection_count']:
@@ -96,7 +96,7 @@ def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.r
         if legacy:
             role=db.execute('SELECT unit_type,unit_class FROM characters WHERE uid=?',(owner,)).fetchone()
             if role is None:raise ValueError('Legacy cube owner missing')
-            require_primary(row,*role)
+            row=pool_for(row,*role)
         if row.get('random'):
             from els_server.domain.regional_boss_cubes import draw
             output=draw(row,randbelow(10000))

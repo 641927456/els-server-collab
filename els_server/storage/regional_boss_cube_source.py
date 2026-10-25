@@ -5,7 +5,7 @@ import sqlite3
 
 class _OwnedCubeSource:
     def __init__(self, db, owner, item, output):
-        from els_server.domain.regional_boss_cubes_legacy import catalog, require_primary
+        from els_server.domain.regional_boss_cubes_legacy import catalog, native_group, pool_for
         from els_server.domain.item_expiration import require_current
         from els_server.domain.item_locks import require_unlocked
         from els_server.storage.inventory_state import load_items
@@ -13,15 +13,19 @@ class _OwnedCubeSource:
         if type(db) is not sqlite3.Connection or not db.in_transaction:
             raise ValueError('Regional cube actual SQL transaction required')
         row = catalog().get(item['template'])
-        if row is None or output not in row['entries']:
-            raise ValueError('Regional cube exact disclosed output')
+        if row is None:
+            raise ValueError('Regional cube finite source template')
         if item not in load_items(db,owner) or item['group'] != 4:
             raise ValueError('Regional cube exact owned UID required')
         role = db.execute('SELECT unit_type,unit_class FROM characters WHERE uid=?',(owner,)).fetchone()
         if role is None:
             raise ValueError('Regional cube owner missing')
-        require_primary(row,*role); require_current(item); require_unlocked(item)
+        group=native_group(row,*role); row=pool_for(row,*role)
+        if output not in row['entries']:
+            raise ValueError('Regional cube exact native-branch output')
+        require_current(item); require_unlocked(item)
         self.db,self.owner,self.item = db,owner,dict(item)
+        self.role,self.native_group=tuple(role),group
         self.plan = [dict(template=output['template'],metadata=VERIFIED_TEMPLATES[output['template']],
                           group=TEMPLATE_BAG_GROUPS[output['template']],quantity=output['quantity'])]
         self.before = self._rows()
@@ -37,6 +41,8 @@ class _OwnedCubeSource:
     def _check(self):
         if self.phase == 'closed' or not self.db.in_transaction:
             raise ValueError('Regional cube expired authority')
+        if self.db.execute('SELECT unit_type,unit_class FROM characters WHERE uid=?',(self.owner,)).fetchone()!=self.role:
+            raise ValueError('Regional cube original class branch changed')
         # A commit/rollback followed by BEGIN must not resurrect this authority.
         self.db.execute('RELEASE SAVEPOINT ' + self.marker)
         self.db.execute('SAVEPOINT ' + self.marker)

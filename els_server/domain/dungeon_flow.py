@@ -74,6 +74,9 @@ def handle(s,event):
    from els_server.domain.lithia_memory1_retirements import handle as memory1_retirement
    retired=memory1_retirement(s,event,d)
    if retired is not None:return retired
+   from els_server.domain.scene_actor_retirements import handle as scene_retirement
+   retired=scene_retirement(s,event,d)
+   if retired is not None:return retired
    from els_server.domain.story_controller_retirements import handle as story_retirement
    retired=story_retirement(s,event,d)
    if retired is not None:return retired

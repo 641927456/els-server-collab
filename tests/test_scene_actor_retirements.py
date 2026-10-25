@@ -1,12 +1,18 @@
-"""Finite Memory2 candidate against current graphs, with synthetic wire reports.
+"""Finite Memory2 retirement against current graphs, with native-shaped reports.
 
 These are offline protocol/atomicity checks, not natural client scene evidence.
 """
 import copy
+import json
+import sqlite3
 import struct
+import tempfile
 import unittest
+from contextlib import closing
+from pathlib import Path
 from unittest.mock import patch
 from els_server.domain import scene_actor_retirements as target
+from els_server.domain import dungeon_flow
 from els_server.domain.dungeon_lifecycle import death_report
 from els_server.protocol.protocol_codec import Event
 from test_lithia_memory8_offfield_expiry import run_stage,actor,session,native255,OWNER
@@ -23,10 +29,45 @@ def call(s,e,r):
 
 
 class FiniteSceneRetirements(unittest.TestCase):
-    def test_candidate_is_off_until_native_producer_qualification(self):
+    def test_admission_is_enabled_and_code_recovery_preserves_reader(self):
         s,e,r=fixture()
-        self.assertFalse(target.SCENE_ACTOR_RETIREMENTS_ENABLED)
-        self.assertIsNone(target.handle(s,e,r));self.assertFalse(s.dungeon_run.defeated)
+        self.assertTrue(target.SCENE_ACTOR_RETIREMENTS_ENABLED)
+        with patch.object(target,'SCENE_ACTOR_RETIREMENTS_ENABLED',False):
+            self.assertIsNone(target.handle(s,e,r));self.assertFalse(s.dungeon_run.defeated)
+        self.assertIsNotNone(target.source_rule(s.dungeon_run,actor(s.dungeon_run,12)))
+
+    def test_original_native_ctor_map_writer_contract_is_consumed(self):
+        # Exact original19E1ED0+1B17F50+2B4CCF0 output in private native memory.
+        # UID1001 alive readiness and zero coordinates are explicit data inputs;
+        # this fixture makes no claim of executing Game/TLS/GUI or natural play.
+        raw=bytes.fromhex('0000000cffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000146ebf600000000000000000100000000000003e9000000000000000000000000000000000000000000')
+        s,e,r=fixture();self.assertEqual(e.payload,raw)
+        self.assertEqual([x.kind for x in target.handle(s,e,death_report(raw))],[0xae,0xaf])
+        self.assertFalse(actor(s.dungeon_run,12)['active'])
+        self.assertIsNone(s.dungeon_run.next)
+
+    def test_dispatcher_routes_before_story_without_quest_or_reward_access(self):
+        for key in target.FLOWER_SOURCES:
+            s,e,r=fixture(key)
+            with patch('els_server.domain.story_controller_retirements.handle',side_effect=AssertionError('story swallowed flower')),patch('els_server.domain.quest_flow.store',side_effect=AssertionError('flower queried quests')):
+                self.assertEqual([x.kind for x in dungeon_flow.handle(s,e)],[0xae,0xaf])
+                self.assertEqual([x.kind for x in dungeon_flow.handle(s,e)],[0xae])
+                changed=bytearray(e.payload);struct.pack_into('>f',changed,21,1.)
+                self.assertEqual(dungeon_flow.handle(s,Event(0x202,performers=(0,),kind=0xad,payload=bytes(changed))),[])
+            self.assertEqual(s.dungeon_run.defeated,{key:e.payload})
+
+    def test_dispatcher_af_and_ba_encoder_failures_preserve_every_state(self):
+        from els_server.protocol.protocol_codec import encode_event
+        for failing in (0xaf,0xba):
+            s,e,r=fixture();run=s.dungeon_run
+            if failing==0xba:run.defeated[18]=b'separate accepted gate fixture'
+            before=(copy.deepcopy(run.current),dict(run.defeated),run.next,run.ready_at,s.part_end_notified,s.dungeon_clock.total,s.dungeon_clock.started,dict(s.world_drops))
+            def fail(reply):
+                if reply.kind==failing:raise RuntimeError('controlled dispatcher encoder failure')
+                return encode_event(reply)
+            with patch('els_server.protocol.protocol_codec.encode_event',side_effect=fail):
+                with self.assertRaisesRegex(RuntimeError,'controlled dispatcher encoder failure'):dungeon_flow.handle(s,e)
+            self.assertEqual((run.current,run.defeated,run.next,run.ready_at,s.part_end_notified,s.dungeon_clock.total,s.dungeon_clock.started,s.world_drops),before)
 
     def test_all_six_original_sources_use_current_formal_hp_without_rewards(self):
         for key,(index,point) in target.FLOWER_SOURCES.items():
@@ -117,6 +158,137 @@ class FiniteSceneRetirements(unittest.TestCase):
         for dungeon in (35261,35270,35320):
             run=run_stage(0,0,dungeon);s=session(run)
             self.assertIsNone(call(s,e,r));self.assertFalse(run.defeated)
+
+
+class PrivateApplicationFlowers(unittest.IsolatedAsyncioTestCase):
+    """Real Application/session/lease and disposable owned SQLite only.
+
+    Level70 and active28140 are explicit starting-save fixtures. Original
+    28/initialization/town/7D4/37F/91/B3/AD/BB paths reach the flower sources;
+    no DungeonRun, part, defeated state or actor is substituted into session.
+    """
+    async def asyncSetUp(self):
+        from els_server.application import Application
+        from els_server.config import ServerConfig
+        from els_server.storage.characters import Characters
+        from els_server.storage.lifecycle import prepare_database
+        self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
+        root=Path(self.tmp.name);self.path=root/'private-owned-game.sqlite3';prepare_database(self.path)
+        self.app=Application(ServerConfig(mode='friends',state_file=self.path,
+            accounts_file=root/'private-owned-accounts.sqlite3',tls_cert=root/'unused-cert',
+            tls_key=root/'unused-key',log_dir=root/'logs'))
+        self.addCleanup(self.app.close)
+        await self.app.start()
+        enrollment=self.app.registry.create('flowerfixture')
+        identity=self.app.registry.authenticate(enrollment['name'],enrollment['token'])
+        c=Characters(self.path,identity['id']).create('FlowerFlow',15,'private-create')
+        self.uid=c['uid'];self.identity=identity;self.seq=0
+        with closing(sqlite3.connect(self.path)) as db,db:
+            db.execute('UPDATE characters SET level=70 WHERE uid=?',(self.uid,))
+        self.s=await self.app.session(identity=identity)
+        self.addAsyncCleanup(self.app.release,self.s)
+        self.s.role='game';self.s.phase='characters_ready'
+        await self.send(0x28,struct.pack('>Q',self.uid))
+        with closing(sqlite3.connect(self.path)) as db,db:
+            db.execute('INSERT INTO character_quests VALUES (?,?,?,?,?)',(self.uid,28140,1,1,json.dumps({28140:0})))
+        for kind in (0x6e9,0x5bf,0x32):await self.send(kind,bytes(8) if kind==0x5bf else b'')
+        await self.send(0x225,struct.pack('>iB',20014,0))
+        await self.send(0x227,struct.pack('>fffBH',0.,0.,0.,0,0))
+        self.assertEqual(self.s.phase,'town_ready')
+        from test_lithia_first_entry_handoff import ENTRY
+        self.assertEqual((await self.send(0x7d4,struct.pack('>ii',2,35260)))[0].payload[:4],bytes(4))
+        self.assertEqual((await self.send(0x37f,ENTRY))[0].kind,0x380)
+        await self.send(0x91,struct.pack('>ii',100,0));await self.send(0xb3,bytes(9))
+        run=self.s.dungeon_run
+        gate=next(n for n in run.current['npcs'] if n['template']==9319)
+        self.assertEqual((await self.send(0xad,native255(gate['key'],gate['hp'],owner=self.uid)))[0].kind,0xae)
+        # Eleven original combat actors must report their own accepted deaths;
+        # the controller alone never advances the part.
+        self.assertFalse(self.s.part_end_notified)
+        for npc in tuple(run.current['npcs']):
+            if npc['template']==9319:continue
+            body=bytearray(native255(npc['key'],npc['hp'],owner=self.uid));body[4]=0
+            for offset in (5,13,len(body)-8):struct.pack_into('>Q',body,offset,self.uid)
+            self.assertEqual((await self.send(0xad,bytes(body)))[0].kind,0xae)
+        self.assertTrue(self.s.part_end_notified)
+        self.assertEqual((await self.send(0xbb,b'\0'))[0].kind,0xbc)
+        await self.send(0xb3,bytes(9))
+        self.assertEqual((run.identity,run.stage,run.part),(35260,0,1))
+        self.assertEqual([(n['key'],n['template'],n['source_index'],n['start_point']) for n in run.current['npcs']],
+            [(key,9323,index,point) for key,(index,point) in target.FLOWER_SOURCES.items()]+[(18,9324,7,10)])
+        from els_server.domain.dungeon_equipment_loot_flow import current_lease
+        self.assertTrue(current_lease(self.s));self.assertIs(self.app.playing[self.identity['id']],self.s)
+        self.assertTrue(self.s.dungeon_substage_synced)
+
+    async def send(self,kind,payload=b''):
+        self.seq+=1
+        return await self.app.call(self.s.handle,Event(0x202,performers=(0,),kind=kind,payload=payload),self.seq)
+
+    async def death(self,body):
+        # The real outer session may append its independent original2AF
+        # notification and1CE online-title clock notice, including after a
+        # stale lease resumes. Inspect all death/gate replies separately.
+        replies=await self.send(0xad,body)
+        self.assertTrue(all(e.kind in (0xae,0xaf,0xba,0x2af,0x1ce) for e in replies),[hex(e.kind) for e in replies])
+        from els_server.domain.dungeon_lifecycle import empty_reward_death_notice
+        key=death_report(body)['index']
+        for e in replies:
+            if e.kind==0xaf:self.assertEqual(e.payload,empty_reward_death_notice(key,2**64-1).payload)
+        return [e for e in replies if e.kind in (0xae,0xaf,0xba)]
+
+    def dump(self):
+        with closing(sqlite3.connect(self.path)) as db:
+            # Application.call observes real elapsed online time around every
+            # request, independently of AD success. Keep that existing clock
+            # running; reject any clear/kill fact and protect all other rows.
+            for payload, in db.execute('SELECT payload FROM activity518_facts'):
+                fact=json.loads(payload)
+                self.assertEqual(fact['kind'],'online')
+                self.assertEqual(fact['character'],str(self.uid))
+                self.assertGreater(fact['ends'],fact['starts'])
+            self.assertFalse(db.execute('SELECT 1 FROM activity518_progress WHERE dungeon_clears<>0').fetchone())
+            self.assertFalse(db.execute('SELECT 1 FROM activity518_tasks WHERE clears<>0 OR ready_at IS NOT NULL').fetchone())
+            for account,character,starts,ends in db.execute('SELECT account,character,starts,ends FROM online2026_spans'):
+                self.assertEqual((account,character),(self.identity['id'],self.uid))
+                self.assertGreater(ends,starts)
+            online_rows=('activity518_facts','activity518_progress','activity518_tasks','online2026_spans')
+            protected=tuple(line for line in db.iterdump() if not any(
+                line.startswith('INSERT INTO "'+table+'" ') for table in online_rows))
+            # Only seconds may change in the already accepted attendance task.
+            task_fields=tuple(db.execute('SELECT campaign,account,accepted_period,accepted_at,fact_floor,clears,ready_at FROM activity518_tasks ORDER BY campaign,account'))
+            return protected,task_fields
+
+    async def test_real_lease_six_reports_retry_conflict_and_no_gate_or_sql_reward(self):
+        run=self.s.dungeon_run;before=self.dump();drops=copy.deepcopy(self.s.world_drops)
+        for key in target.FLOWER_SOURCES:
+            body=native255(key,actor(run,key)['hp'],owner=self.uid)
+            self.assertEqual([e.kind for e in await self.death(body)],[0xae,0xaf])
+            self.assertEqual([e.kind for e in await self.death(body)],[0xae])
+            changed=bytearray(body);struct.pack_into('>f',changed,21,1.)
+            self.assertEqual(await self.death(bytes(changed)),[])
+            self.assertFalse(actor(run,key)['active'])
+        self.assertEqual(self.dump(),before);self.assertEqual(self.s.world_drops,drops)
+        self.assertTrue(actor(run,18)['active']);self.assertNotIn(18,run.defeated)
+        self.assertIsNone(run.next);self.assertFalse(self.s.part_end_notified)
+        # Flower HP/identity cannot replace the independent9324 gate report.
+        self.assertEqual(await self.death(native255(18,30203.,owner=self.uid)),[])
+        self.assertEqual(self.dump(),before);self.assertIsNone(run.next)
+
+    async def test_real_session_af_failure_and_stale_or_foreign_report_preserve_state(self):
+        from els_server.protocol.protocol_codec import encode_event
+        run=self.s.dungeon_run;body=native255(12,actor(run,12)['hp'],owner=self.uid)
+        before=(self.dump(),copy.deepcopy(run.current),dict(run.defeated),run.next,run.ready_at,self.s.part_end_notified,copy.deepcopy(self.s.world_drops))
+        def fail(reply,*a,**kw):
+            if reply.kind==0xaf:raise RuntimeError('private AF encoder failure')
+            return encode_event(reply,*a,**kw)
+        with patch('els_server.protocol.protocol_codec.encode_event',side_effect=fail):
+            with self.assertRaisesRegex(RuntimeError,'private AF encoder failure'):await self.death(body)
+        self.assertEqual(await self.death(native255(12,30203.,owner=self.uid+1)),[])
+        lease=self.app.playing.pop(self.identity['id'])
+        try:self.assertEqual(await self.death(body),[])
+        finally:self.app.playing[self.identity['id']]=lease
+        self.assertEqual((self.dump(),run.current,run.defeated,run.next,run.ready_at,self.s.part_end_notified,self.s.world_drops),before)
+        self.assertEqual([e.kind for e in await self.death(body)],[0xae,0xaf])
 
 
 if __name__=='__main__':unittest.main()
