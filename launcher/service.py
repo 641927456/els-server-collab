@@ -20,6 +20,7 @@ import sys
 import threading
 import time
 import uuid
+from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'tools/pylibs'))
@@ -526,12 +527,32 @@ class LauncherService:
         return ((result.stderr or '') + '\n' + (result.stdout or '')).strip()
 
     def _game_busy(self):
-        return bool(games()) or bool(self.process and self.process.poll() is None)
+        return (self.phase in ('checking', 'starting', 'stopping') or bool(games())
+                or bool(self.process and self.process.poll() is None) or self.leased())
 
-    def repo_state(self):
+    def _repo_fetch(self):
+        fetch = self._git('fetch', '--no-tags', 'origin',
+                          'refs/heads/main:refs/remotes/origin/main', timeout=90)
+        if fetch.returncode != 0:
+            raise ValueError('无法刷新远端状态：'+self._git_detail(fetch)[:600])
+
+    @staticmethod
+    def _review_branch(branch):
+        return branch.startswith(('fix/', 'feature/', 'sync/'))
+
+    @staticmethod
+    def _review_url(remote, branch):
+        match = re.fullmatch(r'(?:https://github\.com/|git@github\.com:)([\w.-]+/[\w.-]+?)(?:\.git)?', remote)
+        if not match or not LauncherService._review_branch(branch):
+            return None
+        return 'https://github.com/'+match.group(1)+'/compare/main...'+quote(branch, safe='')+'?expand=1'
+
+    def repo_state(self, *, refresh=False):
         if not (self.root/'.git').exists():
             raise ValueError('当前目录不是 Git 仓库')
         with self.repo_lock:
+            if refresh:
+                self._repo_fetch()
             head = self._git('log', '-1', '--format=%h|%ad|%s', '--date=format:%Y-%m-%d %H:%M', timeout=15)
             parts = (head.stdout.strip() or '||').split('|', 2)
             branch = self._git('rev-parse', '--abbrev-ref', 'HEAD', timeout=15).stdout.strip()
@@ -553,12 +574,14 @@ class LauncherService:
                         subject=parts[2] if len(parts) > 2 else '',
                         changed=changed, dirty=bool(changed), remote=remote,
                         behind=behind, ahead=ahead,
+                        remote_checked=refresh,
+                        review_url=self._review_url(remote, branch),
                         identity=dict(name=name, email=email, configured=bool(name and email),
                                       suggest_name=owner,
                                       suggest_email=owner+'@users.noreply.github.com' if owner else ''),
                         git=self._git_exe(),
                         game_running=self._game_busy(),
-                        can_pull=not changed and behind > 0 and branch == 'main' and not self._game_busy())
+                        can_pull=not changed and behind > 0 and ahead == 0 and branch == 'main' and not self._game_busy())
 
     def repo_commit(self, data):
         if not isinstance(data, dict):
@@ -568,19 +591,33 @@ class LauncherService:
         email = str(data.get('email') or '').strip()
         if len(message) > 200:
             raise ValueError('提交说明最多 200 个字符')
-        if name or email:
-            if not name or '@' not in email:
-                raise ValueError('请同时填写有效的提交人名称与邮箱')
-            self._git('config', '--local', 'user.name', name, timeout=10)
-            self._git('config', '--local', 'user.email', email, timeout=10)
-        with self.repo_lock:
+        with self.lock, self.repo_lock:
             if self._game_busy():
                 raise ValueError('请先正常退出游戏和服务端，再提交代码')
             state = self.repo_state()
-            if state['branch'] != 'main':
-                raise ValueError('当前不在 main 分支，请先切回 main 再提交')
-            if not state['identity']['configured']:
+            branch = state['branch']
+            if branch != 'main' and not self._review_branch(branch):
+                raise ValueError('请使用 main、fix/、feature/ 或 sync/ 分支；不能推送快照或分离的 HEAD')
+            if name or email:
+                if not name or '@' not in email:
+                    raise ValueError('请同时填写有效的提交人名称与邮箱')
+                for key, value in (('user.name', name), ('user.email', email)):
+                    configured = self._git('config', '--local', key, value, timeout=10)
+                    if configured.returncode != 0:
+                        raise ValueError('保存 Git 身份失败：'+self._git_detail(configured)[:600])
+            elif not state['identity']['configured']:
                 raise ValueError('尚未配置 Git 提交身份，请填写提交人名称与邮箱')
+            if not state['dirty'] and state['ahead'] == 0:
+                raise ValueError('没有可提交的改动')
+            if state['dirty'] and not message:
+                raise ValueError('请填写提交说明')
+            # Never write origin/main or rewrite published commits. A failed
+            # push leaves this same review branch available for a safe retry.
+            if branch == 'main':
+                branch = 'fix/local-'+uuid.uuid4().hex[:12]
+                switched = self._git('switch', '-c', branch, timeout=30)
+                if switched.returncode != 0:
+                    raise ValueError('创建修复分支失败：'+self._git_detail(switched)[:600])
             add = self._git('add', '-A', timeout=60)
             if add.returncode != 0:
                 raise ValueError('暂存改动失败：'+self._git_detail(add)[:600])
@@ -595,25 +632,17 @@ class LauncherService:
                 if commit.returncode != 0:
                     raise ValueError('提交失败：'+self._git_detail(commit)[:600])
                 notes.append('已创建本地提交')
-            fetch = self._git('fetch', '--prune', 'origin', 'main', timeout=90)
-            if fetch.returncode != 0:
-                raise ValueError(('已创建本地提交，但无法连接 GitHub：' if notes else '无法连接 GitHub：')+self._git_detail(fetch)[:600])
-            behind = int(self._git('rev-list', '--count', 'HEAD..origin/main', timeout=15).stdout.strip() or 0)
-            if behind:
-                rebase = self._git('rebase', 'origin/main', timeout=120)
-                if rebase.returncode != 0:
-                    self._git('rebase', '--abort', timeout=30)
-                    raise ValueError('已提交到本地，但远端有新提交且自动变基失败，已取消变基。请在仓库中手动处理冲突。')
-                notes.append(f'已变基到 origin/main（{behind} 个远端提交）')
-            push = self._git('push', 'origin', 'main', timeout=180)
+            push = self._git('push', '--set-upstream', 'origin',
+                             'HEAD:refs/heads/'+branch, timeout=180)
             if push.returncode != 0:
                 raise ValueError(('已提交到本地，但推送失败：' if notes else '推送失败：')+self._git_detail(push)[:600])
-            notes.append('已推送到 origin/main')
+            notes.append('已推送修复分支 '+branch+'；请提交 PR，由维护者审查合并')
             head = self._git('log', '-1', '--format=%h %s', timeout=10).stdout.strip()
-            return dict(message='；'.join(notes), head=head)
+            return dict(message='；'.join(notes), head=head, branch=branch,
+                        review_url=self._review_url(state['remote'], branch))
 
     def repo_pull(self):
-        with self.repo_lock:
+        with self.lock, self.repo_lock:
             if self._game_busy():
                 raise ValueError('请先正常退出游戏和服务端，再拉取代码')
             state = self.repo_state()
@@ -622,9 +651,7 @@ class LauncherService:
             if state['dirty']:
                 raise ValueError('工作区有未提交改动，请先在「提交到仓库」中提交')
             before = self._runtime_sha()
-            fetch = self._git('fetch', '--prune', 'origin', 'main', timeout=90)
-            if fetch.returncode != 0:
-                raise ValueError('无法连接 GitHub：'+self._git_detail(fetch)[:600])
+            self._repo_fetch()
             behind = int(self._git('rev-list', '--count', 'HEAD..origin/main', timeout=15).stdout.strip() or 0)
             ahead = int(self._git('rev-list', '--count', 'origin/main..HEAD', timeout=15).stdout.strip() or 0)
             if behind == 0:
@@ -635,11 +662,7 @@ class LauncherService:
                     raise ValueError('快进失败：'+self._git_detail(merge)[:600])
                 notes = [f'已快进 {behind} 个提交']
             else:
-                rebase = self._git('rebase', 'origin/main', timeout=120)
-                if rebase.returncode != 0:
-                    self._git('rebase', '--abort', timeout=30)
-                    raise ValueError(f'远端有 {behind} 个新提交，本地有 {ahead} 个未推送提交，自动变基失败，已取消。')
-                notes = [f'已变基并拉取 {behind} 个提交']
+                raise ValueError(f'远端有 {behind} 个新提交，本地主干有 {ahead} 个提交；请先推送修复分支并经 PR 审查，不能自动改写主干历史')
             head = self._git('log', '-1', '--format=%h %s', timeout=10).stdout.strip()
             if self._runtime_sha() != before:
                 notes.append('运行资源包有变化，请关闭启动器后打开「更新单机版」完成同步')
