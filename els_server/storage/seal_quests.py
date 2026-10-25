@@ -224,7 +224,7 @@ class QuestState:
                         # including abandon/reaccept within one wall-clock second.
                         from els_server.domain.town_dialogue import catalog as town_catalog
                         from els_server.domain.mainline_find_npc import catalog as find_catalog
-                        generation=now if qid!=26770 and qid not in (25600,25601,25602) and qid!=35630 and str(qid) not in town_catalog()['quests'] and qid not in find_catalog()['quest_ids'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
+                        generation=now if qid!=26770 and qid!=35630 and qid not in (25600,25601,25602) and str(qid) not in town_catalog()['quests'] and qid not in find_catalog()['quest_ids'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
                         erp_scope.insert_active(db,uid,qid,now,generation,json.dumps(counts,sort_keys=True))
                 elif kind=='abandon':
                     if done:raise ValueError('Completed quest cannot be abandoned')
@@ -324,10 +324,6 @@ class QuestState:
                     saved=json.loads(saved[0]);ids={i['uid'] for i in saved['items']}
                     awards=[i for i in items if i['uid'] in ids]
                     consumed=[(tuple(pos),next((i for i in items if (i['group'],i['slot'])==tuple(pos)),None)) for pos in saved.get('consumed_positions',[])]
-                    # The existing success receipt and pinned quest reward
-                    # authorize a fresh CURRENT career snapshot on retry.
-                    # No transition or reward is repeated, including for old
-                    # receipts that predate the career notification fix.
                     career_refresh=bool(q['Reward'].get('m_eChangeUnitClass',0))
             from els_server.storage.reward_state import validate_balances
             balances=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(uid,)).fetchone())
@@ -357,8 +353,8 @@ class QuestState:
 
     def record(self,event_id,event,proof,*,validate=None,prepare=None,transaction=None):
         if not isinstance(event_id,str) or not 1<=len(event_id)<=200 or not isinstance(proof,bytes) or not proof:raise ValueError('Quest progress evidence')
-        if event.get('kind') not in ('kill','clear','visit_town','visit_dungeon','retire') or type(event.get('dungeon')) is not int or type(event.get('level')) is not int:raise ValueError('Quest progress event')
-        if event['kind'] in ('kill','retire') and type(event.get('npc')) is not int:raise ValueError('Quest NPC event')
+        if event.get('kind') not in ('kill','clear','visit_town','visit_dungeon') or type(event.get('dungeon')) is not int or type(event.get('level')) is not int:raise ValueError('Quest progress event')
+        if event['kind']=='kill' and type(event.get('npc')) is not int:raise ValueError('Quest NPC event')
         if event['kind']=='visit_town' and type(event.get('town')) is not int:raise ValueError('Quest town event')
         digest=hashlib.sha256(proof).hexdigest();raw=json.dumps(event,sort_keys=True)
         roll_proof=progress_proof(self.uid,event_id,proof)

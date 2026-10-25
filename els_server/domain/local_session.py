@@ -252,6 +252,10 @@ class LocalSession:
         answer=messages+observe(self,messages)
         from els_server.domain.resonance_flow import synchronize as resonance_sync
         answer=resonance_sync(self,answer)
+        from els_server.domain.raid_life_observation import successful_native_revival
+        successful_native_revival(self,answer)
+        from els_server.domain.raid_reward_flow import synchronize as raid_reward_sync
+        answer=raid_reward_sync(self,answer)
         from els_server.domain.flask_flow import periodic as flask_periodic
         answer+=flask_periodic(self)
         from els_server.domain.equipment_cartridge_flow import synchronize as cartridge_sync
@@ -304,12 +308,19 @@ class LocalSession:
         result+=remove_due_bank(self.account.store.path,self.account.uid)
         from els_server.storage.boosting_2026_limited_pet import periodic as limited_pet_periodic
         result+=limited_pet_periodic(self.account.store.path,self.account.uid,at=now)
+
         self.expiration_checked=key
+
         from els_server.domain.elixir_flow import periodic as world_elixir_periodic
-        return result+world_elixir_periodic(self)
+        from els_server.domain.silver_mirror_flow import periodic as mirror_periodic
+        return result+mirror_periodic(self)+world_elixir_periodic(self)
+
+
 
     def _periodic_notifications(self):
+
         from els_server.domain.mailbox_extras import periodic as mail_periodic
+
         from els_server.domain.luciel_state import periodic as luciel_periodic
         mail_notices=mail_periodic(self)+luciel_periodic(self)
         if self.shop_test and self.role=='game' and self.phase=='town_ready' and self.shop_available_pending:
@@ -354,6 +365,7 @@ class LocalSession:
         from els_server.domain.hunter_chest_flow import claim as hunter_claim
         hunter_reply=hunter_claim(self,request,drop)
         if hunter_reply is not None:return hunter_reply
+
         from els_server.domain.dungeon_equipment_loot_rules import TEMPLATES as EQUIPMENT_LOOT_TEMPLATES
         from els_server.domain.dungeon_source_loot import POLICY as SOURCE_LOOT_POLICY
         if request['template'] in EQUIPMENT_LOOT_TEMPLATES or drop.get('source')==SOURCE_LOOT_POLICY:
@@ -399,6 +411,7 @@ class LocalSession:
         notices=self.expiration_notifications()
         from els_server.domain.quest_flow import observe
         before=observe(self,notices)
+
         village1012_origin=None
         if self.active_map==1012 and event.event_id==0x202 and event.kind in (0x37f,0x382):
             from els_server.domain.town_travel_flow import capture_village1012_origin
@@ -412,6 +425,7 @@ class LocalSession:
         if village1012_origin is not None:
             from els_server.domain.town_travel_flow import finish_village1012_origin
             finish_village1012_origin(self,village1012_origin)
+
         if self.account.characters is not None and any(e.kind==0x2a for e in reply):
             from els_server.domain.elixir_flow import cold as world_elixir_cold
             reply.extend(world_elixir_cold(self))
@@ -419,8 +433,11 @@ class LocalSession:
             reply.extend(guild_membership_cold(self))
             from els_server.domain.avatar_set_flow import initialization as avatar_set_initialization
             reply.extend(avatar_set_initialization(self,reply))
-            from els_server.domain.dungeon_rotation import notification
-            reply.append(notification())
+
+            from els_server.domain.dungeon_rotation import initialization as mirror_initialization
+
+            reply.extend(mirror_initialization(self))
+
             from els_server.domain.title_flow import enabled as titles_enabled,restore as restore_titles
             if titles_enabled(self):reply.extend(restore_titles(self))
         elif self.account.characters is not None and any(e.kind in (0xd9,0x29f,0xf5) for e in reply):
@@ -441,6 +458,10 @@ class LocalSession:
         answer=notices+before+reply+observe(self,reply)+observe_pet_progression(self,reply)+observe_mount(self)+observe_artifact(self,reply)+restore_luciel(self,event,reply)
         from els_server.domain.resonance_flow import synchronize as resonance_sync
         answer=resonance_sync(self,answer)
+        from els_server.domain.raid_life_observation import successful_native_revival
+        successful_native_revival(self,answer)
+        from els_server.domain.raid_reward_flow import synchronize as raid_reward_sync
+        answer=raid_reward_sync(self,answer)
         answer=self.activity2026_awards.finalize(self,answer) if self.activity2026_awards is not None else answer
         from els_server.domain.ariel_attendance_preview import project as ariel_preview
         answer=ariel_preview(self,answer)
@@ -453,6 +474,9 @@ class LocalSession:
                          character=self.account.character() if self.account.account_id!=1 else None)
 
     def _handle(self,event,request_sequence=None):
+        from els_server.domain.raid_reward_flow import handle as raid_reward_handle
+        raid_reward_reply=raid_reward_handle(self,event,request_sequence)
+        if raid_reward_reply is not None:return raid_reward_reply
         from els_server.domain.ariel_attendance_flow import handle as ariel_attendance_handle
         ariel_attendance_reply=ariel_attendance_handle(self,event,request_sequence)
         if ariel_attendance_reply is not None:return ariel_attendance_reply
@@ -474,18 +498,16 @@ class LocalSession:
         from els_server.domain.known_resurrection_flow import handle as known_resurrection_handle
         known_resurrection_reply=known_resurrection_handle(self,event,request_sequence)
         if known_resurrection_reply is not None:return known_resurrection_reply
-        if getattr(self,'application',None) is None:
-            from els_server.domain.coupon_failure_flow import handle as coupon_handle
-        else:
-            from els_server.domain.coupon_flow import handle as coupon_handle
-        coupon_reply=coupon_handle(self,event,request_sequence)
-        if coupon_reply is not None:return coupon_reply
+        from els_server.domain.coupon_failure_flow import handle as coupon_failure_handle
+        coupon_failure_reply=coupon_failure_handle(self,event,request_sequence)
+        if coupon_failure_reply is not None:return coupon_failure_reply
         from els_server.domain.character_custom import handle as custom_handle
         custom_reply=custom_handle(self,event,request_sequence)
         if custom_reply is not None:return custom_reply
         from els_server.domain.resonance_allocation_flow import handle as resonance_allocation_handle
         resonance_allocation_reply=resonance_allocation_handle(self,event,request_sequence)
         if resonance_allocation_reply is not None:return resonance_allocation_reply
+
         kind=event.kind
         from els_server.domain.elixir_flow import handle as world_elixir_handle
         world_elixir_reply=world_elixir_handle(self,event,request_sequence)
@@ -549,6 +571,11 @@ class LocalSession:
             from els_server.domain.dungeon_rotation import handle as rotation_handle
             rotation_reply=rotation_handle(self,event)
             if rotation_reply is not None:return rotation_reply
+
+        from els_server.domain.silver_mirror_flow import invitation as mirror_invitation
+        invitation_reply=mirror_invitation(self,event,request_sequence)
+        if invitation_reply is not None:return invitation_reply
+
         from els_server.domain.companion_flow import handle as companion_handle
         companion_reply=companion_handle(self,event,request_sequence)
         if companion_reply is not None:return companion_reply
@@ -564,12 +591,12 @@ class LocalSession:
         from els_server.domain.equipment_engrave_flow import handle as engrave_handle
         engrave_reply=engrave_handle(self,event,request_sequence)
         if engrave_reply is not None:return engrave_reply
-        from els_server.domain.equipment_cartridge_flow import handle as cartridge_handle
-        cartridge_reply=cartridge_handle(self,event,request_sequence)
-        if cartridge_reply is not None:return cartridge_reply
         from els_server.domain.modern_synthesis_flow import handle as modern_synthesis
         synthesis_reply=modern_synthesis(self,event,request_sequence)
         if synthesis_reply is not None:return synthesis_reply
+        from els_server.domain.equipment_cartridge_flow import handle as cartridge_handle
+        cartridge_reply=cartridge_handle(self,event,request_sequence)
+        if cartridge_reply is not None:return cartridge_reply
         from els_server.domain.tenebros_identification_flow import handle as tenebros_identification_handle
         tenebros_identification_reply=tenebros_identification_handle(self,event,request_sequence)
         if tenebros_identification_reply is not None:return tenebros_identification_reply
@@ -614,24 +641,6 @@ class LocalSession:
             answer=handle(self,event)
             if answer is not None:return answer
         if self.enter_dungeon and event.event_id==0x202 and kind==0x2ce:
-            # Local diagnostic: record every Lua-script spawn request with its
-            # exact bytes so unrecognised objects can be mapped offline.
-            # Behaviour is unchanged; the dump is never sent to the client.
-            try:
-                import json as _json, time as _time
-                from els_server.paths import PROJECT_ROOT as _root
-                path=_root/'state/launcher/script-spawn-dump.jsonl'
-                path.parent.mkdir(parents=True,exist_ok=True)
-                run=getattr(self,'dungeon_run',None)
-                with path.open('a',encoding='utf8') as handle:
-                    handle.write(_json.dumps(dict(
-                        at=_time.strftime('%Y-%m-%dT%H:%M:%S'),
-                        size=len(event.payload),payload=event.payload.hex(),
-                        dungeon=getattr(run,'identity',None),stage=getattr(run,'stage',None),
-                        part=getattr(run,'part',None),
-                        unit_type=(self.account.character() or {}).get('unit_type'),
-                        sequence=request_sequence))+'\n')
-            except (OSError,TypeError,ValueError):pass
             from els_server.domain.dungeon_spawns import handle as scripted_spawn
             scripted_reply=scripted_spawn(self,event,request_sequence)
             if scripted_reply is not None:return scripted_reply
@@ -780,7 +789,7 @@ class LocalSession:
                         # potion body. World drops and C1 item-choice fields remain
                         # separate work; this grants a durable real bag item.
                         from els_server.domain.reward_rules import dungeon_rewards
-                        item_plan=dungeon_rewards(30000)['clear_items'] if self.item_test else None
+                        item_plan=(dungeon_rewards(30000)['clear_items'] or None) if self.item_test else None
                         receipt=self.account.reward_store.grant(self.reward_run_id,proof,LOCAL_CLEAR_ED,gm_experience,encode_grant,item_plan=item_plan,dungeon_clear=(30000,elapsed),title_economy='clear',attendance_clear=self.activity2026_awards.prepare_clear(self) if self.activity2026_awards is not None else None)
                         self.reward_receipt={'run_id':self.reward_run_id,**receipt}
                         if self.item_test and receipt.get('items') and not self.clear_items_synced:
@@ -889,9 +898,9 @@ class LocalSession:
             try:resonance=use_resonance_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation,prepare=prepare_resonance_book)
             except ValueError:return [use_ack(result=-1)]
             if resonance is not None:return resonance['events']+[self.saved_user_sync()]
-            from els_server.domain.character_custom import require_admitted as custom_admission,book_validator as pointmark_validator
+            from els_server.domain.character_custom import require_admitted as custom_admission
             from els_server.storage.character_custom import use_book as use_custom_book
-            try:custom=use_custom_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation,validate=lambda:custom_admission(self),validate_pointmark=pointmark_validator(self))
+            try:custom=use_custom_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation,validate=lambda:custom_admission(self))
             except ValueError:return [use_ack(result=-1)]
             if custom is not None:return custom['events']
             from els_server.storage.boosting_2026_force_inventory import use_book as use_force_book
@@ -1293,8 +1302,11 @@ class LocalSession:
             except ValueError:return [preview_ack(-1,0)]
             if cube_request.template in fixed_cubes():
                 if self.role!='game' or self.phase!='town_ready':return [preview_ack(-1,cube_request.template)]
+
                 try:
+
                     if cube_request.keys not in ((),(0,)) or cube_request.flag1 not in (0,1) or cube_request.flag2 not in (0,1):raise ValueError('Fixed cube preview mode')
+
                     if cube_request.template==715036:
                         from els_server.domain.wardrobe_ticket_box import require_session_context
                         require_session_context(self,event,request_sequence)
@@ -1302,11 +1314,17 @@ class LocalSession:
                     if cube_request.template==168889:
                         from els_server.domain.equipment_chip_flow import current_lease
                         if self.account.store is None or self.account.store.uid!=self.account.uid or not current_lease(self):raise ValueError('Growing kit preview lease')
+
                     from els_server.domain.item_expiration import require_current
+
                     item=next((i for i in self.account.get_inventory_snapshot()['items'] if i['template']==cube_request.template and i['group']==4),None)
+
                     if item is None:raise ValueError('Missing fixed cube')
+
                     require_current(item)
+
                 except ValueError:return [preview_ack(-1,cube_request.template)]
+
                 row=fixed_cubes()[cube_request.template];self.fixed_cube_preview_template=cube_request.template
                 if row.get('growing_adventure_kit'):
                     from els_server.domain.growing_adventure_kit import outputs_for
@@ -1334,8 +1352,11 @@ class LocalSession:
             try:cube_use=use_request(event.payload)
             except ValueError:return cube_result(self.account.get_reward_balances()['ed'],code=-1)
             cube_item=next((i for i in self.account.get_inventory_snapshot()['items'] if i['uid']==cube_use.uid),None)
+
             cube_template=cube_item['template'] if cube_item and cube_item['template'] in fixed_cubes() else self.fixed_cube_operations.get((self.account.uid,request_sequence),self.fixed_cube_preview_template)
+
             if cube_template is not None:
+
                 if cube_template==715036:
                     from els_server.domain.wardrobe_ticket_box import require_session_context
                     try:require_session_context(self,event,request_sequence)
@@ -1344,8 +1365,11 @@ class LocalSession:
                 if cube_template==168889:
                     from els_server.domain.equipment_chip_flow import current_lease
                     if self.account.store is None or self.account.store.uid!=self.account.uid or not current_lease(self):return cube_result(0,code=-1)
+
                 if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:
+
                     return cube_result(self.account.get_reward_balances()['ed'],code=-1)
+
                 operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
                 try:
                     if cube_template==715036:
@@ -1497,7 +1521,7 @@ class LocalSession:
                     answer=[companion_initialization(companion_save) if e.kind==0x2d else e for e in answer]
                     from els_server.storage.pet_support import initialization as pet_automatic_initialization
                     answer.append(pet_automatic_initialization(self.account.store.path,self.account.uid))
-                # Restore the authenticated account keyboard preference after
+                # Restore the authenticated account's keyboard preference after
                 # selection, preserving the established native 2A/399 timing.
                 answer.insert(1,key_bindings_initialization(self.account.get_bindings()))
                 from els_server.domain.fishing_attempt import initialize_login as initialize_life
@@ -1520,6 +1544,31 @@ class LocalSession:
             elif kind==0x32:answer=[Event(0x201,kind=0x33,payload=i32(0)+bytes([self.client_build=='dx11_260923']))]
             elif kind==0x225:
                 if len(event.payload)!=5:raise SessionOrderError('Invalid local town entry')
+
+                # Original NPC15048 confirmation calls B934A0(20010) and sends
+                # 225(20010,1). This finite Lithia departure is separate from
+                # ordinary town travel; it neither debits58C nor clears a task.
+                native_lithia_exit=False
+                if (event.payload==i32(20010)+b'\x01'
+                    and self.client_build=='dx11_260923' and self.enter_town and self.enter_dungeon
+                    and self.role=='game' and self.phase in ('town_ready','square_accepted')
+                    and event.performers==(0,) and event.uid==event.target_uid==2**64-1 and event.payload_mode==0
+                    and type(request_sequence) is int and 1<=request_sequence<2**32
+                    and self.account.characters is not None and self.account.store is not None
+                    and TOWN_SCENES.get(20014)==1106 and self.active_map==20014
+                    and self.account.get_location()['map']==20014
+                    and not self.dungeon_return_pending and self.town_warp_transition is None):
+                    from contextlib import closing
+                    import sqlite3
+                    from els_server.storage.seal_quests import load_character,completed_ids
+                    with closing(sqlite3.connect(self.account.store.path,timeout=10)) as db:
+                        db.execute('BEGIN')
+                        character=load_character(db,self.account.uid,self.account.account_id)
+                        native_lithia_exit=(character['unit_type']==15 and character['level']==99
+                            and db.execute('SELECT town FROM location WHERE uid=?',(self.account.uid,)).fetchone()==(20014,)
+                            and 28690 in completed_ids(db,self.account.uid)
+                            and db.execute('SELECT 1 FROM character_quests WHERE owner=? AND quest=28700',(self.account.uid,)).fetchone() is not None)
+
                 if event.payload[4]!=0:
                     # B934A0's explicit native default-position branch sends
                     # 225(town, 1). Only the witnessed Noah source-clear return
@@ -1537,7 +1586,7 @@ class LocalSession:
                         and story.get('run') is not None and self.dungeon_run is story['run']
                         and character is not None and character['unit_type']==14 and character['level']==1
                         and self.account.get_reward_balances()['experience']==0)
-                    if not native_noah_return:raise SessionOrderError('Invalid local town entry')
+                    if not (native_noah_return or native_lithia_exit):raise SessionOrderError('Invalid local town entry')
                 requested=struct.unpack_from('>i',event.payload)[0]
                 if requested==1011 and not _mainline1011_entry(self,event,request_sequence):
                     return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
@@ -1580,6 +1629,24 @@ class LocalSession:
                         return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
                 if requested not in TOWN_SCENES:
                     return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
+                # A changed destination still needs the current native town
+                # gates. 225 is also used by ordinary scene transitions, so
+                # it is not proof of58C travel and does not debit a warp fee.
+                # Preserve saved-town login/returns and the bound58C check.
+                if self.account.characters is not None and not native_lithia_exit and not native_varnimyr_rest and requested!=self.account.get_location()['map']:
+                    from contextlib import closing
+                    import sqlite3
+                    from els_server.storage.seal_quests import load_character,completed_ids
+                    from els_server.domain.town_travel import require_destination
+                    try:
+                        with closing(sqlite3.connect(self.account.store.path,timeout=10)) as db:
+                            db.execute('BEGIN')
+                            character=load_character(db,self.account.uid,self.account.account_id)
+                            records={r[0] for r in db.execute('SELECT map_id FROM dungeon_records WHERE uid=?',(self.account.uid,))}
+                            require_destination(requested,character,completed_ids(db,self.account.uid),records)
+                    except ValueError:
+                        return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
+
                 # 0xb78c10 consumes five int32 fields. The requested map is
                 # already selected in the native stage manager before this ACK.
                 self.pending_map=requested
@@ -1637,6 +1704,7 @@ class LocalSession:
             if kind==0x227 and self.phase=='town_ready':
                 from els_server.storage.boosting_2026_gear_scroll_policy import reconcile_selected
                 answer+=reconcile_selected(self)
+
             if kind==0x39:self.account.accept_terms()
             return answer
         if self.enter_dungeon and self.client_build=='dx11_260923' and event.event_id==0x202 and kind==0x67:
@@ -1771,13 +1839,20 @@ class LocalSession:
                 run_id=str(uuid.uuid4())
                 # Compile the initial packet before changing connection state.
                 from els_server.domain.dungeon_hp_c1 import prepare as prepare_hp_c1
+
                 hp_context=prepare_hp_c1(self,event,identity,run_id,challenge)
+
                 run=DungeonRun(identity,run_id,internal=challenge is not None,hp_context=hp_context) if identity!=SUPPORTED_DUNGEON else None
                 from els_server.domain.event_dungeons import is_reviewed
                 if is_reviewed(identity):
                     from els_server.domain.event_admission import start as start_event
                     if kind!=0x37f:return [admission_ack(-1)]
                     return start_event(self,identity,run_id,run,opaque,admission_ack)
+
+                from els_server.domain.silver_mirror_flow import admit as mirror_admit
+                try:mirror_start=mirror_admit(self,run)
+                except ValueError:return [admission_ack(-1)]
+
                 self.active_challenge=challenge;self.challenge_clear_effect=None
                 from els_server.domain.challenge_flow import store as challenge_store
                 self.challenge_deadline=challenge_store(self).current()['deadline'] if challenge is not None else None
@@ -1794,13 +1869,18 @@ class LocalSession:
                 self.dungeon_failed=False
                 self.dungeon_participants=frozenset((self.account.uid,))
                 self.reward_run_id=run_id if self.reward_test else None;self.reward_receipt=None;self.clear_items_synced=False
+
                 self._c1_hp_context=hp_context
+
                 if hp_context is not None:hp_context.activate(run)
                 self.world_drops={};self.world_drop_issued=None;self.world_drop_sequence=910001
                 self.pickup_receipt=None
                 world=getattr(getattr(self,'application',None),'world',None)
                 room=world.party_of.get(self,{}) if world else (getattr(self,'solo_challenge_party',None) or {})
                 reply=[admission_ack(0),dungeon_start(self.account.get_skills(),self.account.character(),self.account.get_inventory_snapshot()['items'] if self.item_test else None,dungeon_id=identity,room_id=room.get('id',10001) if room.get('solo_challenge') else 10001,account_id=self.account.account_id,bootstrap_port=self.port_probe_port,member_capture=self._capture_luciel_dungeon_hp)]
+
+                reply.extend(mirror_start)
+
                 if challenge is not None:
                     from els_server.domain.challenge_flow import notification
                     reply.append(notification(self))
@@ -1844,6 +1924,8 @@ class LocalSession:
             return self.responses(kind)
         # Undecoded auxiliary notices are observed but do not advance the phase.
         return []
+
+
 def _mainline1011_entry(s,event,sequence):
     """Finite source1011 entry: paid warp, saved reader, or real adjacency."""
     from els_server.domain.town_travel_flow import _ordinary_actor,_ordinary_binding
@@ -1857,17 +1939,10 @@ def _mainline1011_entry(s,event,sequence):
             or event.payload_mode!=0 or type(sequence) is not int or not 1<=sequence<2**32
             or s.phase not in ('map_loading','square_accepted','town_ready')):
             return False
-        from els_server.storage.seal_quests import load_character,completed_ids
+        from els_server.storage.seal_quests import load_character
         with closing(sqlite3.connect(s.account.store.path.resolve().as_uri()+'?mode=ro',uri=True,timeout=10))as db:
-            db.execute('BEGIN');character=load_character(db,s.account.uid,s.account.account_id)
+            db.execute('BEGIN');load_character(db,s.account.uid,s.account.account_id)
             row=db.execute('SELECT town FROM location WHERE uid=?',(s.account.uid,)).fetchone()
-            if row is not None and row[0]!=1011:
-                # Git's independent225 path lacks the runtime's later generic
-                # destination gate. Restore only1011 changed-destination admission,
-                # with identity, level/quests and clear records from this snapshot.
-                from els_server.domain.town_travel import require_destination
-                records={r[0] for r in db.execute('SELECT map_id FROM dungeon_records WHERE uid=?',(s.account.uid,))}
-                require_destination(1011,character,completed_ids(db,s.account.uid),records)
         if row is None or s.account.get_location()['map']!=row[0]:return False
         saved=row[0];pending=getattr(s,'town_warp_transition',None)
         if pending is not None:
@@ -1890,7 +1965,7 @@ def _mainline1011_entry(s,event,sequence):
                 and payload[:4]==struct.pack('>i',0x72)
                 and isinstance(run,str) and str(uuid.UUID(run))==run and uuid.UUID(run).version==4)
         # Same-build Village edges:20013 Start804->1011/1707;
-        #1011 Start1710<->1012/1712. Changed destinations were gated above.
+        #1011 Start1710<->1012/1712. Existing destination gates still run below.
         return bool(saved in (20013,1012) and s.active_map==saved
             and s.phase in ('town_ready','square_accepted') and not s.dungeon_return_pending
             and getattr(s,'pending_map',None) in (None,saved,1011))

@@ -23,7 +23,7 @@ def _owner(db,owner,account_id):
 
 def _clock(now):
     now=int(time.time())if now is None else now
-    if type(now)is not int or not 1<=now<2**31-1800:raise ValueError('Elixir epoch bounds')
+    if type(now)is not int or not 1<=now<2**31-7200:raise ValueError('Elixir epoch bounds')
     return now
 
 def _state(db,owner,now):
@@ -37,7 +37,7 @@ def _state(db,owner,now):
         rows=[]
     else:
         rule=catalog().get(template)
-        if not rule or any(type(v)is not int for v in(source,starts,ends))or not 0<source<2**63 or not 1<=starts<ends<2**31 or ends-starts!=1800:raise ValueError('Unqualified elixir state')
+        if not rule or any(type(v)is not int for v in(source,starts,ends))or not 0<source<2**63 or not 1<=starts<ends<2**31 or ends-starts!=rule['period_seconds']:raise ValueError('Unqualified elixir state')
         _source(db,operation,owner,source,template)
         rows=[dict(owner=owner,template=template,source_uid=source,start=starts,end=ends)]if now<ends else []
     return dict(owner=owner,revision=revision,rows=rows)
@@ -58,7 +58,7 @@ def _source(db,operation,owner,source,template):
         before,after=(json.loads(v)for v in row[2:])
         if not isinstance(before,list)or len(before)!=1 or not isinstance(before[0],dict):raise ValueError('Elixir source receipt missing')
         item=before[0]
-        if (item['uid'],item['template'],item['group'],item['metadata'])!=(source,template,4,2)or type(item['count'])is not int or item['count']<1:raise ValueError('Elixir source receipt missing')
+        if (item['uid'],item['template'],item['group'],item['metadata'])!=(source,template,4,catalog()[template]['metadata'])or type(item['count'])is not int or item['count']<1:raise ValueError('Elixir source receipt missing')
         expected=[dict(item,count=item['count']-1)]if item['count']>1 else []
         if after!=expected:raise ValueError('Elixir source receipt missing')
     except(KeyError,TypeError,json.JSONDecodeError)as exc:raise ValueError('Elixir source receipt missing')from exc
@@ -73,10 +73,10 @@ def candidate(path,owner,payload,operation):
         return bool(_exists(db,'inventory_action_receipts')and db.execute('SELECT 1 FROM inventory_action_receipts WHERE owner=? AND kind=? AND operation_id=?',(owner,0x219,operation)).fetchone())
 
 def use(path,owner,account_id,payload,operation,prepare,*,now=None):
-    item_uid,additional=request(payload);now=_clock(now)
+    item_uid,additional=request(payload)
     owner,digest=_identity(owner,0x219,payload,operation)
     with closing(sqlite3.connect(path,timeout=10))as db,db:
-        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');_owner(db,owner,account_id)
+        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');now=_clock(now);_owner(db,owner,account_id)
         old=_previous(db,operation,digest)
         from els_server.storage.inventory_state import load_items
         from els_server.storage.npc_trade import balances
@@ -91,16 +91,18 @@ def use(path,owner,account_id,payload,operation,prepare,*,now=None):
             for event in events:encode_event(event)
             return dict(events=events,state=state,replayed=True,result=0)
         item=next((i for i in items if i['uid']==item_uid),None)
-        if item is None or item['template']not in ITEMS or(item['group'],item['metadata'])!=(4,2)or item.get('sealed',False):raise ValueError('Owned elixir required')
+        if item is None or item['template']not in ITEMS or(item['group'],item['metadata'])!=(4,catalog()[item['template']]['metadata'])or item.get('sealed',False):raise ValueError('Owned elixir required')
         from els_server.domain.item_expiration import require_current
         from els_server.domain.item_locks import require_unlocked
         require_current(item,now=now);require_unlocked(item,now=now)
+        level=db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()[0]
+        if level<catalog()[item['template']].get('minimum_level',0):raise ValueError('Elixir level requirement')
         if additional==1 and state['rows']:
             # No DDL/receipt/expiry cleanup: the original confirmation is 0-write.
             return dict(events=[use_ack(result=403)],state=state,replayed=False,result=403)
         if state['revision']>=2**63-1:raise ValueError('Elixir revision overflow')
         after=dict(item,count=item['count']-1)if item['count']>1 else None
-        new=dict(owner=owner,revision=state['revision']+1,rows=[dict(owner=owner,template=item['template'],source_uid=item_uid,start=now,end=now+1800)])
+        new=dict(owner=owner,revision=state['revision']+1,rows=[dict(owner=owner,template=item['template'],source_uid=item_uid,start=now,end=now+catalog()[item['template']]['period_seconds'])])
         remaining=[after if i['uid']==item_uid else i for i in items if i['uid']!=item_uid or after]
         # Preflight the exact ACK and canonical full-set notification inside
         # this transaction. Encoder/profile failure cannot consume a stack.
@@ -112,7 +114,7 @@ def use(path,owner,account_id,payload,operation,prepare,*,now=None):
         else:
             from els_server.storage.item_instances import remove
             remove(db,owner,item)
-        db.execute('INSERT INTO world_elixir_state VALUES(?,?,?,?,?,?,?) ON CONFLICT(owner) DO UPDATE SET revision=excluded.revision,template=excluded.template,source_uid=excluded.source_uid,starts_at=excluded.starts_at,ends_at=excluded.ends_at,operation_id=excluded.operation_id',(owner,new['revision'],item['template'],item_uid,now,now+1800,operation))
+        db.execute('INSERT INTO world_elixir_state VALUES(?,?,?,?,?,?,?) ON CONFLICT(owner) DO UPDATE SET revision=excluded.revision,template=excluded.template,source_uid=excluded.source_uid,starts_at=excluded.starts_at,ends_at=excluded.ends_at,operation_id=excluded.operation_id',(owner,new['revision'],item['template'],item_uid,now,new['rows'][0]['end'],operation))
         _commit(db,operation,digest,owner,0x219,[(item['group'],item['slot'])],[item],[after]if after else [])
         return dict(events=events,state=new,replayed=False,result=0)
 

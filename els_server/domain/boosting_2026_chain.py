@@ -60,6 +60,7 @@ class ChainGrowthBinding(RecoveringBoostingQuestBinding):
             return super().capture(s)
         reward=self._group_admission(s)
         if reward is None or not self.campaign_open(s,self.clock()):return
+        if not self._read_participant(s):return
         with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
             db.execute('BEGIN IMMEDIATE')
             if self._participant(db,s):

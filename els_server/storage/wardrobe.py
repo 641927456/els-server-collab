@@ -334,7 +334,8 @@ def points_notification(db,owner,account_id):
     if len(points)>47 or any(not 0<=v<2**31 for k,v in points):raise ValueError('Dye point snapshot bounds')
     # Native B7C170 dispatch C05 -> BEFE30 -> 2C2D190/2C3F7A0:
     # two maps<int,map<int,int64>>; second map's GAT_DYEING=2 is account points.
-    return Event(0x201,kind=0xc05,payload=struct.pack('>IIiI',0,1,2,len(points))+b''.join(struct.pack('>iq',k,v)for k,v in points))
+    from els_server.protocol.content_count_messages import notification
+    return notification(db,owner,account_id)
 
 
 def point_initialization(path,owner,account_id):

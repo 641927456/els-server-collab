@@ -53,6 +53,39 @@ def digest(c,proof):
     if not isinstance(proof,bytes) or not proof or len(proof)>8192:raise ValueError('Loot death evidence')
     return hashlib.sha256(json.dumps(c,sort_keys=True,separators=(',',':')).encode()+proof).hexdigest()
 
+@contextmanager
+def _issue_connection(path,transaction,*,identity,policy,boss,rules,account_id):
+    """A shared34320 caller owns its active writer and all-member rollback."""
+    if transaction is None:
+        with closing(connect(path)) as db,db:
+            db.execute('BEGIN IMMEDIATE')
+            yield db
+        return
+    if type(transaction) is not sqlite3.Connection or not transaction.in_transaction:
+        raise ValueError('Shared material issue requires an active SQLite transaction')
+    from els_server.domain.dungeon_material_loot_catalog import POLICY as MATERIAL_POLICY
+    if (rules is not None or policy!=MATERIAL_POLICY or boss is not True
+            or identity['dungeon']!=34320 or (identity['stage'],identity['part']) not in ((2,1),(3,0))):
+        raise ValueError('Shared material issue is outside the admitted34320 Boss scope')
+    attached=transaction.execute('PRAGMA database_list').fetchall()
+    main=[row[2] for row in attached if row[1]=='main']
+    if (len(main)!=1 or not main[0] or Path(main[0]).resolve()!=Path(path).resolve()
+            or any(row[1] not in ('main','temp') for row in attached)
+            or transaction.execute('PRAGMA foreign_keys').fetchone()!=(1,)):
+        raise ValueError('Shared material issue database or foreign-key mismatch')
+    from els_server.storage.item_actor import require_active_character
+    from els_server.storage.bank_state import account_for
+    try:
+        require_active_character(transaction,identity['owner'])
+        if type(account_id) is not int or account_id<=0 or account_for(transaction,identity['owner'])!=account_id:
+            raise ValueError('Shared material issue owner account changed')
+    except ValueError as error:
+        raise LootActorRejected(str(error)) from error
+    yield transaction
+    if not transaction.in_transaction:
+        raise ValueError('Shared material issue transaction ended before caller commit')
+
+
 def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secrets.randbelow,rules=None,accepted_effect=None,account_id=None,transaction=None,bait=None):
     c=(rules.context if rules is not None else context)(identity)
     proof_sha=digest(c,proof);policy=(rules.policy_for if rules is not None else policy_for)(c)
@@ -88,6 +121,17 @@ def issue(path,identity,proof,boss,start_id,xyz,legacy,prepare,*,randbelow=secre
                    (c['owner'],c['run_id'],c['dungeon'],c['stage'],c['part'],c['visits'],c['npc_key'],proof_sha,policy,json.dumps(rows,sort_keys=True)))
         if bait is not None:bait.validate(db)
         return result
+
+def _validate_claim(db,identity,policy,rules,validate):
+    """Only the admitted shared34320 caller supplies transactional D0 guards."""
+    if validate is None:return
+    from els_server.domain.dungeon_material_loot_catalog import POLICY as MATERIAL_POLICY
+    if (rules is not None or policy!=MATERIAL_POLICY or identity['dungeon']!=34320
+            or (identity['stage'],identity['part']) not in ((2,1),(3,0)) or not callable(validate)):
+        raise ValueError('Shared material claim validator scope')
+    validate(db)
+    if not db.in_transaction:
+        raise ValueError('Shared material claim validation ended transaction')
 
 
 def claim(path,identity,drop_id,template,prepare,*,rules=None,account_id=None,validate=None):
@@ -157,7 +201,6 @@ def claim(path,identity,drop_id,template,prepare,*,rules=None,account_id=None,va
         _validate_claim(db,c,policy,rules,validate)
         return result
 
-
 def clear_reward(path,owner,reward_store,arguments,prepare):
     if reward_store.uid!=owner or Path(reward_store.path).resolve()!=Path(path).resolve():raise ValueError('Clear reward owner/store mismatch')
     with closing(connect(path)) as db,db:
@@ -168,48 +211,3 @@ def clear_reward(path,owner,reward_store,arguments,prepare):
         current=[i for i in load_items(db,owner) if i['uid'] in ids]
         result=prepare(receipt,current)
         return receipt,result
-
-@contextmanager
-def _issue_connection(path,transaction,*,identity,policy,boss,rules,account_id):
-    """A shared34320 caller owns its active writer and all-member rollback."""
-    if transaction is None:
-        with closing(connect(path)) as db,db:
-            db.execute('BEGIN IMMEDIATE')
-            yield db
-        return
-    if type(transaction) is not sqlite3.Connection or not transaction.in_transaction:
-        raise ValueError('Shared material issue requires an active SQLite transaction')
-    from els_server.domain.dungeon_material_loot_catalog import POLICY as MATERIAL_POLICY
-    if (rules is not None or policy!=MATERIAL_POLICY or boss is not True
-            or identity['dungeon']!=34320 or (identity['stage'],identity['part']) not in ((2,1),(3,0))):
-        raise ValueError('Shared material issue is outside the admitted34320 Boss scope')
-    attached=transaction.execute('PRAGMA database_list').fetchall()
-    main=[row[2] for row in attached if row[1]=='main']
-    if (len(main)!=1 or not main[0] or Path(main[0]).resolve()!=Path(path).resolve()
-            or any(row[1] not in ('main','temp') for row in attached)
-            or transaction.execute('PRAGMA foreign_keys').fetchone()!=(1,)):
-        raise ValueError('Shared material issue database or foreign-key mismatch')
-    from els_server.storage.item_actor import require_active_character
-    from els_server.storage.bank_state import account_for
-    try:
-        require_active_character(transaction,identity['owner'])
-        if type(account_id) is not int or account_id<=0 or account_for(transaction,identity['owner'])!=account_id:
-            raise ValueError('Shared material issue owner account changed')
-    except ValueError as error:
-        raise LootActorRejected(str(error)) from error
-    yield transaction
-    if not transaction.in_transaction:
-        raise ValueError('Shared material issue transaction ended before caller commit')
-
-
-def _validate_claim(db,identity,policy,rules,validate):
-    """Only the admitted shared34320 caller supplies transactional D0 guards."""
-    if validate is None:return
-    from els_server.domain.dungeon_material_loot_catalog import POLICY as MATERIAL_POLICY
-    if (rules is not None or policy!=MATERIAL_POLICY or identity['dungeon']!=34320
-            or (identity['stage'],identity['part']) not in ((2,1),(3,0)) or not callable(validate)):
-        raise ValueError('Shared material claim validator scope')
-    validate(db)
-    if not db.in_transaction:
-        raise ValueError('Shared material claim validation ended transaction')
-

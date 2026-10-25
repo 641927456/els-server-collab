@@ -6,23 +6,61 @@
     "30000": {
       "clear_ed": 120,
       "clear_experience": 50,
-      "clear_items": [{"template": 77000, "quantity": 3}],
-      "world_drop": {"template": 77000, "quantity": 1},
+      "clear_items": [],
+      "world_drop": {
+        "template": 77000,
+        "quantity": 1
+      },
       "ground_loot": {
         "assignment_source": "local_fallback",
         "native_probabilities_known": false,
         "npc_loot": {
-          "618": {"coin": {"template": 127000, "amount": 10}},
-          "201": {"coin": {"template": 127000, "amount": 10}},
-          "5": {"coin": {"template": 127010, "amount": 50}},
-          "20": {"food_templates": [70000, 70010, 70020, 70030, 70040, 70050]},
-          "625": {}, "626": {}, "632": {}
+          "618": {
+            "coin": {
+              "template": 127000,
+              "amount": 10
+            }
+          },
+          "201": {
+            "coin": {
+              "template": 127000,
+              "amount": 10
+            }
+          },
+          "5": {
+            "coin": {
+              "template": 127010,
+              "amount": 50
+            }
+          },
+          "20": {
+            "food_templates": [
+              70000,
+              70010,
+              70020,
+              70030,
+              70040,
+              70050
+            ]
+          },
+          "625": {},
+          "626": {},
+          "632": {}
         }
       },
       "drop_chances": {
-        "ordinary": [0, 1],
-        "boss": [0, 1],
-        "chest": [1, 1]
+        "ordinary": [
+          0,
+          1
+        ],
+        "boss": [
+          0,
+          1
+        ],
+        "chest": [
+          1,
+          1
+        ]
       }
     }
   }

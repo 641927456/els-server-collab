@@ -62,7 +62,9 @@ def notification(db,account,owner,moment):
                 or not -1<=saved_day<=today or not 1<=count<=catalog[dungeon]['daily_count']):raise ValueError('Normal daily unknown or invalid saved authority')
             if saved_day==today:counts[dungeon]=count
     rows=tuple((d,counts.get(d,0),catalog[d]['daily_count'])for d in sorted(catalog))
-    answer=encode(rows,moment);encode_event(answer);require_owner(db,account,owner)
+    from els_server.storage.silver_mirror_state import read as mirror_state
+    mirror=mirror_state(db,owner,now=moment)
+    answer=encode(rows,moment,mirror_remaining=mirror['remaining']);encode_event(answer);require_owner(db,account,owner)
     return answer
 
 def snapshot(path,account,owner,*,validate,now=time.time):

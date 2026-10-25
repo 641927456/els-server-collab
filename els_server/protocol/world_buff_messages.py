@@ -10,6 +10,9 @@ def request(payload):
     return uid,additional
 
 def world_row(owner,row):
+    if row.get('_silver'):
+        from els_server.domain.silver_mirror_catalog import world_row as mirror_world_row
+        return mirror_world_row(owner,row)
     rule=catalog()[row['template']]
     if (type(owner)is not int or not 1001<=owner<2**63 or row['owner']!=owner
         or type(row['start'])is not int or not 1<=row['start']<row['end']<2**31
@@ -20,7 +23,7 @@ def world_row(owner,row):
     return bytes(8)+struct.pack('>iIQfBif?if?iiiQQ',rule['buff_template'],0,owner,0.,1,0,0.,False,rule['factor'],1.,False,-1,0,0,row['start'],row['end'])
 
 def snapshot(owner,rows,*,profiles=None):
-    if len(rows)>1:raise ValueError('One ordinary elixir group')
+    if len(rows)>3 or sum(not r.get('_silver')for r in rows)>1 or len({r['template']for r in rows})!=len(rows):raise ValueError('Finite world snapshot groups')
     data=struct.pack('>I',len(rows))+b''.join(world_row(owner,r)for r in rows)
     if profiles is None:return Event(0x201,kind=0x3a2,payload=data)
     if not isinstance(profiles,tuple) or len(profiles)!=2 or any(not isinstance(v,bytes)or len(v)!=28 for v in profiles):raise ValueError('Original world base profiles')

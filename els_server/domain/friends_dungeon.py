@@ -7,6 +7,7 @@ damage simulator. Native action transport/GUI acceptance is a separate gate.
 import math,struct,time,uuid
 from dataclasses import dataclass,field
 from els_server.domain.local_session import LocalSession,SessionOrderError
+from els_server.domain.raid_economy_flow import managed as raid_economy_managed
 from els_server.protocol.protocol_codec import Event
 from els_server.protocol.local_messages import i32,wstring
 
@@ -289,7 +290,6 @@ class FriendsDungeons:
         self.part_wait(r)
         return reply
 
-
     def portal(self,r,s,event):
         if r.phase!='active':
             if r.phase!='substage':return []
@@ -299,7 +299,9 @@ class FriendsDungeons:
         # master alone changes the shared source cursor.
         if s is not r.leader:
             run=s.dungeon_run
-            valid=run is not None and event.payload==struct.pack('>b',run.part) and all(n['key'] in run.defeated for n in run.current['npcs'] if n['active'])
+            valid=(run is not None and s.dungeon_substage_synced and not s.clear_notified
+                   and event.payload==struct.pack('>b',run.part)
+                   and all(n['key'] in run.defeated for n in run.current['npcs'] if n['active'] and n.get('team',1)!=0))
             return [Event(0x201,kind=0xb9,payload=i32(0 if valid else -1))]
         result=LocalSession.handle(s,event)
         if result and result[0].payload==bytes(4):
@@ -332,6 +334,12 @@ class FriendsDungeons:
             from els_server.domain.group_challenge import refresh
             refresh(r.party)
             for other,messages in deliveries:self.send(other,messages)
+        elif r.leader.dungeon_run.next['kind']!=0 and raid_economy_managed(r.leader):
+            from els_server.domain.raid_economy_flow import settle as settle_raid_phase
+            import sqlite3
+            try:settle_raid_phase(r.members,event,room=r)
+            except (ValueError,sqlite3.Error,OverflowError,struct.error):
+                r.ended.discard(s);return []
         else:
             for other in r.members:
                 self.send(other,[e for e in LocalSession.handle(other,event) if e.kind!=0xbc])

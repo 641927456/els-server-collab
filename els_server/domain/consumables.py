@@ -32,6 +32,8 @@ def manual_magic_potion_definition():
 
 
 def ordinary(template):
+    from els_server.domain.consumable_extensions import quick_templates,ordinary as extended
+    if template in quick_templates():return extended(template)
     if template in (130467,710193,723674):
         # Exact existing owned Fighting Spirit records. Native115 consumes
         # A8 factors204/3517 -> non-world/non-stored212/3344, including timers.
@@ -81,6 +83,8 @@ def ordinary(template):
 
 
 def require_usable(template,level,*,automatic=False):
+    from els_server.domain.consumable_extensions import quick_templates
+    if automatic and template in quick_templates():raise ValueError('Extended consumables require manual use')
     if automatic and template in (710313,710314,710315,79065,77110,710022,130467,710193,723674):raise ValueError('Apple pet automation is not admitted')
     metadata=ordinary(template)
     if type(level) is not int or not 1<=level<=99:raise ValueError('Consumable character level')

@@ -1,7 +1,7 @@
 """Pinned static solo dungeon graphs and per-run local population.
 Source transitions/identities are native; combat and branch selection are local.
 """
-import functools,hashlib,json,math,os,struct,time,uuid
+import functools,hashlib,json,math,struct,time,uuid
 from els_server.game_data import CLIENT_SHA,DATA_DIR
 from els_server.domain.dungeon_npcs import resource_dto,encode_npc
 from els_server.protocol.local_messages import wstring
@@ -37,20 +37,6 @@ class RouteCatalog:
   for key,row in events.items():
    expected=event_definition(int(key));graph=self._data['graphs'][row['source']]
    if graph['source_sha256']!=expected['source_sha256']:raise ValueError('Event route source identity')
-  # Local-only experiment, disabled unless ELS_TUTORIAL_ALIAS is set.
-  # Some prologue-town portals submit a scripted tutorial map (e.g.35240
-  # "Dungeon_Tutorial_Lithia.lua") that this client registers in no region, so
-  # config/dungeon_scope.json excludes it as "no_current_selectable_entry".
-  # The portal then answers DUNGEON_CLOSED and the door never opens. This lets a
-  # local operator fold such a request onto an already admitted route so the
-  # native loader receives a real map. It adds no route, no reward and no scope
-  # entry, and the target must already be admitted; unproven in the native game.
-  override=os.environ.get('ELS_TUTORIAL_ALIAS','').strip()
-  if override:
-   for pair in override.split(','):
-    source,target=(int(part) for part in pair.split(':'))
-    if not self.supports(target):raise ValueError('Tutorial alias target is not an admitted route')
-    self.entry_aliases[source]=target
  def supports(self,identity,*,internal=False):return type(identity) is int and (str(identity) in self._data['routes'] or str(identity) in self._data.get('event_routes',{}) or internal and str(identity) in self._data.get('internal_routes',{}))
  def entry_identity(self,identity):return self.entry_aliases.get(identity,identity) if type(identity) is int else identity
  def static_npc_level(self,identity,graph,stage,part,source):
@@ -72,9 +58,11 @@ class RouteCatalog:
 @functools.lru_cache(maxsize=1)
 def route_catalog():return RouteCatalog()
 
-def npc_initialization(catalog,template,hp,*,native=None):
- if native is None:native=catalog._data['npcs'][str(template)]
+def npc_initialization(catalog,template,hp,*,source_context=None):
+ native=catalog._data['npcs'][str(template)]
  attrs=bytearray.fromhex(catalog._data['attribute_seed']);struct.pack_into('<f',attrs,4,hp);struct.pack_into('<ff',attrs,8,20,20)
+ from els_server.domain.raid_npc_stats import apply
+ apply(catalog,template,attrs,source_context)
  strings=native['strings'];init=struct.pack('>iB',template,0)+b''.join(wstring(s) for s in strings[:4])+b'\1'+b''.join(wstring(s) for s in strings[4:])
  return init+b''.join(attrs[o:o+4][::-1] for o in range(0,0x60,4))+bytes(2)
 
@@ -96,6 +84,10 @@ class DungeonRun:
   self._load_stage(0)
   from els_server.domain.legacy_pve_exp import bind_run
   bind_run(self)
+  from els_server.domain.formal_raid_economy import definition as raid_economy_definition
+  if raid_economy_definition(identity) is not None:
+   from els_server.domain.gm_rates import snapshot as raid_rate_snapshot
+   self.formal_raid_experience_bp=raid_rate_snapshot()['experience_bp']
  def draw(self,label,total):
   return int.from_bytes(hashlib.sha256((self.run_id+':'+label).encode()).digest(),'big')%total
  def _load_stage(self,stage):
@@ -119,7 +111,10 @@ class DungeonRun:
     # declared actors so a low random roll cannot remove a clear target.
     template=source['template'];native=data['npcs'][str(template)]
     if template in suppressed:key+=1;continue
-    hp=native['script_max_hp'] or (5000 if source['boss'] else 500)
+    from els_server.domain.formal_npc_hp import maximum,level as formal_level
+    npc_level=self.catalog.static_npc_level(self.identity,self.graph,stage,int(part_id),source)
+    if npc_level is None:npc_level=formal_level(self.catalog,self.identity)
+    hp=maximum(self.catalog,template,dungeon=self.identity,npc_level=npc_level,boss=source['boss'])
     if self.hp_context is not None:
      hp=self.hp_context.source_hp(self,stage,int(part_id),-1 if index<len(base) else chosen_group['index'],source,hp)
     point=source['points'][self.draw(f'point:{stage}:{part_id}:{index}',len(source['points']))]
@@ -127,14 +122,15 @@ class DungeonRun:
     struct.pack_into('<i',raw,0x28,point);struct.pack_into('<3f',raw,0x30,*source['offset'])
     raw[0x2c]=int(source['active']);raw[0x2d]=int(source['gage']);raw[0x48]=int(source['right'])
     level=self.catalog.static_npc_level(self.identity,self.graph,stage,int(part_id),source)
-    if level is not None:raw[0xc]=level
+    raw[0xc]=npc_level
     # 107F480 passes resource +3C (team) and +50 (ally) to 8A9C40;
     # the original source's team default remains 1 unless TEAM is explicit.
     raw[0x3c]=source.get('team',1);raw[0x50]=int(source.get('ally',False))
     if source['boss']:
      if type(source['boss_lines']) is not int or not 1<=source['boss_lines']<=65535:raise ValueError('Boss gauge line bound')
      raw[0x44]=1;struct.pack_into('<H',raw,0x58,source['boss_lines'])
-    init=npc_initialization(self.catalog,template,hp)
+    context=(self.identity,self.graph['source_sha256'],npc_level,stage,int(part_id),-1 if index<len(base) else chosen_group['index'],source['source_index'])
+    init=npc_initialization(self.catalog,template,hp,source_context=context)
     wire=encode_npc(resource_dto(raw),0)
     entries.append({**source,'key':key,'hp':hp,'start_point':point,'wire':wire,'init':init})
     initial.append(struct.pack('>i',key)+init);key+=1

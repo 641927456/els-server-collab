@@ -21,29 +21,45 @@ def excluded_equipment():
             'SELECT id,name FROM items WHERE item_type IN (1,2,3)') if has_legacy_marker(name))
 
 
+# Historical tickets and six reset variants: existing-save consumption only.
+# Current normal acquisition is unverified; existing grant gates reject these.
+LEGACY_USE_ONLY_TICKETS = frozenset((711338,711339,711340,711341,711342,711343,118640,118641,118642,118657,118658,118659))
+
+
+# Exact CN includes-Lithia generation7 tickets: existing owned use only.
+# No current normal source is qualified; keep all new grant paths closed.
+LITHIA_GEN7_USE_ONLY_TICKETS = frozenset((718388,718389,718390,718391,718392,718393))
+
+# Exact CN historical page1 variants: existing owned use for enumerated roles1..9 targets only.
+# All other targets/roles and every new grant stay closed; no full-ticket range claim.
+HISTORICAL_PAGE1_USE_ONLY_TICKETS = frozenset((713172,713173,713174,713175,713176,713177,713438,713439,713440,713441,713442,713443))
+
 CARTRIDGE_USE_ONLY_MATERIALS = frozenset((
     119222,119223,119224,119225,119226,119227,119228,119229,119230,
     119231,119232,119233,119234,119235,119236,119237,119238,119239,119240))
 
-# Reset variants remain existing-inventory use only; no new source.
-LEGACY_USE_ONLY_TICKETS = frozenset((118640,118641,118642,118657,118658,118659,711338,711339,711340,711341,711342,711343))
 
-
-LITHIA_GEN7_USE_ONLY_TICKETS = frozenset((718388,718389,718390,718391,718392,718393))
-
-HISTORICAL_PAGE1_USE_ONLY_TICKETS = frozenset((713172,713173,713174,713175,713176,713177,713438,713439,713440,713441,713442,713443))
-
-def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,daily_special_source=None):
+def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None):
+    from els_server.domain.silver_mirror_catalog import INVITATIONS
+    if template in INVITATIONS:return False
+    if silver_source is not None:
+        if any(v is not None for v in(cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,raid_reward_source,daily_special_source)):raise ValueError('Incompatible Mirror acquisition sources')
+        from els_server.domain.silver_mirror_rewards import validate_source
+        return validate_source(silver_source).admit_template(template)
+    if template==30870:return False
     daily_shared=False
     if daily_special_source is not None:
-        if any(v is not None for v in(cartridge_box_source,cartridge_select_source,cartridge_recipe679_source)):raise ValueError('Incompatible daily acquisition sources')
+        if any(v is not None for v in(cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,raid_reward_source)):raise ValueError('Incompatible daily acquisition sources')
         from els_server.storage.ariel_daily_special import validate_source as daily_source
         daily_shared=daily_source(daily_special_source).validate_template(template)
+    if raid_reward_source is not None:
+        if any(v is not None for v in(cartridge_box_source,cartridge_select_source,cartridge_recipe679_source)):raise ValueError('Incompatible raid acquisition sources')
+        from els_server.domain.raid_reward_items import validate_source
+        validate_source(raid_reward_source).validate_template(template)
+    from els_server.domain.raid_reward_items import source_only_templates
+    if template in source_only_templates()and raid_reward_source is None and not daily_shared:return False
     if template==715036:return False  # Existing owned box only; no grant source exception.
-    if template in HISTORICAL_PAGE1_USE_ONLY_TICKETS:return False
-    if template in LITHIA_GEN7_USE_ONLY_TICKETS:return False
-    if template in LEGACY_USE_ONLY_TICKETS:return False
-    qualified=False
+    qualified=raid_reward_source is not None
     recipe_box=False
     if cartridge_recipe679_source is not None:
         if cartridge_box_source is not None or cartridge_select_source is not None:raise ValueError("Incompatible Cartridge sources")
@@ -60,13 +76,16 @@ def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=Non
         validate_source(cartridge_box_source).consume_template(template)
         qualified=True
     if template==119335 and not recipe_box:return False
-    if template==119216:return False
+    if template==119216 and raid_reward_source is None:return False
+    if template in HISTORICAL_PAGE1_USE_ONLY_TICKETS:return False
+    if template in LITHIA_GEN7_USE_ONLY_TICKETS:return False
+    if template in LEGACY_USE_ONLY_TICKETS:return False
     if template in CARTRIDGE_USE_ONLY_MATERIALS and not qualified:return False
     from els_server.domain.ordinary_accessories import definitions
     accessory=definitions().get(template)
-    return template not in excluded_equipment() and not (accessory and accessory['compatibility_only'])
+    return template not in excluded_equipment() and not (accessory and accessory['compatibility_only']and raid_reward_source is None)
 
 
-def require_acquirable(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,daily_special_source=None):
-    if not can_acquire(template,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,daily_special_source=daily_special_source):
+def require_acquirable(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None):
+    if not can_acquire(template,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,raid_reward_source=raid_reward_source,silver_source=silver_source,daily_special_source=daily_special_source):
         raise ValueError(f'Legacy equipment acquisition disabled: {template}')

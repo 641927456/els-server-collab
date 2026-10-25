@@ -6,7 +6,7 @@ import json
 import struct
 from els_server.game_data import client_data, CLIENT_SHA
 
-DATA_SHA = '59f89297943afb93d603a7c4cdca9f94c553ecd17c768266cf4d16dbc51bc7ec'
+DATA_SHA = 'c78a30a1ec958234c63ac2965c01845176709078864a641de9a2ed35aa538c99'
 POLICY = 'house40326-six-select-material-reference-v1'
 SOURCE = 119216
 DESTINATIONS = frozenset(range(119235, 119241))

@@ -8,13 +8,16 @@ FIND={'m_iID':28560,'m_eClearType':27,'m_bAutomaticDescription':0,
       'm_ClearCondition':{'m_eDungeonID':{'0':None,'1':35320,'2':35321,'3':35322},'m_eFindNPCID':{'0':None,'1':9431}}}
 RECEIPTS={qid:{'m_iID':qid,'m_eClearType':80,'m_bAutomaticDescription':0,
               'm_ClearCondition':{'m_iClearCount':1,'m_eQuestID':{'0':None,'1':qid-10}}} for qid in (28570,28580)}
-
 # Exact current FieldSubQuest28750: source region26650 reward receipt.
 RECEIPTS[28750]={'m_iID': 28750, 'm_eClearType': 80, 'm_bAutomaticDescription': 0, 'm_ClearCondition': {'m_iClearCount': 1, 'm_eQuestID': {'0': None, '1': 26650}}}
+
 # Exact current hidden post26690 receipt; native AutoClearQuest owns F4.
 RECEIPTS[54600]={'m_iID': 54600, 'm_eClearType': 80, 'm_bAutomaticDescription': 0, 'm_ClearCondition': {'m_iClearCount': 1, 'm_eQuestID': {'0': None, '1': 26690}}}
+
 def ready_hidden_receipt(rows):
     return tuple(row for row in rows if row['id']==54600 and row['objectives']=={54600:1})
+
+
 def target(sub):
     if sub!=FIND and sub not in RECEIPTS.values():raise ValueError('Unsupported finale objective')
     return 1

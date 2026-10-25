@@ -143,21 +143,6 @@ class Runtime:
             job['remaining']-=1;job['next']=now+job['interval']
             if not job['remaining']:self.scheduled.remove(job)
 
-    def coupon(self,action,value):
-        from els_server.storage import coupon_codes as store
-        path=self.app.config.state_file
-        if action=='coupon-rewards':return dict(rows=store.available_rewards(),scope='local-GM-qualified-permanent-singles')
-        if action=='coupon-list':return store.batches(path,value.get('offset',0))
-        if action=='coupon-operation':
-            result=store.issuer_operation(path,value.get('operation_id'),value.get('action'))
-            return dict(committed=result is not None,receipt=result)
-        operation(value)
-        if action=='coupon-revoke':return store.revoke(path,value)
-        if action!='coupon-issue':raise ValueError('Unknown coupon issuer action')
-        def validate(bound):
-            if bound is not None and not self.app.registry.enabled(bound):raise ValueError('Coupon account unavailable')
-        return store.issue(path,value,validate=validate)
-
     def ariel_cash(self,action,value):
         from els_server.storage import ariel_cash as store
         def validate(account):
@@ -183,7 +168,6 @@ class Runtime:
         if action in ('cash-balance','cash-operation','cash-credit'):return self.ariel_cash(action,value)
         if self.app.config.mode=='local' and action not in ('selected2026-status','selected2026'):
             raise ValueError('本地活动管理接口只开放本次签到和在线活动')
-        if action in ('coupon-rewards','coupon-list','coupon-operation','coupon-issue','coupon-revoke'):return self.coupon(action,value)
         if action in ('selected2026-status','selected2026'):
             manager=getattr(self.app,'activity2026_manager',None)
             if manager is None:raise ValueError('本机未启用2026活动运行配置')
@@ -226,10 +210,6 @@ class Runtime:
             except Exception as e:
                 reply=dict(ok=False,error=str(e) if isinstance(e,ValueError) else '服务端管理操作失败，请检查日志')
                 if not isinstance(e,ValueError) and isinstance(locals().get('request'),dict) and request.get('action')=='cash-credit':reply['outcome_unknown']=True
-                # Cancellation/SQL/internal errors can race a durable commit.
-                # Coupon recovery must inspect the original worker receipt.
-                if not isinstance(e,ValueError) and isinstance(locals().get('request'),dict) and request.get('action')in('coupon-issue','coupon-revoke'):
-                    reply['outcome_unknown']=True
             try:
                 writer.write((canonical(reply)+'\n').encode());await writer.drain()
             finally:

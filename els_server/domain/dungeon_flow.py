@@ -32,6 +32,9 @@ def periodic(session):
 def handle(s,event):
  run=s.dungeon_run
  if run is None or s.phase!='dungeon_active' or event.event_id!=0x202:return None
+ from els_server.domain.raid_economy_flow import solo as raid_phase_solo
+ raid_reply=raid_phase_solo(s,event)
+ if raid_reply is not None:return raid_reply
  if event.kind==0xb8:
   # Current 1044A10 -> 1117280 -> 3B6DA30 writes one part byte.
   # B9 -> Game v600=1044B20 consumes an i32 result, removes its wait.
@@ -50,15 +53,28 @@ def handle(s,event):
  if event.kind==0xad:
   try:d=death_report(event.payload)
   except ValueError:return []
+  # Finite static-controller adapters must not consume an already admitted
+  # dynamic actor's original expiry. Retain the existing expiry decoder and
+  # exact server-allocated identity; zero is never an alias for another actor.
   from els_server.domain.hunter_chest_flow import accepted_death as hunter_death
   hunter_reply=hunter_death(s,event)
   if hunter_reply is not None:return hunter_reply
-  from els_server.domain.lithia_memory1_retirements import handle as memory1_retirement
-  retired=memory1_retirement(s,event,d)
-  if retired is not None:return retired
-  from els_server.domain.story_controller_retirements import handle as story_retirement
-  retired=story_retirement(s,event,d)
-  if retired is not None:return retired
+  actor=next((n for n in run.current['npcs'] if n['key']==d['index']),None)
+  from els_server.domain.summons import valid_sentry_death
+  dynamic_expiry=actor is not None and actor.get('dynamic') and valid_sentry_death(d,s.account.uid)
+  if dynamic_expiry:
+   from els_server.domain.dungeon_equipment_loot_flow import current_lease
+   if (event.performers!=(0,) or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0
+       or s.role!='game' or not current_lease(s) or s.clear_notified
+       or getattr(s,'reward_transaction',None) is not None or getattr(s,'reward_run_id',None)!=run.run_id
+       or frozenset(getattr(s,'dungeon_participants',(s.account.uid,)))!=frozenset((s.account.uid,))):return []
+  else:
+   from els_server.domain.lithia_memory1_retirements import handle as memory1_retirement
+   retired=memory1_retirement(s,event,d)
+   if retired is not None:return retired
+   from els_server.domain.story_controller_retirements import handle as story_retirement
+   retired=story_retirement(s,event,d)
+   if retired is not None:return retired
   if d['index'] in s.summon_keys:return None
   npc=next((n for n in run.current['npcs'] if n['key']==d['index']),None)
   hp=struct.unpack('>f',struct.pack('>I',d['hp_bits']))[0]
@@ -68,23 +84,7 @@ def handle(s,event):
   # death payload; hostile combat actors retain participant-only identity.
   scripted=npc is not None and not npc['active'] and (npc['no_drop'] or npc.get('ally'))
   from els_server.domain.summons import valid_sentry_death
-  # Declared scene controllers (class 103 .lua objects with ISACTIVE=false)
-  # retire through the same native expiry packet: no killer, no damage, and a
-  # readiness map that only names the owner. The pinned route graph does not
-  # set no_drop/ally on them, and they are not client-created, so neither
-  # branch above covers them - their report used to be dropped without an
-  # acknowledgement, which leaves the client waiting on an actor that is
-  # already gone. Retiring the actor here grants nothing: quest progress and
-  # rewards stay with the source-bound specialists that run before this one.
-  from els_server.domain.dungeon_spawns import scene_controller
-  from els_server.domain.story_controller_retirements import source_pinned
-  # Class-103 Lua objects may be source-declared active and still self-retire
-  # (LITHIA_MEMORY2_FLOWER reports native 255); the class, not ISACTIVE, decides.
-  # Source-pinned controllers stay on the strict rule path and are excluded here.
-  scene=(npc is not None and not npc.get('dynamic') and scene_controller(npc['template'])
-         and not source_pinned(run,npc))
-  expired=((npc is not None and npc.get('dynamic') and valid_sentry_death(d,s.account.uid))
-           or (scene and valid_sentry_death(d,s.account.uid)))
+  expired=npc is not None and npc.get('dynamic') and valid_sentry_death(d,s.account.uid)
   identities=participants|frozenset((0,2**64-1)) if scripted or expired else participants
   if (npc is None or not s.dungeon_substage_synced or event.performers!=(0,) or d['flag'] not in (0,1) and not expired
       or any(d[name] not in identities for name in ('source','killer','last_uid'))
@@ -153,7 +153,8 @@ def finish_death(s,event,npc,d,expired,notice):
  if expired:npc['active']=False
  reply=[death_ack(),notice]
  if run.identity==38300 and npc['template']==1368:return reply+failed(s)
- if s.drop_probe and npc['active'] and not npc['no_drop'] and not npc.get('ally') and npc.get('team',1)!=0:
+ from els_server.domain.raid_economy_flow import managed as raid_managed
+ if not raid_managed(s) and s.drop_probe and npc['active'] and not npc['no_drop'] and not npc.get('ally') and npc.get('team',1)!=0:
   from els_server.domain.dungeon_drops import ground_drop_notice
   rule=local_rewards();amount=rule['boss_ed'] if npc['boss'] else rule['ordinary_ed']
   from els_server.domain.gm_rates import allow_drop
@@ -169,14 +170,23 @@ def finish_death(s,event,npc,d,expired,notice):
 
 def clear(s):
  run=s.dungeon_run;rule=local_rewards()
+ raid_supply=getattr(s,'_raid_supply',None)
+ if raid_supply is not None:
+  if (raid_supply['owner'] is not s or raid_supply['transaction'] is not getattr(s,'reward_transaction',None)
+      or not raid_supply['transaction'].in_transaction or not getattr(s,'_raid_phase_internal',False)):
+   raise ValueError('Raid clear requires original phase writer')
+  rule=dict(rule,clear_ed=0,clear_experience=raid_supply['experience'],items=raid_supply['plan'])
  from els_server.domain.legacy_pve_exp import clear_amount,experience_limit
- compat_clear=clear_amount(s)
+ compat_clear=raid_supply['experience'] if raid_supply is not None else clear_amount(s)
  if compat_clear is not None:rule=dict(rule,clear_experience=compat_clear)
  from els_server.domain.gm_rates import clear_experience
  # Compatibility K already contains the run's pinned GM multiplier. Its
  # 30% clear increment must not receive that multiplier a second time.
  if compat_clear is None:rule=dict(rule,clear_experience=clear_experience(s,rule['clear_experience']))
  if getattr(s,'challenge_deadline',None) is not None and time.time()>=s.challenge_deadline:return failed(s)
+ from els_server.domain.silver_mirror_flow import clear_rewards as mirror_clear
+ mirror_reply=mirror_clear(s,rule)
+ if mirror_reply is not None:return mirror_reply
  from els_server.domain.dungeon_equipment_loot_flow import clear_rewards
  loot_reply=clear_rewards(s,rule)
  if loot_reply is not None:return loot_reply
@@ -199,7 +209,7 @@ def clear(s):
   if getattr(s,'active_challenge',None) is not None and s.challenge_clear_effect is None:
    s.challenge_clear_effect={**s.active_challenge,'now':int(time.time())}
   receipt=s.account.reward_store.grant(s.reward_run_id,proof,rule['clear_ed'],rule['clear_experience'],encode,
-      item_plan=rule['items'] if s.item_test else None,dungeon_clear=(run.identity,elapsed),challenge_clear=getattr(s,'challenge_clear_effect',None),transaction=getattr(s,'reward_transaction',None),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(s) if getattr(s,'activity2026_awards',None) is not None else None,experience_limit=experience_limit() if compat_clear is not None else None,resonance_source='clear' if compat_clear is not None else None,daily_special=__import__('els_server.domain.ariel_daily_special',fromlist=['prepare']).prepare(s))
+      item_plan=(rule['items'] or None) if s.item_test else None,dungeon_clear=(run.identity,elapsed),challenge_clear=getattr(s,'challenge_clear_effect',None),transaction=getattr(s,'reward_transaction',None),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(raid_supply['original_session'] if raid_supply is not None else s) if getattr(s,'activity2026_awards',None) is not None else None,experience_limit=experience_limit() if compat_clear is not None else None,resonance_source='clear' if compat_clear is not None else None,raid_reward_source=raid_supply['source'] if raid_supply is not None else None,daily_special=None if raid_supply is not None else __import__('els_server.domain.ariel_daily_special',fromlist=['prepare']).prepare(s))
   s.reward_receipt={'run_id':s.reward_run_id,**receipt};reply=[]
   if s.item_test and receipt.get('items') and not s.clear_items_synced:
    from els_server.domain.dungeon_drops import pickup_inventory_notice

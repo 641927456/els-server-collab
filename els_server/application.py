@@ -130,6 +130,8 @@ class FriendsSession(LocalSession):
                 from els_server.domain.title_flow import periodic as title_periodic
                 messages=self.expiration_notifications()+self._periodic_notifications()+mount_periodic(self)+title_periodic(self)
                 messages=self.activity_reply(messages)
+            from els_server.domain.resonance_flow import synchronize as shared_resonance_sync
+            messages=shared_resonance_sync(self,messages)
             if self.phase=='town_ready':
                 kinds={e.kind for e in messages if e.event_id==0x201}
                 expiry=0x1c6 in kinds
@@ -212,6 +214,7 @@ class Application:
         if self.config.mode=='local':
             def create_local():
                 session=LocalSession(self.account,port_probe_port=port_probe_port,**self.config.session_options(),**self.activity_options(self.account))
+                # Dedicated reset witness; preserve generic local .application absence.
                 session._chip_reset_local_application=self
                 session._chip_reset_local_live=True
                 session._c1_local_application=self
@@ -249,16 +252,16 @@ class Application:
                 finally:
                     close_mount(session)
             finally:
+                if type(session) is LocalSession and getattr(session,'_cartridge40326_local_application',None) is self:
+                    session._cartridge40326_local_live=False
+                if type(session) is LocalSession and getattr(session,'_box119335_local_application',None) is self:
+                    session._box119335_local_live=False
                 if type(session) is LocalSession and getattr(session,'_c1_local_application',None) is self:
                     session._c1_local_live=False
                     if getattr(self,'_c1_local_context',None) is getattr(session,'_c1_hp_context',None):
                         self._c1_local_context=None
                 if type(session) is LocalSession and getattr(session,'_chip_reset_local_application',None) is self:
                     session._chip_reset_local_live=False
-                if type(session) is LocalSession and getattr(session,'_cartridge40326_local_application',None) is self:
-                    session._cartridge40326_local_live=False
-                if type(session) is LocalSession and getattr(session,'_box119335_local_application',None) is self:
-                    session._box119335_local_live=False
                 try:
                     if timer is not None:timer.observe(session,stop=True)
                 finally:

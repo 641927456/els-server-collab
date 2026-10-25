@@ -69,12 +69,12 @@ def collection_source_guard(s):
 
 def handle(s,event,sequence):
     if event.event_id==0x202 and event.kind==0xfd and enabled(s):
-        from els_server.domain.account_fishing25600 import handle as fishing_handle
-        fishing_reply=fishing_handle(s,event,sequence)
-        if fishing_reply is not None:return fishing_reply
         from els_server.domain.guild_task_flow import dialogue as guild_dialogue
         guild_reply=guild_dialogue(s,event,sequence)
         if guild_reply is not None:return guild_reply
+        from els_server.domain.account_fishing25600 import handle as fishing_handle
+        fishing_reply=fishing_handle(s,event,sequence)
+        if fishing_reply is not None:return fishing_reply
         from els_server.domain.town_dialogue import handle as town_dialogue_handle
         town_reply=town_dialogue_handle(s,event,sequence)
         if town_reply is not None:return town_reply
@@ -86,16 +86,16 @@ def handle(s,event,sequence):
     housing_binding=None
     if qid==26770:
         housing_binding=(s.account,s.account.store,s.account.characters,s.account.root,getattr(s,'application',None),s.account.uid,s.account.account_id,s.shop_session_id,s.phase,s.active_map,s.pending_map)
-    fishing_binding=None
-    if qid in(25600,25601,25602):
-        from els_server.domain.account_fishing_tasks import actor_binding,current_actor,actor_guard
-        try:fishing_binding=actor_binding(s)
-        except(ValueError,AttributeError,KeyError,TypeError):return []
     guild_reply_guard=None
     if qid==35630:
         from els_server.domain.guild_license_flow import reply_capture, guarded_reply
         guild_reply_guard=reply_capture(s)
         if guild_reply_guard is None:return []
+    fishing_binding=None
+    if qid in(25600,25601,25602):
+        from els_server.domain.account_fishing_tasks import actor_binding,current_actor,actor_guard
+        try:fishing_binding=actor_binding(s)
+        except(ValueError,AttributeError,KeyError,TypeError):return []
     skip_binding=None
     def current_skip_binding():
         run=s.dungeon_run
@@ -193,10 +193,8 @@ def handle(s,event,sequence):
             from els_server.domain.tutorial_memory8_finale import ready_hidden_receipt
             ready=ready_hidden_receipt(r.get('accepted_after',()))
             if ready:events.append(wire.progress(ready))
-            # B9C380 kind29F rebuilds the career/skill-tree context; the F5 unit
-            # alone leaves the current client's skill page empty after a job quest.
-            # Successful retries also rebuild from current authoritative
-            # state; class_changed itself remains a first-transition fact.
+            # Rebuild from the current committed career on first success and
+            # completed-receipt retries; never repeat a transition or reward.
             if r.get('career_refresh'):
                 from els_server.protocol.career_messages import career_notice
                 events.append(career_notice(r['character'],s.account.get_location(),r['slots'],r['balances'],r['items']))

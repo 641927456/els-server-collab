@@ -29,11 +29,6 @@ def catalog():
     for key,sub in row['subquests'].items():
         if (sub['m_iID']!=int(key) or sub['m_eClearType']!=1 or set(sub['m_ClearCondition'])!={'m_eTalkNPCID'}
             or str(sub['m_ClearCondition']['m_eTalkNPCID']) not in row['npc_bindings']):raise ValueError('Town dialogue exact objective source')
-    if (row['npc_bindings']['10025']!=dict(houses=[40028],towns={'1009':851,'20010':778})
-        or row['subquests']['162120']!=dict(m_iID=162120,m_eClearType=1,m_bAutomaticDescription=0,
-                                          m_ClearCondition=dict(m_eTalkNPCID=10025))
-        or any(row['quests'][str(q)]['m_eQuestType']!=5 for q in (22378,22390,22420))):
-        raise ValueError('Varnimyr NPC10025 source identity')
     from els_server.domain.inventory_items import VERIFIED_TEMPLATES
     from els_server.domain.acquisition_policy import require_acquirable
     if {r['template'] for r in row['reward_definitions']}!={109955, 118149, 710160, 78996, 78999, 77090, 77110, 131641, 131642, 131643, 131644, 131645, 713275, 163135, 92111, 92112, 710098, 92115, 79063, 79064, 79065, 136034, 136039, 30577, 109945}:raise ValueError('Town dialogue reward set')

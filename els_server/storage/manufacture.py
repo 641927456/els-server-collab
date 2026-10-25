@@ -243,9 +243,9 @@ def execute(path,owner,account_id,payload,operation,*,now,randbelow=secrets.rand
 
 # User-authorized local policy, 2026-10-24. Not a retail XP curve.
 BLACKSMITH_LOCAL_INITIAL_REQUIRED = 400
-
 # Explicit20261024 local hunter initial state; not a retail initial curve.
 HUNTER_LOCAL_INITIAL_REQUIRED = 400
+
 def select_profession(path,owner,account_id,payload,*,authorize=None,prepare=None):
     from els_server.protocol.profession_messages import select_request
     chosen=select_request(payload)

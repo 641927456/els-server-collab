@@ -6,7 +6,12 @@ from types import MappingProxyType
 LEGACY_TEMPLATES=tuple(range(135938,135949))
 MODERN_TEMPLATES=tuple(range(136161,136172))
 TEMPLATES=LEGACY_TEMPLATES+MODERN_TEMPLATES
-PAYLOAD_SHA='968b5d177163acf36f064348d345f9bbb5d4cc87b9a9c5de461f9b2d22e8ac5b'
+_ORIGINAL_TEMPLATES=TEMPLATES
+LEGACY_TEMPLATES+=(714235, 714339, 714340, 717812, 718526, 723643)
+MODERN_TEMPLATES+=(711320, 712389, 713407)
+TEMPLATES=_ORIGINAL_TEMPLATES+(711320, 712389, 713407, 714235, 714339, 714340, 717812, 718526, 723643)
+_ADDITIONAL_RULES={711320: (30000000, 1, 0), 712389: (30000000, 1, 0), 713407: (30000000, 1, 0), 714235: (80000000, 1, 0), 714339: (1000000000, 1, 299), 714340: (10000000000, 1, 299), 717812: (10000000000, 1, 299), 718526: (10000000000, 1, 349), 723643: (10000000000, 350, 499)}
+PAYLOAD_SHA='3e98e553b78eef58ccdeb1ba12a548bb28010d692cf6cb6f05041f7da371a197'
 
 @functools.lru_cache(maxsize=1)
 def definitions():
@@ -23,7 +28,7 @@ def definitions():
         if (hashlib.sha256(record).hexdigest()!=row['record_sha256'] or record.hex()!=row['record_hex']
             or (item['metadata'],item['item_type'],row['metadata'],row['group'])!=((0,7,0,4)if row['template']in LEGACY_TEMPLATES else(2,7,2,4))
             or struct.unpack_from('<II',record,4)[1]!=56
-            or (row['min_level'],row['max_level'])!=(1,0)
+            or (row['experience'],row['min_level'],row['max_level'])!=_ADDITIONAL_RULES.get(row['template'],(row['experience'],1,0))
             or type(row['experience'])is not int or row['experience']<=0):
             raise ValueError('ERP potion current tuple/record')
         result[row['template']]=MappingProxyType(row)
@@ -73,3 +78,7 @@ def validate_existing(item):
         raise ValueError('ERP potion requires unchanged owned SQL reader')
     read_existing(dict(item))
     return item
+
+
+def admitted_templates():
+    return frozenset(t for t,r in definitions().items()if r.get("admitted",True))

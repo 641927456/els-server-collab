@@ -158,6 +158,9 @@ def _clear_claim_validate(db,s,bound):
                 or row.get('death_proof_sha256')!=hashlib.sha256(proof).hexdigest()):
             raise MaterialRefusal('Material clear issued context changed')
         validate_issued(row,c)
+    # Existing storage.claim separately validates the requested issued drop ID,
+    # template, source, claimed_uids/receipt, current inventory UIDs and capacity.
+    # Its same-writer callback runs again after response encoding, before commit.
 
 
 def claim_enabled(s,drop):

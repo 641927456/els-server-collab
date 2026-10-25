@@ -5,6 +5,9 @@ The original providers retain economic decisions and durable receipts.
 """
 import struct,weakref,sqlite3
 from contextlib import closing
+from pathlib import Path
+import logging
+from els_server.domain.attendance_2026_award_flow import retryable_sqlite_lock
 from els_server.domain.attendance_2026_online import selected_local_test_character
 from els_server.protocol import attendance_2026_quest as quest_wire
 from els_server.protocol.protocol_codec import encode_event
@@ -54,27 +57,39 @@ class AttendanceOnlineCampaign(AttendanceCampaign):
             return [ordinary.reward_ack(166210,s.account.character(),s.account.get_location(),s.account.get_skills(),inv['balances'],inv['items'],result=2005)]
         return super().handle(s,event,sequence)
 
+    def _task_enrollment_needed(self,s,db,t,now):
+        """Read the same owner/config/task/day gates before and under writer."""
+        t._owner(s.account.account_id,s.account.uid);t._configuration();t._validate_binding()
+        if t._read(s.account.account_id) is not None:return False
+        period=self.schedule.period_at(now)
+        day=next(p.index for p in self.schedule.periods if p.key==period)
+        return not db.execute('SELECT 1 FROM activity518_stamps WHERE campaign=? AND account=? AND day_index=?',
+            (self.campaign,s.account.account_id,day)).fetchone()
+
     def _ensure_task(self,s):
-        # The original518 window references account task166210; a fresh
-        # character's task panel/list is empty without server enrollment.
-        # This is named local time-event scheduling, not recovered2026 code.
+        # Existing tasks/stamps need no writer; newly eligible enrollment still
+        # repeats every source/owner check in its original atomic transaction.
         if s.phase not in ('map_loading','square_accepted','town_ready'):return None
         now=self.clock()
         if not self.available(s,now):return None
         identity=selected_local_test_character(s)
         if identity is None:return None
-        with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
-            db.execute('BEGIN IMMEDIATE');t=self._store(db)
-            t._owner(s.account.account_id,s.account.uid);t._configuration()
-            if t._read(s.account.account_id) is not None:return None
-            period=self.schedule.period_at(now)
-            day=next(p.index for p in self.schedule.periods if p.key==period)
-            if db.execute('SELECT 1 FROM activity518_stamps WHERE campaign=? AND account=? AND day_index=?',
-                          (self.campaign,s.account.account_id,day)).fetchone():return None
-            row=t.accept(account=s.account.account_id,character=s.account.uid,now=now)
-            message=quest_wire.accepted(**self.view(row,owner_uid=s.account.uid));encode_event(message)
-            if selected_local_test_character(s)!=identity:raise ValueError('Attendance enrollment owner changed')
-        return message
+        try:
+            path=Path(s.account.store.path).resolve()
+            with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True,timeout=10)) as db:
+                db.execute('BEGIN')
+                if not self._task_enrollment_needed(s,db,self._store(db),now):return None
+            with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
+                db.execute('BEGIN IMMEDIATE');t=self._store(db)
+                if not self._task_enrollment_needed(s,db,t,now):return None
+                row=t.accept(account=s.account.account_id,character=s.account.uid,now=now)
+                message=quest_wire.accepted(**self.view(row,owner_uid=s.account.uid));encode_event(message)
+                if selected_local_test_character(s)!=identity:raise ValueError('Attendance enrollment owner changed')
+            return message
+        except sqlite3.OperationalError as error:
+            if not retryable_sqlite_lock(error):raise
+            logging.getLogger(__name__).warning('Automatic attendance enrollment deferred by SQLite lock',exc_info=True)
+            return None
 
     def _register_task(self,s):
         # Initial2B alone did not populate the original518 task panel in V124.

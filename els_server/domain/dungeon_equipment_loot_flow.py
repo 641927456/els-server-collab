@@ -21,6 +21,8 @@ def current_lease(s):
         and account.store is not None and account.store.uid==uid)
 
 def enabled(s):
+    from els_server.domain.raid_economy_flow import managed as raid_managed
+    if raid_managed(s):return False
     run=s.dungeon_run
     from els_server.domain.dungeon_loot_catalog import MAPS as NORMAL_MAPS
     from els_server.domain.dungeon_material_loot_catalog import MAPS as MATERIAL_MAPS
@@ -117,103 +119,6 @@ def accepted_death(s,event,npc,death,expired,*,randbelow=secrets.randbelow):
     s.world_drops=result['world'];s.world_drop_sequence=result['sequence'];s.world_drop_issued=result['last']
     return result['reply']
 
-def _claim_context(s,drop,rules):
-    c=identity(s,drop['npc_key'],dict(template=drop['source_template'],source_index=drop['source_index']) if rules is not None else None)
-    from els_server.domain.dungeon_material_loot_catalog import POLICY as MATERIAL_POLICY,map_rule
-    if rules is not None or drop.get('source')!=MATERIAL_POLICY or c['dungeon']!=34320 or drop.get('part')==c['part']:
-        return c
-    # The server-owned issued row keeps its original SQL identity when the
-    # loaded Stage2 advances from its two Bosses to the exit part.
-    issued=context({k:drop[k] for k in c})
-    if (c['stage']!=2 or c['part']!=2 or issued['part']!=1
-        or any(issued[k]!=c[k] for k in c if k!='part')
-        or s.dungeon_run.run_id!=c['run_id']):
-        raise ValueError('Material pickup left its issued stage/visit/run')
-    run=s.dungeon_run
-    npc=next((n for n in run.parts[1]['npcs'] if n['key']==issued['npc_key']),None)
-    if (npc is None or npc.get('dynamic') or not npc['active'] or not npc['boss']
-        or npc['no_drop'] or npc.get('ally') or npc.get('team',1)==0
-        or dict(stage=2,part=1,template=npc['template'],source_index=npc['source_index']) not in map_rule(34320)['accepted_boss_sources']
-        or hashlib.sha256(run.defeated.get(npc['key'],b'')).hexdigest()!=drop['death_proof_sha256']):
-        raise ValueError('Material pickup lost its original accepted Boss proof')
-    return issued
-
-def claim(s,request,drop):
-    group_validate=None
-    # Shared34320 retains UUID4 run identity and owner UUID5 reward identity.
-    # Detaching must not turn its remaining issued drops into solo claims.
-    if (not enabled(s) or s.dungeon_run is not None and s.dungeon_run.identity==34320
-            and s.reward_run_id!=s.dungeon_run.run_id):
-        from els_server.domain.friends_material_loot import claim_enabled,claim_guard
-        if not claim_enabled(s,drop):return []
-        try:group_validate=claim_guard(s)
-        except (ValueError,AttributeError,KeyError,TypeError):return []
-    from els_server.domain import dungeon_source_loot as source_rules
-    rules=source_rules if drop.get('source')==source_rules.POLICY else None
-    try:c=_claim_context(s,drop,rules)
-    except (ValueError,KeyError):return []
-    if drop.get('source')!=(rules.policy_for(c) if rules is not None else policy_for(c)):return []
-    if any(drop.get(k)!=c[k] for k in c) or request['template']!=drop['template'] or request['drop_id']!=drop['drop_id']:return []
-    def prepare(items,replayed):
-        reply=[Event(0x201,kind=0xd1,payload=struct.pack('>i',0))]
-        if not replayed:reply.append(ground_pickup_notice(drop['drop_id'],s.account.uid,template=drop['template']))
-        if rules is None or source_rules.descriptor(drop['template'])['kind']!='immediate-food':reply.append(pickup_inventory_notice(items))
-        encode_replies(reply)
-        return dict(reply=reply,replayed=replayed,items=items)
-    from els_server.storage.inventory_state import InventoryFull
-    try:
-        if group_validate is None:
-            result=storage.claim(s.account.store.path,c,request['drop_id'],request['template'],prepare,rules=rules,account_id=s.account.account_id)
-        else:
-            result=storage.claim(s.account.store.path,c,request['drop_id'],request['template'],prepare,rules=rules,account_id=s.account.account_id,validate=group_validate)
-    except InventoryFull:return [Event(0x201,kind=0xd1,payload=struct.pack('>i',-1))]
-    except ValueError:return []
-    drop['pickup_committed']=True
-    s.pickup_receipt={'dungeon_run_id':s.reward_run_id,'drop_id':drop['drop_id'],**result}
-    return result['reply']
-
-
-def clear_rewards(s,rule):
-    # The fragment clear branch belongs exclusively to the original four maps.
-    if not enabled(s):return None
-    if s.clear_notified:return []
-    if s.dungeon_run.identity not in MAPS:return None
-    run=s.dungeon_run;identity(s,0)
-    if run.next is None or run.next['kind']!=4 or not s.part_end_notified:return None
-    from els_server.domain.dungeon_clear import reward_clear_notice,clear_identity_payload
-    from els_server.protocol.local_messages import client_economy_fields
-    from els_server.domain.local_artifact_rules import assess_run,clear_base
-    elapsed=s.dungeon_clock.seconds();assessment=assess_run(run,elapsed)
-    deaths=hashlib.sha256()
-    for key,value in sorted(run.defeated.items()):deaths.update(struct.pack('>iI',key,len(value))+value)
-    proof=(b'local-static-clear-v2'+struct.pack('>Qiii',s.account.uid,run.identity,run.stage,run.part)
-           +bytes.fromhex(run.graph['source_sha256'])+deaths.digest())
-    def encode(balances,best,economy):
-        client_economy_fields(balances)
-        return reward_clear_notice(economy['ed'],economy['experience'],s.account.uid,elapsed_seconds=elapsed,best_seconds=best,map_id=run.identity).payload
-    arguments=dict(run_id=s.reward_run_id,proof=proof,ed=rule['clear_ed'],experience=rule['clear_experience'],response_builder=encode,
-        item_plan=[*rule['items'],inventory_plan(118445,catalog()['values']['fragment_on_validated_clear'])],
-        dungeon_clear=(run.identity,elapsed),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(s) if getattr(s,'activity2026_awards',None) is not None else None)
-    from els_server.domain.ariel_daily_special import prepare as prepare_daily_special
-    arguments['daily_special']=prepare_daily_special(s)
-    from els_server.domain.legacy_pve_exp import enabled as exp_enabled,experience_limit
-    if exp_enabled(s):arguments.update(experience_limit=experience_limit(),resonance_source='clear')
-    def prepare(receipt,current):
-        reply=[]
-        if receipt.get('items') and not s.clear_items_synced:reply.append(pickup_inventory_notice(current))
-        committed=receipt.get('local_rules')
-        if committed:
-            a=committed['assessment'];reply.append(Event(0x201,kind=0x66b,payload=struct.pack('>ii',a['rank'],a['score'])))
-        reply.append(Event(0x201,kind=0xc1,payload=clear_identity_payload(receipt['response'],run.identity)))
-        if 'ariel_daily_status'in receipt:reply.append(receipt['ariel_daily_status'])
-        encode_replies(reply)
-        return reply
-    receipt,reply=storage.clear_reward(s.account.store.path,s.account.uid,s.account.reward_store,arguments,prepare)
-    s.reward_receipt={'run_id':s.reward_run_id,**receipt}
-    if receipt.get('items'):s.clear_items_synced=True
-    s.clear_notified=True
-    return reply
-
 def _claim_run_matches(s,c):
     run=s.dungeon_run
     if run.run_id==c['run_id']:return True
@@ -267,3 +172,77 @@ def _claim_context(s,drop,rules):
         raise ValueError('Material pickup lost its original accepted Boss proof')
     return issued
 
+def claim(s,request,drop):
+    group_validate=None
+    # Shared34320 retains UUID4 run identity and owner UUID5 reward identity.
+    # Detaching must not turn its remaining issued drops into solo claims.
+    if (not enabled(s) or s.dungeon_run is not None and s.dungeon_run.identity==34320
+            and s.reward_run_id!=s.dungeon_run.run_id):
+        from els_server.domain.friends_material_loot import claim_enabled,claim_guard
+        if not claim_enabled(s,drop):return []
+        try:group_validate=claim_guard(s)
+        except (ValueError,AttributeError,KeyError,TypeError):return []
+    from els_server.domain import dungeon_source_loot as source_rules
+    rules=source_rules if drop.get('source')==source_rules.POLICY else None
+    try:c=_claim_context(s,drop,rules)
+    except (ValueError,KeyError):return []
+    if drop.get('source')!=(rules.policy_for(c) if rules is not None else policy_for(c)):return []
+    if any(drop.get(k)!=c[k] for k in c) or request['template']!=drop['template'] or request['drop_id']!=drop['drop_id']:return []
+    def prepare(items,replayed):
+        reply=[Event(0x201,kind=0xd1,payload=struct.pack('>i',0))]
+        if not replayed:reply.append(ground_pickup_notice(drop['drop_id'],s.account.uid,template=drop['template']))
+        if rules is None or source_rules.descriptor(drop['template'])['kind']!='immediate-food':reply.append(pickup_inventory_notice(items))
+        encode_replies(reply)
+        return dict(reply=reply,replayed=replayed,items=items)
+    from els_server.storage.inventory_state import InventoryFull
+    try:
+        if group_validate is None:
+            result=storage.claim(s.account.store.path,c,request['drop_id'],request['template'],prepare,rules=rules,account_id=s.account.account_id)
+        else:
+            result=storage.claim(s.account.store.path,c,request['drop_id'],request['template'],prepare,rules=rules,account_id=s.account.account_id,validate=group_validate)
+    except InventoryFull:return [Event(0x201,kind=0xd1,payload=struct.pack('>i',-1))]
+    except ValueError:return []
+    drop['pickup_committed']=True
+    s.pickup_receipt={'dungeon_run_id':s.reward_run_id,'drop_id':drop['drop_id'],**result}
+    return result['reply']
+
+def clear_rewards(s,rule):
+    # The fragment clear branch belongs exclusively to the original four maps.
+    if not enabled(s):return None
+    if s.clear_notified:return []
+    if s.dungeon_run.identity not in MAPS:return None
+    run=s.dungeon_run;identity(s,0)
+    if run.next is None or run.next['kind']!=4 or not s.part_end_notified:return None
+    from els_server.domain.dungeon_clear import reward_clear_notice,clear_identity_payload
+    from els_server.protocol.local_messages import client_economy_fields
+    from els_server.domain.local_artifact_rules import assess_run,clear_base
+    elapsed=s.dungeon_clock.seconds();assessment=assess_run(run,elapsed)
+    deaths=hashlib.sha256()
+    for key,value in sorted(run.defeated.items()):deaths.update(struct.pack('>iI',key,len(value))+value)
+    proof=(b'local-static-clear-v2'+struct.pack('>Qiii',s.account.uid,run.identity,run.stage,run.part)
+           +bytes.fromhex(run.graph['source_sha256'])+deaths.digest())
+    def encode(balances,best,economy):
+        client_economy_fields(balances)
+        return reward_clear_notice(economy['ed'],economy['experience'],s.account.uid,elapsed_seconds=elapsed,best_seconds=best,map_id=run.identity).payload
+    arguments=dict(run_id=s.reward_run_id,proof=proof,ed=rule['clear_ed'],experience=rule['clear_experience'],response_builder=encode,
+        item_plan=[*rule['items'],inventory_plan(118445,catalog()['values']['fragment_on_validated_clear'])],
+        dungeon_clear=(run.identity,elapsed),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(s) if getattr(s,'activity2026_awards',None) is not None else None)
+    from els_server.domain.ariel_daily_special import prepare as prepare_daily_special
+    arguments['daily_special']=prepare_daily_special(s)
+    from els_server.domain.legacy_pve_exp import enabled as exp_enabled,experience_limit
+    if exp_enabled(s):arguments.update(experience_limit=experience_limit(),resonance_source='clear')
+    def prepare(receipt,current):
+        reply=[]
+        if receipt.get('items') and not s.clear_items_synced:reply.append(pickup_inventory_notice(current))
+        committed=receipt.get('local_rules')
+        if committed:
+            a=committed['assessment'];reply.append(Event(0x201,kind=0x66b,payload=struct.pack('>ii',a['rank'],a['score'])))
+        reply.append(Event(0x201,kind=0xc1,payload=clear_identity_payload(receipt['response'],run.identity)))
+        if 'ariel_daily_status'in receipt:reply.append(receipt['ariel_daily_status'])
+        encode_replies(reply)
+        return reply
+    receipt,reply=storage.clear_reward(s.account.store.path,s.account.uid,s.account.reward_store,arguments,prepare)
+    s.reward_receipt={'run_id':s.reward_run_id,**receipt}
+    if receipt.get('items'):s.clear_items_synced=True
+    s.clear_notified=True
+    return reply

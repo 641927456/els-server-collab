@@ -118,8 +118,10 @@ class QuestCatalog:
 @functools.lru_cache(maxsize=1)
 def quest_catalog():return QuestCatalog()
 
+
 # Finite new Rigomor IDs reuse legacy UC_NONE filtering and exact sets.
 _RIGOMOR_COLLECTION_QUESTS=frozenset((22730,22740,22750,22770,22780,22790,22810,22820,22830))
+
 def _require_rigomor_collection_class(character,quest):
     if quest.get('m_iID') not in _RIGOMOR_COLLECTION_QUESTS:return
     values=quest['QuestCondition']['m_eUnitClass']
@@ -129,6 +131,8 @@ def _require_rigomor_collection_class(character,quest):
         raise ValueError('Rigomor story class source')
     if character['unit_class'] not in classes:
         raise ValueError('Quest career requirement')
+
+
 def require_eligible(character,quest,completed,items,*,location=('town',20000)):
     if quest.get('m_iID')==52700:
         from els_server.storage.el_search_collection import WRITES_ENABLED as collection_writes_enabled

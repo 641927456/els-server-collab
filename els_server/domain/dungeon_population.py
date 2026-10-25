@@ -14,7 +14,10 @@ def population(stage,*,hp_context=None):
  # objects, so Boss-gauge overrides or diagnostics cannot alter later spawns.
  part=json.loads(_verified_population(stage))
  if hp_context is not None:part['npcs']=hp_context.legacy_population(stage,part['npcs'])
+ from els_server.domain.formal_npc_hp import legacy_population
+ part['npcs']=legacy_population(stage,part['npcs'])
  return part
+
 @functools.lru_cache(maxsize=3)
 def _verified_population(stage):
  data=json.loads((ROOT/'population-test-fixture.json').read_text(encoding='utf8'))

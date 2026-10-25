@@ -43,7 +43,14 @@ def profiles(s,db,items):
 def prepare(s,*,cold=False):
     def build(db,state,items):
         stats=profiles(s,db,items)if not cold and s.phase=='dungeon_active' else None
-        return[wire.snapshot(s.account.uid,state['rows'],profiles=stats)]
+        rows=list(state['rows'])
+        run=getattr(s,'dungeon_run',None)
+        if not cold and s.phase=='dungeon_active' and run is not None:
+            from els_server.domain.silver_mirror_policy import ALL
+            if run.identity in ALL and run.identity<35800:
+                from els_server.storage.silver_mirror_state import world_rows
+                rows+=world_rows(db,s.account.uid)
+        return[wire.snapshot(s.account.uid,rows,profiles=stats)]
     return build
 
 def cold(s):

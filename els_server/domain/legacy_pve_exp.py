@@ -26,6 +26,8 @@ def bind_run(run):
             npc_level=row['npc_level'],table_experience=base,experience_bp=rate,base_experience=min(2**31-1,base*rate//10000))
 
 def enabled(s):
+    from els_server.domain.raid_economy_flow import managed as raid_managed
+    if raid_managed(s):return False
     from els_server.domain.dungeon_equipment_loot_flow import current_lease
     return bool(getattr(getattr(s,'dungeon_run',None),'legacy_experience',None) is not None
         and getattr(s,'reward_test',False) and getattr(s,'reward_run_id',None)==s.dungeon_run.run_id

@@ -5,6 +5,8 @@ catalog is the user's approved local definition, explicitly merged with the
 other server reward rows. Existing default sessions never instantiate this.
 """
 from contextlib import closing
+from pathlib import Path
+import logging
 from dataclasses import replace
 import sqlite3,struct,uuid
 from els_server.domain.attendance_2026_quests import AttendanceQuestBinding
@@ -15,6 +17,11 @@ from els_server.storage.seal_quests import load_character,current_slots
 from els_server.protocol import attendance_2026_quest as quest_wire,attendance_2026_messages as wire,quest_messages as ordinary
 from els_server.protocol.boosting_2026_restore import split
 from els_server.protocol.protocol_codec import Event
+
+
+def retryable_sqlite_lock(error):
+    code=getattr(error,'sqlite_errorcode',None)
+    return type(code) is int and code & 255 in (sqlite3.SQLITE_BUSY,sqlite3.SQLITE_LOCKED)
 
 
 class AttendanceAwardFlow(AttendanceQuestBinding):
@@ -88,17 +95,35 @@ class AttendanceAwardFlow(AttendanceQuestBinding):
         except ValueError as error:
             return failure(187 if str(error) in ('Daily task requirements not met','Claim day already occupied','Campaign is unavailable') else 2005)
 
+    def _projection_rows(self,s,db,t,now,task):
+        """Only project already-selected rows; never refresh or write here."""
+        t._owner(s.account.account_id,s.account.uid)
+        state=t._attendance(s.account.account_id)
+        period=self.schedule.period_at(now)
+        day=next((p.index for p in self.schedule.periods if p.key==period),None)
+        done=db.execute('SELECT claimed_at FROM activity518_stamps WHERE campaign=? AND account=? AND day_index=? AND kind=?',
+            (self.campaign,s.account.account_id,day,'normal')).fetchone() if day is not None else None
+        return task,state,None if done is None or task is not None else done[0]
+
     def _projection(self,s):
-        with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db:
-            t=self._store(db);now=self.clock()
-            with t._transaction():
-                t._owner(s.account.account_id,s.account.uid)
-                task=t._refresh(s.account.account_id,now);state=t._attendance(s.account.account_id)
-                period=self.schedule.period_at(now)
-                day=next((p.index for p in self.schedule.periods if p.key==period),None)
-                done=db.execute('SELECT claimed_at FROM activity518_stamps WHERE campaign=? AND account=? AND day_index=? AND kind=?',
-                    (self.campaign,s.account.account_id,day,'normal')).fetchone() if day is not None else None
-            return task,state,None if done is None or task is not None else done[0]
+        now=self.clock()
+        try:
+            with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db:
+                t=self._store(db)
+                with t._transaction():
+                    t._owner(s.account.account_id,s.account.uid)
+                    task=t._refresh(s.account.account_id,now)
+                    result=self._projection_rows(s,db,t,now,task)
+                return result
+        except sqlite3.OperationalError as error:
+            if not retryable_sqlite_lock(error):raise
+            logging.getLogger(__name__).warning('Attendance projection refresh deferred by SQLite lock',exc_info=True)
+        # The failed write transaction has exited/rolled back and closed.
+        # Read one independent committed snapshot; never invent fresh credit.
+        path=Path(s.account.store.path).resolve()
+        with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True,timeout=10)) as db:
+            db.execute('BEGIN');t=self._store(db);t._validate_binding()
+            return self._projection_rows(s,db,t,now,t._read(s.account.account_id))
 
     @staticmethod
     def _merge(event,view,completed_at):

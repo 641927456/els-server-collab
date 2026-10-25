@@ -17,6 +17,10 @@ def catalog():
 def qualified(s):
     from els_server.domain.dungeon_routes import route_catalog
     if type(s.dungeon_id)is not int or type(s.gate_stage)is not int:raise ValueError('Resurrection map identity')
+    from els_server.domain.silver_mirror_policy import ALL as MIRROR
+    if s.dungeon_id in MIRROR:
+        from els_server.domain.silver_mirror_flow import revival_keys
+        return revival_keys(s)
     row=catalog().get(str(s.dungeon_id))
     if row is None:raise ValueError('Resurrection scene source not qualified')
     source=client_data().dungeon(s.dungeon_id)
