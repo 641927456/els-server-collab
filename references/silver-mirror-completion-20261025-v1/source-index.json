@@ -1,0 +1,442 @@
+{
+  "schema": 1,
+  "issue": 490,
+  "kind": "paired source-only review; not a main-runtime replacement",
+  "client_changes": 0,
+  "production_installation": true,
+  "channels": {
+    "online": {
+      "parent_release": "native-consumable-expansion-20261025-v7",
+      "parent_manifest_sha256": "f67901bc7b512c6c01f3cf2f1ffc854cb1f40209176aeeda2a3652fb76a29b98",
+      "files": [
+        {
+          "runtime_path": "config/dungeon_rotation_local.json",
+          "source": "shared/config/dungeon_rotation_local.json",
+          "sha256": "4532a583dcd4ccbf5f686a1fa6f3914a37ca58c91418af0521e3a29c3469ef1f",
+          "size": 475,
+          "parent_sha256": "f72604c5946c1a7e34ab5ce14a3ac754cd0e0528a67ae146669e834f9fa9c47c"
+        },
+        {
+          "runtime_path": "els_server/data/silver_mirror.json",
+          "source": "shared/els_server/data/silver_mirror.json",
+          "sha256": "4f690a6ee28c8ea4675ae39d34b154107e1e03bfd7aad0cae08771c65ccccb41",
+          "size": 27047,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/domain/acquisition_policy.py",
+          "source": "online/els_server/domain/acquisition_policy.py",
+          "sha256": "248eed1b91216efa4d79af5c7169cc7712745d458393733c98be4c9766bf2817",
+          "size": 5935,
+          "parent_sha256": "bce4568f4b8f5d262d6e3b16566f3e8a3bd5a6851f3716d0fb6407e06cc33ee7"
+        },
+        {
+          "runtime_path": "els_server/domain/dungeon_flow.py",
+          "source": "shared/els_server/domain/dungeon_flow.py",
+          "sha256": "16ffc590f4986ec2e0a8fb50888d4bb8342c3e93da3c4cc84d5c769a1030e98d",
+          "size": 15882,
+          "parent_sha256": "5f85dc0b9d9a0cab9be97df5e47b3a0841045a6c1b1b7ef2a90b37a000399175"
+        },
+        {
+          "runtime_path": "els_server/domain/dungeon_rotation.py",
+          "source": "shared/els_server/domain/dungeon_rotation.py",
+          "sha256": "0bb0176cf1816b73bbdbcaeb8799c1b14aa97cbbfe3b4766475a55dc3c72feae",
+          "size": 4022,
+          "parent_sha256": "1d479e3e4922bd38a8a63e963dd98a1ca0f6b8b04a9c7c23be14c816f62472ca"
+        },
+        {
+          "runtime_path": "els_server/domain/elixir_flow.py",
+          "source": "shared/els_server/domain/elixir_flow.py",
+          "sha256": "eee57ba23bb419f88d01f5d9e6fe6122a78106c23ee094ccf5681bf1cbad94e4",
+          "size": 5133,
+          "parent_sha256": "2f2e982e9bb3fabd11523eabf1233ce114616ee3206b854b0f1c25940944ee3d"
+        },
+        {
+          "runtime_path": "els_server/domain/inventory_items.py",
+          "source": "online/els_server/domain/inventory_items.py",
+          "sha256": "dcca39c2eb2ab37b5f99c0de993f8a679dd9eec80a584929517f0bd6966ac672",
+          "size": 63043,
+          "parent_sha256": "fcc9b8d4bccc6811327f7ee80283bd99fc31cb0ea1c543051d4f9153e9f490cb"
+        },
+        {
+          "runtime_path": "els_server/domain/known_resurrection_flow.py",
+          "source": "shared/els_server/domain/known_resurrection_flow.py",
+          "sha256": "771b0cbe1bb0f5f99519e619216378c07d42426a4ddf770f0c9c41e4266f88d7",
+          "size": 12986,
+          "parent_sha256": "e97e27ab1ad1ff6dd4a2a7cb1c4fce2411e1d584e2ba8ef5f61442260dabf316"
+        },
+        {
+          "runtime_path": "els_server/domain/known_resurrection_maps.py",
+          "source": "shared/els_server/domain/known_resurrection_maps.py",
+          "sha256": "f54d17fa08437f23954fcee2bce8fe1bba605f85c0f32a12c31d49ddd55ba2a8",
+          "size": 2744,
+          "parent_sha256": "f8f28bd99cebc0805e4c97a94422810ab276dd3da785882c5d72e4c5b50e4dc5"
+        },
+        {
+          "runtime_path": "els_server/domain/local_session.py",
+          "source": "online/els_server/domain/local_session.py",
+          "sha256": "769c19b6d1920efe0fca2031b6e4614c99819eaa6d3938558c859a642d93dfec",
+          "size": 151574,
+          "parent_sha256": "2ae8b2bda317acd9c2f91c39c64f87a9101cc64c18f6b1eca8307e6e7a5f1689"
+        },
+        {
+          "runtime_path": "els_server/domain/raid_economy_flow.py",
+          "source": "shared/els_server/domain/raid_economy_flow.py",
+          "sha256": "dc27ade1a5b309e7c0df368627249f0c0a067ce70cbebe1cf48cd9e53f3a5835",
+          "size": 13866,
+          "parent_sha256": "65671c634829da48225698ef34a2a7ec6532f4a490acff5a008270cc1211167e"
+        },
+        {
+          "runtime_path": "els_server/domain/raid_reward_flow.py",
+          "source": "shared/els_server/domain/raid_reward_flow.py",
+          "sha256": "813da75b094ecd1d3a76571013eeca573e1931c845f3a6132dcde5ccffb9bdf4",
+          "size": 6005,
+          "parent_sha256": "9604f90aade1842eaaac7fc8a705af5f0bb3d117f76b25e63f29c440cafcf2f0"
+        },
+        {
+          "runtime_path": "els_server/domain/region_quests.py",
+          "source": "shared/els_server/domain/region_quests.py",
+          "sha256": "6cecc7a8361e1da1364e38e68c5e6b75ca660f9d2cea98dd1757e64a29850aec",
+          "size": 5272,
+          "parent_sha256": "5b68f4aebe773aa659c0c6c816fd20577ab0e064eaeea4be0cbc7eed7eac2544"
+        },
+        {
+          "runtime_path": "els_server/domain/silver_mirror_catalog.py",
+          "source": "shared/els_server/domain/silver_mirror_catalog.py",
+          "sha256": "8f2be80230658b05eb300560053c45e9fd1dbf1419788f6deb7d401c80da4942",
+          "size": 2509,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/domain/silver_mirror_flow.py",
+          "source": "shared/els_server/domain/silver_mirror_flow.py",
+          "sha256": "01aaf6057280afa981747cef7f96ac50547dce96394c684ba774a1da3a6a41ac",
+          "size": 13574,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/domain/silver_mirror_policy.py",
+          "source": "shared/els_server/domain/silver_mirror_policy.py",
+          "sha256": "3ac2ee41b3a0a1c7cd6b2d2811fc00265eaee540fca33f7c4e077b02300d7256",
+          "size": 4047,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/domain/silver_mirror_rewards.py",
+          "source": "shared/els_server/domain/silver_mirror_rewards.py",
+          "sha256": "2bba18e5eeac417530038c67822dcdcaf19b236c43e74380d8f8f3c03a737cc1",
+          "size": 4070,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/protocol/ariel_daily_special_messages.py",
+          "source": "shared/els_server/protocol/ariel_daily_special_messages.py",
+          "sha256": "2ab1299ed06ac5cd617062969808f319943e96ea5ccdf0d4c408d759c1a5e85b",
+          "size": 1496,
+          "parent_sha256": "677e448b23b541846be4e7d3831926a3b48126593a17ef5fe82bbc5fc807a324"
+        },
+        {
+          "runtime_path": "els_server/protocol/content_count_messages.py",
+          "source": "shared/els_server/protocol/content_count_messages.py",
+          "sha256": "9ccf5013948b8105da1d76af7dbaae4365e1f79e7fdc589bc98324d3c72a3748",
+          "size": 1451,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/protocol/raid_economy_protocol.py",
+          "source": "shared/els_server/protocol/raid_economy_protocol.py",
+          "sha256": "65d81b0884223a170eb32e9fe3e4033d110f73cef84968a7ae7f665eaac1534e",
+          "size": 2339,
+          "parent_sha256": "8d4f91f134feae16aa2dd98302e2a47073f6b208dbb5c95079212765dfb4da68"
+        },
+        {
+          "runtime_path": "els_server/protocol/weekly_dungeon_counts.py",
+          "source": "shared/els_server/protocol/weekly_dungeon_counts.py",
+          "sha256": "28f0634b1107d6835addd0e6f2af764b2fd7a9d7aa329671c9be30e9b7dfd4e1",
+          "size": 478,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/protocol/world_buff_messages.py",
+          "source": "shared/els_server/protocol/world_buff_messages.py",
+          "sha256": "8a14fd02cabce76517f21cc65613211a40f97a98783a045e7564788210148d08",
+          "size": 1985,
+          "parent_sha256": "20244b8ee898bb4f27c1fce9b16a1f5ce1630a49a413a58d6b0fb6d8ca3268ca"
+        },
+        {
+          "runtime_path": "els_server/storage/ariel_daily_special.py",
+          "source": "shared/els_server/storage/ariel_daily_special.py",
+          "sha256": "6f1504f494737eb9f466ab068b1d3fcb16b766b5350c939b1b23687fe9c4700b",
+          "size": 10141,
+          "parent_sha256": "ebdc6e4899e48bfb8a1956bf89b8c1ff8137f8385e74b4c3e7f57474a08ae3ca"
+        },
+        {
+          "runtime_path": "els_server/storage/inventory_state.py",
+          "source": "shared/els_server/storage/inventory_state.py",
+          "sha256": "dd78ffa58ee60c9a380f2d43d6ccaca24e785fbaee5ff6f69803d4ba2a3085d0",
+          "size": 19240,
+          "parent_sha256": "ab110109f1c4bdd50917a6fd795b74778debc76a145948c3ab7497f91557b15f"
+        },
+        {
+          "runtime_path": "els_server/storage/known_resurrection.py",
+          "source": "shared/els_server/storage/known_resurrection.py",
+          "sha256": "be0c3346c0470577bd10f93c84cdd43d83ade7f35903183fefc6ccb2c346d28d",
+          "size": 7691,
+          "parent_sha256": "8121f9024ee81c688d0889e6e5a9575f4441ff83365e2b75168b4ad391365c1f"
+        },
+        {
+          "runtime_path": "els_server/storage/raid_reward_actions.py",
+          "source": "shared/els_server/storage/raid_reward_actions.py",
+          "sha256": "d600a06e37b4973747c1260339a121f2d58c94cf1ccf635b0dfc379373675132",
+          "size": 9759,
+          "parent_sha256": "353e7a0e5966824dbacfb5cb2b2c1963dd1afeb183519c1b930ea1029c28d157"
+        },
+        {
+          "runtime_path": "els_server/storage/reward_state.py",
+          "source": "shared/els_server/storage/reward_state.py",
+          "sha256": "23ba41c29e7b3e0fc49091844bb11824f9e91355830d1801b408dcb2bfbade21",
+          "size": 18232,
+          "parent_sha256": "8612bddc941c2917d3f9b9b8230fda3769e3493938c286272cb1eeabcd6e83d5"
+        },
+        {
+          "runtime_path": "els_server/storage/silver_mirror_invitation.py",
+          "source": "shared/els_server/storage/silver_mirror_invitation.py",
+          "sha256": "4933b9a9cde7569a4a5ee822a0a16c7defee57fec6461f80d6bbb0be9b6078ab",
+          "size": 4204,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/storage/silver_mirror_state.py",
+          "source": "shared/els_server/storage/silver_mirror_state.py",
+          "sha256": "584fa1b5d2b53a80b93814fc9a8e5d179ebfbc8ab93c52aeffec868c45c4236c",
+          "size": 12321,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/storage/wardrobe.py",
+          "source": "shared/els_server/storage/wardrobe.py",
+          "sha256": "faf3955075380d2e08718f1f8a8d48e9c1a7bdc7e3e305396a8d80df833940d6",
+          "size": 26245,
+          "parent_sha256": "226724c0cecea918fe5f3b83810aedbe205222a766c1eadf2a80ffd06da3bc3d"
+        }
+      ]
+    },
+    "local": {
+      "parent_release": "local-native-consumable-expansion-20261025-v7",
+      "parent_manifest_sha256": "5868abbd0f5a547d2dfe209c52b16e29c5edf0d611d19b0bb48234b41242bca5",
+      "files": [
+        {
+          "runtime_path": "config/dungeon_rotation_local.json",
+          "source": "shared/config/dungeon_rotation_local.json",
+          "sha256": "4532a583dcd4ccbf5f686a1fa6f3914a37ca58c91418af0521e3a29c3469ef1f",
+          "size": 475,
+          "parent_sha256": "f72604c5946c1a7e34ab5ce14a3ac754cd0e0528a67ae146669e834f9fa9c47c"
+        },
+        {
+          "runtime_path": "els_server/data/silver_mirror.json",
+          "source": "shared/els_server/data/silver_mirror.json",
+          "sha256": "4f690a6ee28c8ea4675ae39d34b154107e1e03bfd7aad0cae08771c65ccccb41",
+          "size": 27047,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/domain/acquisition_policy.py",
+          "source": "local/els_server/domain/acquisition_policy.py",
+          "sha256": "1310819cd6d418e11cfa8a2142654c226e2b81f1f7ad528e4d72c9ff5b501b08",
+          "size": 5776,
+          "parent_sha256": "f34d3ea5e833c3f7011003d034494a51d387ee8f282d3493e0867f0ff3f0f15d"
+        },
+        {
+          "runtime_path": "els_server/domain/dungeon_flow.py",
+          "source": "shared/els_server/domain/dungeon_flow.py",
+          "sha256": "16ffc590f4986ec2e0a8fb50888d4bb8342c3e93da3c4cc84d5c769a1030e98d",
+          "size": 15882,
+          "parent_sha256": "5f85dc0b9d9a0cab9be97df5e47b3a0841045a6c1b1b7ef2a90b37a000399175"
+        },
+        {
+          "runtime_path": "els_server/domain/dungeon_rotation.py",
+          "source": "shared/els_server/domain/dungeon_rotation.py",
+          "sha256": "0bb0176cf1816b73bbdbcaeb8799c1b14aa97cbbfe3b4766475a55dc3c72feae",
+          "size": 4022,
+          "parent_sha256": "1d479e3e4922bd38a8a63e963dd98a1ca0f6b8b04a9c7c23be14c816f62472ca"
+        },
+        {
+          "runtime_path": "els_server/domain/elixir_flow.py",
+          "source": "shared/els_server/domain/elixir_flow.py",
+          "sha256": "eee57ba23bb419f88d01f5d9e6fe6122a78106c23ee094ccf5681bf1cbad94e4",
+          "size": 5133,
+          "parent_sha256": "2f2e982e9bb3fabd11523eabf1233ce114616ee3206b854b0f1c25940944ee3d"
+        },
+        {
+          "runtime_path": "els_server/domain/inventory_items.py",
+          "source": "local/els_server/domain/inventory_items.py",
+          "sha256": "bd66610175a67a8bd518488e883b610a4740c4886820c995f708b044a147af42",
+          "size": 62888,
+          "parent_sha256": "2f16afe72c97dd1e7eeaee8428078664351ecd7973d29edb07f883bb5148cc1c"
+        },
+        {
+          "runtime_path": "els_server/domain/known_resurrection_flow.py",
+          "source": "shared/els_server/domain/known_resurrection_flow.py",
+          "sha256": "771b0cbe1bb0f5f99519e619216378c07d42426a4ddf770f0c9c41e4266f88d7",
+          "size": 12986,
+          "parent_sha256": "e97e27ab1ad1ff6dd4a2a7cb1c4fce2411e1d584e2ba8ef5f61442260dabf316"
+        },
+        {
+          "runtime_path": "els_server/domain/known_resurrection_maps.py",
+          "source": "shared/els_server/domain/known_resurrection_maps.py",
+          "sha256": "f54d17fa08437f23954fcee2bce8fe1bba605f85c0f32a12c31d49ddd55ba2a8",
+          "size": 2744,
+          "parent_sha256": "f8f28bd99cebc0805e4c97a94422810ab276dd3da785882c5d72e4c5b50e4dc5"
+        },
+        {
+          "runtime_path": "els_server/domain/local_session.py",
+          "source": "local/els_server/domain/local_session.py",
+          "sha256": "38073b7a76fb66db6e253dd189c2c9fbd26bff474471a6e94c37f8f5c6210ee8",
+          "size": 150366,
+          "parent_sha256": "a597f08aaab90123a8bc505f7afa992f72052320920fc99fc7b57a77908a1815"
+        },
+        {
+          "runtime_path": "els_server/domain/raid_economy_flow.py",
+          "source": "shared/els_server/domain/raid_economy_flow.py",
+          "sha256": "dc27ade1a5b309e7c0df368627249f0c0a067ce70cbebe1cf48cd9e53f3a5835",
+          "size": 13866,
+          "parent_sha256": "65671c634829da48225698ef34a2a7ec6532f4a490acff5a008270cc1211167e"
+        },
+        {
+          "runtime_path": "els_server/domain/raid_reward_flow.py",
+          "source": "shared/els_server/domain/raid_reward_flow.py",
+          "sha256": "813da75b094ecd1d3a76571013eeca573e1931c845f3a6132dcde5ccffb9bdf4",
+          "size": 6005,
+          "parent_sha256": "9604f90aade1842eaaac7fc8a705af5f0bb3d117f76b25e63f29c440cafcf2f0"
+        },
+        {
+          "runtime_path": "els_server/domain/region_quests.py",
+          "source": "shared/els_server/domain/region_quests.py",
+          "sha256": "6cecc7a8361e1da1364e38e68c5e6b75ca660f9d2cea98dd1757e64a29850aec",
+          "size": 5272,
+          "parent_sha256": "5b68f4aebe773aa659c0c6c816fd20577ab0e064eaeea4be0cbc7eed7eac2544"
+        },
+        {
+          "runtime_path": "els_server/domain/silver_mirror_catalog.py",
+          "source": "shared/els_server/domain/silver_mirror_catalog.py",
+          "sha256": "8f2be80230658b05eb300560053c45e9fd1dbf1419788f6deb7d401c80da4942",
+          "size": 2509,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/domain/silver_mirror_flow.py",
+          "source": "shared/els_server/domain/silver_mirror_flow.py",
+          "sha256": "01aaf6057280afa981747cef7f96ac50547dce96394c684ba774a1da3a6a41ac",
+          "size": 13574,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/domain/silver_mirror_policy.py",
+          "source": "shared/els_server/domain/silver_mirror_policy.py",
+          "sha256": "3ac2ee41b3a0a1c7cd6b2d2811fc00265eaee540fca33f7c4e077b02300d7256",
+          "size": 4047,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/domain/silver_mirror_rewards.py",
+          "source": "shared/els_server/domain/silver_mirror_rewards.py",
+          "sha256": "2bba18e5eeac417530038c67822dcdcaf19b236c43e74380d8f8f3c03a737cc1",
+          "size": 4070,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/protocol/ariel_daily_special_messages.py",
+          "source": "shared/els_server/protocol/ariel_daily_special_messages.py",
+          "sha256": "2ab1299ed06ac5cd617062969808f319943e96ea5ccdf0d4c408d759c1a5e85b",
+          "size": 1496,
+          "parent_sha256": "677e448b23b541846be4e7d3831926a3b48126593a17ef5fe82bbc5fc807a324"
+        },
+        {
+          "runtime_path": "els_server/protocol/content_count_messages.py",
+          "source": "shared/els_server/protocol/content_count_messages.py",
+          "sha256": "9ccf5013948b8105da1d76af7dbaae4365e1f79e7fdc589bc98324d3c72a3748",
+          "size": 1451,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/protocol/raid_economy_protocol.py",
+          "source": "shared/els_server/protocol/raid_economy_protocol.py",
+          "sha256": "65d81b0884223a170eb32e9fe3e4033d110f73cef84968a7ae7f665eaac1534e",
+          "size": 2339,
+          "parent_sha256": "8d4f91f134feae16aa2dd98302e2a47073f6b208dbb5c95079212765dfb4da68"
+        },
+        {
+          "runtime_path": "els_server/protocol/weekly_dungeon_counts.py",
+          "source": "shared/els_server/protocol/weekly_dungeon_counts.py",
+          "sha256": "28f0634b1107d6835addd0e6f2af764b2fd7a9d7aa329671c9be30e9b7dfd4e1",
+          "size": 478,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/protocol/world_buff_messages.py",
+          "source": "shared/els_server/protocol/world_buff_messages.py",
+          "sha256": "8a14fd02cabce76517f21cc65613211a40f97a98783a045e7564788210148d08",
+          "size": 1985,
+          "parent_sha256": "20244b8ee898bb4f27c1fce9b16a1f5ce1630a49a413a58d6b0fb6d8ca3268ca"
+        },
+        {
+          "runtime_path": "els_server/storage/ariel_daily_special.py",
+          "source": "shared/els_server/storage/ariel_daily_special.py",
+          "sha256": "6f1504f494737eb9f466ab068b1d3fcb16b766b5350c939b1b23687fe9c4700b",
+          "size": 10141,
+          "parent_sha256": "ebdc6e4899e48bfb8a1956bf89b8c1ff8137f8385e74b4c3e7f57474a08ae3ca"
+        },
+        {
+          "runtime_path": "els_server/storage/inventory_state.py",
+          "source": "shared/els_server/storage/inventory_state.py",
+          "sha256": "dd78ffa58ee60c9a380f2d43d6ccaca24e785fbaee5ff6f69803d4ba2a3085d0",
+          "size": 19240,
+          "parent_sha256": "ab110109f1c4bdd50917a6fd795b74778debc76a145948c3ab7497f91557b15f"
+        },
+        {
+          "runtime_path": "els_server/storage/known_resurrection.py",
+          "source": "shared/els_server/storage/known_resurrection.py",
+          "sha256": "be0c3346c0470577bd10f93c84cdd43d83ade7f35903183fefc6ccb2c346d28d",
+          "size": 7691,
+          "parent_sha256": "8121f9024ee81c688d0889e6e5a9575f4441ff83365e2b75168b4ad391365c1f"
+        },
+        {
+          "runtime_path": "els_server/storage/raid_reward_actions.py",
+          "source": "shared/els_server/storage/raid_reward_actions.py",
+          "sha256": "d600a06e37b4973747c1260339a121f2d58c94cf1ccf635b0dfc379373675132",
+          "size": 9759,
+          "parent_sha256": "353e7a0e5966824dbacfb5cb2b2c1963dd1afeb183519c1b930ea1029c28d157"
+        },
+        {
+          "runtime_path": "els_server/storage/reward_state.py",
+          "source": "shared/els_server/storage/reward_state.py",
+          "sha256": "23ba41c29e7b3e0fc49091844bb11824f9e91355830d1801b408dcb2bfbade21",
+          "size": 18232,
+          "parent_sha256": "8612bddc941c2917d3f9b9b8230fda3769e3493938c286272cb1eeabcd6e83d5"
+        },
+        {
+          "runtime_path": "els_server/storage/silver_mirror_invitation.py",
+          "source": "shared/els_server/storage/silver_mirror_invitation.py",
+          "sha256": "4933b9a9cde7569a4a5ee822a0a16c7defee57fec6461f80d6bbb0be9b6078ab",
+          "size": 4204,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/storage/silver_mirror_state.py",
+          "source": "shared/els_server/storage/silver_mirror_state.py",
+          "sha256": "584fa1b5d2b53a80b93814fc9a8e5d179ebfbc8ab93c52aeffec868c45c4236c",
+          "size": 12321,
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/storage/wardrobe.py",
+          "source": "shared/els_server/storage/wardrobe.py",
+          "sha256": "faf3955075380d2e08718f1f8a8d48e9c1a7bdc7e3e305396a8d80df833940d6",
+          "size": 26245,
+          "parent_sha256": "226724c0cecea918fe5f3b83810aedbe205222a766c1eadf2a80ffd06da3bc3d"
+        }
+      ]
+    }
+  },
+  "delivery_record": "delivery.json"
+}
