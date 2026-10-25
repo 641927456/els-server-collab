@@ -1,0 +1,171 @@
+{
+  "schema": 1,
+  "client_delta": 0,
+  "install_DDL_statements": 0,
+  "channels": {
+    "online": {
+      "parent_release": "native-owned-potion-choice-seraph-20261026-v1",
+      "parent_manifest_name": "rollup-manifest.json",
+      "parent_manifest_sha256": "6b1e06454771aa8aa152b9ab163af1007901f46bf71b3c35dab7edca90a384cf",
+      "delta": [
+        {
+          "path": "els_server/domain/scene_actor_retirements.py",
+          "parent_sha256": null,
+          "sha256": "686479d264a597c6763f0bc6a18dd5eaaa9903a3045db192dfdc8fb0bc8e8bbd",
+          "size": 5405,
+          "archive": "shared/els_server/domain/scene_actor_retirements.py"
+        },
+        {
+          "path": "els_server/domain/dungeon_flow.py",
+          "parent_sha256": "52762721c70f3f95d8f3b2b3400e74aea1672cd61ae85b1ccb904a4cdd1e3b1c",
+          "sha256": "5a239858579c5b158cf97216eb5685c0ca0c14395d30d1bcf44dde625750e6f5",
+          "size": 21222,
+          "archive": "shared/els_server/domain/dungeon_flow.py"
+        },
+        {
+          "path": "els_server/domain/story_controller_retirements.py",
+          "parent_sha256": "00fafd423bb658eab0ddc06ce7307c4269799dbb740fdba9dde8381b952b2086",
+          "sha256": "d9f8fd0460092a0227af5c760e21b065c709003a7f45701b041ce78921c685ad",
+          "size": 83372,
+          "archive": "shared/els_server/domain/story_controller_retirements.py"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "parent_sha256": "01265177b5b459749d49b0cba4b30b61057368231bae50ac8da22310f0d414c9",
+          "sha256": "4b765ea34f418fe353fb9a1c343c7a73287cd415f8657e179bb45d8583287062",
+          "size": 161580,
+          "archive": "online/els_server/domain/local_session.py"
+        },
+        {
+          "path": "els_server/domain/regional_boss_cubes_legacy.py",
+          "parent_sha256": "c2ef22e28012630b9b7b9d73623947ca23c79d1f966bc9d8fe321d0cc116040b",
+          "sha256": "db14414b535b6e95d4f4ac1d1b8accba69d740c694efedb99c53cf8deb85c397",
+          "size": 7064,
+          "archive": "shared/els_server/domain/regional_boss_cubes_legacy.py"
+        },
+        {
+          "path": "els_server/storage/fixed_cubes.py",
+          "parent_sha256": "8a827384b369036f12cf1c5a9e44842a31938be59a5c3416f9e2ae4598f30057",
+          "sha256": "a02db79508a4480f379a292184e39c8199e8fabf6598bceac8c3b760a020e878",
+          "size": 8204,
+          "archive": "shared/els_server/storage/fixed_cubes.py"
+        },
+        {
+          "path": "els_server/storage/regional_boss_cube_source.py",
+          "parent_sha256": "1295cd07cb80df2cd37b3836ed460cd1dc9a2119e8abb3682d4442451ac384d7",
+          "sha256": "25b05f8d34cca0cd92934e333301f69742ac240db28c274ff262d501f9542b29",
+          "size": 4671,
+          "archive": "shared/els_server/storage/regional_boss_cube_source.py"
+        },
+        {
+          "path": "els_server/data/regional_boss_cubes_lithia.json",
+          "parent_sha256": null,
+          "sha256": "ce077a2f3d104219ed2c7452cab11bf0ef2ce9cd4aeb092d49dbcbb95711f9af",
+          "size": 19037,
+          "archive": "shared/els_server/data/regional_boss_cubes_lithia.json"
+        }
+      ]
+    },
+    "local": {
+      "parent_release": "local-native-owned-potion-choice-seraph-20261026-v1",
+      "parent_manifest_name": "local-business-manifest.json",
+      "parent_manifest_sha256": "20b80205c2d704ca0f534325dea972160f4a37ed60e03cf4bc7a9d17fdbfcd99",
+      "delta": [
+        {
+          "path": "els_server/domain/scene_actor_retirements.py",
+          "parent_sha256": null,
+          "sha256": "686479d264a597c6763f0bc6a18dd5eaaa9903a3045db192dfdc8fb0bc8e8bbd",
+          "size": 5405,
+          "archive": "shared/els_server/domain/scene_actor_retirements.py"
+        },
+        {
+          "path": "els_server/domain/dungeon_flow.py",
+          "parent_sha256": "52762721c70f3f95d8f3b2b3400e74aea1672cd61ae85b1ccb904a4cdd1e3b1c",
+          "sha256": "5a239858579c5b158cf97216eb5685c0ca0c14395d30d1bcf44dde625750e6f5",
+          "size": 21222,
+          "archive": "shared/els_server/domain/dungeon_flow.py"
+        },
+        {
+          "path": "els_server/domain/story_controller_retirements.py",
+          "parent_sha256": "00fafd423bb658eab0ddc06ce7307c4269799dbb740fdba9dde8381b952b2086",
+          "sha256": "d9f8fd0460092a0227af5c760e21b065c709003a7f45701b041ce78921c685ad",
+          "size": 83372,
+          "archive": "shared/els_server/domain/story_controller_retirements.py"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "parent_sha256": "6af3a6091381845b93f9b7dfa1425b64fde4ff51b648d4e07d3fc98414709ec3",
+          "sha256": "7d907ce5df04b9be1bed23c259a5d36999c5756523acb0aad6f1f255d8773325",
+          "size": 159082,
+          "archive": "local/els_server/domain/local_session.py"
+        },
+        {
+          "path": "els_server/domain/regional_boss_cubes_legacy.py",
+          "parent_sha256": "c2ef22e28012630b9b7b9d73623947ca23c79d1f966bc9d8fe321d0cc116040b",
+          "sha256": "db14414b535b6e95d4f4ac1d1b8accba69d740c694efedb99c53cf8deb85c397",
+          "size": 7064,
+          "archive": "shared/els_server/domain/regional_boss_cubes_legacy.py"
+        },
+        {
+          "path": "els_server/storage/fixed_cubes.py",
+          "parent_sha256": "8a827384b369036f12cf1c5a9e44842a31938be59a5c3416f9e2ae4598f30057",
+          "sha256": "a02db79508a4480f379a292184e39c8199e8fabf6598bceac8c3b760a020e878",
+          "size": 8204,
+          "archive": "shared/els_server/storage/fixed_cubes.py"
+        },
+        {
+          "path": "els_server/storage/regional_boss_cube_source.py",
+          "parent_sha256": "1295cd07cb80df2cd37b3836ed460cd1dc9a2119e8abb3682d4442451ac384d7",
+          "sha256": "25b05f8d34cca0cd92934e333301f69742ac240db28c274ff262d501f9542b29",
+          "size": 4671,
+          "archive": "shared/els_server/storage/regional_boss_cube_source.py"
+        },
+        {
+          "path": "els_server/data/regional_boss_cubes_lithia.json",
+          "parent_sha256": null,
+          "sha256": "ce077a2f3d104219ed2c7452cab11bf0ef2ce9cd4aeb092d49dbcbb95711f9af",
+          "size": 19037,
+          "archive": "shared/els_server/data/regional_boss_cubes_lithia.json"
+        }
+      ]
+    }
+  },
+  "delta_paths": [
+    "els_server/domain/scene_actor_retirements.py",
+    "els_server/domain/dungeon_flow.py",
+    "els_server/domain/story_controller_retirements.py",
+    "els_server/domain/local_session.py",
+    "els_server/domain/regional_boss_cubes_legacy.py",
+    "els_server/storage/fixed_cubes.py",
+    "els_server/storage/regional_boss_cube_source.py",
+    "els_server/data/regional_boss_cubes_lithia.json"
+  ],
+  "new_paths": [
+    "els_server/domain/scene_actor_retirements.py",
+    "els_server/data/regional_boss_cubes_lithia.json"
+  ],
+  "unit15_pool_contents": "explicitly-approved-local-supplement",
+  "primary_86_data_unchanged": true,
+  "private_configuration_or_player_data_included": false,
+  "source_binding": {
+    "filename": "candidate-binding-v6.json",
+    "sha256": "794245fc7e90ca316c8fa439efe9d34885099bea331fa26618cbc51949971863"
+  },
+  "actual_parent_port_proof": {
+    "filename": "actual-parent-port-proof-v6.json",
+    "sha256": "bb404e7164880426bb3ad1504cf10653d2bd6a7d13f61cc38db1d92b4c6bc7ef",
+    "base_source_revision": "c707a83b2f226289d7bd0dd0e27ca62452d82d2c"
+  },
+  "explicit_unit15_authorization_sha256": "6dc2fdb497154e30e4c07a8beb5e689bfb086e2bb9b2e91db07059cba6c838f9",
+  "independent_unit15_policy_sha256": "ce077a2f3d104219ed2c7452cab11bf0ef2ce9cd4aeb092d49dbcbb95711f9af",
+  "primary_86_data_sha256": {
+    "online": "28100c20b5171d1d0720904579338a7ffaa36934fd861bafdeeaa95dc4d04947",
+    "local": "28100c20b5171d1d0720904579338a7ffaa36934fd861bafdeeaa95dc4d04947"
+  },
+  "source_retirement_public_verified": false,
+  "natural_GUI": false,
+  "mode_differences": [
+    "els_server/domain/local_session.py"
+  ],
+  "physical_files": 9
+}
