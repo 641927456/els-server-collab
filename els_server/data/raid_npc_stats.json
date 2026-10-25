@@ -5716,7 +5716,44 @@
             "MAGIC_DEF_VALUE": 21883
           },
           "source_url": "https://cobodex.eu/en/dungeon/35940",
-          "capture_sha256": "7c5d184c257950d9cff36302334ea34787cbd891dfc35b7c3107c37920b3f0ce"
+          "capture_sha256": "7c5d184c257950d9cff36302334ea34787cbd891dfc35b7c3107c37920b3f0ce",
+          "element_resistances": {
+            "fields": [
+              "DEF_RED",
+              "DEF_BLUE",
+              "DEF_GREEN",
+              "DEF_WIND",
+              "DEF_LIGHT",
+              "DEF_DARK"
+            ],
+            "offsets": [
+              52,
+              56,
+              60,
+              64,
+              68,
+              72
+            ],
+            "encoding": "signed_int32",
+            "values": [
+              500,
+              500,
+              500,
+              500,
+              500,
+              500
+            ],
+            "provenance": "public_reference_adopted_local_rule",
+            "source_url": "https://cobodex.eu/en/dungeon/35940",
+            "source_region": "NA",
+            "source_version": "L.261021.1_1",
+            "source_level": 100,
+            "source_note": "Community displayed reference; may be outdated. User-authorized finite-source local adoption, not a claim of current official CN exact values.",
+            "native_consumer": "NPC v8B8 ->16C6A50; template+104..118; original modifiers retained",
+            "native_proof_sha256": "f6ab5e01f2d6c750df9ed4ef1dce542f09b60aa5d27a91c08f72324fc12a5ad9",
+            "activation": "Original new-run source initialization only",
+            "native_damage_reduction_unchanged": true
+          }
         }
       }
     },
