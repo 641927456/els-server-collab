@@ -61,6 +61,18 @@
     "delivery-v1/publication/public-harness-private-v1.json": {
       "sha256": "bac464aeed190d7da04904e1b66ff2aafdd32d4fce0ff4f2db4cacda5528a811",
       "passed": true
+    },
+    "all-routes-binding.json": {
+      "sha256": "3703c0225dfe8d3cdb824aa9f64a57b7d16c0be6431139219e4d54e848c8b903",
+      "passed": true
+    },
+    "all-routes-check-v2.json": {
+      "sha256": "90d0e36eaa78d2d21d1809d1b6421d6c3f92df471f03d5e44aeffba07300d51a",
+      "passed": true
+    },
+    "all-routes-check-v3.json": {
+      "sha256": "0a3034f18981b6368e93be3faef7a3cceaaa45b0cc204f163ab49386b5b325dc",
+      "passed": true
     }
   },
   "sources": [
@@ -105,5 +117,14 @@
   "formal_player_database_test": false,
   "public_TLS": false,
   "dual_installation": false,
-  "publication": "pending authorized queue and final actual-parent freeze"
+  "publication": "pending authorized queue and final actual-parent freeze",
+  "private_all_route_coverage": {
+    "channels": 2,
+    "targets_each": 14,
+    "normal_and_special": 8,
+    "story": 6,
+    "clock_and_memory_fixtures": true,
+    "story_counter_and_buff_values_preserved": true,
+    "story_receipt_revision_only": true
+  }
 }

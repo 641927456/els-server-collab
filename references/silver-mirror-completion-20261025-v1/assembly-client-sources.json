@@ -1,0 +1,430 @@
+{
+  "ok": true,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "source_files": [
+    {
+      "path": "analysis\\x2-village-opcode14-20261017-01a14a51\\outputs\\DLG_Map_Village.tables.json",
+      "sha256": "b79f1609a7a0d673ab165cc626961779acc791cb411a64a933edf7de03d1f072"
+    },
+    {
+      "path": "analysis\\sol-high-20261015\\equipment-ui-v5\\Enum.lua.bytecode.json",
+      "sha256": "232b24aa7f224fd17144f5c5363da854284e5c8cfdf554341998c4f7b53c1f69"
+    },
+    {
+      "path": "analysis\\coordination-20261015\\long-term-local-repair-20261017-v1\\ep-output-use-native-v1\\resources-battle-v1\\BattleFieldBuffTemplet.lua.tables.json",
+      "sha256": "b40fe61aef49543388ef867b11e69f673becf852c2d7e5ddf2f6cfc4c35beb60"
+    },
+    {
+      "path": "analysis\\coordination-20261015\\long-term-local-repair-20261017-v1\\ep-output-use-native-v1\\resources-battle-v1\\BattleFieldBuffFactor.lua.tables.json",
+      "sha256": "2896ec653016655bd192ff82428c99806392fec70e6cf387e75439438bb6723a"
+    }
+  ],
+  "villages": [
+    {
+      "id": 1008,
+      "world_id": 637,
+      "name_string": {
+        "global": "STR_ID_36796"
+      },
+      "spa_info": null,
+      "source": "pinned static Village export; no native gameplay claim"
+    },
+    {
+      "id": 1009,
+      "world_id": 851,
+      "name_string": {
+        "global": "STR_ID_49947"
+      },
+      "spa_info": {
+        "APPEAR_SPA_NPC_PPORU": 0,
+        "APPLY_SPA_SD_MODE": 0,
+        "WORLD_MAP_EXCEPTION": 0,
+        "APPLY_LOAD_UI": 0,
+        "1": {
+          "Type": 2,
+          "LineIdx": {
+            "0": null,
+            "1": 0,
+            "2": 1,
+            "3": 2,
+            "4": 3,
+            "5": 4,
+            "6": 5,
+            "7": 6,
+            "8": 7,
+            "9": 8
+          }
+        }
+      },
+      "source": "pinned static Village export; no native gameplay claim"
+    },
+    {
+      "id": 1010,
+      "world_id": 964,
+      "name_string": {
+        "global": "STR_ID_55387"
+      },
+      "spa_info": {
+        "APPEAR_SPA_NPC_PPORU": 0,
+        "APPLY_SPA_SD_MODE": 0,
+        "WORLD_MAP_EXCEPTION": 0,
+        "APPLY_LOAD_UI": 0,
+        "1": {
+          "Type": 2,
+          "LineIdx": {
+            "0": null,
+            "1": 0,
+            "2": 1,
+            "3": 2,
+            "4": 3,
+            "5": 4,
+            "6": 5,
+            "7": 6,
+            "8": 7,
+            "9": 8,
+            "10": 9,
+            "11": 10,
+            "12": 11,
+            "13": 12,
+            "14": 13,
+            "15": 14,
+            "16": 15,
+            "17": 16,
+            "18": 17,
+            "19": 18,
+            "20": 19,
+            "21": 20,
+            "22": 21,
+            "23": 22,
+            "24": 23,
+            "25": 24,
+            "26": 25,
+            "27": 26,
+            "28": 27,
+            "29": 28,
+            "30": 29,
+            "31": 30,
+            "32": 31,
+            "33": 32,
+            "34": 33,
+            "35": 34,
+            "36": 35,
+            "37": 36,
+            "38": 37,
+            "39": 38,
+            "40": 39
+          }
+        }
+      },
+      "source": "pinned static Village export; no native gameplay claim"
+    },
+    {
+      "id": 20013,
+      "world_id": 1023,
+      "name_string": {
+        "global": "STR_ID_60476"
+      },
+      "spa_info": {
+        "APPEAR_SPA_NPC_PPORU": 0,
+        "APPLY_SPA_SD_MODE": 0,
+        "WORLD_MAP_EXCEPTION": 0,
+        "APPLY_LOAD_UI": 0,
+        "1": {
+          "Type": 2,
+          "AllLine": 1
+        }
+      },
+      "source": "pinned static Village export; no native gameplay claim"
+    },
+    {
+      "id": 1011,
+      "world_id": 1131,
+      "name_string": {
+        "global": "STR_ID_68212"
+      },
+      "spa_info": {
+        "APPEAR_SPA_NPC_PPORU": 0,
+        "APPLY_SPA_SD_MODE": 0,
+        "WORLD_MAP_EXCEPTION": 0,
+        "APPLY_LOAD_UI": 0,
+        "1": {
+          "Type": 2,
+          "AllLine": 1
+        }
+      },
+      "source": "pinned static Village export; no native gameplay claim"
+    },
+    {
+      "id": 1012,
+      "world_id": 1214,
+      "name_string": {
+        "global": "STR_ID_74200"
+      },
+      "spa_info": {
+        "APPEAR_SPA_NPC_PPORU": 0,
+        "APPLY_SPA_SD_MODE": 0,
+        "WORLD_MAP_EXCEPTION": 0,
+        "APPLY_LOAD_UI": 0,
+        "1": {
+          "Type": 2,
+          "AllLine": 1
+        }
+      },
+      "source": "pinned static Village export; no native gameplay claim"
+    }
+  ],
+  "candidate_assembly_buff": {
+    "enum": "BTI_BUFF_RAID_PARTY",
+    "template": {
+      "ACCUMULATION_LIMIT": 1,
+      "BUFF_ICON_TEXTURE_NAME": "DLG_UI_Common_Texture_Buff_01.dds",
+      "BUFF_ICON_TEXTURE_KEY": "BUFF_ICON_DEVILDOM3_RAID_PARTY",
+      "BUFF_TEMPLET_ID": 1433,
+      "IS_WORLD_BUFF": 0,
+      "IS_DEBUF": 0,
+      "IS_STORE_BUFF": 0,
+      "REGIST_TYPE": 0,
+      "BEHAVIOR": {
+        "COMBINATION": {
+          "1": 119,
+          "2": 125,
+          "3": 126
+        },
+        "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_BOSS": {
+          "BUFF_CHANGE_TYPE": 1,
+          "BUFF_RELATION_TYPE": 7
+        },
+        "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_FROM_BOSS": {
+          "BUFF_CHANGE_TYPE": 1,
+          "BUFF_RELATION_TYPE": 7
+        },
+        "BBT_CHANGE_ADAPTABILITY": {
+          "BUFF_CHANGE_TYPE": 1,
+          "BUFF_RELATION_TYPE": 7
+        }
+      },
+      "FINALIZER": {
+        "COMBINATION": {
+          "1": 1
+        },
+        "BFT_TIME": {
+          "BUFF_DURATION_TIME_TYPE": 1
+        }
+      },
+      "BUFF_NAME": {
+        "global": "STR_ID_51093"
+      },
+      "BUFF_DESC": {
+        "global": "STR_ID_51094"
+      }
+    },
+    "factor": {
+      "BUFF_FACTOR_ID": 1538,
+      "BUFF_FACTOR": {
+        "BUFF_TEMPLET_ID": 1433,
+        "RATE": {
+          "0": null,
+          "1": 1,
+          "2": 1,
+          "3": 1,
+          "4": 1,
+          "5": 1,
+          "6": 1,
+          "7": 1,
+          "8": 1,
+          "9": 1,
+          "10": 1,
+          "11": 1,
+          "12": 1,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 1,
+          "18": 1,
+          "19": 1,
+          "20": 1,
+          "21": 1,
+          "22": 1,
+          "23": 1,
+          "24": 1,
+          "25": 1,
+          "26": 1,
+          "27": 1,
+          "28": 1,
+          "29": 1,
+          "30": 1
+        },
+        "IGNORE_REGIST_FOR_RATE": 1,
+        "BEHAVIOR": {
+          "COMBINATION": {
+            "1": 119,
+            "2": 125,
+            "3": 126
+          },
+          "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_BOSS": {
+            "BUFF_CHANGE_TYPE": 1,
+            "BUFF_RELATION_TYPE": 7,
+            "FIX_VALUE": {
+              "0": null,
+              "1": 0.02,
+              "2": 0.02,
+              "3": 0.02,
+              "4": 0.02,
+              "5": 0.02,
+              "6": 0.02,
+              "7": 0.02,
+              "8": 0.02,
+              "9": 0.02,
+              "10": 0.02,
+              "11": 0.02,
+              "12": 0.02,
+              "13": 0.02,
+              "14": 0.02,
+              "15": 0.02,
+              "16": 0.02,
+              "17": 0.02,
+              "18": 0.02,
+              "19": 0.02,
+              "20": 0.02,
+              "21": 0.02,
+              "22": 0.02,
+              "23": 0.02,
+              "24": 0.02,
+              "25": 0.02,
+              "26": 0.02,
+              "27": 0.02,
+              "28": 0.02,
+              "29": 0.02,
+              "30": 0.02
+            }
+          },
+          "BBT_CHANGE_FINAL_DAMAGE_MULTIPLIER_FROM_BOSS": {
+            "BUFF_CHANGE_TYPE": 1,
+            "BUFF_RELATION_TYPE": 7,
+            "FIX_VALUE": {
+              "0": null,
+              "1": 0.02,
+              "2": 0.02,
+              "3": 0.02,
+              "4": 0.02,
+              "5": 0.02,
+              "6": 0.02,
+              "7": 0.02,
+              "8": 0.02,
+              "9": 0.02,
+              "10": 0.02,
+              "11": 0.02,
+              "12": 0.02,
+              "13": 0.02,
+              "14": 0.02,
+              "15": 0.02,
+              "16": 0.02,
+              "17": 0.02,
+              "18": 0.02,
+              "19": 0.02,
+              "20": 0.02,
+              "21": 0.02,
+              "22": 0.02,
+              "23": 0.02,
+              "24": 0.02,
+              "25": 0.02,
+              "26": 0.02,
+              "27": 0.02,
+              "28": 0.02,
+              "29": 0.02,
+              "30": 0.02
+            }
+          },
+          "BBT_CHANGE_ADAPTABILITY": {
+            "BUFF_CHANGE_TYPE": 1,
+            "BUFF_RELATION_TYPE": 7,
+            "FIX_VALUE": {
+              "0": null,
+              "1": 0.02,
+              "2": 0.02,
+              "3": 0.02,
+              "4": 0.02,
+              "5": 0.02,
+              "6": 0.02,
+              "7": 0.02,
+              "8": 0.02,
+              "9": 0.02,
+              "10": 0.02,
+              "11": 0.02,
+              "12": 0.02,
+              "13": 0.02,
+              "14": 0.02,
+              "15": 0.02,
+              "16": 0.02,
+              "17": 0.02,
+              "18": 0.02,
+              "19": 0.02,
+              "20": 0.02,
+              "21": 0.02,
+              "22": 0.02,
+              "23": 0.02,
+              "24": 0.02,
+              "25": 0.02,
+              "26": 0.02,
+              "27": 0.02,
+              "28": 0.02,
+              "29": 0.02,
+              "30": 0.02
+            }
+          }
+        },
+        "FINALIZER": {
+          "COMBINATION": {
+            "1": 1
+          },
+          "BFT_TIME": {
+            "BUFF_DURATION_TIME_TYPE": 1,
+            "NORMAL_TIME": {
+              "0": null,
+              "1": 1800,
+              "2": 1800,
+              "3": 1800,
+              "4": 1800,
+              "5": 1800,
+              "6": 1800,
+              "7": 1800,
+              "8": 1800,
+              "9": 1800,
+              "10": 1800,
+              "11": 1800,
+              "12": 1800,
+              "13": 1800,
+              "14": 1800,
+              "15": 1800,
+              "16": 1800,
+              "17": 1800,
+              "18": 1800,
+              "19": 1800,
+              "20": 1800,
+              "21": 1800,
+              "22": 1800,
+              "23": 1800,
+              "24": 1800,
+              "25": 1800,
+              "26": 1800,
+              "27": 1800,
+              "28": 1800,
+              "29": 1800,
+              "30": 1800
+            }
+          }
+        }
+      }
+    }
+  },
+  "cautions": [
+    "1433 and1538 are matching client template/factor candidates; localization/current producer still needs binding",
+    "Template is nonworld and nonstored; do not substitute Silver3A3 stored-world behavior",
+    "Native immediate1433 search hit1399f10/139a420 appears to be protocol599 UI, not proof of this Buff producer",
+    "Village SPA_INFO Type2 is static native facility configuration, not proof of timer/reward transaction completion"
+  ],
+  "formal_mutations": 0,
+  "client_changes": 0,
+  "natural_GUI": false
+}
