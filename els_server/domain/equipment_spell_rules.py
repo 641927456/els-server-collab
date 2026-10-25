@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from els_server.game_data import CLIENT_SHA,client_data
 
-DATA_SHA='404c9151ca94106e38c611825fa89d2c4f11e6900fd2b52da33e49af17f4ce7c'
+DATA_SHA='ffebf33276d97561460ae518896573c9b3f71c6fd4571ded27eef7e836edfbaf'
 
 @functools.lru_cache(maxsize=1)
 def catalog():
@@ -14,7 +14,7 @@ def catalog():
     c=json.loads(raw)
     if (c['schema_version']!=1 or c['client_sha256']!=CLIENT_SHA
             or c['catalog_sha256']!=client_data().manifest['catalog_sha256']
-            or len(c['targets'])!=1178 or sum(map(len,c['options'].values()))!=2364
+            or len(c['targets'])!=1178 or sum(map(len,c['options'].values()))!=2604
             or set(c['options'])!={'9','10','11','12'} or len(c['exchange_targets'])!=122):
         raise ValueError('Mystic socket finite source scope')
     for t,row in c['targets'].items():
