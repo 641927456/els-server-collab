@@ -1,0 +1,95 @@
+{
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "cost_evidence": {
+    "cases": 420,
+    "native_run": "analysis\\client-6c6b5180\\20261015-094032",
+    "path": "analysis\\integration-20261015\\enchant-cost-native.json",
+    "sha256": "0d1315cf3eeb3a1886db15ab8ad43524570f4e7af16ad78063e11d1952643756"
+  },
+  "counts": {
+    "effects": 36,
+    "missing_item_templates": 66,
+    "requirements": 700,
+    "scrolls": 183,
+    "unresolved_effects": 1
+  },
+  "native_run": "G:\\els\\analysis\\client-6c6b5180\\20261015-091223",
+  "rules_evidence": {
+    "compatibility_cases": 16807,
+    "material_cases": 7140,
+    "native_run": "analysis\\client-6c6b5180\\20261015-100607",
+    "path": "analysis\\integration-20261015\\enchant-rules-native.json",
+    "sha256": "7686197baebf7bd8075edd63e090e708059b758bc3cb6853efbd310316639116"
+  },
+  "schema_version": 1,
+  "scope": "Definitions and read-only quotes; limited equipment transactions are implemented separately. Random outcomes and combat effects remain pending.",
+  "sha256": "1d8e5eedd829abef49f49a0055073d60f2ca58ee8cfae214c4d38a14a89707e2",
+  "source_catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "sources": [
+    {
+      "algorithm": 10,
+      "checksum": 175,
+      "compressed_sha256": "af5ea80cd7801edfdd351e291690015a5c8b3f07babcd08ccbebfc28030e7289",
+      "compressed_size": 1280,
+      "initializer_parsed": true,
+      "lua_evaluated": false,
+      "name": "AttribEnchantItem.lua",
+      "native_read": true,
+      "returned_name": "",
+      "sha256": "c97334894d5720bdb2de555046381fb8ac2bca24315a499a8476f6e9a4083943",
+      "size": 6304,
+      "skip": 0,
+      "symbolic_calls": 37
+    },
+    {
+      "algorithm": 10,
+      "checksum": 258,
+      "compressed_sha256": "23122f1e6b997c935462acce7439af6c0d6ed70ae4f5bfddd201027bb39d0119",
+      "compressed_size": 7152,
+      "initializer_parsed": true,
+      "lua_evaluated": false,
+      "name": "AttribEnchantRequire.lua",
+      "native_read": true,
+      "returned_name": "",
+      "sha256": "44a531da9681418bf75c189b169b28f9af2e92063de5b33561af71cf20ac73fd",
+      "size": 60788,
+      "skip": 0,
+      "symbolic_calls": 700
+    },
+    {
+      "algorithm": 10,
+      "checksum": 62,
+      "compressed_sha256": "e4a02061af1ff9546ad5fe848ba1cbe30dddbe866b4467c56f0913e39b3c0160",
+      "compressed_size": 400,
+      "initializer_parsed": true,
+      "lua_evaluated": false,
+      "name": "AttribEnchantRequireED.lua",
+      "native_read": true,
+      "returned_name": "",
+      "sha256": "5a60125516f984dba35cb2035326af6659ab6d1f0b1a9f73ea79488889780ac1",
+      "size": 635,
+      "skip": 0,
+      "symbolic_calls": 0
+    },
+    {
+      "algorithm": 10,
+      "checksum": 7,
+      "compressed_sha256": "c91d9656717e2f1a34fa2f84995430dd0c99918425d947176b6136838f93569d",
+      "compressed_size": 1984,
+      "initializer_parsed": true,
+      "lua_evaluated": false,
+      "name": "EnchantItemInfoNew.lua",
+      "native_read": true,
+      "returned_name": "",
+      "sha256": "ab37e093c2887abef34b0e4e41b7ba9ec93e811dc830886352815ad74b54b798",
+      "size": 7957,
+      "skip": 0,
+      "symbolic_calls": 0
+    }
+  ],
+  "unresolved": [
+    "Material mapping is native-verified; full eligibility, protocol transaction and equipment attribute persistence remain pending.",
+    "Fee waiver event0xA6 and transaction eligibility are not implemented; normal price only.",
+    "Missing historical item templates retained; not made usable or sellable."
+  ]
+}

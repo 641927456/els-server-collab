@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "version": "local-artifact-20261016-v1",
+  "provenance": "local_design",
+  "authorization": "User explicitly authorized reasonable local completion on 2026-10-16; these are not recovered retail formulas.",
+  "rating": {
+    "minimum_budget_seconds": 90,
+    "maximum_budget_seconds": 3600,
+    "seconds_per_stage": 30,
+    "seconds_per_hostile": 3,
+    "seconds_per_boss": 30,
+    "thresholds": [[90,8],[75,7],[60,6],[45,5],[30,4],[20,3],[10,2],[0,1]],
+    "dungeon_budget_overrides": {}
+  },
+  "generation": {
+    "colors": [1,2,3,4,5],
+    "color_weights": [1,1,1,1,1],
+    "family_weights": [1,1,1,1,1],
+    "value_weights": [2000,1800,1500,1300,1000,800,600,500,300,200],
+    "mirror_family": "equal",
+    "mirror_value": "descending_integer_triangle",
+    "preview_ed": 200000,
+    "preview_fragments": 100,
+    "preview_cost_timing": "charge_on_roll; Apply is free and never rerolls",
+    "pending_policy": "persist_until_applied_or_replaced; no timeout refund or reroll"
+  },
+  "experience": {
+    "eligibility": "local_master_level_99",
+    "base_source": "local_fixed_per_native_appropriate_level_clear",
+    "appropriate_clear_base": 30000000,
+    "kill_share_bp": 2000,
+    "same_category_medals": "highest_only",
+    "synergy_bp": 2500,
+    "maximum_medal_bp": 30000,
+    "maximum_event_bp": 30000,
+    "event_bp": 0,
+    "ordinary_experience_bonuses": "excluded",
+    "rounding": "floor_once_per_component",
+    "scroll_partial_progress": "preserve_fraction"
+  }
+}

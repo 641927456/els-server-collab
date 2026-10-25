@@ -8,6 +8,8 @@ def run(command):subprocess.run(command,cwd=ROOT,check=True)
 def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'references/accepted-runtime-20261026-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_accepted_runtime_sources_20261026.py')])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
     count=0
     for name in filter(None,names):
