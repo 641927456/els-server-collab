@@ -1,0 +1,164 @@
+{
+  "schema": 1,
+  "issue": 498,
+  "kind": "paired independent source overlay; main is not the actual runtime parent",
+  "client_changes": 0,
+  "channels": {
+    "online": {
+      "parent_release": "native-economic-elixirs-20261026-v1",
+      "parent_manifest_sha256": "67e42733389ab31accd194015a26056bcfeb6283f905c45902e5ffc4ad3debb1",
+      "files": [
+        {
+          "runtime_path": "els_server/data/assembly.json",
+          "source": "shared/els_server/data/assembly.json",
+          "sha256": "0c2ded9d36217ba722fabf4c5c586c84bfa77b9e94fe961d3cd568a044b0311b",
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/domain/acquisition_policy.py",
+          "source": "online/els_server/domain/acquisition_policy.py",
+          "sha256": "e9183a6d48c5aebf48f1f89943dfd1f05015f0143670700fcd3e5ded05a656d6",
+          "parent_sha256": "590f01387c0f6ca8c3b6bc3f434b0d3da4c46d729046d7ac5f31525daeb68199"
+        },
+        {
+          "runtime_path": "els_server/domain/assembly_flow.py",
+          "source": "shared/els_server/domain/assembly_flow.py",
+          "sha256": "8d5df559bd35bddf09e5945c0bf63597c91a74c428cd6556b0acc7c7e1c34f28",
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/domain/assembly_rules.py",
+          "source": "shared/els_server/domain/assembly_rules.py",
+          "sha256": "1bfaf26bd785147d1f8fff13f11eb83a408a239fc6848aa14a2d889c05c5d49b",
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/domain/elixir_flow.py",
+          "source": "shared/els_server/domain/elixir_flow.py",
+          "sha256": "18d1027ce2eaf9056ad9bba982144882a9cf9489d4d56e33b6d51444b591db4a",
+          "parent_sha256": "cd0fd9c615d368a63865c9dac0271b99fd538479e5739937762d570885a8743f"
+        },
+        {
+          "runtime_path": "els_server/domain/inventory_items.py",
+          "source": "online/els_server/domain/inventory_items.py",
+          "sha256": "b9d08a7f01ed83c551ac68e1fe941e0e73325de5312ad8dfb1e1377f86fae1d6",
+          "parent_sha256": "b2f827f8932de4f92c8c88bfb3bef1b04673fff7e95d4e7533d853b95053366d"
+        },
+        {
+          "runtime_path": "els_server/domain/local_session.py",
+          "source": "online/els_server/domain/local_session.py",
+          "sha256": "22327661195b6ab4049efe3cea4309ca1b04261e6ae35aa80bbddb15b6e00955",
+          "parent_sha256": "3d15ddd9cfd0b06a89bdf4ab9c519e092d11e7caa6ef2e50b4d4638c1197b978"
+        },
+        {
+          "runtime_path": "els_server/domain/silver_mirror_flow.py",
+          "source": "shared/els_server/domain/silver_mirror_flow.py",
+          "sha256": "b9dbf3b780c8a4d6ef47b4acb43b5d1ae60249ec7fb425ea4fee6a3eb5f4c96e",
+          "parent_sha256": "a27b9a332d05a2b95d5495bea63028892dfa4788239de3220af8dd9f3f0b3b37"
+        },
+        {
+          "runtime_path": "els_server/protocol/assembly_messages.py",
+          "source": "shared/els_server/protocol/assembly_messages.py",
+          "sha256": "168c6e2e0d41f267b37cef6755caedaec03a7e493bf1f0a8ec6f48ed631ca7ad",
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/protocol/world_buff_messages.py",
+          "source": "shared/els_server/protocol/world_buff_messages.py",
+          "sha256": "7e21271170e2259d19eed6649c979ef4a0b8f5c85b6fdbd4f8198aa83ce5c424",
+          "parent_sha256": "26c18dc5aadbd6b1ec3649014e4f938a9ef99ad3a67e6838b0962cc946ef5377"
+        },
+        {
+          "runtime_path": "els_server/storage/assembly_state.py",
+          "source": "shared/els_server/storage/assembly_state.py",
+          "sha256": "72e71b83a9c3f8392c7963bbed34ccf9d41bde053783aa31cffce015793cdd88",
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/storage/world_elixirs.py",
+          "source": "shared/els_server/storage/world_elixirs.py",
+          "sha256": "8cf23674b67deb5b9c071c90bd24abb786ac9bd85864bbda255d97201f61fe8a",
+          "parent_sha256": "a9accd0946318b19268e06f6fd8f7ec26d3606a5528504bc873b3fb412bb1e16"
+        }
+      ]
+    },
+    "local": {
+      "parent_release": "local-native-economic-elixirs-20261026-v1",
+      "parent_manifest_sha256": "eb1cccf7a114db94da43571463b816bf587681edce760164d9ea143e2d2ea4c1",
+      "files": [
+        {
+          "runtime_path": "els_server/data/assembly.json",
+          "source": "shared/els_server/data/assembly.json",
+          "sha256": "0c2ded9d36217ba722fabf4c5c586c84bfa77b9e94fe961d3cd568a044b0311b",
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/domain/acquisition_policy.py",
+          "source": "local/els_server/domain/acquisition_policy.py",
+          "sha256": "68f6fe26ccf67624159f617366827f937af9cca56be96015ab5e88b968ab89c7",
+          "parent_sha256": "b4e38d48778bd112127d8217a052a5cac97315d338953d8454cc7cfee0e08f05"
+        },
+        {
+          "runtime_path": "els_server/domain/assembly_flow.py",
+          "source": "shared/els_server/domain/assembly_flow.py",
+          "sha256": "8d5df559bd35bddf09e5945c0bf63597c91a74c428cd6556b0acc7c7e1c34f28",
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/domain/assembly_rules.py",
+          "source": "shared/els_server/domain/assembly_rules.py",
+          "sha256": "1bfaf26bd785147d1f8fff13f11eb83a408a239fc6848aa14a2d889c05c5d49b",
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/domain/elixir_flow.py",
+          "source": "shared/els_server/domain/elixir_flow.py",
+          "sha256": "18d1027ce2eaf9056ad9bba982144882a9cf9489d4d56e33b6d51444b591db4a",
+          "parent_sha256": "cd0fd9c615d368a63865c9dac0271b99fd538479e5739937762d570885a8743f"
+        },
+        {
+          "runtime_path": "els_server/domain/inventory_items.py",
+          "source": "local/els_server/domain/inventory_items.py",
+          "sha256": "f4d4798966a2a7ccf29eb370217e16cd201eb4e24b7f6e48b3f3dc571c1e63d6",
+          "parent_sha256": "1656c5456e4bf299eacc519444704e454d3c79167d190cd298c2bfc2eb3787f5"
+        },
+        {
+          "runtime_path": "els_server/domain/local_session.py",
+          "source": "local/els_server/domain/local_session.py",
+          "sha256": "77ba30fefee5d3605eb6765475d448cb3f3ff8ec0494dd0106ff42f20c68262c",
+          "parent_sha256": "21d7757457211a87e1d95172cffe0215d6e8ec8fc770b7a5dc5736f84a8ae9cb"
+        },
+        {
+          "runtime_path": "els_server/domain/silver_mirror_flow.py",
+          "source": "shared/els_server/domain/silver_mirror_flow.py",
+          "sha256": "b9dbf3b780c8a4d6ef47b4acb43b5d1ae60249ec7fb425ea4fee6a3eb5f4c96e",
+          "parent_sha256": "a27b9a332d05a2b95d5495bea63028892dfa4788239de3220af8dd9f3f0b3b37"
+        },
+        {
+          "runtime_path": "els_server/protocol/assembly_messages.py",
+          "source": "shared/els_server/protocol/assembly_messages.py",
+          "sha256": "168c6e2e0d41f267b37cef6755caedaec03a7e493bf1f0a8ec6f48ed631ca7ad",
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/protocol/world_buff_messages.py",
+          "source": "shared/els_server/protocol/world_buff_messages.py",
+          "sha256": "7e21271170e2259d19eed6649c979ef4a0b8f5c85b6fdbd4f8198aa83ce5c424",
+          "parent_sha256": "26c18dc5aadbd6b1ec3649014e4f938a9ef99ad3a67e6838b0962cc946ef5377"
+        },
+        {
+          "runtime_path": "els_server/storage/assembly_state.py",
+          "source": "shared/els_server/storage/assembly_state.py",
+          "sha256": "72e71b83a9c3f8392c7963bbed34ccf9d41bde053783aa31cffce015793cdd88",
+          "parent_sha256": null
+        },
+        {
+          "runtime_path": "els_server/storage/world_elixirs.py",
+          "source": "shared/els_server/storage/world_elixirs.py",
+          "sha256": "8cf23674b67deb5b9c071c90bd24abb786ac9bd85864bbda255d97201f61fe8a",
+          "parent_sha256": "a9accd0946318b19268e06f6fd8f7ec26d3606a5528504bc873b3fb412bb1e16"
+        }
+      ]
+    }
+  }
+}
