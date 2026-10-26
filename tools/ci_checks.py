@@ -24,6 +24,8 @@ def main(argv=None):
         run([sys.executable,'-B','-m','unittest','tests.test_formal_materializer'])
     if (ROOT/'channels/server-latency-guards-20261027-v1.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_server_latency_guards.py')])
+    if (ROOT/'channels/server-risk-remediation-20261027-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_current_runtime_regressions.py')])
 
 
     if (ROOT/'references/background-native-gear-20261026-v1/manifest.json').is_file():

@@ -24,6 +24,8 @@ from els_server.storage.local_state import LocalState
 from els_server.storage.read_scope import committed_reads, role_projection
 
 
+ROOT=Path(__file__).resolve().parents[1]
+
 def auxiliary(**changes):
     return Event(**(dict(event_id=0x202, kind=0x7d0, payload=bytes(9), performers=(0,)) | changes))
 
@@ -31,7 +33,7 @@ def auxiliary(**changes):
 @unittest.skipUnless('local_auxiliary_noop' in LocalSession.handle.__code__.co_names, 'LOCAL dispatch overlay only')
 class LocalAuxiliaryTests(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
-        self.temp = tempfile.TemporaryDirectory()
+        self.temp = tempfile.TemporaryDirectory(dir=ROOT)
         self.addCleanup(self.temp.cleanup)
         self.app = Application(ServerConfig(profile='bootstrap'))
         self.addCleanup(self.app.close)
@@ -81,7 +83,7 @@ class LocalAuxiliaryTests(unittest.IsolatedAsyncioTestCase):
 
 class RegistryTests(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory()
+        self.temp = tempfile.TemporaryDirectory(dir=ROOT)
         self.addCleanup(self.temp.cleanup)
         self.path = Path(self.temp.name) / 'accounts.sqlite3'
         self.registry = Accounts(self.path)
@@ -161,7 +163,7 @@ class QueueTimingTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.app.performance.snapshot()['other']['errors'], 1)
 
     async def test_reader_closes_on_worker_and_close_is_idempotent(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=ROOT) as folder:
             self.app.registry = await self.app.call(Accounts, Path(folder) / 'accounts.sqlite3')
             identity = await self.app.call(self.app.registry.create, 'qa_close')
             self.assertTrue(await self.app.call(self.app.registry.enabled, identity['id']))
@@ -170,7 +172,7 @@ class QueueTimingTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_cancelled_wait_does_not_interrupt_running_transaction(self):
         begun = threading.Event(); release = threading.Event()
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=ROOT) as folder:
             path = Path(folder) / 'ledger.sqlite3'
             def write():
                 with closing(sqlite3.connect(path)) as db, db:
@@ -189,7 +191,7 @@ class QueueTimingTests(unittest.IsolatedAsyncioTestCase):
                 self.assertEqual(db.execute('SELECT value FROM ledger').fetchall(), [(123,)])
 
     async def test_projection_and_registry_costs_are_scoped(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=ROOT) as folder:
             path = Path(folder) / 'role.sqlite3'
             with closing(sqlite3.connect(path)) as db, db:
                 db.execute('CREATE TABLE role(value INTEGER)'); db.execute('INSERT INTO role VALUES (7)')
@@ -209,7 +211,7 @@ class QueueTimingTests(unittest.IsolatedAsyncioTestCase):
 
 class LogTests(unittest.TestCase):
     def test_slow_sink_runs_on_log_thread_and_shutdown_drains(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=ROOT) as folder:
             log = EventLog(ServerConfig(log_dir=Path(folder)))
             callers = []
             original = log.logger.info
@@ -228,7 +230,7 @@ class LogTests(unittest.TestCase):
             self.assertEqual([r['sequence'] for r in rows], list(range(20)))
 
     def test_overflow_is_bounded_and_errors_are_preserved(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=ROOT) as folder:
             log = EventLog(ServerConfig(log_dir=Path(folder), log_max_bytes=10000000))
             blocked = threading.Event(); release = threading.Event(); lines = []
             original = log.logger.info
