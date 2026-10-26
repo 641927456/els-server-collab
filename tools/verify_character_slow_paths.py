@@ -16,8 +16,8 @@ from tools.materialize_formal_runtime import materialize,plan
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true')
     parser.add_argument('--assets-root',type=Path,default=ROOT)
-    parser.add_argument('--manifest',type=Path,default=ROOT/'channels/character-slow-paths-20261027-v1.json')
-    parser.add_argument('--delta',type=Path,default=ROOT/'references/character-slow-paths-20261027-v1/delta.json')
+    parser.add_argument('--manifest',type=Path,default=ROOT/'channels/character-slow-paths-rosso-parent-20261027-v2.json')
+    parser.add_argument('--delta',type=Path,default=ROOT/'references/character-slow-paths-rosso-parent-20261027-v2/delta.json')
     args=parser.parse_args()
     final=json.loads(args.manifest.read_bytes())
     delta=json.loads(args.delta.read_bytes())
