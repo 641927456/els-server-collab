@@ -37,6 +37,9 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_qualified_force_next8_20261026.py'),'--channel','local'])
     run([sys.executable,'-B','-m','unittest','tests.test_native_hero_inputs',
          'tests.test_retained_native_hp.FinitePolicyFilesTests.test_all_four_payloads_match_their_manifests_and_client'])
+    if (ROOT/'references/qualified-force-clock-20261026-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_qualified_force_clock_20261026.py')])
+        run([sys.executable,'-B',str(ROOT/'tools/verify_qualified_force_clock_20261026.py'),'--channel','local'])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
     count=0
     for name in filter(None,names):
