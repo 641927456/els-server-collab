@@ -32,6 +32,7 @@ python tools/bootstrap_runtime.py --archive .asset-cache/ELS-Server-With-Local-L
 
 先登记问题，再从最新main建立 `fix/<issue>-<topic>` 分支。PR写明来源、事务/存档影响、实际验证层级和未验边界。
 main表示审查后的代码，服务器运行版本另有部署回执；提交代码不会自动更新任何服务器。
+当前正式服务端的完整双端组合源使用 [运行基线索引](docs/FORMAL_RUNTIME_BASELINE_20261027.md) 重建；根目录保留协作开发入口，不能整树覆盖正式服。
 修改客户端合同内脚本/资源时同步核定依赖SHA，不能删除版本保护来绕过检查。
 
 见 CONTRIBUTING.md、docs/TESTING.md、docs/STAGING.md。历史全量资料在锁定资源包内，按实际提供范围引用，不补造缺失证据。
