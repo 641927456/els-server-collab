@@ -2,7 +2,7 @@
 import argparse,ast,hashlib,json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];ART=ROOT/'references/native-change-force-materials-20261027-v1'
-MANIFEST_SHA='1abd059944a74bb96e926090e72a08b0d90e4e5d31a77b6e7bc3755378577766'
+MANIFEST_SHA='78d63ed88cf37d9b8854a393126f2bc84a13fdbe0bf0fd6dafb3c38f04f3aa5c'
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def main():
  p=argparse.ArgumentParser();p.add_argument('--channel',choices=('online','local'),default='online');p.add_argument('--parent',type=Path);p.add_argument('--full-parent',action='store_true');a=p.parse_args()
