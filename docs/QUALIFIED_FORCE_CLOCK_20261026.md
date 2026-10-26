@@ -1,0 +1,7 @@
+# Clock Force book qualified runtime source
+
+The existing Clock book 295750 learns native rank 6 / skill 900305 and enters the ordinary skill bar directly at level 1. Only the existing 34060 COMMON pool gains this book, preserving the current total 10% server pool rule. No Master requirement, new currency, source map, server effect, MP calculation or timer is introduced.
+
+This archive changes nine existing files per mode over the delivered eight-book parent. Eight files are shared; acquisition_policy.py is separately archived for online/local. The other twenty books, their sources, legacy extraction, the trade board, character/roster inputs and all unrelated runtime files remain in that parent. The portable validator checks the archive and optionally all files of the exact parent snapshot. The unchanged formal_pve_economy.py import anchor is not a changed source file.
+
+The native special resolver/factor factory, finite SQL/TLS learning, direct ordinary assignment, cold owned/bar readers, typed 34060 clear receipt and compatible recovery have been verified in isolation. Full world BuffManager installation/removal, the complete natural input queue, GUI and battle remain outside that validation. Existing ownership schema variants migrate lazily; there are no new tables or installation DDL. Final actual-parent private/public acceptance and dual delivery are recorded separately and are not claimed by this source archive.

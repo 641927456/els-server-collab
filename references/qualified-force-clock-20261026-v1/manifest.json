@@ -1,0 +1,265 @@
+{
+  "schema": 1,
+  "scope": "Existing Clock295750 owned/source34060 consumer only over actual next8 parent; no natural battle claim",
+  "item": 295750,
+  "skill": 900305,
+  "native_rank": 6,
+  "ordinary_level": 1,
+  "Master_required": false,
+  "native_effects_and_timers": "Client special resolver and factory retained; no server MP/damage/buff/timer additions; full world BuffManager and natural input chain not claimed",
+  "new_tables": 0,
+  "install_DDL": 0,
+  "lazy_ownership_migration": true,
+  "shared_files": 8,
+  "channel_specific_each": 1,
+  "channels": {
+    "online": {
+      "parent_release": "native-eight-qualified-force-20261026-v1",
+      "parent_manifest_sha256": "669d4d1c259ac3da31f53b99a859494cd8984e819e158e8b65ea4ad010c59278",
+      "parent_manifest_name": "rollup-manifest.json",
+      "runtime_leaves": [
+        {
+          "path": "els_server/data/boosting2026-force-inventory.json",
+          "archive_path": "shared/els_server/data/boosting2026-force-inventory.json",
+          "sha256": "31ec4798959d647f5849d292857c84a55a94440de0a397a33ac7ada196889634",
+          "size": 16574,
+          "parent_sha256": "56d36688c871ba8bd82c0e88a53235e30855e4fa409ee499fe3bf6d700e6568d"
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.json",
+          "sha256": "f0e192f093df4f936f7ef3ce183976d5dd7af8037d10e18b4323f86bc5234ddb",
+          "size": 253542,
+          "parent_sha256": "8509222692bd34fb848238106f8e215ce6e82540d967ec2b790130535091c5db"
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "90c421fe16fdb05099a0ed2a017813fd6b16210fafbdf636de346da76a7873b0",
+          "size": 201,
+          "parent_sha256": "89a69839c11d392ff48d08be225b7c04164702ed1dfb678790c7ca2083d05915"
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive_path": "online/els_server/domain/acquisition_policy.py",
+          "sha256": "29a2797af8ff77282148b6ff667ef1af6569b7efe98f54f7b8675f0a352a96ab",
+          "size": 10857,
+          "parent_sha256": "35102f25bf5dc14194a64733ba7612ab4c02433c3f0547fc4df8e81aa086df16"
+        },
+        {
+          "path": "els_server/domain/boosting_2026_force_inventory.py",
+          "archive_path": "shared/els_server/domain/boosting_2026_force_inventory.py",
+          "sha256": "c5dc3c4f4397010835c920e8f5aba0ed8e81624d13d82719a940e64c36d893bf",
+          "size": 3877,
+          "parent_sha256": "4eb281ae7a2eaeb2c7f5635a9c883acd75366c614735dcba538278a630e45cf7"
+        },
+        {
+          "path": "els_server/domain/raid_reward_items.py",
+          "archive_path": "shared/els_server/domain/raid_reward_items.py",
+          "sha256": "8f3af0d7c100d43911b89aa6d808769b5fb1217a24ed3bccaa295d64d7902542",
+          "size": 9422,
+          "parent_sha256": "55a06d7b53eab3bb7988a29cac30afb8629d56399c3a7579d44baef646010828"
+        },
+        {
+          "path": "els_server/domain/role_progression.py",
+          "archive_path": "shared/els_server/domain/role_progression.py",
+          "sha256": "3b3fefce064b1fda07c33c23d8677c6165614d397c52c0dc359a291466f229b6",
+          "size": 2445,
+          "parent_sha256": "13c59e4f58afb52d4fe5377501b3d51a5f7a090d55b99bbf42ef2dc572f22f62"
+        },
+        {
+          "path": "els_server/storage/boosting_2026_force_inventory.py",
+          "archive_path": "shared/els_server/storage/boosting_2026_force_inventory.py",
+          "sha256": "c73ba8310096221b399ee0dbf51c9b5a49c93b7194633c83540f3809a0fee54b",
+          "size": 9234,
+          "parent_sha256": "3d63ea913cc2ea83d17e788e532f93b2f4e9255b1b64b77f9b732215a44659a8"
+        },
+        {
+          "path": "els_server/storage/force_rank4_schema.py",
+          "archive_path": "shared/els_server/storage/force_rank4_schema.py",
+          "sha256": "67585448ff2278e95b0539b55cf902a072380224c95a0bbac18094742c74a348",
+          "size": 6449,
+          "parent_sha256": "b04bcde0752e2ca5e38b4ccea7556c466119bf78f2a9956140eb1b88c0543ca8"
+        }
+      ],
+      "preserved_next8_source13": {
+        "els_server/data/boosting2026-force-inventory.json": "56d36688c871ba8bd82c0e88a53235e30855e4fa409ee499fe3bf6d700e6568d",
+        "els_server/data/formal_pve_economy.json": "8509222692bd34fb848238106f8e215ce6e82540d967ec2b790130535091c5db",
+        "els_server/data/formal_pve_economy.manifest.json": "89a69839c11d392ff48d08be225b7c04164702ed1dfb678790c7ca2083d05915",
+        "els_server/domain/acquisition_policy.py": "35102f25bf5dc14194a64733ba7612ab4c02433c3f0547fc4df8e81aa086df16",
+        "els_server/domain/boosting_2026_force_equipment.py": "13432f10af7af406661ab04c32c2346569d106553d17761a907894ce802ad9b1",
+        "els_server/domain/boosting_2026_force_inventory.py": "4eb281ae7a2eaeb2c7f5635a9c883acd75366c614735dcba538278a630e45cf7",
+        "els_server/domain/inventory_items.py": "cf2d6265033213eeb50ed997e0c02c767cad408ec3b6dbb5472de5047dc49845",
+        "els_server/domain/raid_reward_items.py": "55a06d7b53eab3bb7988a29cac30afb8629d56399c3a7579d44baef646010828",
+        "els_server/domain/role_progression.py": "13c59e4f58afb52d4fe5377501b3d51a5f7a090d55b99bbf42ef2dc572f22f62",
+        "els_server/domain/skill_rules.py": "b9fd49f6062d17a730b6a1256f4e1aa1418b9f7ca7817387789b7cc8173840e9",
+        "els_server/storage/boosting_2026_force_inventory.py": "3d63ea913cc2ea83d17e788e532f93b2f4e9255b1b64b77f9b732215a44659a8",
+        "els_server/storage/force_rank4_schema.py": "b04bcde0752e2ca5e38b4ccea7556c466119bf78f2a9956140eb1b88c0543ca8",
+        "els_server/storage/ordinary_skill_pages.py": "a026860f80a961144e265bf311373c242a1ee502733cbfba25573e50ae0e303f"
+      },
+      "preserved_Board25": {
+        "els_server/data/trade_board_purchase_variants.json": "02375a369e8a4fa5fc9477c592e5b62636585ac32b6bfdb73e3f5f970bdb3bc6",
+        "els_server/domain/local_session.py": "e5e4ae19bb97ea5ad27f50730fdcabe0f8ba53bb2b18eb30277ae8329e418263",
+        "els_server/domain/trade_board_authority.py": "8def63eba57f6b0d3a0ea8738a10a6ccff135ee1286cd2c0591efb3a78e80246",
+        "els_server/domain/trade_board_flow.py": "dcc0807f1f9117ea0dcf434b107bedab7d626eb5328c12b07a6ea6078a23d0fe",
+        "els_server/domain/tradeboard_consumable_eligibility.py": "d79c1b544de25dd84c57a4dcf537237eac587662ad9e749f3c2349631c5ef10e",
+        "els_server/domain/tradeboard_current_use.py": "5e81435aaa92e3b0eda8165745628825e8ac91780e10792b0e50b82854418c4d",
+        "els_server/domain/tradeboard_metadata.py": "7d21ea33b5f4e654196da336d1843f50dc1fea0e4a03963b68b89e26d4d7e1e6",
+        "els_server/domain/tradeboard_minimum_query.py": "3959d825ee905febb002141b42c77d482abe6caddef8005d9d10abe20475fd06",
+        "els_server/domain/tradeboard_query.py": "1253778f53420d07f65c79a842b954b8b19c6464b8bbfe9b62de23f03ac6409c",
+        "els_server/domain/tradeboard_query_option_policy.py": "71473efaffb722cda4877d91591b1560f4bdcd6a7f56382d6f1db7e932e65205",
+        "els_server/domain/tradeboard_registered_requirements.py": "22aeea5e26ee8c3315b88d95c4c0fc3b20fb38c26cf8ac62e1a09e6d4b39f573",
+        "els_server/domain/tradeboard_template_predicate.py": "76f792a1e4b3576ac1ff9d94af7bbca9c25c933870cb9cb299f4e108060a3898",
+        "els_server/protocol/trade_board_messages.py": "e19028b1aa98549eab11f5bfb52f0af15813c5c2605ab498cfebb2951c3aefb2",
+        "els_server/protocol/tradeboard_favorite_messages.py": "50130c1f4e6c8514b74734055c2e263eb470081ad0a09a8692993ab3d5b0aa29",
+        "els_server/protocol/tradeboard_history_messages.py": "01cc9521edf2bba283b9e2624d62d81f13092b101a8fe0f5db2846f34edbed17",
+        "els_server/protocol/tradeboard_metadata_item.py": "ceb047fa7c13ee723341c2a6ea7906203611e240a0d340474af49c5e96f0baf4",
+        "els_server/protocol/tradeboard_metadata_messages.py": "7df214d255d1cf4a06190de5384bbdc14641aedde9f2d11ea9538eaae3ba387d",
+        "els_server/protocol/tradeboard_minimum_messages.py": "df2eaf2155327e4bd53e97b6bffa3f464798eec0a03b54e9c8ee49b98c6accbf",
+        "els_server/protocol/tradeboard_query_filters.py": "787151ecbbc6ea46bf7f0a3a097384924f109c874363428381b6a250fec9ffe2",
+        "els_server/protocol/tradeboard_query_messages.py": "bc60985f3594bd2244f1a00875665bf20c55fe83a772e3102573669e8dea0c93",
+        "els_server/storage/character_lifecycle.py": "5b7689f48c4c26b6612f387b2010b1e9b426fa1d594626110c385ac014ac0714",
+        "els_server/storage/equipment_receipt_state.py": "45ec1e1ddd2adadce4edc109040f9d25aa929974dd4f4db346d90f605cfc9fa1",
+        "els_server/storage/trade_board_state.py": "9c1c229c891c9d58ed34f6fe41e0c155cc2b3032d6c7afc2de0649ee280616b0",
+        "els_server/storage/tradeboard_favorite_state.py": "0260be4262975e04e286f500491aa6adc743de102af842c56fc654b2ee3c1e27",
+        "els_server/storage/tradeboard_history_state.py": "6a8e0a9ca85d6e5664b70d36acba30b43ea8e05e0e57f08bbcb1f211b382b804"
+      },
+      "preserved_character3": {
+        "config/combat_rules.json": "7ce1ed5eed7ffceccc1769af6a6b8d006da311095ea63aff5f7c3cf91e729906",
+        "els_server/domain/character_stats.py": "296f7e129102acb78fa12567afb478f20998dd9e5de5db547468992145b8fa3d",
+        "els_server/domain/native_character_base.py": "cce13c16165bc61ef1a4b19a21d8791d9c3338dc366a0946d38bfed797ce7535"
+      },
+      "preserved_roster1": {
+        "els_server/protocol/local_messages.py": "ff9b2f95d3e2ed2db2a871680d3fe00731a07f821b28be25ba5e7bcc102b7d87"
+      },
+      "unchanged_import_anchor": {
+        "path": "els_server/domain/formal_pve_economy.py",
+        "sha256": "68d1bae8bd8392c9f67fddf6ea9d7e2a493d27f42ba603e8180cdd10d6b80acb"
+      }
+    },
+    "local": {
+      "parent_release": "local-native-eight-qualified-force-20261026-v1",
+      "parent_manifest_sha256": "4cc4c880068a8353af99a8ffb3108f3e82cb894a692ce7bc106d2ccfe448aace",
+      "parent_manifest_name": "local-business-manifest.json",
+      "runtime_leaves": [
+        {
+          "path": "els_server/data/boosting2026-force-inventory.json",
+          "archive_path": "shared/els_server/data/boosting2026-force-inventory.json",
+          "sha256": "31ec4798959d647f5849d292857c84a55a94440de0a397a33ac7ada196889634",
+          "size": 16574,
+          "parent_sha256": "56d36688c871ba8bd82c0e88a53235e30855e4fa409ee499fe3bf6d700e6568d"
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.json",
+          "sha256": "f0e192f093df4f936f7ef3ce183976d5dd7af8037d10e18b4323f86bc5234ddb",
+          "size": 253542,
+          "parent_sha256": "8509222692bd34fb848238106f8e215ce6e82540d967ec2b790130535091c5db"
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "90c421fe16fdb05099a0ed2a017813fd6b16210fafbdf636de346da76a7873b0",
+          "size": 201,
+          "parent_sha256": "89a69839c11d392ff48d08be225b7c04164702ed1dfb678790c7ca2083d05915"
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive_path": "local/els_server/domain/acquisition_policy.py",
+          "sha256": "84473c83f5b0ebafb41677bf4fe84a0a715fa795d20b8d1b5bf133137d3163c7",
+          "size": 10698,
+          "parent_sha256": "a9fccdee7cd5f1c83d29b1aa3394570e1677db67ae78e22f15af162e20aadc9e"
+        },
+        {
+          "path": "els_server/domain/boosting_2026_force_inventory.py",
+          "archive_path": "shared/els_server/domain/boosting_2026_force_inventory.py",
+          "sha256": "c5dc3c4f4397010835c920e8f5aba0ed8e81624d13d82719a940e64c36d893bf",
+          "size": 3877,
+          "parent_sha256": "4eb281ae7a2eaeb2c7f5635a9c883acd75366c614735dcba538278a630e45cf7"
+        },
+        {
+          "path": "els_server/domain/raid_reward_items.py",
+          "archive_path": "shared/els_server/domain/raid_reward_items.py",
+          "sha256": "8f3af0d7c100d43911b89aa6d808769b5fb1217a24ed3bccaa295d64d7902542",
+          "size": 9422,
+          "parent_sha256": "55a06d7b53eab3bb7988a29cac30afb8629d56399c3a7579d44baef646010828"
+        },
+        {
+          "path": "els_server/domain/role_progression.py",
+          "archive_path": "shared/els_server/domain/role_progression.py",
+          "sha256": "3b3fefce064b1fda07c33c23d8677c6165614d397c52c0dc359a291466f229b6",
+          "size": 2445,
+          "parent_sha256": "13c59e4f58afb52d4fe5377501b3d51a5f7a090d55b99bbf42ef2dc572f22f62"
+        },
+        {
+          "path": "els_server/storage/boosting_2026_force_inventory.py",
+          "archive_path": "shared/els_server/storage/boosting_2026_force_inventory.py",
+          "sha256": "c73ba8310096221b399ee0dbf51c9b5a49c93b7194633c83540f3809a0fee54b",
+          "size": 9234,
+          "parent_sha256": "3d63ea913cc2ea83d17e788e532f93b2f4e9255b1b64b77f9b732215a44659a8"
+        },
+        {
+          "path": "els_server/storage/force_rank4_schema.py",
+          "archive_path": "shared/els_server/storage/force_rank4_schema.py",
+          "sha256": "67585448ff2278e95b0539b55cf902a072380224c95a0bbac18094742c74a348",
+          "size": 6449,
+          "parent_sha256": "b04bcde0752e2ca5e38b4ccea7556c466119bf78f2a9956140eb1b88c0543ca8"
+        }
+      ],
+      "preserved_next8_source13": {
+        "els_server/data/boosting2026-force-inventory.json": "56d36688c871ba8bd82c0e88a53235e30855e4fa409ee499fe3bf6d700e6568d",
+        "els_server/data/formal_pve_economy.json": "8509222692bd34fb848238106f8e215ce6e82540d967ec2b790130535091c5db",
+        "els_server/data/formal_pve_economy.manifest.json": "89a69839c11d392ff48d08be225b7c04164702ed1dfb678790c7ca2083d05915",
+        "els_server/domain/acquisition_policy.py": "a9fccdee7cd5f1c83d29b1aa3394570e1677db67ae78e22f15af162e20aadc9e",
+        "els_server/domain/boosting_2026_force_equipment.py": "13432f10af7af406661ab04c32c2346569d106553d17761a907894ce802ad9b1",
+        "els_server/domain/boosting_2026_force_inventory.py": "4eb281ae7a2eaeb2c7f5635a9c883acd75366c614735dcba538278a630e45cf7",
+        "els_server/domain/inventory_items.py": "af4ed938d9189da644c326c546ce5ed3487590206b8c0a465b7f90dca6ffe88f",
+        "els_server/domain/raid_reward_items.py": "55a06d7b53eab3bb7988a29cac30afb8629d56399c3a7579d44baef646010828",
+        "els_server/domain/role_progression.py": "13c59e4f58afb52d4fe5377501b3d51a5f7a090d55b99bbf42ef2dc572f22f62",
+        "els_server/domain/skill_rules.py": "b9fd49f6062d17a730b6a1256f4e1aa1418b9f7ca7817387789b7cc8173840e9",
+        "els_server/storage/boosting_2026_force_inventory.py": "3d63ea913cc2ea83d17e788e532f93b2f4e9255b1b64b77f9b732215a44659a8",
+        "els_server/storage/force_rank4_schema.py": "b04bcde0752e2ca5e38b4ccea7556c466119bf78f2a9956140eb1b88c0543ca8",
+        "els_server/storage/ordinary_skill_pages.py": "a026860f80a961144e265bf311373c242a1ee502733cbfba25573e50ae0e303f"
+      },
+      "preserved_Board25": {
+        "els_server/data/trade_board_purchase_variants.json": "02375a369e8a4fa5fc9477c592e5b62636585ac32b6bfdb73e3f5f970bdb3bc6",
+        "els_server/domain/local_session.py": "f2cc5b44520f46de2e96c8082c5970fb8538dde89f341ad6a5123fea7d65b1d2",
+        "els_server/domain/trade_board_authority.py": "8def63eba57f6b0d3a0ea8738a10a6ccff135ee1286cd2c0591efb3a78e80246",
+        "els_server/domain/trade_board_flow.py": "dcc0807f1f9117ea0dcf434b107bedab7d626eb5328c12b07a6ea6078a23d0fe",
+        "els_server/domain/tradeboard_consumable_eligibility.py": "d79c1b544de25dd84c57a4dcf537237eac587662ad9e749f3c2349631c5ef10e",
+        "els_server/domain/tradeboard_current_use.py": "5e81435aaa92e3b0eda8165745628825e8ac91780e10792b0e50b82854418c4d",
+        "els_server/domain/tradeboard_metadata.py": "7d21ea33b5f4e654196da336d1843f50dc1fea0e4a03963b68b89e26d4d7e1e6",
+        "els_server/domain/tradeboard_minimum_query.py": "3959d825ee905febb002141b42c77d482abe6caddef8005d9d10abe20475fd06",
+        "els_server/domain/tradeboard_query.py": "1253778f53420d07f65c79a842b954b8b19c6464b8bbfe9b62de23f03ac6409c",
+        "els_server/domain/tradeboard_query_option_policy.py": "71473efaffb722cda4877d91591b1560f4bdcd6a7f56382d6f1db7e932e65205",
+        "els_server/domain/tradeboard_registered_requirements.py": "22aeea5e26ee8c3315b88d95c4c0fc3b20fb38c26cf8ac62e1a09e6d4b39f573",
+        "els_server/domain/tradeboard_template_predicate.py": "76f792a1e4b3576ac1ff9d94af7bbca9c25c933870cb9cb299f4e108060a3898",
+        "els_server/protocol/trade_board_messages.py": "e19028b1aa98549eab11f5bfb52f0af15813c5c2605ab498cfebb2951c3aefb2",
+        "els_server/protocol/tradeboard_favorite_messages.py": "50130c1f4e6c8514b74734055c2e263eb470081ad0a09a8692993ab3d5b0aa29",
+        "els_server/protocol/tradeboard_history_messages.py": "01cc9521edf2bba283b9e2624d62d81f13092b101a8fe0f5db2846f34edbed17",
+        "els_server/protocol/tradeboard_metadata_item.py": "ceb047fa7c13ee723341c2a6ea7906203611e240a0d340474af49c5e96f0baf4",
+        "els_server/protocol/tradeboard_metadata_messages.py": "7df214d255d1cf4a06190de5384bbdc14641aedde9f2d11ea9538eaae3ba387d",
+        "els_server/protocol/tradeboard_minimum_messages.py": "df2eaf2155327e4bd53e97b6bffa3f464798eec0a03b54e9c8ee49b98c6accbf",
+        "els_server/protocol/tradeboard_query_filters.py": "787151ecbbc6ea46bf7f0a3a097384924f109c874363428381b6a250fec9ffe2",
+        "els_server/protocol/tradeboard_query_messages.py": "bc60985f3594bd2244f1a00875665bf20c55fe83a772e3102573669e8dea0c93",
+        "els_server/storage/character_lifecycle.py": "5b7689f48c4c26b6612f387b2010b1e9b426fa1d594626110c385ac014ac0714",
+        "els_server/storage/equipment_receipt_state.py": "dfe6a2e72c5c9fa449c789e94394228a13dea306d94a191087b907e6c215909a",
+        "els_server/storage/trade_board_state.py": "9c1c229c891c9d58ed34f6fe41e0c155cc2b3032d6c7afc2de0649ee280616b0",
+        "els_server/storage/tradeboard_favorite_state.py": "0260be4262975e04e286f500491aa6adc743de102af842c56fc654b2ee3c1e27",
+        "els_server/storage/tradeboard_history_state.py": "6a8e0a9ca85d6e5664b70d36acba30b43ea8e05e0e57f08bbcb1f211b382b804"
+      },
+      "preserved_character3": {
+        "config/combat_rules.json": "7ce1ed5eed7ffceccc1769af6a6b8d006da311095ea63aff5f7c3cf91e729906",
+        "els_server/domain/character_stats.py": "296f7e129102acb78fa12567afb478f20998dd9e5de5db547468992145b8fa3d",
+        "els_server/domain/native_character_base.py": "cce13c16165bc61ef1a4b19a21d8791d9c3338dc366a0946d38bfed797ce7535"
+      },
+      "preserved_roster1": {
+        "els_server/protocol/local_messages.py": "ff9b2f95d3e2ed2db2a871680d3fe00731a07f821b28be25ba5e7bcc102b7d87"
+      },
+      "unchanged_import_anchor": {
+        "path": "els_server/domain/formal_pve_economy.py",
+        "sha256": "68d1bae8bd8392c9f67fddf6ea9d7e2a493d27f42ba603e8180cdd10d6b80acb"
+      }
+    }
+  }
+}
