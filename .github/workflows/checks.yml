@@ -39,3 +39,5 @@ jobs:
           GH_TOKEN: ${{ github.token }}
       - run: python -B tools/bootstrap_runtime.py --archive .asset-cache/ELS-Server-With-Local-Launcher-20261019-v2.zip
       - run: .\python\python.exe -B tools/ci_checks.py --with-runtime
+      - run: python -m pip install -r requirements-test.txt
+      - run: python -B tools/verify_current_runtime_regressions.py --with-runtime

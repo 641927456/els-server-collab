@@ -12,6 +12,8 @@ import struct
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
+import time
 import uuid
 
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
@@ -40,7 +42,8 @@ class Peer:
         return peer
 
     async def send(self,kind,payload=b'',event_id=0x202):
-        self.writer.write(encode_frame(encode_event(Event(event_id,kind=kind,payload=payload,performers=(0,) if kind==0xad else ())),self.keys,spi=self.spi,sequence=self.outgoing))
+        if kind==0x5bf and payload==b'':payload=bytes(8)
+        self.writer.write(encode_frame(encode_event(Event(event_id,kind=kind,payload=payload,performers=(0,) if kind in (0xad,0x28) else ())),self.keys,spi=self.spi,sequence=self.outgoing))
         self.outgoing+=1;await self.writer.drain()
 
     async def until(self,kind):
@@ -80,7 +83,7 @@ class Peer:
 
 class FriendsTests(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
-        self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name)
+        self.tmp=tempfile.TemporaryDirectory(dir=ROOT);self.root=Path(self.tmp.name)
         cert_dir=Path(os.environ.get('ELS_TEST_CERT_DIR',self.root))
         if 'ELS_TEST_CERT_DIR' in os.environ:
             import ssl
@@ -434,9 +437,16 @@ class FriendsTests(unittest.IsolatedAsyncioTestCase):
     async def test_creation_capacity_and_receipts_are_account_scoped(self):
         alice=Characters(self.config.state_file,self.alice['id'])
         bob=Characters(self.config.state_file,self.bob['id'])
-        for number in range(16):alice.create('Alice'+str(number),1,'alice-create:'+str(number))
+        base=int(time.time())
+        for number in range(16):
+            with patch('els_server.storage.character_lifecycle.current_time',return_value=base+(number//4)*86400):
+                alice.create('Alice'+str(number),1,'alice-create:'+str(number))
+                if number==3:
+                    with self.assertRaisesRegex(ValueError,'Daily character creation limit'):
+                        alice.create('AliceDaily',1,'alice-daily')
         self.assertEqual(len(alice.list()),16)
-        with self.assertRaisesRegex(ValueError,'capacity'):alice.create('AliceFull',1,'alice-full')
+        with patch('els_server.storage.character_lifecycle.current_time',return_value=base+4*86400):
+            with self.assertRaisesRegex(ValueError,'capacity'):alice.create('AliceFull',1,'alice-full')
         # Bob can still create after the shared database has more than sixteen roles.
         own=bob.create('BobFirst',2,'bob-first')
         self.assertEqual(bob.create('BobFirst',2,'bob-first')['uid'],own['uid'])
