@@ -58,11 +58,13 @@ class RouteCatalog:
 @functools.lru_cache(maxsize=1)
 def route_catalog():return RouteCatalog()
 
-def npc_initialization(catalog,template,hp,*,source_context=None):
+def npc_initialization(catalog,template,hp,*,source_context=None,dynamic_context=None,field_context=None):
  native=catalog._data['npcs'][str(template)]
  attrs=bytearray.fromhex(catalog._data['attribute_seed']);struct.pack_into('<f',attrs,4,hp);struct.pack_into('<ff',attrs,8,20,20)
  from els_server.domain.raid_npc_stats import apply
  apply(catalog,template,attrs,source_context)
+ from els_server.domain.boss_npc_stats import apply as apply_boss
+ apply_boss(catalog,template,attrs,source_context,dynamic_context=dynamic_context,field_context=field_context)
  strings=native['strings'];init=struct.pack('>iB',template,0)+b''.join(wstring(s) for s in strings[:4])+b'\1'+b''.join(wstring(s) for s in strings[4:])
  return init+b''.join(attrs[o:o+4][::-1] for o in range(0,0x60,4))+bytes(2)
 
@@ -114,7 +116,8 @@ class DungeonRun:
     from els_server.domain.formal_npc_hp import maximum,level as formal_level
     npc_level=self.catalog.static_npc_level(self.identity,self.graph,stage,int(part_id),source)
     if npc_level is None:npc_level=formal_level(self.catalog,self.identity)
-    hp=maximum(self.catalog,template,dungeon=self.identity,npc_level=npc_level,boss=source['boss'])
+    context=(self.identity,self.graph['source_sha256'],npc_level,stage,int(part_id),-1 if index<len(base) else chosen_group['index'],source['source_index'])
+    hp=maximum(self.catalog,template,dungeon=self.identity,npc_level=npc_level,boss=source['boss'],source_context=context)
     if self.hp_context is not None:
      hp=self.hp_context.source_hp(self,stage,int(part_id),-1 if index<len(base) else chosen_group['index'],source,hp)
     point=source['points'][self.draw(f'point:{stage}:{part_id}:{index}',len(source['points']))]
@@ -129,7 +132,6 @@ class DungeonRun:
     if source['boss']:
      if type(source['boss_lines']) is not int or not 1<=source['boss_lines']<=65535:raise ValueError('Boss gauge line bound')
      raw[0x44]=1;struct.pack_into('<H',raw,0x58,source['boss_lines'])
-    context=(self.identity,self.graph['source_sha256'],npc_level,stage,int(part_id),-1 if index<len(base) else chosen_group['index'],source['source_index'])
     init=npc_initialization(self.catalog,template,hp,source_context=context)
     from els_server.domain.native_hero_inputs import source_maximum
     hp,hero_native=source_maximum(self.catalog,template,hp,context)
