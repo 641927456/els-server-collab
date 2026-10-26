@@ -16,8 +16,8 @@ from tools.materialize_formal_runtime import materialize,plan
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true')
     parser.add_argument('--assets-root',type=Path,default=ROOT)
-    parser.add_argument('--manifest',type=Path,default=ROOT/'channels/character-slow-paths-rosso-parent-20261027-v2.json')
-    parser.add_argument('--delta',type=Path,default=ROOT/'references/character-slow-paths-rosso-parent-20261027-v2/delta.json')
+    parser.add_argument('--manifest',type=Path,default=ROOT/'channels/character-read-boundaries-20261027-v2b.json')
+    parser.add_argument('--delta',type=Path,default=ROOT/'references/character-read-boundaries-20261027-v2b/delta.json')
     args=parser.parse_args()
     final=json.loads(args.manifest.read_bytes())
     delta=json.loads(args.delta.read_bytes())
@@ -27,7 +27,7 @@ def main():
     tests=('test_server_latency_guards.py','test_native_auxiliary_latency.py','test_request_read_scope.py',
            'test_current_native_title_inputs.py','test_retained_native_hp.py','test_native_hero_inputs.py',
            'test_noncharacter_hp_capture.py','test_current_latency_tls.py','test_friends_server.py')
-    tests=tests[:-1]+('test_character_slow_paths.py','test_local_auxiliary_roles.py','test_architecture_scheduler.py','test_architecture_tls.py','test_registration.py',tests[-1])
+    tests=tests[:-1]+('test_character_slow_paths.py','test_read_connection_boundaries.py','test_local_auxiliary_roles.py','test_architecture_scheduler.py','test_architecture_tls.py','test_registration.py',tests[-1])
     for channel in ('online','local'):
         old={e['path']:e for e in base['channels'][channel]['files']}
         new={e['path']:e for e in final['channels'][channel]['files']}
