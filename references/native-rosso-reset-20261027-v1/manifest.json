@@ -12,9 +12,9 @@
   "native_record_sha256": "9780669d82f77f91b06877562251e542b70eef2618399479d0a7a7268899b886",
   "channels": {
     "online": {
-      "parent_release": "native-current-refresh-inputs-20261027-v1",
+      "parent_release": "server-latency-and-source-baseline-20261027-v1",
       "parent_manifest_name": "rollup-manifest.json",
-      "parent_manifest_sha256": "41d98ccc2bf699798511b69d61933ac4ae4f712241a2c4e109b1b459337054c3",
+      "parent_manifest_sha256": "0d468a606ea3a0c5ad4fb08bcfd045e6c95419844900ea3c40cb8505032c4d87",
       "runtime_leaves": [
         {
           "path": "els_server/data/formal_pve_economy.json",
@@ -43,9 +43,9 @@
         {
           "path": "els_server/domain/local_session.py",
           "archive_path": "online/els_server/domain/local_session.py",
-          "sha256": "30d23e72fd4eae03959d2f5481c5e61b7347e56d3d46b9b1fd95be2a0edb4061",
-          "size": 166206,
-          "parent_sha256": "bec42d17d91659f06f7b006ba422a7e3663d2cc62088766b7c099600b39688a8",
+          "sha256": "81b2e55535503052836de0e2531a36b933374cb4587364b17c0565df1a4c17c7",
+          "size": 162958,
+          "parent_sha256": "32be1e81d6020f14b8ba5454fd4a2cd8db8bd66ac58cb8536795b36fbc86b7e7",
           "new_file": false
         },
         {
@@ -84,13 +84,19 @@
         "els_server/protocol/dungeon_messages.py": "e1797afc8995c5b094414ba0bfccc4f550fa7b0cc5cd8eb27549cfa0dd3532cc",
         "els_server/protocol/local_messages.py": "a8e8e4011ed8986d4fbfb67fff2d80b6a7e988889e6cc562f0c3e1240a4dbb33",
         "els_server/data/boosting2026-force-inventory.json": "31ec4798959d647f5849d292857c84a55a94440de0a397a33ac7ada196889634",
-        "config/combat_rules.json": "7ce1ed5eed7ffceccc1769af6a6b8d006da311095ea63aff5f7c3cf91e729906"
+        "config/combat_rules.json": "7ce1ed5eed7ffceccc1769af6a6b8d006da311095ea63aff5f7c3cf91e729906",
+        "els_server/application.py": "dceb6780584738684fac49f6ad43d678cb87a794d0d72574cf6535a63f1da8cb",
+        "els_server/storage/accounts.py": "463d4403c44e8f192a6e1bb4b42e45b45dd90ff72457259ab2110957c2edfeb9",
+        "els_server/storage/read_scope.py": "ff60b2016e1feb36762417991ab4f7db296796a93427569554f584f2002d9d20",
+        "els_server/observability.py": "cbf7d4023de43af12783e484966df5024772d00b51baf50a17bc870b0bd00bbb",
+        "els_server/transport.py": "0d1dcc06374c7763349c6342a0342b1ae8da568ed4f1c6db2aaa498028bd3f63",
+        "els_server/performance.py": "77944bf2bb9b3e57b4f91314b7d70b2aa89b2822826b08818101dd7bdfc66baf"
       }
     },
     "local": {
-      "parent_release": "local-native-current-refresh-inputs-20261027-v1",
+      "parent_release": "local-server-latency-and-source-baseline-20261027-v1",
       "parent_manifest_name": "local-business-manifest.json",
-      "parent_manifest_sha256": "ebf255739ba4d72d9cbfd6eebc8e810d4499aae56f8a15546ae30ed1695f5fc1",
+      "parent_manifest_sha256": "e34b4f522ac7dd8387982f29fb33818c5a64137510d42c8822160161488ba87a",
       "runtime_leaves": [
         {
           "path": "els_server/data/formal_pve_economy.json",
@@ -119,9 +125,9 @@
         {
           "path": "els_server/domain/local_session.py",
           "archive_path": "local/els_server/domain/local_session.py",
-          "sha256": "1ad15ba388ac1c4dcd76c41f8bdbd92be459266648a030eb85e642a68fe1a169",
-          "size": 163708,
-          "parent_sha256": "755daae8018923b97ec4bd1e3007363f7f0a88fce6aa6bcc474ad8a4b5892335",
+          "sha256": "36f857822f1f5ddf8aaa7d351b3f7a591993747f22551529d9c9af6532e84b77",
+          "size": 161868,
+          "parent_sha256": "d0648a06442203445918e6afa311c3beee2364a48fe7a4a0ed52209e886b18e0",
           "new_file": false
         },
         {
@@ -160,7 +166,13 @@
         "els_server/protocol/dungeon_messages.py": "e1797afc8995c5b094414ba0bfccc4f550fa7b0cc5cd8eb27549cfa0dd3532cc",
         "els_server/protocol/local_messages.py": "a8e8e4011ed8986d4fbfb67fff2d80b6a7e988889e6cc562f0c3e1240a4dbb33",
         "els_server/data/boosting2026-force-inventory.json": "31ec4798959d647f5849d292857c84a55a94440de0a397a33ac7ada196889634",
-        "config/combat_rules.json": "7ce1ed5eed7ffceccc1769af6a6b8d006da311095ea63aff5f7c3cf91e729906"
+        "config/combat_rules.json": "7ce1ed5eed7ffceccc1769af6a6b8d006da311095ea63aff5f7c3cf91e729906",
+        "els_server/application.py": "d8972b49cff7e4649f33ed6aa26635db36a8b20ea95c26747c64a758a67a80af",
+        "els_server/storage/accounts.py": "463d4403c44e8f192a6e1bb4b42e45b45dd90ff72457259ab2110957c2edfeb9",
+        "els_server/storage/read_scope.py": "ff60b2016e1feb36762417991ab4f7db296796a93427569554f584f2002d9d20",
+        "els_server/observability.py": "cbf7d4023de43af12783e484966df5024772d00b51baf50a17bc870b0bd00bbb",
+        "els_server/transport.py": "e60131f841d45c4cd485701b7584705cf63f9676a3387d751321b0031cc25184",
+        "els_server/performance.py": "ef783ae566832e6788b345662c4037e47e36fde1c047f5b8e93e40b76dd76782"
       }
     }
   }

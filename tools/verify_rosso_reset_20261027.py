@@ -1,4 +1,4 @@
-MANIFEST_SHA='767db0305f695b74884937a2ca26ab882f7e8e62920eef713414104030d8afd8'
+MANIFEST_SHA='42938ee14ce90fcbbae38bc0b06593a518359d04d9106ecc2091630d92120853'
 from pathlib import Path
 import argparse,ast,copy,hashlib,json
 ROOT=Path(__file__).resolve().parents[1];ARCHIVE=ROOT/'references/native-rosso-reset-20261027-v1'

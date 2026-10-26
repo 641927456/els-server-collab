@@ -465,6 +465,9 @@ class LocalSession:
     def _capture_luciel_dungeon_hp(self,payload,spans):
         self.luciel_dungeon_hp_source=None;self.luciel_dungeon_hp_max=None
         character=self.account.character()
+        if character is None:
+            if self.account.characters is None:return
+            raise ValueError('Missing owned character HP snapshot')
         if character['unit_type']!=10:return
         import struct
         if set(spans)!=set(('0x198','0x1b4','0x1d1')):raise ValueError('LuCiel admitted member spans')
