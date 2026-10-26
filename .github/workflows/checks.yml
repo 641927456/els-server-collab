@@ -41,3 +41,4 @@ jobs:
       - run: .\python\python.exe -B tools/ci_checks.py --with-runtime
       - run: python -m pip install -r requirements-test.txt
       - run: python -B tools/verify_current_runtime_regressions.py --with-runtime
+      - run: python -B tools/verify_current_runtime_regressions.py --with-runtime --manifest channels/server-risk-current-20261027-v2.json --delta references/server-risk-current-20261027-v2/delta.json

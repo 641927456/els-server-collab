@@ -1,6 +1,7 @@
 """Fail-closed current source contracts; optional owned TLS/current-role regressions."""
 import argparse
 import json
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -14,10 +15,14 @@ from tools.materialize_formal_runtime import materialize,plan
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true')
-    parser.add_argument('--assets-root',type=Path,default=ROOT);args=parser.parse_args()
-    base=json.loads((ROOT/'channels/server-latency-guards-20261027-v1.json').read_bytes())
-    final=json.loads((ROOT/'channels/server-risk-remediation-20261027-v1.json').read_bytes())
-    delta=json.loads((ROOT/'references/current-runtime-regression-20261027-v1/delta.json').read_bytes())
+    parser.add_argument('--assets-root',type=Path,default=ROOT)
+    parser.add_argument('--manifest',type=Path,default=ROOT/'channels/server-risk-remediation-20261027-v1.json')
+    parser.add_argument('--delta',type=Path,default=ROOT/'references/current-runtime-regression-20261027-v1/delta.json')
+    args=parser.parse_args()
+    final=json.loads(args.manifest.read_bytes())
+    delta=json.loads(args.delta.read_bytes())
+    from tools.materialize_formal_runtime import bound
+    base=json.loads(bound(ROOT,delta['parent']).read_bytes())
     cache=ROOT/'.runtime-cache';cache.mkdir(exist_ok=True)
     tests=('test_server_latency_guards.py','test_native_auxiliary_latency.py','test_request_read_scope.py',
            'test_current_native_title_inputs.py','test_retained_native_hp.py','test_native_hero_inputs.py',
@@ -25,13 +30,15 @@ def main():
     for channel in ('online','local'):
         old={e['path']:e for e in base['channels'][channel]['files']}
         new={e['path']:e for e in final['channels'][channel]['files']}
-        change=delta['channels'][channel]
-        assert {p for p in old.keys()|new.keys()if old.get(p)!=new.get(p)}=={change['path']}
-        assert old[change['path']]['sha256']==change['before_sha256']
-        assert all(new[change['path']][k]==change[k]for k in ('source','sha256','size'))
+        changes=delta['channels'][channel]
+        if 'path' in changes:changes={changes['path']:changes}
+        assert {p for p in old.keys()|new.keys()if old.get(p)!=new.get(p)}==set(changes)
+        for path,change in changes.items():
+            assert (old[path]['sha256']if path in old else None)==change['before_sha256']
+            assert all(new[path][k]==change[k]for k in ('source','sha256','size'))
         plan(ROOT,final,channel)
         if not args.with_runtime:
-            print(json.dumps(dict(ok=True,channel=channel,changed_existing_leaves=1,runtime_tests=False)));continue
+            print(json.dumps(dict(ok=True,channel=channel,delta_leaves=len(changes),runtime_tests=False)));continue
         with tempfile.TemporaryDirectory(prefix='current-regression-',dir=cache)as folder:
             view=Path(folder)/'engine'
             materialize(ROOT,final,channel,view,assets_root=args.assets_root,link_assets=True)
@@ -44,11 +51,17 @@ def main():
             # Run explicit modules: the old full Friends suite remains a
             # separately classified legacy suite; never silently include it.
             for test in tests[:-1]:
-                result=subprocess.run([sys.executable,'-B','-m','unittest','discover','-s','tests','-p',test],cwd=view,capture_output=True)
+                runner=("import sys,unittest;from pathlib import Path;"
+                        "root=Path(sys.argv[1]).resolve();sys.path.insert(0,str(root));"
+                        "import els_server;assert Path(els_server.__file__).resolve().is_relative_to(root);"
+                        "suite=unittest.defaultTestLoader.discover(str(root/'tests'),pattern=sys.argv[2]);"
+                        "result=unittest.TextTestRunner().run(suite);sys.exit(not result.wasSuccessful())")
+                result=subprocess.run([sys.executable,'-B','-c',runner,str(view),test],cwd=view,capture_output=True)
                 if result.returncode:
                     sys.stderr.write(result.stderr.decode('utf8',errors='replace')[-12000:]);raise SystemExit(result.returncode)
-                print(json.dumps(dict(ok=True,channel=channel,test=test,
-                    summary=result.stderr.decode('utf8',errors='replace').splitlines()[-1])))
+                stderr=result.stderr.decode('utf8',errors='replace')
+                count=re.search(r'Ran (\d+) tests?',stderr)
+                print(json.dumps(dict(ok=True,channel=channel,test=test,test_count=int(count[1]),summary=stderr.splitlines()[-1])))
 
 
 if __name__=='__main__':main()
