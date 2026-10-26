@@ -1,0 +1,272 @@
+{
+  "schema": 1,
+  "scope": "Aurora per-role per-map CN10 daily free1 then owned ticket; original295762 three solo source pools",
+  "source_archive_only": true,
+  "formal_delivery_claim": false,
+  "actual_parent_acceptance_still_requires_independent_review": true,
+  "delta_files": 15,
+  "new_files": 4,
+  "new_tables": 2,
+  "install_DDL": 0,
+  "shared_files": 12,
+  "channel_specific_each": 3,
+  "source_qualification_sha256": "c334754e7d1f3318c67e03347bfbb757fc5d56218583ae3fc1033211a6fc3c12",
+  "independent_source_review_sha256": "e2f9f0b7a7c2107db27f053f5593eb7b0d42013241e82b104189390fb88b8eed",
+  "authorization_sha256": "261054657068805a5ad39d0919b40b246211056091d3fbcb591c4f3e1420374d",
+  "channels": {
+    "online": {
+      "parent_release": "native-rosso-reset-consumer-20261027-v1",
+      "parent_manifest_name": "rollup-manifest.json",
+      "parent_manifest_sha256": "2e506e789b612d37fb6a1b3650d32b0427aee2a0719481265d0dc9fce1403b07",
+      "runtime_leaves": [
+        {
+          "path": "els_server/data/boosting2026-force-inventory.json",
+          "archive_path": "shared/els_server/data/boosting2026-force-inventory.json",
+          "sha256": "444b3ef5b5a82fc59777496eaef4ca043bfad2aa216450642863d7f39251355b",
+          "size": 17353,
+          "parent_sha256": "31ec4798959d647f5849d292857c84a55a94440de0a397a33ac7ada196889634",
+          "new_file": false
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.json",
+          "sha256": "d43dfa94b775cc201376311ebd902f91185862e04769509ad14874ee3b9cb1c2",
+          "size": 263092,
+          "parent_sha256": "6cc984f3114bbfd806056946d2ac80615e170f5641ede7a30c200126b7be9a86",
+          "new_file": false
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "b71faeaaba263893c546f767c01df40542279445e2c4c4c6dc7b6336b7a59662",
+          "size": 206,
+          "parent_sha256": "28d3ba2e67509ee5c6699b5089973227a8cc78407d818319d08ab298d20862ce",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive_path": "online/els_server/domain/acquisition_policy.py",
+          "sha256": "f01a540287243eac0c66e2ed855ad2190944dbf5cca3127f5b9031263473d3d6",
+          "size": 12463,
+          "parent_sha256": "b946e34a336550f8a1d0a4bcf3dee6e69f0bc349ad0a84ca29db3f418192c8df",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/aurora_admission.py",
+          "archive_path": "shared/els_server/domain/aurora_admission.py",
+          "sha256": "beefceb17e2cb77e7d0c7deac185ab8ea47d1d6768dace347a4f90ef4fae57ce",
+          "size": 3475,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/aurora_group_admission.py",
+          "archive_path": "shared/els_server/domain/aurora_group_admission.py",
+          "sha256": "1179dcbab9f9698a38d8163c2074a1fa0e319b63a55a46fb8be8c3f162865c38",
+          "size": 5626,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/aurora_ticket_rules.py",
+          "archive_path": "shared/els_server/domain/aurora_ticket_rules.py",
+          "sha256": "feb9dabc56840714af831dcf5dffb4560730a7569b0e74c102c2e416cd981bc3",
+          "size": 2207,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/boosting_2026_force_inventory.py",
+          "archive_path": "shared/els_server/domain/boosting_2026_force_inventory.py",
+          "sha256": "f02229149ee62b1eb99d7bbff133c76d6b6990391904ca9090415440939fe313",
+          "size": 3877,
+          "parent_sha256": "c5dc3c4f4397010835c920e8f5aba0ed8e81624d13d82719a940e64c36d893bf",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/formal_pve_economy.py",
+          "archive_path": "shared/els_server/domain/formal_pve_economy.py",
+          "sha256": "72e8fa3b37a67d9bac91f1cc0996286f2cff856240c7c0d26296a77d5341d84d",
+          "size": 5554,
+          "parent_sha256": "2016cd33e20256ac2f7e07cf456c0622c4c57390a0004edd3e05f1303da89a15",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/friends_dungeon.py",
+          "archive_path": "shared/els_server/domain/friends_dungeon.py",
+          "sha256": "903a40432b921a56ab4b788bdcf35e0b4bf8543c5a22bbe63dd8fba268aa9452",
+          "size": 29492,
+          "parent_sha256": "0a2b500fd2fae6614ed973d47bc0bed71f03cf3fcabe3e0c9b1495d188598dee",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "archive_path": "online/els_server/domain/inventory_items.py",
+          "sha256": "4d0fe87b9f2d69fc376ec92cf4eb070ee25e9634e7006d2b6e9febe6d88450ea",
+          "size": 71728,
+          "parent_sha256": "32a60d565eee1515721d98ddebc6cb58d6488538a675f2d8e5be7e1fb2ad90b0",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive_path": "online/els_server/domain/local_session.py",
+          "sha256": "634a51904f980bb17705bdf5186e596f5be401b1efa78af9d1ee8d2cea9fd192",
+          "size": 164472,
+          "parent_sha256": "81b2e55535503052836de0e2531a36b933374cb4587364b17c0565df1a4c17c7",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/pve_economy_flow.py",
+          "archive_path": "shared/els_server/domain/pve_economy_flow.py",
+          "sha256": "55ebabbe9b51f83a9020a2a2a68834849785746cef3bd94c2cf300796eb62ef6",
+          "size": 22759,
+          "parent_sha256": "c09c9bbdb16809950e5d8428318afaaf16171e3b3493acdfe8405ed7417f7939",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/raid_reward_items.py",
+          "archive_path": "shared/els_server/domain/raid_reward_items.py",
+          "sha256": "13cc9c05e714e714ad35107d2df47ba671a34426c3c1238b8a01f58fcc58a7c4",
+          "size": 14524,
+          "parent_sha256": "efb1631f55f7fcfde5dd7b2942b8fba8f3268611d82b23836adf9e437a2407f7",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/aurora_admissions.py",
+          "archive_path": "shared/els_server/storage/aurora_admissions.py",
+          "sha256": "e64c3f1ebf96a5cf23e8f30c4b7903b8691bb7cdbf44d607a855048490a05308",
+          "size": 7363,
+          "parent_sha256": null,
+          "new_file": true
+        }
+      ]
+    },
+    "local": {
+      "parent_release": "local-native-rosso-reset-consumer-20261027-v1",
+      "parent_manifest_name": "local-business-manifest.json",
+      "parent_manifest_sha256": "dbddb0345c1aded7f064e2f8d8b0ff7c7f90e8a0ee4c4851098374119f5654d4",
+      "runtime_leaves": [
+        {
+          "path": "els_server/data/boosting2026-force-inventory.json",
+          "archive_path": "shared/els_server/data/boosting2026-force-inventory.json",
+          "sha256": "444b3ef5b5a82fc59777496eaef4ca043bfad2aa216450642863d7f39251355b",
+          "size": 17353,
+          "parent_sha256": "31ec4798959d647f5849d292857c84a55a94440de0a397a33ac7ada196889634",
+          "new_file": false
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.json",
+          "sha256": "d43dfa94b775cc201376311ebd902f91185862e04769509ad14874ee3b9cb1c2",
+          "size": 263092,
+          "parent_sha256": "6cc984f3114bbfd806056946d2ac80615e170f5641ede7a30c200126b7be9a86",
+          "new_file": false
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "b71faeaaba263893c546f767c01df40542279445e2c4c4c6dc7b6336b7a59662",
+          "size": 206,
+          "parent_sha256": "28d3ba2e67509ee5c6699b5089973227a8cc78407d818319d08ab298d20862ce",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive_path": "local/els_server/domain/acquisition_policy.py",
+          "sha256": "82d7c90e537d22fa78ee61e28d08bff26a17909cbf58684a9354a685cc259915",
+          "size": 12303,
+          "parent_sha256": "9efe50f6ea461f860e208ed36f12259e6250b1c4075f2e27f9c6c0d2ae0ecdc6",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/aurora_admission.py",
+          "archive_path": "shared/els_server/domain/aurora_admission.py",
+          "sha256": "beefceb17e2cb77e7d0c7deac185ab8ea47d1d6768dace347a4f90ef4fae57ce",
+          "size": 3475,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/aurora_group_admission.py",
+          "archive_path": "shared/els_server/domain/aurora_group_admission.py",
+          "sha256": "1179dcbab9f9698a38d8163c2074a1fa0e319b63a55a46fb8be8c3f162865c38",
+          "size": 5626,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/aurora_ticket_rules.py",
+          "archive_path": "shared/els_server/domain/aurora_ticket_rules.py",
+          "sha256": "feb9dabc56840714af831dcf5dffb4560730a7569b0e74c102c2e416cd981bc3",
+          "size": 2207,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/boosting_2026_force_inventory.py",
+          "archive_path": "shared/els_server/domain/boosting_2026_force_inventory.py",
+          "sha256": "f02229149ee62b1eb99d7bbff133c76d6b6990391904ca9090415440939fe313",
+          "size": 3877,
+          "parent_sha256": "c5dc3c4f4397010835c920e8f5aba0ed8e81624d13d82719a940e64c36d893bf",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/formal_pve_economy.py",
+          "archive_path": "shared/els_server/domain/formal_pve_economy.py",
+          "sha256": "72e8fa3b37a67d9bac91f1cc0996286f2cff856240c7c0d26296a77d5341d84d",
+          "size": 5554,
+          "parent_sha256": "2016cd33e20256ac2f7e07cf456c0622c4c57390a0004edd3e05f1303da89a15",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/friends_dungeon.py",
+          "archive_path": "shared/els_server/domain/friends_dungeon.py",
+          "sha256": "903a40432b921a56ab4b788bdcf35e0b4bf8543c5a22bbe63dd8fba268aa9452",
+          "size": 29492,
+          "parent_sha256": "0a2b500fd2fae6614ed973d47bc0bed71f03cf3fcabe3e0c9b1495d188598dee",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "archive_path": "local/els_server/domain/inventory_items.py",
+          "sha256": "dd995d0bdf0e62c89cdab29f4fed20c14c92d89b83f7c34a893b4a0eb4c9443e",
+          "size": 71571,
+          "parent_sha256": "47679deab8a7fe47abfc157345144a1debb1296aa27ca893f77e6e7d8bcdb2ad",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive_path": "local/els_server/domain/local_session.py",
+          "sha256": "ef258b3bc42109e50f018dccdf9646086f159db346414fd164ed8e714bf9fb34",
+          "size": 163382,
+          "parent_sha256": "36f857822f1f5ddf8aaa7d351b3f7a591993747f22551529d9c9af6532e84b77",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/pve_economy_flow.py",
+          "archive_path": "shared/els_server/domain/pve_economy_flow.py",
+          "sha256": "55ebabbe9b51f83a9020a2a2a68834849785746cef3bd94c2cf300796eb62ef6",
+          "size": 22759,
+          "parent_sha256": "c09c9bbdb16809950e5d8428318afaaf16171e3b3493acdfe8405ed7417f7939",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/raid_reward_items.py",
+          "archive_path": "shared/els_server/domain/raid_reward_items.py",
+          "sha256": "13cc9c05e714e714ad35107d2df47ba671a34426c3c1238b8a01f58fcc58a7c4",
+          "size": 14524,
+          "parent_sha256": "efb1631f55f7fcfde5dd7b2942b8fba8f3268611d82b23836adf9e437a2407f7",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/aurora_admissions.py",
+          "archive_path": "shared/els_server/storage/aurora_admissions.py",
+          "sha256": "e64c3f1ebf96a5cf23e8f30c4b7903b8691bb7cdbf44d607a855048490a05308",
+          "size": 7363,
+          "parent_sha256": null,
+          "new_file": true
+        }
+      ]
+    }
+  }
+}
