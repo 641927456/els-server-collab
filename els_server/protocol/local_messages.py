@@ -167,7 +167,7 @@ def character_unit(location=None,initialize_attributes=False,slots=None,economy=
         # Preserve prior fixture defaults outside the reward profile.
         # Native 0x7cf51d copies +0xee into encoded unit+0x790 (saved map).
         if field['offset']=='0x66':data=i32(0 if initialize_attributes else 100)
-        if initialize_attributes and field['offset'] in ('0xb6','0xd2'):
+        if (initialize_attributes or character is not None) and field['offset'] in ('0xb6','0xd2'):
             # Base inputs only. The client applies its equipment map, set and
             # passive effects later; sending totals here counts equipment twice.
             data=combat_attributes(character,items)
