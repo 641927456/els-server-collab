@@ -22,6 +22,8 @@ def main(argv=None):
             run([sys.executable,'-B',str(ROOT/'tools/materialize_formal_runtime.py'),
                  '--channel',channel,'--verify-only'])
         run([sys.executable,'-B','-m','unittest','tests.test_formal_materializer'])
+    if (ROOT/'channels/server-latency-guards-20261027-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_server_latency_guards.py')])
 
 
     if (ROOT/'references/background-native-gear-20261026-v1/manifest.json').is_file():
@@ -92,6 +94,8 @@ def main(argv=None):
     assert decode_event(frame.plaintext)==event
 
     if args.with_runtime:
+        if (ROOT/'channels/server-latency-guards-20261027-v1.json').is_file():
+            run([sys.executable,'-B',str(ROOT/'tools/verify_server_latency_guards.py'),'--with-runtime'])
 
         run([sys.executable,'-B','-m','els_server','--config','config/server.toml','--check'])
 
@@ -104,4 +108,3 @@ def main(argv=None):
 
 
 if __name__=='__main__':main()
-
