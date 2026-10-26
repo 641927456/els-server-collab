@@ -1,0 +1,178 @@
+{
+  "schema": 1,
+  "issue": 518,
+  "component": "role",
+  "runtime_overlay_not_main": true,
+  "reference_snapshots_not_final_deployment_parent": true,
+  "actual_parent_reconciliation_required": true,
+  "private_data_included": false,
+  "client_delta": 0,
+  "install_DDL_statements": 0,
+  "new_lazy_tables": 0,
+  "source_paths": [
+    "els_server/data/neblon_role_change.json",
+    "els_server/domain/acquisition_policy.py",
+    "els_server/domain/inventory_items.py",
+    "els_server/domain/local_session.py",
+    "els_server/domain/neblon_role_change_flow.py",
+    "els_server/domain/neblon_role_change_rules.py",
+    "els_server/protocol/neblon_role_change_messages.py",
+    "els_server/storage/equipment_receipt_state.py",
+    "els_server/storage/neblon_role_change.py"
+  ],
+  "channels": {
+    "online": {
+      "reference_parent_release": "native-owned-potion-choice-seraph-20261026-v1",
+      "reference_parent_manifest_sha256": "6b1e06454771aa8aa152b9ab163af1007901f46bf71b3c35dab7edca90a384cf",
+      "files": [
+        {
+          "path": "els_server/data/neblon_role_change.json",
+          "archive": "shared/els_server/data/neblon_role_change.json",
+          "sha256": "fe3c7b4f3b9988a95772616e68881563d3e4d0bb32236ef39d8d5640574e1a3d",
+          "size": 20161,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive": "online/els_server/domain/acquisition_policy.py",
+          "sha256": "02b2a4cb20170fad7bacf6cd93fee3140ddb134f9c6d36d9899a26d2d55843c7",
+          "size": 9089,
+          "parent_sha256": "85c81d0562d47fc70d098aef546e0f93c64a59c8af271cf9a9441855b688a341"
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "archive": "online/els_server/domain/inventory_items.py",
+          "sha256": "af3cc40f4c8a94dc4c0c09879f6e1af250df2f19c95bbdce28ddb89e94ae3c68",
+          "size": 69044,
+          "parent_sha256": "4347c69a8816283b647c678b4d152b950bef3ecabe35a6606e703d00c3ec5186"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive": "online/els_server/domain/local_session.py",
+          "sha256": "ea4e3c0c04cc742a7f2be4e8a1b86b9a9c1da748d13a18cea2f73972fd088ad0",
+          "size": 161840,
+          "parent_sha256": "01265177b5b459749d49b0cba4b30b61057368231bae50ac8da22310f0d414c9"
+        },
+        {
+          "path": "els_server/domain/neblon_role_change_flow.py",
+          "archive": "shared/els_server/domain/neblon_role_change_flow.py",
+          "sha256": "a4947b847b69bc8557e858e14e1cdfa663d2dadaf1d641801ef9c943845ee17e",
+          "size": 1469,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/neblon_role_change_rules.py",
+          "archive": "shared/els_server/domain/neblon_role_change_rules.py",
+          "sha256": "3d82920b691eacf69bc4249f03ba0fa508daae3b6f47ab55edc6eb5d57d83242",
+          "size": 2798,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/protocol/neblon_role_change_messages.py",
+          "archive": "shared/els_server/protocol/neblon_role_change_messages.py",
+          "sha256": "6561744c9c3d252c8f597f7b07740d04ee33e0d3cedab927c438419e7be5b59a",
+          "size": 1400,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/equipment_receipt_state.py",
+          "archive": "online/els_server/storage/equipment_receipt_state.py",
+          "sha256": "aa0b78ae840bb1c5de4d47b7008b4daa3d7e771c02ab4d9c97204e986a8abbe3",
+          "size": 3325,
+          "parent_sha256": "619398f8c3a1ee05bd8c2b2463c15722a1981159ff511221615027e2975b7663"
+        },
+        {
+          "path": "els_server/storage/neblon_role_change.py",
+          "archive": "shared/els_server/storage/neblon_role_change.py",
+          "sha256": "caab67bfe6be343e8f47fbfd85d4b005be3191a0ce4238313023fb33d1c98b5b",
+          "size": 7217,
+          "parent_sha256": null
+        }
+      ]
+    },
+    "local": {
+      "reference_parent_release": "local-native-owned-potion-choice-seraph-20261026-v1",
+      "reference_parent_manifest_sha256": "20b80205c2d704ca0f534325dea972160f4a37ed60e03cf4bc7a9d17fdbfcd99",
+      "files": [
+        {
+          "path": "els_server/data/neblon_role_change.json",
+          "archive": "shared/els_server/data/neblon_role_change.json",
+          "sha256": "fe3c7b4f3b9988a95772616e68881563d3e4d0bb32236ef39d8d5640574e1a3d",
+          "size": 20161,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive": "local/els_server/domain/acquisition_policy.py",
+          "sha256": "6bb51b4360949091d5cf534f70293f95542100653e35bcf214e3c8ee9be3cffa",
+          "size": 8929,
+          "parent_sha256": "0ce9d92d03c0410384d15c88bab9cb447ecb5fb90f2fcbdeba2c563091ed6d80"
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "archive": "local/els_server/domain/inventory_items.py",
+          "sha256": "a74db37caa3a18d84c56182cf688e83b362e38f15f642d8d49097f38e13b5142",
+          "size": 68887,
+          "parent_sha256": "8d06e063da46d41f981917c121c0b8afff562b7ffe0bbe72b7706fdca13f9ddb"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive": "local/els_server/domain/local_session.py",
+          "sha256": "b18ce747f3ad1742284fa7988fcb0a054eb7bd2a7c018ce7ac454bf17f204673",
+          "size": 159342,
+          "parent_sha256": "6af3a6091381845b93f9b7dfa1425b64fde4ff51b648d4e07d3fc98414709ec3"
+        },
+        {
+          "path": "els_server/domain/neblon_role_change_flow.py",
+          "archive": "shared/els_server/domain/neblon_role_change_flow.py",
+          "sha256": "a4947b847b69bc8557e858e14e1cdfa663d2dadaf1d641801ef9c943845ee17e",
+          "size": 1469,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/neblon_role_change_rules.py",
+          "archive": "shared/els_server/domain/neblon_role_change_rules.py",
+          "sha256": "3d82920b691eacf69bc4249f03ba0fa508daae3b6f47ab55edc6eb5d57d83242",
+          "size": 2798,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/protocol/neblon_role_change_messages.py",
+          "archive": "shared/els_server/protocol/neblon_role_change_messages.py",
+          "sha256": "6561744c9c3d252c8f597f7b07740d04ee33e0d3cedab927c438419e7be5b59a",
+          "size": 1400,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/equipment_receipt_state.py",
+          "archive": "local/els_server/storage/equipment_receipt_state.py",
+          "sha256": "9942c288ad4be33b0a61dd350f1eb14df173c3a1e912d4fc722975d816355261",
+          "size": 3325,
+          "parent_sha256": "c72a7e2cae04458bb5df0b535369d7b7f88b03763f59319852cc5fc918b35664"
+        },
+        {
+          "path": "els_server/storage/neblon_role_change.py",
+          "archive": "shared/els_server/storage/neblon_role_change.py",
+          "sha256": "caab67bfe6be343e8f47fbfd85d4b005be3191a0ce4238313023fb33d1c98b5b",
+          "size": 7217,
+          "parent_sha256": null
+        }
+      ]
+    }
+  },
+  "physical_source_files": 13,
+  "auxiliary_files": [
+    {
+      "path": "patch-contract.json",
+      "sha256": "1b86dbb166e267b9a3a777f24bc8f6a1d8a9f12eef542cda23c496787f43c226"
+    },
+    {
+      "path": "qualified-summary.json",
+      "sha256": "4d4350353d4ac7a5cfa5e6fc2d78ae7654aba9d077058d14d9d9e6fa9b1d1182"
+    },
+    {
+      "path": "README.txt",
+      "sha256": "d45024c7f5c24c02bd42280a0260be32c1121538321766f760569dcee3527e98"
+    }
+  ]
+}
