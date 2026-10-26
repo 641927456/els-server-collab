@@ -1,0 +1,299 @@
+{
+  "schema": 1,
+  "issue": 537,
+  "kind": "paired reviewed business-source archive; collaboration main is not a formal runtime parent",
+  "client_delta": 0,
+  "installation_DDL": 0,
+  "formal_installed": false,
+  "source_paths": [
+    "els_server/data/trade_board_purchase_variants.json",
+    "els_server/domain/local_session.py",
+    "els_server/domain/trade_board_authority.py",
+    "els_server/domain/trade_board_flow.py",
+    "els_server/domain/tradeboard_consumable_eligibility.py",
+    "els_server/domain/tradeboard_current_use.py",
+    "els_server/domain/tradeboard_metadata.py",
+    "els_server/domain/tradeboard_minimum_query.py",
+    "els_server/domain/tradeboard_query.py",
+    "els_server/domain/tradeboard_query_option_policy.py",
+    "els_server/domain/tradeboard_registered_requirements.py",
+    "els_server/domain/tradeboard_template_predicate.py",
+    "els_server/protocol/trade_board_messages.py",
+    "els_server/protocol/tradeboard_favorite_messages.py",
+    "els_server/protocol/tradeboard_history_messages.py",
+    "els_server/protocol/tradeboard_metadata_item.py",
+    "els_server/protocol/tradeboard_metadata_messages.py",
+    "els_server/protocol/tradeboard_minimum_messages.py",
+    "els_server/protocol/tradeboard_query_filters.py",
+    "els_server/protocol/tradeboard_query_messages.py",
+    "els_server/storage/character_lifecycle.py",
+    "els_server/storage/equipment_receipt_state.py",
+    "els_server/storage/trade_board_state.py",
+    "els_server/storage/tradeboard_favorite_state.py",
+    "els_server/storage/tradeboard_history_state.py"
+  ],
+  "parents": [
+    {
+      "channel": "online",
+      "release": "native-early-role-weapons-20261026-v1",
+      "manifest_sha256": "702f0f077b703e41736fb9ca550a1a42136e6aa52629e8667b48e6a9e7b9a674",
+      "preserved_parent_leaves": 1203,
+      "changed_leaves": 25
+    },
+    {
+      "channel": "local",
+      "release": "local-native-early-role-weapons-20261026-v1",
+      "manifest_sha256": "a9b3c4b129d150e2eede06388dadc041d0fcaa9b8073284a40ed76565d6cb4d4",
+      "preserved_parent_leaves": 1225,
+      "changed_leaves": 25
+    }
+  ],
+  "files": [
+    {
+      "path": "shared/els_server/data/trade_board_purchase_variants.json",
+      "source_path": "els_server/data/trade_board_purchase_variants.json",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "02375a369e8a4fa5fc9477c592e5b62636585ac32b6bfdb73e3f5f970bdb3bc6"
+    },
+    {
+      "path": "online/els_server/domain/local_session.py",
+      "source_path": "els_server/domain/local_session.py",
+      "channels": [
+        "online"
+      ],
+      "sha256": "e5e4ae19bb97ea5ad27f50730fdcabe0f8ba53bb2b18eb30277ae8329e418263"
+    },
+    {
+      "path": "local/els_server/domain/local_session.py",
+      "source_path": "els_server/domain/local_session.py",
+      "channels": [
+        "local"
+      ],
+      "sha256": "f2cc5b44520f46de2e96c8082c5970fb8538dde89f341ad6a5123fea7d65b1d2"
+    },
+    {
+      "path": "shared/els_server/domain/trade_board_authority.py",
+      "source_path": "els_server/domain/trade_board_authority.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "8def63eba57f6b0d3a0ea8738a10a6ccff135ee1286cd2c0591efb3a78e80246"
+    },
+    {
+      "path": "shared/els_server/domain/trade_board_flow.py",
+      "source_path": "els_server/domain/trade_board_flow.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "dcc0807f1f9117ea0dcf434b107bedab7d626eb5328c12b07a6ea6078a23d0fe"
+    },
+    {
+      "path": "shared/els_server/domain/tradeboard_consumable_eligibility.py",
+      "source_path": "els_server/domain/tradeboard_consumable_eligibility.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "d79c1b544de25dd84c57a4dcf537237eac587662ad9e749f3c2349631c5ef10e"
+    },
+    {
+      "path": "shared/els_server/domain/tradeboard_current_use.py",
+      "source_path": "els_server/domain/tradeboard_current_use.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "5e81435aaa92e3b0eda8165745628825e8ac91780e10792b0e50b82854418c4d"
+    },
+    {
+      "path": "shared/els_server/domain/tradeboard_metadata.py",
+      "source_path": "els_server/domain/tradeboard_metadata.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "7d21ea33b5f4e654196da336d1843f50dc1fea0e4a03963b68b89e26d4d7e1e6"
+    },
+    {
+      "path": "shared/els_server/domain/tradeboard_minimum_query.py",
+      "source_path": "els_server/domain/tradeboard_minimum_query.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "3959d825ee905febb002141b42c77d482abe6caddef8005d9d10abe20475fd06"
+    },
+    {
+      "path": "shared/els_server/domain/tradeboard_query.py",
+      "source_path": "els_server/domain/tradeboard_query.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "1253778f53420d07f65c79a842b954b8b19c6464b8bbfe9b62de23f03ac6409c"
+    },
+    {
+      "path": "shared/els_server/domain/tradeboard_query_option_policy.py",
+      "source_path": "els_server/domain/tradeboard_query_option_policy.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "71473efaffb722cda4877d91591b1560f4bdcd6a7f56382d6f1db7e932e65205"
+    },
+    {
+      "path": "shared/els_server/domain/tradeboard_registered_requirements.py",
+      "source_path": "els_server/domain/tradeboard_registered_requirements.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "22aeea5e26ee8c3315b88d95c4c0fc3b20fb38c26cf8ac62e1a09e6d4b39f573"
+    },
+    {
+      "path": "shared/els_server/domain/tradeboard_template_predicate.py",
+      "source_path": "els_server/domain/tradeboard_template_predicate.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "76f792a1e4b3576ac1ff9d94af7bbca9c25c933870cb9cb299f4e108060a3898"
+    },
+    {
+      "path": "shared/els_server/protocol/trade_board_messages.py",
+      "source_path": "els_server/protocol/trade_board_messages.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "e19028b1aa98549eab11f5bfb52f0af15813c5c2605ab498cfebb2951c3aefb2"
+    },
+    {
+      "path": "shared/els_server/protocol/tradeboard_favorite_messages.py",
+      "source_path": "els_server/protocol/tradeboard_favorite_messages.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "50130c1f4e6c8514b74734055c2e263eb470081ad0a09a8692993ab3d5b0aa29"
+    },
+    {
+      "path": "shared/els_server/protocol/tradeboard_history_messages.py",
+      "source_path": "els_server/protocol/tradeboard_history_messages.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "01cc9521edf2bba283b9e2624d62d81f13092b101a8fe0f5db2846f34edbed17"
+    },
+    {
+      "path": "shared/els_server/protocol/tradeboard_metadata_item.py",
+      "source_path": "els_server/protocol/tradeboard_metadata_item.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "ceb047fa7c13ee723341c2a6ea7906203611e240a0d340474af49c5e96f0baf4"
+    },
+    {
+      "path": "shared/els_server/protocol/tradeboard_metadata_messages.py",
+      "source_path": "els_server/protocol/tradeboard_metadata_messages.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "7df214d255d1cf4a06190de5384bbdc14641aedde9f2d11ea9538eaae3ba387d"
+    },
+    {
+      "path": "shared/els_server/protocol/tradeboard_minimum_messages.py",
+      "source_path": "els_server/protocol/tradeboard_minimum_messages.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "df2eaf2155327e4bd53e97b6bffa3f464798eec0a03b54e9c8ee49b98c6accbf"
+    },
+    {
+      "path": "shared/els_server/protocol/tradeboard_query_filters.py",
+      "source_path": "els_server/protocol/tradeboard_query_filters.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "787151ecbbc6ea46bf7f0a3a097384924f109c874363428381b6a250fec9ffe2"
+    },
+    {
+      "path": "shared/els_server/protocol/tradeboard_query_messages.py",
+      "source_path": "els_server/protocol/tradeboard_query_messages.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "bc60985f3594bd2244f1a00875665bf20c55fe83a772e3102573669e8dea0c93"
+    },
+    {
+      "path": "online/els_server/storage/character_lifecycle.py",
+      "source_path": "els_server/storage/character_lifecycle.py",
+      "channels": [
+        "online"
+      ],
+      "sha256": "5b7689f48c4c26b6612f387b2010b1e9b426fa1d594626110c385ac014ac0714"
+    },
+    {
+      "path": "local/els_server/storage/character_lifecycle.py",
+      "source_path": "els_server/storage/character_lifecycle.py",
+      "channels": [
+        "local"
+      ],
+      "sha256": "5b7689f48c4c26b6612f387b2010b1e9b426fa1d594626110c385ac014ac0714"
+    },
+    {
+      "path": "online/els_server/storage/equipment_receipt_state.py",
+      "source_path": "els_server/storage/equipment_receipt_state.py",
+      "channels": [
+        "online"
+      ],
+      "sha256": "45ec1e1ddd2adadce4edc109040f9d25aa929974dd4f4db346d90f605cfc9fa1"
+    },
+    {
+      "path": "local/els_server/storage/equipment_receipt_state.py",
+      "source_path": "els_server/storage/equipment_receipt_state.py",
+      "channels": [
+        "local"
+      ],
+      "sha256": "dfe6a2e72c5c9fa449c789e94394228a13dea306d94a191087b907e6c215909a"
+    },
+    {
+      "path": "shared/els_server/storage/trade_board_state.py",
+      "source_path": "els_server/storage/trade_board_state.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "9c1c229c891c9d58ed34f6fe41e0c155cc2b3032d6c7afc2de0649ee280616b0"
+    },
+    {
+      "path": "shared/els_server/storage/tradeboard_favorite_state.py",
+      "source_path": "els_server/storage/tradeboard_favorite_state.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "0260be4262975e04e286f500491aa6adc743de102af842c56fc654b2ee3c1e27"
+    },
+    {
+      "path": "shared/els_server/storage/tradeboard_history_state.py",
+      "source_path": "els_server/storage/tradeboard_history_state.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "6a8e0a9ca85d6e5664b70d36acba30b43ea8e05e0e57f08bbcb1f211b382b804"
+    }
+  ]
+}
