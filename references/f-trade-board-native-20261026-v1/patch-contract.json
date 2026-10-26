@@ -1,0 +1,53 @@
+{
+  "shared_edits": [
+    {
+      "channel": "online",
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "2ebf84e33fc28465fc246cf8631345fe1deae3c7a7877b9f0421e25eaa4d19d3",
+      "after_sha256": "e5e4ae19bb97ea5ad27f50730fdcabe0f8ba53bb2b18eb30277ae8329e418263",
+      "patch": "--- before/els_server/domain/local_session.py\n+++ after/els_server/domain/local_session.py\n@@ -1063,6 +1063,9 @@\n \r\n         if artifact_reply is not None:return artifact_reply\r\n \r\n+        from els_server.domain.trade_board_flow import handle as trade_board_handle\r\n+        trade_board_result=trade_board_handle(self,event,request_sequence)\r\n+        if trade_board_result is not None:return trade_board_result\r\n         from els_server.domain.board_ranking_flow import handle as board_ranking_handle\r\n         board_ranking_result=board_ranking_handle(self,event,request_sequence)\r\n         if board_ranking_result is not None:return board_ranking_result\r\n",
+      "inverse_patch_exact_parent_bytes": true
+    },
+    {
+      "channel": "online",
+      "path": "els_server/storage/character_lifecycle.py",
+      "parent_sha256": "e478ba74c1cae89c14f48b8ddc77afac35c58e42dbd978494b602d922f31a7a9",
+      "after_sha256": "5b7689f48c4c26b6612f387b2010b1e9b426fa1d594626110c385ac014ac0714",
+      "patch": "--- before/els_server/storage/character_lifecycle.py\n+++ after/els_server/storage/character_lifecycle.py\n@@ -61,6 +61,8 @@\n             require_role_unbound(db,uid,account_id)\r\n             from els_server.storage.black_market_state import require_deletion_unlocked\r\n             require_deletion_unlocked(db,uid)\r\n+            from els_server.storage.trade_board_state import require_deletion_unlocked as require_board_unlocked\r\n+            require_board_unlocked(db,uid)\r\n         s=states(db).get(uid,dict(created_at=0,requested_at=0,finalize_at=0,restore_at=0,cooldown_until=0,finalized_at=0))\r\n         if s['finalized_at']:\r\n             if operation=='finalize':return dict(uid=uid,operation=operation,until=s['finalized_at'])\r\n",
+      "inverse_patch_exact_parent_bytes": true
+    },
+    {
+      "channel": "online",
+      "path": "els_server/storage/equipment_receipt_state.py",
+      "parent_sha256": "aa0b78ae840bb1c5de4d47b7008b4daa3d7e771c02ab4d9c97204e986a8abbe3",
+      "after_sha256": "45ec1e1ddd2adadce4edc109040f9d25aa929974dd4f4db346d90f605cfc9fa1",
+      "patch": "--- before/els_server/storage/equipment_receipt_state.py\n+++ after/els_server/storage/equipment_receipt_state.py\n@@ -5,7 +5,7 @@\n     # The caller has already matched the authenticated request hash via\r\n     # _previous. Material selection by template is recovered from that exact\r\n     # committed receipt, never from a new search among current stacks.\r\n-    if kind not in (0xc06,0xc0b,0x206,0x45e,0x971,0x5ff,0x21f,0x221,0x8b1,0x438,0x43a,0x196,0x6e7,0x9cf,0x555,0x109,0xea,0x567,0x223,0xec,0x663,0x8d1,0x1c0,0x270,0x272,0x219,0xc68,0xd4e,0x9ed,0xd50,0xd52,0xd54,0xd56):\r\n+    if kind not in (0xc06,0xc0b,0x206,0x45e,0x971,0x5ff,0x21f,0x221,0x8b1,0x438,0x43a,0x196,0x6e7,0x9cf,0x555,0x109,0xea,0x567,0x223,0xec,0x663,0x8d1,0x1c0,0x270,0x272,0x219,0xc68,0xd4e,0x9ed,0xd50,0xd52,0xd54,0xd56,0xa08,0xa04,0xa06,0x9fc):\r\n         raise ValueError('Unreviewed equipment receipt kind')\r\n     row=db.execute('SELECT owner,kind,before_json,after_json FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()\r\n     if row is None or row[:2]!=(owner,kind):\r\n",
+      "inverse_patch_exact_parent_bytes": true
+    },
+    {
+      "channel": "local",
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "7e37755a8073fa1fb8bb3bfcf6816480e5c01c2d209a7ed805cfde3b66dfea54",
+      "after_sha256": "f2cc5b44520f46de2e96c8082c5970fb8538dde89f341ad6a5123fea7d65b1d2",
+      "patch": "--- before/els_server/domain/local_session.py\n+++ after/els_server/domain/local_session.py\n@@ -688,6 +688,9 @@\n         from els_server.domain.artifact_flow import handle as artifact_handle\r\n         artifact_reply=artifact_handle(self,event,request_sequence)\r\n         if artifact_reply is not None:return artifact_reply\r\n+        from els_server.domain.trade_board_flow import handle as trade_board_handle\r\n+        trade_board_result=trade_board_handle(self,event,request_sequence)\r\n+        if trade_board_result is not None:return trade_board_result\r\n         from els_server.domain.board_ranking_flow import handle as board_ranking_handle\r\n         board_ranking_result=board_ranking_handle(self,event,request_sequence)\r\n         if board_ranking_result is not None:return board_ranking_result\r\n",
+      "inverse_patch_exact_parent_bytes": true
+    },
+    {
+      "channel": "local",
+      "path": "els_server/storage/character_lifecycle.py",
+      "parent_sha256": "e478ba74c1cae89c14f48b8ddc77afac35c58e42dbd978494b602d922f31a7a9",
+      "after_sha256": "5b7689f48c4c26b6612f387b2010b1e9b426fa1d594626110c385ac014ac0714",
+      "patch": "--- before/els_server/storage/character_lifecycle.py\n+++ after/els_server/storage/character_lifecycle.py\n@@ -61,6 +61,8 @@\n             require_role_unbound(db,uid,account_id)\r\n             from els_server.storage.black_market_state import require_deletion_unlocked\r\n             require_deletion_unlocked(db,uid)\r\n+            from els_server.storage.trade_board_state import require_deletion_unlocked as require_board_unlocked\r\n+            require_board_unlocked(db,uid)\r\n         s=states(db).get(uid,dict(created_at=0,requested_at=0,finalize_at=0,restore_at=0,cooldown_until=0,finalized_at=0))\r\n         if s['finalized_at']:\r\n             if operation=='finalize':return dict(uid=uid,operation=operation,until=s['finalized_at'])\r\n",
+      "inverse_patch_exact_parent_bytes": true
+    },
+    {
+      "channel": "local",
+      "path": "els_server/storage/equipment_receipt_state.py",
+      "parent_sha256": "9942c288ad4be33b0a61dd350f1eb14df173c3a1e912d4fc722975d816355261",
+      "after_sha256": "dfe6a2e72c5c9fa449c789e94394228a13dea306d94a191087b907e6c215909a",
+      "patch": "--- before/els_server/storage/equipment_receipt_state.py\n+++ after/els_server/storage/equipment_receipt_state.py\n@@ -5,7 +5,7 @@\n     # The caller has already matched the authenticated request hash via\r\n     # _previous. Material selection by template is recovered from that exact\r\n     # committed receipt, never from a new search among current stacks.\r\n-    if kind not in (0xc06,0xc0b,0x206,0x45e,0x971,0x5ff,0x21f,0x221,0x8b1,0x438,0x43a,0x196,0x6e7,0x9cf,0x555,0x109,0xea,0x567,0x223,0xec,0x663,0x8d1,0x1c0,0x270,0x272,0x219,0xc68,0x9ed,0xd4e,0xd50,0xd52,0xd54,0xd56):\r\n+    if kind not in (0xc06,0xc0b,0x206,0x45e,0x971,0x5ff,0x21f,0x221,0x8b1,0x438,0x43a,0x196,0x6e7,0x9cf,0x555,0x109,0xea,0x567,0x223,0xec,0x663,0x8d1,0x1c0,0x270,0x272,0x219,0xc68,0x9ed,0xd4e,0xd50,0xd52,0xd54,0xd56,0xa08,0xa04,0xa06,0x9fc):\r\n         raise ValueError('Unreviewed equipment receipt kind')\r\n     row=db.execute('SELECT owner,kind,before_json,after_json FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()\r\n     if row is None or row[:2]!=(owner,kind):\r\n",
+      "inverse_patch_exact_parent_bytes": true
+    }
+  ],
+  "application_rule": "Use only the three exact minimal hooks on each actual immutable formal parent; retain other channel-specific and newer spans. Rebind SHA and requalify overlaps. Never deploy the collaboration main tree or replace newer shared files with older reference snapshots."
+}

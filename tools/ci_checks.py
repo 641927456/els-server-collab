@@ -22,6 +22,9 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_f_service_component_sources.py')])
     if any((ROOT/'references').glob('f-remaining-*-20261026-v1/manifest.json')):
         run([sys.executable,'-B',str(ROOT/'tools/verify_f_remaining_sources.py')])
+    if (ROOT/'references/f-trade-board-native-20261026-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/check_trade_board_sources.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_trade_board_reference'])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
     count=0
     for name in filter(None,names):
