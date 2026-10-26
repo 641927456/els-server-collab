@@ -8,6 +8,9 @@ def run(command):subprocess.run(command,cwd=ROOT,check=True)
 def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+
+    if (ROOT/'references/background-native-gear-20261026-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_background_native_gear_archive.py')])
     if (ROOT/'references/accepted-runtime-20261026-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_accepted_runtime_sources_20261026.py')])
     if (ROOT/'references/pr494-reviewed-runtime-delta-20261026-v1/manifest.json').is_file():
