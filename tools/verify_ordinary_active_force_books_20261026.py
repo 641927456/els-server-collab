@@ -24,13 +24,20 @@ def verify():
  assert m['qualification']['owned_rank']==5 and m['qualification']['normal_hotbar_level']==1
  assert m['local_rule']['chance_percent']==10 and m['local_rule']['existing_probability_unchanged']
  assert {r['path']:r['sha256']for r in m['source_delta']}==EXPECTED
+ assert m['formal_parent_bound']is True and m['production_delivery_claimed']is False
+ for channel,count in(('online',8),('local',14)):
+  assert m['actual_delta'][channel]['files']==count
+  assert {r['path']for r in m['source_delta']if r['sha256']!=r['parent_sha256_by_channel'][channel]}==set(m['actual_delta'][channel]['paths'])
+  assert len(m['actual_parents'][channel]['pointer_sha256'])==len(m['actual_parents'][channel]['manifest_sha256'])==64
+  assert len(m['Board25_preservation'][channel])==25 and all(r['exact_latest_bytes']for r in m['Board25_preservation'][channel])
+ assert m['local_state_three_way']['online']['decision']=='preserve-latest'and m['local_state_three_way']['local']['decision']=='copy-target'
  seen=set()
  for row in m['source_delta']:
   rel=PurePosixPath(row['path']);loc=PurePosixPath(row['archive'])
   assert not rel.is_absolute()and '..'not in rel.parts and ':'not in str(rel)and '\\'not in str(rel)
   assert str(loc)=='shared/'+str(rel)
   p=ARCHIVE/loc;assert p.resolve().is_relative_to(ARCHIVE.resolve())and not p.is_symlink()
-  raw=p.read_bytes();assert digest(raw)==row['sha256']and len(raw)==row['size']and len(row['parent_sha256'])==64
+  raw=p.read_bytes();assert digest(raw)==row['sha256']and len(raw)==row['size']and set(row['parent_sha256_by_channel'])=={'online','local'}and all(len(v)==64 for v in row['parent_sha256_by_channel'].values())
   text=raw.decode('utf8');assert not re.search(r'(?i)[a-z]:[\\/]|/(?:home|Users)/',text)
   if rel.suffix=='.py':compile(raw,str(loc),'exec')
   else:json.loads(raw)
