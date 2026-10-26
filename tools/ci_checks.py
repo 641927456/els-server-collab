@@ -27,6 +27,8 @@ def main(argv=None):
         run([sys.executable,'-B','-m','unittest','tests.test_trade_board_reference'])
     if (ROOT/'references/early-role-eight-weapons-20261026-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_early_role_weapons_20261026.py')])
+    if (ROOT/'references/ordinary-active-force-books-20261026-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_ordinary_active_force_books_20261026.py')])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
     count=0
     for name in filter(None,names):

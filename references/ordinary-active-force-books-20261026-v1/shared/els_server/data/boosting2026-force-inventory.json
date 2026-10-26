@@ -1,0 +1,316 @@
+{
+  "schema": 1,
+  "original_source": {
+    "path": "analysis/local-activities-20261017-v67/research/force-registration-v1/registration-hit/ElPageTable.lua",
+    "sha256": "eaf3c513ffa58802a30309138c6f075e96d5b6f17945ff48c0eb250b9ed7e528",
+    "archive_sha256": "56bb739e04e856e2ebf4c93c0df0cca7c181914e65d7cf4d140e167f593c6601",
+    "table_sha256": "c6bc76e3a9613752f007b25b068ed34913e83c2d9981f9fc8b6395390f6ee9ac",
+    "symbolic_calls": 658,
+    "core_skill_rows": 630
+  },
+  "native_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "reward_books": [
+    {
+      "item": 295707,
+      "skill": 900401,
+      "required_stage": 3,
+      "source_pc": 557,
+      "source_list_index": 3,
+      "native_rank": 3,
+      "native_grade": 3,
+      "template_record_sha256": "c32f9e24ae85ef5ad6803916e085afb21290782733e532599414213b88fd4e55"
+    },
+    {
+      "item": 295712,
+      "skill": 900402,
+      "required_stage": 3,
+      "source_pc": 567,
+      "source_list_index": 3,
+      "native_rank": 3,
+      "native_grade": 3,
+      "template_record_sha256": "39a7d28e6c1341f110cf3cba34bf956b7ce94fe26ca368de7385a5713f87b51d"
+    },
+    {
+      "item": 295714,
+      "skill": 900402,
+      "required_stage": 3,
+      "source_pc": 567,
+      "source_list_index": 5,
+      "native_rank": 5,
+      "native_grade": 1,
+      "template_record_sha256": "d40e259905b8ce80412dfa557097e1d0ef5dcc176962445fdc49e34fab570840"
+    },
+    {
+      "item": 306002,
+      "skill": 900406,
+      "required_stage": 3,
+      "source_pc": 607,
+      "source_list_index": 3,
+      "native_rank": 3,
+      "native_grade": 3,
+      "template_record_sha256": "8db8e60395b94453eb0e07412678873abb12139593d043b27948f1fe3bcc0648"
+    },
+    {
+      "item": 306004,
+      "skill": 900406,
+      "required_stage": 3,
+      "source_pc": 607,
+      "source_list_index": 5,
+      "native_rank": 5,
+      "native_grade": 1,
+      "template_record_sha256": "e1eb4f3f71198c4f194bd0902156bebbde70ebd72b80301c3813caf52ad5df33"
+    },
+    {
+      "item": 295729,
+      "skill": 900214,
+      "required_stage": 3,
+      "source_pc": 148,
+      "source_list_index": 1,
+      "native_rank": 5,
+      "native_grade": 1,
+      "template_record_sha256": "070d7a4d398822656bb51ce5c2d29cdf705b1e74ec749e95114f773aadcf7354",
+      "active": true,
+      "permanent_only": true
+    },
+    {
+      "item": 295739,
+      "skill": 900234,
+      "required_stage": 3,
+      "source_pc": 222,
+      "source_list_index": 1,
+      "native_rank": 5,
+      "native_grade": 1,
+      "template_record_sha256": "de6b5a536966ec6f7d32158ffc6d0b62ba13d6bf2f9968c9b8a2e1733da766a4",
+      "active": true,
+      "permanent_only": true
+    },
+    {
+      "item": 295744,
+      "skill": 900244,
+      "required_stage": 3,
+      "source_pc": 259,
+      "source_list_index": 1,
+      "native_rank": 5,
+      "native_grade": 1,
+      "template_record_sha256": "13a3128eb380390231893f479d1f621699b97ce277f41f28a451918e920fc3f0",
+      "active": true,
+      "permanent_only": true
+    }
+  ],
+  "related_native_skill_rows": [
+    {
+      "function": "g_pSkillTree.AddCoreSkillInfo",
+      "arguments": [
+        {
+          "global": "g_pSkillTree"
+        },
+        {
+          "m_iSkillID": 900401,
+          "m_eUnitClassType": 3,
+          "m_iItemIDList": {
+            "0": null,
+            "1": 295705,
+            "2": 295706,
+            "3": 295707,
+            "4": 295708,
+            "5": 295709
+          }
+        }
+      ],
+      "pc": 557
+    },
+    {
+      "function": "g_pSkillTree.AddCoreSkillInfo",
+      "arguments": [
+        {
+          "global": "g_pSkillTree"
+        },
+        {
+          "m_iSkillID": 900402,
+          "m_eUnitClassType": 3,
+          "m_iItemIDList": {
+            "0": null,
+            "1": 295710,
+            "2": 295711,
+            "3": 295712,
+            "4": 295713,
+            "5": 295714
+          }
+        }
+      ],
+      "pc": 567
+    },
+    {
+      "function": "g_pSkillTree.AddCoreSkillInfo",
+      "arguments": [
+        {
+          "global": "g_pSkillTree"
+        },
+        {
+          "m_iSkillID": 900406,
+          "m_eUnitClassType": 3,
+          "m_iItemIDList": {
+            "0": null,
+            "1": 306000,
+            "2": 306001,
+            "3": 306002,
+            "4": 306003,
+            "5": 306004
+          }
+        }
+      ],
+      "pc": 607
+    },
+    {
+      "function": "g_pSkillTree.AddCoreSkillInfo",
+      "arguments": [
+        {
+          "global": "g_pSkillTree"
+        },
+        {
+          "m_iSkillID": 900214,
+          "m_eUnitClassType": 3,
+          "m_iItemIDList": {
+            "0": null,
+            "1": 295729
+          }
+        }
+      ],
+      "pc": 148
+    },
+    {
+      "function": "g_pSkillTree.AddCoreSkillInfo",
+      "arguments": [
+        {
+          "global": "g_pSkillTree"
+        },
+        {
+          "m_iSkillID": 900234,
+          "m_eUnitClassType": 3,
+          "m_iItemIDList": {
+            "0": null,
+            "1": 295739
+          }
+        }
+      ],
+      "pc": 222
+    },
+    {
+      "function": "g_pSkillTree.AddCoreSkillInfo",
+      "arguments": [
+        {
+          "global": "g_pSkillTree"
+        },
+        {
+          "m_iSkillID": 900244,
+          "m_eUnitClassType": 3,
+          "m_iItemIDList": {
+            "0": null,
+            "1": 295744
+          }
+        }
+      ],
+      "pc": 259
+    }
+  ],
+  "related_native_groups": [
+    {
+      "function": "g_pSkillTree.AddCoreSkillGroupInfo",
+      "arguments": [
+        {
+          "global": "g_pSkillTree"
+        },
+        {
+          "m_iBaseSkillID": 900401,
+          "m_iSkillIDList": {
+            "0": null,
+            "1": 900401,
+            "2": 900412
+          }
+        }
+      ],
+      "pc": 60
+    },
+    {
+      "function": "g_pSkillTree.AddCoreSkillGroupInfo",
+      "arguments": [
+        {
+          "global": "g_pSkillTree"
+        },
+        {
+          "m_iBaseSkillID": 900402,
+          "m_iSkillIDList": {
+            "0": null,
+            "1": 900402,
+            "2": 900413
+          }
+        }
+      ],
+      "pc": 67
+    },
+    {
+      "function": "g_pSkillTree.AddCoreSkillGroupInfo",
+      "arguments": [
+        {
+          "global": "g_pSkillTree"
+        },
+        {
+          "m_iBaseSkillID": 900406,
+          "m_iSkillIDList": {
+            "0": null,
+            "1": 900406,
+            "2": 900414
+          }
+        }
+      ],
+      "pc": 74
+    }
+  ],
+  "exclusion_group_use_or_replace_policy_enabled": false,
+  "learning_enabled": false,
+  "equipment_enabled": false,
+  "rank_source": "Native 9CE5A0 ->19916C0 fixed KIM grade conversion; independently agrees with original source list index, not inferred from index",
+  "boundary": "Exactly five chosen event reward books; other ten neighboring grade books are source/native evidence only, never new event rewards",
+  "upgrade_books": [
+    {
+      "item": 295708,
+      "skill": 900401,
+      "required_stage": 3,
+      "source_pc": 557,
+      "source_list_index": 4,
+      "native_rank": 4,
+      "native_grade": 2,
+      "template_record_sha256": "b7d63a933678db63ecb305b75ccff6d40c13b0a3673de363a6461f348644fea1"
+    },
+    {
+      "item": 295713,
+      "skill": 900402,
+      "required_stage": 3,
+      "source_pc": 567,
+      "source_list_index": 4,
+      "native_rank": 4,
+      "native_grade": 2,
+      "template_record_sha256": "d0758d81e152a7ed52c224c16d8cd722ec8a3232069224223d4b576dc0b0d328"
+    },
+    {
+      "item": 306003,
+      "skill": 900406,
+      "required_stage": 3,
+      "source_pc": 607,
+      "source_list_index": 4,
+      "native_rank": 4,
+      "native_grade": 2,
+      "template_record_sha256": "baf0c2a1ccedfce33f156568cd8868572e7d76e989ca8ddad061b6f987e2a666"
+    },
+    {
+      "item": 295709,
+      "skill": 900401,
+      "required_stage": 3,
+      "source_pc": 557,
+      "source_list_index": 5,
+      "native_rank": 5,
+      "native_grade": 1,
+      "template_record_sha256": "02045ad98f4af4c636051964bd87acfb46b04d258f9c67d4d44234cce854227d"
+    }
+  ]
+}
