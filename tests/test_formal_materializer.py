@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from tools.materialize_formal_runtime import materialize, plan
+from tools.materialize_formal_runtime import materialize, plan, load_manifest
 
 
 class MaterializerTests(unittest.TestCase):
@@ -47,6 +47,18 @@ class MaterializerTests(unittest.TestCase):
         self.manifest['channels']['local']['files'].append(dict(self.entry, path='ELS_SERVER/source.py'))
         with self.assertRaises(ValueError):
             plan(self.repo, self.manifest, 'local')
+
+    def test_current_selection_preserves_files_and_binds_accepted_release(self):
+        (self.repo / 'profile.json').write_text(json.dumps(self.manifest), encoding='utf8')
+        pointer = self.repo / 'current.json'
+        pointer.write_text(json.dumps({'profile': 'profile.json', 'accepted': {'local': {
+            'release': 'accepted-fixture', 'formal_manifest_sha256': 'a' * 64}}}), encoding='utf8')
+        selected = load_manifest(pointer, self.repo)
+        self.assertEqual(selected['channels']['local']['release'], 'accepted-fixture')
+        self.assertEqual(selected['channels']['local']['files'], [self.entry])
+        pointer.write_text(json.dumps({'profile': '../outside.json', 'accepted': {}}), encoding='utf8')
+        with self.assertRaises(ValueError):
+            load_manifest(pointer, self.repo)
 
     def test_assets_require_existing_lock_and_exact_bytes(self):
         candidate = deepcopy(self.manifest)

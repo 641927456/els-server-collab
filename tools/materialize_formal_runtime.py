@@ -8,7 +8,8 @@ import shutil
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT = ROOT / 'channels/formal-clock-20261027-v1.json'
+DEFAULT = ROOT / ('channels/current-engine.json' if (ROOT / 'channels/current-engine.json').is_file()
+                  else 'channels/formal-clock-20261027-v1.json')
 
 
 def relative(value):
@@ -29,6 +30,24 @@ def bound(root, value):
     if not result.is_relative_to(root.resolve()):
         raise ValueError('Source escapes its root')
     return result
+
+
+def load_manifest(path, repo=ROOT):
+    manifest = json.loads(Path(path).read_bytes())
+    if 'profile' not in manifest:
+        return manifest
+    pointer = manifest
+    manifest = json.loads(bound(repo, pointer['profile']).read_bytes())
+    if 'profile' in manifest or set(pointer['accepted']) != set(manifest['channels']):
+        raise ValueError('Invalid current-engine selection')
+    for channel, accepted in pointer['accepted'].items():
+        if set(accepted) != {'release', 'formal_manifest_sha256'}:
+            raise ValueError('Invalid acceptance metadata')
+        digest = accepted['formal_manifest_sha256']
+        if len(digest) != 64 or any(c not in '0123456789abcdef' for c in digest):
+            raise ValueError('Invalid accepted manifest hash')
+        manifest['channels'][channel].update(accepted)
+    return manifest
 
 
 def verify(path, entry):
@@ -114,7 +133,7 @@ def main():
     parser.add_argument('--link-assets', action='store_true', help='Same-volume disposable QA view; do not edit linked resources')
     parser.add_argument('--verify-only', action='store_true')
     args = parser.parse_args()
-    manifest = json.loads(args.manifest.read_bytes())
+    manifest = load_manifest(args.manifest)
     if args.verify_only:
         rows = plan(ROOT, manifest, args.channel, args.assets_root)
         print(json.dumps({'ok': True, 'verified_sources': sum(s is not None for _, s in rows),
