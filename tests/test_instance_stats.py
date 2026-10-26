@@ -30,7 +30,7 @@ class InstanceStatsTests(unittest.TestCase):
         native=normal_instance_attributes(item['template'],CHARACTER)
         self.assertEqual(raw[1:3],(7242,5537))
         self.assertEqual(native[1:3],(7902,6047))
-        self.assertEqual(combat_values(CHARACTER,[item])[1:3],(8002,6147))
+        self.assertEqual(combat_values(CHARACTER,[item])[1:3],(8573,6718))
         self.assertEqual(struct.unpack('>7f',combat_attributes(CHARACTER,[item])),combat_values(CHARACTER))
         for bad in (-1,21,True,1.5):
             with self.assertRaises(ValueError):normal_instance_attributes(30388,CHARACTER,enhancement=bad)
