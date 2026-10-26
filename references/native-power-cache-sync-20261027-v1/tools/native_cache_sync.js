@@ -4,7 +4,7 @@ function installElsNativeCacheSync() {
  const module=Process.getModuleByName('x2_dx11.exe'),pins=__CACHE_SYNC_PINS__;
  const bytes=p=>Array.from(new Uint8Array(p.readByteArray(8)),x=>x.toString(16).padStart(2,'0')).join('');
  for(const [r,h]of Object.entries(pins))if(bytes(module.base.add(+r))!==h)throw Error('Native power sync identity '+r);
- const call=(r,t,a)=>new NativeFunction(module.base.add(r),t,a,{exceptions:'steal'});
+ const call=(r,t,a)=>new NativeFunction(module.base.add(r),t,a,{exceptions:'propagate'});
  const build=call(0x896870,'void',['pointer','uint32','uint8','pointer','pointer','pointer','pointer','uint8','int','pointer']);
  const store=call(0x8a1400,'void',['pointer','float']);
  const myActor=call(0x8571d0,'pointer',['pointer']);
