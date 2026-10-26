@@ -29,3 +29,5 @@ Use`--channel local`for a local13-leaf package. For a full parent audit add`--pa
 源码按13叶稀疏运行增量归档于references/qualified-force-next8-20261026-v1的shared及对应模式目录，逐文件字节与manifest精确对应。它的实际运行父是已双端交付的三普通主动原力版本，依赖PR534及其前期武器PR532；不能把这13叶直接覆盖尚未安装该父版的仓库根runtime。此PR保留根runtime和其他会话源码，最终publisher从实际正式父合成完整包并独立验证。归档不包含无变化formal资源定位锚、客户端原始资源或私人运行证据。
 
 其中11叶为shared，acquisition_policy.py和inventory_items.py按online/local分别归档，保留单机GM分支；不能以线上文件替代单机两叶。每个模式实际差异均为13叶，物理归档共15份运行源码。
+
+最新父进一步接续角色列表／创建基础值修正current-role-roster-base-inputs-20261026-v1，两端仅新增保留local_messages.py的一叶变化，和本批13叶无交集。目标13叶源码字节全未变；新父manifest和该保留叶SHA已重新绑定，旧三书父元数据仅保留为历史来源。

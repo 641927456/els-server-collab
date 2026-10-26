@@ -1,7 +1,7 @@
 """Portable source/package validator. No server/client imports or mutations."""
 import argparse,hashlib,json,re
 from pathlib import Path
-MANIFEST_SHA='71ba3be467dbfc79557a5e2b9633fc26628eaf7e2fee256f371c61d3071a28af'
+MANIFEST_SHA='4a69e062b54ecbdb35a4544f7c45e19db066f3805307d8f0a2f7bb10aa35aa4f'
 ROOT=Path(__file__).resolve().parents[1]
 ARCHIVE=ROOT/'references/qualified-force-next8-20261026-v1'
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -33,7 +33,7 @@ def main():
  parent_files=0
  if a.parent:
   for r in rows:assert digest(a.parent/r['path'])==r['parent_sha256'],('parent leaf',r['path'])
-  for r in c['preserved_character3']+c['preserved_Board25']:assert digest(a.parent/r['path'])==r['sha256'],('preserved parent',r['path'])
+  for r in c['preserved_character3']+c['preserved_Board25']+[c['preserved_roster1']]:assert digest(a.parent/r['path'])==r['sha256'],('preserved parent',r['path'])
   assert digest(a.parent/'els_server/storage/boosting_2026_force_extraction.py')==c['legacy6CE_sha256']
   mf=a.parent/c['parent_manifest_name'];assert digest(mf)==c['parent_manifest_sha256']
   if a.full_parent:

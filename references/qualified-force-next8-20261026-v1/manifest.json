@@ -4,9 +4,9 @@
   "status": "source-review-material-not-publication",
   "channels": {
     "online": {
-      "parent_release": "native-three-force-ordinary-route-20261026-v2",
+      "parent_release": "current-role-roster-base-inputs-20261026-v1",
       "parent_manifest_name": "rollup-manifest.json",
-      "parent_manifest_sha256": "8286231be2011fa8a49564bb47dcbc9a501bbc57997b79f4d75a46f353fcd41e",
+      "parent_manifest_sha256": "e46acfc4334b57e79e6e8cf40aaa04f9b9d669dbbe091804660b14615d5545b4",
       "parent_business_files": 1229,
       "runtime_leaves": [
         {
@@ -321,12 +321,20 @@
         "name": "runtime-online-13-leaves.zip",
         "sha256": "b4824bbfa97abff5d3ac4255359a0f5d692df9772918c5540eeb973901d20cf3",
         "members": 13
+      },
+      "origin_three_parent": {
+        "parent_release": "native-three-force-ordinary-route-20261026-v2",
+        "parent_manifest_sha256": "8286231be2011fa8a49564bb47dcbc9a501bbc57997b79f4d75a46f353fcd41e"
+      },
+      "preserved_roster1": {
+        "path": "els_server/protocol/local_messages.py",
+        "sha256": "ff9b2f95d3e2ed2db2a871680d3fe00731a07f821b28be25ba5e7bcc102b7d87"
       }
     },
     "local": {
-      "parent_release": "local-native-three-force-ordinary-route-20261026-v2",
+      "parent_release": "local-current-role-roster-base-inputs-20261026-v1",
       "parent_manifest_name": "local-business-manifest.json",
-      "parent_manifest_sha256": "fa5ddb0558252a98b664edda2d245cc79171a4d896e30b9173b3f09469edfb1b",
+      "parent_manifest_sha256": "1f66be4f44eec9afb582a21e0d87396bce41a7b1e2dcfe35fc82abd5b7f057f5",
       "parent_business_files": 1251,
       "runtime_leaves": [
         {
@@ -641,6 +649,14 @@
         "name": "runtime-local-13-leaves.zip",
         "sha256": "a5a475d203662a9c469f2561b288fb402543ea365b73419680f9f41937be6a1e",
         "members": 13
+      },
+      "origin_three_parent": {
+        "parent_release": "local-native-three-force-ordinary-route-20261026-v2",
+        "parent_manifest_sha256": "fa5ddb0558252a98b664edda2d245cc79171a4d896e30b9173b3f09469edfb1b"
+      },
+      "preserved_roster1": {
+        "path": "els_server/protocol/local_messages.py",
+        "sha256": "ff9b2f95d3e2ed2db2a871680d3fe00731a07f821b28be25ba5e7bcc102b7d87"
       }
     }
   },
@@ -698,5 +714,6 @@
     135911
   ],
   "no_full_Lua_MP_target_damage_or_natural_combat_claim": true,
-  "no_install_DDL_or_client_change": true
+  "no_install_DDL_or_client_change": true,
+  "roster_parent_after_three_ordinary": true
 }
