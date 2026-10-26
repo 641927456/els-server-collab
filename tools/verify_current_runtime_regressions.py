@@ -27,6 +27,8 @@ def main():
     tests=('test_server_latency_guards.py','test_native_auxiliary_latency.py','test_request_read_scope.py',
            'test_current_native_title_inputs.py','test_retained_native_hp.py','test_native_hero_inputs.py',
            'test_noncharacter_hp_capture.py','test_current_latency_tls.py','test_friends_server.py')
+    if final['name']=='server-risk-current-local-roles-20261027-v3':
+        tests=tests[:-1]+('test_local_auxiliary_roles.py',tests[-1])
     for channel in ('online','local'):
         old={e['path']:e for e in base['channels'][channel]['files']}
         new={e['path']:e for e in final['channels'][channel]['files']}
