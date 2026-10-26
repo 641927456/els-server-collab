@@ -132,6 +132,10 @@ def character_unit(location=None,initialize_attributes=False,slots=None,economy=
                           '0x51d':artifact_wire(character),
                           '0x1b':wstring(character['name']),
                           '0x65':bytes([character['level']])})
+        from els_server.domain.titles import eligible as title_eligible
+        title=character.get('title',0)
+        if type(title) is not int or title<0 or title and not title_eligible(character,title):raise ValueError('Native current title input')
+        overrides['0x307']=i32(title)
         from els_server.protocol.dungeon_record_messages import completed_map
         overrides['0x10e']=completed_map(character.get('cleared_dungeons',()))
         overrides['0x448']=bytes([bool(character.get('pending_delete',False))])

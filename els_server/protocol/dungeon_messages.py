@@ -46,6 +46,10 @@ def member(slots,character=None,items=None,*,account_id=None,peer_port=None,capt
         from els_server.domain.character_rules import transcendental_stage
         from els_server.game_data import client_data
         unit=client_data().unit(character['unit_class'])
+        from els_server.domain.titles import eligible as title_eligible
+        title=character.get('title',0)
+        if type(title) is not int or title<0 or title and not title_eligible(character,title):raise ValueError('Native current title input')
+        overrides['0x3ef']=i32(title)
         # Real persisted characters carry unit_type. The lookup fallback only
         # preserves older callers that supplied a class-only fixture.
         unit_type=character.get('unit_type',unit['unitType'])
