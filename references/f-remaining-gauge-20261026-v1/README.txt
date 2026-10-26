@@ -1,0 +1,2 @@
+Issue524 increment over nine-exchange PR523: source688 and owned30880 consumer, original219/21A/C05/C06 and generation. Explicit dependency on PR523; its reviewed source stays unchanged.
+These exact per-channel snapshots are review inputs, not the final deployment tree. Apply patch-contract.json over the actual formal parent and preserve all intervening repairs. No database, credentials, raw capture, runtime image or private configuration is included.

@@ -1,0 +1,252 @@
+{
+  "schema": 1,
+  "issue": 524,
+  "component": "gauge",
+  "review_snapshots_only": true,
+  "actual_parent_reconciliation_required": true,
+  "private_data_included": false,
+  "channels": {
+    "online": {
+      "reference_parent": "private-qualified-nine-exchanges-plus-role-cartridge",
+      "reference_parent_sha256": "196f9026670be78eb51137b2cf2b981e6af6674a4a87e5a464b7c5e35f85f612",
+      "reference_parent_kind": "qualified_private_composition_dependency_PR523",
+      "files": [
+        {
+          "path": "els_server/data/feta_exchange.json",
+          "archive": "online/els_server/data/feta_exchange.json",
+          "sha256": "748b9bd9ba059cee601175732826ce041852d50e6f0574e319cd7bd62ff9ba8d",
+          "bytes": 4554,
+          "parent_sha256": "dfd2f67d99b5a475d155c6e99f765499879188b914f17cab88eef9a051dba361"
+        },
+        {
+          "path": "els_server/data/feta_gauge.json",
+          "archive": "online/els_server/data/feta_gauge.json",
+          "sha256": "1a835a787da47d5aaf39bf8a404df322ba44069b1681a1305c0494f1e38ca473",
+          "bytes": 727,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive": "online/els_server/domain/acquisition_policy.py",
+          "sha256": "b746790a74b9cc9b668e61e05c119cb7e8d899f1c7957c753ed9244f79dc6602",
+          "bytes": 9801,
+          "parent_sha256": "eb2ebefe4cb10841dcbe63b2958dabfb6792e8d68115ecda3542280df63a85f8"
+        },
+        {
+          "path": "els_server/domain/feta_exchange_rules.py",
+          "archive": "online/els_server/domain/feta_exchange_rules.py",
+          "sha256": "edc008d3422e8339648d3c328825a00d8554f0b5ac19e981591c27623d1f3974",
+          "bytes": 4713,
+          "parent_sha256": "0df904b35b30541175bb9e0cbc4f330af4da119d948e39ebbbf150833ea5267d"
+        },
+        {
+          "path": "els_server/domain/feta_gauge_flow.py",
+          "archive": "online/els_server/domain/feta_gauge_flow.py",
+          "sha256": "5c870762fe8e0fd93fbd77229ccf489eddbf44057580ccc30a6c7a02c3e3ee0b",
+          "bytes": 859,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/feta_gauge_rules.py",
+          "archive": "online/els_server/domain/feta_gauge_rules.py",
+          "sha256": "f7c0af0fa99ee7dc0de55f9765d5a2669f09fc9dece921d375c883f2b81e0b94",
+          "bytes": 3808,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "archive": "online/els_server/domain/inventory_items.py",
+          "sha256": "d99008bc1725883a1c82b977a5f766ebcaa4770cce871743d72fe02b6422e3fa",
+          "bytes": 70024,
+          "parent_sha256": "23e8e9c08185abb66f8283ea94cef3feea1c9c12b517e8f861c48641e8c9314e"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive": "online/els_server/domain/local_session.py",
+          "sha256": "d9409bce2da0f36afb74d4bcb4b607a7c6aeda1ff465623f35a90f876a673d99",
+          "bytes": 163545,
+          "parent_sha256": "367c126dd6f046a4fc26105b22e4a48f1a0401e8841ae67c0d14068d3f115942"
+        },
+        {
+          "path": "els_server/protocol/feta_exchange_messages.py",
+          "archive": "online/els_server/protocol/feta_exchange_messages.py",
+          "sha256": "5a59b8d6aafac561fee08244d78edcc6599bf1a0fddbfc5f942434337714e5be",
+          "bytes": 1531,
+          "parent_sha256": "d1a69913651d6946c362bf2dafb27c14b69d0db98e7b0f6c32a7642cd8cff3ec"
+        },
+        {
+          "path": "els_server/protocol/feta_limit_messages.py",
+          "archive": "online/els_server/protocol/feta_limit_messages.py",
+          "sha256": "527016b6c96c805f3ee8ea06983b1457faabe56508aef4361308bbb7d6a1bcc5",
+          "bytes": 921,
+          "parent_sha256": "cd8d7c2169c92d7531a401101e93ab0ed0bf050e895a5b3a79d5e7149b62576f"
+        },
+        {
+          "path": "els_server/storage/feta_exchange.py",
+          "archive": "online/els_server/storage/feta_exchange.py",
+          "sha256": "e1aff4651d448403b04a82e426870ae01e03e9d1e44bc8fea70c953d557edd83",
+          "bytes": 8534,
+          "parent_sha256": "87695ce33958b0599b61363f32d90b4622ae573a0e838862cba6c641f21ce71c"
+        },
+        {
+          "path": "els_server/storage/feta_exchange_source.py",
+          "archive": "online/els_server/storage/feta_exchange_source.py",
+          "sha256": "715fe8742444926b6eef78a91fc3bbbafb0aef93934deba4d811d8b91b738fde",
+          "bytes": 4297,
+          "parent_sha256": "665284eccb27d45a0908d183ed41b9569b602cc72aae9a45608f9a83d77100fe"
+        },
+        {
+          "path": "els_server/storage/feta_exchange_weekly.py",
+          "archive": "online/els_server/storage/feta_exchange_weekly.py",
+          "sha256": "6cb30a27a925af49a68a6adde08489c6500a030eeaf1cfcd4fe72967e871db87",
+          "bytes": 3188,
+          "parent_sha256": "02aca5026b64fe05dc588fef0fa3cafae993d70e494019028ee4c2c00dce7a18"
+        },
+        {
+          "path": "els_server/storage/feta_gauge.py",
+          "archive": "online/els_server/storage/feta_gauge.py",
+          "sha256": "be883af953fb886e949e3aacd15b27c184d7fc7211d0468fc34df5716c945ab6",
+          "bytes": 7436,
+          "parent_sha256": null
+        }
+      ]
+    },
+    "local": {
+      "reference_parent": "private-qualified-nine-exchanges-plus-role-cartridge",
+      "reference_parent_sha256": "196f9026670be78eb51137b2cf2b981e6af6674a4a87e5a464b7c5e35f85f612",
+      "reference_parent_kind": "qualified_private_composition_dependency_PR523",
+      "files": [
+        {
+          "path": "els_server/data/feta_exchange.json",
+          "archive": "local/els_server/data/feta_exchange.json",
+          "sha256": "748b9bd9ba059cee601175732826ce041852d50e6f0574e319cd7bd62ff9ba8d",
+          "bytes": 4554,
+          "parent_sha256": "dfd2f67d99b5a475d155c6e99f765499879188b914f17cab88eef9a051dba361"
+        },
+        {
+          "path": "els_server/data/feta_gauge.json",
+          "archive": "local/els_server/data/feta_gauge.json",
+          "sha256": "1a835a787da47d5aaf39bf8a404df322ba44069b1681a1305c0494f1e38ca473",
+          "bytes": 727,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive": "local/els_server/domain/acquisition_policy.py",
+          "sha256": "e52ee5a4686610bb159baafa7b8a4db4863644f645dddb53b9cd0c76f4ed5d38",
+          "bytes": 9641,
+          "parent_sha256": "98d4138c6fd5b4eb17496990492c5442bfd4141d4b50c5eff2040ae762665cff"
+        },
+        {
+          "path": "els_server/domain/feta_exchange_rules.py",
+          "archive": "local/els_server/domain/feta_exchange_rules.py",
+          "sha256": "edc008d3422e8339648d3c328825a00d8554f0b5ac19e981591c27623d1f3974",
+          "bytes": 4713,
+          "parent_sha256": "0df904b35b30541175bb9e0cbc4f330af4da119d948e39ebbbf150833ea5267d"
+        },
+        {
+          "path": "els_server/domain/feta_gauge_flow.py",
+          "archive": "local/els_server/domain/feta_gauge_flow.py",
+          "sha256": "5c870762fe8e0fd93fbd77229ccf489eddbf44057580ccc30a6c7a02c3e3ee0b",
+          "bytes": 859,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/feta_gauge_rules.py",
+          "archive": "local/els_server/domain/feta_gauge_rules.py",
+          "sha256": "f7c0af0fa99ee7dc0de55f9765d5a2669f09fc9dece921d375c883f2b81e0b94",
+          "bytes": 3808,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "archive": "local/els_server/domain/inventory_items.py",
+          "sha256": "c726cd53225f5dc70067cba9133557cc8434c685cfba380b3579fb2db9801628",
+          "bytes": 69867,
+          "parent_sha256": "95675957d2de73b44f8af4ba2832d14eaadac9961b9d8d8dfd02498f765b8d8d"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive": "local/els_server/domain/local_session.py",
+          "sha256": "d55db0a1d6614bbd0410ef81c79827d05e861330e175d75b788a99aa8ffa44b4",
+          "bytes": 161047,
+          "parent_sha256": "48294c5b72a86a2a60118f05b670cda6a1076c80bc20a3527ef41c685f9b070e"
+        },
+        {
+          "path": "els_server/protocol/feta_exchange_messages.py",
+          "archive": "local/els_server/protocol/feta_exchange_messages.py",
+          "sha256": "5a59b8d6aafac561fee08244d78edcc6599bf1a0fddbfc5f942434337714e5be",
+          "bytes": 1531,
+          "parent_sha256": "d1a69913651d6946c362bf2dafb27c14b69d0db98e7b0f6c32a7642cd8cff3ec"
+        },
+        {
+          "path": "els_server/protocol/feta_limit_messages.py",
+          "archive": "local/els_server/protocol/feta_limit_messages.py",
+          "sha256": "527016b6c96c805f3ee8ea06983b1457faabe56508aef4361308bbb7d6a1bcc5",
+          "bytes": 921,
+          "parent_sha256": "cd8d7c2169c92d7531a401101e93ab0ed0bf050e895a5b3a79d5e7149b62576f"
+        },
+        {
+          "path": "els_server/storage/feta_exchange.py",
+          "archive": "local/els_server/storage/feta_exchange.py",
+          "sha256": "e1aff4651d448403b04a82e426870ae01e03e9d1e44bc8fea70c953d557edd83",
+          "bytes": 8534,
+          "parent_sha256": "87695ce33958b0599b61363f32d90b4622ae573a0e838862cba6c641f21ce71c"
+        },
+        {
+          "path": "els_server/storage/feta_exchange_source.py",
+          "archive": "local/els_server/storage/feta_exchange_source.py",
+          "sha256": "715fe8742444926b6eef78a91fc3bbbafb0aef93934deba4d811d8b91b738fde",
+          "bytes": 4297,
+          "parent_sha256": "665284eccb27d45a0908d183ed41b9569b602cc72aae9a45608f9a83d77100fe"
+        },
+        {
+          "path": "els_server/storage/feta_exchange_weekly.py",
+          "archive": "local/els_server/storage/feta_exchange_weekly.py",
+          "sha256": "6cb30a27a925af49a68a6adde08489c6500a030eeaf1cfcd4fe72967e871db87",
+          "bytes": 3188,
+          "parent_sha256": "02aca5026b64fe05dc588fef0fa3cafae993d70e494019028ee4c2c00dce7a18"
+        },
+        {
+          "path": "els_server/storage/feta_gauge.py",
+          "archive": "local/els_server/storage/feta_gauge.py",
+          "sha256": "be883af953fb886e949e3aacd15b27c184d7fc7211d0468fc34df5716c945ab6",
+          "bytes": 7436,
+          "parent_sha256": null
+        }
+      ]
+    }
+  },
+  "source_paths": [
+    "els_server/data/feta_exchange.json",
+    "els_server/data/feta_gauge.json",
+    "els_server/domain/acquisition_policy.py",
+    "els_server/domain/feta_exchange_rules.py",
+    "els_server/domain/feta_gauge_flow.py",
+    "els_server/domain/feta_gauge_rules.py",
+    "els_server/domain/inventory_items.py",
+    "els_server/domain/local_session.py",
+    "els_server/protocol/feta_exchange_messages.py",
+    "els_server/protocol/feta_limit_messages.py",
+    "els_server/storage/feta_exchange.py",
+    "els_server/storage/feta_exchange_source.py",
+    "els_server/storage/feta_exchange_weekly.py",
+    "els_server/storage/feta_gauge.py"
+  ],
+  "delta_each": 14,
+  "new_each": 4,
+  "auxiliary_files": [
+    {
+      "path": "patch-contract.json",
+      "sha256": "b59ca5f73173a195998abf2e0e1c7feaab152e6090d5e3ca4a4565ba5db5edd2"
+    },
+    {
+      "path": "qualified-summary.json",
+      "sha256": "f4877a7a812b9fda932692dff99b173dc05f0b28c087328cbb54bdf8252a200f"
+    },
+    {
+      "path": "README.txt",
+      "sha256": "9e5a40f9ef480b69bf187ea4aaa369198d56d597aaf014515bb6c8064731f663"
+    }
+  ]
+}
