@@ -46,3 +46,4 @@ jobs:
       - run: python -B tools/verify_server_architecture.py --with-runtime
       - run: python -B tools/verify_character_slow_paths.py --with-runtime
       - run: python -B tools/verify_selection_business.py --with-runtime
+      - run: python -B tools/verify_quest_business.py --with-runtime
