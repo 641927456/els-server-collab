@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "issue": 519,
+  "component": "cartridge",
+  "runtime_overlay_not_main": true,
+  "reference_snapshots_not_final_deployment_parent": true,
+  "actual_parent_reconciliation_required": true,
+  "private_data_included": false,
+  "client_delta": 0,
+  "install_DDL_statements": 0,
+  "new_lazy_tables": 0,
+  "source_paths": [
+    "els_server/storage/account_cartridge_registration.py",
+    "els_server/storage/bank_state.py",
+    "els_server/storage/cartridge_transitions.py",
+    "els_server/storage/item_seals.py"
+  ],
+  "channels": {
+    "online": {
+      "reference_parent_release": "native-owned-potion-choice-seraph-20261026-v1",
+      "reference_parent_manifest_sha256": "6b1e06454771aa8aa152b9ab163af1007901f46bf71b3c35dab7edca90a384cf",
+      "files": [
+        {
+          "path": "els_server/storage/account_cartridge_registration.py",
+          "archive": "shared/els_server/storage/account_cartridge_registration.py",
+          "sha256": "37f6348290b45391592683dfe8f07a174a4f841fe79032b2e77c49ee2624ea03",
+          "size": 37250,
+          "parent_sha256": "bfafe87acdf67cf2b28235be78a1f96ef957012508997944ddeb0e8a689fbb18"
+        },
+        {
+          "path": "els_server/storage/bank_state.py",
+          "archive": "shared/els_server/storage/bank_state.py",
+          "sha256": "02a69580a4347ce2342704960acbaa1fce09ba479ade9827bcc4bd1fbaa0898e",
+          "size": 17232,
+          "parent_sha256": "81264aee9947719bbcaca45e6272de51fa44db933def7038d343ce4f949945dd"
+        },
+        {
+          "path": "els_server/storage/cartridge_transitions.py",
+          "archive": "shared/els_server/storage/cartridge_transitions.py",
+          "sha256": "9ebbb6ddcbe71d7ab0bd8a451f77848e338297d9607be90aad1dd973d8115b16",
+          "size": 3953,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/item_seals.py",
+          "archive": "shared/els_server/storage/item_seals.py",
+          "sha256": "9844780c4bd06ea27d352e9b8aacdbe778a2b4e79bea73f9760cefcad85898e8",
+          "size": 8177,
+          "parent_sha256": "8e3b01e640712ce06490c7253fffcbe9f23d2cde50a1521dd704a2ee908e6f51"
+        }
+      ]
+    },
+    "local": {
+      "reference_parent_release": "local-native-owned-potion-choice-seraph-20261026-v1",
+      "reference_parent_manifest_sha256": "20b80205c2d704ca0f534325dea972160f4a37ed60e03cf4bc7a9d17fdbfcd99",
+      "files": [
+        {
+          "path": "els_server/storage/account_cartridge_registration.py",
+          "archive": "shared/els_server/storage/account_cartridge_registration.py",
+          "sha256": "37f6348290b45391592683dfe8f07a174a4f841fe79032b2e77c49ee2624ea03",
+          "size": 37250,
+          "parent_sha256": "bfafe87acdf67cf2b28235be78a1f96ef957012508997944ddeb0e8a689fbb18"
+        },
+        {
+          "path": "els_server/storage/bank_state.py",
+          "archive": "shared/els_server/storage/bank_state.py",
+          "sha256": "02a69580a4347ce2342704960acbaa1fce09ba479ade9827bcc4bd1fbaa0898e",
+          "size": 17232,
+          "parent_sha256": "81264aee9947719bbcaca45e6272de51fa44db933def7038d343ce4f949945dd"
+        },
+        {
+          "path": "els_server/storage/cartridge_transitions.py",
+          "archive": "shared/els_server/storage/cartridge_transitions.py",
+          "sha256": "9ebbb6ddcbe71d7ab0bd8a451f77848e338297d9607be90aad1dd973d8115b16",
+          "size": 3953,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/item_seals.py",
+          "archive": "shared/els_server/storage/item_seals.py",
+          "sha256": "9844780c4bd06ea27d352e9b8aacdbe778a2b4e79bea73f9760cefcad85898e8",
+          "size": 8177,
+          "parent_sha256": "8e3b01e640712ce06490c7253fffcbe9f23d2cde50a1521dd704a2ee908e6f51"
+        }
+      ]
+    }
+  },
+  "physical_source_files": 4,
+  "auxiliary_files": [
+    {
+      "path": "patch-contract.json",
+      "sha256": "16a92c27c5cabe3fb184883adb58d9269c525544af2f608105ece096245c3a67"
+    },
+    {
+      "path": "qualified-summary.json",
+      "sha256": "e5aaf3cbd1a24fc59f20d6ece1de0411fd69133553c5905c05c4058fc3310b6e"
+    },
+    {
+      "path": "README.txt",
+      "sha256": "1f31e823732848879bd4a825c9344af75932f7f57bc1e801933fa118307433ea"
+    }
+  ]
+}
