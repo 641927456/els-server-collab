@@ -1,9 +1,84 @@
 {
-  "schema_version": 1,
-  "provenance": "local_policy",
-  "description": "裸装基础值是尚未核实的本地测试占位值，不代表原生正确属性，也未实现等级成长。装备属性计算可供服务端估算，但网络基础属性字段只发送裸装输入，由客户端原生代码叠加装备、套装与被动，避免重复计算。",
+  "schema_version": 2,
+  "provenance": "documented_growth_native_inputs",
+  "description": "用户批准的公开裸装成长规则，配当前客户端初始角色系数；仅提供基础输入，装备/套装/技能/效果与伤害继续原生计算。非客户端原生裸装成长函数还原，不冒称现国服精确服务端表。",
   "retail_base_verified": false,
   "level_growth_verified": false,
-  "base_attributes": [10000, 100, 100, 100, 100, 10, 10],
-  "include_equipment_attributes": true
+  "native_client_growth_function_verified": false,
+  "base_attributes": [
+    10000,
+    320,
+    320,
+    0,
+    0,
+    80,
+    80
+  ],
+  "level_increments": [
+    1500,
+    9,
+    9,
+    0,
+    0,
+    2.25,
+    2.25
+  ],
+  "level_min": 1,
+  "level_max": 99,
+  "include_equipment_attributes": true,
+  "initial_unit_types": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "initial_reference": [
+    10000,
+    400,
+    400,
+    0,
+    0,
+    100,
+    100
+  ],
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "source": {
+    "url": "https://wikiwiki.jp/ersword/%E5%90%84%E7%A8%AE%E3%83%87%E3%83%BC%E3%82%BF",
+    "retrieved": "2026-10-26",
+    "region": "Japanese community Wiki, reboot-era base rule",
+    "sections": [
+      "BaseHP",
+      "BaseStatus",
+      "status"
+    ],
+    "hp_equation": "10000 + 1500*(level-1)",
+    "attack_defense_equation": "initial_modifier * (4 + 0.1125*(level-1))",
+    "attack_modifier": 80,
+    "defense_modifier": 20,
+    "job_change_in_base": false,
+    "native_crosscheck": "Current initial-character equipment-reference rows; these alone do not prove naked growth."
+  },
+  "range_source": {
+    "semantic": "physical/magical weapon attack variation amplitude",
+    "native_item_field": "m_fDamageRange / KIM+2C -> original198BAD0 output+24/+28",
+    "naked_candidate": [
+      0,
+      0
+    ],
+    "naked_retail_measurement": false
+  },
+  "installation_gate": "Requires qualified native, private App/TLS, compatibility, backup, serialized publication and observation checks.",
+  "public_growth_rule_authorized": true,
+  "authorization_sha256": "97cd0e65e6072db6e6ad3cfa504b8f87109421961881b35b2e8df9b59bcca6ed"
 }
