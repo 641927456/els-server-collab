@@ -3,12 +3,13 @@ from pathlib import Path
 import hashlib,json
 EXE_SHA='6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709'
 IMAGE_SHA='c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229'
-TRACE_TEXT_SHA='0b5e92cddf1f2959dfb3ce1fc884756eb1db8514c3aa654bccb5634e16d93b46'
+TRACE_TEXT_SHAS=frozenset(('0b5e92cddf1f2959dfb3ce1fc884756eb1db8514c3aa654bccb5634e16d93b46',
+                           '20ba0f2d75c5f1ebb56787755e3b33b1f945f897a6aa0432592dc27062291cce'))
 
 def compose(snapshot,executable_sha256,template):
     if executable_sha256!=EXE_SHA or hashlib.sha256(snapshot).hexdigest()!=IMAGE_SHA:
         raise ValueError('Native power cache client identity')
-    if hashlib.sha256(template.replace('\r\n','\n').encode()).hexdigest()!=TRACE_TEXT_SHA:
+    if hashlib.sha256(template.replace('\r\n','\n').encode()).hexdigest()not in TRACE_TEXT_SHAS:
         raise ValueError('Native power cache parent trace changed; explicit merge required')
     rvas=(0x896870,0x8a1400,0x8571d0,0xc231e0,0x30d0680,0x89188f,0x117e5ea,0x1c0f996,0x1c27227,0x363ed6f)
     raw=Path(__file__).with_suffix('.js').read_text('utf8')
