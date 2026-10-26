@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "issue": 515,
+  "component": "ranking",
+  "review_snapshots_only": true,
+  "actual_parent_reconciliation_required": true,
+  "private_data_included": false,
+  "channels": {
+    "online": {
+      "reference_parent": "npc-retained-native-HP-20261026-v1",
+      "reference_parent_sha256": "959cf86fc6db57a083e69c4771c18e1cac2b48a49781d5e3090cd6bd9b32d0f4",
+      "reference_parent_kind": "immutable_formal_reference",
+      "files": [
+        {
+          "path": "els_server/domain/board_ranking_flow.py",
+          "archive": "online/els_server/domain/board_ranking_flow.py",
+          "sha256": "f00c0ae37d7addd9f67274b9fc087bb0d034099cb8a3d2d043eb56e5aee6f13a",
+          "bytes": 743,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive": "online/els_server/domain/local_session.py",
+          "sha256": "6fe66cfe051f0b64a9a8a3c837e99d883b805cd28228e87c3e4cd583ee71dac8",
+          "bytes": 162870,
+          "parent_sha256": "8e5cab86563b7c8ac4f0042fa86a9fa2bcf808b475ced401ad5939e0954a8830"
+        },
+        {
+          "path": "els_server/protocol/board_ranking_messages.py",
+          "archive": "online/els_server/protocol/board_ranking_messages.py",
+          "sha256": "7352418e62cbad16b2222a1f309f06b62efe7775a9bb3c80c3ce7c095f7bf036",
+          "bytes": 811,
+          "parent_sha256": null
+        }
+      ]
+    },
+    "local": {
+      "reference_parent": "local-npc-retained-native-HP-20261026-v1",
+      "reference_parent_sha256": "bd30faaa2ff5f3c2e08029881081ea659bff71eea05f5ffbbf3f5bbac75a2d41",
+      "reference_parent_kind": "immutable_formal_reference",
+      "files": [
+        {
+          "path": "els_server/domain/board_ranking_flow.py",
+          "archive": "local/els_server/domain/board_ranking_flow.py",
+          "sha256": "f00c0ae37d7addd9f67274b9fc087bb0d034099cb8a3d2d043eb56e5aee6f13a",
+          "bytes": 743,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive": "local/els_server/domain/local_session.py",
+          "sha256": "a836d104dca3ee26e1c74c117374d61ed366cc8a62c58c2660ab72f40c105aca",
+          "bytes": 160372,
+          "parent_sha256": "4bf4128b6e81fb6768edd397dfc09a7bdf14cf596b98322299424cd13d7f1d2d"
+        },
+        {
+          "path": "els_server/protocol/board_ranking_messages.py",
+          "archive": "local/els_server/protocol/board_ranking_messages.py",
+          "sha256": "7352418e62cbad16b2222a1f309f06b62efe7775a9bb3c80c3ce7c095f7bf036",
+          "bytes": 811,
+          "parent_sha256": null
+        }
+      ]
+    }
+  },
+  "source_paths": [
+    "els_server/domain/board_ranking_flow.py",
+    "els_server/domain/local_session.py",
+    "els_server/protocol/board_ranking_messages.py"
+  ],
+  "delta_each": 3,
+  "new_each": 2,
+  "auxiliary_files": [
+    {
+      "path": "patch-contract.json",
+      "sha256": "cc72c2e855a3596313bc71af3d644f0314261aaef3c9b4ff09eb0d2617a8d207"
+    },
+    {
+      "path": "qualified-summary.json",
+      "sha256": "7ce43d899069c6a0ea3caa23f90b9f74498653582d9750f3e0ccdbb546519209"
+    },
+    {
+      "path": "README.txt",
+      "sha256": "299e662dccf082a536a30f2c915688d26c565bdac2dda8df0b680f2d6137494a"
+    }
+  ]
+}
