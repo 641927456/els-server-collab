@@ -14,8 +14,8 @@
   "channel_specific_each": 1,
   "channels": {
     "online": {
-      "parent_release": "native-eight-qualified-force-20261026-v1",
-      "parent_manifest_sha256": "669d4d1c259ac3da31f53b99a859494cd8984e819e158e8b65ea4ad010c59278",
+      "parent_release": "native-current-title-inputs-20261026-v1",
+      "parent_manifest_sha256": "ca8a06c3ed2ed4bd98b63f7bc31a133386ce00f56132eeb2aca93c23baf96176",
       "parent_manifest_name": "rollup-manifest.json",
       "runtime_leaves": [
         {
@@ -130,16 +130,27 @@
         "els_server/domain/native_character_base.py": "cce13c16165bc61ef1a4b19a21d8791d9c3338dc366a0946d38bfed797ce7535"
       },
       "preserved_roster1": {
-        "els_server/protocol/local_messages.py": "ff9b2f95d3e2ed2db2a871680d3fe00731a07f821b28be25ba5e7bcc102b7d87"
+        "els_server/protocol/local_messages.py": "a8e8e4011ed8986d4fbfb67fff2d80b6a7e988889e6cc562f0c3e1240a4dbb33"
       },
       "unchanged_import_anchor": {
         "path": "els_server/domain/formal_pve_economy.py",
         "sha256": "68d1bae8bd8392c9f67fddf6ea9d7e2a493d27f42ba603e8180cdd10d6b80acb"
+      },
+      "origin_next8_parent": {
+        "release": "native-eight-qualified-force-20261026-v1",
+        "manifest_sha256": "669d4d1c259ac3da31f53b99a859494cd8984e819e158e8b65ea4ad010c59278",
+        "roster1": {
+          "els_server/protocol/local_messages.py": "ff9b2f95d3e2ed2db2a871680d3fe00731a07f821b28be25ba5e7bcc102b7d87"
+        }
+      },
+      "preserved_title_inputs": {
+        "els_server/protocol/dungeon_messages.py": "446ca5786e7354a8843c181f716406921e5076e5ec3effc58ae9906773d3559b",
+        "els_server/protocol/local_messages.py": "a8e8e4011ed8986d4fbfb67fff2d80b6a7e988889e6cc562f0c3e1240a4dbb33"
       }
     },
     "local": {
-      "parent_release": "local-native-eight-qualified-force-20261026-v1",
-      "parent_manifest_sha256": "4cc4c880068a8353af99a8ffb3108f3e82cb894a692ce7bc106d2ccfe448aace",
+      "parent_release": "local-native-current-title-inputs-20261026-v1",
+      "parent_manifest_sha256": "ac288a197017e2e069b43a5be9cbd138a6cee07e36b26929c7807e89213b5e8e",
       "parent_manifest_name": "local-business-manifest.json",
       "runtime_leaves": [
         {
@@ -254,12 +265,24 @@
         "els_server/domain/native_character_base.py": "cce13c16165bc61ef1a4b19a21d8791d9c3338dc366a0946d38bfed797ce7535"
       },
       "preserved_roster1": {
-        "els_server/protocol/local_messages.py": "ff9b2f95d3e2ed2db2a871680d3fe00731a07f821b28be25ba5e7bcc102b7d87"
+        "els_server/protocol/local_messages.py": "a8e8e4011ed8986d4fbfb67fff2d80b6a7e988889e6cc562f0c3e1240a4dbb33"
       },
       "unchanged_import_anchor": {
         "path": "els_server/domain/formal_pve_economy.py",
         "sha256": "68d1bae8bd8392c9f67fddf6ea9d7e2a493d27f42ba603e8180cdd10d6b80acb"
+      },
+      "origin_next8_parent": {
+        "release": "local-native-eight-qualified-force-20261026-v1",
+        "manifest_sha256": "4cc4c880068a8353af99a8ffb3108f3e82cb894a692ce7bc106d2ccfe448aace",
+        "roster1": {
+          "els_server/protocol/local_messages.py": "ff9b2f95d3e2ed2db2a871680d3fe00731a07f821b28be25ba5e7bcc102b7d87"
+        }
+      },
+      "preserved_title_inputs": {
+        "els_server/protocol/dungeon_messages.py": "446ca5786e7354a8843c181f716406921e5076e5ec3effc58ae9906773d3559b",
+        "els_server/protocol/local_messages.py": "a8e8e4011ed8986d4fbfb67fff2d80b6a7e988889e6cc562f0c3e1240a4dbb33"
       }
     }
-  }
+  },
+  "title_successor_parent_after_next8": true
 }

@@ -1,4 +1,4 @@
-MANIFEST_SHA='4046682b9804f4873cdb0cbc45d1bf3812ec96d7e088a4e6ab7e10ca19419c1a'
+MANIFEST_SHA='d4e48f014dadbbddad9cd0b1b340ae7a039e5d8966eadab018795eacdb08fd3e'
 """Verify the exact Clock runtime archive and optional actual formal parent."""
 from pathlib import Path
 import ast,argparse,json,hashlib
@@ -19,7 +19,7 @@ def main():
  if a.parent:
   p=a.parent/c['parent_manifest_name'];assert digest(p)==c['parent_manifest_sha256'];rows={r['path']:r for r in json.loads(p.read_bytes())['files']}
   for row in c['runtime_leaves']:assert rows[row['path']]['sha256']==row['parent_sha256']and digest(a.parent/row['path'])==row['parent_sha256']
-  for name in ('preserved_next8_source13','preserved_Board25','preserved_character3','preserved_roster1'):
+  for name in ('preserved_next8_source13','preserved_Board25','preserved_character3','preserved_roster1','preserved_title_inputs'):
    for rel,h in c[name].items():assert rows[rel]['sha256']==h and digest(a.parent/rel)==h
   if a.full_parent:
    for row in rows.values():assert digest(a.parent/row['path'])==row['sha256']
