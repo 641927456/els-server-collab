@@ -51,7 +51,12 @@ def main():
             # Run explicit modules: the old full Friends suite remains a
             # separately classified legacy suite; never silently include it.
             for test in tests[:-1]:
-                result=subprocess.run([sys.executable,'-B','-m','unittest','discover','-s','tests','-p',test],cwd=view,capture_output=True)
+                runner=("import sys,unittest;from pathlib import Path;"
+                        "root=Path(sys.argv[1]).resolve();sys.path.insert(0,str(root));"
+                        "import els_server;assert Path(els_server.__file__).resolve().is_relative_to(root);"
+                        "suite=unittest.defaultTestLoader.discover(str(root/'tests'),pattern=sys.argv[2]);"
+                        "result=unittest.TextTestRunner().run(suite);sys.exit(not result.wasSuccessful())")
+                result=subprocess.run([sys.executable,'-B','-c',runner,str(view),test],cwd=view,capture_output=True)
                 if result.returncode:
                     sys.stderr.write(result.stderr.decode('utf8',errors='replace')[-12000:]);raise SystemExit(result.returncode)
                 stderr=result.stderr.decode('utf8',errors='replace')

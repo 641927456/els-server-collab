@@ -15,6 +15,7 @@ from tools.materialize_formal_runtime import materialize, plan
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--with-runtime', action='store_true')
+    parser.add_argument('--assets-root', type=Path, default=ROOT)
     args = parser.parse_args()
     baseline = json.loads((ROOT / 'channels/formal-clock-20261027-v1.json').read_bytes())
     candidate = json.loads((ROOT / 'channels/server-latency-guards-20261027-v1.json').read_bytes())
@@ -37,12 +38,18 @@ def main():
             continue
         with tempfile.TemporaryDirectory(prefix='latency-guards-', dir=parent) as name:
             view = Path(name) / 'engine'
-            materialize(ROOT, candidate, channel, view, assets_root=ROOT, link_assets=True)
+            materialize(ROOT, candidate, channel, view, assets_root=args.assets_root, link_assets=True)
             (view / 'tests').mkdir()
             for test in ('test_server_latency_guards.py', 'test_native_auxiliary_latency.py'):
                 shutil.copyfile(ROOT / 'tests' / test, view / 'tests' / test)
-            result = subprocess.run([sys.executable, '-B', '-m', 'unittest', 'discover', '-s', 'tests',
-                                     '-p', 'test_*latency*.py'], cwd=view, capture_output=True)
+            # The bundled interpreter's ._pth ignores CWD/PYTHONPATH. Bind the
+            # candidate explicitly, or the test can import the old root engine.
+            runner = ("import sys,unittest;from pathlib import Path;"
+                      "root=Path(sys.argv[1]).resolve();sys.path.insert(0,str(root));"
+                      "import els_server;assert Path(els_server.__file__).resolve().is_relative_to(root);"
+                      "suite=unittest.defaultTestLoader.discover(str(root/'tests'),pattern='test_*latency*.py');"
+                      "result=unittest.TextTestRunner().run(suite);sys.exit(not result.wasSuccessful())")
+            result = subprocess.run([sys.executable, '-B', '-c', runner, str(view)], cwd=view, capture_output=True)
             if result.returncode:
                 sys.stderr.write(result.stderr.decode('utf8', errors='replace')[-12000:])
                 raise SystemExit(result.returncode)
