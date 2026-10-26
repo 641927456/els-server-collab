@@ -67,3 +67,7 @@ dual deployment, public first/cold QA, observation and owned resource cleanup.
 Unobserved SQLite writers and real business projections can still cause delays;
 this change does not add concurrent writers, shorten timeouts or claim every
 possible stall has disappeared.
+
+Accepted dual delivery: `server-quest-business-locks-20261027-v1` and LOCAL, 122.09/121.65s observation, full business/runtime SHA verification, first/cold protocol reads,256 auxiliary requests and exact owned-authentication/capacity cleanup. Both owned locks/tasks/stage have been released; no following publication priority reserved.
+
+270 targeted cases:263 passed and7 channel/private-asset skips. The original two failing ordinary claim cases now pass; a wrong-skip regression still rejects and preserves SQL. All qualification guards remain unchanged. SQL scope duration may overestimate held time after explicit early commit/rollback.
