@@ -72,6 +72,19 @@ def load_character(db,uid,account_id=None):
         if saved_owner is not None:
             from els_server.storage.resonance_state import snapshot as resonance_snapshot
             from els_server.storage.profession_state import snapshot as profession_snapshot
+            # Full-unit refreshes retain the same current native combat inputs as login.
+            from els_server.storage.titles import snapshot as title_snapshot,completed_for_equipment
+            row['title']=title_snapshot(db,uid)['title'];row['title_completed_quests']=completed_for_equipment(db,uid)
+            from els_server.storage.skill_traits import saved as saved_traits
+            from els_server.domain.skill_traits import visible as visible_traits
+            row['skill_traits']=visible_traits(row,saved_traits(db,uid))
+            from els_server.storage.ordinary_skill_pages import view as skill_pages_view
+            row['ordinary_skill_pages']=skill_pages_view(db,uid)
+            from els_server.storage.boosting_2026_force_inventory import saved as force_inventory_saved
+            from els_server.storage.boosting_2026_force_equipment import saved as force_slots_saved
+            row['force_inventory']=force_inventory_saved(db,uid);row['force_slots']=force_slots_saved(db,uid)
+            has_records=db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='dungeon_records'").fetchone() is not None
+            row['cleared_dungeons']=tuple(r[0]for r in db.execute('SELECT map_id FROM dungeon_records WHERE uid=? ORDER BY map_id',(uid,)))if has_records else ()
             row['resonance']=resonance_snapshot(db,uid,saved_owner[0])
             from els_server.storage.guild_membership_state import snapshot as guild_snapshot
             row['guild_membership']=guild_snapshot(db,uid,saved_owner[0])

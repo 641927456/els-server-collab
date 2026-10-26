@@ -18,6 +18,11 @@ def notifications(db,uid,character,location,before,after,replayed):
     from els_server.storage.el_search_collection import snapshot as collection_snapshot
     saved_owner=db.execute('SELECT account_id FROM character_owners WHERE uid=?',(uid,)).fetchone()
     if saved_owner is not None:
+        from els_server.storage.seal_quests import load_character
+        current=load_character(db,uid,saved_owner[0])
+        if any(current[k]!=character[k]for k in('unit_class','level','revision')):raise ValueError('Career refresh projection mismatch')
+        for key in('title','title_completed_quests','skill_traits','ordinary_skill_pages','force_inventory','force_slots','cleared_dungeons'):
+            character[key]=current[key]
         collection=collection_snapshot(db,uid,saved_owner[0])
         if collection is not None:character=dict(character,el_search_collection=collection)
     row=db.execute('SELECT payload FROM skill_slots WHERE uid=?',(uid,)).fetchone()
