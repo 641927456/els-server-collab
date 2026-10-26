@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "issue": 531,
+  "unit_ids": [
+    "early-role-eight-native-weapons"
+  ],
+  "candidate_binding_sha256": "602fa14d00a4e2ae480aa03ff4abfc42f4917a4ea8d7b9edd7454d47ca895d13",
+  "client_delta": 0,
+  "install_DDL_statements": 0,
+  "new_schema": false,
+  "natural_GUI": false,
+  "natural_combat": false,
+  "local_rule": "Original finite ordinary-clear rule10percent; exact two current weapons per source map and native actual family filtering",
+  "old_evidence_unchanged": true,
+  "private_configuration_or_player_data_included": false,
+  "channels": {
+    "online": {
+      "parent_release": "f-services-reviewed-five-20261026-v1",
+      "parent_manifest_sha256": "cbac6c212f50beb048f48b0c08596712a02c19aa3209094b7117ffaaf2b5644a",
+      "delta": [
+        {
+          "path": "analysis/original-feedback-continuation-20261026-v1/weapons/native-weapons-proof-v1.json",
+          "archive": "shared/analysis/original-feedback-continuation-20261026-v1/weapons/native-weapons-proof-v1.json",
+          "sha256": "2274f1181b43e1fba5b3e555c8c838744e5bc4374646957b6eb270151d012d1a",
+          "size": 52846,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/data/early_weapon_equipment.json",
+          "archive": "shared/els_server/data/early_weapon_equipment.json",
+          "sha256": "6a7d56e5edc2a2082851a43771927dffde1a5f236d1584b5b93db83baf8c03fe",
+          "size": 562,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "archive": "shared/els_server/data/formal_pve_economy.json",
+          "sha256": "fa350bf69b85a8a3ed90cf368dcf8e04ee300d1d7c506340519de56a4315e9ae",
+          "size": 260614,
+          "parent_sha256": "0592beb8069cb5a1e09b948ea8326bfc481e6ceb4a39315fee1fdd4e6ba74455"
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "archive": "shared/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "78cbdc74878aec28e3723f193444e1e8f49de49d292c65ccd343a2eab84ccdeb",
+          "size": 206,
+          "parent_sha256": "b2ccb72daa69e1c83d4994886861521612f37212bf195b9358c83f63ef750144"
+        },
+        {
+          "path": "els_server/domain/early_weapon_equipment.py",
+          "archive": "shared/els_server/domain/early_weapon_equipment.py",
+          "sha256": "4cecbd26783631f19342e6b64252272cb1bfe1b8e5ce69b4e1a27eebdf942212",
+          "size": 4121,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/equipment_eligibility.py",
+          "archive": "shared/els_server/domain/equipment_eligibility.py",
+          "sha256": "816ae7ba4ceea95ab7ae631ebe7fb9d5528baa9438969b721efa8011ff7b4274",
+          "size": 6284,
+          "parent_sha256": "0fde2e0950c250dd022d119997679405d76258e670b2b10c3779b76c83c68f20"
+        },
+        {
+          "path": "els_server/domain/equipment_instance.py",
+          "archive": "shared/els_server/domain/equipment_instance.py",
+          "sha256": "14ed145006ed8b0b9bd3ac4a775a3529ef361976ccf04052176248c3c2dc4d8d",
+          "size": 3938,
+          "parent_sha256": "13fade0ed9b516aaf21daab6dbc3d14ef0fa917a620dddc251c8c5b691c350d5"
+        },
+        {
+          "path": "els_server/domain/instance_stats.py",
+          "archive": "shared/els_server/domain/instance_stats.py",
+          "sha256": "929c8b9f744139c62ddf734b066b07ac32625f4600fb6e7a467b39313524a653",
+          "size": 2785,
+          "parent_sha256": "122558f798c702db3fa2db6ef2ca62947b09a3959e461504c441375279fbf644"
+        },
+        {
+          "path": "els_server/domain/normal_equipment.py",
+          "archive": "shared/els_server/domain/normal_equipment.py",
+          "sha256": "fb1eac805d444b81681c64f30d5b1d4e64c5e40a7851a5292bdff3e27550ccf7",
+          "size": 3840,
+          "parent_sha256": "cd514f186dd493ca70a178347986e745cb3da9342868ef481f2df2b386552f11"
+        }
+      ]
+    },
+    "local": {
+      "parent_release": "local-f-services-reviewed-five-20261026-v1",
+      "parent_manifest_sha256": "6fff3eda5c5ef8c35d02a213640acb2573f56228960aa5f5ae2b157ec4b23eb2",
+      "delta": [
+        {
+          "path": "analysis/original-feedback-continuation-20261026-v1/weapons/native-weapons-proof-v1.json",
+          "archive": "shared/analysis/original-feedback-continuation-20261026-v1/weapons/native-weapons-proof-v1.json",
+          "sha256": "2274f1181b43e1fba5b3e555c8c838744e5bc4374646957b6eb270151d012d1a",
+          "size": 52846,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/data/early_weapon_equipment.json",
+          "archive": "shared/els_server/data/early_weapon_equipment.json",
+          "sha256": "6a7d56e5edc2a2082851a43771927dffde1a5f236d1584b5b93db83baf8c03fe",
+          "size": 562,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "archive": "shared/els_server/data/formal_pve_economy.json",
+          "sha256": "fa350bf69b85a8a3ed90cf368dcf8e04ee300d1d7c506340519de56a4315e9ae",
+          "size": 260614,
+          "parent_sha256": "0592beb8069cb5a1e09b948ea8326bfc481e6ceb4a39315fee1fdd4e6ba74455"
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "archive": "shared/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "78cbdc74878aec28e3723f193444e1e8f49de49d292c65ccd343a2eab84ccdeb",
+          "size": 206,
+          "parent_sha256": "b2ccb72daa69e1c83d4994886861521612f37212bf195b9358c83f63ef750144"
+        },
+        {
+          "path": "els_server/domain/early_weapon_equipment.py",
+          "archive": "shared/els_server/domain/early_weapon_equipment.py",
+          "sha256": "4cecbd26783631f19342e6b64252272cb1bfe1b8e5ce69b4e1a27eebdf942212",
+          "size": 4121,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/equipment_eligibility.py",
+          "archive": "shared/els_server/domain/equipment_eligibility.py",
+          "sha256": "816ae7ba4ceea95ab7ae631ebe7fb9d5528baa9438969b721efa8011ff7b4274",
+          "size": 6284,
+          "parent_sha256": "0fde2e0950c250dd022d119997679405d76258e670b2b10c3779b76c83c68f20"
+        },
+        {
+          "path": "els_server/domain/equipment_instance.py",
+          "archive": "shared/els_server/domain/equipment_instance.py",
+          "sha256": "14ed145006ed8b0b9bd3ac4a775a3529ef361976ccf04052176248c3c2dc4d8d",
+          "size": 3938,
+          "parent_sha256": "13fade0ed9b516aaf21daab6dbc3d14ef0fa917a620dddc251c8c5b691c350d5"
+        },
+        {
+          "path": "els_server/domain/instance_stats.py",
+          "archive": "shared/els_server/domain/instance_stats.py",
+          "sha256": "929c8b9f744139c62ddf734b066b07ac32625f4600fb6e7a467b39313524a653",
+          "size": 2785,
+          "parent_sha256": "122558f798c702db3fa2db6ef2ca62947b09a3959e461504c441375279fbf644"
+        },
+        {
+          "path": "els_server/domain/normal_equipment.py",
+          "archive": "shared/els_server/domain/normal_equipment.py",
+          "sha256": "fb1eac805d444b81681c64f30d5b1d4e64c5e40a7851a5292bdff3e27550ccf7",
+          "size": 3840,
+          "parent_sha256": "cd514f186dd493ca70a178347986e745cb3da9342868ef481f2df2b386552f11"
+        }
+      ]
+    }
+  },
+  "delta_paths": [
+    "analysis/original-feedback-continuation-20261026-v1/weapons/native-weapons-proof-v1.json",
+    "els_server/data/early_weapon_equipment.json",
+    "els_server/data/formal_pve_economy.json",
+    "els_server/data/formal_pve_economy.manifest.json",
+    "els_server/domain/early_weapon_equipment.py",
+    "els_server/domain/equipment_eligibility.py",
+    "els_server/domain/equipment_instance.py",
+    "els_server/domain/instance_stats.py",
+    "els_server/domain/normal_equipment.py"
+  ],
+  "new_paths": [
+    "analysis/original-feedback-continuation-20261026-v1/weapons/native-weapons-proof-v1.json",
+    "els_server/data/early_weapon_equipment.json",
+    "els_server/domain/early_weapon_equipment.py"
+  ],
+  "physical_files": 9
+}
