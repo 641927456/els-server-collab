@@ -30,6 +30,10 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_current_runtime_regressions.py'),
              '--manifest',str(ROOT/'channels/server-risk-current-20261027-v2.json'),
              '--delta',str(ROOT/'references/server-risk-current-20261027-v2/delta.json')])
+    if (ROOT/'channels/server-risk-current-local-roles-20261027-v3.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_current_runtime_regressions.py'),
+             '--manifest',str(ROOT/'channels/server-risk-current-local-roles-20261027-v3.json'),
+             '--delta',str(ROOT/'references/local-auxiliary-role-binding-20261027-v1/delta.json')])
 
 
     if (ROOT/'references/background-native-gear-20261026-v1/manifest.json').is_file():
