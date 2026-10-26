@@ -30,6 +30,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_current_runtime_regressions.py'),
              '--manifest',str(ROOT/'channels/server-risk-current-20261027-v2.json'),
              '--delta',str(ROOT/'references/server-risk-current-20261027-v2/delta.json')])
+    if (ROOT/'channels/character-slow-paths-20261027-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_character_slow_paths.py')])
     if (ROOT/'channels/server-architecture-20261027-v1.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_server_architecture.py')])
     if (ROOT/'channels/server-risk-current-local-roles-20261027-v3.json').is_file():
