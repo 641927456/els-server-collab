@@ -61,8 +61,8 @@ def migrate(db):
     rewritten=previous.sub(_predicate(OLD+ADDED),rewritten,count=1)
     rewritten=previous_seal.sub(NEW_SEAL,rewritten,count=1)
     rewritten=seal.sub(NEW_SEAL,rewritten,count=1).replace(TABLE,temp,1)
-    if child:
-        child=(child[0].replace('slot BETWEEN 0 AND 2','slot BETWEEN 0 AND 10'),)
+    # Ownership CHECK expansion does not widen native passive/Mod slots.
+    # Preserve either prior3-slot schema or historical11-slot schema exactly.
     savepoint='force_rank4_'+uuid.uuid4().hex
     db.execute('SAVEPOINT '+savepoint)
     try:

@@ -51,8 +51,12 @@ def learned_skills(character):
 def equippable_skills(character):
     data=client_data()
     ordinary=tuple(s for s in learned_skills(character) if data.skill(s)['m_eType'] in ACTIVE_TYPES)
-    from els_server.domain.boosting_2026_force_equipment import slots,active_skill
-    active=tuple(s for s,r in slots(character,visible=True) if s and active_skill(s))
+    from els_server.domain.boosting_2026_force_equipment import active_skill
+    from els_server.domain.boosting_2026_force_inventory import owned
+    from els_server.domain.character_rules import CLASSES
+    # Native type20 right-click/drag writes ordinary122 directly. Category2
+    # of6D0 is the type18 Mod/change preset, not an active-force prerequisite.
+    active=tuple(r['skill'] for r in owned(character) if active_skill(r['skill'])) if character and character.get('level',1)>=99 and CLASSES[character['unit_class']]['stage']>=3 else ()
     return ordinary+active
 
 

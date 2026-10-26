@@ -4,9 +4,9 @@ from els_server.domain.boosting_2026_force_inventory import owned,ForceRuleError
 from els_server.protocol.protocol_codec import Event
 
 PASSIVE_SLOTS=3
-ACTIVE_SLOTS=8
-ACTIVE_ENABLED=5
-TOTAL_SLOTS=PASSIVE_SLOTS+ACTIVE_SLOTS
+MOD_SLOTS=8
+LEGACY_TYPE20_SLOT_LIMIT=5
+TOTAL_SLOTS=PASSIVE_SLOTS+MOD_SLOTS
 
 def active_skill(skill):return any(r['skill']==skill and r.get('active') for r in catalog().values())
 # The client specifies one destination, but retail server swap behavior is not
@@ -28,7 +28,7 @@ def slots(character=None,*,visible=False):
         pair=tuple(pair)
         if pair!=(0,0):
             if pair not in pairs:raise ValueError('Unowned equipped force grade')
-            if (index>=PASSIVE_SLOTS)!=active_skill(pair[0]) or index>=PASSIVE_SLOTS+ACTIVE_ENABLED:raise ValueError('Native force slot category or locked active slot')
+            if (index>=PASSIVE_SLOTS)!=active_skill(pair[0]) or index>=PASSIVE_SLOTS+LEGACY_TYPE20_SLOT_LIMIT:raise ValueError('Native force category or invalid legacy slot')
             # The three selected IDs have distinct original native base groups;
             # each ID's rare/unique ranks share that same exclusion group.
             if pair[0] in seen:raise ValueError('Duplicate native force exclusion group')
@@ -38,20 +38,24 @@ def slots(character=None,*,visible=False):
         from els_server.domain.character_rules import CLASSES
         if character is None or CLASSES[character['unit_class']]['stage']<3:return ((0,0),)*TOTAL_SLOTS
         if not third_slot_unlocked(character):result[2]=(0,0)
+        # Preserve historical mistaken SQL rows for compatibility, but never
+        # emit type20 common actives into the native type18 change vector.
+        for index in range(PASSIVE_SLOTS,TOTAL_SLOTS):result[index]=(0,0)
     return tuple(result)
 
 def vectors(character=None):
-    layout=slots(character,visible=True);passive=layout[:PASSIVE_SLOTS];active=layout[PASSIVE_SLOTS:]
+    layout=slots(character,visible=True);passive=layout[:PASSIVE_SLOTS];mods=layout[PASSIVE_SLOTS:]
     # DAF6E0: two DB5B10 vectors, six-byte (ID,rank,bool) records.
-    # 8FA130 writes three passive entries at+1DD4 and eight active at+1DEC.
-    return struct.pack('>I',PASSIVE_SLOTS)+b''.join(struct.pack('>iBB',s,r,0) for s,r in passive)+struct.pack('>I',ACTIVE_SLOTS)+b''.join(struct.pack('>iBB',s,r,0) for s,r in active)
+    # 8FA130 writes three passive entries at+1DD4 and eight Mod/change at+1DEC.
+    return struct.pack('>I',PASSIVE_SLOTS)+b''.join(struct.pack('>iBB',s,r,0) for s,r in passive)+struct.pack('>I',MOD_SLOTS)+b''.join(struct.pack('>iBB',s,r,0) for s,r in mods)
 
 def request(payload):
     # C560F0 emits exactly three i32 values and one byte for kind6D0.
     if not isinstance(payload,bytes) or len(payload)!=13:raise ValueError('Force equipment request size')
     kind,index,skill,rank=struct.unpack('>iiiB',payload)
     if kind not in (0,1,2) or skill<=0 or rank not in (3,4,5):raise ValueError('Selected passive force request')
-    limit=ACTIVE_ENABLED if active_skill(skill) else PASSIVE_SLOTS
+    if active_skill(skill) and kind:raise ValueError('Type20 uses ordinary122, not change6D0')
+    limit=PASSIVE_SLOTS
     if kind and kind!=(2 if active_skill(skill) else 1):raise ValueError('Force request category')
     if (kind==0 and index!=0) or (kind and index not in range(limit)):raise ValueError('Force slot index')
     return kind,index,skill,rank
@@ -62,10 +66,9 @@ def changed(character,payload):
     if CLASSES[character['unit_class']]['stage']<3 or character['level']<99:raise ForceRuleError(1903,'Third job force requirement')
     if (skill,rank) not in {(r['skill'],r['rank']) for r in owned(character)}:raise ValueError('Force equipment requires exact owned grade')
     result=list(slots(character))
-    if active_skill(skill) and kind==2:index+=PASSIVE_SLOTS
     if kind==0:
-        # Original right-click on an activated force sends type0/index0,
-        # identifying the force by ID+rank rather than a destination index.
+        # Passive right-click uses type0/index0. Keep explicit historical
+        # type20 cleanup compatibility; reads never erase old mistaken rows.
         return tuple((0,0) if pair==(skill,rank) else pair for pair in result)
     if index==2 and not third_slot_unlocked(character):raise ValueError('Third passive requires native Artifact evolution4')
     result=[(0,0) if pair[0]==skill else pair for pair in result]

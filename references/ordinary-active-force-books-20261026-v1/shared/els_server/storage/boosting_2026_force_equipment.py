@@ -63,7 +63,7 @@ def action(path,owner,account,payload,operation):
         event=acknowledgement(_preset(db,dict(character,force_slots=after)));encode_event(event)
         initialize_owned(db)
         db.execute('''CREATE TABLE IF NOT EXISTS selected_2026_force_slots (
-            owner INTEGER NOT NULL,slot INTEGER NOT NULL CHECK(slot BETWEEN 0 AND 10),
+            owner INTEGER NOT NULL,slot INTEGER NOT NULL CHECK(slot BETWEEN 0 AND 2),
             skill INTEGER NOT NULL,rank INTEGER NOT NULL,PRIMARY KEY(owner,slot),UNIQUE(owner,skill),
             FOREIGN KEY(owner,skill,rank) REFERENCES selected_2026_force_inventory(owner,skill,rank))''')
         if modified:

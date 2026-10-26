@@ -33,7 +33,24 @@ def action(path,owner,account,payload,operation,*,now=None):
         if pair is None:raise ValueError('Extraction needs an exact owned grade')
         # This runtime has one persisted force preset. Check every saved slot,
         # including a hidden third slot; never implicitly unequip to extract.
-        if (skill,rank) in slots(db,owner):raise ValueError('Force is equipped')
+        force_slots=slots(db,owner)
+        from els_server.domain.boosting_2026_force_equipment import active_skill
+        type20=active_skill(skill)
+        if type20:
+            from els_server.game_data import client_data
+            if client_data().skill(skill)['m_eType']!=20:raise ValueError('Current original type20 extraction identity')
+            if (skill,rank) in force_slots[:3]:raise ValueError('Force is equipped in a real passive slot')
+        elif (skill,rank) in force_slots:raise ValueError('Force is equipped')
+        # Historical type20 entries in the Mod/change section are invisible
+        # compatibility references, not current native equipment. Read paths
+        # retain them; only this explicit exact-pair6CE may release the FK.
+        legacy_type20=type20 and (skill,rank) in force_slots[3:]
+        if type20:
+            row=db.execute('SELECT payload FROM skill_slots WHERE uid=?',(owner,)).fetchone()
+            if row:
+                import struct
+                if len(row[0])!=88:raise ValueError('Saved ordinary skill preset size')
+                if skill in struct.unpack('>22i',row[0]):raise ValueError('Force is equipped in ordinary hotbar')
         from els_server.domain.character_rules import CLASSES
         if CLASSES[character['unit_class']]['stage']<3 or character['level']<99:raise ValueError('Third job force extraction requirement')
         if character['revision']>=2**63-1:raise ValueError('Force character revision overflow')
@@ -63,6 +80,8 @@ def action(path,owner,account,payload,operation,*,now=None):
         after=load_items(db,owner);bypos={(i['group'],i['slot']):i for i in after}
         positions=sorted({(source['group'],source['slot']),*((i['group'],i['slot']) for i in changed)})
         event=acknowledgement(skill,rank,[(p,bypos.get(p)) for p in positions]);encode_event(event)
+        if legacy_type20:
+            db.execute('DELETE FROM selected_2026_force_slots WHERE owner=? AND skill=? AND rank=? AND slot>=3',(owner,skill,rank))
         db.execute('DELETE FROM selected_2026_force_inventory WHERE owner=? AND skill=? AND rank=?',(owner,skill,rank))
         db.execute('UPDATE characters SET revision=revision+1 WHERE uid=?',(owner,));db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))
         _commit(db,operation,digest,owner,0x6ce,positions,[i for i in items if (i['group'],i['slot']) in positions],[bypos[p] for p in positions if p in bypos])
