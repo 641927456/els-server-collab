@@ -243,7 +243,8 @@
     "private_recovery_per_mode": 8,
     "changed6CE_assembled_checks_per_mode_and_recovery": 5,
     "independent_legacy_review": "64 SQL,4 actualAppTLS,4 whole2A and4 original6CF; exact patched source SHA bound privately",
-    "postboard_smoke": "Two assembled artifacts: realApp/TLS219->direct122, restart automatic55B, actual14A; complete original55B and14A readers; four actual assembled6CE candidate/recovery SQL proofs; recovery3learn/3map closure."
+    "postboard_smoke": "Two assembled artifacts: realApp/TLS219->direct122, restart automatic55B, actual14A; complete original55B and14A readers; four actual assembled6CE candidate/recovery SQL proofs; recovery3learn/3map closure.",
+    "post_character_integration_QA": "Pending actual final publisher private QA; earlier Board tests remain historical evidence only."
   },
   "route_repair": {
     "native_type20": "owned rank5 -> ordinary122 -> saved55B level1",
@@ -255,16 +256,16 @@
   },
   "actual_parents": {
     "online": {
-      "release": "native-f-trade-board-20261026-v1",
-      "runtime_path": "releases/online/native-f-trade-board-20261026-v1",
-      "pointer_sha256": "a007a17ec27ab9c6070bf87ea60f98d6065c7bed855a17dae9fbcf940c3b1dde",
-      "manifest_sha256": "fb46ae01d417b36d09f1c33aef56b50a65674d1d198e1021383885a8a477c040"
+      "release": "sourced-character-base-native-inputs-20261026-v1",
+      "runtime_path": "releases/online/sourced-character-base-native-inputs-20261026-v1",
+      "pointer_sha256": "2b62b6b727cf4735fc06778dc6c0f144288805afb74892a0887e586aaabfacb4",
+      "manifest_sha256": "ded89b9f7e4fd56c2285ce9b689789b7dd05fd8f245e7b85d89c3b7fec2557f7"
     },
     "local": {
-      "release": "local-native-f-trade-board-20261026-v1",
-      "runtime_path": "releases/local/local-native-f-trade-board-20261026-v1",
-      "pointer_sha256": "156ac99363968f6b02f57ebd089ac2b3c600e76bbe0a6c807f602e7469846391",
-      "manifest_sha256": "4aa391b6091844408f023383af8d2a7f9a3c32961bc85611735cfb33a8d8b330"
+      "release": "local-sourced-character-base-native-inputs-20261026-v1",
+      "runtime_path": "releases/local/local-sourced-character-base-native-inputs-20261026-v1",
+      "pointer_sha256": "de5a47afe1437265b5ecc54f9e7d19dbcd47cd2c0f38becb52e791bc996d35d5",
+      "manifest_sha256": "b720adc853632c0d07dba59941554bd080aa8bf625a491ce3406217fb756de80"
     }
   },
   "actual_delta": {
@@ -574,5 +575,56 @@
       "decision": "copy-target",
       "assembled_sha256": "947660698bee5891b8113d35b6bcb97a61ef18a85561883d975d48ed26f963fc"
     }
-  }
+  },
+  "prior_Board_actual_parents": {
+    "online": {
+      "release": "native-f-trade-board-20261026-v1",
+      "runtime_path": "releases/online/native-f-trade-board-20261026-v1",
+      "pointer_sha256": "a007a17ec27ab9c6070bf87ea60f98d6065c7bed855a17dae9fbcf940c3b1dde",
+      "manifest_sha256": "fb46ae01d417b36d09f1c33aef56b50a65674d1d198e1021383885a8a477c040"
+    },
+    "local": {
+      "release": "local-native-f-trade-board-20261026-v1",
+      "runtime_path": "releases/local/local-native-f-trade-board-20261026-v1",
+      "pointer_sha256": "156ac99363968f6b02f57ebd089ac2b3c600e76bbe0a6c807f602e7469846391",
+      "manifest_sha256": "4aa391b6091844408f023383af8d2a7f9a3c32961bc85611735cfb33a8d8b330"
+    }
+  },
+  "character3_preservation": {
+    "online": [
+      {
+        "path": "config/combat_rules.json",
+        "sha256": "7ce1ed5eed7ffceccc1769af6a6b8d006da311095ea63aff5f7c3cf91e729906",
+        "exact_latest_bytes": true
+      },
+      {
+        "path": "els_server/domain/character_stats.py",
+        "sha256": "296f7e129102acb78fa12567afb478f20998dd9e5de5db547468992145b8fa3d",
+        "exact_latest_bytes": true
+      },
+      {
+        "path": "els_server/domain/native_character_base.py",
+        "sha256": "cce13c16165bc61ef1a4b19a21d8791d9c3338dc366a0946d38bfed797ce7535",
+        "exact_latest_bytes": true
+      }
+    ],
+    "local": [
+      {
+        "path": "config/combat_rules.json",
+        "sha256": "7ce1ed5eed7ffceccc1769af6a6b8d006da311095ea63aff5f7c3cf91e729906",
+        "exact_latest_bytes": true
+      },
+      {
+        "path": "els_server/domain/character_stats.py",
+        "sha256": "296f7e129102acb78fa12567afb478f20998dd9e5de5db547468992145b8fa3d",
+        "exact_latest_bytes": true
+      },
+      {
+        "path": "els_server/domain/native_character_base.py",
+        "sha256": "cce13c16165bc61ef1a4b19a21d8791d9c3338dc366a0946d38bfed797ce7535",
+        "exact_latest_bytes": true
+      }
+    ]
+  },
+  "post_character_metadata_rebound": true
 }

@@ -25,3 +25,5 @@ CI：`python -B tools/verify_ordinary_active_force_books_20261026.py`。校验�
 公告栏父版分别为native-f-trade-board-20261026-v1与local-native-f-trade-board-20261026-v1。归档为14个合成目标源叶，两端字节一致；真实运行增量为线上8叶/本地14叶。线上以三书闭准入恢复snapshot为三方base，6叶base==target严格保最新；其余8叶latest==base采用目标。本地以旧八武器为base，14叶均latest==base采用目标，无双改冲突。local_state线上三方字节相同，严格保最新；本地最新等于八武器base而目标新增Force读者，采用目标。没有整文件覆盖公告栏改动，实际公告栏25叶逐SHA全部保持。其余全部父版文件也逐字节保持，无新增/删除运行叶。
 
 新增合成相关私验完成：两端artifact真实App/TLS直接122、重启自动55B与14A；新实际包的原生55B/14A完整读取各2；候选/恢复双端各5项改变依赖6CE事务检查；恢复真实读者保12拥有/原9/普通栏与页，并闭三学习/三地图生产，保8武器。原生UI、来源6case、legacy64SQL等未变证明按SHA复用，没有重跑公告栏15项或六图全路线。公告栏实际父绑定写入manifest，但本次修复仍由最终publisher核锁、备份、正常排空、实际独立inode安装、观察与QA后才能宣称交付。
+
+当前实际父版已接续角色基础数值批次 sourced-character-base-native-inputs-20261026-v1／local-sourced-character-base-native-inputs-20261026-v1。该批三个运行文件与三书14源无重叠，manifest逐项记录完整SHA并由CI核对仓库原源码；原交易所25叶与所有其他父版字节保持。三书源14字节全未变，实际差异仍为线上8叶／本地14叶。旧Board父私验保留为历史证明，新父的最终集成验收及正式交付由publisher另行核定，本文不冒称已安装。

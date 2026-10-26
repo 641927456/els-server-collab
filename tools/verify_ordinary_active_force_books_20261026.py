@@ -30,6 +30,8 @@ def verify():
   assert {r['path']for r in m['source_delta']if r['sha256']!=r['parent_sha256_by_channel'][channel]}==set(m['actual_delta'][channel]['paths'])
   assert len(m['actual_parents'][channel]['pointer_sha256'])==len(m['actual_parents'][channel]['manifest_sha256'])==64
   assert len(m['Board25_preservation'][channel])==25 and all(r['exact_latest_bytes']for r in m['Board25_preservation'][channel])
+  assert {r['path']for r in m['character3_preservation'][channel]}=={'config/combat_rules.json','els_server/domain/character_stats.py','els_server/domain/native_character_base.py'}
+  assert all(r['exact_latest_bytes']and digest((ROOT/r['path']).read_bytes())==r['sha256']for r in m['character3_preservation'][channel])
  assert m['local_state_three_way']['online']['decision']=='preserve-latest'and m['local_state_three_way']['local']['decision']=='copy-target'
  seen=set()
  for row in m['source_delta']:
