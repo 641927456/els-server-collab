@@ -1,0 +1,298 @@
+{
+  "schema": 1,
+  "issue": 520,
+  "component": "feta",
+  "runtime_overlay_not_main": true,
+  "reference_snapshots_not_final_deployment_parent": true,
+  "actual_parent_reconciliation_required": true,
+  "private_data_included": false,
+  "client_delta": 0,
+  "install_DDL_statements": 0,
+  "new_lazy_tables": 2,
+  "source_paths": [
+    "els_server/data/feta_exchange.json",
+    "els_server/data/market_conversion.json",
+    "els_server/domain/acquisition_policy.py",
+    "els_server/domain/feta_coupon_rules.py",
+    "els_server/domain/feta_exchange_flow.py",
+    "els_server/domain/feta_exchange_rules.py",
+    "els_server/domain/feta_limit_flow.py",
+    "els_server/domain/inventory_items.py",
+    "els_server/domain/local_session.py",
+    "els_server/domain/market_conversion_rules.py",
+    "els_server/protocol/feta_exchange_messages.py",
+    "els_server/protocol/feta_limit_messages.py",
+    "els_server/storage/feta_exchange.py",
+    "els_server/storage/feta_exchange_source.py",
+    "els_server/storage/feta_exchange_weekly.py",
+    "els_server/storage/inventory_state.py",
+    "els_server/storage/market_conversion.py"
+  ],
+  "channels": {
+    "online": {
+      "reference_parent_release": "native-owned-potion-choice-seraph-20261026-v1",
+      "reference_parent_manifest_sha256": "6b1e06454771aa8aa152b9ab163af1007901f46bf71b3c35dab7edca90a384cf",
+      "files": [
+        {
+          "path": "els_server/data/feta_exchange.json",
+          "archive": "shared/els_server/data/feta_exchange.json",
+          "sha256": "dfd2f67d99b5a475d155c6e99f765499879188b914f17cab88eef9a051dba361",
+          "size": 4099,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/data/market_conversion.json",
+          "archive": "shared/els_server/data/market_conversion.json",
+          "sha256": "4b14a2220bfe1d14c7575c1c15a75fe4d1e726ac44b50f21089af45d1c390db2",
+          "size": 46005,
+          "parent_sha256": "6f83afbe5acb350392a255e91853aa4b69b310940f9fbb673078a3e04bbe5f10"
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive": "online/els_server/domain/acquisition_policy.py",
+          "sha256": "b20fb3a06ce21410a3187309aa5955736d7c646ba008e3fad9a6d64dea028c83",
+          "size": 9584,
+          "parent_sha256": "85c81d0562d47fc70d098aef546e0f93c64a59c8af271cf9a9441855b688a341"
+        },
+        {
+          "path": "els_server/domain/feta_coupon_rules.py",
+          "archive": "shared/els_server/domain/feta_coupon_rules.py",
+          "sha256": "6c499dfe9077c06099a7ba8cda90a8ab2003979f544ba2dac8ca64af4b37b0d0",
+          "size": 572,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/feta_exchange_flow.py",
+          "archive": "shared/els_server/domain/feta_exchange_flow.py",
+          "sha256": "f192588af231d1848532a84263d4a99a95dc294631b6ea0cde8a46283269568e",
+          "size": 1713,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/feta_exchange_rules.py",
+          "archive": "shared/els_server/domain/feta_exchange_rules.py",
+          "sha256": "0df904b35b30541175bb9e0cbc4f330af4da119d948e39ebbbf150833ea5267d",
+          "size": 4563,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/feta_limit_flow.py",
+          "archive": "shared/els_server/domain/feta_limit_flow.py",
+          "sha256": "3a77a5f7a465eee8cc7bc1a3a6093152410a3975440eb7312f9f166fd0318667",
+          "size": 1225,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "archive": "online/els_server/domain/inventory_items.py",
+          "sha256": "6e81437880cb71f1ee41eb7619081bf09325ab6a8845cd4fa9996e989d2728ab",
+          "size": 69058,
+          "parent_sha256": "4347c69a8816283b647c678b4d152b950bef3ecabe35a6606e703d00c3ec5186"
+        },
+        {
+          "path": "els_server/domain/market_conversion_rules.py",
+          "archive": "shared/els_server/domain/market_conversion_rules.py",
+          "sha256": "ea6e9241c736d1dcc507599bf4499571df155c3348d7a8cb2f67fd096c07525b",
+          "size": 2966,
+          "parent_sha256": "fc32fc04d4b5af545c8d70750015f1167c8623aae3512ad69c5a950fcaa57885"
+        },
+        {
+          "path": "els_server/protocol/feta_exchange_messages.py",
+          "archive": "shared/els_server/protocol/feta_exchange_messages.py",
+          "sha256": "d1a69913651d6946c362bf2dafb27c14b69d0db98e7b0f6c32a7642cd8cff3ec",
+          "size": 1521,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/protocol/feta_limit_messages.py",
+          "archive": "shared/els_server/protocol/feta_limit_messages.py",
+          "sha256": "cd8d7c2169c92d7531a401101e93ab0ed0bf050e895a5b3a79d5e7149b62576f",
+          "size": 854,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/feta_exchange.py",
+          "archive": "shared/els_server/storage/feta_exchange.py",
+          "sha256": "87695ce33958b0599b61363f32d90b4622ae573a0e838862cba6c641f21ce71c",
+          "size": 8530,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/feta_exchange_source.py",
+          "archive": "shared/els_server/storage/feta_exchange_source.py",
+          "sha256": "665284eccb27d45a0908d183ed41b9569b602cc72aae9a45608f9a83d77100fe",
+          "size": 4225,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/feta_exchange_weekly.py",
+          "archive": "shared/els_server/storage/feta_exchange_weekly.py",
+          "sha256": "02aca5026b64fe05dc588fef0fa3cafae993d70e494019028ee4c2c00dce7a18",
+          "size": 3134,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/inventory_state.py",
+          "archive": "shared/els_server/storage/inventory_state.py",
+          "sha256": "f28e08baaea88e2e76d4d7787e8770fea1a4f25b9a3ee3ef63f4f6acfdd62371",
+          "size": 24945,
+          "parent_sha256": "025f29a93961eee1730851e094a576cee37d06acf1eab7b6f657480469bc4726"
+        },
+        {
+          "path": "els_server/storage/market_conversion.py",
+          "archive": "shared/els_server/storage/market_conversion.py",
+          "sha256": "8094298dd28310e16c442ea8952f3f86fe632c098a684327bff74b48f1911e40",
+          "size": 6890,
+          "parent_sha256": "b809de62dd8c6765b1e205cbd4465eb99258ff73e588958592f5623bda064a39"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive": "online/els_server/domain/local_session.py",
+          "sha256": "44e3d12c4c19709c157f5afb0bbdbc66581c1840bf9b571f4df9ad21c1404c41",
+          "size": 162065,
+          "parent_sha256": "01265177b5b459749d49b0cba4b30b61057368231bae50ac8da22310f0d414c9"
+        }
+      ]
+    },
+    "local": {
+      "reference_parent_release": "local-native-owned-potion-choice-seraph-20261026-v1",
+      "reference_parent_manifest_sha256": "20b80205c2d704ca0f534325dea972160f4a37ed60e03cf4bc7a9d17fdbfcd99",
+      "files": [
+        {
+          "path": "els_server/data/feta_exchange.json",
+          "archive": "shared/els_server/data/feta_exchange.json",
+          "sha256": "dfd2f67d99b5a475d155c6e99f765499879188b914f17cab88eef9a051dba361",
+          "size": 4099,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/data/market_conversion.json",
+          "archive": "shared/els_server/data/market_conversion.json",
+          "sha256": "4b14a2220bfe1d14c7575c1c15a75fe4d1e726ac44b50f21089af45d1c390db2",
+          "size": 46005,
+          "parent_sha256": "6f83afbe5acb350392a255e91853aa4b69b310940f9fbb673078a3e04bbe5f10"
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive": "local/els_server/domain/acquisition_policy.py",
+          "sha256": "c3569d8fee0fb1737dd3ab547a24e08ceb5eb9e905b201888becd4b46ba9c4ba",
+          "size": 9424,
+          "parent_sha256": "0ce9d92d03c0410384d15c88bab9cb447ecb5fb90f2fcbdeba2c563091ed6d80"
+        },
+        {
+          "path": "els_server/domain/feta_coupon_rules.py",
+          "archive": "shared/els_server/domain/feta_coupon_rules.py",
+          "sha256": "6c499dfe9077c06099a7ba8cda90a8ab2003979f544ba2dac8ca64af4b37b0d0",
+          "size": 572,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/feta_exchange_flow.py",
+          "archive": "shared/els_server/domain/feta_exchange_flow.py",
+          "sha256": "f192588af231d1848532a84263d4a99a95dc294631b6ea0cde8a46283269568e",
+          "size": 1713,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/feta_exchange_rules.py",
+          "archive": "shared/els_server/domain/feta_exchange_rules.py",
+          "sha256": "0df904b35b30541175bb9e0cbc4f330af4da119d948e39ebbbf150833ea5267d",
+          "size": 4563,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/feta_limit_flow.py",
+          "archive": "shared/els_server/domain/feta_limit_flow.py",
+          "sha256": "3a77a5f7a465eee8cc7bc1a3a6093152410a3975440eb7312f9f166fd0318667",
+          "size": 1225,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "archive": "local/els_server/domain/inventory_items.py",
+          "sha256": "dd4847d268f150f54af3bfe69dbe674dc7178fe617ff7d8a1e89e604d918263e",
+          "size": 68901,
+          "parent_sha256": "8d06e063da46d41f981917c121c0b8afff562b7ffe0bbe72b7706fdca13f9ddb"
+        },
+        {
+          "path": "els_server/domain/market_conversion_rules.py",
+          "archive": "shared/els_server/domain/market_conversion_rules.py",
+          "sha256": "ea6e9241c736d1dcc507599bf4499571df155c3348d7a8cb2f67fd096c07525b",
+          "size": 2966,
+          "parent_sha256": "fc32fc04d4b5af545c8d70750015f1167c8623aae3512ad69c5a950fcaa57885"
+        },
+        {
+          "path": "els_server/protocol/feta_exchange_messages.py",
+          "archive": "shared/els_server/protocol/feta_exchange_messages.py",
+          "sha256": "d1a69913651d6946c362bf2dafb27c14b69d0db98e7b0f6c32a7642cd8cff3ec",
+          "size": 1521,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/protocol/feta_limit_messages.py",
+          "archive": "shared/els_server/protocol/feta_limit_messages.py",
+          "sha256": "cd8d7c2169c92d7531a401101e93ab0ed0bf050e895a5b3a79d5e7149b62576f",
+          "size": 854,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/feta_exchange.py",
+          "archive": "shared/els_server/storage/feta_exchange.py",
+          "sha256": "87695ce33958b0599b61363f32d90b4622ae573a0e838862cba6c641f21ce71c",
+          "size": 8530,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/feta_exchange_source.py",
+          "archive": "shared/els_server/storage/feta_exchange_source.py",
+          "sha256": "665284eccb27d45a0908d183ed41b9569b602cc72aae9a45608f9a83d77100fe",
+          "size": 4225,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/feta_exchange_weekly.py",
+          "archive": "shared/els_server/storage/feta_exchange_weekly.py",
+          "sha256": "02aca5026b64fe05dc588fef0fa3cafae993d70e494019028ee4c2c00dce7a18",
+          "size": 3134,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/inventory_state.py",
+          "archive": "shared/els_server/storage/inventory_state.py",
+          "sha256": "f28e08baaea88e2e76d4d7787e8770fea1a4f25b9a3ee3ef63f4f6acfdd62371",
+          "size": 24945,
+          "parent_sha256": "025f29a93961eee1730851e094a576cee37d06acf1eab7b6f657480469bc4726"
+        },
+        {
+          "path": "els_server/storage/market_conversion.py",
+          "archive": "shared/els_server/storage/market_conversion.py",
+          "sha256": "8094298dd28310e16c442ea8952f3f86fe632c098a684327bff74b48f1911e40",
+          "size": 6890,
+          "parent_sha256": "b809de62dd8c6765b1e205cbd4465eb99258ff73e588958592f5623bda064a39"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive": "local/els_server/domain/local_session.py",
+          "sha256": "612dafb6fb33aaf462d2920c7855d04bc49d813fe26caebb090a21c15708d68b",
+          "size": 159567,
+          "parent_sha256": "6af3a6091381845b93f9b7dfa1425b64fde4ff51b648d4e07d3fc98414709ec3"
+        }
+      ]
+    }
+  },
+  "physical_source_files": 20,
+  "auxiliary_files": [
+    {
+      "path": "patch-contract.json",
+      "sha256": "65952931656c0be7f35c1899854dd7f88caf12f10c7db3f7b9748fa3ba86d51b"
+    },
+    {
+      "path": "qualified-summary.json",
+      "sha256": "9aae93ce4078e0d69325140d7acbcfbd6e0f5d391c36f82d10db92664acc65b0"
+    },
+    {
+      "path": "README.txt",
+      "sha256": "3b1da176841aa079da8c110a0846985055ca80281121fe53bd4aeed0bc73ca34"
+    }
+  ]
+}
