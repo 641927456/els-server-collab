@@ -51,3 +51,7 @@ QA-account cleanup and source preservation are recorded in the private delivery
 receipts after normal protected publication. Other SQLite writers, expensive
 business decoding, synchronous critical logging fallback, disk and network
 pressure remain possible latency sources.
+
+Accepted dual delivery: `server-selection-town-business-20261027-v1` and LOCAL, 121.81/123.97s observation, full1242/1264 business and1718 LOCAL runtime hashes, first/cold protocol reads,256 auxiliary requests and exact owned-authentication/capacity cleanup. Both owned locks/tasks/stage have been released; this queue priority has ended.
+
+176 targeted cases:171 passed and5 channel skips; four additional expiration checks passed. Two supplementary legacy full-quest fixtures fail identically on the accepted unmodified parent before their target scenarios (0x7d5); original failures are retained and no guards were relaxed. Per-request SQL writer duration covers the transaction scope; an explicit early rollback can make it overestimate actual lock hold time.
