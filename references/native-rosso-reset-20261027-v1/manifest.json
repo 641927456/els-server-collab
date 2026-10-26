@@ -1,0 +1,167 @@
+{
+  "schema": 1,
+  "scope": "Original135909 owned UID/selected Rosso normal or story reset and only original34160 source",
+  "new_tables": 0,
+  "new_schema": false,
+  "install_DDL": 0,
+  "rule": "One ticket,zero ED,only selected current-week nonempty mode; no extra weekly usage cap; explicit local-server rule",
+  "preserve": "Other mode/family/owner/week,weapon pity,all original immutable phase and reward receipts,old reset replay never clears new eligibility",
+  "source_rule": "Only34160 existing total10percent pool,one item; not per-ticket10percent or retail probability",
+  "shared_files": 5,
+  "channel_specific_each": 2,
+  "native_record_sha256": "9780669d82f77f91b06877562251e542b70eef2618399479d0a7a7268899b886",
+  "channels": {
+    "online": {
+      "parent_release": "native-current-refresh-inputs-20261027-v1",
+      "parent_manifest_name": "rollup-manifest.json",
+      "parent_manifest_sha256": "41d98ccc2bf699798511b69d61933ac4ae4f712241a2c4e109b1b459337054c3",
+      "runtime_leaves": [
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.json",
+          "sha256": "6cc984f3114bbfd806056946d2ac80615e170f5641ede7a30c200126b7be9a86",
+          "size": 262067,
+          "parent_sha256": "d544e8097283c1345bfdd393d921683f7b680a7638d14fa975b9e6008f3df6a3",
+          "new_file": false
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "28d3ba2e67509ee5c6699b5089973227a8cc78407d818319d08ab298d20862ce",
+          "size": 206,
+          "parent_sha256": "e9e0c10e866be6e58040ccd24550dd69ea95ce456f6484ecd0f676b8dabc5f04",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive_path": "online/els_server/domain/acquisition_policy.py",
+          "sha256": "b946e34a336550f8a1d0a4bcf3dee6e69f0bc349ad0a84ca29db3f418192c8df",
+          "size": 11372,
+          "parent_sha256": "29a2797af8ff77282148b6ff667ef1af6569b7efe98f54f7b8675f0a352a96ab",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive_path": "online/els_server/domain/local_session.py",
+          "sha256": "30d23e72fd4eae03959d2f5481c5e61b7347e56d3d46b9b1fd95be2a0edb4061",
+          "size": 166206,
+          "parent_sha256": "bec42d17d91659f06f7b006ba422a7e3663d2cc62088766b7c099600b39688a8",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/raid_reward_items.py",
+          "archive_path": "shared/els_server/domain/raid_reward_items.py",
+          "sha256": "efb1631f55f7fcfde5dd7b2942b8fba8f3268611d82b23836adf9e437a2407f7",
+          "size": 10862,
+          "parent_sha256": "8f3af0d7c100d43911b89aa6d808769b5fb1217a24ed3bccaa295d64d7902542",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/rosso_reset.py",
+          "archive_path": "shared/els_server/domain/rosso_reset.py",
+          "sha256": "923e88d849617c77be5ab5a8f16132afb66622fb01dc87e9f40dd5a7f0c04436",
+          "size": 2761,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/storage/rosso_reset.py",
+          "archive_path": "shared/els_server/storage/rosso_reset.py",
+          "sha256": "7189d0563e4300575a9b75a7bd541672ab846074df7d0c0028f357efbb4e326f",
+          "size": 5668,
+          "parent_sha256": null,
+          "new_file": true
+        }
+      ],
+      "preserved_parent_rows": {
+        "els_server/storage/seal_quests.py": "c7b6d47675d957a2ae3dc9ebea1b15ec4f7b217c41d227a0fe7bff1c77fa7f6d",
+        "els_server/storage/career_shop.py": "24c717d620639d96715fc2cdb08b2dcf4540d1e1d7dafbe5d0ae66c0cc2c61b5",
+        "els_server/domain/native_ticket_admission.py": "b60a10528bf36550bec472f0a6f938e3f71b3d6cf2cb098d5960ee52587450f1",
+        "els_server/domain/native_ticket_rules.py": "c87f17bc59860ac0dcc0d0c22b8ee942ccb08c06a11c5f7fc8afbc4459bd1a1c",
+        "els_server/storage/native_dungeon_tickets.py": "c17cc71ec44b6a11ffbcddf35396744f374a69aebdc93cf9ec8e518d6eef6f29",
+        "els_server/domain/friends_dungeon.py": "0a2b500fd2fae6614ed973d47bc0bed71f03cf3fcabe3e0c9b1495d188598dee",
+        "els_server/domain/inventory_items.py": "32a60d565eee1515721d98ddebc6cb58d6488538a675f2d8e5be7e1fb2ad90b0",
+        "els_server/protocol/dungeon_messages.py": "e1797afc8995c5b094414ba0bfccc4f550fa7b0cc5cd8eb27549cfa0dd3532cc",
+        "els_server/protocol/local_messages.py": "a8e8e4011ed8986d4fbfb67fff2d80b6a7e988889e6cc562f0c3e1240a4dbb33",
+        "els_server/data/boosting2026-force-inventory.json": "31ec4798959d647f5849d292857c84a55a94440de0a397a33ac7ada196889634",
+        "config/combat_rules.json": "7ce1ed5eed7ffceccc1769af6a6b8d006da311095ea63aff5f7c3cf91e729906"
+      }
+    },
+    "local": {
+      "parent_release": "local-native-current-refresh-inputs-20261027-v1",
+      "parent_manifest_name": "local-business-manifest.json",
+      "parent_manifest_sha256": "ebf255739ba4d72d9cbfd6eebc8e810d4499aae56f8a15546ae30ed1695f5fc1",
+      "runtime_leaves": [
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.json",
+          "sha256": "6cc984f3114bbfd806056946d2ac80615e170f5641ede7a30c200126b7be9a86",
+          "size": 262067,
+          "parent_sha256": "d544e8097283c1345bfdd393d921683f7b680a7638d14fa975b9e6008f3df6a3",
+          "new_file": false
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "28d3ba2e67509ee5c6699b5089973227a8cc78407d818319d08ab298d20862ce",
+          "size": 206,
+          "parent_sha256": "e9e0c10e866be6e58040ccd24550dd69ea95ce456f6484ecd0f676b8dabc5f04",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive_path": "local/els_server/domain/acquisition_policy.py",
+          "sha256": "9efe50f6ea461f860e208ed36f12259e6250b1c4075f2e27f9c6c0d2ae0ecdc6",
+          "size": 11213,
+          "parent_sha256": "84473c83f5b0ebafb41677bf4fe84a0a715fa795d20b8d1b5bf133137d3163c7",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive_path": "local/els_server/domain/local_session.py",
+          "sha256": "1ad15ba388ac1c4dcd76c41f8bdbd92be459266648a030eb85e642a68fe1a169",
+          "size": 163708,
+          "parent_sha256": "755daae8018923b97ec4bd1e3007363f7f0a88fce6aa6bcc474ad8a4b5892335",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/raid_reward_items.py",
+          "archive_path": "shared/els_server/domain/raid_reward_items.py",
+          "sha256": "efb1631f55f7fcfde5dd7b2942b8fba8f3268611d82b23836adf9e437a2407f7",
+          "size": 10862,
+          "parent_sha256": "8f3af0d7c100d43911b89aa6d808769b5fb1217a24ed3bccaa295d64d7902542",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/rosso_reset.py",
+          "archive_path": "shared/els_server/domain/rosso_reset.py",
+          "sha256": "923e88d849617c77be5ab5a8f16132afb66622fb01dc87e9f40dd5a7f0c04436",
+          "size": 2761,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/storage/rosso_reset.py",
+          "archive_path": "shared/els_server/storage/rosso_reset.py",
+          "sha256": "7189d0563e4300575a9b75a7bd541672ab846074df7d0c0028f357efbb4e326f",
+          "size": 5668,
+          "parent_sha256": null,
+          "new_file": true
+        }
+      ],
+      "preserved_parent_rows": {
+        "els_server/storage/seal_quests.py": "c7b6d47675d957a2ae3dc9ebea1b15ec4f7b217c41d227a0fe7bff1c77fa7f6d",
+        "els_server/storage/career_shop.py": "24c717d620639d96715fc2cdb08b2dcf4540d1e1d7dafbe5d0ae66c0cc2c61b5",
+        "els_server/domain/native_ticket_admission.py": "b60a10528bf36550bec472f0a6f938e3f71b3d6cf2cb098d5960ee52587450f1",
+        "els_server/domain/native_ticket_rules.py": "c87f17bc59860ac0dcc0d0c22b8ee942ccb08c06a11c5f7fc8afbc4459bd1a1c",
+        "els_server/storage/native_dungeon_tickets.py": "c17cc71ec44b6a11ffbcddf35396744f374a69aebdc93cf9ec8e518d6eef6f29",
+        "els_server/domain/friends_dungeon.py": "0a2b500fd2fae6614ed973d47bc0bed71f03cf3fcabe3e0c9b1495d188598dee",
+        "els_server/domain/inventory_items.py": "47679deab8a7fe47abfc157345144a1debb1296aa27ca893f77e6e7d8bcdb2ad",
+        "els_server/protocol/dungeon_messages.py": "e1797afc8995c5b094414ba0bfccc4f550fa7b0cc5cd8eb27549cfa0dd3532cc",
+        "els_server/protocol/local_messages.py": "a8e8e4011ed8986d4fbfb67fff2d80b6a7e988889e6cc562f0c3e1240a4dbb33",
+        "els_server/data/boosting2026-force-inventory.json": "31ec4798959d647f5849d292857c84a55a94440de0a397a33ac7ada196889634",
+        "config/combat_rules.json": "7ce1ed5eed7ffceccc1769af6a6b8d006da311095ea63aff5f7c3cf91e729906"
+      }
+    }
+  }
+}
