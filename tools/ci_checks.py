@@ -33,6 +33,9 @@ def main(argv=None):
     if (ROOT/'references/qualified-force-clock-20261026-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_qualified_force_clock_20261026.py')])
         run([sys.executable,'-B',str(ROOT/'tools/verify_qualified_force_clock_20261026.py'),'--channel','local'])
+    if (ROOT/'references/native-two-permanent-tickets-20261027-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_permanent_tickets_20261027.py')])
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_permanent_tickets_20261027.py'),'--channel','local'])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
     count=0
     for name in filter(None,names):
