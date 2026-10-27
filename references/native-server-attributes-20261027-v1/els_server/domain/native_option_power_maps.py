@@ -15,7 +15,8 @@ def source_map_inputs(definition):
     enchant=f32(definition.get('m_fEnchantMultiplyStatValueForCapability',0.))
     rate=f32(definition.get('m_fIncreaseDmgEnemyHPFew_DmgRate',0.))
     percent=i32(definition.get('m_iIncreaseDmgEnemyHPFew_HPPercent',0))
-    flag=definition.get('m_bIncreaseDmgEnemyHPFew_IsDown',0)
+    flag=definition.get('m_bIncreaseDmgEnemyHPFew_IsDown')
+    if flag is None:flag=1  # Original property getter default, including Lua nil.
     if type(flag) is not int or flag not in(0,1):raise ValueError('Qualified original probability flag required')
     probability={} if rate==0. else {(percent if percent else 30,flag):rate}
     additional=(i32(definition.get('m_iIncreaseDmgEnemyHPFew_HPPercent_OperatorType_Add',0)),

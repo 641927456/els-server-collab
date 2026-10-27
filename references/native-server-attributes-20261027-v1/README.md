@@ -200,6 +200,18 @@ Five distinct current metadata profiles span all70522 definitions, with20
 source-parser-to-whole-callback comparisons. Prepared rank/class contexts,
 other scalar leaves and actor event-effect containers are separate contracts.
 
+Independent composition of a private22-item source now reproduces25 callbacks
+per pass from saved fields, template pools, set selection and the title source.
+It matches the full original897100/8889F0 collectors in their qualified cold
+context, using the complete858ED0..859402 Unit initialization prefix and real
+inventory owner/caches. The original constructor initializes67 extra inventory
+slots; these are traversed rather than replaced with an empty zeroed object.
+This composition caught a missing source default: absent or Lua-nil probability
+direction is1.32 new original parser/merge controls cover that default and
+explicit0/1. First51 scalar leaves,13 data leaves and relevant CP maps now
+agree, as do second-pass category/capability maps. Private player inputs and
+native temporary pointers remain outside Git; full CP/lifecycle is separate.
+
 The remaining integration must bind every actual modifier/context and CP
 aggregate, qualify the current HP clamp/refresh lifecycle in the unmodified
 client, then enable and publish in the ordinary queue from the actual latest

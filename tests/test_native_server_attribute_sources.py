@@ -915,4 +915,16 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             self.assertEqual(struct.pack('<13f',*data),struct.pack('<13f',*row['native_data']))
 
 
+    def test_native_probability_direction_defaults_to_one_including_lua_nil(self):
+        golden=json.loads((REFERENCE/'native-probability-direction-default-goldens.json').read_bytes())
+        self.assertEqual(len(golden['rows']),32)
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(self.option_power_maps.__file__).read_bytes()).hexdigest())
+        for row in golden['rows']:
+            source=self.option_power_maps.source_map_inputs(row['definition'])
+            actual=self.option_power_maps.merge_map_inputs({}, {}, (0,0.),source,**row['args'])[1]
+            self.assertEqual(actual,{tuple(k):v for k,v in row['native']})
+            flag=row['definition'].get('m_bIncreaseDmgEnemyHPFew_IsDown')
+            self.assertEqual({key[1]for key in source['probability']},{1 if flag is None else flag})
+
+
 if __name__=='__main__':unittest.main()
