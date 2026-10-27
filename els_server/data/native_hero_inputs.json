@@ -1,0 +1,429 @@
+{
+  "schema_version": 1,
+  "policy": "finite-native-Hero-120000-source-inputs-20261026-v1",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "source": "dungeon_elysion_adrian_expert.lua",
+  "graph_sha256": "515e9b530c8b5af50675a28db32949f71ea757371fc2b8ca8e2683f05715e9e4",
+  "npc_level": 87,
+  "difficulty": 1,
+  "ten_floats": [
+    0.4,
+    0.5,
+    0.4,
+    0.4,
+    12,
+    2,
+    10,
+    2.5,
+    75,
+    5.3
+  ],
+  "sources": {
+    "0:0:-1:3:2300": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_ORB",
+      "script": "ELYSION_EMPEROR_ORB.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "0:0:-1:5:2300": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_ORB",
+      "script": "ELYSION_EMPEROR_ORB.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "0:0:-1:7:2299": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_SHIELD",
+      "script": "ELYSION_EMPEROR_SHIELD.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "1:0:-1:1:2299": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_SHIELD",
+      "script": "ELYSION_EMPEROR_SHIELD.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "1:0:-1:2:2300": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_ORB",
+      "script": "ELYSION_EMPEROR_ORB.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "1:0:-1:3:2300": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_ORB",
+      "script": "ELYSION_EMPEROR_ORB.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "1:0:-1:7:2300": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_ORB",
+      "script": "ELYSION_EMPEROR_ORB.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:0:-1:16:2300": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_ORB",
+      "script": "ELYSION_EMPEROR_ORB.lua",
+      "class_id": 0,
+      "is_npc": true
+    }
+  },
+  "native_modifiers_only": true,
+  "DEF_resistance_and_DR_unchanged": true,
+  "all_other_sources_unchanged": true,
+  "source_qualification": "All indexed legacy resources decoded; raw base cache and assignment native audited. Raw base four fields missing; ordinary same-template NA level100 reference adopted as labeled local rule, then original Hero native HP/attack modifier. No Hero page effective values or guessed level growth.",
+  "native_proof_sha256": "1daf6088f1e8818a813526bddc972069dbd2a1c7498724a89f802bb9c3939356",
+  "mode_sources": {
+    "0:0:-1:1:2302": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_LANCE",
+      "script": "ELYSION_EMPEROR_LANCE.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "0:0:-1:2:2302": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_LANCE",
+      "script": "ELYSION_EMPEROR_LANCE.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "0:0:-1:3:2300": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_ORB",
+      "script": "ELYSION_EMPEROR_ORB.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "0:0:-1:4:2301": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_BOW",
+      "script": "ELYSION_EMPEROR_BOW.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "0:0:-1:5:2300": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_ORB",
+      "script": "ELYSION_EMPEROR_ORB.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "0:0:-1:6:2302": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_LANCE",
+      "script": "ELYSION_EMPEROR_LANCE.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "0:0:-1:7:2299": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_SHIELD",
+      "script": "ELYSION_EMPEROR_SHIELD.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "0:0:-1:8:2301": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_BOW",
+      "script": "ELYSION_EMPEROR_BOW.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "0:0:-1:9:2302": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_LANCE",
+      "script": "ELYSION_EMPEROR_LANCE.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "0:0:-1:10:2302": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_LANCE",
+      "script": "ELYSION_EMPEROR_LANCE.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "0:0:-1:11:2301": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_BOW",
+      "script": "ELYSION_EMPEROR_BOW.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "1:0:-1:1:2299": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_SHIELD",
+      "script": "ELYSION_EMPEROR_SHIELD.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "1:0:-1:2:2300": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_ORB",
+      "script": "ELYSION_EMPEROR_ORB.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "1:0:-1:3:2300": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_ORB",
+      "script": "ELYSION_EMPEROR_ORB.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "1:0:-1:4:2302": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_LANCE",
+      "script": "ELYSION_EMPEROR_LANCE.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "1:0:-1:5:2302": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_LANCE",
+      "script": "ELYSION_EMPEROR_LANCE.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "1:0:-1:6:2302": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_LANCE",
+      "script": "ELYSION_EMPEROR_LANCE.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "1:0:-1:7:2300": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_ORB",
+      "script": "ELYSION_EMPEROR_ORB.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "1:0:-1:8:2301": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_BOW",
+      "script": "ELYSION_EMPEROR_BOW.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "1:0:-1:9:2301": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_BOW",
+      "script": "ELYSION_EMPEROR_BOW.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "1:1:-1:1:2275": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_NEW_DEKAL",
+      "script": "ELYSION_NEW_DEKAL.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:0:-1:7:2271": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_HAMMER_PANG",
+      "script": "ELYSION_HAMMER_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:0:-1:8:2302": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_LANCE",
+      "script": "ELYSION_EMPEROR_LANCE.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:0:-1:9:2302": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_LANCE",
+      "script": "ELYSION_EMPEROR_LANCE.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:0:-1:10:2272": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_SING_PANG",
+      "script": "ELYSION_SING_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:0:-1:11:2273": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_BOMB_PANG",
+      "script": "ELYSION_BOMB_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:0:-1:12:2274": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_PUPANG",
+      "script": "ELYSION_PUPANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:0:-1:13:2274": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_PUPANG",
+      "script": "ELYSION_PUPANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:0:-1:14:2274": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_PUPANG",
+      "script": "ELYSION_PUPANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:0:-1:15:2271": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_HAMMER_PANG",
+      "script": "ELYSION_HAMMER_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:0:-1:16:2300": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_ORB",
+      "script": "ELYSION_EMPEROR_ORB.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:0:-1:17:2273": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_BOMB_PANG",
+      "script": "ELYSION_BOMB_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:0:-1:18:2274": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_PUPANG",
+      "script": "ELYSION_PUPANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:0:-1:20:2272": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_SING_PANG",
+      "script": "ELYSION_SING_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:1:-1:6:2302": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_LANCE",
+      "script": "ELYSION_EMPEROR_LANCE.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:1:-1:7:2301": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_BOW",
+      "script": "ELYSION_EMPEROR_BOW.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:1:-1:8:2274": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_PUPANG",
+      "script": "ELYSION_PUPANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:1:-1:9:2274": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_PUPANG",
+      "script": "ELYSION_PUPANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:1:-1:10:2272": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_SING_PANG",
+      "script": "ELYSION_SING_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:1:-1:11:2274": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_PUPANG",
+      "script": "ELYSION_PUPANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:1:-1:12:2302": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_EMPEROR_LANCE",
+      "script": "ELYSION_EMPEROR_LANCE.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:1:-1:14:2273": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_BOMB_PANG",
+      "script": "ELYSION_BOMB_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:1:-1:15:2274": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_PUPANG",
+      "script": "ELYSION_PUPANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:1:-1:16:2271": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_HAMMER_PANG",
+      "script": "ELYSION_HAMMER_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:1:-1:17:2272": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_SING_PANG",
+      "script": "ELYSION_SING_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:1:-1:18:2274": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_PUPANG",
+      "script": "ELYSION_PUPANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:1:-1:19:2273": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_BOMB_PANG",
+      "script": "ELYSION_BOMB_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:1:-1:20:2274": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_PUPANG",
+      "script": "ELYSION_PUPANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:2:-1:9:2271": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_HAMMER_PANG",
+      "script": "ELYSION_HAMMER_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:2:-1:10:2273": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_BOMB_PANG",
+      "script": "ELYSION_BOMB_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:2:-1:11:2274": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_PUPANG",
+      "script": "ELYSION_PUPANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:2:-1:12:2271": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_HAMMER_PANG",
+      "script": "ELYSION_HAMMER_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:2:-1:13:2273": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_BOMB_PANG",
+      "script": "ELYSION_BOMB_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:2:-1:14:2274": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_PUPANG",
+      "script": "ELYSION_PUPANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:2:-1:15:2272": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_SING_PANG",
+      "script": "ELYSION_SING_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:2:-1:16:2274": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_PUPANG",
+      "script": "ELYSION_PUPANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "2:2:-1:17:2272": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_SING_PANG",
+      "script": "ELYSION_SING_PANG.lua",
+      "class_id": 0,
+      "is_npc": true
+    },
+    "4:0:-1:1:2276": {
+      "enum": "NPC_UNIT_ID.NUI_ELYSION_BOSS_HERBAON",
+      "script": "ELYSION_BOSS_HERBAON.lua",
+      "class_id": 0,
+      "is_npc": true
+    }
+  },
+  "mode_source_count": 58,
+  "mode_eligibility": "Exact original graph, class0 real NPC, active hostile team1, non-ally, non-no-drop combat sources; other object/controller sources unchanged",
+  "mode_selection_is_finite_server_integration_not_official_server_selection_claim": true
+}

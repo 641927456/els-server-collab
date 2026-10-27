@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "rows": [
+    {
+      "template": 303673,
+      "name": "[科宝]随我选药水！",
+      "description": "由当前需要的体力恢复药水组成的宝箱！\n\n内含：\n-[科宝]完全恢复药水100个\n-[路莉尔]高浓缩恢复药水130个",
+      "metadata": 0,
+      "group": 4,
+      "selection_count": 1,
+      "entries": [
+        {
+          "template": 710003,
+          "quantity": 100,
+          "name": "[科宝]完全恢复药水",
+          "metadata": 2,
+          "group": 6,
+          "max_stack": 999,
+          "binding": 412,
+          "record_sha256": "a6642628c9cc864359c2716f00038ac1ece60cfbaa6f3bfea6134e2115ed5f94"
+        },
+        {
+          "template": 710284,
+          "quantity": 130,
+          "name": "[路莉尔]高浓缩恢复药水",
+          "metadata": 2,
+          "group": 6,
+          "max_stack": 999,
+          "binding": 392,
+          "record_sha256": "2991f96d1358f128e153244fa62d72eba20059bb44b0db896e2922798b97471b"
+        }
+      ],
+      "record_hex": "39a2040002104000380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000263e3c043e3e3c04000000000000000000000000000000000000000000000000000000000000000000000000d2260c0300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000074d6ce02d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "record_sha256": "53f3ded7d82f236528d3ac031973f953c2b67322464586954aafd7779f13f6c9",
+      "random_rule": {
+        "m_KeyItemID": 0,
+        "m_iGiveCount": 1,
+        "m_ItemID": 303673,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1,
+        "1": {
+          "m_iItemGroupID": 999187143,
+          "m_cUnitClass": 0
+        }
+      },
+      "source_calls": [
+        {
+          "function": "g_pRandomItemManager.AddRandomItemTemplet",
+          "arguments": [
+            {
+              "global": "g_pRandomItemManager"
+            },
+            {
+              "m_KeyItemID": 0,
+              "m_iGiveCount": 1,
+              "m_ItemID": 303673,
+              "m_RequiredKeyCount": 0,
+              "m_UseCondition": 1,
+              "1": {
+                "m_iItemGroupID": 999187143,
+                "m_cUnitClass": 0
+              }
+            }
+          ],
+          "pc": 86967
+        },
+        {
+          "function": "g_pRandomItemManager.AddRandomItemTemplet_Client",
+          "arguments": [
+            {
+              "global": "g_pRandomItemManager"
+            },
+            303673,
+            0,
+            0,
+            0
+          ],
+          "pc": 374350
+        }
+      ],
+      "admitted": true,
+      "existing_owned_only": true,
+      "unknown_raw_stack_not_factory_authority": true
+    }
+  ],
+  "local_mapping": [
+    {
+      "template": 710003,
+      "quantity": 100
+    },
+    {
+      "template": 710284,
+      "quantity": 130
+    }
+  ],
+  "authorization_sha256": "872789fc38d2aee0b0ed4839234952336d599ecd2ebe9ae83b5e4bd2a715b76a",
+  "new_box_sources": false,
+  "random_source_sha256": "618bacd86fa68ab92d40e8d98ce51da4d536e0f57c45801e3375704616e8699c"
+}

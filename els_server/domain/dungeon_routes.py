@@ -58,11 +58,13 @@ class RouteCatalog:
 @functools.lru_cache(maxsize=1)
 def route_catalog():return RouteCatalog()
 
-def npc_initialization(catalog,template,hp,*,source_context=None):
+def npc_initialization(catalog,template,hp,*,source_context=None,dynamic_context=None,field_context=None):
  native=catalog._data['npcs'][str(template)]
  attrs=bytearray.fromhex(catalog._data['attribute_seed']);struct.pack_into('<f',attrs,4,hp);struct.pack_into('<ff',attrs,8,20,20)
  from els_server.domain.raid_npc_stats import apply
  apply(catalog,template,attrs,source_context)
+ from els_server.domain.boss_npc_stats import apply as apply_boss
+ apply_boss(catalog,template,attrs,source_context,dynamic_context=dynamic_context,field_context=field_context)
  strings=native['strings'];init=struct.pack('>iB',template,0)+b''.join(wstring(s) for s in strings[:4])+b'\1'+b''.join(wstring(s) for s in strings[4:])
  return init+b''.join(attrs[o:o+4][::-1] for o in range(0,0x60,4))+bytes(2)
 
@@ -91,7 +93,7 @@ class DungeonRun:
  def draw(self,label,total):
   return int.from_bytes(hashlib.sha256((self.run_id+':'+label).encode()).digest(),'big')%total
  def _load_stage(self,stage):
-  data=self.catalog._data;key=0;parts={};spawn_parts=[];initial=[]
+  data=self.catalog._data;key=0;parts={};spawn_parts=[];initial=[];hero_keys=[]
   suppressed=set()
   if self.encounter and self.encounter['kind']=='gold_castle' and stage==self.encounter['hub']:
    suppressed={p['npc'] for p in self.encounter['portals'] if p['stage'] in self.completed_stages}
@@ -114,7 +116,8 @@ class DungeonRun:
     from els_server.domain.formal_npc_hp import maximum,level as formal_level
     npc_level=self.catalog.static_npc_level(self.identity,self.graph,stage,int(part_id),source)
     if npc_level is None:npc_level=formal_level(self.catalog,self.identity)
-    hp=maximum(self.catalog,template,dungeon=self.identity,npc_level=npc_level,boss=source['boss'])
+    context=(self.identity,self.graph['source_sha256'],npc_level,stage,int(part_id),-1 if index<len(base) else chosen_group['index'],source['source_index'])
+    hp=maximum(self.catalog,template,dungeon=self.identity,npc_level=npc_level,boss=source['boss'],source_context=context)
     if self.hp_context is not None:
      hp=self.hp_context.source_hp(self,stage,int(part_id),-1 if index<len(base) else chosen_group['index'],source,hp)
     point=source['points'][self.draw(f'point:{stage}:{part_id}:{index}',len(source['points']))]
@@ -129,8 +132,10 @@ class DungeonRun:
     if source['boss']:
      if type(source['boss_lines']) is not int or not 1<=source['boss_lines']<=65535:raise ValueError('Boss gauge line bound')
      raw[0x44]=1;struct.pack_into('<H',raw,0x58,source['boss_lines'])
-    context=(self.identity,self.graph['source_sha256'],npc_level,stage,int(part_id),-1 if index<len(base) else chosen_group['index'],source['source_index'])
     init=npc_initialization(self.catalog,template,hp,source_context=context)
+    from els_server.domain.native_hero_inputs import source_maximum
+    hp,hero_native=source_maximum(self.catalog,template,hp,context)
+    if hero_native:hero_keys.append(key)
     wire=encode_npc(resource_dto(raw),0)
     entries.append({**source,'key':key,'hp':hp,'start_point':point,'wire':wire,'init':init})
     initial.append(struct.pack('>i',key)+init);key+=1
@@ -138,7 +143,9 @@ class DungeonRun:
    spawn_parts.append(struct.pack('>iII',int(part_id),0,len(entries))+b''.join(n['wire'] for n in entries))
   if key>16384:raise ValueError('Dungeon NPC count bound')
   spawns=struct.pack('>I',len(spawn_parts))+b''.join(spawn_parts)
-  payload=struct.pack('>ii',stage,0)+spawns+bytes(29)+struct.pack('>I',len(initial))+b''.join(initial)+bytes(8)
+  from els_server.domain.native_hero_inputs import ability_metadata
+  metadata=ability_metadata(hero_keys)
+  payload=struct.pack('>ii',stage,0)+spawns+metadata+struct.pack('>I',len(initial))+b''.join(initial)+bytes(8)
   self.stage_wires[stage]=Event(0x201,kind=0xb2,payload=payload);self.parts=parts
   self.defeated={};self.stage=stage
   self.visits+=1
