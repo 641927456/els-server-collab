@@ -115,6 +115,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_server_architecture.py')])
     if (ROOT/'channels/character-slow-paths-20261027-v1.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_character_slow_paths.py')])
+    if (ROOT/'references/periodic-deadline-fairness-20261027-v1/delta.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_periodic_deadline_fairness.py')])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0
