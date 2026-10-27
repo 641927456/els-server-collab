@@ -1,0 +1,7 @@
+# Original Rosso reward reset ticket
+
+135909 uses its exact owned UID and selected normal/story mode in the original 219 request. Debit one ticket and clear only that character's nonempty current-week selected Rosso reward eligibility in one SQL transaction; encode 21A and current 7C1 before commit. The local server explicitly adds no weekly usage cap and charges zero ED. Other mode/family/week/owner, weapon pity and immutable phase/reward history remain. Old runs cannot become fresh rewards, and replaying an old reset cannot erase newly earned eligibility.
+
+Only the original 34160 existing COMMON total 10% pool adds one eligible ticket. This is not a per-ticket 10% or retail probability claim. Generic acquisition remains closed; committed typed source capabilities cannot produce a second item after consumption. Compatibility recovery preserves readers and all saved receipts and closes only new use/production, with no player/account database restoration.
+
+The archive contains seven runtime changes per mode, two new modules and no new table or installation DDL. Exact architecture-parent and preserved Ticket/Clock sources are recorded. Isolated actual App/TLS, native DTO readers, rollback/replay/cold recovery and qualified source tests passed; controlled original raid state and final-stage fixtures do not establish natural battle or GUI acceptance. Production delivery is tracked separately.
