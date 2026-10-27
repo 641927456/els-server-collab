@@ -1113,6 +1113,33 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
                     for k,values in expected['maps'].items()}
                 self.assertEqual(actual['arguments'],expected)
 
+    def test_current_rank_coefficients_match_original_registration_and_callbacks(self):
+        import els_server.domain as domain
+        with ExitStack()as stack:
+            stack.enter_context(patch.dict(sys.modules))
+            for name in('native_power_kernel','native_option_scalar_inputs','native_option_scalar_merge',
+                'native_option_data_merge','native_option_record_merge','native_option_pre_scale','native_option_metadata',
+                'native_ordinary_option_subset','native_option_power_maps','native_option_condition_inputs',
+                'native_ordinary_option_power_maps','native_option_factor_inputs','native_extended_option_inputs',
+                'native_extended_option_maps','native_option_max_mp','native_option_collector','native_rank_coefficient'):
+                source=module('els_server.domain.'+name,'els_server/domain/'+name+'.py')
+                stack.enter_context(patch.object(domain,name,source,create=True))
+            with patch.object(source,'PROJECT_ROOT',ROOT):
+                golden=json.loads((REFERENCE/'native-rank-coefficient-source-goldens.json').read_bytes())
+                self.assertEqual(len(golden['rows']),30)
+                for row in golden['rows']:
+                    value=source.coefficient(row['rank']);self.assertEqual(value,row['coefficient'])
+                    options=domain.native_option_collector
+                    callback=options.OptionSource((golden['option']['ID'],),99,0,value,.3)
+                    actual=options.collect_ordinary((callback,),{golden['option']['ID']:golden['option']},
+                        mode=row['mode'],resonance_level=200,unit_line=1)
+                    self.assertEqual(actual['scalars'],{int(k,16):v for k,v in row['native']['scalars'].items()})
+                    self.assertEqual(actual['data'],tuple(row['native']['data']))
+                    self.assertEqual(actual['integer_MP'],row['native']['integer_MP'])
+                for value in(True,-129,128):
+                    with self.assertRaises(ValueError):source.coefficient(value)
+            source.catalog.cache_clear()
+
     def test_worn_category77_source_uses_existing_pinned_original_registry(self):
         import els_server.domain as domain
         import els_server.paths as paths

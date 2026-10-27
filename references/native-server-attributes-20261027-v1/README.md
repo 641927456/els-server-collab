@@ -293,3 +293,9 @@ positive HP preservation, and MP clamp without healing. Original scene modes
 exclude/include two dungeon-only options totaling24 MP, yielding400/424. Earlier
 failed context constructions remain in private evidence. Live unmodified-client
 acceptance and dual deployment are still required.
+
+The current PVPData registry now supplies all11 original rank coefficients.
+Thirty original insertion/lookup/complete ordinary-callback controls cover
+every registered rank and absent signed-byte keys. None/arrange have coefficient1;
+an absent key has coefficient0. Callers still supply the qualified actor rank,
+so a cold test's zero coefficient cannot silently become a runtime default.
