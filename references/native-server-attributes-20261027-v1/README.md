@@ -222,6 +222,23 @@ permits the extra channel. Unsafe unchecked main-channel source rows are
 rejected before calculation. Current ownership and preset lifecycle remain
 separate source contracts, rather than invented empty inputs.
 
+The integer maximum-MP option leaf now preserves its distinct conversion
+rules: source m_iAddMpValue, float32 pre-scaling, cvttss2si truncation, and
+float32 accumulation followed by a second signed32 conversion.132 whole
+original callback controls include rank/PvE-rank, entry/class gates and
+signed32/float32 boundaries. The current84 reforge stat registrations also
+execute through the whole original setter;8118 complete getter comparisons
+cover all369 admitted templates and levels0..21.
+
+The private complete888CA0/896870/89B430 chain now executes with the unchanged
+current CharacterStatTable KL bytecode and original math library, source
+reforge registration, typed Unit prefix, consistent complete definition caches
+and original skill DTO producers. An independent saved-source composition
+matches both full kernel outputs, every kernel scalar/map, final seven and MP
+in both modes for one frozen source. Earlier incomplete-context results remain
+retained failures/controls. This still leaves live source/lifecycle acceptance
+before runtime selection and publication.
+
 The remaining integration must bind every actual modifier/context and CP
 aggregate, qualify the current HP clamp/refresh lifecycle in the unmodified
 client, then enable and publish in the ordinary queue from the actual latest

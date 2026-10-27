@@ -966,4 +966,40 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
         with self.assertRaises(ValueError):collector.collect({},((1,1),),(),0,())
 
 
+    def test_original_integer_MP_option_scaling_and_truncation(self):
+        ordinary=self.ordinary_subset_source()
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power,
+            'els_server.domain.native_option_metadata':self.option_metadata}):
+            source=module('candidate_option_max_mp','els_server/domain/native_option_max_mp.py')
+        golden=json.loads((REFERENCE/'native-option-max-mp-goldens.json').read_bytes())
+        self.assertEqual(len(golden['rows']),132)
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+        for row in golden['rows']:
+            actual=source.merge(row['before'],source.source_value(row['definition']),
+                ordinary.metadata(row['definition']),**row['args'])
+            self.assertEqual(actual,row['native'])
+        self.assertEqual(source.source_value({}),0)
+        self.assertEqual(source.source_value({'m_iAddMpValue':None}),0)
+        self.assertEqual(source.truncate(2147483647),-2147483648)
+        with self.assertRaises(ValueError):source.source_value({'m_iAddMpValue':1.5})
+
+
+    def test_all_current_reforge_sources_match_complete_original_getter(self):
+        from els_server.domain import equipment_reforge_rules as source
+        golden=json.loads((REFERENCE/'native-reforge-stat-source-goldens.json').read_bytes())
+        raw=(ROOT/'els_server/data/equipment_reforge.json').read_bytes();policy=json.loads(raw)
+        self.assertEqual(hashlib.sha256(raw).hexdigest(),golden['policy_sha256'])
+        self.assertEqual(golden['registrations'],84)
+        self.assertEqual(golden['whole_getter_cases'],8118)
+        self.assertEqual(len(golden['bindings']),369)
+        with patch.object(source,'catalog',return_value=policy),patch.object(source,'require_target',
+                side_effect=lambda identity:policy['targets'][str(identity)]):
+            for row in golden['bindings']:
+                self.assertEqual(policy['targets'][str(row['template'])]['record_sha256'],row['record_sha256'])
+                for level in range(22):
+                    actual=source.cumulative_stats(row['template'],level)
+                    native=golden['native_profiles'][str(row['reforge_class'])][str(level)]
+                    self.assertEqual(struct.pack('<7f',*actual),struct.pack('<7f',*native))
+
+
 if __name__=='__main__':unittest.main()
