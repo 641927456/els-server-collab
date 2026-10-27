@@ -34,6 +34,8 @@ python tools/bootstrap_runtime.py --archive .asset-cache/ELS-Server-With-Local-L
 main表示审查后的代码，服务器运行版本另有部署回执；提交代码不会自动更新任何服务器。
 当前正式服务端的完整双端组合源使用 [运行基线索引](docs/FORMAL_RUNTIME_BASELINE_20261027.md) 重建；根目录保留协作开发入口，不能整树覆盖正式服。
 默认物化配置由 `channels/current-engine.json` 绑定已验收版本；[本轮架构与优化边界](docs/SERVER_ARCHITECTURE_20261027.md) 说明现有改动及后续顺序。
+后续周期合批、纯口令准备分工及实际双端核收见[架构优化与剩余风险](docs/SERVER_ARCHITECTURE_BATCHES_20261027.md)；PR 待审期间，部署版本与 main 分别记录。
+建角、选角、进城和SQLite读写边界后续交付见[慢路径与写锁说明](docs/CHARACTER_SLOW_PATHS_20261027.md)。
 修改客户端合同内脚本/资源时同步核定依赖SHA，不能删除版本保护来绕过检查。
 
 见 CONTRIBUTING.md、docs/TESTING.md、docs/STAGING.md。历史全量资料在锁定资源包内，按实际提供范围引用，不补造缺失证据。
@@ -72,3 +74,15 @@ main表示审查后的代码，服务器运行版本另有部署回执；提交�
 本批启动/选角查询优化、双端精确源码快照和V32边界见[发布来源记录](docs/STARTUP_QUERY_PROVENANCE_20261021.md)。
 
 V37 模式/Git/动效和 V38 一键本地服务端更新的完整启动器实现及构建入口见[两版源码归档](docs/LAUNCHER_V37_V38_SOURCE_20261026.md)。Git 同步不触发服务部署，历史发布与实际一键验收分别按归档摘要核收。
+
+选角进城业务读取与写锁续查：[交付范围与验证](docs/SELECTION_TOWN_BUSINESS_20261027.md)。默认重建已绑定实际验收双端。
+
+任务夹具修复与业务写锁续查：[交付范围与验证](docs/QUEST_BUSINESS_LOCKS_20261027.md)。默认重建已绑定实际验收双端。
+
+高峰业务积压与SQLite提交等待：[候选范围与验证](docs/peak-business-concurrency-20261027.md)，保留V39缓存及LOCAL差异。
+
+高峰业务队列与SQLite提交等待：[交付范围与验证](docs/peak-business-concurrency-20261027.md)。默认重建已绑定实际验收双端。
+
+首次选角进城初始化与其他SQLite写者：[候选范围与验证](docs/initialization-readers-20261027.md)。
+
+首次选角进城初始化与其他SQLite写者：[交付范围与验证](docs/initialization-readers-20261027.md)。默认重建已绑定实际验收双端，保留前序295762防护、V39和LOCAL差异。

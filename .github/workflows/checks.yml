@@ -43,3 +43,9 @@ jobs:
       - run: python -B tools/verify_current_runtime_regressions.py --with-runtime
       - run: python -B tools/verify_current_runtime_regressions.py --with-runtime --manifest channels/server-risk-current-20261027-v2.json --delta references/server-risk-current-20261027-v2/delta.json
       - run: python -B tools/verify_current_runtime_regressions.py --with-runtime --manifest channels/server-risk-current-local-roles-20261027-v3.json --delta references/local-auxiliary-role-binding-20261027-v1/delta.json
+      - run: python -B tools/verify_server_architecture.py --with-runtime
+      - run: python -B tools/verify_character_slow_paths.py --with-runtime
+      - run: python -B tools/verify_selection_business.py --with-runtime
+      - run: python -B tools/verify_quest_business.py --with-runtime
+      - run: python -B tools/verify_peak_business.py --with-runtime
+      - run: python -B tools/verify_initialization_readers.py --with-runtime
