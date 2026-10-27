@@ -1,0 +1,526 @@
+{
+  "ok": true,
+  "client_changes": 0,
+  "new_hooks": 0,
+  "new_tables": 0,
+  "install_DDL": 0,
+  "player_database_restore": false,
+  "new_runtime_modules": 0,
+  "original_PR597_not_merged": true,
+  "private": {
+    "online-friends": {
+      "ok": true,
+      "channel": "online",
+      "mode": "friends",
+      "client_changes": 0,
+      "new_hooks": 0,
+      "natural_GUI": false,
+      "checks": [
+        "real-App-native-framing-432-42C-542-repeat-remount-42F",
+        "30282-template193-real-death-SQL-issue-and-idempotent-repeat",
+        "fresh-connection-cold-login-native-inventory-read"
+      ],
+      "session_has_authenticated_identity": true,
+      "private_saves_removed": true
+    },
+    "local-local": {
+      "ok": true,
+      "channel": "local",
+      "mode": "local",
+      "client_changes": 0,
+      "new_hooks": 0,
+      "natural_GUI": false,
+      "checks": [
+        "real-App-native-framing-432-42C-542-repeat-remount-42F",
+        "30282-template193-real-death-SQL-issue-and-idempotent-repeat",
+        "fresh-connection-cold-login-native-inventory-read"
+      ],
+      "session_has_authenticated_identity": false,
+      "private_saves_removed": true
+    },
+    "local-friends": {
+      "ok": true,
+      "channel": "local",
+      "mode": "friends",
+      "client_changes": 0,
+      "new_hooks": 0,
+      "natural_GUI": false,
+      "checks": [
+        "real-App-native-framing-432-42C-542-repeat-remount-42F",
+        "30282-template193-real-death-SQL-issue-and-idempotent-repeat",
+        "fresh-connection-cold-login-native-inventory-read"
+      ],
+      "session_has_authenticated_identity": true,
+      "private_saves_removed": true
+    }
+  },
+  "regressions": {
+    "online": {
+      "ok": true,
+      "channel": "online",
+      "suites": [
+        {
+          "test": "test_server_latency_guards.py",
+          "passed": true,
+          "count": 13,
+          "skipped": 3
+        },
+        {
+          "test": "test_native_auxiliary_latency.py",
+          "passed": true,
+          "count": 4,
+          "skipped": 0
+        },
+        {
+          "test": "test_request_read_scope.py",
+          "passed": true,
+          "count": 8,
+          "skipped": 0
+        },
+        {
+          "test": "test_current_native_title_inputs.py",
+          "passed": true,
+          "count": 2,
+          "skipped": 0
+        },
+        {
+          "test": "test_retained_native_hp.py",
+          "passed": true,
+          "count": 9,
+          "skipped": 0
+        },
+        {
+          "test": "test_native_hero_inputs.py",
+          "passed": true,
+          "count": 4,
+          "skipped": 0
+        },
+        {
+          "test": "test_noncharacter_hp_capture.py",
+          "passed": true,
+          "count": 3,
+          "skipped": 0
+        },
+        {
+          "test": "test_current_latency_tls.py",
+          "passed": true,
+          "count": 2,
+          "skipped": 0
+        },
+        {
+          "test": "test_character_slow_paths.py",
+          "passed": true,
+          "count": 11,
+          "skipped": 0
+        },
+        {
+          "test": "test_read_connection_boundaries.py",
+          "passed": true,
+          "count": 4,
+          "skipped": 0
+        },
+        {
+          "test": "test_local_auxiliary_roles.py",
+          "passed": true,
+          "count": 2,
+          "skipped": 2
+        },
+        {
+          "test": "test_architecture_scheduler.py",
+          "passed": true,
+          "count": 13,
+          "skipped": 0
+        },
+        {
+          "test": "test_architecture_tls.py",
+          "passed": true,
+          "count": 1,
+          "skipped": 0
+        },
+        {
+          "test": "test_registration.py",
+          "passed": true,
+          "count": 3,
+          "skipped": 0
+        },
+        {
+          "test": "test_selection_business_paths.py",
+          "passed": true,
+          "count": 9,
+          "skipped": 0
+        },
+        {
+          "test": "test_selection_business_tls.py",
+          "passed": true,
+          "count": 1,
+          "skipped": 0
+        },
+        {
+          "test": "test_seal_quests.py",
+          "passed": true,
+          "count": 20,
+          "skipped": 1
+        },
+        {
+          "test": "test_reward_state.py",
+          "passed": true,
+          "count": 1,
+          "skipped": 0
+        },
+        {
+          "test": "test_inventory_actions.py",
+          "passed": true,
+          "count": 12,
+          "skipped": 0
+        },
+        {
+          "test": "test_quest_lock_boundaries.py",
+          "passed": true,
+          "count": 12,
+          "skipped": 0
+        },
+        {
+          "test": "test_quest_expiry_regressions.py",
+          "passed": true,
+          "count": 2,
+          "skipped": 0
+        },
+        {
+          "test": "test_peak_business_concurrency.py",
+          "passed": true,
+          "count": 13,
+          "skipped": 0
+        },
+        {
+          "test": "test_initialization_readers.py",
+          "passed": true,
+          "count": 17,
+          "skipped": 0
+        },
+        {
+          "test": "test_current_295762_draw_guard.py",
+          "passed": true,
+          "count": 2,
+          "skipped": 0
+        },
+        {
+          "test": "test_path_projection_boundaries.py",
+          "passed": true,
+          "count": 22,
+          "skipped": 0
+        },
+        {
+          "test": "test_periodic_deadline_fairness.py",
+          "passed": true,
+          "count": 2,
+          "skipped": 0
+        },
+        {
+          "test": "test_mount_recall.py",
+          "passed": true,
+          "count": 8,
+          "skipped": 0
+        },
+        {
+          "test": "test_mount_state.py",
+          "passed": true,
+          "count": 7,
+          "skipped": 0
+        },
+        {
+          "test": "test_mount_flow.py",
+          "passed": true,
+          "count": 5,
+          "skipped": 0
+        },
+        {
+          "test": "test_mount_retry.py",
+          "passed": true,
+          "count": 5,
+          "skipped": 0
+        },
+        {
+          "test": "test_selected597_boundaries.py",
+          "passed": true,
+          "count": 5,
+          "skipped": 0
+        },
+        {
+          "test": "test_selected597_transactions.py",
+          "passed": true,
+          "count": 4,
+          "skipped": 0
+        }
+      ],
+      "elapsed_seconds": 123.15311870002188,
+      "total": 226,
+      "skipped": 6
+    },
+    "local": {
+      "ok": true,
+      "channel": "local",
+      "suites": [
+        {
+          "test": "test_server_latency_guards.py",
+          "passed": true,
+          "count": 13,
+          "skipped": 0
+        },
+        {
+          "test": "test_native_auxiliary_latency.py",
+          "passed": true,
+          "count": 4,
+          "skipped": 0
+        },
+        {
+          "test": "test_request_read_scope.py",
+          "passed": true,
+          "count": 8,
+          "skipped": 0
+        },
+        {
+          "test": "test_current_native_title_inputs.py",
+          "passed": true,
+          "count": 2,
+          "skipped": 0
+        },
+        {
+          "test": "test_retained_native_hp.py",
+          "passed": true,
+          "count": 9,
+          "skipped": 0
+        },
+        {
+          "test": "test_native_hero_inputs.py",
+          "passed": true,
+          "count": 4,
+          "skipped": 0
+        },
+        {
+          "test": "test_noncharacter_hp_capture.py",
+          "passed": true,
+          "count": 3,
+          "skipped": 0
+        },
+        {
+          "test": "test_current_latency_tls.py",
+          "passed": true,
+          "count": 2,
+          "skipped": 0
+        },
+        {
+          "test": "test_character_slow_paths.py",
+          "passed": true,
+          "count": 11,
+          "skipped": 0
+        },
+        {
+          "test": "test_read_connection_boundaries.py",
+          "passed": true,
+          "count": 4,
+          "skipped": 0
+        },
+        {
+          "test": "test_local_auxiliary_roles.py",
+          "passed": true,
+          "count": 2,
+          "skipped": 0
+        },
+        {
+          "test": "test_architecture_scheduler.py",
+          "passed": true,
+          "count": 13,
+          "skipped": 0
+        },
+        {
+          "test": "test_architecture_tls.py",
+          "passed": true,
+          "count": 1,
+          "skipped": 0
+        },
+        {
+          "test": "test_registration.py",
+          "passed": true,
+          "count": 3,
+          "skipped": 0
+        },
+        {
+          "test": "test_selection_business_paths.py",
+          "passed": true,
+          "count": 9,
+          "skipped": 0
+        },
+        {
+          "test": "test_selection_business_tls.py",
+          "passed": true,
+          "count": 1,
+          "skipped": 0
+        },
+        {
+          "test": "test_seal_quests.py",
+          "passed": true,
+          "count": 20,
+          "skipped": 1
+        },
+        {
+          "test": "test_reward_state.py",
+          "passed": true,
+          "count": 1,
+          "skipped": 0
+        },
+        {
+          "test": "test_inventory_actions.py",
+          "passed": true,
+          "count": 12,
+          "skipped": 0
+        },
+        {
+          "test": "test_quest_lock_boundaries.py",
+          "passed": true,
+          "count": 12,
+          "skipped": 0
+        },
+        {
+          "test": "test_quest_expiry_regressions.py",
+          "passed": true,
+          "count": 2,
+          "skipped": 0
+        },
+        {
+          "test": "test_peak_business_concurrency.py",
+          "passed": true,
+          "count": 13,
+          "skipped": 0
+        },
+        {
+          "test": "test_initialization_readers.py",
+          "passed": true,
+          "count": 17,
+          "skipped": 0
+        },
+        {
+          "test": "test_current_295762_draw_guard.py",
+          "passed": true,
+          "count": 2,
+          "skipped": 0
+        },
+        {
+          "test": "test_path_projection_boundaries.py",
+          "passed": true,
+          "count": 22,
+          "skipped": 0
+        },
+        {
+          "test": "test_periodic_deadline_fairness.py",
+          "passed": true,
+          "count": 2,
+          "skipped": 0
+        },
+        {
+          "test": "test_mount_recall.py",
+          "passed": true,
+          "count": 8,
+          "skipped": 0
+        },
+        {
+          "test": "test_mount_state.py",
+          "passed": true,
+          "count": 7,
+          "skipped": 0
+        },
+        {
+          "test": "test_mount_flow.py",
+          "passed": true,
+          "count": 5,
+          "skipped": 0
+        },
+        {
+          "test": "test_mount_retry.py",
+          "passed": true,
+          "count": 5,
+          "skipped": 0
+        },
+        {
+          "test": "test_selected597_boundaries.py",
+          "passed": true,
+          "count": 5,
+          "skipped": 0
+        },
+        {
+          "test": "test_selected597_transactions.py",
+          "passed": true,
+          "count": 4,
+          "skipped": 0
+        }
+      ],
+      "elapsed_seconds": 130.54236460011452,
+      "total": 226,
+      "skipped": 1
+    }
+  },
+  "native_replay": {
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "rva": "0xd7c3e0",
+    "live_process_access": false,
+    "cases": [
+      {
+        "ridden": true,
+        "initial": 120,
+        "seconds": 24,
+        "recovery_rate": 1,
+        "result": 110.0
+      },
+      {
+        "ridden": true,
+        "initial": 1,
+        "seconds": 24,
+        "recovery_rate": 1,
+        "result": 0.0
+      },
+      {
+        "ridden": false,
+        "initial": 100,
+        "seconds": 72,
+        "recovery_rate": 1,
+        "result": 110.0
+      },
+      {
+        "ridden": false,
+        "initial": 119,
+        "seconds": 72,
+        "recovery_rate": 1,
+        "result": 120.0
+      },
+      {
+        "ridden": false,
+        "initial": 0,
+        "seconds": 1,
+        "recovery_rate": 120,
+        "result": 16.666667938232422
+      }
+    ],
+    "codecs": [
+      {
+        "ridden": false,
+        "stamina": 87.5,
+        "timestamp": 1000,
+        "consumed": 79
+      },
+      {
+        "ridden": true,
+        "stamina": 87.5,
+        "timestamp": 1000,
+        "consumed": 79
+      }
+    ],
+    "secure_setter_calls": 7,
+    "shims": [
+      "recovery Lua accessor returns native resource 7.2",
+      "clock fixture",
+      "secure float writer observes original arithmetic; no player/UI objects"
+    ],
+    "limitations": [
+      "Does not prove live combat or UI."
+    ]
+  }
+}
