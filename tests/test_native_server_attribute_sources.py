@@ -1200,6 +1200,38 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
         self.assertEqual(source.values((0,0,4,6)),(0.,0.,0.,0.,110.,0.))
         with self.assertRaises(ValueError):source.values((0,0,0,True))
 
+    def test_circuit_weights_match_complete_original_source_and_current_branches(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
+            source=module('candidate_circuit_attribute_inputs','els_server/domain/native_circuit_attribute_inputs.py')
+        golden=json.loads((REFERENCE/'native-circuit-attribute-inputs-goldens-v3.json').read_bytes())
+        self.assertEqual(len(golden['rows']),36)
+        self.assertEqual(sum('current_template'in row for row in golden['rows']),8)
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+        definitions={int(k):v for k,v in golden['definitions'].items()}
+        ports={int(k):tuple(v)for k,v in golden['ports'].items()}
+        for row in golden['rows']:
+            actual=source.weighted_options(tuple(row['active_slots']),tuple(row['grid']),definitions,ports)
+            self.assertEqual(actual,tuple(map(tuple,row['native'])))
+        with self.assertRaises(ValueError):source.weighted_options((0,0),(0,)*16,definitions,ports)
+
+    def test_complete_current_character_wire_context_and_clear_boundary(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
+            rank=module('candidate_character_rank_context','els_server/domain/native_rank_coefficient.py')
+        with patch.dict(sys.modules,{'els_server.domain.native_rank_coefficient':rank}):
+            source=module('candidate_character_copy_context','els_server/domain/native_character_context.py')
+        golden=json.loads((REFERENCE/'native-pve-wire-source-goldens.json').read_bytes())
+        self.assertEqual(len(golden['rows']),5)
+        clear=json.loads((REFERENCE/'native-character-named-clear-goldens.json').read_bytes())
+        self.assertEqual(len(clear['rows']),5)
+        for row in golden['rows']:
+            for previous in(0,7,-128,127):
+                current=source.after_character_copy(bytes(4),bytes.fromhex(row['wire_hex']),previous_rank=previous)
+                self.assertEqual(current.rank,previous)
+                self.assertEqual(current.pve(),row['native'])
+                self.assertEqual(current.world_buff_ids,())
+        for profile,pve in((b'',bytes(25)),(b'\0\0\0\1',bytes(25)),(bytes(4),bytes(24))):
+            with self.assertRaises(ValueError):source.after_character_copy(profile,pve,previous_rank=0)
+
     def test_resistance_service_lifecycle_and_finalization_match_original(self):
         with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
             source=module('candidate_resistance_finalization','els_server/domain/native_resistance_finalization.py')

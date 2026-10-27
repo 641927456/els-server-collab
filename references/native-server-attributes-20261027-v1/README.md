@@ -333,3 +333,21 @@ lower or zero inputs retain that allocation. Seven original producer controls
 and six ordered finalization controls cover this lifecycle, float32 additions
 and the500 upper-only cap. Fresh original construction has a null source;
 packet meaning and actual runtime source admission are separate.
+
+The current character source projector additionally passes the complete
+installed writer and D9B170 reader with five signed PvE boundary records.
+It preserves the previous rank for the writer's canonical empty profile map,
+decodes the exact25-byte PvE record, and applies the original unconditional
+Unit2738 clear at a full-character copy boundary. Later independent updates
+must retain their own lifecycle rather than silently invoking this reset.
+
+Circuit attribute inputs now preserve the complete6C9010 propagation order:
+each positive multiplier influences its shape's neighboring slots, overlapping
+influences combine in float32, and output follows active traversal order.
+Thirty-six original controls include four roots, fractional/nil/negative rates,
+and eight actual current-ID branched grids with all four T shapes. The latter
+also pass the installed topology and product entry. The private emulator uses
+the original CRT's SSE fallback because its captured AVX2 dispatch mode selects
+an instruction the emulator cannot execute; executable instructions and
+gameplay returns are unchanged. These weighted sources still need integration
+at each original collector call site before runtime selection.
