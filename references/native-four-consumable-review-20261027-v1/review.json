@@ -1,0 +1,161 @@
+{
+  "at": "2026-10-27T11:51:10.374448+00:00",
+  "scope": [
+    313132,
+    80001890,
+    80001891,
+    80001892
+  ],
+  "original_client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "original_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "new_consumers_qualified": 0,
+  "new_runtime_leaves": 0,
+  "installed_this_review": false,
+  "client_files_changed": 0,
+  "new_game_hooks": 0,
+  "current_parents": [
+    {
+      "channel": "online",
+      "release": "retained-native-consumable-readers-20261027-v1",
+      "manifest_sha256": "aaf1aa9c2ab96bcbe8cc368ff3e10245c34c35371736dcfe9de7a20904a488f5",
+      "reader_source_unchanged": true
+    },
+    {
+      "channel": "local",
+      "release": "local-retained-native-consumable-readers-20261027-v1",
+      "manifest_sha256": "50ac30a0c7442b54ee5d4a8e57e0d735f452c705024499f6979e91c0ef270c5b",
+      "reader_source_unchanged": true
+    }
+  ],
+  "previous_reader_qualification_reused": "Exact five runtime leaf SHA and all prior private source pins match. No repeat of unchanged117 original reads/78 negative219 per mode.",
+  "findings": [
+    {
+      "template": 313132,
+      "native_manual_219_entry": true,
+      "original_factor": 1631,
+      "original_buff": 1522,
+      "duration_seconds": 600,
+      "native_behavior": 55,
+      "behavior_factory": "0x1146660",
+      "branch_replay_passed": true,
+      "branch_instructions": 9,
+      "branch_memory_writes": 0,
+      "actual_effect_qualified": false,
+      "meaning": "Original behavior55 is success without effect registration. Adding top-level WEAPON_ENCHANT_LEVEL alone was already refuted by parser observation.",
+      "server_only_next": "Integrate qualified authoritative temporary weapon enhancement contribution and native final-attribute refresh, then verify expiry, cold entry and weapon changes. Full0x106 encoder/reader alone is insufficient."
+    },
+    {
+      "template": 80001890,
+      "native_manual_219_whitelist": false,
+      "whitelist_is_not_exhaustive": true,
+      "item_type": 7,
+      "original_A8": [],
+      "original_AC": [],
+      "duration_seconds": 3600,
+      "random_elements_drawn": 1,
+      "attribute_grade": 1,
+      "pool_size": 6,
+      "random_weights": "unqualified",
+      "actual_effect_qualified": false,
+      "rate_behavior": "BBT54 and66..71 use float rate, element enum and change type; no grade input found in this traced path",
+      "server_only_next": "Prove original temporary element/grade input and use entry, distinguish equipment enchantment from rate buffs; verify grade0 weapon, existing grades, expiry and cold re-entry."
+    },
+    {
+      "template": 80001891,
+      "native_manual_219_whitelist": false,
+      "whitelist_is_not_exhaustive": true,
+      "item_type": 7,
+      "original_A8": [],
+      "original_AC": [],
+      "duration_seconds": 3600,
+      "random_elements_drawn": 1,
+      "attribute_grade": 2,
+      "pool_size": 6,
+      "random_weights": "unqualified",
+      "actual_effect_qualified": false,
+      "rate_behavior": "BBT54 and66..71 use float rate, element enum and change type; no grade input found in this traced path",
+      "server_only_next": "Prove original temporary element/grade input and use entry, distinguish equipment enchantment from rate buffs; verify grade0 weapon, existing grades, expiry and cold re-entry."
+    },
+    {
+      "template": 80001892,
+      "native_manual_219_whitelist": false,
+      "whitelist_is_not_exhaustive": true,
+      "item_type": 7,
+      "original_A8": [],
+      "original_AC": [],
+      "duration_seconds": 3600,
+      "random_elements_drawn": 1,
+      "attribute_grade": 3,
+      "pool_size": 6,
+      "random_weights": "unqualified",
+      "actual_effect_qualified": false,
+      "rate_behavior": "BBT54 and66..71 use float rate, element enum and change type; no grade input found in this traced path",
+      "server_only_next": "Prove original temporary element/grade input and use entry, distinguish equipment enchantment from rate buffs; verify grade0 weapon, existing grades, expiry and cold re-entry."
+    }
+  ],
+  "rejected_shortcuts": [
+    "success ACK/icon as +12 effect",
+    "copy final equipment total into naked seven-stat input",
+    "permanent equipment enhancement/attribute mutation",
+    "grant rate buff as grade1/2/3",
+    "restore obsolete client KOM patches",
+    "expand V40 Hook"
+  ],
+  "not_proven": "No assertion that pure server support is impossible or that all4 require client changes. Other0x106 contribution work remains unqualified; current V40 preserved.",
+  "evidence": [
+    {
+      "name": "scope.json",
+      "sha256": "309dd9b2016b5c2d684ae173bd81689915d7b8a508fbdc17f584d8b7bc504c7f"
+    },
+    {
+      "name": "original-nop-branch-replay.json",
+      "sha256": "189a5e96f19fac62264d94d525740f7ef4e14142eba49b5b29949f81218a32a2"
+    },
+    {
+      "name": "native-id-range-census-v4.json",
+      "sha256": "7fe9e8ec7c574ad2bef5ca9b165e3d15c22a4e1fa8da98285a2ccd3dcda2ec07"
+    },
+    {
+      "name": "temporary-attribute-rtti.json",
+      "sha256": "df43f58d48f9db68c664c7c9032e27529b52b51aec5d35fe5d83cb114ff1aaf2"
+    },
+    {
+      "name": "callers-1c16660.json",
+      "sha256": "f4a0ca0ce6c9298f4293903e1150e672b925d060d61bacd82e23348bc3a09329"
+    },
+    {
+      "name": "attribute-vector-uses.json",
+      "sha256": "db1d88fa866cf94bbbbc1f97f396b5c336252daff00cfdc4602b695bd3144d9f"
+    },
+    {
+      "name": "attribute-enums.json",
+      "sha256": "7c88a3c95dab69ddd648aae0c4d390b39a009b6c44ffd15a378cae92b6250cc0"
+    },
+    {
+      "name": "enchant12-parser-adjudication-v2.json",
+      "sha256": "5ca23bdf5d856949d344d31ff49f7db0ce9c4c6cc463ae2227759f4abafc57db"
+    },
+    {
+      "name": "current-native-resource-alternatives-v1.json",
+      "sha256": "f50d8591d5cafd12f2489a9d0216189118e03bf9c0b38421479cda690ce01d5f"
+    },
+    {
+      "name": "weapon-attribute-description-adjudication-v1.json",
+      "sha256": "ba60672d648fb5f34831b6627df397c34c93b566d8c95a4150c49f21dc304a20"
+    },
+    {
+      "name": "0x1146660.c",
+      "sha256": "4547524d2dae6536f2c6f94c0d979e51ef6396452a5e68bf8e3c13ea4899235d"
+    },
+    {
+      "name": "0x115c700.c",
+      "sha256": "da3d21a108ec348a96bc07ca347ba8223747689ad76cfe75dcc07d90472db317"
+    },
+    {
+      "name": "0x21221e0.c",
+      "sha256": "776ad9d158dc3618f65d0d6ac76aee13a28f3ec845d2d3b32bffc1bc87a57987"
+    }
+  ],
+  "publication": "No qualified new consumer, so no maintenance, stage, publication lock or runtime installation performed.",
+  "git_copy_normalization": "JSON copies use LF; evidence SHA values identify original frozen analysis artifacts, including original CRLF when present."
+}
