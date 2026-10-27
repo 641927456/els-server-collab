@@ -102,6 +102,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_change_force_materials_20261027.py')])
         run([sys.executable,'-B',str(ROOT/'tools/verify_change_force_materials_20261027.py'),'--channel','local'])
     run([sys.executable,'-B',str(ROOT/'tools/verify_initialization_readers.py')])
+    if (ROOT/'references/current-refresh-combat-inputs-20261027-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_current_refresh_archive_20261027.py')])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0

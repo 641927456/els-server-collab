@@ -1,5 +1,12 @@
 # Two permanent-dungeon ticket consumers and qualified sources
 
+PR #552 integration closeout (2026-10-27): the ticket archive's fifteen source,
+validation and documentation files were already retained byte-for-byte by main
+through PR #563 (`3dc210568f9c204b9544cb3153335802dded1133`). All ticket-branch CI
+calls remain in the newer CI entry point. This PR retains that newer entry point
+and the accepted runtime selection; it does not reinstall the ticket feature,
+replay economic operations, or replace newer local/online behavior.
+
 35100 Torta Arena and 35360 Madame Cora's Garden consume one existing eligible ticket through the original entry protocol. The current client ticket lists and official CN dungeon pages define the finite eligibility. Matching owned UIDs use the existing event-ticket selection policy; expired, locked, sealed and foreign items are excluded. This server ordering is not claimed as an official ticket-ID preference. No ED, cash, new right-click consumer or Aurora free-count rule is introduced.
 
 Solo and party entry use real SQL receipts, pre-encoded native inventory/entry responses, lease checks and replay protection. Party members validate and commit together; missing/expired tickets or encoding failures leave all members' inventory and lobby/session state unchanged. The internal synchronous preparation flag avoids nested expiry transactions; canonical expiry outside that synthetic group preparation remains active. The group refusal-and-supply retry regression is included in the qualified source.
