@@ -17,6 +17,8 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'channels/reviewed-pr563-573-576-current-20261027-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_reviewed_three_pr_binding_20261027.py')])
     if (ROOT/'channels/formal-clock-20261027-v1.json').is_file():
         for channel in ('online', 'local'):
             run([sys.executable,'-B',str(ROOT/'tools/materialize_formal_runtime.py'),
@@ -89,6 +91,9 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_aurora_book_sources_20261027.py')])
         run([sys.executable,'-B',str(ROOT/'tools/verify_aurora_book_sources_20261027.py'),'--channel','local'])
         run([sys.executable,'-B','-m','unittest','tests.test_295762_group_draw_guard'])
+    if (ROOT/'references/native-change-force-materials-20261027-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_change_force_materials_20261027.py')])
+        run([sys.executable,'-B',str(ROOT/'tools/verify_change_force_materials_20261027.py'),'--channel','local'])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0
