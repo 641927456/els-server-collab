@@ -1,0 +1,42 @@
+{
+  "parent": "channels/initialization-readers-guard-parent-20261027-v2.json",
+  "release": "server-periodic-deadline-fairness-20261027-v1",
+  "leaf": "els_server/periodic_scheduler.py",
+  "source": "references/periodic-deadline-fairness-20261027-v1/engine/els_server/periodic_scheduler.py",
+  "before_sha256": "c90a8c0651ab4ffa242cd110f827e19a47dfe9a34499cb34bd64030138393af6",
+  "sha256": "0495668c6020233d9454621364d710b91e6589933ec415a286746385955fc162",
+  "size": 4172,
+  "new_files": 0,
+  "new_schema": false,
+  "installation_DDL": 0,
+  "parents": {
+    "online": {
+      "release": "server-initialization-readers-20261027-v1",
+      "manifest_sha256": "e3b5526e0d3d1db31da0a99a0e9dbb01c459ee73930222b7d9131efbcdef427e",
+      "sha256": "c90a8c0651ab4ffa242cd110f827e19a47dfe9a34499cb34bd64030138393af6"
+    },
+    "local": {
+      "release": "local-server-initialization-readers-20261027-v1",
+      "manifest_sha256": "4c7015796a4780a7f1b6c94737d98257392e643f721591fe36f73f6cb69cf2c7",
+      "sha256": "c90a8c0651ab4ffa242cd110f827e19a47dfe9a34499cb34bd64030138393af6"
+    }
+  },
+  "channels": {
+    "online": {
+      "els_server/periodic_scheduler.py": {
+        "before_sha256": "c90a8c0651ab4ffa242cd110f827e19a47dfe9a34499cb34bd64030138393af6",
+        "source": "references/periodic-deadline-fairness-20261027-v1/engine/els_server/periodic_scheduler.py",
+        "sha256": "0495668c6020233d9454621364d710b91e6589933ec415a286746385955fc162",
+        "size": 4172
+      }
+    },
+    "local": {
+      "els_server/periodic_scheduler.py": {
+        "before_sha256": "c90a8c0651ab4ffa242cd110f827e19a47dfe9a34499cb34bd64030138393af6",
+        "source": "references/periodic-deadline-fairness-20261027-v1/engine/els_server/periodic_scheduler.py",
+        "sha256": "0495668c6020233d9454621364d710b91e6589933ec415a286746385955fc162",
+        "size": 4172
+      }
+    }
+  }
+}
