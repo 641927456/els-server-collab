@@ -18,6 +18,13 @@ def main():
             if path!='tools/client_compatibility_profiles.json':
                 assert registry[path]==hashlib.sha256(bound(folder,source).read_bytes()).hexdigest()
     assert not candidate['original_executable_changed']and not candidate['original_resource_archives_changed']and not candidate['new_damage_or_healing_formula']
+    if candidate['native_qualification_complete']:
+        qualification=folder/'qualification-summary.json'
+        assert hashlib.sha256(qualification.read_bytes()).hexdigest()==candidate['qualification_summary_sha256']
+        qualified=json.loads(qualification.read_bytes())
+        assert qualified['native_families']==15 and qualified['controlled_native_careers']==195 and qualified['cold_native_Actors']==15
+        assert len({c for row in qualified['cases']for c in row['controlled_classes']})==195
+        assert qualified['original_native_buff_layers_preserved']and qualified['independent_original_prefix_observed_before_C4_hook']
     current=load_manifest(ROOT/'channels/current-engine.json',ROOT)
     selected=current['channels']['local'].get('native_final_ability_sync',False)
     if selected:
