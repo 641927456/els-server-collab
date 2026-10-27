@@ -1,6 +1,15 @@
 """Original865660 six-float option contribution before resistance finalization."""
 from els_server.domain.native_power_kernel import f32
 from els_server.domain.native_extended_option_inputs import extended_source_inputs
+from els_server.domain.native_option_metadata import source_metadata
+
+
+def eligible(definition,*,mode):
+    """882230/882380 for original8623B0's complementary phase booleans."""
+    if type(mode)is not int or mode not in(0,1):raise ValueError('Explicit original phase mode required')
+    source=source_metadata(definition)
+    # No ERP-level or devildom exclusion is evaluated in these two predicates.
+    return source['native_1f0']==0 and not source['native_1f4'if mode else'native_1f5']
 
 
 def _flag(definition,key):

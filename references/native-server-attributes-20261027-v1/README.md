@@ -299,3 +299,15 @@ Thirty original insertion/lookup/complete ordinary-callback controls cover
 every registered rank and absent signed-byte keys. None/arrange have coefficient1;
 an absent key has coefficient0. Callers still supply the qualified actor rank,
 so a cold test's zero coefficient cannot silently become a runtime default.
+
+Original profile0 rank updates now preserve the previous initialized rank
+when that profile is absent;16 constructor/update controls include a retained
+nonzero rank. The resistance consumer has its own24 entry controls and16
+complete option callbacks. Its PvE-rank branch uses a separate registry and
+must not borrow the ordinary callback's forced-zero coefficient.
+
+Resistance source work also covers the complete four-skill phase in48 original
+controls and all2401 four-slot element tuples through the original classifier
+and armor switch. The45 switch cases preserve75/110/135 tier values and summed
+identifier collisions. These are source arithmetic phases, with worn selection
+and remaining resistance source integration still explicit.

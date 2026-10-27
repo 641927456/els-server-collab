@@ -1154,9 +1154,10 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
 
     def test_resistance_option_callback_preserves_its_distinct_rank_scaling(self):
         with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power,
+            'els_server.domain.native_option_metadata':self.option_metadata,
             'els_server.domain.native_extended_option_inputs':self.extended_inputs}):
             source=module('candidate_resistance_option','els_server/domain/native_resistance_option.py')
-        golden=json.loads((REFERENCE/'native-resistance-option-goldens-v2.json').read_bytes())
+        golden=json.loads((REFERENCE/'native-resistance-option-goldens-v3.json').read_bytes())
         self.assertEqual(len(golden['rows']),16)
         self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
         self.assertEqual({r['alternate_PvE_registry']for r in golden['rows']},{True,False})
@@ -1164,6 +1165,40 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             actual=source.merge(tuple(row['before']),row['definition'],**row['args'])
             self.assertEqual(struct.pack('<6f',*actual),struct.pack('<6f',*row['native']))
         with self.assertRaises(ValueError):source.merge((),{},rank_factor=0.,pve_rank_factor=0.,weight=1.)
+
+    def test_resistance_entry_uses_its_original_complementary_phase_predicates(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power,
+            'els_server.domain.native_option_metadata':self.option_metadata,
+            'els_server.domain.native_extended_option_inputs':self.extended_inputs}):
+            source=module('candidate_resistance_entry','els_server/domain/native_resistance_option.py')
+        golden=json.loads((REFERENCE/'native-resistance-entry-goldens.json').read_bytes())
+        self.assertEqual(len(golden['rows']),24)
+        for row in golden['rows']:
+            self.assertEqual(source.eligible(row['definition'],mode=row['mode']),row['native'])
+
+    def test_resistance_skill_sources_match_complete_original_phase(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_passive_attributes':self.passives}):
+            source=module('candidate_resistance_skills','els_server/domain/native_resistance_skills.py')
+        golden=json.loads((REFERENCE/'native-resistance-skills-goldens.json').read_bytes())
+        self.assertEqual(len(golden['rows']),48)
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+        definitions={int(k):v for k,v in golden['definitions'].items()}
+        for row in golden['rows']:
+            actual=source.values(definitions,{int(k):v for k,v in row['ranks'].items()},pvp=row['pvp'])
+            self.assertEqual(struct.pack('<6f',*actual),struct.pack('<6f',*row['native']))
+
+    def test_armor_resistance_preserves_original_classifier_and_switch(self):
+        source=module('candidate_armor_resistance','els_server/domain/native_armor_resistance.py')
+        golden=json.loads((REFERENCE/'native-armor-resistance-goldens.json').read_bytes())
+        self.assertEqual(golden['executed_cases'],2401)
+        self.assertEqual(len(golden['unique_codes']),182)
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+        for row in golden['unique_codes']:
+            self.assertEqual(source.classify(tuple(row['attributes'])),row['code'])
+            self.assertEqual(source.values(tuple(row['attributes'])),tuple(row['native']))
+        self.assertEqual(source.values((1,1,1,1)),(0.,)*6)
+        self.assertEqual(source.values((0,0,4,6)),(0.,0.,0.,0.,110.,0.))
+        with self.assertRaises(ValueError):source.values((0,0,0,True))
 
     def test_worn_category77_source_uses_existing_pinned_original_registry(self):
         import els_server.domain as domain
