@@ -41,6 +41,11 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             cls.worn = module('candidate_native_worn', 'els_server/domain/native_worn_item_inputs.py')
         cls.set_conditions = module('candidate_native_set_conditions', 'els_server/domain/native_set_conditions.py')
         cls.set_sources = module('candidate_native_set_sources', 'els_server/domain/native_set_sources.py')
+        cls.resonance_groups = module('candidate_native_resonance_groups', 'els_server/domain/native_resonance_source_groups.py')
+        cls.pet_inputs = module('candidate_native_pet_inputs', 'els_server/domain/native_pet_attribute_inputs.py')
+        cls.artifact_inputs = module('candidate_native_artifact_inputs', 'els_server/domain/native_artifact_attribute_inputs.py')
+        cls.title_inputs = module('candidate_native_title_inputs', 'els_server/domain/native_title_attribute_inputs.py')
+        cls.collection_inputs = module('candidate_native_collection_inputs', 'els_server/domain/native_collection_attribute_inputs.py')
         with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':cls.power}):
             cls.conditions = module('candidate_native_conditions', 'els_server/domain/native_conditional_power_attributes.py')
             cls.option_data = module('candidate_native_option_data', 'els_server/domain/native_option_data_merge.py')
@@ -348,6 +353,84 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
         self.assertEqual(digest.hexdigest(),goldens['native_trace_sha256'])
         first=next(iter(source['definitions'].values()))
         with self.assertRaises(TypeError):first['ordinary']=()
+
+    def test_current_pet_sources_reproduce_original_registration_and_collector_trace(self):
+        self.pet_inputs.PROJECT_ROOT=ROOT
+        source=self.pet_inputs.catalog();digest=hashlib.sha256();count=0
+        proof=json.loads((REFERENCE/'native-pet-attribute-source-goldens.json').read_bytes())
+        self.assertEqual(len(source),proof['templates'])
+        for identity,definition in sorted(source.items()):
+            for stage in range(len(definition['status'])):
+                for satiety in(0,1919,1920,1921,4800):
+                    for gear in({}, {2:dict(template=980035,socket=110323),1:dict(template=135974,socket=110200)}):
+                        pet=dict(unit=identity,step=stage,satiety=satiety,equipment=gear)
+                        for excluded in(False,True):
+                            actual=self.pet_inputs.option_ids(pet,excluded=excluded)
+                            digest.update(json.dumps([identity,stage,satiety,gear,excluded,actual],sort_keys=True,separators=(',',':')).encode()+b'\n');count+=1
+        self.assertEqual(count,proof['cases'])
+        self.assertEqual(digest.hexdigest(),proof['native_trace_sha256'])
+        with self.assertRaises(TypeError):source[2]['auras']=()
+        with self.assertRaises(ValueError):self.pet_inputs.decode((REFERENCE/'native-pet-attribute-sources.json').read_bytes()+b' ')
+        with self.assertRaises(ValueError):self.pet_inputs.option_ids(dict(unit=50,step=0,satiety=3840),excluded=False)
+
+    def test_current_artifact_sources_reproduce_original_stage_and_potential_controls(self):
+        self.artifact_inputs.PROJECT_ROOT=ROOT
+        proof=json.loads((REFERENCE/'native-artifact-attribute-source-goldens.json').read_bytes())
+        for identity,stage,potentials,native in proof['rows']:
+            self.assertEqual(self.artifact_inputs.option_ids(identity,stage,tuple(potentials)),tuple(native))
+        self.assertEqual(len(proof['rows']),180)
+        with self.assertRaises(TypeError):self.artifact_inputs.catalog()[1]=()
+        with self.assertRaises(ValueError):self.artifact_inputs.option_ids(0,1,(0,0,0,0))
+        with self.assertRaises(ValueError):self.artifact_inputs.decode((REFERENCE/'native-artifact-attribute-sources.json').read_bytes()+b' ')
+
+    def test_all_current_titles_reproduce_original_property_and_lookup_trace(self):
+        self.title_inputs.PROJECT_ROOT=ROOT
+        proof=json.loads((REFERENCE/'native-title-attribute-source-goldens.json').read_bytes())
+        source=self.title_inputs.catalog();digest=hashlib.sha256();count=0
+        for identity,row in sorted(source.items()):
+            hp,pa,ma,pd,md=row['flat'];expected=tuple(map(float,(hp,pa,ma,0,0,pd,md)))
+            self.assertEqual(self.title_inputs.inputs(identity)['direct'],expected)
+            for override in(identity,-1,0):
+                options=self.title_inputs.inputs(identity if override else 0)['options']
+                digest.update(json.dumps([identity,row['flat'],override,options],separators=(',',':')).encode()+b'\n');count+=1
+        self.assertEqual(count,proof['cases'])
+        self.assertEqual(digest.hexdigest(),proof['native_trace_sha256'])
+        with self.assertRaises(TypeError):source[10]['options']=()
+        with self.assertRaises(ValueError):self.title_inputs.decode((REFERENCE/'native-title-attribute-sources.json').read_bytes()+b' ')
+
+    def test_all_current_collection_definitions_match_original_class_stage_lookup(self):
+        self.collection_inputs.PROJECT_ROOT=ROOT
+        proof=json.loads((REFERENCE/'native-collection-attribute-source-goldens.json').read_bytes())
+        for career,stage,native in proof['rows']:
+            self.assertEqual(self.collection_inputs.lookup(career,stage),tuple(native))
+        self.assertEqual(len(proof['rows']),600)
+        with self.assertRaises(TypeError):self.collection_inputs.catalog()[10,0]=()
+        with self.assertRaises(ValueError):self.collection_inputs.decode((REFERENCE/'native-collection-attribute-sources.json').read_bytes()+b' ')
+
+    def test_current_collection_DTO_active_gate_matches_complete_original_collector(self):
+        self.collection_inputs.PROJECT_ROOT=ROOT
+        proof=json.loads((REFERENCE/'native-collection-dto-source-goldens.json').read_bytes())
+        for registered,active,native in proof['rows']:
+            value=dict(active=active,registered=[registered],expiry=0,expansion=0,field1d=1,field21=1)
+            self.assertEqual(self.collection_inputs.option_ids(value),tuple(native))
+        self.assertEqual(len(proof['rows']),600)
+
+    def test_106_resonance_groups_require_the_actual_selected_page(self):
+        from copy import deepcopy
+        ids=((1,2,4,16,17),(18,19,20,21,22),(11,12,13,14,15))
+        groups=tuple((tab,tuple((sid,10 if sid==1 else 0)for sid in values))for tab,values in enumerate(ids))
+        points=tuple(sorted(pair for tab,values in groups for pair in values))
+        source=dict(account=dict(enabled=True,level=200,experience=12345),profile=dict(
+            state=dict(selected_page=1,page_count=1,level=200,cumulative_experience=12345,allocation_groups=groups),
+            pages=dict(selected_page=1,pages=(dict(page_id=1,points=points),))))
+        self.assertEqual(self.resonance_groups.numeric_groups(source),groups)
+        other=deepcopy(source);other['profile']['pages']['selected_page']=2
+        with self.assertRaises(ValueError):self.resonance_groups.numeric_groups(other)
+        other=deepcopy(source);other['profile']['pages']['pages'][0]['points']=tuple((s,0)for s,p in points)
+        with self.assertRaises(ValueError):self.resonance_groups.numeric_groups(other)
+        other=deepcopy(source);other['profile']=None
+        with self.assertRaises(ValueError):self.resonance_groups.numeric_groups(other)
+        self.assertEqual(self.resonance_groups.numeric_groups(dict(account=dict(enabled=False),profile=None)),())
 
     def test_intermediate_conditions_keep_data_and_extended_scalar_destinations_separate(self):
         goldens=json.loads((REFERENCE/'native-conditional-power-goldens.json').read_bytes())

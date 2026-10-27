@@ -86,6 +86,32 @@ SQL fixtures, and the original106 reader followed by guarded Unit/Actor
 setters in both modes. These are controlled source/consumer proofs and do not
 claim natural gameplay or a complete live dispatcher test.
 
+The same-SQL capture now reads active pet identity, progression, accessories and
+committed mount runtime without invoking mount settlement or login/schema
+writers. Six real source controls cover nonempty state, concurrent commits,
+ownership and expiry guards. Selected ERP allocations additionally pass a
+60-query product106/original reader/point-map replacement chain; old points
+are cleared before the selected page is applied.
+
+The added immutable auxiliary sources cover all331 original pet templates,
+932 titles,15 Master Artifacts and300 Collection definitions. Original loader
+and collector controls include9480 pet branches,2796 title lookups and180
+Artifact stage/potential branches. Pet gear contributes socket option IDs,
+not equipment template IDs. Artifact's fourth potential is masked at stages3/4.
+The Game+5F0 manager is independently identified as CX2ArtifactManager by RTTI
+and ArtifactTemplet.lua loading; adjacent offsets are not riding-mount inputs.
+All600 canonical CollectionData active/inactive cases pass the product encoder,
+whole DB1080 reader and complete8A365F..8A3955 collector block, using the
+unchanged GetTickCount import bound to its identical actual Windows export.
+
+One real nonempty SQL fixture combines title ownership/deadline, pet and gear,
+Master Artifact potentials and account Collection state in both modes. Its
+arithmetic runs after releasing the read transaction and never reopens player
+SQL. Deadline expiry invalidates the stale source; a fresh read removes only
+the expired title's inputs. The four-group auxiliary assembler preserves the
+original source order and remains separate from worn/set and active-buff
+producers. It is not a claim that the whole collector or live path is enabled.
+
 The remaining integration must bind every actual modifier/context and CP
 aggregate, qualify the current HP clamp/refresh lifecycle in the unmodified
 client, then enable and publish in the ordinary queue from the actual latest

@@ -37,6 +37,39 @@ def attach_character_sources(db, owner, character):
         character['luciel_active_unit']=active_state(db,owner)['active_unit']
 
 
+def read_companion_sources(db, owner):
+    """Read pets without invoking mount settlement or login/schema writers."""
+    tables={r[0]for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+    present={'companions','companion_active'}&tables
+    if not present:return dict(pets=(),mounts=(),active_pet=0,active_mount=0,mounted=False)
+    if len(present)!=2:raise ValueError('Incomplete companion source schema')
+    from els_server.storage.companion_state import rows
+    # rows(...,'pet') uses the established read-only attachments. Asking for
+    # all companions would invoke mount_state.attach/settle and write a clock.
+    pets=tuple(rows(db,owner,'pet'))
+    mounts=[]
+    for row in db.execute('SELECT uid,owner,kind,unit,name,source_item FROM companions WHERE owner=? AND kind=? ORDER BY uid',(owner,'mount')):
+        value=dict(zip(('uid','owner','kind','unit','name','source_item'),row))
+        runtime=db.execute('SELECT owner,stamina,accounted_at,ridden FROM mount_runtime WHERE uid=?',(row[0],)).fetchone()if 'mount_runtime'in tables else None
+        if runtime is not None and runtime[0]!=owner:raise ValueError('Companion runtime owner differs')
+        value['saved_runtime']=runtime
+        mounts.append(value)
+    active=db.execute('SELECT pet,mount,mounted FROM companion_active WHERE owner=?',(owner,)).fetchone()or(0,0,0)
+    if (any(type(v)is not int for v in active)or min(active[:2])<0 or active[2]not in(0,1)):
+        raise ValueError('Invalid saved active companion source')
+    pet,mount,mounted=active
+    if pet:
+        selected=next((p for p in pets if p['uid']==pet),None)
+        if selected is None:raise ValueError('Active pet source ownership differs')
+        from els_server.storage.boosting_2026_limited_pet import require_current
+        require_current(selected)
+    selected_mount=next((p for p in mounts if p['uid']==mount),None)
+    if mount and selected_mount is None:raise ValueError('Active mount source ownership differs')
+    if mounted and (selected_mount is None or selected_mount['saved_runtime']is None):
+        raise ValueError('Mounted source requires committed runtime')
+    return dict(pets=pets,mounts=tuple(mounts),active_pet=pet,active_mount=mount,mounted=bool(mounted))
+
+
 def read_resonance_profile(db, owner, account_id):
     """Read the selected page after the ordinary allocation synchronizer.
 
@@ -92,6 +125,7 @@ def read_in_transaction(db, owner, account_id):
     items=tuple(load_items(db,owner))
     slots=tuple(current_slots(db,character))
     resonance=read_resonance_profile(db,owner,account_id)
+    companions=read_companion_sources(db,owner)
     if character['uid']!=owner:
         raise ValueError('Native attribute source identity changed')
     # The narrow quest-role reader supplies artifact/seals/collection/guild
@@ -101,7 +135,7 @@ def read_in_transaction(db, owner, account_id):
     # slots, not worn equipment slots.
     # All attached item instances come from the very same db.
     value=dict(owner=owner,account_id=account_id,character=character,
-               items=items,ordinary_slots=slots,resonance=resonance)
+               items=items,ordinary_slots=slots,resonance=resonance,companions=companions)
     raw=json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False).encode('utf8')
     return dict(deepcopy(value),source_sha256=hashlib.sha256(raw).hexdigest())
 
