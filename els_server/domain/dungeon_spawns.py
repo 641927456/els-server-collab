@@ -95,7 +95,7 @@ def handle(s,event,sequence):
   hp,npc_level=summoned_maximum(run,template)
   dto[0x53]=npc_level
   struct.pack_into('<i',dto,0,key)
-  init=npc_initialization(run.catalog,template,hp);wire=encode_npc(dto,0)
+  init=npc_initialization(run.catalog,template,hp,dynamic_context=(run.identity,run.graph['source_sha256'],npc_level,run.stage));wire=encode_npc(dto,0)
   entries.append(dict(key=key,template=template,key_code=struct.unpack_from('<i',dto,0x4f)[0],active=bool(dto[0x4e]),team=dto[8],ally=bool(dto[0x66]),no_drop=True,boss=boss,hp=hp,dynamic=True,wire=wire,init=init))
   wires.append(wire);initial.append(struct.pack('>i',key)+init)
  # C50040: NPC vector, four-byte flags map, scalar, byte vector,

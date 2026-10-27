@@ -116,6 +116,18 @@ class _Context:
 
     def source_hp(self,run,stage,part,group,source,fallback):
         self.check(run)
+        # Formal raid HP has higher priority than the old ordinary-solo
+        # fallback, including original sources shared with solo/story modes.
+        from els_server.domain.formal_npc_hp import policy
+        if self.dungeon in policy()['raid_maps']:return fallback
+        from els_server.domain.formal_npc_hp import component_maximum
+        if component_maximum(run.catalog,source['template'])is not None:return fallback
+        # A qualified same-map/name/registration/level public HP reference
+        # has precedence over this old ordinary solo fallback.
+        from els_server.domain.formal_npc_hp import public_maximum,level as formal_level
+        npc_level=run.catalog.static_npc_level(self.dungeon,run.graph,stage,part,source)
+        if npc_level is None:npc_level=formal_level(run.catalog,self.dungeon)
+        if public_maximum(run.catalog,source['template'],self.dungeon,npc_level)is not None:return fallback
         if run.graph['source_sha256']!=MAPS[self.dungeon][0]:return fallback
         template=source['template'];identity=IDENTITIES.get(template)
         if identity is None or not _definition(template,identity):return fallback

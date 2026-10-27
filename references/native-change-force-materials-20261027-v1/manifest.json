@@ -1,0 +1,300 @@
+{
+  "schema": 1,
+  "scope": "Original Mod360 recipe consumers and finite135911/136174 material sources",
+  "source_archive_only": true,
+  "formal_delivery_claim": false,
+  "delta_files": 16,
+  "new_files": 3,
+  "new_tables": 2,
+  "new_schema_definitions": 2,
+  "install_DDL": 0,
+  "shared_files": 16,
+  "channel_specific_each": 0,
+  "source_manifest_sha256": "a5dc377f11bbcc0eb7920b9c6378b0b08e23d0b6ae3bb56b8e52fae5b3dc04fe",
+  "future_qualification_sha256": "f0165bc465c3f050edb2549c1f489e724f36c56f1cbcc4ca1ace5e9a6a66807c",
+  "registry_sha256": "a113941b7ae34703c144d4e0ac336d3b5a563ea7f3d27f2467f36d1f3ca66077",
+  "channels": {
+    "online": {
+      "parent_release": "server-selection-town-business-20261027-v1",
+      "parent_manifest_name": "rollup-manifest.json",
+      "parent_manifest_sha256": "422aa9899e5977aed4fd2524d140bfe64849178c141c3e9f0fd8bdca8f6df6cc",
+      "runtime_leaves": [
+        {
+          "path": "els_server/data/change_force_books.json",
+          "archive_path": "shared/els_server/data/change_force_books.json",
+          "sha256": "a113941b7ae34703c144d4e0ac336d3b5a563ea7f3d27f2467f36d1f3ca66077",
+          "size": 123775,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.json",
+          "sha256": "01d100c92f9cb81624b5bd73b6e087e74ffb9d739bca6bf5e1f04c45f1951416",
+          "size": 185283,
+          "parent_sha256": "d43dfa94b775cc201376311ebd902f91185862e04769509ad14874ee3b9cb1c2",
+          "new_file": false
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "ec3c257a9ee129b58bf4bfc5077d1e3ce8a9e5ecedb8e27164418c4e1dfd2496",
+          "size": 188,
+          "parent_sha256": "b71faeaaba263893c546f767c01df40542279445e2c4c4c6dc7b6336b7a59662",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/boosting_2026_force_equipment.py",
+          "archive_path": "shared/els_server/domain/boosting_2026_force_equipment.py",
+          "sha256": "0558c5453bdff79bdf6a5cec6017591ec16a7f5f290a9cd39c480a8a13c2479d",
+          "size": 6108,
+          "parent_sha256": "13432f10af7af406661ab04c32c2346569d106553d17761a907894ce802ad9b1",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/boosting_2026_force_inventory.py",
+          "archive_path": "shared/els_server/domain/boosting_2026_force_inventory.py",
+          "sha256": "0a7500f07a78f4772954c889e34b5fe268b429f5e27d6863a8c5519e5d65a86d",
+          "size": 4102,
+          "parent_sha256": "f02229149ee62b1eb99d7bbff133c76d6b6990391904ca9090415440939fe313",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/change_force_admission.py",
+          "archive_path": "shared/els_server/domain/change_force_admission.py",
+          "sha256": "3bfdc546a347ab0369bb0402821c9254d4870ae2da5ab7e160f0b597c175c72b",
+          "size": 133,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/change_force_inventory.py",
+          "archive_path": "shared/els_server/domain/change_force_inventory.py",
+          "sha256": "03e17817ef909f5c068f4abeffacd347af1b5fb780b058a066db5722d2e6aefb",
+          "size": 2471,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/formal_pve_economy.py",
+          "archive_path": "shared/els_server/domain/formal_pve_economy.py",
+          "sha256": "321c9e1baadcf38930de43fb16b07d86619509e758bb8cad5bf269898a61fec3",
+          "size": 7343,
+          "parent_sha256": "72e8fa3b37a67d9bac91f1cc0996286f2cff856240c7c0d26296a77d5341d84d",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/ordinary_skill_pages.py",
+          "archive_path": "shared/els_server/domain/ordinary_skill_pages.py",
+          "sha256": "5f0feff562b21efafae491013864c74321a9ff5ee385135d393b8b6ff5d079df",
+          "size": 7932,
+          "parent_sha256": "09469f7f627af7711b697d645ebfa1a0358154b6f480eea618202b17b9c455a9",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/pve_economy_flow.py",
+          "archive_path": "shared/els_server/domain/pve_economy_flow.py",
+          "sha256": "717d2c8f0055732f17f229edc62e3ce76bd47f83b271d832c1351da957e4e313",
+          "size": 22854,
+          "parent_sha256": "55ebabbe9b51f83a9020a2a2a68834849785746cef3bd94c2cf300796eb62ef6",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/raid_reward_items.py",
+          "archive_path": "shared/els_server/domain/raid_reward_items.py",
+          "sha256": "082638c0e4402f85c02f5ba58e1e3c21438751e05746d530987ba95edbbf73c8",
+          "size": 16736,
+          "parent_sha256": "13cc9c05e714e714ad35107d2df47ba671a34426c3c1238b8a01f58fcc58a7c4",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/boosting_2026_force_equipment.py",
+          "archive_path": "shared/els_server/storage/boosting_2026_force_equipment.py",
+          "sha256": "b313827471b07e97a6e60b1c6be936dd78984732e3d6a5464bd32e515696abc1",
+          "size": 7208,
+          "parent_sha256": "4a2581fe41fd22f007693325d7ea0d319d29587da4709d3f1e5dccd65a08b356",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/boosting_2026_force_extraction.py",
+          "archive_path": "shared/els_server/storage/boosting_2026_force_extraction.py",
+          "sha256": "0921f5a01aaf56cd693e28f9adf0443c378b9b9f2c3d597aae12dd78cdb2461c",
+          "size": 9410,
+          "parent_sha256": "dabbc5a0bd7c5f98ef03606f586e18b85b1c50ae032369694682870bcb3175ab",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/boosting_2026_force_inventory.py",
+          "archive_path": "shared/els_server/storage/boosting_2026_force_inventory.py",
+          "sha256": "1af9bb5517eee9ac09a357de0c5bea4d3f7d7df23292c6324e773c9f17062400",
+          "size": 11238,
+          "parent_sha256": "c73ba8310096221b399ee0dbf51c9b5a49c93b7194633c83540f3809a0fee54b",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/manufacture.py",
+          "archive_path": "shared/els_server/storage/manufacture.py",
+          "sha256": "81c257d8ffd236dbc374eaffadfb5cc86276bcf0c34b14c510491f3ae3a2d0d3",
+          "size": 21706,
+          "parent_sha256": "3b8596bfa4514f4a5eb8635b2680dd15bbc249e2c7f9c8a141568db7d51889d8",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/ordinary_skill_pages.py",
+          "archive_path": "shared/els_server/storage/ordinary_skill_pages.py",
+          "sha256": "de3d6fe99499ed4856101ba1ecbf5ded2ec134884a4d5a701de025dc2b318609",
+          "size": 10314,
+          "parent_sha256": "a026860f80a961144e265bf311373c242a1ee502733cbfba25573e50ae0e303f",
+          "new_file": false
+        }
+      ],
+      "untouched_parent_anchor": {
+        "path": "els_server/domain/local_session.py",
+        "sha256": "4301688e6beeaa68d1b2046642e08503a5859d435d3c600156411a1408799a15"
+      }
+    },
+    "local": {
+      "parent_release": "local-server-selection-town-business-20261027-v1",
+      "parent_manifest_name": "local-business-manifest.json",
+      "parent_manifest_sha256": "0b7aa12976a16de1adb5114899eada901a36ce2f7f0550126bcac17a2dcd0f17",
+      "runtime_leaves": [
+        {
+          "path": "els_server/data/change_force_books.json",
+          "archive_path": "shared/els_server/data/change_force_books.json",
+          "sha256": "a113941b7ae34703c144d4e0ac336d3b5a563ea7f3d27f2467f36d1f3ca66077",
+          "size": 123775,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.json",
+          "sha256": "01d100c92f9cb81624b5bd73b6e087e74ffb9d739bca6bf5e1f04c45f1951416",
+          "size": 185283,
+          "parent_sha256": "d43dfa94b775cc201376311ebd902f91185862e04769509ad14874ee3b9cb1c2",
+          "new_file": false
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "ec3c257a9ee129b58bf4bfc5077d1e3ce8a9e5ecedb8e27164418c4e1dfd2496",
+          "size": 188,
+          "parent_sha256": "b71faeaaba263893c546f767c01df40542279445e2c4c4c6dc7b6336b7a59662",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/boosting_2026_force_equipment.py",
+          "archive_path": "shared/els_server/domain/boosting_2026_force_equipment.py",
+          "sha256": "0558c5453bdff79bdf6a5cec6017591ec16a7f5f290a9cd39c480a8a13c2479d",
+          "size": 6108,
+          "parent_sha256": "13432f10af7af406661ab04c32c2346569d106553d17761a907894ce802ad9b1",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/boosting_2026_force_inventory.py",
+          "archive_path": "shared/els_server/domain/boosting_2026_force_inventory.py",
+          "sha256": "0a7500f07a78f4772954c889e34b5fe268b429f5e27d6863a8c5519e5d65a86d",
+          "size": 4102,
+          "parent_sha256": "f02229149ee62b1eb99d7bbff133c76d6b6990391904ca9090415440939fe313",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/change_force_admission.py",
+          "archive_path": "shared/els_server/domain/change_force_admission.py",
+          "sha256": "3bfdc546a347ab0369bb0402821c9254d4870ae2da5ab7e160f0b597c175c72b",
+          "size": 133,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/change_force_inventory.py",
+          "archive_path": "shared/els_server/domain/change_force_inventory.py",
+          "sha256": "03e17817ef909f5c068f4abeffacd347af1b5fb780b058a066db5722d2e6aefb",
+          "size": 2471,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/formal_pve_economy.py",
+          "archive_path": "shared/els_server/domain/formal_pve_economy.py",
+          "sha256": "321c9e1baadcf38930de43fb16b07d86619509e758bb8cad5bf269898a61fec3",
+          "size": 7343,
+          "parent_sha256": "72e8fa3b37a67d9bac91f1cc0996286f2cff856240c7c0d26296a77d5341d84d",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/ordinary_skill_pages.py",
+          "archive_path": "shared/els_server/domain/ordinary_skill_pages.py",
+          "sha256": "5f0feff562b21efafae491013864c74321a9ff5ee385135d393b8b6ff5d079df",
+          "size": 7932,
+          "parent_sha256": "09469f7f627af7711b697d645ebfa1a0358154b6f480eea618202b17b9c455a9",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/pve_economy_flow.py",
+          "archive_path": "shared/els_server/domain/pve_economy_flow.py",
+          "sha256": "717d2c8f0055732f17f229edc62e3ce76bd47f83b271d832c1351da957e4e313",
+          "size": 22854,
+          "parent_sha256": "55ebabbe9b51f83a9020a2a2a68834849785746cef3bd94c2cf300796eb62ef6",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/raid_reward_items.py",
+          "archive_path": "shared/els_server/domain/raid_reward_items.py",
+          "sha256": "082638c0e4402f85c02f5ba58e1e3c21438751e05746d530987ba95edbbf73c8",
+          "size": 16736,
+          "parent_sha256": "13cc9c05e714e714ad35107d2df47ba671a34426c3c1238b8a01f58fcc58a7c4",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/boosting_2026_force_equipment.py",
+          "archive_path": "shared/els_server/storage/boosting_2026_force_equipment.py",
+          "sha256": "b313827471b07e97a6e60b1c6be936dd78984732e3d6a5464bd32e515696abc1",
+          "size": 7208,
+          "parent_sha256": "4a2581fe41fd22f007693325d7ea0d319d29587da4709d3f1e5dccd65a08b356",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/boosting_2026_force_extraction.py",
+          "archive_path": "shared/els_server/storage/boosting_2026_force_extraction.py",
+          "sha256": "0921f5a01aaf56cd693e28f9adf0443c378b9b9f2c3d597aae12dd78cdb2461c",
+          "size": 9410,
+          "parent_sha256": "dabbc5a0bd7c5f98ef03606f586e18b85b1c50ae032369694682870bcb3175ab",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/boosting_2026_force_inventory.py",
+          "archive_path": "shared/els_server/storage/boosting_2026_force_inventory.py",
+          "sha256": "1af9bb5517eee9ac09a357de0c5bea4d3f7d7df23292c6324e773c9f17062400",
+          "size": 11238,
+          "parent_sha256": "c73ba8310096221b399ee0dbf51c9b5a49c93b7194633c83540f3809a0fee54b",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/manufacture.py",
+          "archive_path": "shared/els_server/storage/manufacture.py",
+          "sha256": "81c257d8ffd236dbc374eaffadfb5cc86276bcf0c34b14c510491f3ae3a2d0d3",
+          "size": 21706,
+          "parent_sha256": "3b8596bfa4514f4a5eb8635b2680dd15bbc249e2c7f9c8a141568db7d51889d8",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/ordinary_skill_pages.py",
+          "archive_path": "shared/els_server/storage/ordinary_skill_pages.py",
+          "sha256": "de3d6fe99499ed4856101ba1ecbf5ded2ec134884a4d5a701de025dc2b318609",
+          "size": 10314,
+          "parent_sha256": "a026860f80a961144e265bf311373c242a1ee502733cbfba25573e50ae0e303f",
+          "new_file": false
+        }
+      ],
+      "untouched_parent_anchor": {
+        "path": "els_server/domain/local_session.py",
+        "sha256": "22c33d894903b6c393fbb48c10cc8257557a400b5a335909884679b845f316be"
+      }
+    }
+  },
+  "new_schema": true,
+  "schema_semantics": "Two optional business-lazy table definitions newly introduced relative to the selected parent; no installation migration or eager DDL",
+  "metadata_correction": "Counts corrected by independent source/real-SQLite review; historical frozen delivery manifests and receipts remain unchanged",
+  "post_review_draw_guard": "Retain PR573 finite internal three-map group295762-to30600 correction, original solo-only entry refusal remains unchanged."
+}

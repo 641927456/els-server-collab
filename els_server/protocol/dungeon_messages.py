@@ -46,6 +46,10 @@ def member(slots,character=None,items=None,*,account_id=None,peer_port=None,capt
         from els_server.domain.character_rules import transcendental_stage
         from els_server.game_data import client_data
         unit=client_data().unit(character['unit_class'])
+        from els_server.domain.titles import eligible as title_eligible
+        title=character.get('title',0)
+        if type(title) is not int or title<0 or title and not title_eligible(character,title):raise ValueError('Native current title input')
+        overrides['0x3ef']=i32(title)
         # Real persisted characters carry unit_type. The lookup fallback only
         # preserves older callers that supplied a class-only fixture.
         unit_type=character.get('unit_type',unit['unitType'])
@@ -85,7 +89,8 @@ def room_info(dungeon_id=SUPPORTED_DUNGEON,*,room_id=10001,name='LocalSingle',bo
     data+=b'\0\xff\0'+i32(-1)+b'\0\0'+i32(0)+bytes(4)+bytes(8)+i32(0)
     # 11C99A0 creates byte mode from Party+40 (native clear record byte 6),
     # which is 0. 7D4's mode=1 chooses solo matching, not this room mode.
-    data+=b'\0'+i32(dungeon_id)+b'\0\0'+bytes(8)*2+i32(0)+b'\0'
+    from els_server.domain.native_hero_inputs import difficulty
+    data+=bytes((difficulty(dungeon_id),))+i32(dungeon_id)+b'\0\0'+bytes(8)*2+i32(0)+b'\0'
     data+=u32(0)+bytes(2)+i32(0)+b'\0\0'+bytes(8)+u32(0)
     data+=b'\0'+i32(0)+bytes(8)*2
     return data
@@ -98,7 +103,8 @@ def dungeon_start(slots=DEFAULT_SLOTS,character=None,items=None,dungeon_id=SUPPO
     # Master selection 1360490 includes 3..5; actor creation 135DF20
     # excludes 1..3. Type 4 satisfies both native branches (0 loses master).
     team=b'\0\4\1'+bytes(3)+i32(0)+u32(1)+member(slots,character,items,account_id=account_id,capture=member_capture)+u32(0)+bytes(4)
-    payload=bytes(2)+room_info(dungeon_id,room_id=room_id,bootstrap_port=bootstrap_port)+u32(1)+team+u32(0)+wstring('')+u32(0)*3
+    from els_server.domain.native_hero_inputs import factor_vector
+    payload=bytes(2)+room_info(dungeon_id,room_id=room_id,bootstrap_port=bootstrap_port)+u32(1)+team+u32(0)+wstring('')+u32(0)+factor_vector(dungeon_id)+u32(0)
     return Event(0x201,kind=0x14a,payload=payload)
 
 
@@ -125,7 +131,8 @@ def party_dungeon_start(members,leader,identity,room_id,*,bootstrap_port=None,me
         def capture(payload,spans):captured[s]=(payload,dict(spans))
         body=member(s.account.get_skills(),s.account.character(),s.account.get_inventory_snapshot()['items'],account_id=s.identity['id'],peer_port=21100+index,capture=capture)
         teams.append(bytes([index,4,int(master)])+bytes(3)+i32(0)+u32(1)+body+u32(0)+bytes(4))
-    payload=bytes(2)+room_info(identity,room_id=room_id,name='Friends',bootstrap_port=bootstrap_port)+u32(len(teams))+b''.join(teams)+u32(0)+wstring('')+u32(0)*3
+    from els_server.domain.native_hero_inputs import factor_vector
+    payload=bytes(2)+room_info(identity,room_id=room_id,name='Friends',bootstrap_port=bootstrap_port)+u32(len(teams))+b''.join(teams)+u32(0)+wstring('')+u32(0)+factor_vector(identity)+u32(0)
     if member_captures is not None:member_captures.update(captured)
     return Event(0x201,kind=0x14a,payload=payload)
 

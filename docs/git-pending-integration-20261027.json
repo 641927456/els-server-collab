@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "issue": 548,
+  "base_commit": "12f3f54d2a89147ce5d328b585bfbfdb6880cf2c",
+  "included_heads": [
+    {
+      "pr": 529,
+      "head": "4a3b634a96f054c060cb7a9fd55376d8fec3f0aa",
+      "base": "b3688a02e6bb39c3d45992c582e68812821150a3",
+      "files": 10
+    },
+    {
+      "pr": 530,
+      "head": "daa907c00601366f6ca46b91dd9a4ee23da96297",
+      "base": "b3688a02e6bb39c3d45992c582e68812821150a3",
+      "files": 19
+    },
+    {
+      "pr": 532,
+      "head": "edb910b68cdc9a1e523315081d66f032113062c7",
+      "base": "b3688a02e6bb39c3d45992c582e68812821150a3",
+      "files": 13
+    },
+    {
+      "pr": 534,
+      "head": "53dafea78cae09d04217834917642ec2605b57cb",
+      "base": "12f3f54d2a89147ce5d328b585bfbfdb6880cf2c",
+      "files": 18
+    },
+    {
+      "pr": 543,
+      "head": "c2593da8b902f0ddc6c22dc07eb32e1618b128b7",
+      "base": "53dafea78cae09d04217834917642ec2605b57cb",
+      "files": 19
+    },
+    {
+      "pr": 536,
+      "head": "ae03f65f3e37975b04ecab676b5d5d3eac35f1ff",
+      "base": "b3688a02e6bb39c3d45992c582e68812821150a3",
+      "files": 17
+    },
+    {
+      "pr": 546,
+      "head": "52f89ad33119ff627a562c0a38db41208838a8df",
+      "base": "12f3f54d2a89147ce5d328b585bfbfdb6880cf2c",
+      "files": 3
+    },
+    {
+      "pr": 547,
+      "head": "4308ed3d1b9ecf5fc998b2b6ac8864100fb86fcd",
+      "base": "12f3f54d2a89147ce5d328b585bfbfdb6880cf2c",
+      "files": 1
+    },
+    {
+      "pr": 545,
+      "head": "b27a714a0b4ff61b993132a295958f6bdeeb0d3c",
+      "base": "c2593da8b902f0ddc6c22dc07eb32e1618b128b7",
+      "files": 14,
+      "qualified_during_audit": true
+    }
+  ],
+  "source_preservation": {
+    "exact_files": 87,
+    "composed_protocol": "PR530 exact bytes plus PR546 four exact title lines",
+    "frozen_archives_rewritten": false
+  },
+  "excluded": {
+    "draft_prs": [],
+    "human_deferred_issues": [
+      434
+    ],
+    "closed_prs": [
+      32,
+      190
+    ],
+    "historical_channel_and_update_refs": "preserved, not promoted"
+  },
+  "checks": {
+    "source_and_isolated_runtime": true,
+    "python_sources_compiled": 2038,
+    "focused_tests_passed": 33,
+    "legacy_baseline_comparison": {
+      "ok": true,
+      "baseline_commit": "12f3f54d2a89147ce5d328b585bfbfdb6880cf2c",
+      "unchanged_error_count": 252,
+      "unchanged_failure_count": 1,
+      "new_failures": 0,
+      "legacy_current_tests": 25,
+      "legacy_baseline_tests": 24
+    }
+  },
+  "production_deployment": false,
+  "client_delta": false,
+  "player_data_uploaded": false,
+  "independent_main_review_required": true,
+  "clock_followup": {
+    "exact_source_files": 13,
+    "delta_each_channel": 9,
+    "actual_title_parent_and_actual_clock_artifact_verified": true,
+    "full_parent_both_channels": true,
+    "source_archive_rewritten": false,
+    "production_redeployment": false,
+    "natural_GUI": false,
+    "natural_battle": false
+  }
+}
