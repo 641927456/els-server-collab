@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "rows": [
+    {
+      "input": {
+        "stage": 0,
+        "grade": 0,
+        "first_count": 0,
+        "second_count": 0
+      },
+      "native": {
+        "stage": 0,
+        "grade": 0,
+        "first_count": 0,
+        "second_count": 0
+      }
+    },
+    {
+      "input": {
+        "stage": 2,
+        "grade": -128,
+        "first_count": -2147483648,
+        "second_count": 2147483647
+      },
+      "native": {
+        "stage": 2,
+        "grade": -128,
+        "first_count": -2147483648,
+        "second_count": 2147483647
+      }
+    },
+    {
+      "input": {
+        "stage": 3,
+        "grade": 127,
+        "first_count": 1,
+        "second_count": -1
+      },
+      "native": {
+        "stage": 3,
+        "grade": 127,
+        "first_count": 1,
+        "second_count": -1
+      }
+    },
+    {
+      "input": {
+        "stage": 4,
+        "grade": 9,
+        "first_count": 2147483647,
+        "second_count": 1
+      },
+      "native": {
+        "stage": 4,
+        "grade": 9,
+        "first_count": 2147483647,
+        "second_count": 1
+      }
+    },
+    {
+      "input": {
+        "stage": -2147483648,
+        "grade": -1,
+        "first_count": -2147483648,
+        "second_count": -2147483648
+      },
+      "native": {
+        "stage": -2147483648,
+        "grade": -1,
+        "first_count": -2147483648,
+        "second_count": -2147483648
+      }
+    }
+  ],
+  "original": "87B1C5..87B1FB",
+  "canonical_source": {
+    "field": "0x3c5",
+    "wire_hex": "00000000000000000000000000000000000000000000000000",
+    "fixture_sha256": "4d22ef484107aae42ed7d825c0af9630ba0aa08b9fef8a2323ff5b6699026ea1",
+    "writer_sha256": "a8e8e4011ed8986d4fbfb67fff2d80b6a7e988889e6cc562f0c3e1240a4dbb33"
+  },
+  "scope": "Original DTO-to-Unit copies and signed boundaries. Current installed complete packed field is canonical25 zero bytes; subsequent unrelated packets are not qualified by this phase.",
+  "client_changes": 0,
+  "game_process_access": false
+}

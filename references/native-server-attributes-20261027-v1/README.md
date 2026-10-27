@@ -311,3 +311,12 @@ controls and all2401 four-slot element tuples through the original classifier
 and armor switch. The45 switch cases preserve75/110/135 tier values and summed
 identifier collisions. These are source arithmetic phases, with worn selection
 and remaining resistance source integration still explicit.
+
+The separate current PVEData normal and MP coefficient registries have now
+passed24 original registration/lookup controls and34 complete resistance
+callbacks, including all ten grades and signed count overflow. The MP reader's
+unregistered-key behavior is deliberately outside the qualified input domain.
+Five original character-to-Unit copy controls also establish the four PvE
+context fields and their signed widths. The installed packed25-byte source
+field remains canonical zero; this is bound to the actual writer and fixture,
+rather than inferred from an empty emulator registry.

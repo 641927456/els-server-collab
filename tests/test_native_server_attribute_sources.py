@@ -1200,6 +1200,32 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
         self.assertEqual(source.values((0,0,4,6)),(0.,0.,0.,0.,110.,0.))
         with self.assertRaises(ValueError):source.values((0,0,0,True))
 
+    def test_pve_rank_registries_and_resistance_context_match_original(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power,
+            'els_server.domain.native_option_scalar_inputs':self.option_scalars,
+            'els_server.domain.native_option_metadata':self.option_metadata,
+            'els_server.domain.native_extended_option_inputs':self.extended_inputs}):
+            source=module('candidate_pve_rank_source','els_server/domain/native_pve_rank_coefficient.py')
+            resistance=module('candidate_pve_rank_resistance','els_server/domain/native_resistance_option.py')
+        with patch.object(source,'PROJECT_ROOT',ROOT), patch.dict(sys.modules,{
+            'els_server.domain.native_option_scalar_inputs':self.option_scalars}):
+            golden=json.loads((REFERENCE/'native-pve-rank-source-goldens.json').read_bytes())
+            self.assertEqual(len(golden['rows']),24)
+            for row in golden['rows']:
+                self.assertEqual(source.coefficient(row['rank'],for_mp=row['for_mp']),row['native'])
+            for rank in(-128,-1,10,127):
+                with self.assertRaises(ValueError):source.coefficient(rank,for_mp=True)
+            golden=json.loads((REFERENCE/'native-pve-rank-resistance-goldens.json').read_bytes())
+            self.assertEqual(len(golden['rows']),34)
+            self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+            for row in golden['rows']:
+                coefficient=source.factor(row['definition'],**row['context'])
+                self.assertEqual(coefficient,row['coefficient'])
+                actual=resistance.merge(tuple(row['before']),row['definition'],rank_factor=0.,
+                    pve_rank_factor=coefficient,weight=row['weight'])
+                self.assertEqual(struct.pack('<6f',*actual),struct.pack('<6f',*row['native']))
+        source.catalog.cache_clear()
+
     def test_worn_category77_source_uses_existing_pinned_original_registry(self):
         import els_server.domain as domain
         import els_server.paths as paths
