@@ -1200,6 +1200,39 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
         self.assertEqual(source.values((0,0,4,6)),(0.,0.,0.,0.,110.,0.))
         with self.assertRaises(ValueError):source.values((0,0,0,True))
 
+    def test_resistance_service_lifecycle_and_finalization_match_original(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
+            source=module('candidate_resistance_finalization','els_server/domain/native_resistance_finalization.py')
+        golden=json.loads((REFERENCE/'native-resistance-finalization-goldens.json').read_bytes())
+        self.assertEqual(len(golden['service_rows']),7)
+        self.assertEqual(len(golden['finalization_rows']),6)
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+        for row in golden['service_rows']:
+            previous=None if row['previous']is None else tuple(row['previous'])
+            expected=None if row['native']is None else tuple(row['native'])
+            self.assertEqual(source.service_after_311(previous,row['threshold']),expected)
+        for row in golden['finalization_rows']:
+            args=dict(row['args'])
+            for key in('skill_values','service_values'):
+                if args[key]is not None:args[key]=tuple(args[key])
+            args['post_values']=tuple(map(tuple,args['post_values']))
+            self.assertEqual(struct.pack('<6f',*source.finish(tuple(row['before']),**args)),struct.pack('<6f',*row['native']))
+        with self.assertRaises(ValueError):source.service_after_311(None,65536)
+
+    def test_resistance_item_sources_preserve_distinct_main_and_secondary_order(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
+            source=module('candidate_resistance_item_order','els_server/domain/native_resistance_item_options.py')
+        vectors=module('candidate_resistance_item_vectors','els_server/domain/native_item_option_vectors.py')
+        golden=json.loads((REFERENCE/'native-resistance-item-phase-goldens.json').read_bytes())
+        self.assertEqual(len(golden['rows']),136)
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+        for row in golden['rows']:
+            groups=tuple(tuple(v)for v in row['groups'])
+            args=dict(row['args']);args['circuit_options']=tuple(map(tuple,args['circuit_options']))
+            actual=source.collect(vectors.project(groups,{},mutations=()),tuple(map(tuple,row['properties'])),
+                tuple(row['template_options']),**args)
+            self.assertEqual(tuple(pair for pair in actual if pair[0]),tuple(map(tuple,row['native'])))
+
     def test_pve_rank_registries_and_resistance_context_match_original(self):
         with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power,
             'els_server.domain.native_option_scalar_inputs':self.option_scalars,

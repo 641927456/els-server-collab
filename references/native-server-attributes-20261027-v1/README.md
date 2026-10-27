@@ -320,3 +320,16 @@ Five original character-to-Unit copy controls also establish the four PvE
 context fields and their signed widths. The installed packed25-byte source
 field remains canonical zero; this is bound to the actual writer and fixture,
 rather than inferred from an empty emulator registry.
+
+The distinct main and secondary resistance item source paths now pass136
+original phase controls through the canonical item reader/constructor. The
+main path does not consume the secondary1C8/200 groups; source order and
+duplicates remain intact. D0 capacity and weighted circuit activation remain
+explicit, separately supplied inputs.
+
+The optional resistance service source is now traced to the original311
+unsigned16 threshold producer: threshold2 allocates six100 values, and later
+lower or zero inputs retain that allocation. Seven original producer controls
+and six ordered finalization controls cover this lifecycle, float32 additions
+and the500 upper-only cap. Fresh original construction has a null source;
+packet meaning and actual runtime source admission are separate.
