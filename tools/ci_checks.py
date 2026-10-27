@@ -85,6 +85,10 @@ def main(argv=None):
     if (ROOT/'references/native-rosso-reset-20261027-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_rosso_reset_20261027.py')])
         run([sys.executable,'-B',str(ROOT/'tools/verify_rosso_reset_20261027.py'),'--channel','local'])
+    if (ROOT/'references/native-aurora-book-sources-20261027-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_aurora_book_sources_20261027.py')])
+        run([sys.executable,'-B',str(ROOT/'tools/verify_aurora_book_sources_20261027.py'),'--channel','local'])
+        run([sys.executable,'-B','-m','unittest','tests.test_295762_group_draw_guard'])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0
