@@ -13,6 +13,19 @@ from els_server.domain.native_set_sources import item_pools
 
 
 @lru_cache(maxsize=1)
+def category77_registry():
+    from els_server.domain.avatar_registry_2026 import load_original_category77
+    from els_server.paths import PROJECT_ROOT
+    return load_original_category77((PROJECT_ROOT/'els_server/data/selected2026/growth-avatar_registry.json').read_bytes())
+
+
+def category77_membership(templates):
+    """Resource6ADD70 type77: per-template membership, never a global flag."""
+    from els_server.domain.avatar_registry_2026 import classify_templates
+    return classify_templates(templates,registry=category77_registry())
+
+
+@lru_cache(maxsize=1)
 def canonical_defaults():
     from els_server.domain.inventory_items import fixture
     value=fixture();raw=bytes.fromhex(value['wire_hex'])

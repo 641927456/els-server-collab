@@ -28,7 +28,7 @@ class OptionSource:
     weight: float
 
 
-def collect(sources,definitions,*,mode,resonance_level,unit_line):
+def _validate(sources,definitions,*,mode,resonance_level,unit_line):
     if type(sources)is not tuple or len(sources)>512:
         raise ValueError('Complete bounded ordered option sources required')
     if type(definitions)is not dict or len(definitions)>100000:
@@ -48,6 +48,10 @@ def collect(sources,definitions,*,mode,resonance_level,unit_line):
             if type(value)is not int or not -2**31<=value<2**31:
                 raise ValueError('Original signed option identity/condition required')
         f32(source.rank_factor);f32(source.weight)
+
+
+def collect_ordinary(sources,definitions,*,mode,resonance_level,unit_line):
+    _validate(sources,definitions,mode=mode,resonance_level=resonance_level,unit_line=unit_line)
     fields=dict.fromkeys(scalar_merge.FIELDS,0.);data=(0.,)*13
     capabilities={};probability={};additional=(0,0.);conditions=();integer_mp=0
     for source in sources:
@@ -67,7 +71,25 @@ def collect(sources,definitions,*,mode,resonance_level,unit_line):
                 resonance_level=resonance_level,unit_line=unit_line,rank_factor=source.rank_factor,weight=source.weight)
     # Whole897100's cap follows all first-pass source callbacks.
     fields[0x20]=min(fields[0x20],40.)
-    damage={};alternate={};extended_capabilities={};tags860={};tags870={};resistances=(0,)*7
+    return dict(scalars=fields,data=data,capabilities=capabilities,probability=probability,
+        additional=additional,conditions=conditions,integer_MP=integer_mp)
+
+
+def collect_extended(sources,definitions,initial,*,mode,resonance_level,unit_line):
+    """Append each callback to an explicit record after ERP contributions.
+
+    Combining an options-only sum with ERP afterward changes float32 order.
+    Call this after887F00, retaining every individual option callback.
+    """
+    _validate(sources,definitions,mode=mode,resonance_level=resonance_level,unit_line=unit_line)
+    if type(initial)is not dict or set(initial)!={'damage','alternate','extended_capabilities','tags860','tags870','resistances'}:
+        raise ValueError('Complete original extended record required')
+    damage=extended_maps.float_map(initial['damage']);alternate=extended_maps.float_map(initial['alternate'])
+    extended_capabilities=dict(initial['extended_capabilities'])
+    tags860={k:tuple(v)for k,v in initial['tags860'].items()}
+    tags870={k:tuple(v)for k,v in initial['tags870'].items()}
+    resistances=extended_maps.vector(initial['resistances'])
+    if len(resistances)!=7:raise ValueError('Original seven resistance words required')
     for source in sources:
         for identity in source.option_ids:
             definition=definitions.get(identity)
@@ -80,6 +102,17 @@ def collect(sources,definitions,*,mode,resonance_level,unit_line):
                 **extended_inputs.extended_source_inputs(definition),
                 category_rates=tuple(values[k]for k in(0x3e8,0x3ec,0x3f0,0x3f4)),
                 factor_rows=factor_inputs.capability_rows(definition),weight=source.weight)
-    return dict(scalars=fields,data=data,capabilities=capabilities,probability=probability,
-        additional=additional,conditions=conditions,integer_MP=integer_mp,damage=damage,alternate=alternate,
+    return dict(damage=damage,alternate=alternate,
         extended_capabilities=extended_capabilities,tags860=tags860,tags870=tags870,resistances=resistances)
+
+
+def collect(sources,definitions,*,mode,resonance_level,unit_line):
+    """Independent fresh ordinary/extended controls, without an ERP phase.
+
+    The complete builder uses the separate entries around887F00; it must not
+    add ERP to this already-summed extended output.
+    """
+    args=dict(mode=mode,resonance_level=resonance_level,unit_line=unit_line)
+    first=collect_ordinary(sources,definitions,**args)
+    initial=dict(damage={},alternate={},extended_capabilities={},tags860={},tags870={},resistances=(0,)*7)
+    return first|collect_extended(sources,definitions,initial,**args)

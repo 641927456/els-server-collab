@@ -263,9 +263,33 @@ snapshot also preserves a nonzero opaque record across a concurrent page commit,
 without reader writes or player database access.
 
 The reusable option collector now combines the source-ordered ordinary and
-extended passes, including the integer MP leaf. Eight complete original
+extended passes, including the integer MP leaf. Sixteen complete original
 88A180/889610 controls cover duplicate/missing IDs, differing source levels,
 positive/negative weights, rank/PvE-rank/linked-level and ERP entry gates.
+The entries remain separate around the ERP phase, so each extended callback
+adds to the actual existing ERP map in native float32 order. Nonempty initial
+maps are included in the whole-callback controls.
 Both modes of the private source also match the complete original collectors
 through this product entry point. This consolidates source aggregation without
 changing a client or selecting the runtime route before lifecycle acceptance.
+
+The reusable power aggregate preserves the ordinary -> ERP -> each extended
+callback -> cooldown -> normalization -> conditional data -> MP -> kernel
+order. Four public compositions execute the original stages with nonempty ERP
+and a crossed condition threshold, matching every kernel argument and both
+outputs. Both modes of the private saved-source composition also match the
+complete original builder. These explicit contexts remain separate from live
+source acquisition and runtime admission.
+
+The former feature77 context is now resolved as resource division-template
+membership. The original6AEFB0 loader and6ADD70 reader accept all135 current
+IDs and reject10 neighbor/control IDs. The source resource matches the existing
+pinned growth-avatar registry byte for byte; the worn source binder reuses that
+registry instead of creating a second catalog or assuming a uniform flag.
+
+Complete BAA6F0 notification consumption has additionally passed in a private
+constructed original Actor/CX2Game context: wrong UID rejection, CP rounding,
+positive HP preservation, and MP clamp without healing. Original scene modes
+exclude/include two dungeon-only options totaling24 MP, yielding400/424. Earlier
+failed context constructions remain in private evidence. Live unmodified-client
+acceptance and dual deployment are still required.

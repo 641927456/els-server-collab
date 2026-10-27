@@ -1,7 +1,9 @@
 """8A20E0 item collection with explicit native instance/context inputs.
 
 The wrapper+4 input is the native equipment slot code, not bag group9.
-Feature77 may be an explicit uniform control or a complete per-template map.
+Category77 is the pinned division-template membership. A uniform boolean is
+accepted only for controlled original-function tests; live source binding
+supplies native_worn_source_inputs.category77_membership for every template.
 Native storage fields retain their offsets; this is not a player inventory
 constructor,867440 set qualification or expiry scheduling implementation.
 """

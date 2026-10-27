@@ -1055,14 +1055,17 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             for name in names:
                 source=module('els_server.domain.'+name,'els_server/domain/'+name+'.py')
                 stack.enter_context(patch.object(domain,name,source,create=True))
-            golden=json.loads((REFERENCE/'native-combined-option-pipeline-goldens.json').read_bytes())
-            self.assertEqual(len(golden['rows']),8)
+            golden=json.loads((REFERENCE/'native-combined-option-pipeline-goldens-v2.json').read_bytes())
+            self.assertEqual(len(golden['rows']),16)
             self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
             def decode(rows):return {tuple(k)if isinstance(k,list)else k:v for k,v in rows}
             for row in golden['rows']:
                 inputs=tuple(source.OptionSource(tuple(s['option_ids']),s['level'],s['condition_value'],
                     s['rank_factor'],s['weight'])for s in row['sources'])
-                actual=source.collect(inputs,{int(k):v for k,v in row['definitions'].items()},**row['args'])
+                definitions={int(k):v for k,v in row['definitions'].items()}
+                initial=dict(row['initial']);initial['damage']=decode(initial['damage']);initial['alternate']=decode(initial['alternate'])
+                initial['resistances']=tuple(initial['resistances'])
+                actual=source.collect_ordinary(inputs,definitions,**row['args'])|source.collect_extended(inputs,definitions,initial,**row['args'])
                 native=row['native']
                 for k,v in actual['scalars'].items():
                     self.assertEqual(struct.pack('<f',v),struct.pack('<f',native['scalars'][hex(k)]))
@@ -1074,6 +1077,57 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             for invalid in([], (source.OptionSource((1,),256,0,0.,1.),),
                 (source.OptionSource((1,),1,0,0.,float('inf')),)):
                 with self.assertRaises(ValueError):source.collect(invalid,{},mode=0,resonance_level=0,unit_line=0)
+
+
+    def test_composed_aggregate_matches_original_nonempty_ERP_and_condition_stages(self):
+        import els_server.domain as domain
+        names=('native_power_kernel','native_option_scalar_inputs','native_option_scalar_merge',
+            'native_option_data_merge','native_option_record_merge','native_option_pre_scale',
+            'native_option_metadata','native_ordinary_option_subset','native_option_power_maps',
+            'native_option_condition_inputs','native_ordinary_option_power_maps','native_option_factor_inputs',
+            'native_extended_option_inputs','native_extended_option_maps','native_option_max_mp','native_option_collector',
+            'native_extension_inputs','native_resonance_attributes','native_cooldown_map','native_power_slopes',
+            'native_power_normalization','native_condition_contexts','native_conditional_power_attributes',
+            'native_max_mp_inputs','native_power_aggregation')
+        with ExitStack()as stack:
+            stack.enter_context(patch.dict(sys.modules))
+            for name in names:
+                source=module('els_server.domain.'+name,'els_server/domain/'+name+'.py')
+                stack.enter_context(patch.object(domain,name,source,create=True))
+            golden=json.loads((REFERENCE/'native-power-aggregation-composed-goldens.json').read_bytes())
+            self.assertEqual(len(golden['rows']),4)
+            self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+            for row in golden['rows']:
+                args=dict(row['args'])
+                for name in('resonance_points','resonance_definitions','phase_mp_values','unit_mp_values'):
+                    args[name]={int(k):v for k,v in args[name].items()}
+                args['resonance_definitions']={k:tuple(v)for k,v in args['resonance_definitions'].items()}
+                for name in('resonance_override','condition_resistances'):args[name]=tuple(args[name])
+                callbacks=tuple(domain.native_option_collector.OptionSource(tuple(s['option_ids']),s['level'],
+                    s['condition_value'],s['rank_factor'],s['weight'])for s in row['sources'])
+                actual=source.assemble(tuple(row['seven']),callbacks,{int(k):v for k,v in row['definitions'].items()},**args)
+                self.assertEqual(struct.pack('<2f',*actual['power']),struct.pack('<2f',*row['native_power']))
+                expected=dict(row['native_arguments'])
+                for name in('stat_fields','data_fields'):expected[name]={int(k,16):v for k,v in expected[name].items()}
+                expected['maps']={int(k,16):{tuple(key)if isinstance(key,list)else key:v for key,v in values}
+                    for k,values in expected['maps'].items()}
+                self.assertEqual(actual['arguments'],expected)
+
+    def test_worn_category77_source_uses_existing_pinned_original_registry(self):
+        import els_server.domain as domain
+        import els_server.paths as paths
+        with ExitStack()as stack:
+            stack.enter_context(patch.dict(sys.modules))
+            for name in('native_dynamic_sets','native_item_option_vectors','native_option_colors','native_set_sources','native_worn_source_inputs'):
+                source=module('els_server.domain.'+name,'els_server/domain/'+name+'.py')
+                stack.enter_context(patch.object(domain,name,source,create=True))
+            rows=json.loads((REFERENCE/'native-division77-source-goldens.json').read_bytes())['rows']
+            source.category77_registry.cache_clear()
+            with patch.object(paths,'PROJECT_ROOT',ROOT):
+                actual=source.category77_membership(tuple(r['template']for r in rows if r['template']>0))
+            self.assertEqual(actual,{r['template']:r['native']for r in rows if r['template']>0})
+            self.assertEqual(sum(actual.values()),135)
+            source.category77_registry.cache_clear()
 
 
 if __name__=='__main__':unittest.main()
