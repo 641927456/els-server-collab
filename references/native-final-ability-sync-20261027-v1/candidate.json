@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "issue": 582,
+  "scope": "Authorized original complete HP/attack/defense producer to owned Unit/Actor native consumers and original dirty refresh/current-HP clamp; pinned current DX11 client only",
+  "cache_dependency": "native-power-cache-sync-20261027-v1",
+  "files": [
+    {
+      "path": "approved-hosts.json",
+      "sha256": "cb60cec328eb010e7e2085d197ca9b6b135cc38bfcee35f508094e12972ed88c"
+    },
+    {
+      "path": "tools/client_compatibility.py",
+      "sha256": "5443e0a7ef4bb83dcf981ccb8b4168f6a09d0ae0860eaa77ef2763a98950a958"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "sha256": "49d1217408692ab2abc2a4eac1a15cac76fa5b1313d3fb00500bf470effca3fc"
+    },
+    {
+      "path": "tools/native_cache_sync.js",
+      "sha256": "c04e53a6bf5198740e138a9b03e81d4f5f8e8e4d7dce20bd56c1ec3ac77a0459"
+    },
+    {
+      "path": "tools/native_cache_sync.py",
+      "sha256": "2d21db6e024be98b3130d66261be42c85d590f38128480a20be8a198d0ed0a8d"
+    },
+    {
+      "path": "tools/probe_updated_client.py",
+      "sha256": "82b3339b0f0a780bd118bfcc7fa63b5fbf610281a054b95ea0be4d40d3c3f649"
+    },
+    {
+      "path": "launcher-host/tools/client_compatibility.py",
+      "sha256": "861d755c4a1c212169c24a3d73797b9b62bcbcf9a9bc5f8ced99b8288f61e5e1"
+    },
+    {
+      "path": "launcher-host/tools/client_compatibility_profiles.json",
+      "sha256": "2b6de3a9b972622b9aa95f507821ac522b8e747c646c5ddf5cabb8b1a00a38a5"
+    }
+  ],
+  "original_executable_changed": false,
+  "original_resource_archives_changed": false,
+  "player_or_account_database_migration": false,
+  "new_damage_or_healing_formula": false,
+  "native_qualification_complete": false,
+  "installed": false,
+  "qualification_pending": [
+    "new complete-producer reentry guard",
+    "all affected families and cold Actors",
+    "signed-host native entry",
+    "final protected dual delivery"
+  ],
+  "native_producer": "888CA0",
+  "native_Unit_consumer": "88D6B0",
+  "native_Actor_consumer": "18E8300",
+  "native_dirty_refresh": "1C143E0",
+  "native_current_HP_clamp": "19204F0 only when current exceeds original refreshed max",
+  "original_full_refresh_reference": "BAA6F0 at BAA949..BAA9BF",
+  "runtime_variants": {
+    "local_formal": {
+      "tools/native_cache_sync.py": "tools/native_cache_sync.py",
+      "tools/native_cache_sync.js": "tools/native_cache_sync.js",
+      "tools/client_compatibility.py": "tools/client_compatibility.py",
+      "tools/client_compatibility_profiles.json": "tools/client_compatibility_profiles.json",
+      "tools/probe_updated_client.py": "tools/probe_updated_client.py"
+    },
+    "signed_launcher_V39": {
+      "tools/native_cache_sync.py": "tools/native_cache_sync.py",
+      "tools/native_cache_sync.js": "tools/native_cache_sync.js",
+      "tools/client_compatibility.py": "launcher-host/tools/client_compatibility.py",
+      "tools/client_compatibility_profiles.json": "launcher-host/tools/client_compatibility_profiles.json",
+      "tools/probe_updated_client.py": "tools/probe_updated_client.py"
+    }
+  }
+}
