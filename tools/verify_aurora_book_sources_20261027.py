@@ -2,7 +2,7 @@
 import argparse,ast,hashlib,json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];ART=ROOT/'references/native-aurora-book-sources-20261027-v1'
-MANIFEST_SHA='b6a20a2d6a7fdaa4ace748be204bd09c1f614242520b2800640110bb12bbd4cd'
+MANIFEST_SHA='ea5e6bc696c1ff2789db88e0daf3a01f87286cc934df9dfb96ba2d180450fd0b'
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def main():
  p=argparse.ArgumentParser();p.add_argument('--channel',choices=('online','local'),default='online');p.add_argument('--parent',type=Path);p.add_argument('--full-parent',action='store_true');a=p.parse_args()
