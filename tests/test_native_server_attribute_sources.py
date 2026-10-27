@@ -1140,6 +1140,31 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
                     with self.assertRaises(ValueError):source.coefficient(value)
             source.catalog.cache_clear()
 
+    def test_original_profile0_rank_source_preserves_missing_updates(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
+            source=module('candidate_rank_source_state','els_server/domain/native_rank_coefficient.py')
+        golden=json.loads((REFERENCE/'native-fresh-rank-source-goldens-v2.json').read_bytes())
+        self.assertEqual(len(golden['rows']),16)
+        self.assertEqual(golden['canonical_empty_profile_wire'],'00000000')
+        for row in golden['rows']:
+            profiles={}if row['profile_rank']is None else{0:row['profile_rank']}
+            self.assertEqual(source.rank_after_profile0(profiles,previous_rank=row['previous_rank']),row['native'])
+        for profiles,prior in(({0:128},0),({},True),([] ,0)):
+            with self.assertRaises(ValueError):source.rank_after_profile0(profiles,previous_rank=prior)
+
+    def test_resistance_option_callback_preserves_its_distinct_rank_scaling(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power,
+            'els_server.domain.native_extended_option_inputs':self.extended_inputs}):
+            source=module('candidate_resistance_option','els_server/domain/native_resistance_option.py')
+        golden=json.loads((REFERENCE/'native-resistance-option-goldens-v2.json').read_bytes())
+        self.assertEqual(len(golden['rows']),16)
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+        self.assertEqual({r['alternate_PvE_registry']for r in golden['rows']},{True,False})
+        for row in golden['rows']:
+            actual=source.merge(tuple(row['before']),row['definition'],**row['args'])
+            self.assertEqual(struct.pack('<6f',*actual),struct.pack('<6f',*row['native']))
+        with self.assertRaises(ValueError):source.merge((),{},rank_factor=0.,pve_rank_factor=0.,weight=1.)
+
     def test_worn_category77_source_uses_existing_pinned_original_registry(self):
         import els_server.domain as domain
         import els_server.paths as paths

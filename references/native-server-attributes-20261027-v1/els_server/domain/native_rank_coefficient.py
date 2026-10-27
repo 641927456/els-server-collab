@@ -24,3 +24,15 @@ def coefficient(rank):
     if type(rank)is not int or not -128<=rank<=127:
         raise ValueError('Explicit native signed-byte rank source required')
     return catalog().get(rank,0.)
+
+
+def rank_after_profile0(profiles,*,previous_rank):
+    """87A9DB..87AB6B: absent profile0 preserves the prior initialized rank."""
+    if type(previous_rank)is not int or not -128<=previous_rank<=127:
+        raise ValueError('Explicit prior original signed-byte rank required')
+    if type(profiles)is not dict or len(profiles)>128:
+        raise ValueError('Explicit bounded original profile rank projection required')
+    if any(type(k)is not int or not -2**31<=k<2**31 or type(v)is not int
+           or not -128<=v<=127 for k,v in profiles.items()):
+        raise ValueError('Original int32 profile keys and signed-byte ranks required')
+    return profiles.get(0,previous_rank)
