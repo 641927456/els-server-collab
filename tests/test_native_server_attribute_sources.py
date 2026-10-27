@@ -1,6 +1,6 @@
 """Portable original-native goldens; actual gameplay acceptance is separate."""
 from dataclasses import replace
-from contextlib import closing
+from contextlib import closing,ExitStack
 from pathlib import Path
 import importlib.util
 import hashlib
@@ -1041,6 +1041,39 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
                 with self.assertRaises(ValueError):self.resonance_groups.progress_fields(source)
                 state[name]=good
         self.assertEqual(self.resonance_groups.progress_fields(dict(account=dict(enabled=False),profile=None)),(0,0,0,0))
+
+
+    def test_source_ordered_combined_option_pipeline_matches_both_original_callbacks(self):
+        import els_server.domain as domain
+        names=('native_power_kernel','native_option_scalar_inputs','native_option_scalar_merge',
+            'native_option_data_merge','native_option_record_merge','native_option_pre_scale',
+            'native_option_metadata','native_ordinary_option_subset','native_option_power_maps',
+            'native_option_condition_inputs','native_ordinary_option_power_maps','native_option_factor_inputs',
+            'native_extended_option_inputs','native_extended_option_maps','native_option_max_mp','native_option_collector')
+        with ExitStack()as stack:
+            stack.enter_context(patch.dict(sys.modules))
+            for name in names:
+                source=module('els_server.domain.'+name,'els_server/domain/'+name+'.py')
+                stack.enter_context(patch.object(domain,name,source,create=True))
+            golden=json.loads((REFERENCE/'native-combined-option-pipeline-goldens.json').read_bytes())
+            self.assertEqual(len(golden['rows']),8)
+            self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+            def decode(rows):return {tuple(k)if isinstance(k,list)else k:v for k,v in rows}
+            for row in golden['rows']:
+                inputs=tuple(source.OptionSource(tuple(s['option_ids']),s['level'],s['condition_value'],
+                    s['rank_factor'],s['weight'])for s in row['sources'])
+                actual=source.collect(inputs,{int(k):v for k,v in row['definitions'].items()},**row['args'])
+                native=row['native']
+                for k,v in actual['scalars'].items():
+                    self.assertEqual(struct.pack('<f',v),struct.pack('<f',native['scalars'][hex(k)]))
+                self.assertEqual(struct.pack('<13f',*actual['data']),struct.pack('<13f',*native['data']))
+                self.assertEqual(actual['integer_MP'],native['integer_MP'])
+                for name in('capabilities','probability','damage','alternate','extended_capabilities'):
+                    self.assertEqual(actual[name],decode(native[name]))
+                self.assertEqual(actual['resistances'],tuple(native['resistances']))
+            for invalid in([], (source.OptionSource((1,),256,0,0.,1.),),
+                (source.OptionSource((1,),1,0,0.,float('inf')),)):
+                with self.assertRaises(ValueError):source.collect(invalid,{},mode=0,resonance_level=0,unit_line=0)
 
 
 if __name__=='__main__':unittest.main()

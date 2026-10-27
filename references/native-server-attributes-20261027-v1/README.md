@@ -261,3 +261,11 @@ four boundary profiles pass the current106 reader and native store phase.
 Disabled profiles retain C832F0's17 zero bytes. An owned real-store two-page
 snapshot also preserves a nonzero opaque record across a concurrent page commit,
 without reader writes or player database access.
+
+The reusable option collector now combines the source-ordered ordinary and
+extended passes, including the integer MP leaf. Eight complete original
+88A180/889610 controls cover duplicate/missing IDs, differing source levels,
+positive/negative weights, rank/PvE-rank/linked-level and ERP entry gates.
+Both modes of the private source also match the complete original collectors
+through this product entry point. This consolidates source aggregation without
+changing a client or selecting the runtime route before lifecycle acceptance.
