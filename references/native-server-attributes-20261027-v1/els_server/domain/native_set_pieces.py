@@ -3,6 +3,9 @@
 Set IDs must come from the qualified6CAB20 phase. Category-specific color and
 activation ownership producers remain separate inputs; no actual actor exists
 merely because these explicit vectors and registration controls are supplied.
+The inherited secondary/fashion parameter names denote Master Artifact gear:
+the original branch is gated by Unit2E34 Artifact evolution above3. Ordinary
+costumes are part of the main group9 vector.
 """
 from els_server.domain.native_set_activation import activation_phase,registration_present
 from els_server.domain.native_item_set_qualifiers import qualifies

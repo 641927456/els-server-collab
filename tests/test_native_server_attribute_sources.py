@@ -644,5 +644,49 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             with self.subTest(change=change),self.assertRaises(ValueError):
                 self.wire.encode(replace(self.notification(),**change))
 
+    def test_original_option_color_profiles_and_missing_records(self):
+        source=module('candidate_option_colors','els_server/domain/native_option_colors.py')
+        raw=(REFERENCE/'native-option-color-sources.json').read_bytes()
+        catalog=source.decode(raw)
+        golden=json.loads((REFERENCE/'native-option-color-source-goldens.json').read_bytes())
+        self.assertEqual(len(catalog),70522)
+        self.assertEqual(len(golden['rows']),288)
+        for row in golden['rows']:
+            self.assertEqual(catalog[row['id']],tuple(row['fields']))
+        identity=golden['rows'][0]['id']
+        self.assertEqual(source.colors((identity,-1,identity),3,catalog),
+                         (catalog[identity][3],None,catalog[identity][3]))
+        with self.assertRaises(TypeError):catalog[identity]=(0,)*6
+        with self.assertRaises(ValueError):source.decode(raw+b' ')
+
+    def test_all_native_item_constructor_option_vectors(self):
+        source=module('candidate_option_vectors','els_server/domain/native_item_option_vectors.py')
+        golden=json.loads((REFERENCE/'native-item-option-vector-source-goldens.json').read_bytes())
+        types={101+i:v for i,v in enumerate((802,803,804,805,806,807))}
+        self.assertEqual(len(golden['rows']),71)
+        for row in golden['rows']:
+            actual=source.project(tuple(tuple(v)for v in row['groups']),types,mutations=())
+            for offset,values in row['vectors'].items():
+                self.assertEqual(actual[int(offset,16)],tuple(values))
+            self.assertEqual(actual[0x1e0],row['spirit_group'])
+            self.assertEqual(actual[0x190],tuple(tuple(v)for v in row['engraving']))
+            self.assertEqual(actual[0x158],{int(k):tuple(v)for k,v in row['skill_groups'].items()})
+        with self.assertRaises(ValueError):source.project(((),)*33,types,mutations=((1,2),))
+        with self.assertRaises(ValueError):source.project(((),)*28+((1,)*17,)+((),)*4,types,mutations=())
+
+    def test_whole_native_post_power_eligibility_and_rounding(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
+            source=module('candidate_post_power','els_server/domain/native_post_power_passives.py')
+        golden=json.loads((REFERENCE/'native-post-power-whole-phase-goldens.json').read_bytes())
+        self.assertEqual(len(golden['rows']),200)
+        for row in golden['rows']:
+            inputs={sid:dict(eligible=bool(row['mask']&(1<<i)),
+                parameters=source.project_definition(golden['source_definitions'][str(sid)],row['rank']))
+                for i,sid in enumerate(source.FIELDS)}
+            current={int(k,16):v for k,v in row['current'].items()}
+            actual=source.apply_qualified(current,inputs,row['power'])['raw_fields']
+            self.assertEqual(actual,{int(k,16):v for k,v in row['native'].items()})
+            self.assertEqual(current,{int(k,16):v for k,v in row['current'].items()})
+
 
 if __name__=='__main__':unittest.main()

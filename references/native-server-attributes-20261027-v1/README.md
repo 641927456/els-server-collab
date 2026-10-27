@@ -128,6 +128,30 @@ These checks cover the whole constructor, ID/socket property registration and
 3A2 ->2DEA410. Persisted elixir rows are not silently treated as the manager's
 active vector; upstream global/unit buff qualification is a separate binding.
 
+The immutable option-color index preserves all70522 records and288 distinct
+type/Elianode/Artifact/Tenebrous/circuit color/shape profiles. Every profile
+matches the original option property body. These color domains are separate:
+the Elianode four-bin collector reads430, Artifact434 and Tenebrous470.
+The fresh item constructor projection additionally matches71 original
+DB4F80/7EBC80 controls across all33 groups, duplicate and zero values, the
+18..21 first-nonempty priority and the803..806 derived socket selection.
+It explicitly requires the canonical writer's empty legacy mutation map.
+
+Canonical saved item bindings now supply scalar defaults from that exact
+writer seed, immutable template pools, source-only option vectors and the
+separate colors. A private22-item source agrees with12 whole native worn/set
+compositions and six canonical-binding controls. Three of the latter decode
+the installed main equipment DTO with fishing map keys39..42 through whole
+DB0AC0. Group24 is Master Artifact equipment, gated by Artifact evolution;
+ordinary costumes remain in group9. The tested cold owner/preset and empty
+secondary/registration controls do not claim a complete live owner lifecycle.
+
+The three post-power Forces900407/900410/900411 now have200 whole89C9D0
+controls, including the original rank/definition/numerical getters and floorf.
+All five current source ranks and eight eligibility combinations retain the
+native threshold, cap and mixed float/double rounding. Their prepared rank
+indexes are explicit phase controls, separate from the final live SQL binding.
+
 The remaining integration must bind every actual modifier/context and CP
 aggregate, qualify the current HP clamp/refresh lifecycle in the unmodified
 client, then enable and publish in the ordinary queue from the actual latest
