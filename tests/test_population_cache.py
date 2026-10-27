@@ -40,13 +40,24 @@ class PopulationCacheTests(unittest.TestCase):
         self.assertEqual(roster.population(0)['index'], 0)
 
     def test_all_stages_preserve_original_wire_and_reject_invalid_indices(self):
-        # Compare to the unmodified source fixture after the normal verifier.
+        # The cached source remains exact. population() additionally projects
+        # the delivered finite HP policy; it no longer returns trial 500/5000 HP.
         fixture = json.loads((roster.ROOT / 'population-test-fixture.json').read_text(encoding='utf8'))
         for stage in range(3):
-            self.assertEqual(roster.population(stage), fixture['stages'][stage])
+            self.assertEqual(json.loads(roster._verified_population(stage)), fixture['stages'][stage])
         for stage in (True, 0.0, -1, 3, '0', None):
             with self.assertRaises(ValueError):
                 roster.population(stage)
+
+    def test_current_population_uses_qualified_tree_hp_without_mutating_the_fixture(self):
+        expected = {618: 4608.0, 201: 4608.0, 625: 1000.0,
+                    626: 10000.0, 632: 10000.0, 5: 38709.0, 20: 1000.0}
+        for stage in range(3):
+            raw = roster._verified_population(stage)
+            projected = roster.population(stage)
+            self.assertEqual([n['hp'] for n in projected['npcs']],
+                             [expected[n['template']] for n in projected['npcs']])
+            self.assertEqual(roster._verified_population(stage), raw)
 
 
 if __name__ == '__main__':

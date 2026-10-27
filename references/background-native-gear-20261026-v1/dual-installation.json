@@ -1,0 +1,126 @@
+{
+  "ok": true,
+  "read_only": true,
+  "installation": "already installed and retained in newer dual formal packages; no replacement or restart required",
+  "channels": {
+    "online": {
+      "release": "native-early-role-weapons-20261026-v1",
+      "manifest_sha256": "702f0f077b703e41736fb9ca550a1a42136e6aa52629e8667b48e6a9e7b9a674",
+      "business_files_verified": 1206,
+      "gear_fix_checks": [
+        {
+          "path": "els_server/data/boosting_gear_identification.json",
+          "exact_accepted_bytes": true
+        },
+        {
+          "path": "els_server/domain/boosting_gear_identification.py",
+          "exact_accepted_bytes": true
+        },
+        {
+          "path": "els_server/domain/identification_ui.py",
+          "exact_accepted_bytes": true
+        },
+        {
+          "path": "els_server/storage/identification_ui.py",
+          "exact_accepted_bytes": true
+        },
+        {
+          "path": "els_server/storage/equipment_identification.py",
+          "exact_accepted_bytes": true
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "exact_accepted_bytes": false,
+          "qualified_preservation": "original accepted module retained as prefix, later readers appended",
+          "current_sha256": "d99008bc1725883a1c82b977a5f766ebcaa4770cce871743d72fe02b6422e3fa"
+        },
+        {
+          "path": "els_server/domain/equipment_instance.py",
+          "exact_accepted_bytes": false,
+          "qualified_preservation": "complete original require_wearable AST preserved",
+          "current_sha256": "14ed145006ed8b0b9bd3ac4a775a3529ef361976ccf04052176248c3c2dc4d8d"
+        },
+        {
+          "path": "els_server/storage/tenebros_identification.py",
+          "exact_accepted_bytes": true
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "exact_accepted_bytes": false,
+          "qualified_preservation": "all original native104 handler branches preserved",
+          "current_sha256": "2ebf84e33fc28465fc246cf8631345fe1deae3c7a7877b9f0421e25eaa4d19d3"
+        },
+        {
+          "path": "els_server/transport.py",
+          "exact_accepted_bytes": true
+        }
+      ]
+    },
+    "local": {
+      "release": "local-native-early-role-weapons-20261026-v1",
+      "manifest_sha256": "a9b3c4b129d150e2eede06388dadc041d0fcaa9b8073284a40ed76565d6cb4d4",
+      "business_files_verified": 1228,
+      "gear_fix_checks": [
+        {
+          "path": "els_server/data/boosting_gear_identification.json",
+          "exact_accepted_bytes": true
+        },
+        {
+          "path": "els_server/domain/boosting_gear_identification.py",
+          "exact_accepted_bytes": true
+        },
+        {
+          "path": "els_server/domain/identification_ui.py",
+          "exact_accepted_bytes": true
+        },
+        {
+          "path": "els_server/storage/identification_ui.py",
+          "exact_accepted_bytes": true
+        },
+        {
+          "path": "els_server/storage/equipment_identification.py",
+          "exact_accepted_bytes": true
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "exact_accepted_bytes": false,
+          "qualified_preservation": "original accepted module retained as prefix, later readers appended",
+          "current_sha256": "c726cd53225f5dc70067cba9133557cc8434c685cfba380b3579fb2db9801628"
+        },
+        {
+          "path": "els_server/domain/equipment_instance.py",
+          "exact_accepted_bytes": false,
+          "qualified_preservation": "complete original require_wearable AST preserved",
+          "current_sha256": "14ed145006ed8b0b9bd3ac4a775a3529ef361976ccf04052176248c3c2dc4d8d"
+        },
+        {
+          "path": "els_server/storage/tenebros_identification.py",
+          "exact_accepted_bytes": true
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "exact_accepted_bytes": false,
+          "qualified_preservation": "all original native104 handler branches preserved",
+          "current_sha256": "7e37755a8073fa1fb8bb3bfcf6816480e5c01c2d209a7ed805cfde3b66dfea54"
+        },
+        {
+          "path": "els_server/transport.py",
+          "exact_accepted_bytes": true
+        }
+      ],
+      "installed_runtime_files_verified": 1682
+    }
+  },
+  "remote": {
+    "ok": true,
+    "release": "native-early-role-weapons-20261026-v1",
+    "manifest_sha256": "702f0f077b703e41736fb9ca550a1a42136e6aa52629e8667b48e6a9e7b9a674",
+    "installed_files_verified": 1206,
+    "healthy": true
+  },
+  "production_DB_writes": 0,
+  "server_fix_PRs": [
+    512,
+    513
+  ]
+}
