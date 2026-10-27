@@ -85,6 +85,7 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_qualified_force_clock_20261026.py'),'--channel','local'])
     run([sys.executable,'-B',str(ROOT/'tools/verify_selection_business.py')])
     run([sys.executable,'-B',str(ROOT/'tools/verify_quest_business.py')])
+    run([sys.executable,'-B',str(ROOT/'tools/verify_peak_business.py')])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0
