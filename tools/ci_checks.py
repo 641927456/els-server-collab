@@ -105,6 +105,13 @@ def main(argv=None):
     if (ROOT/'references/current-refresh-combat-inputs-20261027-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_current_refresh_archive_20261027.py')])
     run([sys.executable,'-B',str(ROOT/'tools/verify_path_projections.py')])
+    if (ROOT/'references/native-power-cache-sync-20261027-v1/candidate.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_power_cache_archive_20261027.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_native_power_cache_contract'])
+    if (ROOT/'channels/server-architecture-20261027-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_server_architecture.py')])
+    if (ROOT/'channels/character-slow-paths-20261027-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_character_slow_paths.py')])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0
