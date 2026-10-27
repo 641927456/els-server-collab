@@ -48,3 +48,4 @@ jobs:
       - run: python -B tools/verify_selection_business.py --with-runtime
       - run: python -B tools/verify_quest_business.py --with-runtime
       - run: python -B tools/verify_peak_business.py --with-runtime
+      - run: python -B tools/verify_initialization_readers.py --with-runtime

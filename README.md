@@ -82,3 +82,7 @@ V37 模式/Git/动效和 V38 一键本地服务端更新的完整启动器实现
 高峰业务积压与SQLite提交等待：[候选范围与验证](docs/peak-business-concurrency-20261027.md)，保留V39缓存及LOCAL差异。
 
 高峰业务队列与SQLite提交等待：[交付范围与验证](docs/peak-business-concurrency-20261027.md)。默认重建已绑定实际验收双端。
+
+首次选角进城初始化与其他SQLite写者：[候选范围与验证](docs/initialization-readers-20261027.md)。
+
+首次选角进城初始化与其他SQLite写者：[交付范围与验证](docs/initialization-readers-20261027.md)。默认重建已绑定实际验收双端，保留前序295762防护、V39和LOCAL差异。
