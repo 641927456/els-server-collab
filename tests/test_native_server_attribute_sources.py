@@ -46,6 +46,7 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
         cls.artifact_inputs = module('candidate_native_artifact_inputs', 'els_server/domain/native_artifact_attribute_inputs.py')
         cls.title_inputs = module('candidate_native_title_inputs', 'els_server/domain/native_title_attribute_inputs.py')
         cls.collection_inputs = module('candidate_native_collection_inputs', 'els_server/domain/native_collection_attribute_inputs.py')
+        cls.world_buff_inputs = module('candidate_native_world_buff_inputs', 'els_server/domain/native_world_buff_attribute_inputs.py')
         with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':cls.power}):
             cls.conditions = module('candidate_native_conditions', 'els_server/domain/native_conditional_power_attributes.py')
             cls.option_data = module('candidate_native_option_data', 'els_server/domain/native_option_data_merge.py')
@@ -415,6 +416,25 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             self.assertEqual(self.collection_inputs.option_ids(value),tuple(native))
         self.assertEqual(len(proof['rows']),600)
 
+    def test_all_world_BuffManager_sources_match_original_active_vector_getter(self):
+        self.world_buff_inputs.PROJECT_ROOT=ROOT
+        proof=json.loads((REFERENCE/'native-world-buff-attribute-source-goldens.json').read_bytes())
+        for identity,repeats,native in proof['rows']:
+            self.assertEqual(self.world_buff_inputs.option_ids((identity,)*repeats),tuple(native))
+        self.assertEqual(len(proof['rows']),927)
+        with self.assertRaises(TypeError):self.world_buff_inputs.catalog()[126]=()
+        with self.assertRaises(ValueError):self.world_buff_inputs.option_ids((999999,))
+        with self.assertRaises(ValueError):self.world_buff_inputs.decode((REFERENCE/'native-world-buff-attribute-sources.json').read_bytes()+b' ')
+
+    def test_world_base_and_INT_sources_keep_original_collision_and_mixed_vector_order(self):
+        self.world_buff_inputs.PROJECT_ROOT=ROOT
+        proof=json.loads((REFERENCE/'native-world-buff-attribute-source-goldens-v2.json').read_bytes())
+        self.assertEqual(len(self.world_buff_inputs.catalog()),383)
+        self.assertEqual(proof['collisions'],[1540])
+        for identities,native in proof['rows']:
+            self.assertEqual(self.world_buff_inputs.option_ids(tuple(identities)),tuple(native))
+        self.assertEqual(len(proof['rows']),1153)
+
     def test_106_resonance_groups_require_the_actual_selected_page(self):
         from copy import deepcopy
         ids=((1,2,4,16,17),(18,19,20,21,22),(11,12,13,14,15))
@@ -485,7 +505,7 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             'els_server.storage.seal_quests':SimpleNamespace(load_character=role_loader,current_slots=lambda db,c:(0,)*22),
             'els_server.storage.inventory_state':SimpleNamespace(load_items=lambda db,uid:
                 [dict(uid=1,template=row[0],group=9,slot=1,count=1)for row in db.execute('SELECT template FROM equipped WHERE owner=?',(uid,))]),
-            'els_server.storage.titles':SimpleNamespace(snapshot=lambda db,uid:dict(title=0,owned=[],missions=[]),completed_for_equipment=lambda db,uid:()),
+            'els_server.storage.titles':SimpleNamespace(snapshot=lambda db,uid,now=None:dict(title=0,owned=[],missions=[]),completed_for_equipment=lambda db,uid:()),
             'els_server.storage.boosting_2026_force_inventory':SimpleNamespace(saved=lambda db,uid:()),
             'els_server.storage.boosting_2026_force_equipment':SimpleNamespace(saved=lambda db,uid:((0,0),)*3),
             'els_server.domain.character_rules':SimpleNamespace(validate_career_state=lambda role:role)}

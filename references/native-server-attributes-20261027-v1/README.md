@@ -112,6 +112,22 @@ the expired title's inputs. The four-group auxiliary assembler preserves the
 original source order and remains separate from worn/set and active-buff
 producers. It is not a claim that the whole collector or live path is enabled.
 
+World-effect capture reuses the installed ordinary, supplement and economic
+readers, including retained consumers and their exact source receipts. Actual
+ONLINE and LOCAL six-group fixtures agree at one SQL generation and preserve
+expiry boundaries without capture writes. Clock-only encoder metadata does not
+enter the modifier digest. The same sampled validity time is passed to title,
+pet and world-effect readers. An absent world schema avoids importing the
+resource-heavy economic writer on cold character capture.
+The base309 BuffManager definitions and927 explicit-active-vector controls are
+retained as a source checkpoint. The additional INT75 definitions bring the
+available registry to383 unique IDs. All384 original registrations retain the
+existing1540 row;1153 original getter controls include a mixed ordered vector.
+These checks cover the whole constructor, ID/socket property registration and
+2DECA30 option getter. The notification dispatch independently identifies
+3A2 ->2DEA410. Persisted elixir rows are not silently treated as the manager's
+active vector; upstream global/unit buff qualification is a separate binding.
+
 The remaining integration must bind every actual modifier/context and CP
 aggregate, qualify the current HP clamp/refresh lifecycle in the unmodified
 client, then enable and publish in the ordinary queue from the actual latest
