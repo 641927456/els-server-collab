@@ -29,7 +29,7 @@ function installElsNativeCacheSync() {
    }
    if(actor){
     if(!actor.readPointer().add(0x4f8).readPointer().equals(module.base.add(0x18e8300)))throw Error('Unqualified original Actor ability virtual');
-    let side=unit.add(0x2f54).readS32();if(side===2)side=unit.add(0x2f50).readU8()===1?0:1;if(side!==0&&side!==1)throw Error('Original Actor ability side');
+    let side=unit.add(0x2f54).readS32();if(side===2)side=unit.add(0x2f50).readU8()===1?1:0;if(side!==0&&side!==1)throw Error('Original Actor ability side');
     const value=side===1?second:first;
     if(!sameSeven(sevenAt(actor.add(0x1698)),value.values)){
      const beforeHealth={current:currentHP(actor),maximum:maximumHP(actor)};

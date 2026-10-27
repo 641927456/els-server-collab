@@ -14,11 +14,11 @@
     },
     {
       "path": "tools/client_compatibility_profiles.json",
-      "sha256": "49d1217408692ab2abc2a4eac1a15cac76fa5b1313d3fb00500bf470effca3fc"
+      "sha256": "9f6a0cc4ee8c3f2f293cc2b19c94610f31bc029e0aeb9ddb7c278dc6f478aff0"
     },
     {
       "path": "tools/native_cache_sync.js",
-      "sha256": "c04e53a6bf5198740e138a9b03e81d4f5f8e8e4d7dce20bd56c1ec3ac77a0459"
+      "sha256": "276f6e889872dc16fbb5f7400d26ae2c8c924f7637e4cb9b00f25c541abc27e6"
     },
     {
       "path": "tools/native_cache_sync.py",
@@ -34,7 +34,7 @@
     },
     {
       "path": "launcher-host/tools/client_compatibility_profiles.json",
-      "sha256": "2b6de3a9b972622b9aa95f507821ac522b8e747c646c5ddf5cabb8b1a00a38a5"
+      "sha256": "d64b417f3e73d7a374fd38228b2cc59c7c80bbc9e2aa121368c1a667e0effd94"
     }
   ],
   "original_executable_changed": false,
@@ -44,8 +44,7 @@
   "native_qualification_complete": false,
   "installed": false,
   "qualification_pending": [
-    "new complete-producer reentry guard",
-    "all affected families and cold Actors",
+    "all affected families and cold Actors on corrected active-side candidate",
     "signed-host native entry",
     "final protected dual delivery"
   ],
@@ -70,5 +69,7 @@
       "tools/client_compatibility_profiles.json": "launcher-host/tools/client_compatibility_profiles.json",
       "tools/probe_updated_client.py": "tools/probe_updated_client.py"
     }
-  }
+  },
+  "active_side_selection": "For sentinel2, byte Unit2F50==1 selects second vector, matching native SETE in D902A1..D902CA and BAA891..BAA8B3",
+  "core_generation": "complete-ability-v4"
 }
