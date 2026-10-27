@@ -35,7 +35,7 @@
   "scope": "Ordinary-tree modern auto-learning only; existing native formulas and resource definitions unchanged",
   "module_sha256": "559e7315871317f61502d943e1bf4913c74064724986015f0ba225e52e820e8d",
   "formal_module_sha256": "b9fd49f6062d17a730b6a1256f4e1aa1418b9f7ca7817387789b7cc8173840e9",
-  "source_parent": "local-native-final-ability-sync-20261027-v2",
+  "source_parent": "local-server-pr597-selected-20261027-v1",
   "role_cases": 1305,
   "serialized_town_and_dungeon_cases": 1980,
   "level_coverage": "Every level1..99 for affected3 classes, all legal TC/Master flags, seals absent/all",
@@ -53,5 +53,131 @@
   "production_changes": 0,
   "new_client_hooks": 0,
   "native_consumer_or_effect_execution": false,
-  "installation_qualified": false
+  "installation_qualified": true,
+  "native_learned_consumer_qualified": true,
+  "native_physical_attack_CP_AB_qualified": true,
+  "full_skill_effects_qualified": false,
+  "installed": false,
+  "native_cases": [
+    {
+      "case": "native-learning-native-foreground-v2",
+      "phase": "primary",
+      "klass": 35,
+      "positive_skills": 15,
+      "new_passives": {
+        "28410": 4,
+        "28429": 4
+      },
+      "attack": 1543,
+      "combat_power": 98
+    },
+    {
+      "case": "native-learning-native-foreground-v2",
+      "phase": "primary",
+      "klass": 125,
+      "positive_skills": 34,
+      "new_passives": {
+        "28410": 4,
+        "28411": 4,
+        "28413": 4,
+        "28414": 4,
+        "28429": 4
+      },
+      "attack": 2203.75,
+      "combat_power": 140
+    },
+    {
+      "case": "native-learning-native-foreground-v2",
+      "phase": "primary",
+      "klass": 173,
+      "positive_skills": 37,
+      "new_passives": {
+        "28410": 4,
+        "28411": 4,
+        "28413": 4,
+        "28414": 4,
+        "28429": 4
+      },
+      "attack": 2365,
+      "combat_power": 150
+    },
+    {
+      "case": "native-learning-native-foreground-v2",
+      "phase": "cold",
+      "klass": 173,
+      "positive_skills": 37,
+      "new_passives": {
+        "28410": 4,
+        "28411": 4,
+        "28413": 4,
+        "28414": 4,
+        "28429": 4
+      },
+      "attack": 2365,
+      "combat_power": 150
+    },
+    {
+      "case": "native-learning-input-AB-v1",
+      "phase": "candidate-before",
+      "klass": 35,
+      "positive_skills": 15,
+      "new_passives": {
+        "28410": 4,
+        "28429": 4
+      },
+      "attack": 1543,
+      "combat_power": 98
+    },
+    {
+      "case": "native-learning-input-AB-v1",
+      "phase": "candidate-before",
+      "klass": 125,
+      "positive_skills": 34,
+      "new_passives": {
+        "28410": 4,
+        "28411": 4,
+        "28413": 4,
+        "28414": 4,
+        "28429": 4
+      },
+      "attack": 2203.75,
+      "combat_power": 140
+    },
+    {
+      "case": "native-learning-input-AB-v1",
+      "phase": "legacy-control",
+      "klass": 125,
+      "positive_skills": 29,
+      "new_passives": {},
+      "attack": 1939.300048828125,
+      "combat_power": 119
+    },
+    {
+      "case": "native-learning-input-AB-v1",
+      "phase": "candidate-restored",
+      "klass": 125,
+      "positive_skills": 34,
+      "new_passives": {
+        "28410": 4,
+        "28411": 4,
+        "28413": 4,
+        "28414": 4,
+        "28429": 4
+      },
+      "attack": 2203.75,
+      "combat_power": 140
+    }
+  ],
+  "AB": {
+    "original_attack": 1939.300048828125,
+    "repaired_attack": 2203.75,
+    "original_CP": 119,
+    "repaired_CP": 140,
+    "restored_exactly": true
+  },
+  "qualification_report_sha256": "925238c4298e38f8c4d4eda0c89d99e57262aef5505316d5d10a63acbc68f456",
+  "new_hooks": 0,
+  "readonly_private_diagnostic_scripts": 1,
+  "diagnostic_native_calls": 0,
+  "diagnostic_game_memory_writes": 0
 }
