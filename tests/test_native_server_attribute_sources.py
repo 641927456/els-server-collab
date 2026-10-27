@@ -689,4 +689,98 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             self.assertEqual(current,{int(k,16):v for k,v in row['current'].items()})
 
 
+    def test_current_factor_profiles_and_native_append_boundaries(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
+            source=module('candidate_factor_inputs','els_server/domain/native_option_factor_inputs.py')
+        for filename,count in(('native-option-factor-source-goldens-v2.json',833),
+                               ('native-option-factor-boundary-goldens-v2.json',33)):
+            golden=json.loads((REFERENCE/filename).read_bytes())
+            self.assertEqual(len(golden['rows']),count)
+            if 'source_sha256'in golden:self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+            for row in golden['rows']:
+                with self.subTest(file=filename,identity=row['definition']['ID']):
+                    actual=source.capability_rows(row['definition'])
+                    self.assertEqual(len(actual),len(row['native']))
+                    for (kind,value),(native_kind,native_value)in zip(actual,row['native']):
+                        self.assertEqual(kind,native_kind)
+                        self.assertEqual(struct.pack('<f',value),struct.pack('<f',native_value))
+
+    def test_current_capability_sources_through_whole_native_second_merge(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
+            factor=module('candidate_capability_factor','els_server/domain/native_option_factor_inputs.py')
+        golden=json.loads((REFERENCE/'native-current-capability-source-chain-goldens-v2.json').read_bytes())
+        self.assertEqual(len(golden['rows']),46)
+        self.assertEqual(set(golden['capability_types']),set(self.extended_maps.CAPABILITY_TYPES))
+        for row in golden['rows']:
+            definition=row['definition']
+            args=self.extended_inputs.extended_source_inputs(definition)
+            scalars=self.option_scalars.scalar_inputs(definition)
+            args.update(category_rates=tuple(scalars[o]for o in(0x3e8,0x3ec,0x3f0,0x3f4)),
+                factor_rows=factor.capability_rows(definition),weight=row['weight'],resistances=(0,)*7)
+            actual=self.extended_maps.merge_extended_maps({}, {}, {}, {}, {},**args)
+            expected=[]
+            for i,values in enumerate(row['native'][:5]):
+                expected.append({tuple(k)if i==2 else k:tuple(v)if i in(3,4)else v for k,v in values})
+            expected.append(tuple(row['native'][5]))
+            self.assertEqual(actual,tuple(expected))
+
+
+    def test_whole_native_max_mp_sources_and_float_order(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
+            source=module('candidate_max_mp','els_server/domain/native_max_mp_inputs.py')
+        golden=json.loads((REFERENCE/'native-max-mp-whole-goldens-v2.json').read_bytes())
+        self.assertEqual(len(golden['rows']),414)
+        for row in golden['rows']:
+            phase={int(k):v for k,v in row['phase_values'].items()}
+            unit={int(k):v for k,v in row['unit_values'].items()}
+            rank=5 if row['label']=='all-rank5'else 1
+            owned=source.PHASE_SKILLS|source.UNIT_SKILLS if row['label'].startswith('all-')else {int(row['label'])}if row['label']!='none'else set()
+            for values,pvp in((phase,row['mode']),(unit,False)):
+                for sid,value in values.items():
+                    actual=self.passives.parameter(golden['source_definitions'][str(sid)],'SA_MAX_MP_ABS',rank,
+                        pvp=pvp,direct=True,default=0.)if sid in owned else 0.
+                    self.assertEqual(struct.pack('<f',actual),struct.pack('<f',value))
+            actual=source.maximum(phase,unit,**{k:row[k]for k in('worn','flat','rate','extension5','extension17')})
+            self.assertEqual(struct.pack('<f',actual),struct.pack('<f',row['native']))
+        with self.assertRaises(ValueError):source.maximum({},unit,worn=0.,flat=0.,rate=0.,extension5=0.,extension17=0.)
+
+    def test_native_mp_item_selector_is_distinct_from_general_worn_selector(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
+            source=module('candidate_mp_items','els_server/domain/native_max_mp_inputs.py')
+        golden=json.loads((REFERENCE/'native-equipment-mp-goldens.json').read_bytes())
+        self.assertEqual(len(golden['rows']),534)
+        with patch.dict(sys.modules,{'els_server.domain.native_worn_item_inputs':self.worn}):
+            for row in golden['rows']:
+                actual=source.equipment_mp(*(tuple(row[k])for k in('worn','excluded','added')),
+                    selector=row['selector'],mode_side=row['mode_side'])
+                self.assertEqual(struct.pack('<f',actual),struct.pack('<f',row['native']))
+            with self.assertRaises(ValueError):source.equipment_mp((None,),(),(),selector=0,mode_side=False)
+            with self.assertRaises(ValueError):source.equipment_mp((),(),({'template_present':False},),selector=0,mode_side=False)
+        for value in(0.,5.,20.,30.):
+            record=bytearray(232);struct.pack_into('<f',record,0x28,value)
+            self.assertEqual(source.template_mp(bytes(record)),value)
+
+
+    def test_whole_mp_chain_with_current_worn_and_selected_erp(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
+            source=module('candidate_mp_composed','els_server/domain/native_max_mp_inputs.py')
+        golden=json.loads((REFERENCE/'native-max-mp-composed-goldens.json').read_bytes())
+        self.assertEqual(len(golden['rows']),96)
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+        erp={int(k):tuple(v)for k,v in golden['ERP_definitions'].items()}
+        worn=tuple(golden['worn'])
+        with patch.dict(sys.modules,{'els_server.domain.native_worn_item_inputs':self.worn}):
+            for row in golden['rows']:
+                definitions=golden['source_definitions'];rank=row['rank']
+                phase={sid:self.passives.parameter(definitions[str(sid)],'SA_MAX_MP_ABS',rank,pvp=row['mode'],direct=True,default=0.)for sid in source.PHASE_SKILLS}
+                unit={sid:self.passives.parameter(definitions[str(sid)],'SA_MAX_MP_ABS',rank,pvp=False,direct=True,default=0.)for sid in source.UNIT_SKILLS}
+                replacements=(worn[0],)if row['replace']else()
+                item_mp=source.equipment_mp(worn,replacements,replacements,selector=row['selector'],mode_side=False)
+                points={int(k):v for k,v in row['points'].items()}
+                e5=self.extension.contribution(points,tuple(row['override']),erp,5,0,1.)
+                e17=self.extension.contribution(points,tuple(row['override']),erp,17,0,1.)
+                actual=source.maximum(phase,unit,worn=item_mp,flat=row['flat'],rate=row['rate'],extension5=e5,extension17=e17)
+                self.assertEqual(struct.pack('<f',actual),struct.pack('<f',row['native']))
+
+
 if __name__=='__main__':unittest.main()

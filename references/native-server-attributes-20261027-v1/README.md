@@ -152,6 +152,26 @@ All five current source ranks and eight eligibility combinations retain the
 native threshold, cap and mixed float/double rounding. Their prepared rank
 indexes are explicit phase controls, separate from the final live SQL binding.
 
+The capability-row producer now preserves the original six append gates,
+required factor/nonzero level and signed float32 accumulation. All833 distinct
+current source profiles,33 boundary controls and46 full source-to-second-merge
+chains agree with the original parser and both base/INT factor registries.
+Packed regressions caught and fixed negative zero being lost by a default-value
+shortcut; the original failed comparison and superseded receipts remain local.
+
+The MP limit phase retains the exact order of66 skill sources and the original
+300 base, equipment, rate, flat and extension contributions.414 whole895790
+controls include original rank/definition/numerical readers in both phase modes.
+Its separate1984460 equipment collector has534 whole native controls, including
+slot-side, all selectors, both additional-item modes, exclusions and duplicates.
+All181836 current templates contain finite MP fields;267 are nonzero with actual
+values5/20/30. This MP selector differs from the general worn selector when
+selector2 is used. Corrupt stored wrappers or added items without a template
+are rejected before entering a native state that dereferences them.
+A further96 whole895790 chains combine current nonzero equipment MP and ERP17
+allocations/caps/overrides with both skill source modes and replacement vectors.
+The prepared rank context remains distinct from the live character lifecycle.
+
 The remaining integration must bind every actual modifier/context and CP
 aggregate, qualify the current HP clamp/refresh lifecycle in the unmodified
 client, then enable and publish in the ordinary queue from the actual latest
