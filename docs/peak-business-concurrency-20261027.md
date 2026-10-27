@@ -19,3 +19,11 @@ Git source/CI and formal installation are separate facts. The source PR requires
 Final qualification:296 cases,289 passed/7 existing channel or private-asset skips. Source CI compiles2259 Python sources, protocol round trip and preservation contracts pass. Isolated current-level read cost:30 samples, full DTO median2.93ms vs identity0.67ms; whole-request latency is not inferred from this microbenchmark.
 
 Main integration: retained reviewed PR563/573/576 archives and every new CI gate. Their one-file295762 internal-group corrective candidate remains separately pinned and verified. Its proposed native-295762-group-draw-guard release has no actual formal pointer here; this performance batch retains actual installed parents and does not infer installation from Git. The historical reviewed-candidate verifier now selects its immutable profile directly; the actual-current and peak source contracts are independently checked. The two merge conflicts were only the CI list/default selector; all six runtime delta SHA values are unchanged.
+
+Accepted dual delivery: `server-peak-business-concurrency-20261027-v1` and LOCAL, 122.34/120.51s observation, full business/runtime SHA verification, first/cold protocol reads,256 auxiliary requests and exact owned-authentication/capacity cleanup. Both owned locks/tasks/stage have been released; no following publication priority reserved.
+
+296 targeted cases:289 passed and7 prior channel/private-asset skips. Existing V39 LOCAL5 components, public payload/metadata and signed launcher SHA remain exact.256-producer peak/cancellation/receipt/BEGIN-versus-COMMIT checks pass; one writer and original10second timeout remain. Natural multiplayer latency is not claimed.
+
+Limited live first-selection/town samples444.22/457.55ms; cold187.62/176.51ms. BEGIN cumulative below1ms, COMMIT below9ms, noBUSY. Initial business/projection costs remain; this batch does not certify natural multiplayer P95.
+
+The generic prior installer batch-scope cache flag was corrected in actual LOCAL pointer/verification to inherit accepted V39 completion/native-sync capability; manifests and component bytes were unchanged. Original frozen helper outputs are retained with a separate metadata-inheritance receipt.

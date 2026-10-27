@@ -4,8 +4,8 @@
   "scope": "engine, business rules and pinned static resources; no host config, player data or client",
   "channels": {
     "online": {
-      "release": "server-quest-business-locks-20261027-v1",
-      "formal_manifest_sha256": "4a171d96942580b4b250c1b89917856729685647686909da5670fd9a99c4c389",
+      "release": "server-peak-business-concurrency-20261027-v1",
+      "formal_manifest_sha256": "78b6cc8a1dfb6f5d045bf7bb05beefae4fce2389daec6181883be4e127e13cc6",
       "files": [
         {
           "path": "analysis/artifact-progression-20261016/v2/artifact-items-native.json",
@@ -7415,8 +7415,8 @@
       "parent_release": "server-quest-business-locks-20261027-v1"
     },
     "local": {
-      "release": "local-server-quest-business-locks-20261027-v1",
-      "formal_manifest_sha256": "96c941d00205b39dd4a353c398d6d03fa5a9471b1e197f4e95691ee724675b3e",
+      "release": "local-server-peak-business-concurrency-20261027-v1",
+      "formal_manifest_sha256": "9789934a12b3d12ef2fe4cb26dfc945ee7d1210fbe4ef0ca688fd478501a4c91",
       "files": [
         {
           "path": "analysis/artifact-progression-20261016/v2/artifact-items-native.json",
@@ -14829,7 +14829,44 @@
           "size": 18324
         }
       ],
-      "parent_release": "local-native-power-cache-sync-20261027-v1"
+      "parent_release": "local-native-power-cache-sync-20261027-v1",
+      "native_power_cache_sync": true,
+      "inherited_power_cache_complete": true,
+      "retained_native_cache_release": "local-native-power-cache-sync-20261027-v1",
+      "retained_client_support_sources": [
+        {
+          "path": "tools/client_compatibility.py",
+          "sha256": "5443e0a7ef4bb83dcf981ccb8b4168f6a09d0ae0860eaa77ef2763a98950a958",
+          "size": 18548,
+          "source": "references/peak-business-concurrency-20261027-v1/retained-V39/tools/client_compatibility.py"
+        },
+        {
+          "path": "tools/client_compatibility_profiles.json",
+          "sha256": "425e839e455ee07d7d6bc98553966f184d37e7b1c1d2db5a8f331b5a661142ed",
+          "size": 19785,
+          "source": "references/peak-business-concurrency-20261027-v1/retained-V39/tools/client_compatibility_profiles.json"
+        },
+        {
+          "path": "tools/native_cache_sync.js",
+          "sha256": "7e15a13d580d8f2fae76ef4127eeede440bbbde04a84eda1c21abe29e649253b",
+          "size": 6702,
+          "source": "references/peak-business-concurrency-20261027-v1/retained-V39/tools/native_cache_sync.js"
+        },
+        {
+          "path": "tools/native_cache_sync.py",
+          "sha256": "0fe0ae7709773fe0a5ffc1fedc9e75dec1727f2ac30d7ea8836ff8ad50b7a11e",
+          "size": 3359,
+          "source": "references/peak-business-concurrency-20261027-v1/retained-V39/tools/native_cache_sync.py"
+        },
+        {
+          "path": "tools/probe_updated_client.py",
+          "sha256": "82b3339b0f0a780bd118bfcc7fa63b5fbf610281a054b95ea0be4d40d3c3f649",
+          "size": 28137,
+          "source": "references/peak-business-concurrency-20261027-v1/retained-V39/tools/probe_updated_client.py"
+        }
+      ],
+      "retained_signed_launcher_sha256": "1f3ac41ecc8139d9bb766bfe6994bbcbc7b7cf7f9f1a06407b31f22322f108b2",
+      "retained_signed_payload_sha256": "87adece708a7619545a0f84902ce26ae10b3e4e68047b7e7ce10bcc563e9a928"
     }
   },
   "parent": "channels/formal-V39-parent-20261027-v1.json"

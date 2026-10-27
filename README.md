@@ -80,3 +80,5 @@ V37 模式/Git/动效和 V38 一键本地服务端更新的完整启动器实现
 任务夹具修复与业务写锁续查：[交付范围与验证](docs/QUEST_BUSINESS_LOCKS_20261027.md)。默认重建已绑定实际验收双端。
 
 高峰业务积压与SQLite提交等待：[候选范围与验证](docs/peak-business-concurrency-20261027.md)，保留V39缓存及LOCAL差异。
+
+高峰业务队列与SQLite提交等待：[交付范围与验证](docs/peak-business-concurrency-20261027.md)。默认重建已绑定实际验收双端。
