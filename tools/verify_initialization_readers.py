@@ -16,8 +16,9 @@ from tools.materialize_formal_runtime import materialize,plan
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true')
     parser.add_argument('--assets-root',type=Path,default=ROOT)
-    parser.add_argument('--manifest',type=Path,default=ROOT/'channels/initialization-readers-20261027-v1.json')
-    parser.add_argument('--delta',type=Path,default=ROOT/'references/initialization-readers-20261027-v1/delta.json')
+    parser.add_argument('--channel',choices=('online','local'))
+    parser.add_argument('--manifest',type=Path,default=ROOT/'channels/initialization-readers-guard-parent-20261027-v2.json')
+    parser.add_argument('--delta',type=Path,default=ROOT/'references/initialization-readers-guard-parent-20261027-v2/delta.json')
     args=parser.parse_args()
     final=json.loads(args.manifest.read_bytes())
     delta=json.loads(args.delta.read_bytes())
@@ -32,8 +33,8 @@ def main():
     tests=('test_server_latency_guards.py','test_native_auxiliary_latency.py','test_request_read_scope.py',
            'test_current_native_title_inputs.py','test_retained_native_hp.py','test_native_hero_inputs.py',
            'test_noncharacter_hp_capture.py','test_current_latency_tls.py','test_friends_server.py')
-    tests=tests[:-1]+('test_character_slow_paths.py','test_read_connection_boundaries.py','test_local_auxiliary_roles.py','test_architecture_scheduler.py','test_architecture_tls.py','test_registration.py','test_selection_business_paths.py','test_selection_business_tls.py','test_seal_quests.py','test_reward_state.py','test_inventory_actions.py','test_quest_lock_boundaries.py','test_quest_expiry_regressions.py','test_peak_business_concurrency.py','test_initialization_readers.py',tests[-1])
-    for channel in ('online','local'):
+    tests=tests[:-1]+('test_character_slow_paths.py','test_read_connection_boundaries.py','test_local_auxiliary_roles.py','test_architecture_scheduler.py','test_architecture_tls.py','test_registration.py','test_selection_business_paths.py','test_selection_business_tls.py','test_seal_quests.py','test_reward_state.py','test_inventory_actions.py','test_quest_lock_boundaries.py','test_quest_expiry_regressions.py','test_peak_business_concurrency.py','test_initialization_readers.py','test_current_295762_draw_guard.py',tests[-1])
+    for channel in ((args.channel,) if args.channel else ('online','local')):
         old={e['path']:e for e in base['channels'][channel]['files']}
         new={e['path']:e for e in final['channels'][channel]['files']}
         changes=delta['channels'][channel]
