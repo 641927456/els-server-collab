@@ -96,6 +96,9 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_change_force_materials_20261027.py'),'--channel','local'])
     if (ROOT/'references/current-refresh-combat-inputs-20261027-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_current_refresh_archive_20261027.py')])
+    if (ROOT/'references/native-power-cache-sync-20261027-v1/candidate.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_power_cache_archive_20261027.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_native_power_cache_contract'])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0
