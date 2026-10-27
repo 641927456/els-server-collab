@@ -1,0 +1,2 @@
+Issue515 limited fix: respond to F202 with full original203 negative1168 and clear only its wait. Positive score collectors remain unqualified and issue515 stays open.
+These exact per-channel snapshots are review inputs, not the final deployment tree. Apply patch-contract.json over the actual formal parent and preserve all intervening repairs. No database, credentials, raw capture, runtime image or private configuration is included.

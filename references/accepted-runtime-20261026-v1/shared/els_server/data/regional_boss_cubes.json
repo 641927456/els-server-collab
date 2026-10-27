@@ -1,0 +1,342 @@
+{
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "source_catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "official_url": "https://elsword.nexon.com/News/Probability/View?n4ArticleSN=225",
+  "official_html_sha256": "b8df5914fc9a06d85a907f34ce54a21116ad15fba3d1a6ceedb972de16aca9a0",
+  "sources": [
+    {
+      "path": "analysis/sol-high-20261015/equipment-ui/official-probability-225.json",
+      "sha256": "9e9bcbfad45c2043cdd660f26eb3f10042f21db4ef6ab8632deae841bc1b927c"
+    },
+    {
+      "path": "analysis/sol-high-20261015/npc-bank-box/RandomItem.lua.tables.json",
+      "sha256": "618bacd86fa68ab92d40e8d98ce51da4d536e0f57c45801e3375704616e8699c"
+    }
+  ],
+  "definitions": [
+    {
+      "template": 313105,
+      "name": "艾丽阿诺德BOSS宝箱",
+      "selection_count": 0,
+      "random": true,
+      "entries": [
+        {
+          "template": 30600,
+          "quantity": 1,
+          "name": "艾尔的意志",
+          "weight": 1670,
+          "official_name": "엘의 의지"
+        },
+        {
+          "template": 30601,
+          "quantity": 1,
+          "name": "侵蚀的艾丽阿诺德头饰",
+          "weight": 1660,
+          "official_name": "침식된 엘리아노드 서클릿"
+        },
+        {
+          "template": 30602,
+          "quantity": 1,
+          "name": "侵蚀的艾丽阿诺德假面",
+          "weight": 1670,
+          "official_name": "침식된 엘리아노드 가면"
+        },
+        {
+          "template": 30603,
+          "quantity": 1,
+          "name": "侵蚀的艾丽阿诺德护腕",
+          "weight": 1670,
+          "official_name": "침식된 엘리아노드 팔찌"
+        },
+        {
+          "template": 30604,
+          "quantity": 1,
+          "name": "侵蚀的艾丽阿诺德耳环",
+          "weight": 1670,
+          "official_name": "침식된 엘리아노드 귀걸이"
+        },
+        {
+          "template": 30605,
+          "quantity": 1,
+          "name": "侵蚀的艾丽阿诺德护翼",
+          "weight": 1660,
+          "official_name": "침식된 엘리아노드 웨폰 가드"
+        }
+      ],
+      "random_rule": {
+        "m_KeyItemID": 0,
+        "m_iGiveCount": -1,
+        "m_ItemID": 313105,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1,
+        "1": {
+          "m_iItemGroupID": 313105,
+          "m_cUnitClass": 0
+        }
+      }
+    },
+    {
+      "template": 313106,
+      "name": "帕尼米尔BOSS宝箱",
+      "selection_count": 0,
+      "random": true,
+      "entries": [
+        {
+          "template": 30607,
+          "quantity": 1,
+          "name": "可变性多面体",
+          "weight": 2000,
+          "official_name": "가변성 다면체"
+        },
+        {
+          "template": 30608,
+          "quantity": 1,
+          "name": "魔木的冕旒冠",
+          "weight": 2000,
+          "official_name": "마목의 면류관"
+        },
+        {
+          "template": 30609,
+          "quantity": 1,
+          "name": "噩梦的眼罩",
+          "weight": 2000,
+          "official_name": "악몽의 안대"
+        },
+        {
+          "template": 30610,
+          "quantity": 1,
+          "name": "强者的照顾",
+          "weight": 2000,
+          "official_name": "강자의 배려"
+        },
+        {
+          "template": 30611,
+          "quantity": 1,
+          "name": "玛瑙的碎片",
+          "weight": 2000,
+          "official_name": "아게이트의 파편"
+        }
+      ],
+      "random_rule": {
+        "m_KeyItemID": 0,
+        "m_iGiveCount": -1,
+        "m_ItemID": 313106,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1,
+        "1": {
+          "m_iItemGroupID": 313106,
+          "m_cUnitClass": 0
+        }
+      }
+    },
+    {
+      "template": 313107,
+      "name": "尼格摩尔BOSS宝箱",
+      "selection_count": 0,
+      "random": true,
+      "entries": [
+        {
+          "template": 30643,
+          "quantity": 1,
+          "name": "利维坦的碎片",
+          "weight": 2000,
+          "official_name": "리바이어던의 파편"
+        },
+        {
+          "template": 30644,
+          "quantity": 1,
+          "name": "完全能量变换装置",
+          "weight": 2000,
+          "official_name": "온전한 에너지변환 장치"
+        },
+        {
+          "template": 30645,
+          "quantity": 1,
+          "name": "冰雪女王",
+          "weight": 2000,
+          "official_name": "아이스 퀸"
+        },
+        {
+          "template": 30646,
+          "quantity": 1,
+          "name": "电气刺激场",
+          "weight": 2000,
+          "official_name": "전기자극 필드"
+        },
+        {
+          "template": 30647,
+          "quantity": 1,
+          "name": "便携式能量线圈",
+          "weight": 2000,
+          "official_name": "휴대용 에너지 코일"
+        }
+      ],
+      "random_rule": {
+        "m_KeyItemID": 0,
+        "m_iGiveCount": -1,
+        "m_ItemID": 313107,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1,
+        "1": {
+          "m_iItemGroupID": 313107,
+          "m_cUnitClass": 0
+        }
+      }
+    }
+  ],
+  "items": {
+    "313105": {
+      "template": 313105,
+      "name": "艾丽阿诺德BOSS宝箱",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 99,
+      "record_sha256": "f63efdf19da93fc4f1844998cf2ba46bc9b540e3e3b7a584cbd364b8ee86548a"
+    },
+    "30600": {
+      "template": 30600,
+      "name": "艾尔的意志",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "a84d7867c087035d24bdd7d37cee984343f08f23c3e219ccbdff0fa701dcfe06"
+    },
+    "30601": {
+      "template": 30601,
+      "name": "侵蚀的艾丽阿诺德头饰",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "c30ddfc01cf4e99270e0639eda74daf2a153fa3febc252bc55773ae434060d2a"
+    },
+    "30602": {
+      "template": 30602,
+      "name": "侵蚀的艾丽阿诺德假面",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "af94e70b8b61d871c5ef1bc73f480f9e4752498e43665011974e110b01a9c2cb"
+    },
+    "30603": {
+      "template": 30603,
+      "name": "侵蚀的艾丽阿诺德护腕",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "a53341030d3cd98636188c44955a5715ff69fa52775eacb9453da529db93699b"
+    },
+    "30604": {
+      "template": 30604,
+      "name": "侵蚀的艾丽阿诺德耳环",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "4fdabcad80c85127c83ad441ca41fac6fb5328d917be62d8284bc2d936630684"
+    },
+    "30605": {
+      "template": 30605,
+      "name": "侵蚀的艾丽阿诺德护翼",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "f67cb275a217e8b1d79ff4662c38b3dd9752cbdcfd73aa56fec3f1ee8b48ace6"
+    },
+    "313106": {
+      "template": 313106,
+      "name": "帕尼米尔BOSS宝箱",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 99,
+      "record_sha256": "4dea155e94c433c75f30c412cbc6734de11edec92414057e66fdb4f7f88f1745"
+    },
+    "30607": {
+      "template": 30607,
+      "name": "可变性多面体",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "caaf9488cebdabc0d29b3fa569e710c40c8e0cd37e64b8779a839c6a1b7bd715"
+    },
+    "30608": {
+      "template": 30608,
+      "name": "魔木的冕旒冠",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "90faee6319d333fb476f7135df4049d4f94a8cbe64bd6f85d615067bf10ad995"
+    },
+    "30609": {
+      "template": 30609,
+      "name": "噩梦的眼罩",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "95befc07303530a2a3ca99b38d9fd9532fd36157dc6ce8dbdebfd107f5198397"
+    },
+    "30610": {
+      "template": 30610,
+      "name": "强者的照顾",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "82c0cb4be2544d21204081591fd0239acf79286a7040d25bdf3902cb004d3b14"
+    },
+    "30611": {
+      "template": 30611,
+      "name": "玛瑙的碎片",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "2659d3157f01587cf9a06fbf9138b817974a5ef42946a19dd4fee587dcf90972"
+    },
+    "313107": {
+      "template": 313107,
+      "name": "尼格摩尔BOSS宝箱",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 99,
+      "record_sha256": "96d028a6c74a1fc16a5ccd1f1051c00433c424e3d77a737888847c610a833f6f"
+    },
+    "30643": {
+      "template": 30643,
+      "name": "利维坦的碎片",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "c5dabc6fa816f2039ac2b33ffd87d40db2b7798949e8efca3639ce1318d8d802"
+    },
+    "30644": {
+      "template": 30644,
+      "name": "完全能量变换装置",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "10232110390f47236230f2c3588280e139ec0e3732be0c34e18b0a181c68a401"
+    },
+    "30645": {
+      "template": 30645,
+      "name": "冰雪女王",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "92a99aca330bba25a8ca686107da90d62ec5ceeab819fe9d41e4483f0e487b66"
+    },
+    "30646": {
+      "template": 30646,
+      "name": "电气刺激场",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "71d61a945edddee2ad64b03e7514ce8825738188a94ea5fadadd37abf0b9b57a"
+    },
+    "30647": {
+      "template": 30647,
+      "name": "便携式能量线圈",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "record_sha256": "c253003914d6eb569fbe37e60e99743d833e6c643d8736211c5a27c46f7b3ca2"
+    }
+  },
+  "excluded": "Class-dependent regional groups 60343..60362 lack original reward contents; not inferred from generic public tables"
+}

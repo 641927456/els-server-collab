@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "source_catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "counts": {
+    "recipes": 12360,
+    "result_groups": 12646,
+    "result_registrations": 27067,
+    "village_registrations": 1684,
+    "limits": 1,
+    "period_item_allowlist": 45
+  },
+  "sha256": "51e428b34361f5761995ad18566ede74d3ba01c1a26ccacd3bedc8b270c9078e",
+  "proof_sha256": "bd5fb9f86e3767d5b9aa78254c8b4ed0268e1256e302097ea2d0f719d83745a3",
+  "sources": [
+    {
+      "source": {
+        "Name": "ManufactureItem.lua",
+        "Size": "3728375",
+        "CompressedSize": "354016",
+        "Checksum": "83bdc8b9",
+        "FileTime": "83bdc8b9",
+        "Algorithm": "3",
+        "MappedID": "0I^26drG",
+        "offset": 21411190
+      },
+      "key": 133,
+      "skip": 0,
+      "compressed_sha256": "f2bdb8e0f4a97638b4a494d277f278ae4e5282b677a9cdb2525dc84a3a6bf99b",
+      "decoded_sha256": "d9e5cd7beefb69dcaf3d65fa9c320882890c6afbc3631c107bbb4a13b188a9f3",
+      "tables_sha256": "7dbb5e9e80c8e57b0c32393903657ae8449486d806c13b4ac003debb3b8b1517",
+      "tables": [
+        "__symbolic_calls__"
+      ]
+    },
+    {
+      "source": {
+        "Name": "LimitManufactureData.lua",
+        "Size": "364",
+        "CompressedSize": "256",
+        "Checksum": "534283a8",
+        "FileTime": "534283a8",
+        "Algorithm": "3",
+        "MappedID": "tY14+O@d",
+        "offset": 21033718
+      },
+      "key": 66,
+      "skip": 0,
+      "compressed_sha256": "9abe9023a0e2f36718011ff973b29e4820cfe04b1ccd5b6192fb8f97f2ab0aea",
+      "decoded_sha256": "65fc9fdb065526d54e7bd7d677474134b8140ca0bb1fb6528260001eb07ad21a",
+      "tables_sha256": "2597b2baa90af90b363433f6b6b0e2da679377b06df239a737f26f014d747549",
+      "tables": [
+        "__symbolic_calls__"
+      ]
+    },
+    {
+      "source": {
+        "Name": "AllowPeriodItemManufacture_Exchange.lua",
+        "Size": "1108",
+        "CompressedSize": "368",
+        "Checksum": "be47bd51",
+        "FileTime": "be47bd51",
+        "Algorithm": "3",
+        "MappedID": "Ch-r2EUd",
+        "offset": 625488
+      },
+      "key": 275,
+      "skip": 0,
+      "compressed_sha256": "d5b5e7b790df78f2dc5385dea4cb059b49d6ef98dd956b4f11baac93745acc41",
+      "decoded_sha256": "f68149c220a9bbe115675de9de870674b65c9aba0a3b7effcda887b76be928f4",
+      "tables_sha256": "2a3840403977e2c7baf4b69e937ec4f096b233eeb0111cf4913a35ac4128f1e0",
+      "tables": [
+        "__symbolic_calls__"
+      ]
+    }
+  ],
+  "limits": [
+    "Resource catalog only; no crafting transaction or new acquisition channel.",
+    "Preserved result registration order is not a probability distribution or guaranteed quantity.",
+    "Server-group, village, limits, profession and material flags require original consumer verification.",
+    "Historical/missing item references are retained for audit, not offered to players."
+  ]
+}

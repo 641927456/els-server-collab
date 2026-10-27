@@ -1,0 +1,19 @@
+{
+  "shared_edits": [
+    {
+      "channel": "online",
+      "path": "els_server/domain/local_session.py",
+      "reference_parent_sha256": "8e5cab86563b7c8ac4f0042fa86a9fa2bcf808b475ced401ad5939e0954a8830",
+      "reference_after_sha256": "6fe66cfe051f0b64a9a8a3c837e99d883b805cd28228e87c3e4cd583ee71dac8",
+      "patch": "--- before/els_server/domain/local_session.py\n+++ after/els_server/domain/local_session.py\n@@ -1053,6 +1053,9 @@\n \n         if artifact_reply is not None:return artifact_reply\n \n+        from els_server.domain.board_ranking_flow import handle as board_ranking_handle\n+        board_ranking_result=board_ranking_handle(self,event,request_sequence)\n+        if board_ranking_result is not None:return board_ranking_result\n         from els_server.domain.quest_flow import handle as quest_handle\n \n         if self.activity2026_awards is not None:\n"
+    },
+    {
+      "channel": "local",
+      "path": "els_server/domain/local_session.py",
+      "reference_parent_sha256": "4bf4128b6e81fb6768edd397dfc09a7bdf14cf596b98322299424cd13d7f1d2d",
+      "reference_after_sha256": "a836d104dca3ee26e1c74c117374d61ed366cc8a62c58c2660ab72f40c105aca",
+      "patch": "--- before/els_server/domain/local_session.py\n+++ after/els_server/domain/local_session.py\n@@ -678,6 +678,9 @@\n         from els_server.domain.artifact_flow import handle as artifact_handle\n         artifact_reply=artifact_handle(self,event,request_sequence)\n         if artifact_reply is not None:return artifact_reply\n+        from els_server.domain.board_ranking_flow import handle as board_ranking_handle\n+        board_ranking_result=board_ranking_handle(self,event,request_sequence)\n+        if board_ranking_result is not None:return board_ranking_result\n         from els_server.domain.quest_flow import handle as quest_handle\n         if self.activity2026_awards is not None:\n             answer=self.activity2026_awards.handle(self,event,request_sequence)\n"
+    }
+  ],
+  "application_rule": "Reconcile only exact feature patches over actual immutable formal parent, preserving newer independent spans and LOCAL differences. Never replace a newer shared file with this reference snapshot. Reject unresolved overlap; bind resulting full SHA and requalify relevant paths before deployment."
+}

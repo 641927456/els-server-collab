@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "qualified_templates": "native-background-v22",
+  "complete_native_actions": 16,
+  "cold_client_verified": true,
+  "actual_formal_runtime": "local-f-services-reviewed-five-20261026-v1",
+  "runtime_manifest_sha256": "6fff3eda5c5ef8c35d02a213640acb2573f56228960aa5f5ae2b157ec4b23eb2",
+  "source_files": {
+    "analysis/boosting-gear-random-identification-20261026-v1/native-background-v22/controller.py": "70d390aca0c15bde61907409cdea01b4938f0d530f3e9b3c41962ff76f6c4c1c",
+    "analysis/boosting-gear-random-identification-20261026-v1/native-background-v22/probe_isolated.py": "a320cdfd4f842aa32f112e9a6599d3a033b3ca1a17ea4687aebe80b6f25ff4ea",
+    "analysis/boosting-gear-random-identification-20261026-v1/native_acceptance.py": "40312437707b50150d5754e8ec9f6eacd25a43e034006053442feec271969b55",
+    "analysis/boosting-gear-random-identification-20261026-v1/native_gear_flow.template.js": "09fda8758c897b081ac195c8241c281804571ea4fec227cf0b94e65e4782c161",
+    "analysis/boosting-gear-random-identification-20261026-v1/native_gear_cold.template.js": "aad112f9755d31634a33a5354ef3bda8a1875706761a9dd16b645169f47e0726",
+    "analysis/boosting-gear-random-identification-20261026-v1/后台验证入口.py": "09c89e90fd7ab54ef6d7bb181b0734bc12f580c0f7869d42249cc01a1a0c44cc",
+    "analysis/boosting-gear-random-identification-20261026-v1/delivery-v3/qa_worker.py": "dbca49d038b3318a273f8a0771e5d0a134b1896c43a7b50481de12780fe349e0",
+    "analysis/native-reuse-continuation-20261019-v1/protocol_helpers.py": "736e52e8f9c7ba3937c69c1831ae39b84d5be5f6201fadd70e8445d67517cc9a",
+    "analysis/local-activities-20261017-v95/research/job-background-v1/job_api_capture.py": "e6cdcb886f5cd2a121bfab2731c23d496e2ae67fd884191a359e9ddc28d77d9e",
+    "analysis/local-activities-20261017-v85/research/background-backend-v1/desktop_api.py": "7b2b2f84d97d6419e5b2aa74636138c2bfe15cb2962994ae117f6bc502fa0d38"
+  },
+  "physical_input_actions": 0,
+  "controlled_native_callbacks": true,
+  "natural_mouse_clicks_tested": false,
+  "production_database_access": false,
+  "client_copies": 0,
+  "original_client_modified": false,
+  "root_cause": {
+    "resource_decrypt_and_zlib_succeeded": true,
+    "native_D3D9_device_on_private_desktop": "NULL",
+    "native_CreateDevice_failure": "0x8876086c",
+    "native_D3DXCreateMeshFVF_failure": "0x8876086c",
+    "fix": "Rendering desktop with owned top-level windows offscreen/NOACTIVATE, complete input/focus/cursor denial selftest before ResumeThread; child helpers retained on a never-switched private desktop"
+  },
+  "scope": "Controlled real native callbacks on one fresh private own role; no natural clicks, pixel inspection or battle claim",
+  "cleanup": {
+    "own_QA_cleaned": true,
+    "registration_capacity_verified": true,
+    "private_server_closed": true,
+    "own_bridge_closed": true
+  }
+}

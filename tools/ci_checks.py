@@ -17,6 +17,8 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'channels/reviewed-pr563-573-576-current-20261027-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_reviewed_three_pr_binding_20261027.py')])
     if (ROOT/'channels/formal-clock-20261027-v1.json').is_file():
         for channel in ('online', 'local'):
             run([sys.executable,'-B',str(ROOT/'tools/materialize_formal_runtime.py'),
@@ -79,6 +81,36 @@ def main(argv=None):
     if (ROOT/'references/qualified-force-clock-20261026-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_qualified_force_clock_20261026.py')])
         run([sys.executable,'-B',str(ROOT/'tools/verify_qualified_force_clock_20261026.py'),'--channel','local'])
+    if (ROOT/'references/native-two-permanent-tickets-20261027-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_permanent_tickets_20261027.py')])
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_permanent_tickets_20261027.py'),'--channel','local'])
+    if (ROOT/'references/native-rosso-reset-20261027-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_rosso_reset_20261027.py')])
+        run([sys.executable,'-B',str(ROOT/'tools/verify_rosso_reset_20261027.py'),'--channel','local'])
+    if (ROOT/'references/native-aurora-book-sources-20261027-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_aurora_book_sources_20261027.py')])
+        run([sys.executable,'-B',str(ROOT/'tools/verify_aurora_book_sources_20261027.py'),'--channel','local'])
+        run([sys.executable,'-B','-m','unittest','tests.test_295762_group_draw_guard'])
+    if (ROOT/'references/native-change-force-materials-20261027-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_change_force_materials_20261027.py')])
+        run([sys.executable,'-B',str(ROOT/'tools/verify_change_force_materials_20261027.py'),'--channel','local'])
+    if (ROOT/'references/current-refresh-combat-inputs-20261027-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_current_refresh_archive_20261027.py')])
+    if (ROOT/'references/native-power-cache-sync-20261027-v1/candidate.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_power_cache_archive_20261027.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_native_power_cache_contract'])
+    if (ROOT/'channels/server-architecture-20261027-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_server_architecture.py')])
+    if (ROOT/'channels/character-slow-paths-20261027-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_character_slow_paths.py')])
+    run([sys.executable,'-B',str(ROOT/'tools/verify_selection_business.py')])
+    run([sys.executable,'-B',str(ROOT/'tools/verify_quest_business.py')])
+    run([sys.executable,'-B',str(ROOT/'tools/verify_peak_business.py')])
+    run([sys.executable,'-B',str(ROOT/'tools/verify_initialization_readers.py')])
+    if (ROOT/'references/periodic-deadline-fairness-20261027-v1/delta.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_periodic_deadline_fairness.py')])
+    if (ROOT/'references/actual-native-final-ability-20261027-v1/binding.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_inherited_actual_client_binding.py')])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0

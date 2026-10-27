@@ -1,0 +1,212 @@
+{
+  "schema": 1,
+  "kind": "PR494 reviewed exact server delta",
+  "candidate_binding_sha256": "65716fe8380e555ef58935f4b67925ddac8b26a783d3e31b40ecfc747be8ce68",
+  "delta_paths": [
+    "els_server/data/regional_boss_cubes_legacy.json",
+    "els_server/domain/acquisition_policy.py",
+    "els_server/domain/cubes.py",
+    "els_server/domain/dungeon_flow.py",
+    "els_server/domain/local_session.py",
+    "els_server/domain/normal_fatigue_flow.py",
+    "els_server/domain/regional_boss_cubes_legacy.py",
+    "els_server/domain/story_controller_retirements.py",
+    "els_server/storage/fixed_cubes.py",
+    "els_server/storage/inventory_state.py",
+    "els_server/storage/known_resurrection.py",
+    "els_server/storage/regional_boss_cube_source.py"
+  ],
+  "new_paths": [
+    "els_server/data/regional_boss_cubes_legacy.json",
+    "els_server/domain/regional_boss_cubes_legacy.py",
+    "els_server/storage/regional_boss_cube_source.py"
+  ],
+  "channels": {
+    "online": {
+      "parent_release": "cobodex-monster-hp-fatigue-20261026-v1",
+      "parent_manifest_sha256": "5011321cb5b1a2d8cc13a7399c02f37907cb72781534be058ca8279682e79248",
+      "delta": [
+        {
+          "path": "els_server/data/regional_boss_cubes_legacy.json",
+          "sha256": "28100c20b5171d1d0720904579338a7ffaa36934fd861bafdeeaa95dc4d04947",
+          "parent_sha256": null,
+          "size": 46094,
+          "archive": "shared/els_server/data/regional_boss_cubes_legacy.json"
+        },
+        {
+          "path": "els_server/domain/regional_boss_cubes_legacy.py",
+          "sha256": "c2ef22e28012630b9b7b9d73623947ca23c79d1f966bc9d8fe321d0cc116040b",
+          "parent_sha256": null,
+          "size": 3207,
+          "archive": "shared/els_server/domain/regional_boss_cubes_legacy.py"
+        },
+        {
+          "path": "els_server/storage/regional_boss_cube_source.py",
+          "sha256": "1295cd07cb80df2cd37b3836ed460cd1dc9a2119e8abb3682d4442451ac384d7",
+          "parent_sha256": null,
+          "size": 4294,
+          "archive": "shared/els_server/storage/regional_boss_cube_source.py"
+        },
+        {
+          "path": "els_server/domain/cubes.py",
+          "sha256": "9f611cf20dc6753e98e0493eb9e7a3e9bca9c0440c9a95cc9459c68cb2728321",
+          "parent_sha256": "bf89ff728885d56c51cae7c6c51737233132b7d0bf9f8ec0b1b41552491bf182",
+          "size": 3719,
+          "archive": "shared/els_server/domain/cubes.py"
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "sha256": "06d66b2f5bf93f54e4bb999b527fc977e1fa8752d1bb558e7e16b6ad03e1634b",
+          "parent_sha256": "46030caa00cff7a192f01e5dfe35ece9d6efe0d00d368cd595eb9bdb38d6a1b8",
+          "size": 7831,
+          "archive": "online/els_server/domain/acquisition_policy.py"
+        },
+        {
+          "path": "els_server/storage/inventory_state.py",
+          "sha256": "7c4f8b2d4fee85f1e0328e3eb9f9e8970abfface94c5914ba147a2653eb57334",
+          "parent_sha256": "1839643ec57b2d11514a29c2459bc855b3be8a3efef013a853e9308e5cef216f",
+          "size": 21968,
+          "archive": "shared/els_server/storage/inventory_state.py"
+        },
+        {
+          "path": "els_server/storage/fixed_cubes.py",
+          "sha256": "8a827384b369036f12cf1c5a9e44842a31938be59a5c3416f9e2ae4598f30057",
+          "parent_sha256": "9b65ac6b4bdc1bf033ed865e39403ffe16ee77fbb787be2ba1af54f491dce9e6",
+          "size": 8214,
+          "archive": "shared/els_server/storage/fixed_cubes.py"
+        },
+        {
+          "path": "els_server/domain/dungeon_flow.py",
+          "sha256": "52762721c70f3f95d8f3b2b3400e74aea1672cd61ae85b1ccb904a4cdd1e3b1c",
+          "parent_sha256": "1192ca8067031507f29b923327d8d1c5fda1542693e84f5ea735cfc5dec4d9be",
+          "size": 21055,
+          "archive": "shared/els_server/domain/dungeon_flow.py"
+        },
+        {
+          "path": "els_server/domain/story_controller_retirements.py",
+          "sha256": "00fafd423bb658eab0ddc06ce7307c4269799dbb740fdba9dde8381b952b2086",
+          "parent_sha256": "41b4bc73842d4ca91a31c2f88b8941b01cb31410c3ee12368d04804ed9c8a5df",
+          "size": 83195,
+          "archive": "shared/els_server/domain/story_controller_retirements.py"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "sha256": "af90eca13da9a0b89726648106efa4691ed5c26173af8da84d426651698805d6",
+          "parent_sha256": "6bcf6961210e3ff7ec8a79154dd2b89942ef814054b8c051700f4d41743ec575",
+          "size": 160127,
+          "archive": "online/els_server/domain/local_session.py"
+        },
+        {
+          "path": "els_server/storage/known_resurrection.py",
+          "sha256": "850e7beba54efad9bc12c94f57325a381384b6011c3aa561bbaf34022fb722fb",
+          "parent_sha256": "be0c3346c0470577bd10f93c84cdd43d83ade7f35903183fefc6ccb2c346d28d",
+          "size": 7704,
+          "archive": "shared/els_server/storage/known_resurrection.py"
+        },
+        {
+          "path": "els_server/domain/normal_fatigue_flow.py",
+          "sha256": "ceede1ff7bc852671096fc89be4a90f1955baad28df60428ecadcc6442606091",
+          "parent_sha256": "0f34b05665dbd8f5a440eca3931526b362059462968ad61e32a4ec1b50f9c5e7",
+          "size": 15259,
+          "archive": "shared/els_server/domain/normal_fatigue_flow.py"
+        }
+      ]
+    },
+    "local": {
+      "parent_release": "local-cobodex-monster-hp-fatigue-20261026-v1",
+      "parent_manifest_sha256": "caadfc4c256f90f3b838a830dc22cd637e417b3ccdc62918f68b2e37b02eee3e",
+      "delta": [
+        {
+          "path": "els_server/data/regional_boss_cubes_legacy.json",
+          "sha256": "28100c20b5171d1d0720904579338a7ffaa36934fd861bafdeeaa95dc4d04947",
+          "parent_sha256": null,
+          "size": 46094,
+          "archive": "shared/els_server/data/regional_boss_cubes_legacy.json"
+        },
+        {
+          "path": "els_server/domain/regional_boss_cubes_legacy.py",
+          "sha256": "c2ef22e28012630b9b7b9d73623947ca23c79d1f966bc9d8fe321d0cc116040b",
+          "parent_sha256": null,
+          "size": 3207,
+          "archive": "shared/els_server/domain/regional_boss_cubes_legacy.py"
+        },
+        {
+          "path": "els_server/storage/regional_boss_cube_source.py",
+          "sha256": "1295cd07cb80df2cd37b3836ed460cd1dc9a2119e8abb3682d4442451ac384d7",
+          "parent_sha256": null,
+          "size": 4294,
+          "archive": "shared/els_server/storage/regional_boss_cube_source.py"
+        },
+        {
+          "path": "els_server/domain/cubes.py",
+          "sha256": "9f611cf20dc6753e98e0493eb9e7a3e9bca9c0440c9a95cc9459c68cb2728321",
+          "parent_sha256": "bf89ff728885d56c51cae7c6c51737233132b7d0bf9f8ec0b1b41552491bf182",
+          "size": 3719,
+          "archive": "shared/els_server/domain/cubes.py"
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "sha256": "3798d3334baa57f9e723e90c43877a314307801968ae534b962c10373f86509c",
+          "parent_sha256": "728c3853a2fb1e81c484f42d950c7b493cc6c666c9982331d5cb47887c92f176",
+          "size": 7671,
+          "archive": "local/els_server/domain/acquisition_policy.py"
+        },
+        {
+          "path": "els_server/storage/inventory_state.py",
+          "sha256": "7c4f8b2d4fee85f1e0328e3eb9f9e8970abfface94c5914ba147a2653eb57334",
+          "parent_sha256": "1839643ec57b2d11514a29c2459bc855b3be8a3efef013a853e9308e5cef216f",
+          "size": 21968,
+          "archive": "shared/els_server/storage/inventory_state.py"
+        },
+        {
+          "path": "els_server/storage/fixed_cubes.py",
+          "sha256": "8a827384b369036f12cf1c5a9e44842a31938be59a5c3416f9e2ae4598f30057",
+          "parent_sha256": "9b65ac6b4bdc1bf033ed865e39403ffe16ee77fbb787be2ba1af54f491dce9e6",
+          "size": 8214,
+          "archive": "shared/els_server/storage/fixed_cubes.py"
+        },
+        {
+          "path": "els_server/domain/dungeon_flow.py",
+          "sha256": "52762721c70f3f95d8f3b2b3400e74aea1672cd61ae85b1ccb904a4cdd1e3b1c",
+          "parent_sha256": "1192ca8067031507f29b923327d8d1c5fda1542693e84f5ea735cfc5dec4d9be",
+          "size": 21055,
+          "archive": "shared/els_server/domain/dungeon_flow.py"
+        },
+        {
+          "path": "els_server/domain/story_controller_retirements.py",
+          "sha256": "00fafd423bb658eab0ddc06ce7307c4269799dbb740fdba9dde8381b952b2086",
+          "parent_sha256": "41b4bc73842d4ca91a31c2f88b8941b01cb31410c3ee12368d04804ed9c8a5df",
+          "size": 83195,
+          "archive": "shared/els_server/domain/story_controller_retirements.py"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "sha256": "70ed5bfd6ffa042ff070db73b7bbbbef4097ea24c1aaab3bca629b5ae34d6a17",
+          "parent_sha256": "98b9eb9e6d0f245fcc5c1dd14820ca6478f65900f030f3cd417faedb107d43e9",
+          "size": 157629,
+          "archive": "local/els_server/domain/local_session.py"
+        },
+        {
+          "path": "els_server/storage/known_resurrection.py",
+          "sha256": "850e7beba54efad9bc12c94f57325a381384b6011c3aa561bbaf34022fb722fb",
+          "parent_sha256": "be0c3346c0470577bd10f93c84cdd43d83ade7f35903183fefc6ccb2c346d28d",
+          "size": 7704,
+          "archive": "shared/els_server/storage/known_resurrection.py"
+        },
+        {
+          "path": "els_server/domain/normal_fatigue_flow.py",
+          "sha256": "ceede1ff7bc852671096fc89be4a90f1955baad28df60428ecadcc6442606091",
+          "parent_sha256": "0f34b05665dbd8f5a440eca3931526b362059462968ad61e32a4ec1b50f9c5e7",
+          "size": 15259,
+          "archive": "shared/els_server/domain/normal_fatigue_flow.py"
+        }
+      ]
+    }
+  },
+  "physical_files": 14,
+  "client_delta": 0,
+  "install_DDL_statements": 0,
+  "excluded_scene_candidate": "Memory2 six-source prototype is disabled and has no production hook; not part of this delta",
+  "mode_variants_preserved": true,
+  "private_configuration_or_player_data_included": false
+}

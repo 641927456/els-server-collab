@@ -1,0 +1,198 @@
+{
+  "ok": true,
+  "proofs": {
+    "private-publish-online-v2.json": {
+      "sha256": "2ade2e2d9b1433f4d0629b1331ca3245c033e6680a5e42f9b3a598377888e3d1",
+      "passed": true,
+      "mode": "friends",
+      "coexisting_sources": 9,
+      "checks": [
+        "strict-native-911-invalid-input-no-write",
+        "not-loaded-reject",
+        "preencode-rolls-back-ED-source-receipt-and-DDL",
+        "same-operation-replay-no-debit-or-extension",
+        "actual-worn-division120-price-and-wait",
+        "actual-worn-division121-price-and-wait",
+        "bag-uniform-no-discount",
+        "continuous360-threshold-once-free-native-notification",
+        "leaving-loaded-phase-resets-unfinished-wait",
+        "original104-wear-105-ACK-current-UID-discount",
+        "reciprocal-original219-and-911-complete-source-snapshot",
+        "cold-native3A2-absolute-end-preserved-unfinished-wait-reset",
+        "deadline-removal-no-debit-no-extension",
+        "insufficient-ED-no-write",
+        "actual-normal-Silver-CCC-complete-source-snapshot-all-producers-retain-other-source-times",
+        "actual-story-native-entry-excludes-Silver-retains-all-elixirs-and-assembly"
+      ],
+      "private_databases_removed": true
+    },
+    "private-publish-local-LOCAL-v1.json": {
+      "sha256": "231398141f08121dce23e22b62b5e815c430ccc6168f2bf89c1631fd06187ddf",
+      "passed": true,
+      "mode": "local",
+      "coexisting_sources": 9,
+      "checks": [
+        "strict-native-911-invalid-input-no-write",
+        "not-loaded-reject",
+        "preencode-rolls-back-ED-source-receipt-and-DDL",
+        "same-operation-replay-no-debit-or-extension",
+        "actual-worn-division120-price-and-wait",
+        "actual-worn-division121-price-and-wait",
+        "bag-uniform-no-discount",
+        "continuous360-threshold-once-free-native-notification",
+        "leaving-loaded-phase-resets-unfinished-wait",
+        "original104-wear-105-ACK-current-UID-discount",
+        "reciprocal-original219-and-911-complete-source-snapshot",
+        "cold-native3A2-absolute-end-preserved-unfinished-wait-reset",
+        "deadline-removal-no-debit-no-extension",
+        "insufficient-ED-no-write",
+        "actual-normal-Silver-CCC-complete-source-snapshot-all-producers-retain-other-source-times",
+        "actual-story-native-entry-excludes-Silver-retains-all-elixirs-and-assembly"
+      ],
+      "private_databases_removed": true
+    },
+    "private-publish-local-friends-v1.json": {
+      "sha256": "15a5cdabab121842c6565aaf1e8c2c1f91134aa7e0987472b1f68eff905e452c",
+      "passed": true,
+      "mode": "friends",
+      "coexisting_sources": 9,
+      "checks": [
+        "strict-native-911-invalid-input-no-write",
+        "not-loaded-reject",
+        "preencode-rolls-back-ED-source-receipt-and-DDL",
+        "same-operation-replay-no-debit-or-extension",
+        "actual-worn-division120-price-and-wait",
+        "actual-worn-division121-price-and-wait",
+        "bag-uniform-no-discount",
+        "continuous360-threshold-once-free-native-notification",
+        "leaving-loaded-phase-resets-unfinished-wait",
+        "original104-wear-105-ACK-current-UID-discount",
+        "reciprocal-original219-and-911-complete-source-snapshot",
+        "cold-native3A2-absolute-end-preserved-unfinished-wait-reset",
+        "deadline-removal-no-debit-no-extension",
+        "insufficient-ED-no-write",
+        "actual-normal-Silver-CCC-complete-source-snapshot-all-producers-retain-other-source-times",
+        "actual-story-native-entry-excludes-Silver-retains-all-elixirs-and-assembly"
+      ],
+      "private_databases_removed": true
+    }
+  },
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "scope": [
+    {
+      "town": 1009,
+      "scene": 851,
+      "name": "集结地：红炎的境界"
+    },
+    {
+      "town": 1010,
+      "scene": 964,
+      "name": "集结地：奥罗拉据点区域"
+    },
+    {
+      "town": 20013,
+      "scene": 1023,
+      "name": "梦歌魅利亚"
+    },
+    {
+      "town": 1011,
+      "scene": 1131,
+      "name": "集结地：钢铁城壁临时据点"
+    },
+    {
+      "town": 1012,
+      "scene": 1214,
+      "name": "集结地：F分部"
+    }
+  ],
+  "native": {
+    "spa_type": 2,
+    "template": 1433,
+    "factor": 1538,
+    "boss_damage_increase": 0.02,
+    "boss_damage_received_decrease": 0.02,
+    "adaptability": 0.02,
+    "period_seconds": 1800,
+    "stay_seconds": 360,
+    "price_ed": 500000,
+    "division_rates": {
+      "120": 0.7,
+      "121": 0.5
+    },
+    "uniform_SQL_slots": [
+      35,
+      36
+    ],
+    "uniform_resource_position": 38,
+    "request": "911 CtoS BEi32 SpaType",
+    "ack": "912 StoC BEi32 result+BEu64ED",
+    "KBuffInfo_row_bytes": 75,
+    "world_flag": 0,
+    "store_flag": 0
+  },
+  "local_rules": {
+    "wait": "Continuous current owned online loaded scene. Disconnect, leave, actor or effective-uniform change resets unfinished waiting. No client timestamp credit.",
+    "duration": "Replace one source with1800second fresh deadline on each successful new interval or paid operation. No stacking. Real time continues offline.",
+    "time_rounding": "Whole waiting seconds nearest360×source coefficient:252/180; ED follows original multiply then integer truncation:350000/250000.",
+    "source_authority": "Native911 has no House/NPC/distance token. Check the exact admitted saved scene/line and current actor prerequisites; do not invent such packet fields."
+  },
+  "sources": [
+    {
+      "title": "韩服官方集结地指南",
+      "url": "https://elsword.nexon.game.naver.com/Info/Guide/View?n4ArticleSN=25",
+      "region": "KR",
+      "section_updated": "2026-04-30",
+      "supports": [
+        "360秒驻留",
+        "三项2%",
+        "500000ED基础价",
+        "永久制服50%"
+      ],
+      "limits": [
+        "位置/准入部分旧于当前国服客户端，不覆盖当前门户与五处场景"
+      ]
+    },
+    {
+      "title": "BWIKI温泉&集结地",
+      "url": "https://wiki.biligame.com/elsword/温泉%26集结地",
+      "region": "CN",
+      "updated": "2024-03-12",
+      "supports": [
+        "驻留6分钟",
+        "三项2%",
+        "500000ED",
+        "永久制服50%",
+        "梦歌也拥有集结地效果"
+      ],
+      "limits": [
+        "非官方社区页面",
+        "未包含本客户端新增钢铁/F场景，沿当前客户端补证"
+      ]
+    },
+    {
+      "title": "BWIKI2026.09.23更新",
+      "url": "https://wiki.biligame.com/elsword/2026.09.23更新内容及BUG修复/变更事项",
+      "region": "CN",
+      "supports": [
+        "F分部菲塔可进入暗精灵黑市"
+      ],
+      "limits": [
+        "黑市为按钮65独立竞价系统，本批不冒称接通"
+      ]
+    }
+  ],
+  "limitations": [
+    "No game process accessed or controlled.",
+    "Native source/factory/reader and controlled Application/TLS qualification are not natural GUI/battle acceptance.",
+    "Native icon countdown may start from native1800second factor; authoritative original absolute-end removal is preserved, no claim of exact remaining-time UI.",
+    "Black Market65 has current native resources but its full runtime chain is unqualified and outside this Type2 increment.",
+    "14 old uniforms have no matching current catalog record; no guessed aliases or new sources."
+  ],
+  "publication": "qualified independent online and standalone installed; see delivery.json",
+  "natural_GUI": false,
+  "natural_battle": false,
+  "raw_packets_or_logs_exported": false,
+  "production_installation": true,
+  "dual_installation": true,
+  "delivery_record": "delivery.json"
+}

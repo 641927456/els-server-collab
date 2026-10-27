@@ -1,0 +1,141 @@
+{
+  "ok": true,
+  "kind": "assembly entry and completeness audit only; no assembly implementation changes",
+  "at": "2026-10-25T11:11:31.211107+00:00",
+  "parents": {
+    "online": {
+      "release": "silver-mirror-completion-20261025-v1",
+      "manifest_sha256": "ea40f277b0290304617212b85b32c5c7402052180bf14f1d94b9f87be8de4bee"
+    },
+    "local": {
+      "release": "local-silver-mirror-completion-20261025-v1",
+      "manifest_sha256": "f787808be4221876a147674b5504ef88f43da079580fc95a5ad1bf21a2dce215"
+    }
+  },
+  "entries": [
+    {
+      "id": 1008,
+      "name": "红炎的境界",
+      "scene": 637,
+      "implementation": "original town travel, scene admission and saved location consumers present",
+      "minimum_level": 84,
+      "quest": null,
+      "required_dungeon": {
+        "1": 30090
+      },
+      "unit_type_level_overrides": {
+        "1": {
+          "MIN_LEVEL": 99,
+          "UNIT_TYPE": 15
+        }
+      },
+      "buff_status": "not fully verified; do not infer missing merely from a code-name search",
+      "natural_GUI": false
+    },
+    {
+      "id": 1009,
+      "name": "裂隙中的裂隙",
+      "scene": 851,
+      "implementation": "special original225 portal from20010/1010 and cold restoration present; not paid58C travel",
+      "minimum_level": 99,
+      "quest": 26640,
+      "required_dungeon": null,
+      "unit_type_level_overrides": null,
+      "buff_status": "not fully verified; do not infer missing merely from a code-name search",
+      "natural_GUI": false
+    },
+    {
+      "id": 1010,
+      "name": "奥罗拉据点",
+      "scene": 964,
+      "implementation": "original town travel, scene admission and saved location consumers present",
+      "minimum_level": 99,
+      "quest": 26670,
+      "required_dungeon": {},
+      "unit_type_level_overrides": null,
+      "buff_status": "not fully verified; do not infer missing merely from a code-name search",
+      "natural_GUI": false
+    },
+    {
+      "id": 20013,
+      "name": "梦歌魅利亚",
+      "scene": 1023,
+      "implementation": "original town travel, scene admission and saved location consumers present",
+      "minimum_level": 99,
+      "quest": 26690,
+      "required_dungeon": {},
+      "unit_type_level_overrides": null,
+      "buff_status": "not fully verified; do not infer missing merely from a code-name search",
+      "natural_GUI": false
+    },
+    {
+      "id": 1011,
+      "name": "钢铁城壁临时据点",
+      "scene": 1131,
+      "implementation": "original town travel, scene admission and saved location consumers present",
+      "minimum_level": 99,
+      "quest": 27560,
+      "required_dungeon": {},
+      "unit_type_level_overrides": null,
+      "buff_status": "not fully verified; do not infer missing merely from a code-name search",
+      "natural_GUI": false
+    },
+    {
+      "id": 1012,
+      "name": "F分部",
+      "scene": 1214,
+      "implementation": "original town travel, scene admission and saved location consumers present",
+      "minimum_level": 99,
+      "quest": 27600,
+      "required_dungeon": {},
+      "unit_type_level_overrides": null,
+      "buff_status": "not fully verified; do not infer missing merely from a code-name search",
+      "natural_GUI": false
+    }
+  ],
+  "source_files": [
+    {
+      "path": "els_server/data/town_travel.json",
+      "sha256": "b3b40954b6e9767b4af88ae4ef58e7d3898e38699419ec1ff5f1939bc9e6b406"
+    },
+    {
+      "path": "els_server/data/town_travel.manifest.json",
+      "sha256": "96fd9e640bfcd11021401b57d8b1dda661f49b6bb803b573d2ac8a968484253a"
+    },
+    {
+      "path": "els_server/domain/town_travel.py",
+      "sha256": "419b6db963c581c0ced4062d031ffa498ec490616ccf95edd5bf7458169acf7d"
+    },
+    {
+      "path": "els_server/domain/town_travel_flow.py",
+      "sha256": "5781a716d35df97bfad9da4b426a72c7fa8844d7dafbe69d03127b4f744bf7de"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "769c19b6d1920efe0fca2031b6e4614c99819eaa6d3938558c859a642d93dfec"
+    },
+    {
+      "path": "els_server/storage/town_travel.py",
+      "sha256": "7aa235e2799a98fea1ff0dbabb9f5bf7c6c7e8fd4c8039b653551bddba95e4b0"
+    }
+  ],
+  "conclusion": "Scene/entry/server prerequisites exist in formal code. Full assembly stay-BUFF, uniform acceleration/discount and NPC500000ED effect transaction are not yet established by this audit. Do not mark whole assembly feature complete.",
+  "missing_proofs": [
+    "native timer/request and notification source",
+    "complete server actor/scene/timer authorization",
+    "native uniform coefficient consumer",
+    "NPC purchase debit/effect expiry and saved reader in real transaction"
+  ],
+  "no_client_changes": true,
+  "no_player_control": true,
+  "no_formal_mutations": true,
+  "client_static_evidence": {
+    "path": "assembly-client-sources.json",
+    "sha256": "97b41a99cdb95d96130a1c6bc66788e397094bce1799634087efd92065c9a0ea"
+  },
+  "closed_static_proofs": [
+    "five locations SPA_INFO Type2",
+    "current SpaData Type2: stay360, Buff1433, purchase500000ED",
+    "Buff1433 factor1538; nonworld and nonstored"
+  ]
+}

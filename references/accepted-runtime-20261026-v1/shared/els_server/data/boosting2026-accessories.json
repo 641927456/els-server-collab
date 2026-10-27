@@ -1,0 +1,1405 @@
+{
+  "schema_version": 1,
+  "policy": "user-approved-cn20260729-accessories-v1",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "boxes": [
+    {
+      "template": 723615,
+      "name": "[科宝]战斗力助力饰品支援宝箱",
+      "record_sha256": "e5672423dba51fc396ab9642caaa786713c3decaa78621fa205e375bb08897f0",
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "selection_count": 0,
+      "outputs": [
+        {
+          "template": 30612,
+          "quantity": 1
+        },
+        {
+          "template": 30613,
+          "quantity": 1
+        },
+        {
+          "template": 30614,
+          "quantity": 1
+        },
+        {
+          "template": 30648,
+          "quantity": 1
+        },
+        {
+          "template": 30649,
+          "quantity": 1
+        },
+        {
+          "template": 30650,
+          "quantity": 1
+        },
+        {
+          "template": 30651,
+          "quantity": 1
+        },
+        {
+          "template": 30652,
+          "quantity": 1
+        },
+        {
+          "template": 30653,
+          "quantity": 1
+        },
+        {
+          "template": 30654,
+          "quantity": 1
+        },
+        {
+          "template": 30666,
+          "quantity": 1
+        },
+        {
+          "template": 30657,
+          "quantity": 1
+        },
+        {
+          "template": 30659,
+          "quantity": 1
+        },
+        {
+          "template": 30660,
+          "quantity": 1
+        },
+        {
+          "template": 30606,
+          "quantity": 1
+        },
+        {
+          "template": 721785,
+          "quantity": 1
+        },
+        {
+          "template": 721786,
+          "quantity": 1
+        }
+      ],
+      "original_random_rule": {
+        "function": "g_pRandomItemManager.AddRandomItemTemplet",
+        "arguments": [
+          {
+            "global": "g_pRandomItemManager"
+          },
+          {
+            "m_KeyItemID": 0,
+            "m_iGiveCount": 0,
+            "m_ItemID": 723615,
+            "m_RequiredKeyCount": 0,
+            "m_UseCondition": 1,
+            "1": {
+              "m_iItemGroupID": 723615,
+              "m_cUnitClass": 0
+            }
+          }
+        ],
+        "pc": 198016
+      }
+    },
+    {
+      "template": 721785,
+      "name": "[科宝]斗士的技能戒指（90日）支援宝箱",
+      "record_sha256": "f5de2e55472269d7c9f039744c9acf67e9c055a1c42e012abe9ea1ede885c4da",
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "selection_count": 0,
+      "outputs": [
+        {
+          "template": 714231,
+          "quantity": 1
+        },
+        {
+          "template": 714232,
+          "quantity": 1
+        },
+        {
+          "template": 714233,
+          "quantity": 1
+        },
+        {
+          "template": 714234,
+          "quantity": 1
+        }
+      ],
+      "original_random_rule": {
+        "function": "g_pRandomItemManager.AddRandomItemTemplet",
+        "arguments": [
+          {
+            "global": "g_pRandomItemManager"
+          },
+          {
+            "m_KeyItemID": 0,
+            "m_iGiveCount": 0,
+            "m_ItemID": 721785,
+            "m_RequiredKeyCount": 0,
+            "m_UseCondition": 1,
+            "1": {
+              "m_iItemGroupID": 721785,
+              "m_cUnitClass": 0
+            }
+          }
+        ],
+        "pc": 192490
+      }
+    },
+    {
+      "template": 721786,
+      "name": "[科宝]斗士的愤怒戒指（90日）支援宝箱",
+      "record_sha256": "c64f0d019d9a8daf7463a6d7974ff614cdb40f34a1942990cc37aa60ee1594c8",
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 999,
+      "selection_count": 0,
+      "outputs": [
+        {
+          "template": 720739,
+          "quantity": 1
+        }
+      ],
+      "original_random_rule": {
+        "function": "g_pRandomItemManager.AddRandomItemTemplet",
+        "arguments": [
+          {
+            "global": "g_pRandomItemManager"
+          },
+          {
+            "m_KeyItemID": 0,
+            "m_iGiveCount": 0,
+            "m_ItemID": 721786,
+            "m_RequiredKeyCount": 0,
+            "m_UseCondition": 1,
+            "1": {
+              "m_iItemGroupID": 721786,
+              "m_cUnitClass": 0
+            }
+          }
+        ],
+        "pc": 192503
+      }
+    }
+  ],
+  "items": [
+    {
+      "template": 30612,
+      "name": "不灭的火花",
+      "record_sha256": "1cc35db57b002acd78ecf4062417a039ec812dbe45be049aa649dd51f3298207",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 21,
+      "slot": 15,
+      "minor_slot": 30,
+      "period_days": 0,
+      "requirements": [
+        99,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          98,
+          0
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          0
+        ],
+        [
+          200,
+          98,
+          0
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "22c77ee256250ffdabb86fdcb3dc9794f521ad5e4c71be1e5bef3194470995be"
+    },
+    {
+      "template": 30613,
+      "name": "魔族之眼",
+      "record_sha256": "217361637cf3417dba041eeec71d441b9c5e50075fc650051067612a54419202",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 26,
+      "slot": 37,
+      "minor_slot": 38,
+      "period_days": 0,
+      "requirements": [
+        99,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          98,
+          0
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          0
+        ],
+        [
+          200,
+          98,
+          0
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "b867fab0d880946b0dea83ec01dda88a1387fb8293a5c72f8061a97044f634e2"
+    },
+    {
+      "template": 30614,
+      "name": "火魔的印章",
+      "record_sha256": "f0ab1074db617b4a9967410dcd4cfb164a0e14a1b7904c89641e181b597f32e6",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 25,
+      "slot": 19,
+      "minor_slot": 34,
+      "period_days": 0,
+      "requirements": [
+        99,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          98,
+          0
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          0
+        ],
+        [
+          200,
+          98,
+          0
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "0a9b42117f40b7b96f9aed5351ded3a358962f53522441aeb960f6bb9b9cfb09"
+    },
+    {
+      "template": 30648,
+      "name": "蕴含大地气息的耳环",
+      "record_sha256": "f14535276b49d929ca3081331476ae6ea115d49728be90adb213fb695cc23d6d",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 27,
+      "slot": 39,
+      "minor_slot": 40,
+      "period_days": 0,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "12a10b74dbf822f7d2845bede5904e335bbf002e8c662792cba338c97413076b"
+    },
+    {
+      "template": 30649,
+      "name": "蕴含红炎气息的项链",
+      "record_sha256": "b14ae1fd425395a7cfb497b7cc9426de66f8fa1289460b7a96e336f20b11b9df",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 24,
+      "slot": 18,
+      "minor_slot": 33,
+      "period_days": 0,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "5d766c5717a7dbc8057a4c4ba402ac3d34bdd7386ec8bb3d390902fc6793ecfd"
+    },
+    {
+      "template": 30650,
+      "name": "蕴含青风气息的发饰",
+      "record_sha256": "9b9f91a41bc819f2e246618ecc14158d816b16260a4b9186307c678f2657f0b7",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 18,
+      "slot": 12,
+      "minor_slot": 27,
+      "period_days": 0,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "a6bba4a99ffd3e3491b94517b364a7d98bbc15aa0afea5367251f4dc25ebbb2a"
+    },
+    {
+      "template": 30651,
+      "name": "蕴含流水气息的腕饰",
+      "record_sha256": "b7764236487b6ac2f5f30ae4fab7db22da1aa38453af157a744489afac3e3fdc",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 22,
+      "slot": 16,
+      "minor_slot": 31,
+      "period_days": 0,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "75603fee35a17f684bb828cd691c38ac9b0ee29a411fda3ab37383f7cd6de5dd"
+    },
+    {
+      "template": 30652,
+      "name": "纳斯德控制器",
+      "record_sha256": "01bcececf41af7fa2361007cd875f410e6a98f9a7727c50877b442ac5d3844d3",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 24,
+      "slot": 18,
+      "minor_slot": 33,
+      "period_days": 0,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "d9c5c3b1bd70ea65bc83f7537b0623fa522ac55d4e28e7431c1da84e89d6f896"
+    },
+    {
+      "template": 30653,
+      "name": "蕴含太阳气息的标志",
+      "record_sha256": "c07d20368c75abddd981b3173312545d85915bb35d494db72eed117d641a0012",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 19,
+      "slot": 13,
+      "minor_slot": 28,
+      "period_days": 0,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "b1737628f975936b62f358c575f5fcf71909e9ab11dbadfe08fa962afd3c8e6c"
+    },
+    {
+      "template": 30654,
+      "name": "蕴含艾尔气息的光轮",
+      "record_sha256": "62ffdc3fcb02525c749fa24bc31a2f49dee307a5ed9bbb045ee094824ea8ae27",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 17,
+      "slot": 11,
+      "minor_slot": 26,
+      "period_days": 0,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "da6d9380075b330bda4bf98ab0cda44b268555b4024294a566ade05be7e9d95d"
+    },
+    {
+      "template": 30666,
+      "name": "蕴含黑暗气息的光轮",
+      "record_sha256": "d575cf444f4513f84ca77b7a8d52085b4f5ef7ea75eb0283556b83daa9f10e67",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 17,
+      "slot": 11,
+      "minor_slot": 26,
+      "period_days": 0,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "1c941d60a0a4f13013c999d40f1ce815f280e7c13e618d7c6c93196bb897363f"
+    },
+    {
+      "template": 30657,
+      "name": "贝利昂的毛皮装饰",
+      "record_sha256": "66d38623c89ac9cc5e2b203d797d9b6fc8c0e69f01b668bfa19c9be2ab067ba2",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 19,
+      "slot": 13,
+      "minor_slot": 28,
+      "period_days": 0,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "c23de915268e3e0b58654c67fb4d37e8431f50f6fa183e6e122047a2ba6b5454"
+    },
+    {
+      "template": 30659,
+      "name": "军团干部的装饰",
+      "record_sha256": "935884ae5988209baf0eb376196e953eed6a3877db71045470f4d0557cd059bf",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 27,
+      "slot": 39,
+      "minor_slot": 40,
+      "period_days": 0,
+      "requirements": [
+        99,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          98,
+          0
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          0
+        ],
+        [
+          200,
+          98,
+          0
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "696000afbd96fae373abab00b2ce0fafab3444916bdd95b6fe9cc3843de85967"
+    },
+    {
+      "template": 30660,
+      "name": "灵魂的王冠",
+      "record_sha256": "d3a19689dec477a089dea1af46f9823630f4527ae66cba388348311ba8e2ec74",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 17,
+      "slot": 11,
+      "minor_slot": 26,
+      "period_days": 0,
+      "requirements": [
+        99,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          98,
+          0
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          0
+        ],
+        [
+          200,
+          98,
+          0
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "77593b206cb3fe4d138c641191052368e45365cdf0d6ceadd11b45d18ff90bbf"
+    },
+    {
+      "template": 30606,
+      "name": "德拉瓦基的翅膀",
+      "record_sha256": "dfda26c2bf5afcb8e0d99ccdea3789a23b3e37620e5fd4686740d9aac53515c9",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 20,
+      "slot": 14,
+      "minor_slot": 29,
+      "period_days": 0,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 304,
+      "body_sha256": "804b99a8e0418a5e645fd6b5d7d98b4f650de751bc04640982ac4e0c200e585f"
+    },
+    {
+      "template": 714231,
+      "name": "[阿莉尔]柔韧的斗士的技能戒指",
+      "record_sha256": "46e09afe66b67bbad9364015ed22adac8f7322873174a2c12dec6eb07b121774",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 23,
+      "slot": 17,
+      "minor_slot": 32,
+      "period_days": 90,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 342,
+      "body_sha256": "8eee868473ef74d4469683378d506cf53abfc5003fe86ed9df77fd5f3e359c04"
+    },
+    {
+      "template": 714232,
+      "name": "[阿莉尔]强韧的斗士的技能戒指",
+      "record_sha256": "4b4bc91cf455be818b708252f59a53f239b37b549e7690a6195cac801d559405",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 23,
+      "slot": 17,
+      "minor_slot": 32,
+      "period_days": 90,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 342,
+      "body_sha256": "7c22e21b6f180a4f73b9557b904d5a4957d8c536b167bb97cc29bb64b8d4b385"
+    },
+    {
+      "template": 714233,
+      "name": "[阿莉尔]强烈的斗士的技能戒指",
+      "record_sha256": "0567d37de940a1ff855cc0bf7823ee424c8655fb6e4d3bb1a3c37f3b49d9b55a",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 23,
+      "slot": 17,
+      "minor_slot": 32,
+      "period_days": 90,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 342,
+      "body_sha256": "af66ee6fcc0090c8801008af5ac3eb9afc31a17d06f1924a044c56ad7775107b"
+    },
+    {
+      "template": 714234,
+      "name": "[阿莉尔]超越的斗士的技能戒指",
+      "record_sha256": "81b73e39e5024580de88a596db3b5bc97d0de9642a6295870869d84920cd3534",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 23,
+      "slot": 17,
+      "minor_slot": 32,
+      "period_days": 90,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 342,
+      "body_sha256": "e3299eb986b7087da06f62ad70f8f59c6b0506fee355456946ef28aff929cbe8"
+    },
+    {
+      "template": 720739,
+      "name": "[阿莉尔]强韧的斗士的愤怒戒指",
+      "record_sha256": "9dc4ea27d47d1c4609465e29ac85187b29fcfc020ec51e10bfdcb196ba12cbab",
+      "metadata": 0,
+      "group": 2,
+      "max_stack": 1,
+      "quantity": 1,
+      "position": 23,
+      "slot": 17,
+      "minor_slot": 32,
+      "period_days": 90,
+      "requirements": [
+        0,
+        0,
+        0
+      ],
+      "eligibility_cases": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          99,
+          1
+        ],
+        [
+          200,
+          1,
+          1
+        ],
+        [
+          200,
+          99,
+          1
+        ]
+      ],
+      "body_bytes": 342,
+      "body_sha256": "f23bb5d123eccc670b25fefbd4a9e368f5bf2f094399ee45e5105cf9349d0fd7"
+    }
+  ],
+  "official_source": {
+    "url": "https://els.ztgame.com/html/news/1352771/m_000-1784-01a76-606320.shtml",
+    "checked_at": "2026-10-18T07:39:34.710829+00:00",
+    "region": "CN",
+    "period": "2026-07-29",
+    "sha256": "c4160e1e2810041f2da32d9735e4237cd1838589ee59ba06cd874f06349adefd",
+    "status": 200
+  },
+  "mapping_policy": "User-authorized official names/content to fixed local library;15 unique exact equipment names, two exact90day nested boxes, five exactAriel-name ring templates. Native retail group-content registry not recovered; rings get explicit90day instance deadlines, not permanent rewards.",
+  "local_policy": "Ring90days start at committed inner-box opening; source duration90. Existing default empty instance options; no invented random/appraisal rolls. Box stack999 follows current local policy; equipment singletons1.",
+  "slot_policy": "Original EP_AC_*→NESI_AC_* and named minor enums; normal ring2(41/42) and fashion ring2(54/66) remain pending until native acceptance proof, do not discard any ring reward.",
+  "remaining": [
+    "Full originalGUI and native special/set/battle effects pending",
+    "Alternative second normal/fashion ring simultaneous acceptance pending"
+  ],
+  "sources": [
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v63\\research\\accessory-rewards-v1\\source-candidates.json",
+      "sha256": "3322179df07ee38f0ff779da412ed1aaa06587f9479f8f6b3cb4a4fc918c8f95"
+    },
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v63\\research\\accessory-rewards-v1\\native-eligibility.asm.txt",
+      "sha256": "1d52028456bd447dacd8d38277e32575d20e0c6bd468f02a541b403be7d88657"
+    },
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v18\\research\\boosting678-avatar-storage-fields-v1\\DivisionItemTemplet.lua",
+      "sha256": "c5dc82e8cdac3dfcd2b95f37e73472c8cf3e03aee964a10aecc107c3fd75eff5"
+    },
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v18\\research\\boosting678-avatar-storage-fields-v1\\DivisionItemTemplet.tables.json",
+      "sha256": "25493c61cbf043413f625d66648dc84a26e2c37a68e235c32217924077528c3f"
+    },
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v18\\research\\boosting678-avatar-storage-fields-v1\\division-proof.json",
+      "sha256": "e777dd92e5bb251a06e51ee0b059511160bd423d7dd44d4467224de4a6a34085"
+    },
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v63\\research\\accessory-rewards-v1\\native-0x198b8d0.asm.txt",
+      "sha256": "7161ed69b2870c29f47362f29096247b4f44b21bc7d33ed945a0296eb87d4831"
+    },
+    {
+      "path": "G:\\els\\analysis\\local-activities-20261017-v63\\research\\accessory-rewards-v1\\native-0x198b890.asm.txt",
+      "sha256": "144228f3aa6d898d8eae468b70a4faaefd394fd4e5935b81a4778f0d29190405"
+    }
+  ],
+  "original_category77_ids": [
+    8200000,
+    8200001,
+    8200002,
+    8200003,
+    8200004,
+    8200005,
+    8200006,
+    8200007,
+    8200008,
+    8200009,
+    8200010,
+    8200011,
+    8200012,
+    8200013,
+    8200014,
+    8200015,
+    8200016,
+    8200017,
+    8200018,
+    8200019,
+    8200020,
+    8200021,
+    8200022,
+    8200023,
+    8200024,
+    8200025,
+    8200026,
+    8200027,
+    8200028,
+    8200029,
+    8200030,
+    8200031,
+    8200032,
+    8200033,
+    8200034,
+    8200035,
+    8200036,
+    8200037,
+    8200038,
+    8200039,
+    8200040,
+    8200041,
+    8200042,
+    8200043,
+    8200044,
+    8200045,
+    8200046,
+    8200047,
+    8200048,
+    8200049,
+    8200050,
+    8200051,
+    8200052,
+    8200053,
+    8200054,
+    8200055,
+    8200056,
+    8200057,
+    8200058,
+    8200059,
+    8200077,
+    8200078,
+    8200079,
+    8200080,
+    8200081,
+    8200091,
+    8200092,
+    8200093,
+    8200094,
+    8200095,
+    8200096,
+    8200097,
+    8200098,
+    8200099,
+    8200100,
+    8200101,
+    8200102,
+    8200103,
+    8200104,
+    8200105,
+    8200106,
+    8200107,
+    8200108,
+    8200109,
+    8200110,
+    8200111,
+    8200112,
+    8200113,
+    8200114,
+    8200115,
+    8200116,
+    8200117,
+    8200118,
+    8200119,
+    8200120,
+    8200121,
+    8200122,
+    8200123,
+    8200124,
+    8200125,
+    8200126,
+    8200127,
+    8200128,
+    8200129,
+    8200130,
+    8200131,
+    8200132,
+    8200133,
+    8200134,
+    8200135,
+    8200136,
+    8200137,
+    8200138,
+    8200139,
+    8200140,
+    8200141,
+    8200142,
+    8200143,
+    8200144,
+    8200145,
+    8200146,
+    8200147,
+    8200148,
+    8200149,
+    8200150,
+    8200152,
+    8200153,
+    8200154,
+    8200155,
+    8200156,
+    8200157,
+    8200158,
+    8200159,
+    8200160,
+    8200161
+  ],
+  "default_usability": [
+    {
+      "template": 30612,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 30613,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 30614,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 30648,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 30649,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 30650,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 30651,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 30652,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 30653,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 30654,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 30666,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 30657,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 30659,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 30660,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 30606,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 714231,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 714232,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 714233,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 714234,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    },
+    {
+      "template": 720739,
+      "PC_BANG_ONLY_EQUIPMENT": false,
+      "native_default_usability": 1,
+      "native_broken_check": 0,
+      "external_category_lookup_supplied_from_original_Lua": true
+    }
+  ]
+}

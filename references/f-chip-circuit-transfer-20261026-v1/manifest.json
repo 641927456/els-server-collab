@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "issue": 514,
+  "source_paths": [
+    "els_server/data/chip_circuit_transfer.json",
+    "els_server/domain/chip_circuit_transfer_flow.py",
+    "els_server/domain/chip_circuit_transfer_rules.py",
+    "els_server/domain/local_session.py",
+    "els_server/protocol/chip_circuit_transfer_messages.py",
+    "els_server/storage/chip_circuit_transfer.py"
+  ],
+  "channels": {
+    "online": {
+      "parent_release": "native-memory2-lithia-cubes-20261026-v1",
+      "parent_manifest_sha256": "6d98168dc40ff31c7002eb7026f3c92fecbc04f642d49698ff5da8d7c0a43b01",
+      "files": [
+        {
+          "path": "els_server/data/chip_circuit_transfer.json",
+          "sha256": "b269782975f2ef76960bec9a66f9c24b035961b68000e361f641ef10fbc93602",
+          "size": 63563,
+          "parent_sha256": null,
+          "archive": "shared/els_server/data/chip_circuit_transfer.json"
+        },
+        {
+          "path": "els_server/domain/chip_circuit_transfer_flow.py",
+          "sha256": "ae69a55b19c203f4d75f56a3bca19a9661386f7d4a4dea751accd205c04e084a",
+          "size": 1751,
+          "parent_sha256": null,
+          "archive": "shared/els_server/domain/chip_circuit_transfer_flow.py"
+        },
+        {
+          "path": "els_server/domain/chip_circuit_transfer_rules.py",
+          "sha256": "c473d84352b7f842a71c6f505109af232d63e70c49c3cd2c23ac6a76dd61d0ae",
+          "size": 3076,
+          "parent_sha256": null,
+          "archive": "shared/els_server/domain/chip_circuit_transfer_rules.py"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "sha256": "400c810321f4490cd152240d0f09c5556cbfec224b9d9d8ed594c8b8ac40e407",
+          "size": 161867,
+          "parent_sha256": "4b765ea34f418fe353fb9a1c343c7a73287cd415f8657e179bb45d8583287062",
+          "archive": "online/els_server/domain/local_session.py"
+        },
+        {
+          "path": "els_server/protocol/chip_circuit_transfer_messages.py",
+          "sha256": "f4fd1d2e347df50bee11838e0342c67d7a2162b1f4eb9d5f0046ba44bfc9eaa7",
+          "size": 1349,
+          "parent_sha256": null,
+          "archive": "shared/els_server/protocol/chip_circuit_transfer_messages.py"
+        },
+        {
+          "path": "els_server/storage/chip_circuit_transfer.py",
+          "sha256": "e4d264f7c06feceb1567006113fc4d319f441271f94f666d0b716e2b03fb7066",
+          "size": 6790,
+          "parent_sha256": null,
+          "archive": "shared/els_server/storage/chip_circuit_transfer.py"
+        }
+      ]
+    },
+    "local": {
+      "parent_release": "local-native-memory2-lithia-cubes-20261026-v1",
+      "parent_manifest_sha256": "643e213f76f85af80dbd8acd61f449d478f10eefe42899b7999cda0e20bd4f68",
+      "files": [
+        {
+          "path": "els_server/data/chip_circuit_transfer.json",
+          "sha256": "b269782975f2ef76960bec9a66f9c24b035961b68000e361f641ef10fbc93602",
+          "size": 63563,
+          "parent_sha256": null,
+          "archive": "shared/els_server/data/chip_circuit_transfer.json"
+        },
+        {
+          "path": "els_server/domain/chip_circuit_transfer_flow.py",
+          "sha256": "ae69a55b19c203f4d75f56a3bca19a9661386f7d4a4dea751accd205c04e084a",
+          "size": 1751,
+          "parent_sha256": null,
+          "archive": "shared/els_server/domain/chip_circuit_transfer_flow.py"
+        },
+        {
+          "path": "els_server/domain/chip_circuit_transfer_rules.py",
+          "sha256": "c473d84352b7f842a71c6f505109af232d63e70c49c3cd2c23ac6a76dd61d0ae",
+          "size": 3076,
+          "parent_sha256": null,
+          "archive": "shared/els_server/domain/chip_circuit_transfer_rules.py"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "sha256": "a6db53462c47cfabc9e2fcf676ec3bf0f3c8e98f7e6493f1db0433501c01d2e5",
+          "size": 159369,
+          "parent_sha256": "7d907ce5df04b9be1bed23c259a5d36999c5756523acb0aad6f1f255d8773325",
+          "archive": "local/els_server/domain/local_session.py"
+        },
+        {
+          "path": "els_server/protocol/chip_circuit_transfer_messages.py",
+          "sha256": "f4fd1d2e347df50bee11838e0342c67d7a2162b1f4eb9d5f0046ba44bfc9eaa7",
+          "size": 1349,
+          "parent_sha256": null,
+          "archive": "shared/els_server/protocol/chip_circuit_transfer_messages.py"
+        },
+        {
+          "path": "els_server/storage/chip_circuit_transfer.py",
+          "sha256": "e4d264f7c06feceb1567006113fc4d319f441271f94f666d0b716e2b03fb7066",
+          "size": 6790,
+          "parent_sha256": null,
+          "archive": "shared/els_server/storage/chip_circuit_transfer.py"
+        }
+      ]
+    }
+  },
+  "physical_source_files": 7,
+  "client_delta": 0,
+  "new_schema": false,
+  "install_DDL_statements": 0,
+  "runtime_overlay_not_main": true,
+  "private_configuration_or_player_data_included": false,
+  "final_parent_qualification_verified": true,
+  "qualification_sha256": "65883f4d6e742ac1d77f9537c32cb624c8dd55ef3cfe3a8d650b516fd1c2867d",
+  "runtime_binding_sha256": "9e19df65432f71e8346989a62e2af3acc33700bcc6676985d80253779a939199",
+  "auxiliary_files": [
+    {
+      "path": "qualification-summary.json",
+      "sha256": "956f6cef8b3c9baf887c6b7640d9aacd740769f3201a4d52cb3e35148da31b32"
+    },
+    {
+      "path": "README.txt",
+      "sha256": "43a3627032714106dd95dcf3de947b944767c09e1cb5fc0426e1a440735c77e0"
+    }
+  ],
+  "formal_deployed": false,
+  "whole_F_services_complete": false
+}

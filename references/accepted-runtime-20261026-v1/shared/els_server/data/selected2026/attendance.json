@@ -1,0 +1,388 @@
+{
+  "script_call": {
+    "function": "g_pCustomEventManager.SetAttendanceEvent20240411",
+    "arguments": [
+      {
+        "global": "g_pCustomEventManager"
+      },
+      {
+        "UIFileName": "STX_UI_AttendanceEvent202605",
+        "EDCost": 70000000,
+        "MaxPurchase": 21,
+        "MaxAttendance": 42,
+        "QuestID": {
+          "0": null,
+          "1": 166210
+        },
+        "Reward": {
+          "Day": {
+            "1": {
+              "Index": 0,
+              "RewardID": 8127
+            },
+            "2": {
+              "Index": 1,
+              "RewardID": 8128
+            },
+            "3": {
+              "Index": 2,
+              "RewardID": 8129
+            },
+            "4": {
+              "Index": 3,
+              "RewardID": 8130
+            },
+            "5": {
+              "Index": 4,
+              "RewardID": 8131
+            },
+            "6": {
+              "Index": 5,
+              "RewardID": 8132
+            },
+            "7": {
+              "Index": 6,
+              "RewardID": 8133
+            },
+            "8": {
+              "Index": 7,
+              "RewardID": 8134
+            },
+            "9": {
+              "Index": 8,
+              "RewardID": 8135
+            },
+            "10": {
+              "Index": 9,
+              "RewardID": 8136
+            },
+            "11": {
+              "Index": 10,
+              "RewardID": 8137
+            },
+            "12": {
+              "Index": 11,
+              "RewardID": 8138
+            },
+            "13": {
+              "Index": 12,
+              "RewardID": 8139
+            },
+            "14": {
+              "Index": 13,
+              "RewardID": 8140
+            },
+            "15": {
+              "Index": 14,
+              "RewardID": 8141
+            },
+            "16": {
+              "Index": 15,
+              "RewardID": 8142
+            },
+            "17": {
+              "Index": 16,
+              "RewardID": 8143
+            },
+            "18": {
+              "Index": 17,
+              "RewardID": 8144
+            },
+            "19": {
+              "Index": 18,
+              "RewardID": 8145
+            },
+            "20": {
+              "Index": 19,
+              "RewardID": 8146
+            },
+            "21": {
+              "Index": 20,
+              "RewardID": 8147
+            },
+            "22": {
+              "Index": 21,
+              "RewardID": 8148
+            },
+            "23": {
+              "Index": 22,
+              "RewardID": 8149
+            },
+            "24": {
+              "Index": 23,
+              "RewardID": 8150
+            },
+            "25": {
+              "Index": 24,
+              "RewardID": 8151
+            },
+            "26": {
+              "Index": 25,
+              "RewardID": 8152
+            },
+            "27": {
+              "Index": 26,
+              "RewardID": 8153
+            },
+            "28": {
+              "Index": 27,
+              "RewardID": 8154
+            },
+            "29": {
+              "Index": 28,
+              "RewardID": 8155
+            },
+            "30": {
+              "Index": 29,
+              "RewardID": 8156
+            },
+            "31": {
+              "Index": 30,
+              "RewardID": 8157
+            },
+            "32": {
+              "Index": 31,
+              "RewardID": 8158
+            },
+            "33": {
+              "Index": 32,
+              "RewardID": 8159
+            },
+            "34": {
+              "Index": 33,
+              "RewardID": 8160
+            },
+            "35": {
+              "Index": 34,
+              "RewardID": 8161
+            },
+            "36": {
+              "Index": 35,
+              "RewardID": 8162
+            },
+            "37": {
+              "Index": 36,
+              "RewardID": 8163
+            },
+            "38": {
+              "Index": 37,
+              "RewardID": 8164
+            },
+            "39": {
+              "Index": 38,
+              "RewardID": 8165
+            },
+            "40": {
+              "Index": 39,
+              "RewardID": 8166
+            },
+            "41": {
+              "Index": 40,
+              "RewardID": 8167
+            },
+            "42": {
+              "Index": 41,
+              "RewardID": 8168
+            }
+          }
+        }
+      }
+    ],
+    "pc": 5233
+  },
+  "icon": {
+    "CODE_EVENT_ID": 518,
+    "ICON_FILE_NAME": "STX_UI_Event_Icon_AttendanceEvent20240411.uit",
+    "EVENT_TYPE": 4,
+    "EVENT_ICON_SHOW_STATE": {
+      "1": 14,
+      "2": 15,
+      "3": 29,
+      "4": 16
+    }
+  },
+  "quest": {
+    "quest": {
+      "m_iEpisodeGroupID": 30004,
+      "m_fRandomRate": 0,
+      "m_iRandomGroupID": 0,
+      "m_iPlayLevel": 10,
+      "m_iID": 166210,
+      "m_iClearSubQuestCount": 1,
+      "m_iFairLevel": 10,
+      "m_eQuestType": 1,
+      "CHANGE_JOB_TYPE": 0,
+      "m_eStartNPCID": 0,
+      "m_eEndNPCID": 0,
+      "m_bIsAccount": 1,
+      "m_bIsPcBang": 0,
+      "m_bIsTimeEvent": 1,
+      "m_iFairDungeonID": {
+        "global": "DUNGEON_ID.DI_NONE"
+      },
+      "m_bRepeat": 1,
+      "m_eRepeatType": 1,
+      "QuestCondition": {
+        "m_iConditionItemNum": 0,
+        "m_iConditionItemID": 0,
+        "m_iLimitLevel": -1,
+        "m_iLevel": 10,
+        "m_iEnableVillage": {
+          "0": null,
+          "1": 0
+        },
+        "m_iEnableField": {},
+        "m_iEnableDungeon": {},
+        "m_eUnitType": {
+          "1": 0
+        },
+        "m_eUnitClass": {
+          "1": 0
+        },
+        "m_vecBeforeQuestID": {}
+      },
+      "m_vecSubQuest": {
+        "0": null,
+        "1": 1000005,
+        "2": 165620
+      },
+      "m_vecSubQuest_Group": {
+        "1": {
+          "0": null,
+          "1": 1000005,
+          "2": 165620
+        }
+      },
+      "Reward": {
+        "m_iSP": 0,
+        "m_iBuff": 0,
+        "m_iEP": 0,
+        "m_iED": 0,
+        "m_iEXP": 0,
+        "m_bEnable": 1,
+        "m_eChangeUnitClass": 0
+      },
+      "SelectReward": {
+        "m_iSelectionCount": 0
+      }
+    },
+    "translation": {
+      "m_wstrTitle_KR": "[EVENT] 헤지호그의 출석체크",
+      "m_wstrTitle": "[EVENT]胡巴的签到",
+      "m_wstrEpisodeGroupTitle_KR": "이벤트",
+      "m_iID": 166210,
+      "m_wstrEpisodeGroupTitle": "活动",
+      "m_iEpisodeGroupID": 30004,
+      "m_wstrMainText": "每天签到，获得魔法衣橱券吧！\n\n只要完成以下两个条件中其中一个就能完成任务。\n-通关5次适当等级副本\n-累计在线60分钟"
+    },
+    "subquests": [
+      {
+        "definition": {
+          "m_iID": 1000005,
+          "m_eClearType": 32,
+          "m_bAutomaticDescription": 0,
+          "m_ClearCondition": {
+            "m_iDungeonClearCount": 5,
+            "m_eExceptionDungeonID": {
+              "0": null,
+              "1": 41400,
+              "2": 130000,
+              "3": 130010,
+              "4": 130020,
+              "5": 130030,
+              "6": 130040,
+              "7": 130050,
+              "8": 130060,
+              "9": 130070,
+              "10": 130080,
+              "11": 130090,
+              "12": 130100,
+              "13": 130110,
+              "14": 130120,
+              "15": 130130,
+              "16": 130140,
+              "17": 130150,
+              "18": 130160,
+              "19": 130170,
+              "20": 130180,
+              "21": 130190,
+              "22": 130200,
+              "23": 130210,
+              "24": 130220,
+              "25": 130230,
+              "26": 130240,
+              "27": 130250,
+              "28": 130260,
+              "29": 130270,
+              "30": 130280,
+              "31": 130290,
+              "32": 130300,
+              "33": 130310,
+              "34": 41560,
+              "35": 41550,
+              "36": 41580,
+              "37": 41590,
+              "38": 41600,
+              "39": 41480,
+              "40": 41490,
+              "41": 41500,
+              "42": 41510,
+              "43": 41150,
+              "44": 41160,
+              "45": 41170,
+              "46": 41180,
+              "47": 41190,
+              "48": 41210,
+              "49": 41290,
+              "50": 41220,
+              "51": 41230,
+              "52": 41240,
+              "53": 41250,
+              "54": 41420,
+              "55": 41131,
+              "56": 41130,
+              "57": 41120,
+              "58": 38300,
+              "59": 38301,
+              "60": 38302,
+              "61": 38100,
+              "62": 38020,
+              "63": 34070,
+              "64": 30000,
+              "65": 30080,
+              "66": 30081,
+              "67": 30082,
+              "68": 30090,
+              "69": 30091,
+              "70": 30092,
+              "71": 41590,
+              "72": 41600,
+              "73": 41610,
+              "74": 35870,
+              "75": 35880
+            }
+          }
+        },
+        "translation": {
+          "m_iID": 1000005,
+          "m_wstrDescription": "通关适当等级副本"
+        }
+      },
+      {
+        "definition": {
+          "m_iID": 165620,
+          "m_eClearType": 102,
+          "m_bAutomaticDescription": 0,
+          "m_ClearCondition": {
+            "m_iClearCount": 60
+          }
+        },
+        "translation": {
+          "m_iID": 165620,
+          "m_wstrDescription": "累计在线60分钟"
+        }
+      }
+    ]
+  },
+  "scope": "Staticfixedclientdefinitions,notproofofwireconsumptionorservereligibility"
+}

@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "scope": "Permanent ticket consumers for35100/35360 and four exact existing source pools; no natural battle claim",
+  "new_tables": 2,
+  "new_schema_definitions": 2,
+  "install_DDL": 0,
+  "lazy_business_DDL": true,
+  "consumer_maps": [
+    35100,
+    35360
+  ],
+  "source_118341_solo_and_group": [
+    35080,
+    35090
+  ],
+  "source_118651_group_only": [
+    35340,
+    35350
+  ],
+  "source_pool_rule": "Existing total10percent rule unchanged; 35340/35350 solo source stays false",
+  "excluded": [
+    "Aurora711786/free-count DCC20",
+    "RedTrace135909/reset",
+    "change-force materials135911/136174"
+  ],
+  "shared_files": 8,
+  "channel_specific_each": 2,
+  "channels": {
+    "online": {
+      "parent_release": "native-clock-force-20261026-v1",
+      "parent_manifest_name": "rollup-manifest.json",
+      "parent_manifest_sha256": "b302076617bf11a8c69cb0162519e673ad0c1bb91d2ec626b639c0123e3e2a72",
+      "runtime_leaves": [
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.json",
+          "sha256": "d544e8097283c1345bfdd393d921683f7b680a7638d14fa975b9e6008f3df6a3",
+          "size": 188470,
+          "parent_sha256": "f0e192f093df4f936f7ef3ce183976d5dd7af8037d10e18b4323f86bc5234ddb",
+          "new_file": false
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "e9e0c10e866be6e58040ccd24550dd69ea95ce456f6484ecd0f676b8dabc5f04",
+          "size": 189,
+          "parent_sha256": "90c421fe16fdb05099a0ed2a017813fd6b16210fafbdf636de346da76a7873b0",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/formal_pve_economy.py",
+          "archive_path": "shared/els_server/domain/formal_pve_economy.py",
+          "sha256": "2016cd33e20256ac2f7e07cf456c0622c4c57390a0004edd3e05f1303da89a15",
+          "size": 4565,
+          "parent_sha256": "68d1bae8bd8392c9f67fddf6ea9d7e2a493d27f42ba603e8180cdd10d6b80acb",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/friends_dungeon.py",
+          "archive_path": "shared/els_server/domain/friends_dungeon.py",
+          "sha256": "0a2b500fd2fae6614ed973d47bc0bed71f03cf3fcabe3e0c9b1495d188598dee",
+          "size": 29047,
+          "parent_sha256": "a6d1abcccddca5f5a387206520409d4e22434861d348ab595cdf416af3a79c87",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "archive_path": "online/els_server/domain/inventory_items.py",
+          "sha256": "32a60d565eee1515721d98ddebc6cb58d6488538a675f2d8e5be7e1fb2ad90b0",
+          "size": 71728,
+          "parent_sha256": "cf2d6265033213eeb50ed997e0c02c767cad408ec3b6dbb5472de5047dc49845",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive_path": "online/els_server/domain/local_session.py",
+          "sha256": "bec42d17d91659f06f7b006ba422a7e3663d2cc62088766b7c099600b39688a8",
+          "size": 165984,
+          "parent_sha256": "e5e4ae19bb97ea5ad27f50730fdcabe0f8ba53bb2b18eb30277ae8329e418263",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/native_ticket_admission.py",
+          "archive_path": "shared/els_server/domain/native_ticket_admission.py",
+          "sha256": "b60a10528bf36550bec472f0a6f938e3f71b3d6cf2cb098d5960ee52587450f1",
+          "size": 3675,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/native_ticket_rules.py",
+          "archive_path": "shared/els_server/domain/native_ticket_rules.py",
+          "sha256": "c87f17bc59860ac0dcc0d0c22b8ee942ccb08c06a11c5f7fc8afbc4459bd1a1c",
+          "size": 2761,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/protocol/dungeon_messages.py",
+          "archive_path": "shared/els_server/protocol/dungeon_messages.py",
+          "sha256": "e1797afc8995c5b094414ba0bfccc4f550fa7b0cc5cd8eb27549cfa0dd3532cc",
+          "size": 14789,
+          "parent_sha256": "446ca5786e7354a8843c181f716406921e5076e5ec3effc58ae9906773d3559b",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/native_dungeon_tickets.py",
+          "archive_path": "shared/els_server/storage/native_dungeon_tickets.py",
+          "sha256": "c17cc71ec44b6a11ffbcddf35396744f374a69aebdc93cf9ec8e518d6eef6f29",
+          "size": 8392,
+          "parent_sha256": null,
+          "new_file": true
+        }
+      ],
+      "preserved_parent_rows": {
+        "els_server/data/boosting2026-force-inventory.json": "31ec4798959d647f5849d292857c84a55a94440de0a397a33ac7ada196889634",
+        "els_server/protocol/local_messages.py": "a8e8e4011ed8986d4fbfb67fff2d80b6a7e988889e6cc562f0c3e1240a4dbb33",
+        "els_server/storage/force_rank4_schema.py": "67585448ff2278e95b0539b55cf902a072380224c95a0bbac18094742c74a348",
+        "els_server/storage/boosting_2026_force_extraction.py": "dabbc5a0bd7c5f98ef03606f586e18b85b1c50ae032369694682870bcb3175ab",
+        "config/combat_rules.json": "7ce1ed5eed7ffceccc1769af6a6b8d006da311095ea63aff5f7c3cf91e729906",
+        "els_server/domain/character_stats.py": "296f7e129102acb78fa12567afb478f20998dd9e5de5db547468992145b8fa3d",
+        "els_server/domain/native_character_base.py": "cce13c16165bc61ef1a4b19a21d8791d9c3338dc366a0946d38bfed797ce7535"
+      }
+    },
+    "local": {
+      "parent_release": "local-native-clock-force-20261026-v1",
+      "parent_manifest_name": "local-business-manifest.json",
+      "parent_manifest_sha256": "bc3fd813957f16aa6d1298f0825e50c05ac2b5cb947f556398d94fcfa1921dc0",
+      "runtime_leaves": [
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.json",
+          "sha256": "d544e8097283c1345bfdd393d921683f7b680a7638d14fa975b9e6008f3df6a3",
+          "size": 188470,
+          "parent_sha256": "f0e192f093df4f936f7ef3ce183976d5dd7af8037d10e18b4323f86bc5234ddb",
+          "new_file": false
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "archive_path": "shared/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "e9e0c10e866be6e58040ccd24550dd69ea95ce456f6484ecd0f676b8dabc5f04",
+          "size": 189,
+          "parent_sha256": "90c421fe16fdb05099a0ed2a017813fd6b16210fafbdf636de346da76a7873b0",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/formal_pve_economy.py",
+          "archive_path": "shared/els_server/domain/formal_pve_economy.py",
+          "sha256": "2016cd33e20256ac2f7e07cf456c0622c4c57390a0004edd3e05f1303da89a15",
+          "size": 4565,
+          "parent_sha256": "68d1bae8bd8392c9f67fddf6ea9d7e2a493d27f42ba603e8180cdd10d6b80acb",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/friends_dungeon.py",
+          "archive_path": "shared/els_server/domain/friends_dungeon.py",
+          "sha256": "0a2b500fd2fae6614ed973d47bc0bed71f03cf3fcabe3e0c9b1495d188598dee",
+          "size": 29047,
+          "parent_sha256": "a6d1abcccddca5f5a387206520409d4e22434861d348ab595cdf416af3a79c87",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "archive_path": "local/els_server/domain/inventory_items.py",
+          "sha256": "47679deab8a7fe47abfc157345144a1debb1296aa27ca893f77e6e7d8bcdb2ad",
+          "size": 71571,
+          "parent_sha256": "af4ed938d9189da644c326c546ce5ed3487590206b8c0a465b7f90dca6ffe88f",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive_path": "local/els_server/domain/local_session.py",
+          "sha256": "755daae8018923b97ec4bd1e3007363f7f0a88fce6aa6bcc474ad8a4b5892335",
+          "size": 163486,
+          "parent_sha256": "f2cc5b44520f46de2e96c8082c5970fb8538dde89f341ad6a5123fea7d65b1d2",
+          "new_file": false
+        },
+        {
+          "path": "els_server/domain/native_ticket_admission.py",
+          "archive_path": "shared/els_server/domain/native_ticket_admission.py",
+          "sha256": "b60a10528bf36550bec472f0a6f938e3f71b3d6cf2cb098d5960ee52587450f1",
+          "size": 3675,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/domain/native_ticket_rules.py",
+          "archive_path": "shared/els_server/domain/native_ticket_rules.py",
+          "sha256": "c87f17bc59860ac0dcc0d0c22b8ee942ccb08c06a11c5f7fc8afbc4459bd1a1c",
+          "size": 2761,
+          "parent_sha256": null,
+          "new_file": true
+        },
+        {
+          "path": "els_server/protocol/dungeon_messages.py",
+          "archive_path": "shared/els_server/protocol/dungeon_messages.py",
+          "sha256": "e1797afc8995c5b094414ba0bfccc4f550fa7b0cc5cd8eb27549cfa0dd3532cc",
+          "size": 14789,
+          "parent_sha256": "446ca5786e7354a8843c181f716406921e5076e5ec3effc58ae9906773d3559b",
+          "new_file": false
+        },
+        {
+          "path": "els_server/storage/native_dungeon_tickets.py",
+          "archive_path": "shared/els_server/storage/native_dungeon_tickets.py",
+          "sha256": "c17cc71ec44b6a11ffbcddf35396744f374a69aebdc93cf9ec8e518d6eef6f29",
+          "size": 8392,
+          "parent_sha256": null,
+          "new_file": true
+        }
+      ],
+      "preserved_parent_rows": {
+        "els_server/data/boosting2026-force-inventory.json": "31ec4798959d647f5849d292857c84a55a94440de0a397a33ac7ada196889634",
+        "els_server/protocol/local_messages.py": "a8e8e4011ed8986d4fbfb67fff2d80b6a7e988889e6cc562f0c3e1240a4dbb33",
+        "els_server/storage/force_rank4_schema.py": "67585448ff2278e95b0539b55cf902a072380224c95a0bbac18094742c74a348",
+        "els_server/storage/boosting_2026_force_extraction.py": "dabbc5a0bd7c5f98ef03606f586e18b85b1c50ae032369694682870bcb3175ab",
+        "config/combat_rules.json": "7ce1ed5eed7ffceccc1769af6a6b8d006da311095ea63aff5f7c3cf91e729906",
+        "els_server/domain/character_stats.py": "296f7e129102acb78fa12567afb478f20998dd9e5de5db547468992145b8fa3d",
+        "els_server/domain/native_character_base.py": "cce13c16165bc61ef1a4b19a21d8791d9c3338dc366a0946d38bfed797ce7535"
+      }
+    }
+  }
+}

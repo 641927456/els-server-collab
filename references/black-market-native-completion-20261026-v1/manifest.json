@@ -1,0 +1,575 @@
+{
+  "schema": 1,
+  "issue": 505,
+  "kind": "paired independent business-source archive with unchanged relative data dependencies",
+  "source_paths": [
+    "els_server/application.py",
+    "els_server/data/black_market.json",
+    "els_server/data/black_market_boxes.json",
+    "els_server/data/cartridge_recipe679.json",
+    "els_server/data/market_conversion.json",
+    "els_server/data/sage_sockets.json",
+    "els_server/domain/acquisition_policy.py",
+    "els_server/domain/black_market_box_flow.py",
+    "els_server/domain/black_market_box_rules.py",
+    "els_server/domain/black_market_flow.py",
+    "els_server/domain/black_market_rules.py",
+    "els_server/domain/cartridge_recipe679_rules.py",
+    "els_server/domain/inventory_items.py",
+    "els_server/domain/local_session.py",
+    "els_server/domain/luciel_state.py",
+    "els_server/domain/market_conversion_flow.py",
+    "els_server/domain/market_conversion_rules.py",
+    "els_server/domain/sage_sockets.py",
+    "els_server/protocol/black_market_messages.py",
+    "els_server/protocol/market_conversion_messages.py",
+    "els_server/storage/black_market_boxes.py",
+    "els_server/storage/black_market_mail.py",
+    "els_server/storage/black_market_state.py",
+    "els_server/storage/character_lifecycle.py",
+    "els_server/storage/inventory_state.py",
+    "els_server/storage/market_conversion.py",
+    "els_server/storage/market_conversion_pending.py",
+    "els_server/storage/player_mail.py",
+    "els_server/storage/raid_economy_state.py",
+    "els_server/storage/spell_socket_pending.py"
+  ],
+  "client_delta": 0,
+  "install_DDL_statements": 0,
+  "runtime_overlay_not_main": true,
+  "private_configuration_or_player_data_included": false,
+  "candidate_binding_sha256": "224657fb41a3a8a804b1ba35f63cce8a81b8d720096a83b4342640379cc03667",
+  "final_parent_qualification_verified": true,
+  "six_coupon_files": [
+    {
+      "path": "els_server/data/market_conversion.json",
+      "sha256": "6f83afbe5acb350392a255e91853aa4b69b310940f9fbb673078a3e04bbe5f10"
+    },
+    {
+      "path": "els_server/domain/market_conversion_flow.py",
+      "sha256": "30f616ef31b20421c8502dfbfde85911bf8d22e576943211ae5ee5fe78c71f24"
+    },
+    {
+      "path": "els_server/domain/market_conversion_rules.py",
+      "sha256": "fc32fc04d4b5af545c8d70750015f1167c8623aae3512ad69c5a950fcaa57885"
+    },
+    {
+      "path": "els_server/protocol/market_conversion_messages.py",
+      "sha256": "769089407a92b3d45918687ee81cb709c5cd14531b55a0a3728ad3182f88818b"
+    },
+    {
+      "path": "els_server/storage/market_conversion.py",
+      "sha256": "b809de62dd8c6765b1e205cbd4465eb99258ff73e588958592f5623bda064a39"
+    },
+    {
+      "path": "els_server/storage/market_conversion_pending.py",
+      "sha256": "a6699033eb7dfe9de5983b3bd94d3e202a4dbfba6df986a29c645a20403ce159"
+    }
+  ],
+  "channels": {
+    "online": {
+      "parent_release": "town-warp-native-entry-20261026-v1",
+      "parent_manifest_sha256": "f28ab5482288198d879254c658d7b67ba41490d65650f11e6335ff74794b7c86",
+      "files": [
+        {
+          "path": "els_server/application.py",
+          "archive": "online/els_server/application.py",
+          "size": 17964,
+          "sha256": "e8fcad450f41739679fe8dd06e4917632250d1f68ce2ff222ff78c9c450336bc",
+          "parent_sha256": "75bad1fa15a162290bbab2486fa718302c5b01c19040fb2de8a7a4891c8559dd",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/data/black_market.json",
+          "archive": "shared/els_server/data/black_market.json",
+          "size": 13227,
+          "sha256": "177ef8189e21aa15afdc64591c7df2aa5c6fe838ed16117249b1f8d270992135",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/data/black_market_boxes.json",
+          "archive": "shared/els_server/data/black_market_boxes.json",
+          "size": 237563,
+          "sha256": "9c3ab930bcfd99f4379274fd8dd8f9d4222b99cbaf643a491bfd4492e2fe0d80",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/data/cartridge_recipe679.json",
+          "archive": "shared/els_server/data/cartridge_recipe679.json",
+          "size": 1120,
+          "sha256": "b94429937b28a6d382e2383639a966ce66bc7ddcc65a30433b8e44278af837fb",
+          "parent_sha256": "b94429937b28a6d382e2383639a966ce66bc7ddcc65a30433b8e44278af837fb",
+          "change_status": "unchanged_dependency"
+        },
+        {
+          "path": "els_server/data/market_conversion.json",
+          "archive": "shared/els_server/data/market_conversion.json",
+          "size": 45471,
+          "sha256": "6f83afbe5acb350392a255e91853aa4b69b310940f9fbb673078a3e04bbe5f10",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/data/sage_sockets.json",
+          "archive": "shared/els_server/data/sage_sockets.json",
+          "size": 81141,
+          "sha256": "d4a62b3d7ca911ebd36aa4760702eca667b63f7f1dcd8af8f784044bbdd982ad",
+          "parent_sha256": "d4a62b3d7ca911ebd36aa4760702eca667b63f7f1dcd8af8f784044bbdd982ad",
+          "change_status": "unchanged_dependency"
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive": "online/els_server/domain/acquisition_policy.py",
+          "size": 8732,
+          "sha256": "f64bc9ba860e102d76d3ccbdf12e7078209d7b74af14743b9dfcbf747b204405",
+          "parent_sha256": "06d66b2f5bf93f54e4bb999b527fc977e1fa8752d1bb558e7e16b6ad03e1634b",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/domain/black_market_box_flow.py",
+          "archive": "shared/els_server/domain/black_market_box_flow.py",
+          "size": 2654,
+          "sha256": "a403e97b357bfa9ef1deafe119094a0dcb23632501655a4d32c494a66477fbae",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/domain/black_market_box_rules.py",
+          "archive": "shared/els_server/domain/black_market_box_rules.py",
+          "size": 4926,
+          "sha256": "d0ad49f336701543ae860f78e3327c2d78c7c0ff8ae95ad8a744725a5b522756",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/domain/black_market_flow.py",
+          "archive": "shared/els_server/domain/black_market_flow.py",
+          "size": 15861,
+          "sha256": "fd587359872caa5bf992f13d8978c684ea453924e58818989387289dbaf676da",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/domain/black_market_rules.py",
+          "archive": "shared/els_server/domain/black_market_rules.py",
+          "size": 3001,
+          "sha256": "d49059772aaa1259c65b19ac214eb09dc71009853d1df2d6a33f86313f7e622c",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/domain/cartridge_recipe679_rules.py",
+          "archive": "shared/els_server/domain/cartridge_recipe679_rules.py",
+          "size": 12000,
+          "sha256": "89dcbfda2d89e5364773b1dbe2e134d971da277e0c012f7d1a64364f7cd67d2a",
+          "parent_sha256": "2303a678bd07492f82e87af8e0f6cc321fe4fc05ee0aaed7c91f42ecbfce8099",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "archive": "online/els_server/domain/inventory_items.py",
+          "size": 68342,
+          "sha256": "cdba538330efe1517e3c20b2afa3917128d7b13ba25b862268b7dc1d9134e976",
+          "parent_sha256": "43342bb6fa903a8d6b8b9bb5a72d72ed62953d662301a3a5f4df2ebedbb8c8f0",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive": "online/els_server/domain/local_session.py",
+          "size": 161368,
+          "sha256": "795fb3f774d43653880af95b058ef02e0d45c1a7b09c852440a6232f388a96f5",
+          "parent_sha256": "c06b27b915ea5eab5573c96deafba5781c67eb8502aaf2725b7670abb6360ee7",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/domain/luciel_state.py",
+          "archive": "shared/els_server/domain/luciel_state.py",
+          "size": 16105,
+          "sha256": "f30588ea245ef0003bcca620031fc32f1ad7595b4c2b05022835d8747b8cecb8",
+          "parent_sha256": "d466179285f9ea025d171d2ffc6f1dc4e0e837143cfd5bd14796e1151a29fc28",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/domain/market_conversion_flow.py",
+          "archive": "shared/els_server/domain/market_conversion_flow.py",
+          "size": 1349,
+          "sha256": "30f616ef31b20421c8502dfbfde85911bf8d22e576943211ae5ee5fe78c71f24",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/domain/market_conversion_rules.py",
+          "archive": "shared/els_server/domain/market_conversion_rules.py",
+          "size": 2916,
+          "sha256": "fc32fc04d4b5af545c8d70750015f1167c8623aae3512ad69c5a950fcaa57885",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/domain/sage_sockets.py",
+          "archive": "shared/els_server/domain/sage_sockets.py",
+          "size": 6086,
+          "sha256": "280bae10f5c855c4128b6c977e381b2a6c1264dbfed437fdc8152e86068ea86e",
+          "parent_sha256": "98cdae30f9784ff4966a75c69602e4b40bbba133f535e78f8cc8c9d2b0e32598",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/protocol/black_market_messages.py",
+          "archive": "shared/els_server/protocol/black_market_messages.py",
+          "size": 3139,
+          "sha256": "9d23d9287028228393d8e53d46c627bd6cbab2bba533dde07f59baa16d9bbde1",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/protocol/market_conversion_messages.py",
+          "archive": "shared/els_server/protocol/market_conversion_messages.py",
+          "size": 1252,
+          "sha256": "769089407a92b3d45918687ee81cb709c5cd14531b55a0a3728ad3182f88818b",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/storage/black_market_boxes.py",
+          "archive": "shared/els_server/storage/black_market_boxes.py",
+          "size": 3423,
+          "sha256": "d0ad0753173d91a0eb8addd9f8b605a3607be61cd992a5435e327753fc2dbfce",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/storage/black_market_mail.py",
+          "archive": "shared/els_server/storage/black_market_mail.py",
+          "size": 4619,
+          "sha256": "1baa462c36422cc8af3548666dd37b20986eb63900b5d9ccedcf03109b91df93",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/storage/black_market_state.py",
+          "archive": "shared/els_server/storage/black_market_state.py",
+          "size": 8843,
+          "sha256": "ac54f170414a9d55e5a5076783fef71a772b05987b34a1b6216891c50724d4eb",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/storage/character_lifecycle.py",
+          "archive": "shared/els_server/storage/character_lifecycle.py",
+          "size": 7173,
+          "sha256": "e478ba74c1cae89c14f48b8ddc77afac35c58e42dbd978494b602d922f31a7a9",
+          "parent_sha256": "158dfc1823425bf4f6951a0c8c14598da432f39e5674ae5c3863cdfa931587c6",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/storage/inventory_state.py",
+          "archive": "shared/els_server/storage/inventory_state.py",
+          "size": 23597,
+          "sha256": "0b4e9785555964408117707347988902d20c977ba31f6f14220f0c865cf9c315",
+          "parent_sha256": "7c4f8b2d4fee85f1e0328e3eb9f9e8970abfface94c5914ba147a2653eb57334",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/storage/market_conversion.py",
+          "archive": "shared/els_server/storage/market_conversion.py",
+          "size": 6786,
+          "sha256": "b809de62dd8c6765b1e205cbd4465eb99258ff73e588958592f5623bda064a39",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/storage/market_conversion_pending.py",
+          "archive": "shared/els_server/storage/market_conversion_pending.py",
+          "size": 2093,
+          "sha256": "a6699033eb7dfe9de5983b3bd94d3e202a4dbfba6df986a29c645a20403ce159",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/storage/player_mail.py",
+          "archive": "shared/els_server/storage/player_mail.py",
+          "size": 13420,
+          "sha256": "049614027c4fe5e03ac38f15c492c9b3eab10678dd62623696bc70503ba60401",
+          "parent_sha256": "3699974496554491c5dd5b086c0ab460d7556d0202e194badb820755f020e1f8",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/storage/raid_economy_state.py",
+          "archive": "shared/els_server/storage/raid_economy_state.py",
+          "size": 10981,
+          "sha256": "3dc8b69c9fc0328bf1046617242098f7c28c09b764ebd819c0f60b2992760928",
+          "parent_sha256": "4146c6762efe7f0b383239982f2cc4a17f595c2502952895b1983266ab289fb5",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/storage/spell_socket_pending.py",
+          "archive": "shared/els_server/storage/spell_socket_pending.py",
+          "size": 3142,
+          "sha256": "b529821627cbbfc370afe51a2585aff952692759cc02fe4d20c40b06c2770caa",
+          "parent_sha256": "32c9f6ee708ac9fbcd5bbcf9c6d1d00be7fb3d4fcf9117707e874c76e1bef3af",
+          "change_status": "changed"
+        }
+      ]
+    },
+    "local": {
+      "parent_release": "local-town-warp-native-entry-20261026-v1",
+      "parent_manifest_sha256": "df5890c380336846a1b6745fa886a9c3434cf2f971d4b101ea17cda2a8c0eac1",
+      "files": [
+        {
+          "path": "els_server/application.py",
+          "archive": "local/els_server/application.py",
+          "size": 17673,
+          "sha256": "0ac8f4dcbb4713fbe8427910a456bf6a8f8780766b03f771b6b59345ccfa67b8",
+          "parent_sha256": "cf8b678bbbb530b4353e49c6f39ddf91fca6a1b13ed6cc6c3e3156f240fc6b25",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/data/black_market.json",
+          "archive": "shared/els_server/data/black_market.json",
+          "size": 13227,
+          "sha256": "177ef8189e21aa15afdc64591c7df2aa5c6fe838ed16117249b1f8d270992135",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/data/black_market_boxes.json",
+          "archive": "shared/els_server/data/black_market_boxes.json",
+          "size": 237563,
+          "sha256": "9c3ab930bcfd99f4379274fd8dd8f9d4222b99cbaf643a491bfd4492e2fe0d80",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/data/cartridge_recipe679.json",
+          "archive": "shared/els_server/data/cartridge_recipe679.json",
+          "size": 1120,
+          "sha256": "b94429937b28a6d382e2383639a966ce66bc7ddcc65a30433b8e44278af837fb",
+          "parent_sha256": "b94429937b28a6d382e2383639a966ce66bc7ddcc65a30433b8e44278af837fb",
+          "change_status": "unchanged_dependency"
+        },
+        {
+          "path": "els_server/data/market_conversion.json",
+          "archive": "shared/els_server/data/market_conversion.json",
+          "size": 45471,
+          "sha256": "6f83afbe5acb350392a255e91853aa4b69b310940f9fbb673078a3e04bbe5f10",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/data/sage_sockets.json",
+          "archive": "shared/els_server/data/sage_sockets.json",
+          "size": 81141,
+          "sha256": "d4a62b3d7ca911ebd36aa4760702eca667b63f7f1dcd8af8f784044bbdd982ad",
+          "parent_sha256": "d4a62b3d7ca911ebd36aa4760702eca667b63f7f1dcd8af8f784044bbdd982ad",
+          "change_status": "unchanged_dependency"
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "archive": "local/els_server/domain/acquisition_policy.py",
+          "size": 8572,
+          "sha256": "a270852ca690582f2c7ccc1c9aebc2cbc9daff25554d1daf3abb675f023eb272",
+          "parent_sha256": "3798d3334baa57f9e723e90c43877a314307801968ae534b962c10373f86509c",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/domain/black_market_box_flow.py",
+          "archive": "shared/els_server/domain/black_market_box_flow.py",
+          "size": 2654,
+          "sha256": "a403e97b357bfa9ef1deafe119094a0dcb23632501655a4d32c494a66477fbae",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/domain/black_market_box_rules.py",
+          "archive": "shared/els_server/domain/black_market_box_rules.py",
+          "size": 4926,
+          "sha256": "d0ad49f336701543ae860f78e3327c2d78c7c0ff8ae95ad8a744725a5b522756",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/domain/black_market_flow.py",
+          "archive": "shared/els_server/domain/black_market_flow.py",
+          "size": 15861,
+          "sha256": "fd587359872caa5bf992f13d8978c684ea453924e58818989387289dbaf676da",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/domain/black_market_rules.py",
+          "archive": "shared/els_server/domain/black_market_rules.py",
+          "size": 3001,
+          "sha256": "d49059772aaa1259c65b19ac214eb09dc71009853d1df2d6a33f86313f7e622c",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/domain/cartridge_recipe679_rules.py",
+          "archive": "shared/els_server/domain/cartridge_recipe679_rules.py",
+          "size": 12000,
+          "sha256": "89dcbfda2d89e5364773b1dbe2e134d971da277e0c012f7d1a64364f7cd67d2a",
+          "parent_sha256": "2303a678bd07492f82e87af8e0f6cc321fe4fc05ee0aaed7c91f42ecbfce8099",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "archive": "local/els_server/domain/inventory_items.py",
+          "size": 68185,
+          "sha256": "bc5b02fc1669ee69e4845d21314ab5044d0cd887cfacca353addb91c0b05564c",
+          "parent_sha256": "5abe1c80e7d51543e698621321f24ba3c8a42fe6b6fe06b0f097309e2fb4f631",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "archive": "local/els_server/domain/local_session.py",
+          "size": 158870,
+          "sha256": "d48d707e608380385be90bd4bdeede51b02751c1cc9364f6635810980044036c",
+          "parent_sha256": "53370387be3f75332d37c9ab3a8a0b202b9e4b4eb72267dc330cf6ef8fda1389",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/domain/luciel_state.py",
+          "archive": "shared/els_server/domain/luciel_state.py",
+          "size": 16105,
+          "sha256": "f30588ea245ef0003bcca620031fc32f1ad7595b4c2b05022835d8747b8cecb8",
+          "parent_sha256": "d466179285f9ea025d171d2ffc6f1dc4e0e837143cfd5bd14796e1151a29fc28",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/domain/market_conversion_flow.py",
+          "archive": "shared/els_server/domain/market_conversion_flow.py",
+          "size": 1349,
+          "sha256": "30f616ef31b20421c8502dfbfde85911bf8d22e576943211ae5ee5fe78c71f24",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/domain/market_conversion_rules.py",
+          "archive": "shared/els_server/domain/market_conversion_rules.py",
+          "size": 2916,
+          "sha256": "fc32fc04d4b5af545c8d70750015f1167c8623aae3512ad69c5a950fcaa57885",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/domain/sage_sockets.py",
+          "archive": "shared/els_server/domain/sage_sockets.py",
+          "size": 6086,
+          "sha256": "280bae10f5c855c4128b6c977e381b2a6c1264dbfed437fdc8152e86068ea86e",
+          "parent_sha256": "bd378f1ab9cedfb948986d211c842ec681dd15ddb5319d840aa8e09f03ae8c07",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/protocol/black_market_messages.py",
+          "archive": "shared/els_server/protocol/black_market_messages.py",
+          "size": 3139,
+          "sha256": "9d23d9287028228393d8e53d46c627bd6cbab2bba533dde07f59baa16d9bbde1",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/protocol/market_conversion_messages.py",
+          "archive": "shared/els_server/protocol/market_conversion_messages.py",
+          "size": 1252,
+          "sha256": "769089407a92b3d45918687ee81cb709c5cd14531b55a0a3728ad3182f88818b",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/storage/black_market_boxes.py",
+          "archive": "shared/els_server/storage/black_market_boxes.py",
+          "size": 3423,
+          "sha256": "d0ad0753173d91a0eb8addd9f8b605a3607be61cd992a5435e327753fc2dbfce",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/storage/black_market_mail.py",
+          "archive": "shared/els_server/storage/black_market_mail.py",
+          "size": 4619,
+          "sha256": "1baa462c36422cc8af3548666dd37b20986eb63900b5d9ccedcf03109b91df93",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/storage/black_market_state.py",
+          "archive": "shared/els_server/storage/black_market_state.py",
+          "size": 8843,
+          "sha256": "ac54f170414a9d55e5a5076783fef71a772b05987b34a1b6216891c50724d4eb",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/storage/character_lifecycle.py",
+          "archive": "shared/els_server/storage/character_lifecycle.py",
+          "size": 7173,
+          "sha256": "e478ba74c1cae89c14f48b8ddc77afac35c58e42dbd978494b602d922f31a7a9",
+          "parent_sha256": "158dfc1823425bf4f6951a0c8c14598da432f39e5674ae5c3863cdfa931587c6",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/storage/inventory_state.py",
+          "archive": "shared/els_server/storage/inventory_state.py",
+          "size": 23597,
+          "sha256": "0b4e9785555964408117707347988902d20c977ba31f6f14220f0c865cf9c315",
+          "parent_sha256": "7c4f8b2d4fee85f1e0328e3eb9f9e8970abfface94c5914ba147a2653eb57334",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/storage/market_conversion.py",
+          "archive": "shared/els_server/storage/market_conversion.py",
+          "size": 6786,
+          "sha256": "b809de62dd8c6765b1e205cbd4465eb99258ff73e588958592f5623bda064a39",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/storage/market_conversion_pending.py",
+          "archive": "shared/els_server/storage/market_conversion_pending.py",
+          "size": 2093,
+          "sha256": "a6699033eb7dfe9de5983b3bd94d3e202a4dbfba6df986a29c645a20403ce159",
+          "parent_sha256": null,
+          "change_status": "new"
+        },
+        {
+          "path": "els_server/storage/player_mail.py",
+          "archive": "shared/els_server/storage/player_mail.py",
+          "size": 13420,
+          "sha256": "049614027c4fe5e03ac38f15c492c9b3eab10678dd62623696bc70503ba60401",
+          "parent_sha256": "3699974496554491c5dd5b086c0ab460d7556d0202e194badb820755f020e1f8",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/storage/raid_economy_state.py",
+          "archive": "shared/els_server/storage/raid_economy_state.py",
+          "size": 10981,
+          "sha256": "3dc8b69c9fc0328bf1046617242098f7c28c09b764ebd819c0f60b2992760928",
+          "parent_sha256": "4146c6762efe7f0b383239982f2cc4a17f595c2502952895b1983266ab289fb5",
+          "change_status": "changed"
+        },
+        {
+          "path": "els_server/storage/spell_socket_pending.py",
+          "archive": "shared/els_server/storage/spell_socket_pending.py",
+          "size": 3142,
+          "sha256": "b529821627cbbfc370afe51a2585aff952692759cc02fe4d20c40b06c2770caa",
+          "parent_sha256": "32c9f6ee708ac9fbcd5bbcf9c6d1d00be7fb3d4fcf9117707e874c76e1bef3af",
+          "change_status": "changed"
+        }
+      ]
+    }
+  },
+  "auxiliary_files": [
+    {
+      "path": "README.txt",
+      "sha256": "5979db5a561c221985dd4de6fe448c1b16ba72fa683cc6e0ebd19b7d04325fe1"
+    },
+    {
+      "path": "qualification-summary.json",
+      "sha256": "abe7a1edce6e4705ae4f5a3c4046ee93a08148e69a917e8944878e1ea70091e9"
+    }
+  ],
+  "physical_source_files": 34,
+  "qualification_sha256": "63fe7989f1fee33800ced411bcea2bb599e43cb1736e1f58401fdc72e2b3455e"
+}

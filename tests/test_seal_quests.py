@@ -30,7 +30,7 @@ class SealQuestTests(unittest.TestCase):
 
     def action(self,kind,qid):
         self.seq+=1;q=quest_catalog().quest(qid)
-        payload=struct.pack('>ii',qid,10025) if kind==0xee else struct.pack('>iiI5B',qid,q['m_eEndNPCID'],0,0,1,1,1,0) if kind==0xf4 else struct.pack('>i',qid)
+        payload=struct.pack('>ii',qid,10025) if kind==0xee else struct.pack('>iiI5B',qid,q['m_eEndNPCID'],0,0,0,1,1,0) if kind==0xf4 else struct.pack('>i',qid)
         return self.s.handle(Event(0x202,performers=(0,),kind=kind,payload=payload),self.seq)
 
     def record(self,kind,dungeon,**fields):
@@ -197,7 +197,7 @@ class SealQuestTests(unittest.TestCase):
             progress=[e for e in reply if e.kind==0xf3]
             self.assertEqual(len(progress),1)
             row=self.q.collection_snapshot()[0]
-            self.assertEqual(row['objectives'],{35370:1,35372:2})
+            self.assertEqual(row['objectives'],{35370:1,35372:0})
             self.assertEqual(progress[0].payload,wire.progress([row]).payload)
         self.assertFalse(any(i['uid']==material['uid'] for i in self.a.get_inventory_snapshot()['items']))
 
@@ -225,7 +225,7 @@ class SealQuestTests(unittest.TestCase):
             progress=[e for e in replies if e.kind==0xf3]
             self.assertEqual(len(progress),1)
             row=self.q.collection_snapshot()[0]
-            self.assertEqual(row['objectives'],{35370:1,35372:2})
+            self.assertEqual(row['objectives'],{35370:1,35372:0})
             self.assertEqual(progress[0].payload,wire.progress([row]).payload)
             self.assertFalse(any(e.kind==0xf3 for e in self.s.periodic_notifications()))
 
@@ -306,6 +306,7 @@ class SealQuestTests(unittest.TestCase):
             master=[q for q in eligible if any(s in sequence(q.get('HIDE_QUEST_SKILL',{})) for s in books()['groups']['9']['skills'])]
             self.assertTrue(master,typ)
 
+    @unittest.skipUnless((Path(__file__).resolve().parents[1]/'analysis/client-6c6b5180/20261013-160720/death-event-header.json').is_file(),'Private historical native trace is not in this locked engine asset set')
     def test_actual_dungeon_deaths_and_clear_drive_progress_without_replayed_credit(self):
         import uuid
         from els_server.domain.dungeon_routes import DungeonRun
@@ -335,5 +336,24 @@ class SealQuestTests(unittest.TestCase):
         # The same part condition cannot be replayed from another controller.
         self.assertEqual(self.record('retire',35250,npc=9470,tutorial_quest=28110,retired_by=9460),[])
         self.assertEqual({row['id']:row['objectives'] for row in self.q.snapshot()['active']}[28110],{28110:1})
+
+    def test_unqualified_retire_event_cannot_fabricate_finale_progress(self):
+        with closing(sqlite3.connect(self.path)) as db,db:
+            db.execute('INSERT INTO character_quests VALUES (?,?,?,?,?)',
+                       (1001,28110,1,1,json.dumps({'28110':0})))
+        # Only the finale part controller 9310 settles the stage1 part. Any
+        # other retirement source must leave the objective untouched instead of
+        # fabricating progress.
+        self.assertEqual(self.record('retire',35250,npc=9470,tutorial_quest=28110,retired_by=9470),[])
+        self.assertEqual(self.q.snapshot()['active'][0]['objectives'],{28110:0})
+
+    def test_ordinary_claim_rejects_legacy_skip_flag_without_mutation(self):
+        self.action(0xee,6980);self.record('clear',30252,rank=None)
+        q=quest_catalog().quest(6980);self.seq+=1;before=self.dump()
+        bad=struct.pack('>iiI5B',6980,q['m_eEndNPCID'],0,0,1,1,1,0)
+        reply=self.s.handle(Event(0x202,performers=(0,),kind=0xf4,payload=bad),self.seq)
+        self.assertEqual(reply[0].payload[:4],struct.pack('>i',wire.QUEST_REWARD_UNAVAILABLE))
+        self.assertEqual(self.dump(),before)
+        self.assertEqual(self.action(0xf4,6980)[0].payload[:4],bytes(4))
 
 if __name__=='__main__':unittest.main()

@@ -1,0 +1,124 @@
+{
+  "ok": true,
+  "qualified_before_installation": true,
+  "runtime_binding_sha256": "9e19df65432f71e8346989a62e2af3acc33700bcc6676985d80253779a939199",
+  "qualification_sha256": "65883f4d6e742ac1d77f9537c32cb624c8dd55ef3cfe3a8d650b516fd1c2867d",
+  "proofs": [
+    {
+      "name": "sql-incoming509-online.json",
+      "sha256": "3150a352ef854e55f6f61bbf309d46e1f5a02b5e7abc4c1c738175e044d80176",
+      "checks": [
+        "900 original allowed same-part pairs; all120 registered catalog record hashes",
+        "realSQL transfer both groups; source cleared/target overwritten, target29 and all other instance attributes preserved; zeroED/material/UID delta",
+        "same operation replay encodes current records without retransferring",
+        "replay after real SQL relocation preserves historical-slot replacement and sends actual UID current slot",
+        "new operation cannot copy already-cleared source again; full private schema/rows unchanged",
+        "source chip-only cannot transfer; full private schema/rows unchanged",
+        "source circuit-only cannot transfer; full private schema/rows unchanged",
+        "source empty cannot transfer; full private schema/rows unchanged",
+        "foreign character source refused; full private schema/rows unchanged",
+        "wrong equipment slot refused; full private schema/rows unchanged",
+        "complete response encoding failure rolls back both groups and receipt; full private schema/rows unchanged",
+        "late generation failure rolls back both writes; full private schema/rows unchanged",
+        "wrong account cannot write; full private schema/rows unchanged",
+        "explicit False authority refuses before writes; full private schema/rows unchanged",
+        "changed-item paid preview invalidated atomically; no additional debit or refund"
+      ],
+      "own_accounts_cleaned": true,
+      "registration_capacity_verified": true,
+      "natural_GUI": false,
+      "natural_battle": false
+    },
+    {
+      "name": "runtime-incoming509-online.json",
+      "sha256": "77e01f5b70ca5a5f13b26d31f6ebd7c789ddf4fb1745d7af6f66f95b1507a3b7",
+      "checks": [
+        "original F225/227 and actual native D2E/D2F success: two saved groups, zero ED, cross-character same-part template admitted",
+        "new request cannot duplicate cleared source; full native refusal, no receipt or balance delta",
+        "outside original F scene refused without business mutations",
+        "real App cold rebuild and original2A preserve both actual complete instances, source cleared and target effects retained",
+        "released original generation rejected by exact current App/actor guard; direct stale-object probe separate from transport"
+      ],
+      "own_accounts_cleaned": true,
+      "registration_capacity_verified": true,
+      "natural_GUI": false,
+      "natural_battle": false
+    },
+    {
+      "name": "runtime-recovery-incoming509-online.json",
+      "sha256": "25ecdbaaef978f61599497eb26e2613b58c265357e79877ddb7603238a992932",
+      "checks": [
+        "actual frozen closed writer refuses otherwise legal F transfer with no state/receipt/debit delta",
+        "closed code real App cold2A keeps both existing chip/circuit readers and all unchanged item state"
+      ],
+      "own_accounts_cleaned": true,
+      "registration_capacity_verified": true,
+      "natural_GUI": false,
+      "natural_battle": false
+    },
+    {
+      "name": "sql-incoming509-local.json",
+      "sha256": "2aa0eee6763b16529a6c3de3ab8f79555516ab5ef570774652cbbfd6ccb74119",
+      "checks": [
+        "900 original allowed same-part pairs; all120 registered catalog record hashes",
+        "realSQL transfer both groups; source cleared/target overwritten, target29 and all other instance attributes preserved; zeroED/material/UID delta",
+        "same operation replay encodes current records without retransferring",
+        "replay after real SQL relocation preserves historical-slot replacement and sends actual UID current slot",
+        "new operation cannot copy already-cleared source again; full private schema/rows unchanged",
+        "source chip-only cannot transfer; full private schema/rows unchanged",
+        "source circuit-only cannot transfer; full private schema/rows unchanged",
+        "source empty cannot transfer; full private schema/rows unchanged",
+        "foreign character source refused; full private schema/rows unchanged",
+        "wrong equipment slot refused; full private schema/rows unchanged",
+        "complete response encoding failure rolls back both groups and receipt; full private schema/rows unchanged",
+        "late generation failure rolls back both writes; full private schema/rows unchanged",
+        "wrong account cannot write; full private schema/rows unchanged",
+        "explicit False authority refuses before writes; full private schema/rows unchanged",
+        "changed-item paid preview invalidated atomically; no additional debit or refund"
+      ],
+      "own_accounts_cleaned": true,
+      "registration_capacity_verified": true,
+      "natural_GUI": false,
+      "natural_battle": false
+    },
+    {
+      "name": "runtime-incoming509-local.json",
+      "sha256": "d9e3fcc3bc52d103a96fe7a1437e64e1554785c06d8c7ab5064ed4851290bebf",
+      "checks": [
+        "original F225/227 and actual native D2E/D2F success: two saved groups, zero ED, cross-character same-part template admitted",
+        "new request cannot duplicate cleared source; full native refusal, no receipt or balance delta",
+        "outside original F scene refused without business mutations",
+        "real App cold rebuild and original2A preserve both actual complete instances, source cleared and target effects retained",
+        "released original generation rejected by exact current App/actor guard; direct stale-object probe separate from transport"
+      ],
+      "own_accounts_cleaned": true,
+      "registration_capacity_verified": true,
+      "natural_GUI": false,
+      "natural_battle": false
+    },
+    {
+      "name": "runtime-recovery-incoming509-local.json",
+      "sha256": "c328de10d85b302392ac39fe01372def7ab7ef05271cd0cdfa6a760f9b10da18",
+      "checks": [
+        "actual frozen closed writer refuses otherwise legal F transfer with no state/receipt/debit delta",
+        "closed code real App cold2A keeps both existing chip/circuit readers and all unchanged item state"
+      ],
+      "own_accounts_cleaned": true,
+      "registration_capacity_verified": true,
+      "natural_GUI": false,
+      "natural_battle": false
+    }
+  ],
+  "numerical_rule": {
+    "user_answer": "允许该项按0 ED、0额外材料补齐",
+    "ED": 0,
+    "additional_materials": [],
+    "scope": "Original T-tree button63 D2E only"
+  },
+  "new_schema": false,
+  "install_DDL_statements": 0,
+  "client_changes": 0,
+  "formal_deployed": false,
+  "whole_F_services_complete": false,
+  "new_item_sources": 0
+}
