@@ -31,6 +31,17 @@ def manual_magic_potion_definition():
     return dict(template=710022,metadata=2,group=6,max_stack=500)
 
 
+# Local shortcut policy only: the catalog stays the immutable client mirror
+# (record byte0xD6 keeps30), while the server-authoritative timer uses this
+# value for the admitted row. 1AB9D20 reads its seconds from the same field.
+LOCAL_COOLDOWN_SECONDS={130165:1}
+
+
+def acknowledged_cooldown(template,seconds):
+    """0x114 cooldown float; -1 keeps the native record value for other rows."""
+    return float(LOCAL_COOLDOWN_SECONDS[template]) if template in LOCAL_COOLDOWN_SECONDS else -1.0
+
+
 def ordinary(template):
     if template in (130467,710193,723674):
         # Exact existing owned Fighting Spirit records. Native115 consumes
@@ -62,6 +73,15 @@ def ordinary(template):
     # Two original epic reward potions; reuse native HP/MP effects and cooldown.
     expected.update({78985:(0,2,30,((1,190000),)),78986:(0,5,30,((2,150),))})
     expected[710000]=(0,15,30,((13,100),(19,100)))
+    # Same verified full-recovery record as710000: HP kind13 100%, MP kind19
+    # 100%, shared group15. Shortcut binding412 owns both, so the two rows must
+    # stay byte-identical apart from the template id.
+    expected[130165]=(0,15,30,((13,100),(19,100)))
+    # Ancient fossil pill: identical native full-recovery vector (HP kind13
+    # 100%, MP kind19 100%) with its own group 18, so it never shares the
+    # binding-412 family timer. Only this template carries the verified
+    # inventory body (VT=2, bag group 6); the cash-shop and Ariel copies do not.
+    expected[135402]=(0,18,30,((13,100),(19,100)))
     expected[710022]=(0,19,30,((19,100),))
     expected.update({79063:(0,2,30,((13,50),)),79064:(0,5,30,((19,50),))})
     expected[79065]=(0,10,30,((19,50),(13,50)))
@@ -77,6 +97,7 @@ def ordinary(template):
         raise ValueError('Ordinary potion condition not supported')
     if r['effects']!=[struct.pack('<6I',kind,0,amount,0,0,0).hex() for kind,amount in effects] or (r['cooldown_group'],r['cooldown_seconds'])!=(group,seconds):
         raise ValueError('Ordinary potion evidence changed')
+    if template in LOCAL_COOLDOWN_SECONDS:return dict(r,cooldown_seconds=LOCAL_COOLDOWN_SECONDS[template])
     return r
 
 

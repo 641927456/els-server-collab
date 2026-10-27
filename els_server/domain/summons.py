@@ -13,6 +13,14 @@ from els_server.domain.dungeon_npcs import encode_npc
 from els_server.protocol.protocol_codec import Event
 LAYOUTS=json.loads((Path(__file__).resolve().parents[1]/'data/npc_wire_layouts.json').read_text())['layouts']
 
+# Eve player summon family, pinned from the client NPC catalog. 384
+# Nasod_Watch_Eve is the admitted sentry; 1621 SI_SA_AT_SURFACE_CUTING is the
+# actor the surface-cutting command spawns (captured 2026-10-27 rejected with
+# the previous 384-only gate); 385/386 are the true sentry/element upgrades and
+# 2091 ECA_OBERON_GUARD the Oberon guard. Every request stays owner-bound and
+# strictly decoded; the spawn dump keeps recording unrecognized templates.
+EVE_SUMMON_TEMPLATES=frozenset((384,385,386,1621,2091))
+
 
 def _decode(payload, uid, fields):
     if len(payload) < 4 or struct.unpack_from('>I', payload)[0] != 1:
@@ -40,7 +48,7 @@ def _decode(payload, uid, fields):
         dto[offset:offset+size] = value
     if position != len(payload):
         raise ValueError('Trailing summon bytes')
-    if struct.unpack_from('<ii', dto) != (-1, 384):
+    if struct.unpack_from('<i', dto)[0] != -1 or struct.unpack_from('<i', dto, 4)[0] not in EVE_SUMMON_TEMPLATES:
         raise ValueError('Unverified summon template')
     if struct.unpack_from('<q', dto, 0x6d)[0] != uid:
         raise ValueError('Summon owner mismatch')

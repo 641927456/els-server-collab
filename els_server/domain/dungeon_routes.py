@@ -176,10 +176,26 @@ class DungeonRun:
   if kind in (0,5):return (kind==0 or self.portal_requested) and all(n['key'] in dead for n in npcs if n['active'] and n.get('team',1)!=0)
   if kind in (1,2):
    keys=[n['key'] for n in npcs if n['key_code'] in c['required']]
-   return bool(keys) and (any(k in dead for k in keys) if kind==2 else all(k in dead for k in keys))
+   if kind==1:
+    # A key_code requirement may name a SMALLGATE script door (纳斯德生产
+    # 基地 stage0/1 exits, key_code 1 = template 156) that the map script
+    # removes itself; it never reports a combat death. Same relaxation as
+    # the kind 3 template doors: an all-door requirement is satisfied by a
+    # fully cleared room, a living required actor still has to die.
+    from els_server.domain.local_dungeon_flow import key_code_gate
+    if key_code_gate(npcs,dead,c['required']):return True
+    return bool(keys) and all(k in dead for k in keys)
+   return bool(keys) and any(k in dead for k in keys)
   if kind==3:
    required=[n['key'] for n in npcs if n['template'] in c['required']]
-   return bool(required) and all(k in dead for k in required)
+   if not required:return False
+   if all(k in dead for k in required):return True
+   # A required SMALLGATE is a script object, not a combat actor: kind 0
+   # already excludes such actors from its clear check. Treat the door as
+   # open once every declared active hostile is dead. See
+   # config/local_dungeon_flow.json; combat-shaped requirements never relax.
+   from els_server.domain.local_dungeon_flow import script_gate
+   return script_gate(npcs,dead,c['required'])
   if kind==6:return self.started_at is not None and self.clock()-self.started_at>=c['seconds']
   return False
  def poll_ready(self):

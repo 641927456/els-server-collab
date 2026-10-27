@@ -192,6 +192,14 @@ for _row in seal_quest_catalog()['reward_definitions']+region_quest_catalog().da
 from els_server.domain.tutorial_accessory import minime_reward_definition
 _minime_reward=minime_reward_definition()
 if _minime_reward['template'] in VERIFIED_TEMPLATES:raise ValueError('Conflicting original Minime reward registration')
+
+# Local reselection quest 39480 rewards: native pinned-record readers.
+from els_server.domain.local_reselection_quest import reward_item_definitions as _reselection_rewards
+for _row in _reselection_rewards():
+ _t=_row['template'];_expected=(_row['metadata'],_row['group'],_row['max_stack'])
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting local reselection reward reader')
+ VERIFIED_TEMPLATES[_t]=_expected[0];TEMPLATE_BAG_GROUPS[_t]=_expected[1];TEMPLATE_MAX_STACKS[_t]=_expected[2]
+
 VERIFIED_TEMPLATES[_minime_reward['template']]=_minime_reward['metadata']
 TEMPLATE_BAG_GROUPS[_minime_reward['template']]=_minime_reward['group']
 TEMPLATE_MAX_STACKS[_minime_reward['template']]=_minime_reward['max_stack']

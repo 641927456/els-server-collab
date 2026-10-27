@@ -925,7 +925,13 @@ class LocalSession:
             if unlock is not None:
                 answer=[Event(0x201,kind=0x21a,payload=unlock['response'])]
                 if not unlock['replayed']:answer.append(unlock['notification'])
-                return answer+[Event(0x201,kind=0x55b,payload=unlock['initialization'])]
+                events=answer+[Event(0x201,kind=0x55b,payload=unlock['initialization'])]
+                # A used manual hides the accepted Camilla training task; the
+                # native 2B absolute snapshot is what removes it from the log.
+                if unlock.get('quest_state') is not None:
+                    from els_server.protocol import quest_messages as quest_wire
+                    events.append(quest_wire.initialization(unlock['quest_state']))
+                return events
             try:
                 receipt=use_career_item(self.account.store.path,self.account.uid,event.payload,
                     operation)
@@ -1566,7 +1572,19 @@ class LocalSession:
                         and story.get('run') is not None and self.dungeon_run is story['run']
                         and character is not None and character['unit_type']==14 and character['level']==1
                         and self.account.get_reward_balances()['experience']==0)
-                    if not (native_noah_return or native_committed_warp):raise SessionOrderError('Invalid local town entry')
+                    if not (native_noah_return or native_committed_warp):
+                        # Session 20261026-200944: the DX11 client asked for an
+                        # explicit default-position entry (flag 1) with no
+                        # server-issued 58C behind it, and dropping the whole
+                        # connection turned a refused warp into a client crash.
+                        # An unknown map identity is still malformed input and
+                        # keeps the original hard rejection. A real town is
+                        # refused the same way as every other unauthorized
+                        # destination below: negative 226, session survives, no
+                        # position is invented for the refused town.
+                        refused=struct.unpack_from('>i',event.payload)[0]
+                        if refused not in TOWN_SCENES:raise SessionOrderError('Invalid local town entry')
+                        return [Event(0x201,kind=0x226,payload=i32(-1)+i32(refused)+i32(0)*3)]
                 requested=struct.unpack_from('>i',event.payload)[0]
                 if requested==1011 and not (native_committed_warp or _mainline1011_entry(self,event,request_sequence)):
                     return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]

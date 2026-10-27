@@ -15,6 +15,35 @@ def local_rewards():
  if r['coin_template']!=127000:raise ValueError('Unverified local coin')
  return {**r,'items':[item_plan(**i) for i in r['clear_items']]}
 
+# The Lithia Memory8 finale room is the dungeon's last stage: the pinned graph
+# carries no next stage there, so any part request can only settle the run. The
+# room's boss is spawned inside this same stage and the source sentinel 9452
+# retires from its own script. Announcing the part as over while the boss still
+# stands is what let the client leave the room before the fight.
+FINALE_ROOMS={35320:(3,0),35321:(2,0),35322:(0,0)}
+FINALE_BOSS=9431
+
+# The client opens the room's gate on its own and then waits for the server to
+# select the next area. In this dungeon the source sentinel 9452 only retires
+# after the fight the gate leads to, so the source condition can never be met
+# while the player is still in front of it. Select the next resource part of
+# the same stage instead of ending the run: no actor is invented, the current
+# roster is passed through unchanged.
+FINALE_AREA_ENABLED=True
+FINALE_AREA_PART=1
+
+def finale_boss_pending(run):
+ """True while the finale room still owes its own boss fight."""
+ if run is None or FINALE_ROOMS.get(run.identity)!=(run.stage,run.part):return False
+ return any(n['template']==FINALE_BOSS and n['key'] not in run.defeated for n in run.current['npcs'])
+
+def finale_area_cleared(run):
+ """Every declared live hostile of the near side is gone, the boss excluded."""
+ if run is None or FINALE_ROOMS.get(run.identity)!=(run.stage,run.part):return False
+ live=[n for n in run.current['npcs']
+       if n['active'] and n.get('team',1)!=0 and n['template']!=FINALE_BOSS]
+ return bool(live) and all(n['key'] in run.defeated for n in live)
+
 def periodic(session):
  s=session
  if (s.dungeon_run is not None and s.phase=='dungeon_active' and not s.clear_notified
@@ -24,6 +53,15 @@ def periodic(session):
  if getattr(s.dungeon_run,'memory1_quest_barrier',frozenset())-set(s.dungeon_run.defeated):return []
  from els_server.domain.story_controller_retirements import gate_predecessor_blocked
  if gate_predecessor_blocked(s.dungeon_run):return []
+ if finale_boss_pending(s.dungeon_run):
+  if (FINALE_AREA_ENABLED and not getattr(s,'finale_area_entered',False)
+      and finale_area_cleared(s.dungeon_run)):
+   # B7 selects the resource part, BD begins it with the same actor roster.
+   from els_server.protocol.dungeon_messages import initial_part,begin_substage
+   run=s.dungeon_run;s.finale_area_entered=True
+   return [initial_part(FINALE_AREA_PART),
+           begin_substage(FINALE_AREA_PART,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))]
+  return []
  if s.dungeon_run.poll_ready():
   s.part_end_notified=True;s.dungeon_clock.pause()
   return [part_end_notice(s.dungeon_run.part)]
@@ -53,6 +91,14 @@ def handle(s,event):
  if event.kind==0xad:
   try:d=death_report(event.payload)
   except ValueError:return []
+  # A settled run no longer owns a C1 HP lease. The client keeps reporting the
+  # deaths that landed in the same frame as its BB, so those reports arrive
+  # after the clear/reward packets. Letting one reach population() runs
+  # legacy_population -> hp_context.check(emitting=True), which refuses a
+  # post-clear lease by raising SessionOrderError and tears down the whole
+  # connection -- the player sees the clear panel replaced by a disconnect.
+  # The run is already banked, so acknowledge and drop.
+  if s.clear_notified or getattr(s,'dungeon_failed',False):return [death_ack()]
   # Finite static-controller adapters must not consume an already admitted
   # dynamic actor's original expiry. Retain the existing expiry decoder and
   # exact server-allocated identity; zero is never an alias for another actor.
@@ -76,6 +122,9 @@ def handle(s,event):
    if retired is not None:return retired
    from els_server.domain.scene_actor_retirements import handle as scene_retirement
    retired=scene_retirement(s,event,d)
+   if retired is not None:return retired
+   from els_server.domain.devildom1_raid2_controllers import handle as devildom1_retirement
+   retired=devildom1_retirement(s,event,d)
    if retired is not None:return retired
    from els_server.domain.story_controller_retirements import handle as story_retirement
    retired=story_retirement(s,event,d)
@@ -130,6 +179,7 @@ def handle(s,event):
   if not s.part_end_notified:return []
   reply=[Event(0x201,kind=0xbc,payload=bytes(4))]
   if s.clear_notified:return reply
+  if finale_boss_pending(run):return reply
   from els_server.domain.story_controller_retirements import gate_predecessor_blocked
   if gate_predecessor_blocked(run):return []
   if not run.poll_ready():return []
@@ -253,9 +303,14 @@ def clear(s):
  # 30% clear increment must not receive that multiplier a second time.
  if compat_clear is None:rule=dict(rule,clear_experience=clear_experience(s,rule['clear_experience']))
  if getattr(s,'challenge_deadline',None) is not None and time.time()>=s.challenge_deadline:return failed(s)
- from els_server.domain.silver_mirror_flow import clear_rewards as mirror_clear
- mirror_reply=mirror_clear(s,rule)
- if mirror_reply is not None:return mirror_reply
+ # Silver Mirror clear is a separate encounter family. Import it only for its
+ # own identities: a bare import here made every unrelated clear die on the
+ # still-unwritten flow module and killed the worker (client shows a drop).
+ from els_server.domain import silver_mirror_policy as mirror_policy
+ if run.identity in mirror_policy.ALL:
+  from els_server.domain.silver_mirror_flow import clear_rewards as mirror_clear
+  mirror_reply=mirror_clear(s,rule)
+  if mirror_reply is not None:return mirror_reply
  from els_server.domain.dungeon_equipment_loot_flow import clear_rewards
  loot_reply=clear_rewards(s,rule)
  if loot_reply is not None:return loot_reply

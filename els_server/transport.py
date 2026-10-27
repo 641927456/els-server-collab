@@ -205,6 +205,9 @@ class GameServer:
                     before=business.phase
                     trace34320_before=dungeon34320_trace.before(business,event,frame.sequence)
                     messages=await self.application.call(business.handle,event,request_sequence=frame.sequence)
+                    if event.event_id==0x202 and event.kind in (0x42c,0x42f,0x542):
+                        self.log('mount_diagnostic',connection=index,sequence=frame.sequence,phase=business.phase,
+                            rejection=getattr(business,'_mount_rejection',None))
                     if event.event_id==0x202 and event.kind==0x104:
                         results=[struct.unpack_from('>i',m.payload,len(m.payload)-4)[0]for m in messages
                             if m.event_id==0x201 and m.kind==0x105 and len(m.payload)>=8]

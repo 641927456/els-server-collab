@@ -31,7 +31,12 @@ def purchase_notifications(db,uid,character,previous,replayed):
     from els_server.protocol.protocol_codec import Event
     if replayed:character=owned_character(db,uid);previous=()
     if character['uid']!=uid:raise ValueError('Skill book refresh owner mismatch')
-    return [unlock_notice(character,previous),Event(0x201,kind=0x55b,payload=saved_initialization(db,character))]
+    # A shop purchase replaces the accepted Camilla training task exactly like
+    # a consumed manual; the absolute 2B snapshot removes the hidden task.
+    from els_server.storage.seal_quests import state_in
+    from els_server.protocol import quest_messages as quest_wire
+    return [unlock_notice(character,previous),Event(0x201,kind=0x55b,payload=saved_initialization(db,character)),
+            quest_wire.initialization(state_in(db,uid))]
 
 def saved_initialization(db,character):
     import struct
@@ -69,13 +74,15 @@ def use_skill_book(path,uid,payload,operation_id):
         db.execute('BEGIN IMMEDIATE')
         if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='skill_book_receipts'").fetchone():
             old=db.execute('SELECT request_hash,bag_group,slot FROM skill_book_receipts WHERE operation_id=?',(operation_id,)).fetchone()
-            if old:
-                if old[0]!=digest:raise ValueError('Conflicting skill book retry')
-                current=next((i for i in load_items(db,uid) if (i['group'],i['slot'])==old[1:]),None)
-                ed=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
-                row=db.execute('SELECT uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters WHERE uid=?',(uid,)).fetchone()
-                character=Characters._row(row);character['skill_seal_groups']=saved_groups(db,uid)
-                return dict(replayed=True,response=use_ack([(old[1:],current)],ed=ed).payload,initialization=saved_initialization(db,character))
+        if old:
+            if old[0]!=digest:raise ValueError('Conflicting skill book retry')
+            current=next((i for i in load_items(db,uid) if (i['group'],i['slot'])==old[1:]),None)
+            ed=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
+            row=db.execute('SELECT uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters WHERE uid=?',(uid,)).fetchone()
+            character=Characters._row(row);character['skill_seal_groups']=saved_groups(db,uid)
+            from els_server.storage.seal_quests import state_in
+            return dict(replayed=True,response=use_ack([(old[1:],current)],ed=ed).payload,
+                        initialization=saved_initialization(db,character),quest_state=state_in(db,uid))
         item=next((i for i in load_items(db,uid) if i['uid']==item_uid),None)
         rule=catalog()['books'].get(str(item['template'])) if item else None
         if rule is None:return None
@@ -102,4 +109,9 @@ def use_skill_book(path,uid,payload,operation_id):
             forget(db,item_uid);db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item_uid,uid))
         db.execute('CREATE TABLE IF NOT EXISTS skill_book_receipts (operation_id TEXT PRIMARY KEY, request_hash TEXT NOT NULL, owner INTEGER NOT NULL, item_uid INTEGER NOT NULL, template INTEGER NOT NULL, bag_group INTEGER NOT NULL, slot INTEGER NOT NULL)')
         db.execute('INSERT INTO skill_book_receipts VALUES (?,?,?,?,?,?,?)',(operation_id,digest,uid,item_uid,item['template'],item['group'],item['slot']))
-        return dict(replayed=False,response=response,notification=notification,initialization=initialization)
+        # The manual replaces the Camilla training task: native HIDE_QUEST_SKILL
+        # marks it hidden once the group is owned, so drop it in this writer and
+        # hand the client one authoritative quest snapshot.
+        from els_server.storage.seal_quests import state_in
+        return dict(replayed=False,response=response,notification=notification,initialization=initialization,
+                    quest_state=state_in(db,uid))

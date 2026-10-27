@@ -5,7 +5,7 @@ from els_server.storage.character_schema import character_uid
 from els_server.storage.quick_slots import _load
 from els_server.storage.inventory_state import load_items
 from els_server.domain.quick_bindings import item_binding
-from els_server.domain.consumables import require_usable,recovery_cooldown_seconds
+from els_server.domain.consumables import require_usable,recovery_cooldown_seconds,acknowledged_cooldown
 from els_server.protocol.consumable_messages import request,acknowledgement,effect
 
 
@@ -52,9 +52,12 @@ def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apple
         from els_server.domain.item_expiration import expired
         matches=[i for i in load_items(db,uid) if i['group']==6 and item_binding(i['template'])==binding and not expired(i,now=int(now))]
         if not matches:raise ValueError('No owned consumable')
-        if binding in (399,775):
+        if binding in (399,412,775):
             # Approved local policy: only currently usable owned instances;
             # earliest finite expiry, permanent last, then bag slot and UID.
+            # 412 is the full-recovery family: the admitted 130165 and the
+            # native 710000 share it, so the same deterministic pick applies
+            # instead of refusing the shortcut as ambiguous.
             eligible=[]
             for candidate in matches:
                 try:
@@ -80,7 +83,9 @@ def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apple
         prior=db.execute('SELECT ready_at FROM consumable_cooldowns WHERE owner=? AND cooldown_group=?',(uid,meta['cooldown_group'])).fetchone()
         if prior and now<prior[0]:raise ValueError('Consumable is cooling down')
         remaining=dict(item,count=item['count']-1) if item['count']>1 else None
-        answer=[acknowledgement(remaining,(item['group'],item['slot']),item['template'],automatic=automatic_use,slot=slot),effect(uid,item['template'])]
+        answer=[acknowledgement(remaining,(item['group'],item['slot']),item['template'],
+                                cooldown=acknowledged_cooldown(item['template'],meta['cooldown_seconds']),
+                                automatic=automatic_use,slot=slot),effect(uid,item['template'])]
         if remaining:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item['uid'],uid))
         else:
             from els_server.storage.item_expiration import forget
