@@ -35,3 +35,24 @@ def numeric_groups(source):
     if selected is None or dict(selected['points'])!=flattened:
         raise ValueError('Selected ERP page and wire allocations differ')
     return tuple(result)
+
+
+def progress_fields(source):
+    """DB29A0's17 bytes, preserving the canonical ERP profile's opaque fields.
+
+    D3AD14..D3AD3D stores these in Unit28BD/28C1/28C5/28CD. They are not
+    level, experience or available points. Disabled profiles use the original
+    C832F0 zero-initialized record; enabled profiles require all four fields.
+    """
+    numeric_groups(source)
+    if not source['account']['enabled']:
+        return (0,0,0,0)
+    state=source['profile']['state']
+    result=[]
+    for name,lo,hi in(('field21',-2**31,2**31-1),('field25',-2**31,2**31-1),
+                       ('field29',0,2**64-1),('field31',0,255)):
+        value=state.get(name)
+        if type(value)is not int or not lo<=value<=hi:
+            raise ValueError('Complete canonical ERP progress fields required')
+        result.append(value)
+    return tuple(result)

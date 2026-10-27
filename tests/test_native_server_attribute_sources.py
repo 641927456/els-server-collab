@@ -1002,4 +1002,45 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
                     self.assertEqual(struct.pack('<7f',*actual),struct.pack('<7f',*native))
 
 
+    def test_106_wire_matches_original_refresh_core_controls(self):
+        golden=json.loads((REFERENCE/'native-106-refresh-core-goldens-v2.json').read_bytes())
+        self.assertEqual(golden['cases'],28)
+        self.assertEqual(golden['encoder_sha256'],hashlib.sha256(Path(self.wire.__file__).read_bytes()).hexdigest())
+        for row in golden['rows']:
+            notice=self.wire.AttributeNotification(0,1001,(),tuple(golden['first']),tuple(golden['second']),
+                0,(),False,(),(),self.wire.ProgressRecord(0,0,0,0),row['wire_power'])
+            self.assertEqual(hashlib.sha256(self.wire.encode(notice)).hexdigest(),row['wire_sha256'])
+            selected=int(row['side']==1)if row['selector']==2 else int(row['selector']!=0)
+            self.assertEqual(row['selected_record'],selected)
+            maximum=(golden['first'],golden['second'])[selected][0]
+            self.assertEqual(row['after'],dict(current=min(row['before']['current'],maximum),maximum=maximum))
+            value=struct.unpack('<f',struct.pack('<f',row['wire_power']))[0]
+            rounded=math.floor(struct.unpack('<f',struct.pack('<f',value+.5))[0])
+            self.assertEqual(row['native_cached_power'],rounded)
+
+    def test_106_progress_preserves_canonical_ERP_opaque_fields(self):
+        golden=json.loads((REFERENCE/'native-resonance-progress-goldens.json').read_bytes())
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(self.resonance_groups.__file__).read_bytes()).hexdigest())
+        ids=((1,2,4,16,17),(18,19,20,21,22),(11,12,13,14,15))
+        groups=tuple((tab,tuple((sid,0)for sid in values))for tab,values in enumerate(ids))
+        points=tuple(sorted(pair for tab,values in groups for pair in values))
+        for row in golden['rows']:
+            state=dict(selected_page=1,page_count=1,level=200,cumulative_experience=12345,
+                allocation_groups=groups,**dict(zip(('field21','field25','field29','field31'),row['fields'])))
+            source=dict(account=dict(enabled=True,level=200,experience=12345),profile=dict(state=state,
+                pages=dict(selected_page=1,pages=(dict(page_id=1,points=points),))))
+            fields=self.resonance_groups.progress_fields(source)
+            self.assertEqual(fields,tuple(row['native']))
+            notice=self.wire.AttributeNotification(0,1001,(),(1.,)*7,(2.,)*7,0,(),False,(),groups,
+                self.wire.ProgressRecord(*fields),1.)
+            self.assertEqual(hashlib.sha256(self.wire.encode(notice)).hexdigest(),row['wire_sha256'])
+            for name,bad in(('field21',2**31),('field25',-2**31-1),('field29',-1),('field31',256)):
+                good=state.pop(name)
+                with self.assertRaises(ValueError):self.resonance_groups.progress_fields(source)
+                state[name]=bad
+                with self.assertRaises(ValueError):self.resonance_groups.progress_fields(source)
+                state[name]=good
+        self.assertEqual(self.resonance_groups.progress_fields(dict(account=dict(enabled=False),profile=None)),(0,0,0,0))
+
+
 if __name__=='__main__':unittest.main()

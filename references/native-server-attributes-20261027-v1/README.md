@@ -246,3 +246,18 @@ ONLINE/LOCAL parents.106 always includes CP; zero is not a preservation
 sentinel. Equipment totals must never replace naked B6 inputs. No player data,
 runtime image, raw capture, authentication material or production configuration
 is included here.
+
+The complete106 copy/CP/HP core now has28 original controls using the real
+Actor/Vitality/stat constructors. Both selectors and the selector2 side fallback
+retain the native branch. Rising maximum HP never heals; falling maximum clamps
+current HP, including zero. CP uses float32 addition before rounding and zero
+replaces an old positive value. These isolated Actor controls do not replace
+world dispatch, modifier replacement, post-core MP refresh or live acceptance.
+
+The17-byte DB29A0 record is now bound to canonical ERP profile fields21/25/29/31,
+preserving signed32/signed32/unsigned64/unsigned8 values without interpretation.
+Original D3AD14..D3AD3D stores the same four fields in Unit28BD/28C1/28C5/28CD;
+four boundary profiles pass the current106 reader and native store phase.
+Disabled profiles retain C832F0's17 zero bytes. An owned real-store two-page
+snapshot also preserves a nonzero opaque record across a concurrent page commit,
+without reader writes or player database access.
