@@ -57,7 +57,7 @@
   "native_learned_consumer_qualified": true,
   "native_physical_attack_CP_AB_qualified": true,
   "full_skill_effects_qualified": false,
-  "installed": false,
+  "installed": true,
   "native_cases": [
     {
       "case": "native-learning-native-foreground-v2",
@@ -179,5 +179,17 @@
   "new_hooks": 0,
   "readonly_private_diagnostic_scripts": 1,
   "diagnostic_native_calls": 0,
-  "diagnostic_game_memory_writes": 0
+  "diagnostic_game_memory_writes": 0,
+  "actual_dual_delivery": {
+    "online": {
+      "release": "native-modern-auto-learning-20261027-v1",
+      "formal_manifest_sha256": "047baf3f3c627e6acd5a5caa63bae82dedf4bee459905a882af950be38d7c3a1"
+    },
+    "local": {
+      "release": "local-native-modern-auto-learning-20261027-v1",
+      "formal_manifest_sha256": "090cc6a43963abd3be024340fd105ad7b7b2770c8bcd707998e144376e72d822"
+    }
+  },
+  "online_observation_seconds": 121.95914459999767,
+  "local_observation_seconds": 122.11021260009147
 }

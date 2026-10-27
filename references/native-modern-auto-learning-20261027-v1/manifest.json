@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "issue": 594,
-  "status": "native-input-qualified-not-installed",
+  "status": "accepted-dual-server-input-repair",
   "source_parent_releases": {
     "online": "server-pr597-selected-20261027-v1",
     "local": "local-server-pr597-selected-20261027-v1"
@@ -19,8 +19,8 @@
     },
     {
       "path": "references/native-modern-auto-learning-20261027-v1/validation-summary.json",
-      "size": 4583,
-      "sha256": "9d2b72abee352b2b4ed8bb66f5c5e57488584ddbdd703e87e7d1084eab444b0f"
+      "size": 5098,
+      "sha256": "9bee0cba01ef6ed60bb74a995b4171192d56202b6ad121634083cd9b9e1bceb2"
     }
   ],
   "client_changes": 0,
@@ -28,5 +28,15 @@
   "player_database_changes": 0,
   "installation_qualified": true,
   "official_learning_rule": "https://elsword.koggames.com/season-2-elsword-rena-reborn/revampoverview.html",
-  "full_skill_effects_qualified": false
+  "full_skill_effects_qualified": false,
+  "actual_dual_delivery": {
+    "online": {
+      "release": "native-modern-auto-learning-20261027-v1",
+      "formal_manifest_sha256": "047baf3f3c627e6acd5a5caa63bae82dedf4bee459905a882af950be38d7c3a1"
+    },
+    "local": {
+      "release": "local-native-modern-auto-learning-20261027-v1",
+      "formal_manifest_sha256": "090cc6a43963abd3be024340fd105ad7b7b2770c8bcd707998e144376e72d822"
+    }
+  }
 }
