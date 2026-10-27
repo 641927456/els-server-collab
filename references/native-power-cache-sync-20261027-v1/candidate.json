@@ -40,8 +40,8 @@
   "original_resource_archives_changed": false,
   "new_damage_formula": false,
   "native_qualification_complete": true,
-  "installed": false,
-  "waiting": "Protected public signed V39 update and local formal installation, observations and final acceptance. Final HP/ATK/DEF input gap remains outside this cache-only release.",
+  "installed": true,
+  "waiting": "No outstanding cache delivery gates. Final HP/attack/defense input gap remains separately pending scope approval and qualification.",
   "approved_host_variants": "approved-hosts.json",
   "runtime_variants": {
     "local_formal": {
@@ -68,7 +68,8 @@
     "exact_old_native_exception_code": "0xE24C4A02",
     "publishable": true,
     "prior_V7_117_controlled_careers_are_separate_evidence": true,
-    "publishable_scope": "Native power cache only; formal installation still gated"
+    "publishable_scope": "Native power cache only; formal installation still gated",
+    "installed_online_and_local": true
   },
   "native_core_change": "Original native exception propagation; initialize from the existing original Field/Dungeon callback; same original functions/arguments/results/setter and V7 arithmetic JS",
   "native_core_change_whole_source_inverse_verified": true,
@@ -84,5 +85,6 @@
     "role_and_cache_calculation_not_reached": true,
     "original_parent_without_cache_reached_role": true,
     "independent_readonly_diagnostic_preserved": true
-  }
+  },
+  "formal_delivery_summary": "delivery-summary.json"
 }
