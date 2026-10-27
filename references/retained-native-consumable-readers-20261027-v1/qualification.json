@@ -1,0 +1,110 @@
+{
+  "scope": "39 SQL-owned inventory readers only; zero new use/source/client changes",
+  "production_installed": false,
+  "client_changes": 0,
+  "new_hooks": 0,
+  "new_consumers": 0,
+  "new_sources": 0,
+  "new_tables": 0,
+  "install_DDL": 0,
+  "player_database_migrations": 0,
+  "baseline_rejected_readers": 39,
+  "private_qualifications": [
+    {
+      "channel": "online",
+      "mode": "friends",
+      "private_App_transport": true,
+      "first_and_cold_2A": true,
+      "negative_manual_requests": 78,
+      "original_machine_code_item_reads": 117,
+      "SQL_unchanged": true,
+      "source_pins": [
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "sha256": "4c45b697f62adc4ee0bae7aa3392e21511a272db2769623180409e1d8ab2bb4c"
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "sha256": "2833eef2d3dd274459fd8e5497aabb778325cd15e993af25924d1f04607356cb"
+        },
+        {
+          "path": "els_server/domain/retained_native_consumables.py",
+          "sha256": "6b6bfbdeabf15fd26fad9765b51787b2e32299b3c8fe4513da4d66e87f67434e"
+        },
+        {
+          "path": "els_server/storage/inventory_state.py",
+          "sha256": "00c8ed1245df1270a800f9bbc2b74c0f145422fd5aec5dfb702a2e6fe84df65d"
+        }
+      ],
+      "result_sha256": "35c9efefee5a608faf72a2d20b8527a6ceb0096f14d146e9f7607a0169d2cb51",
+      "no_natural_GUI_claim": true
+    },
+    {
+      "channel": "local",
+      "mode": "local",
+      "private_App_transport": true,
+      "first_and_cold_2A": true,
+      "negative_manual_requests": 78,
+      "original_machine_code_item_reads": 117,
+      "SQL_unchanged": true,
+      "source_pins": [
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "sha256": "8066f9e7e689c7801772aa4bdb5ec87c6061e3f30cae815419008e31b614fb9f"
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "sha256": "ede14bff3164dd636a36aa0e0bc3373ae4bc5280ec835e93496d915dd9f4458a"
+        },
+        {
+          "path": "els_server/domain/retained_native_consumables.py",
+          "sha256": "6b6bfbdeabf15fd26fad9765b51787b2e32299b3c8fe4513da4d66e87f67434e"
+        },
+        {
+          "path": "els_server/storage/inventory_state.py",
+          "sha256": "00c8ed1245df1270a800f9bbc2b74c0f145422fd5aec5dfb702a2e6fe84df65d"
+        }
+      ],
+      "result_sha256": "d0eb12e05189bc1432518c56a468513d8a80163547670d2a2686971ca26aafd6",
+      "no_natural_GUI_claim": true
+    },
+    {
+      "channel": "local",
+      "mode": "friends",
+      "private_App_transport": true,
+      "first_and_cold_2A": true,
+      "negative_manual_requests": 78,
+      "original_machine_code_item_reads": 117,
+      "SQL_unchanged": true,
+      "source_pins": [
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "sha256": "8066f9e7e689c7801772aa4bdb5ec87c6061e3f30cae815419008e31b614fb9f"
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "sha256": "ede14bff3164dd636a36aa0e0bc3373ae4bc5280ec835e93496d915dd9f4458a"
+        },
+        {
+          "path": "els_server/domain/retained_native_consumables.py",
+          "sha256": "6b6bfbdeabf15fd26fad9765b51787b2e32299b3c8fe4513da4d66e87f67434e"
+        },
+        {
+          "path": "els_server/storage/inventory_state.py",
+          "sha256": "00c8ed1245df1270a800f9bbc2b74c0f145422fd5aec5dfb702a2e6fe84df65d"
+        }
+      ],
+      "result_sha256": "f830a8059934b7e676191e6690d011053f3a07f659504ecc48eb84c4d155053f",
+      "no_natural_GUI_claim": true
+    }
+  ],
+  "client_dependent_registration_count": 34,
+  "unqualified_effect_routes": 4,
+  "user_explicit_mount_hold": 1,
+  "remaining_whole_goal_complete": false,
+  "limitations": [
+    "No full GUI/natural combat/automatic use acceptance",
+    "Reader-only support does not introduce split/trade/consume/conversion",
+    "No original client EXE/KOM/launcher/hook edits"
+  ]
+}

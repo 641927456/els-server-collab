@@ -1,0 +1,7 @@
+# PR597 selection against the accepted runtime
+
+PR597 at `d34246f37e85f1cc556e0edf71702ee600611162` must not be merged wholesale. Its original 42 focused checks pass, but the complete source gate fails a frozen source binding, the first skill-book use raises `UnboundLocalError`, and its general inactive-door relaxation accepts the real 34140 phase controller before its native retirement. Equipment totals in naked-input fields and older consumable whole-file replacements also conflict with the actual accepted runtime and ongoing native-only work.
+
+The independent archive in `references/pr597-selected-20261027-v1/` takes only the identity snapshot fix, a source-pinned restriction to the two 30282 template156 exits, and mount scene-release/diagnostics, over both current accepted channel parents. All other formal bytes are preserved. No generic door bypass, loot transaction retry, client edit, additional Hook or candidate installation is included. Each private channel passed 30 checks. Native gameplay and public delivery remain unqualified. The archive is deliberately absent from the default runtime selection.
+
+The accepted default reconciliation uses PR596's newer consumable-reader business files and PR589's already-qualified V40 metadata/support-source identity. The five support sources are byte-identical. Retain the actual signed V40 hashes and `native_final_ability_sync` marker so the complete-attribute gate executes its selected branch; do not rewrite either historical frozen profile.
