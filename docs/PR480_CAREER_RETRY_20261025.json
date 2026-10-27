@@ -1,0 +1,48 @@
+{
+  "issue": "PR #480 career-claim replay notification",
+  "parent_sha": "7287cf1f8952b73e46adbb03ef5e49ec773e8d83",
+  "scope": "Replay a successful class-advancement claim with the existing 29F current-career snapshot; no repeated transition or rewards.",
+  "source": "Pinned quest Reward.m_eChangeUnitClass plus the existing owner-bound completed_quests.reward_json receipt, read inside the same transaction.",
+  "implementation": [
+    "Keep class_changed as a first-transition fact.",
+    "Set an ephemeral career_refresh response flag after a valid completed receipt is loaded; retain old receipt format and schema.",
+    "Encode current character, learned skills, slots, balances and inventory through the existing career_notice consumer before commit."
+  ],
+  "validation": {
+    "new_career_replay_tests_passed": 7,
+    "quests": [
+      103030,
+      53672
+    ],
+    "cases": [
+      "same-sequence retry",
+      "new-sequence retry",
+      "cold reload and legacy receipt",
+      "current later class instead of old quest target",
+      "conflicting and unearned claim rejected",
+      "noncareer claim does not get 29F",
+      "first-claim encoding failure rolls back",
+      "replay encoding failure rolls back"
+    ],
+    "related_original_pr_tests_passed": 27,
+    "unchanged_prior_evidence_reused": [
+      "16 prior review-fix tests",
+      "5 required account-key-binding tests",
+      "formal friends --check preflight; launcher resources and dependency inputs unchanged"
+    ]
+  },
+  "preserved_failure_history": {
+    "before_fix": "The replay test failed for both quests because zero 29F notifications were returned.",
+    "initial_test_fixture_error": "A legacy receipt query used reward instead of the actual reward_json column. The fixture was corrected; the schema was not changed.",
+    "separate_corrected_test_passed": true
+  },
+  "boundaries": {
+    "schema_change": false,
+    "stored_receipt_rewrite": false,
+    "additional_rewards": false,
+    "client_change": false,
+    "game_launched": false,
+    "natural_packet_loss_tested": false,
+    "production_deployment": false
+  }
+}

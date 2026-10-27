@@ -16,25 +16,27 @@ def _ordinary_binding(s):
 
 def handle(s,event,sequence):
     if event.event_id!=0x202 or event.kind!=0x58c:return None
+    s._town_warp_rejection=None
     if not (s.enter_town and s.item_test and s.client_build=='dx11_260923' and s.account.characters is not None):return []
     destination=struct.unpack_from('>i',event.payload)[0] if len(event.payload)>=4 else 0
     if destination==1012:return _handle_village1012(s,event,sequence)
-    def failure(requirement=None):
+    def failure(requirement=None,reason='ordinary_warp_context'):
+        s._town_warp_rejection=reason
         if not _ordinary_actor(s):return []
         return [wire.acknowledgement(destination,s.account.get_reward_balances()['ed'],
-            result=653 if requirement is not None else -1,details=requirement.details if requirement is not None else (0,0,0,0))]
-    if not _ordinary_actor(s):return failure()
+            result=653 if requirement is not None else wire.failure_code(reason),details=requirement.details if requirement is not None else (0,0,0,0))]
+    if not _ordinary_actor(s):return failure(reason='obsolete_actor')
     if (event.performers!=(0,) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0
-        or type(sequence) is not int or not 0<=sequence<2**64 or s.role!='game'):return failure()
+        or type(sequence) is not int or not 0<=sequence<2**64 or s.role!='game'):return failure(reason='native_envelope')
     pending=getattr(s,'town_warp_transition',None)
     if pending is not None:
         if (pending.get('actor_binding')==_ordinary_binding(s) and pending['payload']==event.payload
             and pending['sequence']==sequence and s.phase in ('map_loading','square_accepted')):
             return [Event(0x201,kind=0x58d,payload=pending['response'])]
-        return failure()
-    if s.phase!='town_ready' or s.dungeon_return_pending:return failure()
+        return failure(reason='another_warp_pending')
+    if s.phase!='town_ready' or s.dungeon_return_pending:return failure(reason='not_stable_town')
     source=s.account.get_location()['map']
-    if s.active_map!=source:return failure()
+    if s.active_map!=source:return failure(reason='active_saved_town_mismatch')
     binding=_ordinary_binding(s)
     account,store,uid,account_id,session_id=binding
     def authorize():
@@ -46,8 +48,8 @@ def handle(s,event,sequence):
         from els_server.storage.town_travel import travel
         operation=str(uuid.uuid5(uuid.UUID(s.shop_session_id),f'town-warp:{s.account.uid}:{sequence}'))
         result=travel(store.path,uid,account_id,source,event.payload,operation,now=int(time.time()),authorize=authorize)
-    except DestinationRequirementError as error:return failure(error)
-    except (ValueError,OverflowError):return failure()
+    except DestinationRequirementError as error:return failure(error,reason=str(error))
+    except (ValueError,OverflowError) as error:return failure(reason=str(error))
     with s.account.lock:s.account.location=s.account.store.load()
     s.town_warp_transition=dict(destination=destination,payload=event.payload,sequence=sequence,response=result['response'],operation=operation,actor_binding=binding)
     s.phase='map_loading';s.pending_map=None;s.inventory_town_sync_sent=False
@@ -76,7 +78,7 @@ def _village1012_envelope(s, event, sequence, kind):
         and event.uid == event.target_uid == 2**64-1 and event.payload_mode == 0)
 
 
-def _village1012_failure(s,requirement=None):
+def _village1012_failure(s,requirement=None,reason='Village1012 context'):
     from els_server.storage.town_travel import village1012_snapshot
     try:
         if not _village1012_identity(s):
@@ -84,7 +86,7 @@ def _village1012_failure(s,requirement=None):
         saved = village1012_snapshot(s.account.store.path, s.account.uid, s.account.account_id,
                                     authorize=lambda: _village1012_identity(s))
         return [wire.acknowledgement(1012, saved['balance']['ed'],
-            result=653 if requirement is not None else -1,details=requirement.details if requirement is not None else (0,0,0,0))]
+            result=653 if requirement is not None else wire.failure_code(reason),details=requirement.details if requirement is not None else (0,0,0,0))]
     except (ValueError, KeyError, TypeError, AttributeError):
         return []
 
@@ -144,14 +146,14 @@ def _handle_village1012(s, event, sequence):
         return [Event(0x201, kind=0x58d, payload=result['response'])]
     except DestinationRequirementError as error:
         return _village1012_failure(s,error)
-    except (ValueError, OverflowError, KeyError, TypeError, AttributeError):
-        return _village1012_failure(s)
+    except (ValueError, OverflowError, KeyError, TypeError, AttributeError) as error:
+        return _village1012_failure(s,reason=str(error))
 
 
 def authorize_village1012_entry(s, event, sequence):
     """Strict225 context, with stored cold/return compatibility kept separate."""
     from els_server.storage.town_travel import village1012_committed, village1012_snapshot
-    if (not _village1012_envelope(s, event, sequence, 0x225) or event.payload != struct.pack('>iB', 1012, 0)
+    if (not _village1012_envelope(s, event, sequence, 0x225) or event.payload not in (struct.pack('>iB',1012,0),struct.pack('>iB',1012,1))
             or s.phase not in ('map_loading', 'square_accepted', 'town_ready')):
         return False
     account, store, session_id = s.account, s.account.store, s.shop_session_id
@@ -165,6 +167,7 @@ def authorize_village1012_entry(s, event, sequence):
                 pending['operation'], context, pending,
                 authorize=lambda: _village1012_pending(s, pending, account, store, session_id))
             return True
+        if event.payload[4]!=0:return False  # flag1 requires a current committed warp.
         # Restoring an already saved map is not a cross-scene paid warp. No new
         # receipt, debit, location update or historical-response replay occurs.
         saved = village1012_snapshot(store.path, account.uid, account.account_id,
@@ -238,3 +241,30 @@ def finish_village1012_origin(s, origin):
         s.village1012_return_origin = dict(origin, run_id=s.reward_run_id, dungeon=s.dungeon_id)
     except (ValueError, AttributeError, TypeError, KeyError):
         return
+
+
+def authorize_native_warp_entry(s,event,sequence):
+    """OriginalB934A0 explicit-destination flag1, bound to one committed58C."""
+    if (event.event_id!=0x202 or event.kind!=0x225 or len(event.payload)!=5 or event.payload[4]!=1
+            or event.performers!=(0,)or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0
+            or s.client_build!='dx11_260923' or s.role!='game' or not s.enter_town
+            or s.phase not in('map_loading','square_accepted')or s.dungeon_return_pending
+            or type(sequence)is not int or not 1<=sequence<2**32):return False
+    pending=getattr(s,'town_warp_transition',None)
+    if not isinstance(pending,dict):return False
+    try:
+        destination=struct.unpack_from('>i',event.payload)[0]
+        if destination!=pending['destination']or not 0<=pending['sequence']<sequence:return False
+        expected=str(uuid.uuid5(uuid.UUID(s.shop_session_id),f"town-warp:{s.account.uid}:{pending['sequence']}"))
+        if pending['operation']!=expected:return False
+        if destination==1012:return authorize_village1012_entry(s,event,sequence)
+        binding=_ordinary_binding(s);source=s.active_map
+        def current():
+            return bool(_ordinary_actor(s)and _ordinary_binding(s)==binding and pending['actor_binding']==binding
+                and getattr(s,'town_warp_transition',None)is pending and s.active_map==source
+                and s.account.get_location()['map']==destination and not s.dungeon_return_pending
+                and s.phase in('map_loading','square_accepted'))
+        from els_server.storage.town_travel import ordinary_committed_entry
+        return bool(current()and ordinary_committed_entry(s.account.store.path,s.account.uid,s.account.account_id,
+            source,pending['payload'],pending['operation'],pending['response'],authorize=current))
+    except(ValueError,OverflowError,KeyError,TypeError,AttributeError):return False

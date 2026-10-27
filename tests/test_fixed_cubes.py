@@ -5,7 +5,6 @@ from concurrent.futures import ThreadPoolExecutor
 from unittest.mock import patch
 from tests import test_npc_sale as fixture
 from els_server.domain.fixed_cubes import catalog
-from els_server.domain.inventory_items import TEMPLATE_MAX_STACKS
 from els_server.domain.local_session import LocalSession
 from els_server.protocol.protocol_codec import Event
 from els_server.storage.fixed_cubes import open_cube
@@ -39,18 +38,15 @@ class CubeTests(fixture.SaleTests):
         self.assertEqual(next(i['count'] for i in self.items() if i['uid']==item['uid']),2)
         self.assertEqual(sum(i['count'] for i in self.items() if i['template']==130047),20)
 
-    def test_large_native_quantity_respects_the_pinned_stack_cap(self):
-        # The 300-count box no longer splits at 99: the 2026-10-18 stack policy
-        # raises ordinary stackables to 999 and tools/local_stack_limits.py
-        # patches the pinned client image (snapshot 3cc9fca4, witnessed in session
-        # 20261025-154339) to the same caps, so one 300 stack is what the native
-        # consumer accepts. The cap is read from the policy table instead of being
-        # hardcoded here, because this assertion has already drifted once.
+    def test_large_native_quantity_splits_into_real_stack_limits(self):
         item=self.grant(980050);events=self.use(item)
-        cap=TEMPLATE_MAX_STACKS[78360];stacks=[i for i in self.items() if i['template']==78360]
+        stacks=[i for i in self.items() if i['template']==78360]
         self.assertEqual(sum(i['count'] for i in stacks),300)
-        self.assertTrue(all(1<=i['count']<=cap for i in stacks))
-        self.assertEqual(len(stacks),-(-300//cap));self.assertEqual(struct.unpack_from('>I',events[0].payload)[0],1+len(stacks))
+        from els_server.domain.inventory_items import TEMPLATE_MAX_STACKS
+        limit=TEMPLATE_MAX_STACKS[78360];expected_stacks=(300+limit-1)//limit
+        self.assertTrue(all(1<=i['count']<=limit for i in stacks))
+        self.assertEqual(len(stacks),expected_stacks)
+        self.assertEqual(struct.unpack_from('>I',events[0].payload)[0],expected_stacks+1)
 
     def test_bag_full_rolls_back_cube_revision_reward_and_uid_allocation(self):
         item=self.grant(130172,2);before=self.dump()

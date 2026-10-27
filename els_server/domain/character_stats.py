@@ -86,16 +86,15 @@ def instance_attributes(item,character):
     return equipment_attributes(item['template'],character)
 
 
-@functools.lru_cache(maxsize=1)
 def _base():
-    policy=json.loads((PROJECT_ROOT/'config/combat_rules.json').read_text(encoding='utf8'))
-    values=policy['base_attributes']
-    if policy['schema_version']!=1 or policy['provenance']!='local_policy' or len(values)!=7 or any(type(v) not in (int,float) or not math.isfinite(v) or v<0 for v in values):raise ValueError('Combat base policy')
-    return tuple(values),policy['include_equipment_attributes']
+    from els_server.domain.native_character_base import rules,values
+    return values(),rules()['include_equipment_attributes']
 
 
-def combat_values(character=None, items=None):
-    base,include=_base();values=list(base)
+def combat_values(character=None, items=None, *, titles=True):
+    base,include=_base()
+    from els_server.domain.native_character_base import values as sourced_base_values
+    values=list(sourced_base_values(character))
     if character is not None:
         unit=client_data().unit(character['unit_class'])
         if 'unit_type' in character and character['unit_type']!=unit['unitType']:raise ValueError('Combat character template mismatch')
@@ -106,11 +105,11 @@ def combat_values(character=None, items=None):
                     validate_item(item)
                     if not equipment_contributes(item,character):continue
                     values=[f32(v+extra) for v,extra in zip(values,instance_attributes(item,character))]
-            if items is not None:
+            if items is not None and titles:
                 # The server estimate includes the selected title's flat
                 # attributes, just as the legacy GetEquippedStat path does.
-                # Naked wire inputs omit items and remain unchanged: the
-                # native client applies its own equipped title afterward.
+                # The wire block omits titles: the native client applies its
+                # own equipped title afterward.
                 from els_server.domain.titles import attributes as title_attributes
                 values=[f32(v+extra) for v,extra in zip(values,title_attributes(character))]
     if any(not math.isfinite(v) or not 0<=v<=1e12 for v in values):raise ValueError('Combat attributes out of bounds')
@@ -131,10 +130,12 @@ def equipment_contributes(item,character):
 
 
 def combat_attributes(character=None,items=None):
-    # D9B170 B6/D2 and dungeon member attributes are base inputs. Native
-    # equipment application adds the equipped map again. Keep server estimates
-    # available through combat_values(), but never send them as naked values.
-    return struct.pack('>7f',*combat_values(character))
+    # D9B170 B6/D2 and dungeon member attributes are what the native consumers
+    # display and fight with. Sending the bare growth tuple left every equipped
+    # character reading its naked attack (Lv99: 1202 against 72447 with gear).
+    # The equipped title stays out so the client's own title pass is not counted
+    # twice; every caller already passes its worn instance list.
+    return struct.pack('>7f',*combat_values(character,items,titles=False))
 
 
 def combat_breakdown(character,items=()):
@@ -146,9 +147,10 @@ def combat_breakdown(character,items=()):
           for i in items if i['group']==9]
     unit=client_data().unit(character['unit_class'])
     return dict(level=character['level'],unit_class=character['unit_class'],
-                wire_base=base,base_provenance='unverified_local_fallback',
+                wire_base=base,base_provenance='documented_growth_native_inputs',
+                sourced_base_growth_applied=True,native_naked_growth_function_verified=False,
                 retail_base_verified=False,level_growth_verified=False,
                 equipment=worn,server_base_plus_equipment_estimate=combat_values(character,items),
                 native_equipment_reference=_tables()['CHARACTER_RELATIVE_STAT_TABLE'][unit['unitType']],
                 equipment_applied_by_native_client=True,
-                note='Default normal instance template bonuses and derived fields are included. Naked level growth, set/passive effects and nondefault instances remain unverified; this estimate is not sent as naked attributes.')
+                note='User-approved documented naked growth is supplied as base input. Complete set/passive and nondefault-instance aggregates remain unverified here; equipment estimates are not sent as naked values.')

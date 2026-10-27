@@ -1,0 +1,9 @@
+# Native wardrobe opening restriction input
+
+The original inventory/shortcut button sends51C(house0,selector3) and waits for51D before showing its existing wardrobe. Add this missing read-only exchange; existing register/apply APIs did not supply the initial input.
+
+Reply with the complete native result, house, three inactive branch containers, wardrobe temporary restriction set, selector and inactive manufacturing period map. Only selector3 uses the wardrobe set and then invokes the original show path. The current server profile configures no extra time-control UI bans, so its normal default set is empty, following the legacy clear/default workflow. This is this server default, not a claim about current official restrictions. Owned31 remains the actual account registry; no manufactured ownership, cash, manufacture/exchange route, source or write entitlement is introduced.
+
+Exact envelope, house/selector, current town phase, lease, captured generation, account ownership and lifecycle are checked around a query-only SQL snapshot. Existing registry reads and complete51D encoding precede the final identity check. Every existing writer gate, schema, inventory and balance is unchanged. No client or installation migration.
+
+Validation: both exact parent private Application/TLS baselines lack51D. Byte-preserving candidates pass nine relevant cases in each channel, including actual registration and cold31 remaining independent of51D, malformed selector/house/frame, foreign/current identity, phase and encoding failure with unchanged read-path SQL. The native producer/full parser/show chain and legacy normal default are independently reviewed. Both opener overlays coexist in the same private session. Public production and natural GUI acceptance remain pending. Stacked on #461; closes #462 after review.

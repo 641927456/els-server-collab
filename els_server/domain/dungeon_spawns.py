@@ -3,7 +3,7 @@
 Only verified templates reachable from the current stage's READY_NPC and
 captured AI references are admitted. Player sentries retain their own adapter.
 """
-import functools,hashlib,math,re,struct
+import hashlib,math,struct
 from els_server.domain.summons import LAYOUTS,summon_ack
 from els_server.domain.dungeon_npcs import encode_npc
 from els_server.domain.dungeon_routes import npc_initialization
@@ -45,93 +45,6 @@ def decode(payload,validate):
  if len(candidates)!=1:raise ValueError('Unrecognized or ambiguous NPC spawn mode')
  return next(iter(candidates.values()))
 
-# Lua-script scene objects. A dungeon cmd block creates these when the player
-# interacts with the scene, so the stage's READY_NPC list - and therefore the
-# pinned route graph - never carries them, and the native loader answers
-# DUNGEON-side -1 while the client waits for an actor that never arrives.
-#
-# The family is derived from the route's own source file instead of a
-# hand-listed id set, because a dungeon owns several such panels and the
-# client asks for whichever one the player interacted with: 35250 creates
-# all five mural panels (9305..9309), not only the first one recorded.
-# A route sourced from Dungeon_<STEM>.lua owns every <STEM>_*.lua controller
-# its graph does not already declare, and of those it may only create the two
-# shapes this build proves are client-side scene requests:
-#   - a numbered <STEM>..._PART<n>.lua panel (the interaction/scene markers), or
-#   - a script the route's own pinned source manifest already lists.
-# Prefix matching alone is not enough to be safe (EN_TUNNEL_* would admit 135
-# combat-era objects), so the four guards below stay: dungeon-wide script
-# family, client-side enum agreement, controller class, and absence from the
-# static graph.
-SCENE_CLASS=103
-PART_PANEL=re.compile(r'^.*_PART\d+\.LUA$')
-
-@functools.lru_cache(maxsize=8192)
-def scene_controller(template):
- """True when the client build declares this template as a scene controller.
-
- Class 103 carries the Lua scene objects (doors, dummies, panels, triggers);
- the combat class carries real actors and never qualifies here.
- """
- if type(template) is not int:return False
- from els_server.game_data import client_data
- try:native=client_data().npc(template)
- except (ValueError,KeyError):return False
- script=native.get('script')
- return native.get('class_id')==SCENE_CLASS and isinstance(script,str) and script.endswith('.lua')
-
-def scene_signature(run):
- source=run.graph.get('source')
- if not isinstance(source,str) or not source.lower().endswith('.lua'):return None
- stem=source.rsplit('/',1)[-1][:-4]
- if stem.lower().startswith('dungeon_'):stem=stem[8:]
- return stem.upper() or None
-
-_DECLARED={}
-def declared_templates(run):
- cached=_DECLARED.get(run.identity)
- if cached is not None:return cached
- found=set()
- def walk(value):
-  if isinstance(value,dict):
-   template=value.get('template')
-   if type(template) is int:found.add(template)
-   for child in value.values():walk(child)
-  elif isinstance(value,list):
-   for child in value:walk(child)
- walk(run.graph)
- _DECLARED[run.identity]=cached=frozenset(found)
- return cached
-
-def script_native(run,template):
- """Client-sourced initialisation row for a scene object, or None.
-
- Only the two fields npc_initialization consumes are supplied: the record's
- script name (slot 2, the only slot the client catalogs populate for such
- objects) and no scripted max HP, matching the majority of catalog entries.
- """
- if type(template) is not int:return None
- signature=scene_signature(run)
- if signature is None:return None
- from els_server.game_data import client_data
- try:native=client_data().npc(template)
- except (ValueError,KeyError):return None
- script=native.get('script');enum=native.get('enum')
- if not isinstance(script,str) or not script.endswith('.lua') or not isinstance(enum,str):return None
- # The object must belong to this dungeon's own script family...
- if not script.upper().startswith(signature+'_'):return None
- # ...its enum must name the same object as its script...
- if enum.rsplit('.',1)[-1]!='NUI_'+script[:-4]:return None
- # ...only scene controllers qualify, because the combat class carries real
- # actors that must arrive through the pinned READY_NPC lists...
- if native.get('class_id')!=SCENE_CLASS:return None
- # ...a template the graph already declares is a static actor, and a second
- # dynamic copy would take a fresh key and break its death accounting...
- if template in declared_templates(run):return None
- # ...and the script must be one of the two proven dynamic shapes.
- if not PART_PANEL.match(script.upper()) and script not in run.catalog.manifest['source_sha256']:return None
- return dict(strings=['','',script,'','',''],script_max_hp=None,local_hp=None)
-
 def handle(s,event,sequence):
  if event.event_id!=0x202 or event.kind!=0x2ce or s.dungeon_run is None:return None
  run=s.dungeon_run
@@ -144,8 +57,7 @@ def handle(s,event,sequence):
  owners={0,2**64-1,s.account.uid,*run.reserved_keys,*s.summon_keys}
  def validate(dto):
   key,template=struct.unpack_from('<ii',dto)
-  if key!=-1:raise ValueError('NPC create key')
-  if template not in allowed and script_native(run,template) is None:raise ValueError('NPC not declared by current encounter')
+  if key!=-1 or template not in allowed:raise ValueError('NPC not declared by current encounter')
   if struct.unpack_from('<Q',dto,0x6d)[0] not in owners:raise ValueError('NPC creator outside current encounter')
   if dto[8] not in (0,1,2) or any(dto[o] not in (0,1) for o in (0x4e,0x54,0x61,0x65,0x66)):raise ValueError('NPC flag bound')
   if not all(math.isfinite(v) and abs(v)<=100000 for v in struct.unpack_from('<fff',dto,9)):raise ValueError('NPC spawn position bound')
@@ -179,11 +91,11 @@ def handle(s,event,sequence):
  entries=[];wires=[];initial=[]
  for dto,key in zip(rows,free):
   template=struct.unpack_from('<i',dto,4)[0];boss=bool(dto[0x61])
-  native=run.catalog._data['npcs'].get(str(template)) or script_native(run,template)
-  if native is None:return [summon_ack(-1)]
-  hp=native['script_max_hp'] or (5000 if boss else 500)
+  from els_server.domain.formal_npc_hp import summoned_maximum
+  hp,npc_level=summoned_maximum(run,template)
+  dto[0x53]=npc_level
   struct.pack_into('<i',dto,0,key)
-  init=npc_initialization(run.catalog,template,hp,native=native);wire=encode_npc(dto,0)
+  init=npc_initialization(run.catalog,template,hp,dynamic_context=(run.identity,run.graph['source_sha256'],npc_level,run.stage));wire=encode_npc(dto,0)
   entries.append(dict(key=key,template=template,key_code=struct.unpack_from('<i',dto,0x4f)[0],active=bool(dto[0x4e]),team=dto[8],ally=bool(dto[0x66]),no_drop=True,boss=boss,hp=hp,dynamic=True,wire=wire,init=init))
   wires.append(wire);initial.append(struct.pack('>i',key)+init)
  # C50040: NPC vector, four-byte flags map, scalar, byte vector,

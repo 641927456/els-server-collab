@@ -26,6 +26,35 @@ class KnownSourceResurrection(unittest.TestCase):
         with closing(sqlite3.connect(self.path)) as db:return '\n'.join(db.iterdump())
     def open(self,box,operation,**options):
         return open_box(self.path,self.uid,self.use(box),operation,account_id=options.get('account_id',2),guard=options.get('guard',self.guard))
+    def test_native_option_one_owned_box_consumes_once(self):
+        payload=struct.pack('>QBBBIi',self.boxes[0],0,0,0,0,1)
+        reply=open_box(self.path,self.uid,payload,'native-empty-confirm',account_id=2,guard=self.guard)
+        self.assertEqual(snapshot(self.path,self.uid),10)
+        self.assertEqual(struct.unpack_from('>i',reply[-1].payload,4)[0],10)
+        committed=self.state()
+        open_box(self.path,self.uid,payload,'native-empty-confirm',account_id=2,guard=self.guard)
+        self.assertEqual(self.state(),committed)
+        self.assertEqual(snapshot(self.path,self.uid),10)
+    def test_native_option_one_foreign_owner_and_encode_failure_roll_back(self):
+        from unittest.mock import patch
+        payload=struct.pack('>QBBBIi',self.boxes[0],0,0,0,0,1)
+        before=self.state()
+        with self.assertRaises(ValueError):
+            open_box(self.path,self.uid,payload,'foreign-option-one',account_id=3,guard=self.guard)
+        self.assertEqual(self.state(),before)
+        with patch('els_server.protocol.known_resurrection.encode_event',side_effect=ValueError('wire encode failure')):
+            with self.assertRaisesRegex(ValueError,'wire encode failure'):
+                open_box(self.path,self.uid,payload,'failed-option-one',account_id=2,guard=self.guard)
+        self.assertEqual(self.state(),before)
+    def test_unknown_option_choice_and_flags_never_consume_box(self):
+        before=self.state()
+        payloads=[struct.pack('>QBBBIi',self.boxes[0],0,0,0,0,mode)for mode in(-1,2,2147483647)]
+        payloads += [struct.pack('>QBBBIii',self.boxes[0],0,0,0,1,30163,1),
+                     struct.pack('>QBBBIi',self.boxes[0],2,0,0,0,1)]
+        for index,payload in enumerate(payloads):
+            with self.subTest(index=index),self.assertRaises(ValueError):
+                open_box(self.path,self.uid,payload,'unknown-native-mode-'+str(index),account_id=2,guard=self.guard)
+            self.assertEqual(self.state(),before)
     def test_current_counter_replay_and_once_per_life(self):
         before=self.state();self.assertEqual(snapshot(self.path,self.uid),0);self.assertEqual(self.state(),before)
         self.open(self.boxes[0],'open1')

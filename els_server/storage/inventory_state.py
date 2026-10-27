@@ -97,21 +97,34 @@ def load_items(db,owner=1001):
  limits=allowances(db,owner)
  if any(i['group'] not in (9,22,23,24) and i['slot']>=limits[i['group']] for i in items):raise ValueError('Item exceeds owned bag capacity')
  return items
-def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None,regional_cube_source=None):
+def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None,regional_cube_source=None):
+ if regional_cube_source is not None:
+  if any(v is not None for v in(selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,silver_source,daily_special_source)):
+   raise ValueError('Incompatible regional cube inventory sources')
+  from els_server.storage.regional_boss_cube_source import validate_source as _regional_source
+  _regional_source(regional_cube_source).validate_plan(plan)
+ if daily_special_source is not None:
+  if any(v is not None for v in(selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,silver_source)):raise ValueError('Incompatible daily inventory sources')
+  from els_server.storage.ariel_daily_special import validate_source as _daily_source
+  _daily_source(daily_special_source).validate_plan(plan)
+ if raid_reward_source is not None:
+  if any(v is not None for v in(selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source)):raise ValueError('Incompatible raid inventory sources')
+  from els_server.domain.raid_reward_items import validate_source as _raid_source
+  _raid_source(raid_reward_source).validate_plan(plan)
  if fish_erp_source is not None:
-  if any(x is not None for x in(selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,regional_cube_source)):raise ValueError('Incompatible fish ERP grant source')
+  if any(x is not None for x in(selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source)):raise ValueError('Incompatible fish ERP grant source')
   from els_server.domain.fish_exchange_erp import validate_source as validate_fish_erp_source
   validate_fish_erp_source(fish_erp_source).validate_plan(plan)
  if cartridge_recipe679_source is not None:
-  if cartridge_box_source is not None or cartridge_select_source is not None or selected_accessory_box is not None or regional_cube_source is not None:raise ValueError("Incompatible inventory grant sources")
+  if cartridge_box_source is not None or cartridge_select_source is not None or selected_accessory_box is not None:raise ValueError("Incompatible inventory grant sources")
   from els_server.domain.cartridge_recipe679_rules import validate_recipe_source
   validate_recipe_source(cartridge_recipe679_source).validate_plan(plan)
  if cartridge_select_source is not None:
-  if cartridge_box_source is not None or selected_accessory_box is not None or regional_cube_source is not None:raise ValueError("Incompatible inventory grant sources")
+  if cartridge_box_source is not None or selected_accessory_box is not None:raise ValueError("Incompatible inventory grant sources")
   from els_server.domain.cartridge_exchange_rules import validate_select_source
   validate_select_source(cartridge_select_source).validate_plan(plan)
  if cartridge_box_source is not None:
-  if selected_accessory_box is not None or regional_cube_source is not None:raise ValueError("Incompatible inventory grant sources")
+  if selected_accessory_box is not None:raise ValueError("Incompatible inventory grant sources")
   from els_server.domain.cartridge_selection_box import validate_source
   validate_source(cartridge_box_source).validate_plan(plan)
  if not isinstance(plan,list) or not 1<=len(plan)<=36:raise ValueError('Inventory grant plan bound')
@@ -121,7 +134,7 @@ def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,c
  for p in plan:
   if not isinstance(p,dict) or set(p)-{'expires_at','enhancement'}!={'template','metadata','quantity','group'} or any(type(v) is not int for v in p.values()):raise ValueError('Invalid inventory grant plan')
   from els_server.domain.acquisition_policy import require_acquirable
-  if selected_accessory_box is None:require_acquirable(p['template'],cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,regional_cube_source=regional_cube_source)
+  if selected_accessory_box is None:require_acquirable(p['template'],cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,raid_reward_source=raid_reward_source,silver_source=silver_source,daily_special_source=daily_special_source,regional_cube_source=regional_cube_source)
   if 'enhancement' in p:
    from els_server.domain.equipment_enhancement import validate as validate_enhancement
    validate_enhancement(p['template'],p['enhancement'])
@@ -134,10 +147,23 @@ def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,c
    if p!=dict(template=119335,metadata=0,group=4,quantity=1):raise ValueError('Recipe679 private singleton plan')
   elif p['template'] not in VERIFIED_TEMPLATES or p['metadata']!=VERIFIED_TEMPLATES[p['template']] or p['group']!=TEMPLATE_BAG_GROUPS[p['template']] or not 1<=p['quantity']<=LOCAL_MAX_STACK:raise ValueError('Unverified inventory grant template/count')
  return [dict(p) for p in plan]
-def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None,regional_cube_source=None):
+def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None,regional_cube_source=None):
+ if regional_cube_source is not None:
+  if any(v is not None for v in(chip_options,selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,silver_source,daily_special_source)):
+   raise ValueError('Incompatible regional cube inventory sources')
+  from els_server.storage.regional_boss_cube_source import validate_source as _regional_source
+  _regional_source(regional_cube_source).bind_factory(db,owner,plan)
+ if daily_special_source is not None:
+  if any(v is not None for v in(chip_options,selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,silver_source)):raise ValueError('Incompatible daily inventory sources')
+  from els_server.storage.ariel_daily_special import validate_source as _daily_source
+  _daily_source(daily_special_source).bind_factory(db,owner,plan)
+ if raid_reward_source is not None:
+  if any(v is not None for v in(selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source)):raise ValueError('Incompatible raid inventory sources')
+  from els_server.domain.raid_reward_items import validate_source as _raid_source
+  _raid_source(raid_reward_source).bind_factory(db,owner,plan)
  owner=character_uid(owner)
  if fish_erp_source is not None:
-  if any(x is not None for x in(chip_options,selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,regional_cube_source)):raise ValueError('Incompatible fish ERP factory source')
+  if any(x is not None for x in(chip_options,selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source)):raise ValueError('Incompatible fish ERP factory source')
   from els_server.domain.fish_exchange_erp import validate_source as validate_fish_erp_source
   validate_fish_erp_source(fish_erp_source).bind_factory(db,owner,plan)
  if cartridge_recipe679_source is not None:
@@ -152,7 +178,11 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
   if selected_accessory_box is not None or chip_options is not None:raise ValueError("Incompatible inventory grant sources")
   from els_server.domain.cartridge_selection_box import validate_source
   validate_source(cartridge_box_source).bind_factory(db,owner,plan)
- plan=validate_plan(plan,selected_accessory_box=selected_accessory_box,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,fish_erp_source=fish_erp_source,regional_cube_source=regional_cube_source);items=load_items(db,owner);changed={}
+ if silver_source is not None:
+  if any(v is not None for v in(chip_options,selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,daily_special_source)):raise ValueError('Incompatible Mirror inventory sources')
+  from els_server.domain.silver_mirror_rewards import validate_source as validate_mirror_source
+  validate_mirror_source(silver_source).bind_factory(db,owner,plan)
+ plan=validate_plan(plan,selected_accessory_box=selected_accessory_box,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,fish_erp_source=fish_erp_source,raid_reward_source=raid_reward_source,silver_source=silver_source,daily_special_source=daily_special_source,regional_cube_source=regional_cube_source);items=load_items(db,owner);changed={}
  from els_server.domain.equipment_chip_rules import TEMPLATE as CHIP,generate as chip_generate,source_options as chip_source
  approved_chip=None
  if chip_options is not None:
@@ -178,12 +208,19 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
    if 'expires_at' in p:i['expires_at']=p['expires_at']
    if p.get('enhancement'):i['enhancement']=p['enhancement']
    if i['template']==CHIP:i['option_groups']={'1':list(approved_chip['1'])} if approved_chip is not None else chip_generate()
+   from els_server.domain.equipment_circuit_rules import material as circuit_material,generate as circuit_generate
+   typed_circuit=raid_reward_source is not None and circuit_material(i['template'])is not None
+   if typed_circuit:i['option_groups']=circuit_generate(i['template'])
    if cartridge_recipe679_source is not None:i=validate_recipe_source(cartridge_recipe679_source).admit_instance(i)
    if fish_erp_source is not None:i=fish_erp_source.admit_instance(i)
+   if silver_source is not None and silver_source.options is not None:i['option_groups']=dict(silver_source.options)
    validate_item(i)
    db.execute('UPDATE inventory_sequence SET next_uid=? WHERE id=1',(uid+1,))
    db.execute('INSERT INTO inventory_items VALUES (?,?,?,?,?,?,?)',(uid,owner,i['template'],i['metadata'],i['count'],i['group'],slot))
-   if i['template']==CHIP:
+   if silver_source is not None and silver_source.options is not None:
+    from els_server.storage.equipment_options import replace as replace_mirror_options
+    replace_mirror_options(db,owner,uid,{},i['option_groups'])
+   if i['template']==CHIP or typed_circuit:
     from els_server.storage.equipment_options import replace as replace_chip_options
     replace_chip_options(db,owner,uid,{},i['option_groups'])
    if 'expires_at' in i:
@@ -200,6 +237,7 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
    from els_server.storage.artifact_generation import initialize
    initialize(db,owner,i)
    items.append(i);changed[uid]=i if fish_erp_source is not None else dict(i);remaining-=i['count']
+ if regional_cube_source is not None:regional_cube_source.verify_after()
  if fish_erp_source is not None:fish_erp_source.verify_after()
  inventory_payload(items)
  return list(changed.values())

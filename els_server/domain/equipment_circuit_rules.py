@@ -3,7 +3,7 @@ import functools,hashlib,json,secrets
 from pathlib import Path
 from els_server.game_data import CLIENT_SHA,client_data
 
-POLICY_SHA='3e6fef87c5e6f355047d24ff770101d037601c515cc67ddde2557fa9398fd3a4'
+POLICY_SHA='c8bcd7900212ac9d19192838da2da31dcd28a0be015b7a2a93b81cc0199d6e91'
 
 
 @functools.lru_cache(maxsize=1)
@@ -13,7 +13,7 @@ def catalog():
     c=json.loads(raw)
     if c['schema_version']!=1 or c['client_sha256']!=CLIENT_SHA or c['catalog_sha256']!=client_data().manifest['catalog_sha256']:
         raise ValueError('Circuit native build mismatch')
-    if len(c['materials'])!=72 or len(c['targets'])!=120 or len(c['options'])!=7590:
+    if len(c['materials'])!=120 or len(c['targets'])!=120 or len(c['options'])!=7590:
         raise ValueError('Circuit finite policy coverage')
     for name in ('materials','targets'):
         for key,r in c[name].items():

@@ -48,6 +48,37 @@ def completed_ids(db,uid):
     if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='completed_quests'").fetchone():return frozenset()
     return frozenset(r[0] for r in erp_scope.completed_rows(db,uid))
 
+def hidden_active(db,uid,character=None):
+    """Native HIDE_QUEST_SKILL: a task whose seal group is already owned is not
+    a task. Using a Camilla manual unseals the group while the training task is
+    still accepted; the native client hides that task, so the server must drop
+    the row instead of leaving an unclaimable entry."""
+    if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_quests'").fetchone():return ()
+    from els_server.domain.skill_unlocks import unsealed_skills
+    from els_server.domain.seal_quests import quest_catalog,sequence
+    if character is None:character=load_character(db,uid)
+    seals=set(unsealed_skills(character))
+    if not seals:return ()
+    hidden=[]
+    for (qid,) in db.execute('SELECT quest FROM character_quests WHERE owner=?',(uid,)):
+        try:quest=quest_catalog().quest(qid)
+        except ValueError:continue
+        if any(s in seals for s in sequence(quest.get('HIDE_QUEST_SKILL',{}))):hidden.append(qid)
+    return tuple(hidden)
+
+def drop_hidden(db,uid,character=None):
+    """Remove hidden tasks inside the caller's writer; returns the dropped ids."""
+    ids=hidden_active(db,uid,character)
+    for qid in ids:
+        db.execute('DELETE FROM character_quests WHERE owner=? AND quest=?',(erp_scope.quest_owner(db,uid,qid),qid))
+    return ids
+
+def state_in(db,uid):
+    """Current quest state inside a caller-owned writer, after hidden-task repair."""
+    ensure(db);character=load_character(db,uid)
+    drop_hidden(db,uid,character)
+    return _state(db,uid,load_items(db,uid))
+
 def load_character(db,uid,account_id=None):
     from els_server.storage.characters import Characters
     from els_server.storage.skill_unlocks import saved_groups
@@ -139,7 +170,10 @@ class QuestState:
 
     def snapshot(self):
         with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
-            db.execute('BEGIN IMMEDIATE');load_character(db,self.uid,self.account_id);ensure(db)
+            db.execute('BEGIN IMMEDIATE');character=load_character(db,self.uid,self.account_id);ensure(db)
+            # A used Camilla manual unseals the group; the accepted training
+            # task then carries a satisfied HIDE_QUEST_SKILL and is dropped.
+            drop_hidden(db,self.uid,character)
             return _state(db,self.uid,load_items(db,self.uid))
 
     def notification_snapshot(self):
@@ -317,18 +351,25 @@ class QuestState:
                     accepted_after=() if erp_scope.scoped(qid) else accept_after_reward(db,uid,qid,load_character(db,uid,self.account_id),load_items(db,uid),location,now)
                 db.execute('INSERT INTO quest_actions VALUES (?,?,?,?)',(operation_id,uid,kind,digest))
             items=load_items(db,uid);character=load_character(db,uid,self.account_id);state=_state(db,uid,items)
+            career_refresh=class_changed
             if kind=='claim' and replayed:
                 saved=erp_scope.reward_row(db,uid,qid)
                 if saved:
                     saved=json.loads(saved[0]);ids={i['uid'] for i in saved['items']}
                     awards=[i for i in items if i['uid'] in ids]
                     consumed=[(tuple(pos),next((i for i in items if (i['group'],i['slot'])==tuple(pos)),None)) for pos in saved.get('consumed_positions',[])]
+                    # The existing success receipt and pinned quest reward
+                    # authorize a fresh CURRENT career snapshot on retry.
+                    # No transition or reward is repeated, including for old
+                    # receipts that predate the career notification fix.
+                    career_refresh=bool(q['Reward'].get('m_eChangeUnitClass',0))
             from els_server.storage.reward_state import validate_balances
             balances=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(uid,)).fetchone())
             result=dict(replayed=replayed,state=state,character=character,balances=balances,items=items,updates=awards,consumed=consumed,slots=current_slots(db,character))
             result['accepted_after']=[row for row in state['active'] if row['id'] in accepted_after]
             if stage_changed:result['stage_changed']=True
             if class_changed:result['class_changed']=True
+            if career_refresh:result['career_refresh']=True
             # All responses, including full unit and inventory bodies, must be
             # encodable before SQL commit. No stale receipt inventory deltas.
             if erp_scope.scoped(qid):erp_scope.before_action(db,uid,self.account_id,kind,self.account_source_guard,qid=qid)

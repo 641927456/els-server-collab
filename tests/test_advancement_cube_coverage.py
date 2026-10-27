@@ -1,13 +1,9 @@
 """Class-advancement boxes the client consumes as cubes but the server has no table for.
 
-Every template here is granted by a class-advancement quest reward and carries a
-RandomItem rule (m_UseCondition plus one m_iItemGroupID per class branch), so the
-native client always confirms it and sends the cube-use request. The reward pool
-for those group ids is not contained in any local resource: the client's
-RandomItem.lua maps cube -> group only, catalog.sqlite3 has no item-group rows,
-the witnessed official probability disclosures cover the regional BOSS cubes, and
-the 2014 package is outside this collaboration copy. The pool stays unknown, so a
-cube use must keep refusing and must never invent a reward or burn the instance.
+These nine templates remain outside the verified finite cube catalog. The
+available RandomItem rules identify groups without proving their full current
+contents and weights. This change adds no advancement-pool inference, producer
+or repair of existing inventory: refusal must leave each owned instance intact.
 """
 import unittest
 from els_server.domain.cubes import catalog

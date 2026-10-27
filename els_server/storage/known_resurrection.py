@@ -37,10 +37,6 @@ def open_box(path,owner,payload,operation,*,account_id,guard):
     from els_server.protocol.ice_messages import use_request
     from els_server.protocol.known_resurrection import box_result
     request=use_request(payload)
-    # This box credits a counter, not an item list, so the preview carries no
-    # rows. The client therefore confirms an empty dialog and sends option=1
-    # instead of option=0; both mean "no selection" here. Anything above 1, or
-    # any explicit choice vector, is still rejected.
     if request.option not in (0,1) or request.choices or any(v not in (0,1)for v in(request.flag1,request.flag2,request.flag3)):
         raise ValueError('Known resurrection box use mode')
     owner,digest=_identity(owner,0x196,struct.pack('>i',BOX)+payload,operation)

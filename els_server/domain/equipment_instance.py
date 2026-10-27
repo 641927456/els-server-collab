@@ -29,6 +29,8 @@ def restricted_templates():
 def require_wearable(item,character):
     from els_server.domain.item_expiration import require_current
     require_current(item)
+    from els_server.domain.boosting_gear_identification import require_complete
+    require_complete(item)
     if item.get('enhancement',0)<0:raise ValueError('Broken equipment requires restoration')
     if item['template'] in restricted_templates():raise ValueError('Unimplemented dynamic equipment permission')
     if validate(item['template'],item.get('durability',0))<=0:raise ValueError('Equipment durability exhausted or missing')

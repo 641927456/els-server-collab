@@ -28,7 +28,7 @@ def initialization(s):
         # Failed/abandoned quest requests also use this encoder in town.
         if s.role=='game' and s.phase in ('characters_ready','channels_ready'):
             from els_server.domain.tutorial_quests import restore_initialization
-            return restore_initialization(store(s))[0]
+            return restore_initialization(store(s),defer_starter_arrival=s.enter_dungeon)[0]
         return wire.initialization(store(s).snapshot())
     from els_server.protocol.local_messages import inventory_initialization
     return inventory_initialization()
@@ -195,7 +195,9 @@ def handle(s,event,sequence):
             if ready:events.append(wire.progress(ready))
             # B9C380 kind29F rebuilds the career/skill-tree context; the F5 unit
             # alone leaves the current client's skill page empty after a job quest.
-            if r.get('class_changed'):
+            # Successful retries also rebuild from current authoritative
+            # state; class_changed itself remains a first-transition fact.
+            if r.get('career_refresh'):
                 from els_server.protocol.career_messages import career_notice
                 events.append(career_notice(r['character'],s.account.get_location(),r['slots'],r['balances'],r['items']))
             events.append(skill_slots_initialization(r['slots'],s.account.uid,r['character']))
@@ -283,8 +285,34 @@ def observe(s,replies=()):
         if getattr(s,'_quest_town_cursor',None)!=cursor:
             import uuid
             token=uuid.uuid4().hex
-            notices+=store(s).record('town:'+token,dict(kind='visit_town',town=town,dungeon=0,level=s.account.character()['level']),token.encode())
-            s._quest_town_cursor=cursor
+            from els_server.domain.tutorial_quests import first_arrival_pending,STARTERS
+            selected_store=store(s)
+            if account_source_actor(s) and not first_arrival_pending(selected_store):
+                arrival={};qid,starter_town=STARTERS[s.account.character()['unit_type']]
+                def validate_arrival(db):
+                    account_source_guard(s,db)
+                    if (s.phase!='town_ready' or s.active_map!=town
+                        or not {0x225,0x227}.issubset(s.completed)
+                        or db.execute('SELECT town FROM location WHERE uid=?',(s.account.uid,)).fetchone()!=(town,)):
+                        raise ValueError('Quest arrival scene changed')
+                    arrival['db']=db
+                    arrival['before']=db.execute('SELECT accepted_at,generation,objectives FROM character_quests WHERE owner=? AND quest=?',(s.account.uid,qid)).fetchone() if town==starter_town else None
+                def prepare_arrival(events,replayed):
+                    # The full original F0 seeds the right-side task name;
+                    # F3 then carries the actual committed objective edge.
+                    # No F4/F5, reward or forced main-window open is added.
+                    import json
+                    before=arrival.get('before')
+                    if events and before is not None and not any(json.loads(before[2]).values()):
+                        after=arrival['db'].execute('SELECT accepted_at,generation,objectives FROM character_quests WHERE owner=? AND quest=?',(s.account.uid,qid)).fetchone()
+                        if after is not None and after[:2]==before[:2] and all(json.loads(after[2]).values()):
+                            row=dict(id=qid,owner=s.account.uid,accepted_at=after[0],generation=after[1],objectives={int(k):v for k,v in json.loads(after[2]).items()})
+                            events=[wire.accepted(row)]+events
+                    from els_server.protocol.protocol_codec import encode_event
+                    for event in events:encode_event(event)
+                    return events
+                notices+=selected_store.record('town:'+token,dict(kind='visit_town',town=town,dungeon=0,level=s.account.character()['level']),token.encode(),validate=validate_arrival,prepare=prepare_arrival)
+                s._quest_town_cursor=cursor
         s._quest_discovery_cursor=None
     if 27 in passive[1] and run is not None:
         from els_server.domain.mainline_find_npc import observe as observe_mainline_find

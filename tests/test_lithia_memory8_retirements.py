@@ -1,145 +1,111 @@
-"""LITHIA_MEMORY8 (35320/35321) retires its stage-1 controller on the scene timeline.
-
-Server log 20261025-165751, run 647e51da-9465-417b-94e1-56db7a7e01dc: stage 0 cleared
-(both 9440 retirements recorded), then the player worked through stage 1 part 0, which
-declares 24 actors under one kind 0 condition.  Of the 204 0x202/0xad death reports the
-session logged, 202 got their 0xae.  The first miss (request 676, 17:00:32.174) names no
-actor the lifecycle records touched in that window and is left unattributed.  The second
-is request 5511 at 17:12:44.946, 160 bytes - the killerless expiry shape - and the client
-lifecycle record 13 ms earlier names key 4, which is template 9433
-(LITHIA_MEMORY8_PLANT_DROSERA), not the controller.  Key 9 = template 9450
-(LITHIA_MEMORY8_STORY_DUMMY_1.lua, 1000 HP) was never reported at all: it stayed at full
-HP in every following frame, the frames kept mode=2 substage=1 for 92 more seconds and
-the player left at 17:14:19 without a clear.
-So the frozen part had two halves, and this module fixes the one the plant is not.
-
-9450 is one of the 18 actors the condition waits on, and it can only retire through
-this rule: a credited kill of it is refused by design (the rule requires the native 255
-report), and its own script is what removes it.  That rule names epic quest 28550
-(ClearType 2, kill 9450 once), and 28550 is accepted only after 28540 is turned in at
-NPC 10394, while 28540's own objective is ClearType 26 = visit 35320 - the very run that
-has to pass this part.  Following the merged 35270/35290 relaxation, a quest that cannot
-be active yet must not strand the scene; quest credit still needs an active matching
-quest, so accepting this retirement grants no progress.  The other half - the plant
-expiry that got no acknowledgement - is test_lithia_memory8_plant_expiry.
-"""
-import sys
+"""9450 keeps source/lease authentication and exact original quest admissions."""
+import copy
+import json
+import sqlite3
+import tempfile
 import unittest
-from contextlib import ExitStack
-from types import SimpleNamespace as NS
+from contextlib import closing
+from pathlib import Path
 from unittest.mock import patch
-
 from els_server.domain import story_controller_retirements as target
-from els_server.domain.dungeon_routes import DungeonRun
-from test_tunnel_native_retirements import fixture, OWNER
+from els_server.domain import dungeon_flow
+from els_server.domain.dungeon_lifecycle import death_report
+from els_server.domain.seal_quests import quest_catalog
+from els_server.domain.local_session import LocalAccount
+from els_server.storage.local_state import LocalState
+from els_server.storage.seal_quests import QuestState
+from test_tunnel_native_retirements import WitnessStore
+from test_lithia_memory8_offfield_expiry import OWNER,run_stage,session,event_for
 
-UNIT = 15
-VISIT_QUEST = 28540
-OBJECTIVE_QUEST = 28550
-# The retirement this scene waits for, in the exact declared order.
-RELAXED = [(35320, 1, 0, 9450, 10), (35321, 0, 0, 9450, 10)]
-STAGE1_PART0 = (35320, 1, 0)
+def identity(row):return (row['dungeon'],row['stage'],row['part'],row['template'],row['source']['source_index'])
 
+def fixture(rule,quest=0):
+    run=run_stage(rule['stage'],rule['part'],rule['dungeon'])
+    s=session(run)
+    npc=next(n for n in run.current['npcs'] if n['template']==rule['template'] and n['source_index']==rule['source']['source_index'])
+    e=event_for(run,npc['key']);r=death_report(e.payload)
+    return s,e,r,WitnessStore(quest)
 
-def identity(row):
-    return (row['dungeon'], row['stage'], row['part'], row['template'], row['source']['source_index'])
-
-
-def model_fixture(rule, quest):
-    # The first visit run holds only 28540; 28550 comes after the turn-in.
-    session, event, report, store = fixture(rule, unit=UNIT, quest=quest)
-    session.dungeon_run.identity = rule['dungeon']
-    session.dungeon_run.stage = rule['stage']
-    session.dungeon_run.part = rule['part']
-    return session, event, report, store
-
+def call(s,e,r,state):
+    with patch('els_server.domain.quest_flow.store',return_value=state):return target.handle(s,e,r)
 
 class Memory8Retirements(unittest.TestCase):
     @property
-    def rules(self):
-        return [r for r in target.RULES if r['dungeon'] in (35320, 35321)]
+    def rules(self):return [r for r in target.RULES if r['template']==9450 and r['dungeon'] in (35320,35321)]
 
-    def call(self, s, e, r, store, *, lease=True):
-        with ExitStack() as stack:
-            stack.enter_context(patch.dict(sys.modules, {
-                'els_server.domain.dungeon_equipment_loot_flow': NS(current_lease=lambda actor: lease),
-                'els_server.domain.quest_flow': NS(store=lambda actor: store),
-                'els_server.domain.dungeon_flow': NS(periodic=lambda actor: [])}))
-            return target.handle(s, e, r)
+    def test_only_two_original_source_gates_change(self):
+        self.assertEqual([identity(r) for r in target.RULES if r.get('retirement_admission_quests')],[(35320,1,0,9450,10),(35321,0,0,9450,10)])
+        self.assertFalse(any(r.get('retire_without_quest') for r in target.RULES))
+        for rule in self.rules:self.assertEqual(rule['retirement_admission_quests'],rule['map_quests'])
 
-    def test_relaxation_is_limited_to_the_stage_one_controller(self):
-        self.assertEqual([identity(r) for r in self.rules if r.get('retire_without_quest')], RELAXED)
-        self.assertEqual([identity(r) for r in self.rules if not r.get('retire_without_quest')],
-                         [(35320, 0, 0, 9440, 1), (35320, 0, 3, 9440, 9), (35320, 2, 0, 9451, 11),
-                          (35320, 3, 0, 9452, 5), (35320, 3, 0, 9441, 6), (35320, 3, 0, 9453, 7),
-                          (35320, 3, 0, 9455, 8), (35321, 1, 0, 9451, 11), (35321, 2, 0, 9452, 5),
-                          (35321, 2, 0, 9441, 6), (35321, 2, 0, 9453, 7), (35321, 2, 0, 9455, 8)])
-
-    def test_visit_run_retires_the_part_controller(self):
+    def test_original_map_quest_state_or_objective_accepts_and_replays(self):
         for rule in self.rules:
-            if identity(rule) not in RELAXED:
-                continue
-            with self.subTest(source=identity(rule)):
-                s, e, r, store = model_fixture(rule, VISIT_QUEST)
-                try:
-                    self.assertEqual([x.kind for x in self.call(s, e, r, store)], [0xae, 0xaf])
-                    self.assertEqual(store.calls, 1)
-                    self.assertEqual(s.dungeon_run.defeated, {r['index']: e.payload})
-                    self.assertEqual([x.kind for x in self.call(s, e, r, store)], [0xae])
-                    self.assertEqual(store.calls, 1)
-                finally:
-                    store.db.close()
+            for quest in rule['map_quests']:
+                with self.subTest(source=identity(rule),quest=quest):
+                    s,e,r,state=fixture(rule,quest)
+                    try:
+                        self.assertEqual([x.kind for x in call(s,e,r,state)],[0xae,0xaf])
+                        self.assertEqual([x.kind for x in call(s,e,r,state)],[0xae])
+                        self.assertEqual(state.calls,1);self.assertEqual(s.dungeon_run.defeated,{r['index']:e.payload})
+                    finally:state.db.close()
 
-    def test_active_objective_still_credits_the_same_retirement(self):
+    def test_no_quest_or_other_map_quest_does_not_admit(self):
         for rule in self.rules:
-            if identity(rule) not in RELAXED:
-                continue
-            with self.subTest(source=identity(rule)):
-                s, e, r, store = model_fixture(rule, OBJECTIVE_QUEST)
+            for quest in (0,99999)+((28540,) if rule['dungeon']==35321 else ()):
+                s,e,r,state=fixture(rule,quest)
                 try:
-                    self.assertEqual([x.kind for x in self.call(s, e, r, store)], [0xae, 0xaf])
-                    self.assertEqual(store.calls, 1)
-                finally:
-                    store.db.close()
+                    self.assertEqual(call(s,e,r,state),[]);self.assertFalse(s.dungeon_run.defeated)
+                finally:state.db.close()
 
-    def test_retirement_satisfies_the_pinned_kind_zero_condition(self):
-        dungeon, stage, part = STAGE1_PART0
-        run = DungeonRun(dungeon, '00000000-0000-4000-8000-000000000001')
-        run._load_stage(stage)
-        run.part = part
-        controller = next(n for n in run.current['npcs'] if n['template'] == 9450)
-        self.assertEqual((controller['key'], controller['source_index'], controller['hp']),
-                         (9, 10, 1000))
-        condition = run.current['conditions'][0]
-        self.assertEqual((condition['kind'], condition['next'][0]['stage'], condition['next'][0]['part']),
-                         (0, 2, 0))
-        waiting = {n['key'] for n in run.current['npcs']
-                   if n['active'] and n.get('team', 1) != 0 and n['template'] != 9450}
-        run.defeated = dict.fromkeys(waiting, b'hostiles')
-        self.assertFalse(run.condition_ready(condition))
-        run.defeated = {**dict.fromkeys(waiting, b'hostiles'), controller['key']: b'retirement'}
-        self.assertTrue(run.condition_ready(condition))
+    def test_source_owner_graph_hp_unit_and_lease_reject(self):
+        for change in ('source','owner','graph','hp','unit','lease'):
+            s,e,r,state=fixture(self.rules[0],28540)
+            if change=='source':s.dungeon_run.current['npcs'][r['index']]['points']=[999999]
+            if change=='owner':r['readiness']={OWNER+1:0}
+            if change=='graph':s.dungeon_run.graph['source_sha256']='0'*64
+            if change=='hp':r['hp_bits']=0
+            if change=='unit':s.account.character=lambda:{'unit_type':16,'level':70}
+            if change=='lease':s.application.playing[71]=object()
+            try:
+                self.assertEqual(call(s,e,r,state),[]);self.assertFalse(s.dungeon_run.defeated);self.assertEqual(state.calls,0)
+            finally:state.db.close()
 
-    def test_source_owner_unit_hp_and_lease_checks_still_reject(self):
-        rule = next(r for r in self.rules if identity(r) == (35320, 1, 0, 9450, 10))
-        for change in ('source', 'owner', 'hp', 'unit', 'lease'):
-            with self.subTest(change=change):
-                s, e, r, store = model_fixture(rule, VISIT_QUEST)
-                if change == 'source':
-                    s.dungeon_run.current['npcs'][0]['points'] = [999999]
-                if change == 'owner':
-                    r['readiness'] = {OWNER + 1: 0}
-                if change == 'hp':
-                    r['hp_bits'] = 0
-                if change == 'unit':
-                    s.account.character = lambda: {'unit_type': 16, 'level': 99}
-                try:
-                    self.assertEqual(self.call(s, e, r, store, lease=change != 'lease'), [])
-                    self.assertFalse(s.dungeon_run.defeated)
-                    self.assertEqual(store.calls, 0)
-                finally:
-                    store.db.close()
+    def test_prepare_failure_keeps_controller_and_gate_pending(self):
+        s,e,r,state=fixture(self.rules[0],28540);state.fail_prepare=True
+        try:
+            with self.assertRaises(RuntimeError):call(s,e,r,state)
+            self.assertFalse(s.dungeon_run.defeated);self.assertIsNone(s.dungeon_run.next)
+        finally:state.db.close()
 
+    def test_controller_cannot_fall_through_to_generic_expiry_or_player_kill(self):
+        s,e,r,state=fixture(self.rules[0],28540)
+        try:
+            with patch('els_server.domain.story_controller_retirements.handle',return_value=None):
+                self.assertEqual(dungeon_flow.handle(s,e),[])
+            r['flag']=1
+            self.assertEqual(call(s,e,r,state),[])
+            self.assertFalse(s.dungeon_run.defeated);self.assertEqual(state.calls,0)
+        finally:state.db.close()
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_real_sqlite_visit_does_not_grant_objective_and_active_objective_progresses_once(self):
+        for quest,expected in ((28540,0),(28550,1)):
+            with self.subTest(quest=quest),tempfile.TemporaryDirectory() as directory:
+                path=Path(directory)/'private-retirement.db'
+                a=LocalAccount(LocalState(path));a.enable_characters()
+                state=QuestState(path,account_id=1);state.snapshot()
+                with closing(sqlite3.connect(path)) as db,db:
+                    db.execute('UPDATE characters SET unit_type=15,level=70 WHERE uid=?',(OWNER,))
+                    db.execute('INSERT INTO character_quests VALUES (?,?,?,?,?)',(OWNER,quest,1,1,json.dumps({quest:0})))
+                s,e,r,unused=fixture(self.rules[0]);unused.db.close()
+                # Use the same real owner/account pair in lease and SQL checks.
+                s.account.account_id=1;s.identity={'id':1};s.application.playing={1:s};s.application.accounts={1:s.account.root}
+                reply=call(s,e,r,state)
+                self.assertEqual([x.kind for x in reply],[0xae,0xaf]+([0xf3] if expected else []))
+                self.assertEqual([x.kind for x in call(s,e,r,state)],[0xae])
+                with closing(sqlite3.connect(path)) as db,db:
+                    counts=json.loads(db.execute('SELECT objectives FROM character_quests WHERE owner=? AND quest=?',(OWNER,quest)).fetchone()[0])
+                    self.assertEqual(counts[str(quest)],expected)
+                    self.assertEqual(db.execute('SELECT count(*) FROM quest_progress_events WHERE owner=?',(OWNER,)).fetchone()[0],1)
+                    self.assertEqual(db.execute('SELECT count(*) FROM completed_quests WHERE owner=?',(OWNER,)).fetchone()[0],0)
+
+if __name__=='__main__':unittest.main()

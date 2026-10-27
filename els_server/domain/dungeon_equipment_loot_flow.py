@@ -44,6 +44,18 @@ def identity(s,npc_key,source_actor=None):
 def encode_replies(reply):
     for event in reply:encode_event(event)
 
+def _bait(s,npc):
+    """Resolve the optional extra Boss draw without ever aborting the death.
+
+    The draw is an auxiliary local source layered on the accepted death writer.
+    Its own gates (route graph identity, hunter roster, session lease snapshot)
+    may legitimately refuse on a plain local session, and a refusal there must
+    degrade to "no bait" instead of escaping as a connection teardown.
+    """
+    from els_server.domain.fishing_bait_loot import source as bait_source
+    try:return bait_source(s,npc)
+    except (ValueError,AttributeError,KeyError,TypeError,StopIteration):return None
+
 def accepted_death(s,event,npc,death,expired,*,randbelow=secrets.randbelow):
     from els_server.domain.dungeon_loot_catalog import MAPS as NORMAL_MAPS
     from els_server.domain.dungeon_material_loot_catalog import MAPS as MATERIAL_MAPS
@@ -102,13 +114,19 @@ def accepted_death(s,event,npc,death,expired,*,randbelow=secrets.randbelow):
         reply.extend(gate_reply);encode_replies(reply)
         return dict(reply=reply,world=world,sequence=max([s.world_drop_sequence,*[r['drop_id']+1 for r in rows]]),
                     last=dict(rows[-1]) if rows else s.world_drop_issued)
-    from els_server.domain.fishing_bait_loot import source as bait_source
-    bait=bait_source(s,npc)
-    try:
-        result=storage.issue(s.account.store.path,c,event.payload,npc['boss'],s.world_drop_sequence,
+    bait=_bait(s,npc)
+    def write(bait):
+        return storage.issue(s.account.store.path,c,event.payload,npc['boss'],s.world_drop_sequence,
                              death['xyz'][3:],legacy,prepare,randbelow=randbelow,rules=rules,
                              accepted_effect=accepted_effect if exp_rules.enabled(s) and exp_rules.eligible(npc,expired) else None,
                              account_id=s.account.account_id,bait=bait)
+    try:
+        try:result=write(bait)
+        except storage.LootActorRejected:
+            # The extra draw is optional; its refusal must never cost the player
+            # the original death ledger. Retry once with the plain source.
+            if bait is None:return []
+            result=write(None)
     except storage.LootActorRejected:return []
     # Only ordinary assignments remain after the successful SQL context exit.
     run.defeated=shadow.dungeon_run.defeated;run.next=shadow.dungeon_run.next;run.ready_at=shadow.dungeon_run.ready_at
@@ -174,7 +192,11 @@ def claim(s,request,drop):
 
 
 def clear_rewards(s,rule):
-    # The fragment clear branch belongs exclusively to the original four maps.
+    # This is the clear-time fragment branch for every map in MAPS that has no
+    # pve_economy_flow rule of its own (35390/35400 and the 35450 range). The
+    # two maps that do have one (35340/35360) take pve_economy_flow.clear
+    # instead, which appends the same bundle while reward_transaction is set,
+    # so enabled() below is False there and the bundle is granted once.
     if not enabled(s):return None
     if s.clear_notified:return []
     if s.dungeon_run.identity not in MAPS:return None
@@ -194,6 +216,8 @@ def clear_rewards(s,rule):
     arguments=dict(run_id=s.reward_run_id,proof=proof,ed=rule['clear_ed'],experience=rule['clear_experience'],response_builder=encode,
         item_plan=[*rule['items'],inventory_plan(118445,catalog()['values']['fragment_on_validated_clear'])],
         dungeon_clear=(run.identity,elapsed),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(s) if getattr(s,'activity2026_awards',None) is not None else None)
+    from els_server.domain.ariel_daily_special import prepare as prepare_daily_special
+    arguments['daily_special']=prepare_daily_special(s)
     from els_server.domain.legacy_pve_exp import enabled as exp_enabled,experience_limit
     if exp_enabled(s):arguments.update(experience_limit=experience_limit(),resonance_source='clear')
     def prepare(receipt,current):
@@ -202,7 +226,9 @@ def clear_rewards(s,rule):
         committed=receipt.get('local_rules')
         if committed:
             a=committed['assessment'];reply.append(Event(0x201,kind=0x66b,payload=struct.pack('>ii',a['rank'],a['score'])))
-        reply.append(Event(0x201,kind=0xc1,payload=clear_identity_payload(receipt['response'],run.identity)));encode_replies(reply)
+        reply.append(Event(0x201,kind=0xc1,payload=clear_identity_payload(receipt['response'],run.identity)))
+        if 'ariel_daily_status'in receipt:reply.append(receipt['ariel_daily_status'])
+        encode_replies(reply)
         return reply
     receipt,reply=storage.clear_reward(s.account.store.path,s.account.uid,s.account.reward_store,arguments,prepare)
     s.reward_receipt={'run_id':s.reward_run_id,**receipt}

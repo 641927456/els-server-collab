@@ -14,7 +14,7 @@ from els_server.storage.equipment_receipt_state import current_changes
 from els_server.storage.item_instances import remove
 from els_server.storage.npc_trade import balances
 
-def open_gear(path,owner,payload,operation):
+def open_gear(path,owner,payload,operation,*,account_id=None,prepare=None):
     if not enabled():raise ValueError('Participation gear is not registered')
     request=use_request(payload)
     if request.option!=0 or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):
@@ -22,9 +22,14 @@ def open_gear(path,owner,payload,operation):
     owner,digest=_identity(owner,0x196,struct.pack('>i',BOX)+payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+        from els_server.storage import boosting_2026_gear_scroll_policy as scroll_policy
+        scroll_policy.actor(db,owner,account_id,prepare)
         old=_previous(db,operation,digest);before=load_items(db,owner);balance=balances(db,owner)
         if old is not None:
-            return _updates(current_changes(db,operation,owner,0x196,old,before))+result(balance['ed'])
+            events=_updates(current_changes(db,operation,owner,0x196,old,before))+result(balance['ed'])
+            for event in events:encode_event(event)
+            scroll_policy.actor(db,owner,account_id,prepare)
+            return events
         item=next((i for i in before if i['uid']==request.uid),None)
         if item is None or item['template']!=BOX or item['group']!=4:raise ValueError('Owned participation box required')
         require_current(item);require_unlocked(item)
@@ -43,10 +48,12 @@ def open_gear(path,owner,payload,operation):
             row=next(r for r in outputs if r['template']==item['template'])
             reforge(db,owner,item['uid'],[0,100,0],list(row['reforge']))
             options(db,owner,item['uid'],{},dict({'13':list(row['reforge_options'])}))
+        extra=scroll_policy.attach_new(db,owner,account_id,operation,digest,[i['uid']for i in grants],prepare)
         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
-        positions=sorted({source,*[(i['group'],i['slot']) for i in grants]})
-        events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(r['template'],1) for r in outputs])
+        positions=sorted({source,*[(i['group'],i['slot']) for i in grants],*extra})
+        events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(r['template'],1) for r in outputs]+([(scroll_policy.SCROLL,4)]if extra else []))
         for event in events:encode_event(event)
         db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))
         _commit(db,operation,digest,owner,0x196,positions,before,after)
+        scroll_policy.actor(db,owner,account_id,prepare)
         return events

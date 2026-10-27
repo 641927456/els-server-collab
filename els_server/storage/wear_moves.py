@@ -82,6 +82,8 @@ def move(path,payload,uid,*,account_id,session_id,sequence,validate=lambda:None)
         for item in (moved,swapped):
             if item:require_compatible(item,projected.values())
         response=move_ack([(source,swapped),(destination,moved)]);validate()
+        from els_server.storage.spell_socket_pending import invalidate_moved
+        invalidate_moved(db,uid,[first,second],[moved,swapped])
         if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='equipment_engrave_previews'").fetchone():
             db.execute('DELETE FROM equipment_engrave_previews WHERE item_uid IN (SELECT uid FROM inventory_items WHERE owner=? AND uid IN (?,?))',(uid,first['uid'],second['uid'] if second else 0))
         for item in (first,second):

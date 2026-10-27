@@ -32,6 +32,8 @@ python tools/bootstrap_runtime.py --archive .asset-cache/ELS-Server-With-Local-L
 
 先登记问题，再从最新main建立 `fix/<issue>-<topic>` 分支。PR写明来源、事务/存档影响、实际验证层级和未验边界。
 main表示审查后的代码，服务器运行版本另有部署回执；提交代码不会自动更新任何服务器。
+当前正式服务端的完整双端组合源使用 [运行基线索引](docs/FORMAL_RUNTIME_BASELINE_20261027.md) 重建；根目录保留协作开发入口，不能整树覆盖正式服。
+默认物化配置由 `channels/current-engine.json` 绑定已验收版本；[本轮架构与优化边界](docs/SERVER_ARCHITECTURE_20261027.md) 说明现有改动及后续顺序。
 修改客户端合同内脚本/资源时同步核定依赖SHA，不能删除版本保护来绕过检查。
 
 见 CONTRIBUTING.md、docs/TESTING.md、docs/STAGING.md。历史全量资料在锁定资源包内，按实际提供范围引用，不补造缺失证据。
@@ -68,3 +70,5 @@ main表示审查后的代码，服务器运行版本另有部署回执；提交�
 原四项恢复品与苹果箱修复已安装本地正式快照；当前主线77110叶子手动使用及房间原生通知见[说明](docs/QUEST_LEAF_USE_20261021.md)，本项已独立备份安装本地；实际原生界面仍待。
 
 本批启动/选角查询优化、双端精确源码快照和V32边界见[发布来源记录](docs/STARTUP_QUERY_PROVENANCE_20261021.md)。
+
+V37 模式/Git/动效和 V38 一键本地服务端更新的完整启动器实现及构建入口见[两版源码归档](docs/LAUNCHER_V37_V38_SOURCE_20261026.md)。Git 同步不触发服务部署，历史发布与实际一键验收分别按归档摘要核收。

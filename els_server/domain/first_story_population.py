@@ -12,13 +12,16 @@ def catalog():
     if hashlib.sha256(raw).hexdigest()!=manifest['sha256']:raise ValueError('Tutorial source identity')
     data=json.loads(raw)
     if data['client_sha256']!=CLIENT_SHA or len(data['maps'])!=15:raise ValueError('Tutorial client/map identity')
-    return SimpleNamespace(_data=data)
+    # Tutorial sources keep their original spawn-seed level.
+    # Ordinary route level/HP capabilities do not apply to tutorial graphs.
+    return SimpleNamespace(_data=data,static_npc_level=lambda identity,graph,stage,part,source:None)
 
 class TutorialRun(DungeonRun):
     def __init__(self,identity):
         self.catalog=catalog();data=self.catalog._data
         self.graph=json.loads(json.dumps(data['graphs'][data['maps'][str(identity)]['source']]))
         self.identity=identity;self.run_id=str(uuid.uuid4());self.clock=time.monotonic
+        self.hp_context=None # Preserve the existing tutorial HP policy.
         self.stage=0;self.part=0;self.encounter=None;self.completed_stages=set();self.visits=0
         self.round=0;self.rotation=[];self.dynamic_requests={};self.completed_transition=None
         self.defeated={};self.parts={};self.stage_wires={};self.next=None;self.ready_at=None

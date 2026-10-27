@@ -1,53 +1,11 @@
 """Native solo lifecycle for source-driven static dungeon routes.
 Unverified scripted encounters are rejected at admission, never auto-cleared.
 """
-import functools,hashlib,json,math,struct,time
+import copy,functools,hashlib,json,math,struct,time
 from els_server.paths import PROJECT_ROOT
 from els_server.protocol.protocol_codec import Event
 from els_server.domain.dungeon_lifecycle import death_report,death_ack,empty_reward_death_notice,part_end_notice
 from els_server.domain.reward_rules import item_plan
-
-# A story boss can leave the field at a scripted HP phase instead of dying, and the
-# client performs that exit locally. That leaves the room's sentinel 9452 (1000 HP)
-# untouched, and the client never reports it, so nothing the server accepts can
-# satisfy the room's kind-3 condition. All three LITHIA_MEMORY8 routes end in the
-# same room: 35320 stage3 part0 (session 20261025-203712: the room's 8 accepted 0xad
-# deaths are all its own dynamic 9432 wave, each corpse destroyed ~3.88s later, key 0
-# (9431) went 5000 -> 0 -> 2995 and walked onto the upper platform, and 9452 stayed at
-# 1000 until the run was abandoned), 35322 stage0 part0 (session 20261025-220926: the
-# wave spawns and dies 14:10:48-59, 9452 at 1000, no 0xba), and 35321 stage2 part0
-# (same room shape). In 20261025-212603 the client shows its own 「右边的大门打开了」
-# banner once the wave is gone. The client authenticates only the wave it spawns
-# itself through 0x2ce, so the last accepted death of that wave retires the sentinel
-# the room names. Retreated is not defeated: no quest, loot or EXP.
-WAVE_RETREATS=((35320,'696e2f7ad0e4685ea9dea807e03bf7eb54a953c7d9b08453deae8bb0dcba79e3',3,0,9432,(9452,)),
-               (35321,'1861ded3d8a7e8d67475e98a27449215227de7b19f907f3943675fa9ddad4e16',2,0,9432,(9452,)),
-               (35322,'d110b77689c39fd9db46b26c8ae24894bb2bdb747fb4aea53ab2f4e2f3f36050',0,0,9432,(9452,)))
-
-def wave_retreat(run,npc):
- if not npc.get('dynamic'):return ()
- for dungeon,graph_sha,stage,part,wave,sentinels in WAVE_RETREATS:
-  if ((run.identity,run.graph['source_sha256'],run.stage,run.part,npc['template'])
-      !=(dungeon,graph_sha,stage,part,wave)):continue
-  members=[n['key'] for n in run.current['npcs']
-           if n.get('dynamic') and n['template']==wave]
-  if (members and all(k in run.defeated or k in run.retreated for k in members)
-      and any(t['kind']==4 for c in run.current['conditions'] for t in c['next'])):return sentinels
- return ()
-
-def end_room_retreat_only(run):
- """The end room's kind 3 sentinel only left through the wave retreat.
-
- Its source script retires it after the fight the opened gate leads to; the
- wave that cleared the room produced the gate notice, not the ending. Answering
- the part request here ends the run before that fight happens.
- """
- for c in run.current['conditions']:
-  if not any(t['kind']==4 for t in c['next']) or c['kind']!=3 or not run.condition_ready(c):continue
-  keys=[n['key'] for n in run.current['npcs'] if n['template'] in c['required']]
-  if keys and all(k in run.defeated or k in run.retreated for k in keys):
-   return any(k in run.retreated and k not in run.defeated for k in keys)
- return False
 
 @functools.lru_cache(maxsize=1)
 def local_rewards():
@@ -56,6 +14,35 @@ def local_rewards():
  if any(type(r[k]) is not int or not 0<=r[k]<=2**31-1 for k in ('clear_ed','clear_experience','ordinary_ed','boss_ed')):raise ValueError('Local dungeon reward bound')
  if r['coin_template']!=127000:raise ValueError('Unverified local coin')
  return {**r,'items':[item_plan(**i) for i in r['clear_items']]}
+
+# The Lithia Memory8 finale room is the dungeon's last stage: the pinned graph
+# carries no next stage there, so any part request can only settle the run. The
+# room's boss is spawned inside this same stage and the source sentinel 9452
+# retires from its own script. Announcing the part as over while the boss still
+# stands is what let the client leave the room before the fight.
+FINALE_ROOMS={35320:(3,0),35321:(2,0),35322:(0,0)}
+FINALE_BOSS=9431
+
+# The client opens the room's gate on its own and then waits for the server to
+# select the next area. In this dungeon the source sentinel 9452 only retires
+# after the fight the gate leads to, so the source condition can never be met
+# while the player is still in front of it. Select the next resource part of
+# the same stage instead of ending the run: no actor is invented, the current
+# roster is passed through unchanged.
+FINALE_AREA_ENABLED=True
+FINALE_AREA_PART=1
+
+def finale_boss_pending(run):
+ """True while the finale room still owes its own boss fight."""
+ if run is None or FINALE_ROOMS.get(run.identity)!=(run.stage,run.part):return False
+ return any(n['template']==FINALE_BOSS and n['key'] not in run.defeated for n in run.current['npcs'])
+
+def finale_area_cleared(run):
+ """Every declared live hostile of the near side is gone, the boss excluded."""
+ if run is None or FINALE_ROOMS.get(run.identity)!=(run.stage,run.part):return False
+ live=[n for n in run.current['npcs']
+       if n['active'] and n.get('team',1)!=0 and n['template']!=FINALE_BOSS]
+ return bool(live) and all(n['key'] in run.defeated for n in live)
 
 def periodic(session):
  s=session
@@ -66,6 +53,15 @@ def periodic(session):
  if getattr(s.dungeon_run,'memory1_quest_barrier',frozenset())-set(s.dungeon_run.defeated):return []
  from els_server.domain.story_controller_retirements import gate_predecessor_blocked
  if gate_predecessor_blocked(s.dungeon_run):return []
+ if finale_boss_pending(s.dungeon_run):
+  if (FINALE_AREA_ENABLED and not getattr(s,'finale_area_entered',False)
+      and finale_area_cleared(s.dungeon_run)):
+   # B7 selects the resource part, BD begins it with the same actor roster.
+   from els_server.protocol.dungeon_messages import initial_part,begin_substage
+   run=s.dungeon_run;s.finale_area_entered=True
+   return [initial_part(FINALE_AREA_PART),
+           begin_substage(FINALE_AREA_PART,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))]
+  return []
  if s.dungeon_run.poll_ready():
   s.part_end_notified=True;s.dungeon_clock.pause()
   return [part_end_notice(s.dungeon_run.part)]
@@ -74,6 +70,9 @@ def periodic(session):
 def handle(s,event):
  run=s.dungeon_run
  if run is None or s.phase!='dungeon_active' or event.event_id!=0x202:return None
+ from els_server.domain.raid_economy_flow import solo as raid_phase_solo
+ raid_reply=raid_phase_solo(s,event)
+ if raid_reply is not None:return raid_reply
  if event.kind==0xb8:
   # Current 1044A10 -> 1117280 -> 3B6DA30 writes one part byte.
   # B9 -> Game v600=1044B20 consumes an i32 result, removes its wait.
@@ -92,15 +91,44 @@ def handle(s,event):
  if event.kind==0xad:
   try:d=death_report(event.payload)
   except ValueError:return []
+  # A settled run no longer owns a C1 HP lease. The client keeps reporting the
+  # deaths that landed in the same frame as its BB, so those reports arrive
+  # after the clear/reward packets. Letting one reach population() runs
+  # legacy_population -> hp_context.check(emitting=True), which refuses a
+  # post-clear lease by raising SessionOrderError and tears down the whole
+  # connection -- the player sees the clear panel replaced by a disconnect.
+  # The run is already banked, so acknowledge and drop.
+  if s.clear_notified or getattr(s,'dungeon_failed',False):return [death_ack()]
+  # Finite static-controller adapters must not consume an already admitted
+  # dynamic actor's original expiry. Retain the existing expiry decoder and
+  # exact server-allocated identity; zero is never an alias for another actor.
   from els_server.domain.hunter_chest_flow import accepted_death as hunter_death
   hunter_reply=hunter_death(s,event)
   if hunter_reply is not None:return hunter_reply
-  from els_server.domain.lithia_memory1_retirements import handle as memory1_retirement
-  retired=memory1_retirement(s,event,d)
+  retired=source_actor_expiry(s,event,d)
   if retired is not None:return retired
-  from els_server.domain.story_controller_retirements import handle as story_retirement
-  retired=story_retirement(s,event,d)
-  if retired is not None:return retired
+  actor=next((n for n in run.current['npcs'] if n['key']==d['index']),None)
+  from els_server.domain.summons import valid_sentry_death
+  dynamic_expiry=actor is not None and actor.get('dynamic') and valid_sentry_death(d,s.account.uid)
+  if dynamic_expiry:
+   from els_server.domain.dungeon_equipment_loot_flow import current_lease
+   if (event.performers!=(0,) or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0
+       or s.role!='game' or not current_lease(s) or s.clear_notified
+       or getattr(s,'reward_transaction',None) is not None or getattr(s,'reward_run_id',None)!=run.run_id
+       or frozenset(getattr(s,'dungeon_participants',(s.account.uid,)))!=frozenset((s.account.uid,))):return []
+  else:
+   from els_server.domain.lithia_memory1_retirements import handle as memory1_retirement
+   retired=memory1_retirement(s,event,d)
+   if retired is not None:return retired
+   from els_server.domain.scene_actor_retirements import handle as scene_retirement
+   retired=scene_retirement(s,event,d)
+   if retired is not None:return retired
+   from els_server.domain.devildom1_raid2_controllers import handle as devildom1_retirement
+   retired=devildom1_retirement(s,event,d)
+   if retired is not None:return retired
+   from els_server.domain.story_controller_retirements import handle as story_retirement
+   retired=story_retirement(s,event,d)
+   if retired is not None:return retired
   if d['index'] in s.summon_keys:return None
   npc=next((n for n in run.current['npcs'] if n['key']==d['index']),None)
   hp=struct.unpack('>f',struct.pack('>I',d['hp_bits']))[0]
@@ -110,28 +138,7 @@ def handle(s,event):
   # death payload; hostile combat actors retain participant-only identity.
   scripted=npc is not None and not npc['active'] and (npc['no_drop'] or npc.get('ally'))
   from els_server.domain.summons import valid_sentry_death
-  from els_server.domain.story_controller_retirements import source_pinned
-  # A source-declared actor that has left the field still has to clear out of the
-  # part's condition. Its client removes it and reports the death with no killer,
-  # no contribution and no counters - the native 255 expiry packet - and refusing
-  # that packet strands the room, because nothing else will ever report that key.
-  # Nothing declares which actor leaves the field, so this cannot be an enumerated
-  # allow-list; valid_sentry_death is what keeps the packet honest. Observed three
-  # ways in the same family: LITHIA_MEMORY2_FLOWER self-retires by script (barrier
-  # 9324, class 103), one of 35320 stage1 part0's five LITHIA_MEMORY8_PLANT_DROSERA
-  # expires once the player kills the other four (session 20261025-165751, request
-  # 5511), and two of 35320 stage0 part1's four LITHIA_MEMORY8_BUG are knocked off
-  # the platform and die below the world at full HP with no killer (session
-  # 20261025-193058, requests 475 and 481; their corpses stayed in the client's
-  # actor list until the run was abandoned). Both are combat class, so the earlier
-  # class-based test could not cover either.
-  # Actors that a retirement rule names stay on that rule's strict path, so a
-  # killerless packet can never take an objective's credit for free. Retiring here
-  # grants nothing: no drop, no experience, no quest progress, and the source-bound
-  # specialists above still own every reward.
-  expiry=(npc is not None and not npc.get('dynamic') and not source_pinned(run,npc))
-  expired=((npc is not None and npc.get('dynamic') and valid_sentry_death(d,s.account.uid))
-           or (expiry and valid_sentry_death(d,s.account.uid)))
+  expired=dynamic_expiry
   identities=participants|frozenset((0,2**64-1)) if scripted or expired else participants
   if (npc is None or not s.dungeon_substage_synced or event.performers!=(0,) or d['flag'] not in (0,1) and not expired
       or any(d[name] not in identities for name in ('source','killer','last_uid'))
@@ -143,6 +150,9 @@ def handle(s,event):
   previous=run.defeated.get(npc['key'])
   if previous is not None:return [death_ack()] if previous==event.payload else []
   if s.clear_notified:return []
+  from els_server.domain.pve_economy_flow import prepared_death
+  prepared=prepared_death(s,event,npc,d,expired)
+  if prepared is not None:return prepared
   from els_server.domain.dungeon_equipment_loot_flow import accepted_death
   loot_reply=accepted_death(s,event,npc,d,expired)
   if loot_reply is not None:return loot_reply
@@ -169,13 +179,13 @@ def handle(s,event):
   if not s.part_end_notified:return []
   reply=[Event(0x201,kind=0xbc,payload=bytes(4))]
   if s.clear_notified:return reply
+  if finale_boss_pending(run):return reply
   from els_server.domain.story_controller_retirements import gate_predecessor_blocked
   if gate_predecessor_blocked(run):return []
   if not run.poll_ready():return []
   source=(run.stage,run.part,run.visits)
   target=run.next
   if target['kind']==4:
-   if end_room_retreat_only(run):return reply
    run.completed_transition=dict(target=source,parts=(struct.pack('>b',run.part),))
    reply.extend(clear(s));return reply
   # Prepare the stage before committing the cursor so encoding failure does
@@ -195,18 +205,77 @@ def handle(s,event):
   return reply+solo_loaded(s,event)+periodic(s)
  return None
 
+
+# Native observed actor instances only: 20261025-193058 (keys 15/17) and
+# 20261025-165751 (key 4). Other sources/maps/templates remain combat actors.
+# Code-first recovery: disable only this finite new admission.
+MEMORY8_SOURCE_ACTOR_EXPIRY_ENABLED=True
+_MEMORY8_EXPIRY_GRAPH='696e2f7ad0e4685ea9dea807e03bf7eb54a953c7d9b08453deae8bb0dcba79e3'
+_MEMORY8_EXPIRIES={
+ (0,1,15):(9436,4,12,'LITHIA_MEMORY8_BUG.lua','a5d1caf39396087d781e2475f4078908eb3e30a031d593a8dab758ec183c3f16'),
+ (0,1,17):(9436,6,37,'LITHIA_MEMORY8_BUG.lua','a5d1caf39396087d781e2475f4078908eb3e30a031d593a8dab758ec183c3f16'),
+ (1,0,4):(9433,5,26,'LITHIA_MEMORY8_PLANT_DROSERA.lua','82f6b52a62d2bb6ed56f8f595a0875c5f7b421bd201774814a5856e4513d243c'),
+}
+
+def source_actor_expiry(s,event,report):
+ """Acknowledge an observed original 255 without kill/quest/loot consumers.
+
+ The shadow prepares the gate and encodes every reply before adopting any
+ state. A byte-identical retry acknowledges only its original actor.
+ """
+ run=s.dungeon_run
+ if not MEMORY8_SOURCE_ACTOR_EXPIRY_ENABLED:return None
+ if run.identity!=35320 or report['flag']!=255:return None
+ rule=_MEMORY8_EXPIRIES.get((run.stage,run.part,report['index']))
+ if rule is None:return None
+ template,source_index,point,script,script_sha=rule
+ npc=next((n for n in run.current['npcs'] if n['key']==report['index']),None)
+ from els_server.domain.summons import valid_sentry_death
+ from els_server.domain.dungeon_equipment_loot_flow import current_lease
+ if (npc is None or event.event_id!=0x202 or event.kind!=0xad or event.performers!=(0,) or event.uid!=2**64-1 or event.target_uid!=2**64-1
+     or event.payload_mode!=0 or s.role!='game' or s.phase!='dungeon_active' or not s.dungeon_substage_synced
+     or s.clear_notified or not current_lease(s) or getattr(s,'reward_transaction',None) is not None
+     or getattr(s,'reward_run_id',None)!=run.run_id
+     or frozenset(getattr(s,'dungeon_participants',(s.account.uid,)))!=frozenset((s.account.uid,))
+     or s.account.character()['unit_type']!=15 or not valid_sentry_death(report,s.account.uid)
+     or run.graph['source_sha256']!=_MEMORY8_EXPIRY_GRAPH or run.graph!=run.catalog.graph(run.identity)
+     or run.catalog.manifest['source_sha256'].get(script)!=script_sha
+     or npc.get('dynamic') or npc['template']!=template or npc.get('source_index')!=source_index
+     or npc.get('start_point')!=point or any(not math.isfinite(v) or abs(v)>1e7 for v in report['xyz'])):return []
+ from els_server.game_data import client_data
+ native=client_data().npc(template)
+ if native['class_id']!=0 or native['script']!=script or native['is_npc'] is not True:return []
+ source=dict(template=template,source_index=source_index,points=[point],active=True,gage=True,ally=False,
+             team=1,no_drop=False,right=False,boss=False,boss_lines=1,key_code=-1,source_key_code=-1,rate=100,offset=[0,0,0])
+ declared=run.graph['stages'][str(run.stage)]['parts'][str(run.part)]['groups']
+ rows=[row for group in declared for row in group['npcs'] if row.get('source_index')==source_index]
+ if rows!=[source] or any(npc.get(k)!=v for k,v in source.items() if k!='active'):return []
+ from els_server.domain.formal_npc_hp import initialized_maximum
+ hp=initialized_maximum(run,source)
+ if npc['hp']!=hp or report['hp_bits']!=struct.unpack('>I',struct.pack('>f',hp))[0]:return []
+ previous=run.defeated.get(npc['key'])
+ if previous is not None:return [death_ack()] if previous==event.payload and npc['active'] is False else []
+ if npc['active'] is not True:return []
+ shadow=copy.copy(s);shadow.dungeon_run=copy.copy(run);shadow.dungeon_clock=copy.copy(s.dungeon_clock)
+ shadow.dungeon_run.defeated={**run.defeated,npc['key']:bytes(event.payload)}
+ replies=[death_ack(),empty_reward_death_notice(npc['key'],report['killer'])]+periodic(shadow)
+ from els_server.protocol.protocol_codec import encode_event
+ for reply in replies:encode_event(reply)
+ for name in ('defeated','next','ready_at'):setattr(run,name,getattr(shadow.dungeon_run,name))
+ npc['active']=False;s.defeated_npcs=run.defeated;s.part_end_notified=shadow.part_end_notified
+ s.dungeon_clock.total=shadow.dungeon_clock.total;s.dungeon_clock.started=shadow.dungeon_clock.started
+ return replies
+
 def finish_death(s,event,npc,d,expired,notice):
  run=s.dungeon_run
  run.defeated[npc['key']]=bytes(event.payload);s.defeated_npcs=run.defeated
  if expired:npc['active']=False
- retreated=wave_retreat(run,npc)
- if retreated:
-  run.retreated.update(n['key'] for n in run.current['npcs'] if n['template'] in retreated)
  reply=[death_ack(),notice]
  if run.identity==38300 and npc['template']==1368:return reply+failed(s)
- if s.drop_probe and npc['active'] and not npc['no_drop'] and not npc.get('ally') and npc.get('team',1)!=0:
+ from els_server.domain.raid_economy_flow import managed as raid_managed
+ if not raid_managed(s) and s.drop_probe and npc['active'] and not npc['no_drop'] and not npc.get('ally') and npc.get('team',1)!=0:
   from els_server.domain.dungeon_drops import ground_drop_notice
-  rule=local_rewards();amount=rule['boss_ed'] if npc['boss'] else rule['ordinary_ed']
+  rule=local_rewards();amount=__import__('els_server.domain.formal_pve_economy',fromlist=['coin']).coin(run.identity,npc['boss'],rule['boss_ed'] if npc['boss'] else rule['ordinary_ed'])
   from els_server.domain.gm_rates import allow_drop
   if amount and allow_drop(s.reward_run_id,run.identity,(run.stage,run.part),npc['key'],npc['boss']):
    key=s.world_drop_sequence;s.world_drop_sequence+=1;xyz=d['xyz'][3:]
@@ -220,14 +289,28 @@ def finish_death(s,event,npc,d,expired,notice):
 
 def clear(s):
  run=s.dungeon_run;rule=local_rewards()
+ raid_supply=getattr(s,'_raid_supply',None)
+ if raid_supply is not None:
+  if (raid_supply['owner'] is not s or raid_supply['transaction'] is not getattr(s,'reward_transaction',None)
+      or not raid_supply['transaction'].in_transaction or not getattr(s,'_raid_phase_internal',False)):
+   raise ValueError('Raid clear requires original phase writer')
+  rule=dict(rule,clear_ed=0,clear_experience=raid_supply['experience'],items=raid_supply['plan'])
  from els_server.domain.legacy_pve_exp import clear_amount,experience_limit
- compat_clear=clear_amount(s)
+ compat_clear=raid_supply['experience'] if raid_supply is not None else clear_amount(s)
  if compat_clear is not None:rule=dict(rule,clear_experience=compat_clear)
  from els_server.domain.gm_rates import clear_experience
  # Compatibility K already contains the run's pinned GM multiplier. Its
  # 30% clear increment must not receive that multiplier a second time.
  if compat_clear is None:rule=dict(rule,clear_experience=clear_experience(s,rule['clear_experience']))
  if getattr(s,'challenge_deadline',None) is not None and time.time()>=s.challenge_deadline:return failed(s)
+ # Silver Mirror clear is a separate encounter family. Import it only for its
+ # own identities: a bare import here made every unrelated clear die on the
+ # still-unwritten flow module and killed the worker (client shows a drop).
+ from els_server.domain import silver_mirror_policy as mirror_policy
+ if run.identity in mirror_policy.ALL:
+  from els_server.domain.silver_mirror_flow import clear_rewards as mirror_clear
+  mirror_reply=mirror_clear(s,rule)
+  if mirror_reply is not None:return mirror_reply
  from els_server.domain.dungeon_equipment_loot_flow import clear_rewards
  loot_reply=clear_rewards(s,rule)
  if loot_reply is not None:return loot_reply
@@ -250,7 +333,7 @@ def clear(s):
   if getattr(s,'active_challenge',None) is not None and s.challenge_clear_effect is None:
    s.challenge_clear_effect={**s.active_challenge,'now':int(time.time())}
   receipt=s.account.reward_store.grant(s.reward_run_id,proof,rule['clear_ed'],rule['clear_experience'],encode,
-      item_plan=rule['items'] if s.item_test else None,dungeon_clear=(run.identity,elapsed),challenge_clear=getattr(s,'challenge_clear_effect',None),transaction=getattr(s,'reward_transaction',None),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(s) if getattr(s,'activity2026_awards',None) is not None else None,experience_limit=experience_limit() if compat_clear is not None else None,resonance_source='clear' if compat_clear is not None else None)
+      item_plan=(rule['items'] or None) if s.item_test else None,dungeon_clear=(run.identity,elapsed),challenge_clear=getattr(s,'challenge_clear_effect',None),transaction=getattr(s,'reward_transaction',None),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(raid_supply['original_session'] if raid_supply is not None else s) if getattr(s,'activity2026_awards',None) is not None else None,experience_limit=experience_limit() if compat_clear is not None else None,resonance_source='clear' if compat_clear is not None else None,raid_reward_source=raid_supply['source'] if raid_supply is not None else None,daily_special=raid_supply.get('daily_special') if raid_supply is not None else __import__('els_server.domain.ariel_daily_special',fromlist=['prepare']).prepare(s))
   s.reward_receipt={'run_id':s.reward_run_id,**receipt};reply=[]
   if s.item_test and receipt.get('items') and not s.clear_items_synced:
    from els_server.domain.dungeon_drops import pickup_inventory_notice
@@ -262,6 +345,7 @@ def clear(s):
   if committed:
    a=committed['assessment'];reply.append(Event(0x201,kind=0x66b,payload=struct.pack('>ii',a['rank'],a['score'])))
   reply.append(Event(0x201,kind=0xc1,payload=clear_identity_payload(receipt['response'],run.identity)))
+  if 'ariel_daily_status'in receipt:reply.append(receipt['ariel_daily_status'])
   if getattr(s,'active_challenge',None) is not None and getattr(s,'reward_transaction',None) is None:
    from els_server.domain.challenge_flow import notification
    reply.append(notification(s))

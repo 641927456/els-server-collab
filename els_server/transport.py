@@ -169,26 +169,20 @@ class GameServer:
                 if event.event_id==0x202 and event.kind==0x7d4 and len(event.payload)==8:
                     entry_mode,dungeon=struct.unpack('>ii',event.payload)
                     entry_fields=dict(entry_mode=entry_mode,dungeon=dungeon)
-                # Cube open/preview diagnostics: parsed fields only, never raw bytes.
-                # A parse_error here means the codec grammar and this client disagree.
-                if event.event_id==0x202 and event.kind==0x559:
-                    from els_server.protocol.ice_messages import preview_request
-                    try:
-                        preview=preview_request(event.payload)
-                        entry_fields=dict(entry_fields,cube_preview=dict(template=preview.template,
-                            keys=len(preview.keys),flag1=preview.flag1,flag2=preview.flag2))
-                    except ValueError:
-                        entry_fields=dict(entry_fields,cube_preview=dict(
-                            parse_error=True,length=len(event.payload)))
-                elif event.event_id==0x202 and event.kind==0x196:
-                    from els_server.protocol.ice_messages import use_request
-                    try:
-                        opened=use_request(event.payload)
-                        entry_fields=dict(entry_fields,cube_use=dict(uid=opened.uid,
-                            choices=len(opened.choices),option=opened.option))
-                    except ValueError:
-                        entry_fields=dict(entry_fields,cube_use=dict(
-                            parse_error=True,length=len(event.payload)))
+                if event.event_id==0x202 and event.kind==0x58c:
+                    entry_fields=dict(town_warp_payload_bytes=len(event.payload),
+                        native_performers=event.performers,
+                        native_sentinel_uids=event.uid==event.target_uid==2**64-1,
+                        native_payload_mode=event.payload_mode)
+                    if len(event.payload)==7:
+                        destination,free,special,growth=struct.unpack('>i3B',event.payload)
+                        entry_fields.update(town_destination=destination,warp_flags=[free,special,growth])
+                if event.event_id==0x202 and event.kind==0x104:
+                    entry_fields=dict(wear_payload_bytes=len(event.payload),native_performers=event.performers,
+                        native_sentinel_uids=event.uid==event.target_uid==2**64-1,native_payload_mode=event.payload_mode)
+                    if len(event.payload)==11:
+                        sg,ss,dg,ds,flag=struct.unpack('>BiBiB',event.payload)
+                        entry_fields.update(wear_source=[sg,ss],wear_destination=[dg,ds],wear_flag=flag)
                 run=getattr(business,'dungeon_run',None)
                 if (event.event_id==0x202 and event.kind==0xad and run is not None
                         and run.identity==35250
@@ -211,6 +205,20 @@ class GameServer:
                     before=business.phase
                     trace34320_before=dungeon34320_trace.before(business,event,frame.sequence)
                     messages=await self.application.call(business.handle,event,request_sequence=frame.sequence)
+                    if event.event_id==0x202 and event.kind in (0x42c,0x42f,0x542):
+                        self.log('mount_diagnostic',connection=index,sequence=frame.sequence,phase=business.phase,
+                            rejection=getattr(business,'_mount_rejection',None))
+                    if event.event_id==0x202 and event.kind==0x104:
+                        results=[struct.unpack_from('>i',m.payload,len(m.payload)-4)[0]for m in messages
+                            if m.event_id==0x201 and m.kind==0x105 and len(m.payload)>=8]
+                        self.log('wear_diagnostic',connection=index,sequence=frame.sequence,phase=business.phase,
+                            results=results,rejection=getattr(business,'_wear_rejection',None))
+                    if event.event_id==0x202 and event.kind==0x58c:
+                        results=[struct.unpack_from('>i',m.payload)[0] for m in messages
+                            if m.event_id==0x201 and m.kind==0x58d and len(m.payload)>=4]
+                        self.log('town_warp_diagnostic',connection=index,sequence=frame.sequence,
+                            phase=business.phase,results=results,
+                            rejection=getattr(business,'_town_warp_rejection',None))
                     dungeon34320_trace.after(trace34320_before,business,messages)
                     if before!=business.phase:
                         self.log('business_phase',connection=index,request=event.kind,before=before,after=business.phase)

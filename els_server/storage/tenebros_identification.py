@@ -41,6 +41,8 @@ def target_info(target):
             or target.get('sealed') or target.get('identified') is False
             or target.get('enhancement', 0) < 0):
         raise ValueError('Owned bag Tenebros initial identification target required')
+    from els_server.domain.boosting_gear_identification import require_complete
+    require_complete(target)
     info = template_info(target['template'])
     if target.get('option_groups', {}).get('25', []):
         raise ValueError('Existing shadow effects cannot be re-identified')

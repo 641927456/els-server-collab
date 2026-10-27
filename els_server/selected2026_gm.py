@@ -2,6 +2,7 @@
 import hmac,json,secrets,socket,threading
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from pathlib import Path
+from urllib.parse import urlsplit,parse_qs
 
 class Console:
     def __init__(self,port,runtime_port,token,home):
@@ -31,6 +32,16 @@ class Console:
                 if self.path=='/api/selected2026':
                     if not self.authorized():return self.reply(401,dict(error='管理密钥无效'))
                     return self.call('selected2026-status')
+                path=urlsplit(self.path).path
+                if path in ('/api/cash-balance','/api/cash-operation'):
+                    if not self.authorized():return self.reply(401,dict(error='管理密钥无效'))
+                    try:
+                        q=parse_qs(urlsplit(self.path).query);account=int(q.get('account_id',['0'])[0])
+                        if account!=1:raise ValueError('Local cash belongs only to account1')
+                        value=dict(account_id=account)
+                        if path=='/api/cash-operation':value['operation_id']=q.get('operation_id',[''])[0]
+                    except ValueError as error:return self.reply(400,dict(error=str(error)))
+                    return self.call(path.removeprefix('/api/'),value)
                 routes={'/':('index.html','text/html; charset=utf-8'),'/app.js':('app.js','text/javascript; charset=utf-8'),'/style.css':('style.css','text/css; charset=utf-8')}
                 row=routes.get(self.path)
                 if row is None:return self.reply(404,dict(error='页面不存在'))
@@ -38,7 +49,7 @@ class Console:
             def do_POST(self):
                 if not self.authorized():return self.reply(401,dict(error='管理密钥无效'))
                 if self.headers.get('Origin')!='http://'+self.headers.get('Host',''):return self.reply(403,dict(error='请求来源无效'))
-                if self.path!='/api/selected2026':return self.reply(404,dict(error='接口不存在'))
+                if self.path not in('/api/selected2026','/api/cash-credit'):return self.reply(404,dict(error='接口不存在'))
                 if self.headers.get('Content-Type')!='application/json':return self.reply(415,dict(error='需要JSON请求'))
                 try:
                     size=int(self.headers.get('Content-Length','0'))
@@ -46,7 +57,7 @@ class Console:
                     self.connection.settimeout(10);value=json.loads(self.rfile.read(size))
                     if type(value) is not dict:raise ValueError('请求必须为对象')
                 except (ValueError,TimeoutError):return self.reply(400,dict(error='活动设置请求格式无效'))
-                return self.call('selected2026',value)
+                return self.call('cash-credit' if self.path=='/api/cash-credit' else 'selected2026',value)
             def call(self,action,value=None):
                 try:return self.reply(200,dict(ok=True,result=console.rpc(action,value)))
                 except (OSError,TimeoutError):return self.reply(503,dict(error='活动服务尚未就绪或连接中断；请刷新状态，并保留原操作编号核对'))
@@ -60,6 +71,7 @@ class Console:
         if len(raw)>131072 or not raw.endswith(b'\n'):raise OSError('Unconfirmed runtime response')
         try:result=json.loads(raw)
         except ValueError:raise OSError('Unconfirmed runtime response') from None
+        if action=='cash-credit' and (not isinstance(result,dict) or result.get('outcome_unknown')is True):raise OSError('Unconfirmed cash credit; query original operation')
         if not result.get('ok'):raise ValueError(result.get('error','管理操作失败'))
         return result['result']
 
