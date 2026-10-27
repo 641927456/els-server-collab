@@ -93,4 +93,7 @@ def clear_items(identity,run_id,owner,character,group=False,*,drop_bp=0):
  if type(drop_bp)is not int or not 0<=drop_bp<=10000:raise ValueError('Ordinary clear drop bonus')
  scale=100000000 if drop_bp else 10000;threshold=min(scale,p['local']['current_boss_display_completion_bp']*(10000+drop_bp))if drop_bp else p['local']['current_boss_display_completion_bp']
  if not pool or int.from_bytes(digest[:16],'big')%scale>=threshold:return []
- return [item_plan(pool[int.from_bytes(digest[16:],'big')%len(pool)],p['local']['quantity'])]
+ selected=pool[int.from_bytes(digest[16:],'big')%len(pool)]
+ if group and identity in (140010,140020,140030) and selected==295762:
+  selected=30600
+ return [item_plan(selected,p['local']['quantity'])]

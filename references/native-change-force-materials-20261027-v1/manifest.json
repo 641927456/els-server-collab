@@ -5,8 +5,8 @@
   "formal_delivery_claim": false,
   "delta_files": 16,
   "new_files": 3,
-  "new_tables": 0,
-  "new_schema_definitions": 0,
+  "new_tables": 2,
+  "new_schema_definitions": 2,
   "install_DDL": 0,
   "shared_files": 16,
   "channel_specific_each": 0,
@@ -78,8 +78,8 @@
         {
           "path": "els_server/domain/formal_pve_economy.py",
           "archive_path": "shared/els_server/domain/formal_pve_economy.py",
-          "sha256": "8f277a6fbdb2c026abdc5b4aab705fe52670cfa87c9019c559b04bb396ad88f6",
-          "size": 7236,
+          "sha256": "321c9e1baadcf38930de43fb16b07d86619509e758bb8cad5bf269898a61fec3",
+          "size": 7343,
           "parent_sha256": "72e8fa3b37a67d9bac91f1cc0996286f2cff856240c7c0d26296a77d5341d84d",
           "new_file": false
         },
@@ -217,8 +217,8 @@
         {
           "path": "els_server/domain/formal_pve_economy.py",
           "archive_path": "shared/els_server/domain/formal_pve_economy.py",
-          "sha256": "8f277a6fbdb2c026abdc5b4aab705fe52670cfa87c9019c559b04bb396ad88f6",
-          "size": 7236,
+          "sha256": "321c9e1baadcf38930de43fb16b07d86619509e758bb8cad5bf269898a61fec3",
+          "size": 7343,
           "parent_sha256": "72e8fa3b37a67d9bac91f1cc0996286f2cff856240c7c0d26296a77d5341d84d",
           "new_file": false
         },
@@ -292,5 +292,9 @@
         "sha256": "22c33d894903b6c393fbb48c10cc8257557a400b5a335909884679b845f316be"
       }
     }
-  }
+  },
+  "new_schema": true,
+  "schema_semantics": "Two optional business-lazy table definitions newly introduced relative to the selected parent; no installation migration or eager DDL",
+  "metadata_correction": "Counts corrected by independent source/real-SQLite review; historical frozen delivery manifests and receipts remain unchanged",
+  "post_review_draw_guard": "Retain PR573 finite internal three-map group295762-to30600 correction, original solo-only entry refusal remains unchanged."
 }
