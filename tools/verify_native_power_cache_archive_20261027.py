@@ -21,7 +21,7 @@ def main():
         final_folder=ROOT/'references/native-final-ability-sync-20261027-v1'
         final_candidate=json.loads((final_folder/'candidate.json').read_bytes())
         assert final_candidate['installed']and final_candidate['native_qualification_complete']
-        mapping=final_candidate['runtime_variants']['local']
+        mapping=final_candidate['runtime_variants']['local_formal']
         assert {row['path']for row in retained}==set(mapping)
         for row in retained:
             source=bound(final_folder,mapping[row['path']])
