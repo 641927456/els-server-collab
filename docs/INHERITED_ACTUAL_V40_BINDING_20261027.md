@@ -16,3 +16,5 @@ restore an older client. PR583 remains a draft as requested.
 V39 archive checks stay pinned to the immutable V39 profile. A separate check
 validates the inherited V40 sources and every current retained support source,
 so historical qualification and actual current-source validation both remain.
+
+Integration clarification: the preceding draft/merge descriptions are the PR591 capture-time scope. PR583 was subsequently qualified and integrated into the PR589 feature base; main inclusion is separate. The qualified current profile and this retained inherited snapshot bind identical backend rows and all five actual support hashes. The user now requests retaining current V40 while reviewing alternatives without any new or expanded hook. No runtime behavior is changed by this source reconciliation.
