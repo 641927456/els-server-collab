@@ -109,6 +109,8 @@ def main(argv=None):
     run([sys.executable,'-B',str(ROOT/'tools/verify_initialization_readers.py')])
     if (ROOT/'references/periodic-deadline-fairness-20261027-v1/delta.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_periodic_deadline_fairness.py')])
+    if (ROOT/'references/actual-native-final-ability-20261027-v1/binding.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_inherited_actual_client_binding.py')])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0

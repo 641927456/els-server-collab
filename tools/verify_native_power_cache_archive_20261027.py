@@ -12,7 +12,9 @@ def main():
     assert len(candidate['files'])==8 and len({r['path']for r in candidate['files']})==8
     for row in candidate['files']:
         assert hashlib.sha256(bound(folder,row['path']).read_bytes()).hexdigest()==row['sha256'],row['path']
-    profile=load_manifest(ROOT/'channels/current-engine.json',ROOT)
+    # V39 is an immutable historical qualification. A separately accepted
+    # client delivery may advance the current selector without changing it.
+    profile=load_manifest(ROOT/'channels/reviewed-pr563-573-576-peak-parent-20261027-v2.json',ROOT)
     plan(ROOT,profile,'local')
     retained=profile['channels']['local']['retained_client_support_sources']
     assert len(retained)==5
@@ -25,6 +27,6 @@ def main():
     assert summary['cold_native_Actors']==15 and summary['cache_repair_complete']and not summary['whole_user_goal_complete']
     print(json.dumps(dict(ok=True,qualified_archive_files=8,retained_LOCAL_support_files=5,
                          native_families=15,controlled_careers=195,
-                         full_attribute_draft_not_selected=True,runtime_actions=0)))
+                         historical_V39_archive_only=True,current_selection_checked_separately=True,runtime_actions=0)))
 
 if __name__=='__main__':main()
