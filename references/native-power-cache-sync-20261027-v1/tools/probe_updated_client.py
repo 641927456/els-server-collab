@@ -91,7 +91,7 @@ if any((q.info['name'] or '').lower() in ('x2.exe','x2_dx11.exe') for q in psuti
 prepared_sources={}
 stack_adapter_failure=None
 native_cache_failure=None
-native_cache_ready=False
+native_cache_ready=False;native_cache_prepared=False;native_cache_owned_frame_at=None
 native_login_template=None
 profile=Path(selection['native_directory']) if selection else BASE/'analysis'/('client-'+digest[:8])
 if a.login_probe:
@@ -189,10 +189,12 @@ log=(run/'trace.jsonl').open('w',encoding='utf8');dump=dump_path.open('rb' if a.
 try:
  session=frida.attach(proc.pid);clear_received_at=None;clear_sequence=0;login_hooks_ready=False;startup_inventory=None;startup_shop=None;startup_artifact=None
  def receive(m,data):
-  global clear_received_at,clear_sequence,login_hooks_ready,stack_adapter_failure,native_cache_failure,native_cache_ready
+  global clear_received_at,clear_sequence,login_hooks_ready,stack_adapter_failure,native_cache_failure,native_cache_ready,native_cache_prepared,native_cache_owned_frame_at
   log.write(json.dumps(m,ensure_ascii=True)+'\n');log.flush()
   v=m.get('payload',{})
   if v.get('event')=='native_cache_sync_ready':native_cache_ready=True
+  if v.get('event')=='native_cache_sync_prepared':native_cache_prepared=True
+  if v.get('event')=='updated_field_frame' and v.get('uid') not in(None,0,'0') and native_cache_owned_frame_at is None:native_cache_owned_frame_at=time.monotonic()
   if v.get('event')=='native_cache_sync_disabled':native_cache_failure=str(v.get('reason','Native cache sync disabled'))
   if v.get('event')=='updated_login_hooks_ready':login_hooks_ready=True
   if v.get('event')in('local_stack_template_caps','local_shortcut_exact_total')and v.get('status')in('guard-rejected','prefix-timeout'):stack_adapter_failure=v.get('status')
@@ -247,7 +249,7 @@ emit({event:'attached',base:image.base.toString(),size:image.size});
   startup_observer=None
  print(str(run),flush=True);start=time.monotonic();captured=False;captures=set();town_ready_time=None;dungeon_queued=False;last_command=None;extension=None;extension_stamp=None
  while proc.poll() is None and (a.play or a.until_stopped or time.monotonic()-start<a.seconds) and not (run/'client.stop').exists():
-  if native_cache_failure or (a.login_probe and not native_cache_ready and time.monotonic()-start>35):
+  if native_cache_failure or (a.login_probe and not native_cache_prepared and time.monotonic()-start>35) or (native_cache_owned_frame_at is not None and not native_cache_ready and time.monotonic()-native_cache_owned_frame_at>5):
    print('ELS_LAUNCH_ERROR: 原生战力同步初始化失败，请更新配套启动组件并保留本次游戏日志。',flush=True)
    raise RuntimeError('Native power cache synchronization failed: '+str(native_cache_failure or 'initialization timeout'))
   if stack_adapter_failure:

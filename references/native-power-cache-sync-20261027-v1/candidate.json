@@ -13,7 +13,7 @@
     },
     {
       "path": "tools/client_compatibility_profiles.json",
-      "sha256": "2746557c15696dc0eb1b7b0dd526e4ad7dad06b62049b64e6140d3c34d53fc9d"
+      "sha256": "425e839e455ee07d7d6bc98553966f184d37e7b1c1d2db5a8f331b5a661142ed"
     },
     {
       "path": "tools/native_cache_sync.js",
@@ -21,11 +21,11 @@
     },
     {
       "path": "tools/native_cache_sync.py",
-      "sha256": "395d00a97540fa97a3f18500eac55b471aafe093a72b75f272af045460026660"
+      "sha256": "0fe0ae7709773fe0a5ffc1fedc9e75dec1727f2ac30d7ea8836ff8ad50b7a11e"
     },
     {
       "path": "tools/probe_updated_client.py",
-      "sha256": "84dc4946a78b30564a35d908a6f1932c953931a0d201dc79828e168d6a161c20"
+      "sha256": "82b3339b0f0a780bd118bfcc7fa63b5fbf610281a054b95ea0be4d40d3c3f649"
     },
     {
       "path": "launcher-host/tools/client_compatibility.py",
@@ -33,7 +33,7 @@
     },
     {
       "path": "launcher-host/tools/client_compatibility_profiles.json",
-      "sha256": "4847d53cddcb4a89b6975835e64b63413e3b5dffad3c834f8ee1ed37086d7359"
+      "sha256": "21583a7c4ed127c5a6e7839a77692eade3c22aa025197c45787080ed290cd757"
     }
   ],
   "original_executable_changed": false,
@@ -41,7 +41,7 @@
   "new_damage_formula": false,
   "native_qualification_complete": false,
   "installed": false,
-  "waiting": "All195 controlled career projections/15 cold Actors, current lifecycle and composed combat, complete signed launcher and dual formal qualification; exact old native exception code diagnostic remains pending.",
+  "waiting": "All195 controlled career projections/15 cold Actors on deferred initialization, current lifecycle and composed combat, complete signed launcher and dual formal qualification.",
   "approved_host_variants": "approved-hosts.json",
   "runtime_variants": {
     "local_formal": {
@@ -61,19 +61,27 @@
   },
   "online_server_formal_parent_must_be_checked_separately": true,
   "qualification_status": {
+    "core": "V8",
     "passed_families": 1,
     "passed_controlled_careers": 13,
     "passed_cold_Actors": 1,
-    "additional_same_family_diagnostic_rounds_passed": 2,
-    "exact_native_exception_code_not_yet_captured": true,
-    "publishable": false
+    "exact_old_native_exception_code": "0xE24C4A02",
+    "publishable": false,
+    "prior_V7_117_controlled_careers_are_separate_evidence": true
   },
-  "native_core_change": "Original native exception propagation, same original functions/arguments/results and cache setter",
+  "native_core_change": "Original native exception propagation; initialize from the existing original Field/Dungeon callback; same original functions/arguments/results/setter and V7 arithmetic JS",
   "native_core_change_whole_source_inverse_verified": true,
   "previous_candidate_failure": {
     "exception_stealing": true,
     "family": 8,
     "native_calculator_system_error": true,
     "old_result_preserved": true
+  },
+  "previous_candidate_startup_failure": {
+    "version": "V7",
+    "family": 10,
+    "role_and_cache_calculation_not_reached": true,
+    "original_parent_without_cache_reached_role": true,
+    "independent_readonly_diagnostic_preserved": true
   }
 }
