@@ -101,6 +101,8 @@ def main(argv=None):
         run([sys.executable,'-B','-m','unittest','tests.test_native_power_cache_contract'])
     if (ROOT/'channels/server-architecture-20261027-v1.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_server_architecture.py')])
+    if (ROOT/'channels/character-slow-paths-20261027-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_character_slow_paths.py')])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0
