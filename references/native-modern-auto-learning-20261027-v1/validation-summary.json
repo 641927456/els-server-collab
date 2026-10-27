@@ -1,0 +1,57 @@
+{
+  "ok": true,
+  "old_failure_reproduced": [
+    {
+      "unit_class": 35,
+      "missing": [
+        28410,
+        28429
+      ],
+      "old_failure_reproduced": true
+    },
+    {
+      "unit_class": 125,
+      "missing": [
+        28410,
+        28411,
+        28413,
+        28414,
+        28429
+      ],
+      "old_failure_reproduced": true
+    },
+    {
+      "unit_class": 173,
+      "missing": [
+        28410,
+        28411,
+        28413,
+        28414,
+        28429
+      ],
+      "old_failure_reproduced": true
+    }
+  ],
+  "scope": "Ordinary-tree modern auto-learning only; existing native formulas and resource definitions unchanged",
+  "module_sha256": "559e7315871317f61502d943e1bf4913c74064724986015f0ba225e52e820e8d",
+  "formal_module_sha256": "b9fd49f6062d17a730b6a1256f4e1aa1418b9f7ca7817387789b7cc8173840e9",
+  "source_parent": "local-native-final-ability-sync-20261027-v2",
+  "role_cases": 1305,
+  "serialized_town_and_dungeon_cases": 1980,
+  "level_coverage": "Every level1..99 for affected3 classes, all legal TC/Master flags, seals absent/all",
+  "all_class_states_regressed": 315,
+  "unrelated_learned_and_active_skills_unchanged": true,
+  "changed_passive_ids": [
+    28410,
+    28411,
+    28413,
+    28414,
+    28429
+  ],
+  "relationship_skills_not_granted": true,
+  "seal_gate_preserved": true,
+  "production_changes": 0,
+  "new_client_hooks": 0,
+  "native_consumer_or_effect_execution": false,
+  "installation_qualified": false
+}
