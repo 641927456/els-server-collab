@@ -6,9 +6,9 @@ from tools.materialize_formal_runtime import load_manifest,plan
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');parser.add_argument('--assets-root',type=Path,default=ROOT);args=parser.parse_args()
-    folder=ROOT/'references/periodic-deadline-fairness-20261027-v1'
+    folder=ROOT/'references/periodic-deadline-fairness-current-20261027-v2'
     delta=json.loads((folder/'delta.json').read_bytes());base=load_manifest(ROOT/delta['parent'],ROOT)
-    candidate=load_manifest(ROOT/'channels/periodic-deadline-fairness-20261027-v1.json',ROOT)
+    candidate=load_manifest(ROOT/'channels/periodic-deadline-fairness-current-20261027-v2.json',ROOT)
     old=b'                for slot in list(self.slots.values()):'
     new=b'                for slot in sorted(self.slots.values(), key=lambda value: value.due):'
     for mode in('online','local'):
@@ -31,6 +31,6 @@ result=unittest.TextTestRunner().run(suite);assert result.testsRun==2;sys.exit(n
         subprocess.run([sys.executable,'-B','-c',code,str(ROOT),str(source)],cwd=ROOT,check=True)
         print(json.dumps(dict(ok=True,mode=mode,changed_existing_runtime_leaves=1,source_inverse=True,slow_worker_tests=2,no_economic_or_player_requests=True)))
     if args.with_runtime:
-        subprocess.run([sys.executable,'-B',str(ROOT/'tools/verify_initialization_readers.py'),'--with-runtime','--assets-root',str(args.assets_root),'--manifest',str(ROOT/'channels/periodic-deadline-fairness-20261027-v1.json'),'--delta',str(folder/'delta.json')],cwd=ROOT,check=True)
+        subprocess.run([sys.executable,'-B',str(ROOT/'tools/verify_initialization_readers.py'),'--with-runtime','--assets-root',str(args.assets_root),'--manifest',str(ROOT/'channels/periodic-deadline-fairness-current-20261027-v2.json'),'--delta',str(folder/'delta.json')],cwd=ROOT,check=True)
 
 if __name__=='__main__':main()
