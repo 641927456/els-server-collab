@@ -16,6 +16,16 @@ epsilon. `native_attribute_snapshot.py` obtains the owned role, current title,
 skill/force/guild/collection inputs and all attached item instances in one
 read-only SQL transaction. It does not borrow cached projections or migrate
 an optional table.
+It also captures the selected ERP page, every saved page, profile metadata and
+account progress under that same read transaction. The canonical allocation
+writer must finish synchronization before this reader accepts an enabled
+profile. A real two-page fixture verifies switching during an external commit;
+missing metadata/pages and stale earned levels never become zero allocations.
+The quest-role helper is deliberately narrow. Same-connection attachments add
+the actual title/qualification, owned and equipped forces, visible traits,
+ordinary-page metadata and LuCiel selector. Nonempty real-store fixtures and
+an external multi-field commit verify those inputs independently of fresh
+character defaults.
 
 The native power modules retain the complete89B430 arithmetic and988320
 normalization. The3F8 map uses the original `(probability, flag)` key so both
@@ -46,6 +56,25 @@ body.128 native entry controls and108 duplicate/line/mode append controls
 retain the separate qualification and contribution phases. The20 context
 producer controls derive the25 condition types from the preceding aggregate;
 B26830 writes attack data and extended scalars into separate records.
+The copied condition category map is the preceding skill-damage map at778,
+distinct from cooldown798. The second collector preserves9873F0/B23F70:
+292 original controls qualify category/skill maps, both capability pair flags,
+tag sets and integer resistance accumulation.84 property-body controls cover
+their additional category/coefficient/resistance inputs. The four ordinary
+category damage rates retain two rounded callback-weight multiplications.
+
+The worn selector uses original wrapper+4 equipment slot codes. It must not
+receive bag group9 in that field. All40170 combinations of195 current careers
+and206 native required-class entries agree with the original class-entry
+phase. The inherited74 original slot-side controls are retained. A private
+frozen source additionally agrees with the whole cold worn collector in six
+selector/resource controls; that evidence does not establish a live owner
+context or complete set activation.
+The immutable KIM-derived source contains all11422 set records and the shared
+item property/option pools, without shipping a client binary. Every set lookup
+and171722 threshold/qualifier boundary combinations agree with the original
+6DB6A0/70F980 functions. These source-selection results remain distinct from
+the caller's actual worn/color/activation qualification.
 
 Portable tests include292 original passive/composition vectors, eight dense
 original power vectors,251 condition vectors, 136 independent option scalar records,120 scalar merges,135 data merges,

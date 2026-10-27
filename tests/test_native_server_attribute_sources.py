@@ -3,6 +3,7 @@ from dataclasses import replace
 from contextlib import closing
 from pathlib import Path
 import importlib.util
+import hashlib
 import json
 import math
 import sqlite3
@@ -35,6 +36,11 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
         cls.wire = module('candidate_native_attribute_wire', 'els_server/protocol/native_attribute_messages.py')
         cls.power = module('candidate_native_power_kernel', 'els_server/domain/native_power_kernel.py')
         cls.snapshot = module('candidate_native_attribute_snapshot', 'els_server/storage/native_attribute_snapshot.py')
+        cls.equipment_classes = module('candidate_native_equipment_classes', 'els_server/domain/native_equipment_classes.py')
+        with patch.dict(sys.modules,{'els_server.domain.native_equipment_classes':cls.equipment_classes}):
+            cls.worn = module('candidate_native_worn', 'els_server/domain/native_worn_item_inputs.py')
+        cls.set_conditions = module('candidate_native_set_conditions', 'els_server/domain/native_set_conditions.py')
+        cls.set_sources = module('candidate_native_set_sources', 'els_server/domain/native_set_sources.py')
         with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':cls.power}):
             cls.conditions = module('candidate_native_conditions', 'els_server/domain/native_conditional_power_attributes.py')
             cls.option_data = module('candidate_native_option_data', 'els_server/domain/native_option_data_merge.py')
@@ -45,6 +51,8 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             cls.option_power_maps = module('candidate_native_option_maps', 'els_server/domain/native_option_power_maps.py')
             cls.option_metadata = module('candidate_native_option_metadata', 'els_server/domain/native_option_metadata.py')
             cls.option_conditions = module('candidate_native_option_conditions', 'els_server/domain/native_option_condition_inputs.py')
+            cls.extended_maps = module('candidate_native_extended_maps', 'els_server/domain/native_extended_option_maps.py')
+            cls.extended_inputs = module('candidate_native_extended_inputs', 'els_server/domain/native_extended_option_inputs.py')
             cls.extension = module('candidate_native_extension_inputs', 'els_server/domain/native_extension_inputs.py')
             with patch.dict(sys.modules,{'els_server.domain.native_extension_inputs':cls.extension}):
                 cls.resonance = module('candidate_native_resonance', 'els_server/domain/native_resonance_attributes.py')
@@ -267,10 +275,79 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
         goldens=json.loads((REFERENCE/'native-condition-context-goldens.json').read_bytes())
         self.assertEqual(len(goldens['cases']),20)
         for index,row in enumerate(goldens['cases']):
-            args=dict(row['args']);args['cooldown_categories']={int(k):v for k,v in args['cooldown_categories'].items()}
+            args=dict(row['args']);args['precondition_skill_categories']={int(k):v for k,v in args['precondition_skill_categories'].items()}
             with self.subTest(index=index):
                 actual=self.contexts.build_condition_contexts(tuple(row['resistances']),**args)
                 self.assertEqual(actual,{int(k,16):v for k,v in row['native'].items()})
+
+    def test_complete_second_option_map_phase_matches_original(self):
+        goldens=json.loads((REFERENCE/'native-extended-option-maps-goldens.json').read_bytes())
+        self.assertEqual(len(goldens['cases']),292)
+        for index,row in enumerate(goldens['cases']):
+            def decode(values,pair=False,tags=False):
+                return {(tuple(k)if pair else int(k)):(tuple(v)if tags else v)for k,v in values}
+            before=row['before'];args=dict(row['args'])
+            for k in('skills','alternate_skills','category_rates','source_resistances'):
+                args[k]=tuple(args[k])
+            args['capability_fields']={int(k,16):v for k,v in args['capability_fields'].items()}
+            args['factor_rows']=tuple(tuple(v)for v in args['factor_rows'])
+            with self.subTest(index=index):
+                actual=self.extended_maps.merge_extended_maps(decode(before[0]),decode(before[1]),
+                    decode(before[2],pair=True),decode(before[3],tags=True),decode(before[4],tags=True),
+                    tuple(before[5]),**args)
+                values=row['native']
+                self.assertEqual(actual,(decode(values[0]),decode(values[1]),decode(values[2],pair=True),
+                    decode(values[3],tags=True),decode(values[4],tags=True),tuple(values[5])))
+
+    def test_second_option_properties_match_original_source_reader(self):
+        goldens=json.loads((REFERENCE/'native-extended-option-sources-goldens.json').read_bytes())
+        self.assertEqual(len(goldens['cases']),84)
+        for index,row in enumerate(goldens['cases']):
+            expected=dict(row['native'])
+            for key in('skills','alternate_skills','source_resistances'):expected[key]=tuple(expected[key])
+            expected['capability_fields']={int(k,16):v for k,v in expected['capability_fields'].items()}
+            with self.subTest(index=index):
+                self.assertEqual(self.extended_inputs.extended_source_inputs(row['definition']),expected)
+
+    def test_all_legal_careers_match_original_equipment_class_gate(self):
+        goldens=json.loads((REFERENCE/'native-equipment-class-goldens.json').read_bytes())
+        self.assertEqual(goldens['cases'],40170)
+        bitmap=bytes.fromhex(goldens['acceptance_bits']);index=0
+        for current in goldens['classes']:
+            for required in goldens['required_classes']:
+                actual=self.equipment_classes.class_eligible(required,current)
+                self.assertEqual(actual,bool(bitmap[index//8]>>(index%8)&1),(required,current))
+                index+=1
+        with self.assertRaises(TypeError):self.equipment_classes.tables()[1]['stage']=99
+
+    def test_worn_side_uses_native_equipment_slot_not_bag_group(self):
+        goldens=json.loads((REFERENCE/'native-equipment-slot-goldens.json').read_bytes())
+        self.assertEqual(len(goldens['cases']),74)
+        for row in goldens['cases']:
+            self.assertEqual(self.worn.slot_side(row['slot_code']),row['native'])
+
+    def test_all_current_set_sources_reproduce_original_threshold_trace(self):
+        goldens=json.loads((REFERENCE/'native-all-set-sources-goldens.json').read_bytes())
+        source=self.set_sources.catalog();digest=hashlib.sha256();count=0
+        self.assertEqual(len(source['definitions']),11422)
+        for sid,d in sorted(source['definitions'].items()):
+            if d['qualified']is None:
+                thresholds={v[0]for v in d['ordinary']};qualifiers=(0,1)
+            else:
+                thresholds={v[0]&0xffffffff for v in d['qualified']}
+                qualifiers=tuple(sorted({0,*[v[1]for v in d['qualified']]}))
+            pieces={0,1,0xffffffff}
+            for value in thresholds:
+                for delta in(-1,0,1):
+                    if 0<=value+delta<2**32:pieces.add(value+delta)
+            for qualifier in qualifiers:
+                for piece in sorted(pieces):
+                    effects=self.set_conditions.select_effect_ids(d['ordinary'],d['qualified'],qualifier,piece)
+                    digest.update(json.dumps([sid,qualifier,piece,effects],separators=(',',':')).encode()+b'\n');count+=1
+        self.assertEqual(count,goldens['cases'])
+        self.assertEqual(digest.hexdigest(),goldens['native_trace_sha256'])
+        first=next(iter(source['definitions'].values()))
+        with self.assertRaises(TypeError):first['ordinary']=()
 
     def test_intermediate_conditions_keep_data_and_extended_scalar_destinations_separate(self):
         goldens=json.loads((REFERENCE/'native-conditional-power-goldens.json').read_bytes())
@@ -325,6 +402,9 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             'els_server.storage.seal_quests':SimpleNamespace(load_character=role_loader,current_slots=lambda db,c:(0,)*22),
             'els_server.storage.inventory_state':SimpleNamespace(load_items=lambda db,uid:
                 [dict(uid=1,template=row[0],group=9,slot=1,count=1)for row in db.execute('SELECT template FROM equipped WHERE owner=?',(uid,))]),
+            'els_server.storage.titles':SimpleNamespace(snapshot=lambda db,uid:dict(title=0,owned=[],missions=[]),completed_for_equipment=lambda db,uid:()),
+            'els_server.storage.boosting_2026_force_inventory':SimpleNamespace(saved=lambda db,uid:()),
+            'els_server.storage.boosting_2026_force_equipment':SimpleNamespace(saved=lambda db,uid:((0,0),)*3),
             'els_server.domain.character_rules':SimpleNamespace(validate_career_state=lambda role:role)}
 
     def test_snapshot_keeps_role_and_items_at_one_external_commit_generation(self):
@@ -369,6 +449,24 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
                 db.execute('CREATE TABLE unintended(value INTEGER)')
             with patch.dict(sys.modules,self.snapshot_helpers(unsafe_loader)),self.assertRaises(sqlite3.OperationalError):
                 self.snapshot.capture(path,1001,2)
+            self.assertEqual(path.read_bytes(),before)
+
+    def test_enabled_resonance_requires_saved_allocations_before_attribute_capture(self):
+        with tempfile.TemporaryDirectory(dir=ROOT,prefix='native-attribute-test-') as directory:
+            path=Path(directory)/'source.sqlite3'
+            with closing(sqlite3.connect(path)) as db:
+                db.executescript('CREATE TABLE character_owners(uid INTEGER PRIMARY KEY,account_id INTEGER);'
+                    'CREATE TABLE account_resonance(account_id INTEGER,enabled INTEGER,experience INTEGER,revision INTEGER);'
+                    'CREATE TABLE equipped(owner INTEGER,template INTEGER);'
+                    'INSERT INTO character_owners VALUES(1001,2);'
+                    'INSERT INTO account_resonance VALUES(2,1,50,1);')
+            before=path.read_bytes()
+            role=lambda db,uid,account:dict(uid=uid,level=99)
+            with patch.dict(sys.modules,self.snapshot_helpers(role)),\
+                 patch('els_server.storage.resonance_state.limit',return_value=1000),\
+                 patch('els_server.storage.resonance_state.level',return_value=200):
+                with self.assertRaisesRegex(ValueError,'synchronized character pages'):
+                    self.snapshot.capture(path,1001,2)
             self.assertEqual(path.read_bytes(),before)
 
     def test_all_original_conditional_power_types_and_epsilon_boundaries(self):

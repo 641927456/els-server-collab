@@ -6,7 +6,7 @@ from els_server.domain.native_power_slopes import normalize
 def build_condition_contexts(resistances, *, physical_defense, magical_defense,
                              physical_defense_rate, magical_defense_rate,
                              normalized_defense, normalized_additional,
-                             experience_rate, cooldown_categories):
+                             experience_rate, precondition_skill_categories):
     if type(resistances) is not tuple or len(resistances)!=6:
         raise ValueError('Six original pre-condition resistance values required')
     values=tuple(map(f32,resistances))
@@ -18,11 +18,11 @@ def build_condition_contexts(resistances, *, physical_defense, magical_defense,
     magical=f32(f32(magical*magical_rate)+magical)
     defense=f32(magical+physical)
     reduction=f32(normalize(0x988180,f32(normalized_defense))*f32(100.))
-    if type(cooldown_categories) is not dict or len(cooldown_categories)>1024:
+    if type(precondition_skill_categories) is not dict or len(precondition_skill_categories)>1024:
         raise ValueError('Complete original pre-condition category map required')
-    if any(type(key)is not int or not -2**31<=key<2**31 for key in cooldown_categories):
+    if any(type(key)is not int or not -2**31<=key<2**31 for key in precondition_skill_categories):
         raise ValueError('Original signed category keys required')
-    categories={key:f32(value)for key,value in cooldown_categories.items()}
+    categories={key:f32(value)for key,value in precondition_skill_categories.items()}
     # Unit3078 stores the copied map. B26140 reads its key13, not its pointer.
     return {0x3060:total,0x3064:reduction,0x3068:defense,
             0x306c:f32(normalized_additional),0x3070:f32(experience_rate),
