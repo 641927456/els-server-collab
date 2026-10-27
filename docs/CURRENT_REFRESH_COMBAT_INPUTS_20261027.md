@@ -24,3 +24,13 @@ battle are outside these checks. Deployment uses separate frozen manifests;
 this PR alone does not install or restart a service.
 
 Closes #553.
+
+Integration correction (2026-10-27): applying the original PR directly to the
+legacy top-level storage files broke byte-pinned historical runtime profiles.
+The original two corrected sources are now preserved in the dedicated
+`references/current-refresh-combat-inputs-20261027-v1` archive instead. The
+selected current runtime already contains these fixes; its two functions in
+both modes are checked structurally against this archive, retaining the
+additional existing formal fatigue reader. The older canonical files and all
+historical profile bytes remain unchanged. This integration does not install
+code, change economic rules or replay the earlier production verification.
