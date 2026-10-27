@@ -1,0 +1,71 @@
+{
+  "release": "retained-native-consumable-readers-20261027-v1",
+  "parent": "channels/actual-periodic-runtime-with-v40-20261027-v1.json",
+  "scope": "39 SQL-owned inventory readers only; zero new use/source/client changes",
+  "channels": {
+    "online": {
+      "els_server/data/retained_native_consumables.json": {
+        "source": "references/retained-native-consumable-readers-20261027-v1/online/els_server/data/retained_native_consumables.json",
+        "sha256": "e01be8d6a7ed023f5fef062c0f68050c6292a34406669fe425e4323e006864fb",
+        "before_sha256": null,
+        "size": 12607
+      },
+      "els_server/domain/acquisition_policy.py": {
+        "source": "references/retained-native-consumable-readers-20261027-v1/online/els_server/domain/acquisition_policy.py",
+        "sha256": "4c45b697f62adc4ee0bae7aa3392e21511a272db2769623180409e1d8ab2bb4c",
+        "before_sha256": "f01a540287243eac0c66e2ed855ad2190944dbf5cca3127f5b9031263473d3d6",
+        "size": 12813
+      },
+      "els_server/domain/inventory_items.py": {
+        "source": "references/retained-native-consumable-readers-20261027-v1/online/els_server/domain/inventory_items.py",
+        "sha256": "2833eef2d3dd274459fd8e5497aabb778325cd15e993af25924d1f04607356cb",
+        "before_sha256": "4d0fe87b9f2d69fc376ec92cf4eb070ee25e9634e7006d2b6e9febe6d88450ea",
+        "size": 71552
+      },
+      "els_server/domain/retained_native_consumables.py": {
+        "source": "references/retained-native-consumable-readers-20261027-v1/online/els_server/domain/retained_native_consumables.py",
+        "sha256": "6b6bfbdeabf15fd26fad9765b51787b2e32299b3c8fe4513da4d66e87f67434e",
+        "before_sha256": null,
+        "size": 3464
+      },
+      "els_server/storage/inventory_state.py": {
+        "source": "references/retained-native-consumable-readers-20261027-v1/online/els_server/storage/inventory_state.py",
+        "sha256": "00c8ed1245df1270a800f9bbc2b74c0f145422fd5aec5dfb702a2e6fe84df65d",
+        "before_sha256": "ebace7146aa051271c39aeb0906593157405f2cb83aed0e3c35b4fb189090f6b",
+        "size": 25012
+      }
+    },
+    "local": {
+      "els_server/data/retained_native_consumables.json": {
+        "source": "references/retained-native-consumable-readers-20261027-v1/local/els_server/data/retained_native_consumables.json",
+        "sha256": "e01be8d6a7ed023f5fef062c0f68050c6292a34406669fe425e4323e006864fb",
+        "before_sha256": null,
+        "size": 12607
+      },
+      "els_server/domain/acquisition_policy.py": {
+        "source": "references/retained-native-consumable-readers-20261027-v1/local/els_server/domain/acquisition_policy.py",
+        "sha256": "8066f9e7e689c7801772aa4bdb5ec87c6061e3f30cae815419008e31b614fb9f",
+        "before_sha256": "82d7c90e537d22fa78ee61e28d08bff26a17909cbf58684a9354a685cc259915",
+        "size": 12654
+      },
+      "els_server/domain/inventory_items.py": {
+        "source": "references/retained-native-consumable-readers-20261027-v1/local/els_server/domain/inventory_items.py",
+        "sha256": "ede14bff3164dd636a36aa0e0bc3373ae4bc5280ec835e93496d915dd9f4458a",
+        "before_sha256": "dd995d0bdf0e62c89cdab29f4fed20c14c92d89b83f7c34a893b4a0eb4c9443e",
+        "size": 71397
+      },
+      "els_server/domain/retained_native_consumables.py": {
+        "source": "references/retained-native-consumable-readers-20261027-v1/local/els_server/domain/retained_native_consumables.py",
+        "sha256": "6b6bfbdeabf15fd26fad9765b51787b2e32299b3c8fe4513da4d66e87f67434e",
+        "before_sha256": null,
+        "size": 3464
+      },
+      "els_server/storage/inventory_state.py": {
+        "source": "references/retained-native-consumable-readers-20261027-v1/local/els_server/storage/inventory_state.py",
+        "sha256": "00c8ed1245df1270a800f9bbc2b74c0f145422fd5aec5dfb702a2e6fe84df65d",
+        "before_sha256": "ebace7146aa051271c39aeb0906593157405f2cb83aed0e3c35b4fb189090f6b",
+        "size": 25012
+      }
+    }
+  }
+}

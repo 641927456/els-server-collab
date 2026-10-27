@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "branch": "Original1146660 behavior factory switch only",
+  "neighbor_control_targets": {
+    "54": "0x1148609",
+    "55": "0x114c9e9",
+    "56": "0x11486a8"
+  },
+  "executed_instructions": [
+    "0x11466f0",
+    "0x11466f2",
+    "0x11466f4",
+    "0x11466fa",
+    "0x1146700",
+    "0x1146703",
+    "0x114670a",
+    "0x114670d",
+    "0x114c9e9"
+  ],
+  "success_register_low_byte": 1,
+  "memory_writes": [],
+  "output_vector_unchanged": true,
+  "meaning": "Behavior55 returns success without constructing or registering an effect behavior; this does not implement +12.",
+  "manual_219_whitelist": [
+    {
+      "template": 77000,
+      "manual_219_whitelist": false
+    },
+    {
+      "template": 291689,
+      "manual_219_whitelist": true
+    },
+    {
+      "template": 313132,
+      "manual_219_whitelist": true
+    },
+    {
+      "template": 80001890,
+      "manual_219_whitelist": false
+    },
+    {
+      "template": 80001891,
+      "manual_219_whitelist": false
+    },
+    {
+      "template": 80001892,
+      "manual_219_whitelist": false
+    }
+  ],
+  "whitelist_boundary": "One native whitelist only. Negative does not prove all other inventory-use paths absent.",
+  "whole_registration_replayed": false,
+  "gameplay_verified": false,
+  "client_changes": 0,
+  "live_process_access": false
+}

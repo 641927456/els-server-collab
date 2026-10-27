@@ -17,6 +17,12 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'references/pr597-remaining-20261027-v2/qualified-validation.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr597_remaining_20261027.py')])
+    if (ROOT/'references/pr597-selected-20261027-v1/qualified-validation.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr597_selected_20261027.py')])
+    if (ROOT/'channels/retained-native-consumable-readers-20261027-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_retained_native_consumable_readers.py')])
     if (ROOT/'channels/reviewed-pr563-573-576-current-20261027-v1.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_reviewed_three_pr_binding_20261027.py')])
     if (ROOT/'channels/formal-clock-20261027-v1.json').is_file():
