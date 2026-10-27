@@ -7,7 +7,11 @@ sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 def main():
     pointer=json.loads((ROOT/'channels/current-engine.json').read_bytes())
-    assert pointer['profile']=='channels/reviewed-pr563-573-576-current-20261027-v1.json'
+    profiles={
+        'channels/reviewed-pr563-573-576-current-20261027-v1.json':{'online':1233,'local':1234},
+        'channels/reviewed-pr563-573-576-peak-parent-20261027-v2.json':{'online':1234,'local':1235},
+    }
+    assert pointer['profile']in profiles
     profile=load_manifest(ROOT/'channels/current-engine.json',ROOT)
     assert profile['reviewed_PRs']==[563,573,576]and profile['new_runtime_delta_files']==1 and profile['client_behavior_delta']==0
     expected='321c9e1baadcf38930de43fb16b07d86619509e758bb8cad5bf269898a61fec3'
@@ -15,7 +19,7 @@ def main():
     for mode in ('online','local'):
         rows=plan(ROOT,profile,mode);lookup={e['path']:e for e,_ in rows}
         assert lookup['els_server/domain/formal_pve_economy.py']['sha256']==expected
-        assert len(rows)==(1233 if mode=='online'else 1234)
+        assert len(rows)==profiles[pointer['profile']][mode]
         counts[mode]=len(rows)
     retained=profile['channels']['local']['retained_client_support_sources']
     assert len(retained)==5 and len({e['path']for e in retained})==5
