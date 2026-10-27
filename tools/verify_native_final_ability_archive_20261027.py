@@ -29,7 +29,9 @@ def main():
     selected=current['channels']['local'].get('native_final_ability_sync',False)
     if selected:
         assert candidate['native_qualification_complete']and candidate['installed']
-        summary=json.loads((folder/'delivery-summary.json').read_bytes())
+        delivery=folder/'delivery-summary.json'
+        assert hashlib.sha256(delivery.read_bytes()).hexdigest()==candidate['delivery_summary_sha256']
+        summary=json.loads(delivery.read_bytes())
         assert summary['launcher_version']==40 and summary['native_families']==15 and summary['controlled_native_careers']==195 and summary['cold_native_Actors']==15
         assert summary['native_final_ability_sync']and summary['original_native_buff_layers_preserved']
         mapping=candidate['runtime_variants']['local_formal'];retained=current['channels']['local']['retained_client_support_sources']
