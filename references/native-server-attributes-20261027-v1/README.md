@@ -212,6 +212,16 @@ explicit0/1. First51 scalar leaves,13 data leaves and relevant CP maps now
 agree, as do second-pass category/capability maps. Private player inputs and
 native temporary pointers remain outside Git; full CP/lifecycle is separate.
 
+Learned flat STAT collection now follows the complete8F8D50 channel ordering.
+Nine original9BFE30 controls cover all five distinct profiles in the current
+4483 skill definitions, including four nonempty STAT definitions, plus nil and
+unequal-vector controls.63 whole-collector comparisons cover types, rank bounds,
+selected-page gates, duplicate extra entries and missing templates. An invalid
+selected page skips both later channels; a valid empty selected map still
+permits the extra channel. Unsafe unchecked main-channel source rows are
+rejected before calculation. Current ownership and preset lifecycle remain
+separate source contracts, rather than invented empty inputs.
+
 The remaining integration must bind every actual modifier/context and CP
 aggregate, qualify the current HP clamp/refresh lifecycle in the unmodified
 client, then enable and publish in the ordinary queue from the actual latest

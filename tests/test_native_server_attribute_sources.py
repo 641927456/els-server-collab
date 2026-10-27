@@ -927,4 +927,43 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             self.assertEqual({key[1]for key in source['probability']},{1 if flag is None else flag})
 
 
+    def learned_stat_modules(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
+            loader=module('candidate_skill_stat_inputs','els_server/domain/native_skill_stat_inputs.py')
+            with patch.dict(sys.modules,{'els_server.domain.native_skill_stat_inputs':loader}):
+                collector=module('candidate_learned_stat_phase','els_server/domain/native_learned_stat_phase.py')
+        return loader,collector
+
+    def test_current_skill_stat_profiles_and_complete_three_channel_collector(self):
+        loader,collector=self.learned_stat_modules()
+        golden=json.loads((REFERENCE/'native-learned-stat-phase-goldens.json').read_bytes())
+        self.assertEqual(golden['current_source_counts'],dict(total=4483,with_stat=4))
+        self.assertEqual(len(golden['parser']),9)
+        self.assertEqual(len(golden['rows']),63)
+        for source in(loader,collector):
+            self.assertEqual(hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest(),
+                golden['source_sha256'][Path(source.__file__).stem])
+        for row in golden['parser']:
+            actual=loader.load(row['definition'])
+            self.assertEqual(b''.join(struct.pack('<13f',*v)for v in actual),
+                b''.join(struct.pack('<13f',*v)for v in row['native']))
+        definitions={int(k):v for k,v in golden['definitions'].items()}
+        for row in golden['rows']:
+            actual=collector.collect(definitions,tuple(map(tuple,row['main'])),
+                tuple(tuple(map(tuple,p))for p in row['presets']),row['selected_index'],tuple(map(tuple,row['extra'])))
+            self.assertEqual(struct.pack('<13f',*actual),struct.pack('<13f',*row['native']),row['label'])
+
+    def test_learned_stat_missing_presets_skip_extra_but_empty_selected_map_allows_it(self):
+        _,collector=self.learned_stat_modules()
+        definitions={1:dict(m_eType=1,m_Stat=dict(m_BaseHP={'1':7.}))}
+        self.assertEqual(collector.collect(definitions,(),(),0,((1,1),)),(0.,)*13)
+        self.assertEqual(collector.collect(definitions,(),((),),1,((1,1),)),(0.,)*13)
+        self.assertEqual(collector.collect(definitions,(),((),),0,((1,1),))[6],7.)
+        for main in(((1,0),),((1,2),)):
+            with self.assertRaises(ValueError):collector.collect(definitions,main,((),),0,())
+        self.assertEqual(collector.collect(definitions,((1,31),),((),),0,()),(0.,)*13)
+        with self.assertRaises(ValueError):collector.collect(definitions,((1,1),(1,1)),(),0,())
+        with self.assertRaises(ValueError):collector.collect({},((1,1),),(),0,())
+
+
 if __name__=='__main__':unittest.main()
