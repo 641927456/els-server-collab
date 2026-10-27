@@ -783,4 +783,42 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
                 self.assertEqual(struct.pack('<f',actual),struct.pack('<f',row['native']))
 
 
+    def test_native_activated_set_power_source_preserves_double_and_unique_order(self):
+        source=module('candidate_set_power','els_server/domain/native_set_power_factor.py')
+        raw=(REFERENCE/'native-set-power-factor-sources.json').read_bytes();coefficients=source.decode(raw)
+        golden=json.loads((REFERENCE/'native-set-power-factor-goldens.json').read_bytes())
+        self.assertEqual(len(golden['rows']),128)
+        self.assertEqual(len(golden['leaf_rows']),8)
+        definitions=self.set_sources.catalog()['definitions']
+        for row in golden['leaf_rows']:
+            value=source.factor(tuple(row['active_ids']),coefficients)
+            self.assertEqual(struct.pack('<d',value),struct.pack('<d',row['native']))
+        with patch.dict(sys.modules,{'els_server.domain.native_set_conditions':self.set_conditions}):
+            for row in golden['rows']:
+                active=source.active_sets({int(k):tuple(v)for k,v in row['pieces'].items()},definitions)
+                self.assertEqual(active,tuple(row['active_ids']))
+                self.assertEqual(struct.pack('<d',source.factor(active,coefficients)),struct.pack('<d',row['native']))
+        with self.assertRaises(TypeError):coefficients[20004]=9.9
+        with self.assertRaises(ValueError):source.decode(raw+b' ')
+        self.assertNotEqual(struct.pack('<d',coefficients[20004]),struct.pack('<d',self.power.f32(1.2)))
+
+    def test_current_native_class_registry_and_all_class_power_branches(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
+            source=module('candidate_class_power','els_server/domain/native_class_power_inputs.py')
+        golden=json.loads((REFERENCE/'native-class-power-source-goldens.json').read_bytes())
+        types=source.project(golden['source'])
+        self.assertEqual(dict(types),{int(k):v for k,v in golden['native_types'].items()})
+        self.assertEqual(len(types),120)
+        self.assertEqual(len(golden['rows']),585)
+        for row in golden['rows']:
+            kind=source.kind(row['class_id'],types);self.assertEqual(kind,row['kind'])
+            value=(row['physical']if kind==1 else row['magical']if kind==2 else max(row['physical'],row['magical']))*.4+1.
+            self.assertEqual(struct.pack('<d',value),struct.pack('<d',row['native_factor']))
+        # The original source compares float32 coefficients, with equality2.
+        tied=source.project({'1':{'1':999,'2':100.00000001,'4':100.}})
+        self.assertEqual(tied[999],2)
+        self.assertIsNone(source.kind(1,types))
+        with self.assertRaises(TypeError):types[1]=1
+
+
 if __name__=='__main__':unittest.main()
