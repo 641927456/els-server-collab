@@ -1,0 +1,4 @@
+-r requirements-server.txt
+# QA certificate generation only; no server runtime dependency change.
+# Same tested version: https://pypi.org/project/cryptography/49.0.0/
+cryptography==49.0.0
