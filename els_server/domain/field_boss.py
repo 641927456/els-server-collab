@@ -32,7 +32,7 @@ def population():
     from els_server.domain.dungeon_npcs import resource_dto,encode_npc
     from els_server.domain.dungeon_routes import route_catalog,npc_initialization
     data=definition();base=route_catalog()._data
-    catalog=SimpleNamespace(_data=dict(base,npcs=data['npcs']))
+    catalog=SimpleNamespace(_data=dict(base,npcs=data['npcs']),_formal_field_sha256=hashlib.sha256((Path(__file__).resolve().parents[1]/'data/drabaki_field.json').read_bytes()).hexdigest())
     entries=[]
     for key,group in enumerate(data['groups']):
         template=group['template'];point=data['positions'][str(group['point'])]
@@ -40,12 +40,14 @@ def population():
         struct.pack_into('<iii',raw,0,key,template,0)
         struct.pack_into('<i',raw,0x28,group['point'])
         struct.pack_into('<3f',raw,0x30,0.,0.,0.)
+        raw[0xc]=data['source']['STANDARD_MONSTER_LEVEL']
         raw[0x2c]=int(template==6401);raw[0x2d]=int(template==6401)
         raw[0x3c]=1;raw[0x48]=int(point['right']);raw[0x50]=0
         raw[0x44]=int(template==6401);struct.pack_into('<H',raw,0x58,99 if template==6401 else 0)
         dto=bytearray(resource_dto(raw));struct.pack_into('<3f',dto,9,*point['xyz'])
-        hp=data['npcs'][str(template)]['script_max_hp'] or (5000 if template==6401 else 500)
-        entries.append(dict(key=key,template=template,hp=hp,wire=encode_npc(dto,0),init=npc_initialization(catalog,template,hp)))
+        from els_server.domain.formal_npc_hp import maximum
+        hp=maximum(catalog,template,dungeon=wire.FIELD,npc_level=data['source']['STANDARD_MONSTER_LEVEL'],boss=template==6401)
+        entries.append(dict(key=key,template=template,hp=hp,wire=encode_npc(dto,0),init=npc_initialization(catalog,template,hp,field_context=(wire.FIELD,data['source']['STANDARD_MONSTER_LEVEL']))))
     payload=struct.pack('>I',len(entries))+b''.join(n['wire'] for n in entries)
     # C50040: empty map<int,int>, scalar, byte vector, then the
     # map<int,2BDEB50 NPC initialization> and two empty ushort maps.

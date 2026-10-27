@@ -75,7 +75,91 @@ def raid_maximum(catalog,template,dungeon,npc_level):
     return result
 
 
-def maximum(catalog, template, *, dungeon, npc_level=None, boss=False):
+def component_maximum(catalog, template):
+    """Late-decoded current INIT_COMPONENT.MAX_HP, before any local fallback."""
+    row=policy()['templates'].get(str(template))
+    item=(row or {}).get('current_client_component_hp')
+    if item is None:return None
+    definition=client_data().npc(template)
+    if (item['client_sha256']!=CLIENT_SHA or item['enum']!=definition['enum']
+        or item['script']!=(definition['script']or'').lower()
+        or item['class_id']!=definition['class_id'] or item['is_npc']!=definition['is_npc']
+        or item['source']!='current_KOM_KL_INIT_COMPONENT_MAX_HP'
+        or row['source']!='current_client_explicit' or row['fixed']!=item['MAX_HP']):
+        raise ValueError('NPC HP current component identity')
+    value=item['MAX_HP']
+    if type(value)not in(int,float)or not math.isfinite(value)or value<=0:
+        raise ValueError('NPC HP current component bound')
+    original=catalog._data['npcs'][str(template)]['script_max_hp']
+    if original is not None and original!=value:raise ValueError('NPC HP conflicting explicit client values')
+    return f32(value)
+
+
+def source_public_maximum(catalog, template, dungeon, npc_level, context):
+    """Exact original friendly source only; never an unbound dynamic override."""
+    meta=source_map(catalog,dungeon);entries=meta.get('public_hp_sources',{})
+    if not entries or context is None:return None
+    if (type(context)is not tuple or len(context)!=7
+        or context[:3]!=(dungeon,meta['graph_sha256'],npc_level)):
+        raise ValueError('Public HP exact original source context')
+    _,_,_,stage,part,group,index=context
+    item=entries.get(f'{stage}:{part}:{group}:{index}:{template}')
+    if item is None:return None
+    graph=catalog._data['graphs'][meta['source']];found=[]
+    for g in graph['stages'][str(stage)]['parts'][str(part)]['groups']:
+        if g['index']!=group:continue
+        for parent in g['npcs']:
+            for original in parent.get('options',[parent]):
+                if original['template']==template and original['source_index']==index:found.append(original)
+    if len(found)!=1:raise ValueError('Public HP unique original friendly source')
+    original=found[0]
+    fingerprint=hashlib.sha256(json.dumps(original,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
+    if (original.get('ally')is not True or original.get('team',1)!=0
+        or fingerprint!=item['source_fingerprint'] or item['role']!='current-client-original-friendly-source'):
+        raise ValueError('Public HP original ally/team/source identity')
+    return item
+
+
+def initialized_source_context(run, source):
+    if not source_map(run.catalog,run.identity).get('public_hp_sources'):return None
+    matches=[]
+    for group in run.graph['stages'][str(run.stage)]['parts'][str(run.part)]['groups']:
+        for parent in group['npcs']:
+            for original in parent.get('options',[parent]):
+                if all(source.get(k)==v for k,v in original.items()):
+                    value=run.catalog.static_npc_level(run.identity,run.graph,run.stage,run.part,original)
+                    if value is None:value=level(run.catalog,run.identity)
+                    matches.append((run.identity,run.graph['source_sha256'],value,run.stage,run.part,group['index'],original['source_index']))
+    if len(matches)>1:raise ValueError('NPC HP validator ambiguous original source')
+    return matches[0]if matches else None
+
+
+def public_maximum(catalog, template, dungeon, npc_level, source_context=None):
+    """Exact named website reference, only for original finite missing inputs."""
+    meta=source_map(catalog,dungeon)
+    if component_maximum(catalog,template)is not None:return None
+    item=meta.get('public_hp_templates',{}).get(str(template))
+    if item is None:item=source_public_maximum(catalog,template,dungeon,npc_level,source_context)
+    if item is None:return None
+    if type(template)is not int or type(npc_level)is not int or item['level']!=meta['level']:
+        raise ValueError('Public HP exact level identity')
+    if npc_level!=item['level']:return None
+    definition=client_data().npc(template)
+    if (item['enum']!=definition['enum'] or item['script']!=(definition['script']or'').lower()
+        or item['class_id']!=definition['class_id'] or item['is_npc']!=definition['is_npc']
+        or definition['class_id']not in(0,102,103)
+        or (item.get('qualification')!='retained-source-base-HP-20261026-v1'
+            and (definition['class_id']!=0 or definition['is_npc']is not True))
+        or item['source']!='cobodex_named_graph_level_reference_adopted_local_rule'):
+        raise ValueError('Public HP exact named registration')
+    if catalog._data['npcs'][str(template)]['script_max_hp']is not None:return None
+    value=item['hp_float32']
+    if type(value)not in(int,float)or not math.isfinite(value)or value<=0 or f32(value)!=value:
+        raise ValueError('Public HP finite positive float32')
+    return value
+
+
+def maximum(catalog, template, *, dungeon, npc_level=None, boss=False, source_context=None):
     data=policy();row=data['templates'].get(str(template))
     if type(template)is not int or row is None:raise ValueError('NPC HP unknown template')
     definition=client_data().npc(template)
@@ -86,6 +170,8 @@ def maximum(catalog, template, *, dungeon, npc_level=None, boss=False):
     if native is None:raise ValueError('NPC HP missing native initialization')
     meta=source_map(catalog,dungeon)
     explicit=native['script_max_hp']
+    component=component_maximum(catalog,template)
+    if component is not None:explicit=component
     if explicit is not None:
         if row.get('source')!='current_client_explicit' or row.get('fixed')!=explicit:
             raise ValueError('NPC HP explicit source changed')
@@ -94,6 +180,8 @@ def maximum(catalog, template, *, dungeon, npc_level=None, boss=False):
         if 'fixed'in row:raise ValueError('NPC HP explicit field disappeared')
         value=level(catalog,dungeon) if npc_level is None else npc_level
         if type(value)is not int or not 1<=value<=127:raise ValueError('NPC HP NPC level bound')
+        public=public_maximum(catalog,template,dungeon,value,source_context)
+        if public is not None:return public
         if dungeon in data['raid_maps']:
             return raid_maximum(catalog,template,dungeon,value)
         if 'base'in row:base,growth=row['base'],row['growth']
@@ -131,7 +219,7 @@ def initialized_maximum(run,source):
     """Expected original actor HP for existing finite retirement receivers."""
     value=run.catalog.static_npc_level(run.identity,run.graph,run.stage,run.part,source)
     if value is None:value=level(run.catalog,run.identity)
-    return maximum(run.catalog,source['template'],dungeon=run.identity,npc_level=value,boss=source['boss'])
+    return maximum(run.catalog,source['template'],dungeon=run.identity,npc_level=value,boss=source['boss'],source_context=initialized_source_context(run,source))
 
 
 def legacy_population(stage,npcs):
@@ -167,5 +255,12 @@ def legacy_population(stage,npcs):
             length=struct.unpack_from('>I',init,cursor)[0];cursor+=4+length
         if len(init)-cursor!=98:raise ValueError('NPC HP legacy stat boundary')
         struct.pack_into('>f',init,cursor+4,hp)
+        # This original adapter emits the captured initializer directly;
+        # share the same finite Boss input consumer after exact source checks.
+        from els_server.domain.boss_npc_stats import apply as apply_boss
+        wire=init[cursor:cursor+97]
+        attrs=bytearray(b''.join(wire[o:o+4][::-1]for o in range(0,96,4))+wire[96:])
+        apply_boss(catalog,template,attrs,(30000,graph['source_sha256'],value,stage,0,-1,witness[0]))
+        init[cursor:cursor+97]=b''.join(attrs[o:o+4][::-1]for o in range(0,96,4))+attrs[96:]
         row['init_hex']=init.hex();row['hp']=hp;result.append(row)
     return result
