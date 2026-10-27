@@ -20,4 +20,14 @@ for ch in('online','local'):
     plan(ROOT,b,ch)
     s=q['regressions'][ch];assert s['ok']and len(s['suites'])==32 and s['total']==226
 assert len(q['native_replay']['cases'])==5 and len(q['native_replay']['codecs'])==2
-print(json.dumps(dict(ok=True,channels=2,existing_server_leaves=5,private_modes=3,candidate_installed=False,client_changes=0,new_hooks=0)))
+accepted_path=ROOT/'channels/pr597-selected-accepted-20261027-v2.json'
+if accepted_path.exists():
+    accepted=read(accepted_path);receipt=read(folder/'accepted-delivery.json')
+    assert receipt['ok']and receipt['installed']and receipt['client_changes']==receipt['new_hooks']==0
+    assert not accepted['candidate']and accepted['actual_dual_delivery_verified']
+    for ch in('online','local'):
+        assert accepted['channels'][ch]['files']==b['channels'][ch]['files']
+        assert accepted['channels'][ch]['formal_manifest_sha256']==receipt['channels'][ch]['manifest_sha256']
+        assert receipt['channels'][ch]['delta_files']==5 and receipt['channels'][ch]['observation_seconds']>=120
+        plan(ROOT,accepted,ch)
+print(json.dumps(dict(ok=True,channels=2,existing_server_leaves=5,private_modes=3,accepted_delivery_recorded=accepted_path.exists(),client_changes=0,new_hooks=0)))
