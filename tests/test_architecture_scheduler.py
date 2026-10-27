@@ -44,13 +44,45 @@ class SchedulerTests(unittest.IsolatedAsyncioTestCase):
         async with asyncio.timeout(2):
             while not condition():await asyncio.sleep(.002)
 
+    async def enrolled_peers(self):
+        # Registration may take longer than one interval on a loaded runner.
+        # Hold operation ownership until every peer has enrolled; each test
+        # can then choose its actual due cohort without racing wall time.
+        locks=[]
+        for i in range(64):
+            lock=asyncio.Lock();await lock.acquire();locks.append(lock)
+            self.peer(i,lock)
+        await self.wait_for(lambda:len(self.scheduler.slots)==64)
+        return locks
+
     async def test_sixty_four_peers_are_bounded_fair_and_submit_four_batches(self):
-        for i in range(64):self.peer(i)
+        locks=await self.enrolled_peers()
+        due=time.monotonic()
+        for slot in self.scheduler.slots.values():slot.due=due
+        for lock in locks:lock.release()
+        self.scheduler.wake.set()
         await self.wait_for(lambda:len(self.sent)==64)
         self.assertTrue(all(0<len(b)<=16 for b in self.batches))
         self.assertEqual(set().union(*(set(b) for b in self.batches[:4])),set(range(64)))
         self.assertEqual(self.scheduler.metrics['max_batch'],16)
         self.assertLess(len(self.batches),64)
+
+    async def test_staggered_deadlines_allow_partial_batches_without_losing_late_peers(self):
+        locks=await self.enrolled_peers()
+        due=time.monotonic()
+        for slot in self.scheduler.slots.values():
+            slot.due=due if slot.session<58 else due+3600
+        for lock in locks:lock.release()
+        self.scheduler.wake.set()
+        await self.wait_for(lambda:len(self.sent)==58)
+        self.assertEqual(set(self.calls),set(range(58)))
+        self.assertEqual(set().union(*(set(b)for b in self.batches[:4])),set(range(58)))
+        for slot in self.scheduler.slots.values():
+            if slot.session>=58:slot.due=time.monotonic()
+        self.scheduler.wake.set()
+        await self.wait_for(lambda:len(self.sent)==64)
+        self.assertTrue(all(0<len(b)<=16 for b in self.batches))
+        self.assertTrue(all(self.calls[i]>=1 for i in range(64)))
 
     async def test_operation_lock_preserves_request_reply_boundary(self):
         lock=asyncio.Lock();await lock.acquire();self.peer('busy',lock);self.peer('free')
