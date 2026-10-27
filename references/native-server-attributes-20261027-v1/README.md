@@ -185,6 +185,21 @@ the original missing-entry path.585 original CP branch controls connect all195
 classes to the actual registered map. Resource loading and Lua script-service
 closures remain outside this table-registration phase proof.
 
+The per-item option collector now has277 original wire/constructor/collector
+controls covering all33 saved groups, source order, duplicates, zero values,
+template versus character level and conditional group gates. It uses the exact
+canonical trailing uint64 source for the circuit-state default; nonzero test
+overrides remain explicit qualification controls.
+
+The ordinary callback's51-scalar/13-data subset has154 whole88A180 controls,
+including nonempty capability/probability/additional maps and conditional stat
+rows. Six whole988D70 controls establish its separate pre-merge scaling and
+unscaled11C leaf. PvP level-linked sources bypass callback weight; rank-linked
+and PvE-rank-linked paths have distinct pre-scaling and PvP-rate behavior.
+Five distinct current metadata profiles span all70522 definitions, with20
+source-parser-to-whole-callback comparisons. Prepared rank/class contexts,
+other scalar leaves and actor event-effect containers are separate contracts.
+
 The remaining integration must bind every actual modifier/context and CP
 aggregate, qualify the current HP clamp/refresh lifecycle in the unmodified
 client, then enable and publish in the ordinary queue from the actual latest

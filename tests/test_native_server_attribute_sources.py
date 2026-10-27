@@ -821,4 +821,98 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
         with self.assertRaises(TypeError):types[1]=1
 
 
+    def test_canonical_item_options_follow_native_source_order_and_all_gates(self):
+        source=module('candidate_item_option_collect','els_server/domain/native_item_attribute_options.py')
+        vectors=module('candidate_item_option_vector_collect','els_server/domain/native_item_option_vectors.py')
+        golden=json.loads((REFERENCE/'native-item-attribute-option-goldens-v2.json').read_bytes())
+        self.assertEqual(len(golden['rows']),277)
+        types={101+i:v for i,v in enumerate((802,803,804,805,806,807))}
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+        tail=dict(wire_hex=golden['canonical_seed_tail'],fields=[dict(offset='0x3ec',wire_offset=0)])
+        self.assertEqual({r['canonical_trailing_state']for r in golden['rows']},{source.circuit_state_from_seed(tail)})
+        for row in golden['rows']:
+            groups=tuple(tuple(v)for v in row['groups'])
+            properties=tuple((v,0,0,0,0,0)for v in row['property_keys'])
+            projected=vectors.project(groups,types,mutations=())
+            args={k:row[k]for k in('character_level','template_level','allow26','allow27','circuit_state')}
+            options,level=source.collect(projected,properties,(501,501,0,502),**args)
+            self.assertEqual(options,tuple(row['native_options']))
+            self.assertEqual(level,row['native_level'])
+        record=bytearray(232);record[0xd1]=80
+        self.assertEqual(source.template_level(bytes(record)),80)
+        with self.assertRaises(ValueError):source.template_level(bytes(231))
+        for key,value in(('allow26',1),('allow27',None),('circuit_state',-1),('character_level',-1),('template_level',256)):
+            with self.subTest(key=key),self.assertRaises(ValueError):
+                source.collect(projected,properties,(),**dict(args,**{key:value}))
+
+
+    def test_native_pre_merge_scaling_retains_unscaled_leaves_and_signed_zero(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power,
+            'els_server.domain.native_option_scalar_merge':self.option_merge}):
+            source=module('candidate_pre_scale','els_server/domain/native_option_pre_scale.py')
+        golden=json.loads((REFERENCE/'native-option-pre-scale-goldens.json').read_bytes())
+        scalars={int(k,16):v for k,v in golden['source'].items()};data=tuple(golden['source_data'])
+        self.assertEqual(len(golden['rows']),6)
+        for row in golden['rows']:
+            values,actual_data=source.transform(scalars,data,row['coefficient'])
+            for k,v in values.items():self.assertEqual(struct.pack('<f',v),struct.pack('<f',row['native'][hex(k)]))
+            self.assertEqual(struct.pack('<13f',*actual_data),struct.pack('<13f',*row['native_data']))
+        self.assertIn(0x11c,source.COPIED)
+        with self.assertRaises(ValueError):source.transform({},data,1.)
+
+    def ordinary_subset_source(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power,
+            'els_server.domain.native_option_scalar_merge':self.option_merge}):
+            pre=module('candidate_callback_pre_scale','els_server/domain/native_option_pre_scale.py')
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power,
+            'els_server.domain.native_option_pre_scale':pre,
+            'els_server.domain.native_option_metadata':self.option_metadata,
+            'els_server.domain.native_option_record_merge':self.option_record}):
+            return module('candidate_ordinary_subset','els_server/domain/native_ordinary_option_subset.py')
+
+    def test_whole_ordinary_option_callback_scalar_data_branches(self):
+        source=self.ordinary_subset_source()
+        golden=json.loads((REFERENCE/'native-ordinary-option-subset-goldens-v2.json').read_bytes())
+        before={int(k,16):v for k,v in golden['base'].items()}
+        inputs={int(k,16):v for k,v in golden['source'].items()}
+        self.assertEqual(len(golden['rows']),154)
+        for row in golden['rows']:
+            meta=source.metadata(row['definition'])
+            actual,data=source.merge(before,inputs,tuple(golden['before_data']),tuple(golden['source_data']),meta,**row['args'])
+            for k,v in actual.items():self.assertEqual(struct.pack('<f',v),struct.pack('<f',row['native'][hex(k)]))
+            self.assertEqual(struct.pack('<13f',*data),struct.pack('<13f',*row['native_data']))
+        with self.assertRaises(ValueError):source.metadata(dict(m_iAddLevel=2**31))
+
+    def test_whole_ordinary_callback_power_maps_follow_rank_and_level_branches(self):
+        source=self.ordinary_subset_source()
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power,
+            'els_server.domain.native_option_metadata':self.option_metadata,
+            'els_server.domain.native_option_power_maps':self.option_power_maps,
+            'els_server.domain.native_option_condition_inputs':self.option_conditions}):
+            maps=module('candidate_ordinary_maps','els_server/domain/native_ordinary_option_power_maps.py')
+        golden=json.loads((REFERENCE/'native-ordinary-option-subset-goldens-v2.json').read_bytes())
+        inputs=self.option_power_maps.source_map_inputs(golden['map_definition'])
+        condition=self.option_conditions.condition_input(golden['map_definition'])
+        for row in golden['rows']:
+            args={k:v for k,v in row['args'].items()if k!='level'}
+            actual=maps.merge({}, {}, (0,0.), (),inputs,condition,source.metadata(row['definition']),**args)
+            expected=({k:v for k,v in row['native_maps'][0]},
+                {tuple(k):v for k,v in row['native_maps'][1]},
+                tuple(row['native_maps'][2]),tuple(tuple(v)for v in row['native_maps'][3]))
+            self.assertEqual(actual,expected)
+
+    def test_all_current_rank_level_profiles_feed_original_callback(self):
+        source=self.ordinary_subset_source()
+        golden=json.loads((REFERENCE/'native-current-ordinary-source-goldens.json').read_bytes())
+        self.assertEqual(sum(v['definitions']for v in golden['profiles']),70522)
+        self.assertEqual(len(golden['profiles']),5);self.assertEqual(len(golden['rows']),20)
+        for row in golden['rows']:
+            d=row['definition'];scalars=self.option_scalars.scalar_inputs(d)
+            inputs={k:scalars[k]for k in self.option_merge.FIELDS}
+            source_data=tuple(scalars[k]for k in(0x6b8,0x6bc,0x6c0,0x6c4,0x6c8,0x6cc))+self.option_data.direct_option_stats(d.get('STAT',{}))
+            actual,data=source.merge(dict.fromkeys(self.option_merge.FIELDS,0.),inputs,(0.,)*13,source_data,source.metadata(d),**row['args'])
+            for k,v in actual.items():self.assertEqual(struct.pack('<f',v),struct.pack('<f',row['native'][hex(k)]))
+            self.assertEqual(struct.pack('<13f',*data),struct.pack('<13f',*row['native_data']))
+
+
 if __name__=='__main__':unittest.main()
