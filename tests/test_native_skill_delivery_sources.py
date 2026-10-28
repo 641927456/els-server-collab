@@ -45,6 +45,26 @@ def copy_event(*,forces=None,uid=1001,kind=0xd9):
 class SkillDeliverySourcesTests(unittest.TestCase):
     def written(self,state,event,*,ready=True):return state.written(event,ordinary_page_ready=ready)
 
+    def test_whole_original131_legal_rank_restore_repeat_keeps_extra_channel(self):
+        proof=json.loads((PATH.parents[2]/'native-whole131-source-goldens-v5.json').read_bytes())
+        self.assertTrue(proof['ok']);self.assertEqual(proof['cases'],3)
+        self.assertEqual(proof['qualified_context']['original_ordinary_calculation_constructor'],'98F400')
+        first=proof['rows'][0]
+        state=M.SkillSources(1007,learned=tuple(map(tuple,proof['rows'][-1]['queries'])),
+                            unsealed=(),extra=tuple(map(tuple,first['boundaries_before']['extra'])))
+        for row in proof['rows']:
+            before=row['boundaries_before'];after=row['boundaries_after']
+            self.assertEqual(state.extra,tuple(map(tuple,before['extra'])))
+            raw=bytes.fromhex(row['payload_hex'])
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),row['payload_sha256'])
+            state=self.written(state,notice(0x131,raw))
+            self.assertEqual(state.learned,tuple(map(tuple,row['queries'])))
+            self.assertEqual(state.extra,tuple(map(tuple,after['extra'])))
+            self.assertEqual(len(state.learned),37)
+            self.assertEqual((before['slot_protected_float'],after['slot_protected_float']),(12.5,12.5))
+            self.assertEqual((before['preset_vector_count'],after['preset_vector_count']),(0,0))
+            self.assertTrue(row['whole_original_handler_returned'])
+
     def test_55B_cannot_attest_Force_delivery_and_123_does_not_require_full_resend(self):
         forces=((100100,5),)+((0,0),)*10
         state=M.SkillSources(1001).constructed()
