@@ -1064,7 +1064,7 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             'native_option_data_merge','native_option_record_merge','native_option_pre_scale',
             'native_option_metadata','native_ordinary_option_subset','native_option_power_maps',
             'native_option_condition_inputs','native_ordinary_option_power_maps','native_option_factor_inputs',
-            'native_extended_option_inputs','native_extended_option_maps','native_option_max_mp','native_option_collector')
+            'native_extended_option_inputs','native_extended_option_maps','native_option_max_mp','native_option_fixed_hp','native_option_collector')
         with ExitStack()as stack:
             stack.enter_context(patch.dict(sys.modules))
             for name in names:
@@ -1072,7 +1072,8 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
                 stack.enter_context(patch.object(domain,name,source,create=True))
             golden=json.loads((REFERENCE/'native-combined-option-pipeline-goldens-v2.json').read_bytes())
             self.assertEqual(len(golden['rows']),16)
-            self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+            # Retain the original v2 traces for the existing leaves; fixed_HP
+            # is separately qualified against the whole callback below.
             def decode(rows):return {tuple(k)if isinstance(k,list)else k:v for k,v in rows}
             for row in golden['rows']:
                 inputs=tuple(source.OptionSource(tuple(s['option_ids']),s['level'],s['condition_value'],
@@ -1100,7 +1101,7 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             'native_option_data_merge','native_option_record_merge','native_option_pre_scale',
             'native_option_metadata','native_ordinary_option_subset','native_option_power_maps',
             'native_option_condition_inputs','native_ordinary_option_power_maps','native_option_factor_inputs',
-            'native_extended_option_inputs','native_extended_option_maps','native_option_max_mp','native_option_collector',
+            'native_extended_option_inputs','native_extended_option_maps','native_option_max_mp','native_option_fixed_hp','native_option_collector',
             'native_extension_inputs','native_resonance_attributes','native_cooldown_map','native_power_slopes',
             'native_power_normalization','native_condition_contexts','native_conditional_power_attributes',
             'native_max_mp_inputs','native_power_aggregation')
@@ -1136,7 +1137,7 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
                 'native_option_data_merge','native_option_record_merge','native_option_pre_scale','native_option_metadata',
                 'native_ordinary_option_subset','native_option_power_maps','native_option_condition_inputs',
                 'native_ordinary_option_power_maps','native_option_factor_inputs','native_extended_option_inputs',
-                'native_extended_option_maps','native_option_max_mp','native_option_collector','native_rank_coefficient'):
+                'native_extended_option_maps','native_option_max_mp','native_option_fixed_hp','native_option_collector','native_rank_coefficient'):
                 source=module('els_server.domain.'+name,'els_server/domain/'+name+'.py')
                 stack.enter_context(patch.object(domain,name,source,create=True))
             with patch.object(source,'PROJECT_ROOT',ROOT):
@@ -1235,7 +1236,7 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             'native_option_record_merge','native_option_pre_scale','native_option_metadata','native_ordinary_option_subset',
             'native_option_power_maps','native_option_condition_inputs','native_ordinary_option_power_maps',
             'native_option_factor_inputs','native_extended_option_inputs','native_extended_option_maps','native_option_max_mp',
-            'native_option_collector','native_dynamic_sets','native_item_option_vectors','native_item_attribute_options',
+            'native_option_fixed_hp','native_option_collector','native_dynamic_sets','native_item_option_vectors','native_item_attribute_options',
             'native_circuit_attribute_inputs','native_item_attribute_sources')
         with ExitStack()as stack:
             stack.enter_context(patch.dict(sys.modules))
@@ -1463,6 +1464,33 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             with self.assertRaises(ValueError):source.passive_ranks((pair,)+empty[1:],{1:17})
         with self.assertRaises(ValueError):source.passive_ranks(((1,1),(1,1))+empty[2:],{1:17})
         with self.assertRaises(ValueError):source.passive_ranks(((1,1),)+empty[1:],{1:18})
+
+    def test_fixed_HP_source_matches_whole_native_callback_and_pipeline(self):
+        import els_server.domain as domain
+        names=('native_power_kernel','native_option_scalar_inputs','native_option_scalar_merge',
+            'native_option_data_merge','native_option_record_merge','native_option_pre_scale',
+            'native_option_metadata','native_ordinary_option_subset','native_option_power_maps',
+            'native_option_condition_inputs','native_ordinary_option_power_maps','native_option_factor_inputs',
+            'native_extended_option_inputs','native_extended_option_maps','native_option_max_mp',
+            'native_option_fixed_hp','native_option_collector')
+        with ExitStack()as stack:
+            stack.enter_context(patch.dict(sys.modules))
+            for name in names:
+                current=module('els_server.domain.'+name,'els_server/domain/'+name+'.py')
+                stack.enter_context(patch.object(domain,name,current,create=True))
+            fixed=domain.native_option_fixed_hp;collector=domain.native_option_collector
+            golden=json.loads((REFERENCE/'native-fixed-hp-goldens.json').read_bytes())
+            self.assertEqual(golden['cases'],432)
+            self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(fixed.__file__).read_bytes()).hexdigest())
+            for row in golden['rows']:
+                actual=fixed.merge(row['before'],row['definition'],**row['args'])
+                self.assertEqual(struct.pack('<f',actual),struct.pack('<f',row['native']))
+                if row['before']==0.:
+                    args=row['args'];d=row['definition']
+                    source=collector.OptionSource((d['ID'],),args['level'],0,args['rank_factor'],args['weight'])
+                    result=collector.collect_ordinary((source,),{d['ID']:d},
+                        mode=args['mode'],resonance_level=args['resonance_level'],unit_line=args['unit_line'])
+                    self.assertEqual(struct.pack('<f',result['fixed_HP']),struct.pack('<f',row['native']))
 
 
 if __name__=='__main__':unittest.main()

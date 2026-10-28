@@ -51,9 +51,13 @@ def build(items,character,context,*,at):
             special_mode_level=context.special_mode_level,mode_side=context.mode_side)
     selected=select(main,context.selector)
     secondary_selected=select(secondary,context.selector)
+    # 8A2974..8A29D5 concatenates both UID vectors before one8A20E0
+    # selection/sort. Artifact callbacks interleave with ordinary equipment by
+    # native template ID; concatenating two separately sorted outputs differs.
+    callback_selected=select(main+secondary,context.selector)
     activation=armor.flags(tuple(bound[uid]for uid in select(main,context.armor_selector)),records)
     circuit_state=canonical_circuit_state()
-    callbacks=tuple(source for uid in selected
+    callbacks=tuple(source for uid in callback_selected
         for source in item_sources.callbacks(bound[uid],records[uid],
             character_level=character['level'],category77=membership[bound[uid]['template_id']],
             activation=activation,circuit_state=circuit_state,rank_factor=context.rank_factor))
@@ -75,6 +79,7 @@ def build(items,character,context,*,at):
     deadlines=tuple(bound[uid]['valid_before']for uid in main+secondary if bound[uid]['valid_before']is not None)
     return dict(main=main,secondary=secondary,bound=bound,records=records,selected=selected,
         secondary_selected=secondary_selected,
+        callback_selected=callback_selected,
         activation=activation,category77=membership,circuit_state=circuit_state,
         item_callbacks=callbacks,set_callbacks=tuple(set_callbacks),set_counts=counts,
         active_sets=tuple(active_sets),valid_before=min(deadlines)if deadlines else None)

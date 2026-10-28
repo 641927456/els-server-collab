@@ -23,6 +23,31 @@ original-phase controls cover all182 current titles with nonzero direct fields,
 including cancelling large operands. The compositor requires a separate title
 vector, so a caller cannot silently retain the earlier ordering.
 
+The worn source compositor now includes Master Artifact equipment in ordinary
+option callbacks. Original8A2974..8A29D5 concatenates both equipped UID vectors
+before one eligibility filter and native template sort.24 canonical nonempty
+fixtures cover0/1/3/5 Artifact items, three selectors and both modes through
+whole D9B170/87A6E0/85BAD0/897100. Every first-pass51 scalar and13 data field
+matches. Secondary resistance/set order remains separate. The first attempt
+incorrectly re-registered an existing option; the fixture now follows startup's
+register-once lifecycle, preserving the failed attempt.
+
+The separate fixed-HP leaf at530 is now collected as `fixed_HP`. The current
+catalog has one nonzero producer, option500104 with80000.432 whole88A180 cases
+verify its rank/PvE copy behavior, level-linked skip, class-line gates, weights
+and PvP scaling. It is added after title inputs in the final seven rather than
+being discarded with scalar leaves outside the CP kernel. The joined
+`native_attribute_calculation.py` connects complete option sources to final
+seven/MP/CP arithmetic. Two complete original888CA0/896870/89B430 controls with
+this nonzero source match every kernel argument/output; mutable source capture,
+actual notification integration and live acceptance remain required.
+
+The mode byte in these arithmetic comparisons is separate from the equipment
+side selector. Original106's two final vectors populate the two side caches;
+they must not be filled with PvE/PvP results. Non-LuCiel production uses the same
+first result for both. LuCiel selector0/1 and its active/default-side transitions
+are being verified independently before wiring the notification producer.
+
 `native_attribute_messages.py` encodes the complete original106 grammar.
 `native_equipment_attributes.py` includes the original post-enhancement reforge
 merge and the source-pinned0.4 alternate-mode coefficient.

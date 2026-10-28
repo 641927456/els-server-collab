@@ -17,6 +17,7 @@ from els_server.domain import native_option_max_mp as mp
 from els_server.domain import native_extended_option_inputs as extended_inputs
 from els_server.domain import native_extended_option_maps as extended_maps
 from els_server.domain import native_option_factor_inputs as factor_inputs
+from els_server.domain import native_option_fixed_hp as fixed_hp
 
 
 @dataclass(frozen=True)
@@ -53,7 +54,7 @@ def _validate(sources,definitions,*,mode,resonance_level,unit_line):
 def collect_ordinary(sources,definitions,*,mode,resonance_level,unit_line):
     _validate(sources,definitions,mode=mode,resonance_level=resonance_level,unit_line=unit_line)
     fields=dict.fromkeys(scalar_merge.FIELDS,0.);data=(0.,)*13
-    capabilities={};probability={};additional=(0,0.);conditions=();integer_mp=0
+    capabilities={};probability={};additional=(0,0.);conditions=();integer_mp=0;fixed_HP=0.
     for source in sources:
         args=dict(mode=mode,resonance_level=resonance_level,unit_line=unit_line,
             condition_value=source.condition_value,rank_factor=source.rank_factor,weight=source.weight)
@@ -69,10 +70,12 @@ def collect_ordinary(sources,definitions,*,mode,resonance_level,unit_line):
                 condition_inputs.condition_input(definition),metadata,**args)
             integer_mp=mp.merge(integer_mp,mp.source_value(definition),metadata,mode=mode,
                 resonance_level=resonance_level,unit_line=unit_line,rank_factor=source.rank_factor,weight=source.weight)
+            fixed_HP=fixed_hp.merge(fixed_HP,definition,level=source.level,mode=mode,
+                resonance_level=resonance_level,unit_line=unit_line,rank_factor=source.rank_factor,weight=source.weight)
     # Whole897100's cap follows all first-pass source callbacks.
     fields[0x20]=min(fields[0x20],40.)
     return dict(scalars=fields,data=data,capabilities=capabilities,probability=probability,
-        additional=additional,conditions=conditions,integer_MP=integer_mp)
+        additional=additional,conditions=conditions,integer_MP=integer_mp,fixed_HP=fixed_HP)
 
 
 def collect_extended(sources,definitions,initial,*,mode,resonance_level,unit_line):
