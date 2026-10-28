@@ -472,5 +472,13 @@ All182 current nonzero direct titles pass546 original instruction-phase
 controls;364 cancellation controls distinguish the two orders. Both complete
 frozen-source builder controls also retain exact kernel arguments and outputs.
 These synthetic cancellation inputs demonstrate arithmetic boundaries, not
-364 observed production defects. LuCiel's separate selector2 HP-rate collector
-and complete live source integration remain under qualification.
+364 observed production defects.
+
+LuCiel's separate8898D0 selector2 HP collector now also matches a canonical
+current-source control. Unmodified costume templates85911/85919 supply2304/2302;
+per-side HP values6280/3140 are replaced by the shared9420 leaf in both modes.
+Only that leaf is replaced: ordinary side fields and extended callbacks retain
+their own selection. Both mode0 complete power kernels match all arguments and
+both outputs. The initial attempt to invent identification on other costumes
+was rejected by the installed inventory validator and remains a failed fixture;
+no validation gate was bypassed. Complete live source integration is still next.

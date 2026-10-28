@@ -1140,7 +1140,7 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
                 stack.enter_context(patch.object(domain,name,source,create=True))
             golden=json.loads((REFERENCE/'native-power-aggregation-composed-goldens.json').read_bytes())
             self.assertEqual(len(golden['rows']),4)
-            self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+            self.assertEqual(golden['source_sha256'],'f6796d3ab7b912227b9ac7e700882c786f1c4164ed5a01e7df90e17ba962e244')
             for row in golden['rows']:
                 args=dict(row['args'])
                 for name in('resonance_points','resonance_definitions','phase_mp_values','unit_mp_values'):
@@ -1155,6 +1155,31 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
                 for name in('stat_fields','data_fields'):expected[name]={int(k,16):v for k,v in expected[name].items()}
                 expected['maps']={int(k,16):{tuple(key)if isinstance(key,list)else key:v for key,v in values}
                     for k,values in expected['maps'].items()}
+                self.assertEqual(actual['arguments'],expected)
+            # Retain all former non-LuCiel controls and pin the expanded files
+            # with the new selector2 original-source proof.
+            common=json.loads((REFERENCE/'native-luciel-shared-hp-goldens.json').read_bytes())
+            for name,sha in common['source_sha256'].items():
+                self.assertEqual(hashlib.sha256((REFERENCE/'els_server/domain'/(name+'.py')).read_bytes()).hexdigest(),sha)
+            option_sources=lambda values:tuple(domain.native_option_collector.OptionSource(
+                tuple(v['option_ids']),v['level'],v['condition_value'],v['rank_factor'],v['weight'])for v in values)
+            definitions={int(k):v for k,v in common['definitions'].items()}
+            for row in common['rows']:
+                side=option_sources(row['side_sources']);shared=option_sources(row['shared_sources'])
+                record=domain.native_option_collector.collect_side(side,definitions,shared_hp_sources=shared,
+                    mode=row['mode'],resonance_level=0,unit_line=0)
+                self.assertEqual(record['data'][0],row['shared_hp'])
+                if 'context'not in row:continue
+                args=dict(row['context'])
+                for name in('resonance_points','resonance_definitions','phase_mp_values','unit_mp_values'):
+                    args[name]={int(k):v for k,v in args[name].items()}
+                args['resonance_definitions']={k:tuple(v)for k,v in args['resonance_definitions'].items()}
+                for name in('resonance_override','condition_resistances'):args[name]=tuple(args[name])
+                actual=source.assemble(tuple(row['seven']),side,definitions,shared_hp_sources=shared,**args)
+                self.assertEqual(struct.pack('<2f',*actual['power']),struct.pack('<2f',*row['native_power']))
+                expected=dict(row['native_arguments'])
+                for name in('stat_fields','data_fields'):expected[name]={int(k,16):v for k,v in expected[name].items()}
+                expected['maps']={int(k,16):{tuple(key)if isinstance(key,list)else key:v for key,v in values}for k,values in expected['maps'].items()}
                 self.assertEqual(actual['arguments'],expected)
 
     def test_current_rank_coefficients_match_original_registration_and_callbacks(self):

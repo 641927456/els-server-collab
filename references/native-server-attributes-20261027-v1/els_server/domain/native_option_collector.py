@@ -109,6 +109,21 @@ def collect_extended(sources,definitions,initial,*,mode,resonance_level,unit_lin
         extended_capabilities=extended_capabilities,tags860=tags860,tags870=tags870,resistances=resistances)
 
 
+def collect_side(sources,definitions,*,shared_hp_sources,mode,resonance_level,unit_line):
+    """LuCiel8898D0 uses selector2 for only the HP-rate data leaf.
+
+    None is the non-LuCiel branch. A LuCiel caller must supply the complete
+    independently selected2 callbacks, including its own set qualification;
+    summing side0/1 totals duplicates shared equipment and auxiliary sources.
+    """
+    args=dict(mode=mode,resonance_level=resonance_level,unit_line=unit_line)
+    result=collect_ordinary(sources,definitions,**args)
+    if shared_hp_sources is not None:
+        common=collect_ordinary(shared_hp_sources,definitions,**args)
+        result['data']=(common['data'][0],)+result['data'][1:]
+    return result
+
+
 def collect(sources,definitions,*,mode,resonance_level,unit_line):
     """Independent fresh ordinary/extended controls, without an ERP phase.
 

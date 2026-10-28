@@ -17,12 +17,12 @@ from els_server.domain import native_max_mp_inputs as mp
 def assemble(seven,sources,definitions,*,mode,resonance_level,unit_line,
              resonance_points,resonance_override,resonance_definitions,resonance_pvp_scale,
              condition_resistances,phase_mp_values,unit_mp_values,equipment_mp,
-             mp_extension5,mp_extension17,class_kind,unit_factor):
+             mp_extension5,mp_extension17,class_kind,unit_factor,shared_hp_sources=None):
     if type(seven)is not tuple or len(seven)!=7:
         raise ValueError('Seven source-projected native values required')
     seven=tuple(map(f32,seven))
     args=dict(mode=mode,resonance_level=resonance_level,unit_line=unit_line)
-    first=options.collect_ordinary(sources,definitions,**args)
+    first=options.collect_side(sources,definitions,shared_hp_sources=shared_hp_sources,**args)
     scalars=dict(first['scalars'])
     # Each absent destination here is a zero from the original fresh record,
     # not a missing actor-source assumption. Source acquisition is separate.
