@@ -30,4 +30,12 @@ for channel in('online','local'):
  plan(ROOT,c,channel)
 dep=m['unchanged_relative_dependency'];raw=(F/dep['path']).read_bytes()
 assert sha(raw)==dep['sha256'] and dep['runtime_delta']is False
+if (F/'accepted-delivery.json').exists():
+ accepted=read(F/'accepted-delivery.json');profile=read(ROOT/'channels/native-skill-boundary-accepted-20261028-v1.json')
+ assert accepted['ok']and accepted['three_leaf_delivery_complete']and not accepted['whole_user_goal_complete']and not accepted['full_attribute_delivery']
+ assert accepted['own_locks_released']and not accepted['player_database_restore']and accepted['new_or_expanded_game_hooks']==accepted['new_client_files']==0
+ assert all(accepted['channels'][ch]['observation_seconds']>=120 and accepted['channels'][ch]['changed_existing_files']==3 for ch in('online','local'))
+ assert profile['source_Git_head']==accepted['source_Git_head']and profile['source_PR']==606
+ assert all(profile['channels'][ch]['files']==c['channels'][ch]['files']for ch in('online','local'))
+ for ch in('online','local'):plan(ROOT,profile,ch)
 print(json.dumps(dict(ok=True,existing_runtime_leaves=3,channels=2,whole_byte_source_inverse=True,client_changes=0,new_hooks=0,attribute_delivery_admitted=False)))
