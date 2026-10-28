@@ -7,10 +7,10 @@ and readiness through the serialized business worker before preparing a plan.
 This component does not select a channel, infer source values or open a socket.
 """
 from dataclasses import dataclass
-import hashlib
 import math
 import struct
 from els_server.protocol.protocol_codec import Event
+from els_server.domain import native_skill_delivery_sources as skill_sources
 
 
 @dataclass(frozen=True)
@@ -57,6 +57,7 @@ class DeliveryCursor:
         self.epoch = ActorEpoch(owner_uid, account_id, unit_type, self._serial)
         self.revision += 1
         self._reset()
+        self._skills = skill_sources.SkillSources(owner_uid)
         return self.epoch
 
     def relocate(self, epoch):
@@ -79,11 +80,25 @@ class DeliveryCursor:
         return (len(event.payload) >= offset+8
                 and struct.unpack_from('>Q', event.payload, offset)[0] == epoch.owner_uid)
 
-    def observe_sent(self, epoch, events, *, actor_ready):
-        if type(events) is not tuple or type(actor_ready) is not bool:
+    def observe_sent(self, epoch, events, *, actor_ready, copies=(), skill_updates=(), ordinary_page_ready=False):
+        if (type(events) is not tuple or type(actor_ready) is not bool
+                or type(copies)is not tuple or type(skill_updates)is not tuple
+                or type(ordinary_page_ready)is not bool):
             raise ValueError('Immutable written server batch and explicit readiness required')
         if epoch is not self.epoch or epoch is None:
             return False
+        # UID-less replies require the producer's owned selection epoch, not
+        # merely discovery in a mailbox after selection changed. The caller
+        # supplies only replies captured for this epoch at business completion.
+        # Every source proof must bind the exact Event object actually written.
+        if (any(type(proof)is not skill_sources.CopyReceipt or proof.owner!=epoch.owner_uid
+                or not any(proof.event is event for event in events)for proof in copies)
+                or len({id(proof.event)for proof in copies})!=len(copies)
+                or any(type(event)is not Event or event.event_id!=0x201
+                    or event.kind not in(0x131,0x123,0x6d1,0x484)
+                    or not any(event is actual for actual in events)for event in skill_updates)
+                or len({id(event)for event in skill_updates})!=len(skill_updates)):
+            raise ValueError('Exact owned written skill source evidence required')
         # Apply to locals first so one malformed owned restoration cannot partly
         # advance the cursor. Other owners' peer packets do not satisfy this Unit.
         copied, skills, active, style = self._copied, self._skills, self._active, self._style
@@ -95,9 +110,25 @@ class DeliveryCursor:
             if event.kind == 0x2a:
                 # Current2A is result:i32 + Unit; Unit UID is at wire offset9.
                 if event.payload[:4] == bytes(4) and self._owned(event, epoch, offset=13):
-                    copied, skills, active, style = True, None, None, None
+                    copied, active, style = True, None, None
+                    # Do not infer native constructor zeros from a2A kind.
+                    skills = skill_sources.SkillSources(epoch.owner_uid)
+                    proof=next((p for p in copies if p.event is event),None)
+                    if proof is not None:skills=skills.copied(proof,event)
+            elif event.kind == 0xd9 and self._owned(event,epoch,offset=9):
+                proof=next((p for p in copies if p.event is event),None)
+                if proof is not None:skills=skills.copied(proof,event)
+                else:
+                    # Unknown copied Force inputs cannot attest old sources.
+                    skills=skill_sources.SkillSources(epoch.owner_uid,skills.learned,skills.unsealed,None)
             elif event.kind == 0x55b and self._owned(event, epoch):
-                skills = hashlib.sha256(event.payload).digest()
+                skills = skills.written(event,ordinary_page_ready=ordinary_page_ready)
+            elif any(event is update for update in skill_updates):
+                skills = skills.written(event,ordinary_page_ready=ordinary_page_ready)
+            elif event.kind==0x131:
+                skills=skill_sources.SkillSources(epoch.owner_uid,None,None,skills.forces)
+            elif event.kind in(0x6d1,0x484):
+                skills=skill_sources.SkillSources(epoch.owner_uid,skills.learned,skills.unsealed,None)
             elif event.kind in (0x4e3,0x70b) and self._owned(event, epoch):
                 limit = 1 if event.kind == 0x4e3 else 2
                 if len(event.payload) != 9 or event.payload[8] > limit:
@@ -114,11 +145,13 @@ class DeliveryCursor:
     def prepare(self, epoch, *, skills, attribute, active, style, valid_before, at):
         """Append needed LuCiel restores, then106, without consuming state.
 
-        skills must be the same-snapshot canonical55B, already delivered through
-        the normal initialization/update flow. Repeating55B is not an inert
+        skills is the same-snapshot canonical55B source comparison. Its rank
+        sources must already match the normal copies/initialization/incremental
+        notices actually written. Repeating55B is not an inert
         prerequisite: whole13A34F0/8F67D0/977EC0 clears an original slot field.
-        Changed incremental131/123 source equivalence needs its own qualified
-        ledger; no guessed equivalence or extra full restore is admitted here.
+        Ordinary ranks, unsealed IDs and Force inputs have separate consumers;
+        an empty Force vector retains entries, while explicit zeros clear them.
+        Trait/action/context dependencies remain the source factory's contract.
         LuCiel defaults are explicit UID+byte notices, including zero.
         """
         _clock(at)
@@ -134,7 +167,7 @@ class DeliveryCursor:
         if (type(attribute) is not Event or attribute.event_id != 0x201 or attribute.kind != 0x106
                 or not self._owned(attribute, epoch, offset=1)):
             raise ValueError('Same-owned encoded native106 required')
-        if hashlib.sha256(skills.payload).digest() != self._skills:
+        if not self._skills.matches(skills):
             return None
         messages = []
         if epoch.unit_type == 10:

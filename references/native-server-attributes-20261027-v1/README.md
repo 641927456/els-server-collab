@@ -493,8 +493,9 @@ no validation gate was bypassed. Complete live source integration is still next.
 The actual accepted online/LOCAL local_messages writer is now archived with a
 shared character_unit_fields projector. Its exact AST inverse equals both
 accepted parent sources, preserving all existing branches and output ordering.
-All195 careers at three controlled levels and both initialization flags retain
-the parent's1170 wire hashes with real resources. The source context also reads
+The field-projector-only candidate retained the parent's1170 wire hashes for
+all195 careers at three controlled levels and both initialization flags, with
+real resources. The source context also reads
 the actual emitted base/title/profile/PvE/named/ERP fields, verifies the original
 capture digest, and rejects mutation or mismatching authority. Two temporary
 real-store generations pass without reader writes and are removed afterward.
@@ -526,5 +527,33 @@ base/zero-power wire control, not a calculated player result. An original
 counterexample shows that repeating the identical55B clears slot0+48 from12.5
 to0 through13A34F0/8F67D0/977EC0. This field's precise UI/cooldown meaning is
 not inferred. The candidate therefore never injects an extra55B as a generic
-prerequisite; incremental131/123 source equivalence still needs a qualified
-ledger before complete mutable-source/runtime admission.
+prerequisite.
+
+The rank-source ledger now distinguishes ordinary learned/unsealed sources
+from Force selection. Normal131 changes ordinary ranks/IDs,123 changes slots,
+and55B does not attest Force application. Exact shared-writer fields bind
+actual2A/D9 Event objects; UID-less updates additionally require the producer's
+selection epoch. Unbound copies/updates invalidate uncertain channels instead
+of reusing an old apparent match. Prepared106 plans remain immutable and never
+send an extra55B. Traits, action bonuses and independent Actor inputs retain
+separate source-factory requirements.
+
+Original whole55B plus the6D1 parse/8FA130 phases prove that empty Force vectors
+retain existing entries, while explicit zeros clear them. Two minimal archived
+current-writer changes now emit the existing3/8 vectors for supplied characters
+and keep successful484's fixed DTO coherent with its preset. Complete original
+D9B170/87A6E0/85BAD0 comparisons show parent-retain/candidate-clear, preserving
+the nonzero slot control. Only field14E changes for an empty ownership context
+(66 wire bytes); the other63 fields, existing nonempty selections, no-character
+legacy defaults, economic policy and refusals remain unchanged. These later
+wire differences are intentional and separate from the earlier1170 projector
+comparison. Exact source inverses preserve every other accepted parent byte
+after the declared page archive's LF/parent-CRLF normalization.
+
+See skill-sync-boundary-v2.json for source bindings and validation scope.
+131 focused controls and the temporary real-store candidate writer/cursor
+checks pass. New-Unit/transport/readiness inputs in those cursor controls are
+simulated, and later131/full6D1/UI lifecycle still requires actual application
+and unmodified-client acceptance. The complete mutable source factory and
+runtime integration remain pending; this archive does not select or publish
+a runtime, modify the client, or add/expand a Hook.
