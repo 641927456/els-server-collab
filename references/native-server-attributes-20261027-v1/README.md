@@ -447,3 +447,30 @@ repeated and cancelling large post options, missing definitions and mode gates.
 Each post option merges after skills/service/ERP into the running float32
 vector; summing a separate post total would change rounding. These source
 compositions do not by themselves select a runtime channel or publish106.
+
+The source-generation lease now retains one query-only observer connection
+without retaining a read transaction during arithmetic. Commit-during-capture,
+commit-after-capture, file identity changes, cross-thread validation and accidental
+lazy writes are covered by isolated SQLite controls. Tokens are compared on the
+same connection; values from newly opened connections cannot validate old work.
+
+A dedicated single-worker arithmetic queue bounds retained sessions and coalesces
+repeated refreshes while preserving other sessions' queue positions. Independent
+executor tests cover 1000 refreshes, capacity rejection, owner replacement, exact
+expiry, external invalidation, one-shot consumption, source failure, release,
+worker cancellation and cancellation of a shutdown waiter. The account executor
+remains available while arithmetic is deliberately blocked. These components are
+not wired into the accepted runtime yet. Whole-database data_version invalidation
+is deliberately conservative; unrelated-commit pressure and target-source
+revalidation still need qualification before runtime admission.
+
+The joined calculator now keeps896870's power basis separate from888CA0's
+wire seven. The former adds naked/equipment/learned/title/options in that order,
+uses the actual Unit/world mode for its naked phase, and adds fixed HP after
+the passive phase. The wire phase retains its own order and forced phase mode.
+All182 current nonzero direct titles pass546 original instruction-phase
+controls;364 cancellation controls distinguish the two orders. Both complete
+frozen-source builder controls also retain exact kernel arguments and outputs.
+These synthetic cancellation inputs demonstrate arithmetic boundaries, not
+364 observed production defects. LuCiel's separate selector2 HP-rate collector
+and complete live source integration remain under qualification.
