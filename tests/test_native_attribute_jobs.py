@@ -89,6 +89,75 @@ class LeaseTests(unittest.TestCase):
         with patch.object(LEASE, '_identity', return_value=(-1, -1)):
             self.assertFalse(lease.current())
 
+    def test_unrelated_commit_revalidates_only_same_owned_sources(self):
+        value, lease = self.capture()
+        self.addCleanup(lease.close)
+        self.db.execute('INSERT INTO state VALUES(2,40)')
+        self.assertFalse(lease.current())
+        self.assertTrue(lease.revalidate(at=11))
+        self.assertTrue(lease.current())
+        self.assertFalse(lease._db.in_transaction)
+        self.db.execute('UPDATE state SET value=21 WHERE owner=1')
+        self.assertFalse(lease.revalidate(at=12))
+        self.assertFalse(lease.current())
+        self.assertEqual(value, (20,))
+
+    def test_commit_during_revalidation_retries_without_mixing_epochs(self):
+        reads = []
+        def reader(db, owner, account, *, at):
+            value = db.execute('SELECT value FROM state WHERE owner=?', (owner,)).fetchone()
+            reads.append(value)
+            if len(reads) == 2:
+                self.db.execute('UPDATE state SET value=value+1 WHERE owner=2')
+            return value
+        self.db.execute('INSERT INTO state VALUES(2,40)')
+        value, lease = self.capture(reader)
+        self.addCleanup(lease.close)
+        self.db.execute('UPDATE state SET value=41 WHERE owner=2')
+        self.assertTrue(lease.revalidate(at=11))
+        self.assertEqual(len(reads), 3)
+        self.assertTrue(lease.current())
+        self.assertEqual(self.db.execute('SELECT value FROM state WHERE owner=2').fetchone(), (42,))
+
+    def test_target_commit_during_revalidation_cannot_receive_newer_token(self):
+        reads = []
+        def reader(db, owner, account, *, at):
+            value = db.execute('SELECT value FROM state WHERE owner=?', (owner,)).fetchone()
+            reads.append(value)
+            if len(reads) == 2:
+                self.db.execute('UPDATE state SET value=22 WHERE owner=1')
+            return value
+        value, lease = self.capture(reader)
+        self.addCleanup(lease.close)
+        self.db.execute('INSERT INTO state VALUES(2,40)')
+        self.assertFalse(lease.revalidate(at=11))
+        self.assertEqual(reads, [(20,), (20,), (22,)])
+        self.assertFalse(lease.current())
+
+    def test_close_does_not_wait_for_blocked_source_validation(self):
+        started, release = threading.Event(), threading.Event()
+        self.addCleanup(release.set)
+        def reader(db, owner, account, *, at):
+            value = db.execute('SELECT value FROM state WHERE owner=?', (owner,)).fetchone()
+            if at == 11:
+                started.set()
+                if not release.wait(5):
+                    raise TimeoutError('Test failed to release source validation')
+            return value
+        value, lease = self.capture(reader)
+        self.db.execute('INSERT INTO state VALUES(2,40)')
+        with ThreadPoolExecutor(max_workers=1) as worker:
+            check = worker.submit(lease.revalidate, at=11)
+            try:
+                self.assertTrue(started.wait(3))
+                lease.close()
+                self.assertFalse(lease.current())
+                self.db.execute('UPDATE state SET value=41 WHERE owner=2')
+            finally:
+                release.set()
+            self.assertFalse(check.result(timeout=3))
+        self.db.execute('PRAGMA journal_mode=DELETE')
+
 
 class FakeLease:
     def __init__(self, valid=True):
@@ -100,8 +169,71 @@ class FakeLease:
     def close(self):
         self.closed += 1
 
+    def revalidate(self, *, at):
+        return self.current()
+
 
 class JobTests(unittest.IsolatedAsyncioTestCase):
+    async def test_source_checks_coalesce_and_replaced_owner_cannot_revive(self):
+        jobs = JOBS.AttributeJobs()
+        started, release = threading.Event(), threading.Event()
+        self.addCleanup(release.set)
+        seen = []
+        class SlowLease(FakeLease):
+            def revalidate(self, *, at):
+                seen.append(threading.current_thread().name)
+                started.set()
+                if not release.wait(5):
+                    raise TimeoutError('Test failed to release source validation')
+                return True
+        lease = SlowLease()
+        try:
+            ticket = jobs.refresh('A', 1, lambda: JOBS.Product('old', lease, 100))
+            await jobs._pump
+            checks = [asyncio.create_task(jobs.revalidate('A', ticket, at=10))for _ in range(20)]
+            await asyncio.wait_for(asyncio.to_thread(started.wait, 3), 4)
+            self.assertEqual(len(jobs._validations), 1)
+            checks[0].cancel()
+            with self.assertRaises(asyncio.CancelledError):
+                await checks[0]
+            next_lease = FakeLease()
+            latest = jobs.refresh('A', 2, lambda: JOBS.Product('new', next_lease, 100))
+            self.assertEqual(lease.closed, 1)
+            release.set()
+            self.assertEqual(await asyncio.gather(*checks[1:]), [False]*19)
+            await jobs._pump
+            self.assertEqual(len(seen), 1)
+            self.assertTrue(seen[0].startswith('els-attributes'))
+            self.assertTrue(await jobs.revalidate('A', latest, at=11))
+            self.assertEqual(jobs.take('A', latest, at=11), 'new')
+        finally:
+            release.set()
+            await jobs.close()
+
+    async def test_source_validation_shutdown_and_expiry_release_every_lease(self):
+        jobs = JOBS.AttributeJobs()
+        started, release = threading.Event(), threading.Event()
+        self.addCleanup(release.set)
+        class SlowLease(FakeLease):
+            def revalidate(self, *, at):
+                started.set()
+                if not release.wait(5):
+                    raise TimeoutError('Test failed to release source validation')
+                return True
+        lease = SlowLease()
+        ticket = jobs.refresh('A', 1, lambda: JOBS.Product('old', lease, 20))
+        await jobs._pump
+        self.assertFalse(await jobs.revalidate('A', ticket, at=20))
+        check = asyncio.create_task(jobs.revalidate('A', ticket, at=10))
+        await asyncio.wait_for(asyncio.to_thread(started.wait, 3), 4)
+        closer = asyncio.create_task(jobs.close())
+        await asyncio.sleep(0)
+        self.assertEqual(lease.closed, 1)
+        release.set()
+        self.assertFalse(await check)
+        await asyncio.wait_for(closer, 4)
+        self.assertEqual(lease.closed, 1)
+
     async def test_refresh_coalesces_fairly_and_never_uses_account_executor(self):
         jobs = JOBS.AttributeJobs(capacity=2)
         release, started = threading.Event(), threading.Event()

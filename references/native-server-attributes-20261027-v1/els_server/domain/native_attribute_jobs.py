@@ -32,6 +32,7 @@ class _Entry:
     build: object
     product: object = None
     failure: object = None
+    validation: object = None
 
 
 class AttributeJobs:
@@ -46,6 +47,7 @@ class AttributeJobs:
         self._closed = False
         self._pump = None
         self._closing = None
+        self._validations = set()
         self._executor = ThreadPoolExecutor(max_workers=1,
                                             thread_name_prefix='els-attributes')
 
@@ -152,6 +154,46 @@ class AttributeJobs:
         finally:
             self.discard(key)
 
+    async def revalidate(self, key, ticket, *, at):
+        """Coalesce source-only checks on the owned worker before final take.
+
+        Call outside the session operation lock, then reacquire that lock and
+        recheck Actor/session identity and use take with a fresh clock. Awaiting
+        this method never consumes a product or sends a packet. A stale ticket,
+        expiry, concurrent logout or source change cannot revive a generation.
+        """
+        self._check()
+        if type(ticket) is not Ticket:
+            raise ValueError('Native attribute ticket required')
+        if type(at) not in (int, float) or not math.isfinite(at):
+            raise ValueError('Native attribute validation time required')
+        entry = self._entries.get(key)
+        if self._closed or entry is None or entry.ticket != ticket or entry.product is None:
+            return False
+        product = entry.product
+        end = product.valid_before
+        if end is not None and (type(end) not in (int, float) or not math.isfinite(end) or at >= end):
+            return False
+        if entry.validation is None:
+            async def validate():
+                return await self._loop.run_in_executor(
+                    self._executor, lambda: product.lease.revalidate(at=at))
+            entry.validation = self._loop.create_task(validate(), name='native-attribute-source-check')
+            self._validations.add(entry.validation)
+            def finished(task):
+                self._validations.discard(task)
+                if not task.cancelled():
+                    task.exception()  # Observe failure even if every waiter was cancelled.
+            entry.validation.add_done_callback(finished)
+        validation = entry.validation
+        try:
+            valid = await asyncio.shield(validation)
+            return bool(valid and self._entries.get(key) is entry and entry.product is product
+                        and not self._closed)
+        finally:
+            if entry.validation is validation and validation.done():
+                entry.validation = None
+
     async def close(self):
         self._check()
         if self._closing is None:
@@ -172,3 +214,5 @@ class AttributeJobs:
         finally:
             # Join off-loop; returning from close means no owned worker remains.
             await asyncio.to_thread(self._executor.shutdown, wait=True, cancel_futures=True)
+            if self._validations:
+                await asyncio.gather(*tuple(self._validations), return_exceptions=True)

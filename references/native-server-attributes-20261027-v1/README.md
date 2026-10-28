@@ -460,9 +460,16 @@ executor tests cover 1000 refreshes, capacity rejection, owner replacement, exac
 expiry, external invalidation, one-shot consumption, source failure, release,
 worker cancellation and cancellation of a shutdown waiter. The account executor
 remains available while arithmetic is deliberately blocked. These components are
-not wired into the accepted runtime yet. Whole-database data_version invalidation
-is deliberately conservative; unrelated-commit pressure and target-source
-revalidation still need qualification before runtime admission.
+not wired into the accepted runtime yet. When another owner commits, an optional
+coalesced source-only validation runs on the owned worker before final locked
+consumption. It captures the complete target sources with its own consistent
+before/after observer tokens and swaps observers only if the sources match.
+The calculation is retained across unrelated commits; changed target sources,
+file replacement, exact expiry and owner replacement remain invalid. Reads hold
+no lease mutex, writer transaction or account executor. Logout closes the old
+observer promptly while an independent validation read finishes and disposes
+its own connection. Three failed consistency attempts return false for a later
+bounded retry; continuous-write live pressure remains an integration check.
 
 The joined calculator now keeps896870's power basis separate from888CA0's
 wire seven. The former adds naked/equipment/learned/title/options in that order,
