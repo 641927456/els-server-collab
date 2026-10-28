@@ -10,8 +10,9 @@ from els_server.domain import native_power_aggregation as power
 
 
 def calculate(base,equipped_flat,learned_flat,query_ranks,skill_definitions,
-              unit_selections,rules,sources,option_definitions,*,mode,unit_pvp,
+              unit_selections,rules,sources,option_definitions,*,mode,unit_pvp,power_naked_pvp,
               title_direct,naked_extension5,naked_extension16,
+              power_naked_extension5,power_naked_extension16,
               flat_attack_extension,flat_defense_extension,
               resonance_level,unit_line,power_context):
     first=options.collect_ordinary(sources,option_definitions,mode=mode,
@@ -23,6 +24,11 @@ def calculate(base,equipped_flat,learned_flat,query_ranks,skill_definitions,
         extra_hp=first['fixed_HP'],title_direct=title_direct)
     if type(power_context)is not dict:
         raise ValueError('Complete qualified native power context required')
-    result=power.assemble(seven,sources,option_definitions,mode=mode,
+    power_seven=projection.compose_power(base,equipped_flat,tuple(first['data'][6:]),learned_flat,
+        query_ranks,skill_definitions,unit_selections,rules,phase_pvp=bool(mode),unit_pvp=unit_pvp,
+        naked_pvp=power_naked_pvp,naked_extension5=power_naked_extension5,naked_extension16=power_naked_extension16,
+        flat_attack_extension=flat_attack_extension,flat_defense_extension=flat_defense_extension,
+        extra_hp=first['fixed_HP'],title_direct=title_direct)
+    result=power.assemble(power_seven,sources,option_definitions,mode=mode,
         resonance_level=resonance_level,unit_line=unit_line,**power_context)
-    return dict(result,first_source_record=first)
+    return dict(result,seven=seven,power_seven=power_seven,first_source_record=first)

@@ -622,7 +622,9 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
         evidence=json.loads((REFERENCE/'native-title-composition-order-goldens.json').read_bytes())
         self.assertEqual(evidence['cases'],546)
         self.assertEqual(evidence['positive_current_titles'],182)
-        self.assertEqual(hashlib.sha256(Path(self.projection.__file__).read_bytes()).hexdigest(),evidence['source_sha256'])
+        # Historical888CA0 proof is retained unchanged; the new896870 proof
+        # below pins the expanded module while replaying this same wire phase.
+        self.assertEqual(evidence['source_sha256'],'807d5ac498b4564295601c12bcd3ceb94b9c74c233b4c6bbe98eae309eec5b05')
         names={'els_server.domain.native_passive_attributes':self.passives}
         with patch.dict(sys.modules,names):
             for row in evidence['rows']:
@@ -631,6 +633,32 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
                     phase_pvp=False,unit_pvp=False,naked_extension5=0.,naked_extension16=0.,
                     flat_attack_extension=0.,flat_defense_extension=0.,extra_hp=row['extra_hp'],
                     title_direct=tuple(row['title_direct']))
+                self.assertEqual(struct.pack('<7f',*actual),struct.pack('<7f',*row['native']))
+
+    def test_power_basis_uses_its_own_original_addition_order(self):
+        evidence=json.loads((REFERENCE/'native-power-composition-order-goldens.json').read_bytes())
+        self.assertEqual(evidence['cases'],546)
+        self.assertEqual(evidence['different_from_wire'],364)
+        self.assertEqual(hashlib.sha256(Path(self.projection.__file__).read_bytes()).hexdigest(),evidence['source_sha256'])
+        with patch.dict(sys.modules,{'els_server.domain.native_passive_attributes':self.passives}):
+            for row in evidence['rows']:
+                actual=self.projection.compose_power(tuple(row['base']),tuple(row['equipped']),
+                    tuple(row['options']),tuple(row['learned']),{},{},{},(),
+                    phase_pvp=False,unit_pvp=False,naked_pvp=False,naked_extension5=0.,naked_extension16=0.,
+                    flat_attack_extension=0.,flat_defense_extension=0.,extra_hp=row['extra_hp'],
+                    title_direct=tuple(row['title_direct']))
+                self.assertEqual(struct.pack('<7f',*actual),struct.pack('<7f',*row['native']))
+
+    def test_power_naked_mode_is_independent_from_wire_phase_mode(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_passive_attributes':self.passives}):
+            for row in self.goldens['cases']:
+                if row['phase']!='naked':continue
+                ranks={int(k):v for k,v in row['query_ranks'].items()}
+                actual=self.projection.compose_power(tuple(self.goldens['basis']),
+                    (0.,)*7,(0.,)*7,(0.,)*7,ranks,self.definitions,{},(),
+                    phase_pvp=not row['pvp'],unit_pvp=False,naked_pvp=row['pvp'],
+                    naked_extension5=0.,naked_extension16=0.,flat_attack_extension=0.,
+                    flat_defense_extension=0.,extra_hp=0.,title_direct=(0.,)*7)
                 self.assertEqual(struct.pack('<7f',*actual),struct.pack('<7f',*row['native']))
 
     def notification(self):
