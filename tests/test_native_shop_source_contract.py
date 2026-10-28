@@ -14,6 +14,17 @@ class NativeShopSourceTests(unittest.TestCase):
         doc['payload']=base64.b64encode(raw).decode()
         with self.assertRaises(AssertionError):checker.envelope(doc,xml)
 
+    def test_receipt_refuses_wrong_LOCAL_pointer_or_unverified_GUI_claim(self):
+        receipt=checker.read(checker.F/'accepted-delivery.json')
+        source=checker.read(checker.L/'source-manifest.json')
+        current=checker.read(checker.ROOT/'channels/current-engine.json')
+        profile=checker.read(checker.ROOT/'channels/native-force-guild-flow-accepted-20261029-v1.json')
+        wrong=copy.deepcopy(current)
+        wrong['accepted']['local']['formal_manifest_sha256']=source['actual_current_parents']['local']['manifest_sha256']
+        with self.assertRaises(AssertionError):checker.accepted_delivery(receipt,source,wrong,profile)
+        changed=copy.deepcopy(receipt);changed['natural_GUI']=True
+        with self.assertRaises(AssertionError):checker.accepted_delivery(changed,source,current,profile)
+
     def test_frozen_random_password_fixture_does_not_allow_edited_source(self):
         name='launchers/friends-v41/Program.cs';raw=(checker.ROOT/name).read_bytes()
         self.assertEqual(guard.violations(name,raw),[])

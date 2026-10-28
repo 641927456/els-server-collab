@@ -24,6 +24,34 @@ def envelope(document,xml):
     assert hmac.compare_digest(actual,expected),'Public RSA signature mismatch'
     return json.loads(payload)
 
+def accepted_delivery(receipt,source,current,profile):
+    assert receipt['ok'] and receipt['formally_published'] and receipt['V']==41
+    assert receipt['source_candidate_freeze_sha256']==read(F/'qualification.json')['source_candidate_freeze_sha256']
+    assert receipt['public_artifacts']==source['public_artifacts']
+    assert receipt['remote_metadata_sha256']['public/latest.json']==source['public_artifacts']['latest']['sha256']
+    assert receipt['actual_old_V40_public_network_and_EXE_download_verified']
+    counts=receipt['index']
+    assert counts['old']==1094 and counts['new_unique']==850 and counts['now']==1944
+    assert counts['now']==counts['old']+counts['new_unique'] and counts['all_old_entries_exact']
+    reader=receipt['signed_component_reader']
+    assert reader==dict(total=1764,first_reused=914,first_downloaded=850,repeat_reused=1764,repeat_downloaded=0,full_archive_downloaded=False)
+    assert receipt['public_observation_seconds']>=120
+    assert receipt['both_launcher_pointers_V41'] and receipt['both_desktop_shortcuts_V41']
+    assert receipt['own_locks_released'] and receipt['listener_PIDs_unchanged']
+    assert receipt['original_game_EXE_KOM_write_count']==0 and not receipt['KOM_full_before_after_SHA_claimed']
+    assert receipt['new_hook_sites']==source['new_hook_sites']
+    assert all(receipt[k] is False for k in ('player_database_restore','natural_GUI','Scaleform_HUD','Actor_106_or_actual_hit','whole_user_goal_complete'))
+    assert current['profile']=='channels/native-force-guild-flow-accepted-20261029-v1.json'
+    for name,row in receipt['channels'].items():
+        assert current['accepted'][name]=={k:row[k] for k in ('release','formal_manifest_sha256')}
+        assert row['business_files']==len(profile['channels'][name]['files'])
+    online,local=receipt['channels']['online'],receipt['channels']['local']
+    assert online['backend_unchanged'] and online['formal_manifest_sha256']==source['actual_current_parents']['online']['manifest_sha256']
+    assert local['parent_manifest_sha256']==source['actual_current_parents']['local']['manifest_sha256']
+    assert local['all_parent_business_bytes_preserved'] and local['runtime_files']==1779
+    assert local['support_modified']==2 and local['support_added']==1 and local['install_DDL']==0
+    assert local['observation_seconds']>=120
+
 def verify():
     p=read(L/'source-manifest.json');q=read(F/'qualification.json')
     assert p['V']==41 and p['parent_V']==40 and p['issue']==618
@@ -64,6 +92,7 @@ def verify():
     assert not p['private_key_or_test_fixtures_included'] and not p['native_GUI_verified']
     assert q['actual_Frida_original_branch_controls']==13 and q['state_controls']==66
     assert not q['actual_GUI_Scaleform_HUD_verified'] and not q['full_attributes_or_battle_verified']
+    accepted_delivery(read(F/'accepted-delivery.json'),p,read(ROOT/'channels/current-engine.json'),read(ROOT/'channels/native-force-guild-flow-accepted-20261029-v1.json'))
     print(json.dumps({'ok':True,'mapped_text_sources':16,'retained_external_PNG':1,'signed_components':1764,'runtime_support':3,'RSA_signatures':2,'GUI_or_battle_claimed':False}))
 
 if __name__=='__main__':verify()
