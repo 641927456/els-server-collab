@@ -7,6 +7,22 @@ archive contains the implementations and portable native-result regressions;
 live source assembly and gameplay acceptance are being completed before the
 runtime profile selects this route.
 
+The full canonical character-copy chain now additionally executes the original
+D9B170,87A6E0 and85BAD0 with the current UnitTemplet registry, original item
+lookups and actual55B initialization. Both complete builder modes match every
+kernel input/output. The subsequent whole106 consumer retains the current
+title and naked inputs, rejects the wrong owner, and preserves current HP/MP
+while clamping only to a reduced maximum. These are controlled headless
+Scene/Actor checks; natural client and mutable source lifecycle acceptance are
+still separate. An item-only compact resource view was rejected because it
+omitted the shared KIM set section. Its failed comparisons remain local.
+
+Direct title attributes now enter after the four-source float32 basis, exactly
+at88904F..889082. Folding them into equipment changes rounding.546 independent
+original-phase controls cover all182 current titles with nonzero direct fields,
+including cancelling large operands. The compositor requires a separate title
+vector, so a caller cannot silently retain the earlier ordering.
+
 `native_attribute_messages.py` encodes the complete original106 grammar.
 `native_equipment_attributes.py` includes the original post-enhancement reforge
 merge and the source-pinned0.4 alternate-mode coefficient.

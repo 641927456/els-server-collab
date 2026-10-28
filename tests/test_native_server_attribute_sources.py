@@ -606,7 +606,7 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
                     (0.,)*7,(0.,)*7,(0.,)*7,ranks,self.definitions,
                     {sid:(sid,rank)for sid,rank in ranks.items()},self.rules,
                     phase_pvp=case['phase_pvp'],unit_pvp=False,naked_extension5=0.,naked_extension16=0.,
-                    flat_attack_extension=0.,flat_defense_extension=0.,extra_hp=0.)
+                    flat_attack_extension=0.,flat_defense_extension=0.,extra_hp=0.,title_direct=(0.,)*7)
                 self.assertEqual(struct.pack('<7f',*actual),struct.pack('<7f',*case['native']))
 
     def test_invalid_rank_and_nonfinite_source_are_rejected(self):
@@ -617,6 +617,21 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
         for value in(math.inf,math.nan,1e40):
             with self.subTest(value=value),self.assertRaises(ValueError):
                 self.equipment.merge_refinement((value,)*7,(0.,)*7,scale=None)
+
+    def test_current_title_direct_fields_follow_native_basis_addition(self):
+        evidence=json.loads((REFERENCE/'native-title-composition-order-goldens.json').read_bytes())
+        self.assertEqual(evidence['cases'],546)
+        self.assertEqual(evidence['positive_current_titles'],182)
+        self.assertEqual(hashlib.sha256(Path(self.projection.__file__).read_bytes()).hexdigest(),evidence['source_sha256'])
+        names={'els_server.domain.native_passive_attributes':self.passives}
+        with patch.dict(sys.modules,names):
+            for row in evidence['rows']:
+                actual=self.projection.compose(tuple(row['base']),tuple(row['equipped']),
+                    tuple(row['options']),tuple(row['learned']),{},{},{},(),
+                    phase_pvp=False,unit_pvp=False,naked_extension5=0.,naked_extension16=0.,
+                    flat_attack_extension=0.,flat_defense_extension=0.,extra_hp=row['extra_hp'],
+                    title_direct=tuple(row['title_direct']))
+                self.assertEqual(struct.pack('<7f',*actual),struct.pack('<7f',*row['native']))
 
     def notification(self):
         w=self.wire

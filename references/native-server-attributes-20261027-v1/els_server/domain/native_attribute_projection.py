@@ -9,14 +9,14 @@ missing source, persists player state or changes naked protocol inputs.
 def compose(base, equipped_flat, option_flat, learned_flat, query_ranks,
             definitions, unit_selections, rules, *, phase_pvp, unit_pvp,
             naked_extension5, naked_extension16, flat_attack_extension,
-            flat_defense_extension, extra_hp):
+            flat_defense_extension, extra_hp, title_direct):
     from els_server.domain.native_passive_attributes import apply, apply_naked, f32
 
-    vectors = (base, equipped_flat, option_flat, learned_flat)
+    vectors = (base, equipped_flat, option_flat, learned_flat, title_direct)
     if any(type(v) is not tuple or len(v) != 7 for v in vectors):
-        raise ValueError('All four qualified native seven-field sources required')
+        raise ValueError('All five qualified native seven-field sources required')
     checked = [tuple(f32(value) for value in row) for row in vectors]
-    bare, equipped, options, learned = checked
+    bare, equipped, options, learned, title = checked
     naked = apply_naked(bare, query_ranks, definitions, pvp=phase_pvp,
                         extension5=naked_extension5,
                         extension16=naked_extension16)
@@ -25,6 +25,9 @@ def compose(base, equipped_flat, option_flat, learned_flat, query_ranks,
     # basis; one passive must not magnify the preceding passive's contribution.
     basis = [f32(f32(f32(a+b)+c)+d)
              for a, b, c, d in zip(options, equipped, learned, naked)]
+    # 88904F..889082 adds the current title after the four-source basis. It
+    # must not be folded into equipped_flat: float32 additions are ordered.
+    basis = [f32(value+extra) for value,extra in zip(basis,title)]
     basis[0] = f32(basis[0] + f32(extra_hp))
     return apply(tuple(basis), query_ranks, definitions, unit_selections, rules,
                  phase_pvp=phase_pvp, unit_pvp=unit_pvp,
