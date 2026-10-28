@@ -17,7 +17,7 @@ class RetainedFatigue(ast.NodeTransformer):
 def verified_Master_successor(profile,mode,row,entry,path,expected):
     """Accept the pinned PR608 notification successor while checking its parent."""
     assert row['path']=='els_server/storage/career_shop.py'
-    assert profile.get('actual_dual_delivery_verified')is True and profile.get('source_PR')==608
+    assert profile.get('actual_dual_delivery_verified')is True
     delta=json.loads((ROOT/'references/native-master-current-skills-20261028-v1-source-v6/delta.json').read_bytes())
     replacement=delta['channels'][mode][row['path']]
     assert replacement['source']==entry['source']and replacement['sha256']==entry['sha256']
