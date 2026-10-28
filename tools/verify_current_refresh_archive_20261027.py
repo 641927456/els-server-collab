@@ -20,8 +20,11 @@ def verified_Master_successor(profile,mode,row,entry,path,expected):
     assert profile.get('actual_dual_delivery_verified')is True
     delta=json.loads((ROOT/'references/native-master-current-skills-20261028-v1-source-v6/delta.json').read_bytes())
     replacement=delta['channels'][mode][row['path']]
-    assert replacement['source']==entry['source']and replacement['sha256']==entry['sha256']
-    assert hashlib.sha256(path.read_bytes()).hexdigest()==replacement['sha256']
+    # PR610 archives the identical accepted writer by content hash. Retain the
+    # original PR608 byte identity even when its archive location differs.
+    canonical=(ROOT/replacement['source']).read_bytes()
+    assert replacement['sha256']==entry['sha256']
+    assert path.read_bytes()==canonical and hashlib.sha256(canonical).hexdigest()==replacement['sha256']
     parent=json.loads((ROOT/delta['parent']).read_bytes())
     prior=next(e for e in parent['channels'][mode]['files']if e['path']==row['path'])
     original=(ROOT/prior['source']).read_bytes()
