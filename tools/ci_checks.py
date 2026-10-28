@@ -120,7 +120,8 @@ def main(argv=None):
     if (ROOT/'references/native-server-attributes-20261027-v1/passive-stat-rules.json').is_file():
         run([sys.executable,'-B','-m','unittest','tests.test_native_server_attribute_sources',
              'tests.test_native_attribute_jobs','tests.test_native_character_field_mapper',
-             'tests.test_native_attribute_delivery','tests.test_native_skill_delivery_sources'])
+             'tests.test_native_attribute_delivery','tests.test_native_skill_delivery_sources',
+             'tests.test_native_set_registration_inputs'])
     if (ROOT/'channels/server-architecture-20261027-v1.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_server_architecture.py')])
     if (ROOT/'channels/character-slow-paths-20261027-v1.json').is_file():

@@ -557,3 +557,24 @@ simulated, and later131/full6D1/UI lifecycle still requires actual application
 and unmodified-client acceptance. The complete mutable source factory and
 runtime integration remain pending; this archive does not select or publish
 a runtime, modify the client, or add/expand a Hook.
+
+The two minimal preset/page leaves additionally passed actual privateApp/TLS
+checks against both accepted online and LOCAL parents, each with four owned
+first/cold controls: equipped/unequipped and entirely unowned Force states,
+normal6D0 success/refusal and483/484/55B page consistency. No extra55B was
+introduced for6D0. These used the existing TLS harness and disposable SQL/
+certificates; they do not prove the new transport cursor or full106 factory.
+
+The same-SQL capture now also retains the installed avatar_set_selections
+reader's revision and complete rows. Worn equipment cannot substitute for
+these independent activation selections. Original788 decoding and source
+application through23C77BD establish the Unit730 vector's stable slot order,
+including both-side ties, and explicitly supplied base context0 at2912/2914.
+The independent later UI actions are outside that proof. Empty registrations
+make the preset operand irrelevant; no native constructor default is assumed.
+Actual temporary SQL checks reject target selection changes/corrupt document
+SHA, retain results after another owner's change or an identical own receipt,
+and complete the read while another connection holds a reserved writer lock,
+without readerDDL or an arithmetic-time transaction. See the sanitized
+avatar-source-and-component-validation.json; full source/lifecycle delivery
+still remains pending.

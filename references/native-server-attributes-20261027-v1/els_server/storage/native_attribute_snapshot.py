@@ -32,6 +32,12 @@ def attach_character_sources(db, owner, character, *, at=None):
         character['skill_traits']=visible(character,traits)
     pages=page_view(db,owner)
     if pages['count']>1:character['ordinary_skill_pages']=pages
+    # Costume-accessory activation is independent of the worn item vector.
+    # Reuse the installed read-only reader in this very transaction, including
+    # its complete schema/document SHA/row validation; never provision tables.
+    from els_server.storage.avatar_sets import snapshot as avatar_selections
+    revision,registrations=avatar_selections(db,owner)
+    character['avatar_set_source']=dict(revision=revision,rows=registrations)
     if character.get('unit_type')==10:
         from els_server.storage.luciel_state import state,active_state
         character['luciel_style']=state(db,owner)['style']

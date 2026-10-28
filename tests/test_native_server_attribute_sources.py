@@ -523,6 +523,7 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             'els_server.storage.titles':SimpleNamespace(snapshot=lambda db,uid,now=None:dict(title=0,owned=[],missions=[]),completed_for_equipment=lambda db,uid:()),
             'els_server.storage.boosting_2026_force_inventory':SimpleNamespace(saved=lambda db,uid:()),
             'els_server.storage.boosting_2026_force_equipment':SimpleNamespace(saved=lambda db,uid:((0,0),)*3),
+            'els_server.storage.avatar_sets':SimpleNamespace(snapshot=lambda db,uid:(0,())),
             'els_server.domain.character_rules':SimpleNamespace(validate_career_state=lambda role:role)}
 
     def test_snapshot_keeps_role_and_items_at_one_external_commit_generation(self):
