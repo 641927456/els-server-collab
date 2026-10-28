@@ -79,6 +79,28 @@ class SkillDeliverySourcesTests(unittest.TestCase):
         self.assertIs(self.written(state,notice(0x123,struct.pack('>5i',0,0,25030,-1,0))),state)
         self.assertTrue(state.matches(moved))
 
+    def test_whole_original6D1_effective_rank_and_independent_source_boundaries(self):
+        proof=json.loads((PATH.parents[2]/'native-whole6D1-source-goldens-v3.json').read_bytes())
+        self.assertTrue(proof['ok'])
+        self.assertEqual(proof['registered_definitions'],15)
+        self.assertTrue(proof['ordinary_definition_tree_retained'])
+        self.assertEqual(len(proof['ordinary_baseline']),37)
+        state=M.SkillSources(proof['owner_uid'],
+            learned=tuple(map(tuple,proof['ordinary_baseline'])),unsealed=(),
+            forces=M.ZERO_FORCE,extra=tuple(map(tuple,proof['extra_before'])))
+        before=(state.learned,state.unsealed,state.extra)
+        for row in proof['rows']:
+            raw=bytes.fromhex(row['payload_hex'])
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),row['payload_sha256'])
+            state=self.written(state,notice(0x6d1,raw))
+            self.assertEqual(state.forces,tuple(map(tuple,row['force_after'])))
+            self.assertEqual((state.learned,state.unsealed,state.extra),before)
+            self.assertEqual(dict(state.forces[:3]).get(proof['Force_skill'],0),row['native_force_query'])
+            self.assertEqual(row['slot_protected_float'],12.5)
+            self.assertTrue(row['whole_original_handler_returned'])
+        self.assertEqual(state.forces,M.ZERO_FORCE)
+        self.assertEqual([r['native_force_query']for r in proof['rows']],[6,6,0,0])
+
     def test_131_updates_existing_rank_adds_new_ID_and_preserves_other_sources(self):
         state=self.written(M.SkillSources(1001).constructed(),initial(ids=(10,)))
         event=notice(0x131,bytes(4)+records(((25410,5),(25411,4)))+identifiers((11,)))

@@ -450,6 +450,27 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             self.assertEqual(self.world_buff_inputs.option_ids(tuple(identities)),tuple(native))
         self.assertEqual(len(proof['rows']),1153)
 
+    def test_current_elixir_notices_are_not_global_world_option_sources(self):
+        proof=json.loads((REFERENCE/'native-current-world-source-boundaries-v8.json').read_bytes())
+        self.assertTrue(proof['ok'])
+        self.assertEqual(proof['UID_selected_callbacks'],6)
+        self.assertEqual(len(proof['rows']),12)
+        self.assertEqual({(r['template'],r['kind'],r['enabled'])for r in proof['rows']},
+            {(item,kind,enabled)for item in(710206,710207,710210)
+             for kind in('0x3a2','0x3a3')for enabled in(True,False)})
+        self.assertEqual(proof['global_world_vector_before_count'],0)
+        self.assertEqual(proof['global_world_vector_after_count'],0)
+        self.assertFalse(proof['infer_global_options_from_saved_elixirs'])
+        for row in proof['rows']:
+            self.assertEqual(row['unit_row_bytes'],64 if row['enabled']else 0)
+        self.world_buff_inputs.PROJECT_ROOT=ROOT
+        # These real source rows belong to Unit2EA0, including the UID-selected
+        # callback. Treating their persisted template IDs as manager20 IDs
+        # would give the complete attribute factory a different native source.
+        with self.assertRaises(ValueError):
+            self.world_buff_inputs.option_ids(tuple(dict(owner=1007,template=item,
+                start=1700000000,end=1700000060)for item in(710206,710207,710210)))
+
     def test_106_resonance_groups_require_the_actual_selected_page(self):
         from copy import deepcopy
         ids=((1,2,4,16,17),(18,19,20,21,22),(11,12,13,14,15))
