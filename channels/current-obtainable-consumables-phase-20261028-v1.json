@@ -7728,7 +7728,8 @@
           "size": 3681,
           "source": "tools/run_release_tests.py"
         }
-      ]
+      ],
+      "retained_client_support_sources": []
     },
     "local": {
       "release": "local-current-obtainable-consumables-phase-20261028-v1",
@@ -15605,7 +15606,42 @@
           "size": 110,
           "source": "references/current-obtainable-consumables-phase-20261028-v1/source/8fa466cc904fa0c37a226901b3418c51d9d6fc3ebfbbfe76bf6bb230f848113a/本地活动GM.bat"
         }
+      ],
+      "retained_client_support_sources": [
+        {
+          "path": "tools/client_compatibility.py",
+          "sha256": "5443e0a7ef4bb83dcf981ccb8b4168f6a09d0ae0860eaa77ef2763a98950a958",
+          "size": 18548,
+          "source": "references/native-final-ability-sync-20261027-v1/tools/client_compatibility.py"
+        },
+        {
+          "path": "tools/client_compatibility_profiles.json",
+          "sha256": "9f6a0cc4ee8c3f2f293cc2b19c94610f31bc029e0aeb9ddb7c278dc6f478aff0",
+          "size": 19785,
+          "source": "references/native-final-ability-sync-20261027-v1/tools/client_compatibility_profiles.json"
+        },
+        {
+          "path": "tools/native_cache_sync.js",
+          "sha256": "276f6e889872dc16fbb5f7400d26ae2c8c924f7637e4cb9b00f25c541abc27e6",
+          "size": 13753,
+          "source": "references/native-final-ability-sync-20261027-v1/tools/native_cache_sync.js"
+        },
+        {
+          "path": "tools/native_cache_sync.py",
+          "sha256": "2d21db6e024be98b3130d66261be42c85d590f38128480a20be8a198d0ed0a8d",
+          "size": 3462,
+          "source": "references/native-final-ability-sync-20261027-v1/tools/native_cache_sync.py"
+        },
+        {
+          "path": "tools/probe_updated_client.py",
+          "sha256": "82b3339b0f0a780bd118bfcc7fa63b5fbf610281a054b95ea0be4d40d3c3f649",
+          "size": 28137,
+          "source": "references/native-final-ability-sync-20261027-v1/tools/probe_updated_client.py"
+        }
       ]
     }
-  }
+  },
+  "inherited_actual_native_client_version": 40,
+  "client_delta": 0,
+  "source_issue": 605
 }
