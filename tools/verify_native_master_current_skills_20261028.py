@@ -13,6 +13,9 @@ for channel in('online','local'):
  assert rows.keys()==old.keys() and {path for path in rows if rows[path]!=old[path]}==expected
  assert set(d['channels'][channel])==expected
  assert p['channels'][channel].get('retained_client_sources')==c['channels'][channel].get('retained_client_sources')
+ for key in('retained_client_support_sources','retained_signed_launcher_sha256','retained_signed_payload_sha256'):
+  assert p['channels'][channel].get(key)==c['channels'][channel].get(key)
+ assert c['channels'][channel]['parent_release']==p['channels'][channel]['release']
  for path,e in d['channels'][channel].items():
   assert e['before_sha256']==old[path]['sha256'] and all(e[k]==rows[path][k]for k in('source','sha256','size'))
   raw=(ROOT/e['source']).read_bytes();assert hashlib.sha256(raw).hexdigest()==e['sha256'];ast.parse(raw)
