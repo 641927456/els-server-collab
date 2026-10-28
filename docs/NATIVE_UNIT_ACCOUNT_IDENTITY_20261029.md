@@ -28,3 +28,18 @@ V41 receipt. Newly accepted profiles bind their exact installation heads in the
 generic loader; wrong but syntactically valid manifest digests are rejected.
 The private regression helper preserves already shipped QA-support tools, and
 the synthetic title fixture explicitly supplies its known account1 metadata.
+
+Actual dual installation is now recorded separately in accepted-delivery.json.
+ONLINE observed 121.94 seconds; LOCAL observed 120.00 seconds and verified 1779
+runtime files. Public first/cold authentication, BasicUnit account and selected
+UID agree, with 256 auxiliary requests and exact owned authentication/capacity
+cleanup. The candidate profile remains historical; the accepted profile binds
+the installed manifest heads. This does not qualify Scene/Actor, GUI or combat.
+
+The current launcher is V42. Its signed first-bootstrap LOCAL package binds the
+previous accepted source index and must not be paired with this newer Git index.
+A normal V43 signed successor is being prepared; this branch is not yet a
+published first-bootstrap update. The V42 source checker now verifies its exact
+immutable delivery selection and original profile SHA. Its RSA, complete source,
+config and support predicates remain intact. The actual bootstrap source_binding
+continues to require the current Git acceptance and signed runtime to agree.
