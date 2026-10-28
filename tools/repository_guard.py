@@ -2,14 +2,16 @@
 from pathlib import Path
 import argparse,hashlib,json,re,subprocess,sys
 ROOT=Path(__file__).resolve().parents[1]
-BLOCKED_ROOTS={'state','logs','backups','run','analysis','python','vendor','.asset-cache','.runtime-cache','.venv'}
+BLOCKED_ROOTS={'state','logs','backups','run','analysis','python','vendor','.asset-cache','.runtime-cache','.launcher-cache','.venv'}
 BLOCKED_SUFFIXES={'.sqlite','.sqlite3','.db','.pem','.key','.pfx','.p12','.exe','.pyd','.dll','.bin','.zip','.7z','.rar','.dmp','.jsonl','.log'}
 SYNTHETIC_PASSWORD_TESTS={'tests/test_registration.py','tests/test_friends_character_creation.py'}
 FROZEN_MODE_FIXTURES={
+    'launchers/friends-v42/ModeDesign.cs':'64911997a6db2f18b8d116380fa2b6f83caa9fabe86c3ce51a97f821f1b651cf',
     'launchers/friends-v37/ModeDesign.cs':'833b34b05d207b028b89b0415795a246144f7384a8b26f778d7600de8e1e605a',
     'launchers/friends-v38/ModeDesign.cs':'d2fa60f75a8a4f3c45e759c233ac0f63fb570961203c15c3c69b1855540cefb6',
 }
 FROZEN_RANDOM_PASSWORD_PROGRAMS={
+    'launchers/friends-v42/Program.cs':'516a4567d763799a75ad8e2ad975f465704476bfbd2b519a469772702460f719',
     'launchers/friends-v41/Program.cs':'6daceeda897578c71bfb56e16c945f8784d042da3bfb8c9c8e2ab2433605ae0f',
 }
 CREDENTIAL=re.compile(r'''(?i)(?:["']?(password|passwd|token|access_token|refresh_token|auth_token|api_key|admin_key|management_key|ssh_password)["']?\s*[:=]\s*["'])([^"'\r\n]{8,})''')
