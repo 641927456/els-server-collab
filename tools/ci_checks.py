@@ -114,6 +114,8 @@ def main(argv=None):
     run([sys.executable,'-B',str(ROOT/'tools/verify_initialization_readers.py')])
     if (ROOT/'references/current-refresh-combat-inputs-20261027-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_current_refresh_archive_20261027.py')])
+        if (ROOT/'references/native-unit-account-identity-20261029-v1/accepted-delivery.json').is_file():
+            run([sys.executable,'-B','-m','unittest','tests.test_current_refresh_identity_successor'])
     run([sys.executable,'-B',str(ROOT/'tools/verify_path_projections.py')])
     if (ROOT/'references/native-power-cache-sync-20261027-v1/candidate.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_native_power_cache_archive_20261027.py')])
