@@ -123,7 +123,7 @@ def initialization(raw):
     return Initialization(owner,learned,unsealed,pages[selected-1],selected,total)
 
 
-def copied_preset(raw):
+def _copied_parts(raw):
     """Current character field14E (CD7160), not a whole Unit parser.
 
     The owned87A6E0 branch skips the ordinary restoration when the current
@@ -141,9 +141,17 @@ def copied_preset(raw):
     if reader.take(4)!=bytes(4):raise ValueError('Unqualified copied skill auxiliary vector')
     _ids(reader)
     if reader.take(2)!=b'\1\1':raise ValueError('Canonical copied ordinary page bytes required')
-    preset=_preset(reader);_records(reader,seal_history=True)
+    preset=_preset(reader);extra=_records(reader,seal_history=True)
     if reader.take(1)!=b'\0':raise ValueError('Unqualified copied skill status')
-    reader.finish();return preset
+    reader.finish();return preset,tuple(sorted(extra))
+
+
+def copied_preset(raw):
+    return _copied_parts(raw)[0]
+
+
+def copied_extra(raw):
+    return _copied_parts(raw)[1]
 
 
 @dataclass(frozen=True)
@@ -151,6 +159,7 @@ class CopyReceipt:
     event:Event
     owner:int
     preset:Preset
+    extra:tuple
 
 
 @dataclass(frozen=True)
@@ -158,6 +167,7 @@ class UpdateReceipt:
     epoch:object
     event:Event
     owner:int
+    removed_extra:object=None
 
 
 def bind_copy(event,fields):
@@ -183,7 +193,8 @@ def bind_copy(event,fields):
         raise ValueError('Writer fields do not match the transmitted complete Unit')
     owner,=struct.unpack_from('>Q',raw,9)
     if not 0<owner<2**63:raise ValueError('Copied owned UID required')
-    return CopyReceipt(event,owner,copied_preset(mapping['0x14e']))
+    preset,extra=_copied_parts(mapping['0x14e'])
+    return CopyReceipt(event,owner,preset,extra)
 
 
 @dataclass(frozen=True)
@@ -192,19 +203,22 @@ class SkillSources:
     learned:object=None
     unsealed:object=None
     forces:object=None
+    extra:object=None
 
     def constructed(self):
         """Caller has qualified a new owned native SkillManager lifetime."""
-        return SkillSources(self.owner,(),(),ZERO_FORCE)
+        return SkillSources(self.owner,(),(),ZERO_FORCE,())
 
     def copied(self,receipt,event):
         if(type(receipt)is not CopyReceipt or receipt.event is not event
                 or receipt.owner!=self.owner):
             raise ValueError('Exact same-owned transmitted copy receipt required')
         forces=receipt.preset.forces
-        return self if forces is None else replace(self,forces=forces)
+        #87B33E is the join target of the owner/null guards. The extra
+        #902B60 replacement always runs, unlike ordinary rank restoration.
+        return replace(self,extra=receipt.extra,**({}if forces is None else{'forces':forces}))
 
-    def written(self,event,*,ordinary_page_ready):
+    def written(self,event,*,ordinary_page_ready,receipt=None):
         if type(event)is not Event or type(ordinary_page_ready)is not bool:
             raise ValueError('Actual written server Event and page context required')
         if event.event_id!=0x201:return self
@@ -212,6 +226,27 @@ class SkillSources:
             state=initialization(event.payload)
             if state.owner!=self.owner:return self
             return replace(self,learned=state.learned,unsealed=state.unsealed)
+        if event.kind==0x6cb:
+            reader=_Reader(event.payload);result,=reader.value('i')
+            sid,rank,metadata,flag=reader.value('iBiB');reader.finish()
+            if result:return self
+            if sid<=0 or rank==0 or metadata or flag not in range(4):
+                raise ValueError('Canonical learned Force extra-rank record required')
+            rows=None if self.extra is None else tuple(sorted(set(self.extra)|{(sid,rank)}))
+            return replace(self,extra=rows)
+        if event.kind==0x6cf:
+            if len(event.payload)<13:raise ValueError('Canonical Force extraction prefix required')
+            result,sid,rank=struct.unpack_from('>iiB',event.payload)
+            if result:return self
+            # Variable inventory records remain the original producer's work.
+            # The receipt carries its exact removal pair, bound to the same
+            # Event/prefix; this is not an independent inventory decoder.
+            if (type(receipt)is not UpdateReceipt or receipt.event is not event
+                    or receipt.owner!=self.owner or receipt.removed_extra!=(sid,rank)):
+                return replace(self,extra=None)
+            if sid<=0 or rank==0:raise ValueError('Canonical extracted Force pair required')
+            rows=None if self.extra is None else tuple(p for p in self.extra if p!=(sid,rank))
+            return replace(self,extra=rows)
         if event.kind==0x131:
             reader=_Reader(event.payload);result,=reader.value('i')
             learned=_records(reader);ids=_ids(reader);reader.finish()
@@ -252,6 +287,15 @@ class SkillSources:
             if not ordinary_page_ready:return replace(self,forces=None)
             return self if preset.forces is None else replace(self,forces=preset.forces)
         return self
+
+    def matches_extra(self,expected):
+        if (type(expected)is not tuple or len(expected)>4096
+                or any(type(row)is not tuple or len(row)!=2
+                    or type(row[0])is not int or not 0<row[0]<2**31
+                    or type(row[1])is not int or not 1<=row[1]<=255 for row in expected)
+                or tuple(sorted(set(expected)))!=expected):
+            raise ValueError('Complete canonical independent extra-rank source required')
+        return self.extra is not None and self.extra==expected
 
     def matches(self,canonical55b):
         """Ordinary/unsealed/Force rank-source equivalence only.

@@ -6,7 +6,7 @@ The caller separately validates the source lease, account/selection/scene graph
 and readiness through the serialized business worker before preparing a plan.
 This component does not select a channel, infer source values or open a socket.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass,replace
 import math
 import struct
 from els_server.protocol.protocol_codec import Event
@@ -97,7 +97,7 @@ class DeliveryCursor:
                 or any(type(proof)is not skill_sources.UpdateReceipt
                     or proof.epoch is not epoch or proof.owner!=epoch.owner_uid
                     or type(proof.event)is not Event or proof.event.event_id!=0x201
-                    or proof.event.kind not in(0x131,0x123,0x6d1,0x484)
+                    or proof.event.kind not in(0x131,0x123,0x6d1,0x484,0x6cb,0x6cf)
                     or not any(proof.event is actual for actual in events)for proof in skill_updates)
                 or len({id(proof.event)for proof in skill_updates})!=len(skill_updates)):
             raise ValueError('Exact owned written skill source evidence required')
@@ -122,15 +122,22 @@ class DeliveryCursor:
                 if proof is not None:skills=skills.copied(proof,event)
                 else:
                     # Unknown copied Force inputs cannot attest old sources.
-                    skills=skill_sources.SkillSources(epoch.owner_uid,skills.learned,skills.unsealed,None)
+                    skills=replace(skills,forces=None,extra=None)
             elif event.kind == 0x55b and self._owned(event, epoch):
                 skills = skills.written(event,ordinary_page_ready=ordinary_page_ready)
             elif any(event is proof.event for proof in skill_updates):
-                skills = skills.written(event,ordinary_page_ready=ordinary_page_ready)
+                proof=next(proof for proof in skill_updates if proof.event is event)
+                skills = skills.written(event,ordinary_page_ready=ordinary_page_ready,receipt=proof)
             elif event.kind==0x131:
-                skills=skill_sources.SkillSources(epoch.owner_uid,None,None,skills.forces)
+                skills=replace(skills,learned=None,unsealed=None)
             elif event.kind in(0x6d1,0x484):
-                skills=skill_sources.SkillSources(epoch.owner_uid,skills.learned,skills.unsealed,None)
+                skills=replace(skills,forces=None)
+            elif event.kind in(0x6cb,0x6cf):
+                # These UID-less ownership consumers change the independent
+                # extra vector. Never keep an old calculation across an
+                # unqualified producer/selection update.
+                if len(event.payload)<4 or event.payload[:4]==bytes(4):
+                    skills=replace(skills,extra=None)
             elif event.kind in (0x4e3,0x70b) and self._owned(event, epoch):
                 limit = 1 if event.kind == 0x4e3 else 2
                 if len(event.payload) != 9 or event.payload[8] > limit:
@@ -144,7 +151,7 @@ class DeliveryCursor:
         self.revision += 1
         return True
 
-    def prepare(self, epoch, *, skills, attribute, active, style, valid_before, at):
+    def prepare(self, epoch, *, skills, extra_skills, attribute, active, style, valid_before, at):
         """Append needed LuCiel restores, then106, without consuming state.
 
         skills is the same-snapshot canonical55B source comparison. Its rank
@@ -169,7 +176,7 @@ class DeliveryCursor:
         if (type(attribute) is not Event or attribute.event_id != 0x201 or attribute.kind != 0x106
                 or not self._owned(attribute, epoch, offset=1)):
             raise ValueError('Same-owned encoded native106 required')
-        if not self._skills.matches(skills):
+        if not self._skills.matches(skills)or not self._skills.matches_extra(extra_skills):
             return None
         messages = []
         if epoch.unit_type == 10:

@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "parents": {
     "online": {
       "path": "releases/online/native-master-current-skills-20261028-v1",
@@ -11,6 +11,172 @@
     }
   },
   "rows": [
+    {
+      "channel": "online",
+      "path": "domain/owned_growth_items.py",
+      "parent_sha256": "e6b216a0c9557fbde999c840fa9dd06079d0c7ed4d6ac3f8356cd9a3fac49f5b",
+      "source_before_sha256": "e6b216a0c9557fbde999c840fa9dd06079d0c7ed4d6ac3f8356cd9a3fac49f5b",
+      "candidate_sha256": "49535f7bb763c19c0e26819c3d4ac1a216b6172c9587a941c0681626b2f3bf76",
+      "candidate_path": "els_server/domain/owned_growth_items.py",
+      "changes": [
+        [
+          "        register()\n        _installed=True",
+          "        register()\n        from els_server.domain.boosting_2026_force_extraction import register as register_extraction\n        register_extraction()\n        _installed=True"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "local",
+      "path": "domain/owned_growth_items.py",
+      "parent_sha256": "e6b216a0c9557fbde999c840fa9dd06079d0c7ed4d6ac3f8356cd9a3fac49f5b",
+      "source_before_sha256": "e6b216a0c9557fbde999c840fa9dd06079d0c7ed4d6ac3f8356cd9a3fac49f5b",
+      "candidate_sha256": "49535f7bb763c19c0e26819c3d4ac1a216b6172c9587a941c0681626b2f3bf76",
+      "candidate_path": "els_server/domain/owned_growth_items.py",
+      "changes": [
+        [
+          "        register()\n        _installed=True",
+          "        register()\n        from els_server.domain.boosting_2026_force_extraction import register as register_extraction\n        register_extraction()\n        _installed=True"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "online",
+      "path": "domain/boosting_2026_force_inventory.py",
+      "parent_sha256": "0a7500f07a78f4772954c889e34b5fe268b429f5e27d6863a8c5519e5d65a86d",
+      "source_before_sha256": "0a7500f07a78f4772954c889e34b5fe268b429f5e27d6863a8c5519e5d65a86d",
+      "candidate_sha256": "6044df0c591d1375b8116188b09a97a02db62c3cacefd85a6bc4916b8f36f752",
+      "candidate_path": "els_server/domain/boosting_2026_force_inventory.py",
+      "changes": [
+        [
+          "def learned_notice(rule,used=0):",
+          "def learned_notice(rule,used=0,*,owner=None):"
+        ],
+        [
+          "    return Event(0x201,kind=0x6cb,payload=struct.pack('>i',0)+force_record(row))",
+          "    event=Event(0x201,kind=0x6cb,payload=struct.pack('>i',0)+force_record(row))\n    if owner is None:return event\n    from els_server.domain.native_skill_production import record as record_native_skill\n    return record_native_skill(event,owner)"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "local",
+      "path": "domain/boosting_2026_force_inventory.py",
+      "parent_sha256": "0a7500f07a78f4772954c889e34b5fe268b429f5e27d6863a8c5519e5d65a86d",
+      "source_before_sha256": "0a7500f07a78f4772954c889e34b5fe268b429f5e27d6863a8c5519e5d65a86d",
+      "candidate_sha256": "6044df0c591d1375b8116188b09a97a02db62c3cacefd85a6bc4916b8f36f752",
+      "candidate_path": "els_server/domain/boosting_2026_force_inventory.py",
+      "changes": [
+        [
+          "def learned_notice(rule,used=0):",
+          "def learned_notice(rule,used=0,*,owner=None):"
+        ],
+        [
+          "    return Event(0x201,kind=0x6cb,payload=struct.pack('>i',0)+force_record(row))",
+          "    event=Event(0x201,kind=0x6cb,payload=struct.pack('>i',0)+force_record(row))\n    if owner is None:return event\n    from els_server.domain.native_skill_production import record as record_native_skill\n    return record_native_skill(event,owner)"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "online",
+      "path": "storage/boosting_2026_force_inventory.py",
+      "parent_sha256": "1af9bb5517eee9ac09a357de0c5bea4d3f7d7df23292c6324e773c9f17062400",
+      "source_before_sha256": "1af9bb5517eee9ac09a357de0c5bea4d3f7d7df23292c6324e773c9f17062400",
+      "candidate_sha256": "848ff84fc94cb0849090e4d9ce4161e75ac8f669990d275b4bc12466a7e1830b",
+      "candidate_path": "els_server/storage/boosting_2026_force_inventory.py",
+      "changes": [
+        [
+          "learned_notice(rule,used)",
+          "learned_notice(rule,used,owner=owner)"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "local",
+      "path": "storage/boosting_2026_force_inventory.py",
+      "parent_sha256": "1af9bb5517eee9ac09a357de0c5bea4d3f7d7df23292c6324e773c9f17062400",
+      "source_before_sha256": "1af9bb5517eee9ac09a357de0c5bea4d3f7d7df23292c6324e773c9f17062400",
+      "candidate_sha256": "848ff84fc94cb0849090e4d9ce4161e75ac8f669990d275b4bc12466a7e1830b",
+      "candidate_path": "els_server/storage/boosting_2026_force_inventory.py",
+      "changes": [
+        [
+          "learned_notice(rule,used)",
+          "learned_notice(rule,used,owner=owner)"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "online",
+      "path": "domain/boosting_2026_force_extraction.py",
+      "parent_sha256": "778b08b58816bcb07b187cf538919cf42887857c1de884a109b43dabd0450018",
+      "source_before_sha256": "778b08b58816bcb07b187cf538919cf42887857c1de884a109b43dabd0450018",
+      "candidate_sha256": "ae63456acc3d1f6a3362c9111ed82c6674ef94f265f96bfe7a4855124299883c",
+      "candidate_path": "els_server/domain/boosting_2026_force_extraction.py",
+      "changes": [
+        [
+          "def acknowledgement(skill=0,rank=0,changes=(),result=0):",
+          "def acknowledgement(skill=0,rank=0,changes=(),result=0,*,owner=None):"
+        ],
+        [
+          "    return Event(0x201,kind=0x6cf,payload=struct.pack('>iiBI',result,skill,rank,len(changes))+b''.join(empty_record(*p) if i is None else record(i) for p,i in changes))",
+          "    event=Event(0x201,kind=0x6cf,payload=struct.pack('>iiBI',result,skill,rank,len(changes))+b''.join(empty_record(*p) if i is None else record(i) for p,i in changes))\n    if owner is None:return event\n    from els_server.domain.native_skill_production import record as record_native_skill\n    return record_native_skill(event,owner,removed_extra=(skill,rank)if result==0 else None)"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "local",
+      "path": "domain/boosting_2026_force_extraction.py",
+      "parent_sha256": "778b08b58816bcb07b187cf538919cf42887857c1de884a109b43dabd0450018",
+      "source_before_sha256": "778b08b58816bcb07b187cf538919cf42887857c1de884a109b43dabd0450018",
+      "candidate_sha256": "ae63456acc3d1f6a3362c9111ed82c6674ef94f265f96bfe7a4855124299883c",
+      "candidate_path": "els_server/domain/boosting_2026_force_extraction.py",
+      "changes": [
+        [
+          "def acknowledgement(skill=0,rank=0,changes=(),result=0):",
+          "def acknowledgement(skill=0,rank=0,changes=(),result=0,*,owner=None):"
+        ],
+        [
+          "    return Event(0x201,kind=0x6cf,payload=struct.pack('>iiBI',result,skill,rank,len(changes))+b''.join(empty_record(*p) if i is None else record(i) for p,i in changes))",
+          "    event=Event(0x201,kind=0x6cf,payload=struct.pack('>iiBI',result,skill,rank,len(changes))+b''.join(empty_record(*p) if i is None else record(i) for p,i in changes))\n    if owner is None:return event\n    from els_server.domain.native_skill_production import record as record_native_skill\n    return record_native_skill(event,owner,removed_extra=(skill,rank)if result==0 else None)"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "online",
+      "path": "storage/boosting_2026_force_extraction.py",
+      "parent_sha256": "0921f5a01aaf56cd693e28f9adf0443c378b9b9f2c3d597aae12dd78cdb2461c",
+      "source_before_sha256": "0921f5a01aaf56cd693e28f9adf0443c378b9b9f2c3d597aae12dd78cdb2461c",
+      "candidate_sha256": "327e558dbf403b2bfe34628a4db56934d6432f57e2576b39ed64a72db196eab0",
+      "candidate_path": "els_server/storage/boosting_2026_force_extraction.py",
+      "changes": [
+        [
+          "acknowledgement(skill,rank,[(p,bypos.get(p)) for p in positions])",
+          "acknowledgement(skill,rank,[(p,bypos.get(p)) for p in positions],owner=owner)"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "local",
+      "path": "storage/boosting_2026_force_extraction.py",
+      "parent_sha256": "0921f5a01aaf56cd693e28f9adf0443c378b9b9f2c3d597aae12dd78cdb2461c",
+      "source_before_sha256": "0921f5a01aaf56cd693e28f9adf0443c378b9b9f2c3d597aae12dd78cdb2461c",
+      "candidate_sha256": "327e558dbf403b2bfe34628a4db56934d6432f57e2576b39ed64a72db196eab0",
+      "candidate_path": "els_server/storage/boosting_2026_force_extraction.py",
+      "changes": [
+        [
+          "acknowledgement(skill,rank,[(p,bypos.get(p)) for p in positions])",
+          "acknowledgement(skill,rank,[(p,bypos.get(p)) for p in positions],owner=owner)"
+        ]
+      ],
+      "exact_inverse": true
+    },
     {
       "channel": "online",
       "path": "protocol/career_messages.py",
@@ -206,6 +372,20 @@
         ]
       ],
       "exact_inverse": true
+    }
+  ],
+  "dependencies": [
+    {
+      "path": "els_server/data/boosting2026-force-inventory.json",
+      "sha256": "444b3ef5b5a82fc59777496eaef4ca043bfad2aa216450642863d7f39251355b",
+      "size": 17353,
+      "runtime_delta": false
+    },
+    {
+      "path": "els_server/data/published2026-bundles.json",
+      "sha256": "53b00587f28204ed95d6e68a0ef2f6ed19e08b3da5b2a6ed947937ee0f3d8e00",
+      "size": 9320,
+      "runtime_delta": false
     }
   ],
   "new_client_hooks": 0,

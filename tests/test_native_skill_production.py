@@ -103,9 +103,20 @@ class SkillProductionTests(unittest.TestCase):
             self.assertIs(result.updates[0].epoch,epoch);self.assertIs(result.updates[0].event,event)
             self.assertEqual(result.updates[0].owner,epoch.owner_uid)
 
+    def test_extraction_receipt_binds_original_producer_pair_and_prefix(self):
+        event=Event(0x201,kind=0x6cf,payload=struct.pack('>iiBI',0,900405,6,0))
+        result=self.capture(lambda:[self.port.record(event,1001,removed_extra=(900405,6))])
+        self.assertTrue(result.evidence_complete);self.assertEqual(result.updates[0].removed_extra,(900405,6))
+        for pair in(None,(900405,3),(True,6),[900405,6]):
+            result=self.capture(lambda:[self.port.record(event,1001,removed_extra=pair)])
+            self.assertEqual(result.messages,(event,));self.assertFalse(result.evidence_complete);self.assertEqual(result.updates,())
+
     def test_all_writer_deltas_preserve_each_channel_parent_exactly(self):
         binding=json.loads((A/'native-skill-production-writer-binding.json').read_bytes())
-        self.assertEqual(len(binding['rows']),12)
+        self.assertEqual(len(binding['rows']),22)
+        for dependency in binding['dependencies']:
+            self.assertFalse(dependency['runtime_delta'])
+            self.assertEqual(hashlib.sha256((A/dependency['path']).read_bytes()).hexdigest(),dependency['sha256'])
         for row in binding['rows']:
             raw=(A/row['candidate_path']).read_bytes()
             self.assertEqual(hashlib.sha256(raw).hexdigest(),row['candidate_sha256'])

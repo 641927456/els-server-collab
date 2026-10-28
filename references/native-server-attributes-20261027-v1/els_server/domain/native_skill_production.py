@@ -6,13 +6,14 @@ evidence. It never changes, retries or drops the ordinary business replies.
 """
 from contextvars import ContextVar
 from dataclasses import dataclass
+import struct
 from els_server.protocol.protocol_codec import Event
 from els_server.domain.native_skill_delivery_sources import UpdateReceipt
 
 _CURRENT=ContextVar('native_skill_production',default=None)
 MAX_UPDATES=32
 MAX_BYTES=4*1024*1024
-KINDS=frozenset((0x131,0x123,0x6d1,0x484))
+KINDS=frozenset((0x131,0x123,0x6d1,0x484,0x6cb,0x6cf))
 
 
 @dataclass(frozen=True)
@@ -22,7 +23,7 @@ class ProducedSkills:
     evidence_complete:bool
 
 
-def record(event,owner):
+def record(event,owner,*,removed_extra=None):
     current=_CURRENT.get()
     if current is None or current['overflow']:
         return event
@@ -31,10 +32,21 @@ def record(event,owner):
             or not 1001<=owner<2**63):
         current.update(rows=[],bytes=0,overflow=True)
         return event
+    if removed_extra is not None:
+        valid=(type(removed_extra)is tuple and len(removed_extra)==2
+            and type(removed_extra[0])is int and 0<removed_extra[0]<2**31
+            and type(removed_extra[1])is int and 1<=removed_extra[1]<=255
+            and event.kind==0x6cf
+            and event.payload[:9]==struct.pack('>iiB',0,*removed_extra))
+    else:
+        valid=not(event.kind==0x6cf and event.payload[:4]==bytes(4))
+    if not valid:
+        current.update(rows=[],bytes=0,overflow=True)
+        return event
     if len(current['rows'])>=MAX_UPDATES or current['bytes']+len(event.payload)>MAX_BYTES:
         current.update(rows=[],bytes=0,overflow=True)
         return event
-    current['rows'].append((owner,event));current['bytes']+=len(event.payload)
+    current['rows'].append((owner,event,removed_extra));current['bytes']+=len(event.payload)
     return event
 
 
@@ -79,8 +91,8 @@ def capture(epoch,session,produce,*args,**kwargs):
     updates=[];seen=set()
     if complete:
         actual={id(event):event for event in messages}
-        for owner,event in current['rows']:
+        for owner,event,removed_extra in current['rows']:
             if owner!=epoch.owner_uid or actual.get(id(event))is not event or id(event)in seen:
                 continue
-            seen.add(id(event));updates.append(UpdateReceipt(epoch,event,owner))
+            seen.add(id(event));updates.append(UpdateReceipt(epoch,event,owner,removed_extra))
     return ProducedSkills(messages,tuple(updates),complete)

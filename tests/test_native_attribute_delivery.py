@@ -46,7 +46,7 @@ def observe(cursor,epoch,events,**kwargs):
 
 class DeliveryTests(unittest.TestCase):
     def prepare(self,cursor,epoch,*,at=10,end=20,active=None,style=None,skill=None,attribute=None):
-        return cursor.prepare(epoch,skills=skill or skills(),attribute=attribute or attributes(),
+        return cursor.prepare(epoch,skills=skill or skills(),extra_skills=((25410,4),),attribute=attribute or attributes(),
             active=active,style=style,valid_before=end,at=at)
 
     def test_waits_for_written_Unit_and_actual_actor_readiness(self):
@@ -209,6 +209,18 @@ class DeliveryTests(unittest.TestCase):
         proof=SOURCES.UpdateReceipt(moved,update,1001)
         self.assertTrue(cursor.observe_sent(moved,(update,),actor_ready=True,skill_updates=(proof,)))
         self.assertIsNotNone(self.prepare(cursor,moved,skill=skills(marker=b'changed-source')))
+
+    def test_extra_stat_source_must_match_even_when_ordinary_and_Force_match(self):
+        cursor=DELIVERY.DeliveryCursor();epoch=cursor.begin(1001,2,5)
+        observe(cursor,epoch,(copied(),skills()),actor_ready=True)
+        args=dict(skills=skills(),attribute=attributes(),active=None,style=None,valid_before=20,at=10)
+        self.assertIsNone(cursor.prepare(epoch,extra_skills=(),**args))
+        self.assertIsNotNone(cursor.prepare(epoch,extra_skills=((25410,4),),**args))
+        observe(cursor,epoch,(skills(),),actor_ready=True)
+        self.assertIsNone(cursor.prepare(epoch,extra_skills=(),**args))
+        unbound,_=copy_event()
+        cursor.observe_sent(epoch,(unbound,),actor_ready=True)
+        self.assertIsNone(cursor.prepare(epoch,extra_skills=((25410,4),),**args))
 
 
 if __name__=='__main__':unittest.main()

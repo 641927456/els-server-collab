@@ -115,9 +115,39 @@ class SkillDeliverySourcesTests(unittest.TestCase):
             changed=tuple((k,v+b'\0')if k=='0x14e'else(k,v)for k,v in fields)
             with self.assertRaises(ValueError):M.bind_copy(event,changed)
         empty,fields=copy_event()
-        self.assertEqual(state.copied(M.bind_copy(empty,fields),empty),state)
+        copied=state.copied(M.bind_copy(empty,fields),empty)
+        self.assertEqual(copied.forces,state.forces)
+        self.assertEqual(copied.extra,((25410,4),))
         unknown=M.SkillSources(1001)
         self.assertIsNone(unknown.copied(M.bind_copy(empty,fields),empty).forces)
+
+    def test_copied_extra_is_separate_from_ordinary_55B(self):
+        state=M.SkillSources(1001).constructed()
+        event,fields=copy_event()
+        state=state.copied(M.bind_copy(event,fields),event)
+        self.assertTrue(state.matches_extra(((25410,4),)))
+        updated=self.written(state,initial(learned=((25030,1),)))
+        self.assertEqual(updated.learned,((25030,1),))
+        self.assertTrue(updated.matches_extra(((25410,4),)))
+        self.assertFalse(updated.matches_extra(()))
+        self.assertFalse(M.SkillSources(1001).matches_extra(()))
+        self.assertTrue(M.SkillSources(1001).constructed().matches_extra(()))
+
+    def test_Force_owned_increment_and_receipted_extraction_keep_other_grades(self):
+        state=M.SkillSources(1001).constructed()
+        for rank in(3,6,3):
+            event=notice(0x6cb,struct.pack('>iiBiB',0,900405,rank,0,1))
+            state=state.written(event,ordinary_page_ready=True)
+        self.assertEqual(state.extra,((900405,3),(900405,6)))
+        event=notice(0x6cf,struct.pack('>iiBI',0,900405,3,0))
+        receipt=M.UpdateReceipt(object(),event,1001,(900405,3))
+        updated=state.written(event,ordinary_page_ready=True,receipt=receipt)
+        self.assertEqual(updated.extra,((900405,6),));self.assertEqual(updated.forces,state.forces)
+        self.assertIsNone(state.written(event,ordinary_page_ready=True).extra)
+        wrong=M.UpdateReceipt(object(),event,1002,(900405,3))
+        self.assertIsNone(state.written(event,ordinary_page_ready=True,receipt=wrong).extra)
+        unknown=M.SkillSources(1001)
+        self.assertIsNone(unknown.written(notice(0x6cb,struct.pack('>iiBiB',0,900405,6,0,0)),ordinary_page_ready=True).extra)
 
     def test_refusals_do_not_advance_and_bad_frames_do_not_modify_immutable_state(self):
         state=self.written(M.SkillSources(1001).constructed(),initial())
