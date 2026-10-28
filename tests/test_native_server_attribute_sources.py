@@ -1407,4 +1407,22 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             source.category77_registry.cache_clear()
 
 
+    def test_current_force_stat_rank_sources_follow_native_visible_slots(self):
+        source=module('candidate_native_force_stat_sources','els_server/domain/native_skill_query_sources.py')
+        golden=json.loads((REFERENCE/'native-force-stat-rank-source-goldens-v3.json').read_bytes())
+        self.assertEqual(len(golden['rows']),56)
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+        kinds={int(k):v for k,v in golden['skill_types'].items()}
+        for row in golden['rows']:
+            visible=tuple(tuple(pair)for pair in row['visible_slots'])
+            actual=source.passive_ranks(visible,kinds)
+            native={sid:rank for sid,rank in row['native']if rank}
+            self.assertEqual(actual,native)
+        empty=((0,0),)*11
+        for pair in((2**31,1),(1,256),(1,0),(-1,1)):
+            with self.assertRaises(ValueError):source.passive_ranks((pair,)+empty[1:],{1:17})
+        with self.assertRaises(ValueError):source.passive_ranks(((1,1),(1,1))+empty[2:],{1:17})
+        with self.assertRaises(ValueError):source.passive_ranks(((1,1),)+empty[1:],{1:18})
+
+
 if __name__=='__main__':unittest.main()

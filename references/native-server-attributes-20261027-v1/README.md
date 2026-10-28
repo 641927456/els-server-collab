@@ -375,3 +375,11 @@ native samples validate those two profiles without claiming24744 native parses.
 Sixty-four additional complete resistance item phases execute original inventory
 counting, positive/rejected D0 cases and weighted circuits. Both modes retain
 their complementary option gates, including dungeon-only circuit exclusions.
+
+The Unit stat-query source now merges ordinary learned ranks with the canonical
+visible three passive Force slots. Fifty-six original DTO/8FA130/8F7600 controls
+cover all currently admitted passive book ranks, owned-only and equipped states,
+Master visibility, third-slot Artifact locks, and clearing previous equipment
+on the same native manager. Original9CD180/9CE5E0 supplies Force membership;
+queried ranks are not prefilled. Actor action-skill bonuses use a different
+consumer and are not added to these Unit stat-query ranks.
