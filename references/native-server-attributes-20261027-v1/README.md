@@ -603,3 +603,24 @@ still rejected the retained result. This controlled test used explicit2ms
 writer holds and removed its temporary files. It is not a production peak
 throughput or live delivery claim; detailed limits and measured times are in
 inventory-and-resistance-source-validation.json.
+
+The shared character projector now records bounded same-invocation field
+metadata only when an explicit server production scope is active. Exact
+complete prefixes bind the original2A/D9 Event objects; later SQL reads,
+other-owner fields and payload substrings cannot supply that receipt. Context
+reset/thread isolation and count/byte budgets preserve business replies while
+dropping incomplete evidence. No metadata scope means unchanged writer output.
+The precise added import/return adapter has its own inverse binding; the
+earlier parent field-projector proof stays frozen. All195 current careers pass
+585 captured/uncaptured2A/D9 wire comparisons with actual resources.
+
+Both real parentApp/TLS suites additionally match six first/cold received copies
+to their unique actual worker-produced Event/fields, then qualify initial rank
+sources in the cursor. LOCAL/local-mode framed TCP adds two equivalent checks.
+The disposable test adapter retains the exact installed Application type and
+the original bound owner/name/read scopes; an initial subclass fixture was
+correctly rejected by the installed trusted-actor gate and is retained as a
+failure. These are fourteen initial-source component checks, not a completed
+central transport integration, UID-less update epoch proof, calculated106
+delivery, unchanged-gameclient test or publication. See
+copy-production-component-validation.json for exact bindings and cleanup.

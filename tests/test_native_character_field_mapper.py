@@ -37,12 +37,19 @@ class CurrentCharacterFieldTests(unittest.TestCase):
             original=ROOT/parent['source']
             self.assertEqual(hashlib.sha256(original.read_bytes()).hexdigest(),golden['parent_sha256'])
             source=REFERENCE/'els_server/protocol/local_messages.py'
-            self.assertEqual(hashlib.sha256(source.read_bytes()).hexdigest(),golden['source_sha256']['writer'])
+            binding=json.loads((REFERENCE/'native-copy-production-source-binding.json').read_bytes())
+            self.assertEqual(binding['parent_writer_sha256'],golden['source_sha256']['writer'])
+            self.assertEqual(hashlib.sha256(source.read_bytes()).hexdigest(),binding['writer_sha256'])
             tree=ast.parse(source.read_bytes());nodes=[]
             for node in tree.body:
                 if isinstance(node,ast.FunctionDef)and node.name=='character_unit':continue
                 if isinstance(node,ast.FunctionDef)and node.name=='character_unit_fields':
                     node.name='character_unit'
+                    extra=[v for v in node.body if isinstance(v,ast.ImportFrom)and v.module=='els_server.domain.native_copy_production']
+                    self.assertEqual(len(extra),1)
+                    self.assertEqual(ast.dump(extra[0],include_attributes=False),ast.dump(ast.parse('from els_server.domain.native_copy_production import capture_fields').body[0],include_attributes=False))
+                    node.body.remove(extra[0])
+                    self.assertEqual(ast.dump(node.body[-1],include_attributes=False),ast.dump(ast.parse('return capture_fields(tuple(fields))').body[0],include_attributes=False))
                     loop=next(v for v in node.body if isinstance(v,ast.For))
                     append=next(v for v in loop.body if isinstance(v,ast.Expr)
                         and isinstance(v.value,ast.Call)and isinstance(v.value.func,ast.Attribute)

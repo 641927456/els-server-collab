@@ -195,7 +195,8 @@ def character_unit_fields(location=None,initialize_attributes=False,slots=None,e
             guild=character['guild_membership']
             data=saved_membership_wire(guild['id'],guild['name'],guild['grade'],data)
         fields.append((field['offset'],overrides.get(field['offset'],data)))
-    return tuple(fields)
+    from els_server.domain.native_copy_production import capture_fields
+    return capture_fields(tuple(fields))
 
 def character_unit(location=None,initialize_attributes=False,slots=None,economy=None,items=None,character=None):
     return b''.join(raw for offset,raw in character_unit_fields(
