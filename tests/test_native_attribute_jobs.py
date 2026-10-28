@@ -102,6 +102,21 @@ class LeaseTests(unittest.TestCase):
         self.assertFalse(lease.current())
         self.assertEqual(value, (20,))
 
+    def test_fractional_wall_clock_uses_canonical_SQL_seconds(self):
+        moments = []
+        def reader(db, owner, account, *, at):
+            self.assertIs(type(at), int)
+            moments.append(at)
+            return db.execute('SELECT value FROM state WHERE owner=?', (owner,)).fetchone()
+        value, lease = self.capture(reader)
+        self.addCleanup(lease.close)
+        self.db.execute('INSERT INTO state VALUES(2,40)')
+        self.assertTrue(lease.revalidate(at=11.75))
+        self.assertEqual(moments, [10, 11])
+        for invalid in (True, -1, float('nan'), float('inf'), 2**31):
+            with self.assertRaises(ValueError):
+                lease.revalidate(at=invalid)
+
     def test_commit_during_revalidation_retries_without_mixing_epochs(self):
         reads = []
         def reader(db, owner, account, *, at):

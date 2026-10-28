@@ -6,6 +6,7 @@ token invalidates the result; it never authorizes reuse of another owner's data.
 """
 from pathlib import Path
 from copy import deepcopy
+import math
 import sqlite3
 import threading
 
@@ -50,6 +51,11 @@ class SnapshotLease:
         captured. Long source reads hold neither the lease lock nor a writer
         transaction, so logout/replacement cannot block on this work.
         """
+        if type(at) not in (int, float) or not math.isfinite(at) or not 0 <= at < 2**31-7200:
+            raise ValueError('Native source revalidation clock required')
+        # SQL source readers and persisted deadlines use integer UTC seconds;
+        # final Product expiry still compares the caller's fresh fractional clock.
+        at = int(at)
         with self._lock:
             if self._db is None:
                 return False
