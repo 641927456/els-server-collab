@@ -1,0 +1,109 @@
+{
+  "format": 1,
+  "issue": 618,
+  "ok": true,
+  "release": "native-shop-catalog-lifecycle-20261029-v1",
+  "V": 41,
+  "formally_published": true,
+  "source_candidate_freeze_sha256": "59d6ffc275afb93e99deb21d9d0b935c927f0a0f4deafe75e5f9a036a6a2fa7f",
+  "evidence": {
+    "publication": {
+      "relative_evidence": "agent-a/launcher-update-v1/root-publication-execution-v1/launcher-installation.json",
+      "sha256": "1888e8a44a5381c464ac60c4e62f593cec2f65a97aca4cf2cefc5a578119ab47"
+    },
+    "public_component_acceptance": {
+      "relative_evidence": "agent-a/launcher-update-v1/root-publication-execution-v1/public-component-acceptance.json",
+      "sha256": "caeaa1db802fa2f5bdfb731a37f2e5669d7af6b9ceca1563ac57025d0858e753"
+    },
+    "LOCAL_installation": {
+      "relative_evidence": "shop-local-preparation-v2/local-installation.json",
+      "sha256": "3e0fb416d8403e854de2eae8a605dfa89e4d79369fd015457fa65c74fafe89c1"
+    },
+    "final_independent_review": {
+      "relative_evidence": "final-shop-delivery-independent-v1/review-result.json",
+      "sha256": "070f0c50b5ef51246c265844dbb3875bfead2ef8cc4f0081576a2177f4a1d58e"
+    }
+  },
+  "public_artifacts": {
+    "launcher": {
+      "sha256": "3a511f514fbe8c0bd494db4024c8a05e57173412c7d62cdea2ddd6f5060be2e3",
+      "size": 2998784,
+      "public_file": "v41-3a511f514fbe8c0b.exe"
+    },
+    "latest": {
+      "sha256": "c2ba6248d9d32d3bcbfa55d8b949c25aed4a5edfd77281a53dff840c7b5ffb98",
+      "source": "references/native-shop-flow-20261029-v1/latest.signed.json"
+    },
+    "runtime_archive": {
+      "sha256": "d3667de9d834443d315be748b917c80158e009f18818569943494b7296e7ca6c",
+      "size": 162286475,
+      "public_file": "runtime-d3667de9d834443d315be748b917c80158e009f18818569943494b7296e7ca6c.zip"
+    },
+    "signed_components": {
+      "sha256": "ac5090de7111b87b613a8f4f0a4423010f1029c7f780dee4670b4832ddefdee6"
+    },
+    "component_manifest": {
+      "sha256": "b41709161e7e54f265b41b6e530811f53f52d5b485389df8532d4ff528d81445",
+      "source": "references/native-shop-flow-20261029-v1/runtime-files.json"
+    }
+  },
+  "remote_metadata_sha256": {
+    "components-index.json": "2848d2c46eec730d63e472e9ec7c984978ffad8c969122fe54fc5741216154a3",
+    "allowlist.json": "0453c9f02f214426f1f3c115b4cb895da790649441bb21e5da31b0c983139bfa",
+    "public/latest.json": "c2ba6248d9d32d3bcbfa55d8b949c25aed4a5edfd77281a53dff840c7b5ffb98"
+  },
+  "index": {
+    "old": 1094,
+    "now": 1944,
+    "new_unique": 850,
+    "all_old_entries_exact": true
+  },
+  "signed_component_reader": {
+    "total": 1764,
+    "first_reused": 914,
+    "first_downloaded": 850,
+    "repeat_reused": 1764,
+    "repeat_downloaded": 0,
+    "full_archive_downloaded": false
+  },
+  "actual_old_V40_public_network_and_EXE_download_verified": true,
+  "public_observation_seconds": 135.95512529998086,
+  "both_launcher_pointers_V41": true,
+  "both_desktop_shortcuts_V41": true,
+  "normal_next_start_required": true,
+  "channels": {
+    "online": {
+      "release": "native-force-guild-flow-20261029-v1",
+      "formal_manifest_sha256": "27f50191576458093a2f3fd84c64a1f05fd517ab567cf32651b2817e2b0a0f13",
+      "business_files": 1300,
+      "backend_unchanged": true
+    },
+    "local": {
+      "release": "local-native-shop-flow-20261029-v1",
+      "formal_manifest_sha256": "d621337b400fc4dfe3a61bd32be2180bd98c55e4c8ab2beba3eae2e3e2b91b11",
+      "parent_release": "local-native-force-guild-flow-20261029-v1",
+      "parent_manifest_sha256": "6f3c203edc2cefbd1dd94f4d4bb07a696d2c74711af6ab9468014fce3353226a",
+      "business_files": 1325,
+      "runtime_files": 1779,
+      "all_parent_business_bytes_preserved": true,
+      "support_modified": 2,
+      "support_added": 1,
+      "observation_seconds": 120.0005230999086,
+      "install_DDL": 0
+    }
+  },
+  "original_game_EXE_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "original_game_EXE_KOM_write_count": 0,
+  "KOM_full_before_after_SHA_claimed": false,
+  "new_hook_sites": [
+    "0x313ABCE"
+  ],
+  "own_locks_released": true,
+  "listener_PIDs_unchanged": true,
+  "player_database_restore": false,
+  "natural_GUI": false,
+  "Scaleform_HUD": false,
+  "Actor_106_or_actual_hit": false,
+  "whole_user_goal_complete": false,
+  "provenance_note": "Frozen source-manifest and qualification retain their pre-publication state and build parents. This additive receipt records later actual delivery; LOCAL support wrapper changes no accepted business source."
+}
