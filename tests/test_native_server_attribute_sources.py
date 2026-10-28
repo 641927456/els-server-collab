@@ -1407,6 +1407,31 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             source.category77_registry.cache_clear()
 
 
+    def test_resistance_service_and_post_composition_matches_whole_native(self):
+        import els_server.domain as domain
+        names=('native_power_kernel','native_option_scalar_inputs','native_extended_option_inputs',
+            'native_option_metadata','native_resistance_option','native_pve_rank_coefficient',
+            'native_rank_coefficient','native_resistance_finalization','native_legacy_socket_condition',
+            'native_resistance_item_options','native_circuit_attribute_inputs','native_armor_resistance',
+            'native_passive_attributes','native_resistance_skills','native_resistance_composition')
+        with ExitStack()as stack:
+            stack.enter_context(patch.dict(sys.modules))
+            for name in names:
+                source=module('els_server.domain.'+name,'els_server/domain/'+name+'.py')
+                stack.enter_context(patch.object(domain,name,source,create=True))
+                if hasattr(source,'PROJECT_ROOT'):source.PROJECT_ROOT=ROOT
+            golden=json.loads((REFERENCE/'native-resistance-composed-tail-goldens.json').read_bytes())
+            self.assertEqual(len(golden['rows']),8)
+            self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+            definitions={int(k):v for k,v in golden['definitions'].items()}
+            for row in golden['rows']:
+                args=dict(row['args'])
+                for key in('skill_values','service_values','post_option_ids'):
+                    if args[key]is not None:args[key]=tuple(args[key])
+                actual=source.finish(tuple(row['before']),definitions,**args)
+                self.assertEqual(struct.pack('<6f',*actual['values']),struct.pack('<6f',*row['native']))
+                self.assertEqual(actual['callbacks'],tuple(tuple(v)for v in row['post_callbacks']))
+
     def test_current_force_stat_rank_sources_follow_native_visible_slots(self):
         source=module('candidate_native_force_stat_sources','els_server/domain/native_skill_query_sources.py')
         golden=json.loads((REFERENCE/'native-force-stat-rank-source-goldens-v3.json').read_bytes())

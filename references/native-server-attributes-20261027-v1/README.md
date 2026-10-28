@@ -383,3 +383,16 @@ Master visibility, third-slot Artifact locks, and clearing previous equipment
 on the same native manager. Original9CD180/9CE5E0 supplies Force membership;
 queried ranks are not prefilled. Actor action-skill bonuses use a different
 consumer and are not added to these Unit stat-query ranks.
+
+The main worn source composer now binds current item records, per-template
+division membership, independent armor selection, weighted item callbacks and
+ordered set callbacks from one owned snapshot. Both complete original option
+records match for the saved-source control in both modes. The dedicated
+resistance composer also matches every original callback ID, order and weight
+(113/82) and all six results. Mutable non-item contexts remain explicit.
+
+Eight additional whole8623B0 controls cover positive/absent service state,
+repeated and cancelling large post options, missing definitions and mode gates.
+Each post option merges after skills/service/ERP into the running float32
+vector; summing a separate post total would change rounding. These source
+compositions do not by themselves select a runtime channel or publish106.
