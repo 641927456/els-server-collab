@@ -146,6 +146,9 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_native_skill_sources_runtime_20261028.py')])
         run([sys.executable,'-B','-m','unittest','tests.test_native_session_sources'])
     run([sys.executable,'-B',str(ROOT/'tools/verify_current_consumables_phase_20261028.py')])
+    if (ROOT/'launchers/friends-v43/source-lock.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_identity_managed_launcher_20261029.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_v43_frozen_privacy_guard'])
     if (ROOT/'launchers/friends-v42/source-lock.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_launcher_first_local_20261029.py')])
         run([sys.executable,'-B','-m','unittest','tests.test_launcher_first_local'])
