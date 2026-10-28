@@ -125,6 +125,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_periodic_deadline_fairness.py')])
     if (ROOT/'references/actual-native-final-ability-20261027-v1/binding.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_inherited_actual_client_binding.py')])
+    if (ROOT/'channels/native-master-current-skills-20261028-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_master_current_skills_20261028.py')])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0
