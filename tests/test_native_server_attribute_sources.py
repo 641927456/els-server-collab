@@ -1498,7 +1498,7 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             'native_option_metadata','native_resistance_option','native_pve_rank_coefficient',
             'native_rank_coefficient','native_resistance_finalization','native_legacy_socket_condition',
             'native_resistance_item_options','native_circuit_attribute_inputs','native_armor_resistance',
-            'native_passive_attributes','native_resistance_skills','native_resistance_composition')
+            'native_passive_attributes','native_resistance_skills','native_resistance_middle_inputs','native_resistance_composition')
         with ExitStack()as stack:
             stack.enter_context(patch.dict(sys.modules))
             for name in names:
@@ -1507,7 +1507,12 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
                 if hasattr(source,'PROJECT_ROOT'):source.PROJECT_ROOT=ROOT
             golden=json.loads((REFERENCE/'native-resistance-composed-tail-goldens.json').read_bytes())
             self.assertEqual(len(golden['rows']),8)
-            self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+            binding=json.loads((REFERENCE/'resistance-middle-source-binding.json').read_bytes())
+            self.assertEqual(golden['source_sha256'],binding['parent_composition_sha256'])
+            self.assertEqual(hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest(),binding['composition_sha256'])
+            import ast
+            finish=next(n for n in ast.parse(Path(source.__file__).read_bytes()).body if isinstance(n,ast.FunctionDef)and n.name=='finish')
+            self.assertEqual(hashlib.sha256(ast.dump(finish,include_attributes=False).encode()).hexdigest(),binding['unchanged_parent_finish_AST_sha256'])
             definitions={int(k):v for k,v in golden['definitions'].items()}
             for row in golden['rows']:
                 args=dict(row['args'])

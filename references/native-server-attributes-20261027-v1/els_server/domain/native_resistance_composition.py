@@ -12,6 +12,7 @@ from els_server.domain import native_armor_resistance as armor
 from els_server.domain import native_resistance_skills as skills
 from els_server.domain import native_pve_rank_coefficient as pve
 from els_server.domain.native_rank_coefficient import coefficient
+from els_server.domain import native_resistance_middle_inputs as middle
 
 
 def finish(value,definitions,*,skill_values,service_values,resonance_value,
@@ -32,10 +33,10 @@ def finish(value,definitions,*,skill_values,service_values,resonance_value,
 
 
 def calculate(items,worn,definitions,skill_definitions,query_ranks,*,mode,rank,
-              pve_context,middle_options,piece_counts,service_values,resonance_value,
+              pve_context,middle_sources,piece_counts,service_values,resonance_value,
               post_option_ids):
     if type(mode)is not int or mode not in(0,1):raise ValueError('Native resistance mode required')
-    if type(items)is not tuple or type(middle_options)is not tuple or type(post_option_ids)is not tuple:
+    if type(items)is not tuple or type(post_option_ids)is not tuple:
         raise ValueError('Complete ordered resistance sources required')
     from els_server.game_data import client_data
     data=client_data();lookup={row['uid']:row for row in items};value=(0.,)*6;callbacks=[]
@@ -69,7 +70,8 @@ def calculate(items,worn,definitions,skill_definitions,query_ranks,*,mode,rank,
             append(item_options.collect(row['option_vectors'],row['properties'],row['template_options'],
                 secondary=secondary,allow4=allow4,allow26=active[0x4a],allow27=active[0x4e],
                 allow_circuit=active[0x50],circuit_options=weighted,circuit_state=worn['circuit_state']))
-    append(tuple((identity,1.)for identity in middle_options))
+    result=middle.merge(value,definitions,middle_sources,mode=mode,rank=rank,pve_context=pve_context)
+    value=result['values'];callbacks.extend(result['callbacks'])
     append(tuple((identity,source.weight)for source in worn['set_callbacks']for identity in source.option_ids))
     skill_values=skills.values(skill_definitions,
         {sid:query_ranks.get(sid,0)for sid,_,_,_ in skills.SKILLS},pvp=bool(mode))

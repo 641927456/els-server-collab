@@ -121,7 +121,8 @@ def main(argv=None):
         run([sys.executable,'-B','-m','unittest','tests.test_native_server_attribute_sources',
              'tests.test_native_attribute_jobs','tests.test_native_character_field_mapper',
              'tests.test_native_attribute_delivery','tests.test_native_skill_delivery_sources',
-             'tests.test_native_set_registration_inputs'])
+             'tests.test_native_set_registration_inputs','tests.test_native_inventory_source_context',
+             'tests.test_native_resistance_middle_inputs'])
     if (ROOT/'channels/server-architecture-20261027-v1.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_server_architecture.py')])
     if (ROOT/'channels/character-slow-paths-20261027-v1.json').is_file():

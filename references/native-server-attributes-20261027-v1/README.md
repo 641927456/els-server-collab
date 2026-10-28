@@ -578,3 +578,28 @@ and complete the read while another connection holds a reserved writer lock,
 without readerDDL or an arithmetic-time transaction. See the sanitized
 avatar-source-and-component-validation.json; full source/lifecycle delivery
 still remains pending.
+
+Complete original current-copy controls now also bind inventory.owner and each
+instance318 to the owned Unit, with DTO306 copied to Unit7BD. The source helper
+reads that actual emitted status rather than a guessed growth-avatar flag.
+The independent user30 operand is irrelevant only outside the exact original
+special-template set; a relevant unqualified authority source is rejected.
+
+Resistance middle inputs now preserve separate title predicates and direct
+pet/Artifact callbacks. Eight current pet phases and180 Artifact phases cover
+ordered additions, satiety and evolution/potential masking. Separately labeled
+31023 socket/potential controls distinguish the direct branches from title
+filters; they do not admit new equipment or potential choices. Nonempty pet
+resistance inputs require explicit current runtime presence. The old eight
+finish/service/post goldens stay frozen, with an exact unchanged finish AST
+binding. See resistance-middle-source-binding.json and the new phase goldens.
+The independent pet Scene, full handler/source factory and transport lifecycle
+remain requirements before runtime selection.
+
+Four competing own temporary WAL writers additionally exercised40 complete
+source captures/revalidations.29 captures and39 revalidations succeeded while
+83 commits competed; failures never sent old/zero values, and a target change
+still rejected the retained result. This controlled test used explicit2ms
+writer holds and removed its temporary files. It is not a production peak
+throughput or live delivery claim; detailed limits and measured times are in
+inventory-and-resistance-source-validation.json.
