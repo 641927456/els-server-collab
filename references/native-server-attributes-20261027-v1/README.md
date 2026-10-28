@@ -502,3 +502,15 @@ Source CI checks the exact refactor and failure boundaries without requiring
 the intentionally untracked runtime catalog; it does not relabel those checks
 as another1170 real-resource runs. The independent world/Actor/source-group
 lifecycles and runtime source factory are not implied by this copy boundary.
+
+The separate group22 fishing tail now retains original slot order, template
+options, capacity and198B8D0 validity, before the independent Unit2988 post list.
+Twelve whole original collector cases use all four current admitted fishing
+templates and the actual character writer. Its current zero-durability seed
+excludes rods from this stat loop; adding an explicit durability field is
+rejected by the installed validator and that rejection was not bypassed.
+Six additional emulator-only native durability1 controls show positive rod
+options110037/110007 and preserve duplicates from main equipment and this tail.
+Those controls are separately labeled and restored; they do not admit a new
+server item shape or claim a fishing repair. All18 original observations remain
+in a compact portable fixture with three distinct input classes.

@@ -84,6 +84,21 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.loader.decode(raw+b' ')
 
+    def test_fishing_tail_current_sources_and_positive_original_controls(self):
+        goldens=json.loads((REFERENCE/'native-fishing-option-tail-goldens.json').read_bytes())
+        path=REFERENCE/'els_server/domain/native_fishing_option_inputs.py'
+        self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(),goldens['source_sha256'])
+        self.set_sources.PROJECT_ROOT=ROOT
+        with patch.dict(sys.modules,{'els_server.domain.native_worn_item_inputs':self.worn,
+                                    'els_server.domain.native_set_sources':self.set_sources}):
+            fishing=module('candidate_native_fishing_tail','els_server/domain/native_fishing_option_inputs.py')
+            self.assertEqual(len(goldens['rows']),18)
+            for row in goldens['rows']:
+                source=goldens['inputs'][row['input']]
+                actual=fishing.option_ids(tuple(source['items']),{int(k):v for k,v in source['bound'].items()},
+                    {int(k):bytes.fromhex(v)for k,v in source['records'].items()},capacity=source['capacity'],
+                    category77={int(k):v for k,v in source['category77'].items()},special_mode_level=source['special_mode_level'])
+                self.assertEqual(actual,tuple(row['expected']),row['source_class'])
     def test_current_original_native_scalar_goldens(self):
         basis = tuple(self.goldens['basis'])
         for case in self.goldens['cases']:
