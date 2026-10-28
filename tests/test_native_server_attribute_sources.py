@@ -1313,6 +1313,43 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
             self.assertEqual(struct.pack('<6f',*source.finish(tuple(row['before']),**args)),struct.pack('<6f',*row['native']))
         with self.assertRaises(ValueError):source.service_after_311(None,65536)
 
+    def test_legacy_socket_first_match_and_signed_threshold_match_original(self):
+        source=module('candidate_legacy_socket_condition','els_server/domain/native_legacy_socket_condition.py')
+        golden=json.loads((REFERENCE/'native-legacy-socket-requirement-goldens.json').read_bytes())
+        definitions={int(k):v for k,v in golden['definitions'].items()}
+        self.assertEqual(len(golden['rows']),73)
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+        for row in golden['rows']:
+            options=tuple(row['options']);expected=(row['count'],row['minimum'])if row['count']>0 else None
+            self.assertEqual(source.requirement(options,definitions),expected)
+            for count,native in zip((0,1,2,3,7),row['decisions']):
+                self.assertEqual(source.enabled(options,definitions,piece_count=count),native)
+        self.assertEqual(golden['current_gate_definitions'],24744)
+        self.assertEqual(sum(v['count']for v in golden['current_gate_profiles']),24744)
+        self.assertTrue(all(row['native'][1]==0 for row in golden['current_gate_profiles']))
+        with self.assertRaises(ValueError):source.enabled((),definitions,piece_count=-1)
+
+    def test_resistance_circuit_weights_and_legacy_activation_match_native_item_phase(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power,
+            'els_server.domain.native_extended_option_inputs':self.extended_inputs,
+            'els_server.domain.native_option_metadata':self.option_metadata}):
+            source=module('candidate_resistance_weighted_item_order','els_server/domain/native_resistance_item_options.py')
+            option=module('candidate_resistance_weighted_option_entry','els_server/domain/native_resistance_option.py')
+        gate=module('candidate_resistance_legacy_gate','els_server/domain/native_legacy_socket_condition.py')
+        golden=json.loads((REFERENCE/'native-resistance-circuit-legacy-goldens-v2.json').read_bytes())
+        self.assertEqual(len(golden['rows']),64)
+        definitions={int(k):v for k,v in golden['definitions'].items()}
+        def restore(value):
+            if isinstance(value,dict):return {int(k):restore(v)for k,v in value.items()}
+            if isinstance(value,list):return tuple(map(restore,value))
+            return value
+        for row in golden['rows']:
+            args=dict(row['args']);args['circuit_options']=tuple(map(tuple,args['circuit_options']))
+            args['allow4']=gate.enabled(tuple(row['template_options']),definitions,piece_count=row['piece_count'])
+            actual=source.collect(restore(row['vectors']),tuple(map(tuple,row['properties'])),tuple(row['template_options']),**args)
+            filtered=tuple(pair for pair in actual if pair[0]in definitions and option.eligible(definitions[pair[0]],mode=row['mode']))
+            self.assertEqual(filtered,tuple(map(tuple,row['native'])))
+
     def test_resistance_item_sources_preserve_distinct_main_and_secondary_order(self):
         with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
             source=module('candidate_resistance_item_order','els_server/domain/native_resistance_item_options.py')

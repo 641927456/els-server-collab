@@ -365,3 +365,13 @@ circuit grids reproduce every callback ID, order and weight, ordinary fields,
 integer MP and extended maps. Public tests replay the independent circuit
 goldens; the private original compositions also run the current catalog and
 topology. Live source lifecycle and runtime admission remain separate.
+
+The legacy resistance D0 gate now preserves1991230's first qualifying template
+option, extraction short circuit, and separate application quantity and signed
+piece threshold. Seventy-three original producer controls include ordered pairs
+and missing IDs. All70522 current source definitions classify into two nonempty
+gate profiles (24744 records); the current condition thresholds are zero. The
+native samples validate those two profiles without claiming24744 native parses.
+Sixty-four additional complete resistance item phases execute original inventory
+counting, positive/rejected D0 cases and weighted circuits. Both modes retain
+their complementary option gates, including dungeon-only circuit exclusions.
