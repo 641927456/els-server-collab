@@ -4,7 +4,7 @@ import ast,hashlib,json,sys
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from tools.materialize_formal_runtime import plan
 read=lambda p:json.loads(p.read_bytes())
-F=ROOT/'references/native-master-current-skills-20261028-v1-source-v3';d=read(F/'delta.json');p=read(ROOT/d['parent']);c=read(ROOT/'channels/native-master-current-skills-20261028-v1.json');q=read(F/'manifest.json')
+F=ROOT/'references/native-master-current-skills-20261028-v1-source-v6';d=read(F/'delta.json');p=read(ROOT/d['parent']);c=read(ROOT/'channels/native-master-current-skills-20261028-v1.json');q=read(F/'manifest.json')
 expected={'els_server/protocol/career_messages.py','els_server/domain/local_session.py','els_server/storage/career_shop.py','els_server/storage/careers.py','els_server/domain/quest_flow.py'}
 assert q['issue']==607 and q['existing_leaves_per_channel']==5
 assert all(q[k]==0 for k in('new_runtime_modules','new_tables','install_DDL','client_files','new_hooks'))
