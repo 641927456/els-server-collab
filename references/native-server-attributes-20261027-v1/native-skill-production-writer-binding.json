@@ -1,0 +1,214 @@
+{
+  "version": 2,
+  "parents": {
+    "online": {
+      "path": "releases/online/native-master-current-skills-20261028-v1",
+      "manifest_sha256": "f0640d58645e6b590ee349cc5ff03de994f791637798664766210ef482d671e4"
+    },
+    "local": {
+      "path": "releases/local/local-native-master-current-skills-20261028-v1",
+      "manifest_sha256": "5bea4368e2cd1056aedc5e828f384824eb0ffaa7addae110056e085f9b91f39b"
+    }
+  },
+  "rows": [
+    {
+      "channel": "online",
+      "path": "protocol/career_messages.py",
+      "parent_sha256": "b410c3bf90023a7e3c4ff7a0d7ff61b6c133adbab693f3f47c984c8798f0dbfb",
+      "source_before_sha256": "b410c3bf90023a7e3c4ff7a0d7ff61b6c133adbab693f3f47c984c8798f0dbfb",
+      "candidate_sha256": "1620347c9f6257088f7bc2afba44835c593cac867ccc0b4ae93e49f2b459add1",
+      "candidate_path": "els_server/protocol/career_messages.py",
+      "changes": [
+        [
+          "    for event in events:encode_event(event)\n    return events",
+          "    for event in events:encode_event(event)\n    from els_server.domain.native_skill_production import record as record_native_skill\n    return [record_native_skill(event,character.get('uid'))if event.kind in(0x131,0x123)else event for event in events]"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "local",
+      "path": "protocol/career_messages.py",
+      "parent_sha256": "b410c3bf90023a7e3c4ff7a0d7ff61b6c133adbab693f3f47c984c8798f0dbfb",
+      "source_before_sha256": "b410c3bf90023a7e3c4ff7a0d7ff61b6c133adbab693f3f47c984c8798f0dbfb",
+      "candidate_sha256": "1620347c9f6257088f7bc2afba44835c593cac867ccc0b4ae93e49f2b459add1",
+      "candidate_path": "els_server/protocol/career_messages.py",
+      "changes": [
+        [
+          "    for event in events:encode_event(event)\n    return events",
+          "    for event in events:encode_event(event)\n    from els_server.domain.native_skill_production import record as record_native_skill\n    return [record_native_skill(event,character.get('uid'))if event.kind in(0x131,0x123)else event for event in events]"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "online",
+      "path": "domain/skill_unlocks.py",
+      "parent_sha256": "382d4982e24f7e466cc00b1a8b19066d0a0d2c76d83c5fbf8c470e7e43d53476",
+      "source_before_sha256": "382d4982e24f7e466cc00b1a8b19066d0a0d2c76d83c5fbf8c470e7e43d53476",
+      "candidate_sha256": "599c45fbeb865dc08df0317a97934b2dc8d9f26e1f149a25facc711265459b2e",
+      "candidate_path": "els_server/domain/skill_unlocks.py",
+      "changes": [
+        [
+          "    return Event(0x201,kind=0x131,payload=wire)",
+          "    from els_server.domain.native_skill_production import record as record_native_skill\n    return record_native_skill(Event(0x201,kind=0x131,payload=wire),character.get('uid'))"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "local",
+      "path": "domain/skill_unlocks.py",
+      "parent_sha256": "382d4982e24f7e466cc00b1a8b19066d0a0d2c76d83c5fbf8c470e7e43d53476",
+      "source_before_sha256": "382d4982e24f7e466cc00b1a8b19066d0a0d2c76d83c5fbf8c470e7e43d53476",
+      "candidate_sha256": "599c45fbeb865dc08df0317a97934b2dc8d9f26e1f149a25facc711265459b2e",
+      "candidate_path": "els_server/domain/skill_unlocks.py",
+      "changes": [
+        [
+          "    return Event(0x201,kind=0x131,payload=wire)",
+          "    from els_server.domain.native_skill_production import record as record_native_skill\n    return record_native_skill(Event(0x201,kind=0x131,payload=wire),character.get('uid'))"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "online",
+      "path": "domain/boosting_2026_force_equipment.py",
+      "parent_sha256": "0558c5453bdff79bdf6a5cec6017591ec16a7f5f290a9cd39c480a8a13c2479d",
+      "source_before_sha256": "0558c5453bdff79bdf6a5cec6017591ec16a7f5f290a9cd39c480a8a13c2479d",
+      "candidate_sha256": "976df525ed60c6b8552f4c85879fe3e0f68669c1c0718bd91994cf66e9c30d55",
+      "candidate_path": "els_server/domain/boosting_2026_force_equipment.py",
+      "changes": [
+        [
+          "def acknowledgement(preset=b'',result=0):",
+          "def acknowledgement(preset=b'',result=0,*,owner=None):"
+        ],
+        [
+          "    return Event(0x201,kind=0x6d1,payload=struct.pack('>i',result)+preset)",
+          "    event=Event(0x201,kind=0x6d1,payload=struct.pack('>i',result)+preset)\n    if owner is None:return event\n    from els_server.domain.native_skill_production import record as record_native_skill\n    return record_native_skill(event,owner)"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "local",
+      "path": "domain/boosting_2026_force_equipment.py",
+      "parent_sha256": "0558c5453bdff79bdf6a5cec6017591ec16a7f5f290a9cd39c480a8a13c2479d",
+      "source_before_sha256": "0558c5453bdff79bdf6a5cec6017591ec16a7f5f290a9cd39c480a8a13c2479d",
+      "candidate_sha256": "976df525ed60c6b8552f4c85879fe3e0f68669c1c0718bd91994cf66e9c30d55",
+      "candidate_path": "els_server/domain/boosting_2026_force_equipment.py",
+      "changes": [
+        [
+          "def acknowledgement(preset=b'',result=0):",
+          "def acknowledgement(preset=b'',result=0,*,owner=None):"
+        ],
+        [
+          "    return Event(0x201,kind=0x6d1,payload=struct.pack('>i',result)+preset)",
+          "    event=Event(0x201,kind=0x6d1,payload=struct.pack('>i',result)+preset)\n    if owner is None:return event\n    from els_server.domain.native_skill_production import record as record_native_skill\n    return record_native_skill(event,owner)"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "online",
+      "path": "storage/boosting_2026_force_equipment.py",
+      "parent_sha256": "b313827471b07e97a6e60b1c6be936dd78984732e3d6a5464bd32e515696abc1",
+      "source_before_sha256": "b313827471b07e97a6e60b1c6be936dd78984732e3d6a5464bd32e515696abc1",
+      "candidate_sha256": "21f8e7fad0be2d15d9f02601c15af37e838a79701b3274010b6cee11f6bcee2c",
+      "candidate_path": "els_server/storage/boosting_2026_force_equipment.py",
+      "changes": [
+        [
+          "acknowledgement(_preset(db,character))",
+          "acknowledgement(_preset(db,character),owner=owner)"
+        ],
+        [
+          "acknowledgement(_preset(db,dict(character,force_slots=after)))",
+          "acknowledgement(_preset(db,dict(character,force_slots=after)),owner=owner)"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "local",
+      "path": "storage/boosting_2026_force_equipment.py",
+      "parent_sha256": "b313827471b07e97a6e60b1c6be936dd78984732e3d6a5464bd32e515696abc1",
+      "source_before_sha256": "b313827471b07e97a6e60b1c6be936dd78984732e3d6a5464bd32e515696abc1",
+      "candidate_sha256": "21f8e7fad0be2d15d9f02601c15af37e838a79701b3274010b6cee11f6bcee2c",
+      "candidate_path": "els_server/storage/boosting_2026_force_equipment.py",
+      "changes": [
+        [
+          "acknowledgement(_preset(db,character))",
+          "acknowledgement(_preset(db,character),owner=owner)"
+        ],
+        [
+          "acknowledgement(_preset(db,dict(character,force_slots=after)))",
+          "acknowledgement(_preset(db,dict(character,force_slots=after)),owner=owner)"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "online",
+      "path": "domain/ordinary_skill_pages.py",
+      "parent_sha256": "5f0feff562b21efafae491013864c74321a9ff5ee385135d393b8b6ff5d079df",
+      "source_before_sha256": "229f850d5ec43acca0c75defe20219a0a1bc5af1f7d994b689140a780dfc87f2",
+      "candidate_sha256": "0ca0200113793405af5b7807aacff21e58687af360b061ad3c6d7cc3e90dc720",
+      "candidate_path": "els_server/domain/ordinary_skill_pages.py",
+      "changes": [
+        [
+          " return Event(0x201,kind=0x484,payload=struct.pack('>iiii',result,page,0,0)+fixed+preset)",
+          " event=Event(0x201,kind=0x484,payload=struct.pack('>iiii',result,page,0,0)+fixed+preset)\n if result:return event\n from els_server.domain.native_skill_production import record as record_native_skill\n return record_native_skill(event,character.get('uid'))"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "local",
+      "path": "domain/ordinary_skill_pages.py",
+      "parent_sha256": "5f0feff562b21efafae491013864c74321a9ff5ee385135d393b8b6ff5d079df",
+      "source_before_sha256": "229f850d5ec43acca0c75defe20219a0a1bc5af1f7d994b689140a780dfc87f2",
+      "candidate_sha256": "0ca0200113793405af5b7807aacff21e58687af360b061ad3c6d7cc3e90dc720",
+      "candidate_path": "els_server/domain/ordinary_skill_pages.py",
+      "changes": [
+        [
+          " return Event(0x201,kind=0x484,payload=struct.pack('>iiii',result,page,0,0)+fixed+preset)",
+          " event=Event(0x201,kind=0x484,payload=struct.pack('>iiii',result,page,0,0)+fixed+preset)\n if result:return event\n from els_server.domain.native_skill_production import record as record_native_skill\n return record_native_skill(event,character.get('uid'))"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "online",
+      "path": "domain/local_session.py",
+      "parent_sha256": "af2303933328f1d760a6c1fd4a9319dd13c720b6d83f58da4ee266d4c5122a46",
+      "source_before_sha256": "af2303933328f1d760a6c1fd4a9319dd13c720b6d83f58da4ee266d4c5122a46",
+      "candidate_sha256": "45fc9ab3a770fdebb4543430e40aeed66176633e3a02751cb7b7034b01677487",
+      "candidate_path": "online/els_server/domain/local_session.py",
+      "changes": [
+        [
+          "                return [Event(0x201,kind=0x123,payload=ack)]",
+          "                from els_server.domain.native_skill_production import record as record_native_skill\n\n                return [record_native_skill(Event(0x201,kind=0x123,payload=ack),self.account.uid)]"
+        ]
+      ],
+      "exact_inverse": true
+    },
+    {
+      "channel": "local",
+      "path": "domain/local_session.py",
+      "parent_sha256": "525209ab54feb14792fd9bd0f7b91ad032af3dcc3ca2fbb33a9782cf17944f09",
+      "source_before_sha256": "525209ab54feb14792fd9bd0f7b91ad032af3dcc3ca2fbb33a9782cf17944f09",
+      "candidate_sha256": "752851f64878a5a623b25f3e4a7109c4baf5fc34fce61cd3316ad9604c1ab2bb",
+      "candidate_path": "local/els_server/domain/local_session.py",
+      "changes": [
+        [
+          "                return [Event(0x201,kind=0x123,payload=ack)]",
+          "                from els_server.domain.native_skill_production import record as record_native_skill\n\n                return [record_native_skill(Event(0x201,kind=0x123,payload=ack),self.account.uid)]"
+        ]
+      ],
+      "exact_inverse": true
+    }
+  ],
+  "new_client_hooks": 0,
+  "client_changes": 0,
+  "scope": "Explicit server Event producer metadata only. Shared parent leaves equal on both ends; local_session per-channel parents preserved by exact byte inverse."
+}

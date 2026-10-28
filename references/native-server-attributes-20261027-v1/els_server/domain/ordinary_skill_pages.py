@@ -91,7 +91,10 @@ def selected(character=None,slots=None,page=1,result=0):
   fixed=struct.pack('>I',22)+b''.join(record(v)for v in slots)+bytes(4)+map_wire(character)
   fixed+=vectors(character)
  #DE14C0 fixed22 records is a separate DTO, not a map. Two unnamedu16=0.
- return Event(0x201,kind=0x484,payload=struct.pack('>iiii',result,page,0,0)+fixed+preset)
+ event=Event(0x201,kind=0x484,payload=struct.pack('>iiii',result,page,0,0)+fixed+preset)
+ if result:return event
+ from els_server.domain.native_skill_production import record as record_native_skill
+ return record_native_skill(event,character.get('uid'))
 
 def handle(s,event,sequence):
  if event.event_id!=0x202 or event.kind not in (0x481,0x483):return None

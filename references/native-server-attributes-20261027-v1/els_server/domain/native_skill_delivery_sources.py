@@ -153,6 +153,13 @@ class CopyReceipt:
     preset:Preset
 
 
+@dataclass(frozen=True)
+class UpdateReceipt:
+    epoch:object
+    event:Event
+    owner:int
+
+
 def bind_copy(event,fields):
     """Bind the shared writer's exact Unit fields to an actual2A/D9 prefix.
 

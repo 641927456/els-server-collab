@@ -1,7 +1,7 @@
 """Owned source-delivery boundaries; full native/runtime QA is separate."""
 import importlib.util
 from pathlib import Path
-import hashlib,struct,sys,unittest
+import hashlib,json,struct,sys,unittest
 from els_server.protocol.protocol_codec import Event
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -155,6 +155,13 @@ class SkillDeliverySourcesTests(unittest.TestCase):
             ('ordinary_skill_pages.py','5f0feff562b21efafae491013864c74321a9ff5ee385135d393b8b6ff5d079df',
              b"fixed+=vectors(character)if character.get('force_inventory')else bytes(8)",b'fixed+=vectors(character)')):
             raw=PATH.with_name(filename).read_bytes()
+            if filename=='ordinary_skill_pages.py':
+                binding=json.loads((PATH.parents[2]/'native-skill-production-writer-binding.json').read_bytes())
+                row=next(r for r in binding['rows']if r['channel']=='online'and r['path']=='domain/'+filename)
+                for before,after in reversed(row['changes']):
+                    self.assertEqual(raw.count(after.encode()),1)
+                    raw=raw.replace(after.encode(),before.encode())
+                self.assertEqual(hashlib.sha256(raw).hexdigest(),row['source_before_sha256'])
             self.assertEqual(raw.count(new),1)
             inverse=raw.replace(new,old,1)
             if filename=='ordinary_skill_pages.py':

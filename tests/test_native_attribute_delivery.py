@@ -36,6 +36,9 @@ def copied(uid=1001):
 
 
 def observe(cursor,epoch,events,**kwargs):
+    if 'skill_updates'in kwargs:
+        kwargs['skill_updates']=tuple(SOURCES.UpdateReceipt(epoch,e,epoch.owner_uid)
+            for e in kwargs['skill_updates'])
     proofs=tuple(COPIES[id(event)]for event in events if id(event)in COPIES
                  and COPIES[id(event)].owner==epoch.owner_uid)
     return cursor.observe_sent(epoch,events,copies=proofs,**kwargs)
@@ -189,6 +192,23 @@ class DeliveryTests(unittest.TestCase):
             cursor.observe_sent(epoch,(same_bytes,),actor_ready=True,copies=(proof,))
         self.assertEqual(cursor.revision,revision)
         self.assertIsNone(self.prepare(cursor,epoch))
+
+    def test_UIDless_update_requires_same_producer_epoch_and_exact_Event(self):
+        cursor=DELIVERY.DeliveryCursor();epoch=cursor.begin(1001,2,5)
+        observe(cursor,epoch,(copied(),skills()),actor_ready=True)
+        update=Event(0x201,kind=0x131,payload=bytes(4)+records(((25410,5),))+identifiers(()))
+        moved=cursor.relocate(epoch)
+        revision=cursor.revision
+        equal=Event(0x201,kind=update.kind,payload=update.payload)
+        old=SOURCES.UpdateReceipt(epoch,update,1001)
+        for proof in(update,old,SOURCES.UpdateReceipt(moved,equal,1001),
+                     SOURCES.UpdateReceipt(moved,update,1002)):
+            with self.assertRaises(ValueError):
+                cursor.observe_sent(moved,(update,),actor_ready=True,skill_updates=(proof,))
+            self.assertEqual(cursor.revision,revision)
+        proof=SOURCES.UpdateReceipt(moved,update,1001)
+        self.assertTrue(cursor.observe_sent(moved,(update,),actor_ready=True,skill_updates=(proof,)))
+        self.assertIsNotNone(self.prepare(cursor,moved,skill=skills(marker=b'changed-source')))
 
 
 if __name__=='__main__':unittest.main()

@@ -94,10 +94,12 @@ class DeliveryCursor:
         if (any(type(proof)is not skill_sources.CopyReceipt or proof.owner!=epoch.owner_uid
                 or not any(proof.event is event for event in events)for proof in copies)
                 or len({id(proof.event)for proof in copies})!=len(copies)
-                or any(type(event)is not Event or event.event_id!=0x201
-                    or event.kind not in(0x131,0x123,0x6d1,0x484)
-                    or not any(event is actual for actual in events)for event in skill_updates)
-                or len({id(event)for event in skill_updates})!=len(skill_updates)):
+                or any(type(proof)is not skill_sources.UpdateReceipt
+                    or proof.epoch is not epoch or proof.owner!=epoch.owner_uid
+                    or type(proof.event)is not Event or proof.event.event_id!=0x201
+                    or proof.event.kind not in(0x131,0x123,0x6d1,0x484)
+                    or not any(proof.event is actual for actual in events)for proof in skill_updates)
+                or len({id(proof.event)for proof in skill_updates})!=len(skill_updates)):
             raise ValueError('Exact owned written skill source evidence required')
         # Apply to locals first so one malformed owned restoration cannot partly
         # advance the cursor. Other owners' peer packets do not satisfy this Unit.
@@ -123,7 +125,7 @@ class DeliveryCursor:
                     skills=skill_sources.SkillSources(epoch.owner_uid,skills.learned,skills.unsealed,None)
             elif event.kind == 0x55b and self._owned(event, epoch):
                 skills = skills.written(event,ordinary_page_ready=ordinary_page_ready)
-            elif any(event is update for update in skill_updates):
+            elif any(event is proof.event for proof in skill_updates):
                 skills = skills.written(event,ordinary_page_ready=ordinary_page_ready)
             elif event.kind==0x131:
                 skills=skill_sources.SkillSources(epoch.owner_uid,None,None,skills.forces)
