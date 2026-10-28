@@ -1,0 +1,35 @@
+{
+  "format": 1,
+  "issue": 620,
+  "candidate_binding_sha256": "b981415ca10fa4905f093b552c51f955f4d43d0fa1550510ae8f21a26f532f98",
+  "author_acceptance_sha256": "0abba358f53ee6cf48c54f0eaca22d8e37c80238ed55095b790613b925b37d60",
+  "author_freeze_sha256": "0d2205990d590bdb1d2ece98c1c4c0a307de838880b2f66bb94d8a322cb2e04f",
+  "source_inverse_sha256": "f96ea7ab96507275183eac719a57450638f76089e61b405466942078e5d12e50",
+  "changed_existing_files_per_channel": 5,
+  "new_runtime_modules": 0,
+  "new_schema": false,
+  "install_DDL": 0,
+  "client_changes": 0,
+  "new_hooks": 0,
+  "independent_review": "Passed fixed-source multi-account App and native identity/read-copy scope",
+  "installed": false,
+  "native_semantics": "Original BasicUnit firstQ is copied to native Unit+50, the same field populated from the authenticated roster account. Complete DTO/read-copy qualification is separate from Scene/Actor readiness.",
+  "private_SQL_accounts": [
+    1,
+    2,
+    3
+  ],
+  "typed_owner_required": true,
+  "legacy_boundary": "Only character=None keeps the old untyped fixture shape; typed roles never default to account1.",
+  "full_Actor_or_GUI": false,
+  "relationship_900_Photo_included": false,
+  "player_database_restore": false,
+  "independent_review_sha256": "b14b715f392db026cc6b61210352d0d9cc00735254cc0e9f32bb6b8acde819d4",
+  "independent_freeze_sha256": "08bdf9e4af5cfb8d5b7c4f1143fdbcd6d7f43ad615b5e95ae3f96cb4f072a09f",
+  "independent_scope": "Twenty-four parent and twenty-four candidate private App observations; complete DTO/read-copy identity, nonaccount bytes and Force preserved. Full14A Scene/Actor and native skill readiness are not accepted.",
+  "retained_QA_failures": [
+    "Regression helper assumed shipped tools directory absent; preserve existing qualified tools instead of overwriting.",
+    "Synthetic title fixture lacked its explicit account1 metadata; add it to the new test input, retaining strict production guard.",
+    "Parent and candidate same uninitialized native skill-manager query hit instruction limit; identity assertions preceded it, skill-readiness not claimed."
+  ]
+}

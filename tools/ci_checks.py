@@ -145,6 +145,9 @@ def main(argv=None):
         run([sys.executable,'-B','-m','unittest','tests.test_native_session_sources'])
     run([sys.executable,'-B',str(ROOT/'tools/verify_current_consumables_phase_20261028.py')])
     if (ROOT/'launchers/friends-v41/source-manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_unit_account_identity_20261029.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_native_unit_account_identity_source'])
+        run([sys.executable,'-B','-m','unittest','tests.test_current_profile_head_binding'])
         run([sys.executable,'-B',str(ROOT/'tools/verify_native_shop_flow_20261029.py')])
         run([sys.executable,'-B','-m','unittest','tests.test_native_shop_source_contract'])
     if (ROOT/'references/native-force-guild-flow-20261029-v1/manifest.json').is_file():

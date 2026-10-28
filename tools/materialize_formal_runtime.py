@@ -40,6 +40,14 @@ def load_manifest(path, repo=ROOT):
     manifest = json.loads(bound(repo, pointer['profile']).read_bytes())
     if 'profile' in manifest or set(pointer['accepted']) != set(manifest['channels']):
         raise ValueError('Invalid current-engine selection')
+    # New accepted profiles bind the exact installation heads. Historical
+    # profiles keep their original format; a later support wrapper gets a new
+    # accepted profile rather than silently changing this bound metadata.
+    if 'accepted_heads' in manifest:
+        if (manifest.get('candidate') is not False
+                or manifest.get('actual_dual_delivery_verified') is not True
+                or pointer['accepted'] != manifest['accepted_heads']):
+            raise ValueError('Current pointer disagrees with its accepted profile')
     for channel, accepted in pointer['accepted'].items():
         if set(accepted) != {'release', 'formal_manifest_sha256'}:
             raise ValueError('Invalid acceptance metadata')

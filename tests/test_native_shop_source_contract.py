@@ -17,7 +17,7 @@ class NativeShopSourceTests(unittest.TestCase):
     def test_receipt_refuses_wrong_LOCAL_pointer_or_unverified_GUI_claim(self):
         receipt=checker.read(checker.F/'accepted-delivery.json')
         source=checker.read(checker.L/'source-manifest.json')
-        current=checker.read(checker.ROOT/'channels/current-engine.json')
+        current=checker.read(checker.F/'current-engine-at-delivery.json')
         profile=checker.read(checker.ROOT/'channels/native-force-guild-flow-accepted-20261029-v1.json')
         wrong=copy.deepcopy(current)
         wrong['accepted']['local']['formal_manifest_sha256']=source['actual_current_parents']['local']['manifest_sha256']

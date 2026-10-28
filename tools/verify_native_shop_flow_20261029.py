@@ -92,7 +92,11 @@ def verify():
     assert not p['private_key_or_test_fixtures_included'] and not p['native_GUI_verified']
     assert q['actual_Frida_original_branch_controls']==13 and q['state_controls']==66
     assert not q['actual_GUI_Scaleform_HUD_verified'] and not q['full_attributes_or_battle_verified']
-    accepted_delivery(read(F/'accepted-delivery.json'),p,read(ROOT/'channels/current-engine.json'),read(ROOT/'channels/native-force-guild-flow-accepted-20261029-v1.json'))
+    # Preserve the actual approved V41 selection as historical evidence while
+    # current-engine advances to later independently accepted server fixes.
+    historical=F/'current-engine-at-delivery.json'
+    assert sha(historical)=='271fcabde776815cd3c908f6a5a93190ff3ab8282b409b236d1771ace36d449f'
+    accepted_delivery(read(F/'accepted-delivery.json'),p,read(historical),read(ROOT/'channels/native-force-guild-flow-accepted-20261029-v1.json'))
     print(json.dumps({'ok':True,'mapped_text_sources':16,'retained_external_PNG':1,'signed_components':1764,'runtime_support':3,'RSA_signatures':2,'GUI_or_battle_claimed':False}))
 
 if __name__=='__main__':verify()
