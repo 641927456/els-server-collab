@@ -83,7 +83,7 @@ def action(path,owner,account,payload,operation,*,now=None):
         if legacy_type20:
             db.execute('DELETE FROM selected_2026_force_slots WHERE owner=? AND skill=? AND rank=? AND slot>=3',(owner,skill,rank))
         from els_server.domain.change_force_inventory import catalog as change_catalog
-        table='selected_2026_change_force_inventory' if pair['template'] in change_catalog() else 'selected_2026_force_inventory'
+        table='career_box_common_force' if pair['template']==295734 else 'selected_2026_change_force_inventory' if pair['template'] in change_catalog(include_starters=True) else 'selected_2026_force_inventory'
         if db.execute(f'DELETE FROM {table} WHERE owner=? AND skill=? AND rank=?',(owner,skill,rank)).rowcount!=1:
             raise ValueError('Force extraction exact owned row disappeared')
         db.execute('UPDATE characters SET revision=revision+1 WHERE uid=?',(owner,));db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))

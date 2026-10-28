@@ -315,6 +315,8 @@ class LocalSession:
         result+=remove_due_bank(self.account.store.path,self.account.uid)
         from els_server.storage.boosting_2026_limited_pet import periodic as limited_pet_periodic
         result+=limited_pet_periodic(self.account.store.path,self.account.uid,at=now)
+        from els_server.storage.pet_support_periods import expire as pet_support_expire
+        result+=pet_support_expire(self.account.store.path,self.account.uid,now=now)
 
         self.expiration_checked=key
 
@@ -517,12 +519,18 @@ class LocalSession:
         from els_server.domain.ariel_attendance_flow import handle as ariel_attendance_handle
         ariel_attendance_reply=ariel_attendance_handle(self,event,request_sequence)
         if ariel_attendance_reply is not None:return ariel_attendance_reply
+        from els_server.domain.housing_layout_flow import handle as housing_layout_handle
+        housing_layout_reply=housing_layout_handle(self,event,request_sequence)
+        if housing_layout_reply is not None:return housing_layout_reply
         from els_server.domain.housing_room_flow import handle as housing_room_handle
         housing_room_reply=housing_room_handle(self,event,request_sequence)
         if housing_room_reply is not None:return housing_room_reply
         from els_server.domain.housing_access_flow import handle as housing_access_handle
         housing_access_reply=housing_access_handle(self,event,request_sequence)
         if housing_access_reply is not None:return housing_access_reply
+        from els_server.domain.fishing_vip_flow import handle as fishing_vip_handle
+        fishing_vip_reply=fishing_vip_handle(self,event,request_sequence)
+        if fishing_vip_reply is not None:return fishing_vip_reply
         from els_server.domain.fishing_attempt import handle as fishing_handle
         fishing_reply=fishing_handle(self,event,request_sequence)
         if fishing_reply is not None:return fishing_reply
@@ -559,6 +567,13 @@ class LocalSession:
         from els_server.domain.character_custom import handle as custom_handle
         custom_reply=custom_handle(self,event,request_sequence)
         if custom_reply is not None:return custom_reply
+        from els_server.domain.resonance_page_expansion_flow import handle as page_expansion_handle
+        page_expansion_reply=page_expansion_handle(self,event,request_sequence)
+        if page_expansion_reply is not None:return page_expansion_reply
+
+        from els_server.domain.resonance_period_flow import handle as resonance_period_handle
+        resonance_period_reply=resonance_period_handle(self,event,request_sequence)
+        if resonance_period_reply is not None:return resonance_period_reply
         from els_server.domain.resonance_allocation_flow import handle as resonance_allocation_handle
         resonance_allocation_reply=resonance_allocation_handle(self,event,request_sequence)
         if resonance_allocation_reply is not None:return resonance_allocation_reply
@@ -1091,6 +1106,9 @@ class LocalSession:
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
             try:return sell(self.account.store.path,self.account.uid,event.payload,operation,self.npc_history_id)
             except ValueError:return sale_failed()
+        from els_server.domain.guild_coin_flow import handle as guild_coin_handle
+        guild_coin_reply=guild_coin_handle(self,event,request_sequence)
+        if guild_coin_reply is not None:return guild_coin_reply
         from els_server.domain.guild_membership_flow import handle as guild_membership_handle
         guild_membership_reply=guild_membership_handle(self,event,request_sequence)
         if guild_membership_reply is not None:return guild_membership_reply
@@ -1359,6 +1377,7 @@ class LocalSession:
             operation=self.shop_session_id+':'+(str(request_sequence) if request_sequence is not None else str(uuid.uuid4()))
             before=self.account.character()
             career_updates=[]
+            resurrection_updates=[]
             from els_server.storage.career_shop import notifications as career_purchase_notifications
             def prepare_career(db,old,new,replayed):
                 career_updates.extend(career_purchase_notifications(db,self.account.uid,before,self.account.get_location(),old,new,replayed))
@@ -1368,7 +1387,9 @@ class LocalSession:
             try:
                 from els_server.domain.palette_shop import guarded_request,purchase_context
                 palette_prepare=purchase_context(self,event,request_sequence)if guarded_request(event.payload)else None
-                payload=purchase(self.account.store.path,event.payload,operation,self.account.uid,prepare_career=prepare_career,prepare_skill_books=prepare_skill_books,prepare_palette=palette_prepare)
+                from els_server.domain.resurrection_purchase import requested as resurrection_request,context as resurrection_context
+                resurrection_prepare=resurrection_context(self,event,request_sequence,resurrection_updates)if resurrection_request(event.payload)else None
+                payload=purchase(self.account.store.path,event.payload,operation,self.account.uid,prepare_career=prepare_career,prepare_skill_books=prepare_skill_books,prepare_palette=palette_prepare,prepare_resurrection=resurrection_prepare)
             except ValueError:return [ed_purchase_ack(-1,[],0)]
             answer=[Event(0x201,kind=0x810,payload=payload)]
             from els_server.storage.shop_state import bank_purchase_refresh
@@ -1383,13 +1404,22 @@ class LocalSession:
             from els_server.protocol.shop_messages import ed_purchase_request
             if any(sku==ORDINARY_SKU for sku,n in ed_purchase_request(event.payload)):
                 answer.append(notice(self.account.uid,self.account.character()))
-            return answer+career_updates
+            return answer+career_updates+resurrection_updates
         if self.enter_dungeon and event.event_id==0x202 and kind==0x110:
             # C38760 sends an empty request and waits for 111. C38880 reads
             # result:i32, reserved:i32, map-count:u32, then runs native exit.
             # Keep the scene until its original 225/227 return handshake.
             if self.role!='game' or self.phase!='dungeon_active' or not self.clear_notified or event.payload:return []
             return [Event(0x201,kind=0x111,payload=bytes(12))]
+        from els_server.domain.furniture_flow import handle as furniture_handle
+        furniture_reply=furniture_handle(self,event,request_sequence)
+        if furniture_reply is not None:return furniture_reply
+        from els_server.domain.white_armor_flow import handle as white_armor_handle
+        white_armor_reply=white_armor_handle(self,event,request_sequence)
+        if white_armor_reply is not None:return white_armor_reply
+        from els_server.domain.promotion_reward_flow import handle as career_box_handle
+        career_box_reply=career_box_handle(self,event,request_sequence)
+        if career_box_reply is not None:return career_box_reply
         from els_server.domain.cartridge_selection_box import handle as cartridge_box_handle
         cartridge_box_reply=cartridge_box_handle(self,event,request_sequence)
         if cartridge_box_reply is not None:return cartridge_box_reply
@@ -1408,6 +1438,12 @@ class LocalSession:
 
                     if cube_request.keys not in ((),(0,)) or cube_request.flag1 not in (0,1) or cube_request.flag2 not in (0,1):raise ValueError('Fixed cube preview mode')
 
+                    from els_server.domain.job_reward_boxes import BOXES as job_boxes
+                    if cube_request.template in job_boxes:
+                        from els_server.domain.tenebros_capacity_flow import selected
+                        if(event.performers not in((),(0,))or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Job box preview envelope')
+                        selected(self)
+
                     if cube_request.template==715036:
                         from els_server.domain.wardrobe_ticket_box import require_session_context
                         require_session_context(self,event,request_sequence)
@@ -1423,6 +1459,9 @@ class LocalSession:
                     if item is None:raise ValueError('Missing fixed cube')
 
                     require_current(item)
+                    if cube_request.template in job_boxes:
+                        from els_server.domain.item_locks import require_unlocked
+                        require_unlocked(item)
                     from els_server.domain.regional_boss_cubes_legacy import BOXES as legacy_boxes,pool_for
                     if cube_request.template in legacy_boxes:
                         from els_server.domain.item_locks import require_unlocked
@@ -1488,6 +1527,11 @@ class LocalSession:
                         if (event.performers not in ((),(0,)) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Participation cube envelope')
                         gear_path,gear_owner,gear_account,gear_prepare=selected(self)
                         answer=open_cube(gear_path,gear_owner,cube_template,event.payload,operation,account_id=gear_account,prepare=gear_prepare)
+                    elif cube_template in (300645,300646,300647,300648):
+                        from els_server.domain.tenebros_capacity_flow import selected
+                        if(event.performers not in((),(0,))or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Job box use envelope')
+                        box_path,box_owner,box_account,box_prepare=selected(self)
+                        answer=open_cube(box_path,box_owner,cube_template,event.payload,operation,account_id=box_account,prepare=box_prepare)
                     elif cube_template in legacy_cube_boxes:
                         from els_server.domain.tenebros_capacity_flow import selected
                         if (event.performers not in ((),(0,)) or event.uid!=2**64-1

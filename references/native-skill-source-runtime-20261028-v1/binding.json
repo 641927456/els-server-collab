@@ -1,12 +1,12 @@
 {
   "parents": {
     "online": {
-      "path": "releases/online/native-skill-boundary-20261028-v1",
-      "manifest_sha256": "54c11415ba366df3e4d9deda122732b63460e495fdca362a6006e15f702b514a"
+      "path": "releases/online/current-obtainable-consumables-phase-20261028-v1",
+      "manifest_sha256": "b51c69ab9b015e9e5537804321590e10a6adf54da2d04baf94e0662c2a6a40f9"
     },
     "local": {
-      "path": "releases/local/local-native-skill-boundary-20261028-v1",
-      "manifest_sha256": "fc83c2680b0695f9aaaaf0669cf26a5072e992d803fedea1f23ff14df64e1d37"
+      "path": "releases/local/local-current-obtainable-consumables-phase-20261028-v1",
+      "manifest_sha256": "e872e2a7336e8cbce67d0a087437e3381610d3f3a7c99f7f0a6d4ad982fa1c55"
     }
   },
   "existing": [
@@ -60,9 +60,9 @@
     {
       "channel": "online",
       "path": "els_server/domain/boosting_2026_force_inventory.py",
-      "parent_source": "references/formal-change-force-parent-20261027-v1/online/els_server/domain/boosting_2026_force_inventory.py",
-      "parent_sha256": "0a7500f07a78f4772954c889e34b5fe268b429f5e27d6863a8c5519e5d65a86d",
-      "candidate_sha256": "6044df0c591d1375b8116188b09a97a02db62c3cacefd85a6bc4916b8f36f752",
+      "parent_source": "references/current-obtainable-consumables-phase-20261028-v1/source/c0777aaf36a81528ee94c26e18a9728bae01dafc6c7c8297479671a0b462635b/boosting_2026_force_inventory.py",
+      "parent_sha256": "c0777aaf36a81528ee94c26e18a9728bae01dafc6c7c8297479671a0b462635b",
+      "candidate_sha256": "620f53d3dba19c73315d73c76eacb82aab308f12fe4029716dd998ba8cb84f72",
       "changes": [
         {
           "before": "def learned_notice(rule,used=0):\n",
@@ -77,9 +77,9 @@
     {
       "channel": "online",
       "path": "els_server/domain/local_session.py",
-      "parent_source": "references/native-master-current-skills-20261028-v1-source-v6/online/els_server/domain/local_session.py",
-      "parent_sha256": "af2303933328f1d760a6c1fd4a9319dd13c720b6d83f58da4ee266d4c5122a46",
-      "candidate_sha256": "45fc9ab3a770fdebb4543430e40aeed66176633e3a02751cb7b7034b01677487",
+      "parent_source": "references/current-obtainable-consumables-phase-20261028-v1/source/5aac665160038b2963de16fec363d322f6b76f24cec233bd8bcdb4bc3de9303c/local_session.py",
+      "parent_sha256": "5aac665160038b2963de16fec363d322f6b76f24cec233bd8bcdb4bc3de9303c",
+      "candidate_sha256": "116a07a337edc2d7b18f6187491ef4664d0dc4b933ec0e634f08eff18d7ad9fe",
       "changes": [
         {
           "before": "                return [Event(0x201,kind=0x123,payload=ack)]\n",
@@ -90,7 +90,7 @@
     {
       "channel": "online",
       "path": "els_server/domain/ordinary_skill_pages.py",
-      "parent_source": "references/native-skill-boundary-20261028-v1/els_server/domain/ordinary_skill_pages.py",
+      "parent_source": "references/current-obtainable-consumables-phase-20261028-v1/source/680303b4999db58e7b4a272500f4d6e216e74dc824edf29acc4702a21492bef4/ordinary_skill_pages.py",
       "parent_sha256": "680303b4999db58e7b4a272500f4d6e216e74dc824edf29acc4702a21492bef4",
       "candidate_sha256": "3cda65445fe4423a7213c6ab3231351da63bf1ce1fd9a0aa3e0a44b748ecf736",
       "changes": [
@@ -116,7 +116,7 @@
     {
       "channel": "online",
       "path": "els_server/protocol/career_messages.py",
-      "parent_source": "references/native-master-current-skills-20261028-v1-source-v6/online/els_server/protocol/career_messages.py",
+      "parent_source": "references/current-obtainable-consumables-phase-20261028-v1/source/b410c3bf90023a7e3c4ff7a0d7ff61b6c133adbab693f3f47c984c8798f0dbfb/career_messages.py",
       "parent_sha256": "b410c3bf90023a7e3c4ff7a0d7ff61b6c133adbab693f3f47c984c8798f0dbfb",
       "candidate_sha256": "1620347c9f6257088f7bc2afba44835c593cac867ccc0b4ae93e49f2b459add1",
       "changes": [
@@ -159,9 +159,9 @@
     {
       "channel": "online",
       "path": "els_server/storage/boosting_2026_force_extraction.py",
-      "parent_source": "references/formal-change-force-parent-20261027-v1/online/els_server/storage/boosting_2026_force_extraction.py",
-      "parent_sha256": "0921f5a01aaf56cd693e28f9adf0443c378b9b9f2c3d597aae12dd78cdb2461c",
-      "candidate_sha256": "327e558dbf403b2bfe34628a4db56934d6432f57e2576b39ed64a72db196eab0",
+      "parent_source": "references/current-obtainable-consumables-phase-20261028-v1/source/ef26eb82d07313921771d65c32ef5dd7a4a7a426bf60a1862d63a0ad5a65a44d/boosting_2026_force_extraction.py",
+      "parent_sha256": "ef26eb82d07313921771d65c32ef5dd7a4a7a426bf60a1862d63a0ad5a65a44d",
+      "candidate_sha256": "4bd264485adb7e874712b6efecce0a0a53a36e5e9abd10568100626509e0e43e",
       "changes": [
         {
           "before": "        event=acknowledgement(skill,rank,[(p,bypos.get(p)) for p in positions]);encode_event(event)\r\n",
@@ -172,9 +172,9 @@
     {
       "channel": "online",
       "path": "els_server/storage/boosting_2026_force_inventory.py",
-      "parent_source": "references/formal-change-force-parent-20261027-v1/online/els_server/storage/boosting_2026_force_inventory.py",
-      "parent_sha256": "1af9bb5517eee9ac09a357de0c5bea4d3f7d7df23292c6324e773c9f17062400",
-      "candidate_sha256": "848ff84fc94cb0849090e4d9ce4161e75ac8f669990d275b4bc12466a7e1830b",
+      "parent_source": "references/current-obtainable-consumables-phase-20261028-v1/source/7c817091a605e38ff648e9e006a96a407b4a6e7dd4ad3e27bb4786dbb57916e7/boosting_2026_force_inventory.py",
+      "parent_sha256": "7c817091a605e38ff648e9e006a96a407b4a6e7dd4ad3e27bb4786dbb57916e7",
+      "candidate_sha256": "2bdaf7ad435059b0ebb864f1432ec7c38c6c7145cf3c2ac640d84e93bff71c71",
       "changes": [
         {
           "before": "        events=[use_ack([((source['group'],source['slot']),remaining)],template=source['template'],ed=balance[0]),learned_notice(rule,used)]\n",
@@ -261,9 +261,9 @@
     {
       "channel": "local",
       "path": "els_server/domain/boosting_2026_force_inventory.py",
-      "parent_source": "references/formal-change-force-parent-20261027-v1/online/els_server/domain/boosting_2026_force_inventory.py",
-      "parent_sha256": "0a7500f07a78f4772954c889e34b5fe268b429f5e27d6863a8c5519e5d65a86d",
-      "candidate_sha256": "6044df0c591d1375b8116188b09a97a02db62c3cacefd85a6bc4916b8f36f752",
+      "parent_source": "references/current-obtainable-consumables-phase-20261028-v1/source/c0777aaf36a81528ee94c26e18a9728bae01dafc6c7c8297479671a0b462635b/boosting_2026_force_inventory.py",
+      "parent_sha256": "c0777aaf36a81528ee94c26e18a9728bae01dafc6c7c8297479671a0b462635b",
+      "candidate_sha256": "620f53d3dba19c73315d73c76eacb82aab308f12fe4029716dd998ba8cb84f72",
       "changes": [
         {
           "before": "def learned_notice(rule,used=0):\n",
@@ -278,9 +278,9 @@
     {
       "channel": "local",
       "path": "els_server/domain/local_session.py",
-      "parent_source": "references/native-master-current-skills-20261028-v1-source-v6/local/els_server/domain/local_session.py",
-      "parent_sha256": "525209ab54feb14792fd9bd0f7b91ad032af3dcc3ca2fbb33a9782cf17944f09",
-      "candidate_sha256": "752851f64878a5a623b25f3e4a7109c4baf5fc34fce61cd3316ad9604c1ab2bb",
+      "parent_source": "references/current-obtainable-consumables-phase-20261028-v1/source/7703bdd4622b37dba9e0c4aa9dbf4211c7a147c16d8645cc4d99113d998b9124/local_session.py",
+      "parent_sha256": "7703bdd4622b37dba9e0c4aa9dbf4211c7a147c16d8645cc4d99113d998b9124",
+      "candidate_sha256": "9778501c5cb006da3a11dac47726fbc4632e0700bbe974572d1af342a4dc9a61",
       "changes": [
         {
           "before": "                return [Event(0x201,kind=0x123,payload=ack)]\n",
@@ -291,7 +291,7 @@
     {
       "channel": "local",
       "path": "els_server/domain/ordinary_skill_pages.py",
-      "parent_source": "references/native-skill-boundary-20261028-v1/els_server/domain/ordinary_skill_pages.py",
+      "parent_source": "references/current-obtainable-consumables-phase-20261028-v1/source/680303b4999db58e7b4a272500f4d6e216e74dc824edf29acc4702a21492bef4/ordinary_skill_pages.py",
       "parent_sha256": "680303b4999db58e7b4a272500f4d6e216e74dc824edf29acc4702a21492bef4",
       "candidate_sha256": "3cda65445fe4423a7213c6ab3231351da63bf1ce1fd9a0aa3e0a44b748ecf736",
       "changes": [
@@ -317,7 +317,7 @@
     {
       "channel": "local",
       "path": "els_server/protocol/career_messages.py",
-      "parent_source": "references/native-master-current-skills-20261028-v1-source-v6/local/els_server/protocol/career_messages.py",
+      "parent_source": "references/current-obtainable-consumables-phase-20261028-v1/source/b410c3bf90023a7e3c4ff7a0d7ff61b6c133adbab693f3f47c984c8798f0dbfb/career_messages.py",
       "parent_sha256": "b410c3bf90023a7e3c4ff7a0d7ff61b6c133adbab693f3f47c984c8798f0dbfb",
       "candidate_sha256": "1620347c9f6257088f7bc2afba44835c593cac867ccc0b4ae93e49f2b459add1",
       "changes": [
@@ -360,9 +360,9 @@
     {
       "channel": "local",
       "path": "els_server/storage/boosting_2026_force_extraction.py",
-      "parent_source": "references/formal-change-force-parent-20261027-v1/online/els_server/storage/boosting_2026_force_extraction.py",
-      "parent_sha256": "0921f5a01aaf56cd693e28f9adf0443c378b9b9f2c3d597aae12dd78cdb2461c",
-      "candidate_sha256": "327e558dbf403b2bfe34628a4db56934d6432f57e2576b39ed64a72db196eab0",
+      "parent_source": "references/current-obtainable-consumables-phase-20261028-v1/source/ef26eb82d07313921771d65c32ef5dd7a4a7a426bf60a1862d63a0ad5a65a44d/boosting_2026_force_extraction.py",
+      "parent_sha256": "ef26eb82d07313921771d65c32ef5dd7a4a7a426bf60a1862d63a0ad5a65a44d",
+      "candidate_sha256": "4bd264485adb7e874712b6efecce0a0a53a36e5e9abd10568100626509e0e43e",
       "changes": [
         {
           "before": "        event=acknowledgement(skill,rank,[(p,bypos.get(p)) for p in positions]);encode_event(event)\r\n",
@@ -373,9 +373,9 @@
     {
       "channel": "local",
       "path": "els_server/storage/boosting_2026_force_inventory.py",
-      "parent_source": "references/formal-change-force-parent-20261027-v1/online/els_server/storage/boosting_2026_force_inventory.py",
-      "parent_sha256": "1af9bb5517eee9ac09a357de0c5bea4d3f7d7df23292c6324e773c9f17062400",
-      "candidate_sha256": "848ff84fc94cb0849090e4d9ce4161e75ac8f669990d275b4bc12466a7e1830b",
+      "parent_source": "references/current-obtainable-consumables-phase-20261028-v1/source/7c817091a605e38ff648e9e006a96a407b4a6e7dd4ad3e27bb4786dbb57916e7/boosting_2026_force_inventory.py",
+      "parent_sha256": "7c817091a605e38ff648e9e006a96a407b4a6e7dd4ad3e27bb4786dbb57916e7",
+      "candidate_sha256": "2bdaf7ad435059b0ebb864f1432ec7c38c6c7145cf3c2ac640d84e93bff71c71",
       "changes": [
         {
           "before": "        events=[use_ack([((source['group'],source['slot']),remaining)],template=source['template'],ed=balance[0]),learned_notice(rule,used)]\n",
@@ -421,5 +421,11 @@
     "els_server/domain/native_skill_delivery_sources.py",
     "els_server/domain/native_skill_production.py"
   ],
-  "whole_byte_inverse": true
+  "whole_byte_inverse": true,
+  "unchanged_relative_dependency": {
+    "path": "common/els_server/data/boosting2026-force-inventory.json",
+    "runtime_path": "els_server/data/boosting2026-force-inventory.json",
+    "sha256": "444b3ef5b5a82fc59777496eaef4ca043bfad2aa216450642863d7f39251355b",
+    "runtime_delta": false
+  }
 }

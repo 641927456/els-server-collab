@@ -38,6 +38,10 @@ for channel in ('online','local'):
  plan(ROOT,c,channel)
 session=(F/'common/els_server/domain/native_session_sources.py').read_text('utf8')
 assert 'actor_ready=False'in session and 'prepare('not in session and '0x106'not in session
+dep=b['unchanged_relative_dependency'];raw=(F/dep['path']).read_bytes()
+assert sha(raw)==dep['sha256']and dep['runtime_delta']is False
+for ch in ('online','local'):
+ assert next(r for r in p['channels'][ch]['files']if r['path']==dep['runtime_path'])['sha256']==sha(raw)
 if (F/'accepted-delivery.json').exists():
  accepted=read(F/'accepted-delivery.json');profile=read(ROOT/'channels/native-skill-source-runtime-accepted-20261028-v1.json')
  assert accepted['ok']and accepted['source_metadata_delivery_complete']and not accepted['full_attribute_delivery']

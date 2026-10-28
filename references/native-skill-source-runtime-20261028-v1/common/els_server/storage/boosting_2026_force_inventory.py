@@ -66,8 +66,12 @@ def saved(db,owner):
     if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(CHANGE_TABLE,)).fetchone():
         from els_server.domain.change_force_inventory import catalog as changes
         for s,r,t,u in db.execute('SELECT skill,rank,source_template,seal_used FROM selected_2026_change_force_inventory WHERE owner=? ORDER BY skill,rank',(owner,)):
-            if t not in changes() or (s,r)!=(changes()[t]['skill'],1):raise ValueError('Saved change force exact native identity')
+            if t not in changes(include_starters=True) or (s,r)!=(changes(include_starters=True)[t]['skill'],1):raise ValueError('Saved change force exact native identity')
             values.append(dict(skill=s,rank=r,template=t,seal_used=u))
+    if db.execute("SELECT 1 FROM sqlite_master WHERE type='table'AND name='career_box_common_force'").fetchone():
+        for skill,rank,template,used in db.execute('SELECT skill,rank,source_template,seal_used FROM career_box_common_force WHERE owner=?',(owner,)):
+            if(skill,rank,template,used)!=(900224,5,295734,0):raise ValueError('Starter common force identity')
+            values.append(dict(skill=skill,rank=rank,template=template,seal_used=used))
     return owned(dict(force_inventory=values))
 
 def snapshot(path,owner):
@@ -126,6 +130,9 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,session_authoriz
         if rule.get('change'):
             initialize_change(db)
             db.execute('INSERT INTO selected_2026_change_force_inventory(owner,skill,rank,source_template,seal_used) VALUES (?,?,?,?,?)',(owner,rule['skill'],1,source['template'],used))
+        elif rule.get('starter_common'):
+            db.execute('CREATE TABLE IF NOT EXISTS career_box_common_force (owner INTEGER PRIMARY KEY REFERENCES characters(uid),skill INTEGER NOT NULL CHECK(skill=900224),rank INTEGER NOT NULL CHECK(rank=5),source_template INTEGER NOT NULL CHECK(source_template=295734),seal_used INTEGER NOT NULL CHECK(seal_used=0))')
+            db.execute('INSERT INTO career_box_common_force VALUES (?,?,?,?,?)',(owner,rule['skill'],rule['native_rank'],source['template'],used))
         else:
             initialize(db)
             db.execute('INSERT INTO selected_2026_force_inventory(owner,skill,rank,source_template,seal_used) VALUES (?,?,?,?,?)',(owner,rule['skill'],rule['native_rank'],source['template'],used))

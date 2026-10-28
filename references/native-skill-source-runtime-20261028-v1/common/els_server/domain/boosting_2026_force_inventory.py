@@ -26,9 +26,10 @@ def catalog():
             native.get((row['skill'],row['source_list_index']))!=row['item'] or
             ((item['flags4']>>20)&15)!=row['native_grade']):raise ValueError('Original force book definition mismatch')
     from els_server.domain.change_force_inventory import catalog as change_catalog
-    changes=change_catalog()
+    changes=change_catalog(include_starters=True)
     if set(changes)&{r['item'] for r in rows}:raise ValueError('Original force catalog collision')
-    return {**{r['item']:r for r in rows},**changes}
+    from els_server.domain.promotion_reward_boxes import common_force
+    return {**{r['item']:r for r in rows},**changes,295734:common_force()}
 
 def owned(character):
     values=(character or {}).get('force_inventory',())
