@@ -38,3 +38,11 @@ python -B tools/materialize_formal_runtime.py --manifest channels/native-force-g
 Issue #616 tracks source integration and delivery. Relationship-ring phases,
 marriage, photo studio, full attributes/106 and the separate shop launcher
 candidate remain outside this candidate.
+
+The finite server delta is now installed in both channels, with over120 seconds
+of observation each and fresh/cold public reads plus256 auxiliary requests.
+Temporary QA authentication/capacity, owned tasks, helper stage and publication
+locks were cleaned. `channels/current-engine.json` selects the exact accepted
+source profile; `accepted-delivery.json` records its formal manifest digests.
+This records actual runtime delivery, separately from pending main-merge review.
+The unrelated shop/relationship/attribute and natural-GUI boundaries above remain.

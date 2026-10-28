@@ -52,6 +52,17 @@ def verify():
         # All locked assets and unchanged sources use the original plan,
         # including source path, size, digest and mode-specific differences.
         plan(ROOT,candidate,channel)
+    if (F/'accepted-delivery.json').exists():
+        accepted=read(F/'accepted-delivery.json')
+        profile=read(ROOT/'channels/native-force-guild-flow-accepted-20261029-v1.json')
+        assert accepted['ok'] and accepted['force_guild_flow_delivery_complete']
+        assert accepted['own_locks_released'] and not accepted['player_database_restore']
+        assert not accepted['natural_GUI'] and not accepted['natural_battle']
+        assert profile['candidate'] is False and profile['actual_dual_delivery_verified'] is True
+        for channel in ('online','local'):
+            assert accepted['channels'][channel]['observation_seconds']>=120
+            assert profile['channels'][channel]['files']==candidate['channels'][channel]['files']
+            plan(ROOT,profile,channel)
     print(json.dumps({'ok':True,'channels':2,'existing_leaves':14,'new_modules':7,
                       'all_other_parent_entries_preserved':True,'GUI_or_battle_claimed':False}))
 
