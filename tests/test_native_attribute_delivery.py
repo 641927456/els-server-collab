@@ -1,9 +1,11 @@
 """Delivery-state controls; original packet/native gameplay proofs are separate."""
 import importlib.util
+import json
 from pathlib import Path
 import struct
 import sys
 import unittest
+from types import SimpleNamespace
 from unittest.mock import patch
 from els_server.protocol.protocol_codec import Event
 from tests.test_native_skill_delivery_sources import initial,copy_event,records,identifiers,preset
@@ -13,9 +15,16 @@ PATH=ROOT/'references/native-server-attributes-20261027-v1/els_server/domain/nat
 SOURCE_PATH=PATH.with_name('native_skill_delivery_sources.py')
 source_spec=importlib.util.spec_from_file_location('candidate_delivery_skill_sources',SOURCE_PATH)
 SOURCES=importlib.util.module_from_spec(source_spec);sys.modules[source_spec.name]=SOURCES;source_spec.loader.exec_module(SOURCES)
+producer_spec=importlib.util.spec_from_file_location('candidate_delivery_skill_production',SOURCE_PATH.with_name('native_skill_production.py'))
+PRODUCER=importlib.util.module_from_spec(producer_spec);sys.modules[producer_spec.name]=PRODUCER
+with patch.dict(sys.modules,{'els_server.domain.native_skill_delivery_sources':SOURCES}):producer_spec.loader.exec_module(PRODUCER)
+ready_spec=importlib.util.spec_from_file_location('candidate_delivery_readiness',SOURCE_PATH.with_name('native_attribute_readiness.py'))
+READINESS=importlib.util.module_from_spec(ready_spec);sys.modules[ready_spec.name]=READINESS
+with patch.dict(sys.modules,{'els_server.domain.native_skill_production':PRODUCER}):ready_spec.loader.exec_module(READINESS)
 spec=importlib.util.spec_from_file_location('candidate_attribute_delivery',PATH)
 DELIVERY=importlib.util.module_from_spec(spec);sys.modules[spec.name]=DELIVERY
-with patch.dict(sys.modules,{'els_server.domain.native_skill_delivery_sources':SOURCES}):spec.loader.exec_module(DELIVERY)
+with patch.dict(sys.modules,{'els_server.domain.native_skill_delivery_sources':SOURCES,
+                           'els_server.domain.native_attribute_readiness':READINESS}):spec.loader.exec_module(DELIVERY)
 COPIES={}
 
 
@@ -36,6 +45,11 @@ def copied(uid=1001):
 
 
 def observe(cursor,epoch,events,**kwargs):
+    # Existing delivery-state controls explicitly assume a qualified skill UI.
+    # Separate tests below withhold/stale its real receipt and test rejection.
+    if kwargs.get('actor_ready') and 'ui_receipts'not in kwargs:
+        reply,proof=ui_receipt(epoch)
+        events=events+(reply,);kwargs['ui_receipts']=(proof,)
     if 'skill_updates'in kwargs:
         kwargs['skill_updates']=tuple(SOURCES.UpdateReceipt(epoch,e,epoch.owner_uid)
             for e in kwargs['skill_updates'])
@@ -44,10 +58,82 @@ def observe(cursor,epoch,events,**kwargs):
     return cursor.observe_sent(epoch,events,copies=proofs,**kwargs)
 
 
+def ui_receipt(epoch):
+    store=SimpleNamespace(uid=epoch.owner_uid)
+    account=SimpleNamespace(uid=epoch.owner_uid,account_id=epoch.account_id,store=store)
+    session=SimpleNamespace(account=account,shop_session_id='explicit-unit-control',role='game',phase='town_ready',released=False)
+    request=Event(0x202,kind=0x6e9,payload=b'')
+    reply=Event(0x201,kind=0x6ea,payload=b'explicit-unit-layout-control')
+    return reply,READINESS.SkillUIReceipt(epoch,request,7,reply,epoch.owner_uid,session,account,store,session.shop_session_id)
+
+
 class DeliveryTests(unittest.TestCase):
     def prepare(self,cursor,epoch,*,at=10,end=20,active=None,style=None,skill=None,attribute=None):
         return cursor.prepare(epoch,skills=skill or skills(),extra_skills=((25410,4),),attribute=attribute or attributes(),
             active=active,style=style,valid_before=end,at=at)
+
+    def test_waits_for_actual_written_UI_reply_of_this_selection(self):
+        cursor=DELIVERY.DeliveryCursor();epoch=cursor.begin(1001,2,5)
+        observe(cursor,epoch,(copied(),skills()),actor_ready=True,ui_receipts=())
+        self.assertIsNone(self.prepare(cursor,epoch))
+        cursor.observe_sent(epoch,(),actor_ready=True,ordinary_page_ready=True)
+        self.assertFalse(cursor._ui_ready)
+        reply,proof=ui_receipt(epoch)
+        cursor.observe_sent(epoch,(reply,),actor_ready=True)
+        self.assertIsNone(self.prepare(cursor,epoch))
+        clone=Event(reply.event_id,kind=reply.kind,payload=reply.payload)
+        revision=cursor.revision
+        with self.assertRaises(ValueError):
+            cursor.observe_sent(epoch,(clone,),actor_ready=True,ui_receipts=(proof,))
+        self.assertEqual(cursor.revision,revision);self.assertFalse(cursor._ui_ready)
+        cursor.observe_sent(epoch,(reply,),actor_ready=True,ui_receipts=(proof,))
+        self.assertIsNotNone(self.prepare(cursor,epoch))
+
+    def test_new_copy_resets_UI_but_same_Unit_scene_move_preserves_it(self):
+        cursor=DELIVERY.DeliveryCursor();epoch=cursor.begin(1001,2,5)
+        observe(cursor,epoch,(copied(),skills()),actor_ready=True)
+        self.assertIsNotNone(self.prepare(cursor,epoch))
+        old_reply,old_proof=ui_receipt(epoch)
+        moved=cursor.relocate(epoch)
+        self.assertTrue(cursor._ui_ready);self.assertFalse(cursor._actor_ready)
+        cursor.observe_sent(moved,(),actor_ready=True)
+        self.assertIsNotNone(self.prepare(cursor,moved))
+        with self.assertRaises(ValueError):
+            cursor.observe_sent(moved,(old_reply,),actor_ready=True,ui_receipts=(old_proof,))
+        observe(cursor,moved,(copied(),skills()),actor_ready=True,ui_receipts=())
+        self.assertFalse(cursor._ui_ready);self.assertIsNone(self.prepare(cursor,moved))
+        reply,proof=ui_receipt(moved)
+        cursor.observe_sent(moved,(reply,),actor_ready=True,ui_receipts=(proof,))
+        self.assertIsNotNone(self.prepare(cursor,moved))
+
+    def test_stale_UI_source_graph_loses_evidence_without_rewriting_reply(self):
+        cursor=DELIVERY.DeliveryCursor();epoch=cursor.begin(1001,2,5)
+        observe(cursor,epoch,(copied(),skills()),actor_ready=True,ui_receipts=())
+        reply,proof=ui_receipt(epoch);payload=reply.payload
+        proof.session.account.store=SimpleNamespace(uid=1001)
+        self.assertFalse(proof.current())
+        self.assertTrue(cursor.observe_sent(epoch,(reply,),actor_ready=True,ui_receipts=(proof,)))
+        self.assertEqual(reply.payload,payload);self.assertFalse(cursor._ui_ready)
+        self.assertIsNone(self.prepare(cursor,epoch))
+
+    def test_484_boolean_cannot_replace_native_UI_receipt(self):
+        cursor=DELIVERY.DeliveryCursor();epoch=cursor.begin(1001,2,5)
+        observe(cursor,epoch,(copied(),skills()),actor_ready=True,ui_receipts=())
+        selected=((900405,6),)+((0,0),)*10
+        force=Event(0x201,kind=0x6d1,payload=bytes(4)+preset(forces=selected))
+        cursor.observe_sent(epoch,(force,),actor_ready=True,
+            skill_updates=(SOURCES.UpdateReceipt(epoch,force,1001),))
+        self.assertEqual(cursor._skills.forces,selected)
+        raw=json.loads((SOURCE_PATH.parents[2]/'native-original484-readiness-goldens-v2.json').read_bytes())['payload_hex']
+        page=Event(0x201,kind=0x484,payload=bytes.fromhex(raw))
+        update=SOURCES.UpdateReceipt(epoch,page,1001)
+        cursor.observe_sent(epoch,(page,),actor_ready=True,skill_updates=(update,),ordinary_page_ready=True)
+        self.assertIsNone(cursor._skills.forces);self.assertIsNone(self.prepare(cursor,epoch))
+        reply,proof=ui_receipt(epoch)
+        cursor.observe_sent(epoch,(reply,),actor_ready=True,ui_receipts=(proof,))
+        cursor.observe_sent(epoch,(page,),actor_ready=True,skill_updates=(update,))
+        self.assertEqual(cursor._skills.forces,SOURCES.ZERO_FORCE)
+        self.assertIsNotNone(self.prepare(cursor,epoch))
 
     def test_waits_for_written_Unit_and_actual_actor_readiness(self):
         cursor=DELIVERY.DeliveryCursor();epoch=cursor.begin(1001,2,5)

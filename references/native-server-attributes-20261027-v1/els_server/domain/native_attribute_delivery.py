@@ -11,6 +11,7 @@ import math
 import struct
 from els_server.protocol.protocol_codec import Event
 from els_server.domain import native_skill_delivery_sources as skill_sources
+from els_server.domain import native_attribute_readiness as readiness
 
 
 @dataclass(frozen=True)
@@ -44,6 +45,7 @@ class DeliveryCursor:
     def _reset(self):
         self._copied = False
         self._actor_ready = False
+        self._ui_ready = False
         self._skills = None
         self._active = None
         self._style = None
@@ -64,10 +66,11 @@ class DeliveryCursor:
         """A new scene needs readiness/restoration again; it keeps the owned Unit."""
         if epoch is not self.epoch:
             return None
-        copied, skills = self._copied, self._skills
+        copied, skills, ui_ready = self._copied, self._skills, self._ui_ready
         current = self.begin(epoch.owner_uid, epoch.account_id, epoch.unit_type)
         self._copied = copied
         self._skills = skills
+        self._ui_ready = ui_ready
         return current
 
     def discard(self):
@@ -80,10 +83,16 @@ class DeliveryCursor:
         return (len(event.payload) >= offset+8
                 and struct.unpack_from('>Q', event.payload, offset)[0] == epoch.owner_uid)
 
-    def observe_sent(self, epoch, events, *, actor_ready, copies=(), skill_updates=(), ordinary_page_ready=False):
+    def observe_sent(self, epoch, events, *, actor_ready, copies=(), skill_updates=(), ui_receipts=(), ordinary_page_ready=None):
+        """Commit exact written sources and current6E9→6EA UI evidence.
+
+        Actor readiness is separate. A new own2A clears skill-UI readiness;
+        same-Unit scene relocation preserves it. An optional legacy page flag
+        may restrict application, but never grants the missing native UI gate.
+        """
         if (type(events) is not tuple or type(actor_ready) is not bool
-                or type(copies)is not tuple or type(skill_updates)is not tuple
-                or type(ordinary_page_ready)is not bool):
+                or type(copies)is not tuple or type(skill_updates)is not tuple or type(ui_receipts)is not tuple
+                or ordinary_page_ready is not None and type(ordinary_page_ready)is not bool):
             raise ValueError('Immutable written server batch and explicit readiness required')
         if epoch is not self.epoch or epoch is None:
             return False
@@ -99,11 +108,23 @@ class DeliveryCursor:
                     or type(proof.event)is not Event or proof.event.event_id!=0x201
                     or proof.event.kind not in(0x131,0x123,0x6d1,0x484,0x6cb,0x6cf)
                     or not any(proof.event is actual for actual in events)for proof in skill_updates)
-                or len({id(proof.event)for proof in skill_updates})!=len(skill_updates)):
+                or len({id(proof.event)for proof in skill_updates})!=len(skill_updates)
+                or any(type(proof)is not readiness.SkillUIReceipt
+                    or proof.epoch is not epoch or proof.owner!=epoch.owner_uid
+                    or type(proof.request)is not Event or proof.request.event_id!=0x202
+                    or proof.request.kind!=0x6e9 or proof.request.payload!=b''
+                    or proof.request.performers not in((),(0,)) or proof.request.payload_mode!=0
+                    or proof.request.uid!=2**64-1 or proof.request.target_uid!=2**64-1
+                    or type(proof.request_sequence)is not int or not 1<=proof.request_sequence<2**32
+                    or type(proof.reply)is not Event or proof.reply.event_id!=0x201
+                    or proof.reply.kind!=0x6ea
+                    or not any(proof.reply is actual for actual in events)for proof in ui_receipts)
+                or len({id(proof.reply)for proof in ui_receipts})!=len(ui_receipts)):
             raise ValueError('Exact owned written skill source evidence required')
         # Apply to locals first so one malformed owned restoration cannot partly
         # advance the cursor. Other owners' peer packets do not satisfy this Unit.
         copied, skills, active, style = self._copied, self._skills, self._active, self._style
+        ui_ready = self._ui_ready
         for event in events:
             if type(event) is not Event:
                 raise ValueError('Original server Event required')
@@ -113,6 +134,7 @@ class DeliveryCursor:
                 # Current2A is result:i32 + Unit; Unit UID is at wire offset9.
                 if event.payload[:4] == bytes(4) and self._owned(event, epoch, offset=13):
                     copied, active, style = True, None, None
+                    ui_ready = False
                     # Do not infer native constructor zeros from a2A kind.
                     skills = skill_sources.SkillSources(epoch.owner_uid)
                     proof=next((p for p in copies if p.event is event),None)
@@ -123,11 +145,16 @@ class DeliveryCursor:
                 else:
                     # Unknown copied Force inputs cannot attest old sources.
                     skills=replace(skills,forces=None,extra=None)
+            elif event.kind == 0x6ea:
+                proof=next((p for p in ui_receipts if p.reply is event),None)
+                if proof is not None:ui_ready=proof.current()
             elif event.kind == 0x55b and self._owned(event, epoch):
-                skills = skills.written(event,ordinary_page_ready=ordinary_page_ready)
+                skills = skills.written(event,ordinary_page_ready=ui_ready)
             elif any(event is proof.event for proof in skill_updates):
                 proof=next(proof for proof in skill_updates if proof.event is event)
-                skills = skills.written(event,ordinary_page_ready=ordinary_page_ready,receipt=proof)
+                # A legacy True flag can no longer grant readiness. False is
+                # an optional additional restriction while callers migrate.
+                skills = skills.written(event,ordinary_page_ready=ui_ready and ordinary_page_ready is not False,receipt=proof)
             elif event.kind==0x131:
                 skills=replace(skills,learned=None,unsealed=None)
             elif event.kind in(0x6d1,0x484):
@@ -148,6 +175,7 @@ class DeliveryCursor:
                 else: style = event.payload[8]
         self._copied, self._skills, self._active, self._style = copied, skills, active, style
         self._actor_ready = actor_ready
+        self._ui_ready = ui_ready
         self.revision += 1
         return True
 
@@ -164,7 +192,7 @@ class DeliveryCursor:
         LuCiel defaults are explicit UID+byte notices, including zero.
         """
         _clock(at)
-        if epoch is not self.epoch or epoch is None or not self._copied or not self._actor_ready:
+        if epoch is not self.epoch or epoch is None or not self._copied or not self._actor_ready or not self._ui_ready:
             return None
         if valid_before is not None:
             _clock(valid_before)
@@ -193,7 +221,7 @@ class DeliveryCursor:
     def current(self, plan, *, at):
         _clock(at)
         return (type(plan) is DeliveryPlan and plan.epoch is self.epoch
-                and plan.revision == self.revision and self._copied and self._actor_ready
+                and plan.revision == self.revision and self._copied and self._actor_ready and self._ui_ready
                 and (plan.valid_before is None or at < plan.valid_before))
 
     def sent(self, plan):

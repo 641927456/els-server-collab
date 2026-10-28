@@ -101,6 +101,28 @@ class SkillDeliverySourcesTests(unittest.TestCase):
         self.assertEqual(state.forces,M.ZERO_FORCE)
         self.assertEqual([r['native_force_query']for r in proof['rows']],[6,6,0,0])
 
+    def test_original484_absent_HUD_cannot_attest_Force_clear(self):
+        proof=json.loads((PATH.parents[2]/'native-original484-readiness-goldens-v2.json').read_bytes())
+        self.assertTrue(proof['ok'])
+        self.assertTrue(proof['transport_write_does_not_attest_native_readiness'])
+        negative,phase=proof['rows']
+        self.assertTrue(negative['returned_false'])
+        self.assertEqual(negative['source_consumers_reached'],0)
+        self.assertEqual(negative['Force_retained'],[900405,6])
+        self.assertFalse(phase['whole_positive_handler_accepted'])
+        self.assertEqual(phase['source_consumers'],['0x8f67d0','0x8fa130','0x8ffee0','0x8ffb30'])
+        raw=bytes.fromhex(proof['payload_hex'])
+        self.assertEqual(hashlib.sha256(raw).hexdigest(),proof['payload_sha256'])
+        original=M.SkillSources(1007,learned=((25410,4),),unsealed=(),
+            forces=((900405,6),)+((0,0),)*10,extra=((900405,6),))
+        event=notice(0x484,raw)
+        unknown=self.written(original,event,ready=False)
+        self.assertIsNone(unknown.forces)
+        self.assertEqual((unknown.learned,unknown.unsealed,unknown.extra),
+                         (original.learned,original.unsealed,original.extra))
+        qualified=self.written(original,event,ready=True)
+        self.assertEqual(qualified.forces,M.ZERO_FORCE)
+
     def test_131_updates_existing_rank_adds_new_ID_and_preserves_other_sources(self):
         state=self.written(M.SkillSources(1001).constructed(),initial(ids=(10,)))
         event=notice(0x131,bytes(4)+records(((25410,5),(25411,4)))+identifiers((11,)))

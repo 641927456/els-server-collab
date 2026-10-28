@@ -2,7 +2,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import ExitStack
 from pathlib import Path
-from types import SimpleNamespace
+from types import SimpleNamespace,ModuleType
 from unittest.mock import patch
 import hashlib,importlib.util,json,struct,sys,threading,unittest
 from els_server.protocol.protocol_codec import Event
@@ -31,6 +31,79 @@ class SkillProductionTests(unittest.TestCase):
         return Event(0x201,kind=kind,payload=struct.pack('>5i',0,0,25030,-1,0))
 
     def capture(self,producer):return self.port.capture(self.epoch,self.session,producer)
+
+    def readiness_port(self):
+        name='els_server.domain.native_attribute_readiness'
+        spec=importlib.util.spec_from_file_location(name,A/'els_server/domain/native_attribute_readiness.py')
+        module=importlib.util.module_from_spec(spec);sys.modules[name]=module;spec.loader.exec_module(module)
+        return module
+
+    def readiness_session_type(self):
+        # Explicit unit-only class seam. Actual App/TLS acceptance uses its
+        # already-loaded unpatched LocalSession/FriendsSession implementations.
+        class LocalSession:
+            def handle(self,event,request_sequence=None):
+                raise AssertionError('Unit handler must be explicit')
+        local=ModuleType('els_server.domain.local_session');local.LocalSession=LocalSession
+        self.stack.enter_context(patch.dict(sys.modules,{local.__name__:local}))
+        return LocalSession
+
+    def test_original_UI_transition_receipt_binds_current_selection_request_and_reply(self):
+        LocalSession=self.readiness_session_type()
+        port=self.readiness_port();session=LocalSession.__new__(LocalSession)
+        session.__dict__.update(self.session.__dict__)
+        session.phase='player_initialized';session.client_build='dx11_260923';session.enter_town=True
+        request=Event(0x202,kind=0x6e9,payload=b'')
+        reply=Event(0x201,kind=0x6ea,payload=b'controlled-layout-source')
+        calls=[]
+        def handle(s,event,request_sequence=None):
+            calls.append((s,event,request_sequence));s.phase='skill_ui_ready';return [reply]
+        with patch.object(LocalSession,'handle',handle):
+            result=port.capture(self.epoch,session,session.handle,request,request_sequence=11)
+        self.assertEqual(len(calls),1);self.assertEqual(result.messages,(reply,))
+        proof=result.receipt
+        self.assertIs(proof.epoch,self.epoch);self.assertIs(proof.request,request)
+        self.assertIs(proof.reply,reply);self.assertEqual(proof.request_sequence,11)
+        self.assertTrue(proof.current())
+        session.phase='town_ready';self.assertTrue(proof.current())
+        session.account.store=SimpleNamespace(uid=1001);self.assertFalse(proof.current())
+
+    def test_old_phase_duplicate_UI_and_wrong_build_do_not_attest_new_UI(self):
+        LocalSession=self.readiness_session_type()
+        port=self.readiness_port();reply=Event(0x201,kind=0x6ea,payload=b'layout-control')
+        request=Event(0x202,kind=0x6e9,payload=b'')
+        for phase,build,sequence,payload in(('skill_ui_ready','dx11_260923',12,b''),
+                ('town_ready','dx11_260923',12,b''),('player_initialized','other',12,b''),
+                ('player_initialized','dx11_260923',True,b''),('player_initialized','dx11_260923',12,b'x')):
+            session=LocalSession.__new__(LocalSession);session.__dict__.update(self.session.__dict__)
+            session.phase=phase;session.client_build=build;session.enter_town=True;calls=[]
+            def handle(s,event,request_sequence=None):
+                calls.append(event);s.phase='skill_ui_ready';return [reply]
+            with patch.object(LocalSession,'handle',handle):
+                actual=Event(0x202,kind=0x6e9,payload=payload)
+                result=port.capture(self.epoch,session,session.handle,actual,request_sequence=sequence)
+            self.assertEqual(len(calls),1);self.assertEqual(result.messages,(reply,))
+            self.assertIsNone(result.receipt)
+
+    def test_changed_owner_graph_or_unbound_producer_loses_only_readiness_evidence(self):
+        LocalSession=self.readiness_session_type()
+        port=self.readiness_port();request=Event(0x202,kind=0x6e9,payload=b'')
+        reply=Event(0x201,kind=0x6ea,payload=b'layout-control')
+        for changed in('account','store','token','reply','unbound'):
+            session=LocalSession.__new__(LocalSession);session.__dict__.update(self.session.__dict__)
+            session.account=SimpleNamespace(uid=1001,account_id=2,store=SimpleNamespace(uid=1001))
+            session.phase='player_initialized';session.client_build='dx11_260923';session.enter_town=True
+            def handle(s,event,request_sequence=None):
+                s.phase='skill_ui_ready'
+                if changed=='account':s.account=SimpleNamespace(uid=1001,account_id=2,store=s.account.store)
+                if changed=='store':s.account.store=SimpleNamespace(uid=1001)
+                if changed=='token':s.shop_session_id='different'
+                return [reply,reply]if changed=='reply'else [reply]
+            with patch.object(LocalSession,'handle',handle):
+                produce=(lambda event,**kw:session.handle(event,**kw))if changed=='unbound'else session.handle
+                result=port.capture(self.epoch,session,produce,request,request_sequence=12)
+            self.assertIsNone(result.receipt)
+            self.assertEqual(result.messages,(reply,reply)if changed=='reply'else(reply,))
 
     def test_returned_mailbox_equal_clone_and_other_owner_cannot_supply_a_receipt(self):
         event=self.event();equal=self.event();foreign=self.event();unmarked=self.event()
