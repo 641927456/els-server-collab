@@ -45,7 +45,21 @@ def capture(epoch,session,produce,request,*,request_sequence=None):
     cannot create a fresh receipt. The receipt's original6EA Event must still
     be written before the delivery cursor may advance its readiness state.
     """
+    return capture_worker(epoch,session,produce,(request,),
+        {'request_sequence':request_sequence},
+        lambda:produce(request,request_sequence=request_sequence))
+
+
+def capture_worker(epoch,session,produce,args,kwargs,invoke):
+    """Observe the original Application worker without replacing its handler.
+
+    invoke retains the original committed-read, timer and after-reply scopes.
+    The exact bound handler remains visible to those existing scopes. This
+    metadata wrapper invokes that worker path once, never the handler twice.
+    """
     from els_server.domain.native_attribute_delivery import ActorEpoch
+    request=args[0]if type(args)is tuple and len(args)==1 else None
+    request_sequence=kwargs.get('request_sequence')if type(kwargs)is dict else None
     # The real application has already loaded its classes before its worker
     # runs. Metadata must not import account/resource initialization here.
     classes=tuple(value for module,name in(
@@ -64,7 +78,7 @@ def capture(epoch,session,produce,request,*,request_sequence=None):
         and request.uid==request.target_uid==2**64-1
         and type(request_sequence)is int and 1<=request_sequence<2**32
         and before is not None and before[3]=='player_initialized')
-    messages=tuple(produce(request,request_sequence=request_sequence))
+    messages=tuple(invoke())
     if any(type(event)is not Event for event in messages):
         raise ValueError('Original synchronous readiness reply Events required')
     after=_selection(session,epoch)if type(epoch)is ActorEpoch else None

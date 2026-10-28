@@ -136,6 +136,9 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_native_master_current_skills_20261028.py')])
     if (ROOT/'channels/native-skill-boundary-20261028-v1.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_native_skill_boundary_20261028.py')])
+    if (ROOT/'references/native-skill-source-runtime-20261028-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_skill_sources_runtime_20261028.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_native_session_sources'])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0
