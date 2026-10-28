@@ -1,0 +1,24 @@
+# Local account with isolated character saves for the verified DX11 client.
+# Paths resolve relative to this configuration file.
+[server]
+host = "127.0.0.1"
+port = 19400
+profile = "integrated_dx11"
+state_file = "G:/els/state/integrated.sqlite3"
+log_dir = "G:/els/logs/server"
+max_connections = 16
+idle_timeout = 300.0
+frame_timeout = 15.0
+write_timeout = 10.0
+shutdown_timeout = 15.0
+log_max_bytes = 5242880
+log_backups = 4
+# Verified normal element add/remove for the currently admitted equipment catalog.
+attribute_enchant_enabled = true
+# Native ordinary moves, reconnect and cross-route stat filtering verified in isolation.
+normal_equipment_moves_enabled = true
+
+equipment_repair_enabled=true
+
+# Selected2026 attendance/online local-only pack; all switches default off.
+selected2026_pair_file="../els_server/data/selected2026/local-pair.json"

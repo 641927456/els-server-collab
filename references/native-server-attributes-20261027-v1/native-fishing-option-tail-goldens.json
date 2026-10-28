@@ -1,0 +1,382 @@
+{
+  "schema": 2,
+  "client_changes": 0,
+  "game_process_access": false,
+  "source_sha256": "8e8f9c9291043d03d5f51c0841350ba47fa94fcedb0fb3dee479c79affad219d",
+  "original": "Current four admitted fishing definitions ->canonical character DTO ->wholeD9B170/87A6E0/85BAD0/897100/8A2900",
+  "scope": "Original inventory capacity22=67, all current source rod slots, bait excluded from tail, current seed durability0 excludes rods. Three selectors and two modes. Positive native durability controls, live fishing/effect and runtime activation remain separate. Explicit durability is rejected by the current server validator and was not bypassed.",
+  "positive_control_scope": "Six isolated original source controls, both main/tail duplicates and order retained. Native source field is restored; it is not a newly admitted server durability field, player write, live repair or runtime enablement.",
+  "rows": [
+    {
+      "source_class": "actual-current-writer",
+      "selector": 0,
+      "mode": 0,
+      "expected": [],
+      "input": 0
+    },
+    {
+      "source_class": "actual-current-writer",
+      "selector": 0,
+      "mode": 1,
+      "expected": [],
+      "input": 0
+    },
+    {
+      "source_class": "actual-current-writer",
+      "selector": 1,
+      "mode": 0,
+      "expected": [],
+      "input": 0
+    },
+    {
+      "source_class": "actual-current-writer",
+      "selector": 1,
+      "mode": 1,
+      "expected": [],
+      "input": 0
+    },
+    {
+      "source_class": "actual-current-writer",
+      "selector": 2,
+      "mode": 0,
+      "expected": [],
+      "input": 0
+    },
+    {
+      "source_class": "actual-current-writer",
+      "selector": 2,
+      "mode": 1,
+      "expected": [],
+      "input": 0
+    },
+    {
+      "source_class": "actual-current-writer",
+      "selector": 0,
+      "mode": 0,
+      "expected": [],
+      "input": 1
+    },
+    {
+      "source_class": "actual-current-writer",
+      "selector": 0,
+      "mode": 1,
+      "expected": [],
+      "input": 1
+    },
+    {
+      "source_class": "actual-current-writer",
+      "selector": 1,
+      "mode": 0,
+      "expected": [],
+      "input": 1
+    },
+    {
+      "source_class": "actual-current-writer",
+      "selector": 1,
+      "mode": 1,
+      "expected": [],
+      "input": 1
+    },
+    {
+      "source_class": "actual-current-writer",
+      "selector": 2,
+      "mode": 0,
+      "expected": [],
+      "input": 1
+    },
+    {
+      "source_class": "actual-current-writer",
+      "selector": 2,
+      "mode": 1,
+      "expected": [],
+      "input": 1
+    },
+    {
+      "source_class": "explicit-native-durability1-control",
+      "selector": 0,
+      "mode": 0,
+      "expected": [
+        110037,
+        110007
+      ],
+      "input": 2
+    },
+    {
+      "source_class": "explicit-native-durability1-control",
+      "selector": 0,
+      "mode": 1,
+      "expected": [
+        110037,
+        110007
+      ],
+      "input": 2
+    },
+    {
+      "source_class": "explicit-native-durability1-control",
+      "selector": 1,
+      "mode": 0,
+      "expected": [
+        110037,
+        110007
+      ],
+      "input": 2
+    },
+    {
+      "source_class": "explicit-native-durability1-control",
+      "selector": 1,
+      "mode": 1,
+      "expected": [
+        110037,
+        110007
+      ],
+      "input": 2
+    },
+    {
+      "source_class": "explicit-native-durability1-control",
+      "selector": 2,
+      "mode": 0,
+      "expected": [
+        110037,
+        110007
+      ],
+      "input": 2
+    },
+    {
+      "source_class": "explicit-native-durability1-control",
+      "selector": 2,
+      "mode": 1,
+      "expected": [
+        110037,
+        110007
+      ],
+      "input": 2
+    }
+  ],
+  "inputs": [
+    {
+      "items": [
+        {
+          "uid": 62001,
+          "template": 135928,
+          "metadata": 1,
+          "count": 1,
+          "group": 22,
+          "slot": 0
+        }
+      ],
+      "records": {
+        "62001": "f8120200021240217800000000000000000000000000af430000000080f0fa02000000000000000000000000000000000000000000000000d86eca03e66eca030000000086b4980200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008c6bbb02d614950200000000000000000000000000000000000000000000000000000000906cbb02000000000000000010276400640000000000000000270000000000000010000000000000ffffffff"
+      },
+      "capacity": 67,
+      "category77": {
+        "135928": false
+      },
+      "special_mode_level": 0,
+      "bound": {
+        "62001": {
+          "flags4": 557847042,
+          "flags8": 120,
+          "native18": 0,
+          "template_option40": -1,
+          "nativeC": 1,
+          "native10": 0,
+          "native318_present": true,
+          "native318_7BD": false,
+          "template_id": 135928
+        }
+      }
+    },
+    {
+      "items": [
+        {
+          "uid": 62001,
+          "template": 135928,
+          "metadata": 1,
+          "count": 1,
+          "group": 22,
+          "slot": 0
+        },
+        {
+          "uid": 62002,
+          "template": 135929,
+          "metadata": 1,
+          "count": 1,
+          "group": 22,
+          "slot": 1
+        },
+        {
+          "uid": 62003,
+          "template": 135931,
+          "metadata": 1,
+          "count": 1,
+          "group": 22,
+          "slot": 2
+        },
+        {
+          "uid": 62004,
+          "template": 99809,
+          "metadata": 2,
+          "count": 1,
+          "group": 23,
+          "slot": 0
+        }
+      ],
+      "records": {
+        "62001": "f8120200021240217800000000000000000000000000af430000000080f0fa02000000000000000000000000000000000000000000000000d86eca03e66eca030000000086b4980200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008c6bbb02d614950200000000000000000000000000000000000000000000000000000000906cbb02000000000000000010276400640000000000000000270000000000000010000000000000ffffffff",
+        "62002": "f9120200001340217800000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000000c6fca03146fca0300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000106dbb02d614950200000000000000000000000000000000446dbb02000000000000000000000000000000000000000010276400640000000000000000280000000000000000000000000000ffffffff",
+        "62003": "fb120200001340217800000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000008e6fca03966fca03000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008c6dbb02d614950200000000000000000000000000000000c06dbb02000000000000000000000000000000000000000010276400640000000000000000290000000000000000000000000000ffffffff",
+        "62004": "e1850100001040223000000000000000f4010000000000000000000014050000000000000000000000000000000000000000000000000000928cbc039e8cbc03000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005a7fac02d614950200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002a0000000000000000000000000000ffffffff"
+      },
+      "capacity": 67,
+      "category77": {
+        "135928": false,
+        "135929": false,
+        "135931": false,
+        "99809": false
+      },
+      "special_mode_level": 0,
+      "bound": {
+        "62001": {
+          "flags4": 557847042,
+          "flags8": 120,
+          "native18": 0,
+          "template_option40": -1,
+          "nativeC": 1,
+          "native10": 0,
+          "native318_present": true,
+          "native318_7BD": false,
+          "template_id": 135928
+        },
+        "62002": {
+          "flags4": 557847296,
+          "flags8": 120,
+          "native18": 0,
+          "template_option40": -1,
+          "nativeC": 1,
+          "native10": 0,
+          "native318_present": true,
+          "native318_7BD": false,
+          "template_id": 135929
+        },
+        "62003": {
+          "flags4": 557847296,
+          "flags8": 120,
+          "native18": 0,
+          "template_option40": -1,
+          "nativeC": 1,
+          "native10": 0,
+          "native318_present": true,
+          "native318_7BD": false,
+          "template_id": 135931
+        },
+        "62004": {
+          "flags4": 574623744,
+          "flags8": 48,
+          "native18": 0,
+          "template_option40": -1,
+          "nativeC": 2,
+          "native10": 0,
+          "native318_present": true,
+          "native318_7BD": false,
+          "template_id": 99809
+        }
+      }
+    },
+    {
+      "items": [
+        {
+          "uid": 62001,
+          "template": 135928,
+          "metadata": 1,
+          "count": 1,
+          "group": 22,
+          "slot": 0
+        },
+        {
+          "uid": 62002,
+          "template": 135929,
+          "metadata": 1,
+          "count": 1,
+          "group": 22,
+          "slot": 1
+        },
+        {
+          "uid": 62003,
+          "template": 135931,
+          "metadata": 1,
+          "count": 1,
+          "group": 22,
+          "slot": 2
+        },
+        {
+          "uid": 62004,
+          "template": 99809,
+          "metadata": 2,
+          "count": 1,
+          "group": 23,
+          "slot": 0
+        }
+      ],
+      "records": {
+        "62001": "f8120200021240217800000000000000000000000000af430000000080f0fa02000000000000000000000000000000000000000000000000d86eca03e66eca030000000086b4980200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008c6bbb02d614950200000000000000000000000000000000000000000000000000000000906cbb02000000000000000010276400640000000000000000270000000000000010000000000000ffffffff",
+        "62002": "f9120200001340217800000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000000c6fca03146fca0300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000106dbb02d614950200000000000000000000000000000000446dbb02000000000000000000000000000000000000000010276400640000000000000000280000000000000000000000000000ffffffff",
+        "62003": "fb120200001340217800000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000008e6fca03966fca03000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008c6dbb02d614950200000000000000000000000000000000c06dbb02000000000000000000000000000000000000000010276400640000000000000000290000000000000000000000000000ffffffff",
+        "62004": "e1850100001040223000000000000000f4010000000000000000000014050000000000000000000000000000000000000000000000000000928cbc039e8cbc03000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005a7fac02d614950200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002a0000000000000000000000000000ffffffff"
+      },
+      "capacity": 67,
+      "category77": {
+        "135928": false,
+        "135929": false,
+        "135931": false,
+        "99809": false
+      },
+      "special_mode_level": 0,
+      "bound": {
+        "62001": {
+          "flags4": 557847042,
+          "flags8": 120,
+          "native18": 0,
+          "template_option40": -1,
+          "nativeC": 1,
+          "native10": 1,
+          "native318_present": true,
+          "native318_7BD": false,
+          "template_id": 135928
+        },
+        "62002": {
+          "flags4": 557847296,
+          "flags8": 120,
+          "native18": 0,
+          "template_option40": -1,
+          "nativeC": 1,
+          "native10": 1,
+          "native318_present": true,
+          "native318_7BD": false,
+          "template_id": 135929
+        },
+        "62003": {
+          "flags4": 557847296,
+          "flags8": 120,
+          "native18": 0,
+          "template_option40": -1,
+          "nativeC": 1,
+          "native10": 1,
+          "native318_present": true,
+          "native318_7BD": false,
+          "template_id": 135931
+        },
+        "62004": {
+          "flags4": 574623744,
+          "flags8": 48,
+          "native18": 0,
+          "template_option40": -1,
+          "nativeC": 2,
+          "native10": 0,
+          "native318_present": true,
+          "native318_7BD": false,
+          "template_id": 99809
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "ok": true,
+  "rows": [
+    {
+      "wire_hex": "000000000000007bfffffe3800000000000000000000000315",
+      "native": {
+        "stage": 0,
+        "grade": 0,
+        "first_count": 0,
+        "second_count": 0
+      }
+    },
+    {
+      "wire_hex": "000000020000007bfffffe3880800000007fffffff00000315",
+      "native": {
+        "stage": 2,
+        "grade": -128,
+        "first_count": -2147483648,
+        "second_count": 2147483647
+      }
+    },
+    {
+      "wire_hex": "000000030000007bfffffe387f00000001ffffffff00000315",
+      "native": {
+        "stage": 3,
+        "grade": 127,
+        "first_count": 1,
+        "second_count": -1
+      }
+    },
+    {
+      "wire_hex": "000000040000007bfffffe38097fffffff0000000100000315",
+      "native": {
+        "stage": 4,
+        "grade": 9,
+        "first_count": 2147483647,
+        "second_count": 1
+      }
+    },
+    {
+      "wire_hex": "800000000000007bfffffe38ff800000008000000000000315",
+      "native": {
+        "stage": -2147483648,
+        "grade": -1,
+        "first_count": -2147483648,
+        "second_count": -2147483648
+      }
+    }
+  ],
+  "original": "Actual installed character_unit writer ->wholeD9B170 ->87B1C5..87B1FB",
+  "scope": "Complete current character wire with controlled25-byte source field. Five signed boundary contexts and distinct untouched neighboring fields establish exact source wire offsets; no file/client change.",
+  "client_changes": 0,
+  "game_process_access": false
+}

@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "rows": [
+    {
+      "control": "HUD-absent-whole-handler",
+      "original": "Whole9BEC10",
+      "returned_false": true,
+      "source_consumers_reached": 0,
+      "Force_unchanged": true,
+      "Force_retained": [
+        900405,
+        6
+      ],
+      "extra_unchanged": true,
+      "ordinary_queries_unchanged": true
+    },
+    {
+      "control": "explicit-ready-source-phase-only",
+      "original": "9BED9C..9BEDF1",
+      "source_consumers": [
+        "0x8f67d0",
+        "0x8fa130",
+        "0x8ffee0",
+        "0x8ffb30"
+      ],
+      "ordinary_queries_unchanged": true,
+      "extra_unchanged": true,
+      "Force_explicit_zero": true,
+      "previous_Force": [
+        900405,
+        6
+      ],
+      "whole_positive_handler_accepted": false
+    }
+  ],
+  "ordinary_queries": 37,
+  "payload_hex": "000000000000000100000000000000000000001600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "payload_sha256": "08419cfa99d696069afc87b9b084f5ab9e9b2e8179b30567de1c8c1bc2e31750",
+  "source_files_sha256": {
+    "skill_state": "1eae1fdd48f1e2d5c1db087cd145e9f537ef9a27ca72f1a78e773f5a6b67f435",
+    "ordinary_pages": "680303b4999db58e7b4a272500f4d6e216e74dc824edf29acc4702a21492bef4"
+  },
+  "readiness_boundary": "Original9BED74..9BED8C requires Game558 and Game558+88 before applying any ordinary-page source. A server packet kind or successful transport write alone does not prove this.",
+  "scope": "Whole negative readiness control and separate positive source phase only. Full positive graphical handler still pending; no skipped guard, client/game writes or new game Hook.",
+  "client_changes": 0,
+  "game_process_access": false,
+  "schema": 1,
+  "owner_uid": 1007,
+  "original_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "private_evidence_sha256": "2b1b20ec19a5590126e7ad543a52ee5459da94c5f70df160c7642b5418addefc",
+  "measurement_limitations": "Actual accepted current484 writer, legally selected295762/900405 rank6 before the message. Whole9BEC10 with absent HUD returns0 and keeps Force6. Separate explicit original9BED9C..9BEDF1 phase clears it, retains37 ordinary queries and extra vector. This is no complete positive graphical484, readiness handshake, all-family or integrated106 acceptance.",
+  "transport_write_does_not_attest_native_readiness": true
+}

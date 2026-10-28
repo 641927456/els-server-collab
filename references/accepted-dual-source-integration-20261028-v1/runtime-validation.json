@@ -1,0 +1,183 @@
+{
+  "format": 1,
+  "ok": true,
+  "scope": "Fresh isolated ONLINE and LOCAL rebuilds from the accepted Git-selected source; temporary private SQLite and TLS only. This is not natural GUI or gameplay acceptance.",
+  "production_actions": 0,
+  "source_changes": 0,
+  "client_changes": 0,
+  "new_hooks": 0,
+  "asset_copy_not_hardlinks": true,
+  "channels": {
+    "online": {
+      "release": "native-skill-source-runtime-20261028-v1",
+      "source_files": 1084,
+      "asset_files": 209,
+      "complete_source_asset_SHA_passed": true,
+      "suite_count": 8,
+      "registered_cases": 45,
+      "passed_cases": 42,
+      "skipped_cases": 3,
+      "suites": [
+        {
+          "test": "test_server_latency_guards.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 13,
+          "skipped": 3
+        },
+        {
+          "test": "test_native_auxiliary_latency.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 4,
+          "skipped": 0
+        },
+        {
+          "test": "test_request_read_scope.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 8,
+          "skipped": 0
+        },
+        {
+          "test": "test_current_native_title_inputs.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 2,
+          "skipped": 0
+        },
+        {
+          "test": "test_retained_native_hp.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 9,
+          "skipped": 0
+        },
+        {
+          "test": "test_native_hero_inputs.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 4,
+          "skipped": 0
+        },
+        {
+          "test": "test_noncharacter_hp_capture.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 3,
+          "skipped": 0
+        },
+        {
+          "test": "test_current_latency_tls.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 2,
+          "skipped": 0
+        }
+      ]
+    },
+    "local": {
+      "release": "local-native-skill-source-runtime-20261028-v1",
+      "source_files": 1109,
+      "asset_files": 209,
+      "complete_source_asset_SHA_passed": true,
+      "suite_count": 8,
+      "registered_cases": 45,
+      "passed_cases": 45,
+      "skipped_cases": 0,
+      "suites": [
+        {
+          "test": "test_server_latency_guards.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 13,
+          "skipped": 0
+        },
+        {
+          "test": "test_native_auxiliary_latency.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 4,
+          "skipped": 0
+        },
+        {
+          "test": "test_request_read_scope.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 8,
+          "skipped": 0
+        },
+        {
+          "test": "test_current_native_title_inputs.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 2,
+          "skipped": 0
+        },
+        {
+          "test": "test_retained_native_hp.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 9,
+          "skipped": 0
+        },
+        {
+          "test": "test_native_hero_inputs.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 4,
+          "skipped": 0
+        },
+        {
+          "test": "test_noncharacter_hp_capture.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 3,
+          "skipped": 0
+        },
+        {
+          "test": "test_current_latency_tls.py",
+          "passed": true,
+          "returncode": 0,
+          "count": 2,
+          "skipped": 0
+        }
+      ]
+    }
+  },
+  "skip_reason": {
+    "channel": "online",
+    "suite": "test_server_latency_guards.py",
+    "cases": 3,
+    "reason": "LOCAL dispatch overlay only; all corresponding LOCAL cases passed."
+  },
+  "native_contract": {
+    "passed": true,
+    "returncode": 0,
+    "count": 8,
+    "skipped": 0,
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229"
+  },
+  "totals": {
+    "registered_cases": 98,
+    "passed_cases": 95,
+    "skipped_cases": 3,
+    "failed_cases": 0
+  },
+  "first_harness_failure": {
+    "kind": "FileExistsError while creating an already materialized tools directory",
+    "business_tests_executed_before_failure": 0,
+    "source_or_production_changes": 0,
+    "corrected_by": "Allow existing QA support directories and use fresh v2 QA output folders; complete rerun passed.",
+    "original_failure_preserved": true
+  },
+  "failed_QA_cleanup": {
+    "attempted": true,
+    "executed": false,
+    "rejected_by": "automatic approval policy",
+    "stated_reason": "blocked by policy",
+    "failed_QA_copy_retained": true,
+    "retry_or_bypass": false,
+    "production_files_affected": 0
+  }
+}
