@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-28",
+  "issue": 607,
+  "PR": 608,
+  "installed_business_source_commit": "a38a11e52eea85b973ae5ab61273e0d848519382",
+  "current_formal_contains_accepted_five_file_fix": true,
+  "already_installed_no_redundant_redeploy": true,
+  "current_channels": {
+    "online": {
+      "release": "native-skill-boundary-20261028-v1",
+      "manifest_sha256": "54c11415ba366df3e4d9deda122732b63460e495fdca362a6006e15f702b514a",
+      "business_files": 1249,
+      "all_SHA_verified": true
+    },
+    "local": {
+      "release": "local-native-skill-boundary-20261028-v1",
+      "manifest_sha256": "fc83c2680b0695f9aaaaf0669cf26a5072e992d803fedea1f23ff14df64e1d37",
+      "business_files": 1274,
+      "all_SHA_verified": true
+    }
+  },
+  "five_retained_files": {
+    "online": {
+      "release": "native-skill-boundary-20261028-v1",
+      "manifest_sha256": "54c11415ba366df3e4d9deda122732b63460e495fdca362a6006e15f702b514a",
+      "files": [
+        {
+          "path": "els_server/protocol/career_messages.py",
+          "sha256": "b410c3bf90023a7e3c4ff7a0d7ff61b6c133adbab693f3f47c984c8798f0dbfb",
+          "byte_identical_to_delivered_Master_fix": true
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "sha256": "af2303933328f1d760a6c1fd4a9319dd13c720b6d83f58da4ee266d4c5122a46",
+          "byte_identical_to_delivered_Master_fix": true
+        },
+        {
+          "path": "els_server/storage/career_shop.py",
+          "sha256": "10be037acda763755072450179718a8f3f77c89a51e4ed38ffa0e84fe6369084",
+          "byte_identical_to_delivered_Master_fix": true
+        },
+        {
+          "path": "els_server/storage/careers.py",
+          "sha256": "39f543740f47cec222d021fb58b0e3b36a2b834943bcdb7ba072fc07e1dd8f94",
+          "byte_identical_to_delivered_Master_fix": true
+        },
+        {
+          "path": "els_server/domain/quest_flow.py",
+          "sha256": "0c09c564c48c758d0c47c6b7ec103a7fe4a1c3640d9fe3d6bdd404f530b97c28",
+          "byte_identical_to_delivered_Master_fix": true
+        }
+      ]
+    },
+    "local": {
+      "release": "local-native-skill-boundary-20261028-v1",
+      "manifest_sha256": "fc83c2680b0695f9aaaaf0669cf26a5072e992d803fedea1f23ff14df64e1d37",
+      "files": [
+        {
+          "path": "els_server/protocol/career_messages.py",
+          "sha256": "b410c3bf90023a7e3c4ff7a0d7ff61b6c133adbab693f3f47c984c8798f0dbfb",
+          "byte_identical_to_delivered_Master_fix": true
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "sha256": "525209ab54feb14792fd9bd0f7b91ad032af3dcc3ca2fbb33a9782cf17944f09",
+          "byte_identical_to_delivered_Master_fix": true
+        },
+        {
+          "path": "els_server/storage/career_shop.py",
+          "sha256": "10be037acda763755072450179718a8f3f77c89a51e4ed38ffa0e84fe6369084",
+          "byte_identical_to_delivered_Master_fix": true
+        },
+        {
+          "path": "els_server/storage/careers.py",
+          "sha256": "39f543740f47cec222d021fb58b0e3b36a2b834943bcdb7ba072fc07e1dd8f94",
+          "byte_identical_to_delivered_Master_fix": true
+        },
+        {
+          "path": "els_server/domain/quest_flow.py",
+          "sha256": "0c09c564c48c758d0c47c6b7ec103a7fe4a1c3640d9fe3d6bdd404f530b97c28",
+          "byte_identical_to_delivered_Master_fix": true
+        }
+      ]
+    }
+  },
+  "local_runtime_files_verified": 1727,
+  "actual_online_all_files_and_running_identity_verified": true,
+  "service_health_verified": true,
+  "signed_V40_unchanged": "76b5e12ea2f7d432ce7757ecd76745c21592eb4081ba9df7fd51d5ebc4930d4c",
+  "original_client_EXE_unchanged": true,
+  "closeout_runtime_changes": 0,
+  "new_client_files": 0,
+  "new_or_expanded_hooks": 0,
+  "mouse_keyboard_focus_commands": 0,
+  "service_restarts": 0,
+  "whole_damage_and_all_skill_effect_acceptance_complete": false,
+  "unverified_boundaries": [
+    "Current title accurate non-overkill damage A/B/A in live dungeon",
+    "Full natural hit, healing, MP and cooldown conditions across all skills"
+  ],
+  "evidence_scope": "Full installed SHA and running identity read-only recheck; five Master fix files byte-identical in each actual successor. Earlier controlled transactions/native consumers remain qualified only within their documented scope. No raw player data, logs or credentials included."
+}
