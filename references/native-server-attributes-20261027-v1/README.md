@@ -351,3 +351,17 @@ the original CRT's SSE fallback because its captured AVX2 dispatch mode selects
 an instruction the emulator cannot execute; executable instructions and
 gameplay returns are unchanged. These weighted sources still need integration
 at each original collector call site before runtime selection.
+
+The four-armor activation producer now passes93 original controls. The4A and
+4E gates require all four non-avatar positions and a nonempty corresponding
+option vector; a vector containing ID0 remains nonempty. Circuit activation50
+requires the four properties without adding that vector gate. Selection order
+and the native first eligible item at each position are retained.
+
+The per-item source factory keeps normal and weighted circuit options separate.
+Eight complete original897290/889A20 wrapper compositions cover both modes,
+missing/all-four activation, and a nonempty initial extended map. Actual current
+circuit grids reproduce every callback ID, order and weight, ordinary fields,
+integer MP and extended maps. Public tests replay the independent circuit
+goldens; the private original compositions also run the current catalog and
+topology. Live source lifecycle and runtime admission remain separate.

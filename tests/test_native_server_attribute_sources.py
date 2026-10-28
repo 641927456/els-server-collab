@@ -1200,6 +1200,68 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
         self.assertEqual(source.values((0,0,4,6)),(0.,0.,0.,0.,110.,0.))
         with self.assertRaises(ValueError):source.values((0,0,0,True))
 
+    def test_four_armor_activation_matches_original_property_and_vector_gates(self):
+        source=module('candidate_armor_option_activation','els_server/domain/native_armor_option_activation.py')
+        golden=json.loads((REFERENCE/'native-armor-option-activation-goldens.json').read_bytes())
+        self.assertEqual(len(golden['rows']),93)
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+        for row in golden['rows']:
+            selected=[];records={}
+            for i,position in enumerate((8,9,10,11)):
+                record=bytearray(232);record[0xd5]=position;records[position]=bytes(record)
+                selected.append(dict(uid=position,flags4=0,
+                    properties=((row['key'],0,0,0,0,0),)if row['mask']&(1<<i)else(),
+                    option_vectors={offset:(0,)if row['vector_mask']&(1<<i)else()for offset in(0x248,0x2a8)}))
+            self.assertEqual(source.flags(tuple(selected),records)[row['key']],row['native'])
+
+    def test_item_source_factory_matches_whole_native_circuit_wrappers(self):
+        import els_server.domain as domain
+        names=('native_power_kernel','native_option_scalar_inputs','native_option_scalar_merge','native_option_data_merge',
+            'native_option_record_merge','native_option_pre_scale','native_option_metadata','native_ordinary_option_subset',
+            'native_option_power_maps','native_option_condition_inputs','native_ordinary_option_power_maps',
+            'native_option_factor_inputs','native_extended_option_inputs','native_extended_option_maps','native_option_max_mp',
+            'native_option_collector','native_dynamic_sets','native_item_option_vectors','native_item_attribute_options',
+            'native_circuit_attribute_inputs','native_item_attribute_sources')
+        with ExitStack()as stack:
+            stack.enter_context(patch.dict(sys.modules))
+            for name in names:
+                source=module('els_server.domain.'+name,'els_server/domain/'+name+'.py')
+                stack.enter_context(patch.object(domain,name,source,create=True))
+            golden=json.loads((REFERENCE/'native-item-circuit-wrapper-goldens-v2.json').read_bytes())
+            circuit=json.loads((REFERENCE/'native-circuit-attribute-inputs-goldens-v3.json').read_bytes())
+            known={(r['part'],tuple(r['grid'])):tuple(map(tuple,r['native']))for r in circuit['rows']if'current_template'in r}
+            self.assertEqual(len(golden['rows']),8)
+            self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+            definitions={int(k):v for k,v in golden['definitions'].items()}
+            def restore(value):
+                if isinstance(value,dict):return {int(k):restore(v)for k,v in value.items()}
+                if isinstance(value,list):return tuple(map(restore,value))
+                return value
+            def encode(values):return [[list(k)if isinstance(k,tuple)else k,v]for k,v in sorted(values.items())]
+            for row in golden['rows']:
+                projected={};callbacks=[];activation={int(k):v for k,v in row['activation'].items()}
+                for item in row['items']:
+                    record=bytes.fromhex(item['record_hex']);v=dict(item['row']);part=record[0xd5]
+                    v['properties']=restore(v['properties']);v['template_options']=tuple(v['template_options']);v['option_vectors']=restore(v['option_vectors'])
+                    projected[v['template_id']]=part
+                    with patch.object(source,'circuit_options',lambda identity,grid:known[projected[identity],tuple(grid)]):
+                        callbacks.extend(source.callbacks(v,record,character_level=99,category77=False,
+                            activation=activation,circuit_state=0,rank_factor=0.))
+                callbacks=tuple(callbacks)
+                self.assertEqual([dict(option_ids=list(s.option_ids),level=s.level,condition_value=s.condition_value,
+                    rank_factor=s.rank_factor,weight=s.weight)for s in callbacks],row['sources'])
+                initial=dict(row['initial']);initial['resistances']=tuple(initial['resistances'])
+                for key in('damage','alternate'):initial[key]={k:v for k,v in initial[key]}
+                actual=domain.native_option_collector.collect_ordinary(callbacks,definitions,**row['args'])
+                actual|=domain.native_option_collector.collect_extended(callbacks,definitions,initial,**row['args'])
+                native=row['native']
+                self.assertEqual(actual['scalars'],{int(k,16):v for k,v in native['scalars'].items()})
+                self.assertEqual(struct.pack('<13f',*actual['data']),struct.pack('<13f',*native['data']))
+                self.assertEqual(actual['integer_MP'],native['integer_MP'])
+                for key in('capabilities','probability','damage','alternate','extended_capabilities'):
+                    self.assertEqual(encode(actual[key]),native[key])
+                self.assertEqual(list(actual['resistances']),native['resistances'])
+
     def test_circuit_weights_match_complete_original_source_and_current_branches(self):
         with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
             source=module('candidate_circuit_attribute_inputs','els_server/domain/native_circuit_attribute_inputs.py')
