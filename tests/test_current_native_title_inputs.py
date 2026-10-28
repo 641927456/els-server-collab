@@ -15,7 +15,9 @@ ASSETS = all((ROOT / p).is_file() for p in (
 class CurrentNativeTitleInputsTests(unittest.TestCase):
     def character(self, unit_type):
         from els_server.storage.characters import BASE_CLASSES
-        return dict(uid=1001, name='TitleFixture', unit_type=unit_type,
+        # This synthetic role belongs to the locked fixture's account1.
+        # Real runtime projections provide the verified SQL owner explicitly.
+        return dict(uid=1001, account_id=1, name='TitleFixture', unit_type=unit_type,
                     unit_class=BASE_CLASSES[unit_type], level=99,
                     transcendence=False, master=False)
 
