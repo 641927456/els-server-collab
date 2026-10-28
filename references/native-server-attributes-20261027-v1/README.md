@@ -514,3 +514,17 @@ options110037/110007 and preserve duplicates from main equipment and this tail.
 Those controls are separately labeled and restored; they do not admit a new
 server item shape or claim a fishing repair. All18 original observations remain
 in a compact portable fixture with three distinct input classes.
+
+A separate delivery cursor now binds one owned selection/scene epoch to written
+server batches. It waits for the actual2A UID and explicit Actor readiness,
+requires the normal55B ownership/order, places needed LuCiel4E3/70B before106, and advances
+only after a complete transport write. Expiry, another batch, relocation,
+replacement, malformed restore and failed/partial write invalidate old plans.
+Six state controls and two actual temporary SQL/current-writer combinations
+pass. The latter use simulated write receipts and an explicitly labeled
+base/zero-power wire control, not a calculated player result. An original
+counterexample shows that repeating the identical55B clears slot0+48 from12.5
+to0 through13A34F0/8F67D0/977EC0. This field's precise UI/cooldown meaning is
+not inferred. The candidate therefore never injects an extra55B as a generic
+prerequisite; incremental131/123 source equivalence still needs a qualified
+ledger before complete mutable-source/runtime admission.
