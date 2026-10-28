@@ -9,6 +9,9 @@ FROZEN_MODE_FIXTURES={
     'launchers/friends-v37/ModeDesign.cs':'833b34b05d207b028b89b0415795a246144f7384a8b26f778d7600de8e1e605a',
     'launchers/friends-v38/ModeDesign.cs':'d2fa60f75a8a4f3c45e759c233ac0f63fb570961203c15c3c69b1855540cefb6',
 }
+FROZEN_RANDOM_PASSWORD_PROGRAMS={
+    'launchers/friends-v41/Program.cs':'6daceeda897578c71bfb56e16c945f8784d042da3bfb8c9c8e2ab2433605ae0f',
+}
 CREDENTIAL=re.compile(r'''(?i)(?:["']?(password|passwd|token|access_token|refresh_token|auth_token|api_key|admin_key|management_key|ssh_password)["']?\s*[:=]\s*["'])([^"'\r\n]{8,})''')
 PEM=re.compile(r'(?m)^-----BEGIN (?:RSA |EC |DSA |OPENSSH |ENCRYPTED )?PRIVATE KEY-----\s*$')
 
@@ -28,6 +31,9 @@ def violations(name,data):
     for match in CREDENTIAL.finditer(text):
         field,value=match.groups()
         if field.lower() in {'password','passwd'} and name in SYNTHETIC_PASSWORD_TESTS:continue
+        if (field.lower()=='password' and value=='Fixture-Only-'
+                and FROZEN_RANDOM_PASSWORD_PROGRAMS.get(name)==hashlib.sha256(data).hexdigest()
+                and text[match.end():].startswith('"+Guid.NewGuid().ToString("N"),name="proof_password";')):continue
         # The released C# self-test generates a fresh random fixture value.
         # Permit only this exact non-secret prefix/context; other literals in
         # the same file still fail the guard.

@@ -1,0 +1,195 @@
+{
+  "format": 1,
+  "issue": 618,
+  "V": 41,
+  "parent_V": 40,
+  "parent_launcher_sha256": "76b5e12ea2f7d432ce7757ecd76745c21592eb4081ba9df7fd51d5ebc4930d4c",
+  "parent_payload_sha256": "c375f3cd941699884ac9e39bd4aae7f9a9bbe35e41f8f5ef15279d4d6b1fb594",
+  "sources": [
+    {
+      "path": "app.manifest",
+      "source": "launchers/friends-v29/app.manifest",
+      "sha256": "d4d7d50428164a07c846f20387b19e213aeb090112973435e56d6305d70a5f48",
+      "size": 594
+    },
+    {
+      "path": "AutoUpdate.cs",
+      "source": "launchers/friends-v41/AutoUpdate.cs",
+      "sha256": "e29c6ad2af02fe7d4e3649517da1b4c1fdf7e8017365ef86aa9219ebdfd34527",
+      "size": 16019
+    },
+    {
+      "path": "ComponentRuntime.cs",
+      "source": "launchers/friends-v31/ComponentRuntime.cs",
+      "sha256": "b4202753422be43ec507355934ec1ff65bc21415b257aa29052ab9f0fd502def",
+      "size": 17937
+    },
+    {
+      "path": "DesignProof.cs",
+      "source": "launchers/friends-v37/DesignProof.cs",
+      "sha256": "2030d1051711bbdf701f94f67ccce2360aa40b94c34c8ab826b6f596313fc6d9",
+      "size": 6503
+    },
+    {
+      "path": "Diagnostics.cs",
+      "source": "launchers/friends-v31/Diagnostics.cs",
+      "sha256": "5b4ee569ae520478c8d48587585c444955c56e2cb678d4270010dac1bffcef91",
+      "size": 19122
+    },
+    {
+      "path": "GitUpdate.cs",
+      "source": "launchers/friends-v38/GitUpdate.cs",
+      "sha256": "51b173836f060b3c8bc98e0e639f1ee202175ce02d54244c0c2010d7f7456d35",
+      "size": 6545
+    },
+    {
+      "path": "LauncherBootstrapDiagnostics.cs",
+      "source": "launchers/friends-v31/LauncherBootstrapDiagnostics.cs",
+      "sha256": "fd7f9205254b7a0782f75fa378f29c1a0f7aeb4dc8ec73faab8016ae5470ff09",
+      "size": 11644
+    },
+    {
+      "path": "LocalInstall.cs",
+      "source": "launchers/friends-v38/LocalInstall.cs",
+      "sha256": "3f0790981b9afc315bc645d64570143e87307ab395983e41ae998b044921799f",
+      "size": 3413
+    },
+    {
+      "path": "LocalMode.cs",
+      "source": "launchers/friends-v37/LocalMode.cs",
+      "sha256": "4cb76d34a83715e5bf8b783c2032c5fc88343cc95c4a310d4acb6772a0d1d6d6",
+      "size": 8473
+    },
+    {
+      "path": "local_updater.py",
+      "source": "launchers/friends-v38/local_updater.py",
+      "sha256": "c976b8c28c85d54b128ac0943e1abf20969859c5139b7e3b5ece98bead049fc2",
+      "size": 30883
+    },
+    {
+      "path": "MainDesign.cs",
+      "source": "launchers/friends-v37/MainDesign.cs",
+      "sha256": "7e4cbb55cc13d6b814f6ddc1effa9cc85b41ac5a110b3d2785811891226a7ceb",
+      "size": 14242
+    },
+    {
+      "path": "ModeDesign.cs",
+      "source": "launchers/friends-v38/ModeDesign.cs",
+      "sha256": "d2fa60f75a8a4f3c45e759c233ac0f63fb570961203c15c3c69b1855540cefb6",
+      "size": 15234
+    },
+    {
+      "path": "MotionControls.cs",
+      "source": "launchers/friends-v37/MotionControls.cs",
+      "sha256": "5ff650028b1d709cf7bcdc018d87c58b201505c42ff4c23858046eadf2c92418",
+      "size": 17385
+    },
+    {
+      "path": "Program.cs",
+      "source": "launchers/friends-v41/Program.cs",
+      "sha256": "6daceeda897578c71bfb56e16c945f8784d042da3bfb8c9c8e2ab2433605ae0f",
+      "size": 68547
+    },
+    {
+      "path": "RegisterDesign.cs",
+      "source": "launchers/friends-v29/RegisterDesign.cs",
+      "sha256": "f6ab27e3eb201b81193de7141adaede3190b0c362e3ce392a3cd0f9e4a88934f",
+      "size": 3752
+    },
+    {
+      "path": "runtime-files.signed.json",
+      "source": "launchers/friends-v41/runtime-files.signed.json",
+      "sha256": "ac5090de7111b87b613a8f4f0a4423010f1029c7f780dee4670b4832ddefdee6",
+      "size": 333221
+    }
+  ],
+  "external_retained_resources": [
+    {
+      "path": "assets/ruben.png",
+      "sha256": "190d47330f4cc12bb74c6dc32b4c3eec21d3604eb8cf8d020cee17705de99654",
+      "size": 2030054,
+      "retained_parent_launcher_sha256": "76b5e12ea2f7d432ce7757ecd76745c21592eb4081ba9df7fd51d5ebc4930d4c",
+      "managed_resource_name": "ElsFriends.Ruben",
+      "source_kind": "Exact retained resource from the publicly signed V40 EXE, not a new image or a game KOM asset"
+    }
+  ],
+  "exact_constant_inverses": [
+    {
+      "path": "Program.cs",
+      "current": "d3667de9d834443d315be748b917c80158e009f18818569943494b7296e7ca6c",
+      "parent": "c375f3cd941699884ac9e39bd4aae7f9a9bbe35e41f8f5ef15279d4d6b1fb594",
+      "parent_sha256": "ab60b664a3a47a4716fe6d451e9973f8d81f78f7b932dce244e54f1e3cdab02b"
+    },
+    {
+      "path": "AutoUpdate.cs",
+      "current": "Version = 41;",
+      "parent": "Version = 40;",
+      "parent_sha256": "fe48eae95504368e15ced5e7ce6c4cac7a45d6bd5d6ee260cc373134402cdb94"
+    }
+  ],
+  "runtime_support": [
+    {
+      "path": "tools/local_ed_shop_bridge.js",
+      "source": "references/native-shop-flow-20261029-v1/runtime-support/tools/local_ed_shop_bridge.js",
+      "sha256": "265c17972fd3123b7873242fe44e7e270e97c76d046a7d32a42389d549ea771f",
+      "size": 25390,
+      "LOCAL_parent_sha256": "8a3e3691e0cdfbedf3d51561dc8e2e23347e83a5102561f5ce9bcca76d2e6d3f"
+    },
+    {
+      "path": "tools/install_ed_shop_bridge.py",
+      "source": "references/native-shop-flow-20261029-v1/runtime-support/tools/install_ed_shop_bridge.py",
+      "sha256": "68de1f5112e4800a469d64158d1672315809cc81a95a789e014af5acc6247780",
+      "size": 6335,
+      "LOCAL_parent_sha256": "5fa98c0c58cf34ba8b0a60e351d607201470535fd45149b0ddd4372fa768a6ba"
+    },
+    {
+      "path": "tools/ed_shop_catalogs.json",
+      "source": "references/native-shop-flow-20261029-v1/runtime-support/tools/ed_shop_catalogs.json",
+      "sha256": "f945ff234f4de4378749bd08e491055edd29955646d5a050d8da0427aed6d9b4",
+      "size": 847021,
+      "LOCAL_parent_sha256": null
+    }
+  ],
+  "public_artifacts": {
+    "launcher": {
+      "sha256": "3a511f514fbe8c0bd494db4024c8a05e57173412c7d62cdea2ddd6f5060be2e3",
+      "size": 2998784,
+      "public_file": "v41-3a511f514fbe8c0b.exe"
+    },
+    "latest": {
+      "sha256": "c2ba6248d9d32d3bcbfa55d8b949c25aed4a5edfd77281a53dff840c7b5ffb98",
+      "source": "references/native-shop-flow-20261029-v1/latest.signed.json"
+    },
+    "runtime_archive": {
+      "sha256": "d3667de9d834443d315be748b917c80158e009f18818569943494b7296e7ca6c",
+      "size": 162286475,
+      "public_file": "runtime-d3667de9d834443d315be748b917c80158e009f18818569943494b7296e7ca6c.zip"
+    },
+    "signed_components": {
+      "sha256": "ac5090de7111b87b613a8f4f0a4423010f1029c7f780dee4670b4832ddefdee6"
+    },
+    "component_manifest": {
+      "sha256": "b41709161e7e54f265b41b6e530811f53f52d5b485389df8532d4ff528d81445",
+      "source": "references/native-shop-flow-20261029-v1/runtime-files.json"
+    }
+  },
+  "component_backend": "online",
+  "runtime_files": 1764,
+  "actual_current_parents": {
+    "online": {
+      "release": "native-force-guild-flow-20261029-v1",
+      "manifest_sha256": "27f50191576458093a2f3fd84c64a1f05fd517ab567cf32651b2817e2b0a0f13"
+    },
+    "local": {
+      "release": "local-native-force-guild-flow-20261029-v1",
+      "manifest_sha256": "6f3c203edc2cefbd1dd94f4d4bb07a696d2c74711af6ab9468014fce3353226a"
+    }
+  },
+  "new_hook_sites": [
+    "0x313ABCE"
+  ],
+  "private_key_or_test_fixtures_included": false,
+  "native_GUI_verified": false,
+  "public_fresh_V41_download_verified": false,
+  "formally_published": false
+}
