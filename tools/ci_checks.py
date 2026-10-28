@@ -139,6 +139,7 @@ def main(argv=None):
     if (ROOT/'references/native-skill-source-runtime-20261028-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_native_skill_sources_runtime_20261028.py')])
         run([sys.executable,'-B','-m','unittest','tests.test_native_session_sources'])
+    run([sys.executable,'-B',str(ROOT/'tools/verify_current_consumables_phase_20261028.py')])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0

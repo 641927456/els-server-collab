@@ -38,6 +38,11 @@ def violations(name,data):
         # in the exact frozen whole-file bytes; edits require a fresh review.
         if (field.lower()=='token' and value=='fixture-token-only'
                 and FROZEN_MODE_FIXTURES.get(name)==hashlib.sha256(data).hexdigest()):continue
+        # Four historical uuid4 message-correlation IDs, never credentials.
+        # Exact path, whole-file and value hashes only; edited literals fail.
+        if (field.lower()=='token' and name=='references/current-obtainable-consumables-phase-20261028-v1/source/4980b900c7473042644be0623b8e0967436fd420b8ee11a5a85b8bcab63d0348/native-ui-acceptance.json'
+                and hashlib.sha256(data).hexdigest()=='4980b900c7473042644be0623b8e0967436fd420b8ee11a5a85b8bcab63d0348'
+                and hashlib.sha256(value.encode()).hexdigest()in {'41f3be4b137bf035cf0eb05c0e32ebe0e787ced16abc8e24dc413dba763b79c5', '5d21f0d0603df055a8847839b1eceba1f73b080f07bb0f64ef8cf9ce39a36334', 'ff4098f6f8153a26a372f0f0f76c9a1bfce9968d0a99070ddff78125ed35dd68', 'a8ebd6ee9ff4591d4a4e0e7bcf31b8556dc8b6d547324b08fa61f0af763c0ba9'}):continue
         if value.lower() in {'placeholder','replace_me','your_token_here','example_only'}:continue
         errors.append('literal credential candidate; review required');break
     return errors
