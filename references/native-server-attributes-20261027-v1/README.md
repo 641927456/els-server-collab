@@ -482,3 +482,16 @@ their own selection. Both mode0 complete power kernels match all arguments and
 both outputs. The initial attempt to invent identification on other costumes
 was rejected by the installed inventory validator and remains a failed fixture;
 no validation gate was bypassed. Complete live source integration is still next.
+
+The actual accepted online/LOCAL local_messages writer is now archived with a
+shared character_unit_fields projector. Its exact AST inverse equals both
+accepted parent sources, preserving all existing branches and output ordering.
+All195 careers at three controlled levels and both initialization flags retain
+the parent's1170 wire hashes with real resources. The source context also reads
+the actual emitted base/title/profile/PvE/named/ERP fields, verifies the original
+capture digest, and rejects mutation or mismatching authority. Two temporary
+real-store generations pass without reader writes and are removed afterward.
+Source CI checks the exact refactor and failure boundaries without requiring
+the intentionally untracked runtime catalog; it does not relabel those checks
+as another1170 real-resource runs. The independent world/Actor/source-group
+lifecycles and runtime source factory are not implied by this copy boundary.
