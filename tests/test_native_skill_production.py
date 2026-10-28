@@ -113,7 +113,9 @@ class SkillProductionTests(unittest.TestCase):
 
     def test_all_writer_deltas_preserve_each_channel_parent_exactly(self):
         binding=json.loads((A/'native-skill-production-writer-binding.json').read_bytes())
-        self.assertEqual(len(binding['rows']),22)
+        self.assertEqual(binding['version'],4)
+        self.assertEqual(len(binding['rows']),20)
+        self.assertTrue(all(row['source_before_sha256']==row['parent_sha256']for row in binding['rows']))
         for dependency in binding['dependencies']:
             self.assertFalse(dependency['runtime_delta'])
             self.assertEqual(hashlib.sha256((A/dependency['path']).read_bytes()).hexdigest(),dependency['sha256'])

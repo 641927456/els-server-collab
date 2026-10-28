@@ -188,14 +188,16 @@ class SkillDeliverySourcesTests(unittest.TestCase):
             if filename=='ordinary_skill_pages.py':
                 binding=json.loads((PATH.parents[2]/'native-skill-production-writer-binding.json').read_bytes())
                 row=next(r for r in binding['rows']if r['channel']=='online'and r['path']=='domain/'+filename)
+                newline=b'\r\n'if b'\r\n'in raw else b'\n'
                 for before,after in reversed(row['changes']):
-                    self.assertEqual(raw.count(after.encode()),1)
-                    raw=raw.replace(after.encode(),before.encode())
+                    encoded_after=after.encode().replace(b'\n',newline)
+                    encoded_before=before.encode().replace(b'\n',newline)
+                    self.assertEqual(raw.count(encoded_after),1)
+                    raw=raw.replace(encoded_after,encoded_before)
                 self.assertEqual(hashlib.sha256(raw).hexdigest(),row['source_before_sha256'])
             self.assertEqual(raw.count(new),1)
             inverse=raw.replace(new,old,1)
-            if filename=='ordinary_skill_pages.py':
-                self.assertNotIn(b'\r',raw)
+            if filename=='ordinary_skill_pages.py'and b'\r\n'not in inverse:
                 inverse=inverse.replace(b'\n',b'\r\n')
             self.assertEqual(hashlib.sha256(inverse).hexdigest(),parent_sha)
 

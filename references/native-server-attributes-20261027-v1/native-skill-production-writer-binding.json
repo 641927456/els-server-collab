@@ -1,46 +1,16 @@
 {
-  "version": 3,
+  "version": 4,
   "parents": {
     "online": {
-      "path": "releases/online/native-master-current-skills-20261028-v1",
-      "manifest_sha256": "f0640d58645e6b590ee349cc5ff03de994f791637798664766210ef482d671e4"
+      "path": "releases/online/native-skill-boundary-20261028-v1",
+      "manifest_sha256": "54c11415ba366df3e4d9deda122732b63460e495fdca362a6006e15f702b514a"
     },
     "local": {
-      "path": "releases/local/local-native-master-current-skills-20261028-v1",
-      "manifest_sha256": "5bea4368e2cd1056aedc5e828f384824eb0ffaa7addae110056e085f9b91f39b"
+      "path": "releases/local/local-native-skill-boundary-20261028-v1",
+      "manifest_sha256": "fc83c2680b0695f9aaaaf0669cf26a5072e992d803fedea1f23ff14df64e1d37"
     }
   },
   "rows": [
-    {
-      "channel": "online",
-      "path": "domain/owned_growth_items.py",
-      "parent_sha256": "e6b216a0c9557fbde999c840fa9dd06079d0c7ed4d6ac3f8356cd9a3fac49f5b",
-      "source_before_sha256": "e6b216a0c9557fbde999c840fa9dd06079d0c7ed4d6ac3f8356cd9a3fac49f5b",
-      "candidate_sha256": "49535f7bb763c19c0e26819c3d4ac1a216b6172c9587a941c0681626b2f3bf76",
-      "candidate_path": "els_server/domain/owned_growth_items.py",
-      "changes": [
-        [
-          "        register()\n        _installed=True",
-          "        register()\n        from els_server.domain.boosting_2026_force_extraction import register as register_extraction\n        register_extraction()\n        _installed=True"
-        ]
-      ],
-      "exact_inverse": true
-    },
-    {
-      "channel": "local",
-      "path": "domain/owned_growth_items.py",
-      "parent_sha256": "e6b216a0c9557fbde999c840fa9dd06079d0c7ed4d6ac3f8356cd9a3fac49f5b",
-      "source_before_sha256": "e6b216a0c9557fbde999c840fa9dd06079d0c7ed4d6ac3f8356cd9a3fac49f5b",
-      "candidate_sha256": "49535f7bb763c19c0e26819c3d4ac1a216b6172c9587a941c0681626b2f3bf76",
-      "candidate_path": "els_server/domain/owned_growth_items.py",
-      "changes": [
-        [
-          "        register()\n        _installed=True",
-          "        register()\n        from els_server.domain.boosting_2026_force_extraction import register as register_extraction\n        register_extraction()\n        _installed=True"
-        ]
-      ],
-      "exact_inverse": true
-    },
     {
       "channel": "online",
       "path": "domain/boosting_2026_force_inventory.py",
@@ -316,9 +286,9 @@
     {
       "channel": "online",
       "path": "domain/ordinary_skill_pages.py",
-      "parent_sha256": "5f0feff562b21efafae491013864c74321a9ff5ee385135d393b8b6ff5d079df",
-      "source_before_sha256": "229f850d5ec43acca0c75defe20219a0a1bc5af1f7d994b689140a780dfc87f2",
-      "candidate_sha256": "0ca0200113793405af5b7807aacff21e58687af360b061ad3c6d7cc3e90dc720",
+      "parent_sha256": "680303b4999db58e7b4a272500f4d6e216e74dc824edf29acc4702a21492bef4",
+      "source_before_sha256": "680303b4999db58e7b4a272500f4d6e216e74dc824edf29acc4702a21492bef4",
+      "candidate_sha256": "3cda65445fe4423a7213c6ab3231351da63bf1ce1fd9a0aa3e0a44b748ecf736",
       "candidate_path": "els_server/domain/ordinary_skill_pages.py",
       "changes": [
         [
@@ -331,9 +301,9 @@
     {
       "channel": "local",
       "path": "domain/ordinary_skill_pages.py",
-      "parent_sha256": "5f0feff562b21efafae491013864c74321a9ff5ee385135d393b8b6ff5d079df",
-      "source_before_sha256": "229f850d5ec43acca0c75defe20219a0a1bc5af1f7d994b689140a780dfc87f2",
-      "candidate_sha256": "0ca0200113793405af5b7807aacff21e58687af360b061ad3c6d7cc3e90dc720",
+      "parent_sha256": "680303b4999db58e7b4a272500f4d6e216e74dc824edf29acc4702a21492bef4",
+      "source_before_sha256": "680303b4999db58e7b4a272500f4d6e216e74dc824edf29acc4702a21492bef4",
+      "candidate_sha256": "3cda65445fe4423a7213c6ab3231351da63bf1ce1fd9a0aa3e0a44b748ecf736",
       "candidate_path": "els_server/domain/ordinary_skill_pages.py",
       "changes": [
         [
