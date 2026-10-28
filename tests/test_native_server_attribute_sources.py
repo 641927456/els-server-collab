@@ -1492,5 +1492,35 @@ class NativeServerAttributeSourceTests(unittest.TestCase):
                         mode=args['mode'],resonance_level=args['resonance_level'],unit_line=args['unit_line'])
                     self.assertEqual(struct.pack('<f',result['fixed_HP']),struct.pack('<f',row['native']))
 
+    def test_native_side_pair_keeps_selectors_separate_from_phase_mode(self):
+        with patch.dict(sys.modules,{'els_server.domain.native_power_kernel':self.power}):
+            source=module('candidate_native_attribute_sides','els_server/domain/native_attribute_sides.py')
+        golden=json.loads((REFERENCE/'native-luciel-side-pair-goldens-v2.json').read_bytes())
+        self.assertEqual(golden['classes'],13)
+        self.assertEqual(golden['source_sha256'],hashlib.sha256(Path(source.__file__).read_bytes()).hexdigest())
+        expected=dict(owner_uid=1,unit_type=10,unit_class=200,generation=7,source_sha256='0'*64,pvp_mode=0,at=1793000000)
+        for row in golden['rows']:
+            args=dict(expected,unit_class=row['class_id'])
+            sides=tuple(source.CalculatedSide(1,10,row['class_id'],7,'0'*64,v['selector'],v['pvp_mode'],tuple(v['seven']),tuple(v['power']),None)for v in row['sides'])
+            actual=source.notification_sides(*sides,**args)
+            self.assertEqual(actual['first_seven'],sides[0].seven)
+            self.assertEqual(actual['second_seven'],sides[1].seven)
+            self.assertNotEqual(actual['first_seven'],actual['second_seven'])
+            self.assertEqual(struct.pack('<f',actual['power']),struct.pack('<f',row['native_cache_power']))
+        first,second=sides;expected['unit_class']=first.unit_class
+        for field,value in(('owner_uid',2),('owner_uid',True),('unit_type',5),('unit_class',1),
+            ('generation',8),('source_sha256','1'*64),('pvp_mode',1),('selector',0),('valid_before',1793000000)):
+            with self.subTest(field=field,value=value),self.assertRaises(ValueError):
+                source.notification_sides(first,replace(second,**{field:value}),**expected)
+        with self.assertRaises(ValueError):source.notification_sides(first,None,**expected)
+        normal=replace(first,unit_type=5,unit_class=164)
+        args=dict(expected,unit_type=5,unit_class=164)
+        self.assertEqual(source.notification_sides(normal,None,**args)['second_seven'],normal.seven)
+        with self.assertRaises(ValueError):source.notification_sides(normal,second,**args)
+        for row in golden['max_controls']:
+            a=replace(first,power=(row['first'],0.));b=replace(second,power=(row['second'],0.))
+            actual=source.notification_sides(a,b,**expected)['power']
+            self.assertEqual(struct.pack('<f',actual).hex(),row['native_bits'])
+
 
 if __name__=='__main__':unittest.main()

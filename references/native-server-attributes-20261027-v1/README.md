@@ -46,7 +46,17 @@ The mode byte in these arithmetic comparisons is separate from the equipment
 side selector. Original106's two final vectors populate the two side caches;
 they must not be filled with PvE/PvP results. Non-LuCiel production uses the same
 first result for both. LuCiel selector0/1 and its active/default-side transitions
-are being verified independently before wiring the notification producer.
+are verified independently before wiring the notification producer. The source
+comparison now covers all13 current LuCiel classes, actual asymmetric admitted
+costumes85926/85945 and canonical Unit/55B initialization. Both distinct source
+vectors and originalC2C87F..C2C88D maximum-power aggregation agree. The typed
+side assembler rejects mixed owner/class/session generation/source digest,
+phase modes and expired sources; single-role packets explicitly reuse side0.
+An additional wholeBAA6F0 check on a canonical base LuCiel verifies both caches
+and actual Actor seven across all six style/active combinations, wrong-owner
+rejection and current HP/MP preservation. Its original990090 stat record is9A0,
+distinct from the ordinary Actor's970 record. These controlled constructor and
+consumer checks do not replace natural startup/gameplay acceptance.
 
 `native_attribute_messages.py` encodes the complete original106 grammar.
 `native_equipment_attributes.py` includes the original post-enhancement reforge
