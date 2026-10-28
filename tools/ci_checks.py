@@ -17,6 +17,8 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'references/pr597-takeover-20261028-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr597_takeover.py')])
     if (ROOT/'references/native-modern-auto-learning-20261027-v1/manifest.json').is_file():
         run([sys.executable,'-B','-m','unittest','tests.test_modern_auto_learning'])
     if (ROOT/'references/pr597-remaining-20261027-v2/qualified-validation.json').is_file():
@@ -167,6 +169,8 @@ def main(argv=None):
     assert decode_event(frame.plaintext)==event
 
     if args.with_runtime:
+        if (ROOT/'references/pr597-takeover-20261028-v1/manifest.json').is_file():
+            run([sys.executable,'-B',str(ROOT/'tools/verify_pr597_takeover.py'),'--with-runtime'])
         if (ROOT/'channels/server-latency-guards-20261027-v1.json').is_file():
             run([sys.executable,'-B',str(ROOT/'tools/verify_server_latency_guards.py'),'--with-runtime'])
 
