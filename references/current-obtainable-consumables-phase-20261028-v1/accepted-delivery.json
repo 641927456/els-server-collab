@@ -1,0 +1,48 @@
+{
+  "ok": true,
+  "at": "2026-10-28T14:01:56.336455+00:00",
+  "scope": "Qualified current-obtainable consumable server phase; unqualified warehouse candidates excluded",
+  "actual": {
+    "online": {
+      "release": "current-obtainable-consumables-phase-20261028-v1",
+      "formal_manifest_sha256": "b51c69ab9b015e9e5537804321590e10a6adf54da2d04baf94e0662c2a6a40f9"
+    },
+    "local": {
+      "release": "local-current-obtainable-consumables-phase-20261028-v1",
+      "formal_manifest_sha256": "e872e2a7336e8cbce67d0a087437e3381610d3f3a7c99f7f0a6d4ad982fa1c55"
+    }
+  },
+  "observations": {
+    "online": 121.51323479996063,
+    "local": 123.1564605999738
+  },
+  "counts": {
+    "online": {
+      "business_files": 1287,
+      "source_files": 1078,
+      "locked_resources": 209,
+      "delta_files": 80
+    },
+    "local": {
+      "business_files": 1312,
+      "source_files": 1103,
+      "locked_resources": 209,
+      "delta_files": 80
+    }
+  },
+  "local_runtime_files": 1765,
+  "client_changes": 0,
+  "new_hooks": 0,
+  "phase_source_leaves": 80,
+  "new_client_files": 0,
+  "public_first_cold_protocol_QA": true,
+  "public_QA_does_not_claim_natural_GUI": true,
+  "local_bundle_header_corrected_before_install": true,
+  "final80_private_App_sources_and_cold_restore_verified": true,
+  "completion_sha256": "2ede5765cf99204226b31f2ae0de6f16fbece9650adaf7db4186fd81ec38682d",
+  "independent_verification_sha256": "15e0aa196ad06fb0f62ceaa43a00c4af34e6a9957bee71cb15f7f25f0ed6ec77",
+  "source_code_commit": "d87884f42c6a825225a9070f629c70a1e73c8765",
+  "source_PR": 610,
+  "PR_merge_not_claimed": true,
+  "player_database_restore": false
+}

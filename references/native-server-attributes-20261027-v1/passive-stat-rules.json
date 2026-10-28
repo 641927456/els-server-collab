@@ -1,0 +1,1225 @@
+{
+  "schema": 1,
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "source_decompiler_sha256": "2ac1f7c2c3caa21e104a2bb66529626eb297ff87eae4b12e5c95e33c0ce8b05a",
+  "original_function": "8978C0",
+  "rules": [
+    {
+      "skill": 2411,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "ratio",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": false
+        }
+      ]
+    },
+    {
+      "skill": 7407,
+      "operations": [
+        {
+          "target": 5,
+          "basis": 5,
+          "operation": "add",
+          "transform": "ratio",
+          "scale_precision": "float",
+          "parameter": "SA_DEF_PHYSIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": false
+        },
+        {
+          "target": 6,
+          "basis": 5,
+          "operation": "add",
+          "transform": "ratio",
+          "scale_precision": "float",
+          "parameter": "SA_DEF_MAGIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": false
+        }
+      ]
+    },
+    {
+      "skill": 106,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "ratio",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": false
+        },
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "ratio",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": false
+        },
+        {
+          "target": 5,
+          "basis": 5,
+          "operation": "add",
+          "transform": "ratio",
+          "scale_precision": "float",
+          "parameter": "SA_DEF_PHYSIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": false
+        },
+        {
+          "target": 6,
+          "basis": 6,
+          "operation": "add",
+          "transform": "ratio",
+          "scale_precision": "float",
+          "parameter": "SA_DEF_MAGIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": false
+        }
+      ]
+    },
+    {
+      "skill": 33413,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 524,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "double_then_float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "unit",
+          "default": 0.0
+        },
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "double_then_float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "unit",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 900402,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_REL",
+          "reader": "raw_named",
+          "default": 0.0,
+          "negate": true
+        },
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_REL",
+          "reader": "raw_named",
+          "default": 0.0,
+          "negate": true
+        }
+      ]
+    },
+    {
+      "skill": 21409,
+      "operations": [
+        {
+          "target": 6,
+          "basis": 6,
+          "operation": "assign",
+          "transform": "identity",
+          "scale_precision": "float",
+          "parameter": "SA_DEF_MAGIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": false
+        }
+      ]
+    },
+    {
+      "skill": 21408,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "ratio",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": false
+        }
+      ]
+    },
+    {
+      "skill": 21429,
+      "operations": [
+        {
+          "target": 6,
+          "basis": 6,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_DEF_MAGIC_REL",
+          "reader": "named",
+          "default": 1.0,
+          "rank_override": 21429
+        }
+      ]
+    },
+    {
+      "skill": 24405,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": true
+        }
+      ]
+    },
+    {
+      "skill": 26402,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "ratio",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0,
+          "rank_override": 26402
+        }
+      ]
+    },
+    {
+      "skill": 31417,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": true
+        },
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": true
+        }
+      ]
+    },
+    {
+      "skill": 25414,
+      "operations": [
+        {
+          "target": 5,
+          "basis": 5,
+          "operation": "add",
+          "transform": "ratio",
+          "scale_precision": "float",
+          "parameter": "SA_DEF_PHYSIC_REL",
+          "reader": "unit",
+          "default": 1.0
+        },
+        {
+          "target": 6,
+          "basis": 5,
+          "operation": "add",
+          "transform": "ratio",
+          "scale_precision": "float",
+          "parameter": "SA_DEF_MAGIC_REL",
+          "reader": "unit",
+          "default": 1.0
+        }
+      ]
+    },
+    {
+      "skill": 21405,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": true
+        }
+      ]
+    },
+    {
+      "skill": 22408,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": true
+        }
+      ]
+    },
+    {
+      "skill": 23400,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": true
+        }
+      ]
+    },
+    {
+      "skill": 27406,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "direct",
+          "default": 0.0,
+          "phase_pvp": true
+        }
+      ]
+    },
+    {
+      "skill": 27401,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 27411,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 33401,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 33419,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 21410,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 25403,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 25405,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 25414,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 29407,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 34402,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 34401,
+      "operations": [
+        {
+          "target": 5,
+          "basis": 5,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_DEF_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0,
+          "rank_override": 34401
+        },
+        {
+          "target": 6,
+          "basis": 5,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_DEF_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0,
+          "rank_override": 34401
+        }
+      ]
+    },
+    {
+      "skill": 34411,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 34419,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 21430,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 25428,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 31405,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 32402,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 22424,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 28400,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 28405,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 28413,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 29402,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 22419,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 24431,
+      "operations": [
+        {
+          "target": 5,
+          "basis": 5,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_DEF_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0,
+          "rank_override": 24431
+        },
+        {
+          "target": 6,
+          "basis": 6,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_DEF_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0,
+          "rank_override": 24431
+        }
+      ]
+    },
+    {
+      "skill": 24432,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 21427,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 22406,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 23404,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 23417,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 24407,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 24421,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 26406,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 26410,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 29426,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 30402,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 30407,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 30426,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 31411,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 31413,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 32408,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 32414,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 27428,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 30429,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 23424,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 33428,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 29429,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 28432,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 28434,
+      "operations": [
+        {
+          "target": 5,
+          "basis": 5,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_DEF_PHYSIC_REL",
+          "reader": "named",
+          "default": 1.0,
+          "rank_override": 28434
+        },
+        {
+          "target": 6,
+          "basis": 6,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_DEF_MAGIC_REL",
+          "reader": "named",
+          "default": 1.0,
+          "rank_override": 28434
+        }
+      ]
+    },
+    {
+      "skill": 26427,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 32426,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 34428,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 35401,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 35410,
+      "operations": [
+        {
+          "target": 1,
+          "basis": 1,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_PHYSIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 35424,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    },
+    {
+      "skill": 35428,
+      "operations": [
+        {
+          "target": 2,
+          "basis": 2,
+          "operation": "add",
+          "transform": "percent",
+          "scale_precision": "float",
+          "parameter": "SA_ATK_MAGIC_REL",
+          "reader": "named",
+          "default": 0.0
+        }
+      ]
+    }
+  ],
+  "qualification": "Original scalar phase verified in explicit controlled contexts; live source/consumer integration is separate"
+}

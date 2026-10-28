@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "at": "2026-10-28T13:03:34.900405+00:00",
+  "source_sha256": {
+    "domain/native_attribute_readiness.py": "03053c8f274a4ce5b1a00023fe842276e5555ca22b71639b8686a95ff7415a3f",
+    "domain/native_attribute_delivery.py": "183abb325aaa8f8e798f091c940136d1e9dd9dae5dd37d77a96996667998e492",
+    "domain/native_skill_production.py": "8892fa643b3d12565c46d474770d2c8954cb235a317dc90d10a8f5dcdfa14562",
+    "domain/native_skill_delivery_sources.py": "66a82bd3ac41368acdd9443a27d9b3138cdc801a7198e29ac5b14e9aaae866ec"
+  },
+  "actual_private_App": [
+    {
+      "evidence_sha256": "cda1101247ae2ee3d9b4def1476d84b4b86329c1b1a562141f2881d25dc9a9f1",
+      "channel": "online",
+      "parent": "native-skill-boundary-20261028-v1",
+      "parent_manifest_sha256": "54c11415ba366df3e4d9deda122732b63460e495fdca362a6006e15f702b514a",
+      "business_first_cold_controls": 10,
+      "skill_source_checks": 11,
+      "skill_UI_ready_qualified": true,
+      "native_Actor_readiness_qualified": false,
+      "temporary_files_removed": true
+    },
+    {
+      "evidence_sha256": "71e4ac18d75dae2ef2b2e2ca6dac4d6c073711d2ccdc61e94e92c0a42e22c719",
+      "channel": "local",
+      "parent": "local-native-skill-boundary-20261028-v1",
+      "parent_manifest_sha256": "fc83c2680b0695f9aaaaf0669cf26a5072e992d803fedea1f23ff14df64e1d37",
+      "business_first_cold_controls": 10,
+      "skill_source_checks": 11,
+      "skill_UI_ready_qualified": true,
+      "native_Actor_readiness_qualified": false,
+      "temporary_files_removed": true
+    },
+    {
+      "evidence_sha256": "c6dc6f1fd45acc0013dbb4b58b20d1de29d95de7e0e29754fa3c1fb7d0f3a34f",
+      "channel": "LOCAL-native-TCP",
+      "parent": "local-native-skill-boundary-20261028-v1",
+      "parent_manifest_sha256": "fc83c2680b0695f9aaaaf0669cf26a5072e992d803fedea1f23ff14df64e1d37",
+      "business_first_cold_controls": 4,
+      "skill_source_checks": 5,
+      "skill_UI_ready_qualified": true,
+      "native_Actor_readiness_qualified": false,
+      "temporary_files_removed": true
+    }
+  ],
+  "original_UI_order_evidence_sha256": "58d0ce6c2b52e9e6de8f0ef33e9db1286e688860c4ffd5d33c3f584dcd6f793b",
+  "whole_484_absent_UI_counterexample_and_positive_source_phase": "native-original484-readiness-goldens-v2.json",
+  "invariants": [
+    "Only the original synchronous owned player_initialized to skill_ui_ready transition grants evidence.",
+    "The exact original6EA Event must be successfully written for the current selection epoch.",
+    "New own2A clears UI readiness; same-Unit scene relocation keeps UI but requires Actor readiness again.",
+    "Duplicate6E9, stale account/store/token/epoch, bare Boolean flags and copied reply bytes cannot attest readiness.",
+    "Preparation and failed or partial socket writes never advance delivery state."
+  ],
+  "failures_preserved": [
+    "Unit v1 eager LocalSession import was removed from metadata capture; loaded original classes are used without importing resource/account initialization.",
+    "Initial actual TLS v15 assertion counted four helper calls instead of ten unique sessions; observer counting corrected without relaxing production handlers.",
+    "LOCAL v9 injection and LOCAL v10 missing CLI selector failed before tests; separate logs retained."
+  ],
+  "existing_three_leaf_formal_delivery_retained": true,
+  "full_positive_graphical484_accepted": false,
+  "complete_attribute_106_accepted": false,
+  "central_production_dispatch_integrated": false,
+  "client_files_changed": 0,
+  "new_or_expanded_game_hooks": 0,
+  "production_installation": false,
+  "task_complete": false
+}
