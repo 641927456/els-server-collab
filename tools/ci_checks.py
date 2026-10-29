@@ -114,6 +114,8 @@ def main(argv=None):
     run([sys.executable,'-B',str(ROOT/'tools/verify_initialization_readers.py')])
     if (ROOT/'references/current-refresh-combat-inputs-20261027-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_current_refresh_archive_20261027.py')])
+        if (ROOT/'references/native-unit-account-identity-20261029-v1/accepted-delivery.json').is_file():
+            run([sys.executable,'-B','-m','unittest','tests.test_current_refresh_identity_successor'])
     run([sys.executable,'-B',str(ROOT/'tools/verify_path_projections.py')])
     if (ROOT/'references/native-power-cache-sync-20261027-v1/candidate.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_native_power_cache_archive_20261027.py')])
@@ -144,10 +146,16 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_native_skill_sources_runtime_20261028.py')])
         run([sys.executable,'-B','-m','unittest','tests.test_native_session_sources'])
     run([sys.executable,'-B',str(ROOT/'tools/verify_current_consumables_phase_20261028.py')])
+    if (ROOT/'launchers/friends-v43/source-lock.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_identity_managed_launcher_20261029.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_v43_frozen_privacy_guard'])
     if (ROOT/'launchers/friends-v42/source-lock.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_launcher_first_local_20261029.py')])
         run([sys.executable,'-B','-m','unittest','tests.test_launcher_first_local'])
     if (ROOT/'launchers/friends-v41/source-manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_unit_account_identity_20261029.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_native_unit_account_identity_source'])
+        run([sys.executable,'-B','-m','unittest','tests.test_current_profile_head_binding'])
         run([sys.executable,'-B',str(ROOT/'tools/verify_native_shop_flow_20261029.py')])
         run([sys.executable,'-B','-m','unittest','tests.test_native_shop_source_contract'])
     if (ROOT/'references/native-force-guild-flow-20261029-v1/manifest.json').is_file():

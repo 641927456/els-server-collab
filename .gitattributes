@@ -39,3 +39,10 @@ references/native-force-guild-flow-20261029-v1/** whitespace=cr-at-eol
 channels/native-force-guild-flow-20261029-v1.json whitespace=cr-at-eol
 launchers/friends-v41/** -text whitespace=cr-at-eol
 references/native-shop-flow-20261029-v1/** -text whitespace=cr-at-eol
+
+references/native-unit-account-identity-20261029-v1/** -text whitespace=cr-at-eol
+channels/native-unit-account-identity-20261029-v1*.json -text whitespace=cr-at-eol
+launchers/friends-v43/** -text whitespace=cr-at-eol
+# Two signed parent inputs retain original CRCRLF/EOF bytes, verified by full SHA.
+launchers/friends-v43/launch_client.py -text whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof
+launchers/friends-v43/Program.cs -text whitespace=cr-at-eol,-blank-at-eof

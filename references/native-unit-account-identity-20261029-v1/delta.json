@@ -1,0 +1,93 @@
+{
+  "format": 1,
+  "issue": 620,
+  "parent": "channels/native-force-guild-flow-accepted-20261029-v1.json",
+  "parent_sha256": "77fb1412039711eaba1160f03f96cdd61bfb3fdde54df3c08491281f0ac448b9",
+  "candidate_profile": "channels/native-unit-account-identity-20261029-v1.json",
+  "channels": {
+    "online": {
+      "els_server/storage/characters.py": {
+        "before_sha256": "f772123dff6bf828b240f5a15f01a5cf0e9ed29cceafe16816947b24729e80a8",
+        "before_source": "references/native-force-guild-flow-20261029-v1/source/f772123dff6bf828b240f5a15f01a5cf0e9ed29cceafe16816947b24729e80a8/characters.py",
+        "source": "references/native-unit-account-identity-20261029-v1/source/54cb4afdccc26303c62487d26218688dd204b35e654b3fdbf705f50175d86c32/characters.py",
+        "sha256": "54cb4afdccc26303c62487d26218688dd204b35e654b3fdbf705f50175d86c32",
+        "size": 15959
+      },
+      "els_server/storage/seal_quests.py": {
+        "before_sha256": "c4b60eb1c33bed9c867f05f6efb9a1a4709b6af5282fa0108d29e5b3d9e13ad3",
+        "before_source": "references/pr597-remaining-20261027-v2/local/els_server/storage/seal_quests.py",
+        "source": "references/native-unit-account-identity-20261029-v1/source/ab14d3f23104c7272e232d3459b05410e862b17fb973d02ab211b87e20daf2d2/seal_quests.py",
+        "sha256": "ab14d3f23104c7272e232d3459b05410e862b17fb973d02ab211b87e20daf2d2",
+        "size": 33073
+      },
+      "els_server/storage/career_shop.py": {
+        "before_sha256": "10be037acda763755072450179718a8f3f77c89a51e4ed38ffa0e84fe6369084",
+        "before_source": "references/current-obtainable-consumables-phase-20261028-v1/source/10be037acda763755072450179718a8f3f77c89a51e4ed38ffa0e84fe6369084/career_shop.py",
+        "source": "references/native-unit-account-identity-20261029-v1/source/337fa5e7a28faf58f60ee7fef2292c0784821e41c572a290ae22d25f392b3613/career_shop.py",
+        "sha256": "337fa5e7a28faf58f60ee7fef2292c0784821e41c572a290ae22d25f392b3613",
+        "size": 3527
+      },
+      "els_server/protocol/local_messages.py": {
+        "before_sha256": "7513152b4ed29cbf28802f1219e07938b18420bbfeb1ec15754fd15badc3a102",
+        "before_source": "references/native-skill-source-runtime-20261028-v1/common/els_server/protocol/local_messages.py",
+        "source": "references/native-unit-account-identity-20261029-v1/source/b8b466f2568360f01cd535b35a16563148b75477e9f5a00f5df81c45f1df3c4c/local_messages.py",
+        "sha256": "b8b466f2568360f01cd535b35a16563148b75477e9f5a00f5df81c45f1df3c4c",
+        "size": 20531
+      },
+      "els_server/protocol/dungeon_messages.py": {
+        "before_sha256": "3faa81e86e575c6d44474617fb841db29f71d56dd29d8bddcde62479b1dce611",
+        "before_source": "references/native-force-guild-flow-20261029-v1/source/3faa81e86e575c6d44474617fb841db29f71d56dd29d8bddcde62479b1dce611/dungeon_messages.py",
+        "source": "references/native-unit-account-identity-20261029-v1/source/50103ad7c930a4fd3b57e0499587148386c2626a72920038c7705301f7e960b5/dungeon_messages.py",
+        "sha256": "50103ad7c930a4fd3b57e0499587148386c2626a72920038c7705301f7e960b5",
+        "size": 15177
+      }
+    },
+    "local": {
+      "els_server/storage/characters.py": {
+        "before_sha256": "f772123dff6bf828b240f5a15f01a5cf0e9ed29cceafe16816947b24729e80a8",
+        "before_source": "references/native-force-guild-flow-20261029-v1/source/f772123dff6bf828b240f5a15f01a5cf0e9ed29cceafe16816947b24729e80a8/characters.py",
+        "source": "references/native-unit-account-identity-20261029-v1/source/54cb4afdccc26303c62487d26218688dd204b35e654b3fdbf705f50175d86c32/characters.py",
+        "sha256": "54cb4afdccc26303c62487d26218688dd204b35e654b3fdbf705f50175d86c32",
+        "size": 15959
+      },
+      "els_server/storage/seal_quests.py": {
+        "before_sha256": "c4b60eb1c33bed9c867f05f6efb9a1a4709b6af5282fa0108d29e5b3d9e13ad3",
+        "before_source": "references/pr597-remaining-20261027-v2/local/els_server/storage/seal_quests.py",
+        "source": "references/native-unit-account-identity-20261029-v1/source/ab14d3f23104c7272e232d3459b05410e862b17fb973d02ab211b87e20daf2d2/seal_quests.py",
+        "sha256": "ab14d3f23104c7272e232d3459b05410e862b17fb973d02ab211b87e20daf2d2",
+        "size": 33073
+      },
+      "els_server/storage/career_shop.py": {
+        "before_sha256": "10be037acda763755072450179718a8f3f77c89a51e4ed38ffa0e84fe6369084",
+        "before_source": "references/current-obtainable-consumables-phase-20261028-v1/source/10be037acda763755072450179718a8f3f77c89a51e4ed38ffa0e84fe6369084/career_shop.py",
+        "source": "references/native-unit-account-identity-20261029-v1/source/337fa5e7a28faf58f60ee7fef2292c0784821e41c572a290ae22d25f392b3613/career_shop.py",
+        "sha256": "337fa5e7a28faf58f60ee7fef2292c0784821e41c572a290ae22d25f392b3613",
+        "size": 3527
+      },
+      "els_server/protocol/local_messages.py": {
+        "before_sha256": "7513152b4ed29cbf28802f1219e07938b18420bbfeb1ec15754fd15badc3a102",
+        "before_source": "references/native-skill-source-runtime-20261028-v1/common/els_server/protocol/local_messages.py",
+        "source": "references/native-unit-account-identity-20261029-v1/source/b8b466f2568360f01cd535b35a16563148b75477e9f5a00f5df81c45f1df3c4c/local_messages.py",
+        "sha256": "b8b466f2568360f01cd535b35a16563148b75477e9f5a00f5df81c45f1df3c4c",
+        "size": 20531
+      },
+      "els_server/protocol/dungeon_messages.py": {
+        "before_sha256": "3faa81e86e575c6d44474617fb841db29f71d56dd29d8bddcde62479b1dce611",
+        "before_source": "references/native-force-guild-flow-20261029-v1/source/3faa81e86e575c6d44474617fb841db29f71d56dd29d8bddcde62479b1dce611/dungeon_messages.py",
+        "source": "references/native-unit-account-identity-20261029-v1/source/50103ad7c930a4fd3b57e0499587148386c2626a72920038c7705301f7e960b5/dungeon_messages.py",
+        "sha256": "50103ad7c930a4fd3b57e0499587148386c2626a72920038c7705301f7e960b5",
+        "size": 15177
+      }
+    }
+  },
+  "actual_parent_heads": {
+    "online": {
+      "release": "native-force-guild-flow-20261029-v1",
+      "formal_manifest_sha256": "27f50191576458093a2f3fd84c64a1f05fd517ab567cf32651b2817e2b0a0f13"
+    },
+    "local": {
+      "release": "local-native-shop-flow-20261029-v1",
+      "formal_manifest_sha256": "d621337b400fc4dfe3a61bd32be2180bd98c55e4c8ab2beba3eae2e3e2b91b11"
+    }
+  }
+}

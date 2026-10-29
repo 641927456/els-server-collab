@@ -29,7 +29,11 @@ def main():
     if local['archive']['sha256'] not in (A/'LocalBootstrap.cs').read_text('utf8'):raise ValueError('Local payload binding differs')
     rows={r['path']:r for r in local['files']};metadata=read(A/'local-bootstrap-source.json')
     if rows['local-bootstrap-source.json']['sha256']!=sha(A/'local-bootstrap-source.json'):raise ValueError('Local source metadata differs')
-    selection=read(ROOT/'channels/current-engine.json');profile=read(ROOT/selection['profile'])
+    snapshot=A/'accepted-source-selection.json'
+    if sha(snapshot)!='271fcabde776815cd3c908f6a5a93190ff3ab8282b409b236d1771ace36d449f':raise ValueError('Historical V42 selection snapshot changed')
+    selection=read(snapshot);profile_path=ROOT/selection['profile']
+    if sha(profile_path)!='77fb1412039711eaba1160f03f96cdd61bfb3fdde54df3c08491281f0ac448b9':raise ValueError('Historical V42 exact profile changed')
+    profile=read(profile_path)
     formal={r['path']:r for r in profile['channels']['local']['files']}
     normalized=[{k:formal[p][k] for k in ('path','size','sha256')}for p in sorted(formal)]
     digest=hashlib.sha256(json.dumps(normalized,sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()).hexdigest()
