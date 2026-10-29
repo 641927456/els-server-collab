@@ -69,8 +69,10 @@ def main():
             raw=(ROOT/row['source']).read_bytes()
             assert len(raw)==row['size']and hashlib.sha256(raw).hexdigest()==row['sha256']
             entry,path=selected[row['path']]
+            from tools.verify_shared_repair_inheritance_20261030 import verified_shared_repair_predecessor
+            historical_profile,entry,path=verified_shared_repair_predecessor(profile,mode,entry,path)
             from tools.verify_server_structure_20261029 import verified_structure_predecessor
-            entry,path=verified_structure_predecessor(profile,mode,entry,path)
+            entry,path=verified_structure_predecessor(historical_profile,mode,entry,path)
             entry,path=verified_identity_predecessor(mode,entry,path)
             name='notifications'if row['path'].endswith('career_shop.py')else'load_character'
             expected=function(raw.decode('utf8'),name)

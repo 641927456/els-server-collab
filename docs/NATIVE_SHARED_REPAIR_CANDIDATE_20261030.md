@@ -1,0 +1,15 @@
+# Shared repair source preparation
+
+This unselected candidate is based on main e4ae84b934ff52d01de4feed3ec10732fc6f994e and the actual accepted structure release. It preserves the complete ONLINE and LOCAL source parents, with 28 business changes per mode and three additional existing raw LOCAL support files. ONLINE has 1315 business files; LOCAL has 1340. Eight business modules are new in each mode.
+
+The candidate combines the source-reviewed shared C3 identification selector and finite current families, native empty manufacture handling, kind1 relationship closure and skill lifecycle, and typed title rejection. It excludes the unapproved PR628 pool. The candidate is not selected by current-engine.json and does not establish installation, signing, natural GUI, Actor, or combat acceptance.
+
+Raw LOCAL, signed Friends and signed LOCAL use distinct compatibility profiles. Their completed source member indices have 1794, 1779 and 1794 known rows respectively. Signed LOCAL retains its original 1793 source rows and adds the exact new unsigned local-bootstrap-source.json metadata member. Its public locator records the member, descriptor, package-manifest and prospective profile hashes without copying the large generated metadata into source. These indices do not establish signed package or installation qualification. Frozen-family-member locators require the private source index identified by its SHA; they do not invent or expose private file locations.
+
+Final activation remains conditional on focused C3 App/OS recovery checks, exact loaded production support SHA, the complete three-family packages, new signed bootstrap SourceSet/cohort bindings, and formal publication. Merge and delivery must each be followed by the authorized online progress publication and public readback. Existing current pointers remain unchanged during preparation.
+
+Run `python -B tools/verify_shared_repair_candidate_20261030.py` for source and mapping checks. This command does not read player databases or launch a game.
+
+The future accepted-profile bytes are prepared outside Git. Their final-format flags are prospective declarations, not present acceptance; the separate preparation receipt records that distinction. They must not be committed or selected until actual qualification. Importing those exact frozen bytes later preserves the launcher cohort hash. Any source, formal-manifest or profile byte change requires a new package binding.
+
+The inheritance wrapper pins the candidate, parent, complete deltas, future accepted-profile hash and expected installation heads. It requires the real accepted-delivery receipt with full dual-file verification, 120-second observations, C3 App and compatible OS qualification, signed packages, exact three-family support loading and test cleanup. Missing or prospective receipts fail. Only unchanged historical proof leaves then map back to the structure parent; the original structure verifier and assertions stay unchanged. Candidate and existing source checks run without creating acceptance records.

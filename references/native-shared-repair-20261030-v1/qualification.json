@@ -1,0 +1,64 @@
+{
+  "format": 1,
+  "candidate": true,
+  "selected": false,
+  "installed": false,
+  "base_git_commit": "e4ae84b934ff52d01de4feed3ec10732fc6f994e",
+  "source_composition_binding_sha256": "8ed8f297ea7f7bbaccb750985bf27302e38ca9ec00afa9f874c03f3cbff38adc",
+  "raw_LOCAL_support_included": true,
+  "source_delta_counts": {
+    "online": 28,
+    "local": 31
+  },
+  "business_delta_counts": {
+    "online": 28,
+    "local": 28
+  },
+  "additional_raw_LOCAL_support": 3,
+  "new_files_each": 8,
+  "new_SQL_tables": 5,
+  "install_DDL": 0,
+  "old_PR628_unapproved_pool_included": false,
+  "families": {
+    "rawLOCAL": {
+      "path": "references/native-shared-repair-20261030-v1/families/rawLOCAL.json",
+      "known_rows": 1794,
+      "expected_final_count": 1794,
+      "pending": [],
+      "tuples_sha256": "9ed35861d3b867347ac314ac8daa0378003a83d7cb6eb96312f63eed6dbc74b3",
+      "profile_sha256": "f1661177edd96176b2bd0b7e869215ab27e0337e186f77c1bd026248b2ae4a9e"
+    },
+    "signedFriends": {
+      "path": "references/native-shared-repair-20261030-v1/families/signedFriends.json",
+      "known_rows": 1779,
+      "expected_final_count": 1779,
+      "pending": [],
+      "tuples_sha256": "15e03f6eef5f258e1f826d7afff7f345a6244e4ca8f7205acf934fd9f8302bbd",
+      "profile_sha256": "3b33c9f256b8e388006b79f84679873b3588a32f849565ab079a8fbd0a77621a"
+    },
+    "signedLOCAL": {
+      "path": "references/native-shared-repair-20261030-v1/families/signedLOCAL.json",
+      "known_rows": 1794,
+      "expected_final_count": 1794,
+      "pending": [],
+      "tuples_sha256": "c8ce31a0e153bc86fb0006cfea1304ac9644c3093568e53542e4a7dc3059d7bd",
+      "profile_sha256": "f8327a16ef8c30300d5ed0a84347ecca684594ab2eda4bc28250dc4c46d93049"
+    }
+  },
+  "pending": [
+    "Final focused C3 App and OS recovery qualification",
+    "Actual production support selection and loaded SHA",
+    "Complete three-family packages and signed update qualification",
+    "Formal activation, publication, post-merge online progress update and readback",
+    "Actual signed LOCAL bootstrap SourceSet/cohort consumer and upgrade qualification"
+  ],
+  "natural_GUI": false,
+  "natural_battle": false,
+  "publication_qualified": false,
+  "focused_C3_App_current_result": "failed_not_qualified; old author diagnosing",
+  "prospective_accepted_profile": "channels/native-shared-repair-accepted-20261030-v1.json",
+  "prospective_accepted_profile_sha256": "c63fbed4110c2b6a3f597d305c12971690fe78a6d00c4d2ecc285e039fe001ac",
+  "prospective_accepted_profile_stored_outside_Git": true,
+  "unsigned_metadata_constructed": true,
+  "unsigned_packages_are_not_signed_or_installation_qualification": true
+}
