@@ -82,9 +82,14 @@ def handle(s,event):
   transition=run.completed_transition
   late=(transition is not None and (run.stage,run.part,run.visits)==transition['target']
         and event.payload in transition['parts'])
+  # A source-pinned class-103 scene object that the client retires inside its
+  # own scene (厄泰拉核心 stage2 part0, template 343 PD_Monster) has no combat
+  # report to wait for; the client's own request is the proof its scene is
+  # done. Real hostiles still have to be dead before the gate opens.
+  from els_server.domain.local_dungeon_flow import scene_object_npc
   valid=(s.dungeon_substage_synced and not s.clear_notified and
          event.payload==struct.pack('>b',run.part) and
-         all(n['key'] in run.defeated for n in run.current['npcs'] if n['active'] and n.get('team',1)!=0))
+         all(n['key'] in run.defeated or scene_object_npc(run,n) for n in run.current['npcs'] if n['active'] and n.get('team',1)!=0))
   if valid:run.portal_requested=True
   elif late:return [Event(0x201,kind=0xb9,payload=bytes(4))]
   return [Event(0x201,kind=0xb9,payload=struct.pack('>i',0 if valid else -1))]+(periodic(s) if valid else [])
@@ -169,6 +174,8 @@ def handle(s,event):
    from els_server.protocol.dungeon_messages import initial_part,begin_substage
    reply.extend([Event(0x201,kind=0xb6,payload=bytes(16)),initial_part(run.part),begin_substage(run.part,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))])
    s.dungeon_substage_synced=True;s.gate_stage_loading=False;s.dungeon_clock.resume();run.loaded()
+   from els_server.domain.summons import respawn_summons
+   reply.extend(respawn_summons(s))
   from els_server.domain.hunter_chest_flow import solo_loaded
   return reply+solo_loaded(s,event)+periodic(s)
  if event.kind==0xbb:
@@ -194,6 +201,8 @@ def handle(s,event):
   run.completed_transition=dict(target=(run.stage,run.part,run.visits),parts=tuple({struct.pack('>b',source[1]),struct.pack('>b',run.part)}))
   s.part_end_notified=False;s.defeated_npcs=run.defeated
   if transition=='stage':
+   from els_server.domain.summons import carry_summons
+   carry_summons(s)
    s.summon_keys=set();s.summon_deaths={};s.summon_requests={};s.summon_next_key=16
    s.dungeon_substage_synced=False;s.gate_stage_loading=True
    reply.append(run.population_event())

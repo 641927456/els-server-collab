@@ -226,6 +226,13 @@ for _row in pet_support_catalog()['definitions']:
  TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
  TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
 
+from els_server.domain.pet_support import variant_definitions as pet_ticket_variants
+for _row in pet_ticket_variants():
+ if _row['template'] in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_row['template']],TEMPLATE_BAG_GROUPS[_row['template']],TEMPLATE_MAX_STACKS[_row['template']])!=(_row['metadata'],_row['group'],_row['max_stack']):raise ValueError('Conflicting pet ticket variant classification')
+ VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
+ TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
+ TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
+
 @functools.lru_cache(maxsize=1)
 def fixture():
  c=json.loads((BASE/'item-body-candidate.json').read_text(encoding='utf8'))

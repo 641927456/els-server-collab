@@ -5,7 +5,7 @@ from els_server.storage.character_schema import character_uid
 from els_server.storage.quick_slots import _load
 from els_server.storage.inventory_state import load_items
 from els_server.domain.quick_bindings import item_binding
-from els_server.domain.consumables import require_usable,recovery_cooldown_seconds,acknowledged_cooldown
+from els_server.domain.consumables import require_usable,recovery_cooldown_seconds,acknowledged_cooldown,ConsumableCoolingDown
 from els_server.protocol.consumable_messages import request,acknowledgement,effect
 
 
@@ -81,7 +81,7 @@ def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apple
             require_unlocked(item)
         db.execute('CREATE TABLE IF NOT EXISTS consumable_cooldowns (owner INTEGER NOT NULL REFERENCES characters(uid), cooldown_group INTEGER NOT NULL, ready_at REAL NOT NULL, PRIMARY KEY(owner,cooldown_group))')
         prior=db.execute('SELECT ready_at FROM consumable_cooldowns WHERE owner=? AND cooldown_group=?',(uid,meta['cooldown_group'])).fetchone()
-        if prior and now<prior[0]:raise ValueError('Consumable is cooling down')
+        if prior and now<prior[0]:raise ConsumableCoolingDown(prior[0]-now,slot)
         remaining=dict(item,count=item['count']-1) if item['count']>1 else None
         answer=[acknowledgement(remaining,(item['group'],item['slot']),item['template'],
                                 cooldown=acknowledged_cooldown(item['template'],meta['cooldown_seconds']),

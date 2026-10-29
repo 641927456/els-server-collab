@@ -106,6 +106,19 @@ stage2/part2），**8 处命中真实战斗目标（altera_core stage2/3、elysi
 sander 桑地勒斯号 stage0/part1），由 `script_door` 形态检查保护，绝不放宽**。
 开关仍是 `config/local_dungeon_flow.json` 的 `script_gate_relaxation`，可一键关闭。
 
+> **2026-10-28 更正**：上面「8 处命中真实战斗目标」里的 **altera_core stage2 不成立**。
+> 该房 required key_code=1 唯一命中的是模板 343（`NUI_PD_MONSTER`），声明形状确实像
+> 战斗目标（`active=true / no_drop=false / 9225 血`），但原生记录是 `class_id=103`、
+> `IS_NPC=true`——与利西安记忆2 的花（9323）同一场景对象家族，原生退场走 `flag=255`，
+> 通用战斗路径直接丢弃，因此它永远不会进 `run.defeated`，厄泰拉核心据此卡在 BOSS 图外。
+> 当时的判定只看了声明形状、没核 class。现按有限来源钉死放行（不是通用形状），
+> stage3 的 key_code=1 是 class0 的 338 BOSS，仍然必须打死。
+> 详见 [20261028-altera-core-boss-gate.md](fixes/20261028-altera-core-boss-gate.md)。
+
+34140 圣帝之城的 `key_code=1` 是 ARIA_CRYSTAL（`no_drop=false` 的战斗水晶），
+`stage0 part2` 的 `key_code=1` 是 `active=false` 的 ARIA_GATE 门，两者都由
+`script_door` 形态检查挡住或按原计划处理，不受本次影响。
+
 **验证**：`tests/test_nasod_factory_exit_gates.py`（6 项：出口条件形状、整图模拟
 `['part','stage','part','stage','clear']`、小 boss 房不含门死亡即可过、战斗 key_code
 永不放宽、开关门控路径）。

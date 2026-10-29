@@ -496,6 +496,9 @@ class LocalSession:
         from els_server.domain.fishing_village1500 import handle as fishing1500_handle
         fishing1500_reply=fishing1500_handle(self,event,request_sequence)
         if fishing1500_reply is not None:return fishing1500_reply
+        from els_server.domain.field_boss_entry_flow import handle as field_boss_entry_handle
+        field_boss_entry_reply=field_boss_entry_handle(self,event,request_sequence)
+        if field_boss_entry_reply is not None:return field_boss_entry_reply
         from els_server.domain.town_travel_flow import handle as town_travel_handle
         town_travel_reply=town_travel_handle(self,event,request_sequence)
         if town_travel_reply is not None:return town_travel_reply
@@ -638,7 +641,7 @@ class LocalSession:
             from els_server.domain.dungeon_spawns import handle as scripted_spawn
             scripted_reply=scripted_spawn(self,event,request_sequence)
             if scripted_reply is not None:return scripted_reply
-            from els_server.domain.summons import sentry_spawn,summon_ack
+            from els_server.domain.summons import sentry_spawn,summon_ack,retain_sentry
             character=self.account.character()
             if (self.client_build!='dx11_260923' or self.role!='game' or self.phase!='dungeon_active'
                     or not self.population_test or not self.dungeon_substage_synced or self.clear_notified
@@ -651,11 +654,16 @@ class LocalSession:
             from els_server.domain.dungeon_spawns import occupied_slots
             if occupied_slots(self)>=80:return [summon_ack(-1)]
             if self.dungeon_run is not None:
+                self.summon_next_key=max(self.summon_next_key,getattr(self.dungeon_run,'summon_key_ceiling',16))
                 while self.summon_next_key in self.dungeon_run.reserved_keys:self.summon_next_key+=1
-            try:notice=sentry_spawn(event.payload,self.account.uid,self.summon_next_key)
+            instance_key=self.summon_next_key
+            try:notice=sentry_spawn(event.payload,self.account.uid,instance_key)
             except ValueError:return [summon_ack(-1)]
-            self.summon_keys.add(self.summon_next_key)
+            self.summon_keys.add(instance_key)
             self.summon_next_key+=1;self.summon_requests[request_sequence]=event.payload
+            # The client retires this actor silently on the next stage rebuild,
+            # so the request payload is kept for the server-side respawn.
+            retain_sentry(self.dungeon_run,instance_key,event.payload)
             return [summon_ack(),notice]
         # The native character screen also requests its channel list before
         # creating a role. Both phases are still the authenticated roster UI.

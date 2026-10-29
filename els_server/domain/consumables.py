@@ -3,6 +3,14 @@ import functools,hashlib,json,math,struct
 from els_server.game_data import DATA_DIR,CLIENT_SHA
 
 
+class ConsumableCoolingDown(ValueError):
+    """Recovery-group refusal that also reports how long the caller still waits."""
+    def __init__(self,remaining,slot=0):
+        super().__init__('Consumable is cooling down')
+        self.remaining=float(max(0.0,remaining))
+        self.slot=slot
+
+
 @functools.lru_cache(maxsize=1)
 def catalog():
     raw=(DATA_DIR/'consumables.json').read_bytes()

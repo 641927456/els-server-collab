@@ -133,8 +133,10 @@ class NasodFactoryRun(unittest.TestCase):
 
     def test_living_required_actor_is_never_relaxed(self):
         # A key_code condition that names a real combat actor must stay on the
-        # strict all-dead path (altera core stage 2/3 use key_code 1 monsters):
-        # the relaxation refuses and condition_ready keeps its original check.
+        # strict all-dead path: the door relaxation refuses and condition_ready
+        # keeps its original check. (The 30282-shaped rows are the only ones
+        # waived here; 厄泰拉核心 stage 2 is waived by its own pinned source
+        # row, not by this shape check.)
         npcs = [dict(key=1, template=7, key_code=1, active=True, boss=False,
                      no_drop=False, ally=False, team=1),
                 dict(key=2, template=8, key_code=-1, active=True, boss=False,

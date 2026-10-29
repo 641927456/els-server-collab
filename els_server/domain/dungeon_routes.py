@@ -77,6 +77,9 @@ class DungeonRun:
   self.encounter=self.graph.get('encounter');self.completed_stages=set();self.visits=0
   self.round=0;self.rotation=[]
   self.dynamic_requests={}
+  # Live sentry payloads keyed by instance identity; the stage transition
+  # carries them so a 60s summon survives the map rebuild.
+  self.summon_payloads={};self.respawn_payloads={};self.summon_key_ceiling=16
   self.completed_transition=None
   if self.encounter and self.encounter['kind']=='henir_local_rotation':
    pool=[r['stage'] for r in self.encounter['pool'] if r['stage']!=0]
@@ -175,15 +178,20 @@ class DungeonRun:
   npcs=self.current['npcs'];dead=set(self.defeated);kind=c['kind']
   if kind in (0,5):return (kind==0 or self.portal_requested) and all(n['key'] in dead for n in npcs if n['active'] and n.get('team',1)!=0)
   if kind in (1,2):
-   keys=[n['key'] for n in npcs if n['key_code'] in c['required']]
+   matched=[n for n in npcs if n['key_code'] in c['required']]
+   keys=[n['key'] for n in matched]
    if kind==1:
     # A key_code requirement may name a SMALLGATE script door (纳斯德生产
     # 基地 stage0/1 exits, key_code 1 = template 156) that the map script
     # removes itself; it never reports a combat death. Same relaxation as
     # the kind 3 template doors: an all-door requirement is satisfied by a
     # fully cleared room, a living required actor still has to die.
-    from els_server.domain.local_dungeon_flow import key_code_gate
+    from els_server.domain.local_dungeon_flow import key_code_gate, scene_object_gate
     if key_code_gate(npcs,dead,c['required']):return True
+    # A key_code may also name a class-103 scene object the client retires in
+    # its own scene (厄泰拉核心 stage2 part0, template 343 PD_Monster). Only a
+    # source-pinned row admits it; see config/local_dungeon_flow.json.
+    if scene_object_gate(self,npcs,dead,matched):return True
     return bool(keys) and all(k in dead for k in keys)
    return bool(keys) and any(k in dead for k in keys)
   if kind==3:

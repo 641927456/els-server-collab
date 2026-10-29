@@ -44,6 +44,9 @@ def save_automatic(db,owner,state):
 def initialization(path,owner):
     with closing(sqlite3.connect(path)) as db:return wire.settings(automatic(db,owner))
 
+def bindings_initialization(path,owner,result=0):
+    with closing(sqlite3.connect(path)) as db:return bindings_ack(automatic(db,owner),result)
+
 def owned_pet(db,owner,uid):
     from els_server.storage.companion_state import rows
     pet=next((p for p in rows(db,owner,'pet') if p['uid']==uid),None)
@@ -140,7 +143,10 @@ def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow):
                     if binding and binding not in candidates and binding!=state[key]:raise ValueError('Unowned or unsupported automatic consumable')
                     if binding in candidates:
                         effects={struct.unpack_from('<I',bytes.fromhex(raw))[0] for raw in candidates[binding]['effects']}
-                        if not effects.intersection((1,13) if slot==0 else (2,)):raise ValueError('Automatic consumable does not restore the selected resource')
+                        # Kind 1/13 are the fixed and proportional HP recoveries;
+                        # kind 2/19 are their MP counterparts (domain/consumables.py
+                        # pins 710000/130165 as 'HP kind13 100%, MP kind19 100%').
+                        if not effects.intersection((1,13) if slot==0 else (2,19)):raise ValueError('Automatic consumable does not restore the selected resource')
                     state[key]=binding
                 save_automatic(db,owner,state);answers=[bindings_ack(state)]
             elif kind==0x2fb:

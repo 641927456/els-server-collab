@@ -72,6 +72,7 @@ def use_skill_book(path,uid,payload,operation_id):
     digest=hashlib.sha256(str(uid).encode()+b':'+payload).hexdigest()
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.execute('BEGIN IMMEDIATE')
+        old=None
         if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='skill_book_receipts'").fetchone():
             old=db.execute('SELECT request_hash,bag_group,slot FROM skill_book_receipts WHERE operation_id=?',(operation_id,)).fetchone()
         if old:
