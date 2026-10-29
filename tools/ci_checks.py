@@ -17,6 +17,8 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'references/server-structure-20261029-v1/qualification.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_server_structure_20261029.py')]+(['--with-runtime'] if args.with_runtime else []))
     if (ROOT/'references/pr597-takeover-20261028-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pr597_takeover.py')])
     if (ROOT/'references/native-modern-auto-learning-20261027-v1/manifest.json').is_file():
@@ -146,6 +148,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_native_skill_sources_runtime_20261028.py')])
         run([sys.executable,'-B','-m','unittest','tests.test_native_session_sources'])
     run([sys.executable,'-B',str(ROOT/'tools/verify_current_consumables_phase_20261028.py')])
+    if (ROOT/'launchers/friends-v44/source-lock.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_launcher_structure_20261029.py')])
     if (ROOT/'launchers/friends-v43/source-lock.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_identity_managed_launcher_20261029.py')])
         run([sys.executable,'-B','-m','unittest','tests.test_v43_frozen_privacy_guard'])
