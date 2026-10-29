@@ -82,7 +82,7 @@ def verify():
             checked_source(new[path],bound(ROOT,new[path]['source']))
         plan(ROOT,candidate,mode)
         entry=new[PROJECTION];candidate_predecessor(mode,entry,bound(ROOT,entry['source']))
-    inputs=read(F/'test-inputs.json')
+    inputs=read(ROOT/'references/settlement-replay-fixture-20261030-v1/test-inputs.json')
     assert inputs['runtime_counts']=={'online':169,'local':169} and inputs['baseline_mode'] is False
     for target,row in inputs['files'].items():
         bound(ROOT,target)
