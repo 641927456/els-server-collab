@@ -1,10 +1,151 @@
 {
   "ok": true,
-  "scope": "Actually compiled and normally signed candidate source only",
-  "candidate_only": true,
-  "published": false,
-  "managed_running120_qualified": false,
-  "actual_CLR4_loader_qualified": false,
-  "public_update_qualified": false,
-  "original_EXE_KOM_changes": 0
+  "scope": "Actual signed CLR4 dual-cohort Run, nonempty managed upgrade and public V42-to-V43 delivery; natural GUI/combat excluded",
+  "candidate_only": false,
+  "published": true,
+  "managed_running120_qualified": true,
+  "actual_CLR4_loader_qualified": true,
+  "public_update_qualified": true,
+  "original_EXE_KOM_changes": 0,
+  "private_CLR4": {
+    "cohorts": [
+      "legacy",
+      "identity"
+    ],
+    "actual_Run_first_and_repeat_each": true,
+    "signed_component_rows": 1779,
+    "listed_runtime_rows": 1781,
+    "managed_nonempty_observation_seconds": 120.00008939998224,
+    "managed_two_DB_user_typed_and_schema_exact": true,
+    "independent_cold_App_and_repeat": true,
+    "reverse_rejected_before_Run": true,
+    "private_QA_state_created": true,
+    "private_QA_cleaned": true,
+    "player_DB_imported_or_restored": false
+  },
+  "public_delivery": {
+    "release": "launcher-unit-account-identity-20261029-v43-public-v2",
+    "first_seconds": 350.804,
+    "first_stats": {
+      "reused_files": 0,
+      "downloaded_files": 1779,
+      "downloaded_bytes": 164323287,
+      "full_archive_downloaded": true,
+      "legacy_archive_reused": false,
+      "existing_environment_reused": false
+    },
+    "repeat_seconds": 58.803,
+    "repeat_stats": {
+      "reused_files": 1779,
+      "downloaded_files": 0,
+      "downloaded_bytes": 0,
+      "full_archive_downloaded": false,
+      "existing_environment_reused": true
+    },
+    "signed_component_rows": 1779,
+    "listed_runtime_rows": 1781,
+    "additional_self_describing_documents": 3,
+    "no_QA_save": true,
+    "current_raw_preserved": true,
+    "friends_rows_reused_each": 1764,
+    "friends_downloaded_each": 0,
+    "old_V42_signed_metadata_and_download_SHA_verified": true,
+    "new_V43_signed_metadata_verified": true,
+    "formal_observation_seconds": 134.14257899997756,
+    "both_shortcuts_and_launcher_pointers_V43": true,
+    "actual_launcher_pointer_sha256": "3eae18d817bc19cb3f2454773e2e8a2644bbd5f2719f621d4c6f73ae04bcd602",
+    "actual_standalone_pointer_sha256": "71aa39e5de49da5acffb62ad0f4291e6d74b3acb58b6e9e4d0a0d65a186be880",
+    "old_component_index_rows_preserved": 1987,
+    "new_component_index_rows": 1993,
+    "remote_metadata_sha256": {
+      "components-index.json": "28b4a6d7879506cef124584225e6a04e1cad4cf170936eb1ade3d28c98f02fec",
+      "allowlist.json": "b414cc5c81761eb410cbf369be1aad7db89ad5211abc5f32297e69e1353feb59",
+      "public/latest.json": "f17668382a029c005c82a0d13770b442d5c2eb58ae3b8a4bd693c792bb9c3c0b"
+    },
+    "service_listeners_and_game_current_preserved": true,
+    "service_Running_feedback200": true,
+    "formal_player_or_account_db_access": false,
+    "game_started": false
+  },
+  "cleanup": {
+    "actual_Job0_closed_and_same_birth_children_dead": true,
+    "own_locks_released": true,
+    "owned_runtime_cache_and_test_copies_removed": 4,
+    "owned_exact_remote_stage_removed": true,
+    "public_products_and_recovery_preserved": true
+  },
+  "limits": {
+    "natural_GUI": false,
+    "combat": false,
+    "Actor106_HP_BBT121": false,
+    "relationship900_repair": false,
+    "C9_or_free_farewell_installed": false,
+    "wedding_or_Photo_full_scene": false,
+    "whole_user_scope_complete": false,
+    "PR621_main_merged": false,
+    "private_and_public_no_game_cases_only": true,
+    "prior_P43_and_rejected_v4_failures_preserved": true
+  },
+  "evidence": [
+    {
+      "kind": "private-clr4-independent",
+      "sha256": "be6ecbaa29a75183e0165e1b3094e9bac753de41dd8f0a241d23ac768112b015",
+      "size": 1522
+    },
+    {
+      "kind": "private-managed120",
+      "sha256": "5a1e47d926f2ed8e52a25d21d6bf6f19604160f3d12905de5d3929dbd4f4f0eb",
+      "size": 1072
+    },
+    {
+      "kind": "private-managed-repeat-reverse",
+      "sha256": "85a676543e85fe7a01c01c0508862cf44d5aaf4635af37ea063e8b133f8a71cd",
+      "size": 920
+    },
+    {
+      "kind": "actual-publication-independent-A",
+      "sha256": "9a5d286b99ff38b6c8b54bb246e60281a33340705faedbf9de617b4456f7c281",
+      "size": 5145
+    },
+    {
+      "kind": "actual-public-loader-independent-C",
+      "sha256": "a9ea995fc08d8aa2a66166ab0de1a60136695bc195f39a88b029921111929b67",
+      "size": 11220
+    },
+    {
+      "kind": "post-cleanup-independent-C",
+      "sha256": "3407677af7041ed1b9f8e2a4e91a8cebbec0a092a499fb73727bed7f6f1440fc",
+      "size": 126039
+    },
+    {
+      "kind": "root-actual-remote-and-local",
+      "sha256": "f833b0ce742b40a72400eb585e4058bb6ac5091ace1f98872748867f77f850e7",
+      "size": 1514
+    },
+    {
+      "kind": "formal-installation",
+      "sha256": "270286c03ebea8371b0a8371797033903930bfe47de006b5fb4bc00e49dd633d",
+      "size": 1242
+    },
+    {
+      "kind": "actual-public-first-repeat",
+      "sha256": "0510a4fb31d0b6f9401c2bc82303995eb66e82e72927fc8d84c9e49f4cf46118",
+      "size": 4364
+    },
+    {
+      "kind": "owned-runtime-cache-cleanup",
+      "sha256": "a2c378f0be4207536942ef7d41d2b5976c67b4c8fc75e0ce11cb550d0d65410d",
+      "size": 1501
+    },
+    {
+      "kind": "owned-friends-and-download-copy-cleanup",
+      "sha256": "df8a837ac895994afb091be6739e17d3fe1621dc04ea4c38698e0ea4aa1d6291",
+      "size": 377380
+    },
+    {
+      "kind": "owned-exact-remote-stage-cleanup",
+      "sha256": "be16df97977149a188a90428ad3fc59607736f7df9c452260598a4e88362d2bb",
+      "size": 255
+    }
+  ]
 }
