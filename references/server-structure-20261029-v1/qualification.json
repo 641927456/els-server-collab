@@ -1,0 +1,46 @@
+{
+  "format": 1,
+  "candidate": true,
+  "published": false,
+  "candidate_manifest_sha256": "32f956022640ed32d2b76ae0b68ba2eba8bdd9b5f50c14be752d40cb7583e182",
+  "parent_profile_sha256": "27c1895d03893cb5ffb79b4a7a84ebcedd501f25efb981fe2a0b5b3a16cbffe8",
+  "changed_files_per_channel": 27,
+  "new_modules_per_channel": 7,
+  "source_blobs": 32,
+  "projection_inverse_sha256": "4043638d1f910356e2d0c8d12dc7d472327da3c528886a46261ae2324e89bad5",
+  "qualified_helper": {
+    "online": {
+      "before_source": null,
+      "before_sha256": null,
+      "source": "references/server-structure-20261029-v1/source/17d200616b9bbe791b9e2a87a13aaaaea2b8bd561f3b5e5936d527b4a6fa372c/character_projection.py",
+      "sha256": "17d200616b9bbe791b9e2a87a13aaaaea2b8bd561f3b5e5936d527b4a6fa372c",
+      "size": 1799
+    },
+    "local": {
+      "before_source": null,
+      "before_sha256": null,
+      "source": "references/server-structure-20261029-v1/source/17d200616b9bbe791b9e2a87a13aaaaea2b8bd561f3b5e5936d527b4a6fa372c/character_projection.py",
+      "sha256": "17d200616b9bbe791b9e2a87a13aaaaea2b8bd561f3b5e5936d527b4a6fa372c",
+      "size": 1799
+    }
+  },
+  "tests_per_channel": 169,
+  "source_SQL_contracts_passed": true,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "production_actions_by_this_preparation": false,
+  "new_schema": false,
+  "client_delta": 0,
+  "scope": [
+    "Owner-scoped lifecycle reads and identity account_id equality",
+    "Shared role fields preserve existing writer connection, field absence, owner guards and serialized bytes",
+    "Initialized constructors avoid repeated write transactions without weakening migration or locked recheck",
+    "Account recovery pins and terms holder preserve lifecycle, ordered cleanup attempts all owned effects",
+    "Single worker periodic slices preserve ownership, callbacks, cancellation and commit boundaries",
+    "Ordered dispatcher preserves None/[] priority, original gates and native settlement contracts"
+  ],
+  "verification_limits": [
+    "Owned synthetic databases and source/runtime contracts; no public network or natural client claim",
+    "Performance benchmarks describe synthetic workloads and do not claim live RTT improvement"
+  ]
+}

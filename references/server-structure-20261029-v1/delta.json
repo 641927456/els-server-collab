@@ -1,0 +1,402 @@
+{
+  "format": 1,
+  "parent": "channels/native-unit-account-identity-accepted-20261029-v1.json",
+  "parent_sha256": "27c1895d03893cb5ffb79b4a7a84ebcedd501f25efb981fe2a0b5b3a16cbffe8",
+  "candidate_profile": "channels/server-structure-20261029-v1.json",
+  "accepted_profile": "channels/server-structure-accepted-20261029-v1.json",
+  "candidate_manifest_sha256": "32f956022640ed32d2b76ae0b68ba2eba8bdd9b5f50c14be752d40cb7583e182",
+  "actual_parent_heads": {
+    "online": {
+      "release": "native-unit-account-identity-20261029-v1",
+      "formal_manifest_sha256": "b11892d75502aa4c60eb703693f88e856e6249566ce545b6bca6d68b2e6b3ce8"
+    },
+    "local": {
+      "release": "local-native-unit-account-identity-20261029-v1",
+      "formal_manifest_sha256": "7c72970e3e5781c43a32d3f748d32c14fcedfe0b4f3f3fd660086a2cfcbf9f5e"
+    }
+  },
+  "channels": {
+    "online": {
+      "els_server/account_cache.py": {
+        "before_source": null,
+        "before_sha256": null,
+        "source": "references/server-structure-20261029-v1/source/ee052f5031478470fcb81969539972c10202150af8b59bb0d4df621c43ce7274/account_cache.py",
+        "sha256": "ee052f5031478470fcb81969539972c10202150af8b59bb0d4df621c43ce7274",
+        "size": 2128
+      },
+      "els_server/accounts_gateway.py": {
+        "before_source": "references/server-architecture-20261027-v1/engine/online/els_server/accounts_gateway.py",
+        "before_sha256": "bda361e65e64eb30e1768d5bbad7943bfde6a6bae300203dbb921b1d31df6cf6",
+        "source": "references/server-structure-20261029-v1/source/aa62d7c2112bcad6842e67a7b76d29ddc63011c2a490566e9f2cd52f15869406/accounts_gateway.py",
+        "sha256": "aa62d7c2112bcad6842e67a7b76d29ddc63011c2a490566e9f2cd52f15869406",
+        "size": 11447
+      },
+      "els_server/application.py": {
+        "before_source": "references/native-force-guild-flow-20261029-v1/source/dfa2856948c8d3ab3e4c2ccbac462dc8c9c74bed1f70c0a7f0b0be7d53ce5e08/application.py",
+        "before_sha256": "dfa2856948c8d3ab3e4c2ccbac462dc8c9c74bed1f70c0a7f0b0be7d53ce5e08",
+        "source": "references/server-structure-20261029-v1/source/52e2c2edd3c2a7be92befd892148b3c466713b8d99385d4ff4a2490668603d7c/application.py",
+        "sha256": "52e2c2edd3c2a7be92befd892148b3c466713b8d99385d4ff4a2490668603d7c",
+        "size": 22838
+      },
+      "els_server/business_queue.py": {
+        "before_source": "references/peak-business-concurrency-20261027-v1/online/els_server/business_queue.py",
+        "before_sha256": "e41cff119cb963fed729ebfc4507c278b697b704d7b12ce1a7120efd6f330b5c",
+        "source": "references/server-structure-20261029-v1/source/76f9fc5bcee5151a0aa1f956a907df1497161bc48ae66a933e4115779fde5c11/business_queue.py",
+        "sha256": "76f9fc5bcee5151a0aa1f956a907df1497161bc48ae66a933e4115779fde5c11",
+        "size": 3882
+      },
+      "els_server/cleanup.py": {
+        "before_source": null,
+        "before_sha256": null,
+        "source": "references/server-structure-20261029-v1/source/f57777fa43aa08d07b68d5ded42e197e2be93dc3aa3b6ba93aa332f787bd8f06/cleanup.py",
+        "sha256": "f57777fa43aa08d07b68d5ded42e197e2be93dc3aa3b6ba93aa332f787bd8f06",
+        "size": 394
+      },
+      "els_server/domain/dungeon_settlement_commands.py": {
+        "before_source": null,
+        "before_sha256": null,
+        "source": "references/server-structure-20261029-v1/source/0bc2e00dab3c9e9de713a3d9148f55717690788a4bdbc8513c857ade106e7599/dungeon_settlement_commands.py",
+        "sha256": "0bc2e00dab3c9e9de713a3d9148f55717690788a4bdbc8513c857ade106e7599",
+        "size": 11865
+      },
+      "els_server/domain/field_boss.py": {
+        "before_source": "references/formal-clock-source-20261027-v1/906327cb3abd8c6471d6c87df34f9630f727c3ee1fe1ed3f910146d9ca5b3fcd/field_boss.py",
+        "before_sha256": "906327cb3abd8c6471d6c87df34f9630f727c3ee1fe1ed3f910146d9ca5b3fcd",
+        "source": "references/server-structure-20261029-v1/source/0e4323e121691427ddf44798acfbdeb4a70041ecffb3d4cb24443360c4572af8/field_boss.py",
+        "sha256": "0e4323e121691427ddf44798acfbdeb4a70041ecffb3d4cb24443360c4572af8",
+        "size": 13897
+      },
+      "els_server/domain/friends_world.py": {
+        "before_source": "references/native-force-guild-flow-20261029-v1/source/91896853681986fb56a9597457a3d678b87b4de9bb87693d898e46e71e62f9f8/friends_world.py",
+        "before_sha256": "91896853681986fb56a9597457a3d678b87b4de9bb87693d898e46e71e62f9f8",
+        "source": "references/server-structure-20261029-v1/source/6076303fde43097f68aae873721b43f8e50778d9287c6ab33e5aa3aa665968a0/friends_world.py",
+        "sha256": "6076303fde43097f68aae873721b43f8e50778d9287c6ab33e5aa3aa665968a0",
+        "size": 19220
+      },
+      "els_server/domain/guild_agit_flow.py": {
+        "before_source": "references/native-force-guild-flow-20261029-v1/source/e1d51ccb20eca8737814d5664856451d6b4a82b2d42f95dc0c060cdf9f265e96/guild_agit_flow.py",
+        "before_sha256": "e1d51ccb20eca8737814d5664856451d6b4a82b2d42f95dc0c060cdf9f265e96",
+        "source": "references/server-structure-20261029-v1/source/5638f1744c8914625f3018374554c6da2e144164bef53e0155bf33e4dd1e3904/guild_agit_flow.py",
+        "sha256": "5638f1744c8914625f3018374554c6da2e144164bef53e0155bf33e4dd1e3904",
+        "size": 10131
+      },
+      "els_server/domain/local_session.py": {
+        "before_source": "references/native-force-guild-flow-20261029-v1/source/a73d6247f135ea4fe6a24cbc91145fd504ae247bad374632aca52d64c7512a1c/local_session.py",
+        "before_sha256": "a73d6247f135ea4fe6a24cbc91145fd504ae247bad374632aca52d64c7512a1c",
+        "source": "references/server-structure-20261029-v1/source/f37f45ebfe50f5c0fc7eab3a066c1513f0b2c347e8a42e6d476279f99c67e8db/local_session.py",
+        "sha256": "f37f45ebfe50f5c0fc7eab3a066c1513f0b2c347e8a42e6d476279f99c67e8db",
+        "size": 142929
+      },
+      "els_server/domain/pve_economy_flow.py": {
+        "before_source": "references/formal-change-force-parent-20261027-v1/online/els_server/domain/pve_economy_flow.py",
+        "before_sha256": "717d2c8f0055732f17f229edc62e3ce76bd47f83b271d832c1351da957e4e313",
+        "source": "references/server-structure-20261029-v1/source/f603818e58c0cb766afc0d0e5da15e53321f4fd4c42f71dd82d9d50deca201c0/pve_economy_flow.py",
+        "sha256": "f603818e58c0cb766afc0d0e5da15e53321f4fd4c42f71dd82d9d50deca201c0",
+        "size": 22468
+      },
+      "els_server/domain/roster_account.py": {
+        "before_source": "references/character-slow-paths-20261027-v1/engine/online/els_server/domain/roster_account.py",
+        "before_sha256": "b4a6085e0ab999bd19a82211551d40c179442beb6a2bf695ae0e58a3b998b928",
+        "source": "references/server-structure-20261029-v1/source/48f19becfafa7a1ddcd7187a4f6a87bb80dad52aa8e45caef362fc18d300285a/roster_account.py",
+        "sha256": "48f19becfafa7a1ddcd7187a4f6a87bb80dad52aa8e45caef362fc18d300285a",
+        "size": 1536
+      },
+      "els_server/domain/session_dispatch.py": {
+        "before_source": null,
+        "before_sha256": null,
+        "source": "references/server-structure-20261029-v1/source/da5afcea233f27935a5e7045a2e36cadb8f3f8c1b6bb2fa8eca6382b167cb508/session_dispatch.py",
+        "sha256": "da5afcea233f27935a5e7045a2e36cadb8f3f8c1b6bb2fa8eca6382b167cb508",
+        "size": 16487
+      },
+      "els_server/performance.py": {
+        "before_source": "references/peak-business-concurrency-20261027-v1/online/els_server/performance.py",
+        "before_sha256": "997fb5c61f3b2d0f3ceef4e9275fe5e36e89359107f0ccc08fe80daf16a105d6",
+        "source": "references/server-structure-20261029-v1/source/d7c98ad6b8bf8e92e41a835f94d9a3c1995be1b9fa134ff47e5f39d1769406a4/performance.py",
+        "sha256": "d7c98ad6b8bf8e92e41a835f94d9a3c1995be1b9fa134ff47e5f39d1769406a4",
+        "size": 6335
+      },
+      "els_server/periodic_scheduler.py": {
+        "before_source": "references/periodic-deadline-fairness-20261027-v1/engine/els_server/periodic_scheduler.py",
+        "before_sha256": "0495668c6020233d9454621364d710b91e6589933ec415a286746385955fc162",
+        "source": "references/server-structure-20261029-v1/source/9ce9b50161edfa6a69124e5368ff1af76e527f6c0fdfbf7d712c191e14dd379a/periodic_scheduler.py",
+        "sha256": "9ce9b50161edfa6a69124e5368ff1af76e527f6c0fdfbf7d712c191e14dd379a",
+        "size": 6639
+      },
+      "els_server/periodic_work.py": {
+        "before_source": null,
+        "before_sha256": null,
+        "source": "references/server-structure-20261029-v1/source/ee327313cca130655a8aeeb8ae27f3d8c25c8f1e2bbe0017aba93da46982566f/periodic_work.py",
+        "sha256": "ee327313cca130655a8aeeb8ae27f3d8c25c8f1e2bbe0017aba93da46982566f",
+        "size": 1714
+      },
+      "els_server/storage/character_lifecycle.py": {
+        "before_source": "references/f-trade-board-native-20261026-v1/local/els_server/storage/character_lifecycle.py",
+        "before_sha256": "5b7689f48c4c26b6612f387b2010b1e9b426fa1d594626110c385ac014ac0714",
+        "source": "references/server-structure-20261029-v1/source/a4790f642b97b2508195f4577eb197e3aebbe1db768943ad5a16d2b78797c332/character_lifecycle.py",
+        "sha256": "a4790f642b97b2508195f4577eb197e3aebbe1db768943ad5a16d2b78797c332",
+        "size": 7359
+      },
+      "els_server/storage/character_projection.py": {
+        "before_source": null,
+        "before_sha256": null,
+        "source": "references/server-structure-20261029-v1/source/17d200616b9bbe791b9e2a87a13aaaaea2b8bd561f3b5e5936d527b4a6fa372c/character_projection.py",
+        "sha256": "17d200616b9bbe791b9e2a87a13aaaaea2b8bd561f3b5e5936d527b4a6fa372c",
+        "size": 1799
+      },
+      "els_server/storage/character_selection.py": {
+        "before_source": "els_server/storage/character_selection.py",
+        "before_sha256": "461a796ea6a0cc13259e670ad92c0e266f9ce44102c02806001e8810c3beff0c",
+        "source": "references/server-structure-20261029-v1/source/6158836e3573ab70e930fc50e623fbcf5065a729f6add237f3c6e6d6f40705b2/character_selection.py",
+        "sha256": "6158836e3573ab70e930fc50e623fbcf5065a729f6add237f3c6e6d6f40705b2",
+        "size": 3367
+      },
+      "els_server/storage/characters.py": {
+        "before_source": "references/native-unit-account-identity-20261029-v1/source/54cb4afdccc26303c62487d26218688dd204b35e654b3fdbf705f50175d86c32/characters.py",
+        "before_sha256": "54cb4afdccc26303c62487d26218688dd204b35e654b3fdbf705f50175d86c32",
+        "source": "references/server-structure-20261029-v1/source/e3f8e314d89ed411d75168ce35cb90938500909917fd473c903b6c03f9ed0f53/characters.py",
+        "sha256": "e3f8e314d89ed411d75168ce35cb90938500909917fd473c903b6c03f9ed0f53",
+        "size": 15128
+      },
+      "els_server/storage/group_settlement.py": {
+        "before_source": "els_server/storage/group_settlement.py",
+        "before_sha256": "5f45968681b414e197644195933bfbbf292f26f64e5eef8a435b44eeae32154d",
+        "source": "references/server-structure-20261029-v1/source/2e310582453a03a03ce854a1659daa74bc55b57c450792690656585047ac8e29/group_settlement.py",
+        "sha256": "2e310582453a03a03ce854a1659daa74bc55b57c450792690656585047ac8e29",
+        "size": 1994
+      },
+      "els_server/storage/initialization_checks.py": {
+        "before_source": null,
+        "before_sha256": null,
+        "source": "references/server-structure-20261029-v1/source/21857f0b2eb9f231b253f4538aed28d369a855fda9ac254c0ff2a4810a03ef11/initialization_checks.py",
+        "sha256": "21857f0b2eb9f231b253f4538aed28d369a855fda9ac254c0ff2a4810a03ef11",
+        "size": 6516
+      },
+      "els_server/storage/inventory_state.py": {
+        "before_source": "references/retained-native-consumable-readers-20261027-v1/local/els_server/storage/inventory_state.py",
+        "before_sha256": "00c8ed1245df1270a800f9bbc2b74c0f145422fd5aec5dfb702a2e6fe84df65d",
+        "source": "references/server-structure-20261029-v1/source/642cbdc5af905f1452abbf038ffc3569aa47205c1a70e6036063a59129b6d000/inventory_state.py",
+        "sha256": "642cbdc5af905f1452abbf038ffc3569aa47205c1a70e6036063a59129b6d000",
+        "size": 25470
+      },
+      "els_server/storage/local_state.py": {
+        "before_source": "references/selection-town-business-20261027-v1/online/els_server/storage/local_state.py",
+        "before_sha256": "084ed8f07c03e8881ba94eb1c35bd2db4ddd44a2bb7f926f47e2a48aa96a6c1b",
+        "source": "references/server-structure-20261029-v1/source/1ed679e5c3d29c5afe298503d951ae2c335210d6c187b8cd56db81d89cb783f1/local_state.py",
+        "sha256": "1ed679e5c3d29c5afe298503d951ae2c335210d6c187b8cd56db81d89cb783f1",
+        "size": 11516
+      },
+      "els_server/storage/read_scope.py": {
+        "before_source": "references/path-projections-20261027-v1/online/els_server/storage/read_scope.py",
+        "before_sha256": "55454793c3c96051f97f7404998254b2b71f7af5c8354324357f317497d7caae",
+        "source": "references/server-structure-20261029-v1/source/f05505f159cabf5aaa882293684345c25b03dd8d21e13ee23aed20e2acfbc3bd/read_scope.py",
+        "sha256": "f05505f159cabf5aaa882293684345c25b03dd8d21e13ee23aed20e2acfbc3bd",
+        "size": 9262
+      },
+      "els_server/storage/reward_state.py": {
+        "before_source": "references/peak-business-concurrency-20261027-v1/online/els_server/storage/reward_state.py",
+        "before_sha256": "e9b9030034fc46464532decb71d4d2d965fd17f91fe116b4128d784776c9dcd0",
+        "source": "references/server-structure-20261029-v1/source/36aed4611833bb6e94853b2f49ace88a79cb2c52640e121f5585a58939a33965/reward_state.py",
+        "sha256": "36aed4611833bb6e94853b2f49ace88a79cb2c52640e121f5585a58939a33965",
+        "size": 20559
+      },
+      "els_server/storage/seal_quests.py": {
+        "before_source": "references/native-unit-account-identity-20261029-v1/source/ab14d3f23104c7272e232d3459b05410e862b17fb973d02ab211b87e20daf2d2/seal_quests.py",
+        "before_sha256": "ab14d3f23104c7272e232d3459b05410e862b17fb973d02ab211b87e20daf2d2",
+        "source": "references/server-structure-20261029-v1/source/210b2e7aaae4ff7a0eb4bd9135b2ecf86ab584a83b7735a35da0b23dff40fbe1/seal_quests.py",
+        "sha256": "210b2e7aaae4ff7a0eb4bd9135b2ecf86ab584a83b7735a35da0b23dff40fbe1",
+        "size": 32437
+      }
+    },
+    "local": {
+      "els_server/account_cache.py": {
+        "before_source": null,
+        "before_sha256": null,
+        "source": "references/server-structure-20261029-v1/source/ee052f5031478470fcb81969539972c10202150af8b59bb0d4df621c43ce7274/account_cache.py",
+        "sha256": "ee052f5031478470fcb81969539972c10202150af8b59bb0d4df621c43ce7274",
+        "size": 2128
+      },
+      "els_server/accounts_gateway.py": {
+        "before_source": "references/server-architecture-20261027-v1/engine/online/els_server/accounts_gateway.py",
+        "before_sha256": "bda361e65e64eb30e1768d5bbad7943bfde6a6bae300203dbb921b1d31df6cf6",
+        "source": "references/server-structure-20261029-v1/source/aa62d7c2112bcad6842e67a7b76d29ddc63011c2a490566e9f2cd52f15869406/accounts_gateway.py",
+        "sha256": "aa62d7c2112bcad6842e67a7b76d29ddc63011c2a490566e9f2cd52f15869406",
+        "size": 11447
+      },
+      "els_server/application.py": {
+        "before_source": "references/native-force-guild-flow-20261029-v1/source/ee8f122d2452b24c3c54bce007f735503f713f759363e8c9356c6fc38fb43a58/application.py",
+        "before_sha256": "ee8f122d2452b24c3c54bce007f735503f713f759363e8c9356c6fc38fb43a58",
+        "source": "references/server-structure-20261029-v1/source/11bd2c4dfdae15acaa66e898a8f24022cdaaf54c4ecd7cfd986ad880d5e80c1d/application.py",
+        "sha256": "11bd2c4dfdae15acaa66e898a8f24022cdaaf54c4ecd7cfd986ad880d5e80c1d",
+        "size": 23518
+      },
+      "els_server/business_queue.py": {
+        "before_source": "references/peak-business-concurrency-20261027-v1/online/els_server/business_queue.py",
+        "before_sha256": "e41cff119cb963fed729ebfc4507c278b697b704d7b12ce1a7120efd6f330b5c",
+        "source": "references/server-structure-20261029-v1/source/76f9fc5bcee5151a0aa1f956a907df1497161bc48ae66a933e4115779fde5c11/business_queue.py",
+        "sha256": "76f9fc5bcee5151a0aa1f956a907df1497161bc48ae66a933e4115779fde5c11",
+        "size": 3882
+      },
+      "els_server/cleanup.py": {
+        "before_source": null,
+        "before_sha256": null,
+        "source": "references/server-structure-20261029-v1/source/f57777fa43aa08d07b68d5ded42e197e2be93dc3aa3b6ba93aa332f787bd8f06/cleanup.py",
+        "sha256": "f57777fa43aa08d07b68d5ded42e197e2be93dc3aa3b6ba93aa332f787bd8f06",
+        "size": 394
+      },
+      "els_server/domain/dungeon_settlement_commands.py": {
+        "before_source": null,
+        "before_sha256": null,
+        "source": "references/server-structure-20261029-v1/source/5249624af540a43267f5ada8cfc06105b517e9b4b4bba2ed5b9e1890af74ae48/dungeon_settlement_commands.py",
+        "sha256": "5249624af540a43267f5ada8cfc06105b517e9b4b4bba2ed5b9e1890af74ae48",
+        "size": 11750
+      },
+      "els_server/domain/field_boss.py": {
+        "before_source": "references/formal-clock-source-20261027-v1/906327cb3abd8c6471d6c87df34f9630f727c3ee1fe1ed3f910146d9ca5b3fcd/field_boss.py",
+        "before_sha256": "906327cb3abd8c6471d6c87df34f9630f727c3ee1fe1ed3f910146d9ca5b3fcd",
+        "source": "references/server-structure-20261029-v1/source/0e4323e121691427ddf44798acfbdeb4a70041ecffb3d4cb24443360c4572af8/field_boss.py",
+        "sha256": "0e4323e121691427ddf44798acfbdeb4a70041ecffb3d4cb24443360c4572af8",
+        "size": 13897
+      },
+      "els_server/domain/friends_world.py": {
+        "before_source": "references/native-force-guild-flow-20261029-v1/source/91896853681986fb56a9597457a3d678b87b4de9bb87693d898e46e71e62f9f8/friends_world.py",
+        "before_sha256": "91896853681986fb56a9597457a3d678b87b4de9bb87693d898e46e71e62f9f8",
+        "source": "references/server-structure-20261029-v1/source/6076303fde43097f68aae873721b43f8e50778d9287c6ab33e5aa3aa665968a0/friends_world.py",
+        "sha256": "6076303fde43097f68aae873721b43f8e50778d9287c6ab33e5aa3aa665968a0",
+        "size": 19220
+      },
+      "els_server/domain/guild_agit_flow.py": {
+        "before_source": "references/native-force-guild-flow-20261029-v1/source/e1d51ccb20eca8737814d5664856451d6b4a82b2d42f95dc0c060cdf9f265e96/guild_agit_flow.py",
+        "before_sha256": "e1d51ccb20eca8737814d5664856451d6b4a82b2d42f95dc0c060cdf9f265e96",
+        "source": "references/server-structure-20261029-v1/source/5638f1744c8914625f3018374554c6da2e144164bef53e0155bf33e4dd1e3904/guild_agit_flow.py",
+        "sha256": "5638f1744c8914625f3018374554c6da2e144164bef53e0155bf33e4dd1e3904",
+        "size": 10131
+      },
+      "els_server/domain/local_session.py": {
+        "before_source": "references/native-force-guild-flow-20261029-v1/source/8cd5b80f2b9803270d518ce575448492fb58d8c6bd223b1218bfa5546cc5eba6/local_session.py",
+        "before_sha256": "8cd5b80f2b9803270d518ce575448492fb58d8c6bd223b1218bfa5546cc5eba6",
+        "source": "references/server-structure-20261029-v1/source/9d535ba9db685954e6bbe22f1c9a48c4ee93dff985bc5ae80aa974988783a9b6/local_session.py",
+        "sha256": "9d535ba9db685954e6bbe22f1c9a48c4ee93dff985bc5ae80aa974988783a9b6",
+        "size": 142006
+      },
+      "els_server/domain/pve_economy_flow.py": {
+        "before_source": "references/formal-change-force-parent-20261027-v1/online/els_server/domain/pve_economy_flow.py",
+        "before_sha256": "717d2c8f0055732f17f229edc62e3ce76bd47f83b271d832c1351da957e4e313",
+        "source": "references/server-structure-20261029-v1/source/f603818e58c0cb766afc0d0e5da15e53321f4fd4c42f71dd82d9d50deca201c0/pve_economy_flow.py",
+        "sha256": "f603818e58c0cb766afc0d0e5da15e53321f4fd4c42f71dd82d9d50deca201c0",
+        "size": 22468
+      },
+      "els_server/domain/roster_account.py": {
+        "before_source": "references/character-slow-paths-20261027-v1/engine/online/els_server/domain/roster_account.py",
+        "before_sha256": "b4a6085e0ab999bd19a82211551d40c179442beb6a2bf695ae0e58a3b998b928",
+        "source": "references/server-structure-20261029-v1/source/48f19becfafa7a1ddcd7187a4f6a87bb80dad52aa8e45caef362fc18d300285a/roster_account.py",
+        "sha256": "48f19becfafa7a1ddcd7187a4f6a87bb80dad52aa8e45caef362fc18d300285a",
+        "size": 1536
+      },
+      "els_server/domain/session_dispatch.py": {
+        "before_source": null,
+        "before_sha256": null,
+        "source": "references/server-structure-20261029-v1/source/5166ce09be6f06feadd02bbcdf61dfd3667e6ac516d77595369c18e963ecf172/session_dispatch.py",
+        "sha256": "5166ce09be6f06feadd02bbcdf61dfd3667e6ac516d77595369c18e963ecf172",
+        "size": 16464
+      },
+      "els_server/performance.py": {
+        "before_source": "references/peak-business-concurrency-20261027-v1/local/els_server/performance.py",
+        "before_sha256": "4ad00daa64aca4b3de38b9ba814f6c368f05c4fc716ae99928a24741074f389a",
+        "source": "references/server-structure-20261029-v1/source/e49f789a84f524949d96602f5d25fb105c0554b726ab6cd9d2b8681701a5eff9/performance.py",
+        "sha256": "e49f789a84f524949d96602f5d25fb105c0554b726ab6cd9d2b8681701a5eff9",
+        "size": 6746
+      },
+      "els_server/periodic_scheduler.py": {
+        "before_source": "references/periodic-deadline-fairness-20261027-v1/engine/els_server/periodic_scheduler.py",
+        "before_sha256": "0495668c6020233d9454621364d710b91e6589933ec415a286746385955fc162",
+        "source": "references/server-structure-20261029-v1/source/9ce9b50161edfa6a69124e5368ff1af76e527f6c0fdfbf7d712c191e14dd379a/periodic_scheduler.py",
+        "sha256": "9ce9b50161edfa6a69124e5368ff1af76e527f6c0fdfbf7d712c191e14dd379a",
+        "size": 6639
+      },
+      "els_server/periodic_work.py": {
+        "before_source": null,
+        "before_sha256": null,
+        "source": "references/server-structure-20261029-v1/source/ee327313cca130655a8aeeb8ae27f3d8c25c8f1e2bbe0017aba93da46982566f/periodic_work.py",
+        "sha256": "ee327313cca130655a8aeeb8ae27f3d8c25c8f1e2bbe0017aba93da46982566f",
+        "size": 1714
+      },
+      "els_server/storage/character_lifecycle.py": {
+        "before_source": "references/f-trade-board-native-20261026-v1/local/els_server/storage/character_lifecycle.py",
+        "before_sha256": "5b7689f48c4c26b6612f387b2010b1e9b426fa1d594626110c385ac014ac0714",
+        "source": "references/server-structure-20261029-v1/source/a4790f642b97b2508195f4577eb197e3aebbe1db768943ad5a16d2b78797c332/character_lifecycle.py",
+        "sha256": "a4790f642b97b2508195f4577eb197e3aebbe1db768943ad5a16d2b78797c332",
+        "size": 7359
+      },
+      "els_server/storage/character_projection.py": {
+        "before_source": null,
+        "before_sha256": null,
+        "source": "references/server-structure-20261029-v1/source/17d200616b9bbe791b9e2a87a13aaaaea2b8bd561f3b5e5936d527b4a6fa372c/character_projection.py",
+        "sha256": "17d200616b9bbe791b9e2a87a13aaaaea2b8bd561f3b5e5936d527b4a6fa372c",
+        "size": 1799
+      },
+      "els_server/storage/character_selection.py": {
+        "before_source": "els_server/storage/character_selection.py",
+        "before_sha256": "461a796ea6a0cc13259e670ad92c0e266f9ce44102c02806001e8810c3beff0c",
+        "source": "references/server-structure-20261029-v1/source/6158836e3573ab70e930fc50e623fbcf5065a729f6add237f3c6e6d6f40705b2/character_selection.py",
+        "sha256": "6158836e3573ab70e930fc50e623fbcf5065a729f6add237f3c6e6d6f40705b2",
+        "size": 3367
+      },
+      "els_server/storage/characters.py": {
+        "before_source": "references/native-unit-account-identity-20261029-v1/source/54cb4afdccc26303c62487d26218688dd204b35e654b3fdbf705f50175d86c32/characters.py",
+        "before_sha256": "54cb4afdccc26303c62487d26218688dd204b35e654b3fdbf705f50175d86c32",
+        "source": "references/server-structure-20261029-v1/source/e3f8e314d89ed411d75168ce35cb90938500909917fd473c903b6c03f9ed0f53/characters.py",
+        "sha256": "e3f8e314d89ed411d75168ce35cb90938500909917fd473c903b6c03f9ed0f53",
+        "size": 15128
+      },
+      "els_server/storage/group_settlement.py": {
+        "before_source": "els_server/storage/group_settlement.py",
+        "before_sha256": "5f45968681b414e197644195933bfbbf292f26f64e5eef8a435b44eeae32154d",
+        "source": "references/server-structure-20261029-v1/source/2e310582453a03a03ce854a1659daa74bc55b57c450792690656585047ac8e29/group_settlement.py",
+        "sha256": "2e310582453a03a03ce854a1659daa74bc55b57c450792690656585047ac8e29",
+        "size": 1994
+      },
+      "els_server/storage/initialization_checks.py": {
+        "before_source": null,
+        "before_sha256": null,
+        "source": "references/server-structure-20261029-v1/source/21857f0b2eb9f231b253f4538aed28d369a855fda9ac254c0ff2a4810a03ef11/initialization_checks.py",
+        "sha256": "21857f0b2eb9f231b253f4538aed28d369a855fda9ac254c0ff2a4810a03ef11",
+        "size": 6516
+      },
+      "els_server/storage/inventory_state.py": {
+        "before_source": "references/retained-native-consumable-readers-20261027-v1/local/els_server/storage/inventory_state.py",
+        "before_sha256": "00c8ed1245df1270a800f9bbc2b74c0f145422fd5aec5dfb702a2e6fe84df65d",
+        "source": "references/server-structure-20261029-v1/source/642cbdc5af905f1452abbf038ffc3569aa47205c1a70e6036063a59129b6d000/inventory_state.py",
+        "sha256": "642cbdc5af905f1452abbf038ffc3569aa47205c1a70e6036063a59129b6d000",
+        "size": 25470
+      },
+      "els_server/storage/local_state.py": {
+        "before_source": "references/selection-town-business-20261027-v1/online/els_server/storage/local_state.py",
+        "before_sha256": "084ed8f07c03e8881ba94eb1c35bd2db4ddd44a2bb7f926f47e2a48aa96a6c1b",
+        "source": "references/server-structure-20261029-v1/source/1ed679e5c3d29c5afe298503d951ae2c335210d6c187b8cd56db81d89cb783f1/local_state.py",
+        "sha256": "1ed679e5c3d29c5afe298503d951ae2c335210d6c187b8cd56db81d89cb783f1",
+        "size": 11516
+      },
+      "els_server/storage/read_scope.py": {
+        "before_source": "references/path-projections-20261027-v1/online/els_server/storage/read_scope.py",
+        "before_sha256": "55454793c3c96051f97f7404998254b2b71f7af5c8354324357f317497d7caae",
+        "source": "references/server-structure-20261029-v1/source/f05505f159cabf5aaa882293684345c25b03dd8d21e13ee23aed20e2acfbc3bd/read_scope.py",
+        "sha256": "f05505f159cabf5aaa882293684345c25b03dd8d21e13ee23aed20e2acfbc3bd",
+        "size": 9262
+      },
+      "els_server/storage/reward_state.py": {
+        "before_source": "references/peak-business-concurrency-20261027-v1/online/els_server/storage/reward_state.py",
+        "before_sha256": "e9b9030034fc46464532decb71d4d2d965fd17f91fe116b4128d784776c9dcd0",
+        "source": "references/server-structure-20261029-v1/source/36aed4611833bb6e94853b2f49ace88a79cb2c52640e121f5585a58939a33965/reward_state.py",
+        "sha256": "36aed4611833bb6e94853b2f49ace88a79cb2c52640e121f5585a58939a33965",
+        "size": 20559
+      },
+      "els_server/storage/seal_quests.py": {
+        "before_source": "references/native-unit-account-identity-20261029-v1/source/ab14d3f23104c7272e232d3459b05410e862b17fb973d02ab211b87e20daf2d2/seal_quests.py",
+        "before_sha256": "ab14d3f23104c7272e232d3459b05410e862b17fb973d02ab211b87e20daf2d2",
+        "source": "references/server-structure-20261029-v1/source/210b2e7aaae4ff7a0eb4bd9135b2ecf86ab584a83b7735a35da0b23dff40fbe1/seal_quests.py",
+        "sha256": "210b2e7aaae4ff7a0eb4bd9135b2ecf86ab584a83b7735a35da0b23dff40fbe1",
+        "size": 32437
+      }
+    }
+  }
+}

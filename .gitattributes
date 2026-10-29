@@ -46,3 +46,10 @@ launchers/friends-v43/** -text whitespace=cr-at-eol
 # Two signed parent inputs retain original CRCRLF/EOF bytes, verified by full SHA.
 launchers/friends-v43/launch_client.py -text whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof
 launchers/friends-v43/Program.cs -text whitespace=cr-at-eol,-blank-at-eof
+
+# Immutable structural source/test evidence retains its qualified original bytes.
+references/server-structure-20261029-v1/** -text whitespace=cr-at-eol
+references/server-structure-20261029-v1/test-sources/test_dispatch_settlement_contract.py -text whitespace=cr-at-eol,-blank-at-eof
+
+# Exact corrected V44 source and signed JSON retain their qualified bytes.
+launchers/friends-v44/** -text whitespace=cr-at-eol
