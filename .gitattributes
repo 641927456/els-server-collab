@@ -74,3 +74,9 @@ references/accessory-launcher-20261031-v1/** -text whitespace=cr-at-eol
 references/local-repairs-20261030-v1/** -text whitespace=cr-at-eol
 references/enhancement-unlock-20261030-v1/** whitespace=cr-at-eol
 references/bag-plus-expansion-20261031-v1/** whitespace=cr-at-eol
+
+# Exact qualified customization archive retains Windows source bytes.
+references/custom-items-all-20261031-v1/** -text whitespace=cr-at-eol
+# These two exact storage copies retain the inherited OWNED-line trailing space.
+references/custom-items-all-20261031-v1/source/common/els_server/storage/character_custom.py whitespace=cr-at-eol,-blank-at-eol
+references/custom-items-all-20261031-v1/recovery/els_server/storage/character_custom.py whitespace=cr-at-eol,-blank-at-eol
