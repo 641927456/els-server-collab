@@ -52,7 +52,8 @@ def initialization(state):
     # DA3620 -> DB6070/DD6E80, DB60F0, C62740, DB7080, vector32.
     active=state['active'];done=state['completed']
     body=struct.pack('>iI',0,len(active))+b''.join(active_record(r) for r in active)
-    body+=struct.pack('>I',len(done))+b''.join(completed_record(r) for r in done)+bytes(12)
+    from els_server.protocol.weapon_growth_messages import initialization_tail
+    body+=struct.pack('>I',len(done))+b''.join(completed_record(r) for r in done)+bytes(4)+initialization_tail(state)
     return Event(0x201,kind=0x2b,payload=body)
 
 def accept_ack(result=0):return Event(0x201,kind=0xef,payload=struct.pack('>i',result))

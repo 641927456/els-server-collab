@@ -22,9 +22,12 @@ def capacity(template):
  if not n:raise ValueError('Original equipment has no base socket slots')
  return n
 def validate(template,groups):
- if not isinstance(groups,dict) or set(groups)-{'9','10','11','12','0','1','13','14','15','16','18','19','20','21','25','27','28','29','31'}:raise ValueError('Unsupported option group')
+ if not isinstance(groups,dict) or set(groups)-{'9','10','11','12','0','1','13','14','15','16','17','18','19','20','21','25','27','28','29','31'}:raise ValueError('Unsupported option group')
  result={}
  for group,values in groups.items():
+  if group=='17':
+   from els_server.domain.weapon_growth import options as growth_options
+   result[group]=growth_options(template,values);continue
   if group in ('9','10','11','12'):
    from els_server.domain.equipment_spell_rules import options as spell_options
    result[group]=spell_options(template,int(group),values);continue

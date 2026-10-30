@@ -131,7 +131,11 @@ def _state(db,uid,items):
                 counts[s['m_iID']]=min(target(s),a[0] if a else 0)
         active.append(dict(id=q,owner=erp_scope.quest_owner(db,uid,q),accepted_at=at,generation=g,objectives=counts,**({'projection_owner':uid} if q in (25600,25601,25602) else {})))
     done=[dict(id=q,completed_at=at) for q,at in erp_scope.completed_rows(db,uid)]
-    return dict(active=active,completed=done)
+    state=dict(active=active,completed=done)
+    from els_server.storage.weapon_growth import snapshot as weapon_growth_snapshot
+    growth=weapon_growth_snapshot(db,uid,items)
+    if growth['item_active'] or growth['item_completed']:state.update(growth)
+    return state
 
 class QuestState:
     def __init__(self,path,uid=1001,*,account_id=None,account_source_guard=None):

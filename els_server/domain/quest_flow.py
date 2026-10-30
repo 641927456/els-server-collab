@@ -68,6 +68,9 @@ def collection_source_guard(s):
     return guard
 
 def handle(s,event,sequence):
+    from els_server.domain.weapon_growth_flow import handle as weapon_growth_handle
+    growth_reply=weapon_growth_handle(s,event,sequence)
+    if growth_reply is not None:return growth_reply
     if event.event_id==0x202 and event.kind==0xfd and enabled(s):
         from els_server.domain.account_fishing25600 import handle as fishing_handle
         fishing_reply=fishing_handle(s,event,sequence)
@@ -370,4 +373,6 @@ def observe(s,replies=()):
             if row['id'] in old and old[row['id']]!=signature:changed.append(row)
         if changed:notices.append(wire.progress(changed))
         s._quest_collection_view=(owner,current)
+    from els_server.domain.weapon_growth_flow import observe as observe_weapon_growth
+    notices+=observe_weapon_growth(s,run,replies)
     return notices
