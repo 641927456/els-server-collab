@@ -1,0 +1,12 @@
+--- a/els_server/storage/fixed_cubes.py
++++ b/els_server/storage/fixed_cubes.py
+@@ -58,7 +58,8 @@
+         from els_server.storage.boosting_2026_accessories import open_box
+         return open_box(path,owner,expected_template,payload,operation)
+     request=use_request(payload)
+-    if (request.option!=0 or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))
++    # Native quantity callbacks use zero or explicit one for a single cube.
++    if (request.option not in (0,1) or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))
+         or expected_template not in catalog()):raise ValueError('Unsupported fixed cube use')
+     row=catalog()[expected_template]
+     from els_server.domain.regional_boss_cubes_legacy import BOXES,pool_for
