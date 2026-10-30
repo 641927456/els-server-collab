@@ -17,6 +17,12 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'references/local-repairs-20261030-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_local_repairs_source_20261031.py')])
+    if (ROOT/'channels/shared-request-latency-candidate-20261031-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_shared_request_latency.py')]+(['--with-runtime']if args.with_runtime else []))
+    if (ROOT/'references/weapon-growth-ui-20261031-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_weapon_growth_source_20261031.py')])
     if (ROOT/'channels/accessory-identification-accepted-20261031-v1.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_accessory_identification_20261031.py')])
     if (ROOT/'references/owned-stones-nine-leaf-selective-20261030-v1/source-contract.json').is_file():

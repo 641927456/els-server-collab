@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "provenance": "local_boss_gauge",
+  "description": "客户端把 BOSS 最大血量按血条格数均分（dungeon_population.py 记录的 1693620 插值），而 Dungeon_Md_* 的导入路线数据只声明 1 格。罗索（34390）实机血条是 151 格（20261030-013523 截图 x151），1 格时客户端在 max/1000 处卡死、BOSS 永不死亡。本表把该图下发的格数改成实机观测值。只作用于列出的地图；删除本文件或 enabled=false 即恢复导入值。",
+  "enabled": false,
+  "note": "只登记实机截图观测过的 34390。其余 15 张图未观测，保持导入的 1 格。",
+  "maps": {
+    "34390": 151
+  }
+}
