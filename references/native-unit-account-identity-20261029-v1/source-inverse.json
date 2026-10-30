@@ -1,0 +1,56 @@
+{
+  "els_server/storage/characters.py": [
+    [
+      "query='SELECT c.uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE o.account_id=?'",
+      "query='SELECT c.uid,name,unit_type,unit_class,level,transcendence,master,revision,o.account_id FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE o.account_id=?'"
+    ],
+    [
+      "rows=[self._row(r) for r in db.execute(query+' ORDER BY c.uid',parameters)]",
+      "rows=[dict(self._row(r[:-1]),account_id=r[-1]) for r in db.execute(query+' ORDER BY c.uid',parameters)]\n            if any(type(r['account_id'])is not int or r['account_id']!=self.account_id for r in rows):raise ValueError('Native Unit SQL account identity')"
+    ],
+    [
+      "value=self._row(row)\n            # list()/get()",
+      "value=self._row(row)\n            value['account_id']=self.account_id\n            # list()/get()"
+    ],
+    [
+      "character=dict(DEFAULT_CHARACTER,uid=uid,name=name,unit_type=unit_type,unit_class=BASE_CLASSES[unit_type],artifact=None,bag_capacities=starting_bags)",
+      "character=dict(DEFAULT_CHARACTER,uid=uid,account_id=self.account_id,name=name,unit_type=unit_type,unit_class=BASE_CLASSES[unit_type],artifact=None,bag_capacities=starting_bags)"
+    ]
+  ],
+  "els_server/storage/seal_quests.py": [
+    [
+      "    if account_id is not None and db.execute('SELECT account_id FROM character_owners WHERE uid=?',(uid,)).fetchone()!=(account_id,):raise ValueError('Quest character owner mismatch')\n    row=Characters._row(db.execute('SELECT uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters WHERE uid=?',(uid,)).fetchone())",
+      "    if not db.execute(\"SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_owners'\").fetchone():raise ValueError('Quest character owner mapping required')\n    saved=db.execute('SELECT c.uid,name,unit_type,unit_class,level,transcendence,master,revision,o.account_id FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=?',(uid,)).fetchone()\n    if saved is None:raise ValueError('Unknown owned quest character')\n    owner=saved[-1]\n    if type(owner)is not int or not 1<=owner<2**63 or account_id is not None and(type(account_id)is not int or account_id!=owner):raise ValueError('Quest character owner mismatch')\n    row=dict(Characters._row(saved[:-1]),account_id=owner)"
+    ],
+    [
+      "            from els_server.storage.resonance_state import snapshot as resonance_snapshot",
+      "            if saved_owner!=(row['account_id'],):raise ValueError('Quest character owner changed during projection')\n            from els_server.storage.resonance_state import snapshot as resonance_snapshot"
+    ]
+  ],
+  "els_server/storage/career_shop.py": [
+    [
+      "    if character['uid']!=uid:raise ValueError('Career refresh owner mismatch')",
+      "    if character['uid']!=uid:raise ValueError('Career refresh owner mismatch')\n    original_account=('account_id'in character,character.get('account_id'))"
+    ],
+    [
+      "    if saved_owner is not None:\n        from els_server.storage.seal_quests import load_character",
+      "    if saved_owner is None:raise ValueError('Career refresh owner mapping required')\n    if original_account[0]and(type(original_account[1])is not int or original_account[1]!=saved_owner[0]):raise ValueError('Career caller account identity')\n    if 'account_id'in character and(type(character['account_id'])is not int or character['account_id']!=saved_owner[0]):raise ValueError('Career refresh account identity')\n    if saved_owner is not None:\n        from els_server.storage.seal_quests import load_character"
+    ],
+    [
+      "for key in('title','title_completed_quests','skill_traits','ordinary_skill_pages','force_inventory','force_slots','cleared_dungeons'):",
+      "for key in('account_id','title','title_completed_quests','skill_traits','ordinary_skill_pages','force_inventory','force_slots','cleared_dungeons'):"
+    ]
+  ],
+  "els_server/protocol/local_messages.py": [
+    [
+      "    if character is not None:\n        from els_server.storage.character_schema import character_uid",
+      "    if character is not None:\n        account_id=character.get('account_id')\n        if type(account_id)is not int or not 1<=account_id<2**63:raise ValueError('Native Unit requires authoritative account identity')\n        overrides['0x0']=struct.pack('>Q',account_id)\n        from els_server.storage.character_schema import character_uid"
+    ]
+  ],
+  "els_server/protocol/dungeon_messages.py": [
+    [
+      "    overrides={}\n    if items is not None:",
+      "    overrides={}\n    if character is not None:\n        owner=character.get('account_id')\n        if type(owner)is not int or not 1<=owner<2**63:raise ValueError('FullUser requires authoritative account identity')\n        if account_id is None:account_id=owner\n        elif type(account_id)is not int or account_id!=owner:raise ValueError('FullUser authenticated account mismatch')\n    if items is not None:"
+    ]
+  ]
+}

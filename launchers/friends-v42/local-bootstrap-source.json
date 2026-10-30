@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "release": "local-git-first-run-20261029-v1",
+  "source_release": "local-native-shop-flow-20261029-v1",
+  "source_formal_manifest_sha256": "d621337b400fc4dfe3a61bd32be2180bd98c55e4c8ab2beba3eae2e3e2b91b11",
+  "profile": "channels/native-force-guild-flow-accepted-20261029-v1.json",
+  "support_overrides": [
+    {
+      "path": "tools/launch_client.py",
+      "source_sha256": "74f5c5406c93b526e1bb34cac36c5eb4ef8eeca4fbc3292d05c5de8f18f08142",
+      "runtime_sha256": "9cb6fd2b579b11c90ec2ccc31babd3c383e9b8bbd43ccfed330cdf4aa689e6f8"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "source_sha256": "9f6a0cc4ee8c3f2f293cc2b19c94610f31bc029e0aeb9ddb7c278dc6f478aff0",
+      "runtime_sha256": "04166e975104b9d25e7bf224eeb1a2f34501689cc33cb76ee457c0b4797906e1"
+    }
+  ],
+  "support_additions": [
+    {
+      "path": "tools/local_fresh_state.py",
+      "runtime_sha256": "9bed6a12b3adeeb63f49d60f81bc8f89a64c1e676726ee09a7d627382efe9d56"
+    }
+  ],
+  "source_file_count": 1325,
+  "source_files_sha256": "7900ad4eef4985b6b953b00e880f8b303224e0bb97debd59e178057301de3cdb",
+  "generated_config_source_sha256": "4e14201a91e69df87af8bf5aac226f303f027fde76b98e2967b85c442c2e8124"
+}

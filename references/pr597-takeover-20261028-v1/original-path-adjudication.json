@@ -1,0 +1,279 @@
+{
+  "format": 1,
+  "source_PR": 597,
+  "source_head": "d34246f37e85f1cc556e0edf71702ee600611162",
+  "accepted_parent": "93c31fc3d85b8e36db5d4c3728d0a55d396f3f0f",
+  "all_original_paths_adjudicated": true,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "decision": "no-business-change",
+      "reason": "Only an end-of-line blank change; no fix to merge."
+    },
+    {
+      "path": "config/local_dungeon_flow.json",
+      "decision": "replace-with-finite-source-gates",
+      "reason": "Generic inactive/no_drop shape also matches raid phase controllers; it releases34140 without an original retirement. Existing30282 gates stay; add only30182 stage0/1 part1 template145, exact original graph, all live hostiles required."
+    },
+    {
+      "path": "config/local_hp_curve.json",
+      "decision": "retain-current-no-arbitrary-hp-scale",
+      "reason": "Candidate curve is disabled, scale0.1/target1 are local design choices; applying it to modern explicitly sourced maximum also contradicts its documented estimate-only boundary. Current explicit/archive/approved M1 source priority is retained."
+    },
+    {
+      "path": "docs/DEVELOPMENT_LOG_20261027.md",
+      "decision": "reference-only",
+      "reason": "Mixed worktree history; retain historical source as reference, write a precise accepted-scope report instead of presenting all as accepted."
+    },
+    {
+      "path": "docs/DEVILDOM_RAID2_CONTROLLERS_20261026.md",
+      "decision": "reference-only",
+      "reason": "Resource facts useful; revised guards now prevent premature BA/BB and require real SQL chain validation."
+    },
+    {
+      "path": "docs/DUNGEON_LOOT_SCOPE_20261026.md",
+      "decision": "reference-only",
+      "reason": "Useful finite source/scope inventory, but four added maps also change guaranteed and random local rewards; no installation."
+    },
+    {
+      "path": "docs/FULL_RECOVERY_POTION_SHORTCUT_20261026.md",
+      "decision": "reference-only",
+      "reason": "Existing current supports family412; one-second cooldown is not adopted."
+    },
+    {
+      "path": "docs/LITHIA_MEMORY8_FINALE_DOOR_20261026.md",
+      "decision": "reference-only",
+      "reason": "Experimental part1 conflicts with admitted graph; only boss-pending gate retained."
+    },
+    {
+      "path": "docs/LITHIA_MEMORY8_WAVE_END_20261026.md",
+      "decision": "reference-only",
+      "reason": "Do not reinstate old wave actor guesses over current source-pinned original retirement gates."
+    },
+    {
+      "path": "docs/NAKED_LEVEL_GROWTH_20261026.md",
+      "decision": "reference-only",
+      "reason": "Keep approved current base growth and current native attribute separation; no estimate injection."
+    },
+    {
+      "path": "els_server/data/dungeon_equipment_loot.json",
+      "decision": "retain-current-no-new-reward-policy",
+      "reason": "35450/60/70/80 native COMMON declares118638 but not the candidate25% Boss probability or50 guaranteed fragments. Existing local policy admits exactly35340/60/90/35400. Expanding a reward policy is not merely a reader fix; do not create extra rewards. Retain current raid exclusion, authoritative coin, source matching and all newer transaction guards. Sixteen raid maps and no_drop35170 remain excluded."
+    },
+    {
+      "path": "els_server/data/local_reselection_quest.json",
+      "decision": "retain-current-no-policy-changing-quest-admission",
+      "reason": "39480 source has repeat/daily flags and finite-period rewards. Candidate changes repeat1->0, type2->0 and both period1->0 to bypass unsupported scheduling/expiry. Not a source-faithful fix. Keep current typed39 retained readers and native quest scope; no permanent135871/135872 grant or extra factories."
+    },
+    {
+      "path": "els_server/data/local_reselection_quest.manifest.json",
+      "decision": "retain-current-no-policy-changing-quest-admission",
+      "reason": "39480 source has repeat/daily flags and finite-period rewards. Candidate changes repeat1->0, type2->0 and both period1->0 to bypass unsupported scheduling/expiry. Not a source-faithful fix. Keep current typed39 retained readers and native quest scope; no permanent135871/135872 grant or extra factories."
+    },
+    {
+      "path": "els_server/domain/character_stats.py",
+      "decision": "retain-newer-current",
+      "reason": "PR597 equipment totals as base inputs can double apply native equipment/passive math. Current naked-input contract/V40 retained; parallel authoritative106 two-vector investigation is not replaced by estimates. Do not infer both vectors have identical semantics."
+    },
+    {
+      "path": "els_server/domain/consumables.py",
+      "decision": "retain-newer-current",
+      "reason": "Current extension reader already covers130165/135402 and412 family arbitration, expanded436 usable plus39 retained read-only rows and predebit serialization/infinite-item protections. Candidate adds unapproved130165 one-second cooldown and drops newer safeguards. Keep current native30-second policy; no new potion effects."
+    },
+    {
+      "path": "els_server/domain/devildom1_raid2_controllers.py",
+      "decision": "repair-and-qualify",
+      "reason": "Nine source/script/instance/HP-pinned static34140 markers only, exact native255 and sole current owner. Add live-hostile BA/BB guards before raid settlement dispatch. Original candidate tests allowed premature phase advance; do not use that behavior."
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+      "decision": "retain-current-no-new-reward-policy",
+      "reason": "35450/60/70/80 native COMMON declares118638 but not the candidate25% Boss probability or50 guaranteed fragments. Existing local policy admits exactly35340/60/90/35400. Expanding a reward policy is not merely a reader fix; do not create extra rewards. Retain current raid exclusion, authoritative coin, source matching and all newer transaction guards. Sixteen raid maps and no_drop35170 remain excluded."
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_rules.py",
+      "decision": "retain-current-no-new-reward-policy",
+      "reason": "35450/60/70/80 native COMMON declares118638 but not the candidate25% Boss probability or50 guaranteed fragments. Existing local policy admits exactly35340/60/90/35400. Expanding a reward policy is not merely a reader fix; do not create extra rewards. Retain current raid exclusion, authoritative coin, source matching and all newer transaction guards. Sixteen raid maps and no_drop35170 remain excluded."
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "decision": "partial-repair-on-current",
+      "reason": "Keep newer current C1, EXP, raid/PVE, source retirements and SilverMirror. Add settled/failure late AD ack before expired population, finite34140 guards and retirements, and only the35320/21/22 boss-pending guard. Reject fake finale part1/B7/BD: actual graph has only part0. Keep all native task/EXP/SQL writers."
+    },
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "decision": "retain-current-and-add-two-finite-doors",
+      "reason": "Retain delivered30282 and all newer source-level/HP/raid controls; add only pinned30182 two doors. No global inactive actor bypass."
+    },
+    {
+      "path": "els_server/domain/fishing_bait_loot.py",
+      "decision": "first-batch-already-merged-and-delivered",
+      "reason": "PR600/601 actual dual parent retains safe identity getattr, owned542 release/once stamina settlement and diagnostic. Do not take broad swallowing/retry or overwrite newer modules."
+    },
+    {
+      "path": "els_server/domain/formal_npc_hp.py",
+      "decision": "retain-current-no-arbitrary-hp-scale",
+      "reason": "Candidate curve is disabled, scale0.1/target1 are local design choices; applying it to modern explicitly sourced maximum also contradicts its documented estimate-only boundary. Current explicit/archive/approved M1 source priority is retained."
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "decision": "retain-current-no-policy-changing-quest-admission",
+      "reason": "39480 source has repeat/daily flags and finite-period rewards. Candidate changes repeat1->0, type2->0 and both period1->0 to bypass unsupported scheduling/expiry. Not a source-faithful fix. Keep current typed39 retained readers and native quest scope; no permanent135871/135872 grant or extra factories."
+    },
+    {
+      "path": "els_server/domain/local_dungeon_flow.py",
+      "decision": "replace-with-finite-source-gates",
+      "reason": "Generic inactive/no_drop shape also matches raid phase controllers; it releases34140 without an original retirement. Existing30282 gates stay; add only30182 stage0/1 part1 template145, exact original graph, all live hostiles required."
+    },
+    {
+      "path": "els_server/domain/local_hp_curve.py",
+      "decision": "retain-current-no-arbitrary-hp-scale",
+      "reason": "Candidate curve is disabled, scale0.1/target1 are local design choices; applying it to modern explicitly sourced maximum also contradicts its documented estimate-only boundary. Current explicit/archive/approved M1 source priority is retained."
+    },
+    {
+      "path": "els_server/domain/local_reselection_quest.py",
+      "decision": "retain-current-no-policy-changing-quest-admission",
+      "reason": "39480 source has repeat/daily flags and finite-period rewards. Candidate changes repeat1->0, type2->0 and both period1->0 to bypass unsupported scheduling/expiry. Not a source-faithful fix. Keep current typed39 retained readers and native quest scope; no permanent135871/135872 grant or extra factories."
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "decision": "partial-repair-on-current",
+      "reason": "Use preencoded quest event returned by original book writer. Known town225 flag1 without authority gets negative226 without phase/location mutation. Require exact envelope/flag1; malformed and unknown maps still reject. Preserve newer Noah/Lithia/committed warp gates and all unrelated session code."
+    },
+    {
+      "path": "els_server/domain/mount_flow.py",
+      "decision": "first-batch-already-merged-and-delivered",
+      "reason": "PR600/601 actual dual parent retains safe identity getattr, owned542 release/once stamina settlement and diagnostic. Do not take broad swallowing/retry or overwrite newer modules."
+    },
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "decision": "retain-current-no-policy-changing-quest-admission",
+      "reason": "39480 source has repeat/daily flags and finite-period rewards. Candidate changes repeat1->0, type2->0 and both period1->0 to bypass unsupported scheduling/expiry. Not a source-faithful fix. Keep current typed39 retained readers and native quest scope; no permanent135871/135872 grant or extra factories."
+    },
+    {
+      "path": "els_server/domain/summons.py",
+      "decision": "retain-384-until-producer-and-consumer-qualified",
+      "reason": "385/386/1621/2091 have native class0 NPC records, but template membership alone does not qualify the producing skill/current state or full native spawn and expiry. PR597 changes whitelist only and still ships a test rejecting385, with no new family native qualification. Keep current384 original DTO/ownership/slot/expiry behavior; do not claim expanded skills work."
+    },
+    {
+      "path": "els_server/protocol/dungeon_messages.py",
+      "decision": "retain-newer-current",
+      "reason": "PR597 equipment totals as base inputs can double apply native equipment/passive math. Current naked-input contract/V40 retained; parallel authoritative106 two-vector investigation is not replaced by estimates. Do not infer both vectors have identical semantics."
+    },
+    {
+      "path": "els_server/storage/consumables.py",
+      "decision": "retain-newer-current",
+      "reason": "Current extension reader already covers130165/135402 and412 family arbitration, expanded436 usable plus39 retained read-only rows and predebit serialization/infinite-item protections. Candidate adds unapproved130165 one-second cooldown and drops newer safeguards. Keep current native30-second policy; no new potion effects."
+    },
+    {
+      "path": "els_server/storage/mount_state.py",
+      "decision": "first-batch-already-merged-and-delivered",
+      "reason": "PR600/601 actual dual parent retains safe identity getattr, owned542 release/once stamina settlement and diagnostic. Do not take broad swallowing/retry or overwrite newer modules."
+    },
+    {
+      "path": "els_server/storage/raid_reward_actions.py",
+      "decision": "already-exact-in-both-current",
+      "reason": "Candidate SHA d600a06e37b4973747c1260339a121f2d58c94cf1ccf635b0dfc379373675132 already equals both actual releases. No replacement or extra settlement."
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "decision": "replace-destructive-hiding-with-read-projection",
+      "reason": "Native HIDE_QUEST_SKILL controls visibility/eligibility. Filter same-owner current native skills in the original _state; preserve accepted_at/generation/objective rows, done history, account scope, current read cache and writer observability. Do not delete progress on reads."
+    },
+    {
+      "path": "els_server/storage/skill_unlocks.py",
+      "decision": "repair-fresh-use-and-transaction-notifications",
+      "reason": "Keep current correctly nested receipt lookup (PR597 fresh use has unbound old). Build/encode native2B on same original writer after unlock; first/replay/ED service share snapshot. Encoding failure rolls back book/ED/seal/receipt; no extra table/migration. Do not encode raw quest_state after commit."
+    },
+    {
+      "path": "els_server/transport.py",
+      "decision": "first-batch-already-merged-and-delivered",
+      "reason": "PR600/601 actual dual parent retains safe identity getattr, owned542 release/once stamina settlement and diagnostic. Do not take broad swallowing/retry or overwrite newer modules."
+    },
+    {
+      "path": "tests/test_bait_30282_midboss_death.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Existing first-batch tests retained with actual qualification."
+    },
+    {
+      "path": "tests/test_bait_source_local_session.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Existing first-batch tests retained with actual qualification."
+    },
+    {
+      "path": "tests/test_clear_bundle_ownership.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_devildom1_raid2_controllers.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_equipment_loot_route_admission.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_full_recovery_shortcut.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_instance_stats.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_inventory_restore_and_drops.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_lithia_memory8_finale_door.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_loot_scope_report.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_mount_recall.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Existing first-batch tests retained with actual qualification."
+    },
+    {
+      "path": "tests/test_naked_level_growth.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_nasod_factory_exit_gates.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Existing first-batch tests retained with actual qualification."
+    },
+    {
+      "path": "tests/test_retained_native_hp.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_seal_quests.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_settled_run_trailing_death.py",
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tools/loot_scope_report.py",
+      "decision": "reference-only",
+      "reason": "Read-only classification tool; not needed in runtime. Its new-map report does not authorize reward policy expansion."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "career_box_common_force": [
+    "CREATE TABLE career_box_common_force (owner INTEGER PRIMARY KEY REFERENCES characters(uid),skill INTEGER NOT NULL CHECK(skill=900224),rank INTEGER NOT NULL CHECK(rank=5),source_template INTEGER NOT NULL CHECK(source_template=295734),seal_used INTEGER NOT NULL CHECK(seal_used=0))"
+  ],
+  "character_fishing_vip": [
+    "CREATE TABLE character_fishing_vip (owner INTEGER PRIMARY KEY REFERENCES characters(uid),account_id INTEGER NOT NULL CHECK(account_id>0),expires_at INTEGER NOT NULL CHECK(expires_at>0),updated_at INTEGER NOT NULL CHECK(updated_at>0))"
+  ],
+  "native_guild_bank_history_v1": [
+    "CREATE TABLE native_guild_bank_history_v1(operation TEXT PRIMARY KEY,guild_id INTEGER NOT NULL REFERENCES native_guilds(id),owner INTEGER NOT NULL,record_json TEXT NOT NULL,created_at INTEGER NOT NULL,version INTEGER NOT NULL CHECK(version=1))"
+  ],
+  "native_guild_coin_v1": [
+    "CREATE TABLE native_guild_coin_v1(guild_id INTEGER PRIMARY KEY REFERENCES native_guilds(id),balance INTEGER NOT NULL,revision INTEGER NOT NULL,version INTEGER NOT NULL CHECK(version=1))"
+  ],
+  "native_guild_coin_donations_v1": [
+    "CREATE TABLE native_guild_coin_donations_v1(operation TEXT PRIMARY KEY,request_hash TEXT NOT NULL,guild_id INTEGER NOT NULL REFERENCES native_guilds(id),owner INTEGER NOT NULL,account_id INTEGER NOT NULL,item_uid INTEGER NOT NULL,quantity INTEGER NOT NULL,created_at INTEGER NOT NULL)"
+  ],
+  "held_medal_reward_facts": [
+    "CREATE TABLE held_medal_reward_facts(operation TEXT PRIMARY KEY,owner INTEGER NOT NULL REFERENCES characters(uid),dungeon INTEGER NOT NULL,kind TEXT NOT NULL,context_sha256 TEXT NOT NULL,basis_points INTEGER NOT NULL,settled_at INTEGER NOT NULL,snapshot_json TEXT NOT NULL)"
+  ],
+  "character_housing_permanent": [
+    "CREATE TABLE character_housing_permanent (owner INTEGER PRIMARY KEY REFERENCES characters(uid),account_id INTEGER NOT NULL CHECK(account_id>0),template INTEGER NOT NULL CHECK(template=713275),source_uid INTEGER NOT NULL CHECK(source_uid>0),registered_at INTEGER NOT NULL CHECK(registered_at>0))"
+  ],
+  "character_housing_layouts_v1": [
+    "CREATE TABLE character_housing_layouts_v1 (owner INTEGER PRIMARY KEY REFERENCES characters(uid),account_id INTEGER NOT NULL,version INTEGER NOT NULL CHECK(version=1),payload BLOB NOT NULL,revision INTEGER NOT NULL CHECK(revision>0),updated_at INTEGER NOT NULL CHECK(updated_at>0))"
+  ],
+  "housing_layout_receipts": [
+    "CREATE TABLE housing_layout_receipts (operation_id TEXT PRIMARY KEY,owner INTEGER NOT NULL REFERENCES characters(uid),account_id INTEGER NOT NULL,request_hash TEXT NOT NULL,revision INTEGER NOT NULL,created_at INTEGER NOT NULL)"
+  ],
+  "pet_support_periods": [
+    "CREATE TABLE pet_support_periods (\n owner INTEGER NOT NULL REFERENCES characters(uid),kind TEXT NOT NULL CHECK(kind IN ('automatic','pickup')),\n target INTEGER NOT NULL CHECK(target>=0),deadline INTEGER NOT NULL CHECK(deadline>0 AND deadline<2493043200),\n source_operation TEXT NOT NULL,notified INTEGER NOT NULL DEFAULT 0 CHECK(notified IN (0,1)),\n CHECK((kind='automatic' AND target=0) OR(kind='pickup' AND target>0)),PRIMARY KEY(owner,kind,target))"
+  ],
+  "character_resonance_period": [
+    "CREATE TABLE character_resonance_period (owner INTEGER PRIMARY KEY REFERENCES characters(uid),account_id INTEGER NOT NULL CHECK(account_id>0),stat_id INTEGER NOT NULL CHECK(stat_id>0),points INTEGER NOT NULL CHECK(points=5),expires_at INTEGER NOT NULL CHECK(expires_at>0),updated_at INTEGER NOT NULL CHECK(updated_at>0),source_uid INTEGER NOT NULL CHECK(source_uid>0))"
+  ],
+  "equipment_spell_pending": [
+    "CREATE TABLE equipment_spell_pending (\n      owner INTEGER PRIMARY KEY REFERENCES characters(uid) CHECK(typeof(owner)='integer' AND owner>=1001),\n      item_uid INTEGER NOT NULL REFERENCES inventory_items(uid) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED CHECK(typeof(item_uid)='integer' AND item_uid>0),\n      generation TEXT NOT NULL UNIQUE CHECK(typeof(generation)='text' AND length(generation) BETWEEN 1 AND 160),\n      socket_group INTEGER NOT NULL CHECK(typeof(socket_group)='integer' AND socket_group IN (9,10,11,12)),\n      slot INTEGER NOT NULL CHECK(typeof(slot)='integer' AND slot>=0 AND slot<CASE WHEN socket_group=12 THEN 3 ELSE 9 END),\n      option_id INTEGER NOT NULL CHECK(typeof(option_id)='integer' AND option_id>0 AND option_id<2147483648),\n      material_id INTEGER NOT NULL CHECK(typeof(material_id)='integer' AND material_id IN (135877,135880,135883,135886,136109,136110,136111,136112)),\n      source_uid INTEGER NOT NULL CHECK(typeof(source_uid)='integer' AND source_uid>0 AND source_uid!=item_uid),\n      basis_json TEXT NOT NULL CHECK(typeof(basis_json)='text' AND length(basis_json) BETWEEN 1 AND 65536),\n      created_at INTEGER NOT NULL CHECK(typeof(created_at)='integer' AND created_at>=0))",
+    "CREATE TABLE equipment_spell_pending (\n      owner INTEGER PRIMARY KEY REFERENCES characters(uid) CHECK(typeof(owner)='integer' AND owner>=1001),\n      item_uid INTEGER NOT NULL REFERENCES inventory_items(uid) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED CHECK(typeof(item_uid)='integer' AND item_uid>0),\n      generation TEXT NOT NULL UNIQUE CHECK(typeof(generation)='text' AND length(generation) BETWEEN 1 AND 160),\n      socket_group INTEGER NOT NULL CHECK(typeof(socket_group)='integer' AND socket_group IN (9,10,11,12)),\n      slot INTEGER NOT NULL CHECK(typeof(slot)='integer' AND slot>=0 AND slot<CASE WHEN socket_group=12 THEN 3 ELSE 9 END),\n      option_id INTEGER NOT NULL CHECK(typeof(option_id)='integer' AND option_id>0 AND option_id<2147483648),\n      material_id INTEGER NOT NULL CHECK(typeof(material_id)='integer' AND material_id IN (135877,135880,135883,135886,136109,136110,136111,136112,135879,135882,135885,135888)),\n      source_uid INTEGER NOT NULL CHECK(typeof(source_uid)='integer' AND source_uid>0 AND source_uid!=item_uid),\n      basis_json TEXT NOT NULL CHECK(typeof(basis_json)='text' AND length(basis_json) BETWEEN 1 AND 65536),\n      created_at INTEGER NOT NULL CHECK(typeof(created_at)='integer' AND created_at>=0))"
+  ]
+}

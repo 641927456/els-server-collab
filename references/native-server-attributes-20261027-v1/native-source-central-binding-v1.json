@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "rows": [
+    {
+      "channel": "online",
+      "path": "els_server/application.py",
+      "parent_release": "native-skill-boundary-20261028-v1",
+      "parent_sha256": "e1f4d5599f8b1a6348b8204c448ae8e67f33c00f3963ef53023f4f6ff073f954",
+      "candidate_path": "online/els_server/application.py",
+      "candidate_sha256": "ba8a59b6a87947882873cab865c610f82f474efd8f4608bb232cc721a34498e1",
+      "scope": "Metadata only around original worker/read scopes/timers/after_reply and successful complete original writes. No attribute106 dispatcher or extra packets."
+    },
+    {
+      "channel": "online",
+      "path": "els_server/transport.py",
+      "parent_release": "native-skill-boundary-20261028-v1",
+      "parent_sha256": "6fdc4f015656bfcd6902ba28a27e9643f4fbad99e2967bc3986d01e5dde0bbe0",
+      "candidate_path": "online/els_server/transport.py",
+      "candidate_sha256": "b97b87e2ac334fd5de03792fe91b2e2dd4df956522beda162908d1e1d9384045",
+      "scope": "Metadata only around original worker/read scopes/timers/after_reply and successful complete original writes. No attribute106 dispatcher or extra packets."
+    },
+    {
+      "channel": "local",
+      "path": "els_server/application.py",
+      "parent_release": "local-native-skill-boundary-20261028-v1",
+      "parent_sha256": "999fd60c7308ced2b09c4a635ffee7cd591342fcebf35cb1d195bb2da5c89b0d",
+      "candidate_path": "local/els_server/application.py",
+      "candidate_sha256": "420f30b2fd160989adbd6b6c90115b5f0f383b4e0d13e2e239ea5163ceaae07f",
+      "scope": "Metadata only around original worker/read scopes/timers/after_reply and successful complete original writes. No attribute106 dispatcher or extra packets."
+    },
+    {
+      "channel": "local",
+      "path": "els_server/transport.py",
+      "parent_release": "local-native-skill-boundary-20261028-v1",
+      "parent_sha256": "48e1228e03ad01db1613ef2a3c4e7e52d643fac5b96a3b12d31084dfea0262f9",
+      "candidate_path": "local/els_server/transport.py",
+      "candidate_sha256": "0786d872d918ef6fe3b42e31f844c3555dc1fc0095b5419c6626a3f30fe31d7c",
+      "scope": "Metadata only around original worker/read scopes/timers/after_reply and successful complete original writes. No attribute106 dispatcher or extra packets."
+    }
+  ],
+  "production_installation": false,
+  "client_changes": 0,
+  "new_hooks": 0
+}

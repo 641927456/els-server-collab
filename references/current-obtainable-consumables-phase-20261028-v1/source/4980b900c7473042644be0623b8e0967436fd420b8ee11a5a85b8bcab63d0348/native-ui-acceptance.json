@@ -1,0 +1,170 @@
+{
+  "passed": true,
+  "formal_save_written": false,
+  "actual_combat": false,
+  "synthetic_progress_fixture": true,
+  "scope": "One native seal quest chain, original UI callbacks and server packets; not all 495 tasks or retail battle scoring",
+  "runs": [
+    "analysis\\client-6c6b5180\\20261015-212449",
+    "analysis\\client-6c6b5180\\20261015-212602"
+  ],
+  "initial": {
+    "event": "seal_native_state",
+    "token": "a4d2a0697ff640a7acc1a6aa21df2b4b",
+    "op": "inspect",
+    "qid": 6980,
+    "pid": 26496,
+    "active": [
+      {
+        "id": 6980,
+        "objectives": [
+          {
+            "id": 47293,
+            "count": 1,
+            "completed": 1
+          }
+        ]
+      }
+    ],
+    "completed": [],
+    "unsealed": [],
+    "window_visible": 0
+  },
+  "live_progress": {
+    "event": "seal_native_state",
+    "token": "8867233cc2aa4be49492e194ec305bc2",
+    "op": "inspect",
+    "qid": 6990,
+    "pid": 26496,
+    "active": [
+      {
+        "id": 6990,
+        "objectives": [
+          {
+            "id": 6990,
+            "count": 1,
+            "completed": 1
+          }
+        ]
+      }
+    ],
+    "completed": [
+      6980
+    ],
+    "unsealed": [],
+    "window_visible": 1
+  },
+  "book_uid": 1001001,
+  "applied": {
+    "event": "seal_native_state",
+    "token": "3453b9287898471c97cd9d268020a612",
+    "op": "inspect",
+    "qid": 6990,
+    "pid": 26496,
+    "active": [],
+    "completed": [
+      6980,
+      6990
+    ],
+    "unsealed": [
+      21204,
+      21226
+    ],
+    "window_visible": 1
+  },
+  "restored": {
+    "event": "seal_native_state",
+    "token": "944291e360a340d1a0aa63c9366db514",
+    "op": "inspect",
+    "qid": 6990,
+    "pid": 38452,
+    "active": [],
+    "completed": [
+      6980,
+      6990
+    ],
+    "unsealed": [
+      21204,
+      21226
+    ],
+    "window_visible": 0
+  },
+  "handlers": [
+    {
+      "event": "seal_native_handler",
+      "rva": 20591856,
+      "start": 0,
+      "end": 386,
+      "size": 386,
+      "body_prefix": "00000000000003e900000001000000001600005222010000000000000052e10100000000000000000000000000000000"
+    },
+    {
+      "event": "seal_native_initialization",
+      "ok": 1,
+      "start": 0,
+      "end": 55
+    },
+    {
+      "event": "seal_native_handler",
+      "rva": 50622496,
+      "start": 0,
+      "end": 1224,
+      "size": 1224,
+      "body_prefix": "0000000000001b4400000001000000006ad0d460000000000000000000000000000000010000000000000003e9000000"
+    },
+    {
+      "event": "seal_native_handler",
+      "rva": 50612992,
+      "start": 0,
+      "end": 43,
+      "size": 43,
+      "body_prefix": "00001b4e000000006ad0d46000000000000000000000000100001b4e000000000000000000000000000000"
+    },
+    {
+      "event": "seal_native_handler",
+      "rva": 12111424,
+      "start": 0,
+      "end": 35,
+      "size": 35,
+      "body_prefix": "0000000100001b4e000000006ad0d46000000000000000000000000100001b4e000101"
+    },
+    {
+      "event": "seal_native_handler",
+      "rva": 50622496,
+      "start": 0,
+      "end": 1548,
+      "size": 1548,
+      "body_prefix": "0000000000001b4e00000001000000006ad0d464000000000000000000000000000000010000000000000003e9000000"
+    },
+    {
+      "event": "seal_native_handler",
+      "rva": 50622496,
+      "start": 0,
+      "end": 1548,
+      "size": 1548,
+      "body_prefix": "0000000000001b4e00000001000000006ad0d464000000000000000000000000000000010000000000000003e9000000"
+    },
+    {
+      "event": "seal_native_handler",
+      "rva": 10200176,
+      "start": 0,
+      "end": 30,
+      "size": 30,
+      "body_prefix": "0000000000000001000052ea01000000000000000002000052d4000052ea"
+    },
+    {
+      "event": "seal_native_handler",
+      "rva": 20591856,
+      "start": 0,
+      "end": 404,
+      "size": 404,
+      "body_prefix": "00000000000003e900000001000000001600005222010000000000000052e10100000000000000000000000000000000"
+    },
+    {
+      "event": "seal_native_initialization",
+      "ok": 1,
+      "start": 0,
+      "end": 72
+    }
+  ]
+}

@@ -44,12 +44,19 @@ def main():
         with tempfile.TemporaryDirectory(prefix='current-regression-',dir=cache)as folder:
             view=Path(folder)/'engine'
             materialize(ROOT,final,channel,view,assets_root=args.assets_root,link_assets=True)
-            (view/'tests').mkdir();(view/'tools').mkdir()
-            for test in tests:shutil.copyfile(ROOT/'tests'/test,view/'tests'/test)
+            (view/'tests').mkdir(exist_ok=True);(view/'tools').mkdir(exist_ok=True)
+            for test in tests:
+                target=view/'tests'/test
+                if not target.exists():shutil.copyfile(ROOT/'tests'/test,target)
             for tool in ('create_friends_certificate.py','import_friends_save.py'):
-                shutil.copyfile(ROOT/'tools'/tool,view/'tools'/tool)
-            (view/'docs').mkdir()
-            shutil.copyfile(ROOT/'docs/client-first-monster-inputs-20261026.json',view/'docs/client-first-monster-inputs-20261026.json')
+                target=view/'tools'/tool
+                # Newer formal profiles already ship these exact source tools.
+                # Preserve their qualified bytes instead of injecting a different
+                # root-checkout implementation into the engine being tested.
+                if not target.exists():shutil.copyfile(ROOT/'tools'/tool,target)
+            (view/'docs').mkdir(exist_ok=True)
+            target=view/'docs/client-first-monster-inputs-20261026.json'
+            if not target.exists():shutil.copyfile(ROOT/'docs/client-first-monster-inputs-20261026.json',target)
             # Run explicit modules: the old full Friends suite remains a
             # separately classified legacy suite; never silently include it.
             for test in tests[:-1]:

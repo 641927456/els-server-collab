@@ -17,6 +17,12 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'references/server-structure-20261029-v1/qualification.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_server_structure_20261029.py')]+(['--with-runtime'] if args.with_runtime else []))
+    if (ROOT/'references/pr597-takeover-20261028-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr597_takeover.py')])
+    if (ROOT/'references/native-modern-auto-learning-20261027-v1/manifest.json').is_file():
+        run([sys.executable,'-B','-m','unittest','tests.test_modern_auto_learning'])
     if (ROOT/'references/pr597-remaining-20261027-v2/qualified-validation.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pr597_remaining_20261027.py')])
     if (ROOT/'references/pr597-selected-20261027-v1/qualified-validation.json').is_file():
@@ -110,6 +116,8 @@ def main(argv=None):
     run([sys.executable,'-B',str(ROOT/'tools/verify_initialization_readers.py')])
     if (ROOT/'references/current-refresh-combat-inputs-20261027-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_current_refresh_archive_20261027.py')])
+        if (ROOT/'references/native-unit-account-identity-20261029-v1/accepted-delivery.json').is_file():
+            run([sys.executable,'-B','-m','unittest','tests.test_current_refresh_identity_successor'])
     run([sys.executable,'-B',str(ROOT/'tools/verify_path_projections.py')])
     if (ROOT/'references/native-power-cache-sync-20261027-v1/candidate.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_native_power_cache_archive_20261027.py')])
@@ -117,6 +125,13 @@ def main(argv=None):
     if (ROOT/'references/native-final-ability-sync-20261027-v1/candidate.json').is_file():
         run([sys.executable,'-B','-m','unittest','tests.test_native_final_ability_contract'])
         run([sys.executable,'-B',str(ROOT/'tools/verify_native_final_ability_archive_20261027.py')])
+    if (ROOT/'references/native-server-attributes-20261027-v1/passive-stat-rules.json').is_file():
+        run([sys.executable,'-B','-m','unittest','tests.test_native_server_attribute_sources',
+             'tests.test_native_attribute_jobs','tests.test_native_character_field_mapper',
+             'tests.test_native_attribute_delivery','tests.test_native_skill_delivery_sources',
+             'tests.test_native_set_registration_inputs','tests.test_native_inventory_source_context',
+             'tests.test_native_resistance_middle_inputs','tests.test_native_copy_production',
+             'tests.test_native_skill_production','tests.test_native_extra_skill_inputs'])
     if (ROOT/'channels/server-architecture-20261027-v1.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_server_architecture.py')])
     if (ROOT/'channels/character-slow-paths-20261027-v1.json').is_file():
@@ -125,6 +140,31 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_periodic_deadline_fairness.py')])
     if (ROOT/'references/actual-native-final-ability-20261027-v1/binding.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_inherited_actual_client_binding.py')])
+    if (ROOT/'channels/native-master-current-skills-20261028-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_master_current_skills_20261028.py')])
+    if (ROOT/'channels/native-skill-boundary-20261028-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_skill_boundary_20261028.py')])
+    if (ROOT/'references/native-skill-source-runtime-20261028-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_skill_sources_runtime_20261028.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_native_session_sources'])
+    run([sys.executable,'-B',str(ROOT/'tools/verify_current_consumables_phase_20261028.py')])
+    if (ROOT/'launchers/friends-v44/source-lock.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_launcher_structure_20261029.py')])
+    if (ROOT/'launchers/friends-v43/source-lock.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_identity_managed_launcher_20261029.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_v43_frozen_privacy_guard'])
+    if (ROOT/'launchers/friends-v42/source-lock.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_launcher_first_local_20261029.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_launcher_first_local'])
+    if (ROOT/'launchers/friends-v41/source-manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_unit_account_identity_20261029.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_native_unit_account_identity_source'])
+        run([sys.executable,'-B','-m','unittest','tests.test_current_profile_head_binding'])
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_shop_flow_20261029.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_native_shop_source_contract'])
+    if (ROOT/'references/native-force-guild-flow-20261029-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_force_guild_flow_20261029.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_force_guild_contract'])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0
@@ -150,6 +190,8 @@ def main(argv=None):
     assert decode_event(frame.plaintext)==event
 
     if args.with_runtime:
+        if (ROOT/'references/pr597-takeover-20261028-v1/manifest.json').is_file():
+            run([sys.executable,'-B',str(ROOT/'tools/verify_pr597_takeover.py'),'--with-runtime'])
         if (ROOT/'channels/server-latency-guards-20261027-v1.json').is_file():
             run([sys.executable,'-B',str(ROOT/'tools/verify_server_latency_guards.py'),'--with-runtime'])
 

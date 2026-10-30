@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "provenance": "local_dungeon_flow",
+  "description": "本地副本流程补充判定。",
+  "script_gate_relaxation": true,
+  "note": "上游 kind==3 条件是「required 模板必须全部死亡」，kind==1 条件是「required key_code 必须全部死亡」。但巨龙巢穴等地图的 required 模板、以及纳斯德生产基地(30282)等图 stage0/1 出口的 required key_code=1（模板156 SMALLGATE 脚本门，active=false、no_drop=true、team=1、ally=false）都不是战斗 actor：kind==0 的「清场」判定本身就用 n['active'] 把这类对象排除在外，而地图脚本在小BOSS死亡后自行销毁门对象，服务端永远等不到它的战斗死亡上报。于是出口条件永远不满足，periodic() 不会置 part_end_notified，客户端发 0xbb 换图请求被丢弃，表现为「打完小BOSS走不了」。开启后，仅当 required 匹配的对象全部是这类脚本门、且当前场景所有激活敌对目标都已被击杀时，视为满足。真正的战斗型 required（active=true）仍然必须打死，不受影响。设为 false 恢复上游行为。"
+}

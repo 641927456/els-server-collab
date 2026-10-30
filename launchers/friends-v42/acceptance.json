@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "V": 42,
+  "source_PR": 623,
+  "source_baseline": "938906c2b927078c8a4b1371be28571481008af8",
+  "exe": {
+    "sha256": "b930e255bf7986694d632eaec0468f82d323b033e072e6bc24696abbb830e622",
+    "size": 3367424
+  },
+  "local_archive": {
+    "sha256": "70e06dca0f929d0f2bc053a5cb226b960bf7026c13ae10dda503f96f485aeec4",
+    "size": 164091835,
+    "signed_files": 1779
+  },
+  "validation": {
+    "initialization_tests": 24,
+    "independent_native_form_checks": 15,
+    "PowerShell_entry_checks": 30,
+    "public_Git_entry_prepares_and_reuses_signed_launcher": true,
+    "public_old_V41_download_verified": true,
+    "fresh_public_LOCAL_from_empty_component_cache": true,
+    "files_after_generated_config_and_marker": 1781,
+    "repeated_LOCAL_download_files": 0,
+    "friends_signed_runtime_reused_files": 1764,
+    "friends_signed_runtime_downloaded_files": 0,
+    "local_and_friends_shared_launch_preflight": true,
+    "ordinary_Application_created_new_save": true,
+    "ordinary_new_save_tables": 29,
+    "separate_cold_process_preserved_all_logical_rows": true,
+    "original_LOCAL_runtime_SHA_verified": 1779,
+    "original_ONLINE_business_SHA_verified": 1300,
+    "observation_seconds": 134.1826159998309,
+    "existing_service_listener_PIDs_unchanged": true,
+    "source_check": "local + two GitHub source-check jobs success; final receipt commit rechecked separately",
+    "GitHub_runtime_check": "Skipped on feature/PR by existing workflow; not claimed as passed"
+  },
+  "boundaries": {
+    "original_game_EXE_KOM_write_actions": 0,
+    "new_or_expanded_game_Hooks": 0,
+    "player_database_import_or_restore": false,
+    "formal_game_server_restarted": false,
+    "natural_game_GUI_or_battle_accepted": false
+  },
+  "retained_first_integration_failure": "The accepted host config was initially omitted without an explicit generation contract; exact source SHA binding and a generated-config-only contract fixed it before publication."
+}

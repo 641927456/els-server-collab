@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "ok": true,
+  "original_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "source_blocks": [
+    {
+      "label": "55B-ui-construction-before-6E9",
+      "start": "0x13a3968",
+      "end_exclusive": "0x13a39b6",
+      "sha256": "0193631f992442a838bd80a374e8f3ac5c784cc5786df0d8de9e6f00dc2fced5",
+      "hex": "488b0501454703488b88580500004885c90f848f000000e8ccaef500488b05e5444703488b8858050000488b8988000000e832878f01bae9060000488b0dc6444703488b89c0000000e85a5c44ff",
+      "instructions": [
+        "13a3968 mov rax, qword ptr [rip + 0x3474501]",
+        "13a396f mov rcx, qword ptr [rax + 0x558]",
+        "13a3976 test rcx, rcx",
+        "13a3979 je 0x1413a3a0e",
+        "13a397f call 0x1422fe850",
+        "13a3984 mov rax, qword ptr [rip + 0x34744e5]",
+        "13a398b mov rcx, qword ptr [rax + 0x558]",
+        "13a3992 mov rcx, qword ptr [rcx + 0x88]",
+        "13a3999 call 0x142c9c0d0",
+        "13a399e mov edx, 0x6e9",
+        "13a39a3 mov rcx, qword ptr [rip + 0x34744c6]",
+        "13a39aa mov rcx, qword ptr [rcx + 0xc0]",
+        "13a39b1 call 0x1407e9610"
+      ]
+    },
+    {
+      "label": "actual-skill-tree-allocations-and-published-members",
+      "start": "0x22fe8a9",
+      "end_exclusive": "0x22fe905",
+      "sha256": "afaee77fbb4ce1def87083fd403a569915340d22485c1c7fb8c46134c4224aa2",
+      "hex": "b9e8010000e885517e014889442460488b15c1955102488b9268010000488bc8e832c496009048898780000000b998020000e858517e014889442460488b1594955102488b9268010000488bc8e8c5249900488bd848898788000000",
+      "instructions": [
+        "22fe8a9 mov ecx, 0x1e8",
+        "22fe8ae call 0x143ae3a38",
+        "22fe8b3 mov qword ptr [rsp + 0x60], rax",
+        "22fe8b8 mov rdx, qword ptr [rip + 0x25195c1]",
+        "22fe8bf mov rdx, qword ptr [rdx + 0x168]",
+        "22fe8c6 mov rcx, rax",
+        "22fe8c9 call 0x142c6ad00",
+        "22fe8ce nop ",
+        "22fe8cf mov qword ptr [rdi + 0x80], rax",
+        "22fe8d6 mov ecx, 0x298",
+        "22fe8db call 0x143ae3a38",
+        "22fe8e0 mov qword ptr [rsp + 0x60], rax",
+        "22fe8e5 mov rdx, qword ptr [rip + 0x2519594]",
+        "22fe8ec mov rdx, qword ptr [rdx + 0x168]",
+        "22fe8f3 mov rcx, rax",
+        "22fe8f6 call 0x142c90dc0",
+        "22fe8fb mov rbx, rax",
+        "22fe8fe mov qword ptr [rdi + 0x88], rax"
+      ]
+    },
+    {
+      "label": "original-event202-kind-sender",
+      "start": "0x7e9610",
+      "end_exclusive": "0x7e9660",
+      "sha256": "11ac1c555485704fb452f345d4021343871818219a24e0bed45769f87672aeb3",
+      "hex": "48895c24084889742410574883ec400fb7da807958010f84c4000000488339000f84ba000000488bd1488d4c2430e85d1a97ff90488b4c24304885c9746466895c2420ba02020000e8f39fe9ff0fb6f0",
+      "instructions": [
+        "7e9610 mov qword ptr [rsp + 8], rbx",
+        "7e9615 mov qword ptr [rsp + 0x10], rsi",
+        "7e961a push rdi",
+        "7e961b sub rsp, 0x40",
+        "7e961f movzx ebx, dx",
+        "7e9622 cmp byte ptr [rcx + 0x58], 1",
+        "7e9626 je 0x1407e96f0",
+        "7e962c cmp qword ptr [rcx], 0",
+        "7e9630 je 0x1407e96f0",
+        "7e9636 mov rdx, rcx",
+        "7e9639 lea rcx, [rsp + 0x30]",
+        "7e963e call 0x14015b0a0",
+        "7e9643 nop ",
+        "7e9644 mov rcx, qword ptr [rsp + 0x30]",
+        "7e9649 test rcx, rcx",
+        "7e964c je 0x1407e96b2",
+        "7e964e mov word ptr [rsp + 0x20], bx",
+        "7e9653 mov edx, 0x202",
+        "7e9658 call 0x140683650",
+        "7e965d movzx esi, al"
+      ]
+    },
+    {
+      "label": "484-existing-HUD-tree-gates-before-source-consumption",
+      "start": "0x9bed74",
+      "end_exclusive": "0x9bed9c",
+      "sha256": "78620a2eddffdf6cd7665c67c85b946f5cf17841e38b343d253cb54292cda2f1",
+      "hex": "488b88580500004885c90f84080500004883b988000000000f84fa0400004883c6480f84f0040000",
+      "instructions": [
+        "9bed74 mov rcx, qword ptr [rax + 0x558]",
+        "9bed7b test rcx, rcx",
+        "9bed7e je 0x1409bf28c",
+        "9bed84 cmp qword ptr [rcx + 0x88], 0",
+        "9bed8c je 0x1409bf28c",
+        "9bed92 add rsi, 0x48",
+        "9bed96 je 0x1409bf28c"
+      ]
+    }
+  ],
+  "current_native_UI_order": "Original55B: require HUD, call22FE850 with1E8/298 constructors and80/88 stores, then original7E9610 sends202/6E9.",
+  "original484_readiness": "Game558 and Game558+88 must exist before source phases. Pinned whole-negative and explicit-positive-phase measurements are separate.",
+  "producer_evidence": "Actual serialized worker transition player_initialized\u2192skill_ui_ready for this role selection; original6EA Event identity must be written before granting the cursor UI bit.",
+  "lifecycle": "New owned2A clears UI readiness; same-Unit scene relocation preserves it; Actor readiness remains independent. Bare page-ready=True cannot grant the UI bit.",
+  "current_sources_sha256": {
+    "native_attribute_readiness.py": "03053c8f274a4ce5b1a00023fe842276e5555ca22b71639b8686a95ff7415a3f",
+    "native_attribute_delivery.py": "183abb325aaa8f8e798f091c940136d1e9dd9dae5dd37d77a96996667998e492"
+  },
+  "natural_GUI_or_complete106_accepted": false,
+  "full_positive_graphical484_accepted": false,
+  "client_files_changed": 0,
+  "new_or_expanded_game_hooks": 0
+}

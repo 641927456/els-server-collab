@@ -1,0 +1,11 @@
+{
+  "scope": "Four non-secret historical correlation IDs only, exact whole-file and value hashes; credential checks remain active",
+  "producer": "tools/probe_seal_quest_native.py",
+  "producer_sha256": "853cc48a7162e4e3b00e7b118578cc2ae8272ae42734b007e0e6fb1d4d12d083",
+  "observed_semantics": [
+    "token=uuid.uuid4().hex",
+    "token inserted only into observation payload",
+    "reader compares echoed token to select its own event"
+  ],
+  "production_calls": 0
+}

@@ -1,0 +1,29 @@
+{
+  "format": 1,
+  "issue": 613,
+  "verified_direct_human_instruction": "帮我把规则改变一下，不改动kom和exe，然后哪些可以通过启动器更新的文件可以进行修改和增加，但是依然尽量使用原生规则进行修复",
+  "instruction_date": "2026-10-28",
+  "source": "Direct human message verified in coordinator chat; not an inferred permission from an agent handoff",
+  "scope": "Launcher-delivered support files; preserve original game EXE/KOM; native rules first",
+  "new_or_expanded_game_hooks_authorized": false,
+  "game_window_control_authorized": false,
+  "player_database_restore_authorized": false,
+  "historical_frozen_bytes_changed": false,
+  "runtime_or_launcher_release_changed_by_this_documentation_PR": false,
+  "PR612_single_admin_exception_extended": false,
+  "Git_base": "05c5428174a3a3c7d8d7499077f032c6c5270928",
+  "document_edits": [
+    {
+      "path": "AGENTS.md",
+      "before_sha256": "f37d44fc11b0203ef58ed454f41aaa72719b225ef4212c56d8011b6f3467c30e",
+      "after_sha256": "80af021c3834b6fe1433606f602305a7fd46c3db964291f6f2b27ae3a0f76638",
+      "prior_bytes_preserved_after_prefix": true
+    },
+    {
+      "path": "docs/DEVELOPMENT_RULES.md",
+      "before_sha256": "2c105c43fdb485f684c6046c7ed1c3f11fd7f7b1ca6b4383078c1b7910e95463",
+      "after_sha256": "1b113e3302f14556e8f5542572d6921ef10e43ebaf23ff79f66870b5f3040616",
+      "prior_bytes_preserved_after_prefix": true
+    }
+  ]
+}
