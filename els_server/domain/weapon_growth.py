@@ -22,6 +22,10 @@ def definition(quest_id):
     return next((q for f in catalog()['families'] for q in f['quests'] if q['id']==quest_id),None)
 
 
+def preset(template):
+    return next((p for p in catalog()['presets'] if p['template']==template),None)
+
+
 def material_readers():
     from els_server.game_data import client_data
     import hashlib
@@ -40,8 +44,13 @@ def quest(completed_stage,template=136062):
 
 
 def options(template,values):
-    if template not in templates() or not isinstance(values,list):
+    fixed=preset(template)
+    if not isinstance(values,list) or template not in templates() and fixed is None:
         raise ValueError('Unsupported weapon growth options')
+    if fixed is not None:
+        if values and values!=fixed['options']:
+            raise ValueError('Invalid preset weapon growth reward vector')
+        return list(values)
     if values and not any(values==row['options'] for row in chain(template)['quests']):
         raise ValueError('Invalid weapon growth reward vector')
     return list(values)
@@ -49,6 +58,8 @@ def options(template,values):
 
 def stage(item):
     values=options(item['template'],item.get('option_groups',{}).get('17',[]))
+    fixed=preset(item['template'])
+    if fixed is not None:return fixed['stage']
     return next((n for n,row in enumerate(chain(item['template'])['quests'],1) if row['options']==values),0)
 
 
