@@ -61,6 +61,24 @@ def source_contract(root):
     validate_delta(parent,candidate,contract)
     for mode in COUNTS:plan(root,candidate,mode)
     return contract,candidate,parent
+def require_launcher_closure(launcher):
+    # Historical fully-cleaned records retain their original contract. A partial
+    # storage cleanup is explicit, never projected into a successful cleanup flag.
+    if launcher['own_QA_cleanup_verified'] is True:
+        assert launcher.get('storage_cleanup_pending',False) is False
+        assert launcher.get('global_cleanup_complete',True) is True
+        return
+    assert launcher['own_QA_cleanup_verified'] is False
+    assert launcher['publication_process_and_stage_closed'] is True
+    assert launcher['storage_cleanup_pending'] is True
+    assert launcher['global_cleanup_complete'] is False
+    assert launcher['cleanup_scope']=='Publication processes, slots, locks and remote stage closed; retained local QA caches pending'
+    required={'exe','local_archive','local_manifest','friends_archive','friends_manifest','source_profile'}
+    assert set(launcher['actual_artifact_sha256'])>=required
+    for name in required:
+        value=launcher['actual_artifact_sha256'][name]
+        assert isinstance(value,str) and len(value)==64 and all(c in '0123456789abcdef'for c in value)
+
 def require_receipts(profile,candidate,contract,receipt,launcher=None):
     assert profile['name']=='cache-exact41400-accepted-20261030-v1'
     assert profile['candidate']is False and profile['actual_dual_delivery_verified']is True
@@ -85,7 +103,8 @@ def require_receipts(profile,candidate,contract,receipt,launcher=None):
     assert not launcher.get('prospective',False)and not launcher.get('synthetic_fixture',False)
     assert launcher['source_profile_sha256']==receipt['accepted_profile_sha256'] and launcher['formal_heads']==HEADS
     assert launcher['loaded_business_leaves']==LEAVES and launcher['normal_upgrade_repeat_load_verified']is True
-    assert launcher['original_game_EXE_KOM_changed']is False and launcher['own_QA_cleanup_verified']is True
+    assert launcher['original_game_EXE_KOM_changed']is False
+    require_launcher_closure(launcher)
     assert launcher['observation_seconds']>=120
     assert launcher['dual_receipts']=={m:receipt['channels'][m]['actual_receipt_sha256']for m in COUNTS}
     return True
@@ -93,6 +112,9 @@ def verified_current_predecessor(profile,mode,entry,path,*,root=None):
     """Only unchanged proof leaves unwrap; always run the original predecessor."""
     root=Path(root)if root is not None else Path(__file__).resolve().parents[1]
     from tools.verify_shared_repair_inheritance_20261030 import verified_shared_repair_predecessor
+    if profile.get('name')=='owned-stones-nine-leaf-accepted-20261030-v1':
+        from tools.verify_owned_stones_activation_20261030 import verified_nine_predecessor
+        return verified_nine_predecessor(profile,mode,entry,path,root=root)
     if profile.get('name')=='cache-exact41400-accepted-20261030-v1':
         contract,candidate,parent=source_contract(root)
         assert sha(root/ACCEPTED)==digest(accepted_document(candidate))
@@ -106,7 +128,7 @@ def verified_current_predecessor(profile,mode,entry,path,*,root=None):
 def main():
     root=Path(__file__).resolve().parents[1];contract,candidate,parent=source_contract(root)
     pointer=read(root/'channels/current-engine.json')
-    if pointer['profile']==ACCEPTED:
+    if pointer['profile']in(ACCEPTED,'channels/owned-stones-nine-leaf-accepted-20261030-v1.json'):
         from tools.materialize_formal_runtime import load_manifest
         selected=load_manifest(root/'channels/current-engine.json',root)
         for mode in COUNTS:
