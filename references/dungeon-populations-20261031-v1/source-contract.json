@@ -1,0 +1,27 @@
+{
+  "format": 1,
+  "candidate": true,
+  "activation": false,
+  "runtime_acceptance": false,
+  "files": [
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "source": "references/dungeon-populations-20261031-v1/source/els_server/domain/dungeon_routes.py",
+      "sha256": "0b4daa8d5f392e5c689d9be4cdf0435cede8b9447f3e854091fb4b77b134307c",
+      "size": 20127,
+      "parent_sha256": "80167d8f82e6520399b11f75234711121570fbbd0ac1ef83ac2baa06a1101e66"
+    },
+    {
+      "path": "els_server/domain/fishing_bait_loot.py",
+      "source": "references/dungeon-populations-20261031-v1/source/els_server/domain/fishing_bait_loot.py",
+      "sha256": "eafc3217edc2d4fe6bbdb8673a3967a8d7a419873e593ef22a6e453745a2929e",
+      "size": 11080,
+      "parent_sha256": "87444c514783f0bb8798cd91fd5a3b8cf2b62e015b3296a5f680f42897467982"
+    }
+  ],
+  "requires_clear_candidate_sha256": "baa32eb34f3867ae3c569f9b619aa4a6d0465973fe8b8fd1b52ac03d6292f77e",
+  "database_migration": false,
+  "client_change": false,
+  "rules": "Original NPC_GROUP_RATE weights, all 8 maps/35 rooms; original RATE values in 30212/33162 interpreted as 0..99 percent presence under existing server-local numeric authority. No official exact RNG algorithm claim.",
+  "rules_authorization": "2026-10-25 user allowed missing exact economy/game numeric values to be declared server-local; current task requests these discrepancies be fixed."
+}
