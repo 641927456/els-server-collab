@@ -12,12 +12,12 @@
       "formal_manifest_sha256": "965f336f1f5f940746eedf51c1c94f57c60abbdffc50e78c025e1da3d4ff3558"
     }
   },
-  "scope": "Owned candidate: omit per-packet activity work for the existing authenticated auxiliary no-op; retain periodic/ordinary clocks and add worker stage timings.",
+  "scope": "Owned candidate: auxiliary/idle-periodic activity work and classification before full item/role projection; preserve receipts, economic transactions and authoritative qualified paths.",
   "candidate": true,
   "actual_dual_delivery_verified": false,
   "delta_business_files": {
-    "online": 2,
-    "local": 2
+    "online": 14,
+    "local": 14
   },
   "new_modules": 1,
   "new_files": 1,
@@ -1372,8 +1372,8 @@
         {
           "path": "els_server/application.py",
           "source": "references/shared-request-latency-20261031-v1/online/els_server/application.py",
-          "sha256": "19d12ef2e94521cf5d7acb9164a7b0dac558a2a94f192c6f1a4d628834c13df1",
-          "size": 22967
+          "sha256": "63cd8fbd9b31570b6f78ea4c1a10411978d5a388890f8832ecb5eeb06ab15a8a",
+          "size": 23062
         },
         {
           "path": "els_server/business_queue.py",
@@ -4587,9 +4587,9 @@
         },
         {
           "path": "els_server/domain/pet_support_flow.py",
-          "sha256": "8f743fd4c636be9c97bcf1f1c05067a199f0f9d44be205fac3b361fe916e7050",
-          "size": 2788,
-          "source": "references/current-obtainable-consumables-phase-20261028-v1/source/8f743fd4c636be9c97bcf1f1c05067a199f0f9d44be205fac3b361fe916e7050/pet_support_flow.py"
+          "source": "references/shared-request-latency-20261031-v1/online/els_server/domain/pet_support_flow.py",
+          "sha256": "27b63dc8a56837c70fca0407448deb77137e1e17a8cbb785633e2e882091b591",
+          "size": 2808
         },
         {
           "path": "els_server/domain/player_mail_flow.py",
@@ -6423,9 +6423,9 @@
         },
         {
           "path": "els_server/storage/artifact_progression.py",
-          "sha256": "5b80a174443dca10ee61d01742111a5f589818304d48afd289b05fb6cbf53d89",
-          "size": 11569,
-          "source": "els_server/storage/artifact_progression.py"
+          "source": "references/shared-request-latency-20261031-v1/online/els_server/storage/artifact_progression.py",
+          "sha256": "3d5fcd9d2379a281e4db4e51997af16f1225452299da148a625b19a47e73975d",
+          "size": 11378
         },
         {
           "path": "els_server/storage/artifact_receipt_state.py",
@@ -6615,9 +6615,9 @@
         },
         {
           "path": "els_server/storage/boosting_2026_force_inventory.py",
-          "source": "references/native-skill-source-runtime-20261028-v1/common/els_server/storage/boosting_2026_force_inventory.py",
-          "sha256": "2bdaf7ad435059b0ebb864f1432ec7c38c6c7145cf3c2ac640d84e93bff71c71",
-          "size": 12265
+          "source": "references/shared-request-latency-20261031-v1/online/els_server/storage/boosting_2026_force_inventory.py",
+          "sha256": "628b1189c269f8e37c4b2e4910df7bc36a818885ed600407f5147914b8c38afb",
+          "size": 12268
         },
         {
           "path": "els_server/storage/boosting_2026_force_rewards.py",
@@ -6645,15 +6645,15 @@
         },
         {
           "path": "els_server/storage/boosting_2026_limited_pet.py",
-          "sha256": "8c569090015eb87f354bf205d6a539054cc29393e42a70dceadf7a59dfa318ac",
-          "size": 9410,
-          "source": "els_server/storage/boosting_2026_limited_pet.py"
+          "source": "references/shared-request-latency-20261031-v1/online/els_server/storage/boosting_2026_limited_pet.py",
+          "sha256": "03e5ece2d5bcd49f6f940a1f6cae1323710228cde294bd4cad68da33dfde05a4",
+          "size": 9286
         },
         {
           "path": "els_server/storage/boosting_2026_nested_capacity.py",
-          "sha256": "ba74e696ac3f1868b813f7a45f5998fb4e207a40623d86e38964c47da16a144a",
-          "size": 6392,
-          "source": "els_server/storage/boosting_2026_nested_capacity.py"
+          "source": "references/shared-request-latency-20261031-v1/online/els_server/storage/boosting_2026_nested_capacity.py",
+          "sha256": "de83a2a69188b6fc80c587237b2578c9ff44964a5b215c10f445dcee5b972986",
+          "size": 6419
         },
         {
           "path": "els_server/storage/boosting_2026_participation.py",
@@ -6741,9 +6741,9 @@
         },
         {
           "path": "els_server/storage/character_custom.py",
-          "sha256": "aa3241688e45319ee45d6c60f3b6be3ed7c584635f5a94ddf033f8c85727c668",
-          "size": 15530,
-          "source": "references/accepted-runtime-20261026-v1/shared/els_server/storage/character_custom.py"
+          "source": "references/shared-request-latency-20261031-v1/online/els_server/storage/character_custom.py",
+          "sha256": "499f84476ff087c73e45ab20c9dd016095637b83ff84ade63fcda507ce30c293",
+          "size": 15325
         },
         {
           "path": "els_server/storage/character_lifecycle.py",
@@ -7017,9 +7017,9 @@
         },
         {
           "path": "els_server/storage/expansion_items.py",
-          "sha256": "c2416708be5dccad0dd18296a4a5f6698e83823522bc95cb43b180b64ec25c2f",
-          "size": 3306,
-          "source": "els_server/storage/expansion_items.py"
+          "source": "references/shared-request-latency-20261031-v1/online/els_server/storage/expansion_items.py",
+          "sha256": "17634457df539054806f3352f19cbf82f702b5da3e014132f0cb9f51fdb6b104",
+          "size": 3267
         },
         {
           "path": "els_server/storage/feta_exchange.py",
@@ -7227,9 +7227,9 @@
         },
         {
           "path": "els_server/storage/inventory_state.py",
-          "source": "references/server-structure-20261029-v1/source/642cbdc5af905f1452abbf038ffc3569aa47205c1a70e6036063a59129b6d000/inventory_state.py",
-          "sha256": "642cbdc5af905f1452abbf038ffc3569aa47205c1a70e6036063a59129b6d000",
-          "size": 25470
+          "source": "references/shared-request-latency-20261031-v1/online/els_server/storage/inventory_state.py",
+          "sha256": "296e87f40c3573a7310c0ba1abb6c7b4693291320e39d8d14be32575bd3b5d76",
+          "size": 25350
         },
         {
           "path": "els_server/storage/item_actor.py",
@@ -7623,9 +7623,9 @@
         },
         {
           "path": "els_server/storage/resonance_state.py",
-          "sha256": "910bdcc0cf06b500bfd598b20fa411e14240dfab16654c303efd238af7f810ea",
-          "size": 7802,
-          "source": "els_server/storage/resonance_state.py"
+          "source": "references/shared-request-latency-20261031-v1/online/els_server/storage/resonance_state.py",
+          "sha256": "ff2a51fd64817e3449e7fde3783e285ea7456423baace92bfeeb76a4b274d983",
+          "size": 7808
         },
         {
           "path": "els_server/storage/resurrection_counter.py",
@@ -7701,9 +7701,9 @@
         },
         {
           "path": "els_server/storage/skill_unlocks.py",
-          "sha256": "5cb3f0c5772738f0b31561b00f3764a4fb2f912f0fd0585313f3aafb8aba4411",
-          "size": 8980,
-          "source": "references/pr597-remaining-20261027-v2/local/els_server/storage/skill_unlocks.py"
+          "source": "references/shared-request-latency-20261031-v1/online/els_server/storage/skill_unlocks.py",
+          "sha256": "5a5a9c59bd856772aac68ff557d1d5d4032845804a7dfd416f7a93a2561ff9c7",
+          "size": 8985
         },
         {
           "path": "els_server/storage/spell_socket.py",
@@ -7779,15 +7779,15 @@
         },
         {
           "path": "els_server/storage/titles.py",
-          "size": 9819,
-          "sha256": "a4a57a2ab6b304f4f60739a47e4863200151dd4fe74defb5cb8fafe2e670f734",
-          "source": "references/native-shared-repair-20261030-v1/source/a4a57a2ab6b304f4f60739a47e4863200151dd4fe74defb5cb8fafe2e670f734/titles.py"
+          "source": "references/shared-request-latency-20261031-v1/online/els_server/storage/titles.py",
+          "sha256": "542adeb7c3b585b5ed291a5f510b0b166f491ef3394c25b4a968cfb24c8f4e65",
+          "size": 9688
         },
         {
           "path": "els_server/storage/town_dialogue.py",
-          "sha256": "afc54c0dc7266b7180c8ec64554f85a56ed44f4cf361210bec7df064028d1978",
-          "size": 5456,
-          "source": "references/accepted-runtime-20261026-v1/shared/els_server/storage/town_dialogue.py"
+          "source": "references/shared-request-latency-20261031-v1/online/els_server/storage/town_dialogue.py",
+          "sha256": "db95f0257c0cf0031362da94364426d9ef5258da4bad6bb7e42e44335d264492",
+          "size": 5456
         },
         {
           "path": "els_server/storage/town_travel.py",
@@ -7930,8 +7930,8 @@
         {
           "path": "els_server/domain/session_auxiliary.py",
           "source": "els_server/domain/session_auxiliary.py",
-          "sha256": "6006e1e363dc9fbcbd256e63bc2885d600e0fd98e83300a9042ffd88404c04e9",
-          "size": 1734
+          "sha256": "be7c151859b4efbdc235e82a6a5c5bddfd42af3915fe3e75ed01c8fdd48ef72e",
+          "size": 2168
         }
       ]
     },
@@ -9286,8 +9286,8 @@
         {
           "path": "els_server/application.py",
           "source": "references/shared-request-latency-20261031-v1/local/els_server/application.py",
-          "sha256": "34796648650ac27c7b6f214a003a8aff9406780be82627ae9a94c7000f5f747f",
-          "size": 23638
+          "sha256": "a933f79870d440eb534afb85e94f34b72b79c8963fc32e360a2cbc96855377e2",
+          "size": 23733
         },
         {
           "path": "els_server/business_queue.py",
@@ -12513,9 +12513,9 @@
         },
         {
           "path": "els_server/domain/pet_support_flow.py",
-          "sha256": "8f743fd4c636be9c97bcf1f1c05067a199f0f9d44be205fac3b361fe916e7050",
-          "size": 2788,
-          "source": "references/current-obtainable-consumables-phase-20261028-v1/source/8f743fd4c636be9c97bcf1f1c05067a199f0f9d44be205fac3b361fe916e7050/pet_support_flow.py"
+          "source": "references/shared-request-latency-20261031-v1/local/els_server/domain/pet_support_flow.py",
+          "sha256": "27b63dc8a56837c70fca0407448deb77137e1e17a8cbb785633e2e882091b591",
+          "size": 2808
         },
         {
           "path": "els_server/domain/player_mail_flow.py",
@@ -14349,9 +14349,9 @@
         },
         {
           "path": "els_server/storage/artifact_progression.py",
-          "sha256": "5b80a174443dca10ee61d01742111a5f589818304d48afd289b05fb6cbf53d89",
-          "size": 11569,
-          "source": "els_server/storage/artifact_progression.py"
+          "source": "references/shared-request-latency-20261031-v1/local/els_server/storage/artifact_progression.py",
+          "sha256": "3d5fcd9d2379a281e4db4e51997af16f1225452299da148a625b19a47e73975d",
+          "size": 11378
         },
         {
           "path": "els_server/storage/artifact_receipt_state.py",
@@ -14541,9 +14541,9 @@
         },
         {
           "path": "els_server/storage/boosting_2026_force_inventory.py",
-          "source": "references/native-skill-source-runtime-20261028-v1/common/els_server/storage/boosting_2026_force_inventory.py",
-          "sha256": "2bdaf7ad435059b0ebb864f1432ec7c38c6c7145cf3c2ac640d84e93bff71c71",
-          "size": 12265
+          "source": "references/shared-request-latency-20261031-v1/local/els_server/storage/boosting_2026_force_inventory.py",
+          "sha256": "628b1189c269f8e37c4b2e4910df7bc36a818885ed600407f5147914b8c38afb",
+          "size": 12268
         },
         {
           "path": "els_server/storage/boosting_2026_force_rewards.py",
@@ -14571,15 +14571,15 @@
         },
         {
           "path": "els_server/storage/boosting_2026_limited_pet.py",
-          "sha256": "8c569090015eb87f354bf205d6a539054cc29393e42a70dceadf7a59dfa318ac",
-          "size": 9410,
-          "source": "els_server/storage/boosting_2026_limited_pet.py"
+          "source": "references/shared-request-latency-20261031-v1/local/els_server/storage/boosting_2026_limited_pet.py",
+          "sha256": "03e5ece2d5bcd49f6f940a1f6cae1323710228cde294bd4cad68da33dfde05a4",
+          "size": 9286
         },
         {
           "path": "els_server/storage/boosting_2026_nested_capacity.py",
-          "sha256": "ba74e696ac3f1868b813f7a45f5998fb4e207a40623d86e38964c47da16a144a",
-          "size": 6392,
-          "source": "els_server/storage/boosting_2026_nested_capacity.py"
+          "source": "references/shared-request-latency-20261031-v1/local/els_server/storage/boosting_2026_nested_capacity.py",
+          "sha256": "de83a2a69188b6fc80c587237b2578c9ff44964a5b215c10f445dcee5b972986",
+          "size": 6419
         },
         {
           "path": "els_server/storage/boosting_2026_participation.py",
@@ -14667,9 +14667,9 @@
         },
         {
           "path": "els_server/storage/character_custom.py",
-          "sha256": "aa3241688e45319ee45d6c60f3b6be3ed7c584635f5a94ddf033f8c85727c668",
-          "size": 15530,
-          "source": "references/accepted-runtime-20261026-v1/shared/els_server/storage/character_custom.py"
+          "source": "references/shared-request-latency-20261031-v1/local/els_server/storage/character_custom.py",
+          "sha256": "499f84476ff087c73e45ab20c9dd016095637b83ff84ade63fcda507ce30c293",
+          "size": 15325
         },
         {
           "path": "els_server/storage/character_lifecycle.py",
@@ -14937,9 +14937,9 @@
         },
         {
           "path": "els_server/storage/expansion_items.py",
-          "sha256": "c2416708be5dccad0dd18296a4a5f6698e83823522bc95cb43b180b64ec25c2f",
-          "size": 3306,
-          "source": "els_server/storage/expansion_items.py"
+          "source": "references/shared-request-latency-20261031-v1/local/els_server/storage/expansion_items.py",
+          "sha256": "17634457df539054806f3352f19cbf82f702b5da3e014132f0cb9f51fdb6b104",
+          "size": 3267
         },
         {
           "path": "els_server/storage/feta_exchange.py",
@@ -15147,9 +15147,9 @@
         },
         {
           "path": "els_server/storage/inventory_state.py",
-          "source": "references/server-structure-20261029-v1/source/642cbdc5af905f1452abbf038ffc3569aa47205c1a70e6036063a59129b6d000/inventory_state.py",
-          "sha256": "642cbdc5af905f1452abbf038ffc3569aa47205c1a70e6036063a59129b6d000",
-          "size": 25470
+          "source": "references/shared-request-latency-20261031-v1/local/els_server/storage/inventory_state.py",
+          "sha256": "296e87f40c3573a7310c0ba1abb6c7b4693291320e39d8d14be32575bd3b5d76",
+          "size": 25350
         },
         {
           "path": "els_server/storage/item_actor.py",
@@ -15543,9 +15543,9 @@
         },
         {
           "path": "els_server/storage/resonance_state.py",
-          "sha256": "910bdcc0cf06b500bfd598b20fa411e14240dfab16654c303efd238af7f810ea",
-          "size": 7802,
-          "source": "els_server/storage/resonance_state.py"
+          "source": "references/shared-request-latency-20261031-v1/local/els_server/storage/resonance_state.py",
+          "sha256": "ff2a51fd64817e3449e7fde3783e285ea7456423baace92bfeeb76a4b274d983",
+          "size": 7808
         },
         {
           "path": "els_server/storage/resurrection_counter.py",
@@ -15621,9 +15621,9 @@
         },
         {
           "path": "els_server/storage/skill_unlocks.py",
-          "sha256": "5cb3f0c5772738f0b31561b00f3764a4fb2f912f0fd0585313f3aafb8aba4411",
-          "size": 8980,
-          "source": "references/pr597-remaining-20261027-v2/local/els_server/storage/skill_unlocks.py"
+          "source": "references/shared-request-latency-20261031-v1/local/els_server/storage/skill_unlocks.py",
+          "sha256": "5a5a9c59bd856772aac68ff557d1d5d4032845804a7dfd416f7a93a2561ff9c7",
+          "size": 8985
         },
         {
           "path": "els_server/storage/spell_socket.py",
@@ -15699,15 +15699,15 @@
         },
         {
           "path": "els_server/storage/titles.py",
-          "size": 9819,
-          "sha256": "a4a57a2ab6b304f4f60739a47e4863200151dd4fe74defb5cb8fafe2e670f734",
-          "source": "references/native-shared-repair-20261030-v1/source/a4a57a2ab6b304f4f60739a47e4863200151dd4fe74defb5cb8fafe2e670f734/titles.py"
+          "source": "references/shared-request-latency-20261031-v1/local/els_server/storage/titles.py",
+          "sha256": "542adeb7c3b585b5ed291a5f510b0b166f491ef3394c25b4a968cfb24c8f4e65",
+          "size": 9688
         },
         {
           "path": "els_server/storage/town_dialogue.py",
-          "sha256": "afc54c0dc7266b7180c8ec64554f85a56ed44f4cf361210bec7df064028d1978",
-          "size": 5456,
-          "source": "references/accepted-runtime-20261026-v1/shared/els_server/storage/town_dialogue.py"
+          "source": "references/shared-request-latency-20261031-v1/local/els_server/storage/town_dialogue.py",
+          "sha256": "db95f0257c0cf0031362da94364426d9ef5258da4bad6bb7e42e44335d264492",
+          "size": 5456
         },
         {
           "path": "els_server/storage/town_travel.py",
@@ -15988,8 +15988,8 @@
         {
           "path": "els_server/domain/session_auxiliary.py",
           "source": "els_server/domain/session_auxiliary.py",
-          "sha256": "6006e1e363dc9fbcbd256e63bc2885d600e0fd98e83300a9042ffd88404c04e9",
-          "size": 1734
+          "sha256": "be7c151859b4efbdc235e82a6a5c5bddfd42af3915fe3e75ed01c8fdd48ef72e",
+          "size": 2168
         }
       ]
     }

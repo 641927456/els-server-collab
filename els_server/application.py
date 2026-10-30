@@ -172,20 +172,21 @@ class Application:
             with committed_reads():
                 return invoke_with_reads()
         def invoke_with_reads():
-            from els_server.domain.session_auxiliary import auxiliary_call
+            from els_server.domain.session_auxiliary import auxiliary_call,activity_due
             if auxiliary_call(function,args):
                 # The original handler still checks authentication and drains
                 # pending mail. Periodic/ordinary requests retain the clocks.
                 return function(*args,**kwargs)
             session=getattr(function,'__self__',None)
             timer=getattr(getattr(session,'activity2026_awards',None),'online',None)
-            observed=isinstance(session,LocalSession) and function.__name__ in ('handle','periodic_notifications') and timer is not None
+            activity=isinstance(session,LocalSession) and function.__name__ in ('handle','periodic_notifications') and timer is not None
+            observed=activity and activity_due(function)
             if observed:timer.observe(session)
             try:
                 result=function(*args,**kwargs)
             finally:
                 if observed:timer.observe(session)
-            flow=getattr(session,'activity2026_awards',None) if observed else None
+            flow=getattr(session,'activity2026_awards',None) if activity and (observed or result) else None
             after=getattr(flow,'after_reply',None)
             return after(session,result) if after is not None else result
         return await asyncio.get_running_loop().run_in_executor(self.executor,invoke)

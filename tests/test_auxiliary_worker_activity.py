@@ -1,5 +1,5 @@
 """Owned worker calls preserve auth/mail and leave activity work to periodic ticks."""
-from contextlib import closing
+from contextlib import closing,ExitStack
 import sqlite3
 import tempfile
 import time
@@ -10,7 +10,7 @@ from unittest.mock import patch
 
 from els_server.application import Application, FriendsSession
 from els_server.config import ServerConfig
-from els_server.domain.local_session import SessionOrderError
+from els_server.domain.local_session import LocalSession,SessionOrderError
 from els_server.protocol.protocol_codec import Event
 
 
@@ -82,6 +82,48 @@ class AuxiliaryWorkerActivityTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(await self.app.call(self.session.periodic_notifications), [])
         self.assertEqual(self.steps, ['clock', 'periodic', 'clock', 'after_reply'])
 
+    def periodic_fixture(self,stack,current):
+        self.session.next_periodic=0
+        self.pending=[]
+        clock=SimpleNamespace(monotonic=lambda:current[0],perf_counter=time.perf_counter)
+        stack.enter_context(patch('els_server.application.time',clock))
+        stack.enter_context(patch('els_server.domain.session_auxiliary.time',clock,create=True))
+        ticks=stack.enter_context(patch('els_server.domain.group_challenge.tick'))
+        stack.enter_context(patch.object(self.app.world.field_bosses,'periodic'))
+        stack.enter_context(patch.object(self.app.world.dungeons,'room',return_value=None))
+        stack.enter_context(patch.object(self.app.world.dungeons,'periodic'))
+        stack.enter_context(patch.object(LocalSession,'periodic_notifications',return_value=[]))
+        stack.enter_context(patch('els_server.domain.resonance_flow.synchronize',side_effect=lambda s,m:m))
+        stack.enter_context(patch('els_server.domain.companion_peer_sync.receive',return_value=[]))
+        return ticks
+
+    async def test_idle_periodic_polls_keep_room_ticks_but_not_activity_work(self):
+        current=[100.0]
+        with ExitStack()as stack:
+            ticks=self.periodic_fixture(stack,current)
+            await self.app.call(self.session.periodic_notifications)
+            for i in range(1,100):
+                current[0]=100+i/100
+                self.assertEqual(await self.app.call(self.session.periodic_notifications),[])
+            current[0]=101.0
+            await self.app.call(self.session.periodic_notifications)
+            self.assertEqual(ticks.call_count,101)
+        self.assertEqual(self.steps,['clock','clock','after_reply']*2)
+
+    async def test_idle_poll_preserves_pending_messages_and_external_revocation(self):
+        current=[100.0]
+        with ExitStack()as stack:
+            self.periodic_fixture(stack,current)
+            await self.app.call(self.session.periodic_notifications)
+            self.steps.clear();current[0]=100.25
+            expected=[Event(0x201,kind=0x85,payload=b'pending')]
+            self.pending=expected[:]
+            self.assertEqual(await self.app.call(self.session.periodic_notifications),expected)
+            self.assertEqual(self.steps,['after_reply'])
+            self.enabled=False
+            with self.assertRaises(SessionOrderError):
+                await self.app.call(self.session.periodic_notifications)
+
     async def test_pending_online_interval_commits_on_periodic_and_final_close(self):
         from els_server.domain.online_2026_clock import OnlineTitleClock
         from els_server.storage.online_2026_progress import OnlineTitleProgress
@@ -105,16 +147,16 @@ class AuxiliaryWorkerActivityTests(unittest.IsolatedAsyncioTestCase):
                 eligibility=lambda s: (str(path), 2, 1001, 99),
                 monotonic=lambda: current[0], epoch=lambda: current[0])
             self.session.activity2026_awards = SimpleNamespace(online=clock)
-            def periodic_notifications(s): return []
-            self.session.periodic_notifications = MethodType(periodic_notifications, self.session)
-            await self.app.call(self.session.periodic_notifications)
-            current[0] = 160.0
-            await self.app.call(self.session.handle, self.auxiliary())
-            with closing(sqlite3.connect(path)) as db:
-                self.assertEqual(db.execute('SELECT count(*) FROM online2026_spans').fetchone()[0], 0)
-            await self.app.call(self.session.periodic_notifications)
-            # Repeated polls neither lose nor duplicate the observed interval.
-            await self.app.call(self.session.periodic_notifications)
+            with ExitStack()as stack:
+                self.periodic_fixture(stack,current)
+                await self.app.call(self.session.periodic_notifications)
+                current[0] = 160.0
+                await self.app.call(self.session.handle, self.auxiliary())
+                with closing(sqlite3.connect(path)) as db:
+                    self.assertEqual(db.execute('SELECT count(*) FROM online2026_spans').fetchone()[0], 0)
+                await self.app.call(self.session.periodic_notifications)
+                # Repeated idle polls neither lose nor duplicate the interval.
+                await self.app.call(self.session.periodic_notifications)
             current[0] = 170.0
             clock.observe(self.session, stop=True)
             current[0] = 200.0

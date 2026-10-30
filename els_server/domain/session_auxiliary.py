@@ -1,4 +1,5 @@
 """Recognize the existing no-op without running activity persistence per packet."""
+import time
 
 
 def friends_auxiliary_noop(session, event):
@@ -31,3 +32,13 @@ def auxiliary_call(function, args):
         return False
     from els_server.performance import local_auxiliary_noop
     return local_auxiliary_noop(session, args[0])
+
+
+def activity_due(function):
+    """Use the Friends periodic handler's existing one-second activity gate."""
+    from els_server.application import FriendsSession
+    session = getattr(function, '__self__', None)
+    if (type(session) is FriendsSession
+            and getattr(function, '__func__', None) is FriendsSession.periodic_notifications):
+        return time.monotonic() >= session.next_periodic
+    return True

@@ -1,11 +1,15 @@
 # 辅助包公共 worker 开销修复候选
 
-关联 Issue #647。基于 main `13fe9defdcaae33ec2d25fe00aeacc8ca4d3ab53` 及已核双端九叶来源，只改变每端 `application.py` 和新增共享识别模块，不选择或安装候选。
+关联 Issue #647 / PR #648。基于 main `13fe9defdcaae33ec2d25fe00aeacc8ca4d3ab53` 及已核双端九叶来源，扩展后的候选每端改变14项业务文件，不选择或安装候选。完整范围见同目录delta.json和[变体记录](variants.md)。
 
 原有辅助包快速分支只跳过业务处理器，外层仍执行两次活动在线计时和一次通知检查。候选只让当前合法辅助包跳过这些工作，继续调用原处理器鉴权和投递待发消息；活动周期、普通业务、换角、断线计时保持。真实业务 worker 增加 `clock_before_ms`、`domain_ms`、`clock_after_ms`、`after_reply_ms` 四段计时。
 
-旧版在新回归中复现辅助包触发活动工作的失败。候选 online 11 个相关用例、LOCAL 24 个相关用例通过，均无跳过；含双账号真实 TLS 辅助包突发、外部撤权、角色归属、活动区间周期提交及最后关闭不丢失/不重复。首轮新夹具因 SQLite 连接未关闭而清理失败，修正连接生命周期后只重跑该用例；断言未放宽。
+追加同根因修复：空闲周期轮询沿用原有一秒活动门槛，房间轮询、鉴权及待发消息仍执行；8类219消费者和限时宠物先查当前UID的归属模板，识别后才读完整状态；宠物支持入口保留已消耗物品的回执重放；无适用任务的NPC对话提前返回。原事务、权威校验和经济提交保持，不缓存玩家状态或移除写锁。
 
-验证入口：`python -B tools/verify_shared_request_latency.py`；运行测试须先使用现有物化器创建隔离 runtime，再以该 runtime 的模块运行 `test_auxiliary_worker_activity`、`test_native_auxiliary_latency`、`test_current_latency_tls`，LOCAL 另含 `test_local_auxiliary_roles` 和 `test_server_latency_guards`。完整命令和脱敏运行结果保存在维护者 `G:/els/analysis/title-sacrifice-diagnosis-20261031-v1/`，原始玩家库及运行日志不随包。
+旧版在新回归中复现辅助包触发活动工作的失败；原PR head也复现新增变体。扩展候选online40个、LOCAL46个相关用例通过，均无跳过；含双账号真实TLS突发及撤权、角色归属、周期提交和最后关闭不丢失/不重复、正常道具校验、称号/扩展券/技能书的扣除回滚重放及冷读、宠物业务合同。旧版重放中出现的FullProjectionReached是刻意捕获不应发生的完整读取；匹配道具的正常读取对照则通过。首轮原夹具因SQLite连接未关闭而清理失败已修，只重跑受影响用例，断言未放宽。
+
+本轮首次合并执行时，限时宠物的读取测试桩在懒加载模块中留下引用，导致后续两个正常宠物用例失败。已在替换读取器之前显式导入该依赖，修正测试隔离；业务源码未为此改变。修正后的CI入口双端各31项均通过，所有断言保持。
+
+验证入口：`python -B tools/verify_shared_request_latency.py`。CI可调用 `python -B tools/verify_shared_request_latency.py --with-runtime --assets-root <已解包资源根>`，以原物化器创建隔离双端，分别执行31项针对识别顺序/公共worker的回归，失败或跳过均不当通过。其他本轮业务回归命令与脱敏结果在维护者 `G:/els/analysis/title-sacrifice-diagnosis-20261031-v1/variants-*.json`；原始玩家库及运行日志不随包。
 
 历史请求的 6 秒具体热点尚未被旧日志证明；这是已证公共开销的修复及分段观测补齐，不能称线上延迟已恢复。未合并、未双端安装、未自然 GUI 核收；安装后需按新增分段耗时核对真实请求，并在仍有尖峰时继续处理对应慢段。由指定发布负责人选择性整合，保留实际父版与 LOCAL 差异。

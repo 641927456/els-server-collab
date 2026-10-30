@@ -213,14 +213,15 @@ class Application:
             with committed_reads():
                 return invoke_with_reads()
         def invoke_with_reads():
-            from els_server.domain.session_auxiliary import auxiliary_call
+            from els_server.domain.session_auxiliary import auxiliary_call,activity_due
             if auxiliary_call(function,args):
                 started=time.perf_counter()
                 try:return function(*args,**kwargs)
                 finally:sample['domain_ms']=(time.perf_counter()-started)*1000
             session=getattr(function,'__self__',None)
             timer=getattr(getattr(session,'activity2026_awards',None),'online',None)
-            observed=isinstance(session,LocalSession) and function.__name__ in ('handle','periodic_notifications') and timer is not None
+            activity=isinstance(session,LocalSession) and function.__name__ in ('handle','periodic_notifications') and timer is not None
+            observed=activity and activity_due(function)
             if observed:
                 started=time.perf_counter()
                 try:timer.observe(session)
@@ -234,7 +235,7 @@ class Application:
                     started=time.perf_counter()
                     try:timer.observe(session)
                     finally:sample['clock_after_ms']=(time.perf_counter()-started)*1000
-            flow=getattr(session,'activity2026_awards',None) if observed else None
+            flow=getattr(session,'activity2026_awards',None) if activity and (observed or result) else None
             after=getattr(flow,'after_reply',None)
             if after is None:return result
             started=time.perf_counter()
