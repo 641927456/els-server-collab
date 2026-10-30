@@ -27,16 +27,11 @@ class FriendsSession(LocalSession):
         if self.coop_error:raise SessionOrderError(self.coop_error)
         # The fixed DX11 capture's 7D0 is an unconsumed nine-byte auxiliary
         # notification, emitted five times a second. It has no domain handler.
-        # Authentication, stream sequencing and the outer observed online clock
-        # still run. The existing independent periodic path performs automatic
+        # Authentication and stream sequencing still run. The existing
+        # independent periodic path performs online-clock persistence and
         # expiry/quest/activity work; never rebuild all wire projections here.
-        if (self.client_build=='dx11_260923' and self.role=='game'
-                and self.phase in ('town_ready','dungeon_active')
-                and event.event_id==0x202 and event.kind==0x7d0
-                and event.performers==(0,) and event.uid==event.target_uid==2**64-1
-                and event.payload_mode==0 and len(event.payload)==9
-                and self.application.playing.get(self.identity['id']) is self
-                and self.account.store is not None and self.account.store.uid==self.account.uid):
+        from els_server.domain.session_auxiliary import friends_auxiliary_noop
+        if friends_auxiliary_noop(self,event):
             return self.mailbox.drain()
         result=self.application.world.field_bosses.request(self,event)
         if result is not None:return self.activity_reply(result+self.mailbox.drain())
@@ -177,6 +172,11 @@ class Application:
             with committed_reads():
                 return invoke_with_reads()
         def invoke_with_reads():
+            from els_server.domain.session_auxiliary import auxiliary_call
+            if auxiliary_call(function,args):
+                # The original handler still checks authentication and drains
+                # pending mail. Periodic/ordinary requests retain the clocks.
+                return function(*args,**kwargs)
             session=getattr(function,'__self__',None)
             timer=getattr(getattr(session,'activity2026_awards',None),'online',None)
             observed=isinstance(session,LocalSession) and function.__name__ in ('handle','periodic_notifications') and timer is not None

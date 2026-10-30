@@ -1,0 +1,56 @@
+{
+  "parent": "channels/owned-stones-nine-leaf-accepted-20261030-v1.json",
+  "parent_sha256": "76bed17ea60a8c8aeeaef387fd5590aec838adecd07b4124d53cbab7a80309b6",
+  "channels": {
+    "online": {
+      "els_server/application.py": {
+        "before": {
+          "path": "els_server/application.py",
+          "source": "references/server-structure-20261029-v1/source/52e2c2edd3c2a7be92befd892148b3c466713b8d99385d4ff4a2490668603d7c/application.py",
+          "sha256": "52e2c2edd3c2a7be92befd892148b3c466713b8d99385d4ff4a2490668603d7c",
+          "size": 22838
+        },
+        "after": {
+          "path": "els_server/application.py",
+          "source": "references/shared-request-latency-20261031-v1/online/els_server/application.py",
+          "sha256": "19d12ef2e94521cf5d7acb9164a7b0dac558a2a94f192c6f1a4d628834c13df1",
+          "size": 22967
+        }
+      },
+      "els_server/domain/session_auxiliary.py": {
+        "before": null,
+        "after": {
+          "path": "els_server/domain/session_auxiliary.py",
+          "source": "els_server/domain/session_auxiliary.py",
+          "sha256": "6006e1e363dc9fbcbd256e63bc2885d600e0fd98e83300a9042ffd88404c04e9",
+          "size": 1734
+        }
+      }
+    },
+    "local": {
+      "els_server/application.py": {
+        "before": {
+          "path": "els_server/application.py",
+          "source": "references/server-structure-20261029-v1/source/11bd2c4dfdae15acaa66e898a8f24022cdaaf54c4ecd7cfd986ad880d5e80c1d/application.py",
+          "sha256": "11bd2c4dfdae15acaa66e898a8f24022cdaaf54c4ecd7cfd986ad880d5e80c1d",
+          "size": 23518
+        },
+        "after": {
+          "path": "els_server/application.py",
+          "source": "references/shared-request-latency-20261031-v1/local/els_server/application.py",
+          "sha256": "34796648650ac27c7b6f214a003a8aff9406780be82627ae9a94c7000f5f747f",
+          "size": 23638
+        }
+      },
+      "els_server/domain/session_auxiliary.py": {
+        "before": null,
+        "after": {
+          "path": "els_server/domain/session_auxiliary.py",
+          "source": "els_server/domain/session_auxiliary.py",
+          "sha256": "6006e1e363dc9fbcbd256e63bc2885d600e0fd98e83300a9042ffd88404c04e9",
+          "size": 1734
+        }
+      }
+    }
+  }
+}
