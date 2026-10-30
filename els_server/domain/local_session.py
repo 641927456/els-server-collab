@@ -453,9 +453,6 @@ class LocalSession:
                          character=self.account.character() if self.account.account_id!=1 else None)
 
     def _handle(self,event,request_sequence=None):
-        from els_server.domain.bag_expansion_flow import handle as bag_expansion_handle
-        bag_expansion_reply=bag_expansion_handle(self,event,request_sequence)
-        if bag_expansion_reply is not None:return bag_expansion_reply
         from els_server.domain.ariel_attendance_flow import handle as ariel_attendance_handle
         ariel_attendance_reply=ariel_attendance_handle(self,event,request_sequence)
         if ariel_attendance_reply is not None:return ariel_attendance_reply
