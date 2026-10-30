@@ -1,0 +1,10 @@
+--- a/els_server/domain/raid_reward_items.py
++++ b/els_server/domain/raid_reward_items.py
+@@ -25,6 +25,7 @@
+  result=dict(catalog()['boxes']);extra=ordinary_policy()['native_bundle_boxes']
+  if set(result)&set(extra):raise ValueError('Conflicting exact native bundle identity')
+  return {**result,**extra}
++@functools.lru_cache(maxsize=1)
+ def source_only_templates():
+  # Existing generic grants remain closed for new readers, Cartridge materials,
+  # black fragments and original owned-only accessory readers. Other already

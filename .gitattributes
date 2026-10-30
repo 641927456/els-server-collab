@@ -61,3 +61,6 @@ references/native-shared-repair-20261030-v1/** -text whitespace=cr-at-eol
 launchers/friends-v45/** -text whitespace=cr-at-eol
 # Actual signed Program.cs retains its existing trailing blank EOF line.
 launchers/friends-v45/Program.cs -text whitespace=cr-at-eol,-blank-at-eof
+
+# Exact cache/41400 source archives retain their qualified Windows bytes.
+references/cache-exact41400-selective-20261030-v1/** -text whitespace=cr-at-eol

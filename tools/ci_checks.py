@@ -17,6 +17,9 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'references/cache-exact41400-selective-20261030-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_cache_exact41400_inheritance_20261030.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_cache_exact41400_inheritance'])
     if (ROOT/'references/native-shared-repair-20261030-v1/selected-source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_shared_repair_candidate_20261030.py')])
         run([sys.executable,'-B','-m','unittest','tests.test_shared_repair_inheritance'])

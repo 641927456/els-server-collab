@@ -1,0 +1,106 @@
+{
+  "format": 1,
+  "scope": "Archive and candidate selection only; no accepted or active profile.",
+  "base_main": "740e32f75c8748835be56f00a9095f0dd978ff2b",
+  "parent_profile": {
+    "path": "channels/native-shared-repair-accepted-20261030-v1.json",
+    "sha256": "c63fbed4110c2b6a3f597d305c12971690fe78a6d00c4d2ecc285e039fe001ac"
+  },
+  "candidate_profile": {
+    "path": "channels/cache-exact41400-20261030-v1.json",
+    "sha256": "e0b9e0c432bdcfbb291d701c596b20b54ed7165c3b2ae9211ea154250cc76f35"
+  },
+  "payload_file_count": 8,
+  "source_bindings": {
+    "online": {
+      "file_count": 1315,
+      "formal_manifest_sha256": "b44083c802bcc0e46ec30767bf34c8ed6216b5c4956c2d6bdb5583a4b5bfdf86",
+      "source_rows_sha256": "e9e5b676c81dd00c591e1a518a70068c17a494dc0a5a908c41e4426e723a179f",
+      "prospective_release": "cache-exact41400-20261030-v1",
+      "unchanged_rows": 1313
+    },
+    "local": {
+      "file_count": 1340,
+      "formal_manifest_sha256": "7dd7cab0d08b85c9803e0c96d92109d4d5c2d22d729e47c0104d7f8e40d93b35",
+      "source_rows_sha256": "bd405d403efec936c3a78a8a1a6eefb1a48debdbcd2f3c6b6e44b7c804430f6e",
+      "prospective_release": "local-cache-exact41400-20261030-v1",
+      "unchanged_rows": 1338
+    }
+  },
+  "changes": {
+    "online": [
+      {
+        "path": "els_server/domain/formal_pve_economy.py",
+        "before": {
+          "path": "els_server/domain/formal_pve_economy.py",
+          "sha256": "93f67069de3602112b06a26927736dca4fc1541b0c760a3461dfa172bea16808",
+          "size": 7343,
+          "source": "references/current-obtainable-consumables-phase-20261028-v1/source/93f67069de3602112b06a26927736dca4fc1541b0c760a3461dfa172bea16808/formal_pve_economy.py"
+        },
+        "after": {
+          "path": "els_server/domain/formal_pve_economy.py",
+          "sha256": "d3f1ce62b59b61ab2fef348b510f1592509a41e706aa9868001f1deca95b5f5a",
+          "size": 7710,
+          "source": "references/cache-exact41400-selective-20261030-v1/archive41400/online/source/els_server/domain/formal_pve_economy.py"
+        }
+      },
+      {
+        "path": "els_server/domain/raid_reward_items.py",
+        "before": {
+          "path": "els_server/domain/raid_reward_items.py",
+          "sha256": "38ed084b2b41ade0cdcdb72ad3d5177ba6fae137d823fb7d1bcef11f3ef04f66",
+          "size": 16753,
+          "source": "references/current-obtainable-consumables-phase-20261028-v1/source/38ed084b2b41ade0cdcdb72ad3d5177ba6fae137d823fb7d1bcef11f3ef04f66/raid_reward_items.py"
+        },
+        "after": {
+          "path": "els_server/domain/raid_reward_items.py",
+          "sha256": "847a7687d8ddc5a7405536eaa327d4e9bc66f337b9814975284f572e63eee7c0",
+          "size": 16785,
+          "source": "references/cache-exact41400-selective-20261030-v1/cache/source/els_server/domain/raid_reward_items.py"
+        }
+      }
+    ],
+    "local": [
+      {
+        "path": "els_server/domain/formal_pve_economy.py",
+        "before": {
+          "path": "els_server/domain/formal_pve_economy.py",
+          "sha256": "93f67069de3602112b06a26927736dca4fc1541b0c760a3461dfa172bea16808",
+          "size": 7343,
+          "source": "references/current-obtainable-consumables-phase-20261028-v1/source/93f67069de3602112b06a26927736dca4fc1541b0c760a3461dfa172bea16808/formal_pve_economy.py"
+        },
+        "after": {
+          "path": "els_server/domain/formal_pve_economy.py",
+          "sha256": "d3f1ce62b59b61ab2fef348b510f1592509a41e706aa9868001f1deca95b5f5a",
+          "size": 7710,
+          "source": "references/cache-exact41400-selective-20261030-v1/archive41400/local/source/els_server/domain/formal_pve_economy.py"
+        }
+      },
+      {
+        "path": "els_server/domain/raid_reward_items.py",
+        "before": {
+          "path": "els_server/domain/raid_reward_items.py",
+          "sha256": "38ed084b2b41ade0cdcdb72ad3d5177ba6fae137d823fb7d1bcef11f3ef04f66",
+          "size": 16753,
+          "source": "references/current-obtainable-consumables-phase-20261028-v1/source/38ed084b2b41ade0cdcdb72ad3d5177ba6fae137d823fb7d1bcef11f3ef04f66/raid_reward_items.py"
+        },
+        "after": {
+          "path": "els_server/domain/raid_reward_items.py",
+          "sha256": "847a7687d8ddc5a7405536eaa327d4e9bc66f337b9814975284f572e63eee7c0",
+          "size": 16785,
+          "source": "references/cache-exact41400-selective-20261030-v1/cache/source/els_server/domain/raid_reward_items.py"
+        }
+      }
+    ]
+  },
+  "activation": false,
+  "actual_dual_delivery_verified": false,
+  "signed_launcher_delivered": false,
+  "excluded": [
+    "F8 successor",
+    "Gate4",
+    "clear_items overlay",
+    "all other candidate leaves"
+  ],
+  "historical_candidate_evidence_is_not_combination_acceptance": true
+}
