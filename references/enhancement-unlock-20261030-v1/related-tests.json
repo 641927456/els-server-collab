@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "tests_run": 19,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "tests": [
+    "tests.test_enhancement_unlock.EnhancementUnlockTests.test_input_unchanged_other_sockets_and_shared_containers",
+    "tests.test_enhancement_unlock.EnhancementUnlockTests.test_old_save_cold_read_and_level_change_need_no_option_write",
+    "tests.test_enhancement_unlock.EnhancementUnlockTests.test_paid_threshold_ack_rollback_and_replay",
+    "tests.test_enhancement_unlock.EnhancementUnlockTests.test_separate_weapon_groups_and_no_deceased_dragon_unlock",
+    "tests.test_enhancement_unlock.EnhancementUnlockTests.test_tenebrous_boundaries_and_broken_restore",
+    "tests.test_equipment_enhancement.EnhancementTests.test_expiry_and_encoding_failure_roll_back",
+    "tests.test_equipment_enhancement.EnhancementTests.test_grant_move_stats_and_reopen",
+    "tests.test_equipment_enhancement.EnhancementTests.test_legacy_read_no_migration_and_cas_rollback",
+    "tests.test_equipment_enhancement.EnhancementTests.test_native_field_boundaries_and_optional_layout",
+    "tests.test_paid_enhancement.PaidEnhancementTests.test_cobo_stone_priority_and_empty_slot_removal",
+    "tests.test_paid_enhancement.PaidEnhancementTests.test_concurrent_duplicate_consumes_once",
+    "tests.test_paid_enhancement.PaidEnhancementTests.test_encoder_failure_rolls_back_material_money_equipment_and_receipt",
+    "tests.test_paid_enhancement.PaidEnhancementTests.test_rate_boundaries_and_level7_down_and_reset",
+    "tests.test_paid_enhancement.PaidEnhancementTests.test_retry_returns_current_absolute_state_without_redraw_or_old_upgrade",
+    "tests.test_paid_enhancement.PaidEnhancementTests.test_session_handler_and_wrong_phase_complete_native_wait",
+    "tests.test_paid_enhancement.PaidEnhancementTests.test_success_deducts_fee_and_one_stone_and_survives_relogin",
+    "tests.test_sage_sockets.SageSocketTests.test_failed_encoder_random_material_or_money_rolls_back_everything",
+    "tests.test_sage_sockets.SageSocketTests.test_locked_expired_and_malformed_modes",
+    "tests.test_sage_sockets.SageSocketTests.test_probabilities_slots_combined_body_and_validation"
+  ],
+  "baseline_stale_tests_excluded": [
+    "test_bad_packets_modes_and_random_sources_fail_without_mutation",
+    "test_bank_move_and_other_character_shared_withdraw_preserve_all_options",
+    "test_duplicate_concurrent_request_once",
+    "test_no_stone_money_other_owner_locked_expired_and_high_level_reject",
+    "test_paid_batch_relogin_and_exact_consumption",
+    "test_retry_keeps_newer_options_and_never_rolls_or_pays_again",
+    "test_session_routes_success_and_failure"
+  ]
+}
