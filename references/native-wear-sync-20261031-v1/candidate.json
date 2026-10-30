@@ -1,0 +1,55 @@
+{
+  "format": 1,
+  "issue": 638,
+  "base_git_commit": "13fe9defdcaae33ec2d25fe00aeacc8ca4d3ab53",
+  "candidate": true,
+  "selected": false,
+  "installed": false,
+  "scope": "Serialize shared native104 via the original105 wait; client support only",
+  "runtime_files": [
+    {
+      "path": "tools/native_cache_sync.py",
+      "source": "references/native-wear-sync-20261031-v1/source/d6741b01bd45a79a696cab53215f80062f02576428953ac167985e24efb3977e/native_cache_sync.py",
+      "sha256": "d6741b01bd45a79a696cab53215f80062f02576428953ac167985e24efb3977e",
+      "size": 4217,
+      "before_sha256": "225d321ef32563a5736513dd4030118aa669ac2e49cf8a3f7ac7344f4ef21856"
+    },
+    {
+      "path": "tools/native_wear_sync.py",
+      "source": "references/native-wear-sync-20261031-v1/source/0c448f6b5aa891e633b90ef5d221c56af5d422721dece5a7c8209819aca937f7/native_wear_sync.py",
+      "sha256": "0c448f6b5aa891e633b90ef5d221c56af5d422721dece5a7c8209819aca937f7",
+      "size": 849,
+      "before_sha256": null
+    },
+    {
+      "path": "tools/native_wear_sync.js",
+      "source": "references/native-wear-sync-20261031-v1/source/8655b2d8ced704417319c535ed08b4be6c3b56ebe55eedec7fe6cedf3100e604/native_wear_sync.js",
+      "sha256": "8655b2d8ced704417319c535ed08b4be6c3b56ebe55eedec7fe6cedf3100e604",
+      "size": 1625,
+      "before_sha256": null
+    }
+  ],
+  "source_set_sha256": "695b8bbb593ae84751c35d860fcf7fec5bde29a96412b3436e977a12783301ef",
+  "families": [
+    "rawLOCAL",
+    "signedLOCAL",
+    "signedFriends"
+  ],
+  "server_delta": 0,
+  "new_runtime_files": 2,
+  "changed_runtime_files": 1,
+  "client_original_EXE_KOM_delta": 0,
+  "new_hook_sites": 1,
+  "hook_RVA": "22634A0",
+  "native_query_RVA": "74FA90",
+  "native_wait_kind": 261,
+  "unchanged_cache_js_sha256": "e2f86915262ba1ea1e919eb1b33c5f022e1a311bd267569bb02f3aee7368083a",
+  "pending": [
+    "Non-author Hook/source review",
+    "Isolated real-game full105 lifecycle and actual startup loading",
+    "Signed source/component manifests and launcher update delivery"
+  ],
+  "natural_GUI": false,
+  "independent_review": false,
+  "automatic_deployment": false
+}
