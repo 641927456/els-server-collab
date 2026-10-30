@@ -1,0 +1,844 @@
+{
+  "schema": 1,
+  "candidate_only": true,
+  "original_pr": 635,
+  "original_head": "f2ef13bd78dfac9b2c36543dcf5410b3cc82caec",
+  "parent_main": "8874bbb660685fdbe39f94825103f118f1589f4d",
+  "files": [
+    {
+      "path": ".gitignore",
+      "source": "references/local-repairs-20261030-v1/source/.gitignore",
+      "size": 481,
+      "sha256": "bc080e4a115b0a9ea81bc0bbed5a4d660d7fb85f4c397b8155c20fda69ec07d5",
+      "root_parent_sha256": "779d90f7df98d7131b467a079ba3dd05bb6f7a1ad8533a5dbc0f178d094f4eed"
+    },
+    {
+      "path": "config/local_boss_gauge.json",
+      "source": "references/local-repairs-20261030-v1/source/config/local_boss_gauge.json",
+      "size": 683,
+      "sha256": "bd876161fe5699aeb28302ca8bd04da5287980fa5e4f6fb178847024a10a420c",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "config/local_boss_hp_cap.json",
+      "source": "references/local-repairs-20261030-v1/source/config/local_boss_hp_cap.json",
+      "size": 1273,
+      "sha256": "ec43c805a5fd2135a7f90e5ca73978a763377b6723c1bc6e852859cb2e329353",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "config/local_dungeon_flow.json",
+      "source": "references/local-repairs-20261030-v1/source/config/local_dungeon_flow.json",
+      "size": 4747,
+      "sha256": "ddcd9d037527e3af81e4dbc6e111f8c2ea70cf3b76b85ee2397add69837e5dd4",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "config/local_hp_curve.json",
+      "source": "references/local-repairs-20261030-v1/source/config/local_hp_curve.json",
+      "size": 985,
+      "sha256": "3c69e67e8f27075b6872ddf829267c97668b1754d8fc19b503c837a47cfb85b4",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/ALGORITHM3_PAYLOAD_20261029.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/ALGORITHM3_PAYLOAD_20261029.md",
+      "size": 5336,
+      "sha256": "29df5c61d991faab9f1083e46f2a5d1431c408dad2cf173a2fb1f105c37e73f3",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/DEVELOPMENT_LOG_20261027.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/DEVELOPMENT_LOG_20261027.md",
+      "size": 11693,
+      "sha256": "7b1cef0208d6cc1aa2ff1ac21d0d297d8778c45a2d0948ab5cbbca248ca10406",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/DEVELOPMENT_LOG_20261030.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/DEVELOPMENT_LOG_20261030.md",
+      "size": 10619,
+      "sha256": "f9b27574be29e2585f229c2297028ce724f42fd3bc4282255f617b6005a0dfaf",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/DEVILDOM_RAID2_CONTROLLERS_20261026.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/DEVILDOM_RAID2_CONTROLLERS_20261026.md",
+      "size": 10630,
+      "sha256": "b1e927693bf6259d665a6f9fb5daefca10e9e5032f008e1a7851737e64d94c58",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/DUNGEON_LOOT_SCOPE_20261026.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/DUNGEON_LOOT_SCOPE_20261026.md",
+      "size": 10081,
+      "sha256": "5b0deacbec72a5abc9bb8d29f33007f4b9c7247ac5121f94e7a85ce1b4b9f02f",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/FULL_RECOVERY_POTION_SHORTCUT_20261026.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/FULL_RECOVERY_POTION_SHORTCUT_20261026.md",
+      "size": 3515,
+      "sha256": "0e06ed9be76129911f6eb97329ae382d71a8150f3699b97cc331ffe66f98f83e",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/LITHIA_MEMORY8_FINALE_DOOR_20261026.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/LITHIA_MEMORY8_FINALE_DOOR_20261026.md",
+      "size": 3331,
+      "sha256": "9cc50f5bc48ebde5d99865f77ecc214cd62aabfbd3f17e341b06c5039dd78792",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/LITHIA_MEMORY8_WAVE_END_20261026.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/LITHIA_MEMORY8_WAVE_END_20261026.md",
+      "size": 5677,
+      "sha256": "5af04d0f3b1b542d3252e1bf38fa56c0cd07d5c007769930535451165e4911a0",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/NAKED_LEVEL_GROWTH_20261026.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/NAKED_LEVEL_GROWTH_20261026.md",
+      "size": 4514,
+      "sha256": "eaf03aed4e8c12c19292c81c6e85c7e1defb9f9f11941bf71ad953c97ca0115e",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/fixes/20261028-altera-core-boss-gate.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/fixes/20261028-altera-core-boss-gate.md",
+      "size": 4195,
+      "sha256": "bcdc90a5d077e41342c2704f70d6c20af36b33deb9109d94ccf65c69f040ce4a",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/fixes/20261028-eve-summon-templates.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/fixes/20261028-eve-summon-templates.md",
+      "size": 7319,
+      "sha256": "367a9628cfd2823d1ef5c7860220dd08034f25e44a8bc4a8444af2b66b11a478",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/fixes/20261028-sentry-stage-persistence.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/fixes/20261028-sentry-stage-persistence.md",
+      "size": 5491,
+      "sha256": "775f57d31671b96b9d54f60148cea9cabb77fef9de6d1ba31e5b3f7afa9ddcbe",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/fixes/20261029-devildom2-part-markers.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/fixes/20261029-devildom2-part-markers.md",
+      "size": 4690,
+      "sha256": "0858d4fccdb220517bf349992e29722c38f0a2e057f7f0f5b0d926ac8977a48f",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/fixes/20261029-launcher-stale-client-gm-item-mail.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/fixes/20261029-launcher-stale-client-gm-item-mail.md",
+      "size": 2840,
+      "sha256": "441e490a580236c145ad5592f6afdae1d94444bc7ad65df114d8e68852f7d47a",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/fixes/20261030-master-road-boss-gauge-lines.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/fixes/20261030-master-road-boss-gauge-lines.md",
+      "size": 3862,
+      "sha256": "ba65552919e99a04e966fcde213677aa69744b2789a47500e82ffd77ddd95e9a",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/fixes/20261030-master-road-boss-hp.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/fixes/20261030-master-road-boss-hp.md",
+      "size": 6520,
+      "sha256": "3029b2a71ea3a350b04a6ad0cfb1936afc6023d16bf20bc5555a363219a889d4",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/fixes/20261030-master-road-resurrection.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/fixes/20261030-master-road-resurrection.md",
+      "size": 3511,
+      "sha256": "63f1d72249f0c8c8589097c49d05683c6781c3edfb48cbe811eeb29736b4f035",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/fixes/20261030-socket-armor-high-preview-stuck.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/fixes/20261030-socket-armor-high-preview-stuck.md",
+      "size": 3838,
+      "sha256": "5bf96ea997756b360dc29c1e43e89bc94587661cbf6b5b04a84f7934cab7ee3b",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "docs/fixes/20261030-unregistered-owned-rows-broke-whole-bag.md",
+      "source": "references/local-repairs-20261030-v1/source/docs/fixes/20261030-unregistered-owned-rows-broke-whole-bag.md",
+      "size": 3531,
+      "sha256": "70eaec4573db7aa27bf4e5f0b391cbd4c9d6c29228be740ca8ac3dcb886ff19e",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/data/character_customizations.json",
+      "source": "references/local-repairs-20261030-v1/source/els_server/data/character_customizations.json",
+      "size": 1059063,
+      "sha256": "409330344d2707cfb90a2da34012098276a8f63b526a01b3610454d4b9f5b3f3",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/data/companion_templets.json",
+      "source": "references/local-repairs-20261030-v1/source/els_server/data/companion_templets.json",
+      "size": 283804,
+      "sha256": "7cff5746efdf167ad1f8610acac39da81ebf1ec25648aa17caf8abf7a0cf9ce9",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/data/dungeon_equipment_loot.json",
+      "source": "references/local-repairs-20261030-v1/source/els_server/data/dungeon_equipment_loot.json",
+      "size": 4773,
+      "sha256": "8fa0415a2bad6cafd741b948ddfc940b7bad565a59f1bf1d88e556bf7f719fa1",
+      "root_parent_sha256": "31a5c4c5d7a677f67d01744cc76570c46ca503a9a4fa7d1b30dc3b2ef656eea5"
+    },
+    {
+      "path": "els_server/data/enums.json",
+      "source": "references/local-repairs-20261030-v1/source/els_server/data/enums.json",
+      "size": 1514212,
+      "sha256": "1b0529b7fc1ef037c59b8c27b87ef132e06ab6bf9183c76573b1b726c6447f17",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/data/known_resurrection_maps.json",
+      "source": "references/local-repairs-20261030-v1/source/els_server/data/known_resurrection_maps.json",
+      "size": 8605,
+      "sha256": "4c21fcdda5c779b75eb1838712e825d3218eedd30b817b8f03e2dbe38427b0cc",
+      "root_parent_sha256": "56fc161281869be7c4543ee98b16c8f684e00722277ee842eae5a1692246060a"
+    },
+    {
+      "path": "els_server/data/known_resurrection_maps.manifest.json",
+      "source": "references/local-repairs-20261030-v1/source/els_server/data/known_resurrection_maps.manifest.json",
+      "size": 12049,
+      "sha256": "ae05064ea505800f6506860733b0abf17808fc9c4259b35a0e0a43e40104c8ce",
+      "root_parent_sha256": "90e23496a259e43936cb4673eea6367864749cfc46966cfeaed63d5a620b350d"
+    },
+    {
+      "path": "els_server/data/life_content.json",
+      "source": "references/local-repairs-20261030-v1/source/els_server/data/life_content.json",
+      "size": 23034,
+      "sha256": "e72a4c8909005900dc6bb3320de71362a8e1ac26b832ab77bec3d4329fa12991",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/data/local_reselection_quest.json",
+      "source": "references/local-repairs-20261030-v1/source/els_server/data/local_reselection_quest.json",
+      "size": 4685,
+      "sha256": "13403ebc6800f36553e45e4568ccfefacdbb188bd1c518128981746bfb985654",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/data/local_reselection_quest.manifest.json",
+      "source": "references/local-repairs-20261030-v1/source/els_server/data/local_reselection_quest.manifest.json",
+      "size": 322,
+      "sha256": "7bc2076bb806dfb1e385313fd12c816106de1b8e932adbf16005a3280478ad42",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/data/pet_previews.json",
+      "source": "references/local-repairs-20261030-v1/source/els_server/data/pet_previews.json",
+      "size": 84440,
+      "sha256": "6346d44900dd0e3845f97f95f6b54e1cbd9beb136203cafb80c27b1b9a4160c7",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/data/pet_ticket_variants.json",
+      "source": "references/local-repairs-20261030-v1/source/els_server/data/pet_ticket_variants.json",
+      "size": 5013,
+      "sha256": "f68f12a102891ad489999444ecda4d820ffb9cededce54fcfc28eae48670fdfb",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/data/transcendental_class_items.json",
+      "source": "references/local-repairs-20261030-v1/source/els_server/data/transcendental_class_items.json",
+      "size": 58702,
+      "sha256": "0e02427f5e1e829934fe16113827867d7dcc033546ae0b34549a3be17a17fd3a",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/apple_consumables.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/apple_consumables.py",
+      "size": 9130,
+      "sha256": "74abed14ee33778a15f989ced179a9b056d89062eab82fa50f63dd2f27e5c25d",
+      "root_parent_sha256": "d0da8d3c08691089778969535320f8ea71e713084ec4f4376e2a2ba079d20ccd"
+    },
+    {
+      "path": "els_server/domain/character_customization.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/character_customization.py",
+      "size": 4272,
+      "sha256": "f2fb2b72fdca105fe21eeeb9620d215081044810577f51cadbd254b99bad2531",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/character_stats.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/character_stats.py",
+      "size": 8860,
+      "sha256": "a733839d02d640e2892953891c8e036c2830f866d2354da69bfdaf3cff0f2fec",
+      "root_parent_sha256": "296f7e129102acb78fa12567afb478f20998dd9e5de5db547468992145b8fa3d"
+    },
+    {
+      "path": "els_server/domain/companion_templets.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/companion_templets.py",
+      "size": 2737,
+      "sha256": "c1308b4f236064fbd0008056d35c94f7df074b35425020324cacc014b59910f9",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/consumable_flow.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/consumable_flow.py",
+      "size": 1605,
+      "sha256": "79293f39d371a2934507789bb3baf0414d98f275668cdec119e8605aef51ca76",
+      "root_parent_sha256": "5907384814b2e5fd74c8a9c593dce47ca8a68617df6c05cb59edbc0846f6d037"
+    },
+    {
+      "path": "els_server/domain/consumables.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/consumables.py",
+      "size": 10437,
+      "sha256": "ac272524a087043cffcd052e65ad74a67b5fb79a7fc7d8829f656a527f6cdc05",
+      "root_parent_sha256": "94199433b6cf084997293895cc748afd62c47c8d1cffd86ef64641235a6a5db8"
+    },
+    {
+      "path": "els_server/domain/devildom1_raid2_controllers.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/devildom1_raid2_controllers.py",
+      "size": 7247,
+      "sha256": "bdd81e62cc4d7f7e87a44c62027cad3c26be104ca2e750e1b65e01d449738b59",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/dungeon_equipment_loot_flow.py",
+      "size": 18701,
+      "sha256": "29ecfd04af860a4373d92b4f258e4492cea8dc86257c8a6d8b0aaab298d5b25f",
+      "root_parent_sha256": "5c88a24f14a54ee7c51b86a2a8d0d501ad62e473d7716e562d66374d167544d7"
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_rules.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/dungeon_equipment_loot_rules.py",
+      "size": 6468,
+      "sha256": "be3e9c6c6999a330847d87c53da6f3374f7743d98cadb771203bfd4cb62e41ce",
+      "root_parent_sha256": "6369ca0f79cfef9ba8b69c053bb2226e3973df95da55212c389937ad1061dcf1"
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/dungeon_flow.py",
+      "size": 24507,
+      "sha256": "fe747465506ba3b23607c82049ae8ea79d315bf3aa995d8a983c18675e0332a3",
+      "root_parent_sha256": "e95beb3f082b3724dceaac07ca1d433a40ba63675d8dcee3af81dcf9c1ce70f9"
+    },
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/dungeon_routes.py",
+      "size": 16650,
+      "sha256": "a287c2fd5bddbaca55715b7d3b8cb014dde86b300cc25dadda15391669b07e26",
+      "root_parent_sha256": "047a05a2279d84110f34dc8fcc153260ee1a5dfcf8a4b23138ce358bed9f6e2f"
+    },
+    {
+      "path": "els_server/domain/enums.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/enums.py",
+      "size": 4051,
+      "sha256": "bd44a906d67388db0fe3b452e79f0b8c62074ad8b82f858604b5ae8125bee9d2",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/field_boss_entry_flow.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/field_boss_entry_flow.py",
+      "size": 719,
+      "sha256": "3ab71d3b3f4c784a317c454ad94cc1389c3b631a22c1dc44141f27a916f8b4a8",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/fishing_bait_loot.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/fishing_bait_loot.py",
+      "size": 11975,
+      "sha256": "0a8db4d1f5e39592053662ba815296a3f78e689d49ded1d61d94864d2898ae90",
+      "root_parent_sha256": "01abc62227710a964bed072ebb68086be8dfa065ca3d25e9e7c9bdf0c87a51d5"
+    },
+    {
+      "path": "els_server/domain/formal_npc_hp.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/formal_npc_hp.py",
+      "size": 15726,
+      "sha256": "1cfb2e4bb31509d175f3219f70509443db11b057e0a8d7d3ddf901e0047d1520",
+      "root_parent_sha256": "9dbf363bfa6ff82303ac2f9e1b96838269b6f998dc465ebe9bfc3cd5bdfbd08b"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/inventory_items.py",
+      "size": 76025,
+      "sha256": "fdd9587bec30736ef329a144c256b374db8e92e6d976063a8780ac3b583a903f",
+      "root_parent_sha256": "ae15a7a8b0b0e5ee1fce7b2a1e3cc56e108e66e9a35cf3fbe44692d0a09b7091"
+    },
+    {
+      "path": "els_server/domain/known_resurrection_flow.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/known_resurrection_flow.py",
+      "size": 12754,
+      "sha256": "7870678e7000e7a6721caf42df2e880dc13076418506c5f74bdaa8d2618ca403",
+      "root_parent_sha256": "e97e27ab1ad1ff6dd4a2a7cb1c4fce2411e1d584e2ba8ef5f61442260dabf316"
+    },
+    {
+      "path": "els_server/domain/life_content.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/life_content.py",
+      "size": 4100,
+      "sha256": "0e6f6bd8d1d2cafee5a4dab0b0774bfd27068af69ec383a33066e1fd7e764ee8",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/local_boss_cap.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/local_boss_cap.py",
+      "size": 3223,
+      "sha256": "f4629759c5a238eb3500b696ddd058be18361e07e295581cee5408bcef98e0cd",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/local_boss_gauge.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/local_boss_gauge.py",
+      "size": 1831,
+      "sha256": "a4cbcc59271133763d867b48f74f8a0e8846de6a2a853f85dbfe95e97d123153",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/local_dungeon_flow.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/local_dungeon_flow.py",
+      "size": 16548,
+      "sha256": "74bb92f2a63de140fd0d8616893646c156e5eeec775cd3b36dce21aabed2064a",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/local_hp_curve.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/local_hp_curve.py",
+      "size": 5067,
+      "sha256": "3d1abb11d07462055679096483ecc0b4a2306c8eac564739b85252ed76abf2e5",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/local_reselection_quest.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/local_reselection_quest.py",
+      "size": 3441,
+      "sha256": "bec978bc204a971a156237e292abf16e1656ab8304cf35febc7e9528193d4edb",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/local_session.py",
+      "size": 152307,
+      "sha256": "24555c999253f09d9ddd8b34fe5a72304ce22782e151af31849c618676456d94",
+      "root_parent_sha256": "8599d29e6237801842b80236683642b7a4fd1364ffc2670eced78adbac3a09a7"
+    },
+    {
+      "path": "els_server/domain/mount_flow.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/mount_flow.py",
+      "size": 2242,
+      "sha256": "bb2ad1bce9fff70ac941aa8340125493fb0a190d109d18f337a399179eb2b035",
+      "root_parent_sha256": "641c60e06f135f6a1282d599f4cdb4d1b154baa9078a56ce1071332ac98a2e43"
+    },
+    {
+      "path": "els_server/domain/pet_previews.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/pet_previews.py",
+      "size": 3852,
+      "sha256": "e7a435c2bd2461fdf287f58ba9a07ef33bb19fa74664388914482b637f6e2925",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/pet_support.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/pet_support.py",
+      "size": 2959,
+      "sha256": "711aa85d8f6b7a2afcad1d4fdac71c27535cdcc084a6a334dcf0fbfadb462159",
+      "root_parent_sha256": "6170143bcc24d176c8e105b722d6e27cddf0eda16fa5ac3bdbd0a7fe05c6ef00"
+    },
+    {
+      "path": "els_server/domain/pet_support_flow.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/pet_support_flow.py",
+      "size": 2936,
+      "sha256": "06e93da85b0801c19ae2a83125a296c2e1d622312e3a745d6b5e18d262fb46d8",
+      "root_parent_sha256": "e634e5ae9fe5db9469aae38b950afcee9ffcd163d0d23040e78285c0adb69930"
+    },
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/seal_quests.py",
+      "size": 16554,
+      "sha256": "a525ea9c879a6ef4acfd90a40e0954aa63e2f95c45aae9657c69fe92eac3ca7e",
+      "root_parent_sha256": "5d3027f382195e674c9f06bbfbca1a1430a357b2ce4f1e9da168de1606f73bcc"
+    },
+    {
+      "path": "els_server/domain/summons.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/summons.py",
+      "size": 7343,
+      "sha256": "628ff4298ad8f1cb3478af27a15788c42521caa0930ef6cae309f7957c44e5c0",
+      "root_parent_sha256": "811193bb964c173b1b1ed3ea973a8429460835a942b22365a23ce5f10e41e53f"
+    },
+    {
+      "path": "els_server/domain/transcendental_class_items.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/domain/transcendental_class_items.py",
+      "size": 3770,
+      "sha256": "fae9eab77c74d6ea2a97e6080eb6c01dc205d05ea2648220d31dd0e5cc457687",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/protocol/dungeon_messages.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/protocol/dungeon_messages.py",
+      "size": 14716,
+      "sha256": "b485fe7f3e6427b65b92602741ab90c8f5058affdcfc0d66f62016b789b96e37",
+      "root_parent_sha256": "203c188f8dd6b9298ec394cc5481ed3e32663027d832cbced34d63fd06ca9f22"
+    },
+    {
+      "path": "els_server/storage/consumables.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/storage/consumables.py",
+      "size": 8782,
+      "sha256": "858c5ec08395f4527757b505d9a9f5559ccd0acd38b7af1e3897f037e047b9b8",
+      "root_parent_sha256": "b519ac8205057cfeca12a4c41c863cfda33102254ee4118e26fdfdfe253038a5"
+    },
+    {
+      "path": "els_server/storage/game_mail.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/storage/game_mail.py",
+      "size": 14100,
+      "sha256": "d2d3e7d2c0abbdf460a3798f0730e85b7d4981558b111efce8523d59a4aa35c2",
+      "root_parent_sha256": "abe56436ab62de206f779dbf15fe771a8cdff43e27c1e5f6d55969a806ee8653"
+    },
+    {
+      "path": "els_server/storage/mount_state.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/storage/mount_state.py",
+      "size": 7469,
+      "sha256": "2e2e82970424bdeb3ab01387f1f9f6faa259dd6f88af852dacae64a4c04c502c",
+      "root_parent_sha256": "bf9b3342475c8afd2bc1bde4aa6a7e2ded26a4f144a10bb484227afa5106a55d"
+    },
+    {
+      "path": "els_server/storage/pet_support.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/storage/pet_support.py",
+      "size": 14207,
+      "sha256": "03013893171c9dbcfc8d90ed7e5851fc84e6fd892eb9f766d2118073916f3532",
+      "root_parent_sha256": "c6482d98c1fbcb0b1b4af1b9b9109c8678866905fc7415ea4e3c03f12ab60770"
+    },
+    {
+      "path": "els_server/storage/raid_reward_actions.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/storage/raid_reward_actions.py",
+      "size": 9759,
+      "sha256": "d600a06e37b4973747c1260339a121f2d58c94cf1ccf635b0dfc379373675132",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/sage_sockets.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/storage/sage_sockets.py",
+      "size": 9738,
+      "sha256": "6f12a3943b1640ca03905886a86eebd1ed8960b5e47c6a3c1a1cf814876c69e3",
+      "root_parent_sha256": "f7aedb52d3af2f50e70b829a6c64da7abb2d64e90227b274805ff0a2f9862744"
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/storage/seal_quests.py",
+      "size": 32067,
+      "sha256": "090d7c8f135c516cc971114dc6b8d1a037f7cb07717b7284111af647661af104",
+      "root_parent_sha256": "c405f561a39ec30b455c7654ace99daf4f9cda19ae2ef0694213b19ccab5d773"
+    },
+    {
+      "path": "els_server/storage/skill_unlocks.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/storage/skill_unlocks.py",
+      "size": 8592,
+      "sha256": "871c73667005842de36fe67a99fd5e18314d5aa2a00855a96bbe9e104d3b2a02",
+      "root_parent_sha256": "e1d476775383bfe915dfe69f589c513d22486af0f399b0518ddfad81d187e107"
+    },
+    {
+      "path": "els_server/transport.py",
+      "source": "references/local-repairs-20261030-v1/source/els_server/transport.py",
+      "size": 18964,
+      "sha256": "6bd3d5304acfe60e5dda13e354df0e81e9cc43a9dfea1b1e4e447ba6676d6e9e",
+      "root_parent_sha256": "8f6c08184feafaa0d272380aa9a3b57899a87228d81d4fb73c8d4c36f6d7d450"
+    },
+    {
+      "path": "launcher/app.js",
+      "source": "references/local-repairs-20261030-v1/source/launcher/app.js",
+      "size": 39126,
+      "sha256": "c829f58901e74a33ba8663bc53181d1bd878a4c033b3618b72a2ae90a323617c",
+      "root_parent_sha256": "cea4c762fe652753f73a651b4b8b9a2388d30f586fde93acd1c35432e6ed724a"
+    },
+    {
+      "path": "launcher/service.py",
+      "source": "references/local-repairs-20261030-v1/source/launcher/service.py",
+      "size": 43897,
+      "sha256": "cb6bf71cb27aac397fe9e2f932114f616e03fc79a729c17e62c0b1e92a9dca88",
+      "root_parent_sha256": "6f32bb169ef1d43d4778662822a16c03533d999351c2da1ebf3878d929043ff5"
+    },
+    {
+      "path": "tests/test_altera_core_boss_gate.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_altera_core_boss_gate.py",
+      "size": 8739,
+      "sha256": "49f2168b9c9158c775be67b0d9ec7faf780206547c018365820f28f524c74536",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_bait_30282_midboss_death.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_bait_30282_midboss_death.py",
+      "size": 7820,
+      "sha256": "bf1e37d261e9c425475ccf334660bfd9dfd537e2dbaad93f1060feb9c721c87d",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_bait_source_local_session.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_bait_source_local_session.py",
+      "size": 3159,
+      "sha256": "4b53b0d00ca6780066ff7a22eb2068821990fb80fcb3f4e00202002ecc61801f",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_character_customization.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_character_customization.py",
+      "size": 6048,
+      "sha256": "56c21603c2b0a1d89bc2b11ab62af34356b7fbe628a43be9524146e85f5a01b8",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_clear_bundle_ownership.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_clear_bundle_ownership.py",
+      "size": 3963,
+      "sha256": "2c1f70a20c8e032a24ef164c0aa0b9a4dcf208fce626c08a5d1829caee8aad93",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_companion_templets.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_companion_templets.py",
+      "size": 6985,
+      "sha256": "25afb6ae533d03f8294598d68c9cd9394ba1f77fc1897ebc3f4c3dbd36762ab7",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_consumable_actor_lifecycle_current.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_consumable_actor_lifecycle_current.py",
+      "size": 5622,
+      "sha256": "14765d0a053338acdfbd7744e9854353322dbfd07571024d75305571564f777c",
+      "root_parent_sha256": "c8a2251961d6147e404cf12ac2529e6a5859e427038f722e1e5fe86ae4d59fec"
+    },
+    {
+      "path": "tests/test_devildom1_raid2_controllers.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_devildom1_raid2_controllers.py",
+      "size": 12389,
+      "sha256": "20259b22bf9d72d043d07e982dc316742f4eb28bff7a817985f18054eb8a50c8",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_devildom2_part_markers.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_devildom2_part_markers.py",
+      "size": 13871,
+      "sha256": "494e89874b66d22e73ebd555a991a0ebbb51cddb71460fdd30d564b0a04175f6",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_enums.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_enums.py",
+      "size": 6714,
+      "sha256": "6251b0e20ba58d166ef7179dfa63792c10c215da802344417e060f0f4b955e42",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_equipment_loot_route_admission.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_equipment_loot_route_admission.py",
+      "size": 4953,
+      "sha256": "9590f63bbcea6f3e34ce5cde3811dd7ab76730d27608f20c0ee2050f062f8046",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_eve_summon_templates.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_eve_summon_templates.py",
+      "size": 12145,
+      "sha256": "bc8c6022c63c1395f60d2f42b21d136f635c5ce172fe44e16e6df8e9cb7cdb9f",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_field_boss_entry.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_field_boss_entry.py",
+      "size": 2459,
+      "sha256": "2b546a50565f62d0b4e5048f495bd10a975f6e4c7dee2c16d68d2ea711fcb74d",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_full_recovery_shortcut.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_full_recovery_shortcut.py",
+      "size": 5352,
+      "sha256": "88e2496e1f2a8770b742363282d67043c24827224b7fc807cb7c30cfdea201d2",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_instance_stats.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_instance_stats.py",
+      "size": 3189,
+      "sha256": "866468dc3eed5ce4ff38629784792830a0da584e93e918e8dd3e5c39e3b4f0b8",
+      "root_parent_sha256": "d25601a9a1a204bb03325dbe7a1de6c67a80127833cfa8e60bb27b4ec36fed64"
+    },
+    {
+      "path": "tests/test_inventory_restore_and_drops.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_inventory_restore_and_drops.py",
+      "size": 5533,
+      "sha256": "1ae1b4b318c0fc990a76e6938f409e2c1faaad9fe8875e54a4c21f00cb31efad",
+      "root_parent_sha256": "1cc286e0d71adfd9700053adc536e966f72ff7932bd4bad43933d11265f750eb"
+    },
+    {
+      "path": "tests/test_launcher.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_launcher.py",
+      "size": 10285,
+      "sha256": "b42930fddf560b5b2c8d8608dd0899f8c032de3f3afd99d678167880439e1d33",
+      "root_parent_sha256": "14a6749805f925fe533f475cd501a62460377692cf1e559233e3651916e399ce"
+    },
+    {
+      "path": "tests/test_life_content.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_life_content.py",
+      "size": 5468,
+      "sha256": "e6fb92ede99537fb1f53e2a1eacfbc2d620b1435898acf8d64c8c2bb9422c937",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_lithia_memory8_finale_door.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_lithia_memory8_finale_door.py",
+      "size": 3595,
+      "sha256": "9d929b45ac8a9506449322a7487130750f365c297388b8c5b47717f2be5127c1",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_loot_scope_report.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_loot_scope_report.py",
+      "size": 6547,
+      "sha256": "1890bf457730a3f78bc78c9804ce70cd03e4587691eb41ffa59cfe2af5cf6bc0",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_master_road_boss_cap.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_master_road_boss_cap.py",
+      "size": 6041,
+      "sha256": "dbaf4fd1d8058909f9bf61885ed83559c0fb0f31c6060f38cf001f5291824af8",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_master_road_boss_gauge.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_master_road_boss_gauge.py",
+      "size": 5630,
+      "sha256": "05cbb68fa09842db87d3c180e9beb06a84ac98eea2021f8864f61c27799f3b5b",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_master_road_resurrection.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_master_road_resurrection.py",
+      "size": 3455,
+      "sha256": "7d408df7143c322ec54c26c7a28470da377f57f98c2e10d5f157320a83abc1d3",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_mount_recall.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_mount_recall.py",
+      "size": 5469,
+      "sha256": "2ad9ed2612d08fa7d36bb2bb627f2b5da7f972c1a1e18628fa7ee5e446db83c8",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_naked_level_growth.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_naked_level_growth.py",
+      "size": 4380,
+      "sha256": "2128c9d06f5d9989e1e080d773bcd1ca7007832b99ae598db76710b5b513d032",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_nasod_factory_exit_gates.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_nasod_factory_exit_gates.py",
+      "size": 7317,
+      "sha256": "76bd0b8e353f45b814b55656be255eb7cb7cd8f16240b970143e9a25dc58efd7",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_pet_automatic_binding_rejection.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_pet_automatic_binding_rejection.py",
+      "size": 6153,
+      "sha256": "44723671c2bae4e2e5c430f174f7ca5b57493514bd2b123e5d46269c2c2757f8",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_pet_manual_cooldown_conflict.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_pet_manual_cooldown_conflict.py",
+      "size": 8011,
+      "sha256": "06b2d4879dfd8fb2ec0df7095144204046836b1d3bbec35a024d419095873ecc",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_pet_previews.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_pet_previews.py",
+      "size": 5784,
+      "sha256": "289d10fecd9696fc14f0b0e25945ff9c21a3c2647a73984c326c12d0344f19f7",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_pet_support.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_pet_support.py",
+      "size": 10228,
+      "sha256": "8868aa182ed3269aeffb53abf891967b28f02eb89a45a36b6ddfad3ba595af46",
+      "root_parent_sha256": "5bba3d4a99784d7d39a024ecaafde77ffc5af003d067ec25e6076725bba36ef4"
+    },
+    {
+      "path": "tests/test_pet_ticket_variants.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_pet_ticket_variants.py",
+      "size": 12698,
+      "sha256": "51f197372bb85239751ef982859f14925d44b7ccafe614c4382cda2880a47d3e",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_retained_native_hp.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_retained_native_hp.py",
+      "size": 9881,
+      "sha256": "4c7c15a48437abc534abd6888246321e7fe1fbb5d38d3ff4a8a1418f2dd6d04d",
+      "root_parent_sha256": "9049ac42fa3c767e5e142e4c5d32bb51e9ec300f660e04a82dc69686d8d80215"
+    },
+    {
+      "path": "tests/test_sage_sockets.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_sage_sockets.py",
+      "size": 8821,
+      "sha256": "c4a76881496a79c4f8ea29ea363ee9cba352208c27740aaf23d0c7fd879206a0",
+      "root_parent_sha256": "74213fdd80d7cd6067a3eb809a142c16dce3fb98826232f1e0280b3f5246aed8"
+    },
+    {
+      "path": "tests/test_seal_quests.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_seal_quests.py",
+      "size": 24026,
+      "sha256": "62ec9681c1499669f3c98951d8e7b695b5abdff74f094044db2b90cfb7940c6d",
+      "root_parent_sha256": "56f12ee4b3436d84b44e06b9ecfe8ffa018e6f3ad1b43d7fa00d1db9611f581b"
+    },
+    {
+      "path": "tests/test_sentry_stage_persistence.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_sentry_stage_persistence.py",
+      "size": 12173,
+      "sha256": "0fa21b41c45d7bfcf03e46535478005dfb3723aafae179e1204b8aaf813367c1",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_settled_run_trailing_death.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_settled_run_trailing_death.py",
+      "size": 4759,
+      "sha256": "c82e5fa908af60537b279e9dae23293f0e0407ed550798b1fd19a0cf31cbd0dc",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tests/test_transcendental_class_items.py",
+      "source": "references/local-repairs-20261030-v1/source/tests/test_transcendental_class_items.py",
+      "size": 6225,
+      "sha256": "b2089d8547d95264c87c9bd5d545a707cf661c7469aed33e996e8a30dc922dd0",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tools/launch_friends_client.py",
+      "source": "references/local-repairs-20261030-v1/source/tools/launch_friends_client.py",
+      "size": 10028,
+      "sha256": "4119f79bc633d0dbaa27e96ee7ca34d894a028d42db99dad8b67993a066893ca",
+      "root_parent_sha256": "d34d93a23a98f5dac388a3b8e15e08ef02ab8e9be12bc4cf1155d4ca3587a233"
+    },
+    {
+      "path": "tools/loot_scope_report.py",
+      "source": "references/local-repairs-20261030-v1/source/tools/loot_scope_report.py",
+      "size": 9925,
+      "sha256": "7b8496cdb66afbbdf679622cf56a1bdbb9ae844edc201bf7f8a062e9deb38b9e",
+      "root_parent_sha256": null
+    },
+    {
+      "path": "tools/probe_updated_client.py",
+      "source": "references/local-repairs-20261030-v1/source/tools/probe_updated_client.py",
+      "size": 26344,
+      "sha256": "a3be22ce46c22e122833f64e2587048466b1bba4ee65237d4d497b4ac4ff07d2",
+      "root_parent_sha256": "5a323d913774b4938ccc329d80c15e5a314866e27185815dcfae3726f26aa905"
+    }
+  ],
+  "installed": false,
+  "root_runtime_changed": false
+}
