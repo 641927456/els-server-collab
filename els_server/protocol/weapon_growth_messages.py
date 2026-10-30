@@ -18,10 +18,10 @@ def active_record(row):
 
 
 def _objectives(row):
-    from els_server.domain.weapon_growth import quest
-    definition = quest(row['id'] - 1)
+    from els_server.domain.weapon_growth import definition
+    limits = {g['subquest']:g['target'] for g in definition(row['id'])['objectives']}
     for sub, count in sorted(row['objectives'].items()):
-        yield sub, count, definition['target']
+        yield sub, count, limits[sub]
 
 
 def completed_record(row):
@@ -44,7 +44,8 @@ def request(payload):
     if not isinstance(payload, bytes) or len(payload) != 13:
         raise ValueError('Weapon growth request size')
     quest_id, item_uid, ui_flag = struct.unpack('>iQB', payload)
-    if not 1 <= quest_id <= 5 or not 0 < item_uid < 2**63 or ui_flag not in (0, 1):
+    from els_server.domain.weapon_growth import definition
+    if definition(quest_id) is None or not 0 < item_uid < 2**63 or ui_flag not in (0, 1):
         raise ValueError('Weapon growth request fields')
     return quest_id, item_uid, ui_flag
 

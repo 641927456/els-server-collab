@@ -67,9 +67,9 @@ class WeaponGrowthTests(unittest.TestCase):
         self.assertEqual(self.dump(),before)
 
     def test_whole_chain_rewards_native_options_and_reopens_cold(self):
-        for q in rules.catalog()['quests']:
-            for unused in range(q['target']):
-                self.assertTrue(self.clear(q['dungeons'][0])['changed'])
+        for q in rules.chain(136062)['quests']:
+            for unused in range(q['objectives'][0]['target']):
+                self.assertTrue(self.clear(q['objectives'][0]['dungeons'][0])['changed'])
             result=self.claim(q['id'],'claim'+str(q['id']))
             self.assertEqual(result['updated']['option_groups']['17'],q['options'])
             self.assertEqual(rules.stage(self.items()[0]),q['id'])
@@ -168,7 +168,7 @@ class WeaponGrowthTests(unittest.TestCase):
         self.assertEqual(rules.stage(self.items()[0]),1)
 
     def test_reward_vector_cannot_cross_stage_or_weapon_family(self):
-        for q in rules.catalog()['quests']:
+        for q in rules.chain(136062)['quests']:
             self.assertEqual(rules.options(136062,q['options']),q['options'])
         for values in ([200086,200086],[200087],[200086,1]):
             with self.assertRaises(ValueError):

@@ -165,15 +165,24 @@ class QuestState:
             return frozenset(s['m_eClearType'] for qid,at,g,raw in erp_scope.active_rows(db,self.uid)
                              for s in quest_catalog().objectives(qid))
 
-    def collection_snapshot(self):
+    def collection_snapshot(self,*,include_growth=False):
         """Read one consistent view without creating tables or taking a writer lock."""
         with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
             db.execute('BEGIN');load_character(db,self.uid,self.account_id)
-            if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_quests'").fetchone():return []
-            identities={qid for qid,at,g,raw in erp_scope.active_rows(db,self.uid)
+            present=db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_quests'").fetchone()
+            identities={qid for qid,at,g,raw in (erp_scope.active_rows(db,self.uid) if present else ())
                         if any(s['m_eClearType'] in (3,31,38,80,81,110,121) for s in quest_catalog().objectives(qid))}
-            if not identities:return []
-            return [row for row in _state(db,self.uid,load_items(db,self.uid))['active'] if row['id'] in identities]
+            if not identities and not include_growth:return []
+            from els_server.domain.weapon_growth import templates as growth_templates
+            if not identities and not db.execute('SELECT 1 FROM inventory_items WHERE owner=? AND template IN ('+
+                    ','.join('?' for _ in growth_templates())+') LIMIT 1',(self.uid,*sorted(growth_templates()))).fetchone():
+                return [],dict(item_active=[],item_completed=[])
+            items=load_items(db,self.uid)
+            state=_state(db,self.uid,items) if identities else None
+            rows=[row for row in state['active'] if row['id'] in identities] if identities else []
+            if not include_growth:return rows
+            from els_server.storage.weapon_growth import snapshot as growth_snapshot
+            return rows,({k:state.get(k,[]) for k in ('item_active','item_completed')} if state is not None else growth_snapshot(db,self.uid,items))
 
     def action(self,kind,request,operation_id,encode,*,now=None,location=None,transaction=None):
         if kind not in ('accept','abandon','claim'):raise ValueError('Quest action')

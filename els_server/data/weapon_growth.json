@@ -1,116 +1,437 @@
 {
   "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
-  "templates": [
-    136050,
-    136062,
-    136063,
-    136064,
-    136065,
-    136066,
-    136067,
-    136068,
-    136069,
-    136070,
-    136071,
-    136072,
-    136074,
-    136075,
-    136085,
-    136147,
-    715105,
-    715106,
-    715107,
-    715108,
-    715109,
-    715110,
-    715111,
-    715112,
-    715113,
-    715114,
-    715115,
-    715117,
-    715118,
-    715119,
-    717821
-  ],
   "socket_group": 17,
-  "quests": [
+  "families": [
     {
-      "id": 1,
-      "subquest": 1,
-      "target": 1,
-      "dungeons": [
-        34510,
-        34520,
-        34530,
-        34540
+      "name": "requiem",
+      "templates": [
+        136050,
+        136062,
+        136063,
+        136064,
+        136065,
+        136066,
+        136067,
+        136068,
+        136069,
+        136070,
+        136071,
+        136072,
+        136074,
+        136075,
+        136085,
+        136147,
+        715105,
+        715106,
+        715107,
+        715108,
+        715109,
+        715110,
+        715111,
+        715112,
+        715113,
+        715114,
+        715115,
+        715117,
+        715118,
+        715119,
+        717821
       ],
-      "options": [
-        200086
+      "quests": [
+        {
+          "id": 1,
+          "objectives": [
+            {
+              "subquest": 1,
+              "kind": "clear",
+              "target": 1,
+              "dungeons": [
+                34510,
+                34520,
+                34530,
+                34540
+              ]
+            }
+          ],
+          "options": [
+            200086
+          ]
+        },
+        {
+          "id": 2,
+          "objectives": [
+            {
+              "subquest": 2,
+              "kind": "clear",
+              "target": 2,
+              "dungeons": [
+                34510,
+                34520,
+                34530,
+                34540
+              ]
+            }
+          ],
+          "options": [
+            35622,
+            200086
+          ]
+        },
+        {
+          "id": 3,
+          "objectives": [
+            {
+              "subquest": 3,
+              "kind": "clear",
+              "target": 2,
+              "dungeons": [
+                34550,
+                34560,
+                35630,
+                35640
+              ]
+            }
+          ],
+          "options": [
+            200088,
+            200089,
+            200086
+          ]
+        },
+        {
+          "id": 4,
+          "objectives": [
+            {
+              "subquest": 4,
+              "kind": "clear",
+              "target": 3,
+              "dungeons": [
+                34550,
+                34560,
+                35630,
+                35640
+              ]
+            }
+          ],
+          "options": [
+            74034,
+            200089,
+            200086
+          ]
+        },
+        {
+          "id": 5,
+          "objectives": [
+            {
+              "subquest": 5,
+              "kind": "clear",
+              "target": 5,
+              "dungeons": [
+                34550,
+                34560,
+                35630,
+                35640
+              ]
+            }
+          ],
+          "options": [
+            74034,
+            200089,
+            74089,
+            200087
+          ]
+        }
       ]
     },
     {
-      "id": 2,
-      "subquest": 2,
-      "target": 2,
-      "dungeons": [
-        34510,
-        34520,
-        34530,
-        34540
+      "name": "abyss",
+      "templates": [
+        136120,
+        136121,
+        136122,
+        136123,
+        136124,
+        136125,
+        136126,
+        136127,
+        136128,
+        136129,
+        136130,
+        136131,
+        136132,
+        136133,
+        136134,
+        136149,
+        723029,
+        723030,
+        723031,
+        723032,
+        723033,
+        723034,
+        723035,
+        723036,
+        723037,
+        723038,
+        723039,
+        723040,
+        723041,
+        723042,
+        723043,
+        723044
       ],
-      "options": [
-        35622,
-        200086
+      "quests": [
+        {
+          "id": 6,
+          "objectives": [
+            {
+              "subquest": 6,
+              "kind": "clear",
+              "target": 5,
+              "dungeons": [
+                34760,
+                34770,
+                34780,
+                34790,
+                34800
+              ]
+            }
+          ],
+          "options": [
+            74089,
+            200137
+          ]
+        },
+        {
+          "id": 7,
+          "objectives": [
+            {
+              "subquest": 7,
+              "kind": "clear",
+              "target": 10,
+              "dungeons": [
+                34800
+              ]
+            }
+          ],
+          "options": [
+            74089,
+            74034,
+            200137
+          ]
+        },
+        {
+          "id": 8,
+          "objectives": [
+            {
+              "subquest": 8,
+              "kind": "clear",
+              "target": 5,
+              "dungeons": [
+                34810,
+                34820,
+                34830,
+                34840,
+                35650,
+                35660,
+                35670,
+                35680
+              ]
+            }
+          ],
+          "options": [
+            47715,
+            74034,
+            200137
+          ]
+        },
+        {
+          "id": 9,
+          "objectives": [
+            {
+              "subquest": 9,
+              "kind": "collect",
+              "target": 9,
+              "template": 136113
+            }
+          ],
+          "options": [
+            47715,
+            200147,
+            200137
+          ]
+        },
+        {
+          "id": 10,
+          "objectives": [
+            {
+              "subquest": 10,
+              "kind": "collect",
+              "target": 4,
+              "template": 136114
+            }
+          ],
+          "options": [
+            47720,
+            200148,
+            200138
+          ]
+        }
       ]
     },
     {
-      "id": 3,
-      "subquest": 3,
-      "target": 2,
-      "dungeons": [
-        34550,
-        34560,
-        35630,
-        35640
+      "name": "mortal",
+      "templates": [
+        136182,
+        136183,
+        136184,
+        136185,
+        136186,
+        136187,
+        136188,
+        136189,
+        136190,
+        136191,
+        136192,
+        136193,
+        136194,
+        136195,
+        136196,
+        136197,
+        1000000
       ],
-      "options": [
-        200088,
-        200089,
-        200086
-      ]
-    },
-    {
-      "id": 4,
-      "subquest": 4,
-      "target": 3,
-      "dungeons": [
-        34550,
-        34560,
-        35630,
-        35640
-      ],
-      "options": [
-        74034,
-        200089,
-        200086
-      ]
-    },
-    {
-      "id": 5,
-      "subquest": 5,
-      "target": 5,
-      "dungeons": [
-        34550,
-        34560,
-        35630,
-        35640
-      ],
-      "options": [
-        74034,
-        200089,
-        74089,
-        200087
+      "quests": [
+        {
+          "id": 11,
+          "objectives": [
+            {
+              "subquest": 11,
+              "kind": "clear",
+              "target": 10,
+              "dungeons": [
+                35490,
+                35530
+              ]
+            }
+          ],
+          "options": [
+            47715,
+            200336
+          ]
+        },
+        {
+          "id": 12,
+          "objectives": [
+            {
+              "subquest": 12,
+              "kind": "clear",
+              "target": 20,
+              "dungeons": [
+                35500,
+                35540
+              ]
+            }
+          ],
+          "options": [
+            47715,
+            200147,
+            200336
+          ]
+        },
+        {
+          "id": 13,
+          "objectives": [
+            {
+              "subquest": 13,
+              "kind": "clear",
+              "target": 20,
+              "dungeons": [
+                35510,
+                35550
+              ]
+            }
+          ],
+          "options": [
+            47715,
+            200148,
+            200336
+          ]
+        },
+        {
+          "id": 14,
+          "objectives": [
+            {
+              "subquest": 14,
+              "kind": "clear",
+              "target": 20,
+              "dungeons": [
+                35520,
+                35560
+              ]
+            },
+            {
+              "subquest": 18,
+              "kind": "collect",
+              "target": 120,
+              "template": 136181
+            }
+          ],
+          "options": [
+            47720,
+            200148,
+            200336
+          ]
+        },
+        {
+          "id": 15,
+          "objectives": [
+            {
+              "subquest": 15,
+              "kind": "clear",
+              "target": 10,
+              "dungeons": [
+                35520,
+                35560
+              ]
+            },
+            {
+              "subquest": 19,
+              "kind": "collect",
+              "target": 240,
+              "template": 136181
+            }
+          ],
+          "options": [
+            47720,
+            200342,
+            200336
+          ]
+        },
+        {
+          "id": 16,
+          "objectives": [
+            {
+              "subquest": 20,
+              "kind": "no_deaths",
+              "target": 2,
+              "dungeons": [
+                35560
+              ]
+            },
+            {
+              "subquest": 16,
+              "kind": "no_deaths",
+              "target": 2,
+              "dungeons": [
+                35590
+              ]
+            }
+          ],
+          "options": [
+            47720,
+            200342,
+            200337
+          ]
+        }
       ]
     }
   ],
@@ -124,6 +445,24 @@
       "sha256": "0799ea90373bc555d5a62953eb91d44feb340c6b86362fa5fca77adef81d9e80"
     }
   ],
-  "rule_source": "https://elsword.koggames.com/2026/01/january-14th-patch-notes/",
-  "rank_required": false
+  "rule_sources": [
+    "https://elsword.koggames.com/2026/01/january-14th-patch-notes/",
+    "https://elsword.koggames.com/2025/04/april-9th-patch-notes/"
+  ],
+  "material_readers": [
+    {
+      "template": 136113,
+      "metadata": 2,
+      "group": 5,
+      "max_stack": 100,
+      "record_sha256": "8f107040d0e5d8b811edf0cbfdb338fe76f15d6955987d927da691736c662080"
+    },
+    {
+      "template": 136114,
+      "metadata": 2,
+      "group": 5,
+      "max_stack": 100,
+      "record_sha256": "15b9d4eefbff742d3c76732d9d7488f49bdb2b1b82c50b6522b4bec566a472e3"
+    }
+  ]
 }

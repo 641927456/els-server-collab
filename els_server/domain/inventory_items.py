@@ -515,6 +515,12 @@ for _t in existing_erp_potions:
  TEMPLATE_BAG_GROUPS[_t]=4
  TEMPLATE_MAX_STACKS[_t]=1  # disable ordinary split/merge; not a native stack cap
 
+from els_server.domain.weapon_growth import material_readers as _growth_material_readers
+for _r in _growth_material_readers():
+ _t=_r['template']
+ VERIFIED_TEMPLATES[_t]=_r['metadata']
+ TEMPLATE_BAG_GROUPS[_t]=_r['group'];TEMPLATE_MAX_STACKS[_t]=_r['max_stack']
+
 def validate_item(item):
  if isinstance(item,dict) and item.get('template')in range(136161,136172):
   from els_server.domain.fish_exchange_erp import _IssuedPotion,validate_issued

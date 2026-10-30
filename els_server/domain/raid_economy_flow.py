@@ -84,7 +84,7 @@ def _context(s):
 _ADOPT=('previous_dungeon_part','gate_stage','part_end_notified','defeated_npcs','summon_keys','summon_deaths','summon_requests','summon_next_key',
  'dungeon_substage_synced','gate_stage_loading','clear_notified','reward_receipt','clear_items_synced','challenge_clear_effect','_quest_seen_events','_artifact_view')
 
-def _clear_observers(db,s,shadow,before,replies,guard):
+def _clear_observers(db,s,shadow,before,replies,guard,members):
  # Reuse the original quest, pet and Artifact consumers on this exact writer.
  # Shared-room request handling bypasses LocalSession.handle's observers.
  from els_server.domain.quest_flow import store as quest_store
@@ -94,6 +94,8 @@ def _clear_observers(db,s,shadow,before,replies,guard):
  event=dict(kind='clear',dungeon=r.identity,level=level,rank=assessment['assessment']['rank']if assessment else None)
  proof=(r.run_id+':'+r.graph['source_sha256']).encode()
  replies+=quest_store(s).record(r.run_id+':clear',event,proof,transaction=db,validate=guard)
+ from els_server.domain.weapon_growth_flow import settled as growth_settled
+ replies+=growth_settled(s,shadow,db,members,guard)
  shadow._quest_seen_events=set(getattr(s,'_quest_seen_events',set()))|{r.run_id+':clear'}
  from els_server.storage.pet_progression import active as active_pet
  from els_server.protocol.pet_progression_messages import progress as pet_notice
@@ -156,7 +158,7 @@ def settle(members,event,room=None):
     receipt=s.account.reward_store.grant(operation,proof,0,0,lambda b:b'raid-phase-v1',item_plan=result['items']or None,transaction=db,raid_reward_source=cap)
     if receipt.get('items'):replies.append(pickup_inventory_notice(receipt['items']))
    replies+=dungeon_flow.handle(shadow,event)
-   if final:_clear_observers(db,s,shadow,character_before,replies,guard)
+   if final:_clear_observers(db,s,shadow,character_before,replies,guard,members)
    f=rules.definition(r.identity)['family']
    if f in('rosso','berthe','abyss','barkat'):replies.append(weapon_point(rules.adjust(f)['Index'],state.progress(db,s.account.uid,f)[0]))
    replies.append(point_snapshot([(n,state.progress(db,s.account.uid,'accessory:'+str(n))[0],t)for n,t in((1,136175),(2,136179),(3,30876))],db=db,owner=s.account.uid))

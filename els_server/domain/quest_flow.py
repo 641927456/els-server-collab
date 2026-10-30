@@ -365,7 +365,12 @@ def observe(s,replies=()):
     previous=getattr(s,'_quest_collection_view',None)
     if replies or previous is None or previous[0]!=owner:
         from els_server.domain.seal_quests import quest_catalog
-        rows=store(s).collection_snapshot();current={};changed=[]
+        from els_server.domain.weapon_growth_flow import collection_notices,collection_requested
+        if collection_requested(s,replies):
+            rows,growth=store(s).collection_snapshot(include_growth=True)
+            notices+=collection_notices(s,growth)
+        else:rows=store(s).collection_snapshot()
+        current={};changed=[]
         old=previous[1] if previous is not None and previous[0]==owner else {}
         for row in rows:
             signature=(row['generation'],{sub['m_iID']:row['objectives'][sub['m_iID']] for sub in quest_catalog().objectives(row['id']) if sub['m_eClearType'] in (3,31,38,80,81,110,121)})
