@@ -12,12 +12,6 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'els_server/data'
 
 
-def local(dungeon, value):
-    """The published maximum of a source value after the local playability overlay."""
-    from els_server.domain.local_hp_curve import apply
-    return apply(dungeon, value)
-
-
 def attributes(initializer):
     cursor = 5
     for index in range(6):
@@ -77,7 +71,7 @@ class RuntimeHPTests(unittest.TestCase):
     def test_tree_hp_is_resolved_base_hp_without_extra_gauge_multiplier(self):
         from els_server.domain.formal_npc_hp import maximum
         for template, expected in ((5, 38709), (201, 4608), (618, 4608), (206, 11059)):
-            self.assertEqual(maximum(self.catalog, template, dungeon=30000, npc_level=2), local(30000, expected))
+            self.assertEqual(maximum(self.catalog, template, dungeon=30000, npc_level=2), expected)
 
     def test_three_ignia_friendly_sources_do_not_override_unbound_dynamics(self):
         from els_server.domain import formal_npc_hp as hp
@@ -89,10 +83,10 @@ class RuntimeHPTests(unittest.TestCase):
             actor = actors[0]
             self.assertTrue(actor['ally'])
             self.assertEqual(actor['team'], 0)
-            self.assertEqual(actor['hp'], local(33302, 204798720.0))
+            self.assertEqual(actor['hp'], 204798720.0)
             self.assertEqual(hp.initialized_maximum(run, actor), actor['hp'])
             self.assertEqual(struct.unpack_from('>f', attributes(actor['init']), 4)[0], actor['hp'])
-            self.assertEqual(hp.summoned_maximum(run, 1897), (local(33302, 101575.703125), 83))
+            self.assertEqual(hp.summoned_maximum(run, 1897), (101575.703125, 83))
             self.assertIsNone(hp.public_maximum(self.catalog, 1897, 33302, 83))
             context = hp.initialized_source_context(run, actor)
             with self.assertRaises(ValueError):
@@ -102,7 +96,7 @@ class RuntimeHPTests(unittest.TestCase):
         from els_server.domain import formal_npc_hp as hp
         run = self.run_for(35710)
         run._load_stage(2)
-        self.assertEqual(hp.summoned_maximum(run, 12321), (local(35710, 1020652480.0), 100))
+        self.assertEqual(hp.summoned_maximum(run, 12321), (1020652480.0, 100))
         self.assertNotIn(12321, [n['template'] for part in run.parts.values() for n in part['npcs']])
         for stage in (0, 1):
             run._load_stage(stage)

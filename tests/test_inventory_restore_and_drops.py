@@ -64,15 +64,14 @@ class Regressions(unittest.TestCase):
   rolls=[should_drop(30000,mob,str(uuid.UUID(int=i+1)),0,6) for i in range(100)]
   self.assertFalse(any(rolls))  # No unsupported shared food pool on enemies.
 
- def test_wire_block_carries_the_worn_instance(self):
+ def test_wire_base_does_not_include_equipment_twice(self):
   c=dict(unit_class=5,unit_type=5,level=1)
   i=dict(uid=123,template=300994,metadata=0,count=1,group=9,slot=0)
   from els_server.domain.inventory_items import FASHION_EQUIP_SLOTS
   i['slot']=FASHION_EQUIP_SLOTS[i['template']]
   self.assertNotEqual(combat_values(c,[i]),combat_values(c))
-  self.assertNotEqual(combat_attributes(c,[i]),combat_attributes(c))
-  self.assertEqual(struct.unpack('>7f',combat_attributes(c,[i])),combat_values(c,[i],titles=False))
-  self.assertEqual(len(combat_attributes(c,[i])),28)
+  self.assertEqual(combat_attributes(c,[i]),combat_attributes(c))
+  self.assertEqual(struct.unpack('>7f',combat_attributes(c,[i])),combat_values(c))
 
  def test_inactive_chest_spawns_once_without_advancing_clear(self):
   with tempfile.TemporaryDirectory() as d:

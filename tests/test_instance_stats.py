@@ -24,15 +24,14 @@ class InstanceStatsTests(unittest.TestCase):
                 self.assertEqual(list(normal_instance_attributes(row['template'],CHARACTER,enhancement=case['level'],mode=case['mode'])),case['result'][6:],(row['template'],case['level'],case['mode']))
         self.assertEqual(cases,5208)
 
-    def test_instance_effects_enter_the_wire_block(self):
+    def test_instance_effects_enter_estimate_without_double_sending_base(self):
         item=dict(uid=10,template=30388,metadata=1,count=1,group=9,slot=9,durability=10000)
         raw=equipment_attributes(item['template'],CHARACTER)
         native=normal_instance_attributes(item['template'],CHARACTER)
         self.assertEqual(raw[1:3],(7242,5537))
         self.assertEqual(native[1:3],(7902,6047))
         self.assertEqual(combat_values(CHARACTER,[item])[1:3],(8573,6718))
-        self.assertEqual(struct.unpack('>7f',combat_attributes(CHARACTER,[item])),combat_values(CHARACTER,[item],titles=False))
-        self.assertNotEqual(struct.unpack('>7f',combat_attributes(CHARACTER,[item])),combat_values(CHARACTER))
+        self.assertEqual(struct.unpack('>7f',combat_attributes(CHARACTER,[item])),combat_values(CHARACTER))
         for bad in (-1,21,True,1.5):
             with self.assertRaises(ValueError):normal_instance_attributes(30388,CHARACTER,enhancement=bad)
         for bad in (-1,2,True):

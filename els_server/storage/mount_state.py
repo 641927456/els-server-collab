@@ -64,28 +64,6 @@ def tick(path,owner,*,now=None,disconnect=False):
    return [wire.dismounted(0,mount['uid'],mount)]
   return []
 
-def recall(path,owner,*,now=None):
- """Mirror the client's own scene-change companion release (native 542).
-
- Every witnessed 542 follows a dismount ack or arrives on entering a
- dungeon while mounted, and the original server never answers it. The
- client has already hidden the riding actor when it sends 542; without
- mirroring the release here the ride clock keeps draining a pet the
- client no longer shows, and the next town summon fails as exhausted.
- Settles the ridden interval once, releases the mounted state and never
- replies (the original did not).
- """
- owner=character_uid(owner);now=timestamp(now)
- with closing(sqlite3.connect(path,timeout=10)) as db,db:
-  if not db.execute("SELECT 1 FROM sqlite_master WHERE name='mount_runtime'").fetchone():return None
-  db.execute('BEGIN IMMEDIATE')
-  row=db.execute('SELECT mount,mounted FROM companion_active WHERE owner=?',(owner,)).fetchone()
-  if not row or not row[0] or not row[1]:return None
-  mount=settle(db,owner,owned(db,owner,row[0]),now)
-  db.execute('UPDATE mount_runtime SET ridden=0 WHERE uid=? AND owner=?',(mount['uid'],owner))
-  db.execute('UPDATE companion_active SET mount=0,mounted=0 WHERE owner=?',(owner,))
-  return mount
-
 def handle(path,owner,kind,payload,operation,*,now=None):
  owner=character_uid(owner);now=timestamp(now)
  if kind not in (0x42c,0x42f) or not isinstance(operation,str) or not 1<=len(operation)<=160:raise ValueError('Invalid mount operation')

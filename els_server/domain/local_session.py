@@ -496,9 +496,6 @@ class LocalSession:
         from els_server.domain.fishing_village1500 import handle as fishing1500_handle
         fishing1500_reply=fishing1500_handle(self,event,request_sequence)
         if fishing1500_reply is not None:return fishing1500_reply
-        from els_server.domain.field_boss_entry_flow import handle as field_boss_entry_handle
-        field_boss_entry_reply=field_boss_entry_handle(self,event,request_sequence)
-        if field_boss_entry_reply is not None:return field_boss_entry_reply
         from els_server.domain.town_travel_flow import handle as town_travel_handle
         town_travel_reply=town_travel_handle(self,event,request_sequence)
         if town_travel_reply is not None:return town_travel_reply
@@ -641,7 +638,7 @@ class LocalSession:
             from els_server.domain.dungeon_spawns import handle as scripted_spawn
             scripted_reply=scripted_spawn(self,event,request_sequence)
             if scripted_reply is not None:return scripted_reply
-            from els_server.domain.summons import sentry_spawn,summon_ack,retain_sentry
+            from els_server.domain.summons import sentry_spawn,summon_ack
             character=self.account.character()
             if (self.client_build!='dx11_260923' or self.role!='game' or self.phase!='dungeon_active'
                     or not self.population_test or not self.dungeon_substage_synced or self.clear_notified
@@ -654,16 +651,11 @@ class LocalSession:
             from els_server.domain.dungeon_spawns import occupied_slots
             if occupied_slots(self)>=80:return [summon_ack(-1)]
             if self.dungeon_run is not None:
-                self.summon_next_key=max(self.summon_next_key,getattr(self.dungeon_run,'summon_key_ceiling',16))
                 while self.summon_next_key in self.dungeon_run.reserved_keys:self.summon_next_key+=1
-            instance_key=self.summon_next_key
-            try:notice=sentry_spawn(event.payload,self.account.uid,instance_key)
+            try:notice=sentry_spawn(event.payload,self.account.uid,self.summon_next_key)
             except ValueError:return [summon_ack(-1)]
-            self.summon_keys.add(instance_key)
+            self.summon_keys.add(self.summon_next_key)
             self.summon_next_key+=1;self.summon_requests[request_sequence]=event.payload
-            # The client retires this actor silently on the next stage rebuild,
-            # so the request payload is kept for the server-side respawn.
-            retain_sentry(self.dungeon_run,instance_key,event.payload)
             return [summon_ack(),notice]
         # The native character screen also requests its channel list before
         # creating a role. Both phases are still the authenticated roster UI.
@@ -933,13 +925,7 @@ class LocalSession:
             if unlock is not None:
                 answer=[Event(0x201,kind=0x21a,payload=unlock['response'])]
                 if not unlock['replayed']:answer.append(unlock['notification'])
-                events=answer+[Event(0x201,kind=0x55b,payload=unlock['initialization'])]
-                # A used manual hides the accepted Camilla training task; the
-                # native 2B absolute snapshot is what removes it from the log.
-                if unlock.get('quest_state') is not None:
-                    from els_server.protocol import quest_messages as quest_wire
-                    events.append(quest_wire.initialization(unlock['quest_state']))
-                return events
+                return answer+[Event(0x201,kind=0x55b,payload=unlock['initialization'])]
             try:
                 receipt=use_career_item(self.account.store.path,self.account.uid,event.payload,
                     operation)
@@ -1580,19 +1566,7 @@ class LocalSession:
                         and story.get('run') is not None and self.dungeon_run is story['run']
                         and character is not None and character['unit_type']==14 and character['level']==1
                         and self.account.get_reward_balances()['experience']==0)
-                    if not (native_noah_return or native_committed_warp):
-                        # Session 20261026-200944: the DX11 client asked for an
-                        # explicit default-position entry (flag 1) with no
-                        # server-issued 58C behind it, and dropping the whole
-                        # connection turned a refused warp into a client crash.
-                        # An unknown map identity is still malformed input and
-                        # keeps the original hard rejection. A real town is
-                        # refused the same way as every other unauthorized
-                        # destination below: negative 226, session survives, no
-                        # position is invented for the refused town.
-                        refused=struct.unpack_from('>i',event.payload)[0]
-                        if refused not in TOWN_SCENES:raise SessionOrderError('Invalid local town entry')
-                        return [Event(0x201,kind=0x226,payload=i32(-1)+i32(refused)+i32(0)*3)]
+                    if not (native_noah_return or native_committed_warp):raise SessionOrderError('Invalid local town entry')
                 requested=struct.unpack_from('>i',event.payload)[0]
                 if requested==1011 and not (native_committed_warp or _mainline1011_entry(self,event,request_sequence)):
                     return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
@@ -1726,14 +1700,6 @@ class LocalSession:
                 # Then select resource part 0 (B7) before resuming actors (BD).
                 # All three notifications are once-only for this first substage.
                 reply.append(Event(0x201,kind=0xb6,payload=bytes(16)))
-                if self.item_test:
-                    # The dungeon scene owns a fresh item state; the member DTO's
-                    # equipped map only restores UIDs. Re-apply the owned worn
-                    # instances exactly like the town scene-ready refresh
-                    # (local_session 0x227), otherwise the local model is bare.
-                    from els_server.domain.fashion_state import move_ack
-                    worn=[i for i in self.account.get_inventory_snapshot()['items'] if i['group']==9]
-                    if worn:reply.append(Event(0x201,kind=0x105,payload=move_ack([((9,i['slot']),i) for i in worn])))
                 reply.append(dungeon_messages.initial_part())
                 npc_entries=()
                 if self.client_build=='dx11_260923' and self.population_test:

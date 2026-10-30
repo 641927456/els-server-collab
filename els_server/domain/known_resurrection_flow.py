@@ -158,7 +158,6 @@ def handle(s,event,sequence):
         except ValueError:
             return [preview_ack(-1,BOX)]if kind==0x559 else box_error(0,code=-1)
     if kind not in(0xa7,0xaa,0x160):return None
-    s.resurrection_rejection=None
     try:
         context=_scene(s,sequence);_envelope(event);state=_life(s,context)
         if kind==0xa7:
@@ -194,8 +193,7 @@ def handle(s,event,sequence):
             raise ConnectionError('Known resurrection handoff needs fresh entry')
         state['phase']='alive';_deliver_peers(result['prepared'])
         return result['events']
-    except ValueError as error:
-        s.resurrection_rejection=str(error)
+    except ValueError:
         if kind==0xa7:return [death_ack(-1)]
         if kind==0xaa:return []
         value=snapshot(s.account.store.path,s.account.uid) if getattr(s.account,'store',None)is not None else 0

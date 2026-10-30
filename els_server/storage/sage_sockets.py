@@ -11,12 +11,6 @@ from els_server.storage.inventory_state import load_items
 from els_server.storage.item_instances import remove
 from els_server.storage.npc_trade import balances,charge
 from els_server.storage.equipment_options import replace
-
-def _results(values,materials):
- # The native preview pairs one rolled value with each requested material row;
- # a capacity-length vector padded with zero reads as unknown option 0.
- return [values[slot] if slot<len(values) else 0 for slot in materials]
-
 def socket(path,owner,payload,operation,randbelow=secrets.randbelow,*,account_id=None,session_id=None,prepare=None):
  uid,materials=request(payload);owner,digest=_identity(owner,0x1c4,payload,operation)
  with closing(sqlite3.connect(path,timeout=10)) as db,db:
@@ -38,9 +32,8 @@ def socket(path,owner,payload,operation,randbelow=secrets.randbelow,*,account_id
    # does not update inventory after an item has moved.
    affected={uid,*materials.values()}
    positions=list(dict.fromkeys([*old,*[(i['group'],i['slot']) for i in before if i['uid'] in affected]]))
-   candidate=(_pending(db,owner,uid,session_id,target) or {}).get('candidate',target.get('option_groups',{}).get('0',[])) if target else []
    return [Event(0x201,kind=0x1c5,payload=acknowledgement(balance['ed'],uid,
-    [(p,current.get(p)) for p in positions],_results(candidate,materials)))]
+    [(p,current.get(p)) for p in positions],(_pending(db,owner,uid,session_id,target) or {}).get('candidate',target.get('option_groups',{}).get('0',[])) if target else []))]
   if target is None or target['count']!=1:raise ValueError('Socket target not owned')
   if target.get('enhancement',0)<0:raise ValueError('Broken equipment requires restoration')
   require_current(target);require_unlocked(target);n=capacity(target['template'])
@@ -72,7 +65,7 @@ def socket(path,owner,payload,operation,randbelow=secrets.randbelow,*,account_id
   _stage(db,owner,uid,session_id,operation,target,updated['0'],rolled)
   after=load_items(db,owner)
   current={(i['group'],i['slot']):i for i in after}
-  wire=acknowledgement(ed,uid,[(p,current.get(p)) for p in positions],_results(updated['0'],materials))
+  wire=acknowledgement(ed,uid,[(p,current.get(p)) for p in positions],updated['0'])
   event=Event(0x201,kind=0x1c5,payload=wire)
   from els_server.protocol.protocol_codec import encode_event
   encode_event(event)

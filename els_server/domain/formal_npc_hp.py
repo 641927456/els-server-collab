@@ -159,13 +159,6 @@ def public_maximum(catalog, template, dungeon, npc_level, source_context=None):
     return value
 
 
-def _local_curve(dungeon,maximum):
-    """Single choke point for the local playability overlays."""
-    from els_server.domain.local_hp_curve import apply as apply_local_curve
-    from els_server.domain.local_boss_cap import apply as apply_boss_cap
-    return apply_boss_cap(dungeon,apply_local_curve(dungeon,maximum))
-
-
 def maximum(catalog, template, *, dungeon, npc_level=None, boss=False, source_context=None):
     data=policy();row=data['templates'].get(str(template))
     if type(template)is not int or row is None:raise ValueError('NPC HP unknown template')
@@ -188,14 +181,9 @@ def maximum(catalog, template, *, dungeon, npc_level=None, boss=False, source_co
         value=level(catalog,dungeon) if npc_level is None else npc_level
         if type(value)is not int or not 1<=value<=127:raise ValueError('NPC HP NPC level bound')
         public=public_maximum(catalog,template,dungeon,value,source_context)
-        # Local playability overlay: the imported public reference belongs to a
-        # later retail generation, so its absolute magnitude is compressed onto
-        # the region/role profile curve. Relative order inside one map is kept
-        # and the factor is capped at 1.0, so plausible maps pass through.
-        # See config/local_hp_curve.json; delete the config to restore raw imports.
-        if public is not None:return _local_curve(dungeon,public)
+        if public is not None:return public
         if dungeon in data['raid_maps']:
-            return _local_curve(dungeon,raid_maximum(catalog,template,dungeon,value))
+            return raid_maximum(catalog,template,dungeon,value)
         if 'base'in row:base,growth=row['base'],row['growth']
         else:
             role='boss'if boss else'ordinary'
@@ -204,9 +192,7 @@ def maximum(catalog, template, *, dungeon, npc_level=None, boss=False, source_co
         if base<=0 or growth<0:raise ValueError('NPC HP source coefficient bound')
         result=f32(f32(base)+f32(f32(growth)*f32(value)))
     if result<=0:raise ValueError('NPC HP positive maximum required')
-    # Explicit client values and the profile-curve fallback share the same
-    # global gate, so the local multiplier has no exception path.
-    return _local_curve(dungeon,result)
+    return result
 
 
 def summoned_maximum(run,template):

@@ -91,7 +91,7 @@ def _base():
     return values(),rules()['include_equipment_attributes']
 
 
-def combat_values(character=None, items=None, *, titles=True):
+def combat_values(character=None, items=None):
     base,include=_base()
     from els_server.domain.native_character_base import values as sourced_base_values
     values=list(sourced_base_values(character))
@@ -105,11 +105,11 @@ def combat_values(character=None, items=None, *, titles=True):
                     validate_item(item)
                     if not equipment_contributes(item,character):continue
                     values=[f32(v+extra) for v,extra in zip(values,instance_attributes(item,character))]
-            if items is not None and titles:
+            if items is not None:
                 # The server estimate includes the selected title's flat
                 # attributes, just as the legacy GetEquippedStat path does.
-                # The wire block omits titles: the native client applies its
-                # own equipped title afterward.
+                # Naked wire inputs omit items and remain unchanged: the
+                # native client applies its own equipped title afterward.
                 from els_server.domain.titles import attributes as title_attributes
                 values=[f32(v+extra) for v,extra in zip(values,title_attributes(character))]
     if any(not math.isfinite(v) or not 0<=v<=1e12 for v in values):raise ValueError('Combat attributes out of bounds')
@@ -130,12 +130,10 @@ def equipment_contributes(item,character):
 
 
 def combat_attributes(character=None,items=None):
-    # D9B170 B6/D2 and dungeon member attributes are what the native consumers
-    # display and fight with. Sending the bare growth tuple left every equipped
-    # character reading its naked attack (Lv99: 1202 against 72447 with gear).
-    # The equipped title stays out so the client's own title pass is not counted
-    # twice; every caller already passes its worn instance list.
-    return struct.pack('>7f',*combat_values(character,items,titles=False))
+    # D9B170 B6/D2 and dungeon member attributes are base inputs. Native
+    # equipment application adds the equipped map again. Keep server estimates
+    # available through combat_values(), but never send them as naked values.
+    return struct.pack('>7f',*combat_values(character))
 
 
 def combat_breakdown(character,items=()):

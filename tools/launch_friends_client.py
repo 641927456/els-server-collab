@@ -1,6 +1,5 @@
 """Start the pinned native client against a separately running friends server."""
 import argparse
-import ctypes
 import datetime
 import os
 import hashlib
@@ -17,34 +16,6 @@ from els_server.friends_bridge import BridgeConfig
 
 class ClientLaunchError(ValueError):
     pass
-
-
-def _exited(pid):
-    """True once the process terminated, even while its entry survives.
-
-    A terminated Windows process keeps a listing entry until every handle closes,
-    so the signaled process handle is the only reliable liveness signal.
-    """
-    if os.name!='nt':return False
-    kernel32=ctypes.windll.kernel32
-    handle=kernel32.OpenProcess(0x00100000,False,pid)  # SYNCHRONIZE
-    if not handle:return False
-    try:return kernel32.WaitForSingleObject(handle,0)==0
-    finally:kernel32.CloseHandle(handle)
-
-
-def running_clients(psutil=None):
-    if psutil is None:
-        sys.path.insert(0,str(ROOT/'tools/pylibs'))
-        import psutil
-    live=[]
-    for q in psutil.process_iter(['name']):
-        try:
-            if (q.info['name'] or '').lower() in ('x2.exe','x2_dx11.exe') and not _exited(q.pid):
-                live.append(q.pid)
-        except psutil.Error:
-            pass
-    return live
 
 
 def bridge_failure_message(path,started=False):
@@ -157,7 +128,7 @@ def main(argv=None):
         return 0
     sys.path.insert(0,str(ROOT/'tools/pylibs'))
     import psutil
-    if running_clients(psutil):
+    if any((q.info['name'] or '').lower() in ('x2.exe','x2_dx11.exe') for q in psutil.process_iter(['name'])):
         raise ClientLaunchError('检测到已有游戏运行，请正常退出该游戏后再启动朋友服。')
     from client_compatibility import ensure_unchanged
     try:ensure_unchanged(selection)

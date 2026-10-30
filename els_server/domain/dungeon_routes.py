@@ -77,9 +77,6 @@ class DungeonRun:
   self.encounter=self.graph.get('encounter');self.completed_stages=set();self.visits=0
   self.round=0;self.rotation=[]
   self.dynamic_requests={}
-  # Live sentry payloads keyed by instance identity; the stage transition
-  # carries them so a 60s summon survives the map rebuild.
-  self.summon_payloads={};self.respawn_payloads={};self.summon_key_ceiling=16
   self.completed_transition=None
   if self.encounter and self.encounter['kind']=='henir_local_rotation':
    pool=[r['stage'] for r in self.encounter['pool'] if r['stage']!=0]
@@ -133,10 +130,8 @@ class DungeonRun:
     # the original source's team default remains 1 unless TEAM is explicit.
     raw[0x3c]=source.get('team',1);raw[0x50]=int(source.get('ally',False))
     if source['boss']:
-     from els_server.domain.local_boss_gauge import lines as local_boss_gauge_lines
-     boss_lines=local_boss_gauge_lines(self.identity,source['boss_lines'])
-     if type(boss_lines) is not int or not 1<=boss_lines<=65535:raise ValueError('Boss gauge line bound')
-     raw[0x44]=1;struct.pack_into('<H',raw,0x58,boss_lines)
+     if type(source['boss_lines']) is not int or not 1<=source['boss_lines']<=65535:raise ValueError('Boss gauge line bound')
+     raw[0x44]=1;struct.pack_into('<H',raw,0x58,source['boss_lines'])
     init=npc_initialization(self.catalog,template,hp,source_context=context)
     from els_server.domain.native_hero_inputs import source_maximum
     hp,hero_native=source_maximum(self.catalog,template,hp,context)
@@ -180,35 +175,11 @@ class DungeonRun:
   npcs=self.current['npcs'];dead=set(self.defeated);kind=c['kind']
   if kind in (0,5):return (kind==0 or self.portal_requested) and all(n['key'] in dead for n in npcs if n['active'] and n.get('team',1)!=0)
   if kind in (1,2):
-   matched=[n for n in npcs if n['key_code'] in c['required']]
-   keys=[n['key'] for n in matched]
-   if kind==1:
-    # A key_code requirement may name a SMALLGATE script door (纳斯德生产
-    # 基地 stage0/1 exits, key_code 1 = template 156) that the map script
-    # removes itself; it never reports a combat death. Same relaxation as
-    # the kind 3 template doors: an all-door requirement is satisfied by a
-    # fully cleared room, a living required actor still has to die.
-    from els_server.domain.local_dungeon_flow import key_code_gate, scene_object_gate
-    if key_code_gate(npcs,dead,c['required']):return True
-    # A key_code may also name a class-103 scene object the client retires in
-    # its own scene (厄泰拉核心 stage2 part0, template 343 PD_Monster). Only a
-    # source-pinned row admits it; see config/local_dungeon_flow.json.
-    if scene_object_gate(self,npcs,dead,matched):return True
-    return bool(keys) and all(k in dead for k in keys)
-   return bool(keys) and any(k in dead for k in keys)
+   keys=[n['key'] for n in npcs if n['key_code'] in c['required']]
+   return bool(keys) and (any(k in dead for k in keys) if kind==2 else all(k in dead for k in keys))
   if kind==3:
    required=[n['key'] for n in npcs if n['template'] in c['required']]
-   if not required:return False
-   if all(k in dead for k in required):return True
-   # A required SMALLGATE is a script object, not a combat actor: kind 0
-   # already excludes such actors from its clear check. Treat the door as
-   # open once every declared active hostile is dead. See
-   # config/local_dungeon_flow.json; combat-shaped requirements never relax.
-   from els_server.domain.local_dungeon_flow import part_marker_gate, script_gate
-   if script_gate(npcs,dead,c['required']):return True
-   # 尼格摩尔 part markers are class-103 script objects the client retires in
-   # its own scene and never reports. Only a source-pinned room admits them.
-   return part_marker_gate(self,npcs,dead,c['required'])
+   return bool(required) and all(k in dead for k in required)
   if kind==6:return self.started_at is not None and self.clock()-self.started_at>=c['seconds']
   return False
  def poll_ready(self):

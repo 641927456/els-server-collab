@@ -149,8 +149,8 @@ def relay_committed_use(session, replies):
     """Peers consume the same native effect once; never their inventory ACK."""
     notices = [e for e in replies if e.event_id == 0x201 and e.kind == 0x115
                and len(e.payload) == 22
-           and struct.unpack_from('>Qi', e.payload) in
-            {(session.account.uid, t) for t in (710313, 710314, 710315, 77110, 130467, 710193, 723674, 190624)}]
+               and struct.unpack_from('>Qi', e.payload) in
+               {(session.account.uid, t) for t in (710313, 710314, 710315, 77110, 130467, 710193, 723674)}]
     if not notices or session.phase != 'dungeon_active':
         return
     dispatcher = session.application.world.dungeons

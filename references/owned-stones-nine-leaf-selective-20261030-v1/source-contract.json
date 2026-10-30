@@ -1,0 +1,287 @@
+{
+  "format": 1,
+  "base_main": "7a7efa34947dee63760008cc78c2579886ef7b81",
+  "parent_profile": {
+    "path": "channels/cache-exact41400-accepted-20261030-v1.json",
+    "sha256": "951c6b5fbf13c6f7e9eda825c9d13e3e601b4bf8325f876dce04b572d6f08c2c"
+  },
+  "source_binding_sha256": "a2b1ff7e286c4de294b9b4a50fd3be0400d3d22248fde686932c3b959b035647",
+  "payload_file_count": 10,
+  "changes": {
+    "online": [
+      {
+        "path": "els_server/data/additional_magic_stones.json",
+        "before": {
+          "path": "els_server/data/additional_magic_stones.json",
+          "sha256": "42e3069c52a458d9d85e35396ef92f83355115ba754decab15d6f067e673714c",
+          "size": 14075,
+          "source": "els_server/data/additional_magic_stones.json"
+        },
+        "after": {
+          "path": "els_server/data/additional_magic_stones.json",
+          "size": 23944,
+          "sha256": "4d09c493ac6fde1bc7b5d7be774d09ab853b340f1d5152bca757e100e0e44907",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/data/additional_magic_stones.json"
+        }
+      },
+      {
+        "path": "els_server/data/select_cubes.json",
+        "before": {
+          "path": "els_server/data/select_cubes.json",
+          "sha256": "a1d6844860f4fc937f716e07335c1c200fded24beb3c9d83f10c2fe9ad8a2d75",
+          "size": 8647,
+          "source": "els_server/data/select_cubes.json"
+        },
+        "after": {
+          "path": "els_server/data/select_cubes.json",
+          "size": 10121,
+          "sha256": "03d8b2d2a22a46ab1dfe2b3b5e128433e24f63ef24d6d8ac59d650d31de85077",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/data/select_cubes.json"
+        }
+      },
+      {
+        "path": "els_server/data/select_cubes.manifest.json",
+        "before": {
+          "path": "els_server/data/select_cubes.manifest.json",
+          "sha256": "30b1a01d06bd12a506119970f622f60dc9ea5739bca7cc9738c77f85affc84fb",
+          "size": 149,
+          "source": "els_server/data/select_cubes.manifest.json"
+        },
+        "after": {
+          "path": "els_server/data/select_cubes.manifest.json",
+          "size": 160,
+          "sha256": "98052167a60091b7d8e9d7fcfeeac74dd2788e9667d62e129268ebdcf9720e00",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/data/select_cubes.manifest.json"
+        }
+      },
+      {
+        "path": "els_server/data/select_cubes_owned_magic_native.json",
+        "before": null,
+        "after": {
+          "path": "els_server/data/select_cubes_owned_magic_native.json",
+          "size": 8441,
+          "sha256": "96362633694fbff9101ea02e55a320a84e9b3e60965521c71473cc84fad588cf",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/data/select_cubes_owned_magic_native.json"
+        }
+      },
+      {
+        "path": "els_server/domain/additional_magic_stones.py",
+        "before": {
+          "path": "els_server/domain/additional_magic_stones.py",
+          "sha256": "b15432171c8eeca0729dbdae6142c7eff0dd988b35a8fb0c2fa351572e8ee723",
+          "size": 1775,
+          "source": "els_server/domain/additional_magic_stones.py"
+        },
+        "after": {
+          "path": "els_server/domain/additional_magic_stones.py",
+          "size": 1775,
+          "sha256": "20c65a204fec9ebdfe9265195d812e780b67665758841985d58891783944279c",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/domain/additional_magic_stones.py"
+        }
+      },
+      {
+        "path": "els_server/domain/inventory_items.py",
+        "before": {
+          "path": "els_server/domain/inventory_items.py",
+          "sha256": "cca707b799f8d92323da1c5816d96cd5a06343bc21e102cba25a4e945080d427",
+          "size": 73531,
+          "source": "references/current-obtainable-consumables-phase-20261028-v1/source/cca707b799f8d92323da1c5816d96cd5a06343bc21e102cba25a4e945080d427/inventory_items.py"
+        },
+        "after": {
+          "path": "els_server/domain/inventory_items.py",
+          "size": 74075,
+          "sha256": "80c1edda1915939326341e0b5988205d48da4b51de7a468d528d16fbd0c0f122",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/online/source/els_server/domain/inventory_items.py"
+        }
+      },
+      {
+        "path": "els_server/domain/select_cubes.py",
+        "before": {
+          "path": "els_server/domain/select_cubes.py",
+          "sha256": "4eb7b46af0f91f63e0215e58c12481707cf08b40993efe6d7df8fe0c3328dff7",
+          "size": 3254,
+          "source": "els_server/domain/select_cubes.py"
+        },
+        "after": {
+          "path": "els_server/domain/select_cubes.py",
+          "size": 4136,
+          "sha256": "786ae0bbf968e7708881b1605f5442a4ed89b4389eba2e3e94184c83661f6ded",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/domain/select_cubes.py"
+        }
+      },
+      {
+        "path": "els_server/protocol/spell_socket_messages.py",
+        "before": {
+          "path": "els_server/protocol/spell_socket_messages.py",
+          "sha256": "c7b8149bd7678c65b9972f8a605df0b586f179fb8321adbdf4f158a12ec6e5c8",
+          "size": 1526,
+          "source": "els_server/protocol/spell_socket_messages.py"
+        },
+        "after": {
+          "path": "els_server/protocol/spell_socket_messages.py",
+          "size": 1542,
+          "sha256": "0cb94626a4fd80a087748f8785cf7acdd44134e45323cb92e0cdd46bf186d2a2",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/protocol/spell_socket_messages.py"
+        }
+      },
+      {
+        "path": "els_server/storage/fixed_cubes.py",
+        "before": {
+          "path": "els_server/storage/fixed_cubes.py",
+          "sha256": "a0fbf29e3066b602bd5c056c6db5e2e3c18acd5e7abb1fa1227d6945f287e566",
+          "size": 8488,
+          "source": "references/current-obtainable-consumables-phase-20261028-v1/source/a0fbf29e3066b602bd5c056c6db5e2e3c18acd5e7abb1fa1227d6945f287e566/fixed_cubes.py"
+        },
+        "after": {
+          "path": "els_server/storage/fixed_cubes.py",
+          "size": 8841,
+          "sha256": "9d291013c158354df4189ced34097f3531827667b4f56cf4ac86ab852df60a14",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/storage/fixed_cubes.py"
+        }
+      }
+    ],
+    "local": [
+      {
+        "path": "els_server/data/additional_magic_stones.json",
+        "before": {
+          "path": "els_server/data/additional_magic_stones.json",
+          "sha256": "42e3069c52a458d9d85e35396ef92f83355115ba754decab15d6f067e673714c",
+          "size": 14075,
+          "source": "els_server/data/additional_magic_stones.json"
+        },
+        "after": {
+          "path": "els_server/data/additional_magic_stones.json",
+          "size": 23944,
+          "sha256": "4d09c493ac6fde1bc7b5d7be774d09ab853b340f1d5152bca757e100e0e44907",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/data/additional_magic_stones.json"
+        }
+      },
+      {
+        "path": "els_server/data/select_cubes.json",
+        "before": {
+          "path": "els_server/data/select_cubes.json",
+          "sha256": "a1d6844860f4fc937f716e07335c1c200fded24beb3c9d83f10c2fe9ad8a2d75",
+          "size": 8647,
+          "source": "els_server/data/select_cubes.json"
+        },
+        "after": {
+          "path": "els_server/data/select_cubes.json",
+          "size": 10121,
+          "sha256": "03d8b2d2a22a46ab1dfe2b3b5e128433e24f63ef24d6d8ac59d650d31de85077",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/data/select_cubes.json"
+        }
+      },
+      {
+        "path": "els_server/data/select_cubes.manifest.json",
+        "before": {
+          "path": "els_server/data/select_cubes.manifest.json",
+          "sha256": "30b1a01d06bd12a506119970f622f60dc9ea5739bca7cc9738c77f85affc84fb",
+          "size": 149,
+          "source": "els_server/data/select_cubes.manifest.json"
+        },
+        "after": {
+          "path": "els_server/data/select_cubes.manifest.json",
+          "size": 160,
+          "sha256": "98052167a60091b7d8e9d7fcfeeac74dd2788e9667d62e129268ebdcf9720e00",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/data/select_cubes.manifest.json"
+        }
+      },
+      {
+        "path": "els_server/data/select_cubes_owned_magic_native.json",
+        "before": null,
+        "after": {
+          "path": "els_server/data/select_cubes_owned_magic_native.json",
+          "size": 8441,
+          "sha256": "96362633694fbff9101ea02e55a320a84e9b3e60965521c71473cc84fad588cf",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/data/select_cubes_owned_magic_native.json"
+        }
+      },
+      {
+        "path": "els_server/domain/additional_magic_stones.py",
+        "before": {
+          "path": "els_server/domain/additional_magic_stones.py",
+          "sha256": "b15432171c8eeca0729dbdae6142c7eff0dd988b35a8fb0c2fa351572e8ee723",
+          "size": 1775,
+          "source": "els_server/domain/additional_magic_stones.py"
+        },
+        "after": {
+          "path": "els_server/domain/additional_magic_stones.py",
+          "size": 1775,
+          "sha256": "20c65a204fec9ebdfe9265195d812e780b67665758841985d58891783944279c",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/domain/additional_magic_stones.py"
+        }
+      },
+      {
+        "path": "els_server/domain/inventory_items.py",
+        "before": {
+          "path": "els_server/domain/inventory_items.py",
+          "sha256": "d6c02d9a1b4cd15628b4421860d1775fb24806a8b85d12ad0fe23752c1889728",
+          "size": 73376,
+          "source": "references/current-obtainable-consumables-phase-20261028-v1/source/d6c02d9a1b4cd15628b4421860d1775fb24806a8b85d12ad0fe23752c1889728/inventory_items.py"
+        },
+        "after": {
+          "path": "els_server/domain/inventory_items.py",
+          "size": 73920,
+          "sha256": "bb94e23b06684b9343951aee38b2709d3ef5a5cc7bcb92623b4f9e6528be0f9d",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/local/source/els_server/domain/inventory_items.py"
+        }
+      },
+      {
+        "path": "els_server/domain/select_cubes.py",
+        "before": {
+          "path": "els_server/domain/select_cubes.py",
+          "sha256": "4eb7b46af0f91f63e0215e58c12481707cf08b40993efe6d7df8fe0c3328dff7",
+          "size": 3254,
+          "source": "els_server/domain/select_cubes.py"
+        },
+        "after": {
+          "path": "els_server/domain/select_cubes.py",
+          "size": 4136,
+          "sha256": "786ae0bbf968e7708881b1605f5442a4ed89b4389eba2e3e94184c83661f6ded",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/domain/select_cubes.py"
+        }
+      },
+      {
+        "path": "els_server/protocol/spell_socket_messages.py",
+        "before": {
+          "path": "els_server/protocol/spell_socket_messages.py",
+          "sha256": "c7b8149bd7678c65b9972f8a605df0b586f179fb8321adbdf4f158a12ec6e5c8",
+          "size": 1526,
+          "source": "els_server/protocol/spell_socket_messages.py"
+        },
+        "after": {
+          "path": "els_server/protocol/spell_socket_messages.py",
+          "size": 1542,
+          "sha256": "0cb94626a4fd80a087748f8785cf7acdd44134e45323cb92e0cdd46bf186d2a2",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/protocol/spell_socket_messages.py"
+        }
+      },
+      {
+        "path": "els_server/storage/fixed_cubes.py",
+        "before": {
+          "path": "els_server/storage/fixed_cubes.py",
+          "sha256": "a0fbf29e3066b602bd5c056c6db5e2e3c18acd5e7abb1fa1227d6945f287e566",
+          "size": 8488,
+          "source": "references/current-obtainable-consumables-phase-20261028-v1/source/a0fbf29e3066b602bd5c056c6db5e2e3c18acd5e7abb1fa1227d6945f287e566/fixed_cubes.py"
+        },
+        "after": {
+          "path": "els_server/storage/fixed_cubes.py",
+          "size": 8841,
+          "sha256": "9d291013c158354df4189ced34097f3531827667b4f56cf4ac86ab852df60a14",
+          "source": "references/owned-stones-nine-leaf-selective-20261030-v1/shared/source/els_server/storage/fixed_cubes.py"
+        }
+      }
+    ]
+  },
+  "business_heads": {
+    "online": {
+      "release": "owned-stones-nine-leaf-20261030-v1",
+      "formal_manifest_sha256": "5673f1b344ca6a30e1e8741f69a730544ef5798bb8a926ea171a4a40406da5a6"
+    },
+    "local": {
+      "release": "local-owned-stones-nine-leaf-20261030-v1",
+      "formal_manifest_sha256": "965f336f1f5f940746eedf51c1c94f57c60abbdffc50e78c025e1da3d4ff3558"
+    }
+  },
+  "activation": false
+}

@@ -72,14 +72,6 @@ class QuestCatalog:
                 identity=int(raw_id)
                 if identity in dest and dest[identity]!=value:raise ValueError('Conflicting ERP support quest')
                 dest[identity]=value
-        # Local admission of the native first-class re-selection task 39480.
-        from els_server.domain.local_reselection_quest import catalog as local_reselection_catalog
-        local_reselection=local_reselection_catalog()
-        for dest,key in ((self.quests,'quests'),(self.subquests,'subquests')):
-            for raw_id,value in local_reselection[key].items():
-                identity=int(raw_id)
-                if identity in dest and dest[identity]!=value:raise ValueError('Conflicting local reselection quest')
-                dest[identity]=value
         from els_server.domain.account_epic_quests import catalog as account_epic_catalog
         account_epic=account_epic_catalog()
         for dest,key in ((self.quests,'quests'),(self.subquests,'subquests')):

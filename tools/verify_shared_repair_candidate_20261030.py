@@ -11,7 +11,13 @@ def read(p):return json.loads(p.read_bytes())
 def main():
  profile=load_manifest(ROOT/'channels'/f'{NAME}.json')
  selected=read(ROOT/'channels/current-engine.json')
- assert selected['profile']in('channels/server-structure-accepted-20261029-v1.json','channels/native-shared-repair-accepted-20261030-v1.json')
+ assert selected['profile']in('channels/server-structure-accepted-20261029-v1.json','channels/native-shared-repair-accepted-20261030-v1.json','channels/cache-exact41400-accepted-20261030-v1.json','channels/owned-stones-nine-leaf-accepted-20261030-v1.json','channels/accessory-identification-accepted-20261031-v1.json')
+ if selected['profile']in('channels/cache-exact41400-accepted-20261030-v1.json','channels/owned-stones-nine-leaf-accepted-20261030-v1.json','channels/accessory-identification-accepted-20261031-v1.json'):
+  from tools.verify_cache_exact41400_inheritance_20261030 import verified_current_predecessor
+  accepted=load_manifest(ROOT/'channels/current-engine.json',ROOT)
+  for mode in('online','local'):
+   row=next(r for r in accepted['channels'][mode]['files']if r['path']=='els_server/storage/seal_quests.py')
+   verified_current_predecessor(accepted,mode,row,ROOT/row['source'],root=ROOT)
  if selected['profile']=='channels/native-shared-repair-accepted-20261030-v1.json':
   from tools.verify_shared_repair_inheritance_20261030 import verified_shared_repair_predecessor
   accepted=load_manifest(ROOT/'channels/current-engine.json',ROOT)

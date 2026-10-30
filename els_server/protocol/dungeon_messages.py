@@ -63,10 +63,10 @@ def member(slots,character=None,items=None,*,account_id=None,peer_port=None,capt
         overrides['0x1d1']=bytes([preference(character)])
         if capture is not None:
             # Actor gauge initialization consumes absolute HP; the remaining six
-            # inputs carry the same equipped totals as the ordinary member path.
+            # inputs stay naked for the client's own equipment/passive engine.
             from els_server.domain.character_stats import combat_values
             hp=struct.pack('>f',combat_values(character,items)[0])
-            for key in ('0x198','0x1b4'):overrides[key]=hp+combat_attributes(character,items)[4:]
+            for key in ('0x198','0x1b4'):overrides[key]=hp+combat_attributes(character)[4:]
     parts=[overrides.get(f['offset'],skill_data(slots,character) if f['reader']=='0xcd7160' else combat_attributes(character,items) if f['reader']=='0xcd6df0' else bytes.fromhex(f['wire_hex'])) for f in data['fields']]
     payload=b''.join(parts)
     if capture is not None:

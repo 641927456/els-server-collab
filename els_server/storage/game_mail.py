@@ -94,37 +94,6 @@ def gm_campaign(path,campaign,recipients,*,ed,title,body,sender='GM',now=None):
                     mails=[dict(id=i,account_id=a) for i,a in rows])
 
 
-def local_item_campaign(db,campaign,account,uid,item,*,title,body,sender='GM',now=None,expires_at=None):
-    """Local GM issuance of one item letter to one character, in the caller's tx.
-
-    Addressing goes through player_mail_meta so another role on the same account
-    cannot see or claim it. The attachment is a durable escrow snapshot; the bag
-    is only touched when the recipient claims.
-    """
-    if not db.in_transaction:raise MailError('GM mail requires transaction')
-    if not isinstance(campaign,str) or not re.fullmatch(r'[a-z0-9][a-z0-9_-]{2,95}',campaign):
-        raise MailError('Invalid campaign')
-    _owner(db,account,uid)
-    title=_text(title,80);body=_text(body,2000);sender=_text(sender,24)
-    now=int(time.time()) if now is None else now
-    expires_at=now+365*86400 if expires_at is None else expires_at
-    if type(now) is not int or type(expires_at) is not int or not 0<now<2**31 or expires_at<=now:
-        raise MailError('Invalid mail timestamp')
-    from els_server.domain.inventory_items import validate_item
-    from els_server.storage import mail_attachments as attachments
-    item=validate_item(dict(item))
-    ensure(db)
-    mail_id=db.execute('''INSERT INTO game_mail
-        (campaign,account_id,sender,title,body,ed,created_at,expires_at)
-        VALUES (?,?,?,?,?,0,?,?)''',(campaign,account,sender,title,body,now,expires_at)).lastrowid
-    # sender_uid is only a NOT NULL floor in this table; the displayed sender
-    # stays the sender text above.
-    db.execute('''INSERT INTO player_mail_meta(mail_id,recipient_uid,sender_account,sender_uid)
-        VALUES (?,?,?,?)''',(mail_id,uid,account,uid))
-    attachments.put(db,mail_id,item,item)
-    return mail_id
-
-
 def _owner(db,account,uid):
     if type(account) is not int or type(uid) is not int or account<1 or uid<1001:
         raise MailError('Invalid authenticated owner')

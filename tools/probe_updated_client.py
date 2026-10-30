@@ -82,12 +82,12 @@ if a.play:a.town_probe=True;a.auto_return=a.dungeon_probe
 if a.dungeon_probe:a.town_probe=True
 if a.town_probe:a.login_probe=True
 client=Path(a.client)
-from launch_friends_client import verify_client,prepare_native_sources,compatibility_preflight,running_clients
+from launch_friends_client import verify_client,prepare_native_sources,compatibility_preflight
 selection=compatibility_preflight(client,a.allow_client_variants) if a.login_probe else None
 if a.remote_bridge and not a.login_probe:verify_client(client,a.allow_client_variants)
 digest=hashlib.sha256(client.read_bytes()).hexdigest()
 if selection and digest!=selection['executable']['sha256']:raise SystemExit('Client changed after compatibility preflight; no client launched.')
-if running_clients(psutil):raise SystemExit('Existing client found; no launch or attach.')
+if any((q.info['name'] or '').lower() in ('x2.exe','x2_dx11.exe') for q in psutil.process_iter(['name'])):raise SystemExit('Existing client found; no launch or attach.')
 prepared_sources={}
 profile=Path(selection['native_directory']) if selection else BASE/'analysis'/('client-'+digest[:8])
 if a.login_probe:

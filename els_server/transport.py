@@ -205,29 +205,17 @@ class GameServer:
                     before=business.phase
                     trace34320_before=dungeon34320_trace.before(business,event,frame.sequence)
                     messages=await self.application.call(business.handle,event,request_sequence=frame.sequence)
-                    if event.event_id==0x202 and event.kind in (0x42c,0x42f,0x542):
-                        self.log('mount_diagnostic',connection=index,sequence=frame.sequence,phase=business.phase,
-                            rejection=getattr(business,'_mount_rejection',None))
                     if event.event_id==0x202 and event.kind==0x104:
                         results=[struct.unpack_from('>i',m.payload,len(m.payload)-4)[0]for m in messages
                             if m.event_id==0x201 and m.kind==0x105 and len(m.payload)>=8]
                         self.log('wear_diagnostic',connection=index,sequence=frame.sequence,phase=business.phase,
                             results=results,rejection=getattr(business,'_wear_rejection',None))
-                    if event.event_id==0x202 and event.kind in (0x219,0x661,0x8a1,0x8c7,0x2fb):
-                        self.log('pet_support_diagnostic',connection=index,sequence=frame.sequence,
-                            phase=business.phase,rejection=getattr(business,'_pet_support_rejection',None))
                     if event.event_id==0x202 and event.kind==0x58c:
                         results=[struct.unpack_from('>i',m.payload)[0] for m in messages
                             if m.event_id==0x201 and m.kind==0x58d and len(m.payload)>=4]
                         self.log('town_warp_diagnostic',connection=index,sequence=frame.sequence,
                             phase=business.phase,results=results,
                             rejection=getattr(business,'_town_warp_rejection',None))
-                    if event.event_id==0x202 and event.kind in (0xa7,0xaa,0x160):
-                        answers=[struct.unpack_from('>i',m.payload,4)[0] for m in messages
-                            if m.kind in (0xa8,0x161) and len(m.payload)>=8]
-                        self.log('resurrection_diagnostic',connection=index,sequence=frame.sequence,
-                            phase=business.phase,payload_bytes=len(event.payload),
-                            results=answers,rejection=getattr(business,'resurrection_rejection',None))
                     dungeon34320_trace.after(trace34320_before,business,messages)
                     if before!=business.phase:
                         self.log('business_phase',connection=index,request=event.kind,before=before,after=business.phase)
