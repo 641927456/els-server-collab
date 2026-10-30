@@ -13,7 +13,7 @@
     },
     {
       "path": "els_server/domain/inventory_items.py",
-      "source": "els_server/domain/inventory_items.py",
+      "source": "references/weapon-growth-ui-20261031-v1/source/els_server/domain/inventory_items.py",
       "sha256": "820647ecc8aeea8d9c39171515f15645a9b7bc83eb0f6f01991ae0fc976d9d43",
       "size": 67251
     },
@@ -80,6 +80,14 @@
   ],
   "archived_outputs": [
     "els_server/domain/raid_economy_flow.py",
-    "els_server/protocol/quest_messages.py"
-  ]
+    "els_server/protocol/quest_messages.py",
+    "els_server/domain/inventory_items.py"
+  ],
+  "integrated_inventory": {
+    "path": "els_server/domain/inventory_items.py",
+    "sha256": "24cc757525ebd9de7d8125a9d4572e3293f9fffb978de6e59216f5edcf664605",
+    "weapon_only_source": "references/weapon-growth-ui-20261031-v1/source/els_server/domain/inventory_items.py",
+    "additive_PR": 641,
+    "composition": "Exact original weapon inventory plus unchanged enhancement-unlock block"
+  }
 }
