@@ -1,0 +1,58 @@
+{
+  "source_self_check": true,
+  "not_independent_review": true,
+  "original_native_wait": {
+    "passed": true,
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "original_query": "74FA90..74FACE",
+    "original_add": "74FB70",
+    "original_remove": "750024..75005C",
+    "pending_query_before_during_after": [
+      0,
+      1,
+      0
+    ],
+    "wait_kind_separation": true,
+    "game_or_player_process": false,
+    "UI_tail_executed": false
+  },
+  "frida_owned_ABI": {
+    "event": "guard_verification",
+    "passed": true,
+    "cases": [
+      "no-pending-preserves-original-call",
+      "all-seven-arguments-and64bit-UIDs-preserved",
+      "pending105-does-not-send-second-request",
+      "pending105-also-serializes-bag-move",
+      "completion-does-not-auto-retry",
+      "next-user-request-after-completion-is-allowed",
+      "unrelated-response-wait-does-not-block",
+      "new105-wait-blocks-again",
+      "native-wait-clear-after-failure-or-timeout-releases-guard",
+      "duplicate-install-rejected-with-original-guard-kept",
+      "explicit-dispose-restores-original",
+      "changed-prologue-rejected-before-install"
+    ],
+    "blocked": 3,
+    "frida": "17.23.3",
+    "original_request_body": "ABI fixture, not full game business",
+    "pending_query": "original74FA90",
+    "source_sha256": "8655b2d8ced704417319c535ed08b4be6c3b56ebe55eedec7fe6cedf3100e604",
+    "player_or_game_attachment": false,
+    "owned_process_only": true
+  },
+  "composition": {
+    "passed": true,
+    "parent_composer_sha256": "225d321ef32563a5736513dd4030118aa669ac2e49cf8a3f7ac7344f4ef21856",
+    "parent_composition_recovered_exactly": true,
+    "one_startup_install": true,
+    "bad_image_and_EXE_rejected": true,
+    "unchanged_existing_cache_relation_and_login_source": true
+  },
+  "verification_failure": "First ABI fixture had a lexical Process shadowing error; fixture corrected, support source unchanged; both owned child processes closed.",
+  "not_qualified": [
+    "Natural GUI",
+    "Full game request body in Frida ABI fixture",
+    "Signed update/install/actual player loading"
+  ]
+}

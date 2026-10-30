@@ -51,7 +51,10 @@ def validate_activation(profile,receipt,record):
 def verify_active_pointer(root,profile,receipt):
     from tools import verify_owned_stones_nine_archive_20261030 as nine
     root=Path(root);record=nine.read(root/RECORD);validate_activation(profile,receipt,record);verify_assets_lock(root,profile,record)
-    assert nine.read(root/'channels/current-engine.json')==dict(format=1,profile=nine.PROFILE,accepted=nine.HEADS)
+    selected=nine.read(root/'channels/current-engine.json')
+    if selected!=dict(format=1,profile=nine.PROFILE,accepted=nine.HEADS):
+        from tools.verify_accessory_identification_20261031 import verify
+        verify(root)
     return record
 
 def verified_nine_predecessor(profile,mode,entry,path,*,root=None):
