@@ -1,0 +1,39 @@
+{
+  "status": "candidate_verified_not_installed",
+  "tests_passed": 19,
+  "regressions": {
+    "new_unlock_tests": 5,
+    "existing_equipment_enhancement": 4,
+    "existing_paid_enhancement": 7,
+    "existing_sage_sockets": 3
+  },
+  "native_cases": 42,
+  "source_only": false,
+  "real_actor_stats": false,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "public_protocol": false,
+  "formal_runtime_modified": false,
+  "player_database_modified": false,
+  "preexisting_stale_tests": {
+    "count": 7,
+    "baseline_reproduced": true,
+    "baseline_outcome": "failures3/errors4",
+    "reason": "Root legacy regression expectations predate current ordinary/advanced enhancement and session-bound socket-preview semantics.",
+    "private_evidence": "G:/els/analysis/deemo1-enhancement-effects-20261030-v1/baseline-stale-tests.txt"
+  },
+  "corrected_test_fixture": [
+    "Use ordinary118262 for paid enhancement; participation721897 legitimately rejects enhancement.",
+    "Native replay outcome0 differs from initial success outcome1; assert unchanged SQL, no redraw and current item wire."
+  ],
+  "commands": [
+    "Materialize current accepted LOCAL engine with its locked assets, overlay only this candidate's three business leaves.",
+    "python -X utf8 -B -m unittest tests.test_enhancement_unlock tests.test_equipment_enhancement tests.test_paid_enhancement tests.test_sage_sockets (initial run: first8 passed; test dependencies missing).",
+    "Complete tests.test_paid_enhancement:7 passed,2 stale failures; complete tests.test_sage_sockets:3 passed,5 stale failures/errors.",
+    "Original parent inventory source: reproduce only the7 stale failures/errors, same outcomes.",
+    "python -X utf8 -B -m unittest tests.test_enhancement_unlock.EnhancementUnlockTests.test_paid_threshold_ack_rollback_and_replay (corrected fixture:passed).",
+    "python -X utf8 G:/els/analysis/deemo1-enhancement-effects-20261030-v1/verify_candidate_native.py:42 passed.",
+    "python -X utf8 -B G:/els/analysis/deemo1-enhancement-effects-20261030-v1/run_related_tests.py:19 passed,0 errors,0 skips after final exact source overlay."
+  ],
+  "final_related_run": "related-tests.json"
+}

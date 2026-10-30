@@ -1,0 +1,38 @@
+{
+  "base_commit": "13fe9defdcaae33ec2d25fe00aeacc8ca4d3ab53",
+  "candidate": true,
+  "installed": false,
+  "changes": [
+    {
+      "channel": "online",
+      "path": "els_server/domain/inventory_items.py",
+      "before_sha256": "80c1edda1915939326341e0b5988205d48da4b51de7a468d528d16fbd0c0f122",
+      "source": "references/enhancement-unlock-20261030-v1/online/els_server/domain/inventory_items.py",
+      "sha256": "cf5410b9607bd63978bb1195dab8a59f626218c0abbf9ad0fd0320a05e21f1b6"
+    },
+    {
+      "channel": "local",
+      "path": "els_server/domain/inventory_items.py",
+      "before_sha256": "bb94e23b06684b9343951aee38b2709d3ef5a5cc7bcb92623b4f9e6528be0f9d",
+      "source": "references/enhancement-unlock-20261030-v1/local/els_server/domain/inventory_items.py",
+      "sha256": "ca5fcfc6a7d1260609185aca6558f83a9d14e561c0f4599538c6c46a2173b7c4"
+    }
+  ],
+  "shared_new_files": [
+    {
+      "path": "els_server/domain/enhancement_unlock.py",
+      "sha256": "43a85b698fc0884c1333289bf1c17e337c0581593030e755e1e5ceab3f37ca03",
+      "size": 846
+    },
+    {
+      "path": "els_server/data/enhancement_unlock.json",
+      "sha256": "79121bc46abedc28f723442064bc2baa165da031146bff5f96a016354457874e",
+      "size": 12333
+    }
+  ],
+  "database_migration": false,
+  "player_database_modified": false,
+  "client_changes": 0,
+  "template_count": 599,
+  "group_count": 10
+}
