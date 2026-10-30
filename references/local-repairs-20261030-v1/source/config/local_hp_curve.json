@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "provenance": "local_playability_curve",
+  "description": "本地可玩性覆盖层。导入的 cobodex 公开血量属于更晚的零售世代，绝对值比本 Lv99 客户端能打出的伤害高 5 到 9 个数量级；这里保留同图内各怪的相对强弱，只把整体量级压回既有的地区/角色曲线。删除本文件或把 enabled 设为 false 即可恢复上游导入原值。",
+  "enabled": false,
+  "target_scale": 1.0,
+  "global_scale": 0.1,
+  "boss_target_source": "profile_curve",
+  "retail_verified": false,
+  "note": "最终下发血量 = 原值 × 压缩系数 × global_scale。压缩系数 = min(1, 地区曲线 BOSS 目标血量 × target_scale / 该图导入血量的最大值)，恒小于等于 1，低等级图（如 Ruben 4608）系数为 1 不受影响。global_scale 是全局总闸门，作用于 maximum() 的每一个返回点，包括客户端显式血量和曲线兜底，即用户要求的「全局下调」。"
+}
