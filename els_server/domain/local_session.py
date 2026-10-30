@@ -413,6 +413,10 @@ class LocalSession:
             from els_server.domain.town_travel_flow import finish_village1012_origin
             finish_village1012_origin(self,village1012_origin)
         if self.account.characters is not None and any(e.kind==0x2a for e in reply):
+            if self.client_build=='dx11_260923':
+                from els_server.domain.guidebook_flow import initialization as guidebook_initialization
+                ready=next((i for i,e in enumerate(reply) if e.kind==0x29),len(reply))
+                reply.insert(ready,guidebook_initialization(self))
             from els_server.domain.elixir_flow import cold as world_elixir_cold
             reply.extend(world_elixir_cold(self))
             from els_server.domain.guild_membership_flow import cold as guild_membership_cold
@@ -453,6 +457,9 @@ class LocalSession:
                          character=self.account.character() if self.account.account_id!=1 else None)
 
     def _handle(self,event,request_sequence=None):
+        from els_server.domain.guidebook_flow import handle as guidebook_handle
+        guidebook_reply=guidebook_handle(self,event)
+        if guidebook_reply is not None:return guidebook_reply
         from els_server.domain.ariel_attendance_flow import handle as ariel_attendance_handle
         ariel_attendance_reply=ariel_attendance_handle(self,event,request_sequence)
         if ariel_attendance_reply is not None:return ariel_attendance_reply

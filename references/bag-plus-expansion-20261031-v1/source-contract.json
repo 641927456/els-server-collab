@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "issue": 639,
+  "scope": "Native inventory + quote/confirm; isolated source candidate, not installed",
+  "parent_commit": "13fe9defdcaae33ec2d25fe00aeacc8ca4d3ab53",
+  "parents": [
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "8599d29e6237801842b80236683642b7a4fd1364ffc2670eced78adbac3a09a7",
+      "size": 149702
+    },
+    {
+      "path": "els_server/storage/bag_capacity.py",
+      "sha256": "60d8948a8bd976d9e473266ec8b611a242332186906bbd23e8df0097e46f24f9",
+      "size": 2633
+    }
+  ],
+  "files": [
+    {
+      "path": "els_server/domain/bag_expansion_flow.py",
+      "sha256": "e88ccc255174141e2c0b79e0b4116637d355a418d394ec76086d10f1e7716b4d",
+      "size": 2277
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "e509fbc3c6188c80413558723e3c0698c7333acdf4024b952c3b8263382d2d84",
+      "size": 149938
+    },
+    {
+      "path": "els_server/protocol/bag_expansion_messages.py",
+      "sha256": "93e293d5f1495906cef05d1d41bbb33c1d3ce4752870bd97b64360dd5021908b",
+      "size": 953
+    },
+    {
+      "path": "els_server/storage/bag_capacity.py",
+      "sha256": "e4b98c54eb805f8b62949a168d4c20ca5c68f4225dab4329fba2712b2f0eb9df",
+      "size": 4834
+    },
+    {
+      "path": "tests/test_bag_expansion_button.py",
+      "sha256": "b4a995165ad1e8640ec3053a5ac5a9752d8bd9ac7ebc851eb005bb346e6b1608",
+      "size": 8352
+    }
+  ],
+  "business_tests_passed": 6,
+  "native_cases_passed": 23,
+  "new_client_hooks": false,
+  "deployed": false,
+  "natural_gui_verified": false,
+  "private_evidence": "Maintainer G:/els/analysis/bag-plus-20261030-v1; not bundled"
+}

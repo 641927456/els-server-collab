@@ -2,6 +2,7 @@
 import asyncio
 from dataclasses import replace
 import json
+import importlib.util
 from pathlib import Path
 import struct
 import tempfile
@@ -40,6 +41,11 @@ class CurrentLatencyTLS(FriendsTests):
             self.assertEqual(len(row['calls']),1)
             self.assertFalse(row['calls'][0]['failed'])
             self.assertGreaterEqual(row['calls'][0]['registry_checks'],1)
+            if importlib.util.find_spec('els_server.domain.session_auxiliary') is not None:
+                self.assertEqual(row['calls'][0]['projection_loads'],0)
+                self.assertEqual(row['calls'][0]['clock_before_ms'],0)
+                self.assertEqual(row['calls'][0]['clock_after_ms'],0)
+                self.assertEqual(row['calls'][0]['after_reply_ms'],0)
         # The persistent enabled reader must see this independent committed
         # writer immediately; the existing 50 ms periodic exit revokes Bob.
         self.app.registry.disable(self.bob['name'])

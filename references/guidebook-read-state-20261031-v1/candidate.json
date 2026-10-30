@@ -1,0 +1,67 @@
+{
+  "candidate": true,
+  "installed": false,
+  "scope": "Native per-character guidebook upload/restore",
+  "channels": {
+    "online": {
+      "parent_release": "owned-stones-nine-leaf-20261030-v1",
+      "parent_sha256": "ffed40992b08ba3eae0b0657d2117ca858f6c6855737d5b9fb619cce9471e63e",
+      "files": [
+        {
+          "path": "els_server/domain/local_session.py",
+          "source": "references/guidebook-read-state-20261031-v1/online/els_server/domain/local_session.py",
+          "size": 143526,
+          "sha256": "53758a413a4320ae3c277d1fe108e6629bda81d91e1f7566131c731df3ac83a8"
+        },
+        {
+          "path": "els_server/domain/guidebook_flow.py",
+          "source": "els_server/domain/guidebook_flow.py",
+          "size": 1634,
+          "sha256": "0aff506e990c5e1c223b3c0b3c477799bd2205c549de42a0437fe3ac1a504c1d"
+        },
+        {
+          "path": "els_server/storage/guidebook.py",
+          "source": "els_server/storage/guidebook.py",
+          "size": 1552,
+          "sha256": "43186511749f55d1af69f813a4427cd4472a26ef036bc43708042535623850de"
+        },
+        {
+          "path": "els_server/protocol/guidebook_messages.py",
+          "source": "els_server/protocol/guidebook_messages.py",
+          "size": 805,
+          "sha256": "a7af819299d4908664e62948c029a4dfba71a8b66f4252600814d65baa90b495"
+        }
+      ]
+    },
+    "local": {
+      "parent_release": "local-owned-stones-nine-leaf-20261030-v1",
+      "parent_sha256": "0edccc57a8c8f971a81066aea560b141f78ebe0223f7f14c41ada4bcac77f7a8",
+      "files": [
+        {
+          "path": "els_server/domain/local_session.py",
+          "source": "references/guidebook-read-state-20261031-v1/local/els_server/domain/local_session.py",
+          "size": 142602,
+          "sha256": "719829c487fef1a084c4da0cad83ff3ab1b87a353155ed3096d5736cc1b7b916"
+        },
+        {
+          "path": "els_server/domain/guidebook_flow.py",
+          "source": "els_server/domain/guidebook_flow.py",
+          "size": 1634,
+          "sha256": "0aff506e990c5e1c223b3c0b3c477799bd2205c549de42a0437fe3ac1a504c1d"
+        },
+        {
+          "path": "els_server/storage/guidebook.py",
+          "source": "els_server/storage/guidebook.py",
+          "size": 1552,
+          "sha256": "43186511749f55d1af69f813a4427cd4472a26ef036bc43708042535623850de"
+        },
+        {
+          "path": "els_server/protocol/guidebook_messages.py",
+          "source": "els_server/protocol/guidebook_messages.py",
+          "size": 805,
+          "sha256": "a7af819299d4908664e62948c029a4dfba71a8b66f4252600814d65baa90b495"
+        }
+      ]
+    }
+  }
+}
