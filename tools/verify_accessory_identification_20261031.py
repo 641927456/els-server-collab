@@ -1,6 +1,6 @@
 """Exact accepted five-leaf descendant; inherited source/asset locators are immutable."""
 from pathlib import Path
-import hashlib,json
+import copy,hashlib,json
 PROFILE='channels/accessory-identification-accepted-20261031-v1.json'
 PARENT='channels/owned-stones-nine-leaf-accepted-20261030-v1.json'
 PARENT_SHA='76bed17ea60a8c8aeeaef387fd5590aec838adecd07b4124d53cbab7a80309b6'
@@ -41,4 +41,15 @@ def verify(root):
   else:assert len(pool['outcomes'])==16 and pool['reset']is True
  receipt=read(root/REF/'accepted-delivery.json');assert receipt['ok']and receipt['heads']==profile['accepted_heads']and receipt['public_four_initial_identifications']and receipt['public_nirvana_reset_exactly_one_scroll']and receipt['public_customization634_635']and receipt['public_own_QA_cleaned']
  return dict(ok=True,changed_files=5,ordinary_accessory_templates=85,all_parent_locators_preserved=True,source_asset_kinds_preserved=True)
+def verified_accessory_predecessor(profile,mode,entry,path,*,root):
+ root=Path(root);verify(root);raw=read(root/PROFILE);resolved=copy.deepcopy(raw)
+ for channel,head in raw['accepted_heads'].items():resolved['channels'][channel].update(head)
+ assert profile==raw or profile==resolved,'Exact raw or resolved accessory profile required'
+ parent=read(root/PARENT);before={r['path']:r for r in parent['channels'][mode]['files']}
+ after={r['path']:r for r in profile['channels'][mode]['files']}
+ assert entry==after[entry['path']]==before[entry['path']],'Changed accessory leaf cannot inherit historical proof'
+ assert Path(path).resolve()==(root/entry['source']).resolve() and sha(path)==entry['sha256']
+ from tools.verify_owned_stones_activation_20261030 import verified_nine_predecessor
+ return verified_nine_predecessor(parent,mode,before[entry['path']],root/before[entry['path']]['source'],root=root)
+
 if __name__=='__main__':print(json.dumps(verify(Path(__file__).resolve().parents[1])))
