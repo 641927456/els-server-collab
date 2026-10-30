@@ -1,0 +1,386 @@
+{
+  "format": 1,
+  "issue": 661,
+  "base_main": "883eaec021f7b4f967ada35cf9e106dec99c900d",
+  "scope": "Force categories and verified native acquisition channels",
+  "channels": {
+    "local": {
+      "release": "local-force-categories-sources-20261031-v4",
+      "parent_release": "local-custom-ain-server-only-20261031-v3",
+      "parent_manifest_sha256": "2c735eb1a996582475b2025113e7c060eaee1f96e7717e983ac2f1e8d512f8f4",
+      "manifest_sha256": "3c3c39f744e7256cfd62a18c783a744b4f1b36ac092683527a21598cb422cee2",
+      "files": [
+        {
+          "path": "config/dungeon_local_rules.json",
+          "source": "references/force-categories-sources-20261031-v1/source/local/config/dungeon_local_rules.json",
+          "sha256": "ae2e35d443476b9d265dbaa51d9db0dee6f18f0de0dd92a59ea607d61007ba9a",
+          "size": 886,
+          "parent_sha256": "ebf664ddce3ce04a54db038cb86d31ffcc05651748c5dc8a1113e24e255c6156"
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/data/formal_pve_economy.json",
+          "sha256": "a735eb564942f049155a45e8c0acd6ad99bd5e3069c799ece9f0634ef5c26559",
+          "size": 295333,
+          "parent_sha256": "01d100c92f9cb81624b5bd73b6e087e74ffb9d739bca6bf5e1f04c45f1951416"
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "80c7f4bc9f12a6492358e436f118390bc6474550fd35876a0289a891bc6f326f",
+          "size": 206,
+          "parent_sha256": "ec3c257a9ee129b58bf4bfc5077d1e3ce8a9e5ecedb8e27164418c4e1dfd2496"
+        },
+        {
+          "path": "els_server/data/native_force_catalog.json",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/data/native_force_catalog.json",
+          "sha256": "6dab774cc2efcfaf94aa4aee12f308482d072268f709b0bf90f1e67a5e96adb6",
+          "size": 104219,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/acquisition_policy.py",
+          "sha256": "dfca6e18521c4cfbc355bf7d18f4bb6270d8be11e27ff33ad898cbe14205f810",
+          "size": 13666,
+          "parent_sha256": "c2374dd32ec424094b30596e8dc4bda0e77cda948ca26a5c576d04ab3584c9dd"
+        },
+        {
+          "path": "els_server/domain/boosting_2026_force_equipment.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/boosting_2026_force_equipment.py",
+          "sha256": "dbfaa4f74dac2805b75abb21ae5e062457f6a966d4d4f3b37d595d25d8686ef0",
+          "size": 6438,
+          "parent_sha256": "976df525ed60c6b8552f4c85879fe3e0f68669c1c0718bd91994cf66e9c30d55"
+        },
+        {
+          "path": "els_server/domain/boosting_2026_force_inventory.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/boosting_2026_force_inventory.py",
+          "sha256": "b03b22d7bee4a624ea0150e4c56055cf91100a4540d810a6030040d71f222812",
+          "size": 4565,
+          "parent_sha256": "620f53d3dba19c73315d73c76eacb82aab308f12fe4029716dd998ba8cb84f72"
+        },
+        {
+          "path": "els_server/domain/cubes.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/cubes.py",
+          "sha256": "ed339b4e63718a12646b0fb7ae4bc0e2bc60a4f0395719390e22e02a4d0a966a",
+          "size": 4179,
+          "parent_sha256": "1db0706806ad63057baf50bb2aced0a8b37e932c40ac47be4f3664e88f3e175f"
+        },
+        {
+          "path": "els_server/domain/dungeon_flow.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/dungeon_flow.py",
+          "sha256": "af6f3ae32baeedf444e3861ace7b2c1bcc6fa174a4cd92b573b07242a59390ac",
+          "size": 23678,
+          "parent_sha256": "1d8cebddb32dfe6f79df16bcacb565858dd1d8ff9879ac073491fe9f655304e9"
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/inventory_items.py",
+          "sha256": "9a86901525dea0759099ce80cb6c98e3303735033f79d15efb51758085dd96a1",
+          "size": 74911,
+          "parent_sha256": "77f2f988b522ce7d9fe050204b1aefc98cdd6a728a40ef0b956ddd0177994ff4"
+        },
+        {
+          "path": "els_server/domain/native_force_catalog.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/native_force_catalog.py",
+          "sha256": "32bd3df4b8ca1cfb404a84b1ab8fc6e7331b70bcce62ad7354beb958a284db3b",
+          "size": 1721,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/native_force_exchange_flow.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/native_force_exchange_flow.py",
+          "sha256": "d8fdb7c1e8cb2358fa748bce90ad57c03367f8bc7cea87572a8d2cc0a1599689",
+          "size": 2612,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/pve_economy_flow.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/pve_economy_flow.py",
+          "sha256": "db7776c1b65226de22a93324ed036b542a4287c76e0fed9a4d68ecab48448c1c",
+          "size": 22762,
+          "parent_sha256": "f603818e58c0cb766afc0d0e5da15e53321f4fd4c42f71dd82d9d50deca201c0"
+        },
+        {
+          "path": "els_server/domain/role_progression.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/role_progression.py",
+          "sha256": "cc17085d713bb1f20afb7965ce6813c072801056895d41787f64e9cc8da1a855",
+          "size": 2789,
+          "parent_sha256": "9379f185f237302c783625cde693fabd006866cd7a44af7880a5404738619efd"
+        },
+        {
+          "path": "els_server/domain/session_dispatch.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/session_dispatch.py",
+          "sha256": "26ad93d94b0ed371bbee158ec92761de4ba18fe1188c972abc6453268944e66f",
+          "size": 17108,
+          "parent_sha256": "baf8dc0106df38e3426ec9bf8003cb05b4c46a845e7ec46659117c5064dcb533"
+        },
+        {
+          "path": "els_server/domain/skill_expansion.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/skill_expansion.py",
+          "sha256": "ffa45347d9796d9a729f3630d7ad89466935a7cfe7a05ccab5544ad8b2f5ce02",
+          "size": 2531,
+          "parent_sha256": "1021443de8f8dcffe6e8f63109ce367d911e6b1dd9d3c6dad01530bb3be1ddf8"
+        },
+        {
+          "path": "els_server/domain/skill_state.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/skill_state.py",
+          "sha256": "0efbebdef5bdc73be7b0d3d24b8ec98dcf8d1b35212443ecdc1721467a11ad24",
+          "size": 4789,
+          "parent_sha256": "1eae1fdd48f1e2d5c1db087cd145e9f537ef9a27ca72f1a78e773f5a6b67f435"
+        },
+        {
+          "path": "els_server/storage/boosting_2026_force_inventory.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/boosting_2026_force_inventory.py",
+          "sha256": "1a974c2dc10a4325e15012f72c32404375c2943796d9fca9447fde660230fc53",
+          "size": 12571,
+          "parent_sha256": "628b1189c269f8e37c4b2e4910df7bc36a818885ed600407f5147914b8c38afb"
+        },
+        {
+          "path": "els_server/storage/force_rank4_schema.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/force_rank4_schema.py",
+          "sha256": "bb209b9938ebc8506baebf4fbc422faa3fc5cc7fe91e4a85dae324d7e46b47ae",
+          "size": 6765,
+          "parent_sha256": "67585448ff2278e95b0539b55cf902a072380224c95a0bbac18094742c74a348"
+        },
+        {
+          "path": "els_server/storage/henir_force_rewards.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/henir_force_rewards.py",
+          "sha256": "2279578c9f088024aea083132105c81e27d03e4efceddd75a302dfceb3e1cf13",
+          "size": 4159,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/native_force_exchange.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/native_force_exchange.py",
+          "sha256": "2d7585d4229aa76cdad8739cb0237a9c438a44e28365477345987deb2fd16615",
+          "size": 6341,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/player_mail.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/player_mail.py",
+          "sha256": "7443226f96b8527a4f1b2e735461664065c9d800ed14c6509f7c2d43ba8aa690",
+          "size": 13248,
+          "parent_sha256": "049614027c4fe5e03ac38f15c492c9b3eab10678dd62623696bc70503ba60401"
+        },
+        {
+          "path": "els_server/data/client/dungeon_routes.json",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/data/client/dungeon_routes.json",
+          "sha256": "302feba495e69870d16254ed97ff3991badd1f90f1aab95fbd86e0055b4cf0de",
+          "size": 10876194,
+          "parent_sha256": "fbafa1cb884371bc173b74e216b09f9f0f71523c69cae02b00bc7e2c7cf092a5"
+        },
+        {
+          "path": "els_server/data/client/dungeon_routes.manifest.json",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/data/client/dungeon_routes.manifest.json",
+          "sha256": "63db97722c6afc42f87a68158e5074981fe9e079572f6cb0a9b420c9e9436e4a",
+          "size": 379274,
+          "parent_sha256": "1dc5293cac8ffb7ce0e551b3a2d9facfb06beeedb7fa8bbe34d3ede1d3859931"
+        }
+      ],
+      "patch": {
+        "path": "references/force-categories-sources-20261031-v1/patches/local.patch",
+        "sha256": "b68d3a6c8e99071949d30c35e8982595bb61eff6271e0473aef424da669b9b09",
+        "format": "review-diff-json-normalized-sorted;exact-source-contract-is-authoritative"
+      }
+    },
+    "online": {
+      "release": "force-categories-sources-20261031-v4",
+      "parent_release": "custom-ain-server-only-20261031-v3",
+      "parent_manifest_sha256": "015f020e892b4b639e8c71448893e7c272cd35159d48501b0e853ab0629c50e8",
+      "manifest_sha256": "898ec40ad008fb9ef54bde72f6d5d46677492856e40dfd97bb2060cefe0eacdd",
+      "files": [
+        {
+          "path": "config/dungeon_local_rules.json",
+          "source": "references/force-categories-sources-20261031-v1/source/local/config/dungeon_local_rules.json",
+          "sha256": "ae2e35d443476b9d265dbaa51d9db0dee6f18f0de0dd92a59ea607d61007ba9a",
+          "size": 886,
+          "parent_sha256": "ebf664ddce3ce04a54db038cb86d31ffcc05651748c5dc8a1113e24e255c6156"
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/data/formal_pve_economy.json",
+          "sha256": "a735eb564942f049155a45e8c0acd6ad99bd5e3069c799ece9f0634ef5c26559",
+          "size": 295333,
+          "parent_sha256": "01d100c92f9cb81624b5bd73b6e087e74ffb9d739bca6bf5e1f04c45f1951416"
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "80c7f4bc9f12a6492358e436f118390bc6474550fd35876a0289a891bc6f326f",
+          "size": 206,
+          "parent_sha256": "ec3c257a9ee129b58bf4bfc5077d1e3ce8a9e5ecedb8e27164418c4e1dfd2496"
+        },
+        {
+          "path": "els_server/data/native_force_catalog.json",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/data/native_force_catalog.json",
+          "sha256": "6dab774cc2efcfaf94aa4aee12f308482d072268f709b0bf90f1e67a5e96adb6",
+          "size": 104219,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/acquisition_policy.py",
+          "source": "references/force-categories-sources-20261031-v1/source/online/els_server/domain/acquisition_policy.py",
+          "sha256": "3a3a6206fa15f7caccb784d579f02b81448df41b6bc21155af71a6e44033845c",
+          "size": 13658,
+          "parent_sha256": "bc4b03b8a2183c4ba5efb564d72055c29397f79ba7d29e91ded5d510470c0e5b"
+        },
+        {
+          "path": "els_server/domain/boosting_2026_force_equipment.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/boosting_2026_force_equipment.py",
+          "sha256": "dbfaa4f74dac2805b75abb21ae5e062457f6a966d4d4f3b37d595d25d8686ef0",
+          "size": 6438,
+          "parent_sha256": "976df525ed60c6b8552f4c85879fe3e0f68669c1c0718bd91994cf66e9c30d55"
+        },
+        {
+          "path": "els_server/domain/boosting_2026_force_inventory.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/boosting_2026_force_inventory.py",
+          "sha256": "b03b22d7bee4a624ea0150e4c56055cf91100a4540d810a6030040d71f222812",
+          "size": 4565,
+          "parent_sha256": "620f53d3dba19c73315d73c76eacb82aab308f12fe4029716dd998ba8cb84f72"
+        },
+        {
+          "path": "els_server/domain/cubes.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/cubes.py",
+          "sha256": "ed339b4e63718a12646b0fb7ae4bc0e2bc60a4f0395719390e22e02a4d0a966a",
+          "size": 4179,
+          "parent_sha256": "1db0706806ad63057baf50bb2aced0a8b37e932c40ac47be4f3664e88f3e175f"
+        },
+        {
+          "path": "els_server/domain/dungeon_flow.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/dungeon_flow.py",
+          "sha256": "af6f3ae32baeedf444e3861ace7b2c1bcc6fa174a4cd92b573b07242a59390ac",
+          "size": 23678,
+          "parent_sha256": "1d8cebddb32dfe6f79df16bcacb565858dd1d8ff9879ac073491fe9f655304e9"
+        },
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "source": "references/force-categories-sources-20261031-v1/source/online/els_server/domain/inventory_items.py",
+          "sha256": "adcb1cd75e82ca1256c3a8eae366f7dce15cfa82d1b10ba1aaa2f11b8c74a602",
+          "size": 75066,
+          "parent_sha256": "2c87861e5c67dd0e601cbe800126d5ebcacda64cca0eed8fb87c5b3705754e07"
+        },
+        {
+          "path": "els_server/domain/native_force_catalog.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/native_force_catalog.py",
+          "sha256": "32bd3df4b8ca1cfb404a84b1ab8fc6e7331b70bcce62ad7354beb958a284db3b",
+          "size": 1721,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/native_force_exchange_flow.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/native_force_exchange_flow.py",
+          "sha256": "d8fdb7c1e8cb2358fa748bce90ad57c03367f8bc7cea87572a8d2cc0a1599689",
+          "size": 2612,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/pve_economy_flow.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/pve_economy_flow.py",
+          "sha256": "db7776c1b65226de22a93324ed036b542a4287c76e0fed9a4d68ecab48448c1c",
+          "size": 22762,
+          "parent_sha256": "f603818e58c0cb766afc0d0e5da15e53321f4fd4c42f71dd82d9d50deca201c0"
+        },
+        {
+          "path": "els_server/domain/role_progression.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/role_progression.py",
+          "sha256": "cc17085d713bb1f20afb7965ce6813c072801056895d41787f64e9cc8da1a855",
+          "size": 2789,
+          "parent_sha256": "9379f185f237302c783625cde693fabd006866cd7a44af7880a5404738619efd"
+        },
+        {
+          "path": "els_server/domain/session_dispatch.py",
+          "source": "references/force-categories-sources-20261031-v1/source/online/els_server/domain/session_dispatch.py",
+          "sha256": "0c95770c4a3b65543e68c4ca98d240922acd67d609013003608b4e356aae648b",
+          "size": 17131,
+          "parent_sha256": "697a012479b0b1888916892d7a020617fa05fc79759d56a170e44f0cc86fcb00"
+        },
+        {
+          "path": "els_server/domain/skill_expansion.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/skill_expansion.py",
+          "sha256": "ffa45347d9796d9a729f3630d7ad89466935a7cfe7a05ccab5544ad8b2f5ce02",
+          "size": 2531,
+          "parent_sha256": "1021443de8f8dcffe6e8f63109ce367d911e6b1dd9d3c6dad01530bb3be1ddf8"
+        },
+        {
+          "path": "els_server/domain/skill_state.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/skill_state.py",
+          "sha256": "0efbebdef5bdc73be7b0d3d24b8ec98dcf8d1b35212443ecdc1721467a11ad24",
+          "size": 4789,
+          "parent_sha256": "1eae1fdd48f1e2d5c1db087cd145e9f537ef9a27ca72f1a78e773f5a6b67f435"
+        },
+        {
+          "path": "els_server/storage/boosting_2026_force_inventory.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/boosting_2026_force_inventory.py",
+          "sha256": "1a974c2dc10a4325e15012f72c32404375c2943796d9fca9447fde660230fc53",
+          "size": 12571,
+          "parent_sha256": "628b1189c269f8e37c4b2e4910df7bc36a818885ed600407f5147914b8c38afb"
+        },
+        {
+          "path": "els_server/storage/force_rank4_schema.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/force_rank4_schema.py",
+          "sha256": "bb209b9938ebc8506baebf4fbc422faa3fc5cc7fe91e4a85dae324d7e46b47ae",
+          "size": 6765,
+          "parent_sha256": "67585448ff2278e95b0539b55cf902a072380224c95a0bbac18094742c74a348"
+        },
+        {
+          "path": "els_server/storage/henir_force_rewards.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/henir_force_rewards.py",
+          "sha256": "2279578c9f088024aea083132105c81e27d03e4efceddd75a302dfceb3e1cf13",
+          "size": 4159,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/native_force_exchange.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/native_force_exchange.py",
+          "sha256": "2d7585d4229aa76cdad8739cb0237a9c438a44e28365477345987deb2fd16615",
+          "size": 6341,
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/player_mail.py",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/player_mail.py",
+          "sha256": "7443226f96b8527a4f1b2e735461664065c9d800ed14c6509f7c2d43ba8aa690",
+          "size": 13248,
+          "parent_sha256": "049614027c4fe5e03ac38f15c492c9b3eab10678dd62623696bc70503ba60401"
+        },
+        {
+          "path": "els_server/data/client/dungeon_routes.json",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/data/client/dungeon_routes.json",
+          "sha256": "302feba495e69870d16254ed97ff3991badd1f90f1aab95fbd86e0055b4cf0de",
+          "size": 10876194,
+          "parent_sha256": "fbafa1cb884371bc173b74e216b09f9f0f71523c69cae02b00bc7e2c7cf092a5"
+        },
+        {
+          "path": "els_server/data/client/dungeon_routes.manifest.json",
+          "source": "references/force-categories-sources-20261031-v1/source/local/els_server/data/client/dungeon_routes.manifest.json",
+          "sha256": "63db97722c6afc42f87a68158e5074981fe9e079572f6cb0a9b420c9e9436e4a",
+          "size": 379274,
+          "parent_sha256": "1dc5293cac8ffb7ce0e551b3a2d9facfb06beeedb7fa8bbe34d3ede1d3859931"
+        }
+      ],
+      "patch": {
+        "path": "references/force-categories-sources-20261031-v1/patches/online.patch",
+        "sha256": "cef72e09fe5c4867515eb1de125c39426be82b9028239635901a10bb1caf09a6",
+        "format": "review-diff-json-normalized-sorted;exact-source-contract-is-authoritative"
+      }
+    }
+  },
+  "unique_source_files": 27,
+  "changed_files_each": 24,
+  "new_files_each": 5,
+  "new_lazy_tables": [
+    "native_force_exchange_quota",
+    "henir_force_rewards"
+  ],
+  "existing_ownership_CHECK_expansion": true,
+  "install_DDL": 0,
+  "client_changes": false,
+  "root_runtime_changed": false,
+  "materializer_selection_changed": false,
+  "historical_frozen_inputs_changed": false,
+  "installed_both_channels": true,
+  "natural_GUI": false,
+  "natural_full_skill_battle": false
+}

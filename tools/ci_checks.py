@@ -17,6 +17,8 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'references/force-categories-sources-20261031-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_force_categories_sources_20261031.py')])
     if (ROOT/'references/local-repairs-20261030-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_local_repairs_source_20261031.py')])
     if (ROOT/'channels/shared-request-latency-candidate-20261031-v1.json').is_file():
