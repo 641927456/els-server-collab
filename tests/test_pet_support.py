@@ -112,4 +112,23 @@ with tempfile.TemporaryDirectory() as d:
     consume(path,1001,request,'timer-ready',now=1160)
     handle(path,1001,0x661,settings(enabled=0),'disable-automatic')
     rejected(lambda:consume(path,1001,request,'automatic-off',now=1220))
+    # The pet timer and the player's manual recovery group are separate
+    # ledgers: either side may drink while the other is still cooling.
+    from els_server.storage.quick_slots import empty,encode,save_request
+    save_request(path,struct.pack('>i',1)+encode({**empty(),0:binding}))
+    with closing(sqlite3.connect(path)) as db,db:
+        grant_items(db,[dict(template=77000,metadata=VERIFIED_TEMPLATES[77000],group=TEMPLATE_BAG_GROUPS[77000],quantity=3)])
+    handle(path,1001,0x661,settings(hp_seconds=60),'re-enable')
+    assert [e.kind for e in use_consumable(path,1001,request,'manual-first',now=3000)]==[0x114,0x115]
+    with closing(sqlite3.connect(path)) as db:
+        assert db.execute('SELECT ready_at FROM consumable_cooldowns WHERE owner=1001 AND cooldown_group=1').fetchone()[0]==3029
+        assert db.execute('SELECT ready_at FROM pet_auto_cooldowns WHERE owner=1001 AND slot=0').fetchone()[0]==1220
+    rejected(lambda:use_consumable(path,1001,request,'manual-early',now=3001))
+    assert [e.kind for e in consume(path,1001,request,'pet-independent',now=3001)]==[0x65f,0x115]
+    with closing(sqlite3.connect(path)) as db:
+        assert db.execute('SELECT ready_at FROM consumable_cooldowns WHERE owner=1001 AND cooldown_group=1').fetchone()[0]==3029
+        assert db.execute('SELECT ready_at FROM pet_auto_cooldowns WHERE owner=1001 AND slot=0').fetchone()[0]==3061
+    rejected(lambda:consume(path,1001,request,'pet-early',now=3060))
+    assert [e.kind for e in use_consumable(path,1001,request,'manual-second',now=3029)]==[0x114,0x115]
+    assert [e.kind for e in consume(path,1001,request,'pet-ready',now=3061)]==[0x65f,0x115]
 print('PASS: pickup ownership, character entitlements, atomic consumption/rollback, duplicate handling, automatic settings and consumable cooldown.')

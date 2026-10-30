@@ -222,6 +222,12 @@ class GameServer:
                         self.log('town_warp_diagnostic',connection=index,sequence=frame.sequence,
                             phase=business.phase,results=results,
                             rejection=getattr(business,'_town_warp_rejection',None))
+                    if event.event_id==0x202 and event.kind in (0xa7,0xaa,0x160):
+                        answers=[struct.unpack_from('>i',m.payload,4)[0] for m in messages
+                            if m.kind in (0xa8,0x161) and len(m.payload)>=8]
+                        self.log('resurrection_diagnostic',connection=index,sequence=frame.sequence,
+                            phase=business.phase,payload_bytes=len(event.payload),
+                            results=answers,rejection=getattr(business,'resurrection_rejection',None))
                     dungeon34320_trace.after(trace34320_before,business,messages)
                     if before!=business.phase:
                         self.log('business_phase',connection=index,request=event.kind,before=before,after=business.phase)

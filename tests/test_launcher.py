@@ -1,5 +1,6 @@
 """GM transactions, isolation, real save leases, backup and HTTP boundaries."""
 import json
+import os
 import sqlite3
 import sys
 import tempfile
@@ -80,21 +81,63 @@ class LauncherTests(unittest.TestCase):
         with self.assertRaises(ValueError):self.service.mutate(self.request('level', 15, 1002))
         with self.assertRaises(ValueError):self.service.mutate(self.request('level', 100, 1002))
 
-    def test_item_grant_uses_native_allocator_and_rolls_back_when_full(self):
-        starter_count=len(self.service.inventory(1002))
-        self.service.mutate(self.request('item', dict(template=77000, quantity=99), 1002))
-        self.assertEqual(self.service.inventory(1002)[0]['count'], 99)
-        self.assertEqual(self.service.inventory(1001), [])
-        with closing(sqlite3.connect(self.path)) as db, db:
-            db.execute('UPDATE inventory_items SET slot=0 WHERE owner=1002 AND bag_group=6')
-            for i in range(1,36):
-                db.execute('INSERT INTO inventory_items VALUES (?,?,?,?,?,?,?)', (2000000+i,1002,77000,2,99,6,i))
+    def test_item_grant_lands_in_mailbox_and_claims_into_bag(self):
+        request = self.request('item', dict(template=77000, quantity=99), 1002)
+        receipt = self.service.mutate(request)
+        self.assertIn('邮箱', receipt['detail'])
+        self.assertEqual(self.service.mutate(request), receipt)
+        self.assertEqual([i for i in self.service.inventory(1002) if i['template'] == 77000], [])
+        with closing(sqlite3.connect(self.path)) as db:
+            mails = db.execute('SELECT id,account_id,ed FROM game_mail').fetchall()
+            escrow = [json.loads(r[0]) for r in db.execute('SELECT item_json FROM player_mail_items')]
+            recipients = db.execute('SELECT recipient_uid FROM player_mail_meta').fetchall()
+        self.assertEqual([(m[1], m[2]) for m in mails], [(1, 0)])
+        self.assertEqual(recipients, [(1002,)])
+        self.assertEqual([(e['template'], e['count']) for e in escrow], [(77000, 99)])
+        from els_server.storage import game_mail
+        with self.assertRaises(game_mail.MailError):
+            game_mail.claim(self.path, 1, 1001, [mails[0][0]], lambda ids, ed: (ids, ed))
+        game_mail.claim(self.path, 1, 1002, [mails[0][0]], lambda ids, ed, changes: (ids, ed), include_items=True)
+        self.assertEqual([(i['template'], i['count']) for i in self.service.inventory(1002)
+                          if i['template'] == 77000], [(77000, 99)])
+        self.assertEqual(self.scalar('SELECT COUNT(*) FROM game_mail'), 1)
+
+    def test_item_mail_quantity_bounded_by_stack_and_nothing_written_on_error(self):
+        from launcher.service import item_catalog
+        single = next(r for r in item_catalog() if r['stack'] == 1)
         before = self.scalar('SELECT next_uid FROM inventory_sequence')
-        with self.assertRaises(ValueError):
-            self.service.mutate(self.request('item', dict(template=77000, quantity=1),1002))
-        self.assertEqual(self.scalar('SELECT next_uid FROM inventory_sequence'),before)
-        self.assertEqual(len(self.service.history()),1)
-        self.assertEqual(len(self.service.inventory(1002)),36+starter_count)
+        with self.assertRaisesRegex(ValueError, '单封邮件'):
+            self.service.mutate(self.request('item', dict(template=single['id'], quantity=2), 1002))
+        self.assertEqual(self.scalar('SELECT next_uid FROM inventory_sequence'), before)
+        self.assertEqual(self.scalar('''SELECT COUNT(*) FROM sqlite_master
+                                        WHERE type='table' AND name='game_mail' '''), 0)
+
+    def test_terminated_client_entry_does_not_count_as_running(self):
+        import subprocess
+        import types
+        from launcher import service as launcher_service
+        child = subprocess.Popen([sys.executable, '-c', 'pass'])
+        child.wait()
+        self.assertTrue(launcher_service.exited(child.pid))
+        self.assertFalse(launcher_service.exited(os.getpid()))
+        stale = types.SimpleNamespace(pid=child.pid, info={'name': 'x2_dx11.exe'})
+        self.offline.stop()
+        try:
+            with patch('launcher.service.psutil.process_iter', return_value=[stale]):
+                self.assertEqual(launcher_service.games(), [])
+        finally:
+            self.offline.start()
+
+    def test_launch_scripts_ignore_terminated_client_entry(self):
+        import subprocess
+        import types
+        sys.path.insert(0, str(ROOT/'tools'))
+        from launch_friends_client import running_clients
+        child = subprocess.Popen([sys.executable, '-c', 'pass'])
+        child.wait()
+        stale = types.SimpleNamespace(pid=child.pid, info={'name': 'x2_dx11.exe'})
+        fake = types.SimpleNamespace(Error=Exception, process_iter=lambda columns: [stale])
+        self.assertEqual(running_clients(fake), [])
 
     def test_town_other_role_preserved_and_input_bounds(self):
         LocalState(self.path,1002).save(20001,3,50,(3.,4.,5.))

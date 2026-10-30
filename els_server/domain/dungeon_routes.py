@@ -133,8 +133,10 @@ class DungeonRun:
     # the original source's team default remains 1 unless TEAM is explicit.
     raw[0x3c]=source.get('team',1);raw[0x50]=int(source.get('ally',False))
     if source['boss']:
-     if type(source['boss_lines']) is not int or not 1<=source['boss_lines']<=65535:raise ValueError('Boss gauge line bound')
-     raw[0x44]=1;struct.pack_into('<H',raw,0x58,source['boss_lines'])
+     from els_server.domain.local_boss_gauge import lines as local_boss_gauge_lines
+     boss_lines=local_boss_gauge_lines(self.identity,source['boss_lines'])
+     if type(boss_lines) is not int or not 1<=boss_lines<=65535:raise ValueError('Boss gauge line bound')
+     raw[0x44]=1;struct.pack_into('<H',raw,0x58,boss_lines)
     init=npc_initialization(self.catalog,template,hp,source_context=context)
     from els_server.domain.native_hero_inputs import source_maximum
     hp,hero_native=source_maximum(self.catalog,template,hp,context)
@@ -202,8 +204,11 @@ class DungeonRun:
    # already excludes such actors from its clear check. Treat the door as
    # open once every declared active hostile is dead. See
    # config/local_dungeon_flow.json; combat-shaped requirements never relax.
-   from els_server.domain.local_dungeon_flow import script_gate
-   return script_gate(npcs,dead,c['required'])
+   from els_server.domain.local_dungeon_flow import part_marker_gate, script_gate
+   if script_gate(npcs,dead,c['required']):return True
+   # 尼格摩尔 part markers are class-103 script objects the client retires in
+   # its own scene and never reports. Only a source-pinned room admits them.
+   return part_marker_gate(self,npcs,dead,c['required'])
   if kind==6:return self.started_at is not None and self.clock()-self.started_at>=c['seconds']
   return False
  def poll_ready(self):

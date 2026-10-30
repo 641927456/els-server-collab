@@ -60,7 +60,36 @@ the route manifest, and the native ``class_id`` / ``IS_NPC`` identity. Every
 other hostile in the room still has to die, and no other map, stage, part or
 template is admitted.
 
-Disable either rule by setting its switch false or deleting the config.
+Part markers in 尼格摩尔 (Devildom2)
+------------------------------------
+Four of the five Devildom2 routes close a part with a ``kind == 3`` condition
+whose template is a class-103 ``IS_NPC`` script marker (``*_END`` / ``*_CLEAR``
+/ ``*_START``) rather than a monster: 34340 ``Dungeon_Devildom2_Residence``
+stage0 part1 (7587, ``DEVILDOM2_RESIDENCE_STAGE1_START.lua``), 34350
+``Dungeon_Devildom2_Factory`` stage0 part0 (7568) and stage1 part0 (7570, plus
+the 7553 boss-event marker), 34360 ``Dungeon_Devildom2_Portal`` stage1 part0
+(7605) and stage2 part0 (7607). The client retires these markers inside its own
+scene: the runtime capture of 34340 (session 20261029-215610) shows the marker
+created at the part load and destroyed without a single 0xad report, followed by
+a 0xb8 portal request the server answered with -1. The part's only actor is that
+marker, so ``script_gate`` (which needs one live hostile) cannot open it either,
+and the exit never opens.
+
+34360 stage 0 part 0 is the same shape one layer out: its condition names the
+real boss 7593, but the room also declares the ``_STAGE0_END`` marker 7603 as
+``active``/``no_drop``, so the 0xb8 check would keep the gate shut after the
+boss dies. That room is pinned with ``required`` untouched: only the marker is
+waived, the boss still has to be killed.
+
+``part_marker_gate`` waives only the pinned markers of one room. The condition's
+``required`` list must equal the row's, every matched actor must re-verify
+against the whole declared source row, the graph ``source_sha256`` and the
+script sha in the route manifest, and the native identity must stay class-103
+``IS_NPC``. Every other living actor of the room still has to die, so a real
+boss or mob is never skipped: 34340 stage1, 34350 stage1's boss 7551 and
+34360 stage0's boss 7593 keep their combat requirement.
+
+Disable any rule by setting its switch false or deleting the config.
 """
 import functools
 import json
@@ -75,11 +104,12 @@ def rules():
     try:
         rule = json.loads(CONFIG.read_bytes())
     except FileNotFoundError:
-        return {'script_gate_relaxation': False, 'scene_object_exit': False}
+        return {'script_gate_relaxation': False, 'scene_object_exit': False,
+                'part_marker_relaxation': False}
     if rule.get('schema_version') != 1 or rule.get('provenance') != 'local_dungeon_flow':
         raise ValueError('Local dungeon flow identity')
     switches = {}
-    for name in ('script_gate_relaxation', 'scene_object_exit'):
+    for name in ('script_gate_relaxation', 'scene_object_exit', 'part_marker_relaxation'):
         switch = rule.get(name, False)
         if type(switch) is not bool:
             raise ValueError('Local dungeon flow switch')
@@ -93,6 +123,10 @@ def script_gate_relaxation():
 
 def scene_object_exit():
     return rules()['scene_object_exit']
+
+
+def part_marker_relaxation():
+    return rules()['part_marker_relaxation']
 
 
 # Finite source-pinned admissions. A row waives exactly one declared actor.
@@ -178,4 +212,135 @@ def scene_object_gate(run, npcs, dead, matched):
         return False
     live = [n for n in npcs if n['active'] and n.get('team', 1) != 0
             and not scene_object_npc(run, n)]
+    return all(n['key'] in dead for n in live)
+
+
+# Finite source-pinned rooms. ``markers`` is every script marker the room
+# declares, including the required one; anything else alive still has to die.
+PART_MARKERS = {
+    (34340, 0, 1): {
+        'graph_sha': 'e0995cf9f2274bbb9b763fb384c46062ea87915428d4dca313c03d5fc4ecb3e1',
+        'required': (7587,),
+        'markers': (
+            {'script': 'DEVILDOM2_RESIDENCE_STAGE1_START.lua',
+             'script_sha': '72664ed1e03b4c3a049f85a603f2a2e6680cbaa845dc681ccdb842291d9ca0dd',
+             'source': {'template': 7587, 'source_index': 1, 'points': [10], 'active': False,
+                        'gage': False, 'ally': False, 'team': 1, 'no_drop': True, 'right': False,
+                        'boss': False, 'boss_lines': 1, 'key_code': -1, 'source_key_code': -1,
+                        'rate': 100, 'offset': [0, 0, 0]}},
+        ),
+    },
+    (34350, 0, 0): {
+        'graph_sha': 'da42ed2edc201421e8d6a0ecaaf4ade75217b4785c08ff010a0850c81da6d6c0',
+        'required': (7568,),
+        'markers': (
+            {'script': 'DEVILDOM2_FACTORY_STAGE0_CLEAR.lua',
+             'script_sha': '016d3153978e98ef72eef076ed79b44d321a9cc7d6012328cf716a09e70fe0e9',
+             'source': {'template': 7568, 'source_index': 1, 'points': [1], 'active': True,
+                        'gage': False, 'ally': False, 'team': 1, 'no_drop': True, 'right': False,
+                        'boss': False, 'boss_lines': 1, 'key_code': -1, 'source_key_code': -1,
+                        'rate': 100, 'offset': [0, 0, 0]}},
+        ),
+    },
+    (34350, 1, 0): {
+        'graph_sha': 'da42ed2edc201421e8d6a0ecaaf4ade75217b4785c08ff010a0850c81da6d6c0',
+        'required': (7570,),
+        'markers': (
+            {'script': 'DEVILDOM2_FACTORY_STAGE1_DUMMY.lua',
+             'script_sha': '5f364676772e514ca350cbe3ecf97f2293ab726f4a19fbfa573c13cedc25d006',
+             'source': {'template': 7570, 'source_index': 4, 'points': [1], 'active': True,
+                        'gage': False, 'ally': False, 'team': 1, 'no_drop': True, 'right': False,
+                        'boss': False, 'boss_lines': 1, 'key_code': -1, 'source_key_code': -1,
+                        'rate': 100, 'offset': [0, 0, 0]}},
+            {'script': 'DEVILDOM2_FACTORY_BOSS_EVENT.lua',
+             'script_sha': '3bce8177ac1368ca77b3a7b013ed6e941f7890317ca840844cf9719ab82849d9',
+             'source': {'template': 7553, 'source_index': 3, 'points': [1], 'active': True,
+                        'gage': False, 'ally': False, 'team': 1, 'no_drop': True, 'right': False,
+                        'boss': False, 'boss_lines': 1, 'key_code': -1, 'source_key_code': -1,
+                        'rate': 100, 'offset': [0, 0, 0]}},
+        ),
+    },
+    (34360, 0, 0): {
+        'graph_sha': 'e5c9b9d1e6553e2e30a112a0fc06515ec73d02f0fc5bb8d5aa534efde650d214',
+        'required': (7593,),
+        'markers': (
+            {'script': 'DEVILDOM2_PORTAL_STAGE0_END.lua',
+             'script_sha': 'd98dbd5ebebde924fd6deffcf17b969f631c654f6bd67d80e83ffd2370c12ed7',
+             'source': {'template': 7603, 'source_index': 22, 'points': [29], 'active': True,
+                        'gage': False, 'ally': False, 'team': 1, 'no_drop': True, 'right': False,
+                        'boss': False, 'boss_lines': 1, 'key_code': -1, 'source_key_code': -1,
+                        'rate': 100, 'offset': [0, 0, 0]}},
+        ),
+    },
+    (34360, 1, 0): {
+        'graph_sha': 'e5c9b9d1e6553e2e30a112a0fc06515ec73d02f0fc5bb8d5aa534efde650d214',
+        'required': (7605,),
+        'markers': (
+            {'script': 'DEVILDOM2_PORTAL_STAGE1_END.lua',
+             'script_sha': 'ea902683f4c16a78f2e3e41dee9fad9b294ce9fd1688a11393034de364df157b',
+             'source': {'template': 7605, 'source_index': 17, 'points': [58], 'active': True,
+                        'gage': False, 'ally': False, 'team': 1, 'no_drop': True, 'right': False,
+                        'boss': False, 'boss_lines': 1, 'key_code': -1, 'source_key_code': -1,
+                        'rate': 100, 'offset': [0, 0, 0]}},
+        ),
+    },
+    (34360, 2, 0): {
+        'graph_sha': 'e5c9b9d1e6553e2e30a112a0fc06515ec73d02f0fc5bb8d5aa534efde650d214',
+        'required': (7607,),
+        'markers': (
+            {'script': 'DEVILDOM2_PORTAL_STAGE2_END.lua',
+             'script_sha': '847a32b2a5436f9c50e527f84cd417e4dbb3ef123bd46cda03239db2d43b7b67',
+             'source': {'template': 7607, 'source_index': 39, 'points': [1], 'active': True,
+                        'gage': False, 'ally': False, 'team': 1, 'no_drop': True, 'right': False,
+                        'boss': False, 'boss_lines': 1, 'key_code': -1, 'source_key_code': -1,
+                        'rate': 100, 'offset': [0, 0, 0]}},
+        ),
+    },
+}
+
+
+def part_marker(run, npc, row):
+    """True for a declared marker of this pinned room, verified by source."""
+    if (run.graph['source_sha256'] != row['graph_sha']
+            or run.graph != run.catalog.graph(run.identity)):
+        return False
+    from els_server.game_data import client_data
+    for marker in row['markers']:
+        source = marker['source']
+        if (npc.get('template') != source['template']
+                or any(npc.get(k) != v for k, v in source.items() if k != 'active')
+                or npc.get('start_point') != source['points'][0]):
+            continue
+        if run.catalog.manifest['source_sha256'].get(marker['script']) != marker['script_sha']:
+            continue
+        native = client_data().npc(source['template'])
+        if native['class_id'] == 103 and native['is_npc'] is True:
+            return True
+    return False
+
+
+def part_marker_npc(run, npc):
+    """True for a marker of the pinned room the run currently stands in."""
+    if not part_marker_relaxation():
+        return False
+    row = PART_MARKERS.get((run.identity, run.stage, run.part))
+    return row is not None and part_marker(run, npc, row)
+
+
+def part_marker_gate(run, npcs, dead, required):
+    """True when a pinned room's requirement is its own script markers.
+
+    The client retires them inside its own scene, so no combat report exists.
+    Every other living actor of the room must still be dead.
+    """
+    if not part_marker_relaxation():
+        return False
+    row = PART_MARKERS.get((run.identity, run.stage, run.part))
+    if row is None or set(required) != set(row['required']):
+        return False
+    matched = [n for n in npcs if n['template'] in required]
+    if not matched or not all(part_marker(run, n, row) for n in matched):
+        return False
+    live = [n for n in npcs if n['active'] and n.get('team', 1) != 0
+            and not part_marker(run, n, row)]
     return all(n['key'] in dead for n in live)

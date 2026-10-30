@@ -7,6 +7,7 @@ inventory allocation and level thresholds remain the source of truth.
 from contextlib import closing
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+import ctypes
 import functools
 import hashlib
 import json
@@ -45,11 +46,29 @@ def bounded_int(value, low, high, name):
     return value
 
 
+def exited(pid):
+    """True once the process has terminated, even while its entry survives.
+
+    A terminated Windows process keeps a listing entry (zero threads/handles,
+    no window) until every handle closes, so the signaled handle is authoritative.
+    """
+    if os.name != 'nt':
+        return False
+    kernel32 = ctypes.windll.kernel32
+    handle = kernel32.OpenProcess(0x00100000, False, pid)  # SYNCHRONIZE
+    if not handle:
+        return False  # unable to inspect: treat as running rather than start a second client
+    try:
+        return kernel32.WaitForSingleObject(handle, 0) == 0
+    finally:
+        kernel32.CloseHandle(handle)
+
+
 def games():
     result = []
     for p in psutil.process_iter(['name']):
         try:
-            if (p.info['name'] or '').lower() in ('x2.exe', 'x2_dx11.exe'):
+            if (p.info['name'] or '').lower() in ('x2.exe', 'x2_dx11.exe') and not exited(p.pid):
                 result.append(p.pid)
         except psutil.Error:
             pass
@@ -77,6 +96,22 @@ def item_catalog():
                          bag=BAGS.get(group, str(group)), stack=TEMPLATE_MAX_STACKS[identity],
                          metadata=VERIFIED_TEMPLATES[identity]))
     return tuple(rows)
+
+
+def mail_attachment(db, item, quantity):
+    """One complete instance for the mail escrow; the bag is untouched."""
+    from els_server.domain.inventory_items import TEMPLATE_MAX_STACKS
+    from els_server.storage.item_instances import next_uid
+    maximum = TEMPLATE_MAX_STACKS[item['id']]
+    if quantity > maximum:
+        raise ValueError(f'{item["name"]} 单封邮件最多 {maximum} 个')
+    attached = dict(uid=next_uid(db), template=item['id'], metadata=item['metadata'],
+                    group=item['group'], slot=0, count=quantity)
+    from els_server.domain.normal_equipment import definitions as normal_equipment
+    if item['id'] in normal_equipment() or item['id'] in (135928, 135929, 135931):
+        from els_server.domain.equipment_durability import maximum as full_durability
+        attached['durability'] = full_durability(item['id'])
+    return attached
 
 
 class LauncherService:
@@ -167,6 +202,12 @@ class LauncherService:
                            ('inventory_items','owner'),('skill_slots','uid')]:
             if self.table(db, table):
                 facts.append([table, [list(r) for r in db.execute(f'SELECT * FROM {table} WHERE {key}=? ORDER BY 1', (uid,))]])
+        if self.table(db, 'game_mail') and self.table(db, 'character_owners'):
+            account = db.execute('SELECT account_id FROM character_owners WHERE uid=?', (uid,)).fetchone()
+            if account:
+                facts.append(['game_mail', [list(r) for r in db.execute(
+                    '''SELECT id,campaign,ed,created_at,expires_at,read_at,claimed_at,deleted_at
+                       FROM game_mail WHERE account_id=? ORDER BY id''', (account[0],))]])
         return hashlib.sha256(repr(facts).encode()).hexdigest()
 
     def inventory(self, uid):
@@ -352,10 +393,18 @@ class LauncherService:
                                     db.execute('UPDATE skill_slots SET payload=?,revision=revision+1 WHERE uid=?', (payload, uid))
                                 detail = f'等级 {old_level} → {value}，经验同步到原生等级阈值'
                             elif action == 'item':
-                                from els_server.storage.inventory_state import ensure_inventory, grant_items
+                                from els_server.storage import game_mail
+                                from els_server.storage.inventory_state import ensure_inventory
                                 ensure_inventory(db)
-                                grant_items(db, [dict(template=item['id'], metadata=item['metadata'], group=item['group'], quantity=value['quantity'])], uid)
-                                detail = f'发放 {item["name"]} × {value["quantity"]}'
+                                account = db.execute('SELECT account_id FROM character_owners WHERE uid=?', (uid,)).fetchone()
+                                if account is None:
+                                    raise ValueError('找不到角色所属账号')
+                                attached = mail_attachment(db, item, value['quantity'])
+                                game_mail.local_item_campaign(
+                                    db, 'gm-'+operation_id, account[0], uid, attached,
+                                    title='GM 物品发放', body=f'{item["name"]} × {value["quantity"]}，请在邮箱中领取。',
+                                    expires_at=int(time.time())+365*86400)
+                                detail = f'发放 {item["name"]} × {value["quantity"]} 到邮箱'
                             else:
                                 db.execute('UPDATE location SET town=20000,board=0,progress=0,x=0,y=0,z=0,revision=revision+1 WHERE uid=?', (uid,))
                                 detail = '回到魔奇初始位置'

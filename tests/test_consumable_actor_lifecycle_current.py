@@ -59,7 +59,10 @@ class Check(unittest.TestCase):
   for label,fn in actions:fn(False);ROWS.append(dict(label=label,stage='legacy-without-lifecycle',passed=True))
   gear=self.grant(30160);cube=self.grant(130172);ice=self.grant(800000)
   injected=ValueError('private encoder failure')
-  cases=[('decompose',decomposition,'decompose_ack',lambda:decomposition.decompose(self.path,1001,struct.pack('>IQB',1,gear['uid'],0),'rollback-decompose')),
+  def boom(*a,**k):raise injected
+  # decompose carries an injected encoder because its first-pass branch calls the
+  # bound `encode=` default (the XP-aware writer), not the module attribute.
+  cases=[('decompose',decomposition,'decompose_ack',lambda:decomposition.decompose(self.path,1001,struct.pack('>IQB',1,gear['uid'],0),'rollback-decompose',encode=boom)),
    ('fixed-cube',fixed_cubes,'result',lambda:fixed_cubes.open_cube(self.path,1001,130172,wire(cube['uid']),'rollback-fixed')),
    ('ice',ice_state,'result_events',lambda:ice_state.draw(self.path,wire(ice['uid']),'rollback-ice',randbelow=lambda n:0))]
   for label,module,symbol,fn in cases:

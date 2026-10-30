@@ -1726,6 +1726,14 @@ class LocalSession:
                 # Then select resource part 0 (B7) before resuming actors (BD).
                 # All three notifications are once-only for this first substage.
                 reply.append(Event(0x201,kind=0xb6,payload=bytes(16)))
+                if self.item_test:
+                    # The dungeon scene owns a fresh item state; the member DTO's
+                    # equipped map only restores UIDs. Re-apply the owned worn
+                    # instances exactly like the town scene-ready refresh
+                    # (local_session 0x227), otherwise the local model is bare.
+                    from els_server.domain.fashion_state import move_ack
+                    worn=[i for i in self.account.get_inventory_snapshot()['items'] if i['group']==9]
+                    if worn:reply.append(Event(0x201,kind=0x105,payload=move_ack([((9,i['slot']),i) for i in worn])))
                 reply.append(dungeon_messages.initial_part())
                 npc_entries=()
                 if self.client_build=='dx11_260923' and self.population_test:

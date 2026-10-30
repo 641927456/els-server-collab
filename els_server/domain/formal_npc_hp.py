@@ -160,9 +160,10 @@ def public_maximum(catalog, template, dungeon, npc_level, source_context=None):
 
 
 def _local_curve(dungeon,maximum):
-    """Single choke point for the local playability overlay."""
+    """Single choke point for the local playability overlays."""
     from els_server.domain.local_hp_curve import apply as apply_local_curve
-    return apply_local_curve(dungeon,maximum)
+    from els_server.domain.local_boss_cap import apply as apply_boss_cap
+    return apply_boss_cap(dungeon,apply_local_curve(dungeon,maximum))
 
 
 def maximum(catalog, template, *, dungeon, npc_level=None, boss=False, source_context=None):

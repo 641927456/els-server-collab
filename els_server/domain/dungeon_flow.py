@@ -85,11 +85,13 @@ def handle(s,event):
   # A source-pinned class-103 scene object that the client retires inside its
   # own scene (厄泰拉核心 stage2 part0, template 343 PD_Monster) has no combat
   # report to wait for; the client's own request is the proof its scene is
-  # done. Real hostiles still have to be dead before the gate opens.
-  from els_server.domain.local_dungeon_flow import scene_object_npc
+  # done. The same holds for the 尼格摩尔 part markers. Real hostiles still
+  # have to be dead before the gate opens.
+  from els_server.domain.local_dungeon_flow import part_marker_npc, scene_object_npc
   valid=(s.dungeon_substage_synced and not s.clear_notified and
          event.payload==struct.pack('>b',run.part) and
-         all(n['key'] in run.defeated or scene_object_npc(run,n) for n in run.current['npcs'] if n['active'] and n.get('team',1)!=0))
+         all(n['key'] in run.defeated or scene_object_npc(run,n) or part_marker_npc(run,n)
+             for n in run.current['npcs'] if n['active'] and n.get('team',1)!=0))
   if valid:run.portal_requested=True
   elif late:return [Event(0x201,kind=0xb9,payload=bytes(4))]
   return [Event(0x201,kind=0xb9,payload=struct.pack('>i',0 if valid else -1))]+(periodic(s) if valid else [])
