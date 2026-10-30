@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "status": "REVIEWABLE_SELECTIVE_SOURCE_NOT_PUBLISHED",
+  "path": "els_server/domain/raid_reward_items.py",
+  "after_sha256": "847a7687d8ddc5a7405536eaa327d4e9bc66f337b9814975284f572e63eee7c0",
+  "after_size": 16785,
+  "channels": {
+    "online": {
+      "release": "native-shared-repair-20261030-v1",
+      "pointer_sha256": "843a758fa58ec9fa25476c979f0669646a147001359b0af5b310d3e30412b610",
+      "manifest_sha256": "45274615b17ffc1f80bf9acc8b6e40afa73b0724422601e4c1c9ead82e8ce648",
+      "manifest_files": 1315,
+      "changed_existing": [
+        {
+          "path": "els_server/domain/raid_reward_items.py",
+          "before_size": 16753,
+          "before_sha256": "38ed084b2b41ade0cdcdb72ad3d5177ba6fae137d823fb7d1bcef11f3ef04f66",
+          "after_size": 16785,
+          "after_sha256": "847a7687d8ddc5a7405536eaa327d4e9bc66f337b9814975284f572e63eee7c0"
+        }
+      ],
+      "new_files": [],
+      "deleted_files": [],
+      "all_other_parent_rows_must_be_preserved": true
+    },
+    "local": {
+      "release": "local-native-shared-repair-20261030-v1",
+      "pointer_sha256": "48084d5ae7c7b8fb320d3846175b0ea04d1547435794567ea064590e8b849e3c",
+      "manifest_sha256": "2291d8c2e24f72209e802de082fda701f623fc87609e201206136f5862ff9fd5",
+      "manifest_files": 1340,
+      "changed_existing": [
+        {
+          "path": "els_server/domain/raid_reward_items.py",
+          "before_size": 16753,
+          "before_sha256": "38ed084b2b41ade0cdcdb72ad3d5177ba6fae137d823fb7d1bcef11f3ef04f66",
+          "after_size": 16785,
+          "after_sha256": "847a7687d8ddc5a7405536eaa327d4e9bc66f337b9814975284f572e63eee7c0"
+        }
+      ],
+      "new_files": [],
+      "deleted_files": [],
+      "all_other_parent_rows_must_be_preserved": true
+    }
+  },
+  "unchanged_shared_inputs": {
+    "online": [
+      {
+        "relative": "els_server/domain/raid_reward_items.py",
+        "size": 16753,
+        "sha256": "38ed084b2b41ade0cdcdb72ad3d5177ba6fae137d823fb7d1bcef11f3ef04f66"
+      },
+      {
+        "relative": "els_server/domain/formal_pve_economy.py",
+        "size": 7343,
+        "sha256": "93f67069de3602112b06a26927736dca4fc1541b0c760a3461dfa172bea16808"
+      },
+      {
+        "relative": "els_server/domain/equipment_circuit_rules.py",
+        "size": 4384,
+        "sha256": "98f0587fff962cd603ef78f0f40ecb0ca5735a20669a7c739c5955331b077ad1"
+      },
+      {
+        "relative": "els_server/game_data.py",
+        "size": 5467,
+        "sha256": "f67712c19a31c46c48f247d3e10a8efad1eefcdb529596389f900583444fbd41"
+      },
+      {
+        "relative": "els_server/paths.py",
+        "size": 78,
+        "sha256": "f4d9da30841b422720d029d23bc8b78dac55a80eb7c4380ccb445208614c147a"
+      },
+      {
+        "relative": "els_server/domain/acquisition_policy.py",
+        "size": 13747,
+        "sha256": "bcb87258e77ebb34257a29fe4f302dec83c728bc298b6e3e45ced9e049107083"
+      },
+      {
+        "relative": "els_server/storage/shop_state.py",
+        "size": 17304,
+        "sha256": "f337f348fa0a6b354b02c704ece5ade6d3f26204b0c849ecba42959c95553863"
+      },
+      {
+        "relative": "els_server/domain/shop_quantities.py",
+        "size": 2154,
+        "sha256": "e7db79e7c45746345076482a61bd318f2856030e61105599c402d9f1520dc1cd"
+      },
+      {
+        "relative": "els_server/data/raid_reward_items.json",
+        "size": 133372,
+        "sha256": "0223f49a018fdebc1300bf291d61f88fcddf24cfc7b270823b1339f5f225dfc1"
+      },
+      {
+        "relative": "els_server/data/raid_reward_items.manifest.json",
+        "size": 206,
+        "sha256": "ec7b5c5ef816fcf99ac7bf7dbb703de80f2f5bd15541ed4f7c61c24d6da8bbc5"
+      },
+      {
+        "relative": "els_server/data/formal_pve_economy.json",
+        "size": 185283,
+        "sha256": "01d100c92f9cb81624b5bd73b6e087e74ffb9d739bca6bf5e1f04c45f1951416"
+      },
+      {
+        "relative": "els_server/data/formal_pve_economy.manifest.json",
+        "size": 188,
+        "sha256": "ec3c257a9ee129b58bf4bfc5077d1e3ce8a9e5ecedb8e27164418c4e1dfd2496"
+      },
+      {
+        "relative": "els_server/data/equipment_circuits.json",
+        "size": 2538209,
+        "sha256": "c8bcd7900212ac9d19192838da2da31dcd28a0be015b7a2a93b81cc0199d6e91"
+      },
+      {
+        "relative": "els_server/data/client/manifest.json",
+        "size": 12789,
+        "sha256": "381cc3ba4a02b423ae82bd61f93e0dcbb454f911c806711e660442f888acf699"
+      },
+      {
+        "relative": "els_server/data/client/catalog.sqlite3",
+        "size": 122302464,
+        "sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba"
+      }
+    ],
+    "local": [
+      {
+        "relative": "els_server/domain/raid_reward_items.py",
+        "size": 16753,
+        "sha256": "38ed084b2b41ade0cdcdb72ad3d5177ba6fae137d823fb7d1bcef11f3ef04f66"
+      },
+      {
+        "relative": "els_server/domain/formal_pve_economy.py",
+        "size": 7343,
+        "sha256": "93f67069de3602112b06a26927736dca4fc1541b0c760a3461dfa172bea16808"
+      },
+      {
+        "relative": "els_server/domain/equipment_circuit_rules.py",
+        "size": 4384,
+        "sha256": "98f0587fff962cd603ef78f0f40ecb0ca5735a20669a7c739c5955331b077ad1"
+      },
+      {
+        "relative": "els_server/game_data.py",
+        "size": 5467,
+        "sha256": "f67712c19a31c46c48f247d3e10a8efad1eefcdb529596389f900583444fbd41"
+      },
+      {
+        "relative": "els_server/paths.py",
+        "size": 78,
+        "sha256": "f4d9da30841b422720d029d23bc8b78dac55a80eb7c4380ccb445208614c147a"
+      },
+      {
+        "relative": "els_server/domain/acquisition_policy.py",
+        "size": 13588,
+        "sha256": "0e132031cc7c27fe437e6457bd6fe67dfd00f40044cc1db4d6298e4143ce4301"
+      },
+      {
+        "relative": "els_server/storage/shop_state.py",
+        "size": 17304,
+        "sha256": "f337f348fa0a6b354b02c704ece5ade6d3f26204b0c849ecba42959c95553863"
+      },
+      {
+        "relative": "els_server/domain/shop_quantities.py",
+        "size": 2154,
+        "sha256": "e7db79e7c45746345076482a61bd318f2856030e61105599c402d9f1520dc1cd"
+      },
+      {
+        "relative": "els_server/data/raid_reward_items.json",
+        "size": 133372,
+        "sha256": "0223f49a018fdebc1300bf291d61f88fcddf24cfc7b270823b1339f5f225dfc1"
+      },
+      {
+        "relative": "els_server/data/raid_reward_items.manifest.json",
+        "size": 206,
+        "sha256": "ec7b5c5ef816fcf99ac7bf7dbb703de80f2f5bd15541ed4f7c61c24d6da8bbc5"
+      },
+      {
+        "relative": "els_server/data/formal_pve_economy.json",
+        "size": 185283,
+        "sha256": "01d100c92f9cb81624b5bd73b6e087e74ffb9d739bca6bf5e1f04c45f1951416"
+      },
+      {
+        "relative": "els_server/data/formal_pve_economy.manifest.json",
+        "size": 188,
+        "sha256": "ec3c257a9ee129b58bf4bfc5077d1e3ce8a9e5ecedb8e27164418c4e1dfd2496"
+      },
+      {
+        "relative": "els_server/data/equipment_circuits.json",
+        "size": 2538209,
+        "sha256": "c8bcd7900212ac9d19192838da2da31dcd28a0be015b7a2a93b81cc0199d6e91"
+      },
+      {
+        "relative": "els_server/data/client/manifest.json",
+        "size": 12789,
+        "sha256": "381cc3ba4a02b423ae82bd61f93e0dcbb454f911c806711e660442f888acf699"
+      },
+      {
+        "relative": "els_server/data/client/catalog.sqlite3",
+        "size": 122302464,
+        "sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba"
+      }
+    ]
+  },
+  "change": "One functools.lru_cache(maxsize=1) decorator on no-argument immutable source_only_templates",
+  "dynamic_sourceledger_transactions_prices_rewards_wire_changed": false,
+  "requires_normal_process_restart": true,
+  "hot_reload_supported": false,
+  "DB_schema_migration": false,
+  "client_or_support_change": false,
+  "new_Runtime_Hook": false,
+  "independent_final_review_required": true,
+  "latest_parent_drift_requires_rebase": true
+}

@@ -69,7 +69,7 @@ def main():
             raw=(ROOT/row['source']).read_bytes()
             assert len(raw)==row['size']and hashlib.sha256(raw).hexdigest()==row['sha256']
             entry,path=selected[row['path']]
-            from tools.verify_shared_repair_inheritance_20261030 import verified_shared_repair_predecessor
+            from tools.verify_cache_exact41400_inheritance_20261030 import verified_current_predecessor as verified_shared_repair_predecessor
             historical_profile,entry,path=verified_shared_repair_predecessor(profile,mode,entry,path)
             from tools.verify_server_structure_20261029 import verified_structure_predecessor
             entry,path=verified_structure_predecessor(historical_profile,mode,entry,path)

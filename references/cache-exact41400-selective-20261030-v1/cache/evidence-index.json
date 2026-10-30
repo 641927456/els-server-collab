@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "evidence": [
+    {
+      "id": "source-review",
+      "sha256": "c1e0729008079a2089cafc7eab817459de6787538e5296979a68add2f51b1699"
+    },
+    {
+      "id": "storage-and-OS-cold-review",
+      "sha256": "e280bd14f0408c81e5e57bdafd78396aa87c47a20ec410f4ce0de346b13fbad6"
+    },
+    {
+      "id": "normal-App-review",
+      "sha256": "29f111fa55781711e9884181abae22b8e334dc04a85a28689d70b353c98c8924"
+    },
+    {
+      "id": "normal-App-handoff",
+      "sha256": "83a862f2bcbe1aeb167c44f8e5d4791ab2e169b6ff7c7a3e9cbf2b1b4473e30f"
+    },
+    {
+      "id": "storage-cleanup",
+      "sha256": "6f799ff5457b8ac972643b4ac14e060af33dee7e61c8dfa8ef99c06a72b0d815"
+    },
+    {
+      "id": "normal-App-cleanup",
+      "sha256": "25b95b202f93e02e9187d712aaa133c294c7de3b4b99918a738634e53844a0c1"
+    },
+    {
+      "id": "baseline-catalog",
+      "sha256": "a49e23ab60d99cfcf903102e0e5284fb5b02cb8df939913401b6fa67b85efc47"
+    },
+    {
+      "id": "candidate-catalog",
+      "sha256": "1c2e1f7b1f6270443ee4b69cb12bfe08018ebf38dbb4940bc8e7db6adc08cff0"
+    },
+    {
+      "id": "human-install-push-scope",
+      "sha256": "eb35abffbc744a25944339719ee499834ea999475797825575b3a061ec953337"
+    }
+  ],
+  "qualification": {
+    "source": true,
+    "immutable_cache_pure": true,
+    "real_storage_transaction_and_OS_cold": true,
+    "normal_LOCAL_App_wire_and_new_App_cold": true,
+    "actual_Game_GUI_render": false,
+    "online_deployment": false,
+    "signed_launcher_upgrade": false
+  },
+  "facts": [
+    "Complete11923/6296 catalog sequences preserved",
+    "Storage baseline/candidate typed schema and ACK identical; one receipt, conflicting retry rollback and cold replay preserved",
+    "Normal LOCAL App full80E and80F/810; same-Session handler replay is not wire replay; new Session cold read only",
+    "App case used a9-leaf source overlay; only this leaf and unchanged hotpath/data evidence are inherited, not other8 repairs"
+  ],
+  "performance_limit": "Historical private measurements are observations, not a production/network/render SLA"
+}
