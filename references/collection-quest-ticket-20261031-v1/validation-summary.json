@@ -1,0 +1,160 @@
+{
+  "online_observation_seconds": 125.30956510000397,
+  "local_observation_seconds": 120.00052249990404,
+  "public_TLS": {
+    "ok": true,
+    "checks": [
+      "Normal authenticated town entry carries52700,current ownerUID and1/500EP in native task initialization/notifications",
+      "Unopened ticket2487 and1EP task completion187 both preserve own state",
+      "NormalF4 consumes500EP once and activates collection",
+      "Original219 consumes one980044,10days stored and955 emitted",
+      "Cold authenticated reconnect preserves completion,0EP,10tickets and exact expiry"
+    ],
+    "EP_consumed": 500,
+    "tickets_consumed": 1,
+    "days": 10,
+    "natural_GUI": false
+  },
+  "local_business": {
+    "ok": true,
+    "scenario": "test_retained_old_items_do_not_block_accept_claim_or_ticket",
+    "own_new_database": true
+  },
+  "candidate_related_scenarios": {
+    "task_each": 8,
+    "ticket_each": 11,
+    "reused_unchanged_success": true
+  },
+  "native_task_readers": {
+    "ok": true,
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "checks": [
+      {
+        "channel": "online",
+        "kind": "F0",
+        "reader": "0x3044b00",
+        "consumed": 50,
+        "quest": 52700,
+        "owner": 1001,
+        "objectives": [
+          [
+            52701,
+            1,
+            0
+          ],
+          [
+            52702,
+            1,
+            1
+          ]
+        ]
+      },
+      {
+        "channel": "online",
+        "kind": "F3",
+        "reader": "0xb8ce40",
+        "consumed": 42,
+        "quest": 52700,
+        "owner": 1001,
+        "objectives": [
+          [
+            52701,
+            1,
+            0
+          ],
+          [
+            52702,
+            1,
+            1
+          ]
+        ]
+      },
+      {
+        "channel": "local",
+        "kind": "F0",
+        "reader": "0x3044b00",
+        "consumed": 50,
+        "quest": 52700,
+        "owner": 1001,
+        "objectives": [
+          [
+            52701,
+            1,
+            0
+          ],
+          [
+            52702,
+            1,
+            1
+          ]
+        ]
+      },
+      {
+        "channel": "local",
+        "kind": "F3",
+        "reader": "0xb8ce40",
+        "consumed": 42,
+        "quest": 52700,
+        "owner": 1001,
+        "objectives": [
+          [
+            52701,
+            1,
+            0
+          ],
+          [
+            52702,
+            1,
+            1
+          ]
+        ]
+      }
+    ],
+    "live_process_access": false,
+    "natural_GUI": false,
+    "installed": false
+  },
+  "native_collection_readers": {
+    "ok": true,
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "checks": [
+      {
+        "days": 0,
+        "reader": "DB1080",
+        "notification_reader": "10E9010",
+        "expiry": 0,
+        "consumed": 46
+      },
+      {
+        "days": 10,
+        "reader": "DB1080",
+        "notification_reader": "10E9010",
+        "expiry": 1794255166,
+        "consumed": 46
+      },
+      {
+        "days": 90,
+        "reader": "DB1080",
+        "notification_reader": "10E9010",
+        "expiry": 1801167166,
+        "consumed": 46
+      }
+    ],
+    "live_process_access": false,
+    "natural_GUI": false,
+    "installed": false
+  },
+  "cleanup": {
+    "own_QA_authentication_removed": true,
+    "writer_barrier": true,
+    "registration_capacity_released": true,
+    "own_tasks_and_stages_removed": true,
+    "own_locks_released": true,
+    "recovery_backups_retained": true
+  },
+  "player_database_restore": false,
+  "player_inventory_mutation": false,
+  "progress_public_readback": true,
+  "Git_merge": false,
+  "first_public_QA_failure": "QA read raw persisted objectives0/0 instead of existing authoritative dynamic projection; corrected own QA snapshot/notification checks only, zero EP/ticket operations before failure; resumed same owned account without repeating successful economy"
+}
