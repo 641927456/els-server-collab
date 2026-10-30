@@ -19,6 +19,8 @@ def main(argv=None):
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
     if (ROOT/'channels/shared-request-latency-candidate-20261031-v1.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_shared_request_latency.py')]+(['--with-runtime']if args.with_runtime else []))
+    if (ROOT/'channels/accessory-identification-accepted-20261031-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_accessory_identification_20261031.py')])
     if (ROOT/'references/owned-stones-nine-leaf-selective-20261030-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_owned_stones_nine_archive_20261030.py')])
     if (ROOT/'references/cache-exact41400-selective-20261030-v1/source-contract.json').is_file():
