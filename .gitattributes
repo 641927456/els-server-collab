@@ -53,3 +53,11 @@ references/server-structure-20261029-v1/test-sources/test_dispatch_settlement_co
 
 # Exact corrected V44 source and signed JSON retain their qualified bytes.
 launchers/friends-v44/** -text whitespace=cr-at-eol
+
+# Exact Source31 contracts and actual signed V45 source retain their original bytes.
+channels/native-shared-repair-20261030-v1*.json -text whitespace=cr-at-eol
+channels/native-shared-repair-accepted-20261030-v1.json -text whitespace=cr-at-eol
+references/native-shared-repair-20261030-v1/** -text whitespace=cr-at-eol
+launchers/friends-v45/** -text whitespace=cr-at-eol
+# Actual signed Program.cs retains its existing trailing blank EOF line.
+launchers/friends-v45/Program.cs -text whitespace=cr-at-eol,-blank-at-eof
