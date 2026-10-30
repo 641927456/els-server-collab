@@ -1,6 +1,8 @@
 """Exact two-leaf successor admission, then the unchanged c63 historical verifier."""
 from pathlib import Path
-import copy,hashlib,json
+import copy,hashlib,json,sys
+ROOT=Path(__file__).resolve().parents[1]
+if str(ROOT)not in sys.path:sys.path.insert(0,str(ROOT))
 from tools.materialize_formal_runtime import bound,plan
 
 REF='references/cache-exact41400-selective-20261030-v1'
@@ -110,6 +112,9 @@ def verified_current_predecessor(profile,mode,entry,path,*,root=None):
     """Only unchanged proof leaves unwrap; always run the original predecessor."""
     root=Path(root)if root is not None else Path(__file__).resolve().parents[1]
     from tools.verify_shared_repair_inheritance_20261030 import verified_shared_repair_predecessor
+    if profile.get('name')=='owned-stones-nine-leaf-accepted-20261030-v1':
+        from tools.verify_owned_stones_activation_20261030 import verified_nine_predecessor
+        return verified_nine_predecessor(profile,mode,entry,path,root=root)
     if profile.get('name')=='cache-exact41400-accepted-20261030-v1':
         contract,candidate,parent=source_contract(root)
         assert sha(root/ACCEPTED)==digest(accepted_document(candidate))
@@ -123,7 +128,7 @@ def verified_current_predecessor(profile,mode,entry,path,*,root=None):
 def main():
     root=Path(__file__).resolve().parents[1];contract,candidate,parent=source_contract(root)
     pointer=read(root/'channels/current-engine.json')
-    if pointer['profile']==ACCEPTED:
+    if pointer['profile']in(ACCEPTED,'channels/owned-stones-nine-leaf-accepted-20261030-v1.json'):
         from tools.materialize_formal_runtime import load_manifest
         selected=load_manifest(root/'channels/current-engine.json',root)
         for mode in COUNTS:

@@ -68,8 +68,11 @@ def verify(root):
     old.require_receipts(parent,candidate,previous_contract,previous_receipt,launcher)
     assert set(launcher['actual_artifact_sha256'])>={'exe','local_archive','local_manifest','friends_archive','friends_manifest','source_profile'}
     assert launcher['source_profile_sha256']==PARENT_SHA and launcher['V']==46
-    assert read(root/'channels/current-engine.json')==dict(format=1,profile=PARENT,accepted=old.HEADS)
+    selected=read(root/'channels/current-engine.json')
+    if selected!=dict(format=1,profile=PARENT,accepted=old.HEADS):
+        from tools.verify_owned_stones_activation_20261030 import verify_active_pointer
+        verify_active_pointer(root,profile,receipt)
     for mode in COUNTS:plan(root,profile,mode)
-    return dict(ok=True,actual_business_archive=True,current_engine_activated=False,launcher_for_nine_leaf_pending=True,V46_is_two_leaf_only=True)
+    return dict(ok=True,actual_business_archive=True,current_engine_activated=selected['profile']==PROFILE,launcher_for_nine_leaf_pending=True,V46_is_two_leaf_only=True)
 
 if __name__=='__main__':print(json.dumps(verify(Path(__file__).resolve().parents[1])))
