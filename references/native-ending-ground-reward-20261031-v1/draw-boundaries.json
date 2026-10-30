@@ -1,0 +1,67 @@
+{
+  "ok": true,
+  "cases": [
+    {
+      "drop_bp": 0,
+      "draw": 0,
+      "awarded": true
+    },
+    {
+      "drop_bp": 0,
+      "draw": 9999999,
+      "awarded": true
+    },
+    {
+      "drop_bp": 0,
+      "draw": 10000000,
+      "awarded": false
+    },
+    {
+      "drop_bp": 0,
+      "draw": 99999999,
+      "awarded": false
+    },
+    {
+      "drop_bp": 5000,
+      "draw": 0,
+      "awarded": true
+    },
+    {
+      "drop_bp": 5000,
+      "draw": 14999999,
+      "awarded": true
+    },
+    {
+      "drop_bp": 5000,
+      "draw": 15000000,
+      "awarded": false
+    },
+    {
+      "drop_bp": 5000,
+      "draw": 99999999,
+      "awarded": false
+    },
+    {
+      "drop_bp": 15000,
+      "draw": 0,
+      "awarded": true
+    },
+    {
+      "drop_bp": 15000,
+      "draw": 24999999,
+      "awarded": true
+    },
+    {
+      "drop_bp": 15000,
+      "draw": 25000000,
+      "awarded": false
+    },
+    {
+      "drop_bp": 15000,
+      "draw": 99999999,
+      "awarded": false
+    }
+  ],
+  "base_basis_points": 1000,
+  "local_not_official": true
+}

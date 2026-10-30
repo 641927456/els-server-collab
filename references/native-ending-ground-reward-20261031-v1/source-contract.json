@@ -1,0 +1,103 @@
+{
+  "format": 1,
+  "candidate": true,
+  "activation": false,
+  "runtime_acceptance": false,
+  "issue": 672,
+  "files": [
+    {
+      "path": "els_server/domain/drop_pickup.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "source": "references/native-ending-ground-reward-20261031-v1/source/shared/els_server/domain/drop_pickup.py",
+      "sha256": "8c486b35508eb21496d3e51bf2a3efff1e0d9c796a138580b300b936ce210f6b",
+      "parent_sha256": "cbcccf87bc2c4fbee7e45694d436e7410e9b8fc49cfa7bf0fcc10b7f57278cc9"
+    },
+    {
+      "path": "els_server/domain/dungeon_drops.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "source": "references/native-ending-ground-reward-20261031-v1/source/shared/els_server/domain/dungeon_drops.py",
+      "sha256": "c22477db1f01f1ce2e9a37416d3e880f86c917f3936095fb9d1b8de9dc5b3b95",
+      "parent_sha256": "fea9c916cad993678c2b4aa90b72ac8d6cfba479ddc34af92345e5138d2f5f3d"
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "source": "references/native-ending-ground-reward-20261031-v1/source/shared/els_server/domain/dungeon_flow.py",
+      "sha256": "42ad457631684376ae3720b52a65078710ec3ee29d569605cff4bf836ebe561e",
+      "parent_sha256": "af6f3ae32baeedf444e3861ace7b2c1bcc6fa174a4cd92b573b07242a59390ac"
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "source": "references/native-ending-ground-reward-20261031-v1/source/shared/els_server/domain/friends_dungeon.py",
+      "sha256": "d6ee6ed473d6c82c2a877fcd0a4b698a92dce4822d4e7867049a0b583b1cf177",
+      "parent_sha256": "903a40432b921a56ab4b788bdcf35e0b4bf8543c5a22bbe63dd8fba268aa9452"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "channels": [
+        "online"
+      ],
+      "source": "references/native-ending-ground-reward-20261031-v1/source/online/els_server/domain/local_session.py",
+      "sha256": "db2d1e4ed25e9abca3e0e8b60432a0d70f08b16fb180f3070f2474da5d4083d4",
+      "parent_sha256": "be0d3b57eef775852a7735a3b9087f02032fc483c7858bc104c89e095942d9b6"
+    },
+    {
+      "path": "els_server/domain/native_script_loot.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "source": "references/native-ending-ground-reward-20261031-v1/source/shared/els_server/domain/native_script_loot.py",
+      "sha256": "b68d81fd035d1b37cb08a53ef58f0cf76d0fe135eed032dc696fcd344de4f120",
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/dungeon_equipment_loot.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "source": "references/native-ending-ground-reward-20261031-v1/source/shared/els_server/storage/dungeon_equipment_loot.py",
+      "sha256": "6b705e34ac6132dad29f7eaa2d3ca4e9a97c8a5e7f0882d82bdaa7ed651f4f32",
+      "parent_sha256": "01f08fc8d0904b04fa83a6ee36398cc27dc17ec041774b09d3856de2a243f9ab"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "channels": [
+        "local"
+      ],
+      "source": "references/native-ending-ground-reward-20261031-v1/source/local/els_server/domain/local_session.py",
+      "sha256": "f551732e5894534043991411fd3bd35cb7b9d29a90afe2cf54537f18b05b1543",
+      "parent_sha256": "7599e7ee54a9117134b9e8277ef4009da88529f53d16ab8c0cae350e6591f377"
+    }
+  ],
+  "source_parent_online": "dungeon-populations-20261031-v1",
+  "source_parent_local": "local-dungeon-populations-20261031-v1",
+  "integration": "Materialize shared files plus exactly the matching channel local_session. Root collaboration code is a historical predecessor and must not replace the running composition.",
+  "rules": "Only current33891/stage4/part0/template2368/source_index6 true-ending death creates one per-member ground lottery. Existing SQL issue/pickup and typed accessory factory; generic30572 acquisition remains closed. The script witness is not an extra combat kill/EXP/coin. C1 stays independent; late witness requires current exact owner/epoch/source plus committed original final clear and Boss death.",
+  "local_numeric": "Reuse approved formal_pve_economy.local.current_boss_display_completion_bp=1000 (10%), one accessory, existing elixir multiplier. Per-owner local allocation; not an assertion of official chance/allocation.",
+  "authorization": "G:/els/analysis/monster-economy-formal-20261025-v1/authorization.json and ordinary-completion-v1/authorization.json; user authorizes solving current remaining dungeon issues.",
+  "new_schema": false,
+  "database_migration": false,
+  "install_DDL": false,
+  "existing_lazy_tables": [
+    "dungeon_equipment_loot_issues",
+    "inventory_action_receipts",
+    "raid_reward_sources"
+  ],
+  "client_change": false,
+  "deferred": "User explicitly postponed native game/map GUI tests. This server candidate has actual App/native transport and SQL qualification, not natural combat/GUI acceptance. Publishing remains assigned to authorized owner; exact-head merge approval still required."
+}
