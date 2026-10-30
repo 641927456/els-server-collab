@@ -85,16 +85,47 @@
     ],
     "public_authenticated_cold_read": true,
     "natural_GUI": false,
-    "natural_battle": false
+    "natural_battle": false,
+    "local_Application_initial_identifications": 2,
+    "local_Application_resets": 1,
+    "local_Application_conversion_modes": [
+      17,
+      18,
+      19
+    ],
+    "local_Application_cold_read": true,
+    "local_Application_same_six_leaf_results_reused": true,
+    "final_LOCAL_readonly_loaded_module_and_saved_native_item_check": true,
+    "fixture_failures_retained": [
+      "Public initial identification attempted on a conversion target that did not require it; four preceding successes reused",
+      "LOCAL fixture name exceeded native length during setup before any economy operation",
+      "LOCAL owned-only SQL guard omitted the exact same-database mode=rw URI; fixed guard and resumed conversion without repeating initial/reset operations"
+    ]
   },
   "online": {
     "installed": true,
     "release": "equipment-identification-conversion-20261031-v1",
     "manifest_sha256": "8387fd83b34363356d12c5ac647581e28be4a97c7e7ac2e300f08c5252a6b3ab",
-    "observation_seconds": 124.45096619997639
+    "observation_seconds": 124.45096619997639,
+    "retained_in_current": {
+      "ok": true,
+      "release": "force-categories-sources-20261031-v4",
+      "manifest_sha256": "898ec40ad008fb9ef54bde72f6d5d46677492856e40dfd97bb2060cefe0eacdd",
+      "six_files_retained": true,
+      "service_ready": true,
+      "player_mutations": 0
+    }
   },
   "local": {
-    "installed": false
+    "installed": true,
+    "release": "local-equipment-identification-conversion-20261031-v2",
+    "formal_manifest_sha256": "440e21890af87c57637b6e6b34cc54031c6bbbee7310584227f536301ca908e9",
+    "parent_release": "local-force-categories-sources-20261031-v4",
+    "observation_seconds": 120.00021179998294,
+    "runtime_files": 1819,
+    "business_files": 1365,
+    "actual_launcher_selector_verified": true,
+    "launcher_version": 49
   },
   "Git_merged": false,
   "privacy": {

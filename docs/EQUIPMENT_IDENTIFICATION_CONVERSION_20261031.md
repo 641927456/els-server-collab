@@ -11,3 +11,5 @@ Issue #662。当前可获取的装备/饰品按逐行原生组接入194个已核
 这里只提交脱敏源和必要摘要。玩家快照、原始日志、账号库、凭据、私人计算器URL不随源码上传。
 
 便携验证：`python -B tools/verify_equipment_identification_conversion_sources_20261031.py`。实际运行端安装与Git合并状态分开登记，以来源合同为准。
+
+双端实际交付：线上六叶已被后续原力正式版完整继承；线下为 `local-equipment-identification-conversion-20261031-v2`，保留最新原力和定制父版，120秒运行观察与V49实际选择器1819组件核验通过。LOCAL Application鉴定、重置、转换和冷读已核；最终父版再次核实际加载的六叶及已保存原生实例。Git合并状态独立登记，不能把上传分支当作主干合并。
