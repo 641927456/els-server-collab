@@ -1,0 +1,165 @@
+{
+  "format": 1,
+  "issue": 659,
+  "parent_contract": "references/custom-items-socket-default-20261031-v2/source-contract.json",
+  "problem": "Three Ain idle books retain incorrect native class201/Rose; native item_type14 checks unit12 and never reads class byteD3",
+  "client_delta": 0,
+  "schema_changes": 0,
+  "books": 3090,
+  "corrected_books": [
+    470442,
+    470443,
+    480369
+  ],
+  "held": [],
+  "channels": {
+    "local": {
+      "parent": "local-custom-items-socket-default-20261031-v2",
+      "parent_manifest_sha256": "97b5f46fa69e9a3a4de0de6b3c9d4da1bb996e7f1ab1416dbb99f29f3795de7b",
+      "files": {
+        "els_server/data/character_custom_permanent.json": {
+          "source": "references/custom-ain-server-only-20261031-v3/source/els_server/data/character_custom_permanent.json",
+          "sha256": "458668559146c59964bf9d51102dd143db2f12fdeb6825ba88f03ff63c0608da",
+          "parent_sha256": "a18ada72a1b41b224bf60671d5394b8d0e60fa4f82c4b27ef377c66906a83e05"
+        },
+        "els_server/domain/character_custom.py": {
+          "source": "references/custom-ain-server-only-20261031-v3/source/els_server/domain/character_custom.py",
+          "sha256": "30e7d38834a7d1084d6ce00ac495fcafb5bd32b2c480e738e0ad498a75d909ae",
+          "parent_sha256": "d19e51c9073391076353b2cf3162adf51391df9a0cef3c615d3e3fff8d51f7a1"
+        },
+        "els_server/storage/character_custom.py": {
+          "source": "references/custom-ain-server-only-20261031-v3/source/els_server/storage/character_custom.py",
+          "sha256": "b292fffb647b2d93fbd5e07b46e87b5fa99d40dd212c4e0eb6dcd8a43539020f",
+          "parent_sha256": "195eb12e248b8aab093969caf2ded809f7863f510885a6ba80274ae3cd025ceb"
+        }
+      },
+      "recovery_storage": {
+        "source": "references/custom-ain-server-only-20261031-v3/recovery/els_server/storage/character_custom.py",
+        "sha256": "d3b963158bbaabe78e657b0765bb5c4081f39d82f1781fd7fe2cbe546a99a864"
+      }
+    },
+    "online": {
+      "parent": "custom-items-socket-default-20261031-v2",
+      "parent_manifest_sha256": "d27843d08e3976e1ca9b7c7a73a5118c9126c8082b5776a5e78938c73f786d69",
+      "files": {
+        "els_server/data/character_custom_permanent.json": {
+          "source": "references/custom-ain-server-only-20261031-v3/source/els_server/data/character_custom_permanent.json",
+          "sha256": "458668559146c59964bf9d51102dd143db2f12fdeb6825ba88f03ff63c0608da",
+          "parent_sha256": "a18ada72a1b41b224bf60671d5394b8d0e60fa4f82c4b27ef377c66906a83e05"
+        },
+        "els_server/domain/character_custom.py": {
+          "source": "references/custom-ain-server-only-20261031-v3/source/els_server/domain/character_custom.py",
+          "sha256": "30e7d38834a7d1084d6ce00ac495fcafb5bd32b2c480e738e0ad498a75d909ae",
+          "parent_sha256": "d19e51c9073391076353b2cf3162adf51391df9a0cef3c615d3e3fff8d51f7a1"
+        },
+        "els_server/storage/character_custom.py": {
+          "source": "references/custom-ain-server-only-20261031-v3/source/els_server/storage/character_custom.py",
+          "sha256": "b292fffb647b2d93fbd5e07b46e87b5fa99d40dd212c4e0eb6dcd8a43539020f",
+          "parent_sha256": "195eb12e248b8aab093969caf2ded809f7863f510885a6ba80274ae3cd025ceb"
+        }
+      },
+      "recovery_storage": {
+        "source": "references/custom-ain-server-only-20261031-v3/recovery/els_server/storage/character_custom.py",
+        "sha256": "d3b963158bbaabe78e657b0765bb5c4081f39d82f1781fd7fe2cbe546a99a864"
+      }
+    }
+  },
+  "validation": {
+    "test-result.json": {
+      "ok": true,
+      "checks": [
+        "locked source remains refused with no mutation",
+        "470442 native book retained, registration consumes1/EDsame, replay, Apply and ownership persist",
+        "registration SQL failure preserves inventory, ownership and receipts",
+        "470443 native book retained, registration consumes1/EDsame, replay, Apply and ownership persist",
+        "480369 native book retained, registration consumes1/EDsame, replay, Apply and ownership persist",
+        "cold read preserves all3 owned IDs and four native idle slots",
+        "duplicate book remains readable1492 and unconsumed",
+        "foreign account remains refused",
+        "unit11/class201 cannot use corrected Ain book; no mutation"
+      ],
+      "sha256": "1b5e0138a473f57060560998889c85512d365d9c23c2b7fd32fb3680cbdc8fa6"
+    },
+    "native-source-result.json": {
+      "ok": true,
+      "checks": [],
+      "sha256": "62afe23c2554fe54837ee0c04f4af740772b596b32171bc3905c22b413c88196"
+    },
+    "native-wire-result.json": {
+      "ok": true,
+      "checks": [
+        "actual Ain/Rose cold2A and all four saved Ain idle slots accepted by originalDA3370/2BDF5D0/125F700"
+      ],
+      "sha256": "3b836f83631782d8fefb827a0837d3295833e8b9e56a1aab1625d8f26e2c9e4c"
+    },
+    "recovery-result.json": {
+      "ok": true,
+      "checks": [
+        "forward recovery cold reads all3 corrected Ain custom IDs and four saved slots",
+        "committed registration receipt replays without new debit",
+        "new selection writer paused without mutation"
+      ],
+      "sha256": "c12fe9ce89464f1111fbf8fa2ee49ea375afab6c1c0c607347bbd81d696adf50"
+    }
+  },
+  "native_evidence": {
+    "ok": true,
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "fragment": "221A23C->221A3CB or221A291",
+    "original_getters": [
+      "7EF310(type)",
+      "7EF350(unit)",
+      "15D330",
+      "7EF380",
+      "7EFA50(actor unit)"
+    ],
+    "observed_not_stubbed": "native branch destinations; no instruction or eligibility substitution",
+    "rows": [
+      {
+        "book": 470442,
+        "actor_unit": 12,
+        "actor_class": 202,
+        "native_boundary": "custom-registration",
+        "wrong_template_class_not_read": true
+      },
+      {
+        "book": 470442,
+        "actor_unit": 11,
+        "actor_class": 201,
+        "native_boundary": "wrong-unit-dialog",
+        "wrong_template_class_not_read": true
+      },
+      {
+        "book": 470443,
+        "actor_unit": 12,
+        "actor_class": 202,
+        "native_boundary": "custom-registration",
+        "wrong_template_class_not_read": true
+      },
+      {
+        "book": 470443,
+        "actor_unit": 11,
+        "actor_class": 201,
+        "native_boundary": "wrong-unit-dialog",
+        "wrong_template_class_not_read": true
+      },
+      {
+        "book": 480369,
+        "actor_unit": 12,
+        "actor_class": 202,
+        "native_boundary": "custom-registration",
+        "wrong_template_class_not_read": true
+      },
+      {
+        "book": 480369,
+        "actor_unit": 11,
+        "actor_class": 201,
+        "native_boundary": "wrong-unit-dialog",
+        "wrong_template_class_not_read": true
+      }
+    ],
+    "offline_only": true,
+    "client_file_or_process_changes": false,
+    "natural_GUI": false
+  }
+}
