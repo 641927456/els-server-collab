@@ -112,6 +112,9 @@ def verified_current_predecessor(profile,mode,entry,path,*,root=None):
     """Only unchanged proof leaves unwrap; always run the original predecessor."""
     root=Path(root)if root is not None else Path(__file__).resolve().parents[1]
     from tools.verify_shared_repair_inheritance_20261030 import verified_shared_repair_predecessor
+    if profile.get('name')=='accessory-identification-accepted-20261031-v1':
+        from tools.verify_accessory_identification_20261031 import verified_accessory_predecessor
+        return verified_accessory_predecessor(profile,mode,entry,path,root=root)
     if profile.get('name')=='owned-stones-nine-leaf-accepted-20261030-v1':
         from tools.verify_owned_stones_activation_20261030 import verified_nine_predecessor
         return verified_nine_predecessor(profile,mode,entry,path,root=root)
@@ -128,7 +131,7 @@ def verified_current_predecessor(profile,mode,entry,path,*,root=None):
 def main():
     root=Path(__file__).resolve().parents[1];contract,candidate,parent=source_contract(root)
     pointer=read(root/'channels/current-engine.json')
-    if pointer['profile']in(ACCEPTED,'channels/owned-stones-nine-leaf-accepted-20261030-v1.json'):
+    if pointer['profile']in(ACCEPTED,'channels/owned-stones-nine-leaf-accepted-20261030-v1.json','channels/accessory-identification-accepted-20261031-v1.json'):
         from tools.materialize_formal_runtime import load_manifest
         selected=load_manifest(root/'channels/current-engine.json',root)
         for mode in COUNTS:
