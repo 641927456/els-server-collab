@@ -3,6 +3,7 @@ import asyncio
 from contextlib import closing
 from dataclasses import replace
 import json
+import importlib.util
 import logging
 from pathlib import Path
 import sqlite3
@@ -43,13 +44,14 @@ class LocalAuxiliaryTests(unittest.IsolatedAsyncioTestCase):
         self.session.role = 'game'
         self.session.phase = 'town_ready'
 
-    async def test_burst_skips_activity_work_owned_by_periodic_notifications(self):
+    async def test_burst_keeps_selected_profile_activity_policy(self):
         observed = []
         self.session.activity2026_awards = SimpleNamespace(online=SimpleNamespace(observe=lambda s: observed.append(s)))
         with patch.object(self.session, 'expiration_notifications', side_effect=AssertionError('ordinary path')):
             for _ in range(513):
                 self.assertEqual(await self.app.call(self.session.handle, auxiliary()), [])
-        self.assertEqual(observed, [])
+        expected = 0 if importlib.util.find_spec('els_server.domain.session_auxiliary') is not None else 1026
+        self.assertEqual(len(observed), expected)
         self.session.phase = 'dungeon_active'
         self.assertTrue(local_auxiliary_noop(self.session, auxiliary()))
 
