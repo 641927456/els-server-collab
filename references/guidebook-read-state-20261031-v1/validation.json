@@ -1,0 +1,42 @@
+{
+  "issue": 644,
+  "source_base": "13fe9defdcaae33ec2d25fe00aeacc8ca4d3ab53",
+  "candidate_only": true,
+  "installed": false,
+  "tests": {
+    "per_channel": 6,
+    "channels": [
+      "online",
+      "local"
+    ],
+    "storage_protocol_tests": {
+      "command": "python -B source/tests/test_guidebook.py -v (PYTHONPATH=test-runtime-<channel>;G:/els/tools/pylibs)",
+      "five_cases_passed_initial_run": true
+    },
+    "real_initialization_cold_relogin": {
+      "command": "python -B source/tests/test_guidebook.py GuidebookTests.test_local_session_routes_upload_and_restores_before_ready -v",
+      "passed_both_channels": true,
+      "initial_test_fixture_failures_retained_in_task_record": true
+    },
+    "source_checks": {
+      "command": "python -B tools/ci_checks.py",
+      "passed": true,
+      "compiled_python_sources": 2884
+    },
+    "native_map_reader_and_skill_getter": {
+      "rows": 4,
+      "passed": true,
+      "private_Unicorn_memory_only": true
+    },
+    "line_ending_normalization": "New reference files normalized after tests; AST equality verified; exact test-runtime files and final candidate bindings checked."
+  },
+  "source_delta_verified": "Exactly two insertions per channel LocalSession; all other parent text unchanged.",
+  "new_lazy_tables": [
+    "guidebook_flags"
+  ],
+  "install_DDL": 0,
+  "natural_GUI_tested": false,
+  "client_changes": 0,
+  "deployment_actions": 0,
+  "player_data_used": false
+}
