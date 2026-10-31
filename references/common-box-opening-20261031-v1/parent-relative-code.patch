@@ -1,0 +1,359 @@
+--- a/els_server/domain/acquisition_policy.py
++++ b/els_server/domain/acquisition_policy.py
+@@ -53,6 +53,8 @@
+     if template in career_templates():return False
+     from els_server.domain.job_reward_boxes import NEW_OUTPUTS,authorize_output
+     if template in NEW_OUTPUTS:return authorize_output(template,raid_reward_source)
++    from els_server.domain.owned_growth_items import authorize_output as owned_growth_output
++    if raid_reward_source is not None and owned_growth_output(template,raid_reward_source):return True
+     from els_server.domain.retained_native_consumables import TEMPLATES as retained_templates
+     if template in retained_templates:return False  # Retained readers never authorize new acquisition.
+     if template==135909:
+--- a/els_server/domain/black_market_box_rules.py
++++ b/els_server/domain/black_market_box_rules.py
+@@ -24,7 +24,7 @@
+  return dict(r,selection_count=int(r['mode']=='select'))
+ def plan(template,choices,option,randbelow):
+  r=entry(template)
+- if option!=0:raise ValueError('This finite native box has no option request')
++ if option not in (0,1):raise ValueError('This finite native box has no option request')
+  if r['mode']=='select':
+   if len(choices)!=1:raise ValueError('Select exactly one native box output')
+   selected=next((v for v in r['entries']if v['template']==choices[0]),None)
+--- a/els_server/domain/boosting_2026_participation_gear.py
++++ b/els_server/domain/boosting_2026_participation_gear.py
+@@ -40,6 +40,10 @@
+             seen.add(t)
+     if seen!=set(range(721881,721941)):raise ValueError('Participation gear identity coverage')
+     if _enabled is not None and _enabled!=data:raise ValueError('Cannot replace active participation gear')
++    expected=(box['metadata'],4,999)
++    if BOX in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[BOX],TEMPLATE_BAG_GROUPS[BOX],TEMPLATE_MAX_STACKS[BOX])!=expected:
++        raise ValueError('Participation box inventory registration conflict')
++    VERIFIED_TEMPLATES[BOX],TEMPLATE_BAG_GROUPS[BOX],TEMPLATE_MAX_STACKS[BOX]=expected
+     _enabled=data
+     from els_server.domain.cubes import catalog as cubes
+     cubes.cache_clear()
+--- a/els_server/domain/cartridge_selection_box.py
++++ b/els_server/domain/cartridge_selection_box.py
+@@ -123,7 +123,7 @@
+     if type(payload) is not bytes:
+         raise ValueError('Cartridge selection request bytes')
+     value = use_request(payload)
+-    if (value.option != 0 or any(v not in (0,1) for v in (value.flag1,value.flag2,value.flag3))
++    if (value.option not in (0,1) or any(v not in (0,1) for v in (value.flag1,value.flag2,value.flag3))
+             or len(value.choices) != 1 or value.choices[0] not in OUTPUTS):
+         raise ValueError('Cartridge selection exact one choice')
+     entry()
+--- a/els_server/domain/local_session.py
++++ b/els_server/domain/local_session.py
+@@ -1215,9 +1215,9 @@
+                     if cube_template==715036:
+                         require_session_context(self,event,request_sequence)
+                         answer=open_cube(self.account.store.path,self.account.uid,cube_template,event.payload,operation,account_id=self.account.account_id)
+-                    elif cube_template==723680:
++                    elif cube_template in (723612,723673,723680):
+                         from els_server.domain.tenebros_capacity_flow import selected
+-                        if (event.performers not in ((),(0,)) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Participation cube envelope')
++                        if (event.performers not in ((),(0,)) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Owned growth cube envelope')
+                         gear_path,gear_owner,gear_account,gear_prepare=selected(self)
+                         answer=open_cube(gear_path,gear_owner,cube_template,event.payload,operation,account_id=gear_account,prepare=gear_prepare)
+                     elif cube_template in (300645,300646,300647,300648,117542,135666,135871,723618,723687,723688):
+--- a/els_server/domain/owned_growth_items.py
++++ b/els_server/domain/owned_growth_items.py
+@@ -1,5 +1,5 @@
+ """Verified owned-item use, independent of attendance/growth enrollment and switches."""
+-import threading
++import threading,json
+ from pathlib import Path
+ _lock=threading.Lock()
+ _installed=False
+@@ -15,4 +15,50 @@
+         register()
+         from els_server.domain.boosting_2026_force_extraction import register as register_extraction
+         register_extraction()
++        from els_server.domain.boosting_2026_participation_gear import register as register_gear
++        from els_server.domain.boosting_2026_fashion_rewards import register as register_fashion
++        from els_server.domain.boosting_2026_nested_capacity import register as register_capacity
++        from els_server.domain.boosting_2026_title_rewards import register as register_title
++        from els_server.domain.boosting_2026_accessories import register as register_accessories
++        register_gear();register_fashion();register_capacity();register_title();register_accessories()
+         _installed=True
++
++
++def reward_plan(template):
++    if template==723612:
++        from els_server.domain.published_2026_bundles import enabled
++        rows=enabled()[template].outputs;plan=[]
++        for r in rows:
++            remaining=r.quantity
++            while remaining:
++                n=min(remaining,99);remaining-=n
++                plan.append(dict(template=r.template,metadata=r.metadata,group=r.group,quantity=n))
++        return plan
++    if template==723673:
++        from els_server.domain.boosting_2026_title_rewards import outputs
++        return [dict(template=r['template'],metadata=r['metadata'],group=r['group'],quantity=r['quantity'])for r in outputs()]
++    raise ValueError('Unknown owned growth bundle source')
++
++def issue_source(db,owner,account_id,operation,before,plan,prepare):
++    from els_server.domain.raid_reward_items import _issue_source
++    from els_server.storage.item_actor import require_active_character
++    from els_server.storage.profession_state import require_owner
++    if plan!=reward_plan(before['template']):raise ValueError('Owned growth exact reward plan')
++    def guard(conn):
++        if conn is not db or not callable(prepare):raise ValueError('Owned growth original transaction')
++        prepare(conn);require_active_character(conn,owner);require_owner(conn,owner,account_id)
++        row=conn.execute('SELECT template,count,owner FROM inventory_items WHERE uid=?',(before['uid'],)).fetchone()
++        expected=None if before['count']==1 else(before['template'],before['count']-1,owner)
++        if row!=expected:raise ValueError('Owned growth original box debit')
++        return True
++    identity=dict(policy='owned-growth-bundle-v1',owner=owner,template=before['template'],uid=before['uid'])
++    return _issue_source(db,owner,operation,'box',identity,plan,guard)
++
++def authorize_output(template,source):
++    from els_server.domain.raid_reward_items import validate_source
++    source=validate_source(source);identity=json.loads(source._source)
++    if identity.get('policy')!='owned-growth-bundle-v1':return False
++    if source.kind!='box' or identity.get('owner')!=source.owner:raise ValueError('Owned growth reward source')
++    plan=reward_plan(identity['template']);source.validate_plan(plan)
++    if template not in {r['template']for r in plan}:raise ValueError('Output outside owned growth bundle')
++    return True
+--- a/els_server/storage/boosting_2026_accessories.py
++++ b/els_server/storage/boosting_2026_accessories.py
+@@ -15,7 +15,7 @@
+ from els_server.domain.fashion_state import move_ack
+ def open_box(path,owner,template,payload,operation,*,now=None):
+  rule=boxes().get(template);req=use_request(payload)
+- if rule is None or req.option or req.choices or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Selected accessory box is all-output, no choices')
++ if rule is None or req.option not in (0,1) or req.choices or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Selected accessory box is all-output, no choices')
+  owner,digest=_identity(owner,0x196,struct.pack('>i',template)+payload,operation)
+  with closing(sqlite3.connect(path,timeout=10)) as db,db:
+   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');old=_previous(db,operation,digest);before=load_items(db,owner);balance=balances(db,owner)
+--- a/els_server/storage/boosting_2026_fashion_rewards.py
++++ b/els_server/storage/boosting_2026_fashion_rewards.py
+@@ -17,7 +17,7 @@
+ 
+ def open_fashion(path,owner,template,payload,operation,*,now=None):
+     request=use_request(payload)
+-    if template not in BOXES or request.option or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):
++    if template not in BOXES or request.option not in (0,1) or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):
+         raise ValueError('Role fashion90 box has no client-selected reward')
+     owner,digest=_identity(owner,0x196,struct.pack('>i',template)+payload,operation)
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+--- a/els_server/storage/boosting_2026_force_rewards.py
++++ b/els_server/storage/boosting_2026_force_rewards.py
+@@ -15,7 +15,7 @@
+ from els_server.domain.fashion_state import move_ack
+ def open_box(path,owner,template,payload,operation,*,now=None):
+  rule=boxes().get(template);req=use_request(payload)
+- if rule is None or req.option or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Selected force support parameters')
++ if rule is None or req.option not in (0,1) or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Selected force support parameters')
+  if rule['selection_count']:
+   if len(req.choices)!=1:raise ValueError('Select exactly one original force item')
+   grants_to_make=[r for r in rule['outputs'] if r['template']==req.choices[0]]
+--- a/els_server/storage/boosting_2026_nested_capacity.py
++++ b/els_server/storage/boosting_2026_nested_capacity.py
+@@ -19,7 +19,7 @@
+ def open_box(path,owner,payload,operation):
+     if not items():raise ValueError('Nested capacity is not registered')
+     request=cube_request(payload)
+-    if request.option or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):raise ValueError('Nested capacity box has no choices')
++    if request.option not in (0,1) or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):raise ValueError('Nested capacity box has no choices')
+     owner,digest=_identity(owner,0x196,struct.pack('>i',BOX)+payload,operation)
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+--- a/els_server/storage/boosting_2026_participation_gear.py
++++ b/els_server/storage/boosting_2026_participation_gear.py
+@@ -17,7 +17,7 @@
+ def open_gear(path,owner,payload,operation,*,account_id=None,prepare=None):
+     if not enabled():raise ValueError('Participation gear is not registered')
+     request=use_request(payload)
+-    if request.option!=0 or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):
++    if request.option not in (0,1) or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):
+         raise ValueError('Participation box does not accept a client class or choice')
+     owner,digest=_identity(owner,0x196,struct.pack('>i',BOX)+payload,operation)
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+--- a/els_server/storage/boosting_2026_title_rewards.py
++++ b/els_server/storage/boosting_2026_title_rewards.py
+@@ -13,9 +13,9 @@
+ from els_server.protocol.cube_messages import result
+ from els_server.protocol.protocol_codec import encode_event,Event
+ from els_server.domain.fashion_state import move_ack
+-def open_box(path,owner,template,payload,operation,*,now=None):
++def open_box(path,owner,template,payload,operation,*,now=None,account_id=None,prepare=None):
+  rule=dict(outputs=outputs()) if template==BOX and enabled() else None;req=use_request(payload)
+- if rule is None or req.option or req.choices or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Selected title support box is all-output, no choices')
++ if rule is None or req.option not in (0,1) or req.choices or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Selected title support box is all-output, no choices')
+  owner,digest=_identity(owner,0x196,struct.pack('>i',template)+payload,operation)
+  with closing(sqlite3.connect(path,timeout=10)) as db,db:
+   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');old=_previous(db,operation,digest);before=load_items(db,owner);balance=balances(db,owner)
+@@ -34,6 +34,8 @@
+   for r in rule['outputs']:
+    t=r['template'];plan=dict(template=t,metadata=VERIFIED_TEMPLATES[t],group=TEMPLATE_BAG_GROUPS[t],quantity=r['quantity'])
+    plans.append(plan)
+-  grants=grant_items(db,plans,owner);after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after};positions=sorted({position,*[(i['group'],i['slot']) for i in grants]});events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(r['template'],r['quantity']) for r in rule['outputs']])
++  from els_server.domain.owned_growth_items import issue_source
++  source=issue_source(db,owner,account_id,operation,source,plans,prepare)
++  grants=grant_items(db,plans,owner,raid_reward_source=source);after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after};positions=sorted({position,*[(i['group'],i['slot']) for i in grants]});events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(r['template'],r['quantity']) for r in rule['outputs']])
+   for event in events:encode_event(event)
+   db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,));_commit(db,operation,digest,owner,0x196,positions,before,after);return events--- a/els_server/storage/fixed_cubes.py
++++ b/els_server/storage/fixed_cubes.py
+@@ -36,7 +36,7 @@
+     definition=enabled().get(expected_template)
+     if definition is not None:
+         from els_server.storage.published_2026_bundles import open_bundle
+-        return open_bundle(path,owner,payload,operation,definition=definition)
++        return open_bundle(path,owner,payload,operation,definition=definition,account_id=account_id,prepare=prepare)
+     from els_server.domain.boosting_2026_force_rewards import boxes as force_boxes
+     if expected_template in force_boxes():
+         from els_server.storage.boosting_2026_force_rewards import open_box
+@@ -56,7 +56,7 @@
+     from els_server.domain.boosting_2026_title_rewards import BOX as title_box,enabled as title_enabled
+     if expected_template==title_box and title_enabled():
+         from els_server.storage.boosting_2026_title_rewards import open_box
+-        return open_box(path,owner,expected_template,payload,operation)
++        return open_box(path,owner,expected_template,payload,operation,account_id=account_id,prepare=prepare)
+     from els_server.domain.boosting_2026_accessories import boxes as accessory_boxes
+     if expected_template in accessory_boxes():
+         from els_server.storage.boosting_2026_accessories import open_box
+--- a/els_server/storage/furniture_boxes.py
++++ b/els_server/storage/furniture_boxes.py
+@@ -39,7 +39,7 @@
+   return definitions()
+ def perform(path,owner,account,payload,operation,guard,*,now=None):
+  request=use_request(payload)
+- if request.option or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):raise ValueError('Furniture original unselected box parameters')
++ if request.option not in (0,1) or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):raise ValueError('Furniture original unselected box parameters')
+  owner,digest=_identity(owner,0x196,struct.pack('>i',TEMPLATE)+payload,operation)
+  with closing(sqlite3.connect(path,timeout=10))as db,db:
+   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');character=authority(db,owner,account,guard)
+--- a/els_server/storage/inventory_state.py
++++ b/els_server/storage/inventory_state.py
+@@ -227,15 +227,19 @@
+  if chip_options is not None:
+   if len(plan)!=1 or plan[0]['template']!=CHIP or plan[0]['quantity']!=1 or not isinstance(chip_options,dict) or set(chip_options)!={'1'}:raise ValueError('Chip issued options require one finite server chip plan')
+   approved_chip={'1':chip_source(chip_options['1'])}
++ from els_server.domain.retained_native_consumables import TEMPLATES as retained_templates,read_existing as retained_reader,definitions as retained_definitions
+  from els_server.storage.bag_capacity import allowances
+  limits=allowances(db,owner)
+  for p in plan:
++  stack_limit=TEMPLATE_MAX_STACKS[p['template']]
++  if p['template']in retained_templates:stack_limit=min(stack_limit,retained_definitions()[p['template']]['owned_max_stack'])
+   remaining=p['quantity']
+   for index,i in enumerate(items):
+-   if (i['template'],i['metadata'],i['group'])==(p['template'],p['metadata'],p['group']) and i.get('expires_at')==p.get('expires_at') and TEMPLATE_MAX_STACKS[i['template']]>1 and i['count']<TEMPLATE_MAX_STACKS[i['template']] and (fish_erp_source is None or fish_erp_source.can_stack(i,p)) and(feta_exchange_source is None or feta_exchange_source.can_stack(i,p)):
+-    delta=min(remaining,TEMPLATE_MAX_STACKS[i['template']]-i['count']);i['count']+=delta;remaining-=delta
++   if (i['template'],i['metadata'],i['group'])==(p['template'],p['metadata'],p['group']) and i.get('expires_at')==p.get('expires_at') and stack_limit>1 and i['count']<stack_limit and (fish_erp_source is None or fish_erp_source.can_stack(i,p)) and(feta_exchange_source is None or feta_exchange_source.can_stack(i,p)):
++    delta=min(remaining,stack_limit-i['count']);i['count']+=delta;remaining-=delta
+     db.execute('UPDATE inventory_items SET count=? WHERE uid=? AND owner=?',(i['count'],i['uid'],owner))
+     if fish_erp_source is not None:i=fish_erp_source.admit_instance(dict(i));items[index]=i
++    if raid_reward_source is not None and i['template']in retained_templates:i=retained_reader(dict(i));items[index]=i
+     changed[i['uid']]=i if fish_erp_source is not None else dict(i)
+     if not remaining:break
+   while remaining:
+@@ -243,7 +247,7 @@
+    if slot is None:raise InventoryFull('Local inventory is full')
+    uid=db.execute('SELECT next_uid FROM inventory_sequence WHERE id=1').fetchone()[0]
+    if type(uid) is not int or not 1<=uid<2**63-1:raise ValueError('Inventory UID sequence bound')
+-   i={'uid':uid,'template':p['template'],'metadata':p['metadata'],'group':p['group'],'slot':slot,'count':min(remaining,TEMPLATE_MAX_STACKS[p['template']])}
++   i={'uid':uid,'template':p['template'],'metadata':p['metadata'],'group':p['group'],'slot':slot,'count':min(remaining,stack_limit)}
+    if 'expires_at' in p:i['expires_at']=p['expires_at']
+    if p.get('enhancement'):i['enhancement']=p['enhancement']
+    if i['template']==CHIP:i['option_groups']={'1':list(approved_chip['1'])} if approved_chip is not None else chip_generate()
+@@ -254,6 +258,7 @@
+    if fish_erp_source is not None:i=fish_erp_source.admit_instance(i)
+    if silver_source is not None and silver_source.options is not None:i['option_groups']=dict(silver_source.options)
+    if black_market_box_source is not None and black_market_box_source.options is not None:i['option_groups']=dict(black_market_box_source.options)
++   if raid_reward_source is not None and i['template']in retained_templates:i=retained_reader(i)
+    validate_item(i)
+    db.execute('UPDATE inventory_sequence SET next_uid=? WHERE id=1',(uid+1,))
+    db.execute('INSERT INTO inventory_items VALUES (?,?,?,?,?,?,?)',(uid,owner,i['template'],i['metadata'],i['count'],i['group'],slot))
+--- a/els_server/storage/potion_choice_box.py
++++ b/els_server/storage/potion_choice_box.py
+@@ -28,7 +28,7 @@
+ 
+ def open_box(path,owner,account_id,payload,operation,*,prepare):
+     request=use_request(payload)
+-    if request.option or len(request.choices)!=1 or request.choices[0]not in OUTPUTS or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):
++    if request.option not in (0,1) or len(request.choices)!=1 or request.choices[0]not in OUTPUTS or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):
+         raise ValueError('Potion choice box requires one exact choice and no bulk mode')
+     owner,digest=_identity(owner,0x196,struct.pack('>Q',account_id)+payload,operation)
+     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
+--- a/els_server/storage/published_2026_bundles.py
++++ b/els_server/storage/published_2026_bundles.py
+@@ -19,15 +19,12 @@
+ from els_server.storage.item_instances import remove
+ from els_server.storage.equipment_receipt_state import current_changes
+ 
+-def open_bundle(path,owner,payload,operation,*,definition):
++def open_bundle(path,owner,payload,operation,*,definition,account_id=None,prepare=None):
+     if type(definition) is not PublishedBundle or enabled().get(definition.template) is not definition:
+         raise TypeError('Explicit registered published bundle required')
+     request=use_request(payload)
+-    # Current native single-use723635 sends tail1; older controlled callers send0.
+-    # This narrow observed-value compatibility never authorizes bulk opening.
+-    # Other bundle types keep their existing option0 guard.
+-    options=(0,1) if definition.template==723635 else (0,)
+-    if request.option not in options or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):
++    # Native Count1 and historical Count0 both consume one owned box.
++    if request.option not in (0,1) or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):
+         raise ValueError('All-items bundle has no choices or option')
+     owner,digest=_identity(owner,0x196,struct.pack('>i',definition.template)+payload,operation)
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+@@ -49,7 +46,11 @@
+             while quantity:
+                 delta=min(quantity,99);quantity-=delta
+                 plan.append(dict(template=output.template,metadata=output.metadata,group=output.group,quantity=delta))
+-        grants=grant_items(db,plan,owner)
++        reward_source=None
++        if definition.template==723612:
++            from els_server.domain.owned_growth_items import issue_source
++            reward_source=issue_source(db,owner,account_id,operation,item,plan,prepare)
++        grants=grant_items(db,plan,owner,raid_reward_source=reward_source)
+         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
+         positions=sorted({source,*[(i['group'],i['slot']) for i in grants]})
+         events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(r.template,r.quantity) for r in definition.outputs])
+--- a/els_server/storage/raid_reward_actions.py
++++ b/els_server/storage/raid_reward_actions.py
+@@ -43,7 +43,7 @@
+  from els_server.storage.item_instances import remove
+  from els_server.storage.seal_quests import load_character
+  request=use_request(payload)
+- if str(template)not in boxes()or request.option or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):raise ValueError('Raid box exact original request')
++ if str(template)not in boxes()or request.option not in (0,1) or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):raise ValueError('Raid box exact original request')
+  owner,digest=_identity(owner,0x196,struct.pack('>i',template)+payload,operation)
+  with closing(sqlite3.connect(path,timeout=10))as db,db:
+   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');authorize(db,owner,account_id,guard)
+--- a/els_server/storage/teacher_elixir_boxes.py
++++ b/els_server/storage/teacher_elixir_boxes.py
+@@ -28,7 +28,7 @@
+ 
+ def open_box(path,owner,account_id,payload,operation,*,prepare):
+     request=use_request(payload)
+-    if request.option or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):
++    if request.option not in (0,1) or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):
+         raise ValueError('Teacher bundle has no choice or bulk mode')
+     owner,digest=_identity(owner,0x196,struct.pack('>Q',account_id)+payload,operation)
+     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
+--- a/els_server/storage/wardrobe_ticket_box.py
++++ b/els_server/storage/wardrobe_ticket_box.py
+@@ -23,7 +23,7 @@
+     if type(account_id) is not int or not 1 <= account_id < 2**63:
+         raise ValueError('Existing wardrobe box account identity')
+     request = use_request(payload)
+-    if (request.option != 0 or request.choices
++    if (request.option not in (0,1) or request.choices
+             or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))):
+         raise ValueError('Existing wardrobe box has no choices or bulk option')
+     definition = entry()
+--- a/els_server/storage/white_armor_boxes.py
++++ b/els_server/storage/white_armor_boxes.py
+@@ -39,7 +39,7 @@
+   return outputs(character[0])
+ def perform(path,owner,account,payload,operation,guard,*,now=None):
+  request=use_request(payload)
+- if request.option or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):raise ValueError('White armor original unselected box parameters')
++ if request.option not in (0,1) or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):raise ValueError('White armor original unselected box parameters')
+  owner,digest=_identity(owner,0x196,struct.pack('>i',TEMPLATE)+payload,operation)
+  with closing(sqlite3.connect(path,timeout=10))as db,db:
+   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');character=authority(db,owner,account,guard)
