@@ -10,7 +10,7 @@ sys.path.insert(0,str(args.runtime.resolve()))
 import els_server.domain
 for name in ('scene_retirement_sources','public_controller_rules','story_controller_retirements','scene_actor_retirements'):
     full='els_server.domain.'+name
-    spec=importlib.util.spec_from_file_location(full,ROOT/'els_server/domain'/f'{name}.py')
+    spec=importlib.util.spec_from_file_location(full,ROOT/'references/native-scene-retirements-20261101-v1/source/els_server/domain'/f'{name}.py')
     module=importlib.util.module_from_spec(spec);sys.modules[full]=module
     spec.loader.exec_module(module);setattr(els_server.domain,name,module)
 

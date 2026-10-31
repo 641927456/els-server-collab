@@ -1,4 +1,4 @@
-"""Source-pinned static controller retirements for an admitted shared room.
+"""Source-pinned34320 static retirements for one admitted shared room.
 
 The native master supplies its original complete UID/byte map unchanged.
 Only authority checks, one all-member quest writer and existing notices run.
@@ -27,9 +27,9 @@ def _roster_report(report,members):
 def _checked(dispatcher,r,s,event):
     from els_server.domain.friends_spawns import _checked_static_generation
     from els_server.domain.dungeon_equipment_loot_flow import current_lease
-    if (s is not r.leader or not 2<=len(r.members)<=6
+    if (s is not r.leader or r.identity!=34320 or not 2<=len(r.members)<=4
             or r.phase not in ('active','part_end') or r.party.get('run') is not r
-            or any(r.party.get(k) for k in ('challenge','challenge_pending','solo_challenge'))
+            or any(r.party.get(k) for k in ('raid_party','challenge','challenge_pending','solo_challenge'))
             or event.event_id!=0x202 or event.kind!=0xad or event.performers!=(0,)
             or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):
         raise ValueError('Shared story room unavailable')
@@ -39,7 +39,7 @@ def _checked(dispatcher,r,s,event):
     paths=set()
     for m in r.members:
         account=m.account
-        if (dispatcher.world.party_of.get(m) is not r.party or m in dispatcher.world.members
+        if (dispatcher.world.party_of.get(m) is not r.party or m not in dispatcher.world.members
                 or getattr(m,'application',None) is None or not current_lease(m)
                 or account.store is None or account.store.uid!=account.uid
                 or not m.reward_test or not m.item_test or m.client_build!='dx11_260923'
@@ -56,18 +56,16 @@ def _checked(dispatcher,r,s,event):
 
 def retire(dispatcher,r,s,event):
     # A nonmatching static actor still follows the original dispatcher. This
-    # module owns only explicitly declared native255 source tuples.
-    if s.dungeon_run is None:return None
+    # module owns only these three source tuples, including rejected combat AD.
+    if r.identity!=34320 or s.dungeon_run is None:return None
     from els_server.domain.dungeon_lifecycle import death_report,death_ack,empty_reward_death_notice
     try:report=death_report(event.payload)
     except ValueError:return []
     run=s.dungeon_run
     npc=next((n for n in run.current['npcs'] if n['key']==report['index']),None)
-    if npc is None or npc.get('dynamic'):return None
-    from els_server.domain.story_controller_retirements import rules_for,shared_source_rule
-    if not any((rule['stage'],rule['part'],rule['template'],rule['source']['source_index'])==
-            (run.stage,run.part,npc['template'],npc.get('source_index'))and rule.get('requires_native_255')
-            for rule in rules_for(run)):return None
+    if (npc is None or npc.get('dynamic') or (run.stage,run.part,npc['template']) not in
+            ((1,1,7523),(2,0,7524),(3,0,7513))):return None
+    from els_server.domain.story_controller_retirements import shared_34320_rule
     try:
         generation,path=_checked(dispatcher,r,s,event)
         if not _roster_report(report,r.members):return []
@@ -75,7 +73,7 @@ def retire(dispatcher,r,s,event):
         for m in r.members:
             actor=next((n for n in m.dungeon_run.current['npcs'] if n['key']==report['index']),None)
             if actor is None or actor!=npc or report['index'] in m.summon_keys:return []
-            rule=shared_source_rule(m.dungeon_run,actor,m.account.character()['unit_type'])
+            rule=shared_34320_rule(m.dungeon_run,actor,m.account.character()['unit_type'])
             if rule is None or report['hp_bits']!=struct.unpack('>I',struct.pack('>f',rule['hp']))[0]:return []
             rules[m]=rule
     except ValueError:return []
@@ -104,8 +102,7 @@ def retire(dispatcher,r,s,event):
                     if current!=(generation,path):raise SharedStoryRefusal('Shared story generation changed')
                     current={q for q, in connection.execute('SELECT quest FROM completed_quests WHERE owner=?',(owner,))}
                     current.update(q for q, in connection.execute('SELECT quest FROM character_quests WHERE owner=?',(owner,)))
-                    expected=(rule.get('retirement_admission_quests')or rule['quests']or rule['map_quests'])
-                    if not rule.get('quest_independent',False)and not current.intersection(expected):raise SharedStoryRefusal('Story retirement quest stage')
+                    if not current.intersection(rule['map_quests']):raise SharedStoryRefusal('Story retirement quest stage')
                 def prepare(notices,replayed):
                     messages=[] if m is not s else [death_ack()]
                     if not replayed:messages.append(empty_reward_death_notice(key,report['killer']))
