@@ -14,6 +14,12 @@ def verify():
         assert p.resolve().is_relative_to((ROOT/'references/registered-ground-items-20261101-v1').resolve())
         if p.suffix=='.py':compile(raw,str(p),'exec')
     assert len(c['files'])==10
+    launcher=ROOT/'references/registered-ground-items-20261101-v1/launcher/source-contract.json'
+    if launcher.exists():
+        release=json.loads(launcher.read_bytes());assert release['version']==59 and len(release['files'])==9
+        for row in release['files']:
+            p=ROOT/row['source'];raw=p.read_bytes();assert len(raw)==row['size']and hashlib.sha256(raw).hexdigest()==row['sha256']
+            if p.suffix=='.py':compile(raw,str(p),'exec')
     print(json.dumps(dict(ok=True,source_files=len(seen),candidate_only=True)))
 
 if __name__=='__main__':verify()
