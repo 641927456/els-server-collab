@@ -1,0 +1,62 @@
+{
+  "ok": true,
+  "cases": [
+    {
+      "map": 30092,
+      "rooms": 3,
+      "C1": true,
+      "cold_read_matches": true,
+      "repeat_no_duplicate": true,
+      "clear_receipts": 1
+    },
+    {
+      "map": 30252,
+      "rooms": 5,
+      "C1": true,
+      "cold_read_matches": true,
+      "repeat_no_duplicate": true,
+      "clear_receipts": 1
+    },
+    {
+      "map": 33891,
+      "rooms": 11,
+      "C1": true,
+      "cold_read_matches": true,
+      "repeat_no_duplicate": true,
+      "clear_receipts": 1
+    },
+    {
+      "map": 35080,
+      "rooms": 16,
+      "C1": true,
+      "cold_read_matches": true,
+      "repeat_no_duplicate": true,
+      "clear_receipts": 1
+    },
+    {
+      "map": 35890,
+      "rooms": 10,
+      "C1": true,
+      "cold_read_matches": true,
+      "repeat_no_duplicate": true,
+      "clear_receipts": 1
+    },
+    {
+      "map": 35100,
+      "rooms": 6,
+      "C1": true,
+      "cold_read_matches": true,
+      "repeat_no_duplicate": true,
+      "clear_receipts": 1
+    }
+  ],
+  "baseline_final_failure_rolled_back": true,
+  "TLS_native_entry": true,
+  "synthetic_deaths": true,
+  "natural_battle": false,
+  "online_installed": false,
+  "fixtures_closed": true,
+  "fixture_correction": "35100 existing owned 118341 ticket, not new source acquisition; first generic-grant attempt was correctly refused; five unchanged successful cases reused",
+  "candidate_sha256": "baa32eb34f3867ae3c569f9b619aa4a6d0465973fe8b8fd1b52ac03d6292f77e",
+  "reuse": "Six existing successful protocol cases reused: candidate bytes and relevant route/economy inputs unchanged. No live player state."
+}
