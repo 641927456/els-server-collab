@@ -105,3 +105,14 @@ references/dungeon-clear-observers-20261031-v1/** -text whitespace=cr-at-eol
 
 # Exact historical PR676 source archive retains its frozen bytes.
 references/dungeon-loot-source-validation-20261031-v1/** -text whitespace=cr-at-eol
+
+# Exact qualified owned-box runtime bytes and literal unified-diff context.
+references/owned-box-opening-20261031-v2/** -text whitespace=cr-at-eol
+references/owned-box-opening-20261031-v2/*.patch -text whitespace=cr-at-eol,-blank-at-eol
+
+# Exact qualified common-box runtime leaves and literal diff context.
+references/common-box-opening-20261031-v1/** -text whitespace=cr-at-eol
+references/common-box-opening-20261031-v1/*.patch -text whitespace=cr-at-eol,-blank-at-eol
+
+# Exact qualified mode-specific owned-box runtime leaves.
+references/owned-common-boxes-dual-20261031-v1/** -text whitespace=cr-at-eol

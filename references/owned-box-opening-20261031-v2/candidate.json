@@ -1,0 +1,101 @@
+{
+  "schema_version": 2,
+  "status": "eleven-owned-box-templates-qualified-not-installed",
+  "parent_release": "local-cobo-guidebook-upload-20261031-v1",
+  "parent_manifest_sha256": "b653342071444ffe46837685187e5cc3d3ba8a24229f4360f5fc488641f218a0",
+  "files": [
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "dfca6e18521c4cfbc355bf7d18f4bb6270d8be11e27ff33ad898cbe14205f810",
+      "sha256": "83a71ebcfed6ed5933d61a8961b1f6a5e03329c04bf0e95dfbeb0fa85501e22c",
+      "size": 13950,
+      "source": "references/owned-box-opening-20261031-v2/source/83a71ebcfed6ed5933d61a8961b1f6a5e03329c04bf0e95dfbeb0fa85501e22c/acquisition_policy.py"
+    },
+    {
+      "path": "els_server/domain/cubes.py",
+      "parent_sha256": "ed339b4e63718a12646b0fb7ae4bc0e2bc60a4f0395719390e22e02a4d0a966a",
+      "sha256": "ba08a721b9a4aaf5e4b8c98b69a688ed12ec03cbb0616f9eac334e67e2c9264c",
+      "size": 4484,
+      "source": "references/owned-box-opening-20261031-v2/source/ba08a721b9a4aaf5e4b8c98b69a688ed12ec03cbb0616f9eac334e67e2c9264c/cubes.py"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "7a5898b9bf7910070690da0f57070adaafe0cf3f89e6a9acdd9e264db7565b17",
+      "sha256": "c6430e93f5b00207be6bbe169bc175913299698f5e989679af38970f26a01212",
+      "size": 77044,
+      "source": "references/owned-box-opening-20261031-v2/source/c6430e93f5b00207be6bbe169bc175913299698f5e989679af38970f26a01212/inventory_items.py"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "114b8dbf1f6b72feeee8c54a285cb6c8a82be13f1b683a113b03c039a8c1e3e9",
+      "sha256": "f2977c6e04fc85af135e8c8e3e91fdd0f61eabefde89dd2611e88e43eeb45791",
+      "size": 145131,
+      "source": "references/owned-box-opening-20261031-v2/source/f2977c6e04fc85af135e8c8e3e91fdd0f61eabefde89dd2611e88e43eeb45791/local_session.py"
+    },
+    {
+      "path": "els_server/domain/owned_reward_boxes.py",
+      "parent_sha256": null,
+      "sha256": "c198f7946c53f451b1e1b9d6fc32f485a98663d0ff91617cab8bbe794ce0ecdd",
+      "size": 4624,
+      "source": "references/owned-box-opening-20261031-v2/source/c198f7946c53f451b1e1b9d6fc32f485a98663d0ff91617cab8bbe794ce0ecdd/owned_reward_boxes.py"
+    },
+    {
+      "path": "els_server/storage/fixed_cubes.py",
+      "parent_sha256": "08a2b14b5bf912e1732d29d793b59cc98d827b43ca3aea7184d9b7594de9c3c8",
+      "sha256": "f794c967ac3777362967198c1d81cdf96d459186dba1eb63dc40a3cc4a6a9f67",
+      "size": 10582,
+      "source": "references/owned-box-opening-20261031-v2/source/f794c967ac3777362967198c1d81cdf96d459186dba1eb63dc40a3cc4a6a9f67/fixed_cubes.py"
+    },
+    {
+      "path": "els_server/storage/job_reward_boxes.py",
+      "parent_sha256": "47bbc0bfd9ef0622d79aa02e0229cf77116152d2951d1312769354de85749ef8",
+      "sha256": "78ce660516fa6e0c4fde70c13040fab452c870de68afe52adb2b93b2f6b224f0",
+      "size": 3940,
+      "source": "references/owned-box-opening-20261031-v2/source/78ce660516fa6e0c4fde70c13040fab452c870de68afe52adb2b93b2f6b224f0/job_reward_boxes.py"
+    },
+    {
+      "path": "els_server/storage/promotion_reward_boxes.py",
+      "parent_sha256": "1c1f4a94722c0b9584263eaf82bf87a4b5857bf67b34b73f81e4d0c3e9c2887f",
+      "sha256": "c3b18d161b9ba37b2f6944d60ada310fba5ffb3ee6dd833b13dc34c817140f7a",
+      "size": 5265,
+      "source": "references/owned-box-opening-20261031-v2/source/c3b18d161b9ba37b2f6944d60ada310fba5ffb3ee6dd833b13dc34c817140f7a/promotion_reward_boxes.py"
+    },
+    {
+      "path": "els_server/data/owned_reward_boxes.json",
+      "parent_sha256": null,
+      "sha256": "3ed67020222f3106c97dea75c4224937c1094aef71ba7c247b95d518a2ca7321",
+      "size": 875293,
+      "source": "references/owned-box-opening-20261031-v2/source/3ed67020222f3106c97dea75c4224937c1094aef71ba7c247b95d518a2ca7321/owned_reward_boxes.json"
+    }
+  ],
+  "repaired_templates": [
+    109999,
+    110850,
+    117542,
+    135666,
+    135871,
+    300645,
+    300646,
+    300647,
+    723618,
+    723687,
+    723688
+  ],
+  "held_templates": [],
+  "scope_supersedes": "Private initial ten-template freeze remains in the task analysis; this is the new scope after the direct human artifact policy.",
+  "artifact_policy": "references/owned-box-opening-20261031-v2/artifact-human-policy.json",
+  "tests": {
+    "transactions_and_handler": "tests-final-v2.json: five tests passed; eleven templates, fixed artifact instances, replay, cold, wrong class/choice/count, lock, capacity and late encoder rollback",
+    "native": "native-result.json: full original preview/AD8/197 readers; four representative cases including artifact and twelve timed LuCiel outfits",
+    "startup": "startup-result.json: actual Application.start with private save; no listener"
+  },
+  "source_semantics": "Count0 and Count1 both open exactly one owned box. Quantity2+ remains rejected. Missing six consumers use current Unit/recipe/native-item definitions and exact published deterministic contents.",
+  "new_schema_definitions": 0,
+  "existing_raid_reward_source_ledger_reused": true,
+  "client_delta": 0,
+  "player_database_writes": false,
+  "natural_GUI": false,
+  "formal_installed": false,
+  "merged": false,
+  "external_coordination_sent": false
+}
