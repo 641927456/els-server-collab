@@ -1,7 +1,13 @@
 """Appearance boundaries must not change the amount retained by the caller."""
 import unittest
+from pathlib import Path
 from types import SimpleNamespace as NS
 from unittest.mock import patch
+# The accepted historical engine remains pinned; exercise this candidate in
+# this standalone test process without changing its selected profile.
+import els_server.domain
+els_server.domain.__path__.insert(0,str(Path(__file__).resolve().parents[1]/
+    'references/ground-drop-models-20261101-v1/source/els_server/domain'))
 from els_server.domain.ground_currency import coin_template
 from els_server.domain.hunter_chest_rules import source_route,SOURCE_ROUTES
 

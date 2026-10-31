@@ -22,7 +22,7 @@ SCHEMA_SHA='4c34f65428983b06cf206534992623e6c427a2e8138c97e0ec2757bbdeb686ba'
 # Private original-reader checks: analysis/ground-loot-20261015/native-items.json.
 # Keep every remaining byte pinned; never trust client-provided quantity/options.
 GROUND_FOOD=frozenset((70000,70010,70020,70030,70040,70050))
-GROUND_ED=frozenset((127000,127010,127020,127041))
+GROUND_ED=frozenset((127000,127010,127020))
 GROUND_TEMPLATES=GROUND_FOOD|GROUND_ED|{77000}
 
 @functools.lru_cache(maxsize=1)

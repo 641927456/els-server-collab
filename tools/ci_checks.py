@@ -17,6 +17,9 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'references/ground-drop-models-20261101-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_ground_drop_models_20261101.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_ground_currency'])
     if (ROOT/'references/pending-source-integration-20261031-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pending_source_integration_20261031.py')])
     if (ROOT/'references/force-categories-sources-20261031-v1/source-contract.json').is_file():

@@ -1,5 +1,4 @@
 """Explicit local reward policy cross-checked against native definitions."""
-from els_server.domain.ground_currency import coin_template
 import functools
 import hashlib
 import uuid
@@ -70,7 +69,7 @@ def ground_loot(dungeon_id,npc,run_id,stage,clear_key):
             raise ValueError('Unverified ground ED policy')
         from els_server.domain.gm_rates import allow_drop
         if allow_drop(run_id,dungeon_id,stage,npc['key']):
-            drops.append(dict(template=coin_template(coin['amount']),ed=coin['amount'],quantity=0))
+            drops.append(dict(template=coin['template'],ed=coin['amount'],quantity=0))
     if pool and should_drop(dungeon_id,npc,run_id,stage,clear_key):
         seed=uuid.UUID(run_id).bytes+f':food:{dungeon_id}:{stage}:{npc["key"]}'.encode()
         template=pool[int.from_bytes(hashlib.sha256(seed).digest(),'big')%len(pool)]

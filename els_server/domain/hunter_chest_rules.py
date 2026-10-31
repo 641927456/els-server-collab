@@ -59,16 +59,3 @@ def digest(value):
 def ground_templates():
  definitions()
  return frozenset((117527,117528,118092,118204,118205))
-
-def source_route(run):
- """Existing five sources plus the currently admitted ordinary PvE graphs."""
- expected=SOURCE_ROUTES.get(run.identity)
- if expected is None:
-  from els_server.domain.formal_pve_economy import definition
-  from els_server.game_data import client_data
-  row=definition(run.identity)
-  if row is None or run.identity in (30000,41400):raise ValueError('Hunter ordinary source route')
-  expected=(client_data().dungeon(run.identity)['m_MaxLevel'],row['graph_sha256'])
- if (run.graph.get('encounter') or run.graph['source_sha256']!=expected[1]
-     or str(run.identity)not in run.catalog._data['routes']):raise ValueError('Hunter current source graph')
- return expected

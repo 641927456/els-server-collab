@@ -6,13 +6,13 @@ from els_server.paths import PROJECT_ROOT
 from els_server.protocol.protocol_codec import Event
 from els_server.domain.dungeon_lifecycle import death_report,death_ack,empty_reward_death_notice,part_end_notice
 from els_server.domain.reward_rules import item_plan
-from els_server.domain.ground_currency import coin_template
 
 @functools.lru_cache(maxsize=1)
 def local_rewards():
  r=json.loads((PROJECT_ROOT/'config/dungeon_local_rules.json').read_text(encoding='utf8'))
  if r['schema_version']!=1 or r['provenance']!='local_policy':raise ValueError('Dungeon local reward provenance')
  if any(type(r[k]) is not int or not 0<=r[k]<=2**31-1 for k in ('clear_ed','clear_experience','ordinary_ed','boss_ed')):raise ValueError('Local dungeon reward bound')
+ if r['coin_template']!=127000:raise ValueError('Unverified local coin')
  return {**r,'items':[item_plan(**i) for i in r['clear_items']]}
 
 def periodic(session):
@@ -228,10 +228,10 @@ def finish_death(s,event,npc,d,expired,notice):
   rule=local_rewards();amount=__import__('els_server.domain.formal_pve_economy',fromlist=['coin']).coin(run.identity,npc['boss'],rule['boss_ed'] if npc['boss'] else rule['ordinary_ed'])
   from els_server.domain.gm_rates import allow_drop
   if amount and allow_drop(s.reward_run_id,run.identity,(run.stage,run.part),npc['key'],npc['boss']):
-   key=s.world_drop_sequence;s.world_drop_sequence+=1;xyz=d['xyz'][3:];template=coin_template(amount)
-   notice=ground_drop_notice(key,xyz,uid=s.account.uid,template=template)
+   key=s.world_drop_sequence;s.world_drop_sequence+=1;xyz=d['xyz'][3:]
+   notice=ground_drop_notice(key,xyz,uid=s.account.uid,template=rule['coin_template'])
    s.world_drop_issued=dict(run_id=s.reward_run_id,stage=run.stage,part=run.part,npc_key=npc['key'],drop_id=key,
-      owner=s.account.uid,template=template,ed=amount,quantity=0,xyz=list(xyz),
+      owner=s.account.uid,template=rule['coin_template'],ed=amount,quantity=0,xyz=list(xyz),
       payload_hex=notice.payload.hex(),death_proof_sha256=hashlib.sha256(event.payload).hexdigest(),pickup_committed=False)
    s.world_drops[key]=dict(s.world_drop_issued);reply.append(notice)
  return reply+periodic(s)
