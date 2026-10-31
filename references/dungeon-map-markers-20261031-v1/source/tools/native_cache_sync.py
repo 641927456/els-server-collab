@@ -20,7 +20,7 @@ def compose(snapshot,executable_sha256,template):
     raw=raw.replace('__RELATION_SOURCE_PINS__',json.dumps(relation_pins))
     changes=[
       ("let noahVerifiedSenderReady=false;","let noahVerifiedSenderReady=false;\nlet elsNativeCacheSync=null;"),
-      ("  clearInterval(timer);\n  let lastBootstrapState='';","  clearInterval(timer);\n  {try{installElsRelationSourceSync();}catch(relationError){try{note({event:'native_relation_source_disabled',reason:String(relationError)});}catch(noteError){}}let real=null;function ready(){if(real)return real;try{return real=installElsNativeCacheSync();}catch(error){note({event:'native_cache_sync_disabled',reason:String(error)});throw error;}}elsNativeCacheSync={begin(){ready().begin();},end(){if(real)real.end();},frame(g){ready().frame(g);}};note({event:'native_cache_sync_prepared',initialization:'original-owned-field-or-dungeon-callback'});}\n  if(!(enterDungeon&&gateIdentityTest&&populationTest)){\n   Interceptor.attach(game.base.add(0x30d0660),{onEnter(){elsNativeCacheSync.begin();},onLeave(){elsNativeCacheSync.end();}});\n   Interceptor.attach(game.base.add(0xc231c0),{onEnter(a){this.cacheState=ptr(a[0].toString());},onLeave(){const r=this.cacheState.add(0x908);if(r.readS32()>=0&&r.add(4).readU32()!==0){const g=nativeCall(0x7ada60,'pointer',['pointer'])(r);elsNativeCacheSync.frame(g);}}});\n  }\n  let lastBootstrapState='';"),
+      ("  clearInterval(timer);\n  let lastBootstrapState='';","  clearInterval(timer);\n  installElsWearSync();\n  {try{installElsRelationSourceSync();}catch(relationError){try{note({event:'native_relation_source_disabled',reason:String(relationError)});}catch(noteError){}}let real=null;function ready(){if(real)return real;try{return real=installElsNativeCacheSync();}catch(error){note({event:'native_cache_sync_disabled',reason:String(error)});throw error;}}elsNativeCacheSync={begin(){ready().begin();},end(){if(real)real.end();},frame(g){ready().frame(g);}};note({event:'native_cache_sync_prepared',initialization:'original-owned-field-or-dungeon-callback'});}\n  if(!(enterDungeon&&gateIdentityTest&&populationTest)){\n   Interceptor.attach(game.base.add(0x30d0660),{onEnter(){elsNativeCacheSync.begin();},onLeave(){elsNativeCacheSync.end();}});\n   Interceptor.attach(game.base.add(0xc231c0),{onEnter(a){this.cacheState=ptr(a[0].toString());},onLeave(){const r=this.cacheState.add(0x908);if(r.readS32()>=0&&r.add(4).readU32()!==0){const g=nativeCall(0x7ada60,'pointer',['pointer'])(r);elsNativeCacheSync.frame(g);}}});\n  }\n  let lastBootstrapState='';"),
       ("    dungeonGame=g;dungeonActor=nativeCall(0x8571d0,'pointer',['pointer'])(g);","    elsNativeCacheSync.frame(g);\n    dungeonGame=g;dungeonActor=nativeCall(0x8571d0,'pointer',['pointer'])(g);"),
       ("   Interceptor.attach(game.base.add(0x30d0660),{\n    onLeave(){","   Interceptor.attach(game.base.add(0x30d0660),{\n    onEnter(){elsNativeCacheSync.begin();},\n    onLeave(){elsNativeCacheSync.end();")]
     result=template
@@ -32,5 +32,7 @@ def compose(snapshot,executable_sha256,template):
         if inverse.count(after)!=1:raise ValueError('Native cache composition inverse')
         inverse=inverse.replace(after,before)
     if inverse!=template:raise ValueError('Native cache composition source inverse')
-    from dungeon_map_markers import compose as compose_map_markers
-    return compose_map_markers(snapshot,executable_sha256,raw+'\n'+result)
+    from native_wear_sync import source as wear_source
+    from world_event_iteration import compose as world_source
+    from dungeon_map_markers import compose as map_source
+    return map_source(snapshot,executable_sha256,world_source(snapshot,executable_sha256,wear_source(snapshot,executable_sha256)+'\n'+raw+'\n'+result))

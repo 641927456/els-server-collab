@@ -7,51 +7,39 @@
     {
       "path": "tools\\native_cache_sync.py",
       "source": "references/dungeon-map-markers-20261031-v1/source/tools/native_cache_sync.py",
-      "sha256": "632e38f2fa68cb26cf09553b05b21260aabd528e1a0621f4534bc11b48cccb92",
-      "size": 4207
+      "sha256": "8089f55debb7419bbf9fe5f5a22a56d229fc34aebcc465cd67b728a9498744cf",
+      "size": 4418
     },
     {
       "path": "tools\\dungeon_map_markers.py",
       "source": "references/dungeon-map-markers-20261031-v1/source/tools/dungeon_map_markers.py",
-      "sha256": "a64cfd828690eb1c2cff52032fb2242dc5af51c97623568ec69f0d0451c67c26",
-      "size": 1178
+      "sha256": "c232f0da4dce6cb5255121a52f9170fc8cfde34af73e2dfbddb31760c0f000f6",
+      "size": 1139
     },
     {
       "path": "tools\\dungeon_map_markers.js",
       "source": "references/dungeon-map-markers-20261031-v1/source/tools/dungeon_map_markers.js",
-      "sha256": "9378beda08460a9893abcb84e5b0a78304445a0d3b2a23e8208573414a8d9978",
-      "size": 4782
+      "sha256": "19d77e3b820702a638be0c5cf5282955f721407e8c786d90bf291348a5a6bd59",
+      "size": 3223
     }
   ],
-  "base_cache_composer_sha256": "225d321ef32563a5736513dd4030118aa669ac2e49cf8a3f7ac7344f4ef21856",
+  "base_cache_composer_sha256": "7326700ff408ce09a6611d29955d6e7523b85989c401e3b1a6a22d2bc8a8c37c",
   "unchanged_cache_js_sha256": "e2f86915262ba1ea1e919eb1b33c5f022e1a311bd267569bb02f3aee7368083a",
   "original_EXE_or_KOM_changed": false,
   "database_migration": false,
-  "maps": [
-    {
-      "map": 33232,
-      "stage": 4,
-      "part": 0,
-      "alias_stage": 3,
-      "alias_part": 0,
-      "native_xy": [
-        424,
-        14
-      ],
-      "reason": "Same WORLD_ID and line sets; current website also provides Boss stage4 at source coordinate464,14."
-    },
-    {
-      "map": 35301,
-      "stage": 2,
-      "part": 0,
-      "alias_stage": 1,
-      "alias_part": 0,
-      "native_xy": [
-        282,
-        37
-      ],
-      "reason": "Source Boss node is STAGE1 while actual source Boss route enters STAGE2."
-    }
+  "maps": "Shared native current-part lifecycle; no per-map aliases",
+  "release_gate": "18-case callback model, actual normal1/0->1/1 transition and M-map portrait position passed. Independent review and designated signed delivery pending. No installation.",
+  "mechanism": "Original current-part selection return -> original1070C20 UI refresh",
+  "qualification": "map-refresh-model.json",
+  "native_qualification": "map-refresh-native-qualified.json",
+  "owned_native_runtime_qualified": true,
+  "actual_M_map_GUI_qualified": true,
+  "source_parent": "local-solo-dungeon-wear-20261031-v2",
+  "retained_components": [
+    "native_wear_sync",
+    "world_event_iteration",
+    "native_cache_sync.js"
   ],
-  "release_gate": "Requires independent native adapter review, owned isolated actual-game lifecycle/screen validation, then designated owner signed-component delivery. Current qualification is source/composition/model only."
+  "whole_dungeon_clear_qualified": false,
+  "multiplayer_qualified": false
 }

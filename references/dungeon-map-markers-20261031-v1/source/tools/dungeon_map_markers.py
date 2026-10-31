@@ -15,7 +15,7 @@ def compose(snapshot,executable_sha256,template):
     raw=Path(__file__).with_suffix('.js').read_text('utf-8')
     if raw.count('__DUNGEON_MAP_PINS__')!=1:
         raise ValueError('Dungeon map source contract')
-    sizes={0x1070c20:32,0x10710cd:13,0x3554020:16,0x3556210:16,0x4ab640:16,0x4ab6d0:16,0x104df40:27}
+    sizes={0x1040980:32,0x1070c20:32,0x4ab640:16,0x4ab6d0:16}
     pins={r:snapshot[r:r+n].hex()for r,n in sizes.items()}
     raw=raw.replace('__DUNGEON_MAP_PINS__',json.dumps(pins))
     return raw+'\n'+template.replace(anchor,anchor+'\n installElsDungeonMapMarkers();')
