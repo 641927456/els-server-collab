@@ -1,0 +1,46 @@
+{
+  "format": 1,
+  "issue": 714,
+  "candidate": true,
+  "activation": false,
+  "runtime_acceptance": false,
+  "files": [
+    {
+      "path": "els_server/domain/pet_expedition_flow.py",
+      "source": "references/pet-expedition-selected-phase-20261101-v1/source/shared/els_server/domain/pet_expedition_flow.py",
+      "sha256": "ce47cf3bcbd49d7219ea8aa2579c4bed54766a48be228e33688f85f181a05922",
+      "parent_sha256": {
+        "online": "afdf002161a1e8ad2edd9aacb9c0dff5ab6038f8cfa222e2f326d5486e3ded32",
+        "local": "afdf002161a1e8ad2edd9aacb9c0dff5ab6038f8cfa222e2f326d5486e3ded32"
+      },
+      "channels": [
+        "online",
+        "local"
+      ]
+    }
+  ],
+  "source_parents": {
+    "online": {
+      "release": "epic-special14-20261101-v4",
+      "manifest_sha256": "3eba53bf313481937692f2ad516ee679b79306362523c8d7b04e614fab782265"
+    },
+    "local": {
+      "release": "local-epic-special14-20261101-v4",
+      "manifest_sha256": "c95ed9f1f4caa7f9e13ce7be933262f61b134bf92733a7607cea7ed4633d0a39"
+    }
+  },
+  "scope": "Run existing selected(s) qualification before reading current character level in pet expedition periodic; pre-selection no actor read/write, valid selected-town99 initialization retained.",
+  "actual_failure": "Two owned native clients: characters_ready periodic Unknown character -> connection_finished -> client ExitProcess0. Default root UID1001 has no character when sole actual role is1002.",
+  "implementation": "Only relocate one level check after existing selected(s) try/except. Do not catch broken actually selected character reads; no catch-all, artificial root role or UID fallback.",
+  "validation": "Original exception reproduced; lifecycle phases/read/write exclusion,99 positive,98 exclusion,day memo and actual-selected error propagation; real owned GUI selection held26s+, human normal game entry, no notification_error.",
+  "database_migration": false,
+  "economic_rule_changes": false,
+  "client_changes": false,
+  "original_EXE_KOM_changes": 0,
+  "unrelated_scope_excluded": [
+    "PR713 native triggers",
+    "Map33232/35301",
+    "Chase-room crowd/stagger"
+  ],
+  "integration": "Selectively apply one source leaf, preserve newer pet expedition and other channel behavior. No QA stores/logs/checkpoints in payload. Independent review and owner installation required."
+}

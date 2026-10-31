@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "checks": [
+    "Missing status does not enable official admission",
+    "Actual ready event publisher hashes installed JS and atomically publishes exact probe/game generation; owned parser returns current ready epoch",
+    "Different launch owner, reused PID birth time, foreign child and dead game all refuse readiness",
+    "Old support hash and malformed status cannot enable new official admission",
+    "Actual disabled/dispose event replaces the same launch epoch with ready=false"
+  ],
+  "process_metadata_are_explicit_fixtures": true,
+  "no_game_process_started_or_attached": true,
+  "actual_Hook_dispose_event": "pvp-hp-abi-result.json",
+  "actual_TLS_control_gate": "pvp-support-tls-result.json"
+}

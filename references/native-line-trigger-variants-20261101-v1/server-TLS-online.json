@@ -1,0 +1,227 @@
+{
+  "ok": true,
+  "channel": "online",
+  "actual_Application_TLS": true,
+  "controlled_owned_room_matrix": true,
+  "natural_clear": false,
+  "cases": [
+    {
+      "dungeon": 33162,
+      "stage": 1,
+      "part": 2,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 33881,
+      "stage": 2,
+      "part": 2,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 33891,
+      "stage": 1,
+      "part": 1,
+      "activation": 1,
+      "loop": false
+    },
+    {
+      "dungeon": 33891,
+      "stage": 2,
+      "part": 1,
+      "activation": 1,
+      "loop": false
+    },
+    {
+      "dungeon": 33891,
+      "stage": 2,
+      "part": 2,
+      "activation": 2,
+      "loop": false
+    },
+    {
+      "dungeon": 33891,
+      "stage": 5,
+      "part": 0,
+      "activation": 1,
+      "loop": false
+    },
+    {
+      "dungeon": 34320,
+      "stage": 1,
+      "part": 1,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 34320,
+      "stage": 2,
+      "part": 2,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 34320,
+      "stage": 3,
+      "part": 0,
+      "activation": 0,
+      "loop": true
+    },
+    {
+      "dungeon": 34320,
+      "stage": 3,
+      "part": 0,
+      "activation": 1,
+      "loop": true
+    },
+    {
+      "dungeon": 34320,
+      "stage": 3,
+      "part": 0,
+      "activation": 2,
+      "loop": true
+    },
+    {
+      "dungeon": 34320,
+      "stage": 3,
+      "part": 0,
+      "activation": 3,
+      "loop": true
+    },
+    {
+      "dungeon": 34320,
+      "stage": 3,
+      "part": 0,
+      "activation": 4,
+      "loop": true
+    },
+    {
+      "dungeon": 34320,
+      "stage": 3,
+      "part": 0,
+      "activation": 5,
+      "loop": true
+    },
+    {
+      "dungeon": 34320,
+      "stage": 3,
+      "part": 0,
+      "activation": 6,
+      "loop": true
+    },
+    {
+      "dungeon": 34320,
+      "stage": 3,
+      "part": 0,
+      "activation": 7,
+      "loop": true
+    },
+    {
+      "dungeon": 34320,
+      "stage": 3,
+      "part": 0,
+      "activation": 8,
+      "loop": true
+    },
+    {
+      "dungeon": 34330,
+      "stage": 1,
+      "part": 1,
+      "activation": 1,
+      "loop": false
+    },
+    {
+      "dungeon": 34330,
+      "stage": 1,
+      "part": 2,
+      "activation": 3,
+      "loop": false
+    },
+    {
+      "dungeon": 34330,
+      "stage": 1,
+      "part": 3,
+      "activation": 4,
+      "loop": false
+    },
+    {
+      "dungeon": 34760,
+      "stage": 0,
+      "part": 1,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 34760,
+      "stage": 1,
+      "part": 2,
+      "activation": 1,
+      "loop": false
+    },
+    {
+      "dungeon": 34780,
+      "stage": 0,
+      "part": 2,
+      "activation": 3,
+      "loop": false
+    },
+    {
+      "dungeon": 35080,
+      "stage": 2,
+      "part": 0,
+      "activation": 1,
+      "loop": true
+    },
+    {
+      "dungeon": 35170,
+      "stage": 0,
+      "part": 1,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 35170,
+      "stage": 0,
+      "part": 2,
+      "activation": 1,
+      "loop": false
+    },
+    {
+      "dungeon": 120000,
+      "stage": 2,
+      "part": 2,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 120010,
+      "stage": 2,
+      "part": 2,
+      "activation": 0,
+      "loop": false
+    }
+  ],
+  "negative_cases": [
+    "wrong id",
+    "malformed",
+    "missing performer",
+    "foreign performer",
+    "foreign UID",
+    "role",
+    "phase",
+    "dungeon_substage_synced",
+    "clear_notified",
+    "dungeon_failed",
+    "dungeon_participants",
+    "wrong room",
+    "changed resource",
+    "source NPC absent",
+    "stale lease"
+  ],
+  "exact_native_envelope": true,
+  "cleared_current_room_accepted": true,
+  "non_loop_duplicate_ACK_only": true,
+  "native_loop_repeated_notifications": true,
+  "no_HP_defeat_room_inventory_or_ED_change": true
+}

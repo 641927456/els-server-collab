@@ -1,0 +1,75 @@
+{
+  "installed": true,
+  "Git_merged": false,
+  "PR": 710,
+  "issue": 709,
+  "author_candidate_sha256": "1cee638066884f1a2c79c7cf5712d2a17764155e893e6fecc4d5efeb93116e7f",
+  "channels": {
+    "online": {
+      "release": "native-scene-retirements-20261101-v1",
+      "manifest_sha256": "49d8aea3a0ef4bdf5e54ffe90b185859c03a4c9551db4e41386cdc26c451b6ad",
+      "parent_release": "epic-special14-20261101-v4",
+      "observation_seconds": 124.4456116000656
+    },
+    "local": {
+      "release": "local-native-scene-retirements-20261101-v1",
+      "manifest_sha256": "289d0703b856bdfde1b9432c1723fdb769f0d51116399cdac333653e7f6c0256",
+      "parent_release": "local-epic-special14-20261101-v4",
+      "observation_seconds": 120.00021390011534
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "source": "references/native-scene-retirements-installed-20261101-v1/friends_dungeon.py",
+      "sha256": "43f0fa31ded3d8ee7f101a15fad95be070af8f2bc322533eb486f1748755e480",
+      "size": 29723
+    },
+    {
+      "path": "els_server/domain/friends_story_retirements.py",
+      "source": "references/native-scene-retirements-20261101-v1/source/els_server/domain/friends_story_retirements.py",
+      "sha256": "a1855587b1eebc79a3e3dc6496285ecd31c039a25cd52f3488f742f51fb52b47",
+      "size": 7937
+    },
+    {
+      "path": "els_server/domain/scene_actor_retirements.py",
+      "source": "references/native-scene-retirements-20261101-v1/source/els_server/domain/scene_actor_retirements.py",
+      "sha256": "2c2a55d61878e508de2ce4278135685a0c4226f09b29c48d0ab945f2552bec9b",
+      "size": 13159
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "source": "references/native-scene-retirements-20261101-v1/source/els_server/domain/scene_retirement_sources.py",
+      "sha256": "395509a255b4e7e1d863de60f1663307988b5af0e2b51f0d535b14b479b8874b",
+      "size": 609084
+    },
+    {
+      "path": "els_server/domain/story_controller_retirements.py",
+      "source": "references/native-scene-retirements-20261101-v1/source/els_server/domain/story_controller_retirements.py",
+      "sha256": "2b4be11a6ec8be600dfe4381319eb3e2709b3af276fa6998d7b8c7b20677e94a",
+      "size": 85163
+    }
+  ],
+  "public_protocol_QA": {
+    "passed": true,
+    "original343_gate": true,
+    "repeat_ack_only": true,
+    "forged_refused": true,
+    "retirement_balances_unchanged": true,
+    "reconnect_preserved": true,
+    "final_Boss_rewards": false
+  },
+  "own_QA_cleaned": true,
+  "publication_locks_released": true,
+  "V55_selected": true,
+  "launcher_changed": false,
+  "new_schema": false,
+  "client_delta": 0,
+  "pvp_preserved": true,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "evidence_sha256": {
+    "delivery-receipt.json": "9f615bb48cd29ff0253b3299ba3f865790b2b4962f0cd850a43a49c8da4f9ffa",
+    "delivery-readback.json": "bcf5ca825af9c27b6a32b93523feb61c780220ede313d11bd211bab6433245e1"
+  }
+}

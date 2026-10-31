@@ -1,0 +1,666 @@
+{
+  "format": 1,
+  "freeze": "v4",
+  "created": "2026-10-31T17:24:22.727790+00:00",
+  "candidate": true,
+  "ready": true,
+  "developer_ready": true,
+  "selected": false,
+  "installed": false,
+  "automatic_deployment": false,
+  "base_runtime": "G:\\els\\releases\\local\\local-mainline-leveling-exp20-20261031-v1",
+  "base_manifest_sha256": "11b50a435ca2130037d1ad7791d134bd6a2ced286ce45d0f9b23aa1aa0ccfca0",
+  "git_base": "b836a7dee8155bd33e0f91f4bf6803751bcd4aaa",
+  "source_set_sha256": "9fd895453569ad2f3158171ff8bc1eb203942843d8dd34727f7a1ff5d1c86aca",
+  "runtime_files": [
+    {
+      "path": "els_server/application.py",
+      "source": "references/epic-special14-20261031-v1/source/cd7fbc863192765f980df7b7f8908210c08a231db2d3c6b74d086bd53d471f62/application.py",
+      "sha256": "cd7fbc863192765f980df7b7f8908210c08a231db2d3c6b74d086bd53d471f62",
+      "size": 23948,
+      "before_sha256": "a933f79870d440eb534afb85e94f34b72b79c8963fc32e360a2cbc96855377e2"
+    },
+    {
+      "path": "els_server/data/character_custom_permanent.json",
+      "source": "references/epic-special14-20261031-v1/source/219b614469738b9b1a51931b7bf1ca6426eb7d782002a889a85ffea2a0e13871/character_custom_permanent.json",
+      "sha256": "219b614469738b9b1a51931b7bf1ca6426eb7d782002a889a85ffea2a0e13871",
+      "size": 1882134,
+      "before_sha256": "41d413b7a0a1274f4c5e794dfb44cf414f3435d033db60c82e01c36050a42f3e"
+    },
+    {
+      "path": "els_server/data/cooking_clear_materials.json",
+      "source": "references/epic-special14-20261031-v1/source/f6773c9d5ba53845307f38c880088420d665914b581f24a12138a89fc6ab8efb/cooking_clear_materials.json",
+      "sha256": "f6773c9d5ba53845307f38c880088420d665914b581f24a12138a89fc6ab8efb",
+      "size": 38371,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/data/mentor45000.json",
+      "source": "references/epic-special14-20261031-v1/source/4240cb07e9a8e96480b1992d560c5748cec16c1ffbbe85ff84bfc659d7c4c64d/mentor45000.json",
+      "sha256": "4240cb07e9a8e96480b1992d560c5748cec16c1ffbbe85ff84bfc659d7c4c64d",
+      "size": 7021,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/data/pvp_seven.json",
+      "source": "references/epic-special14-20261031-v1/source/bb1d8ff4108dda77347351aff8a57421fb4cd277bc15d6f9296a1e639ddaffeb/pvp_seven.json",
+      "sha256": "bb1d8ff4108dda77347351aff8a57421fb4cd277bc15d6f9296a1e639ddaffeb",
+      "size": 21051,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/data/secret_fragment_box.json",
+      "source": "references/epic-special14-20261031-v1/source/f77ff364da9987330ada36eb1c5da920e06e431a68300ac1d56f010f357b3322/secret_fragment_box.json",
+      "sha256": "f77ff364da9987330ada36eb1c5da920e06e431a68300ac1d56f010f357b3322",
+      "size": 962,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/data/special_task_readers.json",
+      "source": "references/epic-special14-20261031-v1/source/bd2f99a8cf340276b93963336e07d20c24e381a92e0cbed95baac317ad52f95f/special_task_readers.json",
+      "sha256": "bd2f99a8cf340276b93963336e07d20c24e381a92e0cbed95baac317ad52f95f",
+      "size": 2216,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/data/story_quests.json",
+      "source": "references/epic-special14-20261031-v1/source/ddf4fbd498fd051c7f2c2f883e1695bc116e473f0377a695d901f38e56436a6f/story_quests.json",
+      "sha256": "ddf4fbd498fd051c7f2c2f883e1695bc116e473f0377a695d901f38e56436a6f",
+      "size": 1664815,
+      "before_sha256": "0cb47c1197bed148c6d650b35d6ebe16a8417adb68e087b01dee40266d8459cd"
+    },
+    {
+      "path": "els_server/data/story_quests.manifest.json",
+      "source": "references/epic-special14-20261031-v1/source/152e70367182ff88271f725935cd4181c5189bfd5cff3682fd27faa16ea275f1/story_quests.manifest.json",
+      "sha256": "152e70367182ff88271f725935cd4181c5189bfd5cff3682fd27faa16ea275f1",
+      "size": 332,
+      "before_sha256": "6f21356488ae68b96986c368fb981f4a68c7a411b69087983d281ad06e1495db"
+    },
+    {
+      "path": "els_server/domain/character_custom.py",
+      "source": "references/epic-special14-20261031-v1/source/250d8fd27f6d6da45c1ba96ea8da3e58be2a261f73550a7231037ab9f4d71b0a/character_custom.py",
+      "sha256": "250d8fd27f6d6da45c1ba96ea8da3e58be2a261f73550a7231037ab9f4d71b0a",
+      "size": 9126,
+      "before_sha256": "5ee7dc8c94ea48b0923e8b1f2bc0d5831df300f88694c9d21decd325181d4901"
+    },
+    {
+      "path": "els_server/domain/cooking_clear_materials.py",
+      "source": "references/epic-special14-20261031-v1/source/3d9f445f9c1eb815733e53a3634c8643bb37e22ed3c8a0eb7a0f0fc6f8dc5e53/cooking_clear_materials.py",
+      "sha256": "3d9f445f9c1eb815733e53a3634c8643bb37e22ed3c8a0eb7a0f0fc6f8dc5e53",
+      "size": 2691,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/domain/cubes.py",
+      "source": "references/epic-special14-20261031-v1/source/6c6476e0903041885d56ed449cf3c94fd8d9049e5c910493f983cef0d4851d6a/cubes.py",
+      "sha256": "6c6476e0903041885d56ed449cf3c94fd8d9049e5c910493f983cef0d4851d6a",
+      "size": 4882,
+      "before_sha256": "ba08a721b9a4aaf5e4b8c98b69a688ed12ec03cbb0616f9eac334e67e2c9264c"
+    },
+    {
+      "path": "els_server/domain/equipment_ui_flow.py",
+      "source": "references/epic-special14-20261031-v1/source/4988ba6ed1035aee8c4e9f932499fde60b56dd6575d5bcc09de3d47a9c461933/equipment_ui_flow.py",
+      "sha256": "4988ba6ed1035aee8c4e9f932499fde60b56dd6575d5bcc09de3d47a9c461933",
+      "size": 9135,
+      "before_sha256": "f887e5760305ad3a166a7fbe6ac5dc67dea1515d5e20fcef16d744e3003bc640"
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "source": "references/epic-special14-20261031-v1/source/9a2b33a2b102d278901b6936759d71cbfb32fb4c05925f985e440e34162ce52d/friends_dungeon.py",
+      "sha256": "9a2b33a2b102d278901b6936759d71cbfb32fb4c05925f985e440e34162ce52d",
+      "size": 29490,
+      "before_sha256": "9b517c4a7538bce58f914c78cea278cac2c0ceb262434fba0c9187831a05e520"
+    },
+    {
+      "path": "els_server/domain/friends_pvp.py",
+      "source": "references/epic-special14-20261031-v1/source/73d2116be714cdeebf4600fe4ec475459557e84b2cde685f8a0ff984fc056e12/friends_pvp.py",
+      "sha256": "73d2116be714cdeebf4600fe4ec475459557e84b2cde685f8a0ff984fc056e12",
+      "size": 9121,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "source": "references/epic-special14-20261031-v1/source/af7c4209f379ab80cd7436bcdec704b59bbf3ad94f5069d2326da89f6fdcc4ba/friends_world.py",
+      "sha256": "af7c4209f379ab80cd7436bcdec704b59bbf3ad94f5069d2326da89f6fdcc4ba",
+      "size": 19353,
+      "before_sha256": "6076303fde43097f68aae873721b43f8e50778d9287c6ab33e5aa3aa665968a0"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "source": "references/epic-special14-20261031-v1/source/071bf7dd5ccbd3f00f4ea72a2e5f38f953f487af64df2c20c6d4e7d6186a0ece/inventory_items.py",
+      "sha256": "071bf7dd5ccbd3f00f4ea72a2e5f38f953f487af64df2c20c6d4e7d6186a0ece",
+      "size": 78616,
+      "before_sha256": "52f19e129487009e4631aadfd3ab2878e384119d0ed87231d6385266cb349a0d"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "source": "references/epic-special14-20261031-v1/source/2ba8b8e33e4a0962b8f42eb56d9f2892cdedfc24eb413999a0c2417ce45fcf5c/local_session.py",
+      "sha256": "2ba8b8e33e4a0962b8f42eb56d9f2892cdedfc24eb413999a0c2417ce45fcf5c",
+      "size": 144026,
+      "before_sha256": "3aa858fb136f359d008440bad962be8c88a68dc5e7afcee96214eaec58fba060"
+    },
+    {
+      "path": "els_server/domain/mentor45000.py",
+      "source": "references/epic-special14-20261031-v1/source/9075f107421653fe17db2db782392e1d7707560db09569bd6493ae740b30e774/mentor45000.py",
+      "sha256": "9075f107421653fe17db2db782392e1d7707560db09569bd6493ae740b30e774",
+      "size": 707,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/domain/pet_expedition.py",
+      "source": "references/epic-special14-20261031-v1/source/29e569107b8e895095c06c49ac5d88ff947b7877d398ef010956ba0fbcf65cad/pet_expedition.py",
+      "sha256": "29e569107b8e895095c06c49ac5d88ff947b7877d398ef010956ba0fbcf65cad",
+      "size": 8260,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/domain/pet_expedition_flow.py",
+      "source": "references/epic-special14-20261031-v1/source/afdf002161a1e8ad2edd9aacb9c0dff5ab6038f8cfa222e2f326d5486e3ded32/pet_expedition_flow.py",
+      "sha256": "afdf002161a1e8ad2edd9aacb9c0dff5ab6038f8cfa222e2f326d5486e3ded32",
+      "size": 2698,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/domain/pve_economy_flow.py",
+      "source": "references/epic-special14-20261031-v1/source/3547e27691f84c55f13f8ec27e5e55e250dac793a48ca696c22be1b7026088da/pve_economy_flow.py",
+      "sha256": "3547e27691f84c55f13f8ec27e5e55e250dac793a48ca696c22be1b7026088da",
+      "size": 23050,
+      "before_sha256": "db7776c1b65226de22a93324ed036b542a4287c76e0fed9a4d68ecab48448c1c"
+    },
+    {
+      "path": "els_server/domain/pvp_actor.py",
+      "source": "references/epic-special14-20261031-v1/source/c5a196b66bc43bb7efe967c6c187e9c84149f4a5761ffe5830978ae0ae370947/pvp_actor.py",
+      "sha256": "c5a196b66bc43bb7efe967c6c187e9c84149f4a5761ffe5830978ae0ae370947",
+      "size": 4622,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/domain/pvp_loading.py",
+      "source": "references/epic-special14-20261031-v1/source/8f28b6872ebaf36998fb83935c89d81f2a87ae3b4d83fc8516315c428a107abb/pvp_loading.py",
+      "sha256": "8f28b6872ebaf36998fb83935c89d81f2a87ae3b4d83fc8516315c428a107abb",
+      "size": 10468,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/domain/pvp_official_1v1_policy.py",
+      "source": "references/epic-special14-20261031-v1/source/6be3aec50428bcbf8016a6bbd9ce1ff5ba6ad236f1de83f3638f702a91c5b765/pvp_official_1v1_policy.py",
+      "sha256": "6be3aec50428bcbf8016a6bbd9ce1ff5ba6ad236f1de83f3638f702a91c5b765",
+      "size": 7290,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/domain/pvp_quests.py",
+      "source": "references/epic-special14-20261031-v1/source/3467de3eb9c2f4d81a5d8614638bc58ac95bb428bc5786c1f3b426aeee913165/pvp_quests.py",
+      "sha256": "3467de3eb9c2f4d81a5d8614638bc58ac95bb428bc5786c1f3b426aeee913165",
+      "size": 3123,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/domain/pvp_registration.py",
+      "source": "references/epic-special14-20261031-v1/source/edadb95a8535171be86821916967e2bb55ccbd3454c92c5ac55f7d6978e5df99/pvp_registration.py",
+      "sha256": "edadb95a8535171be86821916967e2bb55ccbd3454c92c5ac55f7d6978e5df99",
+      "size": 10605,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/domain/pvp_round.py",
+      "source": "references/epic-special14-20261031-v1/source/c730b5e7b49ad319044d955e7215dc4229a09f070fdb5a9cbcb376b748f10777/pvp_round.py",
+      "sha256": "c730b5e7b49ad319044d955e7215dc4229a09f070fdb5a9cbcb376b748f10777",
+      "size": 12291,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/domain/pvp_support.py",
+      "source": "references/epic-special14-20261031-v1/source/f43b933dfd69930d62c8bc5453c14a6e19f748b99f27d51e67a5a921e91419e1/pvp_support.py",
+      "sha256": "f43b933dfd69930d62c8bc5453c14a6e19f748b99f27d51e67a5a921e91419e1",
+      "size": 3218,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "source": "references/epic-special14-20261031-v1/source/cf21bdf4ac3f91303dbccda6e3e3fb67b1d57cd122c7f8ef9888719094b2da76/quest_flow.py",
+      "sha256": "cf21bdf4ac3f91303dbccda6e3e3fb67b1d57cd122c7f8ef9888719094b2da76",
+      "size": 27410,
+      "before_sha256": "f8c38914d880136b5a547eb8ae628eb2b7e18f21bc594dd412cda3aa0b5a7f3b"
+    },
+    {
+      "path": "els_server/domain/region_quests.py",
+      "source": "references/epic-special14-20261031-v1/source/d6d4aecbf0043f9e953fbc02022775600b3c14a028716523bec6973446b1e24c/region_quests.py",
+      "sha256": "d6d4aecbf0043f9e953fbc02022775600b3c14a028716523bec6973446b1e24c",
+      "size": 5438,
+      "before_sha256": "6cecc7a8361e1da1364e38e68c5e6b75ca660f9d2cea98dd1757e64a29850aec"
+    },
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "source": "references/epic-special14-20261031-v1/source/11e8768f107fd6bcb3ea90040ed588ed70b71bb1b8296346794e6db775d2ed18/seal_quests.py",
+      "sha256": "11e8768f107fd6bcb3ea90040ed588ed70b71bb1b8296346794e6db775d2ed18",
+      "size": 16381,
+      "before_sha256": "58394a360d12259ede9cbc93125bb11e20981ddfecf231611e162f0e2f34dc15"
+    },
+    {
+      "path": "els_server/domain/secret_fragment_box.py",
+      "source": "references/epic-special14-20261031-v1/source/0b50cd18f1712fe9bc65d0f6a24cb78a311ad12d099ac974592a21e86f24c572/secret_fragment_box.py",
+      "sha256": "0b50cd18f1712fe9bc65d0f6a24cb78a311ad12d099ac974592a21e86f24c572",
+      "size": 867,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/domain/session_dispatch.py",
+      "source": "references/epic-special14-20261031-v1/source/ea4bcf585f4e7a198851a1342f5d38c231823ec3edd166a333e6ca322eb7e380/session_dispatch.py",
+      "sha256": "ea4bcf585f4e7a198851a1342f5d38c231823ec3edd166a333e6ca322eb7e380",
+      "size": 17318,
+      "before_sha256": "26ad93d94b0ed371bbee158ec92761de4ba18fe1188c972abc6453268944e66f"
+    },
+    {
+      "path": "els_server/domain/special_quest_rewards.py",
+      "source": "references/epic-special14-20261031-v1/source/14444dafbf13118fc7af901f64e664f4ebed2af5560592e349b44bc3261f1957/special_quest_rewards.py",
+      "sha256": "14444dafbf13118fc7af901f64e664f4ebed2af5560592e349b44bc3261f1957",
+      "size": 1287,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/domain/town_travel_flow.py",
+      "source": "references/epic-special14-20261031-v1/source/1613329defaa01ec97b3a1506cac401daab83537ce7f4210639ff6e0391c4e5f/town_travel_flow.py",
+      "sha256": "1613329defaa01ec97b3a1506cac401daab83537ce7f4210639ff6e0391c4e5f",
+      "size": 17495,
+      "before_sha256": "f5bab88ebb9ed95e03e8d5691b0ccf2cacd75010f1691491dd2c84f6d3ff7c4b"
+    },
+    {
+      "path": "els_server/friends_bridge.py",
+      "source": "references/epic-special14-20261031-v1/source/f6817002efecc3cd01c0e522bcd7ff12294f0ef2e8d71fb1c04c85adc10a239d/friends_bridge.py",
+      "sha256": "f6817002efecc3cd01c0e522bcd7ff12294f0ef2e8d71fb1c04c85adc10a239d",
+      "size": 16153,
+      "before_sha256": "c591b100c84bc2b62f9e2d4d0c88b8c303d50234bc702c3811498d6a841ba1b3"
+    },
+    {
+      "path": "els_server/friends_relay.py",
+      "source": "references/epic-special14-20261031-v1/source/ea3cd935d99725bc5df163da6827f14f81e96ca77973c5d9591b2c49e4fd196f/friends_relay.py",
+      "sha256": "ea3cd935d99725bc5df163da6827f14f81e96ca77973c5d9591b2c49e4fd196f",
+      "size": 14079,
+      "before_sha256": "338a9dd3fc46251e6f36a70a5d2095a2068276b0960a9b75de7b670b8f47e539"
+    },
+    {
+      "path": "els_server/protocol/pet_expedition_messages.py",
+      "source": "references/epic-special14-20261031-v1/source/381bdc069db97449ee89abb552588ab5c03567c8c8ec52e8250253c134a0c421/pet_expedition_messages.py",
+      "sha256": "381bdc069db97449ee89abb552588ab5c03567c8c8ec52e8250253c134a0c421",
+      "size": 4256,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/protocol/pvp_death_messages.py",
+      "source": "references/epic-special14-20261031-v1/source/c7a3f908348d4b2555c1db67e48aad22b7c951510529f9906f3fccd1d96ef8f6/pvp_death_messages.py",
+      "sha256": "c7a3f908348d4b2555c1db67e48aad22b7c951510529f9906f3fccd1d96ef8f6",
+      "size": 2725,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/protocol/pvp_loading_messages.py",
+      "source": "references/epic-special14-20261031-v1/source/3b71793291770cd2425d7d95f6d01c637202e8af9a9852c6b8ef0b79acc73732/pvp_loading_messages.py",
+      "sha256": "3b71793291770cd2425d7d95f6d01c637202e8af9a9852c6b8ef0b79acc73732",
+      "size": 2409,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/protocol/pvp_match_messages.py",
+      "source": "references/epic-special14-20261031-v1/source/324eb6127083ed30331e2393e6ee1fc4aad1651b4a9e071f869222eef71aa727/pvp_match_messages.py",
+      "sha256": "324eb6127083ed30331e2393e6ee1fc4aad1651b4a9e071f869222eef71aa727",
+      "size": 3863,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/protocol/pvp_play_messages.py",
+      "source": "references/epic-special14-20261031-v1/source/6fbfa6993031598d9285b21b8d6cf28a9bab6f10858f13ec0c1a2ba22f7277fe/pvp_play_messages.py",
+      "sha256": "6fbfa6993031598d9285b21b8d6cf28a9bab6f10858f13ec0c1a2ba22f7277fe",
+      "size": 4242,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/protocol/pvp_result_messages.py",
+      "source": "references/epic-special14-20261031-v1/source/16784985abeec7c05920a2e793c35f7570c4b022c27d15b6108e2a00cb5ee707/pvp_result_messages.py",
+      "sha256": "16784985abeec7c05920a2e793c35f7570c4b022c27d15b6108e2a00cb5ee707",
+      "size": 1564,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/protocol/pvp_room_messages.py",
+      "source": "references/epic-special14-20261031-v1/source/f2ce022482e22ea6706f17aaf780ccb49004ba8302da6885b73019c9e24d98c6/pvp_room_messages.py",
+      "sha256": "f2ce022482e22ea6706f17aaf780ccb49004ba8302da6885b73019c9e24d98c6",
+      "size": 4050,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/protocol/quest_messages.py",
+      "source": "references/epic-special14-20261031-v1/source/e69e0559820c9cbbfad2cb045c699af47073f0f0b5671b6acad92990bf5de7e6/quest_messages.py",
+      "sha256": "e69e0559820c9cbbfad2cb045c699af47073f0f0b5671b6acad92990bf5de7e6",
+      "size": 4578,
+      "before_sha256": "b0b09233858a7fd89d0eb1ee4a6ca8751074a354147072d73f14a1876c14eb2c"
+    },
+    {
+      "path": "els_server/storage/account_fishing_tasks_scope.py",
+      "source": "references/epic-special14-20261031-v1/source/bad86270367772633a6088cf5ebcb973016f2d478c503f276c2686166e8e679f/account_fishing_tasks_scope.py",
+      "sha256": "bad86270367772633a6088cf5ebcb973016f2d478c503f276c2686166e8e679f",
+      "size": 10395,
+      "before_sha256": "7f1607768222a237449d6f5a2f1b8957fdd59f97109ac9998cba7ca62046d792"
+    },
+    {
+      "path": "els_server/storage/blacksmith_enhancement.py",
+      "source": "references/epic-special14-20261031-v1/source/a1c80104443e47399d583d2dc8dd54a421374244c03a9273d762bd521560af43/blacksmith_enhancement.py",
+      "sha256": "a1c80104443e47399d583d2dc8dd54a421374244c03a9273d762bd521560af43",
+      "size": 6574,
+      "before_sha256": "e3d78a881fc6976e82e832fa43f2215a3a73931e33508690cb1090196d4f58fd"
+    },
+    {
+      "path": "els_server/storage/character_custom.py",
+      "source": "references/epic-special14-20261031-v1/source/413dddca29432bb5d1edde9a00016fd402dcff26190338d8bfe1549ac554a70a/character_custom.py",
+      "sha256": "413dddca29432bb5d1edde9a00016fd402dcff26190338d8bfe1549ac554a70a",
+      "size": 22142,
+      "before_sha256": "b641173ad6d50316d3913c42f9b5bf92a3a8530c491a7ce7d75213a7dd640003"
+    },
+    {
+      "path": "els_server/storage/companion_state.py",
+      "source": "references/epic-special14-20261031-v1/source/94e9185cfa79ef4c9d4cb477cf1f6cf6ec2024c60eaefb6663d8850b7a19e0b8/companion_state.py",
+      "sha256": "94e9185cfa79ef4c9d4cb477cf1f6cf6ec2024c60eaefb6663d8850b7a19e0b8",
+      "size": 10356,
+      "before_sha256": "df12b8a065d61f2db82956f3d787d6fe342435cc155ace8bffa1f270698910bc"
+    },
+    {
+      "path": "els_server/storage/epic_followups.py",
+      "source": "references/epic-special14-20261031-v1/source/7b2d8d9ca2861c5d36b337e7ab87b3b51bc33f5bd9601565d31d57fa0d089f6d/epic_followups.py",
+      "sha256": "7b2d8d9ca2861c5d36b337e7ab87b3b51bc33f5bd9601565d31d57fa0d089f6d",
+      "size": 6886,
+      "before_sha256": "00c5e1ce407943648754daefb2af6abbb9521c77c957a9d166f82c482479c775"
+    },
+    {
+      "path": "els_server/storage/fixed_cubes.py",
+      "source": "references/epic-special14-20261031-v1/source/1c87ed9f49081dd3619bf6eaf0e653ef6732a6848cff4c3a636c90b78fe556e5/fixed_cubes.py",
+      "sha256": "1c87ed9f49081dd3619bf6eaf0e653ef6732a6848cff4c3a636c90b78fe556e5",
+      "size": 11296,
+      "before_sha256": "81349a954ffd09767ba760051e768c34f865c000991879b1e2749cdcaa998023"
+    },
+    {
+      "path": "els_server/storage/life_stamina.py",
+      "source": "references/epic-special14-20261031-v1/source/9e75253fe22e7d5b800387a1450738a9b1e55eee14cd80d0ee51fca983b756c2/life_stamina.py",
+      "sha256": "9e75253fe22e7d5b800387a1450738a9b1e55eee14cd80d0ee51fca983b756c2",
+      "size": 3665,
+      "before_sha256": "62f70688b6f7ad6b9f39b3dc5f4ce933754e1b8e8920e61bcaa66561f7b4b949"
+    },
+    {
+      "path": "els_server/storage/mentor45000_scope.py",
+      "source": "references/epic-special14-20261031-v1/source/ec32df0094f8bc8e5d5e020c93456b97ae6c85f621ddb1f50b2677f4045a0647/mentor45000_scope.py",
+      "sha256": "ec32df0094f8bc8e5d5e020c93456b97ae6c85f621ddb1f50b2677f4045a0647",
+      "size": 11223,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/storage/paid_enhancement.py",
+      "source": "references/epic-special14-20261031-v1/source/b90e345c69915a78183be33457a598514b0e2bb2a97576159fca2936ccf916dc/paid_enhancement.py",
+      "sha256": "b90e345c69915a78183be33457a598514b0e2bb2a97576159fca2936ccf916dc",
+      "size": 5207,
+      "before_sha256": "111228f7d81f6c117dc5c8b7c8ba0f53df997515936f1833830f567ef3149f21"
+    },
+    {
+      "path": "els_server/storage/pet_expedition.py",
+      "source": "references/epic-special14-20261031-v1/source/32cfba41c42f876de7bcf36853e110e65f4889d138e9da315c9fd70eaf7a3c47/pet_expedition.py",
+      "sha256": "32cfba41c42f876de7bcf36853e110e65f4889d138e9da315c9fd70eaf7a3c47",
+      "size": 9758,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/storage/pet_support.py",
+      "source": "references/epic-special14-20261031-v1/source/e718f9824928242a98a900087cc55d712932d6ae2f94109f9ac474a91085280b/pet_support.py",
+      "sha256": "e718f9824928242a98a900087cc55d712932d6ae2f94109f9ac474a91085280b",
+      "size": 16428,
+      "before_sha256": "a422ae02318878c3be6d108ef289cd31a28f80cebd137bb309ae62261efef900"
+    },
+    {
+      "path": "els_server/storage/pvp_official_profiles.py",
+      "source": "references/epic-special14-20261031-v1/source/f0e6220c149951f233bf509c39671c7b57897b69a11ec90c67528bc883bd397e/pvp_official_profiles.py",
+      "sha256": "f0e6220c149951f233bf509c39671c7b57897b69a11ec90c67528bc883bd397e",
+      "size": 7599,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/storage/pvp_settlement.py",
+      "source": "references/epic-special14-20261031-v1/source/de1dd5810c5f85745204fa4399c0bfd9af8e00907954f8fd25c4cd076d4148cd/pvp_settlement.py",
+      "sha256": "de1dd5810c5f85745204fa4399c0bfd9af8e00907954f8fd25c4cd076d4148cd",
+      "size": 9656,
+      "before_sha256": null
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "source": "references/epic-special14-20261031-v1/source/e82d0ce4f3b5606cb432979756f96c8fb1389aced8fc57bb4d67698a5ce1072e/seal_quests.py",
+      "sha256": "e82d0ce4f3b5606cb432979756f96c8fb1389aced8fc57bb4d67698a5ce1072e",
+      "size": 34399,
+      "before_sha256": "85bce28c97708c6de9c8ff1972b229871231675796467f1f71d0139f569e3927"
+    },
+    {
+      "path": "els_server/storage/town_travel.py",
+      "source": "references/epic-special14-20261031-v1/source/d32163605f847cd6e6de08fb0da91c9dfa643032c6a87f62bbcb1b1d99647c5d/town_travel.py",
+      "sha256": "d32163605f847cd6e6de08fb0da91c9dfa643032c6a87f62bbcb1b1d99647c5d",
+      "size": 19719,
+      "before_sha256": "16af21bcda11d9349bda96260e7961c5e12a1dd40d238918525f1ba6aaeeee58"
+    },
+    {
+      "path": "els_server/transport.py",
+      "source": "references/epic-special14-20261031-v1/source/e243b7f4f0364db55dfe0e7bb035b180702a900fb3251e011af8235d4a9de19e/transport.py",
+      "sha256": "e243b7f4f0364db55dfe0e7bb035b180702a900fb3251e011af8235d4a9de19e",
+      "size": 19077,
+      "before_sha256": "0786d872d918ef6fe3b42e31f844c3555dc1fc0095b5419c6626a3f30fe31d7c"
+    },
+    {
+      "path": "tools/native_cache_sync.py",
+      "source": "references/epic-special14-20261031-v1/source/9e295cf80ead3d561c184d4b7dc334261131ae0a6f8f22774de18a16138b97ab/native_cache_sync.py",
+      "sha256": "9e295cf80ead3d561c184d4b7dc334261131ae0a6f8f22774de18a16138b97ab",
+      "size": 4662,
+      "before_sha256": "c85a45de45c98baedfc5a5670dae8a2149f12a98ef498ee465b778180d3a4497"
+    },
+    {
+      "path": "tools/probe_updated_client.py",
+      "source": "references/epic-special14-20261031-v1/source/cf30949333122e39485a7a33fc1e0a103b89e44ad3caf7243f46108f98752835/probe_updated_client.py",
+      "sha256": "cf30949333122e39485a7a33fc1e0a103b89e44ad3caf7243f46108f98752835",
+      "size": 28756,
+      "before_sha256": "82b3339b0f0a780bd118bfcc7fa63b5fbf610281a054b95ea0be4d40d3c3f649"
+    },
+    {
+      "path": "tools/pvp_hp_source.js",
+      "source": "references/epic-special14-20261031-v1/source/ac2c528f4f1a4bd881fa62b741404d8e6b24846b4540aae11c5986d96e92e6ec/pvp_hp_source.js",
+      "sha256": "ac2c528f4f1a4bd881fa62b741404d8e6b24846b4540aae11c5986d96e92e6ec",
+      "size": 3789,
+      "before_sha256": null
+    },
+    {
+      "path": "tools/pvp_hp_source.py",
+      "source": "references/epic-special14-20261031-v1/source/8b57ee9a758ea8094d7d7154188fe90731b0af26ab9556b2f4d009acd223a3a8/pvp_hp_source.py",
+      "sha256": "8b57ee9a758ea8094d7d7154188fe90731b0af26ab9556b2f4d009acd223a3a8",
+      "size": 1303,
+      "before_sha256": null
+    }
+  ],
+  "evidence": [
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/integration-sql-result.json",
+      "sha256": "5b67e37f13990bfe43a9803835f928508c949fbc153725e58dbf7e21da2861e6"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/boxes-followups-result.json",
+      "sha256": "e124f1ac71d41327adc5877c6a9becb43e344380597b203e25330371d35dc2d3"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/account-ereda-result.json",
+      "sha256": "d51e9bb94509e2077bf9971ae0782d9570ea73a175e46681465f4b45bca46a21"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/final-edges-result.json",
+      "sha256": "515dc650e527524cbe646e35ad2c82cca005d2935e69e6fb3b59d1cf25383d1a"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/legacy-reader-result.json",
+      "sha256": "2fc11fb5c8bd83102116ce2eccb867ee60b9ca5ad6248b98b29fab34a0347d58"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/application-tls-result.json",
+      "sha256": "8c37f489e9877af3289941ee7ca80cf2e7f435eb6dfeea24319bca767bc2425a"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/expedition-tls-result.json",
+      "sha256": "61e7870212183e9e41b785ab89c21ec3d3fd8595f4ffdd73005e92a5240ed97c"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/native-items-result.json",
+      "sha256": "7667213094ba43caee48b146e0bca77a5a390e65905c52bdc5a02b4252f6dc0e"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/pvp-result-native.json",
+      "sha256": "10fa439378d24a133326a8420232ca6285f284590d40f6aeb65c51e0df0237e8"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/pvp-reward-native.json",
+      "sha256": "c8d90b3276b313abfc849e818848218c0a0519e94ab5132613e848425b9b8fdc"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/pvp-tls-result.json",
+      "sha256": "91d59f3be8331bef0fba6173e210d9f784c7d47050a4787c8086beaf84b0c350"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/pvp-edges-tls-result.json",
+      "sha256": "d0df08891da393f8071bb37dd44c2d4793ac9a70a6fb7b83d36c72f24caa39a4"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/pvp-edges-cleanup.json",
+      "sha256": "35006006809bad59eb24ff186d36f62df17490c8bd183e7f98f3247dfc7f9739"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/pvp-quest-rewards-result.json",
+      "sha256": "42e20d82620330ed1529d4ff98ed4a9b311434909dfefa8e89a72f94aacfcd4d"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/mentor-sources-result.json",
+      "sha256": "1c8d961374214d58b5bc703f965295fe383c9045931d0fe0ada63a950a517718"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/mentor-progress-contract-result.json",
+      "sha256": "349184e51847bb8a6ca9c76784da58fce9987ab92828bbec473e7f1e946f7e11"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/pvp-hp-abi-result.json",
+      "sha256": "800899e950064dacc58d5312e119903ba1a939a88f67f5446e514e3526a6f0bd"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/mentor-cooking-result.json",
+      "sha256": "05d4195681a2eab42e16ce98b8fbe12ffb26cae99665a3d62c5d67bd0cb5366b"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/mentor-claim-result.json",
+      "sha256": "bd0b48e71ad6d53ef09c4be7ff03fa2c257fc81af0e6c843c752021e93f788e5"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/cooking-clear-sessions-result.json",
+      "sha256": "edaa815050144be024858931ac7b91c45dafe48c79e8376ce766a56091645b04"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/cooking-receipts-result.json",
+      "sha256": "134fec078f31351605a0b979f83a8bddcc83411f917c9ef8b2cb4a940677a11e"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/pvp-support-tls-result.json",
+      "sha256": "3ee6c1e0245ab7daaf633177e5354767bd3bfd4be4b0d9fc6f443efb99c56f81"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/pvp-support-owned-result.json",
+      "sha256": "9753172796731532944c0fb818e61c5b52b7f092670e4da87c94c14927527f4f"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/authorization-20261101.json",
+      "sha256": "a649a56e70de7c14c875540ea90b4ee26519072bb464c00989a6ced576e73063"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/release-owner-restore-authorization-20261101.json",
+      "sha256": "59754e3b72941c78848968463f41dd30e0c39d40b9296cbef10936666a981455"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/independent-hp-support-review-20261101.json",
+      "sha256": "bb26e52edaa71f8354924af5a21c388c9b6ac67adde4c845eda3dc6dd8c4142c"
+    },
+    {
+      "path": "references/epic-special14-20261031-v1/evidence-v4/independent-hp-readiness-review-20261101.json",
+      "sha256": "0d4f2629f6c61721a68ff25a65dddeb4539b587c15b75269bebb1f0634095f19"
+    }
+  ],
+  "task_ids": [
+    22164,
+    25610,
+    25611,
+    25612,
+    32000,
+    32010,
+    32020,
+    32030,
+    32040,
+    32070,
+    32080,
+    32090,
+    35490,
+    45000
+  ],
+  "saved_reader_only": [
+    22164
+  ],
+  "new_source_quests": [
+    25610,
+    25611,
+    25612,
+    32000,
+    32010,
+    32020,
+    32030,
+    32040,
+    32070,
+    32080,
+    32090,
+    35490,
+    45000
+  ],
+  "original_EXE_KOM_changed": false,
+  "approved_rules": {
+    "mentor45000": "Check current recipient possession701000/78150/78250 each20; no consumption, zero original rewards",
+    "cooking": "Each real ordinary-clear recipient independently10% one material; base4 equal/Hamel6 equal; source marker prevents historical top-up",
+    "expedition": "Existing explicitly approved server rule; native task rewards unchanged",
+    "secret_box": "Existing explicitly approved box rule; native task reward unchanged",
+    "official1v1": "Existing explicitly approved real-player policy; no fabricated SSS/win"
+  },
+  "native_exp": {
+    "legacy_22164": 399650,
+    "other_thirteen": 0
+  },
+  "independent_review": {
+    "hp_source": "independent-hp-support-review-20261101.json",
+    "readiness": "independent-hp-readiness-review-20261101.json",
+    "HP_DEPLOY_01_source_closed": true,
+    "post_review_delta": [
+      {
+        "path": "els_server/domain/friends_pvp.py",
+        "reviewed_sha256": "19f62c6678e2d701a1ac3b50eb8c868e01d6d59f8e2df5216150bf294e266f7d",
+        "current_sha256": "73d2116be714cdeebf4600fe4ec475459557e84b2cde685f8a0ff984fc056e12"
+      }
+    ],
+    "post_review_delta_explanation": "Only deliver already committed C2/F3 before native67 ACK/town sync; no reward calculation or guard changed; exact ordering passed in pvp-support-tls-result.json; release owner should read this three-line delta with final hashes"
+  },
+  "required_client_files": [
+    "tools/native_cache_sync.py",
+    "tools/pvp_hp_source.py",
+    "tools/pvp_hp_source.js",
+    "tools/probe_updated_client.py",
+    "els_server/domain/pvp_support.py",
+    "els_server/friends_bridge.py",
+    "els_server/friends_relay.py"
+  ],
+  "release_owner": "01a188cb-21df-7000-a927-f8dbad7e074d",
+  "release_work_remaining": [
+    "Selective integration of actual current ONLINE/LOCAL preserving differences",
+    "Final three-line mailbox order delta check",
+    "Signed component dependency/update and actual selected loaded SHA",
+    "Actual per-end own QA and120s observation",
+    "Git submission after installation and progress publication/cleanup"
+  ],
+  "verification_boundary": "Owned SQL/TLS and original native consumers/getters/Frida ABI. Native source and readiness process metadata fixtures are labelled. No natural GUI/combat, installed loading, signed update or production claim from these tests."
+}
