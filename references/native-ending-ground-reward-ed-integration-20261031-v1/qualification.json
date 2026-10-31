@@ -1,0 +1,270 @@
+{
+  "ok": true,
+  "online_solo": {
+    "ok": true,
+    "actual_App": true,
+    "TLS_admission": true,
+    "local_mode": false,
+    "synthetic_deaths": true,
+    "natural_battle": false,
+    "rows": [
+      {
+        "timing": "before-boss",
+        "ok": true,
+        "pickup_kinds": [
+          209,
+          210,
+          211
+        ],
+        "repeat_kinds": [
+          209,
+          211
+        ],
+        "cold_read": true,
+        "new_item": {
+          "template": 30572,
+          "metadata": 0,
+          "count": 1,
+          "group": 2,
+          "slot": 0
+        },
+        "C1": true
+      },
+      {
+        "timing": "after-boss",
+        "ok": true,
+        "pickup_kinds": [
+          209,
+          210,
+          211
+        ],
+        "repeat_kinds": [
+          209,
+          211
+        ],
+        "cold_read": true,
+        "new_item": {
+          "template": 30572,
+          "metadata": 0,
+          "count": 1,
+          "group": 2,
+          "slot": 0
+        },
+        "C1": true
+      },
+      {
+        "timing": "after-clear",
+        "ok": true,
+        "pickup_kinds": [
+          209,
+          210,
+          211
+        ],
+        "repeat_kinds": [
+          209,
+          211
+        ],
+        "cold_read": true,
+        "new_item": {
+          "template": 30572,
+          "metadata": 0,
+          "count": 1,
+          "group": 2,
+          "slot": 0
+        },
+        "C1": true
+      },
+      {
+        "timing": "bad-ending",
+        "ok": true,
+        "C1": true
+      }
+    ],
+    "private_environment_closed": true
+  },
+  "local_solo": {
+    "ok": true,
+    "actual_App": true,
+    "TLS_admission": false,
+    "local_mode": true,
+    "synthetic_deaths": true,
+    "natural_battle": false,
+    "rows": [
+      {
+        "timing": "before-boss",
+        "ok": true,
+        "pickup_kinds": [
+          209,
+          210,
+          211
+        ],
+        "repeat_kinds": [
+          209,
+          211
+        ],
+        "cold_read": true,
+        "new_item": {
+          "template": 30572,
+          "metadata": 0,
+          "count": 1,
+          "group": 2,
+          "slot": 0
+        },
+        "C1": true
+      },
+      {
+        "timing": "after-boss",
+        "ok": true,
+        "pickup_kinds": [
+          209,
+          210,
+          211
+        ],
+        "repeat_kinds": [
+          209,
+          211
+        ],
+        "cold_read": true,
+        "new_item": {
+          "template": 30572,
+          "metadata": 0,
+          "count": 1,
+          "group": 2,
+          "slot": 0
+        },
+        "C1": true
+      },
+      {
+        "timing": "after-clear",
+        "ok": true,
+        "pickup_kinds": [
+          209,
+          210,
+          211
+        ],
+        "repeat_kinds": [
+          209,
+          211
+        ],
+        "cold_read": true,
+        "new_item": {
+          "template": 30572,
+          "metadata": 0,
+          "count": 1,
+          "group": 2,
+          "slot": 0
+        },
+        "C1": true
+      },
+      {
+        "timing": "bad-ending",
+        "ok": true,
+        "C1": true
+      }
+    ],
+    "private_environment_closed": true
+  },
+  "boundaries": {
+    "ok": true,
+    "actual_App": true,
+    "TLS_admission": true,
+    "synthetic_deaths": true,
+    "natural_multiplayer": false,
+    "rows": [
+      {
+        "kind": "solo-boundaries",
+        "ok": true,
+        "checks": [
+          "foreign-killer",
+          "failed-run",
+          "foreign-epoch",
+          "unloaded",
+          "dynamic-lookalike",
+          "no-drop-lookalike",
+          "encode-rollback",
+          "generic-acquisition-stays-closed",
+          "full-bag-no-commit",
+          "space-freed-retry"
+        ],
+        "claim": {
+          "pickup_kinds": [
+            209,
+            210,
+            211
+          ],
+          "repeat_kinds": [
+            209,
+            211
+          ],
+          "cold_read": true,
+          "new_item": {
+            "template": 30572,
+            "metadata": 0,
+            "count": 1,
+            "group": 2,
+            "slot": 0
+          }
+        }
+      },
+      {
+        "kind": "two-member-room",
+        "ok": true,
+        "leader_delivery": [
+          174,
+          175,
+          207,
+          243
+        ],
+        "guest_delivery": [
+          175,
+          207
+        ],
+        "claims": [
+          {
+            "pickup_kinds": [
+              209,
+              210,
+              211
+            ],
+            "repeat_kinds": [
+              209,
+              211
+            ],
+            "cold_read": true,
+            "new_item": {
+              "template": 30572,
+              "metadata": 0,
+              "count": 1,
+              "group": 2,
+              "slot": 0
+            }
+          },
+          {
+            "pickup_kinds": [
+              209,
+              210,
+              211
+            ],
+            "repeat_kinds": [
+              209,
+              211
+            ],
+            "cold_read": true,
+            "new_item": {
+              "template": 30572,
+              "metadata": 0,
+              "count": 1,
+              "group": 2,
+              "slot": 0
+            }
+          }
+        ],
+        "member_count": 2,
+        "shared_atomic_rollback": true,
+        "guest_death_refused": true,
+        "after_C1": true
+      }
+    ],
+    "private_environment_closed": true
+  }
+}
