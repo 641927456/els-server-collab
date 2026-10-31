@@ -1,0 +1,58 @@
+{
+  "format": 1,
+  "issue": 707,
+  "candidate": true,
+  "activation": false,
+  "runtime_acceptance": false,
+  "files": [
+    {
+      "path": "els_server/domain/native_line_triggers.py",
+      "source": "references/native-line-trigger-variants-20261101-v1/source/shared/els_server/domain/native_line_triggers.py",
+      "sha256": "b8fcd649bb8b87415de6dccc12bc64db849d9db47ef562a44373bda2eebd10c2",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "parent_sha256": {
+        "online": "bb50d3362e815e78e6455080f0372a717f4da6c6145e0243d114557e187533f7",
+        "local": "bb50d3362e815e78e6455080f0372a717f4da6c6145e0243d114557e187533f7"
+      }
+    },
+    {
+      "path": "els_server/data/native_line_triggers.json",
+      "source": "references/native-line-trigger-variants-20261101-v1/source/shared/els_server/data/native_line_triggers.json",
+      "sha256": "562d42975a0c002b014249fcab5f036563a6f48a0a8a4f3a789aff56c3fb8bc0",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "parent_sha256": {
+        "online": "7de0f2f9697ebc7481c7443c2e51f5fb236ce82a6f6d4504d6aeb5427de702b1",
+        "local": "7de0f2f9697ebc7481c7443c2e51f5fb236ce82a6f6d4504d6aeb5427de702b1"
+      }
+    }
+  ],
+  "dependencies": [
+    "Existing native_line_triggers dispatch in dungeon_flow, PR696 already installed; no new dispatcher change"
+  ],
+  "source_parents": {
+    "online": {
+      "release": "epic-special14-20261101-v4",
+      "manifest_sha256": "3eba53bf313481937692f2ad516ee679b79306362523c8d7b04e614fab782265"
+    },
+    "local": {
+      "release": "local-epic-special14-20261101-v4",
+      "manifest_sha256": "c95ed9f1f4caa7f9e13ce7be933262f61b134bf92733a7607cea7ed4633d0a39"
+    }
+  },
+  "scope": "11 original-source maps,28 activations: prior1, missing19, and original NPC7511 math.random(1,8)8 IDs. Original DNG predicates, NPC AI and timers retained.",
+  "protocol": "Original202/30A -> source/room/lease/solo/header checks ->201/30B ACK and201/30C activation. No server automatic activations.",
+  "behavior": "Current cleared-but-loaded room accepted before BB. Whole-run clear/failure, stale lease and foreign context rejected. Original non-loop duplicate ACK only; native-loop notification repeats and original consumer deduplicates still-active IDs.",
+  "client_changes": false,
+  "original_EXE_KOM_changes": 0,
+  "database_migration": false,
+  "economic_rule_changes": false,
+  "tests": "Actual owned Application/TLS ONLINE andLOCAL28 contexts+15 rejection categories, duplicate/current-cleared-room timing, no HP/room/inventory/ED mutation; original1B59EB0/1B5A000 offline execution.",
+  "verification_boundary": "No natural11-map full clears or multiplayer claim. 35301 sparse stage repair and chase-room crowd/stagger investigation are separate and excluded.",
+  "integration": "Apply only two frozen leaves to actual current. Preserve later files and channel deltas; no GUI, QA harness, store, raw trace or checkpoint file is delivered."
+}

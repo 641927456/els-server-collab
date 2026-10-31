@@ -1,0 +1,118 @@
+{
+  "format": 1,
+  "issue": 707,
+  "candidate": true,
+  "activation": false,
+  "runtime_acceptance": false,
+  "files": [
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "source": "references/native-dungeon-map-stages-20261101-v1/source/shared/els_server/domain/dungeon_routes.py",
+      "sha256": "9d79ecbf01d322448af9cab4280a28c9c273e1f342513691f0ab0e98a6d16ced",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "parent_sha256": {
+        "online": "ecc69528631a970421a2f6c27d16f0ca93be373d805d4c3a6c8f24eb273f0f3c",
+        "local": "ecc69528631a970421a2f6c27d16f0ca93be373d805d4c3a6c8f24eb273f0f3c"
+      }
+    },
+    {
+      "path": "tools/dungeon_map_markers.py",
+      "source": "references/native-dungeon-map-stages-20261101-v1/source/shared/tools/dungeon_map_markers.py",
+      "sha256": "d69cba83aa2ef4707d3216c2ecec32291871793e5e2f50cfe1aef71fdfe1eed6",
+      "channels": [
+        "local",
+        "friends-launcher"
+      ],
+      "parent_sha256": {
+        "local": "c232f0da4dce6cb5255121a52f9170fc8cfde34af73e2dfbddb31760c0f000f6",
+        "friends-launcher": "c232f0da4dce6cb5255121a52f9170fc8cfde34af73e2dfbddb31760c0f000f6"
+      }
+    },
+    {
+      "path": "tools/dungeon_map_markers.js",
+      "source": "references/native-dungeon-map-stages-20261101-v1/source/shared/tools/dungeon_map_markers.js",
+      "sha256": "a70d97a5c3873dc62fc6533616b43548aa7761dd82b4b1bb738dcbb73a30d310",
+      "channels": [
+        "local",
+        "friends-launcher"
+      ],
+      "parent_sha256": {
+        "local": "19d77e3b820702a638be0c5cf5282955f721407e8c786d90bf291348a5a6bd59",
+        "friends-launcher": "19d77e3b820702a638be0c5cf5282955f721407e8c786d90bf291348a5a6bd59"
+      }
+    },
+    {
+      "path": "tools/native_sparse_stages.py",
+      "source": "references/native-dungeon-map-stages-20261101-v1/source/shared/tools/native_sparse_stages.py",
+      "sha256": "7b7abc855386a3f0725214b4141b482fde381853f32492b63a9dab73c4e6180a",
+      "channels": [
+        "local",
+        "friends-launcher"
+      ],
+      "parent_sha256": {
+        "local": null,
+        "friends-launcher": null
+      }
+    },
+    {
+      "path": "tools/native_sparse_stages.js",
+      "source": "references/native-dungeon-map-stages-20261101-v1/source/shared/tools/native_sparse_stages.js",
+      "sha256": "2cc56600636acb9187e47905b957561c7bee72b991f82bcbe2708bd203b6225a",
+      "channels": [
+        "local",
+        "friends-launcher"
+      ],
+      "parent_sha256": {
+        "local": null,
+        "friends-launcher": null
+      }
+    }
+  ],
+  "source_parents": {
+    "online": {
+      "release": "native-scene-retirements-20261101-v1",
+      "manifest_sha256": "49d8aea3a0ef4bdf5e54ffe90b185859c03a4c9551db4e41386cdc26c451b6ad"
+    },
+    "local": {
+      "release": "local-native-scene-retirements-20261101-v1",
+      "manifest_sha256": "289d0703b856bdfde1b9432c1723fdb769f0d51116399cdac333653e7f6c0256"
+    }
+  },
+  "launcher_parent": {
+    "release": "launcher-epic-special14-20261101-v55-v1",
+    "V": 55,
+    "reference_manifest_sha256": "194f02b20a0c106fef11cd6347eb0019a6eb31c6ab2d7a6c83aeed2d56e1bccc",
+    "reference_only_signature_not_reverified_here": true
+  },
+  "dependencies": {
+    "existing": "NativeCache composer already imports dungeon_map_markers; preserve current Wear/World/Cache/login/reconnect and HP support.",
+    "new_required_signed_leaves": [
+      "tools/native_sparse_stages.py",
+      "tools/native_sparse_stages.js"
+    ],
+    "unchanged_composition": {
+      "local": {
+        "native_cache_sync_sha256": "9e295cf80ead3d561c184d4b7dc334261131ae0a6f8f22774de18a16138b97ab"
+      },
+      "friends-launcher": {
+        "native_cache_sync_sha256": "9e295cf80ead3d561c184d4b7dc334261131ae0a6f8f22774de18a16138b97ab"
+      }
+    }
+  },
+  "scope": "33232 actual4/0 draws original Boss3/0 marker through original functions;35301 original sparseSTAGE0/2 loads both worlds at native0/1, source-pinnedB2 header2->1 only.",
+  "native_originals": {
+    "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "EXE_KOM_changes": 0
+  },
+  "new_hooks": "35301 two exact loader/getfield hooks only.33232 uses existing1040980 hook, original3556210 marker and3554020 layout, no nested refresh/layout hooks.",
+  "tests": "Map lifecycle20 cases, sparse loader lifecycle/model, exact source B2 comparison, actual owned GUI fresh33232 source4 marker; actual35301 original parsercount2, lookup1, source2 andM marker1/0 on final world.",
+  "verification_boundary": "35301 GUI uses controlled original death/BB progression. Does not prove natural chase, Rift NPC entry or full clear. Controlled corpse pollution retained, not patched into product. Other8-map layout differences and originalDeemo1 white popup excluded.",
+  "database_migration": false,
+  "economic_rule_changes": false,
+  "NPC_AI_timing_or_count_changes": false,
+  "integration": "Apply five exact leaves selectively. Preserve later dungeon_routes changes if parent drifts; only population_event source-pinned header patch is new. New sparse support pair must enter signed components and launcher payload. Independent Hook review, old-player selected/load SHA readback and dual owner install required."
+}
