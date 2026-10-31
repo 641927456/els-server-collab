@@ -66,9 +66,12 @@ def source_route(run):
  if expected is None:
   from els_server.domain.formal_pve_economy import definition
   from els_server.game_data import client_data
+  from els_server.domain.formal_raid_economy import definition as raid_definition
   row=definition(run.identity)
   if row is None or run.identity in (30000,41400):raise ValueError('Hunter ordinary source route')
-  expected=(client_data().dungeon(run.identity)['m_MaxLevel'],row['graph_sha256'])
+  native=client_data().dungeon(run.identity)
+  if native.get('m_bSwitchingWithEventInfo')or raid_definition(run.identity)is not None:raise ValueError('Hunter event/raid source')
+  expected=(native['m_MaxLevel'],row['graph_sha256'])
  if (run.graph.get('encounter') or run.graph['source_sha256']!=expected[1]
      or str(run.identity)not in run.catalog._data['routes']):raise ValueError('Hunter current source graph')
  return expected

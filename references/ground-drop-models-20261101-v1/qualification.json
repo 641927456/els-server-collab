@@ -32,8 +32,9 @@
   "display_provenance": "Local display rule reusing witnessed historical KDropTable::GetEDItemID boundaries; current template IDs verified separately. Not a modern official numeric claim.",
   "original_client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
   "validations": {
-    "portable_unittests": 6,
-    "ordinary_sources": 142,
+    "portable_unittests": 7,
+    "graph_bound_source_candidates": 140,
+    "with_usable_ordinary_anchors": 115,
     "hunter_grade_templates": [
       1615,
       1616,
@@ -90,6 +91,7 @@
     "owned_runtime_removed": true
   },
   "boundaries": [
+    "Source generation retains the existing active ordinary non-boss/non-no-drop anchor condition: 115 of 140 graph-bound candidates have such positions. Boss-only/special rooms without a valid anchor do not generate boxes. Event-switching and formal raid sources are explicitly rejected.",
     "Native visuals use direct original CF/2D0 dispatch, not a network or natural combat test.",
     "Application/TLS tests use owned SQLite, controlled death reports and monotonic inputs.",
     "No reproducible potion/equipment model defect in tested original definitions; no client asset patch.",
@@ -100,7 +102,7 @@
   "evidence": [
     {
       "name": "verification-source.json",
-      "sha256": "96004da2346d71288c3cd730b8e4e601ad626741ed0e53af8af773ab8ec4b4af",
+      "sha256": "bc0dbd1e3535fea53824888d373736a5ef300495ded4f3c927818ec40eab6430",
       "private_evidence_only": true
     },
     {

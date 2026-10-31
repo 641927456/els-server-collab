@@ -45,6 +45,7 @@ class HunterOrdinarySourceTests(unittest.TestCase):
     def test_ordinary_source_requires_current_graph(self):
         row={'graph_sha256':'native-graph'}
         with patch('els_server.domain.formal_pve_economy.definition',return_value=row),\
+             patch('els_server.domain.formal_raid_economy.definition',return_value=None),\
              patch('els_server.game_data.client_data')as data:
             data.return_value.dungeon.return_value={'m_MaxLevel':7}
             self.assertEqual(source_route(self.run_fixture()),(7,'native-graph'))
@@ -52,6 +53,16 @@ class HunterOrdinarySourceTests(unittest.TestCase):
             with self.assertRaises(ValueError):source_route(self.run_fixture(encounter={'kind':'special'}))
             run=self.run_fixture();run.catalog._data['routes']={}
             with self.assertRaises(ValueError):source_route(run)
+
+    def test_event_and_raid_sources_stay_excluded(self):
+        with patch('els_server.domain.formal_pve_economy.definition',return_value={'graph_sha256':'native-graph'}),\
+             patch('els_server.domain.formal_raid_economy.definition',return_value=None)as raid,\
+             patch('els_server.game_data.client_data')as data:
+            data.return_value.dungeon.return_value={'m_MaxLevel':99,'m_bSwitchingWithEventInfo':1}
+            with self.assertRaises(ValueError):source_route(self.run_fixture())
+            data.return_value.dungeon.return_value={'m_MaxLevel':99}
+            raid.return_value={'family':'raid'}
+            with self.assertRaises(ValueError):source_route(self.run_fixture())
 
     def test_special_and_archived_sources_stay_excluded(self):
         with patch('els_server.domain.formal_pve_economy.definition',return_value=None):
