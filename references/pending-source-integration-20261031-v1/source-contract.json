@@ -1,0 +1,534 @@
+{
+  "base": "384de066322b7094e65a559a135a81e9225594b2",
+  "records": [
+    {
+      "pr": 654,
+      "source_head": "ba936c418bcc3ad0453905e41b66afbc61c07550",
+      "source_base": "883eaec021f7b4f967ada35cf9e106dec99c900d",
+      "files": [
+        {
+          "path": "docs/repairs/653-wardrobe-success-popup.md",
+          "size": 928,
+          "sha256": "72cca7a75f4f526dfebdba2bf2faf0ce8537273463b18790d3f34a9431a8f4e5"
+        },
+        {
+          "path": "els_server/storage/wardrobe.py",
+          "size": 26840,
+          "sha256": "0ed6ea3de469da190ac95b6e988b13e3f92a695d6ff70e48643c3e1c3d3eead8"
+        },
+        {
+          "path": "tests/test_wardrobe_apply_reply.py",
+          "size": 4639,
+          "sha256": "f3517c4df564834d2cdd3fdf4572a1d899f401e52d85462c202111cacf5b0e88"
+        }
+      ],
+      "source_bytes_preserved": true,
+      "conflicts_resolved": [],
+      "archive_only": false
+    },
+    {
+      "pr": 656,
+      "source_head": "7ddf749decc7cf1ee88e45a0eaec0cb8c2cc116b",
+      "source_base": "883eaec021f7b4f967ada35cf9e106dec99c900d",
+      "files": [
+        {
+          "path": "docs/GROWING_KIT_COUNT_ONE_20261031.md",
+          "size": 2715,
+          "sha256": "af6018668b4c02091b670245dc8d81c095ff9fb349e636050994a783ed289b68"
+        },
+        {
+          "path": "references/growing-kit-count-one-20261031-v1/installed/els_server/storage/fixed_cubes.py",
+          "size": 8787,
+          "sha256": "08a2b14b5bf912e1732d29d793b59cc98d827b43ca3aea7184d9b7594de9c3c8"
+        },
+        {
+          "path": "references/growing-kit-count-one-20261031-v1/portable.patch",
+          "size": 783,
+          "sha256": "3acacddd7a3fdbebca2b3e829d6d6b74bfa94c7f402b0f2352a6328a08057a3c"
+        },
+        {
+          "path": "references/growing-kit-count-one-20261031-v1/portable/els_server/storage/fixed_cubes.py",
+          "size": 8290,
+          "sha256": "a4c57654e4086f0b0f6a6bd48418238813db87dfce5df2a21aa3323ca807f1a0"
+        },
+        {
+          "path": "references/growing-kit-count-one-20261031-v1/source-contract.json",
+          "size": 1758,
+          "sha256": "8165f1e6b599b2671c13bf7943e6358fc54255d44fbeea87ece4534a48ce60bf"
+        },
+        {
+          "path": "tests/test_cube_single_count_current.py",
+          "size": 2583,
+          "sha256": "7fd4257bbf5d094b8a476e18516a4bcc5f4a1efe2ebb9c89c3f86f3b0698861e"
+        }
+      ],
+      "source_bytes_preserved": true,
+      "conflicts_resolved": [],
+      "archive_only": true
+    },
+    {
+      "pr": 660,
+      "source_head": "59e0dc66217b46605c0d538efbb2e5e04b53f622",
+      "source_base": "883eaec021f7b4f967ada35cf9e106dec99c900d",
+      "files": [
+        {
+          "path": "docs/CUSTOM_ITEMS_REGISTER_APPLY_20261031.md",
+          "size": 5260,
+          "sha256": "01a54c4e42e45911f73f03ed570ea6e4fc5d2f203412f3cc582a4bad8dc49a0d"
+        },
+        {
+          "path": "references/custom-ain-server-only-20261031-v3/recovery/els_server/storage/character_custom.py",
+          "size": 21936,
+          "sha256": "d3b963158bbaabe78e657b0765bb5c4081f39d82f1781fd7fe2cbe546a99a864"
+        },
+        {
+          "path": "references/custom-ain-server-only-20261031-v3/source-contract.json",
+          "size": 7054,
+          "sha256": "dc83ad19033c85434e4669ff4ccb2464b972fd2daf256be09d8e5ab18cf3d035"
+        },
+        {
+          "path": "references/custom-ain-server-only-20261031-v3/source-qualification.json",
+          "size": 1404,
+          "sha256": "c953ab64c729a17955fe96ecc85459ac15b3c388448cfa04435c5badde22f0b0"
+        },
+        {
+          "path": "references/custom-ain-server-only-20261031-v3/source/els_server/data/character_custom_permanent.json",
+          "size": 1874719,
+          "sha256": "458668559146c59964bf9d51102dd143db2f12fdeb6825ba88f03ff63c0608da"
+        },
+        {
+          "path": "references/custom-ain-server-only-20261031-v3/source/els_server/domain/character_custom.py",
+          "size": 8571,
+          "sha256": "30e7d38834a7d1084d6ce00ac495fcafb5bd32b2c480e738e0ad498a75d909ae"
+        },
+        {
+          "path": "references/custom-ain-server-only-20261031-v3/source/els_server/storage/character_custom.py",
+          "size": 21675,
+          "sha256": "b292fffb647b2d93fbd5e07b46e87b5fa99d40dd212c4e0eb6dcd8a43539020f"
+        },
+        {
+          "path": "references/custom-ain-server-only-20261031-v3/verify_native_source.py",
+          "size": 2286,
+          "sha256": "b81cfe518bc0672bba76e0b36287e4cec1cef2580ac81f6a7c6502ea43fb1e0c"
+        },
+        {
+          "path": "references/custom-feedback-whitebox-20261031-v4/native_book_requests.py",
+          "size": 2768,
+          "sha256": "2ff5c53170de1145f41c656ef93ed5d3f3b97eb3ef37e0441295a264515961d5"
+        },
+        {
+          "path": "references/custom-feedback-whitebox-20261031-v4/recovery/els_server/storage/character_custom.py",
+          "size": 22718,
+          "sha256": "dfaf2f2a66a1e0ec324639c598ff4443223d77aa95c7b623b21d2798cf29aedc"
+        },
+        {
+          "path": "references/custom-feedback-whitebox-20261031-v4/source-contract.json",
+          "size": 8676,
+          "sha256": "11f727d962b9c3d982317bfc4e1c2c6a87a3102f5348bc17f19b4c38c7805691"
+        },
+        {
+          "path": "references/custom-feedback-whitebox-20261031-v4/source/common/els_server/domain/character_custom.py",
+          "size": 9262,
+          "sha256": "077fb074b50191334644ecf1bc8b1aaa01eed8ee4002a7b6257eb4be8a85aea4"
+        },
+        {
+          "path": "references/custom-feedback-whitebox-20261031-v4/source/common/els_server/storage/character_custom.py",
+          "size": 22424,
+          "sha256": "7469bdb79d1a70119fb495addedd5f0b5324c8e5fc396fb51ef117dae35612e8"
+        },
+        {
+          "path": "references/custom-feedback-whitebox-20261031-v4/source/local/els_server/domain/local_session.py",
+          "size": 144414,
+          "sha256": "7599e7ee54a9117134b9e8277ef4009da88529f53d16ab8c0cae350e6591f377"
+        },
+        {
+          "path": "references/custom-feedback-whitebox-20261031-v4/source/online/els_server/domain/local_session.py",
+          "size": 146412,
+          "sha256": "be0d3b57eef775852a7735a3b9087f02032fc483c7858bc104c89e095942d9b6"
+        },
+        {
+          "path": "references/custom-items-all-20261031-v1/recovery/els_server/storage/character_custom.py",
+          "size": 22165,
+          "sha256": "3350f53c4504b72c59a66f010656fb7a6558f891dfb4d27dbe6d0edeab897e0b"
+        },
+        {
+          "path": "references/custom-items-all-20261031-v1/source-contract.json",
+          "size": 15886,
+          "sha256": "933638a9d0861001660806bc2a942cd25b9baf3f4c12d949b54f3c06a137d6d4"
+        },
+        {
+          "path": "references/custom-items-all-20261031-v1/source/common/els_server/data/character_custom_permanent.json",
+          "size": 1873697,
+          "sha256": "a18ada72a1b41b224bf60671d5394b8d0e60fa4f82c4b27ef377c66906a83e05"
+        },
+        {
+          "path": "references/custom-items-all-20261031-v1/source/common/els_server/data/retained_native_consumables.json",
+          "size": 15414,
+          "sha256": "db687161c4c1f89ddb2cddd37a386d9b24cece653c0b1695f47cd9d492242f2c"
+        },
+        {
+          "path": "references/custom-items-all-20261031-v1/source/common/els_server/domain/character_custom.py",
+          "size": 8541,
+          "sha256": "344a67462bc3b14dd139e8f7c9b89784c8a6207d4ac049f72cd0f03ef56c94d2"
+        },
+        {
+          "path": "references/custom-items-all-20261031-v1/source/common/els_server/domain/retained_native_consumables.py",
+          "size": 3632,
+          "sha256": "75b5487c6a55c5057a1386c64332d5fb996fa11f212f2e0098bd27f66f8377e8"
+        },
+        {
+          "path": "references/custom-items-all-20261031-v1/source/common/els_server/protocol/character_custom_messages.py",
+          "size": 4614,
+          "sha256": "5b7cedfbfa01f3a0c3da38bc998228759002b441003c31e0d2ac9fc4552f3c41"
+        },
+        {
+          "path": "references/custom-items-all-20261031-v1/source/common/els_server/storage/character_custom.py",
+          "size": 21904,
+          "sha256": "02425de197ec2f5791c2ead9889574eacfef65e54cb4a3354a8418e33d8688c9"
+        },
+        {
+          "path": "references/custom-items-all-20261031-v1/source/local/els_server/domain/local_session.py",
+          "size": 144984,
+          "sha256": "14a4c12de6c481e7d6ea247f995e365af750e574ddfd4604fd3b0fa7e0168ef2"
+        },
+        {
+          "path": "references/custom-items-all-20261031-v1/source/local/els_server/domain/session_dispatch.py",
+          "size": 16898,
+          "sha256": "baf8dc0106df38e3426ec9bf8003cb05b4c46a845e7ec46659117c5064dcb533"
+        },
+        {
+          "path": "references/custom-items-all-20261031-v1/source/online/els_server/domain/local_session.py",
+          "size": 146982,
+          "sha256": "b522b7ca4dca0b90285d2dbe9979fe6e7fd0bfa788af2502156ba8d0fac10b14"
+        },
+        {
+          "path": "references/custom-items-all-20261031-v1/source/online/els_server/domain/session_dispatch.py",
+          "size": 16921,
+          "sha256": "697a012479b0b1888916892d7a020617fa05fc79759d56a170e44f0cc86fcb00"
+        },
+        {
+          "path": "references/custom-items-all-20261031-v1/sources.md",
+          "size": 1725,
+          "sha256": "3f0157bc170884b6c5f70724e283e092d1f968f8b73287035d48629dee2776bb"
+        },
+        {
+          "path": "references/custom-items-socket-default-20261031-v2/recovery/els_server/storage/character_custom.py",
+          "size": 22172,
+          "sha256": "4556710efc2d011837b48e8bdcc60d9a1dcac1c30484c5668cc8b8c3f4a05746"
+        },
+        {
+          "path": "references/custom-items-socket-default-20261031-v2/source-contract.json",
+          "size": 3248,
+          "sha256": "d829b0d10dc64e76254141aff63ea3de077e9f0971a835028e2af8bfab35c11e"
+        },
+        {
+          "path": "references/custom-items-socket-default-20261031-v2/source/els_server/domain/character_custom.py",
+          "size": 8571,
+          "sha256": "d19e51c9073391076353b2cf3162adf51391df9a0cef3c615d3e3fff8d51f7a1"
+        },
+        {
+          "path": "references/custom-items-socket-default-20261031-v2/source/els_server/storage/character_custom.py",
+          "size": 21911,
+          "sha256": "195eb12e248b8aab093969caf2ded809f7863f510885a6ba80274ae3cd025ceb"
+        }
+      ],
+      "source_bytes_preserved": true,
+      "conflicts_resolved": [
+        ".gitattributes"
+      ],
+      "archive_only": true
+    },
+    {
+      "pr": 663,
+      "source_head": "88b1de8b6fa43d9db520d6a413984d4acd3f3f47",
+      "source_base": "883eaec021f7b4f967ada35cf9e106dec99c900d",
+      "files": [
+        {
+          "path": "docs/FORCE_CATEGORIES_SOURCES_20261031.md",
+          "size": 2920,
+          "sha256": "b6273943392e2bb78f49a0d6d2cdddc160d3c92e5ff3bd019c41cb22e60c1d8a"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/patches/local.patch",
+          "size": 184408,
+          "sha256": "b68d3a6c8e99071949d30c35e8982595bb61eff6271e0473aef424da669b9b09"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/patches/online.patch",
+          "size": 184408,
+          "sha256": "cef72e09fe5c4867515eb1de125c39426be82b9028239635901a10bb1caf09a6"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source-contract.json",
+          "size": 21656,
+          "sha256": "8dbabde6567d002a7dc4838d091f17db75cfc90f486f6169f4700d11f58e798e"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/config/dungeon_local_rules.json",
+          "size": 886,
+          "sha256": "ae2e35d443476b9d265dbaa51d9db0dee6f18f0de0dd92a59ea607d61007ba9a"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/data/client/dungeon_routes.json",
+          "size": 10876194,
+          "sha256": "302feba495e69870d16254ed97ff3991badd1f90f1aab95fbd86e0055b4cf0de"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/data/client/dungeon_routes.manifest.json",
+          "size": 379274,
+          "sha256": "63db97722c6afc42f87a68158e5074981fe9e079572f6cb0a9b420c9e9436e4a"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/data/formal_pve_economy.json",
+          "size": 295333,
+          "sha256": "a735eb564942f049155a45e8c0acd6ad99bd5e3069c799ece9f0634ef5c26559"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/data/formal_pve_economy.manifest.json",
+          "size": 206,
+          "sha256": "80c7f4bc9f12a6492358e436f118390bc6474550fd35876a0289a891bc6f326f"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/data/native_force_catalog.json",
+          "size": 104219,
+          "sha256": "6dab774cc2efcfaf94aa4aee12f308482d072268f709b0bf90f1e67a5e96adb6"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/acquisition_policy.py",
+          "size": 13666,
+          "sha256": "dfca6e18521c4cfbc355bf7d18f4bb6270d8be11e27ff33ad898cbe14205f810"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/boosting_2026_force_equipment.py",
+          "size": 6438,
+          "sha256": "dbfaa4f74dac2805b75abb21ae5e062457f6a966d4d4f3b37d595d25d8686ef0"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/boosting_2026_force_inventory.py",
+          "size": 4565,
+          "sha256": "b03b22d7bee4a624ea0150e4c56055cf91100a4540d810a6030040d71f222812"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/cubes.py",
+          "size": 4179,
+          "sha256": "ed339b4e63718a12646b0fb7ae4bc0e2bc60a4f0395719390e22e02a4d0a966a"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/dungeon_flow.py",
+          "size": 23678,
+          "sha256": "af6f3ae32baeedf444e3861ace7b2c1bcc6fa174a4cd92b573b07242a59390ac"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/inventory_items.py",
+          "size": 74911,
+          "sha256": "9a86901525dea0759099ce80cb6c98e3303735033f79d15efb51758085dd96a1"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/native_force_catalog.py",
+          "size": 1721,
+          "sha256": "32bd3df4b8ca1cfb404a84b1ab8fc6e7331b70bcce62ad7354beb958a284db3b"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/native_force_exchange_flow.py",
+          "size": 2612,
+          "sha256": "d8fdb7c1e8cb2358fa748bce90ad57c03367f8bc7cea87572a8d2cc0a1599689"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/pve_economy_flow.py",
+          "size": 22762,
+          "sha256": "db7776c1b65226de22a93324ed036b542a4287c76e0fed9a4d68ecab48448c1c"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/role_progression.py",
+          "size": 2789,
+          "sha256": "cc17085d713bb1f20afb7965ce6813c072801056895d41787f64e9cc8da1a855"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/session_dispatch.py",
+          "size": 17108,
+          "sha256": "26ad93d94b0ed371bbee158ec92761de4ba18fe1188c972abc6453268944e66f"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/skill_expansion.py",
+          "size": 2531,
+          "sha256": "ffa45347d9796d9a729f3630d7ad89466935a7cfe7a05ccab5544ad8b2f5ce02"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/domain/skill_state.py",
+          "size": 4789,
+          "sha256": "0efbebdef5bdc73be7b0d3d24b8ec98dcf8d1b35212443ecdc1721467a11ad24"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/boosting_2026_force_inventory.py",
+          "size": 12571,
+          "sha256": "1a974c2dc10a4325e15012f72c32404375c2943796d9fca9447fde660230fc53"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/force_rank4_schema.py",
+          "size": 6765,
+          "sha256": "bb209b9938ebc8506baebf4fbc422faa3fc5cc7fe91e4a85dae324d7e46b47ae"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/henir_force_rewards.py",
+          "size": 4159,
+          "sha256": "2279578c9f088024aea083132105c81e27d03e4efceddd75a302dfceb3e1cf13"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/native_force_exchange.py",
+          "size": 6341,
+          "sha256": "2d7585d4229aa76cdad8739cb0237a9c438a44e28365477345987deb2fd16615"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/local/els_server/storage/player_mail.py",
+          "size": 13248,
+          "sha256": "7443226f96b8527a4f1b2e735461664065c9d800ed14c6509f7c2d43ba8aa690"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/online/els_server/domain/acquisition_policy.py",
+          "size": 13658,
+          "sha256": "3a3a6206fa15f7caccb784d579f02b81448df41b6bc21155af71a6e44033845c"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/online/els_server/domain/inventory_items.py",
+          "size": 75066,
+          "sha256": "adcb1cd75e82ca1256c3a8eae366f7dce15cfa82d1b10ba1aaa2f11b8c74a602"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/source/online/els_server/domain/session_dispatch.py",
+          "size": 17131,
+          "sha256": "0c95770c4a3b65543e68c4ca98d240922acd67d609013003608b4e356aae648b"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/tests/test_force_application.py",
+          "size": 2966,
+          "sha256": "e8d235f03f802a7d38515e91909a2177e6caec8a85bc6f06be4c69a06ecb8bd1"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/tests/test_force_categories.py",
+          "size": 10365,
+          "sha256": "f79dbbfdba390b390736bd73a5279f52aa10f7e8c53873eab61f4fedb5316c0a"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/tests/test_force_sources.py",
+          "size": 9377,
+          "sha256": "f37d07155ad17d1821d479e68ad27f8edb5d6bab8eb0275d714ded076934e557"
+        },
+        {
+          "path": "references/force-categories-sources-20261031-v1/validation-summary.json",
+          "size": 3379,
+          "sha256": "0d0e851765db359c8a78eeb4d9f65f0497888cfb798bb5972a7082347d2addd5"
+        },
+        {
+          "path": "tools/verify_force_categories_sources_20261031.py",
+          "size": 1331,
+          "sha256": "5cbb4f78492a30264cab8fd588c46041eeed8aece2355855867e8775a6150992"
+        }
+      ],
+      "source_bytes_preserved": true,
+      "conflicts_resolved": [
+        ".gitattributes",
+        "tools/ci_checks.py"
+      ],
+      "archive_only": true
+    },
+    {
+      "pr": 667,
+      "source_head": "48e2cb2ec0892bbd330faa270301b7c1d396e171",
+      "source_base": "883eaec021f7b4f967ada35cf9e106dec99c900d",
+      "files": [
+        {
+          "path": "references/dungeon-clear-observers-20261031-v1/affected-clear-maps.json",
+          "size": 1448,
+          "sha256": "96740885864b22d72cdae1f759f147a5ab19206b5616faa46f829c779a899d55"
+        },
+        {
+          "path": "references/dungeon-clear-observers-20261031-v1/qualification.json",
+          "size": 1677,
+          "sha256": "2f292035320da917cb5512b5c39e2a2566fc3f7f6cb462484dab304464e08748"
+        },
+        {
+          "path": "references/dungeon-clear-observers-20261031-v1/source-contract.json",
+          "size": 1379,
+          "sha256": "6167ff9e51f4917e80674c621f56ffc7ea68396e3c8aae57ecd27375a3eff1d3"
+        },
+        {
+          "path": "references/dungeon-clear-observers-20261031-v1/source/els_server/domain/pve_economy_flow.py",
+          "size": 22476,
+          "sha256": "baa32eb34f3867ae3c569f9b619aa4a6d0465973fe8b8fd1b52ac03d6292f77e"
+        }
+      ],
+      "source_bytes_preserved": true,
+      "conflicts_resolved": [],
+      "archive_only": true
+    },
+    {
+      "pr": 676,
+      "source_head": "b63ab0632e647060851fd48bf9bfd23c933d497a",
+      "source_base": "883eaec021f7b4f967ada35cf9e106dec99c900d",
+      "files": [
+        {
+          "path": "references/dungeon-loot-source-validation-20261031-v1/README.md",
+          "size": 1419,
+          "sha256": "c4f3f00ace77b8459f28db3e9f272ad03652f728cdf8b809d58227465a0c3d64"
+        },
+        {
+          "path": "references/dungeon-loot-source-validation-20261031-v1/loot-catalog-variants.json",
+          "size": 2444,
+          "sha256": "7b54d9111f5dc72ff942486b23caf1f65e677dfc6b8db54f1522f261dcceb1d7"
+        },
+        {
+          "path": "references/dungeon-loot-source-validation-20261031-v1/normal-loot-current-native-bodies.json",
+          "size": 16638,
+          "sha256": "b4d0a71c17554a770349d51f7dd345477bc71140565d612d780aa851678b2f77"
+        },
+        {
+          "path": "references/dungeon-loot-source-validation-20261031-v1/normal-loot-qualification-local.json",
+          "size": 743,
+          "sha256": "f7300d1cf9895f5981af900b7734b1f16c9fd81c7357522b7d2e36f9660f27bc"
+        },
+        {
+          "path": "references/dungeon-loot-source-validation-20261031-v1/normal-loot-qualification-online.json",
+          "size": 743,
+          "sha256": "4976dfff2ce1850c3513edb6ef2955520ccfe0ff49f789ed30c14a151d629380"
+        },
+        {
+          "path": "references/dungeon-loot-source-validation-20261031-v1/source-contract.json",
+          "size": 1877,
+          "sha256": "31078aabaf7c9eb60c356b540a0f37bca833f3e403bf2e98cbed2d6eca216fec"
+        },
+        {
+          "path": "references/dungeon-loot-source-validation-20261031-v1/source-loot-current-native-body.json",
+          "size": 245,
+          "sha256": "704df6dacafe01d3b5b0b0d288969cac8012f97fbbb8139ef12168073dc8253b"
+        },
+        {
+          "path": "references/dungeon-loot-source-validation-20261031-v1/source/shared/els_server/domain/dungeon_loot_catalog.py",
+          "size": 7782,
+          "sha256": "a6000e6d5f21b907b469a67c2998f84267059783781af0826cd0c7f4e8d1a20b"
+        },
+        {
+          "path": "references/dungeon-loot-source-validation-20261031-v1/source/shared/els_server/domain/dungeon_material_loot_catalog.py",
+          "size": 21419,
+          "sha256": "34e4e325a62aac8e83ec7bc3ff3dd0408e9b9b244e0e1f2e54fcd160b149fc70"
+        },
+        {
+          "path": "references/dungeon-loot-source-validation-20261031-v1/source/shared/els_server/domain/dungeon_source_loot.py",
+          "size": 10354,
+          "sha256": "c3d40c1854fc7182928c7d7cc5fed53452e35db1c3c57c2abdb377de3f598125"
+        }
+      ],
+      "source_bytes_preserved": true,
+      "conflicts_resolved": [],
+      "archive_only": true,
+      "current_delivery": "Superseded by newer installed bounded-route implementation; archive is historical and must not be activated."
+    }
+  ],
+  "issue": 681,
+  "runtime_changes": false,
+  "player_database_changes": false,
+  "excluded_draft": 669,
+  "conflict_resolution": {
+    "attributes": "Union of immutable archive attributes; exact CRLF retained.",
+    "ci": "Keep all main validators and add original force source verifier."
+  }
+}
