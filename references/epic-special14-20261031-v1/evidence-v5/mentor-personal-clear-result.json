@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "checks": [
+    "Original personally derived group receipt predating acceptance does not backfill progress",
+    "A team/shared root receipt cannot substitute for the original actor personal reward UUID",
+    "Another actor derived reward UUID is refused even when an own receipt exists",
+    "Current team run + exact actor UUID5 receipt advances once; late F3 failure rolls clear receipt/assessment/source/counter back together; cold replay unchanged",
+    "Solo original run ID remains the native receipt ID and progresses normally"
+  ],
+  "controlled_original_run_and_receipt_inputs": true,
+  "natural_combat": false
+}
