@@ -1,0 +1,777 @@
+{
+  "schema": 1,
+  "kind": "world-event-signed-dual-mode-successor",
+  "source_PR": 684,
+  "source_head": "6498c79d5972c14f86242b52914896d5007fc54c",
+  "source_files": [
+    {
+      "path": "source/AutoUpdate.cs",
+      "size": 15845,
+      "sha256": "dff3e084679d1d04a9cd67a417ecdc1474517ba45ffcd09ec9f42c23782bbb85"
+    },
+    {
+      "path": "source/ComponentRuntime.cs",
+      "size": 38983,
+      "sha256": "4d15a3ac7610aa65dc41a1fe30f4ecd6bde41b4150486d3a32a1f2bff5d2c9a5"
+    },
+    {
+      "path": "source/LocalBootstrap.cs",
+      "size": 14558,
+      "sha256": "fb33faf2f440e6f4da401986349d7777ce11513c821bf4e48afe9389f14cf611"
+    },
+    {
+      "path": "source/WorldRuntimeCohort.cs",
+      "size": 2397,
+      "sha256": "864a9469bdccd9b868d43f629be6370342cc2c23c524b5bf769d6d45d1c0c836"
+    },
+    {
+      "path": "source/resources/world-local-bootstrap.py",
+      "size": 140446,
+      "sha256": "bb7145edac674361b4177d5694f02afe972c64fbcb7c3890a28df538dc0988dc"
+    },
+    {
+      "path": "source/resources/world-predecessor.txt",
+      "size": 310316,
+      "sha256": "fac2c5f0afdf3cee8593a03af0ce919a754bbef27d0d3b2807720d785faad4fd"
+    },
+    {
+      "path": "source/resources/world-signedFriends.signed.json",
+      "size": 337065,
+      "sha256": "fe6325a676cd03287a7ddd46e548c164f30b2e2f3a7219d2310b450735c86f81"
+    },
+    {
+      "path": "source/resources/world-signedLOCAL.signed.json",
+      "size": 339577,
+      "sha256": "cd9c20dd6736c5efc50aa4a2090fb15c21db2a5484b02d68b3a8ff402a515be7"
+    }
+  ],
+  "resources": [
+    {
+      "name": "ElsFriends.RuntimeFiles",
+      "path": "runtime-files.signed.json",
+      "sha256": "ac5090de7111b87b613a8f4f0a4423010f1029c7f780dee4670b4832ddefdee6"
+    },
+    {
+      "name": "ElsFriends.LocalUpdater",
+      "path": "local_updater.py",
+      "sha256": "c976b8c28c85d54b128ac0943e1abf20969859c5139b7e3b5ece98bead049fc2"
+    },
+    {
+      "name": "ElsFriends.Ruben",
+      "path": "assets/ruben.png",
+      "sha256": "190d47330f4cc12bb74c6dc32b4c3eec21d3604eb8cf8d020cee17705de99654"
+    },
+    {
+      "name": "ElsFriends.LocalBootstrap",
+      "path": "local_bootstrap.py",
+      "sha256": "24f1bde4e963528db97a8dbbd477d9ff7ae3c063a924f8b2fe820621523a7fe0"
+    },
+    {
+      "name": "ElsFriends.LocalRuntimeFiles",
+      "path": "local-runtime-files.signed.json",
+      "sha256": "ed47a5df4fd5d47bacf297226cce4783866ded16d88074b14d277e9bebeffa04"
+    },
+    {
+      "name": "ElsFriends.LegacyLocalRuntimeFiles",
+      "path": "resources/legacy-local-runtime-files.signed.json",
+      "sha256": "c0fe16c35b05440258ed372ba2eb67da1419c2de62263e3b8c90aae4b7065371"
+    },
+    {
+      "name": "ElsFriends.LegacyLocalBootstrap",
+      "path": "resources/legacy-local-bootstrap.py",
+      "sha256": "5a79b3d100b449a5f3eb6fb2cf0fff386e44ddf4fe5a1aceac3e66b6aaeac905"
+    },
+    {
+      "name": "ElsFriends.STRUCTURELocalBootstrap",
+      "path": "resources/structure-local-bootstrap.py",
+      "sha256": "394aa36f311dc6f8682111ab438f103760b067f2164894359ce16fe0d7ae573e"
+    },
+    {
+      "name": "ElsFriends.STRUCTURELocalRuntimeFiles",
+      "path": "resources/structure-local-runtime-files.signed.json",
+      "sha256": "e11a4123f68270db611b7b5fda991c8630b9650a6de2a842d3c447b8d762cfc0"
+    },
+    {
+      "name": "ElsFriends.RepairLocalBootstrap",
+      "path": "resources/repair-local-bootstrap.py",
+      "sha256": "133cd860c9a76f03bfbc3f8519cb332ea0411f8eb578d6fb4b5275e15596d26c"
+    },
+    {
+      "name": "ElsFriends.RepairRawLocalUpdater",
+      "path": "resources/repair-raw-local-updater.py",
+      "sha256": "9b49b080cbd9728ed6049f3197c69fa16af66b6fd605899fb5ee6d71f73db0f3"
+    },
+    {
+      "name": "ElsFriends.RepairLocalRuntimeFiles",
+      "path": "resources/repair-local-runtime-files.signed.json",
+      "sha256": "5004c9eccdbe717c41581c42c0b56658bb23009fdeebda21b7e5050380a81af8"
+    },
+    {
+      "name": "ElsFriends.RepairFriendsRuntimeFiles",
+      "path": "resources/repair-friends-runtime-files.signed.json",
+      "sha256": "c0aae17be562667d80753cf2aa7eec5a16c6cc4e37b59508fd296795e33ffd18"
+    },
+    {
+      "path": "resources/cache41400-local-bootstrap.py",
+      "name": "ElsFriends.Cache41400LocalBootstrap",
+      "sha256": "0f8c4aa7ecb090cd2640f039cf2fd9d9169f0946129f2db192e231885f3e8d5b"
+    },
+    {
+      "path": "resources/cache41400-raw-local-updater.py",
+      "name": "ElsFriends.Cache41400RawLocalUpdater",
+      "sha256": "b57a5f4d0c7195f6420d301b8ad37979c17612c04b637d7a0cf2783bfe1b85b5"
+    },
+    {
+      "path": "resources/cache41400-local-runtime-files.signed.json",
+      "name": "ElsFriends.Cache41400LocalRuntimeFiles",
+      "sha256": "bd6ad8dd2301b4c4d8ec24209889c0c32d0a7ebb23bc0385824e7f4ce575defa"
+    },
+    {
+      "path": "resources/cache41400-friends-runtime-files.signed.json",
+      "name": "ElsFriends.Cache41400FriendsRuntimeFiles",
+      "sha256": "6c06a3bcc327afaed545dc24702b2eae0618604253ec1fa5d86616b2620602f0"
+    },
+    {
+      "path": "resources/owned-stones-local-bootstrap.py",
+      "name": "ElsFriends.OwnedStonesLocalBootstrap",
+      "sha256": "436655aa1271adbd84b955fcff195b06af3b4cf2009ef571c3f908e777956fdd"
+    },
+    {
+      "path": "resources/owned-stones-raw-local-updater.py",
+      "name": "ElsFriends.OwnedStonesRawLocalUpdater",
+      "sha256": "51e7743b4d34b82891bfa8f3e4d17d990f6b1c17b41871861a157feda0bff25a"
+    },
+    {
+      "path": "resources/owned-stones-local-runtime-files.signed.json",
+      "name": "ElsFriends.OwnedStonesLocalRuntimeFiles",
+      "sha256": "cedeb7b01f9f1d3da10e968d827897aba412f6146b95e7250c5bfbb028cbc933"
+    },
+    {
+      "path": "resources/owned-stones-friends-runtime-files.signed.json",
+      "name": "ElsFriends.OwnedStonesFriendsRuntimeFiles",
+      "sha256": "f67c0ae699a415ddca01cf7fc4aaa670594a6c8be0bce6ec626608489c5cf3cd"
+    },
+    {
+      "path": "resources/accessory-local-bootstrap.py",
+      "name": "ElsFriends.AccessoryLocalBootstrap",
+      "sha256": "54b835e0049593999753ae2c03520fe337b96f71ee8d8180f5e90a8f525307b6"
+    },
+    {
+      "path": "resources/accessory-raw-local-updater.py",
+      "name": "ElsFriends.AccessoryRawLocalUpdater",
+      "sha256": "2bf58b58b906b2f2c18abe9061eb6aa99986e985fa714097f08fbeebdf751e92"
+    },
+    {
+      "path": "resources/accessory-local-runtime-files.signed.json",
+      "name": "ElsFriends.AccessoryLocalRuntimeFiles",
+      "sha256": "1719deff1d845338fc8160eaad1f01805552144d4779977e29099c9cca4c3cf7"
+    },
+    {
+      "path": "resources/accessory-friends-runtime-files.signed.json",
+      "name": "ElsFriends.AccessoryFriendsRuntimeFiles",
+      "sha256": "bae7e490cd5174227ebc350bc9224ce7f43b4516d64d66d05468c50d9b85fc45"
+    },
+    {
+      "path": "resources/accessory-predecessor-a.txt",
+      "name": "ElsFriends.AccessoryPredecessorA",
+      "sha256": "1bb578d4f823db385caa49f7657feb9893c12153ec5dc557eba1ecc8c2f9fa62"
+    },
+    {
+      "path": "resources/accessory-predecessor-b.txt",
+      "name": "ElsFriends.AccessoryPredecessorB",
+      "sha256": "a178e771ba22bac3a2757cae88e65a8f580f9955f5f3d2ea76161a11260ec679"
+    },
+    {
+      "path": "resources/shop-friends-runtime-files.signed.json",
+      "name": "ElsFriends.ShopFriendsRuntimeFiles",
+      "sha256": "e1b91d43bcaa499e547e1eef975eaf25d733a8b49261977bf6c720f9f8465b5a"
+    },
+    {
+      "path": "resources/wear-signedLOCAL.signed.json",
+      "name": "ElsFriends.WearLocalRuntimeFiles",
+      "sha256": "a447d5f623f75850deeee35642bccbd0223eac3c43fad0cc66c50f55d539a323"
+    },
+    {
+      "path": "resources/wear-signedFriends.signed.json",
+      "name": "ElsFriends.WearFriendsRuntimeFiles",
+      "sha256": "47dd93a33a353a7741ac47460172d80a0f59543d2386fd581865635bf80be3c7"
+    },
+    {
+      "path": "resources/wear-local-bootstrap.py",
+      "name": "ElsFriends.WearLocalBootstrap",
+      "sha256": "1eb7584916e1aeb1af59123247bd938afb59e9e949debbb536c2976cb7d8916e"
+    },
+    {
+      "path": "resources/wear-predecessor.txt",
+      "name": "ElsFriends.WearPredecessor",
+      "sha256": "68b74b889731569534bf952510dd61402669aa605bc878e9fa4e2aa80184fe7c"
+    },
+    {
+      "path": "resources/world-signedLOCAL.signed.json",
+      "name": "ElsFriends.WorldLocalRuntimeFiles",
+      "sha256": "cd9c20dd6736c5efc50aa4a2090fb15c21db2a5484b02d68b3a8ff402a515be7"
+    },
+    {
+      "path": "resources/world-signedFriends.signed.json",
+      "name": "ElsFriends.WorldFriendsRuntimeFiles",
+      "sha256": "fe6325a676cd03287a7ddd46e548c164f30b2e2f3a7219d2310b450735c86f81"
+    },
+    {
+      "path": "resources/world-local-bootstrap.py",
+      "name": "ElsFriends.WorldLocalBootstrap",
+      "sha256": "bb7145edac674361b4177d5694f02afe972c64fbcb7c3890a28df538dc0988dc"
+    },
+    {
+      "path": "resources/world-predecessor.txt",
+      "name": "ElsFriends.WorldPredecessor",
+      "sha256": "fac2c5f0afdf3cee8593a03af0ce919a754bbef27d0d3b2807720d785faad4fd"
+    }
+  ],
+  "external_source_assets": {
+    "assets/ruben.png": {
+      "size": 2030054,
+      "sha256": "190d47330f4cc12bb74c6dc32b4c3eec21d3604eb8cf8d020cee17705de99654"
+    }
+  },
+  "version": 51,
+  "exe_sha256": "2a778eea5e03cec1b12b59ae9c967b4027bf3d9ee7ddd09d5e9ea4d967ed3acb",
+  "parent_exe_sha256": "a9768b13e5df4880366d2202ce0203fcbb00541b2bec96ee9b956c3a971fdd96",
+  "signed_components": {
+    "signedLOCAL": {
+      "payload_sha256": "767a908a9ca8e18a74d3153056b283226d3dbab24edd5e113a715fb724e06c2d",
+      "manifest_sha256": "cd9c20dd6736c5efc50aa4a2090fb15c21db2a5484b02d68b3a8ff402a515be7"
+    },
+    "signedFriends": {
+      "payload_sha256": "78d5659499db6d96b21b81e7aea47af372c13ab84c605e02f08995edd6684721",
+      "manifest_sha256": "fe6325a676cd03287a7ddd46e548c164f30b2e2f3a7219d2310b450735c86f81"
+    }
+  },
+  "support_only": true,
+  "accepted_server_source_preserved": true,
+  "main_merged": false,
+  "installed": true,
+  "excluded": [
+    "game EXE/KOM",
+    "launcher EXE",
+    "runtime ZIP",
+    "private signing key",
+    "player/QA database",
+    "raw logs/captures"
+  ],
+  "unchanged_parent_source_files": [
+    {
+      "path": "source/app.manifest",
+      "size": 594,
+      "sha256": "d4d7d50428164a07c846f20387b19e213aeb090112973435e56d6305d70a5f48",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/DesignProof.cs",
+      "size": 6503,
+      "sha256": "2030d1051711bbdf701f94f67ccce2360aa40b94c34c8ab826b6f596313fc6d9",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/Diagnostics.cs",
+      "size": 21216,
+      "sha256": "0e91abd49dce8c5f3763ba13c6621881b2dea835c4920636023c63eae4298676",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/GitUpdate.cs",
+      "size": 17372,
+      "sha256": "bd9335867884129f9816e775fcb49df0a9e8e5ed20f84fb7bb8dbb89318a933b",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/LauncherBootstrapDiagnostics.cs",
+      "size": 12986,
+      "sha256": "97d09b23ed924048ed22aed62f4dac25e8316f0e46e430d1c7b80922e5999ac2",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/local-runtime-files.signed.json",
+      "size": 335733,
+      "sha256": "ed47a5df4fd5d47bacf297226cce4783866ded16d88074b14d277e9bebeffa04",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/LocalInstall.cs",
+      "size": 14725,
+      "sha256": "6924c3c5259f919f7590c822ee6b5301da57eafe264a8b4ceb5557e0c216bcf0",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/LocalMode.cs",
+      "size": 11155,
+      "sha256": "48f38faeb59496ebe48c7afd0cefd176fb238c9567b221a08bfe06874e1c7b8b",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/local_bootstrap.py",
+      "size": 41323,
+      "sha256": "24f1bde4e963528db97a8dbbd477d9ff7ae3c063a924f8b2fe820621523a7fe0",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/local_updater.py",
+      "size": 30883,
+      "sha256": "c976b8c28c85d54b128ac0943e1abf20969859c5139b7e3b5ece98bead049fc2",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/MainDesign.cs",
+      "size": 14242,
+      "sha256": "7e4cbb55cc13d6b814f6ddc1effa9cc85b41ac5a110b3d2785811891226a7ceb",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/ModeDesign.cs",
+      "size": 17687,
+      "sha256": "64911997a6db2f18b8d116380fa2b6f83caa9fabe86c3ce51a97f821f1b651cf",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/MotionControls.cs",
+      "size": 17385,
+      "sha256": "5ff650028b1d709cf7bcdc018d87c58b201505c42ff4c23858046eadf2c92418",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/NextAccessoryCohort.cs",
+      "size": 4891,
+      "sha256": "702d10479c2d03c81a921545b62c73b1f98df3d07bbff2f7b2a44065684af37c",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/NextCacheCohort.cs",
+      "size": 4828,
+      "sha256": "2bd124a6c1d2009c72fb141a43f78a00650343896bac476baa98c297cc655357",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/NextOwnedStonesCohort.cs",
+      "size": 4946,
+      "sha256": "4e4f72aae8118a7fc9d14a9a12ee3911ef038cfd0e99830a67f69a9b61f94fc3",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/Program.cs",
+      "size": 68934,
+      "sha256": "053ba6945902a6ca0038fd8eceb419f74ada426e97ff2d9a0736a106e430d30d",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/RegisterDesign.cs",
+      "size": 3752,
+      "sha256": "f6ab27e3eb201b81193de7141adaede3190b0c362e3ce392a3cd0f9e4a88934f",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/runtime-files.signed.json",
+      "size": 333221,
+      "sha256": "ac5090de7111b87b613a8f4f0a4423010f1029c7f780dee4670b4832ddefdee6",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/ShopFriendsCohort.cs",
+      "size": 645,
+      "sha256": "5ec7f151bf3be020fc1b4fa07d6e75cf76ab3b7b10bec80b22aaa011b86c80df",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/WearRuntimeCohort.cs",
+      "size": 2387,
+      "sha256": "3669fd77bc0b286498b768c54cad86143e0f8ba8583f414d4adfbf44de9edf1b",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/accessory-friends-runtime-files.signed.json",
+      "size": 336389,
+      "sha256": "bae7e490cd5174227ebc350bc9224ce7f43b4516d64d66d05468c50d9b85fc45",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/accessory-local-bootstrap.py",
+      "size": 134166,
+      "sha256": "54b835e0049593999753ae2c03520fe337b96f71ee8d8180f5e90a8f525307b6",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/accessory-local-runtime-files.signed.json",
+      "size": 338897,
+      "sha256": "1719deff1d845338fc8160eaad1f01805552144d4779977e29099c9cca4c3cf7",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/accessory-predecessor-a.txt",
+      "size": 2602650,
+      "sha256": "1bb578d4f823db385caa49f7657feb9893c12153ec5dc557eba1ecc8c2f9fa62",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/accessory-predecessor-b.txt",
+      "size": 2602650,
+      "sha256": "a178e771ba22bac3a2757cae88e65a8f580f9955f5f3d2ea76161a11260ec679",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/accessory-raw-local-updater.py",
+      "size": 106209,
+      "sha256": "2bf58b58b906b2f2c18abe9061eb6aa99986e985fa714097f08fbeebdf751e92",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/cache41400-friends-runtime-files.signed.json",
+      "size": 335981,
+      "sha256": "6c06a3bcc327afaed545dc24702b2eae0618604253ec1fa5d86616b2620602f0",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/cache41400-local-bootstrap.py",
+      "size": 115175,
+      "sha256": "0f8c4aa7ecb090cd2640f039cf2fd9d9169f0946129f2db192e231885f3e8d5b",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/cache41400-local-runtime-files.signed.json",
+      "size": 338493,
+      "sha256": "bd6ad8dd2301b4c4d8ec24209889c0c32d0a7ebb23bc0385824e7f4ce575defa",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/cache41400-raw-local-updater.py",
+      "size": 40784,
+      "sha256": "b57a5f4d0c7195f6420d301b8ad37979c17612c04b637d7a0cf2783bfe1b85b5",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/legacy-local-bootstrap.py",
+      "size": 22420,
+      "sha256": "5a79b3d100b449a5f3eb6fb2cf0fff386e44ddf4fe5a1aceac3e66b6aaeac905",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/legacy-local-runtime-files.signed.json",
+      "size": 335733,
+      "sha256": "c0fe16c35b05440258ed372ba2eb67da1419c2de62263e3b8c90aae4b7065371",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/owned-stones-friends-runtime-files.signed.json",
+      "size": 336185,
+      "sha256": "f67c0ae699a415ddca01cf7fc4aaa670594a6c8be0bce6ec626608489c5cf3cd",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/owned-stones-local-bootstrap.py",
+      "size": 130289,
+      "sha256": "436655aa1271adbd84b955fcff195b06af3b4cf2009ef571c3f908e777956fdd",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/owned-stones-local-runtime-files.signed.json",
+      "size": 338697,
+      "sha256": "cedeb7b01f9f1d3da10e968d827897aba412f6146b95e7250c5bfbb028cbc933",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/owned-stones-raw-local-updater.py",
+      "size": 104401,
+      "sha256": "51e7743b4d34b82891bfa8f3e4d17d990f6b1c17b41871861a157feda0bff25a",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/repair-friends-runtime-files.signed.json",
+      "size": 335981,
+      "sha256": "c0aae17be562667d80753cf2aa7eec5a16c6cc4e37b59508fd296795e33ffd18",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/repair-local-bootstrap.py",
+      "size": 112394,
+      "sha256": "133cd860c9a76f03bfbc3f8519cb332ea0411f8eb578d6fb4b5275e15596d26c",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/repair-local-runtime-files.signed.json",
+      "size": 338493,
+      "sha256": "5004c9eccdbe717c41581c42c0b56658bb23009fdeebda21b7e5050380a81af8",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/repair-raw-local-updater.py",
+      "size": 38722,
+      "sha256": "9b49b080cbd9728ed6049f3197c69fa16af66b6fd605899fb5ee6d71f73db0f3",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/shop-friends-runtime-files.signed.json",
+      "size": 336389,
+      "sha256": "e1b91d43bcaa499e547e1eef975eaf25d733a8b49261977bf6c720f9f8465b5a",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/structure-local-bootstrap.py",
+      "size": 49537,
+      "sha256": "394aa36f311dc6f8682111ab438f103760b067f2164894359ce16fe0d7ae573e",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/structure-local-runtime-files.signed.json",
+      "size": 336997,
+      "sha256": "e11a4123f68270db611b7b5fda991c8630b9650a6de2a842d3c447b8d762cfc0",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/wear-local-bootstrap.py",
+      "size": 137418,
+      "sha256": "1eb7584916e1aeb1af59123247bd938afb59e9e949debbb536c2976cb7d8916e",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/wear-predecessor.txt",
+      "size": 309824,
+      "sha256": "68b74b889731569534bf952510dd61402669aa605bc878e9fa4e2aa80184fe7c",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/wear-signedFriends.signed.json",
+      "size": 336721,
+      "sha256": "47dd93a33a353a7741ac47460172d80a0f59543d2386fd581865635bf80be3c7",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    },
+    {
+      "path": "source/resources/wear-signedLOCAL.signed.json",
+      "size": 339229,
+      "sha256": "a447d5f623f75850deeee35642bccbd0223eac3c43fad0cc66c50f55d539a323",
+      "source": "V50 source inventory; merged PR677 archive and referenced parent source"
+    }
+  ],
+  "parent_source_inventory": {
+    "app.manifest": {
+      "size": 594,
+      "sha256": "d4d7d50428164a07c846f20387b19e213aeb090112973435e56d6305d70a5f48"
+    },
+    "AutoUpdate.cs": {
+      "size": 16016,
+      "sha256": "1455a88d345ddb6c794e6f78c5c7fc941754f4133c1e1cb08bb587ffb3d415fa"
+    },
+    "ComponentRuntime.cs": {
+      "size": 39317,
+      "sha256": "a17148b5de783a3020250ca2b7d384e4e59c3222caaf95b944da82597ac745b4"
+    },
+    "DesignProof.cs": {
+      "size": 6503,
+      "sha256": "2030d1051711bbdf701f94f67ccce2360aa40b94c34c8ab826b6f596313fc6d9"
+    },
+    "Diagnostics.cs": {
+      "size": 21216,
+      "sha256": "0e91abd49dce8c5f3763ba13c6621881b2dea835c4920636023c63eae4298676"
+    },
+    "GitUpdate.cs": {
+      "size": 17372,
+      "sha256": "bd9335867884129f9816e775fcb49df0a9e8e5ed20f84fb7bb8dbb89318a933b"
+    },
+    "LauncherBootstrapDiagnostics.cs": {
+      "size": 12986,
+      "sha256": "97d09b23ed924048ed22aed62f4dac25e8316f0e46e430d1c7b80922e5999ac2"
+    },
+    "local-runtime-files.signed.json": {
+      "size": 335733,
+      "sha256": "ed47a5df4fd5d47bacf297226cce4783866ded16d88074b14d277e9bebeffa04"
+    },
+    "LocalBootstrap.cs": {
+      "size": 14340,
+      "sha256": "be43723306a544caf1c83427f9d3cafe5415de9aef5675ec8120e45cb402ada5"
+    },
+    "LocalInstall.cs": {
+      "size": 14725,
+      "sha256": "6924c3c5259f919f7590c822ee6b5301da57eafe264a8b4ceb5557e0c216bcf0"
+    },
+    "LocalMode.cs": {
+      "size": 11155,
+      "sha256": "48f38faeb59496ebe48c7afd0cefd176fb238c9567b221a08bfe06874e1c7b8b"
+    },
+    "local_bootstrap.py": {
+      "size": 41323,
+      "sha256": "24f1bde4e963528db97a8dbbd477d9ff7ae3c063a924f8b2fe820621523a7fe0"
+    },
+    "local_updater.py": {
+      "size": 30883,
+      "sha256": "c976b8c28c85d54b128ac0943e1abf20969859c5139b7e3b5ece98bead049fc2"
+    },
+    "MainDesign.cs": {
+      "size": 14242,
+      "sha256": "7e4cbb55cc13d6b814f6ddc1effa9cc85b41ac5a110b3d2785811891226a7ceb"
+    },
+    "ModeDesign.cs": {
+      "size": 17687,
+      "sha256": "64911997a6db2f18b8d116380fa2b6f83caa9fabe86c3ce51a97f821f1b651cf"
+    },
+    "MotionControls.cs": {
+      "size": 17385,
+      "sha256": "5ff650028b1d709cf7bcdc018d87c58b201505c42ff4c23858046eadf2c92418"
+    },
+    "NextAccessoryCohort.cs": {
+      "size": 4891,
+      "sha256": "702d10479c2d03c81a921545b62c73b1f98df3d07bbff2f7b2a44065684af37c"
+    },
+    "NextCacheCohort.cs": {
+      "size": 4828,
+      "sha256": "2bd124a6c1d2009c72fb141a43f78a00650343896bac476baa98c297cc655357"
+    },
+    "NextOwnedStonesCohort.cs": {
+      "size": 4946,
+      "sha256": "4e4f72aae8118a7fc9d14a9a12ee3911ef038cfd0e99830a67f69a9b61f94fc3"
+    },
+    "Program.cs": {
+      "size": 68934,
+      "sha256": "053ba6945902a6ca0038fd8eceb419f74ada426e97ff2d9a0736a106e430d30d"
+    },
+    "RegisterDesign.cs": {
+      "size": 3752,
+      "sha256": "f6ab27e3eb201b81193de7141adaede3190b0c362e3ce392a3cd0f9e4a88934f"
+    },
+    "runtime-files.signed.json": {
+      "size": 333221,
+      "sha256": "ac5090de7111b87b613a8f4f0a4423010f1029c7f780dee4670b4832ddefdee6"
+    },
+    "ShopFriendsCohort.cs": {
+      "size": 645,
+      "sha256": "5ec7f151bf3be020fc1b4fa07d6e75cf76ab3b7b10bec80b22aaa011b86c80df"
+    },
+    "WearRuntimeCohort.cs": {
+      "size": 2387,
+      "sha256": "3669fd77bc0b286498b768c54cad86143e0f8ba8583f414d4adfbf44de9edf1b"
+    },
+    "assets/ruben.png": {
+      "size": 2030054,
+      "sha256": "190d47330f4cc12bb74c6dc32b4c3eec21d3604eb8cf8d020cee17705de99654"
+    },
+    "resources/accessory-friends-runtime-files.signed.json": {
+      "size": 336389,
+      "sha256": "bae7e490cd5174227ebc350bc9224ce7f43b4516d64d66d05468c50d9b85fc45"
+    },
+    "resources/accessory-local-bootstrap.py": {
+      "size": 134166,
+      "sha256": "54b835e0049593999753ae2c03520fe337b96f71ee8d8180f5e90a8f525307b6"
+    },
+    "resources/accessory-local-runtime-files.signed.json": {
+      "size": 338897,
+      "sha256": "1719deff1d845338fc8160eaad1f01805552144d4779977e29099c9cca4c3cf7"
+    },
+    "resources/accessory-predecessor-a.txt": {
+      "size": 2602650,
+      "sha256": "1bb578d4f823db385caa49f7657feb9893c12153ec5dc557eba1ecc8c2f9fa62"
+    },
+    "resources/accessory-predecessor-b.txt": {
+      "size": 2602650,
+      "sha256": "a178e771ba22bac3a2757cae88e65a8f580f9955f5f3d2ea76161a11260ec679"
+    },
+    "resources/accessory-raw-local-updater.py": {
+      "size": 106209,
+      "sha256": "2bf58b58b906b2f2c18abe9061eb6aa99986e985fa714097f08fbeebdf751e92"
+    },
+    "resources/cache41400-friends-runtime-files.signed.json": {
+      "size": 335981,
+      "sha256": "6c06a3bcc327afaed545dc24702b2eae0618604253ec1fa5d86616b2620602f0"
+    },
+    "resources/cache41400-local-bootstrap.py": {
+      "size": 115175,
+      "sha256": "0f8c4aa7ecb090cd2640f039cf2fd9d9169f0946129f2db192e231885f3e8d5b"
+    },
+    "resources/cache41400-local-runtime-files.signed.json": {
+      "size": 338493,
+      "sha256": "bd6ad8dd2301b4c4d8ec24209889c0c32d0a7ebb23bc0385824e7f4ce575defa"
+    },
+    "resources/cache41400-raw-local-updater.py": {
+      "size": 40784,
+      "sha256": "b57a5f4d0c7195f6420d301b8ad37979c17612c04b637d7a0cf2783bfe1b85b5"
+    },
+    "resources/legacy-local-bootstrap.py": {
+      "size": 22420,
+      "sha256": "5a79b3d100b449a5f3eb6fb2cf0fff386e44ddf4fe5a1aceac3e66b6aaeac905"
+    },
+    "resources/legacy-local-runtime-files.signed.json": {
+      "size": 335733,
+      "sha256": "c0fe16c35b05440258ed372ba2eb67da1419c2de62263e3b8c90aae4b7065371"
+    },
+    "resources/owned-stones-friends-runtime-files.signed.json": {
+      "size": 336185,
+      "sha256": "f67c0ae699a415ddca01cf7fc4aaa670594a6c8be0bce6ec626608489c5cf3cd"
+    },
+    "resources/owned-stones-local-bootstrap.py": {
+      "size": 130289,
+      "sha256": "436655aa1271adbd84b955fcff195b06af3b4cf2009ef571c3f908e777956fdd"
+    },
+    "resources/owned-stones-local-runtime-files.signed.json": {
+      "size": 338697,
+      "sha256": "cedeb7b01f9f1d3da10e968d827897aba412f6146b95e7250c5bfbb028cbc933"
+    },
+    "resources/owned-stones-raw-local-updater.py": {
+      "size": 104401,
+      "sha256": "51e7743b4d34b82891bfa8f3e4d17d990f6b1c17b41871861a157feda0bff25a"
+    },
+    "resources/repair-friends-runtime-files.signed.json": {
+      "size": 335981,
+      "sha256": "c0aae17be562667d80753cf2aa7eec5a16c6cc4e37b59508fd296795e33ffd18"
+    },
+    "resources/repair-local-bootstrap.py": {
+      "size": 112394,
+      "sha256": "133cd860c9a76f03bfbc3f8519cb332ea0411f8eb578d6fb4b5275e15596d26c"
+    },
+    "resources/repair-local-runtime-files.signed.json": {
+      "size": 338493,
+      "sha256": "5004c9eccdbe717c41581c42c0b56658bb23009fdeebda21b7e5050380a81af8"
+    },
+    "resources/repair-raw-local-updater.py": {
+      "size": 38722,
+      "sha256": "9b49b080cbd9728ed6049f3197c69fa16af66b6fd605899fb5ee6d71f73db0f3"
+    },
+    "resources/shop-friends-runtime-files.signed.json": {
+      "size": 336389,
+      "sha256": "e1b91d43bcaa499e547e1eef975eaf25d733a8b49261977bf6c720f9f8465b5a"
+    },
+    "resources/structure-local-bootstrap.py": {
+      "size": 49537,
+      "sha256": "394aa36f311dc6f8682111ab438f103760b067f2164894359ce16fe0d7ae573e"
+    },
+    "resources/structure-local-runtime-files.signed.json": {
+      "size": 336997,
+      "sha256": "e11a4123f68270db611b7b5fda991c8630b9650a6de2a842d3c447b8d762cfc0"
+    },
+    "resources/wear-local-bootstrap.py": {
+      "size": 137418,
+      "sha256": "1eb7584916e1aeb1af59123247bd938afb59e9e949debbb536c2976cb7d8916e"
+    },
+    "resources/wear-predecessor.txt": {
+      "size": 309824,
+      "sha256": "68b74b889731569534bf952510dd61402669aa605bc878e9fa4e2aa80184fe7c"
+    },
+    "resources/wear-signedFriends.signed.json": {
+      "size": 336721,
+      "sha256": "47dd93a33a353a7741ac47460172d80a0f59543d2386fd581865635bf80be3c7"
+    },
+    "resources/wear-signedLOCAL.signed.json": {
+      "size": 339229,
+      "sha256": "a447d5f623f75850deeee35642bccbd0223eac3c43fad0cc66c50f55d539a323"
+    }
+  },
+  "installation": {
+    "launcher_V": 51,
+    "exe_sha256": "2a778eea5e03cec1b12b59ae9c967b4027bf3d9ee7ddd09d5e9ea4d967ed3acb",
+    "Friends_signed_files": 1785,
+    "LOCAL_signed_files": 1800,
+    "raw_LOCAL_release": "local-world-event-iteration-20261031-v1",
+    "raw_LOCAL_runtime_files": 1834,
+    "ONLINE_server_unchanged": true,
+    "public_changed_files": {
+      "Friends": 4,
+      "LOCAL": 5
+    },
+    "public_repeat_downloads": 0,
+    "original_EXE_KOM_changes": 0,
+    "player_database_restore": false
+  }
+}
