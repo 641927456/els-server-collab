@@ -17,6 +17,8 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'references/ep13-retained-inventory-20261101-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_ep13_retained_inventory_sources.py')])
     if (ROOT/'references/pending-source-integration-20261031-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pending_source_integration_20261031.py')])
     if (ROOT/'references/force-categories-sources-20261031-v1/source-contract.json').is_file():

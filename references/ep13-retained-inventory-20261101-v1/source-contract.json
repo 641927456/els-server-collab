@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "scope": "Four existing owned inventory readers; no quest/economy bypass or new acquisition",
+  "added_templates": [
+    716611,
+    718783,
+    720017,
+    720835
+  ],
+  "base_item_count": 46,
+  "base_items_sha256": "4857e57c7d89ec62ddd645eddc6616c809d7a48fdca64f84ecdd4073cc73c9f0",
+  "source": [
+    {
+      "path": "els_server/data/retained_native_consumables.json",
+      "sha256": "a0d28e566c439c655d426d33988df14cf3fe845f969edaa37e9a06c6ed5122dc",
+      "size": 16192,
+      "parent_sha256": "db687161c4c1f89ddb2cddd37a386d9b24cece653c0b1695f47cd9d492242f2c"
+    },
+    {
+      "path": "els_server/domain/retained_native_consumables.py",
+      "sha256": "8216029b788f93b33fdd2a1577923088cec7deead2141dbe2e49864afc959799",
+      "size": 3604,
+      "parent_sha256": "75b5487c6a55c5057a1386c64332d5fb996fa11f212f2e0098bd27f66f8377e8"
+    }
+  ],
+  "new_sources": false,
+  "new_schema": false,
+  "original_client_changes": 0,
+  "source_archive_only": true,
+  "mainline_dependency_integration_pending": true
+}
