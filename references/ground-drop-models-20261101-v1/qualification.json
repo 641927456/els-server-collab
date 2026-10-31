@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "issue": 719,
+  "qualification_date": "2026-11-01",
+  "git_base": "b836a7dee8155bd33e0f91f4bf6803751bcd4aaa",
+  "scope": [
+    "ground ED appearance only; issued amount unchanged",
+    "hunter sources on admitted ordinary PvE graphs"
+  ],
+  "display_bands": [
+    {
+      "minimum": 1,
+      "maximum": 50,
+      "template": 127000
+    },
+    {
+      "minimum": 51,
+      "maximum": 150,
+      "template": 127010
+    },
+    {
+      "minimum": 151,
+      "maximum": 1999,
+      "template": 127020
+    },
+    {
+      "minimum": 2000,
+      "maximum": 2147483647,
+      "template": 127041
+    }
+  ],
+  "display_provenance": "Local display rule reusing witnessed historical KDropTable::GetEDItemID boundaries; current template IDs verified separately. Not a modern official numeric claim.",
+  "original_client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "validations": {
+    "portable_unittests": 6,
+    "ordinary_sources": 142,
+    "hunter_grade_templates": [
+      1615,
+      1616,
+      1617,
+      1618,
+      1619
+    ],
+    "new_hunter_chain": {
+      "map": 30092,
+      "template": 1615,
+      "reward": 117527,
+      "profession_XP_delta": 10,
+      "weekly_delta": 1,
+      "sqlite": true,
+      "replay_unchanged": true,
+      "cold_read": true,
+      "wrong_part_refused": true
+    },
+    "solo_TLS": {
+      "map": 30092,
+      "pickups": 13,
+      "ED": 3038,
+      "pickup_equals_C1_equals_cold_read": true
+    },
+    "group_TLS": {
+      "map": 34320,
+      "members": 2,
+      "pickups": 154,
+      "ED_each": 2038608,
+      "pickup_equals_C1_equals_cold_read": true
+    },
+    "pickup": {
+      "templates": [
+        127010,
+        127020,
+        127041
+      ],
+      "old_copper_9800": true,
+      "replay_unchanged": true,
+      "encoder_failure_rolls_back": true
+    },
+    "native_goldbar_original_writer_modes": 20,
+    "native_visual_templates": [
+      127000,
+      127010,
+      127020,
+      127041,
+      77000,
+      30206,
+      11022332
+    ],
+    "native_chest_actor_constructed": 1615,
+    "original_EXE_unchanged": true,
+    "owned_runtime_removed": true
+  },
+  "boundaries": [
+    "Native visuals use direct original CF/2D0 dispatch, not a network or natural combat test.",
+    "Application/TLS tests use owned SQLite, controlled death reports and monotonic inputs.",
+    "No reproducible potion/equipment model defect in tested original definitions; no client asset patch.",
+    "No original EXE/KOM, player database, raw log, process image or credential is included.",
+    "Git submission and actual dual installation are tracked separately; this qualification is not a deployment receipt."
+  ],
+  "official_profession_reference": "https://els.ztgame.com/game/m_000-1640-00312-600020.shtml?ms=784&mt=786",
+  "evidence": [
+    {
+      "name": "verification-source.json",
+      "sha256": "96004da2346d71288c3cd730b8e4e601ad626741ed0e53af8af773ab8ec4b4af",
+      "private_evidence_only": true
+    },
+    {
+      "name": "verification-new-hunter-chain.json",
+      "sha256": "08bc6649b12b6de5765b612580742f314721626ebad25faf8ad24085e04d3142",
+      "private_evidence_only": true
+    },
+    {
+      "name": "verification-goldbar-native.json",
+      "sha256": "a21615728241246b246bbb0569558cae9211c5dda013b0dd65274f713ab2a94c",
+      "private_evidence_only": true
+    },
+    {
+      "name": "qa-ed-sessions-online-friends-1-maps-30092.json",
+      "sha256": "7c58d7d2ff3d15e0550327d869edf0006282b6ba73238f5cd9f451f3493c8daa",
+      "private_evidence_only": true
+    },
+    {
+      "name": "qa-ed-sessions-online-friends-2-maps-34320.json",
+      "sha256": "60d1dc3161a12af39a0190bfdea8bb8c146a14c5bd0ce5362af2c9f1576ab325",
+      "private_evidence_only": true
+    },
+    {
+      "name": "evidence/native-observations.json",
+      "sha256": "a9cfeb54e2c6922d9691139db16c68176dc26d4628af53392a5b54f81af66ba0",
+      "private_evidence_only": true
+    },
+    {
+      "name": "native-cleanup.json",
+      "sha256": "d5110f0517ffabf5979843505ca262f64efc2e2afa1a86702648b1ff6327cc06",
+      "private_evidence_only": true
+    }
+  ]
+}

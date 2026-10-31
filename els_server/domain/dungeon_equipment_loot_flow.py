@@ -1,4 +1,5 @@
 """Solo finite loot, gated by the existing accepted native dungeon lifecycle."""
+from els_server.domain.ground_currency import coin_template
 import copy
 import hashlib
 import secrets
@@ -71,7 +72,7 @@ def accepted_death(s,event,npc,death,expired,*,randbelow=secrets.randbelow):
     from els_server.domain.dungeon_flow import local_rewards,periodic
     rule=local_rewards();amount=rule['boss_ed'] if npc['boss'] else rule['ordinary_ed']
     from els_server.domain.gm_rates import allow_drop
-    legacy=[dict(template=rule['coin_template'],quantity=0,ed=amount,option_groups={})] if npc['active'] and amount and allow_drop(s.reward_run_id,run.identity,(run.stage,run.part),npc['key'],npc['boss']) else []
+    legacy=[dict(template=coin_template(amount),quantity=0,ed=amount,option_groups={})] if npc['active'] and amount and allow_drop(s.reward_run_id,run.identity,(run.stage,run.part),npc['key'],npc['boss']) else []
     # Prepare the native gate transition on shadow state. poll_ready mutates
     # next/ready_at and periodic pauses the clock, so neither may run after the
     # issue commits with a still-fallible protocol encoder.

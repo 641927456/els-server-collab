@@ -5,7 +5,7 @@ special old-item producer. Existing native combat, ground and pickup paths run.
 """
 import copy,hashlib,math,secrets,sqlite3,struct,time,uuid
 from pathlib import Path
-from els_server.domain.hunter_chest_rules import SOURCE_ROUTES,POLICY,grade,digest
+from els_server.domain.hunter_chest_rules import SOURCE_ROUTES,POLICY,grade,digest,source_route
 from els_server.protocol.protocol_codec import Event,encode_event
 from els_server.protocol import hunter_chest_messages as wire
 from els_server.storage import hunter_chest as storage
@@ -14,9 +14,8 @@ def _checked(s,dispatcher=None,room=None):
  from els_server.domain.dungeon_equipment_loot_flow import current_lease
  from els_server.domain.manufacture_flow import _saved_paths,_binding
  run=s.dungeon_run
- if run is None or run.identity not in SOURCE_ROUTES:raise ValueError('Hunter finite ordinary route')
- expected=SOURCE_ROUTES[run.identity]
- if run.graph.get('encounter')or run.graph['source_sha256']!=expected[1]or str(run.identity)not in run.catalog._data['routes']:raise ValueError('Hunter current source graph')
+ if run is None:raise ValueError('Hunter current dungeon required')
+ source_route(run)
  if room is None and getattr(s,'application',None)is not None:
   dispatcher=s.application.world.dungeons;room=dispatcher.room(s)
  if room is None:
@@ -100,7 +99,7 @@ def loaded(s,event,*,dispatcher=None,room=None,randbelow=secrets.randbelow,broad
   code=-(2**31)
   while code in forbidden:code+=1
   anchor=min(points,key=lambda n:n['key'])
-  source=dict(npc_key=key,template=grade(SOURCE_ROUTES[run.identity][0]),key_code=code,start_point=anchor['start_point'],offset=anchor['offset'],anchor_key=anchor['key'])
+  source=dict(npc_key=key,template=grade(source_route(run)[0]),key_code=code,start_point=anchor['start_point'],offset=anchor['offset'],anchor_key=anchor['key'])
   staged={};deliveries={}
   def prepare(saved,replayed):
    if saved is None:return None

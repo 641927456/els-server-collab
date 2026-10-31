@@ -4,6 +4,7 @@ Original map/source actors, native AD/CF/D0 serializers and inventory consumers
 are reused. One real writer prepares every member before publishing any state.
 """
 import copy,math,secrets,sqlite3,struct,uuid
+from els_server.domain.ground_currency import coin_template
 from contextlib import closing
 from pathlib import Path
 
@@ -239,7 +240,7 @@ def accepted_death(dispatcher,room,s,event,*,randbelow=secrets.randbelow):
                 witness=dict(kind='kill',dungeon=34320,npc=npc['template'],level=characters[member]['level'])
                 notices=store(member).record(base,witness,event.payload,validate=validate,transaction=db)
                 amount=local_rule['boss_ed']
-                legacy=[dict(template=local_rule['coin_template'],quantity=0,ed=amount,option_groups={})] if amount and allow_drop(member.reward_run_id,34320,(run.stage,run.part),npc['key'],True) else []
+                legacy=[dict(template=coin_template(amount),quantity=0,ed=amount,option_groups={})] if amount and allow_drop(member.reward_run_id,34320,(run.stage,run.part),npc['key'],True) else []
                 def prepare(rows,replayed):
                     reply=[death_ack()] if member is s else []
                     if not replayed:reply.append(empty_reward_death_notice(npc['key'],death['killer']))
