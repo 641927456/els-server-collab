@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "actual_original_game": true,
+  "actual_original_104_105": true,
+  "native_callback_body_directly_invoked": true,
+  "normal_interception": "Reuse independent original Frida ABI fixture; direct native calls inside diagnostic Gum listeners suppress normal interception",
+  "original_pending_lifecycle": true,
+  "positive_cold_save": true,
+  "legitimate_failure_clears_wait": true,
+  "natural_GUI": false,
+  "formal_player_database_access": false,
+  "original_client_unchanged": true,
+  "own_processes_closed": true,
+  "rows": [
+    {
+      "case": "equip-concurrent-refusal-unequip",
+      "result": {
+        "event": "owned_wear_lifecycle_complete",
+        "ok": true,
+        "steps": [
+          {
+            "phase": "equip",
+            "first": 1,
+            "registered": 1,
+            "blocked_second": 0,
+            "after_second_pending": 1
+          },
+          {
+            "phase": "unequip_after_original105",
+            "result": 1,
+            "registered": 1
+          }
+        ],
+        "original_wait_ended": true
+      },
+      "isolation_receipt_sha256": "d408e3c0b56b0f3d91fd9e8a7266b5f037964e8617b3049a5b7d0452c94c2e96",
+      "native_log_directory": "G:\\els\\analysis\\pending-repairs-completion-20261031-v1\\native-wear-v3\\native-log\\20261031-071007"
+    },
+    {
+      "case": "legitimate-missing-owned-item-failure",
+      "result": {
+        "event": "owned_wear_failure_complete",
+        "original_wait_ended": true
+      },
+      "isolation_receipt_sha256": "8f3856b783047e6d8f62f801ce2a248157dee19ebfd4372bf7d660ca778ad35b",
+      "native_log_directory": "G:\\els\\analysis\\pending-repairs-completion-20261031-v1\\native-wear-v4\\native-log\\20261031-071547"
+    }
+  ]
+}
