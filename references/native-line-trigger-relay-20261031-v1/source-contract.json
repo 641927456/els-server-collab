@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "candidate": true,
+  "activation": false,
+  "runtime_acceptance": false,
+  "issue": 694,
+  "files": [
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "source": "references/native-line-trigger-relay-20261031-v1/source/shared/els_server/domain/dungeon_flow.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "6bf6024e768d9c410ac79316ef4fd467aa0d420712852dbe029be86a98de5a82",
+      "parent_sha256": "d90368d6df9850d1f2b6a8daefa6cb8d8d5569e413dfccc974375ff205fd69e8"
+    },
+    {
+      "path": "els_server/domain/native_line_triggers.py",
+      "source": "references/native-line-trigger-relay-20261031-v1/source/shared/els_server/domain/native_line_triggers.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "bb50d3362e815e78e6455080f0372a717f4da6c6145e0243d114557e187533f7",
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/data/native_line_triggers.json",
+      "source": "references/native-line-trigger-relay-20261031-v1/source/shared/els_server/data/native_line_triggers.json",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "sha256": "7de0f2f9697ebc7481c7443c2e51f5fb236ce82a6f6d4504d6aeb5427de702b1",
+      "parent_sha256": null
+    }
+  ],
+  "source_parent_online": "solo-dungeon-wear-20261031-v2",
+  "source_parent_local": "local-solo-dungeon-wear-20261031-v2",
+  "scope": "Source-verified unconditional native line trigger0 in34320 stage1 part1, current single-owner instance only",
+  "native_protocol": {
+    "request": "202/30A, performers=(0,), max UID/target, mode0, i32 trigger",
+    "ack": "201/30B i32 result",
+    "notification": "201/30C i32 trigger"
+  },
+  "implementation": "Original request -> existing dungeon_flow -> exact source/lease/room validation -> ACK and one original activation notice per visit; native client changes line type and transports actor",
+  "source": "Original CF_TRIGGER0 returns true; RF_TRIGGER0 calls SetActiveTrigger_LUA(0); original line trigger changes13 to LT_POTAL, teleport26 after0.01s",
+  "native_consumers": {
+    "request_sender": "1ADA2F0 ->1B23960",
+    "ack": "C25B90 branch30B ->1ADA590",
+    "notification": "C25B90 branch30C ->1ADA630 ->1B59EB0"
+  },
+  "tests": "Actual App/TLS with exact native header, duplicate ACK only,12 rejection cases, no room/HP/inventory/loot change; actual native trigger0 activation observed",
+  "verification_boundary": "Direct mid-part QA checkpoint caused black screen and was rejected. Corrected stage1/0 scene initialization, normal human1/0->1/1 transition, original native activation and human platform passage passed. No full-clear or multiplayer claim",
+  "failure_retention": "Private owned initial malformed QA init and synthetic empty-header tests retained. Native performer0 rejection produced blank error popup; final envelope corrected from actual native input.",
+  "database_migration": false,
+  "economic_changes": false,
+  "client_changes": false,
+  "integration": "Reapply only the three-line shared dispatch at exact running parent; preserve newer dungeon_flow changes and all channel differences. No startup/QA checkpoint code is a delivery file."
+}
