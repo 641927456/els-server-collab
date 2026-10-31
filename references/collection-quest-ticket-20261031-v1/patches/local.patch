@@ -1,0 +1,492 @@
+--- /dev/null
++++ b/els_server/data/el_search_collection_tickets.json
+@@ -0,0 +1,121 @@
++{
++  "schema_version": 1,
++  "source_sha256": "60f56b146e52110afdf8d7c57c74b7000e64319a5a111224e69808e279ed97dd",
++  "tickets": [
++    {
++      "template": 168612,
++      "minutes": 10080,
++      "record_sha256": "802bddf4c10ae997ae0fb1721480fe442338b5b314caeb467e515dcd343e33fe"
++    },
++    {
++      "template": 168613,
++      "minutes": 43200,
++      "record_sha256": "7c957da6b1d970ff075ad64ac52aba04ac72bad43751a4f7ee58e4d6eb716b9c"
++    },
++    {
++      "template": 168614,
++      "minutes": 1,
++      "record_sha256": "6ae5d5784305371ece6e4718c909e104c81b3a8d428dd16e9ed7df3aa51d14bf"
++    },
++    {
++      "template": 713273,
++      "minutes": 10080,
++      "record_sha256": "2691bb2f27c39febac8d1c8d82d433eed63092d95dd0bbeca180ff9f3f4919c4"
++    },
++    {
++      "template": 714057,
++      "minutes": 10080,
++      "record_sha256": "e1f0c0d1c34e1d6ebd3c429b2f588e6152793ecc4a18591d09b1369064b71ff3"
++    },
++    {
++      "template": 168838,
++      "minutes": 36000,
++      "record_sha256": "db57b362cad26214190729a9af691bc116bc3756c5aab963439a9d875bd10b24"
++    },
++    {
++      "template": 168839,
++      "minutes": 17280,
++      "record_sha256": "7dd43b781480aa273bcdc79e4e045598986264a6d61e174564bc190186056ab7"
++    },
++    {
++      "template": 714062,
++      "minutes": 21600,
++      "record_sha256": "f310b4d7b8843c7a0cf376b29e9b1c9bc91991dae34eae359a311bf0ba71d2f0"
++    },
++    {
++      "template": 324773,
++      "minutes": 64800,
++      "record_sha256": "f289ee3b328330589934363ac83510225cfc4bc6bd0b397786ec4d53ad3b9dd3"
++    },
++    {
++      "template": 715661,
++      "minutes": 1440,
++      "record_sha256": "f2c3d472eabe9eb8a3d35388a83bc3f157401abfc05f77783f3af1c0dad5bade"
++    },
++    {
++      "template": 715662,
++      "minutes": 4320,
++      "record_sha256": "4dd23313464ca84c3c666de2c6910aa2df4eeaa8f89e055be15630d44be206f0"
++    },
++    {
++      "template": 715663,
++      "minutes": 20160,
++      "record_sha256": "ed278c019318b66b56636800429a23b8fc53cfcc4c9c2bc1afd7823b0ebb7238"
++    },
++    {
++      "template": 715664,
++      "minutes": 43200,
++      "record_sha256": "2d7bed52992c69c1abc1c28ab7847cf2124bd6ae21d48d14e093533105ffc169"
++    },
++    {
++      "template": 715665,
++      "minutes": 57600,
++      "record_sha256": "aa11655a3fa422a691eb2bd854780f34c533a1c2e937524c96a16b04bd63a418"
++    },
++    {
++      "template": 715666,
++      "minutes": 72000,
++      "record_sha256": "7f28844bdcfc80c814ee033d6d879063a4fc99a16c59cae1329210e1370980d6"
++    },
++    {
++      "template": 715667,
++      "minutes": 86400,
++      "record_sha256": "87ecc6140647cb5d84f304eb90c67930ebe9ddb460ee456dfc4b8bee49d667c4"
++    },
++    {
++      "template": 715668,
++      "minutes": 129600,
++      "record_sha256": "efa16fe4f55befee2a2e2b97b69dae77bf51cf80131026d60b836cbd5cf54b43"
++    },
++    {
++      "template": 715669,
++      "minutes": 144000,
++      "record_sha256": "fd888fcba8671b31e7bd4d1bca2102148eb71f1f8991471ea0e63e68f443d1af"
++    },
++    {
++      "template": 980044,
++      "minutes": 14400,
++      "record_sha256": "4f26b7922a2b358fc6c0f19d5730053fee8ed309cd5d86b0fd5a6cc92b19730b"
++    },
++    {
++      "template": 719948,
++      "minutes": 14400,
++      "record_sha256": "89df6b0540dc1114de8b6232a787fd06d500403e9fc1c852d5e5f8f24266845d"
++    },
++    {
++      "template": 719951,
++      "minutes": 28800,
++      "record_sha256": "46da8192bb937f3626909105e8695d92270518d3915825e2c3146702bcf2aa51"
++    },
++    {
++      "template": 720762,
++      "minutes": 43200,
++      "record_sha256": "6b08947733409b30588871b7cd0233bf06ce54119cf5b0c74892ded354071c3d"
++    },
++    {
++      "template": 721055,
++      "minutes": 14400,
++      "record_sha256": "b037080c797c04ecc5f6be15a9a29858e4b39a469872196d956df4b1f3a76321"
++    }
++  ]
++}
+--- a/els_server/domain/el_search_collection.py
++++ b/els_server/domain/el_search_collection.py
+@@ -66,11 +66,11 @@
+ def wire(value):
+     if (not isinstance(value,dict) or set(value)!={'active','registered','expiry','expansion','field1d','field21'}
+         or type(value['active'])is not bool or not isinstance(value['registered'],list)
+-        or value['expiry']!=0 or value['expansion']!=0 or value['field1d']!=1 or value['field21']!=1):raise ValueError('Collection native snapshot')
++        or type(value['expiry'])is not int or not 0<=value['expiry']<2**63 or value['expansion']!=0 or value['field1d']!=1 or value['field21']!=1):raise ValueError('Collection native snapshot')
+     entries=value['registered']
+     keys=[(canonical(r)['unit_type'],r['line'])for r in entries]
+     if len(keys)>60 or keys!=sorted(set(keys)):raise ValueError('Collection canonical account keys')
+     out=bytes([value['active']])+struct.pack('>I',len(entries))
+     for r in entries:out+=struct.pack('>5HiH',r['unit_type'],r['line'],r['unit_type'],r['line'],r['unit_class'],r['transcendental'],r['stage'])
+     # DB1080: expiry,expansion,preset map(empty),field1d,field21.
+-    return out+struct.pack('>qiIii',0,0,0,1,1)
++    return out+struct.pack('>qiIii',value['expiry'],0,0,1,1)
+--- /dev/null
++++ b/els_server/domain/el_search_collection_flow.py
+@@ -0,0 +1,29 @@
++"""Route native synergy tickets before generic219 item families."""
++import sqlite3
++from contextlib import closing
++from pathlib import Path
++from els_server.protocol.career_messages import use_request,use_ack
++from els_server.domain.el_search_collection_tickets import catalog,CollectionTicketError
++
++
++def handle(s,event,sequence):
++    if (event.event_id!=0x202 or event.kind!=0x219 or s.client_build!='dx11_260923'
++        or not s.item_test or s.account.store is None):return None
++    try:source=use_request(event.payload)
++    except ValueError:return None
++    operation=s.shop_session_id+':collection-ticket:'+str(s.account.uid)+':'+str(sequence)
++    with closing(sqlite3.connect(Path(s.account.store.path).resolve().as_uri()+'?mode=ro',uri=True))as db:
++        row=db.execute('SELECT template FROM inventory_items WHERE owner=? AND uid=?',(s.account.uid,source)).fetchone()
++        replay=db.execute('SELECT 1 FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='inventory_action_receipts'").fetchone()else None
++    if (row is None or row[0]not in catalog())and not replay:return None
++    from els_server.domain.quest_flow import collection_source_guard,account_source_actor
++    if not account_source_actor(s):return []
++    try:
++        if (type(sequence)is not int or not 1<=sequence<2**32 or event.performers!=(0,)
++            or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0):
++            raise ValueError('Collection ticket native envelope')
++        guard=collection_source_guard(s)
++        from els_server.storage.el_search_collection_tickets import use
++        return use(s.account.store.path,s.account.uid,s.account.account_id,event.payload,operation,guard)
++    except CollectionTicketError as error:return [use_ack(result=error.result)]if account_source_actor(s)else[]
++    except ValueError:return [use_ack(result=2005)]if account_source_actor(s)else[]
+--- /dev/null
++++ b/els_server/domain/el_search_collection_tickets.py
+@@ -0,0 +1,24 @@
++"""Original ElExpeditionSystem.lua ticket durations, in native minutes."""
++import functools,hashlib,json
++from pathlib import Path
++from els_server.game_data import client_data
++
++
++@functools.lru_cache(maxsize=1)
++def catalog():
++    data=json.loads((Path(__file__).parents[1]/'data/el_search_collection_tickets.json').read_text('utf8'))
++    if data['schema_version']!=1 or data['source_sha256']!='60f56b146e52110afdf8d7c57c74b7000e64319a5a111224e69808e279ed97dd':
++        raise ValueError('Collection ticket native source')
++    result={}
++    for row in data['tickets']:
++        template=row['template'];minutes=row['minutes'];item=client_data().item(template)
++        if (template in result or type(minutes)is not int or minutes<=0 or item['item_type']!=7
++            or item['metadata']!=0 or hashlib.sha256(item['record']).hexdigest()!=row['record_sha256']):
++            raise ValueError('Collection ticket definition')
++        result[template]=minutes*60
++    return result
++
++
++class CollectionTicketError(ValueError):
++    def __init__(self,result,message):
++        super().__init__(message);self.result=result
+--- a/els_server/domain/session_dispatch.py
++++ b/els_server/domain/session_dispatch.py
+@@ -6,6 +6,9 @@
+ 
+ 
+ def priority_handlers(self,event,request_sequence=None):
++    from els_server.domain.el_search_collection_flow import handle as collection_handle
++    collection_reply=collection_handle(self,event,request_sequence)
++    if collection_reply is not None:return collection_reply
+     from els_server.domain.black_market_flow import handle as black_market_handle
+     black_market_reply=black_market_handle(self,event,request_sequence)
+     if black_market_reply is not None:return black_market_reply
+--- a/els_server/storage/el_search_collection.py
++++ b/els_server/storage/el_search_collection.py
+@@ -36,7 +36,8 @@
+             rows.append(canonical(dict(unit_type=unit,line=line,unit_class=cls,transcendental=trans,stage=stage)))
+     if activated is None and not rows:return None
+     if activated and not any((r['unit_type'],r['line'])==activated[2:4]and priority(r)>=priority(canonical(dict(zip(('unit_type','line','unit_class','transcendental','stage'),activated[2:7]))))for r in rows):raise ValueError('Collection activation missing account canonical')
+-    value=dict(active=bool(activated),registered=rows,expiry=0,expansion=0,field1d=1,field21=1)
++    from els_server.storage.el_search_collection_tickets import expiry
++    value=dict(active=bool(activated),registered=rows,expiry=expiry(db,uid,account_id),expansion=0,field1d=1,field21=1)
+     wire(value)
+     return value
+ 
+--- /dev/null
++++ b/els_server/storage/el_search_collection_tickets.py
+@@ -0,0 +1,75 @@
++"""Consume one owned synergy ticket and extend its character's original timer."""
++import json,sqlite3,time
++from contextlib import closing
++from pathlib import Path
++from els_server.domain.el_search_collection_tickets import catalog,CollectionTicketError
++from els_server.storage.inventory_actions import _identity,_previous,_commit
++from els_server.storage.inventory_state import load_items,owned_template
++from els_server.storage.equipment_receipt_state import current_changes
++from els_server.protocol.career_messages import use_request,use_ack
++from els_server.protocol.el_search_collection_messages import notice
++from els_server.protocol.protocol_codec import encode_event
++
++TABLE='character_search_collection_synergy_time'
++MAX_SECONDS=90*86400
++
++
++def expiry(db,owner,account):
++    from els_server.storage.el_search_collection import exists,identity
++    identity(db,owner,account)
++    if not exists(db,TABLE):return 0
++    row=db.execute('SELECT account_id,expires_at,updated_at FROM character_search_collection_synergy_time WHERE owner=?',(owner,)).fetchone()
++    if row is None:return 0
++    if row[0]!=account or any(type(v)is not int or not 0<v<2**63 for v in row[1:]) or not 0<row[1]-row[2]<=MAX_SECONDS:
++        raise ValueError('Collection synergy timer integrity')
++    return row[1]
++
++
++def use(path,owner,account,payload,operation,guard,*,now=None):
++    source=use_request(payload)
++    owner,digest=_identity(owner,0x219,str(account).encode()+b':collection-ticket:'+payload,operation)
++    if not callable(guard):raise ValueError('Collection ticket actor guard')
++    stamp=int(time.time())if now is None else now
++    if type(stamp)is not int or not 0<stamp<2**63-MAX_SECONDS:raise ValueError('Collection ticket clock')
++    from els_server.storage.el_search_collection import snapshot,identity
++    from els_server.storage.item_actor import require_active_character
++    with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
++        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
++        guard(db);require_active_character(db,owner);identity(db,owner,account)
++        old=_previous(db,operation,digest)
++        if old is None and owned_template(db,owner,source)not in catalog():return None
++        state=snapshot(db,owner,account)
++        if state is None or not state['active']:
++            raise CollectionTicketError(2487,'Open the El Search Party Collection before using a synergy ticket')
++        items=load_items(db,owner)
++        item=next((i for i in items if i['uid']==source),None)
++        ed,revision=db.execute('SELECT ed,revision FROM reward_balances WHERE uid=?',(owner,)).fetchone()
++        if old is not None:
++            proof=json.loads(db.execute('SELECT before_json FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()[0])
++            if len(proof)!=1 or proof[0]['uid']!=source or proof[0]['template']not in catalog() or not state['expiry']:
++                raise ValueError('Collection ticket receipt source')
++            events=[use_ack(current_changes(db,operation,owner,0x219,old,items),proof[0]['template'],ed),notice(state)]
++            for event in events:encode_event(event)
++            guard(db);return events
++        if item['group']!=4 or item['metadata']!=0 or item.get('sealed',False):raise ValueError('Collection ticket owned bag')
++        from els_server.domain.item_expiration import require_current
++        from els_server.domain.item_locks import require_unlocked
++        require_current(item,now=stamp);require_unlocked(item,now=stamp)
++        updated=max(stamp,state['expiry'])+catalog()[item['template']]
++        if updated>stamp+MAX_SECONDS:raise CollectionTicketError(2489,'Collection synergy duration cannot exceed90days')
++        if not 0<=revision<2**63-1:raise ValueError('Collection ticket inventory revision')
++        db.execute('CREATE TABLE IF NOT EXISTS character_search_collection_synergy_time (owner INTEGER PRIMARY KEY REFERENCES characters(uid),account_id INTEGER NOT NULL CHECK(account_id>0),expires_at INTEGER NOT NULL CHECK(expires_at>0),updated_at INTEGER NOT NULL CHECK(updated_at>0))')
++        db.execute('INSERT INTO character_search_collection_synergy_time VALUES (?,?,?,?) ON CONFLICT(owner) DO UPDATE SET expires_at=excluded.expires_at,updated_at=excluded.updated_at',(owner,account,updated,stamp))
++        remaining=dict(item,count=item['count']-1)if item['count']>1 else None
++        if remaining:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(source,owner))
++        else:
++            from els_server.storage.item_instances import remove
++            remove(db,owner,item)
++        db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))
++        state=snapshot(db,owner,account)
++        position=(item['group'],item['slot'])
++        events=[use_ack([(position,remaining)],item['template'],ed),notice(state)]
++        for event in events:encode_event(event)
++        guard(db)
++        _commit(db,operation,digest,owner,0x219,[position],[item],[remaining]if remaining else [])
++        return events
+--- a/els_server/domain/quest_flow.py
++++ b/els_server/domain/quest_flow.py
+@@ -235,6 +235,11 @@
+     # Recover the earlier snapshot-only28060 notification on validated scene
+     # arrival. This reuses original F0/F3; it does not send F4 or alter SQL.
+     arrived=(s.phase=='town_ready' and any(e.kind==0x228 and e.payload==bytes(4) for e in replies))
++    if arrived:
++        from els_server.domain.el_search_collection_quest import restore_on_arrival
++        collection_root=restore_on_arrival(s)
++        notices.extend(collection_root)
++        if collection_root:s._quest_passive_kinds=None
+     loaded=(run is not None and run.identity==35250 and s.dungeon_substage_synced and any(e.kind==0xbd for e in replies))
+     if arrived or loaded:
+         announced=getattr(s,'_memory1_ready_announced',frozenset())
+--- /dev/null
++++ b/els_server/domain/el_search_collection_quest.py
+@@ -0,0 +1,50 @@
++"""Restore the independent Lv99 collection quest into the native epic list."""
++from contextlib import closing
++import hashlib,json,sqlite3
++from pathlib import Path
++from els_server.domain.el_search_collection import QUEST
++from els_server.domain.seal_quests import ACTIVE_QUEST_LIMIT,quest_catalog,sequence
++from els_server.protocol import quest_messages as wire
++from els_server.protocol.protocol_codec import encode_event
++
++
++def restore_on_arrival(session):
++    from els_server.domain.quest_flow import collection_source_guard,store
++    from els_server.storage.el_search_collection import exists,WRITES_ENABLED
++    from els_server.storage.seal_quests import _progress_connection
++    if not WRITES_ENABLED:return []
++    quest=quest_catalog().quest(QUEST)
++    towns=sequence(quest['QuestCondition']['m_iEnableVillage'])
++    if 0 not in towns and session.active_map not in towns:return []
++    guard=collection_source_guard(session)
++    state=store(session);state.account_source_guard=guard
++    owner=session.account.uid
++    abandoned=hashlib.sha256(json.dumps([owner,'abandon',dict(quest=QUEST)],sort_keys=True).encode()).hexdigest()
++
++    def missing_root(db):
++        guard(db)
++        row=db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()
++        if row is None or row[0]<quest['QuestCondition']['m_iLevel']:return False
++        if exists(db,'completed_quests')and db.execute('SELECT 1 FROM completed_quests WHERE owner=? AND quest=?',(owner,QUEST)).fetchone():return False
++        if exists(db,'character_quests'):
++            if db.execute('SELECT 1 FROM character_quests WHERE owner=? AND quest=?',(owner,QUEST)).fetchone():return False
++            if db.execute('SELECT count(*) FROM character_quests WHERE owner=?',(owner,)).fetchone()[0]>=ACTIVE_QUEST_LIMIT:return False
++        if exists(db,'quest_actions')and db.execute("SELECT 1 FROM quest_actions WHERE owner=? AND kind='abandon' AND request_hash=?",(owner,abandoned)).fetchone():return False
++        return True
++
++    # Already present, completed or ineligible roles never acquire a writer.
++    path=Path(state.path).resolve()
++    with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True,timeout=10))as db:
++        db.execute('PRAGMA query_only=ON');db.execute('BEGIN')
++        if not missing_root(db):return []
++    with _progress_connection(path,None)as db:
++        if not missing_root(db):return []
++        def encode(result):
++            if result['replayed']:return []
++            row=next(r for r in result['state']['active']if r['id']==QUEST)
++            events=[wire.accepted(row),wire.progress([row])]
++            for event in events:encode_event(event)
++            return events
++        result=state.action('accept',dict(quest=QUEST,npc=10025),'collection-root:'+str(owner),encode,
++                            location=('town',session.active_map),transaction=db)
++        return result['events']
+--- a/els_server/domain/retained_native_consumables.py
++++ b/els_server/domain/retained_native_consumables.py
+@@ -1,10 +1,10 @@
+-"""Unchanged owned legacy inventory readers, without item producers or use."""
++"""Unchanged owned retained inventory readers, without item producers or use."""
+ from pathlib import Path
+ from types import MappingProxyType
+ import functools,hashlib,json,struct
+ 
+-DATA_SHA='e01be8d6a7ed023f5fef062c0f68050c6292a34406669fe425e4323e006864fb'
+-TEMPLATES=frozenset((313132, 701005, 701006, 701007, 701009, 701011, 10078925, 10078926, 10078927, 10078928, 10078929, 10130467, 60001529, 60004275, 60008002, 80000087, 80000373, 80000599, 80001350, 80001371, 80001390, 80001452, 80001596, 80001890, 80001891, 80001892, 85000526, 85000527, 85001866, 85001867, 85001960, 85003046, 90000739, 90001710, 100000168, 100001054, 210000120, 250002820, 250002821))
++DATA_SHA='346c92f454ee8fd0bb939772b774227caf70b8193babb727efb73dc6fd61a9e6'
++TEMPLATES=frozenset((118707, 118709, 118713, 118714, 313132, 701005, 701006, 701007, 701009, 701011, 723610, 723618, 10078925, 10078926, 10078927, 10078928, 10078929, 10130467, 60001529, 60004275, 60008002, 80000087, 80000373, 80000599, 80001350, 80001371, 80001390, 80001452, 80001596, 80001890, 80001891, 80001892, 85000526, 85000527, 85001866, 85001867, 85001960, 85003046, 90000739, 90001710, 100000168, 100001054, 210000120, 250002820, 250002821))
+ 
+ @functools.lru_cache(maxsize=1)
+ def definitions():
+@@ -20,9 +20,9 @@
+         item=client_data().item(r['template']);record=item['record']
+         if (hashlib.sha256(record).hexdigest()!=r['record_sha256']or item['name']!=r['name']
+             or item['metadata']!=r['metadata']or item['item_type']!=r['item_type']
+-            or (r['item_type'],r['group'])not in((5,6),(7,4))or r['metadata']!=2
++            or (r['item_type'],r['metadata'],r['group'])not in((5,2,6),(7,2,4),(7,0,4),(3,0,27))
+             or struct.unpack_from('<I',record,0x10)[0]!=r['raw_max_stack']
+-            or r['owned_max_stack']!=max(r['raw_max_stack'],999)or record[0xd1]!=r['minimum_level']):
++            or r['owned_max_stack']!=(1 if r['raw_max_stack']<=1 else max(r['raw_max_stack'],999))or record[0xd1]!=r['minimum_level']):
+             raise ValueError('Retained native item definition changed')
+         rows[r['template']]=MappingProxyType(r)
+     return MappingProxyType(rows)
+--- a/els_server/data/retained_native_consumables.json
++++ b/els_server/data/retained_native_consumables.json
+@@ -3,7 +3,7 @@
+   "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+   "new_sources": false,
+   "consumption_enabled": false,
+-  "scope": "Unchanged SQL-owned legacy inventory only. No quick registration, native effect declaration, conversion, split/trade or acquisition is introduced.",
++  "scope": "Unchanged SQL-owned retained items only, including existing reward boxes and fashion. No new acquisition or consumer is introduced.",
+   "items": [
+     {
+       "template": 313132,
+@@ -433,6 +433,72 @@
+       "owned_max_stack": 999,
+       "minimum_level": 0,
+       "record_sha256": "c311e9472e6e805ee911dcbc0a5105d9e6f7dbcad777222060c28fbb064def32"
++    },
++    {
++      "template": 118707,
++      "name": "艾里奥斯守护骑士团光彩（伊芙）",
++      "item_type": 3,
++      "metadata": 0,
++      "group": 27,
++      "raw_max_stack": 0,
++      "owned_max_stack": 1,
++      "minimum_level": 0,
++      "record_sha256": "36069ac547b9c25870b23207935fb8af9ae3ce700beaa046486b1a521a4312d1"
++    },
++    {
++      "template": 118709,
++      "name": "艾里奥斯守护骑士团肩部装饰（伊芙）",
++      "item_type": 3,
++      "metadata": 0,
++      "group": 27,
++      "raw_max_stack": 0,
++      "owned_max_stack": 1,
++      "minimum_level": 0,
++      "record_sha256": "b0373ef9b9dad45472c84ccc5197d25150135a03955c9c087da5c8a68b9b0731"
++    },
++    {
++      "template": 118713,
++      "name": "艾里奥斯守护骑士团护翼（伊芙）",
++      "item_type": 3,
++      "metadata": 0,
++      "group": 27,
++      "raw_max_stack": 0,
++      "owned_max_stack": 1,
++      "minimum_level": 0,
++      "record_sha256": "28d2eff5df415ad026c39b6e4c106af1bed0861df0007b402d681d8238796a59"
++    },
++    {
++      "template": 118714,
++      "name": "艾里奥斯守护骑士团浮游石（伊芙）",
++      "item_type": 3,
++      "metadata": 0,
++      "group": 27,
++      "raw_max_stack": 0,
++      "owned_max_stack": 1,
++      "minimum_level": 0,
++      "record_sha256": "098bc17d56bed878bd793ec2ab26d58eea85ac782eb58b7b5059c130ef6818b6"
++    },
++    {
++      "template": 723610,
++      "name": "[阿莉尔]艾尔精髓",
++      "item_type": 7,
++      "metadata": 2,
++      "group": 4,
++      "raw_max_stack": 1000,
++      "owned_max_stack": 1000,
++      "minimum_level": 0,
++      "record_sha256": "2ae3da52374ff77a4fc9d9fe9fa721535b8e2553656444360ec6242568d21925"
++    },
++    {
++      "template": 723618,
++      "name": "[科宝]战斗力助力神物装备全套支援宝箱",
++      "item_type": 7,
++      "metadata": 0,
++      "group": 4,
++      "raw_max_stack": 0,
++      "owned_max_stack": 1,
++      "minimum_level": 0,
++      "record_sha256": "1d31b670bb6cbe85756aec752493daedc4082646486640648f4228ea2c30a438"
+     }
+   ]
+ }
+--- a/els_server/domain/acquisition_policy.py
++++ b/els_server/domain/acquisition_policy.py
+@@ -50,7 +50,8 @@
+     if template in career_templates():return False
+     from els_server.domain.job_reward_boxes import NEW_OUTPUTS,authorize_output
+     if template in NEW_OUTPUTS:return authorize_output(template,raid_reward_source)
+-    if template in (313132, 701005, 701006, 701007, 701009, 701011, 10078925, 10078926, 10078927, 10078928, 10078929, 10130467, 60001529, 60004275, 60008002, 80000087, 80000373, 80000599, 80001350, 80001371, 80001390, 80001452, 80001596, 80001890, 80001891, 80001892, 85000526, 85000527, 85001866, 85001867, 85001960, 85003046, 90000739, 90001710, 100000168, 100001054, 210000120, 250002820, 250002821):return False  # Unchanged legacy inventory readers only; unqualified consumers/sources stay closed.
++    from els_server.domain.retained_native_consumables import TEMPLATES as retained_templates
++    if template in retained_templates:return False  # Retained readers never authorize new acquisition.
+     if template==135909:
+         if raid_reward_source is None:return False
+         if any(v is not None for v in(cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,silver_source,daily_special_source,regional_cube_source,black_market_box_source,feta_exchange_source)):raise ValueError('Mixed exact Rosso reset sources')
