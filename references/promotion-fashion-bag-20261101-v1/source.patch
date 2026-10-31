@@ -1,0 +1,141 @@
+--- /dev/null
++++ b/els_server/domain/fashion_inventory.py
+@@ -0,0 +1,14 @@
++"""Preserve the native ordinary/ice distinction for verified fashion readers."""
++from els_server.game_data import client_data
++
++
++def native_groups(rows):
++    client=client_data()
++    result=[]
++    for row in rows:
++        item=client.item(row['template'])
++        group=row['group']
++        if group in (7,27) and item['flags4']&1:
++            group=27 if item['flags8']&256 else 7
++        result.append(dict(row,group=group))
++    return result
+--- a/els_server/domain/owned_reward_boxes.py
++++ b/els_server/domain/owned_reward_boxes.py
+@@ -20,7 +20,8 @@
+         item=client.item(row['template'])
+         if item['name']!=row['name'] or item['metadata']!=row['metadata'] or hashlib.sha256(item['record']).hexdigest()!=row['record_sha256']:
+             raise ValueError('Owned reward box item identity')
+-    return data
++    from els_server.domain.fashion_inventory import native_groups
++    return dict(data,readers=native_groups(data['readers']))
+ 
+ def definitions():return (*catalog()['boxes'],*catalog()['readers'])
+ 
+--- a/els_server/domain/job_reward_boxes.py
++++ b/els_server/domain/job_reward_boxes.py
+@@ -26,7 +26,8 @@
+  if {r['template']for r in source['readers']}!=NEW_OUTPUTS|{710132}:raise ValueError('Job convenience reader scope')
+  for key,row in source['boxes'].items():
+   if hashlib.sha256(client.item(int(key))['record']).hexdigest()!=row['record_sha256']:raise ValueError('Job convenience exact box')
+- return source
++ from els_server.domain.fashion_inventory import native_groups
++ return dict(source,readers=native_groups(source['readers']))
+ 
+ def definitions():return tuple(r for r in catalog()['readers']if r['template']in NEW_OUTPUTS)
+ 
+--- a/els_server/domain/promotion_reward_boxes.py
++++ b/els_server/domain/promotion_reward_boxes.py
+@@ -14,7 +14,8 @@
+  if data['policy']!=POLICY or data['client_sha256']!=CLIENT_SHA or data['catalog_sha256']!=c.manifest['catalog_sha256']or set(map(int,data['boxes']))!=BOXES:raise ValueError('Career box current client identity')
+  for row in data['readers']:
+   if hashlib.sha256(c.item(row['template'])['record']).hexdigest()!=row['record_sha256']or row['native_reader_ok']!=1 or row['consumed']!=304:raise ValueError('Career box native item identity')
+- return data
++ from els_server.domain.fashion_inventory import native_groups
++ return dict(data,readers=native_groups(data['readers']))
+ @functools.lru_cache(maxsize=1)
+ def definitions():return tuple(r for r in catalog()['readers']if not r['previously_registered'])
+ @functools.lru_cache(maxsize=1)
+--- a/els_server/domain/inventory_items.py
++++ b/els_server/domain/inventory_items.py
+@@ -975,8 +975,7 @@
+     if _force_template in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_force_template],TEMPLATE_BAG_GROUPS[_force_template],TEMPLATE_MAX_STACKS[_force_template])!=(0,4,999):raise ValueError('Qualified Force reader conflict')
+     VERIFIED_TEMPLATES[_force_template]=0;TEMPLATE_BAG_GROUPS[_force_template]=4;TEMPLATE_MAX_STACKS[_force_template]=999
+ 
+-# Exact current job-box outputs; the original native group7 fashion uses the
+-# already published group27 inventory convention. No new acquisition is opened.
++# Exact current job-box outputs retain their native ordinary/ice fashion bags.
+ from els_server.domain.owned_reward_boxes import definitions as _owned_box_readers
+ for _r in _owned_box_readers():
+  _t=_r['template'];_tuple=(_r['metadata'],_r['group'],_r['max_stack'])
+@@ -989,7 +988,7 @@
+  _t=_r['template'];_tuple=(_r['metadata'],_r['group'],_r['max_stack'])
+  if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_tuple:raise ValueError('Conflicting job box output reader')
+  VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_tuple
+- if _r['group']==27:FASHION_EQUIP_SLOTS[_t]=FASHION_POSITIONS[_r['equip_position']]
++ if _r['group']in(7,27):FASHION_EQUIP_SLOTS[_t]=FASHION_POSITIONS[_r['equip_position']]
+ 
+ # Current career boxes add exact original readers only; sources stay restricted.
+ from els_server.domain.promotion_reward_boxes import definitions as _career_box_readers
+--- a/els_server/storage/inventory_state.py
++++ b/els_server/storage/inventory_state.py
+@@ -20,7 +20,27 @@
+  # Historical receipts remain immutable; only the known erroneous classification
+  # is normalized when comparing/replaying after the audited save migration.
+  return [{**i,'group':6} if i.get('template')==77000 and i.get('metadata')==2 and i.get('group')==2 else
+-         {**i,'group':27} if i.get('group')==7 and TEMPLATE_BAG_GROUPS.get(i.get('template'))==27 else dict(i) for i in items]
++         {**i,'group':27} if i.get('group')==7 and TEMPLATE_BAG_GROUPS.get(i.get('template'))==27 else
++         {**i,'group':7} if i.get('group')==27 and TEMPLATE_BAG_GROUPS.get(i.get('template'))==7 else dict(i) for i in items]
++
++def migrate_normal_fashion_bag(db,owner):
++ """Move misfiled ordinary fashion without replacing item or receipt rows."""
++ rows=db.execute('SELECT uid,template,slot FROM inventory_items WHERE owner=? AND bag_group=27 ORDER BY uid',(owner,)).fetchall()
++ rows=[r for r in rows if TEMPLATE_BAG_GROUPS.get(r[1])==7]
++ if not rows:return
++ from els_server.storage.bag_capacity import allowances
++ limit=allowances(db,owner)[7]
++ occupied={r[0] for r in db.execute('SELECT slot FROM inventory_items WHERE owner=? AND bag_group=7',(owner,))}
++ changes=[]
++ for uid,template,old_slot in rows:
++  slot=old_slot if old_slot<limit and old_slot not in occupied else next((n for n in range(limit) if n not in occupied),None)
++  if slot is None:raise InventoryFull('Ordinary fashion classification migration requires a free slot')
++  db.execute('UPDATE inventory_items SET bag_group=7,slot=? WHERE uid=? AND owner=?',(slot,uid,owner))
++  occupied.add(slot);changes.append(dict(uid=uid,template=template,before=[27,old_slot],after=[7,slot]))
++ load_items(db,owner)
++ name=f'ordinary-fashion-native-bag-7-v1:{owner}'
++ db.execute('INSERT INTO inventory_migrations VALUES (?,?)',(name,json.dumps(dict(changes=changes,receipts_preserved=True),sort_keys=True)))
++
+ 
+ def migrate_fashion_bag(db):
+  name='ice-heater-fashion-native-bag-27-v1'
+@@ -298,10 +318,10 @@
+   self.path=Path(path)
+   from els_server.storage.initialization_checks import read_ready,inventory_ready
+   with closing(sqlite3.connect(self.path,timeout=10)) as db:
+-   if not read_ready(db,inventory_ready):
++   if not read_ready(db,inventory_ready,self.uid):
+     with write_transaction(db):
+-     if not inventory_ready(db):
+-       ensure_inventory(db);migrate_fashion_bag(db);migrate_potion_bag(db)
++     if not inventory_ready(db,self.uid):
++       ensure_inventory(db);migrate_normal_fashion_bag(db,self.uid);migrate_fashion_bag(db);migrate_potion_bag(db)
+  def snapshot(self):
+   from els_server.storage.read_scope import snapshot_connection
+   with snapshot_connection(self.path) as db:
+--- a/els_server/storage/initialization_checks.py
++++ b/els_server/storage/initialization_checks.py
+@@ -89,7 +89,7 @@
+     return True
+ 
+ 
+-def inventory_ready(db):
++def inventory_ready(db,owner=1001):
+     if not schema_ready(db, INVENTORY):
+         return False
+     row = db.execute('SELECT next_uid FROM inventory_sequence WHERE id=1').fetchone()
+@@ -99,6 +99,10 @@
+     # even when it moves no item. Never replace that work with a done marker.
+     if not db.execute('SELECT 1 FROM inventory_migrations WHERE name=?', ('potion-77000-accessory-to-quick-slot-v1',)).fetchone():
+         return False
++    from els_server.domain.inventory_items import TEMPLATE_BAG_GROUPS
++    if any(TEMPLATE_BAG_GROUPS.get(template)==7 for template, in db.execute(
++            'SELECT template FROM inventory_items WHERE owner=? AND bag_group=27',(owner,))):
++        return False
+     if db.execute('SELECT 1 FROM inventory_migrations WHERE name=?', ('ice-heater-fashion-native-bag-27-v1',)).fetchone():
+         return True
+     # Fashion intentionally leaves no marker when there were no changes. A
