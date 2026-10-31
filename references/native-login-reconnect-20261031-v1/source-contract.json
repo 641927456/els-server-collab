@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "issue": 695,
+  "scope": "Interactive login only; disable isolated probe timers while retaining native card/channel callbacks",
+  "baseline_main": "b836a7dee8155bd33e0f91f4bf6803751bcd4aaa",
+  "source_parent_PRs": [
+    684,
+    690
+  ],
+  "files": [
+    {
+      "path": "source/friends/tools/trace_dx11_login.js",
+      "sha256": "18f648df8b878a6b7e566a7216c9f187639d7824ad3d1369da0beb3d95149f41",
+      "size": 28090
+    },
+    {
+      "path": "source/friends/tools/client_compatibility_profiles.json",
+      "sha256": "04f08ad5c11f538538c3d3633e8c3bb793ace978e962f5ad33a7ebcd4728ac6e",
+      "size": 19683
+    },
+    {
+      "path": "source/shared/tools/native_cache_sync.py",
+      "sha256": "4674857aaca22f893a3b54ca69d0beb115011025d2146c851a4528186109df17",
+      "size": 4474
+    },
+    {
+      "path": "source/parents/friends/trace_dx11_login.js",
+      "sha256": "2c9d067b1868f67761735f80f76beb1efd67a76ae203e835c24afc12db2148fa",
+      "size": 28120
+    },
+    {
+      "path": "source/signed-local/tools/trace_dx11_login.js",
+      "sha256": "640a6daeffd8e43382a1e0e5de9b3aa4a8a75716f265d7d372f2344179f75bb3",
+      "size": 31864
+    },
+    {
+      "path": "source/signed-local/tools/client_compatibility_profiles.json",
+      "sha256": "63d7df5e475f1f2c34ee72d5d86c0ff4df331021a71277d67957be8e0c3db6c0",
+      "size": 19789
+    },
+    {
+      "path": "source/parents/signed-local/trace_dx11_login.js",
+      "sha256": "c837f547abf0e34a2768256f503af5dc04f3caccc01e5f88dc7675bf009c30ed",
+      "size": 31932
+    },
+    {
+      "path": "source/raw-local/tools/trace_dx11_login.js",
+      "sha256": "640a6daeffd8e43382a1e0e5de9b3aa4a8a75716f265d7d372f2344179f75bb3",
+      "size": 31864
+    },
+    {
+      "path": "source/raw-local/tools/client_compatibility_profiles.json",
+      "sha256": "bbfa80f85f81871e8c71e39b5f1311f89461860b3bb604f60e13b8dc7a9c14c7",
+      "size": 20219
+    },
+    {
+      "path": "launcher/AutoUpdate.cs",
+      "size": 15845,
+      "sha256": "e7e96c1a06c291a1210a36605d8f0b9bab2b3d63bb1c636fa5c3f0ec2121b25a"
+    },
+    {
+      "path": "launcher/ComponentRuntime.cs",
+      "size": 38983,
+      "sha256": "21b455f8d1df0191cb3deee58774044e430e04e1b9daf2bc2211ea57680675c2"
+    },
+    {
+      "path": "launcher/LocalBootstrap.cs",
+      "size": 14880,
+      "sha256": "9bbd522d89e9c26a15d16a4b10921da8ce58920cb1d072a2c5f2ba50fceaa84f"
+    },
+    {
+      "path": "launcher/LoginRuntimeCohort.cs",
+      "size": 2401,
+      "sha256": "a1e18b70cfc5060bc3b084651935bcea9b1a39e61023e311ee942fa58a1dabf7"
+    },
+    {
+      "path": "launcher/resources/login-local-bootstrap.py",
+      "size": 143394,
+      "sha256": "cef9c18e6ce4e69b38f6d36b4c1bf9d750222ed08119862d01bd7ae689d98f6c"
+    },
+    {
+      "path": "launcher/resources/login-predecessor.txt",
+      "size": 310896,
+      "sha256": "354920a6e9bd854d654ba93bb1ff61032bc828979ef0f256b6c5e510dd5c8e20"
+    },
+    {
+      "path": "launcher/resources/login-signedLOCAL.signed.json",
+      "size": 339577,
+      "sha256": "f1ac107e3e4d92f6e15439a8bd3c7c7f52733e33be81719c39c5485695001a1b"
+    },
+    {
+      "path": "launcher/resources/login-signedFriends.signed.json",
+      "size": 337065,
+      "sha256": "eedd59cb6febf5333c7c67578a5d762e74df1acd8069c6f24d103f3befbc05ab"
+    }
+  ],
+  "old_world_event_support_retained": true,
+  "mode_specific_trace_variants_retained": true,
+  "new_native_Hooks": 0,
+  "original_EXE_KOM_changes": 0,
+  "server_business_delta": 0,
+  "player_database_delta": 0,
+  "Git_runtime_switch": false,
+  "delivery_evidence": "installation-evidence.json",
+  "launcher_parent_assets": {
+    "kind": "published V52 source/resources",
+    "parent_exe_sha256": "724e7782cce4978cdcf85b3dd2a7a5981dbce13d3c8a28a27f8a3ac6947631d5",
+    "private_inherited_assets_not_redistributed": true,
+    "requires_verified_parent_source": true
+  },
+  "launcher_version": 53,
+  "source_contract_kind": "exact support source and changed launcher source; inherited assets remain in approved parent"
+}
