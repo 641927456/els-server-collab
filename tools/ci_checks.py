@@ -17,6 +17,7 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    run([sys.executable,'-B','-m','unittest','tests.test_public_controller_sources'])
     if (ROOT/'references/pending-source-integration-20261031-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pending_source_integration_20261031.py')])
     if (ROOT/'references/force-categories-sources-20261031-v1/source-contract.json').is_file():
@@ -212,6 +213,7 @@ def main(argv=None):
     assert decode_event(frame.plaintext)==event
 
     if args.with_runtime:
+        run([sys.executable,'-B','-m','unittest','tests.test_public_controller_rules'])
         if (ROOT/'references/pr597-takeover-20261028-v1/manifest.json').is_file():
             run([sys.executable,'-B',str(ROOT/'tools/verify_pr597_takeover.py'),'--with-runtime'])
         if (ROOT/'channels/server-latency-guards-20261027-v1.json').is_file():
