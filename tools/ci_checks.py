@@ -189,6 +189,9 @@ def main(argv=None):
     if (ROOT/'references/native-force-guild-flow-20261029-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_force_guild_flow_20261029.py')])
         run([sys.executable,'-B','-m','unittest','tests.test_force_guild_contract'])
+    if (ROOT/'references/registered-ground-items-20261101-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_registered_ground_items.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_registered_ground_items','tests.test_ground_model_support'])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0
