@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "status": "Installed and accepted on both runtime channels; Git source archive is independent of main merge",
+  "source_archive_only": true,
+  "channels": {
+    "online": {
+      "parent_release": "ordinary-field-passage-20261031-v3",
+      "parent_manifest_sha256": "5f63f226cabc34a4cb3c2a603897e1e70cf0bc0c40318c9f962321af958874c9",
+      "changes": [
+        {
+          "path": "els_server/domain/town_travel.py",
+          "parent_sha256": "aab9c447ff7df979edb459ab242536d8253dd41c6b63360a720499d858321075",
+          "sha256": "427f478eb7372bc410de5aae2328de8f885804518ff64f1c00b8dd88841711fe",
+          "size": 3900,
+          "source": "references/spatial-error-text-20261101-v1/source/common/els_server/domain/town_travel.py"
+        },
+        {
+          "path": "els_server/domain/field_travel.py",
+          "parent_sha256": "f17f0ce7e2ee79b4ceecf182d41abb7c5d677a69f431aeb64518b6455a2c4aa2",
+          "sha256": "cbf3445912b5efaf67e791c883cb39f0441562bea17695c242031dc46dc005a0",
+          "size": 7533,
+          "source": "references/spatial-error-text-20261101-v1/source/common/els_server/domain/field_travel.py"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "parent_sha256": "6ed0edc12b30e779ce6226ebf0490a5dec83cc344054b5705c6da48fa66b8a3b",
+          "sha256": "a3195c05e98991a46890aac62cf2d76f30774637ab877dc001eb93a8ff928f24",
+          "size": 144762,
+          "source": "references/spatial-error-text-20261101-v1/source/online/els_server/domain/local_session.py"
+        },
+        {
+          "path": "els_server/domain/fishing_village1500.py",
+          "parent_sha256": "a88414cfeb0f3bfdc47b633d960e9ce4815fa791e97f042d583b2688aa3496c0",
+          "sha256": "dc216dd2eb90f268fb1a1a90b331dcd1beaaf2ebf2f44b5041fb77443a9b70b5",
+          "size": 8757,
+          "source": "references/spatial-error-text-20261101-v1/source/common/els_server/domain/fishing_village1500.py"
+        },
+        {
+          "path": "els_server/domain/housing_room_flow.py",
+          "parent_sha256": "5d7e364afe11f931654cfcba159bcf656a2139fdf022cd75bcded9b731c7715e",
+          "sha256": "77b6eb562f2c75dd1ed7656f62aac8f777acdad53c6c6f23002a0235d5b330d4",
+          "size": 10740,
+          "source": "references/spatial-error-text-20261101-v1/source/common/els_server/domain/housing_room_flow.py"
+        }
+      ],
+      "installation": {
+        "release": "spatial-error-text-20261101-v2",
+        "manifest_sha256": "5a67fc292596b876becd92e6358c989d9b45b7dc9686018c2bdbe7adc0fecd85",
+        "observation_seconds": 123.79764230002183
+      }
+    },
+    "local": {
+      "parent_release": "local-ordinary-field-passage-20261031-v3",
+      "parent_manifest_sha256": "d9845963d437e418257b7712a91f3af6a3df1cc6bbb612d848bdecceaa529d9d",
+      "changes": [
+        {
+          "path": "els_server/domain/town_travel.py",
+          "parent_sha256": "aab9c447ff7df979edb459ab242536d8253dd41c6b63360a720499d858321075",
+          "sha256": "427f478eb7372bc410de5aae2328de8f885804518ff64f1c00b8dd88841711fe",
+          "size": 3900,
+          "source": "references/spatial-error-text-20261101-v1/source/common/els_server/domain/town_travel.py"
+        },
+        {
+          "path": "els_server/domain/field_travel.py",
+          "parent_sha256": "f17f0ce7e2ee79b4ceecf182d41abb7c5d677a69f431aeb64518b6455a2c4aa2",
+          "sha256": "cbf3445912b5efaf67e791c883cb39f0441562bea17695c242031dc46dc005a0",
+          "size": 7533,
+          "source": "references/spatial-error-text-20261101-v1/source/common/els_server/domain/field_travel.py"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "parent_sha256": "15cf130bbc4c4385a7ac5174d9681fff6be55e61cc23f01ce6d98384a367faa4",
+          "sha256": "9859b2f89a2efa02450521b62405a1abe3b76ff638436ea4b536f441d3ec2935",
+          "size": 143840,
+          "source": "references/spatial-error-text-20261101-v1/source/local/els_server/domain/local_session.py"
+        },
+        {
+          "path": "els_server/domain/fishing_village1500.py",
+          "parent_sha256": "a88414cfeb0f3bfdc47b633d960e9ce4815fa791e97f042d583b2688aa3496c0",
+          "sha256": "dc216dd2eb90f268fb1a1a90b331dcd1beaaf2ebf2f44b5041fb77443a9b70b5",
+          "size": 8757,
+          "source": "references/spatial-error-text-20261101-v1/source/common/els_server/domain/fishing_village1500.py"
+        },
+        {
+          "path": "els_server/domain/housing_room_flow.py",
+          "parent_sha256": "5d7e364afe11f931654cfcba159bcf656a2139fdf022cd75bcded9b731c7715e",
+          "sha256": "77b6eb562f2c75dd1ed7656f62aac8f777acdad53c6c6f23002a0235d5b330d4",
+          "size": 10740,
+          "source": "references/spatial-error-text-20261101-v1/source/common/els_server/domain/housing_room_flow.py"
+        }
+      ],
+      "installation": {
+        "release": "local-spatial-error-text-20261101-v2",
+        "manifest_sha256": "fddc45c979debc01f7b0884983428898d12c88b41e76c83feb2bd68fbc0d0ff6",
+        "observation_seconds": 120.00051159993745
+      }
+    }
+  },
+  "validation": {
+    "business-online.json": {
+      "ok": true,
+      "private_evidence_sha256": "5bb945a683fe1677c07d41422ae568b14549e442f58499e8f6b3e20e50f9c85c"
+    },
+    "business-local.json": {
+      "ok": true,
+      "private_evidence_sha256": "3361af2ae329f9d324487800f17b37d54b003f916a6901c4610702518b3984f4"
+    },
+    "native-proof.json": {
+      "ok": true,
+      "private_evidence_sha256": "c9aeab18c66197b62671898e09bc7eef89b392d290f349582162496658d0eae4"
+    },
+    "delivery-v2/public-acceptance.json": {
+      "ok": true,
+      "private_evidence_sha256": "53aeda36565addec53ee6bf81420b94a8e194ca931620305e2824cc4af778587"
+    },
+    "delivery-v2/closeout-result.json": {
+      "ok": true,
+      "private_evidence_sha256": "ea24dbde6345f6adc32d210272b995c135a8e59e5477760b02bccd5c69c5236a"
+    },
+    "delivery-v2/progress-readback.json": {
+      "ok": true,
+      "private_evidence_sha256": "ac8522971a5f4755db565ed9fa9897fa2e74100d1b14575fb9f617382929ea84"
+    }
+  },
+  "files_per_channel": 5,
+  "unique_sources": 6,
+  "original_client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "native_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "client_changes": 0,
+  "new_schema": false,
+  "qualification_changes": false,
+  "player_database_restore": false,
+  "natural_GUI": false,
+  "launcher_payload_changed": false,
+  "launcher_selected_local": true,
+  "QA_cleaned": true,
+  "progress_readback_verified": true,
+  "candidate_zip_sha256": "2ba31e4f5f91466fa06cddb89180cf46f4e0a38793d113fdcefab3111c728cd4",
+  "parent_archive": {
+    "PR": "https://github.com/641927456/els-server-collab/pull/703",
+    "head": "15113a236aba7320bea65160a39cacf198b78488",
+    "required_for_complete_parent_reconstruction": true
+  },
+  "source_ci_note": "Portable guards verify exact sources and native scalar payload semantics only. Actual Application/TLS/LOCAL/native/installed runtime validation is recorded separately by private evidence hashes. No raw resources, databases, credentials, captures or runtime logs included."
+}
