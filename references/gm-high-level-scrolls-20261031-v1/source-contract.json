@@ -1,0 +1,248 @@
+{
+  "schema": 1,
+  "status": "installed and accepted on online and local; Git main not merged",
+  "templates": [
+    117534,
+    117535,
+    163313,
+    710092
+  ],
+  "channels": {
+    "online": {
+      "parent_release": "shop-missing-heart-pure-20261031-v1",
+      "parent_manifest_sha256": "04aacc4170d302d999b6660c4cfbdfa29daef1d659b92342762c90f973942a0f",
+      "release": "gm-high-level-scrolls-20261031-v1",
+      "manifest_sha256": "55a6c3077c46f6ef4ea7c76dd11dd3a531d60ada09b5024924416041ddd846f4",
+      "changes": [
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "source": "references/gm-high-level-scrolls-20261031-v1/source/online/els_server/domain/inventory_items.py",
+          "sha256": "7bfb0c97fb47589e520d884a28d8bf5386325d573187e8e3e36f0e3c21bbceec",
+          "size": 77850,
+          "parent_sha256": "15601b6939ba00f6a54a51b7f14b8c4a2a521a238b55b05ccd9ae29a958efe00"
+        },
+        {
+          "path": "els_server/domain/wisdom_potions.py",
+          "source": "references/gm-high-level-scrolls-20261031-v1/source/common/els_server/domain/wisdom_potions.py",
+          "sha256": "64f673b3140a3f6bd8ff83adf0a34289ec91a687182eeaa07d13ea1157da1d18",
+          "size": 5967,
+          "parent_sha256": "5901f04419721cf77065a6c891ebb7b70ab51658765116c2d40721b4477d7c5a"
+        },
+        {
+          "path": "els_server/storage/wisdom_potions.py",
+          "source": "references/gm-high-level-scrolls-20261031-v1/source/common/els_server/storage/wisdom_potions.py",
+          "sha256": "36a97d11d5afd0944b4a6d21c3df6ce13f2239b97d93a6027362e49cdbb9ea9d",
+          "size": 6688,
+          "parent_sha256": "2149512ca863f0521a136afc1d4da1a6cba37465235ea69dc450f7922cb7d05e"
+        },
+        {
+          "path": "els_server/storage/enhancement_scroll.py",
+          "source": "references/gm-high-level-scrolls-20261031-v1/source/common/els_server/storage/enhancement_scroll.py",
+          "sha256": "b62f1669e0ce4bb03f8a25afee96a08374540892f7e9f543bc43a9cfa1460c6b",
+          "size": 4657,
+          "parent_sha256": "e098770ca9e772717d4104fff32a40df4a1cca11eca15d6ef33b3da50c895612"
+        },
+        {
+          "path": "els_server/enchant_data.py",
+          "source": "references/gm-high-level-scrolls-20261031-v1/source/common/els_server/enchant_data.py",
+          "sha256": "f62cbfebc7c44e38a52718a88148927e71dbde9f147d1bd389a7a7dd751a9395",
+          "size": 5466,
+          "parent_sha256": "4daac973b74d4acd21bf9aea72260558ec6b61b95e2f37422d0d147451d119ec"
+        }
+      ],
+      "installed": true
+    },
+    "local": {
+      "parent_release": "local-login-reconnect-20261031-v2",
+      "parent_manifest_sha256": "1230183965f6492407875cf5dc9550a5dcb100208aa5d9e82becbab1e1afe561",
+      "release": "local-gm-high-level-scrolls-20261031-v1",
+      "manifest_sha256": "693da310e4a0a17b405a7ce4b7b02c3a19ce09a70053f46e256d18c56c540a86",
+      "changes": [
+        {
+          "path": "els_server/domain/inventory_items.py",
+          "source": "references/gm-high-level-scrolls-20261031-v1/source/local/els_server/domain/inventory_items.py",
+          "sha256": "52f19e129487009e4631aadfd3ab2878e384119d0ed87231d6385266cb349a0d",
+          "size": 77693,
+          "parent_sha256": "c6430e93f5b00207be6bbe169bc175913299698f5e989679af38970f26a01212"
+        },
+        {
+          "path": "els_server/domain/wisdom_potions.py",
+          "source": "references/gm-high-level-scrolls-20261031-v1/source/common/els_server/domain/wisdom_potions.py",
+          "sha256": "64f673b3140a3f6bd8ff83adf0a34289ec91a687182eeaa07d13ea1157da1d18",
+          "size": 5967,
+          "parent_sha256": "5901f04419721cf77065a6c891ebb7b70ab51658765116c2d40721b4477d7c5a"
+        },
+        {
+          "path": "els_server/storage/wisdom_potions.py",
+          "source": "references/gm-high-level-scrolls-20261031-v1/source/common/els_server/storage/wisdom_potions.py",
+          "sha256": "36a97d11d5afd0944b4a6d21c3df6ce13f2239b97d93a6027362e49cdbb9ea9d",
+          "size": 6688,
+          "parent_sha256": "2149512ca863f0521a136afc1d4da1a6cba37465235ea69dc450f7922cb7d05e"
+        },
+        {
+          "path": "els_server/storage/enhancement_scroll.py",
+          "source": "references/gm-high-level-scrolls-20261031-v1/source/common/els_server/storage/enhancement_scroll.py",
+          "sha256": "b62f1669e0ce4bb03f8a25afee96a08374540892f7e9f543bc43a9cfa1460c6b",
+          "size": 4657,
+          "parent_sha256": "e098770ca9e772717d4104fff32a40df4a1cca11eca15d6ef33b3da50c895612"
+        },
+        {
+          "path": "els_server/enchant_data.py",
+          "source": "references/gm-high-level-scrolls-20261031-v1/source/common/els_server/enchant_data.py",
+          "sha256": "f62cbfebc7c44e38a52718a88148927e71dbde9f147d1bd389a7a7dd751a9395",
+          "size": 5466,
+          "parent_sha256": "4daac973b74d4acd21bf9aea72260558ec6b61b95e2f37422d0d147451d119ec"
+        }
+      ],
+      "installed": true
+    }
+  },
+  "validation": {
+    "online": {
+      "ok": true,
+      "checks": [
+        "four grantable templates match native bag classification and item reader",
+        "single and batch sage use, exact debit/level/EXP, native D9, current-state replay",
+        "maximum level, excessive batch, insufficient stack, wrong account and inconsistent EXP refuse without writes",
+        "all four retained wisdom potions and legacy receipts remain compatible",
+        "+11/+12/+13 existing transaction, single debit, native equipment reader, refusal, rollback and replay"
+      ],
+      "native": [
+        {
+          "template": 117534,
+          "bag": 4,
+          "item_bytes": 304,
+          "native_reader": true
+        },
+        {
+          "template": 117535,
+          "bag": 4,
+          "item_bytes": 304,
+          "native_reader": true
+        },
+        {
+          "template": 163313,
+          "bag": 4,
+          "item_bytes": 304,
+          "native_reader": true
+        },
+        {
+          "template": 710092,
+          "bag": 4,
+          "item_bytes": 304,
+          "native_reader": true
+        }
+      ],
+      "flow": {
+        "ok": true,
+        "gm_catalog_exact_live_source": true,
+        "gm_search_all_four_templates": true,
+        "original_session_dispatch": true,
+        "batch_debit_and_level": true,
+        "dungeon_and_expired_session_refused": true,
+        "private_only": true,
+        "online_mutations": 0
+      },
+      "private_evidence_sha256": "b319e6a317f723beaafc2c25947486b83e65bd2d700c5d59665872da78725c4e"
+    },
+    "local": {
+      "ok": true,
+      "checks": [
+        "four grantable templates match native bag classification and item reader",
+        "single and batch sage use, exact debit/level/EXP, native D9, current-state replay",
+        "maximum level, excessive batch, insufficient stack, wrong account and inconsistent EXP refuse without writes",
+        "all four retained wisdom potions and legacy receipts remain compatible",
+        "+11/+12/+13 existing transaction, single debit, native equipment reader, refusal, rollback and replay"
+      ],
+      "native": [
+        {
+          "template": 117534,
+          "bag": 4,
+          "item_bytes": 304,
+          "native_reader": true
+        },
+        {
+          "template": 117535,
+          "bag": 4,
+          "item_bytes": 304,
+          "native_reader": true
+        },
+        {
+          "template": 163313,
+          "bag": 4,
+          "item_bytes": 304,
+          "native_reader": true
+        },
+        {
+          "template": 710092,
+          "bag": 4,
+          "item_bytes": 304,
+          "native_reader": true
+        }
+      ],
+      "flow": {
+        "ok": true,
+        "gm_catalog_exact_live_source": true,
+        "gm_search_all_four_templates": true,
+        "original_session_dispatch": true,
+        "batch_debit_and_level": true,
+        "dungeon_and_expired_session_refused": true,
+        "private_only": true,
+        "online_mutations": 0
+      },
+      "private_evidence_sha256": "c54a553af64fa2c46dfd67a3033f614c66cd72fadcd3996fe3143c8868463af7"
+    },
+    "public": {
+      "ok": true,
+      "public_TLS": true,
+      "own_QA_only": true,
+      "natural_GUI": false,
+      "gm_catalog_four_templates": true,
+      "actual_GM_grants": true,
+      "sage_single_level5": true,
+      "sage_batch_level8": true,
+      "sage_remaining": 1,
+      "insufficient_stock_refused_without_change": true,
+      "enhancement_levels": [
+        11,
+        12,
+        13
+      ],
+      "each_enhancement_scroll_consumed": true,
+      "ED_unchanged": true,
+      "fresh_authenticated_cold_read": true
+    },
+    "local_selected": {
+      "ok": true,
+      "actual_module_paths": [
+        "G:\\els\\releases\\local\\local-gm-high-level-scrolls-20261031-v1\\els_server\\domain\\inventory_items.py",
+        "G:\\els\\releases\\local\\local-gm-high-level-scrolls-20261031-v1\\els_server\\domain\\wisdom_potions.py",
+        "G:\\els\\releases\\local\\local-gm-high-level-scrolls-20261031-v1\\els_server\\storage\\enhancement_scroll.py"
+      ],
+      "four_templates_admitted": true,
+      "new_uses_enabled": true,
+      "player_database_access": false,
+      "release": "local-gm-high-level-scrolls-20261031-v1",
+      "selected_identity": {
+        "runtime_kind": "local-release",
+        "payload": null,
+        "runtime_release": "local-gm-high-level-scrolls-20261031-v1",
+        "runtime_manifest_sha256": "28851a90668ff1e25595dd1ae3148eb7e6d0664badfb500b48106e50b34548c9",
+        "local_business_manifest_sha256": "693da310e4a0a17b405a7ce4b7b02c3a19ce09a70053f46e256d18c56c540a86",
+        "runtime_identity_state": "verified"
+      },
+      "runtime_file_count": 1838,
+      "business_files_verified": 1384
+    }
+  },
+  "native_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "original_client_modified": false,
+  "new_schema": false,
+  "player_database_restore": false,
+  "natural_GUI": false,
+  "source_archive_only": true,
+  "recovery": "Keep all four new inventory readers and durable receipts; pause new uses if needed. Never restore player/account databases or downgrade readers.",
+  "private_evidence_note": "Full runtime tables, native images, databases and raw logs are excluded; maintainers verify the local originals by SHA.",
+  "issue": 698
+}
