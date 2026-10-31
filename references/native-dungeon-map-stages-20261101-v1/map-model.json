@@ -1,0 +1,27 @@
+{
+  "ok": true,
+  "cases": 20,
+  "tests": [
+    "shared current-part refresh retained",
+    "33232 existing Boss node, zero dirty flag, refresh/reopen model, no room mutation, stop",
+    "33232 changed owner refused",
+    "33232 changed source coordinates stop own hooks",
+    "33232 actual existing node uses original renderer",
+    "35301 native ordinal1 uses its original existing Boss node",
+    "scene lifecycle guard",
+    "wrapper lifecycle guard",
+    "manager lifecycle guard",
+    "definition lifecycle guard",
+    "map lifecycle guard",
+    "stage lifecycle guard",
+    "member lifecycle guard",
+    "UID lifecycle guard",
+    "unitType lifecycle guard",
+    "weak UI lifecycle guard",
+    "selected part lifecycle guard",
+    "negative/rejected selection",
+    "allocator reused part object accepted",
+    "new native consumer identity checked before attach"
+  ],
+  "scope": "JS callback/identity model only; original native consumers and actual GUI need their own evidence"
+}
