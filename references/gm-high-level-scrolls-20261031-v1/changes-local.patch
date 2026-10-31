@@ -1,0 +1,155 @@
+--- a/els_server/domain/inventory_items.py
++++ b/els_server/domain/inventory_items.py
+@@ -1017,3 +1017,13 @@
+  _template=_row['template'];_shape=(_row['metadata'],_row['group'],_row['max_stack'])
+  if _template in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_template],TEMPLATE_BAG_GROUPS[_template],TEMPLATE_MAX_STACKS[_template])!=_shape:raise ValueError('Conflicting secret reward reader')
+  VERIFIED_TEMPLATES[_template],TEMPLATE_BAG_GROUPS[_template],TEMPLATE_MAX_STACKS[_template]=_shape
++
++# Owner-authorized GM scrolls, using their original stackable special-item form.
++from els_server.game_data import client_data as _scroll_client_data
++for _t in (117534,117535,163313,710092):
++ _item=_scroll_client_data().item(_t)
++ if (_item['item_type'],_item['metadata'],_item['flags8'])!=(7,2,56):raise ValueError('GM scroll native inventory form')
++ _stack=struct.unpack_from('<I',_item['record'],16)[0]
++ if _stack!=300:raise ValueError('GM scroll original stack limit')
++ if _t in VERIFIED_TEMPLATES:raise ValueError('Conflicting GM scroll registration')
++ VERIFIED_TEMPLATES[_t]=2;TEMPLATE_BAG_GROUPS[_t]=4;TEMPLATE_MAX_STACKS[_t]=_stack
+--- a/els_server/domain/wisdom_potions.py
++++ b/els_server/domain/wisdom_potions.py
+@@ -1,8 +1,9 @@
+-"""Four retained single-use ordinary EXP potions; no new acquisition source."""
++"""Ordinary EXP items: retained wisdom potions and the admitted level scroll."""
+ import functools,hashlib,json,struct
+ from pathlib import Path
+ from types import MappingProxyType
+ TEMPLATES=(100005719,100005720,100005721,100005722)
++LEVEL_SCROLLS=(710092,)
+ PAYLOAD_SHA='48b25c75362197366de02d6c38d1afe3d7150b32194a099be5678cf4b4186a5e'
+ 
+ @functools.lru_cache(maxsize=1)
+@@ -15,7 +16,12 @@
+         item=client_data().item(r['template']);record=item['record']
+         if hashlib.sha256(record).hexdigest()!=r['record_sha256']or record.hex()!=r['record_hex']or(item['item_type'],item['metadata'],item['flags8'])!=(7,0,56)or struct.unpack_from('<I',record,16)[0]!=0 or r['percent']!=percent:
+             raise ValueError('Wisdom potion original retained item')
+-    return MappingProxyType({r['template']:MappingProxyType(r)for r in d['rows']})
++    rows={r['template']:MappingProxyType(r)for r in d['rows']}
++    for template in LEVEL_SCROLLS:
++        item=client_data().item(template)
++        if (item['item_type'],item['metadata'],item['flags8'],struct.unpack_from('<I',item['record'],16)[0])!=(7,2,56,300):raise ValueError('Level scroll original definition')
++        rows[template]=MappingProxyType(dict(template=template,minimum_level=item['record'][0xd1],levels=1))
++    return MappingProxyType(rows)
+ 
+ def admitted():return frozenset(t for t,r in definitions().items()if r.get('admitted',True))
+ 
+@@ -44,8 +50,9 @@
+     read_existing(dict(item));return item
+ 
+ def request(payload):
+-    from els_server.protocol.career_messages import use_request
+-    return use_request(payload)
++    # Original219's stack quantity callback is already used by ERP potions.
++    from els_server.domain.erp_potions_existing import request as quantity_request
++    return quantity_request(payload)
+ 
+ def handle(s,event,sequence):
+     if event.event_id!=0x202 or event.kind!=0x219:return None
+--- a/els_server/storage/wisdom_potions.py
++++ b/els_server/storage/wisdom_potions.py
+@@ -1,8 +1,8 @@
+-"""One original reward transaction: debit singleton, EXP/level, native ACK/D9."""
++"""One original reward transaction: debit EXP item, level, native ACK/D9."""
+ from pathlib import Path
+ from contextlib import closing
+ import hashlib,json,sqlite3,struct,uuid
+-from els_server.domain.wisdom_potions import admitted,definitions,request,read_existing,PAYLOAD_SHA
++from els_server.domain.wisdom_potions import admitted,definitions,request,read_existing,PAYLOAD_SHA,LEVEL_SCROLLS
+ from els_server.storage.inventory_actions import _identity,_previous,_commit
+ from els_server.storage.equipment_receipt_state import current_changes
+ from els_server.protocol.career_messages import use_ack
+@@ -17,7 +17,7 @@
+         return bool(db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='inventory_action_receipts'").fetchone()and db.execute('SELECT 1 FROM inventory_action_receipts WHERE operation_id=? AND owner=? AND kind=?',(operation,owner,0x219)).fetchone())
+ 
+ def perform(path,owner,account,payload,operation,reward,*,prepare,notice):
+-    item_uid=request(payload);owner,digest=_identity(owner,0x219,payload,operation)
++    item_uid,quantity=request(payload);owner,digest=_identity(owner,0x219,payload,operation)
+     from els_server.storage.reward_state import RewardState
+     if type(reward)is not RewardState or reward.uid!=owner or Path(reward.path).resolve()!=Path(path).resolve():raise ValueError('Wisdom original reward writer/save')
+     from els_server.storage.item_actor import require_active_character
+@@ -33,8 +33,14 @@
+         if old is not None:
+             source=db.execute('SELECT before_json,after_json FROM inventory_action_receipts WHERE operation_id=? AND owner=? AND kind=?',(operation,owner,0x219)).fetchone()
+             before,after=(json.loads(v)for v in source)
+-            if len(before)!=1 or after or before[0]['uid']!=item_uid or before[0]['template']not in definitions():raise ValueError('Wisdom original consumed singleton receipt')
+-            read_existing(dict(before[0]))
++            if len(before)!=1 or before[0]['uid']!=item_uid or before[0]['template']not in definitions():raise ValueError('EXP original consumed item receipt')
++            original=before[0]
++            if original['template'] in LEVEL_SCROLLS:
++                expected=[] if original['count']==quantity else [dict(original,count=original['count']-quantity)]
++                if not 1<=quantity<=original['count'] or after!=expected:raise ValueError('Level scroll original debit receipt')
++            else:
++                if quantity!=1 or after:raise ValueError('Wisdom original singleton receipt')
++                read_existing(dict(original))
+             saved=db.execute('SELECT proof_sha256 FROM reward_receipts WHERE run_id=?',(award,)).fetchone()
+             if saved!=(hashlib.sha256(proof).hexdigest(),):raise ValueError('Wisdom committed EXP receipt missing')
+             events=[use_ack(current_changes(db,operation,owner,0x219,old,items),ed=wallet['ed']),notice(db,items,wallet)]
+@@ -43,6 +49,7 @@
+         if db.execute('SELECT 1 FROM reward_receipts WHERE run_id=?',(award,)).fetchone():raise ValueError('Orphan wisdom EXP receipt')
+         item=next((i for i in items if i['uid']==item_uid),None)
+         if item is None or item['template']not in admitted():raise ValueError('Owned wisdom potion required')
++        if quantity>item['count'] or (item['template']not in LEVEL_SCROLLS and (quantity!=1 or payload[-1]!=0)):raise ValueError('EXP item quantity or singleton request')
+         from els_server.domain.item_expiration import require_current
+         from els_server.domain.item_locks import require_unlocked
+         require_current(item);require_unlocked(item)
+@@ -53,15 +60,26 @@
+         if current['level']!=level or level<rule['minimum_level']or current['required']<=0:raise ValueError('Wisdom consistent current level/EXP required')
+         maximum=client_data().thresholds[-1]
+         if not 0<maximum<=2**31-1:raise ValueError('Native ordinary EXP ceiling')
+-        amount=min(current['required']*rule['percent']//100,maximum-wallet['experience'])
++        if item['template'] in LEVEL_SCROLLS:
++            target=level+quantity*rule['levels']
++            if target>99:raise ValueError('Level scroll quantity exceeds maximum level')
++            # Complete-level item: advance to the destination level threshold,
++            # as the original level-scroll path does, without EXP multipliers.
++            amount=client_data().thresholds[target-1]-wallet['experience']
++        else:
++            amount=min(current['required']*rule['percent']//100,maximum-wallet['experience'])
+         if amount<=0:raise ValueError('Wisdom EXP target full')
+         from els_server.storage.item_instances import remove
+-        remove(db,owner,item);events=[]
++        if quantity==item['count']:remove(db,owner,item)
++        else:db.execute('UPDATE inventory_items SET count=count-? WHERE owner=? AND uid=?',(quantity,owner,item_uid))
++        events=[];after=[]
+         def encode(updated):
+-            current_items=load_items(db,owner);events.extend([use_ack([((item['group'],item['slot']),None)],item['template'],updated['ed']),notice(db,current_items,updated)])
++            current_items=load_items(db,owner);remaining=next((i for i in current_items if i['uid']==item_uid),None)
++            if remaining is not None:after.append(dict(remaining))
++            events.extend([use_ack([((item['group'],item['slot']),remaining)],item['template'],updated['ed']),notice(db,current_items,updated)])
+             for event in events:encode_event(event)
+             prepare(db);return events[0].payload
+         result=reward.grant(award,proof,0,amount,encode,transaction=db,experience_limit=maximum)
+         if result['replayed']or len(events)!=2:raise ValueError('Wisdom original award did not prepare its full response')
+-        _commit(db,operation,digest,owner,0x219,[(item['group'],item['slot'])],[dict(item)],[])
++        _commit(db,operation,digest,owner,0x219,[(item['group'],item['slot'])],[dict(item)],after)
+         prepare(db);return events
+--- a/els_server/storage/enhancement_scroll.py
++++ b/els_server/storage/enhancement_scroll.py
+@@ -16,7 +16,7 @@
+ 
+ # User-approved local policy: retain the target trade state; not a native ENABLE_TRADE interpretation.
+ TRADE_STATE_PRESERVING_SCROLLS={132495:5,132496:6,132497:7,132498:8,60007270:7}
+-SCROLLS=frozenset((130149,130150,130151,130152,*TRADE_STATE_PRESERVING_SCROLLS))
++SCROLLS=frozenset((130149,130150,130151,130152,117534,117535,163313,*TRADE_STATE_PRESERVING_SCROLLS))
+ 
+ def apply(path,owner,payload,operation,*,account_id=None,prepare=None):
+  if not isinstance(payload,bytes)or len(payload)!=16:raise ValueError('Enhancement scroll request size')
+--- a/els_server/enchant_data.py
++++ b/els_server/enchant_data.py
+@@ -71,7 +71,7 @@
+         if type(item_id) is not int:raise ValueError('Scroll identity')
+         try:row=copy.deepcopy(self._scrolls[item_id])
+         except KeyError:raise ValueError('Unknown enchant scroll') from None
+-        return dict(definition=row,item_present=item_id not in self._missing,activation_implemented=item_id in (130149,130150,130151,130152,132495,132496,132497,132498,60007270))
++        return dict(definition=row,item_present=item_id not in self._missing,activation_implemented=item_id in (130149,130150,130151,130152,117534,117535,163313,132495,132496,132497,132498,60007270))
+ 
+ @functools.lru_cache(maxsize=1)
+ def enchant_data():return EnchantData()
