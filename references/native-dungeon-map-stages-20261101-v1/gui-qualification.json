@@ -1,0 +1,80 @@
+{
+  "33232": {
+    "ok": true,
+    "owned_run": "20261101-015120",
+    "initial_source": [
+      4,
+      0
+    ],
+    "prior_stage3_marker": false,
+    "original_marker_call": {
+      "event": "dungeon_map_source_boss_marker",
+      "map": 33232,
+      "stage": 4,
+      "part": 0,
+      "node_stage": 3,
+      "node_part": 0,
+      "uid": 1001,
+      "native_renderer": true
+    },
+    "open_map_state": {
+      "map": 33232,
+      "stage": 4,
+      "part": 0,
+      "nodes": 8,
+      "open": 1,
+      "markers": [
+        {
+          "uid": 1001,
+          "stage": 3,
+          "part": 0
+        }
+      ],
+      "marker_count": 1
+    },
+    "screenshot_sha256": "59d4f9f42440b99f5347e8548df564651cbbca4670149feef4421a32439f7dae",
+    "controlled_initial_checkpoint": true,
+    "natural_full_clear": false
+  },
+  "35301": {
+    "ok": true,
+    "owned_run": "20261101-022900",
+    "original_parser_count": 2,
+    "native_second_ordinal": 1,
+    "server_source_stage": 2,
+    "open_map_state": {
+      "map": 35301,
+      "stage": 1,
+      "part": 0,
+      "nodes": 4,
+      "open": 1,
+      "markers": [
+        {
+          "uid": 1002,
+          "stage": 1,
+          "part": 0
+        }
+      ],
+      "marker_count": 1
+    },
+    "screenshot_sha256": "111d15f43a7905be1cce6ac303bc262b32d6542590c39068b76dc79455bcf540",
+    "human_character_selection_and_M": true,
+    "original_native_map_selection": true,
+    "controlled_prior_room_and_final_stage_advance": true,
+    "native_rift_NPC_entry_not_tested": true,
+    "natural_full_clear": false,
+    "chase_ending_blocked_by_three_synthetic_HP0_actors_counted_alive_by_original_CF_PLAY": true
+  },
+  "delivery_leaf_sha256": {
+    "tools/dungeon_map_markers.js": "a70d97a5c3873dc62fc6533616b43548aa7761dd82b4b1bb738dcbb73a30d310",
+    "tools/dungeon_map_markers.py": "d69cba83aa2ef4707d3216c2ecec32291871793e5e2f50cfe1aef71fdfe1eed6",
+    "tools/native_sparse_stages.js": "2cc56600636acb9187e47905b957561c7bee72b991f82bcbe2708bd203b6225a",
+    "tools/native_sparse_stages.py": "7b7abc855386a3f0725214b4141b482fde381853f32492b63a9dab73c4e6180a",
+    "els_server/data/native_line_triggers.json": "562d42975a0c002b014249fcab5f036563a6f48a0a8a4f3a789aff56c3fb8bc0",
+    "els_server/domain/dungeon_routes.py": "9d79ecbf01d322448af9cab4280a28c9c273e1f342513691f0ab0e98a6d16ced",
+    "els_server/domain/native_line_triggers.py": "b8fcd649bb8b87415de6dccc12bc64db849d9db47ef562a44373bda2eebd10c2"
+  },
+  "original_EXE_KOM_changes": 0,
+  "mouse_keyboard_focus_control": false,
+  "private_evidence": "Owned-process screenshots and raw traces withheld from Git."
+}
