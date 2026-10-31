@@ -1,0 +1,33 @@
+{
+  "format": 1,
+  "candidate": true,
+  "activation": false,
+  "runtime_acceptance": false,
+  "files": [
+    {
+      "path": "els_server/domain/pve_economy_flow.py",
+      "source": "references/dungeon-clear-observers-20261031-v1/source/els_server/domain/pve_economy_flow.py",
+      "sha256": "baa32eb34f3867ae3c569f9b619aa4a6d0465973fe8b8fd1b52ac03d6292f77e",
+      "size": 22476
+    }
+  ],
+  "channels": {
+    "online": {
+      "parent_release": "equipment-identification-conversion-20261031-v1",
+      "inputs": {
+        "els_server/domain/pve_economy_flow.py": "f603818e58c0cb766afc0d0e5da15e53321f4fd4c42f71dd82d9d50deca201c0",
+        "els_server/domain/raid_economy_flow.py": "ba0420908a4082471338128993863ba4df567b83d0b1d52074fba56e00e5a845"
+      }
+    },
+    "local": {
+      "parent_release": "local-custom-items-socket-default-20261031-v2",
+      "inputs": {
+        "els_server/domain/pve_economy_flow.py": "f603818e58c0cb766afc0d0e5da15e53321f4fd4c42f71dd82d9d50deca201c0",
+        "els_server/domain/raid_economy_flow.py": "ba0420908a4082471338128993863ba4df567b83d0b1d52074fba56e00e5a845"
+      }
+    }
+  },
+  "dependency": "Seven-argument clear observer from the accepted weapon-growth runtime; root checkout intentionally retains historical six-argument predecessor.",
+  "database_migration": false,
+  "client_change": false
+}

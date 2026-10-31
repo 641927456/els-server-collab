@@ -1,0 +1,114 @@
+{
+  "online": {
+    "before_sha256": "ab14d3f23104c7272e232d3459b05410e862b17fb973d02ab211b87e20daf2d2",
+    "after_sha256": "210b2e7aaae4ff7a0eb4bd9135b2ecf86ab584a83b7735a35da0b23dff40fbe1",
+    "hunks": [
+      {
+        "start": 78,
+        "end": 79,
+        "old": [
+          "            from els_server.storage.profession_state import snapshot as profession_snapshot\n"
+        ],
+        "new": [
+          "            from els_server.storage.character_projection import skill_trait_fields,skill_page_fields,force_fields,cleared_dungeons,profession_fields\n"
+        ]
+      },
+      {
+        "start": 82,
+        "end": 85,
+        "old": [
+          "            from els_server.storage.skill_traits import saved as saved_traits\n",
+          "            from els_server.domain.skill_traits import visible as visible_traits\n",
+          "            row['skill_traits']=visible_traits(row,saved_traits(db,uid))\n",
+          "            from els_server.storage.ordinary_skill_pages import view as skill_pages_view\n",
+          "            row['ordinary_skill_pages']=skill_pages_view(db,uid)\n",
+          "            from els_server.storage.boosting_2026_force_inventory import saved as force_inventory_saved\n",
+          "            from els_server.storage.boosting_2026_force_equipment import saved as force_slots_saved\n",
+          "            row['force_inventory']=force_inventory_saved(db,uid);row['force_slots']=force_slots_saved(db,uid)\n"
+        ],
+        "new": [
+          "            row.update(skill_trait_fields(db,row,include_empty=True))\n",
+          "            row.update(skill_page_fields(db,uid,include_single=True))\n",
+          "            row.update(force_fields(db,uid))\n"
+        ]
+      },
+      {
+        "start": 86,
+        "end": 87,
+        "old": [
+          "            row['cleared_dungeons']=tuple(r[0]for r in db.execute('SELECT map_id FROM dungeon_records WHERE uid=? ORDER BY map_id',(uid,)))if has_records else ()\n"
+        ],
+        "new": [
+          "            row['cleared_dungeons']=cleared_dungeons(db,uid,has_records=has_records)\n"
+        ]
+      },
+      {
+        "start": 97,
+        "end": 98,
+        "old": [
+          "            profession=profession_snapshot(db,uid,saved_owner[0])\n",
+          "            row['profession']=profession['state'];row['profession_revision']=profession['revision']\n"
+        ],
+        "new": [
+          "            row.update(profession_fields(db,uid,saved_owner[0]))\n"
+        ]
+      }
+    ]
+  },
+  "local": {
+    "before_sha256": "ab14d3f23104c7272e232d3459b05410e862b17fb973d02ab211b87e20daf2d2",
+    "after_sha256": "210b2e7aaae4ff7a0eb4bd9135b2ecf86ab584a83b7735a35da0b23dff40fbe1",
+    "hunks": [
+      {
+        "start": 78,
+        "end": 79,
+        "old": [
+          "            from els_server.storage.profession_state import snapshot as profession_snapshot\n"
+        ],
+        "new": [
+          "            from els_server.storage.character_projection import skill_trait_fields,skill_page_fields,force_fields,cleared_dungeons,profession_fields\n"
+        ]
+      },
+      {
+        "start": 82,
+        "end": 85,
+        "old": [
+          "            from els_server.storage.skill_traits import saved as saved_traits\n",
+          "            from els_server.domain.skill_traits import visible as visible_traits\n",
+          "            row['skill_traits']=visible_traits(row,saved_traits(db,uid))\n",
+          "            from els_server.storage.ordinary_skill_pages import view as skill_pages_view\n",
+          "            row['ordinary_skill_pages']=skill_pages_view(db,uid)\n",
+          "            from els_server.storage.boosting_2026_force_inventory import saved as force_inventory_saved\n",
+          "            from els_server.storage.boosting_2026_force_equipment import saved as force_slots_saved\n",
+          "            row['force_inventory']=force_inventory_saved(db,uid);row['force_slots']=force_slots_saved(db,uid)\n"
+        ],
+        "new": [
+          "            row.update(skill_trait_fields(db,row,include_empty=True))\n",
+          "            row.update(skill_page_fields(db,uid,include_single=True))\n",
+          "            row.update(force_fields(db,uid))\n"
+        ]
+      },
+      {
+        "start": 86,
+        "end": 87,
+        "old": [
+          "            row['cleared_dungeons']=tuple(r[0]for r in db.execute('SELECT map_id FROM dungeon_records WHERE uid=? ORDER BY map_id',(uid,)))if has_records else ()\n"
+        ],
+        "new": [
+          "            row['cleared_dungeons']=cleared_dungeons(db,uid,has_records=has_records)\n"
+        ]
+      },
+      {
+        "start": 97,
+        "end": 98,
+        "old": [
+          "            profession=profession_snapshot(db,uid,saved_owner[0])\n",
+          "            row['profession']=profession['state'];row['profession_revision']=profession['revision']\n"
+        ],
+        "new": [
+          "            row.update(profession_fields(db,uid,saved_owner[0]))\n"
+        ]
+      }
+    ]
+  }
+}

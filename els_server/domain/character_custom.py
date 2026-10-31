@@ -97,7 +97,7 @@ def handle(s,event,sequence):
         # Original CharInfo opener requests cash purchase availability, not
         # registered ownership, inventory books or an application permission.
         if (event.event_id!=0x202 or event.payload or not admitted(s)
-            or type(sequence)is not int or not 1<=sequence<2**32 or event.performers
+            or type(sequence)is not int or not 1<=sequence<2**32 or event.performers!=(0,)
             or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):return []
         try:
             from els_server.domain.avatar_set_flow import context,validate

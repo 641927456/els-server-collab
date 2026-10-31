@@ -1,0 +1,84 @@
+{
+  "ok": true,
+  "actual_dual_delivery_verified": true,
+  "synthetic_fixture": false,
+  "prospective": false,
+  "candidate_manifest_sha256": "97d804a9e0129c42d57693d861dbb49f09e06faed077d49ce7f9e47823f6e93f",
+  "accepted_profile_sha256": "c63fbed4110c2b6a3f597d305c12971690fe78a6d00c4d2ecc285e039fe001ac",
+  "C3_App_and_compatible_OS_qualified": true,
+  "signed_packages_qualified": true,
+  "own_test_cleanup_verified": true,
+  "player_database_restore": false,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "original_EXE_KOM_changes": 0,
+  "channels": {
+    "online": {
+      "release": "native-shared-repair-20261030-v1",
+      "formal_manifest_sha256": "45274615b17ffc1f80bf9acc8b6e40afa73b0724422601e4c1c9ead82e8ce648",
+      "verified_business_files": 1315,
+      "observation_seconds": 124.18185269995593,
+      "actual_receipt_sha256": "7fb307974254706ef06995d605915d78959762234a54a4fb4924e1d8d5909802"
+    },
+    "local": {
+      "release": "local-native-shared-repair-20261030-v1",
+      "formal_manifest_sha256": "2291d8c2e24f72209e802de082fda701f623fc87609e201206136f5862ff9fd5",
+      "verified_business_files": 1340,
+      "observation_seconds": 120.13412429997697,
+      "actual_receipt_sha256": "1d3f408733ffec3b22753c41fda4bf349672fc646258a09548be050ea7c487ae"
+    }
+  },
+  "production_support_loading": {
+    "rawLOCAL": {
+      "verified": true,
+      "loaded_sha256": {
+        "tools/client_compatibility_profiles.json": "f1661177edd96176b2bd0b7e869215ab27e0337e186f77c1bd026248b2ae4a9e",
+        "tools/native_cache_sync.js": "e2f86915262ba1ea1e919eb1b33c5f022e1a311bd267569bb02f3aee7368083a",
+        "tools/native_cache_sync.py": "225d321ef32563a5736513dd4030118aa669ac2e49cf8a3f7ac7344f4ef21856"
+      },
+      "actual_receipt_sha256": "97dc3bbeedaf07644b4075eb0364bd8fad2f0a0e0b166f735ed9390374550733"
+    },
+    "signedLOCAL": {
+      "verified": true,
+      "loaded_sha256": {
+        "tools/client_compatibility_profiles.json": "f8327a16ef8c30300d5ed0a84347ecca684594ab2eda4bc28250dc4c46d93049",
+        "tools/native_cache_sync.js": "e2f86915262ba1ea1e919eb1b33c5f022e1a311bd267569bb02f3aee7368083a",
+        "tools/native_cache_sync.py": "225d321ef32563a5736513dd4030118aa669ac2e49cf8a3f7ac7344f4ef21856"
+      },
+      "actual_receipt_sha256": "67c9142725dfaf5de5dd60b3b7c963707752de7ba95c754548149edca139fcbd"
+    },
+    "signedFriends": {
+      "verified": true,
+      "loaded_sha256": {
+        "tools/client_compatibility_profiles.json": "3b33c9f256b8e388006b79f84679873b3588a32f849565ab079a8fbd0a77621a",
+        "tools/native_cache_sync.js": "e2f86915262ba1ea1e919eb1b33c5f022e1a311bd267569bb02f3aee7368083a",
+        "tools/native_cache_sync.py": "225d321ef32563a5736513dd4030118aa669ac2e49cf8a3f7ac7344f4ef21856"
+      },
+      "actual_receipt_sha256": "6a1045f650faa2541ad31b573258c28c05e02b66f73c0d142fb314642429ddd6"
+    }
+  },
+  "launcher_signed_candidate": {
+    "version": 45,
+    "exe_sha256": "d0e9cf6e5aea90ab3e95030cfc4913300385cfe6031036cfffd2752aa39e2998",
+    "latest_sha256": "0111ca42247d1cdf2c2cbefa4b8e641192b39d6029affb71802be4c1c1a5316d",
+    "actual_signed_qualification_sha256": "62f2321976e58fc5e2b1173ec0668966a1face9cccd338497df259e5a4ebecf4",
+    "formal_launcher_publication_verified": false
+  },
+  "Git_distribution": {
+    "main_merge_verified": false,
+    "boundary": "Prepared PR archive is not a main merge. Verify exact merged head/main CI before public Git selection."
+  },
+  "evidence_sha256": {
+    "ONLINE_acceptance": "7fb307974254706ef06995d605915d78959762234a54a4fb4924e1d8d5909802",
+    "ONLINE_finish": "f1c23ede1624a79afbfb8755de20292ab2f5aacbc60404c7132680fed656cdd8",
+    "public_business_QA_acceptance": "fd0003e1fe9fb0157406e143555739005d8a7c35a09337e616182574e56269dd",
+    "public_QA_task_cleanup": "57edef612fe35c80fcb088838a501c56a92f373e4aa0af3068394eede95b7bae",
+    "LOCAL_installation": "1d3f408733ffec3b22753c41fda4bf349672fc646258a09548be050ea7c487ae",
+    "LOCAL_backup": "575d43fffefbf5910455b3bf90aca5147df6aabcaea2af6230afbd8f7bdcac9b",
+    "root_final_signed_runtime_qualification": "62f2321976e58fc5e2b1173ec0668966a1face9cccd338497df259e5a4ebecf4",
+    "rawLOCAL_actual_loading": "97dc3bbeedaf07644b4075eb0364bd8fad2f0a0e0b166f735ed9390374550733",
+    "signedLOCAL_actual_loading": "67c9142725dfaf5de5dd60b3b7c963707752de7ba95c754548149edca139fcbd",
+    "signedFriends_actual_loading": "6a1045f650faa2541ad31b573258c28c05e02b66f73c0d142fb314642429ddd6",
+    "root_final_source_review": "e6df30e7b408e8f816da6c4e0a1da93cee72e20fa291e499314d0ba5d2e2f9a3"
+  }
+}

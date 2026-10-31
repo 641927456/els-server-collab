@@ -1,0 +1,233 @@
+{
+  "format": 1,
+  "tests": [
+    "pinned-inputs/tests/test_request_read_scope.py",
+    "tests/current/test_path_projection_boundaries.py",
+    "pinned-inputs/tests/test_architecture_scheduler.py",
+    "pinned-inputs/tests/test_character_slow_paths.py",
+    "tests/current/test_character_identity_projection.py",
+    "pinned-inputs/tests/test_peak_business_concurrency.py",
+    "tests/test_lifecycle_scope.py",
+    "tests/test_identity_contract.py",
+    "tests/test_operation_metrics.py",
+    "tests/test_initialization_reuse.py",
+    "tests/test_character_projection_contract.py",
+    "tests/test_initialization_readonly.py",
+    "tests/test_periodic_slicing.py",
+    "tests/test_session_lifetime.py",
+    "tests/test_dispatch_settlement_contract.py",
+    "pinned-inputs/tests/test_reward_state.py"
+  ],
+  "files": {
+    "pinned-inputs/projection-baseline/online/career_shop.py": {
+      "source": "references/native-unit-account-identity-20261029-v1/source/337fa5e7a28faf58f60ee7fef2292c0784821e41c572a290ae22d25f392b3613/career_shop.py",
+      "sha256": "337fa5e7a28faf58f60ee7fef2292c0784821e41c572a290ae22d25f392b3613",
+      "size": 3527
+    },
+    "pinned-inputs/projection-baseline/online/characters.py": {
+      "source": "references/native-unit-account-identity-20261029-v1/source/54cb4afdccc26303c62487d26218688dd204b35e654b3fdbf705f50175d86c32/characters.py",
+      "sha256": "54cb4afdccc26303c62487d26218688dd204b35e654b3fdbf705f50175d86c32",
+      "size": 15959
+    },
+    "pinned-inputs/projection-baseline/online/seal_quests.py": {
+      "source": "references/native-unit-account-identity-20261029-v1/source/ab14d3f23104c7272e232d3459b05410e862b17fb973d02ab211b87e20daf2d2/seal_quests.py",
+      "sha256": "ab14d3f23104c7272e232d3459b05410e862b17fb973d02ab211b87e20daf2d2",
+      "size": 33073
+    },
+    "pinned-inputs/dispatch-baseline/online/domain/local_session.py": {
+      "source": "references/server-structure-20261029-v1/baseline-source/51872cbbdc44fba3425417be63f4efa615dc7e95b7a3fff9fdeb808d118a88f3/local_session.py",
+      "sha256": "51872cbbdc44fba3425417be63f4efa615dc7e95b7a3fff9fdeb808d118a88f3",
+      "size": 170112
+    },
+    "pinned-inputs/dispatch-baseline/online/domain/pve_economy_flow.py": {
+      "source": "references/formal-change-force-parent-20261027-v1/online/els_server/domain/pve_economy_flow.py",
+      "sha256": "717d2c8f0055732f17f229edc62e3ce76bd47f83b271d832c1351da957e4e313",
+      "size": 22854
+    },
+    "pinned-inputs/dispatch-baseline/online/storage/group_settlement.py": {
+      "source": "els_server/storage/group_settlement.py",
+      "sha256": "5f45968681b414e197644195933bfbbf292f26f64e5eef8a435b44eeae32154d",
+      "size": 1988
+    },
+    "initialization-before/online/inventory_state.py": {
+      "source": "references/retained-native-consumable-readers-20261027-v1/local/els_server/storage/inventory_state.py",
+      "sha256": "00c8ed1245df1270a800f9bbc2b74c0f145422fd5aec5dfb702a2e6fe84df65d",
+      "size": 25012
+    },
+    "initialization-before/online/local_state.py": {
+      "source": "references/selection-town-business-20261027-v1/online/els_server/storage/local_state.py",
+      "sha256": "084ed8f07c03e8881ba94eb1c35bd2db4ddd44a2bb7f926f47e2a48aa96a6c1b",
+      "size": 11027
+    },
+    "initialization-before/online/reward_state.py": {
+      "source": "references/peak-business-concurrency-20261027-v1/online/els_server/storage/reward_state.py",
+      "sha256": "e9b9030034fc46464532decb71d4d2d965fd17f91fe116b4128d784776c9dcd0",
+      "size": 20130
+    },
+    "pinned-inputs/projection-baseline/local/career_shop.py": {
+      "source": "references/native-unit-account-identity-20261029-v1/source/337fa5e7a28faf58f60ee7fef2292c0784821e41c572a290ae22d25f392b3613/career_shop.py",
+      "sha256": "337fa5e7a28faf58f60ee7fef2292c0784821e41c572a290ae22d25f392b3613",
+      "size": 3527
+    },
+    "pinned-inputs/projection-baseline/local/characters.py": {
+      "source": "references/native-unit-account-identity-20261029-v1/source/54cb4afdccc26303c62487d26218688dd204b35e654b3fdbf705f50175d86c32/characters.py",
+      "sha256": "54cb4afdccc26303c62487d26218688dd204b35e654b3fdbf705f50175d86c32",
+      "size": 15959
+    },
+    "pinned-inputs/projection-baseline/local/seal_quests.py": {
+      "source": "references/native-unit-account-identity-20261029-v1/source/ab14d3f23104c7272e232d3459b05410e862b17fb973d02ab211b87e20daf2d2/seal_quests.py",
+      "sha256": "ab14d3f23104c7272e232d3459b05410e862b17fb973d02ab211b87e20daf2d2",
+      "size": 33073
+    },
+    "pinned-inputs/dispatch-baseline/local/domain/local_session.py": {
+      "source": "references/server-structure-20261029-v1/baseline-source/266565e4331cb503a42e8422d7053a00c6f3a91bf288f9c6aca7cc01168c06d8/local_session.py",
+      "sha256": "266565e4331cb503a42e8422d7053a00c6f3a91bf288f9c6aca7cc01168c06d8",
+      "size": 169051
+    },
+    "pinned-inputs/dispatch-baseline/local/domain/pve_economy_flow.py": {
+      "source": "references/formal-change-force-parent-20261027-v1/online/els_server/domain/pve_economy_flow.py",
+      "sha256": "717d2c8f0055732f17f229edc62e3ce76bd47f83b271d832c1351da957e4e313",
+      "size": 22854
+    },
+    "pinned-inputs/dispatch-baseline/local/storage/group_settlement.py": {
+      "source": "els_server/storage/group_settlement.py",
+      "sha256": "5f45968681b414e197644195933bfbbf292f26f64e5eef8a435b44eeae32154d",
+      "size": 1988
+    },
+    "initialization-before/local/inventory_state.py": {
+      "source": "references/retained-native-consumable-readers-20261027-v1/local/els_server/storage/inventory_state.py",
+      "sha256": "00c8ed1245df1270a800f9bbc2b74c0f145422fd5aec5dfb702a2e6fe84df65d",
+      "size": 25012
+    },
+    "initialization-before/local/local_state.py": {
+      "source": "references/selection-town-business-20261027-v1/online/els_server/storage/local_state.py",
+      "sha256": "084ed8f07c03e8881ba94eb1c35bd2db4ddd44a2bb7f926f47e2a48aa96a6c1b",
+      "size": 11027
+    },
+    "initialization-before/local/reward_state.py": {
+      "source": "references/peak-business-concurrency-20261027-v1/online/els_server/storage/reward_state.py",
+      "sha256": "e9b9030034fc46464532decb71d4d2d965fd17f91fe116b4128d784776c9dcd0",
+      "size": 20130
+    },
+    "pinned-inputs/tests/test_request_read_scope.py": {
+      "source": "tests/test_request_read_scope.py",
+      "sha256": "056a04012c0810642df661a9415b24971250382bf44bdd4b93e53c3beae6e57a",
+      "size": 7342
+    },
+    "tests/current/test_path_projection_boundaries.py": {
+      "source": "references/server-structure-20261029-v1/test-sources/current/test_path_projection_boundaries.py",
+      "sha256": "c997ee5484c75dfa148b4c6732b2728de58f3b03f86e2536efc332b517a03b10",
+      "size": 13333
+    },
+    "pinned-inputs/tests/test_architecture_scheduler.py": {
+      "source": "tests/test_architecture_scheduler.py",
+      "sha256": "fca7a482b3f9e33acaeec627c2997f6581c311e9d1974211a6ec7a1605d21ced",
+      "size": 12913
+    },
+    "pinned-inputs/tests/test_character_slow_paths.py": {
+      "source": "tests/test_character_slow_paths.py",
+      "sha256": "96f823b87766f81d3f080f9edfdca2b64dbf1192c3e074d7afc0b4a766d9a4cb",
+      "size": 10163
+    },
+    "tests/current/test_character_identity_projection.py": {
+      "source": "references/server-structure-20261029-v1/test-sources/current/test_character_identity_projection.py",
+      "sha256": "813edf645fa397e7eeaa6d120070512539a796c0e50e0227c879a232440e9a59",
+      "size": 4085
+    },
+    "pinned-inputs/tests/test_peak_business_concurrency.py": {
+      "source": "tests/test_peak_business_concurrency.py",
+      "sha256": "0c1cc1f7376a2720833b6657b80d419a9f4787cc00d8c7384e75a57bd31e2d38",
+      "size": 12310
+    },
+    "tests/test_lifecycle_scope.py": {
+      "source": "references/server-structure-20261029-v1/test-sources/test_lifecycle_scope.py",
+      "sha256": "e380386489f1c78a1ae00a4922a0b84913f053e6285e1cb052cd9419ddbd34ea",
+      "size": 16837
+    },
+    "tests/test_identity_contract.py": {
+      "source": "references/server-structure-20261029-v1/test-sources/test_identity_contract.py",
+      "sha256": "5ad0eaef6a66a71b4d50d38ec11916802353f9d9988c984d4c63f704eaf9dc57",
+      "size": 7736
+    },
+    "tests/test_operation_metrics.py": {
+      "source": "references/server-structure-20261029-v1/test-sources/test_operation_metrics.py",
+      "sha256": "c878779837943e5746a7af329e0a372cda2cb2599f178360fa88966d38a0eba5",
+      "size": 11528
+    },
+    "tests/test_initialization_reuse.py": {
+      "source": "references/server-structure-20261029-v1/test-sources/test_initialization_reuse.py",
+      "sha256": "6a6696ed60120ee2f8d3a045a2f4eeeb04d37a2eeadda289523e65f6c9c73dd9",
+      "size": 14280
+    },
+    "tests/test_character_projection_contract.py": {
+      "source": "references/server-structure-20261029-v1/test-sources/test_character_projection_contract.py",
+      "sha256": "0ba2a8c0bf4d52ccc4f334e87148a591fd16db9a6f5fb30c67b37fe7cdf598d2",
+      "size": 21554
+    },
+    "tests/test_initialization_readonly.py": {
+      "source": "references/server-structure-20261029-v1/test-sources/test_initialization_readonly.py",
+      "sha256": "e98b8e5e9b1e2cb1a8943900f954ad54c16fafdcc78d2a70018624a12790ff09",
+      "size": 17886
+    },
+    "tests/test_periodic_slicing.py": {
+      "source": "references/server-structure-20261029-v1/test-sources/test_periodic_slicing.py",
+      "sha256": "9ba757e8b07af97755ed7bbf8e1948a2ea00cbb631b3648914addadfea62ce6f",
+      "size": 7953
+    },
+    "tests/test_session_lifetime.py": {
+      "source": "references/server-structure-20261029-v1/test-sources/test_session_lifetime.py",
+      "sha256": "d65a8a8e98f79e019b11b64135b04bbbb3f340b61d8fc7d4db2a863e17d46950",
+      "size": 21990
+    },
+    "tests/test_dispatch_settlement_contract.py": {
+      "source": "references/server-structure-20261029-v1/test-sources/test_dispatch_settlement_contract.py",
+      "sha256": "7a7896496ea0fd6e9d566a762e438840417384c0140e01f9404f956013768439",
+      "size": 25102
+    },
+    "pinned-inputs/tests/test_reward_state.py": {
+      "source": "tests/test_reward_state.py",
+      "sha256": "5c14bda4d7d97a16e5bba8767faabdd1abc77e1fc32252052a88b4bfbe382938",
+      "size": 3052
+    }
+  },
+  "synthetic_expected": {
+    "initialization-baseline-online.json": {
+      "branches": {
+        "empty": {
+          "constructors": 2,
+          "database_sha256": "9f48a9ff4efe50a4c99b18dc328985738a620d2e73bf0a896a4a5e065e6644da",
+          "roster_uids": []
+        },
+        "occupied": {
+          "constructors": 2,
+          "database_sha256": "d3ba025ccbddd795b6dff7d58e800dd246c4b6ce9ae7ce41fbb324fc73f0f66f",
+          "roster_uids": [
+            1001
+          ]
+        }
+      }
+    },
+    "initialization-baseline-local.json": {
+      "branches": {
+        "empty": {
+          "constructors": 2,
+          "database_sha256": "9f48a9ff4efe50a4c99b18dc328985738a620d2e73bf0a896a4a5e065e6644da",
+          "roster_uids": []
+        },
+        "occupied": {
+          "constructors": 2,
+          "database_sha256": "d3ba025ccbddd795b6dff7d58e800dd246c4b6ce9ae7ce41fbb324fc73f0f66f",
+          "roster_uids": [
+            1001
+          ]
+        }
+      }
+    },
+    "initialization-reuse-before-sha.json": {}
+  },
+  "runtime_counts": {
+    "online": 169,
+    "local": 169
+  },
+  "baseline_mode": false
+}

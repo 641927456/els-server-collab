@@ -1,0 +1,611 @@
+{
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "files": [
+    {
+      "name": "ELYSION_SOLESS.lua",
+      "sha256": "9abd7d844e08cd46103035e8f6b115132c7a3ced55484727e4e5b1f8fa6b07e2"
+    },
+    {
+      "name": "ELYSION_SOLESS.bytecode.json",
+      "sha256": "c9217eda2791457df79aa67d0a94637ef5c1ab8fc1d4d5bc70dedf7c3708c9a6"
+    },
+    {
+      "name": "ELYSION_SOLESS_DUMMY.lua",
+      "sha256": "c7c7f1858860d1e30c4ee57e5b5ecc4acdbb59429032f5d65a406200e10f8775"
+    },
+    {
+      "name": "Dungeon_Elysion_Soless_Hard.lua",
+      "sha256": "e4bb437fbd97673d8b17024b07013afab1c2baad334f85835da540d800ffb5e4"
+    }
+  ],
+  "root_function_binding": {
+    "0": "TableCopy",
+    "1": "ELYSION_SOLESS_START_START_FUNC",
+    "2": "CF_ELYSION_SOLESS_AWAKEN_WAIT_FROM_NORMAL_WAIT",
+    "3": "CF_ELYSION_SOLESS_AWAKEN",
+    "4": "CF_ELYSION_SOLESS_WAIT",
+    "5": "CF_ELYSION_SOLESS_AWAKEN_WAIT",
+    "6": "ELYSION_SOLESS_COMBO_ATTACK_Z_START_FUNC",
+    "7": "ELYSION_SOLESS_COMBO_ATTACK_X_START_FUNC",
+    "8": "ELYSION_SOLESS_ATTACK_A_READY_START_FUNC",
+    "9": "ELYSION_SOLESS_ATTACK_A_FIRE_FRAME_MOVE_FUNC",
+    "10": "ELYSION_SOLESS_ATTACK_A_COMBO_CHAIN_START_FUNC",
+    "11": "ELYSION_SOLESS_ATTACK_B_READY_START_FUNC",
+    "12": "ELYSION_SOLESS_ATTACK_B_READY_FRAME_MOVE_FUNC",
+    "13": "ELYSION_SOLESS_ATTACK_B_TEL_MOVE_START_FUNC",
+    "14": "ELYSION_SOLESS_ATTACK_B_LOOP_START_FUNC",
+    "15": "ELYSION_SOLESS_ATTACK_B_COMBO_FIRE_START_FUNC",
+    "16": "ELYSION_SOLESS_ATTACK_B_COMBO_FIRE_FRAME_MOVE_FUNC",
+    "17": "ELYSION_SOLESS_ATTACK_B_COMBO_FIRE_END_START_FUNC",
+    "18": "ELYSION_SOLESS_ATTACK_B_COMBO_FIRE_END_TEL_MOVE_START_FUNC",
+    "19": "ELYSION_SOLESS_ATTACK_C_TEL_READY_START_FUNC",
+    "20": "ELYSION_SOLESS_ATTACK_C_TEL_MOVE_FRAME_MOVE_FUNC",
+    "21": "ELYSION_SOLESS_ATTACK_C_BLACK_HOLE_FRAME_MOVE_FUNC",
+    "22": "ELYSION_SOLESS_ATTACK_C_SUMMON_SWORD_START_FUNC",
+    "23": "ELYSION_SOLESS_ATTACK_C_SUMMON_SWORD_FRAME_MOVE_FUNC",
+    "24": "CF_ELYSION_SOLESS_ATTACK_C_PICK_UP_SWORD_READY",
+    "25": "CF_ELYSION_SOLESS_ATTACK_C_FIND_TARGET_SWORD",
+    "26": "CF_ELYSION_SOLESS_ATTACK_C_FINAL_ATTACK_SUCCESS",
+    "27": "CF_ELYSION_SOLESS_ATTACK_C_FINAL_ATTACK_FAIL_TEL_MOVE",
+    "28": "ELYSION_SOLESS_ATTACK_C_FIND_TARGET_SWORD_START_FUNC",
+    "29": "ELYSION_SOLESS_ATTACK_C_FIND_TARGET_SWORD_FRAME_MOVE_FUNC",
+    "30": "ELYSION_SOLESS_ATTACK_C_FIND_TARGET_USER_ATTACK_A_START_FUNC",
+    "31": "ELYSION_SOLESS_ATTACK_C_FIND_TARGET_USER_ATTACK_B_START_FUNC",
+    "32": "ELYSION_SOLESS_ATTACK_C_PICK_UP_SWORD_READY_START_FUNC",
+    "33": "ELYSION_SOLESS_ATTACK_C_PICK_UP_SWORD_NOT_SUCCESS_TO_TEL_MOVE_FRAME_MOVE_FUNC",
+    "34": "CF_ELYSION_SOLESS_ATTACK_C_FIND_TARGET_SWORD",
+    "35": "CF_ELYSION_SOLESS_ATTACK_C_FINAL_ATTACK_SUCCESS_AFTER_PICK_UP",
+    "36": "CF_ELYSION_SOLESS_ATTACK_C_FINAL_ATTACK_FAIL_TEL_MOVE_AFTER_PICK_UP",
+    "37": "ELYSION_SOLESS_ATTACK_C_PICK_UP_SWORD_SUCCESS_START_FUNC",
+    "38": "ELYSION_SOLESS_ATTACK_C_FINAL_ATTACK_SUCCESS_TEL_READY_END_FUNC",
+    "39": "ELYSION_SOLESS_ATTACK_C_FINAL_ATTACK_SUCCESS_END_START_FUNC",
+    "40": "ELYSION_SOLESS_ATTACK_C_FINAL_ATTACK_FAIL_TEL_MOVE_FRAME_MOVE_FUNC",
+    "41": "ELYSION_SOLESS_TEL_READY_START_FUNC",
+    "42": "ELYSION_SOLESS_TEL_MOVE_START_FUNC",
+    "43": "ELYSION_SOLESS_AWAKEN_START_FUNC",
+    "44": "ELYSION_SOLESS_AWAKEN_FRAME_MOVE_FUNC",
+    "45": "ELYSION_SOLESS_AWAKEN_END_FUNC",
+    "46": "CF_ELYSION_SOLESS_AWAKEN_END",
+    "47": "ELYSION_SOLESS_AWAKEN_END_START_FUNC",
+    "48": "ELYSION_SOLESS_AWAKEN_END_FRAME_MOVE_FUNC",
+    "49": "ELYSION_SOLESS_AWAKEN_END_END_FUNC",
+    "50": "ELYSION_SOLESS_2PHASE_START_START_FUNC",
+    "51": "ELYSION_SOLESS_2PHASE_START_FRAME_MOVE_FUNC",
+    "52": "ELYSION_SOLESS_2PHASE_MIDDLE_START_FUNC",
+    "53": "ELYSION_SOLESS_2PHASE_MIDDLE_END_FUNC",
+    "54": "ELYSION_SOLESS_2PHASE_END_END_FUNC",
+    "55": "CF_ELYSION_SOLESS_BREAK_READY",
+    "56": "CF_ELYSION_SOLESS_DYING_TRUE_ENDING",
+    "57": "CF_ELYSION_SOLESS_DYING_BAD_ENDING",
+    "58": "ELYSION_SOLESS_DYING_TRUE_ENDING_END_FUNC",
+    "59": "ELYSION_SOLESS_DYING_BAD_ENDING_END_FUNC",
+    "60": "AttackedAFunc",
+    "61": "ELYSION_DARK_SOLES_COMMON_FRAME_FUNC",
+    "62": "DarkSoles_InitAll",
+    "63": "Init_PatternA",
+    "64": "CheckAndDo_PatternA_End",
+    "65": "Start_PatternA_CircleEffect",
+    "66": "CheckDistAndCreateEffect_PatternA",
+    "67": "DeleteAllCircleEffect_PatternA",
+    "68": "_CreateEffectSetToUnit",
+    "69": "_DeleteEffectSetToUnit",
+    "70": "ReadyToPatternB",
+    "71": "ReadyToChangeJumpLineOn_PatternB",
+    "72": "ChangeJumpLineOn_PatternB",
+    "73": "CheckSafeZoneOnFrameMove_PatternB",
+    "74": "EndProcess_PatternB",
+    "75": "CheckPatternB_SafeZone",
+    "76": "InitPatternC",
+    "77": "DoPatternC_SummonSwords",
+    "78": "InitPatternC_FindTargetSwords",
+    "79": "FindAndStoreTargetSword_PatternC",
+    "80": "IsSuccessToFindTargetSword_PatternC",
+    "81": "IsFailToFindTargetSword_PatternC",
+    "82": "SuccessProcPickUpSword_PatternC",
+    "83": "IsDoneFindTargetSword",
+    "84": "IsSuccessPatternC_ReadyToFinalAttack",
+    "85": "IsThereSwordLeft_PatternC",
+    "86": "EndProcess_PatternC",
+    "87": "CreateBlackHole_PatterC",
+    "88": "PowerUpBlackHole_PatterC",
+    "89": "DeleteBlackHole_PatterC",
+    "90": "DeleteSummonedSwordAll_PatterC",
+    "91": "BreakAttack_TimerStart",
+    "92": "BreakAttack_TimerStop",
+    "93": "IsReadyBreakAttack",
+    "94": "DarkSoles_CheckPhaseChange_OnFrameMove",
+    "95": "DarkSoles_DoPhaseChange",
+    "96": "DarkSoles_DoPhaseChange_InStart",
+    "97": "DarkSoles_DoPhaseChange_InStart_FrameMove",
+    "98": "DarkSoles_DoPhaseChange_InMiddle",
+    "99": "DarkSoles_DoPhaseChange_InMiddle_End",
+    "100": "DarkSoles_DoPhaseChange_InEnd",
+    "101": "DarkSoles_PhaseTwo_OnFrameMove",
+    "102": "DarkSoles_Awaken_Start",
+    "103": "DarkSoles_Awaken_OnFrameMove",
+    "104": "IsEndSolessAwakenTime",
+    "105": "DarkSoles_Awaken_End",
+    "106": "IsAwakenWaitCondition",
+    "107": "EndProcess_BeforeSelectEnding_Soless",
+    "108": "EndProcess_AfterSelectEnding_Soless",
+    "109": "DarkSoles_PrepareToSpecialAttack",
+    "110": "DarkSoles_EndProcessSpecialAttack",
+    "111": "CreateSolesAwakenCountUI",
+    "112": "IncreaseSolesAwakenCount",
+    "113": "SetSolesAwakenCountFull",
+    "114": "ClearSolesAwakenCount",
+    "115": "IsMaxSolesAwakenCountNow",
+    "116": "StartSolessAwakenRemainTimeUI",
+    "117": "EndSolessAwakenRemainTimeUI",
+    "118": "UpdateSolessAwakenRemainTimeUI",
+    "119": "PauseSolessAwakenRamainTime",
+    "120": "ResumeSolessAwakenRamainTime",
+    "121": "UpdateSolesAwakenCountUI",
+    "122": "StartSolessTrueEndingRemainTimeUI",
+    "123": "EndSolessTrueEndingRemainTimeUI",
+    "124": "UpdateSolessTrueEndingRemainTimeUI",
+    "125": "ResetAttackedUserTable",
+    "126": "IsAttackedUser",
+    "127": "StoreAttackedUserUID",
+    "128": "RemoveAttackedUserUID",
+    "129": "ResetNowFrameAttackedUserTable",
+    "130": "IsNowFrameAttackedUser",
+    "131": "StoreNowFrameAttackedUserUID",
+    "132": "RemoveNowFrameAttackedUserUID",
+    "133": "ResetSafeUserTable",
+    "134": "IsSafeUser",
+    "135": "StoreSafeUserUID",
+    "136": "RemoveSafeUserUID",
+    "137": "SetHoldDebuffToHittedUser",
+    "138": "MoveDirectionToTergetPos",
+    "139": "SummonAllMonsterRandomNpcIDAndRandomPos",
+    "140": "SetPositionHitUserFront",
+    "141": "ShowSolessCutIn",
+    "142": "_GetNPCUnitByIDandKeyCode",
+    "143": "_SetBuffAllUser",
+    "144": "_EraseBuffAllUser",
+    "145": "_ResetTable",
+    "146": "_IsValueInTable",
+    "147": "_StoreValueToTable",
+    "148": "_RemoveValueInTable",
+    "149": "ELYSION_SOLESS_MANA_BREAK_FRAME_MOVE"
+  },
+  "dying_state_callbacks": {
+    "86": {
+      "STATE_NAME": "ELYSION_SOLESS_DYING_DUMMY",
+      "LUA_STATE_START_FUNC": "EndProcess_BeforeSelectEnding_Soless"
+    },
+    "87": {
+      "LUA_STATE_START_FUNC": "EndProcess_AfterSelectEnding_Soless",
+      "STATE_NAME": "ELYSION_SOLESS_DYING_TRUE_ENDING",
+      "LUA_STATE_END_FUNC": "ELYSION_SOLESS_DYING_TRUE_ENDING_END_FUNC"
+    },
+    "88": {
+      "LUA_STATE_START_FUNC": "EndProcess_AfterSelectEnding_Soless",
+      "STATE_NAME": "ELYSION_SOLESS_DYING_BAD_ENDING",
+      "LUA_STATE_END_FUNC": "ELYSION_SOLESS_DYING_BAD_ENDING_END_FUNC"
+    }
+  },
+  "functions": {
+    "56": {
+      "flags": 0,
+      "parameters": 3,
+      "frame_size": 7,
+      "upvalues": "",
+      "instructions": [
+        [
+          12,
+          5,
+          2,
+          0
+        ],
+        [
+          65,
+          3,
+          0,
+          2
+        ],
+        [
+          24,
+          6,
+          3,
+          0
+        ],
+        [
+          46,
+          3,
+          3,
+          2
+        ],
+        [
+          11,
+          3,
+          2,
+          0
+        ],
+        [
+          88,
+          3,
+          6,
+          128
+        ],
+        [
+          62,
+          3,
+          1,
+          0
+        ],
+        [
+          22,
+          5,
+          2,
+          0
+        ],
+        [
+          46,
+          3,
+          2,
+          1
+        ],
+        [
+          26,
+          3,
+          2,
+          0
+        ],
+        [
+          76,
+          3,
+          2,
+          0
+        ],
+        [
+          88,
+          3,
+          8,
+          128
+        ],
+        [
+          12,
+          5,
+          2,
+          0
+        ],
+        [
+          65,
+          3,
+          0,
+          2
+        ],
+        [
+          24,
+          6,
+          2,
+          0
+        ],
+        [
+          46,
+          3,
+          3,
+          2
+        ],
+        [
+          11,
+          3,
+          1,
+          0
+        ],
+        [
+          88,
+          3,
+          2,
+          128
+        ],
+        [
+          26,
+          3,
+          2,
+          0
+        ],
+        [
+          76,
+          3,
+          2,
+          0
+        ],
+        [
+          26,
+          3,
+          1,
+          0
+        ],
+        [
+          76,
+          3,
+          2,
+          0
+        ]
+      ],
+      "kgc": [
+        "GetFlag_LUA",
+        "print",
+        "go true ending"
+      ],
+      "knum": []
+    },
+    "57": {
+      "flags": 0,
+      "parameters": 3,
+      "frame_size": 7,
+      "upvalues": "",
+      "instructions": [
+        [
+          12,
+          5,
+          2,
+          0
+        ],
+        [
+          65,
+          3,
+          0,
+          2
+        ],
+        [
+          24,
+          6,
+          3,
+          0
+        ],
+        [
+          46,
+          3,
+          3,
+          2
+        ],
+        [
+          11,
+          3,
+          1,
+          0
+        ],
+        [
+          88,
+          3,
+          5,
+          128
+        ],
+        [
+          62,
+          3,
+          1,
+          0
+        ],
+        [
+          22,
+          5,
+          2,
+          0
+        ],
+        [
+          46,
+          3,
+          2,
+          1
+        ],
+        [
+          26,
+          3,
+          2,
+          0
+        ],
+        [
+          76,
+          3,
+          2,
+          0
+        ],
+        [
+          26,
+          3,
+          1,
+          0
+        ],
+        [
+          76,
+          3,
+          2,
+          0
+        ]
+      ],
+      "kgc": [
+        "GetFlag_LUA",
+        "print",
+        "go bad ending"
+      ],
+      "knum": []
+    },
+    "58": {
+      "flags": 0,
+      "parameters": 3,
+      "frame_size": 8,
+      "upvalues": "",
+      "instructions": [
+        [
+          12,
+          5,
+          1,
+          0
+        ],
+        [
+          65,
+          3,
+          0,
+          1
+        ],
+        [
+          62,
+          6,
+          1,
+          0
+        ],
+        [
+          65,
+          6,
+          2,
+          6
+        ],
+        [
+          46,
+          3,
+          3,
+          2
+        ],
+        [
+          10,
+          3,
+          0,
+          0
+        ],
+        [
+          88,
+          4,
+          4,
+          128
+        ],
+        [
+          12,
+          6,
+          3,
+          0
+        ],
+        [
+          65,
+          4,
+          3,
+          3
+        ],
+        [
+          24,
+          7,
+          0,
+          0
+        ],
+        [
+          46,
+          4,
+          3,
+          1
+        ],
+        [
+          10,
+          2,
+          0,
+          0
+        ],
+        [
+          88,
+          4,
+          4,
+          128
+        ],
+        [
+          12,
+          6,
+          2,
+          0
+        ],
+        [
+          65,
+          4,
+          3,
+          2
+        ],
+        [
+          24,
+          7,
+          0,
+          0
+        ],
+        [
+          46,
+          4,
+          3,
+          1
+        ],
+        [
+          75,
+          0,
+          1,
+          0
+        ]
+      ],
+      "kgc": [
+        "GetNPCUnitByType",
+        "NPC_UNIT_ID",
+        "NUI_ELYSION_SOLESS_DUMMY",
+        "SetNowHP"
+      ],
+      "knum": []
+    },
+    "59": {
+      "flags": 0,
+      "parameters": 3,
+      "frame_size": 7,
+      "upvalues": "",
+      "instructions": [
+        [
+          10,
+          2,
+          0,
+          0
+        ],
+        [
+          88,
+          3,
+          4,
+          128
+        ],
+        [
+          12,
+          5,
+          2,
+          0
+        ],
+        [
+          65,
+          3,
+          0,
+          2
+        ],
+        [
+          24,
+          6,
+          0,
+          0
+        ],
+        [
+          46,
+          3,
+          3,
+          1
+        ],
+        [
+          75,
+          0,
+          1,
+          0
+        ]
+      ],
+      "kgc": [
+        "SetNowHP"
+      ],
+      "knum": []
+    }
+  },
+  "interpretation": "Correct FNEW opcode0x3b followed by GSET0x3f binds56/57 true/bad predicates and58/59 ending callbacks. INIT_STATE binds the actual end callbacks.58 gets2368 by enum and calls SetNowHP(0), then self0;59 calls only self0. Dying-dummy checks true predicate before bad. No execution of game Lua; root initializer fragments avoid unrelated unresolved arithmetic.",
+  "current_source": "https://cobodex.eu/en/dungeon/33891",
+  "official": "https://elsword.koggames.com/2025/05/may-21st-patch-notes/",
+  "checked": "2026-10-31",
+  "official_current_rule": "NA May21 2025 implemented true-ending reward for Boss defeated before phase2. Existing current client predicate includes the phase2-not-entered branch. Official/public pages do not publish the exact drop probability."
+}

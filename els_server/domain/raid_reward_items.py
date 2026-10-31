@@ -32,7 +32,7 @@ def source_only_templates():
  from els_server.game_data import client_data
  c=client_data()
  from els_server.domain.formal_pve_economy import policy as ordinary_policy
- return frozenset(catalog()['new_material_readers'])|frozenset(ordinary_policy()['new_reader_ids'])|frozenset(int(t)for t in circuit_catalog()['materials']if c.item(int(t))['name'].startswith('T-'))
+ return frozenset((136113,136114))|frozenset(catalog()['new_material_readers'])|frozenset(ordinary_policy()['new_reader_ids'])|frozenset(int(t)for t in circuit_catalog()['materials']if c.item(int(t))['name'].startswith('T-'))
 
 def plain_plan(plan):return json.dumps(plan,sort_keys=True,separators=(',',':'))
 def ensure_sources(db):

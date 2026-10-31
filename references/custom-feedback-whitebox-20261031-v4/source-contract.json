@@ -1,0 +1,188 @@
+{
+  "format": 1,
+  "issue": 659,
+  "parent_contract": "references/custom-ain-server-only-20261031-v3/source-contract.json",
+  "problem": "Natural custom-book219 carries nonzero CustomID and type. Strict career parser rejected face/idle/sit/emote/awakening; skill cutin was intercepted as socket assignment. Previous public tests used zero optional fields and did not cover the natural producer.",
+  "fix": "Route source-qualified books in the existing priority219 handler before socket interpretation and ordinary consumable parsers. Validate native metadata against the owned book, preserve authoritative ability0 registration, remove the duplicated late branch.",
+  "client_delta": 0,
+  "new_schema": 0,
+  "validation": {
+    "native-book-result.json": {
+      "ok": true,
+      "checks": [],
+      "sha256": "42809e37eb38ba2e74048e66ce0d509c431b44789a0855c99296dcab7223be76"
+    },
+    "parent-result.json": {
+      "ok": true,
+      "checks": [
+        "all9 native book requests reproduce existing blank -1 ACK and no debit, including screenshot4 and all6 families"
+      ],
+      "sha256": "ef8797efbf1b6ccf7b7bd4d8b92014a89dc5c90869a751da587bdee891547067"
+    },
+    "candidate-result.json": {
+      "ok": true,
+      "checks": [
+        "166596 native parameterized219 registers, consumes1/EDsame, receipt replay and Apply",
+        "wrong source metadata/native envelope rejected and SQL registration failure rolls back",
+        "461428 native parameterized219 registers, consumes1/EDsame, receipt replay and Apply",
+        "480416 native parameterized219 registers, consumes1/EDsame, receipt replay and Apply",
+        "480141 native parameterized219 registers, consumes1/EDsame, receipt replay and Apply",
+        "470012 native parameterized219 registers, consumes1/EDsame, receipt replay and Apply",
+        "470523 native parameterized219 registers, consumes1/EDsame, receipt replay and Apply",
+        "450004 native parameterized219 registers, consumes1/EDsame, receipt replay and Apply",
+        "168119 native parameterized219 registers, consumes1/EDsame, receipt replay and Apply",
+        "480902 native parameterized219 registers, consumes1/EDsame, receipt replay and Apply",
+        "all6 family ownership and selected slots cold-read",
+        "native duplicate1492 leaves source unchanged",
+        "group1 native zeroUID ability remains free; ordinary paid assignment still refuses missing scroll"
+      ],
+      "sha256": "df0533c5582de7759424d391f1587410a10ce0d4e005952899a74a0bb1de1b70"
+    },
+    "candidate-metadata-result.json": {
+      "ok": true,
+      "checks": [
+        "committed native parameterized book receipt replays without debit",
+        "native cached ability never grants a selected socket during registration; ownership remains0"
+      ],
+      "sha256": "e4f40ad7a72c393255d7ee3bf4b27da635ced6fd267e9557ec3546d0de71d1ed"
+    },
+    "recovery-metadata-result.json": {
+      "ok": true,
+      "checks": [
+        "committed native parameterized book receipt replays without debit",
+        "forward recovery reads all6 families and nonzero ability; new Apply paused without mutation"
+      ],
+      "sha256": "e96b215208cd7fa3b3395a63e5f925bcc830178c4bcd868e7bd4886c309c64f4"
+    }
+  },
+  "channels": {
+    "local": {
+      "parent": "local-force-categories-sources-20261031-v4",
+      "parent_manifest_sha256": "3c3c39f744e7256cfd62a18c783a744b4f1b36ac092683527a21598cb422cee2",
+      "files": {
+        "els_server/domain/character_custom.py": {
+          "source": "references/custom-feedback-whitebox-20261031-v4/source/common/els_server/domain/character_custom.py",
+          "sha256": "077fb074b50191334644ecf1bc8b1aaa01eed8ee4002a7b6257eb4be8a85aea4",
+          "parent_sha256": "30e7d38834a7d1084d6ce00ac495fcafb5bd32b2c480e738e0ad498a75d909ae"
+        },
+        "els_server/storage/character_custom.py": {
+          "source": "references/custom-feedback-whitebox-20261031-v4/source/common/els_server/storage/character_custom.py",
+          "sha256": "7469bdb79d1a70119fb495addedd5f0b5324c8e5fc396fb51ef117dae35612e8",
+          "parent_sha256": "b292fffb647b2d93fbd5e07b46e87b5fa99d40dd212c4e0eb6dcd8a43539020f"
+        },
+        "els_server/domain/local_session.py": {
+          "source": "references/custom-feedback-whitebox-20261031-v4/source/local/els_server/domain/local_session.py",
+          "sha256": "7599e7ee54a9117134b9e8277ef4009da88529f53d16ab8c0cae350e6591f377",
+          "parent_sha256": "14a4c12de6c481e7d6ea247f995e365af750e574ddfd4604fd3b0fa7e0168ef2"
+        }
+      },
+      "recovery_storage": {
+        "source": "references/custom-feedback-whitebox-20261031-v4/recovery/els_server/storage/character_custom.py",
+        "sha256": "dfaf2f2a66a1e0ec324639c598ff4443223d77aa95c7b623b21d2798cf29aedc"
+      }
+    },
+    "online": {
+      "parent": "force-categories-sources-20261031-v4",
+      "parent_manifest_sha256": "898ec40ad008fb9ef54bde72f6d5d46677492856e40dfd97bb2060cefe0eacdd",
+      "files": {
+        "els_server/domain/character_custom.py": {
+          "source": "references/custom-feedback-whitebox-20261031-v4/source/common/els_server/domain/character_custom.py",
+          "sha256": "077fb074b50191334644ecf1bc8b1aaa01eed8ee4002a7b6257eb4be8a85aea4",
+          "parent_sha256": "30e7d38834a7d1084d6ce00ac495fcafb5bd32b2c480e738e0ad498a75d909ae"
+        },
+        "els_server/storage/character_custom.py": {
+          "source": "references/custom-feedback-whitebox-20261031-v4/source/common/els_server/storage/character_custom.py",
+          "sha256": "7469bdb79d1a70119fb495addedd5f0b5324c8e5fc396fb51ef117dae35612e8",
+          "parent_sha256": "b292fffb647b2d93fbd5e07b46e87b5fa99d40dd212c4e0eb6dcd8a43539020f"
+        },
+        "els_server/domain/local_session.py": {
+          "source": "references/custom-feedback-whitebox-20261031-v4/source/online/els_server/domain/local_session.py",
+          "sha256": "be0d3b57eef775852a7735a3b9087f02032fc483c7858bc104c89e095942d9b6",
+          "parent_sha256": "b522b7ca4dca0b90285d2dbe9979fe6e7fd0bfa788af2502156ba8d0fac10b14"
+        }
+      },
+      "recovery_storage": {
+        "source": "references/custom-feedback-whitebox-20261031-v4/recovery/els_server/storage/character_custom.py",
+        "sha256": "dfaf2f2a66a1e0ec324639c598ff4443223d77aa95c7b623b21d2798cf29aedc"
+      }
+    }
+  },
+  "native_producer": {
+    "ok": true,
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "original_functions": [
+      "221F5D0 call arguments inspected",
+      "22611D0 builder executed",
+      "C595C0 encoder executed"
+    ],
+    "rows": [
+      {
+        "book": 166596,
+        "uid": 9801000,
+        "custom_id": 54071,
+        "family": 7,
+        "payload": "0000000000958d28000000000000d33700000007000000000000000000"
+      },
+      {
+        "book": 461428,
+        "uid": 9801001,
+        "custom_id": 52092,
+        "family": 2,
+        "payload": "0000000000958d29000000000000cb7c00000002000000000000000000"
+      },
+      {
+        "book": 480416,
+        "uid": 9801002,
+        "custom_id": 51026,
+        "family": 7,
+        "payload": "0000000000958d2a000000000000c75200000007000000000000000000"
+      },
+      {
+        "book": 480141,
+        "uid": 9801003,
+        "custom_id": 54077,
+        "family": 7,
+        "payload": "0000000000958d2b000000000000d33d00000007000000000000000000"
+      },
+      {
+        "book": 470012,
+        "uid": 9801004,
+        "custom_id": 53001,
+        "family": 3,
+        "payload": "0000000000958d2c000000000000cf0900000003000000000000000000"
+      },
+      {
+        "book": 470523,
+        "uid": 9801005,
+        "custom_id": 53038,
+        "family": 3,
+        "payload": "0000000000958d2d000000000000cf2e00000003000000000000000000"
+      },
+      {
+        "book": 450004,
+        "uid": 9801006,
+        "custom_id": 51001,
+        "family": 1,
+        "payload": "0000000000958d2e000000000000c73900000001000000000000000000"
+      },
+      {
+        "book": 168119,
+        "uid": 9801007,
+        "custom_id": 1000010,
+        "family": 15,
+        "payload": "0000000000958d2f00000000000f424a0000000f000000000000000000"
+      },
+      {
+        "book": 480902,
+        "uid": 9801008,
+        "custom_id": 17001,
+        "family": 24,
+        "payload": "0000000000958d30000000000000426900000018000000000000000000"
+      }
+    ],
+    "offline_only": true,
+    "natural_GUI": false,
+    "client_changes": false
+  },
+  "natural_GUI": false
+}

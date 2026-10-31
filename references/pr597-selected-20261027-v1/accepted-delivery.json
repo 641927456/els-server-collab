@@ -1,0 +1,40 @@
+{
+  "ok": true,
+  "source_PR": 600,
+  "source_commit": "411b230a048a67caf466f264792c3c4866833937",
+  "ordinary_merge_commit": "21ddeaf79eab02ef466c3d1b87dfa152adea80cd",
+  "installed": true,
+  "client_changes": 0,
+  "new_hooks": 0,
+  "new_tables": 0,
+  "install_DDL": 0,
+  "player_database_restore": false,
+  "qualification": "references/pr597-selected-20261027-v1/qualified-validation.json",
+  "channels": {
+    "online": {
+      "release": "server-pr597-selected-20261027-v1",
+      "manifest_sha256": "46b205e6eec66cbd467ccfa66fc2ea70c3b8690e9083dd7682efd26bf7cfe7e8",
+      "business_files": 1248,
+      "source_files": 1027,
+      "locked_resources": 209,
+      "delta_files": 5,
+      "unchanged_parent_files": 1243,
+      "observation_seconds": 122.44446339999558
+    },
+    "local": {
+      "release": "local-server-pr597-selected-20261027-v1",
+      "manifest_sha256": "0252eb9ae7522a8158c8c467ddaf0c9a30e5916366e17e9ea0ed4772a90ba8be",
+      "business_files": 1273,
+      "source_files": 1028,
+      "locked_resources": 209,
+      "delta_files": 5,
+      "unchanged_parent_files": 1268,
+      "observation_seconds": 122.33456859993748,
+      "runtime_files": 1726
+    }
+  },
+  "independent_verification_sha256": "9f3f657829ab85065ecf8165a305554a6c6cb8256cb82e35b48463df76322547",
+  "public_first_cold_reads": 2,
+  "public_auxiliary_requests": 256,
+  "owned_accounts_cleaned": true
+}

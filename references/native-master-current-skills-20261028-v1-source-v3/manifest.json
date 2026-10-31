@@ -1,0 +1,92 @@
+{
+  "issue": 607,
+  "existing_leaves_per_channel": 5,
+  "new_runtime_modules": 0,
+  "new_tables": 0,
+  "install_DDL": 0,
+  "client_files": 0,
+  "new_hooks": 0,
+  "mutations": [
+    {
+      "channel": "online",
+      "path": "els_server/protocol/career_messages.py",
+      "mutations": 1,
+      "before_sha256": "aa09143bf54be07071230aa5fd71de77e4d8c8da9d464d1171945ce55051ed02",
+      "after_sha256": "040e70d4b96d85a1bf296c4a09dafe1f15dd11e89be75e4d6c4a733ed371ab83",
+      "new_client_file": false
+    },
+    {
+      "channel": "online",
+      "path": "els_server/domain/local_session.py",
+      "mutations": 2,
+      "before_sha256": "c85a66e34d513554cbd859048b4213f44b1fddff40668fa454e66c16a5a17e55",
+      "after_sha256": "d714ab4299b08b835efc00bd3772fddbfca082ab43b92e181b87ba6d0a9763a3",
+      "new_client_file": false
+    },
+    {
+      "channel": "online",
+      "path": "els_server/storage/career_shop.py",
+      "mutations": 2,
+      "before_sha256": "24c717d620639d96715fc2cdb08b2dcf4540d1e1d7dafbe5d0ae66c0cc2c61b5",
+      "after_sha256": "af45781351c93050b06854cd1ded82cfc4f38315c76989a9e4a75a3b257c5256",
+      "new_client_file": false
+    },
+    {
+      "channel": "online",
+      "path": "els_server/storage/careers.py",
+      "mutations": 3,
+      "before_sha256": "ffadc97255cc6e81ac4620f1d287d09816fa80099633fb58c45b404b21f67e87",
+      "after_sha256": "39f543740f47cec222d021fb58b0e3b36a2b834943bcdb7ba072fc07e1dd8f94",
+      "new_client_file": false
+    },
+    {
+      "channel": "online",
+      "path": "els_server/domain/quest_flow.py",
+      "mutations": 1,
+      "before_sha256": "2ac0e20de797f47424dfb0c5d61023585e28ca228a468d4f51ecefad271935b1",
+      "after_sha256": "66ea69784fea8f80224a2cab1e7c5ba90d52640acaa9173b88f9f681ab47bd5c",
+      "new_client_file": false
+    },
+    {
+      "channel": "local",
+      "path": "els_server/protocol/career_messages.py",
+      "mutations": 1,
+      "before_sha256": "aa09143bf54be07071230aa5fd71de77e4d8c8da9d464d1171945ce55051ed02",
+      "after_sha256": "040e70d4b96d85a1bf296c4a09dafe1f15dd11e89be75e4d6c4a733ed371ab83",
+      "new_client_file": false
+    },
+    {
+      "channel": "local",
+      "path": "els_server/domain/local_session.py",
+      "mutations": 2,
+      "before_sha256": "60a36f7585e4eddaa26efc3ba104f52d437b69269c68802caa9216e5660206a6",
+      "after_sha256": "1b7ff5d51ecb0c901a860e74907baaba1a4aba96aaa1eeae875c4568b824d15b",
+      "new_client_file": false
+    },
+    {
+      "channel": "local",
+      "path": "els_server/storage/career_shop.py",
+      "mutations": 2,
+      "before_sha256": "24c717d620639d96715fc2cdb08b2dcf4540d1e1d7dafbe5d0ae66c0cc2c61b5",
+      "after_sha256": "af45781351c93050b06854cd1ded82cfc4f38315c76989a9e4a75a3b257c5256",
+      "new_client_file": false
+    },
+    {
+      "channel": "local",
+      "path": "els_server/storage/careers.py",
+      "mutations": 3,
+      "before_sha256": "ffadc97255cc6e81ac4620f1d287d09816fa80099633fb58c45b404b21f67e87",
+      "after_sha256": "39f543740f47cec222d021fb58b0e3b36a2b834943bcdb7ba072fc07e1dd8f94",
+      "new_client_file": false
+    },
+    {
+      "channel": "local",
+      "path": "els_server/domain/quest_flow.py",
+      "mutations": 1,
+      "before_sha256": "2ac0e20de797f47424dfb0c5d61023585e28ca228a468d4f51ecefad271935b1",
+      "after_sha256": "66ea69784fea8f80224a2cab1e7c5ba90d52640acaa9173b88f9f681ab47bd5c",
+      "new_client_file": false
+    }
+  ],
+  "production_installed": false
+}

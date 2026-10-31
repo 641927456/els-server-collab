@@ -160,7 +160,7 @@ def change(path,owner,account_id,kind,payload,operation,*,validate=lambda:None):
             if kind==0xbee:
                 result=acknowledgement(kind,favorite_values=favorites(db,owner,account_id),favorite_mode=request[0]);validate();return result
             changes=[((i['group'],i['slot']),i)for uid in json.loads(old[4])if(i:=by_uid.get(uid))is not None]
-            result=acknowledgement(kind,registry,changes);validate();return result
+            result=acknowledgement(kind,{} if kind==0x4b1 else registry,changes);validate();return result
         if kind==0xbee:
             from els_server.domain.wardrobe import catalog
             from els_server.game_data import client_data
@@ -208,7 +208,10 @@ def change(path,owner,account_id,kind,payload,operation,*,validate=lambda:None):
         # Only appearance/binding fields can change; identity, location and stats persist.
         strip=lambda i:{k:v for k,v in i.items()if k not in ('appearance_template','wardrobe_hanger','appearance_colors')and not(k=='dye_colors'and not any(v))}
         if [strip(i)for i in after]!=[strip(i)for i in before]:raise ValueError('Wardrobe altered base inventory')
-        result=acknowledgement(kind,counts(db,owner,account_id),[((current[u]['group'],current[u]['slot']),current[u])for u in affected])
+        # 4B2 also lists every returned registry key as a newly registered hanger.
+        # Applying existing appearances changes items, not account registration.
+        registered={} if kind==0x4b1 else counts(db,owner,account_id)
+        result=acknowledgement(kind,registered,[((current[u]['group'],current[u]['slot']),current[u])for u in affected])
         db.execute('INSERT INTO wardrobe_receipts VALUES(?,?,?,?,?,?)',(operation,digest,owner,account_id,kind,json.dumps(affected)))
         validate()
         if kind==0x4af and any(current[request].get('dye_colors',())):

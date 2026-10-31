@@ -1,0 +1,90 @@
+{
+  "format": 1,
+  "issue": 615,
+  "PR": 597,
+  "original_PR_head": "d34246f37e85f1cc556e0edf71702ee600611162",
+  "accepted_main_base": "93c31fc3d85b8e36db5d4c3728d0a55d396f3f0f",
+  "original_history_preserved": true,
+  "force_push": false,
+  "original_paths_adjudicated": 54,
+  "newly_found_qualified_unadopted_business_hunks": 0,
+  "takeover_scope": [
+    "First-book transaction regression",
+    "Source-qualified door predicates and native retirement boundaries",
+    "Frozen loot source validation and coherent current-main integration"
+  ],
+  "runtime_source_delta": 0,
+  "default_profile_delta": 0,
+  "client_or_launcher_delta": 0,
+  "new_or_expanded_hooks": 0,
+  "new_schema": 0,
+  "install_DDL": 0,
+  "player_database_restore": false,
+  "natural_GUI": false,
+  "natural_gameplay": false,
+  "existing_finite_door_exceptions_preserved": [
+    {
+      "map": 30282,
+      "kind": 1,
+      "template": 156,
+      "stage_part": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "map": 30182,
+      "kind": 3,
+      "template": 145,
+      "stage_part": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "new_regression_tests": [
+    "tests/test_pr597_skill_book_regression.py",
+    "tests/test_pr597_door_regression.py",
+    "tests/test_pr597_source_contract.py"
+  ],
+  "unqualified_feature_scope_retained_separately": [
+    {
+      "scope": "Four added chip maps 35450/35460/35470/35480",
+      "gap": "Native COMMON membership identifies118638 but does not establish 25% extra-drop probability or50 guaranteed fragments; current finite policy remains four original maps.",
+      "decision": "Do not restore old policy. Requires separately established current source/rules and atomic reward QA."
+    },
+    {
+      "scope": "Quest39480 /135871 /135872",
+      "gap": "Old candidate changes repeat1 to0, type2 to0 and period1 to0, bypassing scheduling and expiry. Current availability, daily/repeat semantics and finite rewards require qualification.",
+      "decision": "Keep out of takeover runtime; no permanent-grant shortcut."
+    },
+    {
+      "scope": "Summons385/386/1621/2091",
+      "gap": "NPC class membership alone does not qualify producing skill/current state, original spawn/slot/expiry and native consumers. Old tests still rejected385.",
+      "decision": "Keep original384 policy; restore only as separate source-qualified feature."
+    },
+    {
+      "scope": "Lithia finale artificial part1",
+      "gap": "Current admitted graph only contains part0; old B7/BD/part1 experiment is not a qualified original path.",
+      "decision": "Keep existing adopted Boss-pending guard; real natural completion remains separately unverified."
+    },
+    {
+      "scope": "Attribute estimates / arbitrary HP scaling /130165 one-second cooldown",
+      "gap": "Old changes conflict with current native source separation or introduce local policy without evidence.",
+      "decision": "Retain correct current implementation; do not characterize rejected assumptions as missing repairs."
+    }
+  ],
+  "publication": "candidate; original PR review and actual deployed-source verification are separate"
+}

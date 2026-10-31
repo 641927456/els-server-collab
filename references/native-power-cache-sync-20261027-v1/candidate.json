@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "issue": 560,
+  "scope": "Human-authorized native producer896870 to original cache setter8A1400; fixed client6c6b5180, exact mapped imagec8815e00 and parent tracec837f547. Common formal startup candidate; source archive only, not an automatic deployment.",
+  "files": [
+    {
+      "path": "approved-hosts.json",
+      "sha256": "dafd2cf0dc558ffc22d7fd5f57539059a30e6a64933d0fd63c7ccd53e9663428"
+    },
+    {
+      "path": "tools/client_compatibility.py",
+      "sha256": "5443e0a7ef4bb83dcf981ccb8b4168f6a09d0ae0860eaa77ef2763a98950a958"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "sha256": "425e839e455ee07d7d6bc98553966f184d37e7b1c1d2db5a8f331b5a661142ed"
+    },
+    {
+      "path": "tools/native_cache_sync.js",
+      "sha256": "7e15a13d580d8f2fae76ef4127eeede440bbbde04a84eda1c21abe29e649253b"
+    },
+    {
+      "path": "tools/native_cache_sync.py",
+      "sha256": "0fe0ae7709773fe0a5ffc1fedc9e75dec1727f2ac30d7ea8836ff8ad50b7a11e"
+    },
+    {
+      "path": "tools/probe_updated_client.py",
+      "sha256": "82b3339b0f0a780bd118bfcc7fa63b5fbf610281a054b95ea0be4d40d3c3f649"
+    },
+    {
+      "path": "launcher-host/tools/client_compatibility.py",
+      "sha256": "861d755c4a1c212169c24a3d73797b9b62bcbcf9a9bc5f8ced99b8288f61e5e1"
+    },
+    {
+      "path": "launcher-host/tools/client_compatibility_profiles.json",
+      "sha256": "21583a7c4ed127c5a6e7839a77692eade3c22aa025197c45787080ed290cd757"
+    }
+  ],
+  "original_executable_changed": false,
+  "original_resource_archives_changed": false,
+  "new_damage_formula": false,
+  "native_qualification_complete": true,
+  "installed": true,
+  "waiting": "No outstanding cache delivery gates. Final HP/attack/defense input gap remains separately pending scope approval and qualification.",
+  "approved_host_variants": "approved-hosts.json",
+  "runtime_variants": {
+    "local_formal": {
+      "tools/native_cache_sync.py": "tools/native_cache_sync.py",
+      "tools/native_cache_sync.js": "tools/native_cache_sync.js",
+      "tools/probe_updated_client.py": "tools/probe_updated_client.py",
+      "tools/client_compatibility.py": "tools/client_compatibility.py",
+      "tools/client_compatibility_profiles.json": "tools/client_compatibility_profiles.json"
+    },
+    "signed_launcher_v38": {
+      "tools/native_cache_sync.py": "tools/native_cache_sync.py",
+      "tools/native_cache_sync.js": "tools/native_cache_sync.js",
+      "tools/probe_updated_client.py": "tools/probe_updated_client.py",
+      "tools/client_compatibility.py": "launcher-host/tools/client_compatibility.py",
+      "tools/client_compatibility_profiles.json": "launcher-host/tools/client_compatibility_profiles.json"
+    }
+  },
+  "online_server_formal_parent_must_be_checked_separately": true,
+  "qualification_status": {
+    "core": "V8",
+    "passed_families": 15,
+    "passed_controlled_careers": 195,
+    "passed_cold_Actors": 15,
+    "exact_old_native_exception_code": "0xE24C4A02",
+    "publishable": true,
+    "prior_V7_117_controlled_careers_are_separate_evidence": true,
+    "publishable_scope": "Native power cache only; formal installation still gated",
+    "installed_online_and_local": true
+  },
+  "native_core_change": "Original native exception propagation; initialize from the existing original Field/Dungeon callback; same original functions/arguments/results/setter and V7 arithmetic JS",
+  "native_core_change_whole_source_inverse_verified": true,
+  "previous_candidate_failure": {
+    "exception_stealing": true,
+    "family": 8,
+    "native_calculator_system_error": true,
+    "old_result_preserved": true
+  },
+  "previous_candidate_startup_failure": {
+    "version": "V7",
+    "family": 10,
+    "role_and_cache_calculation_not_reached": true,
+    "original_parent_without_cache_reached_role": true,
+    "independent_readonly_diagnostic_preserved": true
+  },
+  "formal_delivery_summary": "delivery-summary.json"
+}

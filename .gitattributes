@@ -3,3 +3,105 @@
 *.md text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
+
+# Frozen source bytes retain the delivered Windows line endings.
+references/formal-clock-source-20261027-v1/** whitespace=cr-at-eol
+references/formal-current-refresh-source-20261027-v1/** whitespace=cr-at-eol
+references/native-power-cache-sync-20261027-v1/** whitespace=cr-at-eol
+references/native-server-attributes-20261027-v1/passive-stat-rules.json whitespace=cr-at-eol
+references/native-server-attributes-20261027-v1/els_server/storage/boosting_2026_force_equipment.py whitespace=cr-at-eol
+references/native-server-attributes-20261027-v1/native-skill-production-writer-binding.json whitespace=cr-at-eol
+references/native-server-attributes-20261027-v1/skill-production-component-validation.json whitespace=cr-at-eol
+references/native-server-attributes-20261027-v1/els_server/domain/owned_growth_items.py whitespace=cr-at-eol
+references/native-server-attributes-20261027-v1/els_server/storage/boosting_2026_force_extraction.py whitespace=cr-at-eol
+references/native-server-attributes-20261027-v1/els_server/data/boosting2026-force-inventory.json whitespace=cr-at-eol
+references/native-server-attributes-20261027-v1/els_server/data/published2026-bundles.json whitespace=cr-at-eol
+references/native-skill-boundary-20261028-v1/** whitespace=cr-at-eol
+references/native-server-attributes-20261027-v1/els_server/domain/ordinary_skill_pages.py whitespace=cr-at-eol
+
+# Exact formal parent evidence is source-bound, including Markdown bytes.
+references/current-obtainable-consumables-phase-20261028-v1/source/** -text whitespace=cr-at-eol
+channels/current-obtainable-consumables-phase-20261028-v1*.json whitespace=cr-at-eol
+references/current-obtainable-consumables-phase-20261028-v1/** whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof
+references/native-skill-source-runtime-20261028-v1/** whitespace=cr-at-eol
+tools/verify_current_consumables_phase_20261028.py whitespace=cr-at-eol
+
+# Imported immutable PR598 and PR606 evidence retains its original CRLF bytes.
+channels/native-modern-auto-learning-accepted-20261027-v1.json whitespace=cr-at-eol
+references/native-modern-auto-learning-20261027-v1/*.json whitespace=cr-at-eol
+references/native-server-attributes-20261027-v1/native-current-world-source-boundaries-v8.json whitespace=cr-at-eol
+references/native-server-attributes-20261027-v1/native-whole6D1-source-goldens-v3.json whitespace=cr-at-eol
+
+# Original static graph and rejected-source evidence keeps its frozen CRLF bytes.
+references/pr597-door-regression-20261028-v1/*.json whitespace=cr-at-eol
+references/pr597-door-regression-20261028-v1/rejected/manifest.json whitespace=cr-at-eol
+references/native-force-guild-flow-20261029-v1/** whitespace=cr-at-eol
+channels/native-force-guild-flow-20261029-v1.json whitespace=cr-at-eol
+launchers/friends-v41/** -text whitespace=cr-at-eol
+references/native-shop-flow-20261029-v1/** -text whitespace=cr-at-eol
+
+references/native-unit-account-identity-20261029-v1/** -text whitespace=cr-at-eol
+channels/native-unit-account-identity-20261029-v1*.json -text whitespace=cr-at-eol
+launchers/friends-v43/** -text whitespace=cr-at-eol
+# Two signed parent inputs retain original CRCRLF/EOF bytes, verified by full SHA.
+launchers/friends-v43/launch_client.py -text whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof
+launchers/friends-v43/Program.cs -text whitespace=cr-at-eol,-blank-at-eof
+
+# Immutable structural source/test evidence retains its qualified original bytes.
+references/server-structure-20261029-v1/** -text whitespace=cr-at-eol
+references/server-structure-20261029-v1/test-sources/test_dispatch_settlement_contract.py -text whitespace=cr-at-eol,-blank-at-eof
+
+# Exact corrected V44 source and signed JSON retain their qualified bytes.
+launchers/friends-v44/** -text whitespace=cr-at-eol
+
+# Exact Source31 contracts and actual signed V45 source retain their original bytes.
+channels/native-shared-repair-20261030-v1*.json -text whitespace=cr-at-eol
+channels/native-shared-repair-accepted-20261030-v1.json -text whitespace=cr-at-eol
+references/native-shared-repair-20261030-v1/** -text whitespace=cr-at-eol
+launchers/friends-v45/** -text whitespace=cr-at-eol
+# Actual signed Program.cs retains its existing trailing blank EOF line.
+launchers/friends-v45/Program.cs -text whitespace=cr-at-eol,-blank-at-eof
+
+# Exact cache/41400 source archives retain their qualified Windows bytes.
+references/cache-exact41400-selective-20261030-v1/** -text whitespace=cr-at-eol
+
+# Exact nine-leaf business archive bytes; signed activation remains separate.
+references/owned-stones-nine-leaf-selective-20261030-v1/** -text whitespace=cr-at-eol
+
+# Exact signed V48 source delta and bounded predecessor resources.
+references/accessory-launcher-20261031-v1/** -text whitespace=cr-at-eol
+
+references/local-repairs-20261030-v1/** -text whitespace=cr-at-eol
+references/enhancement-unlock-20261030-v1/** whitespace=cr-at-eol
+references/bag-plus-expansion-20261031-v1/** whitespace=cr-at-eol
+
+# Preserve the exact qualified six business leaves and source contract.
+references/equipment-identification-conversion-20261031-v1/** -text whitespace=cr-at-eol,-blank-at-eol
+# Exact installed collection source bytes and literal unified-diff context.
+references/collection-quest-ticket-20261031-v1/** -text whitespace=cr-at-eol
+references/collection-quest-ticket-20261031-v1/patches/*.patch -text whitespace=cr-at-eol,-blank-at-eol
+
+# Exact qualified customization archive retains Windows source bytes.
+references/custom-items-all-20261031-v1/** -text whitespace=cr-at-eol
+# These two exact storage copies retain the inherited OWNED-line trailing space.
+references/custom-items-all-20261031-v1/source/common/els_server/storage/character_custom.py whitespace=cr-at-eol,-blank-at-eol
+references/custom-items-all-20261031-v1/recovery/els_server/storage/character_custom.py whitespace=cr-at-eol,-blank-at-eol
+
+# Exact qualified omitted-group fix retains original Windows source bytes.
+references/custom-items-socket-default-20261031-v2/** -text whitespace=cr-at-eol,-blank-at-eol
+
+# Exact server-only Ain qualification source and forward reader.
+references/custom-ain-server-only-20261031-v3/** -text whitespace=cr-at-eol,-blank-at-eol
+
+# Exact native-book routing fix and channel-specific Session sources.
+references/custom-feedback-whitebox-20261031-v4/** -text whitespace=cr-at-eol,-blank-at-eol
+
+references/force-categories-sources-20261031-v1/** -text whitespace=cr-at-eol
+references/force-categories-sources-20261031-v1/patches/** whitespace=cr-at-eol,-blank-at-eol
+references/force-categories-sources-20261031-v1/source/local/els_server/storage/force_rank4_schema.py whitespace=cr-at-eol,-blank-at-eof
+
+# Exact historical PR667 source archive retains its frozen bytes.
+references/dungeon-clear-observers-20261031-v1/** -text whitespace=cr-at-eol
+
+# Exact historical PR676 source archive retains its frozen bytes.
+references/dungeon-loot-source-validation-20261031-v1/** -text whitespace=cr-at-eol

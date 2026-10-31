@@ -1,0 +1,43 @@
+{
+  "parent": "channels/actual-path-projections-parent-20261027-v1.json",
+  "release": "server-periodic-deadline-fairness-20261027-v1",
+  "leaf": "els_server/periodic_scheduler.py",
+  "source": "references/periodic-deadline-fairness-20261027-v1/engine/els_server/periodic_scheduler.py",
+  "before_sha256": "c90a8c0651ab4ffa242cd110f827e19a47dfe9a34499cb34bd64030138393af6",
+  "sha256": "0495668c6020233d9454621364d710b91e6589933ec415a286746385955fc162",
+  "size": 4172,
+  "new_files": 0,
+  "new_schema": false,
+  "installation_DDL": 0,
+  "parents": {
+    "online": {
+      "release": "server-path-projections-20261027-v1",
+      "manifest_sha256": "39043cab8a8f8e44ee0064643061d627f14cd9752ffe8860e6ec4ff1c7ee6d05",
+      "sha256": "c90a8c0651ab4ffa242cd110f827e19a47dfe9a34499cb34bd64030138393af6"
+    },
+    "local": {
+      "release": "local-server-path-projections-20261027-v1",
+      "manifest_sha256": "72b0909a95e0d6e8f68e412aa01b32794dbad306ef64281e31031c395ded86be",
+      "sha256": "c90a8c0651ab4ffa242cd110f827e19a47dfe9a34499cb34bd64030138393af6"
+    }
+  },
+  "channels": {
+    "online": {
+      "els_server/periodic_scheduler.py": {
+        "before_sha256": "c90a8c0651ab4ffa242cd110f827e19a47dfe9a34499cb34bd64030138393af6",
+        "source": "references/periodic-deadline-fairness-20261027-v1/engine/els_server/periodic_scheduler.py",
+        "sha256": "0495668c6020233d9454621364d710b91e6589933ec415a286746385955fc162",
+        "size": 4172
+      }
+    },
+    "local": {
+      "els_server/periodic_scheduler.py": {
+        "before_sha256": "c90a8c0651ab4ffa242cd110f827e19a47dfe9a34499cb34bd64030138393af6",
+        "source": "references/periodic-deadline-fairness-20261027-v1/engine/els_server/periodic_scheduler.py",
+        "sha256": "0495668c6020233d9454621364d710b91e6589933ec415a286746385955fc162",
+        "size": 4172
+      }
+    }
+  },
+  "inherited_actual_PR589": "2a752a2503b96824b9f646e26e11d147fd8b614f"
+}

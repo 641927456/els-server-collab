@@ -1,0 +1,1853 @@
+{
+  "PR": 597,
+  "head": "d34246f37e85f1cc556e0edf71702ee600611162",
+  "base": "94dbc6c99b5bec3a53dc02d77de2d2af57315080",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "PR597_sha256": "52b4a9b60dd3e04000b9e003620a64f5fc107ab5275264f8d83894775ccc9a8e",
+      "original_base_sha256": "1f68627a0a87229d12719ec33b459aef21b8e769e65bbb51f6895b855936ced6",
+      "original_hunks": [],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "no-business-change",
+      "reason": "Only an end-of-line blank change; no fix to merge."
+    },
+    {
+      "path": "config/local_dungeon_flow.json",
+      "PR597_sha256": "4c2498c676c0508ac53802b8f3f03618b91b6c7ae4efa6ea1af6ad4d1a29294b",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            7
+          ],
+          "adjudication": "replace-with-finite-source-gates"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "replace-with-finite-source-gates",
+      "reason": "Generic inactive/no_drop shape also matches raid phase controllers; it releases34140 without an original retirement. Existing30282 gates stay; add only30182 stage0/1 part1 template145, exact original graph, all live hostiles required."
+    },
+    {
+      "path": "config/local_hp_curve.json",
+      "PR597_sha256": "3c69e67e8f27075b6872ddf829267c97668b1754d8fc19b503c837a47cfb85b4",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            11
+          ],
+          "adjudication": "retain-current-no-arbitrary-hp-scale"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "retain-current-no-arbitrary-hp-scale",
+      "reason": "Candidate curve is disabled, scale0.1/target1 are local design choices; applying it to modern explicitly sourced maximum also contradicts its documented estimate-only boundary. Current explicit/archive/approved M1 source priority is retained."
+    },
+    {
+      "path": "docs/DEVELOPMENT_LOG_20261027.md",
+      "PR597_sha256": "4ff2802a22c8d45bab3012b4ec2d3353302a0f16c334e4eb64f669d79e7e1593",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            191
+          ],
+          "adjudication": "reference-only"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "reference-only",
+      "reason": "Mixed worktree history; retain historical source as reference, write a precise accepted-scope report instead of presenting all as accepted."
+    },
+    {
+      "path": "docs/DEVILDOM_RAID2_CONTROLLERS_20261026.md",
+      "PR597_sha256": "b1e927693bf6259d665a6f9fb5daefca10e9e5032f008e1a7851737e64d94c58",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            101
+          ],
+          "adjudication": "reference-only"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "reference-only",
+      "reason": "Resource facts useful; revised guards now prevent premature BA/BB and require real SQL chain validation."
+    },
+    {
+      "path": "docs/DUNGEON_LOOT_SCOPE_20261026.md",
+      "PR597_sha256": "5b0deacbec72a5abc9bb8d29f33007f4b9c7247ac5121f94e7a85ce1b4b9f02f",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            135
+          ],
+          "adjudication": "reference-only"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "reference-only",
+      "reason": "Useful finite source/scope inventory, but four added maps also change guaranteed and random local rewards; no installation."
+    },
+    {
+      "path": "docs/FULL_RECOVERY_POTION_SHORTCUT_20261026.md",
+      "PR597_sha256": "0e06ed9be76129911f6eb97329ae382d71a8150f3699b97cc331ffe66f98f83e",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            28
+          ],
+          "adjudication": "reference-only"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "reference-only",
+      "reason": "Existing current supports family412; one-second cooldown is not adopted."
+    },
+    {
+      "path": "docs/LITHIA_MEMORY8_FINALE_DOOR_20261026.md",
+      "PR597_sha256": "9cc50f5bc48ebde5d99865f77ecc214cd62aabfbd3f17e341b06c5039dd78792",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            57
+          ],
+          "adjudication": "reference-only"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "reference-only",
+      "reason": "Experimental part1 conflicts with admitted graph; only boss-pending gate retained."
+    },
+    {
+      "path": "docs/LITHIA_MEMORY8_WAVE_END_20261026.md",
+      "PR597_sha256": "5af04d0f3b1b542d3252e1bf38fa56c0cd07d5c007769930535451165e4911a0",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            105
+          ],
+          "adjudication": "reference-only"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "reference-only",
+      "reason": "Do not reinstate old wave actor guesses over current source-pinned original retirement gates."
+    },
+    {
+      "path": "docs/NAKED_LEVEL_GROWTH_20261026.md",
+      "PR597_sha256": "eaf03aed4e8c12c19292c81c6e85c7e1defb9f9f11941bf71ad953c97ca0115e",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            59
+          ],
+          "adjudication": "reference-only"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "reference-only",
+      "reason": "Keep approved current base growth and current native attribute separation; no estimate injection."
+    },
+    {
+      "path": "els_server/data/dungeon_equipment_loot.json",
+      "PR597_sha256": "8fa0415a2bad6cafd741b948ddfc940b7bad565a59f1bf1d88e556bf7f719fa1",
+      "original_base_sha256": "31a5c4c5d7a677f67d01744cc76570c46ca503a9a4fa7d1b30dc3b2ef656eea5",
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            1
+          ],
+          "after": [
+            1,
+            1
+          ],
+          "adjudication": "retain-current-no-new-reward-policy"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "31a5c4c5d7a677f67d01744cc76570c46ca503a9a4fa7d1b30dc3b2ef656eea5",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "31a5c4c5d7a677f67d01744cc76570c46ca503a9a4fa7d1b30dc3b2ef656eea5",
+          "exact_PR597": false
+        }
+      },
+      "decision": "retain-current-no-new-reward-policy",
+      "reason": "35450/60/70/80 native COMMON declares118638 but not the candidate25% Boss probability or50 guaranteed fragments. Existing local policy admits exactly35340/60/90/35400. Expanding a reward policy is not merely a reader fix; do not create extra rewards. Retain current raid exclusion, authoritative coin, source matching and all newer transaction guards. Sixteen raid maps and no_drop35170 remain excluded."
+    },
+    {
+      "path": "els_server/data/local_reselection_quest.json",
+      "PR597_sha256": "13403ebc6800f36553e45e4568ccfefacdbb188bd1c518128981746bfb985654",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            237
+          ],
+          "adjudication": "retain-current-no-policy-changing-quest-admission"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "retain-current-no-policy-changing-quest-admission",
+      "reason": "39480 source has repeat/daily flags and finite-period rewards. Candidate changes repeat1->0, type2->0 and both period1->0 to bypass unsupported scheduling/expiry. Not a source-faithful fix. Keep current typed39 retained readers and native quest scope; no permanent135871/135872 grant or extra factories."
+    },
+    {
+      "path": "els_server/data/local_reselection_quest.manifest.json",
+      "PR597_sha256": "7bc2076bb806dfb1e385313fd12c816106de1b8e932adbf16005a3280478ad42",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            8
+          ],
+          "adjudication": "retain-current-no-policy-changing-quest-admission"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "retain-current-no-policy-changing-quest-admission",
+      "reason": "39480 source has repeat/daily flags and finite-period rewards. Candidate changes repeat1->0, type2->0 and both period1->0 to bypass unsupported scheduling/expiry. Not a source-faithful fix. Keep current typed39 retained readers and native quest scope; no permanent135871/135872 grant or extra factories."
+    },
+    {
+      "path": "els_server/domain/character_stats.py",
+      "PR597_sha256": "a733839d02d640e2892953891c8e036c2830f866d2354da69bfdaf3cff0f2fec",
+      "original_base_sha256": "296f7e129102acb78fa12567afb478f20998dd9e5de5db547468992145b8fa3d",
+      "original_hunks": [
+        {
+          "before": [
+            92,
+            96
+          ],
+          "after": [
+            92,
+            96
+          ],
+          "adjudication": "retain-newer-current"
+        },
+        {
+          "before": [
+            106,
+            114
+          ],
+          "after": [
+            106,
+            114
+          ],
+          "adjudication": "retain-newer-current"
+        },
+        {
+          "before": [
+            131,
+            138
+          ],
+          "after": [
+            131,
+            140
+          ],
+          "adjudication": "retain-newer-current"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "296f7e129102acb78fa12567afb478f20998dd9e5de5db547468992145b8fa3d",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "296f7e129102acb78fa12567afb478f20998dd9e5de5db547468992145b8fa3d",
+          "exact_PR597": false
+        }
+      },
+      "decision": "retain-newer-current",
+      "reason": "PR597 equipment totals as base inputs can double apply native equipment/passive math. Current naked-input contract/V40 retained; parallel authoritative106 two-vector investigation is not replaced by estimates. Do not infer both vectors have identical semantics."
+    },
+    {
+      "path": "els_server/domain/consumables.py",
+      "PR597_sha256": "f78cf8366a7cc4ff258fa0a3265e0a655598196326ba43694755360803596a9d",
+      "original_base_sha256": "94199433b6cf084997293895cc748afd62c47c8d1cffd86ef64641235a6a5db8",
+      "original_hunks": [
+        {
+          "before": [
+            32,
+            35
+          ],
+          "after": [
+            32,
+            46
+          ],
+          "adjudication": "retain-newer-current"
+        },
+        {
+          "before": [
+            63,
+            66
+          ],
+          "after": [
+            74,
+            86
+          ],
+          "adjudication": "retain-newer-current"
+        },
+        {
+          "before": [
+            78,
+            81
+          ],
+          "after": [
+            98,
+            102
+          ],
+          "adjudication": "retain-newer-current"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "8a7bdff1a1dd30f47645a49931cad91f4d71c33abeee893d6b4eeff9646e364e",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "8a7bdff1a1dd30f47645a49931cad91f4d71c33abeee893d6b4eeff9646e364e",
+          "exact_PR597": false
+        }
+      },
+      "decision": "retain-newer-current",
+      "reason": "Current extension reader already covers130165/135402 and412 family arbitration, expanded436 usable plus39 retained read-only rows and predebit serialization/infinite-item protections. Candidate adds unapproved130165 one-second cooldown and drops newer safeguards. Keep current native30-second policy; no new potion effects."
+    },
+    {
+      "path": "els_server/domain/devildom1_raid2_controllers.py",
+      "PR597_sha256": "bdd81e62cc4d7f7e87a44c62027cad3c26be104ca2e750e1b65e01d449738b59",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            120
+          ],
+          "adjudication": "repair-and-qualify"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "repair-and-qualify",
+      "reason": "Nine source/script/instance/HP-pinned static34140 markers only, exact native255 and sole current owner. Add live-hostile BA/BB guards before raid settlement dispatch. Original candidate tests allowed premature phase advance; do not use that behavior."
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+      "PR597_sha256": "29ecfd04af860a4373d92b4f258e4492cea8dc86257c8a6d8b0aaab298d5b25f",
+      "original_base_sha256": "5c88a24f14a54ee7c51b86a2a8d0d501ad62e473d7716e562d66374d167544d7",
+      "original_hunks": [
+        {
+          "before": [
+            44,
+            47
+          ],
+          "after": [
+            44,
+            59
+          ],
+          "adjudication": "retain-current-no-new-reward-policy"
+        },
+        {
+          "before": [
+            103,
+            113
+          ],
+          "after": [
+            115,
+            131
+          ],
+          "adjudication": "retain-current-no-new-reward-policy"
+        },
+        {
+          "before": [
+            175,
+            179
+          ],
+          "after": [
+            193,
+            201
+          ],
+          "adjudication": "retain-current-no-new-reward-policy"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "22d12e24b8854c6bbd62357bfdebdbcc2373c8b241540a661c3a28fb1a3f2e31",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "22d12e24b8854c6bbd62357bfdebdbcc2373c8b241540a661c3a28fb1a3f2e31",
+          "exact_PR597": false
+        }
+      },
+      "decision": "retain-current-no-new-reward-policy",
+      "reason": "35450/60/70/80 native COMMON declares118638 but not the candidate25% Boss probability or50 guaranteed fragments. Existing local policy admits exactly35340/60/90/35400. Expanding a reward policy is not merely a reader fix; do not create extra rewards. Retain current raid exclusion, authoritative coin, source matching and all newer transaction guards. Sixteen raid maps and no_drop35170 remain excluded."
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_rules.py",
+      "PR597_sha256": "be3e9c6c6999a330847d87c53da6f3374f7743d98cadb771203bfd4cb62e41ce",
+      "original_base_sha256": "6369ca0f79cfef9ba8b69c053bb2226e3973df95da55212c389937ad1061dcf1",
+      "original_hunks": [
+        {
+          "before": [
+            14,
+            19
+          ],
+          "after": [
+            14,
+            19
+          ],
+          "adjudication": "retain-current-no-new-reward-policy"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "baac9dd4bed3117537a7e0d530fd9063e2d7c7cb21561cc0e2432ab454742295",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "baac9dd4bed3117537a7e0d530fd9063e2d7c7cb21561cc0e2432ab454742295",
+          "exact_PR597": false
+        }
+      },
+      "decision": "retain-current-no-new-reward-policy",
+      "reason": "35450/60/70/80 native COMMON declares118638 but not the candidate25% Boss probability or50 guaranteed fragments. Existing local policy admits exactly35340/60/90/35400. Expanding a reward policy is not merely a reader fix; do not create extra rewards. Retain current raid exclusion, authoritative coin, source matching and all newer transaction guards. Sixteen raid maps and no_drop35170 remain excluded."
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "PR597_sha256": "6b4709e42b97b8cfc8022206190b778d0dde2b614b34a9af3b98a5f12fcd39bc",
+      "original_base_sha256": "e95beb3f082b3724dceaac07ca1d433a40ba63675d8dcee3af81dcf9c1ce70f9",
+      "original_hunks": [
+        {
+          "before": [
+            15,
+            18
+          ],
+          "after": [
+            15,
+            47
+          ],
+          "adjudication": "partial-repair-on-current"
+        },
+        {
+          "before": [
+            25,
+            28
+          ],
+          "after": [
+            54,
+            66
+          ],
+          "adjudication": "partial-repair-on-current"
+        },
+        {
+          "before": [
+            54,
+            57
+          ],
+          "after": [
+            92,
+            103
+          ],
+          "adjudication": "partial-repair-on-current"
+        },
+        {
+          "before": [
+            77,
+            80
+          ],
+          "after": [
+            123,
+            129
+          ],
+          "adjudication": "partial-repair-on-current"
+        },
+        {
+          "before": [
+            131,
+            134
+          ],
+          "after": [
+            180,
+            184
+          ],
+          "adjudication": "partial-repair-on-current"
+        },
+        {
+          "before": [
+            254,
+            260
+          ],
+          "after": [
+            304,
+            315
+          ],
+          "adjudication": "partial-repair-on-current"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "9a5255ccd4727a9af5061133109b84d4273db06df39ea8aef988fdf699bf87f6",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "9a5255ccd4727a9af5061133109b84d4273db06df39ea8aef988fdf699bf87f6",
+          "exact_PR597": false
+        }
+      },
+      "decision": "partial-repair-on-current",
+      "reason": "Keep newer current C1, EXP, raid/PVE, source retirements and SilverMirror. Add settled/failure late AD ack before expired population, finite34140 guards and retirements, and only the35320/21/22 boss-pending guard. Reject fake finale part1/B7/BD: actual graph has only part0. Keep all native task/EXP/SQL writers."
+    },
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "PR597_sha256": "1b005e6446a708f19f5e5a32471d00b3a8834c36f9ca61fbe61da792d221c5d6",
+      "original_base_sha256": "047a05a2279d84110f34dc8fcc153260ee1a5dfcf8a4b23138ce358bed9f6e2f",
+      "original_hunks": [
+        {
+          "before": [
+            177,
+            184
+          ],
+          "after": [
+            177,
+            200
+          ],
+          "adjudication": "retain-current-and-add-two-finite-doors"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "ea9d12031c63a7b85fe141252380aec2a5299dc3bc193c5c3d0dff2399ad163a",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "ea9d12031c63a7b85fe141252380aec2a5299dc3bc193c5c3d0dff2399ad163a",
+          "exact_PR597": false
+        }
+      },
+      "decision": "retain-current-and-add-two-finite-doors",
+      "reason": "Retain delivered30282 and all newer source-level/HP/raid controls; add only pinned30182 two doors. No global inactive actor bypass."
+    },
+    {
+      "path": "els_server/domain/fishing_bait_loot.py",
+      "PR597_sha256": "0a8db4d1f5e39592053662ba815296a3f78e689d49ded1d61d94864d2898ae90",
+      "original_base_sha256": "01abc62227710a964bed072ebb68086be8dfa065ca3d25e9e7c9bdf0c87a51d5",
+      "original_hunks": [
+        {
+          "before": [
+            18,
+            23
+          ],
+          "after": [
+            18,
+            27
+          ],
+          "adjudication": "first-batch-already-merged-and-delivered"
+        },
+        {
+          "before": [
+            85,
+            88
+          ],
+          "after": [
+            89,
+            101
+          ],
+          "adjudication": "first-batch-already-merged-and-delivered"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "87444c514783f0bb8798cd91fd5a3b8cf2b62e015b3296a5f680f42897467982",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "87444c514783f0bb8798cd91fd5a3b8cf2b62e015b3296a5f680f42897467982",
+          "exact_PR597": false
+        }
+      },
+      "decision": "first-batch-already-merged-and-delivered",
+      "reason": "PR600/601 actual dual parent retains safe identity getattr, owned542 release/once stamina settlement and diagnostic. Do not take broad swallowing/retry or overwrite newer modules."
+    },
+    {
+      "path": "els_server/domain/formal_npc_hp.py",
+      "PR597_sha256": "76de53bdd3522e4bd996b7787f2fc9834995239ba1e0b5ec54096771ccc17043",
+      "original_base_sha256": "9dbf363bfa6ff82303ac2f9e1b96838269b6f998dc465ebe9bfc3cd5bdfbd08b",
+      "original_hunks": [
+        {
+          "before": [
+            160,
+            163
+          ],
+          "after": [
+            160,
+            169
+          ],
+          "adjudication": "retain-current-no-arbitrary-hp-scale"
+        },
+        {
+          "before": [
+            182,
+            188
+          ],
+          "after": [
+            188,
+            199
+          ],
+          "adjudication": "retain-current-no-arbitrary-hp-scale"
+        },
+        {
+          "before": [
+            193,
+            197
+          ],
+          "after": [
+            204,
+            210
+          ],
+          "adjudication": "retain-current-no-arbitrary-hp-scale"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "9dbf363bfa6ff82303ac2f9e1b96838269b6f998dc465ebe9bfc3cd5bdfbd08b",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "9dbf363bfa6ff82303ac2f9e1b96838269b6f998dc465ebe9bfc3cd5bdfbd08b",
+          "exact_PR597": false
+        }
+      },
+      "decision": "retain-current-no-arbitrary-hp-scale",
+      "reason": "Candidate curve is disabled, scale0.1/target1 are local design choices; applying it to modern explicitly sourced maximum also contradicts its documented estimate-only boundary. Current explicit/archive/approved M1 source priority is retained."
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "PR597_sha256": "4e59da2d745df479c6a3060bb43db0a5e86f64dc7885737e76cd47432ccd380f",
+      "original_base_sha256": "ae15a7a8b0b0e5ee1fce7b2a1e3cc56e108e66e9a35cf3fbe44692d0a09b7091",
+      "original_hunks": [
+        {
+          "before": [
+            193,
+            196
+          ],
+          "after": [
+            193,
+            204
+          ],
+          "adjudication": "retain-current-no-policy-changing-quest-admission"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "2833eef2d3dd274459fd8e5497aabb778325cd15e993af25924d1f04607356cb",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "ede14bff3164dd636a36aa0e0bc3373ae4bc5280ec835e93496d915dd9f4458a",
+          "exact_PR597": false
+        }
+      },
+      "decision": "retain-current-no-policy-changing-quest-admission",
+      "reason": "39480 source has repeat/daily flags and finite-period rewards. Candidate changes repeat1->0, type2->0 and both period1->0 to bypass unsupported scheduling/expiry. Not a source-faithful fix. Keep current typed39 retained readers and native quest scope; no permanent135871/135872 grant or extra factories."
+    },
+    {
+      "path": "els_server/domain/local_dungeon_flow.py",
+      "PR597_sha256": "8e38f1ef1aba9d1b7950b7beaeebc0f6714c109ace9f7b1aa3caad01e59aae3a",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            103
+          ],
+          "adjudication": "replace-with-finite-source-gates"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "replace-with-finite-source-gates",
+      "reason": "Generic inactive/no_drop shape also matches raid phase controllers; it releases34140 without an original retirement. Existing30282 gates stay; add only30182 stage0/1 part1 template145, exact original graph, all live hostiles required."
+    },
+    {
+      "path": "els_server/domain/local_hp_curve.py",
+      "PR597_sha256": "3d1abb11d07462055679096483ecc0b4a2306c8eac564739b85252ed76abf2e5",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            133
+          ],
+          "adjudication": "retain-current-no-arbitrary-hp-scale"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "retain-current-no-arbitrary-hp-scale",
+      "reason": "Candidate curve is disabled, scale0.1/target1 are local design choices; applying it to modern explicitly sourced maximum also contradicts its documented estimate-only boundary. Current explicit/archive/approved M1 source priority is retained."
+    },
+    {
+      "path": "els_server/domain/local_reselection_quest.py",
+      "PR597_sha256": "bec978bc204a971a156237e292abf16e1656ab8304cf35febc7e9528193d4edb",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            60
+          ],
+          "adjudication": "retain-current-no-policy-changing-quest-admission"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "retain-current-no-policy-changing-quest-admission",
+      "reason": "39480 source has repeat/daily flags and finite-period rewards. Candidate changes repeat1->0, type2->0 and both period1->0 to bypass unsupported scheduling/expiry. Not a source-faithful fix. Keep current typed39 retained readers and native quest scope; no permanent135871/135872 grant or extra factories."
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "PR597_sha256": "d6e697ccc219f258725d1a6765b86019a244fd2d49f8f2cd8267d5e036e6c44a",
+      "original_base_sha256": "8599d29e6237801842b80236683642b7a4fd1364ffc2670eced78adbac3a09a7",
+      "original_hunks": [
+        {
+          "before": [
+            926,
+            930
+          ],
+          "after": [
+            926,
+            936
+          ],
+          "adjudication": "partial-repair-on-current"
+        },
+        {
+          "before": [
+            1567,
+            1571
+          ],
+          "after": [
+            1573,
+            1589
+          ],
+          "adjudication": "partial-repair-on-current"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "4301688e6beeaa68d1b2046642e08503a5859d435d3c600156411a1408799a15",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "22c33d894903b6c393fbb48c10cc8257557a400b5a335909884679b845f316be",
+          "exact_PR597": false
+        }
+      },
+      "decision": "partial-repair-on-current",
+      "reason": "Use preencoded quest event returned by original book writer. Known town225 flag1 without authority gets negative226 without phase/location mutation. Require exact envelope/flag1; malformed and unknown maps still reject. Preserve newer Noah/Lithia/committed warp gates and all unrelated session code."
+    },
+    {
+      "path": "els_server/domain/mount_flow.py",
+      "PR597_sha256": "bb2ad1bce9fff70ac941aa8340125493fb0a190d109d18f337a399179eb2b035",
+      "original_base_sha256": "641c60e06f135f6a1282d599f4cdb4d1b154baa9078a56ce1071332ac98a2e43",
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            4
+          ],
+          "after": [
+            1,
+            4
+          ],
+          "adjudication": "first-batch-already-merged-and-delivered"
+        },
+        {
+          "before": [
+            8,
+            19
+          ],
+          "after": [
+            8,
+            34
+          ],
+          "adjudication": "first-batch-already-merged-and-delivered"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "bb2ad1bce9fff70ac941aa8340125493fb0a190d109d18f337a399179eb2b035",
+          "exact_PR597": true
+        },
+        "local": {
+          "sha256": "bb2ad1bce9fff70ac941aa8340125493fb0a190d109d18f337a399179eb2b035",
+          "exact_PR597": true
+        }
+      },
+      "decision": "first-batch-already-merged-and-delivered",
+      "reason": "PR600/601 actual dual parent retains safe identity getattr, owned542 release/once stamina settlement and diagnostic. Do not take broad swallowing/retry or overwrite newer modules."
+    },
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "PR597_sha256": "a525ea9c879a6ef4acfd90a40e0954aa63e2f95c45aae9657c69fe92eac3ca7e",
+      "original_base_sha256": "5d3027f382195e674c9f06bbfbca1a1430a357b2ce4f1e9da168de1606f73bcc",
+      "original_hunks": [
+        {
+          "before": [
+            72,
+            75
+          ],
+          "after": [
+            72,
+            83
+          ],
+          "adjudication": "retain-current-no-policy-changing-quest-admission"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "58394a360d12259ede9cbc93125bb11e20981ddfecf231611e162f0e2f34dc15",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "58394a360d12259ede9cbc93125bb11e20981ddfecf231611e162f0e2f34dc15",
+          "exact_PR597": false
+        }
+      },
+      "decision": "retain-current-no-policy-changing-quest-admission",
+      "reason": "39480 source has repeat/daily flags and finite-period rewards. Candidate changes repeat1->0, type2->0 and both period1->0 to bypass unsupported scheduling/expiry. Not a source-faithful fix. Keep current typed39 retained readers and native quest scope; no permanent135871/135872 grant or extra factories."
+    },
+    {
+      "path": "els_server/domain/summons.py",
+      "PR597_sha256": "ef37d9af23ff5203fedf58c41a383a1cac25217cafc020067d2204408b552019",
+      "original_base_sha256": "811193bb964c173b1b1ed3ea973a8429460835a942b22365a23ce5f10e41e53f",
+      "original_hunks": [
+        {
+          "before": [
+            13,
+            16
+          ],
+          "after": [
+            13,
+            24
+          ],
+          "adjudication": "retain-384-until-producer-and-consumer-qualified"
+        },
+        {
+          "before": [
+            41,
+            45
+          ],
+          "after": [
+            49,
+            53
+          ],
+          "adjudication": "retain-384-until-producer-and-consumer-qualified"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "811193bb964c173b1b1ed3ea973a8429460835a942b22365a23ce5f10e41e53f",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "811193bb964c173b1b1ed3ea973a8429460835a942b22365a23ce5f10e41e53f",
+          "exact_PR597": false
+        }
+      },
+      "decision": "retain-384-until-producer-and-consumer-qualified",
+      "reason": "385/386/1621/2091 have native class0 NPC records, but template membership alone does not qualify the producing skill/current state or full native spawn and expiry. PR597 changes whitelist only and still ships a test rejecting385, with no new family native qualification. Keep current384 original DTO/ownership/slot/expiry behavior; do not claim expanded skills work."
+    },
+    {
+      "path": "els_server/protocol/dungeon_messages.py",
+      "PR597_sha256": "b485fe7f3e6427b65b92602741ab90c8f5058affdcfc0d66f62016b789b96e37",
+      "original_base_sha256": "203c188f8dd6b9298ec394cc5481ed3e32663027d832cbced34d63fd06ca9f22",
+      "original_hunks": [
+        {
+          "before": [
+            64,
+            71
+          ],
+          "after": [
+            64,
+            71
+          ],
+          "adjudication": "retain-newer-current"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "e1797afc8995c5b094414ba0bfccc4f550fa7b0cc5cd8eb27549cfa0dd3532cc",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "e1797afc8995c5b094414ba0bfccc4f550fa7b0cc5cd8eb27549cfa0dd3532cc",
+          "exact_PR597": false
+        }
+      },
+      "decision": "retain-newer-current",
+      "reason": "PR597 equipment totals as base inputs can double apply native equipment/passive math. Current naked-input contract/V40 retained; parallel authoritative106 two-vector investigation is not replaced by estimates. Do not infer both vectors have identical semantics."
+    },
+    {
+      "path": "els_server/storage/consumables.py",
+      "PR597_sha256": "47f5833cf6b6cfe765aba7cec0f15f3e81630809c64ed2a14f34cc7bb260525a",
+      "original_base_sha256": "b519ac8205057cfeca12a4c41c863cfda33102254ee4118e26fdfdfe253038a5",
+      "original_hunks": [
+        {
+          "before": [
+            6,
+            10
+          ],
+          "after": [
+            6,
+            10
+          ],
+          "adjudication": "retain-newer-current"
+        },
+        {
+          "before": [
+            53,
+            59
+          ],
+          "after": [
+            53,
+            62
+          ],
+          "adjudication": "retain-newer-current"
+        },
+        {
+          "before": [
+            81,
+            85
+          ],
+          "after": [
+            84,
+            90
+          ],
+          "adjudication": "retain-newer-current"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "7b93648a6b1d416d4b61862d63d944f368c899aca2ca6ae0302b126662165d2f",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "7b93648a6b1d416d4b61862d63d944f368c899aca2ca6ae0302b126662165d2f",
+          "exact_PR597": false
+        }
+      },
+      "decision": "retain-newer-current",
+      "reason": "Current extension reader already covers130165/135402 and412 family arbitration, expanded436 usable plus39 retained read-only rows and predebit serialization/infinite-item protections. Candidate adds unapproved130165 one-second cooldown and drops newer safeguards. Keep current native30-second policy; no new potion effects."
+    },
+    {
+      "path": "els_server/storage/mount_state.py",
+      "PR597_sha256": "2e2e82970424bdeb3ab01387f1f9f6faa259dd6f88af852dacae64a4c04c502c",
+      "original_base_sha256": "bf9b3342475c8afd2bc1bde4aa6a7e2ded26a4f144a10bb484227afa5106a55d",
+      "original_hunks": [
+        {
+          "before": [
+            65,
+            68
+          ],
+          "after": [
+            65,
+            90
+          ],
+          "adjudication": "first-batch-already-merged-and-delivered"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "2e2e82970424bdeb3ab01387f1f9f6faa259dd6f88af852dacae64a4c04c502c",
+          "exact_PR597": true
+        },
+        "local": {
+          "sha256": "2e2e82970424bdeb3ab01387f1f9f6faa259dd6f88af852dacae64a4c04c502c",
+          "exact_PR597": true
+        }
+      },
+      "decision": "first-batch-already-merged-and-delivered",
+      "reason": "PR600/601 actual dual parent retains safe identity getattr, owned542 release/once stamina settlement and diagnostic. Do not take broad swallowing/retry or overwrite newer modules."
+    },
+    {
+      "path": "els_server/storage/raid_reward_actions.py",
+      "PR597_sha256": "d600a06e37b4973747c1260339a121f2d58c94cf1ccf635b0dfc379373675132",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            130
+          ],
+          "adjudication": "already-exact-in-both-current"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "d600a06e37b4973747c1260339a121f2d58c94cf1ccf635b0dfc379373675132",
+          "exact_PR597": true
+        },
+        "local": {
+          "sha256": "d600a06e37b4973747c1260339a121f2d58c94cf1ccf635b0dfc379373675132",
+          "exact_PR597": true
+        }
+      },
+      "decision": "already-exact-in-both-current",
+      "reason": "Candidate SHA d600a06e37b4973747c1260339a121f2d58c94cf1ccf635b0dfc379373675132 already equals both actual releases. No replacement or extra settlement."
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "PR597_sha256": "090d7c8f135c516cc971114dc6b8d1a037f7cb07717b7284111af647661af104",
+      "original_base_sha256": "c405f561a39ec30b455c7654ace99daf4f9cda19ae2ef0694213b19ccab5d773",
+      "original_hunks": [
+        {
+          "before": [
+            48,
+            51
+          ],
+          "after": [
+            48,
+            82
+          ],
+          "adjudication": "replace-destructive-hiding-with-read-projection"
+        },
+        {
+          "before": [
+            140,
+            144
+          ],
+          "after": [
+            171,
+            178
+          ],
+          "adjudication": "replace-destructive-hiding-with-read-projection"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "46ee2247b4ce2d5e7bc2022d3c1b078ece90be82dcaf11c0a83417ae5df895f2",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "46ee2247b4ce2d5e7bc2022d3c1b078ece90be82dcaf11c0a83417ae5df895f2",
+          "exact_PR597": false
+        }
+      },
+      "decision": "replace-destructive-hiding-with-read-projection",
+      "reason": "Native HIDE_QUEST_SKILL controls visibility/eligibility. Filter same-owner current native skills in the original _state; preserve accepted_at/generation/objective rows, done history, account scope, current read cache and writer observability. Do not delete progress on reads."
+    },
+    {
+      "path": "els_server/storage/skill_unlocks.py",
+      "PR597_sha256": "ad657f83afc3e56970ec4b7b0d037012507e21dc85b6a0731482d61971aa9d26",
+      "original_base_sha256": "e1d476775383bfe915dfe69f589c513d22486af0f399b0518ddfad81d187e107",
+      "original_hunks": [
+        {
+          "before": [
+            32,
+            36
+          ],
+          "after": [
+            32,
+            41
+          ],
+          "adjudication": "repair-fresh-use-and-transaction-notifications"
+        },
+        {
+          "before": [
+            70,
+            80
+          ],
+          "after": [
+            75,
+            87
+          ],
+          "adjudication": "repair-fresh-use-and-transaction-notifications"
+        },
+        {
+          "before": [
+            103,
+            105
+          ],
+          "after": [
+            110,
+            117
+          ],
+          "adjudication": "repair-fresh-use-and-transaction-notifications"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "e1d476775383bfe915dfe69f589c513d22486af0f399b0518ddfad81d187e107",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "e1d476775383bfe915dfe69f589c513d22486af0f399b0518ddfad81d187e107",
+          "exact_PR597": false
+        }
+      },
+      "decision": "repair-fresh-use-and-transaction-notifications",
+      "reason": "Keep current correctly nested receipt lookup (PR597 fresh use has unbound old). Build/encode native2B on same original writer after unlock; first/replay/ED service share snapshot. Encoding failure rolls back book/ED/seal/receipt; no extra table/migration. Do not encode raw quest_state after commit."
+    },
+    {
+      "path": "els_server/transport.py",
+      "PR597_sha256": "8c893cad43a4bdfc4252bcb37aaafd142345dad791e4b9ff8fa32e427bfb7878",
+      "original_base_sha256": "8f6c08184feafaa0d272380aa9a3b57899a87228d81d4fb73c8d4c36f6d7d450",
+      "original_hunks": [
+        {
+          "before": [
+            206,
+            209
+          ],
+          "after": [
+            206,
+            212
+          ],
+          "adjudication": "first-batch-already-merged-and-delivered"
+        }
+      ],
+      "current": {
+        "online": {
+          "sha256": "6fdc4f015656bfcd6902ba28a27e9643f4fbad99e2967bc3986d01e5dde0bbe0",
+          "exact_PR597": false
+        },
+        "local": {
+          "sha256": "48e1228e03ad01db1613ef2a3c4e7e52d643fac5b96a3b12d31084dfea0262f9",
+          "exact_PR597": false
+        }
+      },
+      "decision": "first-batch-already-merged-and-delivered",
+      "reason": "PR600/601 actual dual parent retains safe identity getattr, owned542 release/once stamina settlement and diagnostic. Do not take broad swallowing/retry or overwrite newer modules."
+    },
+    {
+      "path": "tests/test_bait_30282_midboss_death.py",
+      "PR597_sha256": "bf1e37d261e9c425475ccf334660bfd9dfd537e2dbaad93f1060feb9c721c87d",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            183
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Existing first-batch tests retained with actual qualification."
+    },
+    {
+      "path": "tests/test_bait_source_local_session.py",
+      "PR597_sha256": "4b53b0d00ca6780066ff7a22eb2068821990fb80fcb3f4e00202002ecc61801f",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            75
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Existing first-batch tests retained with actual qualification."
+    },
+    {
+      "path": "tests/test_clear_bundle_ownership.py",
+      "PR597_sha256": "2c1f70a20c8e032a24ef164c0aa0b9a4dcf208fce626c08a5d1829caee8aad93",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            101
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_devildom1_raid2_controllers.py",
+      "PR597_sha256": "20259b22bf9d72d043d07e982dc316742f4eb28bff7a817985f18054eb8a50c8",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            239
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_equipment_loot_route_admission.py",
+      "PR597_sha256": "9590f63bbcea6f3e34ce5cde3811dd7ab76730d27608f20c0ee2050f062f8046",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            104
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_full_recovery_shortcut.py",
+      "PR597_sha256": "88e2496e1f2a8770b742363282d67043c24827224b7fc807cb7c30cfdea201d2",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            102
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_instance_stats.py",
+      "PR597_sha256": "866468dc3eed5ce4ff38629784792830a0da584e93e918e8dd3e5c39e3b4f0b8",
+      "original_base_sha256": "d25601a9a1a204bb03325dbe7a1de6c67a80127833cfa8e60bb27b4ec36fed64",
+      "original_hunks": [
+        {
+          "before": [
+            25,
+            29
+          ],
+          "after": [
+            25,
+            29
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        },
+        {
+          "before": [
+            32,
+            36
+          ],
+          "after": [
+            32,
+            37
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_inventory_restore_and_drops.py",
+      "PR597_sha256": "1ae1b4b318c0fc990a76e6938f409e2c1faaad9fe8875e54a4c21f00cb31efad",
+      "original_base_sha256": "1cc286e0d71adfd9700053adc536e966f72ff7932bd4bad43933d11265f750eb",
+      "original_hunks": [
+        {
+          "before": [
+            65,
+            69
+          ],
+          "after": [
+            65,
+            69
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        },
+        {
+          "before": [
+            71,
+            76
+          ],
+          "after": [
+            71,
+            77
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_lithia_memory8_finale_door.py",
+      "PR597_sha256": "9d929b45ac8a9506449322a7487130750f365c297388b8c5b47717f2be5127c1",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            72
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_loot_scope_report.py",
+      "PR597_sha256": "1890bf457730a3f78bc78c9804ce70cd03e4587691eb41ffa59cfe2af5cf6bc0",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            139
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_mount_recall.py",
+      "PR597_sha256": "2ad9ed2612d08fa7d36bb2bb627f2b5da7f972c1a1e18628fa7ee5e446db83c8",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            114
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Existing first-batch tests retained with actual qualification."
+    },
+    {
+      "path": "tests/test_naked_level_growth.py",
+      "PR597_sha256": "2128c9d06f5d9989e1e080d773bcd1ca7007832b99ae598db76710b5b513d032",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            87
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_nasod_factory_exit_gates.py",
+      "PR597_sha256": "aa0d605a6f56680433f6242d709d64f5cd9f1a11506cd3832a5f48ab08204004",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            158
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Existing first-batch tests retained with actual qualification."
+    },
+    {
+      "path": "tests/test_retained_native_hp.py",
+      "PR597_sha256": "4c7c15a48437abc534abd6888246321e7fe1fbb5d38d3ff4a8a1418f2dd6d04d",
+      "original_base_sha256": "9049ac42fa3c767e5e142e4c5d32bb51e9ec300f660e04a82dc69686d8d80215",
+      "original_hunks": [
+        {
+          "before": [
+            11,
+            14
+          ],
+          "after": [
+            11,
+            20
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        },
+        {
+          "before": [
+            72,
+            76
+          ],
+          "after": [
+            78,
+            82
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        },
+        {
+          "before": [
+            84,
+            91
+          ],
+          "after": [
+            90,
+            97
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        },
+        {
+          "before": [
+            97,
+            101
+          ],
+          "after": [
+            103,
+            107
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_seal_quests.py",
+      "PR597_sha256": "62ec9681c1499669f3c98951d8e7b695b5abdff74f094044db2b90cfb7940c6d",
+      "original_base_sha256": "56f12ee4b3436d84b44e06b9ecfe8ffa018e6f3ad1b43d7fa00d1db9611f581b",
+      "original_hunks": [
+        {
+          "before": [
+            326,
+            337
+          ],
+          "after": [
+            326,
+            349
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tests/test_settled_run_trailing_death.py",
+      "PR597_sha256": "c82e5fa908af60537b279e9dae23293f0e0407ed550798b1fd19a0cf31cbd0dc",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            126
+          ],
+          "adjudication": "adjudicated-tests-not-runtime"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "adjudicated-tests-not-runtime",
+      "reason": "Test assertions are checked against source/current semantics, not accepted as authority. New counterexamples and real SQL/TLS/native-reader tests qualify only the selected hunks; synthetic part1, new reward policies, one-second cooldown and equipment-as-base expectations are rejected."
+    },
+    {
+      "path": "tools/loot_scope_report.py",
+      "PR597_sha256": "7b8496cdb66afbbdf679622cf56a1bdbb9ae844edc201bf7f8a062e9deb38b9e",
+      "original_base_sha256": null,
+      "original_hunks": [
+        {
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            243
+          ],
+          "adjudication": "reference-only"
+        }
+      ],
+      "current": {
+        "online": {
+          "missing": true
+        },
+        "local": {
+          "missing": true
+        }
+      },
+      "decision": "reference-only",
+      "reason": "Read-only classification tool; not needed in runtime. Its new-map report does not authorize reward policy expansion."
+    }
+  ],
+  "reviewed_paths": 54,
+  "all_original_hunks_classified": true,
+  "original_PR_not_merged": true,
+  "new_client_hooks": 0,
+  "client_delta": 0,
+  "preserved_other_chat": "PR598 delivered skill_rules.py SHA559e7315871317f61502d943e1bf4913c74064724986015f0ba225e52e820e8d; source PR independently still open",
+  "remaining_candidates_installed": false
+}

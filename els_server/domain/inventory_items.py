@@ -515,6 +515,12 @@ for _t in existing_erp_potions:
  TEMPLATE_BAG_GROUPS[_t]=4
  TEMPLATE_MAX_STACKS[_t]=1  # disable ordinary split/merge; not a native stack cap
 
+from els_server.domain.weapon_growth import material_readers as _growth_material_readers
+for _r in _growth_material_readers():
+ _t=_r['template']
+ VERIFIED_TEMPLATES[_t]=_r['metadata']
+ TEMPLATE_BAG_GROUPS[_t]=_r['group'];TEMPLATE_MAX_STACKS[_t]=_r['max_stack']
+
 def validate_item(item):
  if isinstance(item,dict) and item.get('template')in range(136161,136172):
   from els_server.domain.fish_exchange_erp import _IssuedPotion,validate_issued
@@ -665,11 +671,15 @@ def item_body(item):
   pos=field['wire_offset'];raw=date_string(item['expires_at']).encode('utf-16le')
   if data[pos:pos+4]!=bytes(4):raise ValueError('Native expiry string seed changed')
   data[pos:pos+4]=struct.pack('>I',len(raw))+raw
- if item.get('option_groups'):
+ # Derive unlocks on each outgoing instance, including old saves and ACKs.
+ from els_server.domain.enhancement_unlock import options as unlock_options
+ groups=dict(item.get('option_groups',{}))
+ unlocked=unlock_options(item['template'],item.get('enhancement',0))
+ if unlocked:groups['3']=unlocked
+ if groups:
   field=next(f for f in c['fields'] if int(f['offset'],0)==0x25)
   pos=field['wire_offset']
   if data[pos:pos+136]!=struct.pack('>I',33)+bytes(132):raise ValueError('Native socket array seed changed')
-  groups=item['option_groups']
   data[pos:pos+136]=struct.pack('>I',33)+b''.join(struct.pack('>I',len(groups.get(str(n),[])))+b''.join(struct.pack('>i',v) for v in groups.get(str(n),[])) for n in range(33))
  if any(item.get('attributes',())):
   field=next(f for f in c['fields'] if int(f['offset'],0)==0xd)

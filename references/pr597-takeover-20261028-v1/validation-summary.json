@@ -1,0 +1,55 @@
+{
+  "format": 1,
+  "ok": true,
+  "scope": "Original PR597 takeover and regression-only delta on accepted main; no new installed runtime",
+  "source_CI": {
+    "ok": true,
+    "python_sources_compiled": 2699,
+    "protocol_roundtrip": true,
+    "all_prior_gates_retained": true
+  },
+  "new_portable_source_cases": {
+    "registered": 11,
+    "passed": 11,
+    "skipped": 0,
+    "old_skill_book_error_reproduced": true,
+    "old_three_raid_door_errors_reproduced": true,
+    "historical_source_rejections_verified": true
+  },
+  "new_materialized_book_transactions": {
+    "online": {
+      "cases": 3,
+      "passed": 3
+    },
+    "local": {
+      "cases": 3,
+      "passed": 3
+    },
+    "source_receipts_verified": true,
+    "asset_copies_not_links": true,
+    "only_private_temporary_databases": true
+  },
+  "door_runtime_peer_qualification": {
+    "channels": 2,
+    "new_boundary_tests_per_channel": 7,
+    "existing_native_controller_tests_per_channel": 5,
+    "passed": true,
+    "other_original_conditions_projected": 513
+  },
+  "first_harness_failures_preserved": [
+    "Source-only negative control initially imported runtime assets; isolated unchanged original function AST instead",
+    "Skill-book test initially expected55A instead of original2B; corrected fixture",
+    "Skill-book test initially expected quantity2 stacking instead of individual bookUIDs; corrected fixture",
+    "Door fixture initially omitted already accepted30182 exact exceptions; corrected fixture and added their positive/negative cases"
+  ],
+  "business_code_changed_to_make_fixtures_pass": false,
+  "old_failures_retained": true,
+  "runtime_profile_changed": false,
+  "client_or_hook_changes": 0,
+  "new_installation_required_for_same_runtime": false,
+  "full_original_PR597_gameplay_features_claimed_complete": false,
+  "natural_GUI": false,
+  "natural_gameplay": false,
+  "private_source_CI_log_sha256": "982d02fc6d2dcb5e80bf0a575f515e0a5ae0f0f51a159d9d551880592c9ec42c",
+  "private_runtime_log_sha256": "18e0314bac2f0659c1f7eb0439be4cd4fc02a83e850273d1bdb324d652bdca3e"
+}
