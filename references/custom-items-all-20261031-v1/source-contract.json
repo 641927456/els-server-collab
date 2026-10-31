@@ -1,0 +1,294 @@
+{
+  "format": 1,
+  "issue": 659,
+  "status": "qualified candidate; publication delegated, not yet accepted",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "native_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "scope": {
+    "books": 3087,
+    "counts": {
+      "1": 855,
+      "2": 373,
+      "3": 246,
+      "7": 1502,
+      "15": 40,
+      "24": 71,
+      "19": 0,
+      "20": 0
+    },
+    "free_rows": 2345,
+    "held": [
+      {
+        "book": 470442,
+        "custom_id": 121021,
+        "type": 1,
+        "reasons": [
+          "native source unit/class contradiction"
+        ]
+      },
+      {
+        "book": 470443,
+        "custom_id": 121022,
+        "type": 1,
+        "reasons": [
+          "native source unit/class contradiction"
+        ]
+      },
+      {
+        "book": 480369,
+        "custom_id": 121023,
+        "type": 1,
+        "reasons": [
+          "native source unit/class contradiction"
+        ]
+      }
+    ],
+    "sources": {
+      "G:\\els\\analysis\\appearance-config-20261021-v1\\avatar-presets\\custom-other-types-source-v1\\all-roles-source-intersection-v2.json": "54f2fb1848146f5dca912ccb23a69cf6bab7e9dc908e79bbd860c41b24fc95e3",
+      "G:\\els\\analysis\\client-feature-review-20261021-v2\\equipment-audit\\resources\\CharCustomData.lua.tables.json": "22246d5f5baa677b0fe22dc6f809727dfa9eea5d6d44a5cb33e2255de737b864"
+    }
+  },
+  "channels": {
+    "local": {
+      "parent_release": "local-collection-quest-ticket-20261031-v1",
+      "parent_manifest_sha256": "8afaa2a52890a36501412226cf435bc3fcaea678d05ce17b1538624ac1bedf02",
+      "files": {
+        "els_server/data/character_custom_permanent.json": {
+          "source": "references/custom-items-all-20261031-v1/source/common/els_server/data/character_custom_permanent.json",
+          "sha256": "a18ada72a1b41b224bf60671d5394b8d0e60fa4f82c4b27ef377c66906a83e05",
+          "parent_sha256": "9b6d90046480266d881b1e960bd28aebd99d353746f805a418389aacef06c668",
+          "size": 1873697
+        },
+        "els_server/domain/character_custom.py": {
+          "source": "references/custom-items-all-20261031-v1/source/common/els_server/domain/character_custom.py",
+          "sha256": "344a67462bc3b14dd139e8f7c9b89784c8a6207d4ac049f72cd0f03ef56c94d2",
+          "parent_sha256": "f6424155e2e9904d7aaa18b93c87ef205a922e5c264d9969f48ae4a8bcdc4968",
+          "size": 8541
+        },
+        "els_server/storage/character_custom.py": {
+          "source": "references/custom-items-all-20261031-v1/source/common/els_server/storage/character_custom.py",
+          "sha256": "02425de197ec2f5791c2ead9889574eacfef65e54cb4a3354a8418e33d8688c9",
+          "parent_sha256": "499f84476ff087c73e45ab20c9dd016095637b83ff84ade63fcda507ce30c293",
+          "size": 21904
+        },
+        "els_server/domain/local_session.py": {
+          "source": "references/custom-items-all-20261031-v1/source/local/els_server/domain/local_session.py",
+          "sha256": "14a4c12de6c481e7d6ea247f995e365af750e574ddfd4604fd3b0fa7e0168ef2",
+          "parent_sha256": "e1cc3c351e6a636f0ad48fd53f62909b7f29cf0648583ed00b22d9eca5d2e98b",
+          "size": 144984
+        },
+        "els_server/data/retained_native_consumables.json": {
+          "source": "references/custom-items-all-20261031-v1/source/common/els_server/data/retained_native_consumables.json",
+          "sha256": "db687161c4c1f89ddb2cddd37a386d9b24cece653c0b1695f47cd9d492242f2c",
+          "parent_sha256": "346c92f454ee8fd0bb939772b774227caf70b8193babb727efb73dc6fd61a9e6",
+          "size": 15414
+        },
+        "els_server/domain/retained_native_consumables.py": {
+          "source": "references/custom-items-all-20261031-v1/source/common/els_server/domain/retained_native_consumables.py",
+          "sha256": "75b5487c6a55c5057a1386c64332d5fb996fa11f212f2e0098bd27f66f8377e8",
+          "parent_sha256": "c114cf2e685cd4f66323f1851205f4161863cf1decf17ae7c3f3311abd35fbf0",
+          "size": 3632
+        },
+        "els_server/protocol/character_custom_messages.py": {
+          "source": "references/custom-items-all-20261031-v1/source/common/els_server/protocol/character_custom_messages.py",
+          "sha256": "5b7cedfbfa01f3a0c3da38bc998228759002b441003c31e0d2ac9fc4552f3c41",
+          "parent_sha256": "9ce1784e2f1d8bcf2a1767c63400963cdd726a73d223e3bbc61630d81b5aec83",
+          "size": 4614
+        },
+        "els_server/domain/session_dispatch.py": {
+          "source": "references/custom-items-all-20261031-v1/source/local/els_server/domain/session_dispatch.py",
+          "sha256": "baf8dc0106df38e3426ec9bf8003cb05b4c46a845e7ec46659117c5064dcb533",
+          "parent_sha256": "a9239107bed33dff25fdcca181976eda33eedf9a6eca3bb9bbd1ae8e2bd61f0f",
+          "size": 16898
+        }
+      },
+      "retained_acquisition_dependency_sha256": "c2374dd32ec424094b30596e8dc4bda0e77cda948ca26a5c576d04ab3584c9dd",
+      "recovery_storage": {
+        "source": "references/custom-items-all-20261031-v1/recovery/els_server/storage/character_custom.py",
+        "sha256": "3350f53c4504b72c59a66f010656fb7a6558f891dfb4d27dbe6d0edeab897e0b"
+      }
+    },
+    "online": {
+      "parent_release": "collection-quest-ticket-20261031-v1",
+      "parent_manifest_sha256": "425635639d6f7a23d30b0fc6d3b2ef03b566489869d870defd6606e523ae2786",
+      "files": {
+        "els_server/data/character_custom_permanent.json": {
+          "source": "references/custom-items-all-20261031-v1/source/common/els_server/data/character_custom_permanent.json",
+          "sha256": "a18ada72a1b41b224bf60671d5394b8d0e60fa4f82c4b27ef377c66906a83e05",
+          "parent_sha256": "9b6d90046480266d881b1e960bd28aebd99d353746f805a418389aacef06c668",
+          "size": 1873697
+        },
+        "els_server/domain/character_custom.py": {
+          "source": "references/custom-items-all-20261031-v1/source/common/els_server/domain/character_custom.py",
+          "sha256": "344a67462bc3b14dd139e8f7c9b89784c8a6207d4ac049f72cd0f03ef56c94d2",
+          "parent_sha256": "f6424155e2e9904d7aaa18b93c87ef205a922e5c264d9969f48ae4a8bcdc4968",
+          "size": 8541
+        },
+        "els_server/storage/character_custom.py": {
+          "source": "references/custom-items-all-20261031-v1/source/common/els_server/storage/character_custom.py",
+          "sha256": "02425de197ec2f5791c2ead9889574eacfef65e54cb4a3354a8418e33d8688c9",
+          "parent_sha256": "499f84476ff087c73e45ab20c9dd016095637b83ff84ade63fcda507ce30c293",
+          "size": 21904
+        },
+        "els_server/domain/local_session.py": {
+          "source": "references/custom-items-all-20261031-v1/source/online/els_server/domain/local_session.py",
+          "sha256": "b522b7ca4dca0b90285d2dbe9979fe6e7fd0bfa788af2502156ba8d0fac10b14",
+          "parent_sha256": "6548b56208f1ff9573da236ef3f337acb3fa5de4115b7a54338297e7e542603c",
+          "size": 146982
+        },
+        "els_server/data/retained_native_consumables.json": {
+          "source": "references/custom-items-all-20261031-v1/source/common/els_server/data/retained_native_consumables.json",
+          "sha256": "db687161c4c1f89ddb2cddd37a386d9b24cece653c0b1695f47cd9d492242f2c",
+          "parent_sha256": "346c92f454ee8fd0bb939772b774227caf70b8193babb727efb73dc6fd61a9e6",
+          "size": 15414
+        },
+        "els_server/domain/retained_native_consumables.py": {
+          "source": "references/custom-items-all-20261031-v1/source/common/els_server/domain/retained_native_consumables.py",
+          "sha256": "75b5487c6a55c5057a1386c64332d5fb996fa11f212f2e0098bd27f66f8377e8",
+          "parent_sha256": "c114cf2e685cd4f66323f1851205f4161863cf1decf17ae7c3f3311abd35fbf0",
+          "size": 3632
+        },
+        "els_server/protocol/character_custom_messages.py": {
+          "source": "references/custom-items-all-20261031-v1/source/common/els_server/protocol/character_custom_messages.py",
+          "sha256": "5b7cedfbfa01f3a0c3da38bc998228759002b441003c31e0d2ac9fc4552f3c41",
+          "parent_sha256": "9ce1784e2f1d8bcf2a1767c63400963cdd726a73d223e3bbc61630d81b5aec83",
+          "size": 4614
+        },
+        "els_server/domain/session_dispatch.py": {
+          "source": "references/custom-items-all-20261031-v1/source/online/els_server/domain/session_dispatch.py",
+          "sha256": "697a012479b0b1888916892d7a020617fa05fc79759d56a170e44f0cc86fcb00",
+          "parent_sha256": "db61025fd534bba1e9e09d1e4165983b9a1a791807ee40076e3351125852f0f7",
+          "size": 16921
+        }
+      },
+      "retained_acquisition_dependency_sha256": "bc4b03b8a2183c4ba5efb564d72055c29397f79ba7d29e91ded5d510470c0e5b",
+      "recovery_storage": {
+        "source": "references/custom-items-all-20261031-v1/recovery/els_server/storage/character_custom.py",
+        "sha256": "3350f53c4504b72c59a66f010656fb7a6558f891dfb4d27dbe6d0edeab897e0b"
+      }
+    }
+  },
+  "validation": {
+    "online/controlled-2/result.json": {
+      "ok": true,
+      "checks": [
+        "all3087 source records and paired canonical tuples qualified",
+        "unit1 actual219, source consumption, Apply and registration replay",
+        "unit1 free source selection and cold read",
+        "unit2 actual219, source consumption, Apply and registration replay",
+        "unit2 free source selection and cold read",
+        "unit3 actual219, source consumption, Apply and registration replay",
+        "unit3 free source selection and cold read",
+        "unit4 actual219, source consumption, Apply and registration replay",
+        "unit4 free source selection and cold read",
+        "unit5 actual219, source consumption, Apply and registration replay",
+        "unit5 free source selection and cold read",
+        "unit6 actual219, source consumption, Apply and registration replay",
+        "unit6 free source selection and cold read",
+        "unit7 actual219, source consumption, Apply and registration replay",
+        "unit7 free source selection and cold read",
+        "unit8 actual219, source consumption, Apply and registration replay",
+        "unit8 free source selection and cold read",
+        "unit9 actual219, source consumption, Apply and registration replay",
+        "unit9 free source selection and cold read",
+        "unit10 actual219, source consumption, Apply and registration replay",
+        "unit10 free source selection and cold read",
+        "unit11 actual219, source consumption, Apply and registration replay",
+        "unit11 free source selection and cold read",
+        "unit12 actual219, source consumption, Apply and registration replay",
+        "unit12 free source selection and cold read",
+        "unit13 actual219, source consumption, Apply and registration replay",
+        "unit13 free source selection and cold read",
+        "unit14 actual219, source consumption, Apply and registration replay",
+        "unit14 free source selection and cold read",
+        "unit15 actual219, source consumption, Apply and registration replay",
+        "unit15 free source selection and cold read",
+        "premium first ability selected through actual219 without scroll",
+        "ability reset refuses missing scroll without mutation",
+        "reset consumes exactly one scroll",
+        "same custom in multiple slots updates ability and cold state",
+        "reset replay zero additional charge",
+        "ability encode failure rolls back SQL and scroll",
+        "ability sql failure rolls back SQL and scroll",
+        "retained scroll cannot create new sources",
+        "all9 native ability choices encode, unknown option refused",
+        "all15 cold character owned/selected maps encode"
+      ],
+      "sha256": "45c6be9c429a6c36bc4350cfdb46425adfd5bb8b36089b4e7c9c7e47e5b67ce8",
+      "scope": "owned synthetic state / offline native; no player writes"
+    },
+    "local/controlled-final/result.json": {
+      "ok": true,
+      "checks": [
+        "four screenshot Eve books actual App219 and4CB success",
+        "awakening first chosen ability and Apply through actual App",
+        "non-native ability header refused without mutation",
+        "ability outside town refused without mutation",
+        "paired second-row failure rolls back first ownership and book",
+        "Lu/Ciel paired books grant both sides once and both variants Apply",
+        "wrong-role screenshot book returns native285",
+        "basic cutin first ability requires scroll",
+        "basic cutin consumes one existing scroll, applies and cold-restores ability",
+        "LOCAL final composition cold read encodes owned and all selected state"
+      ],
+      "sha256": "7d0fe39ffb06a12a2c02b061c9f85fb5d7f53c86b4d19b6f48cbfb6ee4dfde3e",
+      "scope": "owned synthetic state / offline native; no player writes"
+    },
+    "online/final-focused-result.json": {
+      "ok": true,
+      "checks": [
+        "rebased online actual App consumes one scroll from original native-paid219",
+        "rebased online normal registration and full cold read pass",
+        "native unit/class contradictory book returns readable285 with book and SQL unchanged"
+      ],
+      "sha256": "b3bb2aa7927a4084dc6f914bc20e36214a65bf866c1580dc6e8336762bd505ee",
+      "scope": "owned synthetic state / offline native; no player writes"
+    },
+    "native-result.json": {
+      "ok": true,
+      "checks": [
+        "originalC595C0 produces exact29-byte socket219 including zero-UID free path and native performer0",
+        "original4CD consumerBB7F30 updates existing ability through11F2B10 without duplicate ownership",
+        "all15 actual cold2A and all saved Apply slots accepted by originalDA3370/2BDF5D0/125F700, including Lu variants and nonzero abilities"
+      ],
+      "sha256": "ae67987019ece3830ffb49c7a096a53f9bc5941197e60d8c828cf5194d43fe19",
+      "scope": "owned synthetic state / offline native; no player writes"
+    },
+    "recovery-result.json": {
+      "ok": true,
+      "checks": [
+        "register paused, SQL unchanged",
+        "Apply paused, SQL unchanged",
+        "ability paused, SQL unchanged",
+        "committed ability receipt replays current state without another charge",
+        "all new owned IDs, variants and nonzero abilities remain cold-readable"
+      ],
+      "sha256": "d21ba48af69eaea113832018b6c7e8262d7ac1122c9ba4ce75d22e85f526fdfd",
+      "scope": "owned synthetic state / offline native; no player writes"
+    }
+  },
+  "schema": {
+    "additive_lazy_tables": [
+      "character_custom_permanent_extra_selection",
+      "character_custom_permanent_abilities"
+    ],
+    "legacy_tables_preserved": true,
+    "eager_DDL": false
+  },
+  "recovery": "Keep all new readers/protocol/catalog. Only new registrations, Apply and ability writes pause; durable receipts and cold reads remain supported. Do not restore a pre-change reader over new saved IDs or restore player/account databases.",
+  "not_verified": [
+    "natural mouse GUI and rendering",
+    "multiplayer two-seater interactions",
+    "combat damage and full stat totals",
+    "timed aliases or new retail acquisition"
+  ],
+  "official_sources": [
+    "https://elsword.nexon.com/Info/Guide/View?n4ArticleSN=23",
+    "https://elsword.nexon.game.naver.com/News/Notice/View?n4ArticleSN=122083&n4PageNo=485",
+    "https://elsword.koggames.com/2022/07/july-6th-patch-notes/"
+  ],
+  "reused_v1": {
+    "package_sha256": "b5fae1e4f7de9f2edae7ad655c353a3b04de1b2a88d7e44af3632acb557c9884",
+    "scope": "six retained inventory shapes and acquisition denial, native refusal messages, registration lock/duplicate/encode/SQL rollback; expanded paths revalidated separately"
+  }
+}

@@ -80,3 +80,18 @@ references/equipment-identification-conversion-20261031-v1/** -text whitespace=c
 # Exact installed collection source bytes and literal unified-diff context.
 references/collection-quest-ticket-20261031-v1/** -text whitespace=cr-at-eol
 references/collection-quest-ticket-20261031-v1/patches/*.patch -text whitespace=cr-at-eol,-blank-at-eol
+
+# Exact qualified customization archive retains Windows source bytes.
+references/custom-items-all-20261031-v1/** -text whitespace=cr-at-eol
+# These two exact storage copies retain the inherited OWNED-line trailing space.
+references/custom-items-all-20261031-v1/source/common/els_server/storage/character_custom.py whitespace=cr-at-eol,-blank-at-eol
+references/custom-items-all-20261031-v1/recovery/els_server/storage/character_custom.py whitespace=cr-at-eol,-blank-at-eol
+
+# Exact qualified omitted-group fix retains original Windows source bytes.
+references/custom-items-socket-default-20261031-v2/** -text whitespace=cr-at-eol,-blank-at-eol
+
+# Exact server-only Ain qualification source and forward reader.
+references/custom-ain-server-only-20261031-v3/** -text whitespace=cr-at-eol,-blank-at-eol
+
+# Exact native-book routing fix and channel-specific Session sources.
+references/custom-feedback-whitebox-20261031-v4/** -text whitespace=cr-at-eol,-blank-at-eol

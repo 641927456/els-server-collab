@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "issue": 659,
+  "supersedes_default_socket_handling": "references/custom-items-all-20261031-v1/source-contract.json",
+  "problem": "59 ordinary paid skill cutins omit ALLOW_SOCKET_OPTION_GROUP; native missing value is group0, never a free initial group1 assignment",
+  "channels": {
+    "local": {
+      "parent": "local-custom-items-all-20261031-v1",
+      "parent_manifest_sha256": "be11716ba091e616c2d5fd9da15989af6279858930e9a8575cf962fd417a48e1",
+      "files": {
+        "els_server/domain/character_custom.py": {
+          "source": "references/custom-items-socket-default-20261031-v2/source/els_server/domain/character_custom.py",
+          "sha256": "d19e51c9073391076353b2cf3162adf51391df9a0cef3c615d3e3fff8d51f7a1",
+          "parent_sha256": "344a67462bc3b14dd139e8f7c9b89784c8a6207d4ac049f72cd0f03ef56c94d2"
+        },
+        "els_server/storage/character_custom.py": {
+          "source": "references/custom-items-socket-default-20261031-v2/source/els_server/storage/character_custom.py",
+          "sha256": "195eb12e248b8aab093969caf2ded809f7863f510885a6ba80274ae3cd025ceb",
+          "parent_sha256": "02425de197ec2f5791c2ead9889574eacfef65e54cb4a3354a8418e33d8688c9"
+        }
+      },
+      "recovery_storage": {
+        "source": "references/custom-items-socket-default-20261031-v2/recovery/els_server/storage/character_custom.py",
+        "sha256": "4556710efc2d011837b48e8bdcc60d9a1dcac1c30484c5668cc8b8c3f4a05746"
+      }
+    },
+    "online": {
+      "parent": "custom-items-all-20261031-v1",
+      "parent_manifest_sha256": "2591a300ace96b957780d535b5bf0e0cdcfbbd4e47e9635b473a0f406bd26775",
+      "files": {
+        "els_server/domain/character_custom.py": {
+          "source": "references/custom-items-socket-default-20261031-v2/source/els_server/domain/character_custom.py",
+          "sha256": "d19e51c9073391076353b2cf3162adf51391df9a0cef3c615d3e3fff8d51f7a1",
+          "parent_sha256": "344a67462bc3b14dd139e8f7c9b89784c8a6207d4ac049f72cd0f03ef56c94d2"
+        },
+        "els_server/storage/character_custom.py": {
+          "source": "references/custom-items-socket-default-20261031-v2/source/els_server/storage/character_custom.py",
+          "sha256": "195eb12e248b8aab093969caf2ded809f7863f510885a6ba80274ae3cd025ceb",
+          "parent_sha256": "02425de197ec2f5791c2ead9889574eacfef65e54cb4a3354a8418e33d8688c9"
+        }
+      },
+      "recovery_storage": {
+        "source": "references/custom-items-socket-default-20261031-v2/recovery/els_server/storage/character_custom.py",
+        "sha256": "4556710efc2d011837b48e8bdcc60d9a1dcac1c30484c5668cc8b8c3f4a05746"
+      }
+    }
+  },
+  "validation": {
+    "ok": true,
+    "checks": [
+      "all59 omitted-group paid cutins use native group0 options",
+      "actual App first basic paid-cut ability refuses zero scroll without mutation",
+      "actual App consumes one existing scroll, applies and cold-reads omitted-group ability",
+      "explicit group1 first ability remains free"
+    ],
+    "error": null,
+    "actual_Application": true,
+    "player_writes": false
+  },
+  "schema_changes": 0,
+  "client_delta": 0,
+  "other_business": "unchanged from qualified/deployed v1"
+}
