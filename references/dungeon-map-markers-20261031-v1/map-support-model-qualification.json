@@ -1,0 +1,61 @@
+{
+  "ok": true,
+  "cases": 12,
+  "results": [
+    {
+      "id": 33232,
+      "correct_marker": true,
+      "repeated_scope_one_call": true,
+      "native_run_unchanged": true,
+      "detached": true
+    },
+    {
+      "id": 35301,
+      "correct_marker": true,
+      "repeated_scope_one_call": true,
+      "native_run_unchanged": true,
+      "detached": true
+    },
+    {
+      "name": "closed",
+      "untouched": true
+    },
+    {
+      "name": "other_map",
+      "untouched": true
+    },
+    {
+      "name": "other_room",
+      "untouched": true
+    },
+    {
+      "name": "existing_node",
+      "untouched": true
+    },
+    {
+      "name": "role_changed",
+      "stale_scope_rejected": true
+    },
+    {
+      "name": "parent_changed",
+      "stale_scope_rejected": true
+    },
+    {
+      "name": "room_changed",
+      "stale_scope_rejected": true
+    },
+    {
+      "name": "ui_closed_mid_callback",
+      "stale_scope_rejected": true
+    },
+    {
+      "name": "resource_mismatch",
+      "stopped": true
+    },
+    {
+      "name": "code_mismatch",
+      "stopped": true
+    }
+  ],
+  "scope": "Own Node process with explicit Frida/native UI shims; no actual game hook installation, renderer or screen validation."
+}
