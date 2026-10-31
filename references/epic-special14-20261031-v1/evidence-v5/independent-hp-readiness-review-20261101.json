@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "scope": "HP-readiness-affected-source-increment",
+  "ok": true,
+  "approved": true,
+  "unresolved_findings": [],
+  "source_review_passed": true,
+  "HP_DEPLOY_01_source_closed": true,
+  "actual_game_loading_verified": false,
+  "production_installed_verified": false,
+  "reviewed_at_utc": "2026-10-31T17:21:10.602181+00:00",
+  "sources": [
+    {
+      "path": "candidate/tools/pvp_hp_source.js",
+      "sha256": "ac2c528f4f1a4bd881fa62b741404d8e6b24846b4540aae11c5986d96e92e6ec",
+      "size": 3789
+    },
+    {
+      "path": "candidate/tools/probe_updated_client.py",
+      "sha256": "cf30949333122e39485a7a33fc1e0a103b89e44ad3caf7243f46108f98752835",
+      "size": 28756
+    },
+    {
+      "path": "candidate/els_server/domain/pvp_support.py",
+      "sha256": "f43b933dfd69930d62c8bc5453c14a6e19f748b99f27d51e67a5a921e91419e1",
+      "size": 3218
+    },
+    {
+      "path": "candidate/els_server/friends_bridge.py",
+      "sha256": "f6817002efecc3cd01c0e522bcd7ff12294f0ef2e8d71fb1c04c85adc10a239d",
+      "size": 16153
+    },
+    {
+      "path": "candidate/els_server/friends_relay.py",
+      "sha256": "ea3cd935d99725bc5df163da6827f14f81e96ca77973c5d9591b2c49e4fd196f",
+      "size": 14079
+    },
+    {
+      "path": "candidate/els_server/transport.py",
+      "sha256": "e243b7f4f0364db55dfe0e7bb035b180702a900fb3251e011af8235d4a9de19e",
+      "size": 19077
+    },
+    {
+      "path": "candidate/els_server/domain/pvp_actor.py",
+      "sha256": "c5a196b66bc43bb7efe967c6c187e9c84149f4a5761ffe5830978ae0ae370947",
+      "size": 4622
+    },
+    {
+      "path": "candidate/els_server/domain/friends_pvp.py",
+      "sha256": "73d2116be714cdeebf4600fe4ec475459557e84b2cde685f8a0ff984fc056e12",
+      "size": 9121
+    },
+    {
+      "path": "candidate/els_server/domain/pvp_registration.py",
+      "sha256": "edadb95a8535171be86821916967e2bb55ccbd3454c92c5ac55f7d6978e5df99",
+      "size": 10605
+    },
+    {
+      "path": "candidate/tools/pvp_hp_source.py",
+      "sha256": "8b57ee9a758ea8094d7d7154188fe90731b0af26ab9556b2f4d009acd223a3a8",
+      "size": 1303
+    },
+    {
+      "path": "candidate/tools/native_cache_sync.py",
+      "sha256": "9e295cf80ead3d561c184d4b7dc334261131ae0a6f8f22774de18a16138b97ab",
+      "size": 4662
+    }
+  ],
+  "evidence": [
+    {
+      "path": "G:\\els\\analysis\\quest-exp-native-audit-20261031-v1\\pvp-support-tls-result.json",
+      "sha256": "b6e87f93f8623fb21bed9f94e5f6796bd893fcbd55f9cc2d2f43426106a5ce14",
+      "size": 1189
+    },
+    {
+      "path": "G:\\els\\analysis\\quest-exp-native-audit-20261031-v1\\pvp-hp-abi-result.json",
+      "sha256": "d378c9b2eafc112de09240c651264bf14180b0b9843d8a97e145fa54d46b614c",
+      "size": 1076
+    },
+    {
+      "path": "G:\\els\\analysis\\quest-exp-native-audit-20261031-v1\\verify_pvp_support_tls.py",
+      "sha256": "3ff540cec8e408c8bbd23d46cffcb1d2b3b65d33167ba133a4c45eb9cc61cee8",
+      "size": 6976
+    },
+    {
+      "path": "G:\\els\\analysis\\quest-exp-native-audit-20261031-v1\\verify_pvp_hp_abi.py",
+      "sha256": "7ffcaaf98122be58ba9b58966a69b7213e8819ab1925fe1119108a2e18f768f6",
+      "size": 8249
+    },
+    {
+      "path": "G:\\els\\analysis\\quest-exp-native-audit-20261031-v1\\independent-hp-support-review-20261101.md",
+      "sha256": "907029e9f990d9385abb8c2d2ea7b379985b109e8aea6a2612185af85a48dcec",
+      "size": 4205
+    }
+  ],
+  "checks": [
+    "Authenticated relay identity supplies account ID; bounded control 7 frames enter serialized app.call and bind exact relay queue, epoch, source SHA and ready flag.",
+    "Bridge owner lifetime is checked; local status requires current probe/game births and owner->probe->game parent chain plus exact client/support identity. Missing/dead/stale status decodes unavailable.",
+    "PvP town admission checks readiness before registration SQL. Actor capture includes current relay identity/epoch/source/readiness; queue/offer continuation rechecks town admission.",
+    "ready=false disconnects queued/offered/room actors through existing policy; active/reporting uses existing leave/settle. Relay close removes its own capability and executes existing relay-loss policy before endpoint replacement.",
+    "JS disposal now emits disabled; probe publishes owned status. No missing-support rejection was added to non-PvP business entry. Existing old client lacks readiness and is refused official PvP only.",
+    "TLS source actually imports candidate modules and exercises authenticated control/native protocol plus private SQLite. Provider is explicit fixture, UDP dataplane reused. ABI uses own synthetic request/serializer fixture with native getter ABI, not natural Game."
+  ],
+  "limitations": [
+    "Final v4 aggregate freeze was not present at read time; this review binds the listed exact source bytes. Any changed listed file requires delta review.",
+    "Client readiness is an authenticated compatible-launcher capability assertion, not cryptographic remote attestation against a modified authenticated client.",
+    "Actual signed launcher upgrade and Game loading are pending ROOT execution; no tests, signing, installation or Game were run by this reviewer."
+  ],
+  "launcher_static_review": {
+    "source": {
+      "path": "G:\\els\\analysis\\quest-exp-native-audit-20261031-v1\\build_launcher_successor.py",
+      "sha256": "31d62d35dca83611258405917f0540bc281025305d35f801eb80290115b78d90",
+      "size": 24835
+    },
+    "ok": true,
+    "scope": "limited-static-composition-and-predecessor-review",
+    "findings": [],
+    "checks": [
+      "Final complete RAW manifest and business rows hashed before key use; signedLOCAL copies all non-mode RAW members and verifies every business row.",
+      "Friends applies explicit support and client dependency deltas; parent SHA and raw dependency identity checked; other family members unchanged.",
+      "New Quest cohort points at generated envelopes/bootstrap; V54 predecessors and ten transitive predecessors retained, bounded decode and exact parent descriptors.",
+      "All old source inventory copied by size/SHA; resources deep-copied then four appended; every compiler resource rehashed. Mode entry/config bytes inherited unchanged."
+    ],
+    "limitations": [
+      "No actual final contract/packages/compile/upgrade evaluated; builder intentionally retains parent extras rather than deleting arbitrary RAW-absent members.",
+      "Parent V54 source/cohort and full recovery behavior reused, not re-reviewed in this incremental pass."
+    ]
+  },
+  "HP_DEPLOY_01_closed": true,
+  "installed": false,
+  "incremental_followup": {
+    "at_utc": "2026-10-31T17:24:42.964695+00:00",
+    "source_deltas": [
+      {
+        "previous": {
+          "path": "candidate/els_server/domain/friends_pvp.py",
+          "sha256": "19f62c6678e2d701a1ac3b50eb8c868e01d6d59f8e2df5216150bf294e266f7d",
+          "size": 8923
+        },
+        "current": {
+          "path": "candidate/els_server/domain/friends_pvp.py",
+          "sha256": "73d2116be714cdeebf4600fe4ec475459557e84b2cde685f8a0ff984fc056e12",
+          "size": 9121
+        },
+        "exact_delta": "After end response encoding, prepend already committed mailbox events using response=s.mailbox.drain()+response before remove/map_loading. Two comment lines plus this statement; inverse byte SHA equals previous reviewed source."
+      }
+    ],
+    "replaced_test_evidence": [
+      {
+        "previous": {
+          "path": "G:\\els\\analysis\\quest-exp-native-audit-20261031-v1\\pvp-support-tls-result.json",
+          "sha256": "4c28c9e8ad7f7a6e4be8b9ff7976784b028bc40f503ebcdd3096ecab58280722",
+          "size": 1079
+        },
+        "current": {
+          "path": "G:\\els\\analysis\\quest-exp-native-audit-20261031-v1\\pvp-support-tls-result.json",
+          "sha256": "b6e87f93f8623fb21bed9f94e5f6796bd893fcbd55f9cc2d2f43426106a5ce14",
+          "size": 1189
+        }
+      },
+      {
+        "previous": {
+          "path": "G:\\els\\analysis\\quest-exp-native-audit-20261031-v1\\verify_pvp_support_tls.py",
+          "sha256": "04c640eed962c7ea9bbfa6fced3625b75649ff595c1aa06e2913cd469b87345f",
+          "size": 6226
+        },
+        "current": {
+          "path": "G:\\els\\analysis\\quest-exp-native-audit-20261031-v1\\verify_pvp_support_tls.py",
+          "sha256": "3ff540cec8e408c8bbd23d46cffcb1d2b3b65d33167ba133a4c45eb9cc61cee8",
+          "size": 6976
+        }
+      }
+    ],
+    "remaining_source_pins_unchanged": 10,
+    "findings": [],
+    "conclusion": "PASS: exact _finish mailbox-order fix plus added native67 round. Source-only addition delivers committed C2/quest/F3 ahead of 68/town sync without another settlement; actor is then removed and duplicate67 only acknowledges. TLS added a third round and verifies both return paths; final leave/win result count adjusted 2 to 3. No test rerun.",
+    "test_boundary": "Added TLS case explicitly waits C2 before68/D9; F3 grouping/order follows existing _settle source, not a newly isolated F3 assertion. Explicit readiness fixture remains, no natural Game claim."
+  }
+}

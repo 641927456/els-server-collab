@@ -1,0 +1,28 @@
+{
+  "event": "pvp_hp_abi_verified",
+  "ok": true,
+  "cases": [
+    "duplicate-install-keeps-one-hook",
+    "original-native-current-and-maximum-getters-append-tagged-float",
+    "original182-report-body-unchanged",
+    "serializer-outside-original-report-context-does-not-append",
+    "different-game-class-keeps-original-report",
+    "foreign-actor-unit-keeps-original-report",
+    "new-original-health-state-read-without-cached-denominator",
+    "health-mismatch-disables-support-before-extension",
+    "disabled-support-does-not-retry",
+    "explicit-dispose-releases-hooks-and-context",
+    "original-request-still-runs-after-dispose",
+    "changed-native-prologue-refused-before-install"
+  ],
+  "native_getters": [
+    "8571D0",
+    "7D8B00",
+    "7D57A0"
+  ],
+  "fixture_request_serializer_and_stream_writers": true,
+  "full_game_business": false,
+  "game_or_player_attachment": false,
+  "owned_process_only": true,
+  "support_sha256": "d9f5d96aefdd4a8f206e23a12ebe727274afce857a08c26214cef4592b23be88"
+}

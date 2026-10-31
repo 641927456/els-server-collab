@@ -1,0 +1,39 @@
+{
+  "scope": "independent minimum native HP support source and integration review",
+  "source_review_passed": true,
+  "approved_for_deployment": false,
+  "installed": false,
+  "files": [
+    {
+      "path": "candidate/tools/native_cache_sync.py",
+      "size": 4662,
+      "sha256": "9e295cf80ead3d561c184d4b7dc334261131ae0a6f8f22774de18a16138b97ab"
+    },
+    {
+      "path": "candidate/tools/pvp_hp_source.py",
+      "size": 1303,
+      "sha256": "8b57ee9a758ea8094d7d7154188fe90731b0af26ab9556b2f4d009acd223a3a8"
+    },
+    {
+      "path": "candidate/tools/pvp_hp_source.js",
+      "size": 3718,
+      "sha256": "d9f5d96aefdd4a8f206e23a12ebe727274afce857a08c26214cef4592b23be88"
+    }
+  ],
+  "source_blocking_findings": [],
+  "integration_findings": [
+    {
+      "id": "HP-DEPLOY-01",
+      "priority": 1,
+      "summary": "Approved close-new-official-admission-on-support-failure policy is not yet bound to actual support readiness; old same-build clients can enter but cannot finish timeout reports",
+      "source": "candidate/els_server/domain/pvp_registration.py:24; candidate/els_server/domain/pvp_round.py:185"
+    }
+  ],
+  "ABI_result_reused": true,
+  "natural_game_or_PvP_verified": false,
+  "signed_upgrade_actual_loading_verified": false,
+  "report": {
+    "path": "G:\\els\\analysis\\quest-exp-native-audit-20261031-v1\\independent-hp-support-review-20261101.md",
+    "sha256": "907029e9f990d9385abb8c2d2ea7b379985b109e8aea6a2612185af85a48dcec"
+  }
+}

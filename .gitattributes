@@ -105,3 +105,9 @@ references/dungeon-clear-observers-20261031-v1/** -text whitespace=cr-at-eol
 
 # Exact historical PR676 source archive retains its frozen bytes.
 references/dungeon-loot-source-validation-20261031-v1/** -text whitespace=cr-at-eol
+
+# Content-addressed quest runtime sources keep the exact qualified Windows bytes.
+references/epic-special14-20261031-v1/** -text whitespace=cr-at-eol
+# These exact qualified leaves retain their inherited SQL/source trailing spaces.
+references/epic-special14-20261031-v1/source/413dddca29432bb5d1edde9a00016fd402dcff26190338d8bfe1549ac554a70a/character_custom.py whitespace=cr-at-eol,-blank-at-eol
+references/epic-special14-20261031-v1/source/bad86270367772633a6088cf5ebcb973016f2d478c503f276c2686166e8e679f/account_fishing_tasks_scope.py whitespace=cr-at-eol,-blank-at-eol
