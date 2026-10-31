@@ -4,6 +4,10 @@
 *.yml text eol=lf
 *.yaml text eol=lf
 
+# Preserve the exact installed retained-mail source and evidence bytes.
+references/retained-mail-login-20261101-v1/** whitespace=cr-at-eol
+references/retained-mail-login-20261101-v1/repair.patch whitespace=cr-at-eol,-blank-at-eol
+
 # Frozen source bytes retain the delivered Windows line endings.
 references/formal-clock-source-20261027-v1/** whitespace=cr-at-eol
 references/formal-current-refresh-source-20261027-v1/** whitespace=cr-at-eol
