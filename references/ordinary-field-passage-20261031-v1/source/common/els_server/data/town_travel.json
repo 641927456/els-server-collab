@@ -1,0 +1,1022 @@
+{
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "towns": {
+    "20000": {
+      "requirement": {
+        "ID": 20000,
+        "BEFORE": 0,
+        "AFTER": 20001,
+        "DEFAULT": 1,
+        "REQUIRE_LEVEL": {
+          "MAX": 10,
+          "MIN": 1
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {},
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_17731"
+        }
+      },
+      "warp_start": {
+        "StartPosX": 3744.78,
+        "StartPosId": 3,
+        "StartPosZ": -1.66,
+        "StartPosY": 58.1,
+        "IsWarp": 1
+      },
+      "xyz": [
+        3744.780029296875,
+        58.099998474121094,
+        -1.659999966621399
+      ],
+      "scene": 258
+    },
+    "20001": {
+      "requirement": {
+        "ID": 20001,
+        "BEFORE": 20000,
+        "AFTER": 20002,
+        "REQUIRE_LEVEL": {
+          "MAX": 20,
+          "MIN": 6
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_17732"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -314.1,
+        "StartPosId": 26,
+        "StartPosZ": -483.65,
+        "StartPosY": 372.38,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -314.1000061035156,
+        372.3800048828125,
+        -483.6499938964844
+      ],
+      "scene": 263
+    },
+    "20002": {
+      "requirement": {
+        "ID": 20002,
+        "BEFORE": 20001,
+        "AFTER": 20003,
+        "REQUIRE_LEVEL": {
+          "MAX": 30,
+          "MIN": 15
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_17733"
+        }
+      },
+      "warp_start": {
+        "StartPosX": 3699.12,
+        "StartPosId": 46,
+        "StartPosZ": -3430.23,
+        "StartPosY": 5024.24,
+        "IsWarp": 1
+      },
+      "xyz": [
+        3699.1201171875,
+        5024.240234375,
+        -3430.22998046875
+      ],
+      "scene": 262
+    },
+    "20003": {
+      "requirement": {
+        "ID": 20003,
+        "BEFORE": 20002,
+        "AFTER": 20005,
+        "REQUIRE_LEVEL": {
+          "MAX": 40,
+          "MIN": 25
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_17734"
+        }
+      },
+      "warp_start": {
+        "StartPosX": 27986.67,
+        "StartPosId": 66,
+        "StartPosZ": -427,
+        "StartPosY": 240,
+        "IsWarp": 1
+      },
+      "xyz": [
+        27986.669921875,
+        240.0,
+        -427.0
+      ],
+      "scene": 265
+    },
+    "20005": {
+      "requirement": {
+        "ID": 20005,
+        "BEFORE": 20003,
+        "AFTER": 20004,
+        "REQUIRE_LEVEL": {
+          "MAX": 49,
+          "MIN": 35
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_23098"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -7562.446,
+        "StartPosId": 73,
+        "StartPosZ": -3705.317,
+        "StartPosY": 437.599,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -7562.44580078125,
+        437.5989990234375,
+        -3705.31689453125
+      ],
+      "scene": 268
+    },
+    "20004": {
+      "requirement": {
+        "ID": 20004,
+        "BEFORE": 20005,
+        "AFTER": 20006,
+        "REQUIRE_LEVEL": {
+          "MAX": 59,
+          "MIN": 44
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_17735"
+        }
+      },
+      "warp_start": {
+        "StartPosX": 459.2,
+        "StartPosId": 95,
+        "StartPosZ": -237,
+        "StartPosY": 259,
+        "IsWarp": 1
+      },
+      "xyz": [
+        459.20001220703125,
+        259.0,
+        -237.0
+      ],
+      "scene": 326
+    },
+    "20006": {
+      "requirement": {
+        "ID": 20006,
+        "BEFORE": 20004,
+        "AFTER": 20007,
+        "REQUIRE_LEVEL": {
+          "MAX": 69,
+          "MIN": 54
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_17736"
+        }
+      },
+      "warp_start": {
+        "StartPosX": 731.6,
+        "StartPosId": 115,
+        "StartPosZ": 88.21,
+        "StartPosY": 527.72,
+        "IsWarp": 1
+      },
+      "xyz": [
+        731.5999755859375,
+        527.719970703125,
+        88.20999908447266
+      ],
+      "scene": 417
+    },
+    "20007": {
+      "requirement": {
+        "ID": 20007,
+        "BEFORE": 20006,
+        "AFTER": 20008,
+        "REQUIRE_LEVEL": {
+          "MAX": 81,
+          "MIN": 64
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_31166"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -1592.8,
+        "StartPosId": 135,
+        "StartPosZ": -8469,
+        "StartPosY": 1000,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -1592.800048828125,
+        1000.0,
+        -8469.0
+      ],
+      "scene": 491
+    },
+    "20008": {
+      "requirement": {
+        "ID": 20008,
+        "BEFORE": 20007,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 89,
+          "MIN": 76
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_32272"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -59,
+        "StartPosId": 144,
+        "StartPosZ": -3093.42,
+        "StartPosY": 880,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -59.0,
+        880.0,
+        -3093.419921875
+      ],
+      "scene": 582
+    },
+    "20009": {
+      "requirement": {
+        "ID": 20009,
+        "BEFORE": 20008,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 99,
+          "MIN": 87
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_36661"
+        }
+      },
+      "warp_start": {
+        "StartPosX": 2.8,
+        "StartPosId": 514,
+        "StartPosZ": -1048,
+        "StartPosY": 1494,
+        "IsWarp": 1
+      },
+      "xyz": [
+        2.799999952316284,
+        1494.0,
+        -1048.0
+      ],
+      "scene": 636
+    },
+    "20010": {
+      "requirement": {
+        "ID": 20010,
+        "BEFORE": 20009,
+        "AFTER": 1010,
+        "REQUIRE_LEVEL": {
+          "MAX": 99,
+          "MIN": 99
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_45283"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -25.3,
+        "StartPosId": 600,
+        "StartPosZ": -2215,
+        "StartPosY": 1250,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -25.299999237060547,
+        1250.0,
+        -2215.0
+      ],
+      "scene": 778
+    },
+    "20011": {
+      "requirement": {
+        "ID": 20011,
+        "BEFORE": 0,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 99,
+          "MIN": 1
+        },
+        "REQUIRE_DUNGEON": {},
+        "EnableUnitType": {
+          "1": 13
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_51191"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -3635,
+        "StartPosId": 700,
+        "StartPosZ": 189,
+        "StartPosY": 1480,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -3635.0,
+        1480.0,
+        189.0
+      ],
+      "scene": 894
+    },
+    "20012": {
+      "requirement": {
+        "ID": 20012,
+        "BEFORE": 0,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 99,
+          "MIN": 1
+        },
+        "REQUIRE_DUNGEON": {},
+        "EnableUnitType": {
+          "1": 14
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_56756"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -858.6,
+        "StartPosId": 707,
+        "StartPosZ": -1924,
+        "StartPosY": 1000,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -858.5999755859375,
+        1000.0,
+        -1924.0
+      ],
+      "scene": 1004
+    },
+    "20013": {
+      "requirement": {
+        "REQUIRE_COMPLETE_QUEST_ID": 26690,
+        "ID": 20013,
+        "BEFORE": 1010,
+        "AFTER": 1011,
+        "REQUIRE_LEVEL": {
+          "MAX": 99,
+          "MIN": 99
+        },
+        "REQUIRE_DUNGEON": {},
+        "EnableUnitType": {},
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_56756"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -13.6129,
+        "StartPosId": 802,
+        "StartPosZ": -2190,
+        "StartPosY": 726.18,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -13.612899780273438,
+        726.1799926757812,
+        -2190.0
+      ],
+      "scene": 1023
+    },
+    "20014": {
+      "requirement": {
+        "ID": 20014,
+        "BEFORE": 0,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 99,
+          "MIN": 1
+        },
+        "REQUIRE_DUNGEON": {},
+        "EnableUnitType": {
+          "1": 15
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_66684"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -250,
+        "StartPosId": 900,
+        "StartPosZ": -300,
+        "StartPosY": 500,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -250.0,
+        500.0,
+        -300.0
+      ],
+      "scene": 1106
+    },
+    "1008": {
+      "requirement": {
+        "ID": 1008,
+        "BEFORE": 0,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 92,
+          "MIN": 84
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_36796"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -297.61,
+        "StartPosId": 404,
+        "StartPosZ": 3809.1,
+        "StartPosY": 1925,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -297.6099853515625,
+        1925.0,
+        3809.10009765625
+      ],
+      "scene": 637
+    },
+    "1010": {
+      "requirement": {
+        "REQUIRE_COMPLETE_QUEST_ID": 26670,
+        "ID": 1010,
+        "BEFORE": 1009,
+        "AFTER": 20013,
+        "REQUIRE_LEVEL": {
+          "MAX": 99,
+          "MIN": 99
+        },
+        "REQUIRE_DUNGEON": {},
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_45628"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -5245,
+        "StartPosId": 1701,
+        "StartPosZ": -210,
+        "StartPosY": 152,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -5245.0,
+        152.0,
+        -210.0
+      ],
+      "scene": 964
+    },
+    "1012": {
+      "requirement": {
+        "REQUIRE_COMPLETE_QUEST_ID": 27600,
+        "ID": 1012,
+        "BEFORE": 1011,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 99,
+          "MIN": 99
+        },
+        "REQUIRE_DUNGEON": {},
+        "EnableUnitType": {},
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_56756"
+        }
+      },
+      "warp_start": {
+        "StartPosX": 0,
+        "StartPosId": 1711,
+        "StartPosZ": 900,
+        "StartPosY": 8000,
+        "IsWarp": 1
+      },
+      "xyz": [
+        0.0,
+        8000.0,
+        900.0
+      ],
+      "scene": 1214
+    },
+    "1011": {
+      "requirement": {
+        "REQUIRE_COMPLETE_QUEST_ID": 27560,
+        "ID": 1011,
+        "BEFORE": 20013,
+        "AFTER": 1012,
+        "REQUIRE_LEVEL": {
+          "MAX": 99,
+          "MIN": 99
+        },
+        "REQUIRE_DUNGEON": {},
+        "EnableUnitType": {},
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_56756"
+        }
+      },
+      "warp_start": {
+        "StartPosX": 0,
+        "StartPosId": 1706,
+        "StartPosZ": -619,
+        "StartPosY": 2280,
+        "IsWarp": 1
+      },
+      "xyz": [
+        0.0,
+        2280.0,
+        -619.0
+      ],
+      "scene": 1131
+    },
+    "1001": {
+      "requirement": {
+        "ID": 1001,
+        "BEFORE": 0,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 30,
+          "MIN": 15
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_19921"
+        }
+      },
+      "warp_start": {
+        "StartPosX": 493.568,
+        "StartPosId": 316,
+        "StartPosZ": 7489.997,
+        "StartPosY": 2100,
+        "IsWarp": 1
+      },
+      "xyz": [
+        493.5679931640625,
+        2100.0,
+        7489.9970703125
+      ],
+      "scene": 497
+    },
+    "1004": {
+      "requirement": {
+        "ID": 1004,
+        "BEFORE": 0,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 59,
+          "MIN": 44
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_19924"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -9722,
+        "StartPosId": 336,
+        "StartPosZ": 1262,
+        "StartPosY": 660,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -9722.0,
+        660.0,
+        1262.0
+      ],
+      "scene": 512
+    },
+    "1005": {
+      "requirement": {
+        "ID": 1005,
+        "BEFORE": 0,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 69,
+          "MIN": 54
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_19925"
+        }
+      },
+      "warp_start": {
+        "StartPosX": 54035.949,
+        "StartPosId": 346,
+        "StartPosZ": -52.499,
+        "StartPosY": 4350,
+        "IsWarp": 1
+      },
+      "xyz": [
+        54035.94921875,
+        4350.0,
+        -52.499000549316406
+      ],
+      "scene": 517
+    },
+    "1006": {
+      "requirement": {
+        "ID": 1006,
+        "BEFORE": 0,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 81,
+          "MIN": 64
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_23093"
+        }
+      },
+      "warp_start": {
+        "StartPosX": 624,
+        "StartPosId": 356,
+        "StartPosZ": -59506,
+        "StartPosY": 22400,
+        "IsWarp": 1
+      },
+      "xyz": [
+        624.0,
+        22400.0,
+        -59506.0
+      ],
+      "scene": 534
+    },
+    "1007": {
+      "requirement": {
+        "ID": 1007,
+        "BEFORE": 0,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 89,
+          "MIN": 76
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_33882"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -412.69,
+        "StartPosId": 362,
+        "StartPosZ": -26448.16,
+        "StartPosY": 22400,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -412.69000244140625,
+        22400.0,
+        -26448.16015625
+      ],
+      "scene": 606
+    }
+  },
+  "map_groups": {
+    "20011": 1,
+    "20012": 1,
+    "20014": 1,
+    "20000": 1,
+    "40000": 1,
+    "1500": 1,
+    "20001": 2,
+    "40001": 2,
+    "40002": 2,
+    "1000": 3,
+    "20002": 4,
+    "40003": 4,
+    "40004": 4,
+    "40005": 4,
+    "1001": 5,
+    "20003": 6,
+    "40006": 6,
+    "40007": 6,
+    "40008": 6,
+    "1002": 7,
+    "20005": 8,
+    "40009": 8,
+    "40010": 8,
+    "40011": 8,
+    "20004": 9,
+    "40012": 9,
+    "40013": 9,
+    "40014": 9,
+    "40015": 9,
+    "1004": 10,
+    "20006": 11,
+    "40016": 11,
+    "40017": 11,
+    "40018": 11,
+    "40019": 11,
+    "40020": 11,
+    "40021": 11,
+    "1005": 12,
+    "20007": 13,
+    "40022": 13,
+    "40023": 13,
+    "40024": 13,
+    "40025": 13,
+    "1006": 14,
+    "20008": 15,
+    "40029": 15,
+    "40030": 15,
+    "40031": 15,
+    "40032": 15,
+    "1501": 15,
+    "1007": 16,
+    "1008": 17,
+    "40035": 17,
+    "40036": 17,
+    "20009": 18,
+    "40037": 18,
+    "20010": 19,
+    "1503": 20,
+    "1504": 20,
+    "1505": 20,
+    "1009": 20,
+    "1010": 20,
+    "20013": 21,
+    "1011": 21,
+    "1506": 21,
+    "1507": 22,
+    "1012": 22,
+    "25000": 10000,
+    "26000": 10000
+  },
+  "policy": {
+    "normal_town_only": false,
+    "special_return_and_growth_flags": false,
+    "VIP_cash_entitlement": false,
+    "admitted_pass": 118149,
+    "normal_village_and_qualified_rest_only": true
+  },
+  "inputs": [
+    {
+      "path": "G:\\els\\analysis\\dungeon-chain-20261015\\selection\\resources\\MapData.lua",
+      "sha256": "8739aa3437e5882c225e4dc9e95befe85e7ef7d831485a807bcbbf15254ee5f3"
+    },
+    {
+      "path": "G:\\els\\analysis\\x2-village-opcode14-20261017-01a14a51\\outputs\\DLG_Map_Village.tables.json",
+      "sha256": "b79f1609a7a0d673ab165cc626961779acc791cb411a64a933edf7de03d1f072"
+    },
+    {
+      "path": "G:\\els\\analysis\\player-journey-01a15328-20261019-v1\\travel-pass-v1\\current-source-evidence-freeze-v2.json",
+      "sha256": "a7b5108c4f7cf2bdcc133e810fc2e55bed916023df30c5c23eb750bc8250d810"
+    },
+    {
+      "path": "G:\\els\\analysis\\player-journey-01a15328-20261019-v1\\warp-town-v1\\fee-and-entry-source.json",
+      "sha256": "bb399cccf6406b2ac6fbf3842e185c2f0614376dc6c958ebb2b7c85cc7f93656"
+    },
+    {
+      "path": "G:\\els\\analysis\\dungeon-chain-20261015\\selection\\resources\\MapData.lua",
+      "sha256": "8739aa3437e5882c225e4dc9e95befe85e7ef7d831485a807bcbbf15254ee5f3"
+    },
+    {
+      "path": "G:\\els\\analysis\\x2-village-opcode14-20261017-01a14a51\\outputs\\DLG_Map_Village.tables.json",
+      "sha256": "b79f1609a7a0d673ab165cc626961779acc791cb411a64a933edf7de03d1f072"
+    }
+  ]
+}

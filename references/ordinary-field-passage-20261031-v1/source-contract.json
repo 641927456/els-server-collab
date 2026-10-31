@@ -1,0 +1,283 @@
+{
+  "schema": 1,
+  "status": "Installed and accepted on both runtime channels; Git source archive does not select root engines or imply a main merge",
+  "source_archive_only": true,
+  "channels": {
+    "online": {
+      "parent_release": "shop-missing-heart-pure-20261031-v1",
+      "parent_manifest_sha256": "04aacc4170d302d999b6660c4cfbdfa29daef1d659b92342762c90f973942a0f",
+      "changes": [
+        {
+          "path": "els_server/data/field_travel.json",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/data/field_travel.json",
+          "size": 57381,
+          "sha256": "9e11381d603e305779b9cbb9972ad0651d252a0f717e19e70f718957161710b9",
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/data/field_travel.manifest.json",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/data/field_travel.manifest.json",
+          "size": 1119,
+          "sha256": "86ecac411fec64184149e7359e345174a517edcf62c73429d7e9bab6d346306b",
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/field_travel.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/domain/field_travel.py",
+          "size": 7559,
+          "sha256": "f17f0ce7e2ee79b4ceecf182d41abb7c5d677a69f431aeb64518b6455a2c4aa2",
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/local_state.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/storage/local_state.py",
+          "size": 12441,
+          "sha256": "f532e2346fdd4270993c1c34ef7e9d8fce771fdd04b34869e3d59a116bdb5c3b",
+          "parent_sha256": "e5bdd9c7c9b053d06198a6732f6a7e8bcf4cac301f919f1faf92fd20f099e879"
+        },
+        {
+          "path": "els_server/data/town_travel.json",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/data/town_travel.json",
+          "size": 21577,
+          "sha256": "7c38b41ebc09d0994fb859dda21dc5e63d50ee827c496110ce32f4c4357d24a4",
+          "parent_sha256": "b3b40954b6e9767b4af88ae4ef58e7d3898e38699419ec1ff5f1939bc9e6b406"
+        },
+        {
+          "path": "els_server/data/town_travel.manifest.json",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/data/town_travel.manifest.json",
+          "size": 236,
+          "sha256": "4b802f9babad41b44bdc5405cedcb082be3cbe617acc708aff7494eaec47660a",
+          "parent_sha256": "96fd9e640bfcd11021401b57d8b1dda661f49b6bb803b573d2ac8a968484253a"
+        },
+        {
+          "path": "els_server/domain/town_travel.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/domain/town_travel.py",
+          "size": 3625,
+          "sha256": "aab9c447ff7df979edb459ab242536d8253dd41c6b63360a720499d858321075",
+          "parent_sha256": "419b6db963c581c0ced4062d031ffa498ec490616ccf95edd5bf7458169acf7d"
+        },
+        {
+          "path": "els_server/protocol/field_boss_messages.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/protocol/field_boss_messages.py",
+          "size": 3795,
+          "sha256": "1c32a18ee5846f8ef6c714ebd9e1e14d634a5af3c0ea8e84d9ce070f586c13f5",
+          "parent_sha256": "2ba40e043ec633c4eaa9a406f48265375e4fc533c6e6d16470977185d379834f"
+        },
+        {
+          "path": "els_server/domain/field_boss.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/domain/field_boss.py",
+          "size": 13965,
+          "sha256": "41ecc34db9424ef43cb6f638a6fd338211bb5fb9116ce2755f7bb57ce1d0819b",
+          "parent_sha256": "0e4323e121691427ddf44798acfbdeb4a70041ecffb3d4cb24443360c4572af8"
+        },
+        {
+          "path": "els_server/domain/friends_dungeon.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/domain/friends_dungeon.py",
+          "size": 29268,
+          "sha256": "7d8f9ddc94d65a3b50ad9c5668ca909d9bfced54d80e796f2a2aedbbd1652909",
+          "parent_sha256": "9b517c4a7538bce58f914c78cea278cac2c0ceb262434fba0c9187831a05e520"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/online/els_server/domain/local_session.py",
+          "size": 144785,
+          "sha256": "6ed0edc12b30e779ce6226ebf0490a5dec83cc344054b5705c6da48fa66b8a3b",
+          "parent_sha256": "480e5d1ccc879d035ec7b1df81d52fb1f5cb73ce44d7a4e9438f62b85e02d383"
+        },
+        {
+          "path": "els_server/application.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/online/els_server/application.py",
+          "size": 23126,
+          "sha256": "69cbeb09bb10e7109e16e19c0e1b3c60b5dd42609e17c1346e3ad354605e7d56",
+          "parent_sha256": "63cd8fbd9b31570b6f78ea4c1a10411978d5a388890f8832ecb5eeb06ab15a8a"
+        }
+      ]
+    },
+    "local": {
+      "parent_release": "local-login-reconnect-20261031-v2",
+      "parent_manifest_sha256": "1230183965f6492407875cf5dc9550a5dcb100208aa5d9e82becbab1e1afe561",
+      "changes": [
+        {
+          "path": "els_server/data/field_travel.json",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/data/field_travel.json",
+          "size": 57381,
+          "sha256": "9e11381d603e305779b9cbb9972ad0651d252a0f717e19e70f718957161710b9",
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/data/field_travel.manifest.json",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/data/field_travel.manifest.json",
+          "size": 1119,
+          "sha256": "86ecac411fec64184149e7359e345174a517edcf62c73429d7e9bab6d346306b",
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/domain/field_travel.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/domain/field_travel.py",
+          "size": 7559,
+          "sha256": "f17f0ce7e2ee79b4ceecf182d41abb7c5d677a69f431aeb64518b6455a2c4aa2",
+          "parent_sha256": null
+        },
+        {
+          "path": "els_server/storage/local_state.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/storage/local_state.py",
+          "size": 12441,
+          "sha256": "f532e2346fdd4270993c1c34ef7e9d8fce771fdd04b34869e3d59a116bdb5c3b",
+          "parent_sha256": "e5bdd9c7c9b053d06198a6732f6a7e8bcf4cac301f919f1faf92fd20f099e879"
+        },
+        {
+          "path": "els_server/data/town_travel.json",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/data/town_travel.json",
+          "size": 21577,
+          "sha256": "7c38b41ebc09d0994fb859dda21dc5e63d50ee827c496110ce32f4c4357d24a4",
+          "parent_sha256": "b3b40954b6e9767b4af88ae4ef58e7d3898e38699419ec1ff5f1939bc9e6b406"
+        },
+        {
+          "path": "els_server/data/town_travel.manifest.json",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/data/town_travel.manifest.json",
+          "size": 236,
+          "sha256": "4b802f9babad41b44bdc5405cedcb082be3cbe617acc708aff7494eaec47660a",
+          "parent_sha256": "96fd9e640bfcd11021401b57d8b1dda661f49b6bb803b573d2ac8a968484253a"
+        },
+        {
+          "path": "els_server/domain/town_travel.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/domain/town_travel.py",
+          "size": 3625,
+          "sha256": "aab9c447ff7df979edb459ab242536d8253dd41c6b63360a720499d858321075",
+          "parent_sha256": "419b6db963c581c0ced4062d031ffa498ec490616ccf95edd5bf7458169acf7d"
+        },
+        {
+          "path": "els_server/protocol/field_boss_messages.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/protocol/field_boss_messages.py",
+          "size": 3795,
+          "sha256": "1c32a18ee5846f8ef6c714ebd9e1e14d634a5af3c0ea8e84d9ce070f586c13f5",
+          "parent_sha256": "2ba40e043ec633c4eaa9a406f48265375e4fc533c6e6d16470977185d379834f"
+        },
+        {
+          "path": "els_server/domain/field_boss.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/domain/field_boss.py",
+          "size": 13965,
+          "sha256": "41ecc34db9424ef43cb6f638a6fd338211bb5fb9116ce2755f7bb57ce1d0819b",
+          "parent_sha256": "0e4323e121691427ddf44798acfbdeb4a70041ecffb3d4cb24443360c4572af8"
+        },
+        {
+          "path": "els_server/domain/friends_dungeon.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/common/els_server/domain/friends_dungeon.py",
+          "size": 29268,
+          "sha256": "7d8f9ddc94d65a3b50ad9c5668ca909d9bfced54d80e796f2a2aedbbd1652909",
+          "parent_sha256": "9b517c4a7538bce58f914c78cea278cac2c0ceb262434fba0c9187831a05e520"
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/local/els_server/domain/local_session.py",
+          "size": 143863,
+          "sha256": "15cf130bbc4c4385a7ac5174d9681fff6be55e61cc23f01ce6d98384a367faa4",
+          "parent_sha256": "3aa858fb136f359d008440bad962be8c88a68dc5e7afcee96214eaec58fba060"
+        },
+        {
+          "path": "els_server/application.py",
+          "source": "references/ordinary-field-passage-20261031-v1/source/local/els_server/application.py",
+          "size": 23797,
+          "sha256": "eba08079c2a3a2e6c2a48e86762b2023e56a52ec270b986c0b03b369ec8c110c",
+          "parent_sha256": "a933f79870d440eb534afb85e94f34b72b79c8963fc32e360a2cbc96855377e2"
+        }
+      ]
+    }
+  },
+  "validation": {
+    "baseline-reproduction-attempt2.json": {
+      "ok": true,
+      "private_evidence_sha256": "f75aeb19b84bd8a8ac53ab88bace953d910060c873f01c65853dee613a98e518"
+    },
+    "candidate-tests-online-attempt2.json": {
+      "ok": true,
+      "private_evidence_sha256": "f8e66ece869d34dc4bcda11f89f5264f3285df91e8bf730c3cd9f19158ec7747"
+    },
+    "candidate-tests-local.json": {
+      "ok": true,
+      "private_evidence_sha256": "2acc9d361dcccb5352d1bd584682674c4152bcb7467d4658c58022c7aa580dcc"
+    },
+    "local-mode-tests.json": {
+      "ok": true,
+      "private_evidence_sha256": "d623f1011e9734bf328dc657dc6ce7a31b72a9d261ac2d6725eaf9c427d539d5"
+    },
+    "followup-tests-online-next.json": {
+      "ok": true,
+      "private_evidence_sha256": "4fc9cc235587b9c5eef9486dd515c9d0c4facf3a2c6e47567d57c548cc321542"
+    },
+    "rejection-tests-online.json": {
+      "ok": true,
+      "private_evidence_sha256": "986ee6e949b812b68a1a578fb5a35883722a07569214a7f9b4af794b015c214b"
+    },
+    "rejection-tests-local.json": {
+      "ok": true,
+      "private_evidence_sha256": "f9ae449be3df17883e3e06e6f3aec58c477bb55bd91b1a5f0e09f23b919cb14a"
+    },
+    "native-readers.json": {
+      "ok": true,
+      "private_evidence_sha256": "f1a45bfb8f9761dd0f0e80159e5cd789b11d4b6c4629dda0f9e5511052cbb5b4"
+    },
+    "native-error-codes.json": {
+      "ok": true,
+      "private_evidence_sha256": "44d1cf4654f44ebe1338025c34a34d2a9be4883390e5a31ba85243847dd48581"
+    }
+  },
+  "client_changes": 0,
+  "new_schema": false,
+  "player_database_restore": false,
+  "fields": 24,
+  "portal_edges": 76,
+  "new_rest_maps": [
+    1001,
+    1004,
+    1005,
+    1006,
+    1007
+  ],
+  "passage_only": true,
+  "private_single_actor": true,
+  "field_monsters_and_rewards": false,
+  "natural_GUI": false,
+  "native_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "private_evidence_note": "Original runtime images, raw resources, databases, credentials and logs are excluded. Maintainer verifies local originals by SHA.",
+  "source_ci_note": "Archive integrity/syntax checks are portable. Actual Application/TLS/native checks require the maintainer private runtime; missing assets are not a pass.",
+  "installation": {
+    "date": "2026-10-31",
+    "channels": {
+      "online": {
+        "release": "ordinary-field-passage-20261031-v3",
+        "manifest_sha256": "5f63f226cabc34a4cb3c2a603897e1e70cf0bc0c40318c9f962321af958874c9",
+        "parent_release": "mainline-leveling-exp20-20261031-v1",
+        "parent_manifest_sha256": "322c30027c3b4f0973ef57739182c828e9f7445acb4b7687022b6d72e52a2070",
+        "observation_seconds": 125.0197570999153,
+        "business_files_verified": 1360,
+        "exact_repair_files_verified": 12,
+        "readback_sha256": "8c6ec4c79821f58b410bd9f643b1cb41c5dc1688e5680d5220f1cc17f633f28c"
+      },
+      "local": {
+        "release": "local-ordinary-field-passage-20261031-v3",
+        "manifest_sha256": "d9845963d437e418257b7712a91f3af6a3df1cc6bbb612d848bdecceaa529d9d",
+        "parent_release": "local-mainline-leveling-exp20-20261031-v1",
+        "parent_manifest_sha256": "11b50a435ca2130037d1ad7791d134bd6a2ced286ce45d0f9b23aa1aa0ccfca0",
+        "observation_seconds": 120.00043070013635,
+        "business_files_verified": 1391,
+        "exact_repair_files_verified": 12,
+        "readback_sha256": "930cd3eded681b7d82f1722a77d29c3889d0a2fcef9baaa38f2a42a96f23667f"
+      }
+    },
+    "candidate_zip_sha256": "515eb80b04dd0ba26eba4fae7ecd68dd84aceab2aeda2cbdd698e3ecdcd8b990",
+    "public_TLS_acceptance": true,
+    "own_QA_cleaned": true,
+    "launcher_selected_local": true,
+    "launcher_payload_changed": false,
+    "original_EXE_KOM_changed": false,
+    "player_database_restore": false,
+    "preserved_newer_parent_changes": [
+      "formal_pve_economy.json",
+      "formal_pve_economy.manifest.json",
+      "formal_pve_economy.py",
+      "reward_state.py"
+    ],
+    "public_acceptance_sha256": "effcb68c6adc6256c59c238281b4105d11dc4e41f7b92a6e1c0685e6894111bb"
+  }
+}
