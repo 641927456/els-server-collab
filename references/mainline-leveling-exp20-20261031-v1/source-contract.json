@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "status": "Installed and accepted on online/local; Git main merge is separate",
+  "source_archive_only": true,
+  "human_instruction": "目前这套经验值刷图会卡主线等级，帮我进行调整；帮我安装到双端然后提交到git",
+  "ordinary_full_run_multiplier": 20,
+  "channels": {
+    "online": {
+      "parent_release": "map-trigger-repair-20261031-v2",
+      "parent_manifest_sha256": "8bc688f5d76ab6b49b63d68285fecf90fd344b193794788edae26d9a627f894b",
+      "release": "mainline-leveling-exp20-20261031-v1",
+      "manifest_sha256": "322c30027c3b4f0973ef57739182c828e9f7445acb4b7687022b6d72e52a2070",
+      "changes": [
+        {
+          "path": "els_server/storage/reward_state.py",
+          "source": "references/mainline-leveling-exp20-20261031-v1/source/common/els_server/storage/reward_state.py",
+          "sha256": "2a22b4d464ddbc26d61a6bb96e689b45fafc088a2c1c6a14273cf90957617bef",
+          "size": 21060,
+          "parent_sha256": "36aed4611833bb6e94853b2f49ace88a79cb2c52640e121f5585a58939a33965"
+        },
+        {
+          "path": "els_server/domain/formal_pve_economy.py",
+          "source": "references/mainline-leveling-exp20-20261031-v1/source/common/els_server/domain/formal_pve_economy.py",
+          "sha256": "e33f13f51a33be7d3c96d13b0522bf567fb1acb9c909f47dc8e0c9dade12573e",
+          "size": 8003,
+          "parent_sha256": "d3f1ce62b59b61ab2fef348b510f1592509a41e706aa9868001f1deca95b5f5a"
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "source": "references/mainline-leveling-exp20-20261031-v1/source/common/els_server/data/formal_pve_economy.json",
+          "sha256": "b915757156899436ba3dde5c9ac3bc3ce67f4408830394b932fea02dae64cc2a",
+          "size": 285240,
+          "parent_sha256": "a735eb564942f049155a45e8c0acd6ad99bd5e3069c799ece9f0634ef5c26559"
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "source": "references/mainline-leveling-exp20-20261031-v1/source/common/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "8f381d10dd7aced0895c11e6ec1e863eac91df25f5703873cd3ea52d622c0582",
+          "size": 201,
+          "parent_sha256": "80c7f4bc9f12a6492358e436f118390bc6474550fd35876a0289a891bc6f326f"
+        }
+      ],
+      "installed": true,
+      "observation_seconds": 125.9793547000736
+    },
+    "local": {
+      "parent_release": "local-map-trigger-repair-20261031-v2",
+      "parent_manifest_sha256": "33681ba24ddebbb5c47ccb634de627a0b8882d80a9faec03bef71e37fa54ea62",
+      "release": "local-mainline-leveling-exp20-20261031-v1",
+      "manifest_sha256": "11b50a435ca2130037d1ad7791d134bd6a2ced286ce45d0f9b23aa1aa0ccfca0",
+      "changes": [
+        {
+          "path": "els_server/storage/reward_state.py",
+          "source": "references/mainline-leveling-exp20-20261031-v1/source/common/els_server/storage/reward_state.py",
+          "sha256": "2a22b4d464ddbc26d61a6bb96e689b45fafc088a2c1c6a14273cf90957617bef",
+          "size": 21060,
+          "parent_sha256": "36aed4611833bb6e94853b2f49ace88a79cb2c52640e121f5585a58939a33965"
+        },
+        {
+          "path": "els_server/domain/formal_pve_economy.py",
+          "source": "references/mainline-leveling-exp20-20261031-v1/source/common/els_server/domain/formal_pve_economy.py",
+          "sha256": "e33f13f51a33be7d3c96d13b0522bf567fb1acb9c909f47dc8e0c9dade12573e",
+          "size": 8003,
+          "parent_sha256": "d3f1ce62b59b61ab2fef348b510f1592509a41e706aa9868001f1deca95b5f5a"
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.json",
+          "source": "references/mainline-leveling-exp20-20261031-v1/source/common/els_server/data/formal_pve_economy.json",
+          "sha256": "b915757156899436ba3dde5c9ac3bc3ce67f4408830394b932fea02dae64cc2a",
+          "size": 285240,
+          "parent_sha256": "a735eb564942f049155a45e8c0acd6ad99bd5e3069c799ece9f0634ef5c26559"
+        },
+        {
+          "path": "els_server/data/formal_pve_economy.manifest.json",
+          "source": "references/mainline-leveling-exp20-20261031-v1/source/common/els_server/data/formal_pve_economy.manifest.json",
+          "sha256": "8f381d10dd7aced0895c11e6ec1e863eac91df25f5703873cd3ea52d622c0582",
+          "size": 201,
+          "parent_sha256": "80c7f4bc9f12a6492358e436f118390bc6474550fd35876a0289a891bc6f326f"
+        }
+      ],
+      "installed": true,
+      "observation_seconds": 120.25208240002394
+    }
+  },
+  "new_schema": false,
+  "player_database_restore": false,
+  "original_client_modified": false,
+  "validation": {
+    "unit_tests": {
+      "passed": 6,
+      "initial_successes_reused": 4,
+      "corrected_fixture_cases_passed": 2,
+      "coverage": [
+        "20x ordinary base total and C1 amount",
+        "cold replay/conflicting proof",
+        "level98 to99 cap and no ERP spill",
+        "existing99 ERP10x",
+        "encoder and receipt insert rollback",
+        "old receipt no topup",
+        "zero base and special-map exclusions"
+      ]
+    },
+    "progression_budget": [
+      {
+        "root": 100000,
+        "quest_checkpoints": 103,
+        "blocked": 0
+      },
+      {
+        "root": 25000,
+        "quest_checkpoints": 38,
+        "blocked": 0
+      },
+      {
+        "root": 26800,
+        "quest_checkpoints": 33,
+        "blocked": 0
+      },
+      {
+        "root": 28000,
+        "quest_checkpoints": 81,
+        "blocked": 0
+      }
+    ],
+    "public": {
+      "ok": true,
+      "public_TLS": true,
+      "own_QA_only": true,
+      "natural_GUI": false,
+      "natural_combat": false,
+      "ordinary_clear20x": true,
+      "kill_experience": 540,
+      "clear_experience": 13500,
+      "mainline_reward": 6680,
+      "level": 8,
+      "experience": 20720,
+      "next30092_allowed": true,
+      "cold_authenticated_restore": true,
+      "controlled_retirements": 21
+    },
+    "own_QA_cleaned": true,
+    "launcher_selected": true,
+    "private_validation_sha256": "ba7b595f881ea34423d937c1644c5ad38e36c12e6dbe8f6c18215ffd2a46d9cb",
+    "local_installation_sha256": "e78eed4664ef877423fd700a261ada70a583dcb0e7d387640fc37eaf48d46839"
+  },
+  "boundary": "Native quest rewards/level curve/entry levels preserved. Existing99ERP10x and special maps excluded. Controlled protocol and SQL; no natural GUI or combat claim.",
+  "private_evidence_note": "Only sanitized results and exact source are archived. Databases, credentials, native images and raw logs remain private; maintainers verify original evidence by SHA."
+}
