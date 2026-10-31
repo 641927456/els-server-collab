@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "scope": "Verified stable-town original free page/six slots;5M ED per extra slot, original960/962, current collection/synergy percentages in existing ordinary-authoritative writers; CN hidden rewards excluded",
+  "files": [
+    {
+      "path": "source/els_server/data/el_search_effects.json",
+      "sha256": "00e11bb7fceb4818d2c64b06aa9d2b47fbe6d2f4150107c2ca1cd565b1784d9a",
+      "parent_sha256": null
+    },
+    {
+      "path": "source/els_server/domain/el_search_collection.py",
+      "sha256": "bf849337bc98fa0d6240fe97d444c31a7df68d7579587f72b211ffa066618ca1",
+      "parent_sha256": "d38c27e34c4bf26708a6dfa9bd86637604d67f1e5a9b44abbe013c2f1a7d7df6"
+    },
+    {
+      "path": "source/els_server/domain/el_search_collection_flow.py",
+      "sha256": "ac57dd1ec93dc181f7a890a0c548db419e1439ce6f38d1db178583dfbad47790",
+      "parent_sha256": "568640edf474f35a489744575b4bfeea9cfe16c3e5df3243c4fa36511465e941"
+    },
+    {
+      "path": "source/els_server/domain/el_search_effects.py",
+      "sha256": "51370209df91161d29bea3bc70bf07935c23190433f65e321b2a26a2997e6cfb",
+      "parent_sha256": null
+    },
+    {
+      "path": "source/els_server/domain/elixir_economy.py",
+      "sha256": "780cd7364a3af150b0047310744c29dd686d66a607ac78cb547ca39e0848f371",
+      "parent_sha256": "3437fec4e7b091035bee207a0a099266e39052e478f44cfa2b2951645bbc7dd4"
+    },
+    {
+      "path": "source/els_server/domain/title_economy.py",
+      "sha256": "7bbc90a9b1e5509cb476ba5cec9d557864bebac5bd666e076c4a1a3cf5251278",
+      "parent_sha256": "e925a60508d523facdfa7e7114d2b529bf43b8b1bf8a93426c8e6d2bdc8d3e3f"
+    },
+    {
+      "path": "source/els_server/storage/collection_synergy.py",
+      "sha256": "8a13005bb70db18500075247ec8b9820288e0fcca1b7238685f6e0cc27f51ea2",
+      "parent_sha256": null
+    },
+    {
+      "path": "source/els_server/storage/el_search_collection.py",
+      "sha256": "9e08bc8645faa2673182809fa0da90ee2d92414dc12aac78600487cf61509589",
+      "parent_sha256": "818c55a6bf1e740e68694a18c60406317e9b2f5e344a31df58f177c30a25c1fe"
+    },
+    {
+      "path": "source/els_server/storage/elixir_economy.py",
+      "sha256": "561cd65815ad940baa2afc7c446228eaa66896ee21f97cf67523eb5a80a9ca58",
+      "parent_sha256": "a814e05aff6ac99dc890ab10f14bbe475c1847756d48f62111b0e27690453065"
+    },
+    {
+      "path": "source/els_server/storage/local_clear_rules.py",
+      "sha256": "bbec4b2ec3528ef2a18da39a3809abd16847daa4df22f15a87a111b596bb3505",
+      "parent_sha256": "9430cf57a82d27cb47ee2e9454b7614f77c5633b4976070150f81accdc0233ae"
+    }
+  ],
+  "new_tables": [
+    "character_collection_synergy_slots",
+    "collection_drop_facts"
+  ],
+  "new_files": 3,
+  "client_delta": 0,
+  "original_EXE_KOM_changes": 0,
+  "unknown_probabilities_added": false,
+  "native_original_effect_selection": true,
+  "unverified": [
+    "additional paid preset pages",
+    "editing outside the verified stable-town source",
+    "natural GUI and multiplayer battle"
+  ],
+  "tests": [
+    {
+      "path": "G:\\els\\analysis\\pending-repairs-completion-20261031-v1\\fountain-synergy\\collection-synergy-v2\\app-qualification.json",
+      "sha256": "56fa8462478aa23a867bf1a39c9de74c26e5dc8157ee0f7866e2f80825859c7c"
+    },
+    {
+      "path": "G:\\els\\analysis\\pending-repairs-completion-20261031-v1\\fountain-synergy\\collection-synergy-v2\\app-qualification-local.json",
+      "sha256": "251e2670a05d449ec8818ea5b8245a72dd52b9e2f9e52c0e5a61b2f3a2ea714e"
+    },
+    {
+      "path": "G:\\els\\analysis\\pending-repairs-completion-20261031-v1\\fountain-synergy\\collection-synergy-v2\\economy-qualification.json",
+      "sha256": "ad24b6d190f46926715f514038bf14a2674d0d4858939bff6dc4103864c425a7"
+    },
+    {
+      "path": "G:\\els\\analysis\\pending-repairs-completion-20261031-v1\\fountain-synergy\\collection-native-v1\\native-qualification.json",
+      "sha256": "9de3891a3184e2996d05b067dcef9d0e16f246f0ddabe55024d4c1af24363d3a"
+    }
+  ],
+  "source_git_upload_pending": false,
+  "source_issue": 678,
+  "source_dependency_PRs": [
+    670
+  ],
+  "installed": {
+    "ONLINE": "collection-synergy-economy-20261031-v1",
+    "LOCAL": "local-collection-synergy-economy-20261031-v1",
+    "V": 50
+  },
+  "database_recovery": "Forward readers retained; new slot/selection and new drop facts paused by WRITES_ENABLED=False; no player database restore"
+}
