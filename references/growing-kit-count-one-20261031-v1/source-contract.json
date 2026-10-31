@@ -1,0 +1,47 @@
+{
+  "format": 1,
+  "issue": 655,
+  "base_main": "883eaec021f7b4f967ada35cf9e106dec99c900d",
+  "scope": "Accept Count0/1 in the shared one-cube entry; reject larger or negative counts. Existing outputs, actor checks, transactions and receipts retained.",
+  "sources": {
+    "portable": {
+      "path": "references/growing-kit-count-one-20261031-v1/portable/els_server/storage/fixed_cubes.py",
+      "sha256": "a4c57654e4086f0b0f6a6bd48418238813db87dfce5df2a21aa3323ca807f1a0",
+      "size": 8290
+    },
+    "installed": {
+      "path": "references/growing-kit-count-one-20261031-v1/installed/els_server/storage/fixed_cubes.py",
+      "sha256": "08a2b14b5bf912e1732d29d793b59cc98d827b43ca3aea7184d9b7594de9c3c8",
+      "size": 8787
+    }
+  },
+  "primary_frozen_source_unchanged": true,
+  "current_engine_selection_unchanged": true,
+  "client_delta": 0,
+  "schema_delta": 0,
+  "user_click_root_cause_confirmed": false,
+  "delivery": {
+    "online": {
+      "release": "growing-kit-count-one-20261031-v1",
+      "formal_manifest_sha256": "fb493059280f25b590a3de1f2fdc4d07d249602eb7f6aa77f35b693107fee9d8",
+      "observation_seconds": 125.00137740001082,
+      "business_files": 1332
+    },
+    "local": {
+      "release": "local-growing-kit-count-one-20261031-v1",
+      "formal_manifest_sha256": "19502ba88d2a81aa2ed361f581815bad4ba9ab240f696d938f1f8b908f443d15",
+      "observation_seconds": 120.00052189989947,
+      "business_files": 1355
+    },
+    "public_TLS_Count1": true,
+    "current_class": 164,
+    "reward_instances": 5,
+    "enhancement": 7,
+    "cold_read": true,
+    "own_QA_cleanup": true,
+    "launcher_local_selector_verified": true,
+    "launcher_version": 49,
+    "natural_rightclick_GUI": false,
+    "player_database_restore": false
+  }
+}
