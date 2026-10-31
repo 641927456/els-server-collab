@@ -257,6 +257,9 @@ class FriendsDungeons:
         return [ack]
 
     def death(self,r,s,event):
+        from els_server.domain.scene_actor_retirements import shared_retirement
+        scene_reply=shared_retirement(self,r,s,event)
+        if scene_reply is not None:return scene_reply
         from els_server.domain.dungeon_lifecycle import death_report,death_ack
         from els_server.domain.hunter_chest_flow import accepted_death as hunter_death
         hunter_reply=hunter_death(s,event,dispatcher=self,room=r)
