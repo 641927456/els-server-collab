@@ -1,0 +1,11 @@
+# Gift, title, QuickStart and BossHP source archive
+
+Reference-only ROOT integration of ONLINE14 / LOCAL11 leaves on the accepted weapon/idle9 parent and V65. This directory does not activate the repository root runtime. The common 2.4 MB identification JSON is stored once; channel mappings reuse its identical blob. LOCAL keeps its own Session variant and receives neither campaign580 nor QuickStart.
+
+Gift preserves all old pools and 917 native profiles, adds exactly 75 source-bound profiles, and blocks explicit unidentified wear. The unapproved 136186 finite candidate pool stays inactive. Approved brilliant engraving maxima apply only to new ONLINE campaign580 +11 grants. Title adds exactly three files and retains the original Hyper path. QuickStart preserves the native class0 contract only on ONLINE. BossHP uses the explicitly approved server-local 758272320 HP reference for the three exact Trosh templates, retaining original script1500 evidence and99bars; this is not a claim of exact current official CN HP.
+
+Recovery retains the new readers. Title's skill0 producer gate follows exact committed receipt return; QuickStart's target0 gate is reached only from the no-old-receipt transition branch. The existing identification storage guard is retained with the new domain/JSON75 mappings. Other inherited signed LOCAL guards must be rebuilt on the complete new normal tree. Actual gate execution and V66 qualification are pending; no DB restore is permitted.
+
+Original successful source matrices are reused, with evidence identities in validation-summary.json. Portable whitebox test changes cover paths/bootstrap only: original ten case bodies passed, this archived adaptation has only syntax validation and is not claimed as a newly tested CI integration. Tests here are archival inputs, not a complete independently runnable source tree.
+
+At archive preparation this batch has not been installed or publicly accepted; V66 is not built or qualified. Natural GUI/battle acceptance is not claimed. Revival is held for its separate new revision and is excluded. No DB, credentials, raw capture, operational logs, binaries or private chat identifiers are included. Use a future delivery/** branch; re-read the actual main before creating the final commit.
