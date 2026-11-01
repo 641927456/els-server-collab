@@ -1,0 +1,669 @@
+--- a/normal/shared/els_server/domain/artifact_flow.py
++++ b/normal/shared/els_server/domain/artifact_flow.py
+@@ -61,7 +61,7 @@
+ 
+ def observe(s,replies):
+  if not current_lease(s) or s.account.store is None or s.account.store.uid!=s.account.uid or not replies or s.account.characters is None or not s.item_test or s.client_build!='dx11_260923' or s.role!='game' or s.phase not in ('town_ready','dungeon_active'):return []
+- character=s.account.character();a=character.get('artifact')
++ character=s.account.characters.artifact(s.account.uid);a=character.get('artifact')
+  if not a:return []
+  key=(str(s.account.store.path),character['uid']);current=(a['evolution'],a['level'],a['experience'],tuple(a['potentials']))
+  old=getattr(s,'_artifact_view',None);s._artifact_view=(key,current)
+--- a/normal/shared/els_server/domain/attendance_2026_award_flow.py
++++ b/normal/shared/els_server/domain/attendance_2026_award_flow.py
+@@ -6,6 +6,7 @@
+ """
+ from contextlib import closing
+ from pathlib import Path
++from els_server.performance import sqlite_observed
+ import logging
+ from dataclasses import replace
+ import sqlite3,struct,uuid
+@@ -108,7 +109,7 @@
+     def _projection(self,s):
+         now=self.clock()
+         try:
+-            with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db:
++            with closing(sqlite3.connect(s.account.store.path,timeout=0)) as db:
+                 t=self._store(db)
+                 with t._transaction():
+                     t._owner(s.account.account_id,s.account.uid)
+@@ -117,7 +118,8 @@
+                 return result
+         except sqlite3.OperationalError as error:
+             if not retryable_sqlite_lock(error):raise
+-            logging.getLogger(__name__).warning('Attendance projection refresh deferred by SQLite lock',exc_info=True)
++            sqlite_observed(busy=True)
++            logging.getLogger(__name__).debug('Attendance projection refresh deferred by SQLite lock')
+         # The failed write transaction has exited/rolled back and closed.
+         # Read one independent committed snapshot; never invent fresh credit.
+         path=Path(s.account.store.path).resolve()
+@@ -140,7 +142,7 @@
+         if not self.enabled(s):return replies
+         restoring=any(e.event_id==0x201 and e.kind in (0x2a,0x2b) for e in replies)
+         if s.phase not in ('town_ready','dungeon_active') and not restoring:return replies
+-        character=s.account.character()
++        character=s.account.character_identity()
+         if character is None or character['level']<10:return replies
+         task,state,completed_at=self._projection(s)
+         view=None if task is None else self.view(task,owner_uid=s.account.uid)
+--- a/normal/shared/els_server/domain/attendance_2026_online.py
++++ b/normal/shared/els_server/domain/attendance_2026_online.py
+@@ -3,6 +3,7 @@
+ Eligibility is a required trusted server policy. The campaign's complete scene
+ policy still needs confirmation; construction is explicit and defaults off.
+ """
++from els_server.performance import sqlite_observed
+ import math
+ import sqlite3
+ import logging
+@@ -29,7 +30,8 @@
+             if stop or type(code) is not int or code & 255 not in (sqlite3.SQLITE_BUSY,sqlite3.SQLITE_LOCKED):raise
+             # Keep the original anchor/cursor. The next observation retries
+             # committed interval unions, never inventing or duplicating time.
+-            logging.getLogger(__name__).warning('Attendance online persistence deferred: SQLite code=%s',code,exc_info=True)
++            sqlite_observed(busy=True)
++            logging.getLogger(__name__).debug('Attendance online persistence deferred: SQLite code=%s',code)
+         finally:
+             if stop:
+                 self.closed=True;self.identity=None
+@@ -51,7 +53,7 @@
+                 start=self.anchor+self.committed
+                 path,account,character,level=self.identity
+                 if start<end:
+-                    with closing(sqlite3.connect(path,timeout=10)) as db:
++                    with closing(sqlite3.connect(path,timeout=10 if stop else 0)) as db:
+                         if db.execute('SELECT account_id FROM character_owners WHERE uid=?',(character,)).fetchone()!=(account,):
+                             raise ValueError('Online role ownership changed')
+                         if db.execute('SELECT definition_sha256 FROM activity518_campaigns WHERE campaign=?',(self.campaign,)).fetchone()!=(self.digest,):
+--- a/normal/shared/els_server/domain/attendance_online_2026.py
++++ b/normal/shared/els_server/domain/attendance_online_2026.py
+@@ -79,7 +79,7 @@
+             with snapshot_connection(path) as db:
+                 db.execute('BEGIN')
+                 if not self._task_enrollment_needed(s,db,self._store(db),now):return None
+-            with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db:
++            with closing(sqlite3.connect(s.account.store.path,timeout=0)) as db:
+                 with write_transaction(db):
+                     t=self._store(db)
+                     if not self._task_enrollment_needed(s,db,t,now):return None
+@@ -89,7 +89,7 @@
+             return message
+         except sqlite3.OperationalError as error:
+             if not retryable_sqlite_lock(error):raise
+-            logging.getLogger(__name__).warning('Automatic attendance enrollment deferred by SQLite lock',exc_info=True)
++            logging.getLogger(__name__).debug('Automatic attendance enrollment deferred by SQLite lock')
+             return None
+ 
+     def _register_task(self,s):
+@@ -134,7 +134,7 @@
+         if table is not None or rewards:
+             retained=[e for e in retained if not(e.event_id==0x201 and e.kind==0x4b6)]
+             retained.insert(0,self.catalog.notice(existing=rewards))
+-        c=s.account.character();level=0 if c is None else c['level']
++        c=s.account.character_identity();level=0 if c is None else c['level']
+         active=self.available(s,self.clock()) and level>=10
+         prior_entries[518]=entries.CodeEntry(active,self.schedule.available_from,self.schedule.available_until)
+         notice=entries.notice(prior_entries);signature=(s.account.uid,notice.payload)
+--- a/normal/shared/els_server/domain/boosting_2026_quests.py
++++ b/normal/shared/els_server/domain/boosting_2026_quests.py
+@@ -33,7 +33,7 @@
+             except sqlite3.OperationalError as error:
+                 code=getattr(error,'sqlite_errorcode',None)
+                 if type(code) is not int or code & 255 not in (sqlite3.SQLITE_BUSY,sqlite3.SQLITE_LOCKED):raise
+-                logging.getLogger(__name__).warning('Deferred automatic growth %s after SQLite lock code=%s',method.__name__,code,exc_info=True)
++                logging.getLogger(__name__).debug('Deferred automatic growth %s after SQLite lock code=%s',method.__name__,code)
+                 return empty()
+         return call
+     return decorate
+@@ -208,7 +208,7 @@
+                 row=self._store(db).observe_clear(account=s.account.account_id,character=s.account.uid,run_id=run.run_id,proof=proof)
+                 if row is not None:raise ValueError('Consumed growth run changed on read')
+                 return []
+-        with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db:
++        with closing(sqlite3.connect(s.account.store.path,timeout=0)) as db:
+             with write_transaction(db):
+                 if not self._participant(db,s):return []
+                 # No retrospective run admission, including after attaching this
+@@ -222,7 +222,7 @@
+     def recover_committed(self,s):
+         """Restore only admitted authoritative receipts, independent of live run memory."""
+         if not self._automatic_work(s,'receipts'):return []
+-        with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db:
++        with closing(sqlite3.connect(s.account.store.path,timeout=0)) as db:
+             with write_transaction(db):
+                 if not self._participant(db,s):return []
+                 rows=self._store(db).recover_committed(account=s.account.account_id,character=s.account.uid)
+@@ -240,7 +240,7 @@
+         now=self.clock()
+         if not self.campaign_open(s,now):return None
+         if not self._automatic_work(s,'enroll'):return None
+-        with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db:
++        with closing(sqlite3.connect(s.account.store.path,timeout=0)) as db:
+             with write_transaction(db):
+                 if not self._participant(db,s):return None
+                 t=self._store(db)
+@@ -277,7 +277,7 @@
+         from els_server.domain.boosting_2026_region_entries import resume
+         from els_server.protocol.protocol_codec import encode_event
+         if not self._automatic_work(s,'region'):return []
+-        with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db:
++        with closing(sqlite3.connect(s.account.store.path,timeout=0)) as db:
+             with write_transaction(db):
+                 if not self._participant(db,s):return []
+                 messages=resume(db,s.account.uid,s.account.account_id,now=self.clock(),
+--- a/normal/local/els_server/domain/inventory_items.py
++++ b/normal/local/els_server/domain/inventory_items.py
+@@ -702,7 +702,11 @@
+   result.update(sealed=item.get('sealed',False),seal_used=item.get('seal_used',0))
+  return result
+ def item_body(item):
+- item=validate_item(item);c=fixture();data=bytearray.fromhex(c['wire_hex'])
++ return _item_body(validate_item(item))
++
++def _item_body(item):
++ # Internal encoder for the canonical item returned by validate_item.
++ c=fixture();data=bytearray.fromhex(c['wire_hex'])
+  if item['template']==_chip_registration['template']:
+   from els_server.domain.equipment_chip_rules import source_options
+   source_options(item.get('option_groups',{}).get('1',[]))
+@@ -752,13 +756,17 @@
+   if data[pos:pos+4]!=bytes(4):raise ValueError('Native attribute vector seed changed')
+   data[pos:pos+4]=struct.pack('>I4i',4,*item['attributes'])
+  return bytes(data)
+-def inventory_payload(items):
++def _checked_items(items):
+  from els_server.domain.bag_capacity import wire_limit
+  from els_server.domain.equipment_requirements import catalog as requirements
+  if not isinstance(items,list) or len(items)>sum(wire_limit(g) for g in set(TEMPLATE_BAG_GROUPS.values()))+len(set(FASHION_EQUIP_SLOTS.values())|set(requirements()[1].values())|{s for r in ordinary_accessory_definitions().values() for s in r['slots']})+(4 if any(isinstance(i,dict) and i.get('group') in (22,23) for i in items) else 0):raise ValueError('Inventory list bound')
+  checked=[validate_item(i) for i in items]
+  if len({i['uid'] for i in checked})!=len(checked) or len({(i['group'],i['slot']) for i in checked})!=len(checked):raise ValueError('Duplicate inventory UID/slot')
+- return struct.pack('>I',len(checked))+b''.join(struct.pack('>QBh',i['uid'],i['group'],i['slot'])+item_body(i)+b'\0'+bytes(8) for i in sorted(checked,key=lambda v:(v['group'],v['slot'])))
++ return checked
++
++def inventory_payload(items):
++ checked=_checked_items(items)
++ return struct.pack('>I',len(checked))+b''.join(struct.pack('>QBh',i['uid'],i['group'],i['slot'])+_item_body(i)+b'\0'+bytes(8) for i in sorted(checked,key=lambda v:(v['group'],v['slot'])))
+ 
+ def inventory_restore_map(items):
+  """2A/DA3370 +5B1: map<UID, inventory record>, restored without NEW.
+@@ -766,11 +774,13 @@
+  DB3490/DD3980 read the key and DB4F80 record. 1385780 -> 1984840
+  inserts with mark-new=false, unlike D9 -> 197DAD0.
+  """
+- inventory_payload(items)  # Validate identities and slots before serializing.
+- bag=sorted((i for i in items if i['group'] not in (9,24)),key=lambda i:i['uid'])
++ checked=_checked_items(items)
++ # Preserve wire checks for worn items too, although this map excludes them.
++ bodies={i['uid']:_item_body(i) for i in sorted(checked,key=lambda v:(v['group'],v['slot']))}
++ bag=sorted((i for i in checked if i['group'] not in (9,24)),key=lambda i:i['uid'])
+  return struct.pack('>I',len(bag))+b''.join(
+      struct.pack('>QQBh',i['uid'],i['uid'],i['group'],i['slot'])+
+-     item_body(i)+bytes(9) for i in bag)
++     bodies[i['uid']]+bytes(9) for i in bag)
+ 
+ 
+ from els_server.domain.cartridge_exchange_rules import source_definition as cartridge_exchange_source
+--- a/normal/online/els_server/domain/inventory_items.py
++++ b/normal/online/els_server/domain/inventory_items.py
+@@ -704,7 +704,11 @@
+   result.update(sealed=item.get('sealed',False),seal_used=item.get('seal_used',0))
+  return result
+ def item_body(item):
+- item=validate_item(item);c=fixture();data=bytearray.fromhex(c['wire_hex'])
++ return _item_body(validate_item(item))
++
++def _item_body(item):
++ # Internal encoder for the canonical item returned by validate_item.
++ c=fixture();data=bytearray.fromhex(c['wire_hex'])
+  if item['template']==_chip_registration['template']:
+   from els_server.domain.equipment_chip_rules import source_options
+   source_options(item.get('option_groups',{}).get('1',[]))
+@@ -754,13 +758,17 @@
+   if data[pos:pos+4]!=bytes(4):raise ValueError('Native attribute vector seed changed')
+   data[pos:pos+4]=struct.pack('>I4i',4,*item['attributes'])
+  return bytes(data)
+-def inventory_payload(items):
++def _checked_items(items):
+  from els_server.domain.bag_capacity import wire_limit
+  from els_server.domain.equipment_requirements import catalog as requirements
+  if not isinstance(items,list) or len(items)>sum(wire_limit(g) for g in set(TEMPLATE_BAG_GROUPS.values()))+len(set(FASHION_EQUIP_SLOTS.values())|set(requirements()[1].values())|{s for r in ordinary_accessory_definitions().values() for s in r['slots']})+(4 if any(isinstance(i,dict) and i.get('group') in (22,23) for i in items) else 0):raise ValueError('Inventory list bound')
+  checked=[validate_item(i) for i in items]
+  if len({i['uid'] for i in checked})!=len(checked) or len({(i['group'],i['slot']) for i in checked})!=len(checked):raise ValueError('Duplicate inventory UID/slot')
+- return struct.pack('>I',len(checked))+b''.join(struct.pack('>QBh',i['uid'],i['group'],i['slot'])+item_body(i)+b'\0'+bytes(8) for i in sorted(checked,key=lambda v:(v['group'],v['slot'])))
++ return checked
++
++def inventory_payload(items):
++ checked=_checked_items(items)
++ return struct.pack('>I',len(checked))+b''.join(struct.pack('>QBh',i['uid'],i['group'],i['slot'])+_item_body(i)+b'\0'+bytes(8) for i in sorted(checked,key=lambda v:(v['group'],v['slot'])))
+ 
+ def inventory_restore_map(items):
+  """2A/DA3370 +5B1: map<UID, inventory record>, restored without NEW.
+@@ -768,11 +776,13 @@
+  DB3490/DD3980 read the key and DB4F80 record. 1385780 -> 1984840
+  inserts with mark-new=false, unlike D9 -> 197DAD0.
+  """
+- inventory_payload(items)  # Validate identities and slots before serializing.
+- bag=sorted((i for i in items if i['group'] not in (9,24)),key=lambda i:i['uid'])
++ checked=_checked_items(items)
++ # Preserve wire checks for worn items too, although this map excludes them.
++ bodies={i['uid']:_item_body(i) for i in sorted(checked,key=lambda v:(v['group'],v['slot']))}
++ bag=sorted((i for i in checked if i['group'] not in (9,24)),key=lambda i:i['uid'])
+  return struct.pack('>I',len(bag))+b''.join(
+      struct.pack('>QQBh',i['uid'],i['uid'],i['group'],i['slot'])+
+-     item_body(i)+bytes(9) for i in bag)
++     bodies[i['uid']]+bytes(9) for i in bag)
+ 
+ 
+ from els_server.domain.cartridge_exchange_rules import source_definition as cartridge_exchange_source
+--- a/normal/local/els_server/domain/local_session.py
++++ b/normal/local/els_server/domain/local_session.py
+@@ -300,20 +300,49 @@
+         self.luciel_dungeon_hp_max=struct.unpack_from('>f',payload,spans['0x198'][0])[0]
+ 
+     def expiration_notifications(self):
++
+         if not (self.item_test and self.client_build=='dx11_260923' and self.role=='game' and self.phase in ('town_ready','dungeon_active')):return []
++
+         import time
++
+         now=int(time.time());key=(self.account.uid,now)
++
+         if key==self.expiration_checked:return []
++
++        import logging,sqlite3
++        deferred=False
++        def cleanup(remove,**options):
++            nonlocal deferred
++            try:return remove(self.account.store.path,self.account.uid,timeout=0,**options)
++            except sqlite3.OperationalError as error:
++                code=getattr(error,'sqlite_errorcode',None)
++                if type(code) is not int or code & 255 not in (sqlite3.SQLITE_BUSY,sqlite3.SQLITE_LOCKED):raise
++                # Each remover has rolled back/closed before this boundary.
++                # Preserve prior committed notices and retry on the existing
++                # next observation; use/trade guards still enforce deadlines.
++                deferred=True
++                logging.getLogger(__name__).debug('Automatic expiry cleanup deferred by SQLite lock: %s',remove.__module__)
++                return None
++
+         from els_server.storage.item_expiration import remove_due
++
+         prepared_hp=[]
+         def prepare_luciel_slots(items,remaining):
++
+             # load_items already validates every admitted owned instance.
++
+             # All current worn slots need removal, including both costume sides.
++
+             worn=[i for i in items if i['group']==9]
++
+             if not worn:return None
++
+             character=self.account.character()
++
+             if character['uid']!=self.account.uid:raise ValueError('Expiration actor mismatch')
++
+             if character['unit_type']!=10:return None
++
+             from els_server.domain.fashion_state import move_ack
+             answer=[Event(0x201,kind=0x105,payload=move_ack([((i['group'],i['slot']),None) for i in worn]))]
+             source=self.luciel_dungeon_hp_source
+@@ -326,16 +355,20 @@
+                     answer.append(luciel_hp_notification(source,maximum,preference(character)))
+                     prepared_hp.append(maximum)
+             return answer
+-        result=remove_due(self.account.store.path,self.account.uid,now=now,prepare_remaining_refresh=prepare_luciel_slots)
+-        if prepared_hp:self.luciel_dungeon_hp_max=prepared_hp[-1] # Only after the removal transaction committed.
++
++        result=cleanup(remove_due,now=now,prepare_remaining_refresh=prepare_luciel_slots)
++        if result is None:result=[]
++        elif prepared_hp:self.luciel_dungeon_hp_max=prepared_hp[-1] # Only after the removal transaction committed.
++
+         from els_server.storage.bank_state import remove_due as remove_due_bank
+-        result+=remove_due_bank(self.account.store.path,self.account.uid)
++
++        result+=cleanup(remove_due_bank) or []
+         from els_server.storage.boosting_2026_limited_pet import periodic as limited_pet_periodic
+-        result+=limited_pet_periodic(self.account.store.path,self.account.uid,at=now)
++        result+=cleanup(limited_pet_periodic,at=now) or []
+         from els_server.storage.pet_support_periods import expire as pet_support_expire
+-        result+=pet_support_expire(self.account.store.path,self.account.uid,now=now)
+-
+-        self.expiration_checked=key
++        result+=cleanup(pet_support_expire,now=now) or []
++
++        if not deferred:self.expiration_checked=key
+ 
+         from els_server.domain.elixir_flow import periodic as world_elixir_periodic
+         from els_server.domain.silver_mirror_flow import periodic as mirror_periodic
+--- a/normal/online/els_server/domain/local_session.py
++++ b/normal/online/els_server/domain/local_session.py
+@@ -504,6 +504,21 @@
+ 
+         if key==self.expiration_checked:return []
+ 
++        import logging,sqlite3
++        deferred=False
++        def cleanup(remove,**options):
++            nonlocal deferred
++            try:return remove(self.account.store.path,self.account.uid,timeout=0,**options)
++            except sqlite3.OperationalError as error:
++                code=getattr(error,'sqlite_errorcode',None)
++                if type(code) is not int or code & 255 not in (sqlite3.SQLITE_BUSY,sqlite3.SQLITE_LOCKED):raise
++                # Each remover has rolled back/closed before this boundary.
++                # Preserve prior committed notices and retry on the existing
++                # next observation; use/trade guards still enforce deadlines.
++                deferred=True
++                logging.getLogger(__name__).debug('Automatic expiry cleanup deferred by SQLite lock: %s',remove.__module__)
++                return None
++
+         from els_server.storage.item_expiration import remove_due
+ 
+         prepared_hp=[]
+@@ -536,18 +551,19 @@
+                     prepared_hp.append(maximum)
+             return answer
+ 
+-        result=remove_due(self.account.store.path,self.account.uid,now=now,prepare_remaining_refresh=prepare_luciel_slots)
+-        if prepared_hp:self.luciel_dungeon_hp_max=prepared_hp[-1] # Only after the removal transaction committed.
++        result=cleanup(remove_due,now=now,prepare_remaining_refresh=prepare_luciel_slots)
++        if result is None:result=[]
++        elif prepared_hp:self.luciel_dungeon_hp_max=prepared_hp[-1] # Only after the removal transaction committed.
+ 
+         from els_server.storage.bank_state import remove_due as remove_due_bank
+ 
+-        result+=remove_due_bank(self.account.store.path,self.account.uid)
++        result+=cleanup(remove_due_bank) or []
+         from els_server.storage.boosting_2026_limited_pet import periodic as limited_pet_periodic
+-        result+=limited_pet_periodic(self.account.store.path,self.account.uid,at=now)
++        result+=cleanup(limited_pet_periodic,at=now) or []
+         from els_server.storage.pet_support_periods import expire as pet_support_expire
+-        result+=pet_support_expire(self.account.store.path,self.account.uid,now=now)
+-
+-        self.expiration_checked=key
++        result+=cleanup(pet_support_expire,now=now) or []
++
++        if not deferred:self.expiration_checked=key
+ 
+         from els_server.domain.elixir_flow import periodic as world_elixir_periodic
+         from els_server.domain.silver_mirror_flow import periodic as mirror_periodic
+--- a/normal/shared/els_server/domain/online_2026_campaign.py
++++ b/normal/shared/els_server/domain/online_2026_campaign.py
+@@ -7,6 +7,7 @@
+ """
+ from contextlib import closing
+ from dataclasses import replace
++from els_server.performance import sqlite_observed
+ import hashlib,math,sqlite3,logging
+ from els_server.domain.online_2026_clock import OnlineTitleClock
+ from els_server.domain.online_2026_display import OnlineTitleDisplay
+@@ -67,7 +68,8 @@
+             for key,value in zip(('_record','_context','_shape','_anchor'),display):setattr(self.display,key,value)
+             self.mail._accepted=accepted
+             self._context,self._next_scan,self._force=scan
+-            logging.getLogger(__name__).warning('Online title notification deferred: SQLite code=%s',code,exc_info=True)
++            sqlite_observed(busy=True)
++            logging.getLogger(__name__).debug('Online title notification deferred: SQLite code=%s',code)
+             return []
+ 
+     def _notifications(self,s):
+@@ -90,7 +92,7 @@
+                 self.display.clear(messages.append)
+             else:
+                 if selected!=identity:raise ValueError('Online display/mail role identity mismatch')
+-                with closing(sqlite3.connect(path,timeout=10)) as db,db:
++                with closing(sqlite3.connect(path,timeout=0)) as db,db:
+                     db.execute('BEGIN IMMEDIATE')
+                     repo=OnlineTitleProgress(db,self.clock.selection_bytes,campaign=self.clock.campaign)
+                     repo._definition();repo._owner(account,character)
+--- a/normal/shared/els_server/domain/online_2026_clock.py
++++ b/normal/shared/els_server/domain/online_2026_clock.py
+@@ -4,6 +4,7 @@
+ Persisted explicit periods exclude maintenance gaps. No stored clock anchor can
+ turn process downtime into online time. This module sends no client packets.
+ """
++from els_server.performance import sqlite_observed
+ import math
+ import sqlite3
+ import logging
+@@ -36,7 +37,8 @@
+             if stop or type(code) is not int or code & 255 not in (sqlite3.SQLITE_BUSY,sqlite3.SQLITE_LOCKED):raise
+             # _persist is atomic and the cursor advances only after commit.
+             # Retain that observed interval for the next ordinary observation.
+-            logging.getLogger(__name__).warning('Online title persistence deferred: SQLite code=%s',code,exc_info=True)
++            sqlite_observed(busy=True)
++            logging.getLogger(__name__).debug('Online title persistence deferred: SQLite code=%s',code)
+         finally:
+             if stop:
+                 # Even a failed final flush may not accrue post-disconnect time.
+@@ -65,7 +67,7 @@
+             if current == self.identity and abs(wall-(self.anchor+elapsed)) <= 2:
+                 end = math.floor(self.anchor+elapsed)
+                 if end > self.cursor:
+-                    self._persist(self.cursor, end)
++                    self._persist(self.cursor, end, stop=stop)
+                     self.cursor = end  # Only after every weekly slice commits.
+             else:
+                 self.identity = None
+@@ -76,9 +78,9 @@
+             # Count only full epoch seconds contained in this observed interval.
+             self.cursor = math.ceil(wall)
+ 
+-    def _persist(self, start, end):
++    def _persist(self, start, end, *, stop=False):
+         path, account, character, _ = self.identity
+-        with closing(sqlite3.connect(path, timeout=10)) as db:
++        with closing(sqlite3.connect(path, timeout=10 if stop else 0)) as db:
+             db.execute('BEGIN IMMEDIATE')
+             try:
+                 repo = OnlineTitleProgress(db, self.selection_bytes, campaign=self.campaign)
+--- a/normal/shared/els_server/domain/quest_flow.py
++++ b/normal/shared/els_server/domain/quest_flow.py
+@@ -397,7 +397,11 @@
+     # open another database connection. Weapon tasks also arrive with new items.
+     owner=(str(s.account.store.path),s.account.uid)
+     previous=getattr(s,'_quest_collection_view',None)
+-    if replies or previous is None or previous[0]!=owner:
++    # D1 acknowledges a ground claim; D2 applies only ED or food effects.
++    # Neither changes inventory/level/Artifact collection counters. D3 item
++    # deltas and every other ordinary notice retain the existing refresh.
++    ground_effects_only=bool(replies) and all(e.event_id==0x201 and e.kind in (0xd1,0xd2) for e in replies)
++    if (replies and not ground_effects_only) or previous is None or previous[0]!=owner:
+         from els_server.domain.seal_quests import quest_catalog
+         from els_server.domain.weapon_growth_flow import collection_notices,collection_requested
+         if collection_requested(s,replies):
+--- a/normal/shared/els_server/periodic_scheduler.py
++++ b/normal/shared/els_server/periodic_scheduler.py
+@@ -24,13 +24,22 @@
+         if self.closing:raise RuntimeError('Periodic scheduler closed')
+         loop=asyncio.get_running_loop()
+         slot=SimpleNamespace(session=session,operation=operation,send=send,
+-            due=time.monotonic()+self.interval,closed=False,finished=None,failure=loop.create_future())
++            due=time.monotonic()+self.interval,closed=False,finished=None,waiting=None,failure=loop.create_future())
+         key=id(slot);self.slots[key]=slot;self.wake.set()
+         if self.task is None:self.task=asyncio.create_task(self._run(),name='periodic-batches')
+         try:await slot.failure
+         finally:
+             slot.closed=True;self.slots.pop(key,None);self.wake.set()
++            await self._cancel_waiter(slot)
+             if slot.finished is not None:await asyncio.shield(slot.finished)
++
++    async def _cancel_waiter(self,slot):
++        waiter,slot.waiting=slot.waiting,None
++        if waiter is None:return
++        waiter.cancel()
++        try:await waiter
++        except asyncio.CancelledError:pass
++        else:slot.operation.release()
+ 
+     async def _deliver(self,slot,messages,error):
+         try:
+@@ -50,10 +59,15 @@
+                 self.wake.clear();now=time.monotonic();ready=[]
+                 for slot in sorted(self.slots.values(), key=lambda value: value.due):
+                     if slot.closed or slot.finished is not None or slot.due>now:continue
+-                    if slot.operation.locked():
+-                        self.metrics['busy_skips']+=1;continue
+-                    # acquire() on an unlocked asyncio.Lock does not suspend.
+-                    await slot.operation.acquire()
++                    if slot.waiting is None:
++                        # Join the lock's FIFO once without blocking other slots.
++                        # Even an unlocked lock can have a woken request waiter.
++                        if slot.operation.locked():self.metrics['busy_skips']+=1
++                        slot.waiting=asyncio.create_task(slot.operation.acquire())
++                        slot.waiting.add_done_callback(lambda task:self.wake.set())
++                        continue
++                    if not slot.waiting.done():continue
++                    slot.waiting.result();slot.waiting=None
+                     # Selection delay only: worker admission/batch delay is
+                     # recorded separately; this is not a delivery or RTT claim.
+                     late=max(0.,(time.monotonic()-slot.due)*1000)
+@@ -111,4 +125,5 @@
+     async def close(self):
+         self.closing=True;self.wake.set()
+         if self.task is not None:await self.task
++        for slot in list(self.slots.values()):await self._cancel_waiter(slot)
+         if self.deliveries:await asyncio.gather(*self.deliveries,return_exceptions=True)
+--- a/normal/shared/els_server/storage/bank_state.py
++++ b/normal/shared/els_server/storage/bank_state.py
+@@ -51,13 +51,13 @@
+     return due
+ 
+ 
+-def remove_due(path,owner):
++def remove_due(path,owner,*,timeout=10):
+     # An idle bank read shares only the operation-local query-only reader.
+     # End that snapshot before the original writer reloads both containers.
+     with snapshot_connection(path) as db:
+         db.execute('BEGIN')
+         if not any(expired(e['item']) for e in load(db,owner,include_expired=True)+load(db,owner,include_expired=True,group=16)):return []
+-    with closing(sqlite3.connect(path,timeout=10)) as db,write_transaction(db):
++    with closing(sqlite3.connect(path,timeout=timeout)) as db,write_transaction(db):
+         due=expire(db,owner)
+         if not due:return []
+         return [Event(0x201,kind=0x105,payload=transfer_ack([(e['position'],None) for e in due]))]
+--- a/normal/shared/els_server/storage/boosting_2026_limited_pet.py
++++ b/normal/shared/els_server/storage/boosting_2026_limited_pet.py
+@@ -42,8 +42,8 @@
+  db.execute('UPDATE '+TABLE+' SET needs_stop=1 WHERE pet=? AND owner=?',(row[0],owner))
+  if present(db,'pet_growth_clocks'):db.execute('DELETE FROM pet_growth_clocks WHERE owner=? AND pet=?',(owner,row[0]))
+  return True
+-def periodic(path,owner,*,at=None):
+- with closing(sqlite3.connect(path,timeout=10)) as db,db:
++def periodic(path,owner,*,at=None,timeout=10):
++ with closing(sqlite3.connect(path,timeout=timeout)) as db,db:
+   if not present(db):return []
+   value=now(at)
+   # Owners with no pending stop or due active pet remain read-only. The
+--- a/normal/local/els_server/storage/characters.py
++++ b/normal/local/els_server/storage/characters.py
+@@ -129,14 +129,28 @@
+         uid=character_uid(uid)
+         from els_server.storage.read_scope import snapshot_connection
+         with snapshot_connection(self.path) as db:
+-            row=db.execute('SELECT c.uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(uid,self.account_id)).fetchone()
+-            value=self._row(row)
+-            value['account_id']=self.account_id
+-            # list()/get() also reject finalized deletions; a narrow read
+-            # must preserve that owner eligibility boundary.
+-            if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_lifecycle'").fetchone():
+-                state=db.execute('SELECT finalized_at FROM character_lifecycle WHERE uid=?',(uid,)).fetchone()
+-                if state and state[0]:return self._row(None)
++            return self._identity(db,uid)
++
++    def _identity(self,db,uid):
++        row=db.execute('SELECT c.uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(uid,self.account_id)).fetchone()
++        value=self._row(row)
++        value['account_id']=self.account_id
++        # list()/get() also reject finalized deletions; narrow readers keep
++        # the same owner and finalized-character eligibility boundary.
++        if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_lifecycle'").fetchone():
++            state=db.execute('SELECT finalized_at FROM character_lifecycle WHERE uid=?',(uid,)).fetchone()
++            if state and state[0]:return self._row(None)
++        return value
++
++    def artifact(self,uid):
++        """Current owned identity and Artifact in one read-only SQL snapshot."""
++        uid=character_uid(uid)
++        from els_server.storage.read_scope import snapshot_connection
++        with snapshot_connection(self.path) as db:
++            db.execute('BEGIN')
++            value=self._identity(db,uid)
++            row=db.execute('SELECT template,evolution,level,experience,potentials FROM character_artifacts WHERE uid=?',(uid,)).fetchone()
++            value['artifact']=dict(template=row[0],evolution=row[1],level=row[2],experience=row[3],potentials=json.loads(row[4])) if row else None
+             return value
+ 
+     def get(self,uid):
+--- a/normal/online/els_server/storage/characters.py
++++ b/normal/online/els_server/storage/characters.py
+@@ -129,14 +129,28 @@
+         uid=character_uid(uid)
+         from els_server.storage.read_scope import snapshot_connection
+         with snapshot_connection(self.path) as db:
+-            row=db.execute('SELECT c.uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(uid,self.account_id)).fetchone()
+-            value=self._row(row)
+-            value['account_id']=self.account_id
+-            # list()/get() also reject finalized deletions; a narrow read
+-            # must preserve that owner eligibility boundary.
+-            if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_lifecycle'").fetchone():
+-                state=db.execute('SELECT finalized_at FROM character_lifecycle WHERE uid=?',(uid,)).fetchone()
+-                if state and state[0]:return self._row(None)
++            return self._identity(db,uid)
++
++    def _identity(self,db,uid):
++        row=db.execute('SELECT c.uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(uid,self.account_id)).fetchone()
++        value=self._row(row)
++        value['account_id']=self.account_id
++        # list()/get() also reject finalized deletions; narrow readers keep
++        # the same owner and finalized-character eligibility boundary.
++        if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_lifecycle'").fetchone():
++            state=db.execute('SELECT finalized_at FROM character_lifecycle WHERE uid=?',(uid,)).fetchone()
++            if state and state[0]:return self._row(None)
++        return value
++
++    def artifact(self,uid):
++        """Current owned identity and Artifact in one read-only SQL snapshot."""
++        uid=character_uid(uid)
++        from els_server.storage.read_scope import snapshot_connection
++        with snapshot_connection(self.path) as db:
++            db.execute('BEGIN')
++            value=self._identity(db,uid)
++            row=db.execute('SELECT template,evolution,level,experience,potentials FROM character_artifacts WHERE uid=?',(uid,)).fetchone()
++            value['artifact']=dict(template=row[0],evolution=row[1],level=row[2],experience=row[3],potentials=json.loads(row[4])) if row else None
+             return value
+ 
+     def get(self,uid):
+--- a/normal/shared/els_server/storage/item_expiration.py
++++ b/normal/shared/els_server/storage/item_expiration.py
+@@ -39,7 +39,7 @@
+     if exists(db):db.execute('DELETE FROM item_expiration WHERE item_uid=?',(item_uid,))
+ 
+ 
+-def remove_due(path,owner,*,now=None,prepare_refresh=None,prepare_remaining_refresh=None):
++def remove_due(path,owner,*,now=None,prepare_refresh=None,prepare_remaining_refresh=None,timeout=10):
+     from els_server.storage.inventory_state import load_items
+     from els_server.protocol.expiration_messages import notice
+     owner=character_uid(owner);now=int(time.time()) if now is None else now
+@@ -61,7 +61,7 @@
+         if not due_ids(probe):return []
+     # A positive preview never supplies authority: re-read current deadlines
+     # and exact owned inventory after taking the unchanged writer lock.
+-    with closing(sqlite3.connect(path,timeout=10)) as db:
++    with closing(sqlite3.connect(path,timeout=timeout)) as db:
+         with write_transaction(db):
+             due=due_ids(db)
+             if not due:return []
+--- a/normal/shared/els_server/storage/pet_support_periods.py
++++ b/normal/shared/els_server/storage/pet_support_periods.py
+@@ -50,9 +50,9 @@
+  if not db.in_transaction:raise ValueError('Permanent pet original writer')
+  if exists(db):db.execute('DELETE FROM pet_support_periods WHERE owner=?AND kind=?AND target=?',(owner,kind,target))
+ 
+-def expire(path,owner,*,now=None):
++def expire(path,owner,*,now=None,timeout=10):
+  now=epoch(now)
+- with closing(sqlite3.connect(path,timeout=10))as db:
++ with closing(sqlite3.connect(path,timeout=timeout))as db:
+   if not exists(db)or not db.execute('SELECT 1 FROM pet_support_periods WHERE owner=?AND deadline<?AND notified=0 LIMIT 1',(owner,now)).fetchone():return []
+   with db:
+    db.execute('BEGIN IMMEDIATE')

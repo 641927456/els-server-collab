@@ -1,0 +1,9 @@
+# Functional rewards integration
+
+Reference-only ONLINE18 / LOCAL16 source archive on the delivered dungeon-lag parent. Four disjoint features: Revival final-v3 F1/177-map source qualification; Shadow gift select tickets and group25; ordinary career reward mail; native growth Tooltip scalar and approved fixed pairs both+3.5. Nineteen independent normal blobs include both inventory variants, with the common2.4MB identification JSON stored once. Only3A3 is inserted into lag _item_body; validation and per-call reuse remain.
+
+The only new runtime file is career_rewards.py and the only new lazy table is career_reward_mail. Its role-bound mail reader must survive recovery. Four archived producer gates retain new readers, exact old receipts first, then refuse fresh producers; LOCAL uses three of these and ten inherited signed gates. Shadow pure13 legacy versus complete25, Revival fresh-entry/no162-retransmission and the fixed35 paired reader are retained. No player DB restore or bare parent rollback is accepted. Six narrow owned cases and13 real guard rebuilds passed; original matrices were reused, and both earlier fixture failures remain recorded as false. A preserved Shadow25 first grant was API-backed up, never issued again to fix its assertion.
+
+ROOT actual delivery facts are bound in actual-delivery-summary.json; this does not mean every test or natural gameplay passed.
+
+No original client,Hook,DB,credentials,raw capture,operational log or binary is included. The archived SQL is source code only. Natural GUI,battle and a new whole fault/Run are not claimed. Keep this batch's actual version/progress separate from dungeon-lag even when both refs subtrees enter one PR. Use delivery/dungeon-lag-20261101-v1; read actual main before committing. The repository root runtime/tests are not activated.

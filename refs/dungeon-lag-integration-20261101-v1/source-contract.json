@@ -1,0 +1,519 @@
+{
+  "reference_only": true,
+  "source_merge_sha256": "027bedc3a9c706ab7c43f81c09b8e9b22cb4715fb9f281826d890b65af2c581f",
+  "source_review_sha256": "3b442aa6487e716ad7bca9435151fad9e5cffcf9c8c0e1f175d4ff0c23ca5275",
+  "recovery_manifest_sha256": "8d099afcffc15f487b4faf4d7962c71c15232dd3a3d2d5255fc376d2906edbce",
+  "author_manifest_sha256": "81a4088e1d9652ce69179e125daedb1c4c4a4bcfa492568971c471e2ca03da82",
+  "author_archive_sha256": "fce0efbd81f1baf1b5c91737280d2d2d794c83ba21a96f5562bce5ed5593844b",
+  "author_handoff_sha256": "e9909d66a85e2e0c63453324549de5cee0547f33fb991077f16138c938c0c817",
+  "observed_main": "51a41c102d3510e2af7bca7a4292adcbedc78af9",
+  "future_branch": "delivery/dungeon-lag-20261101-v1",
+  "main_must_be_reread_before_commit": true,
+  "channels": {
+    "online": {
+      "parent_release": "native-gift-title-quickstart-hp-20261101-v1",
+      "parent_manifest_sha256": "b5efdcffcea816438d16ecaf8a4d3953cf7785082748fd12130839e5f4c98831",
+      "runtime_delta": 16,
+      "files": [
+        {
+          "runtime_path": "els_server/domain/artifact_flow.py",
+          "parent_sha256": "62b00fa55a7a7dcf01d12555b75af4cfff44f47df316c1dc2b6162829d10a636",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/artifact_flow.py",
+            "size": 6730,
+            "sha256": "16e13ab0827823b11dec19037438dba56461fd66468cc4ce729fc95a0aa5b54c",
+            "git_blob_sha1": "8406bd564298842cf9c947d79359cdb65cb7ef5d"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/attendance_2026_award_flow.py",
+          "parent_sha256": "e5229fadf94aa652c8c71551bbde2da348554bfa24779ed3cd42d247825f1bad",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/attendance_2026_award_flow.py",
+            "size": 10330,
+            "sha256": "3ae7a44dedcfac1e625c99bcc471fb77042dff6cf92f3fabd78b569ba014e404",
+            "git_blob_sha1": "553e259c49446530a263128806db3e4049fb3a32"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/attendance_2026_online.py",
+          "parent_sha256": "69ecbf0214e42a67543f368e68499eae9beccf3993c336dccb79b97e939aded5",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/attendance_2026_online.py",
+            "size": 5372,
+            "sha256": "2ed4a8a824013d4a6d7234515570c9cc44c491f43c07defb00ae3873afaa5b74",
+            "git_blob_sha1": "c6483f4c08b2cf39f3363013b8b6251eaaf9d488"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/attendance_online_2026.py",
+          "parent_sha256": "25459a58159ef8d954310086d83329911bfd2915de5da86ed3f0b11b00947622",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/attendance_online_2026.py",
+            "size": 8434,
+            "sha256": "4c7d5ad5fa3145162fbcd6af9b8d7896bc57cbb3aba6c7b404a419c29e4b1921",
+            "git_blob_sha1": "07d0acdab5dcb79858261c9a9f9fb8fa32d2c0ca"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/boosting_2026_quests.py",
+          "parent_sha256": "bb5d3dd0431e6d9f01f85bdcb2866699a3c0137cd455f04e6f02303582bc27d6",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/boosting_2026_quests.py",
+            "size": 20091,
+            "sha256": "bec1bdcc2028080a3dc827197d2d8c228fdfaa910b266fe7d123f0180e886a2f",
+            "git_blob_sha1": "da02ee5b846f1c7277c9d8ddcc47728676a9c456"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/inventory_items.py",
+          "parent_sha256": "a3c580d7e0a7d1ac84680a6b91d74f3c83373326fefaacf3eae28a137b4a3397",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/online/els_server/domain/inventory_items.py",
+            "size": 79465,
+            "sha256": "ddc2196107d04f9ceda811bd5c98aeb47769adb2f88459e60842367aba85943e",
+            "git_blob_sha1": "738c8950ba1a8432bc915deee62d7ba6d15f433c"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/local_session.py",
+          "parent_sha256": "507d86bbb247a4f740a82d2646b27dfab016150243e3ae4ec732d8602ad32d6c",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/online/els_server/domain/local_session.py",
+            "size": 152011,
+            "sha256": "bd694f1d64629b340aabbd67e43f8c3490ba06ac1c4193aac361682c5d4e61a0",
+            "git_blob_sha1": "fc5e2e62ff68181b8d28c5aee8be933b9a7ac9d7"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/online_2026_campaign.py",
+          "parent_sha256": "691da33cb8395e2a22193b7d864a5439014655cddc30fa93f9f7a26f60a9a31d",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/online_2026_campaign.py",
+            "size": 6835,
+            "sha256": "ffb8bf62500cb364cd13ede9208f85ecc812b17d1201e4859186d1150cf90a0f",
+            "git_blob_sha1": "c5cc2d5efd6bfa4e7592390157072013aea7f28d"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/online_2026_clock.py",
+          "parent_sha256": "c220a499bf8b389014ca12688973cfbf5a8725144f02874009254f0c5ec6dfa3",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/online_2026_clock.py",
+            "size": 4949,
+            "sha256": "13c889fdde0183f67b633c605a514041600f301249ea9f06a1cad50a93350557",
+            "git_blob_sha1": "b578ef0c28425e63a2ebab8ce501dc56f265979b"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/quest_flow.py",
+          "parent_sha256": "8a903da08fb7d1507b65365613e6c6c9b0428b55d1c0ba2693a29d8aa4d3c3be",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/quest_flow.py",
+            "size": 29056,
+            "sha256": "04c913fc8cda2b91c3394a9b15dc5251eb224e636be91e7170744fd18564dc98",
+            "git_blob_sha1": "6e9649d7855cc066d116f652d5aff9193a390dd4"
+          }
+        },
+        {
+          "runtime_path": "els_server/periodic_scheduler.py",
+          "parent_sha256": "9ce9b50161edfa6a69124e5368ff1af76e527f6c0fdfbf7d712c191e14dd379a",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/periodic_scheduler.py",
+            "size": 7276,
+            "sha256": "2602b47fe69694605b5cfbe4a8f1fba4984f350c343f440994f968f16924c49d",
+            "git_blob_sha1": "6f9618e3d039042a52cfa7002cc61a85b9f13703"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/bank_state.py",
+          "parent_sha256": "666197c8483f117edce5afdfdf68cac5af7ab1ebae50778dc008416f027f76fb",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/storage/bank_state.py",
+            "size": 17286,
+            "sha256": "5941a43673cafad75b2ceefac45b5b78c34c0f002109cd294fa70f98cd1eb197",
+            "git_blob_sha1": "dba1fc6b72ba2c46a5af796aa3c4be9d9c35516a"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/boosting_2026_limited_pet.py",
+          "parent_sha256": "03e5ece2d5bcd49f6f940a1f6cae1323710228cde294bd4cad68da33dfde05a4",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/storage/boosting_2026_limited_pet.py",
+            "size": 9302,
+            "sha256": "d04a5818c838ed07143de231513a4f74a45bdd27a9e236e4c826658b28f56bb9",
+            "git_blob_sha1": "f4f6cca25122e86ad4db2c8c362c5ad8f5035512"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/characters.py",
+          "parent_sha256": "fcfb2f4390f6c9ce0ef4de2511d976dee371a0099e45b391152645efb8269ea4",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/online/els_server/storage/characters.py",
+            "size": 16570,
+            "sha256": "3ad24a5eedc854a9cf5d00c818120118c5c332739cf51816265d198b971c99e3",
+            "git_blob_sha1": "355aea488c0b46037b8995fba8e7e80f3a40c37c"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/item_expiration.py",
+          "parent_sha256": "e34aced3d4370792256afd1433d3fb59c0bbff59a47cad1c4a81305754c796de",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/storage/item_expiration.py",
+            "size": 5743,
+            "sha256": "67b88d0b4bbc179759d5d26cf0c36321b2d0561508eb5b8caa0a9b47542ccfa4",
+            "git_blob_sha1": "19350edd96289ba7a814801a12874d848f8cc5b4"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/pet_support_periods.py",
+          "parent_sha256": "b69912b85aa85cfab30c85a46fe2100121408218b28482594e768ac501da7ae2",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/storage/pet_support_periods.py",
+            "size": 4787,
+            "sha256": "60125dd9f6d044c5d69f10891b9a03524f58d28ca938809a2c1ed9116716c954",
+            "git_blob_sha1": "22c98fb4c85bc99e5e2a56be0fc2ce16cb77bef3"
+          }
+        }
+      ],
+      "preserve_all_other_parent_files": true
+    },
+    "local": {
+      "parent_release": "local-native-gift-title-quickstart-hp-20261101-v1",
+      "parent_manifest_sha256": "9769d7b7d49fbaec7199ab698c8b4c83c8e2b63dfb356865457c1d60cb89e06a",
+      "runtime_delta": 16,
+      "files": [
+        {
+          "runtime_path": "els_server/domain/artifact_flow.py",
+          "parent_sha256": "62b00fa55a7a7dcf01d12555b75af4cfff44f47df316c1dc2b6162829d10a636",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/artifact_flow.py",
+            "size": 6730,
+            "sha256": "16e13ab0827823b11dec19037438dba56461fd66468cc4ce729fc95a0aa5b54c",
+            "git_blob_sha1": "8406bd564298842cf9c947d79359cdb65cb7ef5d"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/attendance_2026_award_flow.py",
+          "parent_sha256": "e5229fadf94aa652c8c71551bbde2da348554bfa24779ed3cd42d247825f1bad",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/attendance_2026_award_flow.py",
+            "size": 10330,
+            "sha256": "3ae7a44dedcfac1e625c99bcc471fb77042dff6cf92f3fabd78b569ba014e404",
+            "git_blob_sha1": "553e259c49446530a263128806db3e4049fb3a32"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/attendance_2026_online.py",
+          "parent_sha256": "69ecbf0214e42a67543f368e68499eae9beccf3993c336dccb79b97e939aded5",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/attendance_2026_online.py",
+            "size": 5372,
+            "sha256": "2ed4a8a824013d4a6d7234515570c9cc44c491f43c07defb00ae3873afaa5b74",
+            "git_blob_sha1": "c6483f4c08b2cf39f3363013b8b6251eaaf9d488"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/attendance_online_2026.py",
+          "parent_sha256": "25459a58159ef8d954310086d83329911bfd2915de5da86ed3f0b11b00947622",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/attendance_online_2026.py",
+            "size": 8434,
+            "sha256": "4c7d5ad5fa3145162fbcd6af9b8d7896bc57cbb3aba6c7b404a419c29e4b1921",
+            "git_blob_sha1": "07d0acdab5dcb79858261c9a9f9fb8fa32d2c0ca"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/boosting_2026_quests.py",
+          "parent_sha256": "bb5d3dd0431e6d9f01f85bdcb2866699a3c0137cd455f04e6f02303582bc27d6",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/boosting_2026_quests.py",
+            "size": 20091,
+            "sha256": "bec1bdcc2028080a3dc827197d2d8c228fdfaa910b266fe7d123f0180e886a2f",
+            "git_blob_sha1": "da02ee5b846f1c7277c9d8ddcc47728676a9c456"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/inventory_items.py",
+          "parent_sha256": "d39fc5a9599290e3cdda53b6f87eda6444ac71ff8c46c051d9d531fb6bd8f3bf",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/local/els_server/domain/inventory_items.py",
+            "size": 80385,
+            "sha256": "17b837692b48f4c91b6c7137120fa2c0593652f37d2320fecdc35b944ea25a09",
+            "git_blob_sha1": "ebf29b7467067f376a2c98fe7eb9e2cbaabd18ff"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/local_session.py",
+          "parent_sha256": "c2d5b5276f40864497bef664ea0f42588f1eb3cccdbb336950787025dc035ec9",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/local/els_server/domain/local_session.py",
+            "size": 147264,
+            "sha256": "6b535a42488cd2445745df650ce3ef78d092f79b20f08acb8d571b1a831418df",
+            "git_blob_sha1": "c8eb95da458b97044c68173aa1f6838475928b1d"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/online_2026_campaign.py",
+          "parent_sha256": "691da33cb8395e2a22193b7d864a5439014655cddc30fa93f9f7a26f60a9a31d",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/online_2026_campaign.py",
+            "size": 6835,
+            "sha256": "ffb8bf62500cb364cd13ede9208f85ecc812b17d1201e4859186d1150cf90a0f",
+            "git_blob_sha1": "c5cc2d5efd6bfa4e7592390157072013aea7f28d"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/online_2026_clock.py",
+          "parent_sha256": "c220a499bf8b389014ca12688973cfbf5a8725144f02874009254f0c5ec6dfa3",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/online_2026_clock.py",
+            "size": 4949,
+            "sha256": "13c889fdde0183f67b633c605a514041600f301249ea9f06a1cad50a93350557",
+            "git_blob_sha1": "b578ef0c28425e63a2ebab8ce501dc56f265979b"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/quest_flow.py",
+          "parent_sha256": "8a903da08fb7d1507b65365613e6c6c9b0428b55d1c0ba2693a29d8aa4d3c3be",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/domain/quest_flow.py",
+            "size": 29056,
+            "sha256": "04c913fc8cda2b91c3394a9b15dc5251eb224e636be91e7170744fd18564dc98",
+            "git_blob_sha1": "6e9649d7855cc066d116f652d5aff9193a390dd4"
+          }
+        },
+        {
+          "runtime_path": "els_server/periodic_scheduler.py",
+          "parent_sha256": "9ce9b50161edfa6a69124e5368ff1af76e527f6c0fdfbf7d712c191e14dd379a",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/periodic_scheduler.py",
+            "size": 7276,
+            "sha256": "2602b47fe69694605b5cfbe4a8f1fba4984f350c343f440994f968f16924c49d",
+            "git_blob_sha1": "6f9618e3d039042a52cfa7002cc61a85b9f13703"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/bank_state.py",
+          "parent_sha256": "666197c8483f117edce5afdfdf68cac5af7ab1ebae50778dc008416f027f76fb",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/storage/bank_state.py",
+            "size": 17286,
+            "sha256": "5941a43673cafad75b2ceefac45b5b78c34c0f002109cd294fa70f98cd1eb197",
+            "git_blob_sha1": "dba1fc6b72ba2c46a5af796aa3c4be9d9c35516a"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/boosting_2026_limited_pet.py",
+          "parent_sha256": "03e5ece2d5bcd49f6f940a1f6cae1323710228cde294bd4cad68da33dfde05a4",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/storage/boosting_2026_limited_pet.py",
+            "size": 9302,
+            "sha256": "d04a5818c838ed07143de231513a4f74a45bdd27a9e236e4c826658b28f56bb9",
+            "git_blob_sha1": "f4f6cca25122e86ad4db2c8c362c5ad8f5035512"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/characters.py",
+          "parent_sha256": "caa9d0677618854ac77a8f133a7b8014afc5227264b7132e3acae320c4d3209c",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/local/els_server/storage/characters.py",
+            "size": 16237,
+            "sha256": "1db2831ce1c6997bc5efd4f55fa69d450a2c896e660b2cc796b56db52485c1e5",
+            "git_blob_sha1": "f8f525247ed6bf896769af6f3a6f1504e95c46a5"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/item_expiration.py",
+          "parent_sha256": "e34aced3d4370792256afd1433d3fb59c0bbff59a47cad1c4a81305754c796de",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/storage/item_expiration.py",
+            "size": 5743,
+            "sha256": "67b88d0b4bbc179759d5d26cf0c36321b2d0561508eb5b8caa0a9b47542ccfa4",
+            "git_blob_sha1": "19350edd96289ba7a814801a12874d848f8cc5b4"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/pet_support_periods.py",
+          "parent_sha256": "b69912b85aa85cfab30c85a46fe2100121408218b28482594e768ac501da7ae2",
+          "archive": {
+            "path": "refs/dungeon-lag-integration-20261101-v1/normal/shared/els_server/storage/pet_support_periods.py",
+            "size": 4787,
+            "sha256": "60125dd9f6d044c5d69f10891b9a03524f58d28ca938809a2c1ed9116716c954",
+            "git_blob_sha1": "22c98fb4c85bc99e5e2a56be0fc2ce16cb77bef3"
+          }
+        }
+      ],
+      "preserve_all_other_parent_files": true
+    }
+  },
+  "new_runtime_files": 0,
+  "schema_changes": false,
+  "client_Hook_delta": 0,
+  "independent_source_blobs": 19,
+  "LOCAL_variants": [
+    "els_server/domain/inventory_items.py",
+    "els_server/domain/local_session.py",
+    "els_server/storage/characters.py"
+  ],
+  "encoding_scope": "Only validated objects/encoded bodies from this call are reused; no cross-request inventory cache",
+  "preserved_security": [
+    "owner/lease/envelope/phase qualification",
+    "full public item validator and worn wire checks",
+    "explicit economic writer timeout/atomic commit/rollback/replay",
+    "expiry-use/trade deadline guards",
+    "final stop flush",
+    "existing Gift75/Title6/QuickStart/HP and mode differences"
+  ],
+  "recovery": {
+    "safe_for_saved_data": true,
+    "safety_basis": "Exact unchanged database schema, persisted rows and protocol layout; original economic atomic/replay tests reused and new dependency encoder equality passed. No new fault/restore Run claimed.",
+    "actual_new_recovery_Run": false,
+    "player_database_restore": false,
+    "new_producer_gate": false,
+    "prefer_complete_new_readers": true,
+    "parent_reader_compatible": true,
+    "parent_rollback_restores_latency_defects": true,
+    "inherited_guard_count": 10,
+    "changed_guard_targets": [],
+    "inherited_guard_proofs": {
+      "els_server/storage/relationships.py": {
+        "parent_normal_sha256": "0be8ce976e20571a1be7b0b9dcf02251934645bd2e39d14d3d94f3a40c86e42b",
+        "new_normal_sha256": "0be8ce976e20571a1be7b0b9dcf02251934645bd2e39d14d3d94f3a40c86e42b",
+        "new_guard_sha256": "ddb601d64ed6100187f945a34b997483f6198c9338fb9010ea032cc927d63e3c",
+        "insert_only": true
+      },
+      "els_server/storage/couple_closures.py": {
+        "parent_normal_sha256": "5c8920ed4c2f41dcd5a6d7e58d811495c6d070e3f7a10f649f5c7ac2e3339853",
+        "new_normal_sha256": "5c8920ed4c2f41dcd5a6d7e58d811495c6d070e3f7a10f649f5c7ac2e3339853",
+        "new_guard_sha256": "4008884caac32d2e8d6393e15d095416015283c82c179c9a252925d1cc639dbe",
+        "insert_only": true
+      },
+      "els_server/storage/identification_ui.py": {
+        "parent_normal_sha256": "9e0668115954a6c5e98fea5e7295ce7bfacf8463ab07a52e4af18459ca700a55",
+        "new_normal_sha256": "9e0668115954a6c5e98fea5e7295ce7bfacf8463ab07a52e4af18459ca700a55",
+        "new_guard_sha256": "9ff48abd45a634a2838a6e9efa1275a7537c655ab5901d66ae4e707c51b30555",
+        "insert_only": true
+      },
+      "els_server/storage/fixed_cubes.py": {
+        "parent_normal_sha256": "c35ee807ef8fd941073725cd95e7f335cff266e8986fea0e2144c08909f7a615",
+        "new_normal_sha256": "c35ee807ef8fd941073725cd95e7f335cff266e8986fea0e2144c08909f7a615",
+        "new_guard_sha256": "2ee4099b8f8c54f70714463aba909f559b3ff99b002b1cd916f83df42a677c2b",
+        "insert_only": true
+      },
+      "els_server/storage/companion_state.py": {
+        "parent_normal_sha256": "110b6db4b61f8dba211588560d807b43a8587e73da16e4f0d1a62d991283cd96",
+        "new_normal_sha256": "110b6db4b61f8dba211588560d807b43a8587e73da16e4f0d1a62d991283cd96",
+        "new_guard_sha256": "799c93a213c65c7abb59f56b3122b7f2c2820deb41302062bab6915b38e7d7ae",
+        "insert_only": true
+      },
+      "els_server/storage/equipment_tuning.py": {
+        "parent_normal_sha256": "8a3a5818f77c725f6a69ff45a9b1857368bc89446fe6cf348f2e3698f1ea8669",
+        "new_normal_sha256": "8a3a5818f77c725f6a69ff45a9b1857368bc89446fe6cf348f2e3698f1ea8669",
+        "new_guard_sha256": "e209fb63275f0651fd70642ca3eb59644355d52aa37a8b4215dbb78a9e63565e",
+        "insert_only": true
+      },
+      "els_server/storage/growth_guide.py": {
+        "parent_normal_sha256": "0cdf8396d12d1f17d28a90369a4d0ddeec9fdad5d4362c31a1d882c44fe1c069",
+        "new_normal_sha256": "0cdf8396d12d1f17d28a90369a4d0ddeec9fdad5d4362c31a1d882c44fe1c069",
+        "new_guard_sha256": "a39aaeb8cfc8130cc3be40f433f3f5196bb57243ff1c7e6038f3e7faf12e722a",
+        "insert_only": true
+      },
+      "els_server/storage/growth_guide_boxes.py": {
+        "parent_normal_sha256": "900769e66b340303f7cf57a68d1e309aa10228b6344c8a0e2279ce525f45f6e7",
+        "new_normal_sha256": "900769e66b340303f7cf57a68d1e309aa10228b6344c8a0e2279ce525f45f6e7",
+        "new_guard_sha256": "b8b382b4ecaacb5bc8f65e5361066f9532c846e90f646f9de0219d81f75b9508",
+        "insert_only": true
+      },
+      "els_server/storage/seal_quests.py": {
+        "parent_normal_sha256": "db7d806374765aff34eaf84b00bdf4059acc0c6d7481c3a78d22e24f74da8502",
+        "new_normal_sha256": "db7d806374765aff34eaf84b00bdf4059acc0c6d7481c3a78d22e24f74da8502",
+        "new_guard_sha256": "cc846c80e991480891259729a22e70c7645e6326ad3959435b0ddb091da5e65f",
+        "insert_only": true
+      },
+      "els_server/storage/boosting_2026_essence.py": {
+        "parent_normal_sha256": "97f360eecf84b6806d2fda9d61877fd3a75e1bf11cf65cedcf4971f2f2bdeee4",
+        "new_normal_sha256": "992f09dbe88b000b02b6ff9053e0bcd22e7cbfb0fef73ac55e0f45501438bf08",
+        "new_guard_sha256": "22bcf30e637d99808442400aa43843d84a9178ad8c329af016f99aab4392ec4c",
+        "insert_only": true,
+        "new_title_gate": true
+      }
+    },
+    "signed_LOCAL_payload_update_required": true
+  },
+  "exclusions": [
+    "Tooltip/fix-v5",
+    "revival",
+    "shadow-gift",
+    "career-reward"
+  ],
+  "installed": true,
+  "PR_number": null,
+  "PR_head": null,
+  "Git_merged": false,
+  "final_delivery_acceptance": {
+    "source_merge_sha256": "027bedc3a9c706ab7c43f81c09b8e9b22cb4715fb9f281826d890b65af2c581f",
+    "facts": {
+      "online_release": "native-dungeon-lag-20261101-v1",
+      "local_release": "local-native-dungeon-lag-20261101-v1",
+      "online_runtime_changed": 16,
+      "local_runtime_changed": 16,
+      "online_observation_seconds": 123.2417293000035,
+      "local_observation_seconds": 120.00049180001952,
+      "launcher_version": 67,
+      "signed_LOCAL_changed": 17,
+      "signed_LOCAL_count": 1914,
+      "actual_signed_LOCAL_selected": true,
+      "V67_qualification_passed": true,
+      "launcher_published": true,
+      "Friends_archive_envelope_reused": true,
+      "new_whole_Run_executed": false,
+      "public_acceptance_passed": true
+    },
+    "evidence": [
+      {
+        "name": "source-merge.json",
+        "sha256": "027bedc3a9c706ab7c43f81c09b8e9b22cb4715fb9f281826d890b65af2c581f"
+      },
+      {
+        "name": "source-review.json",
+        "sha256": "3b442aa6487e716ad7bca9435151fad9e5cffcf9c8c0e1f175d4ff0c23ca5275"
+      },
+      {
+        "name": "related-qualification.json",
+        "sha256": "45edc552844486a50afae3c7a3bacf47b3193160b7be9d504eaa2dd6e9fe7094"
+      },
+      {
+        "name": "public-acceptance.json",
+        "sha256": "075aec33f3181bfd98af7c5868a8d5e951b70b0099895ce682778f33295bf9a7"
+      },
+      {
+        "name": "actual-online-readback.json",
+        "sha256": "286ced0c90b24bebb0e166a23e51f2acb3abf1043aae45b9a656989224d7a9a9"
+      },
+      {
+        "name": "actual-local-readback.json",
+        "sha256": "6cb5c8d36971beaf8b4a3b0918f0f483b068bb477ccedbf68e08fba2484f557f"
+      },
+      {
+        "name": "build.json",
+        "sha256": "df95d6a81125e8d5395e119a83d64282ec118825d3739d446d45935000d18cc1"
+      },
+      {
+        "name": "dual-qualification.json",
+        "sha256": "82bbbda5653149ccf1d3de8789f82fd842bb6e0a0aa31b6ff3f491946f596ed5"
+      },
+      {
+        "name": "installation.json",
+        "sha256": "6795ef7393d7e42decff4b7f7377dbdde5b98227ec24f6dd43a27aa3a8a04590"
+      },
+      {
+        "name": "public-local-qualification.json",
+        "sha256": "e9f655d45ca26bad24f4f3fb95c8aee69be79422ef5055ea478d182f73e42b66"
+      }
+    ],
+    "all_tests_passed_claimed": false,
+    "natural_GUI_or_battle_claimed": false,
+    "raw_receipts_embedded": false
+  }
+}
