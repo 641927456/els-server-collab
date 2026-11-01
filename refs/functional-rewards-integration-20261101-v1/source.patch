@@ -1,0 +1,466 @@
+# Paired JSON: normal/shared/els_server/data/identification_ui.json
+# before 975267cf7efc8bbda24ad26d6202ff9f590bef64e140ed0c9a2892a5d8d03df9
+# after f13c8fb10d5af6f0f1f034cca020717ddead34256d7f75b8e1544ac5d14b0512; complete bytes stored once in normal/
+# Paired JSON: normal/shared/els_server/data/known_resurrection_maps.json
+# before 56fc161281869be7c4543ee98b16c8f684e00722277ee842eae5a1692246060a
+# after 074fd932e10d226efc57d653cea8f52091ce9c492309a5f82105c8719a3b220b; complete bytes stored once in normal/
+# Paired JSON: normal/shared/els_server/data/known_resurrection_maps.manifest.json
+# before 90e23496a259e43936cb4673eea6367864749cfc46966cfeaed63d5a620b350d
+# after 6258d13c7d591b8db4e6a1964ecfcf58dafa6a5b963fdf17da59a4562a5b67ec; complete bytes stored once in normal/
+--- lag-parent/normal/online/els_server/domain/abyss_weapon_2026.py
++++ candidate/normal/online/els_server/domain/abyss_weapon_2026.py
+@@ -39,17 +39,28 @@
+     from els_server.game_data import client_data
+     return next(t for t in weapon_templates()if client_data().item(t)['record'][0xd2]==family)
+ 
++def magic_attack(unit_class):
++    from els_server.game_data import client_data
++    rows=client_data().resource('CharacterStatTable.lua')['SECOND_CLASS_RELATIVE_STAT_TABLE']
++    row=next(r for r in rows.values()if isinstance(r,dict)and r.get('1')==unit_class)
++    return row['4']>row['2']
++
++def identification_options(unit_class,randbelow):
++    """First gift only: approved class attack levels 3.5/3.5, native third-line pool."""
++    from els_server.domain.identification_ui import catalog,select_weighted
++    fixed=[61262,61262] if magic_attack(unit_class) else [61222,61222]
++    random=select_weighted(catalog()['native_pools']['1015']['outcomes'],randbelow(10000),10000,
++        range_error='Identification random range',incomplete_error='Identification probabilities incomplete')
++    return [*fixed,random]
++
+ def engraving_options(unit_class):
+     """Approved gift preset; native class stats select physical or magic attack.
+ 
+     Keep native condition/probability/buff IDs: the client owns activation,
+     duration and cooldown. These are fixed highest tiers, not enhancement scales.
+     """
+-    from els_server.game_data import client_data
+     from els_server.domain.equipment_engrave_rules import options
+-    rows=client_data().resource('CharacterStatTable.lua')['SECOND_CLASS_RELATIVE_STAT_TABLE']
+-    row=next(r for r in rows.values()if isinstance(r,dict)and r.get('1')==unit_class)
+-    attack=8 if row['2']>row['4'] else 17
++    attack=17 if magic_attack(unit_class) else 8
+     template=output_for(unit_class)
+     return {str(group):options(template,group,values)for group,values in (
+         (14,[60,32,attack]), # Special active -> corresponding attack.
+--- lag-parent/normal/shared/els_server/domain/boosting_2026_participation_gear.py
++++ candidate/normal/shared/els_server/domain/boosting_2026_participation_gear.py
+@@ -64,6 +64,22 @@
+ def preview(row,unit_class):
+     return tuple(dict(template=r['template'],quantity=1) for r in outputs_for(unit_class)) if row.get('participation_gear') else row['entries']
+ 
++def shadow_options(outputs, randbelow):
++    """One common third-line effect; retain the approved normal tier weights."""
++    from els_server.domain.tenebros_rules import template_info,draw_initial,draw_type,validate
++    first = outputs[0]['template']
++    types = template_info(first)['types'][2]
++    effect = types[randbelow(len(types))]
++    third = draw_type(first, 2, effect, randbelow(55))
++    result = {}
++    for row in outputs:
++        template = row['template']
++        info = template_info(template)
++        values = [draw_initial(template, line, randbelow(len(info['types'][line])), randbelow(55))
++                  for line in (0, 1)]
++        result[template] = validate(template, [*values, third])
++    return result
++
+ def cannot_enhance(template):
+     # This intrinsic restriction also holds when the activity is disabled.
+     # Explicit box restriction from original KIM text. Do not infer the meaning
+--- lag-parent/normal/shared/els_server/domain/identification_ui.py
++++ candidate/normal/shared/els_server/domain/identification_ui.py
+@@ -6,7 +6,7 @@
+ @functools.lru_cache(maxsize=1)
+ def catalog():
+  raw=(Path(__file__).resolve().parents[1]/'data/identification_ui.json').read_bytes()
+- if hashlib.sha256(raw).hexdigest()!='975267cf7efc8bbda24ad26d6202ff9f590bef64e140ed0c9a2892a5d8d03df9':raise ValueError('Identification source changed')
++ if hashlib.sha256(raw).hexdigest()!='f13c8fb10d5af6f0f1f034cca020717ddead34256d7f75b8e1544ac5d14b0512':raise ValueError('Identification source changed')
+  c=json.loads(raw)
+  if c['client_sha256']!=CLIENT_SHA or c['catalog_sha256']!=client_data().manifest['catalog_sha256']:raise ValueError('Identification build mismatch')
+  for s in c['sources']:
+@@ -110,6 +110,8 @@
+  if native is not None:
+   pools=[catalog()['native_pools'][str(g)]for g in native['pool_groups']]
+   if isinstance(values,(list,tuple))and len(values)in(0,len(pools))and all(type(v)is int and str(v)in pool['options']for v,pool in zip(values,pools)):return list(values)
++  # Approved initial gift pairs remain readable; ordinary draws keep their native pools.
++  if isinstance(values,(list,tuple))and len(values)==len(pools)and list(values[:2])in native.get('initial_fixed_pairs',[])and all(type(v)is int and str(v)in pool['options']for v,pool in zip(values[2:],pools[2:])):return list(values)
+  # Existing validation remains the reader for previously committed compatibility
+  # vectors. New generation below never selects that compatibility distribution.
+  row=compatibility_profile(template)
+--- lag-parent/normal/local/els_server/domain/inventory_items.py
++++ candidate/normal/local/els_server/domain/inventory_items.py
+@@ -725,6 +725,9 @@
+    else:
+     from els_server.domain.identification_ui import initial_pending
+     if initial_pending(item):data[wire]=2
++  elif off==0x3a3:
++   from els_server.domain.weapon_growth import instance_stage
++   struct.pack_into('>i',data,wire,instance_stage(item))
+   elif off==0x3a7 and 'artifact_socket_open' in item:data[wire]=int(item['artifact_socket_open'])
+   elif 0x3b0<=off<=0x3b3 and 'chip_tuning' in item:data[wire]=item['chip_tuning'][off-0x3b0]
+   elif off in (0x397,0x39b,0x39f) and 'reforge' in item:struct.pack_into('>i',data,wire,item['reforge'][(off-0x397)//4])
+--- lag-parent/normal/online/els_server/domain/inventory_items.py
++++ candidate/normal/online/els_server/domain/inventory_items.py
+@@ -727,6 +727,9 @@
+    else:
+     from els_server.domain.identification_ui import initial_pending
+     if initial_pending(item):data[wire]=2
++  elif off==0x3a3:
++   from els_server.domain.weapon_growth import instance_stage
++   struct.pack_into('>i',data,wire,instance_stage(item))
+   elif off==0x3a7 and 'artifact_socket_open' in item:data[wire]=int(item['artifact_socket_open'])
+   elif 0x3b0<=off<=0x3b3 and 'chip_tuning' in item:data[wire]=item['chip_tuning'][off-0x3b0]
+   elif off in (0x397,0x39b,0x39f) and 'reforge' in item:struct.pack_into('>i',data,wire,item['reforge'][(off-0x397)//4])
+--- lag-parent/normal/shared/els_server/domain/known_resurrection_flow.py
++++ candidate/normal/shared/els_server/domain/known_resurrection_flow.py
+@@ -23,11 +23,13 @@
+ def _scene(s,sequence):
+     a=_actor(s,sequence)
+     from els_server.domain.luciel_dungeon import run_state,canonical
+-    from els_server.domain.known_resurrection_maps import qualified
+-    keys=qualified(s);app=getattr(s,'application',None)
++    from els_server.domain.known_resurrection_maps import qualified,catalog
++    from els_server.domain.silver_mirror_policy import ALL as MIRROR
++    keys=qualified(s);limit=1 if s.dungeon_id in MIRROR else catalog()[str(s.dungeon_id)]['revival_limit']
++    app=getattr(s,'application',None)
+     world=app.world if app is not None else None
+     room=world.dungeons.transport_room(s) if world is not None else None
+-    refs=[a,a.store,getattr(a,'root',a)];values=[a.uid,a.account_id,s.shop_session_id,s.phase]
++    refs=[a,a.store,getattr(a,'root',a)];values=[a.uid,a.account_id,s.shop_session_id,s.phase,limit]
+     if (getattr(s,'solo_challenge_party',None)is not None or getattr(s,'active_challenge',None)is not None
+         or getattr(s,'challenge_deadline',None)is not None):raise ValueError('Known resurrection special context')
+     if room is None:
+@@ -39,10 +41,17 @@
+         if not keys:raise ValueError('Shared resurrection requires source-qualified spawn keys')
+         from els_server.domain.friends_dungeon import Room
+         from els_server.domain.friends_world import Mailbox
++        if type(room)is not Room:raise ValueError('Known resurrection room type')
+         from els_server.domain.normal_party import ordinary
+-        if (type(room)is not Room or world.dungeons.room(s)is not room or room.phase!='active'
+-            or room.identity!=s.dungeon_id or not 2<=len(room.members)<=4 or not app.config.friends_coop_enabled
+-            or not ordinary(room.party) or room.party.get('run')is not room
++        from els_server.domain.raid_party import admission_size,raid_definition
++        raid=raid_definition(s.dungeon_id)
++        admitted_party=ordinary(room.party) or bool(room.party.get('raid_party') and raid is not None
++            and not any(room.party.get(k)for k in('solo_challenge','challenge','challenge_pending')))
++        if (world.dungeons.room(s)is not room or room.phase!='active'
++            or room.identity!=s.dungeon_id or room.party.get('dungeon')!=room.identity
++            or not (1<=len(room.members)<=6 if room.party.get('raid_party') else 2<=len(room.members)<=4)
++            or not app.config.friends_coop_enabled or not admitted_party or not admission_size(room.party,room.identity)
++            or room.party.get('run')is not room
+             or room.party.get('difficulty',0)!=0 or room.party.get('mode',0)!=0
+             or tuple(room.party['members'])!=room.members or room.party['leader']is not room.leader
+             or room.leader not in room.members or s not in room.members):raise ValueError('Known resurrection ordinary room')
+@@ -65,7 +74,10 @@
+             values.extend((member.account.uid,member.account.account_id,member.shop_session_id,state))
+         if len(generations)!=1:raise ValueError('Known resurrection peer generation changed')
+         targets=tuple(m for m in room.members if m is not s)
+-    return dict(refs=tuple(refs),values=tuple(values),epoch=epoch,keys=keys,targets=targets,shared=room is not None)
++    entry=((a,a.store,getattr(a,'root',a),app,world,room,s.dungeon_run),
++           (a.uid,a.account_id,s.shop_session_id,s.dungeon_id,epoch))
++    return dict(refs=tuple(refs),values=tuple(values),epoch=epoch,keys=keys,targets=targets,
++        shared=room is not None,limit=limit,entry=entry,world_stage=s.gate_stage)
+ 
+ def _same(expected,current):
+     old,values=(expected['refs'],expected['values'])if isinstance(expected,dict)else expected
+@@ -113,20 +125,27 @@
+             from els_server.domain.dungeon_population import population
+             entries=population(s.gate_stage)['npcs'];dead=s.defeated_npcs
+         else:entries=run.current['npcs'];dead=run.defeated
+-        if not any(n['key']==request['killer']and n['active']and n['key']not in dead for n in entries):
++        if not any(n['key']==request['killer']and n['key']not in dead for n in entries):
+             raise ValueError('Unknown current solo killer instance')
+ 
+ def _life(s,context):
+     state=getattr(s,'known_resurrection_life',None)
+-    previous=state
++    number=0
+     if state is not None:
+-        try:_same(state['context'],context)
+-        except ValueError:state=None
+-    if state is None:
+-        number=previous['number'] if previous is not None and previous.get('epoch')==context['epoch']else 0
+-        state=dict(context=context,epoch=context['epoch'],number=number,phase='alive',death_sequence=None,death_payload=None)
+-        s.known_resurrection_life=state
++        try:_same(state['context']['entry'],context['entry'])
++        except ValueError:pass
++        else:
++            number=state['number']
++            if state['context']['world_stage']==context['world_stage']:
++                # A new part changes scene authority, not the native actor's life.
++                # The caller already qualified the current scene; commit guards
++                # still compare its complete snapshot before consuming a stone.
++                state['context']=context
++                return state
++    state=dict(context=context,epoch=context['epoch'],number=number,phase='alive',death_sequence=None,death_payload=None)
++    s.known_resurrection_life=state
+     return state
++
+ 
+ def handle(s,event,sequence):
+     if event.event_id!=0x202:return None
+@@ -184,10 +203,9 @@
+             _same(context,_scene(s,sequence));_validate_peers(prepared)
+             if getattr(s,'known_resurrection_life',None)is not state or state['phase']!='dead'or state['number']!=life:
+                 raise ValueError('Known resurrection life changed')
+-        from els_server.domain.silver_mirror_policy import ALL as MIRROR
+         result=spend(s.account.store.path,s.account.uid,event.payload,_operation(s,sequence),context['epoch'],life,
+             account_id=s.account.account_id if s.account.characters is not None else None,guard=guard,
+-            dungeon=s.dungeon_id,position=position,prepare=prepare,limit=1 if s.dungeon_id in MIRROR else None)
++            dungeon=s.dungeon_id,position=position,prepare=prepare,limit=context['limit'])
+         if result['replayed']:
+             # A commit followed by an unknown handoff is reconciled by a fresh
+             # entry; replaying162 could heal an already living native actor.
+--- lag-parent/normal/shared/els_server/domain/known_resurrection_maps.py
++++ candidate/normal/shared/els_server/domain/known_resurrection_maps.py
+@@ -25,7 +25,8 @@
+     if row is None:raise ValueError('Resurrection scene source not qualified')
+     source=client_data().dungeon(s.dungeon_id)
+     digest=hashlib.sha256(json.dumps(source,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+-    routes=route_catalog();route=routes._data['routes'].get(str(s.dungeon_id))
++    if row['revival_limit']!=source.get('LimitedMaxResurrectionUseCount'):raise ValueError('Resurrection limit source mismatch')
++    routes=route_catalog();route=routes._data['routes'].get(str(s.dungeon_id)) or routes._data['event_routes'].get(str(s.dungeon_id))
+     if (digest!=row['definition_sha256'] or route is None
+         or routes._data['graphs'][route['source']]['source_sha256']!=row['graph_source_sha256']):raise ValueError('Resurrection scene changed')
+     stage=row['stages'].get(str(s.gate_stage));part=s.dungeon_run.part if s.dungeon_run is not None else 0
+--- lag-parent/normal/shared/els_server/domain/weapon_growth.py
++++ candidate/normal/shared/els_server/domain/weapon_growth.py
+@@ -71,6 +71,12 @@
+     return next((n for n,row in enumerate(chain(item['template'])['quests'],1) if row['options']==values),0)
+ 
+ 
++def instance_stage(item):
++    """Native inventory/public stage scalar, derived from the same saved effects."""
++    template=item['template']
++    return stage(item) if template in templates() or preset(template) is not None else 0
++
++
+ def eligible_clear(completed_stage,dungeon,template=136062):
+     row=quest(completed_stage,template)
+     return row is not None and any(dungeon in g.get('dungeons',()) for g in row['objectives'])
+--- lag-parent/normal/shared/els_server/protocol/social_messages.py
++++ candidate/normal/shared/els_server/protocol/social_messages.py
+@@ -117,7 +117,9 @@
+         reforge_level=item.get('reforge',DEFAULT)[0]
+     # D9A9D0 DTO+356 -> 87E060 instance+180 -> 198E220 reforge stats.
+     # Public appearance carries the level; inventory-only life/failures stay out.
+-    return data+attributes+options+u32(0)+b'\0'+struct.pack('>i',reforge_level)+bytes(4)+b'\xff'+struct.pack('>IiiiIiii',3,*item.get('dye_colors',[0,0,0]),3,*item.get('appearance_colors',[0,0,0]))+bytes(8)
++    # D9A9D0 DTO+35A -> 87E060 instance+1C0 is the growth stage.
++    from els_server.domain.weapon_growth import instance_stage
++    return data+attributes+options+u32(0)+b'\0'+struct.pack('>ii',reforge_level,instance_stage(item))+b'\xff'+struct.pack('>IiiiIiii',3,*item.get('dye_colors',[0,0,0]),3,*item.get('appearance_colors',[0,0,0]))+bytes(8)
+ 
+ 
+ def town_member(character,location,items=()):
+--- lag-parent/normal/online/els_server/storage/abyss_weapon_boxes.py
++++ candidate/normal/online/els_server/storage/abyss_weapon_boxes.py
+@@ -1,5 +1,5 @@
+ """Original campaign boxes use shared inventory, expiry, preset and receipts."""
+-import sqlite3,struct,time
++import secrets,sqlite3,struct,time
+ from contextlib import closing
+ from els_server.domain import abyss_weapon_2026 as rules
+ from els_server.protocol.ice_messages import use_request
+@@ -13,7 +13,7 @@
+ from els_server.storage.npc_trade import balances
+ from els_server.storage.abyss_weapon_2026 import Campaign
+ 
+-def open_box(path,owner,template,payload,operation,*,account_id,prepare):
++def open_box(path,owner,template,payload,operation,*,account_id,prepare,randbelow=secrets.randbelow):
+     request=use_request(payload)
+     if request.option not in(0,1)or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):
+         raise ValueError('Campaign box accepts one box without client-selected class')
+@@ -46,7 +46,8 @@
+                 from els_server.domain.weapon_growth import preset
+                 from els_server.storage.equipment_options import replace
+                 weapon=grants[0];replace(db,owner,weapon['uid'],weapon.get('option_groups',{}),
+-                    {**weapon.get('option_groups',{}),**rules.engraving_options(cls),'17':preset(weapon['template'])['options']})
++                    {**weapon.get('option_groups',{}),'1':rules.identification_options(cls,randbelow),
++                     **rules.engraving_options(cls),'17':preset(weapon['template'])['options']})
+                 db.execute('UPDATE abyss2026_accounts SET weapon_uid=?WHERE account=?',(weapon['uid'],account_id))
+             after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
+             positions=sorted({source,*[(i['group'],i['slot'])for i in grants]})
+--- lag-parent/normal/shared/els_server/storage/boosting_2026_gear_scroll_policy.py
++++ candidate/normal/shared/els_server/storage/boosting_2026_gear_scroll_policy.py
+@@ -1,6 +1,7 @@
+-"""User-authorized local723680 reward policy,2026-10-24.
++"""Four select tickets for new723680 boxes, authorized2026-11-01.
+ 
+-Not recovered CN event contents. No installer, player migration or packet route.
++Historical ordinary-scroll reconciliation retains its original receipt meaning.
++Not recovered CN event contents. No installer or player migration.
+ """
+ import json,sqlite3,struct
+ from contextlib import closing
+@@ -17,6 +18,7 @@
+ POLICY='user-authorized-723680-four-normal118259-20261024-v1'
+ AUTHORIZATION_SHA256='c66bced1e4f397a6746fbede01e9bff973d97364252aa18533db79a4c1ce4441'
+ SCROLL=118259
++SELECT_TICKET=718666
+ 
+ def actor(db,owner,account_id,prepare):
+     if not callable(prepare):raise ValueError('Current selected lease callback required')
+@@ -33,13 +35,13 @@
+         request_hash TEXT NOT NULL,source_uids_json TEXT NOT NULL,
+         positions_json TEXT NOT NULL,before_json TEXT NOT NULL,after_json TEXT NOT NULL)''')
+ 
+-def grant(db,owner,operation,digest,uids):
++def grant(db,owner,operation,digest,uids,*,template=SCROLL):
+     ensure(db)
+     if db.execute('SELECT 1 FROM boosting2026_gear_scroll_receipts WHERE original_operation=?',(operation,)).fetchone():
+         raise ValueError('Gift scroll supplement already recorded')
+     before=load_items(db,owner)
+     from els_server.domain.inventory_items import VERIFIED_TEMPLATES,TEMPLATE_BAG_GROUPS
+-    changed=grant_items(db,[dict(template=SCROLL,metadata=VERIFIED_TEMPLATES[SCROLL],group=TEMPLATE_BAG_GROUPS[SCROLL],quantity=4)],owner)
++    changed=grant_items(db,[dict(template=template,metadata=VERIFIED_TEMPLATES[template],group=TEMPLATE_BAG_GROUPS[template],quantity=4)],owner)
+     after=load_items(db,owner);positions=[(i['group'],i['slot'])for i in changed]
+     db.execute('INSERT INTO boosting2026_gear_scroll_receipts VALUES(?,?,?,?,?,?,?)',
+         (operation,owner,digest,json.dumps(sorted(uids)),json.dumps(positions),json.dumps(before,sort_keys=True),json.dumps(after,sort_keys=True)))
+@@ -49,7 +51,7 @@
+     if not POLICY_ENABLED:return []
+     actor(db,owner,account_id,prepare)
+     if len(uids)!=4 or len(set(uids))!=4:raise ValueError('Four new armor instances required')
+-    return grant(db,owner,operation,digest,uids)
++    return grant(db,owner,operation,digest,uids,template=SELECT_TICKET)
+ 
+ def legacy_proof(db,owner,account_id,operation,prepare):
+     cls=actor(db,owner,account_id,prepare)
+--- lag-parent/normal/shared/els_server/storage/boosting_2026_participation_gear.py
++++ candidate/normal/shared/els_server/storage/boosting_2026_participation_gear.py
+@@ -1,5 +1,5 @@
+ """One owned role-dependent box, four complete instances, one atomic receipt."""
+-import sqlite3,struct
++import secrets,sqlite3,struct
+ from contextlib import closing
+ from els_server.domain.boosting_2026_participation_gear import BOX,POLICY,enabled,outputs_for
+ from els_server.domain.item_expiration import require_current
+@@ -44,14 +44,16 @@
+         if len(grants)!=4 or {r['template'] for r in grants}!={r['template'] for r in outputs}:raise ValueError('Participation gear factory changed')
+         from els_server.storage.equipment_reforge import replace as reforge
+         from els_server.storage.equipment_options import replace as options
++        from els_server.domain.boosting_2026_participation_gear import shadow_options
++        shadows=shadow_options(outputs,secrets.randbelow)
+         for item in grants:
+             row=next(r for r in outputs if r['template']==item['template'])
+             reforge(db,owner,item['uid'],[0,100,0],list(row['reforge']))
+-            options(db,owner,item['uid'],{},dict({'13':list(row['reforge_options'])}))
++            options(db,owner,item['uid'],{},{'13':list(row['reforge_options']),'25':shadows[item['template']]})
+         extra=scroll_policy.attach_new(db,owner,account_id,operation,digest,[i['uid']for i in grants],prepare)
+         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
+         positions=sorted({source,*[(i['group'],i['slot']) for i in grants],*extra})
+-        events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(r['template'],1) for r in outputs]+([(scroll_policy.SCROLL,4)]if extra else []))
++        events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(r['template'],1) for r in outputs]+([(scroll_policy.SELECT_TICKET,4)]if extra else []))
+         for event in events:encode_event(event)
+         db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))
+         _commit(db,operation,digest,owner,0x196,positions,before,after)
+--- lag-parent/normal/shared/els_server/storage/career_rewards.py
++++ candidate/normal/shared/els_server/storage/career_rewards.py
+@@ -0,0 +1,52 @@
++"""Advancement rewards in character-owned system mail, in the career transaction."""
++import time
++from els_server.domain.character_rules import CLASSES
++
++
++def recipient(db,mail_id):
++    if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='career_reward_mail'").fetchone():return None
++    row=db.execute('SELECT owner FROM career_reward_mail WHERE mail_id=?',(mail_id,)).fetchone()
++    return row[0] if row else None
++
++
++def issue(db,before,after):
++    # Quest completion already grants these boxes from its original reward
++    # vector. Only item/shop advancement calls this producer. Transcendence,
++    # Master Class and same-stage route changes have no new promotion outfit.
++    stage=CLASSES[after['unit_class']]['stage']
++    if stage!=CLASSES[before['unit_class']]['stage']+1:return []
++    if not db.in_transaction:raise ValueError('Career reward requires career transaction')
++    owner=after['uid']
++    from els_server.storage.game_mail import ensure,_owner
++    ensure(db)
++    account=db.execute('SELECT account_id FROM character_owners WHERE uid=?',(owner,)).fetchone()[0]
++    _owner(db,account,owner)
++    db.execute('''CREATE TABLE IF NOT EXISTS career_reward_mail (
++        mail_id INTEGER PRIMARY KEY REFERENCES game_mail(id),
++        owner INTEGER NOT NULL REFERENCES characters(uid))''')
++    templates=[{1:109999,2:110850,3:135867}[stage]]
++    if stage==3:templates.append(135869)
++    from els_server.domain.inventory_items import VERIFIED_TEMPLATES,TEMPLATE_BAG_GROUPS,validate_item,item_body
++    from els_server.game_data import client_data
++    from els_server.storage.item_instances import next_uid
++    from els_server.storage.mail_attachments import put
++    from els_server.storage.player_mail import RETURN_RETENTION,decorate
++    from els_server.protocol.mail_attachment_messages import header,detail
++    now=int(time.time());mails=[]
++    for template in templates:
++        name=client_data().item(template)['name']
++        campaign=f'career-reward-{owner}-{after["revision"]}-{template}'
++        mid=db.execute('''INSERT INTO game_mail
++            (campaign,account_id,sender,title,body,ed,created_at,expires_at)
++            VALUES (?,?,?,?,?,0,?,?)''',(campaign,account,'阿莉尔',name,
++                f'恭喜完成{stage}转！请领取转职奖励。',now,now+RETURN_RETENTION)).lastrowid
++        item=validate_item(dict(uid=next_uid(db),template=template,metadata=VERIFIED_TEMPLATES[template],
++            group=TEMPLATE_BAG_GROUPS[template],slot=0,count=1))
++        item_body(item);put(db,mid,item,item)
++        db.execute('INSERT INTO career_reward_mail VALUES (?,?)',(mid,owner))
++        cur=db.execute('SELECT * FROM game_mail WHERE id=?',(mid,))
++        row=dict(zip((c[0] for c in cur.description),cur.fetchone()))
++        row=decorate(db,row,now=now)
++        header(row);detail(row)
++        mails.append(mid)
++    return mails
+--- lag-parent/normal/shared/els_server/storage/careers.py
++++ candidate/normal/shared/els_server/storage/careers.py
+@@ -42,7 +42,10 @@
+ 
+ def apply_transition(db,uid,template):
+     """Caller owns the transaction; shop and bag use the same state change."""
+-    return _apply_transition(db,uid,lambda before:transition(before,template))
++    before,after=_apply_transition(db,uid,lambda before:transition(before,template))
++    from els_server.storage.career_rewards import issue
++    issue(db,before,after)
++    return before,after
+ 
+ 
+ def apply_quest_transition(db,uid,quest):
+--- lag-parent/normal/shared/els_server/storage/known_resurrection.py
++++ candidate/normal/shared/els_server/storage/known_resurrection.py
+@@ -99,7 +99,7 @@
+             if db.execute('SELECT 1 FROM known_resurrection_spends WHERE owner=? AND run=? AND life=?',(owner,run,life)).fetchone():
+                 raise ValueError('Current life resurrection already committed')
+         if limit is not None:
+-            if type(limit)is not int or limit!=1:raise ValueError('Finite original revival cap')
++            if type(limit)is not int or not 1<=limit<2**31:raise ValueError('Original revival cap')
+             spent=db.execute('SELECT COUNT(*) FROM known_resurrection_spends WHERE owner=? AND run=?',(owner,run)).fetchone()[0] if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='known_resurrection_spends'").fetchone()else 0
+             if spent>=limit:raise ValueError('Original per-run resurrection cap reached')
+         current=count(db,owner)
+--- lag-parent/normal/shared/els_server/storage/player_mail.py
++++ candidate/normal/shared/els_server/storage/player_mail.py
+@@ -35,13 +35,16 @@
+ def visible_sql(db=None):
+     scopes=['SELECT recipient_uid FROM player_mail_meta WHERE mail_id=game_mail.id']
+     if db is not None:
+-        for table,column in (('black_market_mail','recipient_uid'),('online2026_mail_scope','recipient_uid'),('henir_force_rewards','owner')):
++        for table,column in (('black_market_mail','recipient_uid'),('online2026_mail_scope','recipient_uid'),('henir_force_rewards','owner'),('career_reward_mail','owner')):
+             if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(table,)).fetchone():
+                 scopes.append('SELECT '+column+' AS recipient_uid FROM '+table+' WHERE mail_id=game_mail.id')
+     return 'NOT EXISTS (SELECT 1 FROM ('+' UNION ALL '.join(scopes)+') p WHERE p.recipient_uid NOT IN (0,?))'
+ 
+ 
+ def require_recipient(db,mail_id,uid):
++    from els_server.storage.career_rewards import recipient as career_recipient
++    target=career_recipient(db,mail_id)
++    if target is not None and target!=uid:raise MailError('Career reward belongs to another character')
+     from els_server.storage.henir_force_rewards import recipient as henir_recipient
+     target=henir_recipient(db,mail_id)
+     if target is not None and target!=uid:raise MailError('Henir letter belongs to another character')
+@@ -57,6 +60,11 @@
+ 
+ def decorate(db,row,*,now=None):
+     meta=db.execute('SELECT recipient_uid FROM player_mail_meta WHERE mail_id=?',(row['id'],)).fetchone()
++    from els_server.storage.career_rewards import recipient as career_recipient
++    career=career_recipient(db,row['id'])
++    if career is not None:
++        row['mail_type']=5
++        meta=(career,)
+     from els_server.storage.online_title_mail_scope import recipient
+     target=recipient(db,row['id'])
+     if target is not None:

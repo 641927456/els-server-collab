@@ -1,0 +1,153 @@
+{
+  "actual_narrow_cases": [
+    {
+      "mode": "local",
+      "case": "encoding",
+      "ok": true,
+      "result_sha256": "5eb89a9bb8a4d02b8bdcd8596b0c78bf9299ab0890594f7d36e63d33c2d0a3af",
+      "facts": {
+        "lag_wrapper_author_bytes_equal": true,
+        "input_unchanged": true,
+        "same_uid_changed_stage_reencoded": true,
+        "later_invalid_state_rejected": true,
+        "fixed_pairs": [
+          [
+            61222,
+            61222
+          ],
+          [
+            61262,
+            61262
+          ]
+        ]
+      }
+    },
+    {
+      "mode": "online",
+      "case": "encoding",
+      "ok": true,
+      "result_sha256": "df7804354333b6f30b854db2517d7b9d93190c3a9bf40330fa93756262b5b211",
+      "facts": {
+        "lag_wrapper_author_bytes_equal": true,
+        "input_unchanged": true,
+        "same_uid_changed_stage_reencoded": true,
+        "later_invalid_state_rejected": true,
+        "fixed_pairs": [
+          [
+            61222,
+            61222
+          ],
+          [
+            61262,
+            61262
+          ]
+        ]
+      }
+    },
+    {
+      "mode": "local",
+      "case": "career",
+      "ok": true,
+      "result_sha256": "f15bc6ba2914caafac918bc2f34a45b8b1a99bf58bf0985c2fdec1954a97ea97",
+      "facts": {
+        "character_scoped_cold_mail": true,
+        "exact_career_replay_no_write": true,
+        "fresh_career_gate_whole_transaction_rollback": true,
+        "saved_mail_claim_with_new_reader": true
+      }
+    },
+    {
+      "mode": "local",
+      "case": "shadow",
+      "ok": true,
+      "result_sha256": "6c3aa9edf56be812e5d2ae75e0722246b931ef66f1182fbdc69ef682e94c6b0a",
+      "facts": {
+        "classifications": [
+          {
+            "historical_group13_only": false,
+            "old_receipt_preserved": true,
+            "new_box_gate_no_write": true
+          },
+          {
+            "historical_group13_only": true,
+            "old_receipt_preserved": true,
+            "new_box_gate_no_write": true
+          }
+        ]
+      }
+    },
+    {
+      "mode": "local",
+      "case": "revival",
+      "ok": true,
+      "result_sha256": "0ac07d63f2b0be6943b02c1194ba9b1bc5d625d57651dfc8b2437708cab143e8",
+      "facts": {
+        "exact_spend_replay_no_write": true,
+        "life_duplicate_before_gate": true,
+        "new_spend_gate_no_write": true,
+        "F1_actual_v3_tests_reused": true,
+        "no_162_retransmission_claimed": true
+      }
+    },
+    {
+      "mode": "online",
+      "case": "gift",
+      "ok": true,
+      "result_sha256": "b516a25c96d7cdaf7fcc42b3a531f219cdf9c6999551b113779e178cbb99c905",
+      "facts": {
+        "saved_fixed_pair_receipt_replay_no_entropy_or_write": true,
+        "new_first_gift_refused": true
+      }
+    }
+  ],
+  "tests_run": 6,
+  "source_review_sha256": "d489a18a060c3b937aa0e03a6e35cdfba4bf1044916bee2eb04fddfbfc6a86b0",
+  "actual_independent_review_sha256": "beb756f4728fd175bc88b2db59c271addd147c3fec5d0bfd7b09712cb746ae30",
+  "related_qualification_sha256": "d786fea3120cf4fcff0a0ea33be11a1cee10064ad95f3f8ba50bc76e2a1c9b94",
+  "recovery_qualification_sha256": "d63ecf9b1ae471b5a59352aa0766e16569fe9d051726db7eb2ae1e9b50b0716d",
+  "original_feature_matrices_reused": true,
+  "original_matrices_rerun": false,
+  "original_feature_review_SHA": [
+    {
+      "name": "revival-stones-delivery-20261101-v3",
+      "sha256": "94127124661e27a39829bf00ff4a97917a74e59307609fa0526805b6dbf34bcd"
+    },
+    {
+      "name": "shadow-gift-select-delivery-20261101-v1",
+      "sha256": "fa62504d5d9992753434e4f65bbae071f46163b9c89d3918c5794f0e8cc7025c"
+    },
+    {
+      "name": "career-advancement-rewards-delivery-20261101-v1",
+      "sha256": "61dc14f2526b9178bd6d4b22e6303c17ce1eab784a502454da5db7ec0bbbf300"
+    },
+    {
+      "name": "abyss-growth-tooltip-delivery-20261101-v1",
+      "sha256": "b9a0c8b27dce2d5262c9d0c38e9940c91df868f681da7ceef8a29c6d2507584d"
+    }
+  ],
+  "guard_rebuild": {
+    "count": 13,
+    "proof_SHA": "2c753b242e9318ea58a771b3e3b08ff98afa2f6bac485b5218135c9d1621d0e3",
+    "actual_parent_build_SHA": "df95d6a81125e8d5395e119a83d64282ec118825d3739d446d45935000d18cc1",
+    "old_ten_exact": true,
+    "new_three_insert_only": true
+  },
+  "prior_failed_tool_cases_preserved": [
+    {
+      "case": "local-encoding-v1",
+      "result_sha256": "856efd195303b0f44e4b23c5723e9cd8766b76b1c95ff061830fd31994a87366",
+      "ok": false
+    },
+    {
+      "case": "local-shadow-v1",
+      "result_sha256": "5ebb0a845a596ec68991920853bb6c45ad4e97b652a79f2a6b213d450ed4d9d8",
+      "ok": false
+    }
+  ],
+  "Shadow_new25_resumed_via_owned_API_backup_without_second_initial_producer": true,
+  "no_player_DB_or_network_or_Game": true,
+  "natural_GUI_or_battle_claimed": false,
+  "actual_new_whole_Run": false,
+  "final_signed_V68_and_public_delivery_accepted": true,
+  "archive_builder_runtime_tests_executed": false
+}

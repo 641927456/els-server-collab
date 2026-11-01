@@ -1,0 +1,996 @@
+{
+  "reference_only": true,
+  "source_merge_sha256": "65e4a8e35beebf262b28d3e5874c06323fffddb79a80b675fa82aed69a834ede",
+  "recovery_manifest_sha256": "a623c0fa1b1a8a501df8e111c1f6118bb372cc22fe726a05bdfb4f819412d220",
+  "parent_launcher_version": 67,
+  "planned_launcher_version": 68,
+  "future_branch": "delivery/dungeon-lag-20261101-v1",
+  "observed_main": "51a41c102d3510e2af7bca7a4292adcbedc78af9",
+  "main_must_be_reread_before_commit": true,
+  "channels": {
+    "online": {
+      "parent_release": "native-dungeon-lag-20261101-v1",
+      "parent_manifest_sha256": "718b8775378c025b1c01518c96b878afba5ebe33093d214a3b6f00f232a04c62",
+      "runtime_delta": 18,
+      "new_runtime_files": 1,
+      "files": [
+        {
+          "runtime_path": "els_server/data/known_resurrection_maps.json",
+          "parent_sha256": "56fc161281869be7c4543ee98b16c8f684e00722277ee842eae5a1692246060a",
+          "feature": "Revival-final-v3-F1",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/data/known_resurrection_maps.json",
+            "size": 613397,
+            "sha256": "074fd932e10d226efc57d653cea8f52091ce9c492309a5f82105c8719a3b220b",
+            "git_blob_sha1": "932aeb44cec0af1d81b8b7781aa5a2663369e3b9"
+          }
+        },
+        {
+          "runtime_path": "els_server/data/known_resurrection_maps.manifest.json",
+          "parent_sha256": "90e23496a259e43936cb4673eea6367864749cfc46966cfeaed63d5a620b350d",
+          "feature": "Revival-final-v3-F1",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/data/known_resurrection_maps.manifest.json",
+            "size": 34577,
+            "sha256": "6258d13c7d591b8db4e6a1964ecfcf58dafa6a5b963fdf17da59a4562a5b67ec",
+            "git_blob_sha1": "567e84b0794b08df46ef0e42a8403c9d5c0530a1"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/known_resurrection_flow.py",
+          "parent_sha256": "771b0cbe1bb0f5f99519e619216378c07d42426a4ddf770f0c9c41e4266f88d7",
+          "feature": "Revival-final-v3-F1",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/known_resurrection_flow.py",
+            "size": 14128,
+            "sha256": "cfea36162823767f6559a01420cc9d983cf87509255b2b29c33451d842a34d03",
+            "git_blob_sha1": "bc40a74fab785261fdbc260876c8474f6294504e"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/known_resurrection_maps.py",
+          "parent_sha256": "f54d17fa08437f23954fcee2bce8fe1bba605f85c0f32a12c31d49ddd55ba2a8",
+          "feature": "Revival-final-v3-F1",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/known_resurrection_maps.py",
+            "size": 2929,
+            "sha256": "1a7da82187fc8810a3d8fc1b8a9eafce13b9a6048669739ff64be98341b28cfe",
+            "git_blob_sha1": "e01392ce44aaeb8e8238c9312ceb1b435e2ca8c0"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/known_resurrection.py",
+          "parent_sha256": "850e7beba54efad9bc12c94f57325a381384b6011c3aa561bbaf34022fb722fb",
+          "feature": "Revival-final-v3-F1",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/known_resurrection.py",
+            "size": 7707,
+            "sha256": "3dc3b940b3afcfd9398f76b5d991a32cad995586cd15cce1bbb8df0a999c0bd8",
+            "git_blob_sha1": "8a09274b53cd38194e171e4b2c213e60f6b31969"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/boosting_2026_participation_gear.py",
+          "parent_sha256": "c959034646cfd28bb372b1230f508a666034c523fd9ba2abd1a2017c3af5bef4",
+          "feature": "shadow-gift-select",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/boosting_2026_participation_gear.py",
+            "size": 5217,
+            "sha256": "4c7e3e706168de976f78bdf3de5ea2974c8bed5b74b468a45f752c4ec3458fc6",
+            "git_blob_sha1": "6cee79b91e12d4d88b5603128686b5d01587a4dc"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/boosting_2026_participation_gear.py",
+          "parent_sha256": "bb67f1a4c17369a181a776201658679236c2022f420e788372d02251e09290fb",
+          "feature": "shadow-gift-select",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/boosting_2026_participation_gear.py",
+            "size": 4399,
+            "sha256": "63a17133c91351d22e2afd250937465947cedc44adb421a041deb6a09635e337",
+            "git_blob_sha1": "4fc94a608850d5663b6d61a340c9cf8ba1e775f7"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/boosting_2026_gear_scroll_policy.py",
+          "parent_sha256": "212f7d207dca67ae7425005d3a44a8fb22942ca49ecbecbd21dc89d931fbcabb",
+          "feature": "shadow-gift-select",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/boosting_2026_gear_scroll_policy.py",
+            "size": 8898,
+            "sha256": "65c9c08f01d1883b0eb45cc343158490b595f41acd416138705bf634e6e62743",
+            "git_blob_sha1": "234189598263bdac848d0293e4190fc446a96ac1"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/careers.py",
+          "parent_sha256": "60d919f36ac47ee724596f9c78d2fe7e689d6d62cbcb50bfecfb97c872e2c3c8",
+          "feature": "career-advancement-rewards",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/careers.py",
+            "size": 6742,
+            "sha256": "923377a9367f199588cb2ac8f074e46fd01b05e2ef0ebdcf5d15ebe4bb4456df",
+            "git_blob_sha1": "40136b78b22f8bbd740cc2cddfe8a53e53d7e4d1"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/player_mail.py",
+          "parent_sha256": "7443226f96b8527a4f1b2e735461664065c9d800ed14c6509f7c2d43ba8aa690",
+          "feature": "career-advancement-rewards",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/player_mail.py",
+            "size": 13710,
+            "sha256": "fe2db04579070aef18fea990de9bffe3320c2af554c71bf6f68c9b7ec1063871",
+            "git_blob_sha1": "83816303fbd598bad10d0ec67a52ae8f35b702cc"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/career_rewards.py",
+          "parent_sha256": null,
+          "feature": "career-advancement-rewards",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/career_rewards.py",
+            "size": 2877,
+            "sha256": "c201c6233bbf1c0055429246ad908757f8b834f841e40ba9d7d742b3d7e81037",
+            "git_blob_sha1": "524a58c3a4c6cf85cffb939ce3dc9877a564de3a"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/weapon_growth.py",
+          "parent_sha256": "f9a7ea4b09eba6799dc8371b04b6ea8a6203df50afd15323badbf1ac613eaae4",
+          "feature": "Tooltip-and-fixed35-v2",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/weapon_growth.py",
+            "size": 3073,
+            "sha256": "b0fad9a509ea1dd5ee93fb2cbf029d79d6b23b77ce931baaf2d5d8455c5ecae5",
+            "git_blob_sha1": "4b8e14d472f9a8b72da51990e8ec2eb59fe6da43"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/inventory_items.py",
+          "parent_sha256": "ddc2196107d04f9ceda811bd5c98aeb47769adb2f88459e60842367aba85943e",
+          "feature": "Tooltip-and-fixed35-v2",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/online/els_server/domain/inventory_items.py",
+            "size": 79603,
+            "sha256": "cca68271dfa9b863e63645907eea6cc1cebad7341cb08f6c7ee60cc3d93328d3",
+            "git_blob_sha1": "4b7677585729b4ceedef9cef7c56f3a78bd35acb"
+          }
+        },
+        {
+          "runtime_path": "els_server/protocol/social_messages.py",
+          "parent_sha256": "feb295b00e9c34a597bef8c5d29c5180cb23cdf5e0added58efdc602494ae32a",
+          "feature": "Tooltip-and-fixed35-v2",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/protocol/social_messages.py",
+            "size": 14253,
+            "sha256": "59695bf3cd7e2119a6857fefaa1205d516b5bf46c979a6e30c0f1d136b8197d5",
+            "git_blob_sha1": "03ca29d81990a4dcf2268831cc41c309656f3679"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/abyss_weapon_2026.py",
+          "parent_sha256": "841e3c3701819779cd4640eb3f7fc1a90614efbddf1853f9ed76b4ea21116fbe",
+          "feature": "Tooltip-and-fixed35-v2",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/online/els_server/domain/abyss_weapon_2026.py",
+            "size": 4643,
+            "sha256": "59401335b2ddd3b22fba8392a9ae82f3a0d3219fc9488f1f5d7525f59a901d2d",
+            "git_blob_sha1": "fe58e638c3124c133aa698b1b588a721bec7417b"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/identification_ui.py",
+          "parent_sha256": "f5c0ce3464b48d7e6d8e5bdef762a903f11adbe6945dad803b3ba492deab3d71",
+          "feature": "Tooltip-and-fixed35-v2",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/identification_ui.py",
+            "size": 14389,
+            "sha256": "99f032dcadbf52c2366e693ca51c724b32f3928b71fbd684fc74e10e3735fb2c",
+            "git_blob_sha1": "2101cb8d13fa281625b24f560574d46d0b057bff"
+          }
+        },
+        {
+          "runtime_path": "els_server/data/identification_ui.json",
+          "parent_sha256": "975267cf7efc8bbda24ad26d6202ff9f590bef64e140ed0c9a2892a5d8d03df9",
+          "feature": "Tooltip-and-fixed35-v2",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/data/identification_ui.json",
+            "size": 2467780,
+            "sha256": "f13c8fb10d5af6f0f1f034cca020717ddead34256d7f75b8e1544ac5d14b0512",
+            "git_blob_sha1": "29c267390c26620859dd7796497bbd4003dd0909"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/abyss_weapon_boxes.py",
+          "parent_sha256": "66bb9face31e1e31bae21b83710a19d2a89b48bc2790c103c5b86c045340d097",
+          "feature": "Tooltip-and-fixed35-v2",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/online/els_server/storage/abyss_weapon_boxes.py",
+            "size": 4360,
+            "sha256": "a328459514cd623c54c722527ca155bcaf359f60e4a0dbf8f1d39cd8d4d4e348",
+            "git_blob_sha1": "183666f5c928f0756192889ec7e09895cc94344e"
+          }
+        }
+      ],
+      "preserve_all_other_parent_files": true
+    },
+    "local": {
+      "parent_release": "local-native-dungeon-lag-20261101-v1",
+      "parent_manifest_sha256": "e3d53d957fc07e1e8800f082a2bf1b675fec0b45a0db7121e06fd26880448799",
+      "runtime_delta": 16,
+      "new_runtime_files": 1,
+      "files": [
+        {
+          "runtime_path": "els_server/data/known_resurrection_maps.json",
+          "parent_sha256": "56fc161281869be7c4543ee98b16c8f684e00722277ee842eae5a1692246060a",
+          "feature": "Revival-final-v3-F1",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/data/known_resurrection_maps.json",
+            "size": 613397,
+            "sha256": "074fd932e10d226efc57d653cea8f52091ce9c492309a5f82105c8719a3b220b",
+            "git_blob_sha1": "932aeb44cec0af1d81b8b7781aa5a2663369e3b9"
+          }
+        },
+        {
+          "runtime_path": "els_server/data/known_resurrection_maps.manifest.json",
+          "parent_sha256": "90e23496a259e43936cb4673eea6367864749cfc46966cfeaed63d5a620b350d",
+          "feature": "Revival-final-v3-F1",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/data/known_resurrection_maps.manifest.json",
+            "size": 34577,
+            "sha256": "6258d13c7d591b8db4e6a1964ecfcf58dafa6a5b963fdf17da59a4562a5b67ec",
+            "git_blob_sha1": "567e84b0794b08df46ef0e42a8403c9d5c0530a1"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/known_resurrection_flow.py",
+          "parent_sha256": "771b0cbe1bb0f5f99519e619216378c07d42426a4ddf770f0c9c41e4266f88d7",
+          "feature": "Revival-final-v3-F1",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/known_resurrection_flow.py",
+            "size": 14128,
+            "sha256": "cfea36162823767f6559a01420cc9d983cf87509255b2b29c33451d842a34d03",
+            "git_blob_sha1": "bc40a74fab785261fdbc260876c8474f6294504e"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/known_resurrection_maps.py",
+          "parent_sha256": "f54d17fa08437f23954fcee2bce8fe1bba605f85c0f32a12c31d49ddd55ba2a8",
+          "feature": "Revival-final-v3-F1",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/known_resurrection_maps.py",
+            "size": 2929,
+            "sha256": "1a7da82187fc8810a3d8fc1b8a9eafce13b9a6048669739ff64be98341b28cfe",
+            "git_blob_sha1": "e01392ce44aaeb8e8238c9312ceb1b435e2ca8c0"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/known_resurrection.py",
+          "parent_sha256": "850e7beba54efad9bc12c94f57325a381384b6011c3aa561bbaf34022fb722fb",
+          "feature": "Revival-final-v3-F1",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/known_resurrection.py",
+            "size": 7707,
+            "sha256": "3dc3b940b3afcfd9398f76b5d991a32cad995586cd15cce1bbb8df0a999c0bd8",
+            "git_blob_sha1": "8a09274b53cd38194e171e4b2c213e60f6b31969"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/boosting_2026_participation_gear.py",
+          "parent_sha256": "c959034646cfd28bb372b1230f508a666034c523fd9ba2abd1a2017c3af5bef4",
+          "feature": "shadow-gift-select",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/boosting_2026_participation_gear.py",
+            "size": 5217,
+            "sha256": "4c7e3e706168de976f78bdf3de5ea2974c8bed5b74b468a45f752c4ec3458fc6",
+            "git_blob_sha1": "6cee79b91e12d4d88b5603128686b5d01587a4dc"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/boosting_2026_participation_gear.py",
+          "parent_sha256": "bb67f1a4c17369a181a776201658679236c2022f420e788372d02251e09290fb",
+          "feature": "shadow-gift-select",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/boosting_2026_participation_gear.py",
+            "size": 4399,
+            "sha256": "63a17133c91351d22e2afd250937465947cedc44adb421a041deb6a09635e337",
+            "git_blob_sha1": "4fc94a608850d5663b6d61a340c9cf8ba1e775f7"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/boosting_2026_gear_scroll_policy.py",
+          "parent_sha256": "212f7d207dca67ae7425005d3a44a8fb22942ca49ecbecbd21dc89d931fbcabb",
+          "feature": "shadow-gift-select",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/boosting_2026_gear_scroll_policy.py",
+            "size": 8898,
+            "sha256": "65c9c08f01d1883b0eb45cc343158490b595f41acd416138705bf634e6e62743",
+            "git_blob_sha1": "234189598263bdac848d0293e4190fc446a96ac1"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/careers.py",
+          "parent_sha256": "60d919f36ac47ee724596f9c78d2fe7e689d6d62cbcb50bfecfb97c872e2c3c8",
+          "feature": "career-advancement-rewards",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/careers.py",
+            "size": 6742,
+            "sha256": "923377a9367f199588cb2ac8f074e46fd01b05e2ef0ebdcf5d15ebe4bb4456df",
+            "git_blob_sha1": "40136b78b22f8bbd740cc2cddfe8a53e53d7e4d1"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/player_mail.py",
+          "parent_sha256": "7443226f96b8527a4f1b2e735461664065c9d800ed14c6509f7c2d43ba8aa690",
+          "feature": "career-advancement-rewards",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/player_mail.py",
+            "size": 13710,
+            "sha256": "fe2db04579070aef18fea990de9bffe3320c2af554c71bf6f68c9b7ec1063871",
+            "git_blob_sha1": "83816303fbd598bad10d0ec67a52ae8f35b702cc"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/career_rewards.py",
+          "parent_sha256": null,
+          "feature": "career-advancement-rewards",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/career_rewards.py",
+            "size": 2877,
+            "sha256": "c201c6233bbf1c0055429246ad908757f8b834f841e40ba9d7d742b3d7e81037",
+            "git_blob_sha1": "524a58c3a4c6cf85cffb939ce3dc9877a564de3a"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/weapon_growth.py",
+          "parent_sha256": "f9a7ea4b09eba6799dc8371b04b6ea8a6203df50afd15323badbf1ac613eaae4",
+          "feature": "Tooltip-and-fixed35-v2",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/weapon_growth.py",
+            "size": 3073,
+            "sha256": "b0fad9a509ea1dd5ee93fb2cbf029d79d6b23b77ce931baaf2d5d8455c5ecae5",
+            "git_blob_sha1": "4b8e14d472f9a8b72da51990e8ec2eb59fe6da43"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/inventory_items.py",
+          "parent_sha256": "17b837692b48f4c91b6c7137120fa2c0593652f37d2320fecdc35b944ea25a09",
+          "feature": "Tooltip-and-fixed35-v2",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/local/els_server/domain/inventory_items.py",
+            "size": 80523,
+            "sha256": "6e6ef8181007833c066d14df13e07fdddeda69e3ad6937b52d41709132e38755",
+            "git_blob_sha1": "598fd7fa4923a7c6cc29229d172fa0dfcdbd545c"
+          }
+        },
+        {
+          "runtime_path": "els_server/protocol/social_messages.py",
+          "parent_sha256": "feb295b00e9c34a597bef8c5d29c5180cb23cdf5e0added58efdc602494ae32a",
+          "feature": "Tooltip-and-fixed35-v2",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/protocol/social_messages.py",
+            "size": 14253,
+            "sha256": "59695bf3cd7e2119a6857fefaa1205d516b5bf46c979a6e30c0f1d136b8197d5",
+            "git_blob_sha1": "03ca29d81990a4dcf2268831cc41c309656f3679"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/identification_ui.py",
+          "parent_sha256": "f5c0ce3464b48d7e6d8e5bdef762a903f11adbe6945dad803b3ba492deab3d71",
+          "feature": "Tooltip-and-fixed35-v2",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/identification_ui.py",
+            "size": 14389,
+            "sha256": "99f032dcadbf52c2366e693ca51c724b32f3928b71fbd684fc74e10e3735fb2c",
+            "git_blob_sha1": "2101cb8d13fa281625b24f560574d46d0b057bff"
+          }
+        },
+        {
+          "runtime_path": "els_server/data/identification_ui.json",
+          "parent_sha256": "975267cf7efc8bbda24ad26d6202ff9f590bef64e140ed0c9a2892a5d8d03df9",
+          "feature": "Tooltip-and-fixed35-v2",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/data/identification_ui.json",
+            "size": 2467780,
+            "sha256": "f13c8fb10d5af6f0f1f034cca020717ddead34256d7f75b8e1544ac5d14b0512",
+            "git_blob_sha1": "29c267390c26620859dd7796497bbd4003dd0909"
+          }
+        }
+      ],
+      "preserve_all_other_parent_files": true
+    }
+  },
+  "source_blobs": 19,
+  "recovery_gate_blobs": 4,
+  "common_identification_JSON_copies": 1,
+  "new_tables": [
+    "career_reward_mail"
+  ],
+  "install_DDL_statements": 0,
+  "startup_DDL_statements": 0,
+  "new_schema_is_lazy_first_successful_career_transaction": true,
+  "source_inputs": [
+    {
+      "name": "publication/release-contract.json",
+      "sha256": "581a20e233cade738451fc350000334bd93be27492422c6ad9bcacd2c258f95f"
+    },
+    {
+      "name": "abyss-growth-tooltip-delivery-20261101-v1/source-inputs.json",
+      "sha256": "fdeae64b1f55c35aeda0d09385d36a86f304a32b6aa4f34929c9869787f24d27"
+    },
+    {
+      "name": "revival-stones-20261101-v3/candidate-binding.json",
+      "sha256": "511c6d2eb5d1876b088e20a8320343729d65a9fbf8b77e7b40ef1a7aa1fd5123"
+    },
+    {
+      "name": "revival-stones-delivery-20261101-v3/independent-review.json",
+      "sha256": "94127124661e27a39829bf00ff4a97917a74e59307609fa0526805b6dbf34bcd"
+    },
+    {
+      "name": "shadow-gift-select-delivery-20261101-v1/review.json",
+      "sha256": "fa62504d5d9992753434e4f65bbae071f46163b9c89d3918c5794f0e8cc7025c"
+    },
+    {
+      "name": "career-advancement-rewards-delivery-20261101-v1/review.json",
+      "sha256": "61dc14f2526b9178bd6d4b22e6303c17ce1eab784a502454da5db7ec0bbbf300"
+    },
+    {
+      "name": "abyss-growth-tooltip-delivery-20261101-v1/source-review.json",
+      "sha256": "b9a0c8b27dce2d5262c9d0c38e9940c91df868f681da7ceef8a29c6d2507584d"
+    }
+  ],
+  "preserved_lag_encoding": "Only3A3 scalar inserted in _item_body; exact inverse preserves complete mode-specific lag parent and all public validation/cache wrappers",
+  "recovery": {
+    "channels": {
+      "online": [
+        {
+          "runtime_path": "els_server/data/known_resurrection_maps.json",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/data/known_resurrection_maps.json",
+            "size": 613397,
+            "sha256": "074fd932e10d226efc57d653cea8f52091ce9c492309a5f82105c8719a3b220b",
+            "git_blob_sha1": "932aeb44cec0af1d81b8b7781aa5a2663369e3b9"
+          },
+          "normal_sha256": "074fd932e10d226efc57d653cea8f52091ce9c492309a5f82105c8719a3b220b",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/data/known_resurrection_maps.manifest.json",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/data/known_resurrection_maps.manifest.json",
+            "size": 34577,
+            "sha256": "6258d13c7d591b8db4e6a1964ecfcf58dafa6a5b963fdf17da59a4562a5b67ec",
+            "git_blob_sha1": "567e84b0794b08df46ef0e42a8403c9d5c0530a1"
+          },
+          "normal_sha256": "6258d13c7d591b8db4e6a1964ecfcf58dafa6a5b963fdf17da59a4562a5b67ec",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/domain/known_resurrection_flow.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/known_resurrection_flow.py",
+            "size": 14128,
+            "sha256": "cfea36162823767f6559a01420cc9d983cf87509255b2b29c33451d842a34d03",
+            "git_blob_sha1": "bc40a74fab785261fdbc260876c8474f6294504e"
+          },
+          "normal_sha256": "cfea36162823767f6559a01420cc9d983cf87509255b2b29c33451d842a34d03",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/domain/known_resurrection_maps.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/known_resurrection_maps.py",
+            "size": 2929,
+            "sha256": "1a7da82187fc8810a3d8fc1b8a9eafce13b9a6048669739ff64be98341b28cfe",
+            "git_blob_sha1": "e01392ce44aaeb8e8238c9312ceb1b435e2ca8c0"
+          },
+          "normal_sha256": "1a7da82187fc8810a3d8fc1b8a9eafce13b9a6048669739ff64be98341b28cfe",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/storage/known_resurrection.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/recovery/shared/els_server/storage/known_resurrection.py",
+            "size": 7787,
+            "sha256": "bb829f05ce333ea76f92b70292fe87b6ce9dc880d9aa8e0ab7b36cd01ef18d3d",
+            "git_blob_sha1": "443d86f5e84bf914290a2061b04873f98b2dc396"
+          },
+          "normal_sha256": "3dc3b940b3afcfd9398f76b5d991a32cad995586cd15cce1bbb8df0a999c0bd8",
+          "producer_gate": true
+        },
+        {
+          "runtime_path": "els_server/domain/boosting_2026_participation_gear.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/boosting_2026_participation_gear.py",
+            "size": 5217,
+            "sha256": "4c7e3e706168de976f78bdf3de5ea2974c8bed5b74b468a45f752c4ec3458fc6",
+            "git_blob_sha1": "6cee79b91e12d4d88b5603128686b5d01587a4dc"
+          },
+          "normal_sha256": "4c7e3e706168de976f78bdf3de5ea2974c8bed5b74b468a45f752c4ec3458fc6",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/storage/boosting_2026_participation_gear.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/recovery/shared/els_server/storage/boosting_2026_participation_gear.py",
+            "size": 4483,
+            "sha256": "913e44f323e29daee543607a58a8f4953bcd6a57b8d13508a9be6c69cb0bb8ba",
+            "git_blob_sha1": "f930bd9f51f94925e1ede250d96b40a5f660b551"
+          },
+          "normal_sha256": "63a17133c91351d22e2afd250937465947cedc44adb421a041deb6a09635e337",
+          "producer_gate": true
+        },
+        {
+          "runtime_path": "els_server/storage/boosting_2026_gear_scroll_policy.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/boosting_2026_gear_scroll_policy.py",
+            "size": 8898,
+            "sha256": "65c9c08f01d1883b0eb45cc343158490b595f41acd416138705bf634e6e62743",
+            "git_blob_sha1": "234189598263bdac848d0293e4190fc446a96ac1"
+          },
+          "normal_sha256": "65c9c08f01d1883b0eb45cc343158490b595f41acd416138705bf634e6e62743",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/storage/careers.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/careers.py",
+            "size": 6742,
+            "sha256": "923377a9367f199588cb2ac8f074e46fd01b05e2ef0ebdcf5d15ebe4bb4456df",
+            "git_blob_sha1": "40136b78b22f8bbd740cc2cddfe8a53e53d7e4d1"
+          },
+          "normal_sha256": "923377a9367f199588cb2ac8f074e46fd01b05e2ef0ebdcf5d15ebe4bb4456df",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/storage/player_mail.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/player_mail.py",
+            "size": 13710,
+            "sha256": "fe2db04579070aef18fea990de9bffe3320c2af554c71bf6f68c9b7ec1063871",
+            "git_blob_sha1": "83816303fbd598bad10d0ec67a52ae8f35b702cc"
+          },
+          "normal_sha256": "fe2db04579070aef18fea990de9bffe3320c2af554c71bf6f68c9b7ec1063871",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/storage/career_rewards.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/recovery/shared/els_server/storage/career_rewards.py",
+            "size": 2951,
+            "sha256": "a9ad2484e54077acab0182ff1c0dc9894b6ca402019914d67a351f9da3e56336",
+            "git_blob_sha1": "d7285a95a31a3365c068b3571945f04adbe9b83e"
+          },
+          "normal_sha256": "c201c6233bbf1c0055429246ad908757f8b834f841e40ba9d7d742b3d7e81037",
+          "producer_gate": true
+        },
+        {
+          "runtime_path": "els_server/domain/weapon_growth.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/weapon_growth.py",
+            "size": 3073,
+            "sha256": "b0fad9a509ea1dd5ee93fb2cbf029d79d6b23b77ce931baaf2d5d8455c5ecae5",
+            "git_blob_sha1": "4b8e14d472f9a8b72da51990e8ec2eb59fe6da43"
+          },
+          "normal_sha256": "b0fad9a509ea1dd5ee93fb2cbf029d79d6b23b77ce931baaf2d5d8455c5ecae5",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/domain/inventory_items.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/online/els_server/domain/inventory_items.py",
+            "size": 79603,
+            "sha256": "cca68271dfa9b863e63645907eea6cc1cebad7341cb08f6c7ee60cc3d93328d3",
+            "git_blob_sha1": "4b7677585729b4ceedef9cef7c56f3a78bd35acb"
+          },
+          "normal_sha256": "cca68271dfa9b863e63645907eea6cc1cebad7341cb08f6c7ee60cc3d93328d3",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/protocol/social_messages.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/protocol/social_messages.py",
+            "size": 14253,
+            "sha256": "59695bf3cd7e2119a6857fefaa1205d516b5bf46c979a6e30c0f1d136b8197d5",
+            "git_blob_sha1": "03ca29d81990a4dcf2268831cc41c309656f3679"
+          },
+          "normal_sha256": "59695bf3cd7e2119a6857fefaa1205d516b5bf46c979a6e30c0f1d136b8197d5",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/domain/abyss_weapon_2026.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/online/els_server/domain/abyss_weapon_2026.py",
+            "size": 4643,
+            "sha256": "59401335b2ddd3b22fba8392a9ae82f3a0d3219fc9488f1f5d7525f59a901d2d",
+            "git_blob_sha1": "fe58e638c3124c133aa698b1b588a721bec7417b"
+          },
+          "normal_sha256": "59401335b2ddd3b22fba8392a9ae82f3a0d3219fc9488f1f5d7525f59a901d2d",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/domain/identification_ui.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/identification_ui.py",
+            "size": 14389,
+            "sha256": "99f032dcadbf52c2366e693ca51c724b32f3928b71fbd684fc74e10e3735fb2c",
+            "git_blob_sha1": "2101cb8d13fa281625b24f560574d46d0b057bff"
+          },
+          "normal_sha256": "99f032dcadbf52c2366e693ca51c724b32f3928b71fbd684fc74e10e3735fb2c",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/data/identification_ui.json",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/data/identification_ui.json",
+            "size": 2467780,
+            "sha256": "f13c8fb10d5af6f0f1f034cca020717ddead34256d7f75b8e1544ac5d14b0512",
+            "git_blob_sha1": "29c267390c26620859dd7796497bbd4003dd0909"
+          },
+          "normal_sha256": "f13c8fb10d5af6f0f1f034cca020717ddead34256d7f75b8e1544ac5d14b0512",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/storage/abyss_weapon_boxes.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/recovery/online/els_server/storage/abyss_weapon_boxes.py",
+            "size": 4472,
+            "sha256": "fe907c285c283c180f2d8ff9459beb2ef66a9c4214473230c9aa6a4e21ac49a0",
+            "git_blob_sha1": "83c8b9b2fd3eb6917f1b06a0bce1fe07dd5109b2"
+          },
+          "normal_sha256": "a328459514cd623c54c722527ca155bcaf359f60e4a0dbf8f1d39cd8d4d4e348",
+          "producer_gate": true
+        }
+      ],
+      "local": [
+        {
+          "runtime_path": "els_server/data/known_resurrection_maps.json",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/data/known_resurrection_maps.json",
+            "size": 613397,
+            "sha256": "074fd932e10d226efc57d653cea8f52091ce9c492309a5f82105c8719a3b220b",
+            "git_blob_sha1": "932aeb44cec0af1d81b8b7781aa5a2663369e3b9"
+          },
+          "normal_sha256": "074fd932e10d226efc57d653cea8f52091ce9c492309a5f82105c8719a3b220b",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/data/known_resurrection_maps.manifest.json",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/data/known_resurrection_maps.manifest.json",
+            "size": 34577,
+            "sha256": "6258d13c7d591b8db4e6a1964ecfcf58dafa6a5b963fdf17da59a4562a5b67ec",
+            "git_blob_sha1": "567e84b0794b08df46ef0e42a8403c9d5c0530a1"
+          },
+          "normal_sha256": "6258d13c7d591b8db4e6a1964ecfcf58dafa6a5b963fdf17da59a4562a5b67ec",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/domain/known_resurrection_flow.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/known_resurrection_flow.py",
+            "size": 14128,
+            "sha256": "cfea36162823767f6559a01420cc9d983cf87509255b2b29c33451d842a34d03",
+            "git_blob_sha1": "bc40a74fab785261fdbc260876c8474f6294504e"
+          },
+          "normal_sha256": "cfea36162823767f6559a01420cc9d983cf87509255b2b29c33451d842a34d03",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/domain/known_resurrection_maps.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/known_resurrection_maps.py",
+            "size": 2929,
+            "sha256": "1a7da82187fc8810a3d8fc1b8a9eafce13b9a6048669739ff64be98341b28cfe",
+            "git_blob_sha1": "e01392ce44aaeb8e8238c9312ceb1b435e2ca8c0"
+          },
+          "normal_sha256": "1a7da82187fc8810a3d8fc1b8a9eafce13b9a6048669739ff64be98341b28cfe",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/storage/known_resurrection.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/recovery/shared/els_server/storage/known_resurrection.py",
+            "size": 7787,
+            "sha256": "bb829f05ce333ea76f92b70292fe87b6ce9dc880d9aa8e0ab7b36cd01ef18d3d",
+            "git_blob_sha1": "443d86f5e84bf914290a2061b04873f98b2dc396"
+          },
+          "normal_sha256": "3dc3b940b3afcfd9398f76b5d991a32cad995586cd15cce1bbb8df0a999c0bd8",
+          "producer_gate": true
+        },
+        {
+          "runtime_path": "els_server/domain/boosting_2026_participation_gear.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/boosting_2026_participation_gear.py",
+            "size": 5217,
+            "sha256": "4c7e3e706168de976f78bdf3de5ea2974c8bed5b74b468a45f752c4ec3458fc6",
+            "git_blob_sha1": "6cee79b91e12d4d88b5603128686b5d01587a4dc"
+          },
+          "normal_sha256": "4c7e3e706168de976f78bdf3de5ea2974c8bed5b74b468a45f752c4ec3458fc6",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/storage/boosting_2026_participation_gear.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/recovery/shared/els_server/storage/boosting_2026_participation_gear.py",
+            "size": 4483,
+            "sha256": "913e44f323e29daee543607a58a8f4953bcd6a57b8d13508a9be6c69cb0bb8ba",
+            "git_blob_sha1": "f930bd9f51f94925e1ede250d96b40a5f660b551"
+          },
+          "normal_sha256": "63a17133c91351d22e2afd250937465947cedc44adb421a041deb6a09635e337",
+          "producer_gate": true
+        },
+        {
+          "runtime_path": "els_server/storage/boosting_2026_gear_scroll_policy.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/boosting_2026_gear_scroll_policy.py",
+            "size": 8898,
+            "sha256": "65c9c08f01d1883b0eb45cc343158490b595f41acd416138705bf634e6e62743",
+            "git_blob_sha1": "234189598263bdac848d0293e4190fc446a96ac1"
+          },
+          "normal_sha256": "65c9c08f01d1883b0eb45cc343158490b595f41acd416138705bf634e6e62743",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/storage/careers.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/careers.py",
+            "size": 6742,
+            "sha256": "923377a9367f199588cb2ac8f074e46fd01b05e2ef0ebdcf5d15ebe4bb4456df",
+            "git_blob_sha1": "40136b78b22f8bbd740cc2cddfe8a53e53d7e4d1"
+          },
+          "normal_sha256": "923377a9367f199588cb2ac8f074e46fd01b05e2ef0ebdcf5d15ebe4bb4456df",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/storage/player_mail.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/storage/player_mail.py",
+            "size": 13710,
+            "sha256": "fe2db04579070aef18fea990de9bffe3320c2af554c71bf6f68c9b7ec1063871",
+            "git_blob_sha1": "83816303fbd598bad10d0ec67a52ae8f35b702cc"
+          },
+          "normal_sha256": "fe2db04579070aef18fea990de9bffe3320c2af554c71bf6f68c9b7ec1063871",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/storage/career_rewards.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/recovery/shared/els_server/storage/career_rewards.py",
+            "size": 2951,
+            "sha256": "a9ad2484e54077acab0182ff1c0dc9894b6ca402019914d67a351f9da3e56336",
+            "git_blob_sha1": "d7285a95a31a3365c068b3571945f04adbe9b83e"
+          },
+          "normal_sha256": "c201c6233bbf1c0055429246ad908757f8b834f841e40ba9d7d742b3d7e81037",
+          "producer_gate": true
+        },
+        {
+          "runtime_path": "els_server/domain/weapon_growth.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/weapon_growth.py",
+            "size": 3073,
+            "sha256": "b0fad9a509ea1dd5ee93fb2cbf029d79d6b23b77ce931baaf2d5d8455c5ecae5",
+            "git_blob_sha1": "4b8e14d472f9a8b72da51990e8ec2eb59fe6da43"
+          },
+          "normal_sha256": "b0fad9a509ea1dd5ee93fb2cbf029d79d6b23b77ce931baaf2d5d8455c5ecae5",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/domain/inventory_items.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/local/els_server/domain/inventory_items.py",
+            "size": 80523,
+            "sha256": "6e6ef8181007833c066d14df13e07fdddeda69e3ad6937b52d41709132e38755",
+            "git_blob_sha1": "598fd7fa4923a7c6cc29229d172fa0dfcdbd545c"
+          },
+          "normal_sha256": "6e6ef8181007833c066d14df13e07fdddeda69e3ad6937b52d41709132e38755",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/protocol/social_messages.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/protocol/social_messages.py",
+            "size": 14253,
+            "sha256": "59695bf3cd7e2119a6857fefaa1205d516b5bf46c979a6e30c0f1d136b8197d5",
+            "git_blob_sha1": "03ca29d81990a4dcf2268831cc41c309656f3679"
+          },
+          "normal_sha256": "59695bf3cd7e2119a6857fefaa1205d516b5bf46c979a6e30c0f1d136b8197d5",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/domain/identification_ui.py",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/domain/identification_ui.py",
+            "size": 14389,
+            "sha256": "99f032dcadbf52c2366e693ca51c724b32f3928b71fbd684fc74e10e3735fb2c",
+            "git_blob_sha1": "2101cb8d13fa281625b24f560574d46d0b057bff"
+          },
+          "normal_sha256": "99f032dcadbf52c2366e693ca51c724b32f3928b71fbd684fc74e10e3735fb2c",
+          "producer_gate": false
+        },
+        {
+          "runtime_path": "els_server/data/identification_ui.json",
+          "archive": {
+            "path": "refs/functional-rewards-integration-20261101-v1/normal/shared/els_server/data/identification_ui.json",
+            "size": 2467780,
+            "sha256": "f13c8fb10d5af6f0f1f034cca020717ddead34256d7f75b8e1544ac5d14b0512",
+            "git_blob_sha1": "29c267390c26620859dd7796497bbd4003dd0909"
+          },
+          "normal_sha256": "f13c8fb10d5af6f0f1f034cca020717ddead34256d7f75b8e1544ac5d14b0512",
+          "producer_gate": false
+        }
+      ]
+    },
+    "retain_complete_new_readers": true,
+    "safe_for_saved_data": true,
+    "safety_scope": "Six owned narrow source/recovery cases; existing unchanged feature evidence reused",
+    "actual_new_recovery_Run": false,
+    "player_database_restore": false,
+    "bare_parent_full_rollback_safe": false,
+    "inherited_signed_LOCAL_guards": 10,
+    "new_LOCAL_producer_guards": 3,
+    "future_LOCAL_guard_count": 13,
+    "inherited_guard_proofs": {
+      "els_server/storage/relationships.py": {
+        "parent_normal_sha256": "0be8ce976e20571a1be7b0b9dcf02251934645bd2e39d14d3d94f3a40c86e42b",
+        "new_normal_sha256": "0be8ce976e20571a1be7b0b9dcf02251934645bd2e39d14d3d94f3a40c86e42b",
+        "new_guard_sha256": "ddb601d64ed6100187f945a34b997483f6198c9338fb9010ea032cc927d63e3c",
+        "insert_only": true
+      },
+      "els_server/storage/couple_closures.py": {
+        "parent_normal_sha256": "5c8920ed4c2f41dcd5a6d7e58d811495c6d070e3f7a10f649f5c7ac2e3339853",
+        "new_normal_sha256": "5c8920ed4c2f41dcd5a6d7e58d811495c6d070e3f7a10f649f5c7ac2e3339853",
+        "new_guard_sha256": "4008884caac32d2e8d6393e15d095416015283c82c179c9a252925d1cc639dbe",
+        "insert_only": true
+      },
+      "els_server/storage/identification_ui.py": {
+        "parent_normal_sha256": "9e0668115954a6c5e98fea5e7295ce7bfacf8463ab07a52e4af18459ca700a55",
+        "new_normal_sha256": "9e0668115954a6c5e98fea5e7295ce7bfacf8463ab07a52e4af18459ca700a55",
+        "new_guard_sha256": "9ff48abd45a634a2838a6e9efa1275a7537c655ab5901d66ae4e707c51b30555",
+        "insert_only": true
+      },
+      "els_server/storage/fixed_cubes.py": {
+        "parent_normal_sha256": "c35ee807ef8fd941073725cd95e7f335cff266e8986fea0e2144c08909f7a615",
+        "new_normal_sha256": "c35ee807ef8fd941073725cd95e7f335cff266e8986fea0e2144c08909f7a615",
+        "new_guard_sha256": "2ee4099b8f8c54f70714463aba909f559b3ff99b002b1cd916f83df42a677c2b",
+        "insert_only": true
+      },
+      "els_server/storage/companion_state.py": {
+        "parent_normal_sha256": "110b6db4b61f8dba211588560d807b43a8587e73da16e4f0d1a62d991283cd96",
+        "new_normal_sha256": "110b6db4b61f8dba211588560d807b43a8587e73da16e4f0d1a62d991283cd96",
+        "new_guard_sha256": "799c93a213c65c7abb59f56b3122b7f2c2820deb41302062bab6915b38e7d7ae",
+        "insert_only": true
+      },
+      "els_server/storage/equipment_tuning.py": {
+        "parent_normal_sha256": "8a3a5818f77c725f6a69ff45a9b1857368bc89446fe6cf348f2e3698f1ea8669",
+        "new_normal_sha256": "8a3a5818f77c725f6a69ff45a9b1857368bc89446fe6cf348f2e3698f1ea8669",
+        "new_guard_sha256": "e209fb63275f0651fd70642ca3eb59644355d52aa37a8b4215dbb78a9e63565e",
+        "insert_only": true
+      },
+      "els_server/storage/growth_guide.py": {
+        "parent_normal_sha256": "0cdf8396d12d1f17d28a90369a4d0ddeec9fdad5d4362c31a1d882c44fe1c069",
+        "new_normal_sha256": "0cdf8396d12d1f17d28a90369a4d0ddeec9fdad5d4362c31a1d882c44fe1c069",
+        "new_guard_sha256": "a39aaeb8cfc8130cc3be40f433f3f5196bb57243ff1c7e6038f3e7faf12e722a",
+        "insert_only": true
+      },
+      "els_server/storage/growth_guide_boxes.py": {
+        "parent_normal_sha256": "900769e66b340303f7cf57a68d1e309aa10228b6344c8a0e2279ce525f45f6e7",
+        "new_normal_sha256": "900769e66b340303f7cf57a68d1e309aa10228b6344c8a0e2279ce525f45f6e7",
+        "new_guard_sha256": "b8b382b4ecaacb5bc8f65e5361066f9532c846e90f646f9de0219d81f75b9508",
+        "insert_only": true
+      },
+      "els_server/storage/seal_quests.py": {
+        "parent_normal_sha256": "db7d806374765aff34eaf84b00bdf4059acc0c6d7481c3a78d22e24f74da8502",
+        "new_normal_sha256": "db7d806374765aff34eaf84b00bdf4059acc0c6d7481c3a78d22e24f74da8502",
+        "new_guard_sha256": "cc846c80e991480891259729a22e70c7645e6326ad3959435b0ddb091da5e65f",
+        "insert_only": true
+      },
+      "els_server/storage/boosting_2026_essence.py": {
+        "parent_normal_sha256": "97f360eecf84b6806d2fda9d61877fd3a75e1bf11cf65cedcf4971f2f2bdeee4",
+        "new_normal_sha256": "992f09dbe88b000b02b6ff9053e0bcd22e7cbfb0fef73ac55e0f45501438bf08",
+        "new_guard_sha256": "22bcf30e637d99808442400aa43843d84a9178ad8c329af016f99aab4392ec4c",
+        "insert_only": true,
+        "new_title_gate": true
+      }
+    },
+    "role_mail_reader_must_not_revert": true,
+    "Shadow_new25_old13_receipts_distinguished": true,
+    "Revival_F1_177_map_readers_retained": true,
+    "Revival_uncertain_committed_flow_requires_fresh_entry": true,
+    "repeat162_success_not_claimed": true,
+    "shared_fixed35_reader_pair_retained": true,
+    "ONLINE_first_gift_gate_after_exact_receipt": true,
+    "LOCAL_campaign580_added": false
+  },
+  "client_or_Hook_delta": 0,
+  "installed": true,
+  "PR_number": null,
+  "PR_head": null,
+  "Git_merged": false,
+  "final_delivery_acceptance": {
+    "source_merge_sha256": "65e4a8e35beebf262b28d3e5874c06323fffddb79a80b675fa82aed69a834ede",
+    "facts": {
+      "online_release": "native-functional-rewards-20261101-v1",
+      "local_release": "local-native-functional-rewards-20261101-v1",
+      "online_runtime_changed": 18,
+      "local_runtime_changed": 16,
+      "online_observation_seconds": 125.27218820003327,
+      "local_observation_seconds": 120.00021800003015,
+      "launcher_version": 68,
+      "signed_LOCAL_changed": 17,
+      "signed_LOCAL_count": 1915,
+      "actual_signed_LOCAL_selected": true,
+      "V68_qualification_passed": true,
+      "launcher_published": true,
+      "Friends_archive_envelope_reused": true,
+      "new_whole_Run_executed": false,
+      "public_acceptance_passed": true
+    },
+    "evidence": [
+      {
+        "name": "source-merge.json",
+        "sha256": "65e4a8e35beebf262b28d3e5874c06323fffddb79a80b675fa82aed69a834ede"
+      },
+      {
+        "name": "independent-review.json",
+        "sha256": "d489a18a060c3b937aa0e03a6e35cdfba4bf1044916bee2eb04fddfbfc6a86b0"
+      },
+      {
+        "name": "actual-result-independent-review.json",
+        "sha256": "beb756f4728fd175bc88b2db59c271addd147c3fec5d0bfd7b09712cb746ae30"
+      },
+      {
+        "name": "related-qualification.json",
+        "sha256": "d786fea3120cf4fcff0a0ea33be11a1cee10064ad95f3f8ba50bc76e2a1c9b94"
+      },
+      {
+        "name": "recovery-qualification.json",
+        "sha256": "d63ecf9b1ae471b5a59352aa0766e16569fe9d051726db7eb2ae1e9b50b0716d"
+      },
+      {
+        "name": "public-acceptance.json",
+        "sha256": "b333a28c731118cc385f10ebf8f036aff8f804673e5432bac78a1db72f45cc6f"
+      },
+      {
+        "name": "original-claim-offline-readback.json",
+        "sha256": "faa5bb2668ad9a25363f2758cf6ecf6d641af3b8538b1578549b20879426612e"
+      },
+      {
+        "name": "public-private-continuation-independent-review.json",
+        "sha256": "6fc36a7a30416bee63172f85c4c5c05993972c5f8520ebdcac8bcfd55b8633eb"
+      },
+      {
+        "name": "result.json",
+        "sha256": "dc61ee8a4a331d25564b718d98150248a84e09f510dd434f7942b6974b156d57"
+      },
+      {
+        "name": "actual-online-readback.json",
+        "sha256": "9c91e5d3af15d385023c2cb9869bbffb1b502c730ad6f41680e94fbb1182efa8"
+      },
+      {
+        "name": "actual-local-readback.json",
+        "sha256": "b0291f3a4c146cf97464c68b478323f00b3edcc6557fd0fb5370948c36e2f782"
+      },
+      {
+        "name": "build.json",
+        "sha256": "7c48f0f428d3bd2df15d0098e5049584fbc81bd928be0c0162f401873a038e9e"
+      },
+      {
+        "name": "dual-qualification.json",
+        "sha256": "d1fdf9782a84b8f5b76768a3f916596e9e1268f8f49a55f8d0f114586b6f05e9"
+      },
+      {
+        "name": "installation.json",
+        "sha256": "ea4e5edbd7c65c31073df0afde97882cd8bacfe1d4c0894fecc629084b2ebbc0"
+      },
+      {
+        "name": "public-local-qualification.json",
+        "sha256": "86c3d1b9316a8361004783c942d7675e3256877a744856711ceb8d21f351b798"
+      }
+    ],
+    "all_tests_passed_claimed": false,
+    "natural_GUI_or_battle_claimed": false,
+    "raw_receipts_embedded": false
+  }
+}
