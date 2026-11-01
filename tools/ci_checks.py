@@ -22,6 +22,8 @@ def main(argv=None):
     run([sys.executable,'-B','-m','unittest','tests.test_public_controller_sources'])
     if (ROOT/'references/owned-common-boxes-dual-20261031-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_owned_common_boxes_sources_20261031.py')])
+    if (ROOT/'references/shop-missing-20261031-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_shop_missing_source_20261031.py')])
     if (ROOT/'references/pending-source-integration-20261031-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pending_source_integration_20261031.py')])
     if (ROOT/'references/force-categories-sources-20261031-v1/source-contract.json').is_file():

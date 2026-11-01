@@ -1,0 +1,309 @@
+{
+  "format": 1,
+  "issue": 692,
+  "status": "qualified candidate; not installed",
+  "root_runtime_changed": false,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "native_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "scope": {
+    "added_packages": 1971,
+    "pure_holiday_packages": 32,
+    "added_heart_eyes_books": 13,
+    "all_heart_eyes_books": 17,
+    "restored_ordinary_accessories": 5,
+    "local_onepiece_parity_additions": 866,
+    "price_ED": 50,
+    "unapproved_custom_or_other_singles_opened": false,
+    "original_EXE_KOM_changed": false,
+    "new_schema": false
+  },
+  "channels": {
+    "online": {
+      "parent_release": "solo-dungeon-wear-20261031-v2",
+      "parent_manifest_sha256": "3848260cefd04e8a401255c2b1ccfe6dc03f264d7cfd1782bf3e9c7e0056d980",
+      "files": {
+        "els_server/data/character_custom_permanent.json": {
+          "sha256": "41d413b7a0a1274f4c5e794dfb44cf414f3435d033db60c82e01c36050a42f3e",
+          "size": 1880844,
+          "parent_sha256": "458668559146c59964bf9d51102dd143db2f12fdeb6825ba88f03ff63c0608da"
+        },
+        "els_server/data/fashion_singles.manifest.json": {
+          "sha256": "4a46b118d976bdab155e95e9b41e0dc94dd3e0745f11e88135551a0780325d64",
+          "size": 19966,
+          "parent_sha256": "acb31d6de1c0c3e8f1d189bb29eb065ea19e5dfec5bfb91889ba2486af953341"
+        },
+        "els_server/domain/character_custom.py": {
+          "sha256": "5ee7dc8c94ea48b0923e8b1f2bc0d5831df300f88694c9d21decd325181d4901",
+          "size": 9262,
+          "parent_sha256": "077fb074b50191334644ecf1bc8b1aaa01eed8ee4002a7b6257eb4be8a85aea4",
+          "source": "references/shop-missing-20261031-v1/source/common/els_server/domain/character_custom.py"
+        },
+        "els_server/domain/shop_listing.py": {
+          "sha256": "3dc4d2aea0ca5bd07e6639c22fdb45c12b170146f8d87043758fb66e899e5d0a",
+          "size": 1815,
+          "parent_sha256": "011f1cd3091de74dc659cedeafcd131ff883f423e62c4c0606e56885c1056253",
+          "source": "references/shop-missing-20261031-v1/source/common/els_server/domain/shop_listing.py"
+        },
+        "els_server/storage/character_custom.py": {
+          "sha256": "b641173ad6d50316d3913c42f9b5bf92a3a8530c491a7ce7d75213a7dd640003",
+          "size": 22452,
+          "parent_sha256": "7469bdb79d1a70119fb495addedd5f0b5324c8e5fc396fb51ef117dae35612e8",
+          "source": "references/shop-missing-20261031-v1/source/common/els_server/storage/character_custom.py"
+        },
+        "els_server/storage/shop_state.py": {
+          "sha256": "c1d7d9233d815ed00dca9ba6e0c55e631dd3b0c4c45b122e030b6362e5622638",
+          "size": 17916,
+          "parent_sha256": "249b46ef147369c83f23d34874d0819d285099284143d175b5c930135c3e1cf1",
+          "source": "references/shop-missing-20261031-v1/source/common/els_server/storage/shop_state.py"
+        },
+        "analysis/client-6c6b5180/extended-shop-body-proof.json": {
+          "sha256": "d941e266728d86c3b376314d0e20b5cff95a013a8a03f1c816b6d27941f1fdfb",
+          "size": 2495985,
+          "parent_sha256": "dbbe93ed8779924da36e8452348479e253c45930fabe8493a2f62dbc591033a3"
+        },
+        "analysis/client-6c6b5180/extended-shop-catalog.json": {
+          "sha256": "2dcf6bce3ba3805d0f06b0b85a54d63158a0d67d2d24297bb38ac0fd79ac9df7",
+          "size": 5329856,
+          "parent_sha256": "3743b01d68e1e70224b920f96d233cad1fd5e3875b0e772f24722ee5f2b990e9"
+        },
+        "analysis/shop-listing-20261015/bundle-order.json": {
+          "sha256": "35608d6c38694d96dcbdbd5fb445d88e491129258d3ac6afa06c59df87806a63",
+          "size": 1193742,
+          "parent_sha256": "68399225492583167b09eb4d8278c4e740a8089fe3f385f7b0bcd29e5d64bb85"
+        },
+        "analysis/shop-listing-20261015/fashion-bundles-body-proof.json": {
+          "sha256": "a570b5b18a7553bc0d2956f40b5d3e2ffdfec8907d03f6650b8b635658bee890",
+          "size": 13082035,
+          "parent_sha256": "5f8588d669c40cde40831fa86025b3eb3ddd6bcd9f2c4e628e867d48053f2743"
+        },
+        "analysis/shop-listing-20261015/fashion-bundles.json": {
+          "sha256": "e90637ffff40b09b0ed13ab4fea1199d5713db0dc737937c70428a328eb8419f",
+          "size": 26151644,
+          "parent_sha256": "ea683d7e7dfb57bd8d177dfd3d427367b64a58c7fcb6e2e3ae0f113790a81371"
+        },
+        "analysis/shop-missing-20261031-v1/CharCustomData.tables.json": {
+          "sha256": "22246d5f5baa677b0fe22dc6f809727dfa9eea5d6d44a5cb33e2255de737b864",
+          "size": 5660558,
+          "parent_sha256": null
+        },
+        "analysis/shop-missing-20261031-v1/package-membership-supplement.json": {
+          "sha256": "e0947d0a0fc7c36b39d10b990dd53842f3a395d41e97cc0936b24fba4689a2bc",
+          "size": 1235,
+          "parent_sha256": null
+        },
+        "analysis/shop-onepiece-20261031-v1/fashion-exclusions.json": {
+          "sha256": "329860050bd8dd428981159364d91a606b30a1b3278af9355957b8e295900dd3",
+          "size": 1174623,
+          "parent_sha256": "90213793ad08ce3bb7220c9e728795d70294ad7c6f03dd0133a51f8834170b5b"
+        },
+        "analysis/shop-standalone-20261015/ice-shop-exclusions.json": {
+          "sha256": "95624aa30c722ce2bafe2287fcbc337f40b2a5c75ebbe15b9f194daf12c1d63f",
+          "size": 309664,
+          "parent_sha256": "c2b322e0e8c99987ae3971a6c718fb8319294c335b952f5521945d904d138ee6"
+        }
+      }
+    },
+    "local": {
+      "parent_release": "local-solo-dungeon-wear-20261031-v2",
+      "parent_manifest_sha256": "fc4c4451f1bb2d1df420602f1a0aa52c6ebc52fe47f9f968073989d4df8d0ebf",
+      "files": {
+        "els_server/data/character_custom_permanent.json": {
+          "sha256": "41d413b7a0a1274f4c5e794dfb44cf414f3435d033db60c82e01c36050a42f3e",
+          "size": 1880844,
+          "parent_sha256": "458668559146c59964bf9d51102dd143db2f12fdeb6825ba88f03ff63c0608da"
+        },
+        "els_server/data/fashion_singles.json": {
+          "sha256": "0b387c3a0aac84f043503a5ac152f954a68743feb4e4bf2f7a4c27da515221e2",
+          "size": 1214947,
+          "parent_sha256": "3871dbe69fbb874db98208ee3d3678ec4c39dc7cd6fff135741d6e6956487779"
+        },
+        "els_server/data/fashion_singles.manifest.json": {
+          "sha256": "4a46b118d976bdab155e95e9b41e0dc94dd3e0745f11e88135551a0780325d64",
+          "size": 19966,
+          "parent_sha256": "bfd58af96d8f553f8843329e89e2982d1ff8e01f30cfdf0fc804355b9f4ffee1"
+        },
+        "els_server/domain/character_custom.py": {
+          "sha256": "5ee7dc8c94ea48b0923e8b1f2bc0d5831df300f88694c9d21decd325181d4901",
+          "size": 9262,
+          "parent_sha256": "077fb074b50191334644ecf1bc8b1aaa01eed8ee4002a7b6257eb4be8a85aea4",
+          "source": "references/shop-missing-20261031-v1/source/common/els_server/domain/character_custom.py"
+        },
+        "els_server/domain/fashion_singles.py": {
+          "sha256": "62ed00c32cf217c021ed74c958f0232a0a1c7a93b59d602c775355a35a3a53b2",
+          "size": 4761,
+          "parent_sha256": "3b60e0ed3890e0314fcb22361d3abb808d4542091382fab8921bcb73f114ae0c",
+          "source": "references/shop-missing-20261031-v1/source/common/els_server/domain/fashion_singles.py"
+        },
+        "els_server/domain/shop_listing.py": {
+          "sha256": "3dc4d2aea0ca5bd07e6639c22fdb45c12b170146f8d87043758fb66e899e5d0a",
+          "size": 1815,
+          "parent_sha256": "011f1cd3091de74dc659cedeafcd131ff883f423e62c4c0606e56885c1056253",
+          "source": "references/shop-missing-20261031-v1/source/common/els_server/domain/shop_listing.py"
+        },
+        "els_server/storage/character_custom.py": {
+          "sha256": "b641173ad6d50316d3913c42f9b5bf92a3a8530c491a7ce7d75213a7dd640003",
+          "size": 22452,
+          "parent_sha256": "7469bdb79d1a70119fb495addedd5f0b5324c8e5fc396fb51ef117dae35612e8",
+          "source": "references/shop-missing-20261031-v1/source/common/els_server/storage/character_custom.py"
+        },
+        "els_server/storage/inventory_state.py": {
+          "sha256": "a31f771ad333dc1e7c0406d6da9972752d05b8b17b64b2d2dc93892c7d1e98d9",
+          "size": 26353,
+          "parent_sha256": "959c1b6a7b721b1123534b665744f180894d2c5627b7781be2b9fdde67a89e94",
+          "source": "references/shop-missing-20261031-v1/source/common/els_server/storage/inventory_state.py"
+        },
+        "els_server/storage/shop_state.py": {
+          "sha256": "c1d7d9233d815ed00dca9ba6e0c55e631dd3b0c4c45b122e030b6362e5622638",
+          "size": 17916,
+          "parent_sha256": "f337f348fa0a6b354b02c704ece5ade6d3f26204b0c849ecba42959c95553863",
+          "source": "references/shop-missing-20261031-v1/source/common/els_server/storage/shop_state.py"
+        },
+        "analysis/client-6c6b5180/extended-shop-body-proof.json": {
+          "sha256": "d941e266728d86c3b376314d0e20b5cff95a013a8a03f1c816b6d27941f1fdfb",
+          "size": 2495985,
+          "parent_sha256": "dbbe93ed8779924da36e8452348479e253c45930fabe8493a2f62dbc591033a3"
+        },
+        "analysis/client-6c6b5180/extended-shop-catalog.json": {
+          "sha256": "2dcf6bce3ba3805d0f06b0b85a54d63158a0d67d2d24297bb38ac0fd79ac9df7",
+          "size": 5329856,
+          "parent_sha256": "3743b01d68e1e70224b920f96d233cad1fd5e3875b0e772f24722ee5f2b990e9"
+        },
+        "analysis/shop-listing-20261015/bundle-order.json": {
+          "sha256": "35608d6c38694d96dcbdbd5fb445d88e491129258d3ac6afa06c59df87806a63",
+          "size": 1193742,
+          "parent_sha256": "68399225492583167b09eb4d8278c4e740a8089fe3f385f7b0bcd29e5d64bb85"
+        },
+        "analysis/shop-listing-20261015/fashion-bundles-body-proof.json": {
+          "sha256": "a570b5b18a7553bc0d2956f40b5d3e2ffdfec8907d03f6650b8b635658bee890",
+          "size": 13082035,
+          "parent_sha256": "5f8588d669c40cde40831fa86025b3eb3ddd6bcd9f2c4e628e867d48053f2743"
+        },
+        "analysis/shop-listing-20261015/fashion-bundles.json": {
+          "sha256": "e90637ffff40b09b0ed13ab4fea1199d5713db0dc737937c70428a328eb8419f",
+          "size": 26151644,
+          "parent_sha256": "ea683d7e7dfb57bd8d177dfd3d427367b64a58c7fcb6e2e3ae0f113790a81371"
+        },
+        "analysis/shop-missing-20261031-v1/CharCustomData.tables.json": {
+          "sha256": "22246d5f5baa677b0fe22dc6f809727dfa9eea5d6d44a5cb33e2255de737b864",
+          "size": 5660558,
+          "parent_sha256": null
+        },
+        "analysis/shop-missing-20261031-v1/package-membership-supplement.json": {
+          "sha256": "e0947d0a0fc7c36b39d10b990dd53842f3a395d41e97cc0936b24fba4689a2bc",
+          "size": 1235,
+          "parent_sha256": null
+        },
+        "analysis/shop-onepiece-20261031-v1/fashion-exclusions.json": {
+          "sha256": "329860050bd8dd428981159364d91a606b30a1b3278af9355957b8e295900dd3",
+          "size": 1174623,
+          "parent_sha256": null
+        },
+        "analysis/shop-onepiece-20261031-v1/native-body-proof.json": {
+          "sha256": "286ce66a5b5a310e5285ff52d787074aeb8bf8d917924182c74cf20829544dd3",
+          "size": 647325,
+          "parent_sha256": null
+        },
+        "analysis/shop-standalone-20261015/ice-shop-exclusions.json": {
+          "sha256": "95624aa30c722ce2bafe2287fcbc337f40b2a5c75ebbe15b9f194daf12c1d63f",
+          "size": 309664,
+          "parent_sha256": "c2b322e0e8c99987ae3971a6c718fb8319294c335b952f5521945d904d138ee6"
+        }
+      }
+    }
+  },
+  "validation": {
+    "eyes": {
+      "ok": true,
+      "cases": 17,
+      "checks": [
+        "all17HeartEyes books actual shop purchase/registration/Apply/replay/cold",
+        "allHeartEyes registration notices accepted by originalBB7F30 including Lu/Ciel variants",
+        "registration encoding failure atomically preserves book and ownership",
+        "registration SQL failure atomically preserves book and ownership",
+        "foreign book/custom source rejected without increments"
+      ],
+      "report_sha256": "f6fe0ff4a53e55eaabe676a3a6ccf40f322b1a48c8daa7569a83b28635fc4281",
+      "live_process": false,
+      "formal_database_written": false,
+      "natural_GUI": false
+    },
+    "boundaries": {
+      "ok": true,
+      "cases": 0,
+      "checks": [
+        "purchase encoding failure rolls back ED/all members/receipt",
+        "middle-member failure rolls back whole bundle and payment",
+        "insufficient ED no increments",
+        "conflicting replay denied",
+        "full bag whole purchase rejected without ED or receipt"
+      ],
+      "report_sha256": "e705c31bcbb6897479adafb206573cc37f7f6fe7f612c306a82f432407f7ece2",
+      "live_process": false,
+      "formal_database_written": false,
+      "natural_GUI": false
+    },
+    "extras": {
+      "ok": true,
+      "cases": 5,
+      "checks": [
+        "all5restored ordinary accessories purchase/replay/cold"
+      ],
+      "report_sha256": "48695e7b15b8e6d4fc59240b5cff26fb6250f7f80136f30dbcd3d4cd6c068608",
+      "live_process": false,
+      "formal_database_written": false,
+      "natural_GUI": false
+    },
+    "local_smoke": {
+      "ok": true,
+      "cases": 0,
+      "checks": [
+        "LOCAL catalog contains32PureHoliday/17HeartEyes and962onepieces",
+        "LOCAL actual permanent six-piece purchase",
+        "LOCAL eye registration/Apply/cold state",
+        "LOCAL wrong-role eye purchase rejected",
+        "LOCAL actual cold unit accepted by original native reader"
+      ],
+      "report_sha256": "d5e5d5500e6e005392005bde9089bbd39bcce0088f60ad7447afa07c10a75656",
+      "live_process": false,
+      "formal_database_written": false,
+      "natural_GUI": false
+    },
+    "packages": {
+      "ok": true,
+      "cases": 1971,
+      "checks": [
+        "all1971added packages purchased through shared transactional shop",
+        "all32PureHoliday sets:192actual wear/cold original unit reads",
+        "genuine role ice pools remain excluded"
+      ],
+      "report_sha256": "e98429f6871732df418847c417317880f739c08df883d4769c65f3ce3842aaea",
+      "live_process": false,
+      "formal_database_written": false,
+      "natural_GUI": false
+    },
+    "original_native_bodies": {
+      "ok": true,
+      "new_cases": 13160,
+      "reused_unchanged_cases": 26615,
+      "live_process": false
+    },
+    "local_onepiece_boundaries": {
+      "ok": true,
+      "tests": 5,
+      "source": "test_local_onepiece.py; exact restored onepiece source authority",
+      "reused866_native_roundtrip": "analysis/shop-home-onepiece-20261031-v1/fashion-roundtrip-proof.json"
+    }
+  },
+  "recovery": "Retain expanded custom IDs/readers and receipts after new data. Pause new offers/writes if necessary; do not restore player/account databases or downgrade to a reader that lacks saved IDs.",
+  "limitations": [
+    "No natural mouse GUI or production QA claimed.",
+    "Runtime data/proof resources stay in the private delta payload, not in source Git.",
+    "Source archive does not activate or replace the older main root engine."
+  ],
+  "private_payload": {
+    "filename": "shop-missing-692-qualified-delta.zip",
+    "size": 8464315,
+    "sha256": "a66d7d8feb831fdd36f0ea54a27eeb22821cdfcbd612e35811c2988d0a44c0e2",
+    "shared_in_git": false
+  }
+}
