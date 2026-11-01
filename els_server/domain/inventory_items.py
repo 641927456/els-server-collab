@@ -242,13 +242,13 @@ for _material in equipment_ui_materials().values():
  VERIFIED_TEMPLATES[_material['template']]=_material['metadata']
  TEMPLATE_BAG_GROUPS[_material['template']]=_material['group']
  TEMPLATE_MAX_STACKS[_material['template']]=_material['max_stack']
-from els_server.domain.identification_ui import catalog as identification_ui_catalog
-for _material in identification_ui_catalog()['materials'].values():
+from els_server.domain.identification_ui import reset_materials as identification_reset_materials
+for _material in identification_reset_materials().values():
  VERIFIED_TEMPLATES[_material['template']]=_material['metadata']
  TEMPLATE_BAG_GROUPS[_material['template']]=_material['group']
  TEMPLATE_MAX_STACKS[_material['template']]=_material['max_stack']
 
-from els_server.domain.skill_traits import reset_items as skill_trait_reset_items
+from els_server.domain.skill_trait_reset import reset_items as skill_trait_reset_items
 for _material in skill_trait_reset_items().values():
  VERIFIED_TEMPLATES[_material['template']]=_material['metadata']
  TEMPLATE_BAG_GROUPS[_material['template']]=_material['group']

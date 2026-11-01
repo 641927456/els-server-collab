@@ -6,7 +6,7 @@ from els_server.game_data import CLIENT_SHA,client_data
 @functools.lru_cache(maxsize=1)
 def catalog():
  raw=(Path(__file__).resolve().parents[1]/'data/identification_ui.json').read_bytes()
- if hashlib.sha256(raw).hexdigest()!='42c6036cea552c6934f20c23e8c835bf24be16749c25bc55df4c1dca6f56f20b':raise ValueError('Identification source changed')
+ if hashlib.sha256(raw).hexdigest()!='140d8f615bd21a2fbab6e0875459e34eb9d6af64115f4e07d533ccc4512f59a3':raise ValueError('Identification source changed')
  c=json.loads(raw)
  if c['client_sha256']!=CLIENT_SHA or c['catalog_sha256']!=client_data().manifest['catalog_sha256']:raise ValueError('Identification build mismatch')
  for s in c['sources']:
@@ -29,6 +29,18 @@ def catalog():
   selected={r['option'] for r in pool['outcomes']}
   if not isinstance(legacy,list) or any(type(v) is not int for v in legacy) or len(legacy)!=3 or set(legacy)!=expected or len(selected)!=45 or selected&expected or set(pool['options'])!={str(v) for v in selected|expected}:raise ValueError('Identification selected and historical options')
  return c
+@functools.lru_cache(maxsize=1)
+def reset_materials():
+ raw=(Path(__file__).resolve().parents[1]/'data/identification_reset_items.json').read_bytes()
+ if hashlib.sha256(raw).hexdigest()!='4513ec04bb08d953980ab2859d5411e28815c96edfcf3434ea23a0ef3bba96d9':raise ValueError('Identification reset alias identity')
+ rows=json.loads(raw)
+ for row in rows.values():
+  original=client_data().item(row['template'])
+  if (hashlib.sha256(original['record']).hexdigest()!=row['record_sha256'] or original['metadata']!=row['metadata']
+      or (original['flags8']>>3)&31!=7 or row['group']!=4
+      or row['max_stack']!=int.from_bytes(original['record'][16:20],'little')):raise ValueError('Identification reset original alias')
+ return {**catalog()['materials'],**rows}
+
 def template_pool(template):
  c=catalog();row=c['templates'].get(str(template))
  if row is None or 'pool' not in row:return None

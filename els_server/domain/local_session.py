@@ -828,7 +828,8 @@ class LocalSession:
             return [Event(0x201,kind=0x398,payload=i32(0))]
         if self.item_test and self.client_build=='dx11_260923' and kind==0x55f and event.event_id==0x202:
             from els_server.domain.skill_traits import reset_acknowledgement
-            from els_server.storage.skill_traits import reset,saved as saved_traits
+            from els_server.storage.skill_trait_reset import reset
+            from els_server.storage.skill_traits import saved as saved_traits
             from els_server.domain.equipment_engrave_flow import current_lease
             if (self.role!='game' or self.phase!='town_ready' or self.account.characters is None
                 or self.account.store is None or self.account.store.uid!=self.account.uid or not current_lease(self)

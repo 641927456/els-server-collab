@@ -13,6 +13,7 @@ from els_server.domain.local_session import LocalAccount, LocalSession
 from els_server.game_data import client_data
 from els_server.protocol.protocol_codec import Event
 from els_server.storage import skill_traits
+from els_server.storage.skill_trait_reset import reset as reset_trait
 from els_server.storage.identification_ui import perform
 from els_server.storage.inventory_state import grant_items, load_items
 from els_server.storage.local_state import LocalState
@@ -57,7 +58,7 @@ class ResetScrollTests(unittest.TestCase):
 
     def reset(self, item, operation, *, account=1, prepare=lambda db: None):
         payload = struct.pack('>iiQB', 21000, 3, item['uid'] if item else 0, 0 if item else 1)
-        return skill_traits.reset(self.path, 1001, account, payload, operation, prepare=prepare)
+        return reset_trait(self.path, 1001, account, payload, operation, prepare=prepare)
 
     def test_all_blessed_variants_reset_identify_retry_and_cold_read(self):
         for template in IDENTIFICATION_SCROLLS:
@@ -130,7 +131,7 @@ class ResetScrollTests(unittest.TestCase):
             events = self.session.handle(Event(0x202, kind=0x55f, payload=payload, **changes), 1)
             self.assertEqual(struct.unpack_from('>i', events[0].payload)[0], -1)
             self.assertEqual(self.dump(), before)
-        from els_server.domain.skill_traits import reset_request
+        from els_server.domain.skill_trait_reset import reset_request
         for item_uid, use_ed in ((0, 0), (scroll['uid'], 1), (0, 2), (2**63, 0)):
             with self.assertRaises(ValueError):
                 reset_request(struct.pack('>iiQB', 21000, 3, item_uid, use_ed))

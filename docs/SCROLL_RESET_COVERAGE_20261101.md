@@ -44,3 +44,5 @@ python -B -m unittest discover -s tests -p test_identification_ui.py -v
 2026-10-17同版客户端被动快照`trait-reset-native-definitions.json`中的可移除memo卷轴列表为空，原ED原生GUI有既有成功记录。该快照不能证明当前玩家实际选择行为；本轮没有自然GUI验证，也未修改原EXE/KOM或新增Hook。服务端接受卷轴付款与原生控件能否生成此请求分开核定，遗忘卷轴完整自然使用链仍待核收，不能称已全部修复上线。必要时由指定负责人在自有隔离客户端检查原生列表来源及正常控件路径。
 
 正式合并和双端安装遵守现有精确head审批及指定发布负责人流程。本轮只提交可审查的服务端候选，实际运行版本未变。
+
+PR首次CI暴露历史清单直接绑定根`domain/skill_traits.py`、`storage/skill_traits.py`及`data/identification_ui.json`的问题。现保留这三份历史字节，卷轴付款扩展进入`domain/skill_trait_reset.py`及`storage/skill_trait_reset.py`，时空券变体独立存于`data/identification_reset_items.json`；当前入口显式调用扩展，历史清单及SHA不改写。扩展后的8项测试与原失败的历史运行包构建检查通过。
