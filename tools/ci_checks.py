@@ -26,6 +26,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/check_controller_quest_gates.py')])
     if (ROOT/'references/elrian-breakable-gates-20261101-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_elrian_breakable_gates_source.py')])
+    if (ROOT/'references/native-field-entry-20261101-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_field_entry_sources_20261101.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
     run([sys.executable,'-B','-m','unittest','tests.test_public_controller_sources'])
