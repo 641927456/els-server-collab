@@ -1,0 +1,54 @@
+{
+  "ok": true,
+  "records": [
+    {
+      "dungeon": 33182,
+      "stage": 4,
+      "part": 0,
+      "trigger": 0,
+      "normal_role_town_admission_and_load": true,
+      "controlled_room_checkpoint": true,
+      "actual_Application": true,
+      "baseline_reply_kinds": [],
+      "in_memory_single_rule_ACK_and_notification": true,
+      "inventory_HP_defeated_unchanged": true,
+      "natural_combat_or_GUI": false,
+      "baseline_no_activation": true
+    },
+    {
+      "dungeon": 34520,
+      "stage": 1,
+      "part": 2,
+      "trigger": 1,
+      "normal_role_town_admission_and_load": true,
+      "controlled_room_checkpoint": true,
+      "actual_Application": true,
+      "baseline_reply_kinds": [],
+      "in_memory_single_rule_ACK_and_notification": true,
+      "inventory_HP_defeated_unchanged": true,
+      "natural_combat_or_GUI": false,
+      "baseline_no_activation": true
+    },
+    {
+      "dungeon": 34780,
+      "stage": 0,
+      "part": 0,
+      "trigger": 1,
+      "normal_role_town_admission_and_load": true,
+      "controlled_room_checkpoint": true,
+      "actual_Application": true,
+      "baseline_reply_kinds": [
+        "0x30b"
+      ],
+      "baseline_no_activation": true,
+      "in_memory_single_rule_ACK_and_notification": true,
+      "inventory_HP_defeated_unchanged": true,
+      "natural_combat_or_GUI": false
+    }
+  ],
+  "initial_failed_assertion": "Puppet map already has an unrelated rule; omission yields negative30B, not silence. Incorrect test expectation corrected to exact domain replay result.",
+  "initial_failure_preserved": "application-result.json",
+  "corrected_failed_case_only": "application-test_puppet_theater-result.json",
+  "passed_two_cases_reused": true,
+  "natural_game": false
+}
