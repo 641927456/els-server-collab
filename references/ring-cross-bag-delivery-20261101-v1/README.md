@@ -1,0 +1,9 @@
+# Cross-tab costume replacement and V62 delivery
+
+Ordinary fashion in bag7 can replace worn rare fashion whose native tab is27. The shared helper returns the displaced item to the first free slot in its own native tab, atomically recording an optional third position. The active wear entry and retained helper share this behavior. Existing full-bag, ownership, slot, class and effect exclusions remain; no new schema or item exceptions are added.
+
+Both server modes are installed on their actual V61-era parents, preserving126 native trigger rules,150 retirement rules, all activity/shop fixes and LOCAL differences. Three-position receipts keep complete readers during forward recovery; recovery may pause new cross-tab writes and never restores player databases.
+
+V62 changes only two LOCAL runtime leaves plus signed metadata. Friends payload is unchanged. Exact source, selected public components, old61-to62 actual Run, repeat with zero downloads, typed private SQLite preservation and guarded-tree reader retention are verified. Existing source17 methods are reused; the changed integrated dispatcher and exact installed LOCAL dispatcher are checked once each. Owned public QA buys five ordinary rings for250ED, exercises12 three-position ACKs in both directions, authenticates cold with a normal ring equipped, and decodes all12 exact responses through the original x64 native decoder. Natural inventory GUI application is not claimed.
+
+This archive includes exact runtime/launcher sources and sanitized summaries. It excludes binary runtime packages, player/account databases, credentials, raw network captures and execution logs. Program.cs, ModeDesign.cs and ruben.png reuse exact existing friends-v45 blobs. Git submission and approved main merge remain separate from actual installation.
