@@ -1,0 +1,161 @@
+{
+  "ok": true,
+  "channel": "local",
+  "actual_Application_TLS": true,
+  "controlled_owned_room_matrix": true,
+  "natural_clear": false,
+  "cases": [
+    {
+      "dungeon": 34610,
+      "stage": 1,
+      "part": 0,
+      "activation": 0,
+      "loop": true
+    },
+    {
+      "dungeon": 34610,
+      "stage": 1,
+      "part": 1,
+      "activation": 1,
+      "loop": true
+    },
+    {
+      "dungeon": 34620,
+      "stage": 0,
+      "part": 0,
+      "activation": 0,
+      "loop": true
+    },
+    {
+      "dungeon": 34620,
+      "stage": 0,
+      "part": 0,
+      "activation": 1,
+      "loop": true
+    },
+    {
+      "dungeon": 34620,
+      "stage": 0,
+      "part": 0,
+      "activation": 2,
+      "loop": true
+    },
+    {
+      "dungeon": 34620,
+      "stage": 0,
+      "part": 0,
+      "activation": 3,
+      "loop": true
+    },
+    {
+      "dungeon": 34620,
+      "stage": 0,
+      "part": 0,
+      "activation": 4,
+      "loop": true
+    },
+    {
+      "dungeon": 34670,
+      "stage": 2,
+      "part": 0,
+      "activation": 0,
+      "loop": true
+    },
+    {
+      "dungeon": 34680,
+      "stage": 0,
+      "part": 0,
+      "activation": 0,
+      "loop": true
+    },
+    {
+      "dungeon": 34680,
+      "stage": 0,
+      "part": 1,
+      "activation": 1,
+      "loop": true
+    },
+    {
+      "dungeon": 34680,
+      "stage": 1,
+      "part": 0,
+      "activation": 0,
+      "loop": true
+    },
+    {
+      "dungeon": 35290,
+      "stage": 0,
+      "part": 2,
+      "activation": 0,
+      "loop": true
+    },
+    {
+      "dungeon": 35320,
+      "stage": 3,
+      "part": 0,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 35321,
+      "stage": 2,
+      "part": 0,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 35322,
+      "stage": 0,
+      "part": 0,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 35320,
+      "stage": 3,
+      "part": 0,
+      "activation": 1,
+      "loop": false
+    },
+    {
+      "dungeon": 35321,
+      "stage": 2,
+      "part": 0,
+      "activation": 1,
+      "loop": false
+    },
+    {
+      "dungeon": 35322,
+      "stage": 0,
+      "part": 0,
+      "activation": 1,
+      "loop": false
+    }
+  ],
+  "negative_cases": [
+    "wrong id",
+    "malformed",
+    "missing performer",
+    "foreign performer",
+    "foreign UID",
+    "role",
+    "phase",
+    "dungeon_substage_synced",
+    "clear_notified",
+    "dungeon_failed",
+    "dungeon_participants",
+    "wrong room",
+    "changed resource",
+    "stale lease",
+    "unqualified context (33182, 2, 2, 0)",
+    "unqualified context (38100, 2, 0, 0)",
+    "unqualified context (34140, 1, 0, 2)",
+    "missing original NPC"
+  ],
+  "exact_native_envelope": true,
+  "cleared_current_room_accepted": true,
+  "non_loop_duplicate_ACK_only": true,
+  "new_variant_contexts": 18,
+  "native_loop_contexts": 12,
+  "no_HP_defeat_room_or_inventory_change": true
+}

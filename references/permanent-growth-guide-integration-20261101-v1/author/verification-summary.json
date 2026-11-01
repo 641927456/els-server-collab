@@ -1,0 +1,36 @@
+{
+  "courses": 13,
+  "quests": 61,
+  "boxes": 63,
+  "box_related_readers": 832,
+  "new_tests_passed": 31,
+  "existing_mount_tests_passed": 17,
+  "direct_reward_readers": 52,
+  "box_open_transactions": 63,
+  "baseline_comparison": {
+    "tests": 72,
+    "failures": 5,
+    "errors": 10,
+    "unchanged_failure_sets": true,
+    "failure_ids": [
+      "tests.test_region_quest_flow.RegionQuestFlowTests.test_all_thirteen_tasks_claim_restore_and_unlock_in_order",
+      "tests.test_region_quest_flow.RegionQuestFlowTests.test_all_thirteen_tasks_via_admitted_dungeon_sessions",
+      "tests.test_region_quest_flow.RegionQuestFlowTests.test_session_refuses_locked_map_then_accepts_after_actual_claim",
+      "tests.test_seal_quests.SealQuestTests.test_unqualified_retire_event_cannot_fabricate_finale_progress",
+      "tests.test_sage_sockets.SageSocketTests.test_session_routes_success_and_failure"
+    ],
+    "error_ids": [
+      "tests.test_seal_quests.SealQuestTests.test_actual_dungeon_deaths_and_clear_drive_progress_without_replayed_credit",
+      "tests.test_seal_level_flow.SealLevelFlowTests.test_boundary32_counts_after_admitted_full_route_and_reward",
+      "tests.test_seal_level_flow.SealLevelFlowTests.test_entry_level_snapshot_survives_level_up_before_clear",
+      "tests.test_seal_level_flow.SealLevelFlowTests.test_outside33_does_not_count_after_admitted_full_route",
+      "tests.test_manufacture_current_owner.Guards.test_finalized_role_cannot_craft_or_replay",
+      "tests.test_manufacture_current_owner.Guards.test_pending_committed_receipt_refuses_and_restore_reuses_original",
+      "tests.test_sage_sockets.SageSocketTests.test_bank_move_and_other_character_shared_withdraw_preserve_all_options",
+      "tests.test_sage_sockets.SageSocketTests.test_duplicate_concurrent_request_once",
+      "tests.test_sage_sockets.SageSocketTests.test_paid_batch_relogin_and_exact_consumption",
+      "tests.test_sage_sockets.SageSocketTests.test_retry_keeps_newer_options_and_never_rolls_or_pays_again"
+    ]
+  },
+  "existing_consumable_elixir_tests_passed": 10
+}

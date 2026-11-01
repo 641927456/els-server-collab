@@ -1,0 +1,137 @@
+{
+  "scope": "Pure condition consumer replay of the separately Application/TLS-proven accepted fact; no extra actors completed, no timer or packet generated.",
+  "rows": [
+    {
+      "dungeon": 34630,
+      "template": 8147,
+      "conditions": [
+        {
+          "kind": 3,
+          "required": [
+            8147
+          ],
+          "portal_lines": [],
+          "delay": 5,
+          "seconds": 0,
+          "next": [
+            {
+              "kind": 4,
+              "stage": 0,
+              "part": 0,
+              "weight": 100,
+              "source_target": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      ],
+      "before": [
+        false
+      ],
+      "after_accepted_fact": [
+        true
+      ],
+      "other_actors_unchanged": true
+    },
+    {
+      "dungeon": 34640,
+      "template": 8078,
+      "conditions": [
+        {
+          "kind": 3,
+          "required": [
+            8078
+          ],
+          "portal_lines": [],
+          "delay": 0,
+          "seconds": 0,
+          "next": [
+            {
+              "kind": 1,
+              "stage": 1,
+              "part": 0,
+              "weight": 100,
+              "source_target": [
+                1,
+                0
+              ]
+            }
+          ]
+        }
+      ],
+      "before": [
+        false
+      ],
+      "after_accepted_fact": [
+        true
+      ],
+      "other_actors_unchanged": true
+    },
+    {
+      "dungeon": 34640,
+      "template": 8079,
+      "conditions": [
+        {
+          "kind": 0,
+          "required": [],
+          "portal_lines": [],
+          "delay": 0,
+          "seconds": 0,
+          "next": [
+            {
+              "kind": 1,
+              "stage": 3,
+              "part": 0,
+              "weight": 100,
+              "source_target": [
+                3,
+                0
+              ]
+            }
+          ]
+        }
+      ],
+      "before": [
+        false
+      ],
+      "after_accepted_fact": [
+        true
+      ],
+      "other_actors_unchanged": true
+    },
+    {
+      "dungeon": 35310,
+      "template": 9412,
+      "conditions": [
+        {
+          "kind": 0,
+          "required": [],
+          "portal_lines": [],
+          "delay": 0,
+          "seconds": 0,
+          "next": [
+            {
+              "kind": 1,
+              "stage": 1,
+              "part": 0,
+              "weight": 100,
+              "source_target": [
+                1,
+                0
+              ]
+            }
+          ]
+        }
+      ],
+      "before": [
+        false
+      ],
+      "after_accepted_fact": [
+        false
+      ],
+      "other_actors_unchanged": true
+    }
+  ]
+}

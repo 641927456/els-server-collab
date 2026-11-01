@@ -1,0 +1,220 @@
+{
+  "schema": 1,
+  "scope": "Finite qualified player summons; source archive only",
+  "runtime_files_each": 11,
+  "new_modules_each": 2,
+  "channels": {
+    "online": [
+      {
+        "path": "els_server/application.py",
+        "source": "online/els_server/application.py",
+        "parent_sha256": "c570627e49ec2e2d73b131043c2e4291082bae6fdb606b93220acdf06d56028b",
+        "sha256": "a09a7406d08a4458c4206de03547acfb436cbac7f28fc211fe7815ee850fa51e",
+        "size": 23505,
+        "new": false,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/dungeon_settlement_commands.py",
+        "source": "online/els_server/domain/dungeon_settlement_commands.py",
+        "parent_sha256": "367f8c5a930b22e7754c984c7d98dee551a7d1d900e854dc97af38684565bd87",
+        "sha256": "28d526b1cf0890e46c901dacb0a74c87a799dc851f649a4302915b6b28d7f021",
+        "size": 12589,
+        "new": false,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/dungeon_spawns.py",
+        "source": "online/els_server/domain/dungeon_spawns.py",
+        "parent_sha256": "c4acdd13547741a853d2ce4d91edf88acbe630c7a3a17a85da8e84c0e50f8b67",
+        "sha256": "d6b477d2a66c043fb6fbbd2e857b9621159b5a9394f4c36071eabb5b3ec33bda",
+        "size": 6879,
+        "new": false,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/field_boss.py",
+        "source": "online/els_server/domain/field_boss.py",
+        "parent_sha256": "41ecc34db9424ef43cb6f638a6fd338211bb5fb9116ce2755f7bb57ce1d0819b",
+        "sha256": "7e5bd584428389508c2861061f3bb1bbf36aef3fc2339a9ac62abb2ef3653193",
+        "size": 14470,
+        "new": false,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/field_travel.py",
+        "source": "online/els_server/domain/field_travel.py",
+        "parent_sha256": "4c0426a2ae1cfa43f12c2af801af13012e92ea48eb7067ccc030a2b9edb6cb3f",
+        "sha256": "fc8303623720b914471c6339ce78533cafc01855308ee744ed73854dc9a5cc23",
+        "size": 7967,
+        "new": false,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/friends_pvp.py",
+        "source": "online/els_server/domain/friends_pvp.py",
+        "parent_sha256": "73d2116be714cdeebf4600fe4ec475459557e84b2cde685f8a0ff984fc056e12",
+        "sha256": "da31d07b044c40ca43761be05c007cdfb782cd4fd6fa4d758b80051dc8628245",
+        "size": 9448,
+        "new": false,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/friends_spawns.py",
+        "source": "online/els_server/domain/friends_spawns.py",
+        "parent_sha256": "1d958846ce90c2ca2ef117e5251c23a9ff1f12ee1016025a475331beeb03f2a3",
+        "sha256": "1a86efa1e440402219434417e731ed773ca08353b5a3523e2eacb50c01a26110",
+        "size": 25011,
+        "new": false,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/local_session.py",
+        "source": "online/els_server/domain/local_session.py",
+        "parent_sha256": "69789e183d8cff1e54ddb19e8bc32a2ab953999b00ff08ba76107fca3b2d3fd4",
+        "sha256": "84d8bb8826dbb80655346f8c24590eb5965cbe95e64fd18cf5d6da782b4811aa",
+        "size": 146690,
+        "new": false,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/room_summons.py",
+        "source": "online/els_server/domain/room_summons.py",
+        "parent_sha256": null,
+        "sha256": "dea318962c7c83fe118797154ab3c7aadaf0320faf7b6fd81f4e3bc9fc7e968d",
+        "size": 4809,
+        "new": true,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/summon_rules.py",
+        "source": "online/els_server/domain/summon_rules.py",
+        "parent_sha256": null,
+        "sha256": "343ebd99b0daa3d3fe9a9ea28100483bb8f5cb47a43b9c8740f72ac82389a49a",
+        "size": 3740,
+        "new": true,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/summons.py",
+        "source": "online/els_server/domain/summons.py",
+        "parent_sha256": "811193bb964c173b1b1ed3ea973a8429460835a942b22365a23ce5f10e41e53f",
+        "sha256": "29a3705bd17fcdcd1eec030bc4eaf0765625d1c46a03994df16c7b5f287ac53e",
+        "size": 4602,
+        "new": false,
+        "composition": "exact-author-candidate"
+      }
+    ],
+    "local": [
+      {
+        "path": "els_server/application.py",
+        "source": "local-variants/els_server/application.py",
+        "parent_sha256": "bff02c99ba68ccf076c982a626b03f5e684faa18c805148313640dd0657e332b",
+        "sha256": "32057d2120d7d93139f187cb62b0e03b08f1e8fe77f0b13247237799b4ccc458",
+        "size": 24029,
+        "new": false,
+        "composition": "exact-context-parent-preserving-variant"
+      },
+      {
+        "path": "els_server/domain/dungeon_settlement_commands.py",
+        "source": "local-variants/els_server/domain/dungeon_settlement_commands.py",
+        "parent_sha256": "6aad4336f4f0a42a4658fbbfc58261673d55ad72c954800c29a9528348f1fa7b",
+        "sha256": "f1b7cc61c00e46bf5a6ff94a0ea1f3270e764953fdd74c2733fc952b284e8882",
+        "size": 12473,
+        "new": false,
+        "composition": "exact-context-parent-preserving-variant"
+      },
+      {
+        "path": "els_server/domain/dungeon_spawns.py",
+        "source": "online/els_server/domain/dungeon_spawns.py",
+        "parent_sha256": "c4acdd13547741a853d2ce4d91edf88acbe630c7a3a17a85da8e84c0e50f8b67",
+        "sha256": "d6b477d2a66c043fb6fbbd2e857b9621159b5a9394f4c36071eabb5b3ec33bda",
+        "size": 6879,
+        "new": false,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/field_boss.py",
+        "source": "online/els_server/domain/field_boss.py",
+        "parent_sha256": "41ecc34db9424ef43cb6f638a6fd338211bb5fb9116ce2755f7bb57ce1d0819b",
+        "sha256": "7e5bd584428389508c2861061f3bb1bbf36aef3fc2339a9ac62abb2ef3653193",
+        "size": 14470,
+        "new": false,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/field_travel.py",
+        "source": "online/els_server/domain/field_travel.py",
+        "parent_sha256": "4c0426a2ae1cfa43f12c2af801af13012e92ea48eb7067ccc030a2b9edb6cb3f",
+        "sha256": "fc8303623720b914471c6339ce78533cafc01855308ee744ed73854dc9a5cc23",
+        "size": 7967,
+        "new": false,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/friends_pvp.py",
+        "source": "online/els_server/domain/friends_pvp.py",
+        "parent_sha256": "73d2116be714cdeebf4600fe4ec475459557e84b2cde685f8a0ff984fc056e12",
+        "sha256": "da31d07b044c40ca43761be05c007cdfb782cd4fd6fa4d758b80051dc8628245",
+        "size": 9448,
+        "new": false,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/friends_spawns.py",
+        "source": "online/els_server/domain/friends_spawns.py",
+        "parent_sha256": "1d958846ce90c2ca2ef117e5251c23a9ff1f12ee1016025a475331beeb03f2a3",
+        "sha256": "1a86efa1e440402219434417e731ed773ca08353b5a3523e2eacb50c01a26110",
+        "size": 25011,
+        "new": false,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/local_session.py",
+        "source": "local-variants/els_server/domain/local_session.py",
+        "parent_sha256": "b34cc6e57ce256ef9108061da98069ec15b920e268015a0696a754cc150120ca",
+        "sha256": "04814cb7892b8424b66f08829fe70aba15b487bad7c23a7f36376acc3d6499c7",
+        "size": 144954,
+        "new": false,
+        "composition": "exact-context-parent-preserving-variant"
+      },
+      {
+        "path": "els_server/domain/room_summons.py",
+        "source": "online/els_server/domain/room_summons.py",
+        "parent_sha256": null,
+        "sha256": "dea318962c7c83fe118797154ab3c7aadaf0320faf7b6fd81f4e3bc9fc7e968d",
+        "size": 4809,
+        "new": true,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/summon_rules.py",
+        "source": "online/els_server/domain/summon_rules.py",
+        "parent_sha256": null,
+        "sha256": "343ebd99b0daa3d3fe9a9ea28100483bb8f5cb47a43b9c8740f72ac82389a49a",
+        "size": 3740,
+        "new": true,
+        "composition": "exact-author-candidate"
+      },
+      {
+        "path": "els_server/domain/summons.py",
+        "source": "online/els_server/domain/summons.py",
+        "parent_sha256": "811193bb964c173b1b1ed3ea973a8429460835a942b22365a23ce5f10e41e53f",
+        "sha256": "29a3705bd17fcdcd1eec030bc4eaf0765625d1c46a03994df16c7b5f287ac53e",
+        "size": 4602,
+        "new": false,
+        "composition": "exact-author-candidate"
+      }
+    ]
+  },
+  "source_manifest_sha256": "b23074ae98ca4b9c389784f9657b0479df6957620185143d8631f914ef6749fd",
+  "pre_ring_source_merge_sha256": "d04b4c955e6d314d8c0e36f16d61d80640ae46c469fc00db4bd000167a5342a6",
+  "source_review_sha256": "5dfdf0d145c85cf17352cbf87ddf34190885d82460b92c9022db76ac1a0c3a93",
+  "schema_delta": 0,
+  "client_support_delta": 0,
+  "original_EXE_KOM_modified": false,
+  "final_installed_parent_not_bound": true,
+  "root_engine_activated_by_archive": false,
+  "unchanged_data_dependencies_deployed": false,
+  "recovery": "Drain scenes and perform normal service stop before changing code. No database restore or live room hot swap. Keep a coherent set of all eleven modules."
+}

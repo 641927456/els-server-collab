@@ -1,0 +1,283 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "dungeon": 34630,
+      "stage": 2,
+      "part": 0,
+      "unit": 14,
+      "template": 8147,
+      "source": {
+        "template": 8147,
+        "source_index": 8,
+        "points": [
+          13
+        ],
+        "active": false,
+        "gage": false,
+        "ally": false,
+        "team": 1,
+        "no_drop": false,
+        "right": false,
+        "boss": false,
+        "boss_lines": 1,
+        "key_code": -1,
+        "source_key_code": -1,
+        "rate": 100,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      "graph_sha": "26b9d62f658cfd6ebbbe4fe873cf4290f49dba6715fa1e1a6f27cd0295b50b5f",
+      "script": "NOAH_RETURN1_DROP_DUMMY.lua",
+      "script_sha": "30639012958f226abec0bcccdc8ffb0cd6b4eb64978370783904bc3ac848bd89",
+      "native_is_npc": false,
+      "source_table_sha256": "a558577b1a9652d4ddab9b547b577bbbf0eae692219dc2e333c4e3fa5b91e437",
+      "dying_states": {
+        "NOAH_RETURN1_DYING": {
+          "ANIM_NAME": "Wait",
+          "PLAY_TYPE": {
+            "global": "XSKIN_ANIM_PLAYTYPE.XAP_ONE_WAIT"
+          },
+          "TRANSITION": true,
+          "INVINCIBLE": {
+            "0": null,
+            "1": 0,
+            "2": 100
+          },
+          "CAN_PUSH_UNIT": false,
+          "CAN_PASS_UNIT": true,
+          "NEVER_MOVE": true,
+          "DYING_END": true,
+          "IMMADIATE_PACKET_SEND": true
+        }
+      },
+      "trigger_basis": "8145 cutscene callback selects8147 and changes to NOAH_RETURN1_DYING directly",
+      "native_expiry": {
+        "index": 7,
+        "flag": 255,
+        "source": 18446744073709551615,
+        "killer": 18446744073709551615,
+        "status": 1,
+        "hp": 64397.0
+      },
+      "factory_prefix": {
+        "constructor": "0x1560050",
+        "instance_key": 7
+      }
+    },
+    {
+      "dungeon": 34640,
+      "stage": 0,
+      "part": 0,
+      "unit": 14,
+      "template": 8078,
+      "source": {
+        "template": 8078,
+        "source_index": 10,
+        "points": [
+          10
+        ],
+        "active": false,
+        "gage": false,
+        "ally": false,
+        "team": 1,
+        "no_drop": true,
+        "right": false,
+        "boss": false,
+        "boss_lines": 1,
+        "key_code": -1,
+        "source_key_code": -1,
+        "rate": 100,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      "graph_sha": "3cb1368064ea525057c789943cccdbcba9b251a059d264f251cc11d3d1ee533b",
+      "script": "NOAH_RETURN2_INSIDE_DUMMY1.lua",
+      "script_sha": "c6503077d4847fc321ebafbd463a9b8091d5a9b7d995bc02bcea0d3d2f7a3f3f",
+      "native_is_npc": false,
+      "source_table_sha256": "0a2f982efcf8a4d8ea0605205a4acac7a48c7ea43cf4c7ff1a4df4b8b21c9aef",
+      "dying_states": {
+        "NOAH_RETURN2_DUMMY1_DYING": {
+          "ANIM_NAME": "Dying",
+          "PLAY_TYPE": {
+            "global": "XSKIN_ANIM_PLAYTYPE.XAP_ONE_WAIT"
+          },
+          "TRANSITION": false,
+          "LAND_CONNECT": false,
+          "INVINCIBLE": {
+            "0": null,
+            "1": 0,
+            "2": 100
+          },
+          "CAN_PUSH_UNIT": false,
+          "CAN_PASS_UNIT": true,
+          "DYING_END": true,
+          "IMMADIATE_PACKET_SEND": true
+        }
+      },
+      "trigger_basis": "Original room/LiveActiveNPCNum predicate starts cutscene, motion-end->DYING; alternate DM branch times10s->DYING",
+      "native_expiry": {
+        "index": 9,
+        "flag": 255,
+        "source": 18446744073709551615,
+        "killer": 18446744073709551615,
+        "status": 1,
+        "hp": 30000.0
+      },
+      "factory_prefix": {
+        "constructor": "0x1560050",
+        "instance_key": 9
+      }
+    },
+    {
+      "dungeon": 34640,
+      "stage": 2,
+      "part": 0,
+      "unit": 14,
+      "template": 8079,
+      "source": {
+        "template": 8079,
+        "source_index": 2,
+        "points": [
+          1
+        ],
+        "active": true,
+        "gage": false,
+        "ally": false,
+        "team": 1,
+        "no_drop": true,
+        "right": false,
+        "boss": false,
+        "boss_lines": 1,
+        "key_code": -1,
+        "source_key_code": -1,
+        "rate": 100,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      "graph_sha": "3cb1368064ea525057c789943cccdbcba9b251a059d264f251cc11d3d1ee533b",
+      "script": "NOAH_RETURN2_INSIDE_DUMMY2.lua",
+      "script_sha": "664f58a317071f0d9c2ad749effda288cfaf65fe25347b8a085fa13b7e0d4fa3",
+      "native_is_npc": false,
+      "source_table_sha256": "8404880c8245eb1636fc40badc7714d430a9de13affee4cbe6a8e6dccce35661",
+      "dying_states": {
+        "NOAH_RETURN2_DUMMY1_DYING": {
+          "ANIM_NAME": "Dying",
+          "PLAY_TYPE": {
+            "global": "XSKIN_ANIM_PLAYTYPE.XAP_ONE_WAIT"
+          },
+          "TRANSITION": false,
+          "LAND_CONNECT": false,
+          "SHOW": false,
+          "INVINCIBLE": {
+            "0": null,
+            "1": 0,
+            "2": 100
+          },
+          "CAN_PUSH_UNIT": false,
+          "CAN_PASS_UNIT": true,
+          "DYING_END": true,
+          "IMMADIATE_PACKET_SEND": true
+        }
+      },
+      "trigger_basis": "8077 callback selects8079 and starts cutscene; original motion-end transitions to DYING",
+      "native_expiry": {
+        "index": 1,
+        "flag": 255,
+        "source": 18446744073709551615,
+        "killer": 18446744073709551615,
+        "status": 1,
+        "hp": 30000.0
+      },
+      "factory_prefix": {
+        "constructor": "0x1560050",
+        "instance_key": 1
+      }
+    },
+    {
+      "dungeon": 35310,
+      "stage": 0,
+      "part": 0,
+      "unit": 15,
+      "template": 9412,
+      "source": {
+        "template": 9412,
+        "source_index": 1,
+        "points": [
+          1
+        ],
+        "active": true,
+        "gage": true,
+        "ally": false,
+        "team": 1,
+        "no_drop": false,
+        "right": false,
+        "boss": false,
+        "boss_lines": 1,
+        "key_code": -1,
+        "source_key_code": -1,
+        "rate": 100,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      "graph_sha": "3df9bd4129b3b49a1eedab003de53574e8fddf54357c16b6869afb4d389fba47",
+      "script": "LITHIA_MEMORY7_SUMMON.lua",
+      "script_sha": "cc1990e3dc9bd151d205305221d5b98f2d41f1d10b5b01c51cdc7eb58980f9a3",
+      "native_is_npc": true,
+      "source_table_sha256": "7f131102111109541794f4f545f369cf85ede51ede7461ca431c43e64236757c",
+      "dying_states": {
+        "LITHIA_MEMORY7_SUMMON_DYING": {
+          "ANIM_NAME": "Wait",
+          "SHOW": false,
+          "PLAY_TYPE": {
+            "global": "XSKIN_ANIM_PLAYTYPE.XAP_ONE_WAIT"
+          },
+          "TRANSITION": false,
+          "LAND_CONNECT": false,
+          "CAN_PUSH_UNIT": false,
+          "CAN_PASS_UNIT": true,
+          "INVINCIBLE": {
+            "0": null,
+            "1": 0,
+            "2": 100
+          },
+          "DYING_END": true,
+          "IMMADIATE_PACKET_SEND": true
+        }
+      },
+      "trigger_basis": "9418 DYING_STATE_START callback explicitly selects9412 and changes to LITHIA_MEMORY7_SUMMON_DYING",
+      "native_expiry": {
+        "index": 0,
+        "flag": 255,
+        "source": 18446744073709551615,
+        "killer": 18446744073709551615,
+        "status": 1,
+        "hp": 98177.0
+      },
+      "factory_prefix": {
+        "constructor": "0x1560050",
+        "instance_key": 0
+      }
+    }
+  ],
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "registration_method": "Original AddNPCTemplet binding279BA11->8B2830. Decode NPC_ID/CLASS_TYPE/IS_NPC keys; 8B3134 stores IS_NPC at definition+0x88 independently of CLASS_TYPE at+4.",
+  "original_qualification_sha256": "2258dc6dd92423e4a4e4bb96aed0150093f4b2d6d05c3caec1bcd662a3479a72",
+  "scope": "Original callback/condition tables plus exact-template factory prefixes and original expiry producer/DTO constructor. Original Game readiness/AI/GUI not executed; no fabricated live reports or source timers.",
+  "runtime_definition_addresses_or_raw_code_or_trace_included": false,
+  "original_game_files_modified": false,
+  "natural_Game_readiness_AI_or_GUI_executed": false,
+  "class103_or_IS_NPC_false_not_globally_admitted": true
+}

@@ -1,0 +1,4865 @@
+[
+  {
+    "rule": {
+      "dungeon": 33182,
+      "stage": 1,
+      "part": 1,
+      "trigger": 0,
+      "source_sha256": "d9dfc8ca84404b5937e13e3a250b635fbd5ea62a5def67c4616fc556590a0ee2",
+      "native_loop": false,
+      "line_source_sha256": "da4660082bd2c1a60dc47ae47eb38d9f5b1e6c359f5cf35ffc5226ff09357622",
+      "world_source_sha256": "2c0bd5a70417c30c5f9d0e1fa072afa2450fd6851106357c225c585a951a73fb",
+      "native_request_producer": "TRIGGER_ON_LINE=false on original line(s) 10",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Halls of Water",
+    "route_group": "routes",
+    "source": "dungeon_hamel_frozen_water_hall_expert.lua",
+    "line_source": "Hamel_Frozen_Water_Hall_Stage2_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_HAMEL_FROZEN_WATER_HALL_STAGE2",
+      "source": "Hamel_Frozen_Water_Hall_Stage2.lua",
+      "sha256": "2c0bd5a70417c30c5f9d0e1fa072afa2450fd6851106357c225c585a951a73fb",
+      "line": "Hamel_Frozen_Water_Hall_Stage2_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 10,
+        "line_set": 2,
+        "on_line": false,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "down",
+          "MESH_NAME": "TRIGGER_HAMEL_FROZEN_WATER_HALL_STAGE2_ELEVATOR.X",
+          "DELAY_TIME": 1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 11,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE1": {
+          "DELAY_TIME": 5,
+          "LINE_ID": 11,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 1.2,
+          "LINE_SOUND": "Trigger_Hamel_Elev.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 33182,
+      "stage": 4,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "d9dfc8ca84404b5937e13e3a250b635fbd5ea62a5def67c4616fc556590a0ee2",
+      "native_loop": false,
+      "line_source_sha256": "a093877c427df074ca1aa2a9c3006a4894f0da26958dca82626de550f292a00e",
+      "world_source_sha256": "418e74d81c16e2ab71221e70d28a9d93823a323089dd2cb20aec06a019c064f0",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 0",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Halls of Water",
+    "route_group": "routes",
+    "source": "dungeon_hamel_frozen_water_hall_expert.lua",
+    "line_source": "Hamel_Frozen_Water_Hall_Stage5_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_HAMEL_FROZEN_WATER_HALL_STAGE5",
+      "source": "Hamel_Frozen_Water_Hall_Stage5.lua",
+      "sha256": "418e74d81c16e2ab71221e70d28a9d93823a323089dd2cb20aec06a019c064f0",
+      "line": "Hamel_Frozen_Water_Hall_Stage5_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 0,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Move",
+          "MESH_NAME": "TRIGGER_HAMEL_STAGE7_5_MOVE1.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "LINE_ID": 1,
+          "DELAY_TIME": 5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_LINE1": {
+          "LINE_ID": 1,
+          "DELAY_TIME": 0.01,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_ETC0": {
+          "LINE_SOUND": "Trigger_Hamel_D7S5Docking.ogg",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "CAMERA_SHAKE_GAP": 5,
+          "CAMERA_SHAKE_DURATION": 1,
+          "DELAY_TIME": 4.8,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA_SHAKE"
+          }
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 33191,
+      "stage": 0,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "c8ab3e734c3163e64649d82a4eec56340cd3dc24bc53dc99f0f6d36741e48705",
+      "native_loop": false,
+      "line_source_sha256": "fa3d2df82cd77e09f794a7fe118b8fe87e326cf20bc027dc03fac627f80939fb",
+      "world_source_sha256": "630a81a0da976b529a0676f318b1aa4fbc6d1541a5a31d5708e2b58dda6de1e0",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 3,11",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Velder's Hallucination",
+    "route_group": "routes",
+    "source": "dungeon_velder_secret_hell.lua",
+    "line_source": "VELDER_SECRET_STAGE1_LINEMAP.lua",
+    "world": {
+      "world": "WORLD_ID.WI_VELDER_SECRET_STAGE1",
+      "source": "VELDER_SECRET_STAGE1.lua",
+      "sha256": "630a81a0da976b529a0676f318b1aa4fbc6d1541a5a31d5708e2b58dda6de1e0",
+      "line": "VELDER_SECRET_STAGE1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 3,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      },
+      {
+        "line": 11,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_NONE"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 5.5,
+          "ACTIVE_LAYER_ID": 0,
+          "FADE_TIME": 1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_ACTIVE_LAYER"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "DELAY_TIME": 5.75,
+          "ACTIVE_LAYER_ID": 1,
+          "FADE_TIME": 1.5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_ACTIVE_LAYER"
+          }
+        },
+        "TRIGGER_DATA_ETC2": {
+          "DELAY_TIME": 6,
+          "ACTIVE_LAYER_ID": 2,
+          "FADE_TIME": 2,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_ACTIVE_LAYER"
+          }
+        },
+        "TRIGGER_DATA_ETC3": {
+          "DELAY_TIME": 6.25,
+          "ACTIVE_LAYER_ID": 3,
+          "FADE_TIME": 2.25,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_ACTIVE_LAYER"
+          }
+        },
+        "TRIGGER_DATA_ETC4": {
+          "DELAY_TIME": 6.5,
+          "ACTIVE_LAYER_ID": 4,
+          "FADE_TIME": 2.5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_ACTIVE_LAYER"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 33191,
+      "stage": 1,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "c8ab3e734c3163e64649d82a4eec56340cd3dc24bc53dc99f0f6d36741e48705",
+      "native_loop": false,
+      "line_source_sha256": "cc322e21e9717a4aeed03eb1a4e442c44a813177f37b8753a05868a5a1ccb72b",
+      "world_source_sha256": "813e0f122b330c9cc00ae71332c3229ba86384a79ec9f7d4edc8a31e1f8c71d7",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 2",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Velder's Hallucination",
+    "route_group": "routes",
+    "source": "dungeon_velder_secret_hell.lua",
+    "line_source": "VELDER_SECRET_STAGE2_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_VELDER_SECRET_STAGE2",
+      "source": "VELDER_SECRET_STAGE2.lua",
+      "sha256": "813e0f122b330c9cc00ae71332c3229ba86384a79ec9f7d4edc8a31e1f8c71d7",
+      "line": "VELDER_SECRET_STAGE2_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 2,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Down",
+          "MESH_NAME": "TRIGGER_VELDER_SECRET_STAGE2_BALPAN.X",
+          "DELAY_TIME": 0.2,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 6,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0,
+          "CAMERA_SHAKE_DURATION": 10,
+          "CAMERA_SHAKE_GAP": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA_SHAKE"
+          }
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 33242,
+      "stage": 0,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a",
+      "native_loop": false,
+      "line_source_sha256": "a044d4a43f370d96f4902eaaf270d577d2a6cced5b88281bb0c0babd6467c61e",
+      "world_source_sha256": "18c599883a4fea3d97c5b7cc3a0ebfde5389812461ee349698717e7da79c347c",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 0",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Sandtilus",
+    "route_group": "routes",
+    "source": "dungeon_sander_santilus_ship_expert.lua",
+    "line_source": "Sander_Santilus_Ship_Stage0_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_SANDER_SANTILUS_SHIP_STAGE0",
+      "source": "Sander_Santilus_Ship_Stage0.lua",
+      "sha256": "18c599883a4fea3d97c5b7cc3a0ebfde5389812461ee349698717e7da79c347c",
+      "line": "Sander_Santilus_Ship_Stage0_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 0,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "",
+          "MESH_NAME": "",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_NONE"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0,
+          "CAMERA_INDEX": 0,
+          "CAMERA_DURATION": 6,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "DELAY_TIME": 0,
+          "CAMERA_SHAKE_GAP": 10,
+          "CAMERA_SHAKE_DURATION": 6,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA_SHAKE"
+          }
+        },
+        "TRIGGER_DATA_ETC2": {
+          "DELAY_TIME": 0,
+          "LINE_SOUND": "Trigger_Sander02.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 33242,
+      "stage": 0,
+      "part": 2,
+      "trigger": 1,
+      "source_sha256": "9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a",
+      "native_loop": false,
+      "line_source_sha256": "a044d4a43f370d96f4902eaaf270d577d2a6cced5b88281bb0c0babd6467c61e",
+      "world_source_sha256": "18c599883a4fea3d97c5b7cc3a0ebfde5389812461ee349698717e7da79c347c",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 15,16,18,19,20",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Sandtilus",
+    "route_group": "routes",
+    "source": "dungeon_sander_santilus_ship_expert.lua",
+    "line_source": "Sander_Santilus_Ship_Stage0_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_SANDER_SANTILUS_SHIP_STAGE0",
+      "source": "Sander_Santilus_Ship_Stage0.lua",
+      "sha256": "18c599883a4fea3d97c5b7cc3a0ebfde5389812461ee349698717e7da79c347c",
+      "line": "Sander_Santilus_Ship_Stage0_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 15,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 16,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 18,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 19,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 20,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Air",
+          "MESH_NAME": "TRIGGER_SANDER_SANTILUS_SHIP_STAGE0_FLY1.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH1": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Air",
+          "MESH_NAME": "TRIGGER_SANDER_SANTILUS_SHIP_STAGE0_FLY2.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH2": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Air",
+          "MESH_NAME": "TRIGGER_SANDER_SANTILUS_SHIP_STAGE0_SKYALPA.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH3": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Ait",
+          "MESH_NAME": "TRIGGER_SANDER_SANTILUS_SHIP_STAGE0_SKY.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH4": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Move",
+          "MESH_NAME": "Trigger_Sander_Santilus_St0_Ground_Alpha.x",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH5": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Movie",
+          "MESH_NAME": "TRIGGER_SANDER_SANTILUS_SHIP_STAGE0_SHADOW.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0,
+          "CAMERA_INDEX": 2,
+          "CAMERA_DURATION": 20,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "DELAY_TIME": 0,
+          "LINE_SOUND": "Trigger_Sander03.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 33242,
+      "stage": 1,
+      "part": 1,
+      "trigger": 0,
+      "source_sha256": "9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a",
+      "native_loop": false,
+      "line_source_sha256": "e8d7bec786ee209b6c0e5b4305d369231ba12ef1c65dfa9acd0c6fee21d6c78b",
+      "world_source_sha256": "5601de1f167a49d1433b7852e108f8fda451ff789a4618be8968a3b777d3699b",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 24",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Sandtilus",
+    "route_group": "routes",
+    "source": "dungeon_sander_santilus_ship_expert.lua",
+    "line_source": "Sander_Santilus_Ship_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_SANDER_SANTILUS_SHIP_STAGE1",
+      "source": "Sander_Santilus_Ship_Stage1.lua",
+      "sha256": "5601de1f167a49d1433b7852e108f8fda451ff789a4618be8968a3b777d3699b",
+      "line": "Sander_Santilus_Ship_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 24,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "MESH_NAME": "TRIGGER_SANDER_SANTILUS_SHIP_STAGE1_LIGHT.X",
+          "DELAY_TIME": 0,
+          "ANIM_NAME": "Move",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "LINE_SOUND": "Trigger_Sander04.ogg",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 33282,
+      "stage": 0,
+      "part": 3,
+      "trigger": 0,
+      "source_sha256": "a38c95834275def7544d914b0789483c5ac6ed636c440ff6f6dae144ae0bcbe9",
+      "native_loop": false,
+      "line_source_sha256": "f4059490a9b78398fe4c85d21623217c0fa19e7f273486c60bb3a9e4745517be",
+      "world_source_sha256": "86c29da23e41f9f16fe13520313eae0013ddec2539ec589fcf095f2d97bf68b5",
+      "native_request_producer": "TRIGGER_ON_LINE=false on original line(s) 52",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Ash Covered Village",
+    "route_group": "routes",
+    "source": "dungeon_ranox_ashesvillage_expert.lua",
+    "line_source": "Ranox_AshesVillage_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_RANOX_ASHESVILLAGE_STAGE1",
+      "source": "Ranox_AshesVillage_Stage1.lua",
+      "sha256": "86c29da23e41f9f16fe13520313eae0013ddec2539ec589fcf095f2d97bf68b5",
+      "line": "Ranox_AshesVillage_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 52,
+        "line_set": 6,
+        "on_line": false,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "Trigger_Motion_Ranox_Cart.x",
+          "DELAY_TIME": 0,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Move",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 3,
+          "LINE_ID": 53,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_LINE1": {
+          "DELAY_TIME": 3,
+          "LINE_ID": 39,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_LINE2": {
+          "DELAY_TIME": 3,
+          "LINE_ID": 48,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_LINE3": {
+          "DELAY_TIME": 3,
+          "LINE_ID": 40,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0,
+          "LINE_SOUND": "CartRoll_Trigger.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 33292,
+      "stage": 0,
+      "part": 1,
+      "trigger": 1,
+      "source_sha256": "df17537593b3892881263dd98f051a6da04ec6fbe059c063975fd916db825e3b",
+      "native_loop": false,
+      "line_source_sha256": "8447f7be3f53f649b6af75d619c667e9aab48dd591d157640a871187132090cb",
+      "world_source_sha256": "522fe01ae4ea404b0247e276e05ec5c84793d651c9ad63c55275cd8faad26d5d",
+      "native_request_producer": "TRIGGER_ON_LINE=false on original line(s) 24",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Phantasmal Geyser",
+    "route_group": "routes",
+    "source": "dungeon_ranox_geyser_expert.lua",
+    "line_source": "Ranox_Geyser_stage0_linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_RANOX_GEYSER_STAGE0",
+      "source": "Ranox_Geyser_stage0.lua",
+      "sha256": "522fe01ae4ea404b0247e276e05ec5c84793d651c9ad63c55275cd8faad26d5d",
+      "line": "Ranox_Geyser_stage0_linemap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 24,
+        "line_set": 2,
+        "on_line": false,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_ETC0": {
+          "MOTIONNAME_EFFECTSETNAME": "Motion_GEYSER_STEELPUMP.x EffectSet_STEELPUMP_Move_FX",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_EFFECTSET"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "MOTIONNAME_EFFECTSETNAME": "Motion_GEYSER_STEELPUMP.x EffectSet_STEELPUMP_Move_FX",
+          "DELAY_TIME": 0.5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_EFFECTSET"
+          }
+        },
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "Motion_GEYSER_STEELPUMP.x",
+          "DELAY_TIME": 0.15,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_MOVE"
+          },
+          "MOVE_POS": {
+            "symbolic_call": {
+              "function": "D3DXVECTOR3",
+              "arguments": [
+                11450,
+                510,
+                -500
+              ],
+              "pc": 1734
+            }
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 33302,
+      "stage": 1,
+      "part": 1,
+      "trigger": 0,
+      "source_sha256": "112ff72dafc176c7402a932e707743314ddffbc2ba328c0759511a8f305ec62f",
+      "native_loop": false,
+      "line_source_sha256": "2881a5440ce7679b9df36cfea1900e6c406c6164dcd19d37ca3abf6135d1075f",
+      "world_source_sha256": "8790f791277dad80376bb7b0e58cd8167b5107106a56b57e6c9af98d51025ea8",
+      "native_request_producer": "TRIGGER_ON_LINE=false on original line(s) 22",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Volcanic Flame Entrance",
+    "route_group": "routes",
+    "source": "dungeon_ranox_gateway_expert.lua",
+    "line_source": "Ranox_GateWay_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_RANOX_GATEWAY_STAGE1",
+      "source": "Ranox_GateWay_Stage1.lua",
+      "sha256": "8790f791277dad80376bb7b0e58cd8167b5107106a56b57e6c9af98d51025ea8",
+      "line": "Ranox_GateWay_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 22,
+        "line_set": 2,
+        "on_line": false,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Normal",
+          "MESH_NAME": "GATEWAY_1STAGE_ROCK_ANI01.x",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH1": {
+          "DELAY_TIME": 0.05,
+          "MESH_NAME": "GATEWAY_1STAGE_ROCK_ANI01.x",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_MOVE"
+          },
+          "MOVE_POS": {
+            "symbolic_call": {
+              "function": "D3DXVECTOR3",
+              "arguments": [
+                -55800,
+                1650,
+                -1387
+              ],
+              "pc": 1836
+            }
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.75,
+          "LINE_ID": 20,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_LINE1": {
+          "DELAY_TIME": 1,
+          "LINE_ID": 21,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 33312,
+      "stage": 0,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "2d90340883af2f5643bd6782f3c7b506683358a34a5d2f7d1a5a8aab89bac1c1",
+      "native_loop": false,
+      "line_source_sha256": "75ca579662891fcbe744bbc086c6ae2c6333e9fbcc855a7e3c7d0ecf1af07e1e",
+      "world_source_sha256": "2a0bd2eb80ad475e3af282dd42bc146758bae7910fc72be57e8ee1dcbfa616c7",
+      "native_request_producer": "TRIGGER_ON_LINE=false on original line(s) 3",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Collapsing Temple of Fire",
+    "route_group": "routes",
+    "source": "dungeon_ranox_firetemple_expert.lua",
+    "line_source": "Ranox_FireTemple_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_RANOX_FIRETEMPLE_STAGE1",
+      "source": "Ranox_FireTemple_Stage1.lua",
+      "sha256": "2a0bd2eb80ad475e3af282dd42bc146758bae7910fc72be57e8ee1dcbfa616c7",
+      "line": "Ranox_FireTemple_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 3,
+        "line_set": 0,
+        "on_line": false,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "DELAY_TIME": 0.15,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "move01",
+          "MESH_NAME": "FireTemple_Stage1_X_ground.x",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.3,
+          "LINE_ID": 3,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE1": {
+          "DELAY_TIME": 0.3,
+          "LINE_ID": 11,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TYPE"
+          },
+          "CHANGE_LINE_TYPE": {
+            "global": "LINE_TYPE.LT_NORMAL"
+          }
+        },
+        "TRIGGER_DATA_LINE2": {
+          "DELAY_TIME": 0.3,
+          "LINE_ID": 12,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TYPE"
+          },
+          "CHANGE_LINE_TYPE": {
+            "global": "LINE_TYPE.LT_NORMAL"
+          }
+        },
+        "TRIGGER_DATA_LINE3": {
+          "DELAY_TIME": 0.3,
+          "LINE_ID": 13,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TYPE"
+          },
+          "CHANGE_LINE_TYPE": {
+            "global": "LINE_TYPE.LT_NORMAL"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0.15,
+          "CAMERA_SHAKE_GAP": 20,
+          "CAMERA_SHAKE_DURATION": 3,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA_SHAKE"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "DELAY_TIME": 0.15,
+          "LINE_SOUND": "AMB_Earthquake02.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        },
+        "TRIGGER_DATA_ETC2": {
+          "DELAY_TIME": 0.15,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_NPC_AI_ON_OFF"
+          },
+          "NPC_AI_ENABLE": true
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 33312,
+      "stage": 0,
+      "part": 0,
+      "trigger": 2,
+      "source_sha256": "2d90340883af2f5643bd6782f3c7b506683358a34a5d2f7d1a5a8aab89bac1c1",
+      "native_loop": false,
+      "line_source_sha256": "75ca579662891fcbe744bbc086c6ae2c6333e9fbcc855a7e3c7d0ecf1af07e1e",
+      "world_source_sha256": "2a0bd2eb80ad475e3af282dd42bc146758bae7910fc72be57e8ee1dcbfa616c7",
+      "native_request_producer": "TRIGGER_ON_LINE=false on original line(s) 0,1",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Collapsing Temple of Fire",
+    "route_group": "routes",
+    "source": "dungeon_ranox_firetemple_expert.lua",
+    "line_source": "Ranox_FireTemple_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_RANOX_FIRETEMPLE_STAGE1",
+      "source": "Ranox_FireTemple_Stage1.lua",
+      "sha256": "2a0bd2eb80ad475e3af282dd42bc146758bae7910fc72be57e8ee1dcbfa616c7",
+      "line": "Ranox_FireTemple_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 0,
+        "line_set": 0,
+        "on_line": false,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 1,
+        "line_set": 0,
+        "on_line": false,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 2,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_NPC_AI_ON_OFF"
+          },
+          "NPC_AI_ENABLE": false
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 33312,
+      "stage": 0,
+      "part": 3,
+      "trigger": 1,
+      "source_sha256": "2d90340883af2f5643bd6782f3c7b506683358a34a5d2f7d1a5a8aab89bac1c1",
+      "native_loop": false,
+      "line_source_sha256": "75ca579662891fcbe744bbc086c6ae2c6333e9fbcc855a7e3c7d0ecf1af07e1e",
+      "world_source_sha256": "2a0bd2eb80ad475e3af282dd42bc146758bae7910fc72be57e8ee1dcbfa616c7",
+      "native_request_producer": "TRIGGER_ON_LINE=false on original line(s) 26",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Collapsing Temple of Fire",
+    "route_group": "routes",
+    "source": "dungeon_ranox_firetemple_expert.lua",
+    "line_source": "Ranox_FireTemple_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_RANOX_FIRETEMPLE_STAGE1",
+      "source": "Ranox_FireTemple_Stage1.lua",
+      "sha256": "2a0bd2eb80ad475e3af282dd42bc146758bae7910fc72be57e8ee1dcbfa616c7",
+      "line": "Ranox_FireTemple_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 26,
+        "line_set": 6,
+        "on_line": false,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "DELAY_TIME": 0.15,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "move02",
+          "MESH_NAME": "FireTemple_Stage1_X_ground02.x",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.3,
+          "LINE_ID": 26,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE1": {
+          "DELAY_TIME": 0.3,
+          "LINE_ID": 33,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TYPE"
+          },
+          "CHANGE_LINE_TYPE": {
+            "global": "LINE_TYPE.LT_NORMAL"
+          }
+        },
+        "TRIGGER_DATA_LINE2": {
+          "DELAY_TIME": 0.3,
+          "LINE_ID": 34,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TYPE"
+          },
+          "CHANGE_LINE_TYPE": {
+            "global": "LINE_TYPE.LT_NORMAL"
+          }
+        },
+        "TRIGGER_DATA_LINE3": {
+          "DELAY_TIME": 0.3,
+          "LINE_ID": 35,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TYPE"
+          },
+          "CHANGE_LINE_TYPE": {
+            "global": "LINE_TYPE.LT_NORMAL"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0.15,
+          "CAMERA_SHAKE_GAP": 20,
+          "CAMERA_SHAKE_DURATION": 3,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA_SHAKE"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "DELAY_TIME": 0.15,
+          "LINE_SOUND": "AMB_Earthquake02.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        },
+        "TRIGGER_DATA_ETC2": {
+          "DELAY_TIME": 0.15,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_NPC_AI_ON_OFF"
+          },
+          "NPC_AI_ENABLE": true
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 33312,
+      "stage": 0,
+      "part": 3,
+      "trigger": 3,
+      "source_sha256": "2d90340883af2f5643bd6782f3c7b506683358a34a5d2f7d1a5a8aab89bac1c1",
+      "native_loop": false,
+      "line_source_sha256": "75ca579662891fcbe744bbc086c6ae2c6333e9fbcc855a7e3c7d0ecf1af07e1e",
+      "world_source_sha256": "2a0bd2eb80ad475e3af282dd42bc146758bae7910fc72be57e8ee1dcbfa616c7",
+      "native_request_producer": "TRIGGER_ON_LINE=false on original line(s) 21,22,23,24,25",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Collapsing Temple of Fire",
+    "route_group": "routes",
+    "source": "dungeon_ranox_firetemple_expert.lua",
+    "line_source": "Ranox_FireTemple_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_RANOX_FIRETEMPLE_STAGE1",
+      "source": "Ranox_FireTemple_Stage1.lua",
+      "sha256": "2a0bd2eb80ad475e3af282dd42bc146758bae7910fc72be57e8ee1dcbfa616c7",
+      "line": "Ranox_FireTemple_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 21,
+        "line_set": 6,
+        "on_line": false,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 22,
+        "line_set": 6,
+        "on_line": false,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 23,
+        "line_set": 6,
+        "on_line": false,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 24,
+        "line_set": 6,
+        "on_line": false,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 25,
+        "line_set": 6,
+        "on_line": false,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 3,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_NPC_AI_ON_OFF"
+          },
+          "NPC_AI_ENABLE": false
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 33322,
+      "stage": 0,
+      "part": 1,
+      "trigger": 0,
+      "source_sha256": "09e9169df1004f1ab340afc673921f861560b9f1b5c9b375e8451007c89086be",
+      "native_loop": false,
+      "line_source_sha256": "d12c01fa77ef1f8c6dc962033ef6d072802551c4c78d4d7e562161ea200061da",
+      "world_source_sha256": "1339bb588bbdd3e5d5aad3b3cd9d1a0b08b59b6290ae6b95d848359e68c0130c",
+      "native_request_producer": "TRIGGER_ON_LINE=false on original line(s) 52",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Grand Cavern: Chasm of the Divided Land",
+    "route_group": "routes",
+    "source": "dungeon_ranox_finalhall_expert.lua",
+    "line_source": "Ranox_FinalHall_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_RANOX_FINALHALL_STAGE1",
+      "source": "Ranox_FinalHall_Stage1.lua",
+      "sha256": "1339bb588bbdd3e5d5aad3b3cd9d1a0b08b59b6290ae6b95d848359e68c0130c",
+      "line": "Ranox_FinalHall_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 52,
+        "line_set": 2,
+        "on_line": false,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "move",
+          "MESH_NAME": "FINALHALL_STAGE1_X.x",
+          "DELAY_TIME": 0.5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "LINE_ID": 14,
+          "DELAY_TIME": 0.01,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_ETC0": {
+          "CAMERA_SHAKE_GAP": 20,
+          "DELAY_TIME": 0,
+          "CAMERA_SHAKE_DURATION": 5.5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA_SHAKE"
+          }
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 33332,
+      "stage": 2,
+      "part": 2,
+      "trigger": 0,
+      "source_sha256": "7d9b0870bda9338fbeeb123d81be36edb74ff2ad660a5001cf05edfa5afde0de",
+      "native_loop": false,
+      "line_source_sha256": "bbf6534b22c9a9ea3e123d3a7fb9b58135476d0ed753e0c2f970c5326733f6d6",
+      "world_source_sha256": "8ed31a9e50c020a08baf7784be29e6ea37971faa93a5a54ef192b8455d83be94",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 21,22,33,34,35,36,37",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Diceon Mines",
+    "route_group": "routes",
+    "source": "dungeon_elysion_atlasdevelopment_expert.lua",
+    "line_source": "Elysion_AtlasDevelopment_Stage2_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_ATLASDEVELOPMENT_STAGE2",
+      "source": "Elysion_AtlasDevelopment_Stage2.lua",
+      "sha256": "8ed31a9e50c020a08baf7784be29e6ea37971faa93a5a54ef192b8455d83be94",
+      "line": "Elysion_AtlasDevelopment_Stage2_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 21,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 22,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 33,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 34,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 35,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 36,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 37,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "ANIM_NAME": "End",
+          "PLAY_TYPE": 1,
+          "MESH_NAME": "ELYSION_ATLASDEVELOPMENT_STAGE1_TRIGGER.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 33872,
+      "stage": 2,
+      "part": 2,
+      "trigger": 1,
+      "source_sha256": "b2fc7a644eb702d4840af7c0ad7ba9fa7926e3182d6e1ef0335193228ad807c2",
+      "native_loop": false,
+      "line_source_sha256": "0e5e662390837c83adf6a7fd92389e3b489e348bf02878919c256004f0f9e938",
+      "world_source_sha256": "a637fe2076c6b5a12c16a4d4bb2b1f35484fad7ba17341f71becc62cb757c47c",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 45",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Celestial Crossroads",
+    "route_group": "routes",
+    "source": "dungeon_elysion_skycrossroads_expert.lua",
+    "line_source": "Elysion_SkyCrossroads_Stage2_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_SKYCROSSROADS_STAGE2",
+      "source": "Elysion_SkyCrossroads_Stage2.lua",
+      "sha256": "a637fe2076c6b5a12c16a4d4bb2b1f35484fad7ba17341f71becc62cb757c47c",
+      "line": "Elysion_SkyCrossroads_Stage2_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 45,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "ANIM_NAME": "Close",
+          "PLAY_TYPE": 1,
+          "MESH_NAME": "Motion_SKYCROSS_RAND_END.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34140,
+      "stage": 1,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "e19bb64e80a3788b985b54910c9ad4d29004f29234c68db933bdb395d83930a3",
+      "native_loop": false,
+      "line_source_sha256": "45117fc24efe991c3b55a9be8a48c375b2798b06aad5b98b5632a5be459ca46e",
+      "world_source_sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 25",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Never-Ending Darkness",
+    "route_group": "routes",
+    "source": "dungeon_devildom1_raid2.lua",
+    "line_source": "Devildom1_Raid2_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_STAGE1",
+      "source": "Devildom1_Raid2_Stage1.lua",
+      "sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
+      "line": "Devildom1_Raid2_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 25,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "close",
+          "MESH_NAME": "TRIGGER_BOSS2_ATTACK.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34140,
+      "stage": 1,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "e19bb64e80a3788b985b54910c9ad4d29004f29234c68db933bdb395d83930a3",
+      "native_loop": false,
+      "line_source_sha256": "45117fc24efe991c3b55a9be8a48c375b2798b06aad5b98b5632a5be459ca46e",
+      "world_source_sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 6",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Never-Ending Darkness",
+    "route_group": "routes",
+    "source": "dungeon_devildom1_raid2.lua",
+    "line_source": "Devildom1_Raid2_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_STAGE1",
+      "source": "Devildom1_Raid2_Stage1.lua",
+      "sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
+      "line": "Devildom1_Raid2_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 6,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "far",
+          "MESH_NAME": "TRIGGER_BOSS2_ATTACK.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34140,
+      "stage": 2,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "e19bb64e80a3788b985b54910c9ad4d29004f29234c68db933bdb395d83930a3",
+      "native_loop": false,
+      "line_source_sha256": "b253070f0541330fc3c6a855a1c9bfff3851b90182957e0ae6f460a76e9b8aad",
+      "world_source_sha256": "4124c6d8c39c24b9f6a032cb136819aad6746b053703a78cff014c9edcaeb269",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 5",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Never-Ending Darkness",
+    "route_group": "routes",
+    "source": "dungeon_devildom1_raid2.lua",
+    "line_source": "Devildom1_Raid2_Stage2_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_STAGE2",
+      "source": "Devildom1_Raid2_Stage2.lua",
+      "sha256": "4124c6d8c39c24b9f6a032cb136819aad6746b053703a78cff014c9edcaeb269",
+      "line": "Devildom1_Raid2_Stage2_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 5,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "attack1",
+          "MESH_NAME": "TRIGGER_BOSS3_ATTACK.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34140,
+      "stage": 2,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "e19bb64e80a3788b985b54910c9ad4d29004f29234c68db933bdb395d83930a3",
+      "native_loop": false,
+      "line_source_sha256": "b253070f0541330fc3c6a855a1c9bfff3851b90182957e0ae6f460a76e9b8aad",
+      "world_source_sha256": "4124c6d8c39c24b9f6a032cb136819aad6746b053703a78cff014c9edcaeb269",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 19",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Never-Ending Darkness",
+    "route_group": "routes",
+    "source": "dungeon_devildom1_raid2.lua",
+    "line_source": "Devildom1_Raid2_Stage2_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_STAGE2",
+      "source": "Devildom1_Raid2_Stage2.lua",
+      "sha256": "4124c6d8c39c24b9f6a032cb136819aad6746b053703a78cff014c9edcaeb269",
+      "line": "Devildom1_Raid2_Stage2_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 19,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "attack2",
+          "MESH_NAME": "TRIGGER_BOSS3_ATTACK.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34180,
+      "stage": 1,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "2c09fdfdd3d1316e7b718cb4e14092e5f5ee0e1cd355b3f49f254f0e78a7d334",
+      "native_loop": false,
+      "line_source_sha256": "45117fc24efe991c3b55a9be8a48c375b2798b06aad5b98b5632a5be459ca46e",
+      "world_source_sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 25",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Never-Ending Darkness [Story Mode]",
+    "route_group": "routes",
+    "source": "dungeon_story_devildom1_raid2.lua",
+    "line_source": "Devildom1_Raid2_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_STAGE1",
+      "source": "Devildom1_Raid2_Stage1.lua",
+      "sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
+      "line": "Devildom1_Raid2_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 25,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "close",
+          "MESH_NAME": "TRIGGER_BOSS2_ATTACK.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34180,
+      "stage": 1,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "2c09fdfdd3d1316e7b718cb4e14092e5f5ee0e1cd355b3f49f254f0e78a7d334",
+      "native_loop": false,
+      "line_source_sha256": "45117fc24efe991c3b55a9be8a48c375b2798b06aad5b98b5632a5be459ca46e",
+      "world_source_sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 6",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Never-Ending Darkness [Story Mode]",
+    "route_group": "routes",
+    "source": "dungeon_story_devildom1_raid2.lua",
+    "line_source": "Devildom1_Raid2_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_STAGE1",
+      "source": "Devildom1_Raid2_Stage1.lua",
+      "sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
+      "line": "Devildom1_Raid2_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 6,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "far",
+          "MESH_NAME": "TRIGGER_BOSS2_ATTACK.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34180,
+      "stage": 2,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "2c09fdfdd3d1316e7b718cb4e14092e5f5ee0e1cd355b3f49f254f0e78a7d334",
+      "native_loop": false,
+      "line_source_sha256": "b253070f0541330fc3c6a855a1c9bfff3851b90182957e0ae6f460a76e9b8aad",
+      "world_source_sha256": "4124c6d8c39c24b9f6a032cb136819aad6746b053703a78cff014c9edcaeb269",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 5",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Never-Ending Darkness [Story Mode]",
+    "route_group": "routes",
+    "source": "dungeon_story_devildom1_raid2.lua",
+    "line_source": "Devildom1_Raid2_Stage2_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_STAGE2",
+      "source": "Devildom1_Raid2_Stage2.lua",
+      "sha256": "4124c6d8c39c24b9f6a032cb136819aad6746b053703a78cff014c9edcaeb269",
+      "line": "Devildom1_Raid2_Stage2_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 5,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "attack1",
+          "MESH_NAME": "TRIGGER_BOSS3_ATTACK.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34180,
+      "stage": 2,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "2c09fdfdd3d1316e7b718cb4e14092e5f5ee0e1cd355b3f49f254f0e78a7d334",
+      "native_loop": false,
+      "line_source_sha256": "b253070f0541330fc3c6a855a1c9bfff3851b90182957e0ae6f460a76e9b8aad",
+      "world_source_sha256": "4124c6d8c39c24b9f6a032cb136819aad6746b053703a78cff014c9edcaeb269",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 19",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Never-Ending Darkness [Story Mode]",
+    "route_group": "routes",
+    "source": "dungeon_story_devildom1_raid2.lua",
+    "line_source": "Devildom1_Raid2_Stage2_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_STAGE2",
+      "source": "Devildom1_Raid2_Stage2.lua",
+      "sha256": "4124c6d8c39c24b9f6a032cb136819aad6746b053703a78cff014c9edcaeb269",
+      "line": "Devildom1_Raid2_Stage2_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 19,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "attack2",
+          "MESH_NAME": "TRIGGER_BOSS3_ATTACK.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34240,
+      "stage": 1,
+      "part": 3,
+      "trigger": 0,
+      "source_sha256": "12aa4d83836bfbcea59537dbe1b05d0932dd93d967b100415dd3c39a568135ec",
+      "native_loop": false,
+      "line_source_sha256": "84d744137f8e28a273593d269b1e36bf292fca523f1c60c0533903f51d1e4da5",
+      "world_source_sha256": "2b16598c10d4dcec3d0aab4459112f81e508d52164fe41633a2bd048e3f27790",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 41",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Bamboo Forest",
+    "route_group": "routes",
+    "source": "dungeon_laby_north1.lua",
+    "line_source": "Laby_North1_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_LABY_NORTH1_STAGE1",
+      "source": "Laby_North1_Stage1.lua",
+      "sha256": "2b16598c10d4dcec3d0aab4459112f81e508d52164fe41633a2bd048e3f27790",
+      "line": "Laby_North1_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 41,
+        "line_set": 6,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 2,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "TRIGGER_LABY_NORTH_PORTAL.X",
+          "DELAY_TIME": 0.2,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH1": {
+          "PLAY_TYPE": 2,
+          "ANIM_NAME": "run",
+          "MESH_NAME": "TRIGGER_LABY_NORTH_PORTAL.X",
+          "DELAY_TIME": 2.33,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_NONE"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "MOTIONNAME_EFFECTSETNAME": "TRIGGER_LABY_NORTH_PORTAL.X EffectSet_North2_Dungeon_Portal_00",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_EFFECTSET"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "LINE_SOUND": "Labydom6_Door_01.ogg",
+          "DELAY_TIME": 0.8,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34250,
+      "stage": 0,
+      "part": 3,
+      "trigger": 0,
+      "source_sha256": "588b575aacfbd8e6eb264eda485bbedf0ff18c02a8629c53c7d459c4acd72adf",
+      "native_loop": false,
+      "line_source_sha256": "45247b859491307e084fe417c8890aee6ca13cb8d08b7cfe4d36d0b4f9dccac4",
+      "world_source_sha256": "d4f01c5639e7d80262173793faa7ad857655141a45964955491970988a2e406f",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 25",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Road to Lord's Keep",
+    "route_group": "routes",
+    "source": "dungeon_laby_north2.lua",
+    "line_source": "Laby_North2_Stage0_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_LABY_NORTH2_STAGE0",
+      "source": "Laby_North2_Stage0.lua",
+      "sha256": "d4f01c5639e7d80262173793faa7ad857655141a45964955491970988a2e406f",
+      "line": "Laby_North2_Stage0_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 25,
+        "line_set": 6,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 2,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "TRIGGER_LABY_NORTH_PORTAL.X",
+          "DELAY_TIME": 0.2,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH1": {
+          "PLAY_TYPE": 2,
+          "ANIM_NAME": "run",
+          "MESH_NAME": "TRIGGER_LABY_NORTH_PORTAL.X",
+          "DELAY_TIME": 2.33,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_NONE"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "MOTIONNAME_EFFECTSETNAME": "TRIGGER_LABY_NORTH_PORTAL.X EffectSet_North2_Dungeon_Portal_00",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_EFFECTSET"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "DELAY_TIME": 0.8,
+          "LINE_SOUND": "Labydom6_Door_01.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34250,
+      "stage": 1,
+      "part": 2,
+      "trigger": 0,
+      "source_sha256": "588b575aacfbd8e6eb264eda485bbedf0ff18c02a8629c53c7d459c4acd72adf",
+      "native_loop": false,
+      "line_source_sha256": "b0d7995996f190b204e46987a4628e9c9687145ff08a5e84db950756f82446d9",
+      "world_source_sha256": "36aa08f15ffff3bc24d91717f9544e619a44bc89758ba605cdcbc55f90449694",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 17",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Road to Lord's Keep",
+    "route_group": "routes",
+    "source": "dungeon_laby_north2.lua",
+    "line_source": "Laby_North2_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_LABY_NORTH2_STAGE1",
+      "source": "Laby_North2_Stage1.lua",
+      "sha256": "36aa08f15ffff3bc24d91717f9544e619a44bc89758ba605cdcbc55f90449694",
+      "line": "Laby_North2_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 17,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 2,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "Trigger_Laby_North_Portal.x",
+          "DELAY_TIME": 0.2,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH1": {
+          "PLAY_TYPE": 2,
+          "ANIM_NAME": "run",
+          "MESH_NAME": "Trigger_Laby_North_Portal.x",
+          "DELAY_TIME": 2.33,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_NONE"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "LINE_SOUND": "Labydom6_Door_01.ogg",
+          "DELAY_TIME": 0.8,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34280,
+      "stage": 0,
+      "part": 3,
+      "trigger": 0,
+      "source_sha256": "569e420d1e616b699a1638cdb4a2a21efbce47fc42c0bf6d66213283d32f9a07",
+      "native_loop": false,
+      "line_source_sha256": "18f35e2a0b63d770408d456f396f7c39a69ed765d78bea5e8aa4534b35796fcb",
+      "world_source_sha256": "3188e9718ec0919b045bc534f7e8d3bf287f456fb0ace9cd09f25f6d70ca035f",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 17",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Top Floor of Lord's Keep",
+    "route_group": "routes",
+    "source": "dungeon_laby_north5.lua",
+    "line_source": "Laby_North5_Stage0_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_LABY_NORTH5_STAGE0",
+      "source": "Laby_North5_Stage0.lua",
+      "sha256": "3188e9718ec0919b045bc534f7e8d3bf287f456fb0ace9cd09f25f6d70ca035f",
+      "line": "Laby_North5_Stage0_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 17,
+        "line_set": 6,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "DELAY_TIME": 2,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "Trigger_Laby_North5_Stage0_door.x",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_NONE"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 2,
+          "LINE_SOUND": "Labydom9_Boss_Door_01.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34290,
+      "stage": 0,
+      "part": 1,
+      "trigger": 0,
+      "source_sha256": "c0b59cc694291c3652f83e1c9435a0a64b2a4ba75ccb0a492197c4638cf2b3b7",
+      "native_loop": false,
+      "line_source_sha256": "f8710db6bd3059802f97bf11eef99fd805d6507826093d11c812fb0d6dbb27c7",
+      "world_source_sha256": "15c71f40bfa3181dc89daa24131535840f1aae5cd32e5b8a19ce141d81a9d48c",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 4",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Corrupted Dune",
+    "route_group": "routes",
+    "source": "dungeon_laby_en1.lua",
+    "line_source": "Laby_En1_Stage0_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_LABY_EN1_STAGE0",
+      "source": "Laby_En1_Stage0.lua",
+      "sha256": "15c71f40bfa3181dc89daa24131535840f1aae5cd32e5b8a19ce141d81a9d48c",
+      "line": "Laby_En1_Stage0_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 4,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "run",
+          "MESH_NAME": "Trigger_Laby_En1_0st_Boss.x",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_NONE"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34320,
+      "stage": 2,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "b6905a338e4919afc3445aecf999828b6476bfccfe223bda084019998595021c",
+      "native_loop": false,
+      "line_source_sha256": "ca284922ba5a6c1d7aa2c356b9be371729dce464e2b9ab8acec232821327137d",
+      "world_source_sha256": "6be88531213d9b6d6240e4055159fe756dafd7b5b816c47e3e7cf986bf51e815",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 11",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Sea of Ruin",
+    "route_group": "routes",
+    "source": "dungeon_devildom2_henir.lua",
+    "line_source": "Devildom2_Henir_Stage2_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM2_HENIR_STAGE2",
+      "source": "Devildom2_Henir_Stage2.lua",
+      "sha256": "6be88531213d9b6d6240e4055159fe756dafd7b5b816c47e3e7cf986bf51e815",
+      "line": "Devildom2_Henir_Stage2_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 11,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 0,
+          "LINE_CAMERA": -1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_CAMERA"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 1,
+          "CAMERA_INDEX": 2,
+          "CAMERA_DURATION": 4,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34330,
+      "stage": 0,
+      "part": 2,
+      "trigger": 0,
+      "source_sha256": "4a470538f0eb1294f20c406119b8371a74b0db0bdc4580357fce96d66f522516",
+      "native_loop": false,
+      "line_source_sha256": "f661349a7e7c050ef3aa9c977d839859216699687d4f099f5a80255bfe30034e",
+      "world_source_sha256": "9aba8c848c195ba4917dcaa8a676b1dcb04b2d1799f50b4f826edeb3690343d9",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 50",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Abandoned Deep-Sea Tunnel",
+    "route_group": "routes",
+    "source": "dungeon_devildom2_tunnel.lua",
+    "line_source": "Devildom2_tunnel_Stage0_linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM2_TUNNEL_STAGE0",
+      "source": "Devildom2_tunnel_Stage0.lua",
+      "sha256": "9aba8c848c195ba4917dcaa8a676b1dcb04b2d1799f50b4f826edeb3690343d9",
+      "line": "Devildom2_tunnel_Stage0_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 50,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "Trigger_Devil2_tunnel_0st_door02.x",
+          "DELAY_TIME": 1.5,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "run",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_NONE"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0.51,
+          "LINE_SOUND": "Devildom2_Tunnel_Stage0_Door_01.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34330,
+      "stage": 1,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "4a470538f0eb1294f20c406119b8371a74b0db0bdc4580357fce96d66f522516",
+      "native_loop": false,
+      "line_source_sha256": "14872c74f9c594e31e830cb1521b3a6412b8852965e92995ebf7322d27cb99d5",
+      "world_source_sha256": "554ee4539dc5e184ef521450a97ce4c09036ec719e8fdfd2468255d37a95ef7e",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 3,4,5,6,7,8,11,12,13,14,15,16",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Abandoned Deep-Sea Tunnel",
+    "route_group": "routes",
+    "source": "dungeon_devildom2_tunnel.lua",
+    "line_source": "Devildom2_Tunnel_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM2_TUNNEL_STAGE1",
+      "source": "Devildom2_Tunnel_Stage1.lua",
+      "sha256": "554ee4539dc5e184ef521450a97ce4c09036ec719e8fdfd2468255d37a95ef7e",
+      "line": "Devildom2_Tunnel_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 3,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 4,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 5,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 6,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 7,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 8,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 11,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 12,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 13,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 14,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 15,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 16,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "ANIM_NAME": "Start",
+          "PLAY_TYPE": 1,
+          "MESH_NAME": "TRIGGER_DD2_TUNNEL_SUB0_SIDEDOOR01.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_NONE"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "CAMERA_INDEX": 3,
+          "CAMERA_DURATION": 3,
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "LINE_SOUND": "Devildom2_Tunnel_Stage1_Door_02.ogg",
+          "DELAY_TIME": 0.01,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34330,
+      "stage": 1,
+      "part": 1,
+      "trigger": 2,
+      "source_sha256": "4a470538f0eb1294f20c406119b8371a74b0db0bdc4580357fce96d66f522516",
+      "native_loop": false,
+      "line_source_sha256": "14872c74f9c594e31e830cb1521b3a6412b8852965e92995ebf7322d27cb99d5",
+      "world_source_sha256": "554ee4539dc5e184ef521450a97ce4c09036ec719e8fdfd2468255d37a95ef7e",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 22,23,24,25,26,27,28,31,32,33,34,35,61,62",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Abandoned Deep-Sea Tunnel",
+    "route_group": "routes",
+    "source": "dungeon_devildom2_tunnel.lua",
+    "line_source": "Devildom2_Tunnel_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM2_TUNNEL_STAGE1",
+      "source": "Devildom2_Tunnel_Stage1.lua",
+      "sha256": "554ee4539dc5e184ef521450a97ce4c09036ec719e8fdfd2468255d37a95ef7e",
+      "line": "Devildom2_Tunnel_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 22,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 23,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 24,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 25,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 26,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 27,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 28,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 31,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 32,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 33,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 34,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 35,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 61,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 62,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 2,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "ANIM_NAME": "Start",
+          "PLAY_TYPE": 1,
+          "MESH_NAME": "TRIGGER_DD2_TUNNEL_SUB1_SIDEDOOR01.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH1": {
+          "ANIM_NAME": "Start",
+          "PLAY_TYPE": 1,
+          "MESH_NAME": "TRIGGER_DD2_TUNNEL_1ST_BIGFISH01.X",
+          "DELAY_TIME": 2,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH2": {
+          "ANIM_NAME": "Start",
+          "PLAY_TYPE": 1,
+          "MESH_NAME": "TRIGGER_DD2_TUNNEL_1ST_BUBBLE01.X",
+          "DELAY_TIME": 2,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_NONE"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "CAMERA_INDEX": 4,
+          "CAMERA_DURATION": 3,
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "LINE_SOUND": "Devildom2_Tunnel_Stage1_Door_02.ogg",
+          "DELAY_TIME": 0.01,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34520,
+      "stage": 1,
+      "part": 2,
+      "trigger": 0,
+      "source_sha256": "de0cad416e65326b1cb238ad69dbe5394a90341369e6ed20e37baccadb485f45",
+      "native_loop": false,
+      "line_source_sha256": "1bcd4399adbcce685625b15c56dbe189fe5d3fdf674953065aebfccfc322af92",
+      "world_source_sha256": "60f5e044de4db660ae7af58e1e8ea54ac719a023d7e3c1c345b6026a2e5b1a17",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 33",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Old Village Site",
+    "route_group": "routes",
+    "source": "dungeon_devildom3_village.lua",
+    "line_source": "Devildom3_Village_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM3_VILLAGE_STAGE1",
+      "source": "Devildom3_Village_Stage1.lua",
+      "sha256": "60f5e044de4db660ae7af58e1e8ea54ac719a023d7e3c1c345b6026a2e5b1a17",
+      "line": "Devildom3_Village_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 33,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "DELAY_TIME": 0.01,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Run",
+          "MESH_NAME": "Trigger_Devildom3_Village_1St_Road01.x",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 33,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 34520,
+      "stage": 1,
+      "part": 2,
+      "trigger": 1,
+      "source_sha256": "de0cad416e65326b1cb238ad69dbe5394a90341369e6ed20e37baccadb485f45",
+      "native_loop": false,
+      "line_source_sha256": "1bcd4399adbcce685625b15c56dbe189fe5d3fdf674953065aebfccfc322af92",
+      "world_source_sha256": "60f5e044de4db660ae7af58e1e8ea54ac719a023d7e3c1c345b6026a2e5b1a17",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 11",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Old Village Site",
+    "route_group": "routes",
+    "source": "dungeon_devildom3_village.lua",
+    "line_source": "Devildom3_Village_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM3_VILLAGE_STAGE1",
+      "source": "Devildom3_Village_Stage1.lua",
+      "sha256": "60f5e044de4db660ae7af58e1e8ea54ac719a023d7e3c1c345b6026a2e5b1a17",
+      "line": "Devildom3_Village_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 11,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "DELAY_TIME": 0.01,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Run",
+          "MESH_NAME": "Trigger_Devildom3_Village_1St_Footpad01.x",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 11,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 34520,
+      "stage": 1,
+      "part": 2,
+      "trigger": 2,
+      "source_sha256": "de0cad416e65326b1cb238ad69dbe5394a90341369e6ed20e37baccadb485f45",
+      "native_loop": false,
+      "line_source_sha256": "1bcd4399adbcce685625b15c56dbe189fe5d3fdf674953065aebfccfc322af92",
+      "world_source_sha256": "60f5e044de4db660ae7af58e1e8ea54ac719a023d7e3c1c345b6026a2e5b1a17",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 13",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Old Village Site",
+    "route_group": "routes",
+    "source": "dungeon_devildom3_village.lua",
+    "line_source": "Devildom3_Village_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM3_VILLAGE_STAGE1",
+      "source": "Devildom3_Village_Stage1.lua",
+      "sha256": "60f5e044de4db660ae7af58e1e8ea54ac719a023d7e3c1c345b6026a2e5b1a17",
+      "line": "Devildom3_Village_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 13,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 2,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "DELAY_TIME": 0.01,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Run",
+          "MESH_NAME": "Trigger_Devildom3_Village_1St_Footpad02.x",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 13,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 34520,
+      "stage": 1,
+      "part": 2,
+      "trigger": 3,
+      "source_sha256": "de0cad416e65326b1cb238ad69dbe5394a90341369e6ed20e37baccadb485f45",
+      "native_loop": false,
+      "line_source_sha256": "1bcd4399adbcce685625b15c56dbe189fe5d3fdf674953065aebfccfc322af92",
+      "world_source_sha256": "60f5e044de4db660ae7af58e1e8ea54ac719a023d7e3c1c345b6026a2e5b1a17",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 15",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Old Village Site",
+    "route_group": "routes",
+    "source": "dungeon_devildom3_village.lua",
+    "line_source": "Devildom3_Village_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM3_VILLAGE_STAGE1",
+      "source": "Devildom3_Village_Stage1.lua",
+      "sha256": "60f5e044de4db660ae7af58e1e8ea54ac719a023d7e3c1c345b6026a2e5b1a17",
+      "line": "Devildom3_Village_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 15,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 3,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "DELAY_TIME": 0.01,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Run",
+          "MESH_NAME": "Trigger_Devildom3_Village_1St_Footpad03.x",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 14,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 34520,
+      "stage": 1,
+      "part": 2,
+      "trigger": 4,
+      "source_sha256": "de0cad416e65326b1cb238ad69dbe5394a90341369e6ed20e37baccadb485f45",
+      "native_loop": false,
+      "line_source_sha256": "1bcd4399adbcce685625b15c56dbe189fe5d3fdf674953065aebfccfc322af92",
+      "world_source_sha256": "60f5e044de4db660ae7af58e1e8ea54ac719a023d7e3c1c345b6026a2e5b1a17",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 36",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Old Village Site",
+    "route_group": "routes",
+    "source": "dungeon_devildom3_village.lua",
+    "line_source": "Devildom3_Village_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM3_VILLAGE_STAGE1",
+      "source": "Devildom3_Village_Stage1.lua",
+      "sha256": "60f5e044de4db660ae7af58e1e8ea54ac719a023d7e3c1c345b6026a2e5b1a17",
+      "line": "Devildom3_Village_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 36,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 4,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "DELAY_TIME": 0.01,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Run",
+          "MESH_NAME": "Trigger_Devildom3_Village_1St_Road02.x",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 36,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 34520,
+      "stage": 1,
+      "part": 2,
+      "trigger": 5,
+      "source_sha256": "de0cad416e65326b1cb238ad69dbe5394a90341369e6ed20e37baccadb485f45",
+      "native_loop": false,
+      "line_source_sha256": "1bcd4399adbcce685625b15c56dbe189fe5d3fdf674953065aebfccfc322af92",
+      "world_source_sha256": "60f5e044de4db660ae7af58e1e8ea54ac719a023d7e3c1c345b6026a2e5b1a17",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 20",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Old Village Site",
+    "route_group": "routes",
+    "source": "dungeon_devildom3_village.lua",
+    "line_source": "Devildom3_Village_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM3_VILLAGE_STAGE1",
+      "source": "Devildom3_Village_Stage1.lua",
+      "sha256": "60f5e044de4db660ae7af58e1e8ea54ac719a023d7e3c1c345b6026a2e5b1a17",
+      "line": "Devildom3_Village_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 20,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 5,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "DELAY_TIME": 0.01,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Run",
+          "MESH_NAME": "Trigger_Devildom3_Village_1St_Footpad04.x",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 20,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 34780,
+      "stage": 0,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0",
+      "native_loop": false,
+      "line_source_sha256": "e06e23c7ec4f5d9e4addf2bd7fbfabcefa3db42eace84d768e61615639f0ffc5",
+      "world_source_sha256": "081c9e2d806059f74e08ce114fa58feb5551ae1b853b4578b96971f346cc4a3e",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 0",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Puppet Theater",
+    "route_group": "routes",
+    "source": "dungeon_devildom4_puppet.lua",
+    "line_source": "Devildom4_Puppet_Stage0_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM4_PUPPET_STAGE0",
+      "source": "Devildom4_Puppet_Stage0.lua",
+      "sha256": "081c9e2d806059f74e08ce114fa58feb5551ae1b853b4578b96971f346cc4a3e",
+      "line": "Devildom4_Puppet_Stage0_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 0,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "Trigger_Devildom4_Puppet_0st_Book01.X",
+          "DELAY_TIME": 1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH1": {
+          "PLAY_TYPE": 2,
+          "ANIM_NAME": "Loop",
+          "MESH_NAME": "Trigger_Devildom4_Puppet_0st_Book01.X",
+          "DELAY_TIME": 6,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "LINE_ID": 1,
+          "DELAY_TIME": 5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_ETC0": {
+          "LINE_SOUND": "Amb_Devildom_Side4_Puppet_Book_Open_01.ogg",
+          "DELAY_TIME": 2,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "CAMERA_SHAKE_GAP": 0,
+          "CAMERA_SHAKE_DURATION": 0,
+          "DELAY_TIME": 4.5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA_SHAKE"
+          }
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 34780,
+      "stage": 0,
+      "part": 1,
+      "trigger": 0,
+      "source_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0",
+      "native_loop": false,
+      "line_source_sha256": "e06e23c7ec4f5d9e4addf2bd7fbfabcefa3db42eace84d768e61615639f0ffc5",
+      "world_source_sha256": "081c9e2d806059f74e08ce114fa58feb5551ae1b853b4578b96971f346cc4a3e",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 8,13,14,22,23",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Puppet Theater",
+    "route_group": "routes",
+    "source": "dungeon_devildom4_puppet.lua",
+    "line_source": "Devildom4_Puppet_Stage0_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM4_PUPPET_STAGE0",
+      "source": "Devildom4_Puppet_Stage0.lua",
+      "sha256": "081c9e2d806059f74e08ce114fa58feb5551ae1b853b4578b96971f346cc4a3e",
+      "line": "Devildom4_Puppet_Stage0_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 8,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 13,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 14,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 22,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 23,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "Trigger_Devildom4_Puppet_0st_Book02.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH1": {
+          "PLAY_TYPE": 2,
+          "ANIM_NAME": "Loop",
+          "MESH_NAME": "Trigger_Devildom4_Puppet_0st_Book02.X",
+          "DELAY_TIME": 5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH2": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "Trigger_Devildom4_Puppet_0st_G02_AP_Lamp02.X",
+          "DELAY_TIME": 2,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "LINE_SOUND": "Amb_Devildom_Side4_Puppet_Book_Open_01.ogg",
+          "DELAY_TIME": 0.01,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34780,
+      "stage": 0,
+      "part": 2,
+      "trigger": 2,
+      "source_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0",
+      "native_loop": false,
+      "line_source_sha256": "e06e23c7ec4f5d9e4addf2bd7fbfabcefa3db42eace84d768e61615639f0ffc5",
+      "world_source_sha256": "081c9e2d806059f74e08ce114fa58feb5551ae1b853b4578b96971f346cc4a3e",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 17,18,19,20,21",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Puppet Theater",
+    "route_group": "routes",
+    "source": "dungeon_devildom4_puppet.lua",
+    "line_source": "Devildom4_Puppet_Stage0_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM4_PUPPET_STAGE0",
+      "source": "Devildom4_Puppet_Stage0.lua",
+      "sha256": "081c9e2d806059f74e08ce114fa58feb5551ae1b853b4578b96971f346cc4a3e",
+      "line": "Devildom4_Puppet_Stage0_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 17,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 18,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 19,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 20,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 21,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 2,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "Trigger_Devildom4_Puppet_0st_Book03.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH1": {
+          "PLAY_TYPE": 2,
+          "ANIM_NAME": "Loop",
+          "MESH_NAME": "Trigger_Devildom4_Puppet_0st_Book03.X",
+          "DELAY_TIME": 3.5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH2": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "Trigger_Devildom4_Puppet_0st_G03_AP_Lamp03.X",
+          "DELAY_TIME": 1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "LINE_ID": 18,
+          "DELAY_TIME": 5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_ETC0": {
+          "LINE_SOUND": "Amb_Devildom_Side4_Puppet_Book_Open_01.ogg",
+          "DELAY_TIME": 0.01,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 34780,
+      "stage": 1,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0",
+      "native_loop": false,
+      "line_source_sha256": "3b581eb0280348013eb7f992f72c7b396b358490636ad9b42db5632f92cd688d",
+      "world_source_sha256": "1712149f958536cba8c6e2858069db7204276cf638be2a5926d55b31643473c5",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 2,3",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Puppet Theater",
+    "route_group": "routes",
+    "source": "dungeon_devildom4_puppet.lua",
+    "line_source": "Devildom4_Puppet_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM4_PUPPET_STAGE1",
+      "source": "Devildom4_Puppet_Stage1.lua",
+      "sha256": "1712149f958536cba8c6e2858069db7204276cf638be2a5926d55b31643473c5",
+      "line": "Devildom4_Puppet_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 2,
+        "line_set": 0,
+        "on_line": false,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 3,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "TRIGGER_Devildom4_Puppet_1st_G01_SHIP2.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH1": {
+          "PLAY_TYPE": 2,
+          "ANIM_NAME": "Loop",
+          "MESH_NAME": "TRIGGER_Devildom4_Puppet_1st_G01_SHIP2.X",
+          "DELAY_TIME": 3,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 3,
+          "LINE_ID": 4,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0.01,
+          "LINE_SOUND": "Amb_Devildom_Side4_Puppet_Ship_01.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 34780,
+      "stage": 1,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0",
+      "native_loop": false,
+      "line_source_sha256": "3b581eb0280348013eb7f992f72c7b396b358490636ad9b42db5632f92cd688d",
+      "world_source_sha256": "1712149f958536cba8c6e2858069db7204276cf638be2a5926d55b31643473c5",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 11,12,13",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Puppet Theater",
+    "route_group": "routes",
+    "source": "dungeon_devildom4_puppet.lua",
+    "line_source": "Devildom4_Puppet_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM4_PUPPET_STAGE1",
+      "source": "Devildom4_Puppet_Stage1.lua",
+      "sha256": "1712149f958536cba8c6e2858069db7204276cf638be2a5926d55b31643473c5",
+      "line": "Devildom4_Puppet_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 11,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 12,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 13,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "TRIGGER_Devildom4_Puppet_1st_G01_SHIP3.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0.01,
+          "LINE_SOUND": "Amb_Devildom_Side4_Puppet_Ship_02.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34780,
+      "stage": 1,
+      "part": 0,
+      "trigger": 2,
+      "source_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0",
+      "native_loop": false,
+      "line_source_sha256": "3b581eb0280348013eb7f992f72c7b396b358490636ad9b42db5632f92cd688d",
+      "world_source_sha256": "1712149f958536cba8c6e2858069db7204276cf638be2a5926d55b31643473c5",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 18",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Puppet Theater",
+    "route_group": "routes",
+    "source": "dungeon_devildom4_puppet.lua",
+    "line_source": "Devildom4_Puppet_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM4_PUPPET_STAGE1",
+      "source": "Devildom4_Puppet_Stage1.lua",
+      "sha256": "1712149f958536cba8c6e2858069db7204276cf638be2a5926d55b31643473c5",
+      "line": "Devildom4_Puppet_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 18,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 2,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "TRIGGER_Devildom4_Puppet_1st_G02_BEHIMOSHEAD.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0.01,
+          "LINE_SOUND": "Amb_Devildom_Side4_Puppet_Trigger_01.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34780,
+      "stage": 1,
+      "part": 0,
+      "trigger": 5,
+      "source_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0",
+      "native_loop": false,
+      "line_source_sha256": "3b581eb0280348013eb7f992f72c7b396b358490636ad9b42db5632f92cd688d",
+      "world_source_sha256": "1712149f958536cba8c6e2858069db7204276cf638be2a5926d55b31643473c5",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 0,1,4,60",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Puppet Theater",
+    "route_group": "routes",
+    "source": "dungeon_devildom4_puppet.lua",
+    "line_source": "Devildom4_Puppet_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM4_PUPPET_STAGE1",
+      "source": "Devildom4_Puppet_Stage1.lua",
+      "sha256": "1712149f958536cba8c6e2858069db7204276cf638be2a5926d55b31643473c5",
+      "line": "Devildom4_Puppet_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 0,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 1,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 4,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 60,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 5,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "TRIGGER_Devildom4_Puppet_1st_G01_SHIP1.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0.9,
+          "LINE_SOUND": "Amb_Devildom_Side4_Puppet_Trigger_02.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "DELAY_TIME": 4,
+          "CAMERA_SHAKE_GAP": 0,
+          "CAMERA_SHAKE_DURATION": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA_SHAKE"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34780,
+      "stage": 1,
+      "part": 1,
+      "trigger": 3,
+      "source_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0",
+      "native_loop": false,
+      "line_source_sha256": "3b581eb0280348013eb7f992f72c7b396b358490636ad9b42db5632f92cd688d",
+      "world_source_sha256": "1712149f958536cba8c6e2858069db7204276cf638be2a5926d55b31643473c5",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 23,24,25",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Puppet Theater",
+    "route_group": "routes",
+    "source": "dungeon_devildom4_puppet.lua",
+    "line_source": "Devildom4_Puppet_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM4_PUPPET_STAGE1",
+      "source": "Devildom4_Puppet_Stage1.lua",
+      "sha256": "1712149f958536cba8c6e2858069db7204276cf638be2a5926d55b31643473c5",
+      "line": "Devildom4_Puppet_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 23,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 24,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 25,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 3,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "TRIGGER_Devildom4_Puppet_1st_G02_BEHIMOS.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0.01,
+          "LINE_SOUND": "Amb_Devildom_Side4_Puppet_Trigger_01.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34780,
+      "stage": 1,
+      "part": 1,
+      "trigger": 4,
+      "source_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0",
+      "native_loop": false,
+      "line_source_sha256": "3b581eb0280348013eb7f992f72c7b396b358490636ad9b42db5632f92cd688d",
+      "world_source_sha256": "1712149f958536cba8c6e2858069db7204276cf638be2a5926d55b31643473c5",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 26,58",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Puppet Theater",
+    "route_group": "routes",
+    "source": "dungeon_devildom4_puppet.lua",
+    "line_source": "Devildom4_Puppet_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM4_PUPPET_STAGE1",
+      "source": "Devildom4_Puppet_Stage1.lua",
+      "sha256": "1712149f958536cba8c6e2858069db7204276cf638be2a5926d55b31643473c5",
+      "line": "Devildom4_Puppet_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 26,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 58,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 4,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "TRIGGER_Devildom4_Puppet_1st_G03_BEHIMOS.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34780,
+      "stage": 1,
+      "part": 2,
+      "trigger": 4,
+      "source_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0",
+      "native_loop": false,
+      "line_source_sha256": "3b581eb0280348013eb7f992f72c7b396b358490636ad9b42db5632f92cd688d",
+      "world_source_sha256": "1712149f958536cba8c6e2858069db7204276cf638be2a5926d55b31643473c5",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 27,35,36,39,40",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Puppet Theater",
+    "route_group": "routes",
+    "source": "dungeon_devildom4_puppet.lua",
+    "line_source": "Devildom4_Puppet_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM4_PUPPET_STAGE1",
+      "source": "Devildom4_Puppet_Stage1.lua",
+      "sha256": "1712149f958536cba8c6e2858069db7204276cf638be2a5926d55b31643473c5",
+      "line": "Devildom4_Puppet_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 27,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 35,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 36,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 39,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      },
+      {
+        "line": 40,
+        "line_set": 4,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 4,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Start",
+          "MESH_NAME": "TRIGGER_Devildom4_Puppet_1st_G03_BEHIMOS.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34890,
+      "stage": 1,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "dfdc816e218afb1312c8dcfa07c43d3431c28fd2fd4ae7b313f02da2e051a111",
+      "native_loop": false,
+      "line_source_sha256": "8353dc827bf0cfb3a41aa9b8b5c7d99507123113b331366706a9db77e9dd0a74",
+      "world_source_sha256": "3e7b2f698fbe3dbb14afa5c132f613959eb78efcf0a6595c8337662e2362dcc0",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 25",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Silent Observer",
+    "route_group": "internal_routes",
+    "source": "dungeon_devildom1_raid2_1_hell_a.lua",
+    "line_source": "Devildom1_Raid2_1_Hell_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_1_HELL_STAGE1",
+      "source": "Devildom1_Raid2_1_Hell_Stage1.lua",
+      "sha256": "3e7b2f698fbe3dbb14afa5c132f613959eb78efcf0a6595c8337662e2362dcc0",
+      "line": "Devildom1_Raid2_1_Hell_Stage1_Linemap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 25,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "TRIGGER_BOSS2_ATTACK.X",
+          "DELAY_TIME": 0,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "close",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34890,
+      "stage": 1,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "dfdc816e218afb1312c8dcfa07c43d3431c28fd2fd4ae7b313f02da2e051a111",
+      "native_loop": false,
+      "line_source_sha256": "8353dc827bf0cfb3a41aa9b8b5c7d99507123113b331366706a9db77e9dd0a74",
+      "world_source_sha256": "3e7b2f698fbe3dbb14afa5c132f613959eb78efcf0a6595c8337662e2362dcc0",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 6",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Silent Observer",
+    "route_group": "internal_routes",
+    "source": "dungeon_devildom1_raid2_1_hell_a.lua",
+    "line_source": "Devildom1_Raid2_1_Hell_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_1_HELL_STAGE1",
+      "source": "Devildom1_Raid2_1_Hell_Stage1.lua",
+      "sha256": "3e7b2f698fbe3dbb14afa5c132f613959eb78efcf0a6595c8337662e2362dcc0",
+      "line": "Devildom1_Raid2_1_Hell_Stage1_Linemap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 6,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "TRIGGER_BOSS2_ATTACK.X",
+          "DELAY_TIME": 0,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "far",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34900,
+      "stage": 1,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "70ea42048db204143581f94c3fd42a67378b03e57154ef630f59259175edd0c6",
+      "native_loop": false,
+      "line_source_sha256": "8353dc827bf0cfb3a41aa9b8b5c7d99507123113b331366706a9db77e9dd0a74",
+      "world_source_sha256": "3e7b2f698fbe3dbb14afa5c132f613959eb78efcf0a6595c8337662e2362dcc0",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 25",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Dark Observer",
+    "route_group": "internal_routes",
+    "source": "dungeon_devildom1_raid2_1_hell_b.lua",
+    "line_source": "Devildom1_Raid2_1_Hell_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_1_HELL_STAGE1",
+      "source": "Devildom1_Raid2_1_Hell_Stage1.lua",
+      "sha256": "3e7b2f698fbe3dbb14afa5c132f613959eb78efcf0a6595c8337662e2362dcc0",
+      "line": "Devildom1_Raid2_1_Hell_Stage1_Linemap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 25,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "TRIGGER_BOSS2_ATTACK.X",
+          "DELAY_TIME": 0,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "close",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34900,
+      "stage": 1,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "70ea42048db204143581f94c3fd42a67378b03e57154ef630f59259175edd0c6",
+      "native_loop": false,
+      "line_source_sha256": "8353dc827bf0cfb3a41aa9b8b5c7d99507123113b331366706a9db77e9dd0a74",
+      "world_source_sha256": "3e7b2f698fbe3dbb14afa5c132f613959eb78efcf0a6595c8337662e2362dcc0",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 6",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Dark Observer",
+    "route_group": "internal_routes",
+    "source": "dungeon_devildom1_raid2_1_hell_b.lua",
+    "line_source": "Devildom1_Raid2_1_Hell_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_1_HELL_STAGE1",
+      "source": "Devildom1_Raid2_1_Hell_Stage1.lua",
+      "sha256": "3e7b2f698fbe3dbb14afa5c132f613959eb78efcf0a6595c8337662e2362dcc0",
+      "line": "Devildom1_Raid2_1_Hell_Stage1_Linemap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 6,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "TRIGGER_BOSS2_ATTACK.X",
+          "DELAY_TIME": 0,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "far",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34910,
+      "stage": 0,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "095b81d4b8674b386713fe7859ef7906b0e04ecae062f5775b51ee6b38d5a854",
+      "native_loop": false,
+      "line_source_sha256": "1f76aeaa05869984ac6028410d5fbd47295f5cb1ed658ee69346bbb81d07a45e",
+      "world_source_sha256": "31e9dfe68e68f4a0970df1897879887c56f759873fd50a06b5f6a1bb40c30ad6",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 5",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Crimson Eye",
+    "route_group": "internal_routes",
+    "source": "dungeon_devildom1_raid2_2_hell.lua",
+    "line_source": "Devildom1_Raid2_2_Hell_Stage0_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_2_HELL_STAGE0",
+      "source": "Devildom1_Raid2_2_Hell_Stage0.lua",
+      "sha256": "31e9dfe68e68f4a0970df1897879887c56f759873fd50a06b5f6a1bb40c30ad6",
+      "line": "Devildom1_Raid2_2_Hell_Stage0_Linemap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 5,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "attack1",
+          "MESH_NAME": "TRIGGER_BOSS3_ATTACK.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 34910,
+      "stage": 0,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "095b81d4b8674b386713fe7859ef7906b0e04ecae062f5775b51ee6b38d5a854",
+      "native_loop": false,
+      "line_source_sha256": "1f76aeaa05869984ac6028410d5fbd47295f5cb1ed658ee69346bbb81d07a45e",
+      "world_source_sha256": "31e9dfe68e68f4a0970df1897879887c56f759873fd50a06b5f6a1bb40c30ad6",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 19",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Crimson Eye",
+    "route_group": "internal_routes",
+    "source": "dungeon_devildom1_raid2_2_hell.lua",
+    "line_source": "Devildom1_Raid2_2_Hell_Stage0_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_2_HELL_STAGE0",
+      "source": "Devildom1_Raid2_2_Hell_Stage0.lua",
+      "sha256": "31e9dfe68e68f4a0970df1897879887c56f759873fd50a06b5f6a1bb40c30ad6",
+      "line": "Devildom1_Raid2_2_Hell_Stage0_Linemap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 19,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "attack2",
+          "MESH_NAME": "TRIGGER_BOSS3_ATTACK.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 35100,
+      "stage": 4,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "4f9fd1bf57aa26c0c686728b5ace50c9f7221ebbd0bcc27a248acbccc4b712c6",
+      "native_loop": false,
+      "line_source_sha256": "bcc51c0add6eda2147205d2070fa12b1b2ae0194d3a37dbd2eb2bdeeaf101e49",
+      "world_source_sha256": "f8eabdef92c33e958486d9cc5c6c13906170f7c3c9b2d43c2dd97351aba48068",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 0,1",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Torta Arena",
+    "route_group": "routes",
+    "source": "dungeon_devildom5_arena.lua",
+    "line_source": "Devildom5_Arena_Stage4_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM5_ARENA_STAGE4",
+      "source": "Devildom5_Arena_Stage4.lua",
+      "sha256": "f8eabdef92c33e958486d9cc5c6c13906170f7c3c9b2d43c2dd97351aba48068",
+      "line": "Devildom5_Arena_Stage4_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 0,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      },
+      {
+        "line": 1,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_ETC0": {
+          "CAMERA_SHAKE_GAP": 2,
+          "CAMERA_SHAKE_DURATION": 200,
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA_SHAKE"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "CAMERA_SHAKE_GAP": 0,
+          "CAMERA_SHAKE_DURATION": 0,
+          "DELAY_TIME": 10,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_CAMERA_SHAKE"
+          }
+        },
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Start_Move",
+          "DELAY_TIME": 6,
+          "MESH_NAME": "MOTION_DEVILDOM5_ARENA_4ST_FOOTPAD.X",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 35270,
+      "stage": 1,
+      "part": 1,
+      "trigger": 0,
+      "source_sha256": "4c2f03e3df3ab002695bf8347eb6c3a2fc99b0bc0deae28d0a18423b47460aa3",
+      "native_loop": false,
+      "line_source_sha256": "2307b1ec61436619a4ecbc12cf3ad18de69543bdcbaf038d214ca514d087265f",
+      "world_source_sha256": "8afc583b40f651ab7b8270252eaa2b6c4b7591a4b5117040f28f7dbed5241745",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 32",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Port Town Denice",
+    "route_group": "routes",
+    "source": "dungeon_lithia_memory3.lua",
+    "line_source": "Lithia_Memory3_2_Stage0_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_LITHIA_MEMORY3_2_STAGE0",
+      "source": "Lithia_Memory3_2_Stage0.lua",
+      "sha256": "8afc583b40f651ab7b8270252eaa2b6c4b7591a4b5117040f28f7dbed5241745",
+      "line": "Lithia_Memory3_2_Stage0_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 32,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Broken",
+          "MESH_NAME": "LITHIA_MEMORY3_2_STAGE0_DROP_WOODDECK.x",
+          "DELAY_TIME": 0.5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH1": {
+          "PLAY_TYPE": 2,
+          "ANIM_NAME": "Broken_wait",
+          "MESH_NAME": "LITHIA_MEMORY3_2_STAGE0_DROP_WOODDECK.x",
+          "DELAY_TIME": 3.5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.5,
+          "LINE_ID": 32,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_ETC0": {
+          "LINE_SOUND": "Wood_Debris_01.ogg",
+          "DELAY_TIME": 0.5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "MOTIONNAME_EFFECTSETNAME": "LITHIA_MEMORY3_2_STAGE0_DROP_WOODDECK.x Effectset_LITHIA_MEMORY3_Bridge",
+          "DELAY_TIME": 0.8,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_EFFECTSET"
+          }
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 35271,
+      "stage": 0,
+      "part": 1,
+      "trigger": 0,
+      "source_sha256": "d3ebb37e2c4012b75804855a5b030ead529b4a7061aa0dfd7e2f6cc70add1816",
+      "native_loop": false,
+      "line_source_sha256": "2307b1ec61436619a4ecbc12cf3ad18de69543bdcbaf038d214ca514d087265f",
+      "world_source_sha256": "8afc583b40f651ab7b8270252eaa2b6c4b7591a4b5117040f28f7dbed5241745",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 32",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Port in Chaos",
+    "route_group": "routes",
+    "source": "dungeon_lithia_memory3_1.lua",
+    "line_source": "Lithia_Memory3_2_Stage0_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_LITHIA_MEMORY3_2_STAGE0",
+      "source": "Lithia_Memory3_2_Stage0.lua",
+      "sha256": "8afc583b40f651ab7b8270252eaa2b6c4b7591a4b5117040f28f7dbed5241745",
+      "line": "Lithia_Memory3_2_Stage0_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 32,
+        "line_set": 2,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Broken",
+          "MESH_NAME": "LITHIA_MEMORY3_2_STAGE0_DROP_WOODDECK.x",
+          "DELAY_TIME": 0.5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH1": {
+          "PLAY_TYPE": 2,
+          "ANIM_NAME": "Broken_wait",
+          "MESH_NAME": "LITHIA_MEMORY3_2_STAGE0_DROP_WOODDECK.x",
+          "DELAY_TIME": 3.5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.5,
+          "LINE_ID": 32,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_ETC0": {
+          "LINE_SOUND": "Wood_Debris_01.ogg",
+          "DELAY_TIME": 0.5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "MOTIONNAME_EFFECTSETNAME": "LITHIA_MEMORY3_2_STAGE0_DROP_WOODDECK.x Effectset_LITHIA_MEMORY3_Bridge",
+          "DELAY_TIME": 0.8,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_EFFECTSET"
+          }
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 35320,
+      "stage": 0,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "696e2f7ad0e4685ea9dea807e03bf7eb54a953c7d9b08453deae8bb0dcba79e3",
+      "native_loop": true,
+      "line_source_sha256": "42534dfd48a082fb020ed98371efe6e64e7ef80aadbfe35bd3094c25a0b96687",
+      "world_source_sha256": "2ff6def5c7e0eb3abdbe41ff6fa303ab12c675433ec8d89af6ae3a8af10bfd1a",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 107",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Society Research Facility",
+    "route_group": "routes",
+    "source": "dungeon_lithia_memory8.lua",
+    "line_source": "Lithia_Memory8_Stage0_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_LITHIA_MEMORY8_STAGE0",
+      "source": "Lithia_Memory8_Stage0.lua",
+      "sha256": "2ff6def5c7e0eb3abdbe41ff6fa303ab12c675433ec8d89af6ae3a8af10bfd1a",
+      "line": "Lithia_Memory8_Stage0_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 107,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": true,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Dying",
+          "MESH_NAME": "Motion_Lithia_Memory8_0St_Footpad01.x",
+          "DELAY_TIME": 0.3,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.3,
+          "LINE_ID": 107,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0.3,
+          "MOTIONNAME_EFFECTSETNAME": "Motion_Lithia_Memory8_0St_Footpad01.x Effectset_LITHIA_MEMORY8_FOOTPAD_Dying",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_EFFECTSET"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "DELAY_TIME": 0.3,
+          "LINE_SOUND": "Wood_Debris_01.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 35320,
+      "stage": 0,
+      "part": 3,
+      "trigger": 1,
+      "source_sha256": "696e2f7ad0e4685ea9dea807e03bf7eb54a953c7d9b08453deae8bb0dcba79e3",
+      "native_loop": true,
+      "line_source_sha256": "42534dfd48a082fb020ed98371efe6e64e7ef80aadbfe35bd3094c25a0b96687",
+      "world_source_sha256": "2ff6def5c7e0eb3abdbe41ff6fa303ab12c675433ec8d89af6ae3a8af10bfd1a",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 109",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Society Research Facility",
+    "route_group": "routes",
+    "source": "dungeon_lithia_memory8.lua",
+    "line_source": "Lithia_Memory8_Stage0_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_LITHIA_MEMORY8_STAGE0",
+      "source": "Lithia_Memory8_Stage0.lua",
+      "sha256": "2ff6def5c7e0eb3abdbe41ff6fa303ab12c675433ec8d89af6ae3a8af10bfd1a",
+      "line": "Lithia_Memory8_Stage0_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 109,
+        "line_set": 6,
+        "on_line": true,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": true,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Dying",
+          "MESH_NAME": "Motion_Lithia_Memory8_0St_Footpad02.x",
+          "DELAY_TIME": 0.3,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.3,
+          "LINE_ID": 109,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0.3,
+          "MOTIONNAME_EFFECTSETNAME": "Motion_Lithia_Memory8_0St_Footpad02.x Effectset_LITHIA_MEMORY8_FOOTPAD_Dying2",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_EFFECTSET"
+          }
+        },
+        "TRIGGER_DATA_ETC1": {
+          "DELAY_TIME": 0.3,
+          "LINE_SOUND": "Wood_Debris_01.ogg",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_PLAY_SOUND"
+          }
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 35610,
+      "stage": 1,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "3856585228680b04722bbbb210238bf6522f76b9ca8a5ae5ca351053cce9af9e",
+      "native_loop": false,
+      "line_source_sha256": "45117fc24efe991c3b55a9be8a48c375b2798b06aad5b98b5632a5be459ca46e",
+      "world_source_sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 25",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Never-Ending Darkness [Solo Mode]",
+    "route_group": "routes",
+    "source": "dungeon_devildom1_raid2_single.lua",
+    "line_source": "Devildom1_Raid2_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_STAGE1",
+      "source": "Devildom1_Raid2_Stage1.lua",
+      "sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
+      "line": "Devildom1_Raid2_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 25,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "close",
+          "MESH_NAME": "TRIGGER_BOSS2_ATTACK.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 35610,
+      "stage": 1,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "3856585228680b04722bbbb210238bf6522f76b9ca8a5ae5ca351053cce9af9e",
+      "native_loop": false,
+      "line_source_sha256": "45117fc24efe991c3b55a9be8a48c375b2798b06aad5b98b5632a5be459ca46e",
+      "world_source_sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 6",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Never-Ending Darkness [Solo Mode]",
+    "route_group": "routes",
+    "source": "dungeon_devildom1_raid2_single.lua",
+    "line_source": "Devildom1_Raid2_Stage1_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_STAGE1",
+      "source": "Devildom1_Raid2_Stage1.lua",
+      "sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
+      "line": "Devildom1_Raid2_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 6,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "far",
+          "MESH_NAME": "TRIGGER_BOSS2_ATTACK.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 35610,
+      "stage": 2,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "3856585228680b04722bbbb210238bf6522f76b9ca8a5ae5ca351053cce9af9e",
+      "native_loop": false,
+      "line_source_sha256": "b253070f0541330fc3c6a855a1c9bfff3851b90182957e0ae6f460a76e9b8aad",
+      "world_source_sha256": "4124c6d8c39c24b9f6a032cb136819aad6746b053703a78cff014c9edcaeb269",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 5",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Never-Ending Darkness [Solo Mode]",
+    "route_group": "routes",
+    "source": "dungeon_devildom1_raid2_single.lua",
+    "line_source": "Devildom1_Raid2_Stage2_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_STAGE2",
+      "source": "Devildom1_Raid2_Stage2.lua",
+      "sha256": "4124c6d8c39c24b9f6a032cb136819aad6746b053703a78cff014c9edcaeb269",
+      "line": "Devildom1_Raid2_Stage2_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 5,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "attack1",
+          "MESH_NAME": "TRIGGER_BOSS3_ATTACK.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 35610,
+      "stage": 2,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "3856585228680b04722bbbb210238bf6522f76b9ca8a5ae5ca351053cce9af9e",
+      "native_loop": false,
+      "line_source_sha256": "b253070f0541330fc3c6a855a1c9bfff3851b90182957e0ae6f460a76e9b8aad",
+      "world_source_sha256": "4124c6d8c39c24b9f6a032cb136819aad6746b053703a78cff014c9edcaeb269",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 19",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Never-Ending Darkness [Solo Mode]",
+    "route_group": "routes",
+    "source": "dungeon_devildom1_raid2_single.lua",
+    "line_source": "Devildom1_Raid2_Stage2_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_DEVILDOM1_RAID2_STAGE2",
+      "source": "Devildom1_Raid2_Stage2.lua",
+      "sha256": "4124c6d8c39c24b9f6a032cb136819aad6746b053703a78cff014c9edcaeb269",
+      "line": "Devildom1_Raid2_Stage2_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 19,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "attack2",
+          "MESH_NAME": "TRIGGER_BOSS3_ATTACK.X",
+          "DELAY_TIME": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 38100,
+      "stage": 44,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "b77b20ece19a92eab13e6fcd03b2c9d61714c262b1a803505b104441d5053b6c",
+      "native_loop": false,
+      "line_source_sha256": "3fa1102ed570f6751cc64fc5d9c5be2021969dfe41e772b073c2478a37b9a4e4",
+      "world_source_sha256": "517e6bd96aae203e1442b49e772856d50f11d8ca57c7c875c72781e4da3ac15c",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 0,9",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Henir's Time and Space",
+    "route_group": "routes",
+    "source": "dungeon_henir_space_2019.lua",
+    "line_source": "Henir_Space_Stage_Boss_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_HENIR_SPACE_STAGE_BOSS",
+      "source": "Henir_Space_Stage_Boss.lua",
+      "sha256": "517e6bd96aae203e1442b49e772856d50f11d8ca57c7c875c72781e4da3ac15c",
+      "line": "Henir_Space_Stage_Boss_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 0,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      },
+      {
+        "line": 9,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 8,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE1": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 3,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE2": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 4,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE3": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE4": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 6,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE5": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 7,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "Henir_Space_AP_footpad_3P.y",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_SHOW"
+          },
+          "SHOW": false
+        },
+        "TRIGGER_DATA_MESH1": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "start",
+          "DELAY_TIME": 2,
+          "MESH_NAME": "TRIGGER_HENIR_SPACE_AP_GROUND.X",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 38100,
+      "stage": 45,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "b77b20ece19a92eab13e6fcd03b2c9d61714c262b1a803505b104441d5053b6c",
+      "native_loop": false,
+      "line_source_sha256": "3fa1102ed570f6751cc64fc5d9c5be2021969dfe41e772b073c2478a37b9a4e4",
+      "world_source_sha256": "517e6bd96aae203e1442b49e772856d50f11d8ca57c7c875c72781e4da3ac15c",
+      "native_request_producer": "TRIGGER_ON_LINE=true on original line(s) 0,9",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "Henir's Time and Space",
+    "route_group": "routes",
+    "source": "dungeon_henir_space_2019.lua",
+    "line_source": "Henir_Space_Stage_Boss_Linemap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_HENIR_SPACE_STAGE_BOSS",
+      "source": "Henir_Space_Stage_Boss.lua",
+      "sha256": "517e6bd96aae203e1442b49e772856d50f11d8ca57c7c875c72781e4da3ac15c",
+      "line": "Henir_Space_Stage_Boss_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 0,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      },
+      {
+        "line": 9,
+        "line_set": 0,
+        "on_line": true,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 8,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE1": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 3,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE2": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 4,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE3": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 5,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE4": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 6,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE5": {
+          "DELAY_TIME": 0.01,
+          "LINE_ID": 7,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "Henir_Space_AP_footpad_3P.y",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_SHOW"
+          },
+          "SHOW": false
+        },
+        "TRIGGER_DATA_MESH1": {
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "start",
+          "DELAY_TIME": 2,
+          "MESH_NAME": "TRIGGER_HENIR_SPACE_AP_GROUND.X",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        }
+      }
+    },
+    "action_kind": "physical_lines"
+  },
+  {
+    "rule": {
+      "dungeon": 41141,
+      "stage": 0,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "3dbc75834acd7c626cd476a7acd0ca7b674db0c1df41bec37ba6f91537bc9f11",
+      "native_loop": false,
+      "line_source_sha256": "4c6450e588d9c5ac3a945005c9d15c33f3a9345bf4b3b9c5e79bcf99f848cf51",
+      "world_source_sha256": "0a8accf5f70e5f951d8e3031658d9ea29868f9f4ebce47bef5dfa9e9ad8b4799",
+      "native_request_producer": "TRIGGER_ON_LINE=false on original line(s) 1",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "The Rage of Behemoth",
+    "route_group": "routes",
+    "source": "dungeon_sander_secret_hell.lua",
+    "line_source": "Sander_Secret_Stage0_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_SANDER_SECRET_STAGE0",
+      "source": "Sander_Secret_Stage0.lua",
+      "sha256": "0a8accf5f70e5f951d8e3031658d9ea29868f9f4ebce47bef5dfa9e9ad8b4799",
+      "line": "Sander_Secret_Stage0_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 1,
+        "line_set": 0,
+        "on_line": false,
+        "binding": "single_part_world"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "Motion_VEIGAR_FX.x",
+          "DELAY_TIME": 0,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Wait_TALK",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH1": {
+          "MESH_NAME": "Motion_VEIGAR_FX.x",
+          "DELAY_TIME": 3.27,
+          "PLAY_TYPE": 2,
+          "ANIM_NAME": "Wait",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0,
+          "REMAIN_TIME": 999,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_TALK_BOX"
+          },
+          "MESSAGE": {
+            "global": "STR_ID_34391"
+          },
+          "MESSAGE_POS": {
+            "symbolic_call": {
+              "function": "D3DXVECTOR3",
+              "arguments": [
+                3800,
+                8850,
+                170
+              ],
+              "pc": 1463
+            }
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  },
+  {
+    "rule": {
+      "dungeon": 41141,
+      "stage": 1,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "3dbc75834acd7c626cd476a7acd0ca7b674db0c1df41bec37ba6f91537bc9f11",
+      "native_loop": false,
+      "line_source_sha256": "c6caae46e9c57a1dfcdc86a5b99ef4e1a079908bc2628e7f095b25a2614013a8",
+      "world_source_sha256": "7c835998993e82076b9028225cde8e91ede722551ee3cc82b7890d3f83feae81",
+      "native_request_producer": "TRIGGER_ON_LINE=false on original line(s) 65",
+      "reaction": "Original line-map AddTrigger_LUA action",
+      "native_predicates_and_AI_retained": true
+    },
+    "name": "The Rage of Behemoth",
+    "route_group": "routes",
+    "source": "dungeon_sander_secret_hell.lua",
+    "line_source": "Sander_Secret_Stage1_LineMap.lua",
+    "world": {
+      "world": "WORLD_ID.WI_SANDER_SECRET_STAGE1",
+      "source": "Sander_Secret_Stage1.lua",
+      "sha256": "7c835998993e82076b9028225cde8e91ede722551ee3cc82b7890d3f83feae81",
+      "line": "Sander_Secret_Stage1_LineMap.lua"
+    },
+    "contact_lines": [
+      {
+        "line": 65,
+        "line_set": 0,
+        "on_line": false,
+        "binding": "main_line_set"
+      }
+    ],
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "Motion_STAGE_TARIC_FX.x",
+          "DELAY_TIME": 0,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Wait_TALK",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_MESH1": {
+          "MESH_NAME": "Motion_STAGE_TARIC_FX.x",
+          "DELAY_TIME": 2.91,
+          "PLAY_TYPE": 2,
+          "ANIM_NAME": "Wait",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_ETC0": {
+          "DELAY_TIME": 0,
+          "REMAIN_TIME": 999,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_ETC_ACTION_TYPE.TAT_ETC_TALK_BOX"
+          },
+          "MESSAGE": {
+            "global": "STR_ID_34392"
+          },
+          "MESSAGE_POS": {
+            "symbolic_call": {
+              "function": "D3DXVECTOR3",
+              "arguments": [
+                -9905,
+                665,
+                325
+              ],
+              "pc": 3039
+            }
+          }
+        }
+      }
+    },
+    "action_kind": "presentation_or_AI"
+  }
+]

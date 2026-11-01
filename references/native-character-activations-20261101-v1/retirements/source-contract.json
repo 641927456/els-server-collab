@@ -1,0 +1,84 @@
+{
+  "format": 1,
+  "candidate": true,
+  "activation": false,
+  "runtime_acceptance": false,
+  "author_source_contract_sha256": "4b81f720978ef911c1360b92f3c2afd8d7209575e7c1c00036705c8ac4be69f7",
+  "author_zip_sha256": "9edf3fe7d3c0c3d9afce4c6af18ee77768574b00d0d91d3826ae800611c05188",
+  "files": [
+    {
+      "path": "els_server/domain/public_controller_rules.py",
+      "source": "references/native-character-activations-20261101-v1/source/shared/els_server/domain/public_controller_rules.py",
+      "sha256": "4cca461d236466d15c06188dbba6bee0b3743310bae15773727b73ecbb1c384f",
+      "size": 139763,
+      "channels": [
+        "online",
+        "local"
+      ],
+      "parent_sha256": {
+        "online": "a1b87639e344217aa0725c44ed5ceea31631656d69710c429e56ebcb3cd261b2",
+        "local": "a1b87639e344217aa0725c44ed5ceea31631656d69710c429e56ebcb3cd261b2"
+      }
+    }
+  ],
+  "recorded_test_runtime_parents": {
+    "online": {
+      "release": "three-activities-integrated-20261101-v1",
+      "path": "releases/online/three-activities-integrated-20261101-v1",
+      "manifest_sha256": "938f2e0b0e1a29d6a2e04c4e17a74ac84e90472e3de3b70c1e62094b24c3a89c",
+      "files": {
+        "els_server/domain/public_controller_rules.py": "a1b87639e344217aa0725c44ed5ceea31631656d69710c429e56ebcb3cd261b2",
+        "els_server/domain/story_controller_retirements.py": "6e347e7434fc73b2a000c6935dda0b05093438140a68752dc3d03d9c51f5f3cd",
+        "els_server/domain/dungeon_flow.py": "5f64779b8d4c64c50a0916552c3603b4853815a6b45fec971288c725c5ddb43c",
+        "els_server/domain/dungeon_routes.py": "9d79ecbf01d322448af9cab4280a28c9c273e1f342513691f0ab0e98a6d16ced",
+        "els_server/domain/scene_actor_retirements.py": "2c2a55d61878e508de2ce4278135685a0c4226f09b29c48d0ab945f2552bec9b",
+        "els_server/domain/scene_retirement_sources.py": "395509a255b4e7e1d863de60f1663307988b5af0e2b51f0d535b14b479b8874b",
+        "els_server/domain/friends_dungeon.py": "43f0fa31ded3d8ee7f101a15fad95be070af8f2bc322533eb486f1748755e480"
+      }
+    },
+    "local": {
+      "release": "local-three-activities-startup-ui-20261101-v1",
+      "path": "releases/local/local-three-activities-startup-ui-20261101-v1",
+      "manifest_sha256": "aa43977281052101405065bc30a5665754d0d948894a31bd058ff1128e85b19d",
+      "files": {
+        "els_server/domain/public_controller_rules.py": "a1b87639e344217aa0725c44ed5ceea31631656d69710c429e56ebcb3cd261b2",
+        "els_server/domain/story_controller_retirements.py": "6e347e7434fc73b2a000c6935dda0b05093438140a68752dc3d03d9c51f5f3cd",
+        "els_server/domain/dungeon_flow.py": "5f64779b8d4c64c50a0916552c3603b4853815a6b45fec971288c725c5ddb43c",
+        "els_server/domain/dungeon_routes.py": "9d79ecbf01d322448af9cab4280a28c9c273e1f342513691f0ab0e98a6d16ced",
+        "els_server/domain/scene_actor_retirements.py": "2c2a55d61878e508de2ce4278135685a0c4226f09b29c48d0ab945f2552bec9b",
+        "els_server/domain/scene_retirement_sources.py": "395509a255b4e7e1d863de60f1663307988b5af0e2b51f0d535b14b479b8874b",
+        "els_server/domain/friends_dungeon.py": "43f0fa31ded3d8ee7f101a15fad95be070af8f2bc322533eb486f1748755e480"
+      }
+    }
+  },
+  "preserved146_parent_AST_sha256": "22850cec878f35b5233f9723fd7e231e392cbd7f1742d04cb2113b1796c18383",
+  "preserved_rules": 146,
+  "added_rules": 4,
+  "total_rules": 150,
+  "exact_identity_fields": [
+    "dungeon",
+    "stage",
+    "part",
+    "template",
+    "source_index"
+  ],
+  "tests": {
+    "channels": [
+      "online",
+      "local"
+    ],
+    "actual_Application_cases_per_channel": 4,
+    "negative_cases_per_channel": 20,
+    "actual_private_TLS_cases_per_channel": 4,
+    "correct_role_normal_map_admission": true,
+    "natural_GUI": false,
+    "party": false
+  },
+  "receiver_unchanged": true,
+  "source_representation": "Full frozen candidate changes LF to CRLF; preexisting complete module AST and all146 rule objects are unchanged. This is not a literal old-byte prefix assertion.",
+  "scope": "Four exact Noah/Lithia scene retirement receiver omissions",
+  "client_changes": false,
+  "new_schema": false,
+  "installed": false,
+  "Git_merged": false
+}

@@ -1,0 +1,36 @@
+{
+  "source_review": {
+    "passed": true,
+    "confirmed_blockers": []
+  },
+  "author_success_reused": {
+    "unique_tests": 13,
+    "codec_vectors": 1080,
+    "supported_templates": 54,
+    "includes_existing_template_384": true,
+    "scope": "Server serialization and dispatch; native parameters preserved. Same related source and inputs reused."
+  },
+  "LOCAL_variant": {
+    "tests_run": 2,
+    "failures": 0,
+    "errors": 0,
+    "explicit_application_mode": "local",
+    "methods": [
+      "test_solo_dispatch_retry_expiry_and_enemy_isolation",
+      "test_flat_room_failures_do_not_commit_actors_or_notices"
+    ],
+    "loaded_container_sha256": {
+      "els_server.application": "32057d2120d7d93139f187cb62b0e03b08f1e8fe77f0b13247237799b4ccc458",
+      "els_server.domain.local_session": "04814cb7892b8424b66f08829fe70aba15b487bad7c23a7f36376acc3d6499c7",
+      "els_server.domain.dungeon_settlement_commands": "f1b7cc61c00e46bf5a6ff94a0ea1f3270e764953fdd74c2733fc952b284e8882"
+    },
+    "parent_other_bytes_inverse_verified": true
+  },
+  "limits": {
+    "new_native_consumer_execution": false,
+    "natural_GUI": false,
+    "natural_cast": false,
+    "natural_party_battle": false,
+    "public_installed_qualification_recorded_here": false
+  }
+}
