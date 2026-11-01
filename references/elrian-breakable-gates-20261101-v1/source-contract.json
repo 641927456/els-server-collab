@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "scope": "Elrian Sanctum gates6212/6213 regular combat-death admission and existing solo/group stage progression",
+  "repair_patch_sha256": "adf2b97f0a8fbbd859bc4639af613f9bee66b643a07eee4323490922d8b5ca36",
+  "files": [
+    {
+      "path": "els_server/domain/public_controller_rules.py",
+      "source": "source/els_server/domain/public_controller_rules.py",
+      "sha256": "a1b87639e344217aa0725c44ed5ceea31631656d69710c429e56ebcb3cd261b2",
+      "size": 132007,
+      "parent_sha256": "07802e73eb9c2dd1c4eb4fdb851b99baaf2ed90257a8d82b75b5068865406897"
+    },
+    {
+      "path": "els_server/domain/story_controller_retirements.py",
+      "source": "source/els_server/domain/story_controller_retirements.py",
+      "sha256": "6e347e7434fc73b2a000c6935dda0b05093438140a68752dc3d03d9c51f5f3cd",
+      "size": 85772,
+      "parent_sha256": "2b4be11a6ec8be600dfe4381319eb3e2709b3af276fa6998d7b8c7b20677e94a"
+    },
+    {
+      "path": "els_server/domain/friends_story_retirements.py",
+      "source": "source/els_server/domain/friends_story_retirements.py",
+      "sha256": "b89637eee00a1505e8a6d0e3de51440ba83d39a052e974fd87e0959a86881245",
+      "size": 8299,
+      "parent_sha256": "a1855587b1eebc79a3e3dc6496285ecd31c039a25cd52f3488f742f51fb52b47"
+    }
+  ],
+  "prerequisite_PR": 689,
+  "main_implementation_modified": false,
+  "integration": "Exact installed source archive plus minimal repair.patch; main lacks the installed public-controller dependency. Review/rebase that dependency before applying the increment to the main implementation.",
+  "installed_releases": {
+    "online": "elrian-breakable-gates-20261101-v1",
+    "local": "local-elrian-breakable-gates-20261101-v1"
+  },
+  "parent_releases": {
+    "online": "native-controller-quest-gates-20261101-v1",
+    "local": "local-native-controller-quest-gates-20261101-v1"
+  },
+  "new_schema": false,
+  "original_EXE_KOM_changes": 0
+}
