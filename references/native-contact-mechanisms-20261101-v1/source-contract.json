@@ -1,0 +1,141 @@
+{
+  "format": 1,
+  "kind": "candidate-reference-archive",
+  "candidate": true,
+  "activation": false,
+  "runtime_acceptance": false,
+  "installed": false,
+  "Git_merged": false,
+  "author_source_contract_sha256": "5890a4ea19f9aeb9a3f13bc5dc40dec844d3e1be153f16ac5d9a68c361faa2a6",
+  "author_candidate_zip_sha256": "6bbd42832a84e9593b58d7b801f7740784b930e841bd510c72625c8dff8745a7",
+  "Git_base": "b4eb2f14e672dbd7aaa9df1137baeb6e86ef722a",
+  "files": [
+    {
+      "path": "els_server/data/native_line_triggers.json",
+      "source": "references/native-contact-mechanisms-20261101-v1/source/shared/els_server/data/native_line_triggers.json",
+      "sha256": "a5d132acf8596a8fe63f5ee18eeffdc7b137e8c1adfd6ad5e62555e84a706784",
+      "size": 66763,
+      "channels": [
+        "online",
+        "local"
+      ],
+      "parent_sha256": {
+        "online": "562d42975a0c002b014249fcab5f036563a6f48a0a8a4f3a789aff56c3fb8bc0",
+        "local": "562d42975a0c002b014249fcab5f036563a6f48a0a8a4f3a789aff56c3fb8bc0"
+      }
+    }
+  ],
+  "parent_rules": {
+    "source": "references/native-line-trigger-variants-20261101-v1/source/shared/els_server/data/native_line_triggers.json",
+    "sha256": "562d42975a0c002b014249fcab5f036563a6f48a0a8a4f3a789aff56c3fb8bc0"
+  },
+  "source_parents": {
+    "online": {
+      "release": "native-field-entry-identity-20261101-v1",
+      "path": "releases/online/native-field-entry-identity-20261101-v1",
+      "manifest_sha256": "aa3309ea78a6f7da94bc64c8805536823829e601be67459157df8f8de9465fe3",
+      "files": {
+        "els_server/domain/native_line_triggers.py": "b8fcd649bb8b87415de6dccc12bc64db849d9db47ef562a44373bda2eebd10c2",
+        "els_server/domain/dungeon_flow.py": "5f64779b8d4c64c50a0916552c3603b4853815a6b45fec971288c725c5ddb43c",
+        "els_server/data/native_line_triggers.json": "562d42975a0c002b014249fcab5f036563a6f48a0a8a4f3a789aff56c3fb8bc0",
+        "els_server/data/client/dungeon_routes.json": "302feba495e69870d16254ed97ff3991badd1f90f1aab95fbd86e0055b4cf0de"
+      }
+    },
+    "local": {
+      "release": "local-native-field-entry-identity-20261101-v1",
+      "path": "releases/local/local-native-field-entry-identity-20261101-v1",
+      "manifest_sha256": "efd4bbbbb31a7380b288b73c038b5c329f7b4cc6db62c4a6706a75fe081b935d",
+      "files": {
+        "els_server/domain/native_line_triggers.py": "b8fcd649bb8b87415de6dccc12bc64db849d9db47ef562a44373bda2eebd10c2",
+        "els_server/domain/dungeon_flow.py": "5f64779b8d4c64c50a0916552c3603b4853815a6b45fec971288c725c5ddb43c",
+        "els_server/data/native_line_triggers.json": "562d42975a0c002b014249fcab5f036563a6f48a0a8a4f3a789aff56c3fb8bc0",
+        "els_server/data/client/dungeon_routes.json": "302feba495e69870d16254ed97ff3991badd1f90f1aab95fbd86e0055b4cf0de"
+      }
+    }
+  },
+  "scope": "Confirmed native contact relay omissions:69 new contexts and11 prior Labyrinth contexts",
+  "dependencies": [
+    "Existing original native_line_triggers.py b8fcd649bb8b87415de6dccc12bc64db849d9db47ef562a44373bda2eebd10c2",
+    "Existing dungeon_flow dispatch and source graph fingerprints in baseline"
+  ],
+  "preserved_rules": 28,
+  "added_rules": 80,
+  "new_variant_rules": 69,
+  "prior_labyrinth_rules": 11,
+  "total_rules": 108,
+  "client_changes": false,
+  "new_schema": false,
+  "handler_fixture_installed": false,
+  "tests": {
+    "actual_private_Application_TLS_channels": [
+      "online",
+      "local"
+    ],
+    "new_contexts_per_channel": 69,
+    "rejections_per_channel": 17,
+    "native_loop_contexts": 2,
+    "previous_labyrinth_TLS_contexts_reused_per_channel": 11,
+    "natural_GUI": false,
+    "party": false,
+    "normal_challenge_entry": false
+  },
+  "evidence": [
+    {
+      "path": "references/native-contact-mechanisms-20261101-v1/rule-additions.json",
+      "sha256": "b3c697c1cd37b77878fa4815db04d8f4f18b4365f14f7e428659985795626d02",
+      "size": 46574
+    },
+    {
+      "path": "references/native-contact-mechanisms-20261101-v1/qualified-additions.json",
+      "sha256": "7ae83ff69327cedcd59dcc7df969422f46dc5071fbc8dc4f8f6e5ea2cc5144a5",
+      "size": 160837
+    },
+    {
+      "path": "references/native-contact-mechanisms-20261101-v1/config-result.json",
+      "sha256": "cffd88cd595aeb246f6f7dce1bb5aed7d51044840c7ad3f0275cbe94eb99f75c",
+      "size": 464
+    },
+    {
+      "path": "references/native-contact-mechanisms-20261101-v1/server-TLS-online.json",
+      "sha256": "94017d896fb7fca9952c2d0614da8ccbeebc0f36802af4da7fe06aa315444309",
+      "size": 9310
+    },
+    {
+      "path": "references/native-contact-mechanisms-20261101-v1/server-TLS-local.json",
+      "sha256": "6c3ecbccfecd4ef676d30063831e7bba8890a9a971b44e40bc297514ac9330ad",
+      "size": 9309
+    },
+    {
+      "path": "references/native-contact-mechanisms-20261101-v1/reused/application-qualification.json",
+      "sha256": "cc70a0e8ba222723a4049dac865b98d9a9754c49dc871e970d9225daca2afbfc",
+      "size": 1794
+    },
+    {
+      "path": "references/native-contact-mechanisms-20261101-v1/reused/native-contact-result.json",
+      "sha256": "ab1caf504d03dbf1e7dcafbcbd99ff32a4ff19a5ce336065eecf39205bb26c3b",
+      "size": 999
+    },
+    {
+      "path": "references/native-contact-mechanisms-20261101-v1/reused/native-false-contact-result.json",
+      "sha256": "2b2659d57198043610d719528fb5098d88b6486ab2f07b607603340d51a17770",
+      "size": 526
+    },
+    {
+      "path": "references/native-contact-mechanisms-20261101-v1/reused/labyrinth-TLS-online.json",
+      "sha256": "b3099c12efb48fafb468346260b3876db1fc2b8ebdd53f7ba45777eb15b02b2a",
+      "size": 2007
+    },
+    {
+      "path": "references/native-contact-mechanisms-20261101-v1/reused/labyrinth-TLS-local.json",
+      "sha256": "babe0dcdb1b281e1154e9f72aa8e2ce38fc6964a89f3d211e8fbe81f106aadea",
+      "size": 2006
+    }
+  ],
+  "integration": "Append exact80 additions to actual current at installation; preserve any later rules and all unrelated current source. No root runtime source or current selection is activated by this archive.",
+  "boundaries": [
+    "Controlled owned Application/TLS room matrices; not natural GUI, full clear, party or normal challenge entry.",
+    "Two35320 native loops retain original repeat notification semantics.",
+    "Two default-condition uncertainties, thirteen cross-room/repeated-line relations, five empty actions, two parser gaps and unbound Guardians Forest actions are excluded.",
+    "Unchanged handler copy from the author package is a test fixture and is intentionally not archived as an installation delta."
+  ]
+}

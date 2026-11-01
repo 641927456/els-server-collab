@@ -1,0 +1,106 @@
+{
+  "ok": true,
+  "channel": "online",
+  "actual_Application_TLS": true,
+  "controlled_owned_room_matrix": true,
+  "natural_clear": false,
+  "cases": [
+    {
+      "dungeon": 34090,
+      "stage": 0,
+      "part": 0,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 34090,
+      "stage": 1,
+      "part": 0,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 34090,
+      "stage": 1,
+      "part": 0,
+      "activation": 1,
+      "loop": false
+    },
+    {
+      "dungeon": 34090,
+      "stage": 2,
+      "part": 1,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 34090,
+      "stage": 2,
+      "part": 2,
+      "activation": 1,
+      "loop": false
+    },
+    {
+      "dungeon": 34090,
+      "stage": 4,
+      "part": 0,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 34090,
+      "stage": 4,
+      "part": 0,
+      "activation": 1,
+      "loop": false
+    },
+    {
+      "dungeon": 34090,
+      "stage": 5,
+      "part": 0,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 34090,
+      "stage": 5,
+      "part": 0,
+      "activation": 1,
+      "loop": false
+    },
+    {
+      "dungeon": 34090,
+      "stage": 6,
+      "part": 0,
+      "activation": 0,
+      "loop": false
+    },
+    {
+      "dungeon": 34090,
+      "stage": 6,
+      "part": 0,
+      "activation": 1,
+      "loop": false
+    }
+  ],
+  "negative_cases": [
+    "wrong id",
+    "malformed",
+    "missing performer",
+    "foreign performer",
+    "foreign UID",
+    "role",
+    "phase",
+    "dungeon_substage_synced",
+    "clear_notified",
+    "dungeon_failed",
+    "dungeon_participants",
+    "wrong room",
+    "changed resource",
+    "stale lease"
+  ],
+  "exact_native_envelope": true,
+  "cleared_current_room_accepted": true,
+  "non_loop_duplicate_ACK_only": true,
+  "no_HP_defeat_room_or_inventory_change": true
+}
