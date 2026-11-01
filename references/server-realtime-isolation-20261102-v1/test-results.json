@@ -1,0 +1,152 @@
+{
+  "passed": true,
+  "checks": 19,
+  "results": {
+    "results.json": {
+      "passed": true,
+      "tests": [
+        {
+          "test": "unchanged_full_native_tls_login_town_invite_loading_and_party_b3_bd",
+          "passed": true
+        },
+        {
+          "test": "original_relay_and_9c_continue_while_full_business_worker_and_real_ice_request_are_blocked",
+          "passed": true,
+          "clock_gaps_ms": [
+            1002.0,
+            1005.7
+          ],
+          "relay_max_ms": 0.63,
+          "datagrams": 20
+        },
+        {
+          "test": "original_ice_handler_commits_once_after_release_with_source_inventory_and_receipt",
+          "passed": true
+        },
+        {
+          "test": "disabled_peer_revokes_cached_room_routes_and_clock_without_waiting_for_asset_worker",
+          "passed": true
+        }
+      ],
+      "production_installed": false,
+      "full_pg_migration": false,
+      "natural_gui": false
+    },
+    "results-boundaries.json": {
+      "passed": true,
+      "tests": [
+        {
+          "test": "native_close_fences_room_during_blocked_business",
+          "passed": true,
+          "revocation_ms": 0.4,
+          "frontend_preserved": true,
+          "old_binding_ignored": true
+        },
+        {
+          "test": "relay_close_fences_room_during_blocked_business",
+          "passed": true,
+          "revocation_ms": 0.48,
+          "frontend_preserved": true,
+          "old_binding_ignored": true
+        },
+        {
+          "test": "bind_failure_stops_realtime_registry_reader",
+          "passed": true
+        }
+      ],
+      "owned_runtime_removed": true
+    },
+    "results-auxiliary.json": {
+      "passed": true,
+      "tests": [
+        {
+          "test": "only_exact_existing_auxiliary_envelope_and_live_owned_committed_session_bypass_business",
+          "passed": true
+        },
+        {
+          "test": "twenty_fixed_auxiliary_frames_are_consumed_without_waiting_for_held_business_worker",
+          "passed": true,
+          "frames": 20
+        },
+        {
+          "test": "original_peer_mailbox_delivers_real_party_chat_without_auxiliary_business_calls",
+          "passed": true
+        },
+        {
+          "test": "disabled_account_cannot_use_cached_auxiliary_admission",
+          "passed": true
+        }
+      ]
+    },
+    "results-periodic-claims.json": {
+      "passed": true,
+      "tests": [
+        {
+          "test": "real_ice_preempts_unstarted_periodic_without_waiting_for_held_worker",
+          "passed": true,
+          "preemption_ms": 15.96
+        },
+        {
+          "test": "overdue_periodic_retains_fifo_place_before_next_real_ice_request",
+          "passed": true
+        },
+        {
+          "test": "running_periodic_cannot_be_cancelled_by_foreground_request",
+          "passed": true
+        },
+        {
+          "test": "both_original_draws_committed_once_and_inventory_preserved",
+          "passed": true
+        }
+      ]
+    },
+    "results-load.json": {
+      "passed": true,
+      "tests": [
+        {
+          "test": "fifty_full_source_playing_accounts_hold_150_frontend_game_relay_connections",
+          "passed": true
+        },
+        {
+          "test": "full_source_50_player_60_second_battle_and_ice_load",
+          "passed": true,
+          "seconds": 64.38,
+          "players": 50,
+          "tls_connections": 150,
+          "battle_players": 20,
+          "ice_players": 30,
+          "draws": 90,
+          "datagrams": 12000,
+          "relay": {
+            "p50_ms": 4.17,
+            "p95_ms": 14.0,
+            "max_ms": 28.0
+          },
+          "ice": {
+            "p50_ms": 881.82,
+            "p95_ms": 2266.33,
+            "max_ms": 2475.13
+          },
+          "max_clock_gap_ms": 1023.97,
+          "published_views": 2649
+        },
+        {
+          "test": "native_socket_close_revokes_only_its_room_before_worker_cleanup_and_frontend_close_preserves_game_binding",
+          "passed": true
+        }
+      ],
+      "production_installed": false,
+      "full_pg_migration": false,
+      "natural_gui": false
+    },
+    "results-clock-scope.json": {
+      "passed": true,
+      "test": "G:\\els\\tests\\test_dungeon_time_sync.py",
+      "test_sha256": "e20eef4deb37043e1366f135745aafc577af359f9487c66aa07c13e16a7fd18f",
+      "scope": "DX11 legacy role/phase/loading gates; repeated notifications; no save changes; authenticated framing"
+    }
+  },
+  "production_installed": false,
+  "natural_gui": false,
+  "natural_battle": false
+}
