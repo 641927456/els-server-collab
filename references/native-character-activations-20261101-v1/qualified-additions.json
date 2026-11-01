@@ -1,0 +1,884 @@
+[
+  {
+    "rule": {
+      "dungeon": 34610,
+      "stage": 1,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "3278a6a45bbbc8f65f5a6d3fba251adb0b5e2f77c7e0ac87fab9132d24aba9fc",
+      "native_loop": true,
+      "npc_template": 8047
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": true,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 48,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "npc_script": "NOAH_START4_DOOR.lua",
+    "npc_script_sha256": "f53b9eed0e1e3ba50e55790bae8ca8cf9bd348b4c769eb2bef43d57ee8b6d85d",
+    "source_index": 10,
+    "world": {
+      "world": "WORLD_ID.WI_NOAH_START4_STAGE1",
+      "source": "Noah_Start4_Stage1.lua",
+      "sha256": "9dafaeb9a3d749bc9a227184b15b73920e276cb3d137fa4a41bb205c31db32c7",
+      "line": "Noah_Start4_Stage1_LineMap.lua"
+    },
+    "line_source": "Noah_Start4_Stage1_LineMap.lua",
+    "line_source_sha256": "dbc84c1704e47c40b6860a064ba2010d944655662fd6b69dd4754cdbb581a2b3"
+  },
+  {
+    "rule": {
+      "dungeon": 34610,
+      "stage": 1,
+      "part": 1,
+      "trigger": 1,
+      "source_sha256": "3278a6a45bbbc8f65f5a6d3fba251adb0b5e2f77c7e0ac87fab9132d24aba9fc",
+      "native_loop": true,
+      "npc_template": 8047
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": true,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 49,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "npc_script": "NOAH_START4_DOOR.lua",
+    "npc_script_sha256": "f53b9eed0e1e3ba50e55790bae8ca8cf9bd348b4c769eb2bef43d57ee8b6d85d",
+    "source_index": 10,
+    "world": {
+      "world": "WORLD_ID.WI_NOAH_START4_STAGE1",
+      "source": "Noah_Start4_Stage1.lua",
+      "sha256": "9dafaeb9a3d749bc9a227184b15b73920e276cb3d137fa4a41bb205c31db32c7",
+      "line": "Noah_Start4_Stage1_LineMap.lua"
+    },
+    "line_source": "Noah_Start4_Stage1_LineMap.lua",
+    "line_source_sha256": "dbc84c1704e47c40b6860a064ba2010d944655662fd6b69dd4754cdbb581a2b3"
+  },
+  {
+    "rule": {
+      "dungeon": 34620,
+      "stage": 0,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "66695f79578f5c60763ce3218fec17ace5a9fc215d598d2c4cabfe9eb58320f4",
+      "native_loop": true,
+      "npc_template": 8055
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": true,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "LINE_ID": 1,
+          "DELAY_TIME": 0.1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE1": {
+          "LINE_ID": 2,
+          "DELAY_TIME": 0.1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE2": {
+          "LINE_ID": 3,
+          "DELAY_TIME": 0.1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE3": {
+          "LINE_ID": 4,
+          "DELAY_TIME": 0.1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE4": {
+          "LINE_ID": 10,
+          "DELAY_TIME": 0.1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "npc_script": "NOAH_START5_FLOOR_MANAGER.lua",
+    "npc_script_sha256": "b5f03ad998d7ce3e44b425e8abbab83718c25a511b7cd716b2721a0e9c72daff",
+    "source_index": 2,
+    "world": {
+      "world": "WORLD_ID.WI_NOAH_START5_STAGE0",
+      "source": "Noah_Start5_Stage0.lua",
+      "sha256": "9d6af5da295ce265482e8a7de33a06461d1112c8e34cfdab853b019195abae8f",
+      "line": "Noah_Start5_Stage0_Linemap.lua"
+    },
+    "line_source": "Noah_Start5_Stage0_Linemap.lua",
+    "line_source_sha256": "661acbb187d4b19c0045b147b42478e884881d55ca42f092aba6cec263cac876"
+  },
+  {
+    "rule": {
+      "dungeon": 34620,
+      "stage": 0,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "66695f79578f5c60763ce3218fec17ace5a9fc215d598d2c4cabfe9eb58320f4",
+      "native_loop": true,
+      "npc_template": 8055
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": true,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "Trigger_Noah_St5_0St_Sub0Foot.x",
+          "DELAY_TIME": 0.15,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Broken",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "LINE_ID": 1,
+          "DELAY_TIME": 0.1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_LINE1": {
+          "LINE_ID": 0,
+          "DELAY_TIME": 0.15,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "npc_script": "NOAH_START5_FLOOR_MANAGER.lua",
+    "npc_script_sha256": "b5f03ad998d7ce3e44b425e8abbab83718c25a511b7cd716b2721a0e9c72daff",
+    "source_index": 2,
+    "world": {
+      "world": "WORLD_ID.WI_NOAH_START5_STAGE0",
+      "source": "Noah_Start5_Stage0.lua",
+      "sha256": "9d6af5da295ce265482e8a7de33a06461d1112c8e34cfdab853b019195abae8f",
+      "line": "Noah_Start5_Stage0_Linemap.lua"
+    },
+    "line_source": "Noah_Start5_Stage0_Linemap.lua",
+    "line_source_sha256": "661acbb187d4b19c0045b147b42478e884881d55ca42f092aba6cec263cac876"
+  },
+  {
+    "rule": {
+      "dungeon": 34620,
+      "stage": 0,
+      "part": 0,
+      "trigger": 2,
+      "source_sha256": "66695f79578f5c60763ce3218fec17ace5a9fc215d598d2c4cabfe9eb58320f4",
+      "native_loop": true,
+      "npc_template": 8055
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 2,
+      "TRIGGER_LOOP": true,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "Trigger_Noah_St5_0St_Sub1Foot.x",
+          "DELAY_TIME": 0.15,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Broken",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "LINE_ID": 2,
+          "DELAY_TIME": 0.1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_LINE1": {
+          "LINE_ID": 1,
+          "DELAY_TIME": 0.15,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "npc_script": "NOAH_START5_FLOOR_MANAGER.lua",
+    "npc_script_sha256": "b5f03ad998d7ce3e44b425e8abbab83718c25a511b7cd716b2721a0e9c72daff",
+    "source_index": 2,
+    "world": {
+      "world": "WORLD_ID.WI_NOAH_START5_STAGE0",
+      "source": "Noah_Start5_Stage0.lua",
+      "sha256": "9d6af5da295ce265482e8a7de33a06461d1112c8e34cfdab853b019195abae8f",
+      "line": "Noah_Start5_Stage0_Linemap.lua"
+    },
+    "line_source": "Noah_Start5_Stage0_Linemap.lua",
+    "line_source_sha256": "661acbb187d4b19c0045b147b42478e884881d55ca42f092aba6cec263cac876"
+  },
+  {
+    "rule": {
+      "dungeon": 34620,
+      "stage": 0,
+      "part": 0,
+      "trigger": 3,
+      "source_sha256": "66695f79578f5c60763ce3218fec17ace5a9fc215d598d2c4cabfe9eb58320f4",
+      "native_loop": true,
+      "npc_template": 8055
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 3,
+      "TRIGGER_LOOP": true,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "Trigger_Noah_St5_0St_Sub2Foot.x",
+          "DELAY_TIME": 0.15,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Broken",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "LINE_ID": 3,
+          "DELAY_TIME": 0.1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_LINE1": {
+          "LINE_ID": 2,
+          "DELAY_TIME": 0.15,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "npc_script": "NOAH_START5_FLOOR_MANAGER.lua",
+    "npc_script_sha256": "b5f03ad998d7ce3e44b425e8abbab83718c25a511b7cd716b2721a0e9c72daff",
+    "source_index": 2,
+    "world": {
+      "world": "WORLD_ID.WI_NOAH_START5_STAGE0",
+      "source": "Noah_Start5_Stage0.lua",
+      "sha256": "9d6af5da295ce265482e8a7de33a06461d1112c8e34cfdab853b019195abae8f",
+      "line": "Noah_Start5_Stage0_Linemap.lua"
+    },
+    "line_source": "Noah_Start5_Stage0_Linemap.lua",
+    "line_source_sha256": "661acbb187d4b19c0045b147b42478e884881d55ca42f092aba6cec263cac876"
+  },
+  {
+    "rule": {
+      "dungeon": 34620,
+      "stage": 0,
+      "part": 0,
+      "trigger": 4,
+      "source_sha256": "66695f79578f5c60763ce3218fec17ace5a9fc215d598d2c4cabfe9eb58320f4",
+      "native_loop": true,
+      "npc_template": 8055
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 4,
+      "TRIGGER_LOOP": true,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_MESH0": {
+          "MESH_NAME": "Trigger_Noah_St5_0St_Sub3Foot.x",
+          "DELAY_TIME": 0.15,
+          "PLAY_TYPE": 1,
+          "ANIM_NAME": "Broken",
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_MESH_ACTION_TYPE.TAT_MESH_CHANGE_ANIM"
+          }
+        },
+        "TRIGGER_DATA_LINE0": {
+          "LINE_ID": 4,
+          "DELAY_TIME": 0.1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": true
+        },
+        "TRIGGER_DATA_LINE1": {
+          "LINE_ID": 3,
+          "DELAY_TIME": 0.15,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "npc_script": "NOAH_START5_FLOOR_MANAGER.lua",
+    "npc_script_sha256": "b5f03ad998d7ce3e44b425e8abbab83718c25a511b7cd716b2721a0e9c72daff",
+    "source_index": 2,
+    "world": {
+      "world": "WORLD_ID.WI_NOAH_START5_STAGE0",
+      "source": "Noah_Start5_Stage0.lua",
+      "sha256": "9d6af5da295ce265482e8a7de33a06461d1112c8e34cfdab853b019195abae8f",
+      "line": "Noah_Start5_Stage0_Linemap.lua"
+    },
+    "line_source": "Noah_Start5_Stage0_Linemap.lua",
+    "line_source_sha256": "661acbb187d4b19c0045b147b42478e884881d55ca42f092aba6cec263cac876"
+  },
+  {
+    "rule": {
+      "dungeon": 34670,
+      "stage": 2,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "43f7c916deefbd03a782b7817a86f0bdc8b1726b845f909424556bf96d7b3d9d",
+      "native_loop": true,
+      "npc_template": 8101
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": true,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "LINE_ID": 1,
+          "DELAY_TIME": 0.1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE1": {
+          "LINE_ID": 2,
+          "DELAY_TIME": 0.1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "npc_script": "NOAH_RETURN5_BOSS.lua",
+    "npc_script_sha256": "da95e9dbbbfe6b31a0fcbc07822ccb5c5d56a97d2dda3273a9a12802f3d070cd",
+    "source_index": 1,
+    "world": {
+      "world": "WORLD_ID.WI_NOAH_RETURN5_STAGE2",
+      "source": "Noah_Return5_Stage2.lua",
+      "sha256": "deb874824421ea76a26c937c0e92b6090611775aa9d590af8d4d2f2f56206617",
+      "line": "Noah_Return5_Stage2_LineMap.lua"
+    },
+    "line_source": "Noah_Return5_Stage2_LineMap.lua",
+    "line_source_sha256": "a12b1abb37e481da8b5ee76c10d065c1174a830096ead5f4aa57c821a5369d5e"
+  },
+  {
+    "rule": {
+      "dungeon": 34680,
+      "stage": 0,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "47d8cee8daa7ef7c8e2e8d513c4a1802879a4411fdab9b1ee81646406eeaee5b",
+      "native_loop": true,
+      "npc_template": 8144
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": true,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 30,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "npc_script": "NOAH_RETURN6_DOOR.lua",
+    "npc_script_sha256": "53382d25289109687c94a68911e58a4d31588b728283b4e4cc860329b99cd340",
+    "source_index": 7,
+    "world": {
+      "world": "WORLD_ID.WI_NOAH_RETURN6_STAGE0",
+      "source": "Noah_Return6_Stage0.lua",
+      "sha256": "21d98e20aabd4e59a26c8b5a62e00b2f02efa682364fb374b8524a923eb6b84d",
+      "line": "Noah_Return6_Stage0_Linemap.lua"
+    },
+    "line_source": "Noah_Return6_Stage0_Linemap.lua",
+    "line_source_sha256": "341985f9144841bbf0ba49b4522372a8777ffb1174074b9635ac5e2ff8d58e93"
+  },
+  {
+    "rule": {
+      "dungeon": 34680,
+      "stage": 0,
+      "part": 1,
+      "trigger": 1,
+      "source_sha256": "47d8cee8daa7ef7c8e2e8d513c4a1802879a4411fdab9b1ee81646406eeaee5b",
+      "native_loop": true,
+      "npc_template": 8144
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": true,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 31,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "npc_script": "NOAH_RETURN6_DOOR.lua",
+    "npc_script_sha256": "53382d25289109687c94a68911e58a4d31588b728283b4e4cc860329b99cd340",
+    "source_index": 9,
+    "world": {
+      "world": "WORLD_ID.WI_NOAH_RETURN6_STAGE0",
+      "source": "Noah_Return6_Stage0.lua",
+      "sha256": "21d98e20aabd4e59a26c8b5a62e00b2f02efa682364fb374b8524a923eb6b84d",
+      "line": "Noah_Return6_Stage0_Linemap.lua"
+    },
+    "line_source": "Noah_Return6_Stage0_Linemap.lua",
+    "line_source_sha256": "341985f9144841bbf0ba49b4522372a8777ffb1174074b9635ac5e2ff8d58e93"
+  },
+  {
+    "rule": {
+      "dungeon": 34680,
+      "stage": 1,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "47d8cee8daa7ef7c8e2e8d513c4a1802879a4411fdab9b1ee81646406eeaee5b",
+      "native_loop": true,
+      "npc_template": 8144
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": true,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.1,
+          "LINE_ID": 10,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "npc_script": "NOAH_RETURN6_DOOR.lua",
+    "npc_script_sha256": "53382d25289109687c94a68911e58a4d31588b728283b4e4cc860329b99cd340",
+    "source_index": 20,
+    "world": {
+      "world": "WORLD_ID.WI_NOAH_RETURN6_STAGE1",
+      "source": "Noah_Return6_Stage1.lua",
+      "sha256": "d9dded1b9b4e43387370ae7dfdb61bc1ddd56d6de4c1f775a0b8d7be4cf7c41e",
+      "line": "Noah_Return6_Stage1_Linemap.lua"
+    },
+    "line_source": "Noah_Return6_Stage1_Linemap.lua",
+    "line_source_sha256": "c59df61f1b1cebb3466177a3f38e0875e3ed49ad2ab8685816a918cf23f2f3e3"
+  },
+  {
+    "rule": {
+      "dungeon": 35290,
+      "stage": 0,
+      "part": 2,
+      "trigger": 0,
+      "source_sha256": "dd9c58d5250519dfa1a4d1bec1893619c304f0e02effb12a672feb092416ab15",
+      "native_loop": true,
+      "npc_template": 9378
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": true,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0.1,
+          "LINE_ID": 11,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE1": {
+          "DELAY_TIME": 0.1,
+          "LINE_ID": 10,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE2": {
+          "DELAY_TIME": 0.1,
+          "LINE_ID": 0,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE3": {
+          "DELAY_TIME": 0.1,
+          "LINE_ID": 1,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE4": {
+          "DELAY_TIME": 0.1,
+          "LINE_ID": 2,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE5": {
+          "DELAY_TIME": 0.1,
+          "LINE_ID": 3,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        },
+        "TRIGGER_DATA_LINE6": {
+          "DELAY_TIME": 0.1,
+          "LINE_ID": 4,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_ENABLE"
+          },
+          "LINE_ENABLE": false
+        }
+      }
+    },
+    "npc_script": "LITHIA_MEMORY5_DOOR_EVENT.lua",
+    "npc_script_sha256": "18f1c8a9425c7c394c9be1b335cdac96f874060ee8da1567c332464aae512f62",
+    "source_index": 7,
+    "world": {
+      "world": "WORLD_ID.WI_LITHIA_MEMORY5_STAGE0",
+      "source": "Lithia_Memory5_Stage0.lua",
+      "sha256": "16563fb0282c9d8503b5bfc355de587156afc3f29e08a175d2c9587d567b6d67",
+      "line": "Lithia_Memory5_Stage0_LineMap.lua"
+    },
+    "line_source": "Lithia_Memory5_Stage0_LineMap.lua",
+    "line_source_sha256": "c9a79bc0715ab6325d7a305c08a85b74cdb1d700476da9e3365293e6a25f31d3"
+  },
+  {
+    "rule": {
+      "dungeon": 35320,
+      "stage": 3,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "696e2f7ad0e4685ea9dea807e03bf7eb54a953c7d9b08453deae8bb0dcba79e3",
+      "native_loop": false,
+      "npc_template": 9437
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 7,
+          "LINE_TELEPORT": 11,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TELEPORT"
+          }
+        },
+        "TRIGGER_DATA_LINE1": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 7,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TYPE"
+          },
+          "CHANGE_LINE_TYPE": {
+            "global": "LINE_TYPE.LT_POTAL"
+          }
+        }
+      }
+    },
+    "npc_script": "LITHIA_MEMORY8_MACHINE1.LUA",
+    "npc_script_sha256": "f11a25918f488b5fd58fcfef583f81cc9595d09646abfd411ff80ce0854a3137",
+    "source_index": 2,
+    "world": {
+      "world": "WORLD_ID.WI_LITHIA_MEMORY8_STAGE2",
+      "source": "Lithia_Memory8_Stage2.lua",
+      "sha256": "b26e4f1c2e8910209ae43d91a0db29c77d16c2004d6f7f7522a1702823d3b949",
+      "line": "Lithia_Memory8_Stage2_LineMap.lua"
+    },
+    "line_source": "Lithia_Memory8_Stage2_LineMap.lua",
+    "line_source_sha256": "19c52cbbb553e29f06c290471cdd71c176032ff67daec673169fd97f8bf26565"
+  },
+  {
+    "rule": {
+      "dungeon": 35321,
+      "stage": 2,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "1861ded3d8a7e8d67475e98a27449215227de7b19f907f3943675fa9ddad4e16",
+      "native_loop": false,
+      "npc_template": 9437
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 7,
+          "LINE_TELEPORT": 11,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TELEPORT"
+          }
+        },
+        "TRIGGER_DATA_LINE1": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 7,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TYPE"
+          },
+          "CHANGE_LINE_TYPE": {
+            "global": "LINE_TYPE.LT_POTAL"
+          }
+        }
+      }
+    },
+    "npc_script": "LITHIA_MEMORY8_MACHINE1.LUA",
+    "npc_script_sha256": "f11a25918f488b5fd58fcfef583f81cc9595d09646abfd411ff80ce0854a3137",
+    "source_index": 2,
+    "world": {
+      "world": "WORLD_ID.WI_LITHIA_MEMORY8_STAGE2",
+      "source": "Lithia_Memory8_Stage2.lua",
+      "sha256": "b26e4f1c2e8910209ae43d91a0db29c77d16c2004d6f7f7522a1702823d3b949",
+      "line": "Lithia_Memory8_Stage2_LineMap.lua"
+    },
+    "line_source": "Lithia_Memory8_Stage2_LineMap.lua",
+    "line_source_sha256": "19c52cbbb553e29f06c290471cdd71c176032ff67daec673169fd97f8bf26565"
+  },
+  {
+    "rule": {
+      "dungeon": 35322,
+      "stage": 0,
+      "part": 0,
+      "trigger": 0,
+      "source_sha256": "d110b77689c39fd9db46b26c8ae24894bb2bdb747fb4aea53ab2f4e2f3f36050",
+      "native_loop": false,
+      "npc_template": 9437
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 0,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 7,
+          "LINE_TELEPORT": 11,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TELEPORT"
+          }
+        },
+        "TRIGGER_DATA_LINE1": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 7,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TYPE"
+          },
+          "CHANGE_LINE_TYPE": {
+            "global": "LINE_TYPE.LT_POTAL"
+          }
+        }
+      }
+    },
+    "npc_script": "LITHIA_MEMORY8_MACHINE1.LUA",
+    "npc_script_sha256": "f11a25918f488b5fd58fcfef583f81cc9595d09646abfd411ff80ce0854a3137",
+    "source_index": 2,
+    "world": {
+      "world": "WORLD_ID.WI_LITHIA_MEMORY8_STAGE2",
+      "source": "Lithia_Memory8_Stage2.lua",
+      "sha256": "b26e4f1c2e8910209ae43d91a0db29c77d16c2004d6f7f7522a1702823d3b949",
+      "line": "Lithia_Memory8_Stage2_LineMap.lua"
+    },
+    "line_source": "Lithia_Memory8_Stage2_LineMap.lua",
+    "line_source_sha256": "19c52cbbb553e29f06c290471cdd71c176032ff67daec673169fd97f8bf26565"
+  },
+  {
+    "rule": {
+      "dungeon": 35320,
+      "stage": 3,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "696e2f7ad0e4685ea9dea807e03bf7eb54a953c7d9b08453deae8bb0dcba79e3",
+      "native_loop": false,
+      "npc_template": 9438
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 16,
+          "LINE_TELEPORT": 18,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TELEPORT"
+          }
+        },
+        "TRIGGER_DATA_LINE1": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 16,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TYPE"
+          },
+          "CHANGE_LINE_TYPE": {
+            "global": "LINE_TYPE.LT_POTAL"
+          }
+        }
+      }
+    },
+    "npc_script": "LITHIA_MEMORY8_MACHINE2.LUA",
+    "npc_script_sha256": "488cf0a85959231c0b82f7b5338b939f9e2a59d675bc415cf93ace0468c3ea47",
+    "source_index": 3,
+    "world": {
+      "world": "WORLD_ID.WI_LITHIA_MEMORY8_STAGE2",
+      "source": "Lithia_Memory8_Stage2.lua",
+      "sha256": "b26e4f1c2e8910209ae43d91a0db29c77d16c2004d6f7f7522a1702823d3b949",
+      "line": "Lithia_Memory8_Stage2_LineMap.lua"
+    },
+    "line_source": "Lithia_Memory8_Stage2_LineMap.lua",
+    "line_source_sha256": "19c52cbbb553e29f06c290471cdd71c176032ff67daec673169fd97f8bf26565"
+  },
+  {
+    "rule": {
+      "dungeon": 35321,
+      "stage": 2,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "1861ded3d8a7e8d67475e98a27449215227de7b19f907f3943675fa9ddad4e16",
+      "native_loop": false,
+      "npc_template": 9438
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 16,
+          "LINE_TELEPORT": 18,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TELEPORT"
+          }
+        },
+        "TRIGGER_DATA_LINE1": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 16,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TYPE"
+          },
+          "CHANGE_LINE_TYPE": {
+            "global": "LINE_TYPE.LT_POTAL"
+          }
+        }
+      }
+    },
+    "npc_script": "LITHIA_MEMORY8_MACHINE2.LUA",
+    "npc_script_sha256": "488cf0a85959231c0b82f7b5338b939f9e2a59d675bc415cf93ace0468c3ea47",
+    "source_index": 3,
+    "world": {
+      "world": "WORLD_ID.WI_LITHIA_MEMORY8_STAGE2",
+      "source": "Lithia_Memory8_Stage2.lua",
+      "sha256": "b26e4f1c2e8910209ae43d91a0db29c77d16c2004d6f7f7522a1702823d3b949",
+      "line": "Lithia_Memory8_Stage2_LineMap.lua"
+    },
+    "line_source": "Lithia_Memory8_Stage2_LineMap.lua",
+    "line_source_sha256": "19c52cbbb553e29f06c290471cdd71c176032ff67daec673169fd97f8bf26565"
+  },
+  {
+    "rule": {
+      "dungeon": 35322,
+      "stage": 0,
+      "part": 0,
+      "trigger": 1,
+      "source_sha256": "d110b77689c39fd9db46b26c8ae24894bb2bdb747fb4aea53ab2f4e2f3f36050",
+      "native_loop": false,
+      "npc_template": 9438
+    },
+    "route_group": "routes",
+    "native_action": {
+      "TRIGGER_ID": 1,
+      "TRIGGER_LOOP": false,
+      "TRIGGER_DATA0": {
+        "TRIGGER_DATA_LINE0": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 16,
+          "LINE_TELEPORT": 18,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TELEPORT"
+          }
+        },
+        "TRIGGER_DATA_LINE1": {
+          "DELAY_TIME": 0,
+          "LINE_ID": 16,
+          "TRIGGER_ACTION": {
+            "global": "TRIGGER_LINE_ACTION_TYPE.TAT_LINE_CHANGE_TYPE"
+          },
+          "CHANGE_LINE_TYPE": {
+            "global": "LINE_TYPE.LT_POTAL"
+          }
+        }
+      }
+    },
+    "npc_script": "LITHIA_MEMORY8_MACHINE2.LUA",
+    "npc_script_sha256": "488cf0a85959231c0b82f7b5338b939f9e2a59d675bc415cf93ace0468c3ea47",
+    "source_index": 3,
+    "world": {
+      "world": "WORLD_ID.WI_LITHIA_MEMORY8_STAGE2",
+      "source": "Lithia_Memory8_Stage2.lua",
+      "sha256": "b26e4f1c2e8910209ae43d91a0db29c77d16c2004d6f7f7522a1702823d3b949",
+      "line": "Lithia_Memory8_Stage2_LineMap.lua"
+    },
+    "line_source": "Lithia_Memory8_Stage2_LineMap.lua",
+    "line_source_sha256": "19c52cbbb553e29f06c290471cdd71c176032ff67daec673169fd97f8bf26565"
+  }
+]

@@ -1,0 +1,194 @@
+{
+  "format": 1,
+  "kind": "candidate-reference-archive",
+  "candidate": true,
+  "activation": false,
+  "runtime_acceptance": false,
+  "installed": false,
+  "Git_merged": false,
+  "author_source_contract_sha256": "02082bb638b13540a5c1ed0054b0fc9c95c343d0b016f16749740c8d7c1b07aa",
+  "author_zip_sha256": "d74af513e739ca4a07e8799d5f7cc0ce11ad8c5d49e3019c26a44225396580f6",
+  "logical_archive_parent": {
+    "PR": 737,
+    "head": "9e5b4834775ed56dc107ba39632c8adf963667e1",
+    "tree": "69df61ea5dc186270b045ec7652e628ee297eef3",
+    "source": "references/native-contact-mechanisms-20261101-v1/source/shared/els_server/data/native_line_triggers.json",
+    "sha256": "a5d132acf8596a8fe63f5ee18eeffdc7b137e8c1adfd6ad5e62555e84a706784",
+    "rules": 108,
+    "not_asserted_already_installed": true
+  },
+  "files": [
+    {
+      "path": "els_server/data/native_line_triggers.json",
+      "source": "references/native-character-activations-20261101-v1/source/shared/els_server/data/native_line_triggers.json",
+      "sha256": "487175cc56116db81b664b1d6003fe410516b24cad34e04cd0f21bae47f1d000",
+      "size": 71197,
+      "channels": [
+        "online",
+        "local"
+      ]
+    },
+    {
+      "path": "els_server/domain/public_controller_rules.py",
+      "source": "references/native-character-activations-20261101-v1/source/shared/els_server/domain/public_controller_rules.py",
+      "sha256": "4cca461d236466d15c06188dbba6bee0b3743310bae15773727b73ecbb1c384f",
+      "size": 139763,
+      "channels": [
+        "online",
+        "local"
+      ],
+      "parent_sha256": {
+        "online": "a1b87639e344217aa0725c44ed5ceea31631656d69710c429e56ebcb3cd261b2",
+        "local": "a1b87639e344217aa0725c44ed5ceea31631656d69710c429e56ebcb3cd261b2"
+      }
+    }
+  ],
+  "preserved_prior_candidate_rules": 108,
+  "new_NPC_rules": 18,
+  "total_rules": 126,
+  "native_loop_contexts": 12,
+  "non_loop_contexts": 6,
+  "recorded_test_runtime_parents": {
+    "online": {
+      "path": "releases/online/three-activities-integrated-20261101-v1",
+      "release": "three-activities-integrated-20261101-v1",
+      "manifest_sha256": "938f2e0b0e1a29d6a2e04c4e17a74ac84e90472e3de3b70c1e62094b24c3a89c",
+      "files": {
+        "els_server/domain/dungeon_flow.py": "5f64779b8d4c64c50a0916552c3603b4853815a6b45fec971288c725c5ddb43c",
+        "els_server/domain/dungeon_routes.py": "9d79ecbf01d322448af9cab4280a28c9c273e1f342513691f0ab0e98a6d16ced",
+        "els_server/domain/story_controller_retirements.py": "6e347e7434fc73b2a000c6935dda0b05093438140a68752dc3d03d9c51f5f3cd",
+        "els_server/domain/scene_actor_retirements.py": "2c2a55d61878e508de2ce4278135685a0c4226f09b29c48d0ab945f2552bec9b",
+        "els_server/domain/lithia_memory1_retirements.py": "6584f94b58144333ca3205b287268d7cb10aa655c9c08c9199a5603cda0733c9",
+        "els_server/domain/scene_retirement_sources.py": "395509a255b4e7e1d863de60f1663307988b5af0e2b51f0d535b14b479b8874b",
+        "els_server/domain/friends_dungeon.py": "43f0fa31ded3d8ee7f101a15fad95be070af8f2bc322533eb486f1748755e480",
+        "els_server/domain/native_line_triggers.py": "b8fcd649bb8b87415de6dccc12bc64db849d9db47ef562a44373bda2eebd10c2",
+        "els_server/data/native_line_triggers.json": "562d42975a0c002b014249fcab5f036563a6f48a0a8a4f3a789aff56c3fb8bc0"
+      }
+    },
+    "local": {
+      "path": "releases/local/local-three-activities-startup-ui-20261101-v1",
+      "release": "local-three-activities-startup-ui-20261101-v1",
+      "manifest_sha256": "aa43977281052101405065bc30a5665754d0d948894a31bd058ff1128e85b19d",
+      "files": {
+        "els_server/domain/dungeon_flow.py": "5f64779b8d4c64c50a0916552c3603b4853815a6b45fec971288c725c5ddb43c",
+        "els_server/domain/dungeon_routes.py": "9d79ecbf01d322448af9cab4280a28c9c273e1f342513691f0ab0e98a6d16ced",
+        "els_server/domain/story_controller_retirements.py": "6e347e7434fc73b2a000c6935dda0b05093438140a68752dc3d03d9c51f5f3cd",
+        "els_server/domain/scene_actor_retirements.py": "2c2a55d61878e508de2ce4278135685a0c4226f09b29c48d0ab945f2552bec9b",
+        "els_server/domain/lithia_memory1_retirements.py": "6584f94b58144333ca3205b287268d7cb10aa655c9c08c9199a5603cda0733c9",
+        "els_server/domain/scene_retirement_sources.py": "395509a255b4e7e1d863de60f1663307988b5af0e2b51f0d535b14b479b8874b",
+        "els_server/domain/friends_dungeon.py": "43f0fa31ded3d8ee7f101a15fad95be070af8f2bc322533eb486f1748755e480",
+        "els_server/domain/native_line_triggers.py": "b8fcd649bb8b87415de6dccc12bc64db849d9db47ef562a44373bda2eebd10c2",
+        "els_server/data/native_line_triggers.json": "562d42975a0c002b014249fcab5f036563a6f48a0a8a4f3a789aff56c3fb8bc0"
+      }
+    }
+  },
+  "scope": "Noah11/Lithia7 native activations plus four exact source-pinned scene retirements",
+  "client_changes": false,
+  "new_schema": false,
+  "handler_fixture_installed": false,
+  "tests": {
+    "actual_private_TLS_channels": [
+      "online",
+      "local"
+    ],
+    "contexts_per_channel": 18,
+    "negative_cases_per_channel": 18,
+    "normal_Noah_Lithia_Application_admissions_reused": 18,
+    "native_loop_contexts": 12,
+    "non_loop_contexts": 6,
+    "natural_GUI": false,
+    "party": false
+  },
+  "evidence": [
+    {
+      "path": "references/native-character-activations-20261101-v1/rule-additions.json",
+      "sha256": "3a64fb5e0a328ae534aa6cef1061f97b8112c1365a8f33bf93fcbb25caa6eb06",
+      "size": 4115
+    },
+    {
+      "path": "references/native-character-activations-20261101-v1/qualified-additions.json",
+      "sha256": "2304f9cc781505c6fdf534a2cb3f516078aab4b660a6388a803c63eb9736134e",
+      "size": 29052
+    },
+    {
+      "path": "references/native-character-activations-20261101-v1/server-TLS-online.json",
+      "sha256": "4d073862b6347737d17e5927e4781dee34dc59bd4371f3d9892fa50e360cefb1",
+      "size": 3075
+    },
+    {
+      "path": "references/native-character-activations-20261101-v1/server-TLS-local.json",
+      "sha256": "429c8fb5dd0175cfa3b4b8eff851365ba9aee8b32991b94b386e0d268add2244",
+      "size": 3074
+    },
+    {
+      "path": "references/native-character-activations-20261101-v1/application-admissions.json",
+      "sha256": "18379bae7695429c84925a424bc09d623025ad4cedf39efe3314288c0cd4e020",
+      "size": 9060
+    },
+    {
+      "path": "references/native-character-activations-20261101-v1/retirements/application-local.json",
+      "sha256": "59139a3f83733e2c03e0e0ea88286ef7929fef6555d01b305388eabc41f77c99",
+      "size": 2582
+    },
+    {
+      "path": "references/native-character-activations-20261101-v1/retirements/application-online.json",
+      "sha256": "58b9bf33dbaccfd329b6f99290f3e7244d2e4a1359b2694e9bc3f03a25c306fe",
+      "size": 2583
+    },
+    {
+      "path": "references/native-character-activations-20261101-v1/retirements/gate-result.json",
+      "sha256": "242068ac92ff6a4ac91a4767d2e3ddb4ddee84e3dd5d539784b75ca804425786",
+      "size": 2839
+    },
+    {
+      "path": "references/native-character-activations-20261101-v1/retirements/native-source-qualification.json",
+      "sha256": "5f4bbaea58a7ff0e3d737abf0b8e9be2676adfab1370bf5b4ce26ee7cfa82b3f",
+      "size": 8276
+    },
+    {
+      "path": "references/native-character-activations-20261101-v1/retirements/rule-additions.json",
+      "sha256": "9baa54f4ac02d36b9ce687d08fb094e9de494c3b2bca6910801d8b5aa6cbfddc",
+      "size": 3611
+    },
+    {
+      "path": "references/native-character-activations-20261101-v1/retirements/server-TLS-local.json",
+      "sha256": "570d032a8592783fcf730d90eff7215790857ff5e6fe0abb6f1a69f2f1faf7eb",
+      "size": 1305
+    },
+    {
+      "path": "references/native-character-activations-20261101-v1/retirements/server-TLS-online.json",
+      "sha256": "db98809143ff0f184a0ac992494160844c532cb4b9cc561e063021c24d12d20b",
+      "size": 1306
+    },
+    {
+      "path": "references/native-character-activations-20261101-v1/retirements/source-contract.json",
+      "sha256": "0ddea22fe61922e79ba1a9a0dad5b0ebfe37aeb3f3fd4c32bab47c028b7e7ecc",
+      "size": 4138
+    }
+  ],
+  "integration": "Git parent108 directly references PR737 archive, but actual channels may still contain28. ROOT may install the complete98 added rules together only after selective actual-parent checks. Preserve any later rules. Do not rewrite PR737 frozen artifacts or any root runtime/channel/current selection.",
+  "boundaries": [
+    "All handlers unchanged; candidate handler copy omitted.",
+    "18 recorded normal-role admissions are reused; privateTLS room matrix is controlled and is not natural GUI/fullclear/party proof.",
+    "Original two-method admission+retirement run contains one separate missing-import error; corrected named retirement proof is recorded without rewriting that failure.",
+    "New4 retirement qualification covers exact-template factory prefixes and original255 construction only, not full Game readiness/AI/GUI; native actor flags and timing are not generalized."
+  ],
+  "previous18_only_candidate_excluded_retirements": [
+    8147,
+    8078,
+    8079,
+    9412
+  ],
+  "pending_retirement_sources_not_admitted": [],
+  "newly_qualified_retirement_sources": [
+    8147,
+    8078,
+    8079,
+    9412
+  ],
+  "retirement_contract": {
+    "path": "references/native-character-activations-20261101-v1/retirements/source-contract.json",
+    "sha256": "0ddea22fe61922e79ba1a9a0dad5b0ebfe37aeb3f3fd4c32bab47c028b7e7ecc"
+  },
+  "runtime_delta_files": 2
+}
