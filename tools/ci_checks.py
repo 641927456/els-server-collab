@@ -26,6 +26,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_shop_missing_source_20261031.py')])
     if (ROOT/'references/native-login-reconnect-20261031-v1/source-contract.json').is_file():
         run([sys.executable,'-B','-m','unittest','tests.test_login_reconnect_support'])
+    if (ROOT/'references/mainline-leveling-exp20-20261031-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_mainline_leveling_delivery.py')])
     if (ROOT/'references/pending-source-integration-20261031-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pending_source_integration_20261031.py')])
     if (ROOT/'references/force-categories-sources-20261031-v1/source-contract.json').is_file():
