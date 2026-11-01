@@ -248,6 +248,12 @@ for _material in identification_ui_catalog()['materials'].values():
  TEMPLATE_BAG_GROUPS[_material['template']]=_material['group']
  TEMPLATE_MAX_STACKS[_material['template']]=_material['max_stack']
 
+from els_server.domain.skill_traits import reset_items as skill_trait_reset_items
+for _material in skill_trait_reset_items().values():
+ VERIFIED_TEMPLATES[_material['template']]=_material['metadata']
+ TEMPLATE_BAG_GROUPS[_material['template']]=_material['group']
+ TEMPLATE_MAX_STACKS[_material['template']]=_material['max_stack']
+
 from els_server.domain.fixed_cubes import catalog as fixed_cube_catalog
 from els_server.domain.regional_boss_cubes import data as regional_boss_cube_data
 for _row in regional_boss_cube_data()['items'].values():

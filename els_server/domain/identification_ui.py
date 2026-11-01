@@ -6,7 +6,7 @@ from els_server.game_data import CLIENT_SHA,client_data
 @functools.lru_cache(maxsize=1)
 def catalog():
  raw=(Path(__file__).resolve().parents[1]/'data/identification_ui.json').read_bytes()
- if hashlib.sha256(raw).hexdigest()!='140d8f615bd21a2fbab6e0875459e34eb9d6af64115f4e07d533ccc4512f59a3':raise ValueError('Identification source changed')
+ if hashlib.sha256(raw).hexdigest()!='42c6036cea552c6934f20c23e8c835bf24be16749c25bc55df4c1dca6f56f20b':raise ValueError('Identification source changed')
  c=json.loads(raw)
  if c['client_sha256']!=CLIENT_SHA or c['catalog_sha256']!=client_data().manifest['catalog_sha256']:raise ValueError('Identification build mismatch')
  for s in c['sources']:
