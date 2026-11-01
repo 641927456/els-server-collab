@@ -30,6 +30,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_mainline_leveling_delivery.py')])
     if (ROOT/'references/ordinary-field-passage-20261031-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_ordinary_field_passage_sources.py')])
+    if (ROOT/'references/spatial-error-text-20261101-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_spatial_error_text_sources.py')])
     if (ROOT/'references/pending-source-integration-20261031-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pending_source_integration_20261031.py')])
     if (ROOT/'references/force-categories-sources-20261031-v1/source-contract.json').is_file():

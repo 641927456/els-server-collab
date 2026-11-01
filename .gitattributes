@@ -138,3 +138,6 @@ references/gm-high-level-scrolls-20261031-v1/** -text whitespace=cr-at-eol
 references/gm-high-level-scrolls-20261031-v1/*.patch -text whitespace=cr-at-eol,-blank-at-eol
 # Preserve the exact installed leveling source and policy bytes.
 references/mainline-leveling-exp20-20261031-v1/** -text whitespace=cr-at-eol
+# Exact installed spatial-error sources retain their qualified runtime bytes.
+references/spatial-error-text-20261101-v1/source/** -text whitespace=cr-at-eol,-blank-at-eof
+references/spatial-error-text-20261101-v1/source-contract.json -text whitespace=cr-at-eol
