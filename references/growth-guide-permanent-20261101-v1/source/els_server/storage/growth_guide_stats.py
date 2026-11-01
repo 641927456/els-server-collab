@@ -24,10 +24,17 @@ def adaptation(db,uid,character,items):
         character.update(luciel_style=state(db,uid)['style'],luciel_active_unit=active_state(db,uid)['active_unit'])
         selected=effective_style(character)
     rows=[];ordinary=accessories();sets=collections.Counter();a=avatar_catalog();keys=[]
+    from els_server.domain.artifact_progression import require_artifact,slots as artifact_slots
+    artifact_active=bool(character.get('master'))
+    if artifact_active:require_artifact(character)
     from els_server.domain.inventory_items import FASHION_EQUIP_SLOTS
     for item in items:
-        if item['group']!=9 or expired(item) or not equipment_contributes(item,character):continue
+        if expired(item):continue
         t=item['template'];raw=c.item(t)['record']
+        if item['group']==24:
+            if (not artifact_active or item['slot']not in artifact_slots(t) or item.get('identified')is False
+                    or item.get('sealed')or raw[0xd2]not in(0,character['unit_type'])or character['level']<raw[0xd1]):continue
+        elif item['group']!=9 or not equipment_contributes(item,character):continue
         if not class_matches(character['unit_class'],raw[0xd3]):continue
         if t in ordinary and int(item['slot'] not in ordinary[t]['main_slots'])!=selected:continue
         if t in FASHION_EQUIP_SLOTS and character['unit_type']==10 and bool(raw[8]&4)!=bool(character['luciel_active_unit']):continue
@@ -39,9 +46,9 @@ def adaptation(db,uid,character,items):
             if hashlib.sha256(raw).hexdigest()!=definition['record_sha256']:raise ValueError('Guide adaptation native equipment')
             keys+=definition['options']
         for group,values in item.get('option_groups',{}).items():
-            # These groups contain effect IDs. Chip/circuit grids contain
+            # These groups contain effect IDs. Circuit grids contain
             # counters and coordinates and belong to their own native resolver.
-            if group in ('0','1','9','10','11','12','13','14','15','16','17','18','19','20','21','25','26','29','31'):keys+=values
+            if group in ('0','1','9','10','11','12','13','14','15','16','17','18','19','20','21','25','26','27','29','31'):keys+=values
         set_id=struct.unpack_from('<I',raw,0x24)[0]
         if set_id in a['definitions'] and not a['definitions'][set_id].avatar_accessory:sets[set_id]+=1
     for set_id,count in sets.items():keys+=a['definitions'][set_id].effects(selector=0,count=count)

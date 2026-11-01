@@ -19,11 +19,16 @@ def main():
             assert hashlib.sha256((ROOT/row['path']).read_bytes()).hexdigest()==row['root_parent_sha256'],row['path']
         else:assert not(ROOT/row['path']).exists(),row['path']
     folder=BASE/'source/els_server/data'
-    for name in ('growth_guide','growth_guide_boxes','growth_guide_stats','equipment_tuning_native'):
+    for name in ('growth_guide','growth_guide_boxes','growth_guide_stats','equipment_tuning_native','town_rest'):
         raw=(folder/(name+'.json')).read_bytes();manifest=json.loads((folder/(name+'.manifest.json')).read_bytes())
         assert hashlib.sha256(raw).hexdigest()==manifest['payload_sha256'],name
     guide=json.loads((folder/'growth_guide.json').read_bytes());boxes=json.loads((folder/'growth_guide_boxes.json').read_bytes())
     assert(len(guide['tabs']),len(guide['quests']),len(boxes['boxes']),len(boxes['items']))==(13,61,63,832)
+    ui=json.loads((BASE/'client-ui-proof.json').read_bytes())
+    assert ui['server_files']=={r['path']:r['sha256']for r in files if r['path'].startswith('els_server/')}
+    assert ui['client_sha256']==guide['client_sha256'] and ui['actual_rendered_courses']==13 and ui['graduated']is False
+    period=json.loads((BASE/'native-mount-period-proof.json').read_bytes())
+    assert period['source_sha256']==ui['server_files']['els_server/protocol/mount_messages.py']
     print(json.dumps(dict(ok=True,candidate_only=True,files=len(files),courses=13,quests=61,boxes=63,installed=False)))
     if args.with_runtime:
         # Only tracked source/config/tests, locked static resources and the two

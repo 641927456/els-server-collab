@@ -2,11 +2,12 @@
 import struct
 from els_server.protocol.protocol_codec import Event
 
-def state(available,*,kind=0xcaa,result=0):
-    # Native3B6D7A0 reads u64 then3B6D810 reads one bool. Zero means no
-    # pending course popup bits; quest rewards remain separate F4/F5 actions.
-    if type(available) is not bool or kind not in (0xcaa,0xcac,0xcae,0xd0e):raise ValueError('Growth guide state')
-    payload=struct.pack('>QB',0,available)
+def state(graduated,*,kind=0xcaa,result=0):
+    # 33A4B70+ECA: the final bool selects the graduation page. Entry623
+    # availability is separate. Zero u64 means no pending course popup bits;
+    # quest rewards remain separate F4/F5 actions.
+    if type(graduated) is not bool or kind not in (0xcaa,0xcac,0xcae,0xd0e):raise ValueError('Growth guide state')
+    payload=struct.pack('>QB',0,graduated)
     if kind!=0xcaa:payload=struct.pack('>i',result)+payload
     return Event(0x201,kind=kind,payload=payload)
 

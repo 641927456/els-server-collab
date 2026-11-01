@@ -11,8 +11,8 @@
   "boxes": 63,
   "box_related_readers": 832,
   "box_open_transactions": 63,
-  "new_tests_passed": 25,
-  "existing_mount_tests_passed": 12,
+  "new_tests_passed": 31,
+  "existing_mount_tests_passed": 17,
   "original_client_modified": false,
   "installed": false,
   "natural_gui_verified": false,
@@ -23,7 +23,8 @@
     "RandomItem.lua",
     "SpaData.lua",
     "BuffTemplet.lua",
-    "RidingPetData.lua"
+    "RidingPetData.lua",
+    "DivisionItemTemplet.lua"
   ],
   "native_state": {
     "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
@@ -32,35 +33,36 @@
     "rows": [
       {
         "result": 0,
-        "available": true,
         "consumed": 13,
         "native_fields": [
           0,
           0,
           1
-        ]
+        ],
+        "graduated": true
       },
       {
         "result": 0,
-        "available": false,
         "consumed": 13,
         "native_fields": [
           0,
           0,
           0
-        ]
+        ],
+        "graduated": false
       },
       {
         "result": 187,
-        "available": false,
         "consumed": 13,
         "native_fields": [
           187,
           0,
           0
-        ]
+        ],
+        "graduated": false
       }
-    ]
+    ],
+    "meaning_correction": "Last bool is graduated, not entry availability; actual33A4B70+ECA GUI branch and owned UI prove this. Native row reads below remain valid; historical available labels corrected."
   },
   "native_camp_mount": {
     "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
@@ -107,11 +109,13 @@
       "tests.test_sage_sockets.SageSocketTests.test_retry_keeps_newer_options_and_never_rolls_or_pays_again"
     ]
   },
-  "materialized_candidate_tests_passed": 37,
+  "materialized_candidate_tests_passed": 48,
   "source_ci": {
     "command": "python -B tools/ci_checks.py",
     "passed": true,
-    "runtime_check": false
+    "runtime_check": false,
+    "head": "2ca6f9ac704d67602c35259841934fc28127ef56",
+    "scope": "Previous candidate head; follow current PR checks for the completion commit"
   },
   "existing_consumable_elixir_tests_passed": 10,
   "qualification_followup_test_passed": true,
@@ -136,5 +140,33 @@
       710035,
       710010
     ]
-  }
+  },
+  "completion": {
+    "adaptation_qualification": "All current adaptation options audited; independent Artifact ring equipment now included and actual105 wear reply refreshes F3 progress",
+    "camp_wait_seconds": {
+      "none": 360,
+      "reward_outfit": 251,
+      "cash_outfit": 180
+    },
+    "camp_luciel_cash_priority_native_fixture_passed": true,
+    "cold_integrated_server_start_passed": true,
+    "actual_wear_and_expiration_cache_invalidation_passed": true,
+    "runtime_test_command": "python -B tools/verify_growth_guide_sources.py --with-runtime",
+    "runtime_test_result": {
+      "cumulative_distinct_tests": 48,
+      "failures_remaining": 0,
+      "errors_remaining": 0,
+      "mount_date_retry_assertion_corrected": "Only expiry date is stable; existing replay legitimately refreshes stamina timestamp. Corrected test rerun passed."
+    },
+    "unchanged_consumable_tests_reused": 10,
+    "graduation_flag_qualification_passed": true,
+    "current_client_guide_window_verified": true,
+    "native_mount_period_consumer_verified": true,
+    "native_mount_countdown_gui_verified": false,
+    "runtime_test_commands": [
+      "python -B tools/verify_growth_guide_sources.py --with-runtime --test tests.test_growth_guide",
+      "python -B tools/verify_growth_guide_sources.py --with-runtime --test tests.test_growth_guide.GrowthGuideTests.test_fourteen_day_mount_activation_retry_expiry_and_rollback --test tests.test_mount_state --test tests.test_mount_retry --test tests.test_mount_flow"
+    ]
+  },
+  "client_gui_verified": true
 }

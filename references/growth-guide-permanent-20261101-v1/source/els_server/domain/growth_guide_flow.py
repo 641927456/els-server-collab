@@ -28,14 +28,16 @@ def synchronize(s,replies,*,force=False):
     if not cold and not force and not getattr(s,'_growth_guide_started',False):return replies
     if not cold and s.phase not in ('town_ready','dungeon_active'):return replies
     kinds={e.kind for e in replies if e.event_id==0x201}
-    if not (force or cold or kinds.intersection((0x2b,0x3a2,0xf3,0xf5,0xd9,0xd3,0x29f,0x4b9,0x1c5,0x8b2,0x6e8,0x9f0,0xb0f,0x8d6,0xbfd,0xad8,0x214,0x217,0x6d1,0x228))):return replies
+    if not (force or cold or kinds.intersection((0x2b,0x105,0x3a2,0xf3,0xf5,0xd9,0xd3,0x29f,0x4b9,0x1c5,0x8b2,0x6e8,0x9f0,0xb0f,0x8d6,0xbfd,0xad8,0x214,0x217,0x6d1,0x228))):return replies
     with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
         db.execute('BEGIN IMMEDIATE');character=load_character(db,s.account.uid,s.account.account_id);ensure(db)
         from els_server.storage.item_actor import require_active_character
         require_active_character(db,s.account.uid)
         allowed=available(s,db)
         items=load_items(db,s.account.uid)
-        new=enroll(db,s.account.uid,character,items,completed_ids(db,s.account.uid)) if allowed else ()
+        done=completed_ids(db,s.account.uid)
+        graduated=all(int(q)in done for q in catalog()['quests'])
+        new=enroll(db,s.account.uid,character,items,done) if allowed else ()
         snapshot=_state(db,s.account.uid,items)
         rows=[r for r in snapshot['active'] if contains(r['id'])]
         added=[quests.accepted(r) for r in rows if r['id'] in new]
@@ -57,7 +59,7 @@ def synchronize(s,replies,*,force=False):
     s._growth_guide_code_rows=code_rows
     if cold or had_entries or changed or force:out.append(entries.notice(code_rows))
     out+=added+progress
-    if cold or changed or force:out.append(wire.state(allowed))
+    if cold or changed or force:out.append(wire.state(graduated))
     return out
 
 def handle(s,event,sequence):
@@ -76,4 +78,4 @@ def handle(s,event,sequence):
         done=completed_ids(db,s.account.uid)
         finished=all(int(q) in done for q in catalog()['quests'])
     result=0 if allowed and (event.kind!=0xcad or finished) else quests.QUEST_REQUIREMENTS_NOT_MET
-    return synchronize(s,[wire.state(allowed,kind=kind,result=result)],force=True)
+    return synchronize(s,[wire.state(finished,kind=kind,result=result)],force=True)

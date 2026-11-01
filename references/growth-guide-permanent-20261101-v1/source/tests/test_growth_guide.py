@@ -12,6 +12,24 @@ from els_server.protocol.protocol_codec import Event
 from els_server.protocol import activity_2026_entries as entries
 
 class GrowthGuideTests(unittest.TestCase):
+    def test_integrated_server_starts_from_a_cold_interpreter(self):
+        import os,subprocess,sys
+        from els_server.paths import PROJECT_ROOT
+        with tempfile.TemporaryDirectory() as folder:
+            script="""import asyncio,sys
+from pathlib import Path
+from els_server.application import Application
+from els_server.config import ServerConfig
+async def main():
+    app=Application(ServerConfig(profile='integrated_dx11',state_file=Path(sys.argv[1])))
+    try:
+        await app.start()
+        assert app.account.character()['uid']==1001
+    finally:app.close()
+asyncio.run(main())
+"""
+            subprocess.run([sys.executable,'-B','-c',script,str(Path(folder)/'own.db')],cwd=PROJECT_ROOT,env=dict(os.environ,PYTHONPATH=str(PROJECT_ROOT)),check=True,capture_output=True)
+
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
         self.path=Path(self.tmp.name)/'save.db';self.account=LocalAccount(LocalState(self.path));self.account.enable_characters()
@@ -39,7 +57,21 @@ class GrowthGuideTests(unittest.TestCase):
         reply=synchronize(self.session,[original],force=True)
         rows=entries.read(next(e for e in reply if e.kind==0x4b9).payload)
         self.assertEqual(set(rows),{518,623,678});self.assertEqual(rows[623],entries.CodeEntry(True,0,0))
-        self.assertEqual(next(e for e in reply if e.kind==0xcaa).payload,bytes(8)+b'\1')
+        self.assertEqual(next(e for e in reply if e.kind==0xcaa).payload,bytes(9))
+
+    def test_graduation_page_requires_every_saved_guide_task(self):
+        self.open()
+        quests=list(map(int,catalog()['quests']))
+        with closing(sqlite3.connect(self.path))as db,db:
+            db.execute('DELETE FROM character_quests WHERE owner=1001')
+            db.executemany("INSERT INTO completed_quests VALUES(1001,?,1,'{}')",[(q,)for q in quests[:-1]])
+        out=self.open()
+        self.assertEqual(next(e for e in out if e.kind==0xcaa).payload,bytes(9))
+        with closing(sqlite3.connect(self.path))as db,db:
+            db.execute('DELETE FROM character_quests WHERE owner=1001')
+            db.execute("INSERT INTO completed_quests VALUES(1001,?,1,'{}')",(quests[-1],))
+        out=self.open()
+        self.assertEqual(next(e for e in out if e.kind==0xcaa).payload,bytes(8)+b'\1')
 
     def test_normal_session_cold_finalizer_activates_the_guide(self):
         from els_server.application import Application
@@ -243,10 +275,18 @@ class GrowthGuideTests(unittest.TestCase):
             with patch('els_server.protocol.companion_messages.activation_ack',side_effect=ValueError('encode')):
                 with self.assertRaises(ValueError):activate(self.path,1001,0x432,payload,'mount-activate')
             self.assertTrue(any(i['uid']==token['uid'] for i in self.account.get_inventory_snapshot()['items']))
-            activate(self.path,1001,0x432,payload,'mount-activate')
-            activate(self.path,1001,0x432,payload,'mount-activate')
+            ack=activate(self.path,1001,0x432,payload,'mount-activate')
+            retry=activate(self.path,1001,0x432,payload,'mount-activate')
             mounts=[p for p in snapshot(self.path,1001)['companions'] if p['kind']=='mount']
         self.assertEqual(len(mounts),1);self.assertEqual(mounts[0]['expires_at'],end);uid=mounts[0]['uid']
+        from els_server.domain.item_expiration import date_string
+        n=struct.unpack_from('>I',ack.payload,18)[0]
+        self.assertEqual(ack.payload[22:22+n].decode('utf-16le'),date_string(end))
+        n=struct.unpack_from('>I',retry.payload,18)[0]
+        self.assertEqual(retry.payload[22:22+n].decode('utf-16le'),date_string(end))
+        from els_server.protocol.mount_messages import record
+        cold=record(mounts[0]);n=struct.unpack_from('>I',cold,14)[0]
+        self.assertEqual(cold[18:18+n].decode('utf-16le'),date_string(end))
         ride(self.path,1001,0x42c,struct.pack('>QB',uid,1),'ride',now=end-1)
         self.assertEqual([e.kind for e in tick(self.path,1001,now=end)],[0x430])
         with self.assertRaisesRegex(ValueError,'expired'):ride(self.path,1001,0x42c,struct.pack('>QB',uid,1),'expired-ride',now=end)
@@ -345,5 +385,78 @@ class GrowthGuideTests(unittest.TestCase):
         self.assertNotEqual(reply[0].payload[:4],bytes(4))
         reply=handle(self.session,Event(0x202,performers=(0,),kind=0xcad,payload=b''),2)
         self.assertNotEqual(reply[0].payload[:4],bytes(4))
+
+    def test_camp_uniform_uses_native_truncated_wait_and_current_wear(self):
+        from els_server.domain.town_rest_buffs import synchronize as camp
+        from els_server.domain.town_rest_rules import required
+        self.account.save_location(1009,0,0,(0.,0.,0.))
+        self.session.active_map=self.session.pending_map=1009;self.session.completed.update((0x225,0x227))
+        item=self.give(716740)
+        self.assertEqual(required([item],1,1,1800000000)[0],360)
+        with closing(sqlite3.connect(self.path))as db,db:db.execute('UPDATE inventory_items SET bag_group=9,slot=35 WHERE uid=?',(item['uid'],))
+        self.assertEqual(camp(self.session,[],clock=lambda:0,wall=lambda:1800000000),[])
+        self.assertEqual(camp(self.session,[],clock=lambda:250,wall=lambda:1800000250),[])
+        out=camp(self.session,[],clock=lambda:251,wall=lambda:1800000251)
+        self.assertEqual([e.kind for e in out],[0x3a2])
+        self.assertEqual(required([dict(item,group=9,slot=35)],1,1,1800000000)[0],251)
+        self.assertEqual(required([dict(item,template=307676,group=9,slot=35)],1,1,1800000000)[0],180)
+
+    def test_expired_camp_uniform_invalidates_cached_shorter_wait(self):
+        from els_server.domain.town_rest_buffs import synchronize as camp
+        from els_server.storage.item_expiration import assign
+        self.account.save_location(1009,0,0,(0.,0.,0.))
+        self.session.active_map=self.session.pending_map=1009;self.session.completed.update((0x225,0x227))
+        item=self.give(716740)
+        with closing(sqlite3.connect(self.path))as db,db:
+            db.execute('BEGIN IMMEDIATE');db.execute('UPDATE inventory_items SET bag_group=9,slot=35 WHERE uid=?',(item['uid'],));assign(db,1001,item['uid'],1800000220)
+        camp(self.session,[],clock=lambda:0,wall=lambda:1800000000)
+        self.assertEqual(camp(self.session,[],clock=lambda:200,wall=lambda:1800000200),[])
+        self.assertEqual(camp(self.session,[],clock=lambda:251,wall=lambda:1800000251),[])
+        self.assertEqual([e.kind for e in camp(self.session,[],clock=lambda:360,wall=lambda:1800000360)],[0x3a2])
+
+    def test_taking_off_camp_uniform_invalidates_wait_without_economic_revision(self):
+        import uuid
+        from els_server.domain.town_rest_buffs import synchronize as camp
+        from els_server.storage.wear_moves import move
+        self.account.save_location(1009,0,0,(0.,0.,0.))
+        self.session.active_map=self.session.pending_map=1009;self.session.completed.update((0x225,0x227))
+        item=self.give(716740);connection=str(uuid.uuid4())
+        move(self.path,struct.pack('>BiBiB',item['group'],item['slot'],9,35,0),1001,account_id=1,session_id=connection,sequence=1)
+        camp(self.session,[],clock=lambda:0,wall=lambda:1800000000)
+        self.assertEqual(camp(self.session,[],clock=lambda:200,wall=lambda:1800000200),[])
+        before=self.account.get_inventory_snapshot()['balances']['revision']
+        move(self.path,struct.pack('>BiBiB',9,35,item['group'],item['slot'],0),1001,account_id=1,session_id=connection,sequence=2)
+        self.assertEqual(self.account.get_inventory_snapshot()['balances']['revision'],before)
+        self.assertEqual(camp(self.session,[],clock=lambda:251,wall=lambda:1800000251),[])
+        self.assertEqual([e.kind for e in camp(self.session,[],clock=lambda:360,wall=lambda:1800000360)],[0x3a2])
+
+    def test_artifact_ring_adaptation_follows_real_independent_equipment_moves(self):
+        import uuid
+        from els_server.storage.artifact_progression import move
+        from els_server.storage.growth_guide_stats import adaptation
+        from els_server.storage.seal_quests import load_character
+        from els_server.storage.inventory_state import load_items
+        with closing(sqlite3.connect(self.path))as db,db:
+            db.execute('UPDATE characters SET unit_class=79,transcendence=1,master=1 WHERE uid=1001')
+            db.execute("INSERT OR REPLACE INTO character_artifacts VALUES (1001,1,1,1,0,'[0,0,0,0]')")
+            db.execute("INSERT INTO completed_quests VALUES(1001,26670,1,'{}')")
+        self.box(self.give(721766),'ring-kit')
+        def current():
+            with closing(sqlite3.connect(self.path))as db:return adaptation(db,1001,load_character(db,1001),load_items(db,1001))
+        self.assertEqual(current(),0)
+        self.open();self.assertEqual(self.row(168200)['objectives'],{165910:0})
+        rings=[i for i in self.account.get_inventory_snapshot()['items']if i['template']==168603]
+        session=str(uuid.uuid4())
+        for n,item in enumerate(rings):
+            ack=move(self.path,struct.pack('>BiBiB',item['group'],item['slot'],24,3+n,0),1001,account_id=1,session_id=session,sequence=n+1)
+        out=synchronize(self.session,[Event(0x201,kind=0x105,payload=ack)])
+        self.assertIn(0xf3,[e.kind for e in out])
+        self.assertEqual(self.row(168200)['objectives'],{165910:2})
+        self.assertEqual(current(),2)
+        move(self.path,struct.pack('>BiBiB',24,3,1,rings[0]['slot'],0),1001,account_id=1,session_id=session,sequence=3)
+        self.assertEqual(current(),1)
+        # Replaying the original move must not re-equip the removed ring.
+        move(self.path,struct.pack('>BiBiB',rings[0]['group'],rings[0]['slot'],24,3,0),1001,account_id=1,session_id=session,sequence=1)
+        self.assertEqual(current(),1)
 
 if __name__=='__main__':unittest.main()

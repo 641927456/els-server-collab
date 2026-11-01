@@ -122,8 +122,8 @@
     {
       "path": "els_server/domain/growth_guide_flow.py",
       "source": "references/growth-guide-permanent-20261101-v1/source/els_server/domain/growth_guide_flow.py",
-      "size": 5002,
-      "sha256": "d3ed32857efbb1299b1761d1ee0849e5d6421997a3afeb3230a3fcef5418971b",
+      "size": 5095,
+      "sha256": "66ccdd9d8571e869d4c013bf04c24194130ed810e5893d66613d15635230706a",
       "root_parent_sha256": null
     },
     {
@@ -185,8 +185,8 @@
     {
       "path": "els_server/domain/town_rest_buffs.py",
       "source": "references/growth-guide-permanent-20261101-v1/source/els_server/domain/town_rest_buffs.py",
-      "size": 2795,
-      "sha256": "b99f6a5172c4be05a43008b0ac02fed7b35b64c8aef43e56cb55fbe588095830",
+      "size": 3383,
+      "sha256": "e21d6d9dde12c30a807d6d35ef89dc951a12eec07e6905cd3eff26d560ddbbae",
       "root_parent_sha256": null
     },
     {
@@ -199,8 +199,8 @@
     {
       "path": "els_server/protocol/growth_guide_messages.py",
       "source": "references/growth-guide-permanent-20261101-v1/source/els_server/protocol/growth_guide_messages.py",
-      "size": 986,
-      "sha256": "0696dc697b5c36276ecb560eb4596c3ded8b35890132127a387e80097b2cd436",
+      "size": 1036,
+      "sha256": "4cd4827f9974fe8c6a87b0c401a8c5f43e063653489aa5d31772566dfa16737a",
       "root_parent_sha256": null
     },
     {
@@ -262,8 +262,8 @@
     {
       "path": "els_server/storage/growth_guide_stats.py",
       "source": "references/growth-guide-permanent-20261101-v1/source/els_server/storage/growth_guide_stats.py",
-      "size": 5653,
-      "sha256": "e4d7286810349ce5244efc71741206a64992cdcf278ea661485e40a708fd3efc",
+      "size": 6136,
+      "sha256": "1117f81ee186121a867850e5445a1d680c5702a588ac3839891fbe07c2f92b64",
       "root_parent_sha256": null
     },
     {
@@ -318,8 +318,8 @@
     {
       "path": "tests/test_growth_guide.py",
       "source": "references/growth-guide-permanent-20261101-v1/source/tests/test_growth_guide.py",
-      "size": 24540,
-      "sha256": "9f97318c0909ad72e69ee65e8225c074084e80b2d180f74e2c9cecd24bee7f8d",
+      "size": 32056,
+      "sha256": "43f0b1e4e3fbddde188fc7ed42f4112a8505d0622420b096f4e8983ab4f1493d",
       "root_parent_sha256": null
     },
     {
@@ -342,12 +342,45 @@
       "size": 2655,
       "sha256": "eb53ed9844c7355e49706469c113f22bd7f1ce9ddd06a4e66814d99b62e5f0f5",
       "root_parent_sha256": "3b2cc4287881d85321ea09e5c461a7d8830ad2676071ab4b9f91ef05f9525fe7"
+    },
+    {
+      "path": "els_server/domain/town_rest_rules.py",
+      "source": "references/growth-guide-permanent-20261101-v1/source/els_server/domain/town_rest_rules.py",
+      "root_parent_sha256": null,
+      "size": 3126,
+      "sha256": "4cd73f3cffe3c22ec3ed31523ea718c7756f622afd718d7b3c80bf9176a3ab91"
+    },
+    {
+      "path": "els_server/data/town_rest.json",
+      "source": "references/growth-guide-permanent-20261101-v1/source/els_server/data/town_rest.json",
+      "root_parent_sha256": null,
+      "size": 9971,
+      "sha256": "d0ce9deddfd31173fcd03ba65775ef828c1f0377235e8c4cecbe61085f4bfed7"
+    },
+    {
+      "path": "els_server/data/town_rest.manifest.json",
+      "source": "references/growth-guide-permanent-20261101-v1/source/els_server/data/town_rest.manifest.json",
+      "root_parent_sha256": null,
+      "size": 91,
+      "sha256": "84c49437ed8c3054a02dd1d396984f80bb1ff86e9c262cca48eccc6f3fc0f5fb"
+    },
+    {
+      "path": "els_server/domain/activity_2026_stack_policy.py",
+      "source": "references/growth-guide-permanent-20261101-v1/source/els_server/domain/activity_2026_stack_policy.py",
+      "root_parent_sha256": "d6af40a53020819326c257c40b70e308ce95f77b4c42eb1e1575a78b29d07d12",
+      "size": 613,
+      "sha256": "64fa03b619f652eccc7cf8f7a6f95f1473eccb4532e2f3934588faeaccfe8dcf"
+    },
+    {
+      "path": "els_server/protocol/mount_messages.py",
+      "source": "references/growth-guide-permanent-20261101-v1/source/els_server/protocol/mount_messages.py",
+      "root_parent_sha256": "722aea224d1261cf8fe5870941a6c975ffb829ab568cb3a8b1c02db635962a6e",
+      "size": 1310,
+      "sha256": "68a69682fd84088ff56b8436f435bcb6cddd937433b31add87d7669bc2f8be7c"
     }
   ],
   "delivery_blockers": [
-    "Adaptation qualification: circuit/chip and condition-dependent sources are not fully verified",
-    "Special camp-avatar wait reductions are not connected",
-    "Natural client GUI, mount countdown display and deployed runtime have not been verified"
+    "Formal deployment and installed runtime acceptance remain with the designated release owner; include normal claim/relogin and native mount countdown rendering"
   ],
   "private_evidence_root": "G:/els/analysis/growth-guide-permanent-20261101-v1"
 }
