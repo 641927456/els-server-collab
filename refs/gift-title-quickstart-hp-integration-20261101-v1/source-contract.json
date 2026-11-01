@@ -1,0 +1,701 @@
+{
+  "integration": "ROOT reference-only integration; does not activate repository root runtime",
+  "source_merge_sha256": "99e7f972b2b6f0d3a45bc50f48f8d0fa3dcaaf722cfcf8a61b415f30f5aa5ac1",
+  "recovery_manifest_sha256": "311dc4ff0ef27299ae3a2c086aa348d83bb2ae4c3ddf938de272f339985586f3",
+  "observed_main": "0606da503dd9aa71a0b4af8e7f89fa5cb7eacad7",
+  "observed_main_is_not_future_commit_base": true,
+  "parent_launcher_version": 65,
+  "planned_launcher_version": 66,
+  "scope": [
+    "gift-common2-plus-ONLINE-campaign2",
+    "title-common6-with-LOCAL-session-variant",
+    "ONLINE-only-QuickStart1",
+    "approved-BossHP3"
+  ],
+  "channels": {
+    "online": {
+      "parent_release": "native-weapon-growth-lifecycle-20261101-v1",
+      "parent_manifest_sha256": "75dd10225e4b4ce4923a8cab3d66e8560cca8c8314d8ea5a8cf4915670eff2fe",
+      "runtime_delta": 14,
+      "new_files": 3,
+      "preserve_all_other_parent_files": true,
+      "files": [
+        {
+          "runtime_path": "els_server/domain/identification_ui.py",
+          "parent_sha256": "2e2c9513f7586c4edceff0f09ab0b111bc26e517bd747f5a67dadd26fddb0e71",
+          "unit": "gift",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/identification_ui.py",
+            "size": 14254,
+            "sha256": "f5c0ce3464b48d7e6d8e5bdef762a903f11adbe6945dad803b3ba492deab3d71",
+            "git_blob_sha1": "1975fcfbe70825243934f27b1d33834547a3198a"
+          }
+        },
+        {
+          "runtime_path": "els_server/data/identification_ui.json",
+          "parent_sha256": "4101062fe320b4accf5b03f7081474216396e74a9f67f3ed9f73c82927b4aba6",
+          "unit": "gift",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/identification_ui.json",
+            "size": 2467001,
+            "sha256": "975267cf7efc8bbda24ad26d6202ff9f590bef64e140ed0c9a2892a5d8d03df9",
+            "git_blob_sha1": "1c51e7ba6ff2ab40985bdd06ff20c8e0a7d8fcbe"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/abyss_weapon_2026.py",
+          "parent_sha256": "183f773ce8adaf842dba900013f08077dd77175a7936a2562c005142983f0dc2",
+          "unit": "gift",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/online/els_server/domain/abyss_weapon_2026.py",
+            "size": 4055,
+            "sha256": "841e3c3701819779cd4640eb3f7fc1a90614efbddf1853f9ed76b4ea21116fbe",
+            "git_blob_sha1": "931d8d47d4509548f0a68c79684f49effd9dca6c"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/abyss_weapon_boxes.py",
+          "parent_sha256": "a782ad5f63ff1cef5ceb1e166869a69b310ef5750e3389ddd4840303c9fa55ea",
+          "unit": "gift",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/online/els_server/storage/abyss_weapon_boxes.py",
+            "size": 4194,
+            "sha256": "66bb9face31e1e31bae21b83710a19d2a89b48bc2790c103c5b86c045340d097",
+            "git_blob_sha1": "7308de5460d15be3359803aeaa73c665592c6503"
+          }
+        },
+        {
+          "runtime_path": "els_server/data/title_essence.json",
+          "parent_sha256": null,
+          "unit": "title",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/title_essence.json",
+            "size": 1418,
+            "sha256": "62074d1053a6c7d6cec028bd7bca2a05b0f933949995ed6149aa84219c5987cd",
+            "git_blob_sha1": "320552c016f64be2cd8e12f9d889690a43d2a1e0"
+          }
+        },
+        {
+          "runtime_path": "els_server/data/title_essence.manifest.json",
+          "parent_sha256": null,
+          "unit": "title",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/title_essence.manifest.json",
+            "size": 102,
+            "sha256": "905fc5659aa6d86c96ce1db2c895b8d3e1f9622876040d15858509fbffbbfcb1",
+            "git_blob_sha1": "596591af914c070c978b6a8bd1f48b5155fda9cc"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/boosting_2026_essence.py",
+          "parent_sha256": "aced1f000c026de01bb84718cbb8baed48aa919303c5eb566d5f01e7ef0b3484",
+          "unit": "title",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/boosting_2026_essence.py",
+            "size": 1507,
+            "sha256": "5c7e55a83225c52b207d2a75820a6e35a16ed9cbf7abfddc9c6c5fff5faee75b",
+            "git_blob_sha1": "4b65b4ee3f5453e566b0bd17405fc8d9eee68420"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/local_session.py",
+          "parent_sha256": "5b933436436dfa8b55b6c9386ccd2113439a61de4727da47c3db5a65e37bfd93",
+          "unit": "title",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/online/els_server/domain/local_session.py",
+            "size": 151200,
+            "sha256": "507d86bbb247a4f740a82d2646b27dfab016150243e3ae4ec732d8602ad32d6c",
+            "git_blob_sha1": "45df10f277686fbba3b80996e48adbdaedc24b48"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/title_essence.py",
+          "parent_sha256": null,
+          "unit": "title",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/title_essence.py",
+            "size": 956,
+            "sha256": "58663aedeb581ad33503c7ca5d547934df213c742ecf460a232a2b8ef92d4456",
+            "git_blob_sha1": "46470bb2c4a74bd2ab22afe61cebafc766de8a32"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/boosting_2026_essence.py",
+          "parent_sha256": "97f360eecf84b6806d2fda9d61877fd3a75e1bf11cf65cedcf4971f2f2bdeee4",
+          "unit": "title",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/storage/boosting_2026_essence.py",
+            "size": 5359,
+            "sha256": "992f09dbe88b000b02b6ff9053e0bcd22e7cbfb0fef73ac55e0f45501438bf08",
+            "git_blob_sha1": "b1490ac9dbc0aee27d28660382c030068bf9bcbe"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/quick_start.py",
+          "parent_sha256": "4857d9e8caf42974790ae282be79d305a8d4e89c598f68a9858ae052619caecf",
+          "unit": "quickstart",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/online/els_server/domain/quick_start.py",
+            "size": 3374,
+            "sha256": "989d7831a1a3779f8681a2f790f2346535f6fdee1ccb7219ad3e9f9d30a258fd",
+            "git_blob_sha1": "dcc5e2acf81c13d9406f8889dc2fb72f4eb097a4"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/formal_npc_hp.py",
+          "parent_sha256": "9dbf363bfa6ff82303ac2f9e1b96838269b6f998dc465ebe9bfc3cd5bdfbd08b",
+          "unit": "BossHP",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/formal_npc_hp.py",
+            "size": 15502,
+            "sha256": "64216c4f70c05233671df08dec46efe74d3ac0f5bae37d398cbfbe49a62c6082",
+            "git_blob_sha1": "4b1767cec21386ba496d03c7394d3fe10e9828ee"
+          }
+        },
+        {
+          "runtime_path": "els_server/data/formal_npc_hp.json",
+          "parent_sha256": "d4449c1ec8f0b15be82112b6f96099e9c3c0c6d7ae1760e25c24e2e707f00bf3",
+          "unit": "BossHP",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/formal_npc_hp.json",
+            "size": 3710245,
+            "sha256": "9848e0adf6c678fe26870f524ab1c3d6ee0881f2cf2092c8e022c278c96f4eeb",
+            "git_blob_sha1": "47befb9e071f9f4eaebe5b92d7c79167f3a49dd7"
+          }
+        },
+        {
+          "runtime_path": "els_server/data/formal_npc_hp.manifest.json",
+          "parent_sha256": "c1f94162822643a4394b1991edc0377b41e90be24e9c53ee6c501b03ae887b11",
+          "unit": "BossHP",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/formal_npc_hp.manifest.json",
+            "size": 201,
+            "sha256": "7fde732b78f549f99b943b2c302f73705f13e0927825cbdbf0789ce840122b9d",
+            "git_blob_sha1": "9cb25f74f7bbfe84683038ae9bc536fb77dbaa43"
+          }
+        }
+      ]
+    },
+    "local": {
+      "parent_release": "local-native-weapon-growth-lifecycle-20261101-v1",
+      "parent_manifest_sha256": "67312b71147c9a9fb851a38e6b397b171016207f2dd52f896f23f2a77be7b1e8",
+      "runtime_delta": 11,
+      "new_files": 3,
+      "preserve_all_other_parent_files": true,
+      "files": [
+        {
+          "runtime_path": "els_server/domain/identification_ui.py",
+          "parent_sha256": "2e2c9513f7586c4edceff0f09ab0b111bc26e517bd747f5a67dadd26fddb0e71",
+          "unit": "gift",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/identification_ui.py",
+            "size": 14254,
+            "sha256": "f5c0ce3464b48d7e6d8e5bdef762a903f11adbe6945dad803b3ba492deab3d71",
+            "git_blob_sha1": "1975fcfbe70825243934f27b1d33834547a3198a"
+          }
+        },
+        {
+          "runtime_path": "els_server/data/identification_ui.json",
+          "parent_sha256": "4101062fe320b4accf5b03f7081474216396e74a9f67f3ed9f73c82927b4aba6",
+          "unit": "gift",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/identification_ui.json",
+            "size": 2467001,
+            "sha256": "975267cf7efc8bbda24ad26d6202ff9f590bef64e140ed0c9a2892a5d8d03df9",
+            "git_blob_sha1": "1c51e7ba6ff2ab40985bdd06ff20c8e0a7d8fcbe"
+          }
+        },
+        {
+          "runtime_path": "els_server/data/title_essence.json",
+          "parent_sha256": null,
+          "unit": "title",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/title_essence.json",
+            "size": 1418,
+            "sha256": "62074d1053a6c7d6cec028bd7bca2a05b0f933949995ed6149aa84219c5987cd",
+            "git_blob_sha1": "320552c016f64be2cd8e12f9d889690a43d2a1e0"
+          }
+        },
+        {
+          "runtime_path": "els_server/data/title_essence.manifest.json",
+          "parent_sha256": null,
+          "unit": "title",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/title_essence.manifest.json",
+            "size": 102,
+            "sha256": "905fc5659aa6d86c96ce1db2c895b8d3e1f9622876040d15858509fbffbbfcb1",
+            "git_blob_sha1": "596591af914c070c978b6a8bd1f48b5155fda9cc"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/boosting_2026_essence.py",
+          "parent_sha256": "aced1f000c026de01bb84718cbb8baed48aa919303c5eb566d5f01e7ef0b3484",
+          "unit": "title",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/boosting_2026_essence.py",
+            "size": 1507,
+            "sha256": "5c7e55a83225c52b207d2a75820a6e35a16ed9cbf7abfddc9c6c5fff5faee75b",
+            "git_blob_sha1": "4b65b4ee3f5453e566b0bd17405fc8d9eee68420"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/local_session.py",
+          "parent_sha256": "8d4f485af0c1fb3a54ed4525f0056e18e88a9b65fbff4bc593202b25d1e23c28",
+          "unit": "title",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/local/els_server/domain/local_session.py",
+            "size": 148386,
+            "sha256": "c2d5b5276f40864497bef664ea0f42588f1eb3cccdbb336950787025dc035ec9",
+            "git_blob_sha1": "2dd9cfc3a4aaad46352545e14a153b3e27f01459"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/title_essence.py",
+          "parent_sha256": null,
+          "unit": "title",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/title_essence.py",
+            "size": 956,
+            "sha256": "58663aedeb581ad33503c7ca5d547934df213c742ecf460a232a2b8ef92d4456",
+            "git_blob_sha1": "46470bb2c4a74bd2ab22afe61cebafc766de8a32"
+          }
+        },
+        {
+          "runtime_path": "els_server/storage/boosting_2026_essence.py",
+          "parent_sha256": "97f360eecf84b6806d2fda9d61877fd3a75e1bf11cf65cedcf4971f2f2bdeee4",
+          "unit": "title",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/storage/boosting_2026_essence.py",
+            "size": 5359,
+            "sha256": "992f09dbe88b000b02b6ff9053e0bcd22e7cbfb0fef73ac55e0f45501438bf08",
+            "git_blob_sha1": "b1490ac9dbc0aee27d28660382c030068bf9bcbe"
+          }
+        },
+        {
+          "runtime_path": "els_server/domain/formal_npc_hp.py",
+          "parent_sha256": "9dbf363bfa6ff82303ac2f9e1b96838269b6f998dc465ebe9bfc3cd5bdfbd08b",
+          "unit": "BossHP",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/formal_npc_hp.py",
+            "size": 15502,
+            "sha256": "64216c4f70c05233671df08dec46efe74d3ac0f5bae37d398cbfbe49a62c6082",
+            "git_blob_sha1": "4b1767cec21386ba496d03c7394d3fe10e9828ee"
+          }
+        },
+        {
+          "runtime_path": "els_server/data/formal_npc_hp.json",
+          "parent_sha256": "d4449c1ec8f0b15be82112b6f96099e9c3c0c6d7ae1760e25c24e2e707f00bf3",
+          "unit": "BossHP",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/formal_npc_hp.json",
+            "size": 3710245,
+            "sha256": "9848e0adf6c678fe26870f524ab1c3d6ee0881f2cf2092c8e022c278c96f4eeb",
+            "git_blob_sha1": "47befb9e071f9f4eaebe5b92d7c79167f3a49dd7"
+          }
+        },
+        {
+          "runtime_path": "els_server/data/formal_npc_hp.manifest.json",
+          "parent_sha256": "c1f94162822643a4394b1991edc0377b41e90be24e9c53ee6c501b03ae887b11",
+          "unit": "BossHP",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/formal_npc_hp.manifest.json",
+            "size": 201,
+            "sha256": "7fde732b78f549f99b943b2c302f73705f13e0927825cbdbf0789ce840122b9d",
+            "git_blob_sha1": "9cb25f74f7bbfe84683038ae9bc536fb77dbaa43"
+          }
+        }
+      ]
+    }
+  },
+  "new_runtime_files": 3,
+  "independent_normal_blobs": 15,
+  "common_identification_JSON_stored_once": true,
+  "semantic_profile_additions": {
+    "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/provenance/identification-profile-additions.json",
+    "size": 24320,
+    "sha256": "0334f8d3ffeb4492612cc9208bd092e63cb4f46524491703a855b3b3397fb5a9",
+    "git_blob_sha1": "ae153f91df523b2f84129ac8fe66f13f83d187eb"
+  },
+  "author_source_contracts": [
+    {
+      "unit": "gift",
+      "sha256": "186a1c84c9852fba13f4e378fb7ce31ec3e060279afa15cae36e5393260616ef"
+    },
+    {
+      "unit": "title",
+      "review_sha256": "6319f5a2e5bbf33c7bfe99d0c82f49a0b6746ffbf4b44c59e9809906071af5e9"
+    },
+    {
+      "unit": "quickstart",
+      "review_sha256": "a25125c4bc8f70f88501440e94c43b533610678dfb90f5d369236d4585cd90cf"
+    },
+    {
+      "unit": "BossHP",
+      "manifest_sha256": "3f10bc84245fffe8e622072bd64ca660ba4f3f033a4e977358eda4e3e564c5cf"
+    }
+  ],
+  "human_HP_approval": {
+    "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/provenance/human-combat-HP-authorization.json",
+    "size": 400,
+    "sha256": "98e7ea68b109b695205274586479b72efab8b12102133f15e06d9f911c1cdbab",
+    "git_blob_sha1": "75601bd2fbaddcbbee861f0549073d96f7f238de"
+  },
+  "human_engraving_preset_approval": "三行实用预设：对应物／魔攻击、暴击伤害、全技能伤害，使用现有灿烂刻印的固定最高档",
+  "unapproved_136186_finite_pool_activated": false,
+  "original_pools_and_old_profiles_unchanged": true,
+  "recovery": {
+    "source_only": true,
+    "safe_for_saved_data": null,
+    "player_database_restore": false,
+    "channels": {
+      "online": [
+        {
+          "runtime_path": "els_server/domain/identification_ui.py",
+          "normal_sha256": "f5c0ce3464b48d7e6d8e5bdef762a903f11adbe6945dad803b3ba492deab3d71",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/identification_ui.py",
+            "size": 14254,
+            "sha256": "f5c0ce3464b48d7e6d8e5bdef762a903f11adbe6945dad803b3ba492deab3d71",
+            "git_blob_sha1": "1975fcfbe70825243934f27b1d33834547a3198a"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/data/identification_ui.json",
+          "normal_sha256": "975267cf7efc8bbda24ad26d6202ff9f590bef64e140ed0c9a2892a5d8d03df9",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/identification_ui.json",
+            "size": 2467001,
+            "sha256": "975267cf7efc8bbda24ad26d6202ff9f590bef64e140ed0c9a2892a5d8d03df9",
+            "git_blob_sha1": "1c51e7ba6ff2ab40985bdd06ff20c8e0a7d8fcbe"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/domain/abyss_weapon_2026.py",
+          "normal_sha256": "841e3c3701819779cd4640eb3f7fc1a90614efbddf1853f9ed76b4ea21116fbe",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/online/els_server/domain/abyss_weapon_2026.py",
+            "size": 4055,
+            "sha256": "841e3c3701819779cd4640eb3f7fc1a90614efbddf1853f9ed76b4ea21116fbe",
+            "git_blob_sha1": "931d8d47d4509548f0a68c79684f49effd9dca6c"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/storage/abyss_weapon_boxes.py",
+          "normal_sha256": "66bb9face31e1e31bae21b83710a19d2a89b48bc2790c103c5b86c045340d097",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/online/els_server/storage/abyss_weapon_boxes.py",
+            "size": 4194,
+            "sha256": "66bb9face31e1e31bae21b83710a19d2a89b48bc2790c103c5b86c045340d097",
+            "git_blob_sha1": "7308de5460d15be3359803aeaa73c665592c6503"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/data/title_essence.json",
+          "normal_sha256": "62074d1053a6c7d6cec028bd7bca2a05b0f933949995ed6149aa84219c5987cd",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/title_essence.json",
+            "size": 1418,
+            "sha256": "62074d1053a6c7d6cec028bd7bca2a05b0f933949995ed6149aa84219c5987cd",
+            "git_blob_sha1": "320552c016f64be2cd8e12f9d889690a43d2a1e0"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/data/title_essence.manifest.json",
+          "normal_sha256": "905fc5659aa6d86c96ce1db2c895b8d3e1f9622876040d15858509fbffbbfcb1",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/title_essence.manifest.json",
+            "size": 102,
+            "sha256": "905fc5659aa6d86c96ce1db2c895b8d3e1f9622876040d15858509fbffbbfcb1",
+            "git_blob_sha1": "596591af914c070c978b6a8bd1f48b5155fda9cc"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/domain/boosting_2026_essence.py",
+          "normal_sha256": "5c7e55a83225c52b207d2a75820a6e35a16ed9cbf7abfddc9c6c5fff5faee75b",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/boosting_2026_essence.py",
+            "size": 1507,
+            "sha256": "5c7e55a83225c52b207d2a75820a6e35a16ed9cbf7abfddc9c6c5fff5faee75b",
+            "git_blob_sha1": "4b65b4ee3f5453e566b0bd17405fc8d9eee68420"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/domain/local_session.py",
+          "normal_sha256": "507d86bbb247a4f740a82d2646b27dfab016150243e3ae4ec732d8602ad32d6c",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/online/els_server/domain/local_session.py",
+            "size": 151200,
+            "sha256": "507d86bbb247a4f740a82d2646b27dfab016150243e3ae4ec732d8602ad32d6c",
+            "git_blob_sha1": "45df10f277686fbba3b80996e48adbdaedc24b48"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/domain/title_essence.py",
+          "normal_sha256": "58663aedeb581ad33503c7ca5d547934df213c742ecf460a232a2b8ef92d4456",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/title_essence.py",
+            "size": 956,
+            "sha256": "58663aedeb581ad33503c7ca5d547934df213c742ecf460a232a2b8ef92d4456",
+            "git_blob_sha1": "46470bb2c4a74bd2ab22afe61cebafc766de8a32"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/storage/boosting_2026_essence.py",
+          "normal_sha256": "992f09dbe88b000b02b6ff9053e0bcd22e7cbfb0fef73ac55e0f45501438bf08",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/recovery/shared/els_server/storage/boosting_2026_essence.py",
+            "size": 5464,
+            "sha256": "22bcf30e637d99808442400aa43843d84a9178ad8c329af016f99aab4392ec4c",
+            "git_blob_sha1": "d014203fe73703e8d45080764636da0d26a6adff"
+          },
+          "producer_gate": true,
+          "scope": "new_skill_zero_title_consume_paused_after_exact_receipt_return"
+        },
+        {
+          "runtime_path": "els_server/domain/quick_start.py",
+          "normal_sha256": "989d7831a1a3779f8681a2f790f2346535f6fdee1ccb7219ad3e9f9d30a258fd",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/recovery/online/els_server/domain/quick_start.py",
+            "size": 3467,
+            "sha256": "dcd6625e8571d782c43034fd8eaf10aa8a4b0968e6385a1168d15496fb10b760",
+            "git_blob_sha1": "9372f6ebe0ba6a9f67c9ec7f6d040378afdb1b3e"
+          },
+          "producer_gate": true,
+          "scope": "new_C56_zero_paused_domain_called_only_after_no_old_receipt"
+        },
+        {
+          "runtime_path": "els_server/storage/identification_ui.py",
+          "normal_sha256": "9e0668115954a6c5e98fea5e7295ce7bfacf8463ab07a52e4af18459ca700a55",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/recovery/shared/els_server/storage/identification_ui.py",
+            "size": 5446,
+            "sha256": "9ff48abd45a634a2838a6e9efa1275a7537c655ab5901d66ae4e707c51b30555",
+            "git_blob_sha1": "a1fbd62b8b83614eaaa0450750f413056281b734"
+          },
+          "producer_gate": true,
+          "scope": "existing_V65_accessory_and_compatibility_identification_guards_rebuilt"
+        },
+        {
+          "runtime_path": "els_server/domain/formal_npc_hp.py",
+          "normal_sha256": "64216c4f70c05233671df08dec46efe74d3ac0f5bae37d398cbfbe49a62c6082",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/formal_npc_hp.py",
+            "size": 15502,
+            "sha256": "64216c4f70c05233671df08dec46efe74d3ac0f5bae37d398cbfbe49a62c6082",
+            "git_blob_sha1": "4b1767cec21386ba496d03c7394d3fe10e9828ee"
+          },
+          "producer_gate": false,
+          "scope": "retain_new_combat_HP_policy"
+        },
+        {
+          "runtime_path": "els_server/data/formal_npc_hp.json",
+          "normal_sha256": "9848e0adf6c678fe26870f524ab1c3d6ee0881f2cf2092c8e022c278c96f4eeb",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/formal_npc_hp.json",
+            "size": 3710245,
+            "sha256": "9848e0adf6c678fe26870f524ab1c3d6ee0881f2cf2092c8e022c278c96f4eeb",
+            "git_blob_sha1": "47befb9e071f9f4eaebe5b92d7c79167f3a49dd7"
+          },
+          "producer_gate": false,
+          "scope": "retain_new_combat_HP_policy"
+        },
+        {
+          "runtime_path": "els_server/data/formal_npc_hp.manifest.json",
+          "normal_sha256": "7fde732b78f549f99b943b2c302f73705f13e0927825cbdbf0789ce840122b9d",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/formal_npc_hp.manifest.json",
+            "size": 201,
+            "sha256": "7fde732b78f549f99b943b2c302f73705f13e0927825cbdbf0789ce840122b9d",
+            "git_blob_sha1": "9cb25f74f7bbfe84683038ae9bc536fb77dbaa43"
+          },
+          "producer_gate": false,
+          "scope": "retain_new_combat_HP_policy"
+        }
+      ],
+      "local": [
+        {
+          "runtime_path": "els_server/domain/identification_ui.py",
+          "normal_sha256": "f5c0ce3464b48d7e6d8e5bdef762a903f11adbe6945dad803b3ba492deab3d71",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/identification_ui.py",
+            "size": 14254,
+            "sha256": "f5c0ce3464b48d7e6d8e5bdef762a903f11adbe6945dad803b3ba492deab3d71",
+            "git_blob_sha1": "1975fcfbe70825243934f27b1d33834547a3198a"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/data/identification_ui.json",
+          "normal_sha256": "975267cf7efc8bbda24ad26d6202ff9f590bef64e140ed0c9a2892a5d8d03df9",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/identification_ui.json",
+            "size": 2467001,
+            "sha256": "975267cf7efc8bbda24ad26d6202ff9f590bef64e140ed0c9a2892a5d8d03df9",
+            "git_blob_sha1": "1c51e7ba6ff2ab40985bdd06ff20c8e0a7d8fcbe"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/data/title_essence.json",
+          "normal_sha256": "62074d1053a6c7d6cec028bd7bca2a05b0f933949995ed6149aa84219c5987cd",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/title_essence.json",
+            "size": 1418,
+            "sha256": "62074d1053a6c7d6cec028bd7bca2a05b0f933949995ed6149aa84219c5987cd",
+            "git_blob_sha1": "320552c016f64be2cd8e12f9d889690a43d2a1e0"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/data/title_essence.manifest.json",
+          "normal_sha256": "905fc5659aa6d86c96ce1db2c895b8d3e1f9622876040d15858509fbffbbfcb1",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/title_essence.manifest.json",
+            "size": 102,
+            "sha256": "905fc5659aa6d86c96ce1db2c895b8d3e1f9622876040d15858509fbffbbfcb1",
+            "git_blob_sha1": "596591af914c070c978b6a8bd1f48b5155fda9cc"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/domain/boosting_2026_essence.py",
+          "normal_sha256": "5c7e55a83225c52b207d2a75820a6e35a16ed9cbf7abfddc9c6c5fff5faee75b",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/boosting_2026_essence.py",
+            "size": 1507,
+            "sha256": "5c7e55a83225c52b207d2a75820a6e35a16ed9cbf7abfddc9c6c5fff5faee75b",
+            "git_blob_sha1": "4b65b4ee3f5453e566b0bd17405fc8d9eee68420"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/domain/local_session.py",
+          "normal_sha256": "c2d5b5276f40864497bef664ea0f42588f1eb3cccdbb336950787025dc035ec9",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/local/els_server/domain/local_session.py",
+            "size": 148386,
+            "sha256": "c2d5b5276f40864497bef664ea0f42588f1eb3cccdbb336950787025dc035ec9",
+            "git_blob_sha1": "2dd9cfc3a4aaad46352545e14a153b3e27f01459"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/domain/title_essence.py",
+          "normal_sha256": "58663aedeb581ad33503c7ca5d547934df213c742ecf460a232a2b8ef92d4456",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/title_essence.py",
+            "size": 956,
+            "sha256": "58663aedeb581ad33503c7ca5d547934df213c742ecf460a232a2b8ef92d4456",
+            "git_blob_sha1": "46470bb2c4a74bd2ab22afe61cebafc766de8a32"
+          },
+          "producer_gate": false,
+          "scope": "retained_new_reader"
+        },
+        {
+          "runtime_path": "els_server/storage/boosting_2026_essence.py",
+          "normal_sha256": "992f09dbe88b000b02b6ff9053e0bcd22e7cbfb0fef73ac55e0f45501438bf08",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/recovery/shared/els_server/storage/boosting_2026_essence.py",
+            "size": 5464,
+            "sha256": "22bcf30e637d99808442400aa43843d84a9178ad8c329af016f99aab4392ec4c",
+            "git_blob_sha1": "d014203fe73703e8d45080764636da0d26a6adff"
+          },
+          "producer_gate": true,
+          "scope": "new_skill_zero_title_consume_paused_after_exact_receipt_return"
+        },
+        {
+          "runtime_path": "els_server/storage/identification_ui.py",
+          "normal_sha256": "9e0668115954a6c5e98fea5e7295ce7bfacf8463ab07a52e4af18459ca700a55",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/recovery/shared/els_server/storage/identification_ui.py",
+            "size": 5446,
+            "sha256": "9ff48abd45a634a2838a6e9efa1275a7537c655ab5901d66ae4e707c51b30555",
+            "git_blob_sha1": "a1fbd62b8b83614eaaa0450750f413056281b734"
+          },
+          "producer_gate": true,
+          "scope": "existing_V65_accessory_and_compatibility_identification_guards_rebuilt"
+        },
+        {
+          "runtime_path": "els_server/domain/formal_npc_hp.py",
+          "normal_sha256": "64216c4f70c05233671df08dec46efe74d3ac0f5bae37d398cbfbe49a62c6082",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/domain/formal_npc_hp.py",
+            "size": 15502,
+            "sha256": "64216c4f70c05233671df08dec46efe74d3ac0f5bae37d398cbfbe49a62c6082",
+            "git_blob_sha1": "4b1767cec21386ba496d03c7394d3fe10e9828ee"
+          },
+          "producer_gate": false,
+          "scope": "retain_new_combat_HP_policy"
+        },
+        {
+          "runtime_path": "els_server/data/formal_npc_hp.json",
+          "normal_sha256": "9848e0adf6c678fe26870f524ab1c3d6ee0881f2cf2092c8e022c278c96f4eeb",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/formal_npc_hp.json",
+            "size": 3710245,
+            "sha256": "9848e0adf6c678fe26870f524ab1c3d6ee0881f2cf2092c8e022c278c96f4eeb",
+            "git_blob_sha1": "47befb9e071f9f4eaebe5b92d7c79167f3a49dd7"
+          },
+          "producer_gate": false,
+          "scope": "retain_new_combat_HP_policy"
+        },
+        {
+          "runtime_path": "els_server/data/formal_npc_hp.manifest.json",
+          "normal_sha256": "7fde732b78f549f99b943b2c302f73705f13e0927825cbdbf0789ce840122b9d",
+          "archive": {
+            "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/normal/shared/els_server/data/formal_npc_hp.manifest.json",
+            "size": 201,
+            "sha256": "7fde732b78f549f99b943b2c302f73705f13e0927825cbdbf0789ce840122b9d",
+            "git_blob_sha1": "9cb25f74f7bbfe84683038ae9bc536fb77dbaa43"
+          },
+          "producer_gate": false,
+          "scope": "retain_new_combat_HP_policy"
+        }
+      ]
+    },
+    "identification_old_normal_anchor": {
+      "path": "refs/gift-title-quickstart-hp-integration-20261101-v1/parent/shared/els_server/storage/identification_ui.py",
+      "size": 5030,
+      "sha256": "9e0668115954a6c5e98fea5e7295ce7bfacf8463ab07a52e4af18459ca700a55",
+      "git_blob_sha1": "328c0f665d87c1e51c79fe1fe0c104f7e37b6dec"
+    },
+    "inherited_signed_LOCAL_guard_count": 9,
+    "new_title_guard_count": 1,
+    "new_QuickStart_guard_ONLINE_only": true,
+    "all_new_title_and_gift_readers_retained": true,
+    "BossHP_three_retained": true,
+    "other_inherited_guards_rebased_by_mature_builder": true
+  },
+  "schema_changes": false,
+  "install_DDL_statements": 0,
+  "client_or_Hook_delta": 0,
+  "revival_v1_held_pending_new_v2": true,
+  "revival_included": false,
+  "published": false,
+  "dual_installed": false,
+  "V66_actual_qualified": false
+}
