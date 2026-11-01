@@ -1,0 +1,432 @@
+{
+  "schema_version": 1,
+  "parent_source_head": "4e8530bed68edda142af30ae2f0460466311e79b",
+  "baselines": {
+    "online": {
+      "release": "native-gift-title-quickstart-hp-20261101-v1",
+      "manifest": "rollup-manifest.json",
+      "manifest_sha256": "b5efdcffcea816438d16ecaf8a4d3953cf7785082748fd12130839e5f4c98831"
+    },
+    "local": {
+      "release": "local-native-gift-title-quickstart-hp-20261101-v1",
+      "manifest": "local-business-manifest.json",
+      "manifest_sha256": "9769d7b7d49fbaec7199ab698c8b4c83c8e2b63dfb356865457c1d60cb89e06a"
+    }
+  },
+  "files": {
+    "online": [
+      {
+        "target": "els_server/data/identification_reset_items.json",
+        "source": "source/common/els_server/data/identification_reset_items.json",
+        "sha256": "4513ec04bb08d953980ab2859d5411e28815c96edfcf3434ea23a0ef3bba96d9",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/data/owned_scroll_families.json",
+        "source": "source/common/els_server/data/owned_scroll_families.json",
+        "sha256": "028fd5fb891bc88635b999f6fc2e79ad4f9170024d4ecd1a1131e6dba323fa73",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/data/resonance2026-reset-items.json",
+        "source": "source/common/els_server/data/resonance2026-reset-items.json",
+        "sha256": "95e976536d02ea3150012b878e67a26fd100608dfa0c3be2e6131cf3edea3666",
+        "baseline_sha256": "95e976536d02ea3150012b878e67a26fd100608dfa0c3be2e6131cf3edea3666"
+      },
+      {
+        "target": "els_server/data/skill_trait_reset_items.json",
+        "source": "source/common/els_server/data/skill_trait_reset_items.json",
+        "sha256": "05ada82ee94a901062d7173b28cf06f79ea8dd623eb44ddceacd65e95accab38",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/data/special_task_readers.json",
+        "source": "source/online/els_server/data/special_task_readers.json",
+        "sha256": "bd2f99a8cf340276b93963336e07d20c24e381a92e0cbed95baac317ad52f95f",
+        "baseline_sha256": "bd2f99a8cf340276b93963336e07d20c24e381a92e0cbed95baac317ad52f95f"
+      },
+      {
+        "target": "els_server/data/wisdom_potions.json",
+        "source": "source/common/els_server/data/wisdom_potions.json",
+        "sha256": "48b25c75362197366de02d6c38d1afe3d7150b32194a099be5678cf4b4186a5e",
+        "baseline_sha256": "48b25c75362197366de02d6c38d1afe3d7150b32194a099be5678cf4b4186a5e"
+      },
+      {
+        "target": "els_server/domain/artifact_flow.py",
+        "source": "source/common/els_server/domain/artifact_flow.py",
+        "sha256": "b7c05c1981af9821f9c8fa5f5f5e9a6ef680c1f25b58739d90b4ee9b7f622820",
+        "baseline_sha256": "62b00fa55a7a7dcf01d12555b75af4cfff44f47df316c1dc2b6162829d10a636"
+      },
+      {
+        "target": "els_server/domain/challenge_flow.py",
+        "source": "source/common/els_server/domain/challenge_flow.py",
+        "sha256": "a278ed1bb64b4b005fb6adfe2a02eca715989a2148c92d80be97c7fc440efabc",
+        "baseline_sha256": "9b4a886dbaa2efa9a789ffb1aa64deac26d41fcaf6a9acbc1b8c4703fa60b599"
+      },
+      {
+        "target": "els_server/domain/challenge_scroll.py",
+        "source": "source/common/els_server/domain/challenge_scroll.py",
+        "sha256": "cc2f16afdaafd9b35ea7de801f33286d3774ca2c6a49be0e1f716d3f8970e10c",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/domain/equipment_reforge_flow.py",
+        "source": "source/common/els_server/domain/equipment_reforge_flow.py",
+        "sha256": "4e1b2ede6ea668f538c44a8c4f960749e4b708fd6d82cd67630dcd295839b6bf",
+        "baseline_sha256": "0024d583eaab1bb590e78aff2f8073667048db99b9f6d2f824805c8c8cd3424c"
+      },
+      {
+        "target": "els_server/domain/identification_ui.py",
+        "source": "source/common/els_server/domain/identification_ui.py",
+        "sha256": "1f22863985c32ec4f8b309a7ba65927baf3aaa5d31c723f543143f802f9987d1",
+        "baseline_sha256": "f5c0ce3464b48d7e6d8e5bdef762a903f11adbe6945dad803b3ba492deab3d71"
+      },
+      {
+        "target": "els_server/domain/inventory_items.py",
+        "source": "source/online/els_server/domain/inventory_items.py",
+        "sha256": "2ceebd3372e1bda69bb59d87741080678ca3ada7310d1a8a141cf9b3d3529297",
+        "baseline_sha256": "a3c580d7e0a7d1ac84680a6b91d74f3c83373326fefaacf3eae28a137b4a3397"
+      },
+      {
+        "target": "els_server/domain/owned_scroll_families.py",
+        "source": "source/common/els_server/domain/owned_scroll_families.py",
+        "sha256": "0975cb5cc777aeb7cd5b7d1e4be2bbda3160c09dfb782795d050d668ca3e4e02",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/domain/raid_reward_flow.py",
+        "source": "source/common/els_server/domain/raid_reward_flow.py",
+        "sha256": "bb0ab85a1338edf26f60253337f72595be65516546f672f5530d622181a43899",
+        "baseline_sha256": "baddd6eefaf470f52b594118f147f1dd8f8e41539cc679425c8a9c2be64844f7"
+      },
+      {
+        "target": "els_server/domain/resonance_category_scroll.py",
+        "source": "source/common/els_server/domain/resonance_category_scroll.py",
+        "sha256": "9ae7d8d1123bf7d0cc313a486e7de3827622fee00cd7a3fb1c3cab89e99e3a19",
+        "baseline_sha256": "1953e7c73deb0a4baa63a7dda4cae9974b32e34fc583ddefbb2eefc24620b8d1"
+      },
+      {
+        "target": "els_server/domain/session_dispatch.py",
+        "source": "source/online/els_server/domain/session_dispatch.py",
+        "sha256": "4bbf57b7dba41a7610f723cada031fe5b1d075424115db82b0a6eb9f12087052",
+        "baseline_sha256": "363ce100506db5a2d09191ec2dec9d35a97401d9f65099b836324fa669960036"
+      },
+      {
+        "target": "els_server/domain/skill_trait_reset.py",
+        "source": "source/common/els_server/domain/skill_trait_reset.py",
+        "sha256": "1859061ffcd2907b305512a08f926e605b72cf5f98cd6eacbe289dd85cdbfdfc",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/domain/skill_trait_reset_flow.py",
+        "source": "source/common/els_server/domain/skill_trait_reset_flow.py",
+        "sha256": "49647102f739e78563796fa66417e4b447915127db35b21763b6ebc95be21127",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/domain/wisdom_potions.py",
+        "source": "source/common/els_server/domain/wisdom_potions.py",
+        "sha256": "de9369402a5c9885a538380a56f7063560505d24ec00639a41ce1d26638bf7a6",
+        "baseline_sha256": "64f673b3140a3f6bd8ff83adf0a34289ec91a687182eeaa07d13ea1157da1d18"
+      },
+      {
+        "target": "els_server/protocol/artifact_messages.py",
+        "source": "source/common/els_server/protocol/artifact_messages.py",
+        "sha256": "6ac5de17b192052c5da7cf514856273df0e2f281e0308b9418ad4ea7b69281d3",
+        "baseline_sha256": "79052af97c6505cc60532742d68c66bdcfcfc356239988e9534568ed9eb68db6"
+      },
+      {
+        "target": "els_server/protocol/equipment_restoration_messages.py",
+        "source": "source/common/els_server/protocol/equipment_restoration_messages.py",
+        "sha256": "4dc48a2f7e7cb06eee811391bbaf3870771b92e0545592717770ad3a0ccfdc25",
+        "baseline_sha256": "7c92f306536dd6ddfcc9ad3ead5c005c2d3849e8cf2abf881e5cd69c45bbb202"
+      },
+      {
+        "target": "els_server/protocol/reforge_scroll_messages.py",
+        "source": "source/common/els_server/protocol/reforge_scroll_messages.py",
+        "sha256": "e1092c9efe9eb89b4ad8ccd44c7835ad927c0bb329617cae3eda0d86c8dfabf8",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/storage/challenge_scroll.py",
+        "source": "source/common/els_server/storage/challenge_scroll.py",
+        "sha256": "3b36f1f96db596aa617e3d4120c9847e7d3ff84b1a2e1e3defb73c89f8d9e14f",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/storage/enhancement_scroll.py",
+        "source": "source/online/els_server/storage/enhancement_scroll.py",
+        "sha256": "fdd937dc07725fee2c94bc265ba02a7cd1b9f48f7f9e27f3cc05684060941755",
+        "baseline_sha256": "56a627d80bf8b22b9fffe059ef483dd0f92827a6923e71b869d9a066d807f63e"
+      },
+      {
+        "target": "els_server/storage/equipment_receipt_state.py",
+        "source": "source/online/els_server/storage/equipment_receipt_state.py",
+        "sha256": "d675d82624a73b87d40c1a2243e6f336acf8a23e0ee84ec1e84e74bba1a2885b",
+        "baseline_sha256": "146545dee169cfcac55e0f918d383531257b5d0021248d5b1b8b03ac8fd3d7d9"
+      },
+      {
+        "target": "els_server/storage/equipment_restoration.py",
+        "source": "source/common/els_server/storage/equipment_restoration.py",
+        "sha256": "6e21e34213d6e0b8c57842466c96ea5f22dee4ce79d771e1415ea2f01a5c48c1",
+        "baseline_sha256": "5fc6add02938880302ee5491a6d942f9bc1d7c361da7155b44a51528aaa91399"
+      },
+      {
+        "target": "els_server/storage/identification_ui.py",
+        "source": "source/common/els_server/storage/identification_ui.py",
+        "sha256": "e409ae786b1673eb089af0bd1de811a7532dc1bbfbe635de5db2a2f9a9d3fb32",
+        "baseline_sha256": "9e0668115954a6c5e98fea5e7295ce7bfacf8463ab07a52e4af18459ca700a55"
+      },
+      {
+        "target": "els_server/storage/reforge_scroll.py",
+        "source": "source/common/els_server/storage/reforge_scroll.py",
+        "sha256": "dd0bdf149aeb08dd0b150faea5ff5618e51c0bc17dd3273a3bbca98d9bc318e4",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/storage/resonance_2026_scrolls.py",
+        "source": "source/common/els_server/storage/resonance_2026_scrolls.py",
+        "sha256": "72e20fc656a47f06f689df8619f7c71d641049bb3f07ea64a45a357c697ca7d1",
+        "baseline_sha256": "2214403c03eb6c18d81bd4c729c9457ab1377ed8b1fc27a7f9b4579bd324b2e8"
+      },
+      {
+        "target": "els_server/storage/skill_trait_reset.py",
+        "source": "source/common/els_server/storage/skill_trait_reset.py",
+        "sha256": "dd6b55c39a6d26086d68dc03f137a3d50bf2b9fbd6f863e99de0a32a7804af35",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/storage/wardrobe.py",
+        "source": "source/common/els_server/storage/wardrobe.py",
+        "sha256": "16e436193d282dbf684b9a675c12ba5ff70da6ec53ace292d67db6cc57819a8b",
+        "baseline_sha256": "6feacc41e858be77460a65ccd0889945d7dbed8df4870cfe58390150c9d2a3c9"
+      },
+      {
+        "target": "els_server/storage/wisdom_potions.py",
+        "source": "source/common/els_server/storage/wisdom_potions.py",
+        "sha256": "9953b633497c9378e6356fc1c63a19c66833d49c379600090d3fce06ddb65f64",
+        "baseline_sha256": "36a97d11d5afd0944b4a6d21c3df6ce13f2239b97d93a6027362e49cdbb9ea9d"
+      }
+    ],
+    "local": [
+      {
+        "target": "els_server/data/identification_reset_items.json",
+        "source": "source/common/els_server/data/identification_reset_items.json",
+        "sha256": "4513ec04bb08d953980ab2859d5411e28815c96edfcf3434ea23a0ef3bba96d9",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/data/owned_scroll_families.json",
+        "source": "source/common/els_server/data/owned_scroll_families.json",
+        "sha256": "028fd5fb891bc88635b999f6fc2e79ad4f9170024d4ecd1a1131e6dba323fa73",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/data/resonance2026-reset-items.json",
+        "source": "source/common/els_server/data/resonance2026-reset-items.json",
+        "sha256": "95e976536d02ea3150012b878e67a26fd100608dfa0c3be2e6131cf3edea3666",
+        "baseline_sha256": "95e976536d02ea3150012b878e67a26fd100608dfa0c3be2e6131cf3edea3666"
+      },
+      {
+        "target": "els_server/data/skill_trait_reset_items.json",
+        "source": "source/common/els_server/data/skill_trait_reset_items.json",
+        "sha256": "05ada82ee94a901062d7173b28cf06f79ea8dd623eb44ddceacd65e95accab38",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/data/special_task_readers.json",
+        "source": "source/local/els_server/data/special_task_readers.json",
+        "sha256": "bd2f99a8cf340276b93963336e07d20c24e381a92e0cbed95baac317ad52f95f",
+        "baseline_sha256": "bd2f99a8cf340276b93963336e07d20c24e381a92e0cbed95baac317ad52f95f"
+      },
+      {
+        "target": "els_server/data/wisdom_potions.json",
+        "source": "source/common/els_server/data/wisdom_potions.json",
+        "sha256": "48b25c75362197366de02d6c38d1afe3d7150b32194a099be5678cf4b4186a5e",
+        "baseline_sha256": "48b25c75362197366de02d6c38d1afe3d7150b32194a099be5678cf4b4186a5e"
+      },
+      {
+        "target": "els_server/domain/artifact_flow.py",
+        "source": "source/common/els_server/domain/artifact_flow.py",
+        "sha256": "b7c05c1981af9821f9c8fa5f5f5e9a6ef680c1f25b58739d90b4ee9b7f622820",
+        "baseline_sha256": "62b00fa55a7a7dcf01d12555b75af4cfff44f47df316c1dc2b6162829d10a636"
+      },
+      {
+        "target": "els_server/domain/challenge_flow.py",
+        "source": "source/common/els_server/domain/challenge_flow.py",
+        "sha256": "a278ed1bb64b4b005fb6adfe2a02eca715989a2148c92d80be97c7fc440efabc",
+        "baseline_sha256": "9b4a886dbaa2efa9a789ffb1aa64deac26d41fcaf6a9acbc1b8c4703fa60b599"
+      },
+      {
+        "target": "els_server/domain/challenge_scroll.py",
+        "source": "source/common/els_server/domain/challenge_scroll.py",
+        "sha256": "cc2f16afdaafd9b35ea7de801f33286d3774ca2c6a49be0e1f716d3f8970e10c",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/domain/equipment_reforge_flow.py",
+        "source": "source/common/els_server/domain/equipment_reforge_flow.py",
+        "sha256": "4e1b2ede6ea668f538c44a8c4f960749e4b708fd6d82cd67630dcd295839b6bf",
+        "baseline_sha256": "0024d583eaab1bb590e78aff2f8073667048db99b9f6d2f824805c8c8cd3424c"
+      },
+      {
+        "target": "els_server/domain/identification_ui.py",
+        "source": "source/common/els_server/domain/identification_ui.py",
+        "sha256": "1f22863985c32ec4f8b309a7ba65927baf3aaa5d31c723f543143f802f9987d1",
+        "baseline_sha256": "f5c0ce3464b48d7e6d8e5bdef762a903f11adbe6945dad803b3ba492deab3d71"
+      },
+      {
+        "target": "els_server/domain/inventory_items.py",
+        "source": "source/local/els_server/domain/inventory_items.py",
+        "sha256": "3e18961d9af585484958a86656138d856bd571942b4cc61631d6497e4a575a02",
+        "baseline_sha256": "d39fc5a9599290e3cdda53b6f87eda6444ac71ff8c46c051d9d531fb6bd8f3bf"
+      },
+      {
+        "target": "els_server/domain/owned_scroll_families.py",
+        "source": "source/common/els_server/domain/owned_scroll_families.py",
+        "sha256": "0975cb5cc777aeb7cd5b7d1e4be2bbda3160c09dfb782795d050d668ca3e4e02",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/domain/raid_reward_flow.py",
+        "source": "source/common/els_server/domain/raid_reward_flow.py",
+        "sha256": "bb0ab85a1338edf26f60253337f72595be65516546f672f5530d622181a43899",
+        "baseline_sha256": "baddd6eefaf470f52b594118f147f1dd8f8e41539cc679425c8a9c2be64844f7"
+      },
+      {
+        "target": "els_server/domain/resonance_category_scroll.py",
+        "source": "source/common/els_server/domain/resonance_category_scroll.py",
+        "sha256": "9ae7d8d1123bf7d0cc313a486e7de3827622fee00cd7a3fb1c3cab89e99e3a19",
+        "baseline_sha256": "1953e7c73deb0a4baa63a7dda4cae9974b32e34fc583ddefbb2eefc24620b8d1"
+      },
+      {
+        "target": "els_server/domain/session_dispatch.py",
+        "source": "source/local/els_server/domain/session_dispatch.py",
+        "sha256": "ae8062ee699b74620c40f1c582828e6043c81b9e9f036dd245cea59884295e1b",
+        "baseline_sha256": "ea4bcf585f4e7a198851a1342f5d38c231823ec3edd166a333e6ca322eb7e380"
+      },
+      {
+        "target": "els_server/domain/skill_trait_reset.py",
+        "source": "source/common/els_server/domain/skill_trait_reset.py",
+        "sha256": "1859061ffcd2907b305512a08f926e605b72cf5f98cd6eacbe289dd85cdbfdfc",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/domain/skill_trait_reset_flow.py",
+        "source": "source/common/els_server/domain/skill_trait_reset_flow.py",
+        "sha256": "49647102f739e78563796fa66417e4b447915127db35b21763b6ebc95be21127",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/domain/wisdom_potions.py",
+        "source": "source/common/els_server/domain/wisdom_potions.py",
+        "sha256": "de9369402a5c9885a538380a56f7063560505d24ec00639a41ce1d26638bf7a6",
+        "baseline_sha256": "64f673b3140a3f6bd8ff83adf0a34289ec91a687182eeaa07d13ea1157da1d18"
+      },
+      {
+        "target": "els_server/protocol/artifact_messages.py",
+        "source": "source/common/els_server/protocol/artifact_messages.py",
+        "sha256": "6ac5de17b192052c5da7cf514856273df0e2f281e0308b9418ad4ea7b69281d3",
+        "baseline_sha256": "79052af97c6505cc60532742d68c66bdcfcfc356239988e9534568ed9eb68db6"
+      },
+      {
+        "target": "els_server/protocol/equipment_restoration_messages.py",
+        "source": "source/common/els_server/protocol/equipment_restoration_messages.py",
+        "sha256": "4dc48a2f7e7cb06eee811391bbaf3870771b92e0545592717770ad3a0ccfdc25",
+        "baseline_sha256": "7c92f306536dd6ddfcc9ad3ead5c005c2d3849e8cf2abf881e5cd69c45bbb202"
+      },
+      {
+        "target": "els_server/protocol/reforge_scroll_messages.py",
+        "source": "source/common/els_server/protocol/reforge_scroll_messages.py",
+        "sha256": "e1092c9efe9eb89b4ad8ccd44c7835ad927c0bb329617cae3eda0d86c8dfabf8",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/storage/challenge_scroll.py",
+        "source": "source/common/els_server/storage/challenge_scroll.py",
+        "sha256": "3b36f1f96db596aa617e3d4120c9847e7d3ff84b1a2e1e3defb73c89f8d9e14f",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/storage/enhancement_scroll.py",
+        "source": "source/local/els_server/storage/enhancement_scroll.py",
+        "sha256": "f32620cd63be6a3c04b7f0ebdb3ef897513ada4efa1cf11c79711983f009409d",
+        "baseline_sha256": "b62f1669e0ce4bb03f8a25afee96a08374540892f7e9f543bc43a9cfa1460c6b"
+      },
+      {
+        "target": "els_server/storage/equipment_receipt_state.py",
+        "source": "source/local/els_server/storage/equipment_receipt_state.py",
+        "sha256": "cd1bb3fd3d18bce4c9430f73035f2a6b6d1d5c6065cdb70d166bb496095216cb",
+        "baseline_sha256": "d17855ff82ed22f879c0bac892481d96b09b7848a5bf6c1fe105d0017c351142"
+      },
+      {
+        "target": "els_server/storage/equipment_restoration.py",
+        "source": "source/common/els_server/storage/equipment_restoration.py",
+        "sha256": "6e21e34213d6e0b8c57842466c96ea5f22dee4ce79d771e1415ea2f01a5c48c1",
+        "baseline_sha256": "5fc6add02938880302ee5491a6d942f9bc1d7c361da7155b44a51528aaa91399"
+      },
+      {
+        "target": "els_server/storage/identification_ui.py",
+        "source": "source/common/els_server/storage/identification_ui.py",
+        "sha256": "e409ae786b1673eb089af0bd1de811a7532dc1bbfbe635de5db2a2f9a9d3fb32",
+        "baseline_sha256": "9e0668115954a6c5e98fea5e7295ce7bfacf8463ab07a52e4af18459ca700a55"
+      },
+      {
+        "target": "els_server/storage/reforge_scroll.py",
+        "source": "source/common/els_server/storage/reforge_scroll.py",
+        "sha256": "dd0bdf149aeb08dd0b150faea5ff5618e51c0bc17dd3273a3bbca98d9bc318e4",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/storage/resonance_2026_scrolls.py",
+        "source": "source/common/els_server/storage/resonance_2026_scrolls.py",
+        "sha256": "72e20fc656a47f06f689df8619f7c71d641049bb3f07ea64a45a357c697ca7d1",
+        "baseline_sha256": "2214403c03eb6c18d81bd4c729c9457ab1377ed8b1fc27a7f9b4579bd324b2e8"
+      },
+      {
+        "target": "els_server/storage/skill_trait_reset.py",
+        "source": "source/common/els_server/storage/skill_trait_reset.py",
+        "sha256": "dd6b55c39a6d26086d68dc03f137a3d50bf2b9fbd6f863e99de0a32a7804af35",
+        "baseline_sha256": null
+      },
+      {
+        "target": "els_server/storage/wardrobe.py",
+        "source": "source/common/els_server/storage/wardrobe.py",
+        "sha256": "16e436193d282dbf684b9a675c12ba5ff70da6ec53ace292d67db6cc57819a8b",
+        "baseline_sha256": "6feacc41e858be77460a65ccd0889945d7dbed8df4870cfe58390150c9d2a3c9"
+      },
+      {
+        "target": "els_server/storage/wisdom_potions.py",
+        "source": "source/common/els_server/storage/wisdom_potions.py",
+        "sha256": "9953b633497c9378e6356fc1c63a19c66833d49c379600090d3fce06ddb65f64",
+        "baseline_sha256": "36a97d11d5afd0944b4a6d21c3df6ce13f2239b97d93a6027362e49cdbb9ea9d"
+      }
+    ]
+  },
+  "client_support": {
+    "path": "client-support/challenge-scroll-open.js",
+    "sha256": "e6a01fa9ff7c4ac97232fe6fba322832c22ea2b367947b6dd94d0e27064b6003",
+    "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+    "policy": "both-challenges-always-open-human-20261101",
+    "game_files_modified": false,
+    "requires_signed_launcher_delivery": true
+  },
+  "provenance": [
+    {
+      "path": "analysis/equipment-connect-01a142e9/expansion-v2/ReforgingTableClient.lua",
+      "sha256": "3e41bacdfa2c5dac6e5f5f0f021626f75cb52f6f8b48e03d90a162dfbf2e61dc"
+    },
+    {
+      "path": "analysis/equipment-connect-01a142e9/expansion-v2/ReforgingTableClient.lua.tables.json",
+      "sha256": "cd622db6fe266e6a28323c1eb0e16a565def39f7008c1e21858684b7548f4738"
+    },
+    {
+      "path": "analysis/sol-high-20261015/npc-bank-box/item.kim",
+      "sha256": "a3bcc9c926b19aa36f1c737ca53993b23da11c372bfd5adf3d740dc0b691ab8e"
+    },
+    {
+      "path": "analysis/sol-high-20261015/equipment-ui-v2/EnchantItemInfoNew.lua.tables.json",
+      "sha256": "cda30ea269e81b1e249403c79c76cebd486221ba1ebe87d48ab463dcc6c2c987"
+    }
+  ]
+}
