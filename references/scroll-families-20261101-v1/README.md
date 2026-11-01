@@ -44,4 +44,4 @@ python -B validation/verify_hook.py --native-root <原生工具根目录>
 python -B prepare.py --mode online --runtime <ONLINE父目录> --output <新ZIP路径>
 ```
 
-构包核对正式父清单及每个输入叶子的SHA，只生成差量，不安装、停服、修改玩家库或更新正式指针。三份未变化的数据副本及两端 `special_task_readers.json` 是归档验证的定位依赖，构包时跳过相同字节。新业务表仅为惰性创建的 `challenge_scroll_resets`；安装DDL为零。其他父版由发布负责人重放相同的小改动并重新核收。
+构包核对正式父清单及每个输入叶子的SHA，只生成差量，不安装、停服、修改玩家库或更新正式指针。每端未变化的 `resonance2026-reset-items.json`、`wisdom_potions.json` 和模式专用 `special_task_readers.json` 是归档验证的定位依赖，构包时跳过相同字节。新业务表仅为惰性创建的 `challenge_scroll_resets`；安装DDL为零。其他父版由发布负责人重放相同的小改动并重新核收。

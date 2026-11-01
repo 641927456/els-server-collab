@@ -26,7 +26,7 @@
 
 ### P2：卷轴识别将未限制的无符号UID传入SQLite
 
-原head中 `source/common/els_server/storage/challenge_scroll.py:27-28` 把219请求前8字节转换为无符号整数后直接作为SQLite参数。`wisdom_potions.py:16-18` 存在同类问题，后者已存在于实际父版。
+原head中 `source/common/els_server/storage/challenge_scroll.py:27-28` 把219请求前8字节转换为无符号整数后直接作为SQLite参数。`wisdom_potions.py:13-15` 存在同类问题，后者已存在于实际父版。
 
 已登录客户端提交UID `2**63` 或 `2**64-1` 时，识别阶段抛出 `OverflowError: Python int too large to convert to SQLite INTEGER`，而不是正常返回未匹配。这发生在入口的业务错误处理之前；影响异常请求处理，没有证据表明能绕过归属或修改存档。用自有临时库实测原head，准确复现于挑战入口。
 
