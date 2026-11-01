@@ -106,6 +106,51 @@ with tempfile.TemporaryDirectory(prefix='scroll-families-',dir=HERE)as folder:
             db.execute('UPDATE characters SET level=? WHERE uid=1001',(n,));db.execute('UPDATE reward_balances SET experience=? WHERE uid=1001',(data.thresholds[n-1],))
     def notice(db,current,wallet):return return_user_sync(account.get_location(),account.get_skills(),wallet,current,load_character(db,1001,1))
     def prepare(db):assert db.in_transaction
+    if 'input_bounds'in selected:
+        from els_server.storage.challenge_scroll import recognizes as challenge_recognizes
+        before=dump()
+        for uid in (0,2**63,2**64-1):
+            payload=struct.pack('>QQiiIB',uid,0,0,0,0,0)
+            assert challenge_recognizes(path,1001,payload,'review-challenge-bounds') is False
+            assert wisdom_potions.recognizes(path,1001,payload,'review-wisdom-bounds') is False
+        assert dump()==before
+        checks.append(dict(kind='input_bounds',invalid_UIDs_refused_before_SQL=True,save_unchanged=True))
+    if 'review_atomicity'in selected:
+        from els_server.storage import reforge_scroll,skill_traits
+        from els_server.storage.skill_trait_reset import reset as forget
+        from els_server.domain.skill_trait_reset import reset_items
+        from els_server.domain.equipment_reforge_rules import target as reforge_target,expected_options
+        from els_server.storage.equipment_options import replace as save_options
+        source,rule=next(iter(rules['reforge'].items()))
+        t=next(t for t in rule['targets']if reforge_target(t)is not None)
+        gear=give(t,existing=True);scroll=give(source)
+        with closing(sqlite3.connect(path))as db,db:
+            db.execute('BEGIN IMMEDIATE');save_options(db,1001,gear['uid'],{}, {'13':expected_options(t,0)})
+        payload=struct.pack('>QQ',gear['uid'],scroll['uid']);before=dump()
+        with patch.object(reforge_scroll,'encode_event',side_effect=ValueError('review encoder failure')):
+            try:reforge_scroll.perform(path,1001,1,payload,'review-reforge-rollback',prepare=lambda:None)
+            except ValueError:pass
+            else:raise AssertionError('Reforge encoder failure must roll back')
+        assert dump()==before;discard(gear['uid'],scroll['uid'])
+        level(20)
+        with closing(sqlite3.connect(path))as db,db:db.execute('UPDATE reward_balances SET ed=2000000 WHERE uid=1001')
+        skill_traits.choose(path,1001,1,struct.pack('>ii',21000,3),'review-choose-legacy')
+        payload=struct.pack('>iiQB',21000,3,0,1)
+        legacy=skill_traits.reset(path,1001,1,payload,'review-legacy-ed',prepare=prepare)
+        before=dump();retry=forget(path,1001,1,payload,'review-legacy-ed',prepare=prepare)
+        assert retry.payload==legacy.payload and dump()==before
+        skill_traits.choose(path,1001,1,struct.pack('>ii',21000,3),'review-choose-forget')
+        scroll=give(next(iter(reset_items())))
+        payload=struct.pack('>iiQB',21000,3,scroll['uid'],0);before=dump()
+        def fail_before_commit(db):
+            assert not skill_traits.saved(db,1001)
+            assert scroll['uid'] not in {i['uid'] for i in load_items(db,1001)}
+            raise ValueError('review prepare failure')
+        try:forget(path,1001,1,payload,'review-forget-rollback',prepare=fail_before_commit)
+        except ValueError:pass
+        else:raise AssertionError('Forget prepare failure must roll back')
+        assert dump()==before
+        checks.append(dict(kind='review_atomicity',reforge_encoder_rollback=True,forget_prepare_rollback=True,legacy_ED_receipt_replay=True))
     for t,rule in ((t,r)for t,r in rules['sage'].items()if ('sage'in selected and 'destination_level'not in r)or('sage_fixed'in selected and 'destination_level'in r)):
         level(rule['minimum_level']);scroll=give(t);payload=struct.pack('>QQiiIB',scroll['uid'],0,0,0,0,0);op='sage-'+str(t)
         wisdom_potions.perform(path,1001,1,payload,op,account.reward_store,prepare=prepare,notice=notice)

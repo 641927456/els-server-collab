@@ -34,6 +34,8 @@
 
 追加衣架回执槽同步及资格入口调整后，只复查受影响的双端用例，记录在各报告的 `follow_up_checks`。原生A22写包与A23完整解码前缀、客户端挂钩的独立进程测试见 `evidence/native.json`。没有自然战斗、自然右键全流程或正式安装结论。
 
+本轮差量自审见 [review.md](review.md)。已修复挑战及贤者识别入口的无符号UID越界异常，清理重复导入；两端各追加输入边界、实际应用入口、炼制/遗忘回滚及旧ED回执兼容检查，见 `evidence/review-online.json`、`evidence/review-local.json`。原15组报告及原构包保持历史，新构包使用审查修正后的清单；完整矩阵现含新增两组用例。作者自审不能代替客户端支持的独立审查、签名与安装后加载核收。
+
 ```powershell
 python -B validation/run_matrix.py --mode online --runtime <ONLINE父目录> --report <报告路径>
 python -B validation/run_matrix.py --mode local --runtime <LOCAL父目录> --report <报告路径>

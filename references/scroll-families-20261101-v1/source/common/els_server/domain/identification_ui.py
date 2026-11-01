@@ -2,7 +2,6 @@
 import functools,hashlib,json
 from pathlib import Path
 from els_server.paths import PROJECT_ROOT
-from els_server.paths import PROJECT_ROOT
 from els_server.game_data import CLIENT_SHA,client_data
 @functools.lru_cache(maxsize=1)
 def catalog():

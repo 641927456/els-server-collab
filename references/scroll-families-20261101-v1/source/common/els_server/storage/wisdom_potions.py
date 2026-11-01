@@ -11,6 +11,7 @@ from els_server.protocol.protocol_codec import encode_event
 def recognizes(path,owner,payload,operation):
     if type(payload)is not bytes or len(payload)<8:return False
     uid=struct.unpack_from('>Q',payload)[0]
+    if not 0<uid<2**63:return False
     with closing(sqlite3.connect(path,timeout=10))as db:
         r=db.execute('SELECT template FROM inventory_items WHERE owner=? AND uid=?',(owner,uid)).fetchone()
         if r and r[0]in admitted():return True

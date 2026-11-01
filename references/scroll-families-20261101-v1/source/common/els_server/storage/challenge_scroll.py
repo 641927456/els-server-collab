@@ -24,6 +24,7 @@ from els_server.protocol.protocol_codec import Event,encode_event
 def recognizes(path,owner,payload,operation):
     if type(payload)is not bytes or len(payload)<8:return False
     uid=int.from_bytes(payload[:8],'big')
+    if not 0<uid<2**63:return False
     with closing(sqlite3.connect(path))as db:
         row=db.execute('SELECT template FROM inventory_items WHERE owner=? AND uid=?',(owner,uid)).fetchone()
         if row and row[0]in catalog()['challenge']:return True
