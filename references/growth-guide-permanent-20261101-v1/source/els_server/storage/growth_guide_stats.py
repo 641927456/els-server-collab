@@ -32,6 +32,8 @@ def adaptation(db,uid,character,items):
         if t in ordinary and int(item['slot'] not in ordinary[t]['main_slots'])!=selected:continue
         if t in FASHION_EQUIP_SLOTS and character['unit_type']==10 and bool(raw[8]&4)!=bool(character['luciel_active_unit']):continue
         rows.append(item)
+        from els_server.domain.enhancement_unlock import options as enhancement_options
+        keys+=enhancement_options(t,item.get('enhancement',0))
         definition=d['template_effects'].get(str(t))
         if definition:
             if hashlib.sha256(raw).hexdigest()!=definition['record_sha256']:raise ValueError('Guide adaptation native equipment')
@@ -61,6 +63,13 @@ def adaptation(db,uid,character,items):
         from els_server.domain.titles import definition
         title=title_state(db,uid,int(time.time()))['title']
         if title:keys+=[v for v in definition(title)['SOCKET_OPTION'].values() if v]
+    collection=character.get('el_search_collection')
+    if collection is not None:
+        from els_server.domain.el_search_collection import wire
+        wire(collection)
+        if collection['active']:
+            for row in collection['registered']:
+                keys+=d['collection_options'][str(row['unit_class'])+':'+str(row['transcendental'])]
     value=sum((Decimal(str(d['options'].get(str(k),{}).get('m_fAdaptability',0)))*100 for k in keys),Decimal(0))
     if character.get('resonance',{}).get('enabled') and exists(db,'resonance2026_characters'):
         from els_server.domain.resonance_allocation_flow import definitions

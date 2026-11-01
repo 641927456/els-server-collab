@@ -59,15 +59,15 @@
     {
       "path": "els_server/data/growth_guide_stats.json",
       "source": "references/growth-guide-permanent-20261101-v1/source/els_server/data/growth_guide_stats.json",
-      "size": 159720,
-      "sha256": "c3b9ee6e74b093b071ffe9338023a7a3c50d11f295c0f299892041941ba3afd2",
+      "size": 170438,
+      "sha256": "80bac6df98a3888dfa38ddd59dccf5612aff888715254dcb0850c38690f8f92d",
       "root_parent_sha256": null
     },
     {
       "path": "els_server/data/growth_guide_stats.manifest.json",
       "source": "references/growth-guide-permanent-20261101-v1/source/els_server/data/growth_guide_stats.manifest.json",
       "size": 91,
-      "sha256": "c51f44e469276eb3341669c73b1d90b207f4fdb47cb5a504273e31679ed89743",
+      "sha256": "1f9c285842510c5a64f6b83ff79000f09f3c4c4c8466f5f6333b0c623113969d",
       "root_parent_sha256": null
     },
     {
@@ -262,8 +262,8 @@
     {
       "path": "els_server/storage/growth_guide_stats.py",
       "source": "references/growth-guide-permanent-20261101-v1/source/els_server/storage/growth_guide_stats.py",
-      "size": 5146,
-      "sha256": "9ff554500dc7141dd621579d6574a3fd725cd0ceb2fc05cb3f01c785453bef14",
+      "size": 5653,
+      "sha256": "e4d7286810349ce5244efc71741206a64992cdcf278ea661485e40a708fd3efc",
       "root_parent_sha256": null
     },
     {
@@ -318,16 +318,36 @@
     {
       "path": "tests/test_growth_guide.py",
       "source": "references/growth-guide-permanent-20261101-v1/source/tests/test_growth_guide.py",
-      "size": 20380,
-      "sha256": "c1d064f65efc7f270abe247eb7710e8a81a326b2065eefab36d1e89003ac939e",
+      "size": 24540,
+      "sha256": "9f97318c0909ad72e69ee65e8225c074084e80b2d180f74e2c9cecd24bee7f8d",
       "root_parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/consumables.py",
+      "source": "references/growth-guide-permanent-20261101-v1/source/els_server/domain/consumables.py",
+      "size": 6715,
+      "sha256": "c5944211f4321336009525ce523dc4b07885270f63172e67f90cddfed779bb74",
+      "root_parent_sha256": "94199433b6cf084997293895cc748afd62c47c8d1cffd86ef64641235a6a5db8"
+    },
+    {
+      "path": "els_server/storage/consumables.py",
+      "source": "references/growth-guide-permanent-20261101-v1/source/els_server/storage/consumables.py",
+      "size": 7547,
+      "sha256": "87c9c108fc675ed8f0394d6c04abdeb3485d1b0cca0ccd0ce2d4abe6a272b564",
+      "root_parent_sha256": "b519ac8205057cfeca12a4c41c863cfda33102254ee4118e26fdfdfe253038a5"
+    },
+    {
+      "path": "els_server/domain/elixir_items.py",
+      "source": "references/growth-guide-permanent-20261101-v1/source/els_server/domain/elixir_items.py",
+      "size": 2655,
+      "sha256": "eb53ed9844c7355e49706469c113f22bd7f1ce9ddd06a4e66814d99b62e5f0f5",
+      "root_parent_sha256": "3b2cc4287881d85321ea09e5c461a7d8830ad2676071ab4b9f91ef05f9525fe7"
     }
   ],
   "delivery_blockers": [
-    "Not all gift consumable effect consumers have been admitted by the existing server; current qualification/grant/open path is verified",
-    "Adaptation qualification omits passive/collection/synergy/other temporary sources",
+    "Adaptation qualification: circuit/chip and condition-dependent sources are not fully verified",
     "Special camp-avatar wait reductions are not connected",
-    "Natural client GUI and deployed runtime have not been verified"
+    "Natural client GUI, mount countdown display and deployed runtime have not been verified"
   ],
   "private_evidence_root": "G:/els/analysis/growth-guide-permanent-20261101-v1"
 }

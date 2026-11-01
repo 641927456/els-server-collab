@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[1]
 BASE=ROOT/'references/growth-guide-permanent-20261101-v1'
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');parser.add_argument('--test',action='append');args=parser.parse_args()
     contract=json.loads((BASE/'source-contract.json').read_bytes())
     assert contract['candidate_only'] and not contract['installed'] and not contract['root_runtime_changed']
     assert contract['issue']==727 and contract['delivery_blockers']
@@ -45,6 +45,7 @@ def main():
             for row in files:
                 dest=view/row['path'];dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(ROOT/row['source'],dest)
             env=dict(os.environ,TEMP=str(view),TMP=str(view),PYTHONPATH=str(view))
-            subprocess.run([sys.executable,'-X','utf8','-B','-m','unittest','tests.test_growth_guide','tests.test_mount_state','tests.test_mount_retry','-q'],cwd=view,env=env,check=True)
+            tests=args.test or ['tests.test_growth_guide','tests.test_mount_state','tests.test_mount_retry']
+            subprocess.run([sys.executable,'-X','utf8','-B','-m','unittest',*tests,'-q'],cwd=view,env=env,check=True)
 
 if __name__=='__main__':main()

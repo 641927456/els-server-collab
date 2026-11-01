@@ -286,6 +286,59 @@ class GrowthGuideTests(unittest.TestCase):
             normal=commit(db,1001,'medal-expired',assessment,100,now=1800000101)
             self.assertTrue(doubled['eligible']);self.assertEqual(doubled['total'],2*normal['total'])
 
+    def test_guide_recovery_and_fighting_spirit_use_native_effect_once(self):
+        from els_server.storage.consumables import use
+        from els_server.storage.quick_slots import save_request,encode,empty
+        from els_server.domain.quick_bindings import item_binding
+        from els_server.domain.consumables import ordinary
+        for n,template in enumerate((710250,710006,713170,710031,710035,710010,190624)):
+            with self.subTest(template=template):
+                with closing(sqlite3.connect(self.path)) as db,db:db.execute('DELETE FROM inventory_items WHERE owner=1001 AND bag_group=6')
+                item=self.give(template,2)
+                save_request(self.path,struct.pack('>i',1)+encode({**empty(),0:item_binding(template)}))
+                payload=struct.pack('>HBBB',0,0,0,0);op='guide-potion-'+str(template)
+                reply=use(self.path,1001,payload,op,account_id=1,allow_apples=True,now=1800000000+n*100)
+                self.assertEqual([e.kind for e in reply],[0x114,0x115])
+                self.assertEqual(reply[1].payload,struct.pack('>Qi?Q?',1001,template,False,0,False))
+                self.assertEqual(len(use(self.path,1001,payload,op,account_id=1,allow_apples=True,now=1800000001+n*100)),1)
+                self.assertEqual(next(i for i in self.account.get_inventory_snapshot()['items'] if i['uid']==item['uid'])['count'],1)
+                with self.assertRaises(ValueError):use(self.path,1001,payload,op+'-early',account_id=1,allow_apples=True,now=1800000001+n*100)
+                self.assertEqual(ordinary(template)['cooldown_seconds'],30)
+
+    def test_guide_ariel_elixir_has_the_same_saved_world_effect_and_deadline(self):
+        from els_server.storage.world_elixirs import use,snapshot
+        from els_server.protocol.world_buff_messages import snapshot as world
+        item=self.give(710153,2);payload=struct.pack('>QQiiIB',item['uid'],0,0,0,0,0)
+        prepare=lambda db,state,items:[world(1001,state['rows'])]
+        first=use(self.path,1001,1,payload,'guide-elixir',prepare,now=1800000000)
+        retry=use(self.path,1001,1,payload,'guide-elixir',prepare,now=1800000100)
+        self.assertFalse(first['replayed']);self.assertTrue(retry['replayed'])
+        self.assertEqual(first['state']['rows'],retry['state']['rows'])
+        self.assertEqual(snapshot(self.path,1001,1,now=1800000100)['rows'][0]['end'],1800001800)
+        self.assertEqual(next(i for i in self.account.get_inventory_snapshot()['items'] if i['uid']==item['uid'])['count'],1)
+
+    def test_adaptation_includes_native_collection_and_enhancement_unlocks(self):
+        from els_server.storage.growth_guide_stats import adaptation
+        from els_server.storage.seal_quests import load_character
+        from els_server.storage.inventory_state import load_items
+        from els_server.storage.el_search_collection import activate
+        from els_server.storage.ep_points import credit
+        from els_server.storage.equipment_enhancement import replace
+        with closing(sqlite3.connect(self.path)) as db,db:db.execute('UPDATE characters SET unit_class=100 WHERE uid=1001')
+        armor=self.give(720598)
+        with closing(sqlite3.connect(self.path)) as db,db:
+            db.execute('BEGIN IMMEDIATE')
+            db.execute('UPDATE inventory_items SET bag_group=9,slot=1 WHERE uid=?',(armor['uid'],))
+            self.assertEqual(adaptation(db,1001,load_character(db,1001),load_items(db,1001)),2)
+            replace(db,1001,armor['uid'],0,11)
+            self.assertEqual(adaptation(db,1001,load_character(db,1001),load_items(db,1001)),3)
+            db.execute('UPDATE inventory_items SET bag_group=?,slot=? WHERE uid=?',(armor['group'],armor['slot'],armor['uid']))
+            db.execute('UPDATE characters SET unit_type=10,unit_class=88,transcendence=1,master=1 WHERE uid=1001')
+            db.execute("INSERT OR REPLACE INTO character_artifacts VALUES (1001,10,1,1,0,'[0,0,0,0]')")
+            credit(db,1001,500);character=load_character(db,1001)
+            activate(db,1001,1,character,1800000000)
+            self.assertEqual(adaptation(db,1001,load_character(db,1001),load_items(db,1001)),1)
+
     def test_foreign_owner_and_invalid_native_requests_fail(self):
         with self.assertRaises(ValueError):QuestState(self.path,account_id=2).snapshot()
         reply=handle(self.session,Event(0x202,performers=(0,),kind=0xd0d,payload=b'x'),1)
