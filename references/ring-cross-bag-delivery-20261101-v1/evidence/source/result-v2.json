@@ -1,0 +1,80 @@
+{
+  "status": "source-repair-complete-not-installed",
+  "revision": 2,
+  "runtime_files": [
+    {
+      "path": "els_server/domain/fashion_state.py",
+      "source": "G:\\els\\analysis\\ring-wear-error-20261101-v1\\candidate-v2\\els_server\\domain\\fashion_state.py",
+      "sha256": "26cd083c3c5824a9137b33e81cd33c44e07e16129a77e75c1a92891e33e777fb",
+      "size": 6558,
+      "parent_sha256": {
+        "local": "8a0ba02d885c76226dd97ddda9b5710592c6081f1bb2ff69219beb6d613a9968",
+        "online": "8a0ba02d885c76226dd97ddda9b5710592c6081f1bb2ff69219beb6d613a9968"
+      }
+    },
+    {
+      "path": "els_server/storage/wear_moves.py",
+      "source": "G:\\els\\analysis\\ring-wear-error-20261101-v1\\candidate-v2\\els_server\\storage\\wear_moves.py",
+      "sha256": "6192d76635eafad9956d02543a6b0e0a04e02d72dff17847e9c5d34703e1e25b",
+      "size": 7962,
+      "parent_sha256": {
+        "local": "47cce25509307d0fc11beb33f3cb7ec60da9c57fb6f4a059f257c1fc64e3a2b7",
+        "online": "47cce25509307d0fc11beb33f3cb7ec60da9c57fb6f4a059f257c1fc64e3a2b7"
+      }
+    }
+  ],
+  "patch": "G:\\els\\analysis\\ring-wear-error-20261101-v1\\repair-v2.patch",
+  "patch_sha256": "7ba35a7d9efe3389cff0bb6f0077eebb506010c2ac760d028af6f8a637637f3b",
+  "patch_apply_and_source_hash_match": true,
+  "baseline_releases": {
+    "local": "local-native-field-entry-identity-20261101-v1",
+    "online": "native-field-entry-identity-20261101-v1"
+  },
+  "scope": "Shared and retained fashion wear entry points return displaced costume items to their native7/27 bag; preserve exact explicit swaps",
+  "source_merged": false,
+  "installed": false,
+  "natural_GUI": false,
+  "new_tables": [],
+  "new_runtime_files": 0,
+  "client_original_changes": 0,
+  "support_changes": 0,
+  "player_database_writes": 0,
+  "install_DDL": 0,
+  "tests": {
+    "core_regression_methods_passed": 11,
+    "ordinary_ring_round_trips": 75,
+    "role_families": 15,
+    "variant_methods_passed": 2,
+    "shared_entry_round_trips": 33,
+    "legacy_entry_round_trips": 33,
+    "current_state_replay_cases": 33,
+    "legacy_regression_methods_passed": 4,
+    "native_byte_identical_cases_reused": 4,
+    "patch_apply_verified": true,
+    "commands": [
+      "python analysis/ring-wear-error-20261101-v1/test_ring_wear.py --candidate-v2",
+      "python analysis/ring-wear-error-20261101-v1/verify_variants.py --candidate-v2",
+      "python analysis/ring-wear-error-20261101-v1/test_legacy_fix.py"
+    ],
+    "evidence": [
+      "variants-verification-v2.json",
+      "legacy-fix-verification-v2.json",
+      "native-proof-reuse-v2.json"
+    ]
+  },
+  "compatibility": {
+    "wear_receipts": "Existing two-position lists remain readable; new cross-tab receipts retain all three positions and replay current state. Earlier unrepaired code rejects replay of three-position receipts.",
+    "legacy_history": "Existing fashion_moves.before_json/after_json audit; new cross-tab after_json records three changed positions, two-position operations retain their old shape. No runtime reader consumes this audit field.",
+    "dependency": "Both source leaves must be integrated together: wear_moves imports move_changes from fashion_state."
+  },
+  "remaining": [
+    "Designated publisher source integration and formal installation",
+    "Actual selected runtime and natural GUI verification",
+    "Historic invalid-slot failures without request detail remain unattributed"
+  ],
+  "archive": {
+    "path": "G:\\els\\analysis\\ring-wear-error-20261101-v1\\wear-repair-v2.zip",
+    "sha256": "48379fa847d60ec8ce5a27e38581cd11d8f34e974bf086d351796100fef706b9",
+    "source_files": 2
+  }
+}
