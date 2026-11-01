@@ -1,0 +1,3527 @@
+{
+  "schema_version": 1,
+  "kind": "rootmerge",
+  "reference_only": true,
+  "batches": [
+    {
+      "version": 69,
+      "source_merge_sha256": "c154f934bec45da80e0811145f04ff58a2ccc0d4a56bf3ee29625cc9c5d20d62",
+      "recovery_manifest_sha256": "31ce937d185b7bf5a38ed9fbf47a9f01438e85d5bb96b6b5e84712b0bac7fd37",
+      "server_delta": {
+        "online": 20,
+        "local": 20
+      },
+      "new_files": 4,
+      "schema_changes": {
+        "new_tables": [
+          "environment_buff_sources",
+          "environment_spa_purchases"
+        ],
+        "install_DDL_statements": 0,
+        "startup_DDL_statements": 0
+      },
+      "normal": {
+        "online": {
+          "parent_release": "native-functional-rewards-20261101-v1",
+          "parent_manifest_sha256": "dd78fb9d04ddaa179b308d1de5f7279b2dfc9e7272fcee489d20b22c1f585645",
+          "files": [
+            {
+              "runtime_path": "els_server/application.py",
+              "parent_sha256": "ba61fb5706a6a3ec9da65e5be4994c63222cf0f2a416995ebae7baebbbcc7f33",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/4238d119ec88/els_server/application.py",
+                "size": 24495,
+                "sha256": "4238d119ec88ec1f18778d8dde88d567ed692eacb444a8a8fcf452a25f3e7d1c",
+                "git_blob_sha1": "cd327336a5039b6834e5902719fcfd7387bc325c"
+              }
+            },
+            {
+              "runtime_path": "els_server/data/environment_buffs.json",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/1b0d06c93952/els_server/data/environment_buffs.json",
+                "size": 4378,
+                "sha256": "1b0d06c93952ffaf68dda5de8ef22843afcd1b7505e49525306b20a4499ed1a3",
+                "git_blob_sha1": "ba65482e02cd45fbdf69420832f2492c47cdd0ef"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/boosting_2026_join_flow.py",
+              "parent_sha256": "49e7e893da329796a7ebe05835c8eea34a8ec991b3116b5d13dd01cfbc6784da",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/b91f45c32bef/els_server/domain/boosting_2026_join_flow.py",
+                "size": 4102,
+                "sha256": "b91f45c32bef29dc63e0053e6d8bae835ce62a5e35836118b599e85c97bc6a54",
+                "git_blob_sha1": "685bbd08e793174bfaea6caf6a99778f62a71957"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/elixir_flow.py",
+              "parent_sha256": "868316bd20294a315d4011fd9700d9dd95ce825738537bc2df0db4ff653dde19",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/51989d17dc57/els_server/domain/elixir_flow.py",
+                "size": 7535,
+                "sha256": "51989d17dc5798ea897156664f49e1490242f74ea6db2df2dc6eaed1913937fe",
+                "git_blob_sha1": "2eb074b267dc4361a8300cd17fc5ceb063c47984"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/elixir_peer_sync.py",
+              "parent_sha256": "64321793274980c1f8edac0559c9ce0f8a0fd4975e7e67e7ea031fea4cb0f6cf",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/dc5c33b2a43d/els_server/domain/elixir_peer_sync.py",
+                "size": 3063,
+                "sha256": "dc5c33b2a43d8d8c37a50188553224f747d8363863bdf8cee8a43fecbdca1f09",
+                "git_blob_sha1": "7fdd38a20f8c568ec47ea9bd20f4b04378b253d1"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/environment_buff_flow.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/fe78a93db7a1/els_server/domain/environment_buff_flow.py",
+                "size": 8917,
+                "sha256": "fe78a93db7a1f5ef0780d13655f5f72f18695adc8a4564d0c9cb6d5801335079",
+                "git_blob_sha1": "f66c8182f2cd5ce2f2072beef55ccc5c5653cf1e"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/friends_dungeon.py",
+              "parent_sha256": "43f0fa31ded3d8ee7f101a15fad95be070af8f2bc322533eb486f1748755e480",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/5d5aaa0074af/els_server/domain/friends_dungeon.py",
+                "size": 30475,
+                "sha256": "5d5aaa0074af23ea0c09988fe0106c15596cfbd91dd19dd777e530dc1a9e8f69",
+                "git_blob_sha1": "91e1047bbab161d3590a8f78bc73ca25ad4dcaff"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/inventory_items.py",
+              "parent_sha256": "cca68271dfa9b863e63645907eea6cc1cebad7341cb08f6c7ee60cc3d93328d3",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/5529f60959da/els_server/domain/inventory_items.py",
+                "size": 80859,
+                "sha256": "5529f60959da31c4b7b171246b638e2db6efc912ce5749872ff18bf7bd80f464",
+                "git_blob_sha1": "83e7defb38655421a6e42481613ec11642f3ff63"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/local_session.py",
+              "parent_sha256": "bd694f1d64629b340aabbd67e43f8c3490ba06ac1c4193aac361682c5d4e61a0",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/7275ce509b60/els_server/domain/local_session.py",
+                "size": 152447,
+                "sha256": "7275ce509b60dae20355b002ea474471de9ff25b85da0e63b3e2a3329c0dd690",
+                "git_blob_sha1": "54d5d1e8d617833de14d5986799b9a08af80152d"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/normal_fatigue_flow.py",
+              "parent_sha256": "2ae7b982625ba6df3fed9ae6f8f48f200185a2ec6a0a5534614333a6eae1066a",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9c9ae1638f99/els_server/domain/normal_fatigue_flow.py",
+                "size": 15880,
+                "sha256": "9c9ae1638f99b25bbae996e4cbbfea261975e98765fee84352c7a24cab26eec5",
+                "git_blob_sha1": "28f3e6c66e0bcc386b6b1936381323d3b0f349c5"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/random_mission_flow.py",
+              "parent_sha256": "44b3433cc49783f057a2f3c1abdb7bf8a21f8cf9b8185cd5e8e1faa855ee97cc",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/25f095758897/els_server/domain/random_mission_flow.py",
+                "size": 9794,
+                "sha256": "25f095758897e5a0c7afcbf3c767369f0d4fb2163536fbe77dddb7a99696e9e3",
+                "git_blob_sha1": "4d988025d22f69b30b7cf06afa316c881aa88e63"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/session_dispatch.py",
+              "parent_sha256": "363ce100506db5a2d09191ec2dec9d35a97401d9f65099b836324fa669960036",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/bd1107b5f69b/els_server/domain/session_dispatch.py",
+                "size": 18062,
+                "sha256": "bd1107b5f69bbaf9f301e1fa426f27a29659909f391c5eecabdc497693a3029f",
+                "git_blob_sha1": "590e8a7efa8e8b9a69af115477231cd1f6393b98"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/silver_mirror_flow.py",
+              "parent_sha256": "5b7f900f4c6b3a1c442e797c791ef0cd2b2189c9de0045627c62509c52be31d1",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9af12afb5ceb/els_server/domain/silver_mirror_flow.py",
+                "size": 14057,
+                "sha256": "9af12afb5ceb6be8b0c1d2ac305f252432af0139b1ba8cdf0af77e6b6580420b",
+                "git_blob_sha1": "f50a1c705392183d3ee12df3e977f3e9e20b9a61"
+              }
+            },
+            {
+              "runtime_path": "els_server/gm_runtime.py",
+              "parent_sha256": "167615ec1690350b50c7935060ff86a61b50a9aafe69dfbda9ef914dbfa2eb3f",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/fa8770ca51e4/els_server/gm_runtime.py",
+                "size": 12605,
+                "sha256": "fa8770ca51e4a01c42ff53cb895b3c51da236146f4abb0f29c09aa8812d4c129",
+                "git_blob_sha1": "4df52e2bd89b3fedc757465e3114104ad4e93e61"
+              }
+            },
+            {
+              "runtime_path": "els_server/protocol/world_buff_messages.py",
+              "parent_sha256": "bf951a652a07a91f31fc5b492dbe931ab9aec35115d643ec824c0b22c9b1b043",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/ab49c841ca50/els_server/protocol/world_buff_messages.py",
+                "size": 3139,
+                "sha256": "ab49c841ca50178a407ac3b5baa2d3e0b25d2b6c650eed2f53507d39c4612f6e",
+                "git_blob_sha1": "26c8195c299e8c1f764e0aa9f520dcede38bf8be"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/environment_buffs.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/1e8e38735b08/els_server/storage/environment_buffs.py",
+                "size": 2284,
+                "sha256": "1e8e38735b08e5494990ee2e8c94035ac691908c68851cbab1212102d771482c",
+                "git_blob_sha1": "ea85fa1831558fb9272abac6e96de73997015448"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/environment_spa_purchase.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/8f0826a5dafa/els_server/storage/environment_spa_purchase.py",
+                "size": 1046,
+                "sha256": "8f0826a5dafab0322cdb16c2bead5b91dc1175a718a562d4acccda65c9fc8bf2",
+                "git_blob_sha1": "e53dbcea5cb3d50b6f179ea932f20e29ecd3f4dd"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/ice_state.py",
+              "parent_sha256": "9b01123a6d511f3fa55d827620fa7751f387ff8e5f1e39e882b8af50d9708e36",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/22a87c2fc4eb/els_server/storage/ice_state.py",
+                "size": 7041,
+                "sha256": "22a87c2fc4ebfc16a31da116637a39c5095f8ab27ddd982ba1726c3216c9a4a5",
+                "git_blob_sha1": "df41055e2bca265c24c789c0844679651cd4dc20"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/inventory_state.py",
+              "parent_sha256": "b5fa12da468d560a8bc4d88801d2f69b869c8c2d2237417543eaf8b4d1500928",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/33e5fbf422a7/els_server/storage/inventory_state.py",
+                "size": 29158,
+                "sha256": "33e5fbf422a71569a84e74b1b71f10958a33cac15a16c3bdb1830311ebcfcf6f",
+                "git_blob_sha1": "446f6425eadbb1a3949ea728f29c956484942a0b"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/reward_state.py",
+              "parent_sha256": "2a22b4d464ddbc26d61a6bb96e689b45fafc088a2c1c6a14273cf90957617bef",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/856f99c56976/els_server/storage/reward_state.py",
+                "size": 21498,
+                "sha256": "856f99c56976cc0b95dfbabcc906616d91d41af45c006a4b54dd2fd4060453b4",
+                "git_blob_sha1": "104f53aec1a0c3f186cf6057e526546e0f5e6eed"
+              }
+            }
+          ],
+          "preserve_all_other_parent_bytes": true
+        },
+        "local": {
+          "parent_release": "local-native-functional-rewards-20261101-v1",
+          "parent_manifest_sha256": "cdb7ba509f0f9755d9fd9259c687d27c57c3ee3e9954fc6f63bd57ceb8efae08",
+          "files": [
+            {
+              "runtime_path": "els_server/application.py",
+              "parent_sha256": "7fce1533ebfc932a445310f06e82fc5acd99a0d723505775425f9f22273d2f88",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/e66187f1382f/els_server/application.py",
+                "size": 24596,
+                "sha256": "e66187f1382f046916d4b01c13d6e35029d1344e0769b643dd3d4bfa8cceabb6",
+                "git_blob_sha1": "c34de2e7f6b50ede74323b213e3e3ac097117ce3"
+              }
+            },
+            {
+              "runtime_path": "els_server/data/environment_buffs.json",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/1b0d06c93952/els_server/data/environment_buffs.json",
+                "size": 4378,
+                "sha256": "1b0d06c93952ffaf68dda5de8ef22843afcd1b7505e49525306b20a4499ed1a3",
+                "git_blob_sha1": "ba65482e02cd45fbdf69420832f2492c47cdd0ef"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/boosting_2026_join_flow.py",
+              "parent_sha256": "49e7e893da329796a7ebe05835c8eea34a8ec991b3116b5d13dd01cfbc6784da",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/b91f45c32bef/els_server/domain/boosting_2026_join_flow.py",
+                "size": 4102,
+                "sha256": "b91f45c32bef29dc63e0053e6d8bae835ce62a5e35836118b599e85c97bc6a54",
+                "git_blob_sha1": "685bbd08e793174bfaea6caf6a99778f62a71957"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/elixir_flow.py",
+              "parent_sha256": "868316bd20294a315d4011fd9700d9dd95ce825738537bc2df0db4ff653dde19",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/51989d17dc57/els_server/domain/elixir_flow.py",
+                "size": 7535,
+                "sha256": "51989d17dc5798ea897156664f49e1490242f74ea6db2df2dc6eaed1913937fe",
+                "git_blob_sha1": "2eb074b267dc4361a8300cd17fc5ceb063c47984"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/elixir_peer_sync.py",
+              "parent_sha256": "64321793274980c1f8edac0559c9ce0f8a0fd4975e7e67e7ea031fea4cb0f6cf",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/dc5c33b2a43d/els_server/domain/elixir_peer_sync.py",
+                "size": 3063,
+                "sha256": "dc5c33b2a43d8d8c37a50188553224f747d8363863bdf8cee8a43fecbdca1f09",
+                "git_blob_sha1": "7fdd38a20f8c568ec47ea9bd20f4b04378b253d1"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/environment_buff_flow.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/fe78a93db7a1/els_server/domain/environment_buff_flow.py",
+                "size": 8917,
+                "sha256": "fe78a93db7a1f5ef0780d13655f5f72f18695adc8a4564d0c9cb6d5801335079",
+                "git_blob_sha1": "f66c8182f2cd5ce2f2072beef55ccc5c5653cf1e"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/friends_dungeon.py",
+              "parent_sha256": "43f0fa31ded3d8ee7f101a15fad95be070af8f2bc322533eb486f1748755e480",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/5d5aaa0074af/els_server/domain/friends_dungeon.py",
+                "size": 30475,
+                "sha256": "5d5aaa0074af23ea0c09988fe0106c15596cfbd91dd19dd777e530dc1a9e8f69",
+                "git_blob_sha1": "91e1047bbab161d3590a8f78bc73ca25ad4dcaff"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/inventory_items.py",
+              "parent_sha256": "6e6ef8181007833c066d14df13e07fdddeda69e3ad6937b52d41709132e38755",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/10694655dc78/els_server/domain/inventory_items.py",
+                "size": 80701,
+                "sha256": "10694655dc7828f4ebd27e588206aaf376933869a8fe06d495a5a4fb52e824f1",
+                "git_blob_sha1": "72b406f77415c9517719ce76cb7c2a221bfffb78"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/local_session.py",
+              "parent_sha256": "6b535a42488cd2445745df650ce3ef78d092f79b20f08acb8d571b1a831418df",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/720afbcee9da/els_server/domain/local_session.py",
+                "size": 147696,
+                "sha256": "720afbcee9da1788559fc542bb94659f132a1e17aa488fff770980aa8ace166c",
+                "git_blob_sha1": "6bfef04ee63c070aadc54aa92429935fde2fb5ca"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/normal_fatigue_flow.py",
+              "parent_sha256": "2ae7b982625ba6df3fed9ae6f8f48f200185a2ec6a0a5534614333a6eae1066a",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9c9ae1638f99/els_server/domain/normal_fatigue_flow.py",
+                "size": 15880,
+                "sha256": "9c9ae1638f99b25bbae996e4cbbfea261975e98765fee84352c7a24cab26eec5",
+                "git_blob_sha1": "28f3e6c66e0bcc386b6b1936381323d3b0f349c5"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/random_mission_flow.py",
+              "parent_sha256": "44b3433cc49783f057a2f3c1abdb7bf8a21f8cf9b8185cd5e8e1faa855ee97cc",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/25f095758897/els_server/domain/random_mission_flow.py",
+                "size": 9794,
+                "sha256": "25f095758897e5a0c7afcbf3c767369f0d4fb2163536fbe77dddb7a99696e9e3",
+                "git_blob_sha1": "4d988025d22f69b30b7cf06afa316c881aa88e63"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/session_dispatch.py",
+              "parent_sha256": "ea4bcf585f4e7a198851a1342f5d38c231823ec3edd166a333e6ca322eb7e380",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/c5e750012cfd/els_server/domain/session_dispatch.py",
+                "size": 17495,
+                "sha256": "c5e750012cfd5e58ad902eb2162f9b4a6f70870254862e021b046658a38e125e",
+                "git_blob_sha1": "7557b00831e8405cbdb021cc5e28bcf38531972d"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/silver_mirror_flow.py",
+              "parent_sha256": "5b7f900f4c6b3a1c442e797c791ef0cd2b2189c9de0045627c62509c52be31d1",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9af12afb5ceb/els_server/domain/silver_mirror_flow.py",
+                "size": 14057,
+                "sha256": "9af12afb5ceb6be8b0c1d2ac305f252432af0139b1ba8cdf0af77e6b6580420b",
+                "git_blob_sha1": "f50a1c705392183d3ee12df3e977f3e9e20b9a61"
+              }
+            },
+            {
+              "runtime_path": "els_server/gm_runtime.py",
+              "parent_sha256": "c5546caf95d8438fc5c409cba8ba91c601a3a39f424af672fc0d23178c0561a0",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/0baec47d3dab/els_server/gm_runtime.py",
+                "size": 11740,
+                "sha256": "0baec47d3dabf30922b07b7a4087721abdbf8d5ccc9a1ce9c63783bce167d0e9",
+                "git_blob_sha1": "fd6a81e7cd6a2bf8e92a9fa34db87a8f03c36483"
+              }
+            },
+            {
+              "runtime_path": "els_server/protocol/world_buff_messages.py",
+              "parent_sha256": "bf951a652a07a91f31fc5b492dbe931ab9aec35115d643ec824c0b22c9b1b043",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/ab49c841ca50/els_server/protocol/world_buff_messages.py",
+                "size": 3139,
+                "sha256": "ab49c841ca50178a407ac3b5baa2d3e0b25d2b6c650eed2f53507d39c4612f6e",
+                "git_blob_sha1": "26c8195c299e8c1f764e0aa9f520dcede38bf8be"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/environment_buffs.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/1e8e38735b08/els_server/storage/environment_buffs.py",
+                "size": 2284,
+                "sha256": "1e8e38735b08e5494990ee2e8c94035ac691908c68851cbab1212102d771482c",
+                "git_blob_sha1": "ea85fa1831558fb9272abac6e96de73997015448"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/environment_spa_purchase.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/8f0826a5dafa/els_server/storage/environment_spa_purchase.py",
+                "size": 1046,
+                "sha256": "8f0826a5dafab0322cdb16c2bead5b91dc1175a718a562d4acccda65c9fc8bf2",
+                "git_blob_sha1": "e53dbcea5cb3d50b6f179ea932f20e29ecd3f4dd"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/ice_state.py",
+              "parent_sha256": "9b01123a6d511f3fa55d827620fa7751f387ff8e5f1e39e882b8af50d9708e36",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/22a87c2fc4eb/els_server/storage/ice_state.py",
+                "size": 7041,
+                "sha256": "22a87c2fc4ebfc16a31da116637a39c5095f8ab27ddd982ba1726c3216c9a4a5",
+                "git_blob_sha1": "df41055e2bca265c24c789c0844679651cd4dc20"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/inventory_state.py",
+              "parent_sha256": "faabfbbed2a217115231f9adf84e7f6e69e90bada6322b7ab377bf16102ebf2a",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9b34f5e7de5f/els_server/storage/inventory_state.py",
+                "size": 28978,
+                "sha256": "9b34f5e7de5f1f4da5de8b8d56a5b56f6384c9a3e4e1c3674192fa32ce4937a6",
+                "git_blob_sha1": "125f141909896b3b8de60472c138c35e1b9729c1"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/reward_state.py",
+              "parent_sha256": "2a22b4d464ddbc26d61a6bb96e689b45fafc088a2c1c6a14273cf90957617bef",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/856f99c56976/els_server/storage/reward_state.py",
+                "size": 21498,
+                "sha256": "856f99c56976cc0b95dfbabcc906616d91d41af45c006a4b54dd2fd4060453b4",
+                "git_blob_sha1": "104f53aec1a0c3f186cf6057e526546e0f5e6eed"
+              }
+            }
+          ],
+          "preserve_all_other_parent_bytes": true
+        }
+      },
+      "recovery": {
+        "online": [
+          {
+            "runtime_path": "els_server/application.py",
+            "normal_sha256": "4238d119ec88ec1f18778d8dde88d567ed692eacb444a8a8fcf452a25f3e7d1c",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/4238d119ec88/els_server/application.py",
+              "size": 24495,
+              "sha256": "4238d119ec88ec1f18778d8dde88d567ed692eacb444a8a8fcf452a25f3e7d1c",
+              "git_blob_sha1": "cd327336a5039b6834e5902719fcfd7387bc325c"
+            }
+          },
+          {
+            "runtime_path": "els_server/data/environment_buffs.json",
+            "normal_sha256": "1b0d06c93952ffaf68dda5de8ef22843afcd1b7505e49525306b20a4499ed1a3",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/1b0d06c93952/els_server/data/environment_buffs.json",
+              "size": 4378,
+              "sha256": "1b0d06c93952ffaf68dda5de8ef22843afcd1b7505e49525306b20a4499ed1a3",
+              "git_blob_sha1": "ba65482e02cd45fbdf69420832f2492c47cdd0ef"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/boosting_2026_join_flow.py",
+            "normal_sha256": "b91f45c32bef29dc63e0053e6d8bae835ce62a5e35836118b599e85c97bc6a54",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/b91f45c32bef/els_server/domain/boosting_2026_join_flow.py",
+              "size": 4102,
+              "sha256": "b91f45c32bef29dc63e0053e6d8bae835ce62a5e35836118b599e85c97bc6a54",
+              "git_blob_sha1": "685bbd08e793174bfaea6caf6a99778f62a71957"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/elixir_flow.py",
+            "normal_sha256": "51989d17dc5798ea897156664f49e1490242f74ea6db2df2dc6eaed1913937fe",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/51989d17dc57/els_server/domain/elixir_flow.py",
+              "size": 7535,
+              "sha256": "51989d17dc5798ea897156664f49e1490242f74ea6db2df2dc6eaed1913937fe",
+              "git_blob_sha1": "2eb074b267dc4361a8300cd17fc5ceb063c47984"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/elixir_peer_sync.py",
+            "normal_sha256": "dc5c33b2a43d8d8c37a50188553224f747d8363863bdf8cee8a43fecbdca1f09",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/dc5c33b2a43d/els_server/domain/elixir_peer_sync.py",
+              "size": 3063,
+              "sha256": "dc5c33b2a43d8d8c37a50188553224f747d8363863bdf8cee8a43fecbdca1f09",
+              "git_blob_sha1": "7fdd38a20f8c568ec47ea9bd20f4b04378b253d1"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/environment_buff_flow.py",
+            "normal_sha256": "fe78a93db7a1f5ef0780d13655f5f72f18695adc8a4564d0c9cb6d5801335079",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/c08168385f51/els_server/domain/environment_buff_flow.py",
+              "size": 9009,
+              "sha256": "c08168385f511ecb121f1b7ba9b58904d4591680e583b7074e2ef5e1a968e471",
+              "git_blob_sha1": "104a6f56d988f7fd4dbe6ba23809967cfa1cc979"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/friends_dungeon.py",
+            "normal_sha256": "5d5aaa0074af23ea0c09988fe0106c15596cfbd91dd19dd777e530dc1a9e8f69",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/5d5aaa0074af/els_server/domain/friends_dungeon.py",
+              "size": 30475,
+              "sha256": "5d5aaa0074af23ea0c09988fe0106c15596cfbd91dd19dd777e530dc1a9e8f69",
+              "git_blob_sha1": "91e1047bbab161d3590a8f78bc73ca25ad4dcaff"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/inventory_items.py",
+            "normal_sha256": "5529f60959da31c4b7b171246b638e2db6efc912ce5749872ff18bf7bd80f464",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/5529f60959da/els_server/domain/inventory_items.py",
+              "size": 80859,
+              "sha256": "5529f60959da31c4b7b171246b638e2db6efc912ce5749872ff18bf7bd80f464",
+              "git_blob_sha1": "83e7defb38655421a6e42481613ec11642f3ff63"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/local_session.py",
+            "normal_sha256": "7275ce509b60dae20355b002ea474471de9ff25b85da0e63b3e2a3329c0dd690",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/7275ce509b60/els_server/domain/local_session.py",
+              "size": 152447,
+              "sha256": "7275ce509b60dae20355b002ea474471de9ff25b85da0e63b3e2a3329c0dd690",
+              "git_blob_sha1": "54d5d1e8d617833de14d5986799b9a08af80152d"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/normal_fatigue_flow.py",
+            "normal_sha256": "9c9ae1638f99b25bbae996e4cbbfea261975e98765fee84352c7a24cab26eec5",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9c9ae1638f99/els_server/domain/normal_fatigue_flow.py",
+              "size": 15880,
+              "sha256": "9c9ae1638f99b25bbae996e4cbbfea261975e98765fee84352c7a24cab26eec5",
+              "git_blob_sha1": "28f3e6c66e0bcc386b6b1936381323d3b0f349c5"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/random_mission_flow.py",
+            "normal_sha256": "25f095758897e5a0c7afcbf3c767369f0d4fb2163536fbe77dddb7a99696e9e3",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/25f095758897/els_server/domain/random_mission_flow.py",
+              "size": 9794,
+              "sha256": "25f095758897e5a0c7afcbf3c767369f0d4fb2163536fbe77dddb7a99696e9e3",
+              "git_blob_sha1": "4d988025d22f69b30b7cf06afa316c881aa88e63"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/session_dispatch.py",
+            "normal_sha256": "bd1107b5f69bbaf9f301e1fa426f27a29659909f391c5eecabdc497693a3029f",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/bd1107b5f69b/els_server/domain/session_dispatch.py",
+              "size": 18062,
+              "sha256": "bd1107b5f69bbaf9f301e1fa426f27a29659909f391c5eecabdc497693a3029f",
+              "git_blob_sha1": "590e8a7efa8e8b9a69af115477231cd1f6393b98"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/silver_mirror_flow.py",
+            "normal_sha256": "9af12afb5ceb6be8b0c1d2ac305f252432af0139b1ba8cdf0af77e6b6580420b",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9af12afb5ceb/els_server/domain/silver_mirror_flow.py",
+              "size": 14057,
+              "sha256": "9af12afb5ceb6be8b0c1d2ac305f252432af0139b1ba8cdf0af77e6b6580420b",
+              "git_blob_sha1": "f50a1c705392183d3ee12df3e977f3e9e20b9a61"
+            }
+          },
+          {
+            "runtime_path": "els_server/gm_runtime.py",
+            "normal_sha256": "fa8770ca51e4a01c42ff53cb895b3c51da236146f4abb0f29c09aa8812d4c129",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/fa8770ca51e4/els_server/gm_runtime.py",
+              "size": 12605,
+              "sha256": "fa8770ca51e4a01c42ff53cb895b3c51da236146f4abb0f29c09aa8812d4c129",
+              "git_blob_sha1": "4df52e2bd89b3fedc757465e3114104ad4e93e61"
+            }
+          },
+          {
+            "runtime_path": "els_server/protocol/world_buff_messages.py",
+            "normal_sha256": "ab49c841ca50178a407ac3b5baa2d3e0b25d2b6c650eed2f53507d39c4612f6e",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/ab49c841ca50/els_server/protocol/world_buff_messages.py",
+              "size": 3139,
+              "sha256": "ab49c841ca50178a407ac3b5baa2d3e0b25d2b6c650eed2f53507d39c4612f6e",
+              "git_blob_sha1": "26c8195c299e8c1f764e0aa9f520dcede38bf8be"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/environment_buffs.py",
+            "normal_sha256": "1e8e38735b08e5494990ee2e8c94035ac691908c68851cbab1212102d771482c",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/fecdfbe3bf1a/els_server/storage/environment_buffs.py",
+              "size": 2359,
+              "sha256": "fecdfbe3bf1ad54a5483b054795c61ec9fac55246f9b74182edca90add633554",
+              "git_blob_sha1": "792b66ee103cca4acaeece1a547d76494a829c01"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/environment_spa_purchase.py",
+            "normal_sha256": "8f0826a5dafab0322cdb16c2bead5b91dc1175a718a562d4acccda65c9fc8bf2",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/83362a2de467/els_server/storage/environment_spa_purchase.py",
+              "size": 1116,
+              "sha256": "83362a2de467e72bdf56595dc8c613e5b7579fc58e294044958c560100972a2d",
+              "git_blob_sha1": "1ebebe63f4a5438c350af19dcc9475983590951f"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/ice_state.py",
+            "normal_sha256": "22a87c2fc4ebfc16a31da116637a39c5095f8ab27ddd982ba1726c3216c9a4a5",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/22a87c2fc4eb/els_server/storage/ice_state.py",
+              "size": 7041,
+              "sha256": "22a87c2fc4ebfc16a31da116637a39c5095f8ab27ddd982ba1726c3216c9a4a5",
+              "git_blob_sha1": "df41055e2bca265c24c789c0844679651cd4dc20"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/inventory_state.py",
+            "normal_sha256": "33e5fbf422a71569a84e74b1b71f10958a33cac15a16c3bdb1830311ebcfcf6f",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/33e5fbf422a7/els_server/storage/inventory_state.py",
+              "size": 29158,
+              "sha256": "33e5fbf422a71569a84e74b1b71f10958a33cac15a16c3bdb1830311ebcfcf6f",
+              "git_blob_sha1": "446f6425eadbb1a3949ea728f29c956484942a0b"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/reward_state.py",
+            "normal_sha256": "856f99c56976cc0b95dfbabcc906616d91d41af45c006a4b54dd2fd4060453b4",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/856f99c56976/els_server/storage/reward_state.py",
+              "size": 21498,
+              "sha256": "856f99c56976cc0b95dfbabcc906616d91d41af45c006a4b54dd2fd4060453b4",
+              "git_blob_sha1": "104f53aec1a0c3f186cf6057e526546e0f5e6eed"
+            }
+          }
+        ],
+        "local": [
+          {
+            "runtime_path": "els_server/application.py",
+            "normal_sha256": "e66187f1382f046916d4b01c13d6e35029d1344e0769b643dd3d4bfa8cceabb6",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/e66187f1382f/els_server/application.py",
+              "size": 24596,
+              "sha256": "e66187f1382f046916d4b01c13d6e35029d1344e0769b643dd3d4bfa8cceabb6",
+              "git_blob_sha1": "c34de2e7f6b50ede74323b213e3e3ac097117ce3"
+            }
+          },
+          {
+            "runtime_path": "els_server/data/environment_buffs.json",
+            "normal_sha256": "1b0d06c93952ffaf68dda5de8ef22843afcd1b7505e49525306b20a4499ed1a3",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/1b0d06c93952/els_server/data/environment_buffs.json",
+              "size": 4378,
+              "sha256": "1b0d06c93952ffaf68dda5de8ef22843afcd1b7505e49525306b20a4499ed1a3",
+              "git_blob_sha1": "ba65482e02cd45fbdf69420832f2492c47cdd0ef"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/boosting_2026_join_flow.py",
+            "normal_sha256": "b91f45c32bef29dc63e0053e6d8bae835ce62a5e35836118b599e85c97bc6a54",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/b91f45c32bef/els_server/domain/boosting_2026_join_flow.py",
+              "size": 4102,
+              "sha256": "b91f45c32bef29dc63e0053e6d8bae835ce62a5e35836118b599e85c97bc6a54",
+              "git_blob_sha1": "685bbd08e793174bfaea6caf6a99778f62a71957"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/elixir_flow.py",
+            "normal_sha256": "51989d17dc5798ea897156664f49e1490242f74ea6db2df2dc6eaed1913937fe",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/51989d17dc57/els_server/domain/elixir_flow.py",
+              "size": 7535,
+              "sha256": "51989d17dc5798ea897156664f49e1490242f74ea6db2df2dc6eaed1913937fe",
+              "git_blob_sha1": "2eb074b267dc4361a8300cd17fc5ceb063c47984"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/elixir_peer_sync.py",
+            "normal_sha256": "dc5c33b2a43d8d8c37a50188553224f747d8363863bdf8cee8a43fecbdca1f09",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/dc5c33b2a43d/els_server/domain/elixir_peer_sync.py",
+              "size": 3063,
+              "sha256": "dc5c33b2a43d8d8c37a50188553224f747d8363863bdf8cee8a43fecbdca1f09",
+              "git_blob_sha1": "7fdd38a20f8c568ec47ea9bd20f4b04378b253d1"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/environment_buff_flow.py",
+            "normal_sha256": "fe78a93db7a1f5ef0780d13655f5f72f18695adc8a4564d0c9cb6d5801335079",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/c08168385f51/els_server/domain/environment_buff_flow.py",
+              "size": 9009,
+              "sha256": "c08168385f511ecb121f1b7ba9b58904d4591680e583b7074e2ef5e1a968e471",
+              "git_blob_sha1": "104a6f56d988f7fd4dbe6ba23809967cfa1cc979"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/friends_dungeon.py",
+            "normal_sha256": "5d5aaa0074af23ea0c09988fe0106c15596cfbd91dd19dd777e530dc1a9e8f69",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/5d5aaa0074af/els_server/domain/friends_dungeon.py",
+              "size": 30475,
+              "sha256": "5d5aaa0074af23ea0c09988fe0106c15596cfbd91dd19dd777e530dc1a9e8f69",
+              "git_blob_sha1": "91e1047bbab161d3590a8f78bc73ca25ad4dcaff"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/inventory_items.py",
+            "normal_sha256": "10694655dc7828f4ebd27e588206aaf376933869a8fe06d495a5a4fb52e824f1",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/10694655dc78/els_server/domain/inventory_items.py",
+              "size": 80701,
+              "sha256": "10694655dc7828f4ebd27e588206aaf376933869a8fe06d495a5a4fb52e824f1",
+              "git_blob_sha1": "72b406f77415c9517719ce76cb7c2a221bfffb78"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/local_session.py",
+            "normal_sha256": "720afbcee9da1788559fc542bb94659f132a1e17aa488fff770980aa8ace166c",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/720afbcee9da/els_server/domain/local_session.py",
+              "size": 147696,
+              "sha256": "720afbcee9da1788559fc542bb94659f132a1e17aa488fff770980aa8ace166c",
+              "git_blob_sha1": "6bfef04ee63c070aadc54aa92429935fde2fb5ca"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/normal_fatigue_flow.py",
+            "normal_sha256": "9c9ae1638f99b25bbae996e4cbbfea261975e98765fee84352c7a24cab26eec5",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9c9ae1638f99/els_server/domain/normal_fatigue_flow.py",
+              "size": 15880,
+              "sha256": "9c9ae1638f99b25bbae996e4cbbfea261975e98765fee84352c7a24cab26eec5",
+              "git_blob_sha1": "28f3e6c66e0bcc386b6b1936381323d3b0f349c5"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/random_mission_flow.py",
+            "normal_sha256": "25f095758897e5a0c7afcbf3c767369f0d4fb2163536fbe77dddb7a99696e9e3",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/25f095758897/els_server/domain/random_mission_flow.py",
+              "size": 9794,
+              "sha256": "25f095758897e5a0c7afcbf3c767369f0d4fb2163536fbe77dddb7a99696e9e3",
+              "git_blob_sha1": "4d988025d22f69b30b7cf06afa316c881aa88e63"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/session_dispatch.py",
+            "normal_sha256": "c5e750012cfd5e58ad902eb2162f9b4a6f70870254862e021b046658a38e125e",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/c5e750012cfd/els_server/domain/session_dispatch.py",
+              "size": 17495,
+              "sha256": "c5e750012cfd5e58ad902eb2162f9b4a6f70870254862e021b046658a38e125e",
+              "git_blob_sha1": "7557b00831e8405cbdb021cc5e28bcf38531972d"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/silver_mirror_flow.py",
+            "normal_sha256": "9af12afb5ceb6be8b0c1d2ac305f252432af0139b1ba8cdf0af77e6b6580420b",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9af12afb5ceb/els_server/domain/silver_mirror_flow.py",
+              "size": 14057,
+              "sha256": "9af12afb5ceb6be8b0c1d2ac305f252432af0139b1ba8cdf0af77e6b6580420b",
+              "git_blob_sha1": "f50a1c705392183d3ee12df3e977f3e9e20b9a61"
+            }
+          },
+          {
+            "runtime_path": "els_server/gm_runtime.py",
+            "normal_sha256": "0baec47d3dabf30922b07b7a4087721abdbf8d5ccc9a1ce9c63783bce167d0e9",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/0baec47d3dab/els_server/gm_runtime.py",
+              "size": 11740,
+              "sha256": "0baec47d3dabf30922b07b7a4087721abdbf8d5ccc9a1ce9c63783bce167d0e9",
+              "git_blob_sha1": "fd6a81e7cd6a2bf8e92a9fa34db87a8f03c36483"
+            }
+          },
+          {
+            "runtime_path": "els_server/protocol/world_buff_messages.py",
+            "normal_sha256": "ab49c841ca50178a407ac3b5baa2d3e0b25d2b6c650eed2f53507d39c4612f6e",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/ab49c841ca50/els_server/protocol/world_buff_messages.py",
+              "size": 3139,
+              "sha256": "ab49c841ca50178a407ac3b5baa2d3e0b25d2b6c650eed2f53507d39c4612f6e",
+              "git_blob_sha1": "26c8195c299e8c1f764e0aa9f520dcede38bf8be"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/environment_buffs.py",
+            "normal_sha256": "1e8e38735b08e5494990ee2e8c94035ac691908c68851cbab1212102d771482c",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/fecdfbe3bf1a/els_server/storage/environment_buffs.py",
+              "size": 2359,
+              "sha256": "fecdfbe3bf1ad54a5483b054795c61ec9fac55246f9b74182edca90add633554",
+              "git_blob_sha1": "792b66ee103cca4acaeece1a547d76494a829c01"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/environment_spa_purchase.py",
+            "normal_sha256": "8f0826a5dafab0322cdb16c2bead5b91dc1175a718a562d4acccda65c9fc8bf2",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/83362a2de467/els_server/storage/environment_spa_purchase.py",
+              "size": 1116,
+              "sha256": "83362a2de467e72bdf56595dc8c613e5b7579fc58e294044958c560100972a2d",
+              "git_blob_sha1": "1ebebe63f4a5438c350af19dcc9475983590951f"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/ice_state.py",
+            "normal_sha256": "22a87c2fc4ebfc16a31da116637a39c5095f8ab27ddd982ba1726c3216c9a4a5",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/22a87c2fc4eb/els_server/storage/ice_state.py",
+              "size": 7041,
+              "sha256": "22a87c2fc4ebfc16a31da116637a39c5095f8ab27ddd982ba1726c3216c9a4a5",
+              "git_blob_sha1": "df41055e2bca265c24c789c0844679651cd4dc20"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/inventory_state.py",
+            "normal_sha256": "9b34f5e7de5f1f4da5de8b8d56a5b56f6384c9a3e4e1c3674192fa32ce4937a6",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9b34f5e7de5f/els_server/storage/inventory_state.py",
+              "size": 28978,
+              "sha256": "9b34f5e7de5f1f4da5de8b8d56a5b56f6384c9a3e4e1c3674192fa32ce4937a6",
+              "git_blob_sha1": "125f141909896b3b8de60472c138c35e1b9729c1"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/reward_state.py",
+            "normal_sha256": "856f99c56976cc0b95dfbabcc906616d91d41af45c006a4b54dd2fd4060453b4",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/856f99c56976/els_server/storage/reward_state.py",
+              "size": 21498,
+              "sha256": "856f99c56976cc0b95dfbabcc906616d91d41af45c006a4b54dd2fd4060453b4",
+              "git_blob_sha1": "104f53aec1a0c3f186cf6057e526546e0f5e6eed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "version": 70,
+      "source_merge_sha256": "c51b2ed37f5db670b9caa93f098e924c0d6433ee706f32a31374fde392f0c10c",
+      "recovery_manifest_sha256": "d369ca195f14f4e092039b2afe6dda0a14cf4d0ff55023783859be082711d26f",
+      "server_delta": {
+        "online": 36,
+        "local": 36
+      },
+      "new_files": 11,
+      "schema_changes": {
+        "new_tables": [
+          "challenge_scroll_resets"
+        ],
+        "install_DDL_statements": 0,
+        "startup_DDL_statements": 0
+      },
+      "normal": {
+        "online": {
+          "parent_release": "native-performance-buff-20261101-v1",
+          "parent_manifest_sha256": "2f39d1a7bd7e7e05ff4e097a41b9dfb981967768075a985600a78f6d4b3e2374",
+          "files": [
+            {
+              "runtime_path": "els_server/data/identification_reset_items.json",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/4513ec04bb08/els_server/data/identification_reset_items.json",
+                "size": 937,
+                "sha256": "4513ec04bb08d953980ab2859d5411e28815c96edfcf3434ea23a0ef3bba96d9",
+                "git_blob_sha1": "dc7fa80079a97bff753f3e3ab360f1211c0ff670"
+              }
+            },
+            {
+              "runtime_path": "els_server/data/owned_scroll_families.json",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/028fd5fb891b/els_server/data/owned_scroll_families.json",
+                "size": 100750,
+                "sha256": "028fd5fb891bc88635b999f6fc2e79ad4f9170024d4ecd1a1131e6dba323fa73",
+                "git_blob_sha1": "433f441cfc624b79ce7183249c707754e490d330"
+              }
+            },
+            {
+              "runtime_path": "els_server/data/skill_trait_reset_items.json",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/05ada82ee94a/els_server/data/skill_trait_reset_items.json",
+                "size": 2544,
+                "sha256": "05ada82ee94a901062d7173b28cf06f79ea8dd623eb44ddceacd65e95accab38",
+                "git_blob_sha1": "8dc913eddbef78cf117994d412e929fb26d45f7f"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/artifact_flow.py",
+              "parent_sha256": "16e13ab0827823b11dec19037438dba56461fd66468cc4ce729fc95a0aa5b54c",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/721d5657ff78/els_server/domain/artifact_flow.py",
+                "size": 8938,
+                "sha256": "721d5657ff78b1c3eb05fb16454d253b7b0e104fe97c33509dcc0364d080997c",
+                "git_blob_sha1": "436a39e59dc2eb955d946bc305a02a63277b33d7"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/challenge_flow.py",
+              "parent_sha256": "9b4a886dbaa2efa9a789ffb1aa64deac26d41fcaf6a9acbc1b8c4703fa60b599",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/a278ed1bb64b/els_server/domain/challenge_flow.py",
+                "size": 7859,
+                "sha256": "a278ed1bb64b4b005fb6adfe2a02eca715989a2148c92d80be97c7fc440efabc",
+                "git_blob_sha1": "a684f60d982da314efc747c7c1f7012e54210bbb"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/challenge_scroll.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/cc2f16afdaaf/els_server/domain/challenge_scroll.py",
+                "size": 1540,
+                "sha256": "cc2f16afdaafd9b35ea7de801f33286d3774ca2c6a49be0e1f716d3f8970e10c",
+                "git_blob_sha1": "8e0083df73be1c06164e1685289f3eae8bba9b2b"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/dungeon_hp_c1.py",
+              "parent_sha256": "abde20654a54771c4da75b7e1b03cff3be393546e0d75e86688b35ce7b92f79f",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/2e00311045c0/els_server/domain/dungeon_hp_c1.py",
+                "size": 606940,
+                "sha256": "2e00311045c0ad901714c0f184a7190216497517f0928705566cfc615b2893ee",
+                "git_blob_sha1": "9920b6291cb51bb756f1d47183954cc6a98a938f"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/dungeon_population.py",
+              "parent_sha256": "f3cb1dfce9d7bb477ebff925b1a0960b1691baa836014fa282c83a2d02b8a5e2",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/b148b9b2649a/els_server/domain/dungeon_population.py",
+                "size": 3488,
+                "sha256": "b148b9b2649a829e42e1ce8da6ec9a043ef82291a97ae8fdcd2228a14e5c52b5",
+                "git_blob_sha1": "d0d3877af233c128618fc0389a7af71d7ed4c9df"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/dungeon_routes.py",
+              "parent_sha256": "9d79ecbf01d322448af9cab4280a28c9c273e1f342513691f0ab0e98a6d16ced",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/1182a45acfcd/els_server/domain/dungeon_routes.py",
+                "size": 21164,
+                "sha256": "1182a45acfcd59dce2309428d9fb329436e9c8ccd05236cb1b159551a6203f5a",
+                "git_blob_sha1": "d945d3324b7729163f4f540c7fc814676312451c"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/dungeon_spawns.py",
+              "parent_sha256": "d6b477d2a66c043fb6fbbd2e857b9621159b5a9394f4c36071eabb5b3ec33bda",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/fc2d685e044d/els_server/domain/dungeon_spawns.py",
+                "size": 7089,
+                "sha256": "fc2d685e044dd090eee3a8046aef5f1110c202d677daa9e652ee3d24dc6d6123",
+                "git_blob_sha1": "39f4209230839843b5d8ec93d92a4f011adbf53e"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/equipment_reforge_flow.py",
+              "parent_sha256": "0024d583eaab1bb590e78aff2f8073667048db99b9f6d2f824805c8c8cd3424c",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/4e1b2ede6ea6/els_server/domain/equipment_reforge_flow.py",
+                "size": 2801,
+                "sha256": "4e1b2ede6ea668f538c44a8c4f960749e4b708fd6d82cd67630dcd295839b6bf",
+                "git_blob_sha1": "125be8647455010320a3a21940121c63477b6e18"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/field_boss.py",
+              "parent_sha256": "7e5bd584428389508c2861061f3bb1bbf36aef3fc2339a9ac62abb2ef3653193",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/bf39295ed1df/els_server/domain/field_boss.py",
+                "size": 14737,
+                "sha256": "bf39295ed1df9779e6ff729d5471e0c5fbc42375840deff50b10615e952928d9",
+                "git_blob_sha1": "a358b04fada48c9eb1b90b337d54d5384e7d4001"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/formal_npc_hp.py",
+              "parent_sha256": "64216c4f70c05233671df08dec46efe74d3ac0f5bae37d398cbfbe49a62c6082",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/5bba8f719138/els_server/domain/formal_npc_hp.py",
+                "size": 17767,
+                "sha256": "5bba8f719138a32db165a336df0986c4afe03237d6f4f305c1229d3a49198b2f",
+                "git_blob_sha1": "4ca555445941cc382b6e949d6332a1d16b81ce4e"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/identification_ui.py",
+              "parent_sha256": "99f032dcadbf52c2366e693ca51c724b32f3928b71fbd684fc74e10e3735fb2c",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9a1abbe17f66/els_server/domain/identification_ui.py",
+                "size": 15135,
+                "sha256": "9a1abbe17f66a34e455f190140c4ec698f295dc9f99251e7ca3ccf1966fcfb32",
+                "git_blob_sha1": "f9d2924b74aef0c826850c093a5131e589d2ddfa"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/inventory_items.py",
+              "parent_sha256": "5529f60959da31c4b7b171246b638e2db6efc912ce5749872ff18bf7bd80f464",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/3ac890e4a35b/els_server/domain/inventory_items.py",
+                "size": 81110,
+                "sha256": "3ac890e4a35b8a98efa591138feed84f52baddb05a445b3be233aa3e9c3d1fb4",
+                "git_blob_sha1": "dd57f92f6b59a8e6119feb07bc651aced3efac17"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/owned_scroll_families.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/0975cb5cc777/els_server/domain/owned_scroll_families.py",
+                "size": 2183,
+                "sha256": "0975cb5cc777aeb7cd5b7d1e4be2bbda3160c09dfb782795d050d668ca3e4e02",
+                "git_blob_sha1": "7e98503a1acaac77f14d1e2c4a06664cceb6d334"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/raid_reward_flow.py",
+              "parent_sha256": "baddd6eefaf470f52b594118f147f1dd8f8e41539cc679425c8a9c2be64844f7",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/bb0ab85a1338/els_server/domain/raid_reward_flow.py",
+                "size": 6207,
+                "sha256": "bb0ab85a1338edf26f60253337f72595be65516546f672f5530d622181a43899",
+                "git_blob_sha1": "817f0e05cb070e8e63188d6801b5f8cdcd2132c4"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/resonance_category_scroll.py",
+              "parent_sha256": "1953e7c73deb0a4baa63a7dda4cae9974b32e34fc583ddefbb2eefc24620b8d1",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9ae7d8d1123b/els_server/domain/resonance_category_scroll.py",
+                "size": 2202,
+                "sha256": "9ae7d8d1123bf7d0cc313a486e7de3827622fee00cd7a3fb1c3cab89e99e3a19",
+                "git_blob_sha1": "90ec25fe62fcd8e243911b15d59a482e6cd60111"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/session_dispatch.py",
+              "parent_sha256": "bd1107b5f69bbaf9f301e1fa426f27a29659909f391c5eecabdc497693a3029f",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/74e26f121590/els_server/domain/session_dispatch.py",
+                "size": 18786,
+                "sha256": "74e26f121590d3fca751a85079a3b51a4f31bb7844bd206e285c5bcebe25511c",
+                "git_blob_sha1": "aeaca459c7fba18583d7fbe6556bdd9d1e45d376"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/skill_trait_reset.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/1859061ffcd2/els_server/domain/skill_trait_reset.py",
+                "size": 2264,
+                "sha256": "1859061ffcd2907b305512a08f926e605b72cf5f98cd6eacbe289dd85cdbfdfc",
+                "git_blob_sha1": "1fd5d8cdbd684b54e350149d1f9e61e06f64688a"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/skill_trait_reset_flow.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/49647102f739/els_server/domain/skill_trait_reset_flow.py",
+                "size": 1831,
+                "sha256": "49647102f739e78563796fa66417e4b447915127db35b21763b6ebc95be21127",
+                "git_blob_sha1": "4bd7007a7401cdaea9adf7785b45a773bc859ff2"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/wisdom_potions.py",
+              "parent_sha256": "64f673b3140a3f6bd8ff83adf0a34289ec91a687182eeaa07d13ea1157da1d18",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/de9369402a5c/els_server/domain/wisdom_potions.py",
+                "size": 5722,
+                "sha256": "de9369402a5c9885a538380a56f7063560505d24ec00639a41ce1d26638bf7a6",
+                "git_blob_sha1": "7a6da53f84374927ee8aafbf7dfa8255e61aea88"
+              }
+            },
+            {
+              "runtime_path": "els_server/protocol/artifact_messages.py",
+              "parent_sha256": "79052af97c6505cc60532742d68c66bdcfcfc356239988e9534568ed9eb68db6",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/6ac5de17b192/els_server/protocol/artifact_messages.py",
+                "size": 1991,
+                "sha256": "6ac5de17b192052c5da7cf514856273df0e2f281e0308b9418ad4ea7b69281d3",
+                "git_blob_sha1": "3a4c66663cfc7e02592ab9ea8cf8ead6845c12fe"
+              }
+            },
+            {
+              "runtime_path": "els_server/protocol/equipment_restoration_messages.py",
+              "parent_sha256": "7c92f306536dd6ddfcc9ad3ead5c005c2d3849e8cf2abf881e5cd69c45bbb202",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/4dc48a2f7e7c/els_server/protocol/equipment_restoration_messages.py",
+                "size": 892,
+                "sha256": "4dc48a2f7e7cb06eee811391bbaf3870771b92e0545592717770ad3a0ccfdc25",
+                "git_blob_sha1": "a60a3549428a45151a7617e9a89ba477c7b2135b"
+              }
+            },
+            {
+              "runtime_path": "els_server/protocol/hunter_chest_messages.py",
+              "parent_sha256": "e004d5307161c21ed4fc08a288bce8aa789c443f9f352f80c226d0e88bc67f87",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/195727d2fc20/els_server/protocol/hunter_chest_messages.py",
+                "size": 2623,
+                "sha256": "195727d2fc20bfdd3d2b406d9cd10bd663630ac77aa6da23f9c082c2c0fa52e7",
+                "git_blob_sha1": "1b89c4ecdf2d02ee0402f09cf62f55cb8009c3c7"
+              }
+            },
+            {
+              "runtime_path": "els_server/protocol/reforge_scroll_messages.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/e1092c9efe9e/els_server/protocol/reforge_scroll_messages.py",
+                "size": 656,
+                "sha256": "e1092c9efe9eb89b4ad8ccd44c7835ad927c0bb329617cae3eda0d86c8dfabf8",
+                "git_blob_sha1": "6739d1b2dfa0da8f25389be960eb16db38adbb72"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/challenge_scroll.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/42343a316478/els_server/storage/challenge_scroll.py",
+                "size": 7054,
+                "sha256": "42343a31647810f1a5b06a4f28d343f2761f9b539f584c171365caeab458b796",
+                "git_blob_sha1": "56ea492bc0f2b350f0de2f91f340f150581cb667"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/enhancement_scroll.py",
+              "parent_sha256": "56a627d80bf8b22b9fffe059ef483dd0f92827a6923e71b869d9a066d807f63e",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/fdd937dc0772/els_server/storage/enhancement_scroll.py",
+                "size": 4824,
+                "sha256": "fdd937dc07725fee2c94bc265ba02a7cd1b9f48f7f9e27f3cc05684060941755",
+                "git_blob_sha1": "2c3ecd4742a829cb8e397696cbcc3cc5fa9175cd"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/equipment_receipt_state.py",
+              "parent_sha256": "146545dee169cfcac55e0f918d383531257b5d0021248d5b1b8b03ac8fd3d7d9",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/d675d82624a7/els_server/storage/equipment_receipt_state.py",
+                "size": 3397,
+                "sha256": "d675d82624a73b87d40c1a2243e6f336acf8a23e0ee84ec1e84e74bba1a2885b",
+                "git_blob_sha1": "58928508a566631fd8011eeff9fe88af4c308386"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/equipment_restoration.py",
+              "parent_sha256": "5fc6add02938880302ee5491a6d942f9bc1d7c361da7155b44a51528aaa91399",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/6e21e34213d6/els_server/storage/equipment_restoration.py",
+                "size": 2637,
+                "sha256": "6e21e34213d6e0b8c57842466c96ea5f22dee4ce79d771e1415ea2f01a5c48c1",
+                "git_blob_sha1": "1fb43c9ec0b1d833cea7c16d3f0371396afb32d8"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/identification_ui.py",
+              "parent_sha256": "9e0668115954a6c5e98fea5e7295ce7bfacf8463ab07a52e4af18459ca700a55",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/e409ae786b16/els_server/storage/identification_ui.py",
+                "size": 5041,
+                "sha256": "e409ae786b1673eb089af0bd1de811a7532dc1bbfbe635de5db2a2f9a9d3fb32",
+                "git_blob_sha1": "3a92db59751d160c684ed40e17c83c7b135ee84e"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/reforge_scroll.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/dd0bdf149aeb/els_server/storage/reforge_scroll.py",
+                "size": 3381,
+                "sha256": "dd0bdf149aeb08dd0b150faea5ff5618e51c0bc17dd3273a3bbca98d9bc318e4",
+                "git_blob_sha1": "35f9e0444ebb264e229a3ed1eb2c77375d93a858"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/resonance_2026_scrolls.py",
+              "parent_sha256": "2214403c03eb6c18d81bd4c729c9457ab1377ed8b1fc27a7f9b4579bd324b2e8",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/72e20fc656a4/els_server/storage/resonance_2026_scrolls.py",
+                "size": 4444,
+                "sha256": "72e20fc656a47f06f689df8619f7c71d641049bb3f07ea64a45a357c697ca7d1",
+                "git_blob_sha1": "533b49afa02ea5b17455797e8442ed9d9dcefb32"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/skill_trait_reset.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/dd6b55c39a6d/els_server/storage/skill_trait_reset.py",
+                "size": 4788,
+                "sha256": "dd6b55c39a6d26086d68dc03f137a3d50bf2b9fbd6f863e99de0a32a7804af35",
+                "git_blob_sha1": "896cf682dc90830912c9e9cb023e4caeab594a3a"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/wardrobe.py",
+              "parent_sha256": "6feacc41e858be77460a65ccd0889945d7dbed8df4870cfe58390150c9d2a3c9",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/16e436193d28/els_server/storage/wardrobe.py",
+                "size": 28684,
+                "sha256": "16e436193d282dbf684b9a675c12ba5ff70da6ec53ace292d67db6cc57819a8b",
+                "git_blob_sha1": "aef770c6f878808760b198529aaaac7bd72332f6"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/wisdom_potions.py",
+              "parent_sha256": "36a97d11d5afd0944b4a6d21c3df6ce13f2239b97d93a6027362e49cdbb9ea9d",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/e708807b86d3/els_server/storage/wisdom_potions.py",
+                "size": 7121,
+                "sha256": "e708807b86d3a0843face57e39d68fda27be86a5eb2ac8b8ab340a9b441da42e",
+                "git_blob_sha1": "49d5bf79cf429c7f8fbc8d1b0ddf01424de781b7"
+              }
+            }
+          ],
+          "preserve_all_other_parent_bytes": true
+        },
+        "local": {
+          "parent_release": "local-native-performance-buff-20261101-v1",
+          "parent_manifest_sha256": "8138cc3669b5f3f5be9fc169cf5fb0503eba37ab3a9a0a6fbc52c3aa68173805",
+          "files": [
+            {
+              "runtime_path": "els_server/data/identification_reset_items.json",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/4513ec04bb08/els_server/data/identification_reset_items.json",
+                "size": 937,
+                "sha256": "4513ec04bb08d953980ab2859d5411e28815c96edfcf3434ea23a0ef3bba96d9",
+                "git_blob_sha1": "dc7fa80079a97bff753f3e3ab360f1211c0ff670"
+              }
+            },
+            {
+              "runtime_path": "els_server/data/owned_scroll_families.json",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/028fd5fb891b/els_server/data/owned_scroll_families.json",
+                "size": 100750,
+                "sha256": "028fd5fb891bc88635b999f6fc2e79ad4f9170024d4ecd1a1131e6dba323fa73",
+                "git_blob_sha1": "433f441cfc624b79ce7183249c707754e490d330"
+              }
+            },
+            {
+              "runtime_path": "els_server/data/skill_trait_reset_items.json",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/05ada82ee94a/els_server/data/skill_trait_reset_items.json",
+                "size": 2544,
+                "sha256": "05ada82ee94a901062d7173b28cf06f79ea8dd623eb44ddceacd65e95accab38",
+                "git_blob_sha1": "8dc913eddbef78cf117994d412e929fb26d45f7f"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/artifact_flow.py",
+              "parent_sha256": "16e13ab0827823b11dec19037438dba56461fd66468cc4ce729fc95a0aa5b54c",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/721d5657ff78/els_server/domain/artifact_flow.py",
+                "size": 8938,
+                "sha256": "721d5657ff78b1c3eb05fb16454d253b7b0e104fe97c33509dcc0364d080997c",
+                "git_blob_sha1": "436a39e59dc2eb955d946bc305a02a63277b33d7"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/challenge_flow.py",
+              "parent_sha256": "9b4a886dbaa2efa9a789ffb1aa64deac26d41fcaf6a9acbc1b8c4703fa60b599",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/a278ed1bb64b/els_server/domain/challenge_flow.py",
+                "size": 7859,
+                "sha256": "a278ed1bb64b4b005fb6adfe2a02eca715989a2148c92d80be97c7fc440efabc",
+                "git_blob_sha1": "a684f60d982da314efc747c7c1f7012e54210bbb"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/challenge_scroll.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/cc2f16afdaaf/els_server/domain/challenge_scroll.py",
+                "size": 1540,
+                "sha256": "cc2f16afdaafd9b35ea7de801f33286d3774ca2c6a49be0e1f716d3f8970e10c",
+                "git_blob_sha1": "8e0083df73be1c06164e1685289f3eae8bba9b2b"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/dungeon_hp_c1.py",
+              "parent_sha256": "abde20654a54771c4da75b7e1b03cff3be393546e0d75e86688b35ce7b92f79f",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/2e00311045c0/els_server/domain/dungeon_hp_c1.py",
+                "size": 606940,
+                "sha256": "2e00311045c0ad901714c0f184a7190216497517f0928705566cfc615b2893ee",
+                "git_blob_sha1": "9920b6291cb51bb756f1d47183954cc6a98a938f"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/dungeon_population.py",
+              "parent_sha256": "f3cb1dfce9d7bb477ebff925b1a0960b1691baa836014fa282c83a2d02b8a5e2",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/b148b9b2649a/els_server/domain/dungeon_population.py",
+                "size": 3488,
+                "sha256": "b148b9b2649a829e42e1ce8da6ec9a043ef82291a97ae8fdcd2228a14e5c52b5",
+                "git_blob_sha1": "d0d3877af233c128618fc0389a7af71d7ed4c9df"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/dungeon_routes.py",
+              "parent_sha256": "9d79ecbf01d322448af9cab4280a28c9c273e1f342513691f0ab0e98a6d16ced",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/1182a45acfcd/els_server/domain/dungeon_routes.py",
+                "size": 21164,
+                "sha256": "1182a45acfcd59dce2309428d9fb329436e9c8ccd05236cb1b159551a6203f5a",
+                "git_blob_sha1": "d945d3324b7729163f4f540c7fc814676312451c"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/dungeon_spawns.py",
+              "parent_sha256": "d6b477d2a66c043fb6fbbd2e857b9621159b5a9394f4c36071eabb5b3ec33bda",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/fc2d685e044d/els_server/domain/dungeon_spawns.py",
+                "size": 7089,
+                "sha256": "fc2d685e044dd090eee3a8046aef5f1110c202d677daa9e652ee3d24dc6d6123",
+                "git_blob_sha1": "39f4209230839843b5d8ec93d92a4f011adbf53e"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/equipment_reforge_flow.py",
+              "parent_sha256": "0024d583eaab1bb590e78aff2f8073667048db99b9f6d2f824805c8c8cd3424c",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/4e1b2ede6ea6/els_server/domain/equipment_reforge_flow.py",
+                "size": 2801,
+                "sha256": "4e1b2ede6ea668f538c44a8c4f960749e4b708fd6d82cd67630dcd295839b6bf",
+                "git_blob_sha1": "125be8647455010320a3a21940121c63477b6e18"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/field_boss.py",
+              "parent_sha256": "7e5bd584428389508c2861061f3bb1bbf36aef3fc2339a9ac62abb2ef3653193",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/bf39295ed1df/els_server/domain/field_boss.py",
+                "size": 14737,
+                "sha256": "bf39295ed1df9779e6ff729d5471e0c5fbc42375840deff50b10615e952928d9",
+                "git_blob_sha1": "a358b04fada48c9eb1b90b337d54d5384e7d4001"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/formal_npc_hp.py",
+              "parent_sha256": "64216c4f70c05233671df08dec46efe74d3ac0f5bae37d398cbfbe49a62c6082",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/5bba8f719138/els_server/domain/formal_npc_hp.py",
+                "size": 17767,
+                "sha256": "5bba8f719138a32db165a336df0986c4afe03237d6f4f305c1229d3a49198b2f",
+                "git_blob_sha1": "4ca555445941cc382b6e949d6332a1d16b81ce4e"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/identification_ui.py",
+              "parent_sha256": "99f032dcadbf52c2366e693ca51c724b32f3928b71fbd684fc74e10e3735fb2c",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9a1abbe17f66/els_server/domain/identification_ui.py",
+                "size": 15135,
+                "sha256": "9a1abbe17f66a34e455f190140c4ec698f295dc9f99251e7ca3ccf1966fcfb32",
+                "git_blob_sha1": "f9d2924b74aef0c826850c093a5131e589d2ddfa"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/inventory_items.py",
+              "parent_sha256": "10694655dc7828f4ebd27e588206aaf376933869a8fe06d495a5a4fb52e824f1",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/e8f9e256878f/els_server/domain/inventory_items.py",
+                "size": 80952,
+                "sha256": "e8f9e256878f026f2b83da9a5025b8e5a1fe083a8b2fb5ed2116215bfccb8c71",
+                "git_blob_sha1": "06039ca616a137581417fc20ce6c0f676fecc1b6"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/owned_scroll_families.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/0975cb5cc777/els_server/domain/owned_scroll_families.py",
+                "size": 2183,
+                "sha256": "0975cb5cc777aeb7cd5b7d1e4be2bbda3160c09dfb782795d050d668ca3e4e02",
+                "git_blob_sha1": "7e98503a1acaac77f14d1e2c4a06664cceb6d334"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/raid_reward_flow.py",
+              "parent_sha256": "baddd6eefaf470f52b594118f147f1dd8f8e41539cc679425c8a9c2be64844f7",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/bb0ab85a1338/els_server/domain/raid_reward_flow.py",
+                "size": 6207,
+                "sha256": "bb0ab85a1338edf26f60253337f72595be65516546f672f5530d622181a43899",
+                "git_blob_sha1": "817f0e05cb070e8e63188d6801b5f8cdcd2132c4"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/resonance_category_scroll.py",
+              "parent_sha256": "1953e7c73deb0a4baa63a7dda4cae9974b32e34fc583ddefbb2eefc24620b8d1",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9ae7d8d1123b/els_server/domain/resonance_category_scroll.py",
+                "size": 2202,
+                "sha256": "9ae7d8d1123bf7d0cc313a486e7de3827622fee00cd7a3fb1c3cab89e99e3a19",
+                "git_blob_sha1": "90ec25fe62fcd8e243911b15d59a482e6cd60111"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/session_dispatch.py",
+              "parent_sha256": "c5e750012cfd5e58ad902eb2162f9b4a6f70870254862e021b046658a38e125e",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/45c64b88116a/els_server/domain/session_dispatch.py",
+                "size": 18210,
+                "sha256": "45c64b88116a84a31d835280a458c8b1edf8683444d4466ade400fd20b0c8e57",
+                "git_blob_sha1": "257f727e6c0c5fe5e1c453a8d8b10c091a7e0c20"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/skill_trait_reset.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/1859061ffcd2/els_server/domain/skill_trait_reset.py",
+                "size": 2264,
+                "sha256": "1859061ffcd2907b305512a08f926e605b72cf5f98cd6eacbe289dd85cdbfdfc",
+                "git_blob_sha1": "1fd5d8cdbd684b54e350149d1f9e61e06f64688a"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/skill_trait_reset_flow.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/49647102f739/els_server/domain/skill_trait_reset_flow.py",
+                "size": 1831,
+                "sha256": "49647102f739e78563796fa66417e4b447915127db35b21763b6ebc95be21127",
+                "git_blob_sha1": "4bd7007a7401cdaea9adf7785b45a773bc859ff2"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/wisdom_potions.py",
+              "parent_sha256": "64f673b3140a3f6bd8ff83adf0a34289ec91a687182eeaa07d13ea1157da1d18",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/de9369402a5c/els_server/domain/wisdom_potions.py",
+                "size": 5722,
+                "sha256": "de9369402a5c9885a538380a56f7063560505d24ec00639a41ce1d26638bf7a6",
+                "git_blob_sha1": "7a6da53f84374927ee8aafbf7dfa8255e61aea88"
+              }
+            },
+            {
+              "runtime_path": "els_server/protocol/artifact_messages.py",
+              "parent_sha256": "79052af97c6505cc60532742d68c66bdcfcfc356239988e9534568ed9eb68db6",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/6ac5de17b192/els_server/protocol/artifact_messages.py",
+                "size": 1991,
+                "sha256": "6ac5de17b192052c5da7cf514856273df0e2f281e0308b9418ad4ea7b69281d3",
+                "git_blob_sha1": "3a4c66663cfc7e02592ab9ea8cf8ead6845c12fe"
+              }
+            },
+            {
+              "runtime_path": "els_server/protocol/equipment_restoration_messages.py",
+              "parent_sha256": "7c92f306536dd6ddfcc9ad3ead5c005c2d3849e8cf2abf881e5cd69c45bbb202",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/4dc48a2f7e7c/els_server/protocol/equipment_restoration_messages.py",
+                "size": 892,
+                "sha256": "4dc48a2f7e7cb06eee811391bbaf3870771b92e0545592717770ad3a0ccfdc25",
+                "git_blob_sha1": "a60a3549428a45151a7617e9a89ba477c7b2135b"
+              }
+            },
+            {
+              "runtime_path": "els_server/protocol/hunter_chest_messages.py",
+              "parent_sha256": "e004d5307161c21ed4fc08a288bce8aa789c443f9f352f80c226d0e88bc67f87",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/195727d2fc20/els_server/protocol/hunter_chest_messages.py",
+                "size": 2623,
+                "sha256": "195727d2fc20bfdd3d2b406d9cd10bd663630ac77aa6da23f9c082c2c0fa52e7",
+                "git_blob_sha1": "1b89c4ecdf2d02ee0402f09cf62f55cb8009c3c7"
+              }
+            },
+            {
+              "runtime_path": "els_server/protocol/reforge_scroll_messages.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/e1092c9efe9e/els_server/protocol/reforge_scroll_messages.py",
+                "size": 656,
+                "sha256": "e1092c9efe9eb89b4ad8ccd44c7835ad927c0bb329617cae3eda0d86c8dfabf8",
+                "git_blob_sha1": "6739d1b2dfa0da8f25389be960eb16db38adbb72"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/challenge_scroll.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/42343a316478/els_server/storage/challenge_scroll.py",
+                "size": 7054,
+                "sha256": "42343a31647810f1a5b06a4f28d343f2761f9b539f584c171365caeab458b796",
+                "git_blob_sha1": "56ea492bc0f2b350f0de2f91f340f150581cb667"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/enhancement_scroll.py",
+              "parent_sha256": "b62f1669e0ce4bb03f8a25afee96a08374540892f7e9f543bc43a9cfa1460c6b",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/f32620cd63be/els_server/storage/enhancement_scroll.py",
+                "size": 4652,
+                "sha256": "f32620cd63be6a3c04b7f0ebdb3ef897513ada4efa1cf11c79711983f009409d",
+                "git_blob_sha1": "18aecac60275a5881185a4df678a4e3b108df2c0"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/equipment_receipt_state.py",
+              "parent_sha256": "d17855ff82ed22f879c0bac892481d96b09b7848a5bf6c1fe105d0017c351142",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/cd1bb3fd3d18/els_server/storage/equipment_receipt_state.py",
+                "size": 3397,
+                "sha256": "cd1bb3fd3d18bce4c9430f73035f2a6b6d1d5c6065cdb70d166bb496095216cb",
+                "git_blob_sha1": "f39036243d75ebcef6999a1a464a97dd600e908d"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/equipment_restoration.py",
+              "parent_sha256": "5fc6add02938880302ee5491a6d942f9bc1d7c361da7155b44a51528aaa91399",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/6e21e34213d6/els_server/storage/equipment_restoration.py",
+                "size": 2637,
+                "sha256": "6e21e34213d6e0b8c57842466c96ea5f22dee4ce79d771e1415ea2f01a5c48c1",
+                "git_blob_sha1": "1fb43c9ec0b1d833cea7c16d3f0371396afb32d8"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/identification_ui.py",
+              "parent_sha256": "9e0668115954a6c5e98fea5e7295ce7bfacf8463ab07a52e4af18459ca700a55",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/e409ae786b16/els_server/storage/identification_ui.py",
+                "size": 5041,
+                "sha256": "e409ae786b1673eb089af0bd1de811a7532dc1bbfbe635de5db2a2f9a9d3fb32",
+                "git_blob_sha1": "3a92db59751d160c684ed40e17c83c7b135ee84e"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/reforge_scroll.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/dd0bdf149aeb/els_server/storage/reforge_scroll.py",
+                "size": 3381,
+                "sha256": "dd0bdf149aeb08dd0b150faea5ff5618e51c0bc17dd3273a3bbca98d9bc318e4",
+                "git_blob_sha1": "35f9e0444ebb264e229a3ed1eb2c77375d93a858"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/resonance_2026_scrolls.py",
+              "parent_sha256": "2214403c03eb6c18d81bd4c729c9457ab1377ed8b1fc27a7f9b4579bd324b2e8",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/72e20fc656a4/els_server/storage/resonance_2026_scrolls.py",
+                "size": 4444,
+                "sha256": "72e20fc656a47f06f689df8619f7c71d641049bb3f07ea64a45a357c697ca7d1",
+                "git_blob_sha1": "533b49afa02ea5b17455797e8442ed9d9dcefb32"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/skill_trait_reset.py",
+              "parent_sha256": null,
+              "new_file": true,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/dd6b55c39a6d/els_server/storage/skill_trait_reset.py",
+                "size": 4788,
+                "sha256": "dd6b55c39a6d26086d68dc03f137a3d50bf2b9fbd6f863e99de0a32a7804af35",
+                "git_blob_sha1": "896cf682dc90830912c9e9cb023e4caeab594a3a"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/wardrobe.py",
+              "parent_sha256": "6feacc41e858be77460a65ccd0889945d7dbed8df4870cfe58390150c9d2a3c9",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/16e436193d28/els_server/storage/wardrobe.py",
+                "size": 28684,
+                "sha256": "16e436193d282dbf684b9a675c12ba5ff70da6ec53ace292d67db6cc57819a8b",
+                "git_blob_sha1": "aef770c6f878808760b198529aaaac7bd72332f6"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/wisdom_potions.py",
+              "parent_sha256": "36a97d11d5afd0944b4a6d21c3df6ce13f2239b97d93a6027362e49cdbb9ea9d",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/e708807b86d3/els_server/storage/wisdom_potions.py",
+                "size": 7121,
+                "sha256": "e708807b86d3a0843face57e39d68fda27be86a5eb2ac8b8ab340a9b441da42e",
+                "git_blob_sha1": "49d5bf79cf429c7f8fbc8d1b0ddf01424de781b7"
+              }
+            }
+          ],
+          "preserve_all_other_parent_bytes": true
+        }
+      },
+      "recovery": {
+        "online": [
+          {
+            "runtime_path": "els_server/data/identification_reset_items.json",
+            "normal_sha256": "4513ec04bb08d953980ab2859d5411e28815c96edfcf3434ea23a0ef3bba96d9",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/4513ec04bb08/els_server/data/identification_reset_items.json",
+              "size": 937,
+              "sha256": "4513ec04bb08d953980ab2859d5411e28815c96edfcf3434ea23a0ef3bba96d9",
+              "git_blob_sha1": "dc7fa80079a97bff753f3e3ab360f1211c0ff670"
+            }
+          },
+          {
+            "runtime_path": "els_server/data/owned_scroll_families.json",
+            "normal_sha256": "028fd5fb891bc88635b999f6fc2e79ad4f9170024d4ecd1a1131e6dba323fa73",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/028fd5fb891b/els_server/data/owned_scroll_families.json",
+              "size": 100750,
+              "sha256": "028fd5fb891bc88635b999f6fc2e79ad4f9170024d4ecd1a1131e6dba323fa73",
+              "git_blob_sha1": "433f441cfc624b79ce7183249c707754e490d330"
+            }
+          },
+          {
+            "runtime_path": "els_server/data/skill_trait_reset_items.json",
+            "normal_sha256": "05ada82ee94a901062d7173b28cf06f79ea8dd623eb44ddceacd65e95accab38",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/05ada82ee94a/els_server/data/skill_trait_reset_items.json",
+              "size": 2544,
+              "sha256": "05ada82ee94a901062d7173b28cf06f79ea8dd623eb44ddceacd65e95accab38",
+              "git_blob_sha1": "8dc913eddbef78cf117994d412e929fb26d45f7f"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/artifact_flow.py",
+            "normal_sha256": "721d5657ff78b1c3eb05fb16454d253b7b0e104fe97c33509dcc0364d080997c",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/b88678f414a1/els_server/domain/artifact_flow.py",
+              "size": 9034,
+              "sha256": "b88678f414a19432131b634f19babfe1f8b7f4297a4a3fde1fd2883e7a8344aa",
+              "git_blob_sha1": "ddb06d0510fc5f358bdb8cd93d71c0ab7eb33da3"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/challenge_flow.py",
+            "normal_sha256": "a278ed1bb64b4b005fb6adfe2a02eca715989a2148c92d80be97c7fc440efabc",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/a278ed1bb64b/els_server/domain/challenge_flow.py",
+              "size": 7859,
+              "sha256": "a278ed1bb64b4b005fb6adfe2a02eca715989a2148c92d80be97c7fc440efabc",
+              "git_blob_sha1": "a684f60d982da314efc747c7c1f7012e54210bbb"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/challenge_scroll.py",
+            "normal_sha256": "cc2f16afdaafd9b35ea7de801f33286d3774ca2c6a49be0e1f716d3f8970e10c",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/cc2f16afdaaf/els_server/domain/challenge_scroll.py",
+              "size": 1540,
+              "sha256": "cc2f16afdaafd9b35ea7de801f33286d3774ca2c6a49be0e1f716d3f8970e10c",
+              "git_blob_sha1": "8e0083df73be1c06164e1685289f3eae8bba9b2b"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/dungeon_hp_c1.py",
+            "normal_sha256": "2e00311045c0ad901714c0f184a7190216497517f0928705566cfc615b2893ee",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/2e00311045c0/els_server/domain/dungeon_hp_c1.py",
+              "size": 606940,
+              "sha256": "2e00311045c0ad901714c0f184a7190216497517f0928705566cfc615b2893ee",
+              "git_blob_sha1": "9920b6291cb51bb756f1d47183954cc6a98a938f"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/dungeon_population.py",
+            "normal_sha256": "b148b9b2649a829e42e1ce8da6ec9a043ef82291a97ae8fdcd2228a14e5c52b5",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/b148b9b2649a/els_server/domain/dungeon_population.py",
+              "size": 3488,
+              "sha256": "b148b9b2649a829e42e1ce8da6ec9a043ef82291a97ae8fdcd2228a14e5c52b5",
+              "git_blob_sha1": "d0d3877af233c128618fc0389a7af71d7ed4c9df"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/dungeon_routes.py",
+            "normal_sha256": "1182a45acfcd59dce2309428d9fb329436e9c8ccd05236cb1b159551a6203f5a",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/1182a45acfcd/els_server/domain/dungeon_routes.py",
+              "size": 21164,
+              "sha256": "1182a45acfcd59dce2309428d9fb329436e9c8ccd05236cb1b159551a6203f5a",
+              "git_blob_sha1": "d945d3324b7729163f4f540c7fc814676312451c"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/dungeon_spawns.py",
+            "normal_sha256": "fc2d685e044dd090eee3a8046aef5f1110c202d677daa9e652ee3d24dc6d6123",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/fc2d685e044d/els_server/domain/dungeon_spawns.py",
+              "size": 7089,
+              "sha256": "fc2d685e044dd090eee3a8046aef5f1110c202d677daa9e652ee3d24dc6d6123",
+              "git_blob_sha1": "39f4209230839843b5d8ec93d92a4f011adbf53e"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/equipment_reforge_flow.py",
+            "normal_sha256": "4e1b2ede6ea668f538c44a8c4f960749e4b708fd6d82cd67630dcd295839b6bf",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/4e1b2ede6ea6/els_server/domain/equipment_reforge_flow.py",
+              "size": 2801,
+              "sha256": "4e1b2ede6ea668f538c44a8c4f960749e4b708fd6d82cd67630dcd295839b6bf",
+              "git_blob_sha1": "125be8647455010320a3a21940121c63477b6e18"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/field_boss.py",
+            "normal_sha256": "bf39295ed1df9779e6ff729d5471e0c5fbc42375840deff50b10615e952928d9",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/bf39295ed1df/els_server/domain/field_boss.py",
+              "size": 14737,
+              "sha256": "bf39295ed1df9779e6ff729d5471e0c5fbc42375840deff50b10615e952928d9",
+              "git_blob_sha1": "a358b04fada48c9eb1b90b337d54d5384e7d4001"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/formal_npc_hp.py",
+            "normal_sha256": "5bba8f719138a32db165a336df0986c4afe03237d6f4f305c1229d3a49198b2f",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/5bba8f719138/els_server/domain/formal_npc_hp.py",
+              "size": 17767,
+              "sha256": "5bba8f719138a32db165a336df0986c4afe03237d6f4f305c1229d3a49198b2f",
+              "git_blob_sha1": "4ca555445941cc382b6e949d6332a1d16b81ce4e"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/identification_ui.py",
+            "normal_sha256": "9a1abbe17f66a34e455f190140c4ec698f295dc9f99251e7ca3ccf1966fcfb32",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9a1abbe17f66/els_server/domain/identification_ui.py",
+              "size": 15135,
+              "sha256": "9a1abbe17f66a34e455f190140c4ec698f295dc9f99251e7ca3ccf1966fcfb32",
+              "git_blob_sha1": "f9d2924b74aef0c826850c093a5131e589d2ddfa"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/inventory_items.py",
+            "normal_sha256": "3ac890e4a35b8a98efa591138feed84f52baddb05a445b3be233aa3e9c3d1fb4",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/3ac890e4a35b/els_server/domain/inventory_items.py",
+              "size": 81110,
+              "sha256": "3ac890e4a35b8a98efa591138feed84f52baddb05a445b3be233aa3e9c3d1fb4",
+              "git_blob_sha1": "dd57f92f6b59a8e6119feb07bc651aced3efac17"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/owned_scroll_families.py",
+            "normal_sha256": "0975cb5cc777aeb7cd5b7d1e4be2bbda3160c09dfb782795d050d668ca3e4e02",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/0975cb5cc777/els_server/domain/owned_scroll_families.py",
+              "size": 2183,
+              "sha256": "0975cb5cc777aeb7cd5b7d1e4be2bbda3160c09dfb782795d050d668ca3e4e02",
+              "git_blob_sha1": "7e98503a1acaac77f14d1e2c4a06664cceb6d334"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/raid_reward_flow.py",
+            "normal_sha256": "bb0ab85a1338edf26f60253337f72595be65516546f672f5530d622181a43899",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/bb0ab85a1338/els_server/domain/raid_reward_flow.py",
+              "size": 6207,
+              "sha256": "bb0ab85a1338edf26f60253337f72595be65516546f672f5530d622181a43899",
+              "git_blob_sha1": "817f0e05cb070e8e63188d6801b5f8cdcd2132c4"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/resonance_category_scroll.py",
+            "normal_sha256": "9ae7d8d1123bf7d0cc313a486e7de3827622fee00cd7a3fb1c3cab89e99e3a19",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9ae7d8d1123b/els_server/domain/resonance_category_scroll.py",
+              "size": 2202,
+              "sha256": "9ae7d8d1123bf7d0cc313a486e7de3827622fee00cd7a3fb1c3cab89e99e3a19",
+              "git_blob_sha1": "90ec25fe62fcd8e243911b15d59a482e6cd60111"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/session_dispatch.py",
+            "normal_sha256": "74e26f121590d3fca751a85079a3b51a4f31bb7844bd206e285c5bcebe25511c",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/74e26f121590/els_server/domain/session_dispatch.py",
+              "size": 18786,
+              "sha256": "74e26f121590d3fca751a85079a3b51a4f31bb7844bd206e285c5bcebe25511c",
+              "git_blob_sha1": "aeaca459c7fba18583d7fbe6556bdd9d1e45d376"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/skill_trait_reset.py",
+            "normal_sha256": "1859061ffcd2907b305512a08f926e605b72cf5f98cd6eacbe289dd85cdbfdfc",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/1859061ffcd2/els_server/domain/skill_trait_reset.py",
+              "size": 2264,
+              "sha256": "1859061ffcd2907b305512a08f926e605b72cf5f98cd6eacbe289dd85cdbfdfc",
+              "git_blob_sha1": "1fd5d8cdbd684b54e350149d1f9e61e06f64688a"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/skill_trait_reset_flow.py",
+            "normal_sha256": "49647102f739e78563796fa66417e4b447915127db35b21763b6ebc95be21127",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/49647102f739/els_server/domain/skill_trait_reset_flow.py",
+              "size": 1831,
+              "sha256": "49647102f739e78563796fa66417e4b447915127db35b21763b6ebc95be21127",
+              "git_blob_sha1": "4bd7007a7401cdaea9adf7785b45a773bc859ff2"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/wisdom_potions.py",
+            "normal_sha256": "de9369402a5c9885a538380a56f7063560505d24ec00639a41ce1d26638bf7a6",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/de9369402a5c/els_server/domain/wisdom_potions.py",
+              "size": 5722,
+              "sha256": "de9369402a5c9885a538380a56f7063560505d24ec00639a41ce1d26638bf7a6",
+              "git_blob_sha1": "7a6da53f84374927ee8aafbf7dfa8255e61aea88"
+            }
+          },
+          {
+            "runtime_path": "els_server/protocol/artifact_messages.py",
+            "normal_sha256": "6ac5de17b192052c5da7cf514856273df0e2f281e0308b9418ad4ea7b69281d3",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/6ac5de17b192/els_server/protocol/artifact_messages.py",
+              "size": 1991,
+              "sha256": "6ac5de17b192052c5da7cf514856273df0e2f281e0308b9418ad4ea7b69281d3",
+              "git_blob_sha1": "3a4c66663cfc7e02592ab9ea8cf8ead6845c12fe"
+            }
+          },
+          {
+            "runtime_path": "els_server/protocol/equipment_restoration_messages.py",
+            "normal_sha256": "4dc48a2f7e7cb06eee811391bbaf3870771b92e0545592717770ad3a0ccfdc25",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/4dc48a2f7e7c/els_server/protocol/equipment_restoration_messages.py",
+              "size": 892,
+              "sha256": "4dc48a2f7e7cb06eee811391bbaf3870771b92e0545592717770ad3a0ccfdc25",
+              "git_blob_sha1": "a60a3549428a45151a7617e9a89ba477c7b2135b"
+            }
+          },
+          {
+            "runtime_path": "els_server/protocol/hunter_chest_messages.py",
+            "normal_sha256": "195727d2fc20bfdd3d2b406d9cd10bd663630ac77aa6da23f9c082c2c0fa52e7",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/195727d2fc20/els_server/protocol/hunter_chest_messages.py",
+              "size": 2623,
+              "sha256": "195727d2fc20bfdd3d2b406d9cd10bd663630ac77aa6da23f9c082c2c0fa52e7",
+              "git_blob_sha1": "1b89c4ecdf2d02ee0402f09cf62f55cb8009c3c7"
+            }
+          },
+          {
+            "runtime_path": "els_server/protocol/reforge_scroll_messages.py",
+            "normal_sha256": "e1092c9efe9eb89b4ad8ccd44c7835ad927c0bb329617cae3eda0d86c8dfabf8",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/e1092c9efe9e/els_server/protocol/reforge_scroll_messages.py",
+              "size": 656,
+              "sha256": "e1092c9efe9eb89b4ad8ccd44c7835ad927c0bb329617cae3eda0d86c8dfabf8",
+              "git_blob_sha1": "6739d1b2dfa0da8f25389be960eb16db38adbb72"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/challenge_scroll.py",
+            "normal_sha256": "42343a31647810f1a5b06a4f28d343f2761f9b539f584c171365caeab458b796",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/cfc35337b6ad/els_server/storage/challenge_scroll.py",
+              "size": 7132,
+              "sha256": "cfc35337b6adda13aa9599377a5dc9b02817f50486f65c6a46d2fcec72c36b31",
+              "git_blob_sha1": "70c5d22c43c4af91bcc8bb600f585565e3198ef7"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/enhancement_scroll.py",
+            "normal_sha256": "fdd937dc07725fee2c94bc265ba02a7cd1b9f48f7f9e27f3cc05684060941755",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/be7d5c550fff/els_server/storage/enhancement_scroll.py",
+              "size": 4898,
+              "sha256": "be7d5c550fffd03ac6f6f668ef7ad6ddc106a92cad756f748f925c07fc6df614",
+              "git_blob_sha1": "ac5254036935859cdde8f50b48482a709cec413f"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/equipment_receipt_state.py",
+            "normal_sha256": "d675d82624a73b87d40c1a2243e6f336acf8a23e0ee84ec1e84e74bba1a2885b",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/d675d82624a7/els_server/storage/equipment_receipt_state.py",
+              "size": 3397,
+              "sha256": "d675d82624a73b87d40c1a2243e6f336acf8a23e0ee84ec1e84e74bba1a2885b",
+              "git_blob_sha1": "58928508a566631fd8011eeff9fe88af4c308386"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/equipment_restoration.py",
+            "normal_sha256": "6e21e34213d6e0b8c57842466c96ea5f22dee4ce79d771e1415ea2f01a5c48c1",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/e43bc62675af/els_server/storage/equipment_restoration.py",
+              "size": 2711,
+              "sha256": "e43bc62675aff21e9e12b3c4ae65f2e0bcdfc371ec146677e71c5bfe6e95c24a",
+              "git_blob_sha1": "298870e1b8ac4dbbb409cb195c2945b20617dedf"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/identification_ui.py",
+            "normal_sha256": "e409ae786b1673eb089af0bd1de811a7532dc1bbfbe635de5db2a2f9a9d3fb32",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/3ad10d22a3bc/els_server/storage/identification_ui.py",
+              "size": 5457,
+              "sha256": "3ad10d22a3bc03f489b3b504c34cb04740ff4ee3e27b3d1663d8e03eae8e624a",
+              "git_blob_sha1": "87d5752b56e5ca226670492f4c8cdaac5911b24b"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/reforge_scroll.py",
+            "normal_sha256": "dd0bdf149aeb08dd0b150faea5ff5618e51c0bc17dd3273a3bbca98d9bc318e4",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/f1811e9e160f/els_server/storage/reforge_scroll.py",
+              "size": 3457,
+              "sha256": "f1811e9e160f668e76fb9ea450bd66de4feb05c7fa7752b947ba12588174a3ca",
+              "git_blob_sha1": "f4a76027a9740970f793fc578f68375775845a1b"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/resonance_2026_scrolls.py",
+            "normal_sha256": "72e20fc656a47f06f689df8619f7c71d641049bb3f07ea64a45a357c697ca7d1",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/a8ab286776cd/els_server/storage/resonance_2026_scrolls.py",
+              "size": 4521,
+              "sha256": "a8ab286776cd4422d365aa43f2400e586298d6d7c4374246e8bd2a4cbe9ac7b7",
+              "git_blob_sha1": "6d77478bd2c0694a493854fa758f7b3de2a96e6b"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/skill_trait_reset.py",
+            "normal_sha256": "dd6b55c39a6d26086d68dc03f137a3d50bf2b9fbd6f863e99de0a32a7804af35",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/75179c24f706/els_server/storage/skill_trait_reset.py",
+              "size": 4876,
+              "sha256": "75179c24f706cf2f83023655a78b0a0e6fe7520b3a0ece7d40b7796222c58318",
+              "git_blob_sha1": "51cd11a347ba09f15c0e3686b43db4089b55baf2"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/wardrobe.py",
+            "normal_sha256": "16e436193d282dbf684b9a675c12ba5ff70da6ec53ace292d67db6cc57819a8b",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/16e436193d28/els_server/storage/wardrobe.py",
+              "size": 28684,
+              "sha256": "16e436193d282dbf684b9a675c12ba5ff70da6ec53ace292d67db6cc57819a8b",
+              "git_blob_sha1": "aef770c6f878808760b198529aaaac7bd72332f6"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/wisdom_potions.py",
+            "normal_sha256": "e708807b86d3a0843face57e39d68fda27be86a5eb2ac8b8ab340a9b441da42e",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/c5c798c8fdff/els_server/storage/wisdom_potions.py",
+              "size": 7203,
+              "sha256": "c5c798c8fdff3afae61dac380e8166a328f32418971bc41170571f1ff2ccebb5",
+              "git_blob_sha1": "8ccf78a1a4258f700c5fd1af4eaadab60c949e4e"
+            }
+          }
+        ],
+        "local": [
+          {
+            "runtime_path": "els_server/data/identification_reset_items.json",
+            "normal_sha256": "4513ec04bb08d953980ab2859d5411e28815c96edfcf3434ea23a0ef3bba96d9",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/4513ec04bb08/els_server/data/identification_reset_items.json",
+              "size": 937,
+              "sha256": "4513ec04bb08d953980ab2859d5411e28815c96edfcf3434ea23a0ef3bba96d9",
+              "git_blob_sha1": "dc7fa80079a97bff753f3e3ab360f1211c0ff670"
+            }
+          },
+          {
+            "runtime_path": "els_server/data/owned_scroll_families.json",
+            "normal_sha256": "028fd5fb891bc88635b999f6fc2e79ad4f9170024d4ecd1a1131e6dba323fa73",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/028fd5fb891b/els_server/data/owned_scroll_families.json",
+              "size": 100750,
+              "sha256": "028fd5fb891bc88635b999f6fc2e79ad4f9170024d4ecd1a1131e6dba323fa73",
+              "git_blob_sha1": "433f441cfc624b79ce7183249c707754e490d330"
+            }
+          },
+          {
+            "runtime_path": "els_server/data/skill_trait_reset_items.json",
+            "normal_sha256": "05ada82ee94a901062d7173b28cf06f79ea8dd623eb44ddceacd65e95accab38",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/05ada82ee94a/els_server/data/skill_trait_reset_items.json",
+              "size": 2544,
+              "sha256": "05ada82ee94a901062d7173b28cf06f79ea8dd623eb44ddceacd65e95accab38",
+              "git_blob_sha1": "8dc913eddbef78cf117994d412e929fb26d45f7f"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/artifact_flow.py",
+            "normal_sha256": "721d5657ff78b1c3eb05fb16454d253b7b0e104fe97c33509dcc0364d080997c",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/b88678f414a1/els_server/domain/artifact_flow.py",
+              "size": 9034,
+              "sha256": "b88678f414a19432131b634f19babfe1f8b7f4297a4a3fde1fd2883e7a8344aa",
+              "git_blob_sha1": "ddb06d0510fc5f358bdb8cd93d71c0ab7eb33da3"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/challenge_flow.py",
+            "normal_sha256": "a278ed1bb64b4b005fb6adfe2a02eca715989a2148c92d80be97c7fc440efabc",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/a278ed1bb64b/els_server/domain/challenge_flow.py",
+              "size": 7859,
+              "sha256": "a278ed1bb64b4b005fb6adfe2a02eca715989a2148c92d80be97c7fc440efabc",
+              "git_blob_sha1": "a684f60d982da314efc747c7c1f7012e54210bbb"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/challenge_scroll.py",
+            "normal_sha256": "cc2f16afdaafd9b35ea7de801f33286d3774ca2c6a49be0e1f716d3f8970e10c",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/cc2f16afdaaf/els_server/domain/challenge_scroll.py",
+              "size": 1540,
+              "sha256": "cc2f16afdaafd9b35ea7de801f33286d3774ca2c6a49be0e1f716d3f8970e10c",
+              "git_blob_sha1": "8e0083df73be1c06164e1685289f3eae8bba9b2b"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/dungeon_hp_c1.py",
+            "normal_sha256": "2e00311045c0ad901714c0f184a7190216497517f0928705566cfc615b2893ee",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/2e00311045c0/els_server/domain/dungeon_hp_c1.py",
+              "size": 606940,
+              "sha256": "2e00311045c0ad901714c0f184a7190216497517f0928705566cfc615b2893ee",
+              "git_blob_sha1": "9920b6291cb51bb756f1d47183954cc6a98a938f"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/dungeon_population.py",
+            "normal_sha256": "b148b9b2649a829e42e1ce8da6ec9a043ef82291a97ae8fdcd2228a14e5c52b5",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/b148b9b2649a/els_server/domain/dungeon_population.py",
+              "size": 3488,
+              "sha256": "b148b9b2649a829e42e1ce8da6ec9a043ef82291a97ae8fdcd2228a14e5c52b5",
+              "git_blob_sha1": "d0d3877af233c128618fc0389a7af71d7ed4c9df"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/dungeon_routes.py",
+            "normal_sha256": "1182a45acfcd59dce2309428d9fb329436e9c8ccd05236cb1b159551a6203f5a",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/1182a45acfcd/els_server/domain/dungeon_routes.py",
+              "size": 21164,
+              "sha256": "1182a45acfcd59dce2309428d9fb329436e9c8ccd05236cb1b159551a6203f5a",
+              "git_blob_sha1": "d945d3324b7729163f4f540c7fc814676312451c"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/dungeon_spawns.py",
+            "normal_sha256": "fc2d685e044dd090eee3a8046aef5f1110c202d677daa9e652ee3d24dc6d6123",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/fc2d685e044d/els_server/domain/dungeon_spawns.py",
+              "size": 7089,
+              "sha256": "fc2d685e044dd090eee3a8046aef5f1110c202d677daa9e652ee3d24dc6d6123",
+              "git_blob_sha1": "39f4209230839843b5d8ec93d92a4f011adbf53e"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/equipment_reforge_flow.py",
+            "normal_sha256": "4e1b2ede6ea668f538c44a8c4f960749e4b708fd6d82cd67630dcd295839b6bf",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/4e1b2ede6ea6/els_server/domain/equipment_reforge_flow.py",
+              "size": 2801,
+              "sha256": "4e1b2ede6ea668f538c44a8c4f960749e4b708fd6d82cd67630dcd295839b6bf",
+              "git_blob_sha1": "125be8647455010320a3a21940121c63477b6e18"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/field_boss.py",
+            "normal_sha256": "bf39295ed1df9779e6ff729d5471e0c5fbc42375840deff50b10615e952928d9",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/bf39295ed1df/els_server/domain/field_boss.py",
+              "size": 14737,
+              "sha256": "bf39295ed1df9779e6ff729d5471e0c5fbc42375840deff50b10615e952928d9",
+              "git_blob_sha1": "a358b04fada48c9eb1b90b337d54d5384e7d4001"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/formal_npc_hp.py",
+            "normal_sha256": "5bba8f719138a32db165a336df0986c4afe03237d6f4f305c1229d3a49198b2f",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/5bba8f719138/els_server/domain/formal_npc_hp.py",
+              "size": 17767,
+              "sha256": "5bba8f719138a32db165a336df0986c4afe03237d6f4f305c1229d3a49198b2f",
+              "git_blob_sha1": "4ca555445941cc382b6e949d6332a1d16b81ce4e"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/identification_ui.py",
+            "normal_sha256": "9a1abbe17f66a34e455f190140c4ec698f295dc9f99251e7ca3ccf1966fcfb32",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9a1abbe17f66/els_server/domain/identification_ui.py",
+              "size": 15135,
+              "sha256": "9a1abbe17f66a34e455f190140c4ec698f295dc9f99251e7ca3ccf1966fcfb32",
+              "git_blob_sha1": "f9d2924b74aef0c826850c093a5131e589d2ddfa"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/inventory_items.py",
+            "normal_sha256": "e8f9e256878f026f2b83da9a5025b8e5a1fe083a8b2fb5ed2116215bfccb8c71",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/e8f9e256878f/els_server/domain/inventory_items.py",
+              "size": 80952,
+              "sha256": "e8f9e256878f026f2b83da9a5025b8e5a1fe083a8b2fb5ed2116215bfccb8c71",
+              "git_blob_sha1": "06039ca616a137581417fc20ce6c0f676fecc1b6"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/owned_scroll_families.py",
+            "normal_sha256": "0975cb5cc777aeb7cd5b7d1e4be2bbda3160c09dfb782795d050d668ca3e4e02",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/0975cb5cc777/els_server/domain/owned_scroll_families.py",
+              "size": 2183,
+              "sha256": "0975cb5cc777aeb7cd5b7d1e4be2bbda3160c09dfb782795d050d668ca3e4e02",
+              "git_blob_sha1": "7e98503a1acaac77f14d1e2c4a06664cceb6d334"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/raid_reward_flow.py",
+            "normal_sha256": "bb0ab85a1338edf26f60253337f72595be65516546f672f5530d622181a43899",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/bb0ab85a1338/els_server/domain/raid_reward_flow.py",
+              "size": 6207,
+              "sha256": "bb0ab85a1338edf26f60253337f72595be65516546f672f5530d622181a43899",
+              "git_blob_sha1": "817f0e05cb070e8e63188d6801b5f8cdcd2132c4"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/resonance_category_scroll.py",
+            "normal_sha256": "9ae7d8d1123bf7d0cc313a486e7de3827622fee00cd7a3fb1c3cab89e99e3a19",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/9ae7d8d1123b/els_server/domain/resonance_category_scroll.py",
+              "size": 2202,
+              "sha256": "9ae7d8d1123bf7d0cc313a486e7de3827622fee00cd7a3fb1c3cab89e99e3a19",
+              "git_blob_sha1": "90ec25fe62fcd8e243911b15d59a482e6cd60111"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/session_dispatch.py",
+            "normal_sha256": "45c64b88116a84a31d835280a458c8b1edf8683444d4466ade400fd20b0c8e57",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/45c64b88116a/els_server/domain/session_dispatch.py",
+              "size": 18210,
+              "sha256": "45c64b88116a84a31d835280a458c8b1edf8683444d4466ade400fd20b0c8e57",
+              "git_blob_sha1": "257f727e6c0c5fe5e1c453a8d8b10c091a7e0c20"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/skill_trait_reset.py",
+            "normal_sha256": "1859061ffcd2907b305512a08f926e605b72cf5f98cd6eacbe289dd85cdbfdfc",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/1859061ffcd2/els_server/domain/skill_trait_reset.py",
+              "size": 2264,
+              "sha256": "1859061ffcd2907b305512a08f926e605b72cf5f98cd6eacbe289dd85cdbfdfc",
+              "git_blob_sha1": "1fd5d8cdbd684b54e350149d1f9e61e06f64688a"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/skill_trait_reset_flow.py",
+            "normal_sha256": "49647102f739e78563796fa66417e4b447915127db35b21763b6ebc95be21127",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/49647102f739/els_server/domain/skill_trait_reset_flow.py",
+              "size": 1831,
+              "sha256": "49647102f739e78563796fa66417e4b447915127db35b21763b6ebc95be21127",
+              "git_blob_sha1": "4bd7007a7401cdaea9adf7785b45a773bc859ff2"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/wisdom_potions.py",
+            "normal_sha256": "de9369402a5c9885a538380a56f7063560505d24ec00639a41ce1d26638bf7a6",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/de9369402a5c/els_server/domain/wisdom_potions.py",
+              "size": 5722,
+              "sha256": "de9369402a5c9885a538380a56f7063560505d24ec00639a41ce1d26638bf7a6",
+              "git_blob_sha1": "7a6da53f84374927ee8aafbf7dfa8255e61aea88"
+            }
+          },
+          {
+            "runtime_path": "els_server/protocol/artifact_messages.py",
+            "normal_sha256": "6ac5de17b192052c5da7cf514856273df0e2f281e0308b9418ad4ea7b69281d3",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/6ac5de17b192/els_server/protocol/artifact_messages.py",
+              "size": 1991,
+              "sha256": "6ac5de17b192052c5da7cf514856273df0e2f281e0308b9418ad4ea7b69281d3",
+              "git_blob_sha1": "3a4c66663cfc7e02592ab9ea8cf8ead6845c12fe"
+            }
+          },
+          {
+            "runtime_path": "els_server/protocol/equipment_restoration_messages.py",
+            "normal_sha256": "4dc48a2f7e7cb06eee811391bbaf3870771b92e0545592717770ad3a0ccfdc25",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/4dc48a2f7e7c/els_server/protocol/equipment_restoration_messages.py",
+              "size": 892,
+              "sha256": "4dc48a2f7e7cb06eee811391bbaf3870771b92e0545592717770ad3a0ccfdc25",
+              "git_blob_sha1": "a60a3549428a45151a7617e9a89ba477c7b2135b"
+            }
+          },
+          {
+            "runtime_path": "els_server/protocol/hunter_chest_messages.py",
+            "normal_sha256": "195727d2fc20bfdd3d2b406d9cd10bd663630ac77aa6da23f9c082c2c0fa52e7",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/195727d2fc20/els_server/protocol/hunter_chest_messages.py",
+              "size": 2623,
+              "sha256": "195727d2fc20bfdd3d2b406d9cd10bd663630ac77aa6da23f9c082c2c0fa52e7",
+              "git_blob_sha1": "1b89c4ecdf2d02ee0402f09cf62f55cb8009c3c7"
+            }
+          },
+          {
+            "runtime_path": "els_server/protocol/reforge_scroll_messages.py",
+            "normal_sha256": "e1092c9efe9eb89b4ad8ccd44c7835ad927c0bb329617cae3eda0d86c8dfabf8",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/e1092c9efe9e/els_server/protocol/reforge_scroll_messages.py",
+              "size": 656,
+              "sha256": "e1092c9efe9eb89b4ad8ccd44c7835ad927c0bb329617cae3eda0d86c8dfabf8",
+              "git_blob_sha1": "6739d1b2dfa0da8f25389be960eb16db38adbb72"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/challenge_scroll.py",
+            "normal_sha256": "42343a31647810f1a5b06a4f28d343f2761f9b539f584c171365caeab458b796",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/cfc35337b6ad/els_server/storage/challenge_scroll.py",
+              "size": 7132,
+              "sha256": "cfc35337b6adda13aa9599377a5dc9b02817f50486f65c6a46d2fcec72c36b31",
+              "git_blob_sha1": "70c5d22c43c4af91bcc8bb600f585565e3198ef7"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/enhancement_scroll.py",
+            "normal_sha256": "f32620cd63be6a3c04b7f0ebdb3ef897513ada4efa1cf11c79711983f009409d",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/160f30e9df2d/els_server/storage/enhancement_scroll.py",
+              "size": 4726,
+              "sha256": "160f30e9df2d1781fd4ad8532a1ff2ea971761ea55e9f98b65c2d225617a1e58",
+              "git_blob_sha1": "56435a4b8c8357a681a2b6e87ae04528827ccc61"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/equipment_receipt_state.py",
+            "normal_sha256": "cd1bb3fd3d18bce4c9430f73035f2a6b6d1d5c6065cdb70d166bb496095216cb",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/cd1bb3fd3d18/els_server/storage/equipment_receipt_state.py",
+              "size": 3397,
+              "sha256": "cd1bb3fd3d18bce4c9430f73035f2a6b6d1d5c6065cdb70d166bb496095216cb",
+              "git_blob_sha1": "f39036243d75ebcef6999a1a464a97dd600e908d"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/equipment_restoration.py",
+            "normal_sha256": "6e21e34213d6e0b8c57842466c96ea5f22dee4ce79d771e1415ea2f01a5c48c1",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/e43bc62675af/els_server/storage/equipment_restoration.py",
+              "size": 2711,
+              "sha256": "e43bc62675aff21e9e12b3c4ae65f2e0bcdfc371ec146677e71c5bfe6e95c24a",
+              "git_blob_sha1": "298870e1b8ac4dbbb409cb195c2945b20617dedf"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/identification_ui.py",
+            "normal_sha256": "e409ae786b1673eb089af0bd1de811a7532dc1bbfbe635de5db2a2f9a9d3fb32",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/3ad10d22a3bc/els_server/storage/identification_ui.py",
+              "size": 5457,
+              "sha256": "3ad10d22a3bc03f489b3b504c34cb04740ff4ee3e27b3d1663d8e03eae8e624a",
+              "git_blob_sha1": "87d5752b56e5ca226670492f4c8cdaac5911b24b"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/reforge_scroll.py",
+            "normal_sha256": "dd0bdf149aeb08dd0b150faea5ff5618e51c0bc17dd3273a3bbca98d9bc318e4",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/f1811e9e160f/els_server/storage/reforge_scroll.py",
+              "size": 3457,
+              "sha256": "f1811e9e160f668e76fb9ea450bd66de4feb05c7fa7752b947ba12588174a3ca",
+              "git_blob_sha1": "f4a76027a9740970f793fc578f68375775845a1b"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/resonance_2026_scrolls.py",
+            "normal_sha256": "72e20fc656a47f06f689df8619f7c71d641049bb3f07ea64a45a357c697ca7d1",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/a8ab286776cd/els_server/storage/resonance_2026_scrolls.py",
+              "size": 4521,
+              "sha256": "a8ab286776cd4422d365aa43f2400e586298d6d7c4374246e8bd2a4cbe9ac7b7",
+              "git_blob_sha1": "6d77478bd2c0694a493854fa758f7b3de2a96e6b"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/skill_trait_reset.py",
+            "normal_sha256": "dd6b55c39a6d26086d68dc03f137a3d50bf2b9fbd6f863e99de0a32a7804af35",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/75179c24f706/els_server/storage/skill_trait_reset.py",
+              "size": 4876,
+              "sha256": "75179c24f706cf2f83023655a78b0a0e6fe7520b3a0ece7d40b7796222c58318",
+              "git_blob_sha1": "51cd11a347ba09f15c0e3686b43db4089b55baf2"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/wardrobe.py",
+            "normal_sha256": "16e436193d282dbf684b9a675c12ba5ff70da6ec53ace292d67db6cc57819a8b",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/16e436193d28/els_server/storage/wardrobe.py",
+              "size": 28684,
+              "sha256": "16e436193d282dbf684b9a675c12ba5ff70da6ec53ace292d67db6cc57819a8b",
+              "git_blob_sha1": "aef770c6f878808760b198529aaaac7bd72332f6"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/wisdom_potions.py",
+            "normal_sha256": "e708807b86d3a0843face57e39d68fda27be86a5eb2ac8b8ab340a9b441da42e",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/c5c798c8fdff/els_server/storage/wisdom_potions.py",
+              "size": 7203,
+              "sha256": "c5c798c8fdff3afae61dac380e8166a328f32418971bc41170571f1ff2ccebb5",
+              "git_blob_sha1": "8ccf78a1a4258f700c5fd1af4eaadab60c949e4e"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "version": 72,
+      "source_merge_sha256": "bccb0a5ef8a3d0450eea67d35465698da6275c144b3bde0170a2abab4e836856",
+      "recovery_manifest_sha256": "b6d120f34531347dff52be0b6803c732effde41e7d0021cda79b8ea9eb27c1d5",
+      "server_delta": {
+        "online": 5,
+        "local": 5
+      },
+      "new_files": {
+        "online": 0,
+        "local": 4
+      },
+      "schema_changes": {
+        "new_tables": [],
+        "install_DDL_statements": 0,
+        "startup_DDL_statements": 0
+      },
+      "normal": {
+        "online": {
+          "parent_release": "native-scroll-mhp-20261101-v1",
+          "parent_manifest_sha256": "676304fb7a767cbbacadc2c1043bf69ce8383fd0137fbf9483b3d4301df9dbc5",
+          "files": [
+            {
+              "runtime_path": "els_server/data/client/dungeon_routes.manifest.json",
+              "parent_sha256": "63db97722c6afc42f87a68158e5074981fe9e079572f6cb0a9b420c9e9436e4a",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/48ac5705dbb6/els_server/data/client/dungeon_routes.manifest.json",
+                "size": 379498,
+                "sha256": "48ac5705dbb66d1866f01e15ba045c9d161ce3f13cc65f4b2d429c78075f4161",
+                "git_blob_sha1": "b5f83177b4fe5e2e5c28064a8639a29cc0cd0f86"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/scene_actor_retirements.py",
+              "parent_sha256": "2c2a55d61878e508de2ce4278135685a0c4226f09b29c48d0ab945f2552bec9b",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/c8d7c0fcdb50/els_server/domain/scene_actor_retirements.py",
+                "size": 14049,
+                "sha256": "c8d7c0fcdb500019553231cfdae556c3819dcdc213d24ff6f9d34b43ae532ed1",
+                "git_blob_sha1": "6a363e420630424765cb44341079b8be17afa14f"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/scene_retirement_sources.py",
+              "parent_sha256": "395509a255b4e7e1d863de60f1663307988b5af0e2b51f0d535b14b479b8874b",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/40d55efd2175/els_server/domain/scene_retirement_sources.py",
+                "size": 686629,
+                "sha256": "40d55efd2175243f7eae6ceae42196c29ecdb259f8b7db26c28760741a218abf",
+                "git_blob_sha1": "a136674fe19a3edb246416cf0122c225a5f603cb"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/town_travel.py",
+              "parent_sha256": "427f478eb7372bc410de5aae2328de8f885804518ff64f1c00b8dd88841711fe",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/81a1bdebb00f/els_server/domain/town_travel.py",
+                "size": 4139,
+                "sha256": "81a1bdebb00f9f973cf7d8567f22d1573a9358f347a8e813478f8f43dec6f91b",
+                "git_blob_sha1": "a2805245de0717b3fa87d2fb6bc2ddb690edd78a"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/challenge_scroll.py",
+              "parent_sha256": "42343a31647810f1a5b06a4f28d343f2761f9b539f584c171365caeab458b796",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/ef42500ba33b/els_server/storage/challenge_scroll.py",
+                "size": 7059,
+                "sha256": "ef42500ba33b0e00e35258912384d5c0c3d9459b873e389c9d96d05715d7f5c2",
+                "git_blob_sha1": "6c1f9ece67a6bcd85c171c94c3961e910a39f46d"
+              }
+            }
+          ],
+          "preserve_all_other_parent_bytes": true
+        },
+        "local": {
+          "parent_release": "local-native-scroll-mhp-20261101-v1",
+          "parent_manifest_sha256": "bbd9dfeb80015b8e408bcd8783cddf7258c1180f7220395532ccf82824edef58",
+          "files": [
+            {
+              "runtime_path": "els_server/data/client/dungeon_routes.manifest.json",
+              "parent_sha256": "63db97722c6afc42f87a68158e5074981fe9e079572f6cb0a9b420c9e9436e4a",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/48ac5705dbb6/els_server/data/client/dungeon_routes.manifest.json",
+                "size": 379498,
+                "sha256": "48ac5705dbb66d1866f01e15ba045c9d161ce3f13cc65f4b2d429c78075f4161",
+                "git_blob_sha1": "b5f83177b4fe5e2e5c28064a8639a29cc0cd0f86"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/scene_actor_retirements.py",
+              "parent_sha256": "2c2a55d61878e508de2ce4278135685a0c4226f09b29c48d0ab945f2552bec9b",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/c8d7c0fcdb50/els_server/domain/scene_actor_retirements.py",
+                "size": 14049,
+                "sha256": "c8d7c0fcdb500019553231cfdae556c3819dcdc213d24ff6f9d34b43ae532ed1",
+                "git_blob_sha1": "6a363e420630424765cb44341079b8be17afa14f"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/scene_retirement_sources.py",
+              "parent_sha256": "395509a255b4e7e1d863de60f1663307988b5af0e2b51f0d535b14b479b8874b",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/40d55efd2175/els_server/domain/scene_retirement_sources.py",
+                "size": 686629,
+                "sha256": "40d55efd2175243f7eae6ceae42196c29ecdb259f8b7db26c28760741a218abf",
+                "git_blob_sha1": "a136674fe19a3edb246416cf0122c225a5f603cb"
+              }
+            },
+            {
+              "runtime_path": "els_server/domain/town_travel.py",
+              "parent_sha256": "427f478eb7372bc410de5aae2328de8f885804518ff64f1c00b8dd88841711fe",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/81a1bdebb00f/els_server/domain/town_travel.py",
+                "size": 4139,
+                "sha256": "81a1bdebb00f9f973cf7d8567f22d1573a9358f347a8e813478f8f43dec6f91b",
+                "git_blob_sha1": "a2805245de0717b3fa87d2fb6bc2ddb690edd78a"
+              }
+            },
+            {
+              "runtime_path": "els_server/storage/challenge_scroll.py",
+              "parent_sha256": "42343a31647810f1a5b06a4f28d343f2761f9b539f584c171365caeab458b796",
+              "new_file": false,
+              "archive": {
+                "path": "refs/installed-69-70-72-integration-20261101-v1/normal/ef42500ba33b/els_server/storage/challenge_scroll.py",
+                "size": 7059,
+                "sha256": "ef42500ba33b0e00e35258912384d5c0c3d9459b873e389c9d96d05715d7f5c2",
+                "git_blob_sha1": "6c1f9ece67a6bcd85c171c94c3961e910a39f46d"
+              }
+            }
+          ],
+          "preserve_all_other_parent_bytes": true
+        }
+      },
+      "recovery": {
+        "online": [
+          {
+            "runtime_path": "els_server/data/client/dungeon_routes.manifest.json",
+            "normal_sha256": "48ac5705dbb66d1866f01e15ba045c9d161ce3f13cc65f4b2d429c78075f4161",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/48ac5705dbb6/els_server/data/client/dungeon_routes.manifest.json",
+              "size": 379498,
+              "sha256": "48ac5705dbb66d1866f01e15ba045c9d161ce3f13cc65f4b2d429c78075f4161",
+              "git_blob_sha1": "b5f83177b4fe5e2e5c28064a8639a29cc0cd0f86"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/scene_actor_retirements.py",
+            "normal_sha256": "c8d7c0fcdb500019553231cfdae556c3819dcdc213d24ff6f9d34b43ae532ed1",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/c8d7c0fcdb50/els_server/domain/scene_actor_retirements.py",
+              "size": 14049,
+              "sha256": "c8d7c0fcdb500019553231cfdae556c3819dcdc213d24ff6f9d34b43ae532ed1",
+              "git_blob_sha1": "6a363e420630424765cb44341079b8be17afa14f"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/scene_retirement_sources.py",
+            "normal_sha256": "40d55efd2175243f7eae6ceae42196c29ecdb259f8b7db26c28760741a218abf",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/40d55efd2175/els_server/domain/scene_retirement_sources.py",
+              "size": 686629,
+              "sha256": "40d55efd2175243f7eae6ceae42196c29ecdb259f8b7db26c28760741a218abf",
+              "git_blob_sha1": "a136674fe19a3edb246416cf0122c225a5f603cb"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/challenge_scroll.py",
+            "normal_sha256": "ef42500ba33b0e00e35258912384d5c0c3d9459b873e389c9d96d05715d7f5c2",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/b9380934054e/els_server/storage/challenge_scroll.py",
+              "size": 7137,
+              "sha256": "b9380934054e580de097135c8f48ad3fdc5e8811b57ab2a48bd6fb26fa4dcd80",
+              "git_blob_sha1": "36ffc9df366e063fbea6c444df316a49d33d9554"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/town_travel.py",
+            "normal_sha256": "81a1bdebb00f9f973cf7d8567f22d1573a9358f347a8e813478f8f43dec6f91b",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/81a1bdebb00f/els_server/domain/town_travel.py",
+              "size": 4139,
+              "sha256": "81a1bdebb00f9f973cf7d8567f22d1573a9358f347a8e813478f8f43dec6f91b",
+              "git_blob_sha1": "a2805245de0717b3fa87d2fb6bc2ddb690edd78a"
+            }
+          }
+        ],
+        "local": [
+          {
+            "runtime_path": "els_server/data/client/dungeon_routes.manifest.json",
+            "normal_sha256": "48ac5705dbb66d1866f01e15ba045c9d161ce3f13cc65f4b2d429c78075f4161",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/48ac5705dbb6/els_server/data/client/dungeon_routes.manifest.json",
+              "size": 379498,
+              "sha256": "48ac5705dbb66d1866f01e15ba045c9d161ce3f13cc65f4b2d429c78075f4161",
+              "git_blob_sha1": "b5f83177b4fe5e2e5c28064a8639a29cc0cd0f86"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/scene_actor_retirements.py",
+            "normal_sha256": "c8d7c0fcdb500019553231cfdae556c3819dcdc213d24ff6f9d34b43ae532ed1",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/c8d7c0fcdb50/els_server/domain/scene_actor_retirements.py",
+              "size": 14049,
+              "sha256": "c8d7c0fcdb500019553231cfdae556c3819dcdc213d24ff6f9d34b43ae532ed1",
+              "git_blob_sha1": "6a363e420630424765cb44341079b8be17afa14f"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/scene_retirement_sources.py",
+            "normal_sha256": "40d55efd2175243f7eae6ceae42196c29ecdb259f8b7db26c28760741a218abf",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/40d55efd2175/els_server/domain/scene_retirement_sources.py",
+              "size": 686629,
+              "sha256": "40d55efd2175243f7eae6ceae42196c29ecdb259f8b7db26c28760741a218abf",
+              "git_blob_sha1": "a136674fe19a3edb246416cf0122c225a5f603cb"
+            }
+          },
+          {
+            "runtime_path": "els_server/storage/challenge_scroll.py",
+            "normal_sha256": "ef42500ba33b0e00e35258912384d5c0c3d9459b873e389c9d96d05715d7f5c2",
+            "producer_gate": true,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/b9380934054e/els_server/storage/challenge_scroll.py",
+              "size": 7137,
+              "sha256": "b9380934054e580de097135c8f48ad3fdc5e8811b57ab2a48bd6fb26fa4dcd80",
+              "git_blob_sha1": "36ffc9df366e063fbea6c444df316a49d33d9554"
+            }
+          },
+          {
+            "runtime_path": "tools/native_cache_sync.py",
+            "normal_sha256": "e64195b3235c6f40a62c31dd7e5bcfcb22add2ed9be7b68a5d48745a96477085",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/support/e64195b3235c/tools/native_cache_sync.py",
+              "size": 5318,
+              "sha256": "e64195b3235c6f40a62c31dd7e5bcfcb22add2ed9be7b68a5d48745a96477085",
+              "git_blob_sha1": "e00c57303c81c3bd669618f0d3ed4fa621df150c"
+            }
+          },
+          {
+            "runtime_path": "tools/client_compatibility_profiles.json",
+            "normal_sha256": "e506f4863a49a3ddf91e29d3e6d28ccb2b2df3cd9c1ff3a89c4e6180aa23b996",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/support/e506f4863a49/tools/client_compatibility_profiles.json",
+              "size": 21972,
+              "sha256": "e506f4863a49a3ddf91e29d3e6d28ccb2b2df3cd9c1ff3a89c4e6180aa23b996",
+              "git_blob_sha1": "e3b35ce00c54d6a6c543c27da54893b6524de576"
+            }
+          },
+          {
+            "runtime_path": "tools/activity_guide_lifecycle.py",
+            "normal_sha256": "a198769755d57d982c22771067a3443ffcd14029c65ec16fdd5a533f4776dd90",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/support/a198769755d5/tools/activity_guide_lifecycle.py",
+              "size": 2159,
+              "sha256": "a198769755d57d982c22771067a3443ffcd14029c65ec16fdd5a533f4776dd90",
+              "git_blob_sha1": "c03f4fffad75e8d2d869088cf0440c9a9a99c02d"
+            }
+          },
+          {
+            "runtime_path": "tools/activity_guide_lifecycle.js",
+            "normal_sha256": "7d1ebfffb2379db2376a1d1df201a3cd6c669c2b07ed40822c1b5c35fa0869a8",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/support/7d1ebfffb237/tools/activity_guide_lifecycle.js",
+              "size": 6943,
+              "sha256": "7d1ebfffb2379db2376a1d1df201a3cd6c669c2b07ed40822c1b5c35fa0869a8",
+              "git_blob_sha1": "a8900ed65294bf99da8396900db3783d85065cca"
+            }
+          },
+          {
+            "runtime_path": "tools/challenge_scroll_open.py",
+            "normal_sha256": "6f53083196bbbfc39afc5dc27563c607c35883323a568000f5648ae063218119",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/support/6f53083196bb/tools/challenge_scroll_open.py",
+              "size": 759,
+              "sha256": "6f53083196bbbfc39afc5dc27563c607c35883323a568000f5648ae063218119",
+              "git_blob_sha1": "73c1837fda7e1ef98c3b75a5a68a386dfee5efcc"
+            }
+          },
+          {
+            "runtime_path": "tools/challenge_scroll_open.js",
+            "normal_sha256": "94b4491129c546f6d3addd78783605e155bfce08be8a62ac2beb4e1359ed7bb0",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/support/94b4491129c5/tools/challenge_scroll_open.js",
+              "size": 1741,
+              "sha256": "94b4491129c546f6d3addd78783605e155bfce08be8a62ac2beb4e1359ed7bb0",
+              "git_blob_sha1": "77566d8a0eb2fc984de183bb48b81f4cac279926"
+            }
+          },
+          {
+            "runtime_path": "els_server/domain/town_travel.py",
+            "normal_sha256": "81a1bdebb00f9f973cf7d8567f22d1573a9358f347a8e813478f8f43dec6f91b",
+            "producer_gate": false,
+            "archive": {
+              "path": "refs/installed-69-70-72-integration-20261101-v1/normal/81a1bdebb00f/els_server/domain/town_travel.py",
+              "size": 4139,
+              "sha256": "81a1bdebb00f9f973cf7d8567f22d1573a9358f347a8e813478f8f43dec6f91b",
+              "git_blob_sha1": "a2805245de0717b3fa87d2fb6bc2ddb690edd78a"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "support": {
+    "rawLOCAL": [
+      {
+        "runtime_path": "tools/native_cache_sync.py",
+        "parent_sha256": "ab02c3656c80d19a260aa4719196c2a1b2355182544fe3ce590a487d80f976f1",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/e64195b3235c/tools/native_cache_sync.py",
+          "size": 5318,
+          "sha256": "e64195b3235c6f40a62c31dd7e5bcfcb22add2ed9be7b68a5d48745a96477085",
+          "git_blob_sha1": "e00c57303c81c3bd669618f0d3ed4fa621df150c"
+        }
+      },
+      {
+        "runtime_path": "tools/client_compatibility_profiles.json",
+        "parent_sha256": "fc4dc93d228e3b7429590b74828e51da7168c835d7a8f81f752d344856c85257",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/e506f4863a49/tools/client_compatibility_profiles.json",
+          "size": 21972,
+          "sha256": "e506f4863a49a3ddf91e29d3e6d28ccb2b2df3cd9c1ff3a89c4e6180aa23b996",
+          "git_blob_sha1": "e3b35ce00c54d6a6c543c27da54893b6524de576"
+        }
+      },
+      {
+        "runtime_path": "tools/activity_guide_lifecycle.py",
+        "parent_sha256": null,
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/a198769755d5/tools/activity_guide_lifecycle.py",
+          "size": 2159,
+          "sha256": "a198769755d57d982c22771067a3443ffcd14029c65ec16fdd5a533f4776dd90",
+          "git_blob_sha1": "c03f4fffad75e8d2d869088cf0440c9a9a99c02d"
+        }
+      },
+      {
+        "runtime_path": "tools/activity_guide_lifecycle.js",
+        "parent_sha256": null,
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/7d1ebfffb237/tools/activity_guide_lifecycle.js",
+          "size": 6943,
+          "sha256": "7d1ebfffb2379db2376a1d1df201a3cd6c669c2b07ed40822c1b5c35fa0869a8",
+          "git_blob_sha1": "a8900ed65294bf99da8396900db3783d85065cca"
+        }
+      },
+      {
+        "runtime_path": "tools/challenge_scroll_open.py",
+        "parent_sha256": null,
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/6f53083196bb/tools/challenge_scroll_open.py",
+          "size": 759,
+          "sha256": "6f53083196bbbfc39afc5dc27563c607c35883323a568000f5648ae063218119",
+          "git_blob_sha1": "73c1837fda7e1ef98c3b75a5a68a386dfee5efcc"
+        }
+      },
+      {
+        "runtime_path": "tools/challenge_scroll_open.js",
+        "parent_sha256": null,
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/94b4491129c5/tools/challenge_scroll_open.js",
+          "size": 1741,
+          "sha256": "94b4491129c546f6d3addd78783605e155bfce08be8a62ac2beb4e1359ed7bb0",
+          "git_blob_sha1": "77566d8a0eb2fc984de183bb48b81f4cac279926"
+        }
+      }
+    ],
+    "signedLOCAL": [
+      {
+        "runtime_path": "tools/native_cache_sync.py",
+        "parent_sha256": "ab02c3656c80d19a260aa4719196c2a1b2355182544fe3ce590a487d80f976f1",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/e64195b3235c/tools/native_cache_sync.py",
+          "size": 5318,
+          "sha256": "e64195b3235c6f40a62c31dd7e5bcfcb22add2ed9be7b68a5d48745a96477085",
+          "git_blob_sha1": "e00c57303c81c3bd669618f0d3ed4fa621df150c"
+        }
+      },
+      {
+        "runtime_path": "tools/client_compatibility_profiles.json",
+        "parent_sha256": "c356a28b8b6f1cf8b81c6a41d7be227e825dc3108f45834b0ff0344be6344868",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/b1530829293d/tools/client_compatibility_profiles.json",
+          "size": 21526,
+          "sha256": "b1530829293d76d89a656df54efa5fc9ed00051495a1a6fca0b391f7d972437e",
+          "git_blob_sha1": "b9406e33165a1539b43943c016977be4f552ebc0"
+        }
+      },
+      {
+        "runtime_path": "tools/activity_guide_lifecycle.py",
+        "parent_sha256": null,
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/a198769755d5/tools/activity_guide_lifecycle.py",
+          "size": 2159,
+          "sha256": "a198769755d57d982c22771067a3443ffcd14029c65ec16fdd5a533f4776dd90",
+          "git_blob_sha1": "c03f4fffad75e8d2d869088cf0440c9a9a99c02d"
+        }
+      },
+      {
+        "runtime_path": "tools/activity_guide_lifecycle.js",
+        "parent_sha256": null,
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/7d1ebfffb237/tools/activity_guide_lifecycle.js",
+          "size": 6943,
+          "sha256": "7d1ebfffb2379db2376a1d1df201a3cd6c669c2b07ed40822c1b5c35fa0869a8",
+          "git_blob_sha1": "a8900ed65294bf99da8396900db3783d85065cca"
+        }
+      },
+      {
+        "runtime_path": "tools/challenge_scroll_open.py",
+        "parent_sha256": null,
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/6f53083196bb/tools/challenge_scroll_open.py",
+          "size": 759,
+          "sha256": "6f53083196bbbfc39afc5dc27563c607c35883323a568000f5648ae063218119",
+          "git_blob_sha1": "73c1837fda7e1ef98c3b75a5a68a386dfee5efcc"
+        }
+      },
+      {
+        "runtime_path": "tools/challenge_scroll_open.js",
+        "parent_sha256": null,
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/94b4491129c5/tools/challenge_scroll_open.js",
+          "size": 1741,
+          "sha256": "94b4491129c546f6d3addd78783605e155bfce08be8a62ac2beb4e1359ed7bb0",
+          "git_blob_sha1": "77566d8a0eb2fc984de183bb48b81f4cac279926"
+        }
+      }
+    ],
+    "signedFriends": [
+      {
+        "runtime_path": "tools/native_cache_sync.py",
+        "parent_sha256": "ab02c3656c80d19a260aa4719196c2a1b2355182544fe3ce590a487d80f976f1",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/e64195b3235c/tools/native_cache_sync.py",
+          "size": 5318,
+          "sha256": "e64195b3235c6f40a62c31dd7e5bcfcb22add2ed9be7b68a5d48745a96477085",
+          "git_blob_sha1": "e00c57303c81c3bd669618f0d3ed4fa621df150c"
+        }
+      },
+      {
+        "runtime_path": "tools/client_compatibility_profiles.json",
+        "parent_sha256": "e3e0047d679b071bfdada097b43817b9f4803688d65c64bdbb45396073baa7f3",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/5ba31606f8de/tools/client_compatibility_profiles.json",
+          "size": 21420,
+          "sha256": "5ba31606f8de162ff7e5c3c2b554bb1ad06d4f6feb03b08d9477272e41eebb19",
+          "git_blob_sha1": "0d57fd1e37b9ba8ab90a1bde503a954724c96ec4"
+        }
+      },
+      {
+        "runtime_path": "tools/activity_guide_lifecycle.py",
+        "parent_sha256": null,
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/a198769755d5/tools/activity_guide_lifecycle.py",
+          "size": 2159,
+          "sha256": "a198769755d57d982c22771067a3443ffcd14029c65ec16fdd5a533f4776dd90",
+          "git_blob_sha1": "c03f4fffad75e8d2d869088cf0440c9a9a99c02d"
+        }
+      },
+      {
+        "runtime_path": "tools/activity_guide_lifecycle.js",
+        "parent_sha256": null,
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/7d1ebfffb237/tools/activity_guide_lifecycle.js",
+          "size": 6943,
+          "sha256": "7d1ebfffb2379db2376a1d1df201a3cd6c669c2b07ed40822c1b5c35fa0869a8",
+          "git_blob_sha1": "a8900ed65294bf99da8396900db3783d85065cca"
+        }
+      },
+      {
+        "runtime_path": "tools/challenge_scroll_open.py",
+        "parent_sha256": null,
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/6f53083196bb/tools/challenge_scroll_open.py",
+          "size": 759,
+          "sha256": "6f53083196bbbfc39afc5dc27563c607c35883323a568000f5648ae063218119",
+          "git_blob_sha1": "73c1837fda7e1ef98c3b75a5a68a386dfee5efcc"
+        }
+      },
+      {
+        "runtime_path": "tools/challenge_scroll_open.js",
+        "parent_sha256": null,
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/support/94b4491129c5/tools/challenge_scroll_open.js",
+          "size": 1741,
+          "sha256": "94b4491129c546f6d3addd78783605e155bfce08be8a62ac2beb4e1359ed7bb0",
+          "git_blob_sha1": "77566d8a0eb2fc984de183bb48b81f4cac279926"
+        }
+      }
+    ]
+  },
+  "final_recovery_guard_sources": {
+    "online": [
+      {
+        "runtime_path": "els_server/domain/artifact_flow.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/b88678f414a1/els_server/domain/artifact_flow.py",
+          "size": 9034,
+          "sha256": "b88678f414a19432131b634f19babfe1f8b7f4297a4a3fde1fd2883e7a8344aa",
+          "git_blob_sha1": "ddb06d0510fc5f358bdb8cd93d71c0ab7eb33da3"
+        }
+      },
+      {
+        "runtime_path": "els_server/domain/environment_buff_flow.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/c08168385f51/els_server/domain/environment_buff_flow.py",
+          "size": 9009,
+          "sha256": "c08168385f511ecb121f1b7ba9b58904d4591680e583b7074e2ef5e1a968e471",
+          "git_blob_sha1": "104a6f56d988f7fd4dbe6ba23809967cfa1cc979"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/boosting_2026_essence.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/22bcf30e637d/els_server/storage/boosting_2026_essence.py",
+          "size": 5464,
+          "sha256": "22bcf30e637d99808442400aa43843d84a9178ad8c329af016f99aab4392ec4c",
+          "git_blob_sha1": "d014203fe73703e8d45080764636da0d26a6adff"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/boosting_2026_participation_gear.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/913e44f323e2/els_server/storage/boosting_2026_participation_gear.py",
+          "size": 4483,
+          "sha256": "913e44f323e29daee543607a58a8f4953bcd6a57b8d13508a9be6c69cb0bb8ba",
+          "git_blob_sha1": "f930bd9f51f94925e1ede250d96b40a5f660b551"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/career_rewards.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/a9ad2484e540/els_server/storage/career_rewards.py",
+          "size": 2951,
+          "sha256": "a9ad2484e54077acab0182ff1c0dc9894b6ca402019914d67a351f9da3e56336",
+          "git_blob_sha1": "d7285a95a31a3365c068b3571945f04adbe9b83e"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/challenge_scroll.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/b9380934054e/els_server/storage/challenge_scroll.py",
+          "size": 7137,
+          "sha256": "b9380934054e580de097135c8f48ad3fdc5e8811b57ab2a48bd6fb26fa4dcd80",
+          "git_blob_sha1": "36ffc9df366e063fbea6c444df316a49d33d9554"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/companion_state.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/799c93a213c6/els_server/storage/companion_state.py",
+          "size": 12037,
+          "sha256": "799c93a213c65c7abb59f56b3122b7f2c2820deb41302062bab6915b38e7d7ae",
+          "git_blob_sha1": "dc0c6d7e4f6f8509b8f888dd0dae1116f24d88c2"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/couple_closures.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/4008884caac3/els_server/storage/couple_closures.py",
+          "size": 7065,
+          "sha256": "4008884caac32d2e8d6393e15d095416015283c82c179c9a252925d1cc639dbe",
+          "git_blob_sha1": "95196e08cedd7102872d814b1fc6c39116dd2843"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/enhancement_scroll.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/be7d5c550fff/els_server/storage/enhancement_scroll.py",
+          "size": 4898,
+          "sha256": "be7d5c550fffd03ac6f6f668ef7ad6ddc106a92cad756f748f925c07fc6df614",
+          "git_blob_sha1": "ac5254036935859cdde8f50b48482a709cec413f"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/environment_buffs.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/fecdfbe3bf1a/els_server/storage/environment_buffs.py",
+          "size": 2359,
+          "sha256": "fecdfbe3bf1ad54a5483b054795c61ec9fac55246f9b74182edca90add633554",
+          "git_blob_sha1": "792b66ee103cca4acaeece1a547d76494a829c01"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/environment_spa_purchase.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/83362a2de467/els_server/storage/environment_spa_purchase.py",
+          "size": 1116,
+          "sha256": "83362a2de467e72bdf56595dc8c613e5b7579fc58e294044958c560100972a2d",
+          "git_blob_sha1": "1ebebe63f4a5438c350af19dcc9475983590951f"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/equipment_restoration.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/e43bc62675af/els_server/storage/equipment_restoration.py",
+          "size": 2711,
+          "sha256": "e43bc62675aff21e9e12b3c4ae65f2e0bcdfc371ec146677e71c5bfe6e95c24a",
+          "git_blob_sha1": "298870e1b8ac4dbbb409cb195c2945b20617dedf"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/equipment_tuning.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/e209fb63275f/els_server/storage/equipment_tuning.py",
+          "size": 3788,
+          "sha256": "e209fb63275f0651fd70642ca3eb59644355d52aa37a8b4215dbb78a9e63565e",
+          "git_blob_sha1": "7dbb4e40e30ffbebef550efeb9476d0011834925"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/fixed_cubes.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/f0dd90d39c75/els_server/storage/fixed_cubes.py",
+          "size": 12070,
+          "sha256": "f0dd90d39c7571eedfbfd0a06a4e63ea203e756ac5be3e0f41d9f566026f7ebd",
+          "git_blob_sha1": "6a7589d5b70cb865343184f34b9e31864d708561"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/growth_guide.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/a39aaeb8cfc8/els_server/storage/growth_guide.py",
+          "size": 7093,
+          "sha256": "a39aaeb8cfc8130cc3be40f433f3f5196bb57243ff1c7e6038f3e7faf12e722a",
+          "git_blob_sha1": "8db52242befddbb642ffb13ad590d9ff12479230"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/growth_guide_boxes.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/b8b382b4ecaa/els_server/storage/growth_guide_boxes.py",
+          "size": 4375,
+          "sha256": "b8b382b4ecaacb5bc8f65e5361066f9532c846e90f646f9de0219d81f75b9508",
+          "git_blob_sha1": "a25cbfff643098c93e885cbc3baee542ebe8b322"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/identification_ui.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/3ad10d22a3bc/els_server/storage/identification_ui.py",
+          "size": 5457,
+          "sha256": "3ad10d22a3bc03f489b3b504c34cb04740ff4ee3e27b3d1663d8e03eae8e624a",
+          "git_blob_sha1": "87d5752b56e5ca226670492f4c8cdaac5911b24b"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/known_resurrection.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/bb829f05ce33/els_server/storage/known_resurrection.py",
+          "size": 7787,
+          "sha256": "bb829f05ce333ea76f92b70292fe87b6ce9dc880d9aa8e0ab7b36cd01ef18d3d",
+          "git_blob_sha1": "443d86f5e84bf914290a2061b04873f98b2dc396"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/reforge_scroll.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/f1811e9e160f/els_server/storage/reforge_scroll.py",
+          "size": 3457,
+          "sha256": "f1811e9e160f668e76fb9ea450bd66de4feb05c7fa7752b947ba12588174a3ca",
+          "git_blob_sha1": "f4a76027a9740970f793fc578f68375775845a1b"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/relationships.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/ddb601d64ed6/els_server/storage/relationships.py",
+          "size": 15544,
+          "sha256": "ddb601d64ed6100187f945a34b997483f6198c9338fb9010ea032cc927d63e3c",
+          "git_blob_sha1": "668c03114d45453bd53bef8627c2ae183d2f2b0c"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/resonance_2026_scrolls.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/a8ab286776cd/els_server/storage/resonance_2026_scrolls.py",
+          "size": 4521,
+          "sha256": "a8ab286776cd4422d365aa43f2400e586298d6d7c4374246e8bd2a4cbe9ac7b7",
+          "git_blob_sha1": "6d77478bd2c0694a493854fa758f7b3de2a96e6b"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/seal_quests.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/9c98320d9fd5/els_server/storage/seal_quests.py",
+          "size": 36701,
+          "sha256": "9c98320d9fd51eb09311ec65ff2f82210965441397a58c40410f3223d418c746",
+          "git_blob_sha1": "53a75b8e3ace65e89903df364a50f379c2bd99b4"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/skill_trait_reset.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/75179c24f706/els_server/storage/skill_trait_reset.py",
+          "size": 4876,
+          "sha256": "75179c24f706cf2f83023655a78b0a0e6fe7520b3a0ece7d40b7796222c58318",
+          "git_blob_sha1": "51cd11a347ba09f15c0e3686b43db4089b55baf2"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/wisdom_potions.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/c5c798c8fdff/els_server/storage/wisdom_potions.py",
+          "size": 7203,
+          "sha256": "c5c798c8fdff3afae61dac380e8166a328f32418971bc41170571f1ff2ccebb5",
+          "git_blob_sha1": "8ccf78a1a4258f700c5fd1af4eaadab60c949e4e"
+        }
+      }
+    ],
+    "local": [
+      {
+        "runtime_path": "els_server/domain/artifact_flow.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/b88678f414a1/els_server/domain/artifact_flow.py",
+          "size": 9034,
+          "sha256": "b88678f414a19432131b634f19babfe1f8b7f4297a4a3fde1fd2883e7a8344aa",
+          "git_blob_sha1": "ddb06d0510fc5f358bdb8cd93d71c0ab7eb33da3"
+        }
+      },
+      {
+        "runtime_path": "els_server/domain/environment_buff_flow.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/c08168385f51/els_server/domain/environment_buff_flow.py",
+          "size": 9009,
+          "sha256": "c08168385f511ecb121f1b7ba9b58904d4591680e583b7074e2ef5e1a968e471",
+          "git_blob_sha1": "104a6f56d988f7fd4dbe6ba23809967cfa1cc979"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/boosting_2026_essence.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/22bcf30e637d/els_server/storage/boosting_2026_essence.py",
+          "size": 5464,
+          "sha256": "22bcf30e637d99808442400aa43843d84a9178ad8c329af016f99aab4392ec4c",
+          "git_blob_sha1": "d014203fe73703e8d45080764636da0d26a6adff"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/boosting_2026_participation_gear.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/913e44f323e2/els_server/storage/boosting_2026_participation_gear.py",
+          "size": 4483,
+          "sha256": "913e44f323e29daee543607a58a8f4953bcd6a57b8d13508a9be6c69cb0bb8ba",
+          "git_blob_sha1": "f930bd9f51f94925e1ede250d96b40a5f660b551"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/career_rewards.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/a9ad2484e540/els_server/storage/career_rewards.py",
+          "size": 2951,
+          "sha256": "a9ad2484e54077acab0182ff1c0dc9894b6ca402019914d67a351f9da3e56336",
+          "git_blob_sha1": "d7285a95a31a3365c068b3571945f04adbe9b83e"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/challenge_scroll.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/b9380934054e/els_server/storage/challenge_scroll.py",
+          "size": 7137,
+          "sha256": "b9380934054e580de097135c8f48ad3fdc5e8811b57ab2a48bd6fb26fa4dcd80",
+          "git_blob_sha1": "36ffc9df366e063fbea6c444df316a49d33d9554"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/companion_state.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/799c93a213c6/els_server/storage/companion_state.py",
+          "size": 12037,
+          "sha256": "799c93a213c65c7abb59f56b3122b7f2c2820deb41302062bab6915b38e7d7ae",
+          "git_blob_sha1": "dc0c6d7e4f6f8509b8f888dd0dae1116f24d88c2"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/couple_closures.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/4008884caac3/els_server/storage/couple_closures.py",
+          "size": 7065,
+          "sha256": "4008884caac32d2e8d6393e15d095416015283c82c179c9a252925d1cc639dbe",
+          "git_blob_sha1": "95196e08cedd7102872d814b1fc6c39116dd2843"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/enhancement_scroll.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/160f30e9df2d/els_server/storage/enhancement_scroll.py",
+          "size": 4726,
+          "sha256": "160f30e9df2d1781fd4ad8532a1ff2ea971761ea55e9f98b65c2d225617a1e58",
+          "git_blob_sha1": "56435a4b8c8357a681a2b6e87ae04528827ccc61"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/environment_buffs.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/fecdfbe3bf1a/els_server/storage/environment_buffs.py",
+          "size": 2359,
+          "sha256": "fecdfbe3bf1ad54a5483b054795c61ec9fac55246f9b74182edca90add633554",
+          "git_blob_sha1": "792b66ee103cca4acaeece1a547d76494a829c01"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/environment_spa_purchase.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/83362a2de467/els_server/storage/environment_spa_purchase.py",
+          "size": 1116,
+          "sha256": "83362a2de467e72bdf56595dc8c613e5b7579fc58e294044958c560100972a2d",
+          "git_blob_sha1": "1ebebe63f4a5438c350af19dcc9475983590951f"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/equipment_restoration.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/e43bc62675af/els_server/storage/equipment_restoration.py",
+          "size": 2711,
+          "sha256": "e43bc62675aff21e9e12b3c4ae65f2e0bcdfc371ec146677e71c5bfe6e95c24a",
+          "git_blob_sha1": "298870e1b8ac4dbbb409cb195c2945b20617dedf"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/equipment_tuning.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/e209fb63275f/els_server/storage/equipment_tuning.py",
+          "size": 3788,
+          "sha256": "e209fb63275f0651fd70642ca3eb59644355d52aa37a8b4215dbb78a9e63565e",
+          "git_blob_sha1": "7dbb4e40e30ffbebef550efeb9476d0011834925"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/fixed_cubes.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/2ee4099b8f8c/els_server/storage/fixed_cubes.py",
+          "size": 11684,
+          "sha256": "2ee4099b8f8c54f70714463aba909f559b3ff99b002b1cd916f83df42a677c2b",
+          "git_blob_sha1": "1d4d25518ae4e40a0d7d1edcf7533344333c85e5"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/growth_guide.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/a39aaeb8cfc8/els_server/storage/growth_guide.py",
+          "size": 7093,
+          "sha256": "a39aaeb8cfc8130cc3be40f433f3f5196bb57243ff1c7e6038f3e7faf12e722a",
+          "git_blob_sha1": "8db52242befddbb642ffb13ad590d9ff12479230"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/growth_guide_boxes.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/b8b382b4ecaa/els_server/storage/growth_guide_boxes.py",
+          "size": 4375,
+          "sha256": "b8b382b4ecaacb5bc8f65e5361066f9532c846e90f646f9de0219d81f75b9508",
+          "git_blob_sha1": "a25cbfff643098c93e885cbc3baee542ebe8b322"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/identification_ui.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/3ad10d22a3bc/els_server/storage/identification_ui.py",
+          "size": 5457,
+          "sha256": "3ad10d22a3bc03f489b3b504c34cb04740ff4ee3e27b3d1663d8e03eae8e624a",
+          "git_blob_sha1": "87d5752b56e5ca226670492f4c8cdaac5911b24b"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/known_resurrection.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/bb829f05ce33/els_server/storage/known_resurrection.py",
+          "size": 7787,
+          "sha256": "bb829f05ce333ea76f92b70292fe87b6ce9dc880d9aa8e0ab7b36cd01ef18d3d",
+          "git_blob_sha1": "443d86f5e84bf914290a2061b04873f98b2dc396"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/reforge_scroll.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/f1811e9e160f/els_server/storage/reforge_scroll.py",
+          "size": 3457,
+          "sha256": "f1811e9e160f668e76fb9ea450bd66de4feb05c7fa7752b947ba12588174a3ca",
+          "git_blob_sha1": "f4a76027a9740970f793fc578f68375775845a1b"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/relationships.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/ddb601d64ed6/els_server/storage/relationships.py",
+          "size": 15544,
+          "sha256": "ddb601d64ed6100187f945a34b997483f6198c9338fb9010ea032cc927d63e3c",
+          "git_blob_sha1": "668c03114d45453bd53bef8627c2ae183d2f2b0c"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/resonance_2026_scrolls.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/a8ab286776cd/els_server/storage/resonance_2026_scrolls.py",
+          "size": 4521,
+          "sha256": "a8ab286776cd4422d365aa43f2400e586298d6d7c4374246e8bd2a4cbe9ac7b7",
+          "git_blob_sha1": "6d77478bd2c0694a493854fa758f7b3de2a96e6b"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/seal_quests.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/cc846c80e991/els_server/storage/seal_quests.py",
+          "size": 35471,
+          "sha256": "cc846c80e991480891259729a22e70c7645e6326ad3959435b0ddb091da5e65f",
+          "git_blob_sha1": "8a1f77a1bd00d86f84df335ee0a109b6147353f8"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/skill_trait_reset.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/75179c24f706/els_server/storage/skill_trait_reset.py",
+          "size": 4876,
+          "sha256": "75179c24f706cf2f83023655a78b0a0e6fe7520b3a0ece7d40b7796222c58318",
+          "git_blob_sha1": "51cd11a347ba09f15c0e3686b43db4089b55baf2"
+        }
+      },
+      {
+        "runtime_path": "els_server/storage/wisdom_potions.py",
+        "archive": {
+          "path": "refs/installed-69-70-72-integration-20261101-v1/recovery/c5c798c8fdff/els_server/storage/wisdom_potions.py",
+          "size": 7203,
+          "sha256": "c5c798c8fdff3afae61dac380e8166a328f32418971bc41170571f1ff2ccebb5",
+          "git_blob_sha1": "8ccf78a1a4258f700c5fd1af4eaadab60c949e4e"
+        }
+      }
+    ]
+  },
+  "complete_new_readers_retained": true,
+  "old_committed_receipts_before_producer_gates": true,
+  "final_LOCAL_guard_count": 24,
+  "bare_parent_restore_forbidden": true,
+  "original_EXE_KOM_changes": 0,
+  "boundaries": {
+    "reference_only": true,
+    "root_runtime_or_tests_activated": false,
+    "Git_merge_claimed": false,
+    "player_DB_restore": false,
+    "LOCAL_full_QuickStart_installed": false,
+    "LOCAL_full_QuickStart_explicitly_deferred": true,
+    "old_finite_pool136186_approved": false,
+    "all_feature_families_complete": false,
+    "UI_actual_GUI_cases": 3,
+    "UI_same_JS_native_host_cases": 42,
+    "UI_four_GUI_cases_passed": false,
+    "UI_no_query_GUI_covered": false,
+    "scroll_one_actual_selected_family_two_normal_confirmations_and_219": true,
+    "both_families_Game_runs_claimed": false,
+    "other_family_actual_component_selection_and_identical_common_support": true,
+    "all_lag_eliminated_claimed": false,
+    "V71_published_or_used_as_parent": false,
+    "failed_trials_relabelled": false
+  }
+}

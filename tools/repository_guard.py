@@ -6,6 +6,7 @@ BLOCKED_ROOTS={'state','logs','backups','run','analysis','python','vendor','.ass
 BLOCKED_SUFFIXES={'.sqlite','.sqlite3','.db','.pem','.key','.pfx','.p12','.exe','.pyd','.dll','.bin','.zip','.7z','.rar','.dmp','.jsonl','.log'}
 SYNTHETIC_PASSWORD_TESTS={'tests/test_registration.py','tests/test_friends_character_creation.py'}
 FROZEN_MODE_FIXTURES={
+    'refs/installed-69-70-72-integration-20261101-v1/launcher/source/ModeDesign.cs':'64911997a6db2f18b8d116380fa2b6f83caa9fabe86c3ce51a97f821f1b651cf',
     'launchers/friends-v45/ModeDesign.cs':'64911997a6db2f18b8d116380fa2b6f83caa9fabe86c3ce51a97f821f1b651cf',
     'launchers/friends-v43/ModeDesign.cs':'64911997a6db2f18b8d116380fa2b6f83caa9fabe86c3ce51a97f821f1b651cf',
     'launchers/friends-v42/ModeDesign.cs':'64911997a6db2f18b8d116380fa2b6f83caa9fabe86c3ce51a97f821f1b651cf',
@@ -13,12 +14,14 @@ FROZEN_MODE_FIXTURES={
     'launchers/friends-v38/ModeDesign.cs':'d2fa60f75a8a4f3c45e759c233ac0f63fb570961203c15c3c69b1855540cefb6',
 }
 FROZEN_RANDOM_PASSWORD_PROGRAMS={
+    'refs/installed-69-70-72-integration-20261101-v1/launcher/source/Program.cs':'053ba6945902a6ca0038fd8eceb419f74ada426e97ff2d9a0736a106e430d30d',
     'launchers/friends-v45/Program.cs':'053ba6945902a6ca0038fd8eceb419f74ada426e97ff2d9a0736a106e430d30d',
     'launchers/friends-v43/Program.cs':'516a4567d763799a75ad8e2ad975f465704476bfbd2b519a469772702460f719',
     'launchers/friends-v42/Program.cs':'516a4567d763799a75ad8e2ad975f465704476bfbd2b519a469772702460f719',
     'launchers/friends-v41/Program.cs':'6daceeda897578c71bfb56e16c945f8784d042da3bfb8c9c8e2ab2433605ae0f',
 }
 FROZEN_UI_IMAGES={
+    'refs/installed-69-70-72-integration-20261101-v1/launcher/source/assets/ruben.png':(2030054,'190d47330f4cc12bb74c6dc32b4c3eec21d3604eb8cf8d020cee17705de99654'),
     # Exact reviewed V45 build input, identical to the released V44 background.
     # This is not a general PNG or launcher-directory exemption.
     'launchers/friends-v45/assets/ruben.png':(2030054,'190d47330f4cc12bb74c6dc32b4c3eec21d3604eb8cf8d020cee17705de99654'),
