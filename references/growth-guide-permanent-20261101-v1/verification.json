@@ -1,0 +1,116 @@
+{
+  "date": "2026-11-01",
+  "base_head": "b4eb2f14e672dbd7aaa9df1137baeb6e86ef722a",
+  "authorization": "允许按官网固定内容制定本服映射",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "native_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "courses": 13,
+  "quests": 61,
+  "direct_reward_readers": 52,
+  "boxes": 63,
+  "box_related_readers": 832,
+  "box_open_transactions": 63,
+  "new_tests_passed": 22,
+  "existing_mount_tests_passed": 12,
+  "original_client_modified": false,
+  "installed": false,
+  "natural_gui_verified": false,
+  "source_tables": [
+    "NewGrowthGuideData.lua",
+    "FieldQuest.lua",
+    "FieldSubQuest.lua",
+    "RandomItem.lua",
+    "SpaData.lua",
+    "BuffTemplet.lua",
+    "RidingPetData.lua"
+  ],
+  "native_state": {
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "reader": "RVA33e5a80",
+    "live_process_access": false,
+    "rows": [
+      {
+        "result": 0,
+        "available": true,
+        "consumed": 13,
+        "native_fields": [
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "result": 0,
+        "available": false,
+        "consumed": 13,
+        "native_fields": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "result": 187,
+        "available": false,
+        "consumed": 13,
+        "native_fields": [
+          187,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "native_camp_mount": {
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "live_process_access": false,
+    "camp": {
+      "reader_rva": "0xdcf9c0",
+      "ok": 1,
+      "consumed": 79,
+      "buff": 1433,
+      "factor": 1538,
+      "start": 1800000000,
+      "end": 1800001800
+    },
+    "mount": {
+      "reader_rva": "0xde1310",
+      "ok": 1,
+      "consumed": 65,
+      "unit": 84,
+      "expiry_display_verified": false
+    }
+  },
+  "baseline_comparison": {
+    "tests": 72,
+    "failures": 5,
+    "errors": 10,
+    "unchanged_failure_sets": true,
+    "failure_ids": [
+      "tests.test_region_quest_flow.RegionQuestFlowTests.test_all_thirteen_tasks_claim_restore_and_unlock_in_order",
+      "tests.test_region_quest_flow.RegionQuestFlowTests.test_all_thirteen_tasks_via_admitted_dungeon_sessions",
+      "tests.test_region_quest_flow.RegionQuestFlowTests.test_session_refuses_locked_map_then_accepts_after_actual_claim",
+      "tests.test_seal_quests.SealQuestTests.test_unqualified_retire_event_cannot_fabricate_finale_progress",
+      "tests.test_sage_sockets.SageSocketTests.test_session_routes_success_and_failure"
+    ],
+    "error_ids": [
+      "tests.test_seal_quests.SealQuestTests.test_actual_dungeon_deaths_and_clear_drive_progress_without_replayed_credit",
+      "tests.test_seal_level_flow.SealLevelFlowTests.test_boundary32_counts_after_admitted_full_route_and_reward",
+      "tests.test_seal_level_flow.SealLevelFlowTests.test_entry_level_snapshot_survives_level_up_before_clear",
+      "tests.test_seal_level_flow.SealLevelFlowTests.test_outside33_does_not_count_after_admitted_full_route",
+      "tests.test_manufacture_current_owner.Guards.test_finalized_role_cannot_craft_or_replay",
+      "tests.test_manufacture_current_owner.Guards.test_pending_committed_receipt_refuses_and_restore_reuses_original",
+      "tests.test_sage_sockets.SageSocketTests.test_bank_move_and_other_character_shared_withdraw_preserve_all_options",
+      "tests.test_sage_sockets.SageSocketTests.test_duplicate_concurrent_request_once",
+      "tests.test_sage_sockets.SageSocketTests.test_paid_batch_relogin_and_exact_consumption",
+      "tests.test_sage_sockets.SageSocketTests.test_retry_keeps_newer_options_and_never_rolls_or_pays_again"
+    ]
+  },
+  "materialized_candidate_tests_passed": 34,
+  "source_ci": {
+    "command": "python -B tools/ci_checks.py",
+    "passed": true,
+    "runtime_check": false
+  }
+}
