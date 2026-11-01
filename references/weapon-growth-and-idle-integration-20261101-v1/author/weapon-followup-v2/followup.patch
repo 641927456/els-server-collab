@@ -1,0 +1,24 @@
+--- a/els_server/domain/weapon_growth_flow.py
++++ b/els_server/domain/weapon_growth_flow.py
+@@ -84,7 +84,7 @@
+     # during a run, changing it back cannot restore this run's eligibility.
+     identity = (str(s.account.store.path), s.account.uid, run.run_id)
+     tracked = getattr(s, '_weapon_growth_run', None)
+-    inventory_changed = any(reply.kind == 0x105 for reply in replies)
++    inventory_changed = any(reply.kind in (0x105,0x1c6) for reply in replies)
+     if tracked is None or tracked['identity'] != identity or inventory_changed:
+         selected = equipped(s.account.get_inventory_snapshot()['items'])
+         if tracked is None or tracked['identity'] != identity:
+@@ -136,8 +136,10 @@
+     # Original inventory acknowledgements: moves, use, pickup, quest rewards,
+     # equipment updates, item locking and growth. Idle combat replies do not
+     # require another complete inventory projection.
+-    return (getattr(s,'_weapon_growth_collection_view',None) is None or
+-            any(e.kind in (0x105,0x197,0xd3,0xf5,0x21a,0xaf,0xc1,0xd9,0x2a,0x96d,0x96b,0x664)
++    previous=getattr(s,'_weapon_growth_collection_view',None)
++    identity=(str(s.account.store.path),s.account.uid)
++    return (previous is None or previous[0]!=identity or
++            any(e.kind in (0x105,0x1c6,0x197,0xd3,0xf5,0x21a,0xaf,0xc1,0xd9,0x2a,0x96d,0x96b,0x664)
+                 for e in replies))
+ 
+ 

@@ -1,0 +1,56 @@
+{
+  "kind": "original-four-leaf-idle-source",
+  "original_manifest_sha256": "5258be49ea27561b619c38716fbb03bd39f688132d6478c84a8fea84e048048f",
+  "files": {
+    "online": {
+      "els_server/storage/character_custom.py": {
+        "path": "references/weapon-growth-and-idle-integration-20261101-v1/source/online/els_server/storage/character_custom.py",
+        "size": 22849,
+        "sha256": "007051ecfc6aa04a2bda41c336a411ec8d8b67c280c5548f0aaafef90296faec"
+      },
+      "els_server/protocol/character_custom_messages.py": {
+        "path": "references/weapon-growth-and-idle-integration-20261101-v1/source/online/els_server/protocol/character_custom_messages.py",
+        "size": 4871,
+        "sha256": "2d93712c66fddf196612d56a959f739baafef75279c7eb39413f8506b136d590"
+      },
+      "els_server/domain/ariel_attendance_mark.py": {
+        "path": "references/weapon-growth-and-idle-integration-20261101-v1/source/online/els_server/domain/ariel_attendance_mark.py",
+        "size": 6745,
+        "sha256": "de57ade3286cd0a29efe23cf73bebb31dc983b0a03be5df96816e52c2c5ef301"
+      },
+      "els_server/domain/character_custom.py": {
+        "path": "references/weapon-growth-and-idle-integration-20261101-v1/source/online/els_server/domain/character_custom.py",
+        "size": 9452,
+        "sha256": "0f73d2251c7492344f13ca391aa1bed22b1b926c4f87611f38c94a35dc9857f4"
+      }
+    },
+    "local": {
+      "els_server/storage/character_custom.py": {
+        "path": "references/weapon-growth-and-idle-integration-20261101-v1/source/online/els_server/storage/character_custom.py",
+        "size": 22849,
+        "sha256": "007051ecfc6aa04a2bda41c336a411ec8d8b67c280c5548f0aaafef90296faec"
+      },
+      "els_server/protocol/character_custom_messages.py": {
+        "path": "references/weapon-growth-and-idle-integration-20261101-v1/source/online/els_server/protocol/character_custom_messages.py",
+        "size": 4871,
+        "sha256": "2d93712c66fddf196612d56a959f739baafef75279c7eb39413f8506b136d590"
+      },
+      "els_server/domain/ariel_attendance_mark.py": {
+        "path": "references/weapon-growth-and-idle-integration-20261101-v1/source/online/els_server/domain/ariel_attendance_mark.py",
+        "size": 6745,
+        "sha256": "de57ade3286cd0a29efe23cf73bebb31dc983b0a03be5df96816e52c2c5ef301"
+      },
+      "els_server/domain/character_custom.py": {
+        "path": "references/weapon-growth-and-idle-integration-20261101-v1/source/online/els_server/domain/character_custom.py",
+        "size": 9452,
+        "sha256": "0f73d2251c7492344f13ca391aa1bed22b1b926c4f87611f38c94a35dc9857f4"
+      }
+    }
+  },
+  "read_only_data_dependency": {
+    "path": "els_server/data/character_custom_permanent.json",
+    "sha256": "dd5acfd63afd0e74c26054193c2e987ce0f48ecb499ee20e0dcef53bf1ca6712",
+    "deployed_as_delta": false
+  },
+  "scope": "Four independent idle slots1/10/11/12 may choose same owned action;4CC changed-slot ACK plus complete18E actor selection including current attendance state"
+}
