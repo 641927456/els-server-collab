@@ -1,0 +1,36 @@
+--- a/els_server/domain/quick_start_flow.py
++++ b/els_server/domain/quick_start_flow.py
+@@ -69,3 +69,33 @@
+         return change_career(s.account.store.path,uid,account,target,
+             s.shop_session_id+':quick-career:'+str(uid)+':'+str(sequence),prepare,encode)
+     except ValueError:return [wire.career_ack(result=187)]
++
++
++def authorize_town_entry(s,event,sequence):
++    """Native guide step11 calls B934A0(20010) directly, without paid58C."""
++    from els_server.domain.town_travel_flow import _ordinary_actor
++    if (event.event_id!=0x202 or event.kind!=0x225 or event.payload!=struct.pack('>iB',20010,1)
++        or event.performers!=(0,) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0
++        or type(sequence)is not int or not 1<=sequence<2**32 or not enabled(s) or not s.enter_town
++        or s.phase not in ('town_ready','square_accepted') or s.dungeon_return_pending
++        or s.town_warp_transition is not None or not _ordinary_actor(s)
++        or s.active_map==20010 or s.pending_map not in (None,s.active_map,20010)):
++        return False
++    from els_server.domain.character_rules import CLASSES
++    from els_server.storage.item_actor import require_active_character
++    with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db:
++        db.execute('PRAGMA query_only=ON');db.execute('BEGIN')
++        require_active_character(db,s.account.uid)
++        if not participant(db,s.account.uid,s.account.account_id):return False
++        character=db.execute('SELECT c.unit_class,c.level,c.transcendence,c.master FROM characters c '
++            'JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',
++            (s.account.uid,s.account.account_id)).fetchone()
++        if character is None:return False
++        career,level,transcendence,master=character
++        if CLASSES[career]['stage']!=3 or level!=99 or not transcendence or master:return False
++        completed={r[0] for r in db.execute('SELECT quest FROM completed_quests WHERE owner=? AND quest BETWEEN ? AND ?',
++            (s.account.uid,QUESTS[0],QUESTS[3]))}
++        return bool(set(QUESTS[:4])<=completed
++            and db.execute('SELECT 1 FROM character_quests WHERE owner=? AND quest=?',(s.account.uid,QUESTS[4])).fetchone()
++            and db.execute('SELECT town FROM location WHERE uid=?',(s.account.uid,)).fetchone()==(s.active_map,)
++            and s.account.get_location()['map']==s.active_map and _ordinary_actor(s))
