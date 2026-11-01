@@ -28,7 +28,10 @@ def main():
     for name,digest in historical.items():
         assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest
     integrated=contract['integrated_inventory']
-    assert hashlib.sha256((ROOT/integrated['path']).read_bytes()).hexdigest()==integrated['sha256']
+    # The root now admits reset-scroll readers. Preserve this historical
+    # integration's exact input independently of subsequent source development.
+    preserved=ROOT/'references/reset-scroll-roots-20261101-v1/source'/integrated['path']
+    assert hashlib.sha256(preserved.read_bytes()).hexdigest()==integrated['sha256']
     print(json.dumps(dict(ok=True,candidate_outputs=12,historical_inputs_preserved=2,
         activation=False,runtime_execution=False)))
 
