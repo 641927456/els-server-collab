@@ -55,10 +55,26 @@ def catalog():
     for box in accessory_entries():
         if box['template'] in result:raise ValueError('Duplicate selected accessory box')
         result[box['template']]=box
+    from els_server.domain.boosting_2026_artifact_gear import entry as artifact_gear_entry
+    for box in (artifact_gear_entry(),):
+        if box['template'] in result:raise ValueError('Duplicate selected artifact gear box')
+        result[box['template']]=box
+    from els_server.domain.boosting_2026_abyss_accessory import entry as abyss_accessory_entry
+    for box in (abyss_accessory_entry(),):
+        if box['template'] in result:raise ValueError('Duplicate selected abyss accessory box')
+        result[box['template']]=box
+    from els_server.domain.boosting_2026_change_force import entries as change_force_entries
+    for box in change_force_entries():
+        if box['template'] in result:raise ValueError('Duplicate selected change-force box')
+        result[box['template']]=box
     from els_server.domain.cartridge_selection_box import BOX as cartridge_box,entry as cartridge_entry
     if cartridge_box in result:raise ValueError("Duplicate Cartridge choice box")
     result[cartridge_box]=MappingProxyType(cartridge_entry())
     from els_server.domain.wardrobe_ticket_box import BOX as wardrobe_box,entry as wardrobe_entry
     if wardrobe_box in result:raise ValueError("Duplicate existing wardrobe ticket box")
     result[wardrobe_box]=MappingProxyType(wardrobe_entry())
+    from els_server.domain.job_reward_boxes import entries as job_entries
+    for box in job_entries():
+        if box['template'] in result:raise ValueError('Duplicate current job convenience box')
+        result[box['template']]=MappingProxyType(box)
     return MappingProxyType(result)

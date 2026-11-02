@@ -192,6 +192,14 @@ for _row in seal_quest_catalog()['reward_definitions']+region_quest_catalog().da
 from els_server.domain.tutorial_accessory import minime_reward_definition
 _minime_reward=minime_reward_definition()
 if _minime_reward['template'] in VERIFIED_TEMPLATES:raise ValueError('Conflicting original Minime reward registration')
+
+# Local reselection quest 39480 rewards: native pinned-record readers.
+from els_server.domain.local_reselection_quest import reward_item_definitions as _reselection_rewards
+for _row in _reselection_rewards():
+ _t=_row['template'];_expected=(_row['metadata'],_row['group'],_row['max_stack'])
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting local reselection reward reader')
+ VERIFIED_TEMPLATES[_t]=_expected[0];TEMPLATE_BAG_GROUPS[_t]=_expected[1];TEMPLATE_MAX_STACKS[_t]=_expected[2]
+
 VERIFIED_TEMPLATES[_minime_reward['template']]=_minime_reward['metadata']
 TEMPLATE_BAG_GROUPS[_minime_reward['template']]=_minime_reward['group']
 TEMPLATE_MAX_STACKS[_minime_reward['template']]=_minime_reward['max_stack']
@@ -214,6 +222,13 @@ for _row in pet_progression_catalog()['definitions']:
 from els_server.domain.pet_support import catalog as pet_support_catalog
 for _row in pet_support_catalog()['definitions']:
  if _row['template'] in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_row['template']],TEMPLATE_BAG_GROUPS[_row['template']],TEMPLATE_MAX_STACKS[_row['template']])!=(_row['metadata'],_row['group'],_row['max_stack']):raise ValueError('Conflicting pet support classification')
+ VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
+ TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
+ TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
+
+from els_server.domain.pet_support import variant_definitions as pet_ticket_variants
+for _row in pet_ticket_variants():
+ if _row['template'] in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_row['template']],TEMPLATE_BAG_GROUPS[_row['template']],TEMPLATE_MAX_STACKS[_row['template']])!=(_row['metadata'],_row['group'],_row['max_stack']):raise ValueError('Conflicting pet ticket variant classification')
  VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
  TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
  TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
@@ -272,6 +287,19 @@ for _cube in select_cube_catalog().values():
  VERIFIED_TEMPLATES[_cube['template']]=_cube['metadata']
  TEMPLATE_BAG_GROUPS[_cube['template']]=4
  TEMPLATE_MAX_STACKS[_cube['template']]=99
+
+from els_server.domain.promotion_reward_boxes import catalog as _promotion_box_catalog
+for _row in _promotion_box_catalog()['readers']:
+ _t=_row['template'];_expected=(_row['metadata'],_row['group'],_row['max_stack'])
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting promotion outfit reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+ FASHION_EQUIP_SLOTS[_t]=_row['slot']
+
+from els_server.domain.official_fixed_boxes import readers as official_fixed_box_readers
+for _row in official_fixed_box_readers():
+ _t=_row['template'];_expected=(_row['metadata'],_row['group'],_row['max_stack'])
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting official fixed box reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
 
 from els_server.domain.companion_fashion import resolve_slots as companion_fashion_slots
 FASHION_EQUIP_SLOTS = companion_fashion_slots(FASHION_EQUIP_SLOTS)
@@ -486,6 +514,116 @@ _erp_support=erp_support_item();_t=_erp_support['template']
 if _t in VERIFIED_TEMPLATES:raise ValueError('Conflicting ERP support reward')
 VERIFIED_TEMPLATES[_t]=_erp_support['metadata'];TEMPLATE_BAG_GROUPS[_t]=_erp_support['group'];TEMPLATE_MAX_STACKS[_t]=_erp_support['max_stack']
 
+# Four existing Ariel recovery potions that players already own but which no
+# quest/shop source had registered yet. Same native inventory body as the
+# admitted Ariel food rows (metadata2, quick-slot bag group6), each record
+# pinned by sha256, and each carries no linked-buff vector (record0xA8 == 0),
+# so only the native HP/MP recovery effects are admitted for them.
+from els_server.game_data import client_data as _ariel_client_data
+_ARIEL_RECOVERY_POTIONS={710006:'fb689548f0701f223babdfbaca297c7cbe3570c7f411adf9f8e0d948886fc82d',
+                          710031:'a902f0a73a767b3464341265b9b144a1800f883fc0f44e89d7ebeeafb6ad926c',
+                          710250:'f5ca9afa08ebcc8a7c50bf3a919d5a078c734bd438e83f67b6698531fc19150e',
+                          713170:'25f3062e9a330051372e4a2f90d14f6e50020da8e6ca0631f0d9a462b9a54e36'}
+for _t,_digest in _ARIEL_RECOVERY_POTIONS.items():
+ _ariel_item=_ariel_client_data().item(_t)
+ if (hashlib.sha256(_ariel_item['record']).hexdigest()!=_digest or _ariel_item['item_type']!=5
+     or _ariel_item['metadata']!=2 or struct.unpack_from('<I',_ariel_item['record'],0xa8)[0]!=0):
+  raise ValueError('Ariel recovery potion source changed')
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS.get(_t),TEMPLATE_MAX_STACKS.get(_t))!=(2,6,999):
+  raise ValueError('Conflicting Ariel recovery potion definition')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=(2,6,999)
+
+# Two Ariel element crystal balls already sitting in player bags. They are the
+# shop copies of the plain rows and share their quick-slot binding (128 water,
+# 130 wind), so one shortcut slot legitimately holds either copy. Same native
+# inventory body as the four rows above (metadata2, bag group6) and no linked
+# buff (record0xA8 == 0): the element lives in the consumable effect vector.
+_ARIEL_ELEMENT_BALLS={712040:'fb4aa93311c3ab60d75534f1345a1345ccea4fed50c20e6918f34d5528260163',
+                      712041:'bc67e0c49f4eed34d368cd3c4854219188e218e493e1e0e4eb53e11c96d909ff'}
+for _t,_digest in _ARIEL_ELEMENT_BALLS.items():
+ _ball=_ariel_client_data().item(_t)
+ if (hashlib.sha256(_ball['record']).hexdigest()!=_digest or _ball['item_type']!=5
+     or _ball['metadata']!=2 or struct.unpack_from('<I',_ball['record'],0xa8)[0]!=0):
+  raise ValueError('Ariel element ball source changed')
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS.get(_t),TEMPLATE_MAX_STACKS.get(_t))!=(2,6,999):
+  raise ValueError('Conflicting Ariel element ball definition')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=(2,6,999)
+
+# Seven owned bag-group-4 rows that no earlier source registered. A single
+# unregistered template makes load_items() reject the ENTIRE owned bag, so one
+# missing row refuses every action on that page at once. The policies below are
+# copied from the two pinned catalogues that already carry these templates as
+# published bundle contents and selected title-support outputs; the stack
+# column is the formal local policy applied to the source cap, exactly as
+# published_2026_bundles.enable() would register them.
+_BAG4_TARGETS={710085,710106,714139,714143,714147,723610,723618}
+_BAG4_ROWS={}
+for _rel,_digest in (('data/published2026-bundles.json','53b00587f28204ed95d6e68a0ef2f6ed19e08b3da5b2a6ed947937ee0f3d8e00'),
+                     ('data/boosting2026-title-support.json','bb9457a0181c663588d9e9c88db4bcea31222c6d66dda91bc3011419866a938f')):
+ _source=(PROJECT_ROOT/'els_server'/Path(_rel)).read_bytes()
+ if hashlib.sha256(_source).hexdigest()!=_digest:raise ValueError('Owned bag4 source identity')
+ _doc=json.loads(_source)
+ _candidates=[]
+ for _bundle in _doc.get('bundles',()):_candidates.append(_bundle);_candidates.extend(_bundle['entries'])
+ _candidates.extend(_doc.get('outputs',()))
+ for _row in _candidates:
+  _template=_row.get('template')
+  if _template not in _BAG4_TARGETS:continue
+  _cap=_row['max_stack']
+  _policy=(_row['metadata'],_row['group'],max(_cap,LOCAL_MAX_STACK) if _cap>1 else 1,_row['record_sha256'],_row['name'])
+  if _template in _BAG4_ROWS and _BAG4_ROWS[_template]!=_policy:raise ValueError('Conflicting owned bag4 policy')
+  _BAG4_ROWS[_template]=_policy
+if set(_BAG4_ROWS)!=_BAG4_TARGETS:raise ValueError('Owned bag4 row scope changed')
+for _t,(_meta,_group,_stack,_digest,_name) in _BAG4_ROWS.items():
+ _item=_ariel_client_data().item(_t)
+ if (hashlib.sha256(_item['record']).hexdigest()!=_digest or _item['name']!=_name
+     or _item['metadata']!=_meta or _group!=4):
+  raise ValueError('Owned bag4 row source changed')
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS.get(_t),TEMPLATE_MAX_STACKS.get(_t))!=(_meta,_group,_stack):
+  raise ValueError('Conflicting owned bag4 row definition')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=(_meta,_group,_stack)
+
+# [阿莉尔]巨人的石苹果 is the shop copy of the already inventory-registered
+# 710313. Its native body is identical there: no effect vector, group10 timer,
+# level40 and a linked-buff pointer, so only the inventory identity is added
+# here. The apple effect itself stays owned by apple_consumables.
+_ariel_stone_apple=_ariel_client_data().item(718117)
+if (hashlib.sha256(_ariel_stone_apple['record']).hexdigest()!='d01ea1d43a65e8940628f13df3e9f03a73825e2f3f43ad4b895081182c2ad448'
+    or _ariel_stone_apple['item_type']!=5 or _ariel_stone_apple['metadata']!=2
+    or _ariel_stone_apple['record'][0xd1]!=40
+    or struct.unpack_from('<I',_ariel_stone_apple['record'],0xa8)[0]!=0x037b1c96):
+ raise ValueError('Ariel stone apple source changed')
+if 718117 in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[718117],TEMPLATE_BAG_GROUPS.get(718117),TEMPLATE_MAX_STACKS.get(718117))!=(2,6,999):
+ raise ValueError('Conflicting Ariel stone apple definition')
+VERIFIED_TEMPLATES[718117],TEMPLATE_BAG_GROUPS[718117],TEMPLATE_MAX_STACKS[718117]=(2,6,999)
+
+# Four owned Lithia guardian fashion pieces from the pinned role-fashion90
+# catalogue. Same symptom as the rows above: a single unregistered fashion row
+# also fails the whole bag load. Bag group27 keeps the unequipped copies
+# readable, and the equip slot is what lets an already-worn copy (group9) pass.
+_OWNED_FASHION={118828,118830,118834,118835}
+_fashion_source=(PROJECT_ROOT/'els_server'/'data/boosting2026-fashion90.json').read_bytes()
+if hashlib.sha256(_fashion_source).hexdigest()!='481d8d339eddb433262399df1795aaa47f42d051c6a556a9ab27570530bc82ec':raise ValueError('Owned fashion source identity')
+_owned_fashion={}
+for _box in json.loads(_fashion_source)['boxes']:
+ for _cohort in _box['cohorts'].values():
+  for _row in _cohort['outputs']:
+   if _row['template'] not in _OWNED_FASHION:continue
+   _piece=_ariel_client_data().item(_row['template'])
+   if (hashlib.sha256(_piece['record']).hexdigest()!=_row['record_sha256'] or _piece['name']!=_row['name']
+       or _piece['metadata']!=_row['metadata'] or (_row['group'],_row['max_stack'])!=(27,1)
+       or _piece['equip_position']!=_row['position'] or _row['slot']!=FASHION_POSITIONS[_piece['equip_position']]):
+    raise ValueError('Owned fashion row source changed')
+   if _row['template'] in _owned_fashion and _owned_fashion[_row['template']]!=_row['slot']:raise ValueError('Conflicting owned fashion slot')
+   _owned_fashion[_row['template']]=_row['slot']
+if set(_owned_fashion)!=_OWNED_FASHION:raise ValueError('Owned fashion scope changed')
+for _t,_slot in _owned_fashion.items():
+ if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS.get(_t),TEMPLATE_MAX_STACKS.get(_t))!=(0,27,1):
+  raise ValueError('Conflicting owned fashion definition')
+ if FASHION_EQUIP_SLOTS.get(_t,_slot)!=_slot:raise ValueError('Conflicting owned fashion equip slot')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=(0,27,1)
+ FASHION_EQUIP_SLOTS[_t]=_slot
+
 from els_server.domain.cartridge_registration_rules import materials as cartridge_materials
 for _row in cartridge_materials():
  _t=_row['template'];_expected=(_row['metadata'],_row['group'],_row['max_stack'])
@@ -637,7 +775,11 @@ def validate_item(item):
   result.update(sealed=item.get('sealed',False),seal_used=item.get('seal_used',0))
  return result
 def item_body(item):
- item=validate_item(item);c=fixture();data=bytearray.fromhex(c['wire_hex'])
+ return _item_body(validate_item(item))
+
+def _item_body(item):
+ # Internal encoder for the canonical item returned by validate_item.
+ c=fixture();data=bytearray.fromhex(c['wire_hex'])
  if item['template']==_chip_registration['template']:
   from els_server.domain.equipment_chip_rules import source_options
   source_options(item.get('option_groups',{}).get('1',[]))
@@ -687,13 +829,17 @@ def item_body(item):
   if data[pos:pos+4]!=bytes(4):raise ValueError('Native attribute vector seed changed')
   data[pos:pos+4]=struct.pack('>I4i',4,*item['attributes'])
  return bytes(data)
-def inventory_payload(items):
+def _checked_items(items):
  from els_server.domain.bag_capacity import wire_limit
  from els_server.domain.equipment_requirements import catalog as requirements
  if not isinstance(items,list) or len(items)>sum(wire_limit(g) for g in set(TEMPLATE_BAG_GROUPS.values()))+len(set(FASHION_EQUIP_SLOTS.values())|set(requirements()[1].values())|{s for r in ordinary_accessory_definitions().values() for s in r['slots']})+(4 if any(isinstance(i,dict) and i.get('group') in (22,23) for i in items) else 0):raise ValueError('Inventory list bound')
  checked=[validate_item(i) for i in items]
  if len({i['uid'] for i in checked})!=len(checked) or len({(i['group'],i['slot']) for i in checked})!=len(checked):raise ValueError('Duplicate inventory UID/slot')
- return struct.pack('>I',len(checked))+b''.join(struct.pack('>QBh',i['uid'],i['group'],i['slot'])+item_body(i)+b'\0'+bytes(8) for i in sorted(checked,key=lambda v:(v['group'],v['slot'])))
+ return checked
+
+def inventory_payload(items):
+ checked=_checked_items(items)
+ return struct.pack('>I',len(checked))+b''.join(struct.pack('>QBh',i['uid'],i['group'],i['slot'])+_item_body(i)+b'\0'+bytes(8) for i in sorted(checked,key=lambda v:(v['group'],v['slot'])))
 
 def inventory_restore_map(items):
  """2A/DA3370 +5B1: map<UID, inventory record>, restored without NEW.
@@ -701,11 +847,13 @@ def inventory_restore_map(items):
  DB3490/DD3980 read the key and DB4F80 record. 1385780 -> 1984840
  inserts with mark-new=false, unlike D9 -> 197DAD0.
  """
- inventory_payload(items)  # Validate identities and slots before serializing.
- bag=sorted((i for i in items if i['group'] not in (9,24)),key=lambda i:i['uid'])
+ checked=_checked_items(items)
+ # Preserve wire checks for worn items too, although this map excludes them.
+ bodies={i['uid']:_item_body(i) for i in sorted(checked,key=lambda v:(v['group'],v['slot']))}
+ bag=sorted((i for i in checked if i['group'] not in (9,24)),key=lambda i:i['uid'])
  return struct.pack('>I',len(bag))+b''.join(
      struct.pack('>QQBh',i['uid'],i['uid'],i['group'],i['slot'])+
-     item_body(i)+bytes(9) for i in bag)
+     bodies[i['uid']]+bytes(9) for i in bag)
 
 
 from els_server.domain.cartridge_exchange_rules import source_definition as cartridge_exchange_source
@@ -812,6 +960,26 @@ _life_potion=_life_potion_data().item(135953)
 if (hashlib.sha256(_life_potion['record']).hexdigest()!='77c91092e1ed47958b423f0a3d8123f9f5eae59a2987e49b935e8f6dd2011650' or (_life_potion['item_type'],_life_potion['metadata'],_life_potion['flags4'],_life_potion['flags8'],struct.unpack_from('<I',_life_potion['record'],0x10)[0])!=(7,2,573575178,56,300)):raise ValueError('Original25602 reward reader source')
 if 135953 in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[135953],TEMPLATE_BAG_GROUPS[135953],TEMPLATE_MAX_STACKS[135953])!=(2,4,300):raise ValueError('Conflicting original25602 reward reader')
 VERIFIED_TEMPLATES[135953]=2;TEMPLATE_BAG_GROUPS[135953]=4;TEMPLATE_MAX_STACKS[135953]=300
+
+# Exact current job-box outputs; the original native group7 fashion uses the
+# already published group27 inventory convention. No new acquisition is opened.
+from els_server.domain.job_reward_boxes import catalog as _job_box_catalog
+for _r in _job_box_catalog()['readers']:
+ _t=_r['template'];_expected=(_r['metadata'],_r['group'],_r['max_stack'])
+ if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting job box output reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+ if _r['group']==27:FASHION_EQUIP_SLOTS[_t]=FASHION_POSITIONS[_r['equip_position']]
+
+# Three already-owned current selection boxes (two force-change, one Devildom
+# accessory). Registration is a read-only native reader so persisted
+# inventories load; no new source or selection authority is conferred here.
+from els_server.game_data import client_data as _force_box_client
+for _t in (723687,723688,723621):
+ _definition=_force_box_client().item(_t)
+ if (_definition['metadata'],_definition['item_type'],_definition['equip_position'])!=(0,7,0):raise ValueError('Current selection box definition')
+ _expected=(0,4,max(99,LOCAL_MAX_STACK))
+ if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting selection box reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
 
 # Exact existing El Essence: current KIM stack1000; old quest reward singleton
 # was a bounded issuance amount, not this item's native stacking limit.

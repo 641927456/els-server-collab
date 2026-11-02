@@ -102,6 +102,21 @@ class CubeTests(fixture.SaleTests):
         self.assertEqual(struct.unpack_from('>i',s.handle(unknown,4)[0].payload)[0],-1)
         self.assertIsNone(s.fixed_cube_preview_template);self.assertFalse(s.ice_preview_ready)
 
+    def test_ice_refusal_echoes_the_clicked_template_not_zero(self):
+        # With the ice feature on, an unknown cube used to fall through to the
+        # ice fallback, which answered template 0 and made the client open an
+        # empty random-item window instead of refusing the clicked item.
+        args=dict(enter_town=True,enter_dungeon=True,client_build='dx11_260923',npc_slot_test=True,gate_test=True,population_test=True,clear_test=True,reward_test=True,item_test=True,ice_test=True)
+        s=LocalSession(self.account,**args);s.role='game';s.phase='town_ready'
+        for template in (131582,109999,168889):
+            unknown=Event(0x202,kind=0x559,payload=struct.pack('>iIiBB',template,1,0,0,0))
+            reply=s.handle(unknown,4)[0]
+            self.assertEqual(reply.kind,0x55a)
+            self.assertEqual(struct.unpack_from('>ii',reply.payload),( -1,template))
+        self.assertFalse(s.ice_preview_ready)
+        broken=Event(0x202,kind=0x559,payload=b'\x00\x01')
+        self.assertEqual(struct.unpack_from('>i',s.handle(broken,5)[0].payload)[0],-1)
+
     def test_direct_native_use_and_retry_without_a_preview(self):
         item=self.grant(130172)
         args=dict(enter_town=True,enter_dungeon=True,client_build='dx11_260923',npc_slot_test=True,gate_test=True,population_test=True,clear_test=True,reward_test=True,item_test=True)

@@ -26,6 +26,9 @@ def rows(db,owner,kind=None):
     attach_progression(db,owner,result)
     from els_server.storage.mount_state import attach as attach_mount
     attach_mount(db,owner,result)
+    from els_server.storage.mount_progress import load as load_progress
+    for companion in result:
+        if companion['kind']=='mount':companion.update(load_progress(db,companion['uid']))
     return result
 
 def snapshot(path,owner,*,enter_world=False):

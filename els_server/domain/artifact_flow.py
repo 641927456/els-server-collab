@@ -61,7 +61,7 @@ def handle(s,event,sequence):
 
 def observe(s,replies):
  if not current_lease(s) or s.account.store is None or s.account.store.uid!=s.account.uid or not replies or s.account.characters is None or not s.item_test or s.client_build!='dx11_260923' or s.role!='game' or s.phase not in ('town_ready','dungeon_active'):return []
- character=s.account.character();a=character.get('artifact')
+ character=s.account.characters.artifact(s.account.uid);a=character.get('artifact')
  if not a:return []
  key=(str(s.account.store.path),character['uid']);current=(a['evolution'],a['level'],a['experience'],tuple(a['potentials']))
  old=getattr(s,'_artifact_view',None);s._artifact_view=(key,current)

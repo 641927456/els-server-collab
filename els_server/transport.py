@@ -185,37 +185,65 @@ class GameServer:
                         entry_fields.update(wear_source=[sg,ss],wear_destination=[dg,ds],wear_flag=flag)
                 run=getattr(business,'dungeon_run',None)
                 if (event.event_id==0x202 and event.kind==0xad and run is not None
-                        and run.identity==35250
+                        and run.identity in (35250,34390,34400,34420)
                         and memory1_diagnostic_count<512):
                     memory1_diagnostic_count+=1
                     from els_server.domain.dungeon_lifecycle import death_report
                     try:
                         d=death_report(event.payload)
-                        entry_fields=dict(dungeon=35250,stage=run.stage,part=run.part,retirement_probe=dict(
+                        entry_fields=dict(dungeon=run.identity,stage=run.stage,part=run.part,retirement_probe=dict(
                             index=d['index'],flag=d['flag'],source=d['source'],killer=d['killer'],
                             xyz=d['xyz'],status=d['status'],hp_bits=d['hp_bits'],last_uid=d['last_uid'],
                             extra_uid=d['extra_uid'],contribution_count=len(d['contribution']),
                             counters_count=len(d['counters']),readiness=d['readiness']))
-                    except ValueError:entry_fields=dict(dungeon=35250,retirement_probe_error='malformed_AD')
+                    except ValueError:entry_fields=dict(dungeon=run.identity,retirement_probe_error='malformed_AD')
                 self.log('client_request',connection=index,sequence=frame.sequence,
                          event_id=event.event_id,kind=event.kind,size=len(wire),**entry_fields)
+                # Envelope only: the native wardrobe opener was never taken
+                # from a real button press, so record the shape it arrives in.
+                if event.event_id==0x202 and event.kind==0x51c:
+                    self.log('wardrobe_opening_diagnostic',connection=index,sequence=frame.sequence,
+                        performers=list(event.performers),uid=event.uid,target_uid=event.target_uid,
+                        payload_mode=event.payload_mode,payload_size=len(event.payload))
                 async with operation:
                     if event.event_id==1026 and event.kind==3392 and not heartbeat_sent:
                         await send([Event(0)],send_path='heartbeat');heartbeat_sent=True
                     before=business.phase
                     trace34320_before=dungeon34320_trace.before(business,event,frame.sequence)
                     messages=await self.application.call(business.handle,event,request_sequence=frame.sequence)
+                    if event.event_id==0x202 and event.kind in (0x810,0x812):
+                        self.log('guidebook_diagnostic',connection=index,sequence=frame.sequence,
+                            size=len(event.payload),rejection=getattr(business,'guidebook_rejection',None))
+                    if event.event_id==0x202 and event.kind in (0x42c,0x42f,0x542):
+                        self.log('mount_diagnostic',connection=index,sequence=frame.sequence,phase=business.phase,
+                            rejection=getattr(business,'_mount_rejection',None))
+                    if event.event_id==0x202 and event.kind==0x460:
+                        # The dungeon client sends this every thirty seconds and
+                        # the stored request shape (22 bytes) never matched it,
+                        # so record the real payload instead of guessing.
+                        self.log('essence_diagnostic',connection=index,sequence=frame.sequence,
+                            size=len(event.payload),payload=event.payload.hex(),
+                            rejection=getattr(business,'essence_rejection',None))
                     if event.event_id==0x202 and event.kind==0x104:
                         results=[struct.unpack_from('>i',m.payload,len(m.payload)-4)[0]for m in messages
                             if m.event_id==0x201 and m.kind==0x105 and len(m.payload)>=8]
                         self.log('wear_diagnostic',connection=index,sequence=frame.sequence,phase=business.phase,
                             results=results,rejection=getattr(business,'_wear_rejection',None))
+                    if event.event_id==0x202 and event.kind in (0x219,0x661,0x8a1,0x8c7,0x2fb):
+                        self.log('pet_support_diagnostic',connection=index,sequence=frame.sequence,
+                            phase=business.phase,rejection=getattr(business,'_pet_support_rejection',None))
                     if event.event_id==0x202 and event.kind==0x58c:
                         results=[struct.unpack_from('>i',m.payload)[0] for m in messages
                             if m.event_id==0x201 and m.kind==0x58d and len(m.payload)>=4]
                         self.log('town_warp_diagnostic',connection=index,sequence=frame.sequence,
                             phase=business.phase,results=results,
                             rejection=getattr(business,'_town_warp_rejection',None))
+                    if event.event_id==0x202 and event.kind in (0xa7,0xaa,0x160):
+                        answers=[struct.unpack_from('>i',m.payload,4)[0] for m in messages
+                            if m.kind in (0xa8,0x161) and len(m.payload)>=8]
+                        self.log('resurrection_diagnostic',connection=index,sequence=frame.sequence,
+                            phase=business.phase,payload_bytes=len(event.payload),
+                            results=answers,rejection=getattr(business,'resurrection_rejection',None))
                     dungeon34320_trace.after(trace34320_before,business,messages)
                     if before!=business.phase:
                         self.log('business_phase',connection=index,request=event.kind,before=before,after=business.phase)

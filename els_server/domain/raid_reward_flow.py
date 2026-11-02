@@ -48,21 +48,27 @@ def handle(s,event,sequence):
  if event.event_id!=0x202 or event.kind not in(0x559,0x196,0xc04,0xc06,0xc0b):return None
  from els_server.protocol.ice_messages import preview_request,preview_ack,use_request
  from els_server.protocol.cube_messages import result as box_error
+ from els_server.domain import promotion_reward_boxes as promotion
+ from els_server.storage import promotion_reward_boxes as promotion_actions
+ from els_server.domain import official_fixed_boxes as official
+ from els_server.storage import official_fixed_boxes as official_actions
  kind=event.kind;template=None;operation=None
  if kind==0x559:
   try:req=preview_request(event.payload)
   except ValueError:return None
-  if str(req.template)not in boxes():return None
+  if str(req.template)not in boxes()and req.template not in promotion.BOXES and req.template not in official.BOXES:return None
   template=req.template
  elif kind==0x196:
   try:req=use_request(event.payload)
   except ValueError:return None
   if getattr(s.account,'store',None)is None:return None
   item=next((i for i in s.account.get_inventory_snapshot()['items']if i['uid']==req.uid),None)
-  if item is not None and str(item['template'])in boxes():template=item['template']
+  if item is not None and (str(item['template'])in boxes()or item['template']in promotion.BOXES or item['template']in official.BOXES):template=item['template']
   elif type(sequence)is int:
    operation=s.shop_session_id+':'+str(s.account.uid)+':'+str(sequence)
    template=actions.historical_box(s.account.store.path,s.account.uid,event.payload,operation)
+   if template is None:template=promotion_actions.historical_box(s.account.store.path,s.account.uid,event.payload,operation)
+   if template is None:template=official_actions.historical_box(s.account.store.path,s.account.uid,event.payload,operation)
   if template is None:return None
  try:
   bound=town(s,sequence)
@@ -85,8 +91,13 @@ def handle(s,event,sequence):
    if owned is None:raise ValueError('Raid preview requires a real owned box')
    from els_server.domain.item_expiration import require_current
    from els_server.domain.item_locks import require_unlocked
-   require_current(owned);require_unlocked(owned);row,outputs=entry_outputs(template,s.account.character())
+   require_current(owned);require_unlocked(owned)
+   if template in promotion.BOXES:row,outputs=promotion.preview(int(template),int(s.account.character()['unit_class']))
+   elif template in official.BOXES:row,outputs=official.preview(int(template),s.account.character())
+   else:row,outputs=entry_outputs(template,s.account.character())
    guard();return [preview_ack(0,template,selection_count=row['selection_count'],entries=[(r['template'],r['quantity'],0)for r in row['entries']])]
+  if template in promotion.BOXES:return promotion_actions.open_box(s.account.store.path,s.account.uid,int(template),event.payload,operation,s.account.account_id,guard)
+  if template in official.BOXES:return official_actions.open_box(s.account.store.path,s.account.uid,int(template),event.payload,operation,s.account.account_id,guard)
   return actions.open_box(s.account.store.path,s.account.uid,template,event.payload,operation,s.account.account_id,guard)
  except (ValueError,sqlite3.Error):
   if kind==0xc06:return [claim_ack(code=-1)]

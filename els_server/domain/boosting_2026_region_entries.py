@@ -11,7 +11,14 @@ from els_server.protocol.quest_messages import accepted
 from els_server.storage.seal_quests import ensure,load_character,completed_ids
 from els_server.storage.inventory_state import load_items
 
-ENTRIES=(26640,26650)
+# 26690 is the native entry task for region10030; growth task169507 needs 34800 there.
+# 27540-27600 are the remaining board-only region entries (each m_iAfterQuestID
+# chain skips the next one while m_vecBeforeQuestID requires it, so official data
+# expects a board accept that this client build never exposes). Task169508 needs
+# 35080, which sits behind 27550. Ordering stays native: resume() accepts only the
+# entry whose beforeQuest is actually completed, so the chain advances one step
+# per claim, with no invented clear credit.
+ENTRIES=(26640,26650,26690,27540,27550,27560,27570,27580,27590,27600)
 
 def resume(db,uid,account_id,*,now,location):
     if type(now) is not int or not 0<now<2**63:raise ValueError('Region entry timestamp')

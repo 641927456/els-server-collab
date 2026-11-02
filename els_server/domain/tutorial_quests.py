@@ -4,6 +4,7 @@ import json,sqlite3,time
 from els_server.domain.seal_quests import quest_catalog,require_eligible,sequence,ACTIVE_QUEST_LIMIT
 from els_server.storage.seal_quests import load_character,ensure,_state
 from els_server.storage.inventory_state import load_items
+from els_server.storage.sqlite_timing import write_transaction
 from els_server.protocol import quest_messages as wire
 
 STARTERS={**{t:(100000,20000) for t in range(1,13)},13:(25000,20011),14:(26800,20012),15:(28000,20014)}
@@ -55,8 +56,7 @@ def restore_initialization(state,*,live=False,defer_starter_arrival=False):
     historical IDs also block restoration, so a partial catalog never sends
     a character with unclassified progress back to the start of its story.
     """
-    with closing(sqlite3.connect(state.path,timeout=10)) as db,db:
-        db.execute('BEGIN IMMEDIATE')
+    with closing(sqlite3.connect(state.path,timeout=10)) as db,write_transaction(db):
         character=load_character(db,state.uid,state.account_id);ensure(db)
         items=load_items(db,state.uid);snapshot=_state(db,state.uid,items)
         previous={row['id'] for row in snapshot['active']}

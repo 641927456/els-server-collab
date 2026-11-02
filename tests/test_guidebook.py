@@ -62,6 +62,14 @@ class GuidebookTests(unittest.TestCase):
         flow.handle(self.session,self.upload({11:0}))
         self.assertEqual(self.saved(),{11:0})
 
+    def test_stale_header_count_still_reads_every_native_entry(self):
+        # The fixed DX11 capture sends five entries behind a four-entry header;
+        # rejecting that upload tears the game connection down.
+        body=struct.pack('>I',2)+b''.join(struct.pack('>iB',n,1) for n in (11,25,26))
+        self.assertEqual(wire.request(body),{11:1,25:1,26:1})
+        self.assertEqual(flow.handle(self.session,Event(0x202,kind=0x812,payload=body)),[])
+        self.assertEqual(self.saved(),{11:1,25:1,26:1})
+
     def test_failed_replace_rolls_back(self):
         flow.handle(self.session,self.upload({11:1}))
         with closing(sqlite3.connect(self.path)) as db,db:
@@ -95,6 +103,20 @@ class GuidebookTests(unittest.TestCase):
                       Event(0x202,uid=1002,kind=0x812,payload=self.upload({11:1}).payload)):
             with self.assertRaises(ValueError):flow.handle(self.session,event)
         self.assertEqual(self.saved(),{})
+
+    def test_session_keeps_the_socket_when_an_upload_is_short(self):
+        # The transport closes the game connection on any escaping exception,
+        # and the native client shows that as an instant exit.
+        from els_server.domain.local_session import LocalAccount
+        path=Path(self.temp.name)/'short-upload.sqlite3'
+        account=LocalAccount(LocalState(path));account.enable_characters()
+        s=LocalSession(account,enter_town=True,client_build='dx11_260923')
+        s.role='game';s.phase='characters_ready'
+        s.handle(Event(0x202,performers=(0,),kind=0x28,payload=struct.pack('>Q',1001)))
+        short=struct.pack('>I',5)+b''.join(struct.pack('>iB',n,1) for n in (11,25))
+        self.assertEqual(s.handle(Event(0x202,performers=(0,),kind=0x812,payload=short)),[])
+        self.assertIn('Guidebook flags size',s.guidebook_rejection)
+        self.assertEqual(s.handle(self.upload({11:1})),[])
 
     def test_local_session_routes_upload_and_restores_before_ready(self):
         from els_server.domain.local_session import LocalAccount

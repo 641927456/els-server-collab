@@ -1,4 +1,5 @@
 """Small adapter for recovered equipment UI business requests."""
+import logging
 from els_server.protocol.paid_enhancement_messages import acknowledgement
 from els_server.protocol.protocol_codec import Event
 from els_server.storage.paid_enhancement import enhance
@@ -60,7 +61,9 @@ def handle(session,event,sequence):
                     raise ValueError('Socket actor or lease changed')
             return socket(store.path,actor.uid,event.payload,operation,account_id=actor.account_id,
                           session_id=session.shop_session_id,prepare=prepare_socket)
-        except ValueError:
+        except ValueError as rejected:
+            # A bare -1 leaves no trace of why the native UI gave up.
+            logging.getLogger(__name__).warning('Socket request rejected: %s',rejected)
             return [Event(0x201,kind=reply,payload=socket_ack(result=-1))]
     if event.kind in (0x438,0x43a):
         from els_server.storage.identification_ui import perform

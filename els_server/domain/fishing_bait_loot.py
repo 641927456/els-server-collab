@@ -17,8 +17,12 @@ def _canonical(v):return json.dumps(v,sort_keys=True,separators=(',',':'))
 
 def _facts(s):
     app=getattr(s,'application',None);world=getattr(app,'world',None)
+    # Solo local play uses a plain LocalSession, which has no authenticated
+    # account identity at all; only the application session sets it. The
+    # snapshot must stay readable there, otherwise an ordinary Boss death
+    # raises from this auxiliary draw and tears the connection down.
     return (id(world),id(getattr(world,'dungeons',None)),id(getattr(app,'registry',None)),
-            repr(s.identity),s.active_map,repr(s.account.get_location()),
+            repr(getattr(s,'identity',None)),getattr(s,'active_map',None),repr(s.account.get_location()),
             repr(getattr(s,'pending_map',None)),getattr(s,'map_synchronizing',None))
 
 
@@ -84,6 +88,15 @@ class _Source:
                 raise ValueError('Bait original region qualification')
 
     def issue(self,db,c,proof,drop_id,xyz,randbelow):
+        # Mirror validate(): a refusal of this auxiliary draw is reported as the
+        # death writer's own LootActorRejected so the caller can drop the draw
+        # instead of tearing down an already accepted Boss death.
+        from els_server.storage.dungeon_equipment_loot import LootActorRejected
+        try:return self._issue(db,c,proof,drop_id,xyz,randbelow)
+        except (ValueError,sqlite3.Error,AttributeError,KeyError,TypeError,StopIteration) as error:
+            raise LootActorRejected(str(error)) from error
+
+    def _issue(self,db,c,proof,drop_id,xyz,randbelow):
         self.writing=True
         self.validate(db)
         if not WRITER_ENABLED:raise ValueError('Bait new source held')

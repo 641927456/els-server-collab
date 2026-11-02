@@ -44,6 +44,8 @@ def entries():return tuple(MappingProxyType(dict(template=t,selection_count=0,en
 def validate_box_grants(template,plan):
  # This finite context is supplied only by the owned-box transaction, never
  # by generic drops, shops or client data. Do not change compatibility flags.
+ from els_server.domain.boosting_2026_abyss_accessory import BOX as abyss_box,validate_box_grants as validate_abyss
+ if template==abyss_box:return validate_abyss(plan)
  rule=_boxes.get(template)
  if rule is None or not isinstance(plan,list) or len(plan)!=len(rule['outputs']):raise ValueError('Selected accessory grant source')
  expected=[r['template'] for r in rule['outputs']]

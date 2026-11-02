@@ -110,6 +110,67 @@ class KnownSourceResurrection(unittest.TestCase):
         with closing(sqlite3.connect(self.path)) as db:
             self.assertEqual(db.execute('SELECT operation_id,owner,run,life FROM known_resurrection_spends').fetchall(),
                              [('prepare-existing-ledger-first',self.uid,run,1)])
+    def test_declared_limit_blocks_extra_revival_without_debit(self):
+        self.open(self.boxes[0],'limit-one-credit')
+        run=str(uuid.uuid4())
+        first=spend(self.path,self.uid,self.request(),'limit-one-first',run,1,account_id=2,guard=self.guard,limit=1)
+        self.assertEqual(first['count'],9)
+        before=self.state()
+        with self.assertRaisesRegex(ValueError,'per-run limit'):
+            spend(self.path,self.uid,self.request(),'limit-one-second',run,2,account_id=2,guard=self.guard,limit=1)
+        self.assertEqual(snapshot(self.path,self.uid),9);self.assertEqual(self.state(),before)
+        with closing(sqlite3.connect(self.path)) as db:
+            self.assertEqual(db.execute('SELECT COUNT(*) FROM known_resurrection_spends').fetchone(),(1,))
+    def test_declared_three_allows_three_then_rejects_fourth(self):
+        self.open(self.boxes[0],'limit-three-credit')
+        run=str(uuid.uuid4())
+        counts=[]
+        for life in(1,2,3):
+            counts.append(spend(self.path,self.uid,self.request(),'limit-three-'+str(life),run,life,
+                account_id=2,guard=self.guard,limit=3)['count'])
+        self.assertEqual(counts,[9,8,7])
+        before=self.state()
+        with self.assertRaisesRegex(ValueError,'per-run limit'):
+            spend(self.path,self.uid,self.request(),'limit-three-4',run,4,account_id=2,guard=self.guard,limit=3)
+        self.assertEqual(snapshot(self.path,self.uid),7);self.assertEqual(self.state(),before)
+    def test_missing_declaration_keeps_map_unlimited(self):
+        self.open(self.boxes[0],'unlimited-credit')
+        run=str(uuid.uuid4())
+        counts=[]
+        for life in(1,2,3):
+            counts.append(spend(self.path,self.uid,self.request(),'unlimited-'+str(life),run,life,
+                account_id=2,guard=self.guard)['count'])
+        self.assertEqual(counts,[9,8,7])
+    def test_new_run_resets_declared_limit(self):
+        self.open(self.boxes[0],'limit-run-credit')
+        first_run=str(uuid.uuid4());second_run=str(uuid.uuid4())
+        spend(self.path,self.uid,self.request(),'limit-run-a',first_run,1,account_id=2,guard=self.guard,limit=1)
+        with self.assertRaisesRegex(ValueError,'per-run limit'):
+            spend(self.path,self.uid,self.request(),'limit-run-a2',first_run,2,account_id=2,guard=self.guard,limit=1)
+        self.assertEqual(spend(self.path,self.uid,self.request(),'limit-run-b',second_run,1,
+            account_id=2,guard=self.guard,limit=1)['count'],8)
+    def test_replay_wins_before_limit_rejection(self):
+        self.open(self.boxes[0],'limit-replay-credit')
+        run=str(uuid.uuid4())
+        spend(self.path,self.uid,self.request(),'limit-replay-first',run,1,account_id=2,guard=self.guard,limit=1)
+        before=self.state()
+        self.assertEqual(spend(self.path,self.uid,self.request(),'limit-replay-first',run,1,
+            account_id=2,guard=self.guard,limit=1),dict(count=9,replayed=True))
+        self.assertEqual(self.state(),before)
+        with self.assertRaisesRegex(ValueError,'per-run limit'):
+            spend(self.path,self.uid,self.request(),'limit-replay-second',run,2,account_id=2,guard=self.guard,limit=1)
+    def test_declared_limit_comes_from_client_definition_only(self):
+        from types import SimpleNamespace
+        from els_server.domain.known_resurrection_flow import _limit
+        self.assertIsNone(_limit(SimpleNamespace(dungeon_id=30000)))
+        self.assertEqual(_limit(SimpleNamespace(dungeon_id=34130)),3)
+        self.assertEqual(_limit(SimpleNamespace(dungeon_id=35720)),1)
+        # Client story raids omit the declaration; the official pages still cap
+        # them at three revivals, and Drabaki at one.
+        self.assertEqual(_limit(SimpleNamespace(dungeon_id=34170)),3)
+        self.assertEqual(_limit(SimpleNamespace(dungeon_id=34740)),3)
+        self.assertEqual(_limit(SimpleNamespace(dungeon_id=35150)),3)
+        self.assertEqual(_limit(SimpleNamespace(dungeon_id=34310)),1)
     def test_native_wire_is_ordinary_self_known_counter_only(self):
         self.assertEqual(use_request(self.request(),self.uid),self.uid)
         with self.assertRaises(ValueError):use_request(struct.pack('>?QQ?',True,0,self.uid,False),self.uid)

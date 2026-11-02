@@ -101,6 +101,17 @@ def _deliver_peers(prepared):
 
 def _operation(s,sequence):return s.shop_session_id+':'+str(s.account.uid)+':'+str(sequence)
 
+def _limit(s):
+    # Native declaration is authoritative. Client story raids omit the field,
+    # but the official pages still cap them at three per character; Drabaki is
+    # one. Ordinary maps without any declaration stay unlimited.
+    from els_server.game_data import client_data
+    value=client_data().dungeon(s.dungeon_id).get('LimitedMaxResurrectionUseCount')
+    if type(value)is int and value>0:return value
+    if s.dungeon_id==34310:return 1
+    from els_server.domain.raid_party import raid_definition
+    return 3 if raid_definition(s.dungeon_id)is not None else None
+
 def _source(s,request):
     sentinel=0xffffffffffffffff
     if request['user']not in(sentinel,s.account.uid)or request['maximum']not in(sentinel,s.account.uid):
@@ -158,6 +169,7 @@ def handle(s,event,sequence):
         except ValueError:
             return [preview_ack(-1,BOX)]if kind==0x559 else box_error(0,code=-1)
     if kind not in(0xa7,0xaa,0x160):return None
+    s.resurrection_rejection=None
     try:
         context=_scene(s,sequence);_envelope(event);state=_life(s,context)
         if kind==0xa7:
@@ -186,14 +198,15 @@ def handle(s,event,sequence):
                 raise ValueError('Known resurrection life changed')
         result=spend(s.account.store.path,s.account.uid,event.payload,_operation(s,sequence),context['epoch'],life,
             account_id=s.account.account_id if s.account.characters is not None else None,guard=guard,
-            dungeon=s.dungeon_id,position=position,prepare=prepare)
+            dungeon=s.dungeon_id,position=position,prepare=prepare,limit=_limit(s))
         if result['replayed']:
             # A commit followed by an unknown handoff is reconciled by a fresh
             # entry; replaying162 could heal an already living native actor.
             raise ConnectionError('Known resurrection handoff needs fresh entry')
         state['phase']='alive';_deliver_peers(result['prepared'])
         return result['events']
-    except ValueError:
+    except ValueError as error:
+        s.resurrection_rejection=str(error)
         if kind==0xa7:return [death_ack(-1)]
         if kind==0xaa:return []
         value=snapshot(s.account.store.path,s.account.uid) if getattr(s.account,'store',None)is not None else 0

@@ -6,9 +6,14 @@ from els_server.protocol.protocol_codec import Event
 def request(payload):
     if len(payload)<4:raise ValueError('Truncated guidebook flags')
     count=struct.unpack_from('>I',payload)[0]
-    if len(payload)!=4+5*count:raise ValueError('Guidebook flags size')
+    body=payload[4:]
+    # The native upload's count field can lag its entry vector: the fixed
+    # DX11 capture sends a five-entry body behind a four-entry header. Never
+    # admit a body shorter than the header promises, but read every entry the
+    # bytes actually carry and validate all of them.
+    if len(body)%5 or len(body)<5*count:raise ValueError('Guidebook flags size %d/%d'%(len(body),count))
     flags={}
-    for index,opened in struct.iter_unpack('>iB',payload[4:]):
+    for index,opened in struct.iter_unpack('>iB',body):
         if index<=0 or opened not in (0,1) or index in flags:
             raise ValueError('Invalid guidebook flag')
         flags[index]=opened

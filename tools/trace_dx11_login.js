@@ -9,12 +9,12 @@ const autoReturn=__AUTO_RETURN__;
 const gateIdentityTest=__GATE_IDENTITY_TEST__;
 const populationTest=__POPULATION_TEST__;
 const lightweightPlay=__LIGHTWEIGHT_PLAY__;
-const game=Process.getModuleByName('x2_dx11.exe');
+const game=Process.getModuleByName('x2_dx11.exe'),moduleEnd=game.base.add(game.size);
 const sockets=new Set(),pending=new Map();let initialized=false,invoked=false;
 let characterReady=0,channelsReady=0,selected=false,chosen=false;
 let loadedCharacter=false;
 let selectedCharacterUid=null;
-let lastCharacterFrame=0;
+let lastCharacterFrame=0,lastSelectedMap=null;
 let updatedCommand=null,lastFieldFrame=0,npcCatalogRead=false;
 let npcOfflineProbeDone=false,npcInputBufferTemplate=null;
 let dungeonGame=ptr(0),dungeonActor=ptr(0),inputProbe=null,inputDelivered=false,lastDungeonFrame=0;
@@ -26,6 +26,44 @@ const nativeCalls=new Map();
 function nativeCall(r,t,a){const key=r+':'+t+':'+a.join(',');let f=nativeCalls.get(key);if(!f){f=new NativeFunction(game.base.add(r),t,a);nativeCalls.set(key,f);}return f;}
 function actorSample(p){return {actor:p.toString(),vtable:p.readPointer().sub(game.base).toString(),xyz:[0,4,8].map(o=>p.add(0x19188+o).readFloat()),hp:nativeCall(0x7d8b00,'float',['pointer'])(p),state:nativeCall(0x15ae30,'int',['pointer'])(p)};}
 function npcSample(p){return {actor:p.toString(),vtable:p.readPointer().sub(game.base).toString(),xyz:[0,4,8].map(o=>p.add(0x19c04+o).readFloat()),hp:nativeCall(0x7d8b00,'float',['pointer'])(p),initial_action:p.add(0x19ea4).readS32()};}
+// Read-only scene probe for the client map grid. Pointer words are parsed from
+// blocks that were already bulk-copied, so no untrusted address is dereferenced
+// and no page-fault or range-query storm can stall the game thread. Nothing is
+// written and no hook site is added: this reuses the existing 0xc231c0 frame
+// observer. Work is capped by object count and by a 60ms wall-clock budget.
+const sceneBase=Number.parseInt(game.base.toString(),16),sceneEnd=Number.parseInt(moduleEnd.toString(),16);
+function sceneBlock(p,size){for(const s of [size,0x100,0x80,0x40,0x20,0x10]){try{const b=p.readByteArray(s);if(b!==null)return new DataView(b);}catch(e){}}return null;}
+function sceneWord(view,o){const lo=view.getUint32(o,true),hi=view.getUint32(o+4,true);if(hi>0xffff||(hi===0&&lo===0))return null;const v=hi*0x100000000+lo;return v>=0x10000&&v<0x800000000000?v:null;}
+function sceneHits(view,lo,hi,limit){const out=[];for(let o=0;o+4<=view.byteLength&&out.length<limit;o+=4){const v=view.getFloat32(o,true);if(v>=lo&&v<=hi)out.push({o,v});}return out;}
+function sceneProbe(root,tag,size,depth,lo,hi){
+ const found={objects:[],arrays:[]},seen=new Set();let visited=0;const started=Date.now();
+ const over=()=>visited>=64||found.objects.length+found.arrays.length>=40||Date.now()-started>60;
+ const walk=(p,chain,level)=>{
+  if(over())return;
+  const view=sceneBlock(p,0x200);if(view===null)return;
+  visited++;
+  const vt=sceneWord(view,0);
+  if(vt!==null&&vt>=sceneBase&&vt<sceneEnd){
+   const hits=sceneHits(view,lo,hi,8);
+   if(hits.length&&found.objects.length<32)found.objects.push({chain,addr:p.toString(),vtable:'0x'+(vt-sceneBase).toString(16),coords:hits});
+   if(level>0)for(let o=0;o+8<=view.byteLength&&o<0x100;o+=8){
+    const c=sceneWord(view,o);if(c===null)continue;
+    const cp=ptr('0x'+c.toString(16)),key=cp.toString();if(seen.has(key))continue;seen.add(key);
+    walk(cp,chain+'/'+o.toString(16),level-1);if(over())break;
+   }
+  }else{
+   const hits=sceneHits(view,lo,hi,6);
+   if(hits.length&&found.arrays.length<16)found.arrays.push({chain,addr:p.toString(),coords:hits});
+  }
+ };
+ const rootView=sceneBlock(root,size);
+ if(rootView!==null)for(let o=0;o+8<=rootView.byteLength;o+=8){
+  const c=sceneWord(rootView,o);if(c===null)continue;
+  const cp=ptr('0x'+c.toString(16)),key=cp.toString();if(seen.has(key))continue;seen.add(key);
+  walk(cp,tag+'+'+o.toString(16),depth);if(over())break;
+ }
+ return {visited,found,ms:Date.now()-started};
+}
 function receiveCommand(){recv('updated_probe_command',m=>{if(enterDungeon)updatedCommand=m.payload;receiveCommand();});}
 if(enterDungeon)receiveCommand();
 function note(x){send({timestamp:Date.now(),thread:Process.getCurrentThreadId(),...x});}
@@ -164,6 +202,18 @@ const timer=setInterval(()=>{
     const vectors=[0x348,0x360,0x378,0x390,0x3f0].map(o=>{const b=g.add(o).readPointer(),n=g.add(o+8).readPointer().sub(b).toInt32()/8;return {offset:o,count:n,pointers:n>=0&&n<=128&&Number.isInteger(n)?Array.from({length:n},(_,i)=>b.add(i*8).readPointer().toString()).filter(p=>p!=='0x0'):[]};});
     const npcs=[];for(const [id,p] of createdNpcs)try{if(p.readPointer().equals(game.base.add(0x41ea620)))npcs.push({key:id,...npcSample(p),script:p.add(0x19e20).readPointer().toString(),model_definition:p.add(0x19e30).readPointer().toString(),spawn_xyz:[0,4,8].map(o=>p.add(0x19fe4+o).readFloat()),registered_in:vectors.filter(v=>v.pointers.includes(p.toString())).map(v=>v.offset)});}catch(e){note({event:'updated_npc_sample_error',key:id,error:String(e)});}
     note({event:'updated_dungeon_frame',game:g.toString(),mode:g.add(0x2d0).readS32(),substage:g.add(0x1440).readPointer().isNull()?null:g.add(0x1440).readPointer().add(0x10).readS32(),actors_suspended:g.add(0x620).readU8(),input_time_credit:g.add(0xa88).readS32(),input_time_mode:g.add(0xaa4).readS32(),physical_key_conversions:physicalKeyConversions,time_sync_received:timeSyncReceived,player:{...actorSample(dungeonActor),mp:nativeCall(0x19ec9b0,'float',['pointer'])(dungeonActor)},vectors,npc_count:npcs.length,npcs});
+    // Client map grid evidence for 35080 stage3 only: walk the dungeon state's
+    // pointer fields read-only and report objects/data blocks holding world
+    // coordinates next to the player, so the barrier that still blocks after its
+    // visual disappears can be attributed without a new hook site.
+    const stageParent=g.add(0x1440).readPointer(),stageIndex=stageParent.isNull()?null:stageParent.add(0x10).readS32();
+    if(stageIndex===3&&(lastSelectedMap===null||lastSelectedMap===35080)&&g.add(0x2d0).readS32()===2)try{
+     const px=dungeonActor.add(0x19188).readFloat();
+     if(Number.isFinite(px)){
+      const lo=px-500,hi=px+500,a=sceneProbe(g,'g',0x1200,2,lo,hi),b=sceneProbe(this.state,'s',0x500,1,lo,hi);
+      note({event:'updated_scene_probe',game:g.toString(),substage:stageIndex,map:lastSelectedMap,player_x:px,window:[lo,hi],visited:a.visited+b.visited,ms:a.ms+b.ms,objects:a.found.objects.concat(b.found.objects),arrays:a.found.arrays.concat(b.found.arrays)});
+     }
+    }catch(e){note({event:'updated_scene_probe_error',error:String(e)});}
     if(autoReturn&&g.add(0x2d0).readS32()===2&&g.add(0x620).readU8()===0){
      if(!returnGame.equals(g)){returnGame=ptr(g.toString());fixtureSeenAlive=false;fixtureDeadAt=0;fixtureEndRequested=false;}
      // Local map30000 fixture only. Observe actual native HP; never change
@@ -221,7 +271,8 @@ const timer=setInterval(()=>{
      const manager=game.base.add(0x4817e70).readPointer(),unit=manager.add(0xc8).readPointer().add(0xa0).readPointer();
      if(unit.isNull()||selectedCharacterUid===null||unit.add(0x48).readU64().toString()!==selectedCharacterUid)return;
      const ui=manager.add(0x558).readPointer(),party=manager.add(0xa8).readPointer();
-     note({event:'updated_field_frame',uid:selectedCharacterUid,selected_map:party.add(0x10).readS32()});
+     lastSelectedMap=party.add(0x10).readS32();
+     note({event:'updated_field_frame',uid:selectedCharacterUid,selected_map:lastSelectedMap});
      if(!npcCatalogRead){
       npcCatalogRead=true;const npc=manager.add(0x60).readPointer(),head=npc.add(0x120).readPointer(),stack=[head.add(8).readPointer()],entries=[],seen=new Set();
       while(stack.length&&entries.length<16384){const n=stack.pop();if(n.add(0x19).readU8()||seen.has(n.toString()))continue;seen.add(n.toString());const s=n.add(0x70),len=s.add(16).readU64().toNumber(),cap=s.add(24).readU64().toNumber();let filename=null;if(len>0&&len<=256&&cap>=len)filename=(cap>7?s.readPointer():s).readUtf16String(len);entries.push({id:n.add(0x20).readS32(),filename});stack.push(n.readPointer(),n.add(0x10).readPointer());}

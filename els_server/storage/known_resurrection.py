@@ -82,15 +82,17 @@ def historical_box(path,owner,payload,operation):
         uid=use_request(payload).uid
         return any(i.get('uid')==uid and i.get('template')==BOX for i in before)
 
-def spend(path,owner,payload,operation,run,life,*,account_id,guard,dungeon=30000,position=-1,prepare=None):
+def spend(path,owner,payload,operation,run,life,*,account_id,guard,dungeon=30000,position=-1,prepare=None,limit=None):
     owner=character_uid(owner)
     if type(run) is not str or str(uuid.UUID(run))!=run or uuid.UUID(run).version!=4:
         raise ValueError('Known resurrection run identity')
     if type(life) is not int or not 1<=life<2**63:raise ValueError('Known resurrection life identity')
+    if limit is not None and (type(limit) is not int or not 0<=limit<2**31):raise ValueError('Known resurrection run limit identity')
     owner,digest=_identity(owner,0x160,run.encode()+struct.pack('>Q',life)+payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
         _authorize(db,owner,account_id,guard)
+        spent=0
         if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='known_resurrection_spends'").fetchone():
             old=db.execute('SELECT request_hash,owner,run,life FROM known_resurrection_spends WHERE operation_id=?',(operation,)).fetchone()
             if old is not None:
@@ -98,6 +100,10 @@ def spend(path,owner,payload,operation,run,life,*,account_id,guard,dungeon=30000
                 return dict(count=count(db,owner),replayed=True)
             if db.execute('SELECT 1 FROM known_resurrection_spends WHERE owner=? AND run=? AND life=?',(owner,run,life)).fetchone():
                 raise ValueError('Current life resurrection already committed')
+            spent=db.execute('SELECT COUNT(*) FROM known_resurrection_spends WHERE owner=? AND run=?',(owner,run)).fetchone()[0]
+        # A declared client cap is enforced before any counter debit; a missing
+        # declaration keeps the ordinary map unlimited, as in current official play.
+        if limit is not None and spent>=limit:raise ValueError('Resurrection per-run limit reached')
         current=count(db,owner)
         if current<=0:raise ValueError('No known source resurrection stones')
         from els_server.protocol.known_resurrection import continuation

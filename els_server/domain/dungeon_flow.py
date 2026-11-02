@@ -15,6 +15,111 @@ def local_rewards():
  if r['coin_template']!=127000:raise ValueError('Unverified local coin')
  return {**r,'items':[item_plan(**i) for i in r['clear_items']]}
 
+# The Lithia Memory8 finale room is the dungeon's last stage: the pinned graph
+# carries no next stage there, so any part request can only settle the run. The
+# room's boss is spawned inside this same stage and the source sentinel 9452
+# retires from its own script. Announcing the part as over while the boss still
+# stands is what let the client leave the room before the fight.
+FINALE_ROOMS={35320:(3,0),35321:(2,0),35322:(0,0)}
+FINALE_BOSS=9431
+
+# The client opens the room's gate on its own and then waits for the server to
+# select the next area. In this dungeon the source sentinel 9452 only retires
+# after the fight the gate leads to, so the source condition can never be met
+# while the player is still in front of it. Select the next resource part of
+# the same stage instead of ending the run: no actor is invented, the current
+# roster is passed through unchanged.
+FINALE_AREA_ENABLED=True
+FINALE_AREA_PART=1
+
+# Read-only spawn-point audit. Every part the server is about to hand the
+# client is recorded with the exact (key, template, point) triples it declares,
+# so an in-game "actor falls to the next layer / cannot be hit" report can be
+# matched to the point the client resolved. Nothing here changes a packet; the
+# switch only decides whether the local file grows.
+PART_AUDIT_PATH=PROJECT_ROOT/'state/launcher/dungeon-part-audit.jsonl'
+PART_AUDIT_LIMIT=512
+PART_AUDIT_BYTES=16384
+part_audit_lines=None
+
+def part_audit_rows(run,part):
+ """Declared spawn rows of one part, as recorded by ``DungeonRun._load_stage``."""
+ return run.part_audit.get(part,())
+
+def audit_lines():
+ global part_audit_lines
+ if part_audit_lines is None:
+  try:part_audit_lines=sum(1 for _ in PART_AUDIT_PATH.open(encoding='utf8'))
+  except FileNotFoundError:part_audit_lines=0
+  except OSError:part_audit_lines=PART_AUDIT_LIMIT
+ return part_audit_lines
+
+def write_part_audit(s,part):
+ global part_audit_lines
+ try:
+  from els_server.domain.local_dungeon_flow import part_audit
+  if not part_audit():return
+  run=s.dungeon_run
+  rows=part_audit_rows(run,part)
+  if not rows or audit_lines()>=PART_AUDIT_LIMIT:return
+  line=json.dumps(dict(time=time.strftime('%Y-%m-%dT%H:%M:%S'),dungeon=run.identity,
+   run_id=run.run_id,stage=run.stage,part=part,
+   rows=[dict(key=n['key'],template=n['template'],point=n['point'],active=n['active']) for n in rows]),
+   ensure_ascii=False,separators=(',',':'))
+  if len(line.encode('utf8'))>PART_AUDIT_BYTES:return
+  PART_AUDIT_PATH.parent.mkdir(parents=True,exist_ok=True)
+  with PART_AUDIT_PATH.open('a',encoding='utf8') as handle:handle.write(line+'\n')
+  part_audit_lines+=1
+ except (OSError,TypeError,ValueError):return
+
+
+def finale_boss_pending(run):
+ """True while the finale room still owes its own boss fight."""
+ if run is None or FINALE_ROOMS.get(run.identity)!=(run.stage,run.part):return False
+ return any(n['template']==FINALE_BOSS and n['key'] not in run.defeated for n in run.current['npcs'])
+
+def finale_area_cleared(run):
+ """Every declared live hostile of the near side is gone, the boss excluded."""
+ if run is None or FINALE_ROOMS.get(run.identity)!=(run.stage,run.part):return False
+ live=[n for n in run.current['npcs']
+       if n['active'] and n.get('team',1)!=0 and n['template']!=FINALE_BOSS]
+ return bool(live) and all(n['key'] in run.defeated for n in live)
+
+def part_end(s,event):
+ """Answer one BB with the source-selected transition or settlement."""
+ run=s.dungeon_run
+ reply=[Event(0x201,kind=0xbc,payload=bytes(4))]
+ if s.clear_notified:return reply
+ if finale_boss_pending(run):return reply
+ from els_server.domain.story_controller_retirements import gate_predecessor_blocked
+ if gate_predecessor_blocked(run):return []
+ if not run.poll_ready():return []
+ source=(run.stage,run.part,run.visits)
+ target=run.next
+ if target['kind']==4:
+  run.completed_transition=dict(target=source,parts=(struct.pack('>b',run.part),))
+  s.pending_part_end=None
+  reply.extend(clear(s));return reply
+ # Prepare the stage before committing the cursor so encoding failure does
+ # not discard the completed part; the fixed run seed preserves retry bytes.
+ s.previous_dungeon_part=run.part;transition=run.advance();s.gate_stage=run.stage
+ run.completed_transition=dict(target=(run.stage,run.part,run.visits),parts=tuple({struct.pack('>b',source[1]),struct.pack('>b',run.part)}))
+ s.part_end_notified=False;s.defeated_npcs=run.defeated;s.pending_part_end=None
+ if transition=='stage':
+  from els_server.domain.stage_summons import carry_summons
+  carry_summons(s)
+  s.summon_keys=set();s.summon_deaths={};s.summon_requests={};s.summon_next_key=16
+  s.dungeon_substage_synced=False;s.gate_stage_loading=True
+  write_part_audit(s,run.part)
+  reply.append(run.population_event())
+ else:
+  from els_server.protocol.dungeon_messages import initial_part,begin_substage
+  write_part_audit(s,run.part)
+  reply.extend([initial_part(run.part),begin_substage(run.part,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))])
+  s.dungeon_clock.resume();run.loaded()
+ from els_server.domain.hunter_chest_flow import solo_loaded
+ return reply+solo_loaded(s,event)+periodic(s)
+
 def periodic(session):
  s=session
  if (s.dungeon_run is not None and s.phase=='dungeon_active' and not s.clear_notified
@@ -24,7 +129,24 @@ def periodic(session):
  if getattr(s.dungeon_run,'memory1_quest_barrier',frozenset())-set(s.dungeon_run.defeated):return []
  from els_server.domain.story_controller_retirements import gate_predecessor_blocked
  if gate_predecessor_blocked(s.dungeon_run):return []
+ if finale_boss_pending(s.dungeon_run):
+  if (FINALE_AREA_ENABLED and not getattr(s,'finale_area_entered',False)
+      and finale_area_cleared(s.dungeon_run)):
+   # B7 selects the resource part, BD begins it with the same actor roster.
+   from els_server.protocol.dungeon_messages import initial_part,begin_substage
+   run=s.dungeon_run;s.finale_area_entered=True
+   return [initial_part(FINALE_AREA_PART),
+           begin_substage(FINALE_AREA_PART,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))]
+  return []
  if s.dungeon_run.poll_ready():
+  if getattr(s,'pending_part_end',None)==s.dungeon_run.part:
+   # The client asked for this part end before its last death report landed
+   # (a boss death animation delays the native 0xad past the client's own
+   # clear count). That request is the client's standing answer: settle it
+   # here instead of announcing the part end and waiting for a retry the
+   # client will not send. The source condition above still decides.
+   held=Event(0x202,performers=(0,),kind=0xbb,payload=struct.pack('>b',s.dungeon_run.part))
+   return part_end(s,held)
   s.part_end_notified=True;s.dungeon_clock.pause()
   return [part_end_notice(s.dungeon_run.part)]
  return []
@@ -44,15 +166,33 @@ def handle(s,event):
   transition=run.completed_transition
   late=(transition is not None and (run.stage,run.part,run.visits)==transition['target']
         and event.payload in transition['parts'])
+  # A source-pinned class-103 scene object that the client retires inside its
+  # own scene (厄泰拉核心 stage2 part0, template 343 PD_Monster) has no combat
+  # report to wait for; the client's own request is the proof its scene is
+  # done. The same holds for the 尼格摩尔 part markers and the 34760 arena
+  # audience. Real hostiles still have to be dead before the gate opens.
+  from els_server.domain.local_dungeon_flow import (arena_audience, boss_core, cage_object,
+                                                    dummy_hostile, part_marker_npc, scene_object_npc)
   valid=(s.dungeon_substage_synced and not s.clear_notified and
          event.payload==struct.pack('>b',run.part) and
-         all(n['key'] in run.defeated for n in run.current['npcs'] if n['active'] and n.get('team',1)!=0))
+         all(n['key'] in run.defeated or scene_object_npc(run,n) or part_marker_npc(run,n)
+             or dummy_hostile(run,n) or boss_core(run,n) or arena_audience(run,n)
+             or cage_object(run,n)
+             for n in run.current['npcs'] if n['active'] and n.get('team',1)!=0))
   if valid:run.portal_requested=True
   elif late:return [Event(0x201,kind=0xb9,payload=bytes(4))]
   return [Event(0x201,kind=0xb9,payload=struct.pack('>i',0 if valid else -1))]+(periodic(s) if valid else [])
  if event.kind==0xad:
   try:d=death_report(event.payload)
   except ValueError:return []
+  # A settled run no longer owns a C1 HP lease. The client keeps reporting the
+  # deaths that landed in the same frame as its BB, so those reports arrive
+  # after the clear/reward packets. Letting one reach population() runs
+  # legacy_population -> hp_context.check(emitting=True), which refuses a
+  # post-clear lease by raising SessionOrderError and tears down the whole
+  # connection -- the player sees the clear panel replaced by a disconnect.
+  # The run is already banked, so acknowledge and drop.
+  if s.clear_notified or getattr(s,'dungeon_failed',False):return [death_ack()]
   # Finite static-controller adapters must not consume an already admitted
   # dynamic actor's original expiry. Retain the existing expiry decoder and
   # exact server-allocated identity; zero is never an alias for another actor.
@@ -77,8 +217,25 @@ def handle(s,event):
    from els_server.domain.scene_actor_retirements import handle as scene_retirement
    retired=scene_retirement(s,event,d)
    if retired is not None:return retired
+   from els_server.domain.devildom1_raid2_controllers import handle as devildom1_retirement
+   retired=devildom1_retirement(s,event,d)
+   if retired is not None:return retired
+   from els_server.domain.master_road_rosso_retirements import handle as rosso_retirement
+   retired=rosso_retirement(s,event,d)
+   if retired is not None:return retired
    from els_server.domain.story_controller_retirements import handle as story_retirement
    retired=story_retirement(s,event,d)
+   if retired is not None:return retired
+   # A pinned class-103 marker of a retirement room only sends its native
+   # flag-255 expiry; the generic shape below would drop it forever.
+   from els_server.domain.local_dungeon_flow import part_marker_retirement
+   retired=part_marker_retirement(s,event,d)
+   if retired is not None:return retired
+   # A pinned declared monster of an expiry room may only send its native
+   # flag-255 expiry; the generic shape below would drop it without a reply and
+   # the room's clear fence would never see it dead.
+   from els_server.domain.local_dungeon_flow import native_expiry_retirement
+   retired=native_expiry_retirement(s,event,d)
    if retired is not None:return retired
   if d['index'] in s.summon_keys:return None
   npc=next((n for n in run.current['npcs'] if n['key']==d['index']),None)
@@ -118,8 +275,12 @@ def handle(s,event):
   reply=[Event(0x201,kind=0xb4,payload=bytes(4)),Event(0x201,kind=0xb5,payload=struct.pack('>iQ',0,s.account.uid))]
   if not s.dungeon_substage_synced:
    from els_server.protocol.dungeon_messages import initial_part,begin_substage
+   write_part_audit(s,run.part)
    reply.extend([Event(0x201,kind=0xb6,payload=bytes(16)),initial_part(run.part),begin_substage(run.part,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))])
    s.dungeon_substage_synced=True;s.gate_stage_loading=False;s.dungeon_clock.resume();run.loaded()
+   s.pending_part_end=None
+   from els_server.domain.stage_summons import respawn_summons
+   reply.extend(respawn_summons(s))
   from els_server.domain.hunter_chest_flow import solo_loaded
   return reply+solo_loaded(s,event)+periodic(s)
  if event.kind==0xbb:
@@ -127,32 +288,19 @@ def handle(s,event):
   part=struct.unpack('>b',event.payload)[0]
   if part!=run.part or s.gate_stage_loading:
    return [Event(0x201,kind=0xbc,payload=bytes(4))] if part==getattr(s,'previous_dungeon_part',None) else []
-  if not s.part_end_notified:return []
-  reply=[Event(0x201,kind=0xbc,payload=bytes(4))]
-  if s.clear_notified:return reply
-  from els_server.domain.story_controller_retirements import gate_predecessor_blocked
-  if gate_predecessor_blocked(run):return []
-  if not run.poll_ready():return []
-  source=(run.stage,run.part,run.visits)
-  target=run.next
-  if target['kind']==4:
-   run.completed_transition=dict(target=source,parts=(struct.pack('>b',run.part),))
-   reply.extend(clear(s));return reply
-  # Prepare the stage before committing the cursor so encoding failure does
-  # not discard the completed part; the fixed run seed preserves retry bytes.
-  s.previous_dungeon_part=run.part;transition=run.advance();s.gate_stage=run.stage
-  run.completed_transition=dict(target=(run.stage,run.part,run.visits),parts=tuple({struct.pack('>b',source[1]),struct.pack('>b',run.part)}))
-  s.part_end_notified=False;s.defeated_npcs=run.defeated
-  if transition=='stage':
-   s.summon_keys=set();s.summon_deaths={};s.summon_requests={};s.summon_next_key=16
-   s.dungeon_substage_synced=False;s.gate_stage_loading=True
-   reply.append(run.population_event())
-  else:
-   from els_server.protocol.dungeon_messages import initial_part,begin_substage
-   reply.extend([initial_part(run.part),begin_substage(run.part,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))])
-   s.dungeon_clock.resume();run.loaded()
-  from els_server.domain.hunter_chest_flow import solo_loaded
-  return reply+solo_loaded(s,event)+periodic(s)
+  # A pinned summon arena has only the client's own scene as its end signal.
+  # The same holds for a pinned puzzle room that never sends 0xb8 (文物馆).
+  from els_server.domain.local_dungeon_flow import arena_client_end, portal_exit_client_end
+  arena_client_end(run)
+  portal_exit_client_end(run)
+  if not s.part_end_notified:
+   # The client requests the part end as soon as its own room count reaches
+   # zero; a boss death report can arrive a second later. Keep the request:
+   # periodic settles it when the source condition matures. Never advance
+   # here, because the server's own condition has not been read yet.
+   s.pending_part_end=part
+   return []
+  return part_end(s,event)
  return None
 
 
@@ -253,9 +401,14 @@ def clear(s):
  # 30% clear increment must not receive that multiplier a second time.
  if compat_clear is None:rule=dict(rule,clear_experience=clear_experience(s,rule['clear_experience']))
  if getattr(s,'challenge_deadline',None) is not None and time.time()>=s.challenge_deadline:return failed(s)
- from els_server.domain.silver_mirror_flow import clear_rewards as mirror_clear
- mirror_reply=mirror_clear(s,rule)
- if mirror_reply is not None:return mirror_reply
+ # Silver Mirror clear is a separate encounter family. Import it only for its
+ # own identities: a bare import here made every unrelated clear die on the
+ # still-unwritten flow module and killed the worker (client shows a drop).
+ from els_server.domain import silver_mirror_policy as mirror_policy
+ if run.identity in mirror_policy.ALL:
+  from els_server.domain.silver_mirror_flow import clear_rewards as mirror_clear
+  mirror_reply=mirror_clear(s,rule)
+  if mirror_reply is not None:return mirror_reply
  from els_server.domain.dungeon_equipment_loot_flow import clear_rewards
  loot_reply=clear_rewards(s,rule)
  if loot_reply is not None:return loot_reply
@@ -294,13 +447,13 @@ def clear(s):
   if getattr(s,'active_challenge',None) is not None and getattr(s,'reward_transaction',None) is None:
    from els_server.domain.challenge_flow import notification
    reply.append(notification(s))
- s.clear_notified=True
+ s.clear_notified=True;s.pending_part_end=None
  return reply
 
 def failed(s):
  if s.clear_notified:return []
  from els_server.domain.dungeon_clear import failed_clear_notice
- s.clear_notified=True;s.dungeon_failed=True;s.reward_receipt=None;s.dungeon_clock.pause()
+ s.clear_notified=True;s.dungeon_failed=True;s.reward_receipt=None;s.dungeon_clock.pause();s.pending_part_end=None
  reply=[failed_clear_notice(s.account.uid,s.dungeon_clock.seconds(),map_id=getattr(s.dungeon_run,'identity',None))]
  if getattr(s,'active_challenge',None) is not None:
   from els_server.domain.challenge_flow import notification

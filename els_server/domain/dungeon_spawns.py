@@ -95,8 +95,17 @@ def handle(s,event,sequence):
   hp,npc_level=summoned_maximum(run,template)
   dto[0x53]=npc_level
   struct.pack_into('<i',dto,0,key)
+  # The client asks for a summon with the activation flag (0x4e) clear and then
+  # builds no body for it: the monster keeps its hitbox and still reports its
+  # death, but it stays invisible. The static population path always ships that
+  # flag set, which is why 34710's monsters render and 34730's summoned wave does
+  # not. Mirror the static path on the reply; the roster keeps the flag the
+  # client sent, so the clear fence is unchanged.
+  from els_server.domain.local_dungeon_flow import summon_activation
+  declared_active=bool(dto[0x4e])
+  if summon_activation():dto[0x4e]=1
   init=npc_initialization(run.catalog,template,hp,dynamic_context=(run.identity,run.graph['source_sha256'],npc_level,run.stage));wire=encode_npc(dto,0)
-  entries.append(dict(key=key,template=template,key_code=struct.unpack_from('<i',dto,0x4f)[0],active=bool(dto[0x4e]),team=dto[8],ally=bool(dto[0x66]),no_drop=True,boss=boss,hp=hp,dynamic=True,wire=wire,init=init))
+  entries.append(dict(key=key,template=template,key_code=struct.unpack_from('<i',dto,0x4f)[0],active=declared_active,team=dto[8],ally=bool(dto[0x66]),no_drop=True,boss=boss,hp=hp,dynamic=True,spawn_xyz=tuple(struct.unpack_from('<fff',dto,9)),wire=wire,init=init))
   wires.append(wire);initial.append(struct.pack('>i',key)+init)
  # C50040: NPC vector, four-byte flags map, scalar, byte vector,
  # 2BDD300 -> 2C19E70's instance initialization map, then two maps.
@@ -108,4 +117,5 @@ def handle(s,event,sequence):
  packet=Event(0x201,kind=0x2d0,payload=struct.pack('>I',len(rows))+b''.join(wires)+bytes(8)+uid_map+struct.pack('>I',len(initial))+b''.join(initial)+bytes(8))
  # All decoding, bounds and serialization finish before changing the run.
  run.current['npcs'].extend(entries);run.dynamic_requests[sequence]=digest
+ run.dynamic_count+=len(entries);run.dynamic_last_at=run.clock()
  return [summon_ack(),packet]

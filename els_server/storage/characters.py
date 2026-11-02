@@ -111,13 +111,27 @@ class Characters:
         # Keep all extended projections in get()/list() for wire consumers.
         uid=character_uid(uid)
         with closing(sqlite3.connect(self.path,timeout=10)) as db:
-            row=db.execute('SELECT c.uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(uid,self.account_id)).fetchone()
-            value=self._row(row)
-            # list()/get() also reject finalized deletions; a narrow read
-            # must preserve that owner eligibility boundary.
-            if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_lifecycle'").fetchone():
-                state=db.execute('SELECT finalized_at FROM character_lifecycle WHERE uid=?',(uid,)).fetchone()
-                if state and state[0]:return self._row(None)
+            return self._identity(db,uid)
+
+    def _identity(self,db,uid):
+        row=db.execute('SELECT c.uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(uid,self.account_id)).fetchone()
+        value=self._row(row)
+        # list()/get() also reject finalized deletions; narrow readers keep
+        # the same owner and finalized-character eligibility boundary.
+        if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_lifecycle'").fetchone():
+            state=db.execute('SELECT finalized_at FROM character_lifecycle WHERE uid=?',(uid,)).fetchone()
+            if state and state[0]:return self._row(None)
+        return value
+
+    def artifact(self,uid):
+        # Identity and Artifact come back in one read snapshot so an observer
+        # never pairs a new Artifact with a stale owner/level projection.
+        uid=character_uid(uid)
+        with closing(sqlite3.connect(self.path,timeout=10)) as db:
+            db.execute('BEGIN')
+            value=self._identity(db,uid)
+            row=db.execute('SELECT template,evolution,level,experience,potentials FROM character_artifacts WHERE uid=?',(uid,)).fetchone()
+            value['artifact']=dict(template=row[0],evolution=row[1],level=row[2],experience=row[3],potentials=json.loads(row[4])) if row else None
             return value
 
     def get(self,uid):

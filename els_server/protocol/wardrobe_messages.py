@@ -139,7 +139,13 @@ def color_notification(action,uid,template,colors,flag=0,previous=0):
 
 def opening_request(payload):
     # Original inventory/shortcut uses house0 and UI type43 -> selector3.
-    if payload!=struct.pack('>ii',0,3):raise ValueError('Wardrobe opening house/selector')
+    # The native 23ACF70 entry sends this from one zero performer, and its
+    # writer widens the pair to 8 or 16 bytes; compare the container prefix
+    # instead of the exact length, which the private fixture got wrong.
+    if not isinstance(payload,bytes) or len(payload)<8:raise ValueError('Wardrobe opening house/selector')
+    if struct.unpack_from('>ii',payload)!=(0,3) and (len(payload)<16 or struct.unpack_from('>qq',payload)!=(0,3)):
+        raise ValueError('Wardrobe opening house/selector')
+    return 0,3
 
 def opening_information(temporary_registration_bans=()):
     """2302830 full51D: result,house,setA,setB,mapC,setD,selector,mapE.

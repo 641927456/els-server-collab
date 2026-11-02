@@ -49,7 +49,8 @@ with tempfile.TemporaryDirectory() as d:
     assert snapshot(path,second['uid'])['companions']==[]
     with closing(sqlite3.connect(path)) as db:
         assert all(i['uid'] not in {pet['uid'],mount['uid'],randompet['uid']} for i in load_items(db))
-        assert db.execute('SELECT COUNT(*) FROM companion_receipts').fetchone()[0]==7
+        assert db.execute('SELECT COUNT(*) FROM companion_receipts').fetchone()[0]==5
+        assert db.execute('SELECT COUNT(*) FROM mount_operations').fetchone()[0]==2
     session=LocalSession(account,enter_town=True,enter_dungeon=True,client_build='dx11_260923',npc_slot_test=True,gate_test=True,population_test=True,clear_test=True,reward_test=True,item_test=True)
     session.role='game';session.phase='town_ready'
     reply=session.handle(Event(0x202,kind=0x2ea,payload=struct.pack('>iiB',1,0,0)),400)

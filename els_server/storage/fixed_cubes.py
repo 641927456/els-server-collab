@@ -25,6 +25,10 @@ def _legacy_actor(db,owner,account_id,prepare):
 
 
 def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.randbelow,*,account_id=None,prepare=None):
+    from els_server.domain.job_reward_boxes import BOXES as job_boxes
+    if expected_template in job_boxes:
+        from els_server.storage.job_reward_boxes import open_box
+        return open_box(path,owner,expected_template,payload,operation,account_id=account_id,prepare=prepare)
     if expected_template==715036:
         from els_server.storage.wardrobe_ticket_box import open_box
         return open_box(path,owner,payload,operation,account_id=account_id)
@@ -57,6 +61,14 @@ def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.r
     if expected_template in accessory_boxes():
         from els_server.storage.boosting_2026_accessories import open_box
         return open_box(path,owner,expected_template,payload,operation)
+    from els_server.domain.boosting_2026_artifact_gear import BOX as artifact_gear_box,enabled as artifact_gear_enabled
+    if expected_template==artifact_gear_box and artifact_gear_enabled():
+        from els_server.storage.boosting_2026_artifact_gear import open_box
+        return open_box(path,owner,payload,operation)
+    from els_server.domain.boosting_2026_abyss_accessory import BOX as abyss_accessory_box,enabled as abyss_accessory_enabled
+    if expected_template==abyss_accessory_box and abyss_accessory_enabled():
+        from els_server.storage.boosting_2026_abyss_accessory import open_box
+        return open_box(path,owner,payload,operation)
     request=use_request(payload)
     if (request.option!=0 or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))
         or expected_template not in catalog()):raise ValueError('Unsupported fixed cube use')

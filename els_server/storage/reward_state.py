@@ -3,6 +3,7 @@ import hashlib,json,sqlite3,uuid
 from contextlib import closing
 from pathlib import Path
 from els_server.storage.character_schema import character_uid,migrate_character_schema
+from els_server.storage.sqlite_timing import begin_write,end_write
 
 class RewardConflict(ValueError):pass
 def validate_balances(row):
@@ -98,8 +99,9 @@ class RewardState:
   if transaction is not None:
    actual=db.execute('PRAGMA database_list').fetchone()[2]
    if not db.in_transaction or Path(actual).resolve()!=self.path.resolve():raise ValueError('Reward transaction database/ownership')
+  acquired=None;committed=False
   try:
-   if transaction is None:db.execute('BEGIN IMMEDIATE')
+   if transaction is None:acquired=begin_write(db)
    savepoint='attendance_reward_'+uuid.uuid4().hex;db.execute('SAVEPOINT '+savepoint)
    if resonance_source is not None:
     from els_server.storage import resonance_state as er
@@ -147,7 +149,8 @@ class RewardState:
      if saved is None:raise RewardConflict('Missing committed inventory receipt')
      reply['items']=normalize_legacy_potion_groups(json.loads(saved[0]))
     db.execute('RELEASE '+savepoint);savepoint=None
-    if transaction is None:db.commit()
+    if transaction is None:
+     db.commit();committed=True
     return reply
    r=db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(self.uid,)).fetchone()
    validate_balances(r)
@@ -217,7 +220,8 @@ class RewardState:
    if attendance_clear is not None:attendance_clear.commit(db,self.uid,run_id,dungeon_clear)
    if daily_special is not None:daily_store.save(db,run_id,self.uid,daily_detail)
    db.execute('RELEASE '+savepoint);savepoint=None
-   if transaction is None:db.commit()
+   if transaction is None:
+    db.commit();committed=True
    reply={'response':response,'balances':updated,'replayed':False}
    if resonance_award is not None:reply['resonance_award']=resonance_award
    if effect is not None:reply['title_economy']=effect
@@ -233,4 +237,8 @@ class RewardState:
    if transaction is None:db.rollback()
    raise
   finally:
-   if transaction is None:db.close()
+   if transaction is None:
+    try:db.close()
+    finally:
+     # A caller-supplied transaction keeps its own begin/commit ownership.
+     if acquired is not None:end_write(acquired,failed=not committed)

@@ -161,13 +161,40 @@ class Application:
         self.config=config
         self.activity2026_awards_factory=activity2026_awards_factory
         self.executor=ThreadPoolExecutor(max_workers=1,thread_name_prefix='els-account')
+        from els_server.business_queue import BoundedBusinessQueue
+        from els_server.performance import OperationMetrics
+        # One shared admission gate: direct calls and periodic batches draw
+        # from the same 16-permit bound in front of the single worker.
+        self.business_queue=BoundedBusinessQueue(self.executor)
+        self.performance=OperationMetrics()
         self.account=None
         self.registry=None;self.accounts={};self.playing={}
         from els_server.domain.friends_world import FriendsWorld
         self.world=FriendsWorld()
 
     async def call(self, function, *args, **kwargs):
+        from functools import partial
+        from els_server.performance import captured_calls
+        return await self.business_queue.run(
+            partial(self._worker_call,function,args,kwargs,time.perf_counter(),captured_calls()))
+
+    def _worker_call(self,function,args,kwargs,submitted,capture=None):
+        from els_server.performance import worker_timing
+        sample=dict(clock_before_ms=0.,domain_ms=0.,clock_after_ms=0.,after_reply_ms=0.,queue_ms=0.,
+            handler_ms=0.,projection_ms=0.,projection_loads=0,projection_hits=0,
+            registry_ms=0.,registry_checks=0,sql_begin_wait_ms=0.,sql_finish_wait_ms=0.,
+            sql_finish_busy=0,sql_writer_held_ms=0.,sql_busy=0,sql_rollbacks=0,failed=True)
         def invoke():
+            started=time.perf_counter();sample['queue_ms']=(started-submitted)*1000
+            try:
+                with worker_timing(sample):result=invoke_scoped()
+                sample['failed']=False
+                return result
+            finally:
+                sample['handler_ms']=(time.perf_counter()-started)*1000
+                self.performance.record(getattr(function,'__name__','other'),sample)
+                if capture is not None:capture.append(dict(sample))
+        def invoke_scoped():
             from els_server.storage.read_scope import committed_reads
             with committed_reads():
                 return invoke_with_reads()
@@ -176,20 +203,33 @@ class Application:
             if auxiliary_call(function,args):
                 # The original handler still checks authentication and drains
                 # pending mail. Periodic/ordinary requests retain the clocks.
-                return function(*args,**kwargs)
+                started=time.perf_counter()
+                try:return function(*args,**kwargs)
+                finally:sample['domain_ms']=(time.perf_counter()-started)*1000
             session=getattr(function,'__self__',None)
             timer=getattr(getattr(session,'activity2026_awards',None),'online',None)
             activity=isinstance(session,LocalSession) and function.__name__ in ('handle','periodic_notifications') and timer is not None
             observed=activity and activity_due(function)
-            if observed:timer.observe(session)
+            if observed:
+                started=time.perf_counter()
+                try:timer.observe(session)
+                finally:sample['clock_before_ms']=(time.perf_counter()-started)*1000
+            started=time.perf_counter()
             try:
                 result=function(*args,**kwargs)
             finally:
-                if observed:timer.observe(session)
+                sample['domain_ms']=(time.perf_counter()-started)*1000
+                if observed:
+                    started=time.perf_counter()
+                    try:timer.observe(session)
+                    finally:sample['clock_after_ms']=(time.perf_counter()-started)*1000
             flow=getattr(session,'activity2026_awards',None) if activity and (observed or result) else None
             after=getattr(flow,'after_reply',None)
-            return after(session,result) if after is not None else result
-        return await asyncio.get_running_loop().run_in_executor(self.executor,invoke)
+            if after is None:return result
+            started=time.perf_counter()
+            try:return after(session,result)
+            finally:sample['after_reply_ms']=(time.perf_counter()-started)*1000
+        return invoke()
 
     async def start(self):
         def initialize():
@@ -297,4 +337,6 @@ class Application:
 
     def close(self):
         # Running SQL is allowed to commit/rollback before releasing save ownership.
+        # Unsubmitted queue waiters are cancelled; an admitted job still runs.
+        self.business_queue.close()
         self.executor.shutdown(wait=True,cancel_futures=True)

@@ -18,15 +18,21 @@ login scalar remains its existing0. Current197,2A and161 consumers restore the
 same character Unit+2DB0 absolute count; UID-carrier and indexed2014 UnitUID data
 support this scoped ownership contract, not modern official entitlement rules.
 
-Only a currently owned playable lease in loaded solo dungeon30000 stage0 may
-continue. Current native A7 and empty AA create the same connection/run/life's
-reported-death phases. Exact NPC/actor/envelope checks remain; this is the
-native reporting trust boundary, not server-measured HP. The server validates
-phase and spends one C atomically, then emits complete161 and162. Native index-1
-selects an actual AddStartPos key1..12 from the decoded ordinary line map;
-SetTeamStartPos and NPC positions are not substituted. No1-per-run limit is
-added: same payload in a later next-sequence native death is a new report.
-PVP, special modes, other stages/maps, cash and shared-room revival remain closed.
+Only a currently owned playable lease in a registered solo route may continue.
+The registry covers every pinned solo route (239 maps); each stage admits all
+declared parts, and solo revival uses the native -1 selector except for the
+reviewed explicit shared keys. Current native A7 and empty AA create the same
+connection/run/life's reported-death phases. Exact NPC/actor/envelope checks
+remain; this is the native reporting trust boundary, not server-measured HP.
+The server validates phase and spends one C atomically, then emits complete161
+and162. Native index-1 selects an actual AddStartPos key1..12 from the decoded
+ordinary line map; SetTeamStartPos and NPC positions are not substituted.
+A map's own `LimitedMaxResurrectionUseCount` caps revivals per owner/run in the
+same write transaction. Story raids omit the field but the official pages still
+cap them at three per character; Drabaki is one; ordinary maps without a
+declaration remain unlimited. Same payload in a later next-sequence native
+death is a new report. PVP, special modes, cash and shared-room revival remain
+closed except the reviewed shared spawn-key stages.
 
 The existing TCP expected sequence and serialized worker preserve order. A7's
 native dying flag guards its producer until native revival clears it. Old

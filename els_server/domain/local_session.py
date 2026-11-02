@@ -457,8 +457,17 @@ class LocalSession:
                          character=self.account.character() if self.account.account_id!=1 else None)
 
     def _handle(self,event,request_sequence=None):
+        from els_server.domain.bag_expansion_flow import handle as bag_expansion_handle
+        bag_expansion_reply=bag_expansion_handle(self,event,request_sequence)
+        if bag_expansion_reply is not None:return bag_expansion_reply
         from els_server.domain.guidebook_flow import handle as guidebook_handle
-        guidebook_reply=guidebook_handle(self,event)
+        try:guidebook_reply=guidebook_handle(self,event)
+        except ValueError as error:
+            # The 812 whole-map upload raises on a shape mismatch, and the
+            # transport turns any escaping exception into a closed socket,
+            # which the native client shows as an instant exit. Drop the
+            # packet, keep the session and record why.
+            self.guidebook_rejection=str(error);guidebook_reply=[]
         if guidebook_reply is not None:return guidebook_reply
         from els_server.domain.ariel_attendance_flow import handle as ariel_attendance_handle
         ariel_attendance_reply=ariel_attendance_handle(self,event,request_sequence)
@@ -503,6 +512,9 @@ class LocalSession:
         from els_server.domain.fishing_village1500 import handle as fishing1500_handle
         fishing1500_reply=fishing1500_handle(self,event,request_sequence)
         if fishing1500_reply is not None:return fishing1500_reply
+        from els_server.domain.field_boss_entry_flow import handle as field_boss_entry_handle
+        field_boss_entry_reply=field_boss_entry_handle(self,event,request_sequence)
+        if field_boss_entry_reply is not None:return field_boss_entry_reply
         from els_server.domain.town_travel_flow import handle as town_travel_handle
         town_travel_reply=town_travel_handle(self,event,request_sequence)
         if town_travel_reply is not None:return town_travel_reply
@@ -646,6 +658,7 @@ class LocalSession:
             scripted_reply=scripted_spawn(self,event,request_sequence)
             if scripted_reply is not None:return scripted_reply
             from els_server.domain.summons import sentry_spawn,summon_ack
+            from els_server.domain.stage_summons import retain_sentry
             character=self.account.character()
             if (self.client_build!='dx11_260923' or self.role!='game' or self.phase!='dungeon_active'
                     or not self.population_test or not self.dungeon_substage_synced or self.clear_notified
@@ -658,11 +671,16 @@ class LocalSession:
             from els_server.domain.dungeon_spawns import occupied_slots
             if occupied_slots(self)>=80:return [summon_ack(-1)]
             if self.dungeon_run is not None:
+                self.summon_next_key=max(self.summon_next_key,getattr(self.dungeon_run,'summon_key_ceiling',16))
                 while self.summon_next_key in self.dungeon_run.reserved_keys:self.summon_next_key+=1
-            try:notice=sentry_spawn(event.payload,self.account.uid,self.summon_next_key)
+            instance_key=self.summon_next_key
+            try:notice=sentry_spawn(event.payload,self.account.uid,instance_key)
             except ValueError:return [summon_ack(-1)]
-            self.summon_keys.add(self.summon_next_key)
+            self.summon_keys.add(instance_key)
             self.summon_next_key+=1;self.summon_requests[request_sequence]=event.payload
+            # The client retires this actor silently on the next stage rebuild,
+            # so the request payload is kept for the server-side respawn.
+            retain_sentry(self.dungeon_run,instance_key,event.payload)
             return [summon_ack(),notice]
         # The native character screen also requests its channel list before
         # creating a role. Both phases are still the authenticated roster UI.
@@ -849,10 +867,18 @@ class LocalSession:
         if self.item_test and self.client_build=='dx11_260923' and kind==0x460 and event.event_id==0x202:
             from els_server.domain.boosting_2026_essence import acknowledgement as essence_ack
             from els_server.storage.boosting_2026_essence import action as essence_action
-            if self.role!='game' or self.phase!='dungeon_active' or type(request_sequence) is not int or not 1<=request_sequence<2**32:return [essence_ack(result=-1)]
+            # 原生客户端在副本里每 30 秒发一次 0x460，实测线包 96 字节、换算成载荷是
+            # 25~32 字节，比 boosting_2026_essence.request() 认的 22 字节宽一截，所以
+            # 这条路径从来没有成功过。只要回 result=-1，客户端错误表就取空文字，屏幕上
+            # 留一个只有「确认」的空白框（同 docs/NATIVE_MASTER_CURRENT_SKILLS_20261028.md
+            # 记的那个坑）。真实载荷布局拿到之前先不弹框：记下形状，回一个「无变化」的
+            # 原生应答。
+            if self.role!='game' or self.phase!='dungeon_active' or type(request_sequence) is not int or not 1<=request_sequence<2**32:
+                self.essence_rejection=(len(event.payload),'phase '+str(self.phase));return [essence_ack()]
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
             try:return essence_action(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)['events']
-            except ValueError:return [essence_ack(result=-1)]
+            except ValueError as error:
+                self.essence_rejection=(len(event.payload),str(error));return [essence_ack()]
         if self.item_test and self.client_build=='dx11_260923' and kind==0x6ce and event.event_id==0x202:
             from els_server.domain.boosting_2026_force_extraction import acknowledgement as force_extract_ack
             from els_server.storage.boosting_2026_force_extraction import action as force_extract_action
@@ -932,7 +958,8 @@ class LocalSession:
             if unlock is not None:
                 answer=[Event(0x201,kind=0x21a,payload=unlock['response'])]
                 if not unlock['replayed']:answer.append(unlock['notification'])
-                return answer+[Event(0x201,kind=0x55b,payload=unlock['initialization'])]
+                events=answer+[Event(0x201,kind=0x55b,payload=unlock['initialization'])]
+                return events
             try:
                 receipt=use_career_item(self.account.store.path,self.account.uid,event.payload,
                     operation)
@@ -1133,9 +1160,11 @@ class LocalSession:
             from els_server.protocol.wardrobe_messages import opening_request
             from els_server.domain.avatar_set_flow import context,validate
             from els_server.storage.wardrobe import opening_info
+            # The original button reaches here from one zero performer, the
+            # same native envelope as 634; only a nonzero actor is foreign.
             if (not self.item_test or self.client_build!='dx11_260923' or event.event_id!=0x202
                 or self.role!='game' or self.phase!='town_ready' or type(request_sequence)is not int
-                or not 1<=request_sequence<2**32 or event.performers
+                or not 1<=request_sequence<2**32 or any(event.performers)
                 or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):return []
             try:
                 opening_request(event.payload);captured=context(self)
@@ -1302,6 +1331,9 @@ class LocalSession:
         from els_server.domain.cartridge_selection_box import handle as cartridge_box_handle
         cartridge_box_reply=cartridge_box_handle(self,event,request_sequence)
         if cartridge_box_reply is not None:return cartridge_box_reply
+        from els_server.domain.raid_reward_flow import handle as raid_box_handle
+        raid_box_reply=raid_box_handle(self,event,request_sequence)
+        if raid_box_reply is not None:return raid_box_reply
         if self.item_test and self.client_build=='dx11_260923' and event.event_id==0x202 and kind==0x559:
             from els_server.protocol.ice_messages import preview_request,preview_ack
             from els_server.domain.cubes import catalog as fixed_cubes
@@ -1314,6 +1346,11 @@ class LocalSession:
                 row=fixed_cubes()[cube_request.template]
                 try:
                     if cube_request.keys not in ((),(0,)) or cube_request.flag1 not in (0,1) or cube_request.flag2 not in (0,1):raise ValueError('Fixed cube preview mode')
+                    from els_server.domain.job_reward_boxes import BOXES as job_boxes
+                    if cube_request.template in job_boxes:
+                        from els_server.domain.tenebros_capacity_flow import selected
+                        if(event.performers not in((),(0,))or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Job box preview envelope')
+                        selected(self)
                     if cube_request.template==715036:
                         from els_server.domain.wardrobe_ticket_box import require_session_context
                         require_session_context(self,event,request_sequence)
@@ -1325,6 +1362,9 @@ class LocalSession:
                     item=next((i for i in self.account.get_inventory_snapshot()['items'] if i['template']==cube_request.template and i['group']==4),None)
                     if item is None:raise ValueError('Missing fixed cube')
                     require_current(item)
+                    if cube_request.template in job_boxes:
+                        from els_server.domain.item_locks import require_unlocked
+                        require_unlocked(item)
                     from els_server.domain.regional_boss_cubes_legacy import BOXES as legacy_boxes,pool_for
                     if cube_request.template in legacy_boxes:
                         from els_server.domain.item_locks import require_unlocked
@@ -1357,6 +1397,7 @@ class LocalSession:
             from els_server.protocol.ice_messages import use_request
             from els_server.domain.cubes import catalog as fixed_cubes
             from els_server.domain.regional_boss_cubes_legacy import BOXES as legacy_cube_boxes
+            from els_server.domain.job_reward_boxes import BOXES as job_cube_boxes
             try:cube_use=use_request(event.payload)
             except ValueError:return cube_result(self.account.get_reward_balances()['ed'],code=-1)
             cube_item=next((i for i in self.account.get_inventory_snapshot()['items'] if i['uid']==cube_use.uid),None)
@@ -1382,6 +1423,11 @@ class LocalSession:
                         if (event.performers not in ((),(0,)) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Participation cube envelope')
                         gear_path,gear_owner,gear_account,gear_prepare=selected(self)
                         answer=open_cube(gear_path,gear_owner,cube_template,event.payload,operation,account_id=gear_account,prepare=gear_prepare)
+                    elif cube_template in job_cube_boxes:
+                        from els_server.domain.tenebros_capacity_flow import selected
+                        if(event.performers not in((),(0,))or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Job box use envelope')
+                        box_path,box_owner,box_account,box_prepare=selected(self)
+                        answer=open_cube(box_path,box_owner,cube_template,event.payload,operation,account_id=box_account,prepare=box_prepare)
                     elif cube_template in legacy_cube_boxes:
                         from els_server.domain.tenebros_capacity_flow import selected
                         if (event.performers not in ((),(0,)) or event.uid!=2**64-1
@@ -1400,14 +1446,18 @@ class LocalSession:
         if self.ice_test and event.event_id==0x202 and kind==0x559:
             from els_server.protocol.ice_messages import preview_request,preview_ack
             if self.role!='game' or self.phase!='town_ready':return []
+            # A refusal must echo the requested template: answering 0 here made
+            # the client open an empty random-item window for template 0 instead
+            # of refusing the item the player actually clicked.
+            template=0
             try:
-                request=preview_request(event.payload)
+                request=preview_request(event.payload);template=request.template
                 from els_server.domain.ice_rules import role_pools
                 pools=role_pools((self.account.character() or {'unit_type':1})['unit_type'])
                 if request.template not in pools or request.keys!=(0,):raise ValueError('Unsupported ice preview for this character')
                 items=self.account.get_inventory_snapshot()['items']
                 if not any(i['template']==request.template and i['group']==4 for i in items):raise ValueError('Missing ice consumable')
-            except ValueError:return [preview_ack(-1,0)]
+            except ValueError:return [preview_ack(-1,template)]
             self.ice_preview_ready=True
             # Legacy random-item UI rejects a successful but empty preview as
             # "This character cannot use this item" (2271D30 -> 227217A).
@@ -1573,7 +1623,19 @@ class LocalSession:
                         and story.get('run') is not None and self.dungeon_run is story['run']
                         and character is not None and character['unit_type']==14 and character['level']==1
                         and self.account.get_reward_balances()['experience']==0)
-                    if not (native_noah_return or native_committed_warp):raise SessionOrderError('Invalid local town entry')
+                    if not (native_noah_return or native_committed_warp):
+                        # Session 20261026-200944: the DX11 client asked for an
+                        # explicit default-position entry (flag 1) with no
+                        # server-issued 58C behind it, and dropping the whole
+                        # connection turned a refused warp into a client crash.
+                        # An unknown map identity is still malformed input and
+                        # keeps the original hard rejection. A real town is
+                        # refused the same way as every other unauthorized
+                        # destination below: negative 226, session survives, no
+                        # position is invented for the refused town.
+                        refused=struct.unpack_from('>i',event.payload)[0]
+                        if refused not in TOWN_SCENES:raise SessionOrderError('Invalid local town entry')
+                        return [Event(0x201,kind=0x226,payload=i32(-1)+i32(refused)+i32(0)*3)]
                 requested=struct.unpack_from('>i',event.payload)[0]
                 if requested==1011 and not (native_committed_warp or _mainline1011_entry(self,event,request_sequence)):
                     return [Event(0x201,kind=0x226,payload=i32(-1)+i32(requested)+i32(0)*3)]
@@ -1707,6 +1769,14 @@ class LocalSession:
                 # Then select resource part 0 (B7) before resuming actors (BD).
                 # All three notifications are once-only for this first substage.
                 reply.append(Event(0x201,kind=0xb6,payload=bytes(16)))
+                if self.item_test:
+                    # The dungeon scene owns a fresh item state; the member DTO's
+                    # equipped map only restores UIDs. Re-apply the owned worn
+                    # instances exactly like the town scene-ready refresh
+                    # (local_session 0x227), otherwise the local model is bare.
+                    from els_server.domain.fashion_state import move_ack
+                    worn=[i for i in self.account.get_inventory_snapshot()['items'] if i['group']==9]
+                    if worn:reply.append(Event(0x201,kind=0x105,payload=move_ack([((9,i['slot']),i) for i in worn])))
                 reply.append(dungeon_messages.initial_part())
                 npc_entries=()
                 if self.client_build=='dx11_260923' and self.population_test:

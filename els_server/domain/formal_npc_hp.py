@@ -172,6 +172,20 @@ def maximum(catalog, template, *, dungeon, npc_level=None, boss=False, source_co
     explicit=native['script_max_hp']
     component=component_maximum(catalog,template)
     if component is not None:explicit=component
+    # Some script MAX_HP values differ from battle HP. Only an approved
+    # same-map/template/level rule can replace the retained script input.
+    override=meta.get('combat_hp_overrides',{}).get(str(template))
+    if override is not None:
+        value=level(catalog,dungeon) if npc_level is None else npc_level
+        if (type(value)is not int or value!=meta['level'] or value!=override['level']
+            or any(override[k]!=row[k] for k in ('enum','script','class_id','is_npc'))
+            or override['source']!='cobodex_named_graph_level_reference_adopted_local_rule'
+            or explicit!=override['expected_script_hp'] or row.get('fixed')!=explicit):
+            raise ValueError('NPC HP approved combat override source changed')
+        result=override['hp_float32']
+        if type(result)not in(int,float)or not math.isfinite(result)or result<=0 or f32(result)!=result:
+            raise ValueError('NPC HP approved combat override bound')
+        return result
     if explicit is not None:
         if row.get('source')!='current_client_explicit' or row.get('fixed')!=explicit:
             raise ValueError('NPC HP explicit source changed')

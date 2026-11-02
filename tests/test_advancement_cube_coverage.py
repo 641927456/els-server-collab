@@ -1,9 +1,12 @@
 """Class-advancement boxes the client consumes as cubes but the server has no table for.
 
-These nine templates remain outside the verified finite cube catalog. The
+These five templates remain outside the verified finite cube catalog. The
 available RandomItem rules identify groups without proving their full current
 contents and weights. This change adds no advancement-pool inference, producer
 or repair of existing inventory: refusal must leave each owned instance intact.
+
+The four [科宝]1/2/3转、超越转职纪念便利性道具宝箱 now have a human-approved
+ID mapping in tests/test_job_reward_boxes.py, so they are no longer pinned here.
 """
 import unittest
 from els_server.domain.cubes import catalog
@@ -11,9 +14,8 @@ from tests import test_npc_sale as fixture
 from tests.test_fixed_cubes import payload
 from els_server.storage.fixed_cubes import open_cube
 
-# 1/2/3转晋级宝箱、新的力量：原力、[阿莉尔]白境机甲防具宝箱（按职业分支随机）
-# 与 [科宝]1/2/3转、超越转职纪念便利性道具宝箱（单一组随机）。
-ADVANCEMENT_BOXES = (109999, 110850, 135867, 135869, 118655, 300645, 300646, 300647, 300648)
+# 1/2/3转晋级宝箱、新的力量：原力、[阿莉尔]白境机甲防具宝箱（按职业分支随机）。
+ADVANCEMENT_BOXES = (109999, 110850, 135867, 135869, 118655)
 
 
 class AdvancementCubeCoverageTests(unittest.TestCase):
