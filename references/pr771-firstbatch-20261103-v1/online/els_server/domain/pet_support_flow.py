@@ -14,10 +14,15 @@ def handle(session,event,sequence):
     def failure(restore=False):
         current=None
         if restore and kind in (0x219,0x661,0x8a1):
-            try:prepare(None)
+            try:
+                prepare(None)
+                with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=ro',uri=True))as db:
+                    from els_server.storage.item_actor import require_active_character
+                    from els_server.storage.profession_state import require_owner
+                    db.execute('BEGIN');require_active_character(db,owner);require_owner(db,owner,account_id)
+                    current=state.automatic(db,owner)
+                    prepare(None)
             except ValueError:return failure()
-            with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=ro',uri=True))as db:
-                current=state.automatic(db,owner)
         if kind==0x219:return [use_ack(result=-1)]+([wire.settings(current,0xb3b)]if current is not None else [])
         if kind==0x8c7:return [wire.equipment_ack(result=-1)]
         if kind==0x8a1:return [state.bindings_ack(current,result=-1)]

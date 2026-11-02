@@ -29,10 +29,10 @@ def main():
     scope=json.loads((PACKAGE/'scope.json').read_bytes())
     assert set(scope['permanent_pet_variants'])=={161117,301579,100000120,100003044,720856,720849}
     result=json.loads((PACKAGE/'validation.json').read_bytes())
-    assert result['ok']and result['unique_tests']==14 and not result['skipped']
+    assert result['ok']and result['unique_tests']==15 and not result['skipped']
     assert not result['installed']and not result['public_QA']and not result['natural_GUI']
     ast.parse((PACKAGE/'test_firstbatch.py').read_text(encoding='utf8'))
-    print(json.dumps(dict(ok=True,candidate_only=True,source_files=7,reported_business_cases=14,
+    print(json.dumps(dict(ok=True,candidate_only=True,source_files=7,reported_business_cases=15,
         parent=manifest['parent'],runtime_or_player_write=False)))
 
 if __name__=='__main__':main()

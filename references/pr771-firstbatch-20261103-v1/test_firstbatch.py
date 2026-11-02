@@ -246,6 +246,16 @@ class FirstBatch(unittest.TestCase):
         with self.assertRaises(ValueError):use(self.path,1001,drink(),'manual-blocked',now=NOW+31)
         self.assertEqual(self.count(710000),3)
 
+    def test_rejected_saved_owner_cannot_restore_another_owners_settings(self):
+        self.unlock();self.grant((710000,2))
+        pet.handle(self.path,1001,0x8a1,bindings(0,item_binding(710000)),'owned-before-reject')
+        s=self.session();s.account.account_id=2;before=self.dump()
+        reply=pet_flow(s,Event(0x202,kind=0x661,payload=b'bad',performers=(0,)),401)
+        self.assertEqual(struct.unpack_from('>BQBBBB',reply[0].payload)[0],0)
+        reply=pet_flow(s,Event(0x202,kind=0x8a1,payload=bindings(0,0),performers=(0,)),402)
+        self.assertEqual(struct.unpack('>iiIiiii',reply[0].payload),(-1,2,2,0,0,1,0))
+        self.assertEqual(self.dump(),before)
+
 
 if __name__=='__main__':
     (Path(__file__).parent/'tmp').mkdir(exist_ok=True)
