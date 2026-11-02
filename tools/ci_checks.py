@@ -25,6 +25,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_thirdbatch.py')])
     if (ROOT/'references/pr771-fourthbatch-20261103-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_fourthbatch.py')])
+    if (ROOT/'references/pr771-fifthbatch-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_fifthbatch.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
     if (ROOT/'references/pending-source-integration-20261031-v1/source-contract.json').is_file():
