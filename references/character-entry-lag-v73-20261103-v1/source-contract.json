@@ -1,0 +1,43 @@
+{
+  "release": "launcher-character-entry-lag-20261103-v73-v1",
+  "parent_release": "launcher-atlas-scroll-support-20261101-v72-v1",
+  "issue": 772,
+  "base_commit": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "already_published": true,
+  "source_archive_only_no_redeployment": true,
+  "exe_sha256": "f78bccf411584f69a12240df9b9b6272d887f1121c28dc227edc690a2b9c65c4",
+  "payload_sha256": "cd67eab8bf5ba8a972b47d49488a6855cdf861e3520ae7832553395cb2725123",
+  "component_delta": [
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "before_sha256": "5ba31606f8de162ff7e5c3c2b554bb1ad06d4f6feb03b08d9477272e41eebb19",
+      "after_sha256": "ae9840c1e07fdf8677158f326643074b65256f8041d4acf2ac7c3878c597b25f"
+    },
+    {
+      "path": "tools/local_stack_limits.js",
+      "before_sha256": "68e32c6b1bc0379e743b071d9a58a4f22d250b93c8329e20bd7c679257b6e48d",
+      "after_sha256": "c82937f875aa50e6aad6ee899178d68904ad553f5adf0386701a67befb15948c"
+    }
+  ],
+  "support_sources": [
+    {
+      "runtime_path": "tools/client_compatibility_profiles.json",
+      "repository_path": "references/character-entry-lag-v73-20261103-v1/support/tools/client_compatibility_profiles.json",
+      "sha256": "ae9840c1e07fdf8677158f326643074b65256f8041d4acf2ac7c3878c597b25f",
+      "size": 21527
+    },
+    {
+      "runtime_path": "tools/local_stack_limits.js",
+      "repository_path": "tools/local_stack_limits.js",
+      "sha256": "c82937f875aa50e6aad6ee899178d68904ad553f5adf0386701a67befb15948c",
+      "size": 3299
+    }
+  ],
+  "root_profile": "Only the V73 JS pin is added; all main profile fields retained. Exact delivered profile archived separately.",
+  "launcher_compile_inputs": "references/character-entry-lag-v73-20261103-v1/launcher/compile-inputs.json",
+  "LOCAL_binding_unchanged": true,
+  "server_unchanged": true,
+  "original_EXE_KOM_changes": 0,
+  "player_database_changes": 0,
+  "rollback": "Select the previously signed V72 launcher/components via the maintainer release flow; no database restore."
+}

@@ -1,0 +1,169 @@
+{
+  "scope": "Sanitized projection of existing successful V73 evidence; no new deployment or game run",
+  "native_lookup": {
+    "ok": true,
+    "actual_original_native_lookup": "6D56C0",
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "templates": 181836,
+    "allowed_templates": 11142,
+    "requests_compared": 304,
+    "game_process_access": false,
+    "original_EXE_KOM_changed": false,
+    "owned_host_exited": true,
+    "candidate_source_sha256": "c82937f875aa50e6aad6ee899178d68904ad553f5adf0386701a67befb15948c",
+    "parent_source_sha256": "68e32c6b1bc0379e743b071d9a58a4f22d250b93c8329e20bd7c679257b6e48d",
+    "timings": {
+      "parent": {
+        "first_lookup_ms": 212,
+        "warm_10000_calls_ms": [
+          106,
+          106,
+          107
+        ]
+      },
+      "candidate": {
+        "first_lookup_ms": 0,
+        "warm_10000_calls_ms": [
+          93,
+          93,
+          94
+        ]
+      }
+    }
+  },
+  "independent_hook_review": {
+    "ok": true,
+    "no_blockers": true,
+    "blocking_findings": [],
+    "review_kind": "Independent read-only native Hook and payload review",
+    "reviewed_utc": "2026-11-02T16:42:36.505091+00:00",
+    "candidate_js_sha256": "c82937f875aa50e6aad6ee899178d68904ad553f5adf0386701a67befb15948c",
+    "exe_sha256": "f78bccf411584f69a12240df9b9b6272d887f1121c28dc227edc690a2b9c65c4",
+    "manifest_sha256": "48bd949dede0b44a62de0cb9b5bf691660b6397e84c87da118520f5a331da806",
+    "payload_sha256": "cd67eab8bf5ba8a972b47d49488a6855cdf861e3520ae7832553395cb2725123",
+    "conclusions": [
+      "Original pinned 6D56C0 takes RCX manager and uint32 EDX key; returns null or 232-byte table row. Assembly uses no calls or RIP-relative data in replay span. Native search and return value remain unchanged.",
+      "Invocation-local this.id/this.manager survive only from onEnter to onLeave. No row pointer or buffer generation is cached across calls; current app+0x58 owner and current vector/key/index/row are verified before each mutation.",
+      "Nonnull returned row cap is read for the fast no-mutation path. The full 232-byte writable range, integer bounds, current owner, table count and matching key/row are checked before the sole signed 32-bit cap write. Exceptions disable this adapter and emit guard-rejected.",
+      "Adapter calls no game native function and does not recurse into lookup. Per-invocation state is isolated; only idempotent cap=999 writes and counters are shared. Existing native table lifetime requirements remain; no unbounded scan, timer per lookup, or arbitrary native allocation was added.",
+      "Allowed IDs still derive from established TEMPLATE_MAX_STACKS==999. Only cap 2..998 becomes 999; <=1 and >=999, unapproved IDs, missing rows, and foreign managers are not mutated. Inventory counts, packet values, saves and server economy are unchanged.",
+      "Existing group_wear_sync native getter also uses the same unchanged native lookup; this patch adds no second Hook location or new forced invocation.",
+      "Eight model checks and original native lookup replay of 304 query results support getter-result compatibility. Final source SHA is bound by native evidence, signed component row, compatibility profile and V73 qualification.",
+      "Independent artifact readback verified RSA-SHA256 release and runtime envelope signatures using the embedded public key; all 1804 ZIP members match their signed sizes/SHA, and only the two declared manifest entries differ from V72. LOCAL binding is unchanged.",
+      "Recorded final cold call 212ms to below Date.now 1ms resolution; warm 10000-query batches 106/106/107ms to 93/93/94ms. These are isolated native-host measurements, not complete GUI latency."
+    ],
+    "checks": {
+      "read_only_artifact_integrity": true,
+      "release_signature_verified": true,
+      "runtime_signature_verified": true,
+      "all_signed_components_verified": 1804,
+      "manifest_delta": [
+        "tools/client_compatibility_profiles.json",
+        "tools/local_stack_limits.js"
+      ],
+      "source_and_exe_binding_verified": true,
+      "native_query_results_equal": true,
+      "LOCAL_binding_unchanged": true
+    },
+    "boundaries": [
+      "Entire natural character-selection-to-world GUI has not passed verification. Two prior owned GUI probes failed and remain failed evidence; this review does not convert them to passes.",
+      "Lazy patch guarantees adjusted caps for rows returned through this native getter; it does not claim every unqueried template is eagerly rewritten, or prove all possible raw table iteration consumers.",
+      "The full user-reported long freeze is not proven to have this one cause. Publication needs public actual component selection/load readback and subsequent natural character-entry timing evidence.",
+      "No player/game/server process, credentials or database accessed by reviewer; no native/game tests rerun and no production file or pointer changed."
+    ],
+    "entire_character_entry_GUI_verified": false,
+    "full_reported_symptom_resolution_verified": false,
+    "production_changed": false
+  },
+  "upgrade": {
+    "ok": true,
+    "exe_sha256": "f78bccf411584f69a12240df9b9b6272d887f1121c28dc227edc690a2b9c65c4",
+    "all_components_verified": 1804,
+    "actual_default_Friends_selection": true,
+    "old72_to_new73": true,
+    "changed_downloads": 2,
+    "reused_files": 1802,
+    "repeat_downloads": 0,
+    "actual_selected_stack_source": true,
+    "actual_selected_composition": true,
+    "node_syntax_passed": true,
+    "LOCAL_binding_unchanged": true,
+    "game_started": false,
+    "network_access": false,
+    "original_EXE_KOM_changes": 0
+  },
+  "public_component_selection": {
+    "ok": true,
+    "exe_sha256": "f78bccf411584f69a12240df9b9b6272d887f1121c28dc227edc690a2b9c65c4",
+    "public_TLS_signed_component_selection": true,
+    "all_components_verified": 1804,
+    "changed_downloads": 2,
+    "repeat_downloads": 0,
+    "game_started": false
+  },
+  "installation": {
+    "ok": true,
+    "release": "launcher-character-entry-lag-20261103-v73-v1",
+    "V": 73,
+    "sha256": "f78bccf411584f69a12240df9b9b6272d887f1121c28dc227edc690a2b9c65c4",
+    "public_old72_downloaded_verified73": true,
+    "public_signed_components_verified": true,
+    "desktop_shortcuts_updated": true,
+    "observation_start": 1793637977.662971,
+    "game_server_unchanged": true,
+    "LOCAL_binding_unchanged": true,
+    "player_database_changes": 0,
+    "original_EXE_KOM_changes": 0,
+    "actual_game_login_verified": false,
+    "normal_next_start_required": true,
+    "observation_seconds": 120.79158854484558,
+    "public_changed_components": 2,
+    "public_reused_components": 1802,
+    "repeat_downloads": 0,
+    "whole_reported_symptom_resolution_verified": false
+  },
+  "private_originals": [
+    {
+      "name": "launcher-v73/build.json",
+      "sha256": "f1070fb0657108a959315b7b38741b9e15431207d1e4c931109ff8097778eff1",
+      "availability": "Maintainer private evidence; original not uploaded"
+    },
+    {
+      "name": "native-stack-result.json",
+      "sha256": "cc3d57ffcac75ffecec78bfe73cd4107d4efd1f578ac7ad095546fde4b28d1b9",
+      "availability": "Maintainer private evidence; original not uploaded"
+    },
+    {
+      "name": "independent-hook-review.json",
+      "sha256": "480817f259ab7924d689a761cb1abb832d28f772297efdd23c66824b2beb0532",
+      "availability": "Maintainer private evidence; original not uploaded"
+    },
+    {
+      "name": "launcher-v73/signed-upgrade-qualification.json",
+      "sha256": "fd06a39387b721bd2c0b7aa73a53af5fbb169dc8dc59e20af08c1ac555258e91",
+      "availability": "Maintainer private evidence; original not uploaded"
+    },
+    {
+      "name": "launcher-v73/public-component-qualification.json",
+      "sha256": "dfc89364c34990fa226a1101d969d78194f2895f5473f3a537c196e261596259",
+      "availability": "Maintainer private evidence; original not uploaded"
+    },
+    {
+      "name": "launcher-v73/publication/installation.json",
+      "sha256": "b5b2dc806b74e6ad7e1cd5d0e1d86b91634bb9acc4108e9f85b1e3c56ea1fa5a",
+      "availability": "Maintainer private evidence; original not uploaded"
+    },
+    {
+      "name": "delivery-result.json",
+      "sha256": "b37da9272b326f6991bbfce917e83bcae47ee58829d812e5cad00b5e6d8f9916",
+      "availability": "Maintainer private evidence; original not uploaded"
+    },
+    {
+      "name": "delivery-report.md",
+      "sha256": "38d54f3b85edb3916709e086b50085cf7863d7cf6757f85e5071efbb7798930a",
+      "availability": "Maintainer private evidence; original not uploaded"
+    }
+  ],
+  "natural_character_entry_GUI_verified": false,
+  "full_reported_symptom_resolution_verified": false
+}
