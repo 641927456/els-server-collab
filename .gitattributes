@@ -4,6 +4,10 @@
 *.yml text eol=lf
 *.yaml text eol=lf
 
+# Selective archives preserve the exact delivered parent and payload bytes.
+references/pr771-firstbatch-20261103-v1/** whitespace=cr-at-eol
+references/pr771-secondbatch-20261103-v1/** whitespace=cr-at-eol
+
 # Frozen source bytes retain the delivered Windows line endings.
 references/formal-clock-source-20261027-v1/** whitespace=cr-at-eol
 references/formal-current-refresh-source-20261027-v1/** whitespace=cr-at-eol
