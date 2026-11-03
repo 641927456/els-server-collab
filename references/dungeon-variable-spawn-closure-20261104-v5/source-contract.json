@@ -1,0 +1,56 @@
+{
+  "issue": 809,
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "parent_release": "native-dungeon-skill-replacement-20261104-v1",
+  "parent_manifest_sha256": "4f1e8b98538284e36fb41cd35651cc0d6d6ce990f44f086b4773c09e086fddc3",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "files": {
+    "els_server/data/client/dungeon_routes.json": "0cd82457bf0cb097e2e3d808ecb3fe6ba6a0ce06493cbe355698e9978bf51cc2",
+    "els_server/data/client/dungeon_routes.manifest.json": "9080971b444f8606c8830662a4490590bca777927b8067ffe79f83bead2908ad",
+    "els_server/data/formal_npc_hp.json": "158cafd20db2f26b6d90a66fcf7cfff9076cc71427aaf8f79b117c9f4e28d3c7",
+    "els_server/data/formal_npc_hp.manifest.json": "3ee881d57dbfa6708f5979cc8dfa9636854eed2ab5a515c1ae7e6e57c5a8bcdd",
+    "els_server/data/raid_npc_hp.json": "e88f7a8e5e1fe9716b83753ab430d8b485fc81f949f2a53a7f86684c74c8b30f",
+    "tools/build_dungeon_routes.py": "da44459680d7c553173816b0b88485aa6fabb4512ead0c714782d99102896d7a",
+    "tools/npc_spawn_source_flow.py": "17e413146b7665c45dc7400c9174af5dedd870b40560ca3e2f4ab61e4ca4491d"
+  },
+  "runtime_leaves": [
+    "els_server/data/client/dungeon_routes.json",
+    "els_server/data/client/dungeon_routes.manifest.json",
+    "els_server/data/formal_npc_hp.json",
+    "els_server/data/formal_npc_hp.manifest.json",
+    "els_server/data/raid_npc_hp.json"
+  ],
+  "development_tools": [
+    "tools/build_dungeon_routes.py",
+    "tools/npc_spawn_source_flow.py"
+  ],
+  "repair_sources": {
+    "build_delta.py": "01ec58b247b78e36c9501d88f8892255aa225d636b4bc3bf97f18feb4aa7b337",
+    "close_open_items.py": "220132129ff1056ca6b1ac18d1cacffc56d472662bdf4a9cec01147fda669e94",
+    "constant_calls.py": "e20e19b52f28648df780e329fffab10702604a920810302cb01112caeaf8645b",
+    "prepare_runtime.py": "26897b6df252c5ebae8607cd344c169e140117143d9aa99a0ec149ec98b0a713",
+    "run_flow.py": "8d8daf94f991f920958ae74da5dcb7e14398493f3d07109880ae3ccede239e71",
+    "test_dependencies.py": "527a555ef3298a8df6107b6875705ad187d1bd33d6e1b12c7a3658610d786620",
+    "test_dependencies_tls.py": "bd8e11212ba7e8fb8988abc078426735f04a5c2fecba7dc12a932f76ee0d7d8f"
+  },
+  "evidence": {
+    "cleanup.json": "149712d87d2e7bc161a59fa2830694ee6e1f17a9650e9f85dc934f7c52a7d1e5",
+    "current-parent-binding.json": "6e10a936ee10616a127d97083466c0cbf74b20c4ab617004444e6e1434d04723",
+    "current-parent-TLS-tests.json": "4e5c9af1fe9e20a200c3faf837bad0f240a243263c08639a34c33c24760051a2",
+    "dependency-domain-tests.json": "b3bcd8871a3a75d27fecd49cf0b4472b0df5430c0ba74ef38a0ed4afbb695584",
+    "dependency-TLS-tests.json": "26fcbc142fa50c259d6095e21bdef80af154e9a0012677ce5b35463b22d02a64",
+    "enum-reference-review.json": "febe016200058a35893c29f628e5fc88f86fd5681a31408627bcb7f44499ed52",
+    "final-cleanup-and-properties.json": "448966aed266c2254f2344e7759a672844bccf3e71c53fe3d299a99eb4d8d76b",
+    "missing-resource-review.json": "71bdfc6fa583d047c8eca5d39fa361cfbed13319ec8dd4d8d848bf3951ce0f76",
+    "native-flag-gate-tests.json": "f807c2f862b80dee86627e296c11591956a94d341179771da73e48f9127f573c",
+    "original-flag-utility-contract.json": "04c9460f37de5b64e346ab4b1ca5f0df7448c1af473d725aa1f40ed253c48bef",
+    "source-chain-proof.json": "62800c43bda0ff3e6b811f21bc916793197b61395e64a036d3fdc8806f16bec5",
+    "unclosed-items-review.json": "cd9ed8c07adad2a2a48177805417bac76cbdbc3491cb6c2e0d1eea6cf14ad235",
+    "verification-corrections.json": "0feba973d5c19cc3eb24d6b185613055ce907a7e2e115331baf594d0b2253625"
+  },
+  "previous_source_PR": 799,
+  "root_runtime_activation": false,
+  "automatic_deployment": false,
+  "installed": false,
+  "main_merge": false
+}

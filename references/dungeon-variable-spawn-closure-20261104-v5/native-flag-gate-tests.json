@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "scope": "Original constructor flag stores and native condition field+44 branch only; not full actor/AI simulation",
+  "constructor": {
+    "function_rva": "0x1567040",
+    "zero_store_rva": "0x15676b2",
+    "loop_bound_rva": "0x15677e5",
+    "slots": 20,
+    "poisoned_bytes_cleared": true,
+    "adjacent_bytes_preserved": true
+  },
+  "gate": {
+    "function_rva": "0x16bc0c0",
+    "entry_rva": "0x16bdc8e",
+    "slot_compare_rva": "0x16bdc97",
+    "tests": [
+      {
+        "flag_slot": 4,
+        "value": 0,
+        "native_branch": "condition_rejected"
+      },
+      {
+        "flag_slot": 4,
+        "value": 1,
+        "native_branch": "flag_gate_passed"
+      }
+    ]
+  },
+  "code_sha256": {
+    "15676b0-15676bb": "d09f206ced2deee6aed5cea27a62d490a731753bba557dfc8aa265f20f30d6cb",
+    "15677e5-15677ef": "47722d07e66153bfa87b84b99cfefc18f101bde564f48e70177576143b12adeb",
+    "16bdc8e-16bdca5": "c3721a9d72a34109b9e7038b0e805c67915aa9e52cb1531945dfa0d79a65e24b"
+  },
+  "client_processes": 0,
+  "original_files_modified": 0
+}

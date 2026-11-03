@@ -1,0 +1,601 @@
+{
+  "ok": true,
+  "original_resource_absences": 6,
+  "executable_producers_for_these_absences": 0,
+  "rows": [
+    {
+      "template": 8127,
+      "producer": 8120,
+      "prototypes": [
+        17
+      ],
+      "dungeon": 34690,
+      "stage": 0,
+      "classification": "no_executable_producer_in_reviewed_native_state_graph",
+      "original_Lua_restored": false,
+      "reason": "Normal-mode phase-two state has no entry",
+      "producer_sha256": "d43b1f0086aa5859961bd69eabf57b972d6c69c752ddca0fa22e7dddccd81b0f"
+    },
+    {
+      "template": 12793,
+      "producer": 12774,
+      "prototypes": [
+        6
+      ],
+      "dungeon": 35880,
+      "stage": 9,
+      "classification": "no_executable_producer_in_reviewed_native_state_graph",
+      "original_Lua_restored": false,
+      "reason": "Ordeal attack state has no native transition or reachable Lua StateChange entry",
+      "producer_sha256": "111ec3bc68ea8ac79fddbbe30f91d2fdbc3e240015fd10c054556a246feaa551"
+    },
+    {
+      "template": 12794,
+      "producer": 12774,
+      "prototypes": [
+        6
+      ],
+      "dungeon": 35880,
+      "stage": 9,
+      "classification": "no_executable_producer_in_reviewed_native_state_graph",
+      "original_Lua_restored": false,
+      "reason": "Ordeal attack state has no native transition or reachable Lua StateChange entry",
+      "producer_sha256": "111ec3bc68ea8ac79fddbbe30f91d2fdbc3e240015fd10c054556a246feaa551"
+    },
+    {
+      "template": 12800,
+      "producer": 12775,
+      "prototypes": [
+        28
+      ],
+      "dungeon": 35880,
+      "stage": 9,
+      "classification": "no_executable_producer_in_reviewed_native_state_graph",
+      "original_Lua_restored": false,
+      "reason": "Lu fan flag slots 4 and 6 remain false: every true writer belongs to an unreachable callback or an unspawned single-mode flower",
+      "producer_sha256": "8768641265224d3c43c8791532af71a737a7f70f6b6ce122f55ef56d7a16d271"
+    },
+    {
+      "template": 12801,
+      "producer": 12775,
+      "prototypes": [
+        30
+      ],
+      "dungeon": 35880,
+      "stage": 9,
+      "classification": "no_executable_producer_in_reviewed_native_state_graph",
+      "original_Lua_restored": false,
+      "reason": "Lu fan flag slots 4 and 6 remain false: every true writer belongs to an unreachable callback or an unspawned single-mode flower",
+      "producer_sha256": "8768641265224d3c43c8791532af71a737a7f70f6b6ce122f55ef56d7a16d271"
+    },
+    {
+      "template": 12829,
+      "producer": 12823,
+      "prototypes": [
+        93,
+        98
+      ],
+      "dungeon": 35880,
+      "stage": 11,
+      "classification": "no_executable_producer_in_reviewed_native_state_graph",
+      "original_Lua_restored": false,
+      "reason": "Ordeal attack state has no native transition or reachable Lua StateChange entry",
+      "producer_sha256": "4c668363c402b3975325376a85713e16f010136e20c33d77850811af788a0bab"
+    }
+  ],
+  "scope": {
+    "maps": [
+      34690,
+      35880
+    ],
+    "stage_contexts": 3,
+    "all_static_and_admitted_dynamic_sources": true,
+    "actor_source_bindings": 40,
+    "unknown_state_calls": 0,
+    "unknown_spawn_values": 0,
+    "unknown_flag_keys": 0,
+    "natural_client_clear": false,
+    "all_gameplay_bugs_excluded": false
+  },
+  "activation": [
+    {
+      "source": "dungeon_md_ebalon_normal.lua",
+      "stage": 0,
+      "static": [
+        8120,
+        8121,
+        8122,
+        8124,
+        8125,
+        8126
+      ],
+      "possible_actors": [
+        8120,
+        8121,
+        8122,
+        8124,
+        8125,
+        8126
+      ],
+      "rounds": [
+        {
+          "active": [
+            8120,
+            8121,
+            8122,
+            8124,
+            8125,
+            8126
+          ],
+          "new": []
+        }
+      ]
+    },
+    {
+      "source": "dungeon_henir_space_ordeal.lua",
+      "stage": 9,
+      "static": [
+        9844,
+        9846,
+        12774,
+        12775,
+        12806,
+        12809,
+        12811
+      ],
+      "possible_actors": [
+        9844,
+        9846,
+        12774,
+        12775,
+        12792,
+        12795,
+        12796,
+        12797,
+        12798,
+        12799,
+        12802,
+        12803,
+        12804,
+        12805,
+        12806,
+        12809,
+        12811,
+        12812
+      ],
+      "rounds": [
+        {
+          "active": [
+            9844,
+            9846,
+            12774,
+            12775,
+            12806,
+            12809,
+            12811
+          ],
+          "new": [
+            12792,
+            12795,
+            12796,
+            12797,
+            12799,
+            12802,
+            12803,
+            12804,
+            12812
+          ]
+        },
+        {
+          "active": [
+            9844,
+            9846,
+            12774,
+            12775,
+            12792,
+            12795,
+            12796,
+            12797,
+            12799,
+            12802,
+            12803,
+            12804,
+            12806,
+            12809,
+            12811,
+            12812
+          ],
+          "new": [
+            12798,
+            12805
+          ]
+        },
+        {
+          "active": [
+            9844,
+            9846,
+            12774,
+            12775,
+            12792,
+            12795,
+            12796,
+            12797,
+            12798,
+            12799,
+            12802,
+            12803,
+            12804,
+            12805,
+            12806,
+            12809,
+            12811,
+            12812
+          ],
+          "new": []
+        }
+      ]
+    },
+    {
+      "source": "dungeon_henir_space_ordeal.lua",
+      "stage": 11,
+      "static": [
+        9922,
+        9928,
+        12823,
+        12824,
+        12827,
+        12842,
+        12845,
+        12850,
+        12853
+      ],
+      "possible_actors": [
+        9922,
+        9928,
+        12823,
+        12824,
+        12827,
+        12830,
+        12831,
+        12832,
+        12842,
+        12845,
+        12850,
+        12853
+      ],
+      "rounds": [
+        {
+          "active": [
+            9922,
+            9928,
+            12823,
+            12824,
+            12827,
+            12842,
+            12845,
+            12850,
+            12853
+          ],
+          "new": [
+            12830,
+            12831,
+            12832
+          ]
+        },
+        {
+          "active": [
+            9922,
+            9928,
+            12823,
+            12824,
+            12827,
+            12830,
+            12831,
+            12832,
+            12842,
+            12845,
+            12850,
+            12853
+          ],
+          "new": []
+        }
+      ]
+    }
+  ],
+  "flag_gate": {
+    "template": 12775,
+    "flag_slots": {
+      "ULT_FAN_START": 4,
+      "ULT_FAN_END": 6
+    },
+    "blocked_events": [
+      [
+        12775,
+        "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_LU_ORDEAL_WAIT",
+        "3"
+      ],
+      [
+        12775,
+        "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_LU_ORDEAL_WALK",
+        "3"
+      ],
+      [
+        12775,
+        "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_LU_ORDEAL_ATTACK_END",
+        "3"
+      ],
+      [
+        12775,
+        "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_LU_ORDEAL_ATTACK_END",
+        "4"
+      ],
+      [
+        12775,
+        "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_LU_ORDEAL_ULT_FAN_WAIT_SUMMON",
+        "1"
+      ],
+      [
+        12775,
+        "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_LU_ORDEAL_ULT_FAN_WAIT_LINE_CREATE",
+        "1"
+      ]
+    ],
+    "inductive_invariant": "Both flags start false. Under these blocked entry predicates every possible true writer is unreachable, including the unspawned 9887 single-mode flower. No active callback can establish either flag.",
+    "true_writers": [
+      {
+        "template": 9887,
+        "prototype": 3,
+        "pc": 19,
+        "key": "ULT_FAN_END",
+        "reachable": false
+      },
+      {
+        "template": 9887,
+        "prototype": 5,
+        "pc": 19,
+        "key": "ULT_FAN_END",
+        "reachable": false
+      },
+      {
+        "template": 12774,
+        "prototype": 43,
+        "pc": 28,
+        "key": "ULT_FAN_START",
+        "reachable": false
+      },
+      {
+        "template": 12775,
+        "prototype": 32,
+        "pc": 33,
+        "key": "ULT_FAN_END",
+        "reachable": false
+      }
+    ],
+    "original_native_zero_and_condition_block_tests_sha256": "f807c2f862b80dee86627e296c11591956a94d341179771da73e48f9127f573c"
+  },
+  "sources": [
+    {
+      "template": 8120,
+      "script": "MD_EBALON_BOSS.lua",
+      "source_sha256": "d43b1f0086aa5859961bd69eabf57b972d6c69c752ddca0fa22e7dddccd81b0f"
+    },
+    {
+      "template": 8121,
+      "script": "MD_EBALON_Relic.lua",
+      "source_sha256": "2dae5c23981495b1a4bb79b6dc767e8035d3826aa91ef20cced63f0cd84569f7"
+    },
+    {
+      "template": 8122,
+      "script": "MD_EBALON_START_EVENT.lua",
+      "source_sha256": "d5138ff79944c9e7b4a473d3aee2339d6f6ca1ef3344d392eb24029532983d85"
+    },
+    {
+      "template": 8124,
+      "script": "MD_EBALON_DROP1.lua",
+      "source_sha256": "10ccf5e3167f58e30ebebfad3a7e68be7d6607a95da9e86a77930198b4e0b18c"
+    },
+    {
+      "template": 8125,
+      "script": "MD_EBALON_DROP2.lua",
+      "source_sha256": "79ed140e789343ed4541fee164cb643a237c31c04c1fda594afecea0ff44909b"
+    },
+    {
+      "template": 8126,
+      "script": "MD_EBALON_Relic2.lua",
+      "source_sha256": "a318840113f4c95f0b1bd216aca41251286a4aa5204b410e4ea88294fc76e71d"
+    },
+    {
+      "template": 9844,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_START2.lua",
+      "source_sha256": "d7974745c63fa7545d0b298d48f4cfb22dad36b9182ec2a7425d6282ce6cc21a"
+    },
+    {
+      "template": 9846,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_END2.lua",
+      "source_sha256": "ae59060b21f7ff9048fd546bee40801d721f52e1b4e3d264f92da140e79333ca"
+    },
+    {
+      "template": 9887,
+      "script": "DEVILDOM6_BARKAT_RAID_SINGLE_BOSS3_PHASE2_GARDEN_OF_HAURES_FlOWER.lua",
+      "source_sha256": "11932467ae4523c7f785c03c51522e5cdbfb785457349651a8c8acf3c16d2f36"
+    },
+    {
+      "template": 9888,
+      "script": "DEVILDOM6_BARKAT_RAID_SINGLE_BOSS3_PHASE2_GARDEN_OF_HAURES_FlOWER2.lua",
+      "source_sha256": "12a099f87288e56589869b15c5d2dcd1da695f1829c74ded0d0e3d9c7d7a3e1d"
+    },
+    {
+      "template": 9922,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_START_2.lua",
+      "source_sha256": "2db4306fb58c7ee4290950968524a43255c2d59af5d348ecc572308d29717d64"
+    },
+    {
+      "template": 9928,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_END_2.lua",
+      "source_sha256": "805bea36e6d06a6fe87352212806b0cafd7816151338389d5df9ecc0189ad68a"
+    },
+    {
+      "template": 12774,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_TARITH_ORDEAL.lua",
+      "source_sha256": "111ec3bc68ea8ac79fddbbe30f91d2fdbc3e240015fd10c054556a246feaa551"
+    },
+    {
+      "template": 12775,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_LU_ORDEAL.lua",
+      "source_sha256": "8768641265224d3c43c8791532af71a737a7f70f6b6ce122f55ef56d7a16d271"
+    },
+    {
+      "template": 12792,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_ULT_SPEAR_DUMMY.lua",
+      "source_sha256": "af4dce30acd82f10d6aa9c13fa6e72554fa3b870f5e23aa5d7325e4ea3b43038"
+    },
+    {
+      "template": 12795,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_SPEAR_CIRCLE_ORDEAL.lua",
+      "source_sha256": "9e1eb0bc305c53d777279bfa28f5bca7853a58b3b0aeef54e0e80481f2e2e823"
+    },
+    {
+      "template": 12796,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_SUMMON_HAMMER_ORDEAL.lua",
+      "source_sha256": "1f4839f642fa0ff1373a7d78b148039542727cfed214c6166c1ed1036b99cc37"
+    },
+    {
+      "template": 12797,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_SUMMON_FAN_ORDEAL.lua",
+      "source_sha256": "9e446fb9a0c27b3b15a08b3f026e42f95a55cbef766a4f431782a85d85fb9d7e"
+    },
+    {
+      "template": 12798,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_SUMMON_FAN_TORNADO_ORDEAL.lua",
+      "source_sha256": "3770c0c6b405f88e16249854c2705230c25ac16711a3db42bb5bcf180a6eb957"
+    },
+    {
+      "template": 12799,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_SUMMON_SWORD_ORDEAL.lua",
+      "source_sha256": "9936d6863b856557f7952e410ff36f66fd6420118b9f6638d69d0dd7dde9da90"
+    },
+    {
+      "template": 12802,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_ULT_HAMMER_WEAPON_ORDEAL.lua",
+      "source_sha256": "28f09da514b853e55d8818ff8443c84ac8c7568d9637de80661ecd8772e25779"
+    },
+    {
+      "template": 12803,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_ULT_HAMMER_APOLLYON_ORDEAL.lua",
+      "source_sha256": "0fbe2c1988fea61e4ae964eac9fe1f29932a59e7c2ce47705fe5372b423b6b20"
+    },
+    {
+      "template": 12804,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_ULT_SWORD_SPHEAR_ORDEAL.lua",
+      "source_sha256": "21488827725ccf4f59eb4598dc0f486b6a262e004da3762378f33472bd14f335"
+    },
+    {
+      "template": 12805,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_ULT_HAMMER_BULLET_ORDEAL.lua",
+      "source_sha256": "4f807dce6273d94add6c932c15a1a57f59ec728c64336b49ebeb5692d4bce38e"
+    },
+    {
+      "template": 12806,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_PATTERN_MANAGER_ORDEAL.lua",
+      "source_sha256": "860bc3cf74f49dca7a283749cce6423419cbc68d665f4477b40798c14cfd72df"
+    },
+    {
+      "template": 12809,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_START1_ORDEAL.lua",
+      "source_sha256": "69805aec0597d20170f4012ea756ba755abd602a1dc6e8ace0da60d8bc4b2843"
+    },
+    {
+      "template": 12811,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_END1_ORDEAL.lua",
+      "source_sha256": "d1ddad227021146ee9eea15b5e8c47ce370000f9e7d5ca754e68a1a217e974c4"
+    },
+    {
+      "template": 12812,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_ATTACK_B_ORDEAL.lua",
+      "source_sha256": "3e67a101b280f0e61d6bab023d950f25c4d669385ece0e1058b3b70ec4872415"
+    },
+    {
+      "template": 12823,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_BOSS_ORDEAL.lua",
+      "source_sha256": "4c668363c402b3975325376a85713e16f010136e20c33d77850811af788a0bab"
+    },
+    {
+      "template": 12824,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_BOSS_DRAGON_ORDEAL.lua",
+      "source_sha256": "3e5500d60c977c2d8ef946abade9c9cdff91ae34a949962180d73108319e1b3e"
+    },
+    {
+      "template": 12827,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_UNDER_MANAGER_ORDEAL.lua",
+      "source_sha256": "01f64077fe78b37a67c919735f4db1fdafac80e176c09e349bb15e7ed21f8dde"
+    },
+    {
+      "template": 12828,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_UNDER_ATTACK_ORDEAL.lua",
+      "source_sha256": "377cb236309c1df06323280832f090333147d28ad738800f340ead0862f99071"
+    },
+    {
+      "template": 12830,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_UNDER_B_CIRCLE_ORDEAL.lua",
+      "source_sha256": "f4c11379a3d3df23d129c0ecabcd7a23dc4a840d3e2f9d933af63f10c74287f4"
+    },
+    {
+      "template": 12831,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_STONE_ORDEAL.lua",
+      "source_sha256": "5f073afb3240bf70d2e941d568b30e6bb2daef89e8d4eed1d22dff19a18422e6"
+    },
+    {
+      "template": 12832,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_UNDER_STONE_ORDEAL.lua",
+      "source_sha256": "9e77d5390f71a3ffa2b47f0373b80417dc32edc07cd8ca28d206f95129c10fc8"
+    },
+    {
+      "template": 12842,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_PHASE2_EVENT_ORDEAL.lua",
+      "source_sha256": "68ab752334abf8014c187a329ad65f30b585625977861ced6efb0b5cc6d27f89"
+    },
+    {
+      "template": 12845,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_PHASE2_EVENT_2_ORDEAL.lua",
+      "source_sha256": "912bc38f48214edb4bc69665b5c379feac56d4eccb532b09bc4236b5d95c5afb"
+    },
+    {
+      "template": 12848,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_BOSS_BARKAT_FROZEN_ORDEAL.lua",
+      "source_sha256": "85f439ee127a9eba4d27ee98bed54cc344dcfd1373f6458fdeec0a9bf023acf0"
+    },
+    {
+      "template": 12850,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_START_ORDEAL.lua",
+      "source_sha256": "3db4670d377e0b89b942543f5c028900403648de8113f305f2c90133087198c6"
+    },
+    {
+      "template": 12853,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_END_ORDEAL.lua",
+      "source_sha256": "a90c7ff842e6f3f321b5130f319c5d30b0ccbadc5d48fd54e5f3f4f4deb2259c"
+    }
+  ],
+  "official_archive": {
+    "url": "http://download.els.ztgame.com.cn/autopatchels02/client64/data/data037.kom",
+    "sha256": "5a4db8816ef6d0c09f02eca41a3ea043bca11ad44659fe5b51670131fc82dae5",
+    "entries": 6990,
+    "missing": [
+      "MD_EBALON_RELIC3.lua",
+      "DEVILDOM6_BARKAT_RAID_BOSS4_PHASE2_UNDER_A_CIRCLE_ORDEAL.lua",
+      "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_GARDEN_OF_HAURES_FLOWER2_ORDEAL.lua",
+      "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_GARDEN_OF_HAURES_FLOWER_ORDEAL.lua",
+      "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_TARITH_PRISON_B_ORDEAL.lua",
+      "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE2_BOSS_TARITH_PRISON_G_ORDEAL.lua"
+    ]
+  },
+  "prior_candidate": {
+    "path": "G:\\els\\analysis\\dungeon-stalls-20261103-v1\\spawn-variants-20261104-v1\\fix-v3",
+    "manifest_sha256": "b90b2cee3cc5735a326d9b32aeeb6aacc50c77530943b2212238e45fa2e26e0d",
+    "changed": false,
+    "source_upper_bound_still_contains_unused_IDs": true
+  },
+  "runtime_files_changed": 0,
+  "original_EXE_KOM_changed": 0,
+  "installed": false,
+  "git_submitted": false
+}
