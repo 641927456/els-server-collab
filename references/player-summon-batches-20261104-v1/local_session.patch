@@ -1,0 +1,20 @@
+--- a/els_server/domain/local_session.py
++++ b/els_server/domain/local_session.py
+@@ -934,9 +934,13 @@
+
+             except ValueError:return [summon_ack(-1)]
+
+-            self.summon_keys.add(key)
+-
+-            self.summon_next_key=key+1;self.summon_requests[request_sequence]=event.payload
++            count = struct.unpack_from('>I', notice.payload)[0]
++
++            if occupied_slots(self) + count > 80:return [summon_ack(-1)]
++
++            self.summon_keys.update(range(key, key + count))
++
++            self.summon_next_key=key+count;self.summon_requests[request_sequence]=event.payload
+
+             return [summon_ack(),notice]
+
+# End of patch
