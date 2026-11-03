@@ -17,6 +17,9 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'references/dungeon-spawn-loot-scope-20261104-v6/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'references/dungeon-spawn-loot-scope-20261104-v6/verify_contract.py')])
+        run([sys.executable,'-B',str(ROOT/'references/dungeon-spawn-loot-scope-20261104-v6/test_loot_scope.py')])
     if (ROOT/'references/dungeon-variable-spawn-closure-20261104-v5/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'references/dungeon-variable-spawn-closure-20261104-v5/verify_contract.py')])
         run([sys.executable,'-B',str(ROOT/'references/dungeon-variable-spawn-closure-20261104-v5/test_flow_properties.py')])
