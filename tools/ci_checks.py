@@ -31,6 +31,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_sixthbatch.py')])
     if (ROOT/'references/pr771-native-followup-20261103-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_native_followup.py')])
+    if (ROOT/'references/pr771-racing-local-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_racing_local.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
     if (ROOT/'references/pending-source-integration-20261031-v1/source-contract.json').is_file():
