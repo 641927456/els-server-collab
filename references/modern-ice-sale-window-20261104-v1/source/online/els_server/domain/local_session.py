@@ -480,7 +480,8 @@ class LocalSession:
         from els_server.domain.normal_fatigue_flow import synchronization as normal_fatigue_sync
         from els_server.domain.pending_part_end import finish as finish_part_end
         from els_server.domain.hot_time import synchronize as hot_time_sync
-        return finish_part_end(self,hot_time_sync(self,normal_fatigue_sync(self,ariel_preview(self,answer))))
+        from els_server.domain.modern_ice_flow import synchronize as ice_sale_sync
+        return finish_part_end(self,ice_sale_sync(self,hot_time_sync(self,normal_fatigue_sync(self,ariel_preview(self,answer)))))
 
 
 
