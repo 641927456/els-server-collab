@@ -1,0 +1,21 @@
+{
+  "earlier_fixture_failures": [
+    {
+      "failure": "New parent mixed queue requires account.character/client_build/role/summon_requests in fixture.",
+      "correction": "Supply the existing session contract; no runtime handler changed."
+    },
+    {
+      "failure": "The current request decoder now rejects allocated key>=0; using it for a response failed.",
+      "correction": "Compare emitted response wire against the native mode0 serializer with authoritative key/level, without altering request decoder."
+    }
+  ],
+  "unchanged_index_guard_evidence_reused": {
+    "path": "fix-v1/source-index-tests.json",
+    "sha256": "88501b94bf7623b0f8d037e88b2e7f12a44c107bb2257b2cdfc177210212641c",
+    "builder_sha256": "ff00be29081f19cd21ecc30cf635ef1d7ca74bf9510a00dba7785912f1213e9b"
+  },
+  "Git_whitespace_check": {
+    "first_failure": "Frozen Windows CRLF was treated as trailing whitespace by the default Git rule.",
+    "correction": "Archive-scoped whitespace=cr-at-eol preserves the tested source bytes; no newline rewriting of runtime inputs."
+  }
+}
