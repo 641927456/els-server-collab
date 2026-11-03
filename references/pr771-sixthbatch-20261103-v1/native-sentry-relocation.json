@@ -1,0 +1,52 @@
+{
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "function": "200C720",
+  "binding": "Eve primary v14F8; 1041040 invokes it with0 after BD",
+  "original_getters_executed": true,
+  "position_service": "15710E0 (observed, not executed)",
+  "cases": [
+    {
+      "filter": 0,
+      "calls": [
+        {
+          "actor": "owned384",
+          "position": [
+            125.0,
+            50.0,
+            10.0
+          ],
+          "facing": 1
+        },
+        {
+          "actor": "owned519",
+          "position": [
+            125.0,
+            50.0,
+            10.0
+          ],
+          "facing": 1
+        }
+      ],
+      "owner_and_actor_storage_unchanged": true
+    },
+    {
+      "filter": 384,
+      "calls": [
+        {
+          "actor": "owned384",
+          "position": [
+            125.0,
+            50.0,
+            10.0
+          ],
+          "facing": 1
+        }
+      ],
+      "owner_and_actor_storage_unchanged": true
+    }
+  ],
+  "full_selector_returned": true,
+  "original_image_unchanged": true,
+  "natural_GUI": false,
+  "live_process": false
+}
