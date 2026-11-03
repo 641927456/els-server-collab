@@ -1,0 +1,262 @@
+--- a/els_server/domain/resonance_2026_allocations.py
++++ b/els_server/domain/resonance_2026_allocations.py
+@@ -10,6 +10,13 @@
+ from functools import lru_cache
+ 
+ DEFINITION_SHA256='44fafbf5bd676453af0c5ad9d38b83bb853ae9a9a4a0d123f77dfbb0b0cb992a'
++
++
++class ResonanceRejected(ValueError):
++    """An authoritative ERP business refusal with a verified native result."""
++    def __init__(self,result,message):
++        self.result=result
++        super().__init__(message)
+ 
+ 
+ @dataclass(frozen=True)
+@@ -81,10 +88,10 @@
+         bonus=self._points(bonus_points,bonus=True)
+         spent=sum(delta.values())
+         if spent>available_points:
+-            raise ValueError('Insufficient available resonance points')
++            raise ResonanceRejected(3046,'Insufficient available resonance points')
+         for key,value in delta.items():
+             if old.get(key,0)+bonus.get(key,0)+value>self.stat(key).maximum:
+-                raise ValueError('Allocation plus temporary bonus exceeds stat limit')
++                raise ResonanceRejected(1973 if bonus.get(key,0) else 1,'Allocation plus temporary bonus exceeds stat limit')
+         updated=dict(old)
+         for key,value in delta.items():updated[key]=updated.get(key,0)+value
+         return AllocationPlan(tuple(sorted(updated.items())),available_points-spent,spent)
+--- a/els_server/protocol/resonance_2026_request.py
++++ b/els_server/protocol/resonance_2026_request.py
+@@ -6,6 +6,7 @@
+ """
+ from dataclasses import dataclass
+ import struct
++from els_server.domain.resonance_2026_allocations import ResonanceRejected
+ 
+ 
+ @dataclass(frozen=True)
+@@ -61,7 +62,7 @@
+         if type(selected_page) is not int or not 1 <= selected_page <= 4:
+             raise ValueError('Authoritative selected page required')
+         if type(self.selected_page) is not int or self.selected_page != selected_page:
+-            raise ValueError('Allocation page is stale or unowned')
++            raise ResonanceRejected(2051,'Allocation page is stale or unowned')
+         if type(self.groups) is not tuple or len(self.groups) > 3:
+             raise ValueError('Invalid resonance groups')
+         additions = []
+--- a/els_server/storage/resonance_2026_pages.py
++++ b/els_server/storage/resonance_2026_pages.py
+@@ -12,7 +12,7 @@
+ import sqlite3
+ import uuid
+ 
+-from els_server.domain.resonance_2026_allocations import ResonanceAllocations, DEFINITION_SHA256
++from els_server.domain.resonance_2026_allocations import ResonanceAllocations,ResonanceRejected, DEFINITION_SHA256
+ from els_server.protocol.resonance_2026_request import ResonanceAllocationRequest
+ 
+ 
+@@ -199,7 +199,7 @@
+         integer(selected_page, 1, 4)
+         def change(current, revision):
+             if current is None or not current.enabled or selected_page > len(current.pages):
+-                raise ValueError('Resonance page is not available')
++                raise ResonanceRejected(2056,'Resonance page is not available')
+             return CharacterResonancePages(revision, current.enabled, selected_page, current.pages)
+         return self.mutate(account=account, character=character, operation=operation,
+             expected_revision=expected_revision, kind='select', inputs=selected_page, change=change)
+--- a/els_server/storage/resonance_2026_resets.py
++++ b/els_server/storage/resonance_2026_resets.py
+@@ -1,6 +1,7 @@
+ """Refund points and consume owned reset items in one caller SQLite transaction."""
+ import hashlib,json,time
+ from els_server.protocol.resonance_2026_request import ResonanceAllocationRequest
++from els_server.domain.resonance_2026_allocations import ResonanceRejected
+ from els_server.protocol.resonance_2026_reply import snapshot_reply
+ from els_server.protocol.resonance_2026_reset import inventory_reply
+ from els_server.protocol.protocol_codec import encode_event
+@@ -40,7 +41,7 @@
+         rows=[i for i in load_items(self.db,character) if i['template'] in self.items.allowed[kind]
+             and i['group']==4 and not expired(i,now=now) and not locked(i,now=now)]
+         rows.sort(key=lambda i:(i.get('expires_at',2**63-1),order[i['template']],i['slot'],i['uid']))
+-        if sum(i['count'] for i in rows)<quantity:raise ValueError('Insufficient owned current unlocked reset items')
++        if sum(i['count'] for i in rows)<quantity:raise ResonanceRejected(1791 if kind=='coin' else 1787,'Insufficient owned current unlocked reset items')
+         consumed=[];positions=[]
+         for item in rows:
+             if not quantity:break
+@@ -81,7 +82,7 @@
+             if current is None or not current.enabled:raise ValueError('No opened reset profile')
+             selected=current.selected();old=dict(selected.points);rules=pages.rules
+             request=ResonanceAllocationRequest.decode(payload)
+-            if request.selected_page!=current.selected_page:raise ValueError('Stale reset page')
++            if request.selected_page!=current.selected_page:raise ResonanceRejected(2051,'Stale reset page')
+             deltas={}
+             for tab,values in request.groups:
+                 for stat,delta in values:
+@@ -100,8 +101,9 @@
+             if temporary is not None:
+                 stat,bonus=temporary[:2]
+                 if deltas.get(stat,0)>0 and updated.get(stat,0)+bonus>rules.stat(stat).maximum:
+-                    raise ValueError('Mixed refund/addition exceeds native temporary capacity')
++                    raise ResonanceRejected(1973,'Mixed refund/addition exceeds native temporary capacity')
+             remaining=selected.available_points-sum(deltas.values());item_kind='coin';item_count=cost
++            if remaining<0:raise ResonanceRejected(3046,'Insufficient available resonance points after refund')
+             checked=rules.add(current=tuple(sorted(updated.items())),additions=(),available_points=remaining,bonus_points=())
+             used['positions'],used['consumed']=self._consume(character,item_kind,item_count)
+             edited=tuple(ResonancePage(p.page_id,checked.remaining_points,checked.points) if p.page_id==current.selected_page else p for p in current.pages)
+--- a/els_server/storage/resonance_2026_scrolls.py
++++ b/els_server/storage/resonance_2026_scrolls.py
+@@ -1,6 +1,7 @@
+ """Atomic native613 category refund with one existing ordinary scroll."""
+ import hashlib,json
+ from els_server.protocol.resonance_2026_scroll import scroll_request
++from els_server.domain.resonance_2026_allocations import ResonanceRejected
+ from els_server.storage.resonance_2026_resets import ResetOperations,canonical
+ from els_server.storage.resonance_2026_pages import CharacterResonancePages,ResonancePage
+ from els_server.storage.item_actor import require_active_character
+@@ -32,13 +33,15 @@
+             raise ValueError('Page operation exists without matching scroll receipt')
+         used={}
+         def change(current,revision):
+-            if current is None or not current.enabled or page!=current.selected_page:
+-                raise ValueError('Stale or unopened category scroll page')
++            if current is None or not current.enabled:
++                raise ResonanceRejected(1788,'Unopened category scroll page')
++            if page!=current.selected_page:
++                raise ResonanceRejected(2051,'Stale category scroll page')
+             selected=current.selected();rules=pages.rules
+             refund=sum(value for stat,value in selected.points if rules.stat(stat).tab==category)
+             # The UI-only empty-category policy is not yet recovered. This
+             # finite positive-refund route refuses it without spending a scroll.
+-            if refund<=0:raise ValueError('Empty-category scroll policy is not verified')
++            if refund<=0:raise ResonanceRejected(1789,'Empty-category scroll policy is not verified')
+             updated=tuple((stat,0 if rules.stat(stat).tab==category else value)for stat,value in selected.points)
+             checked=rules.add(current=updated,additions=(),available_points=selected.available_points+refund,bonus_points=())
+             used['positions'],used['consumed']=self._consume(character,'scroll',1)
+--- a/els_server/storage/resonance_period.py
++++ b/els_server/storage/resonance_period.py
+@@ -7,6 +7,7 @@
+ from dataclasses import replace
+ from pathlib import Path
+ import json,sqlite3,time
++from els_server.domain.resonance_2026_allocations import ResonanceRejected
+ from els_server.storage.inventory_actions import _identity,_previous,_commit
+ from els_server.storage.inventory_state import load_items
+ from els_server.storage.equipment_receipt_state import current_changes
+@@ -66,13 +67,13 @@
+  def authority(db):
+   guard(db);require_active_character(db,character)
+   original=legacy(db,character,account)
+-  if not original['enabled']:raise ValueError('Resonance period requires opened ERP')
++  if not original['enabled']:raise ResonanceRejected(1788,'Resonance period requires opened ERP')
+   return original
+  with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
+   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');original=authority(db)
+   before=load_items(db,character);old=_previous(db,operation,digest)
+   item=next((i for i in before if i['uid']==source),None)
+-  if old is None and(item is None or item['template']!=TEMPLATE):raise ValueError('Owned current blessing source required')
++  if old is None and(item is None or item['template']!=TEMPLATE):raise ResonanceRejected(459,'Owned current blessing source required')
+   p=profiles(db);p.initialize();p.accounts.migrate_dominated_legacy(account=account,character=character)
+   state=p.synchronize(account=account,character=character);pages=p.pages.read(account,character);metadata=p._metadata(account,character)
+   if not pages.enabled or metadata[1]!=(0,0,0,0,0):raise ValueError('Unverified imported period state')
+@@ -87,7 +88,7 @@
+   if not WRITES_ENABLED:raise ValueError('Resonance period writer held')
+   stamp=int(time.time())if now is None else now
+   if type(stamp)is not int or stamp<=0:raise ValueError('Resonance period use clock')
+-  if page!=pages.selected_page:raise ValueError('Stale resonance period selected page')
++  if page!=pages.selected_page:raise ResonanceRejected(2051,'Stale resonance period selected page')
+   if active(db,account,character,now=stamp)is not None:raise ValueError('Current blessing already active; no second debit')
+   if item['metadata']!=0 or item['group']!=4 or not 1<=item['count']<2**31:raise ValueError('Blessing source shape')
+   from els_server.domain.item_expiration import require_current
+--- a/els_server/domain/resonance_allocation_flow.py
++++ b/els_server/domain/resonance_allocation_flow.py
+@@ -10,6 +10,7 @@
+ from functools import lru_cache
+ from pathlib import Path
+ import sqlite3,struct
++from els_server.domain.resonance_2026_allocations import ResonanceRejected
+ from els_server.storage.resonance_period import bonus as period_bonus
+ from els_server.protocol.protocol_codec import Event,encode_event
+ from els_server.storage.resonance_2026_profiles import ResonanceProfiles,NEW_PROFILE_POLICY
+@@ -47,7 +48,7 @@
+     from els_server.storage.item_actor import require_active_character
+     require_active_character(db,s.account.uid)
+     if not snapshot(db,s.account.uid,s.account.account_id)['enabled']:
+-        raise ValueError('ERP is not opened by an authoritative source')
++        raise ResonanceRejected(1788,'ERP is not opened by an authoritative source')
+     p.initialize()
+     p.accounts.migrate_dominated_legacy(account=s.account.account_id,character=s.account.uid)
+     state=p.synchronize(account=s.account.account_id,character=s.account.uid)
+@@ -78,11 +79,11 @@
+     return [*messages,notice]
+ 
+ 
+-def failure(s,kind):
++def failure(s,kind,*,result=256):
+     state=ResonanceCharacterState(0,0,0,False,(),0,0,0,0,0,0,0)
+-    if kind==0x79e:return page_switch_reply(result=256,state=state)
+-    # Complete error DTO consumed before the original result-256 gate.
+-    return Event(0x201,kind=0x614 if kind==0x613 else 0x612,payload=struct.pack('>iiQiBIIQBB',256,0,0,0,0,0,0,0,0,0))
++    if kind==0x79e:return page_switch_reply(result=result,state=state)
++    # Complete error DTO; the original result gate rejects before applying state.
++    return Event(0x201,kind=0x614 if kind==0x613 else 0x612,payload=struct.pack('>iiQiBIIQBB',result,0,0,0,0,0,0,0,0,0))
+ 
+ 
+ def handle(s,event,sequence):
+@@ -92,13 +93,15 @@
+     from els_server.domain.equipment_chip_flow import current_lease
+     if s.account.store.uid!=s.account.uid or not current_lease(s):return [failure(s,event.kind)]
+     try:
+-        if s.phase!='town_ready' or s.account.character()['level']<99:
+-            raise ValueError('Town and full-level character required')
+         if event.kind==0x611:ResonanceAllocationRequest.decode(event.payload)
+         elif event.kind==0x613:
+             from els_server.protocol.resonance_2026_scroll import scroll_request
+             scroll_request(event.payload)
+         else:page_switch_request(event.payload)
++    except ValueError:return [failure(s,event.kind)]
++    try:
++        if s.phase!='town_ready':raise ResonanceRejected(2,'Town character required')
++        if s.account.character()['level']<99:raise ResonanceRejected(2302,'Full-level character required')
+         with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
+             db.execute('BEGIN IMMEDIATE');p,state=prepare(db,s)
+             account,character=s.account.account_id,s.account.uid
+@@ -135,4 +138,4 @@
+                 reply=page_switch_reply(result=0,state=p.synchronize(account=account,character=character))
+             encode_event(reply)
+         return [reply]
+-    except ValueError:return [failure(s,event.kind)]
++    except ValueError as error:return [failure(s,event.kind,result=error.result if isinstance(error,ResonanceRejected) else 1)]
+--- a/els_server/domain/resonance_period_flow.py
++++ b/els_server/domain/resonance_period_flow.py
+@@ -1,5 +1,6 @@
+ """Original718 selected-stat consumer; no generic219 emulation or client changes."""
+ import sqlite3
++from els_server.domain.resonance_2026_allocations import ResonanceRejected
+ from els_server.protocol.resonance_period_messages import request,reply
+ from els_server.storage.resonance_period import use
+ 
+@@ -10,8 +11,10 @@
+  try:
+   if event.performers!=(0,)or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0 or type(sequence)is not int or not 1<=sequence<2**32:raise ValueError('Original718 envelope')
+   request(event.payload)
++ except ValueError:return[reply(result=256)]
++ try:
+   from els_server.domain.housing_access_flow import capture
+   same,guard=capture(s)
+   operation=s.shop_session_id+':resonance-period:'+str(s.account.uid)+':'+str(sequence)
+   return use(s.account.store.path,s.account.uid,s.account.account_id,event.payload,operation,guard)
+- except(ValueError,sqlite3.Error,OverflowError):return[reply(result=256)]if'same'not in locals()or same()else[]
++ except(ValueError,sqlite3.Error,OverflowError)as error:return[reply(result=error.result if isinstance(error,ResonanceRejected)else 1971)]if'same'not in locals()or same()else[]
+--- a/els_server/protocol/resonance_period_messages.py
++++ b/els_server/protocol/resonance_period_messages.py
+@@ -10,7 +10,7 @@
+  return uid,stat,page
+ 
+ def reply(changes=(),*,result=0):
+- if type(result)is not int or result not in(0,256):raise ValueError('Original719 result')
++ if type(result)is not int or not -2**31<=result<2**31:raise ValueError('Original719 result')
+  return Event(0x201,kind=0x719,payload=struct.pack('>i',result)+move_ack(changes)[:-4])
+ 
+ def notice(state):
