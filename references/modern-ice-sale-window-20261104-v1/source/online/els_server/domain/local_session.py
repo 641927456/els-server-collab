@@ -586,7 +586,8 @@ class LocalSession:
 
         from els_server.domain.luciel_state import periodic as luciel_periodic
 
-        mail_notices=market_notices+mail_periodic(self)+luciel_periodic(self)
+        from els_server.domain.server_announcements import periodic as announcement_periodic
+        mail_notices=market_notices+mail_periodic(self)+luciel_periodic(self)+announcement_periodic(self)
 
         if self.shop_test and self.role=='game' and self.phase=='town_ready' and self.shop_available_pending:
 
