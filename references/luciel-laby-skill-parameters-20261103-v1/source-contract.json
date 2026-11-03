@@ -1,0 +1,74 @@
+{
+  "format": 1,
+  "issue": 787,
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "scope": "Lu/Ciel and Laby native player-summon parameters, nonempty summon refusal and foreign-branch Mod visibility.",
+  "root_source_changed": false,
+  "current_engine_changed": false,
+  "automatic_deployment": false,
+  "channels": {
+    "online": {
+      "release": "native-luciel-laby-skill-parameters-20261103-v1",
+      "parent_release": "native-dungeon-fatigue-errors-20261103-v1",
+      "parent_manifest_sha256": "57823975975a9aa99a546722a61f98ba855fe2fb0544581afbab1a29cb8fe678",
+      "installed_manifest_sha256": "907a6e55d0b8dc1557f893eaf383dbf008ddd662e9463ef64826ad9ad4cf674f",
+      "files": [
+        {
+          "path": "els_server/domain/summons.py",
+          "source": "references/luciel-laby-skill-parameters-20261103-v1/source/els_server/domain/summons.py",
+          "sha256": "2eaa88e47e0a2cfd0532181a7f433b6cba95d83de6f85959f0b3e3e49b1a7df1",
+          "size": 5597,
+          "parent_sha256": "29a3705bd17fcdcd1eec030bc4eaf0765625d1c46a03994df16c7b5f287ac53e"
+        },
+        {
+          "path": "els_server/domain/dungeon_npcs.py",
+          "source": "references/luciel-laby-skill-parameters-20261103-v1/source/els_server/domain/dungeon_npcs.py",
+          "sha256": "fa9a88a38d8c1f4bd11ad496f63da6006473de50f237fbd255175c46076694bf",
+          "size": 6698,
+          "parent_sha256": "930a9a64ce43cf1fb777a39e66b55dbab2cbb0f01c00f7b95b1908ded21ad274"
+        },
+        {
+          "path": "els_server/domain/boosting_2026_force_equipment.py",
+          "source": "references/luciel-laby-skill-parameters-20261103-v1/source/els_server/domain/boosting_2026_force_equipment.py",
+          "sha256": "e953b13d49993134841e0a55f19a17f5765f3ae50ee45341777ad9b0d32a1ceb",
+          "size": 6749,
+          "parent_sha256": "dbfaa4f74dac2805b75abb21ae5e062457f6a966d4d4f3b37d595d25d8686ef0"
+        }
+      ]
+    }
+  },
+  "validation": {
+    "role_states": 42,
+    "ordinary_and_Master_skills": 455,
+    "level_seal_cases": 1160,
+    "equip_cases": 10888,
+    "career_ticket_transactions": 72,
+    "native_summon_templates": 12,
+    "native_parameter_consumer_cases": 60,
+    "wire_mode_cases": 1200,
+    "current_native_learning_snapshots_reused": 44,
+    "field_pvp_parameter_requests": 400,
+    "public_TLS_checks": [
+      "actual219_Mod_book_consumed_and_6D0_current_branch_equipment_visible",
+      "actual219_career_change_keeps_Mod_ownership_and_saved_selection_but_55B_hides_foreign_branch",
+      "public_solo_Shadow_Bolt1908_nonempty_parameters_roundtrip_original_C50040_and_expiry",
+      "foreign_owner_summon_rejected_with_nonempty_native1",
+      "cold_public_relogin_preserves_stock_and_55B_foreign_Mod_filter",
+      "public_solo_Laby_four_summons_nonempty_parameters_original_consumer_and_expiry",
+      "owned_cast_and_refusal_paths_add_no_ED_or_enemy_rewards"
+    ],
+    "observation_seconds": 125.11518409999553,
+    "owned_QA_cleaned": true,
+    "natural_GUI": false,
+    "natural_cast": false,
+    "all_skill_effects_qualified": false,
+    "screenshot_original_failure_uniquely_attributed": false,
+    "player_database_restore": false
+  },
+  "client_delta": 0,
+  "new_schema": false,
+  "LOCAL_changed": false,
+  "launcher_changed": false,
+  "compatibility": "Old empty-parameter Sentry and all 54 supported templates retain the same shape; saved Mod ownership/selections remain stored. Only current visible vectors filter a foreign branch.",
+  "private_evidence": "Detailed native/isolated/live evidence remains in the author workspace. No credentials, databases, raw traffic, raw game logs or client binaries are included."
+}
