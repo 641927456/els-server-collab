@@ -1,0 +1,14 @@
+--- a/els_server/domain/inventory_items.py
++++ b/els_server/domain/inventory_items.py
+@@ -597,6 +597,9 @@
+ def validate_item(item):
+  if isinstance(item,dict)and item.get('template')in existing_native_consumer_holds:
+-  from els_server.domain.retained_native_consumables import validate_existing
+-  return validate_existing(item)
++  from els_server.domain.retained_native_consumables import _ExistingNativeConsumable,validate_existing
++  # Late verified reward registration authorizes ordinary instances. Existing
++  # SQL reader objects still retain their unchanged-instance contract.
++  if type(item)is _ExistingNativeConsumable or item['template']not in VERIFIED_TEMPLATES:
++   return validate_existing(item)
+  if isinstance(item,dict)and item.get("template")==303673:
+   from els_server.domain.potion_choice_box import validate_existing
