@@ -1,0 +1,18 @@
+{
+  "tests": 3,
+  "failures": [
+    {
+      "test": "test_discard_partial_full_and_retry_after_slot_replacement",
+      "trace": "Traceback (most recent call last):\n  File \"G:/els/tests/test_inventory_actions.py\", line 116, in test_discard_partial_full_and_retry_after_slot_replacement\n    self.assertEqual([e.kind for e in reply], [0x10a])\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Lists differ: [1209, 3157, 266] != [266]\n\nFirst differing element 0:\n1209\n266\n\nFirst list contains 2 additional elements.\nFirst extra element 1:\n3157\n\n- [1209, 3157, 266]\n+ [266]\n"
+    },
+    {
+      "test": "test_phase_and_sequence_rejections_send_failure_without_mutation",
+      "trace": "Traceback (most recent call last):\n  File \"G:/els/tests/test_inventory_actions.py\", line 220, in test_phase_and_sequence_rejections_send_failure_without_mutation\n    self.assertEqual(split[0].payload[-4:], struct.pack('>i', -1))\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: b'\\x00\\x00\\x00\\x00' != b'\\xff\\xff\\xff\\xff'\n"
+    },
+    {
+      "test": "test_split_dispatch_and_reload_preserve_total_and_economy",
+      "trace": "Traceback (most recent call last):\n  File \"G:/els/tests/test_inventory_actions.py\", line 66, in test_split_dispatch_and_reload_preserve_total_and_economy\n    self.assertEqual([e.kind for e in result], [0x556])\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Lists differ: [1209, 3157, 1366] != [1366]\n\nFirst differing element 0:\n1209\n1366\n\nFirst list contains 2 additional elements.\nFirst extra element 1:\n3157\n\n- [1209, 3157, 1366]\n+ [1366]\n"
+    }
+  ],
+  "errors": []
+}

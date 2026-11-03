@@ -1,0 +1,124 @@
+{
+  "passed": true,
+  "synthetic_rows": 469124,
+  "before": {
+    "ms": 10.410800110548735,
+    "vm_steps": 151400,
+    "rows": 209,
+    "result_sha256": "7dbb2fea728415dc7d3c9a19fb618ca41647045622c40a7d2ebc61dc8f91681b",
+    "plan": [
+      [
+        3,
+        0,
+        62,
+        "SEARCH activity518_facts USING INDEX sqlite_autoindex_activity518_facts_1 (campaign=? AND account=?)"
+      ]
+    ]
+  },
+  "after": {
+    "ms": 0.538199907168746,
+    "vm_steps": 1000,
+    "rows": 209,
+    "result_sha256": "7dbb2fea728415dc7d3c9a19fb618ca41647045622c40a7d2ebc61dc8f91681b",
+    "plan": [
+      [
+        3,
+        0,
+        61,
+        "SEARCH activity518_facts USING INDEX activity518_facts_account_period (campaign=? AND account=? AND period=?)"
+      ]
+    ]
+  },
+  "cursor_before": {
+    "carry_no_new_facts": {
+      "ms": 2.561400178819895,
+      "vm_steps": 151000,
+      "rows": 0,
+      "result_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "plan": [
+        [
+          3,
+          0,
+          62,
+          "SEARCH activity518_facts USING INDEX sqlite_autoindex_activity518_facts_1 (campaign=? AND account=?)"
+        ]
+      ]
+    },
+    "carry_new_facts": {
+      "ms": 2.5585999246686697,
+      "vm_steps": 151800,
+      "rows": 209,
+      "result_sha256": "8eb1fb8006e3489b10c7245e4392e37ce9cdbe3067f29c820ddba674428bde2f",
+      "plan": [
+        [
+          3,
+          0,
+          62,
+          "SEARCH activity518_facts USING INDEX sqlite_autoindex_activity518_facts_1 (campaign=? AND account=?)"
+        ]
+      ]
+    },
+    "daily_no_new_facts": {
+      "ms": 2.337000099942088,
+      "vm_steps": 151000,
+      "rows": 0,
+      "result_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "plan": [
+        [
+          3,
+          0,
+          62,
+          "SEARCH activity518_facts USING INDEX sqlite_autoindex_activity518_facts_1 (campaign=? AND account=?)"
+        ]
+      ]
+    }
+  },
+  "cursor_after": {
+    "carry_no_new_facts": {
+      "ms": 0.3480999730527401,
+      "vm_steps": 0,
+      "rows": 0,
+      "result_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "plan": [
+        [
+          3,
+          0,
+          50,
+          "SEARCH activity518_facts USING INDEX activity518_facts_account_cursor (campaign=? AND account=? AND rowid>?)"
+        ]
+      ]
+    },
+    "carry_new_facts": {
+      "ms": 0.4672000650316477,
+      "vm_steps": 1400,
+      "rows": 209,
+      "result_sha256": "8eb1fb8006e3489b10c7245e4392e37ce9cdbe3067f29c820ddba674428bde2f",
+      "plan": [
+        [
+          3,
+          0,
+          50,
+          "SEARCH activity518_facts USING INDEX activity518_facts_account_cursor (campaign=? AND account=? AND rowid>?)"
+        ]
+      ]
+    },
+    "daily_no_new_facts": {
+      "ms": 0.34099980257451534,
+      "vm_steps": 0,
+      "rows": 0,
+      "result_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "plan": [
+        [
+          3,
+          0,
+          49,
+          "SEARCH activity518_facts USING INDEX activity518_facts_account_period (campaign=? AND account=? AND period=? AND rowid>?)"
+        ]
+      ]
+    }
+  },
+  "migration_ms": 710.0544001441449,
+  "owned_runtime_removed": true,
+  "production_latency_claim": false,
+  "unchanged_period_before_result_reused": true
+}
