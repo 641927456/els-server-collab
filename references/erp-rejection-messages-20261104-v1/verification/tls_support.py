@@ -16,4 +16,3 @@ async def send(self,kind,payload=b'',event_id=0x202):
  if kind==0x5bf and not payload:payload=bytes(8)
  self.writer.write(encode_frame(encode_event(Event(event_id,kind=kind,payload=payload,performers=(0,))),self.keys,spi=self.spi,sequence=self.outgoing));self.outgoing+=1;await self.writer.drain()
 t.Peer.send=send;load('prompt_tls_reader',HERE/'native_fixture_reader.py').install(t)
-
