@@ -25,11 +25,7 @@ def catalog(name):
 
 def offers(unit_type=None):
     from els_server.domain.shop_listing import ice_equipment,NPC_MEDICINES
-    supplements=tuple(dict(sku=1200000000+p['template'],**{k:p[k] for k in ('template','name','category','price','quantity')})
+    return tuple(dict(sku=1200000000+p['template'],**{k:p[k] for k in ('template','name','category','price','quantity')})
                  for p in catalog('standalone')['offers']
                  if (unit_type is None or p['role'] in (0,unit_type))
                  and p['template'] not in ice_equipment() and p['template'] not in NPC_MEDICINES)
-
-    # Ordinary scroll; owner-approved local price, 2026-11-03.
-    return supplements+(dict(sku=1200287960,template=287960,
-        name=client_data().item(287960)['name'],category=41,price=50,quantity=1),)

@@ -1,0 +1,67 @@
+{
+  "format": 1,
+  "issue": 775,
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "scope": "Archive the already installed ordinary scroll287960 listing at the owner-approved local price of 50 ED per item.",
+  "root_source_changed": false,
+  "current_engine_changed": false,
+  "automatic_deployment": false,
+  "channels": {
+    "online": {
+      "release": "native-blessed-timespace-shop-20261103-v1",
+      "parent_release": "native-entry-boost-reward-sync-20261102-v1",
+      "parent_manifest_sha256": "f9a78ccad1b82e504a0402dace4c186908afac64fbb086c2ebddcff6f5bcf2f1",
+      "installed_manifest_sha256": "360da6be59278412ddf10e1b7e647d9475a311797361008d89ba272341278f60",
+      "files": [
+        {
+          "path": "els_server/domain/shop_additions.py",
+          "parent_sha256": "609d618845b681543c37242fbd9bb1df96feae6baf4b04ee6e31934dab20bce0",
+          "sha256": "58079e8bf4dee79b6c66b24c141737c14fa91b1368deaaf7efaa0f3e57efbc82",
+          "size": 2503,
+          "source": "references/blessed-timespace-shop-20261103-v1/source/els_server/domain/shop_additions.py"
+        }
+      ]
+    }
+  },
+  "policy": {
+    "template": 287960,
+    "price_ED": 50,
+    "quantity": 1,
+    "category": 41,
+    "pack_sizes": [
+      1,
+      10,
+      50,
+      100
+    ],
+    "bound_variant_listed": false
+  },
+  "validation": {
+    "isolated": [
+      "all 15 character types and common catalog list the ordinary scroll once",
+      "all existing offers and order unchanged; bound variant remains unlisted",
+      "native catalog serialization succeeds",
+      "1/10/50/100 packs purchased at 50 ED per unit; 161 items cost 8050 ED",
+      "existing 999-item local stack limit retained; inventory and balance survive cold read",
+      "persisted replay has no economic changes; conflicting replay rejected",
+      "insufficient ED, precommit encoding failure and partial-merge full bag all roll back"
+    ],
+    "public_TLS": [
+      "actual_running_native_ED_catalog_lists_scroll_1_10_50_100_at_50_ED_each",
+      "four_real_native_purchases_commit_161_scrolls_and_exact_8050_ED_debit",
+      "cold_relogin_keeps_exact_scroll_inventory_wallet_and_purchase_receipts"
+    ],
+    "public_purchased_items": 161,
+    "public_debited_ED": 8050,
+    "observation_seconds": 125.58722770004533,
+    "own_QA_cleaned": true,
+    "publication_closed": true,
+    "natural_GUI": false,
+    "player_database_restore": false
+  },
+  "client_delta": 0,
+  "new_schema": false,
+  "LOCAL_changed": false,
+  "launcher_changed": false,
+  "private_evidence": "Original delivery receipts remain in the author workspace; no credentials, player databases, raw logs or captures are included."
+}
