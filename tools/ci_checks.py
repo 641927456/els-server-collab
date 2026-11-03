@@ -37,6 +37,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_racing_reset.py')])
     if (ROOT/'references/pr771-racing-full-20261103-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_racing_full.py')])
+    if (ROOT/'references/pr771-online-installed-20261103-v2/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_online_installed.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
     if (ROOT/'references/pending-source-integration-20261031-v1/source-contract.json').is_file():

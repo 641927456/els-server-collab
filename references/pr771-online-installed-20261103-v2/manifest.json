@@ -1,0 +1,58 @@
+{
+  "source_candidate_git_head": "9bb522e7ae96b99e9c3b40611ff39a768ba5aba7",
+  "installed_release": "native-pr771-gameplay-racing-20261103-v2",
+  "installed_manifest_sha256": "7a6e49eb58883ab39b7bf8c88353757e99cb6e7af0c8ebfe8e32e2edae920e7b",
+  "installed_parent_release": "native-attendance-projection-reuse-20261103-v4",
+  "installed_parent_manifest_sha256": "a1df0af0fe6aa0a73f0ac5412c730d290c0f06f7d697ff3257f7d5f1ef033ef7",
+  "files": [
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "sha256": "f9e7488ae9c7f244475b9239a9504ae380069e429754e8f530d666463a0c0649",
+      "size": 18876,
+      "prior_candidate_sha256": "f2fd098371bfd5867993b66470fa02a1cb599f3d22b120e97e8bf6165600e4ea",
+      "installed_parent_sha256": "d5a9703ae393e46415d9ff4084e606a71341ff4b49f6f1d4aa15779a388fdf39"
+    },
+    {
+      "path": "els_server/domain/tutorial_quests.py",
+      "sha256": "8a441f2b3dae2920f0d079ca7b3ace91cf16e23d85795a1aa3a6d9ea45ad607e",
+      "size": 9461,
+      "prior_candidate_sha256": "777b0e21497adf5cd36f4c39826e16d2d0cd4be9019ebac4b4cf38c410b0822f",
+      "installed_parent_sha256": "c7d4f4e82f9a36ba9b6d57023733b9b57bc95c783868632882e6661624c0e68d"
+    },
+    {
+      "path": "els_server/storage/epic_followups.py",
+      "sha256": "f7d659a2c7ff10bb9115d82a8d5217d61657a7ae072b5e0a16441670d07cdd19",
+      "size": 9188,
+      "prior_candidate_sha256": "7dc5fcc877e2a982a511b12cdf4a3bf4cfa3a3cd50f63a1a3e7c21fb6f337c0c",
+      "installed_parent_sha256": "b9c64a75600bb005b68e2a3169dd257bcb476385c3bd3bd71b7eb13c04b479d9"
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "sha256": "b184c3d90985ce1badfab9b1cc4438c0aafa067be56aec90a357e3596642a32b",
+      "size": 36059,
+      "prior_candidate_sha256": "5ea5c7096d2b931ecded10813a5f78994dfcfc0b9a694e84c47dbd8a7529823b",
+      "installed_parent_sha256": "cda44418abb510b97e9f3b8e470fd0990a4f8ec11b0fa3b24484c297e955bd61"
+    }
+  ],
+  "combined_sources": 59,
+  "installed_delta": 59,
+  "installed_new_files": 23,
+  "installed_runtime_files": 1474,
+  "new_lazy_table_definitions": [
+    "mount_growth",
+    "mount_race_busy",
+    "mount_race_results",
+    "mount_races",
+    "mount_reset_receipts",
+    "pet_consumable_cooldowns"
+  ],
+  "installation_DDL": 0,
+  "client_changes": 0,
+  "original_EXE_KOM_changes": false,
+  "master_road_HP_unchanged": true,
+  "local_installed": false,
+  "launcher_changed": false,
+  "local_pointer_unchanged": true,
+  "launcher_pointer_unchanged": true,
+  "Git_merge": false
+}
