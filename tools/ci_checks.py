@@ -17,6 +17,9 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'references/dungeon-callm-source-closure-20261104-v8/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'references/dungeon-callm-source-closure-20261104-v8/verify_contract.py')])
+        run([sys.executable,'-B',str(ROOT/'references/dungeon-callm-source-closure-20261104-v8/test_callm_flow.py')])
     if (ROOT/'references/dungeon-spawn-loot-scope-20261104-v6/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'references/dungeon-spawn-loot-scope-20261104-v6/verify_contract.py')])
         run([sys.executable,'-B',str(ROOT/'references/dungeon-spawn-loot-scope-20261104-v6/test_loot_scope.py')])

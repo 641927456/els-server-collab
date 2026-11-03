@@ -1,0 +1,306 @@
+{
+  "ok": true,
+  "method": "Actual static seeds, complete active source closure and original native ordered-event/state-change guard",
+  "native_proof_sha256": "21a20d560d4444da2cc36f080262af944e0892fd7ae6a93ea469bfcdcf50232e",
+  "producer_12578_sha256": "a1fa1e0ef8cc2fb78e8b7f11f29e1364d8aad402fcbad04b873d3f4406a04fbf",
+  "dominance": [
+    {
+      "state": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE1_BOSS_TARITH_ULT1_WAIT",
+      "first_event": 1,
+      "condition": {
+        "RATE": 100
+      },
+      "destination": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE1_BOSS_TARITH_ATTACK_ULT1_END",
+      "pruned_later_event_indices": [
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "state": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE1_BOSS_TARITH_ULT1_WALK",
+      "first_event": 1,
+      "condition": {
+        "RATE": 100
+      },
+      "destination": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE1_BOSS_TARITH_ATTACK_ULT1_END",
+      "pruned_later_event_indices": [
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "contexts": [
+    {
+      "dungeon": 35870,
+      "stage": 20,
+      "active_source_identities": [
+        12578,
+        12579,
+        12580,
+        12581,
+        12583,
+        12585,
+        12586,
+        12587,
+        12588,
+        12589,
+        12603
+      ],
+      "activation_rounds": [
+        {
+          "active": [
+            12578,
+            12579,
+            12580,
+            12588,
+            12589
+          ],
+          "new": [
+            12581,
+            12586,
+            12587,
+            12603
+          ]
+        },
+        {
+          "active": [
+            12578,
+            12579,
+            12580,
+            12581,
+            12586,
+            12587,
+            12588,
+            12589,
+            12603
+          ],
+          "new": [
+            12583
+          ]
+        },
+        {
+          "active": [
+            12578,
+            12579,
+            12580,
+            12581,
+            12583,
+            12586,
+            12587,
+            12588,
+            12589,
+            12603
+          ],
+          "new": [
+            12585
+          ]
+        },
+        {
+          "active": [
+            12578,
+            12579,
+            12580,
+            12581,
+            12583,
+            12585,
+            12586,
+            12587,
+            12588,
+            12589,
+            12603
+          ],
+          "new": []
+        }
+      ],
+      "missing_enum_callback_reachable": false,
+      "missing_script_12582_has_executable_producer": false,
+      "required_original_sources_complete": true,
+      "unknown_spawn_arguments": 0,
+      "unknown_state_calls": 0,
+      "spawn_edges": [
+        {
+          "producer": 12578,
+          "target": 12581,
+          "prototype": 11,
+          "pc": 65
+        },
+        {
+          "producer": 12578,
+          "target": 12603,
+          "prototype": 14,
+          "pc": 65
+        },
+        {
+          "producer": 12578,
+          "target": 12586,
+          "prototype": 14,
+          "pc": 84
+        },
+        {
+          "producer": 12578,
+          "target": 12587,
+          "prototype": 30,
+          "pc": 64
+        },
+        {
+          "producer": 12579,
+          "target": 12603,
+          "prototype": 9,
+          "pc": 43
+        },
+        {
+          "producer": 12581,
+          "target": 12583,
+          "prototype": 0,
+          "pc": 57
+        },
+        {
+          "producer": 12583,
+          "target": 12585,
+          "prototype": 4,
+          "pc": 33
+        }
+      ]
+    },
+    {
+      "dungeon": 35870,
+      "stage": 21,
+      "active_source_identities": [
+        12578,
+        12579,
+        12580,
+        12581,
+        12583,
+        12585,
+        12586,
+        12587,
+        12588,
+        12589,
+        12603
+      ],
+      "activation_rounds": [
+        {
+          "active": [
+            12578,
+            12579,
+            12580,
+            12588,
+            12589
+          ],
+          "new": [
+            12581,
+            12586,
+            12587,
+            12603
+          ]
+        },
+        {
+          "active": [
+            12578,
+            12579,
+            12580,
+            12581,
+            12586,
+            12587,
+            12588,
+            12589,
+            12603
+          ],
+          "new": [
+            12583
+          ]
+        },
+        {
+          "active": [
+            12578,
+            12579,
+            12580,
+            12581,
+            12583,
+            12586,
+            12587,
+            12588,
+            12589,
+            12603
+          ],
+          "new": [
+            12585
+          ]
+        },
+        {
+          "active": [
+            12578,
+            12579,
+            12580,
+            12581,
+            12583,
+            12585,
+            12586,
+            12587,
+            12588,
+            12589,
+            12603
+          ],
+          "new": []
+        }
+      ],
+      "missing_enum_callback_reachable": false,
+      "missing_script_12582_has_executable_producer": false,
+      "required_original_sources_complete": true,
+      "unknown_spawn_arguments": 0,
+      "unknown_state_calls": 0,
+      "spawn_edges": [
+        {
+          "producer": 12578,
+          "target": 12581,
+          "prototype": 11,
+          "pc": 65
+        },
+        {
+          "producer": 12578,
+          "target": 12603,
+          "prototype": 14,
+          "pc": 65
+        },
+        {
+          "producer": 12578,
+          "target": 12586,
+          "prototype": 14,
+          "pc": 84
+        },
+        {
+          "producer": 12578,
+          "target": 12587,
+          "prototype": 30,
+          "pc": 64
+        },
+        {
+          "producer": 12579,
+          "target": 12603,
+          "prototype": 9,
+          "pc": 43
+        },
+        {
+          "producer": 12581,
+          "target": 12583,
+          "prototype": 0,
+          "pc": 57
+        },
+        {
+          "producer": 12583,
+          "target": 12585,
+          "prototype": 4,
+          "pc": 33
+        }
+      ]
+    }
+  ],
+  "conditional_event_mutator_methods": [],
+  "missing_names_physically_restored": false,
+  "missing_names_need_no_runtime_substitute": true,
+  "new_required_source_12585_restored_to_server_metadata": true,
+  "natural_GUI_or_full_combat_verified": false,
+  "original_client_modified": false
+}

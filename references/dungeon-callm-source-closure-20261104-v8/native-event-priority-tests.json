@@ -1,0 +1,113 @@
+{
+  "ok": true,
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "scope": "Unmodified native instruction blocks only; no full actor or natural-combat simulation",
+  "condition_constructor_rva": "0x19e3070",
+  "condition_rate_field": "0x14",
+  "rate_dispatch": [
+    {
+      "rate": 100,
+      "condition_mode": 0,
+      "native_path": "direct_state_change"
+    },
+    {
+      "rate": 100,
+      "condition_mode": 1,
+      "native_path": "direct_state_change"
+    },
+    {
+      "rate": 0,
+      "condition_mode": 0,
+      "native_path": "no_rate_transition"
+    },
+    {
+      "rate": 0,
+      "condition_mode": 1,
+      "native_path": "no_rate_transition"
+    }
+  ],
+  "state_change_commit_rva": "0x1694ad2",
+  "event_loop_guard_rva": "0x16bec02",
+  "successful_change_stops_before_next_event": [
+    {
+      "counter": 0,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 1,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 2,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 3,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 4,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 5,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 6,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 7,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 8,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 9,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 10,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 11,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 12,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 13,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 14,
+      "after_success": "stop_event_loop"
+    },
+    {
+      "counter": 15,
+      "after_success": "stop_event_loop"
+    }
+  ],
+  "unchanged_counter_negative_cases": 16,
+  "original_loader_numeric_index_sequence": {
+    "start": 1,
+    "next": "increment by one",
+    "vector_element": "index minus one",
+    "rva": "0x1614952-0x16149ea"
+  },
+  "code_sha256": {
+    "0x19e3070-0x19e36f9": "516e88223ade701c59195774417512325a4d195ad77bdc5c0769749f07e17d65",
+    "0x16bea39-0x16bea5a": "77f3b25217c42e40722c105766ab74007e875c19db0e2fb95aca24e56cd0a3bd",
+    "0x1694ad2-0x1694af8": "6606de75d15d89e377fb5779870ff499368b86f9d91f3d1ceb5d7302c3f30443",
+    "0x16bec02-0x16bec13": "8b68e6f581924528e1edd63847f6cbcfc765c5822668bbb4df75d80a96e09ad3",
+    "0x1614952-0x16149ea": "920e9bb0f660eda56ff249ae05fc599d7f199e72c4d72d4e3e60ecd7165e3509"
+  },
+  "original_client_modified": false,
+  "client_processes": 0
+}
