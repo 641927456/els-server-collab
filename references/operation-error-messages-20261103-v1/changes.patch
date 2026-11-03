@@ -1,0 +1,165 @@
+--- a/els_server/storage/npc_trade.py
++++ b/els_server/storage/npc_trade.py
+@@ -48,9 +48,15 @@
+     return validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?', (owner,)).fetchone())
+ 
+ 
++class InsufficientED(ValueError):
++    pass
++
++
+ def charge(db, owner, balance, amount):
+-    if not 0 <= amount <= balance['ed'] or balance['revision'] >= 2**63-1:
++    if not 0 <= amount or balance['revision'] >= 2**63-1:
+         raise ValueError('Merchant money or revision bound')
++    if amount > balance['ed']:
++        raise InsufficientED('Merchant ED insufficient')
+     db.execute('UPDATE reward_balances SET ed=ed-?,revision=revision+1 WHERE uid=?', (amount, owner))
+     return balance['ed']-amount
+ 
+--- a/els_server/storage/manufacture.py
++++ b/els_server/storage/manufacture.py
+@@ -56,6 +56,10 @@
+         towns={t for t,npc in stock() if npc in npcs}
+         if towns and town not in towns:raise ValueError('Recipe belongs to another town')
+ 
++class MissingMaterials(ValueError):
++    pass
++
++
+ def allocate(request,items,demand,now):
+     candidates=inventory_candidates(items,now=now)
+     usable={uid:t for t,rows in candidates.items() for uid,count in rows}
+@@ -68,7 +72,7 @@
+             take=min(count,need)
+             if take:result.append(dict(uid=uid,quantity=take));need-=take
+             if not need:break
+-        if need:raise ValueError('Insufficient crafting materials')
++        if need:raise MissingMaterials('Insufficient crafting materials')
+     return tuple(result)
+ 
+ def candidates_for(recipe,character,source):
+@@ -204,7 +208,10 @@
+                 if source is None and any(client_data().item(t)['item_type'] in (1,2,3) for t in demand['materials']):raise ValueError('Upgrade source not selected/consumed')
+             selected=next((i for i in items if i['uid']==request.selected_uid),None)
+             pool=candidates_for(recipe,character,source or selected)
+-            if balances['ed']<demand['base_ed'] or balances['revision']>=2**63-1:raise ValueError('Craft ED insufficient/bound')
++            if balances['revision']>=2**63-1:raise ValueError('Craft ED revision bound')
++            if balances['ed']<demand['base_ed']:
++                from els_server.storage.npc_trade import InsufficientED
++                raise InsufficientED('Craft ED insufficient')
+             quota=None
+             if request.recipe_id==LIMITED:
+                 ensure_schema(db);quota=reserve(db,owner,account_id,request.recipe_id,request.quantity,now=now,region='CN')
+--- a/els_server/storage/equipment_restoration.py
++++ b/els_server/storage/equipment_restoration.py
+@@ -11,6 +11,10 @@
+ from els_server.storage.profession_state import require_owner
+ from els_server.storage.item_instances import remove
+ from els_server.storage.equipment_enhancement import replace
++
++class MissingRestorationScroll(ValueError):
++ pass
++
+ 
+ def restore(path,owner,payload,operation,*,account_id=None):
+  uid,template=request(payload);owner,digest=_identity(owner,0x21f,payload,operation)
+@@ -27,7 +31,7 @@
+   from els_server.domain.owned_scroll_families import restoration_target
+   restoration_target(template,item)
+   material=next((i for i in before if i['template']==template and i['group']==4 and not expired(i) and not locked(i)),None)
+-  if material is None:raise ValueError('Missing owned current restoration scroll')
++  if material is None:raise MissingRestorationScroll('Missing owned current restoration scroll')
+   if material['count']==1:remove(db,owner,material)
+   else:db.execute('UPDATE inventory_items SET count=count-1 WHERE owner=? AND uid=?',(owner,material['uid']))
+   replace(db,owner,uid,item['enhancement'],-item['enhancement'])
+--- a/els_server/domain/equipment_ui_flow.py
++++ b/els_server/domain/equipment_ui_flow.py
+@@ -1,7 +1,9 @@
+ """Small adapter for recovered equipment UI business requests."""
+ from els_server.protocol.paid_enhancement_messages import acknowledgement
+ from els_server.protocol.protocol_codec import Event
+-from els_server.storage.paid_enhancement import enhance
++from els_server.storage.paid_enhancement import enhance
++from els_server.storage.npc_trade import InsufficientED
++from els_server.storage.equipment_restoration import MissingRestorationScroll
+ 
+ 
+ def handle(session,event,sequence):
+@@ -60,8 +62,8 @@
+                     raise ValueError('Socket actor or lease changed')
+             return socket(store.path,actor.uid,event.payload,operation,account_id=actor.account_id,
+                           session_id=session.shop_session_id,prepare=prepare_socket)
+-        except ValueError:
+-            return [Event(0x201,kind=reply,payload=socket_ack(result=-1))]
++        except ValueError as error:
++            return [Event(0x201,kind=reply,payload=socket_ack(result=1355 if isinstance(error,InsufficientED) else 1))]
+     if event.kind in (0x438,0x43a):
+         from els_server.storage.identification_ui import perform
+         from els_server.protocol.identification_messages import acknowledgement as identification_ack
+@@ -123,5 +125,6 @@
+             return handler(store.path,actor.uid,event.payload,operation,account_id=actor.account_id,authorize=authorize)
+         return handler(session.account.store.path,session.account.uid,event.payload,operation,
+                        account_id=session.account.account_id)
+-    except ValueError:
+-        return [Event(0x201,kind=reply,payload=encoder(ed,result=-1))]
++    except ValueError as error:
++        result=373 if isinstance(error,InsufficientED) else 380 if isinstance(error,MissingRestorationScroll) else 1
++        return [Event(0x201,kind=reply,payload=encoder(ed,result=result))]
+--- a/els_server/domain/manufacture_flow.py
++++ b/els_server/domain/manufacture_flow.py
+@@ -39,7 +39,9 @@
+         from els_server.domain.flask_flow import handle as flask_handle
+         return flask_handle(session,event,sequence)
+     if event.event_id!=0x202 or event.kind not in (0x198,0x4c2):return None
+-    from els_server.storage.manufacture import execute,select_profession
++    from els_server.storage.manufacture import execute,select_profession,MissingMaterials
++    from els_server.storage.npc_trade import InsufficientED
++    from els_server.storage.inventory_state import InventoryFull
+     from els_server.domain.manufacture_rules import policy
+     if policy()['mode']!='compatibility-v1':return None
+     def context():
+@@ -81,5 +83,5 @@
+     except (ValueError,sqlite3.Error) as exc:
+         if isinstance(exc,sqlite3.Error):logging.getLogger(__name__).exception('Manufacture transaction rejected')
+         ed=session.account.get_reward_balances()['ed'] if valid and authorize() else 0
+-        return [Event(0x201,kind=0x199,payload=manufacture_ack(result=-1,rewards={},changes=[],ed=ed,profession_xp=0,limit_id=0,limit_value=0))]
++        return [Event(0x201,kind=0x199,payload=manufacture_ack(result=302 if isinstance(exc,InsufficientED) else 303 if isinstance(exc,MissingMaterials) else 304 if isinstance(exc,InventoryFull) else 1,rewards={},changes=[],ed=ed,profession_xp=0,limit_id=0,limit_value=0))]
+     return receipt['prepared_reply']
+--- a/els_server/domain/trade_board_flow.py
++++ b/els_server/domain/trade_board_flow.py
+@@ -64,24 +64,24 @@
+  if kind==0x9fe:
+   try:selected=request(payload).kind
+   except ValueError:selected=1
+-  return Event(0x201,kind=0x9ff,payload=acknowledgement(selected,[],result=1168))
+- if kind in(0xa00,0xa0a,0xa0c):return query_reply(kind+1,result=1168)
+- if kind==0xa02:return wire.own_ack(result=1168)
+- if kind==0xa04:return wire.sale_ack(result=1168)
+- if kind==0x9fc:return wire.cancel_ack(0,result=1168)
+- if kind==0xa06:return wire.pickup_ack(0,result=1168)
++  return Event(0x201,kind=0x9ff,payload=acknowledgement(selected,[],result=1))
++ if kind in(0xa00,0xa0a,0xa0c):return query_reply(kind+1,result=1)
++ if kind==0xa02:return wire.own_ack(result=1)
++ if kind==0xa04:return wire.sale_ack(result=1)
++ if kind==0x9fc:return wire.cancel_ack(0,result=1)
++ if kind==0xa06:return wire.pickup_ack(0,result=1)
+  if kind==0xa18:
+   from els_server.protocol.tradeboard_minimum_messages import reply,request
+   try:template=request(payload).template
+   except ValueError:template=0
+-  return reply(template,result=1168)
++  return reply(template,result=1)
+  if kind==0xa13:
+   from els_server.protocol.tradeboard_history_messages import reply
+-  return reply(result=1168)
++  return reply(result=1)
+  if kind==0xa11:
+   from els_server.protocol.tradeboard_favorite_messages import reply
+-  return reply(result=1168)
+- return wire.purchase_ack(result=1168)
++  return reply(result=1)
++ return wire.purchase_ack(result=1)
+ 
+ def handle(s,event,sequence):
+  if event.event_id!=0x202 or event.kind not in KINDS:return None
