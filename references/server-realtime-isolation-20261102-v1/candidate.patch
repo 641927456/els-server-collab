@@ -1,0 +1,720 @@
+--- a/els_server/application.py
++++ b/els_server/application.py
+@@ -193,6 +193,8 @@
+         self.registry=None;self.accounts=AccountCache();self.playing={}
+         from els_server.domain.friends_world import FriendsWorld
+         self.world=FriendsWorld()
++        from els_server.realtime import RealtimeState
++        self.realtime=RealtimeState()
+ 
+     async def call(self, function, *args, **kwargs):
+         from els_server.performance import captured_calls
+@@ -256,7 +258,10 @@
+             started=time.perf_counter()
+             try:return after(session,result)
+             finally:sample['after_reply_ms']=(time.perf_counter()-started)*1000
+-        return invoke()
++        try:return invoke()
++        finally:
++            if not (getattr(function,'__name__',None)=='periodic_notifications'and queue_timing is not None and 'batch_started_at'in queue_timing):
++                self.realtime.publish(self,function,args,failed=sample['failed'])
+ 
+ 
+     async def periodic_batch(self,sessions):
+@@ -266,19 +271,21 @@
+         submitted=time.perf_counter();queue_timing={}
+         def invoke():
+             queue_timing['batch_started_at']=time.perf_counter()
+-            rooms=set();result=[]
+-            for session in sessions:
+-                options={'_rooms':rooms} if isinstance(session,FriendsSession) else {}
+-                try:
+-                    messages=self._worker_call(session.periodic_notifications,(),options,submitted,queue_timing=queue_timing)
+-                    result.append((messages,None))
+-                except Exception as error:result.append((None,error))
+-            return result
++            try:
++                rooms=set();result=[]
++                for session in sessions:
++                    options={'_rooms':rooms} if isinstance(session,FriendsSession) else {}
++                    try:
++                        messages=self._worker_call(session.periodic_notifications,(),options,submitted,queue_timing=queue_timing)
++                        result.append((messages,None))
++                    except Exception as error:result.append((None,error))
++                return result
++            finally:self.realtime.publish(self,invoke,(),periodic=True)
+         return await self.business_queue.run(invoke,timing=queue_timing)
+ 
+-    def periodic_chunks(self,sessions):
++    def periodic_chunks(self,sessions,*,claims=None):
+         from els_server.periodic_work import periodic_chunks
+-        return periodic_chunks(self,sessions)
++        return periodic_chunks(self,sessions,claims=claims)
+ 
+     async def start(self):
+         def initialize():
+--- a/els_server/config.py
++++ b/els_server/config.py
+@@ -47,7 +47,7 @@
+         if type(self.attribute_enchant_enabled) is not bool or self.attribute_enchant_enabled and self.profile!='integrated_dx11':raise ValueError('Invalid attribute enchant profile')
+         if type(self.normal_equipment_moves_enabled) is not bool or self.normal_equipment_moves_enabled and self.profile!='integrated_dx11':raise ValueError('Invalid normal equipment move profile')
+         if type(self.equipment_repair_enabled) is not bool or self.equipment_repair_enabled and self.profile!='integrated_dx11':raise ValueError('Invalid repair profile')
+-        for name, low, high in [('port',0,65535),('max_connections',1,128),
++        for name, low, high in [('port',0,65535),('max_connections',1,384),
+                                 ('log_max_bytes',4096,100_000_000),('log_backups',1,20),('client_probe_port',1,65535)]:
+             value=getattr(self,name)
+             if type(value) is not int or not low<=value<=high:raise ValueError('Invalid '+name)
+--- /dev/null
++++ b/els_server/domain/dungeon_time_sync.py
+@@ -0,0 +1,12 @@
++"""The existing DX11 clock eligibility, shared by worker and transport."""
++from els_server.protocol.protocol_codec import Event
++
++def context(session):
++    if (session.client_build!='dx11_260923' or not session.enter_dungeon
++        or session.role!='game' or session.phase!='dungeon_active'
++        or not session.dungeon_substage_synced):return None
++    run=session.dungeon_run
++    return (session.shop_session_id,session.account.uid,session.reward_run_id,session.gate_stage,
++        id(run),getattr(run,'stage',None),getattr(run,'part',None))
++
++def notification():return Event(0x201,kind=0x9c,payload=bytes(4))
+--- a/els_server/domain/local_session.py
++++ b/els_server/domain/local_session.py
+@@ -605,13 +605,9 @@
+ 
+         # receives the local keepalive; no character/save state is changed.
+ 
+-        if (self.client_build=='dx11_260923' and self.enter_dungeon and
+-
+-                self.role=='game' and self.phase=='dungeon_active' and
+-
+-                self.dungeon_substage_synced):
+-
+-            return mail_notices+[Event(0x201,kind=0x9c,payload=u32(0))]
++        from els_server.domain.dungeon_time_sync import context,notification
++        if not getattr(self,'_realtime_clock',False)and context(self)is not None:
++            return mail_notices+[notification()]
+ 
+         return mail_notices
+ 
+--- a/els_server/domain/session_auxiliary.py
++++ b/els_server/domain/session_auxiliary.py
+@@ -2,15 +2,22 @@
+ import time
+ 
+ 
+-def friends_auxiliary_noop(session, event):
++def friends_auxiliary_session(session):
+     return (session.client_build == 'dx11_260923' and session.role == 'game'
+             and session.phase in ('town_ready', 'dungeon_active')
+-            and event.event_id == 0x202 and event.kind == 0x7d0
+-            and event.performers == (0,) and event.uid == event.target_uid == 2**64-1
+-            and event.payload_mode == 0 and len(event.payload) == 9
+             and session.application.playing.get(session.identity['id']) is session
+             and session.account.store is not None
+             and session.account.store.uid == session.account.uid)
++
++
++def auxiliary_envelope(event):
++    return (event.event_id == 0x202 and event.kind == 0x7d0
++            and event.performers == (0,) and event.uid == event.target_uid == 2**64-1
++            and event.payload_mode == 0 and len(event.payload) == 9)
++
++
++def friends_auxiliary_noop(session, event):
++    return auxiliary_envelope(event) and friends_auxiliary_session(session)
+ 
+ 
+ def auxiliary_call(function, args):
+--- a/els_server/friends_relay.py
++++ b/els_server/friends_relay.py
+@@ -65,8 +65,14 @@
+         await asyncio.wait_for(writer.drain(),10)
+ 
+ 
++def relay_lost_current(app,account_id,binding):
++    session=app.playing.get(account_id)
++    if session is not None and session.shop_session_id==binding:
++        app.world.dungeons.relay_lost(app,account_id)
++
++
+ class RelayServer:
+-    def __init__(self,application,log=lambda *a,**kw:None):self.app=application;self.endpoints={};self.log=log
++    def __init__(self,application,log=lambda *a,**kw:None):self.app=application;self.endpoints={};self.log=log;self.realtime=None
+ 
+     async def serve(self,reader,writer,identity,control=False):
+         account_id=identity['id']
+@@ -76,17 +82,25 @@
+                 writer.write(struct.pack('>I',len(packet))+packet)
+                 await asyncio.wait_for(writer.drain(),10)
+             raise RelayBusyError('Relay already connected')
+-        queue=PacketQueue();self.endpoints[account_id]=queue;rate=Rate()
++        queue=PacketQueue();self.endpoints[account_id]=queue;rate=Rate();binding=None
++        if self.realtime is not None:self.realtime.relay_open(account_id)
+         self.log('relay_opened',account_id=account_id,control=control)
+         dungeons=self.app.world.dungeons
+         async def monitor():
++            nonlocal binding
+             previous=object()
+             while True:
+-                manifest=await self.app.call(dungeons.manifest,self.app,account_id)
+-                if manifest!=previous:
+-                    queue.put(b'\1'+json.dumps(manifest,separators=(',',':')).encode());previous=manifest
++                from els_server.realtime import LEGACY
++                packet=self.realtime.manifest(account_id)if self.realtime is not None else LEGACY
++                if packet is LEGACY:
++                    manifest=await self.app.call(dungeons.manifest,self.app,account_id)
++                    packet=b'\1'+json.dumps(manifest,separators=(',',':')).encode()
++                if self.realtime is not None and packet!=b'\1null':binding=self.realtime.binding(account_id)
++                if packet!=previous:
++                    queue.put(packet);previous=packet
+                 await asyncio.sleep(.1)
+         async def receive():
++            nonlocal binding
+             while True:
+                 packet=await asyncio.wait_for(read_packet(reader),HEARTBEAT_TIMEOUT) if control else await read_packet(reader)
+                 if control and packet[:1]==b'\3':
+@@ -100,9 +114,14 @@
+                     continue
+                 epoch,target,data=read_data(packet)
+                 if not rate.accept(len(data)):raise ValueError('Relay rate bound')
+-                route=await self.app.call(dungeons.relay_target,self.app,account_id,epoch,target)
++                from els_server.realtime import LEGACY
++                route=self.realtime.route(account_id,epoch,target)if self.realtime is not None else LEGACY
++                if route is LEGACY:route=await self.app.call(dungeons.relay_target,self.app,account_id,epoch,target)
+                 if route is None:continue
+-                target_id,sender_uid=route;destination=self.endpoints.get(target_id)
++                if self.realtime is not None:binding=self.realtime.binding(account_id)
++                target_id,sender_uid=route
++                if self.realtime is not None and not self.realtime.target_enabled(target_id):continue
++                destination=self.endpoints.get(target_id)
+                 if destination is not None:destination.put(data_packet(epoch,sender_uid,data))
+         tasks=[asyncio.create_task(write_loop(writer,queue)),asyncio.create_task(monitor()),asyncio.create_task(receive())]
+         try:
+@@ -112,11 +131,14 @@
+             self.log('relay_heartbeat_timeout',account_id=account_id)
+             raise
+         finally:
++            if self.realtime is not None:self.realtime.relay_closed(account_id,binding)
+             for task in tasks:task.cancel()
+             await asyncio.gather(*tasks,return_exceptions=True)
+             try:
+                 await self.app.call(self.app.world.pvp.support_lost,account_id,queue)
+-                await self.app.call(dungeons.relay_lost,self.app,account_id)
++                if self.realtime is None:await self.app.call(dungeons.relay_lost,self.app,account_id)
++                else:
++                    await self.app.call(relay_lost_current,self.app,account_id,binding)
+             finally:
+                 # Do not admit a replacement while the old relay_lost callback
+                 # can still abort that replacement's newly started dungeon.
+--- a/els_server/periodic_scheduler.py
++++ b/els_server/periodic_scheduler.py
+@@ -3,6 +3,8 @@
+ import time
+ from collections import deque
+ from types import SimpleNamespace
++from contextlib import asynccontextmanager
++from els_server.periodic_work import PeriodicClaim
+ 
+ 
+ class PeriodicScheduler:
+@@ -10,7 +12,7 @@
+         self.application=application;self.interval=interval;self.log=log
+         self.slots={};self.task=None;self.wake=asyncio.Event();self.closing=False
+         self.deliveries=set()
+-        self.metrics=dict(batches=0,members=0,max_batch=0,busy_skips=0,slices=0,max_slice=0,dispatch_late_max_ms=0.)
++        self.metrics=dict(batches=0,members=0,max_batch=0,busy_skips=0,slices=0,max_slice=0,dispatch_late_max_ms=0.,preempted=0)
+         self.dispatch_lateness=deque(maxlen=256)
+ 
+     def snapshot(self):
+@@ -24,7 +26,8 @@
+         if self.closing:raise RuntimeError('Periodic scheduler closed')
+         loop=asyncio.get_running_loop()
+         slot=SimpleNamespace(session=session,operation=operation,send=send,
+-            due=time.monotonic()+self.interval,closed=False,finished=None,waiting=None,failure=loop.create_future())
++            due=time.monotonic()+self.interval,closed=False,finished=None,waiting=None,
++            claim=None,foreground=False,last_completed=time.monotonic(),failure=loop.create_future())
+         key=id(slot);self.slots[key]=slot;self.wake.set()
+         if self.task is None:self.task=asyncio.create_task(self._run(),name='periodic-batches')
+         try:await slot.failure
+@@ -41,15 +44,34 @@
+         except asyncio.CancelledError:pass
+         else:slot.operation.release()
+ 
++    @asynccontextmanager
++    async def foreground(self,session,operation):
++        slot=next((s for s in self.slots.values()if s.session is session),None)
++        if slot is not None:slot.foreground=True
++        try:
++            # Preserve a poll's place after one second without completion.
++            # Requests cannot cancel a poll once its worker has started.
++            if slot is not None and time.monotonic()-slot.last_completed<1:
++                await self._cancel_waiter(slot)
++                if slot.claim is not None and slot.claim.cancel():
++                    slot.operation.release();self.metrics['preempted']+=1
++            async with operation:yield
++        finally:
++            if slot is not None:slot.foreground=False;self.wake.set()
++
+     async def _deliver(self,slot,messages,error):
++        claim=slot.claim
+         try:
++            if claim.cancelled:return
+             if error is not None:raise error
+             if not slot.closed:await slot.send(messages)
+         except Exception as error:
+             if not slot.failure.done():slot.failure.set_exception(error)
+         finally:
+             slot.due=time.monotonic()+self.interval
+-            slot.operation.release()
++            if not claim.cancelled:
++                slot.last_completed=time.monotonic();slot.operation.release()
++            slot.claim=None
+             slot.finished.set_result(None);slot.finished=None
+             self.wake.set()
+ 
+@@ -59,6 +81,7 @@
+                 self.wake.clear();now=time.monotonic();ready=[]
+                 for slot in sorted(self.slots.values(), key=lambda value: value.due):
+                     if slot.closed or slot.finished is not None or slot.due>now:continue
++                    if slot.foreground and slot.waiting is None:continue
+                     if slot.waiting is None:
+                         # Join the lock's FIFO once without blocking other slots.
+                         # Even an unlocked lock can have a woken request waiter.
+@@ -73,6 +96,7 @@
+                     late=max(0.,(time.monotonic()-slot.due)*1000)
+                     self.dispatch_lateness.append(late)
+                     self.metrics['dispatch_late_max_ms']=max(self.metrics['dispatch_late_max_ms'],late)
++                    slot.claim=PeriodicClaim()
+                     slot.finished=asyncio.get_running_loop().create_future();ready.append(slot)
+                     if len(ready)==16:break
+                 if ready:
+@@ -93,9 +117,10 @@
+                         chunks=getattr(self.application,'periodic_chunks',None)
+                         sessions=tuple(s.session for s in ready)
+                         if chunks is None:
++                            for slot in ready:slot.claim.start()
+                             deliver(await self.application.periodic_batch(sessions))
+                         else:
+-                            async for results in chunks(sessions):deliver(results)
++                            async for results in chunks(sessions,claims=tuple(s.claim for s in ready)):deliver(results)
+                         if completed!=len(ready):raise RuntimeError('Incomplete periodic results')
+                     except Exception as error:
+                         # Completed members already own their delivery tasks. A
+@@ -113,7 +138,7 @@
+                     continue
+                 # A busy socket or in-flight send never causes a zero-delay
+                 # spin. New members and completed sends wake the deadline wait.
+-                due=[s.due for s in self.slots.values() if not s.closed and s.finished is None and not s.operation.locked()]
++                due=[s.due for s in self.slots.values() if not s.closed and not s.foreground and s.finished is None and not s.operation.locked()]
+                 delay=max(.001,min(self.interval,min(due)-time.monotonic())) if due else self.interval
+                 try:await asyncio.wait_for(self.wake.wait(),delay)
+                 except TimeoutError:pass
+--- a/els_server/periodic_work.py
++++ b/els_server/periodic_work.py
+@@ -5,13 +5,31 @@
+ """
+ import math
+ import time
++from threading import Lock
+ 
+ 
+-async def periodic_chunks(application, sessions, *, budget_ms=4.0):
++class PeriodicClaim:
++    """Cancel only an unstarted poll, never its SQL or native delivery."""
++    def __init__(self):self.lock=Lock();self.state='pending'
++    def start(self):
++        with self.lock:
++            if self.state!='pending':return False
++            self.state='running';return True
++    def cancel(self):
++        with self.lock:
++            if self.state!='pending':return False
++            self.state='cancelled';return True
++    @property
++    def cancelled(self):
++        with self.lock:return self.state=='cancelled'
++
++
++async def periodic_chunks(application, sessions, *, budget_ms=4.0, claims=None):
+     from els_server.application import FriendsSession
+     sessions = tuple(sessions)
+     if len(sessions) > 16:
+         raise ValueError('Periodic batch bounds')
++    if claims is not None and len(claims)!=len(sessions):raise ValueError('Periodic claim bounds')
+     if isinstance(budget_ms, bool) or not math.isfinite(budget_ms) or budget_ms <= 0:
+         raise ValueError('Periodic slice budget')
+     rooms = set()
+@@ -25,18 +43,24 @@
+             queue_timing['batch_started_at'] = time.perf_counter()
+             deadline = time.monotonic() + budget_ms / 1000
+             result = []
+-            while position < len(sessions):
+-                session = sessions[position]
+-                options = {'_rooms': rooms} if isinstance(session, FriendsSession) else {}
+-                try:
+-                    messages = application._worker_call(session.periodic_notifications, (), options,
+-                                                        submitted, queue_timing=queue_timing)
+-                    result.append((messages, None))
+-                except Exception as error:
+-                    result.append((None, error))
+-                position += 1
+-                if time.monotonic() >= deadline:
+-                    break
+-            return result
++            try:
++                while position < len(sessions):
++                    session = sessions[position]
++                    if claims is not None and not claims[position].start():
++                        result.append(([],None));position+=1
++                        continue
++                    options = {'_rooms': rooms} if isinstance(session, FriendsSession) else {}
++                    try:
++                        messages = application._worker_call(session.periodic_notifications, (), options,
++                                                            submitted, queue_timing=queue_timing)
++                        result.append((messages, None))
++                    except Exception as error:
++                        result.append((None, error))
++                    position += 1
++                    if time.monotonic() >= deadline:
++                        break
++                return result
++
++            finally:application.realtime.publish(application,invoke,(),periodic=True)
+ 
+         yield await application.business_queue.run(invoke, timing=queue_timing)
+--- /dev/null
++++ b/els_server/realtime.py
+@@ -0,0 +1,133 @@
++"""Completed-worker routing views; no game database work in the data path."""
++import asyncio,json,time
++from concurrent.futures import ThreadPoolExecutor
++from dataclasses import dataclass
++from types import MappingProxyType
++from els_server.domain.dungeon_time_sync import context
++from els_server.protocol.protocol_codec import Event
++
++LEGACY=object()
++EMPTY=b'\1null'
++
++@dataclass(frozen=True)
++class View:
++    manifests:object
++    routes:object
++    clocks:object
++    required:object
++    bindings:object
++    auxiliary:object
++    legacy:frozenset
++
++def empty():return View(*[MappingProxyType({})for _ in range(6)],frozenset())
++
++class RealtimeState:
++    def __init__(self):self.view=empty();self.next_periodic=0.;self.published=0;self.last_state=None
++    def transport_state(self,app):
++        from els_server.domain.equipment_chip_flow import current_lease
++        d=app.world.dungeons;rows=[]
++        for account,s in app.playing.items():
++            r=d.room(s)
++            room=(id(r),r.seed,r.phase,r.party.get('run')is r,app.world.party_of.get(s)is r.party,
++                s in r.party['members'],tuple(id(m)for m in r.members),tuple(id(m)for m in r.party['members']),
++                tuple(d.transport_room(m)is r for m in r.members))if r is not None else None
++            rows.append((account,id(s),s.account.uid,current_lease(s),s.role,s.phase,s.released,s.coop_error,s.social_overflow,s.client_build,
++                s.enter_dungeon,s.dungeon_return_pending,s.reward_run_id,getattr(s,'dungeon_participants',None),context(s),room,
++                id(app.world.pvp.room(s)),id(app.world.field_bosses.room(s))))
++        return tuple(rows)
++    def publish(self,app,function,args,*,failed=False,periodic=False):
++        if app.config.mode!='friends'or app.registry is None:return
++        name=getattr(function,'__name__','')
++        if not failed and name in('manifest','relay_target'):return
++        if not failed and name=='handle'and args and isinstance(args[0],Event):
++            event=args[0]
++            if event.event_id in(0,0x402) or(event.event_id==0x202 and event.kind==0x7d0):return
++        now=time.monotonic()
++        try:
++            state=self.transport_state(app)
++            if not failed and (periodic or name=='periodic_notifications')and now<self.next_periodic and state==self.last_state:return
++            manifests={};routes={};clocks={};required={};bindings={};auxiliary={};legacy=set();dungeons=app.world.dungeons
++            from els_server.domain.session_auxiliary import friends_auxiliary_session
++            # Reuse all original authorization predicates against one committed
++            # account-registry read. No enabled result escapes this worker scope.
++            with app.registry.enabled_snapshot():
++                for account,session in app.playing.items():
++                    bindings[account]=session.shop_session_id
++                    room=dungeons.room(session)
++                    members=[s for s in room.members if room.phase!='clear'or dungeons.room(s)is room]if room is not None else[session]
++                    required[account]=tuple(s.account.account_id for s in members)
++                    if not app.registry.enabled(account):continue
++                    if app.world.pvp.room(session)is not None or app.world.field_bosses.room(session)is not None:
++                        legacy.add(account);continue
++                    if (not session.released and not session.social_overflow and not session.coop_error
++                            and friends_auxiliary_session(session)):
++                        auxiliary[session.shop_session_id]=account
++                    key=context(session)
++                    if key is not None and not session.released and not session.coop_error:
++                        from els_server.domain.equipment_chip_flow import current_lease
++                        if current_lease(session):clocks[session.shop_session_id]=(account,key)
++                    manifest=dungeons.manifest(app,account)
++                    if manifest is None:continue
++                    manifests[account]=b'\1'+json.dumps(manifest,separators=(',',':')).encode()
++                    for peer in manifest['peers']:
++                        route=dungeons.relay_target(app,account,manifest['epoch'],peer['uid'])
++                        if route is not None:routes[account,manifest['epoch'],peer['uid']]=route
++            self.view=View(*[MappingProxyType(m)for m in(manifests,routes,clocks,required,bindings,auxiliary)],frozenset(legacy))
++        except BaseException:
++            self.view=empty();raise
++        self.next_periodic=now+.1;self.published+=1;self.last_state=state
++
++class RealtimeAccess:
++    """One registry reader for the listener, independent of the asset worker."""
++    def __init__(self,app,log):
++        self.app=app;self.log=log;self.enabled=frozenset();self.checked=0.;self.task=None;self.closed={};self.lost_relays={}
++        self.executor=ThreadPoolExecutor(max_workers=1,thread_name_prefix='els-realtime-auth')
++    async def refresh(self):
++        def read():return self.app.registry.list(),time.monotonic()
++        rows,checked=await asyncio.get_running_loop().run_in_executor(self.executor,read)
++        self.enabled=frozenset(r['id']for r in rows if r['enabled']);self.checked=checked
++        registered={r['id']for r in rows};self.closed={a:s for a,s in self.closed.items()if a in registered or a in self.app.realtime.view.bindings}
++        self.lost_relays={a:s for a,s in self.lost_relays.items()if a in registered or a in self.app.realtime.view.bindings}
++    async def start(self):
++        await self.refresh()
++        async def poll():
++            while True:
++                await asyncio.sleep(.1);await self.refresh()
++        self.task=asyncio.create_task(poll(),name='realtime-account-registry')
++        def done(task):
++            if not task.cancelled()and task.exception():
++                self.enabled=frozenset();self.log('realtime_registry_failed',error=type(task.exception()).__name__)
++        self.task.add_done_callback(done)
++    def allowed(self,account,view):
++        return time.monotonic()-self.checked<=.5 and account in self.enabled and all(a in self.enabled and (a not in self.closed or self.closed[a]!=view.bindings.get(a))and(a not in self.lost_relays or self.lost_relays[a]!=view.bindings.get(a))for a in view.required.get(account,(account,)))
++    def close_session(self,session):
++        account=session.identity['id']
++        if self.app.realtime.view.bindings.get(account)==session.shop_session_id:self.closed[account]=session.shop_session_id
++    def binding(self,account):return self.app.realtime.view.bindings.get(account)
++    def relay_open(self,account):self.lost_relays.pop(account,None)
++    def relay_closed(self,account,binding):
++        if binding is not None:self.lost_relays[account]=binding
++    def target_enabled(self,account):
++        return self.allowed(account,self.app.realtime.view)
++    def manifest(self,account):
++        view=self.app.realtime.view
++        if not self.allowed(account,view):raise ValueError('Realtime account authorization unavailable')
++        return LEGACY if account in view.legacy else view.manifests.get(account,EMPTY)
++    def route(self,account,epoch,target):
++        view=self.app.realtime.view
++        if not self.allowed(account,view):return None
++        if account in view.legacy:return LEGACY
++        route=view.routes.get((account,epoch,target))
++        if route is None or route[0]not in self.enabled:return None
++        return route
++    def clock(self,session):
++        view=self.app.realtime.view;row=view.clocks.get(session.shop_session_id)
++        return row[1]if row is not None and self.allowed(row[0],view)else None
++    def auxiliary(self,session,event):
++        from els_server.domain.session_auxiliary import auxiliary_envelope
++        if not auxiliary_envelope(event):return False
++        view=self.app.realtime.view;account=view.auxiliary.get(session.shop_session_id)
++        return account is not None and self.allowed(account,view)
++    async def close(self):
++        if self.task:self.task.cancel();await asyncio.gather(self.task,return_exceptions=True)
++        self.executor.shutdown(wait=True,cancel_futures=True)
+--- a/els_server/storage/accounts.py
++++ b/els_server/storage/accounts.py
+@@ -7,6 +7,9 @@
+ import sqlite3
+ import time
+ import threading
++from contextlib import contextmanager
++from contextvars import ContextVar
++_enabled_snapshot=ContextVar("account_enabled_snapshot",default=None)
+ from pathlib import Path
+ 
+ 
+@@ -130,10 +133,18 @@
+         with closing(self.connect()) as db:
+             return [dict(id=r[0],name=r[1],enabled=bool(r[2])) for r in db.execute('SELECT id,name,enabled FROM accounts ORDER BY id')]
+ 
++    @contextmanager
++    def enabled_snapshot(self):
++        token=_enabled_snapshot.set((self,{r["id"]:r["enabled"] for r in self.list()}))
++        try:yield
++        finally:_enabled_snapshot.reset(token)
++
+     def enabled(self,identity):
+         from els_server.performance import registry_checked
+         started=time.perf_counter()
+-        try:return self._enabled(identity)
++        try:
++            snapshot=_enabled_snapshot.get()
++            return snapshot[1].get(identity,False)if snapshot is not None and snapshot[0]is self else self._enabled(identity)
+         finally:registry_checked(time.perf_counter()-started)
+ 
+     def _enabled(self,identity):
+--- a/els_server/transport.py
++++ b/els_server/transport.py
+@@ -20,13 +20,14 @@
+         self.local_sessions=set()
+         from els_server.periodic_scheduler import PeriodicScheduler
+         self.periodics=PeriodicScheduler(application,.05 if config.mode=='friends' else 1,log)
+-        self.metrics=dict(accepted=0,rejected=0,closed=0,protocol_errors=0,requests=0,responses=0)
++        self.metrics=dict(accepted=0,rejected=0,closed=0,protocol_errors=0,requests=0,responses=0,auxiliary_coalesced=0)
+         from els_server.accounts_gateway import AccountGateway
+         self.account_gateway=AccountGateway(config,application)
+         from els_server.diagnostic_reports import UploadService
+         self.diagnostics=UploadService(config.state_file.parent/'diagnostics')
+         from els_server.friends_relay import RelayServer
+         self.relay=RelayServer(application,log)
++        self.realtime=None
+ 
+     async def start(self):
+         # Bind first, advertise the actual port in 1B only after both services
+@@ -42,10 +43,16 @@
+                 lambda:PortProbe(self.log,bootstrap_allowed=self.local_bootstrap_allowed),local_addr=(self.config.host,0))
+             self.probe_port=self.probe_transport.get_extra_info('sockname')[1]
+         try:
++            if self.config.mode=='friends':
++                from els_server.realtime import RealtimeAccess
++                self.realtime=RealtimeAccess(self.application,self.log)
++                await self.realtime.start();self.relay.realtime=self.realtime
+             self.listener=await asyncio.start_server(self.accept,self.config.host,self.config.port,
+                                                     limit=65536,backlog=self.config.max_connections,
+                                                     **({'ssl':tls,'ssl_handshake_timeout':self.config.authentication_timeout} if tls else {}))
+         except BaseException:
++            if self.realtime is not None:
++                await self.realtime.close();self.realtime=None;self.relay.realtime=None
+             if self.probe_transport:self.probe_transport.close();await self.probe_protocol.closed
+             raise
+         address=self.listener.sockets[0].getsockname()
+@@ -83,7 +90,7 @@
+             return header+await reader.readexactly(length-8)
+ 
+     async def handle(self,reader,writer,index):
+-        notifications=None;business=None;native_sources=None
++        notifications=None;clock=None;closure=None;business=None;native_sources=None
+         self.log('accepted',connection=index)
+         try:
+             identity=None;role=None;diagnostic_auth=None;relay_control=False
+@@ -137,33 +144,43 @@
+             if self.config.mode=='local':self.local_sessions.add(business)
+             keys=Keys(secrets.token_bytes(8),secrets.token_bytes(8));spi=secrets.randbelow(65535)+1
+             outgoing=2;incoming=1;heartbeat_sent=False
+-            operation=asyncio.Lock()
++            operation=asyncio.Lock();wire_lock=asyncio.Lock();clock_epoch=None
++            if self.realtime is not None:
++                business._realtime_clock=True
++                async def peer_closed():
++                    try:await writer.wait_closed()
++                    except OSError:pass
++                    finally:self.realtime.close_session(business)
++                closure=asyncio.create_task(peer_closed(),name=f'realtime-close-{index}')
+             memory1_diagnostic_count=0
+             dungeon34320_trace=Trace34320(self.log,index)
+             async def write(wire):
+                 writer.write(wire)
+                 await asyncio.wait_for(writer.drain(),self.config.write_timeout)
+             async def send(messages, *, send_path='request_reply', request_sequence=None, request_kind=None, timing=None):
+-                nonlocal outgoing
++                nonlocal outgoing,clock_epoch
+                 messages=tuple(messages)
+-                for message in messages:
+-                    encoding=time.perf_counter()
+-                    wire_sequence=outgoing
+-                    wire=encode_frame(encode_event(message),keys,spi=spi,sequence=wire_sequence)
+-                    outgoing+=1
+-                    encoded=time.perf_counter()
+-                    if timing is not None:timing['encode_ms']+=(encoded-encoding)*1000
+-                    try:
+-                        await write(wire)
+-                    finally:
+-                        if timing is not None:timing['send_ms']+=(time.perf_counter()-encoded)*1000
+-                    dungeon34320_trace.sent(business,message,wire_sequence,send_path=send_path,
+-                        request_sequence=request_sequence,request_kind=request_kind)
+-                    self.metrics['responses']+=1
+-                    # Payloads and session keys belong only in the explicit capture tool.
+-                    self.log('local_business_response_sent',connection=index,kind=message.kind,size=len(wire))
+-                if send_path in ('request_reply','periodic') and native_sources is not None:
+-                    native_sources.sent(messages)
++                async with wire_lock:
++                    for message in messages:
++                        encoding=time.perf_counter()
++                        wire_sequence=outgoing
++                        wire=encode_frame(encode_event(message),keys,spi=spi,sequence=wire_sequence)
++                        outgoing+=1
++                        encoded=time.perf_counter()
++                        if timing is not None:timing['encode_ms']+=(encoded-encoding)*1000
++                        try:
++                            await write(wire)
++                        finally:
++                            if timing is not None:timing['send_ms']+=(time.perf_counter()-encoded)*1000
++                        if message.kind in(0x14a,0xb2,0x68):clock_epoch=None
++                        elif message.kind==0xbd and self.realtime is not None:clock_epoch=self.realtime.clock(business)
++                        dungeon34320_trace.sent(business,message,wire_sequence,send_path=send_path,
++                            request_sequence=request_sequence,request_kind=request_kind)
++                        self.metrics['responses']+=1
++                        # Payloads and session keys belong only in the explicit capture tool.
++                        self.log('local_business_response_sent',connection=index,kind=message.kind,size=len(wire))
++                    if send_path in ('request_reply','periodic') and native_sources is not None:
++                        native_sources.sent(messages)
+             await write(encode_frame(encode_event(welcome_event(keys,spi)),BOOTSTRAP_KEYS))
+             self.log('generated_welcome_sent',connection=index)
+             async def send_periodic(messages):
+@@ -173,10 +190,24 @@
+             def notification_done(task):
+                 if not task.cancelled() and task.exception():writer.close()
+             notifications.add_done_callback(notification_done)
++            if self.realtime is not None:
++                async def realtime_clock():
++                    from els_server.domain.dungeon_time_sync import notification
++                    while True:
++                        await asyncio.sleep(1)
++                        key=self.realtime.clock(business)
++                        if key is not None and key==clock_epoch:await send([notification()],send_path='realtime')
++                clock=asyncio.create_task(realtime_clock(),name=f'realtime-clock-{index}')
++                clock.add_done_callback(notification_done)
+             while not self.closing:
+                 wire=await self.read_frame(reader)
+                 frame=decode_frame(wire,keys,expected_sequence=incoming);incoming+=1
+                 event=decode_event(frame.plaintext);self.metrics['requests']+=1
++                # The exact existing 7D0 no-op has no reply or domain action.
++                # The existing periodic worker already drains the same mailbox.
++                if self.realtime is not None and self.realtime.auxiliary(business,event):
++                    self.metrics['auxiliary_coalesced']+=1
++                    continue
+                 entry_fields={}
+                 if event.event_id==0x202 and event.kind==0x7d4 and len(event.payload)==8:
+                     entry_mode,dungeon=struct.unpack('>ii',event.payload)
+@@ -212,7 +243,7 @@
+                 self.log('client_request',connection=index,sequence=frame.sequence,
+                          event_id=event.event_id,kind=event.kind,size=len(wire),**entry_fields)
+                 received=time.perf_counter()
+-                async with operation:
++                async with self.periodics.foreground(business,operation):
+                     acquired=time.perf_counter()
+                     timing=dict(connection_wait_ms=(acquired-received)*1000,encode_ms=0.,send_ms=0.)
+                     if event.event_id==1026 and event.kind==3392 and not heartbeat_sent:
+@@ -265,6 +296,9 @@
+         except Exception as error:
+             self.log('worker_error',connection=index,error=repr(error))
+         finally:
++            if business is not None and self.realtime is not None:self.realtime.close_session(business)
++            if clock:
++                clock.cancel();await asyncio.gather(clock,return_exceptions=True)
+             if native_sources is not None:native_sources.close()
+             try:
+                 try:
+@@ -285,6 +319,7 @@
+                 writer.close()
+                 try:await asyncio.wait_for(writer.wait_closed(),self.config.write_timeout)
+                 except (OSError,TimeoutError):pass
++                if closure:await asyncio.gather(closure,return_exceptions=True)
+                 self.log('connection_finished',connection=index)
+ 
+     async def close(self):
+@@ -308,4 +343,5 @@
+         await self.periodics.close()
+         await self.account_gateway.close()
+         await self.diagnostics.close()
++        if self.realtime is not None:await self.realtime.close()
+         self.log('finished',**self.metrics,active=len(self.connections))

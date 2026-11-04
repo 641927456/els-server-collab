@@ -1,0 +1,24 @@
+{
+  "python": "3.13.14",
+  "cryptography": "49.0.0",
+  "files": {
+    "G:\\els\\analysis\\server-realtime-isolation-20261102-v1\\source.py": "483348fa5d0491e1730015faa4ab1f6eaf4ac9c616140a976993264117f4806a",
+    "G:\\els\\analysis\\server-realtime-isolation-20261102-v1\\run_checks.py": "4a00228c04189227739e81c0eda4184a36b21f7d34a95bdbde9471e7fd14c6f6",
+    "G:\\els\\analysis\\server-realtime-isolation-20261102-v1\\run_boundaries.py": "e7c34f7f9dbf30590a916a5e7097e40ac4f2c7443813a5b743d70be634cda664",
+    "G:\\els\\analysis\\server-realtime-isolation-20261102-v1\\run_auxiliary.py": "493f2d63e1ebc558931c34fa521303d44004213faaab14107398e9d44a194676",
+    "G:\\els\\analysis\\server-realtime-isolation-20261102-v1\\run_periodic_claims.py": "d9d462a09be2f048984df325e3d9db7b39ed6fdedddbe9a2e68c076f9c863301",
+    "G:\\els\\analysis\\server-realtime-isolation-20261102-v1\\run_load_checks.py": "3b765b421abe57e1f21081bc2f982bfaf05002ff4c140940185be3b56f3b436f",
+    "G:\\els\\analysis\\server-realtime-isolation-20261102-v1\\native_fixture_reader.py": "2f57b00249677897aa43d2ab4b0591a411a23bdcd9178743d49425952052ef0a",
+    "G:\\els\\tests\\test_friends_server.py": "736e52e8f9c7ba3937c69c1831ae39b84d5be5f6201fadd70e8445d67517cc9a",
+    "G:\\els\\tests\\test_dungeon_time_sync.py": "e20eef4deb37043e1366f135745aafc577af359f9487c66aa07c13e16a7fd18f",
+    "G:\\els\\tools\\create_friends_certificate.py": "1db04343f278f8a828cdef8da07535b193ae1e1dc094f6b03eaae8d9d55c3e0e"
+  },
+  "commands": [
+    "python -B run_checks.py",
+    "python -B run_boundaries.py",
+    "python -B run_auxiliary.py",
+    "python -B run_periodic_claims.py",
+    "python -B run_load_checks.py",
+    "source bootstrap + runpy G:/els/tests/test_dungeon_time_sync.py"
+  ]
+}
