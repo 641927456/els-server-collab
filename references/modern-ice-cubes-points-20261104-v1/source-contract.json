@@ -1,0 +1,401 @@
+{
+  "online": {
+    "parent": {
+      "ok": true,
+      "verified": true,
+      "online_accepted": true,
+      "release": "native-dungeon-skill-replacement-20261104-v1",
+      "channel": "online",
+      "path": "releases/online/native-dungeon-skill-replacement-20261104-v1",
+      "manifest_sha256": "4f1e8b98538284e36fb41cd35651cc0d6d6ce990f44f086b4773c09e086fddc3",
+      "parent_release": "native-pickup-consumable-gate-20261104-v1",
+      "parent_manifest_sha256": "630aefb463c8514b85c6e87dc91cf5b855d5d7f59a07f919601340a2109d5506",
+      "configuration_sha256": "1d01ee03ccd712a081b9e143dcdc9a651426179b2d94b320a07a7467aa11fa08",
+      "business_files_verified": 1476,
+      "delta_files": 1,
+      "client_delta": 0,
+      "observation_seconds": 127.83655910007656,
+      "backup": "C:/ElsFriends/backups/native-dungeon-skill-replacement-20261104-v1",
+      "public_acceptance": {
+        "passed": true,
+        "release": "native-dungeon-skill-replacement-20261104-v1",
+        "evidence": "G:\\els\\analysis\\dungeon-skill-ui-20261104-v1\\public-acceptance.json",
+        "own_accounts_cleaned": true,
+        "natural_battle": false
+      },
+      "power_cache_complete": true,
+      "natural_GUI": false,
+      "natural_battle": false,
+      "scope": "Allow original native skill equip and HUD save handlers in dungeon_active; preserve ownership, lease, eligibility, storage and native replies. No client, schema or economic changes.",
+      "player_database_restore": false,
+      "new_schema": false,
+      "new_schema_definitions": 0,
+      "inherited_schema_definitions": 11,
+      "new_tables": [],
+      "inherited_bank_tables": [
+        "native_guild_bank_expansions_v1",
+        "native_guild_bank_history_v1",
+        "native_guild_bank_items_v1",
+        "native_guild_bank_transfers_v1",
+        "native_guild_coin_donations_v1",
+        "native_guild_coin_v1"
+      ],
+      "install_DDL_statements": 0,
+      "eager_schema_migration": false,
+      "lazy_business_DDL": true,
+      "inherited_lazy_business_DDL": true,
+      "current_delta_defines": 0,
+      "private_Boss_ED0_qualified": true,
+      "public_Boss_ED0_verified": false,
+      "private_nine_leaf_App_qualified": true,
+      "public_nine_leaf_protocol_qualified": true,
+      "accessory_identification_groups": true,
+      "custom_menu_native_performer": true,
+      "server_delta": 1,
+      "support_delta": 0,
+      "new_files": 0,
+      "native_wardrobe_window_verified": true,
+      "Git_merge": false,
+      "enhancement_unlock_effects": true,
+      "acceptance": "G:\\els\\analysis\\dungeon-skill-ui-20261104-v1\\actual-online-readback.json",
+      "wardrobe_batch_failure_messages": true,
+      "accessory_identification_3030_5150": true,
+      "native_four_repairs": true,
+      "parent_schema_sha256": "d2cbbcf741873dd6558a05a192e8b1865e90b05655732e15adee4450cffce566",
+      "all_eligible_onepieces": 962,
+      "shop_home_first_open_verified": true,
+      "wardrobe_success_popup": true,
+      "growing_kit_count_one": true,
+      "collection_quest_ticket": true,
+      "custom_items_register_apply": true,
+      "equipment_identification_pools": 194,
+      "equipment_identification_templates": 982,
+      "hero_common_templates": 16,
+      "nebulon_conversion_sourced_weights": true,
+      "reactor_pool_unresolved": 850000,
+      "force_categories_sources": true,
+      "existing_ownership_CHECK_expansion": true,
+      "dungeon_population_weights": true,
+      "random_group_boss_qualification": true,
+      "ED_drop_clear_repair": true,
+      "solace_true_ending_ground_reward": true,
+      "native_collection_six_slots": true,
+      "guidebook_upload_tail": true,
+      "inherited_source_merge_commits": {
+        "643": "4c112919de3025fbfa693a2078d783e29d80fa34",
+        "646": "a2c53227508d60dd882a8d2e7ce7149a003087a3",
+        "648": "4188db2f5628a0452ebc990be94c5eb90d88ef55",
+        "652": "883eaec021f7b4f967ada35cf9e106dec99c900d"
+      },
+      "public_controller_retirements": true,
+      "owned_common_boxes": true,
+      "solo_dungeon_wear_repair": true,
+      "shop_missing_692": true,
+      "current_delta_Git_merge": false,
+      "gm_high_scrolls": true,
+      "native_map_and_trigger_repair": true,
+      "installation_receipt": "G:\\els\\analysis\\dungeon-skill-ui-20261104-v1\\installation-acceptance.json",
+      "mainline_leveling_exp20": true,
+      "ordinary_field_passage": true,
+      "spatial_error_text_repair": true,
+      "ep13_retained_inventory": true,
+      "epic_special14": true,
+      "native_scene_retirements": true,
+      "group_dungeon_wear_repair": true,
+      "inherited_parent_schema": {
+        "new_schema": false,
+        "new_tables": [],
+        "new_schema_definitions": 0,
+        "lazy_business_DDL": true
+      },
+      "native_line_selected_phase": true,
+      "native_dungeon_map_stages": true,
+      "profile_delta": 0,
+      "native_ground_fashion": true,
+      "retained_mail_login": true,
+      "registered_ground_items": true,
+      "native_controller_quest_gates": true,
+      "elrian_breakable_gates": true,
+      "shop_rare_navy_728": true,
+      "native_field_entry_identity": true,
+      "startup_DDL_statements": 0,
+      "lazy_table_definitions": 0,
+      "three_activities": true,
+      "changed_runtime_files": [
+        "els_server/domain/local_session.py"
+      ],
+      "native_contact_mechanisms": true,
+      "cross_bag_wear": true,
+      "player_summons": true,
+      "supported_templates": 55,
+      "permanent_growth_guide": true,
+      "guide_tasks": 61,
+      "guide_courses": 13,
+      "fixed_boxes": 63,
+      "fixed_items": 832,
+      "weapon_growth_lifecycle": true,
+      "idle_four_slot_full_snapshot": true,
+      "gift_title_quickstart_hp": true,
+      "dungeon_lag_v4": true,
+      "functional_rewards_v68": true,
+      "performance_buff_v69": true,
+      "scroll_mhp_v70": true,
+      "atlas_scroll_support": true,
+      "launcher_pending": true,
+      "shop_royal_guard": true,
+      "sky_crossroads_triggers": true,
+      "visible_mechanism_retirements_50": true,
+      "native_room_requests": true,
+      "adrian_solace_triggers_11": true,
+      "native_line_rule_count": 149,
+      "native_retirement_rule_count": 915,
+      "realtime_isolation": true,
+      "max_connections": 192,
+      "configuration_delta": {
+        "old_max_connections": 192,
+        "new_max_connections": 192,
+        "economy_workers": 2,
+        "sha256": "1d01ee03ccd712a081b9e143dcdc9a651426179b2d94b320a07a7467aa11fa08"
+      },
+      "economy_workers": 2,
+      "ice_wardrobe_projection_repaired": true,
+      "receipt_positions_repaired": true,
+      "online_history_projection_optimized": true,
+      "realtime_stale_wait": true,
+      "shop_catalog_process_cache": true,
+      "shop_catalogs_prewarmed": true,
+      "activity_reward_restore_merged": true,
+      "native_clear_alias_projection": true,
+      "blessed_timespace_shop": true,
+      "new_indexes": [],
+      "startup_index_definitions": 0,
+      "history_query_indexes": true,
+      "clock_stage_diagnostics": true,
+      "remaining_long_pause_root_cause_proven": false,
+      "player_feedback_quests_void_buff": true,
+      "attendance_projection_reuse": true,
+      "source_PR": 806,
+      "source_head": "b4d2ae6d7cae67814cfe54481a18d85f43e2f76d",
+      "source_binding": {
+        "PR": 806,
+        "head": "b4d2ae6d7cae67814cfe54481a18d85f43e2f76d",
+        "candidate_scope": "One existing runtime leaf"
+      },
+      "pr771_gameplay_racing": true,
+      "master_road_HP_unchanged": true,
+      "activity_armor_reset_scroll": true,
+      "native_dungeon_fatigue_errors": true,
+      "luciel_laby_skill_parameters": true,
+      "native_operation_error_messages": true,
+      "inherited_source_binding": {
+        "PR": 804,
+        "head": "ebbac7e8b72b1587821814231001515c7c111050",
+        "candidate_scope": "14 existing runtime leaves"
+      },
+      "dungeon_stalls_remaining_v7": true,
+      "native_player_summon_batches": true,
+      "native_erp_rejection_messages": true,
+      "mixed_player_scene_summons": true,
+      "dungeon_spawn_closure_v2": true,
+      "source_submission_pending": false,
+      "haures_mod_summon": true,
+      "dungeon_fatigue_total_correction": true,
+      "pickup_consumable_gate_repair": true,
+      "dungeon_skill_replacement": true
+    },
+    "parent_pointer_sha256": "8bc39a2373a07381dcd3f7b55177157b8444a6b8221734a5dfb2ddefa2cf1ad9",
+    "delta": [
+      {
+        "path": "els_server/data/modern_ice.json",
+        "parent_sha256": null,
+        "sha256": "4e77e759cc1dc88656f780de2e5c6becf425d1fe55bab9747d65d9c83130ae47",
+        "size": 995325,
+        "candidate": "G:\\els\\analysis\\ice-burner-modern-spec-20261104-v1\\candidate\\els_server\\data\\modern_ice.json"
+      },
+      {
+        "path": "els_server/domain/cubes.py",
+        "parent_sha256": "9d7837d108f8d27d35800b31342554c43bc4f5f743adf246eca5cda1bc01eb71",
+        "sha256": "5fad145032f6f0eb6515bfdc337bdcb9842e3d5bedcea822fb973b6425472e82",
+        "size": 5842,
+        "candidate": "G:\\els\\analysis\\ice-burner-modern-spec-20261104-v1\\candidate\\els_server\\domain\\cubes.py"
+      },
+      {
+        "path": "els_server/domain/ice_rules.py",
+        "parent_sha256": "0b245a033f0fcb595f8c7fae5a6cdf6c91d3c27faad49bccdeaf35eaaa3d717c",
+        "sha256": "37ebd0cc3b4bf6f907de7b3603d5df8f31cd82a451d528d97b02c9038cf36d1f",
+        "size": 3140,
+        "candidate": "G:\\els\\analysis\\ice-burner-modern-spec-20261104-v1\\candidate\\els_server\\domain\\ice_rules.py"
+      },
+      {
+        "path": "els_server/domain/inventory_items.py",
+        "parent_sha256": "f1a42640aea92b6f43447abe06a46647b6e40525894937e5aa9e2a80344eeb5f",
+        "sha256": "80cbc5bf72f1964a596596e6c4440a3bb37642e4b31a425b90506e8adbf52ea7",
+        "size": 82886,
+        "candidate": "G:\\els\\analysis\\ice-burner-modern-spec-20261104-v1\\candidate\\els_server\\domain\\inventory_items.py"
+      },
+      {
+        "path": "els_server/domain/local_session.py",
+        "parent_sha256": "04505c8f28cd33fdc648fe05c3349699e4a338b66462c9950414b80be631696c",
+        "sha256": "37241b8a3ae1e354fcc6e9d61350740a01a43c2057b2a46f78147c2c3705796e",
+        "size": 152676,
+        "candidate": "G:\\els\\analysis\\ice-burner-modern-spec-20261104-v1\\candidate\\els_server\\domain\\local_session.py"
+      },
+      {
+        "path": "els_server/domain/modern_ice.py",
+        "parent_sha256": null,
+        "sha256": "c5973d63195a9ee63f8ea01943fe43635a8bfa1f00db2a619d8155822421c76d",
+        "size": 2994,
+        "candidate": "G:\\els\\analysis\\ice-burner-modern-spec-20261104-v1\\candidate\\els_server\\domain\\modern_ice.py"
+      },
+      {
+        "path": "els_server/domain/modern_ice_flow.py",
+        "parent_sha256": null,
+        "sha256": "631947a1b5d0a986b96c52d353fe6373999299c24a8e649fbeec5fbbdc122e7f",
+        "size": 1887,
+        "candidate": "G:\\els\\analysis\\ice-burner-modern-spec-20261104-v1\\candidate\\els_server\\domain\\modern_ice_flow.py"
+      },
+      {
+        "path": "els_server/protocol/ice_messages.py",
+        "parent_sha256": "bc9cb7a7c5e159a6966123c0b7eb1f2120b0bb44221c70ba687b9229a8c8230e",
+        "sha256": "d3faf32230603761453155f3c028a9aea1baf9db824fe9f189a63e43de213333",
+        "size": 7764,
+        "candidate": "G:\\els\\analysis\\ice-burner-modern-spec-20261104-v1\\candidate\\els_server\\protocol\\ice_messages.py"
+      },
+      {
+        "path": "els_server/protocol/modern_ice_messages.py",
+        "parent_sha256": null,
+        "sha256": "4d33a7415ea6e5f71d3393bb2407d9faa70193c408264bde8d4e7ffcd3d86295",
+        "size": 2725,
+        "candidate": "G:\\els\\analysis\\ice-burner-modern-spec-20261104-v1\\candidate\\els_server\\protocol\\modern_ice_messages.py"
+      },
+      {
+        "path": "els_server/storage/equipment_receipt_state.py",
+        "parent_sha256": "d675d82624a73b87d40c1a2243e6f336acf8a23e0ee84ec1e84e74bba1a2885b",
+        "sha256": "8cab1b76ccde9028d3b5f897094a7b977a83b60953ce5d25bdcf1be540e4a02d",
+        "size": 3403,
+        "candidate": "G:\\els\\analysis\\ice-burner-modern-spec-20261104-v1\\candidate\\els_server\\storage\\equipment_receipt_state.py"
+      },
+      {
+        "path": "els_server/storage/fixed_cubes.py",
+        "parent_sha256": "2151764b7a51f3a4e0dd4092a2a07fc1436767e2673daaa33aaa1e860f26e50b",
+        "sha256": "a2741a103642a62b4dd96903a7840eb9e7edf1e0d2628594364b448725d0213f",
+        "size": 12400,
+        "candidate": "G:\\els\\analysis\\ice-burner-modern-spec-20261104-v1\\candidate\\els_server\\storage\\fixed_cubes.py"
+      },
+      {
+        "path": "els_server/storage/ice_state.py",
+        "parent_sha256": "22a87c2fc4ebfc16a31da116637a39c5095f8ab27ddd982ba1726c3216c9a4a5",
+        "sha256": "f943ec80ee800c29e3957aa33fbd41e4fae07d93fc8bc5f90152562b5274588d",
+        "size": 8187,
+        "candidate": "G:\\els\\analysis\\ice-burner-modern-spec-20261104-v1\\candidate\\els_server\\storage\\ice_state.py"
+      },
+      {
+        "path": "els_server/storage/modern_ice.py",
+        "parent_sha256": null,
+        "sha256": "336d8de01285f73b8c950b324aaf1718c902cc0e5e01f2d9b922e753f0eb8b85",
+        "size": 13949,
+        "candidate": "G:\\els\\analysis\\ice-burner-modern-spec-20261104-v1\\candidate\\els_server\\storage\\modern_ice.py"
+      }
+    ]
+  },
+  "local": {
+    "parent": "G:\\els\\releases\\local\\local-native-royal-dungeon-final-20261102-v1",
+    "delta_files": 13,
+    "files": [
+      {
+        "path": "els_server/data/modern_ice.json",
+        "parent_sha256": null,
+        "sha256": "4e77e759cc1dc88656f780de2e5c6becf425d1fe55bab9747d65d9c83130ae47",
+        "bytes": 995325
+      },
+      {
+        "path": "els_server/domain/cubes.py",
+        "parent_sha256": "3d049e0bf8503495694284776a46ead3560c43320f68d45d7484ae8acf4cc843",
+        "sha256": "0893f26a44eb255550694e7566bbfc2a78a62ea0a427e418ffdbdea724ba327f",
+        "bytes": 5360
+      },
+      {
+        "path": "els_server/domain/ice_rules.py",
+        "parent_sha256": "0b245a033f0fcb595f8c7fae5a6cdf6c91d3c27faad49bccdeaf35eaaa3d717c",
+        "sha256": "37ebd0cc3b4bf6f907de7b3603d5df8f31cd82a451d528d97b02c9038cf36d1f",
+        "bytes": 3140
+      },
+      {
+        "path": "els_server/domain/inventory_items.py",
+        "parent_sha256": "e8f9e256878f026f2b83da9a5025b8e5a1fe083a8b2fb5ed2116215bfccb8c71",
+        "sha256": "12ffc04ba3f7703db42609a73800d2f99afdad7ecd2fbc5201d7cd7c39d4eb65",
+        "bytes": 81410
+      },
+      {
+        "path": "els_server/domain/local_session.py",
+        "parent_sha256": "720afbcee9da1788559fc542bb94659f132a1e17aa488fff770980aa8ace166c",
+        "sha256": "515938681b9aa92c4f040a512311f3e27663eb03fd99d83771b467e00a249c86",
+        "bytes": 151492
+      },
+      {
+        "path": "els_server/domain/modern_ice.py",
+        "parent_sha256": null,
+        "sha256": "c5973d63195a9ee63f8ea01943fe43635a8bfa1f00db2a619d8155822421c76d",
+        "bytes": 2994
+      },
+      {
+        "path": "els_server/domain/modern_ice_flow.py",
+        "parent_sha256": null,
+        "sha256": "631947a1b5d0a986b96c52d353fe6373999299c24a8e649fbeec5fbbdc122e7f",
+        "bytes": 1887
+      },
+      {
+        "path": "els_server/protocol/ice_messages.py",
+        "parent_sha256": "bc9cb7a7c5e159a6966123c0b7eb1f2120b0bb44221c70ba687b9229a8c8230e",
+        "sha256": "d3faf32230603761453155f3c028a9aea1baf9db824fe9f189a63e43de213333",
+        "bytes": 7764
+      },
+      {
+        "path": "els_server/protocol/modern_ice_messages.py",
+        "parent_sha256": null,
+        "sha256": "4d33a7415ea6e5f71d3393bb2407d9faa70193c408264bde8d4e7ffcd3d86295",
+        "bytes": 2725
+      },
+      {
+        "path": "els_server/storage/equipment_receipt_state.py",
+        "parent_sha256": "cd1bb3fd3d18bce4c9430f73035f2a6b6d1d5c6065cdb70d166bb496095216cb",
+        "sha256": "30b060bf8f192485e71072050e40033347781ba00e767b404c9d07430a920586",
+        "bytes": 3403
+      },
+      {
+        "path": "els_server/storage/fixed_cubes.py",
+        "parent_sha256": "c35ee807ef8fd941073725cd95e7f335cff266e8986fea0e2144c08909f7a615",
+        "sha256": "940890f8104477186fc3b58533e2d0782194b7437ac07d74cfa67ba5b6d5b32d",
+        "bytes": 12010
+      },
+      {
+        "path": "els_server/storage/ice_state.py",
+        "parent_sha256": "22a87c2fc4ebfc16a31da116637a39c5095f8ab27ddd982ba1726c3216c9a4a5",
+        "sha256": "f943ec80ee800c29e3957aa33fbd41e4fae07d93fc8bc5f90152562b5274588d",
+        "bytes": 8187
+      },
+      {
+        "path": "els_server/storage/modern_ice.py",
+        "parent_sha256": null,
+        "sha256": "336d8de01285f73b8c950b324aaf1718c902cc0e5e01f2d9b922e753f0eb8b85",
+        "bytes": 13949
+      }
+    ]
+  },
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "issue": 807,
+  "Git_merge": false,
+  "automatic_deployment": false,
+  "root_engine_changed": false,
+  "new_tables": [
+    "modern_ice_points",
+    "modern_ice_bag",
+    "modern_ice_receipts"
+  ],
+  "new_indexes": [
+    "modern_ice_bag_account"
+  ],
+  "schema": "lazy CREATE IF NOT EXISTS in existing transaction; no player/account replacement",
+  "recovery": "Preserve all player data. Prior code cannot open new cube templates; recover with forward reader-compatible code if modern rewards have persisted.",
+  "private_evidence": "G:/els/analysis/ice-burner-modern-spec-20261104-v1"
+}
