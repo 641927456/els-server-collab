@@ -1,0 +1,28 @@
+--- a/els_server/domain/friends_spawns.py
++++ b/els_server/domain/friends_spawns.py
+@@ -155,18 +155,20 @@
+                 pass
+         from els_server.domain.dungeon_spawns import occupied_slots, handle as scripted_spawn
+         if notice is not None:
+-            if occupied_slots(s) >= 80:
++            count = struct.unpack_from('>I', notice.payload)[0]
++            keys = set(range(key, key + count))
++            if occupied_slots(s) + count > 80:
+                 return failed
+             own = [summon_ack(), notice]
+             boxes = _mailboxes(r, s, own, [notice])
+-            prepared = _next_state(state, s, sequence, digest, key)
+-            prepared.owners[key] = connection
+-            changes = {m: (m.summon_keys | {key}, dict(m.summon_requests)) for m in r.members}
++            prepared = _next_state(state, s, sequence, digest, key + count - 1)
++            prepared.owners.update((actor, connection) for actor in keys)
++            changes = {m: (m.summon_keys | keys, dict(m.summon_requests)) for m in r.members}
+             changes[s][1][sequence] = event.payload
+             for m, (keys, requests) in changes.items():
+                 m.summon_keys = keys
+                 m.summon_requests = requests
+-                m.summon_next_key = max(m.summon_next_key, key + 1)
++                m.summon_next_key = max(m.summon_next_key, key + count)
+         else:
+             if s is not r.leader or s.dungeon_run is None:
+                 return failed
