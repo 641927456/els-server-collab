@@ -1,0 +1,45 @@
+{
+  "issue": 842,
+  "scope": "Build complete ice draw reply in the economic SQL transaction before commit",
+  "base_release": "native-monster-combat-hp-20261104-v1",
+  "base_manifest_sha256": "66082788490ef11b655fff71c856b9a9c70139ce33d664703ba390373c8c276f",
+  "files": [
+    {
+      "path": "els_server/domain/local_session.py",
+      "base_sha256": "8f73e2659d06205453c7518611e562eb080369afc0d17c402662bb4824fefabc",
+      "sha256": "376599f9d444d716f72163bf0cc07fe3249ed4f8df4273cc90ce0f887bb551eb"
+    },
+    {
+      "path": "els_server/storage/ice_state.py",
+      "base_sha256": "f943ec80ee800c29e3957aa33fbd41e4fae07d93fc8bc5f90152562b5274588d",
+      "sha256": "24bcbbc73f2da5467915eb08802a57f08e9766ff0c6f8eceabe5fe49f5b4f9ec"
+    },
+    {
+      "path": "els_server/storage/modern_ice.py",
+      "base_sha256": "fdc04b9164a73fbfad0aafe84ac97f0052b0e9387f4486fdbefd1b6da844b556",
+      "sha256": "d425d7323fab78f04b22d7ae3558c8ab9c42e34ebdb0debd0dc6f521e3683e09"
+    }
+  ],
+  "root_engine_changed": false,
+  "git_committed": false,
+  "git_merged": false,
+  "installed": false,
+  "automatic_deployment": false,
+  "client_or_launcher_changed": false,
+  "protocol_layout_changed": false,
+  "database_schema_changed": false,
+  "player_database_restore": false,
+  "validation": {
+    "targeted_checks": 5,
+    "existing_regressions": 9,
+    "failures": 0,
+    "skipped": 0,
+    "candidate_source_hashes_unchanged": true
+  },
+  "held_back": [
+    "Old isolated-client use-UI crash candidates",
+    "Wheel pause changes"
+  ],
+  "release_executor_pending": false,
+  "release_authority": "Explicit human authorization for this chat to execute this one ONLINE deployment and Git submission"
+}
