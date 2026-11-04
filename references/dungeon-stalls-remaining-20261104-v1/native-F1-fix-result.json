@@ -1,0 +1,164 @@
+{
+  "ok": true,
+  "dungeon": 35250,
+  "baseline": {
+    "stage": 0,
+    "part": 1,
+    "request": "2CE",
+    "templates": [
+      9306
+    ],
+    "declared": false,
+    "outcome": "refused",
+    "blank_error_dialog_observed": true
+  },
+  "fixed": {
+    "normal_entry_from_stage0_part0": true,
+    "normal_traps_and_hit_open_door": true,
+    "logical_F1_through_original_Game_User_NPC_pipeline": true,
+    "original_special_riding_targets": [
+      9306,
+      9307,
+      9308,
+      9309
+    ],
+    "native_2D0_factory_entities": {
+      "9306": {
+        "key": 36,
+        "first_position": [
+          5765,
+          7100,
+          820
+        ]
+      },
+      "9307": {
+        "key": 37,
+        "first_position": [
+          5600,
+          7110,
+          820
+        ]
+      },
+      "9308": {
+        "key": 38,
+        "first_position": [
+          5940,
+          7110,
+          750
+        ]
+      },
+      "9309": {
+        "key": 39,
+        "first_position": [
+          6209.609375,
+          6990.11181640625,
+          820
+        ]
+      }
+    },
+    "four_pieces_source_success_flags": {
+      "9297": {
+        "position": [
+          5430,
+          7370,
+          870
+        ],
+        "state": 7
+      },
+      "9298": {
+        "position": [
+          5490,
+          7020,
+          870
+        ],
+        "state": 7
+      },
+      "9299": {
+        "position": [
+          6080,
+          7000,
+          870
+        ],
+        "state": 7
+      },
+      "9300": {
+        "position": [
+          6430,
+          7300,
+          870
+        ],
+        "state": 7
+      }
+    },
+    "both_manager_F1_dialogues_seen": true,
+    "next_room_native_roster": [
+      {
+        "key": 15,
+        "template": 9304
+      },
+      {
+        "key": 16,
+        "template": 9294
+      },
+      {
+        "key": 17,
+        "template": 9303
+      },
+      {
+        "key": 18,
+        "template": 9292
+      },
+      {
+        "key": 19,
+        "template": 9292
+      },
+      {
+        "key": 20,
+        "template": 9292
+      },
+      {
+        "key": 21,
+        "template": 9292
+      },
+      {
+        "key": 22,
+        "template": 9292
+      },
+      {
+        "key": 23,
+        "template": 9292
+      },
+      {
+        "key": 24,
+        "template": 20
+      },
+      {
+        "key": 25,
+        "template": 20
+      }
+    ],
+    "server_refusals": 0,
+    "server_worker_errors": 0
+  },
+  "scope": {
+    "no_OS_input": true,
+    "original_AI_physics_and_quests": true,
+    "no_forced_NPC_flags_state_or_position": true,
+    "no_forced_room_or_clear": true,
+    "owned_existing_prerequisite_save": true,
+    "whole_dungeon_final_settlement": false,
+    "all_dungeons_natural_combat": false
+  },
+  "evidence_sha256": {
+    "baseline_trace": "4334fb5c0d1c794398115f772c85124d04b0c672e50efff0798ed64c200320c9",
+    "baseline_server": "0b0588719578a7ac74e184db50d39906298ac86d32ca3ce260f780076274d7f0",
+    "fixed_trace": "8df26efcdc1f799c7d976b00ae2412382866e825ab2640ea4de5e9bdbc613656",
+    "fixed_server": "b65b8924a038900468f52c152cfde7900e268f135dbd758db28084bbff4b11f7"
+  },
+  "client_executable_unchanged": true,
+  "owned_database_checkpoint": [
+    0,
+    0,
+    0
+  ]
+}
