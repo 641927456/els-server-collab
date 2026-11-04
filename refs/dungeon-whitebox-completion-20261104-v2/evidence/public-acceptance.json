@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "public_TLS": true,
+  "normal_admission": true,
+  "forced_server_room": false,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "checks": [
+    "normal two-player dungeon33292 admission and initial load",
+    "four existing native refusals contain result1836",
+    "source contact0 broadcasts once; retry and unknown trigger handled",
+    "two source room transitions and contact0/2 cross-part dedup; no forced controller retirement",
+    "normal two-player34230 admission and original active-boss condition produce real C1",
+    "leader normal225 return after C1; retained guest gets three late472 successes without another C1 or economy delta"
+  ],
+  "contact_rooms_completed": [
+    {
+      "stage": 0,
+      "part": 0,
+      "actual_C1": false
+    },
+    {
+      "stage": 0,
+      "part": 1,
+      "actual_C1": false
+    }
+  ],
+  "reused_contact_evidence_sha256": "fbf1d8ee4bc84df4cba20a767f03fe71b2b191b1453640c3431b7309e951ec41",
+  "completion_map": 34230,
+  "own_accounts": 2,
+  "source_contact_cross_part_dedup": true,
+  "actual_C1": true,
+  "leader_return_after_C1": true,
+  "retained_member_late_472": 3,
+  "economic_state_unchanged": true
+}

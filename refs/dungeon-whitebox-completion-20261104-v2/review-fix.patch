@@ -1,0 +1,60 @@
+--- a/online/els_server/domain/friends_dungeon.py
++++ b/online/els_server/domain/friends_dungeon.py
+@@ -445,12 +445,23 @@
+         from els_server.domain.friends_spawns import _checked_static_generation
+         from els_server.domain.party_commands import _prepared_boxes
+         if r.phase not in ('active','part_end','clear'):return []
++        if r.phase=='clear':
++            from els_server.domain.friends_spawns import _connection,_generation
++            origin=getattr(r,'static_actor_origin',None);run=s.dungeon_run
++            # Departed peers may already have another run. Bind only this
++            # retained member to the original completed room and final gate.
++            if (not self._current_transport_member(s.application,s,r)
++                or not self._current_transport_roster(s.application,r)
++                or run is None or run.identity!=r.identity or origin is None
++                or origin[0] is not r or origin[2:4]!=(r.seed,r.identity)
++                or (_connection(s),run,r.seed) not in origin[4]
++                or getattr(r,'static_actor_generation',None)!=_generation(r,s)
++                or any(not m.clear_notified or getattr(m,'dungeon_failed',False) or m.social_overflow
++                    for m in r.members if self.room(m) is r)):return []
++            _,replies=prepare_condition_clear(s,event)
++            return replies[:1]
+         try:_checked_static_generation(self,r)
+         except ValueError:return []
+-        if r.phase=='clear':
+-            if not all(m.clear_notified and not getattr(m,'dungeon_failed',False) for m in r.members):return []
+-            _,replies=prepare_condition_clear(s,event)
+-            return replies[:1]
+         if s is not r.leader:
+             _,replies=prepare_condition_clear(s,event)
+             return replies[:1]
+--- a/local/els_server/domain/friends_dungeon.py
++++ b/local/els_server/domain/friends_dungeon.py
+@@ -423,12 +423,23 @@
+         from els_server.domain.friends_spawns import _checked_static_generation
+         from els_server.domain.party_commands import _prepared_boxes
+         if r.phase not in ('active','part_end','clear'):return []
++        if r.phase=='clear':
++            from els_server.domain.friends_spawns import _connection,_generation
++            origin=getattr(r,'static_actor_origin',None);run=s.dungeon_run
++            # Departed peers may already have another run. Bind only this
++            # retained member to the original completed room and final gate.
++            if (not self._current_transport_member(s.application,s,r)
++                or not self._current_transport_roster(s.application,r)
++                or run is None or run.identity!=r.identity or origin is None
++                or origin[0] is not r or origin[2:4]!=(r.seed,r.identity)
++                or (_connection(s),run,r.seed) not in origin[4]
++                or getattr(r,'static_actor_generation',None)!=_generation(r,s)
++                or any(not m.clear_notified or getattr(m,'dungeon_failed',False) or m.social_overflow
++                    for m in r.members if self.room(m) is r)):return []
++            _,replies=prepare_condition_clear(s,event)
++            return replies[:1]
+         try:_checked_static_generation(self,r)
+         except ValueError:return []
+-        if r.phase=='clear':
+-            if not all(m.clear_notified and not getattr(m,'dungeon_failed',False) for m in r.members):return []
+-            _,replies=prepare_condition_clear(s,event)
+-            return replies[:1]
+         if s is not r.leader:
+             _,replies=prepare_condition_clear(s,event)
+             return replies[:1]
