@@ -1,0 +1,23 @@
+{
+  "production_mutations": 0,
+  "failures": [
+    {
+      "stage": "SQLite fixture initialization",
+      "observed": "The older LocalAccount fixture no longer creates a character/account owner. Creating a character after LocalState had seeded location then hit its unique key.",
+      "fix": "Use current game_schema.prepare, create the owned character first through Characters.create, then construct LocalState and LocalAccount.",
+      "result": "All 11 SQLite tests pass; production ownership checks unchanged."
+    },
+    {
+      "stage": "Application native sub-part traversal",
+      "observed": "Older test driver waited for BA without sending the current B7/B8 curtain arrival sequence.",
+      "fix": "Send original B8 with the opened curtain target part for each loaded participant.",
+      "result": "Portrait solo and Water Dragon two-player traversal reach original clear. Business gate checks unchanged."
+    },
+    {
+      "stage": "Group EXP expectation",
+      "observed": "An initial group run had ERP total 18402340 against the fixed kill-plus-clear-only expectation 14411480. Its temporary database was removed by normal teardown; the extra amount was not retained as an attributed source.",
+      "fix": "Check the existing clear receipt's base amount and any random-mission permit independently, then include its separately verified bonus. Do not fit the monster table to that total.",
+      "result": "Successful final group run had no random mission and both participants received 14411480. This does not independently prove the cause of the earlier extra amount."
+    }
+  ]
+}
