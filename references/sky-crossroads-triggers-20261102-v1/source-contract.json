@@ -1,0 +1,216 @@
+{
+  "format": 1,
+  "issue": 757,
+  "channels": [
+    {
+      "channel": "online",
+      "parent": "native-atlas-scroll-support-20261101-v1",
+      "parent_manifest_sha256": "0ca429a0d9942f535435ab35ea7d181f02eaacb203f254f6ee0f8c915896e04c",
+      "runtime": "G:\\els\\releases\\online\\native-atlas-scroll-support-20261101-v1",
+      "file": "els_server/data/native_line_triggers.json",
+      "parent_sha256": "487175cc56116db81b664b1d6003fe410516b24cad34e04cd0f21bae47f1d000",
+      "sha256": "7abc1bb42a6d229eb9a9c4523e5e8d971165fe18d5a3cc7e73a150305f608574",
+      "added_rules": 12,
+      "existing_rules": 126,
+      "reader_sha256": "b8fcd649bb8b87415de6dccc12bc64db849d9db47ef562a44373bda2eebd10c2"
+    },
+    {
+      "channel": "local",
+      "parent": "local-native-atlas-scroll-support-20261101-v1",
+      "parent_manifest_sha256": "501bbf6b1754b497c4dcff26e4b9501894e9bdacfb95f9a1dfd4588f2992f900",
+      "runtime": "G:\\els\\releases\\local\\local-native-atlas-scroll-support-20261101-v1",
+      "file": "els_server/data/native_line_triggers.json",
+      "parent_sha256": "487175cc56116db81b664b1d6003fe410516b24cad34e04cd0f21bae47f1d000",
+      "sha256": "7abc1bb42a6d229eb9a9c4523e5e8d971165fe18d5a3cc7e73a150305f608574",
+      "added_rules": 12,
+      "existing_rules": 126,
+      "reader_sha256": "b8fcd649bb8b87415de6dccc12bc64db849d9db47ef562a44373bda2eebd10c2"
+    }
+  ],
+  "source": "source/common/els_server/data/native_line_triggers.json",
+  "added_rules": 12,
+  "existing_rules_preserved": 126,
+  "source_reader_unchanged": true,
+  "client_delta": 0,
+  "schema_delta": 0,
+  "validation": {
+    "online": {
+      "ok": true,
+      "channel": "online",
+      "fixed": true,
+      "natural_GUI": false,
+      "production_writes": false,
+      "original_reader_code": true,
+      "actual_Application_TLS": true,
+      "controlled_owned_checkpoint": true,
+      "denials": [
+        "unknown trigger",
+        "invalid payload",
+        "wrong performer",
+        "dungeon_substage_synced",
+        "clear_notified",
+        "dungeon_failed",
+        "dungeon_participants",
+        "stale lease",
+        "changed resource",
+        "wrong room",
+        "missing original actor"
+      ],
+      "cases": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          5
+        ],
+        [
+          1,
+          0,
+          6
+        ],
+        [
+          2,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          2
+        ]
+      ],
+      "existing_rules_preserved": 126,
+      "duplicate_ACK_only": true,
+      "inventory_and_defeated_unchanged": true
+    },
+    "local": {
+      "ok": true,
+      "channel": "local",
+      "fixed": true,
+      "natural_GUI": false,
+      "production_writes": false,
+      "original_reader_code": true,
+      "actual_Application_TLS": true,
+      "controlled_owned_checkpoint": true,
+      "denials": [
+        "unknown trigger",
+        "invalid payload",
+        "wrong performer",
+        "dungeon_substage_synced",
+        "clear_notified",
+        "dungeon_failed",
+        "dungeon_participants",
+        "stale lease",
+        "changed resource",
+        "wrong room",
+        "missing original actor"
+      ],
+      "cases": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          5
+        ],
+        [
+          1,
+          0,
+          6
+        ],
+        [
+          2,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          2
+        ]
+      ],
+      "existing_rules_preserved": 126,
+      "duplicate_ACK_only": true,
+      "inventory_and_defeated_unchanged": true
+    }
+  },
+  "installed": false,
+  "git_merged": false
+}
