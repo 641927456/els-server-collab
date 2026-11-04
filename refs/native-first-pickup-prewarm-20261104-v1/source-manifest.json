@@ -1,0 +1,47 @@
+{
+  "release": "native-first-pickup-prewarm-20261104-v1",
+  "issue": 825,
+  "parent_release": "native-dungeon-business-isolation-20261104-v2",
+  "changes": [
+    {
+      "path": "els_server/application.py",
+      "parent_sha256": "4f22790bfecf5cb6c00dce388c1c933c7a24db9ac1914ed0de03f10fc3c50a0a",
+      "sha256": "b3aec0c9911bfbdd107df0aaf5b37a768044d6b7779c12350bc14c8f6719d5ff"
+    }
+  ],
+  "files": [
+    {
+      "path": "base/els_server/application.py",
+      "sha256": "4f22790bfecf5cb6c00dce388c1c933c7a24db9ac1914ed0de03f10fc3c50a0a"
+    },
+    {
+      "path": "source/els_server/application.py",
+      "sha256": "b3aec0c9911bfbdd107df0aaf5b37a768044d6b7779c12350bc14c8f6719d5ff"
+    },
+    {
+      "path": "tests/runtime_fixture.py",
+      "sha256": "a7e76fbe58cbc5e386b1f14b3c09ada720afc33a252239dc1caf8f0f7ac18426"
+    },
+    {
+      "path": "tests/profile_cold.py",
+      "sha256": "934b003c10e3bca66ee99db0d2d54a4e9710eaddeb217d077418c1b3d43c7d3f"
+    },
+    {
+      "path": "tests/verify_startup_failure.py",
+      "sha256": "25892d5aa10ecdfe27a9e6f0b16a63d6834c6dc1a9bdb5c4a4dd871bafad9e5c"
+    },
+    {
+      "path": "validation.json",
+      "sha256": "291efe13f8d2bc30316a0fe03b21fc129018afbda51678c20d145b48045d0686"
+    },
+    {
+      "path": "review.md",
+      "sha256": "1f25f532dad73a563d46808e14d58b43fa95b01e25c6a08126513e9582326357"
+    },
+    {
+      "path": "candidate.patch",
+      "sha256": "92f7b9d6c99c0b40787b2feca6d099dbb94996aafabaf4ebd87f91fa54d93556"
+    }
+  ],
+  "active_main_source_replaced": false
+}
