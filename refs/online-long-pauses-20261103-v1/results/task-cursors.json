@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "policy": "original_daily",
+      "seconds": 8,
+      "old_history_excluded": true,
+      "overlap_not_doubled": true,
+      "other_account_and_low_level_excluded": true,
+      "cross_day_parent_equal": true
+    },
+    {
+      "policy": "selected2026-cn-guide-retain-unclaimed-v1",
+      "seconds": 14,
+      "old_history_excluded": true,
+      "overlap_not_doubled": true,
+      "other_account_and_low_level_excluded": true,
+      "cross_day_parent_equal": true
+    },
+    {
+      "policy": "selected2026-cn-guide-retain-unclaimed-v1",
+      "checksum_rejected_and_no_partial_task_update": true
+    },
+    {
+      "first_install_both_indexes": true,
+      "repeat_initialize": true
+    }
+  ],
+  "owned_runtime_removed": true,
+  "mail_or_reward_issued": false,
+  "online_installed": false,
+  "sources": {
+    "private-input:lifecycle.py": "fcef1e60aa9ed59f8a778d0eae903d1cf0016d20940f7ad4937f94a0a7c20057",
+    "private-input:attendance_2026_progress.py": "75a05998e313f659477f56fd6f86cd3b7dcbe8d6d0b918c785f23d4916949dbc",
+    "private-input:verify_tasks.py": "67567a7ec2a14f91df04538a1b4c05134e099d587e991d03243c7555222ba741"
+  }
+}

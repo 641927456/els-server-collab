@@ -1,0 +1,218 @@
+--- a/els_server/domain/attendance_2026_online.py
++++ b/els_server/domain/attendance_2026_online.py
+@@ -3,7 +3,7 @@
+ Eligibility is a required trusted server policy. The campaign's complete scene
+ policy still needs confirmation; construction is explicit and defaults off.
+ """
+-from els_server.performance import sqlite_observed
++from els_server.performance import sqlite_observed,clock_stage
+ import math
+ import sqlite3
+ import logging
+@@ -45,7 +45,8 @@
+         self.last_monotonic=mono
+         # Finish the interval belonging to the previously observed role before
+         # switching identities. No process-persistent anchor can count downtime.
+-        current=self.eligibility(session)
++        with clock_stage('attendance_eligibility'):
++            current=self.eligibility(session)
+         if self.identity is not None:
+             elapsed=mono-self.base
+             if current==self.identity and abs(wall-(self.anchor+elapsed))<=2:
+@@ -53,7 +54,9 @@
+                 start=self.anchor+self.committed
+                 path,account,character,level=self.identity
+                 if start<end:
+-                    with closing(sqlite3.connect(path,timeout=10 if stop else 0)) as db:
++                    with clock_stage('attendance_connect'):
++                        connection=sqlite3.connect(path,timeout=10 if stop else 0)
++                    with clock_stage('attendance_persist'),closing(connection) as db:
+                         if db.execute('SELECT account_id FROM character_owners WHERE uid=?',(character,)).fetchone()!=(account,):
+                             raise ValueError('Online role ownership changed')
+                         if db.execute('SELECT definition_sha256 FROM activity518_campaigns WHERE campaign=?',(self.campaign,)).fetchone()!=(self.digest,):
+--- a/els_server/domain/attendance_online_2026.py
++++ b/els_server/domain/attendance_online_2026.py
+@@ -92,17 +92,18 @@
+             logging.getLogger(__name__).debug('Automatic attendance enrollment deferred by SQLite lock')
+             return None
+ 
+-    def _register_task(self,s):
++    def _register_task(self,s,projection):
+         # Initial2B alone did not populate the original518 task panel in V124.
+         # Send the existing original F0 record once after the native town-ready
+         # transition, without accepting again or changing objective counters.
+         if s.phase!='town_ready' or not self.available(s,self.clock()):return []
+         if selected_local_test_character(s) is None:return []
+-        task,_,_=self._projection(s)
+-        if task is None:return []
+-        signature=(id(s),s.account.uid,task['accepted_at'])
++        # Parent finalize just produced (UID, accepted_at, view) in self.last.
++        # Reuse that same reply's owned view instead of refreshing its ledger.
++        if projection is None or projection[0]!=s.account.uid or projection[1] is None:return []
++        signature=(id(s),s.account.uid,projection[1])
+         if getattr(self,'_registered_task',None)==signature:return []
+-        message=quest_wire.accepted(**self.view(task,owner_uid=s.account.uid))
++        message=quest_wire.accepted(**dict(projection[2]))
+         encode_event(message)
+         self._registered_task=signature
+         return [message]
+@@ -129,7 +130,7 @@
+         if self.available(s,self.clock()):
+             accepted=self._ensure_task(s)
+             retained=super().finalize(s,retained)
+-            retained+=self._register_task(s)
++            retained+=self._register_task(s,self.last)
+         table=next((e for e in retained if e.event_id==0x201 and e.kind==0x4b6),None)
+         if table is not None or rewards:
+             retained=[e for e in retained if not(e.event_id==0x201 and e.kind==0x4b6)]
+--- a/els_server/domain/online_2026_clock.py
++++ b/els_server/domain/online_2026_clock.py
+@@ -4,7 +4,7 @@
+ Persisted explicit periods exclude maintenance gaps. No stored clock anchor can
+ turn process downtime into online time. This module sends no client packets.
+ """
+-from els_server.performance import sqlite_observed
++from els_server.performance import sqlite_observed,clock_stage
+ import math
+ import sqlite3
+ import logging
+@@ -52,7 +52,8 @@
+             self.identity = None
+             raise ValueError('Invalid or backwards server clock')
+         self.last = mono
+-        current = self.eligibility(session)
++        with clock_stage('title_eligibility'):
++            current = self.eligibility(session)
+         if current is not None:
+             if (type(current) is not tuple or len(current) != 4 or
+                     type(current[0]) is not str or not current[0] or
+@@ -80,21 +81,26 @@
+ 
+     def _persist(self, start, end, *, stop=False):
+         path, account, character, _ = self.identity
+-        with closing(sqlite3.connect(path, timeout=10 if stop else 0)) as db:
+-            db.execute('BEGIN IMMEDIATE')
++        with clock_stage('title_connect'):
++            connection=sqlite3.connect(path, timeout=10 if stop else 0)
++        with clock_stage('title_persist'),closing(connection) as db:
++            with clock_stage('title_begin'):
++                db.execute('BEGIN IMMEDIATE')
+             try:
+                 repo = OnlineTitleProgress(db, self.selection_bytes, campaign=self.campaign)
+-                repo._definition()
+-                if repo._owner(account, character) < 10:
+-                    raise ValueError('Stored online character is no longer eligible')
+-                periods = db.execute('''SELECT week,starts,ends FROM online2026_periods
+-                    WHERE campaign=? AND starts<? AND ends>? ORDER BY starts''',
+-                    (self.campaign, end, start)).fetchall()
+-                for week, lo, hi in periods:
+-                    a, b = max(start, lo), min(end, hi)
+-                    repo.record_span(account=account, character=character, week=week,
+-                        operation=f'clock:{self.token}:{start}:{end}:{week}', starts=a, ends=b, return_progress=False)
+-                db.commit()
++                with clock_stage('title_write'):
++                    repo._definition()
++                    if repo._owner(account, character) < 10:
++                        raise ValueError('Stored online character is no longer eligible')
++                    periods = db.execute('''SELECT week,starts,ends FROM online2026_periods
++                        WHERE campaign=? AND starts<? AND ends>? ORDER BY starts''',
++                        (self.campaign, end, start)).fetchall()
++                    for week, lo, hi in periods:
++                        a, b = max(start, lo), min(end, hi)
++                        repo.record_span(account=account, character=character, week=week,
++                            operation=f'clock:{self.token}:{start}:{end}:{week}', starts=a, ends=b, return_progress=False)
++                with clock_stage('title_commit'):
++                    db.commit()
+             except BaseException:
+                 db.rollback()
+                 raise
+--- a/els_server/performance.py
++++ b/els_server/performance.py
+@@ -21,6 +21,25 @@
+ 
+ def captured_calls():
+     return _capture.get()
++
++
++@contextmanager
++def clock_stage(name):
++    """Fixed internal stage names, with no account, payload or SQL text."""
++    sample = _active.get()
++    if sample is None:
++        yield
++        return
++    started = time.perf_counter()
++    try:
++        yield
++    finally:
++        stages = sample.setdefault('clock_stages', {})
++        row = stages.setdefault(name, dict(count=0, total_ms=0., max_ms=0.))
++        elapsed = (time.perf_counter()-started)*1000
++        row['count'] += 1
++        row['total_ms'] += elapsed
++        row['max_ms'] = max(row['max_ms'], elapsed)
+ 
+ 
+ @contextmanager
+--- a/els_server/storage/attendance_2026_progress.py
++++ b/els_server/storage/attendance_2026_progress.py
+@@ -9,6 +9,7 @@
+ import hashlib
+ import json
+ import sqlite3
++from els_server.performance import clock_stage
+ 
+ 
+ def _key(value):
+@@ -39,10 +40,13 @@
+     def _transaction(self):
+         if self.db.in_transaction:
+             raise RuntimeError('Progress transaction cannot commit another operation')
+-        self.db.execute('BEGIN IMMEDIATE')
++        with clock_stage('attendance_begin'):
++            self.db.execute('BEGIN IMMEDIATE')
+         try:
+-            yield
+-            self.db.commit()
++            with clock_stage('attendance_write'):
++                yield
++            with clock_stage('attendance_commit'):
++                self.db.commit()
+         except BaseException:
+             self.db.rollback()
+             raise
+@@ -69,6 +73,10 @@
+             if old and old[0] != self.digest:
+                 raise ValueError('Campaign definition changed; preserve existing progress')
+             self.db.execute('INSERT OR IGNORE INTO activity518_campaigns VALUES (?,?)', (self.campaign,self.digest))
++            self.db.execute('CREATE INDEX IF NOT EXISTS activity518_facts_account_period ON activity518_facts(campaign,account,period)')
++            # This prefix puts the implicit rowid next for carried-task cursors;
++            # the period index has a day key between the account and that rowid.
++            self.db.execute('CREATE INDEX IF NOT EXISTS activity518_facts_account_cursor ON activity518_facts(campaign,account)')
+ 
+     def register_period(self, period, starts, ends):
+         """Explicit caller-supplied period; no default reset hour or auto rollover."""
+--- a/els_server/storage/inventory_actions.py
++++ b/els_server/storage/inventory_actions.py
+@@ -45,6 +45,7 @@
+         operation_id TEXT PRIMARY KEY, request_hash TEXT NOT NULL, owner INTEGER NOT NULL,
+         kind INTEGER NOT NULL, positions_json TEXT NOT NULL, before_json TEXT NOT NULL,
+         after_json TEXT NOT NULL)''')
++    db.execute('CREATE INDEX IF NOT EXISTS inventory_action_receipts_kind_owner ON inventory_action_receipts(kind,owner)')
+     db.execute('INSERT INTO inventory_action_receipts VALUES (?,?,?,?,?,?,?)',
+                (operation, digest, uid, kind, json.dumps(positions),
+                 json.dumps(before, sort_keys=True), json.dumps(after, sort_keys=True)))
+--- a/els_server/storage/lifecycle.py
++++ b/els_server/storage/lifecycle.py
+@@ -44,6 +44,11 @@
+         if result!=[('ok',)]:raise RuntimeError('SQLite integrity check failed: '+repr(result))
+         if db.execute('PRAGMA journal_mode=WAL').fetchone()[0].lower()!='wal':
+             raise RuntimeError('Unable to enable SQLite WAL')
++        if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='inventory_action_receipts'").fetchone():
++            db.execute('CREATE INDEX IF NOT EXISTS inventory_action_receipts_kind_owner ON inventory_action_receipts(kind,owner)')
++        if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='activity518_facts'").fetchone():
++            db.execute('CREATE INDEX IF NOT EXISTS activity518_facts_account_period ON activity518_facts(campaign,account,period)')
++            db.execute('CREATE INDEX IF NOT EXISTS activity518_facts_account_cursor ON activity518_facts(campaign,account)')
+ 
+ 
+ def checkpoint_database(path):

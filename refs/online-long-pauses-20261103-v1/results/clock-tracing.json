@@ -1,0 +1,113 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "kind": "attendance",
+      "cross_day_exact_seconds": 5,
+      "transient_busy_cursor_unchanged": true,
+      "recovery_no_double_count": true,
+      "all_rows_equal": true,
+      "stop_closed": true,
+      "stages": [
+        "attendance_begin",
+        "attendance_commit",
+        "attendance_connect",
+        "attendance_eligibility",
+        "attendance_persist",
+        "attendance_write"
+      ]
+    },
+    {
+      "kind": "title",
+      "cross_day_exact_seconds": 5,
+      "transient_busy_cursor_unchanged": true,
+      "recovery_no_double_count": true,
+      "all_rows_equal": true,
+      "stop_closed": true,
+      "stages": [
+        "title_begin",
+        "title_commit",
+        "title_connect",
+        "title_eligibility",
+        "title_persist",
+        "title_write"
+      ]
+    }
+  ],
+  "exception_identity_preserved": true,
+  "no_worker_sample_leak": true,
+  "stages": {
+    "attendance": {
+      "attendance_eligibility": {
+        "count": 7,
+        "total_ms": 0.017300015315413475,
+        "max_ms": 0.0034999102354049683
+      },
+      "attendance_connect": {
+        "count": 5,
+        "total_ms": 0.4965001717209816,
+        "max_ms": 0.1230000052601099
+      },
+      "attendance_begin": {
+        "count": 6,
+        "total_ms": 0.2043002750724554,
+        "max_ms": 0.0504001509398222
+      },
+      "attendance_write": {
+        "count": 5,
+        "total_ms": 2.8141001239418983,
+        "max_ms": 0.7458000909537077
+      },
+      "attendance_commit": {
+        "count": 5,
+        "total_ms": 31.075299717485905,
+        "max_ms": 6.66249985806644
+      },
+      "attendance_persist": {
+        "count": 5,
+        "total_ms": 35.63019982539117,
+        "max_ms": 13.778999913483858
+      }
+    },
+    "title": {
+      "title_eligibility": {
+        "count": 7,
+        "total_ms": 0.016700010746717453,
+        "max_ms": 0.003300141543149948
+      },
+      "title_connect": {
+        "count": 5,
+        "total_ms": 0.43039978481829166,
+        "max_ms": 0.10819989256560802
+      },
+      "title_begin": {
+        "count": 5,
+        "total_ms": 0.21200021728873253,
+        "max_ms": 0.04650000482797623
+      },
+      "title_write": {
+        "count": 4,
+        "total_ms": 1.976999919861555,
+        "max_ms": 0.5804998800158501
+      },
+      "title_commit": {
+        "count": 4,
+        "total_ms": 24.15190008468926,
+        "max_ms": 6.349500035867095
+      },
+      "title_persist": {
+        "count": 5,
+        "total_ms": 26.65489981882274,
+        "max_ms": 6.967299850657582
+      }
+    }
+  },
+  "owned_runtime_removed": true,
+  "sources": {
+    "private-input:performance.py": "51457d1ba53a7b73df96ac59c4b215183ad8ac180b238c8ba84b749f2c7872f1",
+    "private-input:attendance_2026_online.py": "2612b90dae32494929a9157344b38c504f7783ebd5ec27b74b263ee97fe7623c",
+    "private-input:online_2026_clock.py": "ca47b20c393a11721850c74d40177870cc7ddf7af41d0ae4ea3dbad39bee7303",
+    "private-input:attendance_2026_progress.py": "c90ea633d772c1c6eaf6581d4aa1c5141eb6d3efee1b774cd2b201525ce93ee7"
+  },
+  "online_installed": false
+}

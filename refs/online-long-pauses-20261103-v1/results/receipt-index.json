@@ -1,0 +1,67 @@
+{
+  "before": {
+    "milliseconds": 20.268799969926476,
+    "vm_steps": 107100,
+    "value": {
+      "value": {
+        "rows": {},
+        "points": 0,
+        "revision": 0
+      }
+    }
+  },
+  "after": {
+    "milliseconds": 0.12320000678300858,
+    "vm_steps": 200,
+    "value": {
+      "value": {
+        "rows": {},
+        "points": 0,
+        "revision": 0
+      }
+    }
+  },
+  "plan": [
+    [
+      4,
+      0,
+      52,
+      "SEARCH r USING COVERING INDEX inventory_action_receipts_kind_owner (kind=?)"
+    ],
+    [
+      10,
+      0,
+      45,
+      "SEARCH o USING INTEGER PRIMARY KEY (rowid=?)"
+    ]
+  ],
+  "old_rows_preserved": 8921,
+  "rejection_cases": {
+    "3406": {
+      "error": "Unpaired Cartridge inventory history"
+    },
+    "3408": {
+      "error": "Unpaired Cartridge inventory history"
+    },
+    "3410": {
+      "error": "Unpaired Cartridge inventory history"
+    },
+    "3412": {
+      "error": "Unknown/unpaired Cartridge growth history HOLD"
+    }
+  },
+  "repeat_upgrade": true,
+  "fresh_start_keeps_lazy_table": true,
+  "first_real_receipt_creates_index": true,
+  "passed": true,
+  "inventory_storage_tests_previously_passed": 9,
+  "stock_session_assertions_pending_parent_comparison": 3,
+  "sources": {
+    "private-input:inventory_actions.py": "3197bea0bae9a4834e22e12e3851cf7533fc2d7f20bb85409febe7fe4e6eea59",
+    "private-input:lifecycle.py": "541521719f63de2df81ad6c3e799ce9e67e3fcf77e60305e6b3afaed3d6f9a3e",
+    "private-input:verify_index.py": "5b3da8e9180c126d8f90fa6dc2b8f348b2040751c83daaeee23014ae78b19f98",
+    "private-input:cartridge_registration_rules.py": "55ac2dd8cb55573c45c60cbb19dede453572c832b5ceb644d0199c664dadaeab"
+  },
+  "natural_battle": false,
+  "online_installed": false
+}
