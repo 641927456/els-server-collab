@@ -1,0 +1,89 @@
+{
+  "ok": true,
+  "related_checks": 38,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "production_load": false,
+  "tests": [
+    {
+      "name": "runtime-candidate-073508.json",
+      "sha256": "26f898fff18eb6dc2fad7e5f2cd788a03773dc66e54a7691899cddb65335d457",
+      "ok": true,
+      "checks": [
+        "normal TLS admission and actual loaded room",
+        "native38E active selector commits; unchanged selector does not increment; capability enable/revoke retained",
+        "36 actual TLS live reports drained; no extra activity clock observation on candidate",
+        "remote pet pickup denied without current entitlement; no money awarded",
+        "source-qualified remote pet D0/D1/D2, real credit, repeated D0 no duplicate money/effect",
+        "actual coin encoder failure rolls back; same issued drop remains claimable once",
+        "inventory D3 pickup remains on full synchronization path and persists",
+        "glass B8/B9/BA/BB/BC/BD, repeated requests and load succeed with unclaimed drops",
+        "independent periodic maintenance still runs; final currency cold read matches"
+      ]
+    },
+    {
+      "name": "party-candidate-073508.json",
+      "sha256": "0de0306f23d0b70b1e7dc8f55f604836c3353aee3940909ef0489527eda337c9",
+      "ok": true,
+      "checks": [
+        "original invite/ready/382/14A/91/B3 group admission; no room override",
+        "actual38E and4E2 active switches retain matching peer4E3 on two LuCiel actors",
+        "master native ADs open door; dead member without B8 loads BD and later revives once with identical peer162"
+      ]
+    },
+    {
+      "name": "consumable-tests-candidate.json",
+      "sha256": "d8ea4f58fd5f6721b8c8b635b479dce87a3925e834367f001aaaa06e08492181",
+      "ok": true,
+      "checks": [
+        "part_end native effect 130165",
+        "part_end native effect 78928",
+        "part_end native effect 130467",
+        "part_end native effect 78390",
+        "exact receipt replay and cold counts",
+        "cooldown rejection no debit",
+        "next part active use",
+        "gate_stage_loading rejected without debit",
+        "dungeon_return_pending rejected without debit",
+        "clear_notified rejected without debit",
+        "dungeon_failed rejected without debit",
+        "encoder rollback and cold read",
+        "empty slot refusal has native text code",
+        "shared part_end readiness and exactly one peer effect; clear refused"
+      ]
+    },
+    {
+      "name": "clear-tests-073506.json",
+      "sha256": "37a93e59725ac004c7301c783fbe91fc85a69bf7e175e704a973bd74018c171b",
+      "ok": true,
+      "checks": [
+        "premature legacy B3 is rejected without entering loaded state",
+        "normal30000 admission and original loaded barrier",
+        "three original stages, combat receipts and C1 settlement commit; repeated BB changes neither balance nor original receipt",
+        "original dungeon end request enters return lifecycle"
+      ]
+    },
+    {
+      "name": "actions-tests-073506.json",
+      "sha256": "33ea5c15dc85bcdf6a85798f7bcad0da38f6ad571d030a4a732670db4750d4c6",
+      "ok": true,
+      "checks": [
+        "manual consumable original114/115 and one committed debit",
+        "right-click elixir original21A/3A3, one debit, immutable replay and cold state",
+        "verified native skill384 spawn2CE/2CF/2D0; exact replay creates no second actor",
+        "owned native skill expiry retires actor, replay changes no rewards or dungeon progress"
+      ]
+    },
+    {
+      "name": "scheduling-tests.json",
+      "sha256": "c42dc85840e778009541506099a8f94aed50cdaaff0e463afc78b7b897443aec",
+      "ok": true,
+      "checks": [
+        "dungeon FIFO bypasses thirty queued town writers; ordinary writer admitted after sixteen dungeon requests",
+        "reader barrier retained; cancelling waiting dungeon request releases its admission exactly once",
+        "cancelled running SQL retains exclusive world ownership until actual worker retirement",
+        "mixed one hundred reader/dungeon/ordinary admissions retire without overlapping world writers"
+      ]
+    }
+  ]
+}
