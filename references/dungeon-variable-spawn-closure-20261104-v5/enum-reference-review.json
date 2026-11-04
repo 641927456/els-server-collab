@@ -1,0 +1,51 @@
+{
+  "ok": true,
+  "scope": "Classification only; no missing enum identity manufactured",
+  "inactive_current_stage_calls": [
+    {
+      "template": 6944,
+      "prototype": 0,
+      "source": "dungeon_devildom1_darkelf.lua",
+      "stage": 0,
+      "maps": [
+        34110
+      ],
+      "actor_identities": 6,
+      "errors": [],
+      "callback_reachable": false,
+      "unknown_state_calls": []
+    },
+    {
+      "template": 7174,
+      "prototype": 5,
+      "source": "dungeon_story_devildom1_raid3.lua",
+      "stage": 1,
+      "maps": [
+        34190
+      ],
+      "actor_identities": 15,
+      "errors": [],
+      "callback_reachable": false,
+      "unknown_state_calls": []
+    }
+  ],
+  "unresolved_current_client_binding": {
+    "template": 12578,
+    "prototype": 7,
+    "missing_name": "NUI_DEVILDOM6_BARKAT_RAID_BOSS3_PHASE1_BOSS_ATTACK_B_HENIR",
+    "dungeon": 35870,
+    "stages": [
+      20,
+      21
+    ],
+    "source_local_callback_reachable": true,
+    "full_context_source_boundary": {
+      "template": 12582,
+      "script": "DEVILDOM6_BARKAT_RAID_BOSS3_PHASE1_ULT_BARRIER_B_HENIR.lua",
+      "original_archive_entries": 0
+    },
+    "natural_stall_confirmed": false,
+    "server_replacement_added": false
+  },
+  "unknown_probability_or_pool_added": false
+}

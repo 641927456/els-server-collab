@@ -1,0 +1,105 @@
+{
+  "runtime": "G:\\els\\analysis\\dungeon-stalls-20261103-v1\\spawn-variants-20261104-v1\\fix-v6\\runtime",
+  "parent": "G:\\els\\releases\\online\\native-modern-ice-cubes-points-20261104-v1",
+  "changed_files": [
+    {
+      "path": "els_server/data/client/dungeon_routes.json",
+      "delivery_role": "runtime",
+      "size": 10891612,
+      "sha256": "0cd82457bf0cb097e2e3d808ecb3fe6ba6a0ce06493cbe355698e9978bf51cc2",
+      "parent_sha256": "b1c18b62233cbdfe94d8ca5d9d6639c0d1c0f69d5e4eef26a7b5bd58d0ab190e"
+    },
+    {
+      "path": "els_server/data/client/dungeon_routes.manifest.json",
+      "delivery_role": "runtime",
+      "size": 481894,
+      "sha256": "9080971b444f8606c8830662a4490590bca777927b8067ffe79f83bead2908ad",
+      "parent_sha256": "7a14ca93d030ee7adcc5de93bc8f07c16ac7700eea45afd2c5d1620e8cba9e3f"
+    },
+    {
+      "path": "els_server/data/dungeon_loot_catalog.json",
+      "delivery_role": "runtime",
+      "size": 59429,
+      "sha256": "b4d573b5d2eb868bdd9d7deaa717102c93b84527f43288b531458d5b92ab8054",
+      "parent_sha256": "e38d43683ce04dc947b1a4c794ce79bb8fb723a6ba976438e6e872d8b1f583d6"
+    },
+    {
+      "path": "els_server/data/dungeon_material_loot_catalog.json",
+      "delivery_role": "runtime",
+      "size": 41917,
+      "sha256": "47d0e47f537902681fa5ef9095c0543e9a27eea1d8e78996b2323b5eff2ae1eb",
+      "parent_sha256": "7d0c804cdc7666f92152581a5f6acdcc79481e852a9ed627e4353f756fccee8c"
+    },
+    {
+      "path": "els_server/data/dungeon_source_loot.json",
+      "delivery_role": "runtime",
+      "size": 799180,
+      "sha256": "44e502ed983dd86141f27e39a10aef15e9cbee1a6a2cfc0d9661f0d9d1be1fd8",
+      "parent_sha256": "a74cfe1036d0e48dad91a7302cd4cd9fd082956a9b3da029efb7f7052c5b41a4"
+    },
+    {
+      "path": "els_server/data/formal_npc_hp.json",
+      "delivery_role": "runtime",
+      "size": 3816194,
+      "sha256": "158cafd20db2f26b6d90a66fcf7cfff9076cc71427aaf8f79b117c9f4e28d3c7",
+      "parent_sha256": "9c9483a6aad462372717e7c73d149e4f8e70a42d9a4d9d47384b9c6058be73a5"
+    },
+    {
+      "path": "els_server/data/formal_npc_hp.manifest.json",
+      "delivery_role": "runtime",
+      "size": 206,
+      "sha256": "3ee881d57dbfa6708f5979cc8dfa9636854eed2ab5a515c1ae7e6e57c5a8bcdd",
+      "parent_sha256": "7a3021828e82ec1d78cd65bf153be68dea50416128bdb05eff6c29c26159469a"
+    },
+    {
+      "path": "els_server/data/raid_npc_hp.json",
+      "delivery_role": "runtime",
+      "size": 1546629,
+      "sha256": "e88f7a8e5e1fe9716b83753ab430d8b485fc81f949f2a53a7f86684c74c8b30f",
+      "parent_sha256": "33f19d4dca4a56fcc692ba7af7afcd7c6269f63b53b47d4f5a00d9e075c54d19"
+    },
+    {
+      "path": "els_server/domain/dungeon_loot_catalog.py",
+      "delivery_role": "runtime",
+      "size": 7825,
+      "sha256": "b1579f60fb608a06d2a4ca67b8cec376d98c3b10e470a444fc6c3f578f6ad2b7",
+      "parent_sha256": "09a6e3f4f28ae817b0a73ef3c16f89f8724a35d5f6da3717c8cd7b18a81364ad"
+    },
+    {
+      "path": "els_server/domain/dungeon_material_loot_catalog.py",
+      "delivery_role": "runtime",
+      "size": 21667,
+      "sha256": "35e94afe35793e9e7fd89ca3ac7bc2f307117179574f4dd2f60a8f60423c2ec6",
+      "parent_sha256": "37eb525e0c9deb5610f645895f93cf983c3acb5d8e38c2cc62f8175b8404a4e1"
+    },
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "delivery_role": "runtime",
+      "size": 22196,
+      "sha256": "e181a686cd9739f690d4c11597c61548283b6243f2e8c01874e63d40566ced17",
+      "parent_sha256": "c7fb9db35bd152685c448135095468a029e990e93cac11df04e35eb4774f51b0"
+    },
+    {
+      "path": "els_server/domain/dungeon_source_loot.py",
+      "delivery_role": "runtime",
+      "size": 10738,
+      "sha256": "7d8ab389a45ad59af5a7831a5645d18a5f8b42950515f2bf9c98348f585b10e2",
+      "parent_sha256": "4c859b251e9387f910214f167330e323c64228ff3418e8100608310ee2559fea"
+    },
+    {
+      "path": "tools/build_dungeon_routes.py",
+      "delivery_role": "source_only",
+      "size": 21275,
+      "sha256": "da44459680d7c553173816b0b88485aa6fabb4512ead0c714782d99102896d7a",
+      "parent_sha256": null
+    },
+    {
+      "path": "tools/npc_spawn_source_flow.py",
+      "delivery_role": "source_only",
+      "size": 19600,
+      "sha256": "17e413146b7665c45dc7400c9174af5dedd870b40560ca3e2f4ab61e4ca4491d",
+      "parent_sha256": null
+    }
+  ],
+  "owned": true
+}

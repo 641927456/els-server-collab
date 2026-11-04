@@ -1,0 +1,19 @@
+{
+  "script": "NPC_Util.lua",
+  "source_sha256": "0a52ce68256962d36b188656a725ce01c9120410af3caf418fe26830ded44ae4",
+  "methods": {
+    "SetGlobalFlagKey": {
+      "prototype": 40,
+      "instruction_sha256": "1b690a88a0e6c7794116309ab0cbe6ef5f3a5b533476eb2c280bd0a9dd77befd"
+    },
+    "SetFlag": {
+      "prototype": 46,
+      "instruction_sha256": "b00be769459ec6161e6f5ece94c38f1e7649cb12d7c7b358bcc8ae120472f59a"
+    },
+    "GetFlag": {
+      "prototype": 47,
+      "instruction_sha256": "d1cb2ddd29452248d530971122abad47bd8ea4b76fbb53ccb425275ae3bbfa71"
+    }
+  },
+  "contract": "Named flag keys resolve by GetUnitID through g_tFlagKey and invoke original SetFlag_LUA; no alternate numeric or random mapping."
+}
