@@ -33,7 +33,12 @@ async def main():
   assert [r for r in snapshot(path,uid,s.account.account_id)['rows']if r['template']==710206]==rows
   out['checks'].append('right-click elixir original21A/3A3, one debit, immutable replay and cold state')
   fixture=json.loads((h.ROOT/'analysis/skills-clear-20261015/sentry-request.json').read_bytes())
-  body=bytes.fromhex(fixture['payload']);assert 384 in player_summon_templates(s.account.character())
+  body=bytearray.fromhex(fixture['payload'])
+  segment=next(row for row in fixture['segments']if row['offset']==0x6d);assert segment['length']==8
+  position=segment['position'];captured=struct.unpack_from('<Q',bytes.fromhex(fixture['dto']),0x6d)[0]
+  mask=int.from_bytes(body[position:position+8],'big')^captured
+  body[position:position+8]=(uid^mask).to_bytes(8,'big');body=bytes(body)
+  assert 384 in player_summon_templates(s.account.character())
   keys=set(s.summon_keys);sequence=p.outgoing;await p.send(0x2ce,body)
   assert(await p.until(0x2cf)).payload==bytes(4);await p.until(0x2d0)
   new=s.summon_keys-keys;assert len(new)==1;key=next(iter(new))
