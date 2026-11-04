@@ -1,0 +1,35 @@
+{
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "parent_release": "native-mixed-player-scene-summons-20261104-v1",
+  "parent_manifest_sha256": "c6ebd56e15be371360b9f50d84681a44a5853f91fc42535a18e62f6c3a5a6419",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "files": {
+    "els_server/data/client/dungeon_routes.json": "b1c18b62233cbdfe94d8ca5d9d6639c0d1c0f69d5e4eef26a7b5bd58d0ab190e",
+    "els_server/data/client/dungeon_routes.manifest.json": "7a14ca93d030ee7adcc5de93bc8f07c16ac7700eea45afd2c5d1620e8cba9e3f",
+    "els_server/data/formal_npc_hp.json": "9c9483a6aad462372717e7c73d149e4f8e70a42d9a4d9d47384b9c6058be73a5",
+    "els_server/data/formal_npc_hp.manifest.json": "7a3021828e82ec1d78cd65bf153be68dea50416128bdb05eff6c29c26159469a",
+    "els_server/data/raid_npc_hp.json": "33f19d4dca4a56fcc692ba7af7afcd7c6269f63b53b47d4f5a00d9e075c54d19",
+    "tools/build_dungeon_routes.py": "ff00be29081f19cd21ecc30cf635ef1d7ca74bf9510a00dba7785912f1213e9b"
+  },
+  "runtime_leaves": [
+    "els_server/data/client/dungeon_routes.json",
+    "els_server/data/client/dungeon_routes.manifest.json",
+    "els_server/data/formal_npc_hp.json",
+    "els_server/data/formal_npc_hp.manifest.json",
+    "els_server/data/raid_npc_hp.json"
+  ],
+  "development_tools": [
+    "tools/build_dungeon_routes.py"
+  ],
+  "repair_sources": {
+    "build_delta.py": "04ce665104deadd3aa5f80768b9fc9d01a5bf269ae605a277bf58dee3958622d",
+    "cleanup_runtime.py": "b28577a7a98884dd8946876d4f21c957a337e1d06f241341ee06b9324433829b",
+    "constant_calls.py": "e20e19b52f28648df780e329fffab10702604a920810302cb01112caeaf8645b",
+    "prepare_runtime.py": "26897b6df252c5ebae8607cd344c169e140117143d9aa99a0ec149ec98b0a713",
+    "test_dependencies.py": "c545fa8b8a16361336447291bf23f2525f49af0439d01e60f5c1e632e243f5c5",
+    "test_dependencies_tls.py": "bd8e11212ba7e8fb8988abc078426735f04a5c2fecba7dc12a932f76ee0d7d8f"
+  },
+  "root_runtime_activation": false,
+  "automatic_deployment": false,
+  "Git_merge": false
+}
