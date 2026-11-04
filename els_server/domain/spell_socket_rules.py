@@ -1,4 +1,4 @@
-"""Eight existing-owned stones; exact native TYPE pools and approved weights."""
+"""Eight prior stones plus four current shining stones via native paid writer."""
 import functools,hashlib,json,struct
 from pathlib import Path
 from els_server.game_data import CLIENT_SHA,client_data
@@ -24,17 +24,25 @@ def catalog():
     return data
 
 def material(template):
+    from els_server.domain.shining_mystic_stones import TEMPLATES as shining,material as current_material
+    if type(template)is int and template in shining:return current_material(template)
     row=catalog()['materials'].get(str(template))
     if row is None:raise ValueError('Unqualified mystic stone')
     return row
 
 def draw(template,randbelow):
+    from els_server.domain.shining_mystic_stones import TEMPLATES as shining,draw as current_draw
+    if type(template)is int and template in shining:return current_draw(template,randbelow)
     row=material(template);values=catalog()['pools'][str(row['pool_type'])];index=randbelow(len(values))
     if type(index)is not int or not 0<=index<len(values):raise ValueError('Mystic random bound')
     return values[index]
 
 def validate_option(template,option):
+    from els_server.domain.shining_mystic_stones import TEMPLATES as shining,validate_option as current_validate
+    if type(template)is int and template in shining:return current_validate(template,option)
     row=material(template)
     if type(option)is not int or option not in catalog()['pools'][str(row['pool_type'])]:raise ValueError('Mystic pending original pool')
 
-def definitions():return catalog()['materials'].values()
+def definitions():
+    from els_server.domain.shining_mystic_stones import definitions as current_definitions
+    return (*catalog()['materials'].values(),*current_definitions())

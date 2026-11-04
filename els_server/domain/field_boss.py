@@ -89,10 +89,18 @@ class FieldBosses:
     def detach(self,s):
         r=self.room(s)
         if r is None:return
-        if r.phase not in ('clear','failed'):self.abort(r,'member disconnected',s)
-        self.rooms.pop(s,None)
-        party=self.world.party_of.get(s)
-        if party:party['ready'].clear()
+        aborting=r.phase not in ('clear','failed')
+        try:
+            if aborting:self.abort(r,'member disconnected',s)
+        finally:
+            # Only disconnect cleanup: a failed notice must not strand the
+            # departing actor or prevent surviving members returning safely.
+            if aborting and r.phase=='failed':
+                for member in r.members:
+                    if self.room(member) is r:member.field_result='member disconnected'
+            self.rooms.pop(s,None)
+            party=self.world.party_of.get(s)
+            if party:party['ready'].clear()
 
     def periodic(self,s):
         r=self.room(s)
@@ -226,7 +234,7 @@ class FieldBosses:
                 # Battlefield UI has no ordinary dungeon C1 result screen.
                 def encode(balances):client_economy_fields(balances);return wire.ack(0x77b).payload
                 proof=b'drabaki-field-40046-v1'+struct.pack('>Q',m.account.uid)+uuid.UUID(r.seed).bytes+hashlib.sha256(death).digest()
-                receipt=m.account.reward_store.grant(m.reward_run_id,proof,rule['clear_ed'],experience,encode,item_plan=rule['items'],transaction=db)
+                receipt=m.account.reward_store.grant(m.reward_run_id,proof,rule['clear_ed'],experience,encode,item_plan=rule['items'] or None,transaction=db)
                 receipts.append((m,receipt))
         r.phase='clear'
         for m,receipt in receipts:

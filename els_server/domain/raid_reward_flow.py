@@ -86,7 +86,7 @@ def handle(s,event,sequence):
    from els_server.domain.item_expiration import require_current
    from els_server.domain.item_locks import require_unlocked
    require_current(owned);require_unlocked(owned);row,outputs=entry_outputs(template,s.account.character())
-   guard();return [preview_ack(0,template,selection_count=row['selection_count'],entries=[(r['template'],r['quantity'],0)for r in row['entries']])]
+   guard();return [preview_ack(0,template,selection_count=row['selection_count'],entries=[(r['template'],0,r['quantity'])for r in row['entries']])]
   return actions.open_box(s.account.store.path,s.account.uid,template,event.payload,operation,s.account.account_id,guard)
  except (ValueError,sqlite3.Error):
   if kind==0xc06:return [claim_ack(code=-1)]

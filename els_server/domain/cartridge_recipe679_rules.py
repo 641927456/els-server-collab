@@ -33,7 +33,7 @@ def catalog():
             or (box['template'],box['metadata'],box['group'],box['max_stack']) != (BOX,0,4,1)):
         raise ValueError('Recipe679 source/BOX dependency')
     from els_server.domain.inventory_items import VERIFIED_TEMPLATES, TEMPLATE_BAG_GROUPS, TEMPLATE_MAX_STACKS
-    if BOX in VERIFIED_TEMPLATES or (TEMPLATE_BAG_GROUPS.get(BOX),TEMPLATE_MAX_STACKS.get(BOX)) != (4,1):
+    if VERIFIED_TEMPLATES.get(BOX) not in (None,0) or (TEMPLATE_BAG_GROUPS.get(BOX),TEMPLATE_MAX_STACKS.get(BOX)) != (4,1):
         raise ValueError('Recipe679 requires private BOX reader, not generic grant')
     if (VERIFIED_TEMPLATES.get(SOURCE),TEMPLATE_BAG_GROUPS.get(SOURCE),TEMPLATE_MAX_STACKS.get(SOURCE)) != (2,3,1000):
         raise ValueError('Recipe679 source reader missing')

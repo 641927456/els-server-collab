@@ -55,4 +55,5 @@ def unlock_notice(character,previous=()):
     ranks={s:learned[s] for s in ids if s in learned}
     wire=struct.pack('>iI',0,len(ranks))+b''.join(record(s,r) for s,r in ranks.items())
     wire+=struct.pack('>I',len(ids))+b''.join(struct.pack('>i',s) for s in ids)
-    return Event(0x201,kind=0x131,payload=wire)
+    from els_server.domain.native_skill_production import record as record_native_skill
+    return record_native_skill(Event(0x201,kind=0x131,payload=wire),character.get('uid'))

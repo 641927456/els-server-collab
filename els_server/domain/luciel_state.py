@@ -150,6 +150,11 @@ def periodic(s):
     for other in targets:
         entry=room.get(other)
         if entry is None:continue
+        # Peer presence does not require every character's wardrobe, bank,
+        # Force inventory and guild projection. The existing committed narrow
+        # identity reader retains ownership/lifecycle and data_version checks.
+        identity=getattr(other.account,'character_identity',None)
+        if identity is not None and identity()['unit_type']!=10:continue
         character=other.account.character()
         if character['unit_type']!=10:continue
         uid=character['uid'];value=preference(character);active_value=active_preference(character);key=(other,uid)

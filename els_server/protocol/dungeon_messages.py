@@ -16,16 +16,21 @@ def skill_data(slots,character=None):
     from els_server.domain.skill_state import preset_payload
     preset=preset_payload(slots,allowed,character)
     from els_server.domain.skill_unlocks import ids_wire
-    force_owned=learned  # Preserve the existing non-owner wire format.
-    if (character or {}).get('force_inventory'):
-        from els_server.domain.boosting_2026_force_inventory import vector
-        force_owned=vector(character)
+    # The final CD7160 vector is independent Force ownership. Missing or
+    # explicitly empty ownership must never copy the ordinary learned map.
+    from els_server.domain.boosting_2026_force_inventory import vector
+    force_owned=vector(character)
     return u32(22)+b''.join(record(v) for v in slots)+records(character)+learned+u32(0)+ids_wire(character)+b'\1\1'+preset+force_owned+b'\0'
 
 def member(slots,character=None,items=None,*,account_id=None,peer_port=None,capture=None):
     from els_server.domain.character_stats import combat_attributes
     data=json.loads((PROJECT_ROOT/'analysis/dungeon-member-fixture.json').read_text())
     overrides={}
+    if character is not None:
+        owner=character.get('account_id')
+        if type(owner)is not int or not 1<=owner<2**63:raise ValueError('FullUser requires authoritative account identity')
+        if account_id is None:account_id=owner
+        elif type(account_id)is not int or account_id!=owner:raise ValueError('FullUser authenticated account mismatch')
     if items is not None:
         # Current DB0AC0 is also character_unit's verified equipped-slot map.
         # 87CAF0 restores this first map into remote UserInfo. A remote actor
@@ -108,7 +113,7 @@ def dungeon_start(slots=DEFAULT_SLOTS,character=None,items=None,dungeon_id=SUPPO
     return Event(0x201,kind=0x14a,payload=payload)
 
 
-def party_dungeon_start(members,leader,identity,room_id,*,bootstrap_port=None,member_captures=None):
+def party_dungeon_start(members,leader,identity,room_id,*,bootstrap_port=None,member_captures=None,inventories=None):
     """One native slot per participant. Peer transport is configured separately.
 
     Current D9DDB0 reads a vector of member DTOs per slot. The first member
@@ -129,7 +134,8 @@ def party_dungeon_start(members,leader,identity,room_id,*,bootstrap_port=None,me
         # Use the same verified absolute-HP initialization as solo admission.
         # Collect actual roster bytes without mutating a playable session.
         def capture(payload,spans):captured[s]=(payload,dict(spans))
-        body=member(s.account.get_skills(),s.account.character(),s.account.get_inventory_snapshot()['items'],account_id=s.identity['id'],peer_port=21100+index,capture=capture)
+        items=s.account.get_inventory_snapshot()['items'] if inventories is None else inventories[s]
+        body=member(s.account.get_skills(),s.account.character(),items,account_id=s.identity['id'],peer_port=21100+index,capture=capture)
         teams.append(bytes([index,4,int(master)])+bytes(3)+i32(0)+u32(1)+body+u32(0)+bytes(4))
     from els_server.domain.native_hero_inputs import factor_vector
     payload=bytes(2)+room_info(identity,room_id=room_id,name='Friends',bootstrap_port=bootstrap_port)+u32(len(teams))+b''.join(teams)+u32(0)+wstring('')+u32(0)+factor_vector(identity)+u32(0)

@@ -82,7 +82,7 @@ def snapshot(db, owner, account_id, *, pending_operation=None):
 
 
 def cold(path, owner, account_id):
-    with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=ro',uri=True,timeout=10)) as db:
+    with snapshot_connection(path) as db:
         db.execute('BEGIN')
         return snapshot(db,owner,account_id)
 
@@ -272,3 +272,5 @@ def accept(db, owner, account_id, guild_id, inviter, session, payload, operation
         raise ValueError('Guild revision overflow')
     db.execute('DELETE FROM native_guild_invitations WHERE target_uid=?',(owner,))
     return _finish(db,owner,account_id,0x288,operation,digest,now,encode,guard)
+
+from els_server.storage.read_scope import snapshot_connection

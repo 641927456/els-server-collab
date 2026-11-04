@@ -42,16 +42,12 @@ class FriendsWorld:
         self.field_bosses=FieldBosses(self)
 
     def disconnect(self,session):
-        try:
-            self.field_bosses.detach(session)
-        finally:
-            try:
-                self.leave(session)
-            finally:
-                try:
-                    self.leave_party(session)
-                finally:
-                    self.invitations={s:v for s,v in self.invitations.items() if s is not session and v['inviter'] is not session}
+        from els_server.cleanup import cleanup_all
+        from els_server.domain.guild_agit_flow import disconnect as guild_disconnect
+        def invitations():
+            self.invitations={s:v for s,v in self.invitations.items() if s is not session and v['inviter'] is not session}
+        cleanup_all(lambda:guild_disconnect(session), lambda:self.field_bosses.detach(session),
+            lambda:self.leave(session), lambda:self.leave_party(session), invitations)
 
     def party_snapshot(self,party,reset=False):
         from els_server.domain.normal_party import roster_events
@@ -60,33 +56,35 @@ class FriendsWorld:
             for notice in notices:self.send(member,notice)
 
     def leave_party(self,session):
+        from els_server.cleanup import cleanup_all
         from els_server.domain.party_recruitment import invalidate
-        invalidate(self,session)
-        current=self.party_of.get(session)
-        try:
+        def challenge():
+            current=self.party_of.get(session)
             if current and (current.get('challenge') or current.get('challenge_pending')):
                 from els_server.domain.group_challenge import cancel
                 cancel(self,current)
-        finally:
-            try:
-                self.dungeons.detach(session)
-            finally:
-                from els_server.domain.party_recruitment import leave as leave_recruitment
-                handled=leave_recruitment(self,session,forced=True)
-                if not handled:
-                    party=self.party_of.pop(session,None)
-                    if party is not None:
-                        party['members'].remove(session);party['ready'].discard(session)
-                        from els_server.domain.normal_party import ordinary
-                        if ordinary(party):party['ready'].clear();party.pop('admission',None)
-                        self.send(session,wire.party_removed(session.account.uid))
-                        if len(party['members'])<2:
-                            for other in list(party['members']):
-                                self.party_of.pop(other,None);self.send(other,wire.party_removed(session.account.uid))
-                            self.parties.pop(party['id'],None)
-                        else:
-                            if party['leader'] is session:party['leader']=party['members'][0]
-                            self.party_snapshot(party,reset=True)
+        def membership():
+            from els_server.domain.party_recruitment import leave as leave_recruitment
+            handled=leave_recruitment(self,session,forced=True)
+            if handled:return
+            party=self.party_of.pop(session,None)
+            if party is None:return
+            party['members'].remove(session);party['ready'].discard(session)
+            from els_server.domain.normal_party import ordinary
+            if ordinary(party):party['ready'].clear();party.pop('admission',None)
+            remaining=list(party['members'])
+            # Complete the original membership changes before optional notices.
+            if len(remaining)<2:
+                for other in remaining:self.party_of.pop(other,None)
+                self.parties.pop(party['id'],None)
+            elif party['leader'] is session:party['leader']=remaining[0]
+            def removed(member):self.send(member,wire.party_removed(session.account.uid))
+            notices=[lambda:removed(session)]
+            if len(remaining)<2:notices.extend(lambda other=other:removed(other) for other in remaining)
+            else:notices.append(lambda:self.party_snapshot(party,reset=True))
+            cleanup_all(*notices)
+        cleanup_all(lambda:invalidate(self,session), challenge,
+            lambda:self.dungeons.detach(session), membership)
 
     def party_request(self,session,event):
         from els_server.domain import party_recruitment
@@ -209,14 +207,18 @@ class FriendsWorld:
         except SessionOrderError:session.social_overflow=True
 
     def leave(self,session):
+        from els_server.cleanup import cleanup_all
         from els_server.domain.party_recruitment import invalidate
-        invalidate(self,session)
-        key=self.members.pop(session,None)
-        if key is None:return
-        room=self.towns[key];room.pop(session,None)
-        notice=wire.town_members(removed=[session.account.uid])
-        for other in list(room):self.send(other,notice)
-        if not room:self.towns.pop(key)
+        def membership():
+            key=self.members.pop(session,None)
+            if key is None:return
+            room=self.towns[key];room.pop(session,None)
+            try:
+                notice=wire.town_members(removed=[session.account.uid])
+                cleanup_all(*(lambda other=other:self.send(other,notice) for other in list(room)))
+            finally:
+                if not room:self.towns.pop(key,None)
+        cleanup_all(lambda:invalidate(self,session), membership)
 
     def synchronize(self,session):
         key=(1,session.active_map) if session.role=='game' and session.phase=='town_ready' else None

@@ -13,37 +13,7 @@ from els_server.domain.cartridge_exchange_rules import _SelectAuthority
 WRITER_ENABLED = True
 
 
-def _local_selected(session):
-    from uuid import UUID
-    from els_server.application import Application
-    from els_server.domain.local_session import LocalAccount,LocalSession
-    from els_server.storage.local_state import LocalState
-    from els_server.storage.characters import Characters
-    account=getattr(session,'account',None);root=getattr(account,'root',None)
-    app=getattr(session,'_cartridge40326_local_application',None)
-    if (type(session) is not LocalSession or type(app) is not Application
-        or getattr(session,'_cartridge40326_local_live',None) is not True
-        or app.config.mode!='local' or type(account) is not LocalAccount
-        or type(root) is not LocalAccount or root.root is not root or app.account is not root
-        or type(root.account_id) is not int or root.account_id!=1
-        or root.character_accounts.get(account.uid) is not account
-        or type(account.store) is not LocalState or account.store.uid!=account.uid
-        or type(root.store) is not LocalState or root.store.uid!=root.uid
-        or type(account.characters) is not Characters or root.characters is not account.characters
-        or account.account_id!=root.account_id or account.characters.account_id!=account.account_id
-        or session.role!='game' or 0x28 not in session.completed):
-        return False
-    path=Path(account.store.path).resolve()
-    if (Path(root.store.path).resolve()!=path or Path(account.characters.path).resolve()!=path
-        or Path(app.config.state_file).resolve()!=path):return False
-    token=session.shop_session_id
-    try:return type(token) is str and str(UUID(token))==token and UUID(token).version==4
-    except ValueError:return False
-
-
-
 def _selected(session):
-    if getattr(session, 'application', None) is None:return _local_selected(session)
     return bool(getattr(session, 'application', None) is not None and current_lease(session)
                 and session.role == 'game' and 0x28 in session.completed
                 and session.account.characters is not None and session.account.store is not None

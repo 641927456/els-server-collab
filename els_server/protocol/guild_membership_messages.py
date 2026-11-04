@@ -78,5 +78,6 @@ def saved_membership_wire(guild_id, name, grade, original_empty_group):
     raw = name.encode('utf-16le', errors='strict')
     if len(raw) > 8192:
         raise ValueError('Guild name wire bound')
+    from els_server.domain.guild_bank_rules import permissions_wire
     return (struct.pack('>iI', guild_id, len(raw)) + raw + bytes((grade,))
-            + original_empty_group[9:])
+            + original_empty_group[9:36] + permissions_wire() + original_empty_group[40:])

@@ -1,5 +1,6 @@
 """Exact native923/924 layout only; no admission, defaults or housing writer."""
 import math,struct
+from els_server.protocol.housing_layout_messages import LAYOUT
 
 # Keys name current packed DTO offsets, not guessed business semantics.
 INFO=(('00','Q'),('08','Q'),('10','str'),('30','B'),('31','B'),
@@ -9,7 +10,7 @@ STATE=(('00','Q'),('08',('vec','i')),('20','i'),('24','bool'),('25','bool'),
 PROFILE=(('00','H'),('02','str'),('22','i'),('26','i'),('2a','Q'),
          ('32','str'),('52','B'),('53','B'))
 ACK=(('000','i'),('004',INFO),('0ba','str'),('0da',('map','i',('tuple','i','i'))),
-     ('0ea','i'),('0ee','bool'),('0ef','Q'),('0f7','empty_map'),('107',STATE),
+     ('0ea','i'),('0ee','bool'),('0ef','Q'),('0f7',('map','i',LAYOUT)),('107',STATE),
      ('14f',PROFILE),('1a3','bool'),('1a4',('map','i',('tuple','i','Q','d'))),
      ('1c4','bool'),('1b4','empty_map'),('1c5','empty_map'))
 
@@ -28,7 +29,7 @@ def _encode(schema,value):
             # furniture/unit records are outside this finite codec.
             if value!=[] or type(value)is not list:raise ValueError('Housing nonempty unresolved map')
             return bytes(4)
-        if schema=='d':
+        if schema in('d','f'):
             if type(value)not in(int,float)or not math.isfinite(value):raise ValueError('Housing finite double')
         elif type(value)is not int:raise ValueError('Housing native integer')
         try:return struct.pack('>'+schema,value)

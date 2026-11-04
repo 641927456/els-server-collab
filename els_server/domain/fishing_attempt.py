@@ -42,18 +42,22 @@ def initialize_login(s,answer):
     bound=_selection_binding(s);owner=s.account.uid;account=s.account.account_id
     from els_server.storage import life_stamina as life
     from els_server.protocol.local_messages import player_initialization
-    with closing(sqlite3.connect(s.account.store.path,timeout=10))as db,db:
-        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
-        if not _same(s,bound):raise ValueError('Life original selected actor')
-        state=life.initialize(db,owner,account,s.shop_session_id,time.time())
-        saved=s.account.get_inventory_snapshot();character=dict(s.account.character(),life_stamina=state)
-        reply=list(answer)
-        if not reply or reply[0].kind!=0x2a:raise ValueError('Life original first initialization')
-        reply[0]=player_initialization(s.account.get_location(),initialize_attributes=s.enter_dungeon,
-            economy=saved['balances'],items=saved['items'],character=character,restore_equipped=s.enter_dungeon)
-        for event in reply:encode_event(event)
-        if not _same(s,bound)or not storage.WRITER_ENABLED:raise ValueError('Life late selected source changed')
-        return reply
+    with closing(sqlite3.connect(s.account.store.path,timeout=10))as db:
+        db.execute('PRAGMA foreign_keys=ON')
+        with write_transaction(db):
+            if not _same(s,bound):raise ValueError('Life original selected actor')
+            state=life.initialize(db,owner,account,s.shop_session_id,time.time())
+            saved=s.account.get_inventory_snapshot();character=dict(s.account.character(),life_stamina=state)
+            reply=list(answer)
+            if not reply or reply[0].kind!=0x2a:raise ValueError('Life original first initialization')
+            reply[0]=player_initialization(s.account.get_location(),initialize_attributes=s.enter_dungeon,
+                economy=saved['balances'],items=saved['items'],character=character,restore_equipped=s.enter_dungeon)
+            from els_server.storage.fishing_vip import snapshot as vip_snapshot
+            from els_server.protocol.fishing_vip_messages import notice as vip_notice
+            reply.append(vip_notice(vip_snapshot(db,owner,account)))
+            for event in reply:encode_event(event)
+            if not _same(s,bound)or not storage.WRITER_ENABLED:raise ValueError('Life late selected source changed')
+            return reply
 
 
 def _capture(s):
@@ -65,7 +69,11 @@ def _capture(s):
             or s.dungeon_run is not None or getattr(s,'map_synchronizing',False)):
         raise ValueError('Fishing original ready1500 current actor')
     app=getattr(s,'application',None);world=getattr(app,'world',None)
-    if world is None:raise ValueError('Fishing original Application town world')
+    if world is None:
+        from els_server.domain.housing_room_flow import local_application
+        local_application(s)
+        if getattr(s,'friends_world',None)is not None:raise ValueError('Fishing LOCAL borrowed world')
+        return _selection_binding(s),_ordinary_binding(s),_facts(s)
     room=world.room(s);entry=room.get(s)
     if (world.members.get(s)!=(1,1500)or entry is None or entry[0]['uid']!=s.account.uid
             or entry[1]['map']!=1500):raise ValueError('Fishing original1500 town roster')
@@ -133,7 +141,7 @@ def periodic(s):
             return record_attempt(db,s.account.uid,s.account.account_id,operation,_guard(s,bound))
         result=storage.settle(s.account.store.path,s.account.uid,s.account.account_id,s.shop_session_id,
             active['cycle'],active['serial'],
-            lambda caught,used,changes,life,notices:_encode([wire.attempt_notice(0,caught=caught,consumed=used,changes=changes),wire.life_notice(life['current'],show_delta=True),*notices]+([] if used[0][1]>0 and life['current']>=20 and all(value>=40 for _,value in used[1:]) else [wire.state_ack(0,stopped=True)])),
+            lambda caught,used,changes,life,notices:_encode([wire.attempt_notice(0,caught=caught,consumed=used,changes=changes),wire.life_notice(life['current'],show_delta=True),*notices]+([] if life.get('continue_fishing',used[0][1]>0 and life['current']>=20 and all(value>=40 for _,value in used[1:]))else [wire.state_ack(0,stopped=True)])),
             _guard(s,bound),quest=quest)
         if result['replayed']:
             # A delayed duplicate must never reanimate/reaward/recount8B8.
@@ -148,3 +156,5 @@ def periodic(s):
         if not _current(s,bound):return []
         reply=_encode([wire.state_ack(0,stopped=True)])
         return reply if _current(s,bound)else[]
+
+from els_server.storage.sqlite_timing import write_transaction

@@ -12,9 +12,9 @@ from els_server.storage import account_fishing_tasks_scope as erp_scope
 def _progress_connection(path,transaction):
     """Own one writer normally; a shared caller owns its exact active writer."""
     if transaction is None:
-        with closing(sqlite3.connect(path,timeout=10)) as db,db:
-            db.execute('BEGIN IMMEDIATE')
-            yield db
+        with closing(sqlite3.connect(path,timeout=10)) as db:
+            with write_transaction(db):
+                yield db
         return
     if not isinstance(transaction,sqlite3.Connection) or not transaction.in_transaction:
         raise ValueError('Quest shared progress requires an active transaction')
@@ -53,8 +53,12 @@ def load_character(db,uid,account_id=None):
     from els_server.storage.skill_unlocks import saved_groups
     from els_server.storage.skill_expansion import is_expanded
     from els_server.storage.bag_capacity import saved_capacities
-    if account_id is not None and db.execute('SELECT account_id FROM character_owners WHERE uid=?',(uid,)).fetchone()!=(account_id,):raise ValueError('Quest character owner mismatch')
-    row=Characters._row(db.execute('SELECT uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters WHERE uid=?',(uid,)).fetchone())
+    if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_owners'").fetchone():raise ValueError('Quest character owner mapping required')
+    saved=db.execute('SELECT c.uid,name,unit_type,unit_class,level,transcendence,master,revision,o.account_id FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=?',(uid,)).fetchone()
+    if saved is None:raise ValueError('Unknown owned quest character')
+    owner=saved[-1]
+    if type(owner)is not int or not 1<=owner<2**63 or account_id is not None and(type(account_id)is not int or account_id!=owner):raise ValueError('Quest character owner mismatch')
+    row=dict(Characters._row(saved[:-1]),account_id=owner)
     a=db.execute('SELECT template,evolution,level,experience,potentials FROM character_artifacts WHERE uid=?',(uid,)).fetchone()
     row['artifact']=dict(template=a[0],evolution=a[1],level=a[2],experience=a[3],potentials=json.loads(a[4])) if a else None
     from els_server.storage.ep_points import balance as ep_balance
@@ -70,16 +74,28 @@ def load_character(db,uid,account_id=None):
     if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_owners'").fetchone():
         saved_owner=db.execute('SELECT account_id FROM character_owners WHERE uid=?',(uid,)).fetchone()
         if saved_owner is not None:
+            if saved_owner!=(row['account_id'],):raise ValueError('Quest character owner changed during projection')
             from els_server.storage.resonance_state import snapshot as resonance_snapshot
-            from els_server.storage.profession_state import snapshot as profession_snapshot
+            from els_server.storage.character_projection import skill_trait_fields,skill_page_fields,force_fields,cleared_dungeons,profession_fields
+            # Full-unit refreshes retain the same current native combat inputs as login.
+            from els_server.storage.titles import snapshot as title_snapshot,completed_for_equipment
+            row['title']=title_snapshot(db,uid)['title'];row['title_completed_quests']=completed_for_equipment(db,uid)
+            row.update(skill_trait_fields(db,row,include_empty=True))
+            row.update(skill_page_fields(db,uid,include_single=True))
+            row.update(force_fields(db,uid))
+            has_records=db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='dungeon_records'").fetchone() is not None
+            row['cleared_dungeons']=cleared_dungeons(db,uid,has_records=has_records)
             row['resonance']=resonance_snapshot(db,uid,saved_owner[0])
+            from els_server.domain.normal_fatigue_rules import enabled as normal_fatigue_enabled
+            if normal_fatigue_enabled():
+                from els_server.storage.normal_fatigue import snapshot as normal_fatigue_snapshot
+                row['normal_fatigue']=normal_fatigue_snapshot(db,uid,saved_owner[0])
             from els_server.storage.guild_membership_state import snapshot as guild_snapshot
             row['guild_membership']=guild_snapshot(db,uid,saved_owner[0])
             from els_server.storage.el_search_collection import snapshot as collection_snapshot
             collection=collection_snapshot(db,uid,saved_owner[0])
             if collection is not None:row['el_search_collection']=collection
-            profession=profession_snapshot(db,uid,saved_owner[0])
-            row['profession']=profession['state'];row['profession_revision']=profession['revision']
+            row.update(profession_fields(db,uid,saved_owner[0]))
     return row
 
 def current_slots(db,character):
@@ -94,8 +110,14 @@ def _inventory_count(items,template,*,quest=None):
     return sum(i['count'] for i in items if i['template']==template and i['group']!=9 and not expired(i) and not locked(i) and (quest!=25600 or i['group']==3))
 
 def _state(db,uid,items):
-    active=[];level=None;career=None
+    active=[];level=None;career=None;seals=None
     for q,at,g,raw in erp_scope.active_rows(db,uid):
+        hide=sequence(quest_catalog().quest(q).get('HIDE_QUEST_SKILL',{}))
+        if hide:
+            if seals is None:
+                from els_server.domain.skill_unlocks import unsealed_skills
+                seals=set(unsealed_skills(load_character(db,uid)))
+            if any(skill in seals for skill in hide):continue
         counts={int(k):v for k,v in json.loads(raw).items()}
         subs=quest_catalog().objectives(q)
         if set(counts)!={sub['m_iID'] for sub in subs}:raise ValueError('Invalid persisted quest objective keys')
@@ -131,58 +153,50 @@ def _state(db,uid,items):
                 counts[s['m_iID']]=min(target(s),a[0] if a else 0)
         active.append(dict(id=q,owner=erp_scope.quest_owner(db,uid,q),accepted_at=at,generation=g,objectives=counts,**({'projection_owner':uid} if q in (25600,25601,25602) else {})))
     done=[dict(id=q,completed_at=at) for q,at in erp_scope.completed_rows(db,uid)]
-    state=dict(active=active,completed=done)
-    from els_server.storage.weapon_growth import snapshot as weapon_growth_snapshot
-    growth=weapon_growth_snapshot(db,uid,items)
-    if growth['item_active'] or growth['item_completed']:state.update(growth)
-    return state
+    return dict(active=active,completed=done)
 
 class QuestState:
     def __init__(self,path,uid=1001,*,account_id=None,account_source_guard=None):
         self.path=path;self.uid=character_uid(uid);self.account_id=account_id;self.account_source_guard=account_source_guard
 
     def snapshot(self):
-        with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
-            db.execute('BEGIN IMMEDIATE');load_character(db,self.uid,self.account_id);ensure(db)
-            return _state(db,self.uid,load_items(db,self.uid))
+        with closing(sqlite3.connect(self.path,timeout=10)) as db:
+            with write_transaction(db):
+                load_character(db,self.uid,self.account_id);ensure(db)
+                return _state(db,self.uid,load_items(db,self.uid))
 
     def notification_snapshot(self):
+        from els_server.storage.read_scope import quest_notification_projection
+        return quest_notification_projection(self,self._notification_snapshot)
+
+    def _notification_snapshot(self):
         # Existing task state only: no initialization, completion or rewards.
-        with closing(sqlite3.connect(self.path,timeout=10)) as db:
+        with snapshot_connection(self.path) as db:
             db.execute('BEGIN');load_character(db,self.uid,self.account_id)
             if not all(db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(t,)).fetchone() for t in ('character_quests','completed_quests')):return dict(active=[],completed=[])
             return _state(db,self.uid,load_items(db,self.uid))
 
     def completed(self):
-        with closing(sqlite3.connect(self.path,timeout=10)) as db:
+        with snapshot_connection(self.path) as db:
             load_character(db,self.uid,self.account_id);return completed_ids(db,self.uid)
 
     def passive_objective_kinds(self):
         """Read active observation needs without a writer lock or schema edits."""
-        with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
+        with snapshot_connection(self.path) as db:
             db.execute('BEGIN');load_character(db,self.uid,self.account_id)
             if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_quests'").fetchone():return frozenset()
             return frozenset(s['m_eClearType'] for qid,at,g,raw in erp_scope.active_rows(db,self.uid)
                              for s in quest_catalog().objectives(qid))
 
-    def collection_snapshot(self,*,include_growth=False):
+    def collection_snapshot(self):
         """Read one consistent view without creating tables or taking a writer lock."""
-        with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
+        with snapshot_connection(self.path) as db:
             db.execute('BEGIN');load_character(db,self.uid,self.account_id)
-            present=db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_quests'").fetchone()
-            identities={qid for qid,at,g,raw in (erp_scope.active_rows(db,self.uid) if present else ())
+            if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_quests'").fetchone():return []
+            identities={qid for qid,at,g,raw in erp_scope.active_rows(db,self.uid)
                         if any(s['m_eClearType'] in (3,31,38,80,81,110,121) for s in quest_catalog().objectives(qid))}
-            if not identities and not include_growth:return []
-            from els_server.domain.weapon_growth import templates as growth_templates
-            if not identities and not db.execute('SELECT 1 FROM inventory_items WHERE owner=? AND template IN ('+
-                    ','.join('?' for _ in growth_templates())+') LIMIT 1',(self.uid,*sorted(growth_templates()))).fetchone():
-                return [],dict(item_active=[],item_completed=[])
-            items=load_items(db,self.uid)
-            state=_state(db,self.uid,items) if identities else None
-            rows=[row for row in state['active'] if row['id'] in identities] if identities else []
-            if not include_growth:return rows
-            from els_server.storage.weapon_growth import snapshot as growth_snapshot
-            return rows,({k:state.get(k,[]) for k in ('item_active','item_completed')} if state is not None else growth_snapshot(db,self.uid,items))
+            if not identities:return []
+            return [row for row in _state(db,self.uid,load_items(db,self.uid))['active'] if row['id'] in identities]
 
     def action(self,kind,request,operation_id,encode,*,now=None,location=None,transaction=None):
         if kind not in ('accept','abandon','claim'):raise ValueError('Quest action')
@@ -237,7 +251,7 @@ class QuestState:
                         # including abandon/reaccept within one wall-clock second.
                         from els_server.domain.town_dialogue import catalog as town_catalog
                         from els_server.domain.mainline_find_npc import catalog as find_catalog
-                        generation=now if qid!=26770 and qid not in (25600,25601,25602) and qid!=35630 and str(qid) not in town_catalog()['quests'] and qid not in find_catalog()['quest_ids'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
+                        generation=now if qid!=26770 and qid!=35630 and qid not in (25600,25601,25602) and str(qid) not in town_catalog()['quests'] and qid not in find_catalog()['quest_ids'] else db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM quest_actions').fetchone()[0]
                         erp_scope.insert_active(db,uid,qid,now,generation,json.dumps(counts,sort_keys=True))
                 elif kind=='abandon':
                     if done:raise ValueError('Completed quest cannot be abandoned')
@@ -312,7 +326,11 @@ class QuestState:
                         from els_server.game_data import client_data
                         experience=db.execute('SELECT experience FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
                         level=client_data().level_for_experience(experience)
-                        db.execute('UPDATE characters SET level=?,revision=revision+1 WHERE uid=? AND level<?',(level,uid,level))
+                        old_level=db.execute('SELECT level FROM characters WHERE uid=?',(uid,)).fetchone()[0]
+                        changed=db.execute('UPDATE characters SET level=?,revision=revision+1 WHERE uid=? AND level<?',(level,uid,level)).rowcount
+                        if changed:
+                            from els_server.storage.normal_fatigue import level_up as normal_fatigue_level_up
+                            normal_fatigue_level_up(db,self.path,uid,self.account_id,'quest:'+operation_id,digest,old_level,level)
                     if reward.get('m_eChangeUnitClass',0):
                         from els_server.storage.careers import apply_quest_transition
                         old_career,new_career=apply_quest_transition(db,uid,q)
@@ -337,10 +355,6 @@ class QuestState:
                     saved=json.loads(saved[0]);ids={i['uid'] for i in saved['items']}
                     awards=[i for i in items if i['uid'] in ids]
                     consumed=[(tuple(pos),next((i for i in items if (i['group'],i['slot'])==tuple(pos)),None)) for pos in saved.get('consumed_positions',[])]
-                    # The existing success receipt and pinned quest reward
-                    # authorize a fresh CURRENT career snapshot on retry.
-                    # No transition or reward is repeated, including for old
-                    # receipts that predate the career notification fix.
                     career_refresh=bool(q['Reward'].get('m_eChangeUnitClass',0))
             from els_server.storage.reward_state import validate_balances
             balances=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(uid,)).fetchone())
@@ -370,8 +384,8 @@ class QuestState:
 
     def record(self,event_id,event,proof,*,validate=None,prepare=None,transaction=None):
         if not isinstance(event_id,str) or not 1<=len(event_id)<=200 or not isinstance(proof,bytes) or not proof:raise ValueError('Quest progress evidence')
-        if event.get('kind') not in ('kill','clear','visit_town','visit_dungeon','retire') or type(event.get('dungeon')) is not int or type(event.get('level')) is not int:raise ValueError('Quest progress event')
-        if event['kind'] in ('kill','retire') and type(event.get('npc')) is not int:raise ValueError('Quest NPC event')
+        if event.get('kind') not in ('kill','clear','visit_town','visit_dungeon') or type(event.get('dungeon')) is not int or type(event.get('level')) is not int:raise ValueError('Quest progress event')
+        if event['kind']=='kill' and type(event.get('npc')) is not int:raise ValueError('Quest NPC event')
         if event['kind']=='visit_town' and type(event.get('town')) is not int:raise ValueError('Quest town event')
         digest=hashlib.sha256(proof).hexdigest();raw=json.dumps(event,sort_keys=True)
         roll_proof=progress_proof(self.uid,event_id,proof)
@@ -401,3 +415,7 @@ class QuestState:
             if not changed and event['kind'] in ('visit_town','visit_dungeon'):return []
             db.execute('INSERT INTO quest_progress_events VALUES (?,?,?,?)',(self.uid,event_id,digest,raw))
             return prepare(events,False) if prepare is not None else events
+
+from els_server.storage.read_scope import snapshot_connection
+
+from els_server.storage.sqlite_timing import write_transaction

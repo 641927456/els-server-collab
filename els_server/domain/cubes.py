@@ -61,4 +61,8 @@ def catalog():
     from els_server.domain.wardrobe_ticket_box import BOX as wardrobe_box,entry as wardrobe_entry
     if wardrobe_box in result:raise ValueError("Duplicate existing wardrobe ticket box")
     result[wardrobe_box]=MappingProxyType(wardrobe_entry())
+    from els_server.domain.job_reward_boxes import entries as job_entries
+    for box in job_entries():
+        if box['template'] in result:raise ValueError('Duplicate current job convenience box')
+        result[box['template']]=MappingProxyType(box)
     return MappingProxyType(result)

@@ -7,6 +7,11 @@ from els_server.protocol import title_messages as wire
 from els_server.protocol.protocol_codec import encode_event
 from els_server.domain.boosting_2026_title_rewards import is_coupon
 
+class TitleUseError(ValueError):
+    """Expected owned-coupon refusal, with an original client result message."""
+    def __init__(self,message,result):
+        super().__init__(message);self.result=result
+
 def character(db,uid):
     row=db.execute('SELECT c.uid,c.name,c.unit_type,c.unit_class,c.level,o.account_id FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=?',(character_uid(uid),)).fetchone()
     if row is None:raise ValueError('Unknown title owner')
@@ -90,16 +95,23 @@ def use_item(path,uid,payload,operation_id,now=None):
         item=next((i for i in load_items(db,uid) if i['uid']==item_uid),None)
         rule=catalog()['items'].get(str(item['template'])) if item else None
         if rule is None:return None
-        if item['group']!=4:raise ValueError('Title item outside owned consumables bag')
+        if item['group']!=4:raise TitleUseError('Title item outside owned consumables bag',503)
+        from els_server.domain.item_expiration import expired
+        if expired(item,now=now):raise TitleUseError('Item has expired',500)
         require_current(item,now=now)
         from els_server.domain.item_locks import require_unlocked
+        from els_server.domain.item_locks import locked
+        if locked(item,now=now):raise TitleUseError('Item is locked',2948)
         require_unlocked(item,now=now)
         title=rule['title']
         from els_server.game_data import client_data
         raw=client_data().item(item['template'])['record']
-        if (c['level']<raw[209] or raw[210] not in (0,c['unit_type']) or raw[211] not in (0,c['unit_class'])):raise ValueError('Title item native character restrictions')
-        if c['level']<rule['level'] or not eligible(c,title):raise ValueError('Title item requirements')
-        if any(r['title']==title for r in owned(db,c,now)):raise ValueError('Title already owned')
+        if c['level']<raw[209] or c['level']<rule['level'] or c['level']<definition(title)['m_iOpenLevel']:
+            raise TitleUseError('Title item level requirements',502)
+        if raw[210] not in (0,c['unit_type']) or raw[211] not in (0,c['unit_class']):
+            raise TitleUseError('Title item native character restrictions',285)
+        if not eligible(c,title):raise TitleUseError('Title item requirements',500)
+        if any(r['title']==title for r in owned(db,c,now)):raise TitleUseError('Title already owned',499)
         selected=is_coupon(item['template'])
         if selected and db.execute('SELECT revision FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]>=2**63-1:raise ValueError('Selected title revision overflow')
         remaining=dict(item,count=item['count']-1) if item['count']>1 else None

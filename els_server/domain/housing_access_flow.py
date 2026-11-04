@@ -1,4 +1,4 @@
-"""Native first-use7day contract plus lifetime cold reader, exact current actor."""
+"""Native current permanent/first-use7day contracts plus cold reader, exact current actor."""
 from contextlib import closing
 from pathlib import Path
 import sqlite3
@@ -10,6 +10,11 @@ from els_server.storage import housing_access as storage
 
 def capture(s):
     def current():
+        from els_server.domain.equipment_chip_flow import reset_authority
+        reset_authority(s)
+        if getattr(s,'application',None)is None:
+            from els_server.domain.housing_room_flow import local_application
+            local_application(s)
         if(not _ordinary_actor(s)or s.account.characters is None or s.role!='game'
            or s.phase!='town_ready'or not s.enter_town or not s.item_test
            or s.client_build!='dx11_260923'or s.dungeon_return_pending
@@ -36,7 +41,7 @@ def handle(s,event,sequence):
     with closing(sqlite3.connect(Path(s.account.store.path).resolve().as_uri()+'?mode=ro',uri=True))as db:
         row=db.execute('SELECT template FROM inventory_items WHERE owner=? AND uid=?',(s.account.uid,source)).fetchone()
         replay=db.execute('SELECT 1 FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()if db.execute("SELECT 1 FROM sqlite_master WHERE name='inventory_action_receipts'").fetchone()else None
-    if row!=(storage.TEMPLATE,)and not replay:return None
+    if(row is None or row[0]not in storage.TEMPLATES)and not replay:return None
     try:
         same,guard=capture(s)
         if(event.performers!=(0,)or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0

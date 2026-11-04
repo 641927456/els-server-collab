@@ -64,7 +64,12 @@ def catalog():
     if hashlib.sha256(raw).hexdigest()!=manifest['proof_sha256']:raise ValueError('Wear native proof digest')
     normal=definitions()
     with client_data().connect() as db:records={t:r for t,r in db.execute('SELECT id,record FROM items') if t in normal}
-    result=validate_proof(manifest,json.loads(raw),records)
+    result=dict(validate_proof(manifest,json.loads(raw),records))
+    from els_server.domain.early_weapon_equipment import wear_proof
+    extra_manifest,extra_proof=wear_proof()
+    extra=validate_proof(extra_manifest,extra_proof,records)
+    if set(result)&set(extra):raise ValueError('Duplicate early weapon wear evidence')
+    result=MappingProxyType({**result,**extra})
     if set(result)!=set(normal):raise ValueError('Wear catalog coverage')
     return result
 

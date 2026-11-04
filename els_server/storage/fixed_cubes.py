@@ -25,6 +25,10 @@ def _legacy_actor(db,owner,account_id,prepare):
 
 
 def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.randbelow,*,account_id=None,prepare=None):
+    from els_server.domain.job_reward_boxes import BOXES as job_boxes
+    if expected_template in job_boxes:
+        from els_server.storage.job_reward_boxes import open_box
+        return open_box(path,owner,expected_template,payload,operation,account_id=account_id,prepare=prepare)
     if expected_template==715036:
         from els_server.storage.wardrobe_ticket_box import open_box
         return open_box(path,owner,payload,operation,account_id=account_id)
@@ -58,9 +62,14 @@ def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.r
         from els_server.storage.boosting_2026_accessories import open_box
         return open_box(path,owner,expected_template,payload,operation)
     request=use_request(payload)
-    if (request.option!=0 or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))
+    if (any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))
         or expected_template not in catalog()):raise ValueError('Unsupported fixed cube use')
     row=catalog()[expected_template]
+    # Native selection quantity UI sends Count as the final request option.
+    # Zero is the historical one-box route; one explicitly requests one box.
+    # Bulk counts remain unsupported: never consume one for a larger request.
+    if request.option!=0 and not(request.option==1 and row['selection_count']==1):
+        raise ValueError('Unsupported fixed cube quantity')
     from els_server.domain.regional_boss_cubes_legacy import BOXES,pool_for
     legacy=expected_template in BOXES
     growing=(expected_template==168889 and row.get('growing_adventure_kit')is True)

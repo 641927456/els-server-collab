@@ -49,15 +49,10 @@ def validate(template,values):
     return list(values)
 
 def draw(randbelow):
-    values=[]
-    for unused in range(3):
-        roll=randbelow(10000)
-        if type(roll)is not int or not 0<=roll<10000:raise ValueError('Activity ordinary random bound')
-        for row in catalog()['outcomes']:
-            if roll<row['weight']:
-                values.append(row['option']);break
-            roll-=row['weight']
-        else:raise ValueError('Activity ordinary pool incomplete')
+    from els_server.domain.identification_ui import draw_slots
+    values=draw_slots(lambda:catalog()['outcomes'],3,randbelow,10000,
+                      range_error='Activity ordinary random bound',
+                      incomplete_error='Activity ordinary pool incomplete')
     return validate(FIRST,values)
 
 def require_complete(item):

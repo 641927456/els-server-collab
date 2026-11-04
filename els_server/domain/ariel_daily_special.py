@@ -47,7 +47,7 @@ class DailySpecialClear:
                 or room.party.get('run')is not room or frozenset(m.account.uid for m in room.members)!=participants
                 or any(room.party.get(k)for k in('raid_party','challenge','challenge_pending','solo_challenge'))):raise ValueError('Ariel daily original ordinary shared run')
             for m in room.members:
-                if (not current_lease(m)or dispatcher.room(m)is not room or m not in dispatcher.world.members
+                if (not current_lease(m)or dispatcher.room(m)is not room or m in dispatcher.world.members
                     or dispatcher.world.party_of.get(m)is not room.party or m.dungeon_run is None or m.dungeon_run.run_id!=self.run_id
                     or m.reward_run_id!=str(uuid.uuid5(uuid.UUID(self.run_id),'reward:'+str(m.account.uid)))):
                     raise ValueError('Ariel daily shared owned generation')

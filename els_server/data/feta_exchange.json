@@ -1,0 +1,176 @@
+{
+  "schema": 1,
+  "policy": "feta-ten-original-exchanges-20261026-v1",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "house": 40326,
+  "town": 1012,
+  "scene": 1214,
+  "ED": 0,
+  "local_rule": true,
+  "authorization_sha256": "c9836d31bc1f892d51e60c5f5c7d3612d4dd1798b608aa60d4e8306663ee4585",
+  "recipes": [
+    {
+      "index": 674,
+      "type": 3,
+      "source": 119216,
+      "source_quantity": 80,
+      "destination": 119217,
+      "destination_quantity": 1,
+      "raw_rate": 25
+    },
+    {
+      "index": 675,
+      "type": 3,
+      "source": 119216,
+      "source_quantity": 80,
+      "destination": 119218,
+      "destination_quantity": 1,
+      "raw_rate": 25
+    },
+    {
+      "index": 676,
+      "type": 3,
+      "source": 119216,
+      "source_quantity": 80,
+      "destination": 119219,
+      "destination_quantity": 1,
+      "raw_rate": 25
+    },
+    {
+      "index": 677,
+      "type": 3,
+      "source": 119216,
+      "source_quantity": 80,
+      "destination": 119220,
+      "destination_quantity": 1,
+      "raw_rate": 25
+    },
+    {
+      "index": 678,
+      "type": 1,
+      "source": 119216,
+      "source_quantity": 60,
+      "destination": 119323,
+      "destination_quantity": 1,
+      "raw_rate": 100
+    },
+    {
+      "index": 686,
+      "type": 3,
+      "source": 119317,
+      "source_quantity": 20,
+      "destination": 710313,
+      "destination_quantity": 20,
+      "raw_rate": 50
+    },
+    {
+      "index": 687,
+      "type": 3,
+      "source": 119317,
+      "source_quantity": 20,
+      "destination": 710193,
+      "destination_quantity": 20,
+      "raw_rate": 50
+    },
+    {
+      "index": 688,
+      "type": 3,
+      "source": 119317,
+      "source_quantity": 120,
+      "destination": 30880,
+      "destination_quantity": 1,
+      "raw_rate": 50
+    },
+    {
+      "index": 689,
+      "type": 3,
+      "source": 119317,
+      "source_quantity": 120,
+      "destination": 119328,
+      "destination_quantity": 1,
+      "raw_rate": 50
+    },
+    {
+      "index": 690,
+      "type": 1,
+      "source": 119317,
+      "source_quantity": 300,
+      "destination": 119216,
+      "destination_quantity": 4,
+      "raw_rate": 100
+    }
+  ],
+  "items": [
+    {
+      "template": 119216,
+      "metadata": 2,
+      "record_sha256": "ec98dcd5d39d9c740a3b617e79e7222d46f328c8c4554dac62a45a95e4eee29b"
+    },
+    {
+      "template": 119217,
+      "metadata": 0,
+      "record_sha256": "030a5e21db7bf9ce9e802e2ff1eadcd76cea4c9ffa209ac9cf18e805fd553da3"
+    },
+    {
+      "template": 119218,
+      "metadata": 0,
+      "record_sha256": "1677bd14edba3da9ab7c6b93f57e7759fe7596fff00ed908482bdcf9ba453603"
+    },
+    {
+      "template": 119219,
+      "metadata": 0,
+      "record_sha256": "6a301939922cd01a6e806fe152d14d01d97e4efb36db55a515692740d10ee104"
+    },
+    {
+      "template": 119220,
+      "metadata": 0,
+      "record_sha256": "5cafc15d7fdb5ad3ec028c4458160ffaf318775b07d316814949fbea986ffeaf"
+    },
+    {
+      "template": 119317,
+      "metadata": 2,
+      "record_sha256": "5cf7a40febbcadee8675cc2a71dc6c717f4d4e4bd743ec3e013b61e713842357"
+    },
+    {
+      "template": 119323,
+      "metadata": 2,
+      "record_sha256": "0ed6dd8eb77ca902ae5251e95f3380c75e541dee465d2741bf610dd3deef79c1"
+    },
+    {
+      "template": 119328,
+      "metadata": 2,
+      "record_sha256": "74cfdbcc24e20132eea7e1e7fb9bb52ca4ddbfd92dcda8758e6eb762672a22a4"
+    },
+    {
+      "template": 710193,
+      "metadata": 2,
+      "record_sha256": "6c2a3c49394f5f383f76774e54cd2a6df51676f66c79ec0df97b67167ebeefbe"
+    },
+    {
+      "template": 710313,
+      "metadata": 2,
+      "record_sha256": "085d0e5b900809397ca32744881661c98d1f158e19b0d70f39b344cf416ff388"
+    },
+    {
+      "template": 30880,
+      "metadata": 2,
+      "record_sha256": "b0b14fa48309257911facfb32d1c66343bd2e3c183a7e1b730ce57e0633e93ad"
+    }
+  ],
+  "weekly": {
+    "scope": "account_each_product_independent",
+    "timezone": "Asia/Shanghai",
+    "weekday": "Wednesday",
+    "hour": 10,
+    "maximum": {
+      "710313": 1,
+      "710193": 1,
+      "119328": 1,
+      "119216": 1,
+      "30880": 4
+    }
+  },
+  "closed_original_recipe_indices": [],
+  "gauge_authorization_sha256": "8cc392303ec27607460e9619caaa56863579af69d4ea8371a53eee50c220e253"
+}

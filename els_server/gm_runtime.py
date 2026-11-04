@@ -91,8 +91,7 @@ class Runtime:
             raise ValueError('每次发放数量为 1–99')
         plan = item_plan(template,quantity)
         digest = hashlib.sha256(canonical(value).encode()).hexdigest()
-        with closing(sqlite3.connect(self.app.config.state_file,timeout=10)) as db, db:
-            db.execute('BEGIN IMMEDIATE')
+        with closing(sqlite3.connect(self.app.config.state_file,timeout=10)) as db, write_transaction(db):
             db.execute('CREATE TABLE IF NOT EXISTS gm_item_receipts (operation_id TEXT PRIMARY KEY, digest TEXT NOT NULL, receipt TEXT NOT NULL)')
             old = db.execute('SELECT digest,receipt FROM gm_item_receipts WHERE operation_id=?',(key,)).fetchone()
             if old:
@@ -110,9 +109,8 @@ class Runtime:
                 template=template,quantity=quantity,reason=value['reason'],time=time.time(),replayed=False,
                 delivery='committed-and-queued')
             db.execute('INSERT INTO gm_item_receipts VALUES (?,?,?)',(key,digest,canonical(receipt)))
-            db.commit()
-            s.mailbox = box
-            return receipt
+        s.mailbox = box
+        return receipt
 
     def announce(self,value):
         operation(value)
@@ -181,12 +179,10 @@ class Runtime:
     def execute(self, request):
         action, value = request.get('action'), request.get('value',{})
         if action in ('cash-balance','cash-operation','cash-credit'):return self.ariel_cash(action,value)
-        if self.app.config.mode=='local' and action not in ('selected2026-status','selected2026'):
-            raise ValueError('本地活动管理接口只开放本次签到和在线活动')
         if action in ('coupon-rewards','coupon-list','coupon-operation','coupon-issue','coupon-revoke'):return self.coupon(action,value)
         if action in ('selected2026-status','selected2026'):
             manager=getattr(self.app,'activity2026_manager',None)
-            if manager is None:raise ValueError('本机未启用2026活动运行配置')
+            if manager is None:raise ValueError('Selected reproduction runtime unavailable')
             return manager.snapshot() if action=='selected2026-status' else manager.update(value)
         if action=='status':
             from els_server.domain.gm_rates import snapshot
@@ -225,10 +221,9 @@ class Runtime:
                     reply=dict(ok=True,result=result)
             except Exception as e:
                 reply=dict(ok=False,error=str(e) if isinstance(e,ValueError) else '服务端管理操作失败，请检查日志')
-                if not isinstance(e,ValueError) and isinstance(locals().get('request'),dict) and request.get('action')=='cash-credit':reply['outcome_unknown']=True
                 # Cancellation/SQL/internal errors can race a durable commit.
                 # Coupon recovery must inspect the original worker receipt.
-                if not isinstance(e,ValueError) and isinstance(locals().get('request'),dict) and request.get('action')in('coupon-issue','coupon-revoke'):
+                if not isinstance(e,ValueError) and isinstance(locals().get('request'),dict) and request.get('action')in('coupon-issue','coupon-revoke','cash-credit'):
                     reply['outcome_unknown']=True
             try:
                 writer.write((canonical(reply)+'\n').encode());await writer.drain()
@@ -238,3 +233,5 @@ class Runtime:
 
     async def close(self):
         if self.listener:self.listener.close();await self.listener.wait_closed()
+
+from els_server.storage.sqlite_timing import write_transaction

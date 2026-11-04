@@ -176,8 +176,31 @@ class DungeonRun:
   if kind in (0,5):return (kind==0 or self.portal_requested) and all(n['key'] in dead for n in npcs if n['active'] and n.get('team',1)!=0)
   if kind in (1,2):
    keys=[n['key'] for n in npcs if n['key_code'] in c['required']]
+   # Only the two source-pinned 30282 script exits; raid controllers keep
+   # their original retirement requirement even when all hostiles are dead.
+   if (kind==1 and self.identity==30282 and (self.stage,self.part) in ((0,1),(1,1))
+       and c['required']==[1]
+       and self.graph['source_sha256']=='3da2896f31f56f9f1c1239455bd40dbab24c87b46b63409ca6e47a54f956ca5d'
+       and self.graph==self.catalog.graph(self.identity)):
+    gates=[n for n in npcs if n['key_code']==1]
+    live=[n for n in npcs if n['active'] and n.get('team',1)!=0]
+    if (gates and all(n['template']==156 and not n['active'] and n.get('no_drop')
+                     and not n.get('ally') and n.get('team',1)==1 for n in gates)
+        and live and all(n['key'] in dead for n in live)):
+     return True
    return bool(keys) and (any(k in dead for k in keys) if kind==2 else all(k in dead for k in keys))
   if kind==3:
+   # Only the two native dragon-nest doors; class103 controllers elsewhere
+   # still require their exact original retirement, even in an empty room.
+   if (self.identity==30182 and (self.stage,self.part) in ((0,1),(1,1))
+       and c['required']==[145]
+       and self.graph['source_sha256']=='beb270845a77bef951e89efe21f3910a2d72b0fade4de3ffe8fe2f054de1a295'
+       and self.graph==self.catalog.graph(self.identity)):
+    gates=[n for n in npcs if n['template']==145]
+    live=[n for n in npcs if n['active'] and n.get('team',1)!=0]
+    if (gates and all(not n['active'] and n.get('no_drop') and not n.get('ally')
+                     and n.get('team',1)==1 for n in gates)
+        and live and all(n['key'] in dead for n in live)):return True
    required=[n['key'] for n in npcs if n['template'] in c['required']]
    return bool(required) and all(k in dead for k in required)
   if kind==6:return self.started_at is not None and self.clock()-self.started_at>=c['seconds']

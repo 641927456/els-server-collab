@@ -44,6 +44,8 @@ class Bridge:
         self.game_address=None;self.relay_supported=False;self.relay=None;self.relay_task=None
         self.relay_control_version=0;self.relay_control_active=False
         self.reserved_native=None;self.reserved_expiry=None
+        from els_server.domain.pvp_support import EMPTY
+        self.pvp_support_version=0;self.pvp_support=dict(EMPTY)
 
     async def _close_writer(self,writer):
         writer.close()
@@ -90,6 +92,9 @@ class Bridge:
                 version=reply.get('relay_control_version',0)
                 if type(version) is not int or version not in (0,1):raise ValueError('Server relay control version differs')
                 self.relay_control_version=version
+                support_version=reply.get('pvp_support_version',0)
+                if type(support_version)is not int or support_version not in(0,1):raise ValueError('PvP support control version differs')
+                self.pvp_support_version=support_version
                 if role=='relay':self.relay_control_active=control and self.relay_control_version==1
                 self.log('bridge_remote_ready',role=role or 'native',connect_tls_ms=round((connected-started)*1000),authentication_ms=round((time.monotonic()-connected)*1000))
                 return reader,writer
@@ -144,6 +149,14 @@ class Bridge:
         if self.closing or len(self.tasks)>=8:writer.close();return
         task=asyncio.create_task(self.handle(reader,writer));self.tasks.add(task)
         task.add_done_callback(self.tasks.discard)
+
+    def support_status(self,value):
+        from els_server.domain.pvp_support import decode
+        value=decode(value)
+        if value==self.pvp_support:return
+        self.pvp_support=value
+        if self.pvp_support_version==1 and self.relay_control_active and self.relay is not None:
+            self.relay.outgoing.put(b'\7'+json.dumps(value,separators=(',',':')).encode())
 
     async def _release_reserved(self):
         reserved=self.reserved_native;self.reserved_native=None
@@ -262,6 +275,8 @@ async def main(config_path,stop_file=None,owner_pid=None,owner_created=None):
             if bridge.relay_task and bridge.relay_task.done():
                 bridge.relay_task.result()
                 raise ValueError('Combat relay stopped')
+            from els_server.domain.pvp_support import read_owned
+            bridge.support_status(read_owned(Path(stop_file).with_name('pvp-hp-status.json')if stop_file else None,owner_pid))
             await asyncio.sleep(.25)
     finally:await bridge.close()
 

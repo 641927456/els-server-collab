@@ -13,4 +13,6 @@ def install():
         from els_server.domain.boosting_2026_force_rewards import register
         enable((Path(__file__).resolve().parents[1]/'data/published2026-bundles.json').read_bytes())
         register()
+        from els_server.domain.boosting_2026_force_extraction import register as register_extraction
+        register_extraction()
         _installed=True

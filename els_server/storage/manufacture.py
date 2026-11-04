@@ -74,9 +74,16 @@ def allocate(request,items,demand,now):
 def candidates_for(recipe,character,source):
     from els_server.domain.acquisition_policy import can_acquire
     from els_server.domain.equipment_requirements import class_matches
+    from els_server.domain.change_force_inventory import catalog as change_catalog
     registered=inventory_definitions();result=[]
     for t in sorted(set(recipe['result_registrations'])):
         if t not in registered or not can_acquire(t):continue
+        if t in change_catalog():
+            from els_server.domain.change_force_admission import CRAFTING
+            if not CRAFTING:continue
+            row=change_catalog()[t]
+            if (recipe['definition']['m_ManufactureID']!=row['recipe'] or
+                recipe['result_registrations']!=[t]):raise ValueError('Change force recipe identity')
         d=client_data().item(t);raw=d['record']
         if d['item_type'] in (1,2) and (raw[210] and raw[210]!=character[0] or raw[211] and not class_matches(character[1],raw[211])):continue
         result.append(t)
@@ -106,7 +113,10 @@ def make_item(db,owner,template,items,source=None,*,randbelow=secrets.randbelow)
             if maximum>0:out['durability']=maximum
         # Documented old random effects reset. Compatibility reset means
         # unidentified; explicit identify action uses the configured fallback.
-        if normal:out['identified']=False
+        # In the pinned normal catalog every non-null RANDOM pointer is nonempty.
+        # A null pointer has no initial effects:2269180 refuses initial438 for it.
+        # Keep nonempty compatibility rolls; never migrate an existing instance.
+        if normal and not(d['flags4']&1) and struct.unpack_from('<I',d['record'],0xc0)[0]:out['identified']=False
         if source:
             if 'enhancement' in source:out['enhancement']=source['enhancement']
             # Preserve equipment-v2+ per-instance protection state on same-UID upgrade.
@@ -243,9 +253,9 @@ def execute(path,owner,account_id,payload,operation,*,now,randbelow=secrets.rand
 
 # User-authorized local policy, 2026-10-24. Not a retail XP curve.
 BLACKSMITH_LOCAL_INITIAL_REQUIRED = 400
-
 # Explicit20261024 local hunter initial state; not a retail initial curve.
 HUNTER_LOCAL_INITIAL_REQUIRED = 400
+
 def select_profession(path,owner,account_id,payload,*,authorize=None,prepare=None):
     from els_server.protocol.profession_messages import select_request
     chosen=select_request(payload)

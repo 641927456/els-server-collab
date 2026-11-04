@@ -12,6 +12,8 @@ from els_server.domain.normal_equipment import definitions
 
 @functools.lru_cache(maxsize=1)
 def catalog():
+    from els_server.domain.early_weapon_equipment import stat_templates
+    appendix=stat_templates()
     folder=PROJECT_ROOT/'els_server/data/client'
     manifest=json.loads((folder/'instance_stats.manifest.json').read_text())
     raw=(folder/'instance_stats.json').read_bytes();data=json.loads(raw)
@@ -20,7 +22,7 @@ def catalog():
         or manifest['client_sha256']!=data['client_sha256'] or data['client_sha256']!=CLIENT_SHA
         or data['source_catalog_sha256']!=client_data().manifest['catalog_sha256']
         or manifest['source_catalog_sha256']!=data['source_catalog_sha256']
-        or data['normal_template_count']!=len(definitions()) or not data['default_additional_vector_zero']):
+        or data['normal_template_count']!=len(definitions())-len(appendix) or not data['default_additional_vector_zero']):
         raise ValueError('Instance stat evidence identity')
     return data
 

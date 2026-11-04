@@ -1,18 +1,22 @@
 """Selected-force loadout, native full-preset ACK and current-state retries."""
 import json,sqlite3,struct
 from contextlib import closing
-from els_server.domain.boosting_2026_force_equipment import request,changed,slots,acknowledgement
-from els_server.storage.boosting_2026_force_inventory import saved as saved_owned,initialize as initialize_owned
+from els_server.domain.boosting_2026_force_equipment import request,changed,slots,acknowledgement,change_skill
+from els_server.storage.boosting_2026_force_inventory import saved as saved_owned,initialize as initialize_owned,initialize_change
 from els_server.storage.character_schema import character_uid
 from els_server.storage.inventory_actions import _identity,_previous,_commit
 from els_server.protocol.protocol_codec import encode_event
 
 def saved(db,owner):
-    owner=character_uid(owner);result=[(0,0)]*3
+    owner=character_uid(owner);result=[(0,0)]*11
     if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='selected_2026_force_slots'").fetchone():
         for index,skill,rank in db.execute('SELECT slot,skill,rank FROM selected_2026_force_slots WHERE owner=? ORDER BY slot',(owner,)):
-            if index not in range(3):raise ValueError('Saved force slot index')
+            if index not in range(11):raise ValueError('Saved force slot index')
             result[index]=(skill,rank)
+    if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='selected_2026_change_force_slots'").fetchone():
+        for index,skill,rank in db.execute('SELECT slot,skill,rank FROM selected_2026_change_force_slots WHERE owner=? ORDER BY slot',(owner,)):
+            if index not in range(8) or result[3+index]!=(0,0):raise ValueError('Change force slot collides with preserved legacy reference')
+            result[3+index]=(skill,rank)
     return slots(dict(force_inventory=saved_owned(db,owner),force_slots=result))
 
 def snapshot(path,owner):
@@ -32,6 +36,8 @@ def _character(db,owner,account):
     from els_server.storage.skill_unlocks import saved_groups
     from els_server.storage.skill_traits import saved as saved_traits
     character.update(skill_row_expanded=is_expanded(db,owner),skill_seal_groups=saved_groups(db,owner),skill_traits=saved_traits(db,owner),force_inventory=saved_owned(db,owner),force_slots=saved(db,owner))
+    from els_server.domain.relationship_skills import saved as relationship_saved
+    character['relationship']=relationship_saved(db,owner)
     return character
 
 def _preset(db,character):
@@ -49,7 +55,10 @@ def _preset(db,character):
     return preset_payload(normal,equippable_skills(character),character)
 
 def action(path,owner,account,payload,operation):
-    request(payload)
+    kind,index,skill,rank=request(payload)
+    if kind==2:
+        from els_server.domain.change_force_admission import EQUIPPING
+        if not EQUIPPING:raise ValueError('Change force equipment admission is closed')
     if not isinstance(operation,str):raise ValueError('Force slot operation identity')
     operation='force-slot:'+operation;owner,digest=_identity(owner,0x6d0,payload,operation)
     if type(account) is not int or not 0<account<2**63:raise ValueError('Force equipment account')
@@ -57,18 +66,30 @@ def action(path,owner,account,payload,operation):
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');character=_character(db,owner,account);old=_previous(db,operation,digest)
         if old is not None:
             if db.execute('SELECT owner,kind FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()!=(owner,0x6d0):raise ValueError('Force equipment retry owner/kind')
-            event=acknowledgement(_preset(db,character));encode_event(event);return event
+            event=acknowledgement(_preset(db,character),owner=owner);encode_event(event);return event
         before=character['force_slots'];after=changed(character,payload);modified=after!=before
         if modified and character['revision']>=2**63-1:raise ValueError('Force character revision overflow')
-        event=acknowledgement(_preset(db,dict(character,force_slots=after)));encode_event(event)
-        initialize_owned(db)
-        db.execute('''CREATE TABLE IF NOT EXISTS selected_2026_force_slots (
-            owner INTEGER NOT NULL,slot INTEGER NOT NULL CHECK(slot BETWEEN 0 AND 2),
-            skill INTEGER NOT NULL,rank INTEGER NOT NULL,PRIMARY KEY(owner,slot),UNIQUE(owner,skill),
-            FOREIGN KEY(owner,skill,rank) REFERENCES selected_2026_force_inventory(owner,skill,rank))''')
+        event=acknowledgement(_preset(db,dict(character,force_slots=after)),owner=owner);encode_event(event)
+        if kind==2 or kind==0 and change_skill(skill):
+            initialize_change(db)
+            db.execute('''CREATE TABLE IF NOT EXISTS selected_2026_change_force_slots (
+                owner INTEGER NOT NULL,slot INTEGER NOT NULL CHECK(slot BETWEEN 0 AND 7),
+                skill INTEGER NOT NULL,rank INTEGER NOT NULL CHECK(rank=1),PRIMARY KEY(owner,slot),UNIQUE(owner,skill),
+                FOREIGN KEY(owner,skill,rank) REFERENCES selected_2026_change_force_inventory(owner,skill,rank))''')
+        else:
+            initialize_owned(db)
+            db.execute('''CREATE TABLE IF NOT EXISTS selected_2026_force_slots (
+                owner INTEGER NOT NULL,slot INTEGER NOT NULL CHECK(slot BETWEEN 0 AND 2),
+                skill INTEGER NOT NULL,rank INTEGER NOT NULL,PRIMARY KEY(owner,slot),UNIQUE(owner,skill),
+                FOREIGN KEY(owner,skill,rank) REFERENCES selected_2026_force_inventory(owner,skill,rank))''')
         if modified:
-            db.execute('DELETE FROM selected_2026_force_slots WHERE owner=?',(owner,))
-            db.executemany('INSERT INTO selected_2026_force_slots VALUES (?,?,?,?)',[(owner,i,s,r) for i,(s,r) in enumerate(after) if s])
+            if kind==2 or kind==0 and change_skill(skill):
+                db.execute('DELETE FROM selected_2026_change_force_slots WHERE owner=?',(owner,))
+                db.executemany('INSERT INTO selected_2026_change_force_slots VALUES (?,?,?,?)',[(owner,i-3,s,r) for i,(s,r) in enumerate(after) if i>=3 and s and change_skill(s)])
+            else:
+                db.execute('DELETE FROM selected_2026_force_slots WHERE owner=? AND slot<3',(owner,))
+                db.executemany('INSERT INTO selected_2026_force_slots VALUES (?,?,?,?)',[(owner,i,s,r) for i,(s,r) in enumerate(after[:3]) if s])
+                if kind==0:db.execute('DELETE FROM selected_2026_force_slots WHERE owner=? AND skill=? AND rank=? AND slot>=3',(owner,skill,rank))
             db.execute('UPDATE characters SET revision=revision+1 WHERE uid=?',(owner,))
         _commit(db,operation,digest,owner,0x6d0,[],[list(p) for p in before],[list(p) for p in after])
         assert saved(db,owner)==after

@@ -48,12 +48,7 @@ def identify_values(template,values,randbelow):
  return draw(template,randbelow)
 
 def draw(template,randbelow):
- rows=outcomes(template);result=[]
- for _ in range(2):
-  ticket=randbelow(100000)
-  if type(ticket) is not int or not 0<=ticket<100000:raise ValueError('Artifact identification entropy bound')
-  for row in rows:
-   if ticket<row['weight']:
-    result.append(row['option']);break
-   ticket-=row['weight']
- return result
+ rows=outcomes(template)
+ from els_server.domain.identification_ui import draw_slots
+ return draw_slots(rows,2,randbelow,100000,
+                   range_error='Artifact identification entropy bound')

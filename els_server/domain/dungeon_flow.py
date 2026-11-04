@@ -15,6 +15,18 @@ def local_rewards():
  if r['coin_template']!=127000:raise ValueError('Unverified local coin')
  return {**r,'items':[item_plan(**i) for i in r['clear_items']]}
 
+_FINALE_ROOMS={35320:(3,0,'696e2f7ad0e4685ea9dea807e03bf7eb54a953c7d9b08453deae8bb0dcba79e3'),
+ 35321:(2,0,'1861ded3d8a7e8d67475e98a27449215227de7b19f907f3943675fa9ddad4e16'),
+ 35322:(0,0,'d110b77689c39fd9db46b26c8ae24894bb2bdb747fb4aea53ab2f4e2f3f36050')}
+
+def finale_boss_pending(run):
+ # Keep the resource's actual part. Never synthesize an absent boss-area part.
+ spec=_FINALE_ROOMS.get(run.identity)
+ if spec is None or (run.stage,run.part)!=spec[:2]:return False
+ if run.graph['source_sha256']!=spec[2] or run.graph!=run.catalog.graph(run.identity):return True
+ bosses=[n for n in run.current['npcs'] if n['template']==9431]
+ return not bosses or any(n['key'] not in run.defeated for n in bosses)
+
 def periodic(session):
  s=session
  if (s.dungeon_run is not None and s.phase=='dungeon_active' and not s.clear_notified
@@ -24,6 +36,8 @@ def periodic(session):
  if getattr(s.dungeon_run,'memory1_quest_barrier',frozenset())-set(s.dungeon_run.defeated):return []
  from els_server.domain.story_controller_retirements import gate_predecessor_blocked
  if gate_predecessor_blocked(s.dungeon_run):return []
+ from els_server.domain.devildom1_raid2_controllers import gate_blocked
+ if gate_blocked(s.dungeon_run) or finale_boss_pending(s.dungeon_run):return []
  if s.dungeon_run.poll_ready():
   s.part_end_notified=True;s.dungeon_clock.pause()
   return [part_end_notice(s.dungeon_run.part)]
@@ -32,6 +46,13 @@ def periodic(session):
 def handle(s,event):
  run=s.dungeon_run
  if run is None or s.phase!='dungeon_active' or event.event_id!=0x202:return None
+ from els_server.domain.native_line_triggers import handle as line_trigger
+ trigger_reply=line_trigger(s,event)
+ if trigger_reply is not None:return trigger_reply
+ # Guard before the raid settlement dispatch, including a direct BB.
+ from els_server.domain.devildom1_raid2_controllers import gate_blocked
+ if (event.kind==0xbb and not s.clear_notified and not getattr(s,'dungeon_failed',False)
+     and (gate_blocked(run) or finale_boss_pending(run))):return []
  from els_server.domain.raid_economy_flow import solo as raid_phase_solo
  raid_reply=raid_phase_solo(s,event)
  if raid_reply is not None:return raid_reply
@@ -53,6 +74,12 @@ def handle(s,event):
  if event.kind==0xad:
   try:d=death_report(event.payload)
   except ValueError:return []
+  # C1/failure closes the HP lease. A late native report must not consult
+  # population/HP or enter any economic writer after that closure.
+  if s.clear_notified or getattr(s,'dungeon_failed',False):
+   if (event.performers!=(0,) or event.uid!=2**64-1 or event.target_uid!=2**64-1
+       or event.payload_mode!=0):return []
+   return [death_ack()]
   # Finite static-controller adapters must not consume an already admitted
   # dynamic actor's original expiry. Retain the existing expiry decoder and
   # exact server-allocated identity; zero is never an alias for another actor.
@@ -80,6 +107,9 @@ def handle(s,event):
    from els_server.domain.story_controller_retirements import handle as story_retirement
    retired=story_retirement(s,event,d)
    if retired is not None:return retired
+  from els_server.domain.devildom1_raid2_controllers import handle as raid_controller_retirement
+  retired=raid_controller_retirement(s,event,d)
+  if retired is not None:return retired
   if d['index'] in s.summon_keys:return None
   npc=next((n for n in run.current['npcs'] if n['key']==d['index']),None)
   hp=struct.unpack('>f',struct.pack('>I',d['hp_bits']))[0]
@@ -116,6 +146,9 @@ def handle(s,event):
   value=struct.unpack_from('>f',event.payload,5)[0]
   if not math.isfinite(value) or not 0<=value<=1e9:return []
   reply=[Event(0x201,kind=0xb4,payload=bytes(4)),Event(0x201,kind=0xb5,payload=struct.pack('>iQ',0,s.account.uid))]
+  from els_server.domain.normal_fatigue_flow import loaded as fatigue_loaded
+  try:reply+=fatigue_loaded(s,event)
+  except(ValueError,__import__('sqlite3').Error):return[]
   if not s.dungeon_substage_synced:
    from els_server.protocol.dungeon_messages import initial_part,begin_substage
    reply.extend([Event(0x201,kind=0xb6,payload=bytes(16)),initial_part(run.part),begin_substage(run.part,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))])
@@ -140,6 +173,9 @@ def handle(s,event):
    reply.extend(clear(s));return reply
   # Prepare the stage before committing the cursor so encoding failure does
   # not discard the completed part; the fixed run seed preserves retry bytes.
+  from els_server.domain.normal_fatigue_flow import loaded as fatigue_loaded
+  try:reply+=fatigue_loaded(s,event)
+  except(ValueError,__import__('sqlite3').Error):return[]
   s.previous_dungeon_part=run.part;transition=run.advance();s.gate_stage=run.stage
   run.completed_transition=dict(target=(run.stage,run.part,run.visits),parts=tuple({struct.pack('>b',source[1]),struct.pack('>b',run.part)}))
   s.part_end_notified=False;s.defeated_npcs=run.defeated
@@ -278,7 +314,7 @@ def clear(s):
   if getattr(s,'active_challenge',None) is not None and s.challenge_clear_effect is None:
    s.challenge_clear_effect={**s.active_challenge,'now':int(time.time())}
   receipt=s.account.reward_store.grant(s.reward_run_id,proof,rule['clear_ed'],rule['clear_experience'],encode,
-      item_plan=(rule['items'] or None) if s.item_test else None,dungeon_clear=(run.identity,elapsed),challenge_clear=getattr(s,'challenge_clear_effect',None),transaction=getattr(s,'reward_transaction',None),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(raid_supply['original_session'] if raid_supply is not None else s) if getattr(s,'activity2026_awards',None) is not None else None,experience_limit=experience_limit() if compat_clear is not None else None,resonance_source='clear' if compat_clear is not None else None,raid_reward_source=raid_supply['source'] if raid_supply is not None else None,daily_special=raid_supply.get('daily_special') if raid_supply is not None else __import__('els_server.domain.ariel_daily_special',fromlist=['prepare']).prepare(s))
+      item_plan=(rule['items'] or None) if s.item_test else None,dungeon_clear=(run.identity,elapsed),challenge_clear=getattr(s,'challenge_clear_effect',None),transaction=getattr(s,'reward_transaction',None),clear_assessment=assessment,artifact_base=clear_base(run.identity),title_economy='clear',attendance_clear=s.activity2026_awards.prepare_clear(raid_supply['original_session'] if raid_supply is not None else s) if getattr(s,'activity2026_awards',None) is not None else None,experience_limit=experience_limit() if compat_clear is not None else None,resonance_source='clear' if compat_clear is not None else None,raid_reward_source=raid_supply['source'] if raid_supply is not None else None,daily_special=raid_supply.get('daily_special') if raid_supply is not None else __import__('els_server.domain.ariel_daily_special',fromlist=['prepare']).prepare(s),random_mission=raid_supply.get('random_mission')if raid_supply is not None else None)
   s.reward_receipt={'run_id':s.reward_run_id,**receipt};reply=[]
   if s.item_test and receipt.get('items') and not s.clear_items_synced:
    from els_server.domain.dungeon_drops import pickup_inventory_notice

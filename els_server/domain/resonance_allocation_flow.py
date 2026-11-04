@@ -10,6 +10,7 @@ from contextlib import closing
 from functools import lru_cache
 from pathlib import Path
 import sqlite3,struct
+from els_server.storage.resonance_period import bonus as period_bonus
 from els_server.protocol.protocol_codec import Event,encode_event
 from els_server.storage.resonance_2026_profiles import ResonanceProfiles,NEW_PROFILE_POLICY
 from els_server.storage.resonance_2026_operations_v2 import ResonanceOperationsV2,ResonanceOpaqueFields
@@ -61,7 +62,9 @@ def synchronize(s,messages,current):
         tables={r[0]for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         row=db.execute('SELECT revision FROM resonance2026_characters WHERE character=? AND account=?',
             (s.account.uid,s.account.account_id)).fetchone() if 'resonance2026_characters' in tables else None
-        key=(s.account.account_id,s.account.uid,current['revision'],row)
+        from els_server.storage.resonance_period import key as period_key
+        period=period_key(db,s.account.account_id,s.account.uid)if 'character_resonance_period'in tables else None
+        key=(s.account.account_id,s.account.uid,current['revision'],row,period)
         if getattr(s,'resonance_page_sync_key',None)==key:return messages
         try:
             db.execute('BEGIN IMMEDIATE');p,state=prepare(db,s);notice=state.notice();encode_event(notice)
@@ -71,7 +74,7 @@ def synchronize(s,messages,current):
             # Unknown legacy/profile metadata is kept intact. It must not
             # prevent ordinary login or be replaced with guessed zero pages.
             db.rollback();return messages
-    s.resonance_page_sync_key=(s.account.account_id,s.account.uid,current['revision'],(revision,))
+    s.resonance_page_sync_key=(s.account.account_id,s.account.uid,current['revision'],(revision,),period)
     return [*messages,notice]
 
 
@@ -117,7 +120,7 @@ def handle(s,event,sequence):
                         operation=operation,expected_revision=expected,payload=event.payload,kind=0x611)
                 else:
                     reply=ops.allocate(account=account,character=character,operation=operation,
-                        expected_revision=expected,payload=event.payload,bonus_points=(),result=0,trailing_value=0)
+                        expected_revision=expected,payload=event.payload,bonus_points=period_bonus(state),result=0,trailing_value=0)
             elif event.kind==0x613:
                 from els_server.domain.resonance_category_scroll import scroll_items
                 from els_server.storage.resonance_2026_scrolls import ScrollOperations
@@ -128,6 +131,8 @@ def handle(s,event,sequence):
             else:
                 reply=ops.select(account=account,character=character,operation=operation,
                     expected_revision=expected,payload=event.payload,opaque_fields=ResonanceOpaqueFields(*metadata[1]))
+            if event.kind==0x79e:
+                reply=page_switch_reply(result=0,state=p.synchronize(account=account,character=character))
             encode_event(reply)
         return [reply]
     except ValueError:return [failure(s,event.kind)]

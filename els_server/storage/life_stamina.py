@@ -52,9 +52,12 @@ def initialize(db,uid,account,connection,now):
     return snapshot(db,uid,account)
 
 
-def debit(db,uid,account,amount):
+def debit(db,uid,account,amount,*,premium_at=None):
     owner(db,uid,account)
-    if not db.in_transaction or type(amount)is not int or amount!=20:raise ValueError('Finite original life cost')
+    if not db.in_transaction or type(amount)is not int or amount not in(10,20):raise ValueError('Finite original life cost')
+    if amount==10:
+        from els_server.storage.fishing_vip import active
+        if premium_at is None or not active(db,uid,account,premium_at):raise ValueError('FishingVIP saved authority required for half life cost')
     row=snapshot(db,uid,account)
     if not exists(db)or row['current']<amount:raise ValueError('Insufficient saved life')
     if db.execute('UPDATE account_life_stamina SET current=current-? WHERE account=? AND current=?',(amount,account,row['current'])).rowcount!=1:raise ValueError('Life compare-and-set')

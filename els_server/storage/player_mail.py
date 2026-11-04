@@ -33,6 +33,11 @@ def ensure(db):
 
 
 def visible_sql(db=None):
+    from els_server.storage.black_market_mail import exists as market_exists
+    if db is not None and market_exists(db):
+        from els_server.storage.online_title_mail_scope import exists as title_exists
+        extra=' UNION ALL SELECT recipient_uid FROM online2026_mail_scope WHERE mail_id=game_mail.id'if title_exists(db)else''
+        return "NOT EXISTS (SELECT 1 FROM (SELECT recipient_uid FROM player_mail_meta WHERE mail_id=game_mail.id UNION ALL SELECT recipient_uid FROM black_market_mail WHERE mail_id=game_mail.id"+extra+") p WHERE p.recipient_uid NOT IN (0,?))"
     # One bound UID argument; administrative account mail has no meta row.
     from els_server.storage.online_title_mail_scope import exists
     if db is not None and exists(db):
@@ -50,6 +55,9 @@ def require_recipient(db,mail_id,uid):
     from els_server.storage.online_title_mail_scope import recipient
     target=recipient(db,mail_id)
     if target is not None and target!=uid:raise MailError('Event letter belongs to another character')
+    from els_server.storage.black_market_mail import meta as market_meta
+    market=market_meta(db,mail_id)
+    if market is not None and market[0]!=uid:raise MailError('Market letter belongs to another character')
 
 
 def decorate(db,row,*,now=None):
@@ -67,6 +75,12 @@ def decorate(db,row,*,now=None):
         row['mail_type']=5  # Account ownership remains enforced by game_mail.
     if meta and meta[0]:
         name=db.execute('SELECT name FROM characters WHERE uid=?',(meta[0],)).fetchone()
+        if name:row['recipient']=name[0]
+    from els_server.storage.black_market_mail import meta as market_meta
+    market=market_meta(db,row['id'])
+    if market is not None:
+        row['mail_type']=market[1]
+        name=db.execute('SELECT name FROM characters WHERE uid=?',(market[0],)).fetchone()
         if name:row['recipient']=name[0]
     from els_server.storage.mail_attachments import pending
     item=pending(db,row['id'],now=int(time.time()) if now is None else now)

@@ -138,6 +138,11 @@ def prepare_batch(db,contexts,now,guard):
  for c,d,result in fresh:
   if winners and d['family']in('rosso','berthe')and c['owner']not in winners:
    rows=[(r['template'],r['quantity'])for r in result['items']];rows.append((135910 if d['family']=='rosso'else 136057,1));result['items']=rules.plan(rows)
+  from els_server.domain.black_market_rules import catalog as market_rules
+  if market_rules()['admissions_enabled']:
+   from els_server.storage.black_market_state import weekly as market_weekly
+   ticket=market_weekly(db,c,d,result,now)
+   if ticket is not None:result['black_market_ticket']=ticket
   db.execute('INSERT INTO formal_raid_phases VALUES (?,?,?,?,?,?,?,?)',(c['owner'],c['run'],c['stage'],c['dungeon'],week,c['proof'],canonical(result['source']),canonical(result)))
  if guard(db)is not True:raise ValueError('Raid original phase changed before encoding')
  return prepared

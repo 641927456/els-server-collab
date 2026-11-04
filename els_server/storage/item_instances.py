@@ -81,4 +81,4 @@ def uid_in_use(db,uid):
     if db.execute('SELECT 1 FROM inventory_items WHERE uid=?',(uid,)).fetchone():return True
     return any(db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(table,)).fetchone()
         and db.execute(f'SELECT 1 FROM {table} WHERE uid=?',(uid,)).fetchone()
-        for table in ('private_bank_items','shared_bank_items'))
+        for table in ('private_bank_items','shared_bank_items','native_guild_bank_items_v1'))

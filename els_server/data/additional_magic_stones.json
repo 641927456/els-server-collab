@@ -145,6 +145,78 @@
         "armor": 347
       },
       "record_sha256": "ef0ffaf235d0f496fb350697656cc8681e3b6343e060ebd0e5fd6c77a32be70e"
+    },
+    "154039": {
+      "template": 154039,
+      "name": "特级魔法石[追加伤害]",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 99,
+      "profiles": {
+        "weapon": "fixed-special-154039-weapon",
+        "armor": "fixed-special-154039-armor"
+      },
+      "record_sha256": "4b3efa4eb432b27427cc88fdc7859fbf7c73ecb4cddc75ba5f066152da7664ed"
+    },
+    "154042": {
+      "template": 154042,
+      "name": "特级魔法石[暴击]",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 99,
+      "profiles": {
+        "weapon": "fixed-special-154042-weapon",
+        "armor": "fixed-special-154042-armor"
+      },
+      "record_sha256": "e767cc1506d2b199148fa1ab9d7bcb17f14491c6cb0b2364a0f2d680016bf1b9"
+    },
+    "154045": {
+      "template": 154045,
+      "name": "特级魔法石[动作速度]",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 99,
+      "profiles": {
+        "weapon": "fixed-special-154045-weapon",
+        "armor": "fixed-special-154045-armor"
+      },
+      "record_sha256": "8996d922771132e1778d67eae7b568333c3d70fa64c6809934d6fc72086c3082"
+    },
+    "154048": {
+      "template": 154048,
+      "name": "特级魔法石[减少伤害]",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 99,
+      "profiles": {
+        "weapon": "fixed-special-154048-weapon",
+        "armor": "fixed-special-154048-armor"
+      },
+      "record_sha256": "0dd77339c96ec54c69ea2ecbfdf9367341efa2b22d5b595c93e6be48b60f6c76"
+    },
+    "163358": {
+      "template": 163358,
+      "name": "特级魔法石[极大化]",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 99,
+      "profiles": {
+        "weapon": "fixed-special-163358-weapon",
+        "armor": "fixed-special-163358-armor"
+      },
+      "record_sha256": "95e4a8c93e7af91150c190f306429bb0b28125d22bfd6b8d14c83b48e71c3f30"
+    },
+    "163392": {
+      "template": 163392,
+      "name": "特级魔法石[HP增加]",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 99,
+      "profiles": {
+        "weapon": "fixed-special-163392-weapon",
+        "armor": "fixed-special-163392-armor"
+      },
+      "record_sha256": "0730e827775e79a0e60ab57c89b4bb76ee5f66140ce66656af847ee6adfcb9e4"
     }
   },
   "profiles": {
@@ -262,6 +334,78 @@
       {
         "option": 86443,
         "weight": 1000
+      }
+    ],
+    "fixed-special-154039-weapon": [
+      {
+        "option": 40216,
+        "weight": 10000
+      }
+    ],
+    "fixed-special-154039-armor": [
+      {
+        "option": 40208,
+        "weight": 10000
+      }
+    ],
+    "fixed-special-154042-weapon": [
+      {
+        "option": 40116,
+        "weight": 10000
+      }
+    ],
+    "fixed-special-154042-armor": [
+      {
+        "option": 40108,
+        "weight": 10000
+      }
+    ],
+    "fixed-special-154045-weapon": [
+      {
+        "option": 40016,
+        "weight": 10000
+      }
+    ],
+    "fixed-special-154045-armor": [
+      {
+        "option": 40008,
+        "weight": 10000
+      }
+    ],
+    "fixed-special-154048-weapon": [
+      {
+        "option": 40616,
+        "weight": 10000
+      }
+    ],
+    "fixed-special-154048-armor": [
+      {
+        "option": 40608,
+        "weight": 10000
+      }
+    ],
+    "fixed-special-163358-weapon": [
+      {
+        "option": 46616,
+        "weight": 10000
+      }
+    ],
+    "fixed-special-163358-armor": [
+      {
+        "option": 46608,
+        "weight": 10000
+      }
+    ],
+    "fixed-special-163392-weapon": [
+      {
+        "option": 40716,
+        "weight": 10000
+      }
+    ],
+    "fixed-special-163392-armor": [
+      {
+        "option": 40708,
+        "weight": 10000
       }
     ]
   },
@@ -483,6 +627,154 @@
       "m_fIncreaseDefRateToBoss": 0.025,
       "TYPE": 347,
       "STAT": {}
+    },
+    "40216": {
+      "m_setMonsterIDForDamageUp": "Group 0",
+      "m_SkillLevelUpID": "Group 0",
+      "m_SetMonsterIDDamageReduced": "Group 0",
+      "m_fAdditionalAttackValue": 0.08,
+      "ID": 40216,
+      "m_setMonsterIDForEvade": "Group 0",
+      "TYPE": 1,
+      "m_eDescStringID": {
+        "global": "STR_ID_24864"
+      },
+      "STAT": {}
+    },
+    "40208": {
+      "m_setMonsterIDForDamageUp": "Group 0",
+      "m_SkillLevelUpID": "Group 0",
+      "m_SetMonsterIDDamageReduced": "Group 0",
+      "m_fAdditionalAttackValue": 0.04,
+      "ID": 40208,
+      "m_setMonsterIDForEvade": "Group 0",
+      "TYPE": 1,
+      "m_eDescStringID": {
+        "global": "STR_ID_24863"
+      },
+      "STAT": {}
+    },
+    "40116": {
+      "m_setMonsterIDForDamageUp": "Group 0",
+      "m_SkillLevelUpID": "Group 0",
+      "m_fPercentCritical": 0.08,
+      "m_SetMonsterIDDamageReduced": "Group 0",
+      "ID": 40116,
+      "m_setMonsterIDForEvade": "Group 0",
+      "TYPE": 1,
+      "m_eDescStringID": {
+        "global": "STR_ID_24862"
+      },
+      "STAT": {}
+    },
+    "40108": {
+      "m_setMonsterIDForDamageUp": "Group 0",
+      "m_SkillLevelUpID": "Group 0",
+      "m_fPercentCritical": 0.04,
+      "m_SetMonsterIDDamageReduced": "Group 0",
+      "ID": 40108,
+      "m_setMonsterIDForEvade": "Group 0",
+      "TYPE": 1,
+      "m_eDescStringID": {
+        "global": "STR_ID_24861"
+      },
+      "STAT": {}
+    },
+    "40016": {
+      "m_setMonsterIDForDamageUp": "Group 0",
+      "m_SkillLevelUpID": "Group 0",
+      "m_iAnimationSpeedRate": 8,
+      "m_SetMonsterIDDamageReduced": "Group 0",
+      "ID": 40016,
+      "m_setMonsterIDForEvade": "Group 0",
+      "TYPE": 1,
+      "m_eDescStringID": {
+        "global": "STR_ID_24860"
+      },
+      "STAT": {}
+    },
+    "40008": {
+      "m_setMonsterIDForDamageUp": "Group 0",
+      "m_SkillLevelUpID": "Group 0",
+      "m_iAnimationSpeedRate": 4,
+      "m_SetMonsterIDDamageReduced": "Group 0",
+      "ID": 40008,
+      "m_setMonsterIDForEvade": "Group 0",
+      "TYPE": 1,
+      "m_eDescStringID": {
+        "global": "STR_ID_24859"
+      },
+      "STAT": {}
+    },
+    "40616": {
+      "m_setMonsterIDForDamageUp": "Group 0",
+      "m_SkillLevelUpID": "Group 0",
+      "m_fAdditionalDefenceValue": 0.08,
+      "m_SetMonsterIDDamageReduced": "Group 0",
+      "ID": 40616,
+      "m_setMonsterIDForEvade": "Group 0",
+      "TYPE": 1,
+      "m_eDescStringID": {
+        "global": "STR_ID_24872"
+      },
+      "STAT": {}
+    },
+    "40608": {
+      "m_setMonsterIDForDamageUp": "Group 0",
+      "m_SkillLevelUpID": "Group 0",
+      "m_fAdditionalDefenceValue": 0.04,
+      "m_SetMonsterIDDamageReduced": "Group 0",
+      "ID": 40608,
+      "m_setMonsterIDForEvade": "Group 0",
+      "TYPE": 1,
+      "m_eDescStringID": {
+        "global": "STR_ID_24871"
+      },
+      "STAT": {}
+    },
+    "46616": {
+      "ID": 46616,
+      "m_fDamageMaximizeRate": 0.08,
+      "TYPE": 1,
+      "m_eDescStringID": {
+        "global": "STR_ID_36749"
+      },
+      "STAT": {}
+    },
+    "46608": {
+      "ID": 46608,
+      "m_fDamageMaximizeRate": 0.04,
+      "TYPE": 1,
+      "m_eDescStringID": {
+        "global": "STR_ID_36748"
+      },
+      "STAT": {}
+    },
+    "40716": {
+      "m_setMonsterIDForDamageUp": "Group 0",
+      "m_SkillLevelUpID": "Group 0",
+      "m_SetMonsterIDDamageReduced": "Group 0",
+      "m_IncreaseHP": 0.08,
+      "ID": 40716,
+      "m_setMonsterIDForEvade": "Group 0",
+      "TYPE": 1,
+      "m_eDescStringID": {
+        "global": "STR_ID_24874"
+      },
+      "STAT": {}
+    },
+    "40708": {
+      "m_setMonsterIDForDamageUp": "Group 0",
+      "m_SkillLevelUpID": "Group 0",
+      "m_SetMonsterIDDamageReduced": "Group 0",
+      "m_IncreaseHP": 0.04,
+      "ID": 40708,
+      "m_setMonsterIDForEvade": "Group 0",
+      "TYPE": 1,
+      "m_eDescStringID": {
+        "global": "STR_ID_24873"
+      },
+      "STAT": {}
     }
   },
   "sources": [
@@ -525,5 +817,54 @@
   ],
   "authority": "Original SocketItemData and Enum + KIM fixed values; official articles 352/353 joined by both boss modifiers",
   "fixed_id_policy": "Reuse exact native generic option IDs already admitted by Sage, not invented IDs for server-only fixed groups.",
-  "stack_policy": "Existing server 99 cap, not a recovered original maximum"
+  "stack_policy": "Existing server 99 cap, not a recovered original maximum",
+  "fixed_special_source": {
+    "item_kim_sha256": "a3bcc9c926b19aa36f1c737ca53993b23da11c372bfd5adf3d740dc0b691ab8e",
+    "descriptions": [
+      {
+        "template": 154039,
+        "offset": 63669348,
+        "description": "封印了特定力量的魔法石。\n\n（点击背包中的‘魔法石镶嵌’按钮可以使用）\n\n#C00FF00[可镶嵌的魔法石效果]#CX\n追加伤害 +8%\n（防具上仅适用为一半数值）",
+        "record_sha256": "4b3efa4eb432b27427cc88fdc7859fbf7c73ecb4cddc75ba5f066152da7664ed",
+        "utf16_length": 82
+      },
+      {
+        "template": 154042,
+        "offset": 63669910,
+        "description": "封印了特定力量的魔法石。\n\n（点击背包中的‘魔法石镶嵌’按钮可以使用）\n\n#C00FF00[可镶嵌的魔法石效果]#CX\n暴击 +8%\n（防具上仅适用为一半数值）",
+        "record_sha256": "e767cc1506d2b199148fa1ab9d7bcb17f14491c6cb0b2364a0f2d680016bf1b9",
+        "utf16_length": 80
+      },
+      {
+        "template": 154045,
+        "offset": 63670488,
+        "description": "封印了特定力量的魔法石。\n\n（点击背包中的‘魔法石镶嵌’按钮可以使用）\n\n#C00FF00[可镶嵌的魔法石效果]#CX\n动作速度 +8%\n（防具上仅适用为一半数值）",
+        "record_sha256": "8996d922771132e1778d67eae7b568333c3d70fa64c6809934d6fc72086c3082",
+        "utf16_length": 82
+      },
+      {
+        "template": 154048,
+        "offset": 63671070,
+        "description": "封印了特定力量的魔法石。\n\n（点击背包中的‘魔法石镶嵌’按钮可以使用）\n\n#C00FF00[可镶嵌的魔法石效果]#CX\n减少伤害 +8%\n（防具上仅适用为一半数值）",
+        "record_sha256": "0dd77339c96ec54c69ea2ecbfdf9367341efa2b22d5b595c93e6be48b60f6c76",
+        "utf16_length": 82
+      },
+      {
+        "template": 163358,
+        "offset": 63841254,
+        "description": "封印了特定力量的魔法石。\n\n（点击背包中的‘魔法石镶嵌’按钮可以使用）\n\n#C00FF00[可镶嵌的魔法石效果]#CX\n极大化 +8%\n（防具上仅适用为一半数值）",
+        "record_sha256": "95e4a8c93e7af91150c190f306429bb0b28125d22bfd6b8d14c83b48e71c3f30",
+        "utf16_length": 81
+      },
+      {
+        "template": 163392,
+        "offset": 63843622,
+        "description": "封印了特定力量的魔法石。\n\n（点击背包中的‘魔法石镶嵌’按钮可以使用）\n\n#C00FF00[可镶嵌的魔法石效果]#CX\nHP增加 +8%\n（防具上仅适用为一半数值）",
+        "record_sha256": "0730e827775e79a0e60ab57c89b4bb76ee5f66140ce66656af847ee6adfcb9e4",
+        "utf16_length": 82
+      }
+    ],
+    "selection": "Original fixed8 percent weapon / half armor, exact existing TYPE1 option field; no random pool or inferred retail weights",
+    "runtime_mechanism": "Existing additional_magic_stones distribution and generic Sage preview/apply storage; all previous entries preserved"
+  }
 }

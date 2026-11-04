@@ -28,6 +28,12 @@ def page_character(character,snapshot):
  # cannot be recreated by a dormant page's older snapshot.
  pairs={(r['skill'],r['rank'])for r in owned(character)}
  force=[tuple(p)if tuple(p)in pairs else (0,0)for p in snapshot['force']]
+ from els_server.domain.boosting_2026_force_equipment import active_skill
+ for index in range(3,11):
+  current=tuple(character['force_slots'][index])
+  if current[0] and active_skill(current[0]):
+   if force[index]!=(0,0) and force[index]!=current:raise ValueError('Dormant change force would overwrite preserved type20 reference')
+   force[index]=current
  from els_server.domain.skill_traits import visible
  result=dict(character,skill_traits=visible(character,snapshot['traits']),force_slots=force)
  slots(result)
@@ -58,7 +64,8 @@ def initialization(slots,uid,allowed,ranks,character):
   if page==selected:values=slots;c=character
   else:
    saved=state['pages'][page];c=page_character(character,saved);values=page_slots(c,saved)
-  maps.append(bytes([page-1])+preset_payload(values,allowed,c))
+  from els_server.domain.skill_rules import equippable_skills
+  maps.append(bytes([page-1])+preset_payload(values,equippable_skills(c),c))
  learned=u32(len(ranks))+b''.join(record(v,level)for v,level in ranks.items())
  #13A3841..13A3865: first byte selects1-based, second is count.
  return struct.pack('>Q',uid)+u32(count)+b''.join(maps)+learned+u32(0)*2+b'\0'+u32(0)*2+bytes([selected,count])+ids_wire(character)
@@ -82,9 +89,12 @@ def selected(character=None,slots=None,page=1,result=0):
   allowed=equippable_skills(character)
   preset=preset_payload(slots,allowed,character)
   fixed=struct.pack('>I',22)+b''.join(record(v)for v in slots)+bytes(4)+map_wire(character)
-  fixed+=vectors(character)if character.get('force_inventory')else bytes(8)
+  fixed+=vectors(character)
  #DE14C0 fixed22 records is a separate DTO, not a map. Two unnamedu16=0.
- return Event(0x201,kind=0x484,payload=struct.pack('>iiii',result,page,0,0)+fixed+preset)
+ event=Event(0x201,kind=0x484,payload=struct.pack('>iiii',result,page,0,0)+fixed+preset)
+ if result:return event
+ from els_server.domain.native_skill_production import record as record_native_skill
+ return record_native_skill(event,character.get('uid'))
 
 def handle(s,event,sequence):
  if event.event_id!=0x202 or event.kind not in (0x481,0x483):return None

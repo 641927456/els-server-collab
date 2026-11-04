@@ -11,6 +11,7 @@ VERSION = 1
 
 
 def profile(saved):
+    from els_server.domain.guild_bank_rules import permissions
     if saved['profile_version'] != VERSION:
         raise ValueError('Unknown persisted guild profile; no migration')
     basic = dict(id=saved['id'], name=saved['name'], max_members=20,
@@ -25,5 +26,5 @@ def profile(saved):
                 members=saved['members'], active_page=1,
                 pages={1:dict(skills=(),points=1,cash_points=0,
                               max_cash_points=0,expiry='',alias='')},
-                **{'11b':(),'133':(),'14b':0,'153':(),'163':(),'173':(),
+                **{'11b':(),'133':(),'14b':0,'153':(),'163':permissions(),'173':(),
                    '183':(),'193':'','1b3':'','1d3':0,'1db':()})

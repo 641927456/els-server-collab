@@ -95,6 +95,12 @@ class ResetOperations:
                 value=old.get(stat,0)+delta
                 if not 0<=value<=rules.stat(stat).maximum:raise ValueError('Reset beyond invested/max points')
                 updated[stat]=value
+            from els_server.storage.resonance_period import active
+            temporary=active(self.db,account,character)
+            if temporary is not None:
+                stat,bonus=temporary[:2]
+                if deltas.get(stat,0)>0 and updated.get(stat,0)+bonus>rules.stat(stat).maximum:
+                    raise ValueError('Mixed refund/addition exceeds native temporary capacity')
             remaining=selected.available_points-sum(deltas.values());item_kind='coin';item_count=cost
             checked=rules.add(current=tuple(sorted(updated.items())),additions=(),available_points=remaining,bonus_points=())
             used['positions'],used['consumed']=self._consume(character,item_kind,item_count)

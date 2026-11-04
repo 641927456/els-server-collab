@@ -7,7 +7,34 @@ from els_server.protocol.protocol_codec import Event,encode_event
 from els_server.protocol.housing_messages import entry_request,entry_snapshot
 from els_server.storage import housing_rooms as storage
 
+def local_application(s):
+    # Standalone sessions intentionally have no .application/friends identity.
+    # Use the existing App-created local witness and current selected graph;
+    # never fabricate friends membership or relax the friends branch below.
+    from els_server.domain.equipment_chip_flow import reset_authority
+    reset_authority(s)
+    app=getattr(s,'_aux_local_application',None)
+    if(getattr(s,'application',None)is not None or app is None
+       or app is not getattr(s,'_chip_reset_local_application',None)
+       or getattr(s,'_aux_local_live',None)is not True
+       or s not in app._aux_local_sessions or app.config.mode!='local'
+       or app.registry is not None or s.account.root is not app.account):raise ValueError('Housing trusted standalone local actor')
+    return app
+
+def local_identity(s):
+    app=local_application(s);a=s.account;root=a.root;path=Path(a.store.path).resolve()
+    if(s.role!='game'or not s.enter_town or not s.item_test or s.client_build!='dx11_260923'
+       or s.dungeon_return_pending or not{0x28,0x225,0x227}.issubset(s.completed)
+       or Path(a.characters.path).resolve()!=path or Path(app.config.state_file).resolve()!=path):raise ValueError('Housing current local native actor')
+    refs=(a,a.store,a.characters,root,app,root.character_accounts,root.store,app.config,app._aux_local_sessions,app.world,s.dungeon_run)
+    values=(a.uid,a.account_id,s.shop_session_id,root.account_id,a.characters.account_id,str(path),
+            s.role,s.client_build,s.item_test,s.enter_town,s.dungeon_return_pending,
+            s._aux_local_live,s._chip_reset_local_live,json.dumps(a.get_location(),sort_keys=True))
+    return refs,values
+
 def identity(s):
+    if getattr(s,'application',None)is None:return local_identity(s)
+
     if(not _ordinary_actor(s)or getattr(s,'application',None)is None or s.account.characters is None
        or s.role!='game'or not s.enter_town or not s.item_test or s.client_build!='dx11_260923'
        or s.dungeon_return_pending or not{0x28,0x225,0x227}.issubset(s.completed)):raise ValueError('Housing current ordinary native actor required')
@@ -32,11 +59,19 @@ def identity(s):
     return refs,values
 
 def world_state(s):
+    if getattr(s,'application',None)is None:
+        app=local_application(s)
+        return(app,app._aux_local_sessions,app.world,s.dungeon_run),(app.config.mode,s in app._aux_local_sessions,frozenset(s.completed))
     world=s.application.world;key=world.members.get(s);room=world.towns.get(key)
     entry=None if room is None else room.get(s)
     return (world.dungeons.room(s),room,entry),(key,frozenset(s.completed),repr(entry))
 
 def scene(s,source,context):
+    if getattr(s,'application',None)is None:
+        app=local_application(s);world=app.world
+        if(world.dungeons.room(s)is not None or s in world.members or any(s in room for room in world.towns.values())):raise ValueError('Standalone housing cannot borrow friends membership')
+        if s.phase not in('town_ready','housing_ready')or s.account.get_location()['map']!=source:raise ValueError('Housing standalone source scene')
+        return
     world=s.application.world
     if world.dungeons.room(s)is not None:raise ValueError('Housing cannot bypass current dungeon room')
     if context is None:

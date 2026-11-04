@@ -13,7 +13,7 @@ NATIVE_LIMIT=392
 PRODUCT_GROUPS={200751:1,200752:2,200753:6,200754:3,200755:5,200756:4,135964:21}
 # Original 2255C80 switch: 105/140 rows of eight for avatar/ice avatar.
 STARTING_FASHION_CAPACITIES={7:840,27:1120}
-BAG_GROUPS=(1,2,3,4,5,6,7,21,27)
+BAG_GROUPS=(1,2,3,4,5,6,7,21,25,27)  # Furniture uses the preserved local36-slot base.
 QUICK_SLOT_GROUP=11
 # Preserve this local profile's existing six visible item shortcuts explicitly.
 # Native 3059AD0 accepts 3/6 and clamps its constructor's placeholder 67 to 6.

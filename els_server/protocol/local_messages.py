@@ -117,12 +117,15 @@ def character_gate_notice():
     # Experimental local account policy: result 0, no additional dialog.
     return Event(0x201,kind=0x327,payload=i32(0)+b'\x00')
 
-def character_unit(location=None,initialize_attributes=False,slots=None,economy=None,items=None,character=None):
+def character_unit_fields(location=None,initialize_attributes=False,slots=None,economy=None,items=None,character=None):
     # 0xcc5680, packed DTO constructed by 0x1d09d30. The complete unit
     # precedes these explicit optional fields; native parsing remains the gate.
     fixture=json.loads((PROJECT_ROOT/'analysis/character-fixture.json').read_text())
     fields=[];overrides=client_economy_fields(economy)
     if character is not None:
+        account_id=character.get('account_id')
+        if type(account_id)is not int or not 1<=account_id<2**63:raise ValueError('Native Unit requires authoritative account identity')
+        overrides['0x0']=struct.pack('>Q',account_id)
         from els_server.storage.character_schema import character_uid
         from els_server.domain.character_rules import default_slots,transcendental_stage,artifact_wire
         if slots is None:slots=default_slots(character)
@@ -151,6 +154,9 @@ def character_unit(location=None,initialize_attributes=False,slots=None,economy=
         if 'el_search_collection' in character:
             from els_server.domain.el_search_collection import wire as collection_wire
             overrides['0x482']=collection_wire(character['el_search_collection'])
+        if 'normal_fatigue' in character:
+            from els_server.protocol.normal_fatigue_messages import fields as normal_fatigue_fields
+            overrides.update(normal_fatigue_fields(character['normal_fatigue']))
         if 'life_stamina' in character:
             from els_server.protocol.fishing_messages import life_snapshot
             overrides.update(life_snapshot(character['life_stamina']))
@@ -191,8 +197,13 @@ def character_unit(location=None,initialize_attributes=False,slots=None,economy=
             from els_server.protocol.guild_membership_messages import saved_membership_wire
             guild=character['guild_membership']
             data=saved_membership_wire(guild['id'],guild['name'],guild['grade'],data)
-        fields.append(overrides.get(field['offset'],data))
-    return b''.join(fields)
+        fields.append((field['offset'],overrides.get(field['offset'],data)))
+    from els_server.domain.native_copy_production import capture_fields
+    return capture_fields(tuple(fields))
+
+def character_unit(location=None,initialize_attributes=False,slots=None,economy=None,items=None,character=None):
+    return b''.join(raw for offset,raw in character_unit_fields(
+        location,initialize_attributes,slots,economy,items,character))
 
 def player_initialization(location=None,initialize_attributes=False,economy=None,items=None,character=None,*,restore_equipped=False):
     unit=character_unit(location,initialize_attributes,economy=economy,items=items,character=character)
@@ -214,8 +225,8 @@ def player_initialization(location=None,initialize_attributes=False,economy=None
     data+=capacity_map(character)+inventory+i32(known_c)+i32(0)+wstring('')+u32(0)*2+b'\x00'
     data+=u32(0)+b'\x00'+i32(0)*2
     # 0xcdd450: byte, UID, two strings, two UIDs, byte, UID, three bytes.
-    data+=b'\x00'+struct.pack('>Q',0)+wstring('')*2+struct.pack('>QQ',0,0)
-    data+=b'\x00'+struct.pack('>Q',0)+b'\x00'*3
+    from els_server.protocol.relationship_messages import cold as relationship_cold
+    data+=relationship_cold((character or {}).get('relationship'))
     from els_server.protocol.character_custom_messages import owned_map as custom_owned_map
     data+=u32(0)+custom_owned_map((character or {}).get('character_custom',{}).get('owned',{}))+b'\x01'+u32(0)  # DTO+6A8 owned custom map; +6B8 ctor true
     # Current DA3370 has THREE DB6FA0 records; each includes a final bool.

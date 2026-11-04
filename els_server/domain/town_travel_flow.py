@@ -60,9 +60,6 @@ VILLAGE1012_WRITER_ENABLED = True
 
 
 def _village1012_identity(s):
-    if getattr(s, 'application', None) is None:
-        from els_server.domain.cartridge_exchange_flow import _local_selected
-        return bool(_local_selected(s) and s.enter_town and s.item_test and s.client_build=='dx11_260923')
     from els_server.domain.equipment_engrave_flow import current_lease
     # app=None is the old helper's fixture compatibility, not an actual lease.
     account = getattr(s, 'account', None)

@@ -12,9 +12,19 @@ def catalog():
     if hashlib.sha256(raw).hexdigest()!=manifest['sha256']:raise ValueError('Tutorial source identity')
     data=json.loads(raw)
     if data['client_sha256']!=CLIENT_SHA or len(data['maps'])!=15:raise ValueError('Tutorial client/map identity')
-    # Tutorial sources keep their original spawn-seed level.
-    # Ordinary route level/HP capabilities do not apply to tutorial graphs.
-    return SimpleNamespace(_data=data,static_npc_level=lambda identity,graph,stage,part,source:None)
+    return _Catalog(data)
+
+class _Catalog:
+    def __init__(self,data):self._data=data;self.manifest={'source_sha256':data['sources']}
+    def static_npc_level(self,identity,graph,stage,part,source):
+        from els_server.domain.formal_npc_hp import level,source_map
+        if source_map(self,identity)['graph_sha256']!=graph['source_sha256']:
+            raise ValueError('Tutorial HP original graph identity')
+        return level(self,identity)
+    def graph(self,identity,*,internal=False):
+        row=self._data['maps'].get(str(identity))
+        if row is None:raise ValueError('Tutorial HP original map')
+        return json.loads(json.dumps(self._data['graphs'][row['source']]))
 
 class TutorialRun(DungeonRun):
     def __init__(self,identity):
@@ -26,4 +36,5 @@ class TutorialRun(DungeonRun):
         self.round=0;self.rotation=[];self.dynamic_requests={};self.completed_transition=None
         self.defeated={};self.parts={};self.stage_wires={};self.next=None;self.ready_at=None
         self.started_at=None;self.portal_requested=False
+        self.hp_context=None;self.legacy_experience=None;self.secret_clear_policy=None
         self._load_stage(0)

@@ -18,7 +18,7 @@ def _canonical(v):return json.dumps(v,sort_keys=True,separators=(',',':'))
 def _facts(s):
     app=getattr(s,'application',None);world=getattr(app,'world',None)
     return (id(world),id(getattr(world,'dungeons',None)),id(getattr(app,'registry',None)),
-            repr(s.identity),s.active_map,repr(s.account.get_location()),
+            repr(getattr(s,'identity',None)),getattr(s,'active_map',None),repr(s.account.get_location()),
             repr(getattr(s,'pending_map',None)),getattr(s,'map_synchronizing',None))
 
 

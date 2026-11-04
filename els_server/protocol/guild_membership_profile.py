@@ -53,13 +53,14 @@ def basic(profile, *, empty=False):
 
 
 def full(profile):
+    from els_server.domain.guild_bank_rules import permissions_wire
     required = {'basic','master_name','members','pages','active_page',
                 '11b','133','14b','153','163','173','183','193','1b3','1d3','1db'}
     if set(profile) != required:
         raise ValueError('Incomplete or extended guild full profile')
     # Nonempty modern feature state needs its own proven serializer/producer.
     # Callers must explicitly provide each collection, not omit defaults.
-    if any(profile[k] != () for k in ('11b','133','153','163','173','183','1db')):
+    if any(profile[k] != () for k in ('11b','133','153','173','183','1db')):
         raise ValueError('Unsupported acquired modern guild extension')
     members = profile['members']
     if (type(members) is not tuple or not 1 <= len(members) <= profile['basic']['max_members']
@@ -81,7 +82,7 @@ def full(profile):
             + _integer(len(members), 32) + b''.join(_integer(uid, 64) for uid in members)
             + _integer(len(pages), 32) + b''.join(page_bytes)
             + _integer(profile['active_page'], 8)
-            + bytes(8) + _integer(profile['14b'], 64) + bytes(16)
+            + bytes(8) + _integer(profile['14b'], 64) + bytes(4) + permissions_wire(profile['163']) + bytes(8)
             + _string(profile['193']) + _string(profile['1b3'])
             + _integer(profile['1d3'], 64) + bytes(4))
 

@@ -70,12 +70,12 @@ def favorites(db,owner,account_id):
 
 
 def favorite_snapshot(path,owner,account_id):
-    with closing(sqlite3.connect(path,timeout=10))as db:
+    with snapshot_connection(path)as db:
         db.execute('BEGIN');return favorites(db,owner,account_id)
 
 
 def snapshot(path,owner,account_id):
-    with closing(sqlite3.connect(path,timeout=10))as db:
+    with snapshot_connection(path)as db:
         db.execute('BEGIN');return counts(db,owner,account_id)
 
 
@@ -150,74 +150,73 @@ def change(path,owner,account_id,kind,payload,operation,*,validate=lambda:None):
     if kind not in (0x4af,0x4b1,0xbee) or not isinstance(operation,str)or not 1<=len(operation)<=160:raise ValueError('Wardrobe operation identity')
     request=register_request(payload)if kind==0x4af else favorite_request(payload)if kind==0xbee else apply_request(payload)
     owner=character_uid(owner);digest=hashlib.sha256(str((owner,account_id,kind)).encode()+payload).hexdigest()
-    with closing(sqlite3.connect(path,timeout=10))as db,db:
-        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');validate()
-        registry=counts(db,owner,account_id);before=load_items(db,owner);by_uid={i['uid']:i for i in before}
-        ensure(db)
-        old=db.execute('SELECT request_hash,owner,account_id,kind,uids_json FROM wardrobe_receipts WHERE operation_id=?',(operation,)).fetchone()
-        if old:
-            if old[:4]!=(digest,owner,account_id,kind):raise ValueError('Conflicting wardrobe retry')
+    with closing(sqlite3.connect(path,timeout=10))as db:
+        db.execute('PRAGMA foreign_keys=ON')
+        with write_transaction(db):
+            validate()
+            registry=counts(db,owner,account_id);before=load_items(db,owner);by_uid={i['uid']:i for i in before}
+            ensure(db)
+            old=db.execute('SELECT request_hash,owner,account_id,kind,uids_json FROM wardrobe_receipts WHERE operation_id=?',(operation,)).fetchone()
+            if old:
+                if old[:4]!=(digest,owner,account_id,kind):raise ValueError('Conflicting wardrobe retry')
+                if kind==0xbee:
+                    result=acknowledgement(kind,favorite_values=favorites(db,owner,account_id),favorite_mode=request[0]);validate();return result
+                changes=[((i['group'],i['slot']),i)for uid in json.loads(old[4])if(i:=by_uid.get(uid))is not None]
+                result=acknowledgement(kind,registry,changes);validate();return result
             if kind==0xbee:
-                result=acknowledgement(kind,favorite_values=favorites(db,owner,account_id),favorite_mode=request[0]);validate();return result
-            changes=[((i['group'],i['slot']),i)for uid in json.loads(old[4])if(i:=by_uid.get(uid))is not None]
-            result=acknowledgement(kind,{} if kind==0x4b1 else registry,changes);validate();return result
-        if kind==0xbee:
-            from els_server.domain.wardrobe import catalog
-            from els_server.game_data import client_data
-            mode,template=request
-            if template not in catalog():raise ValueError('Favorite outside native wardrobe catalog')
-            client_data().item(template)
-            current=favorites(db,owner,account_id)
-            if mode==1:
-                if template not in current and len(current)>=100:raise ValueError('Wardrobe favorite limit')
-                db.execute('INSERT OR IGNORE INTO wardrobe_favorites VALUES(?,?)',(account_id,template))
-            else:db.execute('DELETE FROM wardrobe_favorites WHERE account_id=? AND template=?',(account_id,template))
-            result=acknowledgement(kind,favorite_values=favorites(db,owner,account_id),favorite_mode=mode)
-            db.execute('INSERT INTO wardrobe_receipts VALUES(?,?,?,?,?,?)',(operation,digest,owner,account_id,kind,'[]'))
-            validate();return result
-        row=db.execute('SELECT unit_type,unit_class FROM characters WHERE uid=?',(owner,)).fetchone()
-        character=dict(unit_type=row[0],unit_class=row[1]);affected=[]
-        targets=[request]if kind==0x4af else [r[2]for r in request]
-        for uid in targets:
-            item=by_uid.get(uid)
-            if item is None or item['group']not in (1,2,7,27,9)or item['count']!=1:raise ValueError('Wardrobe needs owned equipment')
-            definition(item['template']);require_owner(item['template'],character)
-            if 'expires_at'in item or item.get('sealed',False)or item.get('identified')is False:
-                raise ValueError('Timed/sealed/unidentified wardrobe target')
-            if kind==0x4af:require_unlocked(item)
-        if kind==0x4af:
-            item=dict(by_uid[request]);t=item['template']
-            existing=db.execute('SELECT template FROM wardrobe_account_sources WHERE account_id=? AND item_uid=?',(account_id,request)).fetchone()
-            if existing is not None and existing!=(t,):raise ValueError('Wardrobe source identity conflict')
-            if existing is None:db.execute('INSERT INTO wardrobe_account_sources VALUES(?,?,?,?)',(account_id,request,t,owner))
-            if t in FASHION_EQUIP_SLOTS or t in accessories():
-                item.update(wardrobe_hanger=True,appearance_template=item.get('appearance_template',0));assign(db,owner,item)
-            affected=[request]
-        else:
-            for position,template,uid,colors in request:
-                item=dict(by_uid[uid]);base=definition(item['template']);chosen=definition(template)
-                require_owner(template,character)
-                if position!=base['equip_position']or not registry.get(template):raise ValueError('Unregistered appearance or wrong target position')
-                from els_server.domain.normal_equipment import definitions as normal
-                if item['template']not in normal()and not item.get('wardrobe_hanger',False):raise ValueError('Target has no registered hanger')
-                if any(colors)and not any(t==template and tuple(c)==colors for u,t,c in variants(db,owner,account_id)):raise ValueError('Unregistered account dye variant')
-                item['appearance_template']=template;item.setdefault('wardrobe_hanger',False)
-                if any(colors)or 'appearance_colors'in item:item['appearance_colors']=list(colors)
-                validate_state(item);assign(db,owner,item);affected.append(uid)
-        after=load_items(db,owner);current={i['uid']:i for i in after}
-        # Only appearance/binding fields can change; identity, location and stats persist.
-        strip=lambda i:{k:v for k,v in i.items()if k not in ('appearance_template','wardrobe_hanger','appearance_colors')and not(k=='dye_colors'and not any(v))}
-        if [strip(i)for i in after]!=[strip(i)for i in before]:raise ValueError('Wardrobe altered base inventory')
-        # 4B2 also lists every returned registry key as a newly registered hanger.
-        # Applying existing appearances changes items, not account registration.
-        registered={} if kind==0x4b1 else counts(db,owner,account_id)
-        result=acknowledgement(kind,registered,[((current[u]['group'],current[u]['slot']),current[u])for u in affected])
-        db.execute('INSERT INTO wardrobe_receipts VALUES(?,?,?,?,?,?)',(operation,digest,owner,account_id,kind,json.dumps(affected)))
-        validate()
-        if kind==0x4af and any(current[request].get('dye_colors',())):
-            from els_server.protocol.wardrobe_messages import color_notification
-            return [result,color_notification(1,request,current[request]['template'],current[request]['dye_colors'])]
-        return result
+                from els_server.domain.wardrobe import catalog
+                from els_server.game_data import client_data
+                mode,template=request
+                if template not in catalog():raise ValueError('Favorite outside native wardrobe catalog')
+                client_data().item(template)
+                current=favorites(db,owner,account_id)
+                if mode==1:
+                    if template not in current and len(current)>=100:raise ValueError('Wardrobe favorite limit')
+                    db.execute('INSERT OR IGNORE INTO wardrobe_favorites VALUES(?,?)',(account_id,template))
+                else:db.execute('DELETE FROM wardrobe_favorites WHERE account_id=? AND template=?',(account_id,template))
+                result=acknowledgement(kind,favorite_values=favorites(db,owner,account_id),favorite_mode=mode)
+                db.execute('INSERT INTO wardrobe_receipts VALUES(?,?,?,?,?,?)',(operation,digest,owner,account_id,kind,'[]'))
+                validate();return result
+            row=db.execute('SELECT unit_type,unit_class FROM characters WHERE uid=?',(owner,)).fetchone()
+            character=dict(unit_type=row[0],unit_class=row[1]);affected=[]
+            targets=[request]if kind==0x4af else [r[2]for r in request]
+            for uid in targets:
+                item=by_uid.get(uid)
+                if item is None or item['group']not in (1,2,7,27,9)or item['count']!=1:raise ValueError('Wardrobe needs owned equipment')
+                definition(item['template']);require_owner(item['template'],character)
+                if 'expires_at'in item or item.get('sealed',False)or item.get('identified')is False:
+                    raise ValueError('Timed/sealed/unidentified wardrobe target')
+                if kind==0x4af:require_unlocked(item)
+            if kind==0x4af:
+                item=dict(by_uid[request]);t=item['template']
+                existing=db.execute('SELECT template FROM wardrobe_account_sources WHERE account_id=? AND item_uid=?',(account_id,request)).fetchone()
+                if existing is not None and existing!=(t,):raise ValueError('Wardrobe source identity conflict')
+                if existing is None:db.execute('INSERT INTO wardrobe_account_sources VALUES(?,?,?,?)',(account_id,request,t,owner))
+                if t in FASHION_EQUIP_SLOTS or t in accessories():
+                    item.update(wardrobe_hanger=True,appearance_template=item.get('appearance_template',0));assign(db,owner,item)
+                affected=[request]
+            else:
+                for position,template,uid,colors in request:
+                    item=dict(by_uid[uid]);base=definition(item['template']);chosen=definition(template)
+                    require_owner(template,character)
+                    if position!=base['equip_position']or not registry.get(template):raise ValueError('Unregistered appearance or wrong target position')
+                    from els_server.domain.normal_equipment import definitions as normal
+                    if item['template']not in normal()and not item.get('wardrobe_hanger',False):raise ValueError('Target has no registered hanger')
+                    if any(colors)and not any(t==template and tuple(c)==colors for u,t,c in variants(db,owner,account_id)):raise ValueError('Unregistered account dye variant')
+                    item['appearance_template']=template;item.setdefault('wardrobe_hanger',False)
+                    if any(colors)or 'appearance_colors'in item:item['appearance_colors']=list(colors)
+                    validate_state(item);assign(db,owner,item);affected.append(uid)
+            after=load_items(db,owner);current={i['uid']:i for i in after}
+            # Only appearance/binding fields can change; identity, location and stats persist.
+            strip=lambda i:{k:v for k,v in i.items()if k not in ('appearance_template','wardrobe_hanger','appearance_colors')and not(k=='dye_colors'and not any(v))}
+            if [strip(i)for i in after]!=[strip(i)for i in before]:raise ValueError('Wardrobe altered base inventory')
+            result=acknowledgement(kind,counts(db,owner,account_id),[((current[u]['group'],current[u]['slot']),current[u])for u in affected])
+            db.execute('INSERT INTO wardrobe_receipts VALUES(?,?,?,?,?,?)',(operation,digest,owner,account_id,kind,json.dumps(affected)))
+            validate()
+            if kind==0x4af and any(current[request].get('dye_colors',())):
+                from els_server.protocol.wardrobe_messages import color_notification
+                return [result,color_notification(1,request,current[request]['template'],current[request]['dye_colors'])]
+            return result
 
 
 def extension_change(path,owner,account_id,kind,payload,operation,*,validate):
@@ -232,96 +231,98 @@ def extension_change(path,owner,account_id,kind,payload,operation,*,validate):
     if not isinstance(operation,str)or not 1<=len(operation)<=160:raise ValueError('Wardrobe extension operation')
     request=ticket_request(kind,payload)if kind in (0x4f4,0x565)else unregister_request(payload)if kind==0x6d7 else dye_request(payload)
     owner=character_uid(owner);digest=hashlib.sha256(str((owner,account_id,kind)).encode()+payload).hexdigest();data=catalog()
-    with closing(sqlite3.connect(path,timeout=10))as db,db:
-        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');validate()
-        registry=counts(db,owner,account_id);ensure(db)
-        before=load_items(db,owner);by_uid={i['uid']:i for i in before}
-        old=db.execute('SELECT request_hash,owner,account_id,kind,uids_json FROM wardrobe_receipts WHERE operation_id=?',(operation,)).fetchone()
-        if old:
-            if old[:4]!=(digest,owner,account_id,kind):raise ValueError('Conflicting wardrobe extension retry')
-            affected=json.loads(old[4]);events=[acknowledgement(kind,registry,[((i['group'],i['slot']),i)for u in affected if(i:=by_uid.get(u))is not None])]
-            if kind==0xad6:
-                item=by_uid.get(request[0])
-                if item is not None and not any(item.get('dye_colors',())):events.append(color_notification(3,item['uid'],item['template'],[0,0,0]))
-                events+=color_initializations_in_db(db,owner,account_id)+[points_notification(db,owner,account_id)]
-            validate();return events
-        row=db.execute('SELECT unit_type,unit_class FROM characters WHERE uid=?',(owner,)).fetchone()
-        character=dict(unit_type=row[0],unit_class=row[1]);changes={};events=[]
-        def source(uid):
-            item=by_uid.get(uid)
-            if item is None or item['group']!=4:raise ValueError('Missing owned wardrobe consumable')
-            require_current(item);require_unlocked(item)
-            if item.get('sealed',False):raise ValueError('Sealed wardrobe source')
-            return item
-        def consume(item,n):
-            if type(n)is not int or not 1<=n<=item['count']:raise ValueError('Insufficient wardrobe consumable')
-            pos=(item['group'],item['slot'])
-            if item['count']==n:remove(db,owner,item);changes[item['uid']]=(pos,None)
+    with closing(sqlite3.connect(path,timeout=10))as db:
+        db.execute('PRAGMA foreign_keys=ON')
+        with write_transaction(db):
+            validate()
+            registry=counts(db,owner,account_id);ensure(db)
+            before=load_items(db,owner);by_uid={i['uid']:i for i in before}
+            old=db.execute('SELECT request_hash,owner,account_id,kind,uids_json FROM wardrobe_receipts WHERE operation_id=?',(operation,)).fetchone()
+            if old:
+                if old[:4]!=(digest,owner,account_id,kind):raise ValueError('Conflicting wardrobe extension retry')
+                affected=json.loads(old[4]);events=[acknowledgement(kind,registry,[((i['group'],i['slot']),i)for u in affected if(i:=by_uid.get(u))is not None])]
+                if kind==0xad6:
+                    item=by_uid.get(request[0])
+                    if item is not None and not any(item.get('dye_colors',())):events.append(color_notification(3,item['uid'],item['template'],[0,0,0]))
+                    events+=color_initializations_in_db(db,owner,account_id)+[points_notification(db,owner,account_id)]
+                validate();return events
+            row=db.execute('SELECT unit_type,unit_class FROM characters WHERE uid=?',(owner,)).fetchone()
+            character=dict(unit_type=row[0],unit_class=row[1]);changes={};events=[]
+            def source(uid):
+                item=by_uid.get(uid)
+                if item is None or item['group']!=4:raise ValueError('Missing owned wardrobe consumable')
+                require_current(item);require_unlocked(item)
+                if item.get('sealed',False):raise ValueError('Sealed wardrobe source')
+                return item
+            def consume(item,n):
+                if type(n)is not int or not 1<=n<=item['count']:raise ValueError('Insufficient wardrobe consumable')
+                pos=(item['group'],item['slot'])
+                if item['count']==n:remove(db,owner,item);changes[item['uid']]=(pos,None)
+                else:
+                    db.execute('UPDATE inventory_items SET count=count-? WHERE uid=? AND owner=?',(n,item['uid'],owner));changes[item['uid']]=(pos,dict(item,count=item['count']-n))
+            def target(uid):
+                item=by_uid.get(uid)
+                if item is None or item['count']!=1 or item['group']not in (1,2,7,27,9):raise ValueError('Missing owned wardrobe target')
+                definition(item['template']);require_owner(item['template'],character);require_unlocked(item)
+                if 'expires_at'in item or item.get('sealed',False)or item.get('identified')is False:raise ValueError('Timed/sealed/unidentified wardrobe target')
+                return dict(item)
+            if kind in (0x4f4,0x565):
+                uid,template=request;ticket=source(uid);ticket_selection(ticket['template'],template,character)
+                if registry.get(template):raise ValueError('Ticket appearance already registered')
+                consume(ticket,1)
+                db.execute('INSERT INTO wardrobe_ticket_sources VALUES(?,?,?,?,?)',(operation,account_id,template,uid,owner))
+            elif kind==0x6d7:
+                scroll_uid,uid=request;scroll=source(scroll_uid);item=target(uid)
+                if data['unregister'].get(str(scroll['template']))!=unregister_group(item['template']):raise ValueError('Wrong hanger removal scroll')
+                if not item.get('wardrobe_hanger',False):raise ValueError('Target has no hanger')
+                if db.execute('DELETE FROM wardrobe_account_sources WHERE account_id=? AND item_uid=? AND template=?',(account_id,uid,item['template'])).rowcount!=1:raise ValueError('Hanger source is not registered to account')
+                consume(scroll,1)
+                item.update(wardrobe_hanger=False,appearance_template=0);item.pop('appearance_colors',None);assign(db,owner,item)
+                changes[uid]=((item['group'],item['slot']),item)
+                events.append(color_notification(3,uid,item['template'],[0,0,0]))
             else:
-                db.execute('UPDATE inventory_items SET count=count-? WHERE uid=? AND owner=?',(n,item['uid'],owner));changes[item['uid']]=(pos,dict(item,count=item['count']-n))
-        def target(uid):
-            item=by_uid.get(uid)
-            if item is None or item['count']!=1 or item['group']not in (1,2,7,27,9):raise ValueError('Missing owned wardrobe target')
-            definition(item['template']);require_owner(item['template'],character);require_unlocked(item)
-            if 'expires_at'in item or item.get('sealed',False)or item.get('identified')is False:raise ValueError('Timed/sealed/unidentified wardrobe target')
-            return dict(item)
-        if kind in (0x4f4,0x565):
-            uid,template=request;ticket=source(uid);ticket_selection(ticket['template'],template,character)
-            if registry.get(template):raise ValueError('Ticket appearance already registered')
-            consume(ticket,1)
-            db.execute('INSERT INTO wardrobe_ticket_sources VALUES(?,?,?,?,?)',(operation,account_id,template,uid,owner))
-        elif kind==0x6d7:
-            scroll_uid,uid=request;scroll=source(scroll_uid);item=target(uid)
-            if data['unregister'].get(str(scroll['template']))!=unregister_group(item['template']):raise ValueError('Wrong hanger removal scroll')
-            if not item.get('wardrobe_hanger',False):raise ValueError('Target has no hanger')
-            if db.execute('DELETE FROM wardrobe_account_sources WHERE account_id=? AND item_uid=? AND template=?',(account_id,uid,item['template'])).rowcount!=1:raise ValueError('Hanger source is not registered to account')
-            consume(scroll,1)
-            item.update(wardrobe_hanger=False,appearance_template=0);item.pop('appearance_colors',None);assign(db,owner,item)
-            changes[uid]=((item['group'],item['slot']),item)
-            events.append(color_notification(3,uid,item['template'],[0,0,0]))
-        else:
-            uid,palette,parts,point_mode,decolor=request;item=target(uid);t=item['template']
-            count=data['dye_parts'].get(str(t),0)
-            if not count or max(parts)>=count or t in data['dye_held']:raise ValueError('Unsupported dye template/part')
-            hair=definition(t)['equip_position']==6
-            rule=(data['decolor']if decolor else data['palettes']).get(str(palette))
-            if rule is None or rule['hair']!=hair:raise ValueError('Dye palette target category')
-            current=list(item.get('dye_colors',[0,0,0]));new=current.copy();n=len(parts)
-            balance=db.execute('SELECT points FROM wardrobe_dye_points WHERE account_id=? AND palette=?',(account_id,palette)).fetchone()
-            balance=balance[0]if balance else 0
-            if decolor:
-                if any(parts.values())or not any(current[p]for p in parts):raise ValueError('Invalid decolor request')
-                for p in parts:new[p]=0
-            elif point_mode:
-                if balance<100*n or any(c not in data['groups'][str(rule['group'])]for c in parts.values()):raise ValueError('Insufficient dye points or invalid selected color')
-                balance-=100*n
-                for p,c in parts.items():new[p]=c
-            else:
-                if any(parts.values()):raise ValueError('Random dye request specifies a color')
-                choices=[c for c in data['groups'][str(rule['group'])]if c!=current[min(parts)]]
-                if not choices:raise ValueError('Empty dye distribution')
-                color=secrets.choice(choices)
-                for p in parts:new[p]=color
-            if not point_mode:
-                sources=[source(i['uid'])for i in before if i['template']==palette and i['group']==4]
-                if sum(i['count']for i in sources)<n:raise ValueError('Insufficient owned dye materials')
-                left=n
-                for s in sorted(sources,key=lambda i:i['slot']):
-                    amount=min(left,s['count'])
-                    if amount:consume(s,amount);left-=amount
-                from els_server.game_data import client_data
-                name=client_data().item(palette)['name']
-                if not decolor and not any(x in name for x in ('[科宝]','[阿莉尔]','[路莉尔]')):balance+=n
-            if not 0<=balance<2**31:raise ValueError('Dye point bound')
-            db.execute('INSERT INTO wardrobe_dye_points VALUES(?,?,?) ON CONFLICT(account_id,palette) DO UPDATE SET points=excluded.points',(account_id,palette,balance))
-            item['dye_colors']=new;assign_colors(db,owner,item);changes[uid]=((item['group'],item['slot']),item)
-            if item.get('wardrobe_hanger',False)and db.execute('SELECT 1 FROM wardrobe_account_sources WHERE account_id=? AND item_uid=?',(account_id,uid)).fetchone():
-                events.append(color_notification(1 if any(new)else 3,uid,t,new))
-            events.append(points_notification(db,owner,account_id))
-        # Encode all results before commit. Never bill ED or alter base stats.
-        result=[acknowledgement(kind,counts(db,owner,account_id),list(changes.values()))]+events
-        db.execute('INSERT INTO wardrobe_receipts VALUES(?,?,?,?,?,?)',(operation,digest,owner,account_id,kind,json.dumps(list(changes))))
-        validate();return result
+                uid,palette,parts,point_mode,decolor=request;item=target(uid);t=item['template']
+                count=data['dye_parts'].get(str(t),0)
+                if not count or max(parts)>=count or t in data['dye_held']:raise ValueError('Unsupported dye template/part')
+                hair=definition(t)['equip_position']==6
+                rule=(data['decolor']if decolor else data['palettes']).get(str(palette))
+                if rule is None or rule['hair']!=hair:raise ValueError('Dye palette target category')
+                current=list(item.get('dye_colors',[0,0,0]));new=current.copy();n=len(parts)
+                balance=db.execute('SELECT points FROM wardrobe_dye_points WHERE account_id=? AND palette=?',(account_id,palette)).fetchone()
+                balance=balance[0]if balance else 0
+                if decolor:
+                    if any(parts.values())or not any(current[p]for p in parts):raise ValueError('Invalid decolor request')
+                    for p in parts:new[p]=0
+                elif point_mode:
+                    if balance<100*n or any(c not in data['groups'][str(rule['group'])]for c in parts.values()):raise ValueError('Insufficient dye points or invalid selected color')
+                    balance-=100*n
+                    for p,c in parts.items():new[p]=c
+                else:
+                    if any(parts.values()):raise ValueError('Random dye request specifies a color')
+                    choices=[c for c in data['groups'][str(rule['group'])]if c!=current[min(parts)]]
+                    if not choices:raise ValueError('Empty dye distribution')
+                    color=secrets.choice(choices)
+                    for p in parts:new[p]=color
+                if not point_mode:
+                    sources=[source(i['uid'])for i in before if i['template']==palette and i['group']==4]
+                    if sum(i['count']for i in sources)<n:raise ValueError('Insufficient owned dye materials')
+                    left=n
+                    for s in sorted(sources,key=lambda i:i['slot']):
+                        amount=min(left,s['count'])
+                        if amount:consume(s,amount);left-=amount
+                    from els_server.game_data import client_data
+                    name=client_data().item(palette)['name']
+                    if not decolor and not any(x in name for x in ('[科宝]','[阿莉尔]','[路莉尔]')):balance+=n
+                if not 0<=balance<2**31:raise ValueError('Dye point bound')
+                db.execute('INSERT INTO wardrobe_dye_points VALUES(?,?,?) ON CONFLICT(account_id,palette) DO UPDATE SET points=excluded.points',(account_id,palette,balance))
+                item['dye_colors']=new;assign_colors(db,owner,item);changes[uid]=((item['group'],item['slot']),item)
+                if item.get('wardrobe_hanger',False)and db.execute('SELECT 1 FROM wardrobe_account_sources WHERE account_id=? AND item_uid=?',(account_id,uid)).fetchone():
+                    events.append(color_notification(1 if any(new)else 3,uid,t,new))
+                events.append(points_notification(db,owner,account_id))
+            # Encode all results before commit. Never bill ED or alter base stats.
+            result=[acknowledgement(kind,counts(db,owner,account_id),list(changes.values()))]+events
+            db.execute('INSERT INTO wardrobe_receipts VALUES(?,?,?,?,?,?)',(operation,digest,owner,account_id,kind,json.dumps(list(changes))))
+            validate();return result
 
 
 def color_initializations_in_db(db,owner,account_id):
@@ -337,7 +338,8 @@ def points_notification(db,owner,account_id):
     if len(points)>47 or any(not 0<=v<2**31 for k,v in points):raise ValueError('Dye point snapshot bounds')
     # Native B7C170 dispatch C05 -> BEFE30 -> 2C2D190/2C3F7A0:
     # two maps<int,map<int,int64>>; second map's GAT_DYEING=2 is account points.
-    return Event(0x201,kind=0xc05,payload=struct.pack('>IIiI',0,1,2,len(points))+b''.join(struct.pack('>iq',k,v)for k,v in points))
+    from els_server.protocol.content_count_messages import notification
+    return notification(db,owner,account_id)
 
 
 def point_initialization(path,owner,account_id):
@@ -365,3 +367,7 @@ def opening_info(path,owner,account_id,*,validate=lambda:None):
             if state and any(state):raise ValueError('Wardrobe opening deleted owner')
         counts(db,owner,account_id);favorites(db,owner,account_id)
         event=opening_information();encode_event(event);validate();return [event]
+
+from els_server.storage.read_scope import snapshot_connection
+
+from els_server.storage.sqlite_timing import write_transaction

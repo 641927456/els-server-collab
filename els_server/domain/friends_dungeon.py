@@ -7,6 +7,7 @@ damage simulator. Native action transport/GUI acceptance is a separate gate.
 import math,struct,time,uuid
 from dataclasses import dataclass,field
 from els_server.domain.local_session import LocalSession,SessionOrderError
+from els_server.domain.raid_economy_flow import managed as raid_economy_managed
 from els_server.protocol.protocol_codec import Event
 from els_server.protocol.local_messages import i32,wstring
 
@@ -115,6 +116,12 @@ class FriendsDungeons:
                 room.party['run']=None;room.party['ready'].clear()
 
     def admissible(self,party,leader,identity):
+        if identity in (35100,35360):
+            from els_server.domain.native_ticket_rules import enabled as ticket_enabled
+            if not ticket_enabled():return False
+        if identity in (34530,34540):
+            from els_server.domain.aurora_ticket_rules import enabled as aurora_enabled
+            if not aurora_enabled():return False
         if party.get('recruitment'):
             from els_server.domain.party_recruitment import waiting
             try:waiting(self.world,party)
@@ -122,6 +129,7 @@ class FriendsDungeons:
         from els_server.domain.dungeon_routes import route_catalog
         from els_server.domain.region_quests import account_dungeon_allowed
         from els_server.domain.raid_party import admission_size,raid_definition
+        from els_server.domain.normal_fatigue_flow import admission as fatigue_admission
         selected=route_catalog().entry_identity(party['dungeon'])
         ordinary=not party.get('raid_party') and not party.get('challenge')
         return ((identity==selected or party.get('challenge'))
@@ -129,7 +137,7 @@ class FriendsDungeons:
             and party['leader'] is leader and party['run'] is None and not party.get('challenge_pending') and admission_size(party,identity)
             and (identity==30000 or route_catalog().supports(identity,internal=bool(party.get('challenge'))))
             and all(s.phase=='town_ready' and s in self.world.members and not s.released
-                and (s is leader or s in party['ready']) and account_dungeon_allowed(s.account,identity)
+                and (s is leader or s in party['ready']) and account_dungeon_allowed(s.account,identity) and fatigue_admission(s,identity)
                 for s in party['members']))
 
     def request(self,s,event,request_sequence=None):
@@ -170,7 +178,15 @@ class FriendsDungeons:
                 and event.payload_mode==0 and self.admissible(party,s,identity)
                 and 23<=len(payload)<=86 and any(struct.unpack_from('>I',payload,o)[0]==len(payload)-22 for o in range(19)))
             if not valid:return [Event(0x201,kind=0x383,payload=i32(-1)+wstring('')*2)]
-            self.start(party,s,identity,event)
+            if identity in (35100,35360,34530,34540):
+                if identity in (34530,34540):
+                    from els_server.domain.aurora_group_admission import start as start_aurora
+                    admitted=start_aurora(self,party,s,identity,event)
+                else:admitted=self.start_native_tickets(party,s,identity,event)
+                if not admitted:
+                    return [Event(0x201,kind=0x383,payload=i32(-1)+wstring('')*2)]
+            else:
+                self.start(party,s,identity,event)
             return [Event(0x201,kind=0x383,payload=bytes(4)+wstring('')*2)]
         if kind in (0x7d4,0x382):return []
         if kind==0x2ce:
@@ -196,6 +212,8 @@ class FriendsDungeons:
         from els_server.protocol.dungeon_messages import party_dungeon_start
         from els_server.domain.dungeon_routes import DungeonRun
         members=tuple(party['members']);seed=str(uuid.uuid4())
+        from els_server.domain.normal_fatigue_flow import admission as fatigue_admission
+        if not all(fatigue_admission(s,identity)for s in members):raise SessionOrderError('A party member has no ordinary fatigue')
         # Compile the roster and source route before changing any session.
         admitted_members={}
         packet=party_dungeon_start(members,leader,identity,party['id'],bootstrap_port=leader.port_probe_port,member_captures=admitted_members)
@@ -215,6 +233,10 @@ class FriendsDungeons:
             s.dungeon_run=runs[s]
             s.reward_run_id=str(uuid.uuid5(uuid.UUID(seed),'reward:'+str(s.account.uid))) if s.reward_test else None
             s.dungeon_participants=participants
+            from els_server.domain.pve_economy_flow import bind_story
+            bind_story(s)
+            from els_server.domain.normal_fatigue_flow import bind as bind_normal_fatigue
+            bind_normal_fatigue(s,epoch=seed)
             self.rooms[s]=room
             self.world.synchronize(s)
             self.send(s,[packet])
@@ -224,6 +246,88 @@ class FriendsDungeons:
         from els_server.domain.friends_spawns import capture_static_origin
         capture_static_origin(room)
         party.pop('admission',None);party['run']=room;party['dungeon']=identity
+
+    def start_native_tickets(self,party,leader,identity,event):
+        """One original ready-roster entry, one SQLite debit for every member."""
+        import json,sqlite3
+        from pathlib import Path
+        from els_server.protocol.protocol_codec import encode_event
+        from els_server.protocol.dungeon_messages import party_dungeon_start
+        from els_server.domain.dungeon_routes import DungeonRun
+        from els_server.domain.native_ticket_admission import _delta
+        from els_server.storage.native_dungeon_tickets import admit_group
+        from els_server.domain.equipment_chip_flow import current_lease
+        members=tuple(party['members'])
+        if (party['leader'] is not leader or len(members)<2 or len(set(members))!=len(members)
+            or any(not s.item_test or s.account.store is None for s in members)):
+            return False
+        paths={Path(s.account.store.path).resolve() for s in members}
+        if len(paths)!=1:return False
+        path=paths.pop();actors=tuple((s.account.account_id,s.account.uid) for s in members)
+        selection=(tuple(members),frozenset(party['ready']),party.get('dungeon'),party.get('run'))
+        seed=str(uuid.uuid4());snapshots={s:dict(s.__dict__) for s in members}
+        runs={s:DungeonRun(identity,seed,internal=False) for s in members}
+        participants=frozenset(s.account.uid for s in members)
+        room=Room(party,members,leader,identity,seed,deadline=time.monotonic()+90)
+        prepared={}
+
+        def guard():
+            if (selection!=(tuple(party['members']),frozenset(party['ready']),party.get('dungeon'),party.get('run'))
+                or not self.admissible(party,leader,identity)
+                or any(not current_lease(s) or s.account.store is None
+                    or Path(s.account.store.path).resolve()!=path for s in members)):
+                raise ValueError('Permanent ticket party readiness/lease changed')
+
+        def encode(chosen,after):
+            inventories={};deltas={}
+            for s,item,remaining in zip(members,chosen,after):
+                inventory=[dict(value) for value in s.account.get_inventory_snapshot()['items']]
+                positions=[i for i,value in enumerate(inventory) if value['uid']==item['uid']]
+                if (len(positions)!=1 or inventory[positions[0]]['template']!=item['template']
+                    or inventory[positions[0]]['count']!=item['count']):
+                    raise ValueError('Permanent ticket party inventory changed')
+                index=positions[0]
+                if remaining is None:del inventory[index]
+                else:inventory[index]['count']=remaining['count']
+                inventories[s]=inventory;deltas[s]=_delta(item,remaining)
+            captured={}
+            packet=party_dungeon_start(members,leader,identity,party['id'],
+                bootstrap_port=leader.port_probe_port,member_captures=captured,inventories=inventories)
+            ack=Event(0x201,kind=0x383,payload=bytes(4)+wstring('')*2)
+            for event_to_encode in [packet,ack,*deltas.values()]:encode_event(event_to_encode)
+            for s in members:
+                s._native_group_ticket_prepare=True
+                s.dungeon_requested=True;s.requested_dungeon_id=identity;s.requested_dungeon_mode=1
+                result=LocalSession.handle(s,event)
+                if not any(reply.kind==0x14a for reply in result):
+                    raise ValueError('Permanent ticket party member admission changed')
+                s._capture_luciel_dungeon_hp(*captured[s])
+                s.dungeon_run=runs[s]
+                s.reward_run_id=str(uuid.uuid5(uuid.UUID(seed),'reward:'+str(s.account.uid))) if s.reward_test else None
+                s.dungeon_participants=participants
+                from els_server.domain.pve_economy_flow import bind_story
+                bind_story(s)
+                from els_server.domain.normal_fatigue_flow import bind as bind_normal_fatigue
+                bind_normal_fatigue(s,epoch=seed)
+                del s._native_group_ticket_prepare
+            prepared.update(packet=packet,deltas=deltas)
+            return json.dumps(dict(packet=packet.payload.hex(),
+                deltas={str(s.account.uid):deltas[s].payload.hex() for s in members}),
+                separators=(',',':')).encode()
+
+        try:
+            admit_group(path,actors,identity,seed,event.payload,encode,guard)
+        except Exception:
+            for s,snapshot in snapshots.items():s.__dict__.clear();s.__dict__.update(snapshot)
+            return False
+        for s in members:
+            self.rooms[s]=room
+            self.world.synchronize(s)
+            self.send(s,[prepared['deltas'][s],prepared['packet']])
+        from els_server.domain.friends_spawns import capture_static_origin
+        capture_static_origin(room)
+        party.pop('admission',None);party['run']=room;party['dungeon']=identity
+        return True
 
     def progress(self,r,s,event):
         if len(event.payload)!=8:return []
@@ -248,8 +352,11 @@ class FriendsDungeons:
         r.loaded.add(s)
         for other in r.members:self.send(other,[Event(0x201,kind=0xb5,payload=struct.pack('>iQ',0,s.account.uid))])
         if len(r.loaded)==len(r.members):
-            for other in r.members:
-                self.send(other,[e for e in LocalSession.handle(other,event) if e.kind not in (0xb4,0xb5)])
+            from els_server.domain.normal_fatigue_flow import shared_loaded
+            try:deliveries=shared_loaded(r.members,event,lambda m:[e for e in LocalSession.handle(m,event)if e.kind not in(0xb4,0xb5)],room=r)
+            except(ValueError,__import__('sqlite3').Error):
+                r.loaded.discard(s);return[]
+            for other,messages in deliveries:self.send(other,messages)
             r.loaded.clear();r.phase='active';r.deadline=0
             from els_server.domain.hunter_chest_flow import loaded as hunter_loaded
             hunter_loaded(s,event,dispatcher=self,room=r,broadcast_all=True)
@@ -270,6 +377,9 @@ class FriendsDungeons:
         from els_server.domain.friends_material_loot import accepted_death as material_death
         material_reply=material_death(self,r,s,event)
         if material_reply is not None:return material_reply
+        from els_server.domain.pve_economy_flow import group_death
+        ordinary_reply=group_death(self,r,s,event)
+        if ordinary_reply is not None:return ordinary_reply
         if r.phase!='active':
             from els_server.domain.friends_spawns import retry_death, retry_static_death
             return retry_death(self,r,s,event) or retry_static_death(self,r,s,event)
@@ -289,7 +399,6 @@ class FriendsDungeons:
         self.part_wait(r)
         return reply
 
-
     def portal(self,r,s,event):
         if r.phase!='active':
             if r.phase!='substage':return []
@@ -299,7 +408,9 @@ class FriendsDungeons:
         # master alone changes the shared source cursor.
         if s is not r.leader:
             run=s.dungeon_run
-            valid=run is not None and event.payload==struct.pack('>b',run.part) and all(n['key'] in run.defeated for n in run.current['npcs'] if n['active'])
+            valid=(run is not None and s.dungeon_substage_synced and not s.clear_notified
+                   and event.payload==struct.pack('>b',run.part)
+                   and all(n['key'] in run.defeated for n in run.current['npcs'] if n['active'] and n.get('team',1)!=0))
             return [Event(0x201,kind=0xb9,payload=i32(0 if valid else -1))]
         result=LocalSession.handle(s,event)
         if result and result[0].payload==bytes(4):
@@ -332,9 +443,28 @@ class FriendsDungeons:
             from els_server.domain.group_challenge import refresh
             refresh(r.party)
             for other,messages in deliveries:self.send(other,messages)
+        elif ((r.leader.dungeon_run is None and r.identity==30000 and r.leader.gate_stage==2)or(r.leader.dungeon_run is not None and r.leader.dungeon_run.next['kind']==4))and __import__('els_server.domain.formal_pve_economy',fromlist=['definition']).definition(r.identity)is not None:
+            from els_server.domain.pve_economy_flow import clear as clear_ordinary
+            import sqlite3
+            try:clear_ordinary(r.members,event,s,room=r)
+            except(ValueError,sqlite3.Error,OverflowError,struct.error):
+                r.ended.discard(s);return []
+            except BaseException:
+                r.ended.discard(s);raise
+        elif raid_economy_managed(r.leader) and r.leader.dungeon_run.next['kind']!=0:
+            from els_server.domain.raid_economy_flow import settle as settle_raid_phase
+            import sqlite3
+            try:settle_raid_phase(r.members,event,room=r)
+            except (ValueError,sqlite3.Error,OverflowError,struct.error):
+                r.ended.discard(s);return []
+            except BaseException:
+                r.ended.discard(s);raise
         else:
-            for other in r.members:
-                self.send(other,[e for e in LocalSession.handle(other,event) if e.kind!=0xbc])
+            from els_server.domain.normal_fatigue_flow import shared_loaded
+            try:deliveries=shared_loaded(r.members,event,lambda m:[e for e in LocalSession.handle(m,event)if e.kind!=0xbc],room=r)
+            except(ValueError,__import__('sqlite3').Error):
+                r.ended.discard(s);return[]
+            for other,messages in deliveries:self.send(other,messages)
         from els_server.domain.friends_spawns import advance
         advance(r)
         from els_server.domain.friends_spawns import commit_static_generation
