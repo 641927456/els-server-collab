@@ -1,0 +1,25 @@
+{
+  "ok": true,
+  "case": "Owned original client, high-damage real native melee, constructor geometry fixture",
+  "first_damage": {
+    "event": "pillar_damage_callback",
+    "timestamp": 1793749957089,
+    "before": {
+      "count": 0,
+      "hp": 120835
+    },
+    "after": {
+      "count": 1,
+      "hp": 0
+    }
+  },
+  "callbacks": 91,
+  "subsequent_zero_hp_callbacks": 90,
+  "final_counter": 1,
+  "final_hp": 0,
+  "native_break_requests": 0,
+  "trace_sha256": "0ba023c80371d640de33b0c3a7f35eccccba4b9f0dd2ea9fa251f7e3a9e9ccd4",
+  "OS_input": false,
+  "original_EXE_KOM_modified": false,
+  "geometry": "Only NPC18 constructor offset changed; original point10, template8184, counter and HP native logic retained"
+}

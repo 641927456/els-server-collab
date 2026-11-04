@@ -17,8 +17,8 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
-    if (ROOT/'references/attendance-reward-validation-20261104-v1/source-contract.json').is_file():
-        run([sys.executable,'-B',str(ROOT/'tools/verify_attendance_reward_source_20261104.py')])
+    if (ROOT/'references/plegas-pillar-20261104-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_plegas_pillar_source_20261104.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
     if (ROOT/'references/pending-source-integration-20261031-v1/source-contract.json').is_file():

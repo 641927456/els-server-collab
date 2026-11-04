@@ -1,0 +1,78 @@
+{
+  "format": 1,
+  "issue": 827,
+  "release": "launcher-plegas-pillar-20261104-v75-v1",
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "files": {
+    "client/tools/client_compatibility_profiles.json": {
+      "path": "source/client/tools/client_compatibility_profiles.json",
+      "sha256": "e5ae882d541e6acf557f4ff91a2b64e7a22800822f4f1ecb98e072ad1842b5d0",
+      "parent_sha256": "3ea00040b0ff3ca8392ea5be0fe0b12f874f58ad50689eb1e14668ed026c7370",
+      "size": 21757
+    },
+    "client/tools/probe_updated_client.py": {
+      "path": "source/client/tools/probe_updated_client.py",
+      "sha256": "67d20d9e7777cbc9d7f0502cf917a3b38ec228a4dd0c81fdee42067ee59a071d",
+      "parent_sha256": "cf30949333122e39485a7a33fc1e0a103b89e44ad3caf7243f46108f98752835",
+      "size": 29394
+    },
+    "client/tools/native_hit_count_obstacles.py": {
+      "path": "source/client/tools/native_hit_count_obstacles.py",
+      "sha256": "2f4563a878d82cacb6abe1ed4304e0f6ab0794e5e397fbff6e8b1a225aec4abb",
+      "parent_sha256": null,
+      "size": 584
+    },
+    "client/tools/native_hit_count_obstacles.js": {
+      "path": "source/client/tools/native_hit_count_obstacles.js",
+      "sha256": "6fef8c0d299b3b2174fefda2abfd047a0b42fb9fcdd8926d965935d3baec0ba2",
+      "parent_sha256": null,
+      "size": 3398
+    },
+    "launcher/AutoUpdate.cs": {
+      "path": "source/launcher/AutoUpdate.cs",
+      "sha256": "5415d31bb5b810605ffba86ecf1570516a49f17820f39da6d60bba15a5dc332d",
+      "parent_sha256": "4517c3408d1290a4cd623f8f3c92b57b91ea2e4dd8e8c7869a662d2c9a09a6e7",
+      "size": 16016
+    },
+    "launcher/UIScrollRuntimeCohort.cs": {
+      "path": "source/launcher/UIScrollRuntimeCohort.cs",
+      "sha256": "823553c934adc162a31242a247d944de22078467633fbf453168eb2c5f7e53ac",
+      "parent_sha256": "97d628d7a2cbe2aa2ae7f17850460835ab1fcf2f5a1ce428b914779e687c697b",
+      "size": 2437
+    },
+    "launcher/resources/ui-scroll-signedFriends.signed.json": {
+      "path": "source/launcher/resources/ui-scroll-signedFriends.signed.json",
+      "sha256": "754a666109bafda052b2b3b1f7673259b33326bd0a604cda39f0011d44f113e3",
+      "parent_sha256": "60ca60f966df0e885295d45b2909e106920fd92d83364547d25191217cc022a3",
+      "size": 340717
+    }
+  },
+  "launcher_version": 75,
+  "launcher_EXE_sha256": "b7367d13e5ff5689b03485136f21f335a8b17c4cdc44fc3be8296c632421f75f",
+  "signed_Friends_archive_sha256": "90c9d9e65fed4e6e1592868d9fb3d2aeb452aeb01c64350ceb62a795722f9723",
+  "signed_Friends_manifest_sha256": "754a666109bafda052b2b3b1f7673259b33326bd0a604cda39f0011d44f113e3",
+  "server_changes": [],
+  "LOCAL_changes": [],
+  "original_EXE_KOM_changes": 0,
+  "root_engine_changed": false,
+  "automatic_deployment": false,
+  "Git_merge": false,
+  "evidence": {
+    "validation/actual-ready.json": "172bda07b17e046069f2ab088994a03545a2b7411f55d3a90d0fac1c68683fe8",
+    "validation/adapter-tests.json": "ac4928297487613d589420abbf2de23e8712afe21d42fc4696bcdc6a91d7cc89",
+    "validation/hook-independent-review.json": "18c6810492c0e11cd753f8f44fb3d2ee10c4c839fd5c5f076a4d7e552df1cacd",
+    "validation/installation.json": "7ef1458d3334668bb98cc6017235324f9c4b559c06c4e9ee4fe13df758365ab2",
+    "validation/launcher-v75-independent-review.json": "20017b1be763abb233984aef6195014644650ac019c7b85369915cd7856f0e23",
+    "validation/native-hp-floor-proof.json": "3b1852d58e90dd9be2220d4122c6ecad2819488bb45bc9d6964caf0af89eeb0d",
+    "validation/native-live-baseline.json": "ba3fb8850c76d2c3743fc21ad5b4339768ce9f71a403e343e7a0b765fab8765d",
+    "validation/native-live-candidate.json": "bf394e89e0f32a4192126b2e6e51b74d23fdd82886ea93f2325f7a3e68488b54",
+    "validation/private-upgrade.json": "87404a3389d80dbef1fce85375e1c3f948abf5183f0e28c06186dd5315ce5426",
+    "validation/public-launcher-upgrade.json": "c409690d0afd2a877c1833f9e61c2f6c711e3dc67beec22e2f098834ac8ca1b9",
+    "validation/public-upgrade.json": "a92ec2212a67f4e4dfeb874a6e5346b40b7185a0ad8608245854d30f8512819c",
+    "validation/scope-reduction-review.json": "4bed15f427b2c437374ae03fa9f9344361df40476ef8f136cf4780db5415928f",
+    "validation/self-review.json": "faa8818eca1c3e4928af911f9725c406102938c47814fbc7fdd1fe9c418adaa1"
+  },
+  "launcher_source_inventory_sha256": "15aedfae2f20db4f86b839245813f70b4e0e3909129880fee640bae4247e98f1",
+  "scope": "Only signed Friends client support and necessary V75 launcher bindings. Historical server255 candidates were excluded.",
+  "private_dependencies": "Complete pinned V74 runtime, original native image and unchanged launcher resources remain private. No EXE, ZIP, account/player database, credentials, raw packets or runtime logs are included."
+}
