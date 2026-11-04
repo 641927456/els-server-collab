@@ -1,0 +1,68 @@
+{
+  "format": 1,
+  "issue": 782,
+  "source_PR": 783,
+  "qualification": "authorized_online_install_candidate",
+  "parent_release": "native-activity-armor-reset-scroll-20261103-v1",
+  "parent_manifest_sha256": "982a45d89b4f656a30a6960b10042ac507039978dddfc0bf646bbac8cd5684aa",
+  "files": {
+    "els_server/domain/normal_fatigue_flow.py": {
+      "parent_sha256": "9c9ae1638f99b25bbae996e4cbbfea261975e98765fee84352c7a24cab26eec5",
+      "sha256": "c59507557a8e1eafa275d77d02649560b84acaf60b3030f76c608d4fd458ca6c",
+      "size": 16115,
+      "source": "source/els_server/domain/normal_fatigue_flow.py"
+    },
+    "els_server/domain/local_session.py": {
+      "parent_sha256": "0592262e6bcb5eec5af41ecd5cb36f302d880e7cbbeb7943dfc0f47116f609db",
+      "sha256": "ca93468abd0d9c6e1c16b7e3f02a9c0ac6fdab7ce47fd699546e47a843e0b05c",
+      "size": 150275,
+      "source": "source/els_server/domain/local_session.py"
+    },
+    "els_server/domain/friends_dungeon.py": {
+      "parent_sha256": "4e1c66412bdc45c363a7c45cd719e278b65097f961723477976ffe9d1e9b323c",
+      "sha256": "adbb3bced2430ce4b461a3247dbf4ee73f057d293030103c33e15cb92ad75e12",
+      "size": 31882,
+      "source": "source/els_server/domain/friends_dungeon.py"
+    },
+    "els_server/protocol/dungeon_errors.py": {
+      "parent_sha256": "c6f7cd37f0bd893839eb3d900eadf19bfec15756cc123f4cb4893669fef8f6f9",
+      "sha256": "ca848f343760f345f01bc2c3c4019ad50a30da22b84e998f8ceec62c56512f32",
+      "size": 201,
+      "source": "source/els_server/protocol/dungeon_errors.py"
+    }
+  },
+  "scope": "Preserve native ordinary-fatigue rejection77 across solo7D4/37F/382 and shared7D4/382; preserve eligibility and every fatigue mutation.",
+  "private_rebased_tests": {
+    "passed": true,
+    "checks": [
+      "existing_native77_text_identity",
+      "solo_7D4_normal_matching_and_single_raid_zero_fatigue77",
+      "solo_382_and_37F_recheck_fatigue_after_valid_preflight",
+      "malformed_continuation_remains_generic_failure",
+      "mode_and_region_rejections_keep_their_original_precedence",
+      "zero_cost_exemption_and_boolean_consumers_preserved",
+      "database_and_actor_failure_are_never_mislabeled_as_fatigue",
+      "group_preflight_and_direct382_identify_exhausted_leader_or_member",
+      "group_leader_ready_and_malformed_requests_still_reject",
+      "group382_rechecks_after_successful_preflight_without_debit",
+      "positive_one_fatigue_original_group_start_and_shared_room"
+    ],
+    "actual_Application_TLS": true,
+    "temporary_owned_database": true,
+    "natural_GUI": false,
+    "online_installed": false,
+    "cleanup": {
+      "owned_runtime_removed": true,
+      "active_connections": 0
+    }
+  },
+  "original_checks_reused_for_unrelated_armor_UI_delta": true,
+  "new_schema": false,
+  "client_delta": 0,
+  "configuration_unchanged": true,
+  "root_source_changed": false,
+  "current_engine_changed": false,
+  "automatic_deployment": false,
+  "main_merged": false,
+  "private_evidence": "Publication and public acceptance receipts remain in the author workspace; final installed status is recorded in the PR description. No credentials, player identities, databases, raw logs or captures are included."
+}

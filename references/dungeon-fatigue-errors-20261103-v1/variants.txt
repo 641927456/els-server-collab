@@ -1,0 +1,23 @@
+范围：当前正式线上服务端，普通疲劳拒绝被布尔化后映射通用错误；2026-11-03。
+根因（P2，高置信度）：normal_fatigue_flow.admission只返回bool，线上入口无法区分已确定的疲劳耗尽与其他资格/读取失败。
+
+检索：
+1. 对整个els_server执行rg 'valid=fatigue_admission\(self,identity\)'：已知单人预检1处。
+2. 放宽为rg 'fatigue_admission\('：4处调用；3处承载外部拒绝、1处为已准入后的内部start重核。3个调用点对应5条实际协议路径。
+3. 对整个els_server检索ENTRY_REQUIREMENTS_NOT_MET、admissible、fatigue/spirit/stamina入场相关消费者，读取shared preflight、native direct start、ticket admission和challenge入口；没有将所有资格失败都改成疲劳不足。
+
+确认并修复（均P2，高置信度）：
+- 单人7D4预检：已知疲劳0仍返回2224。
+- 单人普通382正式入场：成功预检后疲劳0返回-1。
+- 单人专用37F正式入场：同一继续入场处理丢失原因。
+- 组队7D4预检：房主/队员疲劳不足被admissible的总bool折叠为2224。
+- 组队直接382/已预检382：同一总bool折叠为-1。
+
+排除项（信息级，高置信度）：
+- start内部bool重核不直接承载用户ACK，外层已以结构化结果完成准入；保留原防止状态变化的断言。
+- native/aurora ticket内部admissible调用仍需要bool，保留薄包装，未删资格或扩大入场。
+- 读库/当前角色归属失败不证明疲劳耗尽，继续返回通用资格拒绝，不伪装为77。
+- 不合法报文由原生输入层返回2或原组队入口-1；未修改成疲劳错误。
+- 普通疲劳与生活疲劳、入场券、挑战同意/前置是不同机制，不从相似命名推定同一缺陷。
+
+回归：verification/verify_entry.py，设置ELS_ENTRY_TEST_PARENT为匹配的完整私有父运行包。实际Application/TLS逐入口断言77，覆盖临界1→0、房主/队员、其他资格、输入拒绝、读库/归属拒绝和正常共享房间；拒绝不改变疲劳账本及余额。这是可接入有锁定资源的CI的执行命令，不声称无资源的公开CI已运行私有协议测试。
