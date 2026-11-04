@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "issue": 756,
+  "channel": "online",
+  "files": [
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "7275ce509b60dae20355b002ea474471de9ff25b85da0e63b3e2a3329c0dd690",
+      "sha256": "387a9cdd70edbbd77561ab30765b0b80336e9e5f8fc71f4456bd3846839c9934",
+      "size": 152650
+    },
+    {
+      "path": "els_server/domain/quick_start_flow.py",
+      "parent_sha256": "b3466540ae748e7a6bf6c77ea1547e5ba01a21dc8d9931a2b7544305b9b7edc0",
+      "sha256": "10fb35ce3346e0cd8c171f520c4960b97b079d3a006ab401b36d71b22a37a958",
+      "size": 5992
+    }
+  ],
+  "parent_release": "native-atlas-scroll-support-20261101-v1",
+  "parent_manifest_sha256": "0ca429a0d9942f535435ab35ea7d181f02eaacb203f254f6ee0f8c915896e04c",
+  "validation": {
+    "ok": true,
+    "fixed": true,
+    "checks": [
+      "qualified native225 accepted without fee or save mutation before227",
+      "duplicate225 remains eligible and has no persistent increment",
+      "227 completes original town persistence and cold reload",
+      "entry does not complete final task or issue master ticket",
+      "unrelated destination rejected without writes",
+      "wrong performer rejected without writes",
+      "lower level denied by admission predicate without writes",
+      "missing transcendence denied by admission predicate without writes",
+      "master already completed denied by admission predicate without writes",
+      "other enrolled identity denied by admission predicate without writes",
+      "missing final active quest denied by admission predicate without writes",
+      "missing previous reward denied by admission predicate without writes",
+      "existing final reward grants one719707 and replay does not duplicate it"
+    ],
+    "layer": "real Application lease + LocalSession225/227 + isolated SQLite + existing controlled quest/career transactions",
+    "natural_GUI": false,
+    "production_writes": false,
+    "client_changes": 0
+  },
+  "baseline_validation": {
+    "ok": true,
+    "fixed": false,
+    "checks": [
+      "qualified native activity225 rejected515 by installed parent, without58C"
+    ],
+    "layer": "real Application lease + LocalSession225/227 + isolated SQLite + existing controlled quest/career transactions",
+    "natural_GUI": false,
+    "production_writes": false,
+    "client_changes": 0
+  },
+  "scope": "Native225 flag1 QuickStart Elrianode entry; qualified enrollment and stored source; no free generic warp, early quest completion or ticket issuance",
+  "local_changes": 0,
+  "client_changes": 0,
+  "schema_changes": 0,
+  "installed": false,
+  "git_merged": false
+}
