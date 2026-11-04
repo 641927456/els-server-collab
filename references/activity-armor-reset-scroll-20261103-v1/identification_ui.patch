@@ -1,0 +1,10 @@
+--- a/els_server/storage/identification_ui.py
++++ b/els_server/storage/identification_ui.py
+@@ -29,7 +29,6 @@
+   item=by_uid.get(uid)
+   from els_server.domain.boosting_gear_identification import supported as activity_supported,draw as activity_draw
+   activity=item is not None and activity_supported(item['template'])
+-  if activity and kind!=0x438:raise ValueError('Activity armor ordinary initial identification only')
+   from els_server.domain.accessory_identification import supported as accessory_supported,draw as accessory_draw
+   accessory=item is not None and accessory_supported(item['template'])
+   if accessory:
