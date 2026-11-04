@@ -1,0 +1,113 @@
+{
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "recipes": [
+    {
+      "function": "g_pItemManager.AddItemExchangeData",
+      "arguments": [
+        {
+          "global": "g_pItemManager"
+        },
+        40016,
+        3,
+        72920,
+        72930,
+        1,
+        33,
+        {
+          "m_iServerGroupID": -1,
+          "m_iSourceQuantity": 1
+        }
+      ],
+      "pc": 726
+    },
+    {
+      "function": "g_pItemManager.AddItemExchangeData",
+      "arguments": [
+        {
+          "global": "g_pItemManager"
+        },
+        40016,
+        3,
+        72920,
+        72940,
+        1,
+        33,
+        {
+          "m_iServerGroupID": -1,
+          "m_iSourceQuantity": 1
+        }
+      ],
+      "pc": 737
+    },
+    {
+      "function": "g_pItemManager.AddItemExchangeData",
+      "arguments": [
+        {
+          "global": "g_pItemManager"
+        },
+        40016,
+        3,
+        72920,
+        72950,
+        1,
+        34,
+        {
+          "m_iServerGroupID": -1,
+          "m_iSourceQuantity": 1
+        }
+      ],
+      "pc": 748
+    }
+  ],
+  "towns": {
+    "20000": 258,
+    "20001": 263,
+    "20002": 262,
+    "20003": 265,
+    "20004": 326,
+    "20005": 268,
+    "20006": 417,
+    "20007": 491,
+    "20008": 582,
+    "20009": 636,
+    "20010": 778,
+    "20011": 894,
+    "20012": 1004,
+    "20013": 1023
+  },
+  "house": 40016,
+  "npc": 10017,
+  "definitions": [
+    {
+      "template": 72930,
+      "name": "对练用特化石（基本）",
+      "metadata": 2,
+      "group": 3,
+      "max_stack": 500,
+      "record_sha256": "38e72d335e9bbba68f1ebff5772c226770adcde825531a3c05a9e42f273f27e1",
+      "native_ok": 1,
+      "native_consumed": 304
+    },
+    {
+      "template": 72940,
+      "name": "对练用特化石（支援）",
+      "metadata": 2,
+      "group": 3,
+      "max_stack": 500,
+      "record_sha256": "1e6059443f057921f1d63b868585c30b45a483cc0d8332eafc792423e29d6ab5",
+      "native_ok": 1,
+      "native_consumed": 304
+    },
+    {
+      "template": 72950,
+      "name": "对练用特化石（技能）",
+      "metadata": 2,
+      "group": 3,
+      "max_stack": 500,
+      "record_sha256": "c016a64d975d3503d6f512c0c4993678ec87f359a2f998b4148f55505323df35",
+      "native_ok": 1,
+      "native_consumed": 304
+    }
+  ]
+}
