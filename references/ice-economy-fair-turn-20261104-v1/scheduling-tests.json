@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "checks": [
+    "dungeon FIFO bypasses thirty queued town writers; ordinary writer admitted after sixteen dungeon requests",
+    "reader barrier retained; cancelling waiting dungeon request releases its admission exactly once",
+    "cancelled running SQL retains exclusive world ownership until actual worker retirement",
+    "mixed one hundred reader/dungeon/ordinary admissions retire without overlapping world writers"
+  ]
+}
