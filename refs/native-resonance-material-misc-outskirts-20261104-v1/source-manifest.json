@@ -1,0 +1,544 @@
+{
+  "issue": 836,
+  "release": "native-resonance-material-misc-outskirts-20261104-v1",
+  "parent": {
+    "release": "native-dungeon-static-ready-queue-fix-20261104-v1",
+    "path": "releases/online/native-dungeon-static-ready-queue-fix-20261104-v1",
+    "manifest_sha256": "9bcb5ceb96e5a4e3825e94ab5f744f160b14ffdaed0f5374e9701dec271eba71"
+  },
+  "changes": [
+    {
+      "path": "els_server/application.py",
+      "sha256": "78acf6f310da4d6900b0563eee8bfb084e1056800e824d04123da34f708057b2",
+      "parent_sha256": "b3367ac642e2abb04c655950b39629afb39137a4c0d8d87f55d7063aa0495bc4"
+    },
+    {
+      "path": "els_server/data/dungeon_material_loot_catalog.json",
+      "sha256": "acf681315d16524342e4f806d83c083c5b0b313357b348cad9f309ea28fe43ec",
+      "parent_sha256": "47d0e47f537902681fa5ef9095c0543e9a27eea1d8e78996b2323b5eff2ae1eb"
+    },
+    {
+      "path": "els_server/data/formal_npc_hp.json",
+      "sha256": "ca7ec10b3093cd7db300abcf01b21e36a7f9f3b6912995b31d12e276dec85ff7",
+      "parent_sha256": "2dbdbe31fd76023980ca67501ca846e33a07d0badc00d9baf9f7315273eb0e39"
+    },
+    {
+      "path": "els_server/data/formal_npc_hp.manifest.json",
+      "sha256": "be14d23bd6f3a29c1aa67a2185e2df1c4c050cb512630ad10ee7343f14c40a5b",
+      "parent_sha256": "04d6739ede57e66e7d3d9d3f1c451fba3e6bdb24030a220531ee00a9a7c48235"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.json",
+      "sha256": "267fd9bd555647b27f9b346fa2f52b46e51c3644f41b30a826f8ecbbd39bab4f",
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.manifest.json",
+      "sha256": "2b72e8a5523c391696ebc13dabe6a92addefdf092ad27c90bf4bd211f9da10d3",
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/data/regional_drop_materials.json",
+      "sha256": "ba426556c7fbddf52b33a700e0764471fbf1aa23d108d9775d35c7bdd29a93c6",
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/data/regional_drop_materials.manifest.json",
+      "sha256": "76d1e867d1b7a152dfbe86611808641c628ebf01847aff2fdb15e05ae6dbe67a",
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+      "sha256": "7935a9f0dcf05adb7cafad65b3fec67b4b600ad38cb6c18c7ea94d8522a918bd",
+      "parent_sha256": "a222a34ff81d1111875d2d3e451b30343bff1a2440f52162378adbf4cfbac029"
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "sha256": "a2130497d9452979077ae8f46d38addde35de8bf7d59a16c2c7f116699615cc7",
+      "parent_sha256": "95e581bd678bbb111ff74cec2cf4aab12f0e56f5632ab2352eaa4d20d968e451"
+    },
+    {
+      "path": "els_server/domain/dungeon_material_loot_catalog.py",
+      "sha256": "93829cd27114af30329d1a7707520996d935a892fbc0d08e4a793e56c47317fd",
+      "parent_sha256": "35e94afe35793e9e7fd89ca3ac7bc2f307117179574f4dd2f60a8f60423c2ec6"
+    },
+    {
+      "path": "els_server/domain/fishing_bait_loot.py",
+      "sha256": "0528e623fbf2d9af8a92ce3c26e77273e6a65735977ad1b6fe18bceaa7d7cb2e",
+      "parent_sha256": "eafc3217edc2d4fe6bbdb8673a3967a8d7a419873e593ef22a6e453745a2929e"
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "sha256": "9602da1419acf53af7e3f3c8261674712d73b3ac14dedec07e6c3b203cc01057",
+      "parent_sha256": "edf4a21dd2f4f10e08a59177990a795d39fc6255c1b420a67011ca4ac8ce1235"
+    },
+    {
+      "path": "els_server/domain/friends_material_loot.py",
+      "sha256": "4eeafa4f855e6286cfa1084bf7a655e0066e5b63450b41135b1a51941dd45c20",
+      "parent_sha256": "c60f872dc9a0632bcf9324495235cc69af500501eae20159774d80713e0956e7"
+    },
+    {
+      "path": "els_server/domain/giant_misc_loot.py",
+      "sha256": "cd666f705a1c977be8a69f9808f1a13248b3461db2fb6fef15ed5810a82d6260",
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "sha256": "699899ae3437141c4ea7a9a80bff43c5d42cbaa01291795774117bfdfea79cb7",
+      "parent_sha256": "0bafb6495761420f31c43e394c1d1970f8fddb534330c686669c39b86f0bd416"
+    },
+    {
+      "path": "els_server/domain/legacy_pve_exp.py",
+      "sha256": "59d96a8c963a211f83fc8524a876883814a31093670eced3aac1744ecce71f86",
+      "parent_sha256": "102b1c49c7fe448278d8d7d376f67dc848ce9cdf4739bb06b90db39bc110e34d"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "8f73e2659d06205453c7518611e562eb080369afc0d17c402662bb4824fefabc",
+      "parent_sha256": "4e4fadf757d01c7e82c0d49d1b424b8c04b54c6196ecd612720b0a12a8982b7f"
+    },
+    {
+      "path": "els_server/domain/ordinary_misc_loot.py",
+      "sha256": "4958c2fc4e260920ace9c0ea7838156851008ad243fc136536d6323d7409fb4a",
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/pve_economy_flow.py",
+      "sha256": "414249a39e9c754542d925f97b7ddce976e05fee222ad822c1c463843f0fc1b3",
+      "parent_sha256": "3547e27691f84c55f13f8ec27e5e55e250dac793a48ca696c22be1b7026088da"
+    },
+    {
+      "path": "els_server/domain/raid_reward_items.py",
+      "sha256": "fd910991632535265581d76a6b69630177483d561b920ac1509e10fd90d446da",
+      "parent_sha256": "880f7b62fdca6d986db4d3a58969f5dd8c77a1d5ea14c5bd31260f7618e76085"
+    },
+    {
+      "path": "els_server/domain/regional_drop_materials.py",
+      "sha256": "3a4cb05f2fd1b75817e39a69471bc6e07ffc24e4c420a1ece29e21aae6c9e68f",
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/regional_material_exchange_flow.py",
+      "sha256": "a5a2a717a87f15a60eacf1b650120b97c44005381b92eae20968880e9cb51fb2",
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/resonance_allocation_flow.py",
+      "sha256": "2cafc1005389b68496d5aef5a53a1525f8cf7c8787b9b688560fed00f4b5689c",
+      "parent_sha256": "2c520d2e66c834b2d3d855817e20433ea9e3cfd38634a1498891618cfd647327"
+    },
+    {
+      "path": "els_server/storage/characters.py",
+      "sha256": "dd0e5229b736ea8c3d177a4369d789af0399a72ed3fc754dc740b4e52bdd7e5b",
+      "parent_sha256": "a083f04d51c231cc691d18b4ead54d753df9aaa76b5f8c0b323b3b1b43fc69ff"
+    },
+    {
+      "path": "els_server/storage/dungeon_equipment_loot.py",
+      "sha256": "5f77c5aa4684e4fc3f63838b4e773e299fed764f23169a4a182e931633316ab1",
+      "parent_sha256": "c05a9abb8ed4fa513d0642170f35b4404669839cf9d12d2e17a120c5152e42e0"
+    },
+    {
+      "path": "els_server/storage/material_exchange.py",
+      "sha256": "6841ee4fb4e43cd12bd65f8e8200607d425fa73f5e09c9311ab297f597a078f9",
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/ordinary_misc_loot.py",
+      "sha256": "d38fbd8cf646fc524a40eb5de17994c586ca159e0f5b09e7238eccc9d80102dd",
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/storage/purifier_exchange.py",
+      "sha256": "ff5e7dd96a3c2eefcc66f07e2414e9e2ec40af23857950ab5b25c13b58537010",
+      "parent_sha256": "684fa969d79fd551de7913f1aad174a4083e8adec636bb589feb08c2be826761"
+    },
+    {
+      "path": "els_server/storage/raid_economy_state.py",
+      "sha256": "58630f028c52b52b570889ab7f0eee022ca99ea700886cbd296dc06891f9c72b",
+      "parent_sha256": "3dc8b69c9fc0328bf1046617242098f7c28c09b764ebd819c0f60b2992760928"
+    },
+    {
+      "path": "els_server/storage/raid_reward_actions.py",
+      "sha256": "5f8f8ed85864fad2ba7ce8bd5b23bd5afe967c9f78db0df7f3bf839713addcf7",
+      "parent_sha256": "432881373fefbda36ab5d948021f02005227499ac92040dc414ee844383c1e26"
+    }
+  ],
+  "files": [
+    {
+      "path": ".gitattributes",
+      "size": 9,
+      "sha256": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992"
+    },
+    {
+      "path": "base/els_server/application.py",
+      "size": 32111,
+      "sha256": "b3367ac642e2abb04c655950b39629afb39137a4c0d8d87f55d7063aa0495bc4"
+    },
+    {
+      "path": "base/els_server/data/dungeon_material_loot_catalog.json",
+      "size": 41917,
+      "sha256": "47d0e47f537902681fa5ef9095c0543e9a27eea1d8e78996b2323b5eff2ae1eb"
+    },
+    {
+      "path": "base/els_server/data/formal_npc_hp.json",
+      "size": 3816487,
+      "sha256": "2dbdbe31fd76023980ca67501ca846e33a07d0badc00d9baf9f7315273eb0e39"
+    },
+    {
+      "path": "base/els_server/data/formal_npc_hp.manifest.json",
+      "size": 206,
+      "sha256": "04d6739ede57e66e7d3d9d3f1c451fba3e6bdb24030a220531ee00a9a7c48235"
+    },
+    {
+      "path": "base/els_server/domain/dungeon_equipment_loot_flow.py",
+      "size": 16908,
+      "sha256": "a222a34ff81d1111875d2d3e451b30343bff1a2440f52162378adbf4cfbac029"
+    },
+    {
+      "path": "base/els_server/domain/dungeon_flow.py",
+      "size": 31122,
+      "sha256": "95e581bd678bbb111ff74cec2cf4aab12f0e56f5632ab2352eaa4d20d968e451"
+    },
+    {
+      "path": "base/els_server/domain/dungeon_material_loot_catalog.py",
+      "size": 21667,
+      "sha256": "35e94afe35793e9e7fd89ca3ac7bc2f307117179574f4dd2f60a8f60423c2ec6"
+    },
+    {
+      "path": "base/els_server/domain/fishing_bait_loot.py",
+      "size": 11080,
+      "sha256": "eafc3217edc2d4fe6bbdb8673a3967a8d7a419873e593ef22a6e453745a2929e"
+    },
+    {
+      "path": "base/els_server/domain/friends_dungeon.py",
+      "size": 35564,
+      "sha256": "edf4a21dd2f4f10e08a59177990a795d39fc6255c1b420a67011ca4ac8ce1235"
+    },
+    {
+      "path": "base/els_server/domain/friends_material_loot.py",
+      "size": 19579,
+      "sha256": "c60f872dc9a0632bcf9324495235cc69af500501eae20159774d80713e0956e7"
+    },
+    {
+      "path": "base/els_server/domain/inventory_items.py",
+      "size": 83155,
+      "sha256": "0bafb6495761420f31c43e394c1d1970f8fddb534330c686669c39b86f0bd416"
+    },
+    {
+      "path": "base/els_server/domain/legacy_pve_exp.py",
+      "size": 6030,
+      "sha256": "102b1c49c7fe448278d8d7d376f67dc848ce9cdf4739bb06b90db39bc110e34d"
+    },
+    {
+      "path": "base/els_server/domain/local_session.py",
+      "size": 149564,
+      "sha256": "4e4fadf757d01c7e82c0d49d1b424b8c04b54c6196ecd612720b0a12a8982b7f"
+    },
+    {
+      "path": "base/els_server/domain/pve_economy_flow.py",
+      "size": 23050,
+      "sha256": "3547e27691f84c55f13f8ec27e5e55e250dac793a48ca696c22be1b7026088da"
+    },
+    {
+      "path": "base/els_server/domain/raid_reward_items.py",
+      "size": 16812,
+      "sha256": "880f7b62fdca6d986db4d3a58969f5dd8c77a1d5ea14c5bd31260f7618e76085"
+    },
+    {
+      "path": "base/els_server/domain/resonance_allocation_flow.py",
+      "size": 8492,
+      "sha256": "2c520d2e66c834b2d3d855817e20433ea9e3cfd38634a1498891618cfd647327"
+    },
+    {
+      "path": "base/els_server/storage/characters.py",
+      "size": 16561,
+      "sha256": "a083f04d51c231cc691d18b4ead54d753df9aaa76b5f8c0b323b3b1b43fc69ff"
+    },
+    {
+      "path": "base/els_server/storage/dungeon_equipment_loot.py",
+      "size": 13949,
+      "sha256": "c05a9abb8ed4fa513d0642170f35b4404669839cf9d12d2e17a120c5152e42e0"
+    },
+    {
+      "path": "base/els_server/storage/purifier_exchange.py",
+      "size": 4252,
+      "sha256": "684fa969d79fd551de7913f1aad174a4083e8adec636bb589feb08c2be826761"
+    },
+    {
+      "path": "base/els_server/storage/raid_economy_state.py",
+      "size": 10981,
+      "sha256": "3dc8b69c9fc0328bf1046617242098f7c28c09b764ebd819c0f60b2992760928"
+    },
+    {
+      "path": "base/els_server/storage/raid_reward_actions.py",
+      "size": 9772,
+      "sha256": "432881373fefbda36ab5d948021f02005227499ac92040dc414ee844383c1e26"
+    },
+    {
+      "path": "candidate-manifest.json",
+      "size": 9176,
+      "sha256": "0315ebb3d20fb74ca2791ccc3ac1f01463f1372c303963fc5d9755bc59a74ee3"
+    },
+    {
+      "path": "implementation-notes.txt",
+      "size": 8586,
+      "sha256": "e1cc5fe72b9f9f0357021dd1b79bc17c5038f296f4419e4e81745d769aa5cf6c"
+    },
+    {
+      "path": "native-material-results.json",
+      "size": 2469,
+      "sha256": "0e4f0fb2583cb5755a509f79dfc54ad14de1f7e9648764f3f08a9c51c7c03cec"
+    },
+    {
+      "path": "qualification.json",
+      "size": 25125,
+      "sha256": "b8a90445043f924d0b58023fff54dd7ad4871a326280af91599f3271e1892500"
+    },
+    {
+      "path": "README.md",
+      "size": 2044,
+      "sha256": "a52a329ac7ecac163920b5150e954bab8fbd53d91188f05bfd1364c45c6f3929"
+    },
+    {
+      "path": "recovery/els_server/data/regional_drop_materials.json",
+      "size": 20682,
+      "sha256": "ba426556c7fbddf52b33a700e0764471fbf1aa23d108d9775d35c7bdd29a93c6"
+    },
+    {
+      "path": "recovery/els_server/data/regional_drop_materials.manifest.json",
+      "size": 182,
+      "sha256": "76d1e867d1b7a152dfbe86611808641c628ebf01847aff2fdb15e05ae6dbe67a"
+    },
+    {
+      "path": "recovery/els_server/domain/inventory_items.py",
+      "size": 83629,
+      "sha256": "699899ae3437141c4ea7a9a80bff43c5d42cbaa01291795774117bfdfea79cb7"
+    },
+    {
+      "path": "recovery/els_server/domain/raid_reward_items.py",
+      "size": 17151,
+      "sha256": "e302bd2ecaf7cd2d80d282f470820b51cfe349cbab8aa0d1310ffca1ca145143"
+    },
+    {
+      "path": "recovery/els_server/domain/regional_drop_materials.py",
+      "size": 1990,
+      "sha256": "3a4cb05f2fd1b75817e39a69471bc6e07ffc24e4c420a1ece29e21aae6c9e68f"
+    },
+    {
+      "path": "recovery-reader-manifest.json",
+      "size": 1362,
+      "sha256": "eb8b8fd04cef273368c2ede2d7884a8249a0f566d593b4b76c4785a829771389"
+    },
+    {
+      "path": "recovery-reader-verification.json",
+      "size": 285,
+      "sha256": "c3309e469271f5c1fedaee2948d5965f5968f55902b2f5ba5fb216fa9ed72596"
+    },
+    {
+      "path": "remaining-gap-audit.json",
+      "size": 2468,
+      "sha256": "6e3e78c93b33d4874f08c97031b4eee3adc8d8a54250cce96830d01269d77cba"
+    },
+    {
+      "path": "review-scope.json",
+      "size": 5614,
+      "sha256": "d4339df920c10144a1eef434a47606b2dda410dd11499b7332eeceb45b33ae6c"
+    },
+    {
+      "path": "review.md",
+      "size": 6570,
+      "sha256": "e32a0fe051d5fac17b873fa4ba8f70b4d15e28ba577e320bcd0a3d48e88e97ff"
+    },
+    {
+      "path": "source/els_server/application.py",
+      "size": 32781,
+      "sha256": "78acf6f310da4d6900b0563eee8bfb084e1056800e824d04123da34f708057b2"
+    },
+    {
+      "path": "source/els_server/data/dungeon_material_loot_catalog.json",
+      "size": 46493,
+      "sha256": "acf681315d16524342e4f806d83c083c5b0b313357b348cad9f309ea28fe43ec"
+    },
+    {
+      "path": "source/els_server/data/formal_npc_hp.json",
+      "size": 3826896,
+      "sha256": "ca7ec10b3093cd7db300abcf01b21e36a7f9f3b6912995b31d12e276dec85ff7"
+    },
+    {
+      "path": "source/els_server/data/formal_npc_hp.manifest.json",
+      "size": 206,
+      "sha256": "be14d23bd6f3a29c1aa67a2185e2df1c4c050cb512630ad10ee7343f14c40a5b"
+    },
+    {
+      "path": "source/els_server/data/ordinary_misc_loot.json",
+      "size": 180416,
+      "sha256": "267fd9bd555647b27f9b346fa2f52b46e51c3644f41b30a826f8ecbbd39bab4f"
+    },
+    {
+      "path": "source/els_server/data/ordinary_misc_loot.manifest.json",
+      "size": 182,
+      "sha256": "2b72e8a5523c391696ebc13dabe6a92addefdf092ad27c90bf4bd211f9da10d3"
+    },
+    {
+      "path": "source/els_server/data/regional_drop_materials.json",
+      "size": 20682,
+      "sha256": "ba426556c7fbddf52b33a700e0764471fbf1aa23d108d9775d35c7bdd29a93c6"
+    },
+    {
+      "path": "source/els_server/data/regional_drop_materials.manifest.json",
+      "size": 182,
+      "sha256": "76d1e867d1b7a152dfbe86611808641c628ebf01847aff2fdb15e05ae6dbe67a"
+    },
+    {
+      "path": "source/els_server/domain/dungeon_equipment_loot_flow.py",
+      "size": 16981,
+      "sha256": "7935a9f0dcf05adb7cafad65b3fec67b4b600ad38cb6c18c7ea94d8522a918bd"
+    },
+    {
+      "path": "source/els_server/domain/dungeon_flow.py",
+      "size": 31323,
+      "sha256": "a2130497d9452979077ae8f46d38addde35de8bf7d59a16c2c7f116699615cc7"
+    },
+    {
+      "path": "source/els_server/domain/dungeon_material_loot_catalog.py",
+      "size": 24079,
+      "sha256": "93829cd27114af30329d1a7707520996d935a892fbc0d08e4a793e56c47317fd"
+    },
+    {
+      "path": "source/els_server/domain/fishing_bait_loot.py",
+      "size": 11085,
+      "sha256": "0528e623fbf2d9af8a92ce3c26e77273e6a65735977ad1b6fe18bceaa7d7cb2e"
+    },
+    {
+      "path": "source/els_server/domain/friends_dungeon.py",
+      "size": 35760,
+      "sha256": "9602da1419acf53af7e3f3c8261674712d73b3ac14dedec07e6c3b203cc01057"
+    },
+    {
+      "path": "source/els_server/domain/friends_material_loot.py",
+      "size": 19870,
+      "sha256": "4eeafa4f855e6286cfa1084bf7a655e0066e5b63450b41135b1a51941dd45c20"
+    },
+    {
+      "path": "source/els_server/domain/giant_misc_loot.py",
+      "size": 5111,
+      "sha256": "cd666f705a1c977be8a69f9808f1a13248b3461db2fb6fef15ed5810a82d6260"
+    },
+    {
+      "path": "source/els_server/domain/inventory_items.py",
+      "size": 83629,
+      "sha256": "699899ae3437141c4ea7a9a80bff43c5d42cbaa01291795774117bfdfea79cb7"
+    },
+    {
+      "path": "source/els_server/domain/legacy_pve_exp.py",
+      "size": 6342,
+      "sha256": "59d96a8c963a211f83fc8524a876883814a31093670eced3aac1744ecce71f86"
+    },
+    {
+      "path": "source/els_server/domain/local_session.py",
+      "size": 152995,
+      "sha256": "8f73e2659d06205453c7518611e562eb080369afc0d17c402662bb4824fefabc"
+    },
+    {
+      "path": "source/els_server/domain/ordinary_misc_loot.py",
+      "size": 9737,
+      "sha256": "4958c2fc4e260920ace9c0ea7838156851008ad243fc136536d6323d7409fb4a"
+    },
+    {
+      "path": "source/els_server/domain/pve_economy_flow.py",
+      "size": 23304,
+      "sha256": "414249a39e9c754542d925f97b7ddce976e05fee222ad822c1c463843f0fc1b3"
+    },
+    {
+      "path": "source/els_server/domain/raid_reward_items.py",
+      "size": 17838,
+      "sha256": "fd910991632535265581d76a6b69630177483d561b920ac1509e10fd90d446da"
+    },
+    {
+      "path": "source/els_server/domain/regional_drop_materials.py",
+      "size": 1990,
+      "sha256": "3a4cb05f2fd1b75817e39a69471bc6e07ffc24e4c420a1ece29e21aae6c9e68f"
+    },
+    {
+      "path": "source/els_server/domain/regional_material_exchange_flow.py",
+      "size": 2640,
+      "sha256": "a5a2a717a87f15a60eacf1b650120b97c44005381b92eae20968880e9cb51fb2"
+    },
+    {
+      "path": "source/els_server/domain/resonance_allocation_flow.py",
+      "size": 8488,
+      "sha256": "2cafc1005389b68496d5aef5a53a1525f8cf7c8787b9b688560fed00f4b5689c"
+    },
+    {
+      "path": "source/els_server/storage/characters.py",
+      "size": 17125,
+      "sha256": "dd0e5229b736ea8c3d177a4369d789af0399a72ed3fc754dc740b4e52bdd7e5b"
+    },
+    {
+      "path": "source/els_server/storage/dungeon_equipment_loot.py",
+      "size": 15330,
+      "sha256": "5f77c5aa4684e4fc3f63838b4e773e299fed764f23169a4a182e931633316ab1"
+    },
+    {
+      "path": "source/els_server/storage/material_exchange.py",
+      "size": 3956,
+      "sha256": "6841ee4fb4e43cd12bd65f8e8200607d425fa73f5e09c9311ab297f597a078f9"
+    },
+    {
+      "path": "source/els_server/storage/ordinary_misc_loot.py",
+      "size": 5304,
+      "sha256": "d38fbd8cf646fc524a40eb5de17994c586ca159e0f5b09e7238eccc9d80102dd"
+    },
+    {
+      "path": "source/els_server/storage/purifier_exchange.py",
+      "size": 711,
+      "sha256": "ff5e7dd96a3c2eefcc66f07e2414e9e2ec40af23857950ab5b25c13b58537010"
+    },
+    {
+      "path": "source/els_server/storage/raid_economy_state.py",
+      "size": 11104,
+      "sha256": "58630f028c52b52b570889ab7f0eee022ca99ea700886cbd296dc06891f9c72b"
+    },
+    {
+      "path": "source/els_server/storage/raid_reward_actions.py",
+      "size": 9844,
+      "sha256": "5f8f8ed85864fad2ba7ce8bd5b23bd5afe967c9f78db0df7f3bf839713addcf7"
+    },
+    {
+      "path": "tests/runtime_inputs.py",
+      "size": 528,
+      "sha256": "37ad87909172cf751ce6c6bc7ab1bf3fa70e3d95e4d7ec17ca38a16ec30da169"
+    },
+    {
+      "path": "tests/verify_completion.py",
+      "size": 19173,
+      "sha256": "551d8fcdf708a8e3e28ba51d44c4378fde2e1fa92e0e4d948f9d652be9a2897a"
+    },
+    {
+      "path": "tests/verify_misc.py",
+      "size": 18192,
+      "sha256": "e95088f83a45499b139861fa1c4c40979ebacbab35385fbdb0e2e33416352cb8"
+    },
+    {
+      "path": "tests/verify_native_materials.py",
+      "size": 1322,
+      "sha256": "fd5527ed289d431aa6cfb0aba863036cf40171bee7ec8a511ebdcc5d548028b9"
+    },
+    {
+      "path": "tests/verify_previous_materials.py",
+      "size": 1073,
+      "sha256": "02b9571772efaf368b5dbbd979e6285c66f69284b9f4642a68201c1e9ca5c220"
+    },
+    {
+      "path": "tests/verify_recovery.py",
+      "size": 2218,
+      "sha256": "d2fe771b1793be4cdbbd4c3996daaed8eb41ab3313b5f5923824a2bdc49aae2c"
+    },
+    {
+      "path": "verify_archive.py",
+      "size": 1022,
+      "sha256": "27e5424507ced29c70d862c6d77faa202b2f56638d17d04415ffab044b7c635d"
+    }
+  ],
+  "runtime_delta": 31
+}
