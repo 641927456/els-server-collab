@@ -1,0 +1,75 @@
+{
+  "ok": true,
+  "reviewer": "/root/pillar_independent_review",
+  "created_utc": "2026-11-04T07:24:11.357268+00:00",
+  "review_scope": "Only V75 current-parent integration and signed binding delta; previous Hook implementation review reused",
+  "code_or_binding_blockers": [],
+  "exe_sha256": "b7367d13e5ff5689b03485136f21f335a8b17c4cdc44fc3be8296c632421f75f",
+  "build_sha256": "08375274f3ae3d7a9f89737dbd32f93a596888ecef1c78769c0e12d755a38874",
+  "builder_sha256": "63839431b72a199feab96cfa74c586a17ba13fde78bed11441efd02e6efcc886",
+  "parent_release": "launcher-resource-index-20261104-v74-v1",
+  "parent_exe_sha256": "45a7828eb5dd8dd78d3f94711d090adb96b862a139a0fb35e212645a5cc4952e",
+  "source_files_verified": 141,
+  "exact_source_changes": [
+    "AutoUpdate.cs",
+    "UIScrollRuntimeCohort.cs",
+    "resources/ui-scroll-signedFriends.signed.json"
+  ],
+  "embedded_resource_sources_verified": 101,
+  "trusted_public_key_signature_verified": [
+    "resource-index V74 Friends",
+    "pillar V75 Friends",
+    "V75 latest"
+  ],
+  "new_archive_sha256": "90c9d9e65fed4e6e1592868d9fb3d2aeb452aeb01c64350ceb62a795722f9723",
+  "new_manifest_sha256": "754a666109bafda052b2b3b1f7673259b33326bd0a604cda39f0011d44f113e3",
+  "new_component_count": 1806,
+  "component_delta_from_resource_index_V74": [
+    "tools/client_compatibility_profiles.json",
+    "tools/native_hit_count_obstacles.js",
+    "tools/native_hit_count_obstacles.py",
+    "tools/probe_updated_client.py"
+  ],
+  "expected_from_current_resource_index_V74": {
+    "downloads": 4,
+    "reused": 1802,
+    "repeat_downloads": 0
+  },
+  "expected_direct_from_V73": {
+    "downloads": 5,
+    "reused": 1801,
+    "changed": [
+      "tools/client_compatibility_profiles.json",
+      "tools/native_hit_count_obstacles.js",
+      "tools/native_hit_count_obstacles.py",
+      "tools/original_index_pins.json",
+      "tools/probe_updated_client.py"
+    ]
+  },
+  "profile_semantic_changes": "Only three pillar artifacts entries on top of resource-index V74; all V74 resource_evidence, critical_archives, and index pin artifact retained",
+  "original_index_pins_sha256_preserved": "a74932d76f96654bac076f579e8660634c05c851a48ec34004599089ffaa8aac",
+  "three_client_source_hashes_identical_to_prior_hook_review": true,
+  "LOCAL_binding_unchanged": true,
+  "default_Friends_selects_UIScroll": true,
+  "prior_hook_review_sha256": "18c6810492c0e11cd753f8f44fb3d2ee10c4c839fd5c5f076a4d7e552df1cacd",
+  "prior_scope_reduction_review_sha256": "4bed15f427b2c437374ae03fa9f9344361df40476ef8f136cf4780db5415928f",
+  "expected_counts_are_static_not_network_acceptance": true,
+  "actual_V75_upgrade_and_ready_pending_parent": false,
+  "published_by_reviewer": false,
+  "game_started_or_attached_by_reviewer": false,
+  "nonblocking_notes": [
+    "Builder docstring still says actual V73; executable code asserts current74 and complete parent source/manifest checks independently establish resource-index V74. No implementation or artifact modified by reviewer."
+  ],
+  "actual_PE_managed_resources_verified": 101,
+  "managed_resource_audit_sha256": "2cd67a51d837e50da7c67bc051e0bf1733bcfc4c40087f0f33c47864b35f5697",
+  "signed-upgrade-qualification.json": {
+    "sha256": "87404a3389d80dbef1fce85375e1c3f948abf5183f0e28c06186dd5315ce5426",
+    "reported_ok": true
+  },
+  "actual-ready-qualification.json": {
+    "sha256": "172bda07b17e046069f2ab088994a03545a2b7411f55d3a90d0fac1c68683fe8",
+    "reported_ok": true
+  },
+  "private_V75_upgrade_and_ready_evidence_read_and_bound": true,
+  "public_installation_or_network_readback_not_claimed": true
+}

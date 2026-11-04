@@ -1,0 +1,39 @@
+{
+  "author": "Primary agent self-review",
+  "created_utc": "2026-11-04T06:39:21.469622+00:00",
+  "reviewed_client_source_SHA256": {
+    "tools/native_hit_count_obstacles.py": "2f4563a878d82cacb6abe1ed4304e0f6ab0794e5e397fbff6e8b1a225aec4abb",
+    "tools/native_hit_count_obstacles.js": "6fef8c0d299b3b2174fefda2abfd047a0b42fb9fcdd8926d965935d3baec0ba2",
+    "tools/probe_updated_client.py": "67d20d9e7777cbc9d7f0502cf917a3b38ec228a4dd0c81fdee42067ee59a071d",
+    "tools/client_compatibility_profiles.json": "56bca7ec8fffbe9f4110e7dde2b78782cd5d21b516537b1cd6c50a75a415a9b5"
+  },
+  "findings": [
+    {
+      "priority": "P2",
+      "finding": "Two server255 rules were outside the actually verified ordinary Break path",
+      "resolution": "Excluded from latest release scope; immutable previous package retained as historical evidence"
+    }
+  ],
+  "no_blocking_code_findings_for_tested_client_path": true,
+  "ABI": "Win64 pointer,float,float, native delta/minimum passed through XMM1/XMM2; original native arithmetic retained",
+  "scope_checks": "Map34720 stage1 template8184 original UID18/63, current native vector and UID lookup, synchronous per-thread damage scope",
+  "counter50_release_verified": true,
+  "script_counter_and_state_reimplemented": false,
+  "canonical_client_only": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "native_case_reused_SHA256": "bf394e89e0f32a4192126b2e6e51b74d23fdd82886ea93f2325f7a3e68488b54",
+  "actual_private_component_upgrade_passed": true,
+  "private_component_downloads": 4,
+  "private_component_reused": 1802,
+  "repeat_downloads": 0,
+  "public_network_upgrade_verified": false,
+  "new_component_runtime_ready_verified": false,
+  "existing_game_process_count": 1,
+  "existing_game_processes_modified_or_attached": false,
+  "formal_publish_started": false,
+  "git_commit_created": false,
+  "remaining": [
+    "Normal existing-game exit, then launch-owned upgraded-runtime ready-once verification",
+    "Publish signed Friends V74 through normal lock and public upgrade/observation checks",
+    "Submit exact installed sources and evidence to Git after installation"
+  ]
+}
