@@ -1,0 +1,110 @@
+{
+  "issue": 832,
+  "release": "native-dungeon-static-ready-queue-fix-20261104-v1",
+  "parent_release": "native-dungeon-startup-prewarm-20261104-v1",
+  "changes": [
+    {
+      "path": "els_server/application.py",
+      "parent_sha256": "927a535b412e27306c0d842657f286bca6cce8488130ff0451b8a0a6395dc314",
+      "sha256": "b3367ac642e2abb04c655950b39629afb39137a4c0d8d87f55d7063aa0495bc4"
+    },
+    {
+      "path": "els_server/domain/title_economy.py",
+      "parent_sha256": "bc92275472d537a2bc1144e38fa9298b1955d695a28f465abd1814ea7b82019a",
+      "sha256": "99d591157d3de3a995e9a38de16057f7fa6853276cc7aab352310571055aa8e3"
+    },
+    {
+      "path": "els_server/periodic_work.py",
+      "parent_sha256": "e0244295b75bb6e060dd2acf25c684685e6d7a1f6e9d84727d52c6eb3019d032",
+      "sha256": "3c8b23f5e40a4dca1697abc3ec66f0183c23b9750a29ac762dd36f86935bafaf"
+    }
+  ],
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992",
+      "size": 9
+    },
+    {
+      "path": "base/els_server/application.py",
+      "sha256": "927a535b412e27306c0d842657f286bca6cce8488130ff0451b8a0a6395dc314",
+      "size": 29089
+    },
+    {
+      "path": "base/els_server/domain/title_economy.py",
+      "sha256": "bc92275472d537a2bc1144e38fa9298b1955d695a28f465abd1814ea7b82019a",
+      "size": 5523
+    },
+    {
+      "path": "base/els_server/periodic_work.py",
+      "sha256": "e0244295b75bb6e060dd2acf25c684685e6d7a1f6e9d84727d52c6eb3019d032",
+      "size": 2863
+    },
+    {
+      "path": "candidate.patch",
+      "sha256": "8c6ceee5ecc129328095392b39bcea29a8c698d4a44f5e098f3b01eacd9d45c3",
+      "size": 6409
+    },
+    {
+      "path": "README.md",
+      "sha256": "dcd2ad5eb249068435409b2fc1884de69f2bc7d41692c8b2716a79ad89ec15fa",
+      "size": 2154
+    },
+    {
+      "path": "review.md",
+      "sha256": "d858a907c5117019e607353e133d1e0a461874b7b50ba258d24b9ee4237c81ea",
+      "size": 4075
+    },
+    {
+      "path": "source/els_server/application.py",
+      "sha256": "b3367ac642e2abb04c655950b39629afb39137a4c0d8d87f55d7063aa0495bc4",
+      "size": 32111
+    },
+    {
+      "path": "source/els_server/domain/title_economy.py",
+      "sha256": "99d591157d3de3a995e9a38de16057f7fa6853276cc7aab352310571055aa8e3",
+      "size": 5912
+    },
+    {
+      "path": "source/els_server/periodic_work.py",
+      "sha256": "3c8b23f5e40a4dca1697abc3ec66f0183c23b9750a29ac762dd36f86935bafaf",
+      "size": 2883
+    },
+    {
+      "path": "tests/runtime_fixture.py",
+      "sha256": "c29344aa8a44f85e7fd12394f0525bf75db9e9487c56b8704dfb9e1a20aed40a",
+      "size": 614
+    },
+    {
+      "path": "tests/test_cancelled_periodic.py",
+      "sha256": "fc4b148c0b1aff142bc2666cb3646df35c6c8f840a328112e020ebb410e858a9",
+      "size": 2560
+    },
+    {
+      "path": "tests/test_periodic_safety.py",
+      "sha256": "dae426cb6928401ecaaf518d9178e8c46a66646b9a45ddd5bcbcd84f9780c1c7",
+      "size": 2154
+    },
+    {
+      "path": "tests/verify_pickup.py",
+      "sha256": "1e63484340f44f3a4d364df4bf5729cb5038a068853e16e3a4b94e6732003bc2",
+      "size": 5927
+    },
+    {
+      "path": "tests/verify_preparation.py",
+      "sha256": "51a700e90a3c9a46cdfc648f87521c8fa3852bb8871630eb9046470ac443476e",
+      "size": 3502
+    },
+    {
+      "path": "validation.json",
+      "sha256": "0b629ea64fb40064022b1078b4f3937754892cda97efb9adb69fcba3f2311bb0",
+      "size": 712
+    },
+    {
+      "path": "verify_archive.py",
+      "sha256": "dee612815fba8bfceaab2ca0a52e193be90af2dddf22b022ac4266b25a4bbe22",
+      "size": 848
+    }
+  ],
+  "runtime_delta": 3
+}
