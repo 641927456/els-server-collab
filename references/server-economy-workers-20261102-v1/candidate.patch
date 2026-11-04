@@ -1,0 +1,313 @@
+--- a/els_server/application.py
++++ b/els_server/application.py
+@@ -1,4 +1,4 @@
+-"""Serialized business operations with local or authenticated account sessions."""
++"""Coordinated world operations and account-local economic workers."""
+ import asyncio
+ import time
+ from els_server.performance import OperationMetrics
+@@ -28,7 +28,7 @@
+         relay(self)
+         return replies
+ 
+-    def handle(self,event,request_sequence=None):
++    def _shared_request(self,event,request_sequence):
+         if self.released or not self.application.registry.enabled(self.identity['id']):raise SessionOrderError('Account is offline or disabled')
+         if self.social_overflow:raise SessionOrderError('Social consumer is too slow')
+         if self.coop_error:raise SessionOrderError(self.coop_error)
+@@ -60,6 +60,12 @@
+         if event.event_id==0x202:
+             result=self.application.world.party_request(self,event)
+             if result is not None:return remember(self,result+self.mailbox.drain())
++        return None
++
++    def handle(self,event,request_sequence=None):
++        with self.application.world_lock:
++            result=self._shared_request(event,request_sequence)
++        if result is not None:return result
+         selecting=event.event_id==0x202 and event.kind==0x28
+         leases=self.application.playing
+         acquired=False
+@@ -70,8 +76,14 @@
+         try:
+             result=super().handle(event,request_sequence)
+         except BaseException:
+-            if acquired:leases.pop(self.identity['id'],None)
++            if acquired:
++                with self.application.world_lock:leases.pop(self.identity['id'],None)
+             raise
++        with self.application.world_lock:
++            return self._after_local(event,result)
++
++    def _after_local(self,event,result):
++        leases=self.application.playing
+         if self.phase in ('closing','channels_ready') and leases.get(self.identity['id']) is self:
+             self.application.world.leave_party(self)
+             leases.pop(self.identity['id'],None)
+@@ -127,9 +139,9 @@
+         # Both request handling and the existing periodic path use this exit.
+         # Super returns only after atomic removal/encoding/cache commit.
+         messages=super().expiration_notifications()
+-        self._relay_luciel_hp_expiry(messages)
++        with self.application.world_lock:self._relay_luciel_hp_expiry(messages)
+         from els_server.domain.elixir_peer_sync import relay as relay_world_elixirs
+-        relay_world_elixirs(self)
++        with self.application.world_lock:relay_world_elixirs(self)
+         return messages
+ 
+     def periodic_notifications(self, *, _rooms=None):
+@@ -183,6 +195,9 @@
+         self.executor=ThreadPoolExecutor(max_workers=1,thread_name_prefix='els-account')
+         from els_server.business_queue import BoundedBusinessQueue
+         self.business_queue=BoundedBusinessQueue(self.executor)
++        from threading import RLock
++        from els_server.economy import EconomyWorkers,WorldGate
++        self.world_lock=RLock();self.world_gate=WorldGate();self.economy=EconomyWorkers(config.economy_workers)
+         self.performance=OperationMetrics()
+         from els_server.preparation import BoundedPreparation
+         self.preparation=BoundedPreparation()
+@@ -197,11 +212,24 @@
+         self.realtime=RealtimeState()
+ 
+     async def call(self, function, *args, **kwargs):
++        submitted=time.perf_counter()
++        session=getattr(function,'__self__',None)
++        if type(session)is FriendsSession:
++            async with self.economy.account_lock(session.identity['id']):
++                return await self._dispatch(function,args,kwargs,submitted)
++        return await self._dispatch(function,args,kwargs,submitted)
++
++    async def _dispatch(self,function,args,kwargs,submitted):
+         from els_server.performance import captured_calls
+-        submitted=time.perf_counter();queue_timing={}
+-        return await self.business_queue.run(
+-            partial(self._worker_call,function,args,kwargs,submitted,captured_calls(),queue_timing),
+-            timing=queue_timing)
++        from els_server.economy import DECLINED
++        capture=captured_calls();queue_timing={}
++        work=partial(self._worker_call,function,args,kwargs,submitted,capture,queue_timing)
++        if self.config.mode=='friends'and self.economy.candidate(function,args):
++            async with self.world_gate.parallel():
++                result=await self.economy.queue.run(partial(self.economy.invoke,function.__self__,args[0],work),timing=queue_timing)
++            if result is not DECLINED:return result
++        async with self.world_gate.exclusive():
++            return await self.business_queue.run(work,timing=queue_timing)
+ 
+     def _worker_call(self,function,args,kwargs,submitted,capture=None,queue_timing=None):
+         from els_server.performance import captured_calls,worker_timing,request_category
+@@ -261,7 +289,7 @@
+         try:return invoke()
+         finally:
+             if not (getattr(function,'__name__',None)=='periodic_notifications'and queue_timing is not None and 'batch_started_at'in queue_timing):
+-                self.realtime.publish(self,function,args,failed=sample['failed'])
++                with self.world_lock:self.realtime.publish(self,function,args,failed=sample['failed'])
+ 
+ 
+     async def periodic_batch(self,sessions):
+@@ -281,7 +309,8 @@
+                     except Exception as error:result.append((None,error))
+                 return result
+             finally:self.realtime.publish(self,invoke,(),periodic=True)
+-        return await self.business_queue.run(invoke,timing=queue_timing)
++        async with self.world_gate.exclusive():
++            return await self.business_queue.run(invoke,timing=queue_timing)
+ 
+     def periodic_chunks(self,sessions,*,claims=None):
+         from els_server.periodic_work import periodic_chunks
+@@ -407,6 +436,7 @@
+         if not self._executor_closed:
+             self._executor_closed=True
+             self.business_queue.close()
++            self.economy.close()
+             try:
+                 close=getattr(self.registry,'close',None)
+                 if close is not None:self.executor.submit(close).result()
+--- a/els_server/business_queue.py
++++ b/els_server/business_queue.py
+@@ -85,6 +85,12 @@
+         except asyncio.CancelledError:
+             with lock:
+                 state['abandoned'] = True
++            # The caller may own a world/account gate. Keep it until this exact
++            # job has retired: queued work is skipped; started SQL finishes once.
++            while not wrapped.done():
++                try:await asyncio.shield(wrapped)
++                except asyncio.CancelledError:continue
++                except BaseException:break
+             raise
+ 
+     def close(self):
+--- a/els_server/config.py
++++ b/els_server/config.py
+@@ -14,6 +14,7 @@
+     state_file: Path = Path('state/integrated.sqlite3')
+     log_dir: Path = Path('logs/server')
+     max_connections: int = 16
++    economy_workers: int = 2
+     idle_timeout: float = 300.0
+     frame_timeout: float = 15.0
+     write_timeout: float = 10.0
+@@ -47,7 +48,7 @@
+         if type(self.attribute_enchant_enabled) is not bool or self.attribute_enchant_enabled and self.profile!='integrated_dx11':raise ValueError('Invalid attribute enchant profile')
+         if type(self.normal_equipment_moves_enabled) is not bool or self.normal_equipment_moves_enabled and self.profile!='integrated_dx11':raise ValueError('Invalid normal equipment move profile')
+         if type(self.equipment_repair_enabled) is not bool or self.equipment_repair_enabled and self.profile!='integrated_dx11':raise ValueError('Invalid repair profile')
+-        for name, low, high in [('port',0,65535),('max_connections',1,384),
++        for name, low, high in [('port',0,65535),('max_connections',1,384),('economy_workers',1,4),
+                                 ('log_max_bytes',4096,100_000_000),('log_backups',1,20),('client_probe_port',1,65535)]:
+             value=getattr(self,name)
+             if type(value) is not int or not low<=value<=high:raise ValueError('Invalid '+name)
+--- a/els_server/domain/friends_world.py
++++ b/els_server/domain/friends_world.py
+@@ -4,15 +4,19 @@
+ sequence numbers and socket writes; no foreign session's packet is pre-encoded.
+ """
+ from collections import deque
++from threading import RLock
+ import time
+ from els_server.protocol import social_messages as wire
+ from els_server.domain.local_session import SessionOrderError
+ 
+ 
+ class Mailbox:
+-    def __init__(self):self.messages=deque();self.moves={};self.bytes=0
++    def __init__(self):self.messages=deque();self.moves={};self.bytes=0;self.lock=RLock()
+ 
+     def append(self,message,move_uid=None):
++        with self.lock:self._append(message,move_uid)
++
++    def _append(self,message,move_uid):
+         size=len(message.payload)
+         old=self.moves.get(move_uid) if move_uid is not None else None
+         count=len(self.messages)+len(self.moves)+(0 if old is not None else 1)
+@@ -26,6 +30,9 @@
+         self.bytes=total
+ 
+     def drain(self):
++        with self.lock:return self._drain()
++
++    def _drain(self):
+         values=list(self.messages)+list(self.moves.values())
+         self.messages.clear();self.moves.clear();self.bytes=0
+         return values
+--- /dev/null
++++ b/els_server/economy.py
+@@ -0,0 +1,98 @@
++"""Account-local economic workers, coordinated with the original world worker."""
++import asyncio,sqlite3,struct,threading
++from contextlib import asynccontextmanager,closing
++from weakref import WeakValueDictionary
++
++DECLINED=object()
++
++
++class WorldGate:
++    """At most sixteen parallel admissions, then give queued world work a turn."""
++    def __init__(self):
++        self.condition=asyncio.Condition();self.writer_order=asyncio.Lock()
++        self.readers=0;self.admissions=0;self.writer=False;self.waiting_writer=False
++
++    @asynccontextmanager
++    async def parallel(self):
++        async with self.condition:
++            await self.condition.wait_for(lambda:not self.writer and
++                ((self.readers==0 and not self.waiting_writer)or(self.readers>0 and self.admissions<16)))
++            if self.readers==0:self.admissions=0
++            self.readers+=1;self.admissions+=1
++        try:yield
++        finally:
++            async with self.condition:
++                self.readers-=1
++                if self.readers==0:self.condition.notify_all()
++
++    @asynccontextmanager
++    async def exclusive(self):
++        async with self.writer_order:
++            async with self.condition:
++                self.waiting_writer=True
++                try:await self.condition.wait_for(lambda:self.readers==0)
++                finally:self.waiting_writer=False;self.condition.notify_all()
++                self.writer=True
++            try:yield
++            finally:
++                async with self.condition:self.writer=False;self.condition.notify_all()
++
++
++class EconomyWorkers:
++    def __init__(self,workers):
++        from concurrent.futures import ThreadPoolExecutor
++        from els_server.business_queue import BoundedBusinessQueue
++        self.workers=workers
++        self.executor=ThreadPoolExecutor(max_workers=workers,thread_name_prefix='els-economy')
++        self.queue=BoundedBusinessQueue(self.executor,capacity=16)
++        self.accounts=WeakValueDictionary();self.lock=threading.Lock()
++        self.active=0;self.peak=0;self.completed=0;self.failures=0;self.threads=set()
++
++    def account_lock(self,identity):
++        return self.accounts.setdefault(identity,asyncio.Lock())
++
++    @staticmethod
++    def candidate(function,args):
++        from els_server.application import FriendsSession
++        from els_server.protocol.protocol_codec import Event
++        session=getattr(function,'__self__',None)
++        return (type(session)is FriendsSession and getattr(function,'__func__',None)is FriendsSession.handle
++            and len(args)==1 and type(args[0])is Event and args[0].event_id==0x202
++            and args[0].kind in(0x196,0x80f,0xea,0xec,0x567))
++
++    @staticmethod
++    def selected(session,event):
++        from els_server.domain.equipment_chip_flow import current_lease
++        if (session.client_build!='dx11_260923'or session.role!='game'or session.phase!='town_ready'
++            or session.released or session.coop_error or session.social_overflow or not current_lease(session)):
++            return False
++        if event.kind==0x80f:return session.shop_test
++        if event.kind in(0xea,0xec,0x567):return session.item_test
++        if not session.item_test or len(event.payload)<8:return False
++        # Classification only. Original dispatch still validates the complete
++        # payload, selected actor, item, eligibility, debit and immutable receipt.
++        uid=struct.unpack_from('>Q',event.payload)[0]
++        with closing(sqlite3.connect(session.account.store.path.absolute().as_uri()+'?mode=ro',uri=True,timeout=10))as db:
++            row=db.execute('SELECT template FROM inventory_items WHERE owner=? AND uid=?',(session.account.uid,uid)).fetchone()
++        from els_server.domain.inventory_items import role_ice_catalog
++        return row is not None and str(row[0])in role_ice_catalog()['pools']
++
++    def invoke(self,session,event,work):
++        if not self.selected(session,event):return DECLINED
++        with self.lock:
++            self.active+=1;self.peak=max(self.peak,self.active);self.threads.add(threading.get_ident())
++        try:return work()
++        except BaseException:
++            with self.lock:self.failures+=1
++            raise
++        finally:
++            with self.lock:self.active-=1;self.completed+=1
++
++    def snapshot(self):
++        with self.lock:
++            result=dict(workers=self.workers,active=self.active,peak_active=self.peak,
++                completed=self.completed,failures=self.failures,threads_used=len(self.threads))
++        result['queue']=self.queue.snapshot();return result
++
++    def close(self):
++        self.queue.close();self.executor.shutdown(wait=True,cancel_futures=True)
+--- a/els_server/periodic_scheduler.py
++++ b/els_server/periodic_scheduler.py
+@@ -134,7 +134,7 @@
+                         self.log('application_timing_summary',operations=summary,periodic=self.snapshot(),
+                             requests=self.application.performance.request_snapshot(),
+                             business_queue=queue.snapshot() if queue is not None else {},
+-                            preparation=self.application.preparation.snapshot(),**cache_metrics)
++                            preparation=self.application.preparation.snapshot(),economy=self.application.economy.snapshot(),**cache_metrics)
+                     continue
+                 # A busy socket or in-flight send never causes a zero-delay
+                 # spin. New members and completed sends wake the deadline wait.
+--- a/els_server/periodic_work.py
++++ b/els_server/periodic_work.py
+@@ -63,4 +63,6 @@
+ 
+             finally:application.realtime.publish(application,invoke,(),periodic=True)
+ 
+-        yield await application.business_queue.run(invoke, timing=queue_timing)
++        async with application.world_gate.exclusive():
++            result=await application.business_queue.run(invoke, timing=queue_timing)
++        yield result
