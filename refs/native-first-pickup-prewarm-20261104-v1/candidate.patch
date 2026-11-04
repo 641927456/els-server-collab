@@ -1,0 +1,12 @@
+--- a/els_server/application.py
++++ b/els_server/application.py
+@@ -346,6 +346,9 @@
+             if self.config.profile=='integrated_dx11':
+                 from els_server.storage.characters import prepare_character_catalogs
+                 prepare_character_catalogs()  # Before opening a player writer or listener.
++                # Verify immutable economy definitions before the first reward writer.
++                from els_server.domain.el_search_effects import catalog as collection_economy_catalog
++                collection_economy_catalog()
+             account=LocalAccount(LocalState(self.config.state_file) if self.config.profile=='integrated_dx11' else None)
+             # Validate feature dependencies and initialize tables before listening.
+             LocalSession(account,**self.config.session_options())
