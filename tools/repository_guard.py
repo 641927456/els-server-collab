@@ -6,6 +6,7 @@ BLOCKED_ROOTS={'state','logs','backups','run','analysis','python','vendor','.ass
 BLOCKED_SUFFIXES={'.sqlite','.sqlite3','.db','.pem','.key','.pfx','.p12','.exe','.pyd','.dll','.bin','.zip','.7z','.rar','.dmp','.jsonl','.log'}
 SYNTHETIC_PASSWORD_TESTS={'tests/test_registration.py','tests/test_friends_character_creation.py'}
 FROZEN_MODE_FIXTURES={
+    'refs/unified-ip-auth-runtime-20261104-v2/source/launcher/ModeDesign.cs':'2de802499666af6c71f75183a0071526606495bb9e5952ebe797f38c9f0013b5',
     'refs/installed-69-70-72-integration-20261101-v1/launcher/source/ModeDesign.cs':'64911997a6db2f18b8d116380fa2b6f83caa9fabe86c3ce51a97f821f1b651cf',
     'launchers/friends-v45/ModeDesign.cs':'64911997a6db2f18b8d116380fa2b6f83caa9fabe86c3ce51a97f821f1b651cf',
     'launchers/friends-v43/ModeDesign.cs':'64911997a6db2f18b8d116380fa2b6f83caa9fabe86c3ce51a97f821f1b651cf',
@@ -14,6 +15,7 @@ FROZEN_MODE_FIXTURES={
     'launchers/friends-v38/ModeDesign.cs':'d2fa60f75a8a4f3c45e759c233ac0f63fb570961203c15c3c69b1855540cefb6',
 }
 FROZEN_RANDOM_PASSWORD_PROGRAMS={
+    'refs/unified-ip-auth-runtime-20261104-v2/source/launcher/Program.cs':'8ba2b8c7be2f70092eadf0c0d22ab886316f964a75715a95d6ef061dfa051634',
     'refs/installed-69-70-72-integration-20261101-v1/launcher/source/Program.cs':'053ba6945902a6ca0038fd8eceb419f74ada426e97ff2d9a0736a106e430d30d',
     'launchers/friends-v45/Program.cs':'053ba6945902a6ca0038fd8eceb419f74ada426e97ff2d9a0736a106e430d30d',
     'launchers/friends-v43/Program.cs':'516a4567d763799a75ad8e2ad975f465704476bfbd2b519a469772702460f719',
