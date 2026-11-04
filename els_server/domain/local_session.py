@@ -724,6 +724,9 @@ class LocalSession:
 
 
     def handle(self,event,request_sequence=None):
+        from els_server.domain.field_travel import local_handle as field_travel_handle
+        field_reply=field_travel_handle(self,event)
+        if field_reply is not None:return field_reply
 
         # Group ticket admission invokes this synthetic 382 while its SQLite
         # writer is open. Expiration's separate writer runs on the normal

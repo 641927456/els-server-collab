@@ -89,6 +89,8 @@ class FieldBosses:
     def detach(self,s):
         r=self.room(s)
         if r is None:return
+        if getattr(r,'ordinary_travel',False):
+            self.rooms.pop(s,None);return
         aborting=r.phase not in ('clear','failed')
         try:
             if aborting:self.abort(r,'member disconnected',s)
@@ -104,12 +106,15 @@ class FieldBosses:
 
     def periodic(self,s):
         r=self.room(s)
-        if r is None or r.leader is not s:return
+        if r is None or r.leader is not s or getattr(r,'ordinary_travel',False):return
         if (r.phase in ('loading','ready') and time.monotonic()>=r.loading_deadline
             or r.phase=='active' and time.time()>=r.deadline):self.abort(r,'timeout')
 
     def request(self,s,event):
         if event.event_id!=0x202:return None
+        from els_server.domain.field_travel import handle as ordinary_field_handle
+        ordinary=ordinary_field_handle(self,s,event)
+        if ordinary is not None:return ordinary
         r=self.room(s);kind=event.kind
         if kind==0x374:
             try:
@@ -144,7 +149,7 @@ class FieldBosses:
                     self.world.send(m,packet)
                 return []
             except (ValueError,AttributeError):
-                return [wire.joined((),None,0,result=-1)]
+                return [wire.joined((),None,0,result=1)]
         if r is None:return None
         self.periodic(s)
         if kind==0x91:

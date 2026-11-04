@@ -342,6 +342,7 @@ class Application:
                 if type(session) is LocalSession and getattr(session,'_chip_reset_local_application',None) is self:
                     session._chip_reset_local_live=False
             cleanup_all(lambda:guild_disconnect(session), auxiliary,
+                lambda:self.world.field_bosses.detach(session),
                 lambda:abandon_shadow(session), lambda:close_mount(session), local_flags,
                 lambda:timer.observe(session,stop=True) if timer is not None else None,
                 lambda:session.release() if isinstance(session,FriendsSession) else None)

@@ -97,7 +97,7 @@ def handle(s,event,sequence):
         if not same():return []
         try:
             value=storage.dto(s.account.character());value['000']=-1
-            answer=[Event(0x201,kind=0x924,payload=entry_snapshot(value))]if event.kind==0x923 else[Event(0x201,kind=0x228,payload=struct.pack('>i',-1))]if event.kind==0x227 else[Event(0x201,kind=0x226,payload=struct.pack('>iiiii',-1,0,0,0,0))]
+            answer=[Event(0x201,kind=0x924,payload=entry_snapshot(value))]if event.kind==0x923 else[Event(0x201,kind=0x228,payload=struct.pack('>i',515))]if event.kind==0x227 else[Event(0x201,kind=0x226,payload=struct.pack('>iiiii',515,0,0,0,0))]
             for reply in answer:encode_event(reply)
         except(ValueError,OverflowError):return []
         return answer if same()else[]
