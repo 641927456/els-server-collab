@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "unique_tests": 9,
+  "skipped": 0,
+  "passed_initial_cases_reused": 8,
+  "corrected_static_case_passed": true,
+  "original_fixture_error": "DungeonRun expects UUID string; initial static test supplied integer. Product unchanged by fixture correction.",
+  "master_dynamic_templates_checked": 179,
+  "corrected_child_wire_rows": 24,
+  "affected_solo_and_party_clears": 4,
+  "native_distinct_input_vectors": 6,
+  "candidate_manifest_sha256": "aeb11008d30cc269476e18d8de7c1c974081ddd5009d68b1217254b2e9e62a14",
+  "first_tested_manifest_sha256": "e11ae98b538c58f101dc4a1d2d8de21b1aa355bffb0cc08dae4cfd022c020611",
+  "metadata_only_followup_verified": true,
+  "child_native_input_qualification": true,
+  "original_native_wire_consumers_passed": true,
+  "installed_parent_inputs_match": true,
+  "candidate_installed": false,
+  "production_changes": false,
+  "natural_battle": false,
+  "changed_files": [
+    "els_server/domain/formal_npc_hp.py",
+    "els_server/data/formal_npc_hp.json",
+    "els_server/data/formal_npc_hp.manifest.json",
+    "els_server/data/boss_npc_stats.json",
+    "els_server/data/boss_npc_stats.manifest.json"
+  ],
+  "test_dependencies_excluded_from_delivery": [
+    "els_server/domain/boss_npc_stats.py",
+    "els_server/data/raid_npc_hp.json"
+  ]
+}
