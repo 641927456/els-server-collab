@@ -7,3 +7,5 @@ Use the same authenticated TLS server and signed default runtime; local IP127.0.
 本目录为精确源码归档，不激活主干根引擎，不自动部署。source-contract.json固定源码和脱敏证据。运行 python -B verify_contract.py 核SHA与语法。
 
 统一运行包按IP连接两端，账号、存档、证书各自保留。四项独立成果分别提交；最终V76源码按统一归档中的composition.json合成。未变资源从锁定签名组件取得，本目录不放第三方二进制、玩家库、凭据、原始报文或运行日志。自然GUI和实战未据协议验证冒称完成。
+
+先行V76在用户追加成果前已推送；整合后以V77向前交付，确保已发V76满足更高版本自动更新条件。仅AutoUpdate.Version从76改为77，统一运行包和其余已验UI/业务源码不变。

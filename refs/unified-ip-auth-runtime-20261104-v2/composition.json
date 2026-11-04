@@ -1,5 +1,5 @@
 {
-  "final_EXE_sha256": "9dd378476838057fd0b99fa84b2159eadd598cd57b9b61fb2afa619724a599e0",
+  "final_EXE_sha256": "a327e607a8f8d5ad2e35e5aebedf4dc25364048ba03c43b6bb003b5278a2d3b0",
   "final_runtime_sha256": "cbdfa0b3dadc8b5e2e57dc7284a89140f9773877bae682032e1f471126aa10bd",
   "original_client_changes": 0,
   "overlays": {
@@ -521,5 +521,7 @@
       "path": "resources/ui-scroll-predecessor.txt",
       "sha256": "d374a43a3834f367ebb4265d8ba6f4ff06764a0ce1715f58d05144ec5270bd64"
     }
-  ]
+  ],
+  "final_version": 77,
+  "rollforward_reason": "V76 was public before added user scope; old clients require a greater version to receive the combined update automatically"
 }
