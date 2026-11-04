@@ -1,0 +1,13 @@
+# Startup dungeon prewarm review
+
+Scope: one server file, `els_server/application.py`; eight existing immutable loaders are called in the integrated DX11 startup block before LocalAccount construction. No handlers, player qualifications, random selection, protocol, economic writes, schema or configuration are changed. Self-review using the differential-review workflow; this is not GitHub approval.
+
+Baseline: SHA-pinned installed `native-first-pickup-prewarm-20261104-v1`; application SHA `b3aec0c9911bfbdd107df0aaf5b37a768044d6b7779c12350bc14c8f6719d5ff`. Git archive history was checked using blame on commit `6f7eb9944156346688dbeadabbacdddd0247c33d`; the root source tree predates the runtime and is not the baseline. Candidate SHA is recorded in candidate-manifest.json.
+
+The eight loaders read or validate pinned static catalogs, construct the fixed scene index, and use existing process caches. Their implementations and consumers were reviewed in the preceding prewarm audit and their measured file reads/player-DB guard results remain applicable. Calls execute on the existing startup worker. Failures remain explicit and precede opening player stores. Dynamic NPC instances, gate conditions, draws, identity/ownership checks, live effects, transactions and committed receipts remain in their original paths. The change adds no per-player cache and performs no reward draw or write.
+
+Blast radius: one changed function (`Application.start`), one existing profile branch, eight explicit loader calls; effects cover every admission through that integrated profile. Other profiles retain their existing startup path. No security validation was removed. The main operational cost is additional bounded startup work and retaining catalogs that would otherwise load on the first supported request.
+
+Validation: actual startup proves all eight caches are ready before LocalAccount construction. Injecting a static fatigue-rule failure rejects startup before either player database exists. Genuine source-qualified pet pickups over the isolated TLS application complete in approximately 23.5, 12.7 and 11.9ms with cold balance verification and no worker errors. Owned test runtimes are removed and connections are zero. Unchanged transaction and routing tests from the accepted parent are reused; public installation acceptance is performed separately. These results do not claim natural GUI combat or production load testing.
+
+Findings: no actionable correctness or security issue found in the diff. Public runtime verification, backup, orderly maintenance, observation and exact QA cleanup are still required by the existing release flow.
