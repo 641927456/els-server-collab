@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "checks": [
+    "Old online entry ignores the original BD3 request; regression reproduced before dispatch fix",
+    "Native multi-selection crosses two normal bag groups; partial stack, full stack, BD4/native parser and replay pass",
+    "Excess quantity rejects the entire batch without spending or granting",
+    "Response serialization failure rolls back bag and inventory in the same transaction",
+    "Character withdraws part cube and opens its own role item; old withdrawal replay does not recreate it",
+    "Full destination bag rejects withdrawal and preserves the shared bag"
+  ],
+  "real_Application_session": true,
+  "native_sender": true,
+  "natural_GUI": false,
+  "source_files": 1,
+  "old_receipt_family_preserved": true
+}
