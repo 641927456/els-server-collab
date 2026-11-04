@@ -1,0 +1,111 @@
+{
+  "ok": true,
+  "source_files": 4,
+  "unit_cases": {
+    "investment_boundaries": {
+      "evidence": "repair-regressions-1793829256085016700.json",
+      "case": "investment_boundaries",
+      "negative_duplicate_insufficient_rejected": true,
+      "cap1000": true,
+      "rollback": true
+    },
+    "full_satiety_nutrition_and_digestive": {
+      "evidence": "repair-regressions-1793829256085016700.json",
+      "case": "full_satiety_nutrition_and_digestive",
+      "full_satiety_refill": true,
+      "medicine_replay_once": true
+    },
+    "ownership_and_all_locked": {
+      "evidence": "repair-regressions-1793829393835757300.json",
+      "case": "ownership_and_all_locked",
+      "foreign_pet_refused": true,
+      "all_locked_refused": true,
+      "no_debit": true
+    },
+    "digestive_locked_first_stack": {
+      "evidence": "repair-regressions.json",
+      "case": "digestive_locked_first_stack",
+      "locked_stack_unchanged": true,
+      "eligible_stack_consumed": true
+    },
+    "equipment_feeding": {
+      "evidence": "repair-regressions.json",
+      "case": "equipment_feeding",
+      "nutrition": 1,
+      "satiety": 4776
+    },
+    "investment_delta": {
+      "evidence": "repair-regressions.json",
+      "case": "investment_delta",
+      "replay_once": true,
+      "conflict_rejected": true,
+      "cold_saved": true
+    }
+  },
+  "unit_receipts": [
+    {
+      "path": "repair-regressions-1793829256085016700.json",
+      "sha256": "72bb0d236acc7043bf7824aaf2e9702301670a6868287705363512f1dcf9fa08",
+      "ok": true,
+      "tests": 2,
+      "errors": []
+    },
+    {
+      "path": "repair-regressions-1793829393835757300.json",
+      "sha256": "8866dd9e1a50e6c783ecb8a569f6466e08d69c535d917b16e0b7a5d1a3d7f649",
+      "ok": true,
+      "tests": 1,
+      "errors": []
+    },
+    {
+      "path": "repair-regressions.json",
+      "sha256": "c128145286a611e95086a17e0136c3b51416c73074134b84ca3505123b5c45e0",
+      "ok": false,
+      "tests": 5,
+      "errors": [
+        "__main__.Repairs.test_investment_boundary_and_rollback",
+        "__main__.Repairs.test_nutritional_refill_full_satiety_and_digestive_replay"
+      ]
+    }
+  ],
+  "earlier_fixture_errors_preserved": true,
+  "native_reader_cases": 2,
+  "native_evidence": "investment-native-proof.json",
+  "authenticated_TLS_cases": 7,
+  "TLS_evidence": "repair-v2/pet-tls-wiring-1793829843368293200.json",
+  "connections_closed": true,
+  "owned_private_directory_removed": true,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "Git_merged": false,
+  "online_installed": false,
+  "local_installed": false,
+  "source_manifest_sha256": "b997f52a6f3ccf4bfe7fa14cb845141f02cda4449ffaaf0674cf700a9b8711a3",
+  "revision": "review-v2",
+  "review_writer_wait": {
+    "candidate": true,
+    "ok": true,
+    "tests": 1,
+    "failures": [],
+    "errors": [],
+    "checks": [
+      {
+        "case": "digestive_writer_wait",
+        "expired_during_wait_not_consumed": true,
+        "eligible_stack_consumed": true
+      }
+    ],
+    "private_directory_removed": true,
+    "formal_SQL": false,
+    "natural_GUI": false
+  },
+  "review_writer_wait_evidence": "review-regressions.json",
+  "unit_case_count": 7,
+  "unit_result_reuse": "Six passing distinct v1 cases reused. Only post-lock clock changed; real writer wait regression and full authenticated TLS rerun on v2.",
+  "native_result_reuse": "Protocol bytes unchanged vs v1; original 30200C0 success/failure proof reused.",
+  "evidence_sha256": {
+    "repair-v2/pet-tls-wiring-1793829843368293200.json": "eed5465d39e932bf66704d0eda2dcdebf48fcd867c7bf590cc9be5ad12df34b1",
+    "review-regressions.json": "96b5cf7d5db050741e1fa416912f31587d86d1a10560bddd9dc596bcb40cdaa4",
+    "repair-v1/investment-native-proof.json": "74a0ae0000bea3f6a0ce2721393ba6c2624e063ce0259245450e6baf6ba2628d"
+  }
+}
