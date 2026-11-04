@@ -1,0 +1,114 @@
+{
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "runtime_parent": "native-modern-ice-cubes-points-20261104-v1",
+  "runtime_parent_manifest_sha256": "3ed7488e3381fe69320a227e0344838fb295e3a07ce33a21eee6819ed62d7bdc",
+  "delta": [
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "parent_sha256": "c57b311c3c99f78c0c461ea892ae678630d4e5114f2fe701ce3761c8dc4dc8ed",
+      "sha256": "95e581bd678bbb111ff74cec2cf4aab12f0e56f5632ab2352eaa4d20d968e451",
+      "size": 31122
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "parent_sha256": "adbb3bced2430ce4b461a3247dbf4ee73f057d293030103c33e15cb92ad75e12",
+      "sha256": "edf4a21dd2f4f10e08a59177990a795d39fc6255c1b420a67011ca4ac8ce1235",
+      "size": 35564
+    },
+    {
+      "path": "els_server/domain/luciel_dungeon.py",
+      "parent_sha256": "1a787644b554317255a93e3210b0f624bc687aac2cb3017a83bf77f4c4751bbf",
+      "sha256": "416f634c01e93ff20e142cbaa5dce729c4af36afccef022bbf47822c03e5b330",
+      "size": 6721
+    },
+    {
+      "path": "els_server/domain/known_resurrection_flow.py",
+      "parent_sha256": "cfea36162823767f6559a01420cc9d983cf87509255b2b29c33451d842a34d03",
+      "sha256": "e5417f91c1b01bf236e34601b9cec0dd52e2c2d9a02403ee95f2a3369af479c4",
+      "size": 14739
+    }
+  ],
+  "source_old_parent": "G:\\els\\releases\\online\\native-pickup-consumable-gate-20261104-v1",
+  "qualification": {
+    "candidate_files": {
+      "els_server/domain/dungeon_flow.py": {
+        "parent_sha256": "c57b311c3c99f78c0c461ea892ae678630d4e5114f2fe701ce3761c8dc4dc8ed",
+        "candidate_sha256": "95e581bd678bbb111ff74cec2cf4aab12f0e56f5632ab2352eaa4d20d968e451"
+      },
+      "els_server/domain/friends_dungeon.py": {
+        "parent_sha256": "adbb3bced2430ce4b461a3247dbf4ee73f057d293030103c33e15cb92ad75e12",
+        "candidate_sha256": "edf4a21dd2f4f10e08a59177990a795d39fc6255c1b420a67011ca4ac8ce1235"
+      },
+      "els_server/domain/luciel_dungeon.py": {
+        "parent_sha256": "1a787644b554317255a93e3210b0f624bc687aac2cb3017a83bf77f4c4751bbf",
+        "candidate_sha256": "416f634c01e93ff20e142cbaa5dce729c4af36afccef022bbf47822c03e5b330"
+      },
+      "els_server/domain/known_resurrection_flow.py": {
+        "parent_sha256": "cfea36162823767f6559a01420cc9d983cf87509255b2b29c33451d842a34d03",
+        "candidate_sha256": "e5417f91c1b01bf236e34601b9cec0dd52e2c2d9a02403ee95f2a3369af479c4"
+      }
+    },
+    "parent": "G:\\els\\releases\\online\\native-pickup-consumable-gate-20261104-v1",
+    "protocol": {
+      "file": "verification.json",
+      "sha256": "01e30d5af1ea9f03e0272d039dd07e1387c6d97c88eaefc34992a76e3f28e1af",
+      "scope": "11 GlassDoors cases all passed; the three errors in this retained run were in separate new fixtures"
+    },
+    "lifecycle": {
+      "file": "verification-033257.json",
+      "sha256": "ccf2745491514595a95346aa20ede6a54bd008e44810bd8f7c4efc8ced6dc4fd",
+      "scope": "All 9 walking/death and 2 real SQLite resurrection cases passed after final run_state type-order correction"
+    },
+    "final_unit_cases": 22,
+    "TLS_solo": {
+      "file": "tls-verification-033302.json",
+      "sha256": "8a22f0aeab26fb0bb48da33b135d283d8bc42cd334322c936a117218a7037b3c",
+      "scope": "Only its three completed solo checks qualify; the overall run later failed in the separate party fixture"
+    },
+    "TLS_party": {
+      "file": "tls-verification-033609.json",
+      "sha256": "8ff1986b5878e59e62ba772b08569b40a081182f7721edba3b37ca548b5248c2",
+      "scope": "Both party checks passed on the complete Application/TLS path, original fatigue binding and original outer BB dispatch"
+    },
+    "native": {
+      "file": "native-timer-verification.json",
+      "sha256": "549516a965b4192b158cc9ba3446fb9e481c510dc583cf724211b52e04a0567d",
+      "scenarios": 6
+    },
+    "reuse": "The solo behavior and its setup remained unchanged by the later party-only fixture corrections. Original protocol functions do not invoke the changed run_state type gate; their 11 successes are reused. No skipped case is counted.",
+    "dependencies": {
+      "els_server/application.py": "b6ea8e66b2f18fdf9321ec5233a1c771d819bec2a887e01dc0643a90656f5f0c",
+      "els_server/domain/session_dispatch.py": "fb41b45090123ced4779aa8deaa3f706f3c6d5ccffaeb9bf90b1a011777176ca",
+      "els_server/domain/friends_spawns.py": "017a5f9c72ea81b9f5587db8ef567f49c7bdf93cf4738d87ae8f159c1dadf0a6",
+      "els_server/domain/dungeon_routes.py": "c7fb9db35bd152685c448135095468a029e990e93cac11df04e35eb4774f51b0",
+      "els_server/domain/normal_fatigue_flow.py": "c59507557a8e1eafa275d77d02649560b84acaf60b3030f76c608d4fd458ca6c",
+      "els_server/storage/normal_fatigue.py": "c8bcc2546295544c292e0c3a510b9206606047b716170fa6f645b0e39e189fe1",
+      "els_server/domain/known_resurrection_maps.py": "1a7da82187fc8810a3d8fc1b8a9eafce13b9a6048669739ff64be98341b28cfe",
+      "els_server/storage/known_resurrection.py": "3dc3b940b3afcfd9398f76b5d991a32cad995586cd15cce1bbb8df0a999c0bd8",
+      "els_server/domain/apple_consumables.py": "a0bd8246ce290216f7633e89fa8ca16fa5038ba9d8479a85e736f40fec6bfa2a",
+      "els_server/domain/elixir_flow.py": "65933c44064b1fc76a9d179c92789995df3d9100a4f794deb06569114d5dcf90",
+      "els_server/protocol/dungeon_messages.py": "c64fbb9572c442f7cf97cb1888e22b76500316d86b49566a151fe53a12cdb368"
+    },
+    "test_files": {
+      "build_candidate.py": "48b94c10d3fdc2bad601298a522cf6e822c6c462d07450ee11603fa5082ac921",
+      "package.py": "a1c14c78a780696d06c88ee401f4b3f9c482e61072a9d44cd6d801540e64637c",
+      "runtime_fixture.py": "f02f5d9cca00254d8e1e0ef0685a605fdfed8d6517657d68b97bb7a83541de16",
+      "verify.py": "7742435fb3b6ca75937ee109aa4670f70d4b3c66976c77ac488b21292a6eb2b7",
+      "verify_native_timer.py": "e03022da8ece9409de1d34020c1d8800b859848f9606abbdd8ea10a99d7cfbb7",
+      "verify_tls.py": "d36a3c2c3705e992c9fd1cd473b2c3e39b3a79bb464a16eeafe6a83b14ac43e8"
+    },
+    "natural_GUI": false,
+    "deployed": false
+  },
+  "normal_party_file": "normal-party-precheck-044220.json",
+  "automatic_deployment": false,
+  "Git_merge": false,
+  "root_engine_changed": false,
+  "channels": [
+    "online"
+  ],
+  "client_delta": 0,
+  "new_schema": false,
+  "reported_single_player_activation_root_cause_confirmed": false,
+  "private_evidence": "Maintainer originals on G:/els/analysis/glass-door-20261104-v1/repair-v3; no credentials, databases, raw logs or binaries included"
+}

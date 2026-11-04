@@ -1,0 +1,245 @@
+--- a/els_server/domain/dungeon_flow.py
++++ b/els_server/domain/dungeon_flow.py
+@@ -4,6 +4,7 @@
+ from els_server.domain.clear_ed_display import amount as result_ed
+ 
+ import copy,functools,hashlib,json,math,struct,time
++from dataclasses import replace
+ from els_server.paths import PROJECT_ROOT
+ from els_server.protocol.protocol_codec import Event
+ from els_server.domain.dungeon_lifecycle import death_report,death_ack,empty_reward_death_notice,part_end_notice
+@@ -34,13 +35,24 @@
+  if (s.dungeon_run is not None and s.phase=='dungeon_active' and not s.clear_notified
+      and getattr(s,'challenge_deadline',None) is not None and time.time()>=s.challenge_deadline):return failed(s)
+  if (s.dungeon_run is None or s.phase!='dungeon_active' or not s.dungeon_substage_synced
+-     or s.part_end_notified or s.clear_notified):return []
++     or s.part_end_notified or s.clear_notified or curtain_token(s) is not None):return []
+  if getattr(s.dungeon_run,'memory1_quest_barrier',frozenset())-set(s.dungeon_run.defeated):return []
+  from els_server.domain.story_controller_retirements import gate_predecessor_blocked
+  if gate_predecessor_blocked(s.dungeon_run):return []
+  from els_server.domain.devildom1_raid2_controllers import gate_blocked
+  if gate_blocked(s.dungeon_run) or finale_boss_pending(s.dungeon_run):return []
+  if s.dungeon_run.poll_ready():
++  if s.dungeon_run.next['kind']==0:
++   # B7 opens the next sub-part without moving players. B8 reports arrival
++   # at its start line; only then may BA load it and BB/BD start its actors.
++   from els_server.protocol.dungeon_messages import initial_part
++   message=initial_part(s.dungeon_run.next['part'])
++   from els_server.protocol.protocol_codec import encode_event
++   encode_event(message)
++   # This pending transition is already copied by all prepared-death adopters.
++   # Copy the target: never mutate the source condition/catalogue dictionary.
++   s.dungeon_run.next={**s.dungeon_run.next,'curtain_opened':True}
++   return [message]
+   s.part_end_notified=True;s.dungeon_clock.pause()
+   return [part_end_notice(s.dungeon_run.part)]
+  return []
+@@ -63,6 +75,15 @@
+  raid_reply=raid_phase_solo(s,event)
+  if raid_reply is not None:return raid_reply
+  if event.kind==0xb8:
++  contact=curtain_contact(s,event)
++  if contact is not None:
++   reply=[Event(0x201,kind=0xb9,payload=bytes(4))]
++   if getattr(s,'curtain_arrival',None)!=contact:
++    reply.append(part_end_notice(contact[-1]))
++    from els_server.protocol.protocol_codec import encode_event
++    for message in reply:encode_event(message)
++    s.curtain_arrival=contact;s.part_end_notified=True;s.dungeon_clock.pause()
++   return reply
+   # Current 1044A10 -> 1117280 -> 3B6DA30 writes one part byte.
+   # B9 -> Game v600=1044B20 consumes an i32 result, removes its wait.
+   # BB/BC can advance the native part before its queued B8 is emitted.
+@@ -76,7 +97,7 @@
+          and event.payload_mode==0 and current_lease(s))
+   valid=(owned and s.dungeon_substage_synced and not s.clear_notified
+          and not getattr(s,'dungeon_failed',False) and event.payload==struct.pack('>b',run.part))
+-  # B9 invokes native CreateCurtain (1076BC0); contact is reported by 471.
++  # B9 invokes native CreateCurtain (1076BC0) for the arrived sub-part.
+   return [Event(0x201,kind=0xb9,payload=struct.pack('>i',0 if valid or owned and late else -1))]
+  if event.kind==0xad:
+   from els_server.domain.native_script_loot import accepted_death as script_reward_death
+@@ -175,6 +196,13 @@
+   from els_server.domain.hunter_chest_flow import solo_loaded
+   return reply+solo_loaded(s,event)+periodic(s)
+  if event.kind==0xbb:
++  if curtain_loaded_retry(s,event):return [Event(0x201,kind=0xbc,payload=bytes(4))]
++  curtain=curtain_token(s)
++  if curtain is not None:
++   if (not curtain_loading(s,curtain)
++       or event.payload not in (struct.pack('>b',run.part),struct.pack('>b',curtain[-1]))):return []
++   # Keep the original source cursor for fatigue and the prepared transition.
++   event=replace(event,payload=struct.pack('>b',run.part))
+   if len(event.payload)!=1:return []
+   part=struct.unpack('>b',event.payload)[0]
+   if part!=run.part or s.gate_stage_loading:
+@@ -212,11 +240,47 @@
+    reply.append(run.population_event())
+   else:
+    from els_server.protocol.dungeon_messages import initial_part,begin_substage
+-   reply.extend([initial_part(run.part),begin_substage(run.part,npc_entries=((n['key'],n['template']) for n in run.current['npcs']))])
++   if curtain is None:reply.append(initial_part(run.part))
++   reply.append(begin_substage(run.part,npc_entries=((n['key'],n['template']) for n in run.current['npcs'])))
+    s.dungeon_clock.resume();run.loaded()
+   from els_server.domain.hunter_chest_flow import solo_loaded
+   return reply+solo_loaded(s,event)+periodic(s)
+  return None
++
++def curtain_token(s):
++ run=s.dungeon_run
++ if run is None or run.next is None or run.next['kind']!=0 or run.next.get('curtain_opened') is not True:return None
++ return (run.run_id,run.stage,run.part,run.visits,run.next['part'])
++
++def curtain_contact(s,event):
++ token=curtain_token(s)
++ if token is None:return None
++ from els_server.domain.dungeon_equipment_loot_flow import current_lease
++ if (event.event_id==0x202 and event.kind==0xb8 and event.performers in ((),(0,))
++     and event.uid==event.target_uid==2**64-1 and event.payload_mode==0
++     and s.role=='game' and s.phase=='dungeon_active' and s.dungeon_substage_synced
++     and not s.clear_notified and not getattr(s,'dungeon_failed',False)
++     and current_lease(s) and event.payload==struct.pack('>b',token[-1])):return token
++ return None
++
++def curtain_loading(s,token):
++ if not s.part_end_notified:return False
++ if getattr(s,'curtain_arrival',None)==token:return True
++ app=getattr(s,'application',None)
++ if app is None:return False
++ room=app.world.dungeons.room(s)
++ from els_server.domain.known_resurrection_flow import accepted_dead
++ return bool(room is not None and room.phase=='part_end' and s in room.members
++             and accepted_dead(s,s.dungeon_run.run_id,room))
++
++def curtain_loaded_retry(s,event):
++ token=getattr(s,'curtain_arrival',None);run=s.dungeon_run
++ transition=run.completed_transition
++ return bool(token is not None and not s.part_end_notified and transition is not None
++             and transition['target']==(run.stage,run.part,run.visits)
++             and (run.run_id,run.stage,run.visits,run.part)==(token[0],token[1],token[3],token[-1])
++             and event.event_id==0x202 and event.kind==0xbb
++             and event.payload==struct.pack('>b',run.part))
+ 
+ def prepare_condition_clear(s,event):
+  # 1044750 / 1116EE0: i32 stage, i32 part, u16 zero,
+--- a/els_server/domain/friends_dungeon.py
++++ b/els_server/domain/friends_dungeon.py
+@@ -462,18 +462,70 @@
+             if r.phase!='substage':return []
+             from els_server.domain.friends_spawns import retry_late_portal
+             return retry_late_portal(self,r,s,event)
+-        # B8 creates only this connection's native curtain, even before kills.
+-        # The independent 471/BB path owns the shared room cursor.
++        from els_server.domain.dungeon_flow import curtain_contact,curtain_token
++        contact=curtain_contact(s,event)
++        if contact is not None:
++            from els_server.domain.friends_spawns import _checked_static_generation
++            from els_server.domain.party_commands import _prepared_boxes
++            from els_server.domain.dungeon_lifecycle import part_end_notice
++            try:_checked_static_generation(self,r)
++            except ValueError:return []
++            ack=Event(0x201,kind=0xb9,payload=bytes(4))
++            if getattr(s,'curtain_arrival',None)==contact:return [ack]
++            arrived=self.curtain_ready(r,s)==contact
++            notices=[part_end_notice(contact[-1])] if arrived else []
++            response=[ack,*notices]
++            boxes=_prepared_boxes([(m,notices) for m in r.members if m is not s],response)
++            s.curtain_arrival=contact
++            if arrived:
++                for m in r.members:m.part_end_notified=True;m.dungeon_clock.pause()
++            for m,box in boxes.items():m.mailbox=box
++            self.part_wait(r)
++            return response
++        # Initial/late B8 acknowledges this connection's native curtain.
++
++        # Arrival releases BA; the original BB barrier owns the shared cursor.
+         from els_server.domain.dungeon_flow import handle
+         return handle(s,event)
+ 
++    def curtain_ready(self,r,arriving=None):
++        from els_server.domain.dungeon_flow import curtain_token
++        from els_server.domain.known_resurrection_flow import accepted_dead
++        tokens=[curtain_token(s) for s in r.members]
++        token=tokens[0]
++        if token is None or any(t!=token for t in tokens):return None
++        arrivals=[s is arriving or getattr(s,'curtain_arrival',None)==token for s in r.members]
++        # At least one real contact is required; dead actors do not emit B8.
++        if any(arrivals) and all(arrived or accepted_dead(s,r.seed,r) for s,arrived in zip(r.members,arrivals)):return token
++        return None
++
+     def part_wait(self,r):
+-        if r.phase=='active' and all(s.part_end_notified for s in r.members):
++        if r.phase!='active':return
++        if not all(s.part_end_notified for s in r.members) and (token:=self.curtain_ready(r)) is not None:
++            # A member may complete AA after the last living actor arrived.
++            from els_server.domain.friends_spawns import _checked_static_generation
++            from els_server.domain.party_commands import _prepared_boxes
++            from els_server.domain.dungeon_lifecycle import part_end_notice
++            _checked_static_generation(self,r)
++            boxes=_prepared_boxes([(s,[part_end_notice(token[-1])]) for s in r.members],[])
++            for s in r.members:s.part_end_notified=True;s.dungeon_clock.pause()
++            for s,box in boxes.items():s.mailbox=box
++        if all(s.part_end_notified for s in r.members):
+             r.phase='part_end';r.deadline=time.monotonic()+45
+             from els_server.domain.pending_part_end import finish_shared
+             finish_shared(self,r)
+ 
+     def end_part(self,r,s,event):
++        from els_server.domain.dungeon_flow import curtain_token,curtain_loaded_retry
++        if s.dungeon_run is not None and curtain_loaded_retry(s,event):
++            return [Event(0x201,kind=0xbc,payload=bytes(4))]
++        token=curtain_token(s) if s.dungeon_run is not None else None
++        if token is not None:
++            from els_server.domain.dungeon_flow import curtain_loading
++            if not curtain_loading(s,token):return []
++            if event.payload==struct.pack('>b',token[-1]):
++                from dataclasses import replace
++                event=replace(event,payload=struct.pack('>b',s.dungeon_run.part))
+         part=s.dungeon_run.part if s.dungeon_run is not None else 0
+         ack=Event(0x201,kind=0xbc,payload=bytes(4))
+         if event.payload!=struct.pack('>b',part):
+--- a/els_server/domain/luciel_dungeon.py
++++ b/els_server/domain/luciel_dungeon.py
+@@ -29,9 +29,11 @@
+         or s.dungeon_end_payload is not None or getattr(s,'coop_error',None)):
+         raise ValueError('LuCiel dungeon is not active')
+     run=s.dungeon_run;refs=[]
++    from els_server.domain.dungeon_flow import curtain_token
++    walking=type(run) is DungeonRun and curtain_token(s) is not None
+     if run is not None:
+         if (type(run) is not DungeonRun or run.identity!=s.dungeon_id or run.stage!=s.gate_stage
+-            or run.next is not None or run.ready_at is not None or run.portal_requested
++            or not walking and (run.next is not None or run.ready_at is not None or run.portal_requested)
+             or type(run.part) is not int or run.part not in run.parts
+             or type(run.started_at) not in (int,float) or not math.isfinite(run.started_at) or run.started_at<0):
+             raise ValueError('LuCiel current admitted run')
+--- a/els_server/domain/known_resurrection_flow.py
++++ b/els_server/domain/known_resurrection_flow.py
+@@ -74,10 +74,25 @@
+             values.extend((member.account.uid,member.account.account_id,member.shop_session_id,state))
+         if len(generations)!=1:raise ValueError('Known resurrection peer generation changed')
+         targets=tuple(m for m in room.members if m is not s)
+-    entry=((a,a.store,getattr(a,'root',a),app,world,room,s.dungeon_run),
+-           (a.uid,a.account_id,s.shop_session_id,s.dungeon_id,epoch))
++    entry=_entry(s,epoch,room)
+     return dict(refs=tuple(refs),values=tuple(values),epoch=epoch,keys=keys,targets=targets,
+         shared=room is not None,limit=limit,entry=entry,world_stage=s.gate_stage)
++
++def _entry(s,epoch,room):
++    a=s.account;app=getattr(s,'application',None)
++    world=app.world if app is not None else None
++    return ((a,a.store,getattr(a,'root',a),app,world,room,s.dungeon_run),
++            (a.uid,a.account_id,s.shop_session_id,s.dungeon_id,epoch))
++
++def accepted_dead(s,epoch,room):
++    """Only an accepted death bound to this actor/run/world can skip B8."""
++    state=getattr(s,'known_resurrection_life',None)
++    if state is None or state['phase']!='dead' or state['epoch']!=epoch:return False
++    context=state['context']
++    if context['world_stage']!=s.gate_stage:return False
++    try:_same(context['entry'],_entry(s,epoch,room))
++    except ValueError:return False
++    return True
+ 
+ def _same(expected,current):
+     old,values=(expected['refs'],expected['values'])if isinstance(expected,dict)else expected
