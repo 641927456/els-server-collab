@@ -1,0 +1,218 @@
+{
+  "candidate_manifest_sha256": "0315ebb3d20fb74ca2791ccc3ac1f01463f1372c303963fc5d9755bc59a74ee3",
+  "files": [
+    {
+      "path": "els_server/application.py",
+      "added": 2,
+      "removed": 0,
+      "risk": "MEDIUM"
+    },
+    {
+      "path": "els_server/data/dungeon_material_loot_catalog.json",
+      "added": 130,
+      "removed": 4,
+      "risk": "MEDIUM"
+    },
+    {
+      "path": "els_server/data/formal_npc_hp.json",
+      "added": 236,
+      "removed": 0,
+      "risk": "MEDIUM"
+    },
+    {
+      "path": "els_server/data/formal_npc_hp.manifest.json",
+      "added": 1,
+      "removed": 1,
+      "risk": "MEDIUM"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.json",
+      "added": 6458,
+      "removed": 0,
+      "risk": "MEDIUM"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.manifest.json",
+      "added": 4,
+      "removed": 0,
+      "risk": "MEDIUM"
+    },
+    {
+      "path": "els_server/data/regional_drop_materials.json",
+      "added": 922,
+      "removed": 0,
+      "risk": "MEDIUM"
+    },
+    {
+      "path": "els_server/data/regional_drop_materials.manifest.json",
+      "added": 4,
+      "removed": 0,
+      "risk": "MEDIUM"
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+      "added": 5,
+      "removed": 4,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "added": 3,
+      "removed": 0,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/dungeon_material_loot_catalog.py",
+      "added": 21,
+      "removed": 9,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/fishing_bait_loot.py",
+      "added": 1,
+      "removed": 1,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "added": 3,
+      "removed": 0,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/friends_material_loot.py",
+      "added": 26,
+      "removed": 24,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/giant_misc_loot.py",
+      "added": 79,
+      "removed": 0,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "added": 6,
+      "removed": 0,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/legacy_pve_exp.py",
+      "added": 5,
+      "removed": 1,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "added": 5,
+      "removed": 0,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/ordinary_misc_loot.py",
+      "added": 139,
+      "removed": 0,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/pve_economy_flow.py",
+      "added": 4,
+      "removed": 0,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/raid_reward_items.py",
+      "added": 13,
+      "removed": 3,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/regional_drop_materials.py",
+      "added": 26,
+      "removed": 0,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/regional_material_exchange_flow.py",
+      "added": 34,
+      "removed": 0,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/domain/resonance_allocation_flow.py",
+      "added": 1,
+      "removed": 2,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/storage/characters.py",
+      "added": 8,
+      "removed": 0,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/storage/dungeon_equipment_loot.py",
+      "added": 23,
+      "removed": 5,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/storage/material_exchange.py",
+      "added": 49,
+      "removed": 0,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/storage/ordinary_misc_loot.py",
+      "added": 64,
+      "removed": 0,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/storage/purifier_exchange.py",
+      "added": 7,
+      "removed": 64,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/storage/raid_economy_state.py",
+      "added": 3,
+      "removed": 0,
+      "risk": "HIGH"
+    },
+    {
+      "path": "els_server/storage/raid_reward_actions.py",
+      "added": 4,
+      "removed": 3,
+      "risk": "HIGH"
+    }
+  ],
+  "static_resolved_callers": {
+    "els_server.storage.raid_reward_actions.open_box": [
+      "els_server/domain/raid_reward_flow.py:92"
+    ],
+    "els_server.storage.dungeon_equipment_loot.issue": [
+      "els_server/domain/dungeon_equipment_loot_flow.py:117",
+      "els_server/domain/friends_material_loot.py:270",
+      "els_server/domain/native_script_loot.py:171"
+    ],
+    "els_server.domain.ordinary_misc_loot.source": [
+      "els_server/domain/dungeon_equipment_loot_flow.py:115",
+      "els_server/domain/friends_material_loot.py:269",
+      "els_server/domain/legacy_pve_exp.py:79",
+      "els_server/domain/pve_economy_flow.py:175"
+    ],
+    "els_server.storage.raid_economy_state.prepare_batch": [
+      "els_server/domain/raid_economy_flow.py:142"
+    ],
+    "els_server.storage.material_exchange.exchange": [
+      "els_server/storage/purifier_exchange.py:8"
+    ],
+    "els_server.domain.giant_misc_loot.group_death": [
+      "els_server/domain/friends_dungeon.py:422"
+    ]
+  },
+  "history": "Runtime snapshots are not a Git checkout. Exact base/candidate SHA pins used; main history predates these dependencies, so no exact runtime git-blame claim.",
+  "self_review": true
+}
