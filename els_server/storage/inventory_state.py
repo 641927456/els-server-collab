@@ -20,7 +20,8 @@ def normalize_legacy_potion_groups(items):
  # Historical receipts remain immutable; only the known erroneous classification
  # is normalized when comparing/replaying after the audited save migration.
  return [{**i,'group':6} if i.get('template')==77000 and i.get('metadata')==2 and i.get('group')==2 else
-         {**i,'group':27} if i.get('group')==7 and TEMPLATE_BAG_GROUPS.get(i.get('template'))==27 else dict(i) for i in items]
+         {**i,'group':27} if i.get('group')==7 and TEMPLATE_BAG_GROUPS.get(i.get('template'))==27 else
+         {**i,'group':7} if i.get('group')==27 and TEMPLATE_BAG_GROUPS.get(i.get('template'))==7 else dict(i) for i in items]
 
 def migrate_fashion_bag(db):
  name='ice-heater-fashion-native-bag-27-v1'
@@ -34,6 +35,24 @@ def migrate_fashion_bag(db):
   new={**old,'group':27,'slot':slot};validate_item(new);occupied.add(slot)
   db.execute('UPDATE inventory_items SET bag_group=27,slot=? WHERE owner=1001 AND uid=?',(slot,old['uid']));changes.append({'before':old,'after':new})
  if changes:db.execute('INSERT INTO inventory_migrations VALUES (?,?)',(name,json.dumps({'changes':changes,'receipts_preserved':True},sort_keys=True)))
+
+def migrate_normal_fashion_bag(db,owner):
+ """Move misfiled ordinary fashion without replacing item or receipt rows."""
+ rows=db.execute('SELECT uid,template,slot FROM inventory_items WHERE owner=? AND bag_group=27 ORDER BY uid',(owner,)).fetchall()
+ rows=[r for r in rows if TEMPLATE_BAG_GROUPS.get(r[1])==7]
+ if not rows:return
+ from els_server.storage.bag_capacity import allowances
+ limit=allowances(db,owner)[7]
+ occupied={r[0] for r in db.execute('SELECT slot FROM inventory_items WHERE owner=? AND bag_group=7',(owner,))}
+ changes=[]
+ for uid,template,old_slot in rows:
+  slot=old_slot if old_slot<limit and old_slot not in occupied else next((n for n in range(limit) if n not in occupied),None)
+  if slot is None:raise InventoryFull('Ordinary fashion classification migration requires a free slot')
+  db.execute('UPDATE inventory_items SET bag_group=7,slot=? WHERE uid=? AND owner=?',(slot,uid,owner))
+  occupied.add(slot);changes.append(dict(uid=uid,template=template,before=[27,old_slot],after=[7,slot]))
+ load_items(db,owner)
+ name=f'ordinary-fashion-native-bag-7-v1:{owner}'
+ db.execute('INSERT INTO inventory_migrations VALUES (?,?)',(name,json.dumps(dict(changes=changes,receipts_preserved=True),sort_keys=True)))
 
 def migrate_potion_bag(db):
  name='potion-77000-accessory-to-quick-slot-v1'
@@ -49,6 +68,10 @@ def migrate_potion_bag(db):
   changes.append({'before':old,'after':new})
  load_items(db)
  db.execute('INSERT INTO inventory_migrations VALUES (?,?)',(name,json.dumps({'changes':changes,'receipts_preserved':True},sort_keys=True)))
+def owned_template(db,owner,item_uid):
+ row=db.execute('SELECT template FROM inventory_items WHERE owner=? AND uid=?',(owner,item_uid)).fetchone()
+ return row[0] if row else None
+
 def load_items(db,owner=1001):
  owner=character_uid(owner)
  items=[dict(zip(('uid','template','metadata','count','group','slot'),r)) for r in db.execute('SELECT uid,template,metadata,count,bag_group,slot FROM inventory_items WHERE owner=? ORDER BY bag_group,slot',(owner,))]
@@ -291,10 +314,10 @@ class InventoryState:
   self.path=Path(path)
   from els_server.storage.initialization_checks import read_ready,inventory_ready
   with closing(sqlite3.connect(self.path,timeout=10)) as db:
-   if not read_ready(db,inventory_ready):
+   if not read_ready(db,inventory_ready,self.uid):
     with write_transaction(db):
-     if not inventory_ready(db):
-       ensure_inventory(db);migrate_fashion_bag(db);migrate_potion_bag(db)
+     if not inventory_ready(db,self.uid):
+       ensure_inventory(db);migrate_normal_fashion_bag(db,self.uid);migrate_fashion_bag(db);migrate_potion_bag(db)
  def snapshot(self):
   from els_server.storage.read_scope import snapshot_connection
   with snapshot_connection(self.path) as db:

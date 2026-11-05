@@ -90,7 +90,8 @@ class PromotionFashionOpenTests(fixture.SaleTests):
         self.assertEqual(next(i['count'] for i in self.items() if i['uid']==item['uid']),1)
         granted=self.pieces()
         self.assertEqual({i['template'] for i in granted},set(PIECES))
-        self.assertEqual({i['group'] for i in granted},{27})
+        # Ordinary promotion fashion is group 7; only real ice fashion is 27.
+        self.assertEqual({i['group'] for i in granted},{7})
         expiries=self.expiries()
         for row in granted:
             self.assertAlmostEqual(expiries[row['uid']]-before,15*86400,delta=120)

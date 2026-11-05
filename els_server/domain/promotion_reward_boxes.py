@@ -14,7 +14,8 @@ def catalog():
  if data['policy']!=POLICY or data['client_sha256']!=CLIENT_SHA or data['catalog_sha256']!=c.manifest['catalog_sha256']or set(map(int,data['boxes']))!=BOXES:raise ValueError('Career box current client identity')
  for row in data['readers']:
   if hashlib.sha256(c.item(row['template'])['record']).hexdigest()!=row['record_sha256']or row['native_reader_ok']!=1 or row['consumed']!=304:raise ValueError('Career box native item identity')
- return data
+ from els_server.domain.fashion_inventory import native_groups
+ return dict(data,readers=native_groups(data['readers']))
 @functools.lru_cache(maxsize=1)
 def definitions():return tuple(r for r in catalog()['readers']if not r['previously_registered'])
 @functools.lru_cache(maxsize=1)

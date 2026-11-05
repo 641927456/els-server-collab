@@ -979,7 +979,7 @@ for _r in _job_box_readers():
  _t=_r['template'];_tuple=(_r['metadata'],_r['group'],_r['max_stack'])
  if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_tuple:raise ValueError('Conflicting job box output reader')
  VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_tuple
- if _r['group']==27:FASHION_EQUIP_SLOTS[_t]=FASHION_POSITIONS[_r['equip_position']]
+ if _r['group']in(7,27):FASHION_EQUIP_SLOTS[_t]=FASHION_POSITIONS[_r['equip_position']]
 
 # Current career boxes add exact original readers only; sources stay restricted.
 from els_server.domain.promotion_reward_boxes import definitions as _career_box_readers

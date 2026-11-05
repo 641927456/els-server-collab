@@ -20,7 +20,8 @@ def catalog():
         item=client.item(row['template'])
         if item['name']!=row['name'] or item['metadata']!=row['metadata'] or hashlib.sha256(item['record']).hexdigest()!=row['record_sha256']:
             raise ValueError('Owned reward box item identity')
-    return data
+    from els_server.domain.fashion_inventory import native_groups
+    return dict(data,readers=native_groups(data['readers']))
 
 def definitions():return (*catalog()['boxes'],*catalog()['readers'])
 

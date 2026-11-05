@@ -89,7 +89,7 @@ def reward_ready(db, uid):
     return True
 
 
-def inventory_ready(db):
+def inventory_ready(db,owner=1001):
     if not schema_ready(db, INVENTORY):
         return False
     row = db.execute('SELECT next_uid FROM inventory_sequence WHERE id=1').fetchone()
@@ -98,6 +98,10 @@ def inventory_ready(db):
     # The potion migration always validates owner 1001 and persists its audit,
     # even when it moves no item. Never replace that work with a done marker.
     if not db.execute('SELECT 1 FROM inventory_migrations WHERE name=?', ('potion-77000-accessory-to-quick-slot-v1',)).fetchone():
+        return False
+    from els_server.domain.inventory_items import TEMPLATE_BAG_GROUPS
+    if any(TEMPLATE_BAG_GROUPS.get(template)==7 for template, in db.execute(
+            'SELECT template FROM inventory_items WHERE owner=? AND bag_group=27',(owner,))):
         return False
     if db.execute('SELECT 1 FROM inventory_migrations WHERE name=?', ('ice-heater-fashion-native-bag-27-v1',)).fetchone():
         return True

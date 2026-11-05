@@ -26,7 +26,8 @@ def catalog():
  if {r['template']for r in source['readers']}!=NEW_OUTPUTS|{710132}:raise ValueError('Job convenience reader scope')
  for key,row in source['boxes'].items():
   if hashlib.sha256(client.item(int(key))['record']).hexdigest()!=row['record_sha256']:raise ValueError('Job convenience exact box')
- return source
+ from els_server.domain.fashion_inventory import native_groups
+ return dict(source,readers=native_groups(source['readers']))
 
 def definitions():return tuple(r for r in catalog()['readers']if r['template']in NEW_OUTPUTS)
 
