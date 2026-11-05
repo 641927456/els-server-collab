@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "name": "native_catalog_and_purchase",
+      "price_ed": 50,
+      "quantity": 1,
+      "replay_preserves_ed_and_item_uid": true
+    },
+    {
+      "name": "purchased_ticket_consumption_and_cold_read",
+      "unlocked_world": 1052,
+      "replay_after_use_does_not_restore_consumed_ticket": true
+    },
+    {
+      "name": "insufficient_ed",
+      "ed": 49,
+      "sql_unchanged": true
+    }
+  ],
+  "production_database_access": false,
+  "natural_GUI": false,
+  "source_sha256": "4a39707dbb204ea965bfc1fde875abc23276d368c0d4c2d40a678ef689db4375"
+}
