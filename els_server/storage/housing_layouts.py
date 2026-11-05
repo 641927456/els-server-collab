@@ -32,10 +32,11 @@ def save(path,owner,account,payload,operation,generation,admission,guard,*,now=N
  if preset not in(-1,0):raise ValueError('Furniture unqualified preset')
  layout=(legacy,new,grid,floor,expansion)
  if not callable(guard)or type(operation)is not str or not 1<=len(operation)<=200:raise ValueError('Furniture current writer')
- digest=hashlib.sha256(payload).hexdigest();stamp=int(time.time())if now is None else now
- if type(stamp)is not int or not 0<stamp<2**63:raise ValueError('Furniture saved time')
+ digest=hashlib.sha256(payload).hexdigest()
  with closing(sqlite3.connect(Path(path),timeout=10))as db,db:
   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');guard(db)
+  stamp=int(time.time())if now is None else now
+  if type(stamp)is not int or not 0<stamp<2**63:raise ValueError('Furniture saved time')
   from els_server.storage.item_actor import require_active_character
   require_active_character(db,owner);housing_access.owner(db,owner,account)
   access=housing_access.snapshot(db,owner,account)

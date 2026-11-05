@@ -61,9 +61,10 @@ def _put(db,guild,entries,operation):
 
 def perform(path,owner,account,kind,payload,operation,guard,*,now=None):
  if kind not in(0x50a,0x50c):raise ValueError('Guild bank original transfer kind')
- uid,quantity,target=wire.request(payload);owner,digest=_identity(owner,kind,payload,operation);stamp=int(time.time())if now is None else now;period(stamp)
+ uid,quantity,target=wire.request(payload);owner,digest=_identity(owner,kind,payload,operation)
  with closing(sqlite3.connect(path,timeout=10))as db,db:
-  db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');saved=coin.authority(db,owner,account,guard);guild=saved['id'];coin.snapshot(db,guild);_history(db,guild);entries=load(db,guild,now=stamp);before=load_items(db,owner);money=balances(db,owner);used,limit=counts(db,saved,owner,stamp);old=_previous(db,operation,digest)
+  db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');saved=coin.authority(db,owner,account,guard);stamp=int(time.time())if now is None else now;period(stamp)
+  guild=saved['id'];coin.snapshot(db,guild);_history(db,guild);entries=load(db,guild,now=stamp);before=load_items(db,owner);money=balances(db,owner);used,limit=counts(db,saved,owner,stamp);old=_previous(db,operation,digest)
   if old is not None:
    row=db.execute('SELECT request_hash,guild_id,owner,account_id,kind FROM '+ACTIONS+' WHERE operation=?',(operation,)).fetchone()if coin._exists(db,ACTIONS)else None
    if row!=(digest,guild,owner,account,kind):raise ValueError('Guild bank replay changed source')

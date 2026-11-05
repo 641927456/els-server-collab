@@ -119,7 +119,7 @@ class DecompositionTests(unittest.TestCase):
                 decompose(self.path, 1001, request(self.gear['uid']), 'encoder')
         self.assertEqual(self.dump(), before)
         for _ in range(36):
-            self.grant(135983, 99)
+            self.grant(135983, 999)
         before = self.dump()
         with self.assertRaises(ValueError):
             decompose(self.path, 1001, request(self.gear['uid']), 'full')

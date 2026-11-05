@@ -51,3 +51,7 @@ Thumbs.db
 # Local scratch and data backups
 /sync-tmp/
 els_server/data/*.bak-*
+
+# Launcher binary assets stay local (repository_guard rejects binary data)
+/launcher_online/assets/*.ico
+/launcher_online/assets/*.webp

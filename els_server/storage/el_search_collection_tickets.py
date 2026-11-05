@@ -36,13 +36,13 @@ def use(path,owner,account,payload,operation,guard,*,now=None):
     source=use_request(payload)
     owner,digest=_identity(owner,0x219,str(account).encode()+b':collection-ticket:'+payload,operation)
     if not callable(guard):raise ValueError('Collection ticket actor guard')
-    stamp=int(time.time())if now is None else now
-    if type(stamp)is not int or not 0<stamp<2**63-MAX_SECONDS:raise ValueError('Collection ticket clock')
     from els_server.storage.el_search_collection import snapshot,identity
     from els_server.storage.item_actor import require_active_character
     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
         guard(db);require_active_character(db,owner);identity(db,owner,account)
+        stamp=int(time.time())if now is None else now
+        if type(stamp)is not int or not 0<stamp<2**63-MAX_SECONDS:raise ValueError('Collection ticket clock')
         old=_previous(db,operation,digest)
         if old is None and owned_template(db,owner,source)not in catalog():return None
         state=snapshot(db,owner,account)

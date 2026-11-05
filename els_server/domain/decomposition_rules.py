@@ -21,6 +21,9 @@ def ordinary_grades():
 
 
 def reward_definition(template=701000):
+    if template == 130047:
+        from els_server.domain.ice_decomposition import reward_definition as ice_definition
+        return ice_definition()
     if template==118445:
         from els_server.domain.white_chip_decomposition import reward_definition as fragment_definition
         return fragment_definition()
@@ -48,6 +51,10 @@ def quote(item):
     from els_server.domain.white_chip_decomposition import quote as chip_quote
     special=chip_quote(item)
     if special is not None:return special
+    from els_server.domain.ice_decomposition import quote as ice_quote
+    special = ice_quote(item)
+    if special is not None:
+        return special
     if item['group'] != 1 or item['count'] != 1 or item['template'] not in definitions():
         raise ValueError('Ordinary bag equipment required for decomposition')
     row = client_data().item(item['template'])

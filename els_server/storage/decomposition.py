@@ -17,7 +17,10 @@ from els_server.domain.profession_growth import ordinary_blacksmith_xp,advance_b
 from els_server.game_data import client_data
 
 
-def decompose(path, owner, payload, operation, *, account_id=None, encode=decompose_ack, authorize=None, prepare_replay=None):
+def decompose(path, owner, payload, operation, *, account_id=None, encode=None, authorize=None, prepare_replay=None):
+    # The encoder resolves at call time: a default bound at def time ignores
+    # module-level patches and makes the failure branch unreachable in tests.
+    if encode is None:encode=decompose_ack
     uids = decompose_request(payload)
     owner, digest = _identity(owner, 0x1c0, payload, operation)
     with closing(sqlite3.connect(path, timeout=10)) as db, db:
