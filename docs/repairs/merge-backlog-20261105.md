@@ -139,6 +139,40 @@ if request.option not in (0,1):
 
 尚未做：游戏内实测（需要重启服务端加载新模块与 875 KB 读表）。
 
-## 10. 下一步
+## 9b. 已执行（2026-11-05 21:10 起，第二批）
 
-B 组剩余按玩家痛点排序：`controller-quest-gates`（1 文件，`public_controller_rules.py` 树上完全没有）→ `scroll-families`(37) → `promotion-fashion-bag`(7) → `three-activities-startup`(68) → 商城/戒指/掉落。
+| 提交 | 内容 |
+|---|---|
+| `8fd9ebf` | `980047 晋级时装（15日）宝箱` 消费端（玩家实际点不开的那个箱子） |
+| `f3cce70` | `controller-quest-gates-20261101-v1`：#688/#729 的 `public_controller_rules.py` + `rules_for` |
+| `1ca6c14` | 陈旧测试：四个职业箱已接线，不再断言「必须拒绝」 |
+| `deee6e3` | `scroll-families-20261101-v1`：22 个新模块 + 6 处改动 |
+
+### `980047`
+
+不在 245 个归档、也不在 `catalog()`；以已审阅的 `135666（7日）` 为父本，194 个职业逐条照抄，只把 `inventory_days` 7→15。详见 `promotion-15day-box-980047.md`。
+
+### `controller-quest-gates`
+
+- 归档 shipped 的是**一半**：`public_controller_rules.py`（146 条 = 135 条原公开规则 + 11 条剧情行）从来没有进过树，而 `story_controller_retirements.rules_for` 在本树任何一版里都不存在（`082e4d3` 之前就没了）。两半一起装。
+- 11 条新增行与它们替换的剧情行**逐字段相同**，只差 `quest_independent`（其中 4 条另加 `requires_native_255`）；任务列表、来源 pin、HP、graph sha、职业集合一律没放宽。
+- `rules_for` 按 `(stage,part,template,source_index)` 合并，公开行只覆盖那 11 个身份；其余 87 条剧情门禁原样保留（用例已钉住）。
+- 副作用：28 个此前只在公开表里的副本，`handle` 不再一律返回 `None`。
+- `test_laby/noah_native255_guard` 看不到这次改动：它们在 `formal_npc_hp.initialized_maximum` 就因夹具缺 `static_npc_level` 报错（合并前后各 23 个 error，集合完全一致）。新增的 `tests/test_public_controller_rules.py` 9 项改为钉住新契约。
+
+### `scroll-families`
+
+- 22 个文件「缺失或仍是合约里的父版」，逐个核对 `source-contract.json` 的 sha256 后整文件写入；8 个漂移文件逐个判断。
+- 取：`enhancement_scroll` 改为从 `owned_scroll_families` 取家族（44 条）、`wisdom_potions` 双端升级为「普通经验道具」（37 条贤者/等级卷轴 + 数量、剩余堆叠回执、整级目标）、`equipment_receipt_state` 加三个回执种类（保留 `0x8ad`/`0x8b9`，取并集）、`session_dispatch` 只加四个钩子（`artifact_flow.handle_consumable` 置首，其次 trait reset、challenge scroll，排在 wisdom potions 之前）。
+- 不取：`domain/identification_ui.py`（依赖 `identification_ui.json` 的 `975267cf…`，本树是 `c3e9be1f…`，归档也没带新表，装上就会 `Identification source changed`；`storage/identification_ui.py` 一并回退）、`domain/inventory_items.py`（另一棵树的全量快照，会删掉 `0x395` 衣柜字段并引入六组别的功能）、`storage/wardrobe.py`（归档删掉本树的 `13890C0` 重放，树更新）。
+- 未验证：归档自带的 15 组隔离检查需要 qualified runtime，本机跑不了；`--check`、导入体检（21 个模块）、34 个箱子用例、挑战状态/神物戒指/晋级箱覆盖均通过。
+
+## 10. 下一步（更新）
+
+1. **`scroll-families` 实测**：重启后逐个卷轴点一次（强化卷轴 / 祝福复原 / 贤者 / 炼制 / 挑战初始化），确认扣物与回执。
+2. **`identification_ui.json`（`975267cf…`）**：`native_templates`/`native_pools` 那份表不在任何归档里，要从持有该表的运行端取；拿到后 `domain/identification_ui.py` + `storage/identification_ui.py` 才能装。
+3. B 组剩余：`promotion-fashion-bag`(7) → `three-activities-startup`(68) → 商城/戒指/掉落（后者多数已在树内）。
+4. A 组：`native-guild-reviewed`(109)、`native-independent-closures-v4`(62)、`native-photo-zone`(22)、四个写锁类。
+5. C 组 `pve-experience`(9)。
+6. 注意：本仓库当前**有另一个会话在并发编辑** `quest_flow.py` / `el_search_collection*`（收集册 52700 登陆恢复）。提交时务必按路径 `git add`，不要 `git add -A`。
+
