@@ -144,7 +144,10 @@ def maintenance(path,*,now=None):
             AND expired_at IS NULL AND expires_at<? LIMIT 1''',(now,)).fetchone()
         from els_server.storage.online_title_mail_scope import has_due
         if not due and not item_due and not has_due(db,now):return 0
-        db.execute('BEGIN IMMEDIATE');return expire_due(db,now)
+        # The cheap check above may only under-report, so it stays valid. The
+        # sweep itself re-samples under the lock, otherwise mail that expired
+        # while this connection waited is skipped until the next cycle.
+        db.execute('BEGIN IMMEDIATE');return expire_due(db,int(time.time()) if now is None else now)
 
 
 def send(path,account,uid,request,operation,encode,*,now=None):

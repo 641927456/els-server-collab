@@ -63,9 +63,13 @@ def perform(path,owner,account,payload,operation,*,prepare,now=None):
     if type(payload)is not bytes or len(payload)!=29:raise ValueError('Challenge scroll request size')
     uid,count,a,b,n,flag=struct.unpack('>QQiiIB',payload)
     if not 0<uid<2**63 or count not in(0,1)or a or b or n or flag not in(0,1):raise ValueError('Challenge scroll single-use fields')
-    owner,digest=_identity(owner,0x219,payload,operation);now=int(time.time())if now is None else now
+    owner,digest=_identity(owner,0x219,payload,operation)
     with closing(sqlite3.connect(path,timeout=10))as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');require_owner(db,owner,account);require_active_character(db,owner);prepare(db)
+        # Sample after the lock and the identity recheck: a scroll that expires
+        # while queued must not open a challenge, and the new deadline has to
+        # start from the moment this request actually owns the write lock.
+        now=int(time.time())if now is None else now
         old=_previous(db,operation,digest);before=load_items(db,owner)
         if old is not None:
             saved=db.execute('SELECT category FROM challenge_scroll_resets WHERE operation=? AND owner=?',(operation,owner)).fetchone()

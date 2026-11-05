@@ -69,14 +69,16 @@ def gm_campaign(path,campaign,recipients,*,ed,title,body,sender='GM',now=None):
         raise MailError('Invalid ED grant')
     title=_text(title,80);body=_text(body,2000);sender=_text(sender,24)
     recipients=sorted(recipients)
-    now=int(time.time()) if now is None else now
-    if type(now) is not int or not 1<=now<2**31:
-        raise MailError('Invalid mail timestamp')
     plan=json.dumps(dict(ed=ed,title=title,body=body,sender=sender),ensure_ascii=True,sort_keys=True)
     digest=hashlib.sha256(plan.encode()).hexdigest()
     ids=json.dumps(recipients,separators=(',',':'))
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.execute('BEGIN IMMEDIATE');ensure(db)
+        # Sample under the lock so created_at/expires_at describe the moment the
+        # campaign is actually written rather than the moment it started waiting.
+        now=int(time.time()) if now is None else now
+        if type(now) is not int or not 1<=now<2**31:
+            raise MailError('Invalid mail timestamp')
         old=db.execute('SELECT payload_sha256,recipients_json FROM gm_mail_campaigns WHERE campaign=?',(campaign,)).fetchone()
         if old is not None:
             if old!=(digest,ids):raise MailError('Campaign retry conflicts with original grant')

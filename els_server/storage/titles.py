@@ -85,11 +85,14 @@ def use_item(path,uid,payload,operation_id,now=None):
     from els_server.domain.item_expiration import require_current
     item_uid=use_request(payload);uid=character_uid(uid)
     if not isinstance(operation_id,str) or not 1<=len(operation_id)<=160:raise ValueError('Title operation identity')
-    now=int(time.time()) if now is None else now
-    if type(now) is not int or not 0<=now<2**40:raise ValueError('Title clock')
     digest=hashlib.sha256(str(uid).encode()+b':'+payload).hexdigest()
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.execute('BEGIN IMMEDIATE');c=character(db,uid)
+        # The clock starts once the write lock is ours; an item that expires
+        # while this request waits must not still be consumed, and the granted
+        # period has to run from the accepted moment.
+        now=int(time.time()) if now is None else now
+        if type(now) is not int or not 0<=now<2**40:raise ValueError('Title clock')
         if exists(db,'title_item_receipts'):
             old=db.execute('SELECT request_hash,owner,bag_group,slot,title FROM title_item_receipts WHERE operation_id=?',(operation_id,)).fetchone()
             if old:

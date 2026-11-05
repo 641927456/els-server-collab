@@ -12,11 +12,15 @@ def action(path,owner,account,payload,operation,*,now=None):
     if not isinstance(operation,str):raise ValueError('Essence operation identity')
     operation='ordinary-essence:'+operation;owner,digest=_identity(owner,0x460,payload,operation)
     if type(account) is not int or not 0<account<2**63:raise ValueError('Essence account')
-    epoch=int(time.time()) if now is None else now
-    if type(epoch) is not int or not 0<=epoch<2**40:raise ValueError('Essence epoch')
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
-        character=_character(db,owner,account);old=_previous(db,operation,digest);items=load_items(db,owner)
+        character=_character(db,owner,account)
+        # Re-sample once the lock is held: the eligibility check below rejects
+        # expired items, and a stale sample would admit one that expired while
+        # this request was queued.
+        epoch=int(time.time()) if now is None else now
+        if type(epoch) is not int or not 0<=epoch<2**40:raise ValueError('Essence epoch')
+        old=_previous(db,operation,digest);items=load_items(db,owner)
         if old is not None:
             if db.execute('SELECT owner,kind FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()!=(owner,0x460):raise ValueError('Essence retry owner/kind')
             from els_server.domain.fashion_state import move_ack
