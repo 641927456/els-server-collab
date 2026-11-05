@@ -274,3 +274,26 @@ if request.option not in (0,1):
   `_refile.sqlite3`(23:49:03) / `_filing.sqlite3`(23:47:13) 为同尺寸工作副本 →
   **refile 类工具在 23:47-23:50 用旧快照回写了 `development.sqlite3`**，把注册和已消耗的书一起冲回。
   需要先停掉这类工具再复测，否则每次结果都会被还原。
+
+## 12. 已执行（2026-11-06 00:30~01:00 第二批）
+
+| PR | 内容 | 落地方式 | 验证 |
+|---|---|---|---|
+| #879 | 冰装分解固定 45 个未鉴定艾尔结晶(130047) | 新 `domain/ice_decomposition.py`（46 行）+ `decomposition_rules` 两处钩子；走既有 0x1C0 事务 | 真实库存 10 件全部报价 45；DB 副本端到端 2 件 → 90 个，回执写入 |
+| #869 | 家具保存写锁后核对家园到期 | `housing_layouts.save` 的 `stamp` 移进 BEGIN IMMEDIATE/guard 之后 | 与归档 source 逐行一致 |
+| #874 | 协同票券写锁后核对期限 | `el_search_collection_tickets.use` 同上 | 同上 |
+| #872 | 邮件写锁后核对到期 | `game_mail.read/claim/delete` 三处 `now` 移进事务 | 邮件三套测试全绿 |
+| #873（部分） | 公仓写锁后核对到期 | `guild_bank_items.perform` 的 `stamp` 移进事务 | — |
+| #771（分解部分） | `decompose` 编码器改为调用时解析 | `encode=None` + 函数内兜底 | `test_full_material_bag_and_encoder_failure_roll_back_equipment` 由红转绿 |
+
+前置核对：#879 需要的 `role_ice_catalog()`（11537 条 group27）、130047 登记（verified=2/group4/999）、`item_deadline()` 本树全都在，所以只新增 1 个文件。
+
+未装及原因：
+
+- **#873 的宠物远征两文件**（`pet_expedition_flow.py` / `pet_expedition.py`）：本树没有任何 `pet_expedition` 调用点，宿主（market-progress 父树）不在，装了是死代码。
+- **#875 成长指南箱**（`growth_guide_boxes.py`）：同上，宿主缺失。
+- **#877/870 公会全量**（46 新文件 + 59 处合并）：动 `local_session.py`/`session_dispatch.py`，必须逐 hunk 三方合并，单独一轮。
+- **#871/868 摄影棚、#880 玩家交易、#881 聚合**：都要第二个人进服才看得见效果，且 #881 内含 #879 与 #880 子集，冲突面大。
+- **#876/#867**：归档里没有源码差异，不需动。
+
+既有失败（非本次引入，已用 stash 验证）：`test_bag_capacity` 2 项（六件/七件扩容夹具仍是旧 350→300 ED 口径）、`test_force_guild_contract` 1 项。
