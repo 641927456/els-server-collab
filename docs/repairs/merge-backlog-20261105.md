@@ -191,6 +191,21 @@ if request.option not in (0,1):
 - 仍未取的大件：`abyss_weapon_2026`（7 文件）、`quick_start`（5 文件），以及 `careers`(719707 大师转职映射)、`decomposition_rules`/`paid_enhancement`(深渊武器排除)、`first_story_entry`(快速开始参与判定) 这几处钩子。
 - 既有失败（与本次无关，HEAD 上一致）：`test_item_expiration.test_move_preserves_uid_deadline_and_periodic_notices` 期望只有 `[0x1c6]`，实际多出 `0xc23`/`0x214`；`test_inventory_rewards.py` 模块级断言「满包必须拒绝」因背包扩容失效；`test_fashion_bundles` 一次建 15 个角色撞每日 4 个上限。
 
+## 9d. 已执行（2026-11-05 21:55 起，第四批：百宝袋）
+
+| 提交 | 内容 |
+|---|---|
+| `079391e` | `modern-ice-sale-window` + `cubes-points` + `cube-native-open` + `withdraw-request` 四连：挫宝机奖励进百宝袋，BD3 领取 |
+
+**根因**：百宝袋（挫宝机奖励袋）整块功能从来没有进过树——`els_server/domain/modern_ice_flow.py` 连文件都不存在。玩家点「领取」时原生发的是 **0xBD3**，旧服务端把 **0xBD4**（回包）当请求入口，所以请求根本没进提取事务；同时挫宝机奖励走的是 `ice_state.draw` 的旧路径，直接塞进背包，百宝袋永远是 0/400。
+
+- 7 个新增文件：`data/modern_ice.json`(995KB，154 机器 / 720 箱子 / 874 定义)、`domain/modern_ice.py`、`domain/modern_ice_flow.py`、`protocol/modern_ice_messages.py`、`storage/modern_ice.py`、`domain/ice_rules.py`、`protocol/ice_messages.py`（后两个是「树正好停在父版本」，可整文件装）。
+- 手改 6 处：`domain/local_session.py`（BD3 分发、现代容器预览/路由、冰装预览与抽取的百宝袋快照、登录 BD8 恢复）、`storage/ice_state.py`（现代机器入袋 + 积分累积）、`application.py`（code529 期间表）、`protocol/activity_2026_entries.py`（`periods`）、`storage/equipment_receipt_state.py`（`0xbd4`）、`domain/cubes.py`、`storage/fixed_cubes.py`、`domain/inventory_items.py`（874 条模板注册）。
+- **0xBD6 是共用操作码**：树里它是背包整理，归档里它是百宝袋整理。`handle` 先判 `s.ice_test`，没有冰装子系统就 `return None` 让回老的背包提供者，避免抢包。
+- **账号作用域**：`modern_ice_bag.account_id` 非空，所以 `ice_state.draw` 只有在调用方给了账号身份时才入袋；不给（测试/工具直连）仍走 owner-local 分配。生产路径由 `selected(self)` 保证一定给。抽取分支也按「该机器是否属于现代家族」分流，老机器行为完全不变。
+- **不需要迁移**：`modern_ice_points` / `modern_ice_bag` 由 `ensure(db)` 首次使用时建表，`bag_items`/`point_balance` 都带 `exists()` 守卫。
+- 既有失败（HEAD 上同样失败，非本次引入）：`test_ice_draw`（'last' 重放不等）、`test_shop_ice_flow`、`test_role_ice`、`test_consumable_actor_lifecycle_current`、`test_native_ice_catalog`（`len(POOLS)==137` 与现代机器数不符）。`test_ice_session` 改用老机器 `163362` 保持路由覆盖，另新增 `tests/test_modern_ice_bag.py`（10 项）证明入袋、重放不重复发、BD3 提取回背包、BD4 不是请求入口、坏 payload 回 -1。
+
 ## 10. 下一步（更新）
 
 1. **重启后实测**：`980047`（玩家点了 4 次都 `code=-1` 的那个）、四个 Boost 箱子、各卷轴家族（强化 / 祝福复原 / 贤者 / 炼制 / 挑战初始化）。以上全部只在本机临时存档验证过，没有一次是真的客户端点开。
