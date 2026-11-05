@@ -1,0 +1,40 @@
+{
+  "ok": true,
+  "frozen_v1_untouched": true,
+  "v2_binding_sha256": "22649fd63e58e43fb68af6eb77659920b8dcd48c0cfcbb6caa5f43149eb44fc1",
+  "review_scope": "Only native social preference input/restore and mentor recipient refusal; prior finite business paths unchanged",
+  "findings_fixed": [
+    "Original2F ten option bytes were all zero, so untouched native21ADE50 automatically rejected mentor invitations before consent",
+    "Native167 previously had no persistence/168 response; now validates, saves atomically, replies with actual ten bytes and restores on cold selection",
+    "Server now refuses new mentor invitations to recipients whose saved index7 is disabled"
+  ],
+  "new_lazy_tables": [
+    "native_social_settings"
+  ],
+  "install_DDL_statements": 0,
+  "reuse": {
+    "previous_review_sha256": "322894312f3ead8d142f1fd47207bdcd6a5929a699d95439c23550419299c165",
+    "unchanged_business_tests_reused": true,
+    "related_relation_TLS_replaced_with_extended_v2_scenario": true,
+    "changed_common_functions": [
+      "FriendsSession._shared_request only167 route",
+      "LocalSession character selection only preference read/forward",
+      "optional_player_initializations only2F offsets8..17",
+      "Mentors._invite only recipient saved index7 eligibility"
+    ]
+  },
+  "new_tests": [
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\mentor-v1\\social-settings-native-1793917236428954500.json",
+      "sha256": "bacd9fb4c80ed9a81836218887f029bb7f00493cee691e64ed3a2335b6c18a94",
+      "ok": true
+    },
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\mentor-v1\\social-settings-tls-1793917244974160500.json",
+      "sha256": "d09b0ceec6280fec0fc34a908d00fe1fe9018c59fc25ec37fe37cb185f976346",
+      "ok": true
+    }
+  ],
+  "native_Game_qualification_pending": true,
+  "installed": false
+}

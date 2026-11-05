@@ -1,0 +1,30 @@
+{
+  "ok": true,
+  "checks": [
+    "Cross-town setup via actual225/227; outsider and forged destination denied; native71D consent refusal leaves both saved positions unchanged",
+    "Frozen consent echo mismatch and late720 encoding failure preserve the original pending consent, phase and saved positions",
+    "Original720 and723 success; wrong next225 denied; exact225/227 saves arrival and publishes membership; late consent cannot teleport again; no ED/XP/relation mutation",
+    "Explicit expired server consent lease and real recipient disconnect free both pending participants and report native723 refusal"
+  ],
+  "private_authenticated_TLS": true,
+  "native_game": false,
+  "natural_GUI": false,
+  "qualification_objectives_are_explicit_fixture": true,
+  "production_database_access": false,
+  "source_files": {
+    "application.py": "512e27347218a03261267c62f3ccd6f282d664d28e62d6be47e0b8b3938bb816",
+    "domain/friends_world.py": "27fc39206710eda71d52f04bb8edb3aff05c680b71be2c53fcaedd535a6c0589",
+    "domain/local_session.py": "6620de2fc87d56a6a36110da866b52a460dfa545e19940e29a306403025088e4",
+    "domain/mentor_flow.py": "b51d14b834bc7f3029a9ae94a3b74029b385afac571a161981fb2bb0b795651d",
+    "domain/mentor_summon.py": "0e46fafa117370a900d3fe9afc16d5c4dc66eaeb27aa519117902329456e37bf",
+    "protocol/mentor_messages.py": "eaf389211d25e8b69713a24ec64e736266daad6d22408e3c419d2f745a45fdc1",
+    "storage/character_lifecycle.py": "6633e7d2eeb1c5c185e079f801e6e163a621101e779eee35aea50ecda6c099f2",
+    "storage/mentor45000_scope.py": "577e50b52ecf0434fcbe972348f3cb8433e05d3c98a1ef96ce9e80207c463ae3",
+    "storage/mentor_relations.py": "d5856fc7cd418a7124d97901abaf6a9763ae66216942d1d89e3c1d784a01f8a4",
+    "storage/player_mail.py": "30eadeea7224b7d0d2880e58e83c11295e0bb104b862683e8e686c9099cad913"
+  },
+  "foundation_sha256": "ef90c2674aa41528427b2d92385c73f39851a465a942610fb599acaa903086de",
+  "explicit_destination_level_and_clear_fixture": true,
+  "worker_errors": [],
+  "owned_directory_removed": true
+}
