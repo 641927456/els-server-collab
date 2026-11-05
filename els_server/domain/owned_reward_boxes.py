@@ -4,8 +4,8 @@ from pathlib import Path
 from types import MappingProxyType
 from els_server.game_data import client_data,CLIENT_SHA
 
-BOXES=frozenset((117542,135666,135871,723618,723687,723688,980047))
-DATA_SHA='c1b55066193f932808fdf78b555905cf838ab17f3fce2e2e0609a5552e43a98e'
+BOXES=frozenset((117542,135666,135871,723618,723619,723620,723621,723634,723687,723688,980047))
+DATA_SHA='0a5b6eb66f6f20585c19fe2ae439d1f8feba40f934bba7b6cd69368c0e3c6d0b'
 
 @functools.lru_cache(maxsize=1)
 def catalog():
@@ -31,7 +31,7 @@ def entries():
 
 def outputs_for(template,character):
     row=next(r for r in catalog()['boxes']if r['template']==template)
-    if template in(117542,723618):return tuple(row['class_outputs']['0'])
+    if '0' in row['class_outputs']:return tuple(row['class_outputs']['0'])
     from els_server.domain.character_rules import validate_career_state
     validate_career_state(character)
     outputs=row['class_outputs'].get(str(character['unit_class']))

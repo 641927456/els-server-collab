@@ -22,10 +22,12 @@ def date_string(value):
 
 
 def expired(item,*,now=None):
-    if 'expires_at' not in item:return False
+    from els_server.domain.boosting_2026_item_policy import item_deadline
+    deadline=item_deadline(item)
+    if deadline is None:return False
     now=int(time.time()) if now is None else now
     if type(now) is not int or now<0:raise ValueError('Invalid expiration clock')
-    return now>validate(item['expires_at'])
+    return now>validate(deadline)
 
 
 def require_current(item,*,now=None):

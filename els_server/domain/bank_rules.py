@@ -42,6 +42,9 @@ def require_storable(item,group):
     if client_data().item(item['template'])['flags4'] & 32:
         raise ValueError('Original item definition forbids bank storage')
     if group==16:
+        from els_server.domain.boosting_2026_item_policy import EVENT_ITEMS
+        if item['template'] in EVENT_ITEMS:
+            raise ValueError('Combat boost event items cannot enter shared bank')
         from els_server.domain.item_locks import require_unlocked
         require_unlocked(item)
         # Quest ownership and character-only entitlement handlers cannot be

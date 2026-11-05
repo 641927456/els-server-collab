@@ -10,11 +10,15 @@ def exists(db):
 
 
 def attach(db,items,owner):
-    if not exists(db):return items
-    owned={i['uid']:i for i in items}
-    for uid,deadline in db.execute('''SELECT e.item_uid,e.expires_at FROM item_expiration e
-        JOIN inventory_items i ON i.uid=e.item_uid WHERE i.owner=?''',(owner,)):
-        if uid in owned:owned[uid]['expires_at']=validate(deadline)
+    if exists(db):
+        owned={i['uid']:i for i in items}
+        for uid,deadline in db.execute('''SELECT e.item_uid,e.expires_at FROM item_expiration e
+            JOIN inventory_items i ON i.uid=e.item_uid WHERE i.owner=?''',(owner,)):
+            if uid in owned:owned[uid]['expires_at']=validate(deadline)
+    from els_server.domain.boosting_2026_item_policy import item_deadline
+    for item in items:
+        deadline=item_deadline(item)
+        if deadline is not None:item['expires_at']=validate(deadline)
     return items
 
 
@@ -41,18 +45,25 @@ def remove_due(path,owner,*,now=None,prepare_refresh=None,prepare_remaining_refr
     owner=character_uid(owner);now=int(time.time()) if now is None else now
     if type(now) is not int or now<0:raise ValueError('Invalid expiration clock')
     from els_server.storage.read_scope import snapshot_connection
+    from els_server.domain.boosting_2026_item_policy import EVENT_ITEMS,deadline
+    def due_ids(db):
+        due=set()
+        if exists(db):
+            due.update(r[0] for r in db.execute('''SELECT e.item_uid FROM item_expiration e
+                JOIN inventory_items i ON i.uid=e.item_uid WHERE i.owner=? AND e.expires_at<?''',(owner,now)))
+        # Legacy event rows predate explicit instance deadlines. Read them in
+        # the same expiry transaction; never rewrite immutable old receipts.
+        if now>deadline():
+            due.update(uid for uid,t in db.execute('SELECT uid,template FROM inventory_items WHERE owner=?',(owner,))if t in EVENT_ITEMS)
+        return due
     with snapshot_connection(path) as probe:
         probe.execute('BEGIN')
-        if not exists(probe):return []
-        if not probe.execute('''SELECT 1 FROM item_expiration e
-            JOIN inventory_items i ON i.uid=e.item_uid
-            WHERE i.owner=? AND e.expires_at<? LIMIT 1''',(owner,now)).fetchone():return []
+        if not due_ids(probe):return []
     # A positive preview never supplies authority: re-read current deadlines
     # and exact owned inventory after taking the unchanged writer lock.
     with closing(sqlite3.connect(path,timeout=10)) as db:
         with write_transaction(db):
-            due={r[0] for r in db.execute('''SELECT e.item_uid FROM item_expiration e
-                JOIN inventory_items i ON i.uid=e.item_uid WHERE i.owner=? AND e.expires_at<?''',(owner,now))}
+            due=due_ids(db)
             if not due:return []
             owned=load_items(db,owner)
             items=[i for i in owned if i['uid'] in due]
