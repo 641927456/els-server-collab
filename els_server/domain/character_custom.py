@@ -15,7 +15,12 @@ DATE2='2050-01-01 00:00:00'
 SLOT_TYPES={1:1,10:1,11:1,12:1,2:2,3:3,4:3,5:3,6:3,15:15,16:16,7:7,8:7,13:7,14:7,
             19:19,20:20,21:20,22:20,23:20,24:24,25:24,26:24,27:24,28:28}
 FACE_UNITS=frozenset({1,2,3,4,5,6,7,8,9,11,12,13,14,15})
-COUNTS={1:52,2:321,7:85,24:71,3:61,15:46,16:9,19:39,20:56,28:12}
+# Every playable unit shares the same native CharCustomData families; the
+# per-book character restriction is carried by the item record (raw[210]),
+# so the catalog admits all units and the use path enforces the record.
+ALL_UNITS=frozenset(range(1,16))
+COUNTS={1:855,2:321,3:289,7:1502,15:46,16:9,19:39,20:56,24:71,28:12}
+BOOK_COUNT=3200
 # Families whose producers exist only in the native CharCustomData table; no
 # verified bag book can grant them, so they admit direct registration alone.
 NATIVE_ONLY_FAMILIES=frozenset((3,15,16,19,20,28))
@@ -24,7 +29,7 @@ FREE_EMOTES=frozenset({17000,17033,17034,17035,17036})
 @functools.lru_cache(maxsize=1)
 def catalog():
     data=json.loads((Path(__file__).parents[1]/'data/character_custom_permanent.json').read_text(encoding='utf8'))
-    if (data['client_sha256']!='6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709' or len(data['books'])!=752
+    if (data['client_sha256']!='6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709' or len(data['books'])!=BOOK_COUNT
         or data['free_emote_ids']!=sorted(FREE_EMOTES)):
         raise ValueError('Permanent custom catalog identity')
     from els_server.domain.inventory_items import VERIFIED_TEMPLATES,TEMPLATE_BAG_GROUPS
@@ -34,7 +39,7 @@ def catalog():
     for r in data['books']:
         if (type(r['book']) is not int or type(r['custom_id']) is not int or r['book'] in rules
             or r['type'] not in COUNTS or r['slot']!=r['type']
-            or r['unit_type'] not in (FACE_UNITS if r['type']==2 else {1})):
+            or r['unit_type'] not in (FACE_UNITS if r['type']==2 else ALL_UNITS)):
             raise ValueError('Permanent custom catalog qualification')
         if r.get('native_only'):
             # The producer exists only in the native table; pin it to the live
@@ -47,7 +52,8 @@ def catalog():
         elif (r['book'] not in VERIFIED_TEMPLATES or TEMPLATE_BAG_GROUPS[r['book']]!=4):
             raise ValueError('Permanent custom catalog qualification')
         rules[r['book']]=r
-    if (len({r['custom_id'] for r in rules.values()})!=752
+    if (len({r['custom_id'] for r in rules.values()})!=BOOK_COUNT
+        or len(rules)!=BOOK_COUNT
         or {t:sum(r['type']==t for r in rules.values())for t in COUNTS}!=COUNTS
         or {0,*FREE_EMOTES,*free_catalog().values()}&{r['custom_id']for r in rules.values()}):raise ValueError('Permanent custom ID ambiguity')
     return rules
@@ -89,11 +95,15 @@ def free_ids(unit_class,slot=1):
     from els_server.domain.careers import PARENTS
     from els_server.domain.character_rules import CLASSES
     if slot==2:return set()  # No face free/default producer admitted.
-    if unit_class not in free_catalog():raise ValueError('Elsword custom career identity')
     family=selection_type(slot)
     if family==7:return {0}
     if family==24:return set(FREE_EMOTES)
     if family in NATIVE_ONLY_FAMILIES:return {0}
+    if unit_class not in free_catalog():
+        # Careers outside the reviewed Elsword free-motion table (Eve, Ain,
+        # Laby and the rest) have no producer for a free default row, so only
+        # the native current-career default ID 0 stays selectable.
+        return {0}
     values={0};seen=set();current=unit_class
     for _ in range(CLASSES[unit_class]['stage']):
         if current in seen:raise ValueError('Custom career ancestry cycle')
@@ -225,7 +235,17 @@ def handle(s,event,sequence):
         return [acknowledgement(result=-1)]
 
 def require_admitted(s):
-    if not admitted(s):raise ValueError('Custom book requires current DX11 town game lease')
+    if admitted(s):return
+    # The client renders nothing when a book use is refused, and this same
+    # admission also gates the panel, so record which clause refused it.
+    from els_server.domain.dungeon_equipment_loot_flow import current_lease
+    try:lease=bool(current_lease(s))
+    except Exception:lease='ERR'
+    _trace('book not admitted build=%r item_test=%r role=%r phase=%r characters=%r store=%r lease=%r'%(
+        getattr(s,'client_build',None),getattr(s,'item_test',None),getattr(s,'role',None),
+        getattr(s,'phase',None),getattr(getattr(s,'account',None),'characters',None) is not None,
+        getattr(getattr(s,'account',None),'store',None) is not None,lease))
+    raise ValueError('Custom book requires current DX11 town game lease')
 
 def restored(character):
     from els_server.protocol.character_custom_messages import selected_notice

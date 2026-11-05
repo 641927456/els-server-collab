@@ -626,7 +626,14 @@ def validate_item(item):
   from els_server.domain.fishing_equipment import accepts_equipped as life_equipped
   equipped=life_equipped(item)
  from els_server.domain.bag_capacity import wire_limit
- bag=item['group']==TEMPLATE_BAG_GROUPS[item['template']] and 0<=item['slot']<wire_limit(item['group'])
+ # Bag7 is the ordinary avatar page and bag27 the cash/ice one, decided by the
+ # template's flags8&256. A read must tolerate a piece filed on the sibling page
+ # because older saves and older move code left them there, and refusing the row
+ # made the whole inventory unloadable; every write path files the piece on its
+ # own page instead (storage/wear_moves.py swap_slot + storage/bag_filing.py).
+ _native=TEMPLATE_BAG_GROUPS[item['template']]
+ if item['template'] in FASHION_EQUIP_SLOTS and _native in (7,27) and item['group'] in (7,27):_native=item['group']
+ bag=item['group']==_native and 0<=item['slot']<wire_limit(item['group'])
  if not 1<=item['count']<=TEMPLATE_MAX_STACKS[item['template']] or not (equipped or bag):raise ValueError('Invalid local inventory count/slot')
  result=dict(item)
  if 'cartridge'in item:

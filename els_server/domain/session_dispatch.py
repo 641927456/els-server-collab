@@ -81,11 +81,181 @@ def _wire_debug(event,sequence):
     except Exception:pass
 
 
+def _wear_dbg(text):
+    import os,time
+    try:
+        path=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),'state','wear-debug.log')
+        with open(path,'a',encoding='utf-8') as handle:handle.write(time.strftime('%H:%M:%S ')+text+'\n')
+    except Exception:pass
+
+
+# Native104 bag-only rearrangement is not avatar wearing and keeps its own
+# storage module; 24 is the artifact path with its own result codes.
+_WEAR_BAG_ONLY=frozenset((2,3,4,5,6,21))
+# Every phase the original client lets the avatar panel be used in.
+_WEAR_PHASES=frozenset(('town_ready','field_active','dungeon_active'))
+
+
+def _inventory_notice(notice):
+    """Absolute inventory rows for cells a wear move rewrote.
+
+    The105 vector is matched against the request, so a cell that changed without
+    being asked about (the outgoing piece relocating to its own avatar page)
+    leaves the client holding a phantom there and the next click on it resolves
+    to nothing. 0xD3 is the plain inventory updater the pickup path already
+    uses: same DD46E0 rows, applied by position, no request matching.
+    """
+    import struct
+    from els_server.protocol.protocol_codec import Event
+    from els_server.domain.inventory_items import inventory_payload
+    from els_server.domain.fashion_state import empty_record
+    items=[item for item,_ in notice if item is not None]
+    removed=[position for item,position in notice if item is None]
+    if not items and not removed:return None
+    base=inventory_payload(items) if items else struct.pack('>I',0)
+    count=struct.unpack_from('>I',base)[0]+len(removed)
+    return Event(0x201,kind=0xd3,
+        payload=struct.pack('>I',count)+base[4:]+b''.join(empty_record(*p) for p in removed))
+
+
+def _wear_options():
+    """Runtime A/B switches for the104 reply, no restart needed.
+
+    state/wear-options.json may hold {"notice":false,"snapshot":false} while a
+    reply shape is being compared against the real client; missing or malformed
+    keeps both on.
+    """
+    from els_server.paths import PROJECT_ROOT
+    import json
+    try:
+        path=PROJECT_ROOT/'state'/'wear-options.json'
+        data=json.loads(path.read_text(encoding='utf-8'))
+        if not isinstance(data,dict):return {}
+        return {key:bool(data[key]) for key in ('notice','snapshot') if key in data}
+    except Exception:
+        return {}
+
+
+def _equipment_snapshot(self):
+    """Absolute worn-item vector, byte-identical in shape to the227 refresh.
+
+    Reads the committed rows with its own connection: the operation-scoped
+    inventory projection may still hold the pre-move read of this same request.
+    """
+    from els_server.protocol.protocol_codec import Event
+    from els_server.domain.fashion_state import move_ack
+    from els_server.storage.read_scope import snapshot_connection
+    from els_server.storage.inventory_state import load_items
+    with snapshot_connection(self.account.store.path) as db:
+        db.execute('BEGIN')
+        items=[item for item in load_items(db,self.account.uid) if item['group']==9]
+        db.commit()
+    if not items:return None
+    return Event(0x201,kind=0x105,payload=move_ack([((9,item['slot']),item) for item in items]))
+
+
+def _native_wear(self,event,request_sequence):
+    """Native104 for the phases where local_session's shared branch refuses.
+
+    local_session's 104 branch accepts town_ready only, so an avatar change in
+    a field or a dungeon came back as the blank native error. That branch lives
+    in a module holding live sessions and cannot be re-executed in place, so the
+    plain wear case is answered here - session_dispatch is hot reloaded and runs
+    before local_session._handle. Bag-only rearrangement, the artifact path and
+    the fishing-equipment path still decline here and keep their own branches.
+    """
+    if (getattr(self,'phase',None) not in _WEAR_PHASES or getattr(self,'role',None)!='game'
+        or not getattr(self,'item_test',False) or getattr(self,'client_build',None)!='dx11_260923'):return None
+    payload=event.payload
+    if (not isinstance(payload,bytes) or len(payload)!=11 or event.performers!=(0,)
+        or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):return None
+    if payload[0]==payload[5] and payload[0] in _WEAR_BAG_ONLY:return None
+    if 24 in (payload[0],payload[5]):return None
+    if not getattr(self,'normal_equipment_moves_enabled',False):
+        # Same gate local_session applies: ordinary equipment and non-avatar
+        # equipment slots stay closed on this profile.
+        from els_server.domain.inventory_items import FASHION_EQUIP_SLOTS
+        import struct as _struct
+        pairs=((payload[0],_struct.unpack_from('>i',payload,1)[0]),(payload[5],_struct.unpack_from('>i',payload,6)[0]))
+        if any(g in (1,2) or g==9 and slot not in FASHION_EQUIP_SLOTS.values() for g,slot in pairs):return None
+    from els_server.protocol.protocol_codec import Event
+    from els_server.domain import tutorial_accessory as accessory_gate
+    from els_server.storage import wear_moves as wear_store
+    from els_server.domain.fashion_state import move_ack
+    _wear_dbg('104 take phase=%s payload=%s'%(self.phase,payload.hex()))
+    notice=[]
+    try:
+        captured=accessory_gate.wear_context(self)
+        ack=wear_store.move(self.account.store.path,payload,self.account.uid,
+            account_id=self.account.account_id,session_id=self.shop_session_id,
+            sequence=request_sequence,validate=lambda:accessory_gate.validate_wear_context(self,captured),
+            notice=notice)
+    except ValueError as error:
+        _wear_dbg('104 reject phase=%s %s payload=%s'%(self.phase,error,payload.hex()))
+        ack=move_ack(result=1)
+    reply=[Event(0x201,kind=0x105,payload=ack)]
+    options=_wear_options()
+    try:
+        extra=_inventory_notice(notice) if options.get('notice',True) else None
+    except Exception:
+        import traceback;traceback.print_exc()
+        extra=None
+    if extra is not None:reply.append(extra)
+    if ack[-4:]==bytes(4) and options.get('snapshot',True):
+        # The request-matched105 vector only repaints the two cells the client
+        # named - the worn model itself is refreshed from the absolute equipment
+        # snapshot the scene-ready (227) path pushes. A swap therefore landed in
+        # SQL while the character kept its old shoes on screen. Re-send the same
+        # snapshot shape 227 uses, from the state the move just committed.
+        try:
+            snapshot=_equipment_snapshot(self)
+        except Exception:
+            import traceback;traceback.print_exc()
+            snapshot=None
+        if snapshot is not None:reply.append(snapshot)
+    _wear_dbg('104 reply phase=%s kinds=%r ack=%dB notice=%d'%(self.phase,
+        [hex(e.kind) for e in reply],len(ack),len(notice)))
+    return reply
+
+
 def priority_handlers(self,event,request_sequence=None):
+    if event.event_id==0x202 and event.kind==0x104:
+        # Native104 wear/swap is also imported lazily, so an edit to the move
+        # rules has to reach the live session without dropping the client.
+        try:
+            from els_server.storage import wear_moves as wear_store
+            from els_server.domain import fashion_state as fashion_domain
+            from els_server.domain import tutorial_accessory as accessory_gate
+            from els_server.domain import inventory_items as inventory_rules
+            # inventory_items first: the other three import validate_item by
+            # value, so they have to be re-executed after it.
+            _live(inventory_rules);_live(fashion_domain);_live(wear_store);_live(accessory_gate)
+        except Exception:
+            import traceback;traceback.print_exc()
+        try:
+            away_reply=_native_wear(self,event,request_sequence)
+        except Exception:
+            import traceback;traceback.print_exc()
+            away_reply=None
+        if away_reply is not None:return away_reply
+    if event.event_id==0x202 and event.kind==0x219:
+        # A permanent custom book is used straight from the inventory tab, so
+        # the 219 chain must follow catalog edits too. Domain first: the store
+        # re-imports its functions when it reloads.
+        try:
+            from els_server.domain import character_custom as custom_domain
+            from els_server.storage import character_custom as custom_store
+            _live(custom_domain);_live(custom_store)
+        except Exception:
+            import traceback;traceback.print_exc()
     # Artifact level-up items and EXP potions are kind219 too, and their own
     # admission must run before every other 219 family.
-    from els_server.domain.artifact_flow import handle_consumable as artifact_consumable_handle
-    artifact_consumable_reply=artifact_consumable_handle(self,event,request_sequence)
+    try:
+        from els_server.domain import artifact_flow
+        artifact_consumable_reply=_live(artifact_flow).handle_consumable(self,event,request_sequence)
+    except Exception:
+        import traceback;traceback.print_exc()
+        artifact_consumable_reply=None
     if artifact_consumable_reply is not None:return artifact_consumable_reply
     # Native synergy tickets share kind219 with every other usable item, so the
     # exact owned-template admission has to run before the generic families.
@@ -210,10 +380,10 @@ def priority_handlers(self,event,request_sequence=None):
     # original first-match position behind the Ariel mark handler above.
     if event.event_id==0x202 and event.kind in (0x634,0x4cb):
         try:
-            from els_server.storage import character_custom as custom_store
-            _live(custom_store)
             from els_server.domain import character_custom
-            custom_reply=_live(character_custom).handle(self,event,request_sequence)
+            _live(character_custom)
+            from els_server.storage import character_custom as custom_store
+            custom_reply=_live(custom_store).handle(self,event,request_sequence)
         except Exception:
             import traceback;traceback.print_exc()
             custom_reply=None

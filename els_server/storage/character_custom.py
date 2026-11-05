@@ -1,9 +1,10 @@
 """Atomic qualified permanent custom-book registration and owned selection."""
 import hashlib,json,sqlite3,time
 from contextlib import closing
-from els_server.domain.character_custom import catalog,canonical,free_catalog,free_ids,slot_value,selection_type,FACE_UNITS
+from els_server.domain.character_custom import catalog,canonical,free_catalog,free_ids,slot_value,selection_type,FACE_UNITS,ALL_UNITS
 from els_server.protocol import character_custom_messages as wire
-from els_server.protocol.career_messages import use_request,use_ack
+from els_server.protocol.career_messages import use_ack
+import struct
 from els_server.protocol.protocol_codec import encode_event
 from els_server.storage.character_schema import character_uid
 from els_server.storage.inventory_actions import _identity,_previous,_commit
@@ -32,7 +33,7 @@ def snapshot(db,owner):
         row=db.execute('SELECT custom_id FROM character_custom_permanent_selection WHERE owner=?',(owner,)).fetchone()
         if row:
             role=db.execute('SELECT unit_type,unit_class FROM characters WHERE uid=?',(owner,)).fetchone()
-            if role is None or role[0]!=1:raise ValueError('Saved custom role identity')
+            if role is None or role[0] not in ALL_UNITS:raise ValueError('Saved custom role identity')
             if row[0] in free_ids(role[1]):selected={1:canonical(row[0])}
             elif row[0] in free_catalog().values():
                 # A later career change may invalidate an ancestor choice.
@@ -45,7 +46,7 @@ def snapshot(db,owner):
         side=db.execute('SELECT slot,custom_id FROM character_custom_permanent_selection_slots WHERE owner=? ORDER BY slot',(owner,)).fetchall()
         if side:
             role=db.execute('SELECT unit_type,unit_class FROM characters WHERE uid=?',(owner,)).fetchone()
-            if role is None or role[0]!=1:raise ValueError('Saved custom role identity')
+            if role is None or role[0] not in ALL_UNITS:raise ValueError('Saved custom role identity')
             for slot,cid in side:
                 if slot==1:raise ValueError('Side selection cannot replace original slot1')
                 value=slot_value(slot,canonical(cid));family=selection_type(slot)
@@ -101,7 +102,9 @@ def identity(db,owner,account_id,family=1):
     owner=character_uid(owner)
     if type(account_id) is not int or not 0<account_id<2**63:raise ValueError('Custom account identity')
     row=db.execute('SELECT c.unit_type,c.unit_class,c.level FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(owner,account_id)).fetchone()
-    if row is None or (row[0] not in FACE_UNITS if family==2 else row[0]!=1):raise ValueError('Custom owner role qualification')
+    # The admitted family decides which units qualify; the per-book character
+    # restriction is the native item record (raw[210]) checked at use time.
+    if row is None or (row[0] not in FACE_UNITS if family==2 else row[0] not in ALL_UNITS):raise ValueError('Custom owner role qualification')
     if exists(db,'character_lifecycle'):
         state=db.execute('SELECT requested_at,finalized_at FROM character_lifecycle WHERE uid=?',(owner,)).fetchone()
         if state and any(state):raise ValueError('Custom character is pending/finalized deletion')
@@ -116,8 +119,29 @@ def _check_receipt(db,operation,owner,kind):
     if db.execute('SELECT owner,kind FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()!=(owner,kind):
         raise ValueError('Custom receipt owner/kind')
 
+def _book_request(payload):
+    """C595C0 for a custom book carries the native selection, not zeros.
+
+    The captured book use is UID + custom_id + type + socket_id + two zero
+    fields (21:01:35 uid=1001077 target=14107 a=7). career_messages
+    .use_request() rejects any non-zero target, so that helper cannot read
+    this family. The fourth word is the native CUSTOM_ITEM_SOCKET_DATA id the
+    client highlights (e.g. 215401 for the fourth socket); registration is
+    driven by the catalogued book, so that id is read and not trusted.
+    """
+    if not isinstance(payload,bytes) or len(payload)!=29:raise ValueError('Custom book request length')
+    uid,target,kind,socket,text,flag=struct.unpack('>QQiiIB',payload)
+    if not 0<uid<2**63:raise ValueError('Custom book request identity')
+    if not 0<=socket<2**31 or text or flag:raise ValueError('Custom book native padding')
+    return uid,target,kind,socket
+
+
 def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None):
-    item_uid=use_request(payload);now=clock(now)
+    # Entry record: proves whether a 219 click reached this family at all.
+    from els_server.domain.character_custom import _trace
+    _trace('book store enter owner=%r account=%r payload=%s'%(
+        owner,account_id,payload.hex() if isinstance(payload,bytes) else payload))
+    item_uid,custom_id,kind,socket=_book_request(payload);now=clock(now)
     operation='custom-book:'+operation
     owner,digest=_identity(owner,0x219,b'custom-book-v1:'+payload,operation)
     rules=catalog()
@@ -127,7 +151,13 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None):
         old=_previous(db,operation,digest);items=load_items(db,owner)
         source=next((i for i in items if i['uid']==item_uid),None)
         rule=rules.get(source['template']) if source else None
-        if old is None and rule is None:return None
+        if old is None and rule is None:
+            # Silent decline: hand the request to the next 219 family, but
+            # leave a record so a book that never lands is not a mystery.
+            from els_server.domain.character_custom import _trace
+            _trace('book store declined uid=%r owner=%r items=%d template=%r'%(
+                item_uid,owner,len(items),source['template'] if source else None))
+            return None
         # This callback runs ONLY after recognizing a qualified primary book
         # or its exact durable receipt. Other219 routes retain old behavior.
         if validate is not None:validate()
@@ -137,7 +167,14 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None):
             before=json.loads(raw_receipt)
             if len(before)!=1 or before[0]['uid']!=item_uid or before[0]['template'] not in rules:raise ValueError('Custom book receipt source')
             receipt_rule=rules[before[0]['template']]
-        role=identity(db,owner,account_id,(receipt_rule or rule)['type'])
+        effective=receipt_rule or rule
+        # The client states which custom it believes this book grants; a book
+        # that would register anything else is never committed. The socket id
+        # is only the client's highlighted slot and never changes what is
+        # registered, so it is not part of this decision.
+        if (custom_id,kind)!=(effective['custom_id'],effective['type']):
+            raise ValueError('Custom book native selection')
+        role=identity(db,owner,account_id,effective['type'])
         if (receipt_rule or rule)['type']==2:face_requirement(db,owner,receipt_rule or rule)
         balance=db.execute('SELECT ed,revision FROM reward_balances WHERE uid=?',(owner,)).fetchone()
         if balance is None:raise ValueError('Custom owner reward balance')
@@ -179,6 +216,9 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None):
         db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))
         load_items(db,owner);snapshot(db,owner)
         _commit(db,operation,digest,owner,0x219,[(source['group'],source['slot'])],[source],[remaining] if remaining else [])
+        from els_server.domain.character_custom import _trace
+        _trace('book store committed uid=%r custom=%r template=%r'%(
+            item_uid,value['custom_id'],source['template']))
         return dict(replayed=False,events=events)
 
 def select(path,owner,account_id,payload,operation,*,now=None,validate=None):

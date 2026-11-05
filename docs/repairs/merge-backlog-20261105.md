@@ -216,3 +216,61 @@ if request.option not in (0,1):
 6. **活动到期是硬截止**：`local-growth.json` 的 `configuration.ends = 1796004000`（2026-11-30 10:00）。到点后 `EVENT_ITEMS` 里那些活动容器/激活券会在登录时被清掉（原生行为）。要保持开放就改这个值，别改代码。
 7. 注意：本仓库当前**有另一个会话在并发编辑** `quest_flow.py` / `el_search_collection*` / `artifact_flow.py` / `session_dispatch.py` / `character_custom.py`。提交时务必按路径 `git add`，不要 `git add -A`，不要 `git stash`。
 
+
+## 11. 定制道具（0x219 定制书）
+
+- **症状**：`街头合奏表演吉他-白（艾索德定制）` 之类定制道具，客户端弹「确定要使用吗？」，点确认后道具不消失、定制不出现。
+- **根因**：原生 C595C0 的 0x219 定制书请求是 **29 字节 `>QQiiIB`** = `UID + custom_id + family + 高亮 socket + 两个填充 0`（27E0F10）。旧 `career_messages.use_request()` 只取 UID 而且要求 `target==0`，客户端却一定把 custom_id 填进去 → 每一本真书都在解析阶段就被拒，回 `0x21A result=-1`，客户端只表现为「没反应」。
+- **修复**：`storage/character_custom._book_request` 按 `>QQiiIB` 解析并校验 `(custom_id,family)==(rule['custom_id'],rule['type'])`（客户端只能声明这本书真正给的那个定制，socket 只是高亮位不作准）；`domain/character_custom` 的角色限制由 `{1}` 放宽到 `ALL_UNITS=1..15`，`COUNTS` 合计 3200，新增 `BOOK_COUNT=3200`；`data/character_custom_permanent.json` 由 752 本扩到 **3200 本**（加入 `merged_all_units` / `hyper_effect` 等来源）。
+- **载荷核对**（真实日志 → 目录，三条全对）：`451208 → custom 1000073 / family 15`、`450319 → 54090 / 7`、`311328 → 14107 / 7`。
+- **测试**：修好被新契约打断的 `tests/test_character_custom_apply.py`（`use_payload` 必须带 custom_id/family）与 `tests/test_character_custom_opening.py`（夹具补 `client_build/item_test/role/phase/characters` 并 patch `current_lease`，因为 `panel_admitted` 现在会重查租约）；新增 `tests/test_character_custom_all_books.py`。
+- **验证**：3200 条规则 `canonical/custom_type/slot_value` 全通过、custom_id 全目录无重复；艾索德可持有 **299 本逐本 `use_book` → 299/299** 成功（`0x21A + 0x4CD`）；family 1/2/3/7/15/24 注册后 `0x4CB` 应用全部 `code=0`。
+- **注意：必须整体重启服务端**。线上库 `inventory_action_receipts` 里一条 `custom-book` 回执都没有，说明跑着的进程还是改前的代码。`state/hot-reload.json` 里没有 `character_custom`，而且 `hot_reload.watch()` 只在启动时读一次名单，所以改名单也没用。
+- **范围说明**：165 本 `native_only`（只存在于原生 CharCustomData 表、没有背包书）不能靠书获得；其他角色的书受道具记录 `raw[210]/raw[211]` 的原生职业掩码限制，是正确行为，不应放宽。
+
+### 11b. 更正：真正的阻断点是 0x219 的分发顺序
+
+上一节的「服务端还是改前代码」判断有误。用 `__pycache__/*.pyc` 内嵌的源 mtime/size 比对，`character_custom`（21:58/21:59）、`local_session`（22:11）、`session_dispatch`（22:06）**全部 MATCH**，进程确实加载了新代码。
+
+`local_session` 处理 0x219 的顺序是 **容量券 → ERP 共鸣书 → 永久定制书**。而 `storage/resonance_state.use_book` 第一句 `use_request(payload)` 用的是 `career_messages.use_request`，它要求 29 字节里 UID 之后**全部为 0**；定制书把 `custom_id` 填在 target 位 → 抛 `Unsupported career item use parameters` → `local_session` 的 `except ValueError: return [use_ack(result=-1)]` 立刻收场，定制分支一次都没执行过。这就是「一本自定义书都用不了」的唯一原因。
+
+- **修复**：`storage/resonance_state.use_book` 把 `use_request` 包进 `try/except ValueError: return None`——不是这一族就交棒，别替别的族回 -1。
+- **证据链**：同一份存档副本上依次调用三个消费者，修前 `None / RAISES / [0x21a,0x4cd]`，修后 `None / None / [0x21a,0x4cd]`。
+- **道具对号**：截图里的「街头合奏表演吉他-白」是模板 **311328**（`custom_id 14107 / family 7`，owner 1001），不是早先误认的 451208（那是「觉醒：隐约的鬼火」）。日志 23:12:55 / 23:13:25 的载荷正是它。
+- **回归**：`tests/test_character_custom_all_books.py` 增 `DispatchOrderTests`——容量券与共鸣书必须对定制书请求返回 `None`，之后定制书仍要能回 `[0x21a,0x4cd]`。
+- **既有失败**：`tests/test_declining_consumers` 19 个。A/B 跑 HEAD 版与新版本都是 19 个；夹具的 payload target=0，新加的 try/except 在那里是空操作，与新改动无关。
+
+## 12. 副本「门不开 / 图过不去」——先加诊断（未定论）
+
+- **日志事实**：`state/wire-debug.log` 里 `0xad`（怪物死亡）到 **23:17:57 归零**，之后只有 `0x3e6` 位置同步，**再没有一次 `0xb8`（请求传送门）**。说明客户端根本没机会点门——门没开，不是门开了不给过。23:20:03 的 `0x85+0xa0+0x67+0x3e9` 是玩家退出重进。
+- **开门的唯一路径**：`dungeon_flow.periodic()` → `run.poll_ready()` 为真 → 发 `part_end_notice`。而 `poll_ready` 依赖 `condition_ready(c)`，其中 `kind in (1,2)` 的判据是 `keys=[n['key'] for n in npcs if n['key_code'] in c['required']]` 再 `bool(keys) and all(k in dead for k in keys)`。**`keys` 为空时该房间永不开启**——正是「怪清完了门不开」的形态（`pending=[]` 却 `NOT-READY`）。
+- **已加诊断**（`domain/dungeon_flow.py`，不动判定）：`_trace/_pending/_slow` 写 `state/dungeon-debug.log`。
+  - `periodic` not-ready 分支（3 秒节流）一次输出 `stage/part/visits/pending`、全部 `npcs(key,key_code,template,active,team)`、`defeated`、以及每条 condition 的 `kind/required/next/ready`；
+  - `0xb8` 输出 `payload/part/synced/valid/late/pending`；
+  - `0xbb` 输出四条早退原因：`MISMATCH` / `NOT-NOTIFIED` / `BLOCKED by story controller` / `NOT-READY`。
+- **暂不改 `condition_ready`**：它决定所有副本的路由，等日志证明是「`required` 的 key_code 不在 roster 里」还是「有一个怪客户端没刷出来」再动。
+- 回归：`test_dungeon_clock` 通过；`test_complex_dungeon_routes`/`test_dungeon_lifecycle` 缺 `analysis/client-6c6b5180/20261013-160720/death-event-header.json`，`test_dungeon_actions` 缺 `verify_dungeon_actions` 模块 —— 都是本机既有缺口。
+
+
+## 13. 定制书 0x219：链路已通（含线上实证），注册丢失来自库被回写
+
+**代码侧（已改）**
+- `els_server/storage/resonance_state.py::use_book`：0x219 是共享信封，定制书把授予的 custom 填在 target 位，
+  `use_request()` 会拒绝。原来这里直接抛 `ValueError`，`local_session` 捕获后 `use_ack(-1)`，定制分支永远跑不到。
+  改为 `except ValueError: return None`，把请求让给下一个家族。
+- 诊断埋点（`state/custom.log`，均在 `session_dispatch._live()` 热重载名单内，改完无需重启）：
+  - `domain/character_custom.require_admitted`：拒绝时记录 `build/item_test/role/phase/characters/store/lease`；
+  - `storage/character_custom.use_book`：入口 `book store enter`、静默让位 `book store declined`、成功 `book store committed`；
+  - `domain/local_session` 0x219 段（需重启生效）：会话闸门、容量券、共鸣书、定制书四处决策点。
+
+**验证**
+- 真库副本回放 `uid=1001077 / custom=14107 / type=7`：`character_custom_permanent` 写入 `(1001,14107,311328)`、
+  `inventory_action_receipts` 写入 `custom-book:…`(kind 537)、物品从背包删除、总数 249→250。
+- 线上 `state/custom.log` 累计 **601 次** `book store committed`，含用户截图那本
+  `23:48:14 book store committed uid=1001077 custom=14107 template=311328`；仅 1 次正常让位（`template=276290` 非定制书）。
+
+**未解决项（非代码）**
+- 注册未落库：23:46 客户端在用 uid 1001291-1001299，而当前所有 sqlite 的 `max(inventory_items.uid)` 只有 1001235。
+  `_refile.sqlite3`(23:49:03) / `_filing.sqlite3`(23:47:13) 为同尺寸工作副本 →
+  **refile 类工具在 23:47-23:50 用旧快照回写了 `development.sqlite3`**，把注册和已消耗的书一起冲回。
+  需要先停掉这类工具再复测，否则每次结果都会被还原。

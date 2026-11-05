@@ -2,6 +2,12 @@
 from els_server.protocol import artifact_messages as wire
 from els_server.domain.equipment_engrave_flow import current_lease
 
+def owned_template(db,owner,item_uid):
+ """Admission lookup kept local: importing it from inventory_state at call time
+ broke every kind219 request whenever that module was stale in the runtime."""
+ row=db.execute('SELECT template FROM inventory_items WHERE owner=? AND uid=?',(owner,item_uid)).fetchone()
+ return row[0] if row else None
+
 def handle_consumable(s,event,sequence):
  if event.event_id!=0x202 or event.kind!=0x219 or not s.item_test or s.client_build!='dx11_260923':return None
  import sqlite3
@@ -14,7 +20,6 @@ def handle_consumable(s,event,sequence):
  if not 0<uid<2**63:return None
  operation=s.shop_session_id+':'+str(actor.uid)+':'+str(sequence)
  with closing(sqlite3.connect(store.path))as db:
-  from els_server.storage.inventory_state import owned_template
   template=owned_template(db,actor.uid,uid)
   old=db.execute('SELECT owner FROM artifact_actions WHERE operation_id=?',(operation,)).fetchone() if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='artifact_actions'").fetchone()else None
   if template not in catalog()['level_up_items']and str(template)not in catalog()['exp_potions']and old!=(actor.uid,):return None

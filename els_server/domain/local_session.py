@@ -199,6 +199,13 @@ class LocalAccount:
 
             repair_missing(self.store.path,self.uid)
 
+            # Same boundary and the same reason: file drifted avatar pieces on
+            # their own page before the login/refresh snapshot leaves, so the
+            # client never receives a tab layout the server would not write.
+            from els_server.storage.bag_filing import repair as repair_bag_filing
+
+            repair_bag_filing(self.store.path,self.uid)
+
         from els_server.storage.read_scope import inventory_projection
         return inventory_projection(self,inventory,inventory.snapshot)
 
@@ -1054,14 +1061,23 @@ class LocalSession:
 
             from els_server.storage.careers import use_career_item
 
+            # One line per 219 decision, into the same custom.log the panel
+            # already writes. The client renders nothing when a family answers
+            # -1, so this is the only way to tell the families apart.
+            from els_server.domain.character_custom import _trace as _trace219
+
             if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:
+
+                _trace219('use declined by session gate phase=%r role=%r seq=%r'%(self.phase,self.role,request_sequence))
 
                 return [use_ack(result=-1)]
 
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
             from els_server.storage.boosting_2026_nested_capacity import use_ticket as use_capacity_ticket
             try:capacity=use_capacity_ticket(self.account.store.path,self.account.uid,event.payload,operation)
-            except ValueError:return [use_ack(result=-1)]
+            except ValueError as error:
+                _trace219('capacity ticket declined payload=%s reason=%r'%(event.payload.hex(),error))
+                return [use_ack(result=-1)]
             if capacity is not None:return capacity['events']+([self.saved_user_sync()] if capacity['replayed'] else [])
             from els_server.storage.resonance_state import use_book as use_resonance_book
             from els_server.domain.equipment_chip_flow import current_lease
@@ -1078,13 +1094,24 @@ class LocalSession:
                     or resonance_store.uid!=resonance_owner or not current_lease(self)):
                     raise ValueError('ERP book current actor or lease changed')
             try:resonance=use_resonance_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation,prepare=prepare_resonance_book)
-            except ValueError:return [use_ack(result=-1)]
+            except ValueError as error:
+                _trace219('resonance book declined payload=%s reason=%r'%(event.payload.hex(),error))
+                return [use_ack(result=-1)]
             if resonance is not None:return resonance['events']+[self.saved_user_sync()]
             from els_server.domain.character_custom import require_admitted as custom_admission
             from els_server.storage.character_custom import use_book as use_custom_book
             try:custom=use_custom_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation,validate=lambda:custom_admission(self))
-            except ValueError:return [use_ack(result=-1)]
-            if custom is not None:return custom['events']
+            except ValueError as error:
+                # A live replay of this exact payload against a copy of the
+                # database commits the book, so the only thing left that can
+                # answer -1 here is the session admission callback.
+                from els_server.domain.character_custom import admitted as custom_admitted
+                _trace219('custom book declined payload=%s admitted=%r build=%r phase=%r role=%r lease=%r reason=%r'%(
+                    event.payload.hex(),custom_admitted(self),self.client_build,self.phase,self.role,current_lease(self),error))
+                return [use_ack(result=-1)]
+            if custom is not None:
+                _trace219('custom book ok payload=%s replayed=%r'%(event.payload.hex(),custom['replayed']))
+                return custom['events']
             from els_server.storage.boosting_2026_force_inventory import use_book as use_force_book
             from els_server.domain.equipment_chip_flow import current_lease
             try:force=use_force_book(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation,session_authorized=bool(self.account.store is not None and self.account.store.uid==self.account.uid and current_lease(self)))

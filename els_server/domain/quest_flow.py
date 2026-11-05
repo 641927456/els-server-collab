@@ -232,6 +232,13 @@ def observe(s,replies=()):
     # Recover the earlier snapshot-only28060 notification on validated scene
     # arrival. This reuses original F0/F3; it does not send F4 or alter SQL.
     arrived=(s.phase=='town_ready' and any(e.kind==0x228 and e.payload==bytes(4) for e in replies))
+    if arrived:
+        # The independent Lv99 collection root has no native giver; restore it
+        # inside the validated arrival so the epic list carries it again.
+        from els_server.domain.el_search_collection_quest import restore_on_arrival
+        collection_root=restore_on_arrival(s)
+        notices.extend(collection_root)
+        if collection_root:s._quest_passive_kinds=None
     loaded=(run is not None and run.identity==35250 and s.dungeon_substage_synced and any(e.kind==0xbd for e in replies))
     if arrived or loaded:
         announced=getattr(s,'_memory1_ready_announced',frozenset())

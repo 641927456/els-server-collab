@@ -13,8 +13,15 @@ from els_server.protocol.protocol_codec import (
 
 class CharacterCustomOpeningTests(unittest.TestCase):
     def setUp(self):
-        self.session = types.SimpleNamespace(account=types.SimpleNamespace(
-            uid=1001, account_id=17, store=types.SimpleNamespace(path='unused.sqlite3')))
+        # panel_admitted() re-checks the DX11 build, town/dungeon phase and the
+        # current instance lease, so the fixture has to carry the same fields
+        # a live game session does.
+        self.session = types.SimpleNamespace(
+            client_build='dx11_260923', item_test=True, role='game', phase='town_ready',
+            account=types.SimpleNamespace(uid=1001, account_id=17,
+                characters=object(), store=types.SimpleNamespace(path='unused.sqlite3')))
+        self.lease = self.enterContext(patch(
+            'els_server.domain.dungeon_equipment_loot_flow.current_lease', return_value=True))
         self.request = Event(0x202, kind=0x634, performers=(0,))
         self.response = Event(0x201, kind=0x635, payload=bytes(8))
         self.opening = Mock(return_value=[self.response])
@@ -52,7 +59,9 @@ class CharacterCustomOpeningTests(unittest.TestCase):
         self.opening.assert_not_called()
 
     def test_session_admission_still_required(self):
+        # No current instance lease: the opener must stay silent.
         self.admitted.return_value = False
+        self.lease.return_value = False
         self.assertEqual(character_custom.handle(self.session, self.request, 1), [])
         self.context.assert_not_called()
         self.opening.assert_not_called()

@@ -27,6 +27,31 @@ def finale_boss_pending(run):
  bosses=[n for n in run.current['npcs'] if n['template']==9431]
  return not bosses or any(n['key'] not in run.defeated for n in bosses)
 
+def _trace(message):
+ """state/ is gitignored; this is the only view of the gate decision."""
+ try:
+  import os,time
+  root=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+  path=os.path.join(root,'state','dungeon-debug.log')
+  if os.path.exists(path) and os.path.getsize(path)>4000000:return
+  with open(path,'a',encoding='utf-8') as handle:
+   handle.write('%s %s\n'%(time.strftime('%H:%M:%S'),message))
+ except Exception:pass
+
+_throttle={}
+def _slow(key,seconds=3):
+ """Keep the stall dump readable: one block per part per few seconds."""
+ import time
+ now=time.time()
+ if now-_throttle.get(key,0)<seconds:return True
+ _throttle[key]=now
+ return False
+
+def _pending(run):
+ """Live hostiles the part still waits for."""
+ return [n['key'] for n in run.current['npcs']
+         if n['active'] and n.get('team',1)!=0 and n['key'] not in run.defeated]
+
 def periodic(session):
  s=session
  if (s.dungeon_run is not None and s.phase=='dungeon_active' and not s.clear_notified
@@ -38,10 +63,21 @@ def periodic(session):
  if gate_predecessor_blocked(s.dungeon_run):return []
  from els_server.domain.devildom1_raid2_controllers import gate_blocked
  if gate_blocked(s.dungeon_run) or finale_boss_pending(s.dungeon_run):return []
- if s.dungeon_run.poll_ready():
-  s.part_end_notified=True;s.dungeon_clock.pause()
-  return [part_end_notice(s.dungeon_run.part)]
- return []
+ run=s.dungeon_run
+ ready=run.poll_ready()
+ if not ready:
+  if _slow((run.stage,run.part,run.visits)):return []
+  _trace('stage=%s part=%s visits=%s NOT-READY pending=%r next=%r'%(run.stage,run.part,run.visits,_pending(run),run.next))
+  _trace('  npcs=%r'%([(n['key'],n.get('key_code'),n['template'],n['active'],n.get('team',1)) for n in run.current['npcs']],))
+  _trace('  defeated=%r'%(sorted(run.defeated),))
+  for c in run.current['conditions']:
+   try:answer=run.condition_ready(c)
+   except Exception as error:answer='ERR %s'%error
+   _trace('  cond kind=%r required=%r next=%r ready=%r'%(c.get('kind'),c.get('required'),c.get('next'),answer))
+  return []
+ s.part_end_notified=True;s.dungeon_clock.pause()
+ _trace('stage=%s part=%s visits=%s GATE-OPEN next=%r'%(run.stage,run.part,run.visits,run.next))
+ return [part_end_notice(run.part)]
 
 def handle(s,event):
  run=s.dungeon_run
@@ -68,6 +104,8 @@ def handle(s,event):
   valid=(s.dungeon_substage_synced and not s.clear_notified and
          event.payload==struct.pack('>b',run.part) and
          all(n['key'] in run.defeated for n in run.current['npcs'] if n['active'] and n.get('team',1)!=0))
+  _trace('b8 payload=%r stage=%s part=%s synced=%r valid=%r late=%r pending=%r'
+         %(event.payload,run.stage,run.part,s.dungeon_substage_synced,valid,late,_pending(run)))
   if valid:run.portal_requested=True
   elif late:return [Event(0x201,kind=0xb9,payload=bytes(4))]
   return [Event(0x201,kind=0xb9,payload=struct.pack('>i',0 if valid else -1))]+(periodic(s) if valid else [])
@@ -159,13 +197,21 @@ def handle(s,event):
   if len(event.payload)!=1:return []
   part=struct.unpack('>b',event.payload)[0]
   if part!=run.part or s.gate_stage_loading:
+   _trace('bb part=%r stage=%s run.part=%s loading=%r MISMATCH pending=%r'
+          %(part,run.stage,run.part,s.gate_stage_loading,_pending(run)))
    return [Event(0x201,kind=0xbc,payload=bytes(4))] if part==getattr(s,'previous_dungeon_part',None) else []
-  if not s.part_end_notified:return []
+  if not s.part_end_notified:
+   _trace('bb part=%r stage=%s NOT-NOTIFIED pending=%r'%(part,run.stage,_pending(run)))
+   return []
   reply=[Event(0x201,kind=0xbc,payload=bytes(4))]
   if s.clear_notified:return reply
   from els_server.domain.story_controller_retirements import gate_predecessor_blocked
-  if gate_predecessor_blocked(run):return []
-  if not run.poll_ready():return []
+  if gate_predecessor_blocked(run):
+   _trace('bb stage=%s part=%s BLOCKED by story controller'%(run.stage,run.part))
+   return []
+  if not run.poll_ready():
+   _trace('bb stage=%s part=%s NOT-READY pending=%r'%(run.stage,run.part,_pending(run)))
+   return []
   source=(run.stage,run.part,run.visits)
   target=run.next
   if target['kind']==4:

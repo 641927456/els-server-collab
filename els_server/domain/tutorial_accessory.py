@@ -71,9 +71,25 @@ def contributes(item,character):
     return item['template']==92112 or SLOT_STYLE[item['slot']]==selected
 
 def wear_context(s):
-    if (not s.item_test or s.client_build!='dx11_260923' or s.role!='game' or s.phase!='town_ready'
+    # The original client keeps the avatar panel usable outside town, so the
+    # stable-actor contract has to hold in a field and inside a dungeon too.
+    # A town room is what proves stability in town; away from it the anchors are
+    # the settled map (no travel in flight), the live session lease and, in a
+    # dungeon, the same run still being the one that owns the actor.
+    if (not s.item_test or s.client_build!='dx11_260923' or s.role!='game'
+        or s.phase not in ('town_ready','field_active','dungeon_active')
         or s.account.store is None or s.account.characters is None or 0x227 not in s.completed
         or s.account.get_location()['map']!=s.active_map):raise ValueError('Accessory town actor not ready')
+    if s.phase in ('field_active','dungeon_active'):
+        if s.pending_map is not None:raise ValueError('Accessory travel still in flight')
+        if s.phase=='dungeon_active' and s.dungeon_run is None:raise ValueError('Accessory dungeon run not ready')
+        if s.dungeon_run is not None and s.phase!='dungeon_active':raise ValueError('Accessory run phase mismatch')
+        app=getattr(s,'application',None)
+        if app is not None:
+            if (s.released or app.playing.get(s.identity['id']) is not s or s.identity['id']!=s.account.account_id
+                or s.social_overflow or s.coop_error):raise ValueError('Accessory current lease')
+        return (s.account,s.account.store,s.account.characters,app,None,None,
+                s.account.uid,s.account.account_id,s.shop_session_id,s.active_map,repr(s.account.get_location()))
     app=getattr(s,'application',None);room=None;entry=None
     if app is not None:
         if (s.released or app.playing.get(s.identity['id']) is not s or s.identity['id']!=s.account.account_id

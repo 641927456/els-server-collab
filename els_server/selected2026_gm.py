@@ -15,6 +15,10 @@ class Console:
         self.key=keypath.read_text('ascii').strip()
         if len(self.key)<40:raise ValueError('GM UI key invalid')
         self.static=Path(__file__).resolve().parent/'data/selected2026/gm-static'
+        # Launcher-facing pass-through: same loopback/key/origin gates, and the
+        # runtime still validates every action on the authenticated worker.
+        self.proxy_actions=frozenset({'status','give','announce','cancel-announcement','rates','events',
+            'coupon-rewards','coupon-list','coupon-issue','coupon-revoke','coupon-operation'})
         console=self
         class Handler(BaseHTTPRequestHandler):
             def log_message(self,*args):pass
@@ -32,6 +36,9 @@ class Console:
                 if self.path=='/api/selected2026':
                     if not self.authorized():return self.reply(401,dict(error='管理密钥无效'))
                     return self.call('selected2026-status')
+                if self.path=='/api/status':
+                    if not self.authorized():return self.reply(401,dict(error='管理密钥无效'))
+                    return self.call('status')
                 path=urlsplit(self.path).path
                 if path in ('/api/cash-balance','/api/cash-operation'):
                     if not self.authorized():return self.reply(401,dict(error='管理密钥无效'))
@@ -49,7 +56,7 @@ class Console:
             def do_POST(self):
                 if not self.authorized():return self.reply(401,dict(error='管理密钥无效'))
                 if self.headers.get('Origin')!='http://'+self.headers.get('Host',''):return self.reply(403,dict(error='请求来源无效'))
-                if self.path not in('/api/selected2026','/api/cash-credit'):return self.reply(404,dict(error='接口不存在'))
+                if self.path not in('/api/selected2026','/api/cash-credit','/api/runtime'):return self.reply(404,dict(error='接口不存在'))
                 if self.headers.get('Content-Type')!='application/json':return self.reply(415,dict(error='需要JSON请求'))
                 try:
                     size=int(self.headers.get('Content-Length','0'))
@@ -57,6 +64,13 @@ class Console:
                     self.connection.settimeout(10);value=json.loads(self.rfile.read(size))
                     if type(value) is not dict:raise ValueError('请求必须为对象')
                 except (ValueError,TimeoutError):return self.reply(400,dict(error='活动设置请求格式无效'))
+                if self.path=='/api/runtime':
+                    action=value.get('action')
+                    if action not in console.proxy_actions:return self.reply(400,dict(error='该管理操作未开放'))
+                    target=value.get('value')
+                    if target is None:target={}
+                    if type(target) is not dict:return self.reply(400,dict(error='管理操作参数无效'))
+                    return self.call(action,target)
                 return self.call('cash-credit' if self.path=='/api/cash-credit' else 'selected2026',value)
             def call(self,action,value=None):
                 try:return self.reply(200,dict(ok=True,result=console.rpc(action,value)))

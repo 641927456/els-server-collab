@@ -36,7 +36,8 @@ def snapshot(db,uid,account_id):
             rows.append(canonical(dict(unit_type=unit,line=line,unit_class=cls,transcendental=trans,stage=stage)))
     if activated is None and not rows:return None
     if activated and not any((r['unit_type'],r['line'])==activated[2:4]and priority(r)>=priority(canonical(dict(zip(('unit_type','line','unit_class','transcendental','stage'),activated[2:7]))))for r in rows):raise ValueError('Collection activation missing account canonical')
-    value=dict(active=bool(activated),registered=rows,expiry=0,expansion=0,field1d=1,field21=1)
+    from els_server.storage.el_search_collection_tickets import expiry
+    value=dict(active=bool(activated),registered=rows,expiry=expiry(db,uid,account_id),expansion=0,field1d=1,field21=1)
     wire(value)
     return value
 

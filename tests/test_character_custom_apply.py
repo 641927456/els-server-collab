@@ -28,7 +28,11 @@ BOOK=450000          # 无聊的艾索德 -> custom_id 11001, wait motion slot 1
 CUSTOM_ID=11001
 OTHER_CUSTOM=11002   # 勤修精进的艾索德, same family, never registered
 
-def use_payload(uid):return struct.pack('>QQiiIB',uid,0,0,0,0,0)
+def use_payload(uid,template):
+    # The native C595C0 book request carries the custom the client believes
+    # this book grants: UID, custom_id, family, highlighted socket, two pads.
+    rule=custom.catalog()[template]
+    return struct.pack('>QQiiIB',uid,rule['custom_id'],rule['type'],0,0,0)
 def apply_event(slot,custom_id,sequence,performers=(0,)):
     value=custom.canonical(custom_id)
     return Event(0x202,performers=performers,kind=0x4cb,
@@ -65,7 +69,7 @@ with tempfile.TemporaryDirectory() as d:
          patch('els_server.domain.avatar_set_flow.validate',lambda s,captured:None):
 
         # 1) Using the book registers it (0x219 -> 0x21A + 0x4CD).
-        receipt=store.use_book(path,OWNER,account.account_id,use_payload(book['uid']),'book-1')
+        receipt=store.use_book(path,OWNER,account.account_id,use_payload(book['uid'],BOOK),'book-1')
         assert receipt is not None and [e.kind for e in receipt['events']]==[0x21a,0x4cd],receipt
         assert snap()['owned']=={1:[custom.canonical(CUSTOM_ID)]},snap()
 
