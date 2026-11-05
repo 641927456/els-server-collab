@@ -9,6 +9,45 @@ from els_server.protocol.protocol_codec import Event
 
 SOURCE_NPC_LEVEL_OVERRIDES={('cfa5b87ea61cc343f5347f497a1cb303f18be6df6a1bdd11e3bff74547deba67', 0, 0, 1, 9011): 40, ('5573ca1db761bda7de68f7fb420d1a80f386d0ed0dcbd80fce2719ca57611aff', 0, 0, 1, 9020): 99, ('3f5e999f1e8c4dc3c63525d7dfc231ec8b40abcadeacb2e4d2ae82cb2c7fe2e0', 0, 0, 1, 9010): 99}
 
+# Original NPC_GROUP_RATE values, keyed by Lua source SHA and room.
+SOURCE_NPC_GROUP_WEIGHTS={
+ ('2ad86a70dc61c61d3df3dbeaccf3d09fb2253b99a7db57242eb214a514bbe365', 0, 0): (33, 33, 34),
+ ('2ad86a70dc61c61d3df3dbeaccf3d09fb2253b99a7db57242eb214a514bbe365', 1, 0): (33, 33, 34),
+ ('2ad86a70dc61c61d3df3dbeaccf3d09fb2253b99a7db57242eb214a514bbe365', 1, 1): (33, 33, 34),
+ ('2ad86a70dc61c61d3df3dbeaccf3d09fb2253b99a7db57242eb214a514bbe365', 1, 2): (33, 33, 34),
+ ('2ad86a70dc61c61d3df3dbeaccf3d09fb2253b99a7db57242eb214a514bbe365', 2, 0): (33, 33, 34),
+ ('2ad86a70dc61c61d3df3dbeaccf3d09fb2253b99a7db57242eb214a514bbe365', 2, 1): (33, 33, 34),
+ ('2ad86a70dc61c61d3df3dbeaccf3d09fb2253b99a7db57242eb214a514bbe365', 3, 0): (25, 25, 25, 25),
+ ('4f2e699405bc182f1892bfb2868fca428668290bd2178d87d072446adaab8a3b', 0, 0): (100,),
+ ('4f2e699405bc182f1892bfb2868fca428668290bd2178d87d072446adaab8a3b', 1, 0): (100,),
+ ('4f2e699405bc182f1892bfb2868fca428668290bd2178d87d072446adaab8a3b', 2, 0): (100,),
+ ('4f2e699405bc182f1892bfb2868fca428668290bd2178d87d072446adaab8a3b', 3, 0): (100,),
+ ('9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a', 0, 0): (33, 33, 34),
+ ('9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a', 0, 1): (33, 33, 34),
+ ('9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a', 1, 0): (33, 33, 34),
+ ('9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a', 2, 0): (33, 33, 34),
+ ('9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a', 2, 1): (33, 33, 34),
+ ('9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a', 2, 2): (33, 33, 34),
+ ('9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a', 3, 0): (33, 33, 34),
+ ('b2fc7a644eb702d4840af7c0ad7ba9fa7926e3182d6e1ef0335193228ad807c2', 1, 0): (50, 50),
+ ('c5c13300ddb677fa274194036820b79be46c5f19b1c406e17f01497175344fa2', 0, 0): (33, 33, 34),
+ ('c5c13300ddb677fa274194036820b79be46c5f19b1c406e17f01497175344fa2', 0, 1): (33, 33, 34),
+ ('c5c13300ddb677fa274194036820b79be46c5f19b1c406e17f01497175344fa2', 1, 0): (33, 33, 34),
+ ('c5c13300ddb677fa274194036820b79be46c5f19b1c406e17f01497175344fa2', 1, 2): (50, 50),
+ ('c5c13300ddb677fa274194036820b79be46c5f19b1c406e17f01497175344fa2', 2, 0): (33, 33, 34),
+ ('c5c13300ddb677fa274194036820b79be46c5f19b1c406e17f01497175344fa2', 3, 0): (33, 33, 34),
+ ('e13df7034c4af2db9bb49ea28348f1651f8a7c3918730e29c5d36321f8571bbb', 0, 0): (100,),
+ ('e5c9b9d1e6553e2e30a112a0fc06515ec73d02f0fc5bb8d5aa534efde650d214', 0, 0): (50, 50),
+ ('f8fcbe09cad35b426a3221cff7173febb0acb457eea3ab57296c53d391df248e', 0, 0): (33, 33, 34),
+ ('f8fcbe09cad35b426a3221cff7173febb0acb457eea3ab57296c53d391df248e', 0, 1): (33, 33, 34),
+ ('f8fcbe09cad35b426a3221cff7173febb0acb457eea3ab57296c53d391df248e', 1, 0): (33, 33, 34),
+ ('f8fcbe09cad35b426a3221cff7173febb0acb457eea3ab57296c53d391df248e', 1, 1): (33, 33, 34),
+ ('f8fcbe09cad35b426a3221cff7173febb0acb457eea3ab57296c53d391df248e', 1, 2): (33, 33, 34),
+ ('f8fcbe09cad35b426a3221cff7173febb0acb457eea3ab57296c53d391df248e', 2, 0): (33, 33, 34),
+ ('f8fcbe09cad35b426a3221cff7173febb0acb457eea3ab57296c53d391df248e', 2, 1): (33, 33, 34),
+ ('f8fcbe09cad35b426a3221cff7173febb0acb457eea3ab57296c53d391df248e', 2, 2): (33, 33, 34),
+}
+
 class RouteCatalog:
  def __init__(self,directory=DATA_DIR):
   raw=(directory/'dungeon_routes.json').read_bytes();m=json.loads((directory/'dungeon_routes.manifest.json').read_text(encoding='utf8'))
@@ -98,8 +137,14 @@ class DungeonRun:
   if self.encounter and self.encounter['kind']=='gold_castle' and stage==self.encounter['hub']:
    suppressed={p['npc'] for p in self.encounter['portals'] if p['stage'] in self.completed_stages}
   for part_id,part in sorted(self.graph['stages'][str(stage)]['parts'].items(),key=lambda kv:int(kv[0])):
-   base=part['groups'][0]['npcs'];alternatives=[g for g in part['groups'][1:] if g['npcs']]
-   chosen_group=alternatives[self.draw(f'group:{stage}:{part_id}',len(alternatives))] if alternatives else None
+   base=part['groups'][0]['npcs'];alternatives=part['groups'][1:]
+   chosen_group=None
+   if alternatives:
+    weights=SOURCE_NPC_GROUP_WEIGHTS[self.graph['source_sha256'],stage,int(part_id)]
+    draw=self.draw(f'group:{stage}:{part_id}',sum(weights))
+    for group,weight in zip(alternatives,weights):
+     draw-=weight
+     if draw<0:chosen_group=group;break
    chosen=chosen_group['npcs'] if chosen_group else []
    entries=[]
    for index,source in enumerate([*base,*chosen]):
@@ -108,9 +153,11 @@ class DungeonRun:
      for option in source['options']:
       draw-=option['weight']
       if draw<0:source=option;break
+    # Presence is selected once per run/source actor. Clear checks below use
+    # the emitted roster, so an omitted optional actor cannot block a room.
+    if source['rate']<100 and self.draw(f'presence:{stage}:{part_id}:{index}',100)>=source['rate']:
+     key+=1;continue
     # A fixed run seed picks one of the original alternative spawn positions.
-    # RATE is retained as source metadata; static admitted populations keep all
-    # declared actors so a low random roll cannot remove a clear target.
     template=source['template'];native=data['npcs'][str(template)]
     if template in suppressed:key+=1;continue
     from els_server.domain.formal_npc_hp import maximum,level as formal_level

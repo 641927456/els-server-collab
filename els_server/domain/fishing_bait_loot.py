@@ -38,7 +38,7 @@ def _actor(run,npc):
              if (a['template'],a['source_index'])==(npc['template'],npc['source_index'])
              and a['active'] and a['boss'] and not a['no_drop']
              and not a.get('ally') and a.get('team',1)!=0]
-    if len(matches)!=1:raise ValueError('Bait current graph Boss identity')
+    if not matches:raise ValueError('Bait current graph Boss identity')
     return dict(stage=run.stage,part=run.part,template=npc['template'],source_index=npc['source_index'],npc_key=npc['key'])
 
 
