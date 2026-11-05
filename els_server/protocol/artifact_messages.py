@@ -13,7 +13,7 @@ def consumable_request(payload):
  # A plain click sends zero, meaning one. It is not a target character UID.
  if not isinstance(payload,bytes) or len(payload)!=29:raise ValueError('Artifact item request length')
  uid,count,a,b,n,flag=struct.unpack('>QQiiIB',payload)
- if not 0<uid<2**63 or not 0<=count<=99 or a or b or n or flag:raise ValueError('Artifact item request fields')
+ if not 0<uid<2**63 or not 0<=count<=99 or a or b or n or flag not in (0,1):raise ValueError('Artifact item request fields')
  return uid,count or 1
 
 def potential_ack(character=None,changes=(),reset=False,result=0):

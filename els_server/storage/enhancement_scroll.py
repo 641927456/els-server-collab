@@ -16,7 +16,8 @@ from els_server.storage.equipment_enhancement import replace
 
 # User-approved local policy: retain the target trade state; not a native ENABLE_TRADE interpretation.
 TRADE_STATE_PRESERVING_SCROLLS={132495:5,132496:6,132497:7,132498:8,60007270:7}
-SCROLLS=frozenset((130149,130150,130151,130152,*TRADE_STATE_PRESERVING_SCROLLS))
+from els_server.domain.owned_scroll_families import catalog as owned_scrolls
+SCROLLS=frozenset((*owned_scrolls()['enhancement'],*TRADE_STATE_PRESERVING_SCROLLS))
 
 def apply(path,owner,payload,operation,*,account_id=None,prepare=None):
  if not isinstance(payload,bytes)or len(payload)!=16:raise ValueError('Enhancement scroll request size')

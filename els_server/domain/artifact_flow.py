@@ -2,6 +2,42 @@
 from els_server.protocol import artifact_messages as wire
 from els_server.domain.equipment_engrave_flow import current_lease
 
+def handle_consumable(s,event,sequence):
+ if event.event_id!=0x202 or event.kind!=0x219 or not s.item_test or s.client_build!='dx11_260923':return None
+ import sqlite3
+ from contextlib import closing
+ from els_server.domain.artifact_progression import catalog
+ from els_server.protocol.career_messages import use_ack
+ actor=getattr(s,'account',None);store=getattr(actor,'store',None)
+ if store is None or type(event.payload)is not bytes or len(event.payload)<8:return None
+ uid=int.from_bytes(event.payload[:8],'big')
+ if not 0<uid<2**63:return None
+ operation=s.shop_session_id+':'+str(actor.uid)+':'+str(sequence)
+ with closing(sqlite3.connect(store.path))as db:
+  from els_server.storage.inventory_state import owned_template
+  template=owned_template(db,actor.uid,uid)
+  old=db.execute('SELECT owner FROM artifact_actions WHERE operation_id=?',(operation,)).fetchone() if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='artifact_actions'").fetchone()else None
+  if template not in catalog()['level_up_items']and str(template)not in catalog()['exp_potions']and old!=(actor.uid,):return None
+ root=actor.root;path=store.path;identity=(actor.uid,actor.account_id,s.shop_session_id)
+ def guard():
+  from els_server.domain.equipment_chip_flow import reset_authority
+  reset_authority(s)
+  if (s.account is not actor or actor.store is not store or actor.root is not root or store.path!=path
+      or (actor.uid,actor.account_id,s.shop_session_id)!=identity or store.uid!=actor.uid
+      or s.role!='game' or s.phase!='town_ready' or type(sequence)is not int or not 0<sequence<2**32
+      or not s.item_test or s.client_build!='dx11_260923' or event.performers not in((),(0,))
+      or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Artifact consumable current actor')
+ def encode(events):
+  from els_server.protocol.protocol_codec import encode_event
+  guard()
+  for e in events:encode_event(e)
+  return events
+ try:
+  guard()
+  from els_server.storage.artifact_progression import action
+  return action(path,actor.uid,'potion',event.payload,operation,account_id=actor.account_id,encode=encode)
+ except ValueError:return[use_ack(result=2005)]
+
 def handle(s,event,sequence):
  if event.event_id==0x202 and event.kind==0x9cf and s.item_test and s.client_build=='dx11_260923':
   from els_server.storage.artifact_socket_expansion import perform,acknowledgement

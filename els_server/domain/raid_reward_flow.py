@@ -27,6 +27,8 @@ def weekly_events(db,owner,now):
   normal=state.weekly_steps(db,owner,family,week)
   story=state.weekly_steps(db,owner,family,week,True)if family in('rosso','berthe','abyss')else 0
   out.append(weekly_snapshot(category,normal,story))
+ from els_server.storage.challenge_scroll import snapshot as challenge_snapshot,notice as challenge_notice
+ out.extend(challenge_notice(challenge_snapshot(db,owner,category,now))for category in(4,5))
  return out
 
 def synchronize(s,events):

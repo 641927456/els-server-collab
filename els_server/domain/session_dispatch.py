@@ -82,6 +82,20 @@ def _wire_debug(event,sequence):
 
 
 def priority_handlers(self,event,request_sequence=None):
+    # Artifact level-up items and EXP potions are kind219 too, and their own
+    # admission must run before every other 219 family.
+    from els_server.domain.artifact_flow import handle_consumable as artifact_consumable_handle
+    artifact_consumable_reply=artifact_consumable_handle(self,event,request_sequence)
+    if artifact_consumable_reply is not None:return artifact_consumable_reply
+    # Native synergy tickets share kind219 with every other usable item, so the
+    # exact owned-template admission has to run before the generic families.
+    try:
+        from els_server.domain.el_search_collection_flow import handle as collection_ticket_handle
+        collection_ticket_reply=collection_ticket_handle(self,event,request_sequence)
+    except Exception:
+        import traceback;traceback.print_exc()
+        collection_ticket_reply=None
+    if collection_ticket_reply is not None:return collection_ticket_reply
     # A failed hot edit must never take the whole request chain down with it.
     try:
         from els_server.domain import pet_auto_flow
@@ -170,6 +184,12 @@ def priority_handlers(self,event,request_sequence=None):
     from els_server.domain.normal_fatigue_flow import potion as normal_fatigue_potion
     normal_fatigue_reply=normal_fatigue_potion(self,event,request_sequence)
     if normal_fatigue_reply is not None:return normal_fatigue_reply
+    from els_server.domain.skill_trait_reset_flow import handle as trait_reset_handle
+    trait_reset_reply=trait_reset_handle(self,event,request_sequence)
+    if trait_reset_reply is not None:return trait_reset_reply
+    from els_server.domain.challenge_scroll import handle as challenge_scroll_handle
+    challenge_scroll_reply=challenge_scroll_handle(self,event,request_sequence)
+    if challenge_scroll_reply is not None:return challenge_scroll_reply
     from els_server.domain.wisdom_potions import handle as wisdom_potion_handle
     wisdom_potion_reply=wisdom_potion_handle(self,event,request_sequence)
     if wisdom_potion_reply is not None:return wisdom_potion_reply

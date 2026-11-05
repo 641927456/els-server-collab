@@ -1,8 +1,10 @@
-"""Four retained single-use ordinary EXP potions; no new acquisition source."""
+"""Ordinary EXP items: retained wisdom potions and the admitted level scroll."""
 import functools,hashlib,json,struct
 from pathlib import Path
 from types import MappingProxyType
 TEMPLATES=(100005719,100005720,100005721,100005722)
+from els_server.domain.owned_scroll_families import catalog as owned_scrolls
+LEVEL_SCROLLS=tuple(owned_scrolls()['sage'])
 PAYLOAD_SHA='48b25c75362197366de02d6c38d1afe3d7150b32194a099be5678cf4b4186a5e'
 
 @functools.lru_cache(maxsize=1)
@@ -15,7 +17,10 @@ def definitions():
         item=client_data().item(r['template']);record=item['record']
         if hashlib.sha256(record).hexdigest()!=r['record_sha256']or record.hex()!=r['record_hex']or(item['item_type'],item['metadata'],item['flags8'])!=(7,0,56)or struct.unpack_from('<I',record,16)[0]!=0 or r['percent']!=percent:
             raise ValueError('Wisdom potion original retained item')
-    return MappingProxyType({r['template']:MappingProxyType(r)for r in d['rows']})
+    rows={r['template']:MappingProxyType(r)for r in d['rows']}
+    for template,rule in owned_scrolls()['sage'].items():
+        rows[template]=MappingProxyType(rule)
+    return MappingProxyType(rows)
 
 def admitted():return frozenset(t for t,r in definitions().items()if r.get('admitted',True))
 
@@ -44,8 +49,9 @@ def validate_existing(item):
     read_existing(dict(item));return item
 
 def request(payload):
-    from els_server.protocol.career_messages import use_request
-    return use_request(payload)
+    # Original219's stack quantity callback is already used by ERP potions.
+    from els_server.domain.erp_potions_existing import request as quantity_request
+    return quantity_request(payload)
 
 def handle(s,event,sequence):
     if event.event_id!=0x202 or event.kind!=0x219:return None
