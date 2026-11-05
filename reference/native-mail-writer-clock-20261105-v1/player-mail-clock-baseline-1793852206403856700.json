@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "baseline": true,
+  "production_database_access": false,
+  "actual_SQL_writer_competition": true,
+  "source_sha256": {
+    "game_mail.py": "596ae900b04e6253c061c10b60d112bd90724c5ebd74d394c4b6e5907ffa092d",
+    "player_mail.py": "fe2db04579070aef18fea990de9bffe3320c2af554c71bf6f68c9b7ec1063871"
+  },
+  "cases": [
+    {
+      "action": "send_expired",
+      "accepted": true,
+      "error": null,
+      "SQL_unchanged": false
+    },
+    {
+      "action": "send_last_second",
+      "accepted": true,
+      "error": null,
+      "SQL_unchanged": false
+    },
+    {
+      "action": "return_delete",
+      "accepted": false,
+      "error": "Claim ED attachment before deleting mail",
+      "SQL_unchanged": true
+    },
+    {
+      "action": "return_encoder_failure",
+      "accepted": false,
+      "error": "Claim ED attachment before deleting mail",
+      "SQL_unchanged": true
+    }
+  ],
+  "owned_temporary_directories_removed": true
+}
