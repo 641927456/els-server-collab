@@ -163,7 +163,8 @@ def handle(s,event,sequence):
     if event.payload not in(struct.pack('>iB',25000,0),struct.pack('>iB',25000,1))or phase not in('guild_agit_admitted','guild_agit_loaded'):raise ValueError('GuildAgit original225 admission')
     answer=[wire.loaded()]
    elif event.kind==0x504:
-    if phase not in('guild_agit_loaded','guild_agit_ready'):raise ValueError('GuildAgit ready before original226')
+    # The native first-map4FB path loads this scene and sends504 directly.
+    if phase not in('guild_agit_admitted','guild_agit_loaded','guild_agit_ready'):raise ValueError('GuildAgit ready without current admission')
     from els_server.storage.local_state import scene_ready_location
     board,progress,xyz=scene_ready_location(event.payload)
     if not 0<=board<255 or not 0<=progress<=100 or any(not math.isfinite(v)or abs(v)>1000000 for v in xyz):raise ValueError('GuildAgit original504 position')

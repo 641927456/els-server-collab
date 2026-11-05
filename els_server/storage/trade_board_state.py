@@ -379,11 +379,12 @@ def perform_purchase(path,owner,payload,operation,*,account_id,authority):
   gross=r['unit_price']*quantity
   if not 0<gross<=balance(db,owner)[0]:raise ValueError('TradeBoard actual ED unavailable')
   if r['gross_ed']+gross>=2**63:raise ValueError('TradeBoard original signed ledger capacity')
-  delivered=item
+  from els_server.domain.enhancement_progress import transferred
+  delivered=transferred(item)
   if item.get('sealed',False):
    if item.get('seal_used',0)>99:raise ValueError('TradeBoard unencodable unsealed history')
    # Explicit user-authorized local policy; no stamp/uses are refunded.
-   delivered=dict(item,sealed=False,seal_used=item.get('seal_used',0))
+   delivered=dict(delivered,sealed=False,seal_used=item.get('seal_used',0))
   points=_place(db,owner,delivered,quantity,quantity==r['remaining'],before);after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
   ed,_=change_ed(db,owner,-gross)
   remaining=r['remaining']-quantity

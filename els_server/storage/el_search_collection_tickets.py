@@ -4,7 +4,7 @@ from contextlib import closing
 from pathlib import Path
 from els_server.domain.el_search_collection_tickets import catalog,CollectionTicketError
 from els_server.storage.inventory_actions import _identity,_previous,_commit
-from els_server.storage.inventory_state import load_items
+from els_server.storage.inventory_state import load_items,owned_template
 from els_server.storage.equipment_receipt_state import current_changes
 from els_server.protocol.career_messages import use_request,use_ack
 from els_server.protocol.el_search_collection_messages import notice
@@ -12,13 +12,6 @@ from els_server.protocol.protocol_codec import encode_event
 
 TABLE='character_search_collection_synergy_time'
 MAX_SECONDS=90*86400
-
-
-def owned_template(db,owner,uid):
-    # The 2026-11-04 runtime dropped inventory_state.owned_template; this is the
-    # same single-row template lookup the ticket admission needs.
-    row=db.execute('SELECT template FROM inventory_items WHERE uid=? AND owner=?',(uid,owner)).fetchone()
-    return row[0]if row else None
 
 
 def expiry(db,owner,account):

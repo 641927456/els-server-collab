@@ -161,10 +161,11 @@ def send(path,account,uid,request,operation,encode,*,now=None):
     body='' if request['body']=='' else _text(request['body'],2000)
     if not isinstance(operation,str) or not 1<=len(operation)<=160:raise MailError('Invalid send operation')
     canonical=json.dumps(dict(recipient=name,title=title,body=body,ed=request['ed'],item=request['item'],count=request['count']),ensure_ascii=True,sort_keys=True)
-    digest=hashlib.sha256(canonical.encode()).hexdigest();now=int(time.time()) if now is None else now
-    if type(now) is not int or not 1<=now<2**31:raise MailError('Invalid send timestamp')
+    digest=hashlib.sha256(canonical.encode()).hexdigest()
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');_active_owner(db,account,uid)
+        now=int(time.time()) if now is None else now
+        if type(now) is not int or not 1<=now<2**31:raise MailError('Invalid send timestamp')
         from els_server.storage import mail_attachments as attachments
         old=db.execute('''SELECT account_id,sender_uid,digest,mail_id,recipient,fee
             FROM player_mail_receipts WHERE operation=?''',(operation,)).fetchone()
