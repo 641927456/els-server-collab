@@ -290,7 +290,7 @@ class FriendsWorld:
                 for event in notices:self.send(other,event)
 
     def chat(self,session,event):
-        if session.phase not in ('town_ready','dungeon_active') or session.role!='game':return [wire.chat_ack(-1)]
+        if session.phase not in ('town_ready','dungeon_active','guild_agit_ready') or session.role!='game':return [wire.chat_ack(-1)]
         now=time.monotonic()
         while session.chat_times and now-session.chat_times[0]>=5:session.chat_times.popleft()
         if len(session.chat_times)>=5:return [wire.chat_ack(-1)]
@@ -304,6 +304,12 @@ class FriendsWorld:
         if channel==0 and session.phase=='dungeon_active':
             from els_server.domain.dungeon_chat import handle
             return handle(self,session,text,now)
+        if channel==3:
+            from els_server.domain.guild_chat import deliver
+            return deliver(self,session,text,now)
+        if channel==0 and session.phase=='guild_agit_ready':
+            from els_server.domain.guild_chat import deliver
+            return deliver(self,session,text,now,channel=0)
         party=self.party_of.get(session)
         if channel==0:
             if session not in self.members:return [wire.chat_ack(-1)]

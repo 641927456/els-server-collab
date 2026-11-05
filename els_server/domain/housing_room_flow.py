@@ -32,12 +32,12 @@ def local_identity(s):
             s._aux_local_live,s._chip_reset_local_live,json.dumps(a.get_location(),sort_keys=True))
     return refs,values
 
-def identity(s):
+def identity(s,*,arrived=True):
     if getattr(s,'application',None)is None:return local_identity(s)
 
     if(not _ordinary_actor(s)or getattr(s,'application',None)is None or s.account.characters is None
        or s.role!='game'or not s.enter_town or not s.item_test or s.client_build!='dx11_260923'
-       or s.dungeon_return_pending or not{0x28,0x225,0x227}.issubset(s.completed)):raise ValueError('Housing current ordinary native actor required')
+       or s.dungeon_return_pending or not({0x28,0x225,0x227}if arrived else{0x28,0x32}).issubset(s.completed)):raise ValueError('Housing current ordinary native actor required')
     a=s.account;app=s.application;root=a.root;world=app.world
     if (type(s.identity)is not dict or s.identity.get('id')!=a.account_id
             or root.root is not root or root.characters is not a.characters

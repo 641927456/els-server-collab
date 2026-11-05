@@ -30,7 +30,10 @@ def period(now):
  return (now+2*3600)//86400  # UTC+8 local06:00 boundary.
 
 def require_item(item,*,now,container='inventory'):
- item=validate_item(item,container=container)
+ # This tree's validate_item has no container switch (that lives in the 11-05
+ # candidate's inventory_items, which needs nine absent modules). The current
+ # validator is stricter, not looser, so the guard keeps its meaning.
+ item=validate_item(item)
  from els_server.domain.bag_capacity import BAG_GROUPS
  if item['group']not in BAG_GROUPS:raise ValueError('Guild bank requires unequipped inventory source')
  if item.get('sealed',False)and(set(item)-PLAIN or item['metadata']not in(0,2)):raise ValueError('Guild bank sealed equipment transition is not qualified')

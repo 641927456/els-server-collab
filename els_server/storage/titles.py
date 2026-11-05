@@ -66,13 +66,17 @@ def state(path,uid):
         if not value['title'] and exists(db,'title_equipment'):db.execute('UPDATE title_equipment SET title=0 WHERE owner=? AND title<>0',(uid,))
         return value
 
-def equip(path,uid,title):
+def equip(path,uid,title,*,guard=lambda db:None,prepare=None):
     if type(title) is not int or title<0:raise ValueError('Title identity')
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('BEGIN IMMEDIATE');current=snapshot(db,uid);c=character(db,uid)
+        db.execute('BEGIN IMMEDIATE');guard(db);current=snapshot(db,uid);c=character(db,uid)
         if title and (not any(r['title']==title for r in current['owned']) or not eligible(c,title)):raise ValueError('Title is not owned or eligible')
         answer=wire.equipment(title);schema(db)
         db.execute('INSERT INTO title_equipment VALUES (?,?) ON CONFLICT(owner) DO UPDATE SET title=excluded.title',(uid,title))
+        # GuildAgit commits the appearance publication in the same transaction,
+        # so a title change cannot be saved without its peer notice.
+        if prepare is not None:prepare(db)
+        guard(db)
         return answer
 
 def use_item(path,uid,payload,operation_id,now=None):

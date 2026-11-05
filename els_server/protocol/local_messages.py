@@ -196,7 +196,11 @@ def character_unit_fields(location=None,initialize_attributes=False,slots=None,e
         if field['offset']=='0x30b' and (character or {}).get('guild_membership') is not None:
             from els_server.protocol.guild_membership_messages import saved_membership_wire
             guild=character['guild_membership']
-            data=saved_membership_wire(guild['id'],guild['name'],guild['grade'],data)
+            # The saved guild's own six-rank authority table, never the two-grade
+            # default: the login DTO carries the real invitation/manage/skills/
+            # funds flags, withdrawal count and per-withdrawal item cap.
+            from els_server.domain.guild_bank_rules import permission_rows
+            data=saved_membership_wire(guild['id'],guild['name'],guild['grade'],data,permissions=permission_rows(guild['system']))
         fields.append((field['offset'],overrides.get(field['offset'],data)))
     from els_server.domain.native_copy_production import capture_fields
     return capture_fields(tuple(fields))
