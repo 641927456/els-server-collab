@@ -26,7 +26,7 @@ def snapshot(path,actors):
         db.execute('BEGIN');tables={n for n, in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         receipts=[]
         if 'native_duel_results'in tables:
-            for raw, in db.execute('SELECT result_json FROM native_duel_results'):
+            for raw, in db.execute("SELECT result_json FROM native_duel_results WHERE EXISTS(SELECT 1 FROM json_each(result_json,'$.proof.members') WHERE json_extract(value,'$.uid') IN(?,?,?))",tuple(sorted(uids))):
                 value=json.loads(raw)
                 if any(m['uid']in uids for m in value['proof']['members']):
                     assert all(m['uid']in uids for m in value['proof']['members'])
