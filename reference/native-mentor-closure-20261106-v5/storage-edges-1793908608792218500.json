@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "checks": [
+    "Search encoder rollback; one broadcast per operation; cold persisted60s cooldown;59 denies and exact60 succeeds",
+    "Another current99 role cannot qualify while any character on that account remains a student",
+    "Actual schedule/finalize API removes both social rows in its transaction, retains tombstone data, creates no graduation award and releases account qualification"
+  ],
+  "fixture": "G:\\els\\analysis\\feature-closure-20261105-v1\\mentor-v1\\owned-mentor-edges-u3m95e1l",
+  "fixture_cleaned": true,
+  "explicit_existing_relation_fixture": true,
+  "current_lease_tested": false,
+  "natural_GUI": false,
+  "production_database_access": false,
+  "source_files": {
+    "application.py": "512e27347218a03261267c62f3ccd6f282d664d28e62d6be47e0b8b3938bb816",
+    "domain/friends_world.py": "27fc39206710eda71d52f04bb8edb3aff05c680b71be2c53fcaedd535a6c0589",
+    "domain/mentor_flow.py": "45eff99d9914c106746e52fea31cab66897284d872399a101ae1c0bacd618df6",
+    "protocol/mentor_messages.py": "0dee41beae0ee5018bf5ac5ce98383561b3d10a1a20bf1c0a4ace12ff4d6e0e4",
+    "storage/character_lifecycle.py": "6633e7d2eeb1c5c185e079f801e6e163a621101e779eee35aea50ecda6c099f2",
+    "storage/mentor45000_scope.py": "577e50b52ecf0434fcbe972348f3cb8433e05d3c98a1ef96ce9e80207c463ae3",
+    "storage/mentor_relations.py": "d5856fc7cd418a7124d97901abaf6a9763ae66216942d1d89e3c1d784a01f8a4",
+    "storage/player_mail.py": "30eadeea7224b7d0d2880e58e83c11295e0bb104b862683e8e686c9099cad913"
+  }
+}
