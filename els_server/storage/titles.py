@@ -41,10 +41,20 @@ def owned(db,c,now):
         if (not end or now<end) and (kind,subject)==scope(c,title):result.append(dict(title=title,name=name,expires_at=end))
     return result
 
+def _equipped(db,c,rows):
+    selected=db.execute('SELECT title FROM title_equipment WHERE owner=?',(c['uid'],)).fetchone() if exists(db,'title_equipment') else None
+    return selected[0] if selected and any(r['title']==selected[0] for r in rows) and eligible(c,selected[0]) else 0
+
+
+def equipped(db,uid,now=None):
+    """Current owned/eligible title inside the caller's transaction."""
+    now=int(time.time()) if now is None else now;c=character(db,uid)
+    return _equipped(db,c,owned(db,c,now))
+
+
 def snapshot(db,uid,now=None):
     now=int(time.time()) if now is None else now;c=character(db,uid);rows=owned(db,c,now)
-    selected=db.execute('SELECT title FROM title_equipment WHERE owner=?',(uid,)).fetchone() if exists(db,'title_equipment') else None
-    active=selected[0] if selected and any(r['title']==selected[0] for r in rows) and eligible(c,selected[0]) else 0
+    active=_equipped(db,c,rows)
     # The original client already owns all 932 static definitions. C23 rebuilds
     # its list, overlays acquired rows and restores open mission state.
     from els_server.storage.title_clears import opened

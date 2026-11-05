@@ -24,17 +24,19 @@ def authority(db,owner,account,guard):
 def snapshot(db,guild):
  from els_server.storage.guild_bank_capacity import rows as expansions
  debits=[r for r in expansions(db,guild)if not r[5]]
+ from els_server.storage.guild_system_state import currency_delta
+ extra_coins,extra_banner,extra_count=currency_delta(db,guild)
  tables=('native_guild_coin_v1','native_guild_coin_donations_v1');present=[_exists(db,t)for t in tables]
  if not any(present):
-  if debits:raise ValueError('Guild expansion debit lacks currency producer')
+  if debits or extra_count:raise ValueError('Guild currency lacks its producer counter')
   return 0
  if not all(present):raise ValueError('Partial guild coin schema')
  row=db.execute('SELECT balance,revision,version FROM native_guild_coin_v1 WHERE guild_id=?',(guild,)).fetchone()
  history=db.execute('SELECT quantity FROM native_guild_coin_donations_v1 WHERE guild_id=?',(guild,)).fetchall()
  if row is None:
-  if history or debits:raise ValueError('Guild coin ledger without counter')
+  if history or debits or extra_count:raise ValueError('Guild coin ledger without counter')
   return 0
- if any(type(n)is not int or not 1<=n<=500 for n, in history)or row!=(sum(n for n, in history)-60*len(debits),len(history)+len(debits),1)or not 0<=row[0]<2**31:raise ValueError('Unknown or changed guild coin ledger')
+ if any(type(n)is not int or not 1<=n<=500 for n, in history)or row!=(sum(n for n, in history)-60*len(debits)+extra_coins,len(history)+len(debits)+extra_count,1)or not 0<=row[0]<2**31:raise ValueError('Unknown or changed guild coin ledger')
  return row[0]
 def read(path,owner,account,guard):
  with closing(sqlite3.connect(path,timeout=10))as db:

@@ -1,9 +1,4 @@
-"""Current-client guild request prefixes and saved membership projection.
-
-Source: 6c6b5180 client, runtime c8815e00. This leaf does not admit a
-producer or invent the remaining GuildInfo state. Storage/dispatch wiring
-is intentionally absent until that complete source contract is closed.
-"""
+"""Current native guild requests and saved Unit membership projection."""
 import struct
 
 
@@ -61,7 +56,7 @@ def join_reply_request(payload):
     return guild_id, inviter, struct.unpack_from('>i', payload, offset)[0]
 
 
-def saved_membership_wire(guild_id, name, grade, original_empty_group):
+def saved_membership_wire(guild_id, name, grade, original_empty_group, *, permissions=None):
     # D9B170 -> DB0BA0; 87A6E0 copies DTO 30B/30F/32F to Unit
     # 26D0/26D8/26F8. The original empty group is exactly 66 wire bytes:
     # i32, wstring, byte, {i32,i32,Q}, byte, byte, i32, wstring, bool,
@@ -80,4 +75,4 @@ def saved_membership_wire(guild_id, name, grade, original_empty_group):
         raise ValueError('Guild name wire bound')
     from els_server.domain.guild_bank_rules import permissions_wire
     return (struct.pack('>iI', guild_id, len(raw)) + raw + bytes((grade,))
-            + original_empty_group[9:36] + permissions_wire() + original_empty_group[40:])
+            + original_empty_group[9:36] + permissions_wire(permissions) + original_empty_group[40:])

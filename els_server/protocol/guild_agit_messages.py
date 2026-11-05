@@ -40,3 +40,9 @@ def member(character,location,items=()):
 def ready(rows=(),*,result=0):return Event(0x201,kind=0x505,payload=struct.pack('>iI',result,len(rows))+b''.join(member(*r)for r in rows))
 def added(row):return Event(0x201,kind=0x4fd,payload=member(*row))
 def removed(uid):return Event(0x201,kind=0x500,payload=struct.pack('>Qi',uid,0))
+
+
+def moved(uid,payload):
+ # 30DCB50 case503 ->2079600 uses exactly the shared20F0580 reader.
+ from els_server.protocol.social_messages import town_movement
+ return Event(0x201,kind=0x503,payload=town_movement(uid,payload).payload)

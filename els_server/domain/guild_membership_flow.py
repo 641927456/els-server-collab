@@ -18,7 +18,12 @@ WRITER_ENABLED = True
 
 
 def facts(s):
-    base = town_facts(s)
+    if getattr(s,'guild_agit',None)is not None:
+        from els_server.domain.guild_agit_flow import bank_capture,identity
+        from els_server.domain.housing_room_flow import world_state
+        bank_capture(s);refs,values=identity(s);world,world_values=world_state(s)
+        base=(tuple(map(id,refs)),values,tuple(map(id,world)),world_values,id(s.guild_agit),s.guild_agit['guild'],s.phase)
+    else:base = town_facts(s)
     if (s.identity['id'] != s.account.account_id
             or not s.application.registry.enabled(s.account.account_id)
             or s.application.world.dungeons.room(s) is not None):
@@ -43,12 +48,14 @@ def _peer(s, *, uid=0, name=''):
 def cold(s):
     # Called after ordinary2A selection. Read-only; no optional-table creation.
     if s.client_build!='dx11_260923' or s.account.characters is None:return []
-    saved=state.cold(s.account.store.path,s.account.uid,s.account.account_id)
-    return [] if saved is None else [wire.full_notification(profile(saved))]
+    with state.snapshot_connection(s.account.store.path)as db:
+        db.execute('BEGIN')
+        saved=state.snapshot(db,s.account.uid,s.account.account_id)
+        return [] if saved is None else [wire.full_notification(profile(saved,db=db))]
 
 
 def handle(s,event,sequence):
-    if event.event_id!=0x202 or event.kind not in (0x276,0x285,0x288):return None
+    if event.event_id!=0x202 or event.kind not in (0x276,0x285,0x288,0x6c8):return None
     reply_guard=reply_capture(s)
     if reply_guard is None:return []
     try:
@@ -61,16 +68,22 @@ def handle(s,event,sequence):
         def guard():
             if any(facts(p)!=v for p,v in captured.items()):
                 raise ValueError('Guild actor/source/mailbox changed during transaction')
+            for p in captured:
+                if getattr(p,'guild_agit',None)is not None:
+                    from els_server.domain.guild_agit_flow import bank_capture
+                    bank_capture(p)[1](db)
         operation=s.shop_session_id+':guild:'+str(s.account.uid)+':'+str(sequence)
         path=s.account.store.path
         with closing(sqlite3.connect(path,timeout=10)) as db:
             try:
                 db.execute('PRAGMA foreign_keys=ON')
                 db.execute('BEGIN IMMEDIATE');guard();now=int(time.time())
-                if event.kind==0x276:
+                if event.kind==0x6c8:
+                    answer=state.decline(db,s.account.uid,s.account.account_id,s.shop_session_id,event.payload,operation,now,guard)
+                elif event.kind==0x276:
                     item_uid,name,message=request.create_request(event.payload)
                     def encode(saved,changes,repeat):
-                        p=profile(saved)
+                        p=profile(saved,db=db)
                         return (wire.create_ack(p['basic'],changes),wire.full_notification(p))
                     answer=state.create(db,s.account.uid,s.account.account_id,item_uid,name,message,
                         event.payload,operation,now,encode=encode,guard=guard)
@@ -80,7 +93,7 @@ def handle(s,event,sequence):
                     def encode(saved,inviter,target):
                         nonlocal boxes
                         answer=(wire.invite_ack(peer.account.character_identity()['name']),)
-                        deliveries=[(peer,[wire.invitation(profile(saved)['basic'],inviter,'')])]
+                        deliveries=[(peer,[wire.invitation(profile(saved,db=db)['basic'],inviter,saved['system']['rules'])])]
                         boxes=_prepared_boxes(deliveries,answer)
                         return answer
                     answer=state.invite(db,s.account.uid,s.account.account_id,peer.account.uid,
@@ -92,7 +105,7 @@ def handle(s,event,sequence):
                     peer=_peer(s,name=inviter);captured[peer]=facts(peer)
                     def encode(saved,changes,repeat):
                         nonlocal boxes
-                        p=profile(saved)
+                        p=profile(saved,db=db)
                         answer=(wire.accepted_ack(),wire.full_notification(p,joined=True))
                         boxes=_prepared_boxes([] if repeat else [(peer,[wire.full_notification(p)])],answer)
                         return answer
@@ -104,6 +117,9 @@ def handle(s,event,sequence):
                 db.rollback();raise
         # No await/worker handoff between final fences, commit and assignment.
         for peer,box in boxes.items():peer.mailbox=box
+        if event.kind in(0x276,0x288):
+            for peer in captured:peer._guild_timing=None
         return list(answer)
     except (ValueError,UnicodeError,sqlite3.Error,OverflowError):
+        if event.kind==0x6c8:return []
         return guarded_reply(reply_guard,lambda:[wire.failed(event.kind)])

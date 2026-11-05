@@ -566,8 +566,9 @@ class LocalSession:
         from els_server.domain.mailbox_extras import periodic as mail_periodic
 
         from els_server.domain.luciel_state import periodic as luciel_periodic
+        from els_server.domain.guild_periodic import periodic as guild_periodic
 
-        mail_notices=market_notices+mail_periodic(self)+luciel_periodic(self)
+        mail_notices=market_notices+mail_periodic(self)+luciel_periodic(self)+guild_periodic(self)
 
         if self.shop_test and self.role=='game' and self.phase=='town_ready' and self.shop_available_pending:
 
@@ -1055,6 +1056,15 @@ class LocalSession:
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
             try:return [force_slot_action(self.account.store.path,self.account.uid,self.account.account_id,event.payload,operation)]
             except ValueError as error:return [force_slot_ack(result=getattr(error,'result',-1))]
+        from els_server.domain.guild_recruit import handle as guild_recruit_handle
+        guild_recruit_reply=guild_recruit_handle(self,event,request_sequence)
+        if guild_recruit_reply is not None:return guild_recruit_reply
+        from els_server.domain.guild_banner_flow import handle as guild_banner_handle
+        guild_banner_reply=guild_banner_handle(self,event,request_sequence)
+        if guild_banner_reply is not None:return guild_banner_reply
+        from els_server.domain.guild_system_flow import handle as guild_system_handle
+        guild_system_reply=guild_system_handle(self,event,request_sequence)
+        if guild_system_reply is not None:return guild_system_reply
         if self.item_test and self.account.characters is not None and kind==0x219 and event.event_id==0x202:
 
             from els_server.protocol.career_messages import use_ack,career_notice,stage_notice
