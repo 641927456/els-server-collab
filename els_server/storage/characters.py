@@ -161,7 +161,6 @@ class Characters:
         # Ownership, capacity, UID allocation, items and wire validation below
         # still share the original atomic creation transaction.
         from els_server.storage.character_lifecycle import check_creation,current_time,created
-        from els_server.storage.bag_capacity import grant_starting_fashion
         from els_server.domain.tutorial_quests import starting_town
         from els_server.storage.role_loadout import grant_loadout
         from els_server.domain.character_rules import default_slots
@@ -184,7 +183,10 @@ class Characters:
                 db.execute('INSERT INTO characters VALUES (?,?,?,?,?,1,0,0,0)',(uid,name,name.casefold(),unit_type,BASE_CLASSES[unit_type]))
                 db.execute('INSERT INTO character_owners VALUES (?,?)',(uid,self.account_id))
                 created(db,uid,self.account_id,now)
-                starting_bags=grant_starting_fashion(db,uid)
+                # New identities start on the same 36-slot base as every other
+                # character; costume and ice avatar pages grow through the same
+                # eight-slot purchase instead of being granted at the ceiling.
+                starting_bags={}
                 # New identities and their role-specific starter items commit
                 # together; retry receipts never grant a second set.
                 db.execute('INSERT INTO location VALUES (?,?,0,0,0,0,0,0)',(uid,town))

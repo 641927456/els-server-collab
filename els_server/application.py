@@ -279,6 +279,10 @@ class Application:
             if self.config.profile=='integrated_dx11':account.enable_characters()
             return account
         self.account=await self.call(initialize)
+        # Local profile: keep the running process usable while handlers are
+        # edited, so a fix does not cost the player his connection.
+        from els_server import hot_reload
+        hot_reload.start(self.config)
         if self.config.mode=='friends':
             from els_server.storage.accounts import Accounts
             self.registry=await self.call(Accounts,self.config.accounts_file)

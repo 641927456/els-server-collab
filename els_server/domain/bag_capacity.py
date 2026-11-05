@@ -2,8 +2,8 @@
 
 The existing 36-slot starting allowance is local policy, not an official base.
 392 is the ordinary/life purchase ceiling (2255C80/23D3AE0). With the
-preserved local base, eight-slot purchases stop at 388. New characters get
-the original avatar/ice avatar limits, 840/1120, as local starting policy.
+preserved local base, eight-slot purchases stop at 388. Avatar and ice avatar
+pages are the same eight-slot ladder but reach the original 840/1120 ceilings.
 """
 import struct
 from els_server.protocol.protocol_codec import Event
@@ -11,26 +11,39 @@ from els_server.protocol.protocol_codec import Event
 LOCAL_BASE=36
 NATIVE_LIMIT=392
 PRODUCT_GROUPS={200751:1,200752:2,200753:6,200754:3,200755:5,200756:4,135964:21}
-# Original 2255C80 switch: 105/140 rows of eight for avatar/ice avatar.
-STARTING_FASHION_CAPACITIES={7:840,27:1120}
-BAG_GROUPS=(1,2,3,4,5,6,7,21,25,27)  # Furniture uses the preserved local36-slot base.
+# Original 2255C80 switch: 105/140 rows of eight for avatar/ice avatar. These
+# are purchase ceilings for the same eight-slot primitive, not a free grant.
+FASHION_LIMITS={7:840,27:1120}
+# This build ships no coupon for the housing or costume tabs, yet their canvases
+# draw the same locked row and "+" as an ordinary bag. Leaving them unpriced is
+# what makes those buttons look dead, so they are priced locally instead.
+LOCAL_PRODUCTS={'local-avatar':7,'local-furniture':25,'local-ice-avatar':27}
+LOCAL_PRICES={'local-avatar':50,'local-furniture':50,'local-ice-avatar':50}
+EXPANDABLE=frozenset(PRODUCT_GROUPS.values())|frozenset(LOCAL_PRODUCTS.values())
+BAG_GROUPS=(1,2,3,4,5,6,7,21,25,27)
 QUICK_SLOT_GROUP=11
 # Preserve this local profile's existing six visible item shortcuts explicitly.
 # Native 3059AD0 accepts 3/6 and clamps its constructor's placeholder 67 to 6.
 # This is a local allowance, not evidence of the retail starting entitlement.
 LOCAL_QUICK_SLOTS=6
 
+def limit(group):
+    return FASHION_LIMITS.get(group,NATIVE_LIMIT)
+
 def wire_limit(group):
     if group==QUICK_SLOT_GROUP:return LOCAL_QUICK_SLOTS
-    return STARTING_FASHION_CAPACITIES.get(group,NATIVE_LIMIT if group in PRODUCT_GROUPS.values() else LOCAL_BASE)
+    return FASHION_LIMITS.get(group,NATIVE_LIMIT if group in EXPANDABLE else LOCAL_BASE)
 
 def capacities(character=None):
     result={g:LOCAL_BASE for g in BAG_GROUPS}
     result[QUICK_SLOT_GROUP]=LOCAL_QUICK_SLOTS
     for key,value in (character or {}).get('bag_capacities',{}).items():
         group=int(key)
-        valid=(value==STARTING_FASHION_CAPACITIES[group] if group in STARTING_FASHION_CAPACITIES
-               else group in PRODUCT_GROUPS.values() and type(value) is int and LOCAL_BASE<=value<=NATIVE_LIMIT and (value-LOCAL_BASE)%8==0)
+        ceiling=limit(group)
+        # 840 and 1120 are the native ceilings; every step below them is the
+        # same eight-slot purchase as the ordinary tabs.
+        valid=(group in EXPANDABLE and type(value) is int and LOCAL_BASE<=value<=ceiling
+               and ((value-LOCAL_BASE)%8==0 or (group in FASHION_LIMITS and value==ceiling)))
         if type(value) is not int or not valid:
             raise ValueError('Invalid persisted bag capacity')
         result[group]=value
@@ -50,7 +63,7 @@ def expansion_notice(before,after):
     # parsed but unused in this build. Do not resend a delta on receipt replay.
     old,new=capacities(before),capacities(after)
     changes={g:new[g]-old[g] for g in BAG_GROUPS if new[g]!=old[g]}
-    if any(g not in PRODUCT_GROUPS.values() or n<=0 or n%8 for g,n in changes.items()):raise ValueError('Invalid expansion delta')
+    if any(g not in EXPANDABLE or n<=0 or n%8 for g,n in changes.items()):raise ValueError('Invalid expansion delta')
     if not changes:return None
     body=struct.pack('>I',len(changes))+b''.join(struct.pack('>ii',g,n) for g,n in sorted(changes.items()))+bytes(12)
     return Event(0x201,kind=0x26c,payload=body)
