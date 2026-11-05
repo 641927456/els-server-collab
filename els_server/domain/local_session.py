@@ -1905,7 +1905,7 @@ class LocalSession:
                         if (event.performers not in ((),(0,)) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Owned growth cube envelope')
                         gear_path,gear_owner,gear_account,gear_prepare=selected(self)
                         answer=open_cube(gear_path,gear_owner,cube_template,event.payload,operation,account_id=gear_account,prepare=gear_prepare)
-                    elif cube_template in (300645,300646,300647,300648,117542,135666,135871,723618,723687,723688):
+                    elif cube_template in (300645,300646,300647,300648,117542,135666,135871,723618,723687,723688,980047):
                         from els_server.domain.tenebros_capacity_flow import selected
                         if(event.performers not in((),(0,))or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Job box use envelope')
                         box_path,box_owner,box_account,box_prepare=selected(self)

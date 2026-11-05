@@ -4,8 +4,8 @@ from pathlib import Path
 from types import MappingProxyType
 from els_server.game_data import client_data,CLIENT_SHA
 
-BOXES=frozenset((117542,135666,135871,723618,723687,723688))
-DATA_SHA='3ed67020222f3106c97dea75c4224937c1094aef71ba7c247b95d518a2ca7321'
+BOXES=frozenset((117542,135666,135871,723618,723687,723688,980047))
+DATA_SHA='c1b55066193f932808fdf78b555905cf838ab17f3fce2e2e0609a5552e43a98e'
 
 @functools.lru_cache(maxsize=1)
 def catalog():
