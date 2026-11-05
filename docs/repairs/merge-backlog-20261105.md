@@ -167,12 +167,37 @@ if request.option not in (0,1):
 - 不取：`domain/identification_ui.py`（依赖 `identification_ui.json` 的 `975267cf…`，本树是 `c3e9be1f…`，归档也没带新表，装上就会 `Identification source changed`；`storage/identification_ui.py` 一并回退）、`domain/inventory_items.py`（另一棵树的全量快照，会删掉 `0x395` 衣柜字段并引入六组别的功能）、`storage/wardrobe.py`（归档删掉本树的 `13890C0` 重放，树更新）。
 - 未验证：归档自带的 15 组隔离检查需要 qualified runtime，本机跑不了；`--check`、导入体检（21 个模块）、34 个箱子用例、挑战状态/神物戒指/晋级箱覆盖均通过。
 
+## 9c. 已执行（2026-11-05 21:30 起，第三批）
+
+| 提交 | 内容 |
+|---|---|
+| `9ce2efe` | `promotion-fashion-bag-20261101-v1`：普通晋级时装回背包 7，冰装留 27 |
+| `63bf44e` | `three-activities-startup-20261101-v1`：四个 Boost 箱子接通 + 活动到期上限 + 共享银行限制 |
+
+### `promotion-fashion-bag`
+
+- 三个箱子读者把原生 group7 的普通时装当成 group27，职业时装箱一直发进冰装背包。新增 `fashion_inventory.native_groups`，按原生 `flags8 & 0x100` 判定，`job_reward_boxes`/`promotion_reward_boxes`/`owned_reward_boxes` 三处 reader 统一过一遍。
+- `inventory_items` 里职业箱读者注册 `if _r['group']in(7,27)`（原来只认 27），否则与归一化后的 reader 撞 `Career box reader conflict`。
+- `storage/inventory_state`：新增 `migrate_normal_fashion_bag`（27→7，保留 UID 与实例子表，写 `ordinary-fashion-native-bag-7-v1:<owner>` 审计）；`owned_template` 是被 `artifact_flow` / `el_search_collection_tickets` 引用却在本树缺失的函数，一并补回；`inventory_ready(db, owner)` 让「存档里还有放错组的行」触发迁移。
+- 不取：`validate_plan`/`grant_items` 的 `shop_fashion_templates` 参数（依赖本树不存在的 `fashion_singles.onepiece_templates`）。
+- 已用玩家存档副本验证：手工注入放错的 398002 → 初始化后回到 `bag_group=7, slot=10`，UID 不变，审计 `receipts_preserved=True`；真实存档当前没有放错行。
+
+### `three-activities-startup`
+
+- 归档是 local/online 双通道全量差分（213 文件），直接 merge 会删掉 34 万行。按文件分类：14 个 MISSING 是新功能，28 个 DRIFT 里 25 个是「归档比树新」。
+- 本批只取「四个 Boost 箱子 + 活动到期 + 共享银行」这条最小闭环：`723619/723620/723621/723634` 四个固定内容箱子（归档 readers 1438 是树的严格超集，无冲突行）；`outputs_for` 改为「有 `class_outputs['0']` 就用它」，不再硬编码 `(117542,723618)`。
+- `boosting_2026_item_policy` 从 `selected2026/local-growth.json` 的 `configuration.ends`（1796004000 = **2026-11-30 10:00**）取活动截止；`domain/item_expiration` 与 `storage/item_expiration` 都改为经 `item_deadline`，没有自身期限的活动行在截止后被同一次事务清掉；`bank_rules` 拒绝活动容器进共享银行。
+- 不取同归档的 `world_buff_messages` / `world_elixirs` / `elixir_flow` / `elixir_peer_sync`：它们要 `activity2026_awards.world_rows`/`world_stamp`，本树的 `activity_2026_rewards` 没有这两个方法，装了也不会产生 `_boosting` 行。
+- 仍未取的大件：`abyss_weapon_2026`（7 文件）、`quick_start`（5 文件），以及 `careers`(719707 大师转职映射)、`decomposition_rules`/`paid_enhancement`(深渊武器排除)、`first_story_entry`(快速开始参与判定) 这几处钩子。
+- 既有失败（与本次无关，HEAD 上一致）：`test_item_expiration.test_move_preserves_uid_deadline_and_periodic_notices` 期望只有 `[0x1c6]`，实际多出 `0xc23`/`0x214`；`test_inventory_rewards.py` 模块级断言「满包必须拒绝」因背包扩容失效；`test_fashion_bundles` 一次建 15 个角色撞每日 4 个上限。
+
 ## 10. 下一步（更新）
 
-1. **`scroll-families` 实测**：重启后逐个卷轴点一次（强化卷轴 / 祝福复原 / 贤者 / 炼制 / 挑战初始化），确认扣物与回执。
-2. **`identification_ui.json`（`975267cf…`）**：`native_templates`/`native_pools` 那份表不在任何归档里，要从持有该表的运行端取；拿到后 `domain/identification_ui.py` + `storage/identification_ui.py` 才能装。
-3. B 组剩余：`promotion-fashion-bag`(7) → `three-activities-startup`(68) → 商城/戒指/掉落（后者多数已在树内）。
+1. **重启后实测**：`980047`（玩家点了 4 次都 `code=-1` 的那个）、四个 Boost 箱子、各卷轴家族（强化 / 祝福复原 / 贤者 / 炼制 / 挑战初始化）。以上全部只在本机临时存档验证过，没有一次是真的客户端点开。
+2. **`three-activities-startup` 剩余两件大功能**：`abyss_weapon_2026`（code580，7 个新文件 + `decomposition_rules`/`paid_enhancement`/`fixed_cubes` 钩子）、`quick_start`（code578，5 个新文件 + `first_story_entry`/`careers`/`application` 钩子）。这两个都要动 `local_session.py`（146KB，162 行漂移）与 `session_dispatch.py`（161 行漂移），必须逐 hunk 三方合并，不能整文件覆盖。
+3. **`identification_ui.json`（`975267cf…`）**：`native_templates`/`native_pools` 那份表不在任何归档里，要从持有该表的运行端取；拿到后 `domain/identification_ui.py` + `storage/identification_ui.py` 才能装。
 4. A 组：`native-guild-reviewed`(109)、`native-independent-closures-v4`(62)、`native-photo-zone`(22)、四个写锁类。
 5. C 组 `pve-experience`(9)。
-6. 注意：本仓库当前**有另一个会话在并发编辑** `quest_flow.py` / `el_search_collection*`（收集册 52700 登陆恢复）。提交时务必按路径 `git add`，不要 `git add -A`。
+6. **活动到期是硬截止**：`local-growth.json` 的 `configuration.ends = 1796004000`（2026-11-30 10:00）。到点后 `EVENT_ITEMS` 里那些活动容器/激活券会在登录时被清掉（原生行为）。要保持开放就改这个值，别改代码。
+7. 注意：本仓库当前**有另一个会话在并发编辑** `quest_flow.py` / `el_search_collection*` / `artifact_flow.py` / `session_dispatch.py` / `character_custom.py`。提交时务必按路径 `git add`，不要 `git add -A`，不要 `git stash`。
 
