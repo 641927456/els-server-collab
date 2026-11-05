@@ -113,3 +113,32 @@ if request.option not in (0,1):
 - 不要 `git merge` 这些分支（会把几百个 `references/` 塞进树干，且没有代码效果）。
 - 不要整树覆盖 `els_server/`：归档是**选择性整合**，LOCAL 和 ONLINE 两侧差异要保留（归档 README 反复强调这一点）。
 - 不要 `importlib.reload` 持有模块级异常类的模块（`storage/seal_quests`、`storage/seal_quests` → `quest_flow` 持有 `QuestIncomplete`）。
+
+## 9. 已执行（2026-11-05 20:30 起）
+
+已按第 7 节顺序落地第一批：**B 组的两个箱子归档**。
+
+| 提交 | 内容 |
+|---|---|
+| `090ffbd` | `owned-box-opening-20261031-v2`（11 箱）+ `common-box-opening-20261031-v1`（76 模板 / 15 组） |
+
+执行细节：
+
+- 21 + 9 个载荷文件里，**19 个与归档记录的父版哈希完全一致**，整文件覆盖；`owned_reward_boxes.py` / `owned_reward_boxes.json` 是新文件，按归档字节写入（JSON 的 sha256 = `3ed670…`，模块内 `DATA_SHA` 校验通过）。
+- 另外 5 个已漂移、必须手工合并：`acquisition_policy.py`、`local_session.py`、`boosting_2026_nested_capacity.py`、`fixed_cubes.py`、`inventory_state.py`。手工合并保住了本轮早些时候加的两样东西：副本 DTO 的自定义选择载体，以及 `option not in (0,1)` 的 Count-1 门禁。
+- `fixed_cubes.py` 里 `owned_reward_box` 分支单独走 `_legacy_actor` + 自有 `_issue_source`（policy `owned-reward-boxes-20261031-v1`），扣箱与发奖同一事务，`finalize_grants` 负责神物/时装的固定选项与已鉴定标记。
+- `inventory_state.py` 的保留消耗品按 `owned_max_stack` 封顶并用 `read_existing` 重读，发出去的药水与原生持有的形状一致。
+
+验证：
+
+- `python -m els_server --check` 通过（items 181836、dungeons 740、npc 7526）。
+- `catalog()` 92 → 98 条；消费者全部可解析：黑市 26、原力 3、时装 3、饰品 3、参与装备 1、扩包 1、称号 1、启航 2、自有箱 6；读取器定义 1430 条全部注册进 `VERIFIED_TEMPLATES`。
+- `tests.test_regional_boss_cubes_legacy` 17 项仍是合并前那 2 个已知失败（`answer[-1].kind` 577≠0x197、stale-session 假成功）。
+- 用 `git worktree`（5caad60 + 链接 analysis/state/data/client）做了 A/B：`test_advancement_cube_coverage`、`test_consumables`、`test_declining_consumers`、`test_bag_capacity`、`test_ed_shop`、`test_extended_shop`、`test_dungeon_rewards`、`test_durable_reward_acceptance`、`test_inventory_restore_and_drops` 九个模块在合并前后**失败集合与失败数完全一致**，没有新增回归。
+- 另记：`tests/test_inventory_rewards.py` 是脚本式测试（import 即断言），`77000` 的堆叠上限是 999 而脚本按 99 填包，因此在合并前就已失败，与本次无关。
+
+尚未做：游戏内实测（需要重启服务端加载新模块与 875 KB 读表）。
+
+## 10. 下一步
+
+B 组剩余按玩家痛点排序：`controller-quest-gates`（1 文件，`public_controller_rules.py` 树上完全没有）→ `scroll-families`(37) → `promotion-fashion-bag`(7) → `three-activities-startup`(68) → 商城/戒指/掉落。
