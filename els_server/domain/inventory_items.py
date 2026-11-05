@@ -967,6 +967,13 @@ for _force_template,_force_sources in _qualified_force_sources.items():
 
 # Exact current job-box outputs; the original native group7 fashion uses the
 # already published group27 inventory convention. No new acquisition is opened.
+from els_server.domain.owned_reward_boxes import definitions as _owned_box_readers
+for _r in _owned_box_readers():
+ _t=_r['template'];_tuple=(_r['metadata'],_r['group'],_r['max_stack'])
+ if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_tuple:raise ValueError('Owned box reader conflict')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_tuple
+ if _r['group']in(7,27):FASHION_EQUIP_SLOTS[_t]=FASHION_POSITIONS[_r['equip_position']]
+
 from els_server.domain.job_reward_boxes import definitions as _job_box_readers
 for _r in _job_box_readers():
  _t=_r['template'];_tuple=(_r['metadata'],_r['group'],_r['max_stack'])

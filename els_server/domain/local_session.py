@@ -1802,7 +1802,7 @@ class LocalSession:
                     if cube_request.keys not in ((),(0,)) or cube_request.flag1 not in (0,1) or cube_request.flag2 not in (0,1):raise ValueError('Fixed cube preview mode')
 
                     from els_server.domain.job_reward_boxes import BOXES as job_boxes
-                    if cube_request.template in job_boxes:
+                    if cube_request.template in job_boxes or row.get('owned_reward_box'):
                         from els_server.domain.tenebros_capacity_flow import selected
                         if(event.performers not in((),(0,))or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Job box preview envelope')
                         selected(self)
@@ -1822,7 +1822,7 @@ class LocalSession:
                     if item is None:raise ValueError('Missing fixed cube')
 
                     require_current(item)
-                    if cube_request.template in job_boxes:
+                    if cube_request.template in job_boxes or row.get('owned_reward_box'):
                         from els_server.domain.item_locks import require_unlocked
                         require_unlocked(item)
                     from els_server.domain.regional_boss_cubes_legacy import BOXES as legacy_boxes,pool_for
@@ -1835,7 +1835,13 @@ class LocalSession:
                 except ValueError:return [preview_ack(-1,cube_request.template)]
 
                 self.fixed_cube_preview_template=cube_request.template
-                if row.get('growing_adventure_kit'):
+                if row.get('owned_reward_box'):
+                    from els_server.domain.owned_reward_boxes import outputs_for
+                    try:row=dict(row,entries=outputs_for(cube_request.template,self.account.character()))
+                    except ValueError:
+                        self.fixed_cube_preview_template=None
+                        return [preview_ack(1,cube_request.template)]
+                elif row.get('growing_adventure_kit'):
                     from els_server.domain.growing_adventure_kit import outputs_for
                     try:row=dict(row,entries=outputs_for(self.account.character()['unit_class']))
                     except ValueError:
@@ -1894,12 +1900,12 @@ class LocalSession:
                     if cube_template==715036:
                         require_session_context(self,event,request_sequence)
                         answer=open_cube(self.account.store.path,self.account.uid,cube_template,event.payload,operation,account_id=self.account.account_id)
-                    elif cube_template==723680:
+                    elif cube_template in (723612,723673,723680):
                         from els_server.domain.tenebros_capacity_flow import selected
-                        if (event.performers not in ((),(0,)) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Participation cube envelope')
+                        if (event.performers not in ((),(0,)) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Owned growth cube envelope')
                         gear_path,gear_owner,gear_account,gear_prepare=selected(self)
                         answer=open_cube(gear_path,gear_owner,cube_template,event.payload,operation,account_id=gear_account,prepare=gear_prepare)
-                    elif cube_template in (300645,300646,300647,300648):
+                    elif cube_template in (300645,300646,300647,300648,117542,135666,135871,723618,723687,723688):
                         from els_server.domain.tenebros_capacity_flow import selected
                         if(event.performers not in((),(0,))or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Job box use envelope')
                         box_path,box_owner,box_account,box_prepare=selected(self)

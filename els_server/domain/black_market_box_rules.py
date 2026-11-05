@@ -24,7 +24,7 @@ def entry(template):
  return dict(r,selection_count=int(r['mode']=='select'))
 def plan(template,choices,option,randbelow):
  r=entry(template)
- if option!=0:raise ValueError('This finite native box has no option request')
+ if option not in (0,1):raise ValueError('This finite native box has no option request')
  if r['mode']=='select':
   if len(choices)!=1:raise ValueError('Select exactly one native box output')
   selected=next((v for v in r['entries']if v['template']==choices[0]),None)

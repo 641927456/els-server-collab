@@ -43,7 +43,7 @@ def open_box(path,owner,template,payload,operation,account_id,guard):
  from els_server.storage.item_instances import remove
  from els_server.storage.seal_quests import load_character
  request=use_request(payload)
- if str(template)not in boxes()or request.option or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):raise ValueError('Raid box exact original request')
+ if str(template)not in boxes()or request.option not in (0,1) or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):raise ValueError('Raid box exact original request')
  owner,digest=_identity(owner,0x196,struct.pack('>i',template)+payload,operation)
  with closing(sqlite3.connect(path,timeout=10))as db,db:
   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');authorize(db,owner,account_id,guard)

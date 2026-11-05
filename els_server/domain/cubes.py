@@ -65,4 +65,8 @@ def catalog():
     for box in job_entries():
         if box['template'] in result:raise ValueError('Duplicate current job convenience box')
         result[box['template']]=MappingProxyType(box)
+    from els_server.domain.owned_reward_boxes import entries as owned_entries
+    for box in owned_entries():
+        if box['template'] in result:raise ValueError('Duplicate owned reward box')
+        result[box['template']]=box
     return MappingProxyType(result)

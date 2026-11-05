@@ -19,15 +19,12 @@ from els_server.storage.npc_trade import balances
 from els_server.storage.item_instances import remove
 from els_server.storage.equipment_receipt_state import current_changes
 
-def open_bundle(path,owner,payload,operation,*,definition):
+def open_bundle(path,owner,payload,operation,*,definition,account_id=None,prepare=None):
     if type(definition) is not PublishedBundle or enabled().get(definition.template) is not definition:
         raise TypeError('Explicit registered published bundle required')
     request=use_request(payload)
-    # Current native single-use723635 sends tail1; older controlled callers send0.
-    # This narrow observed-value compatibility never authorizes bulk opening.
-    # Other bundle types keep their existing option0 guard.
-    options=(0,1) if definition.template==723635 else (0,)
-    if request.option not in options or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):
+    # Native Count1 and historical Count0 both consume one owned box.
+    if request.option not in (0,1) or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):
         raise ValueError('All-items bundle has no choices or option')
     owner,digest=_identity(owner,0x196,struct.pack('>i',definition.template)+payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
@@ -49,7 +46,11 @@ def open_bundle(path,owner,payload,operation,*,definition):
             while quantity:
                 delta=min(quantity,99);quantity-=delta
                 plan.append(dict(template=output.template,metadata=output.metadata,group=output.group,quantity=delta))
-        grants=grant_items(db,plan,owner)
+        reward_source=None
+        if definition.template==723612:
+            from els_server.domain.owned_growth_items import issue_source
+            reward_source=issue_source(db,owner,account_id,operation,item,plan,prepare)
+        grants=grant_items(db,plan,owner,raid_reward_source=reward_source)
         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
         positions=sorted({source,*[(i['group'],i['slot']) for i in grants]})
         events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(r.template,r.quantity) for r in definition.outputs])

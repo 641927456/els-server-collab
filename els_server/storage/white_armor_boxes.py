@@ -39,7 +39,7 @@ def preview(path,owner,account,guard):
   return outputs(character[0])
 def perform(path,owner,account,payload,operation,guard,*,now=None):
  request=use_request(payload)
- if request.option or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):raise ValueError('White armor original unselected box parameters')
+ if request.option not in (0,1) or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):raise ValueError('White armor original unselected box parameters')
  owner,digest=_identity(owner,0x196,struct.pack('>i',TEMPLATE)+payload,operation)
  with closing(sqlite3.connect(path,timeout=10))as db,db:
   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');character=authority(db,owner,account,guard)

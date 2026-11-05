@@ -17,7 +17,7 @@ from els_server.storage.npc_trade import balances
 def open_gear(path,owner,payload,operation,*,account_id=None,prepare=None):
     if not enabled():raise ValueError('Participation gear is not registered')
     request=use_request(payload)
-    if request.option!=0 or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):
+    if request.option not in (0,1) or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):
         raise ValueError('Participation box does not accept a client class or choice')
     owner,digest=_identity(owner,0x196,struct.pack('>i',BOX)+payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:

@@ -15,7 +15,7 @@ from els_server.protocol.protocol_codec import encode_event,Event
 from els_server.domain.fashion_state import move_ack
 def open_box(path,owner,template,payload,operation,*,now=None):
  rule=boxes().get(template);req=use_request(payload)
- if rule is None or req.option or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Selected force support parameters')
+ if rule is None or req.option not in (0,1) or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Selected force support parameters')
  if rule['selection_count']:
   if len(req.choices)!=1:raise ValueError('Select exactly one original force item')
   grants_to_make=[r for r in rule['outputs'] if r['template']==req.choices[0]]

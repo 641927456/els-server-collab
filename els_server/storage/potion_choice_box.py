@@ -28,7 +28,7 @@ def recognizes(path,owner,payload,operation):
 
 def open_box(path,owner,account_id,payload,operation,*,prepare):
     request=use_request(payload)
-    if request.option or len(request.choices)!=1 or request.choices[0]not in OUTPUTS or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):
+    if request.option not in (0,1) or len(request.choices)!=1 or request.choices[0]not in OUTPUTS or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):
         raise ValueError('Potion choice box requires one exact choice and no bulk mode')
     owner,digest=_identity(owner,0x196,struct.pack('>Q',account_id)+payload,operation)
     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:

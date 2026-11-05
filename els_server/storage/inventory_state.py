@@ -223,15 +223,19 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
  if chip_options is not None:
   if len(plan)!=1 or plan[0]['template']!=CHIP or plan[0]['quantity']!=1 or not isinstance(chip_options,dict) or set(chip_options)!={'1'}:raise ValueError('Chip issued options require one finite server chip plan')
   approved_chip={'1':chip_source(chip_options['1'])}
+ from els_server.domain.retained_native_consumables import TEMPLATES as retained_templates,read_existing as retained_reader,definitions as retained_definitions
  from els_server.storage.bag_capacity import allowances
  limits=allowances(db,owner)
  for p in plan:
+  stack_limit=TEMPLATE_MAX_STACKS[p['template']]
+  if p['template']in retained_templates:stack_limit=min(stack_limit,retained_definitions()[p['template']]['owned_max_stack'])
   remaining=p['quantity']
   for index,i in enumerate(items):
-   if (i['template'],i['metadata'],i['group'])==(p['template'],p['metadata'],p['group']) and i.get('expires_at')==p.get('expires_at') and TEMPLATE_MAX_STACKS[i['template']]>1 and i['count']<TEMPLATE_MAX_STACKS[i['template']] and (fish_erp_source is None or fish_erp_source.can_stack(i,p)) and(feta_exchange_source is None or feta_exchange_source.can_stack(i,p)):
-    delta=min(remaining,TEMPLATE_MAX_STACKS[i['template']]-i['count']);i['count']+=delta;remaining-=delta
+   if (i['template'],i['metadata'],i['group'])==(p['template'],p['metadata'],p['group']) and i.get('expires_at')==p.get('expires_at') and stack_limit>1 and i['count']<stack_limit and (fish_erp_source is None or fish_erp_source.can_stack(i,p)) and(feta_exchange_source is None or feta_exchange_source.can_stack(i,p)):
+    delta=min(remaining,stack_limit-i['count']);i['count']+=delta;remaining-=delta
     db.execute('UPDATE inventory_items SET count=? WHERE uid=? AND owner=?',(i['count'],i['uid'],owner))
     if fish_erp_source is not None:i=fish_erp_source.admit_instance(dict(i));items[index]=i
+    if raid_reward_source is not None and i['template']in retained_templates:i=retained_reader(dict(i));items[index]=i
     changed[i['uid']]=i if fish_erp_source is not None else dict(i)
     if not remaining:break
   while remaining:
@@ -239,7 +243,7 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
    if slot is None:raise InventoryFull('Local inventory is full')
    uid=db.execute('SELECT next_uid FROM inventory_sequence WHERE id=1').fetchone()[0]
    if type(uid) is not int or not 1<=uid<2**63-1:raise ValueError('Inventory UID sequence bound')
-   i={'uid':uid,'template':p['template'],'metadata':p['metadata'],'group':p['group'],'slot':slot,'count':min(remaining,TEMPLATE_MAX_STACKS[p['template']])}
+   i={'uid':uid,'template':p['template'],'metadata':p['metadata'],'group':p['group'],'slot':slot,'count':min(remaining,stack_limit)}
    if 'expires_at' in p:i['expires_at']=p['expires_at']
    if p.get('enhancement'):i['enhancement']=p['enhancement']
    if i['template']==CHIP:i['option_groups']={'1':list(approved_chip['1'])} if approved_chip is not None else chip_generate()
@@ -250,6 +254,7 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
    if fish_erp_source is not None:i=fish_erp_source.admit_instance(i)
    if silver_source is not None and silver_source.options is not None:i['option_groups']=dict(silver_source.options)
    if black_market_box_source is not None and black_market_box_source.options is not None:i['option_groups']=dict(black_market_box_source.options)
+   if raid_reward_source is not None and i['template']in retained_templates:i=retained_reader(i)
    validate_item(i)
    db.execute('UPDATE inventory_sequence SET next_uid=? WHERE id=1',(uid+1,))
    db.execute('INSERT INTO inventory_items VALUES (?,?,?,?,?,?,?)',(uid,owner,i['template'],i['metadata'],i['count'],i['group'],slot))

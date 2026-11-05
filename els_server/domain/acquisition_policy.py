@@ -46,11 +46,16 @@ def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=Non
     from els_server.domain.furniture_rules import TEMPLATES as furniture_templates,authorize_output as furniture_output
     if template in furniture_templates:return furniture_output(template,raid_reward_source)
     if template==203800:return False  # Retired SP-reset medal: preserve old reader, close accidental new sources.
+    from els_server.domain.owned_reward_boxes import authorize_output as owned_box_output,new_templates as owned_box_templates
+    if raid_reward_source is not None and owned_box_output(template,raid_reward_source):return True
+    if template in owned_box_templates():return False
     from els_server.domain.promotion_reward_boxes import new_templates as career_templates,authorize_output as career_output
     if raid_reward_source is not None and career_output(template,raid_reward_source):return True
     if template in career_templates():return False
     from els_server.domain.job_reward_boxes import NEW_OUTPUTS,authorize_output
     if template in NEW_OUTPUTS:return authorize_output(template,raid_reward_source)
+    from els_server.domain.owned_growth_items import authorize_output as owned_growth_output
+    if raid_reward_source is not None and owned_growth_output(template,raid_reward_source):return True
     if template in (313132, 701005, 701006, 701007, 701009, 701011, 10078925, 10078926, 10078927, 10078928, 10078929, 10130467, 60001529, 60004275, 60008002, 80000087, 80000373, 80000599, 80001350, 80001371, 80001390, 80001452, 80001596, 80001890, 80001891, 80001892, 85000526, 85000527, 85001866, 85001867, 85001960, 85003046, 90000739, 90001710, 100000168, 100001054, 210000120, 250002820, 250002821):return False  # Unchanged legacy inventory readers only; unqualified consumers/sources stay closed.
     if template==135909:
         if raid_reward_source is None:return False

@@ -25,7 +25,7 @@ def authorize(db,owner,account_id,prepare):
 
 def open_box(path,owner,template,payload,operation,*,account_id,prepare,now=None):
  request=use_request(payload)
- if template not in BOXES or request.option or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):
+ if template not in BOXES or request.option not in(0,1) or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):
   raise ValueError('Job convenience box has no client-selected outputs')
  owner,digest=_identity(owner,0x196,struct.pack('>i',template)+payload,operation)
  with closing(sqlite3.connect(path,timeout=10))as db,db:
