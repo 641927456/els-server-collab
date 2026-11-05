@@ -1,0 +1,328 @@
+--- frozen102/storage/clock_writer.py
++++ combined106/storage/clock_writer.py
+@@ -12,6 +12,7 @@
+     def __init__(self,path):
+         self.path=Path(path);self.queue=Queue(16);self.lock=Lock();self.closed=False
+         self.connection=None;self.binding=None;self.prepared=False
++        self.jobs_lock=Lock();self.jobs=0;self.nonblocking_deferrals=0
+         self.batches=0;self.observations=0;self.maximum_batch=0;self.failed_commits=0
+         self.thread=Thread(target=self._run,name='els-clock-writer');self.thread.start()
+ 
+@@ -23,11 +24,33 @@
+         return writer_result(future)
+ 
+     def commit(self,plans,*,stop):
+-        future=Future()
+-        with self.lock:
++        plans=tuple(plans);future=Future()
++        # Non-final observations previously used SQLite timeout=0. Preserve
++        # that policy before the private queue too: another durable write
++        # must not turn a best-effort clock observation into a long wait.
++        if not stop and not self.lock.acquire(blocking=False):return self._busy_report(plans)
++        if stop:self.lock.acquire()
++        try:
+             if self.closed:raise RuntimeError('Clock writer closed')
+-            self.queue.put((tuple(plans),stop,copy_context(),future))
++            with self.jobs_lock:
++                busy=not stop and self.jobs>0
++                if not busy:self.jobs+=1
++            if busy:return self._busy_report(plans)
++            self.queue.put((plans,stop,copy_context(),future))
++        finally:self.lock.release()
+         return writer_result(future)
++
++    def _busy_report(self,plans):
++        if self.closed:raise RuntimeError('Clock writer closed')
++        with self.jobs_lock:self.nonblocking_deferrals+=1
++        errors=[];expected=self.path.resolve()
++        for path,_ in plans:
++            if Path(path).resolve()!=expected:error=ValueError('Clock writer selected save differs')
++            else:
++                error=sqlite3.OperationalError('database is locked')
++                error.sqlite_errorcode=sqlite3.SQLITE_BUSY;error.sqlite_errorname='SQLITE_BUSY'
++            errors.append(error)
++        return tuple(errors),None
+ 
+     def _connection(self):
+         path=self.path.resolve();info=path.stat();binding=(path,info.st_dev,info.st_ino)
+@@ -98,12 +121,13 @@
+         if physical_error is not None:self._close_connection()
+         # Report exceptions are never raised by a caller. Callers construct
+         # their own error, so a future cannot acquire an actor traceback.
++        with self.jobs_lock:self.jobs-=len(jobs)
+         for job,results in zip(jobs,reports):
+             job[-1].set_result((tuple(None if error is None else caller_error(error)for error in results),None if physical_error is None else caller_error(physical_error)))
+         return stopping,tuple(errors)
+ 
+     def snapshot(self):
+-        return dict(prewarmed=self.prepared,batches=self.batches,observations=self.observations,maximum_batch=self.maximum_batch,failed_commits=self.failed_commits,pending=self.queue.qsize())
++        return dict(prewarmed=self.prepared,batches=self.batches,observations=self.observations,maximum_batch=self.maximum_batch,failed_commits=self.failed_commits,pending=self.queue.qsize(),nonblocking_deferrals=self.nonblocking_deferrals)
+ 
+     def close(self):
+         with self.lock:
+--- frozen102/domain/growth_guide_flow.py
++++ combined106/domain/growth_guide_flow.py
+@@ -1,5 +1,6 @@
+ """Permanent original guide entry and authenticated task synchronization."""
+ from contextlib import closing
++from els_server.storage.sqlite_timing import write_transaction
+ import sqlite3,struct
+ from els_server.domain.quest_flow import enabled
+ from els_server.protocol import growth_guide_messages as wire
+@@ -29,8 +30,8 @@
+     if not cold and s.phase not in ('town_ready','dungeon_active'):return replies
+     kinds={e.kind for e in replies if e.event_id==0x201}
+     if not (force or cold or kinds.intersection((0x2b,0x105,0x3a2,0xf3,0xf5,0xd9,0xd3,0x29f,0x4b9,0x1c5,0x8b2,0x6e8,0x9f0,0xb0f,0x8d6,0xbfd,0xad8,0x214,0x217,0x6d1,0x228))):return replies
+-    with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
+-        db.execute('BEGIN IMMEDIATE');character=load_character(db,s.account.uid,s.account.account_id);ensure(db)
++    with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,write_transaction(db):
++        character=load_character(db,s.account.uid,s.account.account_id);ensure(db)
+         from els_server.storage.item_actor import require_active_character
+         require_active_character(db,s.account.uid)
+         allowed=available(s,db)
+--- frozen102/storage/title_levels.py
++++ combined106/storage/title_levels.py
+@@ -1,5 +1,6 @@
+ """Reconcile source-proven level titles with committed character state atomically."""
+ from contextlib import closing
++from els_server.storage.sqlite_timing import write_transaction
+ import sqlite3,time
+ from els_server.storage import titles
+ from els_server.domain.title_level_rules import achieved
+@@ -31,8 +32,8 @@
+         value=_unchanged(db,uid,now)
+         if value is not None:return value,_events(value)
+     # Release the shared read snapshot before taking the original writer.
+-    with closing(sqlite3.connect(path,timeout=10)) as db,db:
+-        db.execute('BEGIN IMMEDIATE');character=titles.character(db,uid)
++    with closing(sqlite3.connect(path,timeout=10)) as db,write_transaction(db):
++        character=titles.character(db,uid)
+         qualified=achieved(character);titles.schema(db)
+         for identity in qualified:
+             # Preserve an existing ownership row, its attribution and acquisition time.
+--- frozen102/storage/master_presets.py
++++ combined106/storage/master_presets.py
+@@ -1,4 +1,5 @@
+ """One-time recovery of the previously unsupported dedicated Master preset."""
++from els_server.storage.sqlite_timing import write_transaction
+ import sqlite3,struct
+ from contextlib import closing
+ from els_server.domain.role_progression import first_master_skill,known_skills
+@@ -29,8 +30,8 @@
+         if (probe.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='master_preset_migrations'").fetchone()
+             and probe.execute('SELECT 1 FROM characters WHERE master=1 AND uid NOT IN (SELECT owner FROM master_preset_migrations) LIMIT 1').fetchone() is None):
+             return restored
+-    with closing(sqlite3.connect(path,timeout=10)) as db,db:
+-        db.execute('BEGIN IMMEDIATE');ensure(db)
++    with closing(sqlite3.connect(path,timeout=10)) as db,write_transaction(db):
++        ensure(db)
+         rows=list(db.execute('SELECT uid,unit_class,level,transcendence FROM characters WHERE master=1 AND uid NOT IN (SELECT owner FROM master_preset_migrations)'))
+         for uid,cls,level,tc in rows:
+             c=dict(uid=uid,unit_class=cls,level=level,transcendence=bool(tc),master=True,skill_row_expanded=is_expanded(db,uid))
+--- frozen102/storage/online_2026_delivery.py
++++ combined106/storage/online_2026_delivery.py
+@@ -55,6 +55,9 @@
+         return digest
+ 
+     def preview(self, *, account, character, week, now):
++        return self.read_preview(account=account,character=character,week=week,now=now)[:3]
++
++    def read_preview(self, *, account, character, week, now):
+         """Read one caller-owned snapshot; None means the writer must recheck.
+ 
+         A negative result preserves policy, receipt and letter validation. It
+@@ -81,12 +84,14 @@
+             if recipient(self.db,old[2])!=character or not self.db.execute(
+                     'SELECT 1 FROM game_mail WHERE id=? AND account_id=?',(old[2],account)).fetchone():
+                 raise ValueError('Delivery receipt lost its original letter; no reissue')
+-            return dict(status='already_issued',mail_id=old[2],replayed=True),data,policy[1]
++            return dict(status='already_issued',mail_id=old[2],replayed=True),data,policy[1],None
+         if level<10 or not lo<=now<hi or now>=data['deadline']:
+-            return dict(status='ineligible',mail_id=None,replayed=False),data,policy[1]
+-        if not self.progress.snapshot(account=account,character=character,week=week)['condition_met']:
+-            return dict(status='not_ready',mail_id=None,replayed=False),data,policy[1]
+-        return None,data,policy[1]
++            return dict(status='ineligible',mail_id=None,replayed=False),data,policy[1],None
++        snapshot=self.progress.snapshot(account=account,character=character,week=week)
++        view=(level,lo,hi,snapshot)
++        if not snapshot['condition_met']:
++            return dict(status='not_ready',mail_id=None,replayed=False),data,policy[1],view
++        return None,data,policy[1],view
+ 
+     def issue(self, *, account, character, week, now):
+         """One committed letter per character/week. Never re-mint on later retry.
+--- frozen102/domain/online_2026_display.py
++++ combined106/domain/online_2026_display.py
+@@ -64,23 +64,40 @@
+                 snapshot = repo.snapshot(account=account, character=character, week=week)
+             finally:
+                 repo.db.rollback()
+-            if level < 10 or not lo <= now < hi:
+-                return self._remove(emit)
+-            current = replace(record, float_28=snapshot['remaining_seconds']/60)
+-            shape = replace(current, float_28=0.).encode()
+-            remaining = snapshot['remaining_seconds']
+-            context = (repo.campaign, account, character, week)
+-            if self._context == context and self._shape == shape:
+-                anchor_time, anchor_remaining = self._anchor
+-                if now >= anchor_time and remaining == max(0, anchor_remaining-(now-anchor_time)):
+-                    return 0
+-            sent = 0
+-            if self._record is not None and self._record.key != current.key:
+-                sent += self._remove(emit)
+-            emit(activity_list_update(action=1, records=(current,)))
+-            # If the emitter raises, retain the last accepted state for retry.
+-            self._record, self._context, self._shape = current, context, shape
+-            self._anchor = (now, remaining)
+-            return sent+1
++            return self._publish(snapshot,level,lo,hi,repo.campaign,account,character,week,now,record,emit)
+         finally:
+             self._busy = False
++
++    def synchronize_view(self,repo,view,*,account,character,week,now,record,emit):
++        """Project this notification's existing committed read snapshot."""
++        if self._busy:raise RuntimeError('Reentrant online display update')
++        if not isinstance(repo,OnlineTitleProgress)or type(record)is not ActivityRecord:
++            raise TypeError('Verified progress repository and explicit activity record required')
++        if not repo.db.in_transaction:raise RuntimeError('Caller read snapshot required')
++        if type(now)is not int or not 0<=now<2**63 or not callable(emit):
++            raise ValueError('Integer server time and ordered emitter required')
++        record.encode()
++        level,lo,hi,snapshot=view
++        self._busy=True
++        try:return self._publish(snapshot,level,lo,hi,repo.campaign,account,character,week,now,record,emit)
++        finally:self._busy=False
++
++    def _publish(self,snapshot,level,lo,hi,campaign,account,character,week,now,record,emit):
++        if level < 10 or not lo <= now < hi:
++            return self._remove(emit)
++        current = replace(record, float_28=snapshot['remaining_seconds']/60)
++        shape = replace(current, float_28=0.).encode()
++        remaining = snapshot['remaining_seconds']
++        context = (campaign, account, character, week)
++        if self._context == context and self._shape == shape:
++            anchor_time, anchor_remaining = self._anchor
++            if now >= anchor_time and remaining == max(0, anchor_remaining-(now-anchor_time)):
++                return 0
++        sent = 0
++        if self._record is not None and self._record.key != current.key:
++            sent += self._remove(emit)
++        emit(activity_list_update(action=1, records=(current,)))
++        # If the emitter raises, retain the last accepted state for retry.
++        self._record, self._context, self._shape = current, context, shape
++        self._anchor = (now, remaining)
++        return sent+1
+--- frozen102/domain/online_2026_campaign.py
++++ combined106/domain/online_2026_campaign.py
+@@ -99,33 +99,38 @@
+                         (self.clock.campaign,now,now)).fetchall()
+                     if len(periods)>1:raise ValueError('Overlapping online periods')
+                     week=periods[0][0] if periods else None
+-                    outcome=None
++                    outcome=None;view=None
+                     if week is not None:
+                         delivery=OnlineTitleDelivery(repo,self.link)
+                         if issue:outcome=delivery.issue(account=account,character=character,week=week,now=now)
+-                        else:outcome=delivery.preview(account=account,character=character,week=week,now=now)[0]
+-                    return repo,week,outcome
+-                def display(repo,week,outcome):
++                        else:outcome,_,_,view=delivery.read_preview(account=account,character=character,week=week,now=now)
++                    return repo,week,outcome,view
++                def display(repo,week,outcome,view):
+                     if outcome is None or outcome['status'] in ('issued','already_issued','ineligible'):
+                         # Explicit local policy: once its mail commits, remove
+                         # only this owned row. Never action0/global replacement.
+                         self.display.clear(messages.append)
++                    elif view is None:
++                        # The actual writer can return not_ready after its fresh
++                        # recheck. It has committed and supplies no read view.
++                        self.display.synchronize(repo,account=account,character=character,week=week,now=now,
++                            record=self.record,emit=messages.append)
+                     else:
+-                        self.display.synchronize(repo,account=account,character=character,week=week,now=now,
++                        self.display.synchronize_view(repo,view,account=account,character=character,week=week,now=now,
+                             record=self.record,emit=messages.append)
+                 # Non-ready/already-issued notifications are read projections.
+                 # Only a positive preview enters the original durable issuer;
+                 # it repeats period/policy/owner/receipt checks under its writer.
+-                with snapshot_connection(path)as db:
++                with snapshot_connection(path,timeout=0)as db:
+                     db.execute('BEGIN')
+-                    repo,week,outcome=read_delivery(db,issue=False)
++                    repo,week,outcome,view=read_delivery(db,issue=False)
++                    needs_issue=week is not None and outcome is None
++                    if not needs_issue:display(repo,week,outcome,view)
+                     db.rollback()
+-                    needs_issue=week is not None and outcome is None
+-                    if not needs_issue:display(repo,week,outcome)
+                 if needs_issue:
+                     with closing(sqlite3.connect(path,timeout=0))as db:
+-                        with write_transaction(db):repo,week,outcome=read_delivery(db,issue=True)
+-                        display(repo,week,outcome)
++                        with write_transaction(db):repo,week,outcome,view=read_delivery(db,issue=True)
++                        display(repo,week,outcome,view)
+             self.mail.synchronize(path,account=account,character=character,now=now,policy=self.mail_policy,emit=messages.append)
+         self._context=context;self._next_scan=mono+1.;self._force=False
+         return messages
+--- frozen102/application.py
++++ combined106/application.py
+@@ -113,6 +113,9 @@
+         from els_server.domain.session_auxiliary import friends_auxiliary_noop
+         if not(event.event_id==0x202 and event.kind==0x22b and self.phase=='town_ready')and not friends_auxiliary_noop(self,event):
+             self.account.flush_position()
++        if self.application.dungeon_workers.ordinary_town_move(self.handle,(event,)):
++            result=super().handle(event,request_sequence)
++            with self.application.world_lock:return self._after_local(event,result)
+         if self.application.dungeon_workers.isolated(self,event):
+             result=self._dungeon_request(event,request_sequence)
+             if result is not None:return result
+--- frozen102/dungeon_workers.py
++++ combined106/dungeon_workers.py
+@@ -90,6 +90,18 @@
+         return type(event) is Event and event.event_id == 514 and (event.kind == 1165) and DungeonWorkers.town_periodic(session.periodic_notifications, ()) and (session.application.world.members.get(session) == (1, session.active_map))
+ 
+     @staticmethod
++    def ordinary_town_move(function,args):
++        if not DungeonWorkers.town_movement(function,args)or args[0].kind!=0x22b:return False
++        session=function.__self__;world=session.application.world
++        return(DungeonWorkers.town_periodic(session.periodic_notifications,())
++            and world.members.get(session)==(1,session.active_map)
++            and world.dungeons.room(session)is None
++            and session not in world.racing.queue and session not in world.racing.offers
++            and getattr(session,'guild_agit',None)is None
++            and getattr(session,'photo_zone',None)is None
++            and session not in world.player_trades.by_session)
++
++    @staticmethod
+     def town_periodic(function,args):
+         from els_server.application import FriendsSession
+         session=getattr(function,'__self__',None)
+@@ -204,7 +216,12 @@
+         elif session is None:yield
+         else:
+             with self.scope(session,mailboxes=False):
+-                if self.town_preparation(function,args)or self.town_movement(function,args)or self.town_periodic(function,args)or self.application.economy.candidate(function,args):
++                if self.ordinary_town_move(function,args):
++                    # This notification cannot publish guild or trade changes.
++                    # Its normal handler retains the one world section which
++                    # broadcasts and drains mail after saving own coordinates.
++                    yield
++                elif self.town_preparation(function,args)or self.town_movement(function,args)or self.town_periodic(function,args)or self.application.economy.candidate(function,args):
+                     # These own-actor receipt/location operations prepare no
+                     # mailbox replacement. Original world sections serialize
+                     # membership, peer effects and draining after their SQL.
+--- frozen102/storage/online_2026_progress.py
++++ combined106/storage/online_2026_progress.py
+@@ -66,9 +66,10 @@
+                    week INTEGER NOT NULL, starts INTEGER NOT NULL,
+                    ends INTEGER NOT NULL CHECK(ends>starts), level INTEGER NOT NULL,
+                    PRIMARY KEY(campaign,account,operation))''',
+-                '''CREATE INDEX IF NOT EXISTS online2026_character_spans
+-                   ON online2026_spans(campaign,character,week,starts,ends)'''):
++                '''CREATE INDEX IF NOT EXISTS online2026_character_account_spans
++                   ON online2026_spans(campaign,character,account,week,starts,ends)'''):
+                 self.db.execute(sql)
++            self.db.execute('DROP INDEX IF EXISTS online2026_character_spans')
+             self.db.execute('INSERT OR IGNORE INTO online2026_campaigns VALUES (?,?)',
+                             (self.campaign, SELECTION_SHA256))
+             self._definition()
