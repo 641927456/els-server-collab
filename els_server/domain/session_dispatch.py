@@ -4,8 +4,118 @@ None declines a request; an empty list consumes it. Keep the explicit call
 order, including shared packet kinds and the original guarded callbacks.
 """
 
+# TEMPORARY diagnostics for the wardrobe exchange; state/ is gitignored.
+_NOISY=frozenset((0x7d0,0x38e,0xff20,0x0))
+
+# The pet-information window's native nutrient/investment/digestive requests.
+# Their storage module owns a new column set, so the dependencies are refreshed
+# before the handler runs; all of them are imported lazily elsewhere.
+_PET_NUTRITION_MODULES=('els_server.protocol.companion_messages',
+    'els_server.storage.pet_progression',
+    'els_server.protocol.pet_progression_messages',
+    'els_server.domain.pet_digestion',
+    'els_server.storage.pet_nutrition',
+    'els_server.domain.companion_peer_sync',
+    'els_server.domain.pet_nutrition_flow')
+_PET_NUTRITION_KINDS=frozenset((0x8ad,0x8af,0x8b9,0x2ea))
+
+# Cube preview/use. Their storage module is imported inside the session method,
+# so refreshing it by mtime here lands an admission fix without a restart.
+_CUBE_KINDS=frozenset((0x196,0x559))
+
+# Quest accept/abandon/claim. The pinned quest table is lru_cached, so a newly
+# registered definition only reaches the next click after those caches drop.
+_QUEST_KINDS=frozenset((0xee,0xfa,0xf4))
+
+
+def _refresh_quest_data():
+    import os
+    from els_server.paths import PROJECT_ROOT
+    path=PROJECT_ROOT/'els_server/data/seal_quests.json'
+    try:stamp=(os.path.getmtime(path),os.path.getsize(path))
+    except OSError:return
+    if _refresh_quest_data.stamp==stamp:return
+    try:
+        from els_server.domain import seal_quests as quest_table
+        quest_table.seal_catalog.cache_clear();quest_table.quest_catalog.cache_clear()
+    except Exception:return
+    _refresh_quest_data.stamp=stamp
+
+
+_refresh_quest_data.stamp=None
+
+def _refresh(names):
+    import importlib
+    modules=[]
+    for name in names:modules.append(_live(importlib.import_module(name)))
+    return modules
+
+
+def _live(module):
+    """Follow source edits for a handler module outside the hot-reload list.
+
+    Session_dispatch itself is hot-reloaded, so re-checking the dependency's
+    mtime here lets a fix to pet auto admission land without stopping the
+    server or dropping the client connection.
+    """
+    import importlib,os
+    path=getattr(module,'__file__',None)
+    try:stamp=(os.path.getmtime(path),os.path.getsize(path))
+    except (OSError,TypeError):return module
+    if getattr(module,'SOURCE_STAMP',None)==stamp:return module
+    try:module=importlib.reload(module)
+    except Exception:return module
+    module.SOURCE_STAMP=stamp
+    return module
+
+def _wire_debug(event,sequence):
+    import os,time
+    try:
+        path=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),'state','wire-debug.log')
+        payload=event.payload.hex() if isinstance(event.payload,bytes) else str(event.payload)
+        with open(path,'a',encoding='utf-8') as handle:
+            handle.write('%s kind=%#x event=%#x seq=%r len=%d performers=%r uid=%#x target=%#x mode=%r payload=%s\n'
+                %(time.strftime('%H:%M:%S'),event.kind,event.event_id,sequence,
+                  len(event.payload)if isinstance(event.payload,bytes)else -1,tuple(event.performers or ()),
+                  event.uid,event.target_uid,event.payload_mode,payload))
+    except Exception:pass
+
 
 def priority_handlers(self,event,request_sequence=None):
+    # A failed hot edit must never take the whole request chain down with it.
+    try:
+        from els_server.domain import pet_auto_flow
+        pet_auto_reply=_live(pet_auto_flow).handle(self,event,request_sequence)
+    except Exception:
+        import traceback;traceback.print_exc()
+        pet_auto_reply=None
+    if pet_auto_reply is not None:return pet_auto_reply
+    if event.event_id==0x202 and event.kind in _PET_NUTRITION_KINDS:
+        try:
+            pet_nutrition_reply=_refresh(_PET_NUTRITION_MODULES)[-1].handle(self,event,request_sequence)
+        except Exception:
+            import traceback;traceback.print_exc()
+            pet_nutrition_reply=None
+        if pet_nutrition_reply is not None:return pet_nutrition_reply
+    if event.event_id==0x202 and event.kind in _QUEST_KINDS:_refresh_quest_data()
+    if event.event_id==0x202 and event.kind in _CUBE_KINDS:
+        # Storage-level cube admission: a Count0/Count1 fix must apply to the
+        # next click instead of waiting for the player to relog.
+        try:
+            import importlib
+            _live(importlib.import_module('els_server.storage.fixed_cubes'))
+        except Exception:pass
+    if event.kind not in _NOISY:_wire_debug(event,request_sequence)
+    try:
+        from els_server.domain import wardrobe_open_flow
+        wardrobe_open_reply=_live(wardrobe_open_flow).handle(self,event,request_sequence)
+    except Exception:
+        import traceback;traceback.print_exc()
+        wardrobe_open_reply=None
+    if wardrobe_open_reply is not None:return wardrobe_open_reply
+    from els_server.domain.bag_expansion_flow import handle as bag_expansion_handle
+    bag_expansion_reply=bag_expansion_handle(self,event,request_sequence)
+    if bag_expansion_reply is not None:return bag_expansion_reply
     from els_server.domain.black_market_flow import handle as black_market_handle
     black_market_reply=black_market_handle(self,event,request_sequence)
     if black_market_reply is not None:return black_market_reply
@@ -75,8 +185,21 @@ def priority_handlers(self,event,request_sequence=None):
     from els_server.domain.coupon_flow import handle as coupon_handle
     coupon_reply=coupon_handle(self,event,request_sequence)
     if coupon_reply is not None:return coupon_reply
-    from els_server.domain.character_custom import handle as custom_handle
-    custom_reply=custom_handle(self,event,request_sequence)
+    # Native customization opener/Apply. Follow source edits so a fix lands on
+    # the running session; the 0x4CB kind is shared, so this stays in its
+    # original first-match position behind the Ariel mark handler above.
+    if event.event_id==0x202 and event.kind in (0x634,0x4cb):
+        try:
+            from els_server.storage import character_custom as custom_store
+            _live(custom_store)
+            from els_server.domain import character_custom
+            custom_reply=_live(character_custom).handle(self,event,request_sequence)
+        except Exception:
+            import traceback;traceback.print_exc()
+            custom_reply=None
+    else:
+        from els_server.domain.character_custom import handle as custom_handle
+        custom_reply=custom_handle(self,event,request_sequence)
     if custom_reply is not None:return custom_reply
     from els_server.domain.resonance_page_expansion_flow import handle as page_expansion_handle
     page_expansion_reply=page_expansion_handle(self,event,request_sequence)

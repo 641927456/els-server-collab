@@ -65,10 +65,11 @@ def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.r
     if (any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))
         or expected_template not in catalog()):raise ValueError('Unsupported fixed cube use')
     row=catalog()[expected_template]
-    # Native selection quantity UI sends Count as the final request option.
-    # Zero is the historical one-box route; one explicitly requests one box.
-    # Bulk counts remain unsupported: never consume one for a larger request.
-    if request.option!=0 and not(request.option==1 and row['selection_count']==1):
+    # Native quantity callbacks send Count as the final request option: zero
+    # from the historical double-click route, one from the use button of the
+    # quantity UI. Both open exactly one cube. Bulk counts stay refused so one
+    # click can never consume more boxes than the player asked for.
+    if request.option not in (0,1):
         raise ValueError('Unsupported fixed cube quantity')
     from els_server.domain.regional_boss_cubes_legacy import BOXES,pool_for
     legacy=expected_template in BOXES
