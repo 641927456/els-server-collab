@@ -20,6 +20,16 @@ from els_server.protocol.resonance_2026_state import ResonanceCharacterState
 from els_server.protocol.resonance_2026_reply import snapshot_reply
 
 
+def _trace(message):
+    # state/ is gitignored; this is the only view of what the ERP panel gets.
+    try:
+        import os,time
+        root=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        with open(os.path.join(root,'state','resonance.log'),'a',encoding='utf-8') as handle:
+            handle.write('%s %s\n'%(time.strftime('%H:%M:%S'),message))
+    except Exception:pass
+
+
 @lru_cache(maxsize=1)
 def definitions():
     from els_server.domain.resonance_2026_curve import ResonanceCurve
@@ -70,11 +80,17 @@ def synchronize(s,messages,current):
             db.execute('BEGIN IMMEDIATE');p,state=prepare(db,s);notice=state.notice();encode_event(notice)
             revision=p.pages.read(s.account.account_id,s.account.uid).revision
             db.commit()
-        except ValueError:
+        except ValueError as error:
             # Unknown legacy/profile metadata is kept intact. It must not
             # prevent ordinary login or be replaced with guessed zero pages.
-            db.rollback();return messages
+            db.rollback()
+            _trace('610 refused: %s'%error)
+            return messages
     s.resonance_page_sync_key=(s.account.account_id,s.account.uid,current['revision'],(revision,),period)
+    _trace('610 sent level=%d avail=%d spent=%d groups=%d bytes=%d'
+          %(state.level,state.available_points,
+            sum(value for _,nodes in state.allocation_groups for _,value in nodes),
+            len(state.allocation_groups),len(notice.payload)))
     return [*messages,notice]
 
 
@@ -94,7 +110,10 @@ def handle(s,event,sequence):
     try:
         if s.phase!='town_ready' or s.account.character()['level']<99:
             raise ValueError('Town and full-level character required')
-        if event.kind==0x611:ResonanceAllocationRequest.decode(event.payload)
+        if event.kind==0x611:
+            _trace('611 request %r page=%r'
+                   %(ResonanceAllocationRequest.decode(event.payload).groups,
+                     ResonanceAllocationRequest.decode(event.payload).selected_page))
         elif event.kind==0x613:
             from els_server.protocol.resonance_2026_scroll import scroll_request
             scroll_request(event.payload)
@@ -135,4 +154,6 @@ def handle(s,event,sequence):
                 reply=page_switch_reply(result=0,state=p.synchronize(account=account,character=character))
             encode_event(reply)
         return [reply]
-    except ValueError:return [failure(s,event.kind)]
+    except ValueError as error:
+        _trace('611 rejected kind=%#x %s'%(event.kind,error))
+        return [failure(s,event.kind)]
