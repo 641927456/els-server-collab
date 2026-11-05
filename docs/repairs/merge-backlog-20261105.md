@@ -327,3 +327,38 @@ if request.option not in (0,1):
 验证：`python -m els_server --check` exit 0；`tests.test_decomposition` + `test_decomposition_receipt_projection` + `test_seal_receipt_positions` 15/15 通过；`record()` 直测 grade 3 接受、grade 7 拒绝。
 
 **往后要装公会的前提**（二选一）：① 按依赖顺序先合并约 20 个前置归档（成长指南、快速开始、PvP 系列、排行榜、深渊武器…），把 43 个模块补齐，8 个全仓缺失的还得向上游要；② 直接拿到含这 51 个模块的完整树再整体合。两条都不是「继续合」一轮能完成的量，需要单独排期。
+
+## 15. 公会归档落地：底座 + 六职级接线（2026-11-06 01:40）
+
+上一节证明整包装不了，是因为归档把「整条源码线的新特性」都写进了 `local_session.py` / `application.py`。换思路后确认：**公会业务自身的依赖是闭合的**——43 个公会新文件的 import 缺口为 0，符号级缺口只有 4 个，且都能由归档里少数几个文件补上。于是分两步落地。
+
+**第一步 `dd6c97c`：业务底座 43 个文件**
+
+`data/guild_*.json`(9) + `domain/guild_*.py`(26) + `protocol/guild_*_messages.py`(4) + `storage/guild_*.py`(4)，`.py` 统一转 LF、`.json` 保留归档原字节。装完 34 个模块逐个 import 全绿，`--check` exit 0，此时没有任何入口引用它们（行为零变化，可回滚）。
+
+**第二步 `17eb08c`：六职级模型 + 三个处理器接线**
+
+| 文件 | 改动 |
+|---|---|
+| `domain/guild_bank_rules.py` | 2 职级硬编码 `((1,5),(6,0))` → `guild_rules.authorities()` 6 职级；新增 `permission_rows()`。**保留本地 `require_plain`** 作为旧路径（`storage/guild_bank_items.py` 仍在 import） |
+| `storage/guild_membership_state.py` | 落库 6 职级（`CHECK(grade IN(1,6))` → 1..6），新增 `decline()` 退邀请 |
+| `domain/guild_initial_profile.py` | `profile(saved,*,db,now)` 改为读 `saved['system']`（容量/技能页/皮肤/公告），`163` 从 2 行变 6 行 |
+| `domain/guild_membership_flow.py` / `protocol/guild_membership_profile.py` / `protocol/guild_membership_messages.py` / `protocol/guild_agit_messages.py` / `domain/guild_agit_flow.py` / `domain/luciel_state.py` / `storage/guild_coin_state.py` | 归档版（含 `pages_wire`、`_guild_guard`、`moved`、`currency_delta`、`entry_capture`） |
+| `storage/titles.py` | 只加 `_equipped()`/`equipped()`，本地更严的 `owned_template` 写法保留 |
+| `domain/local_session.py` | 两处：周期表加 `guild_periodic`；`0x219` 段之前插入 `guild_recruit` / `guild_banner_flow` / `guild_system_flow` 三个 handler |
+
+`session_dispatch.py` 不在归档清单里，本地本来就在调 `guild_agit_handle`；`application.py` 的公会部分（`guild_disconnect`）本地也已有，所以入口没断。
+
+**验证**（库副本 `D:/tmp/guild-proj.sqlite3`，不动真库）
+
+- `_schema()` 建出 4 张表：`native_guilds` / `native_guild_members` / `native_guild_invitations` / `native_guild_actions`；
+- 伪造一条无回执的成员记录，`snapshot()` 按预期报 `Guild membership lacks its actual producer receipt`（守卫有效，不是 bug）；补上 `0x276` 回执后通过；
+- `profile()` 产出：容量 20、等级 1、`163` 六行 `[1..6]`、`pages=[1]`、5 个徽章、1 套皮肤、5 行喷泉；
+- `--check` exit 0；`test_decomposition*`+`test_seal_receipt_positions` 15/15；`test_current_native_title_inputs` 2/2；`test_force_guild_contract` 1 项失败经 stash 验证为既有（扩容口径夹具未同步）。
+
+**仍未装（都不影响上面这些跑起来）**
+
+- **公会银行升级**：归档 `storage/guild_bank_items.py` 用到 `validate_item(item,container=)` 与 `_item_body`，两者在归档 `domain/inventory_items.py` 里，而那个文件缺 9 个模块。所以银行仍是本地 2 职级写入器 + `require_plain`，堆叠/每职级件数上限/强化归零这些改进暂缺。
+- **`protocol/guild_bank_transfer_messages.py`**：同一原因（需要 `_item_body`）。
+- **驻地里的换装/称号刷新钩子**：`title_flow.py` / `wear_moves.py` 的 `bank_capture` 钩子在冲突文件里，属锦上添花，未合。
+- **三项待决策略仍是 `null`**：`guild_expedition_policy.initial_smashes`、`guild_seed_pouch_policy.templates`、`guild_profession_policy.held_badge_and_contract`。代码对 null 是显式自我禁用（种子袋返回 `None`、首发破坏次数返回 `None`、徽章+合同同时持有直接拒绝并报「requires explicit decision」），等你定玩法再填。
