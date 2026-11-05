@@ -297,3 +297,33 @@ if request.option not in (0,1):
 - **#876/#867**：归档里没有源码差异，不需动。
 
 既有失败（非本次引入，已用 stash 验证）：`test_bag_capacity` 2 项（六件/七件扩容夹具仍是旧 350→300 ED 口径）、`test_force_guild_contract` 1 项。
+
+## 14. 11-05 四族归档的可安装性审计（2026-11-06，结论：不可安装）
+
+第二批之后对剩下四族归档做了统一的依赖闭包审计（`candidate-manifest.json` + 模块级 import 闭包 + 全 ref 反查），结论是**这一批都不能装进本树**，原因不在冲突量，而在入口文件依赖本树从未存在过的模块。
+
+| 归档 | 候选文件 | 缺依赖的文件 | 关键入口 |
+|---|---|---|---|
+| #877/870 公会 `reference/native-guild-reviewed-20261105-v1` | 105 | 21 | `domain/local_session.py` 缺 **21** 个模块，`application.py` 缺 8，`domain/inventory_items.py` 缺 9 |
+| #871/868 摄影棚 `references/native-photo-zone-20261105-v1` | 22 | 9 | `application.py` 缺 9 |
+| #880 玩家交易 `refs/native-friends-actor-20261105-v1` | 7 | 3 | `application.py` 缺 9 |
+| #881 聚合 `reference/native-independent-closures-20261105-v{1,4}` | 2 份清单 | — | 同上，且父版与前三族重叠 |
+
+**缺口性质**：四族共同缺失 51 个模块（`domain/growth_guide`、`domain/quick_start`、`domain/pvp_quests`、`storage/collection_synergy`、`els_server/economy`、`els_server/realtime` …）。其中 43 个能在本仓**其它未合并归档**里找到副本，但散落在 5 种目录布局（`author/source/`、`online/`、`local/`、`recovery/`、`baseline/`）；剩下 8 个全仓任何 ref 都没有：
+
+`domain/mentor45000`、`domain/pvp_official_1v1_policy`、`domain/pvp_quests`、`domain/pvp_round`、`domain/secret_clear_rewards`、`domain/secret_fragment_box`、`domain/special_quest_rewards`、`storage/mentor45000_scope`。
+
+**换行坑**：归档 `source/` 有 71/109 个文件是 CRLF，本树同类文件是 LF，直接 `git merge-file` 会把整份文件判成一个冲突块（曾误得「29 个文件全冲突」）。归一化到 LF 后真实冲突面是 **26 个文件 / 152 个冲突块**（`local_session.py` 65、`application.py` 20、`storage/seal_quests.py` 11、`storage/fixed_cubes.py` 8）。以后合这批归档先归一化再算冲突。
+
+**为什么不能「只装业务文件」**：`domain/guild_*` 自身的闭包是闭合的（84/105 可装），但把这些模块装进去而 `local_session.py`/`application.py` 不动，等于全是死代码；反过来说，唯一真正接上线的入口 `domain/guild_membership_flow.py` 一旦换成归档版，就会读既有公会存档里并不存在的 `system` 结构（`saved['system']['authorities']` / `member_details`）——需要数据迁移，而归档自己的复审明确写了不做自然客户端验收。所以按归档自标 `install_ready=false` 处理，不安装。
+
+**本轮实际落地（零依赖、已验证）**
+
+| 文件 | 改动 | 依据 |
+|---|---|---|
+| `protocol/guild_bank_history_messages.py` | `row['grade'] not in (1,6)` → `not in range(1,7)` | 原来等级 2–5 的成员记录一律抛 `ValueError`，整条 0x50F 公会仓库历史打不出来；公会职级本身是 1–6 |
+| `storage/equipment_receipt_state.py` | 允许表前置 `0xac0,0x298,0x2a5,0x528,0x7fd,0x803` | 归档复审过的公会侧写入 kind；本树暂无生产点，加进白名单只是让将来的公会回执可重放，不放宽任何现有写入 |
+
+验证：`python -m els_server --check` exit 0；`tests.test_decomposition` + `test_decomposition_receipt_projection` + `test_seal_receipt_positions` 15/15 通过；`record()` 直测 grade 3 接受、grade 7 拒绝。
+
+**往后要装公会的前提**（二选一）：① 按依赖顺序先合并约 20 个前置归档（成长指南、快速开始、PvP 系列、排行榜、深渊武器…），把 43 个模块补齐，8 个全仓缺失的还得向上游要；② 直接拿到含这 51 个模块的完整树再整体合。两条都不是「继续合」一轮能完成的量，需要单独排期。

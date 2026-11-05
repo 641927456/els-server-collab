@@ -17,7 +17,7 @@ def record(row):
  from els_server.domain.inventory_items import VERIFIED_TEMPLATES
  if type(row)is not dict or set(row)!=FIELDS:raise ValueError('Guild history exact plain record')
  if any(type(row[k])is not int for k in FIELDS-{'name'}):raise ValueError('Guild history record types')
- if(not 0<row['owner']<2**63 or not 0<row['unit_class']<2**16 or not 1<=row['level']<=99 or row['direction']not in(0,1)or row['grade']not in(1,6)or row['template']not in VERIFIED_TEMPLATES or not 1<=row['quantity']<=20000 or row['enhancement']!=0 or not 0<row['created_at']<2**63 or row['stage']not in(0,1,2)):raise ValueError('Guild history finite coin record')
+ if(not 0<row['owner']<2**63 or not 0<row['unit_class']<2**16 or not 1<=row['level']<=99 or row['direction']not in(0,1)or row['grade']not in range(1,7)or row['template']not in VERIFIED_TEMPLATES or not 1<=row['quantity']<=20000 or row['enhancement']!=0 or not 0<row['created_at']<2**63 or row['stage']not in(0,1,2)):raise ValueError('Guild history finite coin record')
  stamp=datetime.fromtimestamp(row['created_at'],timezone(timedelta(hours=8))).strftime('%Y-%m-%d %H:%M:%S')
  # Original0x7D row: actorQ/classH/leveli/in-outB/gradeB/name;
  # templatei/counti/enhancementB/time; empty option vector; career stagei;
