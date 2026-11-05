@@ -362,3 +362,26 @@ if request.option not in (0,1):
 - **`protocol/guild_bank_transfer_messages.py`**：同一原因（需要 `_item_body`）。
 - **驻地里的换装/称号刷新钩子**：`title_flow.py` / `wear_moves.py` 的 `bank_capture` 钩子在冲突文件里，属锦上添花，未合。
 - **三项待决策略仍是 `null`**：`guild_expedition_policy.initial_smashes`、`guild_seed_pouch_policy.templates`、`guild_profession_policy.held_badge_and_contract`。代码对 null 是显式自我禁用（种子袋返回 `None`、首发破坏次数返回 `None`、徽章+合同同时持有直接拒绝并报「requires explicit decision」），等你定玩法再填。
+
+## 16. 公会钩子补完（2026-11-06 02:05，提交 `6e48df6` / `ca9d1c8`）
+
+第 15 节之后，把「依赖已经满足」的钩子逐个补齐，不再碰需要 9 个缺失模块的 `inventory_items.py`。
+
+| 位置 | 改动 | 为什么现在能做 |
+|---|---|---|
+| `protocol/social_messages.py` | 聊天频道放行 `3`（0/1/3/4） | 公会频道就是 3；只取这一处，同文件里 `weapon_growth.instance_stage` 那段本树没有 `weapon_growth`，没取 |
+| `domain/friends_world.py` | 频道 3 → `guild_chat.deliver`；驻地内频道 0 同走公会；`chat()` 阶段放行 `guild_agit_ready` | `guild_chat` 已在第 15 节装好 |
+| `protocol/local_messages.py` | 登录 DTO 的 `0x30b` 改用 `permission_rows(guild['system'])` | 六职级表已就位，登录不再发 2 职级的桩 |
+| `domain/title_flow.py` + `storage/titles.py` + `domain/housing_room_flow.py` | 称号周期放行 `guild_agit_ready`、换称号走 `bank_capture` 守卫 + `guild_appearance.prepare/deliver`；`equip()` 加 `guard`/`prepare`；`identity()` 加 `arrived` 参数（驻地首次登录只要求 `0x28/0x32`） | 驻地流程 `identity()` 早就按 `room_identity(s,arrived=…)` 调本地函数，本地签名没有 → **不补会直接 TypeError**，这是本轮发现的真隐患 |
+| `domain/friends_world.py` | `Mailbox` 加 `RLock`，`append`/`drain` 走 `_append`/`_drain` | 归档复审记的 **P1**：公会事务准备邮箱副本、提交期间独立线程往原邮箱追加，副本替换后通知丢失。LuCiel 克隆按设计共享同一把锁（`copy` 保留引用） |
+| `domain/quest_selection.py` | `m_iPeriod` 放行公会限时任务的奖励行 | `guild_quests.timed_selection` 已装 |
+| `domain/guild_bank_rules.py` | `require_item` 内 `validate_item(item,container=…)` → `validate_item(item)` | 本树校验器没有 `container` 开关，且更严不放宽；避免以后有人接到它就 TypeError |
+
+验证：`--check` exit 0；全树 948 模块导入零失败；`test_decomposition*`+`test_seal_receipt_positions`+`test_current_native_title_inputs` 17/17；公会数据加载冒烟全过（`guild_rules.catalog` 的 `DATA_SHA256`、`guild_skins`、`guild_quests` 都通过，说明**数据 json 必须保持归档原字节，不能转 LF**）；邮箱锁压测：克隆共享同一 RLock、256 条上限在并发下仍原子生效。
+
+**仍然没做，且是故意的**
+
+- **公会银行 wire**：归档 `guild_bank_items.py` / `guild_bank_transfer_messages.py` 把每件物品的报文从 `>Q + record(i)` 改成 `>QQBh + item_body(i) + 9字节`，还要 `validate_item(container=…)`。前者是客户端可见的报文变形，没有实机验证不能改；后者缺 9 个模块。所以银行维持本地写入器（2 职级存取，只有会长能存）。
+- **`guild_quest_flow` 接进 `quest_flow.py`**：归档版要改对话、接取、完成三处，还牵 `growth_guide`（缺）。`quest_flow` 是玩家每天走的核心路径，半吊子移植比不移植危险；等 `growth_guide` 那条链补上再一起做。
+
+**既有失败（本轮 A/B 确认，非本轮引入）**：`test_region_quest_flow` 2 失败 1 错误——把 `els_server` 整体回退到 `37e092d`（公会动手之前）跑同一测试，同样 2 失败 1 错误；其中 1 个错误是缺 `analysis/client-6c6b5180/20261013-160720/death-event-header.json` 这类本机没有的分析产物。另外 `test_quest_expiry_regressions` 导入即失败（同一类缺失）。
