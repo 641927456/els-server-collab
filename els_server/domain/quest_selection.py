@@ -12,7 +12,10 @@ def options(quest):
     for r in rows:
         t=r['m_iItemID']
         if type(t) is not int or t in ids or t not in VERIFIED_TEMPLATES:raise ValueError('Unverified quest selection item')
-        if r['m_iPeriod'] or r['m_sSocketOption'] or type(r['m_iQuantity']) is not int or not 1<=r['m_iQuantity']<=99:raise ValueError('Unsupported quest selection item')
+        # Guild timed quests carry a native period on their reward row; every
+        # other quest keeps rejecting one.
+        from els_server.domain.guild_quests import timed_selection
+        if r['m_iPeriod']and not timed_selection(quest,r)or r['m_sSocketOption'] or type(r['m_iQuantity']) is not int or not 1<=r['m_iQuantity']<=99:raise ValueError('Unsupported quest selection item')
         # D1CEF0 filters item bytes D2/D3 by unit and class rank tables.
         # Restricted choices remain limited to exact source quest13; the claim
         # rechecks the current SQL character through the native class predicate.

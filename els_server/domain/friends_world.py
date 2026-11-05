@@ -4,15 +4,23 @@ All methods run in Application's single worker. The transport owns encryption,
 sequence numbers and socket writes; no foreign session's packet is pre-encoded.
 """
 from collections import deque
+from threading import RLock
 import time
 from els_server.protocol import social_messages as wire
 from els_server.domain.local_session import SessionOrderError
 
 
 class Mailbox:
-    def __init__(self):self.messages=deque();self.moves={};self.bytes=0
+    # A guild transaction prepares a mailbox copy and commits while an
+    # independent copy thread may still append to the member's original box.
+    # The lock is what keeps that append from being lost when the copy replaces
+    # the original; the LuCiel clone deliberately keeps the same RLock.
+    def __init__(self):self.messages=deque();self.moves={};self.bytes=0;self.lock=RLock()
 
     def append(self,message,move_uid=None):
+        with self.lock:self._append(message,move_uid)
+
+    def _append(self,message,move_uid):
         size=len(message.payload)
         old=self.moves.get(move_uid) if move_uid is not None else None
         count=len(self.messages)+len(self.moves)+(0 if old is not None else 1)
@@ -26,6 +34,9 @@ class Mailbox:
         self.bytes=total
 
     def drain(self):
+        with self.lock:return self._drain()
+
+    def _drain(self):
         values=list(self.messages)+list(self.moves.values())
         self.messages.clear();self.moves.clear();self.bytes=0
         return values
