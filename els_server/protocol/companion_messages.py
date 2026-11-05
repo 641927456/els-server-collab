@@ -1,5 +1,6 @@
 """Wire layouts recovered from D9C550, DE1310 and original RPC producers."""
 import struct
+import time
 from els_server.protocol.protocol_codec import Event
 from els_server.protocol.local_messages import wstring
 from els_server.domain.inventory_items import inventory_payload
@@ -29,8 +30,12 @@ def pet_record(p=None):
     data+=struct.pack('>bhiI',p.get('step',0),p.get('satiety',3840 if uid else 0),p.get('growth',0),len(personality))
     data+=b''.join(struct.pack('>ih',int(k),v) for k,v in sorted(personality.items(),key=lambda x:int(x[0])))
     gear=p.get('equipment',{})
-    end=p.get('expires_at',0)
-    if type(end) is not int or not 0<=end<2**40:raise ValueError('Pet deadline bound')
+    # D9C550 DTO+3D is the digestion deadline: 30173B0/35F1C60 subtract the
+    # native current time from this slot to render PetGrowthDigestTimeValue.
+    # It used to be the pet deadline, which no companion row ever supplies, so
+    # the panel always computed now-now and printed 00:00:00.
+    end=p.get('digest_until',0)
+    if type(end) is not int or not 0<=end<2**40:raise ValueError('Pet digestion deadline bound')
     data+=struct.pack('>QhI',end,p.get('nutrition',0),len(gear))+b''.join(struct.pack('>iii',int(slot),e['template'],e['socket']) for slot,e in sorted(gear.items(),key=lambda v:int(v[0])))
     data+=struct.pack('>hhB',0,0,0)
     pickup_end=p.get('pickup_expires_at',0)
