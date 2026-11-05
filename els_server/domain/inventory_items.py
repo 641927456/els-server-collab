@@ -131,6 +131,12 @@ for _name in ('standalone','ice-common'):
   if _row['group'] in (7,27) and _row['resource_position_byte'] in FASHION_POSITIONS:
    FASHION_EQUIP_SLOTS[_row['template']]=FASHION_POSITIONS[_row['resource_position_byte']]
 
+from els_server.domain.modern_ice import catalog as modern_ice_catalog
+for _row in modern_ice_catalog()['definitions']:
+ _t=_row['template'];_expected=(_row['metadata'],_row['group'],_row['max_stack'])
+ if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting modern ice item')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+
 def expansion_inventory_templates():
  """Only enable coupons with native private-body and classification evidence."""
  from els_server.game_data import client_data

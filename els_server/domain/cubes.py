@@ -69,4 +69,8 @@ def catalog():
     for box in owned_entries():
         if box['template'] in result:raise ValueError('Duplicate owned reward box')
         result[box['template']]=box
+    from els_server.domain.modern_ice import entries as ice_entries
+    for box in ice_entries():
+        if box['template']in result:raise ValueError('Duplicate modern ice cube')
+        result[box['template']]=MappingProxyType(box)
     return MappingProxyType(result)

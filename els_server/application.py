@@ -20,7 +20,9 @@ class FriendsSession(LocalSession):
         super().__init__(account,**options)
 
     def activity_reply(self,replies):
-        return self.activity2026_awards.finalize(self,replies) if self.activity2026_awards is not None else replies
+        replies=self.activity2026_awards.finalize(self,replies) if self.activity2026_awards is not None else replies
+        from els_server.domain.modern_ice_flow import synchronize as ice_sale_sync
+        return ice_sale_sync(self,replies)
 
     def handle(self,event,request_sequence=None):
         if self.released or not self.application.registry.enabled(self.identity['id']):raise SessionOrderError('Account is offline or disabled')

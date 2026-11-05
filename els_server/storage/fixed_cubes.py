@@ -25,6 +25,10 @@ def _legacy_actor(db,owner,account_id,prepare):
 
 
 def open_cube(path,owner,expected_template,payload,operation,randbelow=secrets.randbelow,*,account_id=None,prepare=None):
+    from els_server.domain.modern_ice import boxes as ice_boxes
+    if expected_template in ice_boxes():
+        from els_server.storage.modern_ice import open_box
+        return open_box(path,owner,expected_template,payload,operation,account_id=account_id,prepare=prepare)
     from els_server.domain.job_reward_boxes import BOXES as job_boxes
     if expected_template in job_boxes:
         from els_server.storage.job_reward_boxes import open_box

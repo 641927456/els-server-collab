@@ -1525,6 +1525,12 @@ class LocalSession:
                     validate=lambda:validate_wear_context(self,captured))
                 return answer if isinstance(answer,list)else[answer]
             except ValueError:return failed
+        from els_server.domain.modern_ice_flow import handle as modern_ice_handle
+
+        modern_ice_reply=modern_ice_handle(self,event,request_sequence)
+
+        if modern_ice_reply is not None:return modern_ice_reply
+
         if self.item_test and self.client_build=='dx11_260923' and kind in (0xbd6,0x663) and event.event_id==0x202:
 
             from els_server.protocol.inventory_management_messages import sort_ack,lock_ack
@@ -1850,6 +1856,12 @@ class LocalSession:
                 elif row.get('participation_gear'):
                     from els_server.domain.boosting_2026_participation_gear import preview
                     row=dict(row,entries=preview(row,self.account.character()['unit_class']))
+                elif row.get('modern_ice_box'):
+                    from els_server.domain.modern_ice import preview
+                    try:row=dict(row,entries=preview(cube_request.template,self.account.character(),cube_request.flag1))
+                    except ValueError:
+                        self.fixed_cube_preview_template=None
+                        return [preview_ack(-1,cube_request.template)]
                 elif row.get('role_fashion90'):
                     from els_server.domain.boosting_2026_fashion_rewards import preview
                     row=dict(row,entries=preview(cube_request.template,self.account.character(),cube_request.flag2))
@@ -1905,7 +1917,7 @@ class LocalSession:
                         if (event.performers not in ((),(0,)) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Owned growth cube envelope')
                         gear_path,gear_owner,gear_account,gear_prepare=selected(self)
                         answer=open_cube(gear_path,gear_owner,cube_template,event.payload,operation,account_id=gear_account,prepare=gear_prepare)
-                    elif cube_template in (300645,300646,300647,300648,117542,135666,135871,723618,723619,723620,723621,723634,723687,723688,980047):
+                    elif cube_template in (300645,300646,300647,300648,117542,135666,135871,723618,723619,723620,723621,723634,723687,723688,980047) or fixed_cubes().get(cube_template,{}).get('modern_ice_box'):
                         from els_server.domain.tenebros_capacity_flow import selected
                         if(event.performers not in((),(0,))or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Job box use envelope')
                         box_path,box_owner,box_account,box_prepare=selected(self)
@@ -1964,7 +1976,29 @@ class LocalSession:
 
             # Display the same role-filtered pool that the transaction draws from.
 
-            return [preview_ack(0,request.template,entries=tuple((template,0,1) for template,_ in pools[request.template]))]
+            from els_server.domain.modern_ice import machines
+
+            extra=[]
+
+            if request.template in machines():
+
+                from els_server.domain.tenebros_capacity_flow import selected
+
+                from els_server.storage.modern_ice import snapshot
+
+                try:
+
+                    path,owner,account_id,prepare=selected(self)
+
+                    extra=snapshot(path,owner,account_id,prepare,initial=True)
+
+                except ValueError:
+
+                    self.ice_preview_ready=False
+
+                    return [preview_ack(-1,request.template)]
+
+            return [preview_ack(0,request.template,entries=tuple((template,0,1) for template,_ in pools[request.template]))]+extra
 
         if self.ice_test and event.event_id==0x202 and kind==0x196:
 
@@ -1976,11 +2010,39 @@ class LocalSession:
 
             if type(request_sequence) is not int or not 1<=request_sequence<2**32:return [result_ack(-1,[],0)]
 
-            try:payload=draw(self.account.store.path,event.payload,self.shop_session_id+':'+str(request_sequence),uid=self.account.uid)
+            try:
+
+                if(event.performers not in((),(0,))or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Ice draw native envelope')
+
+                from els_server.protocol.ice_messages import use_request as ice_use
+
+                from els_server.domain.modern_ice import machines
+
+                source=next((i for i in self.account.get_inventory_snapshot()['items'] if i['uid']==ice_use(event.payload).uid),None)
+
+                extra=[]
+
+                if source is not None and source['template'] in machines():
+
+                    # 2026 cubes publish into the account 百宝袋, so the draw needs
+                    # the selected actor that owns that bag.
+                    from els_server.domain.tenebros_capacity_flow import selected
+
+                    from els_server.storage.modern_ice import snapshot
+
+                    path,owner,account_id,prepare=selected(self)
+
+                    payload=draw(path,event.payload,self.shop_session_id+':'+str(request_sequence),uid=owner,account_id=account_id,prepare=prepare)
+
+                    extra=snapshot(path,owner,account_id,prepare)
+
+                else:
+
+                    payload=draw(self.account.store.path,event.payload,self.shop_session_id+':'+str(request_sequence),uid=self.account.uid)
 
             except ValueError:return [result_ack(-1,[],0)]
 
-            return result_events(payload)
+            return result_events(payload)+extra
 
         if kind==0x233:
 
@@ -2189,6 +2251,12 @@ class LocalSession:
 
                 from els_server.domain.fishing_attempt import initialize_login as initialize_life
                 answer=initialize_life(self,answer)
+
+                if self.ice_test:
+
+                    from els_server.domain.modern_ice_flow import restore as restore_modern_ice
+
+                    answer+=restore_modern_ice(self)
                 self.player_initialization_request=bytes(event.payload)
 
                 self.player_initialization_reply=tuple(answer)
