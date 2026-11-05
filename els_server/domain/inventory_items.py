@@ -718,6 +718,12 @@ def item_body(item):
   elif off==0x3ec:struct.pack_into('>ii',data,wire,*item.get('cartridge',[0,0]))
   elif off==0x378:struct.pack_into('>i',data,wire,item.get('appearance_template',0))
   elif off==0x37c:data[wire]=int(item.get('wardrobe_hanger',False))
+  # 0x395 is the second bool of the wardrobe block (reader 3b6d810, the same
+  # getter as the 0x37c hanger flag) and the only wardrobe field the server
+  # never wrote. Mirror the hanger flag so the client's hide/commit controls
+  # see a populated state; revert this line if the flag turns out to mean
+  # something else.
+  elif off==0x395:data[wire]=int(item.get('wardrobe_hanger',False))
   elif off in (0x37d,0x389):struct.pack_into('>Iiii',data,wire,3,*item.get('dye_colors'if off==0x37d else'appearance_colors',[0,0,0]))
  if len(data)!=304:raise ValueError('Native item body bound')
  if 'expires_at' in item:

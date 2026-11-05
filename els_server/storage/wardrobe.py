@@ -8,6 +8,12 @@ from contextlib import closing
 from els_server.storage.character_schema import character_uid
 
 
+class WardrobeError(ValueError):
+    """A refused wardrobe operation with its existing native message code."""
+    def __init__(self,result,message):
+        super().__init__(message);self.result=result
+
+
 def present(db,name):
     return db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(name,)).fetchone()is not None
 
@@ -162,7 +168,7 @@ def change(path,owner,account_id,kind,payload,operation,*,validate=lambda:None):
                 if kind==0xbee:
                     result=acknowledgement(kind,favorite_values=favorites(db,owner,account_id),favorite_mode=request[0]);validate();return result
                 changes=[((i['group'],i['slot']),i)for uid in json.loads(old[4])if(i:=by_uid.get(uid))is not None]
-                result=acknowledgement(kind,registry,changes);validate();return result
+                result=acknowledgement(kind,{} if kind==0x4b1 else registry,changes);validate();return result
             if kind==0xbee:
                 from els_server.domain.wardrobe import catalog
                 from els_server.game_data import client_data
@@ -184,8 +190,9 @@ def change(path,owner,account_id,kind,payload,operation,*,validate=lambda:None):
                 item=by_uid.get(uid)
                 if item is None or item['group']not in (1,2,7,27,9)or item['count']!=1:raise ValueError('Wardrobe needs owned equipment')
                 definition(item['template']);require_owner(item['template'],character)
-                if 'expires_at'in item or item.get('sealed',False)or item.get('identified')is False:
-                    raise ValueError('Timed/sealed/unidentified wardrobe target')
+                if 'expires_at'in item:raise WardrobeError(1499 if kind==0x4b1 else 1501,'Timed wardrobe target')
+                if item.get('sealed',False):raise WardrobeError(1505 if kind==0x4b1 else 1451,'Sealed wardrobe target')
+                if item.get('identified')is False:raise WardrobeError(1502 if kind==0x4b1 else 1449,'Unidentified wardrobe target')
                 if kind==0x4af:require_unlocked(item)
             if kind==0x4af:
                 item=dict(by_uid[request]);t=item['template']
@@ -199,7 +206,8 @@ def change(path,owner,account_id,kind,payload,operation,*,validate=lambda:None):
                 for position,template,uid,colors in request:
                     item=dict(by_uid[uid]);base=definition(item['template']);chosen=definition(template)
                     require_owner(template,character)
-                    if position!=base['equip_position']or not registry.get(template):raise ValueError('Unregistered appearance or wrong target position')
+                    if position!=base['equip_position']:raise WardrobeError(1503,'Wrong target position')
+                    if not registry.get(template):raise WardrobeError(1506,'Unregistered appearance')
                     from els_server.domain.normal_equipment import definitions as normal
                     if item['template']not in normal()and not item.get('wardrobe_hanger',False):raise ValueError('Target has no registered hanger')
                     if any(colors)and not any(t==template and tuple(c)==colors for u,t,c in variants(db,owner,account_id)):raise ValueError('Unregistered account dye variant')
@@ -210,7 +218,10 @@ def change(path,owner,account_id,kind,payload,operation,*,validate=lambda:None):
             # Only appearance/binding fields can change; identity, location and stats persist.
             strip=lambda i:{k:v for k,v in i.items()if k not in ('appearance_template','wardrobe_hanger','appearance_colors')and not(k=='dye_colors'and not any(v))}
             if [strip(i)for i in after]!=[strip(i)for i in before]:raise ValueError('Wardrobe altered base inventory')
-            result=acknowledgement(kind,counts(db,owner,account_id),[((current[u]['group'],current[u]['slot']),current[u])for u in affected])
+            # 4B2 also lists every returned registry key as a newly registered hanger.
+            # Applying existing appearances changes items, not account registration.
+            registered={} if kind==0x4b1 else counts(db,owner,account_id)
+            result=acknowledgement(kind,registered,[((current[u]['group'],current[u]['slot']),current[u])for u in affected])
             db.execute('INSERT INTO wardrobe_receipts VALUES(?,?,?,?,?,?)',(operation,digest,owner,account_id,kind,json.dumps(affected)))
             validate()
             if kind==0x4af and any(current[request].get('dye_colors',())):
@@ -241,6 +252,11 @@ def extension_change(path,owner,account_id,kind,payload,operation,*,validate):
             if old:
                 if old[:4]!=(digest,owner,account_id,kind):raise ValueError('Conflicting wardrobe extension retry')
                 affected=json.loads(old[4]);events=[acknowledgement(kind,registry,[((i['group'],i['slot']),i)for u in affected if(i:=by_uid.get(u))is not None])]
+                if kind==0x6d7:
+                    from els_server.storage.inventory_actions import _previous
+                    from els_server.storage.equipment_receipt_state import current_changes
+                    positions=_previous(db,operation,digest)
+                    if positions is not None:events[0]=acknowledgement(kind,registry,current_changes(db,operation,owner,kind,positions,before))
                 if kind==0xad6:
                     item=by_uid.get(request[0])
                     if item is not None and not any(item.get('dye_colors',())):events.append(color_notification(3,item['uid'],item['template'],[0,0,0]))
@@ -321,6 +337,9 @@ def extension_change(path,owner,account_id,kind,payload,operation,*,validate):
                 events.append(points_notification(db,owner,account_id))
             # Encode all results before commit. Never bill ED or alter base stats.
             result=[acknowledgement(kind,counts(db,owner,account_id),list(changes.values()))]+events
+            if kind==0x6d7:
+                from els_server.storage.inventory_actions import _commit
+                _commit(db,operation,digest,owner,kind,[p for p,_ in changes.values()],before,load_items(db,owner))
             db.execute('INSERT INTO wardrobe_receipts VALUES(?,?,?,?,?,?)',(operation,digest,owner,account_id,kind,json.dumps(list(changes))))
             validate();return result
 
@@ -352,9 +371,15 @@ def opening_info(path,owner,account_id,*,validate=lambda:None):
     This profile configures no additional time-control UI bans. The normal
     legacy builder's empty restriction set is the actual default, not an
     ownership grant. Existing registry and all writer admission remain intact.
+
+    The 13890C0 initialisation is replayed before every opening because that
+    message is the only writer of manager+338 (registry) and manager+3E0
+    (favourites); 2302830 alone carries no registry, so a window reopened after
+    the cold login would otherwise render the whole appearance list as
+    unregistered and leave every exchange button disabled.
     """
     from pathlib import Path
-    from els_server.protocol.wardrobe_messages import opening_information
+    from els_server.protocol.wardrobe_messages import initialization,opening_information
     from els_server.protocol.protocol_codec import encode_event
     owner=character_uid(owner)
     if type(account_id)is not int or not 0<account_id<2**63:raise ValueError('Wardrobe opening account')
@@ -365,8 +390,10 @@ def opening_info(path,owner,account_id,*,validate=lambda:None):
         if present(db,'character_lifecycle'):
             state=db.execute('SELECT requested_at,finalized_at FROM character_lifecycle WHERE uid=?',(owner,)).fetchone()
             if state and any(state):raise ValueError('Wardrobe opening deleted owner')
-        counts(db,owner,account_id);favorites(db,owner,account_id)
-        event=opening_information();encode_event(event);validate();return [event]
+        registry=counts(db,owner,account_id);favorite_values=favorites(db,owner,account_id)
+        events=[initialization(registry,favorite_values),opening_information()]
+        for event in events:encode_event(event)
+        validate();return events
 
 from els_server.storage.read_scope import snapshot_connection
 

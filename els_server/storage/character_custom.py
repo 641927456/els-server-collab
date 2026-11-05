@@ -59,9 +59,26 @@ def snapshot(db,owner):
             selected[2]=value
     return dict(owned=owned,selected=selected)
 
+_SIDE_SPEC=('CREATE TABLE IF NOT EXISTS character_custom_permanent_selection_slots '
+    '(owner INTEGER NOT NULL REFERENCES characters(uid),'
+    'slot INTEGER NOT NULL CHECK(slot IN (3,4,5,6,7,8,10,11,12,13,14,15,16,19,20,21,22,23,24,25,26,27,28)),'
+    'custom_id INTEGER NOT NULL CHECK(custom_id>=0),PRIMARY KEY(owner,slot))')
+
 def initialize_side(db):
     # Additive only: never migrate/rebuild the original owner-PK slot1 table.
-    db.execute('CREATE TABLE IF NOT EXISTS character_custom_permanent_selection_slots (owner INTEGER NOT NULL REFERENCES characters(uid),slot INTEGER NOT NULL CHECK(slot IN (7,8,13,14,24,25,26,27)),custom_id INTEGER NOT NULL CHECK(custom_id>=0),PRIMARY KEY(owner,slot))')
+    # The side slots carry every multi-slot native family (wait motions
+    # 10/11/12, cut-ins 3..6, quick voices 21..23, sitting 7/8/13/14 and the
+    # emoticons 24..27); they share one catalog row per block.
+    db.execute(_SIDE_SPEC)
+    row=db.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name='character_custom_permanent_selection_slots'").fetchone()
+    if row and any(token not in (row[0] or '') for token in ('10','20','28')):
+        # A table created by an older CHECK cannot store the newer slots.
+        # It is a pure selection cache, so rebuild it in place, keeping rows.
+        db.execute('ALTER TABLE character_custom_permanent_selection_slots RENAME TO character_custom_permanent_selection_slots_old')
+        db.execute(_SIDE_SPEC)
+        db.execute('INSERT INTO character_custom_permanent_selection_slots(owner,slot,custom_id) '
+                   'SELECT owner,slot,custom_id FROM character_custom_permanent_selection_slots_old')
+        db.execute('DROP TABLE character_custom_permanent_selection_slots_old')
 
 def initialize_face(db):
     # Additive face-only storage; preserve both old selection tables and CHECKs.
@@ -175,7 +192,12 @@ def select(path,owner,account_id,payload,operation,*,now=None,validate=None):
         if old is None and value['custom_id'] not in free_ids(role[1],slot) and value not in current['owned'].get(family,[]):
             raise ValueError('Custom Apply requires registered ownership or current-career free eligibility')
         if old is not None and slot not in current['selected']:raise ValueError('Custom receipt lacks selected slot')
-        selected={slot:current['selected'][slot]} if old is not None else {slot:value}
+        # The client treats this map as the whole window state: answering with
+        # only the applied slot made the other three rows fall back to the
+        # career default, so a second Apply looked like it had erased them.
+        selected=dict(current['selected'])
+        if old is None:selected[slot]=value
+        selected={k:selected[k] for k in sorted(selected)}
         if old is not None:_check_receipt(db,operation,owner,0x4cb)
         from els_server.storage.titles import snapshot as title_snapshot
         title=title_snapshot(db,owner,now)['title']

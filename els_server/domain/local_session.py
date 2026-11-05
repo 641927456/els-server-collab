@@ -1497,7 +1497,7 @@ class LocalSession:
             from els_server.storage.wardrobe import opening_info
             if (not self.item_test or self.client_build!='dx11_260923' or event.event_id!=0x202
                 or self.role!='game' or self.phase!='town_ready' or type(request_sequence)is not int
-                or not 1<=request_sequence<2**32 or event.performers
+                or not 1<=request_sequence<2**32 or event.performers not in ((),(0,))
                 or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):return []
             try:
                 opening_request(event.payload);captured=context(self)
@@ -2529,6 +2529,16 @@ class LocalSession:
                 from els_server.domain.normal_fatigue_flow import loaded as fatigue_loaded
                 try:reply+=fatigue_loaded(self,event)
                 except(ValueError,__import__('sqlite3').Error):return[]
+                # A dungeon actor is built from the FullUser member DTO, which
+                # carries no custom selection, so every slot falls back to the
+                # career default once the scene is created. Re-announce the saved
+                # 18E selection map after the first substage owns the actor, the
+                # same way the town path does after 0x228/D9. Nothing is invented
+                # here: character_custom.snapshot() already revalidates ownership.
+                if self.item_test and self.account.characters is not None:
+                    from els_server.domain.character_custom import restored as custom_restored
+                    try:reply.extend(custom_restored(self.account.character()))
+                    except ValueError:pass  # Never break the substage handshake
                 self.dungeon_substage_synced=True
 
                 self.dungeon_clock.resume()
@@ -2828,7 +2838,52 @@ class LocalSession:
 
                 room=world.party_of.get(self,{}) if world else (getattr(self,'solo_challenge_party',None) or {})
 
-                reply=ticket_reply if ticket_reply is not None else [admission_ack(0),dungeon_start(self.account.get_skills(),self.account.character(),self.account.get_inventory_snapshot()['items'] if self.item_test else None,dungeon_id=identity,room_id=room.get('id',10001) if room.get('solo_challenge') else 10001,account_id=self.account.account_id,bootstrap_port=self.port_probe_port,member_capture=self._capture_luciel_dungeon_hp)]
+                # The dungeon actor is created from the FullUser member DTO, so a
+                # custom selection announced later (0x18E after 0xb3) arrives too
+                # late to affect it. Two carriers, both fed from the DB directly
+                # because the login-time projection is stale for these maps:
+                #   a) the cold init town uses after 0x2A - owned registrations,
+                #      the selection ack and the 0x18E notice - emitted BEFORE the
+                #      start event while the client is still in its town state,
+                #      so its normal handlers (not the dungeon ones) accept them;
+                #   b) the DTO's only variable-length slot (offset 657, "set<int>").
+                custom_values=();custom_events=();custom_note='gate'
+                if self.item_test and self.account.characters is not None and self.account.store is not None:
+                    from contextlib import closing
+                    import sqlite3
+                    from els_server.storage.character_custom import snapshot as custom_snapshot
+                    from els_server.protocol.character_custom_messages import (
+                        acknowledgement,registered,selected_notice)
+                    custom_note='ok'
+                    try:
+                        with closing(sqlite3.connect(self.account.store.path,timeout=10)) as db:
+                            db.execute('BEGIN')
+                            fresh=custom_snapshot(db,self.account.uid)
+                        selected=dict(fresh['selected']);owned=fresh['owned']
+                        custom_values=tuple(entry['custom_id'] for entry in selected.values()
+                                            if isinstance(entry,dict) and type(entry.get('custom_id'))is int
+                                            and entry['custom_id']>0)
+                        if custom_values:
+                            custom_events=tuple([registered(value)
+                                                 for family in sorted(owned)
+                                                 for value in owned[family]]
+                                                +[acknowledgement(selected),
+                                                  selected_notice(self.account.uid,
+                                                                  int(self.account.character().get('title',0) or 0),
+                                                                  selected)])
+                    except (sqlite3.Error,ValueError,KeyError) as error:
+                        custom_values=();custom_events=();custom_note='read:%s'%type(error).__name__
+                # Evidence line: a silent empty tuple and a full set the client
+                # ignored look identical in the game, so record what was built.
+                from els_server.domain.character_custom import _trace as custom_trace
+                custom_trace('dungeon dto custom=%d events=%d %s ids=%r ticket=%r'
+                             %(len(custom_values),len(custom_events),custom_note,
+                               sorted(set(custom_values))[:4],ticket_reply is not None))
+
+                if ticket_reply is not None:
+                    reply=list(ticket_reply)+list(custom_events)
+                else:
+                    reply=[admission_ack(0)]+list(custom_events)+[dungeon_start(self.account.get_skills(),self.account.character(),self.account.get_inventory_snapshot()['items'] if self.item_test else None,dungeon_id=identity,room_id=room.get('id',10001) if room.get('solo_challenge') else 10001,account_id=self.account.account_id,bootstrap_port=self.port_probe_port,member_capture=self._capture_luciel_dungeon_hp,custom=custom_values)]
 
                 reply.extend(mirror_start)
 
