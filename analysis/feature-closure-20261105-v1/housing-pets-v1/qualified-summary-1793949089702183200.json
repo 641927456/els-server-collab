@@ -1,0 +1,192 @@
+{
+  "ok": true,
+  "source_sha256": {
+    "els_server/domain/acquisition_policy.py": "5e6b2b189b1a1faf70b72a13bc092819372af5b34d967e2f4be1c6d8436ce551",
+    "els_server/domain/furniture_rules.py": "be9439c3ef3b2aa95988ccef42f65cfc6305f1ecd0f8a2d696c9c6812ce52b34",
+    "els_server/domain/housing_layout_flow.py": "9ae0b34b03e4c24a9bc6582c0294dfc8fe17aa1d1659fb99aa8ede0259fc7da9",
+    "els_server/domain/housing_pet_rules.py": "9351e2faa96a8debaa34c0077fda75a6f99158f2873fc30de54aec9a68d64d7a",
+    "els_server/domain/housing_room_flow.py": "d45e79691e3d3a618b876c0f2cc29c1c7afac45ca1b19a811b12e43286639a21",
+    "els_server/domain/local_session.py": "c3578bb31eab459da4f65f8661b17c435dcfdb407657e6f39b9af51f446cba29",
+    "els_server/protocol/housing_messages.py": "d6dc328a8ed7001e3f5183a334ff7f8117c86b6360c621760d858de898a3cd96",
+    "els_server/protocol/housing_pet_messages.py": "ff52abfcf250b6602931342c9275b059206c0fc15cf81e6d59f92b68f325639c",
+    "els_server/protocol/housing_population_messages.py": "a6472546c94f6c5a9d1d8294df0d9f097f1a9ac25f69a9b0bb1089c270ba6a88",
+    "els_server/storage/boosting_2026_limited_pet.py": "e7ef95da39c15b7bfcde8498734b4f8bffb9a782f59c367349ef1017cb745e8a",
+    "els_server/storage/companion_state.py": "8c1b3f94b7a0f7cd5b5a37a58a189645b1e428de2b195a7f59a21bc5eb2a85eb",
+    "els_server/storage/housing_access.py": "d17989bc37d7f1ff1377af0cb8acdff9be207806b5685ee4eb1e2e181fe75a70",
+    "els_server/storage/housing_layouts.py": "3da696fc84616678a4601bc3d88bb0bbca845e1687b60766c45af1f23aad63a9",
+    "els_server/storage/housing_pets.py": "1b21bea9b239a092788d3d154bdf366e2dae107a7b16694b96db0a03a3da6bc8",
+    "els_server/storage/housing_rooms.py": "82b9132e2c71e409da082c5ed06f6fdf36eaea581defb265187b06e0bc8c8975",
+    "els_server/storage/pet_expedition.py": "568ae814723b621b6dcd94433c2c034d4395a9ff2c7af8542d16aa047246503a"
+  },
+  "source_files": 16,
+  "dependency_PR": 892,
+  "dependency_head": "5367cd0123ec0e1bbe765687a8f33ccd612f6a57",
+  "previous_evidence": [
+    {
+      "file": "codec-native-1793943008395519700.json",
+      "sha256": "7b869cd08ce3f0b24544d0668e6029469a3f5b6356b58f381a8ff0e6ab0b78bb",
+      "ok": true,
+      "scope": "Original placement readers; 512 primitive input cases and 0/1/4 records",
+      "native_Game": false
+    },
+    {
+      "file": "entry-native-1793943378104225600.json",
+      "sha256": "39ddcca4885fa7088bb939752ae6fe1e407d4186497611408cff8d7c59d912dc",
+      "ok": true,
+      "scope": "Full original924 reader, including 0/1/4 placements; shared A3B reader",
+      "native_Game": false
+    },
+    {
+      "file": "mat-admission-1793948662143319500.json",
+      "sha256": "59eba78eee784192dfb9e4d730583bf171a273b0700b2823034b800bfe0b7c84",
+      "ok": true,
+      "scope": "Six original mats; normal small NPC stock and price; five owned-only mats; nonprojecting free-position mats rejected",
+      "native_Game": false
+    },
+    {
+      "file": "writer-TLS-1793948960990565600.json",
+      "sha256": "93879ce15eb47105be9bb0c0ff52096aae671084ecf39b0563fa24e87f6f4134",
+      "ok": true,
+      "scope": "Final authenticated grid-placement writer, free-position rejection, ordinary owned-pet support preserved, replay, ownership, slot limit, occupied mat, rollback, expiry and summon reconciliation",
+      "native_Game": false
+    },
+    {
+      "file": "actual-packets-native-1793944497692865100.json",
+      "sha256": "4fb59b8eee785a33ce777dddd47d6d7a8996c2a1401ad5a251267ed3e5ab6b3a",
+      "ok": true,
+      "scope": "15 actual authenticated TLS payloads consumed by original readers",
+      "native_Game": false
+    },
+    {
+      "file": "contract-deadlines-1793949000223012700.json",
+      "sha256": "90b4e1b2163b30bf2e3591b6fc03744067417f9abe0b5d8381c683e4eccd3cef",
+      "ok": true,
+      "scope": "Final seven-day cutoff and permanent upgrade; explicit storage clocks and valid grid mats",
+      "native_Game": false
+    },
+    {
+      "file": "population-native-1793945297105753400.json",
+      "sha256": "38e1e2c45308bfd546f41bcb382c385d44cdfcca241f59643e660b8d479c450e",
+      "ok": true,
+      "scope": "Original92F reader, nonempty self record and public equipment",
+      "native_Game": false
+    },
+    {
+      "file": "population-TLS-1793945548789159100.json",
+      "sha256": "49b5ed1a5cc657e322cb79cb6accce0d1b68e50abe5f19a25306b48297b28669",
+      "ok": true,
+      "scope": "Actual92E immediately after923; current SQL profile and malformed/stale rejection",
+      "native_Game": false
+    },
+    {
+      "file": "population-actual-native-1793945644602926900.json",
+      "sha256": "1233fd35341b4281fa4c86b3d62393a9d4e050e17f1db77041839443fa1141f9",
+      "ok": true,
+      "scope": "Three actual92F payloads consumed by original reader",
+      "native_Game": false
+    },
+    {
+      "file": "furniture-native-1793948091282452000.json",
+      "sha256": "00e4a54efbdd8ef0f0f1d5595bdb846442cfc7d609a3bdc77727b5cbf150ff0d",
+      "ok": true,
+      "scope": "Original924 reader and runtime layout copy preserve nonempty modern furniture; model creation is a separate path",
+      "native_Game": false
+    }
+  ],
+  "correction": "92E is original room population, not a house-exit request. The old deadline report label is not reused as exit evidence.",
+  "native": {
+    "clients": 1,
+    "original_Game": true,
+    "natural_GUI": false,
+    "physical_input_actions": 0,
+    "seconds": 120.018,
+    "frames": 7198,
+    "original_self_actor": true,
+    "original_placed_pet_entity": true,
+    "original_retrieved_entity": true,
+    "original_pending_gates": [
+      {
+        "kind": 2340,
+        "accepted": 1
+      },
+      {
+        "kind": 2351,
+        "accepted": 1
+      },
+      {
+        "kind": 2617,
+        "accepted": 1
+      },
+      {
+        "kind": 2619,
+        "accepted": 1
+      }
+    ],
+    "source_manifest": "candidate-v2.manifest.json",
+    "source_reuse": "Native case uses v2. Final v4 rejects nonprojecting free-position mats, removes their selector and restores the original shared owned-pet support reader. The successful grid input path is unchanged; final authenticated writer/deadline tests cover the changed branches.",
+    "actor_identity": "Native factory result+270 matches current NativeUser; Game+8 matches returned actor",
+    "pet_entity_key": "Original2451350 and2460890 use selected mat item UID, not character UID",
+    "tested_requests": [
+      "923",
+      "92E",
+      "A38",
+      "A3A"
+    ],
+    "server_errors": 0,
+    "early_retrieval_growth_unchanged": true,
+    "ED_XP_inventory_unchanged": true,
+    "saved_ordinary_town_unchanged": true,
+    "signed_runtime_payload": "a33de4e7abdc18f8e35bd2a64e7dba92b76036d710f06354c615778df9c5eb0e",
+    "original_executable_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+    "observer_sha256": "19c7780adde580557af207c7766c9d622249fa210bc6559e290ae06861c4eec9",
+    "backend_sha256": "92922c8a060d812c4d02468a3a28cdc7c500f3bb5e4055af902930c3fce91caf",
+    "harness_sha256": "d7fb394d1c860efa8a478c8bdc17823181230cef6cceebbf427fb48f3565737e",
+    "input_desktop_unchanged": true,
+    "owned_job_empty": true,
+    "guard_status_after_Game_exit": "InvalidOperationError",
+    "guard_startup_selftest": {
+      "counts": {},
+      "physical_input_sent": 0,
+      "focus_and_cursor_calls_blocked": true,
+      "offscreen_noactivate": true,
+      "installation_complete": true
+    }
+  },
+  "failed_cases_retained": [
+    {
+      "attempt": "family1",
+      "reason": "Preparation fixture requested town20001 but had not seeded the saved town; Game not started"
+    },
+    {
+      "attempt": "family1-v2",
+      "reason": "Observer treated actor+48 as UID; original actor identity resides through actor+270"
+    },
+    {
+      "attempt": "family1-v3",
+      "reason": "Observer searched pet manager using character UID; original key is mat item UID"
+    },
+    {
+      "attempt": "family1-v4",
+      "reason": "Free-position mat did not bind the original pet mat"
+    },
+    {
+      "attempt": "family1-v5",
+      "reason": "Frame sampling confirms free-position mat UID remains zero"
+    },
+    {
+      "attempt": "family1-v6",
+      "reason": "Free-position furniture model exists but does not bind the pet mat; fixed with original grid placement and v3 rejection"
+    }
+  ],
+  "exclusions": [
+    "Natural GUI",
+    "Foreign housing visits",
+    "Housing expansion",
+    "Native house exit",
+    "Pet Battle combat"
+  ],
+  "private_evidence": "Original binaries, runtime traces, accounts, TLS credentials and databases stay private and are not submitted.",
+  "main_merged": false,
+  "installed": false,
+  "public_progress_updated": false
+}

@@ -42,35 +42,21 @@ def expire_active(db,owner,*,at=None):
  db.execute('UPDATE '+TABLE+' SET needs_stop=1 WHERE pet=? AND owner=?',(row[0],owner))
  if present(db,'pet_growth_clocks'):db.execute('DELETE FROM pet_growth_clocks WHERE owner=? AND pet=?',(owner,row[0]))
  return True
-def periodic(path,owner,*,at=None):
- with closing(sqlite3.connect(path,timeout=10)) as db,db:
-  if not present(db):return []
+def periodic(path,owner,*,at=None,timeout=10):
+ from els_server.storage.read_scope import snapshot_connection
+ with snapshot_connection(path) as probe:
+  probe.execute('BEGIN')
+  if not present(probe):return []
   value=now(at)
-  # Owners with no pending stop or due active pet remain read-only. The
-  # writer rechecks after BEGIN so a later summon cannot be stopped by stale
-  # eligibility, while current-use guards reject expired pets immediately.
-  due=db.execute('SELECT 1 FROM '+TABLE+' p LEFT JOIN companion_active a ON a.owner=p.owner AND a.pet=p.pet WHERE p.owner=? AND (p.needs_stop=1 OR (a.pet=p.pet AND p.expires_at<=?)) LIMIT 1',(owner,value)).fetchone()
+  due=probe.execute('SELECT 1 FROM '+TABLE+' p LEFT JOIN companion_active a ON a.owner=p.owner AND a.pet=p.pet WHERE p.owner=? AND (p.needs_stop=1 OR (a.pet=p.pet AND p.expires_at<=?)) LIMIT 1',(owner,value)).fetchone()
   if due is None:return []
+ with closing(sqlite3.connect(path,timeout=timeout)) as db,db:
   db.execute('BEGIN IMMEDIATE');expire_active(db,owner,at=value)
   if not db.execute('SELECT 1 FROM '+TABLE+' WHERE owner=? AND needs_stop=1',(owner,)).fetchone():return []
   active=db.execute('SELECT pet FROM companion_active WHERE owner=?',(owner,)).fetchone()
   result=[] if active and active[0] else [wire.pet_summon(0)]
   for event in result:encode_event(event)
   clear_pending(db,owner);return result
-def reconcile_summon(db,owner,payload):
- # Scope receipt reconciliation to owners who have this finite lifecycle.
- if not present(db) or not db.execute('SELECT 1 FROM '+TABLE+' WHERE owner=?',(owner,)).fetchone():return None
- from els_server.storage.companion_state import rows
- pets=rows(db,owner,'pet');requested=wire.uid_request(payload,zero=True)
- if requested:
-  old=next((p for p in pets if p['uid']==requested),None)
-  if old is None:raise ValueError('Summon retry owner missing')
-  require_current(old)
- active=db.execute('SELECT pet FROM companion_active WHERE owner=?',(owner,)).fetchone();uid=active[0] if active else 0
- current=next((p for p in pets if p['uid']==uid),None)
- if uid and current is None:raise ValueError('Active summon retry owner missing')
- if current:require_current(current)
- result=wire.pet_summon(0,current);encode_event(result);return result
 def _delta(db,owner,row):
  from els_server.storage.inventory_state import load_items
  pet,subject,source,group,slot,op,start,end,pending=row
@@ -81,7 +67,7 @@ def activate(path,owner,payload,operation,*,at=None,account_id=None):
  if not isinstance(operation,str) or not 1<=len(operation)<=160:raise ValueError('Limited pet operation identity')
  item_uid,name=wire.create_pet_request(payload);digest=hashlib.sha256((0x2e8).to_bytes(4,'big')+payload).hexdigest();value=now(at)
  from els_server.storage.companion_state import ensure as companions,rows
- from els_server.storage.inventory_state import load_items
+ from els_server.storage.inventory_state import load_items,owned_template
  with closing(sqlite3.connect(path,timeout=10)) as db,db:
   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
   from els_server.storage.item_actor import require_active_character
@@ -97,8 +83,8 @@ def activate(path,owner,payload,operation,*,at=None,account_id=None):
    if pet is None or pet['name']!=name or pet['source_item']!=item_uid:raise ValueError('Limited pet receipt identity')
    result=wire.activation_ack('pet',-1) if value>=pet['expires_at'] else wire.activation_ack('pet',0,pet,_delta(db,owner,saved))
    encode_event(result);return result
-  source=next((i for i in load_items(db,owner) if i['uid']==item_uid),None)
-  if source is None or source['template']!=TEMPLATE:return None
+  if owned_template(db,owner,item_uid)!=TEMPLATE:return None
+  source=next(i for i in load_items(db,owner) if i['uid']==item_uid)
   if source['group']!=4:raise ValueError('Owned Dana item outside native bag')
   definition()
   from els_server.domain.item_expiration import require_current as current_item

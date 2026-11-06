@@ -29,17 +29,40 @@ def snapshot(db,uid,account_id):
 def read(path,uid,account_id):
     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=ro',uri=True))as db:return snapshot(db,uid,account_id)
 
-def dto(character):
+def dto(character,*,db=None,account=None):
     uid=character['uid'];name=character['name'];level=character['level'];base=character['unit_type']
     if type(uid)is not int or not 0<uid<2**63 or type(name)is not str or not 1<=level<=99 or type(base)is not int or not 0<=base<=15:raise ValueError('Housing native owner profile')
     # Explicit compatibility v1: opaque, currently unconsumed scalar fields
     # retain the same-client DTO ctor0/empty. Their related writers stay closed.
     #31 is actual occupancy,76 is the actual roster,8E is this roster's host.
-    return {'000':0,'004':{'00':0,'08':uid,'10':'','30':0,'31':1,'32':'','52':0,'56':'','76':[uid],'8e':uid,'96':name},
+    value={'000':0,'004':{'00':0,'08':uid,'10':'','30':0,'31':1,'32':'','52':0,'56':'','76':[uid],'8e':uid,'96':name},
         '0ba':'','0da':[(0,(0,0))],'0ea':0,'0ee':False,'0ef':0,'0f7':[],
         '107':{'00':0,'08':[],'20':0,'24':False,'25':False,'26':False,'27':[],'3f':0,'40':0},
         '14f':{'00':0,'02':'','22':0,'26':0,'2a':0,'32':name,'52':level,'53':base},
         '1a3':False,'1a4':[],'1c4':True,'1b4':[],'1c5':[]}
+
+    if db is not None:
+        from els_server.storage.housing_layouts import project
+        project(db,uid,account,value)
+        from els_server.storage.housing_pets import projection
+        value['1b4']=projection(db,uid,account)
+    return value
+
+
+def population(db,uid,account_id,xyz):
+    """Current own-room actor profile, read under the admitted room's snapshot."""
+    from els_server.storage.seal_quests import load_character
+    from els_server.storage.titles import equipped
+    from els_server.storage.character_custom import actor_snapshot
+    from els_server.storage.inventory_state import load_items
+    from els_server.protocol.housing_population_messages import ready
+    character=load_character(db,uid,account_id,identity_only=True)
+    character['title']=equipped(db,uid)
+    character['character_custom']=actor_snapshot(db,uid,account_id)
+    if character['unit_type']==10:
+        from els_server.storage.luciel_state import active_state
+        character['luciel_active_unit']=active_state(db,uid)['active_unit']
+    return ready(character,xyz,load_items(db,uid))
 
 def enter(path,uid,account_id,payload,operation,session_id,source_town,guard,*,now=None):
     from els_server.protocol.housing_messages import entry_request
@@ -54,13 +77,13 @@ def enter(path,uid,account_id,payload,operation,session_id,source_town,guard,*,n
         character=load_character(db,uid,account_id);access=housing_access.snapshot(db,uid,account_id)
         if access is None or character['level']!=99:raise ValueError('Current first contract and level99 required')
         clock=int(time.time())if now is None else now
-        if type(clock)is not int or not access['registered_at']<=clock<access['expires_at']:raise ValueError('Housing access expired or clock before registration')
+        if not housing_access.active(access,clock):raise ValueError('Housing access expired or clock before registration')
         old=db.execute('SELECT owner,account_id,session_id,request_hash,generation,source_town FROM housing_room_admissions WHERE operation_id=?',(operation,)).fetchone()if exists(db,ADMISSIONS)else None
         room=snapshot(db,uid,account_id)
         if room is not None and clock<room['created_at']:raise ValueError('Housing room clock before saved creation')
         if old is not None:
             if old[:4]!=(uid,account_id,session_id,digest)or old[5]!=source_town or room is None or old[4]>room['generation']:raise ValueError('Housing admission receipt mismatch')
-            answer=[Event(0x201,kind=0x924,payload=entry_snapshot(dto(character)))];generation=old[4]
+            answer=[Event(0x201,kind=0x924,payload=entry_snapshot(dto(character,db=db,account=account_id)))];generation=old[4]
             for event in answer:encode_event(event)
             guard(db);return dict(events=answer,generation=generation,replayed=True,operation=operation,source_town=source_town)
         if not WRITES_ENABLED:raise ValueError('Housing room writer held')
@@ -74,7 +97,7 @@ def enter(path,uid,account_id,payload,operation,session_id,source_town,guard,*,n
         active=db.execute('SELECT generation FROM character_quests WHERE owner=? AND quest=26770',(uid,)).fetchone()
         db.execute('INSERT INTO housing_room_admissions VALUES (?,?,?,?,?,?,?,?,?)',(operation,uid,account_id,session_id,digest,generation,source_town,clock,active[0]if active else None))
         from els_server.domain.housing_room_quest import admitted
-        answer=[Event(0x201,kind=0x924,payload=entry_snapshot(dto(character)))]+admitted(db,uid,account_id,operation,generation)
+        answer=[Event(0x201,kind=0x924,payload=entry_snapshot(dto(character,db=db,account=account_id)))]+admitted(db,uid,account_id,operation,generation)
         for event in answer:encode_event(event)
         guard(db)
         if not WRITES_ENABLED:raise ValueError('Housing room held before commit')
