@@ -1,0 +1,13 @@
+--- a/els_server/dungeon_workers.py
++++ b/els_server/dungeon_workers.py
+@@ -162,7 +162,9 @@
+                     # mailbox while waiting for world can deadlock broadcasts.
+                     from els_server.domain.guild_publication import targets
+                     with self.application.world_lock:
+-                        with self.mailbox_scope(session,recipients=targets(session,function,args)):yield
++                        recipients=set(targets(session,function,args))
++                        recipients.update(self.application.world.player_trades.targets(session,function,args))
++                        with self.mailbox_scope(session,recipients=recipients):yield
+ 
+     async def run(self,session,work,*,timing,town=False):
+         key=self.key(session)
