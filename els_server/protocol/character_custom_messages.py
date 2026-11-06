@@ -43,10 +43,15 @@ def request_slot(payload):
 def acknowledgement(values=None,result=0):
     return Event(0x201,kind=0x4cc,payload=struct.pack('>i',result)+selection_map(values or {}))
 
-def registered(value):
+def registered(value,item=0):
     family=custom_type(value['custom_id'])
     if family not in COUNTS:raise ValueError('Unsupported custom registration type')
-    return Event(0x201,kind=0x4cd,payload=bytes(4)+bytes([family])+info(value))
+    # Leading i32 is the item template that grants the row. A permanent custom
+    # is always reached through a book, and the window paints a selected row's
+    # name and icon from that item; zero leaves the row unresolved and the
+    # client falls back to the base custom (basic frame, basic wake-up, ...).
+    if type(item) is not int or not 0<=item<2**31:raise ValueError('Custom registration item')
+    return Event(0x201,kind=0x4cd,payload=struct.pack('>i',item)+bytes([family])+info(value))
 
 def selected_notice(uid,title,values):
     if type(uid) is not int or not 1001<=uid<2**63 or type(title) is not int or not 0<=title<2**31:

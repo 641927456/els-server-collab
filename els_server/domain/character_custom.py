@@ -91,6 +91,20 @@ def selection_type(slot):
     if type(slot) is not int or slot not in SLOT_TYPES:raise ValueError('Unsupported custom selected slot')
     return SLOT_TYPES[slot]
 
+@functools.lru_cache(maxsize=1)
+def _book_index():
+    """custom_id -> the book template that grants it, built once per process."""
+    return {r['custom_id']:r['book'] for r in catalog().values()}
+
+def template_of(custom_id):
+    """The item template a registration should name, or 0 for a free source.
+
+    Both openers and the book path stamp this into 0x4CD so the window can
+    resolve a selected row's name and icon; a free motion or emote has no item.
+    """
+    if custom_id in FREE_EMOTES or custom_id in free_catalog().values():return 0
+    return _book_index().get(custom_id,0)
+
 def custom_type(custom_id):
     canonical(custom_id)
     if custom_id==0:return None
@@ -185,7 +199,7 @@ def _replay_selection(s):
         # opened on the career defaults. The owned map already reaches the
         # client in 2A, so the opener only has to make the *chosen* rows
         # resolvable.
-        events=([registered(value) for slot,value in sorted(selected.items())]
+        events=([registered(value,template_of(value['custom_id'])) for slot,value in sorted(selected.items())]
                 +[acknowledgement(selected),selected_notice(s.account.uid,title,selected)])
         # The opener reply carries all of this in one frame burst; an event that
         # only fails at encode time would take the whole reply down with it,
@@ -235,7 +249,7 @@ def handle(s,event,sequence):
                 # the window then opens on the career defaults. There is no
                 # other carrier in the dungeon reply, so both openers replay the
                 # same shape.
-                notices=[registered(value) for slot,value in sorted(selected.items())]
+                notices=[registered(value,template_of(value['custom_id'])) for slot,value in sorted(selected.items())]
                 if selected:
                     notices.append(acknowledgement(selected))
                     notices.append(selected_notice(s.account.uid,int(character.get('title',0) or 0),selected))

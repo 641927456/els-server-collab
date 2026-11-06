@@ -184,7 +184,7 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None):
             if value not in snapshot(db,owner)['owned'].get(rules[before[0]['template']]['type'],[]):raise ValueError('Custom receipt lacks registered ownership')
             positions=list(dict.fromkeys([*old,*[(i['group'],i['slot']) for i in items if i['uid']==item_uid]]))
             current={(i['group'],i['slot']):i for i in items}
-            events=[use_ack([(p,current.get(p)) for p in positions],ed=balance[0]),wire.registered(value)]
+            events=[use_ack([(p,current.get(p)) for p in positions],ed=balance[0]),wire.registered(value,before[0]['template'])]
             for event in events:encode_event(event)
             if validate is not None:validate()
             return dict(replayed=True,events=events)
@@ -201,7 +201,7 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None):
         if value in snapshot(db,owner)['owned'].get(rule['type'],[]):raise ValueError('Custom already registered')
         if balance[1]>=2**63-1:raise ValueError('Custom inventory revision overflow')
         remaining=dict(source,count=source['count']-1) if source['count']>1 else None
-        events=[use_ack([((source['group'],source['slot']),remaining)],source['template'],balance[0]),wire.registered(value)]
+        events=[use_ack([((source['group'],source['slot']),remaining)],source['template'],balance[0]),wire.registered(value,source['template'])]
         for event in events:encode_event(event)
         if validate is not None:validate()
         initialize(db)
@@ -232,16 +232,17 @@ def select(path,owner,account_id,payload,operation,*,now=None,validate=None):
         if old is None and value['custom_id'] not in free_ids(role[1],slot) and value not in current['owned'].get(family,[]):
             raise ValueError('Custom Apply requires registered ownership or current-career free eligibility')
         if old is not None and slot not in current['selected']:raise ValueError('Custom receipt lacks selected slot')
-        # The client treats this map as the whole window state: answering with
-        # only the applied slot made the other three rows fall back to the
-        # career default, so a second Apply looked like it had erased them.
+        # 0x4CC 只回本次应用的那一格。之前为了「别的行不掉回默认」回整张 map，
+        # 客户端会把 map 里每一个条目都当成「新获得」走一遍获得横幅，19 格轮完
+        # 停在最后一格（slot 28 = 徽记）—— 这就是每次切换都弹「获得新的徽记！」的来源。
+        # 窗口的完整状态由紧随其后的 0x18E 携带，所以行不会掉回默认。
         selected=dict(current['selected'])
         if old is None:selected[slot]=value
         selected={k:selected[k] for k in sorted(selected)}
         if old is not None:_check_receipt(db,operation,owner,0x4cb)
         from els_server.storage.titles import snapshot as title_snapshot
         title=title_snapshot(db,owner,now)['title']
-        events=[wire.acknowledgement(selected),wire.selected_notice(owner,title,selected)]
+        events=[wire.acknowledgement({slot:value}),wire.selected_notice(owner,title,selected)]
         for event in events:encode_event(event)
         if validate is not None:validate()
         if old is None:

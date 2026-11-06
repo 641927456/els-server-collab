@@ -2978,7 +2978,8 @@ class LocalSession:
                             # Selected rows only: one 4CD per owned row is
                             # thousands of events on a fully unlocked save, and
                             # a burst that size is dropped whole by the client.
-                            custom_events=tuple([registered(value)
+                            from els_server.domain.character_custom import template_of as custom_template
+                            custom_events=tuple([registered(value,custom_template(value['custom_id']))
                                                  for slot,value in sorted(selected.items())]
                                                 +[acknowledgement(selected),
                                                   selected_notice(self.account.uid,

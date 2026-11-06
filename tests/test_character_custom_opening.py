@@ -2,6 +2,7 @@
 import dataclasses
 import os
 import sqlite3
+import struct
 import sys
 import tempfile
 import types
@@ -90,6 +91,12 @@ class CharacterCustomOpeningTests(unittest.TestCase):
             self.session.account.store = types.SimpleNamespace(path=path)
             events = character_custom.handle(self.session, self.request, 3)
         self.assertEqual([event.kind for event in events], [0x635, 0x4cd, 0x4cc, 0x18e])
+        # The registration names the book that grants the row. A zero there
+        # leaves the selected row unresolved and the window paints the base
+        # custom (basic frame / basic wake-up) instead of the chosen one.
+        self.assertEqual(struct.unpack('>i', events[1].payload[:4])[0], 472284)
+        self.assertEqual(struct.unpack('>i', events[1].payload[:4])[0],
+                         character_custom.template_of(15211))
 
     def test_unreadable_store_still_opens_the_window(self):
         # The replay is optional; a session whose store cannot be read must not
