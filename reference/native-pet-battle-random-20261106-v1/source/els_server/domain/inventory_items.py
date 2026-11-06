@@ -6,7 +6,7 @@ BASE=PROJECT_ROOT/'analysis/client-6c6b5180'
 CLIENT_SHA='6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709'
 LOCAL_BAG_CAPACITY=36
 LOCAL_MAX_STACK=999
-VERIFIED_TEMPLATES={77000:2}  # Native name: ��������ҩˮ; metadata byte, not a grade.
+VERIFIED_TEMPLATES={77000:2}  # Native name: 初级体力药水; metadata byte, not a grade.
 TEMPLATE_BAG_GROUPS={77000:6}  # Enum.lua SORT_TYPE.ST_QUICK_SLOT; native flask tab.
 TEMPLATE_MAX_STACKS={77000:99}
 from els_server.domain.mount_racing_items import definitions as _mount_racing_definitions
@@ -239,7 +239,7 @@ for _row in pet_ticket_variants():
 def fixture():
  c=json.loads((BASE/'item-body-candidate.json').read_text(encoding='utf8'))
  p=json.loads((BASE/'private-item-body-verification.json').read_text(encoding='utf8'))
- if c['client_sha256']!=CLIENT_SHA or c['reader']!='0xd9a550' or p.get('ok')!=1 or p.get('size')!=304 or p.get('consumed')!=304 or p.get('fields_match') is not True or p.get('native_template_id')!=77000 or p.get('native_name')!='��������ҩˮ' or p.get('applied_to_game') is not False:raise ValueError('Native item fixture verification mismatch')
+ if c['client_sha256']!=CLIENT_SHA or c['reader']!='0xd9a550' or p.get('ok')!=1 or p.get('size')!=304 or p.get('consumed')!=304 or p.get('fields_match') is not True or p.get('native_template_id')!=77000 or p.get('native_name')!='初级体力药水' or p.get('applied_to_game') is not False:raise ValueError('Native item fixture verification mismatch')
  if hashlib.sha256((BASE/'decompiled/0xd9a550.c').read_bytes()).hexdigest()!=c['source_sha256']:raise ValueError('Reviewed item reader changed')
  return c
 

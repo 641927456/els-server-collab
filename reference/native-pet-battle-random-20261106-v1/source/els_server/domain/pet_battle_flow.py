@@ -383,12 +383,12 @@ class PetBattles:
         if offer is not None:
             for t in offer.tickets:
                 self.offers.pop(t.session,None)
-                if t.session is not s and not t.session.released:t.session.coop_error='�����ս���������ߣ�������ƥ�䡣'
+                if t.session is not s and not t.session.released:t.session.coop_error='宠物对战对手已离线，请重新匹配。'
         room=self.rooms.pop(s,None)
         if room is not None and room.phase!='result':
             for other in room.members:
                 self.rooms.pop(other,None)
-                if other is not s and not other.released:other.coop_error='�����ս�����жϣ���������ʤ����'
+                if other is not s and not other.released:other.coop_error='宠物对战连接中断，本场不计胜负。'
 
     def manifest(self,app,account):
         s=app.playing.get(account);room=self.room(s)

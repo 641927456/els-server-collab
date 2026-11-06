@@ -1,4 +1,4 @@
-"""Real3�C6-player racing, native room loading and durable server outcomes."""
+"""Real3–6-player racing, native room loading and durable server outcomes."""
 from contextlib import closing
 from dataclasses import dataclass,field
 from pathlib import Path

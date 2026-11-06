@@ -5,7 +5,7 @@ from pathlib import Path
 from els_server.protocol.protocol_codec import Event
 from els_server.protocol.local_messages import i32,u32,wstring,LOCAL_COMBAT_ATTRIBUTES
 from els_server.domain.skill_state import DEFAULT_SLOTS,record,validate_slots
-SUPPORTED_DUNGEON=30000  # Loaded definition: 艾尔之树.
+SUPPORTED_DUNGEON=30000  # Loaded definition: 鑹惧皵涔嬫爲.
 
 def skill_data(slots,character=None):
     from els_server.domain.skill_rules import equippable_skills,learned_skills,upgraded_slots

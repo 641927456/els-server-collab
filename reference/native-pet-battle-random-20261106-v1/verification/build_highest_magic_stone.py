@@ -8,7 +8,7 @@ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 source=S/'els_server/data/current_magic_stones.json';current=json.loads(source.read_bytes())
 description=S/'analysis/sol-high-20261015/equipment-ui-v5/native-stone-descriptions.json'
 desc=next(r for r in json.loads(description.read_bytes())['rows']if r['template']==109956)['description']
-assert all(x in desc for x in ('+6~9%','+8~14%','+9~13.5%','+12~18%','һ����ֵ'))
+assert all(x in desc for x in ('+6~9%','+8~14%','+9~13.5%','+12~18%','一半数值'))
 approval=json.loads((K/'approved-server-rules-20261106-v2.json').read_bytes())['highest_magic_stone']
 assert approval['template']==109956 and approval['category_count']==12
 used={};profiles={};categories={}

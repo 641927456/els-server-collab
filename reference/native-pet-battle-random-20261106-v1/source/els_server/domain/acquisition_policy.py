@@ -10,8 +10,8 @@ from els_server.game_data import client_data
 
 
 def has_legacy_marker(name):
-    # Match the explicit marker, not ordinary words such as �ƾ� or ����.
-    return bool(re.search(r'\(\s*[���f]\s*\)', unicodedata.normalize('NFKC', name)))
+    # Match the explicit marker, not ordinary words such as 破旧 or 怀旧.
+    return bool(re.search(r'\(\s*[旧舊]\s*\)', unicodedata.normalize('NFKC', name)))
 
 
 @functools.lru_cache(maxsize=1)
