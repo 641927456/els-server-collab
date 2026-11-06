@@ -1,0 +1,241 @@
+--- parent/els_server/data/mount_racing_items.json
++++ online/els_server/data/mount_racing_items.json
+@@ -0,0 +1,69 @@
++{
++  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
++  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
++  "items": [
++    {
++      "template": 714108,
++      "metadata": 2,
++      "group": 4,
++      "item_type": 7,
++      "max_stack": 300,
++      "record_sha256": "0e642930591acb3c7639534b71495e3d2d9d30653d8f1f107632b987fa98b683",
++      "cases": [
++        {
++          "count": 1,
++          "ok": true,
++          "consumed": 304
++        },
++        {
++          "count": 300,
++          "ok": true,
++          "consumed": 304
++        }
++      ]
++    },
++    {
++      "template": 714109,
++      "metadata": 2,
++      "group": 3,
++      "item_type": 6,
++      "max_stack": 500,
++      "record_sha256": "9c0a6aa04461a5c2b6ce45fe988f8556b3ca65e43d6d17c983f3cc2fa4d29319",
++      "cases": [
++        {
++          "count": 1,
++          "ok": true,
++          "consumed": 304
++        },
++        {
++          "count": 500,
++          "ok": true,
++          "consumed": 304
++        }
++      ]
++    },
++    {
++      "template": 714118,
++      "metadata": 2,
++      "group": 4,
++      "item_type": 7,
++      "max_stack": 300,
++      "record_sha256": "f91bcb366e7313d2fe137e0b96b0710f6257c79f3b5362f8f3070e6514233f05",
++      "cases": [
++        {
++          "count": 1,
++          "ok": true,
++          "consumed": 304
++        },
++        {
++          "count": 300,
++          "ok": true,
++          "consumed": 304
++        }
++      ]
++    }
++  ],
++  "original_EXE_KOM_modified": false,
++  "private_Unicorn": true,
++  "live_process": false
++}
+--- parent/els_server/domain/mount_racing_items.py
++++ online/els_server/domain/mount_racing_items.py
+@@ -0,0 +1,18 @@
++"""Current native crystal/material inventory records; no grant source here."""
++import functools,hashlib,json,struct
++from els_server.paths import PROJECT_ROOT
++from els_server.game_data import client_data,CLIENT_SHA
++
++@functools.lru_cache(maxsize=1)
++def definitions():
++    data=json.loads((PROJECT_ROOT/'els_server/data/mount_racing_items.json').read_bytes())
++    if data['client_sha256']!=CLIENT_SHA or [r['template']for r in data['items']]!=[714108,714109,714118]:
++        raise ValueError('Mount racing item source')
++    for row in data['items']:
++        item=client_data().item(row['template'])
++        if (hashlib.sha256(item['record']).hexdigest()!=row['record_sha256']
++            or (item['metadata'],item['item_type'],struct.unpack_from('<I',item['record'],16)[0])
++               !=(row['metadata'],row['item_type'],row['max_stack'])
++            or row['group']!=(3 if row['template']==714109 else 4)):
++            raise ValueError('Mount racing item record mismatch')
++    return data['items']
+--- parent/els_server/domain/inventory_items.py
++++ online/els_server/domain/inventory_items.py
+@@ -9,6 +9,11 @@
+ VERIFIED_TEMPLATES={77000:2}  # Native name: 初级体力药水; metadata byte, not a grade.
+ TEMPLATE_BAG_GROUPS={77000:6}  # Enum.lua SORT_TYPE.ST_QUICK_SLOT; native flask tab.
+ TEMPLATE_MAX_STACKS={77000:99}
++from els_server.domain.mount_racing_items import definitions as _mount_racing_definitions
++for _row in _mount_racing_definitions():
++ VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
++ TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
++ TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
+ FASHION_POSITIONS={2:10,8:2,9:4,10:6,11:8,6:0,38:35,
+                   48:43,49:44,50:45,51:46,52:47,53:48,54:49,55:50,56:51,57:52,58:53,59:54}
+ FASHION_EQUIP_SLOTS={}
+--- parent/els_server/domain/mount_reset_flow.py
++++ online/els_server/domain/mount_reset_flow.py
+@@ -0,0 +1,17 @@
++"""Original A8E mount UID request, admitted through the existing town authority."""
++from els_server.protocol.mount_messages import reset_ack
++
++def handle(session,event,sequence):
++    if event.event_id!=0x202 or event.kind!=0xa8e or session.client_build!='dx11_260923' or not session.item_test:return None
++    try:
++        from els_server.domain.equipment_chip_flow import reset_context
++        from els_server.domain.tenebros_capacity_flow import selected
++        reset_context(session,event,sequence)
++        path,owner,account_id,prepare=selected(session)
++        from els_server.storage.mount_reset import perform
++        replies=perform(path,owner,account_id,event.payload,session.shop_session_id+':mount-reset:'+str(sequence),prepare=prepare)
++        session._mount_reset_rejection=None
++        return replies
++    except (ValueError,UnicodeError)as error:
++        session._mount_reset_rejection=str(error)
++        return [reset_ack(-1)]
+--- parent/els_server/domain/companion_flow.py
++++ online/els_server/domain/companion_flow.py
+@@ -7,6 +7,9 @@
+ KINDS={0x2e8,0x2ea,0x2ec,0x432,0x42a,0x42c,0x42f}
+ 
+ def handle(session,event,sequence):
++    from els_server.domain.mount_reset_flow import handle as mount_reset
++    reset_reply=mount_reset(session,event,sequence)
++    if reset_reply is not None:return reset_reply
+     from els_server.domain.mount_flow import handle as mount_handle
+     mount_reply=mount_handle(session,event,sequence)
+     if mount_reply is not None:return mount_reply
+--- parent/els_server/protocol/mount_messages.py
++++ online/els_server/protocol/mount_messages.py
+@@ -2,6 +2,15 @@
+ import math,struct
+ from els_server.protocol.protocol_codec import Event
+ from els_server.protocol.local_messages import wstring
++
++def growth_record(mount=None):
++ p=mount or {}
++ from els_server.domain.mount_racing_rules import profile
++ growth=p.get('racing')
++ growth=profile() if growth is None else profile(growth['experience'],growth['stats'])
++ stats=sorted(growth['stats'].items())
++ return (struct.pack('>QHBiI',p.get('uid',0),0,growth['level'],growth['experience'],len(stats))
++         +b''.join(struct.pack('>ii',key,value)for key,value in stats))
+ 
+ def record(mount=None):
+  p=mount or {};stamina=p.get('stamina',0. if not mount else 120.)
+@@ -11,18 +20,17 @@
+  # Current35F3030+50C passes this string to374470 and subtracts server time
+  # before formatting the native remaining-day/hour/minute label.
+  deadline=date_string(p['expires_at'])if 'expires_at'in p else ''
+- from els_server.domain.mount_racing_rules import profile
+- growth=p.get('racing')
+- growth=profile() if growth is None else profile(growth['experience'],growth['stats'])
+- stats=sorted(growth['stats'].items())
+  # 2E is last-unsummon/list ordering;36 is the stamina clock.
+  return (struct.pack('>QHf',p.get('uid',0),p.get('unit',0),stamina)+wstring(deadline)
+          +struct.pack('>QQBB',p.get('native_time1',0),p.get('accounted_at',0),bool(p.get('ridden')),bool(p.get('no_stamina')))
+          # Nested DB2B20: original7E1DE0 initializes its level byte to1.
+          # H/Q are not alternate level/experience slots.
+          # D81DD0 locates the owned outer record by this nested UID.
+-         +struct.pack('>QHBiI',p.get('uid',0),0,growth['level'],growth['experience'],len(stats))
+-         +b''.join(struct.pack('>ii',key,value)for key,value in stats))
++         +growth_record(p))
+ 
+ def summoned(result,mount=None):return Event(0x201,kind=0x42d,payload=struct.pack('>i',result)+record(mount))
+ def dismounted(result,uid,mount=None):return Event(0x201,kind=0x430,payload=struct.pack('>iQ',result,uid)+record(mount))
++
++def reset_ack(result=0,mount=None,*,updates=(),removed=None):
++ from els_server.protocol.companion_messages import inventory_delta
++ return Event(0x201,kind=0xa8f,payload=struct.pack('>i',result)+growth_record(mount)+inventory_delta(updates,removed))
+--- parent/els_server/storage/mount_reset.py
++++ online/els_server/storage/mount_reset.py
+@@ -0,0 +1,57 @@
++"""Native A8E: one owned crystal, saved reroll and receipt in one transaction."""
++import hashlib,json,secrets,sqlite3,struct,time
++from contextlib import closing
++from els_server.domain.mount_racing_rules import policy,reset
++from els_server.protocol import mount_messages as wire
++from els_server.protocol.protocol_codec import encode_event
++from els_server.storage import mount_growth
++from els_server.storage.character_schema import character_uid
++
++def perform(path,owner,account_id,payload,operation,*,prepare,randbelow=secrets.randbelow):
++    owner=character_uid(owner)
++    if len(payload)!=8 or not isinstance(operation,str) or not 1<=len(operation)<=160:
++        raise ValueError('Mount reset request')
++    uid=struct.unpack('>Q',payload)[0]
++    if not 0<uid<2**63:raise ValueError('Mount reset UID')
++    digest=hashlib.sha256(payload).hexdigest();p=policy()
++    from els_server.storage.companion_state import ensure as companions
++    from els_server.storage.mount_state import owned
++    from els_server.storage.item_actor import require_active_character
++    from els_server.storage.profession_state import require_owner
++    from els_server.storage.inventory_state import load_items
++    from els_server.storage.companion_receipt_inventory import delta
++    with closing(sqlite3.connect(path,timeout=10)) as db,db:
++        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
++        prepare(db);require_active_character(db,owner);require_owner(db,owner,account_id)
++        if db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()[0]<p['minimum_character_level']:
++            raise ValueError('Mount racing reset character level')
++        companions(db);mount=owned(db,owner,uid)
++        if 'expires_at'in mount or mount['unit']>=10000:raise ValueError('Permanent player mount required')
++        db.execute('''CREATE TABLE IF NOT EXISTS mount_reset_receipts (
++            owner INTEGER NOT NULL,operation TEXT NOT NULL,digest TEXT NOT NULL,
++            context TEXT NOT NULL,PRIMARY KEY(owner,operation))''')
++        previous=db.execute('SELECT digest,context FROM mount_reset_receipts WHERE owner=? AND operation=?',(owner,operation)).fetchone()
++        saved=mount_growth.read(db,owner,uid)
++        if previous:
++            if previous[0]!=digest:raise ValueError('Conflicting mount reset retry')
++            context=json.loads(previous[1]);answer=wire.reset_ack(mount=dict(mount,racing=saved),**delta(load_items(db,owner),context['item']))
++        else:
++            from els_server.domain.item_expiration import expired
++            from els_server.domain.item_locks import locked
++            now=int(time.time())
++            items=[i for i in load_items(db,owner)if i['template']in p['reset_templates']and not expired(i,now=now)and not locked(i,now=now)]
++            if not items:raise ValueError('Owned mount reset crystal required')
++            item=min(items,key=lambda i:(i.get('expires_at',2**63),p['reset_templates'].index(i['template']),i['slot'],i['uid']))
++            if p['reset_ed']!=0 or p['reset_quantity']!=1:raise ValueError('Unsupported mount reset fee policy')
++            updated=reset(saved['experience'],saved['stats'],randbelow)
++            if item['count']>1:
++                db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item['uid'],owner));remaining=dict(item,count=item['count']-1)
++            else:
++                from els_server.storage.item_instances import remove
++                remove(db,owner,item);remaining=None
++            mount_growth.save(db,owner,uid,updated)
++            answer=wire.reset_ack(mount=dict(mount,racing=updated),updates=[remaining]if remaining else [],removed=None if remaining else item)
++            db.execute('INSERT INTO mount_reset_receipts VALUES (?,?,?,?)',(owner,operation,digest,json.dumps(dict(item=item,policy=p['policy']),sort_keys=True)))
++            db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))
++        encode_event(answer);prepare(db)
++        return [answer]

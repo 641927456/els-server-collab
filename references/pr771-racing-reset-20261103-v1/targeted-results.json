@@ -1,0 +1,35 @@
+{
+  "ok": true,
+  "distinct_passed_cases": 28,
+  "reset_cases": 8,
+  "regression_cases": 20,
+  "skipped": 0,
+  "unchanged_reset_cases_reused": 7,
+  "extended_reset_case_rerun": 1,
+  "source_hashes": {
+    "els_server/data/mount_racing_items.json": "71fc5ca9f2e0ccd9430b72a284214965836a75624414adfbb411ec12dc4a20c7",
+    "els_server/domain/mount_racing_items.py": "85993cacd5d2c4197798d9de98cd9fc7b8dc167681292fc2644dd2e7e7847701",
+    "els_server/domain/inventory_items.py": "f1a42640aea92b6f43447abe06a46647b6e40525894937e5aa9e2a80344eeb5f",
+    "els_server/domain/mount_reset_flow.py": "7fd9d0f791ecaed7d9df5070533e4879682b8b352debf174adc73215bc1047aa",
+    "els_server/domain/companion_flow.py": "249ac2c27a3a645be56d937f064e8af6a18eb3ffd591c9ec2d97b20843c17cfa",
+    "els_server/protocol/mount_messages.py": "c4a05ac1cb7feb777f320ae1cec58bafd298b0a56f867a035c8913cc2747bebe",
+    "els_server/storage/mount_reset.py": "37083fb03f94d0ac7551144323c658add88aba66df5d912dc35ac8e337bcb9b3"
+  },
+  "test_sha256": "3bbcbd3a7c59dfd20d9dd0e2343341c9e7a92d8b127c6c16282b3eff6f178af8",
+  "test_hashes": {
+    "test_mount_state": "0678408679e51eb96870d694d5bf9661c598dc2170d35a2f02f66b1ad7b35d9c",
+    "test_mount_flow": "abc555b10df93d32cb5664e0060a458e4a65569c886a0237e9a5ef229775a952",
+    "test_mount_retry": "a86362af18f319c47bc22cc5eec5a39fdab881b8ea49ad2916d1d794c051471f"
+  },
+  "unchanged_rule_sources": {
+    "els_server/domain/mount_racing_rules.py": "59221b8d6e2f9686d1f7fe7b1afd1527281ce7d67a772b32ba3cfaf480fdbf48",
+    "els_server/data/mount_racing_local.json": "f42a82d93e75df8d3560a068b766a48c0bd7afa462482ae7a4dac59f981af47e",
+    "els_server/storage/mount_growth.py": "f74455466419d3970ae69651f7e8cac81fa28b71f8609a6fdc82847bafbb567e",
+    "els_server/storage/mount_state.py": "0e4d259d92583f448feb0145446e03a8952d162e358d1cbab7e90f49c6a354aa"
+  },
+  "reused_property_cases": 400,
+  "original_context_authority": true,
+  "synthetic_initial_growth": true,
+  "actual_race": false,
+  "installed": false
+}
