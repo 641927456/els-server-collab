@@ -1,0 +1,110 @@
+{
+  "scope": "Same 50 protocol actors, 150 TLS, 20 dungeon relay / 30 ice actors, 90 committed draws and 12000 datagrams; single run per configuration, private host; URI-normalization reuse documented separately",
+  "single_economic_worker": {
+    "test": "full_source_50_player_60_second_battle_and_ice_load",
+    "passed": true,
+    "seconds": 64.38,
+    "players": 50,
+    "tls_connections": 150,
+    "battle_players": 20,
+    "ice_players": 30,
+    "draws": 90,
+    "datagrams": 12000,
+    "relay": {
+      "p50_ms": 4.17,
+      "p95_ms": 14.0,
+      "max_ms": 28.0
+    },
+    "ice": {
+      "p50_ms": 881.82,
+      "p95_ms": 2266.33,
+      "max_ms": 2475.13
+    },
+    "max_clock_gap_ms": 1023.97,
+    "published_views": 2649
+  },
+  "two_economic_workers": {
+    "test": "full_source_50_player_60_second_battle_and_ice_load",
+    "passed": true,
+    "seconds": 64.28,
+    "players": 50,
+    "tls_connections": 150,
+    "battle_players": 20,
+    "ice_players": 30,
+    "draws": 90,
+    "datagrams": 12000,
+    "relay": {
+      "p50_ms": 3.88,
+      "p95_ms": 14.01,
+      "max_ms": 21.36
+    },
+    "ice": {
+      "p50_ms": 866.22,
+      "p95_ms": 1989.05,
+      "max_ms": 2375.04
+    },
+    "max_clock_gap_ms": 1021.25,
+    "published_views": 2613,
+    "economy": {
+      "workers": 2,
+      "active": 0,
+      "peak_active": 2,
+      "completed": 90,
+      "failures": 0,
+      "threads_used": 2,
+      "queue": {
+        "capacity": 16,
+        "inflight": 0,
+        "waiting": 0,
+        "maximum": 16,
+        "completed": 90,
+        "closed": false,
+        "waiting_maximum": 16
+      }
+    },
+    "native_source_failures_delta": 0
+  },
+  "four_economic_workers": {
+    "test": "full_source_50_player_60_second_battle_and_ice_load",
+    "passed": true,
+    "seconds": 64.49,
+    "players": 50,
+    "tls_connections": 150,
+    "battle_players": 20,
+    "ice_players": 30,
+    "draws": 90,
+    "datagrams": 12000,
+    "relay": {
+      "p50_ms": 3.75,
+      "p95_ms": 14.34,
+      "max_ms": 30.39
+    },
+    "ice": {
+      "p50_ms": 995.82,
+      "p95_ms": 1949.18,
+      "max_ms": 2196.74
+    },
+    "max_clock_gap_ms": 1025.91,
+    "published_views": 2649,
+    "economy": {
+      "workers": 4,
+      "active": 0,
+      "peak_active": 4,
+      "completed": 90,
+      "failures": 0,
+      "threads_used": 4,
+      "queue": {
+        "capacity": 16,
+        "inflight": 0,
+        "waiting": 0,
+        "maximum": 16,
+        "completed": 90,
+        "closed": false,
+        "waiting_maximum": 16
+      }
+    },
+    "native_source_failures_delta": 0
+  },
+  "two_worker_p95_reduction_percent": 12.23,
+  "default_workers": 2
+}
