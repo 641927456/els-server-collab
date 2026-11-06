@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "version": 79,
+  "release": "launcher-native-login-repair-20261105-v79",
+  "build_receipt_sha256": "c6403bdb681bea653cf933458f0111a5498ea758da874784adf174f2b1cd21aa",
+  "exe_sha256": "9eb6d8e3ed6a6d16fedc030a28c17eb883d84b5b7e37b5ef000ad058d4a05664",
+  "exe_size": 37053952,
+  "runtime_archive_sha256": "38096e534f2c9a1240379dcf0cccf878053983f7720b40987a5d3fef1b29e31f",
+  "runtime_envelope_sha256": "2ea40f76b4adda5c478a07f1a14ca3ea45b34794358e016e9698e6d989f72d9f",
+  "runtime_file_count": 2121,
+  "runtime_delta": [
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "size": 21757,
+      "sha256": "2e454cf89dbfec8c02008a18881be2b66cc75a98cc6ac66fa623a1d135dc9f76"
+    },
+    {
+      "path": "tools/native_cache_sync.py",
+      "size": 5414,
+      "sha256": "c83eb42b71c4e37ac5f72cf2e53c7fce2e093f718429b7f6cf48bb537a2dbcb7"
+    }
+  ],
+  "unchanged_runtime_files": 2119,
+  "source_changes": [
+    "AutoUpdate.cs",
+    "UIScrollRuntimeCohort.cs",
+    "resources/ui-scroll-signedFriends.signed.json"
+  ],
+  "unified_runtime": true,
+  "same_signed_definition_for_both_targets": true,
+  "server_changed": false,
+  "signed_build_complete": true,
+  "published": false,
+  "actual_public_selected_component_verified": false,
+  "actual_game_startup_verified": false,
+  "main_merged": false
+}
