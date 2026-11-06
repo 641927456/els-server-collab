@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "policy": "user-approved-cn20260729-artifact-gear-support-v1",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "boxes": [
+    {
+      "template": 723618,
+      "name": "[科宝]战斗力助力神物装备全套支援宝箱",
+      "item_type": 7,
+      "record_sha256": "1d31b670bb6cbe85756aec752493daedc4082646486640648f4228ea2c30a438",
+      "metadata": 0,
+      "group": 4,
+      "max_stack": 99,
+      "selection_count": 0,
+      "entries": [
+        {
+          "template": 168600,
+          "name": "神物头饰",
+          "quantity": 1,
+          "metadata": 0,
+          "group": 1,
+          "max_stack": 1,
+          "record_sha256": "3d17205b874eb641136325752abfd71f7a0781596bd9d42f3872073c90988101"
+        },
+        {
+          "template": 168601,
+          "name": "神物甲胄",
+          "quantity": 1,
+          "metadata": 0,
+          "group": 1,
+          "max_stack": 1,
+          "record_sha256": "53277acb63689bfa76adc098c90838be62cc0c8853881fa303f8a076daac4143"
+        },
+        {
+          "template": 168602,
+          "name": "神物项链",
+          "quantity": 1,
+          "metadata": 0,
+          "group": 1,
+          "max_stack": 1,
+          "record_sha256": "b8756c2f654116c69df860678df31685ce0c2d24c36a11bdc2ee956c4b61e2f7"
+        },
+        {
+          "template": 168603,
+          "name": "神物戒指",
+          "quantity": 2,
+          "metadata": 0,
+          "group": 1,
+          "max_stack": 1,
+          "record_sha256": "2be45acaa2dca7405f0ea350227a120f2919e195b14a0fc1b9b918de2991c52e"
+        }
+      ]
+    }
+  ],
+  "official_source": {
+    "client_catalog": "els_server/data/client/catalog.sqlite3",
+    "box_template": 723618,
+    "box_record_sha256": "1d31b670bb6cbe85756aec752493daedc4082646486640648f4228ea2c30a438",
+    "equipment_source": "els_server/data/artifact_progression.json",
+    "equipment_source_sha256": "bb4c7ee15f03680eae199d680602c8e97887c2b18ff13dbf646881a9cbd574af",
+    "equipment": [
+      168600,
+      168601,
+      168602,
+      168603
+    ]
+  },
+  "original_group_contents_missing": true,
+  "local_ID_mapping_not_retail_group_claim": true,
+  "provenance": "官网《艾尔之光》战斗力助力活动公告所列内含（神物头饰*1、神物甲胄*1、神物项链*1、神物戒指*2），模板号取 artifact_progression.json 官方神物装备集合",
+  "official_announcement": "https://els.ztgame.com/html/news/1352771/000-1784-01a76-606320.shtml",
+  "local_policy": "按官网公告数量发放：头饰、甲胄、项链各1件，戒指2件，全部发放，不设随机或选项；箱子本身沿用已注册的背包组4与本地叠放上限。"
+}
