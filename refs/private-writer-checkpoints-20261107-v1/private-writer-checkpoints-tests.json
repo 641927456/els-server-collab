@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "tests": 8,
+  "source": {
+    "candidate/els_server/application.py": "cb58ee1135fca7bc6b67b5e79cde6d034331cc85e5d900e5f88bff2f94d999f6",
+    "candidate/els_server/domain/legacy_pve_exp.py": "2badb754c4e3e7eef84e46a4e351b7ac663f4616d4425f633effc345f8ea69f0",
+    "candidate/els_server/storage/clock_writer.py": "79af4e6ff15e5de900081b3f4a3452bb6b765fa9ed6e83508b9252779acd47b4",
+    "candidate/els_server/storage/coin_writer.py": "2085b3c6fb239fb433bc2595c70320156b0a51f24e7e8413fbf4b642ee98a0c2",
+    "candidate/els_server/storage/death_writer.py": "c697a761a993346db9964857dee9848ac7a7527b39c0de32096ff47528d43e15",
+    "candidate/els_server/storage/position_writer.py": "77775ac30c2589b3ec982c417c70f56ebdfc1003f776b7a034785714ef69ef51",
+    "candidate/els_server/storage/sqlite_timing.py": "54b7b5099ba7c431f054de7c6b90b9a868215107e13a2791663bb6aa7bf94c8a",
+    "candidate/els_server/storage/wal_checkpoints.py": "8696924c4a6bd8deeee3106694cf8fb9b0ba521bebe4b86e92f15cb429d05538"
+  },
+  "runtime": "3.14.10 free-threading build (tags/v3.14.10:b703b2c, Oct 25 2026, 17:36:07) [MSC v.1944 64 bit (AMD64)]",
+  "GIL_enabled": false,
+  "scope": "Owned SQLite/private writers, process-crash recovery and read-gap drain; no power-failure or WAN capacity claim"
+}

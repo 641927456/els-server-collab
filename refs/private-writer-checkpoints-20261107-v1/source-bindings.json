@@ -1,0 +1,66 @@
+{
+  "parent_git": "84ec1246199ed9b0e54085f733ca12c58a44d0d9",
+  "parent_runtime": "native-dungeon-result-statistics-20261107-v1",
+  "files": {
+    "els_server/application.py": {
+      "before": "919cce0eb0149f080bf8c79162b3acc5ff42159505f79e3059de38374e4d6266",
+      "after": "cb58ee1135fca7bc6b67b5e79cde6d034331cc85e5d900e5f88bff2f94d999f6",
+      "parent_source": "refs/private-writer-checkpoints-20261107-v1/runtime-parent/els_server/application.py",
+      "parent_kind": "accepted_runtime"
+    },
+    "els_server/storage/coin_writer.py": {
+      "before": "a6310cbe72d981714445f89c3a896c5da1983c5559d2d55f96124e9cc5a9c179",
+      "after": "2085b3c6fb239fb433bc2595c70320156b0a51f24e7e8413fbf4b642ee98a0c2",
+      "parent_source": "refs/writer-scheduling-20261107-v1/source/els_server/storage/coin_writer.py",
+      "parent_kind": "git"
+    },
+    "els_server/storage/death_writer.py": {
+      "before": "cac61041322e4d8a56079613c05a27b1bb0f180d727a6ee96b6a91425b815ae3",
+      "after": "c697a761a993346db9964857dee9848ac7a7527b39c0de32096ff47528d43e15",
+      "parent_source": "refs/writer-scheduling-20261107-v1/source/els_server/storage/death_writer.py",
+      "parent_kind": "git"
+    },
+    "els_server/storage/clock_writer.py": {
+      "before": "aee4ae3e2c3c8476d795379f6144307ef4ff1b9131bf84001162e2bf8f0980bb",
+      "after": "79af4e6ff15e5de900081b3f4a3452bb6b765fa9ed6e83508b9252779acd47b4",
+      "parent_source": "refs/unified-latency-capacity-20261106-v1/source/els_server/storage/clock_writer.py",
+      "parent_kind": "git"
+    },
+    "els_server/storage/position_writer.py": {
+      "before": "a3f3f38d233615b1ca3fa2d3b36f5b199dbcb0b7f34e2b9d6186d90e94b6f176",
+      "after": "77775ac30c2589b3ec982c417c70f56ebdfc1003f776b7a034785714ef69ef51",
+      "parent_source": "refs/unified-latency-capacity-20261106-v3/source/els_server/storage/position_writer.py",
+      "parent_kind": "git"
+    },
+    "els_server/storage/wal_checkpoints.py": {
+      "before": "b35ca57b321a39761eb6a4ba3e0932388b3813586fc2e3f2a1f47785112ef432",
+      "after": "8696924c4a6bd8deeee3106694cf8fb9b0ba521bebe4b86e92f15cb429d05538",
+      "parent_source": "refs/unified-latency-capacity-20261106-v5/source/els_server/storage/wal_checkpoints.py",
+      "parent_kind": "git"
+    }
+  },
+  "inherited": {
+    "els_server/domain/legacy_pve_exp.py": {
+      "source": "refs/writer-scheduling-20261107-v1/source/els_server/domain/legacy_pve_exp.py",
+      "sha256": "2badb754c4e3e7eef84e46a4e351b7ac663f4616d4425f633effc345f8ea69f0"
+    },
+    "els_server/storage/sqlite_timing.py": {
+      "source": "refs/writer-scheduling-20261107-v1/source/els_server/storage/sqlite_timing.py",
+      "sha256": "54b7b5099ba7c431f054de7c6b90b9a868215107e13a2791663bb6aa7bf94c8a"
+    }
+  },
+  "unit_dependencies": {
+    "els_server/storage/town_position_buffer.py": {
+      "source": "refs/unified-latency-capacity-20261106-v1/source/els_server/storage/town_position_buffer.py",
+      "sha256": "ee9df22ca5f621b39a54435cc8723c74d5036d68e8f22c7a8a9f5ecf13a16f31"
+    },
+    "els_server/storage/writer_errors.py": {
+      "source": "refs/unified-latency-capacity-20261106-v1/source/els_server/storage/writer_errors.py",
+      "sha256": "e7421c2fcbee4f649d28a3a455166a3b8a83717743a57bdea6ed2be1683fafbf"
+    }
+  },
+  "production_installed": false,
+  "runtime_parent_manifest_sha256": "f7f3e0e37e58d3d4e376547e97490f829a67c927f149d0aa0296f5e39b39b7c7",
+  "runtime_parent_source_PR": 920,
+  "runtime_parent_source_head": "997f64b3d28e734beb02c1ee8d6acf7e3cef8ad2"
+}

@@ -1,0 +1,8 @@
+{
+  "reproduced": true,
+  "prototype_rejected": true,
+  "error_reported_after_durable_commit": true,
+  "committed_rows": 1,
+  "reason": "A fallible policy-restoration statement must not follow the business commit",
+  "replacement": "Configure only application-owned writer connections before their first transaction; close them before the checkpoint owner"
+}
