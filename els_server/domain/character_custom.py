@@ -239,7 +239,7 @@ def handle(s,event,sequence):
                 if selected:
                     notices.append(acknowledgement(selected))
                     notices.append(selected_notice(s.account.uid,int(character.get('title',0) or 0),selected))
-                events=notices+opening_info(s.account.store.path,s.account.uid,s.account.account_id)
+                events=opening_info(s.account.store.path,s.account.uid,s.account.account_id)+notices
                 _trace('opener ok phase=dungeon owned=%d slots=%d notices=%d'
                        %(sum(len(v) for v in owned.values()),len(selected),len(notices)))
                 return events
