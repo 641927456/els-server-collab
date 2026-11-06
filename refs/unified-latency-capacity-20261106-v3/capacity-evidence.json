@@ -1,0 +1,84 @@
+{
+  "short_native_samples": [
+    {
+      "run": "online-external-town26-5mbps-normalio-qos-short-v2",
+      "source_manifest_sha256": "2af32eadd3966247327de42275007c9165b9eba0a35d9b8b88c8045f8d75f988",
+      "generation_seconds": 120,
+      "actors": 26,
+      "counts": {
+        "moves": 15600,
+        "relays": 390000
+      },
+      "native_server_movement": {
+        "n": 15600,
+        "mean_ms": 3.8312115123605905,
+        "p50_ms": 3,
+        "p95_ms": 8,
+        "p99_ms": 24,
+        "max_ms": 183.98969992995262,
+        "resolution_ms": 1
+      },
+      "WAN_relay": {
+        "n": 390000,
+        "mean_ms": 60.158790810464716,
+        "p50_ms": 60,
+        "p95_ms": 96,
+        "p99_ms": 108,
+        "max_ms": 377.7977102436125,
+        "resolution_ms": 1
+      },
+      "server_targets_met": true,
+      "relay_targets_met": true,
+      "private_5M_calibration": {
+        "bytes": 8388608,
+        "seconds": 13.955938200000674,
+        "Mbps": 4.808624331683896,
+        "exact_content": true
+      },
+      "short_only": true,
+      "long_qualified": false
+    },
+    {
+      "run": "online-external-town28-5mbps-normalio-qos-short-v1",
+      "source_manifest_sha256": "aa73b8462abfaa9487a9510bd355c943459bbe5ab3a7dba34cd6f82a9ac6a494",
+      "generation_seconds": 120,
+      "actors": 28,
+      "counts": {
+        "moves": 16800,
+        "relays": 453600
+      },
+      "native_server_movement": {
+        "n": 16800,
+        "mean_ms": 3.987582149295901,
+        "p50_ms": 4,
+        "p95_ms": 8,
+        "p99_ms": 23,
+        "max_ms": 128.58609994873405,
+        "resolution_ms": 1
+      },
+      "WAN_relay": {
+        "n": 453600,
+        "mean_ms": 60.79217373439159,
+        "p50_ms": 61,
+        "p95_ms": 97,
+        "p99_ms": 108,
+        "max_ms": 412.78019780293107,
+        "resolution_ms": 1
+      },
+      "server_targets_met": true,
+      "relay_targets_met": true,
+      "private_5M_calibration": {
+        "bytes": 8388608,
+        "seconds": 13.97365069994703,
+        "Mbps": 4.80252909143166,
+        "exact_content": true
+      },
+      "short_only": true,
+      "long_qualified": false
+    }
+  ],
+  "prior30_mixed_FAILED": true,
+  "prior30_Town_native_SSL_EOF_FAILED": true,
+  "new_mixed_position_batch_in_progress": true,
+  "capacity_qualified": false
+}

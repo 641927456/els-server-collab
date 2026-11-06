@@ -1,0 +1,5 @@
+# Unified scheduling increment — issue #888
+
+This immutable increment inherits the v1 archive and overrides only the shared server entry and the private signed launcher envelope. The game selects and reads back Normal Windows CPU and I/O scheduling once before startup. The management process, resource budgets, authentication and durable economic acknowledgements remain unchanged. Local and ONLINE share the same entry. Actual compiled private startup under a BelowNormal/Low parent verified CPU32/I/O2, repeated-start reuse and normal stop; signed cache selection and all member hashes passed.
+
+This remains reference-only and unpublished. Previous ONLINE latency failures remain failures. The Normal CPU-only run still exceeded death/pickup latency targets; the initial Normal CPU+I/O test was interrupted by a QA progress-file replacement error, and is invalid as a capacity result. The corrected private native test is in progress. No capacity or peak-performance guarantee is claimed. No database, secret, runtime binary, raw operational log or game EXE/KOM is included. No production current pointer is changed by this archive.

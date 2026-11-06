@@ -1,0 +1,9 @@
+# GM list reads and peak-load capacity validation — issue #888
+
+This reference-only increment inherits v3 and resolves all1069 Python files and provided C# inputs exactly to the privately tested v8 package. The two unchanged parent C# files and runtime/assets remain external as declared in v1. It is a candidate, with no production installation or long capacity qualification.
+
+GM status now reuses the existing batched owned-identity reader and reads initialized ordinary reward displays in one fresh readonly snapshot per save. It retains balance validation, cold initialization, original overridden readers and owner/lifecycle checks. It adds no player authorization cache, economic mutation, writer, thread or early ACK. Actual25 native roles returned identical rows with unchanged complete SQL; an independent SQL update was immediately visible. Diagnostic worker median24.279ms became0.953ms. Cold, invalid/missing balance, schema and override boundaries passed.
+
+Packaged native Town/dungeon/death/glass, the actual packaged GM consumer, compiled signed upgrade selection/all2785 member hashes, repeated endpoint reuse and normal stop passed. No original game EXE/KOM or player input was changed. No credentials, player data, runtime binaries, captures or raw operational logs are included.
+
+Capacity results remain workload specific.30Town at5moves/s passed a120-second sample.22Town with10moves/s during10seconds of each minute passed the overall histogram but FAILED the separate burst P95 (102ms vs100ms); it is not peak-qualified.25mixed actors completed correct native gameplay but FAILED latency. Four simultaneous owned TCP streams measured4.654Mbps aggregate, strengthening the previous single-stream calibration. The20mixed burst test and long qualification remain pending; earlier failures are preserved.

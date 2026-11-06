@@ -1,0 +1,94 @@
+{
+  "source_level_and_owned_native_checks": {
+    "clock-nonblocking-tests.json": {
+      "passed": true,
+      "evidence_sha256": "209d01c93138666644bfb03cd5fea1b922c3e047d1cea472d4b2a22e595d379e"
+    },
+    "clock-nonblocking-pair-tests.json": {
+      "passed": true,
+      "evidence_sha256": "91e8e3296def2fa747ec1ede27375bb62bb059fe831e1c0814a9e802c06e4e20"
+    },
+    "clock-busy-binding-tests.json": {
+      "passed": true,
+      "evidence_sha256": "57bc851e114c78888d873ca5fff0ca89959f54e05c0ba6dc8cec538de8d1ef36"
+    },
+    "cold-writer-results-tests.json": {
+      "passed": true,
+      "evidence_sha256": "496734dfce76a4c94a20451866b7d4473b754716e86233565e37babf02c74fd8"
+    },
+    "master-repair-read-tests.json": {
+      "passed": true,
+      "evidence_sha256": "e7a808f5b7a940ddfdfe9631d2cb16ccb4fbcfe2c5c067ffa22f8fbe0228851f"
+    },
+    "online-notification-snapshot-tests.json": {
+      "passed": true,
+      "evidence_sha256": "3b8240081dba1e04af5aa9e4f38b1989bf8e6d1f3cc964ab3c8b0b37cbfef547"
+    },
+    "online-notification-recheck-tests.json": {
+      "passed": true,
+      "evidence_sha256": "239be24fbacbbb44826babd15145ae3fe8caa9f335e8650801d93b580829878f"
+    },
+    "town-move-lock-tests.json": {
+      "passed": true,
+      "evidence_sha256": "b72bfaafd1734dfd86c9d7d38572dd2d3e34249338355bcae2b372c91096ad73"
+    },
+    "online-span-covering-v2-tests.json": {
+      "passed": true,
+      "evidence_sha256": "e4a6a1ab7cb637895e36f4a912b4076eec4484ac7451b9e2e310f69fe3654e2f"
+    },
+    "online-span-index-atomic-tests.json": {
+      "passed": true,
+      "evidence_sha256": "58ba0d0e2f88ce4c43e1c88cc1274775869d6140a0da48a39522a2ad49bdb460"
+    },
+    "server-preview-v4-tests.json": {
+      "passed": true,
+      "evidence_sha256": "aa9b0644f61cd31d17017492e008ea04cd8116dae95dd6fe23862c99c8ebbbf8"
+    },
+    "endpoint-preview-v4-tests.json": {
+      "passed": true,
+      "evidence_sha256": "2d031b2cb6fdc75f0c08f86a9ac6edace7ebaaf1c601ebd341eed64a4dcf0870"
+    },
+    "compiled_signed_selection": {
+      "passed": true,
+      "exe_sha256": "bd9d56647035bce180305e445f446e4db5fc7fbba4bdcef8e00b11f7ab75737d",
+      "payload_sha256": "473cdf058950a0ad4cb4af36eabc5df98f0b3721285a24e58d9d018f2d1cd774",
+      "resources": 101,
+      "signed_members": 2785,
+      "changed_downloads": 687,
+      "repeat_downloads": 0,
+      "all_member_hashes_exact": true
+    },
+    "local_combined_v2_functional": {
+      "passed": true,
+      "native_counts": [
+        {
+          "deaths": 885,
+          "fresh_pickups": 885,
+          "rooms": 59
+        }
+      ],
+      "ONLINE_capacity_claim": false
+    }
+  },
+  "test_source_files": [
+    "verify_clock_nonblocking.py",
+    "verify_clock_nonblocking_pair.py",
+    "verify_clock_busy_binding.py",
+    "verify_cold_writer_results.py",
+    "verify_master_repair_reads.py",
+    "verify_online_notification_snapshot.py",
+    "verify_online_notification_recheck.py",
+    "verify_town_move_locks.py",
+    "verify_online_span_covering_v2.py",
+    "verify_online_span_index_atomic.py",
+    "verify_town_position_native.py",
+    "verify_combined_loaded_v2.py",
+    "verify_server_preview_v4.py",
+    "verify_party.py"
+  ],
+  "actual_packaged_native": true,
+  "actual_compiled_endpoint": true,
+  "online_performance_pending": true,
+  "natural_GUI_or_battle_claim": false,
+  "production_installed": false
+}

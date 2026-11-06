@@ -1,0 +1,40 @@
+{
+  "reference_only": true,
+  "inherits": "refs/unified-latency-capacity-20261106-v4",
+  "parent_head": "45642936a0b9486cb49690546a8105515626df88",
+  "source_manifest_sha256": "b45e5e1fa5c0ecf6d86e702cf2278bbb152e3919fdee16178f39cdc7e0547b5c",
+  "full_Python_files": 1070,
+  "frozen_overrides": 111,
+  "changed_Python": [
+    "els_server/application.py",
+    "els_server/dungeon_workers.py",
+    "els_server/transport.py",
+    "els_server/domain/equipment_chip_flow.py",
+    "els_server/domain/guild_expedition.py",
+    "els_server/domain/guild_services.py",
+    "els_server/domain/normal_fatigue_flow.py",
+    "els_server/storage/characters.py",
+    "els_server/storage/normal_fatigue.py",
+    "els_server/storage/titles.py",
+    "els_server/storage/wal_checkpoints.py"
+  ],
+  "changed_CSharp": [
+    "UIScrollRuntimeCohort.cs"
+  ],
+  "runtime_and_assets_external": true,
+  "unchanged_ModeDesign_Program_external_from_V81": true,
+  "target_release_label": "native-unified-latency-capacity-20261106-v1",
+  "private_launcher_version": 82,
+  "binaries_included": false,
+  "databases_included": false,
+  "production_installed": false,
+  "checkpoint_ms": 250,
+  "Town_poll_ms": 15,
+  "rejected_trials": [
+    "C17 Town20ms",
+    "unrun half-second checkpoint proposal"
+  ],
+  "only_Town_XYZ_persistence_coalesced": true,
+  "economic_ACK_after_FULL_commit": true,
+  "original_EXE_KOM_changes": 0
+}
