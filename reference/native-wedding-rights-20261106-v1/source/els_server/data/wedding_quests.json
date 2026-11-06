@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "quests": {
+    "31130": {
+      "m_iFairLevel": 10,
+      "m_iPlayLevel": 10,
+      "m_iEpisodeGroupID": 30007,
+      "m_iID": 31130,
+      "m_fRandomRate": 0,
+      "m_iRandomGroupID": 0,
+      "m_eQuestType": 13,
+      "CHANGE_JOB_TYPE": 0,
+      "m_eStartNPCID": 10025,
+      "m_eEndNPCID": 10025,
+      "m_bIsPcBang": 0,
+      "m_bIsTimeEvent": 0,
+      "m_iFairDungeonID": 0,
+      "m_bRepeat": 1,
+      "m_eRepeatType": 3,
+      "m_iAfterQuestID": {
+        "0": null,
+        "1": 0
+      },
+      "QuestCondition": {
+        "m_iLimitLevel": -1,
+        "m_iLevel": 10,
+        "m_iConditionItemNum": 0,
+        "m_iConditionItemID": 0,
+        "m_iEnableVillage": {
+          "0": null,
+          "1": 0
+        },
+        "m_iEnableField": {},
+        "m_iEnableDungeon": {},
+        "m_eUnitType": {
+          "1": 0
+        },
+        "m_eUnitClass": {
+          "1": 0
+        },
+        "m_vecBeforeQuestID": {}
+      },
+      "m_vecSubQuest": {
+        "0": null,
+        "1": 31130
+      },
+      "m_vecSubQuest_Group": {
+        "1": {
+          "0": null,
+          "1": 31130
+        }
+      },
+      "Reward": {
+        "m_iSP": 0,
+        "m_iBuff": 0,
+        "m_iEP": 0,
+        "m_iED": 0,
+        "m_iEXP": 0,
+        "m_bEnable": 1,
+        "m_eChangeUnitClass": 0,
+        "m_vecItem": {
+          "1": {
+            "m_iPeriod": 0,
+            "m_iQuantity": 2,
+            "m_iItemID": 710097,
+            "m_sSocketOption": 0
+          },
+          "2": {
+            "m_iPeriod": 0,
+            "m_iQuantity": 2,
+            "m_iItemID": 710193,
+            "m_sSocketOption": 0
+          }
+        }
+      },
+      "SelectReward": {
+        "m_iSelectionCount": 0
+      }
+    }
+  },
+  "subquests": {
+    "31130": {
+      "m_iID": 31130,
+      "m_eClearType": 32,
+      "m_bAutomaticDescription": 0,
+      "m_ClearCondition": {
+        "m_iDungeonClearCount": 3,
+        "m_iCheckRelationshipLevel": 2,
+        "m_eExceptionDungeonID": {
+          "0": null,
+          "1": 41400,
+          "2": 130000,
+          "3": 130010,
+          "4": 130020,
+          "5": 130030,
+          "6": 130040,
+          "7": 130050,
+          "8": 130060,
+          "9": 130070,
+          "10": 130080,
+          "11": 130090,
+          "12": 130100,
+          "13": 130110,
+          "14": 130120,
+          "15": 130130,
+          "16": 130140,
+          "17": 130150,
+          "18": 130160,
+          "19": 130170,
+          "20": 130180,
+          "21": 130190,
+          "22": 130200,
+          "23": 130210,
+          "24": 130220,
+          "25": 130230,
+          "26": 130240,
+          "27": 130250,
+          "28": 130260,
+          "29": 130270,
+          "30": 130280,
+          "31": 130290,
+          "32": 130300,
+          "33": 130310,
+          "34": 41560,
+          "35": 41550,
+          "36": 41580,
+          "37": 41590,
+          "38": 41600,
+          "39": 41480,
+          "40": 41490,
+          "41": 41500,
+          "42": 41510,
+          "43": 41150,
+          "44": 41160,
+          "45": 41170,
+          "46": 41180,
+          "47": 41190,
+          "48": 41210,
+          "49": 41290,
+          "50": 41220,
+          "51": 41230,
+          "52": 41240,
+          "53": 41250,
+          "54": 41420,
+          "55": 41131,
+          "56": 41130,
+          "57": 41120,
+          "58": 38300,
+          "59": 38301,
+          "60": 38302,
+          "61": 38100,
+          "62": 38020,
+          "63": 34070,
+          "64": 30000,
+          "65": 30080,
+          "66": 30081,
+          "67": 30082,
+          "68": 30090,
+          "69": 30091,
+          "70": 30092,
+          "71": 41590,
+          "72": 41600,
+          "73": 41610,
+          "74": 35870,
+          "75": 35880
+        }
+      }
+    }
+  },
+  "reward_definitions": [
+    {
+      "template": 710097,
+      "name": "[路莉尔]疲劳药水",
+      "metadata": 2,
+      "item_type": 7,
+      "registered": true,
+      "group": 4,
+      "max_stack": 300,
+      "can_acquire": false,
+      "record_sha256": "44c4d5900794f08b0253c948048f0d40a20e3a23f0ad6bf19d6e39df12838582"
+    },
+    {
+      "template": 710193,
+      "name": "[路莉尔]斗志药水",
+      "metadata": 2,
+      "item_type": 5,
+      "registered": true,
+      "group": 6,
+      "max_stack": 999,
+      "can_acquire": true,
+      "record_sha256": "6c2a3c49394f5f383f76774e54cd2a6df51676f66c79ec0df97b67167ebeefbe"
+    }
+  ],
+  "sources": [
+    {
+      "name": "FieldQuest.tables.json",
+      "sha256": "069952b835163e75e43e5f67a276d191dfb73d463a8618aeeb43de4b81e5cc11"
+    },
+    {
+      "name": "FieldSubQuest.tables.json",
+      "sha256": "eeca9473c7b2f0a222502016aa5723c371a2ceb2f24152ef4ef1e6eec7a67a53"
+    }
+  ],
+  "official_wedding": "https://els.ztgame.com/game/002-1687-0037d-678007.shtml?mt=890",
+  "official_weekly_reset": "https://els.ztgame.com/game/m_000-1635-002f7-244910.shtml",
+  "period_seconds": 31536000,
+  "reset": "Wednesday10:00UTC+8; completed resets; unfinished progress carries",
+  "policy": "wedding-weekly-original31130-20261106-v1"
+}
