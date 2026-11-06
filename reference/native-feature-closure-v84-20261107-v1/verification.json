@@ -61,6 +61,17 @@
       "private_directory_removed": true,
       "native_Game": false,
       "natural_GUI": false
+    },
+    {
+      "source": "title-profile-preflight-1793986752851242600.json",
+      "sha256": "8bd598b8721ac8ad8d041226228cae9da4c1546674b21d2ec07f9866531970fa",
+      "ok": true,
+      "original_executable_unchanged": true,
+      "guard_relaxed": false,
+      "native_Game_created": false,
+      "checks": [
+        "Real original-client compatibility preflight passes all admitted artifacts with the updated cache/title dependency hashes"
+      ]
     }
   ],
   "retained_initial_failure": {
@@ -80,5 +91,10 @@
     "PR913 random pet/trainer"
   ],
   "related_unchanged_results_reused": true,
-  "source_only": true
+  "source_only": true,
+  "retained_startup_failure": {
+    "source": "native-game-v85-v1/isolation-receipt.json",
+    "native_Game_created": false,
+    "reason": "Actual compiled candidate correctly rejected stale native_cache_sync dependency hash before any Game; repair is the exact profile binding, not a validator exception"
+  }
 }
