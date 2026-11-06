@@ -380,10 +380,10 @@ def priority_handlers(self,event,request_sequence=None):
     # original first-match position behind the Ariel mark handler above.
     if event.event_id==0x202 and event.kind in (0x634,0x4cb):
         try:
-            from els_server.domain import character_custom
-            _live(character_custom)
             from els_server.storage import character_custom as custom_store
-            custom_reply=_live(custom_store).handle(self,event,request_sequence)
+            _live(custom_store)
+            from els_server.domain import character_custom
+            custom_reply=_live(character_custom).handle(self,event,request_sequence)
         except Exception:
             import traceback;traceback.print_exc()
             custom_reply=None

@@ -283,3 +283,14 @@ def opening_info(path,owner,account_id,*,validate=None):
         event=wire.opening_information(cash_catalog);encode_event(event)
         if validate is not None:validate()
         return [event]
+
+
+def handle(s,event,sequence):
+    """Session dispatch entry for the 634 opener and the 4CB Apply.
+
+    Both handlers live in the domain module. The store re-exports them so a
+    dispatch entry that resolves the store still reaches the real code, and so
+    a hot reload of either module keeps the window working.
+    """
+    from els_server.domain.character_custom import handle as domain_handle
+    return domain_handle(s,event,sequence)
