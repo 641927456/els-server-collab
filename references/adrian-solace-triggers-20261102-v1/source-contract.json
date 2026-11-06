@@ -1,0 +1,239 @@
+{
+  "format": 1,
+  "issue": 764,
+  "added_rules": 11,
+  "prior_rules": 138,
+  "total_rules": 149,
+  "old_sha256": "7abc1bb42a6d229eb9a9c4523e5e8d971165fe18d5a3cc7e73a150305f608574",
+  "sha256": "1a17bb0284067cb7461fe1974727fddc11329c89cdb56d0e3560de950f6c7788",
+  "source": "source/common/els_server/data/native_line_triggers.json",
+  "author_binding": {
+    "channels": [
+      {
+        "channel": "online",
+        "parent": "native-shop-royal-guard-20261101-v1",
+        "parent_manifest_sha256": "b4cd410d15ce040509fa826b3fb7132a4345e64cac6953ada33d64bb3c0c8f85",
+        "runtime": "G:\\els\\releases\\online\\native-shop-royal-guard-20261101-v1",
+        "file": "els_server/data/native_line_triggers.json",
+        "parent_sha256": "487175cc56116db81b664b1d6003fe410516b24cad34e04cd0f21bae47f1d000",
+        "sha256": "65621cafcb152457535b47193a6b434541490b863372dd5cdbbba6823eaa5161",
+        "size": 79764,
+        "existing_rules": 126,
+        "added_rules": 11,
+        "rules": 137,
+        "reader_sha256": "b8fcd649bb8b87415de6dccc12bc64db849d9db47ef562a44373bda2eebd10c2",
+        "preview_with_prior_sky_rules": 149,
+        "preview_sha256": "1a17bb0284067cb7461fe1974727fddc11329c89cdb56d0e3560de950f6c7788"
+      },
+      {
+        "channel": "local",
+        "parent": "local-native-atlas-scroll-support-20261101-v1",
+        "parent_manifest_sha256": "501bbf6b1754b497c4dcff26e4b9501894e9bdacfb95f9a1dfd4588f2992f900",
+        "runtime": "G:\\els\\releases\\local\\local-native-atlas-scroll-support-20261101-v1",
+        "file": "els_server/data/native_line_triggers.json",
+        "parent_sha256": "487175cc56116db81b664b1d6003fe410516b24cad34e04cd0f21bae47f1d000",
+        "sha256": "65621cafcb152457535b47193a6b434541490b863372dd5cdbbba6823eaa5161",
+        "size": 79764,
+        "existing_rules": 126,
+        "added_rules": 11,
+        "rules": 137,
+        "reader_sha256": "b8fcd649bb8b87415de6dccc12bc64db849d9db47ef562a44373bda2eebd10c2",
+        "preview_with_prior_sky_rules": 149,
+        "preview_sha256": "1a17bb0284067cb7461fe1974727fddc11329c89cdb56d0e3560de950f6c7788"
+      }
+    ],
+    "changed_files_per_channel": 1,
+    "Python_source_delta": 0,
+    "client_delta": 0,
+    "schema_delta": 0,
+    "installed": false,
+    "prior_sky12_kept_in_separate_integration_preview": true
+  },
+  "validation": {
+    "combined_App_TLS": {
+      "ok": true,
+      "channel": "online",
+      "actual_Application_TLS": true,
+      "controlled_owned_checkpoint": true,
+      "production_writes": false,
+      "natural_GUI": false,
+      "reader_source_unchanged": false,
+      "combined_qualified_reader": true,
+      "candidate_sha256": "1a17bb0284067cb7461fe1974727fddc11329c89cdb56d0e3560de950f6c7788",
+      "repaired": [
+        {
+          "key": [
+            33881,
+            1,
+            1,
+            4
+          ],
+          "result": 0,
+          "notification": 4,
+          "duplicate": "ACK only"
+        },
+        {
+          "key": [
+            33881,
+            3,
+            0,
+            0
+          ],
+          "result": 0,
+          "notification": 0,
+          "duplicate": "ACK only"
+        },
+        {
+          "key": [
+            33891,
+            0,
+            0,
+            0
+          ],
+          "result": 0,
+          "notification": 0,
+          "duplicate": "ACK only"
+        },
+        {
+          "key": [
+            33891,
+            0,
+            0,
+            1
+          ],
+          "result": 0,
+          "notification": 1,
+          "duplicate": "ACK only"
+        },
+        {
+          "key": [
+            33891,
+            0,
+            0,
+            2
+          ],
+          "result": 0,
+          "notification": 2,
+          "duplicate": "ACK only"
+        },
+        {
+          "key": [
+            33891,
+            0,
+            1,
+            3
+          ],
+          "result": 0,
+          "notification": 3,
+          "duplicate": "ACK only"
+        },
+        {
+          "key": [
+            33891,
+            2,
+            2,
+            0
+          ],
+          "result": 0,
+          "notification": 0,
+          "duplicate": "ACK only"
+        },
+        {
+          "key": [
+            33891,
+            3,
+            1,
+            0
+          ],
+          "result": 0,
+          "notification": 0,
+          "duplicate": "ACK only"
+        },
+        {
+          "key": [
+            33891,
+            3,
+            1,
+            1
+          ],
+          "result": 0,
+          "notification": 1,
+          "duplicate": "ACK only"
+        },
+        {
+          "key": [
+            33891,
+            3,
+            1,
+            6
+          ],
+          "result": 0,
+          "notification": 6,
+          "duplicate": "ACK only"
+        },
+        {
+          "key": [
+            33891,
+            4,
+            0,
+            0
+          ],
+          "result": 0,
+          "notification": 0,
+          "duplicate": "ACK+notification"
+        }
+      ],
+      "existing_controls": [
+        [
+          34320,
+          1,
+          1,
+          0
+        ],
+        [
+          33881,
+          2,
+          2,
+          0
+        ]
+      ],
+      "denied": [
+        "unknown activation",
+        "malformed payload",
+        "foreign performer",
+        "dungeon_substage_synced",
+        "clear_notified",
+        "dungeon_failed",
+        "phase",
+        "dungeon_participants",
+        "stale lease",
+        "changed graph source",
+        "wrong room",
+        "missing original actor"
+      ],
+      "inventory_currency_location_HP_and_defeated_unchanged": true,
+      "qualification": "Actual native-header App/TLS under valid owner lease; original client AI conditions, timing and visual effects remain untested."
+    },
+    "combined_solo_and_party": {
+      "ok": true,
+      "baseline": false,
+      "tests": 2,
+      "skipped": 0,
+      "portal_segments": 25,
+      "group_trigger_rules": 126,
+      "solo_trigger_rules": 149,
+      "failures": [],
+      "natural_GUI": false,
+      "natural_battle": false
+    }
+  },
+  "loop_rule": [
+    33891,
+    4,
+    0,
+    0
+  ],
+  "source_only_no_new_327_scan_rules": true,
+  "installed": false,
+  "git_merged": false
+}
