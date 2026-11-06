@@ -1,0 +1,14 @@
+--- a/els_server/domain/friends_spawns.py
++++ b/els_server/domain/friends_spawns.py
+@@ -466,9 +466,9 @@
+     """Acknowledge one genuine completed stage endpoint without opening a gate."""
+     try:
+         if (r.phase != 'substage' or type(r.identity) is not int
+-                or r.identity not in (30092, 34030, 35450)
+                 or event.event_id != 0x202 or event.kind != 0xb8
+-                or event.performers != () or event.payload_mode != 0
++                or event.performers not in ((),(0,)) or event.payload_mode != 0
++                or event.uid != 2**64-1 or event.target_uid != 2**64-1
+                 or type(event.payload) is not bytes or len(event.payload) != 1
+                 or s not in r.members or not 2 <= len(r.members) <= 6):
+             return []

@@ -1,0 +1,92 @@
+{
+  "format": 1,
+  "issue": 763,
+  "source_files": [
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "parent_sha256": "5f64779b8d4c64c50a0916552c3603b4853815a6b45fec971288c725c5ddb43c",
+      "candidate_sha256": "06c8c83bf09cc0e30364b57bca94cab74cc6d3622b00e9e3f39e3585a7667514"
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "parent_sha256": "5d5aaa0074af23ea0c09988fe0106c15596cfbd91dd19dd777e530dc1a9e8f69",
+      "candidate_sha256": "62ff9f391545fd932f1ce81367a0319695fdadbf528a304e65b10e4088df65f2"
+    },
+    {
+      "path": "els_server/domain/native_line_triggers.py",
+      "parent_sha256": "b8fcd649bb8b87415de6dccc12bc64db849d9db47ef562a44373bda2eebd10c2",
+      "candidate_sha256": "d1d3c8d70eea6f393da9136b8a3b4d64a268969346793690c9620da6f83aa40b"
+    },
+    {
+      "path": "els_server/domain/friends_spawns.py",
+      "parent_sha256": "1a86efa1e440402219434417e731ed773ca08353b5a3523e2eacb50c01a26110",
+      "candidate_sha256": "a15516a0d0d82459fc48145e23eb24fe18f5cb2ed7968890ccb7e642aa8a3261"
+    }
+  ],
+  "validation": {
+    "unique_regression_tests": 20,
+    "base_tests": 9,
+    "variant_tests": 10,
+    "additional_barrier_tests": 1,
+    "skipped": 0,
+    "actual_private_Application_TLS": true,
+    "results": {
+      "candidate-result.json": "9dd2221b7f30568325b3d16d2fa2b43880cd735589df2780c14599a265e76768",
+      "variants-baseline.json": "8a61f6918f24f717923e5bfd4b5324bdc42ec600eec2de93cc6178abb830db66",
+      "variants-result.json": "af21ba1343135cea4d1c096c617eb6507244dc098f10dd0e28d467ecd644f2c7",
+      "curtain-barrier-baseline.json": "92daf197f3593aafea4c0816b2a71b51d993eaa0e6f9ec5f07085d42697a04d1",
+      "curtain-barrier-result.json": "096cde0c03c2ecdf44f498fdd17d2162e216b2eb9e8f1e3c7c45e3ac71a54b1b",
+      "server-TLS.json": "ba676691dc053b02cb1f14c175ac6196e543c531779fb35f2f9e79cfb7f0f48e",
+      "native-envelopes.json": "bff77bf312dfae70a521ae35d27a026e11875423da3065c6ab49917873a6887d"
+    },
+    "reuse": "Final change only admits current part_end B8; its two checks passed separately; unchanged active/TLS behavior reused."
+  },
+  "combo_validation": {
+    "variants": {
+      "ok": true,
+      "baseline": false,
+      "tests": 11,
+      "skipped": 0,
+      "portal_segments": 25,
+      "group_trigger_rules": 115,
+      "solo_trigger_rules": 138,
+      "failures": [],
+      "natural_GUI": false,
+      "natural_battle": false
+    },
+    "TLS": {
+      "ok": true,
+      "actual_Application_TLS": true,
+      "controlled_source_rooms": true,
+      "natural_GUI": false,
+      "natural_battle": false,
+      "cases": [
+        "native B8 before kills: leader and member",
+        "native 471 -> 472 -> delayed BA: both peers",
+        "member native 30A -> own 30B and both 30C",
+        "unknown activation rejected"
+      ],
+      "inventory_unchanged": true,
+      "trigger_no_HP_kill_or_cursor_change": true
+    },
+    "retirement_fixture_correction": {
+      "ok": true,
+      "runtime": "G:\\els\\analysis\\shop-royal-guard-20261101-v1\\candidate",
+      "baseline": false,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "rules": 50,
+      "baseline_sources": [],
+      "failure_details": [],
+      "natural_GUI": false,
+      "natural_combat": false,
+      "actual_player_database": false
+    }
+  },
+  "source_reader_rules_data_unchanged_in_this_PR": true,
+  "scope": "471/472 portal condition, true B8/B9 Curtain, valid part_end/substage endpoints, shared atomic party30A/30C; no old rule-table replacement",
+  "installed": false,
+  "git_merged": false
+}
