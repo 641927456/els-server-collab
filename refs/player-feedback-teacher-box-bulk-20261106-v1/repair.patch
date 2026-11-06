@@ -1,0 +1,85 @@
+--- a/els_server/domain/growth_guide_boxes.py
++++ b/els_server/domain/growth_guide_boxes.py
+@@ -30,21 +30,31 @@
+ def entries():
+     return tuple(dict(template=b['template'],selection_count=b['selection_count'],entries=b['outputs'],growth_guide=True) for b in catalog()['boxes'])
+ 
+-def plans_for(outputs,now):
++def plans_for(outputs,now,count=1):
+     from els_server.domain.inventory_items import VERIFIED_TEMPLATES,TEMPLATE_BAG_GROUPS
+-    return [dict(template=r['template'],metadata=VERIFIED_TEMPLATES[r['template']],group=TEMPLATE_BAG_GROUPS[r['template']],quantity=r['quantity'],
+-        **({'enhancement':r['enhancement']} if r.get('enhancement') else {}),
+-        **({'expires_at':now+r['period_days']*86400} if r.get('period_days') else {})) for r in outputs]
++    from els_server.domain.inventory_items import LOCAL_MAX_STACK
++    plans=[]
++    for r in outputs:
++        quantity=r['quantity']*count
++        while quantity:
++            amount=min(quantity,LOCAL_MAX_STACK);quantity-=amount
++            plans.append(dict(template=r['template'],metadata=VERIFIED_TEMPLATES[r['template']],
++                group=TEMPLATE_BAG_GROUPS[r['template']],quantity=amount,
++                **({'enhancement':r['enhancement']} if r.get('enhancement') else {}),
++                **({'expires_at':now+r['period_days']*86400} if r.get('period_days') else {})))
++    return plans
+ 
+ def validate_grants(context,plan):
+-    template,character,choices,now=context
++    template,character,choices,now,count=context
++    from els_server.domain.inventory_items import LOCAL_MAX_STACK
++    if type(count)is not int or not 1<=count<=LOCAL_MAX_STACK:raise ValueError('Guide box quantity')
+     rows=outputs_for(template,character);b=boxes()[template]
+     if b['selection_count']:
+         if len(choices)!=1:raise ValueError('Guide box requires one player choice')
+         rows=tuple(r for r in rows if r['template']==choices[0])
+         if len(rows)!=1:raise ValueError('Guide choice outside native contents')
+     elif choices:raise ValueError('Guide fixed box accepts no choice')
+-    if plan!=plans_for(rows,now):raise ValueError('Guide fixed grant plan mismatch')
++    if plan!=plans_for(rows,now,count):raise ValueError('Guide fixed grant plan mismatch')
+     from els_server.domain.acquisition_policy import excluded_equipment
+     if any(p['template'] in excluded_equipment() for p in plan):raise ValueError('Guide legacy item excluded')
+     return rows
+--- a/els_server/storage/growth_guide_boxes.py
++++ b/els_server/storage/growth_guide_boxes.py
+@@ -17,7 +17,7 @@
+ 
+ def open_box(path,owner,template,payload,operation,*,now=None):
+     req=use_request(payload)
+-    if req.option not in (0,1) or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Guide box native mode')
++    if req.option<0 or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Guide box native mode')
+     owner,digest=_identity(owner,0x196,struct.pack('>i',template)+payload,operation)
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');require_active_character(db,owner)
+@@ -30,6 +30,8 @@
+         item=next((i for i in before if i['uid']==req.uid),None)
+         if item is None or item['template']!=template or item['group']!=4:raise ValueError('Guide owned previewed box required')
+         require_current(item,now=now);require_unlocked(item,now=now)
++        count=req.option or 1
++        if count>item['count']:raise ValueError('Guide box quantity exceeds owned stack')
+         from els_server.storage.seal_quests import load_character
+         character=load_character(db,owner)
+         # Lu/Ciel active side is part of the saved role, never a choice UID.
+@@ -37,12 +39,12 @@
+         character['luciel_active_unit']=active_state(db,owner)['active_unit']
+         rows=outputs_for(template,character)
+         if boxes()[template]['selection_count']:rows=tuple(r for r in rows if r['template'] in req.choices)
+-        plans=plans_for(rows,now);context=(template,character,req.choices,now)
++        plans=plans_for(rows,now,count);context=(template,character,req.choices,now,count)
+         validate_grants(context,plans)
+         if balance['revision']>=2**63-1:raise ValueError('Guide box inventory revision overflow')
+         source=(item['group'],item['slot'])
+-        if item['count']==1:remove(db,owner,item)
+-        else:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item['uid'],owner))
++        if item['count']==count:remove(db,owner,item)
++        else:db.execute('UPDATE inventory_items SET count=count-? WHERE uid=? AND owner=?',(count,item['uid'],owner))
+         grants=grant_items(db,plans,owner,growth_guide_box=context)
+         from els_server.storage.equipment_options import replace as options
+         from els_server.storage.equipment_reforge import replace as reforge
+@@ -55,7 +57,7 @@
+                 if item.get('identified') is False:identify(db,owner,item['uid'],False,True)
+         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
+         positions=sorted({source,*[(i['group'],i['slot']) for i in grants]})
+-        events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(r['template'],r['quantity']) for r in rows])
++        events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(r['template'],r['quantity']*count) for r in rows])
+         for event in events:encode_event(event)
+         db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))
+         _commit(db,operation,digest,owner,0x196,positions,before,after)
