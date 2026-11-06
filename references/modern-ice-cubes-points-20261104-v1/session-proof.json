@@ -1,0 +1,15 @@
+{
+  "all_passed": true,
+  "baseline": "G:\\els\\releases\\online\\native-dungeon-skill-replacement-20261104-v1",
+  "live_client_access": false,
+  "natural_GUI": false,
+  "fixture": "actual Application; isolated valid selected town state; deterministic draw",
+  "checks": [
+    "actual character initialization restores shared bag and points",
+    "actual session preview exposes part cubes and native point initialization",
+    "actual draw dispatcher consumes once, stores account bag cube and synchronizes points",
+    "actual other-character bag withdrawal, role preview and open dispatcher grant Aisha weapon",
+    "actual cross-season pity selection dispatcher",
+    "invalid native envelope rejected"
+  ]
+}
