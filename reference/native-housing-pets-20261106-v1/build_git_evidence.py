@@ -6,6 +6,7 @@ import psutil
 
 H=Path(__file__).resolve().parent
 N=H/'native-game-v1'
+ARCHIVE='reference/native-housing-pets-20261106-v1/'
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def read(p):return json.loads(p.read_bytes())
 manifest=read(H/'candidate-v4.manifest.json')
@@ -85,13 +86,13 @@ qa=['verify_codec_native.py','verify_entry_native.py','verify_mat_admission.py',
     'verify_population_tls.py','verify_population_actual.py','verify_furniture_native.py',
     'candidate-v2.manifest.json','candidate-v3.manifest.json','candidate-v4.manifest.json',
     'build_git_evidence.py','REVIEW.md']
-qa_paths=[(H/name,'analysis/feature-closure-20261105-v1/housing-pets-v1/'+name)for name in qa]
-qa_paths +=[(N/name,'analysis/feature-closure-20261105-v1/housing-pets-v1/native-game-v1/'+name)
+qa_paths=[(H/name,ARCHIVE+name)for name in qa]
+qa_paths +=[(N/name,ARCHIVE+'native-game-v1/'+name)
            for name in ('observer.js','server_owned.py','prepare_attempt.py')]
-qa_paths.append((out,'analysis/feature-closure-20261105-v1/housing-pets-v1/'+out.name))
+qa_paths.append((out,ARCHIVE+out.name))
 for p,path in qa_paths:
     content=p.read_bytes().decode('utf8')
     assert hashlib.sha256(content.encode('utf8')).hexdigest()==digest(p)
     entries.append(dict(path=path,mode='100644',type='blob',content=content))
-(H/'git-elements-v3.json').write_text(json.dumps(entries,ensure_ascii=False),'utf8')
+(H/'git-elements-v4.json').write_text(json.dumps(entries,ensure_ascii=False),'utf8')
 print(json.dumps(dict(ok=True,files=len(entries),source_files=len(files),summary=out.name,summary_sha256=digest(out))))
