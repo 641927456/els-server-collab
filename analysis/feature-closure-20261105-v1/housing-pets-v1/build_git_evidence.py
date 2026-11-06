@@ -77,7 +77,9 @@ summary=dict(ok=True,source_sha256=files,source_files=len(files),dependency_PR=8
  main_merged=False,installed=False,public_progress_updated=False)
 out=H/('qualified-summary-'+str(time.time_ns())+'.json')
 out.write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n','utf8')
-entries=[dict(path=rel,mode='100644',type='blob',content=(H/'candidate-v4'/rel).read_text('utf8'))for rel in files]
+entries=[dict(path=rel,mode='100644',type='blob',content=(H/'candidate-v4'/rel).read_bytes().decode('utf8'))for rel in files]
+for entry in entries:
+    assert hashlib.sha256(entry['content'].encode('utf8')).hexdigest()==files[entry['path']]
 qa=['verify_codec_native.py','verify_entry_native.py','verify_mat_admission.py','verify_writer_tls.py',
     'verify_actual_packets.py','verify_contract_deadlines.py','verify_population_native.py',
     'verify_population_tls.py','verify_population_actual.py','verify_furniture_native.py',
@@ -88,6 +90,8 @@ qa_paths +=[(N/name,'analysis/feature-closure-20261105-v1/housing-pets-v1/native
            for name in ('observer.js','server_owned.py','prepare_attempt.py')]
 qa_paths.append((out,'analysis/feature-closure-20261105-v1/housing-pets-v1/'+out.name))
 for p,path in qa_paths:
-    entries.append(dict(path=path,mode='100644',type='blob',content=p.read_text('utf8')))
-(H/'git-elements-v2.json').write_text(json.dumps(entries,ensure_ascii=False),'utf8')
+    content=p.read_bytes().decode('utf8')
+    assert hashlib.sha256(content.encode('utf8')).hexdigest()==digest(p)
+    entries.append(dict(path=path,mode='100644',type='blob',content=content))
+(H/'git-elements-v3.json').write_text(json.dumps(entries,ensure_ascii=False),'utf8')
 print(json.dumps(dict(ok=True,files=len(entries),source_files=len(files),summary=out.name,summary_sha256=digest(out))))
