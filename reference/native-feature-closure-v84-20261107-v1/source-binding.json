@@ -2,33 +2,9 @@
   "parent_main": "64dc1d510e39b1c3e305616533f60d2300a7efff",
   "parent_tree": "7fe2d628b8325ad4855ff53b1960c7404e8932bc",
   "parent_deployed": {
-    "ok": true,
-    "release": "unified-server-36754b117eeaecf5-4a37691bcdd9",
-    "channel": "local",
-    "path": "releases/local/unified-server-36754b117eeaecf5-4a37691bcdd9",
-    "unified_runtime": true,
-    "manifest_sha256": "c693e813e5a00e9325d2ce7e5dafb18bb9c2d2dd9bd2aa8df31c5b4266ad161d",
-    "runtime_manifest_sha256": "c693e813e5a00e9325d2ce7e5dafb18bb9c2d2dd9bd2aa8df31c5b4266ad161d",
-    "shared_runtime_identity": "36754b117eeaecf50cf48b5cdaa278e73dceefa8424328179ae439ca186146d1",
-    "source_online_release": "native-server-latency-20261106-v7",
-    "server_host": "127.0.0.1",
-    "source_content_identity": "bb4b897d5cc0c82705019654d4cd886d5bf9869190055f78e629a1dc6ec6dc1a",
-    "config": "G:\\els\\state\\unified-server\\server.toml",
-    "parent_release": "unified-server-b6b15dc03dd7354d-f19e6906df62",
-    "backup": "G:\\els\\state\\unified-installer\\01daa54d6c5b42f9989628f4b3ab015a",
-    "player_database_restore": false,
-    "old_runtime_cleanup_pending": false,
-    "normal_next_start": true,
-    "source_PR": 912,
-    "source_head": "d86f57fd20f1f66dae6be1a0a481b04d59ba8f75",
-    "source_merge_commit": "64dc1d510e39b1c3e305616533f60d2300a7efff",
-    "Git_merge": true,
-    "current_delta_Git_merge": true,
-    "source_Git_merged": true,
-    "shared_runtime_archive_sha256": "d403739391fee2e541f6a4e91eed8ae446bd31dbdd79551305091d01ed0ec4cf",
-    "old_runtime_retired": "unified-server-b6b15dc03dd7354d-f19e6906df62",
-    "old_runtime_code_recovery": "G:\\els\\analysis\\server-latency-20261106-v7\\publication\\previous-local-runtime-code\\recovery.json",
-    "old_private_state_retained_in_place": "G:\\els\\releases\\local\\unified-server-b6b15dc03dd7354d-f19e6906df62\\state"
+    "release": "unified-server-184a8acac79b9417-f12464388353",
+    "path": "releases/local/unified-server-184a8acac79b9417-f12464388353",
+    "manifest_sha256": "6dbdd355699383a2ece2e3fa1694215045ea4ddab96090d5bb447259642012aa"
   },
   "source_files": [
     {
@@ -283,8 +259,8 @@
     },
     {
       "path": "els_server/domain/pet_battle_lobby.py",
-      "sha256": "801f0502cd847c60c8641052583d8a1bf570b33705c869c8ba5d6e5e468724f4",
-      "size": 10937
+      "sha256": "33fe4d194da019c3a7d8129d85a1c4472b3ad1efee7a910a12ec4e0343241e52",
+      "size": 10915
     },
     {
       "path": "els_server/domain/pet_battle_projection.py",
@@ -338,8 +314,8 @@
     },
     {
       "path": "els_server/domain/quest_flow.py",
-      "sha256": "c55af3e36bd265915317d8d7aaa632918106fb756aab77838c7e6dcd6b1346d8",
-      "size": 30778
+      "sha256": "a6557f2e4bbb572c50991ca4b95494d4979c9646104fa548028ade4bede1affe",
+      "size": 31889
     },
     {
       "path": "els_server/domain/raid_economy_flow.py",
@@ -395,6 +371,11 @@
       "path": "els_server/domain/social_settings_flow.py",
       "sha256": "905ef8a226c05f198321eccb93da0d5242ee001bbc5208a0a07fc55f2f4fc39d",
       "size": 891
+    },
+    {
+      "path": "els_server/domain/tutorial_quests.py",
+      "sha256": "b4d81f7bf594c97d5bf825985baca80247ea37e1bf71ee8b7a8d50420d6bc59f",
+      "size": 9599
     },
     {
       "path": "els_server/domain/wedding_flow.py",
@@ -807,5 +788,16 @@
   "main_merged": false,
   "installed": false,
   "public_progress_updated": false,
-  "compatibility_binding": "The admitted original executable and all other registry fields stay identical; bind the updated composer plus its two exact title data dependencies"
+  "compatibility_binding": "The admitted original executable and all other registry fields stay identical; bind the updated composer plus its two exact title data dependencies",
+  "parent_online": {
+    "release": "native-quest-live-admission-20261107-v1",
+    "path": "releases/online/native-quest-live-admission-20261107-v1",
+    "manifest_sha256": "5974d216dc8ae72029b4295d357338b92cf5109ee1ee3c0adc82573ecc0d56a6"
+  },
+  "parent_launcher": {
+    "release": "launcher-quest-live-admission-20261107-v85",
+    "V": 85,
+    "sha256": "bd8d1dd30fd874586999a9a4c16009c06cfa024a0a3294667a0e063478551399"
+  },
+  "parent_delta_review": "Two installed live-admission leaves; clean three-way merge of quest_flow, exact tutorial_quests parent dependency. Mentor guard and pet weekly source checks retained."
 }

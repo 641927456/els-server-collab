@@ -263,23 +263,40 @@ def handle(s,event,sequence):
     except InventoryFull:return failure(wire.QUEST_REWARD_BAG_FULL)
     except ValueError:return failure()
 
+def restore_available(s,replies,*,arrived=False):
+    # Reuse the selected stable scene for qualification changes as well as228.
+    # Idle ticks and ordinary C1 health refreshes do not rescan the quest list.
+    role_changed=any(e.event_id==0x201 and e.kind in (0xc1,0xd9,0x29f) for e in replies)
+    changed=any(e.event_id==0x201 and (e.kind in (0x105,0x1c6,0x197,0xd3,0x21a,0x96d,0x96b,0x664)
+        or e.kind==0xf5 and len(e.payload)>=4 and e.payload[:4]==bytes(4)) for e in replies)
+    if not (arrived or role_changed or changed):return [],False
+    if (not account_source_actor(s) or s.phase!='town_ready' or not s.enter_town
+        or s.dungeon_return_pending or not {0x225,0x227}.issubset(s.completed)
+        or s.pending_map!=s.active_map or s.account.get_location()['map']!=s.active_map):return [],False
+    character=s.account.character_identity()
+    signature=(s.account,s.account.store,s.account.characters,s.account.account_id,s.account.uid,
+        s.shop_session_id,s.active_map,character['unit_type'],character['unit_class'],
+        character['level'],character['transcendence'],character['master'])
+    if not arrived and not changed and getattr(s,'_quest_admission_role',None)==signature:return [],False
+    from els_server.domain.tutorial_quests import restore_initialization
+    events,restored=restore_initialization(store(s),live=True,defer_starter_arrival=s.enter_dungeon,
+        validate=collection_source_guard(s))
+    notices=events if restored else []
+    from els_server.domain.el_search_collection_quest import restore_on_arrival
+    collection_root=restore_on_arrival(s)
+    notices.extend(collection_root)
+    if collection_root:s._quest_passive_kinds=None
+    s._quest_admission_role=signature
+    return notices,restored
+
+
 def observe(s,replies=()):
     if not enabled(s) or s.role!='game' or s.phase not in ('town_ready','dungeon_active'):return []
-    notices=[];run=observed_run(s);starter_restored=False
-    if s.phase=='town_ready' and any(e.event_id==0x201 and e.kind==0x228 and e.payload==bytes(4) for e in replies):
-        # 228 follows successful scene parsing and committed saved location;
-        # neither map selection nor a rejected request supplies this witness.
-        from els_server.domain.tutorial_quests import restore_initialization
-        events,starter_restored=restore_initialization(store(s),live=True)
-        if starter_restored:notices.extend(events)
+    run=observed_run(s)
+    arrived=(s.phase=='town_ready' and any(e.event_id==0x201 and e.kind==0x228 and e.payload==bytes(4) for e in replies))
+    notices,starter_restored=restore_available(s,replies,arrived=arrived)
     # Recover the earlier snapshot-only28060 notification on validated scene
     # arrival. This reuses original F0/F3; it does not send F4 or alter SQL.
-    arrived=(s.phase=='town_ready' and any(e.kind==0x228 and e.payload==bytes(4) for e in replies))
-    if arrived:
-        from els_server.domain.el_search_collection_quest import restore_on_arrival
-        collection_root=restore_on_arrival(s)
-        notices.extend(collection_root)
-        if collection_root:s._quest_passive_kinds=None
     loaded=(run is not None and run.identity==35250 and s.dungeon_substage_synced and any(e.kind==0xbd for e in replies))
     if arrived or loaded:
         announced=getattr(s,'_memory1_ready_announced',frozenset())

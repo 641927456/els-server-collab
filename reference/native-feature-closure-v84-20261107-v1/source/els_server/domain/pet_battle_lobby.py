@@ -166,10 +166,12 @@ def periodic(flow,s):
                 flow.world.send(m,social.party_removed(other.account.uid))
             return
         if lobby.phase=='returning':
-            #111/D9 precede native Town reconstruction, which hides its UI.
-            # Publish13B only after both original225/227 arrivals complete.
+            #225/227 finish Town reconstruction. Native13B only creates a
+            # room when PartyManager+8 is empty;13C clears the old room first.
+            # Encode each recipient's reset and snapshot together before
+            # publishing the restored lobby or changing its server phase.
             notice=snapshot(lobby)
-            boxes=flow.prepare(lobby.members,[(m,(notice,))for m in lobby.members])
+            boxes=flow.prepare(lobby.members,[(m,(social.party_removed(m.account.uid),notice))for m in lobby.members])
             current(flow,lobby)
             lobby.phase='waiting';flow.publish(boxes)
 
