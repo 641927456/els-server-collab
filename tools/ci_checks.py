@@ -10,13 +10,25 @@ sys.path.insert(0,str(ROOT))
 
 
 
-def run(command):subprocess.run(command,cwd=ROOT,check=True)
+_SCRIPT_RUNNER=(
+    "import runpy,sys;from pathlib import Path;"
+    "script=sys.argv.pop(1);"
+    "sys.path.insert(0,str(Path(script).resolve().parent));"
+    "runpy.run_path(script,run_name='__main__')"
+)
+
+def run(command):
+    # The bundled isolated interpreter omits the script's sibling import path.
+    if len(command)>2 and command[2].endswith('.py'):
+        command=command[:2]+['-c',_SCRIPT_RUNNER]+command[2:]
+    subprocess.run(command,cwd=ROOT,check=True)
 
 def main(argv=None):
 
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    run([sys.executable,'-B','-m','unittest','tests.test_ci_script_execution'])
     if (ROOT/'references/ground-drop-models-20261101-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_ground_drop_models_20261101.py')])
         run([sys.executable,'-B','-m','unittest','tests.test_ground_currency'])
