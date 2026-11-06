@@ -17,8 +17,34 @@ def main(argv=None):
     parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
+    if (ROOT/'references/ground-drop-models-20261101-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_ground_drop_models_20261101.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_ground_currency'])
+    if (ROOT/'references/retained-mail-login-20261101-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_retained_mail_login.py')])
+    if (ROOT/'references/controller-quest-gates-20261101-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/check_controller_quest_gates.py')])
+    if (ROOT/'references/elrian-breakable-gates-20261101-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_elrian_breakable_gates_source.py')])
+    if (ROOT/'references/native-field-entry-20261101-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_native_field_entry_sources_20261101.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
+    run([sys.executable,'-B','-m','unittest','tests.test_public_controller_sources'])
+    if (ROOT/'references/owned-common-boxes-dual-20261031-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_owned_common_boxes_sources_20261031.py')])
+    if (ROOT/'references/shop-missing-20261031-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_shop_missing_source_20261031.py')])
+    if (ROOT/'references/native-login-reconnect-20261031-v1/source-contract.json').is_file():
+        run([sys.executable,'-B','-m','unittest','tests.test_login_reconnect_support'])
+    if (ROOT/'references/mainline-leveling-exp20-20261031-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_mainline_leveling_delivery.py')])
+    if (ROOT/'references/ordinary-field-passage-20261031-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_ordinary_field_passage_sources.py')])
+    if (ROOT/'references/spatial-error-text-20261101-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_spatial_error_text_sources.py')])
+    if (ROOT/'references/ep13-retained-inventory-20261101-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_ep13_retained_inventory_sources.py')])
     if (ROOT/'references/pending-source-integration-20261031-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pending_source_integration_20261031.py')])
     if (ROOT/'references/force-categories-sources-20261031-v1/source-contract.json').is_file():
@@ -189,6 +215,9 @@ def main(argv=None):
     if (ROOT/'references/native-force-guild-flow-20261029-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_force_guild_flow_20261029.py')])
         run([sys.executable,'-B','-m','unittest','tests.test_force_guild_contract'])
+    if (ROOT/'references/registered-ground-items-20261101-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_registered_ground_items.py')])
+        run([sys.executable,'-B','-m','unittest','tests.test_registered_ground_items','tests.test_ground_model_support'])
     names=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf8').split('\0')
 
     count=0
@@ -214,6 +243,7 @@ def main(argv=None):
     assert decode_event(frame.plaintext)==event
 
     if args.with_runtime:
+        run([sys.executable,'-B','-m','unittest','tests.test_public_controller_rules'])
         if (ROOT/'references/pr597-takeover-20261028-v1/manifest.json').is_file():
             run([sys.executable,'-B',str(ROOT/'tools/verify_pr597_takeover.py'),'--with-runtime'])
         if (ROOT/'channels/server-latency-guards-20261027-v1.json').is_file():

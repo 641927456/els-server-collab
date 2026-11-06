@@ -1,0 +1,29 @@
+{
+  "mode": "local",
+  "reviewed_head": "33703fa25e100b60f0f30067e9c9ebe329278119",
+  "checks": [
+    {
+      "kind": "input_bounds",
+      "invalid_UIDs_refused_before_SQL": true,
+      "save_unchanged": true
+    },
+    {
+      "kind": "flow",
+      "actual_Application": true,
+      "actual_session_handle": true,
+      "sage": true,
+      "reforge": true,
+      "challenge": true,
+      "wrong_phase_and_lease_refused": true
+    },
+    {
+      "kind": "review_atomicity",
+      "reforge_encoder_rollback": true,
+      "forget_prepare_rollback": true,
+      "legacy_ED_receipt_replay": true
+    }
+  ],
+  "formal_installation": false,
+  "natural_GUI": false,
+  "ok": true
+}

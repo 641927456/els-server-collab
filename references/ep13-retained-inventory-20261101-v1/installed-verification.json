@@ -1,0 +1,35 @@
+{
+  "ok": true,
+  "online": {
+    "release": "ep13-retained-inventory-20261101-v1",
+    "parent_release": "spatial-error-text-20261101-v2",
+    "manifest_sha256": "89b06f9ab2428d858a0425713ab534a60d1b42deaf3c018479f49aa48ec6be14",
+    "observation_seconds": 123.96290719998069
+  },
+  "local": {
+    "release": "local-ep13-retained-inventory-20261101-v1",
+    "parent_release": "local-spatial-error-text-20261101-v2",
+    "manifest_sha256": "aed6fd21d44110e6b93bef3df988aa1b20ea40e044b9504bdd6a3f5801cb778d",
+    "observation_seconds": 120.00006570015103,
+    "actual_module_sha256": "8216029b788f93b33fdd2a1577923088cec7deead2141dbe2e49864afc959799"
+  },
+  "actual_launcher_selector": true,
+  "launcher_changed": false,
+  "public_TLS": true,
+  "public_checks": [
+    "Incomplete direct claim returns187 and preserves inventory/reward/task",
+    "Authenticated original NPC10040 advances the owned accepted objective",
+    "Direct F4 NPC0 commits original reward and next task with all four retained stock unchanged",
+    "Repeated claim does not duplicate reward",
+    "Fresh authenticated connection cold-restores stock, completed parent and pending child"
+  ],
+  "retained_stock_preserved": true,
+  "QA_authentication_cleaned": true,
+  "natural_GUI": false,
+  "source_merged": false,
+  "new_schema": false,
+  "new_sources": false,
+  "original_EXE_KOM_changes": 0,
+  "player_database_restore": false,
+  "private_evidence": "Maintainer retains originals; no player state, credentials, raw traffic, databases or logs included"
+}

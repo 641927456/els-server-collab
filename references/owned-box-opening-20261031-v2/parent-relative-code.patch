@@ -1,0 +1,294 @@
+--- a/els_server/domain/acquisition_policy.py
++++ b/els_server/domain/acquisition_policy.py
+@@ -45,6 +45,9 @@
+     from els_server.domain.furniture_rules import TEMPLATES as furniture_templates,authorize_output as furniture_output
+     if template in furniture_templates:return furniture_output(template,raid_reward_source)
+     if template==203800:return False  # Retired SP-reset medal: preserve old reader, close accidental new sources.
++    from els_server.domain.owned_reward_boxes import authorize_output as owned_box_output,new_templates as owned_box_templates
++    if raid_reward_source is not None and owned_box_output(template,raid_reward_source):return True
++    if template in owned_box_templates():return False
+     from els_server.domain.promotion_reward_boxes import new_templates as career_templates,authorize_output as career_output
+     if raid_reward_source is not None and career_output(template,raid_reward_source):return True
+     if template in career_templates():return False
+--- a/els_server/domain/cubes.py
++++ b/els_server/domain/cubes.py
+@@ -68,4 +68,8 @@
+     for box in job_entries():
+         if box['template'] in result:raise ValueError('Duplicate current job convenience box')
+         result[box['template']]=MappingProxyType(box)
++    from els_server.domain.owned_reward_boxes import entries as owned_entries
++    for box in owned_entries():
++        if box['template'] in result:raise ValueError('Duplicate owned reward box')
++        result[box['template']]=box
+     return MappingProxyType(result)
+--- a/els_server/domain/inventory_items.py
++++ b/els_server/domain/inventory_items.py
+@@ -975,6 +975,13 @@
+ 
+ # Exact current job-box outputs; the original native group7 fashion uses the
+ # already published group27 inventory convention. No new acquisition is opened.
++from els_server.domain.owned_reward_boxes import definitions as _owned_box_readers
++for _r in _owned_box_readers():
++ _t=_r['template'];_tuple=(_r['metadata'],_r['group'],_r['max_stack'])
++ if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_tuple:raise ValueError('Owned box reader conflict')
++ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_tuple
++ if _r['group']in(7,27):FASHION_EQUIP_SLOTS[_t]=FASHION_POSITIONS[_r['equip_position']]
++
+ from els_server.domain.job_reward_boxes import definitions as _job_box_readers
+ for _r in _job_box_readers():
+  _t=_r['template'];_tuple=(_r['metadata'],_r['group'],_r['max_stack'])
+--- a/els_server/domain/local_session.py
++++ b/els_server/domain/local_session.py
+@@ -1126,7 +1126,7 @@
+                     if cube_request.keys not in ((),(0,)) or cube_request.flag1 not in (0,1) or cube_request.flag2 not in (0,1):raise ValueError('Fixed cube preview mode')
+ 
+                     from els_server.domain.job_reward_boxes import BOXES as job_boxes
+-                    if cube_request.template in job_boxes:
++                    if cube_request.template in job_boxes or row.get('owned_reward_box'):
+                         from els_server.domain.tenebros_capacity_flow import selected
+                         if(event.performers not in((),(0,))or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Job box preview envelope')
+                         selected(self)
+@@ -1146,7 +1146,7 @@
+                     if item is None:raise ValueError('Missing fixed cube')
+ 
+                     require_current(item)
+-                    if cube_request.template in job_boxes:
++                    if cube_request.template in job_boxes or row.get('owned_reward_box'):
+                         from els_server.domain.item_locks import require_unlocked
+                         require_unlocked(item)
+                     from els_server.domain.regional_boss_cubes_legacy import BOXES as legacy_boxes,pool_for
+@@ -1159,7 +1159,13 @@
+                 except ValueError:return [preview_ack(-1,cube_request.template)]
+ 
+                 self.fixed_cube_preview_template=cube_request.template
+-                if row.get('growing_adventure_kit'):
++                if row.get('owned_reward_box'):
++                    from els_server.domain.owned_reward_boxes import outputs_for
++                    try:row=dict(row,entries=outputs_for(cube_request.template,self.account.character()))
++                    except ValueError:
++                        self.fixed_cube_preview_template=None
++                        return [preview_ack(1,cube_request.template)]
++                elif row.get('growing_adventure_kit'):
+                     from els_server.domain.growing_adventure_kit import outputs_for
+                     try:row=dict(row,entries=outputs_for(self.account.character()['unit_class']))
+                     except ValueError:
+@@ -1214,7 +1220,7 @@
+                         if (event.performers not in ((),(0,)) or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Participation cube envelope')
+                         gear_path,gear_owner,gear_account,gear_prepare=selected(self)
+                         answer=open_cube(gear_path,gear_owner,cube_template,event.payload,operation,account_id=gear_account,prepare=gear_prepare)
+-                    elif cube_template in (300645,300646,300647,300648):
++                    elif cube_template in (300645,300646,300647,300648,117542,135666,135871,723618,723687,723688):
+                         from els_server.domain.tenebros_capacity_flow import selected
+                         if(event.performers not in((),(0,))or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0):raise ValueError('Job box use envelope')
+                         box_path,box_owner,box_account,box_prepare=selected(self)
+--- a/els_server/domain/owned_reward_boxes.py
++++ b/els_server/domain/owned_reward_boxes.py
+@@ -0,0 +1,84 @@
++"""Owned Essence pouch and class-specific Force choices from published contents."""
++import functools,hashlib,json
++from pathlib import Path
++from types import MappingProxyType
++from els_server.game_data import client_data,CLIENT_SHA
++
++BOXES=frozenset((117542,135666,135871,723618,723687,723688))
++DATA_SHA='3ed67020222f3106c97dea75c4224937c1094aef71ba7c247b95d518a2ca7321'
++
++@functools.lru_cache(maxsize=1)
++def catalog():
++    raw=(Path(__file__).resolve().parents[1]/'data/owned_reward_boxes.json').read_bytes()
++    if hashlib.sha256(raw).hexdigest()!=DATA_SHA:raise ValueError('Owned reward box definition identity')
++    data=json.loads(raw);client=client_data()
++    if data['client_sha256']!=CLIENT_SHA or data['catalog_sha256']!=client.manifest['catalog_sha256']:
++        raise ValueError('Owned reward box client identity')
++    boxes={r['template']:r for r in data['boxes']}
++    if set(boxes)!=BOXES:raise ValueError('Owned reward box scope')
++    for row in (*data['boxes'],*data['readers']):
++        item=client.item(row['template'])
++        if item['name']!=row['name'] or item['metadata']!=row['metadata'] or hashlib.sha256(item['record']).hexdigest()!=row['record_sha256']:
++            raise ValueError('Owned reward box item identity')
++    return data
++
++def definitions():return (*catalog()['boxes'],*catalog()['readers'])
++
++def entries():
++    return tuple(MappingProxyType(dict(template=r['template'],selection_count=r['selection_count'],
++        entries=(),owned_reward_box=True))for r in catalog()['boxes'])
++
++def outputs_for(template,character):
++    row=next(r for r in catalog()['boxes']if r['template']==template)
++    if template in(117542,723618):return tuple(row['class_outputs']['0'])
++    from els_server.domain.character_rules import validate_career_state
++    validate_career_state(character)
++    outputs=row['class_outputs'].get(str(character['unit_class']))
++    if outputs is None:raise ValueError('Reward box does not support the current class')
++    if template in(723687,723688)and character['level']!=99:raise ValueError('Force choice requires level 99')
++    return tuple(outputs)
++
++def selected_outputs(template,character,choices):
++    outputs=outputs_for(template,character)
++    if template not in(723687,723688):
++        if choices:raise ValueError('Fixed reward box does not accept choices')
++        return outputs
++    if len(choices)!=1:raise ValueError('Select exactly one Force book')
++    selected=tuple(r for r in outputs if r['template']==choices[0])
++    if not selected:raise ValueError('Force choice is outside the current class')
++    return selected
++
++@functools.lru_cache(maxsize=1)
++def new_templates():return frozenset(r['template']for r in catalog()['readers']if not r['previously_registered'])
++
++def plan_for(template,character,choices,epoch):
++    readers={r['template']:r for r in catalog()['readers']};plan=[]
++    for output in selected_outputs(template,character,choices):
++        row=readers[output['template']]
++        item=dict(template=row['template'],metadata=row['metadata'],group=row['group'],quantity=output['quantity'])
++        if output.get('inventory_days'):item['expires_at']=epoch+output['inventory_days']*86400
++        plan.append(item)
++    return plan
++
++def authorize_output(template,source):
++    if source is None:return False
++    from els_server.domain.raid_reward_items import validate_source
++    source=validate_source(source);identity=json.loads(source._source)
++    if identity.get('policy')!='owned-reward-boxes-20261031-v1':return False
++    if source.kind!='box'or identity.get('definition_sha256')!=DATA_SHA or identity.get('owner')!=source.owner:
++        raise ValueError('Owned reward box acquisition source')
++    plan=plan_for(identity['template'],identity['character'],tuple(identity['choices']),identity['epoch'])
++    source.validate_plan(plan)
++    if template not in {r['template']for r in plan}:raise ValueError('Output outside owned reward box')
++    return True
++
++def finalize_grants(db,owner,grants,outputs):
++    """Known fixed artifact lines replace the shared factory's pending state."""
++    presets={r['template']:r['option_groups']for r in outputs if 'option_groups'in r}
++    if not presets:return
++    from els_server.storage.equipment_options import replace as replace_options
++    from els_server.storage.equipment_identification import replace as replace_identified
++    for item in grants:
++        groups=presets[item['template']]
++        replace_options(db,owner,item['uid'],item.get('option_groups',{}),groups)
++        replace_identified(db,owner,item['uid'],False,True)
+--- a/els_server/storage/fixed_cubes.py
++++ b/els_server/storage/fixed_cubes.py
+@@ -65,6 +65,7 @@
+     if (any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))
+         or expected_template not in catalog()):raise ValueError('Unsupported fixed cube use')
+     row=catalog()[expected_template]
++    owned_reward=row.get('owned_reward_box',False)
+     # Both fixed and selected cube quantity callbacks send Count here.
+     # Zero is the original one-box route; one explicitly requests one box.
+     # Bulk counts remain unsupported: never consume one for a larger request.
+@@ -73,7 +74,8 @@
+     from els_server.domain.regional_boss_cubes_legacy import BOXES,pool_for
+     legacy=expected_template in BOXES
+     growing=(expected_template==168889 and row.get('growing_adventure_kit')is True)
+-    if row['selection_count']:
++    if owned_reward:output=None
++    elif row['selection_count']:
+         if len(request.choices)!=1:raise ValueError('Select exactly one native cube item')
+         output=next((e for e in row['entries'] if e['template']==request.choices[0]),None)
+         if output is None:raise ValueError('Choice is outside this cube')
+@@ -83,7 +85,7 @@
+     owner,digest=_identity(owner,0x196,struct.pack('>i',expected_template)+payload,operation)
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');require_active_character(db,owner)
+-        if legacy:_legacy_actor(db,owner,account_id,prepare)
++        if legacy or owned_reward:_legacy_actor(db,owner,account_id,prepare)
+         if growing:
+             from els_server.domain.growing_adventure_kit import outputs_for
+             role=db.execute('SELECT unit_class FROM characters WHERE uid=?',(owner,)).fetchone()
+@@ -92,7 +94,7 @@
+         old=_previous(db,operation,digest);before=load_items(db,owner);balance=balances(db,owner)
+         if old is not None:
+             events=_updates(current_changes(db,operation,owner,0x196,old,before))+result(balance['ed'])
+-            if legacy:
++            if legacy or owned_reward:
+                 from els_server.protocol.protocol_codec import encode_event
+                 for event in events:encode_event(event)
+                 _legacy_actor(db,owner,account_id,prepare)
+@@ -109,6 +111,13 @@
+         if row.get('random'):
+             from els_server.domain.regional_boss_cubes import draw
+             output=draw(row,randbelow(10000))
++        owned_outputs=None
++        if owned_reward:
++            from els_server.storage.seal_quests import load_character
++            from els_server.domain.owned_reward_boxes import selected_outputs,plan_for,DATA_SHA
++            character=load_character(db,owner,account_id)
++            owned_outputs=selected_outputs(expected_template,character,request.choices)
++            if item.get('sealed',False):raise ValueError('Unseal owned reward box before opening')
+         regional_source=None
+         if legacy:
+             from els_server.storage.regional_boss_cube_source import _OwnedCubeSource
+@@ -117,23 +126,38 @@
+         if item['count']==1:remove(db,owner,item)
+         else:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item['uid'],owner))
+         if regional_source is not None:regional_source.debit_complete()
+-        outputs=kit_outputs if growing else(output,)
++        outputs=owned_outputs if owned_reward else kit_outputs if growing else(output,)
+         plan=[]
+-        for selected in outputs:
+-            quantity=selected['quantity']
+-            while quantity:
+-                delta=min(quantity,99);quantity-=delta
+-                plan.append(dict(template=selected['template'],metadata=VERIFIED_TEMPLATES[selected['template']],
+-                    group=TEMPLATE_BAG_GROUPS[selected['template']],quantity=delta))
+-                if growing:plan[-1]['enhancement']=selected['enhancement']
+-        grants=grant_items(db,plan,owner,regional_cube_source=regional_source)
++        if not owned_reward:
++            for selected in outputs:
++                quantity=selected['quantity']
++                while quantity:
++                    delta=min(quantity,99);quantity-=delta
++                    plan.append(dict(template=selected['template'],metadata=VERIFIED_TEMPLATES[selected['template']],
++                        group=TEMPLATE_BAG_GROUPS[selected['template']],quantity=delta))
++                    if growing:plan[-1]['enhancement']=selected['enhancement']
++        reward_source=None
++        if owned_reward:
++            import time,uuid
++            from els_server.domain.raid_reward_items import _issue_source
++            epoch=int(time.time());plan=plan_for(expected_template,character,request.choices,epoch)
++            identity=dict(policy='owned-reward-boxes-20261031-v1',definition_sha256=DATA_SHA,
++                template=expected_template,owner=owner,uid=item['uid'],character=character,choices=list(request.choices),epoch=epoch)
++            def authorize(db):
++                _legacy_actor(db,owner,account_id,prepare)
++                return True
++            reward_source=_issue_source(db,owner,str(uuid.uuid5(uuid.NAMESPACE_URL,'owned-box:'+operation)),'box',identity,plan,authorize)
++        grants=grant_items(db,plan,owner,regional_cube_source=regional_source,raid_reward_source=reward_source)
++        if owned_reward:
++            from els_server.domain.owned_reward_boxes import finalize_grants
++            finalize_grants(db,owner,grants,outputs)
+         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
+         positions=sorted({source,*[(i['group'],i['slot']) for i in grants]})
+         events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(selected['template'],selected['quantity'])for selected in outputs])
+-        if growing or legacy:
++        if growing or legacy or owned_reward:
+             from els_server.protocol.protocol_codec import encode_event
+             for event in events:encode_event(event)
+         db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))
+         _commit(db,operation,digest,owner,0x196,positions,before,after)
+-        if legacy:_legacy_actor(db,owner,account_id,prepare)
++        if legacy or owned_reward:_legacy_actor(db,owner,account_id,prepare)
+         return events
+--- a/els_server/storage/job_reward_boxes.py
++++ b/els_server/storage/job_reward_boxes.py
+@@ -25,7 +25,7 @@
+ 
+ def open_box(path,owner,template,payload,operation,*,account_id,prepare,now=None):
+  request=use_request(payload)
+- if template not in BOXES or request.option or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):
++ if template not in BOXES or request.option not in(0,1) or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):
+   raise ValueError('Job convenience box has no client-selected outputs')
+  owner,digest=_identity(owner,0x196,struct.pack('>i',template)+payload,operation)
+  with closing(sqlite3.connect(path,timeout=10))as db,db:
+--- a/els_server/storage/promotion_reward_boxes.py
++++ b/els_server/storage/promotion_reward_boxes.py
+@@ -25,7 +25,7 @@
+ 
+ def open_box(path,owner,template,payload,operation,*,account_id,prepare,now=None):
+  request=use_request(payload)
+- if template not in BOXES or request.option or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):
++ if template not in BOXES or request.option not in(0,1) or request.choices or any(v not in(0,1)for v in(request.flag1,request.flag2,request.flag3)):
+   raise ValueError('Career box box has no client-selected outputs')
+  owner,digest=_identity(owner,0x196,struct.pack('>i',template)+payload,operation)
+  with closing(sqlite3.connect(path,timeout=10))as db,db:

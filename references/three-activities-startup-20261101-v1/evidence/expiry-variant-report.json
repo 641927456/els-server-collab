@@ -1,0 +1,15 @@
+{
+  "root_cause": "A shared predicate narrowed the accepted data shape: existing deadline-only projections have no template",
+  "known_match": "storage/equipment_enhancement.py:33",
+  "expanded_literal_call_matches": [
+    {
+      "path": "els_server/storage/equipment_enhancement.py",
+      "line": 33,
+      "call": "require_current(dict(expires_at=deadline[0]))"
+    }
+  ],
+  "fix": "Use optional template solely for applying event-specific cap; always preserve explicit deadline.",
+  "regression": "test_expiry_projection.py",
+  "new_variants": 0,
+  "scope": "All composed els_server Python call ASTs; variable-projection callers manually traced from item_expiration APIs"
+}

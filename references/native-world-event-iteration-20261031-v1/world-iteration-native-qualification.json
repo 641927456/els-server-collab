@@ -1,0 +1,524 @@
+{
+  "ok": true,
+  "original_native_loop": true,
+  "original_native_code_except_two_hooks": true,
+  "explicit_shims": [
+    "condition result",
+    "action observation",
+    "destructor/free poisoning",
+    "security cookie"
+  ],
+  "actual_game": false,
+  "rows": [
+    {
+      "input": [
+        [
+          true
+        ],
+        []
+      ],
+      "fixed": false,
+      "visited": [
+        [
+          0,
+          0
+        ]
+      ],
+      "actions": [
+        [
+          0,
+          0
+        ]
+      ],
+      "destroyed": [
+        [
+          0,
+          0
+        ]
+      ],
+      "freed": [
+        [
+          0,
+          0
+        ]
+      ],
+      "remaining": [
+        0,
+        0
+      ],
+      "fault": {
+        "error": "Invalid memory read (UC_ERR_READ_UNMAPPED)",
+        "rva": "0x92e0e6"
+      }
+    },
+    {
+      "input": [
+        [],
+        [
+          true
+        ]
+      ],
+      "fixed": false,
+      "visited": [
+        [
+          1,
+          0
+        ]
+      ],
+      "actions": [
+        [
+          1,
+          0
+        ]
+      ],
+      "destroyed": [
+        [
+          1,
+          0
+        ]
+      ],
+      "freed": [
+        [
+          1,
+          0
+        ]
+      ],
+      "remaining": [
+        0,
+        0
+      ],
+      "fault": {
+        "error": "Invalid memory read (UC_ERR_READ_UNMAPPED)",
+        "rva": "0x92e203"
+      }
+    },
+    {
+      "input": [
+        [
+          true
+        ],
+        []
+      ],
+      "fixed": true,
+      "visited": [
+        [
+          0,
+          0
+        ]
+      ],
+      "actions": [
+        [
+          0,
+          0
+        ]
+      ],
+      "destroyed": [
+        [
+          0,
+          0
+        ]
+      ],
+      "freed": [
+        [
+          0,
+          0
+        ]
+      ],
+      "remaining": [
+        0,
+        0
+      ],
+      "fault": null
+    },
+    {
+      "input": [
+        [
+          true,
+          false
+        ],
+        []
+      ],
+      "fixed": true,
+      "visited": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "actions": [
+        [
+          0,
+          0
+        ]
+      ],
+      "destroyed": [
+        [
+          0,
+          0
+        ]
+      ],
+      "freed": [
+        [
+          0,
+          0
+        ]
+      ],
+      "remaining": [
+        1,
+        0
+      ],
+      "fault": null
+    },
+    {
+      "input": [
+        [
+          true,
+          true
+        ],
+        []
+      ],
+      "fixed": true,
+      "visited": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "actions": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "destroyed": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "freed": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "remaining": [
+        0,
+        0
+      ],
+      "fault": null
+    },
+    {
+      "input": [
+        [
+          false,
+          false
+        ],
+        []
+      ],
+      "fixed": true,
+      "visited": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "actions": [],
+      "destroyed": [],
+      "freed": [],
+      "remaining": [
+        2,
+        0
+      ],
+      "fault": null
+    },
+    {
+      "input": [
+        [],
+        [
+          true
+        ]
+      ],
+      "fixed": true,
+      "visited": [
+        [
+          1,
+          0
+        ]
+      ],
+      "actions": [
+        [
+          1,
+          0
+        ]
+      ],
+      "destroyed": [
+        [
+          1,
+          0
+        ]
+      ],
+      "freed": [
+        [
+          1,
+          0
+        ]
+      ],
+      "remaining": [
+        0,
+        0
+      ],
+      "fault": null
+    },
+    {
+      "input": [
+        [],
+        [
+          true,
+          false
+        ]
+      ],
+      "fixed": true,
+      "visited": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "actions": [
+        [
+          1,
+          0
+        ]
+      ],
+      "destroyed": [
+        [
+          1,
+          0
+        ]
+      ],
+      "freed": [
+        [
+          1,
+          0
+        ]
+      ],
+      "remaining": [
+        0,
+        1
+      ],
+      "fault": null
+    },
+    {
+      "input": [
+        [],
+        [
+          true,
+          true
+        ]
+      ],
+      "fixed": true,
+      "visited": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "actions": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "destroyed": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "freed": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "remaining": [
+        0,
+        0
+      ],
+      "fault": null
+    },
+    {
+      "input": [
+        [],
+        [
+          false,
+          false
+        ]
+      ],
+      "fixed": true,
+      "visited": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "actions": [],
+      "destroyed": [],
+      "freed": [],
+      "remaining": [
+        0,
+        2
+      ],
+      "fault": null
+    },
+    {
+      "input": [
+        [
+          true,
+          false,
+          true
+        ],
+        [
+          true,
+          false,
+          true
+        ]
+      ],
+      "fixed": true,
+      "visited": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "actions": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "destroyed": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "freed": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "remaining": [
+        1,
+        1
+      ],
+      "fault": null
+    }
+  ]
+}

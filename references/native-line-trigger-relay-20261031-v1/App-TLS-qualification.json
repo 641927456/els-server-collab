@@ -1,0 +1,27 @@
+{
+  "ok": true,
+  "actual_Application_TLS": true,
+  "controlled_own_room_checkpoint": true,
+  "natural_clear": false,
+  "negative_cases": [
+    "unknown id",
+    "malformed payload",
+    "missing native performer",
+    "foreign performer",
+    "dungeon_substage_synced",
+    "part_end_notified",
+    "clear_notified",
+    "phase",
+    "dungeon_participants",
+    "wrong room",
+    "changed resource",
+    "stale lease"
+  ],
+  "exact_native_performers": [
+    0
+  ],
+  "saved_room_B2_B7_entry": true,
+  "ack_then_original_trigger_notification": true,
+  "repeated_ACK_only": true,
+  "no_room_clear_HP_loot_or_inventory_change": true
+}

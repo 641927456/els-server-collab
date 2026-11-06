@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "version": 59,
+  "parent_version": 58,
+  "files": [
+    {
+      "path": "AutoUpdate.cs",
+      "source": "references/registered-ground-items-20261101-v1/launcher/source/AutoUpdate.cs",
+      "size": 15845,
+      "sha256": "6b952fb852c55e52fd3bb2e32b73110c8ac6bd2aeff62e95d2499dc5fd9df309"
+    },
+    {
+      "path": "ComponentRuntime.cs",
+      "source": "references/registered-ground-items-20261101-v1/launcher/source/ComponentRuntime.cs",
+      "size": 39137,
+      "sha256": "608a9b75ba5737fe2f7caa1ca4edd183017471aca7b73d79f7c455e225c62fdd"
+    },
+    {
+      "path": "LocalBootstrap.cs",
+      "source": "references/registered-ground-items-20261101-v1/launcher/source/LocalBootstrap.cs",
+      "size": 16946,
+      "sha256": "b22270eeac0971f00a2aafe386593272cd95b43b736efc3d8ace9a00ab7ef77a"
+    },
+    {
+      "path": "RegisteredGroundRuntimeCohort.cs",
+      "source": "references/registered-ground-items-20261101-v1/launcher/source/RegisteredGroundRuntimeCohort.cs",
+      "size": 2453,
+      "sha256": "0b7df4dc4bb970c1809f8495a065e53a8d4d7b86d8296ea89b1886eb57473b6b"
+    },
+    {
+      "path": "resources/registered-ground-local-bootstrap.py",
+      "source": "references/registered-ground-items-20261101-v1/launcher/source/resources/registered-ground-local-bootstrap.py",
+      "size": 218998,
+      "sha256": "94bd4ce682dce7ab5b39c7d73b3cb6f3e5762fdcb45550026d686f5696216205"
+    },
+    {
+      "path": "resources/registered-ground-predecessor.txt",
+      "source": "references/registered-ground-items-20261101-v1/launcher/source/resources/registered-ground-predecessor.txt",
+      "size": 351860,
+      "sha256": "570794b0fa93280e6bbb3083c77f4d7478da7052f0a0e4c3318fe029d13b8f52"
+    },
+    {
+      "path": "resources/registered-ground-signedLOCAL.signed.json",
+      "source": "references/registered-ground-items-20261101-v1/launcher/source/resources/registered-ground-signedLOCAL.signed.json",
+      "size": 355733,
+      "sha256": "cfcda8b56b75d65b7bd5fee103ee6e44b7e1e32838300965ee89085a9e3430fe"
+    },
+    {
+      "path": "resources/registered-ground-signedFriends.signed.json",
+      "source": "references/registered-ground-items-20261101-v1/launcher/source/resources/registered-ground-signedFriends.signed.json",
+      "size": 339313,
+      "sha256": "e28ba7da9248cf19e76c2c222446b8596c2127253a518de9e5336e4cc31093d7"
+    },
+    {
+      "path": "build_launcher_v59.py",
+      "source": "references/registered-ground-items-20261101-v1/launcher/source/build_launcher_v59.py",
+      "size": 19961,
+      "sha256": "9cfc0dd81290f9b6a2e038a843cb7f7e4aca84d90252fef5fbaec010519425b5"
+    }
+  ],
+  "exe_sha256": "ca067530ddae605de2d371807656b89e1a114d7edac7e1c8ea49cf5294663de0",
+  "component_counts": {
+    "LOCAL": 1887,
+    "Friends": 1798
+  },
+  "component_delta": {
+    "signedLOCAL": [
+      "els_server/domain/drop_pickup.py",
+      "els_server/domain/dungeon_drops.py",
+      "els_server/domain/local_session.py",
+      "els_server/protocol/mail_notifications_2026.py",
+      "els_server/storage/item_instances.py",
+      "els_server/storage/mail_attachments.py",
+      "local-bootstrap-source.json",
+      "tools/client_compatibility_profiles.json",
+      "tools/native_cache_sync.py",
+      "tools/native_ground_models.js",
+      "tools/native_ground_models.py"
+    ],
+    "signedFriends": [
+      "tools/client_compatibility_profiles.json",
+      "tools/native_cache_sync.py",
+      "tools/native_ground_models.py",
+      "tools/native_ground_models.js"
+    ]
+  },
+  "original_EXE_KOM_changes": 0,
+  "private_signing_key_included": false,
+  "archives_or_EXE_in_Git": false,
+  "unchanged_parent_resources_retained": true,
+  "source_candidate_PR": 724,
+  "source_candidate_head": "730fd8c99846e218687f1ce7d69b1f45c3dca5c5",
+  "note": "Changed launcher source and signed public manifests only. Unchanged V58 resources remain bound by the actual parent build; publication/installation state is separately recorded."
+}

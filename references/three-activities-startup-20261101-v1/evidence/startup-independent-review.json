@@ -1,0 +1,113 @@
+{
+  "result": "PASS",
+  "reviewer": "01a1943c-ec8b-7bb0-9682-188ec0c84bb8",
+  "author": "01a1943f-c39f-7732-aecb-b2616261689c",
+  "independent_of_author": true,
+  "reviewed_Hook_changed_by_reviewer": false,
+  "source": {
+    "signed_or_published": false,
+    "launcher_parent": "launcher-registered-ground-items-20261101-v59-v1",
+    "modes": {
+      "friends": {
+        "manifest_sha256": "e28ba7da9248cf19e76c2c222446b8596c2127253a518de9e5336e4cc31093d7",
+        "archive_sha256": "7802e22ad2023e8de1679665ae5a0ab50884cb095ad73055fc41473c6c217dd7",
+        "trace_sha256_unchanged": "18f648df8b878a6b7e566a7216c9f187639d7824ad3d1369da0beb3d95149f41",
+        "original_mode_profile_preserved_except_three_artifact_entries": true,
+        "composed_source_sha256": "2ad815e859305e16a7e20138ae68d5e118f43686233fd0e97bf8533fe9c85ee7",
+        "files": [
+          {
+            "path": "tools/client_compatibility_profiles.json",
+            "sha256": "e3e0047d679b071bfdada097b43817b9f4803688d65c64bdbb45396073baa7f3",
+            "size": 20974,
+            "parent_sha256": "28580d61fcfd06491a01982979b78e3fd0cad112cf32ad61aae4f100f30e3084"
+          },
+          {
+            "path": "tools/native_cache_sync.py",
+            "sha256": "ab02c3656c80d19a260aa4719196c2a1b2355182544fe3ce590a487d80f976f1",
+            "size": 5050,
+            "parent_sha256": "22dcc62cf1a7f2dbebdda9bb9c38d43e3ac188bb2d9744097741f04a1ac19621"
+          },
+          {
+            "path": "tools/startup_ui_visibility.js",
+            "sha256": "e26d8fed44adf07983e3916e56ca488950dc2c0ba23b9dffc837ffab5557a997",
+            "size": 4555,
+            "parent_sha256": null
+          },
+          {
+            "path": "tools/startup_ui_visibility.py",
+            "sha256": "1c5caca329ef4803ec691072dfe565b34df8fcda4a1cfc0a6f4e47255ab027d9",
+            "size": 1938,
+            "parent_sha256": null
+          }
+        ]
+      },
+      "local": {
+        "manifest_sha256": "cfcda8b56b75d65b7bd5fee103ee6e44b7e1e32838300965ee89085a9e3430fe",
+        "archive_sha256": "72bdad15e0f9c6d1919ace445c01796cbca53e8300b02c7baa13b65bf9f3ae9c",
+        "trace_sha256_unchanged": "640a6daeffd8e43382a1e0e5de9b3aa4a8a75716f265d7d372f2344179f75bb3",
+        "original_mode_profile_preserved_except_three_artifact_entries": true,
+        "composed_source_sha256": "fb414d6be444e64e29d314b665225645117241f64eeb57f21ec6e494e6f9c1ea",
+        "files": [
+          {
+            "path": "tools/client_compatibility_profiles.json",
+            "sha256": "c356a28b8b6f1cf8b81c6a41d7be227e825dc3108f45834b0ff0344be6344868",
+            "size": 21080,
+            "parent_sha256": "a38a7ad371d262d8160ee8debc2b64d2f0dae7e695e6c08b9fab64a3482dda16"
+          },
+          {
+            "path": "tools/native_cache_sync.py",
+            "sha256": "ab02c3656c80d19a260aa4719196c2a1b2355182544fe3ce590a487d80f976f1",
+            "size": 5050,
+            "parent_sha256": "22dcc62cf1a7f2dbebdda9bb9c38d43e3ac188bb2d9744097741f04a1ac19621"
+          },
+          {
+            "path": "tools/startup_ui_visibility.js",
+            "sha256": "e26d8fed44adf07983e3916e56ca488950dc2c0ba23b9dffc837ffab5557a997",
+            "size": 4555,
+            "parent_sha256": null
+          },
+          {
+            "path": "tools/startup_ui_visibility.py",
+            "sha256": "1c5caca329ef4803ec691072dfe565b34df8fcda4a1cfc0a6f4e47255ab027d9",
+            "size": 1938,
+            "parent_sha256": null
+          }
+        ]
+      }
+    }
+  },
+  "checks": [
+    {
+      "mode": "friends",
+      "all_four_candidate_SHA": true,
+      "exact_parent_SHA": true,
+      "only_three_profile_artifacts_changed": true,
+      "trace_preserved": true
+    },
+    {
+      "mode": "local",
+      "all_four_candidate_SHA": true,
+      "exact_parent_SHA": true,
+      "only_three_profile_artifacts_changed": true,
+      "trace_preserved": true
+    }
+  ],
+  "adapter_sha256": "e26d8fed44adf07983e3916e56ca488950dc2c0ba23b9dffc837ffab5557a997",
+  "wrapper_sha256": "1c5caca329ef4803ec691072dfe565b34df8fcda4a1cfc0a6f4e47255ab027d9",
+  "direct_startup_compose_callers": 1,
+  "native_cache_compose_consumers": [
+    "probe_updated_client.py"
+  ],
+  "findings": [],
+  "publication_requirements": [
+    "signed component closure and per-mode profiles",
+    "selected support actually loads",
+    "Friends natural startup remains unverified"
+  ],
+  "evidence_reused": [
+    "native-fixture-result.json",
+    "update-variant-compile.json",
+    "live-trial-8/result.json"
+  ],
+  "history": "Exact non-Git snapshot comparison; no Git blame available for unpublished candidate"
+}

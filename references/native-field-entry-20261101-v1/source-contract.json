@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "source_archive_only": true,
+  "root_engine_activated": false,
+  "channels": {
+    "online": {
+      "parent_release": "shop-rare-navy-20261101-v1",
+      "parent_manifest_sha256": "e6ebd65878b12011d366e112da77261f947cc0311def94216ca59e52f2971f43",
+      "release": "native-field-entry-identity-20261101-v1",
+      "formal_manifest_sha256": "aa3309ea78a6f7da94bc64c8805536823829e601be67459157df8f8de9465fe3",
+      "changes": [
+        {
+          "path": "els_server/domain/field_travel.py",
+          "sha256": "4c0426a2ae1cfa43f12c2af801af13012e92ea48eb7067ccc030a2b9edb6cb3f",
+          "size": 7852,
+          "parent_sha256": "cbf3445912b5efaf67e791c883cb39f0441562bea17695c242031dc46dc005a0",
+          "source": "references/native-field-entry-20261101-v1/source/common/els_server/domain/field_travel.py"
+        },
+        {
+          "path": "els_server/protocol/field_boss_messages.py",
+          "sha256": "6743840b46e90fa4342a547c69febfb2bbeabe319acb0f2e7eefa7c02d88161e",
+          "size": 4358,
+          "parent_sha256": "1c32a18ee5846f8ef6c714ebd9e1e14d634a5af3c0ea8e84d9ce070f586c13f5",
+          "source": "references/native-field-entry-20261101-v1/source/common/els_server/protocol/field_boss_messages.py"
+        }
+      ]
+    },
+    "local": {
+      "parent_release": "local-shop-rare-navy-20261101-v1",
+      "parent_manifest_sha256": "c9478088aac43beb40a0b89e356df305ab9d9474a39caf71ca68a90aaea3ae61",
+      "release": "local-native-field-entry-identity-20261101-v1",
+      "formal_manifest_sha256": "efd4bbbbb31a7380b288b73c038b5c329f7b4cc6db62c4a6706a75fe081b935d",
+      "changes": [
+        {
+          "path": "els_server/domain/field_travel.py",
+          "sha256": "4c0426a2ae1cfa43f12c2af801af13012e92ea48eb7067ccc030a2b9edb6cb3f",
+          "size": 7852,
+          "parent_sha256": "cbf3445912b5efaf67e791c883cb39f0441562bea17695c242031dc46dc005a0",
+          "source": "references/native-field-entry-20261101-v1/source/common/els_server/domain/field_travel.py"
+        },
+        {
+          "path": "els_server/protocol/field_boss_messages.py",
+          "sha256": "6743840b46e90fa4342a547c69febfb2bbeabe319acb0f2e7eefa7c02d88161e",
+          "size": 4358,
+          "parent_sha256": "1c32a18ee5846f8ef6c714ebd9e1e14d634a5af3c0ea8e84d9ce070f586c13f5",
+          "source": "references/native-field-entry-20261101-v1/source/common/els_server/protocol/field_boss_messages.py"
+        }
+      ]
+    }
+  },
+  "related_source_PR": 703,
+  "related_source_head": "15113a236aba7320bea65160a39cacf198b78488",
+  "client_changes": 0,
+  "new_schema": false,
+  "player_database_restore": false,
+  "validation": {
+    "native_packet_fields": 25,
+    "authenticated_reachable_edges": 76,
+    "controlled_native_scene_fields": [
+      40037,
+      40036
+    ],
+    "stable_seconds_each": 70,
+    "natural_walking": false,
+    "natural_battle": false,
+    "private_evidence_sha256": {
+      "native-result.json": "c55131efc4365e8c81060bff1c250a9fafdd8798a032b577299e9e0d6f24b777",
+      "candidate-tests-local.json": "f9c1515b655a15d12d5463d8645c57bb0923851d0a380ddfc2ce7aa4a7f842aa",
+      "result.json": "0fe69cc3e3bef6ffd274fe2156849f04112dca7d0c7b979cb4f0a7558db01443"
+    }
+  },
+  "private_evidence_note": "Raw logs, native images, account/player databases and credentials excluded; maintainer private originals are pinned by SHA."
+}

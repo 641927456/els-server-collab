@@ -2,7 +2,7 @@
 import sqlite3,secrets
 from contextlib import closing
 from els_server.storage.profession_state import require_owner
-from els_server.domain.identification_ui import require_template,catalog,draw_for_template
+from els_server.domain.identification_ui import require_template,reset_materials,draw_for_template
 from els_server.domain.item_expiration import require_current
 from els_server.domain.item_locks import require_unlocked
 from els_server.protocol.identification_messages import request,acknowledgement
@@ -42,7 +42,7 @@ def perform(path,owner,kind,payload,operation,randbelow=secrets.randbelow,*,acco
    from els_server.domain.artifact_identification import supported,reset_values
    reset_options=reset_values(item['template'],previous.get('1',[])) if supported(item['template']) else []
    material=by_uid.get(material_uid)
-   if material is None or str(material['template']) not in catalog()['materials']:raise ValueError('Owned original reset scroll required')
+   if material is None or str(material['template']) not in reset_materials():raise ValueError('Owned original reset scroll required')
    require_current(material);require_unlocked(material)
    if material['count']==1:remove(db,owner,material)
    else:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(material_uid,owner))
