@@ -43,6 +43,8 @@ def main(argv=None):
     if (ROOT/'references/dungeon-variable-spawn-closure-20261104-v5/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'references/dungeon-variable-spawn-closure-20261104-v5/verify_contract.py')])
         run([sys.executable,'-B',str(ROOT/'references/dungeon-variable-spawn-closure-20261104-v5/test_flow_properties.py')])
+    if (ROOT/'references/native-hot-time-permanent-20261104-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_hot_time_source_20261104.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
     run([sys.executable,'-B','-m','unittest','tests.test_public_controller_sources'])

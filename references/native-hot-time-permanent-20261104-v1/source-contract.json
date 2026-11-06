@@ -1,0 +1,114 @@
+{
+  "format": 1,
+  "issue": 813,
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "channels": {
+    "online": {
+      "source_parent_release": "native-glass-door-lifecycle-20261104-v1",
+      "installation_parent_release": "native-dungeon-spawn-loot-scope-20261104-v1",
+      "installed_release": "native-hot-time-permanent-20261104-v1",
+      "installed_manifest_sha256": "cbd41ebae4260c05d24fdeaefceb2f5006b9c29eb8d9333c7a87f2f213697aae",
+      "files": {
+        "els_server/domain/hot_time.py": {
+          "source": "source/online/els_server/domain/hot_time.py",
+          "sha256": "0e6c9b70c380bd2314fcfb3f3d789c9761f3f328ecca1095b6be35f3d61d9558",
+          "parent_sha256": null,
+          "size": 2658
+        },
+        "els_server/data/hot_time.json": {
+          "source": "source/online/els_server/data/hot_time.json",
+          "sha256": "d14254f6106afd333f6b4bc71292e090a6a53c8e30a429471e41e19c57524ea1",
+          "parent_sha256": null,
+          "size": 109
+        },
+        "els_server/domain/local_session.py": {
+          "source": "source/online/els_server/domain/local_session.py",
+          "sha256": "75aca471d71cda2010e8e33419ee53c4684e4c2ae09df1cf36732b42d441cdb4",
+          "parent_sha256": "37241b8a3ae1e354fcc6e9d61350740a01a43c2057b2a46f78147c2c3705796e",
+          "size": 152868
+        },
+        "els_server/domain/normal_fatigue_flow.py": {
+          "source": "source/online/els_server/domain/normal_fatigue_flow.py",
+          "sha256": "152f0a524da133b51fcd97beecc762c9453fca24acbf1893561d6125254b9191",
+          "parent_sha256": "c59507557a8e1eafa275d77d02649560b84acaf60b3030f76c608d4fd458ca6c",
+          "size": 16077
+        },
+        "els_server/storage/reward_state.py": {
+          "source": "source/online/els_server/storage/reward_state.py",
+          "sha256": "300c028e7749e0b4b24b0079d7d17ed580263de7596b33988928468cac12399a",
+          "parent_sha256": "856f99c56976cc0b95dfbabcc906616d91d41af45c006a4b54dd2fd4060453b4",
+          "size": 21672
+        },
+        "els_server/storage/legacy_pve_exp.py": {
+          "source": "source/online/els_server/storage/legacy_pve_exp.py",
+          "sha256": "c072e814fcd2550b7df40e2d7df76c826ecff0935fe5b2eea01adcf2e04c0c29",
+          "parent_sha256": "dd6afd27e724d2cb9d9524f43f1b36f4a64e2b3af2d2fd3fa738009a2e4fbc3f",
+          "size": 8151
+        }
+      }
+    },
+    "local": {
+      "source_parent_release": "local-native-dungeon-skill-replacement-20261104-v1",
+      "installation_parent_release": "local-native-dungeon-skill-replacement-20261104-v1",
+      "installed_release": "local-native-hot-time-permanent-20261104-v1",
+      "installed_manifest_sha256": "aaf605d0b7745813e3930aac0cbc238a7a472b95d0cd77d3ea81d5399d3063b9",
+      "files": {
+        "els_server/domain/hot_time.py": {
+          "source": "source/local/els_server/domain/hot_time.py",
+          "sha256": "0e6c9b70c380bd2314fcfb3f3d789c9761f3f328ecca1095b6be35f3d61d9558",
+          "parent_sha256": null,
+          "size": 2658
+        },
+        "els_server/data/hot_time.json": {
+          "source": "source/local/els_server/data/hot_time.json",
+          "sha256": "d14254f6106afd333f6b4bc71292e090a6a53c8e30a429471e41e19c57524ea1",
+          "parent_sha256": null,
+          "size": 109
+        },
+        "els_server/domain/local_session.py": {
+          "source": "source/local/els_server/domain/local_session.py",
+          "sha256": "b41796ef4205fa556f9ed8127b4283b9a9e2f0c726c8a7f5364140276a898aa9",
+          "parent_sha256": "ac66a8624b953b96ccc814ff311502c4b6c527f8fd49d2f1da54354abe2fd282",
+          "size": 148337
+        },
+        "els_server/domain/normal_fatigue_flow.py": {
+          "source": "source/local/els_server/domain/normal_fatigue_flow.py",
+          "sha256": "3d3b0c8bf021e3bd224ae20003f33cfc19f75bc8b81843ebba67409b364a59f8",
+          "parent_sha256": "9c9ae1638f99b25bbae996e4cbbfea261975e98765fee84352c7a24cab26eec5",
+          "size": 15847
+        },
+        "els_server/storage/reward_state.py": {
+          "source": "source/local/els_server/storage/reward_state.py",
+          "sha256": "300c028e7749e0b4b24b0079d7d17ed580263de7596b33988928468cac12399a",
+          "parent_sha256": "856f99c56976cc0b95dfbabcc906616d91d41af45c006a4b54dd2fd4060453b4",
+          "size": 21672
+        },
+        "els_server/storage/legacy_pve_exp.py": {
+          "source": "source/local/els_server/storage/legacy_pve_exp.py",
+          "sha256": "c072e814fcd2550b7df40e2d7df76c826ecff0935fe5b2eea01adcf2e04c0c29",
+          "parent_sha256": "dd6afd27e724d2cb9d9524f43f1b36f4a64e2b3af2d2fd3fa738009a2e4fbc3f",
+          "size": 8151
+        }
+      }
+    }
+  },
+  "runtime_files_per_channel": 6,
+  "root_engine_changed": false,
+  "automatic_deployment": false,
+  "new_schema": false,
+  "new_tables": [],
+  "client_delta": 0,
+  "Git_merge": false,
+  "private_evidence": "Original full runtime inputs, native snapshot and detailed failure records remain with the maintainer; no player data, credentials, binary assets, captures or runtime logs are included.",
+  "evidence": {
+    "validation/delivery-summary.json": "bc94c1b08561b943de017619d919445bfea32f44a46727d14df029e74f7361c9",
+    "validation/native-codec-proof.json": "494a774570c9495bb78730c9d770078b5273d5b729986835d7fcc01feefed043",
+    "validation/public-protocol-summary.json": "e5d5f31c29f74f37ed408b9b9b74b79f838eacfad9c32575c97849fed3cfa7d9",
+    "validation/qa-business-local.json": "1d2f40464b84930349b3efc1f34459c9ca69616f6f851a69a84c7afca2107e68",
+    "validation/qa-business-online.json": "8694e53ed5bd5d3ce921c94eac470584f7f81648a97c2e605c84446905468d1a",
+    "validation/qa-tls-local-group.json": "cae592af191f916e7fe1f4e7dd85f4df51aa5304af00462c9472db4272689360",
+    "validation/qa-tls-local-solo.json": "aaf40874a715c5b807a976ebba8f8c52c5ddd5ec854ea216ce65a77893fa2dd5",
+    "validation/qa-tls-online-group.json": "a242ae456d28548c1c7ec548b847b915ff4ed473496e676f342f77e8a039a152",
+    "validation/qa-tls-online-solo.json": "a3dad1db31c0bca22c004ea2ce2bce4e13fe7eab6ba37cbb3b34f1083d2fb2af"
+  }
+}
