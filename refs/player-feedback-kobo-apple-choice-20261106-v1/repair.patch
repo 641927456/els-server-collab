@@ -1,0 +1,183 @@
+--- a/els_server/data/potion_choice_box.json
++++ b/els_server/data/potion_choice_box.json
+@@ -82,6 +82,84 @@
+       "admitted": true,
+       "existing_owned_only": true,
+       "unknown_raw_stack_not_factory_authority": true
++    },
++    {
++      "template": 716611,
++      "name": "[科宝]苹果（50个）选择宝箱",
++      "description": "内含各种苹果的宝箱！\n可以挑选想吃的苹果。\n\n内含：\n-[路莉尔]巨人的石苹果50个\n-[路莉尔]疾风的星云苹果50个\n-[路莉尔]超人的有机苹果50个\n中其中一个",
++      "record_hex": "43ef0a00021040003800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002e00ad045000ad04000000000000000000000000000000000000000000000000000000000000000000000000b4487a03000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a4081903d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
++      "record_sha256": "33289c0a6b197fef0aee3cf3dccc5c982adc69d99cecafcb7172f27cf591da80",
++      "selection_count": 1,
++      "entries": [
++        {
++          "template": 710313,
++          "quantity": 50,
++          "name": "[路莉尔]巨人的石苹果",
++          "record_sha256": "085d0e5b900809397ca32744881661c98d1f158e19b0d70f39b344cf416ff388"
++        },
++        {
++          "template": 710315,
++          "quantity": 50,
++          "name": "[路莉尔]疾风的星云苹果",
++          "record_sha256": "07532e63ca6371108097c9b6e2abc3c159c7fe9527c30ae1eb4b1b47d34e3c20"
++        },
++        {
++          "template": 710314,
++          "quantity": 50,
++          "name": "[路莉尔]超人的有机苹果",
++          "record_sha256": "6032422df05da26dd959b1a277f49573b3815eecb53be3a439a83539b305e010"
++        }
++      ],
++      "random_rule": {
++        "m_KeyItemID": 0,
++        "m_iGiveCount": 1,
++        "m_ItemID": 716611,
++        "m_RequiredKeyCount": 0,
++        "m_UseCondition": 1,
++        "1": {
++          "m_iItemGroupID": 716611,
++          "m_cUnitClass": 0
++        }
++      }
++    },
++    {
++      "template": 718113,
++      "name": "[科宝]苹果（50个）选择宝箱",
++      "description": "内含各种苹果的宝箱！\n可以挑选想吃的苹果。\n\n内含：\n-[路莉尔]巨人的石苹果50个\n-[路莉尔]疾风的星云苹果50个\n-[路莉尔]超人的有机苹果50个\n中其中一个",
++      "record_hex": "21f50a000210400038000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000028e2ae044ae2ae040000000000000000000000000000000000000000000000000000000000000000000000002a1c7b03000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a4081903dea5b7020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
++      "record_sha256": "dbc1fae24627f097f8e9f0d8e09f6c6e5b48ea37bbd0521a7d44a16598142a68",
++      "selection_count": 1,
++      "entries": [
++        {
++          "template": 710313,
++          "quantity": 50,
++          "name": "[路莉尔]巨人的石苹果",
++          "record_sha256": "085d0e5b900809397ca32744881661c98d1f158e19b0d70f39b344cf416ff388"
++        },
++        {
++          "template": 710315,
++          "quantity": 50,
++          "name": "[路莉尔]疾风的星云苹果",
++          "record_sha256": "07532e63ca6371108097c9b6e2abc3c159c7fe9527c30ae1eb4b1b47d34e3c20"
++        },
++        {
++          "template": 710314,
++          "quantity": 50,
++          "name": "[路莉尔]超人的有机苹果",
++          "record_sha256": "6032422df05da26dd959b1a277f49573b3815eecb53be3a439a83539b305e010"
++        }
++      ],
++      "random_rule": {
++        "m_KeyItemID": 0,
++        "m_iGiveCount": 1,
++        "m_ItemID": 718113,
++        "m_RequiredKeyCount": 0,
++        "m_UseCondition": 1,
++        "1": {
++          "m_iItemGroupID": 1000718113,
++          "m_cUnitClass": 0
++        }
++      }
+     }
+   ],
+   "local_mapping": [
+--- a/els_server/domain/potion_choice_box.py
++++ b/els_server/domain/potion_choice_box.py
+@@ -1,11 +1,11 @@
+-"""One original owned potion choice box, using the approved exact output mapping."""
++"""Retained consumable choice boxes with exact native or approved mappings."""
+ import functools,hashlib,json,struct
+ from pathlib import Path
+ from types import MappingProxyType
+ 
+-BOXES=(303673,)
+-OUTPUTS=(710003,710284)
+-PAYLOAD_SHA='23d911f6f400eb3c4645c142e2e6d2a3450564d58fe09753d4a10700ddd47299'
++BOXES=(303673,716611,718113)
++OUTPUTS=(710003,710284,710313,710315,710314)
++PAYLOAD_SHA='a61efb2fbcec573a13c8fe1323dd15c861e1b282a86394638628c22d8d6136cd'
+ 
+ @functools.lru_cache(maxsize=1)
+ def definitions():
+@@ -19,14 +19,16 @@
+     if d['local_mapping']!=[dict(template=710003,quantity=100),dict(template=710284,quantity=130)]or d['new_box_sources']:raise ValueError('Potion choice approved mapping')
+     for r in d['rows']:
+         t=r['template'];item=client_data().item(t)
+-        if(hashlib.sha256(item['record']).hexdigest()!=r['record_sha256']or item['record'].hex()!=r['record_hex']or(item['item_type'],item['metadata'],item['flags4'],item['flags8'])!=(7,0,0x401002,56)
+-            or r['selection_count']!=1 or tuple((e['template'],e['quantity'])for e in r['entries'])!=((710003,100),(710284,130))
+-            or r['random_rule']!=dict(m_KeyItemID=0,m_iGiveCount=1,m_ItemID=t,m_RequiredKeyCount=0,m_UseCondition=1,**{'1':dict(m_iItemGroupID=999187143,m_cUnitClass=0)})):
++        expected=((710003,100),(710284,130))if t==303673 else((710313,50),(710315,50),(710314,50))
++        source_group={303673:999187143,716611:716611,718113:1000718113}[t]
++        if(hashlib.sha256(item['record']).hexdigest()!=r['record_sha256']or item['record'].hex()!=r['record_hex']or(item['item_type'],item['metadata'])!=(7,0)
++            or r['selection_count']!=1 or tuple((e['template'],e['quantity'])for e in r['entries'])!=expected
++            or r['random_rule']!=dict(m_KeyItemID=0,m_iGiveCount=1,m_ItemID=t,m_RequiredKeyCount=0,m_UseCondition=1,**{'1':dict(m_iItemGroupID=source_group,m_cUnitClass=0)})):
+             raise ValueError('Potion choice original input and approved exact outputs')
+         for e in r['entries']:
+             out=client_data().item(e['template'])
+             if((VERIFIED_TEMPLATES.get(e['template']),TEMPLATE_BAG_GROUPS.get(e['template']),TEMPLATE_MAX_STACKS.get(e['template']))!=(2,6,999)
+-                or out['name']!=e['name']or hashlib.sha256(out['record']).hexdigest()!=e['record_sha256']or item_binding(e['template'])!=e['binding']or e['name']+str(e['quantity'])+'个'not in r['description']):raise ValueError('Potion choice native output identity')
++                or out['name']!=e['name']or hashlib.sha256(out['record']).hexdigest()!=e['record_sha256']or ('binding'in e and item_binding(e['template'])!=e['binding'])or e['name']+str(e['quantity'])+'个'not in r['description']):raise ValueError('Potion choice native output identity')
+     return MappingProxyType({r['template']:MappingProxyType(r)for r in d['rows']})
+ 
+ def admitted():return frozenset(t for t,r in definitions().items()if r.get('admitted',True))
+@@ -55,6 +57,8 @@
+     result=_ExistingBox(v);result._original=dict(v);return result
+ 
+ def validate_existing(item):
++    from els_server.domain.retained_native_consumables import _ExistingNativeConsumable,validate_existing as validate_native
++    if type(item)is _ExistingNativeConsumable and item.get('template')in BOXES:return validate_native(item)
+     if type(item)is not _ExistingBox or dict(item)!=item._original:raise ValueError('Potion choice box requires unchanged SQL reader')
+     read_existing(dict(item));return item
+ 
+--- a/els_server/storage/potion_choice_box.py
++++ b/els_server/storage/potion_choice_box.py
+@@ -52,7 +52,8 @@
+         elif db.execute('UPDATE inventory_items SET count=count-1 WHERE owner=? AND uid=? AND count=?',(owner,item['uid'],item['count'])).rowcount!=1:
+             raise ValueError('Potion choice box count changed')
+         definition=definitions()[item['template']]
+-        selected=next(e for e in definition['entries']if e['template']==request.choices[0])
++        selected=next((e for e in definition['entries']if e['template']==request.choices[0]),None)
++        if selected is None:raise ValueError('Choice is outside this owned box')
+         grants=grant_items(db,[dict(template=selected['template'],metadata=2,group=6,quantity=selected['quantity'])],owner)
+         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
+         positions=sorted({(item['group'],item['slot']),*((i['group'],i['slot'])for i in grants)})
+--- a/els_server/domain/inventory_items.py
++++ b/els_server/domain/inventory_items.py
+@@ -598,6 +598,8 @@
+ _OPTIONAL_ITEM_FIELDS=frozenset(('attributes','durability','expires_at','enhancement','lock_until','option_groups','identified','enhancement_gauge','enhancement_guarantee','sealed','seal_used','artifact_socket_open','chip_tuning','reforge','appearance_template','wardrobe_hanger','dye_colors','appearance_colors','cartridge'))
+ 
+ 
++from els_server.domain.potion_choice_box import BOXES as existing_potion_choices
++
+ def validate_item(item,*,container='inventory'):
+  if container not in ('inventory','guild_bank'):raise ValueError('Unknown item container')
+  if isinstance(item,dict)and item.get('template')in existing_native_consumer_holds:
+@@ -606,7 +608,7 @@
+   # SQL reader objects still retain their unchanged-instance contract.
+   if type(item)is _ExistingNativeConsumable or item['template']not in VERIFIED_TEMPLATES:
+    return validate_existing(item)
+- if isinstance(item,dict)and item.get("template")==303673:
++ if isinstance(item,dict)and item.get("template")in existing_potion_choices:
+   from els_server.domain.potion_choice_box import validate_existing
+   return validate_existing(item)
+  if isinstance(item,dict)and item.get("template")in existing_normal_fatigue_potions:
+--- a/els_server/storage/inventory_state.py
++++ b/els_server/storage/inventory_state.py
+@@ -157,10 +157,10 @@
+  from els_server.domain.normal_fatigue_rules import read_existing as read_normal_fatigue
+  for index,item in enumerate(items):
+   if item["template"]in (77200, 77201, 154118, 166610, 168348, 189209, 190393, 190398, 297093, 297761, 710096, 710097, 710098, 710099, 710100, 710101, 710102, 710103, 110004219):items[index]=read_normal_fatigue(item)
+- from els_server.domain.potion_choice_box import read_existing as read_potion_choice
+- for index,item in enumerate(items):
+-  if item["template"]==303673:items[index]=read_potion_choice(item)
+  from els_server.domain.retained_native_consumables import TEMPLATES as retained_native,read_existing as read_retained_native
++ from els_server.domain.potion_choice_box import BOXES as potion_choice_boxes,read_existing as read_potion_choice
++ for index,item in enumerate(items):
++  if item["template"]in potion_choice_boxes and item["template"]not in retained_native:items[index]=read_potion_choice(item)
+  for index,item in enumerate(items):
+   if item['template']in retained_native:items[index]=read_retained_native(item)
+  inventory_payload(items)  # Verify persisted identities/positions and wire before use.

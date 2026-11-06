@@ -1,0 +1,63 @@
+{
+  "issue": 901,
+  "source_parent": "refs/unified-latency-capacity-20261106-v5",
+  "source_parent_merge": "a1b3cabb41c40e665b1d5dc611a1af203e0e0592",
+  "runtime_parent": {
+    "release": "native-unified-latency-capacity-20261106-v1",
+    "path": "releases/online/native-unified-latency-capacity-20261106-v1",
+    "manifest_sha256": "7b2718a229e3c905626507ac27fc2db799cdffa9b25b425ab6b4744bd4b7fc30"
+  },
+  "files": [
+    {
+      "path": "els_server/data/potion_choice_box.json",
+      "parent_sha256": "23d911f6f400eb3c4645c142e2e6d2a3450564d58fe09753d4a10700ddd47299",
+      "candidate_sha256": "a61efb2fbcec573a13c8fe1323dd15c861e1b282a86394638628c22d8d6136cd",
+      "source": "source/els_server/data/potion_choice_box.json",
+      "size": 7111
+    },
+    {
+      "path": "els_server/domain/potion_choice_box.py",
+      "parent_sha256": "57faec3be1ed06cc700d328d1847ace6e2ee226c6b1db31631dac74da05d9754",
+      "candidate_sha256": "b69b209a132f78a6b88501cfd07be9ea0a73c499e1c4a9aaa4ebd01eee43defc",
+      "source": "source/els_server/domain/potion_choice_box.py",
+      "size": 7325
+    },
+    {
+      "path": "els_server/storage/potion_choice_box.py",
+      "parent_sha256": "8197e26b0b5cc5b7130caa5fa452cdaad4b2f0ee92a59c74af49f746bf9c985c",
+      "candidate_sha256": "fbb00878efa726b4236deb961e9005cb44ba8d04f2f782b223c9585239ccf6c0",
+      "source": "source/els_server/storage/potion_choice_box.py",
+      "size": 4791
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "bc6dcb01bc56d1decbaa8b4ed36edf65f58b7a293c4d2abd331bb2648aa488df",
+      "candidate_sha256": "9fa0c1e063cb9c27b1c66b2cb957a98b604d20d325b143817529425777ab8f7a",
+      "source": "source/els_server/domain/inventory_items.py",
+      "size": 88256
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "db0b3b02d960c37b2a9df68d628d1a9e9a600168c5a122bafabada05a115e602",
+      "candidate_sha256": "f24e1fbe0160754f7bcf7fa265d65ec242fba75cbec74cee077dfd2fded1e4fc",
+      "source": "source/els_server/storage/inventory_state.py",
+      "size": 31294
+    }
+  ],
+  "tests": [
+    "test_kobo_apple_boxes_all_native_choices_and_rejections",
+    "test_apple_atomic_failure_lock_and_actor_ownership"
+  ],
+  "shared_authenticated_server": true,
+  "client_delta": 0,
+  "new_tables": 0,
+  "installation_status": "separately reported by the publisher; source commit does not deploy",
+  "natural_GUI": false,
+  "natural_keyboard": false,
+  "unchanged_test_dependency": {
+    "path": "els_server/data/special_task_readers.json",
+    "source": "source/els_server/data/special_task_readers.json",
+    "sha256": "bd2f99a8cf340276b93963336e07d20c24e381a92e0cbed95baac317ad52f95f",
+    "installed_delta": false
+  }
+}
