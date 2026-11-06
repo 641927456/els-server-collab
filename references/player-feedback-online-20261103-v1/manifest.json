@@ -1,0 +1,125 @@
+{
+  "format": 1,
+  "issue": 777,
+  "archive_only": true,
+  "default_engine_selection_changed": false,
+  "git_base": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "release": "native-player-feedback-quests-void-buff-20261103-v1",
+  "online_manifest_sha256": "abb452b9a6a26a88a021a024f8cbd9cab00f8245478cb7a3ff35616a064f25eb",
+  "parent_release": "native-long-clock-diagnostics-20261103-v3",
+  "parent_manifest_sha256": "43bd52c546d78151704da0c23c802c23cf5911065111f1c07b4dcff079a66721",
+  "source_files": [
+    {
+      "runtime_path": "els_server/domain/environment_buff_flow.py",
+      "archive_path": "source/els_server/domain/environment_buff_flow.py",
+      "sha256": "677252899b735b2cf924e2bbe00354eddae49e3c77e18313182ff9b3080e17d1",
+      "size": 9346,
+      "parent_sha256": "fe78a93db7a1f5ef0780d13655f5f72f18695adc8a4564d0c9cb6d5801335079"
+    },
+    {
+      "runtime_path": "els_server/storage/epic_followups.py",
+      "archive_path": "source/els_server/storage/epic_followups.py",
+      "sha256": "b9c64a75600bb005b68e2a3169dd257bcb476385c3bd3bd71b7eb13c04b479d9",
+      "size": 9548,
+      "parent_sha256": "e8ccd008a2b6e7378da5fd7d9c842190a4aec94653aa82a717be47d8487dbe4e"
+    },
+    {
+      "runtime_path": "els_server/domain/tutorial_quests.py",
+      "archive_path": "source/els_server/domain/tutorial_quests.py",
+      "sha256": "c7d4f4e82f9a36ba9b6d57023733b9b57bc95c783868632882e6661624c0e68d",
+      "size": 9552,
+      "parent_sha256": "7b8654bd7e8fc3886e788ecc242b8ad8978cb76290bce8e7331740bbcddb5883"
+    },
+    {
+      "runtime_path": "els_server/domain/seal_quests.py",
+      "archive_path": "source/els_server/domain/seal_quests.py",
+      "sha256": "d5a9703ae393e46415d9ff4084e606a71341ff4b49f6f1d4aa15779a388fdf39",
+      "size": 18299,
+      "parent_sha256": "80ea149f3f1758412d7d71bdbd69f68801a1190fa0e15928a61f1608a5377c88"
+    },
+    {
+      "runtime_path": "els_server/storage/seal_quests.py",
+      "archive_path": "source/els_server/storage/seal_quests.py",
+      "sha256": "cda44418abb510b97e9f3b8e470fd0990a4f8ec11b0fa3b24484c297e955bd61",
+      "size": 36490,
+      "parent_sha256": "5feea04d43b655bdb05b98fbe6551ee49c3d3ed569318404fbc0f0896182cc36"
+    },
+    {
+      "runtime_path": "els_server/domain/void_weapon_discs.py",
+      "archive_path": "source/els_server/domain/void_weapon_discs.py",
+      "sha256": "cb4866116d78e914979251726246ba4d7d573824fe61fc96f4d067298056a1fd",
+      "size": 792,
+      "parent_sha256": null
+    },
+    {
+      "runtime_path": "els_server/domain/equipment_spell_rules.py",
+      "archive_path": "source/els_server/domain/equipment_spell_rules.py",
+      "sha256": "075bf909ec2b509dc51f13ab7c4d0527290187d96bcab32210a9cd27b4c9f225",
+      "size": 5052,
+      "parent_sha256": "68b4e6967c5451febce569762946df5fcb9caab23944e004058d3066dd43f6e8"
+    },
+    {
+      "runtime_path": "els_server/storage/inventory_state.py",
+      "archive_path": "source/els_server/storage/inventory_state.py",
+      "sha256": "9b3ed56ab7e5913865a0c5a61fbf0b823a7d4dee11aa26d5a33526f5678b196b",
+      "size": 29284,
+      "parent_sha256": "33e5fbf422a71569a84e74b1b71f10958a33cac15a16c3bdb1830311ebcfcf6f"
+    },
+    {
+      "runtime_path": "els_server/data/growth_guide_boxes.json",
+      "archive_path": "source/els_server/data/growth_guide_boxes.json",
+      "sha256": "2b550c0401c886404a8ae00c7d9c1571568ef7de7cdf06f7df893a192c3d51a3",
+      "size": 442485,
+      "parent_sha256": "6428938e2db2c1e2816a80a6c47a03e4106f901e126cb96da7ef3bfb7ae8e702"
+    },
+    {
+      "runtime_path": "els_server/data/growth_guide_boxes.manifest.json",
+      "archive_path": "source/els_server/data/growth_guide_boxes.manifest.json",
+      "sha256": "b8ddb9ca0f35c5c4774b4a9f39a9ced802b1247e35d5708a5ad0f4adf6461533",
+      "size": 91,
+      "parent_sha256": "f86464feb8b26fe0e1d1f71d2d43f0d11b687b1360a49f1dce6d625b3eab3203"
+    },
+    {
+      "runtime_path": "els_server/storage/growth_guide_boxes.py",
+      "archive_path": "source/els_server/storage/growth_guide_boxes.py",
+      "sha256": "65230a3a3ceaeb451be7f031a91b3ad8e5ee9d22e339f2b48b6bd68b839c5300",
+      "size": 4294,
+      "parent_sha256": "900769e66b340303f7cf57a68d1e309aa10228b6344c8a0e2279ce525f45f6e7"
+    }
+  ],
+  "evidence": {
+    "changes.patch": {
+      "sha256": "ab479fe4b3768912d44d77a6dede2e911eacdfd63ce4a0825dc74ceb10e11555",
+      "size": 25710
+    },
+    "public-validation.json": {
+      "sha256": "2b2b42f8d451ad8edc0de43711443dfb9bbf57b2b06827adc41cb9abed9e229d",
+      "size": 1855
+    },
+    "validation.json": {
+      "sha256": "a760cd674c94273d195e61fd561435abd996fec6b4d1ced753e999dfa9c8cbb6",
+      "size": 2143
+    },
+    "installed-summary.json": {
+      "sha256": "8bbc8da7c97cb9fed63b66a6d4bc5f0dff36d61af5318cea5d56456cb17fa7af",
+      "size": 1176
+    }
+  },
+  "scope": [
+    "independent regional FindVillage quest roots",
+    "NPC0 quest-window completion from another village",
+    "Type-Void guide gift six normal sockets and fifteen energy discs",
+    "ordinary/support DCC64 solo Raid entry effects"
+  ],
+  "schema_change": false,
+  "client_change": false,
+  "local_installed": false,
+  "launcher_changed": false,
+  "recovery": "Retain void_weapon_discs.py and the new equipment_spell_rules reader for saved630000xx vectors; pause producers rather than restoring player/account databases.",
+  "sources": [
+    "https://els.ztgame.com/game/003-1650-0034f-783998.shtml?mt=847",
+    "https://els.ztgame.com/game/001-1562-0014e-641886.shtml",
+    "https://elsword.koggames.com/2026/04/april-22nd-patch-notes/"
+  ],
+  "gift_socket_rule": "User confirmed official-server gift preset; native40116/46616 are critical/maximize8% options."
+}

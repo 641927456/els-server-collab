@@ -1,0 +1,734 @@
+--- a/els_server/domain/environment_buff_flow.py
++++ b/els_server/domain/environment_buff_flow.py
+@@ -7,7 +7,7 @@
+ from els_server.domain.attendance_2026_award_flow import retryable_sqlite_lock
+ 
+ SPA={1500:(0,725)}
+-FACTORS={202:195,964:1028,965:1029,3082:3254,1087:1188}
++FACTORS={202:195,964:1028,965:1029,3082:3254,1087:1188,3085:3257,3086:3258}
+ 
+ @functools.lru_cache(maxsize=1)
+ def uniforms():
+@@ -107,7 +107,12 @@
+     if not cold and source is not None and source[0]is run and s.phase=='dungeon_active'and s.dungeon_substage_synced and not s.dungeon_return_pending:
+         from els_server.game_data import client_data
+         d=client_data().dungeon(run.identity);conditions=set(d.get('DUNGEON_CHECK_CONDITION',{}).values())
+-        if 63 in conditions and not conditions.intersection((0,1,2,47,50,65))and d.get('MaxAdequateMemberCount',1)>1:
++        if 64 in conditions:
++            from els_server.storage.seal_quests import load_character
++            character=load_character(db,s.account.uid,s.account.account_id)
++            template=3086 if client_data().unit(character['unit_class']).get('m_bIsSupportClass',False) else 3085
++            result.append(dict(owner=s.account.uid,template=template,start=0,end=0,_environment=True))
++        elif 63 in conditions and not conditions.intersection((0,1,2,47,50,65))and d.get('MaxAdequateMemberCount',1)>1:
+             result.append(dict(owner=s.account.uid,template=source[1],start=0,end=0,_environment=True))
+     return result
+ 
+@@ -115,7 +120,7 @@
+     t=row['template'];start,end=row['start'],row['end']
+     if row.get('_environment')is not True or row['owner']!=owner or t not in FACTORS:
+         raise ValueError('Owned native environment buff')
+-    if t in(3082,1087):
++    if t in(3082,1087,3085,3086):
+         if(start,end)!=(0,0):raise ValueError('Entry buff must be run scoped')
+     elif not 1<=start<end<2**31 or end-start!=1800:raise ValueError('Environment buff deadline')
+     return bytes(8)+struct.pack('>iIQfBif?if?iiiQQ',t,0,owner,0.,1,0,0.,False,FACTORS[t],1.,False,-1,0,0,start,end)
+--- a/els_server/storage/epic_followups.py
++++ b/els_server/storage/epic_followups.py
+@@ -4,7 +4,7 @@
+ identities, conditions and objectives come exclusively from the pinned build.
+ This accepts tasks only. It never completes an objective or grants a reward.
+ """
+-import hashlib,json
++import functools,hashlib,json
+ from els_server.domain.seal_quests import quest_catalog,sequence,require_eligible,ACTIVE_QUEST_LIMIT
+ from els_server.domain.growth_guide import ordinary_active_count
+ 
+@@ -116,3 +116,51 @@
+         if any(identity in catalog.quests and identity not in active and identity not in completed
+                for identity in sequence(source.get('m_iAfterQuestID',{}))):return True
+     return False
++
++
++@functools.lru_cache(maxsize=1)
++def _arrival_roots():
++    """Native region roots have one FindVillage objective and no predecessor."""
++    from els_server.domain.tutorial_quests import STARTERS
++    starters={qid for qid,town in STARTERS.values()}
++    catalog=quest_catalog();result={}
++    for identity,quest in catalog.quests.items():
++        if identity in starters or quest['m_eQuestType']!=5:continue
++        condition=quest['QuestCondition'];towns=sequence(condition.get('m_iEnableVillage',{}))
++        if (len(towns)!=1 or towns[0]==0 or any(sequence(condition['m_vecBeforeQuestID']))
++            or quest.get('m_bIsPcBang') or quest.get('m_bIsTimeEvent') or quest.get('m_bRepeat')
++            or quest.get('m_iRandomGroupID') or quest.get('CHANGE_JOB_TYPE')):continue
++        objectives=catalog.objectives(identity)
++        if (len(objectives)==1 and objectives[0]['m_eClearType']==24
++            and sequence(objectives[0]['m_ClearCondition']['m_eVillageID'])==towns):
++            result.setdefault(towns[0],[]).append(identity)
++    return {town:tuple(sorted(ids)) for town,ids in result.items()}
++
++
++def eligible_arrival_roots(db,uid,character,items,location):
++    if location[0]!='town':return ()
++    candidates=_arrival_roots().get(location[1],())
++    if not candidates:return ()
++    active={r[0] for r in db.execute('SELECT quest FROM character_quests WHERE owner=?',(uid,))}
++    room=ACTIVE_QUEST_LIMIT-ordinary_active_count(active)
++    if room<=0:return ()
++    completed={r[0] for r in db.execute('SELECT quest FROM completed_quests WHERE owner=?',(uid,))}
++    abandoned={r[0] for r in db.execute("SELECT request_hash FROM quest_actions WHERE owner=? AND kind='abandon'",(uid,))}
++    result=[]
++    for identity in candidates:
++        if identity in active or identity in completed:continue
++        digest=hashlib.sha256(json.dumps([uid,'abandon',dict(quest=identity)],sort_keys=True).encode()).hexdigest()
++        if digest in abandoned:continue
++        try:require_eligible(character,quest_catalog().quest(identity),completed,items,location=location)
++        except ValueError:continue
++        result.append(identity)
++    return tuple(result[:room])
++
++
++def restore_arrival_roots(db,uid,character,items,location,now):
++    accepted=eligible_arrival_roots(db,uid,character,items,location)
++    for identity in accepted:
++        sub=quest_catalog().objectives(identity)[0]
++        db.execute('INSERT INTO character_quests VALUES (?,?,?,?,?)',
++            (uid,identity,now,now,json.dumps({sub['m_iID']:1},sort_keys=True)))
++    return accepted
+--- a/els_server/domain/tutorial_quests.py
++++ b/els_server/domain/tutorial_quests.py
+@@ -68,19 +68,20 @@
+         if participant(quick_db,state.uid,state.account_id) and quick_character!=(1,):
+             snapshot=state.notification_snapshot()
+             return _restore_reply(snapshot,{r['id']for r in snapshot['active']},live,False)
+-    from els_server.storage.epic_followups import deferred_write_possible
++    from els_server.storage.epic_followups import deferred_write_possible,eligible_arrival_roots
+     with snapshot_connection(state.path) as probe:
+         probe.execute('BEGIN')
+         tables=('character_ep','character_quests','completed_quests','quest_actions','quest_progress_events')
+         if all(probe.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(t,)).fetchone()for t in tables):
+             character=load_character(probe,state.uid,state.account_id)
+-            snapshot=_state(probe,state.uid,load_items(probe,state.uid))
++            probe_items=load_items(probe,state.uid);snapshot=_state(probe,state.uid,probe_items)
+             quest,town=starter(character['unit_type']);catalog=quest_catalog()
+             progress={row['id']for key in ('active','completed')for row in snapshot[key]}
+             has_story=any(i not in catalog.quests or catalog.quest(i)['m_eQuestType']==5 for i in progress)
+             saved=probe.execute('SELECT town FROM location WHERE uid=?',(state.uid,)).fetchone()
+             possible_starter=saved==(town,)and not has_story and ordinary_active_count(snapshot['active'])<ACTIVE_QUEST_LIMIT
+-            if not possible_starter and(saved is None or not deferred_write_possible(probe,state.uid)):
++            possible_arrival=saved is not None and eligible_arrival_roots(probe,state.uid,character,probe_items,('town',saved[0]))
++            if not possible_starter and not possible_arrival and(saved is None or not deferred_write_possible(probe,state.uid)):
+                 return _restore_reply(snapshot,{r['id']for r in snapshot['active']},live,False)
+     with closing(sqlite3.connect(state.path,timeout=10)) as db:
+         with write_transaction(db):
+@@ -110,10 +111,11 @@
+             # delayed current after-edges. Same-owner saved location supplies the
+             # context; map-panel selection never calls this path.
+             if saved is not None:
+-                from els_server.storage.epic_followups import restore_deferred
++                from els_server.storage.epic_followups import restore_deferred,restore_arrival_roots
+                 now=int(time.time())
+                 if not 0<now<2**63:raise ValueError('Story restoration timestamp')
+-                accepted=restore_deferred(db,state.uid,character,items,('town',saved[0]),now)
++                accepted=restore_arrival_roots(db,state.uid,character,items,('town',saved[0]),now)
++                accepted+=restore_deferred(db,state.uid,character,items,('town',saved[0]),now)
+                 if accepted:
+                     snapshot=_state(db,state.uid,items);restored=True
+             return _restore_reply(snapshot,previous,live,restored)
+--- a/els_server/domain/seal_quests.py
++++ b/els_server/domain/seal_quests.py
+@@ -146,7 +146,7 @@
+         raise ValueError('Quest career requirement')
+ 
+ 
+-def require_eligible(character,quest,completed,items,*,location=('town',20000)):
++def require_eligible(character,quest,completed,items,*,location=('town',20000),check_location=True):
+     from els_server.domain.quick_start import require_quest
+     require_quest(character,quest)
+     from els_server.domain.growth_guide import contains as guide_contains,require_eligible as guide_eligible
+@@ -180,7 +180,7 @@
+     if show and not any(i in seals for i in show):raise ValueError('Quest previous skill requirement')
+     if c.get('m_iConditionItemID') and sum(i['count'] for i in items if i['template']==c['m_iConditionItemID'])<c['m_iConditionItemNum']:raise ValueError('Quest prerequisite item')
+     places={kind:sequence(c.get(key,{})) for kind,key in (('town','m_iEnableVillage'),('field','m_iEnableField'),('dungeon','m_iEnableDungeon'))}
+-    if any(places.values()):
++    if check_location and any(places.values()):
+         allowed=places[location[0]]
+         if 0 not in allowed and location[1] not in allowed:raise ValueError('Quest location requirement')
+ 
+--- a/els_server/storage/seal_quests.py
++++ b/els_server/storage/seal_quests.py
+@@ -295,7 +295,7 @@
+                     # The first native flag remains an unsupported mode.
+                     if request.get('flags',(0,))[0]:raise ValueError('Unsupported quest completion mode')
+                     if active is None:raise ValueError('Quest has not been accepted')
+-                    require_eligible(character,q,completed_ids(db,uid),items,location=location)
++                    require_eligible(character,q,completed_ids(db,uid),items,location=location,check_location=request.get('npc')!=0)
+                     # 3030D10 forwards the quest window's NPC context as-is;
+                     # remote/quick completion uses zero (no NPC conversation).
+                     if request.get('npc') not in (0,q['m_eEndNPCID'],10025):raise ValueError('Quest end NPC mismatch')
+--- a/els_server/domain/void_weapon_discs.py
++++ b/els_server/domain/void_weapon_discs.py
+@@ -0,0 +1,17 @@
++"""Current Type-Void's fifteen native energy discs, separate from Proto."""
++TEMPLATES=frozenset((*range(168675,168690),168865))
++# Original socket groups are yellow9, red10, blue11. Their giant slot is empty.
++DISCS={9:tuple(range(63000011,63000016)),
++       10:tuple(range(63000001,63000006)),
++       11:tuple(range(63000006,63000011))}
++
++def valid_option(template,group,value):
++    return template in TEMPLATES and value in DISCS.get(group,())
++
++def initialize(db,owner,item):
++    if item['template'] not in TEMPLATES:return
++    from els_server.storage.equipment_options import replace
++    before=item.get('option_groups',{})
++    updated={**{str(group):list(values) for group,values in DISCS.items()},**before}
++    replace(db,owner,item['uid'],before,updated)
++    item['option_groups']=updated
+--- a/els_server/domain/equipment_spell_rules.py
++++ b/els_server/domain/equipment_spell_rules.py
+@@ -49,9 +49,10 @@
+ def options(template,group,values):
+     """Stored vectors retain dormant slots after an enhancement downgrade."""
+     key=str(group);c=catalog()
++    from els_server.domain.void_weapon_discs import valid_option as valid_disc
+     if (str(template) not in c['targets'] or key not in c['storage_capacity']
+             or not isinstance(values,(list,tuple)) or len(values)>c['storage_capacity'][key]
+-            or any(type(v) is not int or v!=0 and v not in option_ids(int(key)) for v in values)):
++            or any(type(v) is not int or v!=0 and v not in option_ids(int(key)) and not valid_disc(template,int(key),v) for v in values)):
+         raise ValueError('Original mystic weapon/color option vector required')
+     return list(values)
+ 
+--- a/els_server/storage/inventory_state.py
++++ b/els_server/storage/inventory_state.py
+@@ -323,6 +323,8 @@
+     replace_enhancement(db,owner,uid,0,i['enhancement'])
+    from els_server.storage.artifact_generation import initialize
+    initialize(db,owner,i)
++   from els_server.domain.void_weapon_discs import initialize as initialize_void_discs
++   initialize_void_discs(db,owner,i)
+    items.append(i);changed[uid]=i if fish_erp_source is not None else dict(i);remaining-=i['count']
+  if regional_cube_source is not None:regional_cube_source.verify_after()
+  if fish_erp_source is not None:fish_erp_source.verify_after()
+--- a/els_server/data/growth_guide_boxes.json
++++ b/els_server/data/growth_guide_boxes.json
+@@ -6151,101 +6151,365 @@
+           "quantity": 1,
+           "unit_type": 1,
+           "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        },
++        {
++          "template": 168676,
++          "quantity": 1,
++          "unit_type": 2,
++          "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        },
++        {
++          "template": 168677,
++          "quantity": 1,
++          "unit_type": 3,
++          "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        },
++        {
++          "template": 168678,
++          "quantity": 1,
++          "unit_type": 4,
++          "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        },
++        {
++          "template": 168679,
++          "quantity": 1,
++          "unit_type": 5,
++          "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        },
++        {
++          "template": 168680,
++          "quantity": 1,
++          "unit_type": 6,
++          "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        },
++        {
++          "template": 168681,
++          "quantity": 1,
++          "unit_type": 7,
++          "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        },
++        {
++          "template": 168682,
++          "quantity": 1,
++          "unit_type": 8,
++          "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        },
++        {
++          "template": 168683,
++          "quantity": 1,
++          "unit_type": 9,
++          "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        },
++        {
++          "template": 168684,
++          "quantity": 1,
++          "unit_type": 10,
++          "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        },
++        {
++          "template": 168685,
++          "quantity": 1,
++          "unit_type": 11,
++          "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        },
++        {
++          "template": 168687,
++          "quantity": 1,
++          "unit_type": 12,
++          "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        },
++        {
++          "template": 168688,
++          "quantity": 1,
++          "unit_type": 13,
++          "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        },
++        {
++          "template": 168689,
++          "quantity": 1,
++          "unit_type": 14,
++          "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        },
++        {
++          "template": 168865,
++          "quantity": 1,
++          "unit_type": 15,
++          "minor": null,
++          "enhancement": 10,
++          "option_groups": {
++            "0": [
++              40116,
++              40116,
++              40116,
++              46616,
++              46616,
++              46616
++            ]
++          }
++        }
++      ],
++      "role": true
++    },
++    {
++      "template": 723045,
++      "name": "[阿莉尔]噗老师的+10 断罪的火焰-魔人的武器宝箱",
++      "selection_count": 0,
++      "use_condition": 3,
++      "outputs": [
++        {
++          "template": 713199,
++          "quantity": 1,
++          "unit_type": 1,
++          "minor": null,
+           "enhancement": 10
+         },
+         {
+-          "template": 168676,
++          "template": 713200,
+           "quantity": 1,
+           "unit_type": 2,
+           "minor": null,
+           "enhancement": 10
+         },
+         {
+-          "template": 168677,
++          "template": 713201,
+           "quantity": 1,
+           "unit_type": 3,
+           "minor": null,
+           "enhancement": 10
+         },
+         {
+-          "template": 168678,
++          "template": 713202,
+           "quantity": 1,
+           "unit_type": 4,
+           "minor": null,
+           "enhancement": 10
+         },
+         {
+-          "template": 168679,
++          "template": 713203,
+           "quantity": 1,
+           "unit_type": 5,
+           "minor": null,
+           "enhancement": 10
+         },
+         {
+-          "template": 168680,
++          "template": 713204,
+           "quantity": 1,
+           "unit_type": 6,
+           "minor": null,
+           "enhancement": 10
+         },
+         {
+-          "template": 168681,
++          "template": 713205,
+           "quantity": 1,
+           "unit_type": 7,
+           "minor": null,
+           "enhancement": 10
+         },
+         {
+-          "template": 168682,
++          "template": 713206,
+           "quantity": 1,
+           "unit_type": 8,
+           "minor": null,
+           "enhancement": 10
+         },
+         {
+-          "template": 168683,
++          "template": 713207,
+           "quantity": 1,
+           "unit_type": 9,
+           "minor": null,
+           "enhancement": 10
+         },
+         {
+-          "template": 168684,
++          "template": 713208,
+           "quantity": 1,
+           "unit_type": 10,
+           "minor": null,
+           "enhancement": 10
+         },
+         {
+-          "template": 168685,
++          "template": 713209,
+           "quantity": 1,
+           "unit_type": 11,
+           "minor": null,
+           "enhancement": 10
+         },
+         {
+-          "template": 168687,
++          "template": 713210,
+           "quantity": 1,
+           "unit_type": 12,
+           "minor": null,
+           "enhancement": 10
+         },
+         {
+-          "template": 168688,
++          "template": 713211,
+           "quantity": 1,
+           "unit_type": 13,
+           "minor": null,
+           "enhancement": 10
+         },
+         {
+-          "template": 168689,
++          "template": 713212,
+           "quantity": 1,
+           "unit_type": 14,
+           "minor": null,
+           "enhancement": 10
+         },
+         {
+-          "template": 168865,
++          "template": 717824,
+           "quantity": 1,
+           "unit_type": 15,
+           "minor": null,
+@@ -6255,120 +6519,6 @@
+       "role": true
+     },
+     {
+-      "template": 723045,
+-      "name": "[阿莉尔]噗老师的+10 断罪的火焰-魔人的武器宝箱",
+-      "selection_count": 0,
+-      "use_condition": 3,
+-      "outputs": [
+-        {
+-          "template": 713199,
+-          "quantity": 1,
+-          "unit_type": 1,
+-          "minor": null,
+-          "enhancement": 10
+-        },
+-        {
+-          "template": 713200,
+-          "quantity": 1,
+-          "unit_type": 2,
+-          "minor": null,
+-          "enhancement": 10
+-        },
+-        {
+-          "template": 713201,
+-          "quantity": 1,
+-          "unit_type": 3,
+-          "minor": null,
+-          "enhancement": 10
+-        },
+-        {
+-          "template": 713202,
+-          "quantity": 1,
+-          "unit_type": 4,
+-          "minor": null,
+-          "enhancement": 10
+-        },
+-        {
+-          "template": 713203,
+-          "quantity": 1,
+-          "unit_type": 5,
+-          "minor": null,
+-          "enhancement": 10
+-        },
+-        {
+-          "template": 713204,
+-          "quantity": 1,
+-          "unit_type": 6,
+-          "minor": null,
+-          "enhancement": 10
+-        },
+-        {
+-          "template": 713205,
+-          "quantity": 1,
+-          "unit_type": 7,
+-          "minor": null,
+-          "enhancement": 10
+-        },
+-        {
+-          "template": 713206,
+-          "quantity": 1,
+-          "unit_type": 8,
+-          "minor": null,
+-          "enhancement": 10
+-        },
+-        {
+-          "template": 713207,
+-          "quantity": 1,
+-          "unit_type": 9,
+-          "minor": null,
+-          "enhancement": 10
+-        },
+-        {
+-          "template": 713208,
+-          "quantity": 1,
+-          "unit_type": 10,
+-          "minor": null,
+-          "enhancement": 10
+-        },
+-        {
+-          "template": 713209,
+-          "quantity": 1,
+-          "unit_type": 11,
+-          "minor": null,
+-          "enhancement": 10
+-        },
+-        {
+-          "template": 713210,
+-          "quantity": 1,
+-          "unit_type": 12,
+-          "minor": null,
+-          "enhancement": 10
+-        },
+-        {
+-          "template": 713211,
+-          "quantity": 1,
+-          "unit_type": 13,
+-          "minor": null,
+-          "enhancement": 10
+-        },
+-        {
+-          "template": 713212,
+-          "quantity": 1,
+-          "unit_type": 14,
+-          "minor": null,
+-          "enhancement": 10
+-        },
+-        {
+-          "template": 717824,
+-          "quantity": 1,
+-          "unit_type": 15,
+-          "minor": null,
+-          "enhancement": 10
+-        }
+-      ],
+-      "role": true
+-    },
+-    {
+       "template": 716704,
+       "name": "[阿莉尔]尼格摩尔饰品全套（30日）宝箱",
+       "selection_count": 0,
+--- a/els_server/data/growth_guide_boxes.manifest.json
++++ b/els_server/data/growth_guide_boxes.manifest.json
+@@ -1,3 +1,3 @@
+ {
+-  "payload_sha256": "6428938e2db2c1e2816a80a6c47a03e4106f901e126cb96da7ef3bfb7ae8e702"
++  "payload_sha256": "2b550c0401c886404a8ae00c7d9c1571568ef7de7cdf06f7df893a192c3d51a3"
+ }
+--- a/els_server/storage/growth_guide_boxes.py
++++ b/els_server/storage/growth_guide_boxes.py
+@@ -51,7 +51,7 @@
+             r=next(r for r in rows if r['template']==item['template'])
+             if r.get('reforge_level'):reforge(db,owner,item['uid'],[0,100,0],[r['reforge_level'],100,0])
+             if r.get('option_groups'):
+-                options(db,owner,item['uid'],item.get('option_groups',{}),r['option_groups'])
++                options(db,owner,item['uid'],item.get('option_groups',{}),{**item.get('option_groups',{}),**r['option_groups']})
+                 if item.get('identified') is False:identify(db,owner,item['uid'],False,True)
+         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
+         positions=sorted({source,*[(i['group'],i['slot']) for i in grants]})
