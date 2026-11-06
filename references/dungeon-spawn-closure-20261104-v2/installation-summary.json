@@ -1,0 +1,91 @@
+{
+  "ok": true,
+  "online_installed": true,
+  "release": "native-dungeon-spawn-closure-20261104-v2",
+  "manifest_sha256": "1570f492fb12b768d0adadae08d9ef5f193abc7034a7b10f17c0309d04ac405d",
+  "runtime_files_verified": 1476,
+  "observation_seconds": 125.11803570005577,
+  "runtime_source_payloads": {
+    "els_server/data/client/dungeon_routes.json": "b1c18b62233cbdfe94d8ca5d9d6639c0d1c0f69d5e4eef26a7b5bd58d0ab190e",
+    "els_server/data/client/dungeon_routes.manifest.json": "7a14ca93d030ee7adcc5de93bc8f07c16ac7700eea45afd2c5d1620e8cba9e3f",
+    "els_server/data/formal_npc_hp.json": "9c9483a6aad462372717e7c73d149e4f8e70a42d9a4d9d47384b9c6058be73a5",
+    "els_server/data/formal_npc_hp.manifest.json": "7a3021828e82ec1d78cd65bf153be68dea50416128bdb05eff6c29c26159469a",
+    "els_server/data/raid_npc_hp.json": "33f19d4dca4a56fcc692ba7af7afcd7c6269f63b53b47d4f5a00d9e075c54d19"
+  },
+  "actual_public_target_checks": [
+    {
+      "dungeon": 35380,
+      "target": 9569,
+      "success_ack": true,
+      "actual_instance_key": 6,
+      "initialization_packet_bytes": 372,
+      "source_chain": [
+        9670,
+        9572,
+        9569
+      ]
+    },
+    {
+      "dungeon": 35380,
+      "target": 9712,
+      "success_ack": true,
+      "actual_instance_key": 8,
+      "initialization_packet_bytes": 372,
+      "source_chain": [
+        9670,
+        9572,
+        9712
+      ]
+    },
+    {
+      "dungeon": 35490,
+      "target": 9744,
+      "success_ack": true,
+      "actual_instance_key": 19,
+      "initialization_packet_bytes": 404,
+      "source_chain": [
+        9891,
+        9744
+      ]
+    },
+    {
+      "dungeon": 35490,
+      "target": 12231,
+      "success_ack": true,
+      "actual_instance_key": 20,
+      "initialization_packet_bytes": 384,
+      "source_chain": [
+        9891,
+        12231
+      ]
+    },
+    {
+      "dungeon": 35510,
+      "target": 9791,
+      "success_ack": true,
+      "actual_instance_key": 8,
+      "initialization_packet_bytes": 396,
+      "source_chain": [
+        9885,
+        9790,
+        9791
+      ]
+    }
+  ],
+  "public_normal_single_raid_entries": [
+    35380,
+    35490,
+    35510
+  ],
+  "public_QA_only_protocol": true,
+  "own_authentication_cleaned": true,
+  "registered_slots_freed": 3,
+  "player_database_restore": false,
+  "configuration_unchanged": true,
+  "new_schema": false,
+  "local_installed": false,
+  "launcher_changed": false,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "Git_merge": false
+}

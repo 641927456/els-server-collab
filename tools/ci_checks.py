@@ -30,6 +30,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_native_field_entry_sources_20261101.py')])
     if (ROOT/'references/player-feedback-online-20261103-v1/manifest.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_player_feedback_online_20261103.py')])
+    if (ROOT/'references/dungeon-spawn-closure-20261104-v2/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'references/dungeon-spawn-closure-20261104-v2/verify_contract.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
     run([sys.executable,'-B','-m','unittest','tests.test_public_controller_sources'])
