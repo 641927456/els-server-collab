@@ -1,0 +1,154 @@
+{
+  "short_native_samples": [
+    {
+      "run": "online-external-town30-5mbps-normalio-qos-short-v1",
+      "counts": {
+        "moves": 18000,
+        "relays": 522000
+      },
+      "native_functional_passed": true,
+      "server_targets_met": true,
+      "relay_targets_met": true,
+      "burst_relay_targets_met": null,
+      "WAN": {
+        "movement_relay": {
+          "n": 522000,
+          "mean_ms": 60.45663623289041,
+          "p50_ms": 61,
+          "p95_ms": 96,
+          "p99_ms": 107,
+          "max_ms": 408.5651459172368,
+          "resolution_ms": 1
+        }
+      },
+      "calibration": {
+        "bytes": 8388608,
+        "seconds": 13.981184500269592,
+        "Mbps": 4.799941235215512,
+        "exact_content": true
+      },
+      "long_qualified": false
+    },
+    {
+      "run": "online-external-town22-5mbps-normalio-burst-gm-short-v1",
+      "counts": {
+        "moves": 15400,
+        "relays": 323400
+      },
+      "native_functional_passed": true,
+      "server_targets_met": true,
+      "relay_targets_met": true,
+      "burst_relay_targets_met": false,
+      "WAN": {
+        "movement_relay": {
+          "n": 323400,
+          "mean_ms": 61.21945789508895,
+          "p50_ms": 62,
+          "p95_ms": 99,
+          "p99_ms": 112,
+          "max_ms": 396.8767919577658,
+          "resolution_ms": 1
+        },
+        "movement_relay_steady": {
+          "n": 231000,
+          "mean_ms": 57.22341035168771,
+          "p50_ms": 56,
+          "p95_ms": 96,
+          "p99_ms": 111,
+          "max_ms": 396.8767919577658,
+          "resolution_ms": 1
+        },
+        "movement_relay_burst": {
+          "n": 92400,
+          "mean_ms": 71.20957675359203,
+          "p50_ms": 69,
+          "p95_ms": 102,
+          "p99_ms": 115,
+          "max_ms": 170.26978684589267,
+          "resolution_ms": 1
+        }
+      },
+      "calibration": {
+        "bytes": 8388608,
+        "seconds": 13.96644109999761,
+        "Mbps": 4.805008199262121,
+        "exact_content": true
+      },
+      "long_qualified": false
+    },
+    {
+      "run": "online-mixed-town15-dg10-persistent-budget-five-v1",
+      "counts": {
+        "moves": 22500,
+        "relays": 314769,
+        "native_sessions": 10,
+        "deaths": 1650,
+        "fresh_pickups": 1650,
+        "rooms": 110,
+        "native_returns": 110
+      },
+      "native_functional_passed": true,
+      "server_targets_met": false,
+      "relay_targets_met": false,
+      "burst_relay_targets_met": null,
+      "WAN": {
+        "movement_relay": {
+          "n": 314769,
+          "mean_ms": 71.7173324968345,
+          "p50_ms": 65,
+          "p95_ms": 148,
+          "p99_ms": 235,
+          "max_ms": 954.7762437723577,
+          "resolution_ms": 1
+        }
+      },
+      "calibration": {
+        "bytes": 8388608,
+        "seconds": 13.988200899679214,
+        "Mbps": 4.797533612885055,
+        "exact_content": true
+      },
+      "long_qualified": false
+    }
+  ],
+  "aggregate_four_TCP_flow_calibration": {
+    "passed": true,
+    "flows": 4,
+    "rows": [
+      {
+        "bytes": 4194304,
+        "seconds": 21.97480859979987,
+        "Mbps": 1.526949909375119
+      },
+      {
+        "bytes": 4194304,
+        "seconds": 27.027605399955064,
+        "Mbps": 1.24148741641965
+      },
+      {
+        "bytes": 4194304,
+        "seconds": 22.145319600123912,
+        "Mbps": 1.515192943966916
+      },
+      {
+        "bytes": 4194304,
+        "seconds": 28.803047500085086,
+        "Mbps": 1.1649611729418867
+      }
+    ],
+    "elapsed_seconds": 28.83780930005014,
+    "aggregate_Mbps": 4.654227601115548,
+    "aggregate_5M_path_verified": true,
+    "guardian": {
+      "passed": true,
+      "calibration_only": true,
+      "child_retired": true,
+      "own_lock_released": true,
+      "own_QoS_removed": true,
+      "public_kept_stopped": true
+    }
+  },
+  "earlier_failures_retained": true,
+  "ONLINE20mixed_burst_GM_in_progress": true,
+  "ONLINE_long_capacity_qualified": false
+}
