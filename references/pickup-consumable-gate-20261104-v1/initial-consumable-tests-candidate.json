@@ -1,0 +1,579 @@
+{
+  "ok": true,
+  "candidate": true,
+  "checks": [
+    "part_end native effect 130165",
+    "part_end native effect 78928",
+    "part_end native effect 130467",
+    "part_end native effect 78390",
+    "exact receipt replay and cold counts",
+    "cooldown rejection no debit",
+    "next part active use",
+    "gate_stage_loading rejected without debit",
+    "dungeon_return_pending rejected without debit",
+    "clear_notified rejected without debit",
+    "dungeon_failed rejected without debit",
+    "encoder rollback and cold read",
+    "empty slot refusal has native text code",
+    "shared part_end readiness and exactly one peer effect; clear refused"
+  ],
+  "storage_refusals": [
+    {
+      "error": "Consumable is cooling down",
+      "allow_apples": true,
+      "level": 99,
+      "causes": []
+    },
+    {
+      "error": "No eligible owned consumable",
+      "allow_apples": false,
+      "level": 99,
+      "causes": []
+    },
+    {
+      "error": "No eligible owned consumable",
+      "allow_apples": false,
+      "level": 99,
+      "causes": []
+    },
+    {
+      "error": "No eligible owned consumable",
+      "allow_apples": false,
+      "level": 99,
+      "causes": []
+    },
+    {
+      "error": "No eligible owned consumable",
+      "allow_apples": false,
+      "level": 99,
+      "causes": []
+    },
+    {
+      "error": "owned encode fault",
+      "allow_apples": true,
+      "level": 99,
+      "causes": []
+    },
+    {
+      "error": "Empty shortcut",
+      "allow_apples": true,
+      "level": 99,
+      "causes": []
+    }
+  ],
+  "native_refusals": [
+    {
+      "trace": [
+        [
+          "line",
+          75,
+          null
+        ],
+        [
+          "line",
+          76,
+          null
+        ],
+        [
+          "line",
+          77,
+          null
+        ],
+        [
+          "line",
+          78,
+          null
+        ],
+        [
+          "line",
+          79,
+          null
+        ],
+        [
+          "line",
+          80,
+          null
+        ],
+        [
+          "line",
+          81,
+          null
+        ],
+        [
+          "line",
+          82,
+          null
+        ],
+        [
+          "line",
+          83,
+          null
+        ],
+        [
+          "line",
+          84,
+          null
+        ],
+        [
+          "line",
+          85,
+          null
+        ],
+        [
+          "line",
+          86,
+          null
+        ],
+        [
+          "line",
+          87,
+          null
+        ],
+        [
+          "line",
+          88,
+          null
+        ],
+        [
+          "line",
+          89,
+          null
+        ],
+        [
+          "line",
+          90,
+          null
+        ],
+        [
+          "line",
+          91,
+          null
+        ],
+        [
+          "line",
+          92,
+          null
+        ],
+        [
+          "line",
+          93,
+          null
+        ],
+        [
+          "line",
+          94,
+          null
+        ],
+        [
+          "line",
+          101,
+          null
+        ],
+        [
+          "return",
+          101,
+          false
+        ]
+      ],
+      "part_end": false,
+      "clock": 1982579.1263814,
+      "flags": {
+        "gate_stage_loading": true,
+        "dungeon_return_pending": false,
+        "clear_notified": false,
+        "dungeon_failed": false,
+        "dungeon_requested": false,
+        "requested_dungeon_id": null,
+        "requested_dungeon_mode": null
+      }
+    },
+    {
+      "trace": [
+        [
+          "line",
+          75,
+          null
+        ],
+        [
+          "line",
+          76,
+          null
+        ],
+        [
+          "line",
+          77,
+          null
+        ],
+        [
+          "line",
+          78,
+          null
+        ],
+        [
+          "line",
+          79,
+          null
+        ],
+        [
+          "line",
+          80,
+          null
+        ],
+        [
+          "line",
+          81,
+          null
+        ],
+        [
+          "line",
+          82,
+          null
+        ],
+        [
+          "line",
+          83,
+          null
+        ],
+        [
+          "line",
+          84,
+          null
+        ],
+        [
+          "line",
+          85,
+          null
+        ],
+        [
+          "line",
+          86,
+          null
+        ],
+        [
+          "line",
+          87,
+          null
+        ],
+        [
+          "line",
+          88,
+          null
+        ],
+        [
+          "line",
+          89,
+          null
+        ],
+        [
+          "line",
+          90,
+          null
+        ],
+        [
+          "line",
+          91,
+          null
+        ],
+        [
+          "line",
+          92,
+          null
+        ],
+        [
+          "line",
+          93,
+          null
+        ],
+        [
+          "line",
+          94,
+          null
+        ],
+        [
+          "line",
+          101,
+          null
+        ],
+        [
+          "return",
+          101,
+          false
+        ]
+      ],
+      "part_end": false,
+      "clock": 1982579.1263814,
+      "flags": {
+        "gate_stage_loading": false,
+        "dungeon_return_pending": true,
+        "clear_notified": false,
+        "dungeon_failed": false,
+        "dungeon_requested": false,
+        "requested_dungeon_id": null,
+        "requested_dungeon_mode": null
+      }
+    },
+    {
+      "trace": [
+        [
+          "line",
+          75,
+          null
+        ],
+        [
+          "line",
+          76,
+          null
+        ],
+        [
+          "line",
+          77,
+          null
+        ],
+        [
+          "line",
+          78,
+          null
+        ],
+        [
+          "line",
+          79,
+          null
+        ],
+        [
+          "line",
+          80,
+          null
+        ],
+        [
+          "line",
+          81,
+          null
+        ],
+        [
+          "line",
+          82,
+          null
+        ],
+        [
+          "line",
+          83,
+          null
+        ],
+        [
+          "line",
+          84,
+          null
+        ],
+        [
+          "line",
+          85,
+          null
+        ],
+        [
+          "line",
+          86,
+          null
+        ],
+        [
+          "line",
+          87,
+          null
+        ],
+        [
+          "line",
+          88,
+          null
+        ],
+        [
+          "line",
+          89,
+          null
+        ],
+        [
+          "line",
+          90,
+          null
+        ],
+        [
+          "line",
+          91,
+          null
+        ],
+        [
+          "line",
+          92,
+          null
+        ],
+        [
+          "line",
+          93,
+          null
+        ],
+        [
+          "line",
+          94,
+          null
+        ],
+        [
+          "line",
+          95,
+          null
+        ],
+        [
+          "line",
+          101,
+          null
+        ],
+        [
+          "return",
+          101,
+          false
+        ]
+      ],
+      "part_end": false,
+      "clock": 1982579.1263814,
+      "flags": {
+        "gate_stage_loading": false,
+        "dungeon_return_pending": false,
+        "clear_notified": true,
+        "dungeon_failed": false,
+        "dungeon_requested": false,
+        "requested_dungeon_id": null,
+        "requested_dungeon_mode": null
+      }
+    },
+    {
+      "trace": [
+        [
+          "line",
+          75,
+          null
+        ],
+        [
+          "line",
+          76,
+          null
+        ],
+        [
+          "line",
+          77,
+          null
+        ],
+        [
+          "line",
+          78,
+          null
+        ],
+        [
+          "line",
+          79,
+          null
+        ],
+        [
+          "line",
+          80,
+          null
+        ],
+        [
+          "line",
+          81,
+          null
+        ],
+        [
+          "line",
+          82,
+          null
+        ],
+        [
+          "line",
+          83,
+          null
+        ],
+        [
+          "line",
+          84,
+          null
+        ],
+        [
+          "line",
+          85,
+          null
+        ],
+        [
+          "line",
+          86,
+          null
+        ],
+        [
+          "line",
+          87,
+          null
+        ],
+        [
+          "line",
+          88,
+          null
+        ],
+        [
+          "line",
+          89,
+          null
+        ],
+        [
+          "line",
+          90,
+          null
+        ],
+        [
+          "line",
+          91,
+          null
+        ],
+        [
+          "line",
+          92,
+          null
+        ],
+        [
+          "line",
+          93,
+          null
+        ],
+        [
+          "line",
+          94,
+          null
+        ],
+        [
+          "line",
+          95,
+          null
+        ],
+        [
+          "line",
+          101,
+          null
+        ],
+        [
+          "return",
+          101,
+          false
+        ]
+      ],
+      "part_end": false,
+      "clock": 1982579.1263814,
+      "flags": {
+        "gate_stage_loading": false,
+        "dungeon_return_pending": false,
+        "clear_notified": false,
+        "dungeon_failed": true,
+        "dungeon_requested": false,
+        "requested_dungeon_id": null,
+        "requested_dungeon_mode": null
+      }
+    }
+  ],
+  "errors": [],
+  "own_runtime_removed": true,
+  "connections": 0
+}

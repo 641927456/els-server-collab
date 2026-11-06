@@ -1,0 +1,24 @@
+{
+  "comparisons": 207,
+  "checks": [
+    "equipped, missing, expired and foreign ownership parity",
+    "real coin transaction, replay, conflict, encoder rollback and cold read",
+    "actual Application/TLS D0/D1/D2; repeated D0 no extra money/effect"
+  ],
+  "profile": {
+    "before": {
+      "total_ms": 59.29120001383126,
+      "queries": 45,
+      "progress_scans": 5
+    },
+    "after": {
+      "total_ms": 5.722200032323599,
+      "queries": 30,
+      "progress_scans": 0
+    },
+    "fixture_progress_rows": 20000
+  },
+  "own_runtime_removed": true,
+  "connections": 0,
+  "ok": true
+}
