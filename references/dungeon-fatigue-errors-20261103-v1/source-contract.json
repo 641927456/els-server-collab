@@ -1,0 +1,68 @@
+{
+  "format": 1,
+  "issue": 782,
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "parent_release": "native-attendance-projection-reuse-20261103-v4",
+  "parent_manifest_sha256": "a1df0af0fe6aa0a73f0ac5412c730d290c0f06f7d697ff3257f7d5f1ef033ef7",
+  "scope": "Preserve native ordinary-fatigue rejection77 across solo7D4/37F/382 and shared7D4/382; preserve eligibility and every fatigue mutation.",
+  "files": {
+    "els_server/domain/normal_fatigue_flow.py": {
+      "parent_sha256": "9c9ae1638f99b25bbae996e4cbbfea261975e98765fee84352c7a24cab26eec5",
+      "sha256": "c59507557a8e1eafa275d77d02649560b84acaf60b3030f76c608d4fd458ca6c",
+      "size": 16115,
+      "source": "source/els_server/domain/normal_fatigue_flow.py"
+    },
+    "els_server/domain/local_session.py": {
+      "parent_sha256": "d27c33fd53a4bde81b57a1ea2ced04dc952e534ef5a4ef2e09ec295673a12a7f",
+      "sha256": "0bb2108110db05983d1c0e2e940887277de0732dcede3ede116cbb2174ce497f",
+      "size": 152655,
+      "source": "source/els_server/domain/local_session.py"
+    },
+    "els_server/domain/friends_dungeon.py": {
+      "parent_sha256": "62ff9f391545fd932f1ce81367a0319695fdadbf528a304e65b10e4088df65f2",
+      "sha256": "41d53c2aa8e9004cbed34628681d908c0f39a481dd7c2e1b3c9373d3f2ce5b64",
+      "size": 31863,
+      "source": "source/els_server/domain/friends_dungeon.py"
+    },
+    "els_server/protocol/dungeon_errors.py": {
+      "parent_sha256": "c6f7cd37f0bd893839eb3d900eadf19bfec15756cc123f4cb4893669fef8f6f9",
+      "sha256": "3ced408f810b2eed8b39f1849f26d4c11a641ec2552569a476d2cc180de0102d",
+      "size": 200,
+      "source": "source/els_server/protocol/dungeon_errors.py"
+    }
+  },
+  "root_source_changed": false,
+  "current_engine_changed": false,
+  "automatic_deployment": false,
+  "client_delta": 0,
+  "new_schema": false,
+  "new_tables": [],
+  "validation": {
+    "passed": true,
+    "checks": [
+      "existing_native77_text_identity",
+      "solo_7D4_normal_matching_and_single_raid_zero_fatigue77",
+      "solo_382_and_37F_recheck_fatigue_after_valid_preflight",
+      "malformed_continuation_remains_generic_failure",
+      "mode_and_region_rejections_keep_their_original_precedence",
+      "zero_cost_exemption_and_boolean_consumers_preserved",
+      "database_and_actor_failure_are_never_mislabeled_as_fatigue",
+      "group_preflight_and_direct382_identify_exhausted_leader_or_member",
+      "group_leader_ready_and_malformed_requests_still_reject",
+      "group382_rechecks_after_successful_preflight_without_debit",
+      "positive_one_fatigue_original_group_start_and_shared_room"
+    ],
+    "actual_Application_TLS": true,
+    "temporary_owned_database": true,
+    "natural_GUI": false,
+    "online_installed": false,
+    "cleanup": {
+      "owned_runtime_removed": true,
+      "active_connections": 0
+    }
+  },
+  "qualified_bundle_sha256": "400eabb58ac5a6ab027392554c0c1f95c9a07135b7cb7a2b54d918b33a053d4b",
+  "server_installed": false,
+  "main_merged": false,
+  "private_evidence": "Original anonymous investigation receipts and fixture failure traces remain in the author workspace; no player identity, database, raw log, credentials or packet captures are included."
+}
