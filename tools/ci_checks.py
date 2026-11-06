@@ -48,6 +48,8 @@ def main(argv=None):
     run([sys.executable,'-B',str(ROOT/'references/teacher-potion-count1-20261104-v1/verify_source_contract.py')])
     if (ROOT/'references/native-bottom-megaphone-20261104-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_bottom_megaphone_source_20261104.py')])
+    if (ROOT/'references/attendance-reward-validation-20261104-v1/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_attendance_reward_source_20261104.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
     run([sys.executable,'-B','-m','unittest','tests.test_public_controller_sources'])
