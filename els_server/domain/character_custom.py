@@ -164,6 +164,8 @@ def _replay_selection(s):
         owned=fresh['owned'];selected=dict(fresh['selected'])
         if not selected:return []
         title=int(s.account.character().get('title',0) or 0)
+        _trace('opener replay owned=%d slots=%d'%(
+            sum(len(v) for v in owned.values()),len(selected)))
         return ([registered(value) for family in sorted(owned) for value in owned[family]]
                 +[acknowledgement(selected),selected_notice(s.account.uid,title,selected)])
     except Exception as error:
