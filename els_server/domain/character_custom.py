@@ -58,8 +58,23 @@ def catalog():
         or {0,*FREE_EMOTES,*free_catalog().values()}&{r['custom_id']for r in rules.values()}):raise ValueError('Permanent custom ID ambiguity')
     return rules
 
+@functools.lru_cache(maxsize=1)
+def _qualified_ids():
+    """Every admissible permanent custom ID, built once per process.
+
+    canonical() is called once per owned row by every snapshot/registration
+    build (2900+ rows on a fully unlocked character), so rebuilding the ID set
+    inline turned each of those into 2900 x 3200 set insertions.
+    """
+    return frozenset({0}|FREE_EMOTES|set(free_catalog().values())|{r['custom_id'] for r in catalog().values()})
+
+@functools.lru_cache(maxsize=1)
+def _type_index():
+    """custom_id -> native CUSTOMIZING_TYPE, so custom_type() is not a scan."""
+    return {r['custom_id']:r['type'] for r in catalog().values()}
+
 def canonical(custom_id):
-    if type(custom_id) is not int or custom_id not in ({0}|FREE_EMOTES|set(free_catalog().values())|{r['custom_id'] for r in catalog().values()}):
+    if type(custom_id) is not int or custom_id not in _qualified_ids():
         raise ValueError('Unqualified permanent custom ID')
     return dict(custom_id=custom_id,ability=0,date1=DATE1,date2=DATE2,variant=1)
 
@@ -81,7 +96,7 @@ def custom_type(custom_id):
     if custom_id==0:return None
     if custom_id in FREE_EMOTES:return 24
     if custom_id in free_catalog().values():return 1
-    return next(r['type']for r in catalog().values()if r['custom_id']==custom_id)
+    return _type_index()[custom_id]
 
 def slot_value(slot,value):
     family=selection_type(slot)
@@ -164,10 +179,17 @@ def _replay_selection(s):
         owned=fresh['owned'];selected=dict(fresh['selected'])
         if not selected:return []
         title=int(s.account.character().get('title',0) or 0)
+        events=([registered(value) for family in sorted(owned) for value in owned[family]]
+                +[acknowledgement(selected),selected_notice(s.account.uid,title,selected)])
+        # The opener reply carries all of this in one frame burst; an event that
+        # only fails at encode time would take the whole reply down with it,
+        # including the 635 the window is waiting for. Prove each one here and
+        # fall back to the bare opener instead of dying in the writer.
+        from els_server.protocol.protocol_codec import encode_event
+        for event in events:encode_event(event)
         _trace('opener replay owned=%d slots=%d'%(
             sum(len(v) for v in owned.values()),len(selected)))
-        return ([registered(value) for family in sorted(owned) for value in owned[family]]
-                +[acknowledgement(selected),selected_notice(s.account.uid,title,selected)])
+        return events
     except Exception as error:
         _trace('opener selection unavailable: %r'%error)
         return []
