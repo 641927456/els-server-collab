@@ -1,0 +1,79 @@
+{
+  "issue": 795,
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "parent_release": "native-erp-rejection-messages-20261104-v1",
+  "parent_manifest_sha256": "54dbac3839bbe99a2b2950036ef1dc52aaa0995adda28b869e17b31b84fa16c9",
+  "source_delta": [
+    {
+      "path": "els_server/domain/summons.py",
+      "parent_sha256": "429edc645013f7c013de6bed5e17ecc1f49581d40a0938b4b0f3d7b842f7456b",
+      "sha256": "ff8a8b776e71360e7bc21b519500aa39603f60f6cd9ed6533f0ad8e0a46dd933"
+    },
+    {
+      "path": "els_server/domain/dungeon_spawns.py",
+      "parent_sha256": "fc2d685e044dd090eee3a8046aef5f1110c202d677daa9e652ee3d24dc6d6123",
+      "sha256": "5bc3776e9151851795b177c28cb4725ce6c9552074f04537bebb0365d8139f9a"
+    },
+    {
+      "path": "els_server/domain/friends_spawns.py",
+      "parent_sha256": "f53a0d677da5f81c1835c29c609bf9a4bf38250cf197a80bdcdb8faa531e78a7",
+      "sha256": "017a5f9c72ea81b9f5587db8ef567f49c7bdf93cf4738d87ae8f159c1dadf0a6"
+    }
+  ],
+  "online_installed": true,
+  "online_release": "native-mixed-player-scene-summons-20261104-v1",
+  "online_manifest_sha256": "c6ebd56e15be371360b9f50d84681a44a5853f91fc42535a18e62f6c3a5a6419",
+  "observation_seconds": 126.03685219993349,
+  "public_checks": [
+    {
+      "dungeon": 34030,
+      "family": 10,
+      "skill_templates": [
+        1908,
+        1908
+      ],
+      "scene_template": 6100,
+      "complete_native_consumed": 602,
+      "scalar_fields_each": 37,
+      "skill_parameters_preserved": true,
+      "scene_initialization_preserved": true,
+      "every_skill_actor_expired": true
+    },
+    {
+      "family": 10,
+      "foreign_skill_owner_rejects_entire_mixed_queue": true
+    },
+    {
+      "dungeon": 34030,
+      "family": 13,
+      "skill_templates": [
+        2958,
+        2959,
+        2960,
+        2961
+      ],
+      "scene_template": 6100,
+      "complete_native_consumed": 874,
+      "scalar_fields_each": 37,
+      "skill_parameters_preserved": true,
+      "scene_initialization_preserved": true,
+      "every_skill_actor_expired": true
+    },
+    {
+      "family": 13,
+      "foreign_skill_owner_rejects_entire_mixed_queue": true
+    },
+    "no_extra_ED_rewards"
+  ],
+  "raw_logs_packets_databases_credentials_excluded": true,
+  "original_client_changed": false,
+  "schema_changed": false,
+  "root_source_changed": false,
+  "current_engine_changed": false,
+  "automatic_deployment": false,
+  "LOCAL_installed": false,
+  "launcher_changed": false,
+  "main_merged": false,
+  "original_screenshot_uniquely_attributed": false,
+  "all_natural_skill_effects_verified": false
+}

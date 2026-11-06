@@ -1,0 +1,31 @@
+--- a/els_server/domain/summons.py
++++ b/els_server/domain/summons.py
+@@ -15,7 +15,7 @@
+ LAYOUTS=json.loads((Path(__file__).resolve().parents[1]/'data/npc_wire_layouts.json').read_text())['layouts']
+
+
+-def _decode_rows(payload, uid, fields, templates):
++def _decode_rows(payload, uid, fields, templates, *, validate=None):
+     if not isinstance(payload, bytes) or len(payload) < 4:
+         raise ValueError('Player summon vector')
+     entity_count = struct.unpack_from('>I', payload)[0]
+@@ -58,10 +58,15 @@
+                 value = (int.from_bytes(raw, 'big') ^ xor).to_bytes(size, 'little')
+             dto[offset:offset+size] = value
+         key, template = struct.unpack_from('<ii', dto)
+-        if key != -1 or template not in templates:
+-            raise ValueError('Unverified summon template')
+-        if struct.unpack_from('<q', dto, 0x6d)[0] != uid:
+-            raise ValueError('Summon owner mismatch')
++        if key != -1:
++            raise ValueError('Unallocated summon identity')
++        if validate is None:
++            if template not in templates:
++                raise ValueError('Unverified summon template')
++            if struct.unpack_from('<q', dto, 0x6d)[0] != uid:
++                raise ValueError('Summon owner mismatch')
++        else:
++            validate(dto, extra)
+         if not all(math.isfinite(v) and abs(v) <= 100000 for v in struct.unpack_from('<fff', dto, 9)):
+             raise ValueError('Invalid summon location')
+         rows.append((dto, extra))

@@ -1,0 +1,35 @@
+--- a/els_server/domain/friends_spawns.py
++++ b/els_server/domain/friends_spawns.py
+@@ -178,19 +178,28 @@
+             run.parts = dict(run.parts)
+             run.parts[run.part] = dict(run.current, npcs=[dict(n) for n in run.current['npcs']])
+             run.dynamic_requests = dict(run.dynamic_requests)
+-            run.new_npc_keys = lambda count, other: _allocate(r, state, count)
++            run.new_npc_keys = lambda count, other: _allocate(r, state, count, minimum=max(other, default=-1)+1)
+             staged.dungeon_run = run
++            staged.summon_keys = set(s.summon_keys)
++            staged.summon_requests = dict(s.summon_requests)
+             own = scripted_spawn(staged, event, sequence)
+             if own is None or [e.kind for e in own] != [0x2cf, 0x2d0] or own[0].payload != bytes(4):
+                 return failed
+             added = run.current['npcs'][len(s.dungeon_run.current['npcs']):]
++            player_keys = staged.summon_keys - s.summon_keys
+             boxes = _mailboxes(r, s, own, own[1:])
+-            prepared = _next_state(state, s, sequence, digest, max(n['key'] for n in added))
++            high_key = max({n['key'] for n in added} | player_keys)
++            prepared = _next_state(state, s, sequence, digest, high_key)
++            prepared.owners.update((actor, connection) for actor in player_keys)
+             changes = {m: (m.dungeon_run.current['npcs'] + [dict(n) for n in added],
+-                dict(run.dynamic_requests)) for m in r.members}
+-            for m, (npcs, requests) in changes.items():
++                dict(run.dynamic_requests), m.summon_keys | player_keys, dict(m.summon_requests)) for m in r.members}
++            if player_keys:changes[s][3][sequence] = event.payload
++            for m, (npcs, requests, keys, player_requests) in changes.items():
+                 m.dungeon_run.current['npcs'] = npcs
+                 m.dungeon_run.dynamic_requests = requests
++                m.summon_keys = keys
++                m.summon_requests = player_requests
++                if player_keys:m.summon_next_key = max(m.summon_next_key, max(player_keys)+1)
+         # All validation, serialization, bounded queue preparation and memory
+         # allocation have completed. Only plain reference assignments follow.
+         r.shared_actors = prepared
