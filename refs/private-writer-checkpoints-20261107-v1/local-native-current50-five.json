@@ -1,0 +1,282 @@
+{
+  "passed": true,
+  "functional_passed": true,
+  "scope": "Local four-CPU native loopback screening; not production hardware or WAN qualification",
+  "source": {
+    "candidate/els_server/application.py": "cb58ee1135fca7bc6b67b5e79cde6d034331cc85e5d900e5f88bff2f94d999f6",
+    "candidate/els_server/domain/legacy_pve_exp.py": "2badb754c4e3e7eef84e46a4e351b7ac663f4616d4425f633effc345f8ea69f0",
+    "candidate/els_server/storage/clock_writer.py": "79af4e6ff15e5de900081b3f4a3452bb6b765fa9ed6e83508b9252779acd47b4",
+    "candidate/els_server/storage/coin_writer.py": "2085b3c6fb239fb433bc2595c70320156b0a51f24e7e8413fbf4b642ee98a0c2",
+    "candidate/els_server/storage/death_writer.py": "c697a761a993346db9964857dee9848ac7a7527b39c0de32096ff47528d43e15",
+    "candidate/els_server/storage/position_writer.py": "77775ac30c2589b3ec982c417c70f56ebdfc1003f776b7a034785714ef69ef51",
+    "candidate/els_server/storage/sqlite_timing.py": "54b7b5099ba7c431f054de7c6b90b9a868215107e13a2791663bb6aa7bf94c8a",
+    "candidate/els_server/storage/wal_checkpoints.py": "8696924c4a6bd8deeee3106694cf8fb9b0ba521bebe4b86e92f15cb429d05538"
+  },
+  "harness": {
+    "bootstrap.py": "5292038437e96f7890c682b336f0013f799c83eef28a9c602c5d576cb1d6f1bd",
+    "runtime_fixture.py": "f837895066e19fb332f167d714d6b948105b5497d63d4df5d7d81ec56b45742a",
+    "runtime_identity.py": "09f2063840e867a583f44bdb711a59f4a159c1e40af40290818aef3d9003666b",
+    "capacity_server.py": "f790916058c3a03242a856f87455a838a65d2b872376415d862637599811c52e",
+    "mixed_driver.py": "d177ffc78685e8fe5fe85a7578588265b235b2922f966e1053041cb183427580",
+    "persistent_mixed_online_client.py": "b278184655c293f9c6d03848ebeca1c70c6119bb1184287267d6d8afede529ee",
+    "town_burst_capacity_client.py": "027659dd992423348a3e5941c8bbc678cf2c2ec1ce6293b721d425ed05070767",
+    "movement_burst_schedule.py": "0e830641bc9656ff645f3f94037ca1485ac02d15f8feedabfbf35d2af44d2e61",
+    "latency_histogram.py": "000d9f9c8d86245e7e4d1596ccf9b9e8e8990c460ed61aef86e122401a4d0c26"
+  },
+  "parent_runtime": "native-dungeon-result-statistics-20261107-v1",
+  "actors": {
+    "town": 20,
+    "dungeon": 30,
+    "total": 50,
+    "native_frontends": 0
+  },
+  "seconds": 300,
+  "signed_free_threaded_runtime": true,
+  "GIL_enabled": false,
+  "startup_gc_freeze": true,
+  "server_percentile_targets_met": true,
+  "latency": {
+    "pickup": {
+      "n": 4950,
+      "mean_ms": 6.934258061263598,
+      "p50_ms": 7,
+      "p95_ms": 12,
+      "p99_ms": 17,
+      "max_ms": 135.37329994142056,
+      "resolution_ms": 1
+    },
+    "death": {
+      "n": 4950,
+      "mean_ms": 16.483181211438897,
+      "p50_ms": 16,
+      "p95_ms": 25,
+      "p99_ms": 33,
+      "max_ms": 145.54650010541081,
+      "resolution_ms": 1
+    },
+    "paired_door": {
+      "n": 330,
+      "mean_ms": 17.796771190213885,
+      "p50_ms": 17,
+      "p95_ms": 24,
+      "p99_ms": 28,
+      "max_ms": 40.14760022982955,
+      "resolution_ms": 1
+    },
+    "map_change_B3": {
+      "n": 330,
+      "mean_ms": 25.522732707869373,
+      "p50_ms": 24,
+      "p95_ms": 36,
+      "p99_ms": 50,
+      "max_ms": 131.64540007710457,
+      "resolution_ms": 1
+    },
+    "town_movement": {
+      "n": 35000,
+      "mean_ms": 2.980419032102717,
+      "p50_ms": 3,
+      "p95_ms": 7,
+      "p99_ms": 17,
+      "max_ms": 141.85519982129335,
+      "resolution_ms": 1
+    }
+  },
+  "percentile_gates": {
+    "pickup": true,
+    "death": true,
+    "paired_door": true,
+    "map_change_B3": true,
+    "town_movement": true
+  },
+  "client_dungeon_groups": {
+    "dgg20": {
+      "0x28": {
+        "n": 10,
+        "mean_ms": 98.7860600464046,
+        "p50_ms": 92,
+        "p95_ms": 139,
+        "p99_ms": 139,
+        "max_ms": 138.33210011944175,
+        "resolution_ms": 1
+      },
+      "0x227": {
+        "n": 120,
+        "mean_ms": 73.96859249177699,
+        "p50_ms": 71,
+        "p95_ms": 114,
+        "p99_ms": 148,
+        "max_ms": 153.2435999251902,
+        "resolution_ms": 1
+      },
+      "0xb3": {
+        "n": 110,
+        "mean_ms": 26.528414554724637,
+        "p50_ms": 25,
+        "p95_ms": 38,
+        "p99_ms": 50,
+        "max_ms": 132.6198996976018,
+        "resolution_ms": 1
+      },
+      "0xad": {
+        "n": 1650,
+        "mean_ms": 17.40565660494295,
+        "p50_ms": 17,
+        "p95_ms": 26,
+        "p99_ms": 35,
+        "max_ms": 134.6712000668049,
+        "resolution_ms": 1
+      },
+      "0xd0": {
+        "n": 1650,
+        "mean_ms": 7.510440795202598,
+        "p50_ms": 7,
+        "p95_ms": 13,
+        "p99_ms": 17,
+        "max_ms": 135.93810005113482,
+        "resolution_ms": 1
+      },
+      "glass_B8_to_BD": {
+        "n": 110,
+        "mean_ms": 19.11753908815709,
+        "p50_ms": 19,
+        "p95_ms": 25,
+        "p99_ms": 28,
+        "max_ms": 41.991500183939934,
+        "resolution_ms": 1
+      }
+    },
+    "dgg30": {
+      "0x28": {
+        "n": 10,
+        "mean_ms": 102.50594997778535,
+        "p50_ms": 99,
+        "p95_ms": 133,
+        "p99_ms": 133,
+        "max_ms": 132.35240010544658,
+        "resolution_ms": 1
+      },
+      "0x227": {
+        "n": 120,
+        "mean_ms": 76.3289266382344,
+        "p50_ms": 72,
+        "p95_ms": 111,
+        "p99_ms": 146,
+        "max_ms": 203.5091002471745,
+        "resolution_ms": 1
+      },
+      "0xb3": {
+        "n": 110,
+        "mean_ms": 26.605469983240422,
+        "p50_ms": 25,
+        "p95_ms": 38,
+        "p99_ms": 44,
+        "max_ms": 108.34799986332655,
+        "resolution_ms": 1
+      },
+      "0xad": {
+        "n": 1650,
+        "mean_ms": 17.408556545040373,
+        "p50_ms": 16,
+        "p95_ms": 27,
+        "p99_ms": 36,
+        "max_ms": 146.18310006335378,
+        "resolution_ms": 1
+      },
+      "0xd0": {
+        "n": 1650,
+        "mean_ms": 7.651140063041539,
+        "p50_ms": 7,
+        "p95_ms": 14,
+        "p99_ms": 19,
+        "max_ms": 106.6525001078844,
+        "resolution_ms": 1
+      },
+      "glass_B8_to_BD": {
+        "n": 110,
+        "mean_ms": 18.977591797540132,
+        "p50_ms": 18,
+        "p95_ms": 27,
+        "p99_ms": 29,
+        "max_ms": 36.89079964533448,
+        "resolution_ms": 1
+      }
+    },
+    "dgg40": {
+      "0x28": {
+        "n": 10,
+        "mean_ms": 106.88728000968695,
+        "p50_ms": 100,
+        "p95_ms": 127,
+        "p99_ms": 127,
+        "max_ms": 126.69230019673705,
+        "resolution_ms": 1
+      },
+      "0x227": {
+        "n": 120,
+        "mean_ms": 72.2194883118694,
+        "p50_ms": 69,
+        "p95_ms": 113,
+        "p99_ms": 135,
+        "max_ms": 140.25200018659234,
+        "resolution_ms": 1
+      },
+      "0xb3": {
+        "n": 110,
+        "mean_ms": 25.725913627750494,
+        "p50_ms": 25,
+        "p95_ms": 33,
+        "p99_ms": 42,
+        "max_ms": 50.218699965626,
+        "resolution_ms": 1
+      },
+      "0xad": {
+        "n": 1650,
+        "mean_ms": 17.241862244678266,
+        "p50_ms": 17,
+        "p95_ms": 26,
+        "p99_ms": 33,
+        "max_ms": 123.18240012973547,
+        "resolution_ms": 1
+      },
+      "0xd0": {
+        "n": 1650,
+        "mean_ms": 7.511146484563748,
+        "p50_ms": 7,
+        "p95_ms": 13,
+        "p99_ms": 18,
+        "max_ms": 107.04110004007816,
+        "resolution_ms": 1
+      },
+      "glass_B8_to_BD": {
+        "n": 110,
+        "mean_ms": 18.74437636526471,
+        "p50_ms": 18,
+        "p95_ms": 24,
+        "p99_ms": 29,
+        "max_ms": 29.813099652528763,
+        "resolution_ms": 1
+      }
+    }
+  },
+  "client_town_relay": {
+    "n": 664923,
+    "mean_ms": 17.130982220790415,
+    "p50_ms": 17,
+    "p95_ms": 42,
+    "p99_ms": 74,
+    "max_ms": 211.9532460346818,
+    "resolution_ms": 1
+  },
+  "online_capacity_qualified": false,
+  "network_shaped": false,
+  "native_9E_stream": false,
+  "natural_GUI": false,
+  "cold_currency_and_ACK_exact": true,
+  "final_town_SQL_coordinates_exact": true,
+  "owned_runtime_removed": true,
+  "connections": 0,
+  "errors": [],
+  "checkpoint_thread_policy": "THREAD_PRIORITY_BELOW_NORMAL; normal I/O; no background processing mode",
+  "peak_private_bytes": 1448558592
+}

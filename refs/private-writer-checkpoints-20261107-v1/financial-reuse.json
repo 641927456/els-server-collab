@@ -1,0 +1,52 @@
+{
+  "reused": true,
+  "native_runs": {
+    "verify_coin_writer": {
+      "runtime": "3.14.10 free-threading build (tags/v3.14.10:b703b2c, Oct 25 2026, 17:36:07) [MSC v.1944 64 bit (AMD64)]",
+      "GIL_enabled": false,
+      "script_sha256": "f9d907cd8c38d5d2a778812bde6fb82bd28c68f7f0c97cff25f84b0c5d3c671a",
+      "candidate_bindings": {
+        "candidate/els_server/application.py": "5e483bc2c95e80bcff36ea8f882e403811b1001c4db21c1e4d495a7ac3623be9",
+        "candidate/els_server/domain/legacy_pve_exp.py": "2badb754c4e3e7eef84e46a4e351b7ac663f4616d4425f633effc345f8ea69f0",
+        "candidate/els_server/storage/clock_writer.py": "79af4e6ff15e5de900081b3f4a3452bb6b765fa9ed6e83508b9252779acd47b4",
+        "candidate/els_server/storage/coin_writer.py": "2085b3c6fb239fb433bc2595c70320156b0a51f24e7e8413fbf4b642ee98a0c2",
+        "candidate/els_server/storage/death_writer.py": "c697a761a993346db9964857dee9848ac7a7527b39c0de32096ff47528d43e15",
+        "candidate/els_server/storage/position_writer.py": "77775ac30c2589b3ec982c417c70f56ebdfc1003f776b7a034785714ef69ef51",
+        "candidate/els_server/storage/sqlite_timing.py": "54b7b5099ba7c431f054de7c6b90b9a868215107e13a2791663bb6aa7bf94c8a",
+        "candidate/els_server/storage/wal_checkpoints.py": "dfc930c266de513156c2b40b647afe7228b51191aa9de3d2274a54ace0bf947e"
+      },
+      "owned_runtime_removed": true,
+      "connections": 0
+    },
+    "verify_coin_writer_lifetime": {
+      "runtime": "3.14.10 free-threading build (tags/v3.14.10:b703b2c, Oct 25 2026, 17:36:07) [MSC v.1944 64 bit (AMD64)]",
+      "GIL_enabled": false,
+      "script_sha256": "4f496eb2080d85345a7422f847008d46971f5d70febacb23cc93ad305291f72c",
+      "candidate_bindings": {
+        "candidate/els_server/application.py": "5e483bc2c95e80bcff36ea8f882e403811b1001c4db21c1e4d495a7ac3623be9",
+        "candidate/els_server/domain/legacy_pve_exp.py": "2badb754c4e3e7eef84e46a4e351b7ac663f4616d4425f633effc345f8ea69f0",
+        "candidate/els_server/storage/clock_writer.py": "79af4e6ff15e5de900081b3f4a3452bb6b765fa9ed6e83508b9252779acd47b4",
+        "candidate/els_server/storage/coin_writer.py": "2085b3c6fb239fb433bc2595c70320156b0a51f24e7e8413fbf4b642ee98a0c2",
+        "candidate/els_server/storage/death_writer.py": "c697a761a993346db9964857dee9848ac7a7527b39c0de32096ff47528d43e15",
+        "candidate/els_server/storage/position_writer.py": "77775ac30c2589b3ec982c417c70f56ebdfc1003f776b7a034785714ef69ef51",
+        "candidate/els_server/storage/sqlite_timing.py": "54b7b5099ba7c431f054de7c6b90b9a868215107e13a2791663bb6aa7bf94c8a",
+        "candidate/els_server/storage/wal_checkpoints.py": "dfc930c266de513156c2b40b647afe7228b51191aa9de3d2274a54ace0bf947e"
+      },
+      "owned_runtime_removed": true,
+      "connections": 0
+    }
+  },
+  "unchanged_economic_sources": [
+    "els_server/storage/coin_writer.py",
+    "els_server/storage/death_writer.py",
+    "els_server/storage/sqlite_timing.py",
+    "els_server/domain/legacy_pve_exp.py"
+  ],
+  "changed_unexercised_inputs": [
+    "Application statistics finalizer",
+    "Checkpoint thread CPU/I/O scheduling"
+  ],
+  "current_managed_policy_test": "private-writer-checkpoints-tests.json",
+  "current_complete_native_workload": "local-native-current50-five.json",
+  "limits": "The earlier financial tests do not qualify the current application finalizer or checkpoint scheduling; those are covered only to the scope of the current unit and native workload receipts."
+}

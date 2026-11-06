@@ -1,0 +1,82 @@
+{
+  "functional_passed": true,
+  "latency_qualified": false,
+  "actors": 50,
+  "town": 20,
+  "dungeon": 30,
+  "seconds": 300,
+  "requests": {
+    "179": {
+      "n": 330,
+      "mean_ms": 31.315854840883702,
+      "p50_ms": 27,
+      "p95_ms": 53,
+      "p99_ms": 90,
+      "max_ms": 576.3640999794006,
+      "resolution_ms": 1
+    },
+    "173": {
+      "n": 4950,
+      "mean_ms": 26.46683731135169,
+      "p50_ms": 17,
+      "p95_ms": 36,
+      "p99_ms": 334,
+      "max_ms": 1346.3985999114811,
+      "resolution_ms": 1
+    },
+    "208": {
+      "n": 4950,
+      "mean_ms": 7.8473475550988105,
+      "p50_ms": 7,
+      "p95_ms": 15,
+      "p99_ms": 26,
+      "max_ms": 283.0412001349032,
+      "resolution_ms": 1
+    },
+    "555": {
+      "n": 34699,
+      "mean_ms": 5.459269600914984,
+      "p50_ms": 3,
+      "p95_ms": 11,
+      "p99_ms": 29,
+      "max_ms": 1264.2095000483096,
+      "resolution_ms": 1
+    },
+    "door": {
+      "n": 330,
+      "mean_ms": 19.97043001042171,
+      "p50_ms": 18,
+      "p95_ms": 33,
+      "p99_ms": 51,
+      "max_ms": 60.16569957137108,
+      "resolution_ms": 1
+    }
+  },
+  "source_receipt": "boundary-diagnostic-inputs.json",
+  "native_parent": "native-dungeon-result-statistics-20261107-v1",
+  "checkpoint_priority_mode": "THREAD_MODE_BACKGROUND_BEGIN",
+  "observed_checkpoint_overlap": true,
+  "causation_proven": false,
+  "source": {
+    "diagnostic_only": true,
+    "parent_runtime": "native-dungeon-result-statistics-20261107-v1",
+    "production_source_unchanged": true,
+    "settings_changed": false,
+    "files": {
+      "owned_sql_boundaries.py": "c2ad6180fe8c3851bb11c164cc88ff2e2e7e21597f485a1f399535ae9a6102b2",
+      "capacity_boundary_diagnostic.py": "9e22d43ae179317a2950701202bac9db4d1b2d439b11bde65953bccc901b1fff",
+      "mixed_boundary_diagnostic_driver.py": "1e6fc61beace890b9cd24df1565839e2e99b9ea2f5198de9d2a9654f37a16165"
+    }
+  },
+  "candidate_source": {
+    "els_server/application.py": "cb58ee1135fca7bc6b67b5e79cde6d034331cc85e5d900e5f88bff2f94d999f6",
+    "els_server/domain/legacy_pve_exp.py": "2badb754c4e3e7eef84e46a4e351b7ac663f4616d4425f633effc345f8ea69f0",
+    "els_server/storage/clock_writer.py": "79af4e6ff15e5de900081b3f4a3452bb6b765fa9ed6e83508b9252779acd47b4",
+    "els_server/storage/coin_writer.py": "2085b3c6fb239fb433bc2595c70320156b0a51f24e7e8413fbf4b642ee98a0c2",
+    "els_server/storage/death_writer.py": "c697a761a993346db9964857dee9848ac7a7527b39c0de32096ff47528d43e15",
+    "els_server/storage/position_writer.py": "77775ac30c2589b3ec982c417c70f56ebdfc1003f776b7a034785714ef69ef51",
+    "els_server/storage/sqlite_timing.py": "54b7b5099ba7c431f054de7c6b90b9a868215107e13a2791663bb6aa7bf94c8a",
+    "els_server/storage/wal_checkpoints.py": "dfc930c266de513156c2b40b647afe7228b51191aa9de3d2274a54ace0bf947e"
+  },
+  "comparison_limit": "Boundary instrumentation enabled in this negative diagnostic; the follow-up uses the normal harness. Not a controlled benchmark for an exact speedup."
+}
