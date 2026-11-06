@@ -1,0 +1,134 @@
+{
+  "ok": true,
+  "source_manifest_sha256": "ac8eebc6a6a6dd43a3ea57bdd2ca1e9c39de5f91cd27db61c17b8e2c3ea50bba",
+  "SQL_distinct_cases": 8,
+  "UDP_cases": 3,
+  "native_DTO_cases": 12,
+  "TLS": [
+    {
+      "local_evidence_sha256": "ab334ffbb76f9081ebd4cd5f2a3b6e0013bf2af5396e3659cf81703936226d6a",
+      "checks": [
+        "Nine authenticated ordinary town characters from private saves",
+        "Eight-member private room; wrong password, ninth member and duplicate join rejected without leaked password",
+        "Actual authenticated TLS relay sends opaque data from first to eighth admitted member with server-bound sender UID",
+        "Host leave promotes current survivor, preserves seven peer ports, admits replacement into slot zero and restricts room settings to promoted master",
+        "Original town return and disconnected host cleanup preserve saved town, inventory and money"
+      ],
+      "fixture_accounts": 9,
+      "loaded_candidate": {
+        "candidate\\els_server\\protocol\\dungeon_messages.py": "24651d5b7dfe2df233f264c7121972c4be95980dbd6b24ade803636a8a1cb0c7",
+        "candidate\\els_server\\application.py": "99bfca4f6800c737c0d2b09d05723eb86d70ff4d14028ff17cf12e1753067998",
+        "candidate\\els_server\\friends_relay.py": "b2eee0de47d77534c8683334d3864d3088e8e2f82b5af013d9adf9559fc7b1b3",
+        "candidate\\els_server\\protocol\\photo_zone_messages.py": "a3a717294b5d0cfb95c6b8dca85d11b35936b5f3d0efb161db9a794d609eaf18",
+        "candidate\\els_server\\domain\\friends_world.py": "6f416a48be1f6fae300c2d56cb62c6b7e9ef616186d9c1b03ca5601d735e5597",
+        "candidate\\els_server\\domain\\friends_dungeon.py": "f7010e3bd691cbcd3195ae376bae7651b792c1f80b632e0f73476578f6f238af",
+        "candidate\\els_server\\realtime.py": "5a3394e9c358c2731821529c3c2edc4dca1f13a61aa0e5cb9c04e5c1bd339c41",
+        "candidate\\els_server\\domain\\session_auxiliary.py": "5b084989fe91318cb794ebf41ffa2f1890ddfc5983e9876605fe8eb264d345de",
+        "candidate\\els_server\\domain\\photo_zone_flow.py": "5cf31338a9010538f9240c80a0da5270258fd9b522677565b5e302ce41df4117"
+      },
+      "natural_GUI": false
+    },
+    {
+      "local_evidence_sha256": "be9581dc7a030de3866e298ca23090132e742a828e7683e35d3f06f4ce14ac40",
+      "checks": [
+        "Nine authenticated ordinary town characters from private saves",
+        "Native E44 type21 preserves its correlation and accepts bounded room names; oversized name receives native failure E45",
+        "Actual SQL skill slots replace a deliberately stale account cache before original studio FullUser admission"
+      ],
+      "fixture_accounts": 2,
+      "loaded_candidate": {
+        "candidate\\els_server\\protocol\\dungeon_messages.py": "24651d5b7dfe2df233f264c7121972c4be95980dbd6b24ade803636a8a1cb0c7",
+        "candidate\\els_server\\application.py": "99bfca4f6800c737c0d2b09d05723eb86d70ff4d14028ff17cf12e1753067998",
+        "candidate\\els_server\\friends_relay.py": "b2eee0de47d77534c8683334d3864d3088e8e2f82b5af013d9adf9559fc7b1b3",
+        "candidate\\els_server\\protocol\\photo_zone_messages.py": "3a49f958875800113010806225fc00cf794faf603bb73dbb2d44cb39155ad329",
+        "candidate\\els_server\\domain\\friends_world.py": "6f416a48be1f6fae300c2d56cb62c6b7e9ef616186d9c1b03ca5601d735e5597",
+        "candidate\\els_server\\domain\\friends_dungeon.py": "f7010e3bd691cbcd3195ae376bae7651b792c1f80b632e0f73476578f6f238af",
+        "candidate\\els_server\\realtime.py": "5a3394e9c358c2731821529c3c2edc4dca1f13a61aa0e5cb9c04e5c1bd339c41",
+        "candidate\\els_server\\domain\\session_auxiliary.py": "5b084989fe91318cb794ebf41ffa2f1890ddfc5983e9876605fe8eb264d345de",
+        "candidate\\els_server\\domain\\photo_zone_flow.py": "7b25b71f53afaf549446458921bb7c9ec101708b1a7a220acf174f0df5485dcb"
+      },
+      "natural_GUI": false
+    },
+    {
+      "local_evidence_sha256": "a61472bed8d0738fc1f149360685b085f7ca70bcb4c234a3d7a58caf1684fb57",
+      "checks": [
+        "2 authenticated ordinary town characters from private saves",
+        "Native5B8 consumes one original ticket; duplicate new request consumes none; only its character may create that map and guests can join without owning it",
+        "Original camera permission bit follows the current owning inventory separately for host and guest",
+        "Original EE and F4 drive the shared thirty-five-clear studio quest; completed task unlocks its background for the owner only, with no ticket use",
+        "Cold authenticated reconnect restores both paid and quest map unlocks through original5BA; remaining ticket and camera persist"
+      ],
+      "fixture_accounts": 2,
+      "loaded_candidate": {
+        "els_server\\protocol\\dungeon_messages.py": "24651d5b7dfe2df233f264c7121972c4be95980dbd6b24ade803636a8a1cb0c7",
+        "els_server\\application.py": "99bfca4f6800c737c0d2b09d05723eb86d70ff4d14028ff17cf12e1753067998",
+        "els_server\\friends_relay.py": "b2eee0de47d77534c8683334d3864d3088e8e2f82b5af013d9adf9559fc7b1b3",
+        "els_server\\protocol\\photo_zone_messages.py": "682a2cac8bfc80cb1514ce017fd0cc0ba6378fea69353d6f54924f6e08eb90ed",
+        "els_server\\domain\\friends_world.py": "6f416a48be1f6fae300c2d56cb62c6b7e9ef616186d9c1b03ca5601d735e5597",
+        "els_server\\domain\\friends_dungeon.py": "f7010e3bd691cbcd3195ae376bae7651b792c1f80b632e0f73476578f6f238af",
+        "els_server\\domain\\seal_quests.py": "618e2dc72331eaef068130d99e7a2e8df346a81acb0912c8c22b16b310065d79",
+        "els_server\\domain\\photo_zone_catalog.py": "b8dfa9cc5dc1e2071bed160ce66e7b39266cdc2c83f15754180511ed4f07ed0d",
+        "els_server\\domain\\inventory_items.py": "56047bd078050965f356e2ab54d4483f1d79212c51e727360eabfd834e2f5613",
+        "els_server\\realtime.py": "5a3394e9c358c2731821529c3c2edc4dca1f13a61aa0e5cb9c04e5c1bd339c41",
+        "els_server\\domain\\session_auxiliary.py": "5b084989fe91318cb794ebf41ffa2f1890ddfc5983e9876605fe8eb264d345de",
+        "els_server\\storage\\equipment_receipt_state.py": "19fd66346f71be151b12fd634c7ae319109b22a190d05bdc011453975eb392d3",
+        "els_server\\storage\\seal_quests.py": "8882a7e3912e8ed70915240512026b10c5f9a88f80c18ebdcd21d08548aef7e3",
+        "els_server\\storage\\photo_zone_state.py": "db4f40e7748ddafcb7ca16285863e37208802ecf8d3fad2be8474a8b71fa6ec2",
+        "els_server\\domain\\photo_zone_flow.py": "015fc18ba763af4611345a431bd6736b3cdd5cc35d5fa388ab5277fc237e7ae3",
+        "els_server\\domain\\quest_flow.py": "b96684deedef14fec01ef164c1cdf8ede865ee4ef6a383fd3b1656980f6547e1",
+        "els_server\\domain\\photo_zone_quest.py": "aaef8317b4adf4252446cdda260257522834e72acbf84874f827a7eac16227d1"
+      },
+      "natural_GUI": false
+    },
+    {
+      "local_evidence_sha256": "3229d4c15ef4c0ca8fbf1639b71857bf3a34bcae074506eb5d63eb6fb558f900",
+      "checks": [
+        "3 authenticated ordinary town characters from private saves",
+        "Original85 ordinary studio chat reaches both admitted members and never the outside town character",
+        "Both room admission and a host background change refresh both members maps in the authorized outside friends subscription",
+        "Existing name/UID-checked whisper works in both directions across studio and town",
+        "A selected scene revoked during original chat encoding publishes no prepared message or rate-limit mutation"
+      ],
+      "fixture_accounts": 3,
+      "loaded_candidate": {
+        "els_server\\protocol\\dungeon_messages.py": "24651d5b7dfe2df233f264c7121972c4be95980dbd6b24ade803636a8a1cb0c7",
+        "els_server\\application.py": "7ece3af8f6ee8ed389fcc3e3b68c31ee7b9e29ccab53b3189ecb00302da82ce1",
+        "els_server\\friends_relay.py": "b2eee0de47d77534c8683334d3864d3088e8e2f82b5af013d9adf9559fc7b1b3",
+        "els_server\\protocol\\photo_zone_messages.py": "682a2cac8bfc80cb1514ce017fd0cc0ba6378fea69353d6f54924f6e08eb90ed",
+        "els_server\\domain\\friends_world.py": "c99bbf4d9a571da67087fc17902b132d33054ec223afe23b3fa72a7c186162b9",
+        "els_server\\domain\\friends_dungeon.py": "f7010e3bd691cbcd3195ae376bae7651b792c1f80b632e0f73476578f6f238af",
+        "els_server\\domain\\seal_quests.py": "618e2dc72331eaef068130d99e7a2e8df346a81acb0912c8c22b16b310065d79",
+        "els_server\\domain\\photo_zone_catalog.py": "b8dfa9cc5dc1e2071bed160ce66e7b39266cdc2c83f15754180511ed4f07ed0d",
+        "els_server\\domain\\inventory_items.py": "56047bd078050965f356e2ab54d4483f1d79212c51e727360eabfd834e2f5613",
+        "els_server\\realtime.py": "5a3394e9c358c2731821529c3c2edc4dca1f13a61aa0e5cb9c04e5c1bd339c41",
+        "els_server\\domain\\session_auxiliary.py": "5b084989fe91318cb794ebf41ffa2f1890ddfc5983e9876605fe8eb264d345de",
+        "els_server\\storage\\equipment_receipt_state.py": "19fd66346f71be151b12fd634c7ae319109b22a190d05bdc011453975eb392d3",
+        "els_server\\storage\\seal_quests.py": "8882a7e3912e8ed70915240512026b10c5f9a88f80c18ebdcd21d08548aef7e3",
+        "els_server\\storage\\photo_zone_state.py": "db4f40e7748ddafcb7ca16285863e37208802ecf8d3fad2be8474a8b71fa6ec2",
+        "els_server\\domain\\photo_zone_flow.py": "c0bd467612e5cc020f9a63494967a5715934fb0bf8afa97b7b4240ef50ecfe28",
+        "els_server\\domain\\friend_flow.py": "69c5f485f110daf80f1cb0283a47e45285374a2d549620b8c7c67bf99809e6b0",
+        "els_server\\domain\\quest_flow.py": "b96684deedef14fec01ef164c1cdf8ede865ee4ef6a383fd3b1656980f6547e1",
+        "els_server\\domain\\whisper.py": "ebfb8a1d3853f0cffbecb1f5c9c1abd69882034f5ee6e19b3eb7586fdba75c93"
+      },
+      "natural_GUI": false
+    },
+    {
+      "local_evidence_sha256": "6ba6ae744233fc21cafb52011775d2dcab2480666306e5fe45f8b6643ba1e92c",
+      "result": {
+        "passed": true,
+        "tests": 2
+      }
+    },
+    {
+      "local_evidence_sha256": "6ba6ae744233fc21cafb52011775d2dcab2480666306e5fe45f8b6643ba1e92c",
+      "result": {
+        "passed": true,
+        "tests": 2
+      }
+    }
+  ],
+  "raw_runtime_traffic_included": false,
+  "online_installed": false,
+  "local_installed": false,
+  "natural_GUI": false
+}
