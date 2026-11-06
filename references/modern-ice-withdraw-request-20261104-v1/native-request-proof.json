@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "sender": "0x2ec8de0",
+  "network_boundary": "0x2ec90a1",
+  "cases": [
+    {
+      "kind": 3027,
+      "rows": [
+        [
+          1300001,
+          1
+        ]
+      ],
+      "payload_hex": "00000001000000000013d62100000001"
+    },
+    {
+      "kind": 3027,
+      "rows": [
+        [
+          1300001,
+          1
+        ],
+        [
+          1300002,
+          2
+        ],
+        [
+          1300003,
+          7
+        ]
+      ],
+      "payload_hex": "00000003000000000013d62100000001000000000013d62200000002000000000013d62300000007"
+    }
+  ],
+  "natural_GUI": false,
+  "callbacks_simulated": [
+    "Session sequence getter"
+  ],
+  "old_tests_only_exercised_map_writer": true
+}
