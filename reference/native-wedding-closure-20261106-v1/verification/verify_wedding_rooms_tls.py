@@ -9,6 +9,7 @@ body=ast.get_source_segment(original,main)
 start=body.index('            await groom.query(0xc09)')
 end=body.index("            report['ok']=True",start)
 cases=r'''
+            from secrets import token_urlsafe
             from types import SimpleNamespace
             from els_server.protocol import wedding_messages as wedding
             from els_server.domain import wedding_rooms
@@ -16,7 +17,8 @@ cases=r'''
             assert (await groom.query(0x80f,struct.pack('>IIH',1,1200277142,1))).payload[:4]==bytes(4)
             ring=read('SELECT uid FROM inventory_items WHERE owner=?AND template=277142',(uid[0],))[0][0]
             ends=(now//3600+1)*3600+86340
-            raw=struct.pack('>bbQQQB',5,4,ends,uid[1],ring,0)+wstring('房间联测')+wstring('privateRoom77')+struct.pack('>bIQ',13,1,uid[2])
+            hall_code=token_urlsafe(12)
+            raw=struct.pack('>bbQQQB',5,4,ends,uid[1],ring,0)+wstring('房间联测')+wstring(hall_code)+struct.pack('>bIQ',13,1,uid[2])
             assert (await groom.query(0x887,raw)).payload[:4]==bytes(4)
             for peer,owner in zip(peers,uid):
                 ids=[r[0]for r in read('SELECT mail_id FROM native_relationship_mail WHERE reservation=1 AND recipient_uid=?ORDER BY mail_id',(owner,))]
@@ -40,7 +42,7 @@ cases=r'''
                 assert (await bride.query(0x88b,joining(2,tickets[uid[1]]),reply=0x415)).payload[:4]==bytes(4)
                 assert (await peers[2].query(0x88b,joining(1,tickets[uid[2]]),reply=0x415)).payload[:4]==bytes(4)
                 assert (await peers[3].query(0x88b,joining(3,password='wrong'),reply=0x415)).payload[:4]!=bytes(4)
-                assert (await peers[3].query(0x88b,joining(3,password='privateRoom77'),reply=0x415)).payload[:4]==bytes(4)
+                assert (await peers[3].query(0x88b,joining(3,password=hall_code),reply=0x415)).payload[:4]==bytes(4)
                 assert len(room.members)==4 and sorted(x.role for x in room.members.values())==[1,2,3,4]
                 assert read('SELECT uid,owner,template,count FROM inventory_items ORDER BY uid')==before
                 assert read('SELECT town FROM location ORDER BY uid')==[(20001,)]*4
