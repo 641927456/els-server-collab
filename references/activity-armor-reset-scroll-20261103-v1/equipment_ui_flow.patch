@@ -1,0 +1,11 @@
+--- a/els_server/domain/equipment_ui_flow.py
++++ b/els_server/domain/equipment_ui_flow.py
+@@ -88,7 +88,7 @@
+             return perform(store.path,actor.uid,event.kind,event.payload,operation,
+                            account_id=actor.account_id,prepare=prepare_identification)
+         except ValueError:
+-            return [Event(0x201,kind=event.kind+1,payload=identification_ack(event.kind,ed,result=-1))]
++            return [Event(0x201,kind=event.kind+1,payload=identification_ack(event.kind,ed,result=1))]
+     # Only the remaining original 5FF/21F operations reach this branch.
+     # Reuse the selected-character lease and owner transaction contract.
+     from els_server.domain.equipment_engrave_flow import current_lease
