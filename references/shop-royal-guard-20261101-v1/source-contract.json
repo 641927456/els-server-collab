@@ -1,0 +1,258 @@
+{
+  "format": 1,
+  "issue": 755,
+  "machine": 163483,
+  "roles": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "price_ED": 30,
+  "weights": {
+    "series": 1000,
+    "common": 9000
+  },
+  "new_rewards": 0,
+  "source_preview": {
+    "path": "20261014-062215/ice-resources/IceHeaterPreView.tables.json",
+    "sha256": "db1c77b7e2d85ae3f37bd3fd23576561dc568c85810edb1a57b753f1aa23a475"
+  },
+  "files": [
+    {
+      "path": "analysis/client-6c6b5180/native-ice-shop-body-proof.json",
+      "parent_sha256": "2ea0ed3629a037ae98af178fe67e2b7e6dbee5b8cdc9dbc4c690cb5ad7201e59",
+      "sha256": "44eb4909b387e7c5507f3495e7f5be93b5a512d3b78dc45b87a273c712837e1b",
+      "size": 2968385
+    },
+    {
+      "path": "analysis/client-6c6b5180/native-ice-shop-catalog.json",
+      "parent_sha256": "ed5252750760be30b8d5eea8f86cd3e05d26d5f86f80a09c8386f292d48ac540",
+      "sha256": "ea79bf461a7336794c1067e158867d40c9fdc098826064ef081f8eaf4f8fe94d",
+      "size": 914557
+    },
+    {
+      "path": "analysis/client-6c6b5180/role-ice-body-proof.json",
+      "parent_sha256": "69045f8e7f27e61c586d72ec13259f62951b0359c43bc636c0f741124f2a6d0b",
+      "sha256": "eae509bb0a633a054fe10f2941fe26b3dcc7e9441284ed8f57af6d7284482d6e",
+      "size": 6657317
+    },
+    {
+      "path": "analysis/client-6c6b5180/role-ice-catalog.json",
+      "parent_sha256": "4fd6514c5b7d528d090bab8f0205470e4d39b06bb1d081543bd0ae6e450ddc91",
+      "sha256": "28f59d781be855fc4f27c33d0eec2efa6eba0b499d39732968718018634aef25",
+      "size": 8418249
+    },
+    {
+      "path": "analysis/shop-standalone-20261015/ice-common-body-proof.json",
+      "parent_sha256": "69aa4dce74b15605337d7d0db8c66014ac130590415d3eae01aa2495638ca7b8",
+      "sha256": "c6d9ce91f5ede24f4faaf55d6157bc83b93141e9e43757b4e9fe7ea500abab44",
+      "size": 62130
+    },
+    {
+      "path": "analysis/shop-standalone-20261015/ice-common.json",
+      "parent_sha256": "9d03c898dc9db8a26e592f3f6430e04678ba76a85d29fedea56aae9cf37a4841",
+      "sha256": "43e312686258274f4f138b2d0bf8d388ea18816ceb1f6e387230f0656226a3df",
+      "size": 106582
+    }
+  ],
+  "resource": {
+    "tag": "shop-royal-guard-data-20261101-v1",
+    "filename": "shop-royal-guard-runtime-data-20261101-v1.zip",
+    "sha256": "079d1fa1b7c3d18e53731e5734f01ef07604b1f7711e8ff796334fd5cd21d9d7",
+    "size": 1014678,
+    "repository": "641927456/els-server-collab",
+    "private_resource": true
+  },
+  "validation": {
+    "ok": true,
+    "checks": [
+      "all existing offers, role pools and rewards unchanged",
+      "native reader/classifier new machine passed",
+      "11 roles purchase/draw/replay/cold read",
+      "4 unsupported roles rejected; dedicated machines retained",
+      "11 precommit failures roll back consume/grant",
+      "11 cross-owner uses rejected",
+      "11 exhausted source uses rejected",
+      "insufficient ED purchase rolls back"
+    ],
+    "roles": [
+      {
+        "role": 1,
+        "preview_items": 55,
+        "series_items": 9,
+        "purchased": 2,
+        "price_ED": 30,
+        "series_draw": true,
+        "common_quantity": 20,
+        "replay_unchanged": true,
+        "precommit_rollback": true,
+        "cross_owner_rejected": true,
+        "cold_read": true
+      },
+      {
+        "role": 2,
+        "preview_items": 55,
+        "series_items": 9,
+        "purchased": 2,
+        "price_ED": 30,
+        "series_draw": true,
+        "common_quantity": 20,
+        "replay_unchanged": true,
+        "precommit_rollback": true,
+        "cross_owner_rejected": true,
+        "cold_read": true
+      },
+      {
+        "role": 3,
+        "preview_items": 55,
+        "series_items": 9,
+        "purchased": 2,
+        "price_ED": 30,
+        "series_draw": true,
+        "common_quantity": 20,
+        "replay_unchanged": true,
+        "precommit_rollback": true,
+        "cross_owner_rejected": true,
+        "cold_read": true
+      },
+      {
+        "role": 4,
+        "preview_items": 55,
+        "series_items": 9,
+        "purchased": 2,
+        "price_ED": 30,
+        "series_draw": true,
+        "common_quantity": 20,
+        "replay_unchanged": true,
+        "precommit_rollback": true,
+        "cross_owner_rejected": true,
+        "cold_read": true
+      },
+      {
+        "role": 5,
+        "preview_items": 55,
+        "series_items": 9,
+        "purchased": 2,
+        "price_ED": 30,
+        "series_draw": true,
+        "common_quantity": 20,
+        "replay_unchanged": true,
+        "precommit_rollback": true,
+        "cross_owner_rejected": true,
+        "cold_read": true
+      },
+      {
+        "role": 6,
+        "preview_items": 55,
+        "series_items": 9,
+        "purchased": 2,
+        "price_ED": 30,
+        "series_draw": true,
+        "common_quantity": 20,
+        "replay_unchanged": true,
+        "precommit_rollback": true,
+        "cross_owner_rejected": true,
+        "cold_read": true
+      },
+      {
+        "role": 7,
+        "preview_items": 55,
+        "series_items": 9,
+        "purchased": 2,
+        "price_ED": 30,
+        "series_draw": true,
+        "common_quantity": 20,
+        "replay_unchanged": true,
+        "precommit_rollback": true,
+        "cross_owner_rejected": true,
+        "cold_read": true
+      },
+      {
+        "role": 8,
+        "preview_items": 55,
+        "series_items": 9,
+        "purchased": 2,
+        "price_ED": 30,
+        "series_draw": true,
+        "common_quantity": 20,
+        "replay_unchanged": true,
+        "precommit_rollback": true,
+        "cross_owner_rejected": true,
+        "cold_read": true
+      },
+      {
+        "role": 9,
+        "preview_items": 55,
+        "series_items": 9,
+        "purchased": 2,
+        "price_ED": 30,
+        "series_draw": true,
+        "common_quantity": 20,
+        "replay_unchanged": true,
+        "precommit_rollback": true,
+        "cross_owner_rejected": true,
+        "cold_read": true
+      },
+      {
+        "role": 10,
+        "preview_items": 65,
+        "series_items": 18,
+        "purchased": 2,
+        "price_ED": 30,
+        "series_draw": true,
+        "common_quantity": 20,
+        "replay_unchanged": true,
+        "precommit_rollback": true,
+        "cross_owner_rejected": true,
+        "cold_read": true
+      },
+      {
+        "role": 11,
+        "preview_items": 55,
+        "series_items": 9,
+        "purchased": 2,
+        "price_ED": 30,
+        "series_draw": true,
+        "common_quantity": 20,
+        "replay_unchanged": true,
+        "precommit_rollback": true,
+        "cross_owner_rejected": true,
+        "cold_read": true
+      },
+      {
+        "role": 12,
+        "rejected_unsupported_old_machine": true,
+        "dedicated_retained": 292855
+      },
+      {
+        "role": 13,
+        "rejected_unsupported_old_machine": true,
+        "dedicated_retained": 305707
+      },
+      {
+        "role": 14,
+        "rejected_unsupported_old_machine": true,
+        "dedicated_retained": 316935
+      },
+      {
+        "role": 15,
+        "rejected_unsupported_old_machine": true,
+        "dedicated_retained": 333454
+      }
+    ],
+    "original_native_reader_cases": 1,
+    "natural_GUI": false
+  },
+  "scope": "Six data/proof files on both channels; no runtime source, client, schema or player data changes",
+  "recovery": "Retain machine definitions and receipts; pause only new purchases on failure; never restore player/account databases",
+  "installed": false,
+  "git_merged": false
+}
