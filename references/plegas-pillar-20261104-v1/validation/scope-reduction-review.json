@@ -1,0 +1,82 @@
+{
+  "ok": true,
+  "reviewer": "/root/pillar_independent_review",
+  "created_utc": "2026-11-04T06:39:05.209194+00:00",
+  "scope_reduction_approved": true,
+  "blocking_findings": [],
+  "previous_scope": "Three client leaves plus two candidate server255 source rules; profile/signing packaging added for V74",
+  "final_scope": "Signed Friends V74: probe loader + native_hit_count_obstacles.py + .js + matching compatibility profile. ONLINE game server and LOCAL remain unchanged.",
+  "reviewed_client_files": {
+    "native_hit_count_obstacles.js": "6fef8c0d299b3b2174fefda2abfd047a0b42fb9fcdd8926d965935d3baec0ba2",
+    "native_hit_count_obstacles.py": "2f4563a878d82cacb6abe1ed4304e0f6ab0794e5e397fbff6e8b1a225aec4abb",
+    "probe_updated_client.py": "67d20d9e7777cbc9d7f0502cf917a3b38ec228a4dd0c81fdee42067ee59a071d"
+  },
+  "V74_exe_sha256": "5a108f2da8751e5b71dbbdca8df11ed48201b1b5982bb94dec5357de6a3966c1",
+  "V74_build_sha256": "922522fa16ea5fcc03aed511f30fa28a6e28c36e81cdbdb55799687b58060982",
+  "retained_prior_hook_review_sha256": "18c6810492c0e11cd753f8f44fb3d2ee10c4c839fd5c5f076a4d7e552df1cacd",
+  "retained_prior_launcher_review_sha256": "0ed7dc833b90a02068748b25ad21364c5d30ef968dd6ba9be4e7aaa39fab579f",
+  "reasons": [
+    "The successful native chain reported only flag0 for key18 at counter50, after原DYING; no pillar isolation identity repair was involved.",
+    "Solo scene retirement handle returnsNone for flags other than255 before claimed_sources/source_rule for34720; both with and without those source-table additions reach the unchanged ordinary path.",
+    "Shared retirement likewise returnsNone for flag0 before claimed source admission; source-table additions have no gate_predecessor fields and do not change the all-clear predecessor result.",
+    "The sole domain consumer of finite_sources/scene_retirement_sources is scene_actor_retirements.py; currentONLINE/LOCAL relevant consumers match those used in the validated chain.",
+    "V74 signed Friends delta already contains only four affected client components, so removing unneeded server installation changes neither reviewed binary nor payload.",
+    "255 support was only a constructed admission regression, not a native defect demonstrated in this successful path; excluding it avoids extending server admission beyond the repair evidence."
+  ],
+  "current_server_bindings": {
+    "online": {
+      "current_release": "native-teacher-potion-count1-20261104-v1",
+      "identical_relevant_consumers": {
+        "scene_actor_retirements.py": "7dd53533cae8903e0915c9e3a9981c7f3e6ac15000af47a0053e62ec45c1d546",
+        "dungeon_flow.py": "95e581bd678bbb111ff74cec2cf4aab12f0e56f5632ab2352eaa4d20d968e451",
+        "friends_dungeon.py": "edf4a21dd2f4f10e08a59177990a795d39fc6255c1b420a67011ca4ac8ce1235",
+        "formal_npc_hp.py": "5bba8f719138a32db165a336df0986c4afe03237d6f4f305c1229d3a49198b2f",
+        "dungeon_routes.py": "e181a686cd9739f690d4c11597c61548283b6243f2e8c01874e63d40566ced17",
+        "dungeon_lifecycle.py": "5108588268cb1492413cbf6f12382fa3441320368cffe32aa9946d3a23e0c047"
+      }
+    },
+    "local": {
+      "current_release": "local-native-teacher-potion-count1-20261104-v1",
+      "identical_relevant_consumers": {
+        "scene_actor_retirements.py": "c8d7c0fcdb500019553231cfdae556c3819dcdc213d24ff6f9d34b43ae532ed1",
+        "dungeon_flow.py": "06c8c83bf09cc0e30364b57bca94cab74cc6d3622b00e9e3f39e3585a7667514",
+        "friends_dungeon.py": "62ff9f391545fd932f1ce81367a0319695fdadbf528a304e65b10e4088df65f2",
+        "formal_npc_hp.py": "5bba8f719138a32db165a336df0986c4afe03237d6f4f305c1229d3a49198b2f",
+        "dungeon_routes.py": "1182a45acfcd59dce2309428d9fb329436e9c8ccd05236cb1b159551a6203f5a",
+        "dungeon_lifecycle.py": "5108588268cb1492413cbf6f12382fa3441320368cffe32aa9946d3a23e0c047"
+      }
+    }
+  },
+  "pure_branch_equivalence": {
+    "evidence_sha256": "d76c447906affd3b3b8d24f5c54ba6faa80e2086b2d466361b6f2846f6744085",
+    "cases": 4,
+    "result": "Both parts, flags0/1, added/no-added rules returnNone and never enter source_rule; pure handler test only."
+  },
+  "reused_live_evidence": {
+    "path": "delivery-v2/package/checks/native-live-candidate.json",
+    "sha256": "bf394e89e0f32a4192126b2e6e51b74d23fdd82886ea93f2325f7a3e68488b54",
+    "native_flag": 0,
+    "native_counter": 50,
+    "native_damage_callbacks": 50,
+    "scope": "Controlled constructor placement and native attack API, not naturalGUI/multiplayer"
+  },
+  "private_selector_evidence": {
+    "sha256": "4dbd202146e44cb4c90e99eb2a9ac1f15c945b0d62526db113f0adb34a103b5f",
+    "changed_downloads": 4,
+    "reused_files": 1802,
+    "repeat_downloads": 0,
+    "verified_components": 1806,
+    "network_access": false,
+    "game_started": false
+  },
+  "release_conditions": [
+    "Create a new final client-only freeze; retain old package/reviews as historical evidence rather than rewriting them.",
+    "Do not publish/install the two server source-table leaves or report255 support/server/LOCAL updates as completed.",
+    "Existing signed-component upgrade, actual single ready loading, exact published SHA/readback and cleanup requirements remain; the scope reduction does not waive readiness.",
+    "Do not control or attach the existing non-owned game; parent reports its preflight currently blocks the owned ready probe."
+  ],
+  "production_installed_by_reviewer": false,
+  "implementation_modified_by_reviewer": false,
+  "actual_ready_rerun_by_reviewer": false,
+  "review_test_observer_correction": "An initial pure-check here-string had else21 syntax typo and did not execute; corrected to else 21, then all four branch-equivalence cases passed."
+}

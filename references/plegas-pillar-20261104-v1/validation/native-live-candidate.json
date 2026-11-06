@@ -1,0 +1,113 @@
+{
+  "ok": true,
+  "case": "Pinned production adapter and exact local source candidate in launch-owned original client",
+  "original_client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "original_file_sha256_after": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "original_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "source_manifest_sha256": "c93b2bcb962988ca228151ed6cd8aaf4083e85ceaa38e5ef67bbd888b1a6f6e8",
+  "native_damage_callbacks": 50,
+  "native_counts": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50
+  ],
+  "first_damage": {
+    "event": "pillar_damage_callback",
+    "timestamp": 1793750130151,
+    "before": {
+      "count": 0,
+      "hp": 120835
+    },
+    "after": {
+      "count": 1,
+      "hp": 1
+    }
+  },
+  "last_damage": {
+    "event": "pillar_damage_callback",
+    "timestamp": 1793750212618,
+    "before": {
+      "count": 49,
+      "hp": 1
+    },
+    "after": {
+      "count": 50,
+      "hp": 0
+    }
+  },
+  "native_break_request": {
+    "event": "pillar_native_state_request",
+    "timestamp": 1793750212618,
+    "name": "DEVILDOM_SIDE2_PILLAR_DYING",
+    "count": 50,
+    "hp": 1
+  },
+  "native_death_report": {
+    "event": "pillar_native_death_report",
+    "timestamp": 1793750212618,
+    "key": 18,
+    "flag": 0,
+    "counter": 50,
+    "hp": 0
+  },
+  "native_actor_destroyed_after_break_ms": 2812,
+  "isolated_identity_repair_for_pillar": false,
+  "script_counter_or_state_changed_by_fixture": false,
+  "script_driven_break_and_lifecycle": true,
+  "source_key": 18,
+  "source_point": 10,
+  "template": 8184,
+  "geometry": "NPC18 constructor offset only, same as baseline; natural map traversal not tested",
+  "server_worker_errors_or_refusals": [],
+  "trace_sha256": "aca1da4f87ba74b474398e0d134db0c051dae3e233a3ae2313e498dfbbfc8289",
+  "OS_input": false,
+  "player_database_used": false,
+  "production_installation": false
+}
