@@ -142,27 +142,30 @@ def _envelope(event,sequence,performers=((),(0,))):
             and event.target_uid==2**64-1 and event.payload_mode==0)
 
 def _replay_selection(s):
-    """The pair of messages a freshly opened window paints its rows from.
+    """The three messages a freshly opened window paints its rows from.
 
     The 635 opener only carries the published cash catalog, so a window opened
     in town showed every tab on the career default while the save already held
     the chosen border or motion: the game itself had applied it through the
-    login 18E, the panel just never heard about it. Read the save (the session
-    projection predates later registrations) and reply with the 4CC map the
-    rows use and the 18E actor notice. Read-only, and optional: if the store is
-    unreadable the window still opens.
+    login 18E, the panel just never heard about it. Replay what the dungeon
+    opener in this same handler already sends: the 4CD registration of every
+    owned value, the 4CC map the rows use and the 18E actor notice. Read-only,
+    and optional: if the store is unreadable the window still opens.
     """
     try:
         from contextlib import closing
         import sqlite3
-        from els_server.protocol.character_custom_messages import acknowledgement,selected_notice
+        from els_server.protocol.character_custom_messages import (
+            acknowledgement,registered,selected_notice)
         from els_server.storage.character_custom import snapshot as store_snapshot
         with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db:
             db.execute('BEGIN')
-            selected=dict(store_snapshot(db,s.account.uid)['selected'])
+            fresh=store_snapshot(db,s.account.uid)
+        owned=fresh['owned'];selected=dict(fresh['selected'])
         if not selected:return []
         title=int(s.account.character().get('title',0) or 0)
-        return [acknowledgement(selected),selected_notice(s.account.uid,title,selected)]
+        return ([registered(value) for family in sorted(owned) for value in owned[family]]
+                +[acknowledgement(selected),selected_notice(s.account.uid,title,selected)])
     except Exception as error:
         _trace('opener selection unavailable: %r'%error)
         return []

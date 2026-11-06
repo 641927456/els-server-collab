@@ -70,21 +70,23 @@ class CharacterCustomOpeningTests(unittest.TestCase):
         self.opening.assert_not_called()
 
     def test_village_opener_replays_the_saved_selection(self):
-        # The rows paint themselves from the 4CC map, not from the 635 opener:
-        # a window opened in town therefore showed the career default for a
-        # slot the save had already set, while the game itself kept applying it
-        # through the login 18E. Same pair the dungeon opener replays.
+        # The rows paint themselves from the 4CD/4CC/18E trio, not from the 635
+        # opener: a window opened in town therefore showed the career default
+        # for a slot the save had already set, while the game itself kept
+        # applying it through the login 18E. The dungeon opener sends the same
+        # three messages.
         stored = {19: character_custom.canonical(15211)}
         self.session.account.character = lambda: {'title': 0}
         self.enterContext(patch.dict(sys.modules, {'els_server.storage.character_custom':
             types.SimpleNamespace(opening_info=self.opening,
-                                  snapshot=lambda db, uid: {'owned': {}, 'selected': stored})}))
+                                  snapshot=lambda db, uid: {'owned': {19: list(stored.values())},
+                                                            'selected': stored})}))
         with tempfile.TemporaryDirectory() as directory:
             path = os.path.join(directory, 'session.sqlite3')
             sqlite3.connect(path).close()
             self.session.account.store = types.SimpleNamespace(path=path)
             events = character_custom.handle(self.session, self.request, 3)
-        self.assertEqual([event.kind for event in events], [0x4cc, 0x18e, 0x635])
+        self.assertEqual([event.kind for event in events], [0x4cd, 0x4cc, 0x18e, 0x635])
 
     def test_unreadable_store_still_opens_the_window(self):
         # The replay is optional; a session whose store cannot be read must not
