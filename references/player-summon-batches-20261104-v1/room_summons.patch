@@ -1,0 +1,21 @@
+--- a/els_server/domain/room_summons.py
++++ b/els_server/domain/room_summons.py
+@@ -90,13 +90,16 @@
+         templates = player_summon_templates(s.account.character(), 'pvp' if pvp else 'pve')
+         key = state.next_key
+         notice = sentry_spawn(event.payload, s.account.uid, key, templates)
++        count = struct.unpack_from('>I', notice.payload)[0]
++        if occupied + count > 80:
++            return failed
+         own = [summon_ack(), notice]
+         boxes = _prepared_boxes([(m, [notice]) for m in room.members if m is not s], own)
+-        owners = {**state.owners, key: _connection(s)}
++        owners = {**state.owners, **dict.fromkeys(range(key, key + count), _connection(s))}
+         requests = {**state.requests, identity: digest}
+         state.owners = owners
+         state.requests = requests
+-        state.next_key = key+1
++        state.next_key = key+count
+         room.player_summons = state
+         for m, box in boxes.items():
+             m.mailbox = box
