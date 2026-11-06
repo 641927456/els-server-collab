@@ -1,0 +1,70 @@
+{
+  "issue": 830,
+  "release": "native-dungeon-startup-prewarm-20261104-v1",
+  "parent_release": "native-first-pickup-prewarm-20261104-v1",
+  "changes": [
+    {
+      "path": "els_server/application.py",
+      "parent_sha256": "b3aec0c9911bfbdd107df0aaf5b37a768044d6b7779c12350bc14c8f6719d5ff",
+      "sha256": "927a535b412e27306c0d842657f286bca6cce8488130ff0451b8a0a6395dc314"
+    }
+  ],
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992",
+      "size": 9
+    },
+    {
+      "path": "base/els_server/application.py",
+      "sha256": "b3aec0c9911bfbdd107df0aaf5b37a768044d6b7779c12350bc14c8f6719d5ff",
+      "size": 27946
+    },
+    {
+      "path": "candidate.patch",
+      "sha256": "3e8ec6ff11278a48be440dc0ae6e11a6166f5edeb6760dbcbba761853eb05c26",
+      "size": 1782
+    },
+    {
+      "path": "README.md",
+      "sha256": "4ef793fd3fb84f1d6a945230bc37638ab1c7ba0ee8879481fdfce0243bfe6c22",
+      "size": 1512
+    },
+    {
+      "path": "review.md",
+      "sha256": "52b9f21c784f358b21d057467aa0c39c637a81cbe67e583e9d220e8b65e6b4cd",
+      "size": 2645
+    },
+    {
+      "path": "source/els_server/application.py",
+      "sha256": "927a535b412e27306c0d842657f286bca6cce8488130ff0451b8a0a6395dc314",
+      "size": 29089
+    },
+    {
+      "path": "tests/profile_cold.py",
+      "sha256": "ca8e9fbec799d8bac0948ffe254593902fc740dc48bc3504b8c2283de1b150db",
+      "size": 5927
+    },
+    {
+      "path": "tests/runtime_fixture.py",
+      "sha256": "5cb6d45c1da2322cad99d8e5ac9eb02c4568ba81734460e2788cd0142630847f",
+      "size": 604
+    },
+    {
+      "path": "tests/verify_startup.py",
+      "sha256": "f6e2339af6aa5e2b35f87f41f16af34c2acd4927bb7d8fd92a80879f3243819d",
+      "size": 2538
+    },
+    {
+      "path": "validation.json",
+      "sha256": "44c9bd9764805c495f20fbe7200a5f3e0743ae7b73e8d72ba4fed25110942fb6",
+      "size": 391
+    },
+    {
+      "path": "verify_archive.py",
+      "sha256": "c1cc9060fb6c475209d8b84d447a98f527f8ec5b8c6b5130cd511c2b1448f52d",
+      "size": 799
+    }
+  ],
+  "runtime_delta": 1
+}

@@ -1,0 +1,26 @@
+--- a/els_server/application.py
++++ b/els_server/application.py
+@@ -349,6 +349,23 @@
+                 # Verify immutable economy definitions before the first reward writer.
+                 from els_server.domain.el_search_effects import catalog as collection_economy_catalog
+                 collection_economy_catalog()
++                # Build immutable dungeon definitions before admitting the first player.
++                from els_server.domain.dungeon_equipment_loot_rules import catalog as legacy_loot_catalog
++                from els_server.domain.dungeon_loot_catalog import catalog as equipment_loot_catalog
++                from els_server.domain.dungeon_material_loot_catalog import catalog as material_loot_catalog
++                from els_server.domain.dungeon_source_loot import catalog as source_loot_catalog
++                from els_server.domain.scene_actor_retirements import finite_sources
++                from els_server.domain.normal_fatigue_rules import policy as fatigue_policy
++                from els_server.domain.formal_npc_hp import policy as npc_hp_policy
++                from els_server.domain.boss_npc_stats import policy as boss_stats_policy
++                legacy_loot_catalog()
++                equipment_loot_catalog()
++                material_loot_catalog()
++                source_loot_catalog()
++                finite_sources()
++                fatigue_policy()
++                npc_hp_policy()
++                boss_stats_policy()
+             account=LocalAccount(LocalState(self.config.state_file) if self.config.profile=='integrated_dx11' else None)
+             # Validate feature dependencies and initialize tables before listening.
+             LocalSession(account,**self.config.session_options())
