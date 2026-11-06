@@ -1,0 +1,270 @@
+{
+  "policy": "pet-trainer-original-exchange-20261106-v1",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "definitions": [
+    {
+      "template": 109955,
+      "name": "�߼�ħ��ʯ",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 999,
+      "raw_max_stack": 500,
+      "item_type": 7,
+      "record_sha256": "549880dcb3006a0e3185706388e77b69cba89098a159ecdae67d3cd71093b55f"
+    },
+    {
+      "template": 109956,
+      "name": "��߼�ħ��ʯ",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 999,
+      "raw_max_stack": 500,
+      "item_type": 7,
+      "record_sha256": "2998100862f6368431cb0ce5898c1613c411cbe29dab14b406b3d7a241ef9ee1"
+    },
+    {
+      "template": 135980,
+      "name": "�¼�������ҩ",
+      "metadata": 2,
+      "group": 21,
+      "max_stack": 999,
+      "raw_max_stack": 500,
+      "item_type": 15,
+      "record_sha256": "24301c5df84fe43cadc35ea1b32b6a76f4a6c76e6359a9dfea69450554bf1de4"
+    },
+    {
+      "template": 160164,
+      "name": "����ʯ��3��������",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 999,
+      "raw_max_stack": 300,
+      "item_type": 7,
+      "record_sha256": "66faec040ded5135dba18b7189b963ef9243240fdbd88eec884fa3043617c04e"
+    },
+    {
+      "template": 710008,
+      "name": "����ҩˮ",
+      "metadata": 2,
+      "group": 6,
+      "max_stack": 999,
+      "raw_max_stack": 500,
+      "item_type": 5,
+      "record_sha256": "e12aee039eb40da067a84e80cc0b641629b30ed4c02c80b519d2c8f8800ffb36"
+    },
+    {
+      "template": 710096,
+      "name": "ƣ��ҩˮ",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 300,
+      "raw_max_stack": 300,
+      "item_type": 7,
+      "record_sha256": "f570e14b08c398eebe4959856bfd4dadd5996cece42c56c2fe19cc54046c6add"
+    },
+    {
+      "template": 710113,
+      "name": "����֮������",
+      "metadata": 2,
+      "group": 4,
+      "max_stack": 999,
+      "raw_max_stack": 300,
+      "item_type": 7,
+      "record_sha256": "549b64927a11b9186141e3d7ec4ba1690b05aa1fca88879ac4e7cbaef8e8d8c3"
+    }
+  ],
+  "recipes": [
+    {
+      "function": "g_pItemManager.AddItemExchangeData",
+      "arguments": [
+        {
+          "global": "g_pItemManager"
+        },
+        40016,
+        3,
+        324815,
+        109955,
+        3,
+        100,
+        {
+          "m_iServerGroupID": -1,
+          "m_iSourceQuantity": 1
+        }
+      ],
+      "pc": 572
+    },
+    {
+      "function": "g_pItemManager.AddItemExchangeData",
+      "arguments": [
+        {
+          "global": "g_pItemManager"
+        },
+        40016,
+        3,
+        324815,
+        710008,
+        3,
+        100,
+        {
+          "m_iServerGroupID": -1,
+          "m_iSourceQuantity": 1
+        }
+      ],
+      "pc": 583
+    },
+    {
+      "function": "g_pItemManager.AddItemExchangeData",
+      "arguments": [
+        {
+          "global": "g_pItemManager"
+        },
+        40016,
+        3,
+        324815,
+        160164,
+        1,
+        100,
+        {
+          "m_iServerGroupID": -1,
+          "m_iSourceQuantity": 1
+        }
+      ],
+      "pc": 594
+    },
+    {
+      "function": "g_pItemManager.AddItemExchangeData",
+      "arguments": [
+        {
+          "global": "g_pItemManager"
+        },
+        40016,
+        3,
+        324815,
+        109956,
+        3,
+        100,
+        {
+          "m_iServerGroupID": -1,
+          "m_iSourceQuantity": 2
+        }
+      ],
+      "pc": 605
+    },
+    {
+      "function": "g_pItemManager.AddItemExchangeData",
+      "arguments": [
+        {
+          "global": "g_pItemManager"
+        },
+        40016,
+        3,
+        324815,
+        135980,
+        3,
+        100,
+        {
+          "m_iServerGroupID": -1,
+          "m_iSourceQuantity": 2
+        }
+      ],
+      "pc": 616
+    },
+    {
+      "function": "g_pItemManager.AddItemExchangeData",
+      "arguments": [
+        {
+          "global": "g_pItemManager"
+        },
+        40016,
+        3,
+        324815,
+        710113,
+        2,
+        100,
+        {
+          "m_iServerGroupID": -1,
+          "m_iSourceQuantity": 2
+        }
+      ],
+      "pc": 627
+    },
+    {
+      "function": "g_pItemManager.AddItemExchangeData",
+      "arguments": [
+        {
+          "global": "g_pItemManager"
+        },
+        40016,
+        1,
+        324815,
+        710096,
+        1,
+        100,
+        {
+          "m_iServerGroupID": -1,
+          "m_iSourceQuantity": 3
+        }
+      ],
+      "pc": 638
+    }
+  ],
+  "towns": {
+    "20000": 258,
+    "20001": 263,
+    "20002": 262,
+    "20003": 265,
+    "20004": 326,
+    "20005": 268,
+    "20006": 417,
+    "20007": 491,
+    "20008": 582,
+    "20009": 636,
+    "20010": 778,
+    "20011": 894,
+    "20012": 1004,
+    "20013": 1023
+  },
+  "exchange_source": {
+    "path": "analysis/npc-client-native-values-20261025-v1/continuation-v2/global-resources/data036.kom/ItemExchangeTable.lua",
+    "sha256": "27021628c45d6d5eb92d278322c24592a15f65522f0b2efb77a802f011d1952a"
+  },
+  "resurrection_box": {
+    "source": "analysis/npc-client-native-values-20261025-v1/continuation-v2/global-resources/data036.kom/RandomItem.lua",
+    "sha256": "8504949a3378f8ac9efcd539332599839502e4e75f1305dc12dc154795555176",
+    "matching_calls": [
+      {
+        "function": "g_pRandomItemManager.AddRandomItemTemplet",
+        "arguments": [
+          {
+            "global": "g_pRandomItemManager"
+          },
+          {
+            "m_KeyItemID": 0,
+            "m_iRessurectionCount": 3,
+            "m_iGiveCount": 0,
+            "m_ItemID": 160164,
+            "m_RequiredKeyCount": 0,
+            "m_UseCondition": {
+              "global": "USE_CONDITION.UC_ANYONE"
+            }
+          }
+        ],
+        "pc": 31203
+      },
+      {
+        "function": "g_pRandomItemManager.AddRandomItemTemplet_Client",
+        "arguments": [
+          {
+            "global": "g_pRandomItemManager"
+          },
+          160164,
+          0,
+          0,
+          0
+        ],
+        "pc": 360085
+      }
+    ]
+  }
+}
