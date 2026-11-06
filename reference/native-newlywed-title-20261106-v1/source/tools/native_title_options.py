@@ -8,10 +8,10 @@ def compose(snapshot,template):
     anchor=' installElsGuildNativePower();'
     if template.count(anchor)!=1:raise ValueError('Title option initialization anchor')
     raw=Path(__file__).with_suffix('.js').read_text('utf8')
-    token='__TITLE_OPTION_PINS__'
-    if raw.count(token)!=1:raise ValueError('Title option source contract')
+    placeholder='__TITLE_OPTION_PINS__'
+    if raw.count(placeholder)!=1:raise ValueError('Title option source contract')
     pins={r:snapshot[r:r+16].hex()for r in(0xfe7560,0x216fe40,0x2181ed0,0xb11a90)}
-    raw=raw.replace(token,json.dumps(pins))
+    raw=raw.replace(placeholder,json.dumps(pins))
     replacement=' installElsTitleOptionData();\n'+anchor
     result=template.replace(anchor,replacement)
     if result.replace(replacement,anchor)!=template:raise ValueError('Title option composition inverse')
