@@ -1,0 +1,157 @@
+{
+  "candidate": "C4",
+  "load_seconds": 300,
+  "town": 25,
+  "dungeon": 25,
+  "diagnostic_only": true,
+  "WAN_qualification": false,
+  "source_bindings": {
+    "els_server/storage/death_writer.py": "20207d6fd4ab64e02ec646b42f8b0a1df9e8e2ed5d9a1a829cfc500db3d77928",
+    "els_server/storage/coin_writer.py": "5e010de3e528e80b28dec557ec892237c92c6570e72bcb967449d8e87aa845cb",
+    "els_server/domain/session_auxiliary.py": "9b6e28ce8a8c618767932ad84d9216cbbfb157d8c0585f534560233ed852357a",
+    "els_server/storage/attendance_2026_tasks.py": "7b7670df24dda4c2c67c7fe0381937694317641b7eefcb28b366f5874804000c",
+    "els_server/domain/attendance_2026_award_flow.py": "ff9c689c586adca7557b1a090026b6391568d0176b4a3e594bc5a4ff2f8acfba",
+    "els_server/storage/attendance_2026_awards.py": "28cea687adca776c24ac8378e2b276b42c0f0a3c9f243a84c94891128d117562",
+    "els_server/domain/inventory_items.py": "3f39df1a17ff8f94620c42157c2c20e540ed6232c895dd5c25e79df2de01db98"
+  },
+  "cold_currency_and_ACK_exact": true,
+  "cleanup": {
+    "owned_runtime_removed": true,
+    "connections": 0,
+    "errors": []
+  },
+  "requests": {
+    "555": {
+      "total_ms": {
+        "n": 43750,
+        "mean_ms": 3.0197485699078865,
+        "p50_ms": 3,
+        "p95_ms": 7,
+        "p99_ms": 17,
+        "max_ms": 147.66799984499812,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 43750,
+        "mean_ms": 1.0617465706914664,
+        "p50_ms": 1,
+        "p95_ms": 3,
+        "p99_ms": 11,
+        "max_ms": 145.67859983071685,
+        "resolution_ms": 1
+      }
+    },
+    "179": {
+      "total_ms": {
+        "n": 275,
+        "mean_ms": 24.847954183139585,
+        "p50_ms": 24,
+        "p95_ms": 34,
+        "p99_ms": 41,
+        "max_ms": 121.90619995817542,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 275,
+        "mean_ms": 0.5433214557441798,
+        "p50_ms": 1,
+        "p95_ms": 2,
+        "p99_ms": 3,
+        "max_ms": 2.6350002735853195,
+        "resolution_ms": 1
+      }
+    },
+    "173": {
+      "total_ms": {
+        "n": 4125,
+        "mean_ms": 16.476741765936215,
+        "p50_ms": 16,
+        "p95_ms": 25,
+        "p99_ms": 33,
+        "max_ms": 233.9093000628054,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 4125,
+        "mean_ms": 0.9403994408520785,
+        "p50_ms": 1,
+        "p95_ms": 4,
+        "p99_ms": 8,
+        "max_ms": 19.552200566977262,
+        "resolution_ms": 1
+      }
+    },
+    "208": {
+      "total_ms": {
+        "n": 4125,
+        "mean_ms": 7.176566155232264,
+        "p50_ms": 7,
+        "p95_ms": 13,
+        "p99_ms": 17,
+        "max_ms": 235.00220011919737,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 4125,
+        "mean_ms": 0.7130189330288859,
+        "p50_ms": 1,
+        "p95_ms": 3,
+        "p99_ms": 9,
+        "max_ms": 14.364900067448616,
+        "resolution_ms": 1
+      }
+    },
+    "184": {
+      "total_ms": {
+        "n": 275,
+        "mean_ms": 3.4890792705118656,
+        "p50_ms": 4,
+        "p95_ms": 6,
+        "p99_ms": 7,
+        "max_ms": 8.059800136834383,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 275,
+        "mean_ms": 0.33854253590106964,
+        "p50_ms": 1,
+        "p95_ms": 2,
+        "p99_ms": 2,
+        "max_ms": 2.008299808949232,
+        "resolution_ms": 1
+      }
+    },
+    "187": {
+      "total_ms": {
+        "n": 275,
+        "mean_ms": 13.685227271846749,
+        "p50_ms": 14,
+        "p95_ms": 19,
+        "p99_ms": 24,
+        "max_ms": 27.658600360155106,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 275,
+        "mean_ms": 0.29917526651512494,
+        "p50_ms": 1,
+        "p95_ms": 1,
+        "p99_ms": 2,
+        "max_ms": 2.9945997521281242,
+        "resolution_ms": 1
+      }
+    },
+    "door": {
+      "total_ms": {
+        "n": 275,
+        "mean_ms": 17.174306542358615,
+        "p50_ms": 17,
+        "p95_ms": 24,
+        "p99_ms": 29,
+        "max_ms": 32.85250021144748,
+        "resolution_ms": 1
+      },
+      "waiting_ms": null
+    }
+  }
+}

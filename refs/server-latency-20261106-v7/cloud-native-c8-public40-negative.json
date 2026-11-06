@@ -1,0 +1,65 @@
+{
+  "candidate": "C8",
+  "attempted_game_actors": 40,
+  "native_frontend_per_game": true,
+  "planned_load_seconds": 300,
+  "complete_window": false,
+  "qualified": false,
+  "error": "AssertionError('Original native workload failed')",
+  "server_errors": [],
+  "counts": {
+    "moves": 5820,
+    "relays": 109186,
+    "native_sessions": 20,
+    "deaths": 350,
+    "fresh_pickups": 350,
+    "rooms": 20,
+    "native_returns": 20
+  },
+  "resources": {
+    "samples": 73,
+    "max_cpu": 2.8532947738985195,
+    "max_private": 1569595392,
+    "peak_out_Mbps": 8.73697793073228
+  },
+  "forward_metrics": {
+    "received_to_encode": {
+      "n": 114690,
+      "mean_ms": 35.16393954954877,
+      "p50_ms": 23,
+      "p95_ms": 110,
+      "p99_ms": 199,
+      "max_ms": 330.86650003679097,
+      "resolution_ms": 1
+    },
+    "encode_to_drain": {
+      "n": 114690,
+      "mean_ms": 0.24489795616199797,
+      "p50_ms": 1,
+      "p95_ms": 1,
+      "p99_ms": 1,
+      "max_ms": 8.06020013988018,
+      "resolution_ms": 1
+    },
+    "received_to_drain": {
+      "n": 114690,
+      "mean_ms": 35.40883750571077,
+      "p50_ms": 23,
+      "p95_ms": 111,
+      "p99_ms": 199,
+      "max_ms": 331.41759992577136,
+      "resolution_ms": 1
+    }
+  },
+  "tcp_counter_totals": {
+    "out": 23031767,
+    "retrans": 4400444,
+    "timeouts": 225
+  },
+  "counter_errors": [],
+  "acknowledged_currency_exact": true,
+  "owned_runtime_removed": true,
+  "connections": 0,
+  "previous_complete_public_qualification_game_actors": 20,
+  "hard_five_Mbps_calibration": false
+}
