@@ -1,0 +1,149 @@
+{
+  "run": "local-candidate50-v3",
+  "candidate": "C3",
+  "seconds": 30,
+  "town": 25,
+  "dungeon": 25,
+  "diagnostic_only": true,
+  "online_capacity_claim": false,
+  "cold_currency_and_ACK_exact": true,
+  "source_bindings": {
+    "els_server/storage/death_writer.py": "20207d6fd4ab64e02ec646b42f8b0a1df9e8e2ed5d9a1a829cfc500db3d77928",
+    "els_server/storage/coin_writer.py": "5e010de3e528e80b28dec557ec892237c92c6570e72bcb967449d8e87aa845cb",
+    "els_server/domain/session_auxiliary.py": "9b6e28ce8a8c618767932ad84d9216cbbfb157d8c0585f534560233ed852357a"
+  },
+  "requests": {
+    "555": {
+      "total_ms": {
+        "n": 3750,
+        "mean_ms": 3.064500528946519,
+        "p50_ms": 3,
+        "p95_ms": 7,
+        "p99_ms": 15,
+        "max_ms": 80.35810012370348,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 3750,
+        "mean_ms": 1.0600297850867113,
+        "p50_ms": 1,
+        "p95_ms": 3,
+        "p99_ms": 10,
+        "max_ms": 68.62130016088486,
+        "resolution_ms": 1
+      }
+    },
+    "179": {
+      "total_ms": {
+        "n": 43,
+        "mean_ms": 24.833739529428787,
+        "p50_ms": 23,
+        "p95_ms": 33,
+        "p99_ms": 124,
+        "max_ms": 123.55059990659356,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 43,
+        "mean_ms": 0.37648607868441314,
+        "p50_ms": 1,
+        "p95_ms": 2,
+        "p99_ms": 2,
+        "max_ms": 1.4148000627756119,
+        "resolution_ms": 1
+      }
+    },
+    "173": {
+      "total_ms": {
+        "n": 645,
+        "mean_ms": 15.197867137748142,
+        "p50_ms": 14,
+        "p95_ms": 21,
+        "p99_ms": 35,
+        "max_ms": 163.7945999391377,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 645,
+        "mean_ms": 0.6904686952746192,
+        "p50_ms": 1,
+        "p95_ms": 3,
+        "p99_ms": 7,
+        "max_ms": 8.263799827545881,
+        "resolution_ms": 1
+      }
+    },
+    "208": {
+      "total_ms": {
+        "n": 645,
+        "mean_ms": 6.823536427330601,
+        "p50_ms": 6,
+        "p95_ms": 12,
+        "p99_ms": 18,
+        "max_ms": 106.44280025735497,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 645,
+        "mean_ms": 0.6714525444851828,
+        "p50_ms": 1,
+        "p95_ms": 4,
+        "p99_ms": 8,
+        "max_ms": 12.846700381487608,
+        "resolution_ms": 1
+      }
+    },
+    "184": {
+      "total_ms": {
+        "n": 43,
+        "mean_ms": 2.9235813701741917,
+        "p50_ms": 3,
+        "p95_ms": 4,
+        "p99_ms": 11,
+        "max_ms": 10.14439994469285,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 43,
+        "mean_ms": 0.1873115597422733,
+        "p50_ms": 1,
+        "p95_ms": 1,
+        "p99_ms": 1,
+        "max_ms": 0.5184002220630646,
+        "resolution_ms": 1
+      }
+    },
+    "187": {
+      "total_ms": {
+        "n": 43,
+        "mean_ms": 11.985853487669035,
+        "p50_ms": 12,
+        "p95_ms": 15,
+        "p99_ms": 18,
+        "max_ms": 17.248400021344423,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 43,
+        "mean_ms": 0.19527215857145397,
+        "p50_ms": 1,
+        "p95_ms": 1,
+        "p99_ms": 1,
+        "max_ms": 0.5668005906045437,
+        "resolution_ms": 1
+      }
+    },
+    "door": {
+      "total_ms": {
+        "n": 43,
+        "mean_ms": 14.909434857843227,
+        "p50_ms": 15,
+        "p95_ms": 21,
+        "p99_ms": 24,
+        "max_ms": 23.11379974707961,
+        "resolution_ms": 1
+      },
+      "waiting_ms": null
+    }
+  }
+}

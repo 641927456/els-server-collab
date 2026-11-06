@@ -1,0 +1,57 @@
+--- parent/els_server/storage/death_writer.py
++++ candidate/els_server/storage/death_writer.py
+@@ -103,6 +103,14 @@
+                         results.append((None,error))
+                     else:
+                         db.execute('RELEASE '+name);results.append((result,None))
++                    # Producers arriving during preparation are already ready.
++                    # Include them before this same durable commit, with no
++                    # batching sleep and the original sixteen-job bound.
++                    while not stopping and len(jobs)<16:
++                        try:job=self.queue.get_nowait()
++                        except Empty:break
++                        if job is None:stopping=True;break
++                        jobs.append(job)
+             self.batches+=1;self.deaths+=sum(error is None for _,error in results)
+             self.maximum_batch=max(self.maximum_batch,len(jobs))
+         except BaseException as error:
+--- parent/els_server/storage/coin_writer.py
++++ candidate/els_server/storage/coin_writer.py
+@@ -100,6 +100,13 @@
+                                 db.execute('ROLLBACK TO '+savepoint);db.execute('RELEASE '+savepoint)
+                                 results.append((None,error))
+                             else:results.append((result,None))
++                            # Drain requests which became ready during grant
++                            # preparation before the original FULL commit.
++                            while not stopping and len(jobs)<16:
++                                try:job=self.queue.get_nowait()
++                                except Empty:break
++                                if job is None:stopping=True;break
++                                jobs.append(job)
+                     self.batches+=1;self.claims+=len(jobs);self.max_batch=max(self.max_batch,len(jobs))
+                 except BaseException as error:
+                     self.failed_batches+=1;results=[(None,error)]*len(jobs)
+--- parent/els_server/domain/session_auxiliary.py
++++ candidate/els_server/domain/session_auxiliary.py
+@@ -44,10 +44,21 @@
+ def activity_due(function,args=()):
+     """Use the Friends periodic handler's existing one-second activity gate."""
+     from els_server.application import FriendsSession
++    from els_server.protocol.protocol_codec import Event
+     session = getattr(function, '__self__', None)
+     if (getattr(function,'__name__',None)=='handle' and len(args)==1
+             and maintenance_request(session,args[0])):
+         return False
++    if (type(session)is FriendsSession and getattr(function,'__func__',None)is FriendsSession.handle
++            and len(args)==1 and type(args[0])is Event and args[0].event_id==0x202 and args[0].kind==0xad
++            and session.role=='game'and session.client_build=='dx11_260923'
++            and session.phase=='dungeon_active'and session.dungeon_substage_synced
++            and not session.clear_notified and not getattr(session,'dungeon_failed',False)):
++        # At the ordinary level cap an accepted death cannot change either
++        # online clock's role/level identity. Existing independent upkeep and
++        # final stop observations persist its elapsed time, as for pickups.
++        character=session.account.character_identity()
++        if character is not None and character['level']==99:return False
+     if (type(session) is FriendsSession
+             and getattr(function, '__func__', None) is FriendsSession.periodic_notifications):
+         return not getattr(session,'_periodic_pending',False) and time.monotonic() >= session.next_periodic

@@ -74,6 +74,8 @@ def main(argv=None):
     run([sys.executable,'-B',str(ROOT/'refs/cash-bag-page2-slots-20261104-v1/verify_contract.py')])
     if (ROOT/'references/pve-experience-20261105-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pve_experience_source_20261105.py')])
+    if (ROOT/'refs/server-latency-20261106-v7/source-bindings.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_server_latency_20261106_v7.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
     run([sys.executable,'-B','-m','unittest','tests.test_public_controller_sources'])
