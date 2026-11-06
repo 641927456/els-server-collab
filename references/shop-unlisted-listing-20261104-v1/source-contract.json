@@ -1,0 +1,191 @@
+{
+  "format": 1,
+  "issue": 834,
+  "base_commit": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "status": "Already installed on both channels; this change archives sources only.",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "scope": {
+    "added_products": 4121,
+    "added_packages": 3170,
+    "costume_packages": 3106,
+    "Track2_fan_packages": 64,
+    "standalone_accessories": 951,
+    "ELSTAR2_packages": 288,
+    "permanent_custom_books": 84,
+    "new_native_definitions": 15368,
+    "held_packages": 79,
+    "price_ED": 50,
+    "ordinary_fashion_single_expansion": false,
+    "new_schema": false,
+    "new_hook": false,
+    "original_EXE_KOM_modified": false
+  },
+  "custom_class_corrections": [
+    {
+      "book": 293664,
+      "unit_type": 11,
+      "native_class_byte": 202,
+      "required_class": 201,
+      "basis": "Native item UNIT_TYPE and CharCustomData UNIT_TYPE agree; reuse existing per-book old base-class normalization."
+    },
+    {
+      "book": 293665,
+      "unit_type": 12,
+      "native_class_byte": 201,
+      "required_class": 202,
+      "basis": "Native item UNIT_TYPE and CharCustomData UNIT_TYPE agree; reuse existing per-book old base-class normalization."
+    }
+  ],
+  "development_parents": {
+    "online": {
+      "release": "native-first-pickup-prewarm-20261104-v1",
+      "manifest_sha256": "5b3f85b6dfeb39eac6da4d757e06d8ed3e3edddf4ba22ef24fe63b8f026ca836"
+    },
+    "local": {
+      "release": "local-native-teacher-potion-count1-20261104-v1",
+      "manifest_sha256": "a00cbae777229c490eb4934f7267cd260fd8431e0c1db2bb210fcf1ac6f1efdc"
+    }
+  },
+  "frozen_publication_parents": {
+    "online": {
+      "release": "native-dungeon-startup-prewarm-20261104-v1",
+      "manifest_sha256": "f22f0ac50799768b42c10d5fb81d2b806525ce09a24c5c75bf8c814fdf03caf8"
+    },
+    "local": {
+      "release": "local-native-teacher-potion-count1-20261104-v1",
+      "manifest_sha256": "a00cbae777229c490eb4934f7267cd260fd8431e0c1db2bb210fcf1ac6f1efdc"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/data/character_custom_permanent.json",
+      "size": 1942240,
+      "sha256": "418c848adafb0b1a6cd22f015b3cb6050037a200860a54427437906bb2dbd61f",
+      "parent_sha256": "dd5acfd63afd0e74c26054193c2e987ce0f48ecb499ee20e0dcef53bf1ca6712",
+      "channel_parent_sha256": {
+        "online": "dd5acfd63afd0e74c26054193c2e987ce0f48ecb499ee20e0dcef53bf1ca6712",
+        "local": "dd5acfd63afd0e74c26054193c2e987ce0f48ecb499ee20e0dcef53bf1ca6712"
+      }
+    },
+    {
+      "path": "els_server/domain/character_custom.py",
+      "size": 9452,
+      "sha256": "9ef2fb4ec23f3f08fd02b006e617ff5b679429af87e795e9b198668121a75bf1",
+      "parent_sha256": "0f73d2251c7492344f13ca391aa1bed22b1b926c4f87611f38c94a35dc9857f4",
+      "channel_parent_sha256": {
+        "online": "0f73d2251c7492344f13ca391aa1bed22b1b926c4f87611f38c94a35dc9857f4",
+        "local": "0f73d2251c7492344f13ca391aa1bed22b1b926c4f87611f38c94a35dc9857f4"
+      },
+      "source": "source/common/els_server/domain/character_custom.py"
+    },
+    {
+      "path": "analysis/client-6c6b5180/approved-missing-accessories-20261104.json",
+      "size": 164658,
+      "sha256": "ff2c9fd88d3e4e021615efd627ad1a7504767c24d185ea652f8825f35c1e327d",
+      "parent_sha256": null,
+      "channel_parent_sha256": {
+        "online": null,
+        "local": null
+      }
+    },
+    {
+      "path": "analysis/client-6c6b5180/extended-shop-body-proof.json",
+      "size": 2868785,
+      "sha256": "5981e02a2bfe265088410a2466514d0aae9108a1c14e0ca8b71850be4b2f12cc",
+      "parent_sha256": "d941e266728d86c3b376314d0e20b5cff95a013a8a03f1c816b6d27941f1fdfb",
+      "channel_parent_sha256": {
+        "online": "d941e266728d86c3b376314d0e20b5cff95a013a8a03f1c816b6d27941f1fdfb",
+        "local": "d941e266728d86c3b376314d0e20b5cff95a013a8a03f1c816b6d27941f1fdfb"
+      }
+    },
+    {
+      "path": "analysis/client-6c6b5180/extended-shop-catalog.json",
+      "size": 6188674,
+      "sha256": "93ee60c841305cf3cbb5ac60aafdbfe5a71c2330ebc72844bee7be4cb56989b2",
+      "parent_sha256": "2dcf6bce3ba3805d0f06b0b85a54d63158a0d67d2d24297bb38ac0fd79ac9df7",
+      "channel_parent_sha256": {
+        "online": "2dcf6bce3ba3805d0f06b0b85a54d63158a0d67d2d24297bb38ac0fd79ac9df7",
+        "local": "2dcf6bce3ba3805d0f06b0b85a54d63158a0d67d2d24297bb38ac0fd79ac9df7"
+      }
+    },
+    {
+      "path": "analysis/shop-listing-20261015/bundle-order.json",
+      "size": 1941197,
+      "sha256": "d0feeb89f36107f3e6690d4a9ad8d9242e1a80db69fb91ee23ea2e5d7c11c56e",
+      "parent_sha256": "30225b0aca0f3a83f7621d95c0fa157b3f6ea31470d3ba0c7b265db6e2828d44",
+      "channel_parent_sha256": {
+        "online": "30225b0aca0f3a83f7621d95c0fa157b3f6ea31470d3ba0c7b265db6e2828d44",
+        "local": "30225b0aca0f3a83f7621d95c0fa157b3f6ea31470d3ba0c7b265db6e2828d44"
+      }
+    },
+    {
+      "path": "analysis/shop-listing-20261015/fashion-bundles-body-proof.json",
+      "size": 20672455,
+      "sha256": "cb0c693630967ad86b49d1936ccc2382a72c179318b2208608dfa6104af1e509",
+      "parent_sha256": "8a52212785490e1fb7341beb090e87d30b561367acb7c5af10d2c2ab6fc8e5a0",
+      "channel_parent_sha256": {
+        "online": "8a52212785490e1fb7341beb090e87d30b561367acb7c5af10d2c2ab6fc8e5a0",
+        "local": "8a52212785490e1fb7341beb090e87d30b561367acb7c5af10d2c2ab6fc8e5a0"
+      }
+    },
+    {
+      "path": "analysis/shop-listing-20261015/fashion-bundles.json",
+      "size": 42245598,
+      "sha256": "db2347289e3b985dcc603221e2d25dfe3998c1c1e3af6412b800767e00cb399a",
+      "parent_sha256": "362f5d98dbd451b8c5a9a0e3d6e21132054efe876f53e365a2a349c118267f34",
+      "channel_parent_sha256": {
+        "online": "362f5d98dbd451b8c5a9a0e3d6e21132054efe876f53e365a2a349c118267f34",
+        "local": "362f5d98dbd451b8c5a9a0e3d6e21132054efe876f53e365a2a349c118267f34"
+      }
+    },
+    {
+      "path": "analysis/shop-unlisted-listing-20261104-v1/bundle-membership.json",
+      "size": 3974069,
+      "sha256": "b251f1ad9199721ac8fa5ecac3b2348697dcc105cf1d296805382d2fe5c718b1",
+      "parent_sha256": null,
+      "channel_parent_sha256": {
+        "online": null,
+        "local": null
+      }
+    }
+  ],
+  "tools": {
+    "prepare.py": {
+      "sha256": "8c5f306995dc507d3e79cdd7bfd19489a49e52695e6855c118db61b02d5ec13e",
+      "size": 1674
+    },
+    "build_catalog.py": {
+      "sha256": "967eaaba3ba224f135430d950fbde9d9974695d7b2e40f4c56953aa6649ea327",
+      "size": 17801
+    },
+    "build_order.py": {
+      "sha256": "08da8494c2739e62654c48bbbae9a1c77025e749e7cfdcb7fb43f80dd7d517bb",
+      "size": 5120
+    },
+    "verify_business.py": {
+      "sha256": "e839625d265ce87e0b0ba79f80d6e0baf503abbf3c37a7c038af02b306427729",
+      "size": 17825
+    },
+    "verify_new_bodies.py": {
+      "sha256": "3f68bba347488558df128229479c45ec59a5856715c0d2698df0bc39249d347f",
+      "size": 3801
+    }
+  },
+  "private_payload": {
+    "filename": "shop-unlisted-4121-qualified-delta.zip",
+    "sha256": "bad1f1ee888d34b5952703f42b26750f3f9ea2390905862d3bb7fd12b006d038",
+    "size": 5950710,
+    "files": 9,
+    "shared_in_git": false,
+    "uploaded": false,
+    "retention": "Owner-controlled offline delivery; never attach to the public collaboration repository."
+  },
+  "validation": "validation-summary.json",
+  "installation": "installation-summary.json",
+  "recovery": "Suspend only new batch purchases if needed; retain saved custom-ID readers and durable receipts. Never restore player/account databases.",
+  "limitations": [
+    "No natural GUI or multiplayer battle claimed.",
+    "Root collaboration engine remains the older sanitized baseline; archive is not a standalone runtime.",
+    "Original private client tables, catalogs, proof resources, runtime and offline native reader are required to reproduce the business sweep."
+  ]
+}
