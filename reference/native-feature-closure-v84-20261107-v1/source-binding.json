@@ -1,0 +1,805 @@
+{
+  "parent_main": "64dc1d510e39b1c3e305616533f60d2300a7efff",
+  "parent_tree": "7fe2d628b8325ad4855ff53b1960c7404e8932bc",
+  "parent_deployed": {
+    "ok": true,
+    "release": "unified-server-36754b117eeaecf5-4a37691bcdd9",
+    "channel": "local",
+    "path": "releases/local/unified-server-36754b117eeaecf5-4a37691bcdd9",
+    "unified_runtime": true,
+    "manifest_sha256": "c693e813e5a00e9325d2ce7e5dafb18bb9c2d2dd9bd2aa8df31c5b4266ad161d",
+    "runtime_manifest_sha256": "c693e813e5a00e9325d2ce7e5dafb18bb9c2d2dd9bd2aa8df31c5b4266ad161d",
+    "shared_runtime_identity": "36754b117eeaecf50cf48b5cdaa278e73dceefa8424328179ae439ca186146d1",
+    "source_online_release": "native-server-latency-20261106-v7",
+    "server_host": "127.0.0.1",
+    "source_content_identity": "bb4b897d5cc0c82705019654d4cd886d5bf9869190055f78e629a1dc6ec6dc1a",
+    "config": "G:\\els\\state\\unified-server\\server.toml",
+    "parent_release": "unified-server-b6b15dc03dd7354d-f19e6906df62",
+    "backup": "G:\\els\\state\\unified-installer\\01daa54d6c5b42f9989628f4b3ab015a",
+    "player_database_restore": false,
+    "old_runtime_cleanup_pending": false,
+    "normal_next_start": true,
+    "source_PR": 912,
+    "source_head": "d86f57fd20f1f66dae6be1a0a481b04d59ba8f75",
+    "source_merge_commit": "64dc1d510e39b1c3e305616533f60d2300a7efff",
+    "Git_merge": true,
+    "current_delta_Git_merge": true,
+    "source_Git_merged": true,
+    "shared_runtime_archive_sha256": "d403739391fee2e541f6a4e91eed8ae446bd31dbdd79551305091d01ed0ec4cf",
+    "old_runtime_retired": "unified-server-b6b15dc03dd7354d-f19e6906df62",
+    "old_runtime_code_recovery": "G:\\els\\analysis\\server-latency-20261106-v7\\publication\\previous-local-runtime-code\\recovery.json",
+    "old_private_state_retained_in_place": "G:\\els\\releases\\local\\unified-server-b6b15dc03dd7354d-f19e6906df62\\state"
+  },
+  "source_files": [
+    {
+      "path": "els_server/application.py",
+      "sha256": "0303e65c738029dc8081c84e2805abedf5500a48462af9cd724a676be3997ee0",
+      "size": 61943
+    },
+    {
+      "path": "els_server/data/character_custom_permanent.json",
+      "sha256": "be7b24f98129da245487987457b2a8d53896905c0a4315238aa5f1efa0cb7673",
+      "size": 1943186
+    },
+    {
+      "path": "els_server/data/highest_magic_stone.json",
+      "sha256": "846d7e4d397543ad3d0d14949b6b131f7a4550c0d0ceccdc627c1dffa1046d45",
+      "size": 78496
+    },
+    {
+      "path": "els_server/data/mentor_boxes.json",
+      "sha256": "d7dffc3951b503f934cd57fbac9898ef548a38c5b601391fde6b9d4b6d2fa3da",
+      "size": 1682
+    },
+    {
+      "path": "els_server/data/mentor_duelist_box.json",
+      "sha256": "7e467667b444c7ebc57175b89622e92166078492b18926c36b511011a20276d9",
+      "size": 124347
+    },
+    {
+      "path": "els_server/data/mentor_quests.json",
+      "sha256": "a12db404ba7fdbbe392448e2ff11e12b6121b634ee3ab133a194cf7f0a36d6c5",
+      "size": 32886
+    },
+    {
+      "path": "els_server/data/pet_battle_quest.json",
+      "sha256": "6ea5b3a3b430d056c98c3f74d94423a2f654f20b26870a3c9e8eb1f181d39dda",
+      "size": 2632
+    },
+    {
+      "path": "els_server/data/pet_trainer_exchange.json",
+      "sha256": "b8237724192fac2664a70ee1087a01570f2f3b5db2e1b377060882e19d1a2045",
+      "size": 6417
+    },
+    {
+      "path": "els_server/data/relationship_boxes.json",
+      "sha256": "a80520334319ac3d7300c00f10b35432667349c24749fc1551d6784bffd582a8",
+      "size": 4393
+    },
+    {
+      "path": "els_server/data/wedding_gifts.json",
+      "sha256": "fd6a0719c47766ced81f675a21bb4d95c21e9bbb90a4135be5bc95f56cc30d0d",
+      "size": 203832
+    },
+    {
+      "path": "els_server/data/wedding_items.json",
+      "sha256": "f56747d28ac38e936079d0c2dde8664ad7ad2fbcf6725a2dc79dad1a656720df",
+      "size": 3666
+    },
+    {
+      "path": "els_server/data/wedding_quests.json",
+      "sha256": "184a54afa86d883ba55d232860ca35c792780278cf90525715cf4965a4b6156c",
+      "size": 5465
+    },
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "sha256": "f55abba81a7a64fb0acdbb815dd280a32fff8a8a379689c402debf496793f778",
+      "size": 15862
+    },
+    {
+      "path": "els_server/domain/character_custom.py",
+      "sha256": "107058824b2a8942e85d389d9788ad9b0b02fa7d39afd9e761919a6fec19f00e",
+      "size": 10126
+    },
+    {
+      "path": "els_server/domain/companion_flow.py",
+      "sha256": "2769d7275bfd890666be003038650c7fd820846b744350b091233272cb531125",
+      "size": 3745
+    },
+    {
+      "path": "els_server/domain/consumables.py",
+      "sha256": "f003a869c8c71e5126c053b5006970b3ec8ef934dc34e56b5461e10bd8ac2fdc",
+      "size": 10237
+    },
+    {
+      "path": "els_server/domain/cubes.py",
+      "sha256": "6b2ad43e1bdc9ac450ec7765c3fedafda40f0df9a13c19c022668e795e3a5485",
+      "size": 7008
+    },
+    {
+      "path": "els_server/domain/custom_periods.py",
+      "sha256": "f237993d7f26f5fe8757080958ba9354b22ead616139ff6bcdd86508040d41c6",
+      "size": 2007
+    },
+    {
+      "path": "els_server/domain/duel_flow.py",
+      "sha256": "24b6b0f37cd1c72be2af3c06542d5150017abbbffe05ccff289c2f14270d17b5",
+      "size": 17158
+    },
+    {
+      "path": "els_server/domain/elixir_economy.py",
+      "sha256": "eb499570a5f46777c07e33815e0ab4354395f4e2fa058e10d05604c6d687cd57",
+      "size": 4390
+    },
+    {
+      "path": "els_server/domain/fashion_state.py",
+      "sha256": "232903caf3feb1909f2733dd8bd5ba32b7bef85378f7903f4069e4b1716a06de",
+      "size": 6801
+    },
+    {
+      "path": "els_server/domain/friend_flow.py",
+      "sha256": "02b87b5cd4ab72665af235f32f1dfb81bbd171d6ce81a47b462491993ae49399",
+      "size": 9577
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "sha256": "edf8d8b4422ac8bd5a6c6492289ecd614524770fbfcc70906aa2dca8362a3be6",
+      "size": 37874
+    },
+    {
+      "path": "els_server/domain/friends_material_loot.py",
+      "sha256": "5f89ea137b4acc00f69b553f5b617b36d97239bcd969cb3545b3b9b2b096d791",
+      "size": 20183
+    },
+    {
+      "path": "els_server/domain/friends_pvp.py",
+      "sha256": "d2d5b1f5d525b5a8f8daf99992dfe93a0488b62d1fa62d89fd413b9fe9574220",
+      "size": 12101
+    },
+    {
+      "path": "els_server/domain/friends_racing.py",
+      "sha256": "57c135a150a5bfb508e55826391b317a06be8afca3b3f7da82ff3c8e7a6cc431",
+      "size": 25549
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "sha256": "46025dd7eda365b73c62896a74ce7afd7e80936c18c800f34f9c08d69a487ebc",
+      "size": 22875
+    },
+    {
+      "path": "els_server/domain/furniture_rules.py",
+      "sha256": "be9439c3ef3b2aa95988ccef42f65cfc6305f1ecd0f8a2d696c9c6812ce52b34",
+      "size": 5110
+    },
+    {
+      "path": "els_server/domain/guild_agit_flow.py",
+      "sha256": "ff66390722c849a42d2ac2ffbd1b5a11b7381e6eec7fd57dcdd6a35997928155",
+      "size": 16088
+    },
+    {
+      "path": "els_server/domain/highest_magic_stone.py",
+      "sha256": "9797a484dc9f6b6c6ca233ebb4de0f8cea83c3dace667334d911f098b9add69a",
+      "size": 1807
+    },
+    {
+      "path": "els_server/domain/housing_layout_flow.py",
+      "sha256": "9ae0b34b03e4c24a9bc6582c0294dfc8fe17aa1d1659fb99aa8ede0259fc7da9",
+      "size": 2379
+    },
+    {
+      "path": "els_server/domain/housing_pet_rules.py",
+      "sha256": "9351e2faa96a8debaa34c0077fda75a6f99158f2873fc30de54aec9a68d64d7a",
+      "size": 1592
+    },
+    {
+      "path": "els_server/domain/housing_room_flow.py",
+      "sha256": "d45e79691e3d3a618b876c0f2cc29c1c7afac45ca1b19a811b12e43286639a21",
+      "size": 11485
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "sha256": "55e7240aef14e059758fd969f4d9c5dab5ab7e186eb38cb50c67d5e6858d0ade",
+      "size": 93488
+    },
+    {
+      "path": "els_server/domain/item_expiration.py",
+      "sha256": "90fb59bee585cd489f6a2bc9fcda7851fd36803f1f450826c859013e493981a1",
+      "size": 2023
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "c46419128becf812bada3fea17cda0d244562c93c4946261837d0116ded1b4cb",
+      "size": 158244
+    },
+    {
+      "path": "els_server/domain/mail_flow.py",
+      "sha256": "8c390a7f0ba067658dbdfee545afb6463e3320fa6ae7cf8929e11745a6fae7a5",
+      "size": 2495
+    },
+    {
+      "path": "els_server/domain/mailbox_extras.py",
+      "sha256": "cb8e517a4bf70eb157ed842295474a626c71526372cea64720d997429bcb45b8",
+      "size": 4169
+    },
+    {
+      "path": "els_server/domain/mentor_boxes.py",
+      "sha256": "ae7a10da84c1915fbcc89df2c91ee29a888456ad42e5ea50a939bd0abd018a61",
+      "size": 1654
+    },
+    {
+      "path": "els_server/domain/mentor_duelist_box.py",
+      "sha256": "ebbff3edd6c44a099529863eff59b7ab7f9af68b23ff2f6230fb4478ca57d960",
+      "size": 1910
+    },
+    {
+      "path": "els_server/domain/mentor_flow.py",
+      "sha256": "15653b108f7854bc5795a9c34429e9b2b2052b92db94d2b08f923f77952d7712",
+      "size": 16301
+    },
+    {
+      "path": "els_server/domain/mentor_play.py",
+      "sha256": "92b5916571c2b04156d25318486602e99051bcfd81a4402d66b087e5f1e7f273",
+      "size": 5128
+    },
+    {
+      "path": "els_server/domain/mentor_quests.py",
+      "sha256": "4e31c6fead3af639814120de019182bf1ff403ae4392beb4a72dbb9659504097",
+      "size": 4140
+    },
+    {
+      "path": "els_server/domain/mentor_summon.py",
+      "sha256": "52c9e00b497717d9d217403240ea997dccef8771ceffd52fdef38a279fa32db1",
+      "size": 8425
+    },
+    {
+      "path": "els_server/domain/normal_fatigue_flow.py",
+      "sha256": "47154ce47ee1386e217e146d6350c8418d2508575b7ebb3eded5b6708dcc047c",
+      "size": 21670
+    },
+    {
+      "path": "els_server/domain/ordinary_magic_stones.py",
+      "sha256": "ebfc44874148f784c5c4b9d2f299ddfd91dbca760366e7a3005ad42de2bcdd58",
+      "size": 3489
+    },
+    {
+      "path": "els_server/domain/ordinary_skill_pages.py",
+      "sha256": "18ea8d22d715cf7f6db9fd5a0322005685afa5ed0f3c40d537e6e54d1f1254bf",
+      "size": 8071
+    },
+    {
+      "path": "els_server/domain/owned_reward_boxes.py",
+      "sha256": "22cbf6974e2a9ece731dbf8eff15476d3596e3fddace1b6a32749db30f3f57bc",
+      "size": 5474
+    },
+    {
+      "path": "els_server/domain/pet_battle.py",
+      "sha256": "d82c656401d12e8789eccacbad689a49017b904a667826648701b1618db05fc3",
+      "size": 10256
+    },
+    {
+      "path": "els_server/domain/pet_battle_flow.py",
+      "sha256": "cae378f0a956baa09fd50097cbadf98187cd422fad2477dc01660a090af3cd91",
+      "size": 23171
+    },
+    {
+      "path": "els_server/domain/pet_battle_lobby.py",
+      "sha256": "801f0502cd847c60c8641052583d8a1bf570b33705c869c8ba5d6e5e468724f4",
+      "size": 10937
+    },
+    {
+      "path": "els_server/domain/pet_battle_projection.py",
+      "sha256": "1703a76294840ad42c27d7c00f2815715753d495da20da0a380b38b157c148e8",
+      "size": 2532
+    },
+    {
+      "path": "els_server/domain/pet_battle_quest.py",
+      "sha256": "5addd75f3d8827b5ef9a6c9eea3d8b7e5c5e2094407ca45afd4ff517efdf4f5b",
+      "size": 2229
+    },
+    {
+      "path": "els_server/domain/pet_battle_scene.py",
+      "sha256": "4bfd14fe5a7ea771246e6afc1533273836d3193c02bc3204ed47804562ea27d9",
+      "size": 3096
+    },
+    {
+      "path": "els_server/domain/pet_trainer_exchange.py",
+      "sha256": "30c337b7a1893b396ab2138d9002711b0f051f09224780877ef040b3f81732cb",
+      "size": 3548
+    },
+    {
+      "path": "els_server/domain/pet_trainer_exchange_flow.py",
+      "sha256": "e73a1ee6a2f459bc3d385b68c2bb609f056d6c50b8768a552da504a91435a117",
+      "size": 2122
+    },
+    {
+      "path": "els_server/domain/photo_zone_flow.py",
+      "sha256": "ccb735bc74c594e2ebddf24a3a009d51f1a4ca1bf2666340223cdacc77da966a",
+      "size": 16164
+    },
+    {
+      "path": "els_server/domain/pve_economy_flow.py",
+      "sha256": "bc5ea24a0e2038b82807ae16d654a6319dd50de13efefda792621c889d49569f",
+      "size": 24696
+    },
+    {
+      "path": "els_server/domain/pvp_actor.py",
+      "sha256": "3f9f57b8d0526816956cd42882baf913678b86dabc45f56e443b005b36c3839e",
+      "size": 4816
+    },
+    {
+      "path": "els_server/domain/pvp_loading.py",
+      "sha256": "41a135bf582cbdf4c496f19fc0e5d115713c4cdc0349313885509bb1d5101bd4",
+      "size": 10857
+    },
+    {
+      "path": "els_server/domain/pvp_round.py",
+      "sha256": "2574d84d7e2c8372a7e09d2aa82b47d01b9ed149b36dff9ce5a5cc32bcbb1f9b",
+      "size": 12314
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "sha256": "c55af3e36bd265915317d8d7aaa632918106fb756aab77838c7e6dcd6b1346d8",
+      "size": 30778
+    },
+    {
+      "path": "els_server/domain/raid_economy_flow.py",
+      "sha256": "17ddd68bfc57c29f7cb255150aec37e4463749ebdc424b315f6789eea7101671",
+      "size": 14607
+    },
+    {
+      "path": "els_server/domain/regional_boss_cubes.py",
+      "sha256": "93aa46f3fbd80671e6384dc0d13bb976f59c5f42dd8f92a440eede077e0dbe43",
+      "size": 1731
+    },
+    {
+      "path": "els_server/domain/relationship_boxes.py",
+      "sha256": "2e5c988244e6f78866b3b1d529258ca2b6b3890b20df340c9ca495d439bc6fcd",
+      "size": 3061
+    },
+    {
+      "path": "els_server/domain/relationship_skills.py",
+      "sha256": "1610ecfaf92d8be5931a40e5feefd4215ce653ac7019bb2f821868c3e9d3d82a",
+      "size": 3793
+    },
+    {
+      "path": "els_server/domain/relationship_visual_flow.py",
+      "sha256": "edd6f3f8ac9a5389f11efc780e77ea0004657405bd747f344193c9f5132544f2",
+      "size": 3219
+    },
+    {
+      "path": "els_server/domain/resonance_allocation_flow.py",
+      "sha256": "6536fe0ccfab3e04170c90e889cc2eb9bd6cc4dc3e2dd4ea996294a217afd99b",
+      "size": 8524
+    },
+    {
+      "path": "els_server/domain/sage_sockets.py",
+      "sha256": "a406efae2c0e59f9f4ea5f6e5bbabe81fc6a7eb4bb546a1a710eed4ee090e171",
+      "size": 6639
+    },
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "sha256": "ffb2321d5424a444f60bb820bb82e0f2675fd067cd979baf3c50cd90e7780bef",
+      "size": 22203
+    },
+    {
+      "path": "els_server/domain/shop_additions.py",
+      "sha256": "e3e29891fb19d31bc7b40ec30345b6b004fd0c4b284fc45e158c7bf9e5d93a6c",
+      "size": 2598
+    },
+    {
+      "path": "els_server/domain/skill_state.py",
+      "sha256": "3a0271df5d16d0cfbbf52e5a54a7632317d75c91e8701fd6ef422dc90ad53f58",
+      "size": 5107
+    },
+    {
+      "path": "els_server/domain/social_settings_flow.py",
+      "sha256": "905ef8a226c05f198321eccb93da0d5242ee001bbc5208a0a07fc55f2f4fc39d",
+      "size": 891
+    },
+    {
+      "path": "els_server/domain/wedding_flow.py",
+      "sha256": "b3e6029a634bee0c2c621696e39486e3dda23e43c103ae9159ccafc7c6ea0c19",
+      "size": 4045
+    },
+    {
+      "path": "els_server/domain/wedding_gifts.py",
+      "sha256": "f27fef8e167a9cd1628067e1e1166da759d68a26b7cbf478dd2375d6fd9ec865",
+      "size": 5527
+    },
+    {
+      "path": "els_server/domain/wedding_items.py",
+      "sha256": "2242cb2aaecd3c091e3ae1d836186fb62ac2979a815a69cb7cc4e052dbfc34af",
+      "size": 1096
+    },
+    {
+      "path": "els_server/domain/wedding_quests.py",
+      "sha256": "ef943ef3b036c2bef891203c471a5290d4e571b93ff7958421f7e860a21c2e33",
+      "size": 2056
+    },
+    {
+      "path": "els_server/domain/wedding_rooms.py",
+      "sha256": "912f168f4720ee12c05d4320d7d3c0963a1562c49592c436c2380568dbae98f1",
+      "size": 23182
+    },
+    {
+      "path": "els_server/friends_relay.py",
+      "sha256": "087163ab57f29467f15c483d6a1cb6f2170c9f42266734655e448d0df0cefe8e",
+      "size": 15749
+    },
+    {
+      "path": "els_server/protocol/character_custom_messages.py",
+      "sha256": "99784e6224e79e19a1123d4af218521b33d82943e53171a8c53c8b74406d84f8",
+      "size": 5264
+    },
+    {
+      "path": "els_server/protocol/duel_messages.py",
+      "sha256": "27d840ae91dacb3d1fd2d8df84e77d1701457fab0072536b5a45895d26577cee",
+      "size": 3280
+    },
+    {
+      "path": "els_server/protocol/dungeon_messages.py",
+      "sha256": "caab1d016cfea54954ae99736f498b4e8df3f26749bcc30834a7cda77e17e805",
+      "size": 17002
+    },
+    {
+      "path": "els_server/protocol/fishing_vip_messages.py",
+      "sha256": "3e1ce1f414ef1a07e137d8c2447b7ae17efb62fa23a9b2ef1a06903cd7b38fa7",
+      "size": 851
+    },
+    {
+      "path": "els_server/protocol/friend_messages.py",
+      "sha256": "4bff980fa24285de19f68537eb4c9abcf5b81907aa61e8768baf0383abf720a9",
+      "size": 5033
+    },
+    {
+      "path": "els_server/protocol/housing_messages.py",
+      "sha256": "d6dc328a8ed7001e3f5183a334ff7f8117c86b6360c621760d858de898a3cd96",
+      "size": 4237
+    },
+    {
+      "path": "els_server/protocol/housing_pet_messages.py",
+      "sha256": "ff52abfcf250b6602931342c9275b059206c0fc15cf81e6d59f92b68f325639c",
+      "size": 2131
+    },
+    {
+      "path": "els_server/protocol/housing_population_messages.py",
+      "sha256": "a6472546c94f6c5a9d1d8294df0d9f097f1a9ac25f69a9b0bb1089c270ba6a88",
+      "size": 2221
+    },
+    {
+      "path": "els_server/protocol/local_messages.py",
+      "sha256": "0316a329db86556b214b96c85c2c4b22378e687e2803199c79b411e90c14bcb0",
+      "size": 21682
+    },
+    {
+      "path": "els_server/protocol/mentor_messages.py",
+      "sha256": "eaf389211d25e8b69713a24ec64e736266daad6d22408e3c419d2f745a45fdc1",
+      "size": 4761
+    },
+    {
+      "path": "els_server/protocol/pet_battle_lobby_messages.py",
+      "sha256": "e72edcdd5c7c17cd9122b141602c370f93f7682c08c1b179f571274a40db2c8b",
+      "size": 1353
+    },
+    {
+      "path": "els_server/protocol/pet_battle_messages.py",
+      "sha256": "856451f4523bc342579cf538db84e3dedfde1d0a3db5ef8acee27767bb0e76f6",
+      "size": 2139
+    },
+    {
+      "path": "els_server/protocol/pet_battle_room_messages.py",
+      "sha256": "00a42c85785d80b6523e586f6af51b1d61129f9e6cc75274b360052bac026580",
+      "size": 1757
+    },
+    {
+      "path": "els_server/protocol/pet_battle_turn_messages.py",
+      "sha256": "7de66a7a8aac3bec79e03276d255ac4ac6abf8b5ccc6236b7ec01914f9f713bc",
+      "size": 1681
+    },
+    {
+      "path": "els_server/protocol/pvp_loading_messages.py",
+      "sha256": "8e42c2dd177a51686acf7b72dc09442d00680515a5414ef94f7280f8bbb1c977",
+      "size": 3130
+    },
+    {
+      "path": "els_server/protocol/pvp_room_messages.py",
+      "sha256": "65a45f36574268ba6adcc643544c9fd0c46823a1f20b037e4428afaa3d3ce932",
+      "size": 4464
+    },
+    {
+      "path": "els_server/protocol/quest_messages.py",
+      "sha256": "1953d7458415a6ed2be4e2a7f5771a8041df51da12ec9f2fa74386751cf46552",
+      "size": 4662
+    },
+    {
+      "path": "els_server/protocol/relationship_messages.py",
+      "sha256": "fbcf6f8a44ea2a2c455ecc4422e8262765e744c4737c45517219c4eab6895031",
+      "size": 3742
+    },
+    {
+      "path": "els_server/protocol/session_clock.py",
+      "sha256": "3c5bbc6dce47c345f80d4450d930b10d157e607532ef14067b8ef72e4b972efd",
+      "size": 1673
+    },
+    {
+      "path": "els_server/protocol/social_messages.py",
+      "sha256": "8aa13dec6cc6b5717749b5427cf7b62ba82c6a0ebf884f25c2dc8f827e2c6e48",
+      "size": 15963
+    },
+    {
+      "path": "els_server/protocol/social_settings_messages.py",
+      "sha256": "e32cedf85d685ee73a1ecfd5327141ca28f961a61fc18ea698bce98f81ad9f06",
+      "size": 662
+    },
+    {
+      "path": "els_server/protocol/wedding_messages.py",
+      "sha256": "6e20d952e333b32e1859e5fca483804b43d9a02abcabf6c33633d7c2ec138f28",
+      "size": 9467
+    },
+    {
+      "path": "els_server/realtime.py",
+      "sha256": "59de2f0e1d1395683802916653d3c48420587e845741ec535f38741b8a083aa0",
+      "size": 12455
+    },
+    {
+      "path": "els_server/storage/boosting_2026_limited_pet.py",
+      "sha256": "e7ef95da39c15b7bfcde8498734b4f8bffb9a782f59c367349ef1017cb745e8a",
+      "size": 8454
+    },
+    {
+      "path": "els_server/storage/careers.py",
+      "sha256": "4a8de5890d6b65de9ad47e9463c5f5f16ddb6964bb397c67a9d0e17736a7e746",
+      "size": 7540
+    },
+    {
+      "path": "els_server/storage/character_custom.py",
+      "sha256": "10e3b6f58f4c1bbc34f22678394511353da504af705ceff17b68ef0c5716c58d",
+      "size": 24207
+    },
+    {
+      "path": "els_server/storage/character_lifecycle.py",
+      "sha256": "f00b877ff090032ca9090b02c0cf69510db19aede755b9825dd2a9998fbc3b5e",
+      "size": 7628
+    },
+    {
+      "path": "els_server/storage/characters.py",
+      "sha256": "d87a17cbb982468a8db4413ccee0d8dc445cae043defa9d5d6e0e8b0e69964a1",
+      "size": 29668
+    },
+    {
+      "path": "els_server/storage/companion_state.py",
+      "sha256": "8c1b3f94b7a0f7cd5b5a37a58a189645b1e428de2b195a7f59a21bc5eb2a85eb",
+      "size": 13612
+    },
+    {
+      "path": "els_server/storage/couple_closures.py",
+      "sha256": "9d6512e80f5e065d25d9642bf077cfb88028fc33f06813e78d02680fdec3df97",
+      "size": 7590
+    },
+    {
+      "path": "els_server/storage/custom_periods.py",
+      "sha256": "7995ee154317599c4504439e7e1c4702d64102e0f2ae1214ae9b4a6b6e4388be",
+      "size": 5001
+    },
+    {
+      "path": "els_server/storage/duel_results.py",
+      "sha256": "f870c7d489f488c8b8d62b78178af618aae513ce633f1ea16792ceb28e2321e0",
+      "size": 6903
+    },
+    {
+      "path": "els_server/storage/elixir_economy.py",
+      "sha256": "bee422052393ae4be5fc17dc914513ae0151f342314f1bb8169391151f848aac",
+      "size": 6315
+    },
+    {
+      "path": "els_server/storage/equipment_receipt_state.py",
+      "sha256": "068bb20a5feaf60feeeaa2d3f3d82729395652476c8256fffedacd5b75468727",
+      "size": 3463
+    },
+    {
+      "path": "els_server/storage/fixed_cubes.py",
+      "sha256": "3a15f5cba9db9a21a21913e639358e7aa4961a302f5c5acf465efdaf382dd194",
+      "size": 15160
+    },
+    {
+      "path": "els_server/storage/game_mail.py",
+      "sha256": "efd6d22df61f95b2371cf2c9dbd8b0f51bc2d5ad20c70aaa730200245111627f",
+      "size": 12660
+    },
+    {
+      "path": "els_server/storage/housing_access.py",
+      "sha256": "ce8ece8150755bd99591bdc98f57959fca87f8d7cf7467eb2a279b6afa46b4b0",
+      "size": 7904
+    },
+    {
+      "path": "els_server/storage/housing_layouts.py",
+      "sha256": "3da696fc84616678a4601bc3d88bb0bbca845e1687b60766c45af1f23aad63a9",
+      "size": 4938
+    },
+    {
+      "path": "els_server/storage/housing_pets.py",
+      "sha256": "1b21bea9b239a092788d3d154bdf366e2dae107a7b16694b96db0a03a3da6bc8",
+      "size": 9908
+    },
+    {
+      "path": "els_server/storage/housing_rooms.py",
+      "sha256": "82b9132e2c71e409da082c5ed06f6fdf36eaea581defb265187b06e0bc8c8975",
+      "size": 8080
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "sha256": "27c9624f03b9d89520eb44cca426443c57807b3fdcb644b11d9fe4ca51f33f12",
+      "size": 32252
+    },
+    {
+      "path": "els_server/storage/item_expiration.py",
+      "sha256": "652c67e793205d1ccd45ced25d8b4861ef7ad79d1361b68e880cc197701982d4",
+      "size": 8132
+    },
+    {
+      "path": "els_server/storage/item_instances.py",
+      "sha256": "b6503723b9c0d250da1d682fa2319fd75f74a9ce0c8a32f13082695c14639113",
+      "size": 5528
+    },
+    {
+      "path": "els_server/storage/item_seals.py",
+      "sha256": "95225530378a92c22d8eee608b579bd518d708b10a64eff484a3813b00a22ecc",
+      "size": 8210
+    },
+    {
+      "path": "els_server/storage/legacy_pve_exp.py",
+      "sha256": "353f5188323092db6fe39a301162ccfc043d7dd98a7dfabef9dc5c66d412610d",
+      "size": 8958
+    },
+    {
+      "path": "els_server/storage/mail_attachments.py",
+      "sha256": "6ea2ae68fd0d3883ef5d1f696efc4b6ae1aa36f2d13b8ad24daafba889d66e56",
+      "size": 13992
+    },
+    {
+      "path": "els_server/storage/material_exchange.py",
+      "sha256": "7c4a3a4d782448f2c5a797cecd73688ab80453d3de014bfa39d9e318ab060074",
+      "size": 4096
+    },
+    {
+      "path": "els_server/storage/mentor45000_scope.py",
+      "sha256": "4642d350f895e5a720f9e29d37667541e29662b54571200b91fc7a5830008d9c",
+      "size": 11745
+    },
+    {
+      "path": "els_server/storage/mentor_career_rewards.py",
+      "sha256": "e66a1cbd06bb3c1647ca6ae7db59f1647837a0f618d9c2a700e97c139bb237e9",
+      "size": 3299
+    },
+    {
+      "path": "els_server/storage/mentor_quests.py",
+      "sha256": "0aa0a26ae628a6d8a174eb8666b2d15ee426dd00e2c3fc18027d46fb7e47b2d6",
+      "size": 6891
+    },
+    {
+      "path": "els_server/storage/mentor_relations.py",
+      "sha256": "d5856fc7cd418a7124d97901abaf6a9763ae66216942d1d89e3c1d784a01f8a4",
+      "size": 13517
+    },
+    {
+      "path": "els_server/storage/pet_battle_quest_scope.py",
+      "sha256": "80f12c9a66563d9f24584377ccc88a7264b43dfab27a62d50eb2c3332e4b611b",
+      "size": 10703
+    },
+    {
+      "path": "els_server/storage/pet_battle_results.py",
+      "sha256": "d94d3d94acf0e4216c753f71eced24e5c6cd795d4fc3e87cfc316cb81d5fb143",
+      "size": 1635
+    },
+    {
+      "path": "els_server/storage/pet_battle_roster.py",
+      "sha256": "5c6166ff7872118812c158d781007ea32ec1f97a1f0ddb3878c2a4985cd02ae8",
+      "size": 2505
+    },
+    {
+      "path": "els_server/storage/pet_expedition.py",
+      "sha256": "568ae814723b621b6dcd94433c2c034d4395a9ff2c7af8542d16aa047246503a",
+      "size": 10242
+    },
+    {
+      "path": "els_server/storage/player_mail.py",
+      "sha256": "5873a58a1cc6a83833dccc55034db5735963fe334718a992826a0529420248f0",
+      "size": 16080
+    },
+    {
+      "path": "els_server/storage/relationship_mail.py",
+      "sha256": "00fdc8e8d1fc36b09262696a5347d39208dfc0c6c35af4ccc3e09b336e1f971f",
+      "size": 8818
+    },
+    {
+      "path": "els_server/storage/relationships.py",
+      "sha256": "5bf159e2e536fbe18ec3ea70dc93b1335be259c326fefe0d53fa6e427c1a054f",
+      "size": 15604
+    },
+    {
+      "path": "els_server/storage/resonance_period.py",
+      "sha256": "ea5bc0bdc480287662158aa8d2ff08eb54a93119d1119a59e7539cbfb5c75678",
+      "size": 8371
+    },
+    {
+      "path": "els_server/storage/sage_sockets.py",
+      "sha256": "55a3758e317392732dd0117a03f6068a5daae86c0f25776f93b09ba61acceeb1",
+      "size": 9453
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "sha256": "b7c07c85c91192f5a873ad55c6e06caba0522af9df18e12eea58dc0223e8d069",
+      "size": 46572
+    },
+    {
+      "path": "els_server/storage/social_settings.py",
+      "sha256": "3eea570a25248e301c966bc51b0bada06dde7a489a5fceba568ef9d7aad66206",
+      "size": 2368
+    },
+    {
+      "path": "els_server/storage/title_drop_rewards.py",
+      "sha256": "91b46319bbe831a640b3f3aed74425fcc0a6b43ea19010b8dd74c90953026811",
+      "size": 2505
+    },
+    {
+      "path": "els_server/storage/title_levels.py",
+      "sha256": "93b9f663bc69ab9a70ec4750c3c6d62912d733c5188eb2256af92b30ae994fdf",
+      "size": 2686
+    },
+    {
+      "path": "els_server/storage/trade_board_state.py",
+      "sha256": "dedadada1263b7ce8a3715918792ca6241a16250b2fe9534707c3e9db0d207a6",
+      "size": 30410
+    },
+    {
+      "path": "els_server/storage/wardrobe.py",
+      "sha256": "a9c9ee3cf52bdb7933f1e98520ecd99751bda05cb4e423a0a8f970930ff8889d",
+      "size": 28469
+    },
+    {
+      "path": "els_server/storage/wear_moves.py",
+      "sha256": "bffb18f3266703472d1a9ea4935a8c5b898be59016648a9a641cc669e9a3da21",
+      "size": 8319
+    },
+    {
+      "path": "els_server/storage/wedding_ceremonies.py",
+      "sha256": "39da557e2e8aee70cafa45330cbda93c2f04af34fe7dc54047badc83d916be21",
+      "size": 7956
+    },
+    {
+      "path": "els_server/storage/wedding_quests.py",
+      "sha256": "2212bf550f29475ef06c1d167166f3aa1be24fcf858f017c23aea0b6f190dcd3",
+      "size": 6980
+    },
+    {
+      "path": "els_server/storage/wedding_titles.py",
+      "sha256": "6f0d69325eb0dbeadfde1a3452953178a2561d72e4171b7deaa4eb88884dd077",
+      "size": 2071
+    },
+    {
+      "path": "els_server/storage/weddings.py",
+      "sha256": "e7f58375107913f670a5f243a8be9e3ada8cf103bfef833da23397a21c5044bc",
+      "size": 16829
+    },
+    {
+      "path": "tools/native_cache_sync.py",
+      "sha256": "c4fde969be5174fb40411e5a7635d1724e12c214423e7e0e05c97ed1ec1625ef",
+      "size": 5604
+    },
+    {
+      "path": "tools/native_title_options.js",
+      "sha256": "c0fbf0e13d04087ec61bc3cc3627bcb3d667132253de65dc48ec746049086b15",
+      "size": 1520
+    },
+    {
+      "path": "tools/native_title_options.py",
+      "sha256": "0db4738688e29a97e07f937dac7800924ad1a7214662a880b1ac4e39eecd05f1",
+      "size": 931
+    }
+  ],
+  "parent_features_preserved": "V84 performance and native feedback, unified server, signed runtime and separate private stores",
+  "source_only": true,
+  "main_merged": false,
+  "installed": false,
+  "public_progress_updated": false
+}
