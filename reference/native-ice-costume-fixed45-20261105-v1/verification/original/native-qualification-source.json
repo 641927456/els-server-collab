@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-05 Asia/Hong_Kong",
+  "sources": [
+    {
+      "path": "G:\\els\\analysis\\shop-standalone-20261015\\resources\\CashItemPrice.lua",
+      "sha256": "9ca169c2b49b11a0f0a79632b65b41c6800063e95f6ff6ba0aef3a9714f901dd",
+      "tables": "G:\\els\\analysis\\shop-standalone-20261015\\resources\\CashItemPrice.tables.json",
+      "tables_sha256": "fe92ef52042f93a9082f7df3859ff4968ba178b7f68a290aa7bc93f6fd3b9e67",
+      "native_source": {
+        "name": "CashItemPrice.lua",
+        "returned_name": "",
+        "size": 1770090,
+        "compressed_size": 285552,
+        "checksum": 272,
+        "algorithm": 10,
+        "sha256": "9ca169c2b49b11a0f0a79632b65b41c6800063e95f6ff6ba0aef3a9714f901dd",
+        "compressed_sha256": "12fa51961f17c28298fd3c34ae1d38184f9830912bde7c6c0df0df7368772ba8",
+        "skip": 0,
+        "native_read": true,
+        "lua_evaluated": false,
+        "initializer_parsed": true,
+        "symbolic_calls": 65097
+      }
+    },
+    {
+      "path": "G:\\els\\analysis\\shop-standalone-20261015\\resources\\CashItemPrice2.lua",
+      "sha256": "3db89857ddefe34bbd3d2d71328a39b67307176539c89e222c2b8a9cf7dde90b",
+      "tables": "G:\\els\\analysis\\shop-standalone-20261015\\resources\\CashItemPrice2.tables.json",
+      "tables_sha256": "c5d6d084a9e1d9afcf0fe88d98e22931c534ca6323fdef1770a478ece6f42d22",
+      "native_source": {
+        "name": "CashItemPrice2.lua",
+        "returned_name": "",
+        "size": 360266,
+        "compressed_size": 60560,
+        "checksum": 98,
+        "algorithm": 10,
+        "sha256": "3db89857ddefe34bbd3d2d71328a39b67307176539c89e222c2b8a9cf7dde90b",
+        "compressed_sha256": "ad8c8f0a74f744db9dbfbff4c15a987692cd25334669b481c7002aa0de9ede10",
+        "skip": 0,
+        "native_read": true,
+        "lua_evaluated": false,
+        "initializer_parsed": true,
+        "symbolic_calls": 13341
+      }
+    }
+  ],
+  "unique_cash_prices": 78291,
+  "modern_ice_templates": 11520,
+  "missing_prices": [],
+  "price_histogram": {
+    "5000": 7872,
+    "7000": 1216,
+    "2400": 2432
+  },
+  "conflicts": [
+    [
+      311987,
+      9900,
+      10000
+    ]
+  ],
+  "qualification_function": "RVA6CBA30 checks map+10 membership; RVA6CB9C0 inserts ID/price",
+  "reward_count_derived": false
+}
