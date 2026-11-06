@@ -1,0 +1,48 @@
+{
+  "format": 1,
+  "issue": 819,
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "installed_release": "native-bottom-megaphone-20261104-v1",
+  "parent_release": "native-dungeon-callm-source-closure-20261104-v1",
+  "installed_manifest_sha256": "cc7f38dc761819235f09b82855c97ca6bfc2c47f11beea2606417238bfdeb596",
+  "files": {
+    "els_server/data/server_announcements.json": {
+      "source": "source/online/els_server/data/server_announcements.json",
+      "sha256": "c5b185549b523cdf2719564ed20f92c87041a57c9f3713f433b64698d980429d",
+      "parent_sha256": null,
+      "size": 134
+    },
+    "els_server/domain/server_announcements.py": {
+      "source": "source/online/els_server/domain/server_announcements.py",
+      "sha256": "128214d43bc3bff17c497f7ba653fd3ee1a4572de6b54bac6be6fd5dde904c6b",
+      "parent_sha256": null,
+      "size": 2177
+    },
+    "els_server/protocol/server_announcement_messages.py": {
+      "source": "source/online/els_server/protocol/server_announcement_messages.py",
+      "sha256": "2a5af9e4887c497796e793c9231b694f7e55db83437623dff84a831aff2adc93",
+      "parent_sha256": null,
+      "size": 537
+    },
+    "els_server/domain/local_session.py": {
+      "source": "source/online/els_server/domain/local_session.py",
+      "sha256": "abd30ea00f57e61c7a54ff62051a056fc10ff01d89b93e5b521c244f3493c376",
+      "parent_sha256": "75aca471d71cda2010e8e33419ee53c4684e4c2ae09df1cf36732b42d441cdb4",
+      "size": 152989
+    }
+  },
+  "root_engine_changed": false,
+  "automatic_deployment": false,
+  "new_schema": false,
+  "new_tables": [],
+  "client_delta": 0,
+  "Git_merge": false,
+  "evidence": {
+    "validation/delivery-summary.json": "dbacbe4459e80584514b24f774fb2c58c6e6a4fe3f50caeb49929f72acdd2aa1",
+    "validation/native-proof-online.json": "91beb388b805afd49472f56275f9305d1cb6b6304a541bc946e9787602e79ec7",
+    "validation/public-acceptance.json": "46f0d04b6898ce6a51fb63ca928f3e10b67a1b7175d00cc3afba3ce95f31ad5d",
+    "validation/tests-local.json": "7e1141f33a1598c6700d601a72a61de3bdea18d8fa6f1d8890378043597dbeb6",
+    "validation/tests-online.json": "28e501d466044c76b26b13327a97f9c7a2127fee27af6c56b64ddf23dd3e619a"
+  },
+  "private_evidence": "Complete pinned parent runtime and original native snapshot remain with the maintainer; no accounts, credentials, player databases, binary assets, raw packets or runtime logs are included."
+}
