@@ -1,0 +1,11 @@
+{
+  "ok": false,
+  "channel": "online",
+  "baseline": false,
+  "tests": 5,
+  "elapsed": 6.833998099900782,
+  "failures": [
+    "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\dungeon-skill-ui-20261104-v1\\test_flow.py\", line 96, in test_obsolete_lease_and_wrong_storage_owner_rejected\n    self.assertEqual(self.skills(2,21200)[0],-1)\n                     ~~~~~~~~~~~^^^^^^^^^\n  File \"G:\\els\\analysis\\dungeon-skill-ui-20261104-v1\\test_flow.py\", line 33, in skills\n    messages=self.send(0x122,struct.pack('>ii',index,skill),**kwargs)\n  File \"G:\\els\\analysis\\dungeon-skill-ui-20261104-v1\\test_flow.py\", line 30, in send\n    messages=(self.s.handle if full else self.s._handle)(event,1)\n  File \"G:\\els\\analysis\\dungeon-skill-ui-20261104-v1\\candidate\\online\\els_server\\domain\\local_session.py\", line 759, in handle\n    before=observe(self,notices)\n  File \"G:\\els\\releases\\online\\native-mixed-player-scene-summons-20261104-v1\\els_server\\domain\\quest_flow.py\", line 293, in observe\n    passive=(owner,store(s).passive_objective_kinds());s._quest_passive_kinds=passive\n                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"G:\\els\\releases\\online\\native-mixed-player-scene-summons-20261104-v1\\els_server\\storage\\seal_quests.py\", line 204, in passive_objective_kinds\n    db.execute('BEGIN');load_character(db,self.uid,self.account_id)\n                        ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\releases\\online\\native-mixed-player-scene-summons-20261104-v1\\els_server\\storage\\seal_quests.py\", line 60, in load_character\n    if type(owner)is not int or not 1<=owner<2**63 or account_id is not None and(type(account_id)is not int or account_id!=owner):raise ValueError('Quest character owner mismatch')\n                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: Quest character owner mismatch\n"
+  ],
+  "natural_GUI": false
+}
