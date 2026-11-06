@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "checks": [
+    "Preview succeeds without changing inventory, bag, points or receipts",
+    "Bag serialization failure returns rejection and rolls back the entire draw",
+    "Retry of the failed sequence spends once and publishes inventory, result, bag and capped points in the original order",
+    "Committed replay returns success without another draw, debit or reward",
+    "Point-frame encoding failure rolls back consumption, reward, points, revision and receipt"
+  ],
+  "baseline": "native-resonance-material-misc-outskirts-20261104-v1",
+  "candidate": true,
+  "production_mutated": false,
+  "game_started": false,
+  "natural_GUI": false,
+  "temporary_save_removed": true
+}
