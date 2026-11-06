@@ -1,0 +1,94 @@
+{
+  "passed": true,
+  "scope": "Local four-CPU loopback screening; not online hardware or WAN qualification",
+  "actors": {
+    "town": 20,
+    "dungeon": 20,
+    "total": 40,
+    "native_frontends": 0
+  },
+  "workload_seconds_per_actor": 300,
+  "source_bindings": {
+    "els_server/domain/legacy_pve_exp.py": "2badb754c4e3e7eef84e46a4e351b7ac663f4616d4425f633effc345f8ea69f0",
+    "els_server/storage/coin_writer.py": "a6310cbe72d981714445f89c3a896c5da1983c5559d2d55f96124e9cc5a9c179",
+    "els_server/storage/death_writer.py": "cac61041322e4d8a56079613c05a27b1bb0f180d727a6ee96b6a91425b815ae3",
+    "els_server/storage/sqlite_timing.py": "54b7b5099ba7c431f054de7c6b90b9a868215107e13a2791663bb6aa7bf94c8a"
+  },
+  "signed_free_threaded_runtime": true,
+  "GIL_enabled": false,
+  "startup_gc_freeze": true,
+  "source_and_harness_unchanged": true,
+  "latency": {
+    "pickup": {
+      "n": 3300,
+      "mean_ms": 6.793610275525487,
+      "p50_ms": 7,
+      "p95_ms": 12,
+      "p99_ms": 17,
+      "max_ms": 140.4717001132667,
+      "resolution_ms": 1
+    },
+    "death": {
+      "n": 3300,
+      "mean_ms": 16.70871724431036,
+      "p50_ms": 16,
+      "p95_ms": 24,
+      "p99_ms": 38,
+      "max_ms": 249.73700009286404,
+      "resolution_ms": 1
+    },
+    "paired_door": {
+      "n": 220,
+      "mean_ms": 17.513855487446893,
+      "p50_ms": 17,
+      "p95_ms": 25,
+      "p99_ms": 30,
+      "max_ms": 33.6167998611927,
+      "resolution_ms": 1
+    },
+    "map_change_B3": {
+      "n": 220,
+      "mean_ms": 24.801717277362265,
+      "p50_ms": 23,
+      "p95_ms": 32,
+      "p99_ms": 53,
+      "max_ms": 142.42700021713972,
+      "resolution_ms": 1
+    },
+    "town_movement": {
+      "n": 35000,
+      "mean_ms": 2.8046165286563336,
+      "p50_ms": 3,
+      "p95_ms": 6,
+      "p99_ms": 16,
+      "max_ms": 297.56930004805326,
+      "resolution_ms": 1
+    }
+  },
+  "server_percentile_targets_met": true,
+  "online_capacity_qualified": false,
+  "durable_currency_and_ACK_exact": true,
+  "final_town_SQL_coordinates_exact": true,
+  "owned_runtime_removed": true,
+  "connections": 0,
+  "errors": [],
+  "peak_private_bytes": 1363382272,
+  "final_cold_selection_0x28": {
+    "n": 40,
+    "mean_ms": 90.96695252228528,
+    "p50_ms": 88,
+    "p95_ms": 120,
+    "p99_ms": 162,
+    "max_ms": 161.4749003201723,
+    "resolution_ms": 1
+  },
+  "town_or_map_arrival_0x227": {
+    "n": 260,
+    "mean_ms": 72.49886036599771,
+    "p50_ms": 68,
+    "p95_ms": 110,
+    "p99_ms": 134,
+    "max_ms": 168.3129002340138,
+    "resolution_ms": 1
+  }
+}
