@@ -141,6 +141,32 @@ def _envelope(event,sequence,performers=((),(0,))):
             and event.performers in performers and event.uid==2**64-1
             and event.target_uid==2**64-1 and event.payload_mode==0)
 
+def _replay_selection(s):
+    """The pair of messages a freshly opened window paints its rows from.
+
+    The 635 opener only carries the published cash catalog, so a window opened
+    in town showed every tab on the career default while the save already held
+    the chosen border or motion: the game itself had applied it through the
+    login 18E, the panel just never heard about it. Read the save (the session
+    projection predates later registrations) and reply with the 4CC map the
+    rows use and the 18E actor notice. Read-only, and optional: if the store is
+    unreadable the window still opens.
+    """
+    try:
+        from contextlib import closing
+        import sqlite3
+        from els_server.protocol.character_custom_messages import acknowledgement,selected_notice
+        from els_server.storage.character_custom import snapshot as store_snapshot
+        with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db:
+            db.execute('BEGIN')
+            selected=dict(store_snapshot(db,s.account.uid)['selected'])
+        if not selected:return []
+        title=int(s.account.character().get('title',0) or 0)
+        return [acknowledgement(selected),selected_notice(s.account.uid,title,selected)]
+    except Exception as error:
+        _trace('opener selection unavailable: %r'%error)
+        return []
+
 def handle(s,event,sequence):
     if event.kind==0x634:
         # Original CharInfo opener requests cash purchase availability, not
@@ -182,7 +208,7 @@ def handle(s,event,sequence):
                 return events
             from els_server.domain.avatar_set_flow import context,validate
             captured=context(s)
-            events=opening_info(s.account.store.path,s.account.uid,s.account.account_id,validate=lambda:validate(s,captured))
+            events=_replay_selection(s)+opening_info(s.account.store.path,s.account.uid,s.account.account_id,validate=lambda:validate(s,captured))
             _trace('opener ok')
             return events
         except ValueError as error:
