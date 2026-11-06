@@ -64,5 +64,14 @@
     "award ties",
     "award bonus values",
     "natural nonzero CD party battle"
-  ]
+  ],
+  "QA_SDK_filter_count": 1,
+  "derived_runner_counter_correction": "Initial zero-SDK counter omitted the explicitly appended own DINPUT8 enumeration filter; product Hooks and HRESULTs remain unchanged.",
+  "additional_consumer_check": {
+    "function": "1046F20",
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "ghidra_functions_before": 68,
+    "ghidra_functions_after": 69,
+    "awards": "Copies server DTO flags into result records; no rating or bonus formula recovered"
+  }
 }
