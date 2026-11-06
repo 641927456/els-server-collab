@@ -7,37 +7,10 @@ from els_server.protocol.protocol_codec import Event,encode_event
 from els_server.protocol.housing_messages import entry_request,entry_snapshot
 from els_server.storage import housing_rooms as storage
 
-def local_application(s):
-    # Standalone sessions intentionally have no .application/friends identity.
-    # Use the existing App-created local witness and current selected graph;
-    # never fabricate friends membership or relax the friends branch below.
-    from els_server.domain.equipment_chip_flow import reset_authority
-    reset_authority(s)
-    app=getattr(s,'_aux_local_application',None)
-    if(getattr(s,'application',None)is not None or app is None
-       or app is not getattr(s,'_chip_reset_local_application',None)
-       or getattr(s,'_aux_local_live',None)is not True
-       or s not in app._aux_local_sessions or app.config.mode!='local'
-       or app.registry is not None or s.account.root is not app.account):raise ValueError('Housing trusted standalone local actor')
-    return app
-
-def local_identity(s):
-    app=local_application(s);a=s.account;root=a.root;path=Path(a.store.path).resolve()
-    if(s.role!='game'or not s.enter_town or not s.item_test or s.client_build!='dx11_260923'
-       or s.dungeon_return_pending or not{0x28,0x225,0x227}.issubset(s.completed)
-       or Path(a.characters.path).resolve()!=path or Path(app.config.state_file).resolve()!=path):raise ValueError('Housing current local native actor')
-    refs=(a,a.store,a.characters,root,app,root.character_accounts,root.store,app.config,app._aux_local_sessions,app.world,s.dungeon_run)
-    values=(a.uid,a.account_id,s.shop_session_id,root.account_id,a.characters.account_id,str(path),
-            s.role,s.client_build,s.item_test,s.enter_town,s.dungeon_return_pending,
-            s._aux_local_live,s._chip_reset_local_live,json.dumps(a.get_location(),sort_keys=True))
-    return refs,values
-
-def identity(s,*,arrived=True):
-    if getattr(s,'application',None)is None:return local_identity(s)
-
+def identity(s):
     if(not _ordinary_actor(s)or getattr(s,'application',None)is None or s.account.characters is None
        or s.role!='game'or not s.enter_town or not s.item_test or s.client_build!='dx11_260923'
-       or s.dungeon_return_pending or not({0x28,0x225,0x227}if arrived else{0x28,0x32}).issubset(s.completed)):raise ValueError('Housing current ordinary native actor required')
+       or s.dungeon_return_pending or not{0x28,0x225,0x227}.issubset(s.completed)):raise ValueError('Housing current ordinary native actor required')
     a=s.account;app=s.application;root=a.root;world=app.world
     if (type(s.identity)is not dict or s.identity.get('id')!=a.account_id
             or root.root is not root or root.characters is not a.characters
@@ -59,19 +32,11 @@ def identity(s,*,arrived=True):
     return refs,values
 
 def world_state(s):
-    if getattr(s,'application',None)is None:
-        app=local_application(s)
-        return(app,app._aux_local_sessions,app.world,s.dungeon_run),(app.config.mode,s in app._aux_local_sessions,frozenset(s.completed))
     world=s.application.world;key=world.members.get(s);room=world.towns.get(key)
     entry=None if room is None else room.get(s)
     return (world.dungeons.room(s),room,entry),(key,frozenset(s.completed),repr(entry))
 
 def scene(s,source,context):
-    if getattr(s,'application',None)is None:
-        app=local_application(s);world=app.world
-        if(world.dungeons.room(s)is not None or s in world.members or any(s in room for room in world.towns.values())):raise ValueError('Standalone housing cannot borrow friends membership')
-        if s.phase not in('town_ready','housing_ready')or s.account.get_location()['map']!=source:raise ValueError('Housing standalone source scene')
-        return
     world=s.application.world
     if world.dungeons.room(s)is not None:raise ValueError('Housing cannot bypass current dungeon room')
     if context is None:
@@ -83,7 +48,7 @@ def scene(s,source,context):
 
 def handle(s,event,sequence):
     context=getattr(s,'housing_own_room',None)
-    if event.event_id!=0x202 or(event.kind!=0x923 and not(context is not None and event.kind in(0x225,0x227,0x92e))):return None
+    if event.event_id!=0x202 or(event.kind!=0x923 and not(context is not None and event.kind in(0x225,0x227))):return None
     try:refs,values=identity(s);world_refs,world_values=world_state(s)
     except(ValueError,AttributeError,KeyError,TypeError):return []
     phase=s.phase;active=s.active_map;pending=s.pending_map
@@ -96,13 +61,8 @@ def handle(s,event,sequence):
     def failed():
         if not same():return []
         try:
-            if event.kind==0x92e:
-                from els_server.protocol.housing_population_messages import ready
-                answer=[ready(None,None,(),result=-1)]
-                for reply in answer:encode_event(reply)
-                return answer if same()else[]
             value=storage.dto(s.account.character());value['000']=-1
-            answer=[Event(0x201,kind=0x924,payload=entry_snapshot(value))]if event.kind==0x923 else[Event(0x201,kind=0x228,payload=struct.pack('>i',515))]if event.kind==0x227 else[Event(0x201,kind=0x226,payload=struct.pack('>iiiii',515,0,0,0,0))]
+            answer=[Event(0x201,kind=0x924,payload=entry_snapshot(value))]if event.kind==0x923 else[Event(0x201,kind=0x228,payload=struct.pack('>i',-1))]if event.kind==0x227 else[Event(0x201,kind=0x226,payload=struct.pack('>iiiii',-1,0,0,0,0))]
             for reply in answer:encode_event(reply)
         except(ValueError,OverflowError):return []
         return answer if same()else[]
@@ -137,10 +97,6 @@ def handle(s,event,sequence):
             db.execute('BEGIN');guard(db)
             row=db.execute('SELECT owner,account_id,session_id,generation,source_town FROM housing_room_admissions WHERE operation_id=?',(context['operation'],)).fetchone()
             if row!=(values[0],values[1],values[2],context['generation'],source):raise ValueError('Housing durable admission changed')
-            if event.kind==0x92e:
-                from els_server.protocol.housing_population_messages import request
-                reply=storage.population(db,values[0],values[1],request(event.payload))
-                encode_event(reply);guard(db);return[reply]
             if event.kind==0x227:
                 from els_server.storage.local_state import scene_ready_location
                 board,progress,xyz=scene_ready_location(event.payload)

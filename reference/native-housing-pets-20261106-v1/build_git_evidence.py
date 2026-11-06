@@ -47,7 +47,7 @@ assert isolation['physical_input_actions']==0 and isolation['input_desktop_uncha
 assert isolation['selected_signed_payload']=='a33de4e7abdc18f8e35bd2a64e7dba92b76036d710f06354c615778df9c5eb0e'
 assert not scene['errors']and not scene['placed']and scene['phase']=='housing_ready'
 assert {0x923,0x92e,0xa38,0xa3a}.issubset({r['kind']for r in scene['events']})
-summary=dict(ok=True,source_sha256=files,source_files=len(files),dependency_PR=892,
+summary=dict(ok=True,source_sha256=files,source_files=len(files),source_archive=ARCHIVE+'source/',public_root_changed=False,dependency_PR=892,
  dependency_head='5367cd0123ec0e1bbe765687a8f33ccd612f6a57',
  previous_evidence=evidence,
  correction='92E is original room population, not a house-exit request. The old deadline report label is not reused as exit evidence.',
@@ -78,9 +78,18 @@ summary=dict(ok=True,source_sha256=files,source_files=len(files),dependency_PR=8
  main_merged=False,installed=False,public_progress_updated=False)
 out=H/('qualified-summary-'+str(time.time_ns())+'.json')
 out.write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n','utf8')
-entries=[dict(path=rel,mode='100644',type='blob',content=(H/'candidate-v4'/rel).read_bytes().decode('utf8'))for rel in files]
-for entry in entries:
-    assert hashlib.sha256(entry['content'].encode('utf8')).hexdigest()==files[entry['path']]
+entries=[dict(path=ARCHIVE+'source/'+rel,mode='100644',type='blob',content=(H/'candidate-v4'/rel).read_bytes().decode('utf8'))for rel in files]
+for rel,entry in zip(files,entries):
+    assert hashlib.sha256(entry['content'].encode('utf8')).hexdigest()==files[rel]
+binding=dict(parent_PR=892,parent_head='5367cd0123ec0e1bbe765687a8f33ccd612f6a57',
+ runtime_base='transport-routing-variants-v1/full-source-v1; qualified 1604-file isolated composition',
+ public_root_changed=False,source_files=[dict(path=rel,source=ARCHIVE+'source/'+rel,
+ sha256=sha,size=(H/'candidate-v4'/rel).stat().st_size)for rel,sha in files.items()],
+ native_result_reuse='family1-v7 v2; final v4 changed branches covered by authenticated writer/deadline checks',
+ main_merged=False,installed=False,public_progress_updated=False)
+binding_bytes=(json.dumps(binding,ensure_ascii=False,indent=2)+'\n').encode('utf8')
+(H/'source-binding-v1.json').write_bytes(binding_bytes)
+entries.append(dict(path=ARCHIVE+'source-binding.json',mode='100644',type='blob',content=binding_bytes.decode('utf8')))
 qa=['verify_codec_native.py','verify_entry_native.py','verify_mat_admission.py','verify_writer_tls.py',
     'verify_actual_packets.py','verify_contract_deadlines.py','verify_population_native.py',
     'verify_population_tls.py','verify_population_actual.py','verify_furniture_native.py',
@@ -94,5 +103,5 @@ for p,path in qa_paths:
     content=p.read_bytes().decode('utf8')
     assert hashlib.sha256(content.encode('utf8')).hexdigest()==digest(p)
     entries.append(dict(path=path,mode='100644',type='blob',content=content))
-(H/'git-elements-v4.json').write_text(json.dumps(entries,ensure_ascii=False),'utf8')
+(H/'git-elements-v5.json').write_text(json.dumps(entries,ensure_ascii=False),'utf8')
 print(json.dumps(dict(ok=True,files=len(entries),source_files=len(files),summary=out.name,summary_sha256=digest(out))))

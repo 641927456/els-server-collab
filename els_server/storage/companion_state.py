@@ -5,7 +5,6 @@ from els_server.storage.character_schema import character_uid
 from els_server.storage.inventory_state import ensure_inventory,load_items
 from els_server.domain.companions import catalog
 from els_server.protocol import companion_messages as wire
-from els_server.protocol.protocol_codec import encode_event
 
 def ensure(db):
     ensure_inventory(db)
@@ -34,12 +33,6 @@ def snapshot(path,owner,*,enter_world=False):
     with closing(sqlite3.connect(path,timeout=10)) as db:
         with db:
             ensure(db)
-            from els_server.storage.housing_pets import exists as housing_pets_present,expire as expire_housing_pets
-            import time
-            housing_clock=int(time.time())
-            if(housing_pets_present(db)and db.execute('SELECT 1 FROM character_housing_pets_v1 WHERE owner=? AND deadline<=? LIMIT 1',(owner,housing_clock)).fetchone()):
-                if not db.in_transaction:db.execute('BEGIN IMMEDIATE')
-                expire_housing_pets(db,owner,housing_clock)
             from els_server.storage.boosting_2026_limited_pet import present,expire_active,clear_pending,TABLE
             if present(db) and db.execute('SELECT 1 FROM '+TABLE+' WHERE owner=?',(owner,)).fetchone():
                 if not db.in_transaction:db.execute('BEGIN IMMEDIATE')
@@ -56,21 +49,6 @@ def snapshot(path,owner,*,enter_world=False):
                 from els_server.storage.pet_progression import clock
                 clock(db,owner,active[0])
             return {'companions':rows(db,owner),'pet':active[0],'mount':active[1],'mounted':bool(active[2])}
-
-def reconcile_summon(db,owner,payload):
-    # Replaying an old ACK must preserve the currently saved active pet and
-    # current eligibility, including housing/expedition/temporary deadlines.
-    requested=wire.uid_request(payload,zero=True)
-    pets={p['uid']:p for p in rows(db,owner,'pet')}
-    active=db.execute('SELECT pet FROM companion_active WHERE owner=?',(owner,)).fetchone()
-    uid=active[0]if active else 0
-    from els_server.storage.pet_expedition import require_available
-    from els_server.storage.housing_pets import require_available as housing_available
-    from els_server.storage.boosting_2026_limited_pet import require_current
-    for selected in {requested,uid}-{0}:
-        if selected not in pets:raise ValueError('Summon retry owner missing')
-        require_available(db,owner,selected);housing_available(db,owner,selected);require_current(pets[selected])
-    answer=wire.pet_summon(0,pets.get(uid));encode_event(answer);return answer
 
 def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow,account_id=None):
     if kind in (0x42c,0x42f):
@@ -96,19 +74,9 @@ def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow,accou
             if old:
                 if old[0]!=digest:raise ValueError('Conflicting companion retry')
                 if kind==0x2ec:
+                    from els_server.storage.boosting_2026_limited_pet import reconcile_summon
                     current=reconcile_summon(db,owner,payload)
-                    db.commit();return current
-                if kind==0x432 and db.execute("SELECT 1 FROM sqlite_master WHERE name='mount_lifetimes'").fetchone():
-                    source=wire.uid_request(payload)
-                    saved=db.execute('SELECT c.uid,l.expires_at,l.source_group,l.source_slot,l.source_template FROM companions c JOIN mount_lifetimes l ON l.uid=c.uid WHERE c.owner=? AND c.source_item=?',(owner,source)).fetchone()
-                    if saved:
-                        from els_server.storage.mount_state import timestamp
-                        mount=next((p for p in rows(db,owner,'mount') if p['uid']==saved[0]),None)
-                        current=next((i for i in load_items(db,owner) if (i['group'],i['slot'])==saved[2:4]),None)
-                        from els_server.domain.inventory_items import VERIFIED_TEMPLATES
-                        delta=wire.inventory_delta([current]) if current else wire.inventory_delta(removed=dict(uid=source,template=saved[4],metadata=VERIFIED_TEMPLATES[saved[4]],count=1,group=saved[2],slot=saved[3]))
-                        response=wire.activation_ack('mount',0 if timestamp()<saved[1] else -1,mount,delta)
-                        db.commit();return response
+                    if current is not None:db.commit();return current
                 db.commit();return wire.event(old[1],old[2])
             if kind in (0x2e8,0x432):
                 typ='pet' if kind==0x2e8 else 'mount'
@@ -119,7 +87,7 @@ def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow,accou
                 from els_server.domain.item_locks import require_unlocked
                 require_current(item);require_unlocked(item)
                 spec=catalog()[typ].get(item['template'])
-                if spec is None or (spec['duration']!=-1 and not (typ=='mount' and 713152<=item['template']<=713161 and spec['duration']==14)):raise ValueError('Unsupported activation item')
+                if spec is None or spec['duration']!=-1:raise ValueError('Unsupported activation item')
                 pool=spec['outcomes'];total=sum(w for _,w in pool);roll=randbelow(total)
                 if type(roll) is not int or not 0<=roll<total:raise ValueError('Invalid companion random source')
                 for unit,weight in pool:
@@ -133,9 +101,6 @@ def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow,accou
                 companion=dict(uid=uid,owner=owner,kind=typ,unit=unit,name=name,source_item=item_uid)
                 db.execute('UPDATE inventory_sequence SET next_uid=? WHERE id=1',(uid+1,))
                 db.execute('INSERT INTO companions VALUES (?,?,?,?,?,?)',tuple(companion[k] for k in ('uid','owner','kind','unit','name','source_item')))
-                if typ=='mount' and spec['duration']>0:
-                    from els_server.storage.mount_state import assign_lifetime,timestamp
-                    assign_lifetime(db,owner,companion,item,spec['duration'],timestamp())
                 original=dict(item);updates=[];removed=None
                 if item['count']==1:
                     from els_server.storage.item_expiration import forget
@@ -151,10 +116,6 @@ def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow,accou
                     uid=wire.uid_request(payload,zero=True);typ='pet'
                     companion=next((p for p in rows(db,owner,typ) if p['uid']==uid),None)
                     if uid and companion is None:raise ValueError('Owned pet required')
-                    from els_server.storage.pet_expedition import require_available
-                    if uid:require_available(db,owner,uid)
-                    from els_server.storage.housing_pets import require_available as housing_available
-                    if uid:housing_available(db,owner,uid)
                     from els_server.storage.boosting_2026_limited_pet import require_current,clear_pending
                     if companion:require_current(companion)
                     clear_pending(db,owner)
