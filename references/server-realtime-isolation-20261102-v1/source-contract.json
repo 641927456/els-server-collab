@@ -1,0 +1,78 @@
+{
+  "issue": 767,
+  "source": {
+    "parent_release": "native-royal-dungeon-final-20261102-v1",
+    "parent_manifest_sha256": "a008584315f51f986d1939cc668796e8b0c8bab4421fc94942d0a4829030c6b3",
+    "files": [
+      {
+        "path": "els_server/application.py",
+        "before_sha256": "4238d119ec88ec1f18778d8dde88d567ed692eacb444a8a8fcf452a25f3e7d1c",
+        "after_sha256": "c359a2ac85a78c660da8d19f8ec28c75a092935d72a5e986c95b865c3ab3a8cc"
+      },
+      {
+        "path": "els_server/config.py",
+        "before_sha256": "0ebf5615adefe2868f41bebe37ca97a06448d1d619479f0a23573aa3b8667a15",
+        "after_sha256": "532b0d957ea453ffa2bb4fb50ea953c5e01c43b151efab0e47dab974b663ef5e"
+      },
+      {
+        "path": "els_server/domain/dungeon_time_sync.py",
+        "before_sha256": null,
+        "after_sha256": "906b3aa1f1023d14dcec663ed19d31ed581f3df3773a0996c77ca1e4e2e0b4a7"
+      },
+      {
+        "path": "els_server/domain/local_session.py",
+        "before_sha256": "387a9cdd70edbbd77561ab30765b0b80336e9e5f8fc71f4456bd3846839c9934",
+        "after_sha256": "d27c33fd53a4bde81b57a1ea2ced04dc952e534ef5a4ef2e09ec295673a12a7f"
+      },
+      {
+        "path": "els_server/domain/session_auxiliary.py",
+        "before_sha256": "be7c151859b4efbdc235e82a6a5c5bddfd42af3915fe3e75ed01c8fdd48ef72e",
+        "after_sha256": "66db5f35ad9384291360fc7aba43be043687c9b7f491c01e296636f49874d0ff"
+      },
+      {
+        "path": "els_server/friends_relay.py",
+        "before_sha256": "ea3cd935d99725bc5df163da6827f14f81e96ca77973c5d9591b2c49e4fd196f",
+        "after_sha256": "4dc0213ca359d322b4b98e473e3a796c78e0d8e5a0517b6b3f00d4851533bbe0"
+      },
+      {
+        "path": "els_server/periodic_scheduler.py",
+        "before_sha256": "2602b47fe69694605b5cfbe4a8f1fba4984f350c343f440994f968f16924c49d",
+        "after_sha256": "f76aa33d093cad20df519a2fc42a0d8079a703ad03d5cf58ee80f66838cf758b"
+      },
+      {
+        "path": "els_server/periodic_work.py",
+        "before_sha256": "ee327313cca130655a8aeeb8ae27f3d8c25c8f1e2bbe0017aba93da46982566f",
+        "after_sha256": "eacca9d6b40dda4923d114a170341ac6466ecc96bc74035ebcf113ab24cf95d4"
+      },
+      {
+        "path": "els_server/realtime.py",
+        "before_sha256": null,
+        "after_sha256": "91006b8f8647cf1a3a4c337571ad5e8131ed89c30ed99175aae8c4bb70167f47"
+      },
+      {
+        "path": "els_server/storage/accounts.py",
+        "before_sha256": "6f269a7bef33153a1fa1721669cb57004e2d1684f4c18d04ad2f08cadbfcc2e9",
+        "after_sha256": "abe6d068c1f5f4e9642fc318badcccf64bfef140534fed462a31d44a66364499"
+      },
+      {
+        "path": "els_server/transport.py",
+        "before_sha256": "306217ee3c42fac6ef477c07713cf575f20a83bd036098c72c0c9b3f2c259454",
+        "after_sha256": "bf4f9c120a6f5a4db502f85d445428886b337ec4c9e5e51e4e1a6f08553714ea"
+      }
+    ],
+    "new_schema": false,
+    "install_ddl": 0,
+    "client_change": false
+  },
+  "bundle_sha256": "a4f66c55abab844d42e0db0d4d6b6fab72db02611ef375d001a2202cb1ab76bf",
+  "checks_reused": 19,
+  "test_input_hashes_verified": true,
+  "production_configuration": {
+    "max_connections": 192
+  },
+  "source_archive_only": true,
+  "Git_merge": false,
+  "no_client_change": true,
+  "no_schema_change": true,
+  "LOCAL_migration": false
+}
