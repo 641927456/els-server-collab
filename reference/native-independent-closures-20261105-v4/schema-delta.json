@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "parent": "G:\\els\\releases\\online\\native-market-progress-20261105-v1",
+  "source": "G:\\els\\analysis\\feature-closure-20261105-v1\\independent-delivery-v4\\test-full-source",
+  "production_database_opened": false,
+  "added_literal_definitions": [
+    {
+      "sql": "CREATE TABLE native_photo_zone_unlocks (owner INTEGER NOT NULL REFERENCES characters(uid),world INTEGER NOT NULL,account_id INTEGER NOT NULL,unlocked_at INTEGER NOT NULL,PRIMARY KEY(owner,world))",
+      "definitions": [
+        {
+          "path": "els_server/storage/photo_zone_state.py",
+          "line": 16,
+          "source_sha256": "db4f40e7748ddafcb7ca16285863e37208802ecf8d3fad2be8474a8b71fa6ec2",
+          "kind": "TABLE",
+          "name": "native_photo_zone_unlocks"
+        }
+      ]
+    },
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS native_player_trades( operation TEXT PRIMARY KEY,request_hash TEXT NOT NULL,agreement_json TEXT NOT NULL, ledger_json TEXT NOT NULL,created_at INTEGER NOT NULL)",
+      "definitions": [
+        {
+          "path": "els_server/storage/player_trade_state.py",
+          "line": 50,
+          "source_sha256": "98d164d6327233e75cbf3bb0369d3a6543840d9cffe1cfccb3892dccf74f2bd6",
+          "kind": "TABLE",
+          "name": "native_player_trades"
+        }
+      ]
+    }
+  ],
+  "removed_literal_definitions": [
+    {
+      "sql": "CREATE TABLE IF NOT EXISTS character_custom_permanent_face_selection (owner INTEGER PRIMARY KEY REFERENCES characters(uid),custom_id INTEGER NOT NULL CHECK(custom_id>0))",
+      "definitions": [
+        {
+          "path": "els_server/storage/character_custom.py",
+          "line": 89,
+          "source_sha256": "34feed430b683159de492bb14a6eed01803cc8852e2430926bdd4c07fb530812",
+          "kind": "TABLE",
+          "name": "character_custom_permanent_face_selection"
+        }
+      ]
+    }
+  ],
+  "new_tables": [
+    "native_photo_zone_unlocks",
+    "native_player_trades"
+  ],
+  "new_indexes": [],
+  "new_schema_definitions": 2,
+  "startup_execution_not_inferred": true
+}

@@ -1,0 +1,136 @@
+{
+  "ok": true,
+  "source_files": 62,
+  "full_delivery_files": 1533,
+  "source_manifest_sha256": "9cfba51ed79d8cb29db0db99ae8e049236cd64310f34925c4d4068fd0c541da4",
+  "reviewed": true,
+  "scope": "原生直接交易；摄影棚及50ED票；宠物饰品鉴定/装配/银行/交易及经验生命效果；冰装固定45；定制重登/可见同步；已有并发和到期缺陷；公会最小进出场修复",
+  "performance_peer_included": false,
+  "full_guild_included": false,
+  "original_EXE_KOM_changes": 0,
+  "support_changes": 0,
+  "findings": "共享写入口事务资格、锁顺序、幂等和投影已复审；未发现尚未修复的本批阻断项。",
+  "verification": [
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\delivery-independent-v1\\combined-private-1793879851472689100.json",
+      "sha256": "dfdcfcf1945bec9e1418a9b7d7de7878a10572ed28c8e4d0f78afd29fa9220a4",
+      "ok": true,
+      "checks": [
+        "Three owned authenticated characters enter the normal town",
+        "Native80D/80E lists the approved50 ED ticket; actual80F/810 buys two for100 ED and delivers the owned stack without EXP change",
+        "One ticket unlocks one owner background; duplicate and foreign unlocks fail; private room, name check, camera ownership and friend maps are current",
+        "Actual authenticated relay forwards opaque room traffic with server-owned sender UID",
+        "Studio chat remains room-local; cross-scene whisper and both members friend map changes are delivered",
+        "Host exit promotes an existing member; both return normally with no location or economic reward change",
+        "Existing licensed own-house admission and layout writer save and return without changing the saved town or assets",
+        "Current owned title coupon uses native219, consumes its UID once and persists the source-backed title without ED change",
+        "Normal native attachment send/read/claim retains UID and data; repeated claim gives no duplicate",
+        "Native pet activation, pending equip rejection, mode1 identification of three owned gems for150 ED, re-identification rejection and two saved socket equips; equipment uses persisted options without a new draw",
+        "Native personal trade registers and confirms both actors before atomic settlement; identified pet gem UID/options preserved, ED101/20 exchanges charge6 total fee, duplicate final approval and cancellation cannot grant again",
+        "Native1C0/1C1 consumes one owned role1 ice costume and grants exactly45 unidentified El Shards; ED/EXP and the other two owners stay unchanged; a fresh-sequence repeat of the consumed UID is refused without extra reward",
+        "Cold authenticated reconnect restores the owner background, remaining ticket and current mail/asset state",
+        "Cold authenticated reconnect retains the committed45 El Shards and does not resurrect the consumed ice costume",
+        "Both authenticated cold reconnects retain the two pet sockets and the exact identified gem at its new owner"
+      ]
+    },
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\delivery-independent-v1\\combined-private-1793879976595808200.json",
+      "sha256": "0f3c641e24583d3107fc06d38fe4dad1e3a6eeae5f8cd2a496c360d525c9f9a5",
+      "ok": true,
+      "checks": [
+        "Abrupt host disconnection sends native leave and promotes an existing member with working settings authority",
+        "All disconnected members remove the room; cold actor cannot rejoin it and no saved location or asset changes occur"
+      ]
+    },
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\independent-delivery-v4\\state-tests.json",
+      "sha256": "5781552184ef9bcc128466efeed2253f53dfa97ff85c1ed0412322e9bf225e0b",
+      "ok": true,
+      "checks": []
+    },
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\independent-delivery-v4\\flow-tests-1793877838951121500.json",
+      "sha256": "9e3c340225cabd602b1bcdb81782840c0c526f34b625df8cdd19e1d5489b45cf",
+      "ok": true,
+      "checks": []
+    },
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\independent-delivery-v4\\direct-ready-fixed.json",
+      "sha256": "ebb62959199b11c57917b5da1fd4b3acd56060b0e07aa8cb462b6fe6ca7b63d7",
+      "ok": true,
+      "checks": []
+    },
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\independent-delivery-v4\\native-lifecycle-result.json",
+      "sha256": "cc0d7cacad642f5dc7eae788b0507a8b2c10edbf320dbc149d26c4ee016eb6f1",
+      "ok": true,
+      "checks": [
+        "original D9B170 + 87A6E0 restore fragment clears applied base selections with parent Unit and preserves all 14 with candidate",
+        "original D9D2F0 and DA0E50 consume complete old/new records; only new full-member/town records carry all selected slots",
+        "actual successful 4CC goes through BB8370/74FFA0/751120 without reaching native error presentation"
+      ]
+    },
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\independent-delivery-v4\\invite-publication-race-1793878733536377900.json",
+      "sha256": "1a960ea2ab4e5134fc1fff75769249ef316356d65f1e38ad8c37f075f6190547",
+      "ok": true,
+      "checks": []
+    },
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\independent-delivery-v4\\luciel-mailbox-lock-1793878733676258000.json",
+      "sha256": "e52e81b48f3dc520bdee7a02f53b32c7e14fc441e879e503bc11252b1a0f8b0e",
+      "ok": true,
+      "checks": []
+    },
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\independent-delivery-v4\\pet-accessory-tests\\tls-verification-1793877992274970500.json",
+      "sha256": "6afc02a657e00ab00ba704b7835907c6876b101ee7ca2da5a0d6003100cf8f31",
+      "ok": true,
+      "checks": []
+    },
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\independent-delivery-v4\\pet-accessory-tests\\transaction-verification-1793877904548926000.json",
+      "sha256": "d6d8a633b65e46516feabd37f2c6bd171fac8f1218992a406a1d453dd01a287c",
+      "ok": true,
+      "checks": [
+        "all new gems project native unidentified flag 2",
+        "explicit pending state validates",
+        "unidentified equip rejects without inventory/ED/pet/receipt delta",
+        "foreign character cannot identify gem",
+        "original fee is 50 ED for all supported gems",
+        "identification encoding failure rolls back fee/options/flag/receipt",
+        "insufficient fee rejects before random and has no delta",
+        "identification persists one eligible option and charges exactly original fee",
+        "identification replay retains stored option and balance",
+        "new operation cannot reroll identified gem",
+        "reset scroll cannot reroll pet gem or be consumed",
+        "shared bank preserves complete identified or pending instance 1001022",
+        "withdrawal cold read preserves original identification 1001022",
+        "shared bank preserves complete identified or pending instance 1001023",
+        "withdrawal cold read preserves original identification 1001023",
+        "equip encode failure rolls back item/socket/receipt",
+        "equipping consumes gem and uses saved option without drawing",
+        "equip replay cannot consume or draw twice",
+        "active pet EXP participates in actual clear settlement only",
+        "expedition settlement discounts life stamina",
+        "expedition replay has no extra life debit",
+        "original client 439 reader and real item flag accept identified pet option",
+        "original client request writer equals accepted single request"
+      ]
+    },
+    {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\independent-delivery-v4\\trade-tls-1793877860207305400.json",
+      "sha256": "e69316d1e7eb68eda42a55a9ae514a08959611bba2bc5682f010c50ed1d0a021",
+      "ok": true,
+      "checks": []
+    }
+  ],
+  "related_successes_reused": true,
+  "retained_failed_attempts": "直接交易未鉴定夹具、夹具缺BEGIN、首次公会基线预期、宠物TLS旧manifest绑定均保留失败；修正测试输入后通过，未降低业务资格或严格绑定。",
+  "limitations": [
+    "未验自然GUI和自然获取",
+    "完整公会/CP支持组件和性能会话未包含",
+    "导师、婚礼、业绩、排名、拜访、切磋等剩余范围继续处理"
+  ],
+  "removed_schema_definition": "旧face选择表不再新建；保留原表读取，现有extra_selection存新脸型/默认0；不删除或重建玩家表。"
+}
