@@ -1,0 +1,655 @@
+{
+  "acceptance_seconds": 300,
+  "authorization": "Explicit human instruction in this chat: shorten one hour to five minutes.",
+  "previous_hour_cancelled_not_qualified": true,
+  "thresholds_unchanged": true,
+  "fixed_bandwidth_bps": 5000000,
+  "logical_CPUs": 4,
+  "memory_bytes": 1610612736,
+  "CPU_priority_class": 32,
+  "IO_priority": 2,
+  "GM_status_poll_Hz": 1,
+  "town_steady_moves_Hz": 5,
+  "town_burst_moves_Hz": 10,
+  "burst_seconds_per_minute": 10,
+  "Town_poll_ms": 15,
+  "checkpoint_ms": 250,
+  "checkpoint_thread_priority": -4,
+  "qualification_scope": "Tested balanced workload; no arbitrary 50-player or natural GUI/AOE claim.",
+  "highest_tested_passing_balanced_actors": 20,
+  "runs": [
+    {
+      "run": "online-mixed-town10-dg10-background-checked-path-physical-short-v4",
+      "source_candidate": "C16",
+      "workload_seconds": 300,
+      "town_actors": 10,
+      "dungeon_actors": 10,
+      "acceptance_passed": true,
+      "native_functional_passed": true,
+      "counts": {
+        "moves": 17500,
+        "relays": 157474,
+        "native_sessions": 10,
+        "deaths": 1650,
+        "fresh_pickups": 1650,
+        "rooms": 110,
+        "native_returns": 110
+      },
+      "server_targets_met": true,
+      "WAN_overall_targets_met": true,
+      "WAN_burst_targets_met": true,
+      "server_requests": {
+        "555": {
+          "total_ms": {
+            "n": 17500,
+            "mean_ms": 4.458235221715378,
+            "p50_ms": 3,
+            "p95_ms": 14,
+            "p99_ms": 32,
+            "max_ms": 112.39569983445108,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 17500,
+            "mean_ms": 1.3916272916165846,
+            "p50_ms": 1,
+            "p95_ms": 5,
+            "p99_ms": 21,
+            "max_ms": 105.02119990997016,
+            "resolution_ms": 1
+          }
+        },
+        "179": {
+          "total_ms": {
+            "n": 110,
+            "mean_ms": 59.276413652961224,
+            "p50_ms": 56,
+            "p95_ms": 89,
+            "p99_ms": 104,
+            "max_ms": 104.72850012592971,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 110,
+            "mean_ms": 0.6112863711843436,
+            "p50_ms": 1,
+            "p95_ms": 2,
+            "p99_ms": 2,
+            "max_ms": 6.293399725109339,
+            "resolution_ms": 1
+          }
+        },
+        "173": {
+          "total_ms": {
+            "n": 1650,
+            "mean_ms": 30.794053030567188,
+            "p50_ms": 27,
+            "p95_ms": 58,
+            "p99_ms": 75,
+            "max_ms": 123.6173000652343,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 1650,
+            "mean_ms": 0.7769486068211722,
+            "p50_ms": 1,
+            "p95_ms": 2,
+            "p99_ms": 9,
+            "max_ms": 34.06039997935295,
+            "resolution_ms": 1
+          }
+        },
+        "208": {
+          "total_ms": {
+            "n": 1650,
+            "mean_ms": 10.92632968994704,
+            "p50_ms": 9,
+            "p95_ms": 22,
+            "p99_ms": 36,
+            "max_ms": 91.15329990163445,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 1650,
+            "mean_ms": 0.7295252703073801,
+            "p50_ms": 1,
+            "p95_ms": 2,
+            "p99_ms": 5,
+            "max_ms": 33.69350009597838,
+            "resolution_ms": 1
+          }
+        },
+        "184": {
+          "total_ms": {
+            "n": 110,
+            "mean_ms": 9.859476363371042,
+            "p50_ms": 8,
+            "p95_ms": 24,
+            "p99_ms": 27,
+            "max_ms": 41.840000078082085,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 110,
+            "mean_ms": 0.8488418386233124,
+            "p50_ms": 1,
+            "p95_ms": 2,
+            "p99_ms": 12,
+            "max_ms": 13.262900058180094,
+            "resolution_ms": 1
+          }
+        },
+        "187": {
+          "total_ms": {
+            "n": 110,
+            "mean_ms": 35.80423728139563,
+            "p50_ms": 32,
+            "p95_ms": 66,
+            "p99_ms": 80,
+            "max_ms": 93.56090007349849,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 110,
+            "mean_ms": 0.6888936527750709,
+            "p50_ms": 1,
+            "p95_ms": 2,
+            "p99_ms": 5,
+            "max_ms": 5.575099959969521,
+            "resolution_ms": 1
+          }
+        },
+        "door": {
+          "total_ms": {
+            "n": 110,
+            "mean_ms": 45.66371364476667,
+            "p50_ms": 42,
+            "p95_ms": 77,
+            "p99_ms": 92,
+            "max_ms": 99.64730008505285,
+            "resolution_ms": 1
+          }
+        }
+      },
+      "server_checks": {
+        "checks": {
+          "208": true,
+          "173": true,
+          "179": true,
+          "door": true,
+          "waiting_173": true,
+          "waiting_208": true,
+          "waiting_179": true,
+          "waiting_184": true,
+          "waiting_187": true,
+          "town_movement": true
+        },
+        "met": true
+      },
+      "WAN": {
+        "movement_relay": {
+          "n": 157474,
+          "mean_ms": 57.5637314165848,
+          "p50_ms": 55,
+          "p95_ms": 98,
+          "p99_ms": 124,
+          "max_ms": 262.81498931348324,
+          "resolution_ms": 1
+        },
+        "movement_relay_steady": {
+          "n": 112496,
+          "mean_ms": 57.428729023598194,
+          "p50_ms": 55,
+          "p95_ms": 98,
+          "p99_ms": 126,
+          "max_ms": 262.81498931348324,
+          "resolution_ms": 1
+        },
+        "movement_relay_burst": {
+          "n": 44978,
+          "mean_ms": 57.90139047660129,
+          "p50_ms": 55,
+          "p95_ms": 97,
+          "p99_ms": 117,
+          "max_ms": 176.95651203393936,
+          "resolution_ms": 1
+        }
+      },
+      "source_SQL_financial_ACK_accounting_cleanup_passed": true,
+      "private_controller_evidence_sha256": "7c8344cf26a4a1a5b0a87b82d210cafc27736cc4d9341499967d9e5ac0e2f7b1",
+      "private_server_summary_sha256": "417dbf664652191a7dd5e7bb2673b1fbe0ae1da9a21564a425fc3220c5913bf3"
+    },
+    {
+      "run": "online-mixed-town11-dg11-background-checked-path-physical-short-v1",
+      "source_candidate": "C16",
+      "workload_seconds": 300,
+      "town_actors": 11,
+      "dungeon_actors": 11,
+      "acceptance_passed": false,
+      "native_functional_passed": true,
+      "counts": {
+        "moves": 19250,
+        "relays": 192348,
+        "native_sessions": 11,
+        "deaths": 1815,
+        "fresh_pickups": 1815,
+        "rooms": 121,
+        "native_returns": 121
+      },
+      "server_targets_met": false,
+      "WAN_overall_targets_met": false,
+      "WAN_burst_targets_met": false,
+      "server_requests": {
+        "555": {
+          "total_ms": {
+            "n": 19249,
+            "mean_ms": 5.08187891171263,
+            "p50_ms": 3,
+            "p95_ms": 17,
+            "p99_ms": 41,
+            "max_ms": 136.18670008145273,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 19249,
+            "mean_ms": 1.6575730876513575,
+            "p50_ms": 1,
+            "p95_ms": 6,
+            "p99_ms": 28,
+            "max_ms": 120.86779996752739,
+            "resolution_ms": 1
+          }
+        },
+        "179": {
+          "total_ms": {
+            "n": 121,
+            "mean_ms": 63.370072738890926,
+            "p50_ms": 59,
+            "p95_ms": 91,
+            "p99_ms": 111,
+            "max_ms": 138.2861000020057,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 121,
+            "mean_ms": 0.8351619794102739,
+            "p50_ms": 1,
+            "p95_ms": 2,
+            "p99_ms": 5,
+            "max_ms": 17.60799973271787,
+            "resolution_ms": 1
+          }
+        },
+        "173": {
+          "total_ms": {
+            "n": 1815,
+            "mean_ms": 34.21181311238218,
+            "p50_ms": 30,
+            "p95_ms": 68,
+            "p99_ms": 88,
+            "max_ms": 135.90600015595555,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 1815,
+            "mean_ms": 0.7738215443434465,
+            "p50_ms": 1,
+            "p95_ms": 2,
+            "p99_ms": 5,
+            "max_ms": 36.920899990946054,
+            "resolution_ms": 1
+          }
+        },
+        "208": {
+          "total_ms": {
+            "n": 1815,
+            "mean_ms": 11.647744901278172,
+            "p50_ms": 9,
+            "p95_ms": 25,
+            "p99_ms": 44,
+            "max_ms": 87.01650006696582,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 1815,
+            "mean_ms": 0.7566604951843003,
+            "p50_ms": 1,
+            "p95_ms": 2,
+            "p99_ms": 5,
+            "max_ms": 18.71219975873828,
+            "resolution_ms": 1
+          }
+        },
+        "184": {
+          "total_ms": {
+            "n": 121,
+            "mean_ms": 10.622416520953056,
+            "p50_ms": 8,
+            "p95_ms": 23,
+            "p99_ms": 58,
+            "max_ms": 76.05079980567098,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 121,
+            "mean_ms": 1.00218346111538,
+            "p50_ms": 1,
+            "p95_ms": 3,
+            "p99_ms": 11,
+            "max_ms": 14.495999785140157,
+            "resolution_ms": 1
+          }
+        },
+        "187": {
+          "total_ms": {
+            "n": 121,
+            "mean_ms": 34.61257272307599,
+            "p50_ms": 31,
+            "p95_ms": 68,
+            "p99_ms": 81,
+            "max_ms": 86.5869999397546,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 121,
+            "mean_ms": 0.6557495798915625,
+            "p50_ms": 1,
+            "p95_ms": 2,
+            "p99_ms": 4,
+            "max_ms": 7.992900209501386,
+            "resolution_ms": 1
+          }
+        },
+        "door": {
+          "total_ms": {
+            "n": 121,
+            "mean_ms": 45.23498924402905,
+            "p50_ms": 39,
+            "p95_ms": 82,
+            "p99_ms": 95,
+            "max_ms": 107.16719971969724,
+            "resolution_ms": 1
+          }
+        }
+      },
+      "server_checks": {
+        "checks": {
+          "208": true,
+          "173": false,
+          "179": true,
+          "door": false,
+          "waiting_173": true,
+          "waiting_208": true,
+          "waiting_179": true,
+          "waiting_184": true,
+          "waiting_187": true,
+          "town_movement": true
+        },
+        "met": false
+      },
+      "WAN": {
+        "movement_relay": {
+          "n": 192348,
+          "mean_ms": 58.99245921378827,
+          "p50_ms": 57,
+          "p95_ms": 102,
+          "p99_ms": 143,
+          "max_ms": 327.92230136692524,
+          "resolution_ms": 1
+        },
+        "movement_relay_steady": {
+          "n": 137475,
+          "mean_ms": 58.315851361278916,
+          "p50_ms": 56,
+          "p95_ms": 100,
+          "p99_ms": 141,
+          "max_ms": 327.92230136692524,
+          "resolution_ms": 1
+        },
+        "movement_relay_burst": {
+          "n": 54873,
+          "mean_ms": 60.6875854967275,
+          "p50_ms": 57,
+          "p95_ms": 107,
+          "p99_ms": 145,
+          "max_ms": 285.0643116980791,
+          "resolution_ms": 1
+        }
+      },
+      "source_SQL_financial_ACK_accounting_cleanup_passed": true,
+      "private_controller_evidence_sha256": "87fd50c409540db719a4a78286dcac891e1119f5d0949ec6b4fe41a53f8edc8a",
+      "private_server_summary_sha256": "4e39402da16c6a44e7e584ecc57acd30f86acc28eecb382a8464eaf6cc030371"
+    },
+    {
+      "run": "online-mixed-town12-dg12-background-checked-path-physical-short-v2",
+      "source_candidate": "C16",
+      "workload_seconds": 300,
+      "town_actors": 12,
+      "dungeon_actors": 12,
+      "acceptance_passed": false,
+      "native_functional_passed": true,
+      "counts": {
+        "moves": 21000,
+        "relays": 230843,
+        "native_sessions": 12,
+        "deaths": 1980,
+        "fresh_pickups": 1980,
+        "rooms": 132,
+        "native_returns": 132
+      },
+      "server_targets_met": false,
+      "WAN_overall_targets_met": false,
+      "WAN_burst_targets_met": false,
+      "server_requests": {
+        "555": {
+          "total_ms": {
+            "n": 21000,
+            "mean_ms": 5.711611557408192,
+            "p50_ms": 4,
+            "p95_ms": 20,
+            "p99_ms": 43,
+            "max_ms": 143.47860007546842,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 21000,
+            "mean_ms": 1.800236061880631,
+            "p50_ms": 1,
+            "p95_ms": 7,
+            "p99_ms": 28,
+            "max_ms": 138.93830007873476,
+            "resolution_ms": 1
+          }
+        },
+        "179": {
+          "total_ms": {
+            "n": 132,
+            "mean_ms": 65.58115530060604,
+            "p50_ms": 63,
+            "p95_ms": 102,
+            "p99_ms": 120,
+            "max_ms": 119.80949994176626,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 132,
+            "mean_ms": 0.9232666537476083,
+            "p50_ms": 1,
+            "p95_ms": 3,
+            "p99_ms": 5,
+            "max_ms": 5.244499770924449,
+            "resolution_ms": 1
+          }
+        },
+        "173": {
+          "total_ms": {
+            "n": 1980,
+            "mean_ms": 34.01124298001047,
+            "p50_ms": 30,
+            "p95_ms": 65,
+            "p99_ms": 85,
+            "max_ms": 115.8918000292033,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 1980,
+            "mean_ms": 0.8863579307805107,
+            "p50_ms": 1,
+            "p95_ms": 3,
+            "p99_ms": 9,
+            "max_ms": 19.53990012407303,
+            "resolution_ms": 1
+          }
+        },
+        "208": {
+          "total_ms": {
+            "n": 1980,
+            "mean_ms": 11.895509444017227,
+            "p50_ms": 10,
+            "p95_ms": 25,
+            "p99_ms": 41,
+            "max_ms": 69.18479991145432,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 1980,
+            "mean_ms": 0.8530460589687632,
+            "p50_ms": 1,
+            "p95_ms": 3,
+            "p99_ms": 7,
+            "max_ms": 21.557699888944626,
+            "resolution_ms": 1
+          }
+        },
+        "184": {
+          "total_ms": {
+            "n": 132,
+            "mean_ms": 11.749208340364875,
+            "p50_ms": 9,
+            "p95_ms": 27,
+            "p99_ms": 60,
+            "max_ms": 77.78880000114441,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 132,
+            "mean_ms": 0.9001954511569982,
+            "p50_ms": 1,
+            "p95_ms": 3,
+            "p99_ms": 9,
+            "max_ms": 16.19260013103485,
+            "resolution_ms": 1
+          }
+        },
+        "187": {
+          "total_ms": {
+            "n": 132,
+            "mean_ms": 37.77136515903597,
+            "p50_ms": 34,
+            "p95_ms": 78,
+            "p99_ms": 94,
+            "max_ms": 96.669000107795,
+            "resolution_ms": 1
+          },
+          "waiting_ms": {
+            "n": 132,
+            "mean_ms": 0.7445409128470628,
+            "p50_ms": 1,
+            "p95_ms": 2,
+            "p99_ms": 4,
+            "max_ms": 4.769999999552965,
+            "resolution_ms": 1
+          }
+        },
+        "door": {
+          "total_ms": {
+            "n": 132,
+            "mean_ms": 49.52057349940085,
+            "p50_ms": 45,
+            "p95_ms": 90,
+            "p99_ms": 108,
+            "max_ms": 109.05380011536181,
+            "resolution_ms": 1
+          }
+        }
+      },
+      "server_checks": {
+        "checks": {
+          "208": true,
+          "173": false,
+          "179": true,
+          "door": false,
+          "waiting_173": true,
+          "waiting_208": true,
+          "waiting_179": true,
+          "waiting_184": true,
+          "waiting_187": true,
+          "town_movement": true
+        },
+        "met": false
+      },
+      "WAN": {
+        "movement_relay": {
+          "n": 230843,
+          "mean_ms": 63.357188579378075,
+          "p50_ms": 61,
+          "p95_ms": 112,
+          "p99_ms": 172,
+          "max_ms": 353.69055764749646,
+          "resolution_ms": 1
+        },
+        "movement_relay_steady": {
+          "n": 164959,
+          "mean_ms": 62.23243421589055,
+          "p50_ms": 60,
+          "p95_ms": 107,
+          "p99_ms": 163,
+          "max_ms": 353.69055764749646,
+          "resolution_ms": 1
+        },
+        "movement_relay_burst": {
+          "n": 65884,
+          "mean_ms": 66.17332535077232,
+          "p50_ms": 61,
+          "p95_ms": 122,
+          "p99_ms": 188,
+          "max_ms": 338.09966407716274,
+          "resolution_ms": 1
+        }
+      },
+      "source_SQL_financial_ACK_accounting_cleanup_passed": true,
+      "private_controller_evidence_sha256": "a5ebf9200b88c988d81e6225b5aa93b87b71aff7d911a6410489c86fe7473a59",
+      "private_server_summary_sha256": "c507fd1f110bcc5d62113eea20c7b817ddb3cc30b382db0f86f9399a929540e9"
+    }
+  ],
+  "acceptance_targets_P95_P99_ms": {
+    "pickup": [
+      40,
+      80
+    ],
+    "death": [
+      60,
+      120
+    ],
+    "paired_glass": [
+      80,
+      150
+    ],
+    "map_B3": [
+      150,
+      300
+    ],
+    "critical_waiting": [
+      5,
+      15
+    ],
+    "town_server": [
+      40,
+      80
+    ],
+    "WAN_overall_steady_and_burst": [
+      100,
+      200
+    ]
+  }
+}

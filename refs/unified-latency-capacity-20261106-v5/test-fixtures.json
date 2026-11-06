@@ -1,0 +1,32 @@
+{
+  "test_sources": [
+    "verify_abyss_readonly.py",
+    "verify_upkeep_readonly.py",
+    "verify_inherited_guild_clock.py",
+    "verify_passive_guild_negative.py",
+    "verify_passive_guild_personal_v3.py",
+    "verify_passive_guild_native_v2.py",
+    "verify_passive_title_reads_v2.py",
+    "verify_title_join.py",
+    "verify_title_notice_reads.py",
+    "verify_background_checkpoint_v1.py",
+    "verify_background_checkpoint_persistent.py",
+    "verify_solo_selection_scope.py",
+    "verify_fatigue_snapshot_reuse_v1.py",
+    "verify_fatigue_snapshot_reuse_party.py",
+    "verify_checked_save_reuse_v1.py",
+    "verify_checked_save_reuse_party.py",
+    "verify_maintenance_entry_v1.py",
+    "verify_server_preview_v15.py"
+  ],
+  "standalone": false,
+  "execution": "Original private isolated harness, Python3.14t with MIMALLOC_EAGER_COMMIT=0; original commands retained in private worklog.",
+  "external_fixtures": [
+    "runtime_fixture.py and bootstrap.py",
+    "profile_town.py and baseline FriendsTests",
+    "SHA-pinned previous-source files under the declared experiment directories",
+    "approved native guild and glass-door test sources",
+    "signed runtime, certificates, catalogs and isolated temporary QA databases"
+  ],
+  "private_data_or_runtime_not_included": true
+}
