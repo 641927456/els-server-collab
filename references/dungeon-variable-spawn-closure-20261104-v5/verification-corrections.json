@@ -1,0 +1,30 @@
+{
+  "earlier_failures": [
+    {
+      "failure": "Builder reused its producer variable name for a resolved target, preventing the source chain from advancing.",
+      "correction": "Use a separate resolved_target variable. Only the owned builder was stopped; final build and 235 cases passed."
+    },
+    {
+      "failure": "Initial constant pool treated Python True and integer1 as one key.",
+      "correction": "Preserve Lua boolean identity separately. Generated independent concrete-path tests include this alias trap."
+    },
+    {
+      "failure": "A first conservative value set included ordinary state numbers10/15/20/50 as existing NPC IDs.",
+      "correction": "Only source NPC enum identities and explicit native spawn literal arguments carry template provenance. Number-valued state is not template authority."
+    },
+    {
+      "failure": "An ordinary difficulty fixture compared raw policy maximum with a rounded native float32 reconstruction.",
+      "correction": "Validate the actual wire base HP and the unchanged native difficulty factor; no runtime HP policy changed."
+    },
+    {
+      "failure": "The all-GOD prefix check included separate friendly modes.",
+      "correction": "Check the original source literal enemy A/B/C families against this mode, retaining its original finite domain."
+    }
+  ],
+  "final_generated_oracle": {
+    "programs": 240,
+    "concrete_branches_per_program": 2,
+    "checks": "CFG branch join, typed slot separation, booleans vs numeric keys and source identity arithmetic"
+  },
+  "all_relevant_results_passed": true
+}

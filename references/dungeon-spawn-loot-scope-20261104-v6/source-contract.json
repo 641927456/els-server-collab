@@ -1,0 +1,50 @@
+{
+  "issue": 809,
+  "prior_archive": "dungeon-variable-spawn-closure-20261104-v5",
+  "parent_release": "native-modern-ice-cubes-points-20261104-v1",
+  "parent_manifest_sha256": "3ed7488e3381fe69320a227e0344838fb295e3a07ce33a21eee6819ed62d7bdc",
+  "files": {
+    "els_server/data/client/dungeon_routes.json": "0cd82457bf0cb097e2e3d808ecb3fe6ba6a0ce06493cbe355698e9978bf51cc2",
+    "els_server/data/client/dungeon_routes.manifest.json": "9080971b444f8606c8830662a4490590bca777927b8067ffe79f83bead2908ad",
+    "els_server/data/dungeon_loot_catalog.json": "b4d573b5d2eb868bdd9d7deaa717102c93b84527f43288b531458d5b92ab8054",
+    "els_server/data/dungeon_material_loot_catalog.json": "47d0e47f537902681fa5ef9095c0543e9a27eea1d8e78996b2323b5eff2ae1eb",
+    "els_server/data/dungeon_source_loot.json": "44e502ed983dd86141f27e39a10aef15e9cbee1a6a2cfc0d9661f0d9d1be1fd8",
+    "els_server/data/formal_npc_hp.json": "158cafd20db2f26b6d90a66fcf7cfff9076cc71427aaf8f79b117c9f4e28d3c7",
+    "els_server/data/formal_npc_hp.manifest.json": "3ee881d57dbfa6708f5979cc8dfa9636854eed2ab5a515c1ae7e6e57c5a8bcdd",
+    "els_server/data/raid_npc_hp.json": "e88f7a8e5e1fe9716b83753ab430d8b485fc81f949f2a53a7f86684c74c8b30f",
+    "els_server/domain/dungeon_loot_catalog.py": "b1579f60fb608a06d2a4ca67b8cec376d98c3b10e470a444fc6c3f578f6ad2b7",
+    "els_server/domain/dungeon_material_loot_catalog.py": "35e94afe35793e9e7fd89ca3ac7bc2f307117179574f4dd2f60a8f60423c2ec6",
+    "els_server/domain/dungeon_routes.py": "e181a686cd9739f690d4c11597c61548283b6243f2e8c01874e63d40566ced17",
+    "els_server/domain/dungeon_source_loot.py": "7d8ab389a45ad59af5a7831a5645d18a5f8b42950515f2bf9c98348f585b10e2",
+    "tools/build_dungeon_routes.py": "da44459680d7c553173816b0b88485aa6fabb4512ead0c714782d99102896d7a",
+    "tools/npc_spawn_source_flow.py": "17e413146b7665c45dc7400c9174af5dedd870b40560ca3e2f4ab61e4ca4491d"
+  },
+  "runtime_leaves": [
+    "els_server/data/client/dungeon_routes.json",
+    "els_server/data/client/dungeon_routes.manifest.json",
+    "els_server/data/dungeon_loot_catalog.json",
+    "els_server/data/dungeon_material_loot_catalog.json",
+    "els_server/data/dungeon_source_loot.json",
+    "els_server/data/formal_npc_hp.json",
+    "els_server/data/formal_npc_hp.manifest.json",
+    "els_server/data/raid_npc_hp.json",
+    "els_server/domain/dungeon_loot_catalog.py",
+    "els_server/domain/dungeon_material_loot_catalog.py",
+    "els_server/domain/dungeon_routes.py",
+    "els_server/domain/dungeon_source_loot.py"
+  ],
+  "evidence": {
+    "actual-scope-tests.json": "68792de5daf4301c5c99a4d76025f19ce7bc04e53588fcfc4385f7f99d30ceb8",
+    "catalog-smoke.json": "b293ef5aebddafaafd8a564b5940a76cf766e19693f54f3190ebdb9d773f0e7f",
+    "cleanup.json": "a47a372e62438247c2f9973f955b4d7729726a2653264ea3896c38c05f38b190",
+    "loot-chain-summary.json": "e3c953c52df2a317eeb5850b27988cbef6ded0b2632ccbffd7ee386ff20ac7ca",
+    "loot-policy-invariance.json": "ddd295901712ba6c553700a3ab242670a782ec2ff7d0c6e7d0d9413edbbb0b57",
+    "loot-scope-root-cause.json": "85fb4029968296bbc5589a5c455b54ef74f835c123abd0788e32d62ceffe9bf7",
+    "parent-rebinding.json": "38c3d3c3b57e898947c57d2ebcb732b3b806e85cc746884a47485333029bb218",
+    "runtime-preparation.json": "8ee8b2602c28f14f0b24ee9091714fe2e26ac408e121efe9061e79fb1a504c91"
+  },
+  "root_runtime_activation": false,
+  "automatic_deployment": false,
+  "installed": false,
+  "main_merge": false
+}

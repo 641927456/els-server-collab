@@ -34,6 +34,15 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'references/dungeon-spawn-closure-20261104-v2/verify_contract.py')])
     if (ROOT/'references/dungeon-fatigue-total-20261104-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_dungeon_fatigue_totals_20261104.py')])
+    if (ROOT/'references/dungeon-callm-source-closure-20261104-v8/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'references/dungeon-callm-source-closure-20261104-v8/verify_contract.py')])
+        run([sys.executable,'-B',str(ROOT/'references/dungeon-callm-source-closure-20261104-v8/test_callm_flow.py')])
+    if (ROOT/'references/dungeon-spawn-loot-scope-20261104-v6/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'references/dungeon-spawn-loot-scope-20261104-v6/verify_contract.py')])
+        run([sys.executable,'-B',str(ROOT/'references/dungeon-spawn-loot-scope-20261104-v6/test_loot_scope.py')])
+    if (ROOT/'references/dungeon-variable-spawn-closure-20261104-v5/source-contract.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'references/dungeon-variable-spawn-closure-20261104-v5/verify_contract.py')])
+        run([sys.executable,'-B',str(ROOT/'references/dungeon-variable-spawn-closure-20261104-v5/test_flow_properties.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
     run([sys.executable,'-B','-m','unittest','tests.test_public_controller_sources'])
