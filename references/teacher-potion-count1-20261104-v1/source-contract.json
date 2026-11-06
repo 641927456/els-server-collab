@@ -1,0 +1,34 @@
+{
+  "issue": 817,
+  "files": [
+    {
+      "channel": "online",
+      "parent_release": "native-dungeon-callm-source-closure-20261104-v1",
+      "path": "els_server/storage/growth_guide_boxes.py",
+      "parent_sha256": "65230a3a3ceaeb451be7f031a91b3ad8e5ee9d22e339f2b48b6bd68b839c5300",
+      "candidate_sha256": "2a341fab7281bf9da9f4df0f53fcbab8aa9562952c8bb359ae1267e6a8480509"
+    },
+    {
+      "channel": "local",
+      "parent_release": "local-native-hot-time-permanent-20261104-v1",
+      "path": "els_server/storage/growth_guide_boxes.py",
+      "parent_sha256": "900769e66b340303f7cf57a68d1e309aa10228b6344c8a0e2279ce525f45f6e7",
+      "candidate_sha256": "308d6409848807153baa3c20a7c9e0f3f2360821775fede1640ee7eab3da47e8"
+    }
+  ],
+  "evidence": {
+    "tests-online.json": "5cb0e2c276a7430e43bb9fff66286e84e072d8cde7321895b3c4c866744d9d77",
+    "tests-local.json": "4a30a78b04ae20647bd966e4150f35d521e5921b67086cedb375fabb316f4da4",
+    "test_potion_boxes.py": "d3d9a9d9a9a7ee9ca89914dc053f88c7f269b8347ba1f07b79d0df1368fc491f",
+    "online.patch": "432e1a98d2641a90741b0b9c36cdc182ab7e27a5d73423a6e15f1fe2245b33bc",
+    "local.patch": "432e1a98d2641a90741b0b9c36cdc182ab7e27a5d73423a6e15f1fe2245b33bc"
+  },
+  "fixture_sha256": "981d641671a1a4a18142c1a55fa7c5a83a44a8c7c121711f50c43d2ee3b96172",
+  "fixture_source": "owned-box-opening-20261031-v2/test_boxes.py",
+  "original_package_sha256": "e5e92b57ac0b912d1f527942bc68caec48091ba106f6bef8a30720fb7101828c",
+  "automatic_deployment": false,
+  "online_installed": false,
+  "local_installed": false,
+  "Git_merge": false,
+  "natural_GUI": false
+}

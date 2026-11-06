@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "test": "first_town_entry_registers_same_original_F0_once",
+      "projection_calls": [
+        2,
+        1
+      ],
+      "packets_equal": true,
+      "logical_rows_equal": true,
+      "accepted_notices": 1
+    },
+    {
+      "test": "already_registered_task_does_not_repeat_F0",
+      "projection_calls": [
+        2,
+        1
+      ],
+      "packets_equal": true,
+      "logical_rows_equal": true,
+      "accepted_notices": 0
+    },
+    {
+      "test": "current_observed_progress_remains_byte_identical",
+      "projection_calls": [
+        2,
+        1
+      ],
+      "packets_equal": true,
+      "logical_rows_equal": true,
+      "accepted_notices": 0
+    },
+    {
+      "test": "dungeon_branch_keeps_its_existing_single_projection",
+      "projection_calls": [
+        1,
+        1
+      ],
+      "packets_equal": true,
+      "logical_rows_equal": true,
+      "accepted_notices": 0
+    },
+    {
+      "test": "same_role_town_return_preserves_registration_generation",
+      "projection_calls": [
+        2,
+        1
+      ],
+      "packets_equal": true,
+      "logical_rows_equal": true,
+      "accepted_notices": 0
+    },
+    {
+      "test": "selected_role_change_uses_current_UID_in_original_notice",
+      "projection_calls": [
+        2,
+        1
+      ],
+      "packets_equal": true,
+      "logical_rows_equal": true,
+      "accepted_notices": 1
+    },
+    {
+      "test": "low_level_role_does_not_reuse_a_prior_eligible_view",
+      "projection_calls": [
+        0,
+        0
+      ],
+      "packets_equal": true,
+      "logical_rows_equal": true,
+      "accepted_notices": 0
+    },
+    {
+      "test": "disabled_campaign_keeps_original_no_projection_path",
+      "projection_calls": [
+        0,
+        0
+      ],
+      "packets_equal": true,
+      "logical_rows_equal": true,
+      "accepted_notices": 0
+    },
+    {
+      "test": "busy_writer_keeps_original_readonly_fallback_packets",
+      "projection_calls": [
+        2,
+        1
+      ],
+      "packets_equal": true
+    }
+  ],
+  "pending_4000_facts_benchmark": {
+    "parent": {
+      "ms": 32.23690018057823,
+      "projection_calls": 2
+    },
+    "candidate": {
+      "ms": 20.369699923321605,
+      "projection_calls": 1
+    }
+  },
+  "owned_runtime_removed": true,
+  "online_installed": false,
+  "sources": {
+    "private-input:attendance_online_2026.py": "d2f0d9bfd6993a3e6f24684baca9b4051e3770e4f3b9c597749fb8255bd02997",
+    "private-input:verify_projection_reuse.py": "e418d117f99b92b09520e3cd77f4d91426dde6d243d3296cbc3127c94f3877f6",
+    "private-input:attendance_2026_award_flow.py": "3ae7a44dedcfac1e625c99bcc471fb77042dff6cf92f3fabd78b569ba014e404"
+  }
+}

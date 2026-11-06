@@ -1,0 +1,36 @@
+{
+  "issue": 902,
+  "source_parent": "refs/unified-latency-capacity-20261106-v5",
+  "source_parent_merge": "a1b3cabb41c40e665b1d5dc611a1af203e0e0592",
+  "runtime_parent": {
+    "release": "native-unified-latency-capacity-20261106-v1",
+    "path": "releases/online/native-unified-latency-capacity-20261106-v1",
+    "manifest_sha256": "7b2718a229e3c905626507ac27fc2db799cdffa9b25b425ab6b4744bd4b7fc30"
+  },
+  "files": [
+    {
+      "path": "els_server/domain/growth_guide_boxes.py",
+      "parent_sha256": "1018b7e0f398d76ae1b064c0e066cf108606e9bc13b51c2ce2c9be9f73abd34e",
+      "candidate_sha256": "d8ba7a954dab015e7f00c4ae01f1f77659984732af3eaea3317a6155de4e14f8",
+      "source": "source/els_server/domain/growth_guide_boxes.py",
+      "size": 3317
+    },
+    {
+      "path": "els_server/storage/growth_guide_boxes.py",
+      "parent_sha256": "190fe79b661d4cf829e3f26233f4ab17a28d875c9d43c5aefefedd38646c1ec6",
+      "candidate_sha256": "b4948087d36f8009649c87e8c81a14bc223f71ac3e93f896a4490a6ebfbe1ef2",
+      "source": "source/els_server/storage/growth_guide_boxes.py",
+      "size": 4448
+    }
+  ],
+  "tests": [
+    "test_guide_bulk_normal_and_plan_splits",
+    "test_guide_zero_one_selection_rejections_and_atomic_failures"
+  ],
+  "shared_authenticated_server": true,
+  "client_delta": 0,
+  "new_tables": 0,
+  "installation_status": "separately reported by the publisher; source commit does not deploy",
+  "natural_GUI": false,
+  "natural_keyboard": false
+}

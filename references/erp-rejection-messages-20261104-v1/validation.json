@@ -1,0 +1,248 @@
+{
+  "passed": true,
+  "issue": 791,
+  "parent_release": "native-operation-error-messages-20261103-v1",
+  "source_files": 9,
+  "actual_Application_TLS_cases": 27,
+  "success_cases": 8,
+  "visible_refusal_cases": 15,
+  "preserved_silent_cases": 4,
+  "cold_read_preserved": true,
+  "refusal_state_inventory_balances_and_receipts_unchanged": true,
+  "native_reply_families": [
+    "612",
+    "614",
+    "79F",
+    "719"
+  ],
+  "native_error_packets": 15,
+  "native_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "native_UI_wait_callback_skipped": true,
+  "natural_GUI": false,
+  "online_installed": false,
+  "new_schema": false,
+  "client_delta": 0,
+  "cleanup": {
+    "owned_runtime_removed": true,
+    "active_connections": 0
+  },
+  "failure_history": "23 unaffected successful cases reused from the first run. Remaining-stack UID and adequate point-budget fixtures were corrected; the four affected late cases passed separately. Full verify.py has the same fixture corrections for future reproduction; no claim that its entire corrected version was rerun.",
+  "cases": [
+    {
+      "label": "未开放共鸣不能切页",
+      "kind": "0x79e",
+      "reply": "0x79f",
+      "result": 1788,
+      "native_text": "艾尔共鸣度未激活。",
+      "state_unchanged": true
+    },
+    {
+      "label": "未开放共鸣不能加点",
+      "kind": "0x611",
+      "reply": "0x612",
+      "result": 1788,
+      "native_text": "艾尔共鸣度未激活。",
+      "state_unchanged": true
+    },
+    {
+      "label": "无效加点报文仍静默",
+      "kind": "0x611",
+      "reply": "0x612",
+      "result": 256,
+      "native_text": "无法进行好友邀请。",
+      "state_unchanged": true
+    },
+    {
+      "label": "无效洗点报文仍静默",
+      "kind": "0x613",
+      "reply": "0x614",
+      "result": 256,
+      "native_text": "无法进行好友邀请。",
+      "state_unchanged": true
+    },
+    {
+      "label": "无效期限道具报文仍静默",
+      "kind": "0x718",
+      "reply": "0x719",
+      "result": 256,
+      "native_text": "无法进行好友邀请。",
+      "state_unchanged": true
+    },
+    {
+      "label": "已有共鸣书正常开启",
+      "kind": "0x219",
+      "reply": "0x21a",
+      "result": 0,
+      "native_text": "成功",
+      "state_unchanged": false
+    },
+    {
+      "label": "可用点数不足",
+      "kind": "0x611",
+      "reply": "0x612",
+      "result": 3046,
+      "native_text": "点数不足。",
+      "state_unchanged": true
+    },
+    {
+      "label": "加点页与当前页不同",
+      "kind": "0x611",
+      "reply": "0x612",
+      "result": 2051,
+      "native_text": "可客户端发送的已激活的共鸣度页编号与服务器情报不同。",
+      "state_unchanged": true
+    },
+    {
+      "label": "未扩张的页不可切换",
+      "kind": "0x79e",
+      "reply": "0x79f",
+      "result": 2056,
+      "native_text": "所选的共鸣度页异常。",
+      "state_unchanged": true
+    },
+    {
+      "label": "当前页正常选择",
+      "kind": "0x79e",
+      "reply": "0x79f",
+      "result": 0,
+      "native_text": "成功",
+      "state_unchanged": false
+    },
+    {
+      "label": "空分类不能洗点",
+      "kind": "0x613",
+      "reply": "0x614",
+      "result": 1789,
+      "native_text": "没有投资的点数。",
+      "state_unchanged": true
+    },
+    {
+      "label": "正常加点",
+      "kind": "0x611",
+      "reply": "0x612",
+      "result": 0,
+      "native_text": "成功",
+      "state_unchanged": false
+    },
+    {
+      "label": "混合退点加点预算不足",
+      "kind": "0x611",
+      "reply": "0x612",
+      "result": 3046,
+      "native_text": "点数不足。",
+      "state_unchanged": true
+    },
+    {
+      "label": "洗点硬币不足",
+      "kind": "0x611",
+      "reply": "0x612",
+      "result": 1791,
+      "native_text": "艾尔共鸣点数初始化硬币数量不足。",
+      "state_unchanged": true
+    },
+    {
+      "label": "分类洗点卷轴不足",
+      "kind": "0x613",
+      "reply": "0x614",
+      "result": 1787,
+      "native_text": "背包内没有艾尔共鸣点数初始化卷轴。",
+      "state_unchanged": true
+    },
+    {
+      "label": "洗点硬币请求页过期",
+      "kind": "0x611",
+      "reply": "0x612",
+      "result": 2051,
+      "native_text": "可客户端发送的已激活的共鸣度页编号与服务器情报不同。",
+      "state_unchanged": true
+    },
+    {
+      "label": "分类卷轴请求页过期",
+      "kind": "0x613",
+      "reply": "0x614",
+      "result": 2051,
+      "native_text": "可客户端发送的已激活的共鸣度页编号与服务器情报不同。",
+      "state_unchanged": true
+    },
+    {
+      "label": "期限道具不存在",
+      "kind": "0x718",
+      "reply": "0x719",
+      "result": 459,
+      "native_text": "背包内没有此道具。",
+      "state_unchanged": true
+    },
+    {
+      "label": "期限道具请求页过期",
+      "kind": "0x718",
+      "reply": "0x719",
+      "result": 2051,
+      "native_text": "可客户端发送的已激活的共鸣度页编号与服务器情报不同。",
+      "state_unchanged": true
+    },
+    {
+      "label": "持有硬币正常退点",
+      "kind": "0x611",
+      "reply": "0x612",
+      "result": 0,
+      "native_text": "成功",
+      "state_unchanged": false
+    },
+    {
+      "label": "退点后正常加回",
+      "kind": "0x611",
+      "reply": "0x612",
+      "result": 0,
+      "native_text": "成功",
+      "state_unchanged": false
+    },
+    {
+      "label": "分类卷轴正常退点",
+      "kind": "0x613",
+      "reply": "0x614",
+      "result": 0,
+      "native_text": "成功",
+      "state_unchanged": false
+    },
+    {
+      "label": "期限共鸣祝福正常使用",
+      "kind": "0x718",
+      "reply": "0x719",
+      "result": 0,
+      "native_text": "成功",
+      "state_unchanged": false
+    },
+    {
+      "label": "期限祝福后续场景准备",
+      "kind": "0x718",
+      "reply": "0x719",
+      "result": 0,
+      "native_text": "成功",
+      "state_unchanged": false
+    },
+    {
+      "label": "已有祝福不能重复扣道具",
+      "kind": "0x718",
+      "reply": "0x719",
+      "result": 1971,
+      "native_text": "伊利亚的祝福的共鸣点数使用失败。",
+      "state_unchanged": true
+    },
+    {
+      "label": "期限加点不得超过原生上限",
+      "kind": "0x611",
+      "reply": "0x612",
+      "result": 1973,
+      "native_text": "追加投资的共鸣点数将共鸣度技能等级变为最高级时，\n在效果结束前无法继续对该技能投资共鸣点数。",
+      "state_unchanged": true
+    },
+    {
+      "label": "失效角色租约仍静默",
+      "kind": "0x611",
+      "reply": "0x612",
+      "result": 256,
+      "native_text": "无法进行好友邀请。",
+      "state_unchanged": true
+    }
+  ]
+}

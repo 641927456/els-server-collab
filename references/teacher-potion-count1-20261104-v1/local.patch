@@ -1,0 +1,11 @@
+--- a/els_server/storage/growth_guide_boxes.py
++++ b/els_server/storage/growth_guide_boxes.py
+@@ -17,7 +17,7 @@
+ 
+ def open_box(path,owner,template,payload,operation,*,now=None):
+     req=use_request(payload)
+-    if req.option or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Guide box native mode')
++    if req.option not in (0,1) or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Guide box native mode')
+     owner,digest=_identity(owner,0x196,struct.pack('>i',template)+payload,operation)
+     now=int(time.time()) if now is None else now
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:

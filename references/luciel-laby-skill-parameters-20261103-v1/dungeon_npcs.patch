@@ -1,0 +1,17 @@
+--- a/els_server/domain/dungeon_npcs.py
++++ b/els_server/domain/dungeon_npcs.py
+@@ -51,12 +51,12 @@
+     for src,dst,n in COPIES:dto[dst:dst+n]=raw[src:src+n]
+     return bytes(dto)
+
+-def encode_npc(dto,mode=3):
++def encode_npc(dto,mode=3,*,extensions=None):
+     if len(dto)!=0xa4:raise ValueError('NPC DTO size')
+     if mode not in (0,3):raise ValueError('Unaudited NPC wire mode')
+     wire=[]
+     for off,n,key,kind in (MODE0_FIELDS if mode==0 else FIELDS):
+-        if kind=='empty':wire.append(bytes(n))
++        if kind=='empty':wire.append((extensions or {}).get(off,bytes(n)))
+         elif n==12:
+             wire.append(b''.join(dto[off+i:off+i+4][::-1] for i in (0,4,8)))
+         else:wire.append((int.from_bytes(dto[off:off+n],'little')^key).to_bytes(n,'big'))

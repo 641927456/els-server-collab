@@ -1,0 +1,45 @@
+{
+  "parent_release": "native-server-realtime-isolation-20261102-v1",
+  "parent_manifest_sha256": "ee78cf5453a18eb58a192760ef5ea6fd5bb2857cc8c33a257b2347847a570baa",
+  "files": [
+    {
+      "path": "els_server/application.py",
+      "before_sha256": "c359a2ac85a78c660da8d19f8ec28c75a092935d72a5e986c95b865c3ab3a8cc",
+      "after_sha256": "31cfcabb89f667255b57e2fc042e363eb374a30e6bcf10e394c84fdd450b84a2"
+    },
+    {
+      "path": "els_server/business_queue.py",
+      "before_sha256": "76f9fc5bcee5151a0aa1f956a907df1497161bc48ae66a933e4115779fde5c11",
+      "after_sha256": "2d54006f35297210f7e772e0162da4d6369460407e6bec7e8b744d3b3b20e8d0"
+    },
+    {
+      "path": "els_server/config.py",
+      "before_sha256": "532b0d957ea453ffa2bb4fb50ea953c5e01c43b151efab0e47dab974b663ef5e",
+      "after_sha256": "0c3efa53de253328c75a336cd1262ca0212c1d27009dc48950ec68b0fd50c676"
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "before_sha256": "af7c4209f379ab80cd7436bcdec704b59bbf3ad94f5069d2326da89f6fdcc4ba",
+      "after_sha256": "d9c48e9d33c9253273e0bb1c51a9a3e2cdb4ccadc8596289165c1aef49d1eda6"
+    },
+    {
+      "path": "els_server/economy.py",
+      "before_sha256": null,
+      "after_sha256": "e604527ee448744d29471eb96b045be3e7928ebd620a6b40188d67fcf2fb22c2"
+    },
+    {
+      "path": "els_server/periodic_scheduler.py",
+      "before_sha256": "f76aa33d093cad20df519a2fc42a0d8079a703ad03d5cf58ee80f66838cf758b",
+      "after_sha256": "2dc9a2255ede5f52fefdf7aacb171a7ce7b17c2bdbe9eb2e2f1c88802af85418"
+    },
+    {
+      "path": "els_server/periodic_work.py",
+      "before_sha256": "eacca9d6b40dda4923d114a170341ac6466ecc96bc74035ebcf113ab24cf95d4",
+      "after_sha256": "e0244295b75bb6e060dd2acf25c684685e6d7a1f6e9d84727d52c6eb3019d032"
+    }
+  ],
+  "new_dependencies": [],
+  "new_tables": [],
+  "install_ddl": 0,
+  "client_change": false
+}

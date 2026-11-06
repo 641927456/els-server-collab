@@ -1,0 +1,118 @@
+{
+  "ok": true,
+  "scenarios": [
+    {
+      "roles": [
+        4
+      ],
+      "seeded_stale_warning": false,
+      "target": 1,
+      "penalty_before_arrival": 0,
+      "damage_calls_before_arrival": 0,
+      "damage_calls_after_stuck_BB_and_BD": 0,
+      "state": {
+        "warning": 0,
+        "remaining": 0.0,
+        "rate": 0.05000000074505806,
+        "extra": 0,
+        "extra_remaining": 0.0,
+        "hp": 1000.0
+      }
+    },
+    {
+      "roles": [
+        4
+      ],
+      "seeded_stale_warning": false,
+      "target": 2,
+      "penalty_before_arrival": 0,
+      "damage_calls_before_arrival": 0,
+      "damage_calls_after_stuck_BB_and_BD": 0,
+      "state": {
+        "warning": 0,
+        "remaining": 0.0,
+        "rate": 0.05000000074505806,
+        "extra": 0,
+        "extra_remaining": 0.0,
+        "hp": 1000.0
+      }
+    },
+    {
+      "roles": [
+        4
+      ],
+      "seeded_stale_warning": true,
+      "target": 1,
+      "penalty_before_arrival": 1,
+      "damage_calls_before_arrival": 1,
+      "damage_calls_after_stuck_BB_and_BD": 1,
+      "state": {
+        "warning": 0,
+        "remaining": 0.0,
+        "rate": 0.054999999701976776,
+        "extra": 0,
+        "extra_remaining": 0.0,
+        "hp": 994.5
+      }
+    },
+    {
+      "roles": [
+        4
+      ],
+      "seeded_stale_warning": true,
+      "target": 2,
+      "penalty_before_arrival": 0,
+      "damage_calls_before_arrival": 1,
+      "damage_calls_after_stuck_BB_and_BD": 1,
+      "state": {
+        "warning": 0,
+        "remaining": 0.0,
+        "rate": 0.054999999701976776,
+        "extra": 0,
+        "extra_remaining": 0.0,
+        "hp": 994.5
+      }
+    },
+    {
+      "roles": [
+        4,
+        4
+      ],
+      "seeded_stale_warning": false,
+      "target": 1,
+      "penalty_before_arrival": 1,
+      "damage_calls_before_arrival": 11,
+      "damage_calls_after_stuck_BB_and_BD": 11,
+      "state": {
+        "warning": 0,
+        "remaining": 0.0,
+        "rate": 0.10500001907348633,
+        "extra": 0,
+        "extra_remaining": 0.0,
+        "hp": 911.9999914169312
+      }
+    },
+    {
+      "roles": [
+        4,
+        4
+      ],
+      "seeded_stale_warning": false,
+      "target": 2,
+      "penalty_before_arrival": 1,
+      "damage_calls_before_arrival": 22,
+      "damage_calls_after_stuck_BB_and_BD": 22,
+      "state": {
+        "warning": 0,
+        "remaining": 0.0,
+        "rate": 0.10500001907348633,
+        "extra": 0,
+        "extra_remaining": 0.0,
+        "hp": 823.9999828338623
+      }
+    }
+  ],
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "natural_GUI": false,
+  "boundary": "Actual candidate message order and original native countdown/B9/BD reset instructions; accepted wait/result, room roster, actor HP and dependencies are explicit private models. Seeded stale single-player warning is cleanup coverage, not a proven live activation cause."
+}

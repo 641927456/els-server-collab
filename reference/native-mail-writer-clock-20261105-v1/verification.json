@@ -1,0 +1,32 @@
+{
+  "ok": true,
+  "evidence": [
+    {
+      "path": "mail-clock-baseline-1793852059704165500.json",
+      "sha256": "b9e85be9012168f8bc1c9f7064c40ba853cb6a15bd077cf7c0965cf0506a9a76",
+      "cases": 4
+    },
+    {
+      "path": "mail-clock-fixed-1793852070611060700.json",
+      "sha256": "5bfa234724e46e27f2791b982222a51f83c0d760b87609b29cb673edd927bd2b",
+      "cases": 4
+    },
+    {
+      "path": "player-mail-clock-baseline-1793852206403856700.json",
+      "sha256": "ae0cdb7f48fd03d1c0719f7bd813ce4ca50e420f2d1c27051f188421049f82ca",
+      "cases": 4
+    },
+    {
+      "path": "player-mail-clock-fixed-1793852220112299500.json",
+      "sha256": "a792f89f695878400ac8883d5912a515799049a8991896f6ca297f6a9fdcf627",
+      "cases": 4
+    }
+  ],
+  "source_manifest_sha256": "16e2d1ec12eb11d853d14e6356b0334ee31813a1df438fa7d372d1f4b53fa3d0",
+  "baseline_cases": 8,
+  "fixed_cases": 8,
+  "actual_SQLite_writer_contention": true,
+  "player_data_access": false,
+  "natural_GUI": false,
+  "installed": false
+}

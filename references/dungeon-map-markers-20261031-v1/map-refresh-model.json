@@ -1,0 +1,25 @@
+{
+  "ok": true,
+  "cases": 18,
+  "results": [
+    "baseline reproduces one-room lag",
+    "native refresh reads new part, consecutive rooms, one installation, stop",
+    "scene prevents stale refresh",
+    "wrapper prevents stale refresh",
+    "manager prevents stale refresh",
+    "definition prevents stale refresh",
+    "map prevents stale refresh",
+    "stage prevents stale refresh",
+    "member prevents stale refresh",
+    "uid prevents stale refresh",
+    "unit family prevents stale refresh",
+    "weak UI invalidated prevents stale refresh",
+    "selection differs prevents stale refresh",
+    "rejected selection untouched",
+    "native allocator may reuse part address; same-part refresh is valid",
+    "initialization without UI untouched",
+    "negative request untouched",
+    "instruction mismatch prevents installation"
+  ],
+  "scope": "Callback model only; native natural room transitions and signed delivery pending."
+}

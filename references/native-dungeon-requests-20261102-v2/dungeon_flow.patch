@@ -1,0 +1,79 @@
+--- a/els_server/domain/dungeon_flow.py
++++ b/els_server/domain/dungeon_flow.py
+@@ -48,6 +48,10 @@
+ def handle(s,event):
+  run=s.dungeon_run
+  if run is None or s.phase!='dungeon_active' or event.event_id!=0x202:return None
++ if event.kind==0x471:
++  shadow,replies=prepare_condition_clear(s,event)
++  if shadow is not None:adopt_condition_clear(s,shadow)
++  return replies
+  from els_server.domain.native_line_triggers import handle as line_trigger
+  trigger_reply=line_trigger(s,event)
+  if trigger_reply is not None:return trigger_reply
+@@ -67,12 +71,13 @@
+   transition=run.completed_transition
+   late=(transition is not None and (run.stage,run.part,run.visits)==transition['target']
+         and event.payload in transition['parts'])
+-  valid=(s.dungeon_substage_synced and not s.clear_notified and
+-         event.payload==struct.pack('>b',run.part) and
+-         all(n['key'] in run.defeated for n in run.current['npcs'] if n['active'] and n.get('team',1)!=0))
+-  if valid:run.portal_requested=True
+-  elif late:return [Event(0x201,kind=0xb9,payload=bytes(4))]
+-  return [Event(0x201,kind=0xb9,payload=struct.pack('>i',0 if valid else -1))]+(periodic(s) if valid else [])
++  from els_server.domain.dungeon_equipment_loot_flow import current_lease
++  owned=(event.performers in ((),(0,)) and event.uid==event.target_uid==2**64-1
++         and event.payload_mode==0 and current_lease(s))
++  valid=(owned and s.dungeon_substage_synced and not s.clear_notified
++         and not getattr(s,'dungeon_failed',False) and event.payload==struct.pack('>b',run.part))
++  # B9 invokes native CreateCurtain (1076BC0); contact is reported by 471.
++  return [Event(0x201,kind=0xb9,payload=struct.pack('>i',0 if valid or owned and late else -1))]
+  if event.kind==0xad:
+   from els_server.domain.native_script_loot import accepted_death as script_reward_death
+   script_reply=script_reward_death(s,event)
+@@ -202,6 +207,45 @@
+   return reply+solo_loaded(s,event)+periodic(s)
+  return None
+ 
++def prepare_condition_clear(s,event):
++ # 1044750 / 1116EE0: i32 stage, i32 part, u16 zero,
++ # vector<bool> (DB8AE0), bool. B8 is the curtain request, not CC5 contact.
++ # C26FFC reads seven i32s; 1044910 consumes result/type and source stage/part.
++ run=s.dungeon_run;raw=event.payload
++ source=struct.unpack_from('>ii',raw) if len(raw)>=8 else (run.stage,run.part)
++ def reply(result,kind=0):
++  return Event(0x201,kind=0x472,payload=struct.pack('>7i',result,kind,0,*source,0,0))
++ error=(None,[reply(-1)])
++ from els_server.domain.dungeon_equipment_loot_flow import current_lease
++ if (event.event_id!=0x202 or event.kind!=0x471 or event.performers!=(0,)
++     or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0
++     or s.role!='game' or s.phase!='dungeon_active' or not s.dungeon_substage_synced
++     or s.clear_notified or getattr(s,'dungeon_failed',False) or not current_lease(s)
++     or getattr(s,'reward_transaction',None) is not None or len(raw)<15):return error
++ stage,part,reserved,count=struct.unpack_from('>iiHI',raw)
++ conditions=run.current['conditions']
++ if ((stage,part)!=(run.stage,run.part) or reserved!=0 or count!=len(conditions)
++     or len(raw)!=15+count or raw[-1]!=0 or any(v not in (0,1) for v in raw[14:-1])):return error
++ shadow=copy.copy(s);shadow.dungeon_run=copy.copy(run);shadow.dungeon_clock=copy.copy(s.dungeon_clock)
++ selected=None
++ for flag,condition in zip(raw[14:-1],conditions):
++  if not flag:continue
++  shadow.dungeon_run.portal_requested=condition['kind']==5 or run.portal_requested
++  if shadow.dungeon_run.condition_ready(condition):selected=condition;break
++ if selected is None:return error
++ notifications=periodic(shadow)
++ if shadow.dungeon_run.next is None:return error
++ replies=[reply(0,shadow.dungeon_run.next['kind']),*notifications]
++ from els_server.protocol.protocol_codec import encode_event
++ for message in replies:encode_event(message)
++ return shadow,replies
++
++def adopt_condition_clear(s,shadow):
++ for name in ('portal_requested','next','ready_at'):
++  setattr(s.dungeon_run,name,getattr(shadow.dungeon_run,name))
++ s.part_end_notified=shadow.part_end_notified
++ s.dungeon_clock.total=shadow.dungeon_clock.total;s.dungeon_clock.started=shadow.dungeon_clock.started
++
+ 
+ # Native observed actor instances only: 20261025-193058 (keys 15/17) and
+ # 20261025-165751 (key 4). Other sources/maps/templates remain combat actors.

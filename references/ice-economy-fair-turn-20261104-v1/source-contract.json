@@ -1,0 +1,32 @@
+{
+  "issue": 846,
+  "parent_release": "native-master-mechanic-init-hp-20261104-v1",
+  "parent_manifest_sha256": "01fa4404d9270dc7e7cd5f2448ac51e13e0c83ceeb835eeb7883ff7e4d39304a",
+  "files": [
+    {
+      "path": "els_server/economy.py",
+      "sha256": "55eb3e4e643704d7df437201b785dbd1f67d4cbdf04391559548b95c86921056",
+      "base_sha256": "17ab8c10e0a243eb550e6939615186bfe3abc1e143b2c9a4633c5600faddfd36"
+    }
+  ],
+  "scope": "Fair turns between world work and existing bounded economy batches; classify configured gift heaters through the paid heater; original eligibility, points and economic transactions retained.",
+  "validation": {
+    "passed": true,
+    "related_checks": 16,
+    "new_gate_checks": 5,
+    "classification": 1,
+    "existing_scheduling": 4,
+    "Application_TLS": 6,
+    "modern_variants": 154
+  },
+  "initial_test_cleanup_failure": "Classification assertions completed, then fixture SQLite connection was not closed. Fixed the test connection and reran only that check successfully; five unchanged gate successes retained.",
+  "root_engine_changed": false,
+  "installed": false,
+  "automatic_deployment": false,
+  "Git_merged": false,
+  "client_or_launcher_changed": false,
+  "database_schema_changed": false,
+  "player_database_restore": false,
+  "natural_GUI": false,
+  "production_load_test": false
+}

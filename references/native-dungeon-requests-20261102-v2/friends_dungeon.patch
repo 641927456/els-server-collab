@@ -1,0 +1,63 @@
+--- a/els_server/domain/friends_dungeon.py
++++ b/els_server/domain/friends_dungeon.py
+@@ -204,6 +204,10 @@
+         if kind==0x91:return self.progress(room,s,event)
+         if kind==0xb3:return self.loaded(room,s,event)
+         if kind==0xad:return self.death(room,s,event)
++        if kind==0x30a:
++            from els_server.domain.native_line_triggers import shared
++            return shared(self,room,s,event)
++        if kind==0x471:return self.condition_clear(room,s,event)
+         if kind==0xb8:return self.portal(room,s,event)
+         if kind==0xbb:return self.end_part(room,s,event)
+         # Local exit/return handling runs afterwards. An unfinished party run
+@@ -414,24 +418,35 @@
+         self.part_wait(r)
+         return reply
+ 
++    def condition_clear(self,r,s,event):
++        from els_server.domain.dungeon_flow import prepare_condition_clear,adopt_condition_clear
++        from els_server.domain.friends_spawns import _checked_static_generation
++        from els_server.domain.party_commands import _prepared_boxes
++        if r.phase not in ('active','part_end'):return []
++        try:_checked_static_generation(self,r)
++        except ValueError:return []
++        if s is not r.leader:
++            _,replies=prepare_condition_clear(s,event)
++            return replies[:1]
++        prepared=[(m,*prepare_condition_clear(m,event)) for m in r.members]
++        if any(shadow is None for _,shadow,_ in prepared):
++            return next(replies for _,shadow,replies in prepared if shadow is None)
++        response=next(replies for m,_,replies in prepared if m is s)
++        boxes=_prepared_boxes([(m,replies) for m,_,replies in prepared if m is not s],response)
++        for member,shadow,_ in prepared:adopt_condition_clear(member,shadow)
++        for member,box in boxes.items():member.mailbox=box
++        self.part_wait(r)
++        return response
++
+     def portal(self,r,s,event):
+-        if r.phase!='active':
++        if r.phase not in ('active','part_end'):
+             if r.phase!='substage':return []
+             from els_server.domain.friends_spawns import retry_late_portal
+             return retry_late_portal(self,r,s,event)
+-        # Each connection gets its own native wait acknowledgement. The room
+-        # master alone changes the shared source cursor.
+-        if s is not r.leader:
+-            run=s.dungeon_run
+-            valid=(run is not None and s.dungeon_substage_synced and not s.clear_notified
+-                   and event.payload==struct.pack('>b',run.part)
+-                   and all(n['key'] in run.defeated for n in run.current['npcs'] if n['active'] and n.get('team',1)!=0))
+-            return [Event(0x201,kind=0xb9,payload=i32(0 if valid else -1))]
+-        result=LocalSession.handle(s,event)
+-        if result and result[0].payload==bytes(4):
+-            for other in r.members:
+-                if other is not s:self.send(other,[e for e in LocalSession.handle(other,event) if e.kind!=0xb9])
+-        self.part_wait(r);return result
++        # B8 creates only this connection's native curtain, even before kills.
++        # The independent 471/BB path owns the shared room cursor.
++        from els_server.domain.dungeon_flow import handle
++        return handle(s,event)
+ 
+     def part_wait(self,r):
+         if r.phase=='active' and all(s.part_end_notified for s in r.members):

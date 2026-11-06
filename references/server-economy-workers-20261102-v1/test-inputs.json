@@ -1,0 +1,45 @@
+{
+  "python": "3.13.14",
+  "files": {
+    "G:\\els\\analysis\\server-economy-workers-20261102-v1\\source.py": "fbdd36a6fb09ee2c32f971aa8eb78d9746687ec205e25d010dfc18dc38006e9a",
+    "G:\\els\\analysis\\server-economy-workers-20261102-v1\\run_checks.py": "4a00228c04189227739e81c0eda4184a36b21f7d34a95bdbde9471e7fd14c6f6",
+    "G:\\els\\analysis\\server-economy-workers-20261102-v1\\run_economy_checks.py": "b7f0a3fa49be809ee453a304951247712f60310006ceccd9ad85786cda18d34f",
+    "G:\\els\\analysis\\server-economy-workers-20261102-v1\\run_commerce_checks.py": "c20c07015b035a95d216c229e31902ce2b5419096e2c80eadb2b109855735bcc",
+    "G:\\els\\analysis\\server-economy-workers-20261102-v1\\run_worker_controls.py": "19f2386228b0e16c26cc16d076130d07fe263f3d6de84f599e4934350e6acfa1",
+    "G:\\els\\analysis\\server-economy-workers-20261102-v1\\run_load_checks.py": "92d8c90f00b95598f2b4e5c0df6428b3339384d3eb9591859fd09d2772184b23",
+    "G:\\els\\analysis\\server-economy-workers-20261102-v1\\run_boundaries.py": "e7c34f7f9dbf30590a916a5e7097e40ac4f2c7443813a5b743d70be634cda664",
+    "G:\\els\\analysis\\server-economy-workers-20261102-v1\\run_periodic_claims.py": "d9d462a09be2f048984df325e3d9db7b39ed6fdedddbe9a2e68c076f9c863301",
+    "G:\\els\\analysis\\server-economy-workers-20261102-v1\\run_auxiliary.py": "493f2d63e1ebc558931c34fa521303d44004213faaab14107398e9d44a194676",
+    "G:\\els\\analysis\\server-economy-workers-20261102-v1\\native_fixture_reader.py": "2f57b00249677897aa43d2ab4b0591a411a23bdcd9178743d49425952052ef0a",
+    "G:\\els\\tests\\test_friends_server.py": "736e52e8f9c7ba3937c69c1831ae39b84d5be5f6201fadd70e8445d67517cc9a",
+    "G:\\els\\tests\\test_npc_sale.py": "ebe7bc30ef30395aa5746b06ee80467885bd2dad0e4deca6b4d9188087e63e4c"
+  },
+  "benchmark_sources": {
+    "els_server\\application.py": "31cfcabb89f667255b57e2fc042e363eb374a30e6bcf10e394c84fdd450b84a2",
+    "els_server\\business_queue.py": "2d54006f35297210f7e772e0162da4d6369460407e6bec7e8b744d3b3b20e8d0",
+    "els_server\\config.py": "0c3efa53de253328c75a336cd1262ca0212c1d27009dc48950ec68b0fd50c676",
+    "els_server\\domain\\friends_world.py": "d9c48e9d33c9253273e0bb1c51a9a3e2cdb4ccadc8596289165c1aef49d1eda6",
+    "els_server\\economy.py": "bf873a4b10866d53327e8730f81a51f30ff476eee544bf772cc21e9dcf970164",
+    "els_server\\periodic_scheduler.py": "2dc9a2255ede5f52fefdf7aacb171a7ce7b17c2bdbe9eb2e2f1c88802af85418",
+    "els_server\\periodic_work.py": "e0244295b75bb6e060dd2acf25c684685e6d7a1f6e9d84727d52c6eb3019d032"
+  },
+  "final_sources": {
+    "els_server\\application.py": "31cfcabb89f667255b57e2fc042e363eb374a30e6bcf10e394c84fdd450b84a2",
+    "els_server\\business_queue.py": "2d54006f35297210f7e772e0162da4d6369460407e6bec7e8b744d3b3b20e8d0",
+    "els_server\\config.py": "0c3efa53de253328c75a336cd1262ca0212c1d27009dc48950ec68b0fd50c676",
+    "els_server\\economy.py": "e604527ee448744d29471eb96b045be3e7928ebd620a6b40188d67fcf2fb22c2",
+    "els_server\\periodic_scheduler.py": "2dc9a2255ede5f52fefdf7aacb171a7ce7b17c2bdbe9eb2e2f1c88802af85418",
+    "els_server\\periodic_work.py": "e0244295b75bb6e060dd2acf25c684685e6d7a1f6e9d84727d52c6eb3019d032",
+    "els_server\\domain\\friends_world.py": "d9c48e9d33c9253273e0bb1c51a9a3e2cdb4ccadc8596289165c1aef49d1eda6"
+  },
+  "commands": [
+    "python -B run_checks.py",
+    "python -B run_economy_checks.py",
+    "python -B run_commerce_checks.py",
+    "python -B run_worker_controls.py",
+    "python -B run_load_checks.py",
+    "python -B run_boundaries.py",
+    "python -B run_periodic_claims.py",
+    "python -B run_auxiliary.py"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "passed": false,
+  "baseline": true,
+  "source_sha256": "2a341fab7281bf9da9f4df0f53fcbab8aa9562952c8bb359ae1267e6a8480509",
+  "source_template": 722235,
+  "production_database_access": false,
+  "new_timed_source": false,
+  "cases": [],
+  "error": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\guide-box-clock-v1\\test_guide_box_clock.py\", line 58, in <module>\n    assert [e.kind for e in again]==[e.kind for e in events]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+}

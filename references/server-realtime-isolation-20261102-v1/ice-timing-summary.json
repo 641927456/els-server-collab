@@ -1,0 +1,81 @@
+{
+  "samples": 90,
+  "metrics": {
+    "total_ms": {
+      "p50_ms": 878.85,
+      "p95_ms": 2262.67,
+      "max_ms": 2462.17
+    },
+    "connection_wait_ms": {
+      "p50_ms": 0.01,
+      "p95_ms": 2175.43,
+      "max_ms": 2401.75
+    },
+    "encode_ms": {
+      "p50_ms": 0.22,
+      "p95_ms": 0.4,
+      "max_ms": 0.45
+    },
+    "send_ms": {
+      "p50_ms": 0.2,
+      "p95_ms": 0.34,
+      "max_ms": 0.35
+    },
+    "queue_ms": {
+      "p50_ms": 171.88,
+      "p95_ms": 1036.93,
+      "max_ms": 1279.71
+    },
+    "handler_ms": {
+      "p50_ms": 47.83,
+      "p95_ms": 60.14,
+      "max_ms": 343.19
+    },
+    "domain_ms": {
+      "p50_ms": 44.51,
+      "p95_ms": 54.67,
+      "max_ms": 338.96
+    },
+    "clock_before_ms": {
+      "p50_ms": 2.06,
+      "p95_ms": 3.42,
+      "max_ms": 4.33
+    },
+    "clock_after_ms": {
+      "p50_ms": 0.36,
+      "p95_ms": 0.74,
+      "max_ms": 1.98
+    },
+    "after_reply_ms": {
+      "p50_ms": 0.16,
+      "p95_ms": 0.5,
+      "max_ms": 1.53
+    },
+    "projection_ms": {
+      "p50_ms": 1.78,
+      "p95_ms": 2.83,
+      "max_ms": 3.96
+    }
+  },
+  "transport": {
+    "accepted": 150,
+    "rejected": 0,
+    "closed": 0,
+    "protocol_errors": 0,
+    "requests": 40310,
+    "responses": 8660,
+    "auxiliary_coalesced": 37817
+  },
+  "periodic": {
+    "batches": 713,
+    "members": 9272,
+    "max_batch": 16,
+    "busy_skips": 0,
+    "slices": 5149,
+    "max_slice": 16,
+    "dispatch_late_max_ms": 5155.691699823365,
+    "preempted": 27,
+    "dispatch_late_window_count": 256,
+    "dispatch_late_ms_p95": 1675.618
+  }
+}

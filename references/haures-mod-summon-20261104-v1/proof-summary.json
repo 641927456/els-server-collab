@@ -1,0 +1,237 @@
+{
+  "issue": 797,
+  "original_client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "runtime_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "native_producer": {
+    "rva": "1539A30",
+    "existing_decompilation_sha256": "5bf6c1f76e69454cb514f2f9ebd782326b868a4e6a4d94b2ef24aa03d67f1dae",
+    "dynamic_skill": 910016,
+    "original_template_lookup": "9B2D20",
+    "original_value_accessor": "19E8FB0(1,1)",
+    "plain_template": 2269,
+    "changed_template": 2954,
+    "queue": "113DAF0 -> 1AA9D90 -> 1AAD360 -> 1B21990"
+  },
+  "resource": {
+    "skill": 910016,
+    "field": "SKILL_VALUE_TABLE1.VALUE[1]",
+    "value": 2954,
+    "base_skills": [
+      30053,
+      30081
+    ],
+    "unit_class": 179,
+    "unit_type": 10,
+    "book": 300602,
+    "rank": 1,
+    "npc_script": "SA_LDN_GARDEN_OF_HAURES_FORCE.lua"
+  },
+  "before": {
+    "ok": true,
+    "before": true,
+    "cases": [
+      {
+        "scene": "pve",
+        "old_rejected": true,
+        "native_request_sha256": "345276aaef563944bc422e4a98e9820122223bf485fee9a8894ee0a86f926e12"
+      },
+      {
+        "scene": "pvp",
+        "old_rejected": true,
+        "native_request_sha256": "345276aaef563944bc422e4a98e9820122223bf485fee9a8894ee0a86f926e12"
+      }
+    ],
+    "source_delta": 1,
+    "original_value_accessor": "19E8FB0",
+    "original_sender": "2BDCE40",
+    "original_reader": "C50040",
+    "natural_cast": false,
+    "live_player_process_access": false
+  },
+  "after": {
+    "ok": true,
+    "before": false,
+    "cases": [
+      {
+        "scene": "pve",
+        "native_read_bytes": 164,
+        "parameters_preserved": true
+      },
+      {
+        "scene": "pvp",
+        "native_read_bytes": 164,
+        "parameters_preserved": true
+      },
+      {
+        "refusal": "no_book",
+        "qualification_preserved": true
+      },
+      {
+        "refusal": "not_equipped",
+        "qualification_preserved": true
+      },
+      {
+        "refusal": "foreign_branch",
+        "qualification_preserved": true
+      },
+      {
+        "refusal": "low_level",
+        "qualification_preserved": true
+      },
+      {
+        "scene": "group",
+        "actors": 2,
+        "native_read_bytes": 300,
+        "broadcast": true,
+        "replay_no_duplicate": true,
+        "owner_expiry": true,
+        "foreign_owner_whole_queue_refused": true
+      },
+      {
+        "scene": "field",
+        "actors": 2,
+        "native_read_bytes": 300,
+        "broadcast": true,
+        "replay_no_duplicate": true,
+        "owner_expiry": true,
+        "foreign_owner_whole_queue_refused": true
+      },
+      {
+        "scene": "pvp",
+        "actors": 2,
+        "native_read_bytes": 300,
+        "broadcast": true,
+        "replay_no_duplicate": true,
+        "owner_expiry": true,
+        "foreign_owner_whole_queue_refused": true
+      },
+      {
+        "scene": "solo_formal_mixed",
+        "cold_persisted_ownership": true,
+        "book": 300602,
+        "force": 910016,
+        "native_read_bytes": 462,
+        "owner_expiry_no_loot": true,
+        "cold_unequip_rejects": true
+      },
+      {
+        "unchanged_class_scene_inputs": 390
+      }
+    ],
+    "source_delta": 1,
+    "original_value_accessor": "19E8FB0",
+    "original_sender": "2BDCE40",
+    "original_reader": "C50040",
+    "natural_cast": false,
+    "live_player_process_access": false
+  },
+  "actual_delivery_parent": {
+    "ok": true,
+    "before": false,
+    "cases": [
+      {
+        "scene": "group",
+        "actors": 2,
+        "native_read_bytes": 300,
+        "broadcast": true,
+        "replay_no_duplicate": true,
+        "owner_expiry": true,
+        "foreign_owner_whole_queue_refused": true
+      },
+      {
+        "scene": "field",
+        "actors": 2,
+        "native_read_bytes": 300,
+        "broadcast": true,
+        "replay_no_duplicate": true,
+        "owner_expiry": true,
+        "foreign_owner_whole_queue_refused": true
+      },
+      {
+        "scene": "pvp",
+        "actors": 2,
+        "native_read_bytes": 300,
+        "broadcast": true,
+        "replay_no_duplicate": true,
+        "owner_expiry": true,
+        "foreign_owner_whole_queue_refused": true
+      },
+      {
+        "scene": "solo_formal_mixed",
+        "cold_persisted_ownership": true,
+        "book": 300602,
+        "force": 910016,
+        "native_read_bytes": 462,
+        "owner_expiry_no_loot": true,
+        "cold_unequip_rejects": true
+      },
+      {
+        "unchanged_class_scene_inputs": 0
+      }
+    ],
+    "source_delta": 1,
+    "original_value_accessor": "19E8FB0",
+    "original_sender": "2BDCE40",
+    "original_reader": "C50040",
+    "natural_cast": false,
+    "live_player_process_access": false
+  },
+  "parent_rebase": {
+    "original_parent": "native-mixed-player-scene-summons-20261104-v1",
+    "actual_parent": "native-dungeon-spawn-closure-20261104-v2",
+    "changed": [
+      "els_server/data/client/dungeon_routes.json",
+      "els_server/data/client/dungeon_routes.manifest.json",
+      "els_server/data/formal_npc_hp.json",
+      "els_server/data/formal_npc_hp.manifest.json",
+      "els_server/data/raid_npc_hp.json"
+    ]
+  },
+  "dynamic_force_table_scan": [
+    {
+      "skill": 910016,
+      "book": {
+        "item": 300602,
+        "skill": 910016,
+        "rank": 1,
+        "native_rank": 1,
+        "native_grade": 1,
+        "source_list_index": 1,
+        "required_stage": 3,
+        "active": false,
+        "change": true,
+        "unit_class": 179,
+        "unit_type": 10,
+        "line": 3,
+        "base_skills": [
+          30053,
+          30081
+        ],
+        "material": 135911,
+        "recipe": 300602,
+        "cost": 500000,
+        "record_sha256": "b3d4f3e229f742e0ca036338288d5f07d3b6df9b7cc57e56173a348cbb16440b"
+      },
+      "values": {
+        "SKILL_VALUE_TABLE1": {
+          "TYPE": 0,
+          "VALUE": {
+            "0": null,
+            "1": 2954
+          }
+        }
+      }
+    }
+  ],
+  "scan_scope": "Current Lu/Ciel and Laby type18 registry entries containing SKILL_VALUE_TABLE fields. Only910016 has such a field. This is a bounded family scan, not a full Lua/state/item audit.",
+  "accessor_scope": "Original getter executed on a private captured-layout value fixture; resource initializer and natural factory/cast were not executed. Native sender/reader execute without packet or skill shims; only existing CRT and fixed OS-clock fixtures.",
+  "public_fixture_corrections": [
+    "Initial6D0 unequip was attempted in dungeon_active; the unchanged entry permits town_ready only. Rejected attempt retained, cold read confirmed no slot change; town unequip then ACK0.",
+    "Resume helper selected mode2/37F for34030, whose actual single flag is false. Corrected to the already-tested normal mode1/382. Successful unequip was cold-read and not replayed; only pending active-scene refusal, re-equip and Laby checks resumed."
+  ],
+  "unresolved": [
+    "Legacy solo30000 mixed script source reachability and entitlement",
+    "Lua/state-only and item/equipment producers beyond the bounded scan",
+    "All natural skill visuals, damage, healing, AI and passive activation"
+  ]
+}

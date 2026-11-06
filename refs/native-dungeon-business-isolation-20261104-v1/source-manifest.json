@@ -1,0 +1,130 @@
+{
+  "release": "native-dungeon-business-isolation-20261104-v1",
+  "deployment_base": "native-teacher-potion-count1-20261104-v1",
+  "source_comparison_base": "native-modern-ice-sale-window-20261104-v1",
+  "issue": 823,
+  "changes": [
+    {
+      "path": "els_server/domain/session_auxiliary.py",
+      "parent_sha256": "66db5f35ad9384291360fc7aba43be043687c9b7f491c01e296636f49874d0ff",
+      "sha256": "40e8632055971e3ecde4705ad8b785f098b9e35808b35748554d49aea97ab667"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "017c232ba550b02f2f6887aaf1579cb32880c3e317978179143f105f1a9841ab",
+      "sha256": "8cb716bc80b5c8d8bc69fa161d8f5a44dc1d9771209ec3c4db2d5775c6de0376"
+    },
+    {
+      "path": "els_server/application.py",
+      "parent_sha256": "bca78bf8458e701f1f170b14e0fd667d0e46096f9af6714787d8a58671f16437",
+      "sha256": "4f22790bfecf5cb6c00dce388c1c933c7a24db9ac1914ed0de03f10fc3c50a0a"
+    },
+    {
+      "path": "els_server/domain/luciel_dungeon.py",
+      "parent_sha256": "416f634c01e93ff20e142cbaa5dce729c4af36afccef022bbf47822c03e5b330",
+      "sha256": "cff15135af7a86dda6ddbbd219eb5665c021fae06fe68cc1f58e8dc82982e5d0"
+    },
+    {
+      "path": "els_server/domain/dungeon_native_actions.py",
+      "parent_sha256": null,
+      "sha256": "73a5628ce2cc161ba11d69ddc2c0d4daeb83b1af1a10857377b6a9f041fc418d"
+    },
+    {
+      "path": "els_server/domain/dungeon_requests.py",
+      "parent_sha256": null,
+      "sha256": "1fc0ae6437f2d6af4bdcae011e8999709c69800c239286503ca7482929128efb"
+    },
+    {
+      "path": "els_server/economy.py",
+      "parent_sha256": "e604527ee448744d29471eb96b045be3e7928ebd620a6b40188d67fcf2fb22c2",
+      "sha256": "17ab8c10e0a243eb550e6939615186bfe3abc1e143b2c9a4633c5600faddfd36"
+    }
+  ],
+  "files": [
+    {
+      "path": "source/els_server/domain/session_auxiliary.py",
+      "sha256": "40e8632055971e3ecde4705ad8b785f098b9e35808b35748554d49aea97ab667"
+    },
+    {
+      "path": "base/els_server/domain/session_auxiliary.py",
+      "sha256": "66db5f35ad9384291360fc7aba43be043687c9b7f491c01e296636f49874d0ff"
+    },
+    {
+      "path": "source/els_server/domain/local_session.py",
+      "sha256": "8cb716bc80b5c8d8bc69fa161d8f5a44dc1d9771209ec3c4db2d5775c6de0376"
+    },
+    {
+      "path": "base/els_server/domain/local_session.py",
+      "sha256": "017c232ba550b02f2f6887aaf1579cb32880c3e317978179143f105f1a9841ab"
+    },
+    {
+      "path": "source/els_server/application.py",
+      "sha256": "4f22790bfecf5cb6c00dce388c1c933c7a24db9ac1914ed0de03f10fc3c50a0a"
+    },
+    {
+      "path": "base/els_server/application.py",
+      "sha256": "bca78bf8458e701f1f170b14e0fd667d0e46096f9af6714787d8a58671f16437"
+    },
+    {
+      "path": "source/els_server/domain/luciel_dungeon.py",
+      "sha256": "cff15135af7a86dda6ddbbd219eb5665c021fae06fe68cc1f58e8dc82982e5d0"
+    },
+    {
+      "path": "base/els_server/domain/luciel_dungeon.py",
+      "sha256": "416f634c01e93ff20e142cbaa5dce729c4af36afccef022bbf47822c03e5b330"
+    },
+    {
+      "path": "source/els_server/domain/dungeon_native_actions.py",
+      "sha256": "73a5628ce2cc161ba11d69ddc2c0d4daeb83b1af1a10857377b6a9f041fc418d"
+    },
+    {
+      "path": "source/els_server/domain/dungeon_requests.py",
+      "sha256": "1fc0ae6437f2d6af4bdcae011e8999709c69800c239286503ca7482929128efb"
+    },
+    {
+      "path": "source/els_server/economy.py",
+      "sha256": "17ab8c10e0a243eb550e6939615186bfe3abc1e143b2c9a4633c5600faddfd36"
+    },
+    {
+      "path": "base/els_server/economy.py",
+      "sha256": "e604527ee448744d29471eb96b045be3e7928ebd620a6b40188d67fcf2fb22c2"
+    },
+    {
+      "path": "dependencies/els_server/business_queue.py",
+      "sha256": "2d54006f35297210f7e772e0162da4d6369460407e6bec7e8b744d3b3b20e8d0"
+    },
+    {
+      "path": "test-sources/verify_runtime.py",
+      "sha256": "5a576caa6188fa9df06b2698f2ec867f64fcb10d0a0aa8858329d4b228870bd6"
+    },
+    {
+      "path": "test-sources/verify_party.py",
+      "sha256": "87dd27ffe59a8fceec8a0c415be99a61dfe52f1de6f8025e7358572384ad290f"
+    },
+    {
+      "path": "test-sources/verify_consumables.py",
+      "sha256": "56aa1b910dd8918e241272b875cc5fa4d13f749a539a7204710db4fb320e98ba"
+    },
+    {
+      "path": "test-sources/verify_clear.py",
+      "sha256": "8cba29db3d0917f67ae5ed9b53d9a32f853737dfa26bd37ee461cca40a1e18d6"
+    },
+    {
+      "path": "test-sources/verify_actions.py",
+      "sha256": "a228de544e37e7e76e13ade0c61e75f1d00d481b05ee2802f010b18d3c3837b4"
+    },
+    {
+      "path": "test-sources/runtime_fixture.py",
+      "sha256": "f815232c445776028c2d3bc7827a26fa38175961735b7209e99d949d08cebe75"
+    },
+    {
+      "path": "test-sources/stage-one/verify_runtime.py",
+      "sha256": "c037ab7a534f977361ef10e4d28f2870bfff2e068b4a0e4f41fea1a22d87161d"
+    },
+    {
+      "path": "test-sources/stage-one/verify_party.py",
+      "sha256": "b7863c167c1e78e41c1a21ad9ad241e72a793755de8ae9df45d17ceaaaa64475"
+    }
+  ],
+  "active_main_source_replaced": false
+}

@@ -1,0 +1,104 @@
+{
+  "issue": 792,
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "parent_release": "native-dungeon-stalls-remaining-20261104-v1",
+  "parent_manifest_sha256": "61cc8cd3f7bc9c54fe3486430a6a18a19a1bb2426a7df950188d64434dbd65ff",
+  "source_delta": [
+    {
+      "path": "els_server/domain/summons.py",
+      "parent_sha256": "2eaa88e47e0a2cfd0532181a7f433b6cba95d83de6f85959f0b3e3e49b1a7df1",
+      "sha256": "429edc645013f7c013de6bed5e17ecc1f49581d40a0938b4b0f3d7b842f7456b"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "ca93468abd0d9c6e1c16b7e3f02a9c0ac6fdab7ce47fd699546e47a843e0b05c",
+      "sha256": "e1edb6f77c6db54c9f886941bb3a2749cf37d93767f46f5dfb5e9c5da99c774a"
+    },
+    {
+      "path": "els_server/domain/friends_spawns.py",
+      "parent_sha256": "47789ddc99c6b9eff30f43a57fe166cf833bddf3425e2a9a647a4a251056a341",
+      "sha256": "f53a0d677da5f81c1835c29c609bf9a4bf38250cf197a80bdcdb8faa531e78a7"
+    },
+    {
+      "path": "els_server/domain/room_summons.py",
+      "parent_sha256": "dea318962c7c83fe118797154ab3c7aadaf0320faf7b6fd81f4e3bc9fc7e968d",
+      "sha256": "4e7cf62c4d7730bed1cf07a11ad9a0091c7aae21c09d38efe98e3ed145cc2c8c"
+    }
+  ],
+  "online_installed": true,
+  "online_release": "native-player-summon-batches-20261104-v1",
+  "online_manifest_sha256": "b6c3c0992a66238874ccf296346f71b54934017781973f25d36179deace1670f",
+  "online_runtime_observation_seconds": 127.07557660003658,
+  "public_checks": [
+    {
+      "family": 10,
+      "templates": [
+        1908,
+        1908
+      ],
+      "original_consumer": "C50040",
+      "wire_bytes": 300,
+      "all_parameters_preserved": true,
+      "unique_server_ids": true,
+      "every_actor_expired": true
+    },
+    {
+      "family": 10,
+      "one_foreign_owner_rejects_whole_batch": true,
+      "native_error": 1
+    },
+    {
+      "family": 13,
+      "templates": [
+        2958,
+        2959,
+        2960,
+        2961
+      ],
+      "original_consumer": "C50040",
+      "wire_bytes": 572,
+      "all_parameters_preserved": true,
+      "unique_server_ids": true,
+      "every_actor_expired": true
+    },
+    {
+      "family": 13,
+      "one_foreign_owner_rejects_whole_batch": true,
+      "native_error": 1
+    },
+    "no_extra_ED_rewards"
+  ],
+  "native_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "native_consumer": "C50040",
+  "native_full_batch": {
+    "actors": 64,
+    "input_bytes": 8732,
+    "consumed_bytes": 8732,
+    "scalar_fields_per_actor": 37,
+    "parameter_containers_per_actor": 3,
+    "canonical_payload_sha256": "bbf8c5d26c0001a0da307130eaddb21fd676543c7c96da8a05ecffca7be1df15",
+    "input_layouts": 20
+  },
+  "validation": {
+    "batch_codec_cases": 80,
+    "native_smaller_batch_cases": 60,
+    "native_full_64_actor_cases": 1,
+    "scene_batch_cases": 8,
+    "legacy_methods_passed": 9,
+    "patches_apply_to_exact_parent": true,
+    "source_parses": true
+  },
+  "previous_fix_retained": true,
+  "original_screenshot_uniquely_attributed": false,
+  "historical_acknowledgement_only_request_uniquely_attributed": false,
+  "all_natural_skill_effects_verified": false,
+  "game_client_changed": false,
+  "new_schema": false,
+  "LOCAL_installed": false,
+  "launcher_changed": false,
+  "root_source_changed": false,
+  "current_engine_changed": false,
+  "automatic_deployment": false,
+  "main_merged": false,
+  "evidence_location": "Private G-drive task records; raw logs, packets, native image, databases and credentials are excluded from this archive."
+}

@@ -1,0 +1,10 @@
+--- a/els_server/domain/quest_flow.py
++++ b/els_server/domain/quest_flow.py
+@@ -174,7 +174,6 @@
+         from els_server.domain.growth_guide import contains as guide_contains
+         if guide_contains(qid):
+             from contextlib import closing
+-            import sqlite3
+             from els_server.domain.growth_guide_flow import available as guide_available
+             with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db:
+                 db.execute('BEGIN')

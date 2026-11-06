@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "checks": [
+    "two_eligible_actors_enter_town_over_original_TLS_with_active_campaigns",
+    "ordinary_native_position_barrier_keeps_original_ack_for_both",
+    "both_original_clocks_persist_and_emit_bounded_stage_values",
+    "request_timing_keeps_original_envelope_with_JSON_serializable_stage_metadata"
+  ],
+  "stage_names": [
+    "attendance_begin",
+    "attendance_commit",
+    "attendance_connect",
+    "attendance_eligibility",
+    "attendance_persist",
+    "attendance_write",
+    "title_begin",
+    "title_commit",
+    "title_connect",
+    "title_eligibility",
+    "title_persist",
+    "title_write"
+  ],
+  "request_samples": 2,
+  "sample_records": 33,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "online_installed": false
+}

@@ -1,0 +1,125 @@
+--- a/els_server/application.py
++++ b/els_server/application.py
+@@ -366,6 +366,60 @@
+                 fatigue_policy()
+                 npc_hp_policy()
+                 boss_stats_policy()
++                # Finish verified static readers and per-dungeon indices before player stores.
++                from els_server.domain import (
++                    elixir_economy, drop_pickup, equipment_economy, title_economy,
++                    title_kill_rules, title_count_rules, title_clear_rules, title_bonus_counts,
++                    title_essence, formal_npc_hp, random_mission_rules, local_artifact_rules,
++                    native_line_triggers, raid_npc_stats, hot_time, resonance,
++                    resonance_category_scroll, dungeon_population, summons, dungeon_spawns,
++                    native_force_catalog, cooking_clear_materials, story_controller_retirements, known_resurrection_maps,
++                    erp_potions_existing, environment_buff_flow, legacy_pve_exp, first_story_population,
++                    mount_rules, instance_stats, native_hero_inputs, quick_bindings,
++                    wisdom_potions, life_potions_existing, formal_raid_economy, character_stats,
++                )
++                elixir_economy.policy()
++                drop_pickup.native_modes()
++                equipment_economy.catalog()
++                title_economy.effects()
++                title_kill_rules.rules()
++                title_count_rules.rules()
++                title_clear_rules.rules()
++                title_bonus_counts.effects()
++                title_essence.rules()
++                formal_npc_hp.raid_policy()
++                random_mission_rules.policy()
++                local_artifact_rules.policy()
++                native_line_triggers.definitions()
++                raid_npc_stats.policy()
++                hot_time.policy()
++                resonance.experience_multiplier()
++                resonance.curve()
++                resonance_category_scroll.scroll_items()
++                dungeon_population._verified_population(0)
++                dungeon_population._verified_population(1)
++                dungeon_population._verified_population(2)
++                native_force_catalog.by_skill()
++                cooking_clear_materials.catalog()
++                known_resurrection_maps.catalog()
++                erp_potions_existing.definitions()
++                environment_buff_flow.uniforms()
++                legacy_pve_exp.policy()
++                first_story_population.catalog()
++                mount_rules.catalog()
++                instance_stats.catalog()
++                native_hero_inputs.policy()
++                quick_bindings.mappings()
++                wisdom_potions.definitions()
++                life_potions_existing.definitions()
++                formal_raid_economy.policy()
++                character_stats._parameters()
++                formal_raid_economy.circuits()
++                title_economy.dungeon_types()
++                from els_server.domain.formal_npc_hp import ordinary_dungeon, initialization_factor
++                for dungeon in sorted(map(int, npc_hp_policy()['maps'])):
++                    ordinary_dungeon(dungeon)
++                    initialization_factor(dungeon)
+             account=LocalAccount(LocalState(self.config.state_file) if self.config.profile=='integrated_dx11' else None)
+             # Validate feature dependencies and initialize tables before listening.
+             LocalSession(account,**self.config.session_options())
+--- a/els_server/domain/title_economy.py
++++ b/els_server/domain/title_economy.py
+@@ -40,15 +40,26 @@
+     value=int(f32(f32(base)*rate))
+     return max(1,value) if ed else value
+ 
+-@functools.lru_cache(maxsize=740)
+-def dungeon_type(dungeon):
++@functools.lru_cache(maxsize=1)
++def dungeon_types():
+     from els_server.game_data import client_data
++    from types import MappingProxyType
++    import json
+     data=client_data()
+     if data.resource('Enum.lua')['DUNGEON_TYPE']['DT_SECRET']!=3:raise ValueError('Current secret dungeon enum changed')
+-    # Missing type does not establish any conditional mode, including secret.
+-    mode=data.dungeon(dungeon).get('m_eDungeonType',0)
+-    if type(mode) is not int or not 0<=mode<8:raise ValueError('Current dungeon type bound')
+-    return mode
++    result={}
++    with data.connect() as db:
++        for dungeon,raw in db.execute('SELECT id,definition FROM dungeons'):
++            # Missing type establishes no conditional mode, including secret.
++            mode=json.loads(raw).get('m_eDungeonType',0)
++            if type(mode) is not int or not 0<=mode<8:raise ValueError('Current dungeon type bound')
++            result[dungeon]=mode
++    return MappingProxyType(result)
++
++def dungeon_type(dungeon):
++    try:return dungeon_types()[dungeon]
++    except KeyError:raise ValueError(f'Unknown dungeons identity: {dungeon}') from None
++
+ 
+ def resolve(db,uid,source,base_ed,base_exp,dungeon):
+     from els_server.storage import titles
+--- a/els_server/periodic_work.py
++++ b/els_server/periodic_work.py
+@@ -43,12 +43,14 @@
+             queue_timing['batch_started_at'] = time.perf_counter()
+             deadline = time.monotonic() + budget_ms / 1000
+             result = []
++            worked = False
+             try:
+                 while position < len(sessions):
+                     session = sessions[position]
+                     if claims is not None and not claims[position].start():
+                         result.append(([],None));position+=1
+                         continue
++                    worked = True
+                     options = {'_rooms': rooms} if isinstance(session, FriendsSession) else {}
+                     try:
+                         messages = application._worker_call(session.periodic_notifications, (), options,
+@@ -61,7 +63,8 @@
+                         break
+                 return result
+ 
+-            finally:application.realtime.publish(application,invoke,(),periodic=True)
++            finally:
++                if worked:application.realtime.publish(application,invoke,(),periodic=True)
+ 
+         async with application.world_gate.exclusive():
+             result=await application.business_queue.run(invoke, timing=queue_timing)

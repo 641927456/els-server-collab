@@ -1,0 +1,128 @@
+{
+  "mode": "online",
+  "checks": [
+    {
+      "kind": "enhancement",
+      "variants": 44,
+      "normal_result": true,
+      "replay": true
+    },
+    {
+      "kind": "restoration",
+      "variants": 56,
+      "normal_result": true,
+      "replay": true
+    },
+    {
+      "kind": "sage",
+      "variants": 29,
+      "normal_result": true,
+      "replay": true
+    },
+    {
+      "kind": "sage_fixed",
+      "variants": 8,
+      "normal_result": true,
+      "replay": true
+    },
+    {
+      "kind": "resonance",
+      "variants": 7,
+      "normal_result": true,
+      "replay": true
+    },
+    {
+      "kind": "shadow",
+      "variants": 5,
+      "normal_result": true,
+      "replay": true,
+      "already_supported": true
+    },
+    {
+      "kind": "artifact",
+      "bulk_flag": 1,
+      "growth_variants": 4,
+      "potential_variants": 5,
+      "normal_result": true,
+      "replay": true
+    },
+    {
+      "kind": "magic",
+      "first_group0_paid": true,
+      "first_group1_free": true,
+      "reassign_paid": true,
+      "replay": true,
+      "already_supported": true
+    },
+    {
+      "kind": "wardrobe",
+      "variants": 7,
+      "normal_result": true,
+      "replay": true,
+      "already_supported": true
+    },
+    {
+      "kind": "reforge",
+      "variants": 16,
+      "normal_result": true,
+      "replay": true,
+      "durability_preserved": true
+    },
+    {
+      "kind": "challenge",
+      "variants": 8,
+      "both_open": true,
+      "normal_result": true,
+      "replay_preserves_new_progress": true,
+      "two_per_category_week": true,
+      "active_refused": true,
+      "encoder_rollback": true,
+      "synthetic_clear_receipts": true
+    },
+    {
+      "kind": "challenge_ordinal",
+      "repeated_first_encounter_deduplicated": true,
+      "attempt_across_week_boundary": true,
+      "preexisting_receipts_read": true
+    },
+    {
+      "kind": "reset",
+      "identification_variants": 6,
+      "forget_variants": 10,
+      "normal_result": true,
+      "replay": true,
+      "no_ED_for_scroll": true
+    },
+    {
+      "kind": "flow",
+      "actual_Application": true,
+      "actual_session_handle": true,
+      "sage": true,
+      "reforge": true,
+      "challenge": true,
+      "wrong_phase_and_lease_refused": true
+    },
+    {
+      "kind": "failure",
+      "rollback": true,
+      "qualification": true
+    }
+  ],
+  "actual_game": false,
+  "formal_installation": false,
+  "ok": true,
+  "follow_up_checks": [
+    {
+      "kind": "wardrobe-current-replay",
+      "variants": 7,
+      "normal_result": true,
+      "replay_clears_consumed_slot": true
+    },
+    {
+      "kind": "flow-current-authority",
+      "actual_Application": true,
+      "actual_session_handle": true,
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "issue": 785,
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "parent_release": "native-dungeon-fatigue-errors-20261103-v1",
+  "parent_manifest_sha256": "57823975975a9aa99a546722a61f98ba855fe2fb0544581afbab1a29cb8fe678",
+  "scope": "Nonempty native equipment/crafting errors: typed ED, crafting material/bag and restoration-scroll failures; remove unrelated trade-board1168 failure text. Success, actor gates, transactions, RNG and ERP silent256 retained.",
+  "files": {
+    "els_server/storage/npc_trade.py": {
+      "parent_sha256": "16451fec9313423cef5ce30c481cf393a629b07c6ccd3f6034a3eab95060abbe",
+      "sha256": "cf966a58724ad5773de999ade15a158ac4316bc70c6561c2906654710f056df2",
+      "size": 8537
+    },
+    "els_server/storage/manufacture.py": {
+      "parent_sha256": "7e8f666d7a4b4ea5062c53c532c9d2f23b3317f146270f4cad6457d6789c9cb5",
+      "sha256": "a2628d98565239fa577450c39e9c52c0993af784bfa4c785b4dd8b36603ad2b7",
+      "size": 22369
+    },
+    "els_server/storage/equipment_restoration.py": {
+      "parent_sha256": "6e21e34213d6e0b8c57842466c96ea5f22dee4ce79d771e1415ea2f01a5c48c1",
+      "sha256": "710b64849de2ff0d76ce8b9fa06c0669514155c2b30d09fb275c8d05b81c2aad",
+      "size": 2703
+    },
+    "els_server/domain/equipment_ui_flow.py": {
+      "parent_sha256": "727d819c7b275af79b2a2c79e9b9182c8ed590a4728eae26974330282d6b398b",
+      "sha256": "0e6fadb161caed6a3810c5949e2bac6c8d0158eb99946e639b7906e44a9b6309",
+      "size": 9453
+    },
+    "els_server/domain/manufacture_flow.py": {
+      "parent_sha256": "c8cf8ba8d812226303f924ab0a08ee9f0b522aa57c8fc035d6b0747134a68e6d",
+      "sha256": "e82e1e9d7b25682b2467aaa85a5ecd466cf866415a3f925c0859ac8506a598b5",
+      "size": 5309
+    },
+    "els_server/domain/trade_board_flow.py": {
+      "parent_sha256": "dcc0807f1f9117ea0dcf434b107bedab7d626eb5328c12b07a6ea6078a23d0fe",
+      "sha256": "99e8c5882c025defd7bcc3c1348da9cb7028d8de83fe506138dd795f193282fb",
+      "size": 6093
+    }
+  },
+  "root_source_changed": false,
+  "current_engine_changed": false,
+  "server_installed": false,
+  "main_merged": false,
+  "automatic_deployment": false,
+  "validation": {
+    "passed": true,
+    "checks": [
+      "镶嵌ED不足",
+      "强化ED不足",
+      "制作拒绝原因丢失",
+      "复原缺少卷轴",
+      "共鸣未开放时切页",
+      "共鸣期限道具不存在",
+      "镶嵌应用缺少当前预览",
+      "交易上架拒绝提示",
+      "制作材料齐全但ED不足",
+      "actual_TLS_socket_preview_consumes_one_stone_and_exact_ED_once",
+      "actual_TLS_apply_original_selection_completes_without_second_charge",
+      "7 existing economic success/rollback/idempotency regressions passed",
+      "typed ED rejects invalid amount/revision without SQL",
+      "native nonempty text verified"
+    ],
+    "actual_TLS_rejection_cases": 9,
+    "actual_TLS_success_cases": 2,
+    "existing_regressions_passed": 7,
+    "legacy_tests_excluded_with_parent_reproduction": 2,
+    "legacy_reason": "Parent has the same high-level enhancement-policy expectation failure and obsolete direct socket API lacking session identity; current socket TLS success independently passed.",
+    "cleanup": {
+      "owned_runtime_removed": true,
+      "active_connections": 0
+    },
+    "client_changed": false,
+    "new_schema": false,
+    "ERP256_unchanged": true,
+    "natural_GUI": false
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "passed": false,
+  "error": "UcError: Invalid memory read (UC_ERR_READ_UNMAPPED)",
+  "fixture_error": "The condition-mode 1 dispatch also reads the event row through R12, which was absent in the first fixture.",
+  "correction": "Allocate and bind the event row, preserving the native code and all assertions."
+}

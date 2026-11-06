@@ -1,0 +1,132 @@
+{
+  "format": 1,
+  "issue": 858,
+  "candidate": true,
+  "activation": false,
+  "online_installed": false,
+  "git_merged": false,
+  "scope": "Per-monster community EXP plus marked local estimates; native raid phase EXP; source delta for maintainer-selected runtime, not the older root development engine.",
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "source_parent": {
+    "release": "native-unified-ip-page2-20261104-v2",
+    "manifest_sha256": "b61488bf698fa9eec3faa78a6b4af50e5ef299f3a2288297c0fffe3853480c3c"
+  },
+  "reviewed_online_parent": {
+    "release": "native-dungeon-workers-prewarm-20261105-v1",
+    "manifest_sha256": "1782823acfd6a3bf7a80be046558c83b4efc26789d5b4e64a844c6a0ab018c89",
+    "all_nine_parent_hashes_unchanged": true
+  },
+  "source_urls": [
+    "https://drive.google.com/file/d/1H7iqN_faRSyEWx5BbKsLz3Ex7qiKKtsB/view",
+    "https://gall.dcinside.com/mgallery/board/view/?id=els&no=2023980"
+  ],
+  "files": [
+    {
+      "path": "els_server/data/pve_experience.json",
+      "source": "references/pve-experience-20261105-v1/source/els_server/data/pve_experience.json",
+      "sha256": "9f3a1a504ca6c4b3b07a2ca3802c0775ef32b02d7c9349bf98cc5994e38e69e5",
+      "size": 2711601,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/data/pve_experience.manifest.json",
+      "source": "references/pve-experience-20261105-v1/source/els_server/data/pve_experience.manifest.json",
+      "sha256": "8c439ff5bb631328e527105755c102a699b546168e9bd60e1b2a54719b640a29",
+      "size": 621,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/data/raid_phase_experience.json",
+      "source": "references/pve-experience-20261105-v1/source/els_server/data/raid_phase_experience.json",
+      "sha256": "0309ed83b174ce75ab3f2b72f4170dfcec59269da61c14937c08f28539bbeed5",
+      "size": 11280,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/data/raid_phase_experience.manifest.json",
+      "source": "references/pve-experience-20261105-v1/source/els_server/data/raid_phase_experience.manifest.json",
+      "sha256": "c69e8a30a093fc7d73fb4091e7eb5fcade0c4b95517e08cda4d31247e6b6c686",
+      "size": 384,
+      "parent_sha256": null
+    },
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "source": "references/pve-experience-20261105-v1/source/els_server/domain/dungeon_routes.py",
+      "sha256": "7f53b4eaf28ed667388677d1ba953300e4f755878241be10b8896c3710c2d176",
+      "size": 22300,
+      "parent_sha256": "e181a686cd9739f690d4c11597c61548283b6243f2e8c01874e63d40566ced17"
+    },
+    {
+      "path": "els_server/domain/formal_raid_economy.py",
+      "source": "references/pve-experience-20261105-v1/source/els_server/domain/formal_raid_economy.py",
+      "sha256": "467267f11db2c8c39ff6e017555a754d1ba4848404da719d2be7a56e16346f95",
+      "size": 7662,
+      "parent_sha256": "9cc5da1bcca3898b3380d665993898530fa7ca5b217bde44bc5ed8359139c9a8"
+    },
+    {
+      "path": "els_server/domain/legacy_pve_exp.py",
+      "source": "references/pve-experience-20261105-v1/source/els_server/domain/legacy_pve_exp.py",
+      "sha256": "bbd2bbe93a8d900ea6668ae261f89c1cd2a91c25e8efec4d20028784540622ef",
+      "size": 8081,
+      "parent_sha256": "59d96a8c963a211f83fc8524a876883814a31093670eced3aac1744ecce71f86"
+    },
+    {
+      "path": "els_server/domain/raid_economy_flow.py",
+      "source": "references/pve-experience-20261105-v1/source/els_server/domain/raid_economy_flow.py",
+      "sha256": "4c8c80846d75e2ed7986da323397b9e3dcaed08d8406d10275cc5d74468c0507",
+      "size": 14365,
+      "parent_sha256": "ba0420908a4082471338128993863ba4df567b83d0b1d52074fba56e00e5a845"
+    },
+    {
+      "path": "els_server/storage/legacy_pve_exp.py",
+      "source": "references/pve-experience-20261105-v1/source/els_server/storage/legacy_pve_exp.py",
+      "sha256": "0ee79be00f2ae0797a349b6e73ff495b6bec8eafe73bc47cb14c2b98f143b6b0",
+      "size": 8151,
+      "parent_sha256": "c072e814fcd2550b7df40e2d7df76c826ecff0935fe5b2eea01adcf2e04c0c29"
+    }
+  ],
+  "ordinary_maps": 159,
+  "direct_community_map_template_records": 245,
+  "raid_mode_maps": 15,
+  "raid_phases": 45,
+  "extra_ordinary_clear_rule": "Preserve existing local float32 30% of accepted kill base; workbook totals are not a second clear award.",
+  "estimates": "User explicitly authorized missing values from dungeon role, regional anchors and same-role sources; all estimates retain per-row provenance.",
+  "validation": {
+    "ordinary_sql_tests": 11,
+    "raid_sql_context_tests": 9,
+    "actual_Application_TLS_maps": [
+      34720,
+      34000
+    ],
+    "group_sizes": [
+      1,
+      2
+    ],
+    "natural_GUI": false,
+    "raid_Application_TLS": false,
+    "production_mutations": 0
+  },
+  "integration": "Apply only the nine hash-bound leaves to the reviewed current parent. Preserve other deployed increments. Do not overwrite root development modules or activate current-engine from this archive.",
+  "database_migration": false,
+  "client_changes": false,
+  "original_EXE_KOM_changes": 0,
+  "evidence": [
+    {
+      "source": "references/pve-experience-20261105-v1/evidence/ordinary-validation.json",
+      "sha256": "de4d9bfe959a93d6f07caba81d4e98691f17984aa7b38007dd3637691d6967aa"
+    },
+    {
+      "source": "references/pve-experience-20261105-v1/evidence/raid-sql-context-results.json",
+      "sha256": "d57345437a39a5c1052b1aff83a7a15bf9c9715250464ff9f4697c87f7c3026b"
+    },
+    {
+      "source": "references/pve-experience-20261105-v1/evidence/merged-validation.json",
+      "sha256": "1491eed31d74f526dddd1e3ef9d955b7f88623d27befce054755eb707a2c9892"
+    },
+    {
+      "source": "references/pve-experience-20261105-v1/evidence/failure-history.json",
+      "sha256": "b7f4dd605020d067b5deb44de7a969fa83e59e326dc39285104efa78e14d9e7d"
+    }
+  ],
+  "maintainer_reproduction": "G:/els/analysis/pve-exp-reference-20261105-v1; private runtime dependencies and raw logs intentionally excluded."
+}

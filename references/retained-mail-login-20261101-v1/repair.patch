@@ -1,0 +1,48 @@
+--- a/els_server/storage/mail_attachments.py
++++ b/els_server/storage/mail_attachments.py
+@@ -141,7 +141,10 @@
+     if row is None or row[2] is not None and row[2]<now:return None
+     from els_server.domain.inventory_items import validate_item
+     from els_server.domain.cartridge_registration_rules import _unique_json,non_authority
+-    item=validate_item(non_authority(_unique_json(row[1])))
++    item=non_authority(_unique_json(row[1]))
++    from els_server.domain.retained_native_consumables import TEMPLATES,read_existing
++    if item.get('template') in TEMPLATES:item=read_existing(item)
++    item=validate_item(item)
+     if item['uid']!=row[0] or item.get('expires_at')!=row[2]:raise MailError('Corrupt attachment escrow')
+     return item
+ 
+@@ -227,7 +230,10 @@
+         occupied={i['slot'] for i in before if i['group']==group};limit=allowances(db,owner)[group]
+         slot=next((n for n in range(limit) if n not in occupied),None)
+         if slot is None:raise MailError('Attachment needs free inventory space')
+-        insert(db,owner,dict(item,count=remaining,group=group,slot=slot));positions.append((group,slot))
++        moved=dict(item,count=remaining,group=group,slot=slot)
++        from els_server.domain.retained_native_consumables import TEMPLATES,read_existing
++        if item['template'] in TEMPLATES:moved=read_existing(moved)
++        insert(db,owner,moved);positions.append((group,slot))
+     db.execute('UPDATE player_mail_items SET claimed_at=?,claimed_uid=?,positions_json=? WHERE mail_id=?',
+         (now,owner,json.dumps(positions),mail_id))
+     return changes(db,owner,positions)
+--- a/els_server/storage/item_instances.py
++++ b/els_server/storage/item_instances.py
+@@ -18,7 +18,7 @@
+     if not db.in_transaction:
+         raise ValueError('Instance insertion requires transaction')
+     from els_server.domain.cartridge_registration_rules import non_authority,require_unbound
+-    non_authority(item);require_unbound(db,item['uid'])
++    non_authority(dict(item));require_unbound(db,item['uid'])
+     item = validate_item(item)
+     from els_server.storage.equipment_chip_reset_history import hydrate
+     item = hydrate(db,item)
+--- a/els_server/protocol/mail_notifications_2026.py
++++ b/els_server/protocol/mail_notifications_2026.py
+@@ -31,7 +31,7 @@
+         for value in (self.title, self.sender):
+             if type(value) is not str or '\0' in value or len(value.encode('utf-16le')) > 4000:
+                 raise ValueError('Invalid bounded mail preview text')
+-        if self.item is not None and type(self.item) is not dict:
++        if self.item is not None and not isinstance(self.item,dict):
+             raise TypeError('Trusted server item required')
+         from els_server.domain.inventory_items import item_body
+         from els_server.protocol.mail_messages import empty_item

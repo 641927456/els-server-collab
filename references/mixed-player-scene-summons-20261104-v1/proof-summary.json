@@ -1,0 +1,593 @@
+{
+  "previous_defect_comparisons": [
+    {
+      "label": "nonempty_parameters",
+      "native_request_bytes": 145,
+      "native_request_sha256": "1b4f87774193d3fda9120e0cf79f8516eb87959e654deec90c887a6776d1467e",
+      "old_source_rejected": "Unrecognized or ambiguous sentry encoding",
+      "fixed_original_consumer_bytes": 164
+    },
+    {
+      "label": "multiple_actors",
+      "native_request_bytes": 286,
+      "native_request_sha256": "dbdd39c7a0808d6503103c16578e1829aa889c2562d00398f52e9ab8479a55fa",
+      "old_source_rejected": "Unrecognized or ambiguous sentry encoding",
+      "fixed_original_consumer_bytes": 300
+    }
+  ],
+  "old_source_sha256": {
+    "native-activity-armor-reset-scroll-20261103-v1": "29a3705bd17fcdcd1eec030bc4eaf0765625d1c46a03994df16c7b5f287ac53e",
+    "native-operation-error-messages-20261103-v1": "2eaa88e47e0a2cfd0532181a7f433b6cba95d83de6f85959f0b3e3e49b1a7df1"
+  },
+  "known_native_templates": 54,
+  "known_native_qualification_gaps": [],
+  "template_cases": [
+    {
+      "template": 384,
+      "unit_class": 70,
+      "unit_type": 5,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 863,
+      "unit_class": 111,
+      "unit_type": 6,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 1100,
+      "unit_class": 117,
+      "unit_type": 6,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 1419,
+      "unit_class": 111,
+      "unit_type": 6,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 1454,
+      "unit_class": 109,
+      "unit_type": 5,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 1575,
+      "unit_class": 105,
+      "unit_type": 2,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 1576,
+      "unit_class": 74,
+      "unit_type": 9,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 1577,
+      "unit_class": 74,
+      "unit_type": 9,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 1604,
+      "unit_class": 123,
+      "unit_type": 9,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 1621,
+      "unit_class": 109,
+      "unit_type": 5,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 1622,
+      "unit_class": 109,
+      "unit_type": 5,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 1635,
+      "unit_class": 121,
+      "unit_type": 8,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 1641,
+      "unit_class": 125,
+      "unit_type": 8,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 1906,
+      "unit_class": 127,
+      "unit_type": 10,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 1908,
+      "unit_class": 128,
+      "unit_type": 10,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 1937,
+      "unit_class": 127,
+      "unit_type": 10,
+      "scene": "pvp",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2175,
+      "unit_class": 130,
+      "unit_type": 11,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2194,
+      "unit_class": 130,
+      "unit_type": 11,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2206,
+      "unit_class": 132,
+      "unit_type": 11,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2208,
+      "unit_class": 132,
+      "unit_type": 11,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2209,
+      "unit_class": 132,
+      "unit_type": 11,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2211,
+      "unit_class": 132,
+      "unit_type": 11,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2214,
+      "unit_class": 132,
+      "unit_type": 11,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2269,
+      "unit_class": 129,
+      "unit_type": 10,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2397,
+      "unit_class": 131,
+      "unit_type": 11,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2398,
+      "unit_class": 133,
+      "unit_type": 11,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2526,
+      "unit_class": 132,
+      "unit_type": 11,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2527,
+      "unit_class": 134,
+      "unit_type": 12,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2948,
+      "unit_class": 177,
+      "unit_type": 10,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2949,
+      "unit_class": 177,
+      "unit_type": 10,
+      "scene": "pvp",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2951,
+      "unit_class": 171,
+      "unit_type": 8,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2952,
+      "unit_class": 131,
+      "unit_type": 11,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2955,
+      "unit_class": 180,
+      "unit_type": 11,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2956,
+      "unit_class": 183,
+      "unit_type": 11,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2957,
+      "unit_class": 138,
+      "unit_type": 13,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2958,
+      "unit_class": 139,
+      "unit_type": 13,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2959,
+      "unit_class": 139,
+      "unit_type": 13,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2960,
+      "unit_class": 139,
+      "unit_type": 13,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2961,
+      "unit_class": 139,
+      "unit_type": 13,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2963,
+      "unit_class": 123,
+      "unit_type": 9,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2964,
+      "unit_class": 123,
+      "unit_type": 9,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2965,
+      "unit_class": 176,
+      "unit_type": 9,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2966,
+      "unit_class": 176,
+      "unit_type": 9,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2967,
+      "unit_class": 66,
+      "unit_type": 1,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2969,
+      "unit_class": 67,
+      "unit_type": 2,
+      "scene": "pvp",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2970,
+      "unit_class": 82,
+      "unit_type": 4,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2971,
+      "unit_class": 82,
+      "unit_type": 4,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2973,
+      "unit_class": 88,
+      "unit_type": 10,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2974,
+      "unit_class": 73,
+      "unit_type": 8,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2975,
+      "unit_class": 76,
+      "unit_type": 12,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 2976,
+      "unit_class": 71,
+      "unit_type": 6,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 5188,
+      "unit_class": 126,
+      "unit_type": 9,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 5189,
+      "unit_class": 123,
+      "unit_type": 9,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    },
+    {
+      "template": 5190,
+      "unit_class": 123,
+      "unit_type": 9,
+      "scene": "pve",
+      "native_writer_bytes": 286,
+      "native_consumer_bytes": 300
+    }
+  ],
+  "native_full_vector": {
+    "ok": true,
+    "original_sender": "2BDCE40",
+    "original_consumer": "C50040",
+    "actors": 64,
+    "native_request_bytes": 9028,
+    "native_request_sha256": "8a60047c4e2aa1bf5232557dc77fb7fb488d392b0e7230d978148b94a2c2451b",
+    "native_response_bytes": 8732,
+    "consumed_bytes": 8732,
+    "scalar_fields_each": 37,
+    "parameters_each": 3,
+    "all_match": true,
+    "elapsed_seconds": 2.0935674000065774,
+    "clock_fixture": 123456,
+    "live_process_access": false,
+    "natural_cast": false
+  },
+  "mixed_before": [
+    {
+      "dungeon": 34030,
+      "stage": 0,
+      "scene_template": 6100,
+      "skill_template": 1908,
+      "native_writer_bytes": 262,
+      "response_kinds": [
+        719
+      ],
+      "ack": 1,
+      "player_entities": 0,
+      "scene_entities": 3,
+      "scene_template_declared": true
+    },
+    {
+      "dungeon": 34320,
+      "stage": 0,
+      "scene_template": 7514,
+      "skill_template": 1908,
+      "native_writer_bytes": 262,
+      "response_kinds": [
+        719
+      ],
+      "ack": 1,
+      "player_entities": 0,
+      "scene_entities": 19,
+      "scene_template_declared": true
+    }
+  ],
+  "mixed_after": [
+    {
+      "dungeon": 34030,
+      "stage": 0,
+      "scene_template": 6100,
+      "skill_template": 1908,
+      "native_writer_bytes": 262,
+      "response_kinds": [
+        719,
+        720
+      ],
+      "ack": 0,
+      "player_entities": 1,
+      "scene_entities_added": 1,
+      "scene_template_declared": true,
+      "original_consumer_bytes": 462,
+      "params_preserved": true,
+      "replay_no_duplicate": true
+    },
+    {
+      "dungeon": 34320,
+      "stage": 0,
+      "scene_template": 7514,
+      "skill_template": 1908,
+      "native_writer_bytes": 262,
+      "response_kinds": [
+        719,
+        720
+      ],
+      "ack": 0,
+      "player_entities": 1,
+      "scene_entities_added": 1,
+      "scene_template_declared": true,
+      "original_consumer_bytes": 488,
+      "params_preserved": true,
+      "replay_no_duplicate": true
+    }
+  ],
+  "group_mixed_native": [
+    {
+      "cls": 178,
+      "scene_first": false,
+      "actors": 3,
+      "bytes": 602
+    },
+    {
+      "cls": 178,
+      "scene_first": true,
+      "actors": 3,
+      "bytes": 602
+    },
+    {
+      "cls": 189,
+      "scene_first": false,
+      "actors": 5,
+      "bytes": 874
+    },
+    {
+      "cls": 189,
+      "scene_first": true,
+      "actors": 5,
+      "bytes": 874
+    }
+  ],
+  "excluded_training_catalog_fixture": [
+    {
+      "dungeon": 30000,
+      "stage": 0,
+      "scene_template": 21,
+      "skill_template": 1908,
+      "native_writer_bytes": 262,
+      "response_kinds": [
+        719
+      ],
+      "ack": 1,
+      "player_entities": 0,
+      "scene_entities": 8,
+      "scene_template_declared": true
+    }
+  ],
+  "training_scope": "Normal solo30000 uses the legacy entry without DungeonRun. Reachability and entitlement of the selected scene-NPC source there are unproven; this combination remains unqualified, not declared a normal gameplay restriction or a resolved defect. The retained initial public refusal led to acceptance on normal34030, without changing production admission.",
+  "related_methods_passed": 19,
+  "whole_batch_group_refusal_cases": 14,
+  "mixed_layouts": 20,
+  "original_sender": "2BDCE40",
+  "original_consumer": "C50040",
+  "fixture_scope": "Controlled private native DTOs and OS-clock fixture; original packet/field/container routines execute. This is not natural skill activation or rendering.",
+  "all_natural_effects_verified": false
+}

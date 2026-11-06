@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "baseline": false,
+  "source_sha256": "6dd81fd74425ec70acfcdda8ff6ab14bef6ef3f1dff83a3bfd4141b12f38d65f",
+  "cases": [
+    {
+      "contract_expired_while_waiting": true,
+      "accepted": false,
+      "SQL_unchanged": true,
+      "saved": []
+    },
+    {
+      "contract_expired_while_waiting": false,
+      "accepted": true,
+      "SQL_unchanged": false,
+      "saved": [
+        [
+          1,
+          1900604799
+        ]
+      ]
+    }
+  ],
+  "production_database_access": false,
+  "owned_temporary_directories_removed": true
+}

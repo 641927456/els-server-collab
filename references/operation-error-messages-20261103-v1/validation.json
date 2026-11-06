@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "checks": [
+    "镶嵌ED不足",
+    "强化ED不足",
+    "制作拒绝原因丢失",
+    "复原缺少卷轴",
+    "共鸣未开放时切页",
+    "共鸣期限道具不存在",
+    "镶嵌应用缺少当前预览",
+    "交易上架拒绝提示",
+    "制作材料齐全但ED不足",
+    "actual_TLS_socket_preview_consumes_one_stone_and_exact_ED_once",
+    "actual_TLS_apply_original_selection_completes_without_second_charge",
+    "7 existing economic success/rollback/idempotency regressions passed",
+    "typed ED rejects invalid amount/revision without SQL",
+    "native nonempty text verified"
+  ],
+  "actual_TLS_rejection_cases": 9,
+  "actual_TLS_success_cases": 2,
+  "existing_regressions_passed": 7,
+  "legacy_tests_excluded_with_parent_reproduction": 2,
+  "legacy_reason": "Parent has the same high-level enhancement-policy expectation failure and obsolete direct socket API lacking session identity; current socket TLS success independently passed.",
+  "cleanup": {
+    "owned_runtime_removed": true,
+    "active_connections": 0
+  },
+  "client_changed": false,
+  "new_schema": false,
+  "ERP256_unchanged": true,
+  "natural_GUI": false
+}

@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "isolated_quest_scenarios": 6,
+  "isolated_void_scenarios": 4,
+  "isolated_buff_Application_scenarios": 3,
+  "cold_read": true,
+  "replay_no_duplicate_reward": true,
+  "late_encoding_failure_rolls_back": true,
+  "native_gift_item_reader_and_constructor_templates": 15,
+  "native_solo_effect_reader_vectors": 2,
+  "sources": {
+    "els_server/domain/environment_buff_flow.py": "677252899b735b2cf924e2bbe00354eddae49e3c77e18313182ff9b3080e17d1",
+    "els_server/storage/epic_followups.py": "b9c64a75600bb005b68e2a3169dd257bcb476385c3bd3bd71b7eb13c04b479d9",
+    "els_server/domain/tutorial_quests.py": "c7d4f4e82f9a36ba9b6d57023733b9b57bc95c783868632882e6661624c0e68d",
+    "els_server/domain/seal_quests.py": "d5a9703ae393e46415d9ff4084e606a71341ff4b49f6f1d4aa15779a388fdf39",
+    "els_server/storage/seal_quests.py": "cda44418abb510b97e9f3b8e470fd0990a4f8ec11b0fa3b24484c297e955bd61",
+    "els_server/domain/void_weapon_discs.py": "cb4866116d78e914979251726246ba4d7d573824fe61fc96f4d067298056a1fd",
+    "els_server/domain/equipment_spell_rules.py": "075bf909ec2b509dc51f13ab7c4d0527290187d96bcab32210a9cd27b4c9f225",
+    "els_server/storage/inventory_state.py": "9b3ed56ab7e5913865a0c5a61fbf0b823a7d4dee11aa26d5a33526f5678b196b",
+    "els_server/data/growth_guide_boxes.json": "2b550c0401c886404a8ae00c7d9c1571568ef7de7cdf06f7df893a192c3d51a3",
+    "els_server/data/growth_guide_boxes.manifest.json": "b8ddb9ca0f35c5c4774b4a9f39a9ced802b1247e35d5708a5ad0f4adf6461533",
+    "els_server/storage/growth_guide_boxes.py": "65230a3a3ceaeb451be7f031a91b3ad8e5ee9d22e339f2b48b6bd68b839c5300"
+  },
+  "natural_GUI": false,
+  "natural_battle": false,
+  "initial_fixture_corrections": [
+    "Identification assertion initially used8 bytes instead of native17; corrected and reran only the failed scenario.",
+    "Normal sockets initially inspected in the mystic tree; verified7EB0D0 and read the native dedicated vector at item+0x60."
+  ],
+  "evidence_boundary": "Private original resources, pinned offline image, owned databases and raw execution logs remain outside Git. This summarizes completed tests; it does not run them again."
+}

@@ -1,0 +1,72 @@
+--- a/els_server/domain/summons.py
++++ b/els_server/domain/summons.py
+@@ -15,11 +15,12 @@
+ LAYOUTS=json.loads((Path(__file__).resolve().parents[1]/'data/npc_wire_layouts.json').read_text())['layouts']
+
+
+-def _decode(payload, uid, fields, templates=(384,)):
++def _decode(payload, uid, fields, templates=(384,), *, extensions=None):
+     if len(payload) < 4 or struct.unpack_from('>I', payload)[0] != 1:
+         raise ValueError('Expected one sentry')
+     dto = bytearray(0xa4)
+     position = 4
++    extra = {}
+     for offset, size, xor, kind in fields:
+         if position + size > len(payload):
+             raise ValueError('Truncated summon')
+@@ -32,7 +33,19 @@
+                     raise ValueError('Summon byte-vector bound')
+                 position += count
+             elif count:
+-                raise ValueError('Unsupported summon extension')
++                # Original DC6190/DAEC70 are i32 vectors; DB1910 is an
++                # ordered i32/i32 map. Skill entities carry native parameters
++                # here; the old Sentry-only empty check rejected those casts.
++                width = 8 if offset == 0x94 else 4
++                end = position + count * width
++                if extensions is None or offset not in (0x19, 0x31, 0x94) or count > 64 or end > len(payload):
++                    raise ValueError('Summon parameter bound')
++                if offset == 0x94:
++                    keys = [struct.unpack_from('>i', payload, position + i * 8)[0] for i in range(count)]
++                    if any(a >= b for a, b in zip(keys, keys[1:])):
++                        raise ValueError('Summon parameter map order')
++                extra[offset] = raw + payload[position:end]
++                position = end
+             continue
+         if size == 12:
+             value = b''.join(raw[i:i+4][::-1] for i in (0,4,8))
+@@ -48,6 +61,8 @@
+         raise ValueError('Summon owner mismatch')
+     if not all(math.isfinite(v) and abs(v) <= 100000 for v in struct.unpack_from('<fff', dto, 9)):
+         raise ValueError('Invalid summon location')
++    if extensions is not None:
++        extensions.update(extra)
+     return dto
+
+
+@@ -58,20 +73,21 @@
+         raise ValueError('Summon instance range')
+     candidates=[]
+     for fields in LAYOUTS.values():
+-        try:candidates.append(_decode(payload,uid,fields,templates))
++        extra = {}
++        try:candidates.append((_decode(payload,uid,fields,templates,extensions=extra), extra))
+         except ValueError:continue
+     if len(candidates)!=1:
+         raise ValueError('Unrecognized or ambiguous sentry encoding')
+-    dto=candidates[0]
++    dto,extra=candidates[0]
+     # Preserve the native team, facing, level, owner and skill parameters.
+     # Allocate only the instance identity; never recycle enemy slots 0..15.
+     struct.pack_into('<i', dto, 0, instance_key)
+     # C50040: vector<NPC>, init-map, scalar, bytes, stats-map, two maps.
+-    return Event(0x201, kind=0x2d0, payload=struct.pack('>I',1)+encode_npc(dto,0)+bytes(24))
++    return Event(0x201, kind=0x2d0, payload=struct.pack('>I',1)+encode_npc(dto,0,extensions=extra)+bytes(24))
+
+
+ def summon_ack(result=0):
+-    return Event(0x201, kind=0x2cf, payload=struct.pack('>i', result))
++    return Event(0x201, kind=0x2cf, payload=struct.pack('>i', 1 if result == -1 else result))
+
+
+ def valid_sentry_death(data, uid):

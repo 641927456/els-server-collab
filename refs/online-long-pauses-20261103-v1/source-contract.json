@@ -1,0 +1,295 @@
+{
+  "format": 1,
+  "reference_only": true,
+  "issue": 779,
+  "observed_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "scope": "Delivered ONLINE cumulative history indexes, original clock diagnostics and same-reply attendance task projection reuse; preserve existing root/source/channel views.",
+  "files": [
+    {
+      "runtime_path": "els_server/domain/attendance_2026_online.py",
+      "parent": {
+        "path": "parent/els_server/domain/attendance_2026_online.py",
+        "sha256": "2ed4a8a824013d4a6d7234515570c9cc44c491f43c07defb00ae3873afaa5b74",
+        "size": 5372
+      },
+      "source": {
+        "path": "source/els_server/domain/attendance_2026_online.py",
+        "sha256": "2612b90dae32494929a9157344b38c504f7783ebd5ec27b74b263ee97fe7623c",
+        "size": 5580
+      }
+    },
+    {
+      "runtime_path": "els_server/domain/attendance_online_2026.py",
+      "parent": {
+        "path": "parent/els_server/domain/attendance_online_2026.py",
+        "sha256": "4c7d5ad5fa3145162fbcd6af9b8d7896bc57cbb3aba6c7b404a419c29e4b1921",
+        "size": 8434
+      },
+      "source": {
+        "path": "source/els_server/domain/attendance_online_2026.py",
+        "sha256": "d2f0d9bfd6993a3e6f24684baca9b4051e3770e4f3b9c597749fb8255bd02997",
+        "size": 8613
+      }
+    },
+    {
+      "runtime_path": "els_server/domain/online_2026_clock.py",
+      "parent": {
+        "path": "parent/els_server/domain/online_2026_clock.py",
+        "sha256": "351f7c7d8191a0734132f8bf2abaffb813f9c2cf556b9ab39b7a9013ebaa2dc3",
+        "size": 4972
+      },
+      "source": {
+        "path": "source/els_server/domain/online_2026_clock.py",
+        "sha256": "ca47b20c393a11721850c74d40177870cc7ddf7af41d0ae4ea3dbad39bee7303",
+        "size": 5333
+      }
+    },
+    {
+      "runtime_path": "els_server/performance.py",
+      "parent": {
+        "path": "parent/els_server/performance.py",
+        "sha256": "d7c98ad6b8bf8e92e41a835f94d9a3c1995be1b9fa134ff47e5f39d1769406a4",
+        "size": 6335
+      },
+      "source": {
+        "path": "source/els_server/performance.py",
+        "sha256": "51457d1ba53a7b73df96ac59c4b215183ad8ac180b238c8ba84b749f2c7872f1",
+        "size": 6899
+      }
+    },
+    {
+      "runtime_path": "els_server/storage/attendance_2026_progress.py",
+      "parent": {
+        "path": "parent/els_server/storage/attendance_2026_progress.py",
+        "sha256": "6b75d1193dc7b8febaa26ad714f6a42fd616eb57f8657b5bdca5fda6a311e1c3",
+        "size": 9732
+      },
+      "source": {
+        "path": "source/els_server/storage/attendance_2026_progress.py",
+        "sha256": "c90ea633d772c1c6eaf6581d4aa1c5141eb6d3efee1b774cd2b201525ce93ee7",
+        "size": 10375
+      }
+    },
+    {
+      "runtime_path": "els_server/storage/inventory_actions.py",
+      "parent": {
+        "path": "parent/els_server/storage/inventory_actions.py",
+        "sha256": "524c05985f384554208524de783bced1cc32a4274d0f03ebd914aaa04699fe68",
+        "size": 8924
+      },
+      "source": {
+        "path": "source/els_server/storage/inventory_actions.py",
+        "sha256": "3197bea0bae9a4834e22e12e3851cf7533fc2d7f20bb85409febe7fe4e6eea59",
+        "size": 9047
+      }
+    },
+    {
+      "runtime_path": "els_server/storage/lifecycle.py",
+      "parent": {
+        "path": "parent/els_server/storage/lifecycle.py",
+        "sha256": "9b2a052f93371a988be4c3c00cf56c02ea771434db90477581956ce9b2bcb019",
+        "size": 1936
+      },
+      "source": {
+        "path": "source/els_server/storage/lifecycle.py",
+        "sha256": "fcef1e60aa9ed59f8a778d0eae903d1cf0016d20940f7ad4937f94a0a7c20057",
+        "size": 2558
+      }
+    }
+  ],
+  "new_tables": [],
+  "new_indexes": [
+    "inventory_action_receipts_kind_owner",
+    "activity518_facts_account_period",
+    "activity518_facts_account_cursor"
+  ],
+  "parent_release": "native-blessed-timespace-shop-20261103-v1",
+  "parent_manifest_sha256": "360da6be59278412ddf10e1b7e647d9475a311797361008d89ba272341278f60",
+  "deployed_v3_parent": "native-blessed-timespace-shop-20261103-v1",
+  "deployed_v4_parent": "native-player-feedback-quests-void-buff-20261103-v1",
+  "rebase_proof_private_sha256": "512081b0c3ad20cfb5365adae0f96c4c2d47833eb2509293763cb5a2839d5d4e",
+  "client_changes": false,
+  "default_profile_changes": false,
+  "Git_main_merge": false,
+  "private_evidence_included": false,
+  "qualification_originals": {
+    "results/receipt-index.json": {
+      "private_author_artifact": "index-results.json",
+      "original_sha256": "ec10ed8b4b10c69f6949c3324ca1159dcabca8e4d6a134396fa42796ec06cd3e",
+      "derived": true
+    },
+    "results/receipt-runtime.json": {
+      "private_author_artifact": "runtime-tests.json",
+      "original_sha256": "ac85d851e2e383dccafbeb3acbc40f9463232d82b4c526214bec6b24d6115c41",
+      "derived": true
+    },
+    "results/facts-benchmark.json": {
+      "private_author_artifact": "benchmark-results.json",
+      "original_sha256": "a760b9d9efadb135d6ce84f46432a653c595a58211fe939623bf2b2ca7e3aff3",
+      "derived": true
+    },
+    "results/task-cursors.json": {
+      "private_author_artifact": "task-results.json",
+      "original_sha256": "0e2be23b3b3a72871360db0c3f61ebc9f5008aaefa9d87c019bae761484e8912",
+      "derived": true
+    },
+    "results/validation-notes.json": {
+      "private_author_artifact": "validation-notes.json",
+      "original_sha256": "b15e5f1d4740ad63d90d8fe2b027aa9a4deed73e179681ab371a8b22d9be5c1b",
+      "derived": true
+    },
+    "results/clock-tracing.json": {
+      "private_author_artifact": "clock-tracing-results.json",
+      "original_sha256": "dc72ad4bd9bdbb8832655f65ad3460979f782259bcde8b45f83ed0154e744402",
+      "derived": true
+    },
+    "results/projection-reuse.json": {
+      "private_author_artifact": "projection-reuse-results.json",
+      "original_sha256": "075646f419f1cbbc8ccf571868a241beaaff508dd33d7becf4b34cc283088f02",
+      "derived": true
+    },
+    "results/actual-parent-runtime.json": {
+      "private_author_artifact": "runtime-tests.json",
+      "original_sha256": "ffe116df7199a3eddfd5b4edd0d1a7715bf2e484cd90e303c2c831a8fbc23733",
+      "derived": true
+    },
+    "results/parent-existing-failures.json": {
+      "private_author_artifact": "parent-existing-test-failures.json",
+      "original_sha256": "e4e5b6c6cdb45e2dbf596399e658432b506f439306b007899ae7f8aaa6d634ba",
+      "derived": true
+    },
+    "test-sources/verify_receipt_index.py": {
+      "original_sha256": "5b3da8e9180c126d8f90fa6dc2b8f348b2040751c83daaeee23014ae78b19f98",
+      "verbatim": true,
+      "private_runtime_required": true
+    },
+    "test-sources/verify_task_cursors.py": {
+      "original_sha256": "67567a7ec2a14f91df04538a1b4c05134e099d587e991d03243c7555222ba741",
+      "verbatim": true,
+      "private_runtime_required": true
+    },
+    "test-sources/verify_projection_reuse.py": {
+      "original_sha256": "e418d117f99b92b09520e3cd77f4d91426dde6d243d3296cbc3127c94f3877f6",
+      "verbatim": true,
+      "private_runtime_required": true
+    }
+  },
+  "artifacts": {
+    "actual-delivery-summary.json": {
+      "sha256": "84390e993538fff3d28aed1e6af6060eeb2acd3948109aa7a13b89bd2fc4c2f7",
+      "size": 2621
+    },
+    "parent/els_server/domain/attendance_2026_online.py": {
+      "sha256": "2ed4a8a824013d4a6d7234515570c9cc44c491f43c07defb00ae3873afaa5b74",
+      "size": 5372
+    },
+    "parent/els_server/domain/attendance_online_2026.py": {
+      "sha256": "4c7d5ad5fa3145162fbcd6af9b8d7896bc57cbb3aba6c7b404a419c29e4b1921",
+      "size": 8434
+    },
+    "parent/els_server/domain/online_2026_clock.py": {
+      "sha256": "351f7c7d8191a0734132f8bf2abaffb813f9c2cf556b9ab39b7a9013ebaa2dc3",
+      "size": 4972
+    },
+    "parent/els_server/performance.py": {
+      "sha256": "d7c98ad6b8bf8e92e41a835f94d9a3c1995be1b9fa134ff47e5f39d1769406a4",
+      "size": 6335
+    },
+    "parent/els_server/storage/attendance_2026_progress.py": {
+      "sha256": "6b75d1193dc7b8febaa26ad714f6a42fd616eb57f8657b5bdca5fda6a311e1c3",
+      "size": 9732
+    },
+    "parent/els_server/storage/inventory_actions.py": {
+      "sha256": "524c05985f384554208524de783bced1cc32a4274d0f03ebd914aaa04699fe68",
+      "size": 8924
+    },
+    "parent/els_server/storage/lifecycle.py": {
+      "sha256": "9b2a052f93371a988be4c3c00cf56c02ea771434db90477581956ce9b2bcb019",
+      "size": 1936
+    },
+    "results/actual-parent-runtime.json": {
+      "sha256": "eb6d75d5b962ac413d53dac0b8203ec15d6e6655ec18b6c16ade36338aefda77",
+      "size": 794
+    },
+    "results/clock-tracing.json": {
+      "sha256": "31dca60f0c00aa40c21ee06ac4361b8dee280fd97b67fecd6b96bde47a472c22",
+      "size": 3237
+    },
+    "results/facts-benchmark.json": {
+      "sha256": "e1f9d273f5d11f331174b24227b90c996ef52f4a30ea4e62ec27eebb6758ff69",
+      "size": 3513
+    },
+    "results/parent-existing-failures.json": {
+      "sha256": "11394cf555d37d2a3da1352572651581388f2b9c6e7686e8ff155636e7085aab",
+      "size": 1730
+    },
+    "results/projection-reuse.json": {
+      "sha256": "fd3087c5378cf9a3984b0f1a044526433164e8a34f0e30184db8597f68410553",
+      "size": 2799
+    },
+    "results/receipt-index.json": {
+      "sha256": "616c50f2649aedc6492b8314676d25df866d956bdf8aae445662b93b012d60fc",
+      "size": 1804
+    },
+    "results/receipt-runtime.json": {
+      "sha256": "3350caf2c292ef00f1d5434f3d9501c6107e7f5c5894b672ea519a0fe0ad7ddf",
+      "size": 334
+    },
+    "results/task-cursors.json": {
+      "sha256": "cb8f47ba3c34f134716a01deb6434a56e78e35d03093de3d97dd002a8099329d",
+      "size": 1217
+    },
+    "results/validation-notes.json": {
+      "sha256": "0ae7a9ff520cf35e8685fad2e8103266821b26ed214fca72bfcab2664f69c1ee",
+      "size": 1848
+    },
+    "source/els_server/domain/attendance_2026_online.py": {
+      "sha256": "2612b90dae32494929a9157344b38c504f7783ebd5ec27b74b263ee97fe7623c",
+      "size": 5580
+    },
+    "source/els_server/domain/attendance_online_2026.py": {
+      "sha256": "d2f0d9bfd6993a3e6f24684baca9b4051e3770e4f3b9c597749fb8255bd02997",
+      "size": 8613
+    },
+    "source/els_server/domain/online_2026_clock.py": {
+      "sha256": "ca47b20c393a11721850c74d40177870cc7ddf7af41d0ae4ea3dbad39bee7303",
+      "size": 5333
+    },
+    "source/els_server/performance.py": {
+      "sha256": "51457d1ba53a7b73df96ac59c4b215183ad8ac180b238c8ba84b749f2c7872f1",
+      "size": 6899
+    },
+    "source/els_server/storage/attendance_2026_progress.py": {
+      "sha256": "c90ea633d772c1c6eaf6581d4aa1c5141eb6d3efee1b774cd2b201525ce93ee7",
+      "size": 10375
+    },
+    "source/els_server/storage/inventory_actions.py": {
+      "sha256": "3197bea0bae9a4834e22e12e3851cf7533fc2d7f20bb85409febe7fe4e6eea59",
+      "size": 9047
+    },
+    "source/els_server/storage/lifecycle.py": {
+      "sha256": "fcef1e60aa9ed59f8a778d0eae903d1cf0016d20940f7ad4937f94a0a7c20057",
+      "size": 2558
+    },
+    "source.patch": {
+      "sha256": "5d2da08c82ec93abf104a4738cefc157098c537d298ae9d6bf510e7ba588d734",
+      "size": 11369
+    },
+    "test-sources/verify_projection_reuse.py": {
+      "sha256": "e418d117f99b92b09520e3cd77f4d91426dde6d243d3296cbc3127c94f3877f6",
+      "size": 7589
+    },
+    "test-sources/verify_receipt_index.py": {
+      "sha256": "5b3da8e9180c126d8f90fa6dc2b8f348b2040751c83daaeee23014ae78b19f98",
+      "size": 5120
+    },
+    "test-sources/verify_task_cursors.py": {
+      "sha256": "67567a7ec2a14f91df04538a1b4c05134e099d587e991d03243c7555222ba741",
+      "size": 6174
+    }
+  },
+  "unbundled_clock_fixture": {
+    "original_sha256": "d4215f5ab9ba48d82d04cacd8a67619f7e5ffaffb6ffa2cacfb754cbd3ff7c06",
+    "reason": "Fixed synthetic clock correlation identifier matched the upload credential pattern; original kept private, upload guard unchanged."
+  }
+}

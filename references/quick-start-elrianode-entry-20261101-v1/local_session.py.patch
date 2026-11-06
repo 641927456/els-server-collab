@@ -1,0 +1,20 @@
+--- a/els_server/domain/local_session.py
++++ b/els_server/domain/local_session.py
+@@ -2315,6 +2315,8 @@
+ 
+                 from els_server.domain.town_travel_flow import authorize_native_warp_entry
+                 native_committed_warp=authorize_native_warp_entry(self,event,request_sequence)
++                from els_server.domain.quick_start_flow import authorize_town_entry
++                native_quick_start_entry=authorize_town_entry(self,event,request_sequence)
+                 if event.payload[4]!=0:
+ 
+                     # B934A0's explicit native default-position branch sends
+@@ -2349,7 +2351,7 @@
+ 
+                         and self.account.get_reward_balances()['experience']==0)
+ 
+-                    if not (native_noah_return or native_lithia_exit or native_committed_warp):
++                    if not (native_noah_return or native_lithia_exit or native_committed_warp or native_quick_start_entry):
+                         refused=struct.unpack_from('>i',event.payload)[0]
+                         if (self.client_build!='dx11_260923' or event.payload[4]!=1 or refused not in TOWN_SCENES
+                             or event.performers!=(0,) or event.uid!=event.target_uid or event.uid!=2**64-1

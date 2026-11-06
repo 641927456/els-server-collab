@@ -1,0 +1,25 @@
+{
+  "core_checks_passed_before_clock_fixture_failure": [
+    "30209 original fact rows unchanged during repeated old-save upgrade",
+    "next observed second and all logical rows equal to immutable parent",
+    "query VM steps improve by more than ten times",
+    "nine overlap, replay, request-conflict, cross-day, other-account, level and cap scenarios match parent",
+    "original transaction rollback removes both inserted fact and failed progress update",
+    "new repository initialization creates the period index idempotently"
+  ],
+  "initial_harness_failures": [
+    "SyntaxError in test fixture conditional; corrected before any test ran",
+    "Clock subscenario omitted db.commit after fixture owner insert; all preceding core checks completed; only the failed clock scenario was corrected and run separately"
+  ],
+  "clock_result": "clock-results.json",
+  "subsequent_cursor_index_change": "Queries and business algorithms remain byte-for-byte unchanged. Final two-index initialization, old-save repeat upgrade, actual daily/carry task consumers, corruption rollback and implicit-rowid query plans are verified in task-results.json and benchmark-results.json.",
+  "previous_successes_reused": [
+    "v1: nine inventory storage regressions and three full Application/TLS checks for the unchanged inventory receipt writer/index",
+    "v2: the unchanged baseline period query measurement from benchmark-period-only.json; new cursor queries and final migration/after measurements were run after adding the cursor index"
+  ],
+  "online_installation": false,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "long_pause_root_cause_fully_proven": false,
+  "archive_export_note": "Fixed synthetic clock correlation identifier matched the upload credential pattern; original kept private, upload guard unchanged."
+}

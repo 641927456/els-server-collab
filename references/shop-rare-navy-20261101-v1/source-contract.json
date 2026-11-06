@@ -1,0 +1,200 @@
+{
+  "format": 1,
+  "issue": 728,
+  "status": "qualified source candidate; installation recorded separately",
+  "scope": {
+    "added_packages": 1630,
+    "navy_versions": 78,
+    "new_custom_books": 44,
+    "new_native_definitions": 3987,
+    "local_price_ED": 50,
+    "held_name_only_phantom_dragon": 28,
+    "new_schema": false,
+    "new_hook": false,
+    "original_EXE_KOM_changed": false
+  },
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "channels": {
+    "online": {
+      "development_parent": "G:\\els\\releases\\online\\registered-ground-items-20261101-v1",
+      "files": {
+        "els_server/data/character_custom_permanent.json": {
+          "sha256": "dd5acfd63afd0e74c26054193c2e987ce0f48ecb499ee20e0dcef53bf1ca6712",
+          "size": 1902692,
+          "parent_sha256": "219b614469738b9b1a51931b7bf1ca6426eb7d782002a889a85ffea2a0e13871"
+        },
+        "els_server/domain/acquisition_policy.py": {
+          "sha256": "ce2971e4e07be1db82380f514c3ff53604480f8425331995b47f5e143f877b3a",
+          "size": 14261,
+          "parent_sha256": "e7ed64ee71bb424ef5a670269327ce4e4b1b1c1e646cac652a6077a7c3f9bdd6",
+          "source": "references/shop-rare-navy-20261101-v1/source/online/els_server/domain/acquisition_policy.py"
+        },
+        "els_server/domain/character_custom.py": {
+          "sha256": "d10eda213039917f70e54277840f8dd3ef1a13d373f7fd9f96874fb1ca817d03",
+          "size": 9282,
+          "parent_sha256": "250d8fd27f6d6da45c1ba96ea8da3e58be2a261f73550a7231037ab9f4d71b0a",
+          "source": "references/shop-rare-navy-20261101-v1/source/common/els_server/domain/character_custom.py"
+        },
+        "els_server/domain/fashion_bundles.py": {
+          "sha256": "22fe06bb8d099683d0141c056ea3e25700f438da592c66ca0babf7d02de656cc",
+          "size": 6003,
+          "parent_sha256": "4253c7897d68db21a10c868858868902c62972277439f47a6f39ce712b830ffe",
+          "source": "references/shop-rare-navy-20261101-v1/source/common/els_server/domain/fashion_bundles.py"
+        },
+        "analysis/shop-listing-20261015/bundle-order.json": {
+          "sha256": "30225b0aca0f3a83f7621d95c0fa157b3f6ea31470d3ba0c7b265db6e2828d44",
+          "size": 1215705,
+          "parent_sha256": "35608d6c38694d96dcbdbd5fb445d88e491129258d3ac6afa06c59df87806a63"
+        },
+        "analysis/shop-listing-20261015/fashion-bundles-body-proof.json": {
+          "sha256": "8a52212785490e1fb7341beb090e87d30b561367acb7c5af10d2c2ab6fc8e5a0",
+          "size": 14646390,
+          "parent_sha256": "a570b5b18a7553bc0d2956f40b5d3e2ffdfec8907d03f6650b8b635658bee890"
+        },
+        "analysis/shop-listing-20261015/fashion-bundles.json": {
+          "sha256": "362f5d98dbd451b8c5a9a0e3d6e21132054efe876f53e365a2a349c118267f34",
+          "size": 29881007,
+          "parent_sha256": "e90637ffff40b09b0ed13ab4fea1199d5713db0dc737937c70428a328eb8419f"
+        },
+        "analysis/shop-rare-navy-20261101-v1/bundle-membership.json": {
+          "sha256": "a940812e04c715e9b5c686a1f65792a3602e64615ee6c4f16fe2a39f2afc9ab3",
+          "size": 883393,
+          "parent_sha256": null
+        }
+      }
+    },
+    "local": {
+      "development_parent": "G:\\els\\releases\\local\\local-native-controller-quest-gates-20261101-v1",
+      "files": {
+        "els_server/data/character_custom_permanent.json": {
+          "sha256": "dd5acfd63afd0e74c26054193c2e987ce0f48ecb499ee20e0dcef53bf1ca6712",
+          "size": 1902692,
+          "parent_sha256": "219b614469738b9b1a51931b7bf1ca6426eb7d782002a889a85ffea2a0e13871"
+        },
+        "els_server/domain/acquisition_policy.py": {
+          "sha256": "cb1697848ad18637383248cc4a63a50a7002ceb5e436182e2150c912e1898c93",
+          "size": 14275,
+          "parent_sha256": "923fd8ebb4621768931ecfc985dfcc319cbd727bd9efe112c42a607e00393b9e",
+          "source": "references/shop-rare-navy-20261101-v1/source/local/els_server/domain/acquisition_policy.py"
+        },
+        "els_server/domain/character_custom.py": {
+          "sha256": "d10eda213039917f70e54277840f8dd3ef1a13d373f7fd9f96874fb1ca817d03",
+          "size": 9282,
+          "parent_sha256": "250d8fd27f6d6da45c1ba96ea8da3e58be2a261f73550a7231037ab9f4d71b0a",
+          "source": "references/shop-rare-navy-20261101-v1/source/common/els_server/domain/character_custom.py"
+        },
+        "els_server/domain/fashion_bundles.py": {
+          "sha256": "22fe06bb8d099683d0141c056ea3e25700f438da592c66ca0babf7d02de656cc",
+          "size": 6003,
+          "parent_sha256": "4253c7897d68db21a10c868858868902c62972277439f47a6f39ce712b830ffe",
+          "source": "references/shop-rare-navy-20261101-v1/source/common/els_server/domain/fashion_bundles.py"
+        },
+        "analysis/shop-listing-20261015/bundle-order.json": {
+          "sha256": "30225b0aca0f3a83f7621d95c0fa157b3f6ea31470d3ba0c7b265db6e2828d44",
+          "size": 1215705,
+          "parent_sha256": "35608d6c38694d96dcbdbd5fb445d88e491129258d3ac6afa06c59df87806a63"
+        },
+        "analysis/shop-listing-20261015/fashion-bundles-body-proof.json": {
+          "sha256": "8a52212785490e1fb7341beb090e87d30b561367acb7c5af10d2c2ab6fc8e5a0",
+          "size": 14646390,
+          "parent_sha256": "a570b5b18a7553bc0d2956f40b5d3e2ffdfec8907d03f6650b8b635658bee890"
+        },
+        "analysis/shop-listing-20261015/fashion-bundles.json": {
+          "sha256": "362f5d98dbd451b8c5a9a0e3d6e21132054efe876f53e365a2a349c118267f34",
+          "size": 29881007,
+          "parent_sha256": "e90637ffff40b09b0ed13ab4fea1199d5713db0dc737937c70428a328eb8419f"
+        },
+        "analysis/shop-rare-navy-20261101-v1/bundle-membership.json": {
+          "sha256": "a940812e04c715e9b5c686a1f65792a3602e64615ee6c4f16fe2a39f2afc9ab3",
+          "size": 883393,
+          "parent_sha256": null
+        }
+      }
+    }
+  },
+  "validation": {
+    "packages": {
+      "ok": true,
+      "cases": 1630,
+      "checks": [
+        "all1630new packages are offered",
+        "true ice outputs still excluded",
+        "all1630packages purchase/replay/cold",
+        "all78new navy variants wear/unwear and native cold unit reads"
+      ],
+      "report_sha256": "29a3f034ebafe7107327db36c0e6c0b8e70f0829528e143f6438079fb1bdec3f",
+      "live_process": false
+    },
+    "books": {
+      "ok": true,
+      "cases": 44,
+      "checks": [
+        "all1630new packages are offered",
+        "true ice outputs still excluded",
+        "all44new books purchased via actual package/register/Apply/replay/cold",
+        "original4CD native consumer accepts every new registered value"
+      ],
+      "report_sha256": "b6ddd04ecc196f0d54101e81ace853c1b9def18e4c8ce63edd933d97ecb3c3da",
+      "live_process": false
+    },
+    "boundaries": {
+      "ok": true,
+      "cases": 0,
+      "checks": [
+        "all1630new packages are offered",
+        "true ice outputs still excluded",
+        "sailor rare delivers both alternate top and hair",
+        "wrong role and conflicting replay reject without writes",
+        "encoding failure rolls back ED/items/receipt",
+        "middle member failure rolls back entire package",
+        "only4explicit normal mask source members admitted",
+        "unrelated retained-only accessory remains blocked",
+        "full bag no ED/item/receipt increments"
+      ],
+      "report_sha256": "7fea64f9595034aedc3a51ddfc4e412bda3ea5973f67d6ff5452f630e1f3d022",
+      "live_process": false
+    },
+    "local": {
+      "ok": true,
+      "cases": 0,
+      "checks": [
+        "all1630new packages are offered",
+        "true ice outputs still excluded",
+        "sailor rare delivers both alternate top and hair",
+        "wrong role and conflicting replay reject without writes",
+        "LOCAL loaded same15517offers",
+        "LOCAL native cold unit accepted"
+      ],
+      "report_sha256": "2d9877d2e8b135160b97519d007495895e9b2a8f6b2f17d6cc59184c302a4fda",
+      "live_process": false
+    },
+    "original_native_bodies": {
+      "ok": true,
+      "new_cases": 3987,
+      "reused_unchanged_cases": 33434
+    },
+    "normal_masks": {
+      "ok": true,
+      "cases": 4,
+      "checks": [
+        "all1630new packages are offered",
+        "true ice outputs still excluded",
+        "fourLu/Ciel normal masks purchase/wear/replay/cold/native unit/unwear"
+      ],
+      "report_sha256": "fb5311eaae18aba0acbc49b04716765e3060459e0bb8d686c955e22146eae4ee",
+      "live_process": false
+    }
+  },
+  "recovery": "Keep expanded custom-ID readers and durable receipts; pause only new batch purchases if needed. Never restore player/account DBs or downgrade saved-ID readers.",
+  "limitations": [
+    "No natural GUI or gameplay rendering claimed.",
+    "Private runtime data/proof resources are pinned by SHA and omitted from source Git.",
+    "Root collaboration engine is not overwritten by the formal runtime source archive."
+  ],
+  "private_payload": {
+    "filename": "shop-rare-navy-728-qualified-delta.zip",
+    "sha256": "cf5ef33f6b0802b5df441a3d17bc673c2139c46c92dd0ba3c085dffad8aa4733",
+    "size": 7326236,
+    "shared_in_git": false
+  }
+}

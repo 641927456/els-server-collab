@@ -1,0 +1,37 @@
+{
+  "scope": "Pet equipment nutrition, native 8AF allocation, usable digestive stack, post-writer-lock expiration clock",
+  "base_release": "native-dungeon-tail-20261105-v4",
+  "base_manifest_sha256": "d9beb87ea3613aa3bae0f2a96ebf5ed05675dc1ab7a8a4156d7e20fa81faa0c5",
+  "same_server_for_online_and_local": true,
+  "files": [
+    {
+      "path": "els_server/domain/pet_nutrition_flow.py",
+      "base_sha256": "294145a293c50eabee540c1381a7d6f853bcd3f497c27028f7974f86217084de",
+      "sha256": "08f3864a0ddd3dad477d85ca10d3c1cf8e9d45d81f4805aa569dc3ea08525557",
+      "bytes": 1263
+    },
+    {
+      "path": "els_server/protocol/pet_progression_messages.py",
+      "base_sha256": "aec4cd6a06a3cd99eac3dc223ea7557e6c82926b890836c11c8f599887af713e",
+      "sha256": "97f058d8072c4402a091b2015a1e4dc1892bc500536e835e81a76fe4f7f2a1bc",
+      "bytes": 1420
+    },
+    {
+      "path": "els_server/storage/pet_nutrition.py",
+      "base_sha256": "d7f0b66c00478cf7c5f1b93d34d6f978fc3ff59f48850db0e1847e6b36a8b9ad",
+      "sha256": "b171183821a4ddc12e7efb70c94762d7df6bc10dec9b166c1c830cf3a0324e63",
+      "bytes": 7442
+    },
+    {
+      "path": "els_server/storage/pet_progression.py",
+      "base_sha256": "cea331e7aab9e2b6bad07c3f1e471f21a0cb7a1d05c40dc1a1ae0feffd72ad8a",
+      "sha256": "c23007f8bc9c871155cd1fea308fcaa0fab2ce328732701f0b9281aa675ef411",
+      "bytes": 8371
+    }
+  ],
+  "business_files": 4,
+  "new_files": 0,
+  "new_tables": [],
+  "install_DDL_statements": 0,
+  "client_changed": false
+}

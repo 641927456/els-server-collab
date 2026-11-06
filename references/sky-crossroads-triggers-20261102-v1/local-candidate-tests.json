@@ -1,0 +1,88 @@
+{
+  "ok": true,
+  "channel": "local",
+  "fixed": true,
+  "natural_GUI": false,
+  "production_writes": false,
+  "original_reader_code": true,
+  "actual_Application_TLS": true,
+  "controlled_owned_checkpoint": true,
+  "denials": [
+    "unknown trigger",
+    "invalid payload",
+    "wrong performer",
+    "dungeon_substage_synced",
+    "clear_notified",
+    "dungeon_failed",
+    "dungeon_participants",
+    "stale lease",
+    "changed resource",
+    "wrong room",
+    "missing original actor"
+  ],
+  "cases": [
+    [
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      1,
+      1
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      1,
+      0,
+      0
+    ],
+    [
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      0,
+      2
+    ],
+    [
+      1,
+      0,
+      3
+    ],
+    [
+      1,
+      0,
+      4
+    ],
+    [
+      1,
+      0,
+      5
+    ],
+    [
+      1,
+      0,
+      6
+    ],
+    [
+      2,
+      1,
+      0
+    ],
+    [
+      2,
+      1,
+      2
+    ]
+  ],
+  "existing_rules_preserved": 126,
+  "duplicate_ACK_only": true,
+  "inventory_and_defeated_unchanged": true
+}

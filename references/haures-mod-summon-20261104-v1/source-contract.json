@@ -1,0 +1,72 @@
+{
+  "issue": 797,
+  "parent_release": "native-dungeon-spawn-closure-20261104-v2",
+  "parent_manifest_sha256": "1570f492fb12b768d0adadae08d9ef5f193abc7034a7b10f17c0309d04ac405d",
+  "source_delta": [
+    {
+      "path": "els_server/domain/summon_rules.py",
+      "parent_sha256": "343ebd99b0daa3d3fe9a9ea28100483bb8f5cb47a43b9c8740f72ac82389a49a",
+      "sha256": "6f4ff53957913410d1d327736564f1a8f2d8680fb44c3ee934cf8d4972dae252"
+    }
+  ],
+  "online_installed": true,
+  "online_release": "native-haures-mod-summon-20261104-v1",
+  "online_manifest_sha256": "7bae73e10b0a64acbc447ddedd93d7854dca2aee1a740dccbd7b052c9162bfd6",
+  "observation_seconds": 126.34410190000199,
+  "public_checks": [
+    {
+      "dungeon": 34030,
+      "family": 10,
+      "skill_templates": [
+        2954,
+        2269
+      ],
+      "scene_template": 6100,
+      "complete_native_consumed": 602,
+      "scalar_fields_each": 37,
+      "skill_parameters_preserved": true,
+      "scene_initialization_preserved": true,
+      "every_skill_actor_expired": true
+    },
+    {
+      "family": 10,
+      "foreign_skill_owner_rejects_entire_mixed_queue": true
+    },
+    {
+      "family": 10,
+      "normal_town_6D0_unequip_cold_read": true,
+      "unequipped_Mod_refused_in_active34030": true,
+      "plain2269_still_native_read_and_expire": true,
+      "normal_town_6D0_reequip_cold_read_qualified": true
+    },
+    {
+      "family": 13,
+      "dungeon": 34030,
+      "skill_templates": [
+        2958,
+        2959,
+        2960,
+        2961
+      ],
+      "scene_template": 6100,
+      "complete_native_consumed": 874,
+      "skill_parameters_preserved": true,
+      "scene_initialization_preserved": true,
+      "every_skill_actor_expired": true
+    },
+    {
+      "family": 13,
+      "foreign_skill_owner_rejects_entire_mixed_queue": true
+    },
+    "no_extra_ED_rewards"
+  ],
+  "main_merged": false,
+  "LOCAL_installed": false,
+  "launcher_changed": false,
+  "client_changed": false,
+  "schema_changed": false,
+  "automatic_deployment": false,
+  "raw_logs_packets_databases_credentials_excluded": true,
+  "natural_GUI": false,
+  "natural_battle": false
+}

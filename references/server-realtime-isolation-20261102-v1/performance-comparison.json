@@ -1,0 +1,73 @@
+{
+  "scope": "same original-full-server 50-player/150-TLS protocol fixture; one run per stage; initial candidate already has realtime relay/clock isolation; not a production baseline",
+  "initial": {
+    "test": "full_source_50_player_60_second_battle_and_ice_load",
+    "passed": true,
+    "seconds": 63.97,
+    "players": 50,
+    "tls_connections": 150,
+    "battle_players": 20,
+    "ice_players": 30,
+    "draws": 90,
+    "datagrams": 12000,
+    "relay": {
+      "p50_ms": 4.01,
+      "p95_ms": 10.6,
+      "max_ms": 21.2
+    },
+    "ice": {
+      "p50_ms": 1301.36,
+      "p95_ms": 4408.8,
+      "max_ms": 4955.68
+    },
+    "max_clock_gap_ms": 1021.51,
+    "published_views": 2624
+  },
+  "auxiliary_isolation": {
+    "test": "full_source_50_player_60_second_battle_and_ice_load",
+    "passed": true,
+    "seconds": 64.3,
+    "players": 50,
+    "tls_connections": 150,
+    "battle_players": 20,
+    "ice_players": 30,
+    "draws": 90,
+    "datagrams": 12000,
+    "relay": {
+      "p50_ms": 3.99,
+      "p95_ms": 14.12,
+      "max_ms": 23.42
+    },
+    "ice": {
+      "p50_ms": 1086.81,
+      "p95_ms": 2637.08,
+      "max_ms": 2981.55
+    },
+    "max_clock_gap_ms": 1023.05,
+    "published_views": 2775
+  },
+  "final": {
+    "test": "full_source_50_player_60_second_battle_and_ice_load",
+    "passed": true,
+    "seconds": 64.38,
+    "players": 50,
+    "tls_connections": 150,
+    "battle_players": 20,
+    "ice_players": 30,
+    "draws": 90,
+    "datagrams": 12000,
+    "relay": {
+      "p50_ms": 4.17,
+      "p95_ms": 14.0,
+      "max_ms": 28.0
+    },
+    "ice": {
+      "p50_ms": 881.82,
+      "p95_ms": 2266.33,
+      "max_ms": 2475.13
+    },
+    "max_clock_gap_ms": 1023.97,
+    "published_views": 2649
+  },
+  "ice_p95_reduction_percent": 48.6
+}

@@ -1,0 +1,64 @@
+{
+  "format": 1,
+  "issue": 781,
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "scope": "Activity Tenebrous ordinary scroll reset repair and nonempty identification rejection.",
+  "root_source_changed": false,
+  "current_engine_changed": false,
+  "automatic_deployment": false,
+  "channels": {
+    "online": {
+      "release": "native-activity-armor-reset-scroll-20261103-v1",
+      "parent_release": "native-pr771-gameplay-racing-20261103-v2",
+      "parent_manifest_sha256": "7a6e49eb58883ab39b7bf8c88353757e99cb6e7af0c8ebfe8e32e2edae920e7b",
+      "installed_manifest_sha256": "982a45d89b4f656a30a6960b10042ac507039978dddfc0bf646bbac8cd5684aa",
+      "files": [
+        {
+          "path": "els_server/storage/identification_ui.py",
+          "source": "references/activity-armor-reset-scroll-20261103-v1/source/els_server/storage/identification_ui.py",
+          "sha256": "decde859477c49842df77fadc97c9010e3bec2305af8f9e58efc78732e076d82",
+          "size": 5005,
+          "parent_sha256": "e409ae786b1673eb089af0bd1de811a7532dc1bbfbe635de5db2a2f9a9d3fb32"
+        },
+        {
+          "path": "els_server/domain/equipment_ui_flow.py",
+          "source": "references/activity-armor-reset-scroll-20261103-v1/source/els_server/domain/equipment_ui_flow.py",
+          "sha256": "727d819c7b275af79b2a2c79e9b9182c8ed590a4728eae26974330282d6b398b",
+          "size": 9134,
+          "parent_sha256": "4988ba6ed1035aee8c4e9f932499fde60b56dd6575d5bcc09de3d47a9c461933"
+        }
+      ]
+    }
+  },
+  "validation": {
+    "isolated_tests_per_channel": 3,
+    "channels_tested": [
+      "online",
+      "local"
+    ],
+    "original_native43B_439_readers": true,
+    "rollback_replay_and_cold_read": true,
+    "public_TLS_checks": [
+      "actual_game43A_consumes_one_scroll_and_clears_only_ordinary_effects",
+      "unidentified_second_reset_returns_nonblank_native1_and_no_economic_change",
+      "actual_game438_draws_three_effects_preserving_UID_plus11_reforge21_shadow_and_wallet",
+      "cold_relogin_retains_exact_items_wallet_and_action_receipts"
+    ],
+    "observation_seconds": 126.9198343999451,
+    "own_QA_cleaned": true,
+    "publication_closed": true,
+    "natural_GUI": false,
+    "player_database_restore": false,
+    "fixture_correction": "An initial assertion omitted existing derived +11 group3 from outgoing DTO. Corrected test expectation; only affected scenario rerun. Original failed evidence retained privately."
+  },
+  "gameplay_source": {
+    "url": "https://elsword.nexon.com/Info/Guide/View?n4ArticleSN=62",
+    "read_date": "2026-11-03",
+    "scope": "Tenebrous ordinary identification effects use three existing B/5160 lines; existing published pool retained."
+  },
+  "client_delta": 0,
+  "new_schema": false,
+  "LOCAL_changed": false,
+  "launcher_changed": false,
+  "private_evidence": "Detailed test and delivery receipts retained in author workspace; credentials, player databases, raw logs and captures are excluded."
+}

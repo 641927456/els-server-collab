@@ -1,0 +1,125 @@
+--- a/els_server/domain/dungeon_spawns.py
++++ b/els_server/domain/dungeon_spawns.py
+@@ -4,10 +4,10 @@
+ captured AI references are admitted. Player summons retain their own adapter.
+ """
+ import hashlib,math,struct
+-from els_server.domain.summons import LAYOUTS,summon_ack,PLAYER_SUMMON_TEMPLATES
++from els_server.domain.summons import LAYOUTS,_decode_rows,summon_ack,PLAYER_SUMMON_TEMPLATES,player_summon_templates
+ from els_server.domain.dungeon_npcs import encode_npc
+ from els_server.domain.dungeon_routes import npc_initialization
+-from els_server.protocol.protocol_codec import Event
++from els_server.protocol.protocol_codec import Event,encode_event
+
+ def occupied_slots(s):
+  if s.dungeon_run is not None:npcs=s.dungeon_run.current['npcs'];dead=s.dungeon_run.defeated
+@@ -17,33 +17,22 @@
+  else:npcs=[dict(key=i) for i in range(3)];dead=s.defeated_npcs
+  return sum(n['key'] not in dead for n in npcs)+len(s.summon_keys-set(s.summon_deaths))
+
+-def decode(payload,validate):
+- if not isinstance(payload,bytes) or len(payload)<4:raise ValueError('NPC spawn vector')
+- count=struct.unpack_from('>I',payload)[0]
+- if not 1<=count<=64:raise ValueError('NPC spawn count')
++def decode(payload,validate,*,parameters=False):
++ def checked(dto,extra):
++  if parameters:validate(dto,extra)
++  else:
++   if extra:raise ValueError('Unsupported NPC extension')
++   validate(dto)
+  candidates={}
+  for fields in LAYOUTS.values():
+   try:
+-   position=4;rows=[]
+-   for _ in range(count):
+-    dto=bytearray(0xa4)
+-    for offset,size,xor,kind in fields:
+-     if position+size>len(payload):raise ValueError('Truncated NPC spawn')
+-     raw=payload[position:position+size];position+=size
+-     if kind=='empty':
+-      n=int.from_bytes(raw,'big')
+-      if offset is None:
+-       if n>64 or position+n>len(payload):raise ValueError('NPC padding bound')
+-       position+=n
+-      elif n:raise ValueError('Unsupported NPC extension')
+-     elif size==12:dto[offset:offset+size]=b''.join(raw[i:i+4][::-1] for i in (0,4,8))
+-     else:dto[offset:offset+size]=(int.from_bytes(raw,'big')^xor).to_bytes(size,'little')
+-    validate(dto);rows.append(dto)
+-   if position!=len(payload):raise ValueError('Trailing NPC spawn bytes')
+-   candidates[tuple(bytes(r) for r in rows)]=rows
++   rows=_decode_rows(payload,0,fields,(),validate=checked)
++   identity=tuple((bytes(dto),tuple(sorted(extra.items())))for dto,extra in rows)
++   candidates[identity]=rows
+   except (ValueError,OverflowError,struct.error):continue
+  if len(candidates)!=1:raise ValueError('Unrecognized or ambiguous NPC spawn mode')
+- return next(iter(candidates.values()))
++ rows=next(iter(candidates.values()))
++ return rows if parameters else[dto for dto,extra in rows]
+
+ def handle(s,event,sequence):
+  if event.event_id!=0x202 or event.kind!=0x2ce or s.dungeon_run is None:return None
+@@ -55,16 +44,24 @@
+      or s.part_end_notified):return [summon_ack(-1)]
+  allowed=set(run.graph['stages'][str(run.stage)]['allowed_summons'])
+  owners={0,2**64-1,s.account.uid,*run.reserved_keys,*s.summon_keys}
+- def validate(dto):
++ character=s.account.character()
++ player_allowed=player_summon_templates(character)if s.client_build=='dx11_260923'and s.role=='game'and character else frozenset()
++ def validate(dto,extra):
+   key,template=struct.unpack_from('<ii',dto)
++  creator=struct.unpack_from('<Q',dto,0x6d)[0]
++  if template in PLAYER_SUMMON_TEMPLATES and creator==s.account.uid:
++   if template not in player_allowed:raise ValueError('Player skill qualification')
++   return
+   if key!=-1 or template not in allowed:raise ValueError('NPC not declared by current encounter')
+-  creator=struct.unpack_from('<Q',dto,0x6d)[0]
+-  if template in PLAYER_SUMMON_TEMPLATES and creator==s.account.uid:raise ValueError('Player template requires owner skill admission')
++  if extra:raise ValueError('Unsupported scene NPC extension')
+   if creator not in owners:raise ValueError('NPC creator outside current encounter')
+   if any(dto[o] not in (0,1) for o in (0x4e,0x54,0x61,0x65,0x66)):raise ValueError('NPC flag bound')
+   if not all(math.isfinite(v) and abs(v)<=100000 for v in struct.unpack_from('<fff',dto,9)):raise ValueError('NPC spawn position bound')
+- try:rows=decode(event.payload,validate)
+- except ValueError:return None  # Preserve the existing player-sentry decoder.
++ try:decoded=decode(event.payload,validate,parameters=True)
++ except ValueError:return None  # Preserve the existing player-only decoder.
++ rows=[dto for dto,extra in decoded]
++ player_indexes={i for i,dto in enumerate(rows)if struct.unpack_from('<i',dto,4)[0]in PLAYER_SUMMON_TEMPLATES and struct.unpack_from('<Q',dto,0x6d)[0]==s.account.uid}
++ if len(player_indexes)==len(rows):return None  # Keep the player-only lifecycle.
+  # Source-bound compatibility for legacy Rose performance references in Ain.
+  # Creating them starts a foreign scene after Ain's skill guide has run;
+  # returning an error instead opens the client's empty error dialog. Complete
+@@ -87,16 +84,18 @@
+  # The native scene has 80 concurrent slots, not 80 lifetime identities.
+  # Retired records remain available for duplicate death acknowledgements.
+  if occupied_slots(s)+len(rows)>80:return [summon_ack(-1)]
+- try:free=run.new_npc_keys(len(rows),s.summon_keys)
++ try:free=run.new_npc_keys(len(rows),s.summon_keys|set(range(16))if player_indexes else s.summon_keys)
+  except ValueError:return [summon_ack(-1)]
+- entries=[];wires=[];initial=[]
+- for dto,key in zip(rows,free):
++ entries=[];wires=[];initial=[];player_keys=set()
++ for index,((dto,extra),key) in enumerate(zip(decoded,free)):
++  struct.pack_into('<i',dto,0,key)
++  if index in player_indexes:
++   player_keys.add(key);wires.append(encode_npc(dto,0,extensions=extra));continue
+   template=struct.unpack_from('<i',dto,4)[0];boss=bool(dto[0x61])
+   from els_server.domain.formal_npc_hp import summoned_maximum
+   hp,npc_level=summoned_maximum(run,template)
+   # The incoming level is a native hint; the admitted source owns the level.
+   dto[8]=npc_level
+-  struct.pack_into('<i',dto,0,key)
+   from els_server.domain.formal_npc_hp import initialization_hp
+   context=(run.identity,run.graph['source_sha256'],npc_level,run.stage)
+   base_hp,hp=initialization_hp(run.catalog,hp,context)
+@@ -112,5 +111,11 @@
+  uid_map=uid_translation_vector((e['key'],e['template']) for e in entries)
+  packet=Event(0x201,kind=0x2d0,payload=struct.pack('>I',len(rows))+b''.join(wires)+bytes(8)+uid_map+struct.pack('>I',len(initial))+b''.join(initial)+bytes(8))
+  # All decoding, bounds and serialization finish before changing the run.
++ encode_event(packet)
++ keys=s.summon_keys|player_keys
++ requests=dict(s.summon_requests)
++ if player_keys:requests[sequence]=event.payload
+  run.current['npcs'].extend(entries);run.dynamic_requests[sequence]=digest
++ if player_keys:
++  s.summon_keys=keys;s.summon_requests=requests;s.summon_next_key=max(s.summon_next_key,max(player_keys)+1)
+  return [summon_ack(),packet]

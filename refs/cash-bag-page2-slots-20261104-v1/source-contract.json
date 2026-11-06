@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "files": {
+    "source/els_server/storage/modern_ice.py": "6477abd71d4b6018df25ee8fb2b35703b2285fcbec2d732bdce2f65be163dd87"
+  },
+  "evidence": {
+    "evidence/page2-proof.json": "bd46f87f59c672faed2d9d6e389ab3ede5b4b2cd2e7ebed40fc2fdffcd3cbb07",
+    "evidence/session-proof.json": "a7dade5fd168178387bf75f40713e7291dba5ec24989e0b377d1b19cf5f2cee6",
+    "evidence/source.patch": "97d3b25492aed2952186ebf471d4081eef3a19d31257539f6d3582c5cbf2e4e0",
+    "evidence/validation.json": "7b38303c209e22cd683c04c906a157f58805534ee9bc98959779137fdf0529e2"
+  },
+  "parent_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "archive_only": true,
+  "source_root_activation": false,
+  "automatic_deployment": false,
+  "production_data_included": false,
+  "problem": "Sort mutated shared before-row dictionaries, so native clears addressed new positions instead of old page-two positions.",
+  "result": "Assign new positions to copied rows; keep old positions for native clears. Existing authorization, receipts, transactions and quantities are retained."
+}

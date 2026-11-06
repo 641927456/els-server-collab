@@ -1,0 +1,45 @@
+{
+  "ok": true,
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "original_block": "1272CF0..1272DC4",
+  "scope": "Original float arithmetic, max clamp and caller-supplied min clamp; stops before unrelated TLS scalar commit bookkeeping",
+  "cases": [
+    {
+      "hp": 120835.0,
+      "delta": -999999.0,
+      "native_floor": 0.0,
+      "result": 0.0
+    },
+    {
+      "hp": 120835.0,
+      "delta": -999999.0,
+      "native_floor": 1.0,
+      "result": 1.0
+    },
+    {
+      "hp": 120835.0,
+      "delta": -100.0,
+      "native_floor": 1.0,
+      "result": 120735.0
+    },
+    {
+      "hp": 1.0,
+      "delta": -999999.0,
+      "native_floor": 1.0,
+      "result": 1.0
+    },
+    {
+      "hp": 1.0,
+      "delta": -999999.0,
+      "native_floor": 0.0,
+      "result": 0.0
+    },
+    {
+      "hp": 1.0,
+      "delta": 30.0,
+      "native_floor": 1.0,
+      "result": 31.0
+    }
+  ],
+  "no_game_process": true
+}

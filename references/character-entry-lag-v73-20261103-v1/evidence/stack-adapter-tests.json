@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "tests": [
+    "native_lookup_results_keep_same_stack_limits",
+    "singleton_zero_negative_and_existing_higher_caps_unchanged",
+    "unapproved_template_unchanged",
+    "missing_native_template_stays_missing",
+    "repeat_lookup_does_not_rewrite",
+    "foreign_manager_is_not_modified",
+    "invalid_table_row_or_protection_rejects_without_partial_write_or_retry",
+    "first_lookup_does_not_sweep_other_181835_templates"
+  ],
+  "first_lookup": {
+    "templates": 181836,
+    "eligible": 11365,
+    "parent_reads": 554606,
+    "candidate_reads": 9,
+    "parent_writes": 9092,
+    "candidate_writes": 1,
+    "parent_node_ms": 57.023300000000006,
+    "candidate_node_ms": 13.110799999999998
+  },
+  "native_arithmetic_mocked": false,
+  "native_lookup_mocked_in_host_test": true,
+  "game_process_access": false
+}

@@ -1,0 +1,159 @@
+{
+  "current-parent-qa-tls-online-group.json": {
+    "ok": true,
+    "channel": "online",
+    "group": true,
+    "checks": [
+      "actual-group-barrier-second-member-failure-no-increment-then-retry",
+      "native-first-load-stage-share",
+      "duplicate-B3-no-debit",
+      "actual-subpart-no-debit-and-next-stage-share",
+      "disconnect-cold-login-retains-correct-fatigue"
+    ],
+    "actual_Application_TLS": true,
+    "owned_progress_fixture": true,
+    "natural_GUI": false,
+    "online_installed": false,
+    "cleanup": {
+      "owned_runtime_removed": true,
+      "active_connections": 0
+    }
+  },
+  "current-parent-qa-tls-online-solo.json": {
+    "ok": true,
+    "channel": "online",
+    "group": false,
+    "checks": [
+      "native-first-load-stage-share",
+      "duplicate-B3-no-debit",
+      "actual-subpart-no-debit-and-next-stage-share",
+      "disconnect-cold-login-retains-correct-fatigue"
+    ],
+    "actual_Application_TLS": true,
+    "owned_progress_fixture": true,
+    "natural_GUI": false,
+    "online_installed": false,
+    "cleanup": {
+      "owned_runtime_removed": true,
+      "active_connections": 0
+    }
+  },
+  "qa-rules-local.json": {
+    "ok": true,
+    "channel": "local",
+    "checks": [
+      "all260-routes-223-public-totals-and37-existing-zero-cost-preserved",
+      "all-original-parts-and-revisits-stable",
+      "132-existing-receipt-keys-preserved",
+      "35600-total48-and35300-total150",
+      "two-real-owners-total48-cold-read",
+      "second-member-encoding-failure-rolls-back-all",
+      "replay-no-extra-debit-or-ledger"
+    ],
+    "routes": 260,
+    "paid_routes": 223,
+    "fixed_paid_routes": 91,
+    "zero_cost_routes": 37,
+    "stages_checked": 610,
+    "temporary_save_removed": true,
+    "natural_GUI": false
+  },
+  "qa-rules-online.json": {
+    "ok": true,
+    "channel": "online",
+    "checks": [
+      "all260-routes-223-public-totals-and37-existing-zero-cost-preserved",
+      "all-original-parts-and-revisits-stable",
+      "132-existing-receipt-keys-preserved",
+      "35600-total48-and35300-total150",
+      "two-real-owners-total48-cold-read",
+      "second-member-encoding-failure-rolls-back-all",
+      "replay-no-extra-debit-or-ledger"
+    ],
+    "routes": 260,
+    "paid_routes": 223,
+    "fixed_paid_routes": 91,
+    "zero_cost_routes": 37,
+    "stages_checked": 610,
+    "temporary_save_removed": true,
+    "natural_GUI": false
+  },
+  "qa-tls-local-group.json": {
+    "ok": true,
+    "channel": "local",
+    "group": true,
+    "checks": [
+      "actual-group-barrier-second-member-failure-no-increment-then-retry",
+      "native-first-load-stage-share",
+      "duplicate-B3-no-debit",
+      "actual-subpart-no-debit-and-next-stage-share",
+      "disconnect-cold-login-retains-correct-fatigue"
+    ],
+    "actual_Application_TLS": true,
+    "owned_progress_fixture": true,
+    "natural_GUI": false,
+    "online_installed": false,
+    "cleanup": {
+      "owned_runtime_removed": true,
+      "active_connections": 0
+    }
+  },
+  "qa-tls-local-solo.json": {
+    "ok": true,
+    "channel": "local",
+    "group": false,
+    "checks": [
+      "native-first-load-stage-share",
+      "duplicate-B3-no-debit",
+      "actual-subpart-no-debit-and-next-stage-share",
+      "disconnect-cold-login-retains-correct-fatigue"
+    ],
+    "actual_Application_TLS": true,
+    "owned_progress_fixture": true,
+    "natural_GUI": false,
+    "online_installed": false,
+    "cleanup": {
+      "owned_runtime_removed": true,
+      "active_connections": 0
+    }
+  },
+  "qa-tls-online-group.json": {
+    "ok": true,
+    "channel": "online",
+    "group": true,
+    "checks": [
+      "actual-group-barrier-second-member-failure-no-increment-then-retry",
+      "native-first-load-stage-share",
+      "duplicate-B3-no-debit",
+      "actual-subpart-no-debit-and-next-stage-share",
+      "disconnect-cold-login-retains-correct-fatigue"
+    ],
+    "actual_Application_TLS": true,
+    "owned_progress_fixture": true,
+    "natural_GUI": false,
+    "online_installed": false,
+    "cleanup": {
+      "owned_runtime_removed": true,
+      "active_connections": 0
+    }
+  },
+  "qa-tls-online-solo.json": {
+    "ok": true,
+    "channel": "online",
+    "group": false,
+    "checks": [
+      "native-first-load-stage-share",
+      "duplicate-B3-no-debit",
+      "actual-subpart-no-debit-and-next-stage-share",
+      "disconnect-cold-login-retains-correct-fatigue"
+    ],
+    "actual_Application_TLS": true,
+    "owned_progress_fixture": true,
+    "natural_GUI": false,
+    "online_installed": false,
+    "cleanup": {
+      "owned_runtime_removed": true,
+      "active_connections": 0
+    }
+  }
+}

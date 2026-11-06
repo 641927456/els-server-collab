@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "baseline": false,
+  "source_sha256": "8f36562d6c19b571dec0bd3ca03d57e4d16023315c207d1e154c299e9818c59d",
+  "cases": [
+    {
+      "action": "claim",
+      "expired_during_writer_wait": true,
+      "accepted": false,
+      "error": 2985,
+      "ED": 0,
+      "mail_timestamps": [
+        null,
+        null,
+        null
+      ],
+      "SQL_unchanged": true
+    },
+    {
+      "action": "claim",
+      "expired_during_writer_wait": false,
+      "accepted": true,
+      "error": null,
+      "ED": 900,
+      "mail_timestamps": [
+        1899999999,
+        1899999999,
+        null
+      ],
+      "SQL_unchanged": false
+    },
+    {
+      "action": "read",
+      "expired_during_writer_wait": true,
+      "accepted": false,
+      "error": 2985,
+      "ED": 0,
+      "mail_timestamps": [
+        null,
+        null,
+        null
+      ],
+      "SQL_unchanged": true
+    },
+    {
+      "action": "delete",
+      "expired_during_writer_wait": true,
+      "accepted": true,
+      "error": null,
+      "ED": 0,
+      "mail_timestamps": [
+        null,
+        null,
+        1900000000
+      ],
+      "SQL_unchanged": false
+    }
+  ],
+  "production_database_access": false,
+  "actual_SQL_writer_competition": true,
+  "owned_temporary_directories_removed": true
+}

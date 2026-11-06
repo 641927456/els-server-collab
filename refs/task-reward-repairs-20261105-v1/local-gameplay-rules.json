@@ -1,0 +1,30 @@
+{
+  "specialization": {
+    "date": "2026-11-05",
+    "human_instruction": "你看看能不能根据这两个未完成的功能自己编写一套",
+    "scope_interpretation": "为对练用特化石应用和紫水晶碎片附魔编写本服实现及确定性养成规则；此前按用户要求检索未找到精确概率，不能宣称还原官方概率。",
+    "policy": "pvp-specialization-local-deterministic-20261105-v1",
+    "selected_effect_initial_level": 1,
+    "enchant_levels_per_operation": 1,
+    "enchant_success_percent": 100,
+    "maximum": "最后一个匹配的当前客户端效果档位",
+    "effect_change": "更换后从新效果第1档开始；重复选择同一效果不扣费",
+    "costs": "保留当前客户端 PvpSpecializeEquipment.lua 中的材料及 AP 消耗，ED为0",
+    "rule_design_authorized_by_instruction": true,
+    "not_a_retail_probability_claim": true
+  },
+  "accessories": {
+    "date": "2026-11-05",
+    "source": "Human reply in this chat to the concrete two-box mapping question",
+    "answer": "采用上述固定套装规则",
+    "scope": {
+      "701049": "斗士的项链、斗士的戒指、斗士的手背印章、斗士的战斗纹身各1",
+      "701050": "对应角色的守护斗士面甲、耳环、披风、尾翼各1；露／希尔两侧共8件",
+      "duration": "permanent",
+      "random": false
+    },
+    "proposal": "accessory-box-proposal.json",
+    "retail_server_pool_recovered": false,
+    "deployment_authorization": false
+  }
+}

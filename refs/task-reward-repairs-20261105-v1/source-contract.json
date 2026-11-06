@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "reference_only": true,
+  "issue": 860,
+  "installed": false,
+  "merged": false,
+  "parent_runtime": {
+    "release": "native-dungeon-workers-prewarm-20261105-v1",
+    "manifest_sha256": "1782823acfd6a3bf7a80be046558c83b4efc26789d5b4e64a844c6a0ab018c89"
+  },
+  "source_files": [
+    {
+      "runtime_path": "els_server/data/owned_reward_boxes.json",
+      "archive_path": "source/els_server/data/owned_reward_boxes.json",
+      "base_sha256": "d53282aebf5b345bbeca18c3e141a1e4a5d251653d61f71e7187702523e1ae18",
+      "sha256": "c341bc10be458e53598c6e15f752864f69420e4ed8d43540ef95e01ed2fd4942",
+      "bytes": 1282256
+    },
+    {
+      "runtime_path": "els_server/data/pvp_material_exchange.json",
+      "archive_path": "source/els_server/data/pvp_material_exchange.json",
+      "base_sha256": null,
+      "sha256": "af4a0ec213706f475231f27871006ba212de6903f6b25d445ef6b15a8e33d6f3",
+      "bytes": 2528
+    },
+    {
+      "runtime_path": "els_server/data/pvp_specialization.json",
+      "archive_path": "source/els_server/data/pvp_specialization.json",
+      "base_sha256": null,
+      "sha256": "fac704d8272a382c88ccbce436a9e7d442e84cc597da6bb05a48143942b82aaf",
+      "bytes": 246442
+    },
+    {
+      "runtime_path": "els_server/domain/acquisition_policy.py",
+      "archive_path": "source/els_server/domain/acquisition_policy.py",
+      "base_sha256": "ce2971e4e07be1db82380f514c3ff53604480f8425331995b47f5e143f877b3a",
+      "sha256": "e13c458e127f8e566f10fbab6cf121074c77cb0a811a2d173b6b0a5aae8d8bac",
+      "bytes": 14265
+    },
+    {
+      "runtime_path": "els_server/domain/furniture_rules.py",
+      "archive_path": "source/els_server/domain/furniture_rules.py",
+      "base_sha256": "1be54b7ae4a02d807360ac9da74fe5a58b30b97f8033c455a3cde56c2f9c6900",
+      "sha256": "54c9f8f02eba0866eca624efb814e62b8d2ea77b4aba4bb2c15f21ea59043c9e",
+      "bytes": 4511
+    },
+    {
+      "runtime_path": "els_server/domain/inventory_items.py",
+      "archive_path": "source/els_server/domain/inventory_items.py",
+      "base_sha256": "f2e7262ea81e2b2f0a92383d04444693ce3dc3940980377a40e91eec7514a171",
+      "sha256": "1a1a139fd54a6bf490f3f66c989b6fd4418edd7db3da95c2f0060c93d462e457",
+      "bytes": 85206
+    },
+    {
+      "runtime_path": "els_server/domain/local_session.py",
+      "archive_path": "source/els_server/domain/local_session.py",
+      "base_sha256": "7b73d09da2031e8383e5671cd66a6bc5b428361c8cce64021bee663f17fad49e",
+      "sha256": "5c63d4fc00d87c94750251f42f58a90e31879ba6f81008146ea6d942c3c22bf3",
+      "bytes": 153324
+    },
+    {
+      "runtime_path": "els_server/domain/owned_reward_boxes.py",
+      "archive_path": "source/els_server/domain/owned_reward_boxes.py",
+      "base_sha256": "0da0e90056b81968fe482b37ea4338963590afeac3206e218eef46e22adab409",
+      "sha256": "e580aabd4b23c62ff1fc3b5e8d1b7f117dd7f3e917986553706d2934b239defb",
+      "bytes": 4860
+    },
+    {
+      "runtime_path": "els_server/domain/pet_digestion.py",
+      "archive_path": "source/els_server/domain/pet_digestion.py",
+      "base_sha256": null,
+      "sha256": "9ef6653be6c4b5bf0540ddd38a0d5f9dfb6a5088749766d31e05e68e59ea5b19",
+      "bytes": 1246
+    },
+    {
+      "runtime_path": "els_server/domain/pet_nutrition_flow.py",
+      "archive_path": "source/els_server/domain/pet_nutrition_flow.py",
+      "base_sha256": null,
+      "sha256": "294145a293c50eabee540c1381a7d6f853bcd3f497c27028f7974f86217084de",
+      "bytes": 1122
+    },
+    {
+      "runtime_path": "els_server/domain/pet_progression_flow.py",
+      "archive_path": "source/els_server/domain/pet_progression_flow.py",
+      "base_sha256": "1fc9c9894d0ef9b90a476152e46f133500a035117a010efadee38cdfc483ae19",
+      "sha256": "856ccdff93d21cdef01ebec46cb50ee1978c8b6d532b22860971499f92b7fef5",
+      "bytes": 1402
+    },
+    {
+      "runtime_path": "els_server/domain/pvp_material_exchange.py",
+      "archive_path": "source/els_server/domain/pvp_material_exchange.py",
+      "base_sha256": null,
+      "sha256": "8eb45b731ff208555579ac16ad2f9197adf783e1ae224434dbe9e72a836e636c",
+      "bytes": 1868
+    },
+    {
+      "runtime_path": "els_server/domain/pvp_material_exchange_flow.py",
+      "archive_path": "source/els_server/domain/pvp_material_exchange_flow.py",
+      "base_sha256": null,
+      "sha256": "bcc14b532666eae9493de9f51faf5ad2dfd2d337ffc30145ee2b86c157e29baf",
+      "bytes": 1881
+    },
+    {
+      "runtime_path": "els_server/domain/pvp_specialization.py",
+      "archive_path": "source/els_server/domain/pvp_specialization.py",
+      "base_sha256": null,
+      "sha256": "b3e96f9c8426fb104d24762e840cde50d3102a0ac7224525c7ca64bfa7b26334",
+      "bytes": 3567
+    },
+    {
+      "runtime_path": "els_server/domain/pvp_specialization_flow.py",
+      "archive_path": "source/els_server/domain/pvp_specialization_flow.py",
+      "base_sha256": null,
+      "sha256": "c40e26310bc43cfd87fc51b9b58061027d5c73a3430ea0b9d36e3967a1b3a463",
+      "bytes": 1782
+    },
+    {
+      "runtime_path": "els_server/domain/sage_sockets.py",
+      "archive_path": "source/els_server/domain/sage_sockets.py",
+      "base_sha256": "9ac864d5bb9e162f71b270377ac72c5e3e37480ed15b26ec2a89006b5b35c51d",
+      "sha256": "342b50387ca77fae4c03b847f519d32a905b6b1c211975ed8ab3846d0f35ab5a",
+      "bytes": 6594
+    },
+    {
+      "runtime_path": "els_server/protocol/companion_messages.py",
+      "archive_path": "source/els_server/protocol/companion_messages.py",
+      "base_sha256": "9908bc9377b49a656b7636df0f7d2ced34eee5ba6a115913ffd0bf454083a2dc",
+      "sha256": "02dbeff126ed3a9a85fa86abb7ea87a91b037603d383896668bfee487994fef0",
+      "bytes": 4489
+    },
+    {
+      "runtime_path": "els_server/protocol/pet_progression_messages.py",
+      "archive_path": "source/els_server/protocol/pet_progression_messages.py",
+      "base_sha256": "5c49f68894b320bebd3142301a275668a3131b130df9691d1af692413ef305f8",
+      "sha256": "aec4cd6a06a3cd99eac3dc223ea7557e6c82926b890836c11c8f599887af713e",
+      "bytes": 1244
+    },
+    {
+      "runtime_path": "els_server/protocol/spell_socket_messages.py",
+      "archive_path": "source/els_server/protocol/spell_socket_messages.py",
+      "base_sha256": "0cb94626a4fd80a087748f8785cf7acdd44134e45323cb92e0cdd46bf186d2a2",
+      "sha256": "44db0bceb9f76b9c148d279b9f463ba015649020d2f465c7e78b8110d9364965",
+      "bytes": 1617
+    },
+    {
+      "runtime_path": "els_server/storage/equipment_receipt_state.py",
+      "archive_path": "source/els_server/storage/equipment_receipt_state.py",
+      "base_sha256": "8cab1b76ccde9028d3b5f897094a7b977a83b60953ce5d25bdcf1be540e4a02d",
+      "sha256": "9bb1ea5d9ff4630203160b4c7d19c36e2c681b79d19ab2e3e7c2d65b5c4b8360",
+      "bytes": 3415
+    },
+    {
+      "runtime_path": "els_server/storage/initialization_checks.py",
+      "archive_path": "source/els_server/storage/initialization_checks.py",
+      "base_sha256": "d5e6cb685f5878a7fdc22c5fc4c0cfae21e64d676d0795e1d824561bfe78c0ed",
+      "sha256": "040015f7bbb8c23e436782c61f7e01e1c5513a95b1bd7405b64d8bcf1980102a",
+      "bytes": 7037
+    },
+    {
+      "runtime_path": "els_server/storage/inventory_state.py",
+      "archive_path": "source/els_server/storage/inventory_state.py",
+      "base_sha256": "9b3ed56ab7e5913865a0c5a61fbf0b823a7d4dee11aa26d5a33526f5678b196b",
+      "sha256": "97603b2e9e5117c4004d36ab68d122aafdff281f35222370b7b3ecbc0b36296e",
+      "bytes": 30756
+    },
+    {
+      "runtime_path": "els_server/storage/pet_nutrition.py",
+      "archive_path": "source/els_server/storage/pet_nutrition.py",
+      "base_sha256": null,
+      "sha256": "d7f0b66c00478cf7c5f1b93d34d6f978fc3ff59f48850db0e1847e6b36a8b9ad",
+      "bytes": 5709
+    },
+    {
+      "runtime_path": "els_server/storage/pet_progression.py",
+      "archive_path": "source/els_server/storage/pet_progression.py",
+      "base_sha256": "21ebdf35ad22b0d390e276ea6e66e14ac65219abf07d90f41d6264b4a2e83371",
+      "sha256": "cea331e7aab9e2b6bad07c3f1e471f21a0cb7a1d05c40dc1a1ae0feffd72ad8a",
+      "bytes": 8288
+    },
+    {
+      "runtime_path": "els_server/storage/pvp_official_profiles.py",
+      "archive_path": "source/els_server/storage/pvp_official_profiles.py",
+      "base_sha256": "f0e6220c149951f233bf509c39671c7b57897b69a11ec90c67528bc883bd397e",
+      "sha256": "edbfd86805006cb354f0c31162fcc3c138109bdc629156cc70046310aa5afbbf",
+      "bytes": 8520
+    },
+    {
+      "runtime_path": "els_server/storage/pvp_specialization.py",
+      "archive_path": "source/els_server/storage/pvp_specialization.py",
+      "base_sha256": null,
+      "sha256": "791abc08c57519635f224586da1839880555eca35c0e4cac311c5ffa122b3ae5",
+      "bytes": 4368
+    }
+  ],
+  "verification_scripts": [
+    {
+      "path": "verification/verify_furniture.py",
+      "sha256": "4bed1e367060a47bcbf57b2c1ce77ba9e9c9b9e97e2b34485d243b0970a37c98"
+    },
+    {
+      "path": "verification/verify_pet.py",
+      "sha256": "e8d25930f3dbcadb8ef59eff08911ba950906e8a53900bbc1502e49d12c28aec"
+    },
+    {
+      "path": "verification/verify_pvp_boxes.py",
+      "sha256": "8a0a4738734ee80a800f990f575f18ecdd98ff0648d57655537896f57f3e87bd"
+    },
+    {
+      "path": "verification/verify_pet_native.py",
+      "sha256": "54bb70e391d6aa640a424ff7473a23e86c06d956cdc1c7855e25afaeb8ff0c0d"
+    },
+    {
+      "path": "verification/verify_specialization.py",
+      "sha256": "4b1707fb1690ce149851421f1d78c1aab08fa7228c51e9fddb3ecaba57f1eb25"
+    },
+    {
+      "path": "verification/verify_specialization_native.py",
+      "sha256": "3598fc97b42c1d5486dc196c0ae7ec1260eea565cb5fcfeee25d42791557c932"
+    },
+    {
+      "path": "verification/verify_pvp_exchange.py",
+      "sha256": "be951205bf1fcaddae75ab6ac609cb1c8b4cdf3b365d5e2ed5153092e9d2f149"
+    }
+  ],
+  "gameplay_rules": "local-gameplay-rules.json",
+  "validation": "validation-summary.json",
+  "unverified": [
+    "natural client GUI",
+    "real battle stat application",
+    "actual production/network installation"
+  ],
+  "no_original_EXE_KOM_change": true,
+  "no_player_or_account_DB": true,
+  "no_raw_operational_logs": true,
+  "application": "Apply only matching parent SHA or preserve newer runtime changes with selective integration; never replace a live tree with the collaboration root.",
+  "test_reuse": "Unchanged private business and native-code successes reused. The shared actor test also reaches the pet consumers. Source checks and CI do not imply a production installation."
+}

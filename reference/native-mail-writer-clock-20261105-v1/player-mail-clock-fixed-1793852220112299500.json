@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "baseline": false,
+  "production_database_access": false,
+  "actual_SQL_writer_competition": true,
+  "source_sha256": {
+    "game_mail.py": "8f36562d6c19b571dec0bd3ca03d57e4d16023315c207d1e154c299e9818c59d",
+    "player_mail.py": "b3c07a9d0f2ad423f7ac177ce4f8bae17327107940ee35505d457dca7e846baf"
+  },
+  "cases": [
+    {
+      "action": "send_expired",
+      "accepted": false,
+      "error": "Item has expired",
+      "SQL_unchanged": true
+    },
+    {
+      "action": "send_last_second",
+      "accepted": true,
+      "error": null,
+      "SQL_unchanged": false
+    },
+    {
+      "action": "return_delete",
+      "accepted": true,
+      "error": null,
+      "SQL_unchanged": false
+    },
+    {
+      "action": "return_encoder_failure",
+      "accepted": false,
+      "error": "Owned deliberate response failure",
+      "SQL_unchanged": true
+    }
+  ],
+  "owned_temporary_directories_removed": true
+}

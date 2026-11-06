@@ -24,6 +24,18 @@ for _rule in RULES:
 del _rule
 
 
+def rules_for(run):
+    # Public encounter completion is independent of optional story objectives.
+    # Override the two legacy Gaia rows with the same pinned native source;
+    # character-specific story rooms keep their original unit/quest admission.
+    from els_server.domain.public_controller_rules import RULES as public_rules
+    def identity(rule):
+        return rule['stage'],rule['part'],rule['template'],rule['source']['source_index']
+    selected={identity(rule):rule for rule in RULES if rule['dungeon']==run.identity}
+    selected.update((identity(rule),rule) for rule in public_rules if rule['dungeon']==run.identity)
+    return tuple(selected.values())
+
+
 def source_pinned(run,npc):
     """True when the current route declares an exact retirement source here.
 
@@ -33,14 +45,14 @@ def source_pinned(run,npc):
     if npc.get('dynamic') or npc.get('source_index') is None:return False
     return any((r['stage'],r['part'],r['template'],r['source']['source_index'])==
                (run.stage,run.part,npc['template'],npc['source_index'])
-               for r in RULES if r['dungeon']==run.identity)
+               for r in rules_for(run))
 
 
 
 def handle(s,event,report):
     run=s.dungeon_run
     if run is None:return None
-    rules=[r for r in RULES if r['dungeon']==run.identity]
+    rules=rules_for(run)
     if not rules:return None
     if report['flag']!=255:
         # These source-pinned invulnerable scene actors retire through their
@@ -98,8 +110,9 @@ def handle(s,event,report):
         # Saved earned quest state, read inside the same writer as this event.
         current={q for q, in db.execute('SELECT quest FROM completed_quests WHERE owner=?',(owner,))}
         current.update(q for q, in db.execute('SELECT quest FROM character_quests WHERE owner=?',(owner,)))
-        expected=(rule.get('retirement_admission_quests') if MEMORY8_9450_MAP_QUEST_ADMISSION_ENABLED else None) or rule['quests'] or rule['map_quests']
-        if not current.intersection(expected):raise ValueError('Story retirement quest stage')
+        if not rule.get('quest_independent',False):
+            expected=(rule.get('retirement_admission_quests') if MEMORY8_9450_MAP_QUEST_ADMISSION_ENABLED else None) or rule['quests'] or rule['map_quests']
+            if not current.intersection(expected):raise ValueError('Story retirement quest stage')
 
     def prepare(notices,replayed):
         from els_server.domain.dungeon_flow import periodic

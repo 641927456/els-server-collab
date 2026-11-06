@@ -1,0 +1,313 @@
+{
+  "passed": true,
+  "checks": 35,
+  "results": {
+    "results.json": {
+      "passed": true,
+      "tests": [
+        {
+          "test": "unchanged_full_native_tls_login_town_invite_loading_and_party_b3_bd",
+          "passed": true
+        },
+        {
+          "test": "original_relay_and_9c_continue_while_full_business_worker_and_real_ice_request_are_blocked",
+          "passed": true,
+          "clock_gaps_ms": [
+            1000.9,
+            1014.4
+          ],
+          "relay_max_ms": 0.6,
+          "datagrams": 20
+        },
+        {
+          "test": "original_ice_handler_commits_once_after_release_with_source_inventory_and_receipt",
+          "passed": true
+        },
+        {
+          "test": "disabled_peer_revokes_cached_room_routes_and_clock_without_waiting_for_asset_worker",
+          "passed": true
+        }
+      ],
+      "production_installed": false,
+      "full_pg_migration": false,
+      "natural_gui": false
+    },
+    "results-economy.json": {
+      "passed": true,
+      "tests": [
+        {
+          "test": "bob_real_native_draw_commits_while_alice_original_handler_is_held",
+          "passed": true,
+          "bob_ms": 44.95,
+          "peak_workers": 2,
+          "threads_used": 2,
+          "native_source_current": true,
+          "native_source_failures_delta": 0
+        },
+        {
+          "test": "legacy_world_transition_waits_for_active_economy_handlers",
+          "passed": true
+        },
+        {
+          "test": "same_account_full_handlers_are_fifo_and_original_replay_does_not_spend_twice",
+          "passed": true
+        },
+        {
+          "test": "cancelled_started_sql_drains_before_world_gate_releases_and_replays_once",
+          "passed": true
+        },
+        {
+          "test": "failed_original_draw_rolls_back_without_item_or_receipt_increment",
+          "passed": true
+        },
+        {
+          "test": "foreign_owned_item_is_rejected_by_original_dispatch",
+          "passed": true
+        },
+        {
+          "test": "economic_probe_accepts_relative_save_path_and_absolute_fixture_uri_is_unchanged",
+          "passed": true
+        },
+        {
+          "test": "disabled_account_is_rejected_before_original_economic_handler_can_spend",
+          "passed": true
+        }
+      ],
+      "economy": {
+        "workers": 2,
+        "active": 0,
+        "peak_active": 2,
+        "completed": 9,
+        "failures": 1,
+        "threads_used": 2,
+        "queue": {
+          "capacity": 16,
+          "inflight": 0,
+          "waiting": 0,
+          "maximum": 2,
+          "completed": 10,
+          "closed": false,
+          "waiting_maximum": 1
+        }
+      },
+      "api_concurrency_checks": true,
+      "natural_gui": false
+    },
+    "results-commerce.json": {
+      "passed": true,
+      "tests": [
+        {
+          "test": "two_native_ed_shop_purchases_keep_original_prices_items_and_receipts",
+          "passed": true
+        },
+        {
+          "test": "two_native_npc_stock_purchases_use_original_town_and_transaction_guards",
+          "passed": true
+        },
+        {
+          "test": "native_npc_sale_and_buyback_restore_owned_equipment_once",
+          "passed": true
+        },
+        {
+          "test": "original_ed_purchase_replay_and_conflicting_operation_are_preserved",
+          "passed": true
+        }
+      ],
+      "economy": {
+        "workers": 2,
+        "active": 0,
+        "peak_active": 2,
+        "completed": 9,
+        "failures": 0,
+        "threads_used": 2,
+        "queue": {
+          "capacity": 16,
+          "inflight": 0,
+          "waiting": 0,
+          "maximum": 2,
+          "completed": 9,
+          "closed": false,
+          "waiting_maximum": 2
+        }
+      }
+    },
+    "results-worker-controls.json": {
+      "passed": true,
+      "tests": [
+        {
+          "test": "sixteen_admissions_then_queued_world_work_precedes_next_economic_cohort",
+          "passed": true
+        },
+        {
+          "test": "cancelled_world_and_economy_waiters_leave_no_gate_ownership",
+          "passed": true
+        },
+        {
+          "test": "cancelled_queued_job_never_debits_and_repeated_cancellation_drains_actual_retirement",
+          "passed": true
+        },
+        {
+          "test": "parallel_peer_mailbox_producers_and_drain_lose_no_events_or_byte_accounting",
+          "passed": true
+        }
+      ],
+      "owned_runtime_removed": true
+    },
+    "results-load.json": {
+      "passed": true,
+      "tests": [
+        {
+          "test": "fifty_full_source_playing_accounts_hold_150_frontend_game_relay_connections",
+          "passed": true
+        },
+        {
+          "test": "full_source_50_player_60_second_battle_and_ice_load",
+          "passed": true,
+          "seconds": 64.28,
+          "players": 50,
+          "tls_connections": 150,
+          "battle_players": 20,
+          "ice_players": 30,
+          "draws": 90,
+          "datagrams": 12000,
+          "relay": {
+            "p50_ms": 3.88,
+            "p95_ms": 14.01,
+            "max_ms": 21.36
+          },
+          "ice": {
+            "p50_ms": 866.22,
+            "p95_ms": 1989.05,
+            "max_ms": 2375.04
+          },
+          "max_clock_gap_ms": 1021.25,
+          "published_views": 2613,
+          "economy": {
+            "workers": 2,
+            "active": 0,
+            "peak_active": 2,
+            "completed": 90,
+            "failures": 0,
+            "threads_used": 2,
+            "queue": {
+              "capacity": 16,
+              "inflight": 0,
+              "waiting": 0,
+              "maximum": 16,
+              "completed": 90,
+              "closed": false,
+              "waiting_maximum": 16
+            }
+          },
+          "native_source_failures_delta": 0
+        },
+        {
+          "test": "native_socket_close_revokes_only_its_room_before_worker_cleanup_and_frontend_close_preserves_game_binding",
+          "passed": true
+        }
+      ],
+      "production_installed": false,
+      "full_pg_migration": false,
+      "natural_gui": false
+    },
+    "results-boundaries.json": {
+      "passed": true,
+      "tests": [
+        {
+          "test": "native_close_fences_room_during_blocked_business",
+          "passed": true,
+          "revocation_ms": 0.86,
+          "frontend_preserved": true,
+          "old_binding_ignored": true
+        },
+        {
+          "test": "relay_close_fences_room_during_blocked_business",
+          "passed": true,
+          "revocation_ms": 0.69,
+          "frontend_preserved": true,
+          "old_binding_ignored": true
+        },
+        {
+          "test": "bind_failure_stops_realtime_registry_reader",
+          "passed": true
+        }
+      ],
+      "owned_runtime_removed": true
+    },
+    "results-periodic-claims.json": {
+      "passed": true,
+      "tests": [
+        {
+          "test": "real_ice_preempts_unstarted_periodic_without_waiting_for_held_worker",
+          "passed": true,
+          "preemption_ms": 15.46
+        },
+        {
+          "test": "overdue_periodic_retains_fifo_place_before_next_real_ice_request",
+          "passed": true
+        },
+        {
+          "test": "running_periodic_cannot_be_cancelled_by_foreground_request",
+          "passed": true
+        },
+        {
+          "test": "both_original_draws_committed_once_and_inventory_preserved",
+          "passed": true
+        }
+      ]
+    },
+    "results-auxiliary.json": {
+      "passed": true,
+      "tests": [
+        {
+          "test": "only_exact_existing_auxiliary_envelope_and_live_owned_committed_session_bypass_business",
+          "passed": true
+        },
+        {
+          "test": "twenty_fixed_auxiliary_frames_are_consumed_without_waiting_for_held_business_worker",
+          "passed": true,
+          "frames": 20
+        },
+        {
+          "test": "original_peer_mailbox_delivers_real_party_chat_without_auxiliary_business_calls",
+          "passed": true
+        },
+        {
+          "test": "disabled_account_cannot_use_cached_auxiliary_admission",
+          "passed": true
+        }
+      ]
+    },
+    "results-config.json": {
+      "passed": true,
+      "economy_workers": 2,
+      "max_connections": 192,
+      "owned_runtime_removed": true
+    }
+  },
+  "source_reuse": {
+    "benchmark_source_sha256": {
+      "els_server\\application.py": "31cfcabb89f667255b57e2fc042e363eb374a30e6bcf10e394c84fdd450b84a2",
+      "els_server\\business_queue.py": "2d54006f35297210f7e772e0162da4d6369460407e6bec7e8b744d3b3b20e8d0",
+      "els_server\\config.py": "0c3efa53de253328c75a336cd1262ca0212c1d27009dc48950ec68b0fd50c676",
+      "els_server\\domain\\friends_world.py": "d9c48e9d33c9253273e0bb1c51a9a3e2cdb4ccadc8596289165c1aef49d1eda6",
+      "els_server\\economy.py": "bf873a4b10866d53327e8730f81a51f30ff476eee544bf772cc21e9dcf970164",
+      "els_server\\periodic_scheduler.py": "2dc9a2255ede5f52fefdf7aacb171a7ce7b17c2bdbe9eb2e2f1c88802af85418",
+      "els_server\\periodic_work.py": "e0244295b75bb6e060dd2acf25c684685e6d7a1f6e9d84727d52c6eb3019d032"
+    },
+    "final_source_sha256": {
+      "els_server\\application.py": "31cfcabb89f667255b57e2fc042e363eb374a30e6bcf10e394c84fdd450b84a2",
+      "els_server\\business_queue.py": "2d54006f35297210f7e772e0162da4d6369460407e6bec7e8b744d3b3b20e8d0",
+      "els_server\\config.py": "0c3efa53de253328c75a336cd1262ca0212c1d27009dc48950ec68b0fd50c676",
+      "els_server\\economy.py": "e604527ee448744d29471eb96b045be3e7928ebd620a6b40188d67fcf2fb22c2",
+      "els_server\\periodic_scheduler.py": "2dc9a2255ede5f52fefdf7aacb171a7ce7b17c2bdbe9eb2e2f1c88802af85418",
+      "els_server\\periodic_work.py": "e0244295b75bb6e060dd2acf25c684685e6d7a1f6e9d84727d52c6eb3019d032",
+      "els_server\\domain\\friends_world.py": "d9c48e9d33c9253273e0bb1c51a9a3e2cdb4ccadc8596289165c1aef49d1eda6"
+    },
+    "benchmark_reuse": "Only save URI normalization changed after the 2-worker benchmark. Absolute fixture URI is identical; relative-path probe and all economic safety checks passed afterward. Other benchmark source leaves unchanged.",
+    "relative_probe": "results-economy.json"
+  },
+  "natural_gui": false,
+  "natural_battle": false,
+  "production_installed": false
+}

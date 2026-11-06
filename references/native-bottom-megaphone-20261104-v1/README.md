@@ -1,0 +1,11 @@
+# 原生底部喇叭栏服务器公告
+
+底部喇叭栏原先没有服务器公告下发。现在正常进城后显示首条公告，默认每300秒轮播；切换角色或建立新会话重置首条，场景加载时暂停，恢复后不补发积压。默认文案为“系统公告：欢迎来到艾尔之光，祝您游戏愉快！”。内容和间隔在server_announcements.json配置，messages为空关闭，正常重启后生效。
+
+复用原生0x244通知与客户端123A4E0读取器、122EDF0 category6/panel5队列和MegaphoneIcon。四个运行文件：原生通知编码、公告配置、领域调度模块和现有LocalSession共享周期入口接线；联网单人/组队继续走原入口。仅服务器公告，没有新增玩家免费喊话、喇叭道具扣除或经济规则；无EXE/KOM、Hook、数据库或启动器变化。
+
+此处按仓库既有references模式归档已安装ONLINE的精确字节，保留实际父版其后增量；不以旧协作根引擎覆盖正式运行环境。LOCAL候选的九项测试通过，但本次没有安装LOCAL。ONLINE/LOCAL各九项相关测试、原生离线三组中文/表情解析和原生队列验证通过；公网真实TLS的两次正常角色登录分别收到0x244公告，连接持续正常。120秒以上运行观察、自有QA认证清理与注册名额核验完成。自然GUI与实战未验，源码提交不等于主干已合并。
+
+source-contract.json固定四份文件SHA和脱敏证据。原始完整父运行环境、原生映像和私有运行材料由维护者保管，不随Git分享。执行python tools/verify_bottom_megaphone_source_20261104.py可校验归档哈希、语法及记录；该检查不冒称重新运行原生或公网测试。
+
+持有匹配的完整私有父版时，设置ELS_ANNOUNCEMENT_TEST_PARENT和ELS_ANNOUNCEMENT_TEST_TEMP，在verification目录执行python test_announcements.py online可重现相关业务测试。配置字符限制按UTF-16单位核定，不切断表情代理对。失败恢复仅恢复代码，绝不恢复玩家或账号库。

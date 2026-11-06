@@ -1,0 +1,110 @@
+{
+  "root_cause": "Native SummonSpecialRidingNPC creates INIT_SPECIAL_RIDING_TARGET.TARGET_NPC_UNIT_ID; dependency collector only followed Lua CreateNPCReq",
+  "sources": [
+    {
+      "template": 8908,
+      "script": "DEVILDOM5_IRONWALL_STAGE0_TURRET.lua",
+      "sha256": "8f85e7cb9b66134f6a987d9080f5bf1a1eeac83f1603d50dde2fae570279dec3",
+      "target": 8921
+    },
+    {
+      "template": 8909,
+      "script": "DEVILDOM5_IRONWALL_STAGE1_TURRET.lua",
+      "sha256": "16f6db0369debf115328cad184d9295d36935426936aa0b1088b3ed52b8762fd",
+      "target": 8922
+    },
+    {
+      "template": 8942,
+      "script": "DEVILDOM5_IRONWALL_STAGE1_TURRET2.lua",
+      "sha256": "cfb359efa804a352c76870b29d2c01de0abb6b4eb6c70e5f5047579fe265334e",
+      "target": 8922
+    },
+    {
+      "template": 9296,
+      "script": "LITHIA_MEMORY1_MINIGAME_PART1.lua",
+      "sha256": "f698053745752c715dc267a03950dbd9862b5f4276e05b0ebc8679e58fb31a88",
+      "target": 9305
+    },
+    {
+      "template": 9297,
+      "script": "LITHIA_MEMORY1_MINIGAME_PART2.lua",
+      "sha256": "20d0e23cf79ed1a6b7d3f21d05e2e941238856cb093473364c5e883c6ee1f77f",
+      "target": 9306
+    },
+    {
+      "template": 9298,
+      "script": "LITHIA_MEMORY1_MINIGAME_PART3.lua",
+      "sha256": "4848b9e434e653d3fc9725a4c9298dfe574ae275dc99d443d410f2537af388a7",
+      "target": 9307
+    },
+    {
+      "template": 9299,
+      "script": "LITHIA_MEMORY1_MINIGAME_PART4.lua",
+      "sha256": "91db55bee500273482d4247664c58f7eec43027c30e37a9ebc9c191c8812a93a",
+      "target": 9308
+    },
+    {
+      "template": 9300,
+      "script": "LITHIA_MEMORY1_MINIGAME_PART5.lua",
+      "sha256": "490b40788fcd495980c7685154c3d5f00177e8c7a9ca9fcadf7d14b39e07a9ea",
+      "target": 9309
+    }
+  ],
+  "changed_stages": [
+    {
+      "source": "dungeon_lithia_memory1.lua",
+      "stage": 0,
+      "added": [
+        9305,
+        9306,
+        9307,
+        9308,
+        9309
+      ]
+    },
+    {
+      "source": "dungeon_lithia_memory1.lua",
+      "stage": 1,
+      "added": [
+        9306,
+        9307,
+        9308,
+        9309
+      ]
+    }
+  ],
+  "metadata_sources": [
+    {
+      "template": 9305,
+      "script": "LITHIA_MEMORY1_PART1.lua",
+      "sha256": "a1a0476398316a50fe4c60352626c7ec76b843220be3e00dc6dc86a3a3a323bf",
+      "component_max_hp": null
+    },
+    {
+      "template": 9306,
+      "script": "LITHIA_MEMORY1_PART2.lua",
+      "sha256": "ea25c8a78fc666d0004ff6f3cfb180d4d04b808b3bc6ff448e73e671ca0df29c",
+      "component_max_hp": null
+    },
+    {
+      "template": 9307,
+      "script": "LITHIA_MEMORY1_PART3.lua",
+      "sha256": "ce38ae99993af740257eb9796aacb55d7534dbb5c6afc132754ebeae80785f65",
+      "component_max_hp": null
+    },
+    {
+      "template": 9308,
+      "script": "LITHIA_MEMORY1_PART4.lua",
+      "sha256": "b480c58cd1144758ad824b2b6e2f718efe1d621ad3318fd328fbc81753380e62",
+      "component_max_hp": null
+    },
+    {
+      "template": 9309,
+      "script": "LITHIA_MEMORY1_PART5.lua",
+      "sha256": "7f3c22be3a22b2f6dc4b77c50c3d68c14b9ca0eb5f57cbb7bc1dc7c7efa39fe3",
+      "component_max_hp": null
+    }
+  ],
+  "unrelated_turret_dependencies_already_present": true,
+  "new_numeric_policy": false
+}

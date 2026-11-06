@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-01",
+  "synthetic_tests_passed": 7,
+  "baseline_reproduced": true,
+  "affected_mailbox_readonly_after_install": true,
+  "public_protocol": {
+    "ok": true,
+    "release": "retained-mail-login-20261101-v1",
+    "kind": "retained-mail-login-business-acceptance",
+    "natural_GUI": false,
+    "natural_battle": false,
+    "unread_preview_and_town_entry": true,
+    "mail_list_read_claim": true,
+    "claim_replay_no_duplicate": true,
+    "UID_quantity_expiry_preserved": true,
+    "cold_authenticated_reconnect": true,
+    "claimed_templates": [
+      723610,
+      723618
+    ],
+    "request_count": 39,
+    "player_database_restore": false
+  },
+  "installation": {
+    "online": {
+      "release": "retained-mail-login-20261101-v1",
+      "manifest_sha256": "81f4b4bcf2a6e8373d82ed9bcfc5f322f4b8ab51b3030fa67ebe5b38a7d66caf",
+      "observation_seconds": 125.0533058999572
+    },
+    "local": {
+      "release": "local-retained-mail-login-20261101-v1",
+      "manifest_sha256": "a94dc3fd30d746c0eac188199a96ca89df4ef8decf025d16125d088fbde8e296",
+      "observation_seconds": 120.00066289980896
+    }
+  },
+  "original_EXE_KOM_changes": 0,
+  "new_schema": false,
+  "new_acquisition_sources": false,
+  "player_database_restore": false,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "omitted": "Player/account databases, credentials, raw logs and captures, private host paths and QA identities are not included.",
+  "source_only_submission": true,
+  "redeployment_performed_for_Git_submission": false
+}

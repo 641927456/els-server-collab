@@ -1,0 +1,310 @@
+{
+  "issue": 791,
+  "base_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "parent_release": "native-operation-error-messages-20261103-v1",
+  "parent_manifest_sha256": "16d4bc7153096fa5918fe9d55ec0df101b7c1570cb129eecda3c63beb9318989",
+  "files": {
+    "els_server/domain/resonance_2026_allocations.py": {
+      "parent_sha256": "b241206845809a47b3082c3a61db4621e6a80b1e0c10164c0faac599259aaa02",
+      "sha256": "a8b81b85064dcd20607347ce40406b9c0e4eba603a2db25a96cdb68e02e79514",
+      "size": 4057
+    },
+    "els_server/protocol/resonance_2026_request.py": {
+      "parent_sha256": "646b581c95fd253de9b0d9c4ecfa624973956d4a8a0463ed653f9c2ff30c862e",
+      "sha256": "70c480b5ff262430b247d634a324ac58f47001fc1ff6a07779aee6bceea8146d",
+      "size": 4030
+    },
+    "els_server/storage/resonance_2026_pages.py": {
+      "parent_sha256": "f037b4e0569cdf83797e24457a4767add5cfbf79e848834fea38c2df100122a2",
+      "sha256": "4001adfe412572b2358dd33549185ea2a32bd34edc4b2b6ccbf56934588f57a3",
+      "size": 10278
+    },
+    "els_server/storage/resonance_2026_resets.py": {
+      "parent_sha256": "04e730ea1195153fe3b34705d9a95f044e70d3acffd2d39173d05015c51f2654",
+      "sha256": "0e5f99effb87e4000ea5d0e25ac3096b4800a37af78c3cea6b23e96f0b20cc65",
+      "size": 8946
+    },
+    "els_server/storage/resonance_2026_scrolls.py": {
+      "parent_sha256": "72e20fc656a47f06f689df8619f7c71d641049bb3f07ea64a45a357c697ca7d1",
+      "sha256": "3833bda3fa8dd30cf8d7cafe6ef0707c8aace3c675d285e6f57c7652f5ef4a66",
+      "size": 4622
+    },
+    "els_server/storage/resonance_period.py": {
+      "parent_sha256": "1f4cd429e6c92a106654b490a98dd9e0a1e8ad9e3b5c9083b84707ae2cc9fa9f",
+      "sha256": "74b74a9cedb107410a87cac211114b515bf9e6703cbb38e79ab7ecf22033d6db",
+      "size": 7349
+    },
+    "els_server/domain/resonance_allocation_flow.py": {
+      "parent_sha256": "b0d666660e29c3987678495bcf86b5cb0a72eed6f1f595737dcf1f8905bcf6db",
+      "sha256": "2c520d2e66c834b2d3d855817e20433ea9e3cfd38634a1498891618cfd647327",
+      "size": 8492
+    },
+    "els_server/domain/resonance_period_flow.py": {
+      "parent_sha256": "3cd1e13723fa99c85c2cc08e5bcd2606767379453b3aec334e9109628d806d67",
+      "sha256": "6cdb815daf644ed65dc9599b036c457a7ee65719d81ceb88891814167c6edecc",
+      "size": 1236
+    },
+    "els_server/protocol/resonance_period_messages.py": {
+      "parent_sha256": "ce53275e4ee2843f8c37e42b10d9c5276b4df8055f00d0f248e9f35fd7afa2f0",
+      "sha256": "13c2eddc1d4851c792eb2043283cc565d003fce3751a7a397167aa2743af2531",
+      "size": 1066
+    }
+  },
+  "unchanged_test_resources": {
+    "els_server/data/resonance2026-stats.json": "44fafbf5bd676453af0c5ad9d38b83bb853ae9a9a4a0d123f77dfbb0b0cb992a"
+  },
+  "scope": "Visible native ERP business refusals for611/613/79E/718; retain silent invalid envelope/actor and transaction semantics.",
+  "root_source_changed": false,
+  "current_engine_changed": false,
+  "server_installed": false,
+  "main_merged": false,
+  "automatic_deployment": false,
+  "validation": {
+    "passed": true,
+    "issue": 791,
+    "parent_release": "native-operation-error-messages-20261103-v1",
+    "source_files": 9,
+    "actual_Application_TLS_cases": 27,
+    "success_cases": 8,
+    "visible_refusal_cases": 15,
+    "preserved_silent_cases": 4,
+    "cold_read_preserved": true,
+    "refusal_state_inventory_balances_and_receipts_unchanged": true,
+    "native_reply_families": [
+      "612",
+      "614",
+      "79F",
+      "719"
+    ],
+    "native_error_packets": 15,
+    "native_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "native_UI_wait_callback_skipped": true,
+    "natural_GUI": false,
+    "online_installed": false,
+    "new_schema": false,
+    "client_delta": 0,
+    "cleanup": {
+      "owned_runtime_removed": true,
+      "active_connections": 0
+    },
+    "failure_history": "23 unaffected successful cases reused from the first run. Remaining-stack UID and adequate point-budget fixtures were corrected; the four affected late cases passed separately. Full verify.py has the same fixture corrections for future reproduction; no claim that its entire corrected version was rerun.",
+    "cases": [
+      {
+        "label": "未开放共鸣不能切页",
+        "kind": "0x79e",
+        "reply": "0x79f",
+        "result": 1788,
+        "native_text": "艾尔共鸣度未激活。",
+        "state_unchanged": true
+      },
+      {
+        "label": "未开放共鸣不能加点",
+        "kind": "0x611",
+        "reply": "0x612",
+        "result": 1788,
+        "native_text": "艾尔共鸣度未激活。",
+        "state_unchanged": true
+      },
+      {
+        "label": "无效加点报文仍静默",
+        "kind": "0x611",
+        "reply": "0x612",
+        "result": 256,
+        "native_text": "无法进行好友邀请。",
+        "state_unchanged": true
+      },
+      {
+        "label": "无效洗点报文仍静默",
+        "kind": "0x613",
+        "reply": "0x614",
+        "result": 256,
+        "native_text": "无法进行好友邀请。",
+        "state_unchanged": true
+      },
+      {
+        "label": "无效期限道具报文仍静默",
+        "kind": "0x718",
+        "reply": "0x719",
+        "result": 256,
+        "native_text": "无法进行好友邀请。",
+        "state_unchanged": true
+      },
+      {
+        "label": "已有共鸣书正常开启",
+        "kind": "0x219",
+        "reply": "0x21a",
+        "result": 0,
+        "native_text": "成功",
+        "state_unchanged": false
+      },
+      {
+        "label": "可用点数不足",
+        "kind": "0x611",
+        "reply": "0x612",
+        "result": 3046,
+        "native_text": "点数不足。",
+        "state_unchanged": true
+      },
+      {
+        "label": "加点页与当前页不同",
+        "kind": "0x611",
+        "reply": "0x612",
+        "result": 2051,
+        "native_text": "可客户端发送的已激活的共鸣度页编号与服务器情报不同。",
+        "state_unchanged": true
+      },
+      {
+        "label": "未扩张的页不可切换",
+        "kind": "0x79e",
+        "reply": "0x79f",
+        "result": 2056,
+        "native_text": "所选的共鸣度页异常。",
+        "state_unchanged": true
+      },
+      {
+        "label": "当前页正常选择",
+        "kind": "0x79e",
+        "reply": "0x79f",
+        "result": 0,
+        "native_text": "成功",
+        "state_unchanged": false
+      },
+      {
+        "label": "空分类不能洗点",
+        "kind": "0x613",
+        "reply": "0x614",
+        "result": 1789,
+        "native_text": "没有投资的点数。",
+        "state_unchanged": true
+      },
+      {
+        "label": "正常加点",
+        "kind": "0x611",
+        "reply": "0x612",
+        "result": 0,
+        "native_text": "成功",
+        "state_unchanged": false
+      },
+      {
+        "label": "混合退点加点预算不足",
+        "kind": "0x611",
+        "reply": "0x612",
+        "result": 3046,
+        "native_text": "点数不足。",
+        "state_unchanged": true
+      },
+      {
+        "label": "洗点硬币不足",
+        "kind": "0x611",
+        "reply": "0x612",
+        "result": 1791,
+        "native_text": "艾尔共鸣点数初始化硬币数量不足。",
+        "state_unchanged": true
+      },
+      {
+        "label": "分类洗点卷轴不足",
+        "kind": "0x613",
+        "reply": "0x614",
+        "result": 1787,
+        "native_text": "背包内没有艾尔共鸣点数初始化卷轴。",
+        "state_unchanged": true
+      },
+      {
+        "label": "洗点硬币请求页过期",
+        "kind": "0x611",
+        "reply": "0x612",
+        "result": 2051,
+        "native_text": "可客户端发送的已激活的共鸣度页编号与服务器情报不同。",
+        "state_unchanged": true
+      },
+      {
+        "label": "分类卷轴请求页过期",
+        "kind": "0x613",
+        "reply": "0x614",
+        "result": 2051,
+        "native_text": "可客户端发送的已激活的共鸣度页编号与服务器情报不同。",
+        "state_unchanged": true
+      },
+      {
+        "label": "期限道具不存在",
+        "kind": "0x718",
+        "reply": "0x719",
+        "result": 459,
+        "native_text": "背包内没有此道具。",
+        "state_unchanged": true
+      },
+      {
+        "label": "期限道具请求页过期",
+        "kind": "0x718",
+        "reply": "0x719",
+        "result": 2051,
+        "native_text": "可客户端发送的已激活的共鸣度页编号与服务器情报不同。",
+        "state_unchanged": true
+      },
+      {
+        "label": "持有硬币正常退点",
+        "kind": "0x611",
+        "reply": "0x612",
+        "result": 0,
+        "native_text": "成功",
+        "state_unchanged": false
+      },
+      {
+        "label": "退点后正常加回",
+        "kind": "0x611",
+        "reply": "0x612",
+        "result": 0,
+        "native_text": "成功",
+        "state_unchanged": false
+      },
+      {
+        "label": "分类卷轴正常退点",
+        "kind": "0x613",
+        "reply": "0x614",
+        "result": 0,
+        "native_text": "成功",
+        "state_unchanged": false
+      },
+      {
+        "label": "期限共鸣祝福正常使用",
+        "kind": "0x718",
+        "reply": "0x719",
+        "result": 0,
+        "native_text": "成功",
+        "state_unchanged": false
+      },
+      {
+        "label": "期限祝福后续场景准备",
+        "kind": "0x718",
+        "reply": "0x719",
+        "result": 0,
+        "native_text": "成功",
+        "state_unchanged": false
+      },
+      {
+        "label": "已有祝福不能重复扣道具",
+        "kind": "0x718",
+        "reply": "0x719",
+        "result": 1971,
+        "native_text": "伊利亚的祝福的共鸣点数使用失败。",
+        "state_unchanged": true
+      },
+      {
+        "label": "期限加点不得超过原生上限",
+        "kind": "0x611",
+        "reply": "0x612",
+        "result": 1973,
+        "native_text": "追加投资的共鸣点数将共鸣度技能等级变为最高级时，\n在效果结束前无法继续对该技能投资共鸣点数。",
+        "state_unchanged": true
+      },
+      {
+        "label": "失效角色租约仍静默",
+        "kind": "0x611",
+        "reply": "0x612",
+        "result": 256,
+        "native_text": "无法进行好友邀请。",
+        "state_unchanged": true
+      }
+    ]
+  }
+}
