@@ -86,7 +86,7 @@ class CharacterCustomOpeningTests(unittest.TestCase):
             sqlite3.connect(path).close()
             self.session.account.store = types.SimpleNamespace(path=path)
             events = character_custom.handle(self.session, self.request, 3)
-        self.assertEqual([event.kind for event in events], [0x4cd, 0x4cc, 0x18e, 0x635])
+        self.assertEqual([event.kind for event in events], [0x635, 0x4cd, 0x4cc, 0x18e])
 
     def test_unreadable_store_still_opens_the_window(self):
         # The replay is optional; a session whose store cannot be read must not

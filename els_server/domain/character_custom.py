@@ -213,7 +213,10 @@ def handle(s,event,sequence):
                 return events
             from els_server.domain.avatar_set_flow import context,validate
             captured=context(s)
-            events=_replay_selection(s)+opening_info(s.account.store.path,s.account.uid,s.account.account_id,validate=lambda:validate(s,captured))
+            events=opening_info(s.account.store.path,s.account.uid,s.account.account_id,validate=lambda:validate(s,captured))
+            # The window exists after the 635; the row state goes after it, so a
+            # fresh panel paints from the save instead of the career default.
+            events=events+_replay_selection(s)
             _trace('opener ok')
             return events
         except ValueError as error:
