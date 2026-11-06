@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "baseline": true,
+  "cases": [
+    {
+      "server_second": 1899999999,
+      "permission": true,
+      "shared_expiration_permission": true
+    },
+    {
+      "server_second": 1900000000,
+      "permission": false,
+      "shared_expiration_permission": true
+    },
+    {
+      "server_second": 1900000001,
+      "permission": false,
+      "shared_expiration_permission": false
+    }
+  ],
+  "source_sha256": "c0bd467612e5cc020f9a63494967a5715934fb0bf8afa97b7b4240ef50ecfe28",
+  "timed_camera_acquisition_tested": false,
+  "production_database_access": false,
+  "SQL_unchanged": true,
+  "temporary_directory_removed": true
+}
