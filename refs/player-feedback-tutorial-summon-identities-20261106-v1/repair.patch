@@ -1,0 +1,34 @@
+--- a/els_server/domain/dungeon_routes.py
++++ b/els_server/domain/dungeon_routes.py
+@@ -116,9 +116,7 @@
+   self.catalog=route_catalog();self.graph=self.catalog.graph(identity,internal=internal);self.identity=identity
+   # Native dungeon stage loads retain player summons (creation reason3).
+   # Reserve every possible static stage identity before allocating one.
+-  self.summon_key_floor=max(16,max(sum(len(p['groups'][0]['npcs'])+max(
+-   (len(g['npcs']) for g in p['groups'][1:]),default=0) for p in stage['parts'].values())
+-   for stage in self.graph['stages'].values()))
++  self._reserve_summon_keys()
+   self.run_id=str(uuid.UUID(run_id));self.clock=clock;self.stage=0;self.part=0
+   self.hp_context=hp_context
+   if hp_context is not None:hp_context.bind_run(self)
+@@ -142,6 +140,10 @@
+    self.formal_raid_experience_bp=raid_rate_snapshot()['experience_bp']
+    from els_server.domain.formal_raid_economy import bind_experience
+    bind_experience(self)
++ def _reserve_summon_keys(self):
++  self.summon_key_floor=max(16,max(sum(len(p['groups'][0]['npcs'])+max(
++   (len(g['npcs']) for g in p['groups'][1:]),default=0) for p in stage['parts'].values())
++   for stage in self.graph['stages'].values()))
+  def draw(self,label,total):
+   return int.from_bytes(hashlib.sha256((self.run_id+':'+label).encode()).digest(),'big')%total
+  def _load_stage(self,stage):
+--- a/els_server/domain/first_story_population.py
++++ b/els_server/domain/first_story_population.py
+@@ -30,6 +30,7 @@
+     def __init__(self,identity):
+         self.catalog=catalog();data=self.catalog._data
+         self.graph=json.loads(json.dumps(data['graphs'][data['maps'][str(identity)]['source']]))
++        self._reserve_summon_keys()
+         self.identity=identity;self.run_id=str(uuid.uuid4());self.clock=time.monotonic
+         self.hp_context=None # Preserve the existing tutorial HP policy.
+         self.stage=0;self.part=0;self.encounter=None;self.completed_stages=set();self.visits=0
