@@ -1,0 +1,72 @@
+{
+  "successful_related_results": [
+    {
+      "source": "codec-native-1793936282254018400.json",
+      "source_sha256": "ddcb08cc4ecf5407978988c04e5145c53f33132bbfebed1e7509b7700157d46a",
+      "ok": true,
+      "checks": [
+        {
+          "original342_serializers": [
+            "2BDE630",
+            "2BDE710"
+          ],
+          "all_growth_combinations": 125,
+          "opaque_hint_i32_boundaries": true,
+          "UID_u64_boundaries": true,
+          "zero_UID_is_format_only": true
+        },
+        {
+          "original_A6C_serializer": "DB8560",
+          "all_action_combinations": 216,
+          "extra_numeric_boundary_case": true,
+          "cases": 217,
+          "rejects_all_truncated_lengths": true,
+          "rejects_non_three_count": true,
+          "business_action_legality_not_claimed": true
+        },
+        {
+          "original_DC6880_reader": true,
+          "empty_and_three_pet_vectors": true,
+          "exact_UID_and_three_i32_fields": true,
+          "HP_and_enchant_are_explicit_layout_fixtures": true
+        }
+      ],
+      "native_Game": false,
+      "natural_GUI": false,
+      "production_database_access": false
+    },
+    {
+      "source": "native-member-1793936485866684000.json",
+      "source_sha256": "40b1dc9a2580c90f2265a93312a02dc1aad7be4df418860ec7659983aab024d6",
+      "ok": true,
+      "checks": [
+        {
+          "ordinary_member_without_pet_projection_byte_identical": true,
+          "bytes": 1150
+        },
+        {
+          "original_DB7CF0_D9DDB0_D9D2F0_full_read": true,
+          "slot_count": 1,
+          "member_count": 1,
+          "pet_count": 3,
+          "all_pet_UID_and_ability_HP_enchant_fields_match": true,
+          "account_owner_and_port_retained": true,
+          "ordinary_mount_field_unchanged": true,
+          "bytes": 1503,
+          "original_code_unmodified": true,
+          "external_windows_stack_probe_stubbed": true
+        }
+      ],
+      "native_Game": false,
+      "natural_GUI": false,
+      "production_database_access": false
+    }
+  ],
+  "scope": "Original native format oracles and ordinary FullUser parity only; explicit pet HP/enchant layout values are not an approved combat policy.",
+  "unresolved": [
+    "Actual matching/admission/selection/round/outcome service",
+    "Battle formulas and RNG rules await user response",
+    "Current account54620 objective92/3wins and324815x7 are located but not connected",
+    "Original Game/natural GUI"
+  ]
+}
