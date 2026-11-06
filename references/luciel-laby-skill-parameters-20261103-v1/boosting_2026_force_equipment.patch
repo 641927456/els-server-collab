@@ -1,0 +1,17 @@
+--- a/els_server/domain/boosting_2026_force_equipment.py
++++ b/els_server/domain/boosting_2026_force_equipment.py
+@@ -50,7 +50,13 @@
+         # Historical type20 Mod rows remain persisted but invisible to the
+         # native type18 vector. Genuine type18 rank1 rows remain visible.
+         for index in range(PASSIVE_SLOTS,TOTAL_SLOTS):
+-            if result[index][0] and active_skill(result[index][0]):result[index]=(0,0)
++            skill = result[index][0]
++            if skill and active_skill(skill):result[index]=(0,0)
++            elif skill:
++                from els_server.domain.change_force_inventory import by_skill
++                rule = by_skill()[skill]
++                if (rule['unit_class'], rule['unit_type']) != (character['unit_class'], character['unit_type']):
++                    result[index]=(0,0)
+     return tuple(result)
+
+ def vectors(character=None):
