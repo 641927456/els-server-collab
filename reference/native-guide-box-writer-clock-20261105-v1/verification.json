@@ -1,0 +1,135 @@
+{
+  "ok": true,
+  "source_files": 1,
+  "proof": [
+    {
+      "path": "guide-box-clock-baseline-1793862568977156400.json",
+      "sha256": "439cfbb6751dbb2bde846305d60001eaca75d04e252ac1386ed3a0cca865814a",
+      "overall_passed": false,
+      "cases": []
+    },
+    {
+      "path": "guide-box-clock-baseline-1793862596507764700.json",
+      "sha256": "1da5356d51a4de144001b63e121e9346502e74c950029ce93e193253f180bf1b",
+      "overall_passed": true,
+      "cases": [
+        {
+          "expired_during_wait": true,
+          "accepted": true,
+          "error": null,
+          "granted": [
+            {
+              "uid": 1001012,
+              "template": 30678,
+              "expires_at": 1902591998
+            },
+            {
+              "uid": 1001013,
+              "template": 30679,
+              "expires_at": 1902591998
+            },
+            {
+              "uid": 1001014,
+              "template": 30680,
+              "expires_at": 1902591998
+            },
+            {
+              "uid": 1001015,
+              "template": 30681,
+              "expires_at": 1902591998
+            }
+          ],
+          "SQL_unchanged": false
+        },
+        {
+          "expired_during_wait": false,
+          "accepted": true,
+          "error": null,
+          "granted": [
+            {
+              "uid": 1001012,
+              "template": 30678,
+              "expires_at": 1902591998
+            },
+            {
+              "uid": 1001013,
+              "template": 30679,
+              "expires_at": 1902591998
+            },
+            {
+              "uid": 1001014,
+              "template": 30680,
+              "expires_at": 1902591998
+            },
+            {
+              "uid": 1001015,
+              "template": 30681,
+              "expires_at": 1902591998
+            }
+          ],
+          "SQL_unchanged": false
+        }
+      ]
+    },
+    {
+      "path": "guide-box-clock-fixed-1793862569044909000.json",
+      "sha256": "dcd0691f44820f72c353287c01a20be94e9b80bf21f702070321d3568f26e816",
+      "overall_passed": false,
+      "cases": [
+        {
+          "expired_during_wait": true,
+          "accepted": false,
+          "error": "Item has expired",
+          "granted": [],
+          "SQL_unchanged": true
+        }
+      ]
+    },
+    {
+      "path": "guide-box-clock-fixed-1793862596504073100.json",
+      "sha256": "1573e1805cf6f6b200fa92d28c382b93cbc090a19b1f2493f7149bc780d9bada",
+      "overall_passed": true,
+      "cases": [
+        {
+          "expired_during_wait": false,
+          "accepted": true,
+          "error": null,
+          "granted": [
+            {
+              "uid": 1001012,
+              "template": 30678,
+              "expires_at": 1902592000
+            },
+            {
+              "uid": 1001013,
+              "template": 30679,
+              "expires_at": 1902592000
+            },
+            {
+              "uid": 1001014,
+              "template": 30680,
+              "expires_at": 1902592000
+            },
+            {
+              "uid": 1001015,
+              "template": 30681,
+              "expires_at": 1902592000
+            }
+          ],
+          "SQL_unchanged": false
+        }
+      ]
+    }
+  ],
+  "fixed_distinct_cases": 2,
+  "real_SQLite_writer_contention": true,
+  "expired_rejected_SQL_unchanged": true,
+  "last_valid_second_accepted": true,
+  "original_four_rewards_and_thirty_day_period_preserved": true,
+  "replay_UIDs_stable_and_single_receipt": true,
+  "initial_failed_oracle_preserved": true,
+  "unchanged_expired_case_reused_from_partial_report": true,
+  "player_database_access": false,
+  "natural_GUI": false,
+  "installed": false
+}
