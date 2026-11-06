@@ -2975,9 +2975,11 @@ class LocalSession:
                                             if isinstance(entry,dict) and type(entry.get('custom_id'))is int
                                             and entry['custom_id']>0)
                         if custom_values:
+                            # Selected rows only: one 4CD per owned row is
+                            # thousands of events on a fully unlocked save, and
+                            # a burst that size is dropped whole by the client.
                             custom_events=tuple([registered(value)
-                                                 for family in sorted(owned)
-                                                 for value in owned[family]]
+                                                 for slot,value in sorted(selected.items())]
                                                 +[acknowledgement(selected),
                                                   selected_notice(self.account.uid,
                                                                   int(self.account.character().get('title',0) or 0),

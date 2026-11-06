@@ -73,14 +73,17 @@ class CharacterCustomOpeningTests(unittest.TestCase):
         # The rows paint themselves from the 4CD/4CC/18E trio, not from the 635
         # opener: a window opened in town therefore showed the career default
         # for a slot the save had already set, while the game itself kept
-        # applying it through the login 18E. The dungeon opener sends the same
-        # three messages.
+        # applying it through the login 18E. Only the chosen rows are
+        # registered - replaying one 4CD per owned row is thousands of events on
+        # a fully unlocked save, and the client drops a burst that size whole.
         stored = {19: character_custom.canonical(15211)}
+        owned = {19: [character_custom.canonical(15211)],
+                 16: [character_custom.canonical(8000)],
+                 3: [character_custom.canonical(13011)]}
         self.session.account.character = lambda: {'title': 0}
         self.enterContext(patch.dict(sys.modules, {'els_server.storage.character_custom':
             types.SimpleNamespace(opening_info=self.opening,
-                                  snapshot=lambda db, uid: {'owned': {19: list(stored.values())},
-                                                            'selected': stored})}))
+                                  snapshot=lambda db, uid: {'owned': owned, 'selected': stored})}))
         with tempfile.TemporaryDirectory() as directory:
             path = os.path.join(directory, 'session.sqlite3')
             sqlite3.connect(path).close()

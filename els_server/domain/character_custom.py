@@ -179,7 +179,13 @@ def _replay_selection(s):
         owned=fresh['owned'];selected=dict(fresh['selected'])
         if not selected:return []
         title=int(s.account.character().get('title',0) or 0)
-        events=([registered(value) for family in sorted(owned) for value in owned[family]]
+        # Only the selected values are registered here. A fully unlocked save
+        # owns thousands (2902 on the live one), and replaying one 4CD per owned
+        # row built a 145 KB burst that the client dropped whole: the window
+        # opened on the career defaults. The owned map already reaches the
+        # client in 2A, so the opener only has to make the *chosen* rows
+        # resolvable.
+        events=([registered(value) for slot,value in sorted(selected.items())]
                 +[acknowledgement(selected),selected_notice(s.account.uid,title,selected)])
         # The opener reply carries all of this in one frame burst; an event that
         # only fails at encode time would take the whole reply down with it,
@@ -224,14 +230,18 @@ def handle(s,event,sequence):
                     db.execute('BEGIN')
                     fresh=store_snapshot(db,s.account.uid)
                 owned=fresh['owned'];selected=dict(fresh['selected'])
-                capacity=[registered(value) for family in sorted(owned) for value in owned[family]]
-                notices=list(capacity)
+                # Selected rows only. One 4CD per owned row is 2902 events on a
+                # fully unlocked save, and the client drops such a burst whole -
+                # the window then opens on the career defaults. There is no
+                # other carrier in the dungeon reply, so both openers replay the
+                # same shape.
+                notices=[registered(value) for slot,value in sorted(selected.items())]
                 if selected:
                     notices.append(acknowledgement(selected))
                     notices.append(selected_notice(s.account.uid,int(character.get('title',0) or 0),selected))
                 events=notices+opening_info(s.account.store.path,s.account.uid,s.account.account_id)
                 _trace('opener ok phase=dungeon owned=%d slots=%d notices=%d'
-                       %(len(capacity),len(selected),len(notices)))
+                       %(sum(len(v) for v in owned.values()),len(selected),len(notices)))
                 return events
             from els_server.domain.avatar_set_flow import context,validate
             captured=context(s)
