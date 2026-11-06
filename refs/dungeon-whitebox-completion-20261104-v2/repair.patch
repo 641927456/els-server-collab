@@ -1,0 +1,345 @@
+--- a/els_server/domain/dungeon_flow.py
++++ b/els_server/domain/dungeon_flow.py
+@@ -98,7 +98,7 @@
+   valid=(owned and s.dungeon_substage_synced and not s.clear_notified
+          and not getattr(s,'dungeon_failed',False) and event.payload==struct.pack('>b',run.part))
+   # B9 invokes native CreateCurtain (1076BC0) for the arrived sub-part.
+-  return [Event(0x201,kind=0xb9,payload=struct.pack('>i',0 if valid or owned and late else -1))]
++  return [Event(0x201,kind=0xb9,payload=struct.pack('>i',0 if valid or owned and late else 1836))]
+  if event.kind==0xad:
+   from els_server.domain.native_script_loot import accepted_death as script_reward_death
+   script_reply=script_reward_death(s,event)
+@@ -293,12 +293,12 @@
+  source=struct.unpack_from('>ii',raw) if len(raw)>=8 else (run.stage,run.part)
+  def reply(result,kind=0):
+   return Event(0x201,kind=0x472,payload=struct.pack('>7i',result,kind,0,*source,0,0))
+- error=(None,[reply(-1)])
++ error=(None,[reply(1836)])
+  from els_server.domain.dungeon_equipment_loot_flow import current_lease
+  if (event.event_id!=0x202 or event.kind!=0x471 or event.performers!=(0,)
+      or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0
+      or s.role!='game' or s.phase!='dungeon_active' or not s.dungeon_substage_synced
+-     or s.clear_notified or getattr(s,'dungeon_failed',False) or not current_lease(s)
++     or getattr(s,'dungeon_failed',False) or not current_lease(s)
+      or getattr(s,'reward_transaction',None) is not None or len(raw)<15):return error
+  stage,part,reserved,count=struct.unpack_from('>iiHI',raw)
+  conditions=run.current['conditions']
+@@ -311,6 +311,14 @@
+   shadow.dungeon_run.portal_requested=condition['kind']==5 or run.portal_requested
+   if shadow.dungeon_run.condition_ready(condition):selected=condition;break
+  if selected is None:return error
++ if s.clear_notified:
++  # C1 can precede the native final-room condition request. Acknowledge
++  # that already-authoritative completion without rerunning settlement.
++  if not s.part_end_notified or run.next is None or run.next['kind']!=4:return error
++  message=reply(0,4)
++  from els_server.protocol.protocol_codec import encode_event
++  encode_event(message)
++  return s,[message]
+  notifications=periodic(shadow)
+  if shadow.dungeon_run.next is None:return error
+  replies=[reply(0,shadow.dungeon_run.next['kind']),*notifications]
+--- a/els_server/domain/friends_dungeon.py
++++ b/els_server/domain/friends_dungeon.py
+@@ -444,7 +444,22 @@
+         from els_server.domain.dungeon_flow import prepare_condition_clear,adopt_condition_clear
+         from els_server.domain.friends_spawns import _checked_static_generation
+         from els_server.domain.party_commands import _prepared_boxes
+-        if r.phase not in ('active','part_end'):return []
++        if r.phase not in ('active','part_end','clear'):return []
++        if r.phase=='clear':
++            from els_server.domain.friends_spawns import _connection,_generation
++            origin=getattr(r,'static_actor_origin',None);run=s.dungeon_run
++            # Departed peers may already have another run. Bind only this
++            # retained member to the original completed room and final gate.
++            if (not self._current_transport_member(s.application,s,r)
++                or not self._current_transport_roster(s.application,r)
++                or run is None or run.identity!=r.identity or origin is None
++                or origin[0] is not r or origin[2:4]!=(r.seed,r.identity)
++                or (_connection(s),run,r.seed) not in origin[4]
++                or getattr(r,'static_actor_generation',None)!=_generation(r,s)
++                or any(not m.clear_notified or getattr(m,'dungeon_failed',False) or m.social_overflow
++                    for m in r.members if self.room(m) is r)):return []
++            _,replies=prepare_condition_clear(s,event)
++            return replies[:1]
+         try:_checked_static_generation(self,r)
+         except ValueError:return []
+         if s is not r.leader:
+--- a/els_server/domain/native_line_triggers.py
++++ b/els_server/domain/native_line_triggers.py
+@@ -32,7 +32,7 @@
+     if run.identity not in {key[0]for key in rules}:
+         return None
+     if participants is None:participants=frozenset((s.account.uid,))
+-    error=(None,[Event(0x201,kind=0x30b,payload=struct.pack('>i',-1))])
++    error=(None,[Event(0x201,kind=0x30b,payload=struct.pack('>i',1836))])
+     if (event.performers!=(0,)or event.uid!=2**64-1 or event.target_uid!=2**64-1
+         or event.payload_mode!=0 or len(event.payload)!=4 or s.role!='game'
+         or s.phase!='dungeon_active' or not s.dungeon_substage_synced
+@@ -41,6 +41,9 @@
+         return error
+     activation=struct.unpack('>i',event.payload)[0]
+     rule=rules.get((run.identity,run.stage,run.part,activation))
++    if rule is None:
++        contact=rules.get((run.identity,run.stage,-1,activation))
++        if contact is not None and run.part in contact['contact_parts']:rule=contact
+     if rule is None:
+         accepted=set(getattr(run,'native_line_triggers',()))
+         late=any(stage==run.stage and visits==run.visits and value==activation
+@@ -63,7 +66,8 @@
+     if (templates or sources)and not present:
+         return error
+     accepted=set(getattr(run,'native_line_triggers',()))
+-    key=(run.stage,run.part,run.visits,activation)
++    # A contact shared by adjacent parts is one original world action.
++    key=(run.stage,rule['part'],run.visits,activation)
+     reply=[Event(0x201,kind=0x30b,payload=bytes(4))]
+     # A looping native action can be requested again after the native consumer
+     # retires it. The consumer itself ignores an activation that is still active.
+@@ -79,7 +83,7 @@
+ def shared(dispatcher,room,s,event):
+     from els_server.domain.friends_spawns import _checked_static_generation
+     from els_server.domain.party_commands import _prepared_boxes
+-    error=[Event(0x201,kind=0x30b,payload=struct.pack('>i',-1))]
++    error=[Event(0x201,kind=0x30b,payload=struct.pack('>i',1836))]
+     if s not in room.members or room.phase not in ('active','part_end'):return error
+     try:_checked_static_generation(dispatcher,room)
+     except ValueError:return error
+--- a/els_server/domain/local_session.py
++++ b/els_server/domain/local_session.py
+@@ -1002,11 +1002,11 @@
+ 
+         if self.enter_town and kind==0x397 and event.event_id==0x202 and self.role=='game':
+             if self.phase not in ('game_authenticated','port_ready','session_ready','terms_ready','characters_ready','channels_ready','player_initialized','skill_ui_ready','initialization_confirmed','map_loading','square_accepted','town_ready','dungeon_loading','dungeon_active'):
+-                return [Event(0x201,kind=0x398,payload=i32(-1))]
++                return [Event(0x201,kind=0x398,payload=i32(1836))]
+ 
+             try:self.account.save_bindings(event.payload)
+ 
+-            except ValueError:return [Event(0x201,kind=0x398,payload=i32(-1))]
++            except ValueError:return [Event(0x201,kind=0x398,payload=i32(1836))]
+ 
+             return [Event(0x201,kind=0x398,payload=i32(0))]
+ 
+@@ -1026,7 +1026,7 @@
+                         raise ValueError('Skill layout character/store binding')
+                     ack=self.account.equip_skill(event.payload)
+ 
+-                except ValueError:ack=i32(-1)+i32(-1)+i32(0)+i32(-1)+i32(0)
++                except ValueError:ack=i32(1836)+i32(-1)+i32(0)+i32(-1)+i32(0)
+ 
+                 from els_server.domain.native_skill_production import record as record_native_skill
+ 
+@@ -1038,7 +1038,7 @@
+ 
+                 try:self.account.save_layout(event.payload)
+ 
+-                except ValueError:return [Event(0x201,kind=0x6ec,payload=i32(-1))]
++                except ValueError:return [Event(0x201,kind=0x6ec,payload=i32(1836))]
+ 
+                 return [Event(0x201,kind=0x6ec,payload=i32(0))]
+ 
+--- a/els_server/data/native_line_triggers.json
++++ b/els_server/data/native_line_triggers.json
+@@ -37914,6 +37914,201 @@
+           "script_sha256": "9f52e11397bf66300b8a9a3755f891bcf4cee38daee2b244a0e897fa5d9140db"
+         }
+       ]
++    },
++    {
++      "dungeon": 33182,
++      "stage": 2,
++      "part": 2,
++      "trigger": 0,
++      "source_sha256": "d9dfc8ca84404b5937e13e3a250b635fbd5ea62a5def67c4616fc556590a0ee2",
++      "native_loop": false,
++      "line_source_sha256": "9400604c515595f85affa58682c3aa068efeb591323b9f2fc4602cd77fd29a88",
++      "world_source_sha256": "c85c05031191a57614891e656e5267f09143f2a3a70d10b927ab80d74ad2525c",
++      "native_request_producer": "Original AddLine_LUA line7/LINE_SET4/TRIGGER_ID0 (native request observed)",
++      "reaction": "Original AddTrigger_LUA statue/water-column animation and sound",
++      "native_predicates_and_AI_retained": true
++    },
++    {
++      "dungeon": 34140,
++      "stage": 1,
++      "part": 0,
++      "trigger": 2,
++      "source_sha256": "e19bb64e80a3788b985b54910c9ad4d29004f29234c68db933bdb395d83930a3",
++      "native_loop": false,
++      "line_source_sha256": "45117fc24efe991c3b55a9be8a48c375b2798b06aad5b98b5632a5be459ca46e",
++      "world_source_sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
++      "native_request_producer": "Original line contact ID on line(s) 16",
++      "reaction": "Original AddTrigger_LUA action",
++      "native_predicates_and_AI_retained": true
++    },
++    {
++      "dungeon": 34180,
++      "stage": 1,
++      "part": 0,
++      "trigger": 2,
++      "source_sha256": "2c09fdfdd3d1316e7b718cb4e14092e5f5ee0e1cd355b3f49f254f0e78a7d334",
++      "native_loop": false,
++      "line_source_sha256": "45117fc24efe991c3b55a9be8a48c375b2798b06aad5b98b5632a5be459ca46e",
++      "world_source_sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
++      "native_request_producer": "Original line contact ID on line(s) 16",
++      "reaction": "Original AddTrigger_LUA action",
++      "native_predicates_and_AI_retained": true
++    },
++    {
++      "dungeon": 34890,
++      "stage": 1,
++      "part": 0,
++      "trigger": 2,
++      "source_sha256": "dfdc816e218afb1312c8dcfa07c43d3431c28fd2fd4ae7b313f02da2e051a111",
++      "native_loop": false,
++      "line_source_sha256": "8353dc827bf0cfb3a41aa9b8b5c7d99507123113b331366706a9db77e9dd0a74",
++      "world_source_sha256": "3e7b2f698fbe3dbb14afa5c132f613959eb78efcf0a6595c8337662e2362dcc0",
++      "native_request_producer": "Original line contact ID on line(s) 16",
++      "reaction": "Original AddTrigger_LUA action",
++      "native_predicates_and_AI_retained": true
++    },
++    {
++      "dungeon": 34900,
++      "stage": 1,
++      "part": 0,
++      "trigger": 2,
++      "source_sha256": "70ea42048db204143581f94c3fd42a67378b03e57154ef630f59259175edd0c6",
++      "native_loop": false,
++      "line_source_sha256": "8353dc827bf0cfb3a41aa9b8b5c7d99507123113b331366706a9db77e9dd0a74",
++      "world_source_sha256": "3e7b2f698fbe3dbb14afa5c132f613959eb78efcf0a6595c8337662e2362dcc0",
++      "native_request_producer": "Original line contact ID on line(s) 16",
++      "reaction": "Original AddTrigger_LUA action",
++      "native_predicates_and_AI_retained": true
++    },
++    {
++      "dungeon": 35610,
++      "stage": 1,
++      "part": 0,
++      "trigger": 2,
++      "source_sha256": "3856585228680b04722bbbb210238bf6522f76b9ca8a5ae5ca351053cce9af9e",
++      "native_loop": false,
++      "line_source_sha256": "45117fc24efe991c3b55a9be8a48c375b2798b06aad5b98b5632a5be459ca46e",
++      "world_source_sha256": "f48f544d2a076fa8092e20706b6a15f77ec0af3c23a918cb4a0bcd8ea4dfe49b",
++      "native_request_producer": "Original line contact ID on line(s) 16",
++      "reaction": "Original AddTrigger_LUA action",
++      "native_predicates_and_AI_retained": true
++    },
++    {
++      "dungeon": 38100,
++      "stage": 2,
++      "part": 0,
++      "trigger": 0,
++      "source_sha256": "b77b20ece19a92eab13e6fcd03b2c9d61714c262b1a803505b104441d5053b6c",
++      "native_loop": false,
++      "line_source_sha256": "3aff9c93e7f38dca2735d8a3963a58901aecb74c9ca66553d15ad3e7bd2fea91",
++      "world_source_sha256": "e2a473d34597b20add3bbeb2a1b9dad80d2af4c594916e350f177c0ef6c3b24a",
++      "native_request_producer": "Original line contact ID on line(s) 2",
++      "reaction": "Original AddTrigger_LUA action",
++      "native_predicates_and_AI_retained": true
++    },
++    {
++      "dungeon": 33292,
++      "stage": 0,
++      "part": -1,
++      "trigger": 0,
++      "source_sha256": "df17537593b3892881263dd98f051a6da04ec6fbe059c063975fd916db825e3b",
++      "native_loop": false,
++      "line_source_sha256": "8447f7be3f53f649b6af75d619c667e9aab48dd591d157640a871187132090cb",
++      "world_source_sha256": "522fe01ae4ea404b0247e276e05ec5c84793d651c9ad63c55275cd8faad26d5d",
++      "native_request_producer": "Original line contact ID on line(s) 22",
++      "reaction": "Original AddTrigger_LUA action",
++      "native_predicates_and_AI_retained": true,
++      "contact_parts": [
++        0,
++        1
++      ]
++    },
++    {
++      "dungeon": 33292,
++      "stage": 0,
++      "part": -1,
++      "trigger": 2,
++      "source_sha256": "df17537593b3892881263dd98f051a6da04ec6fbe059c063975fd916db825e3b",
++      "native_loop": false,
++      "line_source_sha256": "8447f7be3f53f649b6af75d619c667e9aab48dd591d157640a871187132090cb",
++      "world_source_sha256": "522fe01ae4ea404b0247e276e05ec5c84793d651c9ad63c55275cd8faad26d5d",
++      "native_request_producer": "Original line contact ID on line(s) 25",
++      "reaction": "Original AddTrigger_LUA action",
++      "native_predicates_and_AI_retained": true,
++      "contact_parts": [
++        1,
++        2
++      ]
++    },
++    {
++      "dungeon": 33302,
++      "stage": 1,
++      "part": -1,
++      "trigger": 1,
++      "source_sha256": "112ff72dafc176c7402a932e707743314ddffbc2ba328c0759511a8f305ec62f",
++      "native_loop": false,
++      "line_source_sha256": "2881a5440ce7679b9df36cfea1900e6c406c6164dcd19d37ca3abf6135d1075f",
++      "world_source_sha256": "8790f791277dad80376bb7b0e58cd8167b5107106a56b57e6c9af98d51025ea8",
++      "native_request_producer": "Original line contact ID on line(s) 10",
++      "reaction": "Original AddTrigger_LUA action",
++      "native_predicates_and_AI_retained": true,
++      "contact_parts": [
++        1,
++        2
++      ]
++    },
++    {
++      "dungeon": 33322,
++      "stage": 2,
++      "part": -1,
++      "trigger": 0,
++      "source_sha256": "09e9169df1004f1ab340afc673921f861560b9f1b5c9b375e8451007c89086be",
++      "native_loop": false,
++      "line_source_sha256": "657ae4680fca55251829ac773a53751827e14ed37c5fb499aced39877d74501c",
++      "world_source_sha256": "41acbe5dd86465b7cb781626c5aebd5140fdf4fdefa4ff5a322fa32ff1f68d58",
++      "native_request_producer": "Original line contact ID on line(s) 13",
++      "reaction": "Original AddTrigger_LUA action",
++      "native_predicates_and_AI_retained": true,
++      "contact_parts": [
++        0,
++        1,
++        2,
++        3
++      ]
++    },
++    {
++      "dungeon": 35080,
++      "stage": 1,
++      "part": -1,
++      "trigger": 0,
++      "source_sha256": "7be2bc7bc6636de6a7bb5d62e9e90e470ad65f6a5153f1e9617d75fe48fb549c",
++      "native_loop": false,
++      "line_source_sha256": "37d18801ed33a3ddb704dc38d227575b7f21696503cce2de2319872ea8393445",
++      "world_source_sha256": "6c71c147031e1f04324d8a73f2c4a2db2361c13d88dc010ceb62fffd9bdb3cc7",
++      "native_request_producer": "Original line contact ID on line(s) 7",
++      "reaction": "Original AddTrigger_LUA action",
++      "native_predicates_and_AI_retained": true,
++      "contact_parts": [
++        0,
++        4
++      ]
++    },
++    {
++      "dungeon": 41141,
++      "stage": 2,
++      "part": -1,
++      "trigger": 0,
++      "source_sha256": "3dbc75834acd7c626cd476a7acd0ca7b674db0c1df41bec37ba6f91537bc9f11",
++      "native_loop": false,
++      "line_source_sha256": "a1d77b201d2037ee77102c21e8dc598161bdda6cdfa6a515aa1a11e5d84ea7c7",
++      "world_source_sha256": "c4250488885ff93fee764ca58ee31a40343320db8aa69373b0713c2feedd7be6",
++      "native_request_producer": "Original line contact ID on line(s) 8",
++      "reaction": "Original AddTrigger_LUA action",
++      "native_predicates_and_AI_retained": true,
++      "contact_parts": [
++        0,
++        1
++      ]
+     }
+   ]
+ }
