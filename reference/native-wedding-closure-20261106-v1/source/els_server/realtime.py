@@ -81,6 +81,7 @@ class RealtimeState:
             # Reuse all original authorization predicates against one committed
             # account-registry read. No enabled result escapes this worker scope.
             with app.registry.enabled_snapshot():
+                wedding_views={}
                 for account,session in app.playing.items():
                     if account in exclude:continue
                     bindings[account]=session.shop_session_id
@@ -101,6 +102,15 @@ class RealtimeState:
                     if key is not None and not session.released and not session.coop_error:
                         from els_server.domain.equipment_chip_flow import current_lease
                         if current_lease(session):clocks[session.shop_session_id]=(account,key)
+                    if wedding is not None:
+                        if wedding not in wedding_views:
+                            wedding_views[wedding]=app.world.weddings.routing(app,wedding)
+                        value=wedding_views[wedding].get(account)
+                        if value is not None:
+                            manifest,wedding_routes=value
+                            manifests[account]=b'\1'+json.dumps(manifest,separators=(',',':')).encode()
+                            routes.update(wedding_routes)
+                        continue
                     manifest=dungeons.manifest(app,account)
                     if manifest is None:continue
                     manifests[account]=b'\1'+json.dumps(manifest,separators=(',',':')).encode()

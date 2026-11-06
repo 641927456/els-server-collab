@@ -109,7 +109,7 @@ cases=r'''
             groom=await connect(values[0],peers)
             assert app.playing[aid[0]].account.character()['relationship']['kind']==2
             assert len(read('SELECT mail_id FROM native_relationship_mail'))==12
-            report['checks'].append('Actual417/418/F3 then225/227 returns every participant to original town, clears room/relay membership, rejects post-start reentry; authenticated cold reconnect keeps marriage kind2 and12 original letters')
+            report['checks'].append('Actual417/418/D9 then225/227 returns every participant to original town, clears room/relay membership, rejects post-start reentry; authenticated cold reconnect keeps marriage kind2 and12 original letters')
             report.update(room_clock_is_explicit_future_fixture=True,native_Game=False,natural_GUI=False)
 '''
 body=body[:start]+cases+body[end:]

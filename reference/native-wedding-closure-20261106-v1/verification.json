@@ -406,6 +406,59 @@
         "private_authenticated_TLS": true,
         "owned_directory_removed": true
       }
+    },
+    {
+      "source": "wedding-capacity-diagnostic-1793934128535146300.json",
+      "source_sha256": "c85e10b779837d68de36324a3ee113303542344ee34fe01c4a2b82d495668cbd",
+      "ok": true,
+      "checks": [
+        "33 actual authenticated protocol clients:17 public guests exhaust only unreserved seats while13 invited guests still enter; full32-slot415 carries all roles/21100..21131; departure and replacement reuse only vacated slot and reject old epoch; current spouse88E invitation inside hall consumes one blank",
+        "32 real authenticated production TLS relay sockets publish the same current epoch; actual sender bytes reach all31 authorized peers with authoritative sender UID",
+        "Actual32-member mutual ceremony consumes15 exact participant tickets, commits one marriage and exactly32 participant letters; the departed guest gets no ceremony reward and its newly mailed invitation is not treated as a claimed ticket"
+      ],
+      "qualification": {
+        "native_Game": false,
+        "natural_GUI": false,
+        "private_authenticated_TLS": true,
+        "native_full32_parse_qualified": false,
+        "server_full32_qualified": true,
+        "owned_directory_removed": true
+      }
+    },
+    {
+      "source": "wedding-transport-snapshot-tls-1793934125604516800.json",
+      "source_sha256": "1bec27a597a375f1df8821086c679227ba2e85fbc4cb46735d6dad92e4e67cf0",
+      "ok": true,
+      "checks": [
+        "Actual88B refuses unopened/foreign spouse/wrong password; saved spouses, invited ticket and password guest enter original415/416 with four native roles; no entry ticket debit or saved-town overwrite; guest/missing-spouse start refuses",
+        "One production publication performs all four original capture/reset-authority checks exactly once and derives12 directed routes with no self-route; changed session generation or phase revokes the entire current roster on the next publication, then valid state repopulates without a persistent cache",
+        "Production manifest/route has four authenticated current peers; refusal clears consent; real spouse TLS disconnect cancels pending consent and fences old epoch, then authenticated reconnect reuses spouse slot without losing ticket",
+        "Actual41F/421/422/423/424 mutual consent: late424 failure retains tickets, reservation, pending consent and8 mails; success consumes three exact tickets, records one marriage and issues four correct participant letters; repeated consent adds nothing",
+        "Actual417/418/D9 then225/227 returns every participant to original town, clears room/relay membership, rejects post-start reentry; authenticated cold reconnect keeps marriage kind2 and12 original letters"
+      ],
+      "qualification": {
+        "native_Game": false,
+        "natural_GUI": false,
+        "private_authenticated_TLS": true,
+        "owned_directory_removed": true
+      }
+    },
+    {
+      "source": "wedding-deadlines-tls-1793934191402541400.json",
+      "source_sha256": "3df1440170aacb138926ae290f51ace4467ea7f479a60d885bd27a389d4d3bfa",
+      "ok": true,
+      "checks": [
+        "Actual authenticated production TLS relay forwards native bytes between current wedding peers; guest relay socket close sends native418/return to town, retains unused invitation ticket and fences old epoch",
+        "Production deadline worker: late return encoding rolls back marriage and retains room; exact24hour expiry commits one deadline marriage and native890/418 returns both spouses, with no ceremony gifts or ticket debit",
+        "Outside-hall periodic deadline completes the reminder once and notifies current spouses; it preserves the first marriage/refresh dates and adds no participation letters on replay",
+        "Actual cold28 initialization of a separately accepted couple settles an offline expired reservation before original cold projection; marriage kind2 restores without ceremony gifts"
+      ],
+      "qualification": {
+        "native_Game": false,
+        "natural_GUI": false,
+        "private_authenticated_TLS": true,
+        "owned_directory_removed": true
+      }
     }
   ],
   "failed_or_unqualified": [
@@ -440,9 +493,16 @@
       "reason": "25s native metadata barrier timeout after wedding entry; production TLS writer also reported AttributeError",
       "fixture_removed": true,
       "native_Game": false
+    },
+    {
+      "source": "wedding-capacity-diagnostic-1793933902075742400.json",
+      "source_sha256": "9610812a6b6da4fffbab00adcf73a2713577f3f7931762cd54664f0c935c3dc0",
+      "ok": false,
+      "reason": "Repeated full-roster reset-authority/path checks inside each sender/target route blocked the worker; snapshot pinned the actual call chain.",
+      "resolved_by": "One original authority check per member and room per publication; no persistent routing-validation cache."
     }
   ],
-  "reused_success_scope": "Unchanged specific readers/queries/economy paths reuse original results; changed marriage state, room lifecycle, cold deadline and hall invitation use new results.",
+  "reused_success_scope": "Unchanged economic/readers retain prior qualified scope. Changed routing publication is covered by full32 capacity, four-role authority/consent/return, and actual relay-loss/deadline/cold tests.",
   "fixed_box_note": "Original fixed277154 output check passed in the earlier failed run1793926182835765700; use/replay/cooldown resumed same owned receipt in1793926241042687300. Native HP/MP effect remains unqualified.",
-  "native_scope": "Pinned original readers only. Four actual TLS client roles and three actual production relay sockets;31 loopback UDP proxies separately. Full32 native reader and33-client capacity tests did not pass."
+  "native_scope": "32 real room participants plus replacement client and32 authenticated production TLS relay sockets pass, including31 directed deliveries and32-member ceremony. Original Game/natural GUI and full32 original-reader qualification remain pending."
 }

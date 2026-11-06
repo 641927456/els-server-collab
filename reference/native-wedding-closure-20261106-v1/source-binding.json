@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "status": "partial_candidate_not_release_ready",
   "parent_PR": 887,
   "parent_head": "d208d8e74c434ad1811d207dd29c50d3ab2a4859",
@@ -139,7 +139,7 @@
     },
     {
       "path": "els_server/domain/wedding_rooms.py",
-      "sha256": "e0d36ca6f84a474b80532200d1d7c58e4c8be19c9ce56d249019c20179f37dff",
+      "sha256": "912f168f4720ee12c05d4320d7d3c0963a1562c49592c436c2380568dbae98f1",
       "new": true,
       "parent_sha256": null
     },
@@ -169,7 +169,7 @@
     },
     {
       "path": "els_server/realtime.py",
-      "sha256": "704bb7ebbd998a9a6da7c16a2cd0fdde313ae38067d09042abc523d3e5b4290b",
+      "sha256": "811be37dcfe13189f8265f869ad9f38546c9adeebfa5de4c9a404829ae697ff4",
       "new": false,
       "parent_sha256": "5a3394e9c358c2731821529c3c2edc4dca1f13a61aa0e5cb9c04e5c1bd339c41"
     },
@@ -233,8 +233,9 @@
   "native_Game": false,
   "natural_GUI": false,
   "native_full32_parse_qualified": false,
-  "server_full32_qualified": false,
+  "server_full32_qualified": true,
   "installed": false,
   "main_merged": false,
-  "public_progress_updated": false
+  "public_progress_updated": false,
+  "routing_fix_parent_head": "07827b32fc5e446c4bcc6bc45bf77c3983213a89"
 }

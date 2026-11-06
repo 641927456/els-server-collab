@@ -422,18 +422,29 @@ class Weddings:
             for p, box in boxes.items():
                 p.mailbox = box
 
-    def manifest(self, app, account):
-        s = app.playing.get(account)
-        room = self.room(s)
-        if room is None:
-            return None
+    def routing(self, app, room):
+        """One checked roster produces all routes in this committed worker view."""
         try:
-            for p in room.members:
+            if app.world is not self.world:
+                raise ValueError('Wedding transport world')
+            for p, seat in room.members.items():
+                if p.application is not app or app.playing.get(seat.owner) is not p:
+                    raise ValueError('Wedding transport current account')
                 self.capture(p)
         except (ValueError, AttributeError, KeyError, TypeError):
+            return {}
+        peers = [dict(uid=seat.uid, port=21100 + seat.index) for seat in room.members.values()]
+        return {seat.owner: (dict(epoch=room.epoch, uid=seat.uid, peers=peers),
+            {(seat.owner, room.epoch, other.uid): (other.owner, seat.uid)
+                for other in room.members.values() if other.actor is not p})
+            for p, seat in room.members.items()}
+
+    def manifest(self, app, account):
+        room = self.room(app.playing.get(account))
+        if room is None:
             return None
-        return dict(epoch=room.epoch, uid=s.account.uid,
-            peers=[dict(uid=seat.uid, port=21100 + seat.index) for seat in room.members.values()])
+        value = self.routing(app, room).get(account)
+        return None if value is None else value[0]
 
     def relay_target(self, app, account, epoch, target):
         value = self.manifest(app, account)
