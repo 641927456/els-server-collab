@@ -54,6 +54,33 @@ def current_statistics(session):
     return saved[2].statistics if saved is not None and saved[0]==generation(session) else None
 
 
+def known_awards(members):
+    """Original Destroyer/Guardian/Healer conditions with a unique top score.
+
+    Equal top scores and incomplete reports remain unreconstructed; retain the
+    receipt's flags for those categories rather than invent a tie-break rule.
+    Contribution, CP-normalized rank and team MVP are separate server inputs.
+    """
+    scores=[]
+    for member in members:
+        stats=current_statistics(member)
+        if stats is None:return {}
+        uid=member.account.uid
+        damage=stats['damage']
+        hp,mp,_,_=stats['recovery']
+        scores.append((uid,(damage[0].get(uid,0)+damage[6].get(uid,0),
+                            damage[7].get(uid,0),hp+mp)))
+    awards={}
+    for category in range(3):
+        maximum=max(values[category]for _,values in scores)
+        if maximum<1:
+            awards[category]=None
+        else:
+            winners=[uid for uid,values in scores if values[category]==maximum]
+            if len(winners)==1:awards[category]=winners[0]
+    return awards
+
+
 def cooldown_payloads(members,participants,*,replacement=None):
     totals={uid:0.0 for uid in participants}
     for recipient in members:
@@ -103,7 +130,7 @@ def seal(session,event=None):
     if saved is None or saved[0]!=epoch:
         if frozenset(m.account.uid for m in members)!=session.dungeon_participants:
             raise ValueError('Dungeon result admitted roster changed')
-        rows=[]
+        rows=[];successful=True
         # Only the PVE1 map is scoped to one recipient. The original map may
         # contain remote observers' copies and must never be summed here.
         provided=cooldown_payloads(members,session.dungeon_participants)
@@ -115,7 +142,17 @@ def seal(session,event=None):
                 from els_server.domain.dungeon_clear import failed_clear_notice
                 source=failed_clear_notice(member.account.uid).payload
             else:raise ValueError('Dungeon result committed receipt missing')
+            successful=successful and source[0x10]==1
             rows.append(member_payload(source,member,provided[member.account.uid],solo=len(members)==1))
+        awards=known_awards(members) if successful else {}
+        if awards:
+            for index,member in enumerate(members):
+                row=bytearray(rows[index])
+                # DA5DA0: wire389..391 -> DTO17E..180. 1046F20 and
+                # 37ACD60 consume these three original award flags.
+                for category,winner in awards.items():
+                    row[389-31+category]=int(member.account.uid==winner)
+                rows[index]=bytes(row)
         saved=(epoch,tuple(rows));owner.dungeon_result_rows=saved
     return saved
 

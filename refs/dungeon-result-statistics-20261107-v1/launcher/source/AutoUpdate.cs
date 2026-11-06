@@ -21,7 +21,7 @@ namespace ElsFriends {
     // Only release metadata and the EXE are cached here. Settings/sessions/runtime
     // directories are deliberately outside the updater's write set.
     static class AutoUpdate {
-        public const int Version = 86;
+        public const int Version = 88;
         public const string BaseUrl = GitHubUpdates.Root;
         public const string ProgressUrl = "https://134.175.57.52:80/els-progress/";
         public const string ClientUrl = "https://pan.baidu.com/s/1qfyFxC99wgsGhtZwVI2aoQ?pwd=jrg6";

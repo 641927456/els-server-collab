@@ -20,7 +20,7 @@
     },
     {
       "path": "els_server/domain/dungeon_result_stats.py",
-      "sha256": "41bf3d064f94e55424b7897369a7572305aa06810fef845fe3556a3bcea6ea6f",
+      "sha256": "b917843a47efec17d37ae5c5b1fcafdf133e2668b9d20d128f05754aaa2b8bbd",
       "parent_sha256": null
     },
     {
@@ -55,5 +55,29 @@
     }
   ],
   "original_EXE_KOM_changes": 0,
-  "database_migrations": 0
+  "database_migrations": 0,
+  "award_continuation": {
+    "files": [
+      {
+        "path": "els_server/domain/dungeon_result_stats.py",
+        "parent_sha256": "41bf3d064f94e55424b7897369a7572305aa06810fef845fe3556a3bcea6ea6f",
+        "sha256": "b917843a47efec17d37ae5c5b1fcafdf133e2668b9d20d128f05754aaa2b8bbd",
+        "size": 8785
+      }
+    ],
+    "parent_release": "native-feature-closures-20261107-v1",
+    "parent_manifest_sha256": "34d45dcecbe548b9326d8db6417f729c17ef136798cca5a7f6f0a76201cf079b",
+    "original_EXE_KOM_changes": 0,
+    "new_Hooks": 0,
+    "scope": "Original unique-highest Destroyer, Guardian and Healer display; no new scoring, tie-break or bonus rule",
+    "unresolved": [
+      "contribution",
+      "CP normalization",
+      "letter rank",
+      "team MVP",
+      "award ties",
+      "award bonus values",
+      "natural nonzero CD party battle"
+    ]
+  }
 }

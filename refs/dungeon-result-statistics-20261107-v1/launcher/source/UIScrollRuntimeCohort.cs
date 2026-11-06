@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace ElsFriends {
  static class UIScrollRuntimeCohort {
   internal const string ManagedRelease="local-git-first-run-atlas-scroll-support-20261101-v1",LocalPayload="3abb8aee941cefbe81e66500f44b8c395b3f87ec4d85dac2338f9fc63aa0b5ad",LocalEnvelope="f20f3317a6ca1d2eaefa27012985aed001632a1d97f5fe012902d94721b7900e",LocalMetadata="9182f83bbd7c6a9a83305f27aa99d26ba952c3140312b4bc1d5415072cc16d1d",BootstrapHash="8549bb4e6136e2f8913b130713fc2d308bc52022ec0517bd2224eb2293395e60",LocalResource="ElsFriends.UIScrollLocalRuntimeFiles",BootstrapResource="ElsFriends.UIScrollLocalBootstrap";
-  internal const string FriendsPayload="6134474d5cf3f42b6ea557a610587300b8df1981a73d523f7432c63d457f0df8",FriendsEnvelope="76f6cd90c06a118e95a5e3aaec9f6da822be7e3ede1c000c6f2a68ab3c25d166",FriendsProfileHash="2330dd7f0d86f0c4e4984776fcd9e2e59d10d72d0047a7c3affc902563757c01",FriendsResource="ElsFriends.UIScrollFriendsRuntimeFiles";
-  internal const int LocalCount=1934,FriendsCount=2789;
+  internal const string FriendsPayload="2f936a4656c49ff7071ca0b8befe1f9141217a0a6f95dda920901a93a9b2d673",FriendsEnvelope="61c361dcb53b21a366fa0a1c4ce4a3aebe8663bfc5df42268cc1d8be4822184a",FriendsProfileHash="3c41a1ba59f2c51ffcfda3e522943ecec89e4ebca8fe9a2597118ce441e95a86",FriendsResource="ElsFriends.UIScrollFriendsRuntimeFiles";
+  internal const int LocalCount=1934,FriendsCount=2852;
   internal static void RequireLocal(){NextAccessoryCohort.RequireLocal();}
   internal static bool RequireCurrentDirection(Dictionary<string,object> p,LocalCohortSnapshot source){
    object value;if(!p.TryGetValue("release",out value)||!(value is string))return false;
