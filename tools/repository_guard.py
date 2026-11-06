@@ -16,6 +16,7 @@ FROZEN_MODE_FIXTURES={
 }
 FROZEN_RANDOM_PASSWORD_PROGRAMS={
     'refs/unified-ip-auth-runtime-20261104-v2/source/launcher/Program.cs':'8ba2b8c7be2f70092eadf0c0d22ab886316f964a75715a95d6ef061dfa051634',
+    'refs/launcher-password-display-20261104-v1/source/launcher/Program.cs':'8a5187d9b1d7e4f93463f07ad64afc3c3f404ee99333d0c8316f8dcf2a2253a3',
     'refs/installed-69-70-72-integration-20261101-v1/launcher/source/Program.cs':'053ba6945902a6ca0038fd8eceb419f74ada426e97ff2d9a0736a106e430d30d',
     'launchers/friends-v45/Program.cs':'053ba6945902a6ca0038fd8eceb419f74ada426e97ff2d9a0736a106e430d30d',
     'launchers/friends-v43/Program.cs':'516a4567d763799a75ad8e2ad975f465704476bfbd2b519a469772702460f719',

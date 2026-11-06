@@ -1,0 +1,9 @@
+# 修复启动器密码显示与提交内容不一致
+
+Successful authentication cleared the password box while empty input could still submit an in-memory password.
+
+Keep the entered masked password after authentication, respect manually cleared input, and remove only persistence when remember is unchecked.
+
+本目录为精确源码归档，不激活主干根引擎，不自动部署。source-contract.json固定源码和脱敏证据。运行 python -B verify_contract.py 核SHA与语法。
+
+统一运行包按IP连接两端，账号、存档、证书各自保留。四项独立成果分别提交；最终V76源码按统一归档中的composition.json合成。未变资源从锁定签名组件取得，本目录不放第三方二进制、玩家库、凭据、原始报文或运行日志。自然GUI和实战未据协议验证冒称完成。

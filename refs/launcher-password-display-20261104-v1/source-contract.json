@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "files": {
+    "source/launcher/Program.cs": "8a5187d9b1d7e4f93463f07ad64afc3c3f404ee99333d0c8316f8dcf2a2253a3"
+  },
+  "evidence": {
+    "evidence/validation.json": "64af1772a9e4d452224c74fa20a4ad9e4431ed129a1509f95525e9ceb0e4e4e8"
+  },
+  "parent_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "archive_only": true,
+  "source_root_activation": false,
+  "automatic_deployment": false,
+  "production_data_included": false,
+  "problem": "Successful authentication cleared the password box while empty input could still submit an in-memory password.",
+  "result": "Keep the entered masked password after authentication, respect manually cleared input, and remove only persistence when remember is unchecked."
+}
