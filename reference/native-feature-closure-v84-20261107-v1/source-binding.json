@@ -2,15 +2,15 @@
   "parent_main": "64dc1d510e39b1c3e305616533f60d2300a7efff",
   "parent_tree": "7fe2d628b8325ad4855ff53b1960c7404e8932bc",
   "parent_deployed": {
-    "release": "unified-server-184a8acac79b9417-f12464388353",
-    "path": "releases/local/unified-server-184a8acac79b9417-f12464388353",
-    "manifest_sha256": "6dbdd355699383a2ece2e3fa1694215045ea4ddab96090d5bb447259642012aa"
+    "release": "unified-server-8ec5cd81ddef6382-0e1d06c358a9",
+    "path": "releases/local/unified-server-8ec5cd81ddef6382-0e1d06c358a9",
+    "manifest_sha256": "585cfc4493b7b87c7fc9dceb5e81c5ddb6d01de8231ac95b7e3db076c89ea444"
   },
   "source_files": [
     {
       "path": "els_server/application.py",
-      "sha256": "0303e65c738029dc8081c84e2805abedf5500a48462af9cd724a676be3997ee0",
-      "size": 61943
+      "sha256": "c30bf78a624d712b93c2dd5b669eb44f4df6157fbe7cef6acc372bb35f0516d7",
+      "size": 61319
     },
     {
       "path": "els_server/data/character_custom_permanent.json",
@@ -101,6 +101,16 @@
       "path": "els_server/domain/duel_flow.py",
       "sha256": "24b6b0f37cd1c72be2af3c06542d5150017abbbffe05ccff289c2f14270d17b5",
       "size": 17158
+    },
+    {
+      "path": "els_server/domain/dungeon_requests.py",
+      "sha256": "4421932c3ff90eb5a74c857a65a9263316f66d340de2cb3d8d8720eaad75dd4f",
+      "size": 9009
+    },
+    {
+      "path": "els_server/domain/dungeon_result_stats.py",
+      "sha256": "41bf3d064f94e55424b7897369a7572305aa06810fef845fe3556a3bcea6ea6f",
+      "size": 7214
     },
     {
       "path": "els_server/domain/elixir_economy.py",
@@ -403,6 +413,11 @@
       "size": 23182
     },
     {
+      "path": "els_server/dungeon_workers.py",
+      "sha256": "d231985f70a97c3703788bec77064f0b7ec90c49b979820dffdb19d198b3d249",
+      "size": 23959
+    },
+    {
       "path": "els_server/friends_relay.py",
       "sha256": "087163ab57f29467f15c483d6a1cb6f2170c9f42266734655e448d0df0cefe8e",
       "size": 15749
@@ -481,6 +496,11 @@
       "path": "els_server/protocol/pvp_loading_messages.py",
       "sha256": "8e42c2dd177a51686acf7b72dc09442d00680515a5414ef94f7280f8bbb1c977",
       "size": 3130
+    },
+    {
+      "path": "els_server/protocol/pvp_play_messages.py",
+      "sha256": "e15f3ad4f148eab7109a2ab156b9a650afc94794433b9471d8f8ea5325797a5f",
+      "size": 5388
     },
     {
       "path": "els_server/protocol/pvp_room_messages.py",
@@ -764,13 +784,23 @@
     },
     {
       "path": "tools/client_compatibility_profiles.json",
-      "sha256": "7a6fac03145937e8f183f79316e89e14be2f7b1951c512bc5f02cb3176c71b6b",
-      "size": 22189
+      "sha256": "3c41a1ba59f2c51ffcfda3e522943ecec89e4ebca8fe9a2597118ce441e95a86",
+      "size": 22407
+    },
+    {
+      "path": "tools/dungeon_result_stats.js",
+      "sha256": "df449f05fe03ac2ad1a41ccaac44c11b3423b45ce51708c58fe373c8a669eea8",
+      "size": 6784
+    },
+    {
+      "path": "tools/dungeon_result_stats.py",
+      "sha256": "f7cbf30e763e9e2d933b44812839dc79ad9b80f992f8899c5d312efb83c8872e",
+      "size": 1884
     },
     {
       "path": "tools/native_cache_sync.py",
-      "sha256": "c4fde969be5174fb40411e5a7635d1724e12c214423e7e0e05c97ed1ec1625ef",
-      "size": 5604
+      "sha256": "d6fd13e75c3523d40168b4c8e962e8f538a87cffee4c266bb0967d57ba4a46f6",
+      "size": 5660
     },
     {
       "path": "tools/native_title_options.js",
@@ -781,6 +811,11 @@
       "path": "tools/native_title_options.py",
       "sha256": "0db4738688e29a97e07f937dac7800924ad1a7214662a880b1ac4e39eecd05f1",
       "size": 931
+    },
+    {
+      "path": "tools/pvp_hp_source.js",
+      "sha256": "d5406f6bf67fe188ce569c8f22e011926a8fabdb76ddd7f134387f476862a3c7",
+      "size": 5703
     }
   ],
   "parent_features_preserved": "V84 performance and native feedback, unified server, signed runtime and separate private stores",
@@ -790,14 +825,14 @@
   "public_progress_updated": false,
   "compatibility_binding": "The admitted original executable and all other registry fields stay identical; bind the updated composer plus its two exact title data dependencies",
   "parent_online": {
-    "release": "native-quest-live-admission-20261107-v1",
-    "path": "releases/online/native-quest-live-admission-20261107-v1",
-    "manifest_sha256": "5974d216dc8ae72029b4295d357338b92cf5109ee1ee3c0adc82573ecc0d56a6"
+    "release": "native-dungeon-result-statistics-20261107-v1",
+    "path": "releases/online/native-dungeon-result-statistics-20261107-v1",
+    "manifest_sha256": "f7f3e0e37e58d3d4e376547e97490f829a67c927f149d0aa0296f5e39b39b7c7"
   },
   "parent_launcher": {
-    "release": "launcher-quest-live-admission-20261107-v85",
-    "V": 85,
-    "sha256": "bd8d1dd30fd874586999a9a4c16009c06cfa024a0a3294667a0e063478551399"
+    "release": "launcher-dungeon-result-statistics-20261107-v86",
+    "V": 86,
+    "sha256": "fcaa39f27b817914fcbf1a8dd8138c72e45f8f9fb415c144c2090a0441caf930"
   },
-  "parent_delta_review": "Two installed live-admission leaves; clean three-way merge of quest_flow, exact tutorial_quests parent dependency. Mentor guard and pet weekly source checks retained."
+  "parent_delta_review": "Preserve all ten installed V86 result-statistics leaves; clean Application merge, compose both existing result/title initializers, bind their exact artifact hashes without changing client admission."
 }

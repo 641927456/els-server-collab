@@ -8,7 +8,7 @@ from contextlib import closing
 from unittest.mock import patch
 import asyncio,ctypes,hashlib,json,sqlite3,ssl,struct,sys,time,traceback
 
-K=Path(__file__).resolve().parent;W=Path('G:/els/analysis/feature-closure-20261105-v1');R=Path('G:/els');S=W/'release-integration-v2/full-source'
+K=Path(__file__).resolve().parent;W=Path('G:/els/analysis/feature-closure-20261105-v1');R=Path('G:/els');S=W/'release-integration-v3/full-source'
 sys.dont_write_bytecode=True
 sys.path[:0]=[str(S),str(R/'tools'),str(R/'tools/pylibs'),str(R),str(W/'delivery-duel-v1')]
 ctypes.WinDLL(str(W/'duel-wire-v2/full-source/python/sqlite3.dll'))

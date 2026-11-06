@@ -483,7 +483,12 @@ class Application:
         def invoke_scoped():
             from els_server.storage.read_scope import committed_reads
             with committed_reads(connections=self.read_connections):
-                return invoke_with_reads()
+                result=invoke_with_reads()
+                session=getattr(function,'__self__',None)
+                if type(session)is FriendsSession and function.__name__ in ('handle','periodic_notifications'):
+                    from els_server.domain.dungeon_result_stats import finalize
+                    result=finalize(session,result)
+                return result
         def invoke_with_reads():
             from els_server.domain.session_auxiliary import auxiliary_call,activity_due
             if auxiliary_call(function,args):

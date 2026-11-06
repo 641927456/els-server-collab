@@ -46,5 +46,6 @@ def compose(snapshot,executable_sha256,template):
     from activity_guide_lifecycle import compose as guide_compose
     from challenge_scroll_open import compose as challenge_compose
     from guild_native_power import compose as guild_compose
+    from dungeon_result_stats import compose as result_compose
     from native_title_options import compose as title_compose
-    return title_compose(snapshot,guild_compose(snapshot,executable_sha256,challenge_compose(snapshot,executable_sha256,guide_compose(snapshot,executable_sha256,startup_compose(snapshot,executable_sha256,pvp_source(snapshot,executable_sha256,map_source(snapshot,executable_sha256,world_source(snapshot,executable_sha256,wear_source(snapshot,executable_sha256)+'\n'+raw+'\n'+result))))))))
+    return title_compose(snapshot,result_compose(snapshot,executable_sha256,guild_compose(snapshot,executable_sha256,challenge_compose(snapshot,executable_sha256,guide_compose(snapshot,executable_sha256,startup_compose(snapshot,executable_sha256,pvp_source(snapshot,executable_sha256,map_source(snapshot,executable_sha256,world_source(snapshot,executable_sha256,wear_source(snapshot,executable_sha256)+'\n'+raw+'\n'+result)))))))))

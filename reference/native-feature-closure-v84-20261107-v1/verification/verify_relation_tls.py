@@ -4,7 +4,7 @@ from contextlib import closing
 from unittest.mock import patch
 import asyncio,ctypes,hashlib,json,sqlite3,ssl,struct,sys,tempfile,time,traceback
 R=Path('G:/els');W=Path(__file__).resolve().parent
-B=Path('G:\\els\\analysis\\feature-closure-20261105-v1\\release-integration-v2\\full-source');C=B/'els_server'
+B=Path('G:\\els\\analysis\\feature-closure-20261105-v1\\release-integration-v3\\full-source');C=B/'els_server'
 sys.dont_write_bytecode=True
 sys.path[:0]=[str(B),str(R/'tools'),str(R/'tools/pylibs'),str(R),'G:\\els\\analysis\\feature-closure-20261105-v1\\delivery-duel-v1']
 _sqlite=ctypes.WinDLL('G:\\els\\analysis\\feature-closure-20261105-v1\\duel-wire-v2\\full-source\\python\\sqlite3.dll')
