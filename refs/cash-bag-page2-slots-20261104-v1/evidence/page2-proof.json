@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "checks": [
+    "Parent reproduces a withdrawn page-two UID remaining at native slot71 after sort aliases old positions to new positions",
+    "Fixed sparse81-item history clears original slots10..80 and native state exactly matches persisted sorted slots0..70",
+    "Full page-two withdrawal removes the same UID in native state and SQL and grants exactly one stack",
+    "Withdrawal replay neither restores the old icon nor grants twice",
+    "Partial page-two withdrawal updates the remaining native count",
+    "Sort framing failure rolls back; repeated sort and a new SQL connection retain exact UID/count/slot state"
+  ],
+  "parent": "G:\\els\\releases\\online\\dungeon-whitebox-completion-20261104-v2",
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "source_sha256": "6477abd71d4b6018df25ee8fb2b35703b2285fcbec2d732bdce2f65be163dd87",
+  "original_native_reader": "C4F050",
+  "original_native_mutation_loop": "197DAD0..197DD2D",
+  "resource_lookup": "actual client record via replay callback",
+  "GUI_notifications": false,
+  "natural_GUI": false,
+  "live_process_access": false,
+  "player_database_access": false
+}

@@ -59,6 +59,7 @@ def main(argv=None):
     run([sys.executable,'-B',str(ROOT/'refs/unified-ip-auth-runtime-20261104-v2/verify_contract.py')])
     run([sys.executable,'-B',str(ROOT/'refs/launcher-discord-footer-20261104-v1/verify_contract.py')])
     run([sys.executable,'-B',str(ROOT/'refs/launcher-password-display-20261104-v1/verify_contract.py')])
+    run([sys.executable,'-B',str(ROOT/'refs/cash-bag-page2-slots-20261104-v1/verify_contract.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
     run([sys.executable,'-B','-m','unittest','tests.test_public_controller_sources'])
