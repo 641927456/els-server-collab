@@ -27,3 +27,7 @@ Server CP proof is bound to the current role lease and current character/equipme
 ## Verification and limits
 
 `validation.json` records the executed controlled protocol/SQL, quantity-property, rollback/replay and native ABI results. Relocated fixture paths, the new retirement request sequence and the already-required checkpoint startup were corrected without relaxing product rules or assertions. Failed attempts remain in private local evidence; no raw logs, credentials, databases or captures are committed. Only failed or affected cases were repeated. Old-player component upgrade and each installed target's runtime observation are recorded separately after execution.
+
+## Native integration finding I2
+
+Actual signed loading exposed an entry-pin collision with the already-installed trace/group-wear Interceptors. Producer pin metadata now checks the untouched+20h bodies of the same sender/encoder functions, following the accepted result-statistics contract. Exact executable/full reference image validation remains mandatory; raid_native_power.js, native calculation, payload and ownership logic are unchanged. The revised ABI test keeps two existing entry Interceptors installed and proves coexistence and rejection of a changed untouched body. The first failed actual-load evidence remains immutable; the new signed payload must pass a fresh owned-game load before installation.

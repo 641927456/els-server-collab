@@ -23,6 +23,7 @@
     "event": "raid_power_abi_verified",
     "ok": true,
     "cases": [
+      "coexists-with-existing-signed-trampolines",
       "duplicate-install-one-controller",
       "vector-restored-2004",
       "owned-native-request-2004",
@@ -49,7 +50,8 @@
       "invalid-native-CP-no-extension",
       "vector-restored-2004",
       "encoder-failure-restores-vector-and-disables",
-      "native-pin-refused"
+      "native-pin-refused",
+      "untouched-original-body-pin-refused"
     ],
     "owned_non_game_process": true,
     "real_Frida_hooks": true,
@@ -63,12 +65,13 @@
     "artifact_pins": 51,
     "all_profile_artifacts_verified": true,
     "complete_composed_JS_syntax": true,
-    "composed_sha256": "7179b12d12828135962988c0da7a08de62c3c300ba00edbb5f905e666552fad7",
-    "native_ABI_result": "test-fixtures/native-abi/native-power-abi-integrated.json",
+    "composed_sha256": "1ec8d756f010ee5883d31a086a4e8c20d006e0fa5337af6aa764c9feada5cfae",
+    "native_ABI_result": "test-fixtures/native-abi/native-power-abi-coexist.json",
     "original_EXE_KOM_changes": 0,
     "natural_gameplay": false
   },
   "failures_retained": true,
   "integration_fix": "Use exact original group actor for contribution assessment within shared giant/challenge writer",
-  "limits": "Controlled protocol/SQL and owned Frida ABI; natural multiplayer combat is not claimed; actual signed selection/loading and installation are separate."
+  "limits": "Controlled protocol/SQL and owned Frida ABI; natural multiplayer combat is not claimed; actual signed selection/loading and installation are separate.",
+  "native_load_initial_failure_fixed": "Pins now use untouched bodies of the same dispatcher/encoder; existing signed trampolines coexist. Exact executable/full image identities remain required."
 }
