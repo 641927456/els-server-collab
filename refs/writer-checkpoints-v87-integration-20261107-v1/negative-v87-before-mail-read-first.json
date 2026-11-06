@@ -1,0 +1,297 @@
+{
+  "passed": false,
+  "functional_passed": true,
+  "scope": "Local four-CPU native loopback screening; not production hardware or WAN qualification",
+  "source": {
+    "candidate/els_server/application.py": "cce346b11b7084907a571322bada01d26fffa134bc82b05809064fff47e2e7e1",
+    "candidate/els_server/domain/legacy_pve_exp.py": "2badb754c4e3e7eef84e46a4e351b7ac663f4616d4425f633effc345f8ea69f0",
+    "candidate/els_server/storage/clock_writer.py": "79af4e6ff15e5de900081b3f4a3452bb6b765fa9ed6e83508b9252779acd47b4",
+    "candidate/els_server/storage/coin_writer.py": "2085b3c6fb239fb433bc2595c70320156b0a51f24e7e8413fbf4b642ee98a0c2",
+    "candidate/els_server/storage/death_writer.py": "c697a761a993346db9964857dee9848ac7a7527b39c0de32096ff47528d43e15",
+    "candidate/els_server/storage/position_writer.py": "77775ac30c2589b3ec982c417c70f56ebdfc1003f776b7a034785714ef69ef51",
+    "candidate/els_server/storage/sqlite_timing.py": "54b7b5099ba7c431f054de7c6b90b9a868215107e13a2791663bb6aa7bf94c8a",
+    "candidate/els_server/storage/wal_checkpoints.py": "8696924c4a6bd8deeee3106694cf8fb9b0ba521bebe4b86e92f15cb429d05538"
+  },
+  "harness": {
+    "bootstrap.py": "5292038437e96f7890c682b336f0013f799c83eef28a9c602c5d576cb1d6f1bd",
+    "capacity_client.py": "e440c691b03ec06e04abf61048fcee7465979300d6873e6cbd184cbe3f18cf53",
+    "capacity_driver.py": "5d2422e7ad94084ad392b392c5ab9c508c72184665ffda0fda11f78828280a2b",
+    "capacity_server.py": "f790916058c3a03242a856f87455a838a65d2b872376415d862637599811c52e",
+    "latency_histogram.py": "000d9f9c8d86245e7e4d1596ccf9b9e8e8990c460ed61aef86e122401a4d0c26",
+    "main_thread_profile.py": "8052b1066e24bc1d2eb060dc0e7d8ceffafbfb328c5558ac35ecbb787d2cf9f5",
+    "mixed_driver.py": "d177ffc78685e8fe5fe85a7578588265b235b2922f966e1053041cb183427580",
+    "mixed_online_client.py": "0606d01d86f83fa109c71e4201eb00ea74c060864c87687e5e4da8ae00af4394",
+    "movement_burst_schedule.py": "0e830641bc9656ff645f3f94037ca1485ac02d15f8feedabfbf35d2af44d2e61",
+    "persistent_mixed_online_client.py": "b278184655c293f9c6d03848ebeca1c70c6119bb1184287267d6d8afede529ee",
+    "profile_town.py": "3c88b8a1188320f74dc4205f4828f000bcdfcfd240d8b040951021ef321921a8",
+    "profile_upkeep_stages.py": "958eb88e55226fad9ed12a0d08513881ea4ee4b42dd06b14623d528921b8350e",
+    "publish_merge_progress.py": "8bed819ec5570029ea33a78fd092455ae7042e4765141b07bea1be75d3471abe",
+    "runtime_fixture.py": "f837895066e19fb332f167d714d6b948105b5497d63d4df5d7d81ec56b45742a",
+    "runtime_identity.py": "09f2063840e867a583f44bdb711a59f4a159c1e40af40290818aef3d9003666b",
+    "town_burst_capacity_client.py": "027659dd992423348a3e5941c8bbc678cf2c2ec1ce6293b721d425ed05070767",
+    "town_client.py": "f140663a3213c7b9116063e32c2e59e01cbe55415e61e90c3afcae7ecfc1616a",
+    "town_driver.py": "22a6f5da4d23221504a86ccbf33c3ee582c1da2f7f1e59f5684e32b98984ba3a",
+    "trace_owned_commits.py": "407a9e0fc87b6b19265c58c8b8b02e33cdab561d56a55a80ed5e0f6627fd22e5",
+    "trace_owned_writers.py": "512ec6853171e52b58152574bf5d90bd8e56588608a650a1ca69a954bd43ae1d",
+    "isolated-online/harness/client.py": "e440c691b03ec06e04abf61048fcee7465979300d6873e6cbd184cbe3f18cf53",
+    "isolated-online/harness/ground_request.py": "f407e7fb7553740afdbe87d0c9891312bf406056bd4cf37e119ce19649464288",
+    "isolated-online/harness/live_admission.py": "b3bae1d3620e8b36c2d39cb9c881e347ddd7896302b03df52413b85f08528374",
+    "isolated-online/harness/persistent_room_workload.py": "dd70d10ae3c6c6d98846b4fe0910ce45834c385fa14ef0bf40431a579f4d46fb"
+  },
+  "parent_runtime": "native-feature-closures-20261107-v1",
+  "actors": {
+    "town": 20,
+    "dungeon": 30,
+    "total": 50,
+    "native_frontends": 0
+  },
+  "seconds": 300,
+  "signed_free_threaded_runtime": true,
+  "GIL_enabled": false,
+  "startup_gc_freeze": true,
+  "server_percentile_targets_met": false,
+  "latency": {
+    "pickup": {
+      "n": 4950,
+      "mean_ms": 7.207589979575138,
+      "p50_ms": 6,
+      "p95_ms": 13,
+      "p99_ms": 21,
+      "max_ms": 271.3433001190424,
+      "resolution_ms": 1
+    },
+    "death": {
+      "n": 4950,
+      "mean_ms": 22.799523598843752,
+      "p50_ms": 19,
+      "p95_ms": 34,
+      "p99_ms": 172,
+      "max_ms": 409.3408999033272,
+      "resolution_ms": 1
+    },
+    "paired_door": {
+      "n": 330,
+      "mean_ms": 19.049657591985483,
+      "p50_ms": 18,
+      "p95_ms": 27,
+      "p99_ms": 39,
+      "max_ms": 58.32809954881668,
+      "resolution_ms": 1
+    },
+    "map_change_B3": {
+      "n": 330,
+      "mean_ms": 26.81959938173267,
+      "p50_ms": 25,
+      "p95_ms": 42,
+      "p99_ms": 64,
+      "max_ms": 112.88999998942018,
+      "resolution_ms": 1
+    },
+    "town_movement": {
+      "n": 34983,
+      "mean_ms": 3.850761966394499,
+      "p50_ms": 3,
+      "p95_ms": 11,
+      "p99_ms": 24,
+      "max_ms": 391.00069971755147,
+      "resolution_ms": 1
+    }
+  },
+  "percentile_gates": {
+    "pickup": true,
+    "death": false,
+    "paired_door": true,
+    "map_change_B3": true,
+    "town_movement": true
+  },
+  "client_dungeon_groups": {
+    "dgg20": {
+      "0x28": {
+        "n": 10,
+        "mean_ms": 102.43267002515495,
+        "p50_ms": 97,
+        "p95_ms": 133,
+        "p99_ms": 133,
+        "max_ms": 132.1152001619339,
+        "resolution_ms": 1
+      },
+      "0x227": {
+        "n": 120,
+        "mean_ms": 82.46750835096464,
+        "p50_ms": 74,
+        "p95_ms": 119,
+        "p99_ms": 363,
+        "max_ms": 410.31959978863597,
+        "resolution_ms": 1
+      },
+      "0xb3": {
+        "n": 110,
+        "mean_ms": 27.13028907521882,
+        "p50_ms": 25,
+        "p95_ms": 41,
+        "p99_ms": 58,
+        "max_ms": 97.82769996672869,
+        "resolution_ms": 1
+      },
+      "0xad": {
+        "n": 1650,
+        "mean_ms": 25.042671393603086,
+        "p50_ms": 20,
+        "p95_ms": 35,
+        "p99_ms": 239,
+        "max_ms": 409.9286999553442,
+        "resolution_ms": 1
+      },
+      "0xd0": {
+        "n": 1650,
+        "mean_ms": 7.605716480845303,
+        "p50_ms": 7,
+        "p95_ms": 14,
+        "p99_ms": 22,
+        "max_ms": 46.84290010482073,
+        "resolution_ms": 1
+      },
+      "glass_B8_to_BD": {
+        "n": 110,
+        "mean_ms": 19.97840907848017,
+        "p50_ms": 19,
+        "p95_ms": 29,
+        "p99_ms": 46,
+        "max_ms": 46.24300030991435,
+        "resolution_ms": 1
+      }
+    },
+    "dgg30": {
+      "0x28": {
+        "n": 10,
+        "mean_ms": 110.32519997097552,
+        "p50_ms": 103,
+        "p95_ms": 151,
+        "p99_ms": 151,
+        "max_ms": 150.84460005164146,
+        "resolution_ms": 1
+      },
+      "0x227": {
+        "n": 120,
+        "mean_ms": 88.57621417458479,
+        "p50_ms": 77,
+        "p95_ms": 138,
+        "p99_ms": 378,
+        "max_ms": 434.73679991438985,
+        "resolution_ms": 1
+      },
+      "0xb3": {
+        "n": 110,
+        "mean_ms": 28.537068206986245,
+        "p50_ms": 25,
+        "p95_ms": 47,
+        "p99_ms": 65,
+        "max_ms": 113.61119989305735,
+        "resolution_ms": 1
+      },
+      "0xad": {
+        "n": 1650,
+        "mean_ms": 23.865944976551514,
+        "p50_ms": 21,
+        "p95_ms": 35,
+        "p99_ms": 165,
+        "max_ms": 292.6034997217357,
+        "resolution_ms": 1
+      },
+      "0xd0": {
+        "n": 1650,
+        "mean_ms": 7.984348180224046,
+        "p50_ms": 7,
+        "p95_ms": 15,
+        "p99_ms": 23,
+        "max_ms": 271.9888002611697,
+        "resolution_ms": 1
+      },
+      "glass_B8_to_BD": {
+        "n": 110,
+        "mean_ms": 21.770241831175305,
+        "p50_ms": 20,
+        "p95_ms": 36,
+        "p99_ms": 54,
+        "max_ms": 60.65989984199405,
+        "resolution_ms": 1
+      }
+    },
+    "dgg40": {
+      "0x28": {
+        "n": 10,
+        "mean_ms": 111.46736992523074,
+        "p50_ms": 105,
+        "p95_ms": 129,
+        "p99_ms": 129,
+        "max_ms": 128.2325997017324,
+        "resolution_ms": 1
+      },
+      "0x227": {
+        "n": 120,
+        "mean_ms": 84.65989583637565,
+        "p50_ms": 74,
+        "p95_ms": 130,
+        "p99_ms": 321,
+        "max_ms": 477.4262001737952,
+        "resolution_ms": 1
+      },
+      "0xb3": {
+        "n": 110,
+        "mean_ms": 26.907162757759746,
+        "p50_ms": 26,
+        "p95_ms": 38,
+        "p99_ms": 53,
+        "max_ms": 66.69360026717186,
+        "resolution_ms": 1
+      },
+      "0xad": {
+        "n": 1650,
+        "mean_ms": 23.253475337881934,
+        "p50_ms": 20,
+        "p95_ms": 35,
+        "p99_ms": 161,
+        "max_ms": 389.6376001648605,
+        "resolution_ms": 1
+      },
+      "0xd0": {
+        "n": 1650,
+        "mean_ms": 7.79661909197316,
+        "p50_ms": 7,
+        "p95_ms": 14,
+        "p99_ms": 20,
+        "max_ms": 112.48299991711974,
+        "resolution_ms": 1
+      },
+      "glass_B8_to_BD": {
+        "n": 110,
+        "mean_ms": 19.18634818866849,
+        "p50_ms": 19,
+        "p95_ms": 25,
+        "p99_ms": 28,
+        "max_ms": 28.36789982393384,
+        "resolution_ms": 1
+      }
+    }
+  },
+  "client_town_relay": {
+    "n": 664296,
+    "mean_ms": 19.529133864286827,
+    "p50_ms": 17,
+    "p95_ms": 55,
+    "p99_ms": 104,
+    "max_ms": 425.87050842121243,
+    "resolution_ms": 1
+  },
+  "online_capacity_qualified": false,
+  "network_shaped": false,
+  "native_9E_stream": false,
+  "natural_GUI": false,
+  "cold_currency_and_ACK_exact": true,
+  "final_town_SQL_coordinates_exact": true,
+  "owned_runtime_removed": true,
+  "connections": 0,
+  "errors": [],
+  "checkpoint_thread_policy": "THREAD_PRIORITY_BELOW_NORMAL; normal I/O; no background processing mode",
+  "peak_private_bytes": 1441349632
+}

@@ -1,0 +1,64 @@
+{
+  "parent_git": "c214cfda50acd1f196badda325d0ea61ec3f01fc",
+  "runtime_parent": "G:\\els\\releases\\online\\native-feature-closures-20261107-v1",
+  "runtime_parent_manifest_sha256": "34d45dcecbe548b9326d8db6417f729c17ef136798cca5a7f6f0a76201cf079b",
+  "runtime_parent_source_PR": 914,
+  "runtime_parent_source_head": "c92f8270c94bac4640d780b48a1d2f85b08d7f3a",
+  "approved_writer_PR": 922,
+  "approved_writer_head": "bd3c5113358c4a0346cf0866a2c6bb7bd2f5f394",
+  "approved_writer_merge": "c214cfda50acd1f196badda325d0ea61ec3f01fc",
+  "files": {
+    "els_server/application.py": {
+      "source": "refs/writer-checkpoints-v87-integration-20261107-v1/source/els_server/application.py",
+      "sha256": "cce346b11b7084907a571322bada01d26fffa134bc82b05809064fff47e2e7e1"
+    },
+    "els_server/domain/legacy_pve_exp.py": {
+      "source": "refs/writer-scheduling-20261107-v1/source/els_server/domain/legacy_pve_exp.py",
+      "sha256": "2badb754c4e3e7eef84e46a4e351b7ac663f4616d4425f633effc345f8ea69f0"
+    },
+    "els_server/storage/clock_writer.py": {
+      "source": "refs/private-writer-checkpoints-20261107-v1/source/els_server/storage/clock_writer.py",
+      "sha256": "79af4e6ff15e5de900081b3f4a3452bb6b765fa9ed6e83508b9252779acd47b4"
+    },
+    "els_server/storage/coin_writer.py": {
+      "source": "refs/private-writer-checkpoints-20261107-v1/source/els_server/storage/coin_writer.py",
+      "sha256": "2085b3c6fb239fb433bc2595c70320156b0a51f24e7e8413fbf4b642ee98a0c2"
+    },
+    "els_server/storage/death_writer.py": {
+      "source": "refs/private-writer-checkpoints-20261107-v1/source/els_server/storage/death_writer.py",
+      "sha256": "c697a761a993346db9964857dee9848ac7a7527b39c0de32096ff47528d43e15"
+    },
+    "els_server/storage/position_writer.py": {
+      "source": "refs/private-writer-checkpoints-20261107-v1/source/els_server/storage/position_writer.py",
+      "sha256": "77775ac30c2589b3ec982c417c70f56ebdfc1003f776b7a034785714ef69ef51"
+    },
+    "els_server/storage/sqlite_timing.py": {
+      "source": "refs/writer-scheduling-20261107-v1/source/els_server/storage/sqlite_timing.py",
+      "sha256": "54b7b5099ba7c431f054de7c6b90b9a868215107e13a2791663bb6aa7bf94c8a"
+    },
+    "els_server/storage/wal_checkpoints.py": {
+      "source": "refs/private-writer-checkpoints-20261107-v1/source/els_server/storage/wal_checkpoints.py",
+      "sha256": "8696924c4a6bd8deeee3106694cf8fb9b0ba521bebe4b86e92f15cb429d05538"
+    },
+    "els_server/storage/relationship_mail.py": {
+      "source": "refs/writer-checkpoints-v87-integration-20261107-v1/source/els_server/storage/relationship_mail.py",
+      "sha256": "f337c401deac0d94296064797423495629875263a53274d597b59d46dd82b7ce"
+    }
+  },
+  "runtime_parent_application": {
+    "source": "refs/writer-checkpoints-v87-integration-20261107-v1/runtime-parent/els_server/application.py",
+    "sha256": "c30bf78a624d712b93c2dd5b669eb44f4df6157fbe7cef6acc372bb35f0516d7"
+  },
+  "changed_application_methods": [
+    "__init__",
+    "start"
+  ],
+  "production_installed": false,
+  "runtime_parent_mail": {
+    "source": "refs/writer-checkpoints-v87-integration-20261107-v1/runtime-parent/els_server/storage/relationship_mail.py",
+    "sha256": "00fdc8e8d1fc36b09262696a5347d39208dfc0c6c35af4ccc3e09b336e1f971f"
+  },
+  "new_optimization": "Unpaired relationship mailbox polls do not reserve SQLite writer",
+  "issue": 923,
+  "signed_candidate_payload_sha256": "023ca689ab930f2f72e5558258c330e5d443cd3747ab5815afebc30b0feed3b5"
+}
