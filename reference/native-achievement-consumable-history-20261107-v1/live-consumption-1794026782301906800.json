@@ -1,0 +1,30 @@
+{
+  "ok": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "fixtures": "Level99, owned MP potion, one known resurrection stone and retained999uses/99paid-revivals",
+  "natural_acquisition": false,
+  "completed": [
+    210,
+    235
+  ],
+  "counts": {
+    "(35, 2)": 1,
+    "(35, 4)": 1000,
+    "(36, 0)": 100
+  },
+  "checks": [
+    "Ordinary town request rejects potion use; native7D4/382/91/B3 enters actual isolated dungeon",
+    "One actual113use consumes owned MP potion and completes210; no-material failure adds no use",
+    "Alive160rejected; actualA7/AAdeath followed by160spends one known stone and completes235",
+    "Second160cannot spend again; separate cooldown group and other account remain isolated",
+    "Repeated6BEis stable and alternative-character cold login restores both shared completions"
+  ],
+  "errors": [],
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "ec36e1a5f87266bcbfab38bff17b91902eafe770ed0f1b17e9000a581bc78026",
+    "els_server/storage/achievement_history.py": "cc148d8af69e353050ce577fdcd74d94ec2beeb8d4b5ef5dd642458cd44f30b6",
+    "els_server/storage/achievement_profiles.py": "f80546d5c67008d014ad7e7279571c26cb69af4f73d0b0d90e658a88293fa433"
+  }
+}
