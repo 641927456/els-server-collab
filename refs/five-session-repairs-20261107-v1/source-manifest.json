@@ -1,0 +1,687 @@
+{
+  "scope": "Integrate final questv10,foundationv26,mechanicsv10,raidv13, preserving accepted V90 results",
+  "parent_release": "native-dungeon-contribution-20261107-v1",
+  "parent_manifest_sha256": "e7164cadc721d406d6cb1d2fe828fc73d0955cf1a9983a12266dd14f35f04301",
+  "files": [
+    {
+      "path": "els_server/__main__.py",
+      "parent_sha256": "e5e37e0e23798a560adf4e05582b8dfde67c0c843b046d6c39b00d3cc706c04d",
+      "sha256": "b627a2bd6544fd822e48b47df728bcfa1d59607f678f686f692e704800bb543a",
+      "size": 5729
+    },
+    {
+      "path": "els_server/application.py",
+      "parent_sha256": "cce346b11b7084907a571322bada01d26fffa134bc82b05809064fff47e2e7e1",
+      "sha256": "003f2748bc6e3f5ce654ff0e9caaa9ad8e5c01c4186a538daa447d5c9a279631",
+      "size": 62730
+    },
+    {
+      "path": "els_server/cleanup.py",
+      "parent_sha256": "f57777fa43aa08d07b68d5ded42e197e2be93dc3aa3b6ba93aa332f787bd8f06",
+      "sha256": "2b97de1e3a2948202233f7fd0e8789e3e7a36b71d4392b066b3ceb87026a2202",
+      "size": 1512
+    },
+    {
+      "path": "els_server/data/client/dungeon_routes.json",
+      "parent_sha256": "8790d26669f74f199f2dd5594f81363b2a7e78b71448ab4e0ff1dc5ec9317ca5",
+      "sha256": "7c8ceb98bd748e30348ab26922ed8302d884dc2deb12475597f1bfbdb943751f",
+      "size": 10892316
+    },
+    {
+      "path": "els_server/data/client/dungeon_routes.manifest.json",
+      "parent_sha256": "886b672c7aa18d3ab053daa79ce830e1773a50ff0deda035be557b8b80157b5c",
+      "sha256": "7a38c4c492d88c04db40c0d0a0de9c75ad6dbf87200e7eb9b4c5ce5123cdb3dc",
+      "size": 482796
+    },
+    {
+      "path": "els_server/data/formal_npc_hp.json",
+      "parent_sha256": "df0efcce7575a6e8ee58f4312d21f2fd3f0b079e13f06a5f54f35897d20a45fa",
+      "sha256": "3f65c654b73ecd012d116603ff123d4296342385e2f999a518598e01e9cd2420",
+      "size": 3963113
+    },
+    {
+      "path": "els_server/data/formal_npc_hp.manifest.json",
+      "parent_sha256": "07396a5a0a5a2b23179d3548922086ce280c1614d22f83affbc90f073f4349da",
+      "sha256": "39bcef85b8edd3a08dded74c93054d4c32b2fd86397cba2ce37d85157de37891",
+      "size": 206
+    },
+    {
+      "path": "els_server/data/known_resurrection_maps.json",
+      "parent_sha256": "074fd932e10d226efc57d653cea8f52091ce9c492309a5f82105c8719a3b220b",
+      "sha256": "bee0a9a32ad7deae5d3b0ecda674668051976c1ece8ab41fae68fc1106f7687d",
+      "size": 648228
+    },
+    {
+      "path": "els_server/data/known_resurrection_maps.manifest.json",
+      "parent_sha256": "6258d13c7d591b8db4e6a1964ecfcf58dafa6a5b963fdf17da59a4562a5b67ec",
+      "sha256": "50a1f0601616462865d2f2ce69f5fb924ebdbf7c7f57aaead46bd5d2e090a54b",
+      "size": 37743
+    },
+    {
+      "path": "els_server/data/native_force_catalog.json",
+      "parent_sha256": "6dab774cc2efcfaf94aa4aee12f308482d072268f709b0bf90f1e67a5e96adb6",
+      "sha256": "6eda53f40e47b9df5384c888ba3f3c7d8f1b3b9c2657cb0e85dafa295221f377",
+      "size": 106007
+    },
+    {
+      "path": "els_server/data/native_line_triggers.json",
+      "parent_sha256": "af5163865ce0c7f7d16df518aa2217b7cf5d7e7d4c101374b55ba564d713e0a0",
+      "sha256": "a0339d142833c3e97f3974266c5d5909e1823a4c520d684336a62871b8bfe969",
+      "size": 1621432
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.json",
+      "parent_sha256": "267fd9bd555647b27f9b346fa2f52b46e51c3644f41b30a826f8ecbbd39bab4f",
+      "sha256": "d612104d6592b33fa64a19199a77ee51623df5dfed3d1dff808a42bdf658b799",
+      "size": 188673
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.manifest.json",
+      "parent_sha256": "2b72e8a5523c391696ebc13dabe6a92addefdf092ad27c90bf4bd211f9da10d3",
+      "sha256": "747656603a4aef2d5c51778f8372f7f8877e42a5b52e3ad2830a5bc1f84f8e85",
+      "size": 182
+    },
+    {
+      "path": "els_server/data/raid_npc_hp.json",
+      "parent_sha256": "873cae9f5f021ac323709126002bdbdb426788cf6984a88487802fa10b54b1f6",
+      "sha256": "3e10105522a8e3d5650ac6846ccd75a311ea54a94cf68c11d4664d3bc188dbe8",
+      "size": 1558639
+    },
+    {
+      "path": "els_server/data/raid_reward_items.json",
+      "parent_sha256": "0223f49a018fdebc1300bf291d61f88fcddf24cfc7b270823b1339f5f225dfc1",
+      "sha256": "47ab43e8cf7c1d695eb3c8e1fd69ef526e6a88aa1cccda70c43a931f073438cd",
+      "size": 133721
+    },
+    {
+      "path": "els_server/data/raid_reward_items.manifest.json",
+      "parent_sha256": "ec7b5c5ef816fcf99ac7bf7dbb703de80f2f5bd15541ed4f7c61c24d6da8bbc5",
+      "sha256": "753c9da28ee81e7d5676bc39c1a1b721dd17ae5d2713a19950cb5a23f04093d5",
+      "size": 206
+    },
+    {
+      "path": "els_server/data/regional_drop_materials.json",
+      "parent_sha256": "ba426556c7fbddf52b33a700e0764471fbf1aa23d108d9775d35c7bdd29a93c6",
+      "sha256": "cc19672ecb8eb63f3372d7bdbed1e18ee2f258aad1ad208bb56bfc99fff939ff",
+      "size": 21799
+    },
+    {
+      "path": "els_server/data/regional_drop_materials.manifest.json",
+      "parent_sha256": "76d1e867d1b7a152dfbe86611808641c628ebf01847aff2fdb15e05ae6dbe67a",
+      "sha256": "0e6f0d4ee0fd9b147d2d78651e39f6fd880df2952f9103490e15798dcb297e52",
+      "size": 182
+    },
+    {
+      "path": "els_server/data/secret_fragment_exchange.json",
+      "parent_sha256": null,
+      "sha256": "d6990601d21596437186c571fd8d0eabb2976373edf20e56f584da767ac851ad",
+      "size": 6878
+    },
+    {
+      "path": "els_server/diagnostic_reports.py",
+      "parent_sha256": "8b1375a3da3e67bab45457b6e8c7c5bb9853e2d95b36f68a4e41b923def14b9e",
+      "sha256": "536f85e98ce194e8957a33a298791bdd470cd3280413fbcb2588f02c29fb7020",
+      "size": 23563
+    },
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "f55abba81a7a64fb0acdbb815dd280a32fff8a8a379689c402debf496793f778",
+      "sha256": "371964a3c90cee296c26e7acd0a467da458b7cda053caaac37ae648b3b13ac26",
+      "size": 16148
+    },
+    {
+      "path": "els_server/domain/aurora_group_admission.py",
+      "parent_sha256": "1179dcbab9f9698a38d8163c2074a1fa0e319b63a55a46fb8be8c3f162865c38",
+      "sha256": "b98be6fd5c7af68e793eeb569f86a68d5be4b3851c34b0d9fa76001275dba158",
+      "size": 5786
+    },
+    {
+      "path": "els_server/domain/cartridge_registration_rules.py",
+      "parent_sha256": "55ac2dd8cb55573c45c60cbb19dede453572c832b5ceb644d0199c664dadaeab",
+      "sha256": "17abf1a16738f89f6e68e0bc5c84b918ec5c81a6ccafb5f46c602590c55cce84",
+      "size": 26731
+    },
+    {
+      "path": "els_server/domain/challenge_flow.py",
+      "parent_sha256": "a278ed1bb64b4b005fb6adfe2a02eca715989a2148c92d80be97c7fc440efabc",
+      "sha256": "ab52ad213c7610312d5e10709b9f81e51a1ba0826f78166494bf458814f3b060",
+      "size": 8005
+    },
+    {
+      "path": "els_server/domain/challenge_repeat_rewards.py",
+      "parent_sha256": null,
+      "sha256": "564fab2ed6ec32cbd03f750c109d0cf68cd5649bc2f9dbc5c0bb9fe424a7ed55",
+      "size": 3538
+    },
+    {
+      "path": "els_server/domain/daily_ticket_rules.py",
+      "parent_sha256": null,
+      "sha256": "25c2275a3dd31498a22da2aa61f46a8798b4cfa1ef2b0b79546ae52de525a089",
+      "size": 1823
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+      "parent_sha256": "400d22971aa8e294d979e861de6384281b625223111fd708312d7cf08d10d908",
+      "sha256": "c6aed02d57f3169fe0d004c61f51109c68c5e1be381c96e0e49e7144b372829f",
+      "size": 17399
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "parent_sha256": "44221d130ce90bb0559e76d522274900af910d3539f8dbeb7b6490d7c70f2103",
+      "sha256": "fc0b9fe4ce1a8d5daa7e5b4edf2f0f862ab471a43f221577037dd9e5dc87c2af",
+      "size": 34238
+    },
+    {
+      "path": "els_server/domain/dungeon_requests.py",
+      "parent_sha256": "4421932c3ff90eb5a74c857a65a9263316f66d340de2cb3d8d8720eaad75dd4f",
+      "sha256": "56a5d477e872bf712d97c149db0046621d1e70e0b8d28ed10f1fd5f48e0cbd4b",
+      "size": 9018
+    },
+    {
+      "path": "els_server/domain/field_boss.py",
+      "parent_sha256": "bf39295ed1df9779e6ff729d5471e0c5fbc42375840deff50b10615e952928d9",
+      "sha256": "308400cc2385164ff42e9a408d80641e5bc5aee2537ab2aaeb131d0d3896560f",
+      "size": 16377
+    },
+    {
+      "path": "els_server/domain/formal_raid_economy.py",
+      "parent_sha256": "467267f11db2c8c39ff6e017555a754d1ba4848404da719d2be7a56e16346f95",
+      "sha256": "4ef430f07f43cde5a15bff424b776b252b7c7b9578c89b1ca59b8b15600775e0",
+      "size": 7328
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "parent_sha256": "edf8d8b4422ac8bd5a6c6492289ecd614524770fbfcc70906aa2dca8362a3be6",
+      "sha256": "8195e8ba26f25e94844f8a7e6a392d8388de4176726eab17c85f466acd93ca6d",
+      "size": 42677
+    },
+    {
+      "path": "els_server/domain/friends_pvp.py",
+      "parent_sha256": "d2d5b1f5d525b5a8f8daf99992dfe93a0488b62d1fa62d89fd413b9fe9574220",
+      "sha256": "9666fa7f30c28f4ac1d99e6ee5297b2eb80e8986f57f864553193328a97903b3",
+      "size": 12508
+    },
+    {
+      "path": "els_server/domain/friends_spawns.py",
+      "parent_sha256": "017a5f9c72ea81b9f5587db8ef567f49c7bdf93cf4738d87ae8f159c1dadf0a6",
+      "sha256": "e98b20db227fb56b6d3ac9b6d15523b87a6a94e686ac756f5539c50fe9b1ccd5",
+      "size": 26514
+    },
+    {
+      "path": "els_server/domain/friends_story_retirements.py",
+      "parent_sha256": "b89637eee00a1505e8a6d0e3de51440ba83d39a052e974fd87e0959a86881245",
+      "sha256": "dd8b5c393cafc3f16db7a4eccf2f81a9844c49a6061ec2f21de78105bdd68a65",
+      "size": 8925
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "parent_sha256": "46025dd7eda365b73c62896a74ce7afd7e80936c18c800f34f9c08d69a487ebc",
+      "sha256": "04bb02d9d44adc595e7d2ce98abac97c45f2e9c44845378f3ea78fcf3732b8a4",
+      "size": 23293
+    },
+    {
+      "path": "els_server/domain/giant_daily_tasks.py",
+      "parent_sha256": null,
+      "sha256": "51523b5f34053544e24b9a97b2af96aa4db2654c9601b36d71458d26bc5f0bf2",
+      "size": 5195
+    },
+    {
+      "path": "els_server/domain/giant_misc_loot.py",
+      "parent_sha256": "cd666f705a1c977be8a69f9808f1a13248b3461db2fb6fef15ed5810a82d6260",
+      "sha256": "b87fd2ee156e0f9d8c06cbd4fe66dd660bade391293b96cfcc23acf35391ecb1",
+      "size": 7300
+    },
+    {
+      "path": "els_server/domain/group_challenge.py",
+      "parent_sha256": "b3569a71d09b33d695cf8d432365e3b31c23434706e041cc0c1776817e611050",
+      "sha256": "9b2a8b98a827e14a5e2484288e030793f16f9185292b50cfc547948493db41fa",
+      "size": 15686
+    },
+    {
+      "path": "els_server/domain/growth_guide.py",
+      "parent_sha256": "4180f039ca0f66b72c0913f6eebf28d56e731616c4d94f97a2de8a4aeb5cf1db",
+      "sha256": "2d2b017fb27f5ab9604f8a870b70bcfdfff579c3c86becfe696639fe2ca4e9dc",
+      "size": 3358
+    },
+    {
+      "path": "els_server/domain/growth_guide_flow.py",
+      "parent_sha256": "f852d86334a08c7425b99b9370d08f7fe6cf8cebe03a995bb4dffbb2d8ec9fc8",
+      "sha256": "f50751b4cd797cb7e5f3f3800e42e10b83c880e4b1dec975d3d0ad6f9d38bed1",
+      "size": 6498
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "55e7240aef14e059758fd969f4d9c5dab5ab7e186eb38cb50c67d5e6858d0ade",
+      "sha256": "d1e5acaf615a410e20ef95fc929e92ec2de3d80192a8d7c014f498b923592b70",
+      "size": 92802
+    },
+    {
+      "path": "els_server/domain/known_resurrection_flow.py",
+      "parent_sha256": "492d5ce2a65970c66a15c3c0fc4861bcc9d751ed1ac5a38d21f3dfa0df6bfff0",
+      "sha256": "c4c38970db60d0b8b08e08b62f171feb8e4298f09f63855b60b22f3f087896f8",
+      "size": 16805
+    },
+    {
+      "path": "els_server/domain/known_resurrection_maps.py",
+      "parent_sha256": "1a7da82187fc8810a3d8fc1b8a9eafce13b9a6048669739ff64be98341b28cfe",
+      "sha256": "ab51a1f6460d2f008e0fb64e11719cf05657692327dd6ce29eeea77474dd7a11",
+      "size": 3141
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "e077e1d601f8201c1d5c72fde8b2a74f2e6bb6f71203a14e87c9eee88b7051b7",
+      "sha256": "80b31314198cb0e72d9c5fa0f402190a5cd092bad04aea7ecbd27eae8e5fd115",
+      "size": 160392
+    },
+    {
+      "path": "els_server/domain/native_force_catalog.py",
+      "parent_sha256": "32bd3df4b8ca1cfb404a84b1ab8fc6e7331b70bcce62ad7354beb958a284db3b",
+      "sha256": "72c06689d87a7d9050b1e8a6f8c6575a748d52615e8ac54d36cb4dbde17b03e1",
+      "size": 1721
+    },
+    {
+      "path": "els_server/domain/native_line_triggers.py",
+      "parent_sha256": "cac28fb18e0934a2ecc363e82f91042795b52ffacc3b6ba8a7ec6bf5242b7117",
+      "sha256": "d9ff636432b58c6540f29fd736b8c31303ca91e2aa93b707e53b78eefae19628",
+      "size": 6209
+    },
+    {
+      "path": "els_server/domain/normal_fatigue_flow.py",
+      "parent_sha256": "47154ce47ee1386e217e146d6350c8418d2508575b7ebb3eded5b6708dcc047c",
+      "sha256": "e740886da0b566a01b8316b51d5b9b2a4c521c87a945bc6adfa135751518ccb7",
+      "size": 21407
+    },
+    {
+      "path": "els_server/domain/normal_party.py",
+      "parent_sha256": "50a4885236ee80b474566956ebb0ac4744bea2099549500a2c49740791be4f14",
+      "sha256": "d07f1bb889a939a59274bfa2299750169df09d149363cbd4ce6249e9e1c1c4ba",
+      "size": 5292
+    },
+    {
+      "path": "els_server/domain/ordinary_misc_loot.py",
+      "parent_sha256": "cf9bfd0c3322eee2a9a0f6fb0e79be7c3655c1e44ab3c1b871dae1ccc11d32e4",
+      "sha256": "281b32ceebba51ec4c77859c96c6b4dc9ee753037b2305d093900c6ebee3ecdb",
+      "size": 11246
+    },
+    {
+      "path": "els_server/domain/party_commands.py",
+      "parent_sha256": "c469c42614d5506f05bdd20084dab39b15cb7de7b02943af35afb9d2ef55c865",
+      "sha256": "8a504f035e2cf8a319f393d8d156b64569432bc2eaf6a151504134708f3a95d0",
+      "size": 5872
+    },
+    {
+      "path": "els_server/domain/party_selection.py",
+      "parent_sha256": "9dd31b0f3dfbd4fd1d365c5ac9c079d340e8c9b38ee2df4c5e43aab53de2bfd0",
+      "sha256": "94360f6f3e2a1ac654763925b75d37471c4ab9de455de699165fd9ada9ec46fc",
+      "size": 2827
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "parent_sha256": "a6557f2e4bbb572c50991ca4b95494d4979c9646104fa548028ade4bede1affe",
+      "sha256": "861e06010bbf4c74819d7d86ccca2977fbba72ed7ea197d3f2f85f78ec2ca679",
+      "size": 33818
+    },
+    {
+      "path": "els_server/domain/raid_admission.py",
+      "parent_sha256": null,
+      "sha256": "c5091de47a86f7cec053cb811cb02abc71fc4bd49475fb3c00171fa16ce4638d",
+      "size": 4688
+    },
+    {
+      "path": "els_server/domain/raid_economy_flow.py",
+      "parent_sha256": "17ddd68bfc57c29f7cb255150aec37e4463749ebdc424b315f6789eea7101671",
+      "sha256": "5a46cd9960026ad4b75d9dac92ebd58b525353e43c2368dfb495c25f0a427734",
+      "size": 14368
+    },
+    {
+      "path": "els_server/domain/raid_life_observation.py",
+      "parent_sha256": "5f7c3ccea9e2ae9f8ff2cf16e58aea99a5389e14c87ebf512869291c66f7ff01",
+      "sha256": "23cbd3c5822189afb50649c5e87040bce8fb839dcff1634784a001f7a77c69b8",
+      "size": 3546
+    },
+    {
+      "path": "els_server/domain/raid_native_power.py",
+      "parent_sha256": null,
+      "sha256": "f709ba2fbc2ee015fae35b29dd5fb3f8d3b8a3e3e1666dbcdf3675dda50cbf6e",
+      "size": 2540
+    },
+    {
+      "path": "els_server/domain/raid_party.py",
+      "parent_sha256": "82563f51c9be44b885e7dde2717a0b58a50172a3c375babb76b90157c4eb1872",
+      "sha256": "8acf3f15845f68dd2e2d0b5f03309703065d4438b59767f77436d8d9a4b6a5cf",
+      "size": 3495
+    },
+    {
+      "path": "els_server/domain/region_quests.py",
+      "parent_sha256": "2d68f6a8ba4cff0735ba55556d467e83139754e77c814f7d515ef7c2820bb13d",
+      "sha256": "525d01bd25090899a848e2c0a5ed07d2f94cf77056a49fe4131dbe47825d3818",
+      "size": 6677
+    },
+    {
+      "path": "els_server/domain/scene_actor_retirements.py",
+      "parent_sha256": "7dd53533cae8903e0915c9e3a9981c7f3e6ac15000af47a0053e62ec45c1d546",
+      "sha256": "3cef35f0c01a7c63b99d1858486cd625074d0c222b215d036a3115b4c2838a18",
+      "size": 20265
+    },
+    {
+      "path": "els_server/domain/secret_fragment_exchange.py",
+      "parent_sha256": null,
+      "sha256": "33ab1ffb32ddc3403846fd9d2f489477c2d146754c28f91f4f09f8b0fc095471",
+      "size": 2280
+    },
+    {
+      "path": "els_server/domain/secret_fragment_exchange_flow.py",
+      "parent_sha256": null,
+      "sha256": "1b5a567a939f7eda863ed4fcd45c1409785fb66fe2f36deb53794643d554365d",
+      "size": 1791
+    },
+    {
+      "path": "els_server/domain/story_controller_retirements.py",
+      "parent_sha256": "6e347e7434fc73b2a000c6935dda0b05093438140a68752dc3d03d9c51f5f3cd",
+      "sha256": "7ee1ba6ca6f8bf102de108be6777bed91f24a28bb34ed9c2690d483d1b13862f",
+      "size": 86393
+    },
+    {
+      "path": "els_server/dungeon_workers.py",
+      "parent_sha256": "d231985f70a97c3703788bec77064f0b7ec90c49b979820dffdb19d198b3d249",
+      "sha256": "0883838e13f5603886a47fd8d629cc754ccebf024defef798ab024ba9243b768",
+      "size": 24438
+    },
+    {
+      "path": "els_server/friends_relay.py",
+      "parent_sha256": "087163ab57f29467f15c483d6a1cb6f2170c9f42266734655e448d0df0cefe8e",
+      "sha256": "3804d16a60d67c7cb90880ca53f1712e615032fd5da0f6a8ef0fe0d21039619f",
+      "size": 16316
+    },
+    {
+      "path": "els_server/gm_runtime.py",
+      "parent_sha256": "6c3d26450a3de09ff5e5aaa19dd166eea68b210de36d797105bef0b38d344014",
+      "sha256": "0e3e023b2ff0bca74fb4da91e7922bf1a759cf5572b2a6cbb2b4c2d474ef1a7b",
+      "size": 16097
+    },
+    {
+      "path": "els_server/native_inbox.py",
+      "parent_sha256": "eb372e75d4001ca1dcc2e01970e93691362f54af20a98f5dee54c37f31c7cd22",
+      "sha256": "ee785224c4f7fd510d0ec489ff71d28a374106006b31ceb9f9e0a24d4042e59e",
+      "size": 4165
+    },
+    {
+      "path": "els_server/periodic_scheduler.py",
+      "parent_sha256": "f40466add8b5c3b3d21c7aa58dce4cccd502510f1719ced721ed7397b2b2c759",
+      "sha256": "d188a9a906ee049d526ff15f3931a32e19961e99086bd82a3c4a124c73885f84",
+      "size": 16157
+    },
+    {
+      "path": "els_server/protocol/equipment_cartridge_messages.py",
+      "parent_sha256": "b39e5fadb1ee8072a9e3695e59a976c1371cf1c026bb3df948bfbc85fe5ce326",
+      "sha256": "cea0ae22004c797c6c31b1effef103e904b713664c921e3f8946dda4f7b95dbb",
+      "size": 4097
+    },
+    {
+      "path": "els_server/protocol/field_boss_messages.py",
+      "parent_sha256": "6743840b46e90fa4342a547c69febfb2bbeabe319acb0f2e7eefa7c02d88161e",
+      "sha256": "79f58310cead61b9a84aed58022d9ee2b48b33a5414bfe8f7e18e12c8a5731ba",
+      "size": 4432
+    },
+    {
+      "path": "els_server/protocol/fish_exchange_messages.py",
+      "parent_sha256": "145f8b2da068138e1ac75d9ac85d650cca21a042d63c80cc5c5947c0bb283feb",
+      "sha256": "ded2a0dc32b7dee358346d1c8b032cfa54deb4aa3a7a6592bb4937053f10eff3",
+      "size": 1510
+    },
+    {
+      "path": "els_server/storage/activity_2026_rewards.py",
+      "parent_sha256": "1ccc44ab2883ecc1ceabf822c7f27e7df528f8200839b241cf18f0a628aa2fff",
+      "sha256": "7f6aed98b314d1a1a5bb622ec95fcba6a89489373a3d8d6d40048f194c957905",
+      "size": 7299
+    },
+    {
+      "path": "els_server/storage/artifact_spirit.py",
+      "parent_sha256": "606fc73636f2b0a10a419c8815e305e297b7f19e631b87efc21b27697af45e18",
+      "sha256": "c00b43dfd6b4bfb17b653616d79f88b2c85cf2df32a73be4a97d9101da3dd03d",
+      "size": 7038
+    },
+    {
+      "path": "els_server/storage/attendance_2026_awards.py",
+      "parent_sha256": "28cea687adca776c24ac8378e2b276b42c0f0a3c9f243a84c94891128d117562",
+      "sha256": "ad59f6cae037a59a63e9ad41d14e288d70b10bf7fd64368a24a51cff7f737e9d",
+      "size": 19477
+    },
+    {
+      "path": "els_server/storage/aurora_admissions.py",
+      "parent_sha256": "e64c3f1ebf96a5cf23e8f30c4b7903b8691bb7cdbf44d607a855048490a05308",
+      "sha256": "2b08c436109bbcd224d066680121dc8ab742e49683e23242f4a3170b18ddccf5",
+      "size": 8087
+    },
+    {
+      "path": "els_server/storage/bag_moves.py",
+      "parent_sha256": "fbe092d3f6d7e46a47f13d4cfe4facd3209e8a35ee9a49e17ab9d7a380c2a018",
+      "sha256": "072f8c362af0faf064a42e83024a89a12611805b657b0edb6fc45964eb1f00d5",
+      "size": 5148
+    },
+    {
+      "path": "els_server/storage/bank_state.py",
+      "parent_sha256": "5941a43673cafad75b2ceefac45b5b78c34c0f002109cd294fa70f98cd1eb197",
+      "sha256": "7e916db4867078737922db4bbf270b34e63dcf7cb7e8de1a1f56fb4615ce9767",
+      "size": 17097
+    },
+    {
+      "path": "els_server/storage/boosting_2026_participation.py",
+      "parent_sha256": "7147b502efe8cef8a28a6752710d52f8dc81d31254bf3df54e9a99832215bd26",
+      "sha256": "853ded590d49069297fc32755e59d2fac58c1cf5bdeffa06723da88b76816ee5",
+      "size": 5778
+    },
+    {
+      "path": "els_server/storage/challenge_scroll.py",
+      "parent_sha256": "ef42500ba33b0e00e35258912384d5c0c3d9459b873e389c9d96d05715d7f5c2",
+      "sha256": "f2ffd93a357e5744a77642c04651d4ed9f9cf25ede447ef0d169ee8fffd5d7fc",
+      "size": 7139
+    },
+    {
+      "path": "els_server/storage/clock_writer.py",
+      "parent_sha256": "79af4e6ff15e5de900081b3f4a3452bb6b765fa9ed6e83508b9252779acd47b4",
+      "sha256": "80c26ce47c4f2b6804b59caefa5d4336d22c4a697409b405d56568b11f417468",
+      "size": 7575
+    },
+    {
+      "path": "els_server/storage/death_writer.py",
+      "parent_sha256": "c697a761a993346db9964857dee9848ac7a7527b39c0de32096ff47528d43e15",
+      "sha256": "b73cb60ca4c160767987436f5fefc8f79fa78ece262e4bc956cd458bbf0398c8",
+      "size": 7472
+    },
+    {
+      "path": "els_server/storage/equipment_engrave.py",
+      "parent_sha256": "f842455585d7439fa9005639a21878152c11134548c59e193af3f5631f5a62a8",
+      "sha256": "f254ec387f8f143c75ac1904d54ce8e72bb96f391ec9d13bd5e8f2c9a0620768",
+      "size": 10745
+    },
+    {
+      "path": "els_server/storage/group_settlement.py",
+      "parent_sha256": "2e310582453a03a03ce854a1659daa74bc55b57c450792690656585047ac8e29",
+      "sha256": "a2bb5d8961fb3ecea096adafc3a79dcfabbdaeabfd75a3cce2fc2da368caf532",
+      "size": 5570
+    },
+    {
+      "path": "els_server/storage/growth_guide.py",
+      "parent_sha256": "0cdf8396d12d1f17d28a90369a4d0ddeec9fdad5d4362c31a1d882c44fe1c069",
+      "sha256": "1b18b71bb031ceed704dfe642c37c537a469246e8bb16a65870ce6120fa2fdd4",
+      "size": 7074
+    },
+    {
+      "path": "els_server/storage/inventory_actions.py",
+      "parent_sha256": "3197bea0bae9a4834e22e12e3851cf7533fc2d7f20bb85409febe7fe4e6eea59",
+      "sha256": "7f6d281ae539d4925c8655d4ef2f98d4b077257be2fec0ea9262f584f66007d8",
+      "size": 9206
+    },
+    {
+      "path": "els_server/storage/inventory_management.py",
+      "parent_sha256": "b7f28ebaa8e201ecb067a771a0f99848bb26656c3dd866820fc6f603eb9a8686",
+      "sha256": "734a190eae305a53393572cd90a93fb8e420c4c288cf4382e0c72ee8163f484e",
+      "size": 9990
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "27c9624f03b9d89520eb44cca426443c57807b3fdcb644b11d9fe4ca51f33f12",
+      "sha256": "dceb7bc17da21bc8dad71177c674aa4a13a2be0730dae0b16f3de1ce0ca309dd",
+      "size": 32890
+    },
+    {
+      "path": "els_server/storage/item_instances.py",
+      "parent_sha256": "b6503723b9c0d250da1d682fa2319fd75f74a9ce0c8a32f13082695c14639113",
+      "sha256": "0b684e1707c0787ecf1716565b99d134af6dfa1f93e47cafb401db3c51c115d9",
+      "size": 9614
+    },
+    {
+      "path": "els_server/storage/item_locks.py",
+      "parent_sha256": "c64e78c65406bdf94068c057dea64d9f3b16cf17972e6afacc288805f05fb9b6",
+      "sha256": "0a74aea6006209afd2950d023e9473fa704e5bdcc59b82fed1d1ea9b369d3da5",
+      "size": 1650
+    },
+    {
+      "path": "els_server/storage/manufacture_debits.py",
+      "parent_sha256": "c8a1f70bf812871deebc8a4a48e152174925ef286e67f04eff324c60f7bee490",
+      "sha256": "2fc160b578fc8eabc4025cff0e233b76b866d88c712e3a9640a1794fa077b5ed",
+      "size": 4594
+    },
+    {
+      "path": "els_server/storage/material_exchange.py",
+      "parent_sha256": "7c4a3a4d782448f2c5a797cecd73688ab80453d3de014bfa39d9e318ab060074",
+      "sha256": "e113a97b1e5f08c70e32b21bd50c1955c26096d8c2821de3bd463fef2f04e0f7",
+      "size": 4778
+    },
+    {
+      "path": "els_server/storage/npc_sale.py",
+      "parent_sha256": "c73562a653496ab1334c5fce0274944ed0a06302e0bec9e6b3001b8cf0d09a76",
+      "sha256": "c8211f47b896d7ea533610dce0972de458da1357e2d50ebee71c521600668174",
+      "size": 5317
+    },
+    {
+      "path": "els_server/storage/npc_trade.py",
+      "parent_sha256": "cf966a58724ad5773de999ade15a158ac4316bc70c6561c2906654710f056df2",
+      "sha256": "56617923b1f8f766ad9586b4f0f089d9cfaacba34e0d0a510bda6884a0f077ae",
+      "size": 9527
+    },
+    {
+      "path": "els_server/storage/online_2026_progress.py",
+      "parent_sha256": "f7bf71fc70f333b490d14d6b55c8e4de1620fae1d3cfae02608c2cf478627e44",
+      "sha256": "242d5df2b4b21a51e7a7be238a6a72dc6fc5e9a9fd4bbbf3014a27dfbc3154ff",
+      "size": 9019
+    },
+    {
+      "path": "els_server/storage/pet_nutrition.py",
+      "parent_sha256": "b171183821a4ddc12e7efb70c94762d7df6bc10dec9b166c1c830cf3a0324e63",
+      "sha256": "8d1d9d6507e091c666710ceb804c63bb346f85cc87030c5dd8033cec34b02be3",
+      "size": 7609
+    },
+    {
+      "path": "els_server/storage/pet_support.py",
+      "parent_sha256": "32dfbc5dc94fa0de52d466136676abe8ab80d5c43928c2ce17e89591f31f65e3",
+      "sha256": "6bb195767466726b588b7e1ad28577a481a88c6bc898628404a7b808148afbe8",
+      "size": 17142
+    },
+    {
+      "path": "els_server/storage/pet_support_periods.py",
+      "parent_sha256": "2edc3b5207a324a36cf54f29e293f23fea58cad3b19a2b78cf0c7328d61f78b5",
+      "sha256": "0bba4a5a4bb5fb988e7d0a9c8f29ecd9c2dfa70743be06a7ff5caf8164b5c4c1",
+      "size": 5001
+    },
+    {
+      "path": "els_server/storage/raid_economy_state.py",
+      "parent_sha256": "58630f028c52b52b570889ab7f0eee022ca99ea700886cbd296dc06891f9c72b",
+      "sha256": "5c528a71a19e3648a7c6c03a2d9d765efd167455fff4c2fa2cb51ab961e7d765",
+      "size": 11082
+    },
+    {
+      "path": "els_server/storage/read_scope.py",
+      "parent_sha256": "ec43277356862a48ed7e98f87218836744c16cccef31154bb4ea1fe70b82df7f",
+      "sha256": "87c2a13ce45bc6e8b9635d5f956a7628a2ed3753455f2571f519f4857036eca2",
+      "size": 18091
+    },
+    {
+      "path": "els_server/storage/resonance_2026_pages.py",
+      "parent_sha256": "4001adfe412572b2358dd33549185ea2a32bd34edc4b2b6ccbf56934588f57a3",
+      "sha256": "24b936dbb24d18cf8791af189b67295dbc3c1ef309780c3c0ed651d1010a2c39",
+      "size": 10305
+    },
+    {
+      "path": "els_server/storage/resonance_2026_progress.py",
+      "parent_sha256": "10dfb040da50335f7f2f09ec9d1f4ac1e7bd94560df6210e62a3dad4d2321a41",
+      "sha256": "6223bd347e81350f0c54b6dde41f8a3711ed54e9cba3a3c85b8940ff217a9adc",
+      "size": 13772
+    },
+    {
+      "path": "els_server/storage/reward_state.py",
+      "parent_sha256": "0bb152c2a56e84bf323523bca1a39d9427c113425e554b83771fd48c2c2c57be",
+      "sha256": "33e558853b7eb28e3dd32146f86d7adb9fd7f44827be79c3c68f6fef622fea6b",
+      "size": 25238
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "parent_sha256": "b7c07c85c91192f5a873ad55c6e06caba0522af9df18e12eea58dc0223e8d069",
+      "sha256": "bb46cafe8acd4af6449648c1a5fdf9a51caacd2301f8e03b862e82d21309cdf6",
+      "size": 46718
+    },
+    {
+      "path": "els_server/storage/trade_board_state.py",
+      "parent_sha256": "dedadada1263b7ce8a3715918792ca6241a16250b2fe9534707c3e9db0d207a6",
+      "sha256": "64745f4f190294c37fab87364d13663a250f5668abf6759a5f531fa74eac054d",
+      "size": 29898
+    },
+    {
+      "path": "els_server/transport.py",
+      "parent_sha256": "c56ad32f9bed51410729ffea842380659abfec9cfe23ca3e6eeb6d14d814299d",
+      "sha256": "342a894e5e260151c383dac96e61a7a00d9eda49bddc9bf305b447d9584b3af5",
+      "size": 28816
+    },
+    {
+      "path": "tools/client_compatibility.py",
+      "parent_sha256": "861d755c4a1c212169c24a3d73797b9b62bcbcf9a9bc5f8ced99b8288f61e5e1",
+      "sha256": "d1f2d91d0094708c47e4d8fc17744b012dfb26ab6bc882bc411efdf92c7e241a",
+      "size": 18623
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "3c41a1ba59f2c51ffcfda3e522943ecec89e4ebca8fe9a2597118ce441e95a86",
+      "sha256": "859b3ee28d97281185cee714cbc12374af7e8a68e54c7fb8ee3d27a70b3d3f36",
+      "size": 23182
+    },
+    {
+      "path": "tools/native_cache_sync.py",
+      "parent_sha256": "d6fd13e75c3523d40168b4c8e962e8f538a87cffee4c266bb0967d57ba4a46f6",
+      "sha256": "6dddc825340420c2c2c86382b18e5a189a01def270e3b9d16b078ac4a1273351",
+      "size": 5811
+    },
+    {
+      "path": "tools/raid_native_power.js",
+      "parent_sha256": null,
+      "sha256": "28879678bbe97ecaf84ad9041c43161289311be4eb769f9b6d1c2cc24cd2fd94",
+      "size": 5576
+    },
+    {
+      "path": "tools/raid_native_power.py",
+      "parent_sha256": null,
+      "sha256": "a91d27579636a9c2baabb07e550184f13d2bea2e73219542ad112eaf37252c44",
+      "size": 1445
+    }
+  ],
+  "source_versions": {
+    "quest": "v10",
+    "foundation": "v26",
+    "mechanics": "v10",
+    "raid": "v13",
+    "results": "V90 unchanged; review3f61f027"
+  },
+  "source_candidate_manifest_sha256": {
+    "foundation": "4a2c60c005a21def3da1fee9cdcfd5e02d740d92c71f7aae51268f0002c3b1cc",
+    "quest": "fd5ba371db05eb7d23cc0f235810605b7efdb8a2781f387829571193c7411e6e",
+    "mechanics": "455053343bf19ba6e24b07c39adf6e87ff62d33b4aaca0d43854a2593339cc46",
+    "raid": "e879219b0a45f5d42c6d7548c53d2691a5265d6085865008fcba8847c553e53f"
+  },
+  "source_issue": 926,
+  "installed": true,
+  "Git_main_merged": false,
+  "original_EXE_KOM_changes": 0,
+  "natural_multiplayer_combat": false,
+  "installed_source_head": "4c66d239b7c38e526ff27a89c93fb5ca993e159b",
+  "installation_receipt": "delivery/installed.json"
+}
