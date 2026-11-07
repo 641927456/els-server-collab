@@ -1,0 +1,23 @@
+{
+  "promoted": false,
+  "original_sha256": "8696924c4a6bd8deeee3106694cf8fb9b0ba521bebe4b86e92f15cb429d05538",
+  "candidate_sha256": "4dc0dddca027da22dcee8201b75738401ba9204b3287038d9b096934a57ae11c",
+  "only_changes": [
+    [
+      250,
+      1000
+    ],
+    [
+      0.25,
+      1.0
+    ]
+  ],
+  "FULL_commit_unchanged": true,
+  "WAL_mode_unchanged": true,
+  "preparation_assertion_corrected": true,
+  "reason": "No material local improvement: death P95 17ms in both; door17/21 versus control15/16, raw relay6/34 versus control5/33. Original 250ms cadence retained.",
+  "experiments": [
+    "checkpoint27-twenty-diagnostic60-v1",
+    "checkpoint26-control-twenty-diagnostic60-v1"
+  ]
+}

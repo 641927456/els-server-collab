@@ -9,6 +9,18 @@ def present(db):
         +','.join('?'for _ in TABLES)+')',TABLES)}
 
 
+def record_play_day(db,account,owner,now):
+    """Approved UTC+8 calendar date, once per account; caller owns the SQL."""
+    from els_server.storage import achievements as state
+    state._actor(db,account,owner);state.ensure(db)
+    day=(now+28800)//86400;operation=f'play-day:{account}:{day}';payload=dict(day=day)
+    # The original earner may be another sibling, including a deleted role.
+    old=db.execute('SELECT owner FROM native_achievement_operations WHERE operation=?',(operation,)).fetchone()
+    digest,previous=state._operation(db,account,old[0]if old else owner,'play-day',payload,operation)
+    if previous is None:state._save(db,account,owner,'play-day',digest,operation,payload)
+    return day
+
+
 def ensure_indexes(db):
     # Called from achievement persistence, not its read-only source projector.
     tables=present(db)
@@ -99,8 +111,10 @@ def _expedition_join_level(payload,account,owner,stamp):
 
 
 def counts(db,account,condition_types):
-    if not condition_types&{2,4,5,7,16,18,19,23,24,25,26,27,28,29,30,32,35,36,43,44,45,51,52,53,56,57,58,60,61,62,63}:return {}
+    if not condition_types&{2,4,5,7,10,16,18,19,23,24,25,26,27,28,29,30,32,35,36,43,44,45,51,52,53,56,57,58,60,61,62,63}:return {}
     tables=present(db);result={}
+    if 10 in condition_types and 'native_achievement_operations'in tables:
+        result[(10,0)]=db.execute("SELECT COUNT(*)FROM native_achievement_operations WHERE account_id=?AND kind='play-day'",(account,)).fetchone()[0]
     if 7 in condition_types and 'native_achievement_operations'in tables:
         result[(7,964)]=db.execute("SELECT COUNT(*)FROM native_achievement_operations WHERE account_id=?AND kind='spa-buff'",(account,)).fetchone()[0]
     if 29 in condition_types and 'native_achievement_operations'in tables:

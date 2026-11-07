@@ -1,0 +1,35 @@
+{
+  "ok": true,
+  "promoted": false,
+  "native_storage": true,
+  "game_protocol_qualification": false,
+  "checks": [
+    "real_catalog_counts_match_with_two_large_sibling_bags",
+    "other_account_equipment_cannot_count",
+    "actual_owned_period_item_expires_at_the_same_supplied_clock",
+    "simultaneous_equipment_is_maximum_per_role_not_sibling_sum"
+  ],
+  "original_loaded_rows": 299,
+  "candidate_loaded_rows": 19,
+  "timings": {
+    "original": {
+      "n": 20,
+      "mean_ms": 14.004194969311357
+    },
+    "candidate": {
+      "n": 20,
+      "mean_ms": 2.177520073018968
+    }
+  },
+  "GIL_enabled": false,
+  "parent": {
+    "parent_path": "G:\\els\\releases\\online\\native-achievement-equipped-set-history-20261107-v2",
+    "parent_release": "native-achievement-equipped-set-history-20261107-v2",
+    "parent_manifest_sha256": "9c63345f34fda6187ec5707f8abbf8e4b1e1586a481217f0a07978413b559f50",
+    "retained_new_parent_features": true
+  },
+  "original_module_sha256": "e5e21249eec340dd507b8868b1f41bbe1762b62f4921224c2032c6ef0ab1b54b",
+  "owned_fixture_removed": true,
+  "candidate_module_sha256": "f94698ae785b14439a478b45c7ec9d4d265ca993a1182d87377a1f063b53a0b0",
+  "suite": "G:\\els\\analysis\\server-send-fairness-20261107-v1\\equipped-reader-suite"
+}

@@ -12,19 +12,19 @@ class FakeState:
   self.calls.append((account,owner,copy.deepcopy(updates),operation,now))
   return dict(completed=[r['achievement']for r in updates if r['complete']],replayed=False)
 def namespace(nodes,days,active,previous,selected):
- now=2000000000;threshold={7:10,18:10,20:100,29:10};state=FakeState()
+ now=2000000000;threshold={7:10,10:10,18:10,20:100,29:10,50:6};state=FakeState()
  catalog=lambda:{kind:dict(conditions=[dict(type=kind,id=1,parameters=dict(m_iCount=target,**({'m_eBuffTempletID':503}if kind==7 else{})))])for kind,target in threshold.items()}
  rows=[(kind,1,value,value>=threshold[kind])for kind,value in zip(threshold,previous)]
  db=types.SimpleNamespace(in_transaction=True,execute=lambda *unused:rows)
  ns=dict(hashlib=hashlib,json=json,CONDITION_TYPES=selected,catalog=catalog,state=state,
   profession_state=types.SimpleNamespace(exists=lambda db:False),resonance_state=None,
-  collection_counts=lambda *args:{},history_counts=lambda *args:{(7,503):8,(18,0):4,(29,0):9},
+  collection_counts=lambda *args:{(50,50):5},history_counts=lambda *args:{(7,503):8,(10,0):3,(18,0):4,(29,0):9},
   couple_duration=lambda *args:(days,now-days*86400-123 if active else None))
  exec(compile(ast.Module(body=nodes,type_ignores=[]),'actual-achievement-profile','exec'),ns)
  return ns,db,state,now
 class ProfilePlanTests(unittest.TestCase):
  @settings(max_examples=180,deadline=None,database=None,derandomize=True)
- @given(st.integers(0,3650),st.booleans(),st.tuples(st.integers(0,15),st.integers(0,15),st.integers(0,3650),st.integers(0,15)),st.sampled_from((frozenset((7,18,20,29)),frozenset((7,)),frozenset((20,)),frozenset((18,29)))))
+ @given(st.integers(0,3650),st.booleans(),st.tuples(st.integers(0,15),st.integers(0,15),st.integers(0,15),st.integers(0,3650),st.integers(0,15),st.integers(0,10)),st.sampled_from((frozenset((7,10,18,20,29,50)),frozenset((7,)),frozenset((10,)),frozenset((50,)),frozenset((20,)),frozenset((18,29)))))
  def test_original_writer_and_readonly_plan_have_identical_semantics(self,days,active,previous,selected):
   a,db1,state1,now=namespace(old,days,active,previous,selected)
   b,db2,state2,_=namespace(new,days,active,previous,selected)
@@ -38,7 +38,7 @@ class ProfilePlanTests(unittest.TestCase):
   if 'couple_due'in plan:self.assertEqual(plan['couple_due'],expected['couple_due'])
  def test_inactive_timer_is_explicitly_cleared_only_when_its_source_is_selected(self):
   for selected in(frozenset((20,)),frozenset((29,))):
-   ns,db,state,now=namespace(new,0,False,(0,0,0,0),selected)
+   ns,db,state,now=namespace(new,0,False,(0,0,0,0,0,0),selected)
    plan=ns['pending_updates'](db,1,1001,now)
    self.assertFalse(state.calls);self.assertEqual('couple_due'in plan,20 in selected)
    if 20 in selected:self.assertIsNone(plan['couple_due'])

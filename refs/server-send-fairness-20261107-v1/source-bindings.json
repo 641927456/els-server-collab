@@ -2,9 +2,9 @@
   "issue": 925,
   "parent_git": "1615d0b67d528a4aeb53e8e745c926e541b4cf42",
   "runtime_parent": {
-    "parent_path": "G:\\els\\releases\\online\\native-altera-mine-retirement-20261107-v1",
-    "parent_release": "native-altera-mine-retirement-20261107-v1",
-    "parent_manifest_sha256": "deaf157f237c6118c2a459ce29b67ce67c82e8cf99b0608411ee34b89c194489",
+    "parent_path": "G:\\els\\releases\\online\\native-achievement-equipped-set-history-20261107-v2",
+    "parent_release": "native-achievement-equipped-set-history-20261107-v2",
+    "parent_manifest_sha256": "9c63345f34fda6187ec5707f8abbf8e4b1e1586a481217f0a07978413b559f50",
     "retained_new_parent_features": true
   },
   "files": {
@@ -50,7 +50,7 @@
     },
     "els_server/domain/achievement_flow.py": {
       "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/achievement_flow.py",
-      "sha256": "78de9fb646b1c8b31163a238f32a84bdbc5862d3cb47b75c419c73e5d8010a20"
+      "sha256": "6119904975d89d361eb81e9888e45529b3c38936d7e686ba038e52d6812e823b"
     },
     "els_server/domain/elixir_flow.py": {
       "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/elixir_flow.py",
@@ -88,9 +88,13 @@
       "source": "refs/server-send-fairness-20261107-v1/source/els_server/protocol/dungeon_messages.py",
       "sha256": "e0634bcc2fd0acd5fe9871cb6d5e7eaff8dbd7125ca1682e987aee6d64d3075c"
     },
+    "els_server/storage/achievement_collections.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/achievement_collections.py",
+      "sha256": "f94698ae785b14439a478b45c7ec9d4d265ca993a1182d87377a1f063b53a0b0"
+    },
     "els_server/storage/achievement_profiles.py": {
       "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/achievement_profiles.py",
-      "sha256": "587d55282ae677663d3170a9db14e873b1ce32bf7bbd199c299d2a1794d51c67"
+      "sha256": "3e406e7318582fde8e275c283cfee61c5d0aae7e3792a504b550620d0e38be11"
     },
     "els_server/storage/clock_writer.py": {
       "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/clock_writer.py",
@@ -111,6 +115,10 @@
     "els_server/storage/read_scope.py": {
       "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/read_scope.py",
       "sha256": "f660c37f47b804ef858efa827401516274759d9659bf974c4342333655a65ee0"
+    },
+    "els_server/storage/title_drop_rewards.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/title_drop_rewards.py",
+      "sha256": "e456639f7b7618b1e01db1c55983696a38aeb1cdfd5ada7677c51c21ef7aef12"
     }
   },
   "runtime_parent_files": {
@@ -148,7 +156,7 @@
     },
     "els_server/domain/achievement_flow.py": {
       "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/achievement_flow.py",
-      "sha256": "f854527c525a65aab4dc6745ed7eb8b24c5c0fa43f74cb645ed7b2fc37674ad9"
+      "sha256": "522747c52236850812eb2736ccb6de9f6005eb110d6f484d174f3ce210522322"
     },
     "els_server/domain/elixir_flow.py": {
       "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/elixir_flow.py",
@@ -186,9 +194,13 @@
       "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/protocol/dungeon_messages.py",
       "sha256": "93ca773743d6ff28464d368a0dc9021d52fd7eef230359f0193489ede217cf1c"
     },
+    "els_server/storage/achievement_collections.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/achievement_collections.py",
+      "sha256": "e5e21249eec340dd507b8868b1f41bbe1762b62f4921224c2032c6ef0ab1b54b"
+    },
     "els_server/storage/achievement_profiles.py": {
       "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/achievement_profiles.py",
-      "sha256": "3a8777975f6bbff233dc5e2beaad847029de9c4c68a2266c4734313cdfe13a53"
+      "sha256": "a037ea02a31543b3bcf644cc5be849ea0fd7a9093e105470eaa4087092b5012b"
     },
     "els_server/storage/clock_writer.py": {
       "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/clock_writer.py",
@@ -210,6 +222,10 @@
       "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/read_scope.py",
       "sha256": "3f3f5c83da0ca81a5082961dfb5081d0dc28782032ec14f8389b05944ae7bbc9"
     },
+    "els_server/storage/title_drop_rewards.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/title_drop_rewards.py",
+      "sha256": "91b46319bbe831a640b3f3aed74425fcc0a6b43ea19010b8dd74c90953026811"
+    },
     "els_server/protocol/protocol_codec.py": {
       "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/protocol/protocol_codec.py",
       "sha256": "80d181f8571f00d07844799f48e27f5f9147352eabe861f5f846017482049293"
@@ -228,7 +244,7 @@
     },
     "els_server/storage/achievement_history.py": {
       "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/achievement_history.py",
-      "sha256": "f5dd527a0c40a8d117ed91b70d642b74e66acd1ef07e5a262b73ad878ea5ed24"
+      "sha256": "c27161c6cde476c2108f9baefac0e636323feb91fc3ed970f596b89a7df91a2d"
     },
     "els_server/domain/duel_flow.py": {
       "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/duel_flow.py",
@@ -261,10 +277,18 @@
     "els_server/storage/seal_quests.py": {
       "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/seal_quests.py",
       "sha256": "6937809af3a07cd005ffc1d34f15eca03186b6ff65b2f698457a43fab4291b04"
+    },
+    "els_server/storage/titles.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/titles.py",
+      "sha256": "2de44e15b4b7533448cd8331834eaebba55ae6a9311dfd2d46fc01cb6a421ef1"
+    },
+    "els_server/domain/guild_agit_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/guild_agit_flow.py",
+      "sha256": "49901902965662a3bc8a2b1e02f859d5dfa23b3a10bef2c5bcee854841e25f3e"
     }
   },
   "test_files": {
-    "test_achievement_plan.py": "9333db7b7745209f3610d4dbb53cae0cdeb6aa0bd5350a562dbb33abecfd0813",
+    "test_achievement_plan.py": "61433cd499e5c7f5311a870941a64e0f33f768a5eec3bc5db304a81e1eb88b18",
     "test_display_maintenance.py": "9cc0f64cbad4d03340abfc20719b048b69b1fcaf829b07cec650e653e9a06c55",
     "test_egress_budget.py": "bcf4b28e0cd1b87ed40f505d64f580a166d4ea51bb3b01512e5a52accb5c3207",
     "test_flat_item_validation.py": "c031b2d5533d58eb11d1853ab8d3a92d16862b8053dd80da27d26e62bc8c5463",

@@ -60,10 +60,10 @@ def _appearance_changed(s):
         from els_server.protocol import guild_agit_messages as guild_wire
         with s.application.world_lock:
             _,guard=bank_capture(s)
+            row=_row(s)
             with closing(sqlite3.connect(s.account.store.path,timeout=10))as db:
                 db.execute('BEGIN');guard(db)
                 peers=_peers(s,s.guild_agit['guild'])
-                row=_row(s)
                 notices=[guild_wire.removed(s.account.uid),guild_wire.added(row)]
                 if row[0]['unit_type']==11:
                     from els_server.domain.guild_rose import notification as rose_notice
@@ -82,6 +82,8 @@ def synchronize(s,event,response):
     if kinds&{0x29f,0x59f,0xd9}:sources.update((67,68))
     if kinds&{0x2e9,0x433}:sources.update((37,38))
     if kinds&{0x552,0x105,0x373}:sources.add(39)
+    if(event is not None and event.event_id==0x202 and event.kind==0x104 and len(event.payload)==11
+            and 9 in(event.payload[0],event.payload[5])and 0x105 in kinds):sources.add(50)
     if 0xc23 in kinds:sources.add(42)
     if 0x18b in kinds:sources.add(27)
     if 0x1d0 in kinds:sources.add(28)
@@ -115,12 +117,18 @@ def synchronize(s,event,response):
     if event is not None and event.event_id==0x202 and event.kind==0x6c8:sources.add(24)
     spa=getattr(s,'_achievement_spa_source',None)
     if spa is not None and spa[:2]==(s.account.account_id,s.account.uid):sources.add(7)
-    now=int(time.time());due=getattr(s,'_achievement_couple_due',None)
+    now=int(time.time());day=(now+28800)//86400
+    play_clock=s.role=='game'and s.phase in('town_ready','guild_agit_ready','dungeon_active','wedding_hall','pvp_loading','pvp_active','pvp_reporting','pvp_result','dungeon_loading','map_loading','square_accepted')
+    if(cold or play_clock)and getattr(s,'_achievement_play_day',None)!=(s.account.account_id,day):sources.add(10)
+    due=getattr(s,'_achievement_couple_due',None)
     if due is not None and due[:2]==(s.account.account_id,s.account.uid)and now>=due[2]:sources.add(20)
-    if not cold and not arrival and not(sources and s.role=='game'and s.phase in('town_ready','guild_agit_ready','dungeon_active','wedding_hall','pvp_result')):return response
+    if not cold and not arrival and not(sources and s.role=='game'and(s.phase in('town_ready','guild_agit_ready','dungeon_active','wedding_hall','pvp_result')or 10 in sources and play_clock)):return response
     guard=capture(s)
     with closing(sqlite3.connect(Path(s.account.store.path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');guard(db)
+        if 10 in sources:
+            from els_server.storage.achievement_history import record_play_day
+            record_play_day(db,s.account.account_id,s.account.uid,now)
         options={}if cold or arrival else dict(condition_types=sources)
         updated=reconcile_profiles(db,s.account.account_id,s.account.uid,now,**options)
         message=None
@@ -137,6 +145,7 @@ def synchronize(s,event,response):
     if 'couple_due'in updated:
         s._achievement_couple_due=(s.account.account_id,s.account.uid,updated['couple_due'])if updated['couple_due']is not None else None
     if spa is not None and 7 in sources:s._achievement_spa_source=None
+    if 10 in sources:s._achievement_play_day=(s.account.account_id,day)
     if message is None:return response
     if updated['completed']:_appearance_changed(s)
     return [*response,message]

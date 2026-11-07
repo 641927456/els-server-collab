@@ -6,7 +6,7 @@ from els_server.storage import profession_state,resonance_state
 from els_server.storage.achievement_collections import counts as collection_counts
 from els_server.storage.achievement_history import counts as history_counts,couple_duration
 
-CONDITION_TYPES=frozenset((2,4,5,6,7,15,16,18,19,20,23,24,25,26,27,28,29,30,32,35,36,37,38,39,42,43,44,45,51,52,53,56,57,58,60,61,62,63,67,68))
+CONDITION_TYPES=frozenset((2,4,5,6,7,10,15,16,18,19,20,23,24,25,26,27,28,29,30,32,35,36,37,38,39,42,43,44,45,50,51,52,53,56,57,58,60,61,62,63,67,68))
 
 
 def pending_updates(db,account,owner,now,*,condition_types=CONDITION_TYPES):
@@ -42,12 +42,13 @@ def pending_updates(db,account,owner,now,*,condition_types=CONDITION_TYPES):
             elif kind==7:value=history.get((7,parameters['m_eBuffTempletID']),0)
             elif kind==15:value=resonance['level']
             elif kind==20:value=duration[0]
-            elif kind in(18,19,23,24,25,26,27,28,29,30,36,43,44,45,51,52,53,56,57,58,60,61,63):value=history.get((kind,0),0)
+            elif kind in(10,18,19,23,24,25,26,27,28,29,30,36,43,44,45,51,52,53,56,57,58,60,61,63):value=history.get((kind,0),0)
             elif kind in(16,62):value=history.get((kind,parameters['m_iItemID']),0)
             elif kind==32:value=history.get((kind,parameters['m_iLevel']),0)
             elif kind==35:value=history.get((kind,parameters['m_iGroupID']),0)
             elif kind in(37,38):value=collections.get((kind,parameters['m_eUnitType']),0)
             elif kind==39:value=collections[(39,0)]
+            elif kind==50:value=collections[(50,identity)]
             elif kind==42:value=collections.get((42,parameters['m_eTitleTypeID']),0)
             elif kind==67:value=collections[(67,parameters['m_iClassLine'])]
             elif kind==68:value=collections[(68,0)]
