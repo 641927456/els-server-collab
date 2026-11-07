@@ -1,0 +1,159 @@
+{
+  "status": "SOURCE_IDENTIFIED_NOT_IMPLEMENTED",
+  "condition_types": [
+    57,
+    58
+  ],
+  "definitions": {
+    "344": {
+      "id": 344,
+      "name": "出发出发！前往讨伐队世界！",
+      "points": 10,
+      "grade": 1,
+      "category": 0,
+      "unit_type": 0,
+      "unit_class": 0,
+      "reward_groups": [
+        3000169
+      ],
+      "conditions": [
+        {
+          "id": 344,
+          "type": 57,
+          "parameters": {
+            "m_iLevel": 8
+          },
+          "description_id": 49720
+        }
+      ]
+    },
+    "345": {
+      "id": 345,
+      "name": "老手",
+      "points": 30,
+      "grade": 3,
+      "category": 0,
+      "unit_type": 0,
+      "unit_class": 0,
+      "reward_groups": [
+        3000170
+      ],
+      "conditions": [
+        {
+          "id": 345,
+          "type": 57,
+          "parameters": {
+            "m_iLevel": 10
+          },
+          "description_id": 49720
+        }
+      ]
+    },
+    "346": {
+      "id": 346,
+      "name": "破竹之势",
+      "points": 50,
+      "grade": 5,
+      "category": 0,
+      "unit_type": 0,
+      "unit_class": 0,
+      "reward_groups": [
+        3000171
+      ],
+      "conditions": [
+        {
+          "id": 346,
+          "type": 57,
+          "parameters": {
+            "m_iLevel": 12
+          },
+          "description_id": 49720
+        }
+      ]
+    },
+    "347": {
+      "id": 347,
+      "name": "是谁发出怪物的声音？",
+      "points": 10,
+      "grade": 1,
+      "category": 0,
+      "unit_type": 0,
+      "unit_class": 0,
+      "reward_groups": [
+        3000172
+      ],
+      "conditions": [
+        {
+          "id": 347,
+          "type": 58,
+          "parameters": {
+            "m_iCount": 5
+          },
+          "description_id": 49721
+        }
+      ]
+    },
+    "348": {
+      "id": 348,
+      "name": "有了恢复药水，就能跟地狱模式说再见了？",
+      "points": 30,
+      "grade": 3,
+      "category": 0,
+      "unit_type": 0,
+      "unit_class": 0,
+      "reward_groups": [
+        3000173
+      ],
+      "conditions": [
+        {
+          "id": 348,
+          "type": 58,
+          "parameters": {
+            "m_iCount": 50
+          },
+          "description_id": 49721
+        }
+      ]
+    },
+    "349": {
+      "id": 349,
+      "name": "知己知彼，百战百胜！",
+      "points": 50,
+      "grade": 5,
+      "category": 0,
+      "unit_type": 0,
+      "unit_class": 0,
+      "reward_groups": [
+        3000174
+      ],
+      "conditions": [
+        {
+          "id": 349,
+          "type": 58,
+          "parameters": {
+            "m_iCount": 100
+          },
+          "description_id": 49721
+        }
+      ]
+    }
+  },
+  "existing_authority": "native_guild_operations_v2: owner=0,kind=0xac1, immutable guild-expedition:<guild>:<week>:<stage>:clear result",
+  "producer": "guild_expedition._award: source contains week,stage,completed,participants; source serialized by guild_system_state.record in the existing shared writer",
+  "eligible_accounts": "Only account IDs explicitly frozen in participants at actual clear with no left marker; matches existing clear reward ranking eligibility; do not require later claim",
+  "projection": "57 highest eligible clear stage;58 number of distinct immutable stage-clear operations. Do not count ABC registration, AC0claim or weekly snapshot duplicates.",
+  "trigger_to_audit": "Current committedABB/ABD/ABF/AC1 and periodic guild mailbox snapshots; actual sender and eligible recipients must be checked",
+  "no_new_gameplay_rule": true,
+  "new_economic_writer": false,
+  "installed": false,
+  "source_sha256": {
+    "els_server/domain/guild_expedition.py": "514282f46548dbfa4ec9d30a232263e9fe7c0b673c73f72bd2aa03f6f11f322c",
+    "els_server/storage/guild_system_state.py": "6c555345507796f72d31053dabcca2773459626d6e89753d984e0fb404143235"
+  },
+  "unverified": [
+    "Current implementation/read-only query/target mapping",
+    "Exact participant eligibility edge cases after timeout and membership departure",
+    "Actual native clear, periodic broadcasts, rollback and duplicate/cold-account tests",
+    "Signed and actual three-channel delivery"
+  ]
+}
