@@ -352,7 +352,7 @@ class DungeonWorkers:
                 and maintenance_request(source,args[0])and args[0].kind==0x22b)
             # The existing exact domain fingerprint decides reuse; changed
             # stage, scene, party or routing facts still force publication.
-            unchanged_foreground=movement or(independent and args and self.candidate(function,args)and args[0].kind in(0xd0,0xad,0xb8))
+            unchanged_foreground=movement or(independent and args and self.candidate(function,args)and args[0].kind in(0xd0,0xad,0xb8,0x9e))
             if (periodic or unchanged_foreground)and not failed:
                 session=self.session_for(function,args)
                 if session is not None:
@@ -370,7 +370,13 @@ class DungeonWorkers:
                 for domain in list(self.domains.values()):
                     if domain.lock.acquire(blocking=False):acquired.append(domain.lock)
                     else:busy.update(s.identity['id']for s in domain.members)
-                try:app.realtime.publish(app,function,args,failed=failed,periodic=periodic,exclude=frozenset(busy))
+                try:
+                    # Reuse prewarmed per-worker read-only handles, while this
+                    # publication still SELECTs fresh authorization. No role
+                    # or enabled-account values survive the operation scope.
+                    from els_server.storage.read_scope import committed_reads
+                    with committed_reads(connections=app.read_connections):
+                        app.realtime.publish(app,function,args,failed=failed,periodic=periodic,exclude=frozenset(busy))
                 finally:
                     for lock in reversed(acquired):lock.release()
         finally:app.world_lock.release()

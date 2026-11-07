@@ -27,16 +27,21 @@ class FriendsSession(LocalSession):
                 if wake is not None:
                     pending_wakes=_town_move_wakes.get()
                     if pending_wakes is None:wake()
-                    else:pending_wakes.add(wake)
+                    else:wake(pending_wakes)
                 return
             notify=getattr(application,'periodic_notify',None)
             if notify is not None:notify(self)
         self.mailbox=Mailbox(pending);self.chat_times=deque();self.invite_times=deque();self.social_overflow=False
         self.next_periodic=0
+        self._peer_drain_open=False
         self.coop_error=None
         super().__init__(account,**options)
 
     def _mailbox_messages(self):
+        # A worker may now capture older member creations for its own reply.
+        # Close peer bypass before draining; later coordinates wait for that
+        # reply's original send/operation barrier.
+        self._peer_drain_open=False
         messages=self.mailbox.drain()
         # A peer's committed guild departure can replace this actor's quest
         # list. Merge this recipient's account task through the same projector
@@ -127,6 +132,11 @@ class FriendsSession(LocalSession):
         return None
 
     def _dungeon_request(self,event,request_sequence):
+        from els_server.dungeon_workers import KINDS
+        # The shared router returns None for these kinds without a room.
+        # Keep solo admission/handlers and all their original actor guards;
+        # avoid reading an identity used only by a nonexistent shared result.
+        if event.kind in KINDS and self.application.world.dungeons.room(self)is None:return None
         from els_server.domain.elixir_flow import remember
         from els_server.domain.dungeon_requests import accepts,identity_before,activity_changed
         dungeon_before=identity_before(self,event)
@@ -299,7 +309,7 @@ class FriendsSession(LocalSession):
         # A live dungeon room retains its fast first poll/two-ms budget.
         # Ordinary own-town upkeep coalesces more quiet reads per admission.
         town=self.application.dungeon_workers.town_periodic(self.periodic_notifications,())
-        deadline=time.monotonic()+(.008 if town else .002)
+        deadline=time.monotonic()+.002
         try:
             while True:
                 next(pending[1])
@@ -484,7 +494,7 @@ class Application:
 
     def _worker_call(self,function,args,kwargs,submitted,capture=None,queue_timing=None):
         worker_entered=time.perf_counter()
-        pending_wakes=set()if queue_timing is not None and queue_timing.get('town_movement')else None
+        pending_wakes={}if queue_timing is not None and queue_timing.get('town_movement')else None
         wake_token=None
         if queue_timing is not None:queue_timing.setdefault('batch_started_at',worker_entered)
         from els_server.performance import captured_calls,worker_timing,request_category
@@ -546,12 +556,12 @@ class Application:
                     started=time.perf_counter()
                     try:timer.observe(session)
                     finally:sample['clock_after_ms']=(time.perf_counter()-started)*1000
-            from els_server.domain.session_auxiliary import maintenance_reply
+            from els_server.domain.session_auxiliary import maintenance_reply,town_peer_reply
             maintenance=(function.__name__=='handle' and len(args)==1
                          and maintenance_reply(session,args[0],result))
             if (not observed and function.__name__=='periodic_notifications'
                     and type(session)is FriendsSession and session.phase=='town_ready'
-                    and result and all(e.event_id==0x201 and e.kind==0x22e for e in result)):
+                    and result and town_peer_reply(result)):
                 maintenance=True
             flow=getattr(session,'activity2026_awards',None) if activity and (observed or result) and not maintenance else None
             after=getattr(flow,'after_reply',None)
@@ -559,13 +569,18 @@ class Application:
             # A sliced notification can resume after another member's shared
             # reward levels this actor. Refresh the existing clock before its
             # mail/display projection when that slice emits a real response.
-            if not observed and not(function.__name__=='handle'and not activity_due(function,args)):
+            if not observed and (not(function.__name__=='handle'and not activity_due(function,args,after=True))
+                    or(function.__name__=='handle'and len(args)==1 and args[0].kind==0x9e)):
                 started=time.perf_counter()
                 try:timer.observe(session)
                 finally:sample['clock_after_ms']=(time.perf_counter()-started)*1000
             started=time.perf_counter()
             try:return after(session,result)
             finally:sample['after_reply_ms']=(time.perf_counter()-started)*1000
+        peer_session=getattr(function,'__self__',None)
+        peer_window=(type(peer_session)is FriendsSession and peer_session.phase=='town_ready'
+            and(function.__name__=='periodic_notifications' or self.dungeon_workers.ordinary_town_move(function,args)))
+        if peer_window:peer_session._peer_drain_open=True
         try:
             if pending_wakes is not None:wake_token=_town_move_wakes.set(pending_wakes)
             with self.dungeon_workers.worker_scope(function,args):
@@ -573,6 +588,7 @@ class Application:
                 if self.dungeon_workers.candidate(function,args)or self.economy.candidate(function,args):return invoke()
                 with self.world_lock:return invoke()
         finally:
+            if peer_window:peer_session._peer_drain_open=False
             try:
                 if not (getattr(function,'__name__',None)=='periodic_notifications'and queue_timing is not None and 'batch_started_at'in queue_timing):
                     self.dungeon_workers.publish(function,args,failed=sample['failed'],independent=self.dungeon_workers.candidate(function,args))
@@ -581,7 +597,11 @@ class Application:
                     _town_move_wakes.reset(wake_token)
                     # A producer held world while appending to peer mailboxes.
                     # Wake their socket loops only after publication released it.
-                    for wake in pending_wakes:wake()
+                    def notify(events):
+                        for event in events:event.set()
+                    # One cross-thread IOCP wake per listener loop, instead of
+                    # one kernel wake for every recipient of the same move.
+                    for loop,events in pending_wakes.items():loop.call_soon_threadsafe(notify,tuple(events))
 
 
     async def periodic_batch(self,sessions):
@@ -872,6 +892,13 @@ class Application:
                 trade_board_messages, wardrobe_messages, weapon_growth_messages, weekly_dungeon_counts,
                 world_buff_messages,
             )
+            # Current achievement resources and the observed late AD import
+            # are immutable. Prepare them before listening, without projecting
+            # an actor or opening another player transaction.
+            from els_server.domain import achievement_flow
+            from els_server.domain.achievement_catalog import catalog as achievement_catalog,rewards as achievement_rewards
+            from els_server.storage import achievement_history,achievement_profiles,erp_support_quest_scope
+            achievement_catalog();achievement_rewards()
         await self.call(prepare_modules)
         from threading import Barrier
         from els_server.storage.read_scope import committed_reads,snapshot_connection
@@ -884,7 +911,7 @@ class Application:
                 with snapshot_connection(self.config.state_file)as db:
                     db.execute('SELECT 1 FROM sqlite_master LIMIT 1').fetchone()
                 with snapshot_connection(self.config.accounts_file)as db:
-                    db.execute('SELECT 1 FROM accounts LIMIT 0').fetchall()
+                    db.execute('SELECT id,name,enabled FROM accounts ORDER BY id').fetchall()
                 self.registry.enabled(0)
         for executor,count in ((self.executor,1),(self.economy.executor,self.economy.workers),
                 (self.dungeon_workers.executor,self.dungeon_workers.workers),(self.dungeon_workers.pickup_executor,self.dungeon_workers.pickup_workers),(self.dungeon_workers.upkeep_executor,self.dungeon_workers.upkeep_workers),

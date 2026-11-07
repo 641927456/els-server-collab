@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "FIFO_and_mutable_snapshot_preserved": true,
+  "queued_events": 102,
+  "file_emits": 3,
+  "critical_first_has_no_batch_window": true,
+  "critical_overflow_remains_synchronous": true,
+  "bounded_diagnostic_overflow_accounted": true,
+  "baseline": {
+    "events": 200,
+    "file_emits": 200,
+    "caller_p95_ms": 0.09950017556548119,
+    "wall_seconds": 0.9979403000324965
+  },
+  "candidate": {
+    "events": 200,
+    "file_emits": 69,
+    "caller_p95_ms": 0.085500068962574,
+    "wall_seconds": 0.999046899843961
+  },
+  "owned_fixture_removed": true,
+  "source_sha256": "6047b412812de81060e2447e1684a459c7170a01dd3526f0d10591547b10b8b0",
+  "parent_sha256": "9efb7e776f5287b1997f35b0db5d3fb64c29262abdcc0e81cafd46a2fad89b1f"
+}

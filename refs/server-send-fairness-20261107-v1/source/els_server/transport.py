@@ -160,6 +160,10 @@ class GameServer:
                 finally:diagnostic_auth.clear()
                 return
             if role=='relay':
+                # Authentication just read the current account. Publish that
+                # same newly registered actor to the independent relay reader
+                # before its first manifest authorization check.
+                if self.realtime is not None:await self.realtime.refresh()
                 try:await self.relay.serve(reader,writer,identity,control=relay_control)
                 except ValueError as error:raise ProtocolError(str(error)) from error
                 return
@@ -282,7 +286,10 @@ class GameServer:
                 business._realtime_town_moves=True
                 movement_wake=asyncio.Event()
                 listener_loop=asyncio.get_running_loop()
-                business._realtime_town_wake=lambda:listener_loop.call_soon_threadsafe(movement_wake.set)
+                def wake_town(batch=None):
+                    if batch is None:listener_loop.call_soon_threadsafe(movement_wake.set)
+                    else:batch.setdefault(listener_loop,set()).add(movement_wake)
+                business._realtime_town_wake=wake_town
                 async def realtime_clock():
                     from els_server.domain.dungeon_time_sync import notification
                     next_clock=time.monotonic()+1
@@ -316,7 +323,11 @@ class GameServer:
                                     or app.world.pvp.room(business)is not None
                                     or app.world.racing.room(business)is not None
                                     or app.world.field_bosses.room(business)is not None):continue
-                            if operation.locked():
+                            # An owned town worker may do unrelated reads
+                            # while no older mailbox batch has been captured.
+                            # Its first mailbox drain closes this window under
+                            # world; captured creations retain delivery order.
+                            if operation.locked()and not getattr(business,'_peer_drain_open',False):
                                 slot=next((s for s in self.periodics.slots.values()if s.session is business),None)
                                 if slot is None or slot.claim is None or slot.claim.state!='pending':continue
                             box=business.mailbox

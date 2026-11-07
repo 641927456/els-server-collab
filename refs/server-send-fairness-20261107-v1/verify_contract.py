@@ -1,14 +1,22 @@
 """Bind archived bytes and run behavioral state/order/quota checks."""
-import ast,hashlib,json,subprocess,sys
+import ast,hashlib,json,subprocess,sys,tomllib
 from pathlib import Path
 A=Path(__file__).resolve().parent;ROOT=A.parents[1]
 def tree(path):return ast.parse(path.read_bytes())
 def cls(t,name):return next(n for n in t.body if isinstance(n,ast.ClassDef)and n.name==name)
 def main():
- b=json.loads((A/'source-bindings.json').read_bytes());assert len(b['files'])==17
+ b=json.loads((A/'source-bindings.json').read_bytes());assert len(b['files'])==22
  for rows in(b['files'],b['runtime_parent_files']):
   for row in rows.values():
    p=ROOT/row['source'];assert p.resolve().is_relative_to(A)and hashlib.sha256(p.read_bytes()).hexdigest()==row['sha256'];tree(p)
+ assert set(b['runtime_templates'])=={'config/friends-server.toml','config/server-settings.json'}
+ for name,row in b['runtime_templates'].items():
+  source=ROOT/row['source'];parent=ROOT/row['parent_source']
+  assert source.resolve().is_relative_to(A)and parent.resolve().is_relative_to(A)
+  assert hashlib.sha256(source.read_bytes()).hexdigest()==row['sha256']and hashlib.sha256(parent.read_bytes()).hexdigest()==row['parent_sha256']
+  if name.endswith('.toml'):before=tomllib.loads(parent.read_text('utf8'))['server'];after=tomllib.loads(source.read_text('utf8'))['server']
+  else:before=json.loads(parent.read_bytes());after=json.loads(source.read_bytes())
+  assert after.pop('egress_mbps')==b['egress_mbps']and before==after,'Only the measured frame budget may change in public templates'
  before=tree(A/'runtime-parent/els_server/domain/native_session_sources.py');after=tree(A/'source/els_server/domain/native_session_sources.py')
  c=cls(after,'SessionSources');method=next(n for n in c.body if isinstance(n,ast.FunctionDef)and n.name=='release_transient');c.body.remove(method)
  assert ast.dump(before)==ast.dump(after),'Original capture, cursor, authority receipts and sent logic must be retained'
@@ -25,7 +33,7 @@ def main():
  assert ast.dump(before)==ast.dump(after),'Transport changes are restricted to sender lifetime and delivery'
  # The current online parent's party, quest, guide, shutdown and GM actor
  # ownership fixes are retained. Only these scheduling entry points differ.
- for name,methods in [('application.py',{'FriendsSession':{'__init__'},'Application':{'_dispatch','_worker_call'}}),('dungeon_workers.py',{'DungeonWorkers':{'publish'}}),('periodic_scheduler.py',{'PeriodicScheduler':{'_notify'}}),('domain/friends_world.py',{'Mailbox':{'append'}})]:
+ for name,methods in [('application.py',{'FriendsSession':{'__init__'},'Application':{'_dispatch','_worker_call'}}),('dungeon_workers.py',{'DungeonWorkers':{'publish'}}),('realtime.py',{'RealtimeState':{'__init__','publish'}}),('periodic_scheduler.py',{'PeriodicScheduler':{'_notify'}}),('domain/friends_world.py',{'Mailbox':{'append'}})]:
   before=tree(A/'runtime-parent/els_server'/name);after=tree(A/'source/els_server'/name)
   for t in(before,after):
    for owner,names in methods.items():
@@ -38,6 +46,25 @@ def main():
    assert len(assignments)==1;guard.finalbody.remove(assignments[0])
    tests=[n for n in ast.walk(deliver)if isinstance(n,ast.IfExp)and ast.unparse(n.test)=='pending or queued_town_notice'];assert len(tests)==1;tests[0].test=ast.Name(id='pending',ctx=ast.Load())
   if name=='application.py':
+   friends=cls(after,'FriendsSession')
+   periodic=next(n for n in friends.body if isinstance(n,ast.FunctionDef)and n.name=='periodic_notifications')
+   deadline=[n for n in periodic.body if isinstance(n,ast.Assign)and any(isinstance(t,ast.Name)and t.id=='deadline'for t in n.targets)]
+   assert len(deadline)==1 and ast.unparse(deadline[0].value)=='time.monotonic() + 0.002'
+   deadline[0].value=ast.parse('time.monotonic()+(.008 if town else .002)',mode='eval').body
+   mailbox=next(n for n in friends.body if isinstance(n,ast.FunctionDef)and n.name=='_mailbox_messages')
+   assert ast.unparse(mailbox.body[0])=='self._peer_drain_open = False';mailbox.body.pop(0)
+   request=next(n for n in friends.body if isinstance(n,ast.FunctionDef)and n.name=='_dungeon_request')
+   expected=ast.parse('''from els_server.dungeon_workers import KINDS
+if event.kind in KINDS and self.application.world.dungeons.room(self)is None:return None''').body
+   assert [ast.dump(n)for n in request.body[:2]]==[ast.dump(n)for n in expected];request.body=request.body[2:]
+   preparation=next(n for n in cls(after,'Application').body if isinstance(n,ast.AsyncFunctionDef)and n.name=='_prepare_workers')
+   modules=next(n for n in preparation.body if isinstance(n,ast.FunctionDef)and n.name=='prepare_modules')
+   warm=ast.parse('''from els_server.domain import achievement_flow
+from els_server.domain.achievement_catalog import catalog as achievement_catalog,rewards as achievement_rewards
+from els_server.storage import achievement_history,achievement_profiles,erp_support_quest_scope
+achievement_catalog();achievement_rewards()''').body
+   assert [ast.dump(n)for n in modules.body[-len(warm):]]==[ast.dump(n)for n in warm];modules.body=modules.body[:-len(warm)]
+   reads=[n for n in ast.walk(preparation)if isinstance(n,ast.Constant)and n.value=='SELECT id,name,enabled FROM accounts ORDER BY id'];assert len(reads)==1;reads[0].value='SELECT 1 FROM accounts LIMIT 0'
    after.body=[n for n in after.body if not(isinstance(n,ast.ImportFrom)and n.module=='contextvars')and not(isinstance(n,ast.Assign)and any(isinstance(v,ast.Name)and v.id=='_town_move_wakes'for v in n.targets))]
   if name=='domain/friends_world.py':
    calls=[n for n in ast.walk(after)if isinstance(n,ast.Call)and isinstance(n.func,ast.Attribute)and n.func.attr=='get_inventory_snapshot'and n.keywords]
@@ -45,6 +72,10 @@ def main():
    for call in calls:
     assert len(call.keywords)==1 and call.keywords[0].arg=='equipped_only'and call.keywords[0].value.value is True
     call.keywords=[]
+  if name=='realtime.py':
+   row=next(n for n in cls(after,'RealtimeState').body if isinstance(n,ast.FunctionDef)and n.name=='transport_row').body[-1]
+   extra=ast.parse("(s.shop_session_id,s.account.account_id,s.identity['id'],s in app.world.party_of)",mode='eval').body.elts
+   assert isinstance(row,ast.Return)and isinstance(row.value,ast.Tuple)and [ast.dump(n)for n in row.value.elts[-4:]]==[ast.dump(n)for n in extra];row.value.elts=row.value.elts[:-4]
   assert ast.dump(before)==ast.dump(after),name+' changed outside scheduling/public appearance scope'
  before=tree(A/'runtime-parent/els_server/protocol/dungeon_messages.py');after=tree(A/'source/els_server/protocol/dungeon_messages.py')
  # Normalize the original HP slice into the shared pure builder; all other
@@ -105,9 +136,68 @@ def main():
   normalized=WriterBindings();after=normalized.visit(after)
   assert normalized.assignments==normalized.guards==count
   assert ast.dump(before)==ast.dump(after),name+' changed outside same-path submit guards; fresh files, transactions and advance order must stay exact'
- selected=set(sys.argv[1:]);assert not selected or selected<=set(b['test_files'])
+ before=tree(A/'runtime-parent/els_server/observability.py');after=tree(A/'source/els_server/observability.py')
+ imports=[n for n in after.body if isinstance(n,ast.Import)and len(n.names)==1 and n.names[0].name=='time'];assert len(imports)==1;after.body.remove(imports[0])
+ worker=next(n for n in cls(after,'EventLog').body if isinstance(n,ast.FunctionDef)and n.name=='_run')
+ loop=worker.body[0];assert isinstance(loop,ast.While)
+ window=loop.body[1];assert isinstance(window,ast.If)and ast.unparse(window.test)=='batch[0] is not None and batch[0][0] in self.LOW_VALUE'
+ assert len(window.body)==1 and ast.unparse(window.body[0])=='time.sleep(0.01)';loop.body.remove(window)
+ assert ast.dump(before)==ast.dump(after),'Only background diagnostic batching may change; freezing, bounds, critical fallback, ordering and close must stay exact'
+ before=tree(A/'runtime-parent/els_server/domain/session_auxiliary.py');after=tree(A/'source/els_server/domain/session_auxiliary.py')
+ helpers=[n for n in after.body if isinstance(n,ast.FunctionDef)and n.name=='town_peer_reply'];assert len(helpers)==1
+ assert len(helpers[0].body)==1 and ast.dump(helpers[0].body[0].value)==ast.dump(ast.parse('all(e.event_id==0x201 and e.kind in(0x22a,0x22e,0x18e)for e in replies)',mode='eval').body)
+ after.body.remove(helpers[0])
+ for name,expression in [('maintenance_request',"session.phase=='dungeon_active'and session.dungeon_substage_synced and bool(session.reward_run_id)"),('maintenance_reply','all(e.event_id==0x201 and e.kind==0x9f for e in replies)')]:
+  function=next(n for n in after.body if isinstance(n,ast.FunctionDef)and n.name==name)
+  extensions=[n for n in function.body if isinstance(n,ast.If)and ast.unparse(n.test)=='event.kind == 158'];assert len(extensions)==1
+  extension=extensions[0];assert len(extension.body)==1 and isinstance(extension.body[0],ast.Return)and ast.dump(extension.body[0].value)==ast.dump(ast.parse(expression,mode='eval').body)
+  function.body.remove(extension)
+  if name=='maintenance_reply':
+   town=next(n for n in function.body if isinstance(n,ast.If)and ast.unparse(n.test)=='event.kind == 555')
+   assert len(town.body)==1 and ast.unparse(town.body[0])=='return town_peer_reply(replies)'
+   town.body=ast.parse('return all(e.event_id==0x201 and e.kind==0x22e for e in replies)').body
+ activity=next(n for n in after.body if isinstance(n,ast.FunctionDef)and n.name=='activity_due')
+ assert len(activity.args.kwonlyargs)==1 and activity.args.kwonlyargs[0].arg=='after'and activity.args.kw_defaults[0].value is False
+ activity.args.kwonlyargs=[];activity.args.kw_defaults=[]
+ original_activity=next(n for n in before.body if isinstance(n,ast.FunctionDef)and n.name=='activity_due')
+ assignment=next(n for n in ast.walk(activity)if isinstance(n,ast.Assign)and any(isinstance(v,ast.Name)and v.id=='unchanged'for v in n.targets))
+ original_assignment=next(n for n in ast.walk(original_activity)if isinstance(n,ast.Assign)and any(isinstance(v,ast.Name)and v.id=='unchanged'for v in n.targets))
+ assert ast.dump(assignment.value)==ast.dump(ast.parse("args[0].kind==0xad or(run is not None and run.next is not None and run.next['kind']==0)or(after and args[0].kind==0xbb and run is not None)",mode='eval').body)
+ assignment.value=original_assignment.value
+ assert ast.dump(before)==ast.dump(after),'Only display9E, town peer replies and the completed capped-BB cursor may skip duplicate activity work; existing actor, scene, level and failure guards remain'
+ before=tree(A/'runtime-parent/els_server/storage/achievement_profiles.py');after=tree(A/'source/els_server/storage/achievement_profiles.py')
+ pending=next(n for n in after.body if isinstance(n,ast.FunctionDef)and n.name=='pending_updates')
+ reconcile=next(n for n in after.body if isinstance(n,ast.FunctionDef)and n.name=='reconcile')
+ original=next(n for n in before.body if isinstance(n,ast.FunctionDef)and n.name=='reconcile')
+ assert ast.dump(pending.args)==ast.dump(original.args)==ast.dump(reconcile.args)
+ assert ast.unparse(pending.body[-1])=='return updates'
+ assert ast.unparse(reconcile.body[0])=='updates = pending_updates(db, account, owner, now, condition_types=condition_types)'
+ reconcile.body=pending.body[:-1]+reconcile.body[1:];after.body.remove(pending)
+ assert ast.dump(before)==ast.dump(after),'Every attained-level, collection and historical-condition decision and durable record remains the original implementation'
+ before=tree(A/'runtime-parent/els_server/domain/achievement_flow.py');after=tree(A/'source/els_server/domain/achievement_flow.py')
+ imported=next(n for n in after.body if isinstance(n,ast.ImportFrom)and n.module=='els_server.storage.achievement_profiles')
+ assert [(n.name,n.asname)for n in imported.names]==[('reconcile','reconcile_profiles'),('pending_updates',None)];imported.names.pop()
+ sync=next(n for n in after.body if isinstance(n,ast.FunctionDef)and n.name=='synchronize')
+ preflight=next(n for n in sync.body if isinstance(n,ast.If)and ast.unparse(n.test)=='not cold and (not arrival)')
+ expected_preflight=ast.parse('''if not cold and not arrival:
+    from els_server.storage.read_scope import snapshot_connection
+    with snapshot_connection(s.account.store.path)as db:
+        db.execute('BEGIN');guard(db)
+        pending=pending_updates(db,s.account.account_id,s.account.uid,int(time.time()),condition_types=sources)
+        guard(db)
+    if not pending:return response''').body[0]
+ assert ast.dump(preflight)==ast.dump(expected_preflight);sync.body.remove(preflight)
+ imports=[n for n in sync.body if isinstance(n,ast.ImportFrom)and n.module=='els_server.storage.sqlite_timing'];assert len(imports)==1 and[(a.name,a.asname)for a in imports[0].names]==[('write_transaction',None)];sync.body.remove(imports[0])
+ writer=next(n for n in sync.body if isinstance(n,ast.With));assert len(writer.items)==1 and len(writer.body)==2
+ assert ast.unparse(writer.body[0])=="db.execute('PRAGMA foreign_keys=ON')"
+ transaction=writer.body[1];assert isinstance(transaction,ast.With)and len(transaction.items)==1 and ast.unparse(transaction.items[0].context_expr)=='write_transaction(db)'and transaction.items[0].optional_vars is None
+ writer.items.append(ast.withitem(context_expr=ast.Name(id='db',ctx=ast.Load())))
+ writer.body=[writer.body[0],ast.parse("db.execute('BEGIN IMMEDIATE')").body[0],*transaction.body]
+ assert ast.dump(before)==ast.dump(after),'Only the fresh no-change read and cooperative writer admission may differ; cold login, source kinds, owned guards, economic recording, encoding and appearance synchronization stay exact'
+ bindings_only=sys.argv[1:]==['--bindings-only']
+ selected=set()if bindings_only else set(sys.argv[1:]);assert not selected or selected<=set(b['test_files'])
  for name,expected in b['test_files'].items():
   p=A/'tests'/name;assert hashlib.sha256(p.read_bytes()).hexdigest()==expected
-  if not selected or name in selected:subprocess.run([sys.executable,'-B',str(p)],check=True)
- print(json.dumps(dict(ok=True,source_files=17,SQL_durability_changed=False,client_binary_changed=False,authority_receipt_contract_preserved=True,behavioral_tests=sorted(selected or b['test_files']))))
+  if not bindings_only and(not selected or name in selected):subprocess.run([sys.executable,'-B',str(p)],check=True)
+ print(json.dumps(dict(ok=True,source_files=22,SQL_durability_changed=False,client_binary_changed=False,authority_receipt_contract_preserved=True,behavioral_tests=[]if bindings_only else sorted(selected or b['test_files']))))
 if __name__=='__main__':main()
