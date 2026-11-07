@@ -45,6 +45,9 @@ def _commit(db, operation, digest, uid, kind, positions, before, after):
         operation_id TEXT PRIMARY KEY, request_hash TEXT NOT NULL, owner INTEGER NOT NULL,
         kind INTEGER NOT NULL, positions_json TEXT NOT NULL, before_json TEXT NOT NULL,
         after_json TEXT NOT NULL)''')
+    # Delivered as part of the shipped long-pause repair (#779): every replay
+    # lookup filters on (kind,owner), so the table needs that match index.
+    db.execute('CREATE INDEX IF NOT EXISTS inventory_action_receipts_kind_owner ON inventory_action_receipts(kind,owner)')
     db.execute('INSERT INTO inventory_action_receipts VALUES (?,?,?,?,?,?,?)',
                (operation, digest, uid, kind, json.dumps(positions),
                 json.dumps(before, sort_keys=True), json.dumps(after, sort_keys=True)))
