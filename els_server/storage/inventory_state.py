@@ -130,6 +130,9 @@ def load_items(db,owner=1001):
  from els_server.domain.potion_choice_box import read_existing as read_potion_choice
  for index,item in enumerate(items):
   if item["template"]==303673:items[index]=read_potion_choice(item)
+ from els_server.domain.pet_expedition_box import BOXES as expedition_boxes,read_existing as read_expedition_box
+ for index,item in enumerate(items):
+  if item['template']in expedition_boxes:items[index]=read_expedition_box(item)
  from els_server.domain.retained_native_consumables import TEMPLATES as retained_native,read_existing as read_retained_native
  for index,item in enumerate(items):
   if item['template']in retained_native:items[index]=read_retained_native(item)

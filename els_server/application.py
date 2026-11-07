@@ -157,6 +157,14 @@ class FriendsSession(LocalSession):
                 if 0x214 in kinds or expiry:self.application.world.appearance_changed(self)
             from els_server.domain.companion_peer_sync import receive as companion_peer_receive
             messages+=companion_peer_receive(self,now=now)
+            # The expedition board refreshes once per local day; the flow
+            # itself declines outside a selected town actor, so a dungeon or
+            # field tick never reads or writes the expedition tables.
+            try:
+                from els_server.domain.pet_expedition_flow import periodic as pet_expedition_periodic
+                messages+=pet_expedition_periodic(self)
+            except Exception:
+                import traceback;traceback.print_exc()
         return self.mailbox.drain()+messages
 
 

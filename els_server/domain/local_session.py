@@ -2300,6 +2300,14 @@ class LocalSession:
                 from els_server.domain.fishing_attempt import initialize_login as initialize_life
                 answer=initialize_life(self,answer)
 
+                # The expedition board is a native 0x8C0 notice the client keeps
+                # until the next one arrives, so it has to ride the login reply:
+                # nothing else re-sends it after the window is opened.
+                from els_server.domain.pet_expedition_flow import initialize_login as initialize_expedition
+                try:answer=initialize_expedition(self,answer)
+                except Exception:
+                    import traceback;traceback.print_exc()
+
                 if self.ice_test:
 
                     from els_server.domain.modern_ice_flow import restore as restore_modern_ice

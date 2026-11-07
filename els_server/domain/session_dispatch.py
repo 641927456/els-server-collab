@@ -19,6 +19,11 @@ _PET_NUTRITION_MODULES=('els_server.protocol.companion_messages',
     'els_server.domain.pet_nutrition_flow')
 _PET_NUTRITION_KINDS=frozenset((0x8ad,0x8af,0x8b9,0x2ea))
 
+# Pet expedition start/complete/cancel. The lifecycle module pokes a new
+# receipts/runs column set, so it is refreshed by mtime like the nutrition
+# family instead of needing a restart for every storage-side correction.
+_PET_EXPEDITION_KINDS=frozenset((0x8c1,0x8c3,0x8c5))
+
 # Cube preview/use. Their storage module is imported inside the session method,
 # so refreshing it by mtime here lands an admission fix without a restart.
 _CUBE_KINDS=frozenset((0x196,0x559))
@@ -281,6 +286,14 @@ def priority_handlers(self,event,request_sequence=None):
             import traceback;traceback.print_exc()
             pet_nutrition_reply=None
         if pet_nutrition_reply is not None:return pet_nutrition_reply
+    if event.event_id==0x202 and event.kind in _PET_EXPEDITION_KINDS:
+        try:
+            from els_server.domain import pet_expedition_flow
+            pet_expedition_reply=_live(pet_expedition_flow).handle(self,event,request_sequence)
+        except Exception:
+            import traceback;traceback.print_exc()
+            pet_expedition_reply=None
+        if pet_expedition_reply is not None:return pet_expedition_reply
     if event.event_id==0x202 and event.kind in _QUEST_KINDS:_refresh_quest_data()
     if event.event_id==0x202 and event.kind in _CUBE_KINDS:
         # Storage-level cube admission: a Count0/Count1 fix must apply to the
@@ -348,6 +361,11 @@ def priority_handlers(self,event,request_sequence=None):
     from els_server.domain.teacher_elixir_boxes import handle as teacher_elixir_handle
     teacher_elixir_reply=teacher_elixir_handle(self,event,request_sequence)
     if teacher_elixir_reply is not None:return teacher_elixir_reply
+    # Approved region1 expedition boxes sit on the life page (group21), so the
+    # fixed-cube path never sees them; they own their own preview/use pair.
+    from els_server.domain.pet_expedition_box import handle as expedition_box_handle
+    expedition_box_reply=expedition_box_handle(self,event,request_sequence)
+    if expedition_box_reply is not None:return expedition_box_reply
     from els_server.domain.life_potions_existing import handle as life_potion_handle
     life_potion_reply=life_potion_handle(self,event,request_sequence)
     if life_potion_reply is not None:return life_potion_reply
