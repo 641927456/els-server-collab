@@ -1,0 +1,123 @@
+--- a/els_server/domain/dungeon_equipment_loot_flow.py
++++ b/els_server/domain/dungeon_equipment_loot_flow.py
+@@ -84,6 +84,9 @@
+     # next/ready_at and periodic pauses the clock, so neither may run after the
+     # issue commits with a still-fallible protocol encoder.
+     shadow=copy.copy(s);shadow.dungeon_run=copy.copy(run)
++    if run.hp_context is not None:
++        from els_server.domain.raid_economy_flow import _ShadowHP
++        shadow.dungeon_run.hp_context=_ShadowHP(run,shadow.dungeon_run)
+     shadow.dungeon_run.defeated={**run.defeated,npc['key']:bytes(event.payload)}
+     shadow.defeated_npcs=shadow.dungeon_run.defeated;shadow.dungeon_clock=copy.copy(s.dungeon_clock)
+     gate_reply=periodic(shadow)
+--- a/els_server/domain/dungeon_flow.py
++++ b/els_server/domain/dungeon_flow.py
+@@ -328,6 +328,9 @@
+  if ((stage,part)!=(run.native_stage,run.part) or reserved!=0 or count!=len(conditions)
+      or len(raw)!=15+count or raw[-1]not in (0,1) or any(v not in (0,1) for v in raw[14:-1])):return error
+  shadow=copy.copy(s);shadow.dungeon_run=copy.copy(run);shadow.dungeon_clock=copy.copy(s.dungeon_clock)
++ if run.hp_context is not None:
++  from els_server.domain.raid_economy_flow import _ShadowHP
++  shadow.dungeon_run.hp_context=_ShadowHP(run,shadow.dungeon_run)
+  selected=None
+  for flag,condition in zip(raw[14:-1],conditions):
+   if not flag:continue
+--- a/els_server/domain/dungeon_settlement_commands.py
++++ b/els_server/domain/dungeon_settlement_commands.py
+@@ -25,6 +25,13 @@
+             try:data=death_report(event.payload)
+ 
+             except ValueError:return []
++
++            # C1/failure has closed this run's HP lease. A delayed native
++            # retirement is an ACK only, before any population or reward read.
++            if self.clear_notified or getattr(self,'dungeon_failed',False):
++                if (event.performers!=(0,) or event.uid!=2**64-1
++                        or event.target_uid!=2**64-1 or event.payload_mode!=0):return []
++                return [death_ack()]
+ 
+             if data['index'] in self.summon_keys:
+ 
+--- a/els_server/domain/local_session.py
++++ b/els_server/domain/local_session.py
+@@ -535,7 +535,7 @@
+             raise ValueError('Missing owned character HP snapshot')
+         if character['unit_type']!=10:return
+         import struct
+-        if set(spans)!=set(('0x198','0x1b4','0x1d1')):raise ValueError('LuCiel admitted member spans')
++        if set(spans)!=set(('0x198','0x1b4','0x1d1','0x5ec')):raise ValueError('LuCiel admitted member spans')
+         self.luciel_dungeon_hp_source=(self.account.uid,payload,dict(spans))
+         self.luciel_dungeon_hp_max=struct.unpack_from('>f',payload,spans['0x198'][0])[0]
+ 
+@@ -2441,7 +2441,8 @@
+                 # when current == total. Reject invented continuation cursors
+                 # instead of advancing initialization on malformed input.
+                 if self.client_build=='dx11_260923' and event.payload!=bytes(8):
+-                    raise SessionOrderError('Invalid inventory split cursors')
++                    cursors=struct.unpack('>ii',event.payload)if len(event.payload)==8 else None
++                    raise SessionOrderError(f'Invalid inventory split cursors (length={len(event.payload)}, cursors={cursors})')
+                 answer=[Event(0x201,kind=0x5c0,payload=i32(0)*3)]
+ 
+             # 138F0E0: local DX11 has no inventory PIN configured; the ACK
+--- a/els_server/domain/scene_actor_retirements.py
++++ b/els_server/domain/scene_actor_retirements.py
+@@ -177,7 +177,11 @@
+         actors=[n for n in value['npcs']if n.get('key')==index]
+         if len(actors)!=1:continue
+         source=run
+-        if part!=run.part:source=copy.copy(run);source.part=part
++        if part!=run.part:
++            source=copy.copy(run);source.part=part
++            if run.hp_context is not None:
++                from els_server.domain.raid_economy_flow import _ShadowHP
++                source.hp_context=_ShadowHP(run,source)
+         return source,actors[0]
+     return run,None
+ 
+--- a/els_server/domain/story_controller_retirements.py
++++ b/els_server/domain/story_controller_retirements.py
+@@ -122,6 +122,9 @@
+         identity=inactive_quest(run.identity,npc['template'])
+         if identity is not None:witness['tutorial_quest']=identity
+     shadow=copy.copy(s);shadow.dungeon_run=copy.copy(run)
++    if run.hp_context is not None:
++        from els_server.domain.raid_economy_flow import _ShadowHP
++        shadow.dungeon_run.hp_context=_ShadowHP(run,shadow.dungeon_run)
+     shadow.dungeon_run.defeated={**run.defeated,key:bytes(event.payload)}
+     shadow.defeated_npcs=shadow.dungeon_run.defeated;shadow.dungeon_clock=copy.copy(s.dungeon_clock)
+ 
+--- a/els_server/native_inbox.py
++++ b/els_server/native_inbox.py
+@@ -52,7 +52,7 @@
+                 previous=secure_sequences.get(frame.spi,0)
+                 if (not frame.secure_sequence or frame.secure_sequence==previous
+                         or frame.secure_sequence<previous and previous!=0xffffffff):
+-                    raise ProtocolError('Unexpected secure sequence')
++                    raise ProtocolError(f'Unexpected secure sequence (spi={frame.spi}, previous={previous}, received={frame.secure_sequence}, outer={frame.sequence})')
+                 secure_sequences[frame.spi]=frame.secure_sequence
+                 event=decode_event(frame.plaintext);self.metrics['requests']+=1
+                 if self.auxiliary is not None and self.auxiliary(event):
+--- a/els_server/protocol/dungeon_messages.py
++++ b/els_server/protocol/dungeon_messages.py
+@@ -254,7 +254,7 @@
+     from els_server.storage.character_schema import character_uid
+     from els_server.protocol.luciel_messages import style as valid_style
+     character_uid(uid);valid_style(style)
+-    if not isinstance(payload,bytes) or set(spans)!=set(('0x198','0x1b4','0x1d1')):raise ValueError('Admitted LuCiel HP source')
++    if not isinstance(payload,bytes) or set(spans)!=set(('0x198','0x1b4','0x1d1','0x5ec')):raise ValueError('Admitted LuCiel HP source')
+     if not isinstance(health_max,(int,float)) or not 0<health_max<=1e12:raise ValueError('LuCiel HP maximum')
+     updated=bytearray(payload);hp=struct.pack('>f',health_max)
+     for key in ('0x198','0x1b4'):
+--- a/els_server/storage/seal_quests.py
++++ b/els_server/storage/seal_quests.py
+@@ -68,6 +68,10 @@
+     if type(owner)is not int or not 1<=owner<2**63 or account_id is not None and(type(account_id)is not int or account_id!=owner):raise ValueError('Quest character owner mismatch')
+     row=dict(Characters._row(saved[:-1]),account_id=owner)
+     if identity_only:return row
++    if row['unit_type']==10:
++        from els_server.storage.luciel_state import state,active_state
++        row['luciel_style']=state(db,uid)['style']
++        row['luciel_active_unit']=active_state(db,uid)['active_unit']
+     from els_server.storage.achievements import statuses as achievement_statuses
+     row['achievement_status']=achievement_statuses(db,owner,(uid,))[uid]
+     from els_server.storage.quick_start import participant as quick_start_participant
