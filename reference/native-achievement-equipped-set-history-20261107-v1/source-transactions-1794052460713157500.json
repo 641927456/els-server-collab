@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "production_database_access": false,
+  "production_clock_patch": false,
+  "retained_expired_worn_fixture": true,
+  "checks": [
+    "Expired retained worn rows do not count; the original exact deadline remains valid",
+    "Late caller failure rolls back progress and completions; normal retry completes both armor definitions once",
+    "Repeat and later expiry do not duplicate or retract attained account achievements"
+  ],
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "522747c52236850812eb2736ccb6de9f6005eb110d6f484d174f3ce210522322",
+    "els_server/domain/guild_agit_flow.py": "49901902965662a3bc8a2b1e02f859d5dfa23b3a10bef2c5bcee854841e25f3e",
+    "els_server/storage/achievement_collections.py": "e5e21249eec340dd507b8868b1f41bbe1762b62f4921224c2032c6ef0ab1b54b",
+    "els_server/storage/achievement_history.py": "c27161c6cde476c2108f9baefac0e636323feb91fc3ed970f596b89a7df91a2d",
+    "els_server/storage/achievement_profiles.py": "a037ea02a31543b3bcf644cc5be849ea0fd7a9093e105470eaa4087092b5012b"
+  }
+}
