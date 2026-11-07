@@ -1,0 +1,73 @@
+{
+  "diagnostic_only": true,
+  "rows": [
+    {
+      "run": "online-disconnect24-mixed-forty-five-v28",
+      "paired_by_native_sequence": true,
+      "quiet_actors": 1,
+      "client_full_request": {
+        "n": 12,
+        "mean_ms": 39.442716632038355,
+        "p50_ms": 37.04439988359809,
+        "p95_ms": 46.87820002436638,
+        "p99_ms": 46.87820002436638,
+        "min_ms": 32.47640002518892,
+        "max_ms": 46.87820002436638
+      },
+      "server_measured_segment": {
+        "n": 12,
+        "mean_ms": 24.843458319082856,
+        "p50_ms": 22.553199902176857,
+        "p95_ms": 32.65469986945391,
+        "p99_ms": 32.65469986945391,
+        "min_ms": 17.89320004172623,
+        "max_ms": 32.65469986945391
+      },
+      "outside_measured_server_segment": {
+        "n": 12,
+        "mean_ms": 14.599258312955499,
+        "p50_ms": 14.510000124573708,
+        "p95_ms": 15.114999609068036,
+        "p99_ms": 15.114999609068036,
+        "min_ms": 14.139799866825342,
+        "max_ms": 15.114999609068036
+      },
+      "outside_description": "Includes final socket write, TCP/TLS, OS queues, encode/decode and scheduling outside the recorded server segment; not pure wire RTT.",
+      "used_to_adjust_acceptance": false
+    },
+    {
+      "run": "online-disconnect24-mixed-twenty-five-v29",
+      "paired_by_native_sequence": true,
+      "quiet_actors": 1,
+      "client_full_request": {
+        "n": 12,
+        "mean_ms": 43.72221662197262,
+        "p50_ms": 43.89650002121925,
+        "p95_ms": 49.97589997947216,
+        "p99_ms": 49.97589997947216,
+        "min_ms": 36.96200018748641,
+        "max_ms": 49.97589997947216
+      },
+      "server_measured_segment": {
+        "n": 12,
+        "mean_ms": 25.822374930915732,
+        "p50_ms": 25.92280018143356,
+        "p95_ms": 32.26459980942309,
+        "p99_ms": 32.26459980942309,
+        "min_ms": 19.134099828079343,
+        "max_ms": 32.26459980942309
+      },
+      "outside_measured_server_segment": {
+        "n": 12,
+        "mean_ms": 17.89984169105689,
+        "p50_ms": 17.901499988511205,
+        "p95_ms": 18.34660000167787,
+        "p99_ms": 18.34660000167787,
+        "min_ms": 17.447499791160226,
+        "max_ms": 18.34660000167787
+      },
+      "outside_description": "Includes final socket write, TCP/TLS, OS queues, encode/decode and scheduling outside the recorded server segment; not pure wire RTT.",
+      "used_to_adjust_acceptance": false
+    }
+  ]
+}

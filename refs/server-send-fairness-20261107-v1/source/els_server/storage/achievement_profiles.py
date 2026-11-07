@@ -4,9 +4,9 @@ from els_server.domain.achievement_catalog import catalog
 from els_server.storage import achievements as state
 from els_server.storage import profession_state,resonance_state
 from els_server.storage.achievement_collections import counts as collection_counts
-from els_server.storage.achievement_history import counts as history_counts
+from els_server.storage.achievement_history import counts as history_counts,couple_duration
 
-CONDITION_TYPES=frozenset((2,4,5,6,15,16,18,19,23,24,25,26,27,28,32,35,36,37,38,39,42,43,44,45,51,52,53,56,57,58,60,61,62,63,67,68))
+CONDITION_TYPES=frozenset((2,4,5,6,15,16,18,19,20,23,24,25,26,27,28,29,30,32,35,36,37,38,39,42,43,44,45,51,52,53,56,57,58,60,61,62,63,67,68))
 
 
 def pending_updates(db,account,owner,now,*,condition_types=CONDITION_TYPES):
@@ -23,6 +23,8 @@ def pending_updates(db,account,owner,now,*,condition_types=CONDITION_TYPES):
     resonance=resonance_state.snapshot(db,owner,account)if 15 in condition_types else None
     collections=collection_counts(db,account,owner,now,condition_types)
     history=history_counts(db,account,condition_types)
+    duration=couple_duration(db,account,now)if 20 in condition_types else None
+    couple_due=None
     old={}
     if state.exists(db):
         old={(a,c):(v,bool(done))for a,c,v,done in db.execute(
@@ -38,7 +40,8 @@ def pending_updates(db,account,owner,now,*,condition_types=CONDITION_TYPES):
             elif kind in(4,5):value=history.get((kind,parameters['m_ePvpChannelClass']),0)
             elif kind==6:value=levels.get(parameters['m_eProfessionType'],0)
             elif kind==15:value=resonance['level']
-            elif kind in(18,19,23,24,25,26,27,28,36,43,44,45,51,52,53,56,57,58,60,61,63):value=history.get((kind,0),0)
+            elif kind==20:value=duration[0]
+            elif kind in(18,19,23,24,25,26,27,28,29,30,36,43,44,45,51,52,53,56,57,58,60,61,63):value=history.get((kind,0),0)
             elif kind in(16,62):value=history.get((kind,parameters['m_iItemID']),0)
             elif kind==32:value=history.get((kind,parameters['m_iLevel']),0)
             elif kind==35:value=history.get((kind,parameters['m_iGroupID']),0)
@@ -52,14 +55,23 @@ def pending_updates(db,account,owner,now,*,condition_types=CONDITION_TYPES):
             value=max(value,previous[0])
             target=1 if kind==2 else parameters['m_iLevel'if kind in(6,15,57)else'm_iCount']
             complete=value>=target
+            if kind==20 and not complete and duration[1]is not None:
+                due=duration[1]+target*86400
+                couple_due=due if couple_due is None else min(couple_due,due)
             if (value,complete)==previous:continue
             updates.append(dict(achievement=identity,condition=condition['id'],value=value,complete=complete))
-    return updates
+    plan=dict(updates=updates)
+    if duration is not None:plan['couple_due']=couple_due
+    return plan
 
 
 def reconcile(db,account,owner,now,*,condition_types=CONDITION_TYPES):
-    updates=pending_updates(db,account,owner,now,condition_types=condition_types)
-    if not updates:return dict(completed=[],replayed=False)
-    proof=json.dumps(updates,sort_keys=True,separators=(',',':')).encode()
-    operation=f'achievement-profile:{account}:{owner}:'+hashlib.sha256(proof).hexdigest()
-    return state.record(db,account,owner,updates,operation,now)
+    plan=pending_updates(db,account,owner,now,condition_types=condition_types)
+    updates=plan['updates']
+    result=dict(completed=[],replayed=False)
+    if updates:
+        proof=json.dumps(updates,sort_keys=True,separators=(',',':')).encode()
+        operation=f'achievement-profile:{account}:{owner}:'+hashlib.sha256(proof).hexdigest()
+        result=state.record(db,account,owner,updates,operation,now)
+    if 'couple_due'in plan:result['couple_due']=plan['couple_due']
+    return result

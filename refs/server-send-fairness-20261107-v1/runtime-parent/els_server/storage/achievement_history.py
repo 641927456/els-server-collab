@@ -1,7 +1,7 @@
 """Trusted progress facts from existing authorities and committed history."""
 import json,struct
 
-TABLES=('native_player_trades','player_mail_receipts','fishing_attempts','pet_expedition_receipts','native_guild_actions','native_guild_operations_v2','native_guild_quest_facts_v2','inventory_action_receipts','resonance2026_reset_receipts','profession_anvil_receipts','consumable_uses','known_resurrection_spends','native_couple_pairs_v1','native_wedding_bookings','native_wedding_ceremonies','dungeon_records','official_pvp_profiles')
+TABLES=('native_player_trades','player_mail_receipts','fishing_attempts','pet_expedition_receipts','native_guild_actions','native_guild_operations_v2','native_guild_quest_facts_v2','inventory_action_receipts','resonance2026_reset_receipts','profession_anvil_receipts','consumable_uses','known_resurrection_spends','native_couple_pairs_v1','native_couple_closures_v1','native_wedding_bookings','native_wedding_ceremonies','dungeon_records','official_pvp_profiles','native_achievement_operations')
 
 
 def present(db):
@@ -35,6 +35,31 @@ def ensure_indexes(db):
         db.execute('CREATE INDEX IF NOT EXISTS native_achievement_consumable_owner_template ON consumable_uses(owner,template)')
     if 'official_pvp_profiles'in tables:
         db.execute('CREATE INDEX IF NOT EXISTS native_achievement_pvp_profile_account ON official_pvp_profiles(account_id,policy)')
+    if 'native_achievement_operations'in tables:
+        db.execute('CREATE INDEX IF NOT EXISTS native_achievement_operation_account_kind ON native_achievement_operations(account_id,kind)')
+
+
+def couple_duration(db,account,now):
+    """Human rule: longest separate couple or marriage period, in full24h days."""
+    tables=present(db)
+    if 'native_couple_pairs_v1'not in tables:return 0,None
+    closure='LEFT JOIN native_couple_closures_v1 x ON x.pair_id=p.id'if 'native_couple_closures_v1'in tables else ''
+    closed='x.created_at'if closure else 'NULL'
+    married=''
+    if {'native_wedding_bookings','native_wedding_ceremonies'}<=tables:
+        married="LEFT JOIN(SELECT b.pair_id,MIN(c.at)AS at FROM native_wedding_ceremonies c "\
+            "JOIN native_wedding_bookings b ON b.id=c.reservation AND b.pair_id=c.pair_id "\
+            "WHERE b.finished_at=c.at AND b.canceled_at IS NULL GROUP BY b.pair_id)m ON m.pair_id=p.id"
+    wedding='m.at'if married else 'NULL'
+    days=0;active=[]
+    for start,end,marriage in db.execute('SELECT p.created_at,'+closed+','+wedding+
+            ' FROM native_couple_pairs_v1 p '+closure+' '+married+' WHERE p.a_account=?OR p.b_account=?',(account,account)):
+        terminal=now if end is None else min(now,end)
+        dating_end=terminal if marriage is None else min(terminal,marriage)
+        days=max(days,max(0,dating_end-start)//86400)
+        if marriage is not None and marriage<=terminal:days=max(days,(terminal-marriage)//86400)
+        if end is None or end>now:active.append(marriage if marriage is not None and marriage<=now else start)
+    return days,min(active)if active else None
 
 
 def _inventory_units(db,account,kind,*,template=None):
@@ -74,8 +99,15 @@ def _expedition_join_level(payload,account,owner,stamp):
 
 
 def counts(db,account,condition_types):
-    if not condition_types&{2,4,5,16,18,19,23,24,25,26,27,28,32,35,36,43,44,45,51,52,53,56,57,58,60,61,62,63}:return {}
+    if not condition_types&{2,4,5,16,18,19,23,24,25,26,27,28,29,30,32,35,36,43,44,45,51,52,53,56,57,58,60,61,62,63}:return {}
     tables=present(db);result={}
+    if 29 in condition_types and 'native_achievement_operations'in tables:
+        result[(29,0)]=db.execute("SELECT COUNT(*)FROM native_achievement_operations WHERE account_id=?AND kind='duel-invite'",(account,)).fetchone()[0]
+    if 30 in condition_types and 'inventory_action_receipts'in tables:
+        # Approved interpretation of bonus-check0: every committed paid
+        # ordinary/smith5FF settlement, including failure; no219amulet jump.
+        result[(30,0)]=db.execute('SELECT COUNT(*)FROM inventory_action_receipts a '
+            'JOIN character_owners o ON o.uid=a.owner WHERE o.account_id=?AND a.kind=?',(account,0x5ff)).fetchone()[0]
     if 2 in condition_types and 'dungeon_records'in tables:
         # The reward writer keeps only positive server-measured best times.
         # Loading, failed runs and old unmeasured zero-time receipts do not

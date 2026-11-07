@@ -126,6 +126,12 @@ achievement_catalog();achievement_rewards()''').body
  before=OriginalProfile().visit(before)
  after.body=[n for n in after.body if not(isinstance(n,ast.FunctionDef)and n.name=='member_profile')]
  assert ast.dump(before)==ast.dump(after),'Native member fields outside the shared profile must stay exact'
+ profile_tree=tree(A/'source/els_server/domain/elixir_flow.py')
+ profile=next(n for n in profile_tree.body if isinstance(n,ast.FunctionDef)and n.name=='profiles')
+ lu=next(n for n in profile.body if isinstance(n,ast.If))
+ statements=[ast.unparse(n)for n in lu.body]
+ for expected in("from els_server.storage.luciel_state import state, active_state","character['luciel_style'] = state(db, s.account.uid)['style']","character['luciel_active_unit'] = active_state(db, s.account.uid)['active_unit']"):
+  assert expected in statements,'Authoritative saved LuCiel state must remain fresh'
  for name,names in [('domain/elixir_flow.py',{'profiles'})]:
   before=tree(A/'runtime-parent/els_server'/name);after=tree(A/'source/els_server'/name)
   for t in(before,after):t.body=[n for n in t.body if not(isinstance(n,ast.FunctionDef)and n.name in names)]
@@ -181,11 +187,7 @@ achievement_catalog();achievement_rewards()''').body
  updated.args=original.args;updated.body=original.body
  original_capture=next(n for n in cls(before,'LocalSession').body if isinstance(n,ast.FunctionDef)and n.name=='_capture_luciel_dungeon_hp')
  updated_capture=next(n for n in cls(after,'LocalSession').body if isinstance(n,ast.FunctionDef)and n.name=='_capture_luciel_dungeon_hp')
- capture_text=ast.unparse(updated_capture)
- assert "set(('0x198', '0x1b4', '0x1d1', '0x5ec'))"in capture_text
- assert "{key: spans[key] for key in ('0x198', '0x1b4', '0x1d1')}"in capture_text
- capture_text=capture_text.replace("set(('0x198', '0x1b4', '0x1d1', '0x5ec'))","set(('0x198', '0x1b4', '0x1d1'))").replace("{key: spans[key] for key in ('0x198', '0x1b4', '0x1d1')}",'dict(spans)')
- assert ast.dump(ast.parse(capture_text).body[0])==ast.dump(original_capture),'LuCiel capture only separates the HP spans from the pet span'
+ assert ast.dump(original_capture)==ast.dump(updated_capture),'Retain the accepted complete four-span LuCiel source'
  updated_capture.body=original_capture.body
  assert ast.dump(before)==ast.dump(after),'Local session behavior outside the opt-in inventory projection must stay exact'
  for name,count in [('position_writer.py',3),('death_writer.py',1),('clock_writer.py',1)]:
@@ -237,26 +239,31 @@ achievement_catalog();achievement_rewards()''').body
  reconcile=next(n for n in after.body if isinstance(n,ast.FunctionDef)and n.name=='reconcile')
  original=next(n for n in before.body if isinstance(n,ast.FunctionDef)and n.name=='reconcile')
  assert ast.dump(pending.args)==ast.dump(original.args)==ast.dump(reconcile.args)
- assert ast.unparse(pending.body[-1])=='return updates'
- assert ast.unparse(reconcile.body[0])=='updates = pending_updates(db, account, owner, now, condition_types=condition_types)'
- reconcile.body=pending.body[:-1]+reconcile.body[1:];after.body.remove(pending)
- assert ast.dump(before)==ast.dump(after),'Every attained-level, collection and historical-condition decision and durable record remains the original implementation'
+ expected_plan=ast.parse("plan=dict(updates=updates)\nif duration is not None:plan['couple_due']=couple_due\nreturn plan").body
+ assert ast.dump(ast.Module(body=pending.body[-3:],type_ignores=[]))==ast.dump(ast.Module(body=expected_plan,type_ignores=[]))
+ assert ast.unparse(reconcile.body[0])=='plan = pending_updates(db, account, owner, now, condition_types=condition_types)'
+ assert ast.unparse(reconcile.body[1])=="updates = plan['updates']"
+ tail=reconcile.body[2:]
+ assert ast.unparse(tail[-2])=="if 'couple_due' in plan:\n    result['couple_due'] = plan['couple_due']"
+ tail[-2]=original.body[-2]
+ reconcile.body=pending.body[:-3]+tail;after.body.remove(pending)
+ assert ast.dump(before)==ast.dump(after),'Every source rule, result digest and couple deadline remains the original implementation'
  before=tree(A/'runtime-parent/els_server/domain/achievement_flow.py');after=tree(A/'source/els_server/domain/achievement_flow.py')
  imported=next(n for n in after.body if isinstance(n,ast.ImportFrom)and n.module=='els_server.storage.achievement_profiles')
  assert [(n.name,n.asname)for n in imported.names]==[('reconcile','reconcile_profiles'),('pending_updates',None)];imported.names.pop()
  sync=next(n for n in after.body if isinstance(n,ast.FunctionDef)and n.name=='synchronize')
- preflight_start=next(i for i,n in enumerate(sync.body)if isinstance(n,ast.ImportFrom)and n.module=='els_server.storage.read_scope')
- preflight=sync.body[preflight_start:preflight_start+3]
- expected_preflight=ast.parse("from els_server.storage.read_scope import snapshot_connection\noptions={}if cold or arrival else dict(condition_types=sources)\nwith snapshot_connection(s.account.store.path)as db:\n    db.execute('BEGIN');guard(db)\n    pending=pending_updates(db,s.account.account_id,s.account.uid,int(time.time()),**options)\n    if not pending:\n        if not cold and not arrival:\n            guard(db);return response\n        current=state.snapshot(db,s.account.account_id,s.account.uid)\n        message=wire.summary(points(current['completed']),current['watched'],False)\n        encode_event(message);guard(db)\n        return [*response,message]\n    guard(db)").body
- assert ast.dump(ast.Module(body=preflight,type_ignores=[]))==ast.dump(ast.Module(body=expected_preflight,type_ignores=[]))
- del sync.body[preflight_start:preflight_start+3]
- imports=[n for n in sync.body if isinstance(n,ast.ImportFrom)and n.module=='els_server.storage.sqlite_timing'];assert len(imports)==1 and[(a.name,a.asname)for a in imports[0].names]==[('write_transaction',None)];sync.body.remove(imports[0])
+ start=next(i for i,n in enumerate(sync.body)if isinstance(n,ast.ImportFrom)and n.module=='els_server.storage.read_scope')
+ preflight=sync.body[start:start+4]
+ expected=ast.parse("from els_server.storage.read_scope import snapshot_connection\noptions={}if cold or arrival else dict(condition_types=sources)\nwith snapshot_connection(s.account.store.path)as db:\n    db.execute('BEGIN');guard(db)\n    plan=pending_updates(db,s.account.account_id,s.account.uid,now,**options)\n    if not plan['updates']:\n        answer=response\n        if cold or arrival:\n            current=state.snapshot(db,s.account.account_id,s.account.uid)\n            message=wire.summary(points(current['completed']),current['watched'],False)\n            encode_event(message);answer=[*response,message]\n    guard(db)\nif not plan['updates']:\n    if 'couple_due'in plan:\n        s._achievement_couple_due=(s.account.account_id,s.account.uid,plan['couple_due'])if plan['couple_due']is not None else None\n    return answer").body
+ assert ast.dump(ast.Module(body=preflight,type_ignores=[]))==ast.dump(ast.Module(body=expected,type_ignores=[]))
+ del sync.body[start:start+4]
+ imports=[n for n in sync.body if isinstance(n,ast.ImportFrom)and n.module=='els_server.storage.sqlite_timing'];assert len(imports)==1 and[(v.name,v.asname)for v in imports[0].names]==[('write_transaction',None)];sync.body.remove(imports[0])
  writer=next(n for n in sync.body if isinstance(n,ast.With));assert len(writer.items)==1 and len(writer.body)==2
  assert ast.unparse(writer.body[0])=="db.execute('PRAGMA foreign_keys=ON')"
  transaction=writer.body[1];assert isinstance(transaction,ast.With)and len(transaction.items)==1 and ast.unparse(transaction.items[0].context_expr)=='write_transaction(db)'and transaction.items[0].optional_vars is None
  writer.items.append(ast.withitem(context_expr=ast.Name(id='db',ctx=ast.Load())))
  writer.body=[writer.body[0],ast.parse("db.execute('BEGIN IMMEDIATE')").body[0],*transaction.body]
- assert ast.dump(before)==ast.dump(after),'Only the fresh no-change read and cooperative writer admission may differ; cold login, source kinds, owned guards, economic recording, encoding and appearance synchronization stay exact'
+ assert ast.dump(before)==ast.dump(after),'Only fresh no-change planning and cooperative admission differ; original scheduled observations, guards, transactions and replies remain exact'
  bindings_only=sys.argv[1:]==['--bindings-only']
  selected=set()if bindings_only else set(sys.argv[1:]);assert not selected or selected<=set(b['test_files'])
  for name,expected in b['test_files'].items():

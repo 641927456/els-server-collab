@@ -45,6 +45,9 @@ def profiles(s,db,items):
         from els_server.storage.titles import equipped,completed_for_equipment
         character['title']=equipped(db,s.account.uid)
         character['title_completed_quests']=completed_for_equipment(db,s.account.uid)
+        from els_server.storage.luciel_state import state,active_state
+        character['luciel_style']=state(db,s.account.uid)['style']
+        character['luciel_active_unit']=active_state(db,s.account.uid)['active_unit']
         if items is None:
             from els_server.storage.inventory_state import load_equipped_items
             items=load_equipped_items(db,s.account.uid)

@@ -256,7 +256,7 @@ def luciel_hp_notification(source,health_max,style):
     from els_server.storage.character_schema import character_uid
     from els_server.protocol.luciel_messages import style as valid_style
     character_uid(uid);valid_style(style)
-    if not isinstance(payload,bytes) or set(spans)!=set(('0x198','0x1b4','0x1d1')):raise ValueError('Admitted LuCiel HP source')
+    if not isinstance(payload,bytes) or set(spans)!=set(('0x198','0x1b4','0x1d1','0x5ec')):raise ValueError('Admitted LuCiel HP source')
     if not isinstance(health_max,(int,float)) or not 0<health_max<=1e12:raise ValueError('LuCiel HP maximum')
     updated=bytearray(payload);hp=struct.pack('>f',health_max)
     for key in ('0x198','0x1b4'):

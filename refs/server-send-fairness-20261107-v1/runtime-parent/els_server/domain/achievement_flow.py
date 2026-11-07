@@ -29,7 +29,8 @@ def handle(s,event,sequence):
     with closing(sqlite3.connect(Path(s.account.store.path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
         guard(db);require_active_character(db,owner)
-        completed=reconcile_profiles(db,account,owner,int(time.time()))['completed']if event.kind==0x6be else []
+        updated=reconcile_profiles(db,account,owner,int(time.time()))if event.kind==0x6be else dict(completed=[])
+        completed=updated['completed']
         code=0;identity=parsed.get('achievement')
         try:
             if event.kind==0x6c1:state.toggle_display(db,account,owner,identity,operation)
@@ -45,6 +46,7 @@ def handle(s,event,sequence):
             answer=[wire.reward_ack(code,identity,row['completed_at'],row['received'])]
         for message in answer:encode_event(message)
         guard(db);require_active_character(db,owner)
+    if 'couple_due'in updated:s._achievement_couple_due=(account,owner,updated['couple_due'])if updated['couple_due']is not None else None
     if completed or event.kind==0x6c1 and code==0:_appearance_changed(s)
     return answer
 
@@ -85,6 +87,8 @@ def synchronize(s,event,response):
     if 0x1d0 in kinds:sources.add(28)
     if 0x3ff in kinds:sources.add(18)
     if 0x424 in kinds:sources.add(19)
+    if kinds&{0x3ff,0x41d,0x41e,0x424,0x890}:sources.add(20)
+    if 0x5c7 in kinds:sources.add(29)
     if 0xc1 in kinds:sources.add(2)
     if 0xc2 in kinds:sources.update((4,5))
     if 0x291 in kinds:sources.add(23)
@@ -96,6 +100,7 @@ def synchronize(s,event,response):
     if 0x612 in kinds:sources.add(43)
     if 0x614 in kinds:sources.add(44)
     if 0x600 in kinds:sources.add(32)
+    if 0x600 in kinds:sources.add(30)
     if 0x1c5 in kinds:sources.add(45)
     if 0x706 in kinds:sources.add(51)
     if 0x708 in kinds:sources.add(52)
@@ -108,23 +113,27 @@ def synchronize(s,event,response):
     # Original guild refusal has no ACK. Only its committed6C8 action journal
     # can increase the count; replay or a refusal without an invitation cannot.
     if event is not None and event.event_id==0x202 and event.kind==0x6c8:sources.add(24)
+    now=int(time.time());due=getattr(s,'_achievement_couple_due',None)
+    if due is not None and due[:2]==(s.account.account_id,s.account.uid)and now>=due[2]:sources.add(20)
     if not cold and not arrival and not(sources and s.role=='game'and s.phase in('town_ready','guild_agit_ready','dungeon_active','wedding_hall','pvp_result')):return response
     guard=capture(s)
     with closing(sqlite3.connect(Path(s.account.store.path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');guard(db)
         options={}if cold or arrival else dict(condition_types=sources)
-        updated=reconcile_profiles(db,s.account.account_id,s.account.uid,int(time.time()),**options)
-        if not cold and not arrival and not updated['completed']:
-            guard(db);return response
-        current=state.snapshot(db,s.account.account_id,s.account.uid)
-        # Preserve the pre-existing full-user DTO's false state flag. Its
-        # separate consumer remains a native-contract audit item; this does
-        # not assign privilege, progress, items or a claimed-reward marker.
-        scores=points(current['completed'])
-        if cold or arrival:message=wire.summary(scores,current['watched'],False)
-        else:
-            fresh=set(updated['completed'])
-            message=wire.completion([row for row in current['completed']if row['id']in fresh],scores,current['watched'],False)
-        encode_event(message);guard(db)
+        updated=reconcile_profiles(db,s.account.account_id,s.account.uid,now,**options)
+        message=None
+        if cold or arrival or updated['completed']:
+            current=state.snapshot(db,s.account.account_id,s.account.uid)
+            # Preserve the pre-existing full-user DTO's false state flag.
+            scores=points(current['completed'])
+            if cold or arrival:message=wire.summary(scores,current['watched'],False)
+            else:
+                fresh=set(updated['completed'])
+                message=wire.completion([row for row in current['completed']if row['id']in fresh],scores,current['watched'],False)
+            encode_event(message)
+        guard(db)
+    if 'couple_due'in updated:
+        s._achievement_couple_due=(s.account.account_id,s.account.uid,updated['couple_due'])if updated['couple_due']is not None else None
+    if message is None:return response
     if updated['completed']:_appearance_changed(s)
     return [*response,message]

@@ -537,7 +537,7 @@ class LocalSession:
         if character['unit_type']!=10:return
         import struct
         if set(spans)!=set(('0x198','0x1b4','0x1d1','0x5ec')):raise ValueError('LuCiel admitted member spans')
-        self.luciel_dungeon_hp_source=(self.account.uid,payload,{key:spans[key]for key in('0x198','0x1b4','0x1d1')})
+        self.luciel_dungeon_hp_source=(self.account.uid,payload,dict(spans))
         self.luciel_dungeon_hp_max=struct.unpack_from('>f',payload,spans['0x198'][0])[0]
 
     def expiration_notifications(self):
@@ -2442,7 +2442,8 @@ class LocalSession:
                 # when current == total. Reject invented continuation cursors
                 # instead of advancing initialization on malformed input.
                 if self.client_build=='dx11_260923' and event.payload!=bytes(8):
-                    raise SessionOrderError('Invalid inventory split cursors')
+                    cursors=struct.unpack('>ii',event.payload)if len(event.payload)==8 else None
+                    raise SessionOrderError(f'Invalid inventory split cursors (length={len(event.payload)}, cursors={cursors})')
                 answer=[Event(0x201,kind=0x5c0,payload=i32(0)*3)]
 
             # 138F0E0: local DX11 has no inventory PIN configured; the ACK
