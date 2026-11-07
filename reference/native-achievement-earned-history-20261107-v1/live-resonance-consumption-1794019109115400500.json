@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "fixtures": {
+    "level_ED_opened_ERP150_and_consumables": true
+  },
+  "natural_acquisition": false,
+  "checks": [
+    "Ordinary611allocates100and refunds100with exactly100owned710106coins; an over-refund fails without another debit or count",
+    "Five ordinary positive category613refunds consume five163564scrolls and complete80through84; an empty category retry fails",
+    "Five ordinary718mentor189800uses consume five actual owned units, complete299and300once; a missing source retry fails",
+    "Another account successfully uses712417without increasing source16or receiving these completions",
+    "Repeated6BEreads add no progress; alternative-character cold login shares completions and keeps its display list separate"
+  ],
+  "actual_counts": {
+    "(16, 189800)": 5,
+    "(43, 0)": 100,
+    "(44, 0)": 5
+  },
+  "errors": [],
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "f5c7ccd3159016f92cebe2e8595f40354f5d4f1338711aaccb2c7be7111e11b2",
+    "els_server/storage/achievement_history.py": "740379bf56e5764a2cbae074d00f3d5cb3713ca7a3909a057ffba6f96e03e3f8",
+    "els_server/storage/achievement_profiles.py": "14a0785f93b180697ba2d7fc7e7f431526b8c84dc0abe51a84f049a2a75ece4e"
+  }
+}

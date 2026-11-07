@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "new_schema_definitions": 3,
+  "definitions": [
+    {
+      "name": "native_achievement_guild_operation_owner_kind",
+      "sql": "CREATE INDEX IF NOT EXISTS native_achievement_guild_operation_owner_kind ON native_guild_operations_v2(owner,kind)"
+    },
+    {
+      "name": "native_achievement_guild_fact_owner",
+      "sql": "CREATE INDEX IF NOT EXISTS native_achievement_guild_fact_owner ON native_guild_quest_facts_v2(owner)"
+    },
+    {
+      "name": "native_achievement_reset_account",
+      "sql": "CREATE INDEX IF NOT EXISTS native_achievement_reset_account ON resonance2026_reset_receipts(account)"
+    }
+  ],
+  "required_native_QA_schema_names": [
+    "native_achievement_guild_fact_owner",
+    "native_achievement_guild_operation_owner_kind",
+    "native_achievement_reset_account"
+  ],
+  "lazy_schema_names": [
+    "native_achievement_guild_fact_owner",
+    "native_achievement_guild_operation_owner_kind",
+    "native_achievement_reset_account"
+  ],
+  "new_tables": [],
+  "install_DDL_statements": 0,
+  "startup_DDL_statements": 0
+}
