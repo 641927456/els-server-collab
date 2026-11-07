@@ -74,6 +74,8 @@ def main(argv=None):
     run([sys.executable,'-B',str(ROOT/'refs/cash-bag-page2-slots-20261104-v1/verify_contract.py')])
     if (ROOT/'references/pve-experience-20261105-v1/source-contract.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_pve_experience_source_20261105.py')])
+    if (ROOT/'refs/quest-live-admission-20261107-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_quest_live_admission_20261107.py')])
     if (ROOT/'refs/server-latency-20261106-v7/source-bindings.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_server_latency_20261106_v7.py')])
     if (ROOT/'refs/writer-scheduling-20261107-v1/source-bindings.json').is_file():
