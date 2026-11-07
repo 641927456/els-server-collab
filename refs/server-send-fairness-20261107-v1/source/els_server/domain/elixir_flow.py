@@ -46,8 +46,8 @@ def profiles(s,db,items):
         character['title']=equipped(db,s.account.uid)
         character['title_completed_quests']=completed_for_equipment(db,s.account.uid)
         if items is None:
-            from els_server.storage.inventory_state import load_items
-            items=load_items(db,s.account.uid)
+            from els_server.storage.inventory_state import load_equipped_items
+            items=load_equipped_items(db,s.account.uid)
     profile=member_profile(character,items,absolute_hp=True)
     return(profile,profile)
 

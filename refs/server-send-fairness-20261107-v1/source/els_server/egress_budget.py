@@ -11,7 +11,7 @@ class _Waiter:
     queued:bool=True
 
 class EgressBudget:
-    chunk_size=4096
+    chunk_size=1024
     def __init__(self,mbps,max_waiters):
         self.rate=mbps*125000;self.capacity=16384;self.tokens=float(self.capacity)
         self.updated=time.monotonic();self.max_waiters=max_waiters

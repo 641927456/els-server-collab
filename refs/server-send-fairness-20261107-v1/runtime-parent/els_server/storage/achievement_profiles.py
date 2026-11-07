@@ -6,7 +6,7 @@ from els_server.storage import profession_state,resonance_state
 from els_server.storage.achievement_collections import counts as collection_counts
 from els_server.storage.achievement_history import counts as history_counts
 
-CONDITION_TYPES=frozenset((6,15,16,23,24,25,26,27,28,32,35,36,37,38,39,42,43,44,45,51,52,53,56,60,61,62,63,67,68))
+CONDITION_TYPES=frozenset((2,4,5,6,15,16,18,19,23,24,25,26,27,28,32,35,36,37,38,39,42,43,44,45,51,52,53,56,57,58,60,61,62,63,67,68))
 
 
 def reconcile(db,account,owner,now,*,condition_types=CONDITION_TYPES):
@@ -32,9 +32,13 @@ def reconcile(db,account,owner,now,*,condition_types=CONDITION_TYPES):
         for condition in definition['conditions']:
             kind=condition['type'];parameters=condition['parameters']
             if kind not in condition_types:continue
-            if kind==6:value=levels.get(parameters['m_eProfessionType'],0)
+            if kind==2:
+                best=history.get((2,parameters['m_iDungeonID']))
+                value=int(best is not None and best<=parameters['m_fTime'])
+            elif kind in(4,5):value=history.get((kind,parameters['m_ePvpChannelClass']),0)
+            elif kind==6:value=levels.get(parameters['m_eProfessionType'],0)
             elif kind==15:value=resonance['level']
-            elif kind in(23,24,25,26,27,28,36,43,44,45,51,52,53,56,60,61,63):value=history.get((kind,0),0)
+            elif kind in(18,19,23,24,25,26,27,28,36,43,44,45,51,52,53,56,57,58,60,61,63):value=history.get((kind,0),0)
             elif kind in(16,62):value=history.get((kind,parameters['m_iItemID']),0)
             elif kind==32:value=history.get((kind,parameters['m_iLevel']),0)
             elif kind==35:value=history.get((kind,parameters['m_iGroupID']),0)
@@ -46,7 +50,8 @@ def reconcile(db,account,owner,now,*,condition_types=CONDITION_TYPES):
             else:continue
             previous=old.get((identity,condition['id']),(0,False))
             value=max(value,previous[0])
-            complete=value>=parameters['m_iLevel'if kind in(6,15)else'm_iCount']
+            target=1 if kind==2 else parameters['m_iLevel'if kind in(6,15,57)else'm_iCount']
+            complete=value>=target
             if (value,complete)==previous:continue
             updates.append(dict(achievement=identity,condition=condition['id'],value=value,complete=complete))
     if not updates:return dict(completed=[],replayed=False)

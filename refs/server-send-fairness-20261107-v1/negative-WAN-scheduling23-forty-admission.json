@@ -1,0 +1,27 @@
+{
+  "run": "online-scheduling23-forty-five-v17",
+  "qualified": false,
+  "full_300_seconds_completed": false,
+  "failure": "A new native TLS connection reset after5003ms during paced admission; local driver canceled the remaining actors.",
+  "actor_error_class": "ConnectionResetError",
+  "failed_stage": "connect_tls",
+  "failed_connect_ms": 5003,
+  "registered_target_actors": 40,
+  "town": 12,
+  "dungeon": 28,
+  "observed_scheduling": {
+    "priority_class": 32,
+    "IO_priority": 2,
+    "memory_priority": 5
+  },
+  "public_restored": true,
+  "owned_lock_released": true,
+  "cleanup": {
+    "owned_runtime_removed": true,
+    "connections": 0,
+    "errors": []
+  },
+  "production_code_modified": false,
+  "server_application_errors": [],
+  "calibration_Mbps": 4.819688390466878
+}

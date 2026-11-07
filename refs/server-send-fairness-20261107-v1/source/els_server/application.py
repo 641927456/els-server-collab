@@ -181,6 +181,7 @@ class FriendsSession(LocalSession):
                 return self.application.world.mentors.synchronize(self,event,friend_sync(self,event,achievement_sync(self,event,result)))
         selecting=event.event_id==0x202 and event.kind==0x28
         entering_town=event.event_id==0x202 and event.kind==0x227 and self.phase=='square_accepted'
+        own_town_input=entering_town and self.application.dungeon_workers.town_preparation(self.handle,(event,))
         leases=self.application.playing
         acquired=False
         if selecting:
@@ -194,8 +195,14 @@ class FriendsSession(LocalSession):
             if acquired:
                 with self.application.world_lock:leases.pop(self.identity['id'],None)
             raise
+        # This actor still owns its original account/domain and request read
+        # scope. Its SQL projection is independent of other town membership.
+        # Finish those reads before entering the shared membership lock.
+        town_member=None
+        if own_town_input and self.phase=='town_ready':
+            town_member=(self.account.character(),self.account.get_location(),self.account.get_inventory_snapshot(equipped_only=True)['items'])
         with self.application.world_lock:
-            result=self._after_local(event,result)
+            result=self._after_local(event,result,town_member=town_member)
             # Successful arrival just completed the original full refresh.
             # Start its one-second upkeep interval here; duplicate227 in an
             # already-ready town cannot postpone the next observation.
@@ -203,7 +210,7 @@ class FriendsSession(LocalSession):
                 self._town_entered_at=time.monotonic();self.next_periodic=max(self.next_periodic,self._town_entered_at+1)
             return result
 
-    def _after_local(self,event,result):
+    def _after_local(self,event,result,*,town_member=None):
         leases=self.application.playing
         if event.event_id==0x202 and event.kind==0x59a:
             self.application.world.mentors.reconcile(self.application)
@@ -216,7 +223,7 @@ class FriendsSession(LocalSession):
         if event.event_id==0x202 and event.kind in (0x2e8,0x2ec,0x432,0x42c,0x42f,0x2f5,0x2fb,0x8c7,0x219):
             from els_server.domain.companion_peer_sync import invalidate as invalidate_companion_peer
             invalidate_companion_peer(self)
-        self.application.world.synchronize(self)
+        self.application.world.synchronize(self,own=town_member)
         if event.event_id==0x202 and event.kind in(0x4cb,0x219):
             self.application.world.custom_changed(self,result)
         if self.phase=='town_ready' and event.event_id==0x202 and event.kind==0x22b:
@@ -456,10 +463,18 @@ class Application:
     async def call(self, function, *args, **kwargs):
         submitted=time.perf_counter()
         session=getattr(function,'__self__',None)
-        if type(session)is FriendsSession:
-            async with self.economy.account_lock(session.identity['id']):
-                return await self._dispatch(function,args,kwargs,submitted)
-        return await self._dispatch(function,args,kwargs,submitted)
+        # A queued ordinary move has not captured this connection's mailbox.
+        # Allow peers through while waiting for account/executor admission;
+        # the original worker closes the window before capturing creations.
+        peer_window=self.dungeon_workers.ordinary_town_move(function,args)
+        if peer_window:session._peer_drain_open=True
+        try:
+            if type(session)is FriendsSession:
+                async with self.economy.account_lock(session.identity['id']):
+                    return await self._dispatch(function,args,kwargs,submitted)
+            return await self._dispatch(function,args,kwargs,submitted)
+        finally:
+            if peer_window:session._peer_drain_open=False
 
     async def _dispatch(self,function,args,kwargs,submitted):
         self.checkpoints.check()

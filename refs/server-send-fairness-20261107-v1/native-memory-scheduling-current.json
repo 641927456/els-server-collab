@@ -1,0 +1,44 @@
+{
+  "ok": true,
+  "own_helper_only": true,
+  "before": {
+    "priority_class": 16384,
+    "IO_priority": 1,
+    "memory_priority": 2
+  },
+  "after": {
+    "priority_class": 32,
+    "IO_priority": 2,
+    "memory_priority": 5
+  },
+  "main_thread_memory_priority": 5,
+  "new_worker_memory_priority": 5,
+  "source": {
+    "candidate/els_server/__main__.py": "9c5cab4b9e7f5dc0c1791b3e9f01c616ec0d7a930fcdfaab27c4db0b73455bc2",
+    "candidate/els_server/application.py": "a79c60fbc66c95d801dd1484364d1c4fc4c53536cddc799a7deb84b5d726a289",
+    "candidate/els_server/config.py": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60",
+    "candidate/els_server/domain/achievement_flow.py": "93f7710f290df51f83bcf51c1375ff1722ecb4873517741874819bff5961fcd2",
+    "candidate/els_server/domain/elixir_flow.py": "2561325ecb08ae8e2e7cffceb3fdfc17e8f9fff725584ce01103df9a63f92596",
+    "candidate/els_server/domain/friends_world.py": "a28cd540761f3fb88abc7f7d55c1f8d949a6d33d2fd84d7a496b97506776d061",
+    "candidate/els_server/domain/inventory_items.py": "70ac6efc2bb004764369eb24dd0e841c24e26000064de8f024d91bcbd844c00e",
+    "candidate/els_server/domain/local_session.py": "c0eafa3e66535aafff21f1bd00870dc28a08b358cdf93f295845a0ef7c5e60f3",
+    "candidate/els_server/domain/native_session_sources.py": "f23aa3703ef5f376504243a97c3f26da8e144b3872ce6a841ab3e68676b5fffc",
+    "candidate/els_server/domain/session_auxiliary.py": "c8f4f1337483d9d9af786520945ad1e799ee35739e62ec197f665ed1840198ce",
+    "candidate/els_server/dungeon_workers.py": "4e0100ba1382e568c83facf97dbd6cd75e44d6d406ca6229e7d61ce7fe17e7ef",
+    "candidate/els_server/egress_budget.py": "ea415ad231cf2158bb4282b2993551c0184298ebb9bff0e665d327b96047f5c0",
+    "candidate/els_server/native_outbox.py": "ba2d72106d989624a1378343fc24f7e107b81df9f0799ad3bf39228a6481405e",
+    "candidate/els_server/observability.py": "6047b412812de81060e2447e1684a459c7170a01dd3526f0d10591547b10b8b0",
+    "candidate/els_server/periodic_scheduler.py": "7aeeea4ab444c853c868aada4515821c075689ef65832415f38c93fafcc0f596",
+    "candidate/els_server/protocol/dungeon_messages.py": "b53704e95483959fa55f157977c56391289354d4911f8c8caaa194fae71c2f86",
+    "candidate/els_server/realtime.py": "c167607037bb65a430bad1d7b9bc0a3c3b264681199e4edbe3168bb771ebdff1",
+    "candidate/els_server/storage/achievement_profiles.py": "a8f46ff4c8de62531d480b4e7041fba3558e0e79b7b4f3c9119a20aae6efe921",
+    "candidate/els_server/storage/clock_writer.py": "d306e4d1ae10b0d7154baf86f770e020b17f79bcd9b548706a0560b01e412ee0",
+    "candidate/els_server/storage/death_writer.py": "d8ca4cff5009a11d7fa787355ac8120de1ca9b89eb43b71e82709d7b3edd5abe",
+    "candidate/els_server/storage/inventory_state.py": "eac0c17c2ff411de61a1dab51ce1576610f60641496d36d79d821e7d6ff35ab8",
+    "candidate/els_server/storage/position_writer.py": "6a7429fb340bc36b4492522ec4518cfc0ea68f9cc56932f0c2ee5cb2f96f1fae",
+    "candidate/els_server/storage/read_scope.py": "53d5a3951bcc433ec792c7bda0645474e8923de2ba2028293bc663fa80359f29",
+    "candidate/els_server/transport.py": "839b179cab480aea88c8c19cb832b6ecb02ddc980a8b8c647034f841be3dd312"
+  },
+  "production_process_modified": false,
+  "working_set_limits_modified": false
+}

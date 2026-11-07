@@ -1,7 +1,7 @@
-"""Counts come from committed business receipts, including their retained history."""
-import json
+"""Trusted progress facts from existing authorities and committed history."""
+import json,struct
 
-TABLES=('native_player_trades','player_mail_receipts','fishing_attempts','pet_expedition_receipts','native_guild_actions','native_guild_operations_v2','native_guild_quest_facts_v2','inventory_action_receipts','resonance2026_reset_receipts','profession_anvil_receipts','consumable_uses','known_resurrection_spends')
+TABLES=('native_player_trades','player_mail_receipts','fishing_attempts','pet_expedition_receipts','native_guild_actions','native_guild_operations_v2','native_guild_quest_facts_v2','inventory_action_receipts','resonance2026_reset_receipts','profession_anvil_receipts','consumable_uses','known_resurrection_spends','native_couple_pairs_v1','native_wedding_bookings','native_wedding_ceremonies','dungeon_records','official_pvp_profiles')
 
 
 def present(db):
@@ -33,6 +33,8 @@ def ensure_indexes(db):
         db.execute('CREATE INDEX IF NOT EXISTS native_achievement_anvil_account ON profession_anvil_receipts(account_id)')
     if 'consumable_uses'in tables:
         db.execute('CREATE INDEX IF NOT EXISTS native_achievement_consumable_owner_template ON consumable_uses(owner,template)')
+    if 'official_pvp_profiles'in tables:
+        db.execute('CREATE INDEX IF NOT EXISTS native_achievement_pvp_profile_account ON official_pvp_profiles(account_id,policy)')
 
 
 def _inventory_units(db,account,kind,*,template=None):
@@ -51,9 +53,62 @@ def _inventory_units(db,account,kind,*,template=None):
     return total
 
 
+def _expedition_join_level(payload,account,owner,stamp):
+    # Existing ABD: result, fixed stage vector, own participation vector.
+    # Only read this original prefix; ranking/name content is not a progress
+    # input. Current native2C3C410 and guild_expedition.snapshot share it.
+    code,stages=struct.unpack_from('>iI',payload)
+    if code or stages!=12:raise ValueError('Committed expedition signup snapshot')
+    offset=8+stages*struct.calcsize('>bibQQQQiQQ??')
+    count=struct.unpack_from('>I',payload,offset)[0];offset+=4
+    player=struct.Struct('>bQQbbQQiQQH');level=0
+    for _ in range(count):
+        stage,actor_account,actor,_,_,joined,*rest=player.unpack_from(payload,offset)
+        offset+=player.size
+        length=struct.unpack_from('>I',payload,offset)[0]
+        offset+=4+length+struct.calcsize('>i?i')
+        if offset>len(payload):raise ValueError('Truncated committed expedition member')
+        if (actor_account,actor,joined)==(account,owner,stamp):level=max(level,stage)
+    if not level:raise ValueError('Committed signup has no matching own participation')
+    return level
+
+
 def counts(db,account,condition_types):
-    if not condition_types&{16,23,24,25,26,27,28,32,35,36,43,44,45,51,52,53,56,60,61,62,63}:return {}
+    if not condition_types&{2,4,5,16,18,19,23,24,25,26,27,28,32,35,36,43,44,45,51,52,53,56,57,58,60,61,62,63}:return {}
     tables=present(db);result={}
+    if 2 in condition_types and 'dungeon_records'in tables:
+        # The reward writer keeps only positive server-measured best times.
+        # Loading, failed runs and old unmeasured zero-time receipts do not
+        # create these rows. One account may attain its best on another role.
+        for dungeon,seconds in db.execute('SELECT d.map_id,MIN(d.seconds)FROM dungeon_records d '
+                'JOIN character_owners o ON o.uid=d.uid WHERE o.account_id=?GROUP BY d.map_id',(account,)):
+            result[(2,dungeon)]=seconds
+    if condition_types&{4,5}and 'official_pvp_profiles'in tables:
+        from els_server.domain.pvp_official_1v1_policy import POLICY,CHANNEL_CLASS
+        # These cumulative counters are changed by the sealed official
+        # settlement writer. AP spending/registration preserve them; draws
+        # and the leaver's penalty do not become defeats. Unknown historical
+        # profiles and practice/duel records are not adopted into this policy.
+        wins,losses=db.execute("SELECT COALESCE(SUM(json_extract(profile_json,'$.wins')),0),"
+            "COALESCE(SUM(json_extract(profile_json,'$.losses')),0)FROM official_pvp_profiles "
+            "WHERE account_id=?AND policy=?",(account,POLICY)).fetchone()
+        if 4 in condition_types:result[(4,CHANNEL_CLASS)]=wins
+        if 5 in condition_types:result[(5,CHANNEL_CLASS)]=losses
+    if 'native_couple_pairs_v1'in tables:
+        # One immutable generation is created only after mutual acceptance.
+        # It belongs to both accounts and survives farewell or remarriage.
+        if 18 in condition_types:
+            result[(18,0)]=db.execute('SELECT COUNT(*)FROM native_couple_pairs_v1 '
+                'WHERE a_account=?OR b_account=?',(account,account)).fetchone()[0]
+        if 19 in condition_types and {'native_wedding_bookings','native_wedding_ceremonies'}<=tables:
+            # The revamp requires an actual ceremony, including a reminder
+            # ceremony. A reservation or deadline marriage is not a wedding;
+            # guest attendance is not either spouse holding that ceremony.
+            result[(19,0)]=db.execute("SELECT COUNT(*)FROM native_wedding_ceremonies c "
+                "JOIN native_wedding_bookings b ON b.id=c.reservation AND b.pair_id=c.pair_id "
+                "JOIN native_couple_pairs_v1 p ON p.id=c.pair_id "
+                "WHERE c.mode='ceremony'AND b.finished_at=c.at AND b.canceled_at IS NULL "
+                "AND(p.a_account=?OR p.b_account=?)",(account,account)).fetchone()[0]
     if 16 in condition_types and 'inventory_action_receipts'in tables:
         # Original16 currently names only189800. Its718 transaction journals
         # the actual owned stack debit, including a removed final unit.
@@ -119,6 +174,22 @@ def counts(db,account,condition_types):
             "WHERE o.account_id=?AND a.kind=?AND json_extract(a.result,'$.events[0][0]')=? "
             "AND substr(json_extract(a.result,'$.events[0][1]'),1,8)='00000000'",
             (account,0x803,0x804)).fetchone()[0]
+    if condition_types&{57,58}and 'native_guild_operations_v2'in tables:
+        # The2022revamp changed CLEAR-named enums to participation. Each
+        # successful ABC is already one immutable own command operation;
+        # guild-wide AC1 clears and later AC0 claims are different sources.
+        rows=db.execute("SELECT a.owner,a.created_at,json_extract(a.result,'$.events[0][1]')"
+            "FROM native_guild_operations_v2 a JOIN character_owners o ON o.uid=a.owner "
+            "WHERE o.account_id=?AND a.kind=?AND json_extract(a.result,'$.events[0][0]')=? "
+            "AND substr(json_extract(a.result,'$.events[0][1]'),1,8)='00000000'",
+            (account,0xabc,0xabd))
+        level=total=0
+        for owner,stamp,payload in rows:
+            total+=1
+            if 57 in condition_types:
+                level=max(level,_expedition_join_level(bytes.fromhex(payload),account,owner,stamp))
+        if 57 in condition_types:result[(57,0)]=level
+        if 58 in condition_types:result[(58,0)]=total
     if 24 in condition_types and 'native_guild_actions'in tables:
         result[(24,0)]=db.execute('SELECT COUNT(*)FROM native_guild_actions a JOIN character_owners o ON o.uid=a.owner '
             'WHERE o.account_id=?AND a.kind=?',(account,0x6c8)).fetchone()[0]

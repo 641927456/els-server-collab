@@ -262,14 +262,15 @@ class FriendsWorld:
                 if not room:self.towns.pop(key,None)
         cleanup_all(lambda:invalidate(self,session), membership)
 
-    def synchronize(self,session):
+    def synchronize(self,session,*,own=None):
         self.player_trades.synchronize(session)
         key=(1,session.active_map) if session.role=='game' and session.phase=='town_ready' else None
         if key==self.members.get(session):return
         self.leave(session)
         if key is None:return
         room=self.towns.setdefault(key,{})
-        own=(session.account.character(),session.account.get_location(),session.account.get_inventory_snapshot(equipped_only=True)['items'])
+        if own is None:
+            own=(session.account.character(),session.account.get_location(),session.account.get_inventory_snapshot(equipped_only=True)['items'])
         # Existing login/227 initializes the local actor. Only peer records
         # travel here, avoiding a second restore of the local player.
         from els_server.domain.character_custom import restored as custom_restored

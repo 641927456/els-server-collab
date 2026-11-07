@@ -1,0 +1,79 @@
+{
+  "run": "display19-twenty-smoke60-v1",
+  "diagnostic_only": true,
+  "matched": 3150,
+  "recipients": 9,
+  "source_uid": 1001,
+  "server_segment": {
+    "n": 3150,
+    "min_ms": 0.6340998224914074,
+    "mean_ms": 3.2182954318289245,
+    "p50_ms": 1.9694003276526928,
+    "p95_ms": 8.531100116670132,
+    "p99_ms": 46.51329992339015,
+    "max_ms": 63.81369987502694
+  },
+  "client_raw": {
+    "n": 3150,
+    "min_ms": 1.0710051283240318,
+    "mean_ms": 3.7752031044117986,
+    "p50_ms": 2.5125090032815933,
+    "p95_ms": 8.989291731268167,
+    "p99_ms": 47.00761707499623,
+    "max_ms": 64.47319593280554
+  },
+  "outside_measured_server_segment": {
+    "n": 3150,
+    "min_ms": 0.28309132903814316,
+    "mean_ms": 0.5569076725828742,
+    "p50_ms": 0.5286168307065964,
+    "p95_ms": 0.7651872001588345,
+    "p99_ms": 1.2933285906910896,
+    "max_ms": 1.9042394123971462
+  },
+  "server_endpoint": "immediately_before_final_frame_chunk_writer_write",
+  "cross_machine_absolute_timestamps_compared": false,
+  "latency_gates_unchanged": true,
+  "outside_description": "Final writer.write, client encode/decode and scheduling, TCP/TLS and OS queues, network, and server time before NativeInbox.received; not pure network RTT.",
+  "client_source_hashes": [
+    "c857a48189e8302aa9c400242ca21b3d7c1602ee913b80e3c0cbb4cc39ca3318"
+  ],
+  "received_to_mailbox_drain": {
+    "n": 3150,
+    "min_ms": 0.48869987949728966,
+    "mean_ms": 1.8261019078393776,
+    "p50_ms": 1.3927998952567577,
+    "p95_ms": 3.9536003023386,
+    "p99_ms": 10.84990007802844,
+    "max_ms": 18.193199764937162
+  },
+  "mailbox_drain_to_queue": {
+    "n": 3150,
+    "min_ms": 0.05530007183551788,
+    "mean_ms": 1.3921935239895469,
+    "p50_ms": 0.4507000558078289,
+    "p95_ms": 1.917900051921606,
+    "p99_ms": 45.58559972792864,
+    "max_ms": 60.70249993354082
+  },
+  "quota_wait_ms": {
+    "ordinary": {
+      "n": 3914,
+      "mean_ms": 2.8136655382286637,
+      "p50_ms": 1,
+      "p95_ms": 21,
+      "p99_ms": 39,
+      "max_ms": 53.743899799883366,
+      "resolution_ms": 1
+    },
+    "position": {
+      "n": 26127,
+      "mean_ms": 0.24476734125076224,
+      "p50_ms": 1,
+      "p95_ms": 1,
+      "p99_ms": 9,
+      "max_ms": 14.046899974346161,
+      "resolution_ms": 1
+    }
+  }
+}

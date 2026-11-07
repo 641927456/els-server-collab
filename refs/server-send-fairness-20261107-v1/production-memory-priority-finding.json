@@ -1,0 +1,19 @@
+{
+  "production_ready": true,
+  "production_allocator_environment": {
+    "MIMALLOC_EAGER_COMMIT": "0",
+    "MIMALLOC_PURGE_DELAY": null,
+    "MIMALLOC_ARENA_EAGER_COMMIT": null
+  },
+  "priority_class": 32,
+  "IO_priority": 2,
+  "read_only_observation": true,
+  "QA_settings_match": "CPU,IO and allocator match; inherited production memory priority is low2 and was previously unchecked",
+  "production_memory_priority": 2,
+  "production_working_set_flags": 10,
+  "working_set_hard_maximum_enabled": false,
+  "normal_memory_priority_target": 5,
+  "production_code_and_policy_modified": false,
+  "memory_priority_source": "https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/ns-processthreadsapi-memory_priority_information",
+  "public_power_policy_query_supported": false
+}

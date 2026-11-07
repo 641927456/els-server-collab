@@ -536,8 +536,8 @@ class LocalSession:
             raise ValueError('Missing owned character HP snapshot')
         if character['unit_type']!=10:return
         import struct
-        if set(spans)!=set(('0x198','0x1b4','0x1d1')):raise ValueError('LuCiel admitted member spans')
-        self.luciel_dungeon_hp_source=(self.account.uid,payload,dict(spans))
+        if set(spans)!=set(('0x198','0x1b4','0x1d1','0x5ec')):raise ValueError('LuCiel admitted member spans')
+        self.luciel_dungeon_hp_source=(self.account.uid,payload,{key:spans[key]for key in('0x198','0x1b4','0x1d1')})
         self.luciel_dungeon_hp_max=struct.unpack_from('>f',payload,spans['0x198'][0])[0]
 
     def expiration_notifications(self):

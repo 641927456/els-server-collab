@@ -20,7 +20,7 @@ class DungeonWorkers:
         self.queue=BoundedBusinessQueue(self.executor,capacity=16)
         # Pickup waits for durable economic I/O. Retain its original domain
         # and retirement ownership without occupying death/door workers.
-        self.death_workers=16
+        self.death_workers=8
         self.death_executor=ThreadPoolExecutor(max_workers=self.death_workers,thread_name_prefix='els-death-waiter')
         self.death_queue=BoundedBusinessQueue(self.death_executor,capacity=self.death_workers)
         self.pickup_workers=8
@@ -28,7 +28,7 @@ class DungeonWorkers:
         self.pickup_queue=BoundedBusinessQueue(self.pickup_executor,capacity=self.pickup_workers)
         # Location callers wait for durable batches. Their I/O waiting must
         # neither consume dungeon workers nor restrict batches to four rows.
-        self.town_workers=16
+        self.town_workers=8
         self.town_executor=ThreadPoolExecutor(max_workers=self.town_workers,thread_name_prefix='els-town')
         self.town_queue=BoundedBusinessQueue(self.town_executor,capacity=self.town_workers)
         self.town_preparation_admission=asyncio.Semaphore(2)

@@ -83,9 +83,14 @@ def synchronize(s,event,response):
     if 0xc23 in kinds:sources.add(42)
     if 0x18b in kinds:sources.add(27)
     if 0x1d0 in kinds:sources.add(28)
+    if 0x3ff in kinds:sources.add(18)
+    if 0x424 in kinds:sources.add(19)
+    if 0xc1 in kinds:sources.add(2)
+    if 0xc2 in kinds:sources.update((4,5))
     if 0x291 in kinds:sources.add(23)
     if 0x27e in kinds:sources.add(26)
     if 0x804 in kinds:sources.add(56)
+    if 0xabd in kinds:sources.update((57,58))
     if kinds&{0x241,0xf5,0x802,0x804,0xabd}:sources.add(25)
     if 0x719 in kinds:sources.add(16)
     if 0x612 in kinds:sources.add(43)
@@ -103,18 +108,23 @@ def synchronize(s,event,response):
     # Original guild refusal has no ACK. Only its committed6C8 action journal
     # can increase the count; replay or a refusal without an invitation cannot.
     if event is not None and event.event_id==0x202 and event.kind==0x6c8:sources.add(24)
-    if not cold and not arrival and not(sources and s.role=='game'and s.phase in('town_ready','guild_agit_ready','dungeon_active')):return response
+    if not cold and not arrival and not(sources and s.role=='game'and s.phase in('town_ready','guild_agit_ready','dungeon_active','wedding_hall','pvp_result')):return response
     guard=capture(s)
-    if not cold and not arrival:
-        from els_server.storage.read_scope import snapshot_connection
-        # A fresh read snapshot can prove the ordinary no-change case without
-        # reserving SQLite's sole writer. Real changes are recomputed inside
-        # the original writer below; this never accepts cached player state.
-        with snapshot_connection(s.account.store.path)as db:
-            db.execute('BEGIN');guard(db)
-            pending=pending_updates(db,s.account.account_id,s.account.uid,int(time.time()),condition_types=sources)
-            guard(db)
-        if not pending:return response
+    from els_server.storage.read_scope import snapshot_connection
+    # Always read a fresh SQL snapshot. A no-op, including cold/arrival,
+    # needs no writer reservation; actual changes are recomputed below.
+    options={}if cold or arrival else dict(condition_types=sources)
+    with snapshot_connection(s.account.store.path)as db:
+        db.execute('BEGIN');guard(db)
+        pending=pending_updates(db,s.account.account_id,s.account.uid,int(time.time()),**options)
+        if not pending:
+            if not cold and not arrival:
+                guard(db);return response
+            current=state.snapshot(db,s.account.account_id,s.account.uid)
+            message=wire.summary(points(current['completed']),current['watched'],False)
+            encode_event(message);guard(db)
+            return [*response,message]
+        guard(db)
     from els_server.storage.sqlite_timing import write_transaction
     with closing(sqlite3.connect(Path(s.account.store.path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db:
         db.execute('PRAGMA foreign_keys=ON')

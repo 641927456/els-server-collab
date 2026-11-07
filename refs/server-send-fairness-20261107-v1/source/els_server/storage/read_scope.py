@@ -11,6 +11,7 @@ from contextvars import ContextVar
 from copy import deepcopy
 from pathlib import Path
 import sqlite3
+import pickle
 import os
 import threading
 import time
@@ -84,6 +85,7 @@ class _ReadScope:
         self.item_bodies = {}
         self.snapshots = {}
         self.item_lists = {}
+        self.item_validations = {}
         # Cache the conversion of a freshly resolved Windows kernel name,
         # never a raw path's file/parent IDs or any player/authority result.
         self.paths = connections.paths()if self.persistent else {}
@@ -183,6 +185,7 @@ class _ReadScope:
             self.item_bodies.clear()
             self.snapshots.clear()
             self.item_lists.clear()
+            self.item_validations.clear()
             if not self.persistent:self.paths.clear()
 
 
@@ -241,7 +244,7 @@ def inventory_projection(account,inventory,load,*,projection='inventory'):
     if (scope is None or scope.thread != threading.get_ident()
             or getattr(account,'characters',None) is None or store is None
             or store.uid != account.uid or inventory.uid != account.uid
-            or canonical_path(store.path) != canonical_path(inventory.path)):
+            or (store.path!=inventory.path and canonical_path(store.path)!=canonical_path(inventory.path))):
         return load()
     return scope.read(store.path,(projection,account.account_id,account.uid,
         id(store),id(inventory),int(time.time())),load)
@@ -406,3 +409,26 @@ def canonical_path(value):
     return scope.canonical(value)
 
 
+
+
+_ITEM_SCALARS=frozenset((type(None),bool,int,float,str,bytes))
+
+
+def _flat_item(value):
+    return type(value)is dict and all(type(k)is str and type(v)in _ITEM_SCALARS for k,v in value.items())
+
+
+def item_validation_projection(item,validate):
+    """Reuse identical flat codec data inside one operation, never a SQL guard.
+
+    Reader subclasses, nested state and opaque provenance always use the
+    original validator. Pickle is only a type-preserving key, never loaded.
+    """
+    scope=_current.get()
+    if scope is None or scope.thread!=threading.get_ident()or not _flat_item(item):return validate(item)
+    key=(validate,int(time.time()),pickle.dumps(item,protocol=5))
+    saved=scope.item_validations.get(key)
+    if saved is not None:return saved.copy()
+    value=validate(item)
+    if _flat_item(value):scope.item_validations[key]=value.copy()
+    return value
