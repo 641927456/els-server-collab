@@ -1,0 +1,24 @@
+{
+  "first_normal_character": {
+    "actual_scene": "first_tutorial_dungeon",
+    "shop_path_reached": false,
+    "core_prefix": "dungeon-core-prefix-proof.json"
+  },
+  "first_quick_start_town": {
+    "run": "20261108-041723",
+    "sender_enter": 293,
+    "sender_leave": 293,
+    "field_enter": 1954,
+    "field_leave": 1954,
+    "crypto": 295,
+    "cleanup": 295,
+    "shop_open": false,
+    "reason": "Owned QA invoked toggle on first town frame; original entry did not request catalogue and timed out. Early availability timing is inferred; failed-run bit was not captured. Failure preserved privately."
+  },
+  "qualified_fixture": {
+    "run": "20261108-042432",
+    "change": "Existing Quick Start creation; delay owned normal toggle 2 seconds after first owned town frame; native state snapshot captured",
+    "production_source_change": false
+  },
+  "all_failures_retained_privately": true
+}

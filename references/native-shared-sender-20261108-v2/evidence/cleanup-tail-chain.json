@@ -1,0 +1,163 @@
+{
+  "functions": [
+    {
+      "start": "0x3b7d620",
+      "unwind_row": null,
+      "instructions": [
+        {
+          "rva": "0x3b7d620",
+          "instruction": "lea rax, [rip + 0x376d91]"
+        },
+        {
+          "rva": "0x3b7d627",
+          "instruction": "mov qword ptr [rcx], rax"
+        },
+        {
+          "rva": "0x3b7d62a",
+          "instruction": "add rcx, 8"
+        },
+        {
+          "rva": "0x3b7d62e",
+          "instruction": "jmp 0x14016fa20"
+        }
+      ]
+    },
+    {
+      "start": "0x16fa20",
+      "unwind_row": null,
+      "instructions": [
+        {
+          "rva": "0x16fa20",
+          "instruction": "lea rax, [rip + 0x3d84979]"
+        },
+        {
+          "rva": "0x16fa27",
+          "instruction": "mov qword ptr [rcx], rax"
+        },
+        {
+          "rva": "0x16fa2a",
+          "instruction": "add rcx, 8"
+        },
+        {
+          "rva": "0x16fa2e",
+          "instruction": "jmp 0x1401527c0"
+        }
+      ]
+    },
+    {
+      "start": "0x1527c0",
+      "unwind_row": [
+        "0x1527c0",
+        "0x15281f",
+        "0x4403380"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1527c0",
+          "instruction": "push rbx"
+        },
+        {
+          "rva": "0x1527c2",
+          "instruction": "sub rsp, 0x20"
+        },
+        {
+          "rva": "0x1527c6",
+          "instruction": "mov rdx, qword ptr [rcx + 0x18]"
+        },
+        {
+          "rva": "0x1527ca",
+          "instruction": "mov rbx, rcx"
+        },
+        {
+          "rva": "0x1527cd",
+          "instruction": "cmp rdx, 0xf"
+        },
+        {
+          "rva": "0x1527d1",
+          "instruction": "jbe 0x1401527ff"
+        },
+        {
+          "rva": "0x1527d3",
+          "instruction": "mov rcx, qword ptr [rcx]"
+        },
+        {
+          "rva": "0x1527d6",
+          "instruction": "inc rdx"
+        },
+        {
+          "rva": "0x1527d9",
+          "instruction": "cmp rdx, 0x1000"
+        },
+        {
+          "rva": "0x1527e0",
+          "instruction": "jb 0x1401527fa"
+        },
+        {
+          "rva": "0x1527e2",
+          "instruction": "mov r8, qword ptr [rcx - 8]"
+        },
+        {
+          "rva": "0x1527e6",
+          "instruction": "add rdx, 0x27"
+        },
+        {
+          "rva": "0x1527ea",
+          "instruction": "sub rcx, r8"
+        },
+        {
+          "rva": "0x1527ed",
+          "instruction": "lea rax, [rcx - 8]"
+        },
+        {
+          "rva": "0x1527f1",
+          "instruction": "cmp rax, 0x1f"
+        },
+        {
+          "rva": "0x1527f5",
+          "instruction": "ja 0x140152818"
+        },
+        {
+          "rva": "0x1527f7",
+          "instruction": "mov rcx, r8"
+        },
+        {
+          "rva": "0x1527fa",
+          "instruction": "call 0x1404f40a0"
+        },
+        {
+          "rva": "0x1527ff",
+          "instruction": "mov qword ptr [rbx + 0x10], 0"
+        },
+        {
+          "rva": "0x152807",
+          "instruction": "mov qword ptr [rbx + 0x18], 0xf"
+        },
+        {
+          "rva": "0x15280f",
+          "instruction": "mov byte ptr [rbx], 0"
+        },
+        {
+          "rva": "0x152812",
+          "instruction": "add rsp, 0x20"
+        },
+        {
+          "rva": "0x152816",
+          "instruction": "pop rbx"
+        },
+        {
+          "rva": "0x152817",
+          "instruction": "ret "
+        },
+        {
+          "rva": "0x152818",
+          "instruction": "call qword ptr [rip + 0x3d5737a]"
+        },
+        {
+          "rva": "0x15281e",
+          "instruction": "int3 "
+        }
+      ]
+    }
+  ],
+  "earlier_bounded_files_include_adjacent_padding_do_not_treat_as_dtor_body": true
+}
