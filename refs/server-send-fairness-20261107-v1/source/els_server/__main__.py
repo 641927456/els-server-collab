@@ -50,8 +50,16 @@ def _normal_scheduling():
         raise ctypes.WinError(ctypes.get_last_error())
     if not kernel.GetProcessInformation(handle,0,ctypes.byref(memory),ctypes.sizeof(memory)):
         raise ctypes.WinError(ctypes.get_last_error())
-    current=dict(priority_class=int(process.nice()),IO_priority=int(process.ionice()),memory_priority=memory.value)
-    if current!=dict(priority_class=32,IO_priority=2,memory_priority=5):raise OSError('Unable to select normal server scheduling')
+    kernel.GetCurrentThread.restype=ctypes.c_void_p
+    kernel.SetThreadPriority.argtypes=[ctypes.c_void_p,ctypes.c_int]
+    kernel.SetThreadPriority.restype=ctypes.c_int
+    kernel.GetThreadPriority.argtypes=[ctypes.c_void_p]
+    kernel.GetThreadPriority.restype=ctypes.c_int
+    thread=kernel.GetCurrentThread()
+    if not kernel.SetThreadPriority(thread,1):raise ctypes.WinError(ctypes.get_last_error())
+    if kernel.GetThreadPriority(thread)!=1:raise OSError('Unable to select network thread scheduling')
+    current=dict(priority_class=int(process.nice()),IO_priority=int(process.ionice()),memory_priority=memory.value,network_thread_priority=kernel.GetThreadPriority(thread))
+    if current!=dict(priority_class=32,IO_priority=2,memory_priority=5,network_thread_priority=1):raise OSError('Unable to select normal server scheduling')
     return current
 
 

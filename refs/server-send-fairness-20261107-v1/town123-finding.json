@@ -70,5 +70,46 @@
     "runtime/sqlite3.dll": "4b59d3cded9dc1608544160f3b4b10ac974c6ac0d6ffc23064e5f4c8dbd05aea"
   },
   "original_service_or_player_data_modified": false,
-  "owned_cleanup_complete": true
+  "owned_cleanup_complete": true,
+  "commit_boundary_followup": {
+    "run": "notebook28-twenty-town-commit-parts300-v1",
+    "diagnostic_only": true,
+    "seconds": 300,
+    "town_players": 20,
+    "dungeon_players": 0,
+    "movement_requests": 35000,
+    "movement_p99_ms": 7,
+    "movement_max_ms": 52.96689999886439,
+    "clock_commit_boundary_ms": 51.9652999992104,
+    "lease_release_ms": 0.02570000106061343,
+    "sqlite_commit_and_call_overhead_ms": 51.93959999814979,
+    "overlapping_foreground_wait_ms": 50.91960000027029,
+    "milliseconds_from_clock_finish_to_foreground_acquire": 7.522399999288609,
+    "GC_count": 0,
+    "cleanup": {
+      "owned_runtime_removed": true,
+      "connections": 0,
+      "errors": []
+    },
+    "runtime_parent": {
+      "parent_release": "native-achievement-notebook-spa-clear-20261107-v1",
+      "parent_path": "G:\\els\\releases\\online\\native-achievement-notebook-spa-clear-20261107-v1",
+      "parent_manifest_sha256": "c317b6a20ca48c5cb5bb5597b2c622503eafc6c47f6e36762506c1b4cdcccb83",
+      "retained_new_parent_features": true
+    },
+    "scheduling": {
+      "priority_class": 32,
+      "IO_priority": 2,
+      "memory_priority": 5,
+      "network_thread_priority": 1
+    },
+    "source_bindings_sha256": "2792dcc8d5aa3868912760a084c5a14dd24d725f92fd0e92aa47ef6ea4fe1a65",
+    "trace_harness_sha256": "ba5678b6f0f9e1bd554a5ca7bae68f6e80cdfeb574060e80ef5874ed9a811e5e",
+    "conclusions": [
+      "The reproduced slow commit spends almost all measured time inside sqlite3.Connection.commit(), rather than writer-lease release.",
+      "The commit call still includes operating-system scheduling and file-I/O waits; no individual disk or antivirus event was traced.",
+      "This run uses the Notebook parent and experimental network-thread priority1. It is a separate diagnostic, not a rerun of identical original inputs.",
+      "The original123ms event did not recur in this run. No fix or causal performance gain is established by its lower maximum."
+    ]
+  }
 }

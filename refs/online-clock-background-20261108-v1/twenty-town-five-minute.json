@@ -1,0 +1,79 @@
+{
+  "run": "async30-twenty-town-five-v2",
+  "seconds": 300,
+  "town_players": 20,
+  "dungeon_players": 0,
+  "local_isolated": true,
+  "public_network_qualified": false,
+  "production_installed": false,
+  "movement_requests": 35000,
+  "peer_coordinate_deliveries": 665000,
+  "movement_handler_roundtrip": {
+    "n": 35000,
+    "mean_ms": 2.857970065714523,
+    "p50_ms": 3,
+    "p95_ms": 5,
+    "p99_ms": 7,
+    "max_ms": 21.310300000550342,
+    "resolution_ms": 1
+  },
+  "peer_delivery": {
+    "n": 665000,
+    "mean_ms": 3.4773858740149106,
+    "p50_ms": 4,
+    "p95_ms": 6,
+    "p99_ms": 8,
+    "max_ms": 87.73467597711715,
+    "resolution_ms": 1
+  },
+  "cadence_excess": {
+    "n": 664620,
+    "mean_ms": 1.8035797223958407,
+    "p50_ms": 1,
+    "p95_ms": 9,
+    "p99_ms": 14,
+    "max_ms": 86.38279999905762,
+    "resolution_ms": 1
+  },
+  "largest_clock_commit_ms": 104.83209999983956,
+  "largest_clock_lease_release_ms": 0.029400000130408444,
+  "largest_observed_foreground_operation_wait_ms": 13.623700000607641,
+  "original_123ms_observed_again": false,
+  "clock_commit_still_exceeded_100ms": true,
+  "slow_clock_commit_no_longer_serializes_movement": true,
+  "raw_peer_delivery_still_has_87ms_maximum": true,
+  "all_tail_latency_eliminated": false,
+  "exact_remaining_raw_peer_maximum_root_cause": "Not identified: the87ms sample is outside the source-UID1001 paired trace; do not attribute it to the cloud or disk.",
+  "all_final_peer_positions_delivered": true,
+  "all20_positions_cold_read_checked": true,
+  "frontends_opened_and_closed": 20,
+  "GC_events": 0,
+  "cleanup": {
+    "owned_runtime_removed": true,
+    "connections": 0,
+    "errors": []
+  },
+  "runtime_parent": {
+    "parent_release": "native-achievement-notebook-spa-clear-20261107-v1",
+    "parent_path": "G:\\els\\releases\\online\\native-achievement-notebook-spa-clear-20261107-v1",
+    "parent_manifest_sha256": "c317b6a20ca48c5cb5bb5597b2c622503eafc6c47f6e36762506c1b4cdcccb83",
+    "retained_new_parent_features": true
+  },
+  "scheduling": {
+    "priority_class": 32,
+    "IO_priority": 2,
+    "memory_priority": 5,
+    "network_thread_priority": 1
+  },
+  "CPU_logical_limit": 4,
+  "egress_mbps": 4.4,
+  "interrupted_test_excluded": {
+    "run": "async30-twenty-town-five-v1",
+    "reason": "Stopped by owner to move cursor restoration before writer publication; not a full performance result."
+  },
+  "limits": [
+    "No production installation or public-network qualification in this run.",
+    "A single five-minute run does not guarantee a future absolute maximum.",
+    "Counter write completion, failure rollback and final drain were separately checked by actual SQLite and native TLS regressions."
+  ]
+}

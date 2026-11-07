@@ -3,6 +3,7 @@ import ast,copy,hashlib,json,subprocess,sys,tomllib
 from pathlib import Path
 from contract_solo_end import normalize_solo_end
 from contract_startup_index import normalize_startup_index
+from contract_network_thread import normalize_network_thread
 A=Path(__file__).resolve().parent;ROOT=A.parents[1]
 def tree(path):return ast.parse(path.read_bytes())
 def cls(t,name):return next(n for n in t.body if isinstance(n,ast.ClassDef)and n.name==name)
@@ -17,7 +18,9 @@ def main():
   else:json.loads(p.read_bytes())
  promoted=json.loads((A/'startup-index-promotion.json').read_bytes())
  assert promoted['promoted']and promoted['normalized_full_AST_matches_previous']
- assert promoted['current_source_files']=={name:row['sha256']for name,row in b['files'].items()}
+ network_binding=json.loads((A/'network-thread-promotion.json').read_bytes())
+ assert promoted['current_source_files']==network_binding['previous_source_files']
+ assert network_binding['current_source_files']=={name:row['sha256']for name,row in b['files'].items()}
  assert promoted['native_startup_proof_sha256']==hashlib.sha256((A/'native-startup-index.json').read_bytes()).hexdigest()
  assert retained_notebook['native_marker_equivalence_and_rollback_sha256']==hashlib.sha256((A/'native-notebook-marker.json').read_bytes()).hexdigest()
  for rows in(b['files'],b['runtime_parent_files']):
@@ -52,6 +55,11 @@ def main():
   c=cls(t,'GameServer');c.body=[n for n in c.body if not(isinstance(n,(ast.FunctionDef,ast.AsyncFunctionDef))and n.name in('__init__','handle','close'))]
  assert ast.dump(before)==ast.dump(after),'Transport changes are restricted to sender lifetime and delivery'
  before=tree(A/'runtime-parent/els_server/__main__.py');after=tree(A/'source/els_server/__main__.py')
+ network=json.loads((A/'network-thread-promotion.json').read_bytes());old_main=A/'retention-parent/network-thread-before.py'
+ assert network['promoted_for_public_trial']and network['normalized_full_AST_matches_previous']
+ assert hashlib.sha256(old_main.read_bytes()).hexdigest()==network['previous_source_files']['els_server/__main__.py']
+ assert ast.dump(tree(old_main))==ast.dump(normalize_network_thread(copy.deepcopy(after)))
+ assert network['native_proof_sha256']==hashlib.sha256((A/'native-network-thread-priority.json').read_bytes()).hexdigest()
  for t in(before,after):t.body=[n for n in t.body if not(isinstance(n,ast.FunctionDef)and n.name=='_normal_scheduling')]
  assert ast.dump(before)==ast.dump(after),'Only the existing startup scheduling normalization changes'
  # The current online parent's party, quest, guide, shutdown and GM actor
