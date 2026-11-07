@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "status": "PRIVATE_APP_TLS_QUALIFIED_NOT_INSTALLED",
+  "base_Git_head": "59c2223cedc2f7a0f89ca6f7d390f8e7215acb10",
+  "parent_release": "native-achievement-foundation-20261107-v1",
+  "parent_manifest_sha256": "0c90e68611cbbdc73a27613f34f8dc33fa0c7b1eeb1afc47ceadbe04fc092f99",
+  "source_files": [
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "parent_sha256": "731ac2ffe52e939dc46c010cca7069ba7d6045e798f0a12dc46ad10e5ffe989a",
+      "sha256": "740379bf56e5764a2cbae074d00f3d5cb3713ca7a3909a057ffba6f96e03e3f8"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "parent_sha256": "1f3832ab6f3a8a611b6438c9882a52690557b429f08150fda2ad29e46383a770",
+      "sha256": "14a0785f93b180697ba2d7fc7e7f431526b8c84dc0abe51a84f049a2a75ece4e"
+    },
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "parent_sha256": "6cb8d4190815854a5d5e0f1e7fc7f043425278f80985014202fa07b0bb17666c",
+      "sha256": "f5c7ccd3159016f92cebe2e8595f40354f5d4f1338711aaccb2c7be7111e11b2"
+    }
+  ],
+  "connected_condition_types": [
+    6,
+    15,
+    16,
+    23,
+    24,
+    25,
+    27,
+    28,
+    37,
+    38,
+    39,
+    42,
+    43,
+    44,
+    56,
+    61,
+    62,
+    63,
+    67,
+    68
+  ],
+  "connected_definitions": 131,
+  "remaining_other_types": 40,
+  "added_condition_types": [
+    16,
+    23,
+    25,
+    43,
+    44,
+    56
+  ],
+  "unresolved_original_reward_groups": 53,
+  "new_tables": [],
+  "new_lazy_indexes": [
+    "native_achievement_guild_operation_owner_kind",
+    "native_achievement_guild_fact_owner",
+    "native_achievement_reset_account"
+  ],
+  "original_EXE_KOM_changes": 0,
+  "client_Hook_changes": 0,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "guild_exit_scope": "Normal voluntary departures only; expulsion/disband achievement semantics remain unverified",
+  "evidence": [
+    {
+      "file": "live-guild-exit-1794019119289967700.json",
+      "sha256": "f4f4c0de057e793fb724ccf1a6d38a74be9df40274157e475585765acff97add"
+    },
+    {
+      "file": "live-farm-harvest-1794019049618437400.json",
+      "sha256": "e4649bec5474373d74bb568fa698f9a47246a844808541fdd2dc47db751963b5"
+    },
+    {
+      "file": "live-resonance-consumption-1794019109115400500.json",
+      "sha256": "46be3b931ca1934748ab0ed4b1b0e75bd3c4531609714af78e31b7ba11880567"
+    },
+    {
+      "file": "exit-receipt-domain-1794019158185597000.json",
+      "sha256": "2b6093d0c88d71d1071d3058fccd338e4b6adf2b2db87835a42c84b4cca6c29b"
+    },
+    {
+      "file": "consumption-receipt-domain-1794018868279435600.json",
+      "sha256": "ea77dbc21d0376efed2a82a8b69de85a3f335c2d6bfb08ad9235f0f6fbff7f6a"
+    }
+  ]
+}
