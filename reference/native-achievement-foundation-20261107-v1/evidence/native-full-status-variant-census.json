@@ -1,0 +1,46 @@
+{
+  "root_cause": "Complete actor DTOs restore empty achievement vectors and overwrite account points or character displays",
+  "original_reader": "842450",
+  "original_copy": "7DFBD0",
+  "fixed_consumers": [
+    {
+      "reader": "D9B170",
+      "field": "4C7",
+      "scope": "roster/create/login/D9/F5/career"
+    },
+    {
+      "reader": "D9D2F0",
+      "field": "57E",
+      "scope": "dungeon/duel/wedding FullUser"
+    },
+    {
+      "reader": "DA0E50",
+      "field": "134",
+      "scope": "Town"
+    },
+    {
+      "reader": "DA42B0",
+      "field": "154",
+      "scope": "GuildAgit"
+    },
+    {
+      "reader": "DA4EB0",
+      "field": "A6",
+      "scope": "housing"
+    }
+  ],
+  "other_direct_callers": [
+    {
+      "reader": "DA1840",
+      "business_producer": "unidentified"
+    },
+    {
+      "reader": "DA4C60",
+      "business_producer": "unidentified"
+    }
+  ],
+  "party_DA0840": "No direct842450call in measured caller census; not inferred to carry the same field",
+  "metadata_correction": "776CD0in old fixture metadata is not a function entry in this current binary; current D9B170/D9D2F0 calls independently establish842450",
+  "native_Game": "V17PASS on current source: fresh zero UI,6C0six completions,two full D9copies and reopen. V15/V16harness failures retained.",
+  "production_installed": false
+}
