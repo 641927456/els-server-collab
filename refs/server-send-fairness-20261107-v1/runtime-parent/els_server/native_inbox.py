@@ -1,5 +1,7 @@
 """Bounded native input; coalesce only consecutive validated town positions."""
 import asyncio
+import hashlib
+import json
 import time
 from collections import deque
 from dataclasses import dataclass
@@ -42,7 +44,7 @@ class NativeInbox:
         self.metrics['town_moves_coalesced']+=1
 
     async def _read(self):
-        sequence=1;secure_sequences={}
+        sequence=1;secure_sequences={};last_authenticated=None
         try:
             while True:
                 wire=await self.read()
@@ -52,9 +54,23 @@ class NativeInbox:
                 previous=secure_sequences.get(frame.spi,0)
                 if (not frame.secure_sequence or frame.secure_sequence==previous
                         or frame.secure_sequence<previous and previous!=0xffffffff):
-                    raise ProtocolError(f'Unexpected secure sequence (spi={frame.spi}, previous={previous}, received={frame.secure_sequence}, outer={frame.sequence})')
+                    # Keep only the preceding frame's digests in memory. Emit
+                    # equality flags, never a packet, fingerprint, IV or key.
+                    adjacent=last_authenticated is not None and last_authenticated[:2]==(frame.spi,previous)
+                    try:rejected=decode_event(frame.plaintext)
+                    except ProtocolError:rejected=None
+                    detail=dict(compared_adjacent=adjacent,
+                        same_authenticated_body=(hashlib.sha256(memoryview(wire)[8:]).digest()==last_authenticated[2])if adjacent else None,
+                        same_plaintext=(hashlib.sha256(frame.plaintext).digest()==last_authenticated[3])if adjacent else None,
+                        previous_kind=last_authenticated[4]if adjacent else None,
+                        received_kind=rejected.kind if rejected is not None else None,
+                        received_plaintext_bytes=len(frame.plaintext))
+                    raise ProtocolError(f'Unexpected secure sequence (spi={frame.spi}, previous={previous}, received={frame.secure_sequence}, outer={frame.sequence}); correlation='+json.dumps(detail,separators=(',',':')))
                 secure_sequences[frame.spi]=frame.secure_sequence
                 event=decode_event(frame.plaintext);self.metrics['requests']+=1
+                last_authenticated=(frame.spi,frame.secure_sequence,
+                    hashlib.sha256(memoryview(wire)[8:]).digest(),
+                    hashlib.sha256(frame.plaintext).digest(),event.kind)
                 if self.auxiliary is not None and self.auxiliary(event):
                     self.metrics['auxiliary_coalesced']+=1
                     if sequence%16==0:await asyncio.sleep(0)

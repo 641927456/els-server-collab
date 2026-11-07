@@ -410,7 +410,7 @@ class GameServer:
                             phase=business.phase,results=results,
                             rejection=getattr(business,'_town_warp_rejection',None))
                     from els_server.domain.dungeon_diagnostics import refusal
-                    diagnostic=refusal(business,event,messages)
+                    diagnostic=refusal(business,event,messages,frame.sequence)
                     if diagnostic is not None:
                         self.log('dungeon_refusal',connection=index,sequence=frame.sequence,**diagnostic)
                     dungeon34320_trace.after(trace34320_before,business,messages)

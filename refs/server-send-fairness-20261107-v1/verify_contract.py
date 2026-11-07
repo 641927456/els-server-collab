@@ -27,6 +27,12 @@ def main():
  guards=[n for n in post.body if isinstance(n,ast.If)and any(isinstance(v,ast.Attribute)and v.attr=='egress_mbps'for v in ast.walk(n.test))]
  assert len(guards)==1;post.body.remove(guards[0]);assert ast.dump(before)==ast.dump(after),'Every existing configuration rule must be retained'
  before=tree(A/'runtime-parent/els_server/transport.py');after=tree(A/'source/els_server/transport.py')
+ calls=[n for n in ast.walk(after)if isinstance(n,ast.Call)and isinstance(n.func,ast.Name)and n.func.id=='refusal']
+ assert len(calls)==1 and len(calls[0].args)==4 and ast.unparse(calls[0].args[-1])=='frame.sequence','Retain the accepted parent native refusal sequence diagnostic'
+ retained=json.loads((A/'santilus-parent-retention.json').read_bytes());prior_transport=A/'retention-parent/santilus-transport-before.py'
+ assert hashlib.sha256(prior_transport.read_bytes()).hexdigest()==retained['previous_source_files']['els_server/transport.py']
+ normalized=copy.deepcopy(after);call=next(n for n in ast.walk(normalized)if isinstance(n,ast.Call)and isinstance(n.func,ast.Name)and n.func.id=='refusal');call.args.pop()
+ assert ast.dump(tree(prior_transport))==ast.dump(normalized),'The parent rebase changes only the diagnostic sequence argument; line endings do not hide other transport changes'
  socket_imports=[n for n in after.body if isinstance(n,ast.Import)and len(n.names)==1 and n.names[0].name=='socket']
  assert len(socket_imports)==1;after.body.remove(socket_imports[0])
  for t in(before,after):
