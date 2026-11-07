@@ -1,0 +1,74 @@
+{
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "shared_projects_touched": false,
+  "decompiler_names_applied": false,
+  "witnesses": [
+    {
+      "function_rva": "0x3b7d860",
+      "call_rva": "0x3b7d8e2",
+      "instructions": [
+        "3b7d8d6: movzx edx, word ptr [rdi + 0x30]",
+        "3b7d8da: call 0x143b7fce0",
+        "3b7d8df: mov rcx, rax",
+        "3b7d8e2: call 0x141271e60",
+        "3b7d8e7: mov dword ptr [rbp - 0x59], eax",
+        "3b7d8ea: mov rdx, qword ptr [rbx + 0x10]",
+        "3b7d8ee: mov r8, qword ptr [rbx + 0x18]"
+      ]
+    },
+    {
+      "function_rva": "0x3b7d860",
+      "call_rva": "0x3b7dace",
+      "instructions": [
+        "3b7dac3: movzx edx, bx",
+        "3b7dac6: call 0x143b7fce0",
+        "3b7dacb: mov rcx, rax",
+        "3b7dace: call 0x143b817b0",
+        "3b7dad3: mov bl, 1",
+        "3b7dad5: mov qword ptr [rbp - 0x29], r12",
+        "3b7dad9: mov rdx, qword ptr [rbp - 9]"
+      ]
+    },
+    {
+      "function_rva": "0x682d80",
+      "call_rva": "0x68318c",
+      "instructions": [
+        "683180: call 0x14016d460",
+        "683185: mov rdx, r13",
+        "683188: lea rcx, [rbp - 0x30]",
+        "68318c: call 0x143b7d860",
+        "683191: lea rsi, [rdi - 1]",
+        "683195: test al, al",
+        "683197: jne 0x140683282"
+      ]
+    },
+    {
+      "function_rva": "0x682d80",
+      "call_rva": "0x683585",
+      "instructions": [
+        "683574: call qword ptr [rip + 0x3825266]",
+        "68357a: lea rdx, [rbp - 0x80]",
+        "68357e: mov rcx, qword ptr [r14 + 0xb0]",
+        "683585: call 0x140687580",
+        "68358a: movzx r14d, al",
+        "68358e: lea rcx, [rbp - 0x30]",
+        "683592: call 0x143b7d620"
+      ]
+    }
+  ],
+  "receiver_contract_correction": {
+    "caller": "6817E0",
+    "check": "3B7E290",
+    "second_argument": 0,
+    "sequence_predicate_bypassed_by_native_receiver": true
+  },
+  "direct_encoder_census": [
+    {
+      "call": "0x68318c",
+      "function": "0x682d80",
+      "end": "0x68364b"
+    }
+  ],
+  "indirect_address_references_to_encoder": 0,
+  "natural_game_reproduction": false
+}
