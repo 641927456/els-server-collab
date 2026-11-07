@@ -1,0 +1,32 @@
+{
+  "diagnostic_run": "async30-all-source-tail-diagnostic120-v2",
+  "diagnostic_seconds": 120,
+  "diagnostic_only": true,
+  "all_source_records": 266000,
+  "matched_slow_receives": 189,
+  "slow_samples_on_final_move": 171,
+  "reproduced_raw_max_ms": 74.43741025417694,
+  "source_send_to_server_received_ms": 0.8237102556449827,
+  "server_received_to_final_byte_queued_ms": 73.32389831542969,
+  "received_to_mailbox_drain_ms": 70.02860260009766,
+  "final_byte_queued_to_client_event_ms": 0.2898016828112304,
+  "metadata_request_kind": "0x48d",
+  "metadata_reply_kind": "0x48f",
+  "metadata_request_ms": {
+    "n": 20,
+    "mean_ms": 60.284670000146434,
+    "p50_ms": 63,
+    "p95_ms": 74,
+    "p99_ms": 74,
+    "max_ms": 73.89840000178083,
+    "resolution_ms": 1
+  },
+  "cause": "A read-only account metadata request took the complete gameplay/position-flush pipeline while its recipient peer-drain window stayed closed; pending coordinates were appended only to its late reply.",
+  "original87ms_event_has_no_exact_pair": true,
+  "original87ms_exact_cause_reconstructed": false,
+  "limits": [
+    "The previous87.7ms sample had no matching source trace. This reproduces and fixes the same tail-latency class; it does not recover that old individual event.",
+    "No TCP retransmission was observed in the original local run.",
+    "The120-second diagnostic is not the final qualification."
+  ]
+}

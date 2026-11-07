@@ -1,0 +1,15 @@
+{
+  "product_source_changed": false,
+  "original_failures_retained_on_G": true,
+  "failures": [
+    {
+      "reason": "A default active0 may have no physical row; the fixture incorrectly assumed one.",
+      "correction": "Read through the original active_state getter and seed the opposite valid active state to test a real change."
+    },
+    {
+      "reason": "The fixture called ensure_active before starting its required transaction.",
+      "correction": "Begin the owned fixture transaction explicitly."
+    }
+  ],
+  "all_owned_runtimes_removed": true
+}

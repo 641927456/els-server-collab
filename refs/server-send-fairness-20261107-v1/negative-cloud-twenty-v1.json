@@ -1,0 +1,118 @@
+{
+  "run": "online-byte-quanta20-five-v2",
+  "qualified": false,
+  "latency_pass": false,
+  "seconds": 300,
+  "actors": 20,
+  "town": 10,
+  "dungeon": 10,
+  "gates": {
+    "pickup": true,
+    "death": false,
+    "glass": false,
+    "map": true,
+    "town_handler": true,
+    "town_relay": false,
+    "town_cadence": false,
+    "cold_currency_and_ACK_exact": true,
+    "normal_cleanup": true,
+    "frontend_health": true,
+    "all_final_peer_positions": true,
+    "final_town_positions_saved": true,
+    "all_clients": true,
+    "actual_nogil": true
+  },
+  "metrics": {
+    "pickup": {
+      "n": 1650,
+      "mean_ms": 10.842629997059703,
+      "p50_ms": 8,
+      "p95_ms": 31,
+      "p99_ms": 55,
+      "max_ms": 83.23580003343523,
+      "resolution_ms": 1
+    },
+    "death": {
+      "n": 1650,
+      "mean_ms": 33.09280018265726,
+      "p50_ms": 27,
+      "p95_ms": 71,
+      "p99_ms": 98,
+      "max_ms": 115.64089986495674,
+      "resolution_ms": 1
+    },
+    "glass": {
+      "n": 110,
+      "mean_ms": 56.42422000792894,
+      "p50_ms": 47,
+      "p95_ms": 96,
+      "p99_ms": 99,
+      "max_ms": 106.98040015995502,
+      "resolution_ms": 1
+    },
+    "map": {
+      "n": 110,
+      "mean_ms": 57.21928545654836,
+      "p50_ms": 53,
+      "p95_ms": 97,
+      "p99_ms": 120,
+      "max_ms": 119.96680009178817,
+      "resolution_ms": 1
+    },
+    "town_handler": {
+      "n": 17500,
+      "mean_ms": 6.648849176961396,
+      "p50_ms": 3,
+      "p95_ms": 30,
+      "p99_ms": 53,
+      "max_ms": 147.6101998705417,
+      "resolution_ms": 1
+    },
+    "movement_relay": {
+      "n": 157383,
+      "mean_ms": 61.34013578432853,
+      "p50_ms": 60,
+      "p95_ms": 105,
+      "p99_ms": 131,
+      "max_ms": 210.31142957508564,
+      "resolution_ms": 1
+    },
+    "movement_cadence_excess": {
+      "n": 157293,
+      "mean_ms": 11.182152721775212,
+      "p50_ms": 0,
+      "p95_ms": 61,
+      "p99_ms": 81,
+      "max_ms": 197.34340030697695,
+      "resolution_ms": 1
+    },
+    "movement_relay_first45s": {
+      "n": 24722,
+      "mean_ms": 62.097533069489664,
+      "p50_ms": 60,
+      "p95_ms": 107,
+      "p99_ms": 139,
+      "max_ms": 203.1967486254871,
+      "resolution_ms": 1
+    },
+    "steady_after45s": {
+      "n": 132661,
+      "mean_ms": 61.19899124536264,
+      "p50_ms": 60,
+      "p95_ms": 105,
+      "p99_ms": 130,
+      "max_ms": 210.31142957508564,
+      "resolution_ms": 1
+    }
+  },
+  "online_capacity_claim": false,
+  "diagnostic_only": false,
+  "source": {
+    "els_server/config.py": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60",
+    "els_server/egress_budget.py": "5e42a0a6bd3e306bbea7eec206c5eead38fd6b0da68080134bcb170c700233f4",
+    "els_server/native_outbox.py": "373ae4a6e4e1efde82def0e6d05c6adb22ba47b978125e1ad03358180c4b2d92",
+    "els_server/transport.py": "0329ee9bb330424cfb53465319223f6a52f06d80163787e0347164d2be22b85e",
+    "els_server/domain/native_session_sources.py": "f23aa3703ef5f376504243a97c3f26da8e144b3872ce6a841ab3e68676b5fffc",
+    "runtime/sqlite3.dll": "4b59d3cded9dc1608544160f3b4b10ac974c6ac0d6ffc23064e5f4c8dbd05aea"
+  }
+}

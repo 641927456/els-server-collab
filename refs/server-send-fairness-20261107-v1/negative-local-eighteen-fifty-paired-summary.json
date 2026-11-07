@@ -1,0 +1,42 @@
+{
+  "run": "log-batch18-fifty-five-v1",
+  "diagnostic_only": true,
+  "matched": 19245,
+  "recipients": 11,
+  "source_uid": 1001,
+  "server_segment": {
+    "n": 19245,
+    "min_ms": 0.6574997678399086,
+    "mean_ms": 9.413724449441654,
+    "p50_ms": 2.3327996022999287,
+    "p95_ms": 65.68859983235598,
+    "p99_ms": 89.71400000154972,
+    "max_ms": 186.33269984275103
+  },
+  "client_raw": {
+    "n": 19245,
+    "min_ms": 0.9706341661512852,
+    "mean_ms": 10.041479522928066,
+    "p50_ms": 2.942181657999754,
+    "p95_ms": 66.68872619047761,
+    "p99_ms": 90.45792976394296,
+    "max_ms": 187.12522089481354
+  },
+  "outside_measured_server_segment": {
+    "n": 19245,
+    "min_ms": 0.2636117860674858,
+    "mean_ms": 0.6277550734864114,
+    "p50_ms": 0.5358955822885036,
+    "p95_ms": 1.0674665682017803,
+    "p99_ms": 1.5246453694999218,
+    "max_ms": 60.90708076953888
+  },
+  "server_endpoint": "immediately_before_final_frame_chunk_writer_write",
+  "cross_machine_absolute_timestamps_compared": false,
+  "latency_gates_unchanged": true,
+  "outside_description": "Final writer.write, client encode/decode and scheduling, TCP/TLS and OS queues, network, and server time before NativeInbox.received; not pure network RTT.",
+  "client_source_hashes": [
+    "c857a48189e8302aa9c400242ca21b3d7c1602ee913b80e3c0cbb4cc39ca3318"
+  ],
+  "loopback_only": true
+}

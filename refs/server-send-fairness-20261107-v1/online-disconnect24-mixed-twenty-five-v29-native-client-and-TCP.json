@@ -1,0 +1,80 @@
+{
+  "run": "online-disconnect24-mixed-twenty-five-v29",
+  "seconds": 300,
+  "town": 10,
+  "dungeon": 10,
+  "native_client_timings_per_generator_group": {
+    "dgg10": {
+      "0xb3": {
+        "n": 110,
+        "mean_ms": 70.87495723654601,
+        "p50_ms": 62,
+        "p95_ms": 118,
+        "p99_ms": 132,
+        "max_ms": 147.2863000817597,
+        "resolution_ms": 1
+      },
+      "0xad": {
+        "n": 1650,
+        "mean_ms": 46.83560309084979,
+        "p50_ms": 42,
+        "p95_ms": 81,
+        "p99_ms": 100,
+        "max_ms": 126.61090027540922,
+        "resolution_ms": 1
+      },
+      "0xd0": {
+        "n": 1650,
+        "mean_ms": 30.5696346156412,
+        "p50_ms": 27,
+        "p95_ms": 59,
+        "p99_ms": 76,
+        "max_ms": 98.84029999375343,
+        "resolution_ms": 1
+      },
+      "0xb8": {
+        "n": 110,
+        "mean_ms": 25.971382708204064,
+        "p50_ms": 24,
+        "p95_ms": 53,
+        "p99_ms": 62,
+        "max_ms": 64.24679979681969,
+        "resolution_ms": 1
+      },
+      "0xbb": {
+        "n": 110,
+        "mean_ms": 44.06399819576605,
+        "p50_ms": 41,
+        "p95_ms": 79,
+        "p99_ms": 85,
+        "max_ms": 92.52790035679936,
+        "resolution_ms": 1
+      },
+      "glass_B8_to_BD": {
+        "n": 110,
+        "mean_ms": 70.2139091042971,
+        "p50_ms": 65,
+        "p95_ms": 104,
+        "p99_ms": 115,
+        "max_ms": 122.51550005748868,
+        "resolution_ms": 1
+      }
+    }
+  },
+  "client_percentiles_not_merged_or_averaged": true,
+  "server_time_is_not_client_elapsed": true,
+  "TCP_sampled_cumulative_lower_bound": {
+    "BytesOut": 33788328,
+    "BytesIn": 3636540,
+    "BytesRetrans": 0,
+    "FastRetrans": 0,
+    "DupAcksIn": 1,
+    "TimeoutEpisodes": 0
+  },
+  "TCP_observed_connections": 46,
+  "single_network_root_cause_proven": false,
+  "public_restored": true,
+  "restoration_observation_seconds": 120,
+  "production_code_modified": false,
+  "production_DB_replaced": false
+}

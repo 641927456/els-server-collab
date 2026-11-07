@@ -1,0 +1,58 @@
+{
+  "run": "online-quiet-thirteen20-five-v7",
+  "qualified": false,
+  "seconds": 300,
+  "town": 10,
+  "dungeon": 10,
+  "runtime_parent": {
+    "parent_path": "G:\\els\\releases\\online\\native-achievement-foundation-20261107-v1",
+    "parent_release": "native-achievement-foundation-20261107-v1",
+    "parent_manifest_sha256": "0c90e68611cbbdc73a27613f34f8dc33fa0c7b1eeb1afc47ceadbe04fc092f99",
+    "retained_new_parent_features": true
+  },
+  "source_bindings": {
+    "candidate/els_server/application.py": "611217785163faad191f563c300ae7e1c976f63566f0b9d9409187ce66f6da68",
+    "candidate/els_server/config.py": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60",
+    "candidate/els_server/dungeon_workers.py": "e64d06562a2218546017926f4524cffa2d22d81f232f381a5387a43616efc1a0",
+    "candidate/els_server/egress_budget.py": "5e42a0a6bd3e306bbea7eec206c5eead38fd6b0da68080134bcb170c700233f4",
+    "candidate/els_server/native_outbox.py": "ba2d72106d989624a1378343fc24f7e107b81df9f0799ad3bf39228a6481405e",
+    "candidate/els_server/transport.py": "4c4c5b635aebe8e624f477fd564a7263a6db2b8fbfa9e4ff605d3204510c49d1",
+    "candidate/els_server/domain/elixir_flow.py": "72173d6bc547cb6292e216a14a7d858fe2a08de0f6c3994375e0728203f7ad69",
+    "candidate/els_server/domain/friends_world.py": "b6bb0d1856dfbd9fc593782b46ee660d68bac60ffad15796590c9edef2a41ea2",
+    "candidate/els_server/domain/local_session.py": "e3cba5eb5611a2fd39fe6534763c4bb2b53a1f4ca25261199792a630c5c2cb9f",
+    "candidate/els_server/domain/native_session_sources.py": "f23aa3703ef5f376504243a97c3f26da8e144b3872ce6a841ab3e68676b5fffc",
+    "candidate/els_server/protocol/dungeon_messages.py": "b53704e95483959fa55f157977c56391289354d4911f8c8caaa194fae71c2f86",
+    "candidate/els_server/storage/inventory_state.py": "eac0c17c2ff411de61a1dab51ce1576610f60641496d36d79d821e7d6ff35ab8",
+    "candidate/els_server/storage/read_scope.py": "6027a1b23a58445aae1203bdb28cf5f956a4e77eab6d67d38c8823812e321284",
+    "runtime/sqlite3.dll": "4b59d3cded9dc1608544160f3b4b10ac974c6ac0d6ffc23064e5f4c8dbd05aea"
+  },
+  "town_metrics": {
+    "movement_relay": {
+      "n": 157473,
+      "mean_ms": 30.416321480387463,
+      "p50_ms": 26,
+      "p95_ms": 62,
+      "p99_ms": 92,
+      "max_ms": 195.65477268770337,
+      "resolution_ms": 1
+    },
+    "movement_cadence_excess": {
+      "n": 157383,
+      "mean_ms": 6.412552487199623,
+      "p50_ms": 1,
+      "p95_ms": 36,
+      "p99_ms": 65,
+      "max_ms": 182.34590031205755,
+      "resolution_ms": 1
+    }
+  },
+  "whole_run_invalid": true,
+  "cause": "Owned TCP observer accessed a retiring SSL writer and raised AttributeError; server drained and fixtures removed. No complete server/cold result exists.",
+  "cleanup": {
+    "owned_runtime_removed": true,
+    "connections": 0,
+    "errors": []
+  },
+  "public_restored_120_seconds": true,
+  "production_installed": false
+}

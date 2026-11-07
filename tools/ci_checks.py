@@ -82,6 +82,8 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_private_writer_checkpoints_20261107.py')])
     if (ROOT/'refs/writer-checkpoints-v87-integration-20261107-v1/source-bindings.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_writer_checkpoint_v87_integration.py')])
+    if (ROOT/'refs/server-send-fairness-20261107-v1/source-bindings.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'refs/server-send-fairness-20261107-v1/verify_contract.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
     run([sys.executable,'-B','-m','unittest','tests.test_public_controller_sources'])

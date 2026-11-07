@@ -1,0 +1,7 @@
+{
+  "promoted_before_correction": false,
+  "load_launched_after_failed_guard": false,
+  "failure": "The first diagnostic promotion assertion incorrectly prohibited every >=2ms world hold for0x67, including required post-commit map_loading effects.",
+  "observed": "The retained post-commit world holds were4.01ms and5.87ms maxima; there were no >=2ms holds for0x67 in dungeon_active. The original SQL consumer was directly observed outside world while its account domain remained held.",
+  "correction": "Classify native kind together with the captured phase. Preserve and report post-commit shared effects. No latency acceptance gates or recorded timings changed."
+}

@@ -1,0 +1,26 @@
+{
+  "run": "online-santilus28-mixed-twenty-five-v35",
+  "completed": true,
+  "production_installed": false,
+  "production_code_modified": false,
+  "production_DB_replaced": false,
+  "owned_runtime_removed": true,
+  "owned_connections": 0,
+  "owned_errors": [],
+  "original_service_restored": true,
+  "restoration_observation_seconds": 120,
+  "owned_lock_released": true,
+  "passing_scope": {
+    "town": 10,
+    "dungeon": 10,
+    "seconds": 300,
+    "estimated_cloud_limit_mbps": 5,
+    "frame_budget_mbps": 4.4
+  },
+  "limitations": [
+    "Town raw P95 is at its 40ms gate; no safety margin is inferred.",
+    "Public30-50 player capacity is not qualified.",
+    "Protocol tests do not establish natural GUI/resource loading or battle/UDP capacity."
+  ],
+  "acceptance_sha256": "7f9e805b8ef4e1c765ef2807519f3bd35e82daa19963dedd73c57de0068aaa74"
+}

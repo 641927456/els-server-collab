@@ -1,0 +1,133 @@
+{
+  "run": "short-control18-fifty-smoke60-v1",
+  "qualified": false,
+  "latency_pass": false,
+  "seconds": 60,
+  "actors": 50,
+  "town": 12,
+  "dungeon": 38,
+  "gates": {
+    "pickup": true,
+    "death": true,
+    "glass": true,
+    "map": true,
+    "town_handler": true,
+    "town_relay": false,
+    "town_cadence": false,
+    "cold_currency_and_ACK_exact": true,
+    "normal_cleanup": true,
+    "frontend_health": true,
+    "all_final_peer_positions": true,
+    "final_town_positions_saved": true,
+    "all_clients": true,
+    "actual_nogil": true
+  },
+  "metrics": {
+    "pickup": {
+      "n": 1710,
+      "mean_ms": 7.4220087085115285,
+      "p50_ms": 6,
+      "p95_ms": 15,
+      "p99_ms": 31,
+      "max_ms": 224.32269994169474,
+      "resolution_ms": 1
+    },
+    "death": {
+      "n": 1710,
+      "mean_ms": 17.19199508831602,
+      "p50_ms": 14,
+      "p95_ms": 42,
+      "p99_ms": 96,
+      "max_ms": 251.54729979112744,
+      "resolution_ms": 1
+    },
+    "glass": {
+      "n": 114,
+      "mean_ms": 20.71545785292983,
+      "p50_ms": 19,
+      "p95_ms": 32,
+      "p99_ms": 54,
+      "max_ms": 85.29089950025082,
+      "resolution_ms": 1
+    },
+    "map": {
+      "n": 114,
+      "mean_ms": 23.3338710549696,
+      "p50_ms": 21,
+      "p95_ms": 39,
+      "p99_ms": 46,
+      "max_ms": 143.53370014578104,
+      "resolution_ms": 1
+    },
+    "town_handler": {
+      "n": 4200,
+      "mean_ms": 2.886463023744346,
+      "p50_ms": 3,
+      "p95_ms": 6,
+      "p99_ms": 17,
+      "max_ms": 88.37299980223179,
+      "resolution_ms": 1
+    },
+    "movement_relay": {
+      "n": 46190,
+      "mean_ms": 10.172196633631494,
+      "p50_ms": 4,
+      "p95_ms": 57,
+      "p99_ms": 90,
+      "max_ms": 150.8599491789937,
+      "resolution_ms": 1
+    },
+    "movement_cadence_excess": {
+      "n": 46058,
+      "mean_ms": 7.586777836088992,
+      "p50_ms": 1,
+      "p95_ms": 50,
+      "p99_ms": 87,
+      "max_ms": 143.9847999252368,
+      "resolution_ms": 1
+    },
+    "movement_relay_first45s": {
+      "n": 36290,
+      "mean_ms": 10.811431836655077,
+      "p50_ms": 4,
+      "p95_ms": 61,
+      "p99_ms": 93,
+      "max_ms": 150.8599491789937,
+      "resolution_ms": 1
+    },
+    "steady_after45s": {
+      "n": 9900,
+      "mean_ms": 7.828979914669286,
+      "p50_ms": 3,
+      "p95_ms": 43,
+      "p99_ms": 75,
+      "max_ms": 101.54800396412611,
+      "resolution_ms": 1
+    }
+  },
+  "online_capacity_claim": false,
+  "diagnostic_only": true,
+  "experiment_adopted": false,
+  "source_bindings": {
+    "short-control-suite/els_server/application.py": "611217785163faad191f563c300ae7e1c976f63566f0b9d9409187ce66f6da68",
+    "short-control-suite/els_server/config.py": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60",
+    "short-control-suite/els_server/domain/elixir_flow.py": "72173d6bc547cb6292e216a14a7d858fe2a08de0f6c3994375e0728203f7ad69",
+    "short-control-suite/els_server/domain/friends_world.py": "b6bb0d1856dfbd9fc593782b46ee660d68bac60ffad15796590c9edef2a41ea2",
+    "short-control-suite/els_server/domain/local_session.py": "e3cba5eb5611a2fd39fe6534763c4bb2b53a1f4ca25261199792a630c5c2cb9f",
+    "short-control-suite/els_server/domain/native_session_sources.py": "f23aa3703ef5f376504243a97c3f26da8e144b3872ce6a841ab3e68676b5fffc",
+    "short-control-suite/els_server/dungeon_workers.py": "e64d06562a2218546017926f4524cffa2d22d81f232f381a5387a43616efc1a0",
+    "short-control-suite/els_server/egress_budget.py": "a4f3ad6ff06589c395aeb0efb6146bf347802df319beabc61a2826ec24a89e76",
+    "short-control-suite/els_server/native_outbox.py": "ba2d72106d989624a1378343fc24f7e107b81df9f0799ad3bf39228a6481405e",
+    "short-control-suite/els_server/observability.py": "6047b412812de81060e2447e1684a459c7170a01dd3526f0d10591547b10b8b0",
+    "short-control-suite/els_server/periodic_scheduler.py": "7aeeea4ab444c853c868aada4515821c075689ef65832415f38c93fafcc0f596",
+    "short-control-suite/els_server/protocol/dungeon_messages.py": "b53704e95483959fa55f157977c56391289354d4911f8c8caaa194fae71c2f86",
+    "short-control-suite/els_server/storage/clock_writer.py": "d306e4d1ae10b0d7154baf86f770e020b17f79bcd9b548706a0560b01e412ee0",
+    "short-control-suite/els_server/storage/death_writer.py": "d8ca4cff5009a11d7fa787355ac8120de1ca9b89eb43b71e82709d7b3edd5abe",
+    "short-control-suite/els_server/storage/inventory_state.py": "eac0c17c2ff411de61a1dab51ce1576610f60641496d36d79d821e7d6ff35ab8",
+    "short-control-suite/els_server/storage/position_writer.py": "6a7429fb340bc36b4492522ec4518cfc0ea68f9cc56932f0c2ee5cb2f96f1fae",
+    "short-control-suite/els_server/storage/read_scope.py": "6027a1b23a58445aae1203bdb28cf5f956a4e77eab6d67d38c8823812e321284",
+    "short-control-suite/els_server/transport.py": "4c4c5b635aebe8e624f477fd564a7263a6db2b8fbfa9e4ff605d3204510c49d1",
+    "runtime/sqlite3.dll": "4b59d3cded9dc1608544160f3b4b10ac974c6ac0d6ffc23064e5f4c8dbd05aea"
+  },
+  "reason": "Town raw latency and cadence gates failed; no demonstrated improvement over the existing sender."
+}

@@ -1,0 +1,28 @@
+{
+  "old_parent": {
+    "parent_path": "G:\\els\\releases\\online\\native-altera-mine-retirement-20261107-v1",
+    "parent_release": "native-altera-mine-retirement-20261107-v1",
+    "parent_manifest_sha256": "deaf157f237c6118c2a459ce29b67ce67c82e8cf99b0608411ee34b89c194489",
+    "retained_new_parent_features": true
+  },
+  "new_parent": {
+    "parent_path": "G:\\els\\releases\\online\\native-achievement-equipped-set-history-20261107-v2",
+    "parent_release": "native-achievement-equipped-set-history-20261107-v2",
+    "parent_manifest_sha256": "9c63345f34fda6187ec5707f8abbf8e4b1e1586a481217f0a07978413b559f50",
+    "retained_new_parent_features": true
+  },
+  "changed_parent_modules": [
+    "els_server/domain/achievement_flow.py",
+    "els_server/domain/guild_agit_flow.py",
+    "els_server/storage/achievement_collections.py",
+    "els_server/storage/achievement_history.py",
+    "els_server/storage/achievement_profiles.py"
+  ],
+  "source_files": 27,
+  "condition_types": 42,
+  "daily_source_original_writer_retained": true,
+  "set_source_and_collection_logic_retained": true,
+  "guild_appearance_read_order_retained": true,
+  "readonly_preflight_skips_unrecorded_play_day": true,
+  "title_reader_only_reuses_same_transaction_rows": true
+}
