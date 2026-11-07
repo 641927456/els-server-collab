@@ -1021,3 +1021,17 @@ _guild_coin_definitions()
 VERIFIED_TEMPLATES[400154]=2
 TEMPLATE_BAG_GROUPS[400154]=4
 TEMPLATE_MAX_STACKS[400154]=500
+
+# Exact original task material/reward readers plus the approved expedition box
+# pair135984/135985. Every row is pinned to its own client record hash; this only
+# classifies what may already be owned, no producer or use path is opened here.
+_TASK_READER_SHA='bd2f99a8cf340276b93963336e07d20c24e381a92e0cbed95baac317ad52f95f'
+_TASK_READER_RAW=(Path(__file__).resolve().parents[1]/'data/special_task_readers.json').read_bytes()
+if hashlib.sha256(_TASK_READER_RAW).hexdigest()!=_TASK_READER_SHA:raise ValueError('Special task reader identity')
+from els_server.game_data import client_data as _task_reader_client_data
+for _row in json.loads(_TASK_READER_RAW):
+ _native=_task_reader_client_data().item(_row['template'])
+ if hashlib.sha256(_native['record']).hexdigest()!=_row['record_sha256']:raise ValueError('Special task native inventory source')
+ _t=_row['template'];_tuple=(_row['metadata'],_row['group'],_row['max_stack'])
+ if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_tuple:raise ValueError('Conflicting special task inventory reader')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_tuple
