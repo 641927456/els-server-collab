@@ -1,0 +1,18 @@
+{
+  "ok": false,
+  "tests": 1,
+  "names": [
+    "test_four_native_furniture_prices_purchase_cold_and_replay"
+  ],
+  "production_data": false,
+  "Game": false,
+  "App": false,
+  "natural_GUI": false,
+  "native_prices": true,
+  "details": [
+    {
+      "test": "test_four_native_furniture_prices_purchase_cold_and_replay (__main__.HousingNpcTests.test_four_native_furniture_prices_purchase_cold_and_replay)",
+      "error": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\housing-achievement-v1\\test_housing_npc.py\", line 18, in test_four_native_furniture_prices_purchase_cold_and_replay\n    expected=sum(rules.price(t)*n for t,n in entries);self.buy(entries,'owned-four-furniture')\n                                                      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\housing-achievement-v1\\test_housing_npc.py\", line 15, in buy\n    return npc_trade.purchase(self.path,self.uid,self.a.get_location()['map'],payload,operation)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\housing-achievement-v1\\source-v1\\els_server\\storage\\npc_trade.py\", line 79, in purchase\n    amount = sum(offer(town, merchant, t)*q for t, q in entries)\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\housing-achievement-v1\\source-v1\\els_server\\storage\\npc_trade.py\", line 79, in <genexpr>\n    amount = sum(offer(town, merchant, t)*q for t, q in entries)\n                 ~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\housing-achievement-v1\\source-v1\\els_server\\domain\\npc_trade.py\", line 54, in offer\n    require_acquirable(template)\n    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\housing-achievement-v1\\source-v1\\els_server\\domain\\acquisition_policy.py\", line 199, in require_acquirable\n    raise ValueError(f'Legacy equipment acquisition disabled: {template}')\nValueError: Legacy equipment acquisition disabled: 570011\n"
+    }
+  ]
+}
