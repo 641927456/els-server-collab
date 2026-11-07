@@ -1,0 +1,152 @@
+{
+  "run": "solo-end28-stages-fifty-diagnostic60-v1",
+  "qualified": false,
+  "latency_pass": true,
+  "seconds": 60,
+  "actors": 50,
+  "town": 12,
+  "dungeon": 38,
+  "gates": {
+    "pickup": true,
+    "death": true,
+    "glass": true,
+    "map": true,
+    "town_handler": true,
+    "town_relay": true,
+    "town_cadence": true,
+    "cold_currency_and_ACK_exact": true,
+    "normal_cleanup": true,
+    "frontend_health": true,
+    "all_final_peer_positions": true,
+    "final_town_positions_saved": true,
+    "all_clients": true,
+    "actual_nogil": true
+  },
+  "metrics": {
+    "pickup": {
+      "n": 1710,
+      "mean_ms": 7.088238947370516,
+      "p50_ms": 6,
+      "p95_ms": 13,
+      "p99_ms": 26,
+      "max_ms": 248.52329999976064,
+      "resolution_ms": 1
+    },
+    "death": {
+      "n": 1710,
+      "mean_ms": 15.123520292402045,
+      "p50_ms": 14,
+      "p95_ms": 25,
+      "p99_ms": 37,
+      "max_ms": 238.478099999611,
+      "resolution_ms": 1
+    },
+    "glass": {
+      "n": 114,
+      "mean_ms": 12.214592105293745,
+      "p50_ms": 12,
+      "p95_ms": 17,
+      "p99_ms": 24,
+      "max_ms": 23.761999999805994,
+      "resolution_ms": 1
+    },
+    "map": {
+      "n": 114,
+      "mean_ms": 19.079507894718375,
+      "p50_ms": 19,
+      "p95_ms": 28,
+      "p99_ms": 29,
+      "max_ms": 29.52629999981582,
+      "resolution_ms": 1
+    },
+    "town_handler": {
+      "n": 4200,
+      "mean_ms": 2.6468514761930755,
+      "p50_ms": 3,
+      "p95_ms": 5,
+      "p99_ms": 11,
+      "max_ms": 58.973799999876064,
+      "resolution_ms": 1
+    },
+    "movement_relay": {
+      "n": 46200,
+      "mean_ms": 6.374574515074533,
+      "p50_ms": 4,
+      "p95_ms": 28,
+      "p99_ms": 61,
+      "max_ms": 127.89286679708312,
+      "resolution_ms": 1
+    },
+    "movement_cadence_excess": {
+      "n": 46068,
+      "mean_ms": 4.3318749717815965,
+      "p50_ms": 1,
+      "p95_ms": 22,
+      "p99_ms": 56,
+      "max_ms": 124.01660000005066,
+      "resolution_ms": 1
+    },
+    "movement_relay_first45s": {
+      "n": 36300,
+      "mean_ms": 6.164617812757505,
+      "p50_ms": 4,
+      "p95_ms": 25,
+      "p99_ms": 59,
+      "max_ms": 127.89286679708312,
+      "resolution_ms": 1
+    },
+    "steady_after45s": {
+      "n": 9900,
+      "mean_ms": 7.1444157569036735,
+      "p50_ms": 3,
+      "p95_ms": 42,
+      "p99_ms": 66,
+      "max_ms": 113.50759335937255,
+      "resolution_ms": 1
+    }
+  },
+  "online_capacity_claim": false,
+  "diagnostic_only": true,
+  "runtime_parent": {
+    "parent_path": "G:\\els\\releases\\online\\native-achievement-equipped-set-history-20261107-v2",
+    "parent_release": "native-achievement-equipped-set-history-20261107-v2",
+    "parent_manifest_sha256": "9c63345f34fda6187ec5707f8abbf8e4b1e1586a481217f0a07978413b559f50",
+    "retained_new_parent_features": true
+  },
+  "egress_mbps": 4.4,
+  "real_event_log": true,
+  "source_bindings": {
+    "solo-end-suite/els_server/__main__.py": "9c5cab4b9e7f5dc0c1791b3e9f01c616ec0d7a930fcdfaab27c4db0b73455bc2",
+    "solo-end-suite/els_server/application.py": "e37f0059bc1b17d046f7652d1cefc1f37c4708309752f66b79a52583177cfa39",
+    "solo-end-suite/els_server/config.py": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60",
+    "solo-end-suite/els_server/domain/achievement_flow.py": "6119904975d89d361eb81e9888e45529b3c38936d7e686ba038e52d6812e823b",
+    "solo-end-suite/els_server/domain/elixir_flow.py": "e0ff930354f15077f46589b23f2169dafe0cb4b6f0a8bebce14d213820ed061b",
+    "solo-end-suite/els_server/domain/friend_flow.py": "898ccbd8b91be003d5d12b29e423e1d34fe00e6fe6fd471e00db3fbcac09a6b5",
+    "solo-end-suite/els_server/domain/friends_world.py": "a28cd540761f3fb88abc7f7d55c1f8d949a6d33d2fd84d7a496b97506776d061",
+    "solo-end-suite/els_server/domain/inventory_items.py": "70ac6efc2bb004764369eb24dd0e841c24e26000064de8f024d91bcbd844c00e",
+    "solo-end-suite/els_server/domain/local_session.py": "5a9415fd58c52877962769bdef3ebe1f5af010331844dba43e70fd9e4a32c939",
+    "solo-end-suite/els_server/domain/mentor_flow.py": "a348a340024ec04b4c3db9b96ecfaf2066cc6ff637ca980c23b82fb716a8d57f",
+    "solo-end-suite/els_server/domain/native_session_sources.py": "f23aa3703ef5f376504243a97c3f26da8e144b3872ce6a841ab3e68676b5fffc",
+    "solo-end-suite/els_server/domain/session_auxiliary.py": "c8f4f1337483d9d9af786520945ad1e799ee35739e62ec197f665ed1840198ce",
+    "solo-end-suite/els_server/dungeon_workers.py": "5699a5e6fdffcd9631b3a5a6c5ecc8aa4dcdc06411b1c0707c8be3af5cabf97e",
+    "solo-end-suite/els_server/egress_budget.py": "ea415ad231cf2158bb4282b2993551c0184298ebb9bff0e665d327b96047f5c0",
+    "solo-end-suite/els_server/native_outbox.py": "ba2d72106d989624a1378343fc24f7e107b81df9f0799ad3bf39228a6481405e",
+    "solo-end-suite/els_server/observability.py": "6047b412812de81060e2447e1684a459c7170a01dd3526f0d10591547b10b8b0",
+    "solo-end-suite/els_server/periodic_scheduler.py": "7aeeea4ab444c853c868aada4515821c075689ef65832415f38c93fafcc0f596",
+    "solo-end-suite/els_server/protocol/dungeon_messages.py": "e0634bcc2fd0acd5fe9871cb6d5e7eaff8dbd7125ca1682e987aee6d64d3075c",
+    "solo-end-suite/els_server/realtime.py": "c167607037bb65a430bad1d7b9bc0a3c3b264681199e4edbe3168bb771ebdff1",
+    "solo-end-suite/els_server/storage/achievement_collections.py": "f94698ae785b14439a478b45c7ec9d4d265ca993a1182d87377a1f063b53a0b0",
+    "solo-end-suite/els_server/storage/achievement_profiles.py": "3e406e7318582fde8e275c283cfee61c5d0aae7e3792a504b550620d0e38be11",
+    "solo-end-suite/els_server/storage/clock_writer.py": "d306e4d1ae10b0d7154baf86f770e020b17f79bcd9b548706a0560b01e412ee0",
+    "solo-end-suite/els_server/storage/death_writer.py": "d8ca4cff5009a11d7fa787355ac8120de1ca9b89eb43b71e82709d7b3edd5abe",
+    "solo-end-suite/els_server/storage/inventory_state.py": "0db23127a6bf7660a6fb152991be96980701abeefdba8468dc08601d5030c790",
+    "solo-end-suite/els_server/storage/position_writer.py": "6a7429fb340bc36b4492522ec4518cfc0ea68f9cc56932f0c2ee5cb2f96f1fae",
+    "solo-end-suite/els_server/storage/read_scope.py": "f660c37f47b804ef858efa827401516274759d9659bf974c4342333655a65ee0",
+    "solo-end-suite/els_server/storage/title_drop_rewards.py": "e456639f7b7618b1e01db1c55983696a38aeb1cdfd5ada7677c51c21ef7aef12",
+    "solo-end-suite/els_server/transport.py": "839b179cab480aea88c8c19cb832b6ecb02ddc980a8b8c647034f841be3dd312",
+    "runtime/sqlite3.dll": "4b59d3cded9dc1608544160f3b4b10ac974c6ac0d6ffc23064e5f4c8dbd05aea"
+  },
+  "natural_GUI": false,
+  "natural_battle": false,
+  "UDP_capacity_claim": false
+}

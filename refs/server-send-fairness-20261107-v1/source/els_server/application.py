@@ -71,7 +71,7 @@ class FriendsSession(LocalSession):
         from els_server.domain.ariel_attendance_preview import project as reward_preview
         return reward_preview(self,ice_sale_sync(self,replies))
 
-    def _shared_request(self,event,request_sequence):
+    def _shared_request(self,event,request_sequence,*,defer_solo_end=False):
         # The fixed DX11 capture's 7D0 is an unconsumed nine-byte auxiliary
         # notification, emitted five times a second. It has no domain handler.
         # Authentication and stream sequencing still run. The existing
@@ -118,6 +118,9 @@ class FriendsSession(LocalSession):
         if result is not None:return self.activity_reply(result+self._mailbox_messages())
         result=self.application.world.field_bosses.request(self,event,request_sequence)
         if result is not None:return self.activity_reply(result+self._mailbox_messages())
+        # The caller retains the original account domain for an eligible solo
+        # exit. Earlier shared handlers run here in their original order.
+        if defer_solo_end:return None
         # Persist the native final selector before ordinary dungeon detach.
         from els_server.domain.luciel_native_end import handle as luciel_end_handle
         result=luciel_end_handle(self,event,request_sequence)
@@ -173,12 +176,17 @@ class FriendsSession(LocalSession):
             result=remember(self,result+self._mailbox_messages());relay(self)
             from els_server.domain.achievement_flow import synchronize as achievement_sync
             return achievement_sync(self,event,result)
+        own_end=(event.event_id==0x202 and event.kind==0x67
+            and self.application.dungeon_workers.solo_transition(self.handle,(event,)))
         with self.application.world_lock:
-            result=self._shared_request(event,request_sequence)
+            result=self._shared_request(event,request_sequence,defer_solo_end=own_end)
+            if result is not None:return self._shared_reply(event,result)
+        if own_end:
+            from els_server.domain.luciel_native_end import handle as luciel_end_handle
+            result=luciel_end_handle(self,event,request_sequence)
             if result is not None:
-                from els_server.domain.friend_flow import synchronize as friend_sync
-                from els_server.domain.achievement_flow import synchronize as achievement_sync
-                return self.application.world.mentors.synchronize(self,event,friend_sync(self,event,achievement_sync(self,event,result)))
+                with self.application.world_lock:
+                    return self._shared_reply(event,self.activity_reply(result+self._mailbox_messages()))
         selecting=event.event_id==0x202 and event.kind==0x28
         entering_town=event.event_id==0x202 and event.kind==0x227 and self.phase=='square_accepted'
         own_town_input=entering_town and self.application.dungeon_workers.town_preparation(self.handle,(event,))
@@ -209,6 +217,11 @@ class FriendsSession(LocalSession):
             if entering_town and self.phase=='town_ready':
                 self._town_entered_at=time.monotonic();self.next_periodic=max(self.next_periodic,self._town_entered_at+1)
             return result
+
+    def _shared_reply(self,event,result):
+        from els_server.domain.friend_flow import synchronize as friend_sync
+        from els_server.domain.achievement_flow import synchronize as achievement_sync
+        return self.application.world.mentors.synchronize(self,event,friend_sync(self,event,achievement_sync(self,event,result)))
 
     def _after_local(self,event,result,*,town_member=None):
         leases=self.application.playing

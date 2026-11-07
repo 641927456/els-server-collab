@@ -1,6 +1,7 @@
 """Bind archived bytes and run behavioral state/order/quota checks."""
 import ast,copy,hashlib,json,subprocess,sys,tomllib
 from pathlib import Path
+from contract_solo_end import normalize_solo_end
 A=Path(__file__).resolve().parent;ROOT=A.parents[1]
 def tree(path):return ast.parse(path.read_bytes())
 def cls(t,name):return next(n for n in t.body if isinstance(n,ast.ClassDef)and n.name==name)
@@ -41,6 +42,7 @@ def main():
  assert ast.dump(roster_admission)==ast.dump(ast.parse('preparation=own_preparation and(transition or args[0].kind in(0x28,0x227,0x485))').body[0]),'Heavy native roster queries must use the existing preparation admission'
  for name,methods in [('application.py',{'FriendsSession':{'__init__'},'Application':{'_dispatch','_worker_call'}}),('dungeon_workers.py',{'DungeonWorkers':{'publish'}}),('realtime.py',{'RealtimeState':{'__init__','publish'}}),('periodic_scheduler.py',{'PeriodicScheduler':{'_notify'}}),('domain/friends_world.py',{'Mailbox':{'append'}})]:
   before=tree(A/'runtime-parent/els_server'/name);after=tree(A/'source/els_server'/name)
+  if name=='application.py':normalize_solo_end(before,after)
   for t in(before,after):
    for owner,names in methods.items():
     c=cls(t,owner);c.body=[n for n in c.body if not(isinstance(n,(ast.FunctionDef,ast.AsyncFunctionDef))and n.name in names)]
