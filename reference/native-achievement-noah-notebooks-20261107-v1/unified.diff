@@ -1,0 +1,154 @@
+--- parent/els_server/domain/achievement_flow.py
++++ candidate/els_server/domain/achievement_flow.py
+@@ -117,6 +117,8 @@
+     if event is not None and event.event_id==0x202 and event.kind==0x6c8:sources.add(24)
+     spa=getattr(s,'_achievement_spa_source',None)
+     if spa is not None and spa[:2]==(s.account.account_id,s.account.uid):sources.add(7)
++    notebook=getattr(s,'_achievement_notebook_source',None)
++    if notebook is not None and notebook[:2]==(s.account.account_id,s.account.uid):sources.add(66)
+     now=int(time.time());day=(now+28800)//86400
+     play_clock=s.role=='game'and s.phase in('town_ready','guild_agit_ready','dungeon_active','wedding_hall','pvp_loading','pvp_active','pvp_reporting','pvp_result','dungeon_loading','map_loading','square_accepted')
+     if(cold or play_clock)and getattr(s,'_achievement_play_day',None)!=(s.account.account_id,day):sources.add(10)
+@@ -146,6 +148,7 @@
+         s._achievement_couple_due=(s.account.account_id,s.account.uid,updated['couple_due'])if updated['couple_due']is not None else None
+     if spa is not None and 7 in sources:s._achievement_spa_source=None
+     if 10 in sources:s._achievement_play_day=(s.account.account_id,day)
++    if notebook is not None and 66 in sources:s._achievement_notebook_source=None
+     if message is None:return response
+     if updated['completed']:_appearance_changed(s)
+     return [*response,message]
+--- parent/els_server/domain/town_dialogue.py
++++ candidate/els_server/domain/town_dialogue.py
+@@ -2,6 +2,8 @@
+ import functools,hashlib,json
+ from els_server.paths import PROJECT_ROOT
+ from els_server.game_data import CLIENT_SHA,client_data
++
++NOTEBOOK_NPCS=frozenset((10372,10373,10374,10375))
+ 
+ QUEST=13
+ NPC=10018
+@@ -155,7 +157,8 @@
+     if event.event_id!=0x202 or event.kind!=0xfd:return None
+     try:npc=wire.request(event.payload)
+     except ValueError:return [wire.acknowledgement(result=QUEST_REWARD_UNAVAILABLE)]
+-    binding=catalog()['npc_bindings'].get(str(npc))
++    notebook=npc in NOTEBOOK_NPCS
++    binding=dict(towns={'20012':1004})if notebook else catalog()['npc_bindings'].get(str(npc))
+     if binding is None:return None
+     if (s.role!='game' or s.phase!='town_ready' or str(s.active_map) not in binding['towns']
+         or s.account.get_location()['map']!=s.active_map or type(sequence) is not int or not 1<=sequence<2**32
+@@ -163,6 +166,13 @@
+         or event.payload_mode!=0):return [wire.acknowledgement(result=QUEST_REQUIREMENTS_NOT_MET)]
+     from els_server.storage.town_dialogue import interact
+     from els_server.domain.quest_flow import store
++    if notebook:
++        from els_server.domain.friend_flow import capture
++        from els_server.storage.town_dialogue import read_notebook
++        try:answer=read_notebook(store(s),npc,capture(s))
++        except ValueError:return [wire.acknowledgement(result=QUEST_REQUIREMENTS_NOT_MET)]
++        s._achievement_notebook_source=(s.account.account_id,s.account.uid,npc)
++        return answer
+     operation=s.shop_session_id+':town-npc-talk:'+str(s.account.uid)+':'+str(sequence)
+     try:return interact(store(s),npc,operation)
+     except ValueError:return [wire.acknowledgement(result=QUEST_REQUIREMENTS_NOT_MET)]
+--- parent/els_server/storage/achievement_history.py
++++ candidate/els_server/storage/achievement_history.py
+@@ -11,14 +11,22 @@
+ 
+ def record_play_day(db,account,owner,now):
+     """Approved UTC+8 calendar date, once per account; caller owns the SQL."""
++    day=(now+28800)//86400
++    _account_source(db,account,owner,'play-day',day,dict(day=day))
++    return day
++
++
++def record_notebook(db,account,owner,npc):
++    _account_source(db,account,owner,'noah-note',npc,dict(npc=npc))
++
++
++def _account_source(db,account,owner,kind,key,payload):
+     from els_server.storage import achievements as state
+-    state._actor(db,account,owner);state.ensure(db)
+-    day=(now+28800)//86400;operation=f'play-day:{account}:{day}';payload=dict(day=day)
+-    # The original earner may be another sibling, including a deleted role.
++    state._actor(db,account,owner);state.ensure(db);operation=f'{kind}:{account}:{key}'
++    # A sibling can reuse a source originally recorded by another role.
+     old=db.execute('SELECT owner FROM native_achievement_operations WHERE operation=?',(operation,)).fetchone()
+-    digest,previous=state._operation(db,account,old[0]if old else owner,'play-day',payload,operation)
+-    if previous is None:state._save(db,account,owner,'play-day',digest,operation,payload)
+-    return day
++    digest,previous=state._operation(db,account,old[0]if old else owner,kind,payload,operation)
++    if previous is None:state._save(db,account,owner,kind,digest,operation,payload)
+ 
+ 
+ def ensure_indexes(db):
+@@ -111,8 +119,11 @@
+ 
+ 
+ def counts(db,account,condition_types):
+-    if not condition_types&{2,4,5,7,10,16,18,19,23,24,25,26,27,28,29,30,32,35,36,43,44,45,51,52,53,56,57,58,60,61,62,63}:return {}
++    if not condition_types&{2,4,5,7,10,16,18,19,23,24,25,26,27,28,29,30,32,35,36,43,44,45,51,52,53,56,57,58,60,61,62,63,66}:return {}
+     tables=present(db);result={}
++    if 66 in condition_types and 'native_achievement_operations'in tables:
++        for raw, in db.execute("SELECT result_json FROM native_achievement_operations WHERE account_id=?AND kind='noah-note'",(account,)):
++            result[(66,json.loads(raw)['npc'])]=1
+     if 10 in condition_types and 'native_achievement_operations'in tables:
+         result[(10,0)]=db.execute("SELECT COUNT(*)FROM native_achievement_operations WHERE account_id=?AND kind='play-day'",(account,)).fetchone()[0]
+     if 7 in condition_types and 'native_achievement_operations'in tables:
+--- parent/els_server/storage/achievement_profiles.py
++++ candidate/els_server/storage/achievement_profiles.py
+@@ -6,7 +6,7 @@
+ from els_server.storage.achievement_collections import counts as collection_counts
+ from els_server.storage.achievement_history import counts as history_counts,couple_duration
+ 
+-CONDITION_TYPES=frozenset((2,4,5,6,7,10,15,16,18,19,20,23,24,25,26,27,28,29,30,32,35,36,37,38,39,42,43,44,45,50,51,52,53,56,57,58,60,61,62,63,67,68))
++CONDITION_TYPES=frozenset((2,4,5,6,7,10,15,16,18,19,20,23,24,25,26,27,28,29,30,32,35,36,37,38,39,42,43,44,45,50,51,52,53,56,57,58,60,61,62,63,66,67,68))
+ 
+ 
+ def reconcile(db,account,owner,now,*,condition_types=CONDITION_TYPES):
+@@ -49,13 +49,14 @@
+             elif kind in(37,38):value=collections.get((kind,parameters['m_eUnitType']),0)
+             elif kind==39:value=collections[(39,0)]
+             elif kind==50:value=collections[(50,identity)]
++            elif kind==66:value=history.get((66,parameters['m_iNpcId']),0)
+             elif kind==42:value=collections.get((42,parameters['m_eTitleTypeID']),0)
+             elif kind==67:value=collections[(67,parameters['m_iClassLine'])]
+             elif kind==68:value=collections[(68,0)]
+             else:continue
+             previous=old.get((identity,condition['id']),(0,False))
+             value=max(value,previous[0])
+-            target=1 if kind==2 else parameters['m_iLevel'if kind in(6,15,57)else'm_iCount']
++            target=1 if kind in(2,66)else parameters['m_iLevel'if kind in(6,15,57)else'm_iCount']
+             complete=value>=target
+             if kind==20 and not complete and duration[1]is not None:
+                 due=duration[1]+target*86400
+--- parent/els_server/storage/town_dialogue.py
++++ candidate/els_server/storage/town_dialogue.py
+@@ -6,6 +6,7 @@
+ from els_server.storage.seal_quests import load_character,completed_ids,_state
+ from els_server.storage.inventory_state import load_items
+ from els_server.protocol import quest_messages,tutorial_dialogue_messages
++from els_server.protocol.protocol_codec import encode_event
+ 
+ def interact(store,npc,operation):
+     if type(npc) is not int or str(npc) not in catalog()['npc_bindings'] or not isinstance(operation,str) or not 1<=len(operation)<=200:raise ValueError('Town dialogue identity')
+@@ -65,3 +66,18 @@
+             for active in contract_sources:contract26780.dialogue_source(db,store,active,npc,saved[0])
+         if any(not isinstance(e.payload,bytes) or len(e.payload)>65536 for e in events):raise ValueError('Town dialogue response bound')
+         return events
++
++
++def read_notebook(store,npc,guard):
++    """Original Noah-only20012/scene1004 conversation; no quest or item award."""
++    from els_server.storage.achievement_history import record_notebook
++    with closing(sqlite3.connect(store.path,timeout=10))as db,db:
++        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');guard(db)
++        character=load_character(db,store.uid,store.account_id,identity_only=True)
++        if character['unit_type']!=14 or db.execute('SELECT town FROM location WHERE uid=?',(store.uid,)).fetchone()!=(20012,):
++            raise ValueError('Notebook requires current Noah laboratory actor')
++        record_notebook(db,store.account_id,store.uid,npc)
++        answer=[tutorial_dialogue_messages.acknowledgement()]
++        for event in answer:encode_event(event)
++        guard(db)
++    return answer
