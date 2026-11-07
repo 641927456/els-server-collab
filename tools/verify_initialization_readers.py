@@ -50,7 +50,10 @@ def main():
             view=Path(folder)/'engine'
             materialize(ROOT,final,channel,view,assets_root=args.assets_root,link_assets=True)
             (view/'tests').mkdir();(view/'tools').mkdir()
-            for test in tests:shutil.copyfile(ROOT/'tests'/test,view/'tests'/test)
+            queue_fixture=read(ROOT/'references/ci-queue-gate-20261108-v1/test-inputs.json')['files']['pinned-inputs/tests/test_peak_business_concurrency.py']
+            queue_source=bound(ROOT,queue_fixture['source']);raw=queue_source.read_bytes()
+            assert hashlib.sha256(raw).hexdigest()==queue_fixture['sha256'] and len(raw)==queue_fixture['size']
+            for test in tests:shutil.copyfile(queue_source if test=='test_peak_business_concurrency.py' else ROOT/'tests'/test,view/'tests'/test)
             shutil.copyfile(ROOT/'tests/test_item_expiration.py',view/'tests/test_item_expiration.py')
             for tool in ('create_friends_certificate.py','import_friends_save.py'):
                 shutil.copyfile(ROOT/'tools'/tool,view/'tools'/tool)

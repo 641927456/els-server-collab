@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "scope": "Historical CI test fixture; production and signed payload unchanged",
+  "cause": "A wall-clock gate.wait(3) can release the worker before waiter/capacity assertions. The fixture now waits for its explicit event. Existing three-second predicate deadlines remain; asyncTearDown already always sets the event.",
+  "original_test_sha256": "0c1cc1f7376a2720833b6657b80d419a9f4787cc00d8c7384e75a57bd31e2d38",
+  "fixed_test_sha256": "666f8dc80c35353ce676ab1de257791e778646fe14e68164fe376f3c8433f06f",
+  "pinned_queue": {
+    "path": "els_server/business_queue.py",
+    "source": "references/server-structure-20261029-v1/source/76f9fc5bcee5151a0aa1f956a907df1497161bc48ae66a933e4115779fde5c11/business_queue.py",
+    "sha256": "76f9fc5bcee5151a0aa1f956a907df1497161bc48ae66a933e4115779fde5c11",
+    "size": 3882
+  },
+  "controlled_delay_seconds": 3.15,
+  "old_controlled_case": {
+    "passed": false,
+    "expected_failure": "TimeoutError waiting for 64 waiters"
+  },
+  "fixed_controlled_case": {
+    "passed": true
+  },
+  "affected_tests": [
+    "test_256_producers_bounded_fifo_one_worker",
+    "test_cancellation_storm_does_not_return_capacity_early",
+    "test_cancel_running_keeps_committed_result_and_capacity",
+    "test_shutdown_cancels_only_unsubmitted_waiters",
+    "test_application_periodic_and_direct_calls_share_capacity"
+  ],
+  "normal_affected_tests_passed": 5,
+  "reused_successes": "The initial exact-pinned run reached the normal-result assertion after the controlled old failure and fixed success; its only normal error was missing config/combat_rules.json in the application case. The four pure-queue cases passed. Those successes are retained; only the configuration-dependent application case was rerun.",
+  "corrected_materialization": "Copied the exact profile-pinned combat_rules.json; no config value changed",
+  "application_case": {
+    "passed": true,
+    "tests": 1,
+    "seconds": 0.3633155000061379,
+    "errors": [],
+    "failures": []
+  },
+  "historical_manifests_modified": false,
+  "live_queue_modified": false,
+  "signed_payload_modified": false,
+  "original_CI_phase_elapsed_not_logged": true
+}
