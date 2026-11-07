@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "private_delivery_scenario": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "completed": [
+    [
+      109,
+      114
+    ],
+    [
+      109,
+      114
+    ],
+    []
+  ],
+  "checks": [
+    "Mutual3FB/3FEacceptance consumes one owned ring and immediately completes109 for both accounts; refusal and repeated answer add none",
+    "Normal887current-hour reservation, actual personalized mail claim and88Bthree-role entry run without clock patches",
+    "Guest start and spouse refusal add none; actual41F/422mutual consent immediately completes114 for both spouses only",
+    "Repeated consent is a silent no-op; repeated6BEis stable; alternative-character cold login shares progress and keeps independent display"
+  ],
+  "natural_GUI": false,
+  "natural_acquisition": false,
+  "production_clock_patch": false,
+  "errors": [],
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "f4f2d00f21c036e87efa86707deb13c1944ca1a873ed65548f381ae0768280ee",
+    "els_server/storage/achievement_history.py": "0de4da61171c45c54ffa3b8f62fbc7dc24beedef7e0d82daf3df95636aa0f4fc",
+    "els_server/storage/achievement_profiles.py": "93458f2597dbae320a0f637385f6dcc6e5fef1825c4fc1909b7d84aeb8b978cf"
+  },
+  "scenario_sha256": {
+    "achievement_fixture.py": "b9001d21195dc71d14c1798fabf406a2239745067e5d0dd32c8dd45be6ff05ae",
+    "achievement_protocol_client.py": "c3073f111fda41923ab86572bd6dcf3014476f932274fc2f9d1951848cb6f188",
+    "achievement_relationship_client.py": "2aed51ae340207d7732dba26431f4ba6a36e983e245590b36331287933b9dd2c"
+  }
+}
