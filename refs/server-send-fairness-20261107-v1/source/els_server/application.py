@@ -803,6 +803,12 @@ class Application:
             from els_server.storage.game_schema import prepare
             from els_server.storage.characters import Characters
             prepare(self.config.state_file)
+            from contextlib import closing
+            import sqlite3
+            from els_server.storage.achievement_history import ensure_indexes as prepare_achievement_indexes
+            from els_server.storage.sqlite_timing import write_transaction
+            with closing(sqlite3.connect(self.config.state_file,timeout=10))as db,write_transaction(db):
+                prepare_achievement_indexes(db)
             Characters(self.config.state_file,1)
             from els_server.storage.master_presets import repair as repair_master_presets
             repair_master_presets(self.config.state_file)

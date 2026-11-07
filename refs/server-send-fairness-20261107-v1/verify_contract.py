@@ -2,11 +2,24 @@
 import ast,copy,hashlib,json,subprocess,sys,tomllib
 from pathlib import Path
 from contract_solo_end import normalize_solo_end
+from contract_startup_index import normalize_startup_index
 A=Path(__file__).resolve().parent;ROOT=A.parents[1]
 def tree(path):return ast.parse(path.read_bytes())
 def cls(t,name):return next(n for n in t.body if isinstance(n,ast.ClassDef)and n.name==name)
 def main():
  b=json.loads((A/'source-bindings.json').read_bytes());assert len(b['files'])==28
+ retained_notebook=json.loads((A/'notebook-parent-retention.json').read_bytes())
+ assert retained_notebook['retained']and retained_notebook['parent']==b['runtime_parent']
+ assert len(retained_notebook['accepted_twelve_files'])==12
+ for name,digest in retained_notebook['accepted_twelve_files'].items():
+  p=A/'retention-parent/notebook'/name;assert hashlib.sha256(p.read_bytes()).hexdigest()==digest
+  if p.suffix=='.py':tree(p)
+  else:json.loads(p.read_bytes())
+ promoted=json.loads((A/'startup-index-promotion.json').read_bytes())
+ assert promoted['promoted']and promoted['normalized_full_AST_matches_previous']
+ assert promoted['current_source_files']=={name:row['sha256']for name,row in b['files'].items()}
+ assert promoted['native_startup_proof_sha256']==hashlib.sha256((A/'native-startup-index.json').read_bytes()).hexdigest()
+ assert retained_notebook['native_marker_equivalence_and_rollback_sha256']==hashlib.sha256((A/'native-notebook-marker.json').read_bytes()).hexdigest()
  for rows in(b['files'],b['runtime_parent_files']):
   for row in rows.values():
    p=ROOT/row['source'];assert p.resolve().is_relative_to(A)and hashlib.sha256(p.read_bytes()).hexdigest()==row['sha256'];tree(p)
@@ -60,6 +73,7 @@ def main():
    assert len(assignments)==1;guard.finalbody.remove(assignments[0])
    tests=[n for n in ast.walk(deliver)if isinstance(n,ast.IfExp)and ast.unparse(n.test)=='pending or queued_town_notice'];assert len(tests)==1;tests[0].test=ast.Name(id='pending',ctx=ast.Load())
   if name=='application.py':
+   normalize_startup_index(after)
    original_call=next(n for n in cls(before,'Application').body if isinstance(n,ast.AsyncFunctionDef)and n.name=='call')
    updated_call=next(n for n in cls(after,'Application').body if isinstance(n,ast.AsyncFunctionDef)and n.name=='call')
    assert [ast.dump(n)for n in updated_call.body[:2]]==[ast.dump(n)for n in original_call.body[:2]]
@@ -321,7 +335,7 @@ achievement_catalog();achievement_rewards()''').body
  start=next(i for i,n in enumerate(sync.body)if isinstance(n,ast.If)and ast.unparse(n.test)=='10 not in sources')
  assert not sync.body[start].orelse
  preflight=sync.body[start].body
- expected=ast.parse("from els_server.storage.read_scope import snapshot_connection\noptions={}if cold or arrival else dict(condition_types=sources)\nwith snapshot_connection(s.account.store.path)as db:\n    db.execute('BEGIN');guard(db)\n    plan=pending_updates(db,s.account.account_id,s.account.uid,now,**options)\n    if not plan['updates']:\n        answer=response\n        if cold or arrival:\n            current=state.snapshot(db,s.account.account_id,s.account.uid)\n            message=wire.summary(points(current['completed']),current['watched'],False)\n            encode_event(message);answer=[*response,message]\n    guard(db)\nif not plan['updates']:\n    if 'couple_due'in plan:\n        s._achievement_couple_due=(s.account.account_id,s.account.uid,plan['couple_due'])if plan['couple_due']is not None else None\n    if spa is not None and 7 in sources:s._achievement_spa_source=None\n    return answer").body
+ expected=ast.parse("from els_server.storage.read_scope import snapshot_connection\noptions={}if cold or arrival else dict(condition_types=sources)\nwith snapshot_connection(s.account.store.path)as db:\n    db.execute('BEGIN');guard(db)\n    plan=pending_updates(db,s.account.account_id,s.account.uid,now,**options)\n    if not plan['updates']:\n        answer=response\n        if cold or arrival:\n            current=state.snapshot(db,s.account.account_id,s.account.uid)\n            message=wire.summary(points(current['completed']),current['watched'],False)\n            encode_event(message);answer=[*response,message]\n    guard(db)\nif not plan['updates']:\n    if 'couple_due'in plan:\n        s._achievement_couple_due=(s.account.account_id,s.account.uid,plan['couple_due'])if plan['couple_due']is not None else None\n    if spa is not None and 7 in sources:s._achievement_spa_source=None\n    if notebook is not None and 66 in sources:s._achievement_notebook_source=None\n    return answer").body
  assert ast.dump(ast.Module(body=preflight,type_ignores=[]))==ast.dump(ast.Module(body=expected,type_ignores=[]))
  del sync.body[start]
  imports=[n for n in sync.body if isinstance(n,ast.ImportFrom)and n.module=='els_server.storage.sqlite_timing'];assert len(imports)==1 and[(v.name,v.asname)for v in imports[0].names]==[('write_transaction',None)];sync.body.remove(imports[0])

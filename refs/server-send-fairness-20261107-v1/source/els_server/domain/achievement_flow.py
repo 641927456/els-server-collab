@@ -91,7 +91,7 @@ def synchronize(s,event,response):
     if 0x424 in kinds:sources.add(19)
     if kinds&{0x3ff,0x41d,0x41e,0x424,0x890}:sources.add(20)
     if 0x5c7 in kinds:sources.add(29)
-    if 0xc1 in kinds:sources.add(2)
+    if 0xc1 in kinds:sources.update((2,49))
     if 0xc2 in kinds:sources.update((4,5))
     if 0x291 in kinds:sources.add(23)
     if 0x27e in kinds:sources.add(26)
@@ -115,8 +115,11 @@ def synchronize(s,event,response):
     # Original guild refusal has no ACK. Only its committed6C8 action journal
     # can increase the count; replay or a refusal without an invitation cannot.
     if event is not None and event.event_id==0x202 and event.kind==0x6c8:sources.add(24)
+    if event is not None and event.event_id==0x202 and event.kind==0xea:sources.add(34)
     spa=getattr(s,'_achievement_spa_source',None)
     if spa is not None and spa[:2]==(s.account.account_id,s.account.uid):sources.add(7)
+    notebook=getattr(s,'_achievement_notebook_source',None)
+    if notebook is not None and notebook[:2]==(s.account.account_id,s.account.uid):sources.add(66)
     now=int(time.time());day=(now+28800)//86400
     play_clock=s.role=='game'and s.phase in('town_ready','guild_agit_ready','dungeon_active','wedding_hall','pvp_loading','pvp_active','pvp_reporting','pvp_result','dungeon_loading','map_loading','square_accepted')
     if(cold or play_clock)and getattr(s,'_achievement_play_day',None)!=(s.account.account_id,day):sources.add(10)
@@ -143,6 +146,7 @@ def synchronize(s,event,response):
             if 'couple_due'in plan:
                 s._achievement_couple_due=(s.account.account_id,s.account.uid,plan['couple_due'])if plan['couple_due']is not None else None
             if spa is not None and 7 in sources:s._achievement_spa_source=None
+            if notebook is not None and 66 in sources:s._achievement_notebook_source=None
             return answer
     from els_server.storage.sqlite_timing import write_transaction
     with closing(sqlite3.connect(Path(s.account.store.path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db:
@@ -169,6 +173,7 @@ def synchronize(s,event,response):
         s._achievement_couple_due=(s.account.account_id,s.account.uid,updated['couple_due'])if updated['couple_due']is not None else None
     if spa is not None and 7 in sources:s._achievement_spa_source=None
     if 10 in sources:s._achievement_play_day=(s.account.account_id,day)
+    if notebook is not None and 66 in sources:s._achievement_notebook_source=None
     if message is None:return response
     if updated['completed']:_appearance_changed(s)
     return [*response,message]

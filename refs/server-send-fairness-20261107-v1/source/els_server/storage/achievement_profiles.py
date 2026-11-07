@@ -6,7 +6,7 @@ from els_server.storage import profession_state,resonance_state
 from els_server.storage.achievement_collections import counts as collection_counts
 from els_server.storage.achievement_history import counts as history_counts,couple_duration
 
-CONDITION_TYPES=frozenset((2,4,5,6,7,10,15,16,18,19,20,23,24,25,26,27,28,29,30,32,35,36,37,38,39,42,43,44,45,50,51,52,53,56,57,58,60,61,62,63,67,68))
+CONDITION_TYPES=frozenset((2,4,5,6,7,10,15,16,18,19,20,23,24,25,26,27,28,29,30,32,34,35,36,37,38,39,42,43,44,45,49,50,51,52,53,56,57,58,60,61,62,63,66,67,68))
 
 
 def pending_updates(db,account,owner,now,*,condition_types=CONDITION_TYPES):
@@ -48,14 +48,17 @@ def pending_updates(db,account,owner,now,*,condition_types=CONDITION_TYPES):
             elif kind==35:value=history.get((kind,parameters['m_iGroupID']),0)
             elif kind in(37,38):value=collections.get((kind,parameters['m_eUnitType']),0)
             elif kind==39:value=collections[(39,0)]
+            elif kind==49:value=history.get((49,parameters['m_iDungeonID']),0)
+            elif kind==34:value=history.get((34,parameters['m_iItemID']),0)
             elif kind==50:value=collections[(50,identity)]
+            elif kind==66:value=history.get((66,parameters['m_iNpcId']),0)
             elif kind==42:value=collections.get((42,parameters['m_eTitleTypeID']),0)
             elif kind==67:value=collections[(67,parameters['m_iClassLine'])]
             elif kind==68:value=collections[(68,0)]
             else:continue
             previous=old.get((identity,condition['id']),(0,False))
             value=max(value,previous[0])
-            target=1 if kind==2 else parameters['m_iLevel'if kind in(6,15,57)else'm_iCount']
+            target=1 if kind in(2,66)else parameters['m_iLevel'if kind in(6,15,57)else'm_iCount']
             complete=value>=target
             if kind==20 and not complete and duration[1]is not None:
                 due=duration[1]+target*86400

@@ -1,5 +1,5 @@
 {
-  "reused_unchanged_planner_and_flow": true,
+  "reused_original_couple_rules_with_parent_retention": true,
   "verified_dependencies": [
     "els_server/domain/achievement_flow.py",
     "els_server/storage/achievement_profiles.py"
@@ -48,6 +48,55 @@
     "GIL_enabled": false,
     "owned_runtime_removed": true,
     "connections": 0,
-    "errors": []
+    "errors": [],
+    "result_reused_after_startup_index_preparation": {
+      "original_test_source_bindings_preserved": true,
+      "only_existing_index_helper_added_before_listeners": true,
+      "no_player_or_account_rows_changed": true,
+      "promotion_sha256": "f262123c719690485f6b59fd869719f1a8a22515aedb6c5584cba5b8cdb49e75"
+    },
+    "result_reused_after_notebook_parent": {
+      "original_test_source_bindings_preserved": true,
+      "all_other_25_owned_modules_exact": true,
+      "original_new_feature_producers_and_SQL_retained": true,
+      "additional_no_change_notebook_marker_cleanup": true,
+      "retention_sha256": "4082b9f13c1abfebf376b785d21137430907e4735f85e4c732b7477bf354f1cb"
+    },
+    "result_reused_after_santilus_diagnostic_argument": {
+      "original_test_source_bindings_preserved": true,
+      "all_other_27_owned_modules_exact": true,
+      "only_changed_argument": "refusal(...,frame.sequence)",
+      "new_parent_capacity_not_inferred": true,
+      "retention_sha256": "528a90b5f9a5ca65ac2f845c1114e7113662bdcea715597de34d0e432679e62d"
+    },
+    "result_reused_after_solo_end_handoff": {
+      "original_test_source_bindings_preserved": true,
+      "only_application_module_changed_from_preselection_candidate": true,
+      "original_native_end_and_storage_exact": true,
+      "earlier_shared_handler_order_and_post_reply_body_exact": true,
+      "native_equivalence_commit_rollback_and_concurrency_proof": "native-solo-end-variant.json",
+      "promotion_sha256": "4e5388302ed7a4b8ad93ee939fe47389c95f19c450cf870359cc46fd92a681a0"
+    },
+    "result_reused_after_preselection_routing": {
+      "original_test_source_bindings_preserved": true,
+      "changed_modules": [
+        "els_server/application.py",
+        "els_server/dungeon_workers.py"
+      ],
+      "all_other_26_modules_exact": true,
+      "full_AST_equal_after_only_classifier_and_heavy_roster_admission_normalization": true,
+      "original_handler_and_account_domain_unchanged": true,
+      "native_equivalence_and_concurrency_proof": "native-preselection-variant.json",
+      "promotion_sha256": "23080f3d178200955b8d9b4974d10e706f2702d43a49619b4bbd75762c0be955"
+    },
+    "result_reused_after_equipped_set_SQL_filter": {
+      "all_previous_27_source_files_exact": true,
+      "original_parent_module_sha256": "e5e21249eec340dd507b8868b1f41bbe1762b62f4921224c2032c6ef0ab1b54b",
+      "current_module_sha256": "f94698ae785b14439a478b45c7ec9d4d265ca993a1182d87377a1f063b53a0b0",
+      "equivalence_proof": "native-equipped-collection-reader.json",
+      "original_loaded_rows": 299,
+      "current_loaded_rows": 19,
+      "original_test_source_bindings_preserved": true
+    }
   }
 }

@@ -438,12 +438,12 @@ for _row in _essence_pouch_items():
  TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
  TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
 
-# Exact current-source manual magic potion; no acquisition provider is opened.
-from els_server.domain.consumables import manual_magic_potion_definition
-_manual_magic=manual_magic_potion_definition()
-_t=_manual_magic['template'];_expected=(_manual_magic['metadata'],_manual_magic['group'],_manual_magic['max_stack'])
-if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting manual magic potion definition')
-VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+# Source-qualified manual MP recoveries reuse the common native bag6 reader.
+from els_server.domain.consumables import manual_recovery_definitions
+for _row in manual_recovery_definitions():
+ _t=_row['template'];_expected=(_row['metadata'],_row['group'],_row['max_stack'])
+ if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting manual recovery definition')
+ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
 
 # Four exact permanent EP pet acquisition items; no pet activation producer.
 from els_server.domain.ep_pets import definitions as _ep_pet_items

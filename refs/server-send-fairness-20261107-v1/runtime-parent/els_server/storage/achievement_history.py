@@ -1,7 +1,7 @@
 """Trusted progress facts from existing authorities and committed history."""
 import json,struct
 
-TABLES=('native_player_trades','player_mail_receipts','fishing_attempts','pet_expedition_receipts','native_guild_actions','native_guild_operations_v2','native_guild_quest_facts_v2','inventory_action_receipts','resonance2026_reset_receipts','profession_anvil_receipts','consumable_uses','known_resurrection_spends','native_couple_pairs_v1','native_couple_closures_v1','native_wedding_bookings','native_wedding_ceremonies','dungeon_records','official_pvp_profiles','native_achievement_operations')
+TABLES=('native_player_trades','player_mail_receipts','fishing_attempts','pet_expedition_receipts','native_guild_actions','native_guild_operations_v2','native_guild_quest_facts_v2','inventory_action_receipts','resonance2026_reset_receipts','profession_anvil_receipts','consumable_uses','known_resurrection_spends','native_couple_pairs_v1','native_couple_closures_v1','native_wedding_bookings','native_wedding_ceremonies','dungeon_records','reward_receipts','official_pvp_profiles','native_achievement_operations')
 
 
 def present(db):
@@ -11,14 +11,22 @@ def present(db):
 
 def record_play_day(db,account,owner,now):
     """Approved UTC+8 calendar date, once per account; caller owns the SQL."""
-    from els_server.storage import achievements as state
-    state._actor(db,account,owner);state.ensure(db)
-    day=(now+28800)//86400;operation=f'play-day:{account}:{day}';payload=dict(day=day)
-    # The original earner may be another sibling, including a deleted role.
-    old=db.execute('SELECT owner FROM native_achievement_operations WHERE operation=?',(operation,)).fetchone()
-    digest,previous=state._operation(db,account,old[0]if old else owner,'play-day',payload,operation)
-    if previous is None:state._save(db,account,owner,'play-day',digest,operation,payload)
+    day=(now+28800)//86400
+    _account_source(db,account,owner,'play-day',day,dict(day=day))
     return day
+
+
+def record_notebook(db,account,owner,npc):
+    _account_source(db,account,owner,'noah-note',npc,dict(npc=npc))
+
+
+def _account_source(db,account,owner,kind,key,payload):
+    from els_server.storage import achievements as state
+    state._actor(db,account,owner);state.ensure(db);operation=f'{kind}:{account}:{key}'
+    # A sibling can reuse a source originally recorded by another role.
+    old=db.execute('SELECT owner FROM native_achievement_operations WHERE operation=?',(operation,)).fetchone()
+    digest,previous=state._operation(db,account,old[0]if old else owner,kind,payload,operation)
+    if previous is None:state._save(db,account,owner,kind,digest,operation,payload)
 
 
 def ensure_indexes(db):
@@ -47,6 +55,12 @@ def ensure_indexes(db):
         db.execute('CREATE INDEX IF NOT EXISTS native_achievement_consumable_owner_template ON consumable_uses(owner,template)')
     if 'official_pvp_profiles'in tables:
         db.execute('CREATE INDEX IF NOT EXISTS native_achievement_pvp_profile_account ON official_pvp_profiles(account_id,policy)')
+    if 'reward_receipts'in tables:
+        # The original JSON contract omits owner only for uid1001. The
+        # partial expression index serves account/dungeon counts directly.
+        db.execute("CREATE INDEX IF NOT EXISTS native_achievement_clear_owner_dungeon ON reward_receipts("
+            "COALESCE(json_extract(grant_json,'$.owner'),1001),json_extract(grant_json,'$.dungeon_clear[0]')) "
+            "WHERE json_type(grant_json,'$.dungeon_clear')='array'")
     if 'native_achievement_operations'in tables:
         db.execute('CREATE INDEX IF NOT EXISTS native_achievement_operation_account_kind ON native_achievement_operations(account_id,kind)')
 
@@ -111,8 +125,22 @@ def _expedition_join_level(payload,account,owner,stamp):
 
 
 def counts(db,account,condition_types):
-    if not condition_types&{2,4,5,7,10,16,18,19,23,24,25,26,27,28,29,30,32,35,36,43,44,45,51,52,53,56,57,58,60,61,62,63}:return {}
+    if not condition_types&{2,4,5,7,10,16,18,19,23,24,25,26,27,28,29,30,32,34,35,36,43,44,45,49,51,52,53,56,57,58,60,61,62,63,66}:return {}
     tables=present(db);result={}
+    if 34 in condition_types and 'inventory_action_receipts'in tables:
+        # Only the authoritative EA purchase writer creates these receipts.
+        # Bought quantity is an increase of the same owned instance, rather
+        # than a request count; buyback567 and other acquisition kinds differ.
+        rows=db.execute('SELECT a.before_json,a.after_json FROM inventory_action_receipts a '
+            'JOIN character_owners o ON o.uid=a.owner WHERE o.account_id=?AND a.kind=?',(account,0xea))
+        for before,after in rows:
+            previous={item['uid']:item['count']for item in json.loads(before)}
+            for item in json.loads(after):
+                added=max(0,item['count']-previous.get(item['uid'],0));key=(34,item['template'])
+                result[key]=result.get(key,0)+added
+    if 66 in condition_types and 'native_achievement_operations'in tables:
+        for raw, in db.execute("SELECT result_json FROM native_achievement_operations WHERE account_id=?AND kind='noah-note'",(account,)):
+            result[(66,json.loads(raw)['npc'])]=1
     if 10 in condition_types and 'native_achievement_operations'in tables:
         result[(10,0)]=db.execute("SELECT COUNT(*)FROM native_achievement_operations WHERE account_id=?AND kind='play-day'",(account,)).fetchone()[0]
     if 7 in condition_types and 'native_achievement_operations'in tables:
@@ -124,6 +152,17 @@ def counts(db,account,condition_types):
         # ordinary/smith5FF settlement, including failure; no219amulet jump.
         result[(30,0)]=db.execute('SELECT COUNT(*)FROM inventory_action_receipts a '
             'JOIN character_owners o ON o.uid=a.owner WHERE o.account_id=?AND a.kind=?',(account,0x5ff)).fetchone()[0]
+    if 49 in condition_types and 'reward_receipts'in tables:
+        # Only final clears persist dungeon_clear in this immutable run UUID
+        # receipt. Loading, stage fragments, failures and kills do not.
+        # Unary + removes the UID column affinity so SQLite can seek the
+        # JSON expression index for each account-owned character.
+        for dungeon,count in db.execute("SELECT json_extract(a.grant_json,'$.dungeon_clear[0]'),COUNT(*) "
+                "FROM reward_receipts a WHERE COALESCE(json_extract(a.grant_json,'$.owner'),1001)IN "
+                "(SELECT +uid FROM character_owners WHERE account_id=?) "
+                "AND json_type(a.grant_json,'$.dungeon_clear')='array' "
+                "GROUP BY json_extract(a.grant_json,'$.dungeon_clear[0]')",(account,)):
+            result[(49,dungeon)]=count
     if 2 in condition_types and 'dungeon_records'in tables:
         # The reward writer keeps only positive server-measured best times.
         # Loading, failed runs and old unmeasured zero-time receipts do not
