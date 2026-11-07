@@ -1,0 +1,73 @@
+{
+  "status": "qualified_candidate_not_installed",
+  "source_PR": 945,
+  "source_head": "068ff418dcc1d8efbd7f3b8c021a07e13ced7186",
+  "source_merge_commit": "d60c83e7c080cc4cf4343de6c47fee918fc4494a",
+  "launcher_version": 103,
+  "exe_sha256": "1b7fdb0fa77b5ae1100ddb57a30c3ea8d6a6599c00b02e03d0eeb54a57e4b648",
+  "shared_runtime_sha256": "cdb3d1cf4ceaca6be29360cff9a1c66d5c1cc8c35ca2d7bac5e0ab700fd0e326",
+  "signed_component_count": 2873,
+  "server_delta_files": 8,
+  "launcher_source_changes": [
+    "AutoUpdate.cs",
+    "UIScrollRuntimeCohort.cs",
+    "resources/ui-scroll-signedFriends.signed.json"
+  ],
+  "build_source_inventory": {
+    "AutoUpdate.cs": {
+      "size": 14740,
+      "sha256": "4f3f154b397e2b937b5ba2cbc7e3ea516d262b3c4b5cf4f19e69a7d6ddf2af31"
+    },
+    "UIScrollRuntimeCohort.cs": {
+      "size": 2437,
+      "sha256": "09be78b59f8d400b8ef78669aaab3644df051f5086a12a56febf31e3c03b6620"
+    },
+    "resources/ui-scroll-signedFriends.signed.json": {
+      "size": 759401,
+      "sha256": "6ad15b930e9af965f35380c6aa84990eea5dcdea99b7f77856b250061b7d9d6e"
+    }
+  },
+  "engine_changes": {
+    "els_server/domain/dungeon_diagnostics.py": {
+      "before": "20c9ae04f3b36a1266c71b8868e1ed8aca87735149ec9c2f68dc929162957bef",
+      "after": "e5543daef1eff0c226bd8a8ceab3b9f62580db123e2b11091971fdc52c85db70"
+    },
+    "els_server/domain/dungeon_spawns.py": {
+      "before": "5bc3776e9151851795b177c28cb4725ce6c9552074f04537bebb0365d8139f9a",
+      "after": "afc9bc5942ab183dc313976e6cb220352368847c95621c16be8013893f9dad12"
+    },
+    "els_server/domain/friends_spawns.py": {
+      "before": "e98b20db227fb56b6d3ac9b6d15523b87a6a94e686ac756f5539c50fe9b1ccd5",
+      "after": "e3cafffb4e166ff11535dc504e0759c5649610109070da71081aff8f2b6e6c25"
+    },
+    "els_server/domain/scene_retirement_sources.py": {
+      "before": "743d079e88db8350f9b6fea887188795713f64713cee7a5be718227df18c5477",
+      "after": "09a6c1e8f74c82462968130a6a6a1c525072aee789e2bb3692eb96f252f0f4c5"
+    },
+    "els_server/domain/summons.py": {
+      "before": "ff8a8b776e71360e7bc21b519500aa39603f60f6cd9ed6533f0ad8e0a46dd933",
+      "after": "dd5ab563c67310be0b6ee79db9527babc65c8b6dc9fe7064fe3644a05799e090"
+    },
+    "els_server/dungeon34320_observation.py": {
+      "before": "12c659a6b2f0c21cc776d29a99a34753dcb98135bd7e9a5bfaa3faab9933b877",
+      "after": "c105927a3df95a75411bc8f24301df50ee697584c3bb255a63c4c3ac8f0f8c13"
+    },
+    "els_server/native_inbox.py": {
+      "before": "25cae0cb19e9b32c97fb32c4077723536a49b9a9fd22eb9f1d2b5763906ac1fd",
+      "after": "50f43187331ad5ff827c6de71a514c2f68bbd6af46725174a0e0d6a741a7b3a8"
+    },
+    "els_server/transport.py": {
+      "before": "342a894e5e260151c383dac96e61a7a00d9eda49bddc9bf305b447d9584b3af5",
+      "after": "6e81a51eb0d6347459355fb6eaf4ada797b574d6e61545d5a95dfc9c290d1b53"
+    }
+  },
+  "online_installed": false,
+  "local_installed": false,
+  "stable_promoted": false,
+  "EXE_KOM_changed": false,
+  "native_send_hook_included": false,
+  "player_database_restore": false,
+  "installation_blocker": "SSH resets before server identification; production stop/install has not started",
+  "candidate_release": "https://github.com/641927456/els-launcher-updates/releases/tag/launcher-v103-1b7fdb0fa77b5ae1",
+  "actual_installation_evidence_will_be_added_only_after_execution": true
+}
