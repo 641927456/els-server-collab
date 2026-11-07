@@ -1,0 +1,36 @@
+{
+  "parent_release": "native-online-disconnect-repair-20261107-v1",
+  "git_base": "26399f48cd35946daf4ea21e01cd57db99d07b2a",
+  "server_delivery_files": [
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "parent_sha256": "37bafca0e2613a318fac6d5217396f0173f9e2f94f27c2982c61a0ff618dd18a",
+      "sha256": "743d079e88db8350f9b6fea887188795713f64713cee7a5be718227df18c5477",
+      "size": 790036,
+      "qualified_test_source_sha256": "bacf9f5d18cc193864d48eb31816b99dbd8b6b8237fadbf95711268f7620f763"
+    }
+  ],
+  "experimental_support_files": [
+    {
+      "path": "tools/native_send_serialization.py",
+      "sha256": "056ab4c6485b6e14d8ef2e4132fbddf6d891632fe0fe9906c4ee5b1ffe2b93ae",
+      "production_wired": false,
+      "independent_review_complete": false,
+      "owned_game_lifecycle_complete": false
+    },
+    {
+      "path": "tools/native_send_serialization.js",
+      "sha256": "ba449fcf884de89c700acf5a0eb1e292dbbc70784d959117f865eda77d65fe6c",
+      "production_wired": false,
+      "independent_review_complete": false,
+      "owned_game_lifecycle_complete": false
+    }
+  ],
+  "deployable_server_candidate": true,
+  "experimental_support_deployable": false,
+  "installed": false,
+  "production_modified": false,
+  "original_EXE_KOM_modified": false,
+  "new_database_tables": 0,
+  "runtime_packages_and_private_test_dependencies_not_in_repository": true
+}

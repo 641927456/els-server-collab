@@ -1,0 +1,300 @@
+{
+  "repeated_secure_sequence": {
+    "confirmed_disconnect": true,
+    "known_errors": 10,
+    "authenticated_actor_count": 5,
+    "phase": "town_ready",
+    "matching_owned_QA_enrollments": 0,
+    "last_error_before_V103_UTC": "2026-11-07T14:58:28.690262+00:00",
+    "heartbeat_timing": [
+      {
+        "age_seconds": 165.776,
+        "nearest_15_second_tick": 11,
+        "error_from_tick_seconds": 0.776
+      },
+      {
+        "age_seconds": 45.115,
+        "nearest_15_second_tick": 3,
+        "error_from_tick_seconds": 0.115
+      },
+      {
+        "age_seconds": 90.382,
+        "nearest_15_second_tick": 6,
+        "error_from_tick_seconds": 0.382
+      },
+      {
+        "age_seconds": 226.11,
+        "nearest_15_second_tick": 15,
+        "error_from_tick_seconds": 1.11
+      },
+      {
+        "age_seconds": 240.913,
+        "nearest_15_second_tick": 16,
+        "error_from_tick_seconds": 0.913
+      },
+      {
+        "age_seconds": 45.023,
+        "nearest_15_second_tick": 3,
+        "error_from_tick_seconds": 0.023
+      },
+      {
+        "age_seconds": 195.892,
+        "nearest_15_second_tick": 13,
+        "error_from_tick_seconds": 0.892
+      },
+      {
+        "age_seconds": 180.927,
+        "nearest_15_second_tick": 12,
+        "error_from_tick_seconds": 0.927
+      },
+      {
+        "age_seconds": 29.995,
+        "nearest_15_second_tick": 2,
+        "error_from_tick_seconds": -0.005
+      },
+      {
+        "age_seconds": 59.993,
+        "nearest_15_second_tick": 4,
+        "error_from_tick_seconds": -0.007
+      }
+    ],
+    "native_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "original_client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+    "original_periodic_entry": "0x682aa0",
+    "original_periodic_ms": 15000,
+    "common_sender": "0x682d80",
+    "SAS_sequence_read": "0x1271e60 / SAS+0x50",
+    "SAS_sequence_increment": "0x3b817b0 after encryption/MAC",
+    "known_failure_mechanism": "Inside the common sender no critical section covers counter read, encryption, increment and queue publication. The periodic kind0 sender and normal business producers use that entry; actual outer caller locking and natural thread interleaving remain unproved.",
+    "causal_judgment": "Strong periodic-send race candidate. Exact rejected-frame identity and natural cross-thread interleaving are not yet proven; repeated enqueue remains an alternative.",
+    "excluded_hypothesis": "0xff20support only temporarily labels an existing native0x7d0no-op inside680B50; it does not introduce a timer-thread send. TLS bridge copies native bytes without inserting native events.",
+    "service_diagnostic_installed": true,
+    "antireplay_unchanged": true,
+    "native_send_hook_installed": false,
+    "next_evidence": "Use V103same_authenticated_body/same_plaintext/kind equality. In an owned isolated original process correlate682AA0/682D80threads, caller and SASgeneration before independently reviewed native support delivery."
+  },
+  "historical_inventory_5BF": {
+    "UTC": "2026-11-06T17:40:40.583152+00:00",
+    "explicit_owned_QA_enrollment_match": true,
+    "enrolled_before_error": true,
+    "operation": "native-quest-live-admission-20261107-v1",
+    "verdict": "Historical ownedQAinput failure, not evidence of a normal player failure. Original generic predicate rejects every payload other than eight zero bytes; exact historical wrong body is unavailable.",
+    "empty_body_test_helper_known": true,
+    "exact_empty_body_attribution_proven": false,
+    "server_inventory_qualification_relaxed": false
+  },
+  "stage3_cleanup": {
+    "root": "The original1395 DYING callback directly sets same-team NPC HP to zero; the server routes the resulting flag255 reports to combat-kill validation without this causal retirement authority.",
+    "source": {
+      "script": "DUMMY_SUMMONER2.lua",
+      "sha256": "bf6cd64e9b0b2ba71f2c90c4164dfcc8e1f4b4ddf066c5421c2c43ac0de129be",
+      "callback": "DUMMY_SUMMONER2_DYING_FRAME_MOVE",
+      "prototype": 4,
+      "delay_seconds": 0.1,
+      "excluded_templates": [
+        638,
+        639,
+        640,
+        641,
+        642,
+        1391
+      ],
+      "includes_vehicle1392": true,
+      "team_equality_required": true,
+      "SetNowHP_argument": 0
+    },
+    "graph_sha256": "9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a",
+    "observed_UTC": "2026-11-07T09:37:07.542102+00:00",
+    "source_group_matches": [
+      {
+        "group_ordinal": 4,
+        "trigger": {
+          "template": 1395,
+          "source_index": 5,
+          "points": [
+            50
+          ],
+          "active": true,
+          "gage": false,
+          "ally": false,
+          "team": 1,
+          "no_drop": true,
+          "right": false,
+          "boss": false,
+          "boss_lines": 1,
+          "key_code": 1,
+          "source_key_code": 1,
+          "rate": 100,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        "targets": [
+          {
+            "key": 10,
+            "source": {
+              "template": 1384,
+              "source_index": 11,
+              "points": [
+                58,
+                59,
+                60
+              ],
+              "active": true,
+              "gage": true,
+              "ally": false,
+              "team": 1,
+              "no_drop": false,
+              "right": true,
+              "boss": false,
+              "boss_lines": 1,
+              "key_code": -1,
+              "source_key_code": -1,
+              "rate": 100,
+              "offset": [
+                0,
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "key": 11,
+            "source": {
+              "template": 1386,
+              "source_index": 12,
+              "points": [
+                37,
+                38,
+                39
+              ],
+              "active": true,
+              "gage": true,
+              "ally": false,
+              "team": 1,
+              "no_drop": false,
+              "right": true,
+              "boss": false,
+              "boss_lines": 1,
+              "key_code": -1,
+              "source_key_code": -1,
+              "rate": 100,
+              "offset": [
+                0,
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "key": 12,
+            "source": {
+              "template": 1385,
+              "source_index": 13,
+              "points": [
+                51,
+                52,
+                53
+              ],
+              "active": true,
+              "gage": true,
+              "ally": false,
+              "team": 1,
+              "no_drop": false,
+              "right": true,
+              "boss": false,
+              "boss_lines": 1,
+              "key_code": -1,
+              "source_key_code": -1,
+              "rate": 100,
+              "offset": [
+                0,
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "key": 13,
+            "source": {
+              "template": 1382,
+              "source_index": 14,
+              "points": [
+                47,
+                48,
+                49
+              ],
+              "active": true,
+              "gage": true,
+              "ally": false,
+              "team": 1,
+              "no_drop": false,
+              "right": true,
+              "boss": false,
+              "boss_lines": 1,
+              "key_code": -1,
+              "source_key_code": -1,
+              "rate": 100,
+              "offset": [
+                0,
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "key": 0,
+            "source": {
+              "template": 1392,
+              "source_index": 1,
+              "points": [
+                82
+              ],
+              "active": false,
+              "gage": true,
+              "ally": false,
+              "team": 1,
+              "no_drop": false,
+              "right": true,
+              "boss": false,
+              "boss_lines": 1,
+              "key_code": -1,
+              "source_key_code": -1,
+              "rate": 100,
+              "offset": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "motor_alternative": {
+      "script": "MOTOR.lua",
+      "excludes_vehicle1392": true,
+      "matches_all_five_observed_targets": false
+    },
+    "evidence_level": "Original source and complete observed target pattern match. Historical logs lack the preceding accepted1395 death DTO, so the exact trigger time and one-to-one historical causality remain unproved.",
+    "repair_plan": "Require the exact source1395 real accepted death/key1 condition and original scene generation before authorizing same-team full-source cleanup. No rewards or ordinary kill credit. Test single/shared, actor generation, retries and forged trigger; leave current frozenV103 unchanged.",
+    "installed": false,
+    "natural_GUI": false,
+    "natural_battle": false
+  },
+  "V103_visible_log_window": {
+    "UTC": "2026-11-07T15:10:23.329478+00:00",
+    "span": [
+      "2026-11-07T15:06:00.382743+00:00",
+      "2026-11-07T15:10:21.718253+00:00"
+    ],
+    "rows": 738,
+    "errors": [],
+    "refusals": [],
+    "failed_or_5s_requests": [],
+    "natural_player_race_fix_claimed": false
+  },
+  "scope": "Read-only log attribution and original source/native evidence. No new1395cleanup rule or nativeHook was added to frozenV103."
+}

@@ -1,0 +1,5 @@
+# Exact installed byte prefix includes historical CRCRLF; hashes bind it.
+** -text whitespace=cr-at-eol
+base/els_server/domain/scene_retirement_sources.py -text whitespace=cr-at-eol,-blank-at-eol
+repair-v6/candidate/els_server/domain/scene_retirement_sources.py -text whitespace=cr-at-eol,-blank-at-eol
+mine-repair.patch -text whitespace=cr-at-eol,-blank-at-eol

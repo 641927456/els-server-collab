@@ -1,0 +1,31 @@
+{
+  "read_only": true,
+  "reviewed_UTC": "2026-11-07T13:06:36.798322+00:00",
+  "structured_span_UTC": [
+    "2026-11-07T12:04:16.011810+00:00",
+    "2026-11-07T13:06:35.295731+00:00"
+  ],
+  "structured_rows": 9751,
+  "protocol_errors": 2,
+  "secure_repeat_failures": 1,
+  "related_closed_session_denials": [
+    {
+      "classification": "relay_denied_after_native_close",
+      "same_authenticated_account": true,
+      "delay_ms": 55.437
+    }
+  ],
+  "unauthenticated_SSL_errors": 1,
+  "authentication_rejections": 13,
+  "authentication_rejection_causes_not_logged": true,
+  "failed_business_requests": 0,
+  "requests_over_5s": 0,
+  "negative_wear_or_town_warp": 0,
+  "new_dungeon_refusals": 0,
+  "raw_logs_packets_accounts_or_credentials_included": false,
+  "limits": [
+    "Rotated structured logs since V101; console check covers only final64MiB, not all daily files",
+    "Authentication rejections have no cause field; cannot classify as defects from count alone",
+    "Live repeated sequence cause still needs equality correlation after installing this candidate"
+  ]
+}
