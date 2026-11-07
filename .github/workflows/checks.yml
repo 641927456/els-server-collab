@@ -23,6 +23,7 @@ jobs:
       - run: python -B tools/ci_checks.py
       - run: python -B refs/online-clock-background-20261108-v1/verify.py
       - run: python -B refs/town-metadata-peer-20261108-v1/verify.py
+      - run: python -B refs/server-send-delivery-v106-integration-20261108-v1/verify.py
       - run: python -B tools/verify_collection_quest_ticket_source.py
       - run: python -B -m unittest discover -s tests -p test_account_key_bindings.py
       - run: python -B -m unittest discover -s tests -p test_character_custom_opening.py

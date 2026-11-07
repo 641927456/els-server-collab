@@ -1,0 +1,126 @@
+"""Compose current actor elixirs, activity and existing native world effects."""
+from els_server.protocol import world_buff_messages as wire
+from els_server.protocol.career_messages import use_ack
+from els_server.storage import world_elixirs as store
+from els_server.domain.equipment_chip_flow import current_lease
+
+def enabled(s):
+    return (s.item_test and s.client_build=='dx11_260923' and s.account.characters is not None
+        and s.account.store is not None and s.account.store.uid==s.account.uid and s.role=='game' and current_lease(s))
+
+def ready(s):
+    return s.phase in('town_ready','guild_agit_ready')or(s.phase=='dungeon_active' and s.dungeon_substage_synced and not s.dungeon_return_pending)
+
+def context(s,cold=False):
+    if cold:return(s.account.uid,'selected')
+    run=getattr(s,'dungeon_run',None)
+    return(s.account.uid,s.phase,getattr(s,'active_map',None),getattr(run,'run_id',None),getattr(run,'stage',None),getattr(run,'part',None),getattr(run,'visits',None),getattr(s,'gate_stage',None))
+
+def remember(s,events):
+    """Track the complete committed snapshot actually returned for this actor."""
+    import struct
+    for event in events:
+        if event.event_id!=0x201:continue
+        if event.kind==0x2a:
+            s._world_buff_sent=None
+            s._world_elixir_peer_sent={}
+        elif event.kind==0x3a3 and event.payload[:8]==struct.pack('>Q',s.account.uid):
+            s._world_buff_sent=(context(s),event.payload)
+    return events
+
+def signature(s,state,cold=False):
+    activity=getattr(s,'activity2026_awards',None)
+    growth=activity.world_stamp(s,state['_moment'])if hasattr(activity,'world_stamp')else None
+    return(context(s,cold),state['revision'],tuple((r['template'],r['start'],r['end'])for r in state['rows']),growth)
+
+def profiles(s,db,items):
+    # Use the same native slice builder as the full member serializer. A buff
+    # snapshot needs neither a full equipment map nor a skill-list encoding.
+    from els_server.protocol.dungeon_messages import member_profile
+    from els_server.storage.seal_quests import load_character
+    character=load_character(db,s.account.uid,s.account.account_id,identity_only=True)
+    if character.get('unit_type')==10:
+        # Absolute HP uses the same current owned/eligible title and equipment.
+        # Skill pages, banks and other full-role UI projections are not inputs.
+        from els_server.storage.titles import equipped,completed_for_equipment
+        character['title']=equipped(db,s.account.uid)
+        character['title_completed_quests']=completed_for_equipment(db,s.account.uid)
+        from els_server.storage.luciel_state import state,active_state
+        character['luciel_style']=state(db,s.account.uid)['style']
+        character['luciel_active_unit']=active_state(db,s.account.uid)['active_unit']
+        if items is None:
+            from els_server.storage.inventory_state import load_equipped_items
+            items=load_equipped_items(db,s.account.uid)
+    profile=member_profile(character,items,absolute_hp=True)
+    return(profile,profile)
+
+
+def prepare(s,*,cold=False,assembly_override=None):
+    from pathlib import Path
+    account=s.account;root=account.root;store=account.store;identity=(account.uid,account.account_id,s.shop_session_id,context(s,cold));path=Path(store.path).resolve()
+    def build(db,state,items):
+        from els_server.domain.equipment_chip_flow import reset_authority
+        reset_authority(s)
+        main=[r for r in db.execute('PRAGMA database_list')if r[1]=='main']
+        if(not db.in_transaction or len(main)!=1 or Path(main[0][2]).resolve()!=path or s.account is not account or account.root is not root or account.store is not store
+            or identity!=(account.uid,account.account_id,s.shop_session_id,context(s,cold))or not enabled(s)or(not cold and not ready(s))):raise ValueError('Elixir current original writer/actor generation')
+        stats=profiles(s,db,items)if not cold else None
+        rows=list(state['rows'])
+        activity=getattr(s,'activity2026_awards',None)
+        if hasattr(activity,'world_rows'):rows+=activity.world_rows(db,s,state['_moment'])
+        from els_server.storage.random_missions import effects as mission_effects
+        rows+=mission_effects(db,s.account.uid,now=state['_moment'])
+        from els_server.storage.assembly_state import view,clock
+        assembly=view(db,s.account.uid,state['_moment'])if assembly_override is None else assembly_override
+        if assembly['owner']!=s.account.uid:raise ValueError('Assembly snapshot owner')
+        rows+=assembly['rows']
+        from els_server.domain.guild_services import world_rows as guild_rows
+        rows+=guild_rows(s,db,state['_moment'])
+        from els_server.domain.environment_buff_flow import world_rows
+        rows+=world_rows(s,db,state['_moment'],cold=cold)
+        run=getattr(s,'dungeon_run',None)
+        if not cold and s.phase=='dungeon_active' and run is not None:
+            from els_server.domain.silver_mirror_policy import ALL
+            if run.identity in ALL and run.identity<35800:
+                from els_server.storage.silver_mirror_state import world_rows
+                rows+=world_rows(db,s.account.uid,now=state['_moment'])
+        return[wire.snapshot(s.account.uid,rows,profiles=stats)]
+    return build
+
+def cold(s):
+    if not enabled(s):return[]
+    try:out=store.notice(s.account.store.path,s.account.uid,s.account.account_id,prepare(s,cold=True),include_empty=True)
+    except ValueError:return[]
+    if out['events']:s._world_elixir_sent=signature(s,out['state'],True)
+    return out['events']
+
+def periodic(s):
+    if not enabled(s)or not ready(s):return[]
+    try:
+        out=store.expire(s.account.store.path,s.account.uid,s.account.account_id,prepare(s))
+        if out is None:
+            state=store.snapshot(s.account.store.path,s.account.uid,s.account.account_id)
+            current=signature(s,state);previous=getattr(s,'_world_elixir_sent',None)
+            if current==previous:return[]
+            if not state['revision']and current[3]is None and(previous is None or previous[3]is None):return[]
+            out=store.notice(s.account.store.path,s.account.uid,s.account.account_id,prepare(s),
+                include_empty=current[3]is not None or(previous is not None and previous[3]is not None))
+        s._world_elixir_sent=signature(s,out['state'])
+        return out['events']
+    except ValueError:
+        # Pending/deleted actors or an unqualified stored row gain no effects.
+        # Keep the previous delivery cursor so a later valid state can retry.
+        return[]
+
+def handle(s,event,sequence):
+    if event.event_id!=0x202 or event.kind!=0x219 or not s.item_test or s.client_build!='dx11_260923' or s.account.characters is None or s.account.store is None:return None
+    if type(sequence)is not int or not 1<=sequence<2**32:return None
+    operation=s.shop_session_id+':elixir-v1:'+str(s.account.uid)+':'+str(sequence)
+    if not store.candidate(s.account.store.path,s.account.uid,event.payload,operation):return None
+    if (not enabled(s)or not ready(s)or(s.phase=='dungeon_active'and(getattr(s,'dungeon_failed',False)or s.clear_notified))):return[use_ack(result=2005)]
+    try:
+        if event.performers not in((),(0,))or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0:raise ValueError('Elixir native envelope')
+        out=store.use(s.account.store.path,s.account.uid,s.account.account_id,event.payload,operation,prepare(s))
+        if out['result']==0:s._world_elixir_sent=signature(s,out['state'])
+        return out['events']
+    except ValueError:return[use_ack(result=500)]
