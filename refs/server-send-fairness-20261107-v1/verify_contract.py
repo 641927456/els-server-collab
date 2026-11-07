@@ -36,6 +36,9 @@ def main():
  assert ast.dump(before)==ast.dump(after),'Only the existing startup scheduling normalization changes'
  # The current online parent's party, quest, guide, shutdown and GM actor
  # ownership fixes are retained. Only these scheduling entry points differ.
+ dispatch=next(n for n in cls(tree(A/'source/els_server/application.py'),'Application').body if isinstance(n,ast.AsyncFunctionDef)and n.name=='_dispatch')
+ roster_admission=next(n for n in ast.walk(dispatch)if isinstance(n,ast.Assign)and any(isinstance(t,ast.Name)and t.id=='preparation'for t in n.targets))
+ assert ast.dump(roster_admission)==ast.dump(ast.parse('preparation=own_preparation and(transition or args[0].kind in(0x28,0x227,0x485))').body[0]),'Heavy native roster queries must use the existing preparation admission'
  for name,methods in [('application.py',{'FriendsSession':{'__init__'},'Application':{'_dispatch','_worker_call'}}),('dungeon_workers.py',{'DungeonWorkers':{'publish'}}),('realtime.py',{'RealtimeState':{'__init__','publish'}}),('periodic_scheduler.py',{'PeriodicScheduler':{'_notify'}}),('domain/friends_world.py',{'Mailbox':{'append'}})]:
   before=tree(A/'runtime-parent/els_server'/name);after=tree(A/'source/els_server'/name)
   for t in(before,after):
@@ -92,6 +95,11 @@ achievement_catalog();achievement_rewards()''').body
    reads=[n for n in ast.walk(preparation)if isinstance(n,ast.Constant)and n.value=='SELECT id,name,enabled FROM accounts ORDER BY id'];assert len(reads)==1;reads[0].value='SELECT 1 FROM accounts LIMIT 0'
    after.body=[n for n in after.body if not(isinstance(n,ast.ImportFrom)and n.module=='contextvars')and not(isinstance(n,ast.Assign)and any(isinstance(v,ast.Name)and v.id=='_town_move_wakes'for v in n.targets))]
   if name=='dungeon_workers.py':
+   prep=next(n for n in cls(after,'DungeonWorkers').body if isinstance(n,ast.FunctionDef)and n.name=='town_preparation')
+   guard=next(n for n in prep.body if isinstance(n,ast.If));alternatives=guard.test.operand.values[-1].values
+   expected=ast.parse("session.application.playing.get(session.identity['id'])is None and(args[0].kind,session.phase)in((0x1e,'game_connected'),(0x35,'game_authenticated'),(0x1ef,'port_ready'),(0x39,'session_ready'),(0x485,'terms_ready'),(0x485,'session_ready'),(0x485,'channels_ready'),(0x490,'characters_ready'))",mode='eval').body
+   assert len(alternatives)==4 and ast.dump(alternatives[-1])==ast.dump(expected),'Preselection isolation must retain exact phases and exclude an active same-account actor'
+   alternatives.pop()
    constructor=next(n for n in cls(after,'DungeonWorkers').body if isinstance(n,ast.FunctionDef)and n.name=='__init__')
    for field in('town_workers','death_workers'):
     values=[n for n in constructor.body if isinstance(n,ast.Assign)and any(isinstance(t,ast.Attribute)and ast.unparse(t)=='self.'+field for t in n.targets)]

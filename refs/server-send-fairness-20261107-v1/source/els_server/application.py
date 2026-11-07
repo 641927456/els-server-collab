@@ -489,7 +489,7 @@ class Application:
                 return await self.dungeon_workers.run_upkeep(function.__self__,work,timing=queue_timing)
             transition=self.dungeon_workers.solo_transition(function,args)
             own_preparation=self.dungeon_workers.town_preparation(function,args)or transition
-            preparation=own_preparation and(transition or args[0].kind in(0x28,0x227))
+            preparation=own_preparation and(transition or args[0].kind in(0x28,0x227,0x485))
             movement=not own_preparation and self.dungeon_workers.town_movement(function,args)
             queue_timing['town_movement']=movement
             town=own_preparation or movement

@@ -70,7 +70,13 @@ class DungeonWorkers:
                 and session.role=='game'
                 and ((args[0].kind==0x227 and session.phase=='square_accepted')
                     or(args[0].kind==0x28 and session.phase in('characters_ready','channels_ready'))
-                    or((args[0].kind,session.phase)in((0x6e9,'player_initialized'),(0x5bf,'skill_ui_ready'),(0x32,'initialization_confirmed'),(0x225,'map_loading'))))):return False
+                    or((args[0].kind,session.phase)in((0x6e9,'player_initialized'),(0x5bf,'skill_ui_ready'),(0x32,'initialization_confirmed'),(0x225,'map_loading')))
+                    # Before selection these handlers read or update only this
+                    # account. Existing handler guards still validate requests.
+                    or(session.application.playing.get(session.identity['id'])is None
+                        and(args[0].kind,session.phase)in((0x1e,'game_connected'),(0x35,'game_authenticated'),
+                            (0x1ef,'port_ready'),(0x39,'session_ready'),(0x485,'terms_ready'),
+                            (0x485,'session_ready'),(0x485,'channels_ready'),(0x490,'characters_ready'))))):return False
         world=session.application.world
         return(session not in world.members and world.party_of.get(session)is None
             and world.pvp.room(session)is None and world.racing.room(session)is None
