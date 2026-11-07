@@ -1,0 +1,51 @@
+{
+  "ok": true,
+  "actual_Application_TLS": true,
+  "explicit_owned_scene_fixtures": true,
+  "natural_GUI": false,
+  "production_modified": false,
+  "solo": [
+    {
+      "ok": true,
+      "dungeon": 33881,
+      "groups": 1,
+      "retired": 1,
+      "valid_AE_empty_AF": true,
+      "retry_ACK_only": true,
+      "forged_source_HP_readiness_unsynced_refused": true,
+      "causal_controller_required": false,
+      "economy_unchanged": true
+    },
+    {
+      "ok": true,
+      "dungeon": 33242,
+      "groups": 3,
+      "retired": 30,
+      "valid_AE_empty_AF": true,
+      "retry_ACK_only": true,
+      "forged_source_HP_readiness_unsynced_refused": true,
+      "causal_controller_required": true,
+      "economy_unchanged": true
+    }
+  ],
+  "shared": [
+    {
+      "ok": true,
+      "dungeon": 33881,
+      "participants": 2,
+      "guest_and_missing_readiness_refused": true,
+      "first_empty_AF_broadcast": true,
+      "retry_ACK_only": true,
+      "economy_unchanged": true
+    },
+    {
+      "ok": true,
+      "dungeon": 33242,
+      "participants": 2,
+      "guest_and_missing_readiness_refused": true,
+      "first_empty_AF_broadcast": true,
+      "retry_ACK_only": true,
+      "economy_unchanged": true
+    }
+  ]
+}

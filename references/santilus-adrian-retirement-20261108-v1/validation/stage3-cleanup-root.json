@@ -1,0 +1,201 @@
+{
+  "root": "The original1395 DYING callback directly sets same-team NPC HP to zero; the server routes the resulting flag255 reports to combat-kill validation without this causal retirement authority.",
+  "source": {
+    "script": "DUMMY_SUMMONER2.lua",
+    "sha256": "bf6cd64e9b0b2ba71f2c90c4164dfcc8e1f4b4ddf066c5421c2c43ac0de129be",
+    "callback": "DUMMY_SUMMONER2_DYING_FRAME_MOVE",
+    "prototype": 4,
+    "delay_seconds": 0.1,
+    "excluded_templates": [
+      638,
+      639,
+      640,
+      641,
+      642,
+      1391
+    ],
+    "includes_vehicle1392": true,
+    "team_equality_required": true,
+    "SetNowHP_argument": 0
+  },
+  "graph_sha256": "9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a",
+  "observed_UTC": "2026-11-07T09:37:07.542102+00:00",
+  "source_group_matches": [
+    {
+      "group_ordinal": 4,
+      "trigger": {
+        "template": 1395,
+        "source_index": 5,
+        "points": [
+          50
+        ],
+        "active": true,
+        "gage": false,
+        "ally": false,
+        "team": 1,
+        "no_drop": true,
+        "right": false,
+        "boss": false,
+        "boss_lines": 1,
+        "key_code": 1,
+        "source_key_code": 1,
+        "rate": 100,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      "targets": [
+        {
+          "key": 10,
+          "source": {
+            "template": 1384,
+            "source_index": 11,
+            "points": [
+              58,
+              59,
+              60
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": true,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "key": 11,
+          "source": {
+            "template": 1386,
+            "source_index": 12,
+            "points": [
+              37,
+              38,
+              39
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": true,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "key": 12,
+          "source": {
+            "template": 1385,
+            "source_index": 13,
+            "points": [
+              51,
+              52,
+              53
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": true,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "key": 13,
+          "source": {
+            "template": 1382,
+            "source_index": 14,
+            "points": [
+              47,
+              48,
+              49
+            ],
+            "active": true,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": true,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "key": 0,
+          "source": {
+            "template": 1392,
+            "source_index": 1,
+            "points": [
+              82
+            ],
+            "active": false,
+            "gage": true,
+            "ally": false,
+            "team": 1,
+            "no_drop": false,
+            "right": true,
+            "boss": false,
+            "boss_lines": 1,
+            "key_code": -1,
+            "source_key_code": -1,
+            "rate": 100,
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "motor_alternative": {
+    "script": "MOTOR.lua",
+    "excludes_vehicle1392": true,
+    "matches_all_five_observed_targets": false
+  },
+  "evidence_level": "Original source and complete observed target pattern match. Historical logs lack the preceding accepted1395 death DTO, so the exact trigger time and one-to-one historical causality remain unproved.",
+  "repair_plan": "Require the exact source1395 real accepted death/key1 condition and original scene generation before authorizing same-team full-source cleanup. No rewards or ordinary kill credit. Test single/shared, actor generation, retries and forged trigger; leave current frozenV103 unchanged.",
+  "installed": false,
+  "natural_GUI": false,
+  "natural_battle": false
+}
