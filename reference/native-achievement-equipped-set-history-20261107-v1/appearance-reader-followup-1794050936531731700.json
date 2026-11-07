@@ -1,0 +1,16 @@
+{
+  "ok": false,
+  "production_database_access": false,
+  "native_Game": false,
+  "checks": [],
+  "error": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\spa-buff-history-v1\\test_appearance_reader_followup.py\", line 59, in main\n    with patch.object(actor_type,'get_inventory_snapshot',getter):await request(a,0x6c1,struct.pack('>i',160))\n                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\spa-buff-history-v1\\test_appearance_reader_followup.py\", line 45, in request\n    answer=await peer.query(kind,body,reply);assert answer.payload[:4]==bytes(4),(hex(kind),answer.payload[:20].hex());return answer\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\spa-buff-history-v1\\delivery-qa-v2\\achievement_protocol_client.py\", line 29, in query\n    answer = await self.until(kind+1 if reply is None else reply)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\spa-buff-history-v1\\delivery-qa-v2\\achievement_protocol_client.py\", line 18, in until\n    head = await self.reader.readexactly(8)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\asyncio\\streams.py\", line 767, in readexactly\n    raise exceptions.IncompleteReadError(incomplete, n)\nasyncio.exceptions.IncompleteReadError: 0 bytes read on a total of 8 expected bytes\n",
+  "errors": [
+    {
+      "event": "worker_error",
+      "connection": 1,
+      "error": "OperationalError('database is locked')"
+    }
+  ],
+  "independent_commits": 0,
+  "source_sha256": "f854527c525a65aab4dc6745ed7eb8b24c5c0fa43f74cb645ed7b2fc37674ad9"
+}
