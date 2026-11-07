@@ -83,8 +83,6 @@ class _ReadScope:
         self.connections,self.files,self.readers=connections.current() if self.persistent else ({},{},{})
         self.values = {}
         self.item_bodies = {}
-        self.snapshots = {}
-        self.item_lists = {}
         self.item_validations = {}
         # Cache the conversion of a freshly resolved Windows kernel name,
         # never a raw path's file/parent IDs or any player/authority result.
@@ -183,8 +181,6 @@ class _ReadScope:
                 self.readers.clear()
             self.values.clear()
             self.item_bodies.clear()
-            self.snapshots.clear()
-            self.item_lists.clear()
             self.item_validations.clear()
             if not self.persistent:self.paths.clear()
 
@@ -266,7 +262,7 @@ def snapshot_connection(path,*,timeout=10):
             finally:
                 if db.in_transaction:db.rollback()
         return
-    # Reuse the observer's generation check without borrowing any data value.
+    # Reuse a handle only after verifying the actual file identity.
     path,info=scope.locate(path);identity=(info.st_dev,info.st_ino)
     if scope.files.get(path)!=identity:
         for connections in (scope.connections,scope.readers):
@@ -278,7 +274,7 @@ def snapshot_connection(path,*,timeout=10):
     if db is not None and db.in_transaction:
         with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True,isolation_level=None,timeout=timeout)) as nested:
             try:
-                with _tracked_snapshot(scope,nested,path,identity,timeout=timeout):yield nested
+                yield nested
             finally:
                 if nested.in_transaction:nested.rollback()
         return
@@ -286,7 +282,7 @@ def snapshot_connection(path,*,timeout=10):
         db=scope.open(path)
         scope.readers[path]=db
     try:
-        with _reader_timeout(db,timeout),_tracked_snapshot(scope,db,path,identity,timeout=timeout):yield db
+        with _reader_timeout(db,timeout):yield db
     finally:
         if db.in_transaction:db.rollback()
 
@@ -302,51 +298,6 @@ def _reader_timeout(db,timeout):
     try:yield
     finally:
         if original!=milliseconds:db.execute('PRAGMA busy_timeout='+str(original))
-
-
-@contextmanager
-def _tracked_snapshot(scope,db,path,file_id,*,timeout=10):
-    observer=scope.connections.get(path)
-    if observer is None:
-        observer=scope.open(path)
-        scope.connections[path]=observer
-    # Capture before the caller can BEGIN or establish its read snapshot.
-    with _reader_timeout(observer,timeout):
-        entry=(path,file_id,observer,observer.execute('PRAGMA data_version').fetchone()[0])
-    previous=scope.snapshots.get(db);scope.snapshots[db]=entry
-    try:yield
-    finally:
-        if previous is None:scope.snapshots.pop(db,None)
-        else:scope.snapshots[db]=previous
-
-
-def validated_item_projection(db,owner,item_uid,load):
-    """Cache data only in this operation; writer connections always run load.
-
-    A readonly snapshot may be older than the observer after another commit.
-    Such a reader neither consumes nor populates the current-generation cache.
-    The original full load/validation is the sole producer of cached values.
-    """
-    scope=_current.get()
-    if scope is None or scope.thread!=threading.get_ident():return load(db,owner,item_uid=item_uid)
-    entry=scope.snapshots.get(db)
-    if entry is None or not db.in_transaction or item_uid is not None and type(item_uid)is not int:return load(db,owner,item_uid=item_uid)
-    # BEGIN is deferred. Pin the reader before comparing its entry generation,
-    # so a commit after the comparison cannot make a cache hit mix snapshots.
-    db.execute('SELECT 1 FROM sqlite_master LIMIT 1').fetchone()
-    path,file_id,observer,generation=entry
-    def stamp():
-        info=path.stat()
-        return ((info.st_dev,info.st_ino),observer.execute('PRAGMA data_version').fetchone()[0],int(time.time()))
-    before=stamp()
-    if before[:2]!=(file_id,generation):return load(db,owner,item_uid=item_uid)
-    key=(path,owner,item_uid,load);saved=scope.item_lists.get(key)
-    if saved is not None and saved[0]==before:
-        projection_loaded(0,hit=True)
-        return _copy_projection(saved[1])
-    value=load(db,owner,item_uid=item_uid)
-    if stamp()==before:scope.item_lists[key]=(before,_copy_projection(value))
-    return value
 
 
 def quest_notification_projection(state,load,*,projection='quest-notification'):
@@ -413,10 +364,8 @@ def canonical_path(value):
 
 _ITEM_SCALARS=frozenset((type(None),bool,int,float,str,bytes))
 
-
 def _flat_item(value):
     return type(value)is dict and all(type(k)is str and type(v)in _ITEM_SCALARS for k,v in value.items())
-
 
 def item_validation_projection(item,validate):
     """Reuse identical flat codec data inside one operation, never a SQL guard.

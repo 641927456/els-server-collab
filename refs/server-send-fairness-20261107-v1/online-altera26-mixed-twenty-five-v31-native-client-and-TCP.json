@@ -1,0 +1,80 @@
+{
+  "run": "online-altera26-mixed-twenty-five-v31",
+  "seconds": 300,
+  "town": 10,
+  "dungeon": 10,
+  "native_client_timings_per_generator_group": {
+    "dgg10": {
+      "0xb3": {
+        "n": 110,
+        "mean_ms": 68.57078638012436,
+        "p50_ms": 63,
+        "p95_ms": 103,
+        "p99_ms": 121,
+        "max_ms": 216.06609970331192,
+        "resolution_ms": 1
+      },
+      "0xad": {
+        "n": 1650,
+        "mean_ms": 51.83072980944858,
+        "p50_ms": 43,
+        "p95_ms": 90,
+        "p99_ms": 180,
+        "max_ms": 1229.3390999548137,
+        "resolution_ms": 1
+      },
+      "0xd0": {
+        "n": 1650,
+        "mean_ms": 32.812461756790675,
+        "p50_ms": 27,
+        "p95_ms": 60,
+        "p99_ms": 112,
+        "max_ms": 618.6236999928951,
+        "resolution_ms": 1
+      },
+      "0xb8": {
+        "n": 110,
+        "mean_ms": 26.16767542944713,
+        "p50_ms": 24,
+        "p95_ms": 46,
+        "p99_ms": 59,
+        "max_ms": 72.77550036087632,
+        "resolution_ms": 1
+      },
+      "0xbb": {
+        "n": 110,
+        "mean_ms": 44.38449818725613,
+        "p50_ms": 40,
+        "p95_ms": 78,
+        "p99_ms": 99,
+        "max_ms": 122.46370036154985,
+        "resolution_ms": 1
+      },
+      "glass_B8_to_BD": {
+        "n": 110,
+        "mean_ms": 70.72865729304877,
+        "p50_ms": 65,
+        "p95_ms": 106,
+        "p99_ms": 122,
+        "max_ms": 147.7499003522098,
+        "resolution_ms": 1
+      }
+    }
+  },
+  "client_percentiles_not_merged_or_averaged": true,
+  "server_time_is_not_client_elapsed": true,
+  "TCP_sampled_cumulative_lower_bound": {
+    "BytesOut": 33873396,
+    "BytesIn": 3651872,
+    "BytesRetrans": 35122,
+    "FastRetrans": 1,
+    "DupAcksIn": 12,
+    "TimeoutEpisodes": 11
+  },
+  "TCP_observed_connections": 47,
+  "single_network_root_cause_proven": false,
+  "public_restored": true,
+  "restoration_observation_seconds": 120,
+  "production_code_modified": false,
+  "production_DB_replaced": false
+}

@@ -94,16 +94,10 @@ def owned_template(db,owner,item_uid):
  return row[0] if row else None
 
 def load_items(db,owner=1001,*,item_uid=None):
- owner=character_uid(owner)
- from els_server.storage.read_scope import validated_item_projection
- return validated_item_projection(db,owner,item_uid,_load_items)
+ return _load_items(db,owner,item_uid=item_uid)
 
 def load_equipped_items(db,owner=1001):
- from els_server.storage.read_scope import validated_item_projection
- return validated_item_projection(db,character_uid(owner),None,_load_equipped_items)
-
-def _load_equipped_items(db,owner,item_uid=None):
- return _load_items(db,owner,item_uid=item_uid,bag_group=9)
+ return _load_items(db,owner,bag_group=9)
 
 def _load_items(db,owner=1001,*,item_uid=None,bag_group=None):
  owner=character_uid(owner)

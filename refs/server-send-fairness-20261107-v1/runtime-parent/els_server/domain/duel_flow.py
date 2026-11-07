@@ -110,17 +110,16 @@ class Duels:
                 until=db.execute('SELECT until FROM native_duel_refusals WHERE inviter=?AND recipient=?',
                     (s.account.uid,target.account.uid)).fetchone()
                 if until is not None and until[0]>int(time.time()):return [wire.requested(target.account.uid,1680)]
-            from els_server.protocol.dungeon_messages import member
-            full=member(s.account.get_skills(),s.account.character(),s.account.get_inventory_snapshot()['items'],
-                account_id=s.account.account_id,peer_port=21100)
-            notice=wire.invited(s.account.uid,target.account.uid,request['first_hint'],request['second_hint'],
-                s.account.character()['name'],full,request['excluded'],request['flag'])
-            response=[wire.requested(target.account.uid)]
-            boxes=_prepared_boxes([(target,(notice,))],response)
-            for check in checks:check(db)
-            invitation=Invitation(secrets.randbelow(2**63-1)+1,str(uuid.uuid4()),(s,target),tuple(origins),full,request['excluded'])
-        # FullUser's inventory getter may repair legacy circuit options in
-        # its own writer. Finish that existing read/encoding path first.
+        # End the source reader before FullUser's independent legacy repair writer.
+        from els_server.protocol.dungeon_messages import member
+        full=member(s.account.get_skills(),s.account.character(),s.account.get_inventory_snapshot()['items'],
+            account_id=s.account.account_id,peer_port=21100)
+        notice=wire.invited(s.account.uid,target.account.uid,request['first_hint'],request['second_hint'],
+            s.account.character()['name'],full,request['excluded'],request['flag'])
+        response=[wire.requested(target.account.uid)]
+        boxes=_prepared_boxes([(target,(notice,))],response)
+        invitation=Invitation(secrets.randbelow(2**63-1)+1,str(uuid.uuid4()),(s,target),tuple(origins),full,request['excluded'])
+        # Recheck the original actors and prepared mailboxes before publication.
         with closing(sqlite3.connect(path.as_uri()+'?mode=rw',uri=True,timeout=10))as db:
             db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
             for check in checks:check(db)

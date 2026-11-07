@@ -1,11 +1,11 @@
 """Bind archived bytes and run behavioral state/order/quota checks."""
-import ast,hashlib,json,subprocess,sys,tomllib
+import ast,copy,hashlib,json,subprocess,sys,tomllib
 from pathlib import Path
 A=Path(__file__).resolve().parent;ROOT=A.parents[1]
 def tree(path):return ast.parse(path.read_bytes())
 def cls(t,name):return next(n for n in t.body if isinstance(n,ast.ClassDef)and n.name==name)
 def main():
- b=json.loads((A/'source-bindings.json').read_bytes());assert len(b['files'])==24
+ b=json.loads((A/'source-bindings.json').read_bytes());assert len(b['files'])==26
  for rows in(b['files'],b['runtime_parent_files']):
   for row in rows.values():
    p=ROOT/row['source'];assert p.resolve().is_relative_to(A)and hashlib.sha256(p.read_bytes()).hexdigest()==row['sha256'];tree(p)
@@ -137,17 +137,23 @@ achievement_catalog();achievement_rewards()''').body
   for t in(before,after):t.body=[n for n in t.body if not(isinstance(n,ast.FunctionDef)and n.name in names)]
   assert ast.dump(before)==ast.dump(after),name+' changed outside native profile construction'
  before=tree(A/'runtime-parent/els_server/storage/inventory_state.py');after=tree(A/'source/els_server/storage/inventory_state.py')
- after.body=[n for n in after.body if not(isinstance(n,ast.FunctionDef)and n.name in('load_equipped_items','_load_equipped_items'))]
+ public=next(n for n in after.body if isinstance(n,ast.FunctionDef)and n.name=='load_items')
+ equipped=next(n for n in after.body if isinstance(n,ast.FunctionDef)and n.name=='load_equipped_items')
+ assert len(public.body)==1 and ast.unparse(public.body[0])=='return _load_items(db, owner, item_uid=item_uid)'
+ assert len(equipped.body)==1 and ast.unparse(equipped.body[0])=='return _load_items(db, owner, bag_group=9)'
+ after.body.remove(public);after.body.remove(equipped)
  load=next(n for n in after.body if isinstance(n,ast.FunctionDef)and n.name=='_load_items')
+ load.name='load_items'
  assert load.args.kwonlyargs[-1].arg=='bag_group'and load.args.kw_defaults[-1].value is None
  load.args.kwonlyargs.pop();load.args.kw_defaults.pop()
- filters=[n for n in load.body if isinstance(n,ast.If)and ast.unparse(n.test)=='bag_group is not None'];assert len(filters)==1;load.body.remove(filters[0])
+ filters=[n for n in load.body if isinstance(n,ast.If)and ast.unparse(n.test)=='bag_group is not None'];assert len(filters)==1
+ assert ast.dump(filters[0])==ast.dump(ast.parse("if bag_group is not None:\n query+=' AND bag_group=?';parameters+=(bag_group,)").body[0]);load.body.remove(filters[0])
  snapshot=next(n for n in cls(after,'InventoryState').body if isinstance(n,ast.FunctionDef)and n.name=='snapshot')
  assert snapshot.args.kwonlyargs[0].arg=='equipped_only'and snapshot.args.kw_defaults[0].value is False
  snapshot.args.kwonlyargs=[];snapshot.args.kw_defaults=[]
  choices=[n for n in ast.walk(snapshot)if isinstance(n,ast.Call)and isinstance(n.func,ast.IfExp)];assert len(choices)==1
  assert ast.unparse(choices[0].func)=='load_equipped_items if equipped_only else load_items';choices[0].func=ast.Name(id='load_items',ctx=ast.Load())
- assert ast.dump(before)==ast.dump(after),'Full inventory validation/default loading must stay exact'
+ assert ast.dump(before)==ast.dump(after),'Full inventory validation/default loading and accepted row-cache removal must stay exact'
  before=tree(A/'runtime-parent/els_server/storage/read_scope.py');after=tree(A/'source/els_server/storage/read_scope.py')
  projection=next(n for n in after.body if isinstance(n,ast.FunctionDef)and n.name=='inventory_projection')
  assert projection.args.kwonlyargs[0].arg=='projection'and projection.args.kw_defaults[0].value=='inventory'
@@ -174,6 +180,21 @@ achievement_catalog();achievement_rewards()''').body
   elif method.name=='close':
    group=next(n for n in method.body if isinstance(n,ast.Try));selected=[n for n in group.finalbody if ast.unparse(n)=='self.item_validations.clear()'];assert len(selected)==1;group.finalbody.remove(selected[0])
  assert ast.dump(before)==ast.dump(after),'Fresh files, committed generation, owner and receipt guards remain exact; only flat codec reuse and identical-path equality differ'
+ assert not any(isinstance(n,ast.FunctionDef)and n.name in('validated_item_projection','_tracked_snapshot')for n in after.body),'Accepted snapshot-tracker and row-cache removals must remain'
+ for name in('friend_flow','mentor_flow'):
+  before=tree(A/('runtime-parent/els_server/domain/'+name+'.py'));after=tree(A/('source/els_server/domain/'+name+'.py'))
+  additions=[n for n in after.body if isinstance(n,ast.ImportFrom)and n.module=='els_server.storage.read_scope'and[(v.name,v.asname)for v in n.names]==[('snapshot_connection',None)]]
+  assert len(additions)==1;after.body.remove(additions[0])
+  def sync_node(t):
+   body=t.body if name=='friend_flow'else cls(t,'Mentors').body
+   return next(n for n in body if isinstance(n,ast.FunctionDef)and n.name=='synchronize')
+  original=[n for n in ast.walk(sync_node(before))if isinstance(n,ast.withitem)and isinstance(n.context_expr,ast.Call)and isinstance(n.context_expr.func,ast.Name)and n.context_expr.func.id=='closing']
+  replacement=[n for n in ast.walk(sync_node(after))if isinstance(n,ast.withitem)and isinstance(n.context_expr,ast.Call)and isinstance(n.context_expr.func,ast.Name)and n.context_expr.func.id=='snapshot_connection']
+  assert len(original)==len(replacement)==1
+  expression='snapshot_connection(s.account.store.path'+(',timeout=5'if name=='mentor_flow'else'')+')'
+  assert ast.dump(replacement[0].context_expr)==ast.dump(ast.parse(expression,mode='eval').body)
+  replacement[0].context_expr=copy.deepcopy(original[0].context_expr)
+  assert ast.dump(before)==ast.dump(after),'Social SQL, BEGIN, timeout, authority, mailbox and encoding logic must stay exact'
  before=tree(A/'runtime-parent/els_server/domain/inventory_items.py');after=tree(A/'source/els_server/domain/inventory_items.py')
  checked=next(n for n in after.body if isinstance(n,ast.FunctionDef)and n.name=='_checked_items')
  assert ast.unparse(checked.body[1])=='from els_server.storage.read_scope import item_validation_projection'
@@ -254,7 +275,7 @@ achievement_catalog();achievement_rewards()''').body
  sync=next(n for n in after.body if isinstance(n,ast.FunctionDef)and n.name=='synchronize')
  start=next(i for i,n in enumerate(sync.body)if isinstance(n,ast.ImportFrom)and n.module=='els_server.storage.read_scope')
  preflight=sync.body[start:start+4]
- expected=ast.parse("from els_server.storage.read_scope import snapshot_connection\noptions={}if cold or arrival else dict(condition_types=sources)\nwith snapshot_connection(s.account.store.path)as db:\n    db.execute('BEGIN');guard(db)\n    plan=pending_updates(db,s.account.account_id,s.account.uid,now,**options)\n    if not plan['updates']:\n        answer=response\n        if cold or arrival:\n            current=state.snapshot(db,s.account.account_id,s.account.uid)\n            message=wire.summary(points(current['completed']),current['watched'],False)\n            encode_event(message);answer=[*response,message]\n    guard(db)\nif not plan['updates']:\n    if 'couple_due'in plan:\n        s._achievement_couple_due=(s.account.account_id,s.account.uid,plan['couple_due'])if plan['couple_due']is not None else None\n    return answer").body
+ expected=ast.parse("from els_server.storage.read_scope import snapshot_connection\noptions={}if cold or arrival else dict(condition_types=sources)\nwith snapshot_connection(s.account.store.path)as db:\n    db.execute('BEGIN');guard(db)\n    plan=pending_updates(db,s.account.account_id,s.account.uid,now,**options)\n    if not plan['updates']:\n        answer=response\n        if cold or arrival:\n            current=state.snapshot(db,s.account.account_id,s.account.uid)\n            message=wire.summary(points(current['completed']),current['watched'],False)\n            encode_event(message);answer=[*response,message]\n    guard(db)\nif not plan['updates']:\n    if 'couple_due'in plan:\n        s._achievement_couple_due=(s.account.account_id,s.account.uid,plan['couple_due'])if plan['couple_due']is not None else None\n    if spa is not None and 7 in sources:s._achievement_spa_source=None\n    return answer").body
  assert ast.dump(ast.Module(body=preflight,type_ignores=[]))==ast.dump(ast.Module(body=expected,type_ignores=[]))
  del sync.body[start:start+4]
  imports=[n for n in sync.body if isinstance(n,ast.ImportFrom)and n.module=='els_server.storage.sqlite_timing'];assert len(imports)==1 and[(v.name,v.asname)for v in imports[0].names]==[('write_transaction',None)];sync.body.remove(imports[0])

@@ -6,7 +6,7 @@ from els_server.storage import profession_state,resonance_state
 from els_server.storage.achievement_collections import counts as collection_counts
 from els_server.storage.achievement_history import counts as history_counts,couple_duration
 
-CONDITION_TYPES=frozenset((2,4,5,6,15,16,18,19,20,23,24,25,26,27,28,29,30,32,35,36,37,38,39,42,43,44,45,51,52,53,56,57,58,60,61,62,63,67,68))
+CONDITION_TYPES=frozenset((2,4,5,6,7,15,16,18,19,20,23,24,25,26,27,28,29,30,32,35,36,37,38,39,42,43,44,45,51,52,53,56,57,58,60,61,62,63,67,68))
 
 
 def pending_updates(db,account,owner,now,*,condition_types=CONDITION_TYPES):
@@ -39,6 +39,7 @@ def pending_updates(db,account,owner,now,*,condition_types=CONDITION_TYPES):
                 value=int(best is not None and best<=parameters['m_fTime'])
             elif kind in(4,5):value=history.get((kind,parameters['m_ePvpChannelClass']),0)
             elif kind==6:value=levels.get(parameters['m_eProfessionType'],0)
+            elif kind==7:value=history.get((7,parameters['m_eBuffTempletID']),0)
             elif kind==15:value=resonance['level']
             elif kind==20:value=duration[0]
             elif kind in(18,19,23,24,25,26,27,28,29,30,36,43,44,45,51,52,53,56,57,58,60,61,63):value=history.get((kind,0),0)

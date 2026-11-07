@@ -99,8 +99,10 @@ def _expedition_join_level(payload,account,owner,stamp):
 
 
 def counts(db,account,condition_types):
-    if not condition_types&{2,4,5,16,18,19,23,24,25,26,27,28,29,30,32,35,36,43,44,45,51,52,53,56,57,58,60,61,62,63}:return {}
+    if not condition_types&{2,4,5,7,16,18,19,23,24,25,26,27,28,29,30,32,35,36,43,44,45,51,52,53,56,57,58,60,61,62,63}:return {}
     tables=present(db);result={}
+    if 7 in condition_types and 'native_achievement_operations'in tables:
+        result[(7,964)]=db.execute("SELECT COUNT(*)FROM native_achievement_operations WHERE account_id=?AND kind='spa-buff'",(account,)).fetchone()[0]
     if 29 in condition_types and 'native_achievement_operations'in tables:
         result[(29,0)]=db.execute("SELECT COUNT(*)FROM native_achievement_operations WHERE account_id=?AND kind='duel-invite'",(account,)).fetchone()[0]
     if 30 in condition_types and 'inventory_action_receipts'in tables:

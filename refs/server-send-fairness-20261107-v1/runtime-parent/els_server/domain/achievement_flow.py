@@ -113,6 +113,8 @@ def synchronize(s,event,response):
     # Original guild refusal has no ACK. Only its committed6C8 action journal
     # can increase the count; replay or a refusal without an invitation cannot.
     if event is not None and event.event_id==0x202 and event.kind==0x6c8:sources.add(24)
+    spa=getattr(s,'_achievement_spa_source',None)
+    if spa is not None and spa[:2]==(s.account.account_id,s.account.uid):sources.add(7)
     now=int(time.time());due=getattr(s,'_achievement_couple_due',None)
     if due is not None and due[:2]==(s.account.account_id,s.account.uid)and now>=due[2]:sources.add(20)
     if not cold and not arrival and not(sources and s.role=='game'and s.phase in('town_ready','guild_agit_ready','dungeon_active','wedding_hall','pvp_result')):return response
@@ -134,6 +136,7 @@ def synchronize(s,event,response):
         guard(db)
     if 'couple_due'in updated:
         s._achievement_couple_due=(s.account.account_id,s.account.uid,updated['couple_due'])if updated['couple_due']is not None else None
+    if spa is not None and 7 in sources:s._achievement_spa_source=None
     if message is None:return response
     if updated['completed']:_appearance_changed(s)
     return [*response,message]

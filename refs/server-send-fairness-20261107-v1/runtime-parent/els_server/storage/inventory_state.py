@@ -95,11 +95,6 @@ def owned_template(db,owner,item_uid):
 
 def load_items(db,owner=1001,*,item_uid=None):
  owner=character_uid(owner)
- from els_server.storage.read_scope import validated_item_projection
- return validated_item_projection(db,owner,item_uid,_load_items)
-
-def _load_items(db,owner=1001,*,item_uid=None):
- owner=character_uid(owner)
  query='SELECT uid,template,metadata,count,bag_group,slot FROM inventory_items WHERE owner=?'
  parameters=(owner,)
  if item_uid is not None:
