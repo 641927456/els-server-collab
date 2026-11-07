@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "baseline": true,
+  "source_sha256": "2a341fab7281bf9da9f4df0f53fcbab8aa9562952c8bb359ae1267e6a8480509",
+  "source_template": 722235,
+  "production_database_access": false,
+  "new_timed_source": false,
+  "cases": [
+    {
+      "expired_during_wait": true,
+      "accepted": true,
+      "error": null,
+      "granted": [
+        {
+          "uid": 1001012,
+          "template": 30678,
+          "expires_at": 1902591998
+        },
+        {
+          "uid": 1001013,
+          "template": 30679,
+          "expires_at": 1902591998
+        },
+        {
+          "uid": 1001014,
+          "template": 30680,
+          "expires_at": 1902591998
+        },
+        {
+          "uid": 1001015,
+          "template": 30681,
+          "expires_at": 1902591998
+        }
+      ],
+      "SQL_unchanged": false
+    },
+    {
+      "expired_during_wait": false,
+      "accepted": true,
+      "error": null,
+      "granted": [
+        {
+          "uid": 1001012,
+          "template": 30678,
+          "expires_at": 1902591998
+        },
+        {
+          "uid": 1001013,
+          "template": 30679,
+          "expires_at": 1902591998
+        },
+        {
+          "uid": 1001014,
+          "template": 30680,
+          "expires_at": 1902591998
+        },
+        {
+          "uid": 1001015,
+          "template": 30681,
+          "expires_at": 1902591998
+        }
+      ],
+      "SQL_unchanged": false
+    }
+  ],
+  "owned_temporary_directories_removed": true
+}

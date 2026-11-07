@@ -1,8 +1,17 @@
 # Runtime contracts bind exact bytes. Do not normalize existing resource/script bytes.
 * -text
+references/dungeon-map-markers-20261031-v1/** whitespace=cr-at-eol
+references/native-line-trigger-relay-20261031-v1/** whitespace=cr-at-eol
+references/ordinary-field-passage-20261031-v1/source/** -text whitespace=cr-at-eol,-blank-at-eof
+references/ordinary-field-passage-20261031-v1/source-contract.json -text whitespace=cr-at-eol
+references/pve-experience-20261105-v1/** whitespace=cr-at-eol
 *.md text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
+
+# Preserve the exact installed retained-mail source and evidence bytes.
+references/retained-mail-login-20261101-v1/** whitespace=cr-at-eol
+references/retained-mail-login-20261101-v1/repair.patch whitespace=cr-at-eol,-blank-at-eol
 
 # Frozen source bytes retain the delivered Windows line endings.
 references/formal-clock-source-20261027-v1/** whitespace=cr-at-eol
@@ -114,6 +123,61 @@ references/epic-special14-20261031-v1/source/bad86270367772633a6088cf5ebcb973016
 
 # Exact frozen native contact mechanism rules and sanitized evidence.
 references/native-contact-mechanisms-20261101-v1/** -text whitespace=cr-at-eol
+# Exact qualified owned-box runtime bytes and literal unified-diff context.
+references/owned-box-opening-20261031-v2/** -text whitespace=cr-at-eol
+references/owned-box-opening-20261031-v2/*.patch -text whitespace=cr-at-eol,-blank-at-eol
+
+# Exact qualified common-box runtime leaves and literal diff context.
+references/common-box-opening-20261031-v1/** -text whitespace=cr-at-eol
+references/common-box-opening-20261031-v1/*.patch -text whitespace=cr-at-eol,-blank-at-eol
+
+# Exact qualified mode-specific owned-box runtime leaves.
+references/owned-common-boxes-dual-20261031-v1/** -text whitespace=cr-at-eol
+# Exact qualified shop delta retains the tested Windows source bytes.
+references/shop-missing-20261031-v1/** -text whitespace=cr-at-eol
+references/shop-missing-20261031-v1/source/common/els_server/storage/character_custom.py whitespace=cr-at-eol,-blank-at-eol
+# Exact dual-mode login repair source and signed metadata bytes.
+references/native-login-reconnect-20261031-v1/** -text whitespace=cr-at-eol
+# Exact installed GM scroll sources retain their qualified Windows bytes.
+references/gm-high-level-scrolls-20261031-v1/** -text whitespace=cr-at-eol
+references/gm-high-level-scrolls-20261031-v1/*.patch -text whitespace=cr-at-eol,-blank-at-eol
+# Preserve the exact installed leveling source and policy bytes.
+references/mainline-leveling-exp20-20261031-v1/** -text whitespace=cr-at-eol
+# Exact installed spatial-error sources retain their qualified runtime bytes.
+references/spatial-error-text-20261101-v1/source/** -text whitespace=cr-at-eol,-blank-at-eof
+references/spatial-error-text-20261101-v1/source-contract.json -text whitespace=cr-at-eol
+# Exact installed EP13 retained inventory reader snapshot.
+references/ep13-retained-inventory-20261101-v1/** -text whitespace=cr-at-eol
+references/ep13-retained-inventory-20261101-v1/reader-increment.patch whitespace=cr-at-eol,-blank-at-eol
+# Exact verified profession-fashion runtime leaves and patch context.
+references/promotion-fashion-bag-20261101-v1/** -text whitespace=cr-at-eol
+references/promotion-fashion-bag-20261101-v1/*.patch -text whitespace=cr-at-eol,-blank-at-eol
+# Exact channel and client-support candidates retain their qualified bytes.
+references/registered-ground-items-20261101-v1/source/** -text whitespace=cr-at-eol
+references/registered-ground-items-20261101-v1/launcher/source/** -text whitespace=cr-at-eol
+# Exact installed Elrian gate source and predecessor bytes.
+references/elrian-breakable-gates-20261101-v1/** -text whitespace=cr-at-eol
+references/shop-rare-navy-20261101-v1/** -text whitespace=cr-at-eol
+# Exact installed field-entry source bytes retain their Windows line endings.
+references/native-field-entry-20261101-v1/source/** -text whitespace=cr-at-eol
+references/three-activities-startup-20261101-v1/** -text whitespace=cr-at-eol
+references/three-activities-startup-20261101-v1/source/online/els_server/domain/abyss_weapon_2026.py whitespace=cr-at-eol,-blank-at-eof
+references/ring-cross-bag-delivery-20261101-v1/** -text whitespace=cr-at-eol
 
 # Exact published V73 inputs and frozen evidence.
 references/character-entry-lag-v73-20261103-v1/** -text whitespace=cr-at-eol
+
+references/player-feedback-online-20261103-v1/source/** -text whitespace=cr-at-eol
+references/player-feedback-online-20261103-v1/changes.patch whitespace=-blank-at-eol
+references/activity-armor-reset-scroll-20261103-v1/** whitespace=cr-at-eol
+
+# Exact delivered shop source and qualified tool bytes retain Windows endings.
+references/shop-unlisted-listing-20261104-v1/** -text whitespace=cr-at-eol
+
+# Preserve exact frozen review Markdown bytes inherited from source PRs.
+reference/native-collection-writer-clock-20261105-v1/review.md -text whitespace=cr-at-eol
+reference/native-guide-box-writer-clock-20261105-v1/review.md -text whitespace=cr-at-eol
+reference/native-mail-writer-clock-20261105-v1/review.md -text whitespace=cr-at-eol
+reference/native-pet-bank-leaves-20261105-v1/review.md -text whitespace=cr-at-eol
+reference/native-photo-ticket-shop-20261105-v1/review.md -text whitespace=cr-at-eol
+references/native-housing-layout-clock-20261105-v1/review.md -text whitespace=cr-at-eol

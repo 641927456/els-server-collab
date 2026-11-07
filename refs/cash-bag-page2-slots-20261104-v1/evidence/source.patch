@@ -1,0 +1,16 @@
+--- a/els_server/storage/modern_ice.py
++++ b/els_server/storage/modern_ice.py
+@@ -141,11 +141,11 @@
+ def sort_bag(path,owner,account_id,prepare):
+     with closing(sqlite3.connect(path,timeout=10))as db,db:
+         db.execute('BEGIN IMMEDIATE');authorize(db,owner,account_id,prepare)
+-        before=bag_items(db,account_id);rows=sorted(before,key=lambda i:(i['template'],i['uid']))
++        before=bag_items(db,account_id)
++        rows=[dict(item,slot=slot)for slot,item in enumerate(sorted(before,key=lambda i:(i['template'],i['uid'])))]
+         if rows:
+             db.execute('DELETE FROM modern_ice_bag WHERE account_id=?',(account_id,))
+             for slot,item in enumerate(rows):
+-                item['slot']=slot
+                 db.execute('INSERT INTO modern_ice_bag VALUES(?,?,?,?,?,?,?)',(item['uid'],account_id,item['template'],item['metadata'],item['count'],item['group'],slot))
+         # Clear old locations, publish the same instances at sorted locations,
+         # then finish the native BD7 wait. No giant all-items frame is required.

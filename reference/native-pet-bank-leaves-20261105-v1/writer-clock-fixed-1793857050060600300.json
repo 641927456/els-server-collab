@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "baseline": false,
+  "cases": [
+    {
+      "action": "complete",
+      "accepted": true,
+      "zero_reward": true,
+      "duplicate_receipt_no_increment": true
+    },
+    {
+      "action": "failed_result",
+      "accepted": true,
+      "zero_reward": true,
+      "duplicate_receipt_no_increment": true
+    },
+    {
+      "action": "reward",
+      "accepted": true,
+      "zero_reward": false,
+      "duplicate_receipt_no_increment": true
+    }
+  ],
+  "actual_SQL_writer_competition": true,
+  "approved_region": 1,
+  "natural_acquisition": false,
+  "production_database_access": false,
+  "owned_temporary_directories_removed": true,
+  "source_sha256": "565ae369cbe7523f640765bb0231a5b1afa7ab1b58d4888ff9f89e62e37563d5"
+}

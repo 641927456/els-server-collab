@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "expected_fixed": false,
+  "cases": [
+    {
+      "case": "initial_B3_missing_view",
+      "actual_world_lock_skipped_publication": true,
+      "view_recovered": true,
+      "native_clock_resumed": false
+    },
+    {
+      "case": "BB_stale_prior_part_view",
+      "actual_world_lock_skipped_publication": true,
+      "view_recovered": true,
+      "native_clock_resumed": false
+    }
+  ],
+  "publication_skips": [
+    179,
+    187,
+    187
+  ],
+  "behavior_correct": false,
+  "bug_reproduced": true,
+  "physical_player_input": false,
+  "source": {
+    "candidate/els_server/domain/attendance_2026_award_flow.py": "5c9d5a3312fffc8e9a1312f1a8cc72040dcef1fc295d140f302a368f60cf09af",
+    "candidate/els_server/domain/inventory_items.py": "3f39df1a17ff8f94620c42157c2c20e540ed6232c895dd5c25e79df2de01db98",
+    "candidate/els_server/domain/session_auxiliary.py": "9b6e28ce8a8c618767932ad84d9216cbbfb157d8c0585f534560233ed852357a",
+    "candidate/els_server/periodic_scheduler.py": "f40466add8b5c3b3d21c7aa58dce4cccd502510f1719ced721ed7397b2b2c759",
+    "candidate/els_server/periodic_work.py": "19e3a564266a9ebbf76b57c832129e006cbd8c8cdc7796eea2e8749fb3c24a3e",
+    "candidate/els_server/storage/attendance_2026_awards.py": "28cea687adca776c24ac8378e2b276b42c0f0a3c9f243a84c94891128d117562",
+    "candidate/els_server/storage/attendance_2026_tasks.py": "7b7670df24dda4c2c67c7fe0381937694317641b7eefcb28b366f5874804000c",
+    "candidate/els_server/storage/coin_writer.py": "5e010de3e528e80b28dec557ec892237c92c6570e72bcb967449d8e87aa845cb",
+    "candidate/els_server/storage/death_writer.py": "20207d6fd4ab64e02ec646b42f8b0a1df9e8e2ed5d9a1a829cfc500db3d77928",
+    "candidate/els_server/transport.py": "eaef391376451c526857472e0e90c3837a55f041a4ab947108c528420da99007"
+  },
+  "owned_runtime_removed": true,
+  "connections": 0,
+  "errors": []
+}

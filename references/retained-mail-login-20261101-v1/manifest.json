@@ -1,0 +1,102 @@
+{
+  "format": 1,
+  "issue": 725,
+  "git_base": "b4eb2f14e672dbd7aaa9df1137baeb6e86ef722a",
+  "scope": "Retained unread-mail preview login disconnect and existing-escrow claim",
+  "source_layout": "Exact installed source archive; historical root and channel bindings unchanged",
+  "changed_runtime_files": 3,
+  "inherited_dependency_files": 2,
+  "files": [
+    {
+      "path": "els_server/storage/mail_attachments.py",
+      "source": "references/retained-mail-login-20261101-v1/source/els_server/storage/mail_attachments.py",
+      "sha256": "2134d4581fe6fd81dd497f53c56d823645e4383c9959aa12b013c3cc6e61f997",
+      "size": 13851,
+      "existing_runtime_dependency": false,
+      "parent_sha256": {
+        "online": "e7160b0f9b4c4881ca12bb787d20da45f31d53e51a4a47d4015050090781e5e4",
+        "local": "e7160b0f9b4c4881ca12bb787d20da45f31d53e51a4a47d4015050090781e5e4"
+      }
+    },
+    {
+      "path": "els_server/storage/item_instances.py",
+      "source": "references/retained-mail-login-20261101-v1/source/els_server/storage/item_instances.py",
+      "sha256": "098b15522dbf24ecd4503c1fbc09fd9ccddb6e60a991e9ebf2b280a370d18c57",
+      "size": 5152,
+      "existing_runtime_dependency": false,
+      "parent_sha256": {
+        "online": "70d985bf86485143c12537a2eaceba9b0d98432f65297038ffd9d0922cfb0daa",
+        "local": "70d985bf86485143c12537a2eaceba9b0d98432f65297038ffd9d0922cfb0daa"
+      }
+    },
+    {
+      "path": "els_server/protocol/mail_notifications_2026.py",
+      "source": "references/retained-mail-login-20261101-v1/source/els_server/protocol/mail_notifications_2026.py",
+      "sha256": "f332a967e849f3f36cd05c6855030c148f6f5865c2640405d906f23e97d0158e",
+      "size": 3392,
+      "existing_runtime_dependency": false,
+      "parent_sha256": {
+        "online": "e2f7643a53801c7185405dfed5b9321c29e4f8544ea761c2e09a10fb5f5c3ac3",
+        "local": "e2f7643a53801c7185405dfed5b9321c29e4f8544ea761c2e09a10fb5f5c3ac3"
+      }
+    },
+    {
+      "path": "els_server/domain/retained_native_consumables.py",
+      "source": "references/retained-mail-login-20261101-v1/source/els_server/domain/retained_native_consumables.py",
+      "sha256": "8216029b788f93b33fdd2a1577923088cec7deead2141dbe2e49864afc959799",
+      "size": 3604,
+      "existing_runtime_dependency": true
+    },
+    {
+      "path": "els_server/data/retained_native_consumables.json",
+      "source": "references/retained-mail-login-20261101-v1/source/els_server/data/retained_native_consumables.json",
+      "sha256": "a0d28e566c439c655d426d33988df14cf3fe845f969edaa37e9a06c6ed5122dc",
+      "size": 16192,
+      "existing_runtime_dependency": true
+    }
+  ],
+  "integration": {
+    "root_runtime_changed": false,
+    "current_engine_selection_changed": false,
+    "automatic_deployment": false,
+    "historical_frozen_inputs_changed": false
+  },
+  "runtime_context": {
+    "online": [
+      {
+        "path": "els_server/domain/inventory_items.py",
+        "sha256": "2d684e9e35322406bddd317fa41d29163c475c79ad451828c662c28390d50496"
+      },
+      {
+        "path": "els_server/storage/inventory_state.py",
+        "sha256": "55d97fafc6f36ab89c230f597e29c19e7bac23b1c64bbda3582f32fbcea440e2"
+      },
+      {
+        "path": "els_server/application.py",
+        "sha256": "c70fa3d33ff865cba2edeb6fb35ad1e040fce6997df6c716146da8d40e7b5eb0"
+      },
+      {
+        "path": "els_server/domain/local_session.py",
+        "sha256": "0d074679652e27fe52a37e84835e3984c7e0f374189647e7d6903f6b4e665aa7"
+      }
+    ],
+    "local": [
+      {
+        "path": "els_server/domain/inventory_items.py",
+        "sha256": "254afdf71f5d558980240c1f70f169f489599e2dfa6a0cbae129cf2bc34d30d7"
+      },
+      {
+        "path": "els_server/storage/inventory_state.py",
+        "sha256": "55d97fafc6f36ab89c230f597e29c19e7bac23b1c64bbda3582f32fbcea440e2"
+      },
+      {
+        "path": "els_server/application.py",
+        "sha256": "bff02c99ba68ccf076c982a626b03f5e684faa18c805148313640dd0657e332b"
+      },
+      {
+        "path": "els_server/domain/local_session.py",
+        "sha256": "ea4a75627840e7e22f3e19ae104bb0cf25331743101ba32a99b6e8ab360de8c3"
+      }
+    ]
+  }
+}

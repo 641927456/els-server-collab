@@ -1,0 +1,45 @@
+{
+  "format": 1,
+  "candidate": true,
+  "activation": false,
+  "runtime_acceptance": false,
+  "issue": 683,
+  "files": [
+    {
+      "path": "tools/world_event_iteration.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "source": "references/native-world-event-iteration-20261031-v1/source/shared/tools/world_event_iteration.py",
+      "sha256": "01d80c31b6ac048a9c0383ca82a4ed2661bbc1ee1afb59932861707409f26d6b",
+      "parent_sha256": null
+    },
+    {
+      "path": "tools/world_event_iteration.js",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "source": "references/native-world-event-iteration-20261031-v1/source/shared/tools/world_event_iteration.js",
+      "sha256": "06fbd593215c6a03774d9fbcc594754b7edee5f083c015331e39bb867db69ed0",
+      "parent_sha256": null
+    },
+    {
+      "path": "tools/native_cache_sync.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "source": "references/native-world-event-iteration-20261031-v1/source/shared/tools/native_cache_sync.py",
+      "sha256": "7326700ff408ce09a6611d29955d6e7523b85989c401e3b1a6a22d2bc8a8c37c",
+      "parent_sha256": "d6741b01bd45a79a696cab53215f80062f02576428953ac167985e24efb3977e"
+    }
+  ],
+  "source_parent_local": "local-collection-synergy-economy-20261031-v1",
+  "source_parent_online": "collection-synergy-economy-20261031-v1",
+  "integration": "Apply three shared files to the exact running parent. Preserve native_wear/cache/relation composition and all channel-specific files. No map candidate dependency. Independent review, exact-head merge approval and signed delivery by authorized owner.",
+  "original_exe_and_kom_modified": false,
+  "database_migration": false,
+  "verification_limit": "Original loop replay uses explicit condition/destructor/allocator shims. Real owned town and35301 rooms0/0..0/2 passed; final room fails a separate source-stage loader issue. Natural combat, multiplayer and town return remain unverified."
+}

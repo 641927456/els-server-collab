@@ -1,0 +1,164 @@
+{
+  "candidate": "C4",
+  "load_seconds": 300,
+  "phase_with_normal_drain_seconds": 344.0051559000276,
+  "town": 10,
+  "dungeon": 10,
+  "server_only": true,
+  "game_WAN_qualification": false,
+  "targets": {
+    "checks": {
+      "208": true,
+      "173": true,
+      "179": true,
+      "door": true,
+      "waiting_173": true,
+      "waiting_208": true,
+      "waiting_179": true,
+      "waiting_184": false,
+      "waiting_187": true,
+      "town_movement": true
+    },
+    "met": false
+  },
+  "durable_currency_exact": true,
+  "acknowledged_currency_exact": true,
+  "latency_samples_exact": true,
+  "owned_runtime_removed": true,
+  "connections": 0,
+  "GIL_enabled": false,
+  "requests": {
+    "555": {
+      "total_ms": {
+        "n": 17500,
+        "mean_ms": 5.395699038383152,
+        "p50_ms": 4,
+        "p95_ms": 17,
+        "p99_ms": 36,
+        "max_ms": 115.13009993359447,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 17500,
+        "mean_ms": 1.777254289308829,
+        "p50_ms": 1,
+        "p95_ms": 6,
+        "p99_ms": 25,
+        "max_ms": 111.58739984966815,
+        "resolution_ms": 1
+      }
+    },
+    "179": {
+      "total_ms": {
+        "n": 110,
+        "mean_ms": 56.95045817939734,
+        "p50_ms": 53,
+        "p95_ms": 90,
+        "p99_ms": 106,
+        "max_ms": 106.9932000245899,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 110,
+        "mean_ms": 0.92008273455907,
+        "p50_ms": 1,
+        "p95_ms": 3,
+        "p99_ms": 4,
+        "max_ms": 5.086200078949332,
+        "resolution_ms": 1
+      }
+    },
+    "173": {
+      "total_ms": {
+        "n": 1650,
+        "mean_ms": 28.364294908065915,
+        "p50_ms": 25,
+        "p95_ms": 55,
+        "p99_ms": 68,
+        "max_ms": 111.98440007865429,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 1650,
+        "mean_ms": 1.0476482414047827,
+        "p50_ms": 1,
+        "p95_ms": 3,
+        "p99_ms": 12,
+        "max_ms": 34.30850012227893,
+        "resolution_ms": 1
+      }
+    },
+    "208": {
+      "total_ms": {
+        "n": 1650,
+        "mean_ms": 11.126930664406355,
+        "p50_ms": 9,
+        "p95_ms": 24,
+        "p99_ms": 41,
+        "max_ms": 68.85250005871058,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 1650,
+        "mean_ms": 1.0608958215876059,
+        "p50_ms": 1,
+        "p95_ms": 3,
+        "p99_ms": 12,
+        "max_ms": 52.86829988472164,
+        "resolution_ms": 1
+      }
+    },
+    "184": {
+      "total_ms": {
+        "n": 110,
+        "mean_ms": 10.3717509127984,
+        "p50_ms": 7,
+        "p95_ms": 29,
+        "p99_ms": 39,
+        "max_ms": 50.75870011933148,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 110,
+        "mean_ms": 2.425004533407363,
+        "p50_ms": 1,
+        "p95_ms": 10,
+        "p99_ms": 35,
+        "max_ms": 45.08489998988807,
+        "resolution_ms": 1
+      }
+    },
+    "187": {
+      "total_ms": {
+        "n": 110,
+        "mean_ms": 32.54725001117384,
+        "p50_ms": 29,
+        "p95_ms": 61,
+        "p99_ms": 70,
+        "max_ms": 71.26939995214343,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 110,
+        "mean_ms": 1.086827265945348,
+        "p50_ms": 1,
+        "p95_ms": 4,
+        "p99_ms": 10,
+        "max_ms": 10.870300000533462,
+        "resolution_ms": 1
+      }
+    },
+    "door": {
+      "total_ms": {
+        "n": 110,
+        "mean_ms": 42.91900092397224,
+        "p50_ms": 38,
+        "p95_ms": 75,
+        "p99_ms": 88,
+        "max_ms": 94.10690004006028,
+        "resolution_ms": 1
+      },
+      "waiting_ms": null
+    }
+  }
+}

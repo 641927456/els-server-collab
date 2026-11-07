@@ -1,0 +1,226 @@
+{
+ "schema_version": 1,
+ "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+ "qualification": "D9A550 reads the common DTO without template-dependent branches; each row reuses the native DTO/flat-copy result already recorded for its base template. This is source/static qualification, not a new 304-byte native-execution receipt.",
+ "classifier": "19803A0 native type=(flags8>>3)&31=7 -> SORT_TYPE.ST_SPECIAL=4",
+ "entitled_templates": [
+  161117,
+  301579,
+  720849,
+  720856,
+  100000120,
+  100003044
+ ],
+ "rows": [
+  {
+   "template": 720856,
+   "product": "automatic",
+   "base": 164566,
+   "name": "[路莉尔]宠物自动消耗快捷栏扩张券",
+   "item_type": 7,
+   "metadata": 0,
+   "group": 4,
+   "max_stack": 99,
+   "flags4": 4198410,
+   "flags8": 56,
+   "record_sha256": "7a54dbc955aaabb1cbe6b1638f07c611902c49fc65da8ef7174c6f9e38dd722b",
+   "identifier_and_text_blocks": [
+    [
+     0,
+     2
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     56,
+     63
+    ]
+   ],
+   "tail_equal": true
+  },
+  {
+   "template": 161117,
+   "product": "pickup",
+   "base": 500720,
+   "name": "宠物自动拾取",
+   "item_type": 7,
+   "metadata": 0,
+   "group": 4,
+   "max_stack": 99,
+   "flags4": 4198410,
+   "flags8": 56,
+   "record_sha256": "b4359a2a3853e4a1a595b1e465656e9d07dd7d49b06929e588845e1942b34ef4",
+   "identifier_and_text_blocks": [
+    [
+     0,
+     2
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     56,
+     67
+    ]
+   ],
+   "tail_equal": true
+  },
+  {
+   "template": 301579,
+   "product": "pickup",
+   "base": 500720,
+   "name": "[科宝]宠物自动拾取",
+   "item_type": 7,
+   "metadata": 0,
+   "group": 4,
+   "max_stack": 99,
+   "flags4": 4198410,
+   "flags8": 56,
+   "record_sha256": "8dd6f8c7fd1dfa9a260334257f8f130eedc3039890fb244973ac9e07efeb7e74",
+   "identifier_and_text_blocks": [
+    [
+     0,
+     2
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     56,
+     58
+    ],
+    [
+     60,
+     62
+    ],
+    [
+     64,
+     66
+    ]
+   ],
+   "tail_equal": true
+  },
+  {
+   "template": 100000120,
+   "product": "pickup",
+   "base": 500720,
+   "name": "[科宝]宠物自动拾取",
+   "item_type": 7,
+   "metadata": 0,
+   "group": 4,
+   "max_stack": 99,
+   "flags4": 4198410,
+   "flags8": 56,
+   "record_sha256": "d3bca2b0b3bf380b783f7bf6d426101ae847227cfb21216568a430ae89de906e",
+   "identifier_and_text_blocks": [
+    [
+     0,
+     4
+    ],
+    [
+     56,
+     58
+    ],
+    [
+     60,
+     62
+    ],
+    [
+     64,
+     66
+    ]
+   ],
+   "tail_equal": true
+  },
+  {
+   "template": 100003044,
+   "product": "pickup",
+   "base": 500720,
+   "name": "[科宝]宠物自动拾取",
+   "item_type": 7,
+   "metadata": 0,
+   "group": 4,
+   "max_stack": 99,
+   "flags4": 4198410,
+   "flags8": 56,
+   "record_sha256": "34aa092d371016070da06b1da46c6f2156f6c0419a1f9872defd5a5e4b0784e1",
+   "identifier_and_text_blocks": [
+    [
+     0,
+     4
+    ],
+    [
+     56,
+     58
+    ],
+    [
+     60,
+     62
+    ],
+    [
+     64,
+     67
+    ]
+   ],
+   "tail_equal": true
+  },
+  {
+   "template": 720849,
+   "product": "upgrade",
+   "base": 330562,
+   "name": "[路莉尔]宠物自动消耗快捷栏升级使用券",
+   "item_type": 7,
+   "metadata": 0,
+   "group": 4,
+   "max_stack": 99,
+   "flags4": 4198410,
+   "flags8": 56,
+   "record_sha256": "455eb43c839f8df84ba480b0b7d441ab0109f56c4211915453037b234a91573d",
+   "identifier_and_text_blocks": [
+    [
+     0,
+     2
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     56,
+     58
+    ],
+    [
+     60,
+     62
+    ]
+   ],
+   "tail_equal": true
+  }
+ ],
+ "excluded": {
+  "300893": "record also differs at unexplained tail offset 224",
+  "272424": "treasure box, cube family",
+  "110004127": "treasure box, cube family",
+  "168195": "named-pet specific ticket, no ticket-to-pet source",
+  "190470": "named-pet specific ticket, no ticket-to-pet source",
+  "191044": "named-pet specific ticket, no ticket-to-pet source",
+  "191073": "named-pet specific ticket, no ticket-to-pet source",
+  "164567": "fifteen day period, no entitlement expiry model",
+  "164568": "thirty day period, no entitlement expiry model",
+  "189208": "fifteen day period, no entitlement expiry model",
+  "190418": "fifteen day period, no entitlement expiry model",
+  "190469": "thirty day period, no entitlement expiry model",
+  "296583": "thirty day period, no entitlement expiry model",
+  "300054": "fifteen day period, no entitlement expiry model",
+  "300251": "fifteen day period, no entitlement expiry model",
+  "300640": "fifteen day period, no entitlement expiry model",
+  "300643": "fifteen day period, no entitlement expiry model",
+  "300644": "thirty day period, no entitlement expiry model",
+  "500867": "fifteen day period, no entitlement expiry model",
+  "100006398": "three day period, no entitlement expiry model"
+ }
+}

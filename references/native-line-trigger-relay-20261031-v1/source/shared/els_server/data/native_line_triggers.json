@@ -1,0 +1,17 @@
+{
+  "format": 1,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "rules": [
+    {
+      "dungeon": 34320,
+      "stage": 1,
+      "part": 1,
+      "trigger": 0,
+      "source_sha256": "b6905a338e4919afc3445aecf999828b6476bfccfe223bda084019998595021c",
+      "condition": "CF_TRIGGER0 returns true unconditionally",
+      "reaction": "RF_TRIGGER0 calls original SetActiveTrigger_LUA(0)",
+      "line_source_sha256": "8ec824aa530b1c44f74cce7b9963f52590ed82e0e788d6999e81f856a2ad6cce",
+      "line_action": {"line": 13, "type": "LT_POTAL", "teleport_line": 26, "delay_seconds": 0.01}
+    }
+  ]
+}

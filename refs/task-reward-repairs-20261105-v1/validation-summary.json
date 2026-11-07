@@ -1,0 +1,276 @@
+{
+  "qualified-validation.json": {
+    "ok": true,
+    "tests": 6,
+    "checks": [
+      {
+        "case": "housing_actual_admission_to_claim",
+        "templates": [
+          136034,
+          136039,
+          570001,
+          570002,
+          570014
+        ],
+        "objective75": true,
+        "exact_award": true,
+        "rollback": true,
+        "replay": true,
+        "quest3_native_group_and_layout_passed": true,
+        "small_box_layout_passed": true
+      },
+      {
+        "case": "legacy_furniture_migration",
+        "historical_group4_receipt": true,
+        "uids_preserved": true,
+        "receipts_unchanged": true,
+        "slot_collision": true,
+        "repeated_initialization": true,
+        "claim_replay_current_group25": true,
+        "restored_legacy_row": true,
+        "full_bag_atomic_rollback": true
+      },
+      {
+        "case": "pvp_gear_boxes",
+        "role_groups": 30,
+        "templates": [
+          72970,
+          79076
+        ],
+        "source_claims": true,
+        "plus9_exact": true,
+        "all75_equipped_and_removed": true,
+        "rollback": true,
+        "replay": true
+      },
+      {
+        "case": "pvp_accessory_boxes",
+        "role_groups": 30,
+        "templates": [
+          701049,
+          701050
+        ],
+        "source_claims": true,
+        "permanent_fixed_sets": true,
+        "luciel_both_sets": true,
+        "items_identified_equipped_and_removed": 124,
+        "rollback": true,
+        "replay": true
+      },
+      {
+        "case": "quest25610_digestive_use",
+        "actual_reward": 135994,
+        "initial_count": 3,
+        "native_nutrient_hours": 3,
+        "lower_digest_hours": 2,
+        "cold_saved_deadline": true,
+        "rollback_both_paths": true,
+        "replay_both_paths": true,
+        "replacement_slot_preserved": true,
+        "zero_time_no_debit": true
+      },
+      {
+        "case": "pet_nutrient_limits",
+        "exact_168_hours": true,
+        "overflow_atomic": true,
+        "foreign_pet_rejected": true,
+        "wrong_template_rejected": true,
+        "locked_medicine_no_debit": true
+      }
+    ],
+    "private_SQL_removed": true,
+    "formal_SQL": false,
+    "network": false,
+    "natural_GUI": false,
+    "natural_battle": false
+  },
+  "pet-native-validation.json": {
+    "ok": true,
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "rows": [
+      {
+        "kind": "0x8ae",
+        "result": 0,
+        "bytes": 350,
+        "observed": {
+          "result": 0,
+          "nutrition": 17,
+          "digest_until": 2000010800,
+          "uid": 1001076
+        }
+      },
+      {
+        "kind": "0x8ae",
+        "result": -1,
+        "bytes": 350,
+        "observed": {
+          "result": -1,
+          "nutrition": 17,
+          "digest_until": 2000010800,
+          "uid": 1001076
+        }
+      },
+      {
+        "kind": "0x8ba",
+        "result": 0,
+        "bytes": 109,
+        "observed": {
+          "uid": 1001076,
+          "digest_until": 2000010800,
+          "nutrition": 17
+        }
+      },
+      {
+        "kind": "0x8ba",
+        "result": -1,
+        "bytes": 109,
+        "observed": {
+          "uid": 1001076,
+          "digest_until": 2000010800,
+          "nutrition": 17
+        }
+      }
+    ],
+    "live_process_access": false,
+    "GUI_acceptance": false,
+    "terminal_world_gate_observed_only": true
+  },
+  "pvp-exchange-validation.json": {
+    "ok": true,
+    "checks": [
+      {
+        "case": "task32010_coin_exchange",
+        "source_coins": 6,
+        "source_fragments": 10,
+        "selected_stones_each": 2,
+        "ratio": "1:1",
+        "rollback": true,
+        "replay": true,
+        "insufficient_no_debit": true,
+        "original223_dispatch": true,
+        "current_actor_capture_reused": true,
+        "actor_capture_mocked_for_owned_test": true
+      }
+    ],
+    "private_SQL_removed": true,
+    "formal_SQL": false,
+    "natural_GUI": false,
+    "network": false
+  },
+  "specialization-actor-validation.json": {
+    "ok": true,
+    "tests": 1,
+    "checks": [
+      {
+        "case": "actual_shared_actor_dispatch",
+        "actual_Application_FriendsSession_Accounts": true,
+        "capture_not_mocked": true,
+        "original6E7_to6E8": true,
+        "AP_failure_current_snapshot": true,
+        "replay": true,
+        "obsolete_actor_no_delta": true,
+        "pet8AD_and8B9": true,
+        "locked_target_no_debit": true,
+        "broken_target_no_debit": true
+      }
+    ],
+    "private_SQL_removed": true,
+    "formal_SQL": false,
+    "network": false,
+    "natural_GUI": false,
+    "natural_battle": false
+  },
+  "specialization-test_material_locks_and_equipped_effect-validation.json": {
+    "ok": true,
+    "tests": 1,
+    "checks": [
+      {
+        "case": "specialization_material_and_wear",
+        "locked_only_rejected_atomically": true,
+        "wear_and_remove_keep_effect": true,
+        "UID_preserved": true
+      }
+    ],
+    "private_SQL_removed": true,
+    "formal_SQL": false,
+    "network": false,
+    "natural_GUI": false,
+    "natural_battle": false
+  },
+  "specialization-native-validation.json": {
+    "ok": true,
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "rows": [
+      {
+        "writer": "1323CC0",
+        "mode": 11,
+        "group": 22,
+        "wire_hex": "0000010000002329000000010000001600000001000000040000000000000000000000000b00"
+      },
+      {
+        "writer": "1323CC0",
+        "mode": 11,
+        "group": 23,
+        "wire_hex": "0000010000002329000000010000001700000001000000040000000000000000000000000b00"
+      },
+      {
+        "writer": "1323CC0",
+        "mode": 11,
+        "group": 24,
+        "wire_hex": "0000010000002329000000010000001800000001000000040000000000000000000000000b00"
+      },
+      {
+        "writer": "1323CC0",
+        "mode": 12,
+        "group": 22,
+        "wire_hex": "00000100000023290000000100000016000000010000000400000000000f4240000000000c00"
+      },
+      {
+        "writer": "1323CC0",
+        "mode": 12,
+        "group": 23,
+        "wire_hex": "00000100000023290000000100000017000000010000000400000000000f424e000000000c00"
+      },
+      {
+        "writer": "1323CC0",
+        "mode": 12,
+        "group": 24,
+        "wire_hex": "000001000000232900000001000000180000000100000004000000000010c8e1000000000c00"
+      },
+      {
+        "reader": "234C870+D9A550",
+        "result": 0,
+        "AP": 54321,
+        "bytes": 736,
+        "all_three_groups": true
+      },
+      {
+        "reader": "234C870+D9A550",
+        "result": 2005,
+        "AP": 54321,
+        "bytes": 736,
+        "all_three_groups": true
+      }
+    ],
+    "producer_path": "3426350 ApplyOption/ApplyEnchant ->302B570 cases18190/18191 ->1317FC0 ->1323CC0; modes12/11, slot1..4, selected group ID sign-extended toQ",
+    "native_AP_field": "234C870 DTO+34 ->302CEF0 unit currency+1A8",
+    "live_process_access": false,
+    "natural_GUI": false,
+    "world_gate_not_executed": true
+  },
+  "specialization-core-validation": {
+    "ok": true,
+    "tests": 3,
+    "terminal_result": "Ran 3 tests in 2.530s; OK; exit_code=0; private_SQL_removed=true",
+    "test_names": [
+      "test_source_coins_and_fragments_reach_effect",
+      "test_weapon_cap_change_and_invalid_inputs",
+      "test_atomicity_skills_and_mixed_fragments"
+    ],
+    "implementation_unchanged_since_this_success": true,
+    "formal_SQL": false,
+    "network": false,
+    "natural_GUI": false,
+    "natural_battle": false
+  }
+}

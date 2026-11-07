@@ -1,0 +1,63 @@
+{
+  "status": "human-approved-local-rule-20261031",
+  "box": 723618,
+  "official_source": "https://els.ztgame.com/html/news/1352510/004-1768-019e5-190244.shtml",
+  "outputs": [
+    {
+      "template": 168600,
+      "name": "神物头饰",
+      "quantity": 1,
+      "identified": true,
+      "option_groups": {
+        "1": [
+          400084,
+          400089
+        ]
+      },
+      "effects": "暴击10%、极大化10%"
+    },
+    {
+      "template": 168601,
+      "name": "神物甲胄",
+      "quantity": 1,
+      "identified": true,
+      "option_groups": {
+        "1": [
+          400094,
+          400099
+        ]
+      },
+      "effects": "减少伤害10%、HP增加10%"
+    },
+    {
+      "template": 168602,
+      "name": "神物项链",
+      "quantity": 1,
+      "identified": true,
+      "option_groups": {
+        "1": [
+          400036,
+          400051
+        ]
+      },
+      "effects": "3阶段和4阶段领导者技能伤害各7%"
+    },
+    {
+      "template": 168603,
+      "name": "神物戒指",
+      "quantity": 2,
+      "identified": true,
+      "option_groups": {
+        "1": [
+          400158,
+          400164
+        ]
+      },
+      "effects": "暴击伤害5%、适应力1%"
+    }
+  ],
+  "proposed_local_rule": "Use the exact official ordinary fixed values above. Leave spirit stones unembedded and socket expansion at the original false state; players use the existing spirit-slot expansion and embedding flow.",
+  "missing_source": "The official page specifies the two ordinary effects per part, but not embedded spirit option IDs/colours or initial expansion flag. KIM description mentions fixed spirit effects, so an empty spirit state needs an explicit local choice.",
+  "client_changes": false,
+  "authorization": "artifact-human-policy.json"
+}

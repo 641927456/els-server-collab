@@ -1,0 +1,291 @@
+{
+  "passed": true,
+  "functional_passed": true,
+  "scope": "Local four-CPU native loopback screening; not production hardware or WAN qualification",
+  "source": {
+    "candidate/els_server/application.py": "cce346b11b7084907a571322bada01d26fffa134bc82b05809064fff47e2e7e1",
+    "candidate/els_server/domain/legacy_pve_exp.py": "2badb754c4e3e7eef84e46a4e351b7ac663f4616d4425f633effc345f8ea69f0",
+    "candidate/els_server/storage/clock_writer.py": "79af4e6ff15e5de900081b3f4a3452bb6b765fa9ed6e83508b9252779acd47b4",
+    "candidate/els_server/storage/coin_writer.py": "2085b3c6fb239fb433bc2595c70320156b0a51f24e7e8413fbf4b642ee98a0c2",
+    "candidate/els_server/storage/death_writer.py": "c697a761a993346db9964857dee9848ac7a7527b39c0de32096ff47528d43e15",
+    "candidate/els_server/storage/position_writer.py": "77775ac30c2589b3ec982c417c70f56ebdfc1003f776b7a034785714ef69ef51",
+    "candidate/els_server/storage/relationship_mail.py": "f337c401deac0d94296064797423495629875263a53274d597b59d46dd82b7ce",
+    "candidate/els_server/storage/sqlite_timing.py": "54b7b5099ba7c431f054de7c6b90b9a868215107e13a2791663bb6aa7bf94c8a",
+    "candidate/els_server/storage/wal_checkpoints.py": "8696924c4a6bd8deeee3106694cf8fb9b0ba521bebe4b86e92f15cb429d05538"
+  },
+  "harness": {
+    "bootstrap.py": "5292038437e96f7890c682b336f0013f799c83eef28a9c602c5d576cb1d6f1bd",
+    "runtime_fixture.py": "f837895066e19fb332f167d714d6b948105b5497d63d4df5d7d81ec56b45742a",
+    "runtime_identity.py": "09f2063840e867a583f44bdb711a59f4a159c1e40af40290818aef3d9003666b",
+    "capacity_server.py": "f790916058c3a03242a856f87455a838a65d2b872376415d862637599811c52e",
+    "mixed_driver.py": "d177ffc78685e8fe5fe85a7578588265b235b2922f966e1053041cb183427580",
+    "persistent_mixed_online_client.py": "b278184655c293f9c6d03848ebeca1c70c6119bb1184287267d6d8afede529ee",
+    "mixed_online_client.py": "0606d01d86f83fa109c71e4201eb00ea74c060864c87687e5e4da8ae00af4394",
+    "town_burst_capacity_client.py": "027659dd992423348a3e5941c8bbc678cf2c2ec1ce6293b721d425ed05070767",
+    "town_client.py": "f140663a3213c7b9116063e32c2e59e01cbe55415e61e90c3afcae7ecfc1616a",
+    "capacity_client.py": "e440c691b03ec06e04abf61048fcee7465979300d6873e6cbd184cbe3f18cf53",
+    "latency_histogram.py": "000d9f9c8d86245e7e4d1596ccf9b9e8e8990c460ed61aef86e122401a4d0c26",
+    "movement_burst_schedule.py": "0e830641bc9656ff645f3f94037ca1485ac02d15f8feedabfbf35d2af44d2e61",
+    "isolated-online/harness/client.py": "e440c691b03ec06e04abf61048fcee7465979300d6873e6cbd184cbe3f18cf53",
+    "isolated-online/harness/ground_request.py": "f407e7fb7553740afdbe87d0c9891312bf406056bd4cf37e119ce19649464288",
+    "isolated-online/harness/live_admission.py": "b3bae1d3620e8b36c2d39cb9c881e347ddd7896302b03df52413b85f08528374",
+    "isolated-online/harness/persistent_room_workload.py": "dd70d10ae3c6c6d98846b4fe0910ce45834c385fa14ef0bf40431a579f4d46fb",
+    "isolated-online/harness/qa-inputs.json": "ed7f570f7c22aeb522989a3b13e4fad548ec26c59620ad157cf9dafe58251114"
+  },
+  "parent_runtime": "native-feature-closures-20261107-v1",
+  "actors": {
+    "town": 20,
+    "dungeon": 30,
+    "total": 50,
+    "native_frontends": 0
+  },
+  "seconds": 300,
+  "signed_free_threaded_runtime": true,
+  "GIL_enabled": false,
+  "startup_gc_freeze": true,
+  "server_percentile_targets_met": true,
+  "latency": {
+    "pickup": {
+      "n": 4950,
+      "mean_ms": 6.748611798905062,
+      "p50_ms": 6,
+      "p95_ms": 13,
+      "p99_ms": 17,
+      "max_ms": 31.97450004518032,
+      "resolution_ms": 1
+    },
+    "death": {
+      "n": 4950,
+      "mean_ms": 19.29002048250175,
+      "p50_ms": 19,
+      "p95_ms": 30,
+      "p99_ms": 41,
+      "max_ms": 228.99709967896342,
+      "resolution_ms": 1
+    },
+    "paired_door": {
+      "n": 330,
+      "mean_ms": 18.62818393856287,
+      "p50_ms": 18,
+      "p95_ms": 25,
+      "p99_ms": 31,
+      "max_ms": 37.05729963257909,
+      "resolution_ms": 1
+    },
+    "map_change_B3": {
+      "n": 330,
+      "mean_ms": 26.218698172350273,
+      "p50_ms": 24,
+      "p95_ms": 37,
+      "p99_ms": 49,
+      "max_ms": 148.64900009706616,
+      "resolution_ms": 1
+    },
+    "town_movement": {
+      "n": 35000,
+      "mean_ms": 3.2871277134333337,
+      "p50_ms": 3,
+      "p95_ms": 10,
+      "p99_ms": 20,
+      "max_ms": 133.42259963974357,
+      "resolution_ms": 1
+    }
+  },
+  "percentile_gates": {
+    "pickup": true,
+    "death": true,
+    "paired_door": true,
+    "map_change_B3": true,
+    "town_movement": true
+  },
+  "client_dungeon_groups": {
+    "dgg20": {
+      "0x28": {
+        "n": 10,
+        "mean_ms": 94.87999989651144,
+        "p50_ms": 92,
+        "p95_ms": 116,
+        "p99_ms": 116,
+        "max_ms": 115.98080024123192,
+        "resolution_ms": 1
+      },
+      "0x227": {
+        "n": 120,
+        "mean_ms": 75.57939087661605,
+        "p50_ms": 72,
+        "p95_ms": 106,
+        "p99_ms": 122,
+        "max_ms": 128.66770010441542,
+        "resolution_ms": 1
+      },
+      "0xb3": {
+        "n": 110,
+        "mean_ms": 27.937723611566152,
+        "p50_ms": 25,
+        "p95_ms": 39,
+        "p99_ms": 120,
+        "max_ms": 149.1589997895062,
+        "resolution_ms": 1
+      },
+      "0xad": {
+        "n": 1650,
+        "mean_ms": 19.96634411597342,
+        "p50_ms": 20,
+        "p95_ms": 30,
+        "p99_ms": 39,
+        "max_ms": 229.46680011227727,
+        "resolution_ms": 1
+      },
+      "0xd0": {
+        "n": 1650,
+        "mean_ms": 7.290005576373502,
+        "p50_ms": 7,
+        "p95_ms": 13,
+        "p99_ms": 17,
+        "max_ms": 21.403400227427483,
+        "resolution_ms": 1
+      },
+      "glass_B8_to_BD": {
+        "n": 110,
+        "mean_ms": 19.77341547185047,
+        "p50_ms": 20,
+        "p95_ms": 26,
+        "p99_ms": 27,
+        "max_ms": 28.245400171726942,
+        "resolution_ms": 1
+      }
+    },
+    "dgg30": {
+      "0x28": {
+        "n": 10,
+        "mean_ms": 109.34888003394008,
+        "p50_ms": 96,
+        "p95_ms": 164,
+        "p99_ms": 164,
+        "max_ms": 163.94140012562275,
+        "resolution_ms": 1
+      },
+      "0x227": {
+        "n": 120,
+        "mean_ms": 79.86530834265675,
+        "p50_ms": 76,
+        "p95_ms": 123,
+        "p99_ms": 167,
+        "max_ms": 221.99640003964305,
+        "resolution_ms": 1
+      },
+      "0xb3": {
+        "n": 110,
+        "mean_ms": 26.18192275562747,
+        "p50_ms": 25,
+        "p95_ms": 39,
+        "p99_ms": 46,
+        "max_ms": 50.505099818110466,
+        "resolution_ms": 1
+      },
+      "0xad": {
+        "n": 1650,
+        "mean_ms": 20.138931872718263,
+        "p50_ms": 20,
+        "p95_ms": 32,
+        "p99_ms": 44,
+        "max_ms": 145.07539989426732,
+        "resolution_ms": 1
+      },
+      "0xd0": {
+        "n": 1650,
+        "mean_ms": 7.358291756192392,
+        "p50_ms": 7,
+        "p95_ms": 13,
+        "p99_ms": 18,
+        "max_ms": 33.54990016669035,
+        "resolution_ms": 1
+      },
+      "glass_B8_to_BD": {
+        "n": 110,
+        "mean_ms": 20.069469088180497,
+        "p50_ms": 20,
+        "p95_ms": 27,
+        "p99_ms": 34,
+        "max_ms": 35.31249985098839,
+        "resolution_ms": 1
+      }
+    },
+    "dgg40": {
+      "0x28": {
+        "n": 10,
+        "mean_ms": 112.816740013659,
+        "p50_ms": 103,
+        "p95_ms": 150,
+        "p99_ms": 150,
+        "max_ms": 149.5672999881208,
+        "resolution_ms": 1
+      },
+      "0x227": {
+        "n": 120,
+        "mean_ms": 76.22410332939278,
+        "p50_ms": 74,
+        "p95_ms": 120,
+        "p99_ms": 128,
+        "max_ms": 128.9886999875307,
+        "resolution_ms": 1
+      },
+      "0xb3": {
+        "n": 110,
+        "mean_ms": 26.59031452018429,
+        "p50_ms": 25,
+        "p95_ms": 35,
+        "p99_ms": 44,
+        "max_ms": 124.42180002108216,
+        "resolution_ms": 1
+      },
+      "0xad": {
+        "n": 1650,
+        "mean_ms": 20.22666230656658,
+        "p50_ms": 20,
+        "p95_ms": 31,
+        "p99_ms": 43,
+        "max_ms": 121.31199985742569,
+        "resolution_ms": 1
+      },
+      "0xd0": {
+        "n": 1650,
+        "mean_ms": 7.198986129157922,
+        "p50_ms": 7,
+        "p95_ms": 13,
+        "p99_ms": 18,
+        "max_ms": 31.02190000936389,
+        "resolution_ms": 1
+      },
+      "glass_B8_to_BD": {
+        "n": 110,
+        "mean_ms": 19.251071822575547,
+        "p50_ms": 19,
+        "p95_ms": 25,
+        "p99_ms": 28,
+        "max_ms": 38.83309988304973,
+        "resolution_ms": 1
+      }
+    }
+  },
+  "client_town_relay": {
+    "n": 664856,
+    "mean_ms": 18.418250679384286,
+    "p50_ms": 17,
+    "p95_ms": 50,
+    "p99_ms": 90,
+    "max_ms": 210.40439372882247,
+    "resolution_ms": 1
+  },
+  "online_capacity_qualified": false,
+  "network_shaped": false,
+  "native_9E_stream": false,
+  "natural_GUI": false,
+  "cold_currency_and_ACK_exact": true,
+  "final_town_SQL_coordinates_exact": true,
+  "owned_runtime_removed": true,
+  "connections": 0,
+  "errors": [],
+  "checkpoint_thread_policy": "THREAD_PRIORITY_BELOW_NORMAL; normal I/O; no background processing mode",
+  "peak_private_bytes": 1437376512
+}

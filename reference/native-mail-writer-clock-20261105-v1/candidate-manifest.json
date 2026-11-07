@@ -1,0 +1,24 @@
+{
+  "revision": "native-mail-writer-clock-20261105-v1",
+  "base_release": "native-market-progress-20261105-v1",
+  "base_manifest_sha256": "55e7b112d140170b72c5458f0f51935af072644a7f979bb7e2a87631236909c4",
+  "files": [
+    {
+      "path": "els_server/storage/game_mail.py",
+      "sha256": "8f36562d6c19b571dec0bd3ca03d57e4d16023315c207d1e154c299e9818c59d",
+      "bytes": 12379,
+      "base_sha256": "596ae900b04e6253c061c10b60d112bd90724c5ebd74d394c4b6e5907ffa092d"
+    },
+    {
+      "path": "els_server/storage/player_mail.py",
+      "sha256": "b3c07a9d0f2ad423f7ac177ce4f8bae17327107940ee35505d457dca7e846baf",
+      "bytes": 13723,
+      "base_sha256": "fe2db04579070aef18fea990de9bffe3320c2af554c71bf6f68c9b7ec1063871"
+    }
+  ],
+  "new_tables": [],
+  "client_changed": false,
+  "installed": false,
+  "source_review": "author_self_review",
+  "scope": "Resolve mail expiry and attachment current time after the actual writer reservation"
+}

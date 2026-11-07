@@ -1,0 +1,20 @@
+{
+  "recorded_at": "2026-11-05T18:22:24.797130+08:00",
+  "source": "Direct human instruction in source chat",
+  "human_instruction": "交给目前这几个会话中负责安装和提交git的会话，然后告诉哪个会话可以启用子会话来完成任务",
+  "source_thread": "01a1ab25-78aa-7cd2-8c8b-df924a31aa41",
+  "destination_thread": "01a1a893-c34f-7080-8874-9a4512dbefcd",
+  "destination_title": "检查未接通功能与缺陷",
+  "scope": "Hand off the exact validated launcher login-startup repair for source submission, signed launcher/runtime delivery and actual selected-component verification through the destination current release workflow.",
+  "destination_may_use_subagents_for_this_task": true,
+  "target_identification_evidence": [
+    "G:/els/analysis/feature-closure-20261105-v1/delivery/publication-authorization.json",
+    "G:/els/analysis/feature-closure-20261105-v1/trade-v1/market-progress/delivery/publication-authorization.json"
+  ],
+  "candidate": "G:\\els\\analysis\\player-login-diagnosis-20261105-v1\\repair-v1\\login-startup-repair-candidate.zip",
+  "candidate_sha256": "b4831177d78b96a77e16562350d3de0ff3b873c37d34db5c6775058cfb417f75",
+  "contract": "G:\\els\\analysis\\player-login-diagnosis-20261105-v1\\repair-v1\\delivery-candidate.json",
+  "checks_passed": 22,
+  "source_chat_publishes": false,
+  "constraints": "No account/save restore, original EXE/KOM modification, Git merge approval bypass, or taking over another release lock. Actual game startup and published component selection remain required at delivery."
+}

@@ -1,0 +1,36 @@
+{
+  "issue": 904,
+  "source_parent": "refs/unified-latency-capacity-20261106-v5",
+  "source_parent_merge": "a1b3cabb41c40e665b1d5dc611a1af203e0e0592",
+  "runtime_parent": {
+    "release": "native-unified-latency-capacity-20261106-v1",
+    "path": "releases/online/native-unified-latency-capacity-20261106-v1",
+    "manifest_sha256": "7b2718a229e3c905626507ac27fc2db799cdffa9b25b425ab6b4744bd4b7fc30"
+  },
+  "files": [
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "parent_sha256": "76c3920743ac32271f9fb57c20d465fcab50ceae0da6d35987d18ef80ffefe12",
+      "candidate_sha256": "e54f7ef4e517b24db8baac18d7147ac4af0abb2e2f5e14611a8a71edd9a61dd3",
+      "source": "source/els_server/domain/dungeon_routes.py",
+      "size": 22278
+    },
+    {
+      "path": "els_server/domain/first_story_population.py",
+      "parent_sha256": "3ebe40c59b3a8cb1ebcf30c6ec991f96c0864d92bafecd3f2da8fae6fff330a0",
+      "candidate_sha256": "33f62291004d0b3549bde00184ae0843a8ed2e69e763ac21f51a2aa52e430198",
+      "source": "source/els_server/domain/first_story_population.py",
+      "size": 2270
+    }
+  ],
+  "tests": [
+    "test_tutorial_stage_reservations",
+    "test_tutorial_summon_response_and_replay"
+  ],
+  "shared_authenticated_server": true,
+  "client_delta": 0,
+  "new_tables": 0,
+  "installation_status": "separately reported by the publisher; source commit does not deploy",
+  "natural_GUI": false,
+  "natural_keyboard": false
+}

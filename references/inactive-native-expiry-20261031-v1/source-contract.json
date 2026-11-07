@@ -1,0 +1,28 @@
+{
+  "format": 1,
+  "candidate": true,
+  "activation": false,
+  "runtime_acceptance": false,
+  "issue": 685,
+  "files": [
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "channels": [
+        "online",
+        "local"
+      ],
+      "source": "references/inactive-native-expiry-20261031-v1/source/shared/els_server/domain/dungeon_flow.py",
+      "sha256": "d212648416748bd87a1d840da2b792a01cc3123d0689714ad033f7a72c68045d",
+      "parent_sha256": "d90368d6df9850d1f2b6a8daefa6cb8d8d5569e413dfccc974375ff205fd69e8"
+    }
+  ],
+  "source_parent_local": "local-collection-synergy-economy-20261031-v1",
+  "source_parent_online": "collection-synergy-economy-20261031-v1",
+  "database_migration": false,
+  "economic_changes": false,
+  "client_changes": false,
+  "source_specific_retirements_have_priority": true,
+  "admission": "Existing static inactive/no_drop, non-ally/non-boss team1 actor, exact native255 envelope, current single-owner lease/run/scene. Use original non-economic finish_death.",
+  "integration": "Exact running parent plus this one shared file. Preserve all channel-specific files and installed native-script reward/finite story handlers. No dependence on map or client candidates.",
+  "verification": "Both actual App transports, duplicate/negative/SQL/cold-read qualified. Native actualAD->ACK pending; natural combat and multiplayer not qualified."
+}

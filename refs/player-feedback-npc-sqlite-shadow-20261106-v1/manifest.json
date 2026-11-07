@@ -1,0 +1,28 @@
+{
+  "issue": 903,
+  "source_parent": "refs/unified-latency-capacity-20261106-v5",
+  "source_parent_merge": "a1b3cabb41c40e665b1d5dc611a1af203e0e0592",
+  "runtime_parent": {
+    "release": "native-unified-latency-capacity-20261106-v1",
+    "path": "releases/online/native-unified-latency-capacity-20261106-v1",
+    "manifest_sha256": "7b2718a229e3c905626507ac27fc2db799cdffa9b25b425ab6b4744bd4b7fc30"
+  },
+  "files": [
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "parent_sha256": "14d2c5f50f2e7671e11f64837d1e89b2975bf26c62515001156a1c240f4f9611",
+      "candidate_sha256": "aa3778037e832042d2da6908da6a7b6223d2189da87bc7d9463951f4ff2bb8d7",
+      "source": "source/els_server/domain/quest_flow.py",
+      "size": 30616
+    }
+  ],
+  "tests": [
+    "test_npc_dialogue_exception_does_not_disconnect"
+  ],
+  "shared_authenticated_server": true,
+  "client_delta": 0,
+  "new_tables": 0,
+  "installation_status": "separately reported by the publisher; source commit does not deploy",
+  "natural_GUI": false,
+  "natural_keyboard": false
+}

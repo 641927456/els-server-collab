@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "baseline": false,
+  "source_sha256": "c2f610315eb3f7531cd7da6939c6a945389513a1fc53091789d9fd0e2a37c171",
+  "source_template": 980044,
+  "production_database_access": false,
+  "new_timed_source": false,
+  "cases": [
+    {
+      "expired_during_wait": true,
+      "accepted": false,
+      "error": "Item has expired",
+      "timer": null,
+      "SQL_unchanged": true
+    },
+    {
+      "expired_during_wait": false,
+      "accepted": true,
+      "error": null,
+      "timer": [
+        1900864000,
+        1900000000
+      ],
+      "SQL_unchanged": false
+    }
+  ],
+  "owned_temporary_directories_removed": true
+}

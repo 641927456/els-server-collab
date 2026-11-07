@@ -993,17 +993,22 @@ class LocalSession:
         if self.item_test and self.client_build=='dx11_260923' and kind==0x55f and event.event_id==0x202:
 
             from els_server.domain.skill_traits import reset_acknowledgement
-
-            from els_server.storage.skill_traits import reset,saved as saved_traits
-
-            if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:return [reset_acknowledgement(result=-1)]
-
+            from els_server.storage.skill_trait_reset import reset
+            from els_server.storage.skill_traits import saved as saved_traits
+            from els_server.domain.equipment_engrave_flow import current_lease
+            if (self.role!='game' or self.phase!='town_ready' or self.account.characters is None
+                or self.account.store is None or self.account.store.uid!=self.account.uid or not current_lease(self)
+                or type(request_sequence) is not int or not 1<=request_sequence<2**32
+                or event.performers not in ((),(0,)) or event.uid!=0xffffffffffffffff
+                or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):return [reset_acknowledgement(result=-1)]
             from els_server.storage.career_shop import notifications as career_notifications
-
-            character=self.account.character();updates=[]
-
+            actor=self.account;store=actor.store;identity=(actor.uid,actor.account_id,self.shop_session_id,store.path)
+            character=actor.character();updates=[]
             def prepare_reset(db):
-
+                if (self.account is not actor or actor.store is not store
+                    or (actor.uid,actor.account_id,self.shop_session_id,store.path)!=identity
+                    or self.role!='game' or self.phase!='town_ready' or not current_lease(self)):
+                    raise ValueError('Trait reset actor or lease changed')
                 refreshed=dict(character,skill_traits=saved_traits(db,self.account.uid))
 
                 updates.extend(career_notifications(db,self.account.uid,refreshed,self.account.get_location(),None,None,True))
@@ -1083,6 +1088,12 @@ class LocalSession:
                 return [use_ack(result=-1)]
 
             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
+            # Artifact dialogs put quantity in the second uint64. Identify the
+            # owned item/receipt before ordinary consumers parse it as a target.
+            from els_server.storage.artifact_progression import action as artifact_action
+            try:artifact=artifact_action(self.account.store.path,self.account.uid,'potion',event.payload,operation,account_id=self.account.account_id)
+            except ValueError:return [use_ack(result=2005)]
+            if artifact is not None:return artifact
             from els_server.storage.boosting_2026_nested_capacity import use_ticket as use_capacity_ticket
             try:capacity=use_capacity_ticket(self.account.store.path,self.account.uid,event.payload,operation)
             except ValueError as error:

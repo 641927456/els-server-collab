@@ -1,0 +1,148 @@
+{
+  "revision": "native-photo-zone-20261105-v1",
+  "base_release": "native-market-progress-20261105-v1",
+  "base_manifest_sha256": "55e7b112d140170b72c5458f0f51935af072644a7f979bb7e2a87631236909c4",
+  "files": [
+    {
+      "path": "els_server/application.py",
+      "sha256": "7ece3af8f6ee8ed389fcc3e3b68c31ee7b9e29ccab53b3189ecb00302da82ce1",
+      "bytes": 38370,
+      "base_sha256": "7014c91d311023b71e699e2006fdbf26123895ca7b511c569bcdc8f8c866581e"
+    },
+    {
+      "path": "els_server/data/photo_zone.json",
+      "sha256": "157ba1b1ba1ed58654c55b35d659874b8db02455170e103be64f5009e3b50112",
+      "bytes": 27261,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/photo_zone.manifest.json",
+      "sha256": "21a36bc2b511b1e6236093dbfdca8136f95e7d7c2b5d704198159f076aa03c53",
+      "bytes": 817,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/data/photo_zone_ticket.json",
+      "sha256": "47887c5f82178dc852b2bc044ce31110fd8fac10ebea6cb073f60b6c52613365",
+      "bytes": 592,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/friend_flow.py",
+      "sha256": "69c5f485f110daf80f1cb0283a47e45285374a2d549620b8c7c67bf99809e6b0",
+      "bytes": 8525,
+      "base_sha256": "d775fca003eb0d4529ae0aa0b4049073682a25f5d0741f270c9cc074a785877a"
+    },
+    {
+      "path": "els_server/domain/friends_dungeon.py",
+      "sha256": "f7010e3bd691cbcd3195ae376bae7651b792c1f80b632e0f73476578f6f238af",
+      "bytes": 36562,
+      "base_sha256": "31513fd0742444d703f73153accf92bb0dc830e2fa7bc3d27417746c0012cbc4"
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "sha256": "c99bbf4d9a571da67087fc17902b132d33054ec223afe23b3fa72a7c186162b9",
+      "bytes": 20177,
+      "base_sha256": "f1c219c5c17f1c79b5e0694f7d63757751464981bf790c855a9f3a9e2dd996f0"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "sha256": "56047bd078050965f356e2ab54d4483f1d79212c51e727360eabfd834e2f5613",
+      "bytes": 84863,
+      "base_sha256": "f3945ac0fbcf0e766e8fccc92382051e3e4f189d153ca0946c6b3d2efe4c9b92"
+    },
+    {
+      "path": "els_server/domain/photo_zone_catalog.py",
+      "sha256": "b8dfa9cc5dc1e2071bed160ce66e7b39266cdc2c83f15754180511ed4f07ed0d",
+      "bytes": 2094,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/photo_zone_flow.py",
+      "sha256": "c0bd467612e5cc020f9a63494967a5715934fb0bf8afa97b7b4240ef50ecfe28",
+      "bytes": 15400,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/photo_zone_quest.py",
+      "sha256": "aaef8317b4adf4252446cdda260257522834e72acbf84874f827a7eac16227d1",
+      "bytes": 1002,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "sha256": "b96684deedef14fec01ef164c1cdf8ede865ee4ef6a383fd3b1656980f6547e1",
+      "bytes": 29482,
+      "base_sha256": "96dd1eb20ac2840c8e6ad7ef51f5fe68dcdfa986b2c5be382b44e4821ce44f8c"
+    },
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "sha256": "618e2dc72331eaef068130d99e7a2e8df346a81acb0912c8c22b16b310065d79",
+      "bytes": 19307,
+      "base_sha256": "f9e7488ae9c7f244475b9239a9504ae380069e429754e8f530d666463a0c0649"
+    },
+    {
+      "path": "els_server/domain/session_auxiliary.py",
+      "sha256": "5b084989fe91318cb794ebf41ffa2f1890ddfc5983e9876605fe8eb264d345de",
+      "bytes": 4214,
+      "base_sha256": "31f380f411d1f65e5d13ccb863c70498d35fb99acfa462bbc3f8640788d9baf9"
+    },
+    {
+      "path": "els_server/domain/whisper.py",
+      "sha256": "ebfb8a1d3853f0cffbecb1f5c9c1abd69882034f5ee6e19b3eb7586fdba75c93",
+      "bytes": 1312,
+      "base_sha256": "5f9cae3dd57ab645c9356f1d3d6f35d6cbc4f2d5c41943fa134360a4e9565e84"
+    },
+    {
+      "path": "els_server/friends_relay.py",
+      "sha256": "b2eee0de47d77534c8683334d3864d3088e8e2f82b5af013d9adf9559fc7b1b3",
+      "bytes": 15747,
+      "base_sha256": "1563eb64041194149318481f07dfa017a54f83a70585def66ff156e049cbc0bf"
+    },
+    {
+      "path": "els_server/protocol/dungeon_messages.py",
+      "sha256": "24651d5b7dfe2df233f264c7121972c4be95980dbd6b24ade803636a8a1cb0c7",
+      "bytes": 15602,
+      "base_sha256": "c64fbb9572c442f7cf97cb1888e22b76500316d86b49566a151fe53a12cdb368"
+    },
+    {
+      "path": "els_server/protocol/photo_zone_messages.py",
+      "sha256": "682a2cac8bfc80cb1514ce017fd0cc0ba6378fea69353d6f54924f6e08eb90ed",
+      "bytes": 5369,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/realtime.py",
+      "sha256": "5a3394e9c358c2731821529c3c2edc4dca1f13a61aa0e5cb9c04e5c1bd339c41",
+      "bytes": 11014,
+      "base_sha256": "493dc7f76fa5dae89f8b08f2c610421ae537d968af4bcaddbfa30d54e613448a"
+    },
+    {
+      "path": "els_server/storage/equipment_receipt_state.py",
+      "sha256": "19fd66346f71be151b12fd634c7ae319109b22a190d05bdc011453975eb392d3",
+      "bytes": 3374,
+      "base_sha256": "9bb1ea5d9ff4630203160b4c7d19c36e2c681b79d19ab2e3e7c2d65b5c4b8360"
+    },
+    {
+      "path": "els_server/storage/photo_zone_state.py",
+      "sha256": "db4f40e7748ddafcb7ca16285863e37208802ecf8d3fad2be8474a8b71fa6ec2",
+      "bytes": 4351,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "sha256": "8882a7e3912e8ed70915240512026b10c5f9a88f80c18ebdcd21d08548aef7e3",
+      "bytes": 39007,
+      "base_sha256": "75677e377c9513787a0ec9766c532fef48686a5d054802997b6df35688179d05"
+    }
+  ],
+  "new_tables": [
+    "native_photo_zone_unlocks"
+  ],
+  "client_changed": [
+    "els_server/friends_relay.py"
+  ],
+  "installed": false,
+  "natural_GUI": false,
+  "shop_price": "awaiting_user"
+}

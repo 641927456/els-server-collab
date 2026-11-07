@@ -1,0 +1,66 @@
+--- a/els_server/data/retained_native_consumables.json
++++ b/els_server/data/retained_native_consumables.json
+@@ -510,6 +510,50 @@
+       "owned_max_stack": 999,
+       "minimum_level": 0,
+       "record_sha256": "d12c076d13db775069ffe744453556a6a4fa7988cefeae5dbf6d13fd2286ba70"
++    },
++    {
++      "template": 716611,
++      "name": "[科宝]苹果（50个）选择宝箱",
++      "item_type": 7,
++      "metadata": 0,
++      "group": 4,
++      "raw_max_stack": 0,
++      "owned_max_stack": 1,
++      "minimum_level": 0,
++      "record_sha256": "33289c0a6b197fef0aee3cf3dccc5c982adc69d99cecafcb7172f27cf591da80"
++    },
++    {
++      "template": 718783,
++      "name": "[科宝]药水包裹（5种）",
++      "item_type": 7,
++      "metadata": 0,
++      "group": 4,
++      "raw_max_stack": 0,
++      "owned_max_stack": 1,
++      "minimum_level": 0,
++      "record_sha256": "c1f01cfdaf66a4c6a81036e6b97c7d88438fdf73f35e07a96e99b8db23c43732"
++    },
++    {
++      "template": 720017,
++      "name": "[科宝]隐藏副本扫荡券",
++      "item_type": 7,
++      "metadata": 2,
++      "group": 4,
++      "raw_max_stack": 300,
++      "owned_max_stack": 999,
++      "minimum_level": 0,
++      "record_sha256": "ccaf9e5ed8bb092a2137bbb9bcc1c23a2cb217dc6351fb17eba678d3cc19b74a"
++    },
++    {
++      "template": 720835,
++      "name": "[科宝]水色之哨追加入场券",
++      "item_type": 7,
++      "metadata": 2,
++      "group": 4,
++      "raw_max_stack": 1000,
++      "owned_max_stack": 1000,
++      "minimum_level": 0,
++      "record_sha256": "10c9e64e7d4bdd0ff8e164b7868dba5bd7e527cf92cb4358d8a936377082f258"
+     }
+   ]
+ }
+--- a/els_server/domain/retained_native_consumables.py
++++ b/els_server/domain/retained_native_consumables.py
+@@ -3,8 +3,8 @@
+ from types import MappingProxyType
+ import functools,hashlib,json,struct
+ 
+-DATA_SHA='db687161c4c1f89ddb2cddd37a386d9b24cece653c0b1695f47cd9d492242f2c'
+-TEMPLATES=frozenset((118707, 118709, 118713, 118714, 295995, 313132, 701005, 701006, 701007, 701009, 701011, 723610, 723618, 10078925, 10078926, 10078927, 10078928, 10078929, 10130467, 60001529, 60004275, 60008002, 80000087, 80000373, 80000599, 80001350, 80001371, 80001390, 80001452, 80001596, 80001890, 80001891, 80001892, 85000526, 85000527, 85001866, 85001867, 85001960, 85003046, 90000739, 90001710, 100000168, 100001054, 210000120, 250002820, 250002821))
++DATA_SHA='a0d28e566c439c655d426d33988df14cf3fe845f969edaa37e9a06c6ed5122dc'
++TEMPLATES=frozenset((118707, 118709, 118713, 118714, 295995, 313132, 701005, 701006, 701007, 701009, 701011, 716611, 718783, 720017, 720835, 723610, 723618, 10078925, 10078926, 10078927, 10078928, 10078929, 10130467, 60001529, 60004275, 60008002, 80000087, 80000373, 80000599, 80001350, 80001371, 80001390, 80001452, 80001596, 80001890, 80001891, 80001892, 85000526, 85000527, 85001866, 85001867, 85001960, 85003046, 90000739, 90001710, 100000168, 100001054, 210000120, 250002820, 250002821))
+ 
+ @functools.lru_cache(maxsize=1)
+ def definitions():

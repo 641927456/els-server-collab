@@ -1,0 +1,111 @@
+{
+  "base_commit": "a1b3cabb41c40e665b1d5dc611a1af203e0e0592",
+  "parent_V": 82,
+  "parent_launcher_sha256": "fa7ac950f6ee4520789422b779c9b0a98629b71e38be7f1ab4be645369de774b",
+  "candidate_V": 83,
+  "candidate_launcher_sha256": "b77ae4b45cc06ebd52ba6b8b94dd7ecbbbd30eae3a3a78b935f2e16c83a82538",
+  "candidate_launcher_size": 37393920,
+  "runtime_archive_sha256": "6c059e9ea18b464f80e1020b3755cfc809d291907c4159e2334a607641a9d8db",
+  "engine_files_unchanged": 2786,
+  "server_restart_required": false,
+  "original_EXE_KOM_changes": 0,
+  "repository": "641927456/els-launcher-updates",
+  "release_tag": "launcher-v83-b77ae4b45cc06ebd",
+  "runtime_tag": "runtime-6c059e9ea18b464f80e1020b3755cfc809d291907c4159e2334a607641a9d8db",
+  "baseline_changed_files": {
+    "AutoUpdate.cs": {
+      "size": 16016,
+      "sha256": "ed44b7132e606411e543ad3f57ce87a2c510d0cf9519986013bfaf1506148362"
+    },
+    "ComponentRuntime.cs": {
+      "size": 40333,
+      "sha256": "416d3786b9b6be2628c7e350118834a5bf295e8031c06ce2b8f0d40d47e0bdc3"
+    },
+    "UIScrollRuntimeCohort.cs": {
+      "size": 2437,
+      "sha256": "94e49b73be26e39a6525393e8b60b0dd3a44f9f68b86ebd6214b936f918899aa"
+    },
+    "resources/ui-scroll-signedFriends.signed.json": {
+      "size": 542821,
+      "sha256": "0f7caf6ee5de801514dc1cc8165642824994e11a9f2031488f51887a72f04026"
+    }
+  },
+  "files": {
+    ".gitattributes": {
+      "sha256": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992",
+      "size": 9
+    },
+    "checks.json": {
+      "sha256": "66bba435df3a1f7239fe66698913e68be19f9ef656ac46a62ae84312d106bed0",
+      "size": 418
+    },
+    "corrupt.json": {
+      "sha256": "3d6f89254c5d0aa39a7ff7bcb39a8a112aee0f462d57cafa2c58b9a4c48764df",
+      "size": 110
+    },
+    "fresh.json": {
+      "sha256": "75347b1de5b6a47ed26799174e195b8b69bfc146a4f8b930ebd23eb732621604",
+      "size": 790
+    },
+    "partial.json": {
+      "sha256": "6518ea647908958e79e36b304f0eed54ba392223462304d85865b8e5c882bc94",
+      "size": 878
+    },
+    "policy.json": {
+      "sha256": "0f9e4e4ee6cb63ad20478b15963effbaf56f68ee26e58282b796c69273ffb045",
+      "size": 108
+    },
+    "public-exe.json": {
+      "sha256": "a4278bb9f04f3162da4141607c93e2140cb9204f78232cf8ca85d88246a37a93",
+      "size": 120
+    },
+    "public.json": {
+      "sha256": "2a2af2f26ee72151b4a17d184ed328e6bc18a8eb4a22a8334eeff18616440a26",
+      "size": 788
+    },
+    "truncated.json": {
+      "sha256": "3292f5b7269aef5c4a92b2c1ce9eac025fbddbab2065114934b9caa80e1375c8",
+      "size": 112
+    },
+    "upgrade.json": {
+      "sha256": "6c43757881aab1ce9c40d16a50ab8e1af8d9453490c961442cadeb3d4a4dcd87",
+      "size": 747
+    },
+    "publisher/build.py": {
+      "sha256": "5be1b8a8fd7f9658a49b9e8830db42a0d212118e270fea3b810606c66d70d9b3",
+      "size": 11557
+    },
+    "publisher/stage_github.py": {
+      "sha256": "d7c40546ed7a29d56ff10b474635eb1059cd8b2b36f341be047b7cddd74ac300",
+      "size": 4148
+    },
+    "source/AutoUpdate.cs": {
+      "sha256": "a404e5d7b21accb56d94763ac25177b19e68c7c5db4477cb5f52e0d5262b73d7",
+      "size": 14739
+    },
+    "source/ComponentRuntime.cs": {
+      "sha256": "0136fe51c8827998cd86c8f2b63b159afda7f16adce6899124432b22a0b59b25",
+      "size": 43191
+    },
+    "source/GitHubUpdates.cs": {
+      "sha256": "afe5fc43b477294eb2538c463c9783fe535183a2bac02d982a5ab973e9df6e3e",
+      "size": 3131
+    },
+    "source/UIScrollRuntimeCohort.cs": {
+      "sha256": "66e0852c0ff90f8bc67e0fc88fa41754d19db0a2c486d77c3c94a328dcd3dae0",
+      "size": 2437
+    },
+    "tests/check.py": {
+      "sha256": "d4200a9519a26f098fafb55ed10ddb7147a3bfa6ceabe587eea3840eac7ca64d",
+      "size": 6961
+    },
+    "tests/UpdateChecks.cs": {
+      "sha256": "537d8121551f5127f8894e17e3162500020df33514067dab6e566a802bfd2110",
+      "size": 6559
+    },
+    "source/resources/ui-scroll-signedFriends.signed.json": {
+      "sha256": "d1092c5ff4b84e48a952cfb3074a21cbe1809ffff5b6408eca1f1beef6ee8b1c",
+      "size": 738097
+    }
+  }
+}

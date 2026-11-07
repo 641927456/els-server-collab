@@ -1,0 +1,17 @@
+# Register every owned row, or one missing template refuses the whole bag
+
+Trigger: a character holding items granted after login (GM item mail, bundle contents, role fashion) gets an error on **every** inventory action — material-page double-click, consumable use, pet ticket, merge, move — while the bag itself still renders.
+
+Cause: `load_items()` ends with `inventory_payload(items)`, which validates **every** owned row through `validate_item`. That function rejects the entire list as soon as one row's template is absent from `VERIFIED_TEMPLATES` (`Invalid inventory item identity/template`). The bag still displayed because the client had already received those rows incrementally; only the next server-side read failed. On owner 1002 twelve such rows existed across five bag groups, so the whole 175-row bag was unreadable and `storage.consumables.use`, `storage.pet_support.handle` and every bag UI path answered with a refusal.
+
+Fix, all additive registrations in `els_server/domain/inventory_items.py`, each pinned to an existing sha256-stamped catalogue rather than a new inference:
+
+- Seven owned bag-group-4 rows (`710085`, `710106`, `714139`, `714143`, `714147`, `723610`, `723618`) from `data/published2026-bundles.json` (`53b00587…`) and `data/boosting2026-title-support.json` (`bb9457a0…`). Policy is the entry's own metadata/group plus the formal local stack applied to the source cap, identical to what `published_2026_bundles.enable()` registers.
+- `718117` `[阿莉尔]巨人的石苹果`, the shop copy of the already-registered `710313`: metadata2, bag group6, level40 and the same linked-buff pointer, so only the inventory identity is added. The apple effect stays owned by `apple_consumables`.
+- Four owned Lithia guardian fashion pieces (`118828`, `118830`, `118834`, `118835`) from `data/boosting2026-fashion90.json` (`481d8d33…`): group27, singleton cap, equip slot taken from the catalogue's `slot` (50/53/56/57 → 45/48/51/52). Bag group27 keeps the unequipped copies readable and `FASHION_EQUIP_SLOTS` is what lets the already-worn `118834` (group9, slot51) pass.
+
+Scope: registration only. No protocol, schema, scoring or client change, and no new use semantics — the module that would otherwise register these rows (`published_2026_bundles.enable`, `boosting_2026_fashion_rewards.register`) still accepts the same policies, so enabling those features later cannot conflict.
+
+Validation: all four owners now load (`1001` 16, `1002` 176, `1003` 10, `1004` 51). Replaying the native `0x219` request against a copy of the live save: `330562` succeeds and flips `upgrade`, `500720` succeeds against a pet without permanent pickup, `164566` refuses with `Pet automatic entitlement already unlocked` (the account already has `automatic=1` — original one-shot behaviour), `500867` still falls through because the 15-day pickup variant has no catalogue entry. `tests/test_pet_support`, `test_pet_manual_cooldown_conflict`, `test_consumables`, `test_additional_potions`, `test_full_recovery_shortcut` pass (20). The four `test_potion_moves`/`test_consumable_actor_lifecycle_current` failures predate this change and reproduce with `inventory_items.py` stashed.
+
+Still open: `500867` `宠物自动拾取（15日）` needs a timed pickup entitlement (the current model stores `pickup` as a bool); the material page's boxes, elixirs and magic stones have no server-side use handler at all, and opening the seven boxes additionally needs the client `ItemGroup` table, which is not in the repo.

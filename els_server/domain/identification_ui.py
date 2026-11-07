@@ -47,6 +47,18 @@ def catalog():
  for key,value in cslots['historical_alias_definitions'].items():
   if definitions.get(key)!=value or value.get('TYPE')!=1 or effect(value)not in effects:raise ValueError('Identification historical alias identity')
  return c
+@functools.lru_cache(maxsize=1)
+def reset_materials():
+ raw=(Path(__file__).resolve().parents[1]/'data/identification_reset_items.json').read_bytes()
+ if hashlib.sha256(raw).hexdigest()!='4513ec04bb08d953980ab2859d5411e28815c96edfcf3434ea23a0ef3bba96d9':raise ValueError('Identification reset alias identity')
+ rows=json.loads(raw)
+ for row in rows.values():
+  original=client_data().item(row['template'])
+  if (hashlib.sha256(original['record']).hexdigest()!=row['record_sha256'] or original['metadata']!=row['metadata']
+      or (original['flags8']>>3)&31!=7 or row['group']!=4
+      or row['max_stack']!=int.from_bytes(original['record'][16:20],'little')):raise ValueError('Identification reset original alias')
+ return {**catalog()['materials'],**rows}
+
 def template_pool(template):
  c=catalog();profile=c['compatibility_slots']['rows'].get(str(template))
  if profile is not None and 'pool'in profile:

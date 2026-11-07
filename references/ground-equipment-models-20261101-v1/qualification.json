@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "kind": "qualification and correction; no runtime patch",
+  "date_Hong_Kong": "2026-11-01",
+  "related_PR": 720,
+  "actual_model_defect_reproduced": false,
+  "runtime_patch_needed": false,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "native_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "admitted_weapon_armor_templates": 48,
+  "admitted_model_variants": 7,
+  "all_admitted_model_groups_visually_covered": true,
+  "model_groups": [
+    {
+      "model": "DropItemDrop_Weapon_Raven",
+      "mesh": "Item_Drop_Weapon_Raven.y",
+      "native_visual_sample": 30197,
+      "template_ids": [
+        30197
+      ]
+    },
+    {
+      "model": "DropItemDrop_Weapon_Luciel",
+      "mesh": "Item_Drop_Weapon_Luciel.Y",
+      "native_visual_sample": 11022332,
+      "template_ids": [
+        11022332,
+        11022336,
+        11022339,
+        11022343,
+        11022344,
+        11022351,
+        11022352,
+        11022359,
+        11022360,
+        11022367,
+        11022368,
+        11022375,
+        11022376,
+        11022383,
+        11022384,
+        11022391,
+        11022392,
+        11022399,
+        11022428,
+        11022432,
+        11022435,
+        11022439,
+        11022440,
+        11022447,
+        11022456,
+        11022463,
+        11022464,
+        11022471,
+        11022472,
+        11022479,
+        11022480,
+        11022487,
+        11022488,
+        11022495
+      ]
+    },
+    {
+      "model": "DropItemDrop_Upbody_Elsword",
+      "mesh": "Item_Drop_Upbody_Elsword.y",
+      "native_visual_sample": 186682,
+      "template_ids": [
+        118518,
+        118638,
+        186682
+      ]
+    },
+    {
+      "model": "DropItemDrop_Lowbody_Elsword",
+      "mesh": "Item_Drop_Lowbody_Elsword.y",
+      "native_visual_sample": 186683,
+      "template_ids": [
+        118519,
+        186683
+      ]
+    },
+    {
+      "model": "DropItemDrop_Hand_Elsword",
+      "mesh": "Item_Drop_Hand_Elsword.y",
+      "native_visual_sample": 186684,
+      "template_ids": [
+        118544,
+        186684
+      ]
+    },
+    {
+      "model": "DropItemDrop_Foot_Elsword",
+      "mesh": "Item_Drop_Foot_Elsword.y",
+      "native_visual_sample": 186685,
+      "template_ids": [
+        118545,
+        186685
+      ]
+    },
+    {
+      "model": "DropItemPouch",
+      "mesh": "Item_Pouch.y",
+      "native_visual_sample": 30206,
+      "template_ids": [
+        30206,
+        30249,
+        30268,
+        30273
+      ]
+    }
+  ],
+  "original_CF_reader": "2C1AC10",
+  "original_item_lookup": "6D56C0",
+  "model_record_field": "0x9c",
+  "original_reader_preserves_all_48_template_ids": true,
+  "preview_bytes_match_installed_server_serializer": true,
+  "installed": {
+    "online": {
+      "release": "native-ground-fashion-20261101-v1",
+      "manifest_sha256": "a88f91b070ba8423c047ad5980ee6943325c03e193a25f300e5f88c462e5c44c"
+    },
+    "local": {
+      "release": "local-native-ground-fashion-20261101-v1",
+      "manifest_sha256": "8bf21dac869abcade1cd18cdac8607b7d201dad30e70b77d26feb8d793dce2f6"
+    }
+  },
+  "shared_installed_inputs": [
+    {
+      "file": "els_server/domain/dungeon_drops.py",
+      "sha256": "baaf2d04513a72720ff095add3d6e7bae4db901c8c3568d74fddceb3714ad688",
+      "both_installed_equal_to_observed_runtime": true
+    },
+    {
+      "file": "els_server/data/client/catalog.sqlite3",
+      "sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+      "both_installed_equal_to_observed_runtime": true
+    },
+    {
+      "file": "els_server/data/client/manifest.json",
+      "sha256": "381cc3ba4a02b423ae82bd61f93e0dcbb454f911c806711e660442f888acf699",
+      "both_installed_equal_to_observed_runtime": true
+    }
+  ],
+  "dual_installation_action": "already contains identical implementation; no replacement payload",
+  "corrected_previous_claim": "A single weapon and pouch sample did not qualify all equipment models. Item30206 is armor/glove, not an accessory; its original record explicitly selects the pouch model.",
+  "boundaries": [
+    "Native visuals are original CF consumer dispatch in an owned isolated process, not a network/natural combat claim.",
+    "All48 admitted templates passed the original offline CF/item reader; seven live visual samples cover their seven model groups.",
+    "Other unadmitted catalog templates do not gain new drops or new acquisition authority from this qualification.",
+    "Original EXE/KOM and production runtime were not modified. No drop pool, reward amount or economic rule changed.",
+    "Screenshots, raw native trace, native images and databases stay private on G; only their digests are referenced here."
+  ],
+  "cleanup": {
+    "owned_process_exited": true,
+    "own_runtime_removed": true,
+    "player_database_access": false
+  },
+  "private_evidence": [
+    {
+      "name": "native-equipment-result.json",
+      "sha256": "e6572ab330ac31b3db2556e894632ba57d84d8dbc7444e5919b5dfb596cdca45",
+      "not_included_in_repository": true
+    },
+    {
+      "name": "equipment-models-native.png",
+      "sha256": "5e43f5df594e987474cfdd73d51edc31525fcaf8b4205a028b2ca7fd973f848b",
+      "not_included_in_repository": true
+    },
+    {
+      "name": "cleanup.json",
+      "sha256": "cddafd3fcb0028d91034dc68ae2adcf894765492f47aa81fff89f9f4b77c51f1",
+      "not_included_in_repository": true
+    },
+    {
+      "name": "native-equipment-verification.json",
+      "sha256": "a11b66bad82e4aa134397446e9c9ca03d252450e18543622329ab56f64817907",
+      "not_included_in_repository": true
+    }
+  ]
+}

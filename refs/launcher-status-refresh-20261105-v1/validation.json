@@ -1,0 +1,52 @@
+{
+  "behavior": {
+    "ok": true,
+    "periodic": {
+      "timer_detects_disconnect": true,
+      "timer_detects_recovery": true,
+      "negative_reply_rejected": true,
+      "refreshes_while_busy": true,
+      "maximum_concurrent_requests": 1,
+      "production_interval_ms": 10000
+    },
+    "mode_change": {
+      "in_flight_mode_switch": true,
+      "host_and_pin_captured_together": true,
+      "stale_response_discarded": true,
+      "selected_endpoint_checked_immediately_after_old_request": true
+    },
+    "invalidation": {
+      "online_local_online_race": true,
+      "invalidated_result_never_painted": true,
+      "launch_failure_refresh_uses_same_invalidation_path": true
+    },
+    "close": {
+      "close_during_request": true,
+      "timer_released": true,
+      "no_disposed_control_write": true,
+      "no_unhandled_ui_exception": true
+    },
+    "public_status": {
+      "actual_candidate_assembly": true,
+      "public_status_ok": true,
+      "incorrect_certificate_pin_rejected": true,
+      "no_account_credentials_sent": true
+    },
+    "game_started": false,
+    "user_settings_changed": false
+  },
+  "startup": {
+    "ok": true,
+    "startup": {
+      "normal_shown_callback": true,
+      "starts_polling_automatically": true,
+      "actual_ten_second_tick_observed": true,
+      "calls": 2,
+      "visible_window": false
+    },
+    "game_started": false,
+    "user_settings_changed": false
+  },
+  "tested_exe_sha256": "1e8f01c22bbb512dd02829a3352fa0ee2fc711215be0e133cd22906430877c89",
+  "embedded_resources_preserved": 101
+}

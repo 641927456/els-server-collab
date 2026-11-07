@@ -1,0 +1,7 @@
+# Expiry data-shape regression
+
+Medium functional regression: timed equipment grants reach enhancement.replace(), which calls `require_current(dict(expires_at=deadline[0]))`. Boost changed the shared predicate to index `item['template']`, so the supported projection raises KeyError. The new Abyss +11 weapon exposed it; unrelated timed enhancement is also affected through the same shared call.
+
+The exact rg pattern `require_current\(dict` finds one known call. Expanding to `require_current`, `expired`, and `item_deadline`, then scanning literal call arguments in the complete composed Python AST found no second missing-template producer. Full-item callers and inventory/sweep projections supply template; treating these as defects would be false positives. A Windows wildcard-path rg attempt was invalid; the complete root search and AST scan replaced it.
+
+Fix both channels at the shared item_deadline entry: `item.get('template')` only selects the event cap, while the explicit expires_at remains authoritative. The predicate already accepted deadline-only maps before Boost; this restores that contract without inferring item identity. Two regression tests verify deadline-only boundary rejection and event-only capping, including preserving earlier deadlines and unrelated 90-day equipment. Re-run the two failed campaign tests plus affected expiry test; all pass. The test file is directly runnable in CI. No new grant authority, lifetime extension or receipt rewrite.

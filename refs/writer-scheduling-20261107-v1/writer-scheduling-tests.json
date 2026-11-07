@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "tests": 3,
+  "scenarios": [
+    {
+      "lane": "death",
+      "remaining_jobs_stayed_queued": 8,
+      "rival_wait_after_first_release_ms": 8.79,
+      "FIFO": true,
+      "cold_SQL": true,
+      "FULL": true,
+      "reply_after_commit": true
+    },
+    {
+      "lane": "coin",
+      "remaining_jobs_stayed_queued": 8,
+      "rival_wait_after_first_release_ms": 6.338,
+      "FIFO": true,
+      "cold_SQL": true,
+      "FULL": true,
+      "reply_after_commit": true
+    }
+  ],
+  "runtime": "3.14.10 free-threading build (tags/v3.14.10:b703b2c, Oct 25 2026, 17:36:07) [MSC v.1944 64 bit (AMD64)]",
+  "candidate": {
+    "candidate/els_server/domain/legacy_pve_exp.py": "2badb754c4e3e7eef84e46a4e351b7ac663f4616d4425f633effc345f8ea69f0",
+    "candidate/els_server/storage/coin_writer.py": "a6310cbe72d981714445f89c3a896c5da1983c5559d2d55f96124e9cc5a9c179",
+    "candidate/els_server/storage/death_writer.py": "cac61041322e4d8a56079613c05a27b1bb0f180d727a6ee96b6a91425b815ae3",
+    "candidate/els_server/storage/sqlite_timing.py": "54b7b5099ba7c431f054de7c6b90b9a868215107e13a2791663bb6aa7bf94c8a"
+  },
+  "scope": "Owned SQLite scheduling only; no native or public capacity claim"
+}

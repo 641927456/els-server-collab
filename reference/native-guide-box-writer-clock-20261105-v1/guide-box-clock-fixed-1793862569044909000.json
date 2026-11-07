@@ -1,0 +1,18 @@
+{
+  "passed": false,
+  "baseline": false,
+  "source_sha256": "190fe79b661d4cf829e3f26233f4ab17a28d875c9d43c5aefefedd38646c1ec6",
+  "source_template": 722235,
+  "production_database_access": false,
+  "new_timed_source": false,
+  "cases": [
+    {
+      "expired_during_wait": true,
+      "accepted": false,
+      "error": "Item has expired",
+      "granted": [],
+      "SQL_unchanged": true
+    }
+  ],
+  "error": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\guide-box-clock-v1\\test_guide_box_clock.py\", line 58, in <module>\n    assert [e.kind for e in again]==[e.kind for e in events]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+}

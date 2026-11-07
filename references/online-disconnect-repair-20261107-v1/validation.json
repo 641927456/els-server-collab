@@ -1,0 +1,394 @@
+{
+  "ok": true,
+  "source_python_compilation": true,
+  "results": {
+    "tutorial": {
+      "ok": true,
+      "production_changed": false,
+      "actual_online_source": "G:\\els\\releases\\online\\native-achievement-guild-expedition-history-20261107-v1",
+      "candidate": true,
+      "source_sha256": "94014a6598cfa9b2d88984752b40d92372c8f299aff024226dc686fbe545c5be",
+      "HP_lease_still_refuses_after_C1": true,
+      "late_AD_acknowledged": true,
+      "repeat_and_expiry_ACK_only": true,
+      "session_kept": true,
+      "subsequent_roster_request_passed": true,
+      "durable_state_unchanged": true,
+      "bad_envelope_and_malformed_refused": true,
+      "normal_three_stage_clear": true,
+      "C1_bytes": 516,
+      "natural_GUI": false,
+      "natural_combat": false
+    },
+    "variants": {
+      "ok": true,
+      "additional_confirmed_trigger_paths": 4,
+      "additional_root_cause": "An authenticated original HP capability is identity-bound. Private preview/source-view copies must delegate to the exact original run instead of presenting the copy as a live instance.",
+      "findings": [
+        {
+          "case": "condition",
+          "title": "34320 condition preview passes a copied run to its original HP capability",
+          "priority": "P1",
+          "confidence": "confirmed",
+          "site": "els_server/domain/dungeon_flow.py:330",
+          "baseline": {
+            "case": "condition",
+            "ok": true,
+            "candidate": false,
+            "actual_Application": true,
+            "actual_loopback_TLS": true,
+            "production_modified": false,
+            "natural_GUI": false,
+            "natural_route": false,
+            "dungeon": 34320,
+            "owned_declared_scene_fixture": true,
+            "connection_kept": false,
+            "events": [],
+            "errors": [
+              {
+                "event": "protocol_error",
+                "error": "C1 HP instance lease/phase changed"
+              }
+            ],
+            "economic_rows_unchanged": true
+          },
+          "fixed": {
+            "case": "condition",
+            "ok": true,
+            "candidate": true,
+            "actual_Application": true,
+            "actual_loopback_TLS": true,
+            "production_modified": false,
+            "natural_GUI": false,
+            "natural_route": false,
+            "dungeon": 34320,
+            "owned_declared_scene_fixture": true,
+            "connection_kept": true,
+            "events": [
+              1138,
+              186,
+              1167,
+              931
+            ],
+            "errors": [],
+            "economic_rows_unchanged": true
+          },
+          "fix": "Reuse existing _ShadowHP to delegate immutable source reads and lease validation to the exact original owned run.",
+          "installed": false
+        },
+        {
+          "case": "story",
+          "title": "34320 end-controller retirement previews a gate with the copied run identity",
+          "priority": "P1",
+          "confidence": "confirmed",
+          "site": "els_server/domain/story_controller_retirements.py:124",
+          "baseline": {
+            "case": "story",
+            "ok": true,
+            "candidate": false,
+            "actual_Application": true,
+            "actual_loopback_TLS": true,
+            "production_modified": false,
+            "natural_GUI": false,
+            "natural_route": false,
+            "dungeon": 34320,
+            "owned_declared_scene_fixture": true,
+            "connection_kept": false,
+            "events": [],
+            "errors": [
+              {
+                "event": "protocol_error",
+                "error": "C1 HP instance lease/phase changed"
+              }
+            ],
+            "economic_rows_unchanged": true
+          },
+          "fixed": {
+            "case": "story",
+            "ok": true,
+            "candidate": true,
+            "actual_Application": true,
+            "actual_loopback_TLS": true,
+            "production_modified": false,
+            "natural_GUI": false,
+            "natural_route": false,
+            "dungeon": 34320,
+            "owned_declared_scene_fixture": true,
+            "connection_kept": true,
+            "events": [
+              174,
+              175,
+              186,
+              1167,
+              931
+            ],
+            "errors": [],
+            "economic_rows_unchanged": true
+          },
+          "fix": "Reuse existing _ShadowHP to delegate immutable source reads and lease validation to the exact original owned run.",
+          "installed": false
+        },
+        {
+          "case": "old_part",
+          "title": "34020 delayed previous-part actor6013 is validated through a copied source view",
+          "priority": "P1",
+          "confidence": "confirmed",
+          "site": "els_server/domain/scene_actor_retirements.py:180",
+          "baseline": {
+            "case": "old_part",
+            "ok": true,
+            "candidate": false,
+            "actual_Application": true,
+            "actual_loopback_TLS": true,
+            "production_modified": false,
+            "natural_GUI": false,
+            "natural_route": false,
+            "dungeon": 34020,
+            "owned_declared_scene_fixture": true,
+            "old_actor_template": 6013,
+            "connection_kept": false,
+            "events": [],
+            "errors": [
+              {
+                "event": "protocol_error",
+                "error": "C1 HP instance lease/phase changed"
+              }
+            ],
+            "economic_rows_unchanged": true
+          },
+          "fixed": {
+            "case": "old_part",
+            "ok": true,
+            "candidate": true,
+            "actual_Application": true,
+            "actual_loopback_TLS": true,
+            "production_modified": false,
+            "natural_GUI": false,
+            "natural_route": false,
+            "dungeon": 34020,
+            "owned_declared_scene_fixture": true,
+            "old_actor_template": 6013,
+            "connection_kept": true,
+            "events": [
+              174,
+              175,
+              1167,
+              931
+            ],
+            "errors": [],
+            "economic_rows_unchanged": true
+          },
+          "fix": "Reuse existing _ShadowHP to delegate immutable source reads and lease validation to the exact original owned run.",
+          "installed": false
+        },
+        {
+          "case": "combat",
+          "title": "34320 boss7511 drop preparation previews the gate with the copied run identity",
+          "priority": "P1",
+          "confidence": "confirmed",
+          "site": "els_server/domain/dungeon_equipment_loot_flow.py:86",
+          "baseline": {
+            "case": "combat",
+            "ok": true,
+            "candidate": false,
+            "actual_Application": true,
+            "actual_loopback_TLS": true,
+            "production_modified": false,
+            "natural_GUI": false,
+            "natural_route": false,
+            "dungeon": 34320,
+            "owned_declared_scene_fixture": true,
+            "connection_kept": false,
+            "events": [],
+            "errors": [
+              {
+                "event": "protocol_error",
+                "error": "C1 HP instance lease/phase changed"
+              }
+            ],
+            "economic_rows_unchanged": true
+          },
+          "fixed": {
+            "case": "combat",
+            "ok": true,
+            "candidate": true,
+            "actual_Application": true,
+            "actual_loopback_TLS": true,
+            "production_modified": false,
+            "natural_GUI": false,
+            "natural_route": false,
+            "dungeon": 34320,
+            "owned_declared_scene_fixture": true,
+            "connection_kept": true,
+            "events": [
+              174,
+              175,
+              207,
+              207,
+              207,
+              1167,
+              931
+            ],
+            "errors": [],
+            "economic_rows_unchanged": false,
+            "repeat_kill_no_additional_economic_change": true
+          },
+          "fix": "Reuse existing _ShadowHP to delegate immutable source reads and lease validation to the exact original owned run.",
+          "installed": false
+        }
+      ],
+      "sweep": {
+        "exact_closed_HP_population_match": 1,
+        "expanded_C1_HP_callers_audited": true,
+        "run_copy_sites_audited": 16,
+        "patterns": [
+          "stage=population(self.gate_stage,hp_context",
+          "hp_context.check / source_hp / initialized_maximum",
+          "copy.copy(run / s.dungeon_run / r)"
+        ],
+        "safe_groups": [
+          "Ordinary/group reward writers already use _ShadowHP.",
+          "Group-only copies do not receive solo C1 HP contexts.",
+          "Other finite retirement previews do not call an identity-bound HP reader on their reachable map/stage.",
+          "Old-part pickup/fishing source views read immutable source catalogs, not C1 HP."
+        ],
+        "informational": [
+          {
+            "case": "failed_load",
+            "priority": "informational",
+            "confidence": "constructed-state reproduction only",
+            "verdict": "Not counted as a current production bug: actual failure callers require a DungeonRun/special mode, while the constructed El Tree legacy case has no DungeonRun and a normal solo C1 HP lease. No speculative product change added."
+          }
+        ]
+      },
+      "negative_checks": {
+        "solo_clear_late_B3_B8_BB_condition_summon": "passed",
+        "return_to_town_loading_late_AD_B3_B8_BB": "passed",
+        "two_member_group_clear_late_AD_BB_B3": "passed",
+        "repeat_boss_death_no_duplicate_economic_change": true
+      },
+      "CI_regression_command": "python probe_variants.py --case <condition|story|old_part|combat> --candidate <qualified cumulative overlay>",
+      "original_bug_and_new_variants_in_one_candidate": true,
+      "candidate_files": 5,
+      "installed": false,
+      "natural_GUI": false,
+      "natural_combat": false,
+      "natural_full_route": false,
+      "privacy": "Only source, patches, synthetic fixture outputs and source hashes are packaged. No credentials, player databases, packet capture or raw runtime logs."
+    },
+    "group_terminal": {
+      "ok": true,
+      "owned_members": 2,
+      "actual_Application": true,
+      "actual_TLS": true,
+      "normal_three_stage_group_clear": true,
+      "shared_room_has_no_solo_HP_context": true,
+      "late_AD_BB_B3_connection_kept": true,
+      "reward_rows_unchanged": true,
+      "production_modified": false,
+      "natural_GUI": false,
+      "natural_combat": false
+    },
+    "luciel_admission": {
+      "ok": true,
+      "case": "admission",
+      "candidate": true,
+      "actual_Application": true,
+      "actual_TLS": true,
+      "production_modified": false,
+      "admitted": true,
+      "captured_fields": [
+        "0x198",
+        "0x1b4",
+        "0x1d1",
+        "0x5ec"
+      ],
+      "unrelated_wire_bytes_preserved": true,
+      "opaque_5ec_preserved": true,
+      "connection_kept": true
+    },
+    "luciel_expiry": {
+      "ok": true,
+      "case": "expiry",
+      "candidate": true,
+      "actual_Application": true,
+      "actual_TLS": true,
+      "production_modified": false,
+      "expired_worn_accessory_removed": true,
+      "HP_refresh_after_commit": true,
+      "repeat_no_duplicate_refresh": true,
+      "admitted": true,
+      "captured_fields": [
+        "0x198",
+        "0x1b4",
+        "0x1d1",
+        "0x5ec"
+      ],
+      "unrelated_wire_bytes_preserved": true,
+      "opaque_5ec_preserved": true,
+      "connection_kept": true
+    },
+    "saved_luciel_states": {
+      "ok": true,
+      "owned_SQLite": true,
+      "states": [
+        {
+          "style": 0,
+          "active": 0
+        },
+        {
+          "style": 0,
+          "active": 1
+        },
+        {
+          "style": 1,
+          "active": 0
+        },
+        {
+          "style": 1,
+          "active": 1
+        },
+        {
+          "style": 2,
+          "active": 0
+        },
+        {
+          "style": 2,
+          "active": 1
+        }
+      ],
+      "saved_values_preserved": true,
+      "combat_profiles_match_normal_cold_read": true,
+      "identity_projection_unchanged": true,
+      "missing_authority_still_rejected": true,
+      "production_modified": false
+    },
+    "rejection_diagnostics": {
+      "ok": true,
+      "zero_duplicate_regression_refused": true,
+      "native_nonzero_wrap_preserved": true,
+      "actual_native_inbox": true,
+      "invalid_inventory_TLS_refused": true,
+      "diagnostics_contain_only_numeric_protocol_metadata": true,
+      "guard_conditions_unchanged": true,
+      "production_modified": false
+    }
+  },
+  "reuse": "Five existing repair leaves are byte-identical to their passed candidate. New LuCiel loader adds fields only for unit_type10; prior non-LuCiel scene inputs retain the same branch. Admission is additionally covered by the expiry TLS case. The current V98 four-leaf achievement/social delta does not overlap repair parents; read-only manifest and actual online hashes checked. V97 is the executed isolated runtime base.",
+  "test_commands": [
+    "python repair-v4/test_luciel.py --case admission --candidate repair-v4/candidate",
+    "python repair-v4/test_luciel.py --case expiry --candidate repair-v4/candidate",
+    "python repair-v4/test_luciel_projection.py",
+    "python repair-v4/test_rejection_diagnostics.py"
+  ],
+  "initial_failures": [
+    "V97 admission reproduced LuCiel admitted member spans.",
+    "Expiry case initially exposed Missing authoritative LuCiel state during admission, before expiration; the shared full-character loader was corrected.",
+    "Projection fixture first used an overlong owned character name; corrected only the fixture."
+  ],
+  "boundaries": [
+    "No production installation or public QA of this candidate.",
+    "No natural GUI, natural multiplayer combat, or client-process crash reproduction.",
+    "Live secure-sequence rejection values and historical invalid split payload are absent from old logs; metadata diagnostics are added, acceptance rules unchanged."
+  ]
+}

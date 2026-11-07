@@ -1,0 +1,203 @@
+{
+  "ordinary_candidate_source_sha256": {
+    "els_server/data/pve_experience.json": "9f3a1a504ca6c4b3b07a2ca3802c0775ef32b02d7c9349bf98cc5994e38e69e5",
+    "els_server/data/pve_experience.manifest.json": "8c439ff5bb631328e527105755c102a699b546168e9bd60e1b2a54719b640a29",
+    "els_server/domain/legacy_pve_exp.py": "bbd2bbe93a8d900ea6668ae261f89c1cd2a91c25e8efec4d20028784540622ef",
+    "els_server/storage/legacy_pve_exp.py": "0ee79be00f2ae0797a349b6e73ff495b6bec8eafe73bc47cb14c2b98f143b6b0"
+  },
+  "catalog_audit": "catalog-audit.json",
+  "sqlite": {
+    "passed": 11,
+    "failed_final": 0,
+    "command": "python -B tests/test_pve_experience.py",
+    "source_sha256": "e476ac72223aecd39aab774e14223bdb25a6420ccd6fda04858ed58c6bc6224e"
+  },
+  "actual_application": [
+    {
+      "ok": true,
+      "channel": "candidate",
+      "mode": "friends",
+      "members": 1,
+      "actual_Application": true,
+      "TLS_admission": true,
+      "controlled_death_and_monotonic_inputs": true,
+      "private_level_and_required_quest_fixture": true,
+      "private_ERP_unlock_fixture": true,
+      "controlled_admission_UUID_for_positive_pool": false,
+      "natural_GUI_or_combat": false,
+      "production_mutations": 0,
+      "cases": [
+        {
+          "map": 34720,
+          "members": 1,
+          "parts": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              2,
+              1
+            ],
+            [
+              1,
+              0,
+              2
+            ],
+            [
+              1,
+              1,
+              2
+            ],
+            [
+              1,
+              2,
+              2
+            ],
+            [
+              1,
+              3,
+              2
+            ],
+            [
+              2,
+              0,
+              3
+            ]
+          ],
+          "accepted_enemy_receipts": [
+            [
+              72,
+              123725000
+            ]
+          ],
+          "experience": [
+            {
+              "owner": 1001,
+              "kill_base": 12372500,
+              "clear_base": 3711750,
+              "actual_ERP_total": 160842500,
+              "per_monster_source_checked": true
+            }
+          ],
+          "accepted_death_replay_no_increment": true,
+          "actual_positive_EXP": true,
+          "ERP10x_and_clear_once_verified": true,
+          "controlled_positive_drop": false,
+          "death_precommit_fault_rollback": false,
+          "clear_precommit_fault_rollback": true,
+          "material_all_roster_precommit_rollback": false,
+          "late_lease_clear_rollback": false,
+          "original_native_clear": true,
+          "original_daily_reward_retained": true
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "channel": "candidate",
+      "mode": "friends",
+      "members": 2,
+      "actual_Application": true,
+      "TLS_admission": true,
+      "controlled_death_and_monotonic_inputs": true,
+      "private_level_and_required_quest_fixture": true,
+      "private_ERP_unlock_fixture": true,
+      "controlled_admission_UUID_for_positive_pool": false,
+      "natural_GUI_or_combat": false,
+      "production_mutations": 0,
+      "cases": [
+        {
+          "map": 34000,
+          "members": 2,
+          "parts": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              2
+            ],
+            [
+              1,
+              1,
+              2
+            ],
+            [
+              2,
+              0,
+              3
+            ],
+            [
+              2,
+              1,
+              3
+            ],
+            [
+              3,
+              0,
+              4
+            ]
+          ],
+          "accepted_enemy_receipts": [
+            [
+              98,
+              11085760
+            ],
+            [
+              98,
+              11085760
+            ]
+          ],
+          "experience": [
+            {
+              "owner": 1001,
+              "kill_base": 1108576,
+              "clear_base": 332572,
+              "random_mission": null,
+              "random_mission_bonus_base": 0,
+              "actual_ERP_total": 14411480,
+              "per_monster_source_checked": true
+            },
+            {
+              "owner": 1002,
+              "kill_base": 1108576,
+              "clear_base": 332572,
+              "random_mission": null,
+              "random_mission_bonus_base": 0,
+              "actual_ERP_total": 14411480,
+              "per_monster_source_checked": true
+            }
+          ],
+          "accepted_death_replay_no_increment": true,
+          "actual_positive_EXP": true,
+          "ERP10x_and_clear_once_verified": true,
+          "controlled_positive_drop": false,
+          "death_precommit_fault_rollback": true,
+          "clear_precommit_fault_rollback": true,
+          "material_all_roster_precommit_rollback": false,
+          "late_lease_clear_rollback": false,
+          "original_native_clear": true,
+          "original_daily_reward_retained": false
+        }
+      ]
+    }
+  ],
+  "production_mutations": 0,
+  "natural_game_or_GUI_tested": false
+}

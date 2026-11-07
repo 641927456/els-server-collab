@@ -1,0 +1,46 @@
+{
+  "problem": "CX2World 92E010 removes an outer event node, destroys its inner trees, then advances a freed inner iterator.",
+  "native_owner": "RTTI .?AVCX2World@@ / vtable415FE48",
+  "faults": [
+    "92E0E6 observed on owned real clients including plain login without map/cache",
+    "92E203 same native compiler pattern in second list"
+  ],
+  "original_native_callbacks_retained": [
+    "92BFD0 condition",
+    "92CA30 first-list cleanup",
+    "92D080 second-list cleanup",
+    "923FF0 entry destructor",
+    "4F40A0 native free"
+  ],
+  "replacements": [
+    {
+      "site": "92E0A3",
+      "native_prefix_bytes": 32,
+      "destructor": "923FF0",
+      "resume": "92E13F",
+      "untouched_non_delete_entry": "92E0D8"
+    },
+    {
+      "site": "92E1C0",
+      "native_prefix_bytes": 32,
+      "destructor": "923FF0",
+      "resume": "92E25F",
+      "untouched_non_delete_entry": "92E1F5"
+    }
+  ],
+  "scope": "Exactly two post-destruction native branches; use original saved next outer iterator RSI and original outer-loop check. No object pointer caches, timers, condition results, input, HP, quest or economic changes.",
+  "replacement": "Copy the exact original32-byte unlink/counter/LEA block, call original923FF0, replay original free arguments/call4F40A0, mov rdi,rsi, then original outer-loop check. No added list algorithm or condition.",
+  "authority": "Original method PC reached after its own successful condition, cleanup, unlink, counter decrement, destructor and free.",
+  "lifecycle": "Same native method for any scene/role; no cross-scene pointer state. Repeated installer is idempotent; stop reverts only owned sites and keeps stubs alive until script unload; restart uses normal startup.",
+  "original_files_modified": false,
+  "original_exe_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "native_abi_probe": "native-fast-redirect-probe.json",
+  "validation_required": [
+    "Native old fault vs fixed traversal, including next event not skipped, both branches, no-expiry path",
+    "Own real Lithia town and35301 map/exit",
+    "Exact component assembly and independent owner review before signed delivery"
+  ],
+  "rejected_initial_sites": "92E0D5/92E1F2 have only3 bytes before live non-deletion branch targets; a trampoline there could overwrite those targets.",
+  "rejected_free_sites": "Gum rejects92E0C8/92E1E5 even on copied native pages;92E0A3 is supported. Move the same two hooks to the uninterrupted native unlink blocks, relocating their exact32 bytes and original destructor/free calls."
+}

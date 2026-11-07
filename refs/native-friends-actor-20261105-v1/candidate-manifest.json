@@ -1,0 +1,55 @@
+{
+  "revision": "native-friends-actor-20261105-v1",
+  "base_release": "native-pet-growth-repair-20261105-v1",
+  "base_manifest_sha256": "493d2574835d4c945f905410c44f60fdce91e43b00b227055d66df62d94f0973",
+  "files": [
+    {
+      "path": "els_server/application.py",
+      "sha256": "7014c91d311023b71e699e2006fdbf26123895ca7b511c569bcdc8f8c866581e",
+      "bytes": 37724,
+      "base_sha256": "d60b89c3c93c9a889cc92f24574a2f92415d9054d182cb00f40d846f0108d613"
+    },
+    {
+      "path": "els_server/domain/friend_flow.py",
+      "sha256": "d775fca003eb0d4529ae0aa0b4049073682a25f5d0741f270c9cc074a785877a",
+      "bytes": 8465,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/domain/friends_world.py",
+      "sha256": "f1c219c5c17f1c79b5e0694f7d63757751464981bf790c855a9f3a9e2dd996f0",
+      "bytes": 19865,
+      "base_sha256": "28353305afe1ea345cfd0c7165290f1869c4e50f6221ea613bfdefe79dad3b67"
+    },
+    {
+      "path": "els_server/domain/pet_progression_flow.py",
+      "sha256": "04cf3e9161fbc61e0394259046ef0e548fcf90374acc6060b4909a2f131a6856",
+      "bytes": 2577,
+      "base_sha256": "856ccdff93d21cdef01ebec46cb50ee1978c8b6d532b22860971499f92b7fef5"
+    },
+    {
+      "path": "els_server/protocol/friend_messages.py",
+      "sha256": "931aaeb6bb68457481a3de544448ba6e6d893fbb65eb95e784be04dfe5a336d4",
+      "bytes": 4704,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/storage/friend_state.py",
+      "sha256": "df6668a5502064b4033f18d6ecfcb9a584b3f03421618d01ed4d6bcd76295388",
+      "bytes": 11667,
+      "base_sha256": null
+    },
+    {
+      "path": "els_server/storage/pet_progression.py",
+      "sha256": "c1c680c1c8334b33f388b39a2bbbcd6d65d3a3e5a92a06e1a43a10a318500ed4",
+      "bytes": 8727,
+      "base_sha256": "c23007f8bc9c871155cd1fea308fcaa0fab2ce328732701f0b9281aa675ef411"
+    }
+  ],
+  "new_tables": [
+    "native_friend_edges",
+    "native_friend_groups",
+    "native_friend_operations"
+  ],
+  "client_changed": false
+}

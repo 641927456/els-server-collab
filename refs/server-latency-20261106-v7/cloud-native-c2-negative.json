@@ -1,0 +1,142 @@
+{
+  "candidate": "C2",
+  "load_window_seconds": 300,
+  "phase_with_normal_drain_seconds": 328.92741450015455,
+  "dungeon_actors": 20,
+  "town_actors": 0,
+  "server_only": true,
+  "WAN_qualification": false,
+  "targets": {
+    "checks": {
+      "208": true,
+      "173": false,
+      "179": true,
+      "door": false,
+      "waiting_173": false,
+      "waiting_208": true,
+      "waiting_179": true,
+      "waiting_184": true,
+      "waiting_187": true
+    },
+    "met": false
+  },
+  "durable_currency_exact": true,
+  "acknowledged_currency_exact": true,
+  "connections": 0,
+  "owned_runtime_removed": true,
+  "GIL_enabled": false,
+  "requests": {
+    "179": {
+      "total_ms": {
+        "n": 214,
+        "mean_ms": 62.132015881981594,
+        "p50_ms": 58,
+        "p95_ms": 107,
+        "p99_ms": 130,
+        "max_ms": 166.17299988865852,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 214,
+        "mean_ms": 1.2081626282621907,
+        "p50_ms": 1,
+        "p95_ms": 4,
+        "p99_ms": 8,
+        "max_ms": 15.519800130277872,
+        "resolution_ms": 1
+      }
+    },
+    "173": {
+      "total_ms": {
+        "n": 3210,
+        "mean_ms": 33.23395476688129,
+        "p50_ms": 27,
+        "p95_ms": 70,
+        "p99_ms": 91,
+        "max_ms": 149.97699996456504,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 3210,
+        "mean_ms": 1.3447868515159993,
+        "p50_ms": 1,
+        "p95_ms": 6,
+        "p99_ms": 19,
+        "max_ms": 40.86920013651252,
+        "resolution_ms": 1
+      }
+    },
+    "208": {
+      "total_ms": {
+        "n": 3210,
+        "mean_ms": 12.483192085596004,
+        "p50_ms": 10,
+        "p95_ms": 31,
+        "p99_ms": 50,
+        "max_ms": 86.08029992319643,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 3210,
+        "mean_ms": 0.7829013688205466,
+        "p50_ms": 1,
+        "p95_ms": 3,
+        "p99_ms": 7,
+        "max_ms": 23.675300180912018,
+        "resolution_ms": 1
+      }
+    },
+    "184": {
+      "total_ms": {
+        "n": 214,
+        "mean_ms": 15.013379911961747,
+        "p50_ms": 13,
+        "p95_ms": 36,
+        "p99_ms": 50,
+        "max_ms": 72.91839993558824,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 214,
+        "mean_ms": 1.1093266456274786,
+        "p50_ms": 1,
+        "p95_ms": 4,
+        "p99_ms": 13,
+        "max_ms": 19.39229993149638,
+        "resolution_ms": 1
+      }
+    },
+    "187": {
+      "total_ms": {
+        "n": 214,
+        "mean_ms": 34.870928968302906,
+        "p50_ms": 31,
+        "p95_ms": 61,
+        "p99_ms": 82,
+        "max_ms": 121.84000015258789,
+        "resolution_ms": 1
+      },
+      "waiting_ms": {
+        "n": 214,
+        "mean_ms": 0.9506892578275962,
+        "p50_ms": 1,
+        "p95_ms": 4,
+        "p99_ms": 8,
+        "max_ms": 12.677199905738235,
+        "resolution_ms": 1
+      }
+    },
+    "door": {
+      "total_ms": {
+        "n": 214,
+        "mean_ms": 49.884308880264655,
+        "p50_ms": 44,
+        "p95_ms": 92,
+        "p99_ms": 106,
+        "max_ms": 163.81500009447336,
+        "resolution_ms": 1
+      },
+      "waiting_ms": null
+    }
+  }
+}

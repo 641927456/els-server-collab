@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "files": {
+    "source/launcher/MainDesign.cs": "1d213907d7edfa16f92070e584a044dbadb28b732349952cc0a8b0707b95efb7",
+    "source/launcher/CommunityDesign.cs": "a7e1c6b1dae1de3e19a8b31123ed76cc1c9756cde0a04555e46f0b5af9cc8d7a"
+  },
+  "evidence": {
+    "evidence/validation.json": "ce802480277121e1869e22f3917b47483280427b001d23fe81cf612dc58ed056"
+  },
+  "parent_main": "a9a3e805d8b013ae7ecbfb4e2286b1abc26eb102",
+  "archive_only": true,
+  "source_root_activation": false,
+  "automatic_deployment": false,
+  "production_data_included": false,
+  "problem": "The launcher did not expose the supplied Discord invitation or project notice.",
+  "result": "Add the purple Discord footer action and exact supplied notice without changing signed runtime resources."
+}

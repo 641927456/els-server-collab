@@ -1,0 +1,299 @@
+--- parent/els_server/periodic_scheduler.py
++++ candidate/els_server/periodic_scheduler.py
+@@ -40,7 +40,7 @@
+         self.loop=loop
+         slot=SimpleNamespace(session=session,operation=operation,send=send,
+             due=time.monotonic()+self.interval,closed=False,finished=None,waiting=None,
+-            claim=None,upkeep_reserved=False,foreground=False,last_completed=time.monotonic(),wake_generation=0,poll_generation=0,failure=loop.create_future())
++            claim=None,upkeep_reserved=False,foreground=False,foreground_completed=float("-inf"),last_completed=time.monotonic(),wake_generation=0,poll_generation=0,failure=loop.create_future())
+         key=id(slot);self.slots[key]=slot;self.wake.set()
+         if self.task is None:self.task=asyncio.create_task(self._run(),name='periodic-batches')
+         try:await slot.failure
+@@ -85,6 +85,7 @@
+             if slot is not None:
+                 if phase_before is not None and getattr(session,'phase',None)!=phase_before:
+                     slot.last_completed=time.monotonic()
++                slot.foreground_completed=time.monotonic()
+                 slot.foreground=False;slot.due=min(slot.due,getattr(session,'_periodic_due',time.monotonic()+self.interval));self.wake.set()
+ 
+     async def _deliver(self,slot,messages,error):
+@@ -159,10 +160,21 @@
+     async def _run(self):
+         try:
+             while not self.closing:
+-                self.wake.clear();now=time.monotonic();ready=[];capacity_blocked=set()
++                self.wake.clear();now=time.monotonic();ready=[];capacity_blocked=set();followup_deadlines={}
+                 for slot in sorted(self.slots.values(), key=lambda value: value.due):
+                     if slot.closed or slot.finished is not None or slot.due>now:continue
+                     if slot.foreground and slot.waiting is None and now-slot.last_completed<1:continue
++                    if (not slot.foreground and slot.waiting is None
++                            and slot.wake_generation==slot.poll_generation and now-slot.last_completed<1):
++                        # Native reply-followups arrive before the next regular
++                        # poll interval. Leave a fresh quiet upkeep turn behind
++                        # them; notifications, old polls and reserved turns keep
++                        # their original admission and retirement ownership.
++                        followup=min(slot.foreground_completed+self.interval,slot.last_completed+1)
++                        # Keep the real due unchanged so a new notification
++                        # can still wake its original immediate turn.
++                        if now<followup:
++                            followup_deadlines[id(slot)]=followup;continue
+                     if slot.waiting is None:
+                         workers=self.application.dungeon_workers
+                         upkeep=(workers.candidate(slot.session.periodic_notifications,())
+@@ -219,7 +231,7 @@
+                 # Worker retirement/delivery already wakes this scheduler.
+                 # An overdue actor without a free upkeep lane cannot provide
+                 # a useful timer deadline: polling it every1ms just spins.
+-                due=[s.due for s in self.slots.values() if not s.closed and not s.foreground and s.finished is None and not s.operation.locked()and id(s)not in capacity_blocked]
++                due=[max(s.due,followup_deadlines.get(id(s),s.due)) for s in self.slots.values() if not s.closed and not s.foreground and s.finished is None and not s.operation.locked()and id(s)not in capacity_blocked]
+                 delay=max(.001,min(due)-time.monotonic()) if due else self.interval
+                 try:await asyncio.wait_for(self.wake.wait(),delay)
+                 except TimeoutError:pass
+--- parent/els_server/periodic_work.py
++++ candidate/els_server/periodic_work.py
+@@ -39,6 +39,10 @@
+     Shared rooms and other live activities retain their original fast poll.
+     """
+     if (getattr(session,'_periodic_pending',False)or not session._periodic_idle()):return now
++    # An idle authenticated frontend has the same one-second upkeep clock.
++    # Mailbox arrivals and unfinished slices above still request an immediate turn.
++    if session.role=='frontend' and session.phase=='authenticated':
++        return max(now,session.next_periodic)
+     if (session.released or session.role!='game'
+             or application.world.party_of.get(session)is not None
+             or application.world.pvp.room(session)is not None
+--- parent/els_server/transport.py
++++ candidate/els_server/transport.py
+@@ -196,7 +196,11 @@
+                                 or message.kind==0x68 and business.phase!='town_ready'):town_epoch=None
+                             elif message.kind==0x228 and message.payload[:4]==bytes(4):town_epoch=entered
+                             if message.kind in(0x14a,0xb2,0x68):clock_epoch=None
+-                            elif message.kind==0xbd and self.realtime is not None:clock_epoch=self.realtime.clock(business)
++                            elif message.kind==0xbd and self.realtime is not None:
++                                # Bind the scene just sent, not a publication
++                                # which may still describe the previous part.
++                                from els_server.domain.dungeon_time_sync import context
++                                clock_epoch=context(business)
+                             dungeon34320_trace.sent(business,message,wire_sequence,send_path=send_path,
+                                 request_sequence=request_sequence,request_kind=request_kind)
+                             self.metrics['responses']+=1
+--- parent/els_server/domain/attendance_2026_award_flow.py
++++ candidate/els_server/domain/attendance_2026_award_flow.py
+@@ -17,7 +17,7 @@
+ from els_server.protocol import attendance_2026_quest as quest_wire,attendance_2026_messages as wire,quest_messages as ordinary
+ from els_server.protocol.boosting_2026_restore import split
+ from els_server.protocol.protocol_codec import Event
+-from els_server.storage.read_scope import snapshot_connection
++from els_server.storage.read_scope import snapshot_connection,canonical_path
+ 
+ 
+ def retryable_sqlite_lock(error):
+@@ -107,32 +107,46 @@
+         return task,state,None if done is None or task is not None else done[0]
+ 
+     def _projection(self,s):
+-        now=self.clock()
++        now=self.clock();account=s.account;uid,owner=account.uid,account.account_id
++        path=canonical_path(account.store.path);info=path.stat();binding=(path,info.st_dev,info.st_ino)
++        def selected_owner():
++            current=canonical_path(s.account.store.path);info=current.stat()
++            if (s.account is not account or (account.uid,account.account_id)!=(uid,owner)
++                    or (current,info.st_dev,info.st_ino)!=binding):
++                raise ValueError('Attendance projection selected owner changed')
+         try:
+-            # An absent or already-ready task has no refresh mutation. Keep
+-            # its original binding, clock, owner and policy checks in a read
+-            # snapshot; incomplete tasks still refresh under a fresh writer.
+-            with snapshot_connection(s.account.store.path) as db:
+-                db.execute('BEGIN');t=self._store(db);t._validate_binding()
+-                t._owner(s.account.account_id,s.account.uid)
+-                task=t._read(s.account.account_id)
+-                if task is None or task['ready']:
+-                    task=t._refresh(s.account.account_id,now)
++            # Scan/decode the immutable fact ledger in a read snapshot, before
++            # taking the global SQL writer. Already-current counters need no
++            # UPDATE. The native view publishes minutes, so seconds within
++            # that same minute need no display-cache commit. Authoritative
++            # clock facts and all claim/accept transactions stay unchanged.
++            with snapshot_connection(path) as db:
++                db.execute('BEGIN');t=self._store(db);t._validate_binding();t._owner(owner,uid)
++                task=t._refresh(owner,now,persist=False);signature=t._refresh_signature(owner)
++                if (task is None or signature[5] is not None
++                        or (task['clears']==signature[3] and task['online_seconds']//60==signature[4]//60
++                            and task['ready_at']==signature[5])):
++                    selected_owner()
+                     return self._projection_rows(s,db,t,now,task)
+-            with closing(sqlite3.connect(s.account.store.path,timeout=0)) as db:
++            with closing(sqlite3.connect(path,timeout=0)) as db:
+                 t=self._store(db)
+                 with t._transaction():
+-                    t._owner(s.account.account_id,s.account.uid)
+-                    task=t._refresh(s.account.account_id,now)
++                    selected_owner();t._owner(owner,uid)
++                    if t.task_policy is not None:t._task_configuration()
++                    if t._refresh_signature(owner)!=signature:
++                        from els_server.storage.sqlite_timing import _locked
++                        raise _locked()
++                    task=t._write_refresh(owner,task)
+                     result=self._projection_rows(s,db,t,now,task)
+                 return result
+         except sqlite3.OperationalError as error:
+             if not retryable_sqlite_lock(error):raise
+             sqlite_observed(busy=True)
+             logging.getLogger(__name__).debug('Attendance projection refresh deferred by SQLite lock')
+-        # The failed write transaction has exited/rolled back and closed.
+-        # Read one independent committed snapshot; never invent fresh credit.
+-        with snapshot_connection(s.account.store.path) as db:
++        # Keep the original BUSY result: one committed view, never an uncommitted
++        # prepared counter, and no retry of an economic operation.
++        selected_owner()
++        with snapshot_connection(path) as db:
+             db.execute('BEGIN');t=self._store(db);t._validate_binding()
+             return self._projection_rows(s,db,t,now,t._read(s.account.account_id))
+ 
+--- parent/els_server/domain/inventory_items.py
++++ candidate/els_server/domain/inventory_items.py
+@@ -609,8 +609,11 @@
+   if type(item)is _ExistingNativeConsumable or item['template']not in VERIFIED_TEMPLATES:
+    return validate_existing(item)
+  if isinstance(item,dict)and item.get("template")in existing_potion_choices:
+-  from els_server.domain.potion_choice_box import validate_existing
+-  return validate_existing(item)
++  from els_server.domain.potion_choice_box import _ExistingBox,validate_existing
++  # Existing SQL instances keep their unchanged-reader contract. A template
++  # registered by the approved reward catalog also admits ordinary new grants.
++  if type(item)is _ExistingBox or item['template']not in VERIFIED_TEMPLATES:
++   return validate_existing(item)
+  if isinstance(item,dict)and item.get("template")in existing_normal_fatigue_potions:
+   from els_server.domain.normal_fatigue_rules import _ExistingFatiguePotion,validate_existing
+   if type(item)is _ExistingFatiguePotion:return validate_existing(item)
+--- parent/els_server/domain/session_auxiliary.py
++++ candidate/els_server/domain/session_auxiliary.py
+@@ -44,10 +44,24 @@
+ def activity_due(function,args=()):
+     """Use the Friends periodic handler's existing one-second activity gate."""
+     from els_server.application import FriendsSession
++    from els_server.protocol.protocol_codec import Event
+     session = getattr(function, '__self__', None)
+     if (getattr(function,'__name__',None)=='handle' and len(args)==1
+             and maintenance_request(session,args[0])):
+         return False
++    if (type(session)is FriendsSession and getattr(function,'__func__',None)is FriendsSession.handle
++            and len(args)==1 and type(args[0])is Event and args[0].event_id==0x202 and args[0].kind in(0xad,0xb8,0xbb)
++            and session.role=='game'and session.client_build=='dx11_260923'
++            and session.phase=='dungeon_active'and session.dungeon_substage_synced
++            and not session.clear_notified and not getattr(session,'dungeon_failed',False)):
++        # Capped deaths and same-stage curtains preserve both clocks' owned
++        # role/level identity. Keep cross-stage/final settlement observations;
++        # existing independent upkeep and final stop persist elapsed time.
++        run=session.dungeon_run
++        unchanged=(args[0].kind==0xad or(run is not None and run.next is not None and run.next['kind']==0))
++        if unchanged:
++            character=session.account.character_identity()
++            if character is not None and character['level']==99:return False
+     if (type(session) is FriendsSession
+             and getattr(function, '__func__', None) is FriendsSession.periodic_notifications):
+         return not getattr(session,'_periodic_pending',False) and time.monotonic() >= session.next_periodic
+--- parent/els_server/storage/attendance_2026_awards.py
++++ candidate/els_server/storage/attendance_2026_awards.py
+@@ -104,8 +104,8 @@
+         if row != (TASK_CARRY_POLICY,self.config_sha):
+             raise ValueError('Attendance task carry policy binding changed')
+ 
+-    def _refresh(self, account, now):
+-        if self.task_policy is None:return super()._refresh(account,now)
++    def _refresh(self, account, now, *, persist=True):
++        if self.task_policy is None:return super()._refresh(account,now,persist=persist)
+         self.delivery._time(now);self._task_configuration()
+         state=self._read(account)
+         if state is None:return None
+@@ -146,9 +146,8 @@
+         if clears<state['clears'] or seconds<state['online_seconds']:
+             raise ValueError('Task progress or authoritative clock moved backwards')
+         ready=clears>=5 or seconds>=3600
+-        self.db.execute('UPDATE activity518_tasks SET clears=?,seconds=?,ready_at=? WHERE campaign=? AND account=?',
+-            (clears,seconds,now if ready else None,self.progress.campaign,account))
+-        return self._read(account)
++        state.update(clears=clears,online_seconds=seconds,ready_at=now if ready else None,ready=ready)
++        return self._write_refresh(account,state) if persist else state
+ 
+     def _purchase_configuration(self):
+         if self.purchase_policy != LOCAL_EARLIEST_PURCHASE:
+--- parent/els_server/storage/attendance_2026_tasks.py
++++ candidate/els_server/storage/attendance_2026_tasks.py
+@@ -60,7 +60,7 @@
+                     ready=row[4] is not None,claimed=False,reward_granted=False,
+                     incomplete_carry_rule_pending=False)
+ 
+-    def _refresh(self, account, now):
++    def _refresh(self, account, now, *, persist=True):
+         state = self._read(account)
+         if state is None:
+             return None
+@@ -95,11 +95,29 @@
+             raise ValueError('Task progress or authoritative clock moved backwards')
+         ready = clears >= 5 or seconds >= 3600
+         ready_at = now if ready else None  # observed time, not invented completion time
++        state.update(clears=clears,online_seconds=seconds,ready_at=ready_at,ready=ready,
++                     incomplete_carry_rule_pending=not ready and now>=bounds.ends)
++        return self._write_refresh(account,state) if persist else state
++
++    def _refresh_signature(self,account):
++        # Facts are append-only through _record; include the accepted task's
++        # floor as well as its row and final account cursor to detect reaccepts.
++        # Carry-enabled tasks consume later periods too.
++        return self.db.execute('''SELECT t.accepted_period,t.accepted_at,t.fact_floor,
++            t.clears,t.seconds,t.ready_at,
++            coalesce((SELECT max(f.rowid) FROM activity518_facts f
++                WHERE f.campaign=t.campaign AND f.account=?
++                AND f.rowid>t.fact_floor),0)
++            FROM activity518_tasks t WHERE t.campaign=? AND t.account=?''',
++            (str(account),self.progress.campaign,account)).fetchone()
++
++    def _write_refresh(self,account,state):
++        if not self.db.in_transaction:raise RuntimeError('Task refresh requires its writer')
+         self.db.execute('UPDATE activity518_tasks SET clears=?,seconds=?,ready_at=? WHERE campaign=? AND account=?',
+-                        (clears,seconds,ready_at,self.progress.campaign,account))
+-        state = self._read(account)
+-        state['incomplete_carry_rule_pending'] = not ready and now >= bounds.ends
+-        return state
++                        (state['clears'],state['online_seconds'],state['ready_at'],self.progress.campaign,account))
++        result=self._read(account)
++        result['incomplete_carry_rule_pending']=state['incomplete_carry_rule_pending']
++        return result
+ 
+     def accept(self, *, account, character, now):
+         period = self.schedule.period_at(now)
+--- parent/els_server/storage/coin_writer.py
++++ candidate/els_server/storage/coin_writer.py
+@@ -100,6 +100,13 @@
+                                 db.execute('ROLLBACK TO '+savepoint);db.execute('RELEASE '+savepoint)
+                                 results.append((None,error))
+                             else:results.append((result,None))
++                            # Drain requests which became ready during grant
++                            # preparation before the original FULL commit.
++                            while not stopping and len(jobs)<16:
++                                try:job=self.queue.get_nowait()
++                                except Empty:break
++                                if job is None:stopping=True;break
++                                jobs.append(job)
+                     self.batches+=1;self.claims+=len(jobs);self.max_batch=max(self.max_batch,len(jobs))
+                 except BaseException as error:
+                     self.failed_batches+=1;results=[(None,error)]*len(jobs)
+--- parent/els_server/storage/death_writer.py
++++ candidate/els_server/storage/death_writer.py
+@@ -103,6 +103,14 @@
+                         results.append((None,error))
+                     else:
+                         db.execute('RELEASE '+name);results.append((result,None))
++                    # Producers arriving during preparation are already ready.
++                    # Include them before this same durable commit, with no
++                    # batching sleep and the original sixteen-job bound.
++                    while not stopping and len(jobs)<16:
++                        try:job=self.queue.get_nowait()
++                        except Empty:break
++                        if job is None:stopping=True;break
++                        jobs.append(job)
+             self.batches+=1;self.deaths+=sum(error is None for _,error in results)
+             self.maximum_batch=max(self.maximum_batch,len(jobs))
+         except BaseException as error:
