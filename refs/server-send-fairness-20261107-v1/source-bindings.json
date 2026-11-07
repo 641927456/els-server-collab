@@ -1,0 +1,163 @@
+{
+  "issue": 925,
+  "parent_git": "1615d0b67d528a4aeb53e8e745c926e541b4cf42",
+  "runtime_parent": {
+    "parent_path": "G:\\els\\releases\\online\\native-achievement-foundation-20261107-v1",
+    "parent_release": "native-achievement-foundation-20261107-v1",
+    "parent_manifest_sha256": "0c90e68611cbbdc73a27613f34f8dc33fa0c7b1eeb1afc47ceadbe04fc092f99",
+    "retained_new_parent_features": true
+  },
+  "files": {
+    "els_server/application.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/application.py",
+      "sha256": "611217785163faad191f563c300ae7e1c976f63566f0b9d9409187ce66f6da68"
+    },
+    "els_server/config.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/config.py",
+      "sha256": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60"
+    },
+    "els_server/dungeon_workers.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/dungeon_workers.py",
+      "sha256": "e64d06562a2218546017926f4524cffa2d22d81f232f381a5387a43616efc1a0"
+    },
+    "els_server/egress_budget.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/egress_budget.py",
+      "sha256": "5e42a0a6bd3e306bbea7eec206c5eead38fd6b0da68080134bcb170c700233f4"
+    },
+    "els_server/native_outbox.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/native_outbox.py",
+      "sha256": "ba2d72106d989624a1378343fc24f7e107b81df9f0799ad3bf39228a6481405e"
+    },
+    "els_server/periodic_scheduler.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/periodic_scheduler.py",
+      "sha256": "7aeeea4ab444c853c868aada4515821c075689ef65832415f38c93fafcc0f596"
+    },
+    "els_server/transport.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/transport.py",
+      "sha256": "4c4c5b635aebe8e624f477fd564a7263a6db2b8fbfa9e4ff605d3204510c49d1"
+    },
+    "els_server/domain/elixir_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/elixir_flow.py",
+      "sha256": "72173d6bc547cb6292e216a14a7d858fe2a08de0f6c3994375e0728203f7ad69"
+    },
+    "els_server/domain/friends_world.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/friends_world.py",
+      "sha256": "b6bb0d1856dfbd9fc593782b46ee660d68bac60ffad15796590c9edef2a41ea2"
+    },
+    "els_server/domain/local_session.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/local_session.py",
+      "sha256": "e3cba5eb5611a2fd39fe6534763c4bb2b53a1f4ca25261199792a630c5c2cb9f"
+    },
+    "els_server/domain/native_session_sources.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/native_session_sources.py",
+      "sha256": "f23aa3703ef5f376504243a97c3f26da8e144b3872ce6a841ab3e68676b5fffc"
+    },
+    "els_server/protocol/dungeon_messages.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/protocol/dungeon_messages.py",
+      "sha256": "b53704e95483959fa55f157977c56391289354d4911f8c8caaa194fae71c2f86"
+    },
+    "els_server/storage/clock_writer.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/clock_writer.py",
+      "sha256": "d306e4d1ae10b0d7154baf86f770e020b17f79bcd9b548706a0560b01e412ee0"
+    },
+    "els_server/storage/death_writer.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/death_writer.py",
+      "sha256": "d8ca4cff5009a11d7fa787355ac8120de1ca9b89eb43b71e82709d7b3edd5abe"
+    },
+    "els_server/storage/inventory_state.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/inventory_state.py",
+      "sha256": "eac0c17c2ff411de61a1dab51ce1576610f60641496d36d79d821e7d6ff35ab8"
+    },
+    "els_server/storage/position_writer.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/position_writer.py",
+      "sha256": "6a7429fb340bc36b4492522ec4518cfc0ea68f9cc56932f0c2ee5cb2f96f1fae"
+    },
+    "els_server/storage/read_scope.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/read_scope.py",
+      "sha256": "6027a1b23a58445aae1203bdb28cf5f956a4e77eab6d67d38c8823812e321284"
+    }
+  },
+  "runtime_parent_files": {
+    "els_server/application.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/application.py",
+      "sha256": "3be27a208c472c2e257e44a52766e8d1116b0c47d456fc6897fa08a1a813a705"
+    },
+    "els_server/config.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/config.py",
+      "sha256": "982f7183fb975fa2b9f01644cc5aeca3e02347120f68973433b422549c7eea68"
+    },
+    "els_server/dungeon_workers.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/dungeon_workers.py",
+      "sha256": "0883838e13f5603886a47fd8d629cc754ccebf024defef798ab024ba9243b768"
+    },
+    "els_server/periodic_scheduler.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/periodic_scheduler.py",
+      "sha256": "d188a9a906ee049d526ff15f3931a32e19961e99086bd82a3c4a124c73885f84"
+    },
+    "els_server/transport.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/transport.py",
+      "sha256": "342a894e5e260151c383dac96e61a7a00d9eda49bddc9bf305b447d9584b3af5"
+    },
+    "els_server/domain/elixir_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/elixir_flow.py",
+      "sha256": "7f677ced9a7284ff4efa971d212dc09fa52158a122a67480c4beb7b7a2abb90a"
+    },
+    "els_server/domain/friends_world.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/friends_world.py",
+      "sha256": "04bb02d9d44adc595e7d2ce98abac97c45f2e9c44845378f3ea78fcf3732b8a4"
+    },
+    "els_server/domain/local_session.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/local_session.py",
+      "sha256": "80b31314198cb0e72d9c5fa0f402190a5cd092bad04aea7ecbd27eae8e5fd115"
+    },
+    "els_server/domain/native_session_sources.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/native_session_sources.py",
+      "sha256": "d21b4b427b6cc93785acf2fc84b1c91d87d77e612d29e2edcb53092f5501f5bc"
+    },
+    "els_server/protocol/dungeon_messages.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/protocol/dungeon_messages.py",
+      "sha256": "184a05a8d5a0b40e47a1abd8be13d5ed54cfc1f9f1daa244f67518a3d06766ed"
+    },
+    "els_server/storage/clock_writer.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/clock_writer.py",
+      "sha256": "80c26ce47c4f2b6804b59caefa5d4336d22c4a697409b405d56568b11f417468"
+    },
+    "els_server/storage/death_writer.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/death_writer.py",
+      "sha256": "b73cb60ca4c160767987436f5fefc8f79fa78ece262e4bc956cd458bbf0398c8"
+    },
+    "els_server/storage/inventory_state.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/inventory_state.py",
+      "sha256": "dceb7bc17da21bc8dad71177c674aa4a13a2be0730dae0b16f3de1ce0ca309dd"
+    },
+    "els_server/storage/position_writer.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/position_writer.py",
+      "sha256": "77775ac30c2589b3ec982c417c70f56ebdfc1003f776b7a034785714ef69ef51"
+    },
+    "els_server/storage/read_scope.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/read_scope.py",
+      "sha256": "87c2a13ce45bc6e8b9635d5f956a7628a2ed3753455f2571f519f4857036eca2"
+    },
+    "els_server/protocol/protocol_codec.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/protocol/protocol_codec.py",
+      "sha256": "80d181f8571f00d07844799f48e27f5f9147352eabe861f5f846017482049293"
+    },
+    "els_server/periodic_work.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/periodic_work.py",
+      "sha256": "7aefd800e34559b31f069fb2c2499ecc2c633b9c9651014425b0de05c8806aae"
+    },
+    "els_server/cleanup.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/cleanup.py",
+      "sha256": "2b97de1e3a2948202233f7fd0e8789e3e7a36b71d4392b066b3ceb87026a2202"
+    }
+  },
+  "test_files": {
+    "test_egress_budget.py": "7238e3b1a5f3c0bfa2339071e136e3fe270b0f85f9cf6a3bca280020d6d1e962",
+    "test_native_outbox.py": "5ea6a1c15f3e73eb9f3339b5bd1f47cc3d3eff527c335a6d2c87567a886fdc91",
+    "test_town_notice_wake.py": "1dd8c4353f1a840528e10b4592d233590c66d73bae992c9ce78919c2041cfb7a",
+    "test_worker_control.py": "ba2913e4e693883667684fe86d315013e2848523b71b35da587bdd526bea4e22"
+  },
+  "production_installed": false,
+  "client_binary_changed": false,
+  "SQL_durability_changed": false
+}

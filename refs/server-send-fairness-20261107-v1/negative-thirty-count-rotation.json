@@ -1,0 +1,118 @@
+{
+  "run": "weighted-exact30-five-v1",
+  "qualified": false,
+  "latency_pass": false,
+  "seconds": 300,
+  "actors": 30,
+  "town": 12,
+  "dungeon": 18,
+  "gates": {
+    "pickup": true,
+    "death": true,
+    "glass": true,
+    "map": true,
+    "town_handler": true,
+    "town_relay": false,
+    "town_cadence": false,
+    "cold_currency_and_ACK_exact": true,
+    "normal_cleanup": true,
+    "frontend_health": true,
+    "all_final_peer_positions": true,
+    "final_town_positions_saved": true,
+    "all_clients": true,
+    "actual_nogil": true
+  },
+  "metrics": {
+    "pickup": {
+      "n": 2970,
+      "mean_ms": 6.507202892435671,
+      "p50_ms": 6,
+      "p95_ms": 12,
+      "p99_ms": 20,
+      "max_ms": 105.95830017700791,
+      "resolution_ms": 1
+    },
+    "death": {
+      "n": 2970,
+      "mean_ms": 17.91773649349633,
+      "p50_ms": 17,
+      "p95_ms": 28,
+      "p99_ms": 40,
+      "max_ms": 320.3468001447618,
+      "resolution_ms": 1
+    },
+    "glass": {
+      "n": 198,
+      "mean_ms": 21.82089848293349,
+      "p50_ms": 21,
+      "p95_ms": 29,
+      "p99_ms": 34,
+      "max_ms": 42.01659979298711,
+      "resolution_ms": 1
+    },
+    "map": {
+      "n": 198,
+      "mean_ms": 23.05255607099771,
+      "p50_ms": 23,
+      "p95_ms": 33,
+      "p99_ms": 39,
+      "max_ms": 40.105000138282776,
+      "resolution_ms": 1
+    },
+    "town_handler": {
+      "n": 21000,
+      "mean_ms": 2.274757528832803,
+      "p50_ms": 2,
+      "p95_ms": 5,
+      "p99_ms": 16,
+      "max_ms": 112.15809965506196,
+      "resolution_ms": 1
+    },
+    "movement_relay": {
+      "n": 230926,
+      "mean_ms": 21.035667626190527,
+      "p50_ms": 17,
+      "p95_ms": 66,
+      "p99_ms": 118,
+      "max_ms": 246.38834781944752,
+      "resolution_ms": 1
+    },
+    "movement_cadence_excess": {
+      "n": 230794,
+      "mean_ms": 8.674317910445025,
+      "p50_ms": 1,
+      "p95_ms": 51,
+      "p99_ms": 103,
+      "max_ms": 245.267000235617,
+      "resolution_ms": 1
+    },
+    "movement_relay_first45s": {
+      "n": 36279,
+      "mean_ms": 25.513460902347408,
+      "p50_ms": 18,
+      "p95_ms": 94,
+      "p99_ms": 142,
+      "max_ms": 246.38834781944752,
+      "resolution_ms": 1
+    },
+    "steady_after45s": {
+      "n": 194647,
+      "mean_ms": 20.201080592916473,
+      "p50_ms": 17,
+      "p95_ms": 62,
+      "p99_ms": 112,
+      "max_ms": 183.40457044541836,
+      "resolution_ms": 1
+    }
+  },
+  "online_capacity_claim": false,
+  "diagnostic_only": true,
+  "source": {
+    "els_server/config.py": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60",
+    "els_server/egress_budget.py": "bc7e38cb100e155a9ca53ebb06587b4d4828cfffb00720b48772b5afc5a9ec47",
+    "els_server/native_outbox.py": "373ae4a6e4e1efde82def0e6d05c6adb22ba47b978125e1ad03358180c4b2d92",
+    "els_server/transport.py": "0329ee9bb330424cfb53465319223f6a52f06d80163787e0347164d2be22b85e",
+    "els_server/domain/native_session_sources.py": "f23aa3703ef5f376504243a97c3f26da8e144b3872ce6a841ab3e68676b5fffc"
+  },
+  "native_egress_mbps": 4.4
+}

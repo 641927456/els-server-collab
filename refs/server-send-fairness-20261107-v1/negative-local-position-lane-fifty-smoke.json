@@ -1,0 +1,129 @@
+{
+  "run": "position-lane-thirteen50-smoke60-v1",
+  "qualified": false,
+  "latency_pass": false,
+  "seconds": 60,
+  "actors": 50,
+  "town": 16,
+  "dungeon": 34,
+  "gates": {
+    "pickup": true,
+    "death": true,
+    "glass": true,
+    "map": true,
+    "town_handler": true,
+    "town_relay": false,
+    "town_cadence": false,
+    "cold_currency_and_ACK_exact": true,
+    "normal_cleanup": true,
+    "frontend_health": true,
+    "all_final_peer_positions": true,
+    "final_town_positions_saved": true,
+    "all_clients": true,
+    "actual_nogil": true
+  },
+  "metrics": {
+    "pickup": {
+      "n": 1530,
+      "mean_ms": 8.420157386294377,
+      "p50_ms": 6,
+      "p95_ms": 21,
+      "p99_ms": 46,
+      "max_ms": 120.60930021107197,
+      "resolution_ms": 1
+    },
+    "death": {
+      "n": 1530,
+      "mean_ms": 17.801108102928968,
+      "p50_ms": 14,
+      "p95_ms": 44,
+      "p99_ms": 86,
+      "max_ms": 120.8432000130415,
+      "resolution_ms": 1
+    },
+    "glass": {
+      "n": 102,
+      "mean_ms": 18.21588433128508,
+      "p50_ms": 17,
+      "p95_ms": 23,
+      "p99_ms": 91,
+      "max_ms": 92.06649987027049,
+      "resolution_ms": 1
+    },
+    "map": {
+      "n": 102,
+      "mean_ms": 18.201144092588446,
+      "p50_ms": 18,
+      "p95_ms": 27,
+      "p99_ms": 30,
+      "max_ms": 34.019199665635824,
+      "resolution_ms": 1
+    },
+    "town_handler": {
+      "n": 5600,
+      "mean_ms": 3.547655678038219,
+      "p50_ms": 3,
+      "p95_ms": 8,
+      "p99_ms": 26,
+      "max_ms": 190.03150006756186,
+      "resolution_ms": 1
+    },
+    "movement_relay": {
+      "n": 83681,
+      "mean_ms": 18.06902148408842,
+      "p50_ms": 5,
+      "p95_ms": 85,
+      "p99_ms": 133,
+      "max_ms": 269.1990421153605,
+      "resolution_ms": 1
+    },
+    "movement_cadence_excess": {
+      "n": 83441,
+      "mean_ms": 11.611510250989339,
+      "p50_ms": 1,
+      "p95_ms": 74,
+      "p99_ms": 128,
+      "max_ms": 311.05159977450825,
+      "resolution_ms": 1
+    },
+    "movement_relay_first45s": {
+      "n": 65681,
+      "mean_ms": 19.430946258980928,
+      "p50_ms": 5,
+      "p95_ms": 87,
+      "p99_ms": 135,
+      "max_ms": 269.1990421153605,
+      "resolution_ms": 1
+    },
+    "steady_after45s": {
+      "n": 18000,
+      "mean_ms": 13.099433642993164,
+      "p50_ms": 4,
+      "p95_ms": 75,
+      "p99_ms": 119,
+      "max_ms": 240.64880702644587,
+      "resolution_ms": 1
+    }
+  },
+  "online_capacity_claim": false,
+  "diagnostic_only": true,
+  "source_bindings": {
+    "position-lane-suite/els_server/application.py": "611217785163faad191f563c300ae7e1c976f63566f0b9d9409187ce66f6da68",
+    "position-lane-suite/els_server/config.py": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60",
+    "position-lane-suite/els_server/domain/elixir_flow.py": "72173d6bc547cb6292e216a14a7d858fe2a08de0f6c3994375e0728203f7ad69",
+    "position-lane-suite/els_server/domain/friends_world.py": "b6bb0d1856dfbd9fc593782b46ee660d68bac60ffad15796590c9edef2a41ea2",
+    "position-lane-suite/els_server/domain/local_session.py": "e3cba5eb5611a2fd39fe6534763c4bb2b53a1f4ca25261199792a630c5c2cb9f",
+    "position-lane-suite/els_server/domain/native_session_sources.py": "f23aa3703ef5f376504243a97c3f26da8e144b3872ce6a841ab3e68676b5fffc",
+    "position-lane-suite/els_server/dungeon_workers.py": "e64d06562a2218546017926f4524cffa2d22d81f232f381a5387a43616efc1a0",
+    "position-lane-suite/els_server/egress_budget.py": "5e42a0a6bd3e306bbea7eec206c5eead38fd6b0da68080134bcb170c700233f4",
+    "position-lane-suite/els_server/native_outbox.py": "ba2d72106d989624a1378343fc24f7e107b81df9f0799ad3bf39228a6481405e",
+    "position-lane-suite/els_server/protocol/dungeon_messages.py": "b53704e95483959fa55f157977c56391289354d4911f8c8caaa194fae71c2f86",
+    "position-lane-suite/els_server/storage/inventory_state.py": "eac0c17c2ff411de61a1dab51ce1576610f60641496d36d79d821e7d6ff35ab8",
+    "position-lane-suite/els_server/storage/read_scope.py": "6027a1b23a58445aae1203bdb28cf5f956a4e77eab6d67d38c8823812e321284",
+    "position-lane-suite/els_server/transport.py": "4c4c5b635aebe8e624f477fd564a7263a6db2b8fbfa9e4ff605d3204510c49d1",
+    "runtime/sqlite3.dll": "4b59d3cded9dc1608544160f3b4b10ac974c6ac0d6ffc23064e5f4c8dbd05aea"
+  },
+  "same_native_entrypoint_timer": true,
+  "monitor_full_progress_snapshot_on_socket_loop": false,
+  "production_installed": false
+}
