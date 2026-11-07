@@ -1,0 +1,393 @@
+--- a/els_server/domain/dungeon_diagnostics.py
++++ b/els_server/domain/dungeon_diagnostics.py
+@@ -3,7 +3,7 @@
+ import struct
+ 
+ 
+-def refusal(session,event,replies):
++def refusal(session,event,replies,request_sequence=None):
+     if event.event_id!=0x202:return None
+     expected={0xad:0xae,0x30a:0x30b,0x471:0x472,0xb8:0xb9,0xbb:0xbc,0x2ce:0x2cf}.get(event.kind)
+     if expected is None:return None
+@@ -42,18 +42,10 @@
+             condition_count=count,condition_shape_ok=len(event.payload)==15+count,
+             native_flag=event.payload[-1])
+     elif event.kind==0x2ce:
+-        from els_server.domain.dungeon_spawns import decode
+-        def shape(dto):
+-            index,template=struct.unpack_from('<ii',dto)
+-            if (index!=-1 or not 0<template<2**31
+-                    or any(dto[o]not in(0,1)for o in(0x4e,0x54,0x61,0x65,0x66))):
+-                raise ValueError('NPC diagnostic shape')
+-        try:rows=decode(event.payload,shape)
+-        except ValueError:result['spawn_shape']='unqualified'
+-        else:
+-            templates=[struct.unpack_from('<i',row,4)[0]for row in rows]
+-            allowed=run.graph['stages'][str(run.stage)]['allowed_summons']
+-            owners={0,2**64-1,session.account.uid,*run.reserved_keys,*session.summon_keys}
+-            result.update(spawn_templates=templates,spawn_templates_declared=all(t in allowed for t in templates),
+-                spawn_creator_in_current_scene=all(struct.unpack_from('<Q',row,0x6d)[0]in owners for row in rows))
++        # Reuse this request's actual scene decoder; do not try twenty modes
++        # again or label a valid layout's qualification failure as malformed.
++        decoded=getattr(session,'_spawn_diagnostic',None)
++        if request_sequence is not None and decoded is not None and decoded[0]==request_sequence:
++            result.update(decoded[1])
++        else:result['spawn_shape']='not_decoded_by_scene_handler'
+     return result
+--- a/els_server/domain/dungeon_spawns.py
++++ b/els_server/domain/dungeon_spawns.py
+@@ -3,7 +3,7 @@
+ Only verified templates reachable from the current stage's READY_NPC and
+ captured AI references are admitted. Player summons retain their own adapter.
+ """
+-import hashlib,math,struct
++import hashlib,struct
+ from els_server.domain.summons import LAYOUTS,_decode_rows,summon_ack,PLAYER_SUMMON_TEMPLATES,player_summon_templates
+ from els_server.domain.dungeon_npcs import encode_npc
+ from els_server.domain.dungeon_routes import npc_initialization
+@@ -17,19 +17,30 @@
+  else:npcs=[dict(key=i) for i in range(3)];dead=s.defeated_npcs
+  return sum(n['key'] not in dead for n in npcs)+len(s.summon_keys-set(s.summon_deaths))
+ 
+-def decode(payload,validate,*,parameters=False):
++class _QualificationError(ValueError):pass
++
++def decode(payload,validate,*,parameters=False,diagnostic=None):
+  def checked(dto,extra):
+-  if parameters:validate(dto,extra)
+-  else:
+-   if extra:raise ValueError('Unsupported NPC extension')
+-   validate(dto)
+- candidates={}
++  if not parameters and extra:raise ValueError('Unsupported NPC extension')
++  try:
++   if parameters:validate(dto,extra)
++   else:validate(dto)
++  except ValueError as error:raise _QualificationError from error
++ candidates={};failures={}
+  for fields in LAYOUTS.values():
+   try:
+    rows=_decode_rows(payload,0,fields,(),validate=checked)
+    identity=tuple((bytes(dto),tuple(sorted(extra.items())))for dto,extra in rows)
+    candidates[identity]=rows
+-  except (ValueError,OverflowError,struct.error):continue
++  except (ValueError,OverflowError,struct.error)as error:
++   if diagnostic is not None:
++    reason=('qualification'if isinstance(error,_QualificationError)else
++        'location'if str(error)=='Invalid summon location'else
++        'parameters'if str(error)=='Unsupported NPC extension'else'layout')
++    failures[reason]=failures.get(reason,0)+1
++ if diagnostic is not None:
++  diagnostic.update(spawn_shape='decoded'if len(candidates)==1 else
++      'ambiguous'if candidates else'unrecognized_or_unqualified',spawn_decode_failures=failures)
+  if len(candidates)!=1:raise ValueError('Unrecognized or ambiguous NPC spawn mode')
+  rows=next(iter(candidates.values()))
+  return rows if parameters else[dto for dto,extra in rows]
+@@ -56,10 +67,13 @@
+   if extra:raise ValueError('Unsupported scene NPC extension')
+   if creator not in owners:raise ValueError('NPC creator outside current encounter')
+   if any(dto[o] not in (0,1) for o in (0x4e,0x54,0x61,0x65,0x66)):raise ValueError('NPC flag bound')
+-  if not all(math.isfinite(v) and abs(v)<=100000 for v in struct.unpack_from('<fff',dto,9)):raise ValueError('NPC spawn position bound')
+- try:decoded=decode(event.payload,validate,parameters=True)
++ diagnostic={};s._spawn_diagnostic=(sequence,diagnostic)
++ try:decoded=decode(event.payload,validate,parameters=True,diagnostic=diagnostic)
+  except ValueError:return None  # Preserve the existing player-only decoder.
+  rows=[dto for dto,extra in decoded]
++ diagnostic.update(spawn_templates=[struct.unpack_from('<i',dto,4)[0]for dto in rows],
++     spawn_templates_declared=all(struct.unpack_from('<i',dto,4)[0]in allowed for dto in rows),
++     spawn_creator_in_current_scene=all(struct.unpack_from('<Q',dto,0x6d)[0]in owners for dto in rows))
+  player_indexes={i for i,dto in enumerate(rows)if struct.unpack_from('<i',dto,4)[0]in PLAYER_SUMMON_TEMPLATES and struct.unpack_from('<Q',dto,0x6d)[0]==s.account.uid}
+  if len(player_indexes)==len(rows):return None  # Keep the player-only lifecycle.
+  # Source-bound compatibility for legacy Rose performance references in Ain.
+--- a/els_server/domain/friends_spawns.py
++++ b/els_server/domain/friends_spawns.py
+@@ -183,6 +183,8 @@
+             staged.summon_keys = set(s.summon_keys)
+             staged.summon_requests = dict(s.summon_requests)
+             own = scripted_spawn(staged, event, sequence)
++            if getattr(staged, '_spawn_diagnostic', (None,))[0] == sequence:
++                s._spawn_diagnostic = staged._spawn_diagnostic
+             if own is None or [e.kind for e in own] != [0x2cf, 0x2d0] or own[0].payload != bytes(4):
+                 return failed
+             added = run.current['npcs'][len(s.dungeon_run.current['npcs']):]
+--- a/els_server/domain/scene_retirement_sources.py
++++ b/els_server/domain/scene_retirement_sources.py
+@@ -40718,3 +40718,198 @@
+   'native_script': 'Altera_Mine.lua',
+   'native_class': 102,
+   'native_is_npc': True}]
++
++
++# Original inactive Santilus summoners; no combat, drop or gate-key alias.
++RULES += [{'dungeon': 33242,
++  'stage': 0,
++  'part': 1,
++  'source': {'template': 1394,
++             'source_index': 5,
++             'points': [63],
++             'active': False,
++             'gage': False,
++             'ally': False,
++             'team': 1,
++             'no_drop': False,
++             'right': False,
++             'boss': False,
++             'boss_lines': 1,
++             'key_code': -1,
++             'source_key_code': -1,
++             'rate': 100,
++             'offset': [0, 0, 0]},
++  'graph_sha': '9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a',
++  'script': 'DUMMY_SUMMONER1.lua',
++  'script_sha': '6c5909c1cde9b26f0553cfa5eb596a66687938aeb04873f8b5e3810a8a0b6477',
++  'native_script': 'DUMMY_SUMMONER1.lua',
++  'native_class': 0,
++  'native_is_npc': True},
++ {'dungeon': 33242,
++  'stage': 0,
++  'part': 1,
++  'source': {'template': 1455,
++             'source_index': 6,
++             'points': [63],
++             'active': False,
++             'gage': False,
++             'ally': False,
++             'team': 1,
++             'no_drop': False,
++             'right': False,
++             'boss': False,
++             'boss_lines': 1,
++             'key_code': -1,
++             'source_key_code': -1,
++             'rate': 100,
++             'offset': [0, 0, 0]},
++  'graph_sha': '9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a',
++  'script': 'DUMMY_SUMMONER1_1.lua',
++  'script_sha': '659b87c7c8caf8245801dc89cc701572cb2f5c53a1641952dfe4c6332e7a7e24',
++  'native_script': 'DUMMY_SUMMONER1_1.lua',
++  'native_class': 0,
++  'native_is_npc': True},
++ {'dungeon': 33242,
++  'stage': 0,
++  'part': 1,
++  'source': {'template': 1456,
++             'source_index': 7,
++             'points': [63],
++             'active': False,
++             'gage': False,
++             'ally': False,
++             'team': 1,
++             'no_drop': False,
++             'right': False,
++             'boss': False,
++             'boss_lines': 1,
++             'key_code': -1,
++             'source_key_code': -1,
++             'rate': 100,
++             'offset': [0, 0, 0]},
++  'graph_sha': '9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a',
++  'script': 'DUMMY_SUMMONER1_2.lua',
++  'script_sha': '199a0a1ce62d65e67d10d837193dad1e3420ef82bd308f08377d6cb816e2f4af',
++  'native_script': 'DUMMY_SUMMONER1_2.lua',
++  'native_class': 0,
++  'native_is_npc': True},
++ {'dungeon': 33242,
++  'stage': 0,
++  'part': 1,
++  'source': {'template': 1457,
++             'source_index': 8,
++             'points': [63],
++             'active': False,
++             'gage': False,
++             'ally': False,
++             'team': 1,
++             'no_drop': False,
++             'right': False,
++             'boss': False,
++             'boss_lines': 1,
++             'key_code': -1,
++             'source_key_code': -1,
++             'rate': 100,
++             'offset': [0, 0, 0]},
++  'graph_sha': '9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a',
++  'script': 'DUMMY_SUMMONER1_3.lua',
++  'script_sha': '2c345c50e6291edb0c0d27c007c94b02e544cc92457ed3b307dc5045851dbeac',
++  'native_script': 'DUMMY_SUMMONER1_3.lua',
++  'native_class': 0,
++  'native_is_npc': True},
++ {'dungeon': 33242,
++  'stage': 0,
++  'part': 1,
++  'source': {'template': 1394,
++             'source_index': 4,
++             'points': [63],
++             'active': False,
++             'gage': False,
++             'ally': False,
++             'team': 1,
++             'no_drop': False,
++             'right': False,
++             'boss': False,
++             'boss_lines': 1,
++             'key_code': -1,
++             'source_key_code': -1,
++             'rate': 100,
++             'offset': [0, 0, 0]},
++  'graph_sha': '9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a',
++  'script': 'DUMMY_SUMMONER1.lua',
++  'script_sha': '6c5909c1cde9b26f0553cfa5eb596a66687938aeb04873f8b5e3810a8a0b6477',
++  'native_script': 'DUMMY_SUMMONER1.lua',
++  'native_class': 0,
++  'native_is_npc': True},
++ {'dungeon': 33242,
++  'stage': 0,
++  'part': 1,
++  'source': {'template': 1455,
++             'source_index': 5,
++             'points': [63],
++             'active': False,
++             'gage': False,
++             'ally': False,
++             'team': 1,
++             'no_drop': False,
++             'right': False,
++             'boss': False,
++             'boss_lines': 1,
++             'key_code': -1,
++             'source_key_code': -1,
++             'rate': 100,
++             'offset': [0, 0, 0]},
++  'graph_sha': '9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a',
++  'script': 'DUMMY_SUMMONER1_1.lua',
++  'script_sha': '659b87c7c8caf8245801dc89cc701572cb2f5c53a1641952dfe4c6332e7a7e24',
++  'native_script': 'DUMMY_SUMMONER1_1.lua',
++  'native_class': 0,
++  'native_is_npc': True},
++ {'dungeon': 33242,
++  'stage': 0,
++  'part': 1,
++  'source': {'template': 1456,
++             'source_index': 6,
++             'points': [63],
++             'active': False,
++             'gage': False,
++             'ally': False,
++             'team': 1,
++             'no_drop': False,
++             'right': False,
++             'boss': False,
++             'boss_lines': 1,
++             'key_code': -1,
++             'source_key_code': -1,
++             'rate': 100,
++             'offset': [0, 0, 0]},
++  'graph_sha': '9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a',
++  'script': 'DUMMY_SUMMONER1_2.lua',
++  'script_sha': '199a0a1ce62d65e67d10d837193dad1e3420ef82bd308f08377d6cb816e2f4af',
++  'native_script': 'DUMMY_SUMMONER1_2.lua',
++  'native_class': 0,
++  'native_is_npc': True},
++ {'dungeon': 33242,
++  'stage': 0,
++  'part': 1,
++  'source': {'template': 1457,
++             'source_index': 7,
++             'points': [63],
++             'active': False,
++             'gage': False,
++             'ally': False,
++             'team': 1,
++             'no_drop': False,
++             'right': False,
++             'boss': False,
++             'boss_lines': 1,
++             'key_code': -1,
++             'source_key_code': -1,
++             'rate': 100,
++             'offset': [0, 0, 0]},
++  'graph_sha': '9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a',
++  'script': 'DUMMY_SUMMONER1_3.lua',
++  'script_sha': '2c345c50e6291edb0c0d27c007c94b02e544cc92457ed3b307dc5045851dbeac',
++  'native_script': 'DUMMY_SUMMONER1_3.lua',
++  'native_class': 0,
++  'native_is_npc': True}]
+--- a/els_server/domain/summons.py
++++ b/els_server/domain/summons.py
+@@ -67,7 +67,9 @@
+                 raise ValueError('Summon owner mismatch')
+         else:
+             validate(dto, extra)
+-        if not all(math.isfinite(v) and abs(v) <= 100000 for v in struct.unpack_from('<fff', dto, 9)):
++        # Original Lua uses the same unscaled XYZ as scene retirement reports;
++        # Santilus summoners legitimately start beyond X=100000.
++        if not all(math.isfinite(v) and abs(v) <= 1e7 for v in struct.unpack_from('<fff', dto, 9)):
+             raise ValueError('Invalid summon location')
+         rows.append((dto, extra))
+     if position != len(payload):
+--- a/els_server/dungeon34320_observation.py
++++ b/els_server/dungeon34320_observation.py
+@@ -163,8 +163,7 @@
+                 raise ValueError('spawn owner')
+             if dto[8] not in (0, 1, 2) or any(dto[o] not in (0, 1) for o in (0x4e, 0x54, 0x61, 0x65, 0x66)):
+                 raise ValueError('spawn flag')
+-            if not all(math.isfinite(v) and abs(v) <= 100000 for v in struct.unpack_from('<fff', dto, 9)):
+-                raise ValueError('spawn point')
++            # The shared DTO decoder owns the unscaled XYZ constraint.
+         rows = decode(payload, validate)
+         return dict(parse='current_script_decoder', requests=[dict(
+             requested_key=struct.unpack_from('<i', d)[0], template=struct.unpack_from('<i', d, 4)[0],
+--- a/els_server/native_inbox.py
++++ b/els_server/native_inbox.py
+@@ -1,5 +1,7 @@
+ """Bounded native input; coalesce only consecutive validated town positions."""
+ import asyncio
++import hashlib
++import json
+ import time
+ from collections import deque
+ from dataclasses import dataclass
+@@ -42,7 +44,7 @@
+         self.metrics['town_moves_coalesced']+=1
+ 
+     async def _read(self):
+-        sequence=1;secure_sequences={}
++        sequence=1;secure_sequences={};last_authenticated=None
+         try:
+             while True:
+                 wire=await self.read()
+@@ -52,9 +54,23 @@
+                 previous=secure_sequences.get(frame.spi,0)
+                 if (not frame.secure_sequence or frame.secure_sequence==previous
+                         or frame.secure_sequence<previous and previous!=0xffffffff):
+-                    raise ProtocolError(f'Unexpected secure sequence (spi={frame.spi}, previous={previous}, received={frame.secure_sequence}, outer={frame.sequence})')
++                    # Keep only the preceding frame's digests in memory. Emit
++                    # equality flags, never a packet, fingerprint, IV or key.
++                    adjacent=last_authenticated is not None and last_authenticated[:2]==(frame.spi,previous)
++                    try:rejected=decode_event(frame.plaintext)
++                    except ProtocolError:rejected=None
++                    detail=dict(compared_adjacent=adjacent,
++                        same_authenticated_body=(hashlib.sha256(memoryview(wire)[8:]).digest()==last_authenticated[2])if adjacent else None,
++                        same_plaintext=(hashlib.sha256(frame.plaintext).digest()==last_authenticated[3])if adjacent else None,
++                        previous_kind=last_authenticated[4]if adjacent else None,
++                        received_kind=rejected.kind if rejected is not None else None,
++                        received_plaintext_bytes=len(frame.plaintext))
++                    raise ProtocolError(f'Unexpected secure sequence (spi={frame.spi}, previous={previous}, received={frame.secure_sequence}, outer={frame.sequence}); correlation='+json.dumps(detail,separators=(',',':')))
+                 secure_sequences[frame.spi]=frame.secure_sequence
+                 event=decode_event(frame.plaintext);self.metrics['requests']+=1
++                last_authenticated=(frame.spi,frame.secure_sequence,
++                    hashlib.sha256(memoryview(wire)[8:]).digest(),
++                    hashlib.sha256(frame.plaintext).digest(),event.kind)
+                 if self.auxiliary is not None and self.auxiliary(event):
+                     self.metrics['auxiliary_coalesced']+=1
+                     if sequence%16==0:await asyncio.sleep(0)
+--- a/els_server/transport.py
++++ b/els_server/transport.py
+@@ -353,7 +353,7 @@
+                             phase=business.phase,results=results,
+                             rejection=getattr(business,'_town_warp_rejection',None))
+                     from els_server.domain.dungeon_diagnostics import refusal
+-                    diagnostic=refusal(business,event,messages)
++                    diagnostic=refusal(business,event,messages,frame.sequence)
+                     if diagnostic is not None:
+                         self.log('dungeon_refusal',connection=index,sequence=frame.sequence,**diagnostic)
+                     dungeon34320_trace.after(trace34320_before,business,messages)

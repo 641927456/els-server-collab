@@ -1,0 +1,34 @@
+{
+  "ok": true,
+  "repeat_cases": {
+    "same_body": {
+      "compared_adjacent": true,
+      "same_authenticated_body": true,
+      "same_plaintext": true,
+      "previous_kind": 910,
+      "received_kind": 910,
+      "received_plaintext_bytes": 48
+    },
+    "different_business": {
+      "compared_adjacent": true,
+      "same_authenticated_body": false,
+      "same_plaintext": false,
+      "previous_kind": 910,
+      "received_kind": 65312,
+      "received_plaintext_bytes": 48
+    },
+    "same_plaintext_new_encryption": {
+      "compared_adjacent": true,
+      "same_authenticated_body": false,
+      "same_plaintext": true,
+      "previous_kind": 910,
+      "received_kind": 910,
+      "received_plaintext_bytes": 48
+    }
+  },
+  "anti_replay_unchanged": true,
+  "MAC_precedes_correlation": true,
+  "ordered_and_wrap_accepted": true,
+  "raw_packets_or_digests_emitted": false,
+  "production_modified": false
+}

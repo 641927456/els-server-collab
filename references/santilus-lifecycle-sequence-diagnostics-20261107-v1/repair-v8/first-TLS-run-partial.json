@@ -1,0 +1,8 @@
+{
+  "parser_checks": "passed",
+  "solo": "passed",
+  "shared": "failed_at_manual_part_transition",
+  "basis": "Sequential main reached shared line175 after parser_checks() and await solo() returned; preserved traceback",
+  "test_sha256": "96efb623fabb327f3a90b458bf2b8a30a59380c8a00b2fc8fefc80fda4668ff4",
+  "fixture_error": "Manual next_part changed run.part after shared spawn but omitted existing friends_spawns.advance(room); stale shared_actors generation correctly refused"
+}
