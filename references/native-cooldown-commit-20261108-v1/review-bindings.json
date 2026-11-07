@@ -1,0 +1,122 @@
+{
+  "source_package_sha256": "eb7dbec4a7ed54e1e48180bfcf923a12fe0498432d6216f2cefe3ff3b121abaf",
+  "checked_support_files": 71,
+  "support_identical": true,
+  "results": {
+    "source-verification.json": {
+      "sha256": "06fd129bd460cd3b76ab18ecc4fe456ec57253db3e7e2106f8aec3049d48f24b",
+      "result": {
+        "passed": true,
+        "checks": [
+          "All changed Python sources parse",
+          "Full actual V108 composition succeeds with the new verified native pin",
+          "Recorded script exception is accurately reported; genuine cache failure stays separate",
+          "The actual nested Python command emits Chinese as valid UTF-8",
+          "Actually installed runtime is unchanged"
+        ],
+        "game_launched_or_attached": false,
+        "composed_source_sha256": "4491f9db4d8c960c9d6e733dbfaba22d862f5f0de3ca247c686ed691af324fdc"
+      }
+    },
+    "cooldown-verification.json": {
+      "sha256": "4c93cd76829f820e844b8b97a739f39b087a09e1139294287b881f2ac49a72df",
+      "result": {
+        "passed": true,
+        "checks": [
+          "Actual old source reproduces the recorded invalid-pointer error",
+          "All three native skip cases ignore uninitialized stack storage",
+          "Successful updates followed by skipped iterations count once",
+          "Inserted and existing-key deltas continue accumulating",
+          "Nested remote trees cannot arm the local recipient",
+          "A changed native game generation discards pending old updates"
+        ],
+        "existing_lifecycle_checks": [
+          "One install; original9E precedes terminal requests through the original generic sender; recursive send cannot loop",
+          "Non-game thread, different mode and changed owner cannot invoke the owned original report",
+          "PVE1 serializes the original committed discrete and acceleration deltas, sorted by source UID",
+          "Innermost remote tree cannot borrow a local outer scope; resumed local commit counted once",
+          "An exception during nested ownership resolution unwinds only that invocation, preserving its local parent",
+          "Changed native Game reference discards a pending old commit and clears previous-run CD values",
+          "Dispose and reload remove all owned hooks and thread scopes",
+          "Original pins verified before existing PvP Interceptors; successful cache install receives only its own thread predicate",
+          "Shared original serializer appends exactly PVE1 or PVP1 by original mode; independent disposal preserves the remaining consumer",
+          "Standalone PvP reload reuses the verified shared writer without repinning its installed fast entry as original code"
+        ],
+        "verification": "Frida API fixtures using actual candidate and actual loaded parent sources",
+        "game_process": false,
+        "natural_battle": false
+      }
+    },
+    "native-host-verification.json": {
+      "sha256": "e18774bddb9d86976801ca24e9f52c6a03b6f6fbd055ed6243f647e82a25143a",
+      "result": {
+        "passed": true,
+        "frida_version": "17.23.3",
+        "results": {
+          "parent": {
+            "skipped": {},
+            "insertedValue": 1.5,
+            "afterInsert": {
+              "2002": 1.5
+            },
+            "afterSkippedIteration": {
+              "2002": 1.5
+            },
+            "existingValue": 100.25,
+            "afterExisting": {
+              "2002": 1.75
+            },
+            "errors": [
+              "Error: access violation accessing 0xffffffffffffffff",
+              "Error: access violation accessing 0xffffffffffffffff",
+              "Error: access violation accessing 0xffffffffffffffff",
+              "Error: access violation accessing 0xffffffffffffffff"
+            ],
+            "product_sha256": "df449f05fe03ac2ad1a41ccaac44c11b3423b45ce51708c58fe373c8a669eea8",
+            "owned_helper_exited": true
+          },
+          "fixed": {
+            "skipped": {},
+            "insertedValue": 1.5,
+            "afterInsert": {
+              "2002": 1.5
+            },
+            "afterSkippedIteration": {
+              "2002": 1.5
+            },
+            "existingValue": 100.25,
+            "afterExisting": {
+              "2002": 1.75
+            },
+            "errors": [],
+            "product_sha256": "03a5261d2e5a966837f7c072d3dfbcd26320a1ab56d331db5e21d553c252ad83",
+            "owned_helper_exited": true
+          }
+        },
+        "scope": "Actual Gum hooks plus original x64 skip/join instructions in isolated synthetic memory; lookup, parent prologue and report writer are explicit fixture shims.",
+        "game_process": false,
+        "player_process_attached": false,
+        "physical_input": false,
+        "original_instruction_windows": {
+          "9390947": "0f84c4000000",
+          "9390984": "0f869f000000",
+          "9391050": "7461",
+          "9391129": "807d3800750e488b4530f30f587028f30f117028488b05547fe903488b4b10807919007422"
+        },
+        "natural_gameplay_verified": false
+      }
+    }
+  },
+  "test_sources": {
+    "verify_source.py": "129c246eb104ffead7e9d693caa4dccfac31f334449c72307fc27d315cd2ef6e",
+    "verify_cooldown.cjs": "85e8f00b5451b94cd0105a4c15305e1a40e5e36b2dd14b762c7dc03049a9d8d4",
+    "verify_native_host.py": "cbff5a50cbe8e7267f80eea84ee3845b24b78799538df4073ad5162f9e921bc8",
+    "native_cooldown_host.js": "6e51c8237790c7ee74702c7918389fde63cc0bdbcc52711f6e77a0536fefd48c"
+  },
+  "fixture_dependencies": {
+    "analysis\\dungeon-result-tab-audit-20261106-v1\\verify_hook_cd.cjs": "20c5ec53b4e39d0ab54f203f7345d28e30b900b2ae3355455396a7d9957134b3",
+    "analysis\\dungeon-result-tab-audit-20261106-v1\\pvp-writer-pins.json": "5c9cecb10025b2684b3639a9b6c5fd7b2db2f3663cf45391f9f062e80c9b680d"
+  },
+  "successful_same_input_results_reused": true,
+  "original_EXE_KOM_changes": 0
+}
