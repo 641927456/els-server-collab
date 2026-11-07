@@ -1,0 +1,71 @@
+{
+  "status": "PRIVATE_APP_TLS_CORE_PASSED_NOT_INSTALLED",
+  "native_NPCs": [
+    10372,
+    10373,
+    10374,
+    10375
+  ],
+  "native_HOUSEs": [
+    40267,
+    40268,
+    40269,
+    40270
+  ],
+  "map": 20012,
+  "scene": 1004,
+  "native_map_name": "某人的研究室",
+  "native_unit_requirement": 14,
+  "source_kind": "ACT_NPC_TALK66",
+  "native_request": "FD/FE",
+  "new_schema_definitions": 0,
+  "new_item_or_ED_rewards": false,
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "sha256": "7216d25abdb594c6036b633f8ae43fd19e573eb6c4ad2b5e16c124955d73cd87"
+    },
+    {
+      "path": "els_server/domain/town_dialogue.py",
+      "sha256": "9df081ad86ece52a5ab51b05480d285a285d5b46c76bce4e0ea2167589057189"
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "sha256": "b94d2d6d57b9fd638eea0ffdb599374d07f0f31d1916a87e97696ed6f8df4f95"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "sha256": "4b3e66d4c0dfe65a74e365ea8dac2be55c3736faf0e9465fee09dd9e5762570f"
+    },
+    {
+      "path": "els_server/storage/town_dialogue.py",
+      "sha256": "39ea71a4f3fa9a726ca0a5178f328c00f166750551e5ff10388f90967833617d"
+    }
+  ],
+  "connected_source_types": 43,
+  "connected_definitions": 257,
+  "remaining_source_types": 17,
+  "initial_source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "sha256": "7216d25abdb594c6036b633f8ae43fd19e573eb6c4ad2b5e16c124955d73cd87"
+    },
+    {
+      "path": "els_server/domain/town_dialogue.py",
+      "sha256": "9df081ad86ece52a5ab51b05480d285a285d5b46c76bce4e0ea2167589057189"
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "sha256": "b94d2d6d57b9fd638eea0ffdb599374d07f0f31d1916a87e97696ed6f8df4f95"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "sha256": "4b3e66d4c0dfe65a74e365ea8dac2be55c3736faf0e9465fee09dd9e5762570f"
+    },
+    {
+      "path": "els_server/storage/town_dialogue.py",
+      "sha256": "77b91811d2ff7f498411d351dd3d57449e06641c0eaba427af2ebd378e718583"
+    }
+  ],
+  "source_revision_note": "Moved notebook-only encoding seam to module scope before the passing live/rollback test; original failure results preserved"
+}

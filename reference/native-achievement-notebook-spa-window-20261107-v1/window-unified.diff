@@ -1,0 +1,371 @@
+--- parent/els_server/data/spa_market.json
++++ candidate/els_server/data/spa_market.json
+@@ -0,0 +1,22 @@
++{
++  "schema_version": 1,
++  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
++  "native_source_sha256": "9f116dc16a7a832e308adb33f0bc84380bc47b718e888e2a89ea00b77bff0a65",
++  "sales": [
++    {
++      "map": 1500,
++      "NPC": 10196,
++      "template": 710012
++    },
++    {
++      "map": 1501,
++      "NPC": 10196,
++      "template": 710012
++    },
++    {
++      "map": 1506,
++      "NPC": 10470,
++      "template": 136202
++    }
++  ]
++}
+--- parent/els_server/domain/achievement_flow.py
++++ candidate/els_server/domain/achievement_flow.py
+@@ -115,8 +115,11 @@
+     # Original guild refusal has no ACK. Only its committed6C8 action journal
+     # can increase the count; replay or a refusal without an invitation cannot.
+     if event is not None and event.event_id==0x202 and event.kind==0x6c8:sources.add(24)
++    if event is not None and event.event_id==0x202 and event.kind==0xea:sources.add(34)
+     spa=getattr(s,'_achievement_spa_source',None)
+     if spa is not None and spa[:2]==(s.account.account_id,s.account.uid):sources.add(7)
++    notebook=getattr(s,'_achievement_notebook_source',None)
++    if notebook is not None and notebook[:2]==(s.account.account_id,s.account.uid):sources.add(66)
+     now=int(time.time());day=(now+28800)//86400
+     play_clock=s.role=='game'and s.phase in('town_ready','guild_agit_ready','dungeon_active','wedding_hall','pvp_loading','pvp_active','pvp_reporting','pvp_result','dungeon_loading','map_loading','square_accepted')
+     if(cold or play_clock)and getattr(s,'_achievement_play_day',None)!=(s.account.account_id,day):sources.add(10)
+@@ -146,6 +149,7 @@
+         s._achievement_couple_due=(s.account.account_id,s.account.uid,updated['couple_due'])if updated['couple_due']is not None else None
+     if spa is not None and 7 in sources:s._achievement_spa_source=None
+     if 10 in sources:s._achievement_play_day=(s.account.account_id,day)
++    if notebook is not None and 66 in sources:s._achievement_notebook_source=None
+     if message is None:return response
+     if updated['completed']:_appearance_changed(s)
+     return [*response,message]
+--- parent/els_server/domain/consumables.py
++++ candidate/els_server/domain/consumables.py
+@@ -8,7 +8,7 @@
+ 
+ 
+ # Current shop/quest recovery inputs. No new acquisition source.
+-CURRENT_RECOVERY=frozenset((77060, 77080, 77090, 77130, 78140, 78170, 78240, 78270, 78995, 78996, 78998, 78999, 79000, 92290, 277155))
++CURRENT_RECOVERY=frozenset((77060, 77080, 77090, 77130, 78140, 78170, 78240, 78270, 78995, 78996, 78998, 78999, 79000, 92290, 277155, 710012))
+ CURRENT_THROWABLES=frozenset((78340,78350))
+ CURRENT_MANUAL=CURRENT_RECOVERY|CURRENT_THROWABLES|{710006,710250,185080}
+ 
+@@ -29,16 +29,19 @@
+     return {r['id']:r for r in rows}
+ 
+ 
+-def manual_magic_potion_definition():
+-    """One source-qualified manual potion; this does not open an EP offer."""
+-    raw=bytes.fromhex(catalog()[710022]['record_hex'])
+-    if hashlib.sha256(raw).hexdigest()!='0b87d5694633253a884210711329cc05a7932f0fdf4184f65d3793410c67203a':
+-        raise ValueError('Manual magic potion source changed')
+-    if (raw[7]&15,struct.unpack_from('<I',raw,0x10)[0])!=(2,500):
+-        raise ValueError('Manual magic potion inventory source')
+-    # Original19803A0 classification:6. Source stack500 participates in the
+-    # existing owner-authorized999 minimum for ordinary stackable items.
+-    return dict(template=710022,metadata=2,group=6,max_stack=500)
++def manual_recovery_definitions():
++    """Source-qualified ordinary MP recoveries share the native bag6 body."""
++    pins={710022:'0b87d5694633253a884210711329cc05a7932f0fdf4184f65d3793410c67203a',
++          710012:'9cb21a2ea104d962bd41f27b81de1a52947c49cc9d26a9e3cd5c59face44c656'}
++    result=[]
++    for template,digest in pins.items():
++        raw=bytes.fromhex(catalog()[template]['record_hex'])
++        if (hashlib.sha256(raw).hexdigest()!=digest
++            or(raw[7]&15,struct.unpack_from('<I',raw,0x10)[0])!=(2,500)):
++            raise ValueError('Manual recovery inventory source changed')
++        # Original19803A0 classification6 and the common owned-stack policy.
++        result.append(dict(template=template,metadata=2,group=6,max_stack=500))
++    return result
+ 
+ 
+ def ordinary(template):
+@@ -104,6 +107,7 @@
+     expected.update({78985:(0,2,30,((1,190000),)),78986:(0,5,30,((2,150),))})
+     expected[710000]=(0,15,30,((13,100),(19,100)))
+     expected[710022]=(0,19,30,((19,100),))
++    expected[710012]=(0,52,30,((19,100),))
+     expected.update({79063:(0,2,30,((13,50),)),79064:(0,5,30,((19,50),))})
+     expected[79065]=(0,10,30,((19,50),(13,50)))
+     expected[77110]=(0,14,30,((3,0),(5,0),(6,0)))
+--- parent/els_server/domain/environment_buff_flow.py
++++ candidate/els_server/domain/environment_buff_flow.py
+@@ -130,6 +130,8 @@
+     from els_server.domain.elixir_flow import enabled,ready,context,prepare
+     if not enabled(s)or not ready(s):return events
+     observe(s)
++    from els_server.domain.spa_market import synchronize as market_sync
++    events=market_sync(s,events)
+     try:
+         with snapshot_connection(s.account.store.path,timeout=0)as db:
+             db.execute('BEGIN');now=int(time.time());rows=world_rows(s,db,now)
+--- parent/els_server/domain/inventory_items.py
++++ candidate/els_server/domain/inventory_items.py
+@@ -438,12 +438,12 @@
+  TEMPLATE_BAG_GROUPS[_row['template']]=_row['group']
+  TEMPLATE_MAX_STACKS[_row['template']]=_row['max_stack']
+ 
+-# Exact current-source manual magic potion; no acquisition provider is opened.
+-from els_server.domain.consumables import manual_magic_potion_definition
+-_manual_magic=manual_magic_potion_definition()
+-_t=_manual_magic['template'];_expected=(_manual_magic['metadata'],_manual_magic['group'],_manual_magic['max_stack'])
+-if _t in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting manual magic potion definition')
+-VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
++# Source-qualified manual MP recoveries reuse the common native bag6 reader.
++from els_server.domain.consumables import manual_recovery_definitions
++for _row in manual_recovery_definitions():
++ _t=_row['template'];_expected=(_row['metadata'],_row['group'],_row['max_stack'])
++ if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting manual recovery definition')
++ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
+ 
+ # Four exact permanent EP pet acquisition items; no pet activation producer.
+ from els_server.domain.ep_pets import definitions as _ep_pet_items
+--- parent/els_server/domain/npc_trade.py
++++ candidate/els_server/domain/npc_trade.py
+@@ -29,6 +29,12 @@
+             # not become purchasable merely because they share an archive.
+             for key in ('ITEM_LIST', 'ITEM_LIST_INT'):
+                 target.update(t for t in npc.get(key, {}).values() if type(t) is int and t > 0)
++    from els_server.domain.spa_market import catalog as spa_market
++    sales=spa_market()['sales'];special={row['template']for row in sales}
++    # Current SpaData names the actual spa and seller, independently of the
++    # regular-village stock entries retained in ShopItem.
++    for values in result.values():values.difference_update(special)
++    for row in sales:result.setdefault((row['map'],row['NPC']),set()).add(row['template'])
+     return {k: frozenset(v) for k, v in result.items()}
+ 
+ 
+--- parent/els_server/domain/spa_market.py
++++ candidate/els_server/domain/spa_market.py
+@@ -0,0 +1,58 @@
++"""Native spa-specific potion sellers; item admission remains independent."""
++import functools,hashlib,json,struct,time
++from els_server.paths import PROJECT_ROOT
++from els_server.game_data import CLIENT_SHA
++DATA_SHA='fcdb7775daa3aa1eaac323ba8f6e8c62fc6656edf4153e3518fd1ef5bbe99ed4'
++
++@functools.lru_cache(maxsize=1)
++def catalog():
++    raw=(PROJECT_ROOT/'els_server/data/spa_market.json').read_bytes()
++    if hashlib.sha256(raw).hexdigest()!=DATA_SHA:raise ValueError('Spa market source identity')
++    value=json.loads(raw)
++    if value['schema_version']!=1 or value['client_sha256']!=CLIENT_SHA:raise ValueError('Spa market client identity')
++    return value
++
++
++def clock():return time.time()
++
++
++def window():
++    # Shared wall-clock periods keep every client on the same five-minute
++    # schedule, including reconnects; ten seconds are purchasable per period.
++    now=int(clock())
++    return now//300,2 if now%300<10 else 0
++
++
++def require_open(cycle):
++    if window()!=(cycle,2):raise ValueError('Spa vendor sale window is closed')
++
++
++def new_purchase(db,owner,town,entries,merchant):
++    sales=catalog()['sales']
++    if not any(t in {r['template']for r in sales}for t,q in entries):return None
++    sale=next((r for r in sales if(r['map'],r['NPC'])==(town,merchant)),None)
++    if sale is None or entries!=[(sale['template'],1)]:raise ValueError('Spa vendor requires one native click purchase')
++    from els_server.storage.local_state import TOWN_SCENES
++    if town not in TOWN_SCENES or db.execute('SELECT town FROM location WHERE uid=?',(owner,)).fetchone()!=(town,):
++        raise ValueError('Spa vendor requires current saved scene')
++    from els_server.storage.seal_quests import load_character
++    character=load_character(db,owner)
++    if character['level']<{13:70,14:70,15:99}.get(character['unit_type'],10):raise ValueError('Spa level requirement')
++    cycle,state=window();require_open(cycle)
++    return cycle
++
++
++def synchronize(s,events):
++    # The existing spa observer has already checked the selected owner,
++    # loaded native scene, saved location and current level in one snapshot.
++    prior=getattr(s,'_spa_stay',None)
++    if prior is None:
++        s._spa_market_sent=None
++        return events
++    binding,facts=prior['key'];cycle,state=window()
++    stamp=(binding,facts[0],cycle,state)
++    if stamp==getattr(s,'_spa_market_sent',None):return events
++    from els_server.protocol.protocol_codec import Event,encode_event
++    event=Event(0x201,kind=0xc3a,payload=struct.pack('>i',state));encode_event(event)
++    s._spa_market_sent=stamp
++    return events+[event]
+--- parent/els_server/domain/town_dialogue.py
++++ candidate/els_server/domain/town_dialogue.py
+@@ -2,6 +2,8 @@
+ import functools,hashlib,json
+ from els_server.paths import PROJECT_ROOT
+ from els_server.game_data import CLIENT_SHA,client_data
++
++NOTEBOOK_NPCS=frozenset((10372,10373,10374,10375))
+ 
+ QUEST=13
+ NPC=10018
+@@ -155,7 +157,8 @@
+     if event.event_id!=0x202 or event.kind!=0xfd:return None
+     try:npc=wire.request(event.payload)
+     except ValueError:return [wire.acknowledgement(result=QUEST_REWARD_UNAVAILABLE)]
+-    binding=catalog()['npc_bindings'].get(str(npc))
++    notebook=npc in NOTEBOOK_NPCS
++    binding=dict(towns={'20012':1004})if notebook else catalog()['npc_bindings'].get(str(npc))
+     if binding is None:return None
+     if (s.role!='game' or s.phase!='town_ready' or str(s.active_map) not in binding['towns']
+         or s.account.get_location()['map']!=s.active_map or type(sequence) is not int or not 1<=sequence<2**32
+@@ -163,6 +166,13 @@
+         or event.payload_mode!=0):return [wire.acknowledgement(result=QUEST_REQUIREMENTS_NOT_MET)]
+     from els_server.storage.town_dialogue import interact
+     from els_server.domain.quest_flow import store
++    if notebook:
++        from els_server.domain.friend_flow import capture
++        from els_server.storage.town_dialogue import read_notebook
++        try:answer=read_notebook(store(s),npc,capture(s))
++        except ValueError:return [wire.acknowledgement(result=QUEST_REQUIREMENTS_NOT_MET)]
++        s._achievement_notebook_source=(s.account.account_id,s.account.uid,npc)
++        return answer
+     operation=s.shop_session_id+':town-npc-talk:'+str(s.account.uid)+':'+str(sequence)
+     try:return interact(store(s),npc,operation)
+     except ValueError:return [wire.acknowledgement(result=QUEST_REQUIREMENTS_NOT_MET)]
+--- parent/els_server/storage/achievement_history.py
++++ candidate/els_server/storage/achievement_history.py
+@@ -11,14 +11,22 @@
+ 
+ def record_play_day(db,account,owner,now):
+     """Approved UTC+8 calendar date, once per account; caller owns the SQL."""
++    day=(now+28800)//86400
++    _account_source(db,account,owner,'play-day',day,dict(day=day))
++    return day
++
++
++def record_notebook(db,account,owner,npc):
++    _account_source(db,account,owner,'noah-note',npc,dict(npc=npc))
++
++
++def _account_source(db,account,owner,kind,key,payload):
+     from els_server.storage import achievements as state
+-    state._actor(db,account,owner);state.ensure(db)
+-    day=(now+28800)//86400;operation=f'play-day:{account}:{day}';payload=dict(day=day)
+-    # The original earner may be another sibling, including a deleted role.
++    state._actor(db,account,owner);state.ensure(db);operation=f'{kind}:{account}:{key}'
++    # A sibling can reuse a source originally recorded by another role.
+     old=db.execute('SELECT owner FROM native_achievement_operations WHERE operation=?',(operation,)).fetchone()
+-    digest,previous=state._operation(db,account,old[0]if old else owner,'play-day',payload,operation)
+-    if previous is None:state._save(db,account,owner,'play-day',digest,operation,payload)
+-    return day
++    digest,previous=state._operation(db,account,old[0]if old else owner,kind,payload,operation)
++    if previous is None:state._save(db,account,owner,kind,digest,operation,payload)
+ 
+ 
+ def ensure_indexes(db):
+@@ -111,8 +119,22 @@
+ 
+ 
+ def counts(db,account,condition_types):
+-    if not condition_types&{2,4,5,7,10,16,18,19,23,24,25,26,27,28,29,30,32,35,36,43,44,45,51,52,53,56,57,58,60,61,62,63}:return {}
++    if not condition_types&{2,4,5,7,10,16,18,19,23,24,25,26,27,28,29,30,32,34,35,36,43,44,45,51,52,53,56,57,58,60,61,62,63,66}:return {}
+     tables=present(db);result={}
++    if 34 in condition_types and 'inventory_action_receipts'in tables:
++        # Only the authoritative EA purchase writer creates these receipts.
++        # Bought quantity is an increase of the same owned instance, rather
++        # than a request count; buyback567 and other acquisition kinds differ.
++        rows=db.execute('SELECT a.before_json,a.after_json FROM inventory_action_receipts a '
++            'JOIN character_owners o ON o.uid=a.owner WHERE o.account_id=?AND a.kind=?',(account,0xea))
++        for before,after in rows:
++            previous={item['uid']:item['count']for item in json.loads(before)}
++            for item in json.loads(after):
++                added=max(0,item['count']-previous.get(item['uid'],0));key=(34,item['template'])
++                result[key]=result.get(key,0)+added
++    if 66 in condition_types and 'native_achievement_operations'in tables:
++        for raw, in db.execute("SELECT result_json FROM native_achievement_operations WHERE account_id=?AND kind='noah-note'",(account,)):
++            result[(66,json.loads(raw)['npc'])]=1
+     if 10 in condition_types and 'native_achievement_operations'in tables:
+         result[(10,0)]=db.execute("SELECT COUNT(*)FROM native_achievement_operations WHERE account_id=?AND kind='play-day'",(account,)).fetchone()[0]
+     if 7 in condition_types and 'native_achievement_operations'in tables:
+--- parent/els_server/storage/achievement_profiles.py
++++ candidate/els_server/storage/achievement_profiles.py
+@@ -6,7 +6,7 @@
+ from els_server.storage.achievement_collections import counts as collection_counts
+ from els_server.storage.achievement_history import counts as history_counts,couple_duration
+ 
+-CONDITION_TYPES=frozenset((2,4,5,6,7,10,15,16,18,19,20,23,24,25,26,27,28,29,30,32,35,36,37,38,39,42,43,44,45,50,51,52,53,56,57,58,60,61,62,63,67,68))
++CONDITION_TYPES=frozenset((2,4,5,6,7,10,15,16,18,19,20,23,24,25,26,27,28,29,30,32,34,35,36,37,38,39,42,43,44,45,50,51,52,53,56,57,58,60,61,62,63,66,67,68))
+ 
+ 
+ def reconcile(db,account,owner,now,*,condition_types=CONDITION_TYPES):
+@@ -48,14 +48,16 @@
+             elif kind==35:value=history.get((kind,parameters['m_iGroupID']),0)
+             elif kind in(37,38):value=collections.get((kind,parameters['m_eUnitType']),0)
+             elif kind==39:value=collections[(39,0)]
++            elif kind==34:value=history.get((34,parameters['m_iItemID']),0)
+             elif kind==50:value=collections[(50,identity)]
++            elif kind==66:value=history.get((66,parameters['m_iNpcId']),0)
+             elif kind==42:value=collections.get((42,parameters['m_eTitleTypeID']),0)
+             elif kind==67:value=collections[(67,parameters['m_iClassLine'])]
+             elif kind==68:value=collections[(68,0)]
+             else:continue
+             previous=old.get((identity,condition['id']),(0,False))
+             value=max(value,previous[0])
+-            target=1 if kind==2 else parameters['m_iLevel'if kind in(6,15,57)else'm_iCount']
++            target=1 if kind in(2,66)else parameters['m_iLevel'if kind in(6,15,57)else'm_iCount']
+             complete=value>=target
+             if kind==20 and not complete and duration[1]is not None:
+                 due=duration[1]+target*86400
+--- parent/els_server/storage/npc_trade.py
++++ candidate/els_server/storage/npc_trade.py
+@@ -73,6 +73,8 @@
+         if old is not None:
+             events = [Event(0x201, kind=0xeb, payload=purchase_ack(balance['ed']))]+_updates(current_changes(db,operation,owner,0xea,old,before))
+             return guild_license.precommit(events,guild_guard) if guild_bound else events
++        from els_server.domain import spa_market
++        spa_cycle=spa_market.new_purchase(db,owner,town,entries,merchant)
+         if guild_bound:guild_license.new_purchase(db,owner,guild_account_id,before)
+         amount = sum(offer(town, merchant, t)*q for t, q in entries)
+         if amount >= 2**31:
+@@ -84,6 +86,7 @@
+         after = load_items(db, owner)
+         _commit(db, operation, digest, owner, 0xea, [(i['group'], i['slot']) for i in changes], before, after)
+         events = [Event(0x201, kind=0xeb, payload=wire)]
++        if spa_cycle is not None:spa_market.require_open(spa_cycle)
+         return guild_license.precommit(events,guild_guard) if guild_bound else events
+ 
+ 
+--- parent/els_server/storage/town_dialogue.py
++++ candidate/els_server/storage/town_dialogue.py
+@@ -6,6 +6,7 @@
+ from els_server.storage.seal_quests import load_character,completed_ids,_state
+ from els_server.storage.inventory_state import load_items
+ from els_server.protocol import quest_messages,tutorial_dialogue_messages
++from els_server.protocol.protocol_codec import encode_event
+ 
+ def interact(store,npc,operation):
+     if type(npc) is not int or str(npc) not in catalog()['npc_bindings'] or not isinstance(operation,str) or not 1<=len(operation)<=200:raise ValueError('Town dialogue identity')
+@@ -65,3 +66,18 @@
+             for active in contract_sources:contract26780.dialogue_source(db,store,active,npc,saved[0])
+         if any(not isinstance(e.payload,bytes) or len(e.payload)>65536 for e in events):raise ValueError('Town dialogue response bound')
+         return events
++
++
++def read_notebook(store,npc,guard):
++    """Original Noah-only20012/scene1004 conversation; no quest or item award."""
++    from els_server.storage.achievement_history import record_notebook
++    with closing(sqlite3.connect(store.path,timeout=10))as db,db:
++        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');guard(db)
++        character=load_character(db,store.uid,store.account_id,identity_only=True)
++        if character['unit_type']!=14 or db.execute('SELECT town FROM location WHERE uid=?',(store.uid,)).fetchone()!=(20012,):
++            raise ValueError('Notebook requires current Noah laboratory actor')
++        record_notebook(db,store.account_id,store.uid,npc)
++        answer=[tutorial_dialogue_messages.acknowledgement()]
++        for event in answer:encode_event(event)
++        guard(db)
++    return answer
