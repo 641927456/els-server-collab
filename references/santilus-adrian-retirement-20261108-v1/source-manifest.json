@@ -1,0 +1,42 @@
+{
+  "parent_release": "native-achievement-notebook-spa-clear-20261107-v1",
+  "parent_manifest_sha256": "c317b6a20ca48c5cb5bb5597b2c622503eafc6c47f6e36762506c1b4cdcccb83",
+  "git_base": "60698cee616915148835aaed92372806ad82fbfd",
+  "files": [
+    {
+      "path": "els_server/domain/scene_actor_retirements.py",
+      "parent_sha256": "9118d3c58f6421f616b8c26ff8ecf7598c75059506860181a2a91e1f0e95b349",
+      "sha256": "179ed6381c4735e3a7ee534590a05b41fd6fb6b02422591a69bacbdadc8a874c",
+      "size": 21327
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "parent_sha256": "09a6c1e8f74c82462968130a6a6a1c525072aee789e2bb3692eb96f252f0f4c5",
+      "sha256": "e30ec6b45381325763791739f7ea1fa7fb0e2937623c6978e311dcc977bcda89",
+      "size": 824891
+    }
+  ],
+  "server_only": true,
+  "installed": false,
+  "merged": false,
+  "native_send_hook_included": false,
+  "native_failure_boundary": "Native candidate changes JS return-callback pairing in an owned real game; isolated, not approved for release.",
+  "original_EXE_KOM_changed": false,
+  "player_data_logs_packets_credentials_included": false,
+  "database_format_changed": false,
+  "related_tests": "Actual authenticated TLS, two maps, three Santilus source alternatives, solo and 2-player rooms; validated against latest V104 parent.",
+  "preserved_other_publisher_changes": [
+    "els_server/data/spa_market.json",
+    "els_server/domain/achievement_flow.py",
+    "els_server/domain/consumables.py",
+    "els_server/domain/environment_buff_flow.py",
+    "els_server/domain/inventory_items.py",
+    "els_server/domain/npc_trade.py",
+    "els_server/domain/spa_market.py",
+    "els_server/domain/town_dialogue.py",
+    "els_server/storage/achievement_history.py",
+    "els_server/storage/achievement_profiles.py",
+    "els_server/storage/npc_trade.py",
+    "els_server/storage/town_dialogue.py"
+  ]
+}

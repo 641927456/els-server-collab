@@ -181,3 +181,11 @@ reference/native-mail-writer-clock-20261105-v1/review.md -text whitespace=cr-at-
 reference/native-pet-bank-leaves-20261105-v1/review.md -text whitespace=cr-at-eol
 reference/native-photo-ticket-shop-20261105-v1/review.md -text whitespace=cr-at-eol
 references/native-housing-layout-clock-20261105-v1/review.md -text whitespace=cr-at-eol
+
+# Exact qualified scene-retirement runtime and source proof.
+references/santilus-adrian-retirement-20261108-v1/** -text whitespace=cr-at-eol
+references/santilus-adrian-retirement-20261108-v1/repair.patch whitespace=cr-at-eol,-blank-at-eol
+
+# Preserve inherited CRCRLF bytes in the two immutable original source snapshots.
+references/santilus-adrian-retirement-20261108-v1/base/els_server/domain/scene_retirement_sources.py whitespace=cr-at-eol,-blank-at-eol
+references/santilus-adrian-retirement-20261108-v1/candidate/els_server/domain/scene_retirement_sources.py whitespace=cr-at-eol,-blank-at-eol
