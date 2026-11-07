@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "frida_version": "17.23.3",
+  "results": {
+    "parent": {
+      "skipped": {},
+      "insertedValue": 1.5,
+      "afterInsert": {
+        "2002": 1.5
+      },
+      "afterSkippedIteration": {
+        "2002": 1.5
+      },
+      "existingValue": 100.25,
+      "afterExisting": {
+        "2002": 1.75
+      },
+      "errors": [
+        "Error: access violation accessing 0xffffffffffffffff",
+        "Error: access violation accessing 0xffffffffffffffff",
+        "Error: access violation accessing 0xffffffffffffffff",
+        "Error: access violation accessing 0xffffffffffffffff"
+      ],
+      "product_sha256": "df449f05fe03ac2ad1a41ccaac44c11b3423b45ce51708c58fe373c8a669eea8",
+      "owned_helper_exited": true
+    },
+    "fixed": {
+      "skipped": {},
+      "insertedValue": 1.5,
+      "afterInsert": {
+        "2002": 1.5
+      },
+      "afterSkippedIteration": {
+        "2002": 1.5
+      },
+      "existingValue": 100.25,
+      "afterExisting": {
+        "2002": 1.75
+      },
+      "errors": [],
+      "product_sha256": "03a5261d2e5a966837f7c072d3dfbcd26320a1ab56d331db5e21d553c252ad83",
+      "owned_helper_exited": true
+    }
+  },
+  "scope": "Actual Gum hooks plus original x64 skip/join instructions in isolated synthetic memory; lookup, parent prologue and report writer are explicit fixture shims.",
+  "game_process": false,
+  "player_process_attached": false,
+  "physical_input": false,
+  "original_instruction_windows": {
+    "9390947": "0f84c4000000",
+    "9390984": "0f869f000000",
+    "9391050": "7461",
+    "9391129": "807d3800750e488b4530f30f587028f30f117028488b05547fe903488b4b10807919007422"
+  },
+  "natural_gameplay_verified": false
+}
