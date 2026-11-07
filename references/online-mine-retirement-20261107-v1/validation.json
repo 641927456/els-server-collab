@@ -1,0 +1,205 @@
+{
+  "mine_solo": {
+    "ok": true,
+    "production_modified": false,
+    "actual_Application": true,
+    "actual_authenticated_TLS": true,
+    "natural_route": false,
+    "natural_GUI": false,
+    "accepted_sources": [
+      {
+        "stage": 0,
+        "part": 1,
+        "key": 21,
+        "source_index": 8
+      },
+      {
+        "stage": 0,
+        "part": 1,
+        "key": 27,
+        "source_index": 14
+      },
+      {
+        "stage": 1,
+        "part": 0,
+        "key": 14,
+        "source_index": 15
+      },
+      {
+        "stage": 1,
+        "part": 0,
+        "key": 15,
+        "source_index": 16
+      },
+      {
+        "stage": 1,
+        "part": 0,
+        "key": 16,
+        "source_index": 17
+      },
+      {
+        "stage": 1,
+        "part": 0,
+        "key": 17,
+        "source_index": 18
+      },
+      {
+        "stage": 1,
+        "part": 1,
+        "key": 31,
+        "source_index": 14
+      },
+      {
+        "stage": 1,
+        "part": 1,
+        "key": 32,
+        "source_index": 15
+      },
+      {
+        "stage": 1,
+        "part": 1,
+        "key": 33,
+        "source_index": 16
+      },
+      {
+        "stage": 1,
+        "part": 1,
+        "key": 34,
+        "source_index": 17
+      },
+      {
+        "stage": 2,
+        "part": 0,
+        "key": 3,
+        "source_index": 4
+      },
+      {
+        "stage": 2,
+        "part": 0,
+        "key": 4,
+        "source_index": 5
+      },
+      {
+        "stage": 2,
+        "part": 0,
+        "key": 5,
+        "source_index": 6
+      }
+    ],
+    "economy_unchanged": true,
+    "retry_ACK_only": true,
+    "connections_kept": true,
+    "exact_source_mutations_rejected": [
+      "template",
+      "source_index",
+      "hp",
+      "points",
+      "start_point",
+      "no_drop",
+      "team",
+      "source_context",
+      "graph",
+      "script"
+    ],
+    "finite_rule_count": 970,
+    "source_sha256": "bacf9f5d18cc193864d48eb31816b99dbd8b6b8237fadbf95711268f7620f763"
+  },
+  "mine_shared": {
+    "ok": true,
+    "actual_authenticated_TLS": true,
+    "shared_participants": 2,
+    "guest_and_missing_readiness_refused": true,
+    "first_and_late_part_AE_AF": true,
+    "duplicate_AE_only": true,
+    "economy_unchanged": true,
+    "natural_route": false,
+    "natural_game": false,
+    "production_modified": false
+  },
+  "source_byte_preservation": {
+    "ok": true,
+    "tested_source_sha256": "bacf9f5d18cc193864d48eb31816b99dbd8b6b8237fadbf95711268f7620f763",
+    "final_source_sha256": "743d079e88db8350f9b6fea887188795713f64713cee7a5be718227df18c5477",
+    "compiled_code_identical_including_positions": true,
+    "compiled_code_sha256": "f7f83e97123ac8fb5017f22916522ef7f90376fd3de37947d92790109cc4882d",
+    "original_parent_byte_prefix_preserved": true,
+    "change": "Restore original CRCRLF prefix; Python universal-newline input unchanged",
+    "business_tests_reused": true
+  },
+  "sequence_counter": {
+    "ok": true,
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "native_code_changed": false,
+    "native_getter": "8b4150c3",
+    "native_increment": "ff4150c3",
+    "concurrent_reads": [
+      1039,
+      1039
+    ],
+    "serialized_reads": [
+      1039,
+      1040
+    ],
+    "final_counter": 1041,
+    "scope": "Original counter instructions; controlled interleaving, not a natural game reproduction",
+    "production_modified": false
+  },
+  "sequence_host": {
+    "ok": true,
+    "baseline": {
+      "n": 648,
+      "duplicates": 78,
+      "ordered": false,
+      "final": 638
+    },
+    "fixed": {
+      "n": 648,
+      "duplicates": 0,
+      "ordered": true,
+      "final": 649
+    },
+    "observed": 648,
+    "repeated_install_same": true,
+    "nested_send": true,
+    "JS_observer_coexistence": true,
+    "host_only": true,
+    "natural_game": false,
+    "production_modified": false,
+    "source_sha256": "a1d2c4e763fc34e29530ba8fa5969a0138468c5b994219dd2177facab5a7d6bf",
+    "frida_version": "17.23.3"
+  },
+  "authenticated_inbox": {
+    "ok": true,
+    "authenticated_MAC_frames": true,
+    "unchanged_server_guard": true,
+    "controlled_original_native_schedule": true,
+    "baseline": {
+      "accepted": 1,
+      "error": "Unexpected secure sequence (spi=54723, previous=1039, received=1039, outer=2)"
+    },
+    "serialized": {
+      "accepted": 2,
+      "error": null
+    },
+    "natural_game": false,
+    "production_modified": false
+  },
+  "fixture_failures_preserved_privately": [
+    {
+      "test": "send host",
+      "reason": "unused export lookup and read-only Process facade; fixed test harness only"
+    },
+    {
+      "test": "shared mine",
+      "reason": "nonunique character idempotency key and old helper inviting for map30000; fixed fixture only"
+    }
+  ],
+  "natural_game_tested": false,
+  "production_changed": false,
+  "unresolved": [
+    "Live repeated sequence has no rejected-body correlation; original sender race proven under controlled interleaving, live cause not conclusively reproduced",
+    "Native support needs independent review, owned game lifecycle, signed component integration before deployment",
+    "Historical inventory cursor rejection: native full-map {0,0} contract retained; no fresh offending cursors",
+    "Historical33242unqualified summon/retirement: no fresh rejected payload or native reproduction; not marked fixed"
+  ]
+}
