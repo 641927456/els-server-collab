@@ -1,0 +1,48 @@
+{
+  "parent_release": "native-achievement-guild-banner-power-20261108-v1",
+  "parent_manifest_sha256": "43410f5b300f1e0840f13c1d418daeb9c3240f4dab6760d954a28e5b3f34af41",
+  "parent_source_PR": 950,
+  "parent_source_commit": "ff83bc2f5cef207a7dd57689175c4c1589a2f21c",
+  "files": [
+    {
+      "path": "tools/native_cache_sync.py",
+      "operation": "modify",
+      "base_sha256": "6dddc825340420c2c2c86382b18e5a189a01def270e3b9d16b078ac4a1273351",
+      "sha256": "6de253b2725b4a6df3088ad45af8d8585689ac5809a999769e67067155b20326",
+      "size": 5919
+    },
+    {
+      "path": "tools/probe_updated_client.py",
+      "operation": "modify",
+      "base_sha256": "67d20d9e7777cbc9d7f0502cf917a3b38ec228a4dd0c81fdee42067ee59a071d",
+      "sha256": "ccbde4b8d759ed2ceb93cfff4d2c93326b88039675e9afb44e9943ac5d90106e",
+      "size": 29228
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "operation": "modify",
+      "base_sha256": "af27d3c775bd8201f7f06529f2976d55aba3bafbc8ea2b50cb9a501a375efacd",
+      "sha256": "f78c124086ac511a65b3c9e198029b792874e7f2b74d3509e6a597d164749bbd",
+      "size": 23412
+    },
+    {
+      "path": "tools/native_send_serialization.py",
+      "operation": "add",
+      "base_sha256": null,
+      "sha256": "f4bdd3a281c82adb98f7b51c3299e679e5d0a79701a21541661a9b0ec5ac6133",
+      "size": 2772
+    },
+    {
+      "path": "tools/native_send_serialization.js",
+      "operation": "add",
+      "base_sha256": null,
+      "sha256": "fd12ae7eee4459565e652779a177f460575fe827976a1eb339d9073f85b3cdfe",
+      "size": 3054
+    }
+  ],
+  "server_business_changes": 0,
+  "private_configuration_changes": 0,
+  "database_changes": 0,
+  "original_game_EXE_KOM_changes": 0,
+  "installed_at_freeze": false
+}

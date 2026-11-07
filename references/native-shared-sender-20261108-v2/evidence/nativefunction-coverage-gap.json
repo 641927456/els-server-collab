@@ -1,0 +1,67 @@
+{
+  "physical": 2,
+  "first": {
+    "n": 256,
+    "duplicates": 79,
+    "ordered": false,
+    "final": 243
+  },
+  "second": {
+    "n": 256,
+    "duplicates": 79,
+    "ordered": false,
+    "final": 246
+  },
+  "third": {
+    "n": 256,
+    "duplicates": 79,
+    "ordered": false,
+    "final": 244
+  },
+  "fourth": {
+    "n": 256,
+    "duplicates": 79,
+    "ordered": false,
+    "final": 246
+  },
+  "counts": {
+    "raid": {
+      "enter": 352,
+      "leave": 352,
+      "native_contexts": 352
+    },
+    "artifact": {
+      "enter": 176,
+      "leave": 176,
+      "native_contexts": 176
+    },
+    "result": {
+      "enter": 352,
+      "leave": 352,
+      "native_contexts": 352
+    },
+    "late": {
+      "enter": 264,
+      "leave": 264,
+      "native_contexts": 264
+    }
+  },
+  "nested": 352,
+  "fieldEntered": 320,
+  "fieldLeft": 320,
+  "lock_recursion": 0,
+  "remaining_states": 0,
+  "artifact_detach_worked": true,
+  "expected_error_exercised": true,
+  "canceledEnter": 0,
+  "canceledLeave": 0,
+  "ok": true,
+  "diagnosis": "Sender-entry lock does not cover NativeFunction sends from another hooked frame",
+  "reported_errors": [
+    "Error: expected logical observer error"
+  ],
+  "owned_host_only": true,
+  "natural_game": false,
+  "production_modified": false,
+  "frida_version": "17.23.3"
+}

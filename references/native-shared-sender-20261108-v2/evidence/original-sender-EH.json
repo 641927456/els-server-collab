@@ -1,0 +1,1068 @@
+{
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "format_reference": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include\\ehdata4_export.h",
+  "format_reference_sha256": "5238200f91179f8411f5518d1bdee143833bc35e5f869bfb3631983c747e3566",
+  "function_RVA": "0x682d80",
+  "unwind_flags": 3,
+  "EH_handler_RVA": "0x3ae46cc",
+  "EH_metadata_RVA": "0x443b09c",
+  "header": 40,
+  "unwind_map_RVA": "0x443b0a5",
+  "IP_map_RVA": "0x443b0e7",
+  "unwind_entries": [
+    {
+      "state": 0,
+      "entry_RVA": 71544998,
+      "previous_entry_RVA": 71544997,
+      "type": 1,
+      "action_RVA": 1421792,
+      "object_frame_offset": 32,
+      "previous_state": -1
+    },
+    {
+      "state": 1,
+      "entry_RVA": 71545004,
+      "previous_entry_RVA": 71544998,
+      "type": 1,
+      "action_RVA": 1425152,
+      "object_frame_offset": 88,
+      "previous_state": 0
+    },
+    {
+      "state": 2,
+      "entry_RVA": 71545010,
+      "previous_entry_RVA": 71545004,
+      "type": 1,
+      "action_RVA": 1425200,
+      "object_frame_offset": 144,
+      "previous_state": 1
+    },
+    {
+      "state": 3,
+      "entry_RVA": 71545017,
+      "previous_entry_RVA": 71544997,
+      "type": 1,
+      "action_RVA": 62312800,
+      "object_frame_offset": 160,
+      "previous_state": -1
+    },
+    {
+      "state": 4,
+      "entry_RVA": 71545024,
+      "previous_entry_RVA": 71545017,
+      "type": 1,
+      "action_RVA": 1524768,
+      "object_frame_offset": 48,
+      "previous_state": 3
+    },
+    {
+      "state": 5,
+      "entry_RVA": 71545030,
+      "previous_entry_RVA": 71545024,
+      "type": 1,
+      "action_RVA": 1421664,
+      "object_frame_offset": 128,
+      "previous_state": 4
+    },
+    {
+      "state": 6,
+      "entry_RVA": 71545037,
+      "previous_entry_RVA": 71545030,
+      "type": 1,
+      "action_RVA": 62379552,
+      "object_frame_offset": 208,
+      "previous_state": 5
+    },
+    {
+      "state": 7,
+      "entry_RVA": 71545044,
+      "previous_entry_RVA": 71545037,
+      "type": 1,
+      "action_RVA": 1421792,
+      "object_frame_offset": 96,
+      "previous_state": 6
+    },
+    {
+      "state": 8,
+      "entry_RVA": 71545050,
+      "previous_entry_RVA": 71545037,
+      "type": 1,
+      "action_RVA": 1425152,
+      "object_frame_offset": 200,
+      "previous_state": 6
+    },
+    {
+      "state": 9,
+      "entry_RVA": 71545057,
+      "previous_entry_RVA": 71545050,
+      "type": 1,
+      "action_RVA": 1421792,
+      "object_frame_offset": 112,
+      "previous_state": 8
+    }
+  ],
+  "IP_states": [
+    {
+      "IP_RVA": 6827506,
+      "state": -1
+    },
+    {
+      "IP_RVA": 6827524,
+      "state": 0
+    },
+    {
+      "IP_RVA": 6827692,
+      "state": 1
+    },
+    {
+      "IP_RVA": 6827743,
+      "state": 2
+    },
+    {
+      "IP_RVA": 6827761,
+      "state": 1
+    },
+    {
+      "IP_RVA": 6827886,
+      "state": -1
+    },
+    {
+      "IP_RVA": 6827904,
+      "state": 0
+    },
+    {
+      "IP_RVA": 6828072,
+      "state": 1
+    },
+    {
+      "IP_RVA": 6828123,
+      "state": 2
+    },
+    {
+      "IP_RVA": 6828141,
+      "state": 1
+    },
+    {
+      "IP_RVA": 6828223,
+      "state": -1
+    },
+    {
+      "IP_RVA": 6828280,
+      "state": 4
+    },
+    {
+      "IP_RVA": 6828364,
+      "state": 5
+    },
+    {
+      "IP_RVA": 6828386,
+      "state": 6
+    },
+    {
+      "IP_RVA": 6828500,
+      "state": 7
+    },
+    {
+      "IP_RVA": 6828646,
+      "state": 6
+    },
+    {
+      "IP_RVA": 6828730,
+      "state": 8
+    },
+    {
+      "IP_RVA": 6828948,
+      "state": 9
+    },
+    {
+      "IP_RVA": 6829404,
+      "state": 8
+    },
+    {
+      "IP_RVA": 6829445,
+      "state": 6
+    },
+    {
+      "IP_RVA": 6829611,
+      "state": -1
+    }
+  ],
+  "protected_call_sites": [
+    {
+      "call_RVA": 6828428,
+      "return_RVA": 6828433,
+      "unwind_states": [
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828494,
+      "return_RVA": 6828499,
+      "unwind_states": [
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828512,
+      "return_RVA": 6828517,
+      "unwind_states": [
+        7,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828534,
+      "return_RVA": 6828539,
+      "unwind_states": [
+        7,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828557,
+      "return_RVA": 6828562,
+      "unwind_states": [
+        7,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828576,
+      "return_RVA": 6828581,
+      "unwind_states": [
+        7,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828589,
+      "return_RVA": 6828594,
+      "unwind_states": [
+        7,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828604,
+      "return_RVA": 6828609,
+      "unwind_states": [
+        7,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828626,
+      "return_RVA": 6828631,
+      "unwind_states": [
+        7,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828640,
+      "return_RVA": 6828645,
+      "unwind_states": [
+        7,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828661,
+      "return_RVA": 6828666,
+      "unwind_states": [
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828678,
+      "return_RVA": 6828683,
+      "unwind_states": [
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828689,
+      "return_RVA": 6828694,
+      "unwind_states": [
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828704,
+      "return_RVA": 6828709,
+      "unwind_states": [
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828723,
+      "return_RVA": 6828729,
+      "unwind_states": [
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828780,
+      "return_RVA": 6828785,
+      "unwind_states": [
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828842,
+      "return_RVA": 6828847,
+      "unwind_states": [
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828849,
+      "return_RVA": 6828855,
+      "unwind_states": [
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828942,
+      "return_RVA": 6828947,
+      "unwind_states": [
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828960,
+      "return_RVA": 6828965,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6828988,
+      "return_RVA": 6828993,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829014,
+      "return_RVA": 6829019,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829040,
+      "return_RVA": 6829045,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829060,
+      "return_RVA": 6829065,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829097,
+      "return_RVA": 6829102,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829122,
+      "return_RVA": 6829127,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829147,
+      "return_RVA": 6829152,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829166,
+      "return_RVA": 6829171,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829181,
+      "return_RVA": 6829186,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829205,
+      "return_RVA": 6829210,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829230,
+      "return_RVA": 6829235,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829249,
+      "return_RVA": 6829254,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829264,
+      "return_RVA": 6829269,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829288,
+      "return_RVA": 6829293,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829313,
+      "return_RVA": 6829318,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829332,
+      "return_RVA": 6829337,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829345,
+      "return_RVA": 6829350,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829360,
+      "return_RVA": 6829365,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829384,
+      "return_RVA": 6829389,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829398,
+      "return_RVA": 6829403,
+      "unwind_states": [
+        9,
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829419,
+      "return_RVA": 6829424,
+      "unwind_states": [
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829428,
+      "return_RVA": 6829434,
+      "unwind_states": [
+        8,
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    },
+    {
+      "call_RVA": 6829445,
+      "return_RVA": 6829450,
+      "unwind_states": [
+        6,
+        5,
+        4,
+        3
+      ],
+      "ctx_cleanup": {
+        "state": 6,
+        "entry_RVA": 71545037,
+        "previous_entry_RVA": 71545030,
+        "type": 1,
+        "action_RVA": 62379552,
+        "object_frame_offset": 208,
+        "previous_state": 5
+      }
+    }
+  ],
+  "all_CPP_call_unwind_chains_include_ctx_cleanup": true,
+  "hardware_SEH_cleanup_claimed": false,
+  "wrapper_unwind_qualified": false
+}
