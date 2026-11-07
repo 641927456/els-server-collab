@@ -1,0 +1,23 @@
+{
+  "ok_core_prefix": true,
+  "whole_shop_qualification": false,
+  "run": "20261108-045926",
+  "sender_enter": 292,
+  "sender_leave": 292,
+  "field_enter": 1922,
+  "field_leave": 1922,
+  "crypto": {
+    "encryptions": 293,
+    "cleanups": 293,
+    "active": 0,
+    "failed": 0
+  },
+  "native_availability_at_QA_open": 0,
+  "normal_availability_notice_sent_seconds_after_QA_open": 0.9904580078125,
+  "root_cause": "Owned QA used fixed2-second delay; online normal availability notification was later. No candidate source change.",
+  "corrected_fixture": "Wait for original client availability bit1, then normal retained toggle",
+  "raw_trace_SHA256": "a40acd4737a2194d8d80a8959115072a91e0014dee14f2616225b68811a872e0",
+  "raw_trace_committed": false,
+  "same_observed_server_PID": 4820,
+  "server_restarted": false
+}
