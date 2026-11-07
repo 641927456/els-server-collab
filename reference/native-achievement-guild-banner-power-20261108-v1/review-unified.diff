@@ -1,0 +1,126 @@
+--- parent/els_server/domain/achievement_flow.py
++++ candidate/els_server/domain/achievement_flow.py
+@@ -22,14 +22,26 @@
+         raise SessionOrderError('Achievement actor or request envelope changed')
+     if event.kind in(0x6c3,0x6c5):
+         return [wire.message(event.kind+1,i32(1367))]
+-    try:parsed=wire.request(event.kind,event.payload)
++    power_proof=None
++    try:
++        payload=event.payload
++        if event.kind==0x6be and payload:
++            from els_server.domain.raid_native_power import request as native_power_request
++            payload=native_power_request(s,payload)
++            if payload!=event.payload:power_proof=s._raid_native_power
++        parsed=wire.request(event.kind,payload)
+     except ValueError as error:raise SessionOrderError(str(error))from error
+     account,owner=s.account.account_id,s.account.uid
+     operation=f'{s.shop_session_id}:achievement:{owner}:{sequence}'
+     with closing(sqlite3.connect(Path(s.account.store.path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
+         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+         guard(db);require_active_character(db,owner)
+-        updated=reconcile_profiles(db,account,owner,int(time.time()))if event.kind==0x6be else dict(completed=[])
++        native_power=None
++        if power_proof is not None:
++            from els_server.domain.raid_native_power import basis
++            if power_proof[0]!=basis(s):raise SessionOrderError('Achievement native power inputs changed')
++            native_power=(s.account.character_identity()['unit_type'],power_proof[1])
++        updated=reconcile_profiles(db,account,owner,int(time.time()),native_power=native_power)if event.kind==0x6be else dict(completed=[])
+         completed=updated['completed']
+         code=0;identity=parsed.get('achievement')
+         try:
+--- parent/els_server/storage/achievement_profiles.py
++++ candidate/els_server/storage/achievement_profiles.py
+@@ -6,14 +6,15 @@
+ from els_server.storage.achievement_collections import counts as collection_counts
+ from els_server.storage.achievement_history import counts as history_counts,couple_duration
+ 
+-CONDITION_TYPES=frozenset((2,4,5,6,7,10,15,16,18,19,20,23,24,25,26,27,28,29,30,32,34,35,36,37,38,39,42,43,44,45,49,50,51,52,53,56,57,58,59,60,61,62,63,66,67,68))
++CONDITION_TYPES=frozenset((2,4,5,6,7,10,15,16,17,18,19,20,23,24,25,26,27,28,29,30,32,34,35,36,37,38,39,42,43,44,45,49,50,51,52,53,56,57,58,59,60,61,62,63,66,67,68))
+ 
+ 
+-def reconcile(db,account,owner,now,*,condition_types=CONDITION_TYPES):
++def reconcile(db,account,owner,now,*,condition_types=CONDITION_TYPES,native_power=None):
+     """Caller owns the authenticated character transaction and response encoding.
+ 
+-    This never accepts client counters, grants profile XP or constructs an
+-    alternate progression authority. Historical account attainment is retained.
++    Native CP uses the explicitly approved current-client trust rule, after
++    the caller binds its actor and inputs. Other sources remain server facts;
++    no client achievement counters or profile XP are accepted.
+     """
+     if not db.in_transaction:raise ValueError('Achievement profile reconciliation requires transaction')
+     levels={}
+@@ -41,6 +42,10 @@
+             elif kind==6:value=levels.get(parameters['m_eProfessionType'],0)
+             elif kind==7:value=history.get((7,parameters['m_eBuffTempletID']),0)
+             elif kind==15:value=resonance['level']
++            elif kind==17:
++                # The native progress field is i32. Attainment beyond this
++                # definition's target adds no further achievement progress.
++                value=min(int(native_power[1]),parameters['m_iLevel'])if native_power is not None and definition['unit_type']==native_power[0]else 0
+             elif kind==20:value=duration[0]
+             elif kind in(10,18,19,23,24,25,26,27,28,29,30,36,43,44,45,51,52,53,56,57,58,59,60,61,63):value=history.get((kind,0),0)
+             elif kind in(16,62):value=history.get((kind,parameters['m_iItemID']),0)
+@@ -58,7 +63,7 @@
+             else:continue
+             previous=old.get((identity,condition['id']),(0,False))
+             value=max(value,previous[0])
+-            target=1 if kind in(2,66)else parameters['m_iLevel'if kind in(6,15,57)else'm_iCount']
++            target=1 if kind in(2,66)else parameters['m_iLevel'if kind in(6,15,17,57)else'm_iCount']
+             complete=value>=target
+             if kind==20 and not complete and duration[1]is not None:
+                 due=duration[1]+target*86400
+--- parent/tools/raid_native_power.js
++++ candidate/tools/raid_native_power.js
+@@ -1,4 +1,4 @@
+-// Only the current owned actor's original entry/ready send; all CP arithmetic is native.
++// Only the current owned actor's original entry/ready or achievement snapshot; CP arithmetic is native.
+ function installElsRaidNativePower(){
+  'use strict';
+  if(globalThis.elsRaidNativePower)return globalThis.elsRaidNativePower;
+@@ -11,14 +11,18 @@
+  const contexts=new Map(),hooks=[];let disabled=false,calculating=false,writes=0;
+  function capture(sender){
+   const engine=module.base.add(0x4817e70).readPointer();if(engine.isNull())return null;
+-  const carrier=engine.add(0xc8).readPointer();if(carrier.isNull()||!engine.add(0xc0).readPointer().equals(sender))return null;
++  // Engine+C0 owns the shared sender handle. The common682D80 receives
++  // its pointee, after the original template has copied that shared owner.
++  const senderOwner=engine.add(0xc0).readPointer();if(senderOwner.isNull()||!senderOwner.readPointer().equals(sender))return null;
++  const senderControl=senderOwner.add(8).readPointer();
++  const carrier=engine.add(0xc8).readPointer();if(carrier.isNull())return null;
+   const unit=carrier.add(0xa0).readPointer();if(unit.isNull())return null;
+   const definition=unit.add(0x29c0).readPointer();if(definition.isNull())return null;
+   const uid=unit.add(0x48).readU64().toString(),family=definition.readS32(),klass=unit.add(0x58).readU16();
+   if(uid==='0'||uid==='18446744073709551615'||family<1||family>15||!klass)return null;
+-  return{sender,engine,carrier,unit,definition,uid,family,klass};
++  return{sender,senderOwner,senderControl,engine,carrier,unit,definition,uid,family,klass};
+  }
+- function same(a,b){return b&&['sender','engine','carrier','unit','definition'].every(k=>a[k].equals(b[k]))&&['uid','family','klass'].every(k=>a[k]===b[k]);}
++ function same(a,b){return b&&['sender','senderOwner','senderControl','engine','carrier','unit','definition'].every(k=>a[k].equals(b[k]))&&['uid','family','klass'].every(k=>a[k]===b[k]);}
+  function power(a){
+   const empty1=Memory.alloc(24),empty2=Memory.alloc(24),cp=Memory.alloc(4),dp=Memory.alloc(4);
+   function side(n){
+@@ -37,7 +41,7 @@
+  // original common sender with the already prepared202 event.
+  hooks.push(Interceptor.attach(module.base.add(0x682d80),{
+   onEnter(args){this.thread=Process.getCurrentThreadId();this.previous=contexts.get(this.thread);this.bound=null;
+-   try{const event=args[1],kind=event.add(0x34).readU16();if(!disabled&&!calculating&&event.add(0x10).readU32()===0x202&&[0x7d4,0x14c,0x37f,0x382].includes(kind)){const a=capture(args[0]);if(a)this.bound={...a,event,kind,written:false};}}catch(error){fail(error);}
++   try{const event=args[1],kind=event.add(0x34).readU16();if(!disabled&&!calculating&&event.add(0x10).readU32()===0x202&&[0x6be,0x7d4,0x14c,0x37f,0x382].includes(kind)){const a=capture(args[0]);if(a)this.bound={...a,event,kind,written:false};}}catch(error){fail(error);}
+    contexts.set(this.thread,this.bound);
+   },onLeave(){if(this.previous===undefined)contexts.delete(this.thread);else contexts.set(this.thread,this.previous);}
+  }));
+@@ -47,11 +51,11 @@
+    if(disabled||!a||a.written||!event.equals(a.event)||event.add(0x10).readU32()!==0x202||event.add(0x34).readU16()!==a.kind||event.add(0x36).readU8()!==0)return;
+    try{
+     const begin=event.add(0x3e).readPointer(),end=event.add(0x46).readPointer(),length=end.sub(begin).toInt32();
+-    if(a.kind===0x7d4&&length!==8||a.kind===0x14c&&length!==5||[0x37f,0x382].includes(a.kind)&&(length<23||length>86))throw Error('Raid native entry payload shape');
++    if(a.kind===0x6be&&length!==0||a.kind===0x7d4&&length!==8||a.kind===0x14c&&length!==5||[0x37f,0x382].includes(a.kind)&&(length<23||length>86))throw Error('Raid native entry payload shape');
+     if(!same(a,capture(a.sender)))throw Error('Raid native entry actor changed');
+     calculating=true;let combat;try{combat=power(a);}finally{calculating=false;}
+     if(!Number.isFinite(combat)||combat<0||combat>4294967040)throw Error('Raid native cached CP range');
+-    const bytes=new Uint8Array(length+16),view=new DataView(bytes.buffer);bytes.set(new Uint8Array(begin.readByteArray(length)));
++    const bytes=new Uint8Array(length+16),view=new DataView(bytes.buffer);if(length)bytes.set(new Uint8Array(begin.readByteArray(length)));
+     view.setUint32(length,0x52435031,false);
+     const uid=uint64(a.uid).toString(16).padStart(16,'0');for(let i=0;i<8;i++)bytes[length+4+i]=parseInt(uid.slice(i*2,i*2+2),16);
+     view.setFloat32(length+12,combat,false);

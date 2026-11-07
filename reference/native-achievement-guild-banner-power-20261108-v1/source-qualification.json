@@ -1,0 +1,134 @@
+{
+  "ok": true,
+  "native_Game": {
+    "ok": true,
+    "observed_seconds": 96.66872409999996,
+    "original_native_CP": 97.0,
+    "native_result": {
+      "ok": true,
+      "frames": 71,
+      "reads": 1,
+      "native_cache_CP": 97,
+      "original_message_bus_UI_producer": true,
+      "original6BE_and6BF": true,
+      "native_CP_calculator": "896870",
+      "native_CP_cache": "8A1400/Unit3048",
+      "native_CP_fixture": false,
+      "physical_input": false,
+      "natural_GUI": false,
+      "natural_gear_acquisition": false
+    },
+    "accepted_packets": 1,
+    "achievement_counts": {
+      "85": 97,
+      "86": 97
+    },
+    "completed_CP_ids": [],
+    "inventory_and_character_economy_unchanged": true,
+    "native_CP_fixture": false,
+    "natural_gear_acquisition": false,
+    "level99_fixture": true,
+    "production_database_access": false,
+    "natural_GUI": false,
+    "errors": []
+  },
+  "private_retirement": {
+    "ok": true,
+    "own_Job_and_client_pids_no_longer_exist": true,
+    "own_isolation_lock_released": true,
+    "attempts": [
+      {
+        "attempt": 1,
+        "client_pid": null,
+        "client_created": null,
+        "original_EXE_unchanged": true,
+        "input_desktop_unchanged": true,
+        "private_character_count": 1
+      },
+      {
+        "attempt": 2,
+        "client_pid": 16472,
+        "client_created": 1794072520.5433233,
+        "original_EXE_unchanged": true,
+        "input_desktop_unchanged": true,
+        "private_character_count": 1
+      },
+      {
+        "attempt": 3,
+        "client_pid": 17428,
+        "client_created": 1794073101.9729836,
+        "original_EXE_unchanged": true,
+        "input_desktop_unchanged": true,
+        "private_character_count": 1
+      },
+      {
+        "attempt": 4,
+        "client_pid": 23732,
+        "client_created": 1794073359.0899456,
+        "original_EXE_unchanged": true,
+        "input_desktop_unchanged": true,
+        "private_character_count": 1
+      }
+    ],
+    "removed": [
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v1\\private",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v1\\native-log",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v1\\bridge-console.txt",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v1\\server-console.txt",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v2\\private",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v2\\native-log",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v2\\bridge-console.txt",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v2\\server-console.txt",
+      "G:\\els\\releases\\online\\native-achievement-notebook-spa-clear-20261107-v1\\state\\friends-client\\20261108-012811-009979",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v3\\private",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v3\\native-log",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v3\\bridge-console.txt",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v3\\server-console.txt",
+      "G:\\els\\releases\\online\\native-achievement-notebook-spa-clear-20261107-v1\\state\\friends-client\\20261108-013748-975365",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v4\\private",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v4\\native-log",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v4\\bridge-console.txt",
+      "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\native-ui-v4\\server-console.txt",
+      "G:\\els\\releases\\online\\native-achievement-notebook-spa-clear-20261107-v1\\state\\friends-client\\20261108-014208-383816",
+      "G:\\els\\releases\\online\\native-achievement-notebook-spa-clear-20261107-v1\\state\\friends-client",
+      "G:\\els\\releases\\online\\native-achievement-notebook-spa-clear-20261107-v1\\state"
+    ],
+    "retained_failures": true,
+    "production_database_access": false
+  },
+  "independent_review": {
+    "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\independent-review-v1.md",
+    "sha256": "22d69d39f27e30a075dbd82bee7b84076d6a78eecf4654504771ac4311168cfc"
+  },
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "sha256": "a2b243fabd5734fcd046e4cc9be11a9c67a5e6f65cee28b52ad5936154cb3ee7",
+      "parent": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\guild-badge-v1\\source-v2\\els_server\\domain\\achievement_flow.py",
+      "parent_sha256": "fb43385c086a316298b96b2328d99fc340f9f69b6f88ee3ea53591f14791b0da"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "sha256": "dfdcf20eb6b9cc32694958caed211d01039bf4ab3dbc09ae993bd7719a952ab7",
+      "parent": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\guild-badge-v1\\source-v2\\els_server\\storage\\achievement_profiles.py",
+      "parent_sha256": "e99a5b81befa05648c3a63e1473d45d1b0b4ce29d831daa4d0c8a32425227ece"
+    },
+    {
+      "path": "tools/raid_native_power.js",
+      "sha256": "2fb90926b79bdc7720b3333524c49995279d1a6f2a0331b48b6e26298f911caf",
+      "parent": "G:\\els\\releases\\online\\native-achievement-notebook-spa-clear-20261107-v1\\tools\\raid_native_power.js",
+      "parent_sha256": "28879678bbe97ecaf84ad9041c43161289311be4eb769f9b6d1c2cc24cd2fd94"
+    }
+  ],
+  "actual_final_signed_Game_pending": true,
+  "prior_native_attempts": {
+    "v1": "Formal owned marker preflight refused before Game",
+    "v2": "NoCP extension;failed",
+    "v3": "Readonly diagnosis confirms shared owner mismatch;failed"
+  },
+  "source_projection_evidence": "projection-1794071658577240500.json",
+  "App_TLS_business_and_gate": "diagnostic-gate-qualification.json",
+  "ABI": "native-power-abi-v2.json",
+  "original_Game_EXE_KOM_changes": 0,
+  "installed": false
+}
