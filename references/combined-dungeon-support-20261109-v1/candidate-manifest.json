@@ -1,0 +1,155 @@
+{
+  "git_parent": "9f64ef2e0c8d09c24b02c6acb3b8cfc2dcd42773",
+  "original_pr": 965,
+  "original_merge": "9f64ef2e0c8d09c24b02c6acb3b8cfc2dcd42773",
+  "baseline": {
+    "online": "three-chat-repairs-bulk-boxes-20261108-v1",
+    "local": "unified-server-45bc2eb7abf25c06-027dd6cb9a2c",
+    "launcher": "launcher-component-failure-cleanup-20261109-v116"
+  },
+  "files": [
+    {
+      "path": "els_server/domain/dungeon_hp_c1.py",
+      "parent_sha256": "01c5eede3d8ddba557f0c0a7ded633e66462ffc51e14d233676395312ae311bd",
+      "sha256": "3a79ac9daf52c2e2bdf07bf13ad0bb817ad39b3ec13b9d01d9ef14848d17f348",
+      "size": 607190,
+      "group": "server"
+    },
+    {
+      "path": "els_server/data/formal_npc_hp.json",
+      "parent_sha256": "3f65c654b73ecd012d116603ff123d4296342385e2f999a518598e01e9cd2420",
+      "sha256": "d0d0a61636c699b3406b736ced38d74532ad115046579772f1dc133f26f8b021",
+      "size": 3867103,
+      "group": "server"
+    },
+    {
+      "path": "els_server/data/formal_npc_hp.manifest.json",
+      "parent_sha256": "39bcef85b8edd3a08dded74c93054d4c32b2fd86397cba2ce37d85157de37891",
+      "sha256": "82569c39a7d20aaff5914054f401ff2ea5e44cb3c7981a8d54a553ec57ca2781",
+      "size": 201,
+      "group": "server"
+    },
+    {
+      "path": "tools/native_hit_count_obstacles.js",
+      "parent_sha256": "3d85d0baff6ec31918b2ecc809244242e6de676c76e090ee2a0c1db96f60b721",
+      "sha256": "84a05065206abddce1741081c93373b7660cce052fd67de0c7a5beff5a9ed978",
+      "size": 3895,
+      "group": "support"
+    },
+    {
+      "path": "tools/native_hit_count_obstacles.py",
+      "parent_sha256": "683b62da55725c99f6496bb5a62d65c341f480f82e62d4a7ea82238ad249bed5",
+      "sha256": "f56a061b30699cc0339e0e0a20a542dca0b71e68d6f4c81c5391e893487e092a",
+      "size": 583,
+      "group": "support"
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "aa84bd263f15d7d0faaea06d874a1d1437bafec45c334cd7e7ea95b175c53d8f",
+      "sha256": "d888cc2d0dafeccca1bdeb0776a836cee0704c78bc134608de77b5cbe23be6ad",
+      "size": 23747,
+      "group": "support"
+    }
+  ],
+  "already_installed_sources": {
+    "115": [
+      {
+        "path": "tools/probe_updated_client.py",
+        "parent_sha256": "7f2bed3371f96506d243bc7fd4f9d1f201ce77b867dd1d3c2ef974f4f07a55f7",
+        "sha256": "eaf9020fdd145192e362dd6fbadbfe8b191c62071590ed93e20cb4f14dbe501f",
+        "size": 29745
+      },
+      {
+        "path": "tools/trace_dx11_login.js",
+        "parent_sha256": "ce156c843ae4a2bfda217e8ae1f79f34a87bc2bcf48114dab61078840baedb62",
+        "sha256": "eb9370a451745b9651937defbb8b826f061c3a59ecfd6a714b14a3bb6d7f3b7a",
+        "size": 28365
+      },
+      {
+        "path": "tools/native_cache_sync.py",
+        "parent_sha256": "6de253b2725b4a6df3088ad45af8d8585689ac5809a999769e67067155b20326",
+        "sha256": "098e711fc5ff9a72ad8d01e9f8c6e8f6889f1f76c03dd5ffdb311a573cb21427",
+        "size": 5979
+      },
+      {
+        "path": "tools/native_cache_sync.js",
+        "parent_sha256": "96b4466e1eaaf46f1c81b69a028078df43e298baec33cf9b9b8adbaaa66ea6cf",
+        "sha256": "b6697ebf90737855170ed0989ef41331c29a2fd1009c674c6a1a8b054c99e2ac",
+        "size": 30888
+      },
+      {
+        "path": "tools/client_compatibility_profiles.json",
+        "parent_sha256": "025e1ae764c0e012e7343b812d94dba097ace3cadda52621f9223182c7a4bab7",
+        "sha256": "3091e2bb382f9371cd6ba7bb0739dd9b11868dfa860e44089e73c47156fe6a4b",
+        "size": 23747
+      }
+    ],
+    "116": [
+      {
+        "path": "tools/native_cache_sync.py",
+        "parent_sha256": "098e711fc5ff9a72ad8d01e9f8c6e8f6889f1f76c03dd5ffdb311a573cb21427",
+        "sha256": "edbed8934cf1a3a06ecbaaed9b191e66c28e18068c98c7352e87c2bb118d9e71",
+        "size": 6145
+      },
+      {
+        "path": "tools/native_cache_sync.js",
+        "parent_sha256": "b6697ebf90737855170ed0989ef41331c29a2fd1009c674c6a1a8b054c99e2ac",
+        "sha256": "0106cb5b1aa7f3f3c72e3a98a13d3ba4475f7e28e5622abd569f37007ca0d8ae",
+        "size": 32999
+      },
+      {
+        "path": "tools/group_wear_sync.js",
+        "parent_sha256": "1e3813f736fb40dbdfd7092f7d0e8ef022b888c2db9cb0f4c25abef2255c5766",
+        "sha256": "ca214398f0513786bab0db3f527246ff211f656d8363b6e05fa3a59af17c1fa4",
+        "size": 17513
+      },
+      {
+        "path": "tools/dungeon_result_stats.py",
+        "parent_sha256": "0acb10e4c2ee0247c7d33fe9d6c00624e0a20acda5ef71774507d533fde65f10",
+        "sha256": "0ed0aa4af8b667864d062c307aec478fbb061b24b3259d7d7f6192a51a632927",
+        "size": 1990
+      },
+      {
+        "path": "tools/dungeon_result_stats.js",
+        "parent_sha256": "03a5261d2e5a966837f7c072d3dfbcd26320a1ab56d331db5e21d553c252ad83",
+        "sha256": "ff15cfc69564b4b9ee83c86dc49efd01e42c653f344b74156d72d77062947f7e",
+        "size": 7988
+      },
+      {
+        "path": "tools/client_compatibility_profiles.json",
+        "parent_sha256": "3091e2bb382f9371cd6ba7bb0739dd9b11868dfa860e44089e73c47156fe6a4b",
+        "sha256": "aa84bd263f15d7d0faaea06d874a1d1437bafec45c334cd7e7ea95b175c53d8f",
+        "size": 23747
+      }
+    ]
+  },
+  "validation_evidence": {
+    "analysis/theme-park-hp-20261109-v1/candidate-manifest.json": "2c2e2eedc7ed6cbcf1a4c40497447b382bbf7cadbdb4b4734646bc256e99a496",
+    "analysis/theme-park-hp-20261109-v1/review/candidate-review.json": "0fd752f6b5bc0ac5b314e612811b828b8f7b2076496ed4182db73a7fa4c40a87",
+    "analysis/theme-park-hp-20261109-v1/trace/solo-context-candidate.json": "662c6a73c59044c4301769edbd8c13d17981dc215cb917f1d0b1694c15e5119f",
+    "analysis/theme-park-hp-20261109-v1/trace/solo-context-result.json": "b2b99bc170b4f7500bb9fd78cf8308cb12cbaa26a166a2cc301469d0c5120d78",
+    "analysis/theme-park-hp-20261109-v1/trace/map-hp-trace.json": "6f8b4d67532da285a782d8d72098e730fee48649c1d84a73b45cd7dd9e00ce68",
+    "analysis/theme-park-hp-20261109-v1/installed-binding.json": "e26b9e064edb622a328771f496c78b5b9828709a86696e707a1e0ede9f0addab",
+    "analysis/theme-park-hp-20261109-v1/variants/public-reference-recheck.json": "6d831787e44d58ee5ab5b8f96ba537a6f14a9861fa08afee57ec78ce82792eb3",
+    "analysis/tricky-house-mechanism-20261109-v1/verified-candidate-manifest.json": "7ed58c349355d4915ea9ab63c1ffed04778f2b1a241b5b65c6e4efb6806baa11",
+    "analysis/tricky-house-mechanism-20261109-v1/native-live/native-baseline.json": "d9c1557c09d800ac735a1b1dbf22ee10b9090e81c7d755e5ae205515191aaa84",
+    "analysis/tricky-house-mechanism-20261109-v1/native-live/native-candidate.json": "d1aea98e9d44e7859e2d1a8b6f40711855425f4ddb4e35f76e60e80c940a6d2b",
+    "analysis/tricky-house-mechanism-20261109-v1/native-live/native-candidate-lifecycle.json": "890e52b1ca43e14008ebfdae20e85b993c346367456cf10917ef7e042a9b71aa",
+    "analysis/tricky-house-mechanism-20261109-v1/native-live/test-history.json": "bb14a85833a230d5b041299a3e2e906e4842268ab51bde2159f82da9e716724b",
+    "analysis/tricky-house-mechanism-20261109-v1/native-live/owned-cleanup.json": "e9372e38df170d748c082a53199b57c2f10edce8c656bf9d39cfec1c3687e02a",
+    "analysis/tricky-house-mechanism-20261109-v1/server/candidate-lifetime-check.json": "8f2de4bc8fc6409d7af0d4ee744c32fc072f09da2235b1597ceb92df06264f41",
+    "analysis/tricky-house-mechanism-20261109-v1/server/candidate-source-check.json": "d02e94c0c467b1d497e69761f908ce5c6dc0766172f82db41e6482bbc757d9b9",
+    "analysis/tricky-house-mechanism-20261109-v1/server/candidate-source-scope.json": "9441d31fdbbef56a2c4e01ab293115326f92088bcc4d2578b900ba2406a64215",
+    "analysis/giant-tickets-maze-crash-20261108-v1/crash-fix/support-regression-review/power-refresh-exit-v2/repair-candidate.json": "351a0b706da4dfe19d3d953f49522fdeca695afc3979e9cfb8abc3055c1b6980",
+    "analysis/giant-tickets-maze-crash-20261108-v1/crash-fix/support-regression-review/power-refresh-exit-v2/publication/final-support-delivery.json": "4d1181f52826a279bef75ccb3c4037c30a0cac3caf99ff0d504fb1467d035524",
+    "analysis/giant-tickets-maze-crash-20261108-v1/crash-fix/support-regression-review/power-refresh-exit-v2/validation-result.json": "f15d1f6003ef34a1a20ee53c2749c863e42a3d9a64c1e07e8a77e4b2c30f9397",
+    "analysis/component-causality-review-20261109-v1/repair-v1/repair-candidate.json": "b264ff77cea1f45d4e4db578d5c5b1c1f6fc450a80528bfdbf90acd9337199d6",
+    "analysis/component-causality-review-20261109-v1/repair-v1/publication/final-support-delivery.json": "9d402aa938df6b80dd44295c300b9d03f09ed13992dde045541be530ce16b823",
+    "analysis/component-causality-review-20261109-v1/repair-v1/test-receipt.json": "7d1e76e0b7e9ec33f6f69be1305e4dff4f801d355af4eb4301d292d10d19e428",
+    "analysis/component-causality-review-20261109-v1/repair-v1/independent-review.json": "b0de909aad7d05ceef680c09d0df62dfc613a25899a2a79aa2856b20b18198f9"
+  },
+  "game_started": false,
+  "new_installation": false,
+  "original_exe_kom_changes": 0,
+  "new_schema": false
+}
