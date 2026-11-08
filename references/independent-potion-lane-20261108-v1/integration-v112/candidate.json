@@ -1,0 +1,75 @@
+{
+  "parent": {
+    "parent_path": "G:\\els\\releases\\online\\giant-tickets-request-queue-20261108-v2",
+    "parent_manifest_sha256": "bc243946fc8a3b17fa847bc544484cd682076c6314b2c5d0ad12731439cb02e4",
+    "release": "giant-tickets-request-queue-20261108-v2"
+  },
+  "files": [
+    {
+      "path": "els_server/application.py",
+      "parent_sha256": "b0e52220fac9da890b780663a73e383c13aa34d9106f6e3781e6dc1795cfa475",
+      "sha256": "231c019a4bbd3366b6221f3cd58c867260858e66f7af9905dc63cb18f02031c6"
+    },
+    {
+      "path": "els_server/consumable_lane.py",
+      "parent_sha256": null,
+      "sha256": "7d6005fb7f7ffc14243e95d693fc3da002d3b46374cd8154426c77e0b83464b7"
+    },
+    {
+      "path": "els_server/domain/consumable_flow.py",
+      "parent_sha256": "cffcd4c2626aa361a5205483f48d1f74b34981390fd3ed7a8f23fc4f408e86df",
+      "sha256": "40ae9b634a5348601550ca8c1056e9faccb254fc6a290ef56492c85187dcd3b8"
+    },
+    {
+      "path": "els_server/domain/resonance_allocation_flow.py",
+      "parent_sha256": "6536fe0ccfab3e04170c90e889cc2eb9bd6cc4dc3e2dd4ea996294a217afd99b",
+      "sha256": "df154a298f89ec23e4475b01bf2a028f6509f7e2e887ffd652db5c37817918fc"
+    },
+    {
+      "path": "els_server/domain/resonance_flow.py",
+      "parent_sha256": "6f22ef3a47875772c8a98b5ff29409c2fda7b378f27e1430a24cc8101bb5b955",
+      "sha256": "e5de8fc48ef961455c0e2768ae5b303aa88b3e797e8fceecfb2ce099fc7e7fa7"
+    },
+    {
+      "path": "els_server/native_inbox.py",
+      "parent_sha256": "50f43187331ad5ff827c6de71a514c2f68bbd6af46725174a0e0d6a741a7b3a8",
+      "sha256": "e3d87cec915a19735031d44c0e1149f6858b1b34e74f3e5fded0b1510f618fba"
+    },
+    {
+      "path": "els_server/periodic_scheduler.py",
+      "parent_sha256": "7aeeea4ab444c853c868aada4515821c075689ef65832415f38c93fafcc0f596",
+      "sha256": "44d82d6f218a112eb15eeded9268164ef45bd93301e9714e0902d096ef91214a"
+    },
+    {
+      "path": "els_server/storage/consumables.py",
+      "parent_sha256": "769a57a1d539c2d06e866703011c5dc883f98a8ef5100dca9c0e4474f2fbaac3",
+      "sha256": "addb4e474df81b937b39e5b1deb42d8b62ad530aad62f9e54a2d85790d39cbae"
+    },
+    {
+      "path": "els_server/transport.py",
+      "parent_sha256": "dadd901f59390be9dc0404611ee0b5b42b0e493c4372682125e1db22d37d772b",
+      "sha256": "314f90efe188066bf690427a433821d0e3ea4a887a810090e0d30360155426e5"
+    }
+  ],
+  "ordinary_loaded_solo_lane": true,
+  "shared_or_special_lane_qualified": false,
+  "baseline_potion_ms": 432.1367000011378,
+  "candidate_potion_ms": 35.342499999387655,
+  "death_worker_blocked_proof_ms": 38.51559999748133,
+  "reduction_percent": 91.82145372071047,
+  "economic_results_identical": true,
+  "scene_barrier": true,
+  "final_authority_rollback": true,
+  "disconnect_waits_for_worker": true,
+  "automatic_pet_verified": true,
+  "below_cap_current_reply_barrier": true,
+  "new_tables": 0,
+  "migrations": 0,
+  "EXE_KOM_changes": 0,
+  "Git_merged": false,
+  "installed_online": false,
+  "installed_local": false,
+  "inherited_new_parent_delta_preserved": 14,
+  "parent_integration_conflicts": 0,
+  "validation_note": "Independent regressions ran concurrently in owned temporary directories; timings are isolated-host measurements, not production guarantees."
+}
