@@ -1,0 +1,744 @@
+--- a/els_server/domain/whisper.py
++++ b/els_server/domain/whisper.py
+@@ -7,7 +7,8 @@
+     app=session.application
+     players=tuple(app.playing.values())
+     target=next((s for s in players if not s.released and s.role=='game'
+-        and s.phase in ('town_ready','dungeon_active','photo_zone_admitted') and not s.coop_error
++        and s.phase in ('town_ready','dungeon_active','photo_zone_admitted',
++                        'guild_agit_ready','wedding_hall') and not s.coop_error
+         and app.playing.get(s.identity['id']) is s and app.registry.enabled(s.identity['id'])
+         and s.account.character()['name']==request['recipient']),None)
+     # Native name-based producer uses UINT64_MAX when no character UID was
+@@ -18,7 +19,10 @@
+     notice=wire.chat_notice(session.account.character(),session.identity['id'],
+         request['text'],4,recipient=target.account.character())
+     response=[wire.chat_ack()]
+-    boxes=_prepared_boxes([(session,[notice]),(target,[notice])],response)
+-    session.chat_times.append(now)
+-    for member,box in boxes.items():member.mailbox=box
++    # The world worker holds the sender's box. Protect the other box against
++    # an independent worker draining or appending while it is being replaced.
++    with target.mailbox.lock:
++        boxes=_prepared_boxes([(session,[notice]),(target,[notice])],response)
++        session.chat_times.append(now)
++        for member,box in boxes.items():member.mailbox=box
+     return response
+--- a/els_server/storage/mailbox_extras.py
++++ b/els_server/storage/mailbox_extras.py
+@@ -23,10 +23,16 @@
+ 
+ 
+ def _rows(db, uid):
++    from els_server.storage.character_lifecycle import exists
++    active = ''
++    if exists(db):
++        active = ''' AND NOT EXISTS (
++            SELECT 1 FROM character_lifecycle l
++            WHERE l.uid=c.uid AND l.finalized_at<>0)'''
+     return [dict(uid=r[0], name=r[1]) for r in db.execute(
+-        '''SELECT b.target,COALESCE(c.name,b.name) FROM mail_blacklist b
+-        LEFT JOIN characters c ON c.uid=b.target WHERE b.owner=?
+-        ORDER BY b.created_at,b.target''', (uid,))]
++        '''SELECT b.target,c.name FROM mail_blacklist b
++        JOIN characters c ON c.uid=b.target WHERE b.owner=?'''
++        + active + ' ORDER BY b.created_at,b.target', (uid,))]
+ 
+ 
+ def blacklist(path, account, uid):
+@@ -71,7 +77,7 @@
+             target_uid, name = row
+             if added:
+                 # Explicit server storage bound, not a claimed retail limit.
+-                if (db.execute('SELECT count(*) FROM mail_blacklist WHERE owner=?',(uid,)).fetchone()[0] >= 1000
++                if (len(_rows(db,uid)) >= 1000
+                         and not db.execute('SELECT 1 FROM mail_blacklist WHERE owner=? AND target=?',(uid,target_uid)).fetchone()):
+                     raise MailError('Blacklist storage bound')
+                 db.execute('INSERT OR IGNORE INTO mail_blacklist VALUES (?,?,?,?)',
+@@ -80,23 +86,28 @@
+                 db.execute('DELETE FROM mail_blacklist WHERE owner=? AND target=?', (uid,target_uid))
+             db.execute('INSERT INTO mail_blacklist_receipts VALUES (?,?,?,?,?,?,?,?)',
+                        (operation,account,uid,digest,target_uid,name,int(added),now))
+-        current = bool(db.execute('SELECT 1 FROM mail_blacklist WHERE owner=? AND target=?',
+-                                  (uid,target_uid)).fetchone())
++        rows = _rows(db,uid)
++        current = any(row['uid'] == target_uid for row in rows)
+         # A late retry must not recreate a block removed by a newer operation.
+         # Encode before commit so an encoder failure also rolls back the write.
+-        return encode(dict(uid=target_uid,name=name), 0 if current == added else 1, _rows(db,uid))
++        return encode(dict(uid=target_uid,name=name), 0 if current == added else 1, rows)
++
++
++def folder_status(path, account, uid, *, now=None):
++    from els_server.storage.game_mail import _owner
++    from els_server.storage.player_mail import folder_sql, visible_sql
++    now = int(time.time()) if now is None else now
++    with snapshot_connection(path) as db:
++        db.execute('BEGIN'); _owner(db, account, uid)
++        return tuple(db.execute('SELECT ' + folder_sql(db) + ''', count(*),
++            sum(read_at IS NULL), max(id)
++            FROM game_mail WHERE account_id=? AND deleted_at IS NULL AND expires_at>? AND '''
++            + visible_sql(db) + ' GROUP BY 1 ORDER BY 1', (account,now,uid)))
+ 
+ 
+ def status(path, account, uid, *, now=None):
+-    from els_server.storage.game_mail import _owner
+-    from els_server.storage.player_mail import visible_sql
+-    now = int(time.time()) if now is None else now
+-    with snapshot_connection(path) as db:
+-        db.execute('BEGIN'); _owner(db, account, uid)
+-        count, unread, last = db.execute('''SELECT count(*),
+-            COALESCE(sum(read_at IS NULL),0),COALESCE(max(id),0)
+-            FROM game_mail WHERE account_id=? AND deleted_at IS NULL AND expires_at>? AND '''+visible_sql(db),
+-            (account,now,uid)).fetchone()
+-        return count, unread, last
++    rows = folder_status(path,account,uid,now=now)
++    return (sum(row[1] for row in rows), sum(row[2] for row in rows),
++            max((row[3] for row in rows), default=0))
+ 
+ 
+--- a/els_server/storage/friend_state.py
++++ b/els_server/storage/friend_state.py
+@@ -77,9 +77,13 @@
+         return result
+     result['groups'] = dict(db.execute('SELECT id,name FROM native_friend_groups '
+                                        'WHERE owner=? AND active=1 ORDER BY id', (owner,)))
++    visible = ''
++    if exists(db, 'character_lifecycle'):
++        visible = (' AND NOT EXISTS (SELECT 1 FROM character_lifecycle l '
++                   'WHERE l.uid=target AND l.finalized_at<>0)')
+     for target, status, blocked, group, message, created in db.execute(
+             'SELECT target,status,blocked,group_id,message,created_at '
+-            'FROM native_friend_edges WHERE owner=? ORDER BY target', (owner,)):
++            'FROM native_friend_edges WHERE owner=?' + visible + ' ORDER BY target', (owner,)):
+         target_row = character(db, uid=target)
+         live = online.get(target) if status == 0 and not blocked else None
+         # A peer's block also suppresses that peer's presence subscription.
+--- a/els_server/domain/friend_flow.py
++++ b/els_server/domain/friend_flow.py
+@@ -164,8 +164,9 @@
+             if peer is None or peer is s:
+                 continue
+             value = storage.snapshot(db, owner, peer.account.account_id, present)
+-            row = next(row for row in value['friends'] if row['uid'] == s.account.uid)
+-            deliveries.append((peer, [wire.positions([row])]))
++            row = next((row for row in value['friends'] if row['uid'] == s.account.uid), None)
++            if row is not None:
++                deliveries.append((peer, [wire.positions([row])]))
+     for peer, _ in sorted(deliveries, key=lambda delivery: delivery[0].account.uid):
+         locks.enter_context(peer.mailbox.lock)
+     return _prepared_boxes(deliveries, response)
+--- a/els_server/storage/online_2026_mail_snapshot.py
++++ b/els_server/storage/online_2026_mail_snapshot.py
+@@ -1,14 +1,10 @@
+-"""Read-only character-visible unread state for the existing local mail route.
++"""Read-only unread state using the inbox's character scope and folder route.
+ 
+-The current mail_flow exposes every implemented letter in folder0. Preserve
+-that routing here, including ordinary/GM mail; do not pretend that a new
+-activity-only count is the complete mailbox snapshot. Reclassification of
+-ordinary letters requires a coordinated change to the existing list route.
+ The caller owns a read transaction. No expiry maintenance, DDL or issuance.
+ """
+ import sqlite3
+ from els_server.storage.game_mail import MailError, _owner
+-from els_server.storage.player_mail import visible_sql
++from els_server.storage.player_mail import visible_sql, folder_sql
+ from els_server.storage.online_title_mail_scope import exists
+ 
+ 
+@@ -21,10 +17,14 @@
+     condition = ('account_id=? AND deleted_at IS NULL AND expires_at>? '
+                  'AND read_at IS NULL AND ' + visible_sql(db))
+     args = (account, now, character)
+-    unread = tuple(row[0] for row in db.execute(
+-        'SELECT id FROM game_mail WHERE ' + condition + ' ORDER BY id DESC', args))
++    rows = db.execute('SELECT id,(' + folder_sql(db) + ') FROM game_mail WHERE '
++                      + condition + ' ORDER BY id DESC', args).fetchall()
++    unread = tuple(row[0] for row in rows)
+     if len(unread) >= 2**31:
+         raise MailError('Unread total exceeds original signed client counter')
++    counts = dict.fromkeys(range(5), 0)
++    for _, folder in rows:
++        counts[folder] += 1
+     activity = ()
+     if exists(db):
+         activity = tuple(row[0] for row in db.execute(
+@@ -33,6 +33,6 @@
+                 AND e.account_id=game_mail.account_id AND e.recipient_uid=?
+                 AND e.deadline=game_mail.expires_at) ORDER BY id DESC''',
+             args + (character,)))
+-    return dict(unread_counts={0:len(unread),1:0,2:0,3:0,4:0},
++    return dict(unread_counts=counts,
+                 visible_unread_ids=unread,activity_unread_ids=activity,
+-                routing='existing_local_mail_flow_folder0')
++                routing='existing_local_mail_flow_folders')
+--- a/els_server/domain/mailbox_extras.py
++++ b/els_server/domain/mailbox_extras.py
+@@ -3,6 +3,7 @@
+ import time
+ from els_server.protocol.protocol_codec import Event
+ from els_server.protocol import mailbox_extras as wire
++from els_server.protocol.mail_notifications_2026 import notice
+ from els_server.storage import mailbox_extras as store
+ from els_server.storage.game_mail import MailError
+ _maintenance_after={}
+@@ -76,7 +77,7 @@
+             from els_server.storage.relationship_mail import maintenance as anniversary
+             anniversary(a.store.path,a.account_id,a.uid)
+             _anniversary_after[anniversary_key]=now+60
+-        status = store.status(a.store.path,a.account_id,a.uid)
++        status = store.folder_status(a.store.path,a.account_id,a.uid,now=int(time.time()))
+     except (sqlite3.OperationalError,MailError):
+         # A transient busy database cannot disconnect an otherwise healthy
+         # client. Do not mark a failed read delivered; retry on the next poll.
+@@ -84,5 +85,8 @@
+         return []
+     marker = (key,status)
+     if not force and getattr(session,'mailbox_status',None) == marker: return []
++    counts = dict.fromkeys(range(5),0)
++    counts.update((folder,unread) for folder,_,unread,_ in status)
++    message = notice(unread_counts=counts,rows=(),flag=False)
+     session.mailbox_status = marker
+-    return [Event(0x201,kind=0x1ce,payload=wire.notification(status[1]))]
++    return [message]
+--- a/tests/test_mail_scope_current.py
++++ b/tests/test_mail_scope_current.py
+@@ -96,12 +96,13 @@
+             account=SimpleNamespace(account_id=2,uid=1001,store=SimpleNamespace(path=self.path)))
+         from els_server.storage import player_mail
+         before=self.snapshot()
+-        original=mailbox_extras.status
+-        with patch.object(player_mail,'maintenance',return_value=0),patch.object(flow.time,'monotonic',return_value=100),patch.object(mailbox_extras,'status',side_effect=lambda path,account,uid:original(path,account,uid,now=200)):
++        clock=SimpleNamespace(monotonic=lambda:100,time=lambda:200)
++        with patch.object(player_mail,'maintenance',return_value=0),patch.object(flow,'time',clock):
+             output=flow.periodic(session,force=True)
+         self.assertEqual(len(output),1)
+         self.assertEqual(output[0].kind,0x1ce)
+-        self.assertEqual(struct.unpack('>IBiIB',output[0].payload),(1,0,0,0,0))
++        expected=struct.pack('>I',5)+b''.join(struct.pack('>Bi',folder,0) for folder in range(5))+bytes(5)
++        self.assertEqual(output[0].payload,expected)
+         self.assertEqual(self.snapshot(),before)
+ 
+ 
+--- a/els_server/domain/guild_chat.py
++++ b/els_server/domain/guild_chat.py
+@@ -23,7 +23,7 @@
+             member_accounts=dict(db.execute('SELECT owner,account_id FROM native_guild_members WHERE guild_id=?',(saved['id'],)))
+             if scene_guard:scene_guard(db)
+             for peer in tuple(app.playing.values()):
+-                if(peer.role!='game'or peer.phase not in('town_ready','guild_agit_ready','dungeon_active','photo_zone_admitted')
++                if(peer.role!='game'or peer.phase not in('town_ready','guild_agit_ready','dungeon_active','photo_zone_admitted','wedding_hall')
+                     or Path(peer.account.store.path).resolve()!=Path(path).resolve()):continue
+                 if member_accounts.get(peer.account.uid)!=peer.identity['id']:continue
+                 context=getattr(peer,'guild_agit',None)
+--- a/els_server/storage/player_mail.py
++++ b/els_server/storage/player_mail.py
+@@ -32,8 +32,22 @@
+     ensure_items(db)
+ 
+ 
++def _player_recipient_sql(db):
++    from els_server.storage.character_lifecycle import exists
++    if db is None or not exists(db):
++        return 'recipient_uid'
++    # Old return letters can still name a retained, finalized character.
++    # Resolve them to the same account-wide return route as a missing sender.
++    return '''CASE WHEN return_of IS NOT NULL AND EXISTS (
++        SELECT 1 FROM character_lifecycle l JOIN game_mail returned
++        ON returned.id=player_mail_meta.mail_id
++        WHERE l.uid=player_mail_meta.recipient_uid
++        AND l.account_id=returned.account_id AND l.finalized_at<>0)
++        THEN 0 ELSE recipient_uid END'''
++
++
+ def visible_sql(db=None):
+-    scopes=['SELECT recipient_uid FROM player_mail_meta WHERE mail_id=game_mail.id']
++    scopes=['SELECT '+_player_recipient_sql(db)+' AS recipient_uid FROM player_mail_meta WHERE mail_id=game_mail.id']
+     if db is not None:
+         for table,column in (('native_relationship_mail','recipient_uid'),('native_guild_reward_mail_v2','owner'),('black_market_mail','recipient_uid'),('online2026_mail_scope','recipient_uid'),('henir_force_rewards','owner'),('career_reward_mail','owner'),('native_mentor_graduations','student'),('native_mentor_career_rewards','teacher'),('native_achievement_mail','owner')):
+             if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(table,)).fetchone():
+@@ -74,7 +88,7 @@
+     from els_server.storage.henir_force_rewards import recipient as henir_recipient
+     target=henir_recipient(db,mail_id)
+     if target is not None and target!=uid:raise MailError('Henir letter belongs to another character')
+-    row=db.execute('SELECT recipient_uid FROM player_mail_meta WHERE mail_id=?',(mail_id,)).fetchone()
++    row=db.execute('SELECT '+_player_recipient_sql(db)+' FROM player_mail_meta WHERE mail_id=?',(mail_id,)).fetchone()
+     if row is not None and row[0] not in (0,uid):raise MailError('Letter belongs to another character')
+     from els_server.storage.online_title_mail_scope import recipient
+     target=recipient(db,mail_id)
+@@ -85,7 +99,7 @@
+ 
+ 
+ def decorate(db,row,*,now=None):
+-    meta=db.execute('SELECT recipient_uid FROM player_mail_meta WHERE mail_id=?',(row['id'],)).fetchone()
++    meta=db.execute('SELECT '+_player_recipient_sql(db)+' FROM player_mail_meta WHERE mail_id=?',(row['id'],)).fetchone()
+     if meta is not None:row['mail_type']=1  # LT_POST_OFFICE / LLT_NORMAL.
+     from els_server.storage.achievements import recipient as achievement_recipient
+     target=achievement_recipient(db,row['id'])
+@@ -170,8 +184,8 @@
+         if return_of is not None and claimed is None and (ed or item):
+             db.execute('UPDATE game_mail SET expires_at=? WHERE id=?',(now+RETURN_RETENTION,mid));changed+=1;continue
+         if return_of is None and claimed is None and (ed or item):
+-            owner=db.execute('SELECT account_id FROM character_owners WHERE uid=?',(sender_uid,)).fetchone()
+-            target_uid=sender_uid if owner and owner[0]==sender_account else 0
++            from els_server.storage.character_lifecycle import visible_ids
++            target_uid=sender_uid if sender_uid in visible_ids(db,sender_account) else 0
+             cur=db.execute('''INSERT INTO game_mail
+                 (campaign,account_id,sender,title,body,ed,created_at,expires_at)
+                 VALUES (?,?,?,?,?,?,?,?)''',('player-return-'+str(mid),sender_account,'\u90ae\u653f\u7cfb\u7edf',
+--- a/els_server/storage/expansion_items.py
++++ b/els_server/storage/expansion_items.py
+@@ -5,6 +5,8 @@
+ from els_server.storage.inventory_state import load_items,owned_template
+ from els_server.storage.skill_expansion import grant_ordinary
+ from els_server.protocol.career_messages import use_request,use_ack
++from els_server.storage.item_actor import require_active_character
++from els_server.storage.item_instances import remove
+ 
+ ORDINARY_COUPON=274160
+ 
+@@ -16,6 +18,7 @@
+     digest=hashlib.sha256(str(uid).encode()+b':'+payload).hexdigest()
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+         db.execute('BEGIN IMMEDIATE')
++        require_active_character(db,uid)
+         exists=db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='expansion_use_receipts'").fetchone()
+         if exists:
+             old=db.execute('SELECT request_hash,bag_group,slot FROM expansion_use_receipts WHERE operation_id=?',(operation_id,)).fetchone()
+@@ -30,15 +33,15 @@
+         item=next(i for i in load_items(db,uid) if i['uid']==item_uid)
+         if item['group']!=4:raise ValueError('Expansion coupon outside owned consumable inventory')
+         from els_server.domain.item_expiration import require_current
++        from els_server.domain.item_locks import require_unlocked
+         require_current(item)
++        require_unlocked(item)
+         # Reject an already unlocked character before consuming another coupon.
+         grant_ordinary(db,uid)
+         remaining=dict(item,count=item['count']-1) if item['count']>1 else None
+         if remaining:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item_uid,uid))
+         else:
+-            from els_server.storage.item_expiration import forget
+-            forget(db,item_uid)
+-            db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item_uid,uid))
++            remove(db,uid,item)
+         ed=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
+         response=use_ack([((item['group'],item['slot']),remaining)],ORDINARY_COUPON,ed).payload
+         db.execute('CREATE TABLE IF NOT EXISTS expansion_use_receipts (operation_id TEXT PRIMARY KEY, request_hash TEXT NOT NULL, owner INTEGER NOT NULL, item_uid INTEGER NOT NULL, template INTEGER NOT NULL, bag_group INTEGER NOT NULL, slot INTEGER NOT NULL)')
+--- a/els_server/storage/skill_unlocks.py
++++ b/els_server/storage/skill_unlocks.py
+@@ -4,6 +4,8 @@
+ from els_server.protocol.career_messages import use_request,use_ack
+ from els_server.storage.inventory_state import load_items,owned_template
+ from els_server.storage.character_schema import character_uid
++from els_server.storage.item_actor import require_active_character
++from els_server.storage.item_instances import remove
+ 
+ def saved_groups(db,uid):
+     if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='character_skill_seals'").fetchone():return ()
+@@ -85,6 +87,7 @@
+     digest=hashlib.sha256(str(uid).encode()+b':'+payload).hexdigest()
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+         db.execute('BEGIN IMMEDIATE')
++        require_active_character(db,uid)
+         if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='skill_book_receipts'").fetchone():
+             old=db.execute('SELECT request_hash,bag_group,slot FROM skill_book_receipts WHERE operation_id=?',(operation_id,)).fetchone()
+             if old:
+@@ -99,7 +102,9 @@
+         item=next(i for i in load_items(db,uid) if i['uid']==item_uid)
+         if item['group']!=4:raise ValueError('Skill book outside owned consumable inventory')
+         from els_server.domain.item_expiration import require_current
++        from els_server.domain.item_locks import require_unlocked
+         require_current(item)
++        require_unlocked(item)
+         row=db.execute('SELECT uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters WHERE uid=?',(uid,)).fetchone()
+         character=Characters._row(row);character['skill_seal_groups']=saved_groups(db,uid)
+         group=rule['seal_group'];validate_unlock(character,group)
+@@ -116,8 +121,7 @@
+         db.execute('INSERT INTO character_skill_seals VALUES (?,?)',(uid,group))
+         if remaining:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item_uid,uid))
+         else:
+-            from els_server.storage.item_expiration import forget
+-            forget(db,item_uid);db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item_uid,uid))
++            remove(db,uid,item)
+         db.execute('CREATE TABLE IF NOT EXISTS skill_book_receipts (operation_id TEXT PRIMARY KEY, request_hash TEXT NOT NULL, owner INTEGER NOT NULL, item_uid INTEGER NOT NULL, template INTEGER NOT NULL, bag_group INTEGER NOT NULL, slot INTEGER NOT NULL)')
+         db.execute('INSERT INTO skill_book_receipts VALUES (?,?,?,?,?,?,?)',(operation_id,digest,uid,item_uid,item['template'],item['group'],item['slot']))
+         quest_notification=quest_refresh(db,uid)
+--- a/els_server/storage/titles.py
++++ b/els_server/storage/titles.py
+@@ -6,6 +6,8 @@
+ from els_server.protocol import title_messages as wire
+ from els_server.protocol.protocol_codec import encode_event
+ from els_server.domain.boosting_2026_title_rewards import is_coupon
++from els_server.storage.item_actor import require_active_character
++from els_server.storage.item_instances import remove
+ 
+ class TitleUseError(ValueError):
+     """Expected owned-coupon refusal, with an original client result message."""
+@@ -87,7 +89,7 @@
+ def equip(path,uid,title,*,guard=lambda db:None,prepare=None):
+     if type(title) is not int or title<0:raise ValueError('Title identity')
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+-        db.execute('BEGIN IMMEDIATE');guard(db);current=snapshot(db,uid);c=character(db,uid)
++        db.execute('BEGIN IMMEDIATE');guard(db);require_active_character(db,uid);current=snapshot(db,uid);c=character(db,uid)
+         if title and (not any(r['title']==title for r in current['owned']) or not eligible(c,title)):raise ValueError('Title is not owned or eligible')
+         answer=wire.equipment(title);schema(db)
+         db.execute('INSERT INTO title_equipment VALUES (?,?) ON CONFLICT(owner) DO UPDATE SET title=excluded.title',(uid,title))
+@@ -103,7 +105,7 @@
+     if not isinstance(operation_id,str) or not 1<=len(operation_id)<=160:raise ValueError('Title operation identity')
+     digest=hashlib.sha256(str(uid).encode()+b':'+payload).hexdigest()
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+-        db.execute('BEGIN IMMEDIATE');c=character(db,uid)
++        db.execute('BEGIN IMMEDIATE');require_active_character(db,uid);c=character(db,uid)
+         now=int(time.time()) if now is None else now
+         if type(now) is not int or not 0<=now<2**40:raise ValueError('Title clock')
+         if exists(db,'title_item_receipts'):
+@@ -154,10 +156,7 @@
+         db.execute('INSERT INTO title_ownership VALUES (?,?,?,?,?,?) ON CONFLICT(scope,subject,title) DO UPDATE SET acquired_by=excluded.acquired_by,acquired_at=excluded.acquired_at,expires_at=excluded.expires_at',(kind,subject,title,c['name'],now,end))
+         if remaining:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item_uid,uid))
+         else:
+-            from els_server.storage.item_expiration import forget
+-            forget(db,item_uid);db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item_uid,uid))
+-            from els_server.storage.item_locks import forget as forget_lock
+-            forget_lock(db,item_uid)
++            remove(db,uid,item)
+         db.execute('INSERT INTO title_item_receipts VALUES (?,?,?,?,?,?)',(operation_id,digest,uid,item['group'],item['slot'],title))
+         result=snapshot(db,uid,now);initial=wire.initialization(result)
+         if selected:
+--- a/els_server/storage/careers.py
++++ b/els_server/storage/careers.py
+@@ -6,6 +6,7 @@
+ from els_server.storage.inventory_state import load_items
+ from els_server.domain.careers import transition
+ from els_server.protocol.career_messages import use_request,use_ack
++from els_server.storage.item_actor import require_active_character
+ 
+ def use_career_item(path,uid,payload,operation_id,prepare_refresh=None,*,selected=False,prepare=None):
+     uid=character_uid(uid)
+@@ -18,6 +19,7 @@
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+         db.execute('PRAGMA foreign_keys=ON')
+         db.execute('BEGIN IMMEDIATE')
++        require_active_character(db,uid)
+         db.execute('CREATE TABLE IF NOT EXISTS career_receipts (operation_id TEXT PRIMARY KEY, request_hash TEXT NOT NULL, owner INTEGER NOT NULL, item_uid INTEGER NOT NULL, before_json TEXT NOT NULL, after_json TEXT NOT NULL, response BLOB NOT NULL)')
+         if prepare is not None:prepare(db)
+         old=db.execute('SELECT request_hash,response FROM career_receipts WHERE operation_id=?',(operation_id,)).fetchone()
+--- a/els_server/storage/artifact_progression.py
++++ b/els_server/storage/artifact_progression.py
+@@ -5,6 +5,8 @@
+ from els_server.protocol import artifact_messages as wire
+ from els_server.storage.seal_quests import load_character
+ from els_server.storage.artifact_receipt_state import replay_changes,store_material_uid
++from els_server.storage.item_actor import require_active_character
++from els_server.storage.item_instances import remove
+ 
+ def save(db,character,artifact):
+  rules.require_artifact(dict(character,artifact=artifact))
+@@ -33,11 +35,7 @@
+  after=dict(item,count=item['count']-count) if item['count']>count else None
+  if after:db.execute('UPDATE inventory_items SET count=count-? WHERE owner=? AND uid=?',(count,uid,item['uid']))
+  else:
+-  from els_server.storage.item_expiration import forget
+-  forget(db,item['uid'])
+-  # Locks are absent or expired; remove their historical foreign-key row too.
+-  if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='item_locks'").fetchone():db.execute('DELETE FROM item_locks WHERE item_uid=?',(item['uid'],))
+-  db.execute('DELETE FROM inventory_items WHERE owner=? AND uid=?',(uid,item['uid']))
++  remove(db,uid,item)
+  return (item['group'],item['slot']),after
+ 
+ def action(path,uid,kind,payload,operation_id,*,account_id=None,randbelow=None,encode=None):
+@@ -51,6 +49,7 @@
+  digest=hashlib.sha256(str((uid,kind)).encode()+payload).hexdigest()
+  with closing(sqlite3.connect(path,timeout=10)) as db,db:
+   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
++  require_active_character(db,uid)
+   exists=db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='artifact_actions'").fetchone()
+   old=db.execute('SELECT owner,request_hash,positions FROM artifact_actions WHERE operation_id=?',(operation_id,)).fetchone() if exists else None
+   if old and old[:2]!=(uid,digest):raise ValueError('Conflicting artifact retry')
+@@ -121,6 +120,7 @@
+  digest=hashlib.sha256(struct.pack('>Q',uid)+payload).hexdigest();positions_json=json.dumps((source,destination),separators=(',',':'))
+  with closing(sqlite3.connect(path,timeout=10)) as db,db:
+   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');validate();guard(db)
++  require_active_character(db,uid)
+   character=load_character(db,uid,account_id);rules.require_artifact(character);limit=allowances(db,uid)[1]
+   if any(not (g==24 and s in range(5) or g==1 and 0<=s<limit) for g,s in (source,destination)):raise ValueError('Artifact equipment position')
+   items=load_items(db,uid);by_pos={(i['group'],i['slot']):i for i in items};first=by_pos.get(source);second=by_pos.get(destination)
+--- a/els_server/storage/item_expiration.py
++++ b/els_server/storage/item_expiration.py
+@@ -113,14 +113,9 @@
+             db.execute('''CREATE TABLE IF NOT EXISTS expired_item_receipts (
+                 item_uid INTEGER PRIMARY KEY, owner INTEGER NOT NULL, expired_at INTEGER NOT NULL,
+                 removed_at INTEGER NOT NULL, item_json TEXT NOT NULL)''')
++            from els_server.storage.item_instances import remove
+             for item in items:
+-                for table in ('equipment_attributes','equipment_durability','equipment_enhancement','equipment_options','equipment_identification','equipment_enhancement_progress', 'item_seals','artifact_equipment_state','equipment_chip_tuning','equipment_reforge_states','equipment_engrave_previews'):
+-                    if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(table,)).fetchone():
+-                        db.execute(f'DELETE FROM {table} WHERE item_uid=?',(item['uid'],))
+-                forget(db,item['uid'])
+-                from els_server.storage.item_locks import forget as forget_lock
+-                forget_lock(db,item['uid'])
+-                db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item['uid'],owner))
++                remove(db,owner,item)
+                 db.execute('INSERT INTO expired_item_receipts VALUES (?,?,?,?,?)',(item['uid'],owner,item['expires_at'],now,json.dumps(item,sort_keys=True)))
+             load_items(db,owner)
+             return [answer]+refresh
+--- a/els_server/storage/resonance_state.py
++++ b/els_server/storage/resonance_state.py
+@@ -91,9 +91,11 @@
+   item=next(x for x in load_items(db,uid) if x['uid']==item_uid)
+   require_active_character(db,uid)
+   if prepare is not None:prepare()
+-  if item['group']!=4 or item.get('lock_until',0)>time.time() or item.get('sealed',False):raise ValueError('ERP book not usable in current owned slot')
++  if item['group']!=4 or item.get('sealed',False):raise ValueError('ERP book not usable in current owned slot')
+   from els_server.domain.item_expiration import require_current
++  from els_server.domain.item_locks import require_unlocked
+   require_current(item)
++  require_unlocked(item)
+   if db.execute('SELECT level FROM characters WHERE uid=?',(uid,)).fetchone()!=(99,):raise ValueError('ERP book requires level99')
+   if snapshot(db,uid,account_id)['enabled']:raise ValueError('ERP already active for this account')
+   remaining=dict(item,count=item['count']-1) if item['count']>1 else None
+@@ -103,8 +105,8 @@
+   ensure(db);db.execute('INSERT INTO account_resonance VALUES (?,1,0,1) ON CONFLICT(account_id) DO UPDATE SET enabled=1,revision=account_resonance.revision+1',(account_id,))
+   if remaining:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item_uid,uid))
+   else:
+-   from els_server.storage.item_expiration import forget
+-   forget(db,item_uid);db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item_uid,uid))
++   from els_server.storage.item_instances import remove
++   remove(db,uid,item)
+   db.execute('CREATE TABLE IF NOT EXISTS resonance_book_receipts (operation_id TEXT PRIMARY KEY, proof_sha256 TEXT NOT NULL, owner INTEGER NOT NULL, item_uid INTEGER NOT NULL, bag_group INTEGER NOT NULL, slot INTEGER NOT NULL)')
+   db.execute('INSERT INTO resonance_book_receipts VALUES (?,?,?,?,?,?)',(operation,proof,uid,item_uid,item['group'],item['slot']))
+   if prepare is not None:prepare()
+--- a/els_server/storage/companion_state.py
++++ b/els_server/storage/companion_state.py
+@@ -138,8 +138,8 @@
+                     assign_lifetime(db,owner,companion,item,spec['duration'],timestamp())
+                 original=dict(item);updates=[];removed=None
+                 if item['count']==1:
+-                    from els_server.storage.item_expiration import forget
+-                    forget(db,item_uid);db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item_uid,owner));removed=original
++                    from els_server.storage.item_instances import remove
++                    remove(db,owner,item);removed=original
+                 else:
+                     item['count']-=1;db.execute('UPDATE inventory_items SET count=? WHERE uid=? AND owner=?',(item['count'],item_uid,owner));updates.append(item)
+                 delta=wire.inventory_delta(updates,removed)
+--- a/els_server/storage/ariel_attendance.py
++++ b/els_server/storage/ariel_attendance.py
+@@ -117,15 +117,15 @@
+                     if count>=available:raise ValueError('Ariel no missed attendance day')
+                     from els_server.storage.inventory_state import load_items
+                     from els_server.domain.item_expiration import expired
+-                    from els_server.domain.item_locks import require_unlocked
+-                    items=[i for i in load_items(db,uid)if i['template']==721051 and i['group']==4 and not expired(i,now=moment)]
++                    from els_server.domain.item_locks import require_unlocked,locked
++                    items=[i for i in load_items(db,uid)if i['template']==721051 and i['group']==4 and not expired(i,now=moment)and not locked(i,now=moment)]
+                     if not items:raise ValueError('Ariel owned current makeup coupon required')
+                     item=min(items,key=lambda i:(i.get('expires_at',2**63),i['slot'],i['uid']));require_unlocked(item,now=moment)
+                     remaining=dict(item,count=item['count']-1)if item['count']>1 else None
+                     if remaining:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item['uid'],uid))
+                     else:
+-                        from els_server.storage.item_expiration import forget
+-                        forget(db,item['uid']);db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item['uid'],uid))
++                        from els_server.storage.item_instances import remove
++                        remove(db,uid,item)
+                     result['changed']=[((item['group'],item['slot']),remaining)]
+                     initialize(db);db.execute('UPDATE ariel_attendance_periods SET attended=attended+1,revision=revision+1 WHERE purchase_id=?',(current['purchase_id'],))
+                 elif kind==0xc8e:
+--- a/els_server/storage/inventory_actions.py
++++ b/els_server/storage/inventory_actions.py
+@@ -15,9 +15,9 @@
+ from els_server.storage.bag_capacity import allowances
+ from els_server.storage.character_schema import character_uid
+ from els_server.storage.inventory_state import load_items
+-from els_server.storage.item_instances import relocate,reduce_count
++from els_server.storage.item_instances import relocate,reduce_count,remove
+ from els_server.storage.equipment_receipt_state import current_changes
+-from els_server.storage.item_expiration import assign, forget
++from els_server.storage.item_expiration import assign
+ 
+ 
+ def _identity(uid, kind, payload, operation):
+@@ -141,13 +141,7 @@
+             if remaining is not None:
+                 db.execute('UPDATE inventory_items SET count=? WHERE uid=? AND owner=?', (remaining['count'], item_uid, uid))
+             else:
+-                for table in ('equipment_attributes', 'equipment_durability', 'equipment_enhancement', 'equipment_options', 'equipment_identification', 'equipment_enhancement_progress', 'item_seals','artifact_equipment_state','equipment_chip_tuning','equipment_reforge_states','equipment_engrave_previews'):
+-                    if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?", (table,)).fetchone():
+-                        db.execute(f'DELETE FROM {table} WHERE item_uid=?', (item_uid,))
+-                forget(db, item_uid)
+-                from els_server.storage.item_locks import forget as forget_lock
+-                forget_lock(db, item_uid)
+-                db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?', (item_uid, uid))
++                remove(db,uid,item)
+             load_items(db, uid)
+             _commit(db, operation, digest, uid, 0x109, [position], [item], [remaining])
+             return (response,[]) if with_updates else response
+--- a/els_server/storage/attribute_enchant.py
++++ b/els_server/storage/attribute_enchant.py
+@@ -14,6 +14,8 @@
+ from els_server.domain.enchant_rules import attribute_quote,normal_item_quote
+ from els_server.game_data import client_data
+ from els_server.protocol.enchant_messages import request,acknowledgement,EnchantResult,EnchantRejected
++from els_server.storage.item_actor import require_active_character
++from els_server.storage.item_instances import remove
+ 
+ SUPPORTED_EQUIPMENT=frozenset(normal_equipment_definitions())
+ 
+@@ -31,6 +33,7 @@
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+         if not db.execute('SELECT 1 FROM characters WHERE uid=?',(owner,)).fetchone():raise EnchantRejected(EnchantResult.UNKNOWN_CHARACTER)
++        require_active_character(db,owner)
+         balance=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(owner,)).fetchone())
+         items=load_items(db,owner)
+         db.execute('''CREATE TABLE IF NOT EXISTS attribute_enchant_receipts (
+@@ -45,6 +48,7 @@
+         item=next((i for i in items if i['uid']==item_uid),None)
+         if item is None:raise EnchantRejected(EnchantResult.ITEM_NOT_OWNED)
+         from els_server.domain.item_expiration import expired
++        from els_server.domain.item_locks import locked
+         if expired(item):raise EnchantRejected(EnchantResult.NOT_ALLOWED)
+         if item['template'] not in SUPPORTED_EQUIPMENT or item['group']!=1 or item['count']!=1:
+             raise EnchantRejected(EnchantResult.NOT_ALLOWED)
+@@ -66,7 +70,7 @@
+         if type(cost) is not int or cost<0:raise ValueError('Invalid enchant ED quote')
+         if balance['ed']<cost:raise EnchantRejected(EnchantResult.INSUFFICIENT_ED if target else EnchantResult.INSUFFICIENT_REMOVE_ED)
+         if balance['revision']==2**63-1:raise ValueError('Enchant revision overflow')
+-        stacks=sorted((i for i in items if material and i['template']==material['template'] and i['group']==4 and not expired(i)),key=lambda i:i['slot'])
++        stacks=sorted((i for i in items if material and i['template']==material['template'] and i['group']==4 and not expired(i)and not locked(i)),key=lambda i:i['slot'])
+         needed=material['quantity'] if material else 0
+         if material and (type(needed) is not int or needed<=0 or sum(i['count'] for i in stacks)<needed):raise EnchantRejected(EnchantResult.INSUFFICIENT_CRYSTALS)
+         after=list(before);after[slot]=target;validate_slots(item['template'],after)
+@@ -78,9 +82,7 @@
+                 db.execute('UPDATE inventory_items SET count=? WHERE uid=? AND owner=?',(remaining,stack['uid'],owner))
+                 updated=dict(stack,count=remaining)
+             else:
+-                from els_server.storage.item_expiration import forget
+-                forget(db,stack['uid'])
+-                db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(stack['uid'],owner));updated=None
++                remove(db,owner,stack);updated=None
+             changes.append(((stack['group'],stack['slot']),updated))
+             if not needed:break
+         replace_attributes(db,owner,item_uid,before,after)
+--- a/els_server/storage/consumables.py
++++ b/els_server/storage/consumables.py
+@@ -53,7 +53,8 @@
+         else:binding=_load(db,uid)[slot]
+         if not binding:raise ValueError('Empty shortcut')
+         from els_server.domain.item_expiration import expired
+-        matches=[i for i in load_items(db,uid) if i['group']==6 and item_binding(i['template'])==binding and not expired(i,now=int(now))]
++        from els_server.domain.item_locks import locked
++        matches=[i for i in load_items(db,uid) if i['group']==6 and item_binding(i['template'])==binding and not expired(i,now=int(now))and not locked(i,now=int(now))]
+         if not matches:raise ValueError('No owned consumable')
+         if binding in ({399,775}|quick_bindings()|{item_binding(t)for t in CURRENT_MANUAL}):
+             # Approved local policy: only currently usable owned instances;
+--- a/els_server/storage/equipment_repair.py
++++ b/els_server/storage/equipment_repair.py
+@@ -9,6 +9,7 @@
+ from els_server.domain.normal_equipment import definitions
+ from els_server.domain.repair_pricing import character_quote
+ from els_server.protocol.repair_messages import request,acknowledgement
++from els_server.storage.item_actor import require_active_character
+ 
+ 
+ def repair(path,owner,payload,operation_id,*,account_id):
+@@ -18,6 +19,7 @@
+     digest=hashlib.sha256(str(owner).encode()+b':'+payload).hexdigest()
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
++        require_active_character(db,owner)
+         require_owner(db,owner,account_id)
+         row=db.execute('SELECT unit_type FROM characters WHERE uid=?',(owner,)).fetchone()
+         if row is None:raise ValueError('Unknown repair owner')
+--- a/els_server/storage/paid_enhancement.py
++++ b/els_server/storage/paid_enhancement.py
+@@ -13,12 +13,14 @@
+ from els_server.storage.item_instances import remove
+ from els_server.storage.npc_trade import balances,charge
+ from els_server.storage.equipment_enhancement import replace
++from els_server.storage.item_actor import require_active_character
+ 
+ 
+ def enhance(path,owner,payload,operation,randbelow=secrets.randbelow,*,account_id=None,authorize=None):
+     uid,mode,context,hammer,auto_recovery=options(payload);owner,digest=_identity(owner,0x5ff,payload,operation)
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
++        require_active_character(db,owner)
+         def guard(db):
+             if not callable(authorize) or authorize() is not True:raise ValueError('Paid enhancement current actor changed')
+         if authorize is not None:guard(db)
+--- a/els_server/storage/equipment_restoration.py
++++ b/els_server/storage/equipment_restoration.py
+@@ -11,6 +11,7 @@
+ from els_server.storage.profession_state import require_owner
+ from els_server.storage.item_instances import remove
+ from els_server.storage.equipment_enhancement import replace
++from els_server.storage.item_actor import require_active_character
+ 
+ class MissingRestorationScroll(ValueError):
+  pass
+@@ -20,6 +21,7 @@
+  uid,template=request(payload);owner,digest=_identity(owner,0x21f,payload,operation)
+  with closing(sqlite3.connect(path,timeout=10)) as db,db:
+   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
++  require_active_character(db,owner)
+   if account_id is not None:require_owner(db,owner,account_id)
+   old=_previous(db,operation,digest);before=load_items(db,owner)
+   current={(i['group'],i['slot']):i for i in before}
+--- a/els_server/storage/skill_traits.py
++++ b/els_server/storage/skill_traits.py
+@@ -1,6 +1,7 @@
+ """Owned trait choices and retry receipts; this local skill service is free."""
+ from contextlib import closing
+ import hashlib,sqlite3
++from els_server.storage.item_actor import require_active_character
+ 
+ 
+ def saved(db,uid):
+@@ -22,6 +23,7 @@
+     digest=hashlib.sha256(str(uid).encode()+b':'+payload).hexdigest()
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+         db.execute('BEGIN IMMEDIATE')
++        require_active_character(db,uid)
+         if db.execute('SELECT account_id FROM character_owners WHERE uid=?',(uid,)).fetchone()!=(account_id,):raise ValueError('Skill trait owner mismatch')
+         row=db.execute('SELECT uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters WHERE uid=?',(uid,)).fetchone()
+         character=Characters._row(row);character['skill_seal_groups']=saved_groups(db,uid)
+@@ -57,6 +59,7 @@
+     digest=hashlib.sha256(str(uid).encode()+b':'+payload).hexdigest()
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+         db.execute('BEGIN IMMEDIATE')
++        require_active_character(db,uid)
+         if db.execute('SELECT account_id FROM character_owners WHERE uid=?',(uid,)).fetchone()!=(account_id,):raise ValueError('Skill trait owner mismatch')
+         row=db.execute('SELECT uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters WHERE uid=?',(uid,)).fetchone()
+         character=Characters._row(row);character['skill_seal_groups']=saved_groups(db,uid)
+--- a/els_server/storage/quick_slots.py
++++ b/els_server/storage/quick_slots.py
+@@ -12,6 +12,7 @@
+ from els_server.storage.inventory_state import load_items
+ from els_server.domain.quick_bindings import item_binding, binding_ids
+ from els_server.domain.bag_capacity import LOCAL_QUICK_SLOTS
++from els_server.storage.item_actor import require_active_character
+ 
+ 
+ def empty():return {s:0 for s in range(LOCAL_QUICK_SLOTS)}
+@@ -66,6 +67,7 @@
+     uid=character_uid(uid);values=decode(payload)
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+         db.execute('BEGIN IMMEDIATE')
++        require_active_character(db,uid)
+         if not db.execute('SELECT 1 FROM characters WHERE uid=?',(uid,)).fetchone():raise ValueError('Unknown quick binding owner')
+         before=_load(db,uid)
+         owned={item_binding(i['template']) for i in load_items(db,uid) if i['group']==6}
+--- a/els_server/storage/ice_state.py
++++ b/els_server/storage/ice_state.py
+@@ -71,9 +71,8 @@
+                     remaining-=weight
+                 quantity=reward_quantity(item['template'],template)
+                 if item['count']==1:
+-                    from els_server.storage.item_expiration import forget
+-                    forget(db,item['uid'])
+-                    db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item['uid'],uid))
++                    from els_server.storage.item_instances import remove
++                    remove(db,uid,item)
+                 else:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item['uid'],uid))
+                 if modern:
+                     from els_server.storage.modern_ice import add,accrue
