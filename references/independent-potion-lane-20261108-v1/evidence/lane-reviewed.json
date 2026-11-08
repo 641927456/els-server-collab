@@ -1,0 +1,50 @@
+{
+  "ok": true,
+  "cases": [
+    {
+      "case": "medicine-overtakes-24-queued-deaths",
+      "ok": true,
+      "potion_ms": 32.652399997459725,
+      "death_worker_still_blocked_at_success": true,
+      "original_native_sequence_valid": true
+    },
+    {
+      "case": "writer-wait-rechecks-scene-before-debit",
+      "ok": true
+    },
+    {
+      "case": "native-exit-drains-potion-and-effect-first",
+      "ok": true
+    },
+    {
+      "case": "entitled-pet-native-65E-65F-and-cooldown",
+      "ok": true
+    },
+    {
+      "case": "disconnect-retires-real-potion-worker-before-lease-release",
+      "ok": true
+    },
+    {
+      "case": "final-authority-failure-rolls-back-count-cooldown-and-receipt",
+      "ok": true
+    },
+    {
+      "case": "below-cap-level-up-reply-before-potion-before-next-death",
+      "ok": true
+    }
+  ],
+  "candidate_bindings": {
+    "candidate/els_server/application.py": "231c019a4bbd3366b6221f3cd58c867260858e66f7af9905dc63cb18f02031c6",
+    "candidate/els_server/consumable_lane.py": "7d6005fb7f7ffc14243e95d693fc3da002d3b46374cd8154426c77e0b83464b7",
+    "candidate/els_server/domain/consumable_flow.py": "40ae9b634a5348601550ca8c1056e9faccb254fc6a290ef56492c85187dcd3b8",
+    "candidate/els_server/domain/resonance_allocation_flow.py": "df154a298f89ec23e4475b01bf2a028f6509f7e2e887ffd652db5c37817918fc",
+    "candidate/els_server/domain/resonance_flow.py": "e5de8fc48ef961455c0e2768ae5b303aa88b3e797e8fceecfb2ce099fc7e7fa7",
+    "candidate/els_server/native_inbox.py": "e3d87cec915a19735031d44c0e1149f6858b1b34e74f3e5fded0b1510f618fba",
+    "candidate/els_server/periodic_scheduler.py": "44d82d6f218a112eb15eeded9268164ef45bd93301e9714e0902d096ef91214a",
+    "candidate/els_server/storage/consumables.py": "addb4e474df81b937b39e5b1deb42d8b62ad530aad62f9e54a2d85790d39cbae",
+    "candidate/els_server/transport.py": "314f90efe188066bf690427a433821d0e3ea4a887a810090e0d30360155426e5"
+  },
+  "GIL_enabled": false,
+  "all_owned_runtime_removed": true,
+  "provenance": "First six unchanged cases reused from lane-reviewed.stdout.txt; corrected AF assertion verified by lane-level-up-native-af.stdout.txt. Failed fixture expectation retained privately."
+}

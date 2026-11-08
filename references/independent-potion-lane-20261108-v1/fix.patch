@@ -1,0 +1,436 @@
+--- a/els_server/application.py
++++ b/els_server/application.py
+@@ -447,6 +447,8 @@
+         self.executor=ThreadPoolExecutor(max_workers=1,thread_name_prefix='els-account')
+         from els_server.business_queue import BoundedBusinessQueue
+         self.business_queue=BoundedBusinessQueue(self.executor)
++        from els_server.consumable_lane import ConsumableWorkers
++        self.consumables=ConsumableWorkers()
+         from threading import RLock
+         from els_server.economy import EconomyWorkers,WorldGate
+         self.world_lock=RLock();self.world_gate=WorldGate();self.economy=EconomyWorkers(config.economy_workers)
+@@ -1065,7 +1067,7 @@
+             # A failed final save must not leave the remaining non-daemon
+             # writers alive. Retire every resource in the original order,
+             # then preserve all failures through the existing cleanup helper.
+-            cleanup_all(self.business_queue.close,self.dungeon_workers.close,
++            cleanup_all(self.business_queue.close,self.consumables.close,self.dungeon_workers.close,
+                 self.economy.close,close_registry,
+                 lambda:self.executor.shutdown(wait=True,cancel_futures=True),
+                 self.position_writer.close,self.coin_writer.close,
+--- /dev/null
++++ b/els_server/consumable_lane.py
+@@ -0,0 +1,174 @@
++"""Independent native potion work for a loaded solo actor; scene changes drain it."""
++import asyncio,time,sqlite3
++from contextlib import closing
++from pathlib import Path
++from concurrent.futures import ThreadPoolExecutor
++from els_server.business_queue import BoundedBusinessQueue
++
++
++# These producers do not select a character, enter/leave a room or advance
++# the scene. All other input is an ordering barrier for independent medicine.
++COMBAT_KINDS=frozenset((0xad,0xd0,0x640,0x3e6,0x38e,0xff20,0xff21,0x7d0))
++
++
++def combat(event):
++    return event.event_id==0x202 and event.kind in COMBAT_KINDS
++
++
++def selected(s):
++    from els_server.domain.equipment_chip_flow import current_lease
++    app=s.application;world=app.world;run=s.dungeon_run
++    return (s.role=='game'and s.client_build=='dx11_260923'and s.item_test
++        and s.phase=='dungeon_active'and s.dungeon_substage_synced
++        and run is not None and run.encounter is None
++        and not s.clear_notified and not s.dungeon_failed and not s.gate_stage_loading
++        and not s.released and not s.coop_error and not s.social_overflow
++        and getattr(s,'challenge_deadline',None)is None
++        and getattr(s,'active_challenge',None)is None
++        and world.party_of.get(s)is None and world.dungeons.room(s)is None
++        and world.pvp.room(s)is None and world.racing.room(s)is None
++        and world.field_bosses.room(s)is None and current_lease(s))
++
++
++def epoch(s):
++    r=s.dungeon_run
++    return (s.account,s.account.store,s.account.uid,s.account.account_id,
++        s.shop_session_id,r,r.run_id,r.stage,r.part,r.visits,s.reward_run_id)
++
++
++class ConsumableWorkers:
++    def __init__(self):
++        self.executor=ThreadPoolExecutor(max_workers=4,thread_name_prefix='els-consumable')
++        self.queue=BoundedBusinessQueue(self.executor,capacity=16)
++
++    async def level(self,binding):
++        path=binding[1].path;uid=binding[2];account=binding[3]
++        def read():
++            with closing(sqlite3.connect(Path(path).as_uri()+'?mode=ro',uri=True,timeout=10))as db:
++                row=db.execute('SELECT c.level FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(uid,account)).fetchone()
++                return row[0]if row else None
++        return await self.queue.run(read)
++
++    async def run(self,s,request,binding):
++        def authorize(db):
++            if (not selected(s)or epoch(s)!=binding
++                    or not s.application.registry.enabled(binding[3])):
++                raise ValueError('Consumable actor or loaded scene changed')
++        def use():
++            from els_server.domain.consumable_flow import handle
++            return handle(s,request.event,request.sequence,authorize=authorize)
++        return await self.queue.run(use)
++
++    def close(self):
++        self.queue.close();self.executor.shutdown(wait=True,cancel_futures=True)
++
++
++class ConsumableLane:
++    def __init__(self,application,session,scheduler,send,log,failure):
++        self.application=application;self.session=session;self.scheduler=scheduler
++        self.send=send;self.log=log;self.failure=failure
++        self.requests=asyncio.Queue(8);self.task=None;self.closed=False
++        self.pending=0
++        self.serial_pending=0;self.idle=asyncio.Event();self.idle.set()
++        self.error=None
++
++    async def admit(self,request,inbox):
++        s=self.session
++        if (self.closed or request.event.event_id!=0x202
++                or request.event.kind not in(0x113,0x65e)
++                or len(request.event.payload)!=5 or len(request.event.performers)>1
++                or not selected(s)):
++            return False
++        # A selected/running upkeep owns the actor until its original reply
++        # is written. Do not overlap it or overtake any earlier scene input.
++        slot=next((v for v in self.scheduler.slots.values()if v.session is s),None)
++        if inbox.current is not None and not combat(inbox.current.event):return False
++        if any(not combat(r.event)for r in inbox.pending):return False
++        binding=epoch(s);accepted=False;serialized=True
++        previous_done=inbox.current_done
++        self.pending+=1;self.serial_pending+=1;self.idle.clear();s._consumable_pending=self.pending
++        try:
++            level=await self.application.consumables.level(binding)
++            if level is None:return False
++            if level==99:
++                self.serial_pending-=1;serialized=False
++            elif previous_done is not None:
++                # A below-cap death may emit a level/full-unit update. Let
++                # that single current reply finish before healing, then keep
++                # subsequent deaths behind this potion until its effect sends.
++                await asyncio.shield(previous_done)
++            if slot is not None:
++                claim=slot.claim;finished=slot.finished
++                if claim is not None and claim.state=='running':
++                    # Let the already-started atomic upkeep retire, then keep
++                    # this potion ahead of queued combat rather than returning
++                    # it to the ordinary FIFO behind the entire burst.
++                    await asyncio.shield(finished)
++                else:
++                    await self.scheduler._cancel_waiter(slot)
++                    claim=slot.claim
++                    if claim is not None:
++                        if claim.cancel():
++                            slot.operation.release();self.scheduler.metrics['preempted']+=1
++                        else:await asyncio.shield(slot.finished)
++            if (self.closed or not selected(s)or epoch(s)!=binding
++                    or inbox.current is not None and not combat(inbox.current.event)
++                    or any(not combat(r.event)for r in inbox.pending)):
++                return False
++            self.requests.put_nowait((request,binding,serialized));accepted=True
++        finally:
++            if not accepted:
++                if serialized:self.serial_pending-=1
++                self.pending-=1;s._consumable_pending=self.pending;self.scheduler.wake.set()
++                if not self.pending:self.idle.set()
++        self.log('client_request',sequence=request.sequence,event_id=request.event.event_id,
++            kind=request.event.kind,size=request.size,lane='consumable')
++        if self.task is None:
++            self.task=asyncio.create_task(self._run(),name='native-consumable')
++            self.task.add_done_callback(lambda task:None if task.cancelled()else task.exception())
++        return True
++
++    async def _run(self):
++        try:
++            while not self.requests.empty():
++                request,binding,serialized=self.requests.get_nowait();started=time.perf_counter()
++                try:
++                    messages=await self.application.consumables.run(self.session,request,binding)
++                    timing=dict(connection_wait_ms=(started-request.received)*1000,encode_ms=0.,send_ms=0.)
++                    # This source-free ACK/effect must not consume another
++                    # worker's pending native attribute/skill source receipt.
++                    await self.send(messages,send_path='consumable',request_sequence=request.sequence,
++                        request_kind=request.event.kind,timing=timing)
++                    self.log('request_timing',sequence=request.sequence,kind=request.event.kind,
++                        phase=self.session.phase,calls=[dict(lane='consumable')],reply_complete=True,
++                        total_ms=(time.perf_counter()-request.received)*1000,**timing)
++                finally:
++                    if serialized:self.serial_pending-=1
++                    self.pending-=1;self.session._consumable_pending=self.pending
++                    if not self.pending:self.idle.set()
++                    self.requests.task_done();self.scheduler.wake.set()
++        except Exception as error:
++            self.closed=True;self.error=error
++            self.failure(error)
++            while not self.requests.empty():
++                _,_,serialized=self.requests.get_nowait();self.requests.task_done();self.pending-=1
++                if serialized:self.serial_pending-=1
++            self.session._consumable_pending=self.pending
++            if not self.pending:self.idle.set()
++            raise
++        finally:self.task=None
++
++    async def drain(self):
++        await self.idle.wait()
++        if self.error is not None:raise self.error
++
++    async def close(self):
++        self.closed=True
++        task=self.task;cancelled=False
++        if task is not None:
++            while not task.done():
++                try:await asyncio.shield(task)
++                except asyncio.CancelledError:cancelled=True
++            task.result()
++        if cancelled:raise asyncio.CancelledError
++        if self.error is not None:raise self.error
+--- a/els_server/domain/consumable_flow.py
++++ b/els_server/domain/consumable_flow.py
+@@ -4,7 +4,7 @@
+ from els_server.domain.equipment_chip_flow import current_lease
+ 
+ 
+-def handle(session,event,sequence):
++def handle(session,event,sequence,*,authorize=None):
+     automatic=event.kind==0x65e
+     if (session.role!='game' or session.phase not in('town_ready','dungeon_active')
+         or session.account.store is None or session.account.store.uid!=session.account.uid
+@@ -18,6 +18,7 @@
+             session.shop_session_id+':'+str(session.account.uid)+':'+str(sequence),
+             automatic_use=automatic,allow_apples=native_stage_ready(session)or session.phase=='town_ready',
+             mount_only=session.phase=='town_ready',
+-            account_id=session.account.account_id if session.account.characters is not None else None)
++            account_id=session.account.account_id if session.account.characters is not None else None,
++            authorize=authorize)
+     except ConsumableCoolingDown:return [acknowledgement(result=1369,automatic=automatic)]
+     except ValueError:return [acknowledgement(result=500,automatic=automatic)]
+--- a/els_server/domain/resonance_allocation_flow.py
++++ b/els_server/domain/resonance_allocation_flow.py
+@@ -8,6 +8,7 @@
+ """
+ from contextlib import closing
+ from functools import lru_cache
++from dataclasses import replace
+ from pathlib import Path
+ import sqlite3,struct
+ from els_server.domain.resonance_2026_allocations import ResonanceRejected
+@@ -67,15 +68,28 @@
+         period=period_key(db,s.account.account_id,s.account.uid)if {'character_resonance_period','character_mentor_resonance_period'}&tables else None
+         key=(s.account.account_id,s.account.uid,current['revision'],row,period)
+         if getattr(s,'resonance_page_sync_key',None)==key:return messages
++        previous=getattr(s,'resonance_page_sync_key',None)
++        cached=getattr(s,'resonance_page_sync_state',None)
+         try:
+-            db.execute('BEGIN IMMEDIATE');p,state=prepare(db,s);notice=state.notice();encode_event(notice)
+-            revision=p.pages.read(s.account.account_id,s.account.uid).revision
+-            db.commit()
++            if (cached is not None and previous is not None
++                    and previous[:2]==key[:2] and previous[3:]==key[3:]
++                    and cached.level==current['level']):
++                # Only cumulative XP changed. Reuse the exact admitted page,
++                # points and opaque fields; a level/page/period change still
++                # takes the original transactional projection below.
++                state=replace(cached,cumulative_experience=current['experience'])
++                notice=state.notice();encode_event(notice)
++                revision=row[0]
++            else:
++                db.execute('BEGIN IMMEDIATE');p,state=prepare(db,s);notice=state.notice();encode_event(notice)
++                revision=p.pages.read(s.account.account_id,s.account.uid).revision
++                db.commit()
+         except ValueError:
+             # Unknown legacy/profile metadata is kept intact. It must not
+             # prevent ordinary login or be replaced with guessed zero pages.
+             db.rollback();return messages
+     s.resonance_page_sync_key=(s.account.account_id,s.account.uid,current['revision'],(revision,),period)
++    s.resonance_page_sync_state=state
+     return [*messages,notice]
+ 
+ 
+--- a/els_server/domain/resonance_flow.py
++++ b/els_server/domain/resonance_flow.py
+@@ -1,4 +1,4 @@
+-"""Current absolute full-unit scalar sync for shared ERP, no acquisition replay."""
++"""Native shared ERP sync without duplicate full-unit projections."""
+ def synchronize(s,messages):
+  if s.role!='game' or s.phase not in ('town_ready','dungeon_active') or s.client_build!='dx11_260923' or s.account.store is None or s.account.characters is None:return messages
+  from els_server.storage.resonance_state import state
+@@ -6,8 +6,17 @@
+  if not current['enabled']:return messages
+  from els_server.domain.resonance_allocation_flow import synchronize as allocation_sync
+  key=(current['account_id'],current['revision'],s.account.uid)
+- if getattr(s,'resonance_sync_key',None)==key:return allocation_sync(s,messages,current)
++ answer=allocation_sync(s,messages,current)
++ # Native D38470 copies the complete610 scalars to actor+2861..2871,
++ # then restores allocations/pages and refreshes the actor. A second full
++ # D9 repeats that update and rebuilds unrelated equipment/skills per kill.
++ if any(e.event_id==0x201 and e.kind==0x610 for e in answer[len(messages):]):
++  s.resonance_sync_key=key
++  return answer
++ if getattr(s,'resonance_sync_key',None)==key:return answer
++ # Existing opaque profiles can reject610 projection. Keep their original
++ # absolute scalar sync without provisioning or replacing saved page data.
+  notice=s.saved_user_sync(resonance_snapshot=current)
+  from els_server.protocol.protocol_codec import encode_event
+  encode_event(notice);s.resonance_sync_key=key
+- return allocation_sync(s,[*messages,notice],current)
++ return [*answer,notice]
+--- a/els_server/native_inbox.py
++++ b/els_server/native_inbox.py
+@@ -29,11 +29,12 @@
+ 
+ 
+ class NativeInbox:
+-    def __init__(self,read,keys,session,metrics,*,auxiliary=None):
++    def __init__(self,read,keys,session,metrics,*,auxiliary=None,independent=None):
+         self.read=read;self.keys=keys;self.session=session;self.metrics=metrics
+         self.pending=deque();self.bytes=0;self.condition=asyncio.Condition()
+         self.error=None;self.moving=False
+         self.auxiliary=auxiliary
++        self.independent=independent;self.current=None;self.current_done=None
+         self.task=asyncio.create_task(self._read(),name='native-input')
+ 
+     def town(self):
+@@ -78,12 +79,15 @@
+                 request=Request(frame.sequence,event,len(wire),time.perf_counter(),position(event))
+                 # Neither encrypted wire nor duplicate plaintext escapes here.
+                 del wire,frame
++                if self.independent is not None and await self.independent(request,self):continue
+                 async with self.condition:
+                     if (request.position and self.moving and self.town()and self.pending
+                             and all(p.position for p in self.pending)):
+                         prior=self.pending.pop();self.bytes-=prior.size;self.merge()
+                     else:
+-                        await self.condition.wait_for(lambda:len(self.pending)<16 and self.bytes+request.size<=1024*1024)
++                        # Authenticate a bounded lookahead so a potion behind
++                        # a combat burst can reach its independent lane.
++                        await self.condition.wait_for(lambda:len(self.pending)<128 and self.bytes+request.size<=1024*1024)
+                     self.pending.append(request);self.bytes+=request.size;self.condition.notify_all()
+                 if sequence%16==0:await asyncio.sleep(0)
+         except asyncio.CancelledError:raise
+@@ -98,8 +102,17 @@
+             self.moving=request.position and self.town()
+             while self.moving and self.pending and self.pending[0].position:
+                 request=self.pending.popleft();self.bytes-=request.size;self.merge()
++            self.current=request
++            self.current_done=asyncio.get_running_loop().create_future()
+             self.condition.notify_all();return request
++
++    def completed(self,request):
++        if self.current is request:
++            self.current=None
++            if self.current_done is not None:self.current_done.set_result(None)
++            self.current_done=None
+ 
+     async def close(self):
+         self.task.cancel();await asyncio.gather(self.task,return_exceptions=True)
+         self.pending.clear();self.bytes=0;self.error=None
++        self.current=None;self.current_done=None;self.independent=None
+--- a/els_server/periodic_scheduler.py
++++ b/els_server/periodic_scheduler.py
+@@ -173,6 +173,7 @@
+                 self.wake.clear();now=time.monotonic();ready=[];capacity_blocked=set();followup_deadlines={}
+                 for slot in sorted(self.slots.values(), key=lambda value: value.due):
+                     if slot.closed or slot.finished is not None or slot.due>now:continue
++                    if getattr(slot.session,'_consumable_pending',0):continue
+                     if slot.foreground and slot.waiting is None and now-slot.last_completed<1:continue
+                     if (not slot.foreground and slot.waiting is None
+                             and slot.wake_generation==slot.poll_generation and now-slot.last_completed<1):
+@@ -244,7 +245,7 @@
+                 # Worker retirement/delivery already wakes this scheduler.
+                 # An overdue actor without a free upkeep lane cannot provide
+                 # a useful timer deadline: polling it every1ms just spins.
+-                due=[max(s.due,followup_deadlines.get(id(s),s.due)) for s in self.slots.values() if not s.closed and not s.foreground and s.finished is None and not s.operation.locked()and id(s)not in capacity_blocked]
++                due=[max(s.due,followup_deadlines.get(id(s),s.due)) for s in self.slots.values() if not s.closed and not s.foreground and s.finished is None and not s.operation.locked()and not getattr(s.session,'_consumable_pending',0)and id(s)not in capacity_blocked]
+                 delay=max(.001,min(due)-time.monotonic()) if due else self.interval
+                 try:await asyncio.wait_for(self.wake.wait(),delay)
+                 except TimeoutError:pass
+--- a/els_server/storage/consumables.py
++++ b/els_server/storage/consumables.py
+@@ -11,13 +11,14 @@
+ from els_server.domain.consumable_extensions import quick_templates,quick_bindings,infinite
+ 
+ 
+-def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apples=False,account_id=None,mount_only=False):
++def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apples=False,account_id=None,mount_only=False,authorize=None):
+     uid=character_uid(uid)
+     slot=request(payload,automatic=automatic_use)
+     if not isinstance(operation_id,str) or not 1<=len(operation_id)<=160:raise ValueError('Consumable operation identity')
+     digest=hashlib.sha256(str(uid).encode()+b':'+bytes([automatic_use])+payload).hexdigest()
+     with closing(sqlite3.connect(path,timeout=10)) as db,db:
+         db.execute('BEGIN IMMEDIATE')
++        if authorize is not None:authorize(db)
+         # Expiration is authoritative after any wait for the real writer lock.
+         now=time.time() if now is None else now
+         if not isinstance(now,(int,float)) or not math.isfinite(now) or now<0:raise ValueError('Consumable clock')
+@@ -112,4 +113,5 @@
+             db.execute('INSERT INTO consumable_cooldowns VALUES (?,?,?) ON CONFLICT(owner,cooldown_group) DO UPDATE SET ready_at=excluded.ready_at',(uid,meta['cooldown_group'],now+duration))
+         db.execute('CREATE TABLE IF NOT EXISTS consumable_uses (operation_id TEXT PRIMARY KEY, request_hash TEXT NOT NULL, owner INTEGER NOT NULL, item_uid INTEGER NOT NULL, template INTEGER NOT NULL, used_at REAL NOT NULL)')
+         db.execute('INSERT INTO consumable_uses VALUES (?,?,?,?,?,?)',(operation_id,digest,uid,item['uid'],item['template'],now))
++        if authorize is not None:authorize(db)
+         return answer
+--- a/els_server/transport.py
++++ b/els_server/transport.py
+@@ -112,7 +112,7 @@
+             return header+await reader.readexactly(length-8)
+ 
+     async def handle(self,reader,writer,index):
+-        notifications=None;clock=None;closure=None;business=None;native_sources=None;inbox=None;encoder=None;outbox=None
++        notifications=None;clock=None;closure=None;business=None;native_sources=None;inbox=None;encoder=None;outbox=None;consumables=None
+         self.log('accepted',connection=index)
+         try:
+             # Accepted Windows sockets may report proto=0, so the runtime's
+@@ -257,7 +257,6 @@
+             self.log('generated_welcome_sent',connection=index)
+             from els_server.native_inbox import NativeInbox
+             auxiliary=(lambda event:self.realtime.auxiliary(business,event))if self.realtime is not None else None
+-            inbox=NativeInbox(lambda:self.read_frame(reader),keys,business,self.metrics,auxiliary=auxiliary)
+             async def send_periodic(messages):
+                 await send(messages,send_path='periodic')
+             from els_server.native_outbox import NativeOutbox,town_messages
+@@ -277,6 +276,11 @@
+                     transient=native_sources.release_transient(messages)
+                 context=(business.shop_session_id,business.account.uid,business.active_map)if transient else None
+                 return await outbox.submit(messages,dict(send_path=send_path,request_sequence=request_sequence,request_kind=request_kind,timing=timing),transient=transient,context=context)
++            from els_server.consumable_lane import ConsumableLane,combat
++            consumables=ConsumableLane(self.application,business,self.periodics,send,
++                lambda event,**fields:self.log(event,connection=index,**fields),outbound_failure)
++            inbox=NativeInbox(lambda:self.read_frame(reader),keys,business,self.metrics,
++                auxiliary=auxiliary,independent=consumables.admit)
+             notifications=asyncio.create_task(self.periodics.serve(business,operation,send_periodic),name=f'notifications-{index}')
+             # Propagate timer failures promptly even while waiting for a client packet.
+             def notification_done(task):
+@@ -345,6 +349,7 @@
+                 clock.add_done_callback(notification_done)
+             while not self.closing:
+                 frame=await inbox.get();event=frame.event
++                if not combat(event)or consumables.serial_pending:await consumables.drain()
+                 entry_fields={}
+                 if event.event_id==0x202 and event.kind==0x7d4 and len(event.payload)==8:
+                     entry_mode,dungeon=struct.unpack('>ii',event.payload)
+@@ -425,6 +430,7 @@
+                         if event.kind!=0x7d0 or timing['total_ms']>=100 or frame.sequence%64==0:
+                             self.log('request_timing',connection=index,sequence=frame.sequence,kind=event.kind,
+                                 phase=business.phase,calls=calls,**timing)
++                inbox.completed(frame)
+         except asyncio.IncompleteReadError:
+             pass
+         except (ProtocolError,SessionOrderError) as error:
+@@ -466,6 +472,7 @@
+             # waits for the whole teardown before this connection can retire.
+             await cleanup_all_async(
+                 lambda:inbox.close() if inbox is not None else None,
++                lambda:consumables.close() if consumables is not None else None,
+                 lambda:self.realtime.close_session(business) if business is not None and self.realtime is not None else None,
+                 stop_clock,cancel_notifications,lambda:outbox.close() if outbox is not None else None,
+                 lambda:native_sources.close() if native_sources is not None else None,
