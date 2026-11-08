@@ -1,0 +1,284 @@
+{
+  "baseline-variants": {
+    "ok": true,
+    "checks": {
+      "native_catalog_payload_and_all_24_requests": true,
+      "wear_capability_revoked": true,
+      "erp_full_unit_golden": {
+        "bytes": 4662,
+        "sha256": "fe8cce7afe1f421bb3308feffd7c9a76bc154bf6ea427d52d7a1b29bccd78a9c"
+      },
+      "region_enrollment_golden": {
+        "same_native_acceptance_bytes": true,
+        "accepted": 2
+      },
+      "camp_stay_business": {
+        "normal_grant": true,
+        "replay_without_increment": true,
+        "cold_read": true,
+        "encoder_rollback": true
+      },
+      "fresh_native_deaths": 3,
+      "obsolete_lease_rejected": true
+    },
+    "burst": {
+      "wall_ms": 1117.2546000016155,
+      "total": {
+        "n": 24,
+        "p50_ms": 606.6332999980659,
+        "max_ms": 827.5956000070437
+      },
+      "connection_wait": {
+        "n": 24,
+        "p50_ms": 556.8296999990707,
+        "max_ms": 774.6412999986205
+      },
+      "handler": {
+        "n": 24,
+        "p50_ms": 42.16859999723965,
+        "max_ms": 61.19549999857554
+      }
+    },
+    "dungeon_burst": {
+      "requests": 6,
+      "total": {
+        "n": 6,
+        "p50_ms": 179.10339999798452,
+        "max_ms": 254.3212999953539
+      },
+      "connection_wait": {
+        "n": 6,
+        "p50_ms": 177.652999998827,
+        "max_ms": 253.14029999572085
+      }
+    },
+    "owned_runtime_removed": true,
+    "connections": 0
+  },
+  "candidate-variants": {
+    "ok": true,
+    "checks": {
+      "native_catalog_payload_and_all_24_requests": true,
+      "wear_capability_revoked": true,
+      "erp_full_unit_golden": {
+        "bytes": 4662,
+        "sha256": "fe8cce7afe1f421bb3308feffd7c9a76bc154bf6ea427d52d7a1b29bccd78a9c"
+      },
+      "region_enrollment_golden": {
+        "same_native_acceptance_bytes": true,
+        "accepted": 2
+      },
+      "camp_stay_business": {
+        "normal_grant": true,
+        "replay_without_increment": true,
+        "cold_read": true,
+        "encoder_rollback": true
+      },
+      "fresh_native_deaths": 3,
+      "obsolete_lease_rejected": true
+    },
+    "burst": {
+      "wall_ms": 27.493399997183587,
+      "total": {
+        "n": 24,
+        "p50_ms": 15.620600002876017,
+        "max_ms": 19.911099996534176
+      },
+      "connection_wait": {
+        "n": 24,
+        "p50_ms": 14.239800002542324,
+        "max_ms": 18.83770000131335
+      },
+      "handler": {
+        "n": 24,
+        "p50_ms": 0.3809000045293942,
+        "max_ms": 2.0230000009178184
+      }
+    },
+    "dungeon_burst": {
+      "requests": 6,
+      "total": {
+        "n": 6,
+        "p50_ms": 139.71219999802997,
+        "max_ms": 197.6183000006131
+      },
+      "connection_wait": {
+        "n": 6,
+        "p50_ms": 138.4957000045688,
+        "max_ms": 196.4499999958207
+      }
+    },
+    "owned_runtime_removed": true,
+    "connections": 0
+  },
+  "online_host_isolated_candidate": {
+    "ok": true,
+    "checks": {
+      "native_catalog_payload_and_all_24_requests": true,
+      "wear_capability_revoked": true,
+      "erp_full_unit_golden": {
+        "bytes": 4662,
+        "sha256": "fe8cce7afe1f421bb3308feffd7c9a76bc154bf6ea427d52d7a1b29bccd78a9c"
+      },
+      "region_enrollment_golden": {
+        "same_native_acceptance_bytes": true,
+        "accepted": 2
+      },
+      "camp_stay_business": {
+        "normal_grant": true,
+        "replay_without_increment": true,
+        "cold_read": true,
+        "encoder_rollback": true
+      },
+      "fresh_native_deaths": 3,
+      "obsolete_lease_rejected": true
+    },
+    "burst": {
+      "wall_ms": 49.902800004929304,
+      "total": {
+        "n": 24,
+        "p50_ms": 27.546599972993135,
+        "max_ms": 37.33680001460016
+      },
+      "connection_wait": {
+        "n": 24,
+        "p50_ms": 26.218799874186516,
+        "max_ms": 35.249700071290135
+      },
+      "handler": {
+        "n": 24,
+        "p50_ms": 0.5727000534534454,
+        "max_ms": 2.863300032913685
+      }
+    },
+    "dungeon_burst": {
+      "requests": 6,
+      "total": {
+        "n": 6,
+        "p50_ms": 280.69170005619526,
+        "max_ms": 400.5550998263061
+      },
+      "connection_wait": {
+        "n": 6,
+        "p50_ms": 279.18340009637177,
+        "max_ms": 399.07529996708035
+      }
+    },
+    "owned_runtime_removed": true,
+    "connections": 0
+  },
+  "online_host_isolated_baseline": {
+    "ok": true,
+    "checks": {
+      "native_catalog_payload_and_all_24_requests": true,
+      "wear_capability_revoked": true,
+      "erp_full_unit_golden": {
+        "bytes": 4662,
+        "sha256": "fe8cce7afe1f421bb3308feffd7c9a76bc154bf6ea427d52d7a1b29bccd78a9c"
+      },
+      "region_enrollment_golden": {
+        "same_native_acceptance_bytes": true,
+        "accepted": 2
+      },
+      "camp_stay_business": {
+        "normal_grant": true,
+        "replay_without_increment": true,
+        "cold_read": true,
+        "encoder_rollback": true
+      },
+      "fresh_native_deaths": 3,
+      "obsolete_lease_rejected": true
+    },
+    "burst": {
+      "wall_ms": 2475.574499927461,
+      "total": {
+        "n": 24,
+        "p50_ms": 1336.4102998748422,
+        "max_ms": 1893.0088998749852
+      },
+      "connection_wait": {
+        "n": 24,
+        "p50_ms": 1247.1336999442428,
+        "max_ms": 1800.73619983159
+      },
+      "handler": {
+        "n": 24,
+        "p50_ms": 91.47839993238449,
+        "max_ms": 155.92789999209344
+      }
+    },
+    "dungeon_burst": {
+      "requests": 6,
+      "total": {
+        "n": 6,
+        "p50_ms": 473.47690002061427,
+        "max_ms": 631.299200002104
+      },
+      "connection_wait": {
+        "n": 6,
+        "p50_ms": 465.0743000674993,
+        "max_ms": 629.8014998901635
+      }
+    },
+    "owned_runtime_removed": true,
+    "connections": 0
+  },
+  "cache_regressions": {
+    "tests": 6,
+    "passed": 6,
+    "cases": [
+      "same-template different nested variants",
+      "identical-body sharing",
+      "nested mutation",
+      "deadline/count changes",
+      "operation lifetime",
+      "original default key"
+    ]
+  },
+  "retained_fixture_failure": "Initial region enrollment fixture used town1010 for root26640, which legitimately rejects that location. Corrected own fixture to admitted town20000; the prior failure is retained locally. Earlier unchanged successful checks were reused, then all affected paths passed with varied deadlines.",
+  "limitations": [
+    "Isolated native TLS/SQL tests only; no natural GUI/battle or multiplayer-capacity claim.",
+    "Formal installation, loaded-file acceptance and production post-install timings remain for the authorized publisher.",
+    "Dungeon burst still has nonzero required gameplay processing; no claim that every latency source is eliminated."
+  ],
+  "unit_equipment_extension_local": {
+    "ok": true,
+    "checks": {
+      "groups": [
+        9,
+        22,
+        23,
+        24
+      ],
+      "special_slots_retained": true,
+      "old_nine_only_projection_differs": true,
+      "full_native_unit_equal": true,
+      "bytes": 5646,
+      "sha256": "798ee13aad5f1572d2cb946b290f73e5ddad42df6e35ee48623acf75dc489848",
+      "camp_uniform_equal": true
+    },
+    "owned_runtime_removed": true,
+    "connections": 0
+  },
+  "unit_equipment_extension_online_host": {
+    "ok": true,
+    "checks": {
+      "groups": [
+        9,
+        22,
+        23,
+        24
+      ],
+      "special_slots_retained": true,
+      "old_nine_only_projection_differs": true,
+      "full_native_unit_equal": true,
+      "bytes": 5646,
+      "sha256": "798ee13aad5f1572d2cb946b290f73e5ddad42df6e35ee48623acf75dc489848",
+      "camp_uniform_equal": true
+    },
+    "owned_runtime_removed": true,
+    "connections": 0
+  },
+  "revision2": "Six-leaf freeze dadfa7c1d0b4757cc78f29b78761dca587f1cea83a14cd07e6d02d1299f4f361 is withdrawn and retained. Added inventory_state.py to preserve all native worn groups9/22/23/24. Earlier performance samples describe the unchanged six-leaf paths without special worn slots; revision2 additionally passes full-Unit golden comparisons with life tools, bait and Artifact gear on both hosts. No formal deployment is claimed.",
+  "special_fixture_failures": "Preserved local fixture failures: treating a static fishing ROWS tuple as its decoded definition, then adding fixture UIDs outside the real inventory sequence. Corrected the fixture to use definition() and the owned sequence; no production source or player data was changed for either error."
+}
