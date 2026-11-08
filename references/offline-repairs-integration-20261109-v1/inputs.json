@@ -1,0 +1,222 @@
+{
+  "parent_path": "G:\\els\\releases\\online\\three-chat-repairs-bulk-boxes-20261108-v1",
+  "parent_release": "three-chat-repairs-bulk-boxes-20261108-v1",
+  "parent_manifest_sha256": "1f06879f7a273478e630069288a89646a2ca2af9f1bf1dc3e6f04a0746f206aa",
+  "inputs": [
+    {
+      "directory": "offline-social-repairs-20261109-v1",
+      "manifest": "candidate-manifest.json",
+      "sha256": "c5a070645ad7e100d84ccd786b89313a53eb56cd537c7a124c71665b53ceb553",
+      "files": 2
+    },
+    {
+      "directory": "offline-social-repairs-20261109-v2",
+      "manifest": "candidate-manifest.json",
+      "sha256": "fa1281d9877d437e5a8dc6a6b5c577c84206b7d5decbe1bb002d3fda132654ca",
+      "files": 7
+    },
+    {
+      "directory": "offline-social-repairs-20261109-v3",
+      "manifest": "candidate-manifest.json",
+      "sha256": "d160e4dee04241e817a3d6ce148a0ea9c0e34f34a31ed86546ea24cebb289b40",
+      "files": 9
+    },
+    {
+      "directory": "offline-feature-sweep-20261109-v1",
+      "manifest": "candidate-manifest-v2.json",
+      "sha256": "7d1bf2d4d91bba851d589fe28f479eac5353b54a9941d5fdcb7cab1fb95f5973",
+      "files": 27
+    }
+  ],
+  "files": [
+    {
+      "path": "els_server/domain/whisper.py",
+      "sha256": "472b3c1c913e5e0b68809b0d97bad18a22361d4e73d679ea9569e6cde2fc5410",
+      "parent_sha256": "ebfb8a1d3853f0cffbecb1f5c9c1abd69882034f5ee6e19b3eb7586fdba75c93",
+      "size": 1371,
+      "reused_previous": true
+    },
+    {
+      "path": "els_server/storage/mailbox_extras.py",
+      "sha256": "947277652d78f8f98f94c193030ab8929922c6eae0f65643a0c71c0ddf92ebbb",
+      "parent_sha256": "2dc901a4e49ed2fcfc2a4da2a3843e3b8a7eacc06b672a42ae9e48b14016f776",
+      "size": 5474,
+      "reused_previous": true
+    },
+    {
+      "path": "els_server/storage/friend_state.py",
+      "sha256": "a8ea98404faf7616408428f48f14201f1332ebb290f868e1c9da15467635da5c",
+      "parent_sha256": "df6668a5502064b4033f18d6ecfcb9a584b3f03421618d01ed4d6bcd76295388",
+      "size": 11880,
+      "reused_previous": true
+    },
+    {
+      "path": "els_server/domain/friend_flow.py",
+      "sha256": "821f6189402e381c9ac09c0646b48a25fe7d729d8d6920475b37e8b393fcdf95",
+      "parent_sha256": "898ccbd8b91be003d5d12b29e423e1d34fe00e6fe6fd471e00db3fbcac09a6b5",
+      "size": 9754,
+      "reused_previous": true
+    },
+    {
+      "path": "els_server/storage/online_2026_mail_snapshot.py",
+      "sha256": "82b0de38394318a1b08dae73880ca5b504309261d67c8075e544fbdc38147802",
+      "parent_sha256": "7884cf57776c75c24994e0fc54b71ba6e8fab709ca20ee62baf758302eeec8a2",
+      "size": 1910,
+      "reused_previous": true
+    },
+    {
+      "path": "els_server/domain/mailbox_extras.py",
+      "sha256": "e86686378f6e2c1bdaddf108b666ab5cd3e522d90ae425d288ba2bf88f25d6dc",
+      "parent_sha256": "cb8e517a4bf70eb157ed842295474a626c71526372cea64720d997429bcb45b8",
+      "size": 4514,
+      "reused_previous": true
+    },
+    {
+      "path": "tests/test_mail_scope_current.py",
+      "sha256": "f65c90e7299857feffbbacdbc6a104005ae2b7cc2e6675622dcfb617fca0307e",
+      "parent_sha256": "b55dbe154f33cefda55f58dcb1847426025501f790177ec810a137bd19f9ab46",
+      "size": 5741,
+      "reused_previous": true
+    },
+    {
+      "path": "els_server/domain/guild_chat.py",
+      "sha256": "dcb8b58662881491188f686d28b06fe6bd83ec887eadc0c9b8ec866d0f095ae3",
+      "parent_sha256": "f21aa31714da101b51d91308fc00c8317dabac0bc25333e6a2a103b6b9d9cf9a",
+      "size": 2478,
+      "reused_previous": true
+    },
+    {
+      "path": "els_server/storage/player_mail.py",
+      "sha256": "c8a04803f824fc24dda40d1b58030df7f4c0ec1229fe13eb8094933a912e7b12",
+      "parent_sha256": "b93ebcb20f17fdf4c5792b8f6ebbb2effc30531a4bb7b79176c39cc286b7ac00",
+      "size": 17233,
+      "reused_previous": true
+    },
+    {
+      "path": "els_server/storage/expansion_items.py",
+      "sha256": "ed0c409e71a1f3574e71ac7df9e47990e4696518b589baa5ac207a7c9e8e2c40",
+      "parent_sha256": "17634457df539054806f3352f19cbf82f702b5da3e014132f0cb9f51fdb6b104",
+      "size": 3366,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/skill_unlocks.py",
+      "sha256": "a5027dfd94811abf637547ff2ca0ea3626783581f71c1f0c2d3d5e90bcbc18fc",
+      "parent_sha256": "5a5a9c59bd856772aac68ff557d1d5d4032845804a7dfd416f7a93a2561ff9c7",
+      "size": 9096,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/titles.py",
+      "sha256": "996047bf92672c5634b8a543c3f54905bc0b77206f32f19c03d81b3119939f37",
+      "parent_sha256": "2de44e15b4b7533448cd8331834eaebba55ae6a9311dfd2d46fc01cb6a421ef1",
+      "size": 10844,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/careers.py",
+      "sha256": "67e26cdc5129330e9e6cc652dab9ae9ab04c8a5b8deff50e3ce930d6d9e85509",
+      "parent_sha256": "4a8de5890d6b65de9ad47e9463c5f5f16ddb6964bb397c67a9d0e17736a7e746",
+      "size": 7648,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/artifact_progression.py",
+      "sha256": "df3ac8393a2060ba2d12ca8ee5ba5cc24e3274b2756ee0a52e9292d83b1e2706",
+      "parent_sha256": "9e3a2d99eb191263132f4337ee7d191199a6ecdf3f8711b64b410713607424d7",
+      "size": 11384,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/item_expiration.py",
+      "sha256": "fe252dfb50a373032d240065abda81ed05ea0a0c35c877514bc6210f178bb892",
+      "parent_sha256": "652c67e793205d1ccd45ced25d8b4861ef7ad79d1361b68e880cc197701982d4",
+      "size": 7460,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/resonance_state.py",
+      "sha256": "24bbcf331ecfcb665201d298aff650d7ef4d146bd15e2f6a16152f89389a46d2",
+      "parent_sha256": "7acf46609b707a920bce8773f00c0e482b409e8f8cacbcb84337ee1b2eeea4ed",
+      "size": 8346,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/companion_state.py",
+      "sha256": "9f9344a40ede594e8eff4ddb1fa7d8a41cf731ffd507c29e0a7a0e8c332fac4f",
+      "parent_sha256": "8c1b3f94b7a0f7cd5b5a37a58a189645b1e428de2b195a7f59a21bc5eb2a85eb",
+      "size": 13530,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/ariel_attendance.py",
+      "sha256": "1a59c6188cb103b4dafa249dfb77efb0bc96c8aefe2675ca29b10f85fd74b45d",
+      "parent_sha256": "0ac41fa78e1dbeba64d83d15f7c8b9cb96521dae5893d2f930d3cc6233977a56",
+      "size": 11735,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/inventory_actions.py",
+      "sha256": "fcc7be279324eaa11e066a4f7bc60ab66eba1e011b61f20be4038747160094f9",
+      "parent_sha256": "7f6d281ae539d4925c8655d4ef2f98d4b077257be2fec0ea9262f584f66007d8",
+      "size": 8469,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/attribute_enchant.py",
+      "sha256": "c94a5f2236017b0c3dc5dad61980797c6ab1f6a2b2ed749970a8b56e22a3c5b8",
+      "parent_sha256": "51c07bb585209354560f8ca118c2b4e0a80b58aee7c27fda32a1685003417d12",
+      "size": 7125,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/consumables.py",
+      "sha256": "45992289b09b59ec04e67e2713223c711f895939b0d545e3bb01346226584ca3",
+      "parent_sha256": "87824cd68d1d005dc5d4e4d0b56d8f24fbe2cd5735a0253de70c2909f86d110d",
+      "size": 9894,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/equipment_repair.py",
+      "sha256": "cdd476797783ce4ba4b09467525f9f5b485c3dac48ea7b09440f0ea2233040cd",
+      "parent_sha256": "c63e74c6c6b26a2e4d07b3463c15279177fb8630cba8be3516af3e9a0bb8a8c9",
+      "size": 4702,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/paid_enhancement.py",
+      "sha256": "439b4bd291c0e5c7e1e96aa8e23cfbded604b252c0d5eb67da84fe59b8bc7f56",
+      "parent_sha256": "b90e345c69915a78183be33457a598514b0e2bb2a97576159fca2936ccf916dc",
+      "size": 5319,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/equipment_restoration.py",
+      "sha256": "1e1f60043858fe1eaed43c8dfc3ceba3dd091f1a97ce77d03567bd7415254de9",
+      "parent_sha256": "710b64849de2ff0d76ce8b9fa06c0669514155c2b30d09fb275c8d05b81c2aad",
+      "size": 2807,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/skill_traits.py",
+      "sha256": "f05f19e37fc7f3e0c6ac66789ea6ecddc3dc6bc7e05f36df3962f6c500f3a3e1",
+      "parent_sha256": "38ef619d85d02931b3335653e8468a75567e114eceddc3851bd9d1069e814b52",
+      "size": 6156,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/quick_slots.py",
+      "sha256": "5f7bb57086b0843d116d0dab5d96c51eff6b69e17b2af425a798200250426198",
+      "parent_sha256": "0d672f802b5bb4b2f8500f5482e9b60419884c88adfa5ed612c4bc9c9f146b41",
+      "size": 4181,
+      "reused_previous": false
+    },
+    {
+      "path": "els_server/storage/ice_state.py",
+      "sha256": "736391f4d58a565e8eb869f9a6f58a7a6faf3dec9d0a5f582a4a38cbf1fd7fbd",
+      "parent_sha256": "b8a9a2d3fe6181cfc8686c1e86fac1a0f5e254069fd5aa70970f095ae8edff06",
+      "size": 9260,
+      "reused_previous": false
+    }
+  ]
+}
