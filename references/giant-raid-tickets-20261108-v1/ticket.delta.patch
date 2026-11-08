@@ -1,0 +1,208 @@
+--- a/els_server/domain/acquisition_policy.py
++++ b/els_server/domain/acquisition_policy.py
+@@ -41,6 +41,9 @@
+ HISTORICAL_PAGE1_USE_ONLY_TICKETS = frozenset((713172,713173,713174,713175,713176,713177,713438,713439,713440,713441,713442,713443))
+ 
+ def can_acquire(template,*,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None,regional_cube_source=None,black_market_box_source=None,feta_exchange_source=None):
++    from els_server.domain.dungeon_ticket_shop import TEMPLATES as shop_tickets,authorize_output as ticket_output
++    if template in shop_tickets and ticket_output(template,raid_reward_source):return True
++    if template==136055:return False  # The approved shop is its only new source.
+     from els_server.domain.pet_trainer_exchange import SOURCE_ONLY as trainer_only,authorize_output as trainer_output
+     if template in trainer_only:return trainer_output(template,raid_reward_source)
+     if template==324815:
+--- a/els_server/domain/dungeon_ticket_shop.py
++++ b/els_server/domain/dungeon_ticket_shop.py
+@@ -0,0 +1,33 @@
++"""Owner-approved permanent giant keys and weekly raid resets, 50 ED each."""
++from els_server.game_data import client_data
++
++KEYS=(480356,309244,713224,716829)
++RESETS=(135909,136055)
++TEMPLATES=frozenset(KEYS+RESETS)
++POLICY='giant-raid-tickets-50ed-20261108-v1'
++
++def offers():
++    from els_server.domain.daily_ticket_rules import giant_definitions
++    from els_server.domain.rosso_reset import definition
++    if tuple(t[0] for t in giant_definitions().values())!=KEYS:raise ValueError('Original giant shop key definitions changed')
++    for t in RESETS:definition(t)
++    return tuple(dict(sku=1200000000+t,template=t,name=client_data().item(t)['name'],
++                      category=41,price=50,quantity=1) for t in KEYS+RESETS)
++
++def purchase_source(db,owner,operation,digest,plan):
++    from els_server.domain.raid_reward_items import _issue_source
++    if any(p['template']not in TEMPLATES for p in plan):raise ValueError('Non-ticket shop plan')
++    source=dict(reward_source=POLICY,owner=owner,operation=operation,request_sha256=digest)
++    return _issue_source(db,owner,'shop-ticket:'+operation,'npc_trade',source,plan,
++                         lambda writer:writer is db and db.in_transaction)
++
++def authorize_output(template,authority):
++    if authority is None:return False
++    import json
++    from els_server.domain.raid_reward_items import validate_source
++    a=validate_source(authority);source=json.loads(a._source)
++    if source.get('reward_source')!=POLICY:return False
++    if template not in TEMPLATES or a.kind!='npc_trade' or source.get('owner')!=a.owner:
++        raise ValueError('Ticket shop output scope')
++    a.validate_template(template)
++    return True
+--- a/els_server/domain/inventory_items.py
++++ b/els_server/domain/inventory_items.py
+@@ -7,8 +7,11 @@
+ LOCAL_BAG_CAPACITY=36
+ LOCAL_MAX_STACK=999
+ VERIFIED_TEMPLATES={77000:2}  # Native name: 初级体力药水; metadata byte, not a grade.
++VERIFIED_TEMPLATES[136055]=0  # Original permanent Berthe trace reset ticket.
+ TEMPLATE_BAG_GROUPS={77000:6}  # Enum.lua SORT_TYPE.ST_QUICK_SLOT; native flask tab.
++TEMPLATE_BAG_GROUPS[136055]=4
+ TEMPLATE_MAX_STACKS={77000:99}
++TEMPLATE_MAX_STACKS[136055]=1  # Native raw stack0 denotes a singleton.
+ from els_server.domain.mount_racing_items import definitions as _mount_racing_definitions
+ for _row in _mount_racing_definitions():
+  VERIFIED_TEMPLATES[_row['template']]=_row['metadata']
+--- a/els_server/domain/rosso_reset.py
++++ b/els_server/domain/rosso_reset.py
+@@ -1,16 +1,17 @@
+-"""One original135909 UID and selected Rosso mode; no other raid reset."""
++"""Original owned Rosso/Berthe trace ticket and selected normal/story mode."""
+ import functools,hashlib,sqlite3,struct
+ from pathlib import Path
+ TEMPLATE=135909
+ RECORD_SHA='9780669d82f77f91b06877562251e542b70eef2618399479d0a7a7268899b886'
++TICKETS={135909:('rosso',1,RECORD_SHA),136055:('berthe',2,'95682cd208898a22beb3d147c74eabdaefba58bf59a435c36a83894245a1cb01')}
+ ADMISSIONS_ENABLED=True
+ 
+ @functools.lru_cache(maxsize=1)
+-def definition():
++def definition(template=TEMPLATE):
+  from els_server.game_data import client_data
+- item=client_data().item(TEMPLATE)
+- if hashlib.sha256(item['record']).hexdigest()!=RECORD_SHA or(item['item_type'],item['metadata'])!=(7,0):raise ValueError('Original Rosso ticket identity')
+- return dict(template=TEMPLATE,metadata=0,group=4)
++ family,category,digest=TICKETS[template];item=client_data().item(template)
++ if hashlib.sha256(item['record']).hexdigest()!=digest or(item['item_type'],item['metadata'])!=(7,0):raise ValueError('Original raid reset ticket identity')
++ return dict(template=template,metadata=0,group=4)
+ 
+ def request(payload):
+  # 2CC06D0 case3789 ->2260FD0 -> original C595C0 writer.
+--- a/els_server/domain/shop_additions.py
++++ b/els_server/domain/shop_additions.py
+@@ -32,8 +32,9 @@
+                  and p['template'] not in ice_equipment() and p['template'] not in NPC_MEDICINES)
+ 
+     from els_server.domain.housing_expansion_rules import SHOP_ITEMS
++    from els_server.domain.dungeon_ticket_shop import offers as ticket_offers
+     # Owner-approved consumables; existing aliases are not new shop products.
+-    return supplements+tuple(dict(sku=1200000000+template,template=template,
++    return supplements+ticket_offers()+tuple(dict(sku=1200000000+template,template=template,
+         name=client_data().item(template)['name'],category=category,price=50,quantity=1)
+         for template,category in ((287960,41),(288494,41),(277141,32),(277142,32),(277150,32),
+                                   *((t,41)for t in SHOP_ITEMS)))
+--- a/els_server/storage/rosso_reset.py
++++ b/els_server/storage/rosso_reset.py
+@@ -1,7 +1,7 @@
+ """One SQL debit/reset/receipt; historical raid runs never become new grants."""
+ from contextlib import closing
+ import json,sqlite3,struct,time,uuid
+-from els_server.domain.rosso_reset import TEMPLATE,definition,request
++from els_server.domain.rosso_reset import TEMPLATE,TICKETS,definition,request
+ from els_server.storage.inventory_actions import _identity,_previous,_commit
+ from els_server.storage.inventory_state import load_items
+ from els_server.storage.equipment_receipt_state import current_changes
+@@ -17,13 +17,13 @@
+  if not 0<item_uid<2**63:return False
+  with closing(sqlite3.connect(path,timeout=10))as db:
+   row=db.execute('SELECT template FROM inventory_items WHERE owner=? AND uid=?',(owner,item_uid)).fetchone()
+-  if row==(TEMPLATE,):return True
++  if row is not None and row[0] in TICKETS:return True
+   return bool(state.exists(db,'inventory_action_receipts')and db.execute('SELECT 1 FROM inventory_action_receipts WHERE operation_id=? AND owner=? AND kind=?',(operation,owner,0x219)).fetchone())
+ 
+-def _events(db,owner,now,changes,template=0):
++def _events(db,owner,now,changes,template=0,family='rosso',category=1):
+  # Existing7C1 schema: category1 and third/sixth i32 are normal/story steps.
+  wallet=balances(db,owner);week=state.week_at(now)
+- out=[use_ack(changes,template,wallet['ed']),weekly_snapshot(1,state.weekly_steps(db,owner,'rosso',week),state.weekly_steps(db,owner,'rosso',week,True))]
++ out=[use_ack(changes,template,wallet['ed']),weekly_snapshot(category,state.weekly_steps(db,owner,family,week),state.weekly_steps(db,owner,family,week,True))]
+  for event in out:encode_event(event)
+  return out
+ 
+@@ -39,20 +39,23 @@
+   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+   require_active_character(db,owner);require_owner(db,owner,account)
+   if prepare(db)is not True:raise ValueError('Rosso current writer required')
+-  now=int(time.time());week=state.week_at(now);definition()
++  now=int(time.time());week=state.week_at(now)
+   old=_previous(db,operation,digest);items=load_items(db,owner)
+   if old is not None:
+    saved=db.execute('SELECT before_json FROM inventory_action_receipts WHERE operation_id=? AND owner=? AND kind=?',(operation,owner,0x219)).fetchone()
+    before=json.loads(saved[0])if saved else[]
+-   if len(before)!=1 or before[0]['uid']!=item_uid or before[0]['template']!=TEMPLATE:raise ValueError('Rosso original ticket receipt changed')
++   if len(before)!=1 or before[0]['uid']!=item_uid or before[0]['template']not in TICKETS:raise ValueError('Raid reset original ticket receipt changed')
++   family,category,_=TICKETS[before[0]['template']];definition(before[0]['template'])
+    # Never clear newly earned eligibility when an old reset is replayed.
+-   events=_events(db,owner,now,current_changes(db,operation,owner,0x219,old,items))
++   events=_events(db,owner,now,current_changes(db,operation,owner,0x219,old,items),family=family,category=category)
+    if prepare(db)is not True:raise ValueError('Rosso replay lease expired')
+    return events
+   from els_server.domain.rosso_reset import ADMISSIONS_ENABLED
+   if not ADMISSIONS_ENABLED:raise ValueError('New Rosso ticket use closed')
+   item=next((i for i in items if i['uid']==item_uid),None)
+-  if item is None or(item['template'],item['metadata'],item['group'])!=(TEMPLATE,0,4):raise ValueError('Exact original owned Rosso ticket required')
++  if item is None or item['template']not in TICKETS or(item['metadata'],item['group'])!=(0,4):raise ValueError('Exact original owned raid reset ticket required')
++  template=item['template'];family,category,_=TICKETS[template];definition(template)
++  bucket=family+':'+bucket.split(':',1)[1]
+   require_current(item,now=now);require_unlocked(item,now=now)
+   if item.get('sealed',False)or item.get('seal_used',0):raise ValueError('Rosso ticket seal state')
+   if not state.exists(db,'formal_raid_weeks'):raise ValueError('Rosso has no real current-week reward information')
+@@ -60,7 +63,7 @@
+   rows=db.execute('SELECT ordinal,phase,run FROM formal_raid_weeks WHERE owner=? AND bucket=? AND week=? ORDER BY ordinal,phase',(owner,bucket,week)).fetchall()
+   if not rows:raise ValueError('Selected Rosso mode already has no claimed weekly reward')
+   for ordinal,phase,run in rows:
+-   if type(ordinal)is not int or type(phase)is not int or ordinal not in(1,2,3)or phase not in(1,2,3)or str(uuid.UUID(run))!=run:raise ValueError('Unknown persisted Rosso weekly phase')
++   if type(ordinal)is not int or type(phase)is not int or not 1<=ordinal<=(3 if family=='rosso'else 2)or phase not in(1,2,3)or str(uuid.UUID(run))!=run:raise ValueError('Unknown persisted raid weekly phase')
+   wallet=balances(db,owner)
+   if wallet['revision']>=2**63-1:raise ValueError('Rosso ticket balance revision overflow')
+   position=(item['group'],item['slot'])
+@@ -71,7 +74,7 @@
+   # Historical formal_raid_phases, reward_receipts and other weeks/modes/families
+   # are immutable. Only a fresh original run may fill these now-empty slots.
+   after=load_items(db,owner);current=next((i for i in after if i['uid']==item_uid),None)
+-  events=_events(db,owner,now,[(position,current)],TEMPLATE)
++  events=_events(db,owner,now,[(position,current)],template,family,category)
+   db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))
+   _commit(db,operation,digest,owner,0x219,[position],[dict(item)],[]if current is None else[dict(current)])
+   if prepare(db)is not True:raise ValueError('Rosso ticket lease changed after encoding')
+--- a/els_server/storage/shop_state.py
++++ b/els_server/storage/shop_state.py
+@@ -29,6 +29,7 @@
+     if item['item_type']!=7:raise ValueError('Skill expansion definition mismatch')
+     expansion=({'sku':ORDINARY_SKU,'template':ORDINARY_PRODUCT,'name':'技能栏扩张券','category':41,'price':50,'quantity':1},)
+     from els_server.domain.acquisition_policy import can_acquire
++    from els_server.domain.dungeon_ticket_shop import TEMPLATES as shop_tickets
+     from els_server.domain.shop_additions import offers as additional_offers
+     from els_server.domain.shop_listing import ice_equipment
+     from els_server.domain.pet_support import offers as pet_support_offers
+@@ -38,7 +39,7 @@
+     from els_server.domain.skill_page_shop import offer as skill_page_offer
+     from els_server.domain.palette_shop import offers as palette_offers
+     result=tuple(p for p in palette_offers()+costumes+single_offers(unit_type)+ice+extended+expansion+additional_offers(unit_type)+pet_support_offers()+bank_offers()+bag_offers()+skill_book_offers()+(skill_page_offer(),)
+-                 if (can_acquire(p['template']) or p['template'] in onepiece_templates()) and p['template'] not in ice_equipment())
++                 if (can_acquire(p['template']) or p['template'] in onepiece_templates() or p['template'] in shop_tickets) and p['template'] not in ice_equipment())
+     if len({p['sku'] for p in result})!=len(result) or len({p['template'] for p in result})!=len(result):raise ValueError('Duplicate shop offer')
+     # These offers depend on the process-pinned resource and source policies,
+     # not on an account, wallet, inventory or session. Keep cached rows immutable.
+@@ -224,7 +225,13 @@
+             if resurrection and sum(p['quantity']for p in plan)+gain>MAX_DELIVERY:raise ValueError('Combined physical and resurrection delivery bound')
+             from els_server.domain.fashion_singles import onepiece_templates
+             fashion=frozenset(p['template'] for p in plan if p['template'] in onepiece_templates())
+-            items=grant_items(db,plan,uid,shop_fashion_templates=fashion or None) if plan else []
++            from els_server.domain.dungeon_ticket_shop import TEMPLATES as shop_tickets,purchase_source
++            ticket_plan=[p for p in plan if p['template'] in shop_tickets]
++            ordinary_plan=[p for p in plan if p['template'] not in shop_tickets]
++            items=grant_items(db,ordinary_plan,uid,shop_fashion_templates=fashion or None) if ordinary_plan else []
++            if ticket_plan:
++                source=purchase_source(db,uid,operation_id,digest,ticket_plan)
++                items+=grant_items(db,ticket_plan,uid,raid_reward_source=source)
+             balances['ed']-=cost;balances['revision']+=1
+             validate_balances(tuple(balances[k] for k in ('ed','experience','revision')))
+             response=ed_purchase_ack(0,items,balances['ed']).payload

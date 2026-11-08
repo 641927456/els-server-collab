@@ -1,0 +1,121 @@
+{
+  "status": "qualified-source-candidate-not-installed",
+  "scope": "Four permanent giant keys and Rosso/Berthe weekly trace resets at 50ED per unit; shared existing shop and reset writers",
+  "unified_server": true,
+  "base_runtime": "G:\\els\\releases\\local\\unified-server-4b725b040ac893aa-e1b1f8d3d9b2",
+  "files": [
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "745ad7e35f2836f0f78d52b9e00c7a535f97c6f24bd14f927f97c7d133011272",
+      "sha256": "f6508a7b5f52d4bc2d8d355237a4121c6406203ef2d2398ab9e77eb836464afb",
+      "bytes": 16588
+    },
+    {
+      "path": "els_server/domain/dungeon_ticket_shop.py",
+      "parent_sha256": null,
+      "sha256": "f97d623139da36a0f1d4455751b5f5393bc88f5f46b2aa1c626fb564ebc8026d",
+      "bytes": 1670
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "99c02fcceb494af0a6456a119991675288ec3dfeafc65a39b82024a1fb787e44",
+      "sha256": "ac42df322e52530b26b8ac8bfa0db6d9a5a682be750e945982f7b6019698d395",
+      "bytes": 93520
+    },
+    {
+      "path": "els_server/domain/rosso_reset.py",
+      "parent_sha256": "923e88d849617c77be5ab5a8f16132afb66622fb01dc87e9f40dd5a7f0c04436",
+      "sha256": "4d750fb00ce6b57b74c67ffbad1bff96bc429a3c34241ba944cc772cbbba822e",
+      "bytes": 2951
+    },
+    {
+      "path": "els_server/domain/shop_additions.py",
+      "parent_sha256": "a0b134eb9c26ab33db65ea74fb69fcfdafa9450ecb6b075cac30e92f39c4ab93",
+      "sha256": "4a690c3390b24e9e5f654dcb933648190977affa21875f555622e2a8b9071b32",
+      "bytes": 2829
+    },
+    {
+      "path": "els_server/storage/rosso_reset.py",
+      "parent_sha256": "7189d0563e4300575a9b75a7bd541672ab846074df7d0c0028f357efbb4e326f",
+      "sha256": "ed0acb0c9da5ca3af5e1131f70970ea9d86c840cc24af110e8e0d7055c019468",
+      "bytes": 6021
+    },
+    {
+      "path": "els_server/storage/shop_state.py",
+      "parent_sha256": "b9516d7fc33d69d602b378acb4e72689edafe39c5dd523a013f96c916178dae8",
+      "sha256": "eeba22630bb89daa4f5cc510270bdd1ea090b01a5a98768fe94fa04e4190d67c",
+      "bytes": 19048
+    }
+  ],
+  "tests": {
+    "ticket-verification.json": "653ca12218890b4379d885b5e746f8f14297bf8e5c9527c7490f26d0fc34dcc3",
+    "ticket-native-readers.json": "fa9c99f3bce61e2f8ac983129e300b1b553823ae861adc657d61c8594c3b2db9"
+  },
+  "products": [
+    {
+      "template": 135909,
+      "name": "红炎的痕迹回收券",
+      "price": 50,
+      "quantity": 1
+    },
+    {
+      "template": 136055,
+      "name": "魂魄的痕迹回收券",
+      "price": 50,
+      "quantity": 1
+    },
+    {
+      "template": 309244,
+      "name": "巨神长眠的住所的钥匙",
+      "price": 50,
+      "quantity": 1
+    },
+    {
+      "template": 480356,
+      "name": "扭曲时空的钥匙",
+      "price": 50,
+      "quantity": 1
+    },
+    {
+      "template": 713224,
+      "name": "普雷加斯的迷宫钥匙",
+      "price": 50,
+      "quantity": 1
+    },
+    {
+      "template": 716829,
+      "name": "钢铁城壁钥匙",
+      "price": 50,
+      "quantity": 1
+    }
+  ],
+  "player_data_used": false,
+  "production_modified": false,
+  "natural_GUI": false,
+  "installed": false,
+  "merged": false,
+  "release_owner": "01a188cb-21df-7000-a927-f8dbad7e074d",
+  "unrelated_crash": {
+    "exit_code": "0xC0000374",
+    "reported_attempt": "f1f0b5c7619f42c4a15b515634c8a378",
+    "root_cause_confirmed": false,
+    "fix_included": false
+  },
+  "native_request_evidence": [
+    "G:/els/analysis/client-6c6b5180/decompiled/0x2cc06d0.c case3789",
+    "G:/els/analysis/client-6c6b5180/decompiled/0x2260fd0.c",
+    "G:/els/analysis/client-6c6b5180/decompiled/0xc595c0.c"
+  ],
+  "official_reference": {
+    "url": "https://elsword.koggames.com/2024/01/january-31st-patch-notes/",
+    "published": "2024-01-31",
+    "queried": "2026-11-08",
+    "region": "NA",
+    "relevance": "Varnimyr and Pruinaum trace ticket use limit removal; does not define this server sale price"
+  },
+  "remaining": [
+    "Publisher integration and source review",
+    "Actual signed-component delivery and native menu purchase/use",
+    "Reported client heap corruption is a separate open investigation"
+  ]
+}
