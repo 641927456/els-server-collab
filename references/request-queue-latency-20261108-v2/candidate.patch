@@ -1,0 +1,140 @@
+--- a/els_server/domain/assembly_flow.py
++++ b/els_server/domain/assembly_flow.py
+@@ -60,9 +60,9 @@
+         binding=_actor(s)
+         with snapshot_connection(binding[2].path)as db:
+             db.execute('BEGIN');now=store.clock();facts=_guard(s,binding,town=True)(db,now)
+-            from els_server.storage.inventory_state import load_items
++            from els_server.storage.inventory_state import load_equipped_items
+             from els_server.storage.seal_quests import load_character
+-            division=rules.uniform(load_items(db,binding[3]),load_character(db,binding[3],binding[4]),now)
++            division=rules.uniform(load_equipped_items(db,binding[3]),load_character(db,binding[3],binding[4]),now)
+         key=(binding[3],binding[4],binding[5],facts['town'],division)
+         prior=getattr(s,'_assembly_stay',None)
+         if prior is None or prior['key']!=key:
+@@ -104,9 +104,9 @@
+                 facts=check(db,now)
+                 if(not rules.catalog()['admissions_enabled']or getattr(s,'_assembly_stay',None)is not prior
+                    or time.monotonic()-prior['start']<needed):raise ValueError('Assembly continuous observed stay')
+-                from els_server.storage.inventory_state import load_items
++                from els_server.storage.inventory_state import load_equipped_items
+                 from els_server.storage.seal_quests import load_character
+-                division=rules.uniform(load_items(db,binding[3]),load_character(db,binding[3],binding[4]),now)
++                division=rules.uniform(load_equipped_items(db,binding[3]),load_character(db,binding[3],binding[4]),now)
+                 if division!=prior['key'][-1]or facts['town']!=prior['key'][-2]:raise ValueError('Assembly stay source changed')
+                 return facts
+             payload=hashlib.sha256(json.dumps([list(prior['key']),prior['token'],prior['start']],sort_keys=True).encode()).digest()
+--- a/els_server/domain/boosting_2026_quests.py
++++ b/els_server/domain/boosting_2026_quests.py
+@@ -103,7 +103,8 @@
+                 current={q for q, in db.execute('SELECT quest FROM character_quests WHERE owner=?',(uid,))}
+                 pending=[q for q in ENTRIES if q not in current and q not in done]
+                 if not pending:return False
+-                character=load_character(db,uid,account);items=load_items(db,uid);catalog=region_catalog()
++                character=load_character(db,uid,account);catalog=region_catalog()
++                items=(load_items(db,uid) if any(catalog.data['quests'][str(q)]['definition']['QuestCondition'].get('m_iConditionItemID') for q in pending) else ())
+                 for qid in pending:
+                     q=catalog.data['quests'][str(qid)]['definition']
+                     if q['m_eQuestType']!=5 or q['m_bRepeat'] or q['m_bIsTimeEvent']:raise ValueError('Region entry source changed')
+--- a/els_server/domain/boosting_2026_region_entries.py
++++ b/els_server/domain/boosting_2026_region_entries.py
+@@ -20,7 +20,9 @@
+     if character['level']!=99:return []
+     ensure(db);completed=completed_ids(db,uid)
+     active={q for q, in db.execute('SELECT quest FROM character_quests WHERE owner=?',(uid,))}
+-    items=load_items(db,uid);catalog=region_catalog();messages=[]
++    catalog=region_catalog();messages=[]
++    pending=[q for q in ENTRIES if q not in active and q not in completed]
++    items=(load_items(db,uid) if any(catalog.data['quests'][str(q)]['definition']['QuestCondition'].get('m_iConditionItemID') for q in pending) else ())
+     for qid in ENTRIES:
+         if qid in active or qid in completed:continue
+         q=catalog.data['quests'][str(qid)]['definition']
+--- a/els_server/domain/local_session.py
++++ b/els_server/domain/local_session.py
+@@ -427,7 +427,9 @@
+ 
+ 
+     def saved_user_sync(self,*,clear_reward_only=False,resonance_snapshot=None):
+-        snapshot=self.account.get_inventory_snapshot() if self.item_test else {'balances':self.account.get_reward_balances() if self.reward_test else None,'items':None}
++        # ERP sends an absolute Unit with an empty acquisition vector. Only
++        # worn equipment contributes to that Unit; bags are not an input.
++        snapshot=self.account.get_inventory_snapshot(equipped_only=resonance_snapshot is not None and not clear_reward_only) if self.item_test else {'balances':self.account.get_reward_balances() if self.reward_test else None,'items':None}
+ 
+         # Existing inventory is restored by the native login map (2A).
+ 
+--- a/els_server/domain/session_auxiliary.py
++++ b/els_server/domain/session_auxiliary.py
+@@ -93,6 +93,11 @@
+     # invalidates fishing and broadcasts the move. No role/EXP/map changes
+     # arise from this notification; independent upkeep observes those clocks.
+     if event.kind==0x22b and session.phase=='town_ready':return True
++    # These town reports and wardrobe catalog pages change no gameplay
++    # eligibility. Their native handlers still run; periodic upkeep owns
++    # unrelated camp, quest and activity observations.
++    if session.phase=='town_ready':
++        return event.kind in (0x640,0x3e6,0x38e,0xff20,0xff21,0x563)
+     # This original9E stores display statistics only. Its own handler still
+     # validates the current lease, run, payload, sequence and report replay.
+     if event.kind==0x9e:
+@@ -112,6 +117,7 @@
+     if event.kind==0x22b:
+         return town_peer_reply(replies)
+     if event.kind==0x9e:return all(e.event_id==0x201 and e.kind==0x9f for e in replies)
++    if event.kind==0x563:return all(e.event_id==0x201 and e.kind==0x564 for e in replies)
+     # Item/source loot, level/quest rewards and every other emitted state
+     # retain the complete original synchronization pipeline. Coins/food's D2
+     # and D1 ACK are the direct committed result, not activity/UI changes.
+--- a/els_server/storage/inventory_state.py
++++ b/els_server/storage/inventory_state.py
+@@ -97,16 +97,18 @@
+  return _load_items(db,owner,item_uid=item_uid)
+ 
+ def load_equipped_items(db,owner=1001):
+- return _load_items(db,owner,bag_group=9)
+-
+-def _load_items(db,owner=1001,*,item_uid=None,bag_group=None):
++ return _load_items(db,owner,equipped_only=True)
++
++def _load_items(db,owner=1001,*,item_uid=None,equipped_only=False):
+  owner=character_uid(owner)
+  query='SELECT uid,template,metadata,count,bag_group,slot FROM inventory_items WHERE owner=?'
+  parameters=(owner,)
+  if item_uid is not None:
+   query+=' AND uid=?';parameters+=(item_uid,)
+- if bag_group is not None:
+-  query+=' AND bag_group=?';parameters+=(bag_group,)
++ if equipped_only:
++  # Native full Units include ordinary equipment, life tools/bait and
++  # Artifact gear. All four groups are worn inputs, independent of bags.
++  query+=' AND bag_group IN (9,22,23,24)'
+  items=[dict(zip(('uid','template','metadata','count','group','slot'),r)) for r in db.execute(query+' ORDER BY bag_group,slot',parameters)]
+  from els_server.storage.equipment_attributes import attach_attributes
+  attach_attributes(db,items,owner)
+--- a/els_server/storage/read_scope.py
++++ b/els_server/storage/read_scope.py
+@@ -318,12 +318,22 @@
+     """
+     scope=_current.get()
+     if scope is None or scope.thread!=threading.get_ident():return encode(item)
+-    identity=(encode,item['uid'])if wire_key is None else(encode,item['template'],item['metadata'],item['group'],item['count'])
++    instance=(encode,item['uid'])
++    identity=instance if wire_key is None else(encode,item['template'],item['metadata'],item['group'],item['count'])
+     value=item if wire_key is None else wire_key
++    # Different sockets/expiry on two instances of one template must not
++    # evict each other between repeated reads in the same operation. Keep
++    # the shared body for identical stacks as well as each instance's body.
++    previous=scope.item_bodies.get(instance)
++    if previous is not None and previous[0]==value:return previous[1]
+     previous=scope.item_bodies.get(identity)
+-    if previous is not None and previous[0]==value:return previous[1]
++    if previous is not None and previous[0]==value:
++        scope.item_bodies[instance]=previous
++        return previous[1]
+     body=encode(item)
+-    scope.item_bodies[identity]=(_copy_projection(value),body)
++    saved=(_copy_projection(value),body)
++    scope.item_bodies[identity]=saved
++    scope.item_bodies[instance]=saved
+     return body
+ 
+ 
