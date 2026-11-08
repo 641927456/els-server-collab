@@ -1,0 +1,47 @@
+{
+  "candidate": "request-queue-latency-20261108-v1-revision2",
+  "parent": {
+    "parent_path": "G:\\els\\releases\\online\\native-cooldown-commit-guard-20261108-v1",
+    "parent_manifest_sha256": "66014c1e1676eac98d9aec0644e1efd2ad1de4eff80988a0d86e448bfa538dd2",
+    "release": "native-cooldown-commit-guard-20261108-v1"
+  },
+  "git_parent": "8716b5346572db03ef75478b99c6ed725ca56aed",
+  "files": {
+    "els_server/domain/assembly_flow.py": {
+      "before_sha256": "3034e5aed916abda2bce6d7b4733b1f2db019cfd52f55a6c0b574463c825e0cb",
+      "after_sha256": "750aad4a8f14b898ec15a383001b3ac51cfa4f7c91e8610242880d233aa852c1",
+      "normalized_code_sha256": "f4f549313cd8ea4e1998a06ed2dac038d3a1097a8e0e8c61b73b93a2689e40ef"
+    },
+    "els_server/domain/boosting_2026_quests.py": {
+      "before_sha256": "17cc08db6b26465bd6abef07d324ea1b329f95d05001cfd5f5e2d839731162e4",
+      "after_sha256": "c8baea5ac0b52b64ae496acf4ebef76529484a9b18a8d599f78d647099f046d2",
+      "normalized_code_sha256": "c8baea5ac0b52b64ae496acf4ebef76529484a9b18a8d599f78d647099f046d2"
+    },
+    "els_server/domain/boosting_2026_region_entries.py": {
+      "before_sha256": "53890c5318f0dd559957b110c7b64ec584c687319b7f6a41f72be84c5c3894b8",
+      "after_sha256": "04db0713a798ffb59640cfeaee7c183a043cbfd6f7af3de40acef22b192b5024",
+      "normalized_code_sha256": "04db0713a798ffb59640cfeaee7c183a043cbfd6f7af3de40acef22b192b5024"
+    },
+    "els_server/domain/local_session.py": {
+      "before_sha256": "8ad61d0a0da0e5b854ded793a429fdd7249920e747242cb166495535cc44eb44",
+      "after_sha256": "31af5ceaebb434f0a11483f1929a874b2bfa9bf97b0fb83a30a5b6f978cd1413",
+      "normalized_code_sha256": "6192efc8adeb441647fa212ec5aa2b288d40eeda7929a47ab53ed5e0ec5599b0"
+    },
+    "els_server/domain/session_auxiliary.py": {
+      "before_sha256": "c87333e1799c8faee1cc9473f930026a56f1c46c9aeb9b61c230f9ff169b546e",
+      "after_sha256": "977528933a5589a0b706cd26a6f2d4b7647e6c7f4cce08b33e65f98b61648dec",
+      "normalized_code_sha256": "a8ef3b3306212291b46e546b57df72e7c01368e92b043541edea12c026ad94e5"
+    },
+    "els_server/storage/inventory_state.py": {
+      "before_sha256": "0db23127a6bf7660a6fb152991be96980701abeefdba8468dc08601d5030c790",
+      "after_sha256": "e6fb2437dde663775f28792b8131dcef3f4a4cacbb4aa63fdc4a6a8553a6901c",
+      "normalized_code_sha256": "4e92fc73d9741eb6c80c32b6e0e8ad81c7c0a053e58e3afa5777086b023dd22e"
+    },
+    "els_server/storage/read_scope.py": {
+      "before_sha256": "f660c37f47b804ef858efa827401516274759d9659bf974c4342333655a65ee0",
+      "after_sha256": "ef1088cc7bca17497d6d4fc893ea5caec11ca6cbb5c825b6793b44e9fbf13753",
+      "normalized_code_sha256": "3adc83338792c58fdcbaebc4913de32d8f4d8568016a04b9c42d174fdc902b97"
+    }
+  },
+  "scope": "Shared online/local server only. No original game EXE/KOM, DB schema, save, account, certificate or private configuration changes."
+}
