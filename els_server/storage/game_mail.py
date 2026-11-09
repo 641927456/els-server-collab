@@ -69,14 +69,16 @@ def gm_campaign(path,campaign,recipients,*,ed,title,body,sender='GM',now=None):
         raise MailError('Invalid ED grant')
     title=_text(title,80);body=_text(body,2000);sender=_text(sender,24)
     recipients=sorted(recipients)
-    now=int(time.time()) if now is None else now
-    if type(now) is not int or not 1<=now<2**31:
-        raise MailError('Invalid mail timestamp')
     plan=json.dumps(dict(ed=ed,title=title,body=body,sender=sender),ensure_ascii=True,sort_keys=True)
     digest=hashlib.sha256(plan.encode()).hexdigest()
     ids=json.dumps(recipients,separators=(',',':'))
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.execute('BEGIN IMMEDIATE');ensure(db)
+        # Sample under the lock so created_at/expires_at describe the moment the
+        # campaign is actually written rather than the moment it started waiting.
+        now=int(time.time()) if now is None else now
+        if type(now) is not int or not 1<=now<2**31:
+            raise MailError('Invalid mail timestamp')
         old=db.execute('SELECT payload_sha256,recipients_json FROM gm_mail_campaigns WHERE campaign=?',(campaign,)).fetchone()
         if old is not None:
             if old!=(digest,ids):raise MailError('Campaign retry conflicts with original grant')
@@ -136,9 +138,9 @@ def inbox(path,account,uid,*,page=1,now=None):
 
 
 def read(path,account,uid,mail_id,encode,*,now=None):
-    now=int(time.time()) if now is None else now
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.row_factory=sqlite3.Row;db.execute('BEGIN IMMEDIATE');_active_owner(db,account,uid)
+        now=int(time.time()) if now is None else now
         row=_row(db,account,mail_id,uid,now=now)
         if row['expires_at']<=now:raise MailError('Mail expired',2985)
         if row['read_at'] is None:
@@ -158,9 +160,10 @@ def claim(path,account,uid,ids,encode,*,now=None,include_items=False,include_cla
     A retry always returns the current absolute ED, never the old balance.
     Client attachment inventory/maps are ignored; the DB is authoritative.
     """
-    _ids(ids);now=int(time.time()) if now is None else now
+    _ids(ids)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.row_factory=sqlite3.Row;db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');_active_owner(db,account,uid)
+        now=int(time.time()) if now is None else now
         rows=[_row(db,account,i,uid,now=now) for i in ids]
         if any(r['expires_at']<=now for r in rows):raise MailError('Mail expired',2985)
         balance=db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(uid,)).fetchone()
@@ -193,9 +196,10 @@ def claim(path,account,uid,ids,encode,*,now=None,include_items=False,include_cla
 
 
 def delete(path,account,uid,ids,encode,*,now=None):
-    _ids(ids);now=int(time.time()) if now is None else now
+    _ids(ids)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.row_factory=sqlite3.Row;db.execute('BEGIN IMMEDIATE');_active_owner(db,account,uid)
+        now=int(time.time()) if now is None else now
         rows=[]
         for mail_id in ids:
             # Deletion retries are successful only for the same authenticated owner.

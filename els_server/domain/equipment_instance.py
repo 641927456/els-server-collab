@@ -10,9 +10,11 @@ from els_server.domain.equipment_durability import validate
 @functools.lru_cache(maxsize=1)
 def restricted_templates():
     m=json.loads((PROJECT_ROOT/'els_server/data/equipment_instance.manifest.json').read_text());raw=(PROJECT_ROOT/m['proof']).read_bytes();p=json.loads(raw)
+    from els_server.domain.early_weapon_equipment import definitions as appendix
+    extra=set(appendix())
     if (hashlib.sha256(raw).hexdigest()!=m['proof_sha256'] or m['client_sha256']!=CLIENT_SHA or p['client_sha256']!=CLIENT_SHA
         or m['default_instance_only'] is not True or m['account_state_semantics_verified'] is not False
-        or p['count']!=len(definitions()) or len(p['rows'])!=p['count'] or p['cases']!=6*p['count']):raise ValueError('Instance evidence scope')
+        or p['count']!=len(definitions())-len(extra) or len(p['rows'])!=p['count'] or p['cases']!=6*p['count']):raise ValueError('Instance evidence scope')
     seen=set();dynamic=set();special=set()
     for r in p['rows']:
         t=r['template']
@@ -22,6 +24,7 @@ def restricted_templates():
         if r['special']:special.add(t)
         expected=[[owner,dur,int(dur>0 and (not r['category77'] or owner!=0) and not r['special'])] for owner in (-1,0,1) for dur in (0,10000)]
         if r['cases']!=expected:raise ValueError('Instance native cases')
+    if seen&extra or seen|extra!=set(definitions()):raise ValueError('Instance appendix coverage')
     if dynamic!=set(m['dynamic_templates']) or special!=set(m['privileged_templates']) or special!={28005,28006}:raise ValueError('Instance restriction coverage')
     return frozenset(dynamic|special)
 
@@ -31,6 +34,8 @@ def require_wearable(item,character):
     require_current(item)
     from els_server.domain.boosting_gear_identification import require_complete
     require_complete(item)
+    from els_server.domain.identification_ui import require_initial_complete
+    require_initial_complete(item)
     if item.get('enhancement',0)<0:raise ValueError('Broken equipment requires restoration')
     if item['template'] in restricted_templates():raise ValueError('Unimplemented dynamic equipment permission')
     if validate(item['template'],item.get('durability',0))<=0:raise ValueError('Equipment durability exhausted or missing')

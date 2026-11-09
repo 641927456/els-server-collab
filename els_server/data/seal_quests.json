@@ -29275,6 +29275,76 @@
         "m_iSelectionCount": 0
       }
     },
+    "42650": {
+      "m_iFairLevel": 1,
+      "m_iEpisodeGroupID": 10001,
+      "m_iID": 42650,
+      "m_iChainID": 1,
+      "m_fRandomRate": 0,
+      "m_iRandomGroupID": 0,
+      "m_eQuestType": 10,
+      "CHANGE_JOB_TYPE": 0,
+      "m_eStartNPCID": 10142,
+      "m_eEndNPCID": 10142,
+      "m_bIsPcBang": 0,
+      "m_bIsTimeEvent": 0,
+      "m_iFairDungeonID": 0,
+      "m_bRepeat": 0,
+      "m_eRepeatType": 0,
+      "m_iAfterQuestID": {
+        "0": null,
+        "1": 42660
+      },
+      "QuestCondition": {
+        "m_iLimitLevel": -1,
+        "m_iLevel": 1,
+        "m_iConditionItemNum": 0,
+        "m_iConditionItemID": 0,
+        "m_iEnableVillage": {
+          "0": null,
+          "1": 0
+        },
+        "m_iEnableField": {},
+        "m_iEnableDungeon": {},
+        "m_eUnitType": {
+          "1": 1
+        },
+        "m_eUnitClass": {
+          "1": 0
+        },
+        "m_vecBeforeQuestID": {}
+      },
+      "m_vecSubQuest": {
+        "0": null,
+        "1": 41990
+      },
+      "m_vecSubQuest_Group": {
+        "1": {
+          "0": null,
+          "1": 41990
+        }
+      },
+      "Reward": {
+        "m_iSP": 0,
+        "m_iBuff": 0,
+        "m_iEP": 0,
+        "m_iED": 0,
+        "m_iEXP": 0,
+        "m_bEnable": 1,
+        "m_eChangeUnitClass": 0,
+        "m_vecItem": {
+          "1": {
+            "m_iPeriod": 7,
+            "m_iQuantity": 1,
+            "m_iItemID": 188598,
+            "m_sSocketOption": 0
+          }
+        }
+      },
+      "SelectReward": {
+        "m_iSelectionCount": 0
+      }
+    },
     "51000": {
       "m_iFairLevel": 20,
       "m_iPlayLevel": 20,
@@ -42379,6 +42449,93 @@
       "SelectReward": {
         "m_iSelectionCount": 0
       }
+    },
+    "47000": {
+      "m_iFairLevel": 99,
+      "m_iPlayLevel": 99,
+      "m_iEpisodeGroupID": 30000,
+      "m_iID": 47000,
+      "m_fRandomRate": 0,
+      "m_iRandomGroupID": 0,
+      "m_eQuestType": 3,
+      "CHANGE_JOB_TYPE": 0,
+      "m_eStartNPCID": 10017,
+      "m_eEndNPCID": 10017,
+      "m_bIsPcBang": 0,
+      "m_bIsTimeEvent": 0,
+      "m_iFairDungeonID": 0,
+      "m_bRepeat": 0,
+      "m_eRepeatType": 0,
+      "m_iAfterQuestID": {
+        "0": null,
+        "1": 47001
+      },
+      "QuestCondition": {
+        "m_iConditionItemID": 0,
+        "m_iLimitLevel": -1,
+        "m_iLevel": 99,
+        "m_iConditionItemNum": 0,
+        "m_iEnableVillage": {
+          "0": null,
+          "1": 0
+        },
+        "m_iEnableField": {},
+        "m_iEnableDungeon": {},
+        "m_eUnitType": {
+          "1": 1,
+          "2": 2,
+          "3": 3,
+          "4": 4,
+          "5": 8,
+          "6": 5,
+          "7": 6,
+          "8": 7,
+          "9": 9,
+          "10": 10,
+          "11": 11,
+          "12": 12,
+          "13": 13,
+          "14": 14,
+          "15": 15
+        },
+        "m_eUnitClass": {
+          "1": 0
+        },
+        "m_eUnitClassType": {
+          "1": 3
+        },
+        "m_vecBeforeQuestID": {}
+      },
+      "m_vecSubQuest": {
+        "0": null,
+        "1": 47000
+      },
+      "m_vecSubQuest_Group": {
+        "1": {
+          "0": null,
+          "1": 47000
+        }
+      },
+      "Reward": {
+        "m_iSP": 0,
+        "m_iBuff": 0,
+        "m_iEP": 0,
+        "m_iED": 0,
+        "m_iEXP": 0,
+        "m_bEnable": 1,
+        "m_eChangeUnitClass": 0,
+        "m_vecItem": {
+          "1": {
+            "m_iPeriod": 0,
+            "m_iQuantity": 5,
+            "m_iItemID": 130208,
+            "m_sSocketOption": 0
+          }
+        }
+      },
+      "SelectReward": {
+        "m_iSelectionCount": 0
+      }
     }
   },
   "subquests": {
@@ -43461,6 +43618,92 @@
           "8": 34040,
           "9": 34050,
           "10": 34060
+        }
+      }
+    },
+    "41990": {
+      "m_iID": 41990,
+      "m_eClearType": 32,
+      "m_bAutomaticDescription": 0,
+      "m_ClearCondition": {
+        "m_iDungeonClearCount": 5,
+        "m_eExceptionDungeonID": {
+          "0": null,
+          "1": 41400,
+          "2": 130000,
+          "3": 130010,
+          "4": 130020,
+          "5": 130030,
+          "6": 130040,
+          "7": 130050,
+          "8": 130060,
+          "9": 130070,
+          "10": 130080,
+          "11": 130090,
+          "12": 130100,
+          "13": 130110,
+          "14": 130120,
+          "15": 130130,
+          "16": 130140,
+          "17": 130150,
+          "18": 130160,
+          "19": 130170,
+          "20": 130180,
+          "21": 130190,
+          "22": 130200,
+          "23": 130210,
+          "24": 130220,
+          "25": 130230,
+          "26": 130240,
+          "27": 130250,
+          "28": 130260,
+          "29": 130270,
+          "30": 130280,
+          "31": 130290,
+          "32": 130300,
+          "33": 130310,
+          "34": 41560,
+          "35": 41550,
+          "36": 41580,
+          "37": 41590,
+          "38": 41600,
+          "39": 41480,
+          "40": 41490,
+          "41": 41500,
+          "42": 41510,
+          "43": 41150,
+          "44": 41160,
+          "45": 41170,
+          "46": 41180,
+          "47": 41190,
+          "48": 41210,
+          "49": 41290,
+          "50": 41220,
+          "51": 41230,
+          "52": 41240,
+          "53": 41250,
+          "54": 41420,
+          "55": 41131,
+          "56": 41130,
+          "57": 41120,
+          "58": 38300,
+          "59": 38301,
+          "60": 38302,
+          "61": 38100,
+          "62": 38020,
+          "63": 34070,
+          "64": 30000,
+          "65": 30080,
+          "66": 30081,
+          "67": 30082,
+          "68": 30090,
+          "69": 30091,
+          "70": 30092,
+          "71": 41590,
+          "72": 41600,
+          "73": 41610,
+          "74": 35870,
+          "75": 35880
         }
       }
     },
@@ -47512,6 +47755,22 @@
           "6": 6207,
           "7": 6132,
           "8": 6049
+        }
+      }
+    },
+    "47000": {
+      "m_iID": 47000,
+      "m_eClearType": 2,
+      "m_bAutomaticDescription": 0,
+      "m_ClearCondition": {
+        "m_iKillNum": 5,
+        "m_eDungeonID": {
+          "0": null,
+          "1": 34090
+        },
+        "m_eKillNPCID": {
+          "0": null,
+          "1": 6501
         }
       }
     }

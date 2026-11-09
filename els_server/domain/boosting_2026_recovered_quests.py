@@ -1,7 +1,7 @@
 """Cold-clear recovery extension of the sealed local session binding."""
 from contextlib import closing
 import sqlite3,struct
-from els_server.domain.boosting_2026_quests import BoostingQuestBinding
+from els_server.domain.boosting_2026_quests import BoostingQuestBinding,defer_automatic_lock
 from els_server.storage.boosting_2026_recovery import RecoverableRewards
 from els_server.protocol import boosting_2026_quest as wire
 from els_server.protocol import quest_messages as ordinary
@@ -10,14 +10,16 @@ from els_server.protocol import quest_messages as ordinary
 class RecoveringBoostingQuestBinding(BoostingQuestBinding):
     def _store(self,db):return RecoverableRewards(db,self.original)
 
+    @defer_automatic_lock(lambda:None)
     def _recover(self,s):
-        with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
-            db.execute('BEGIN IMMEDIATE')
-            if not self._participant(db,s):return None
-            row=self._store(db).recover_clears(account=s.account.account_id,character=s.account.uid)
-            # Encode before committing counter/marker; callers emit only after
-            # the connection context has successfully committed.
-            message=wire.progress(self.definition,row,owner_uid=s.account.uid) if row else None
+        if not self._automatic_work(s,'recover'):return None
+        with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db:
+            with write_transaction(db):
+                if not self._participant(db,s):return None
+                row=self._store(db).recover_clears(account=s.account.account_id,character=s.account.uid)
+                # Encode before committing counter/marker; callers emit only after
+                # the connection context has successfully committed.
+                message=wire.progress(self.definition,row,owner_uid=s.account.uid) if row else None
         return message
 
     def handle(self,s,event,sequence):
@@ -48,3 +50,5 @@ class RecoveringBoostingQuestBinding(BoostingQuestBinding):
         # once with F3. Repeated periodic calls find no unconsumed eligible run.
         if message is not None and not has_restore:out.append(message)
         return out
+
+from els_server.storage.sqlite_timing import write_transaction

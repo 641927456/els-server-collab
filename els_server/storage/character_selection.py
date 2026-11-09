@@ -23,7 +23,7 @@ def _state(db,account_id,owned):
         # order is a documented local fallback, not invented login history.
         order=owned;deployed=owned[:5];revision=0
     from els_server.storage.character_lifecycle import states
-    blocked={uid for uid,s in states(db).items() if s['requested_at'] or s['finalized_at']}
+    blocked={uid for uid,s in states(db,owned).items() if s['requested_at'] or s['finalized_at']}
     deployed=tuple(0 if uid in blocked else uid for uid in deployed)
     deployed,order=validate_selection(deployed,order,owned)
     return dict(deployed=list(deployed),order=list(order),revision=revision)
@@ -39,7 +39,7 @@ def save(path,account_id,deployed,order):
         owned=_owned(db,account_id)
         deployed,order=validate_selection(deployed,order,owned)
         from els_server.storage.character_lifecycle import states
-        blocked={uid for uid,s in states(db).items() if s['requested_at'] or s['finalized_at']}
+        blocked={uid for uid,s in states(db,owned).items() if s['requested_at'] or s['finalized_at']}
         if any(uid in blocked for uid in deployed if uid):raise ValueError('Pending deletion character cannot be deployed')
         previous=_state(db,account_id,owned)
         # Validation precedes schema creation, so rejected requests have no write.

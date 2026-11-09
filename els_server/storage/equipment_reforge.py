@@ -56,7 +56,16 @@ def require_item(item,*,equipment,now,restore_target=False):
     if not (equipment and restore_target is True and (target(item['template']) or {}).get('reforge_class')==1):
         require_unlocked(item,now=now)
     if equipment:
-        if item['group']!=1 or item['count']!=1 or item.get('identified') is False or target(item['template']) is None:raise ValueError('Reforge identified owned bag target required')
+        # Group 1 is the equipment bag and group 9 is the worn set
+        # (role_loadout.py:26 writes bag_group=9 on equip). The original client
+        # opens the smith's reforge window over every refineable instance the
+        # character owns, worn or bagged, and sends 8D5 with whichever uid the
+        # player picked -- 2026-11-08 the +10 白境机甲上衣 (uid 1001299, group 9,
+        # slot 1) came through with its 精制白境铁 requirement fully supplied and
+        # was answered 8D6 result=2005 「当前无法完成该任务。」. target() stays the
+        # discriminator: fashion and accessories also sit in group 9 but have no
+        # reforge definition.
+        if item['group']not in (1,9) or item['count']!=1 or item.get('identified') is False or target(item['template']) is None:raise ValueError('Reforge identified owned equipment target required')
         state(item['template'],item.get('reforge',DEFAULT));validate_instance(item)
     else:
         row=catalog()['materials'].get(str(item['template']))

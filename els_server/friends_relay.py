@@ -94,6 +94,10 @@ class RelayServer:
                     if not rate.accept(len(packet)):raise ValueError('Relay rate bound')
                     queue.put(b'\4'+packet[1:]);continue
                 if control and packet==b'\6':return
+                if control and packet[:1]==b'\7':
+                    if len(packet)>1024 or not rate.accept(len(packet)):raise ValueError('PvP support relay status bound')
+                    await self.app.call(self.app.world.pvp.support_status,self.app,account_id,queue,json.loads(packet[1:]))
+                    continue
                 epoch,target,data=read_data(packet)
                 if not rate.accept(len(data)):raise ValueError('Relay rate bound')
                 route=await self.app.call(dungeons.relay_target,self.app,account_id,epoch,target)
@@ -110,7 +114,9 @@ class RelayServer:
         finally:
             for task in tasks:task.cancel()
             await asyncio.gather(*tasks,return_exceptions=True)
-            try:await self.app.call(dungeons.relay_lost,self.app,account_id)
+            try:
+                await self.app.call(self.app.world.pvp.support_lost,account_id,queue)
+                await self.app.call(dungeons.relay_lost,self.app,account_id)
             finally:
                 # Do not admit a replacement while the old relay_lost callback
                 # can still abort that replacement's newly started dungeon.
@@ -193,6 +199,8 @@ class RelayClient:
         try:
             reader,writer=await self.bridge.remote(role='relay')
             control=getattr(self.bridge,'relay_control_active',False)
+            if control and self.bridge.pvp_support_version==1:
+                self.outgoing.put(b'\7'+json.dumps(self.bridge.pvp_support,separators=(',',':')).encode())
             pending={};last_pong=time.monotonic();counter=0;ready_deadline=time.monotonic()+RELAY_READY_TIMEOUT
             async def heartbeat():
                 nonlocal counter

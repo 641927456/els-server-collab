@@ -24,7 +24,10 @@ def request(payload):
     if (skill,rank) not in {(r['skill'],r['native_rank']) for r in catalog().values()}:raise ValueError('Selected force extraction pair')
     return skill,rank
 
-def acknowledgement(skill=0,rank=0,changes=(),result=0):
+def acknowledgement(skill=0,rank=0,changes=(),result=0,*,owner=None):
     # C55D70 writes i32 ID,u8 rank. 9CF750 reads result,ID,rank,
     # then DD46E0 absolute inventory records, before removing that owned pair.
-    return Event(0x201,kind=0x6cf,payload=struct.pack('>iiBI',result,skill,rank,len(changes))+b''.join(empty_record(*p) if i is None else record(i) for p,i in changes))
+    event=Event(0x201,kind=0x6cf,payload=struct.pack('>iiBI',result,skill,rank,len(changes))+b''.join(empty_record(*p) if i is None else record(i) for p,i in changes))
+    if owner is None:return event
+    from els_server.domain.native_skill_production import record as record_native_skill
+    return record_native_skill(event,owner,removed_extra=(skill,rank)if result==0 else None)

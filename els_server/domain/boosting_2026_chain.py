@@ -60,11 +60,13 @@ class ChainGrowthBinding(RecoveringBoostingQuestBinding):
             return super().capture(s)
         reward=self._group_admission(s)
         if reward is None or not self.campaign_open(s,self.clock()):return
-        with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,db:
-            db.execute('BEGIN IMMEDIATE')
+        if not self._read_participant(s):return
+        with closing(sqlite3.connect(s.account.store.path,timeout=10)) as db,write_transaction(db):
             if self._participant(db,s):
                 self._store(db).admit_run(account=s.account.account_id,character=s.account.uid,
                     run_id=reward,dungeon=run.identity)
         # Existing recover_clears consumes that member's already committed
         # RewardState proof, verifies owner/map/accepted generation and updates
         # count+consumed marker atomically. No new clear or reward is fabricated.
+
+from els_server.storage.sqlite_timing import write_transaction

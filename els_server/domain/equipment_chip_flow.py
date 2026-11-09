@@ -35,50 +35,51 @@ def handle(s,event,sequence):
     except ValueError:return [encode(uid,ed,result=2005)]
 
 def reset_authority(s):
-    from pathlib import Path
-    from uuid import UUID
-    from els_server.application import Application,FriendsSession
-    from els_server.domain.local_session import LocalAccount,LocalSession
-    from els_server.domain.roster_account import RosterAccount
-    from els_server.storage.local_state import LocalState
-    from els_server.storage.characters import Characters
-    from els_server.storage.accounts import Accounts
-    account=getattr(s,'account',None);root=getattr(account,'root',None)
-    if (type(account) is not LocalAccount or type(root) not in (LocalAccount,RosterAccount)
-        or root.root is not root or root.character_accounts.get(account.uid) is not account
-        or type(account.store) is not LocalState or account.store.uid!=account.uid
-        or type(account.characters) is not Characters or root.characters is not account.characters
-        or account.account_id!=root.account_id or account.characters.account_id!=account.account_id):
-        raise ValueError('Chip reset current actor graph')
-    path=Path(account.store.path).resolve()
-    if Path(account.characters.path).resolve()!=path:
-        raise ValueError('Chip reset character save binding')
-    if type(root) is RosterAccount:
-        if Path(root.path).resolve()!=path:raise ValueError('Chip reset roster save binding')
-    elif type(root.store) is not LocalState or root.store.uid!=root.uid or Path(root.store.path).resolve()!=path:
-        raise ValueError('Chip reset root save binding')
-    app=getattr(s,'application',None)
-    if app is not None:
-        identity=getattr(s,'identity',None)
-        if (type(s) is not FriendsSession or type(app) is not Application
-            or app.config.mode!='friends' or type(identity) is not dict
-            or type(identity.get('id')) is not int or identity['id']!=account.account_id
-            or type(app.registry) is not Accounts or not current_lease(s)
-            or Path(app.config.state_file).resolve()!=path
-            or Path(app.config.accounts_file).resolve()!=Path(app.registry.path).resolve()
-            or not app.registry.enabled(identity['id'])):
-            raise ValueError('Chip reset trusted friends actor')
-    else:
-        app=getattr(s,'_chip_reset_local_application',None)
-        if (type(s) is not LocalSession or type(app) is not Application
-            or getattr(s,'_chip_reset_local_live',None) is not True
-            or app.config.mode!='local' or type(root) is not LocalAccount
-            or app.account is not root or root.account_id!=1
-            or Path(app.config.state_file).resolve()!=path):
-            raise ValueError('Chip reset trusted local actor')
-    token=s.shop_session_id
-    if type(token) is not str or str(UUID(token))!=token or UUID(token).version!=4:
-        raise ValueError('Chip reset session token')
+    from els_server.storage.read_scope import checked_paths
+    with checked_paths() as resolve:
+        from uuid import UUID
+        from els_server.application import Application,FriendsSession
+        from els_server.domain.local_session import LocalAccount,LocalSession
+        from els_server.domain.roster_account import RosterAccount
+        from els_server.storage.local_state import LocalState
+        from els_server.storage.characters import Characters
+        from els_server.storage.accounts import Accounts
+        account=getattr(s,'account',None);root=getattr(account,'root',None)
+        if (type(account) is not LocalAccount or type(root) not in (LocalAccount,RosterAccount)
+            or root.root is not root or root.character_accounts.get(account.uid) is not account
+            or type(account.store) is not LocalState or account.store.uid!=account.uid
+            or type(account.characters) is not Characters or root.characters is not account.characters
+            or account.account_id!=root.account_id or account.characters.account_id!=account.account_id):
+            raise ValueError('Chip reset current actor graph')
+        path=resolve(account.store.path)
+        if resolve(account.characters.path)!=path:
+            raise ValueError('Chip reset character save binding')
+        if type(root) is RosterAccount:
+            if resolve(root.path)!=path:raise ValueError('Chip reset roster save binding')
+        elif type(root.store) is not LocalState or root.store.uid!=root.uid or resolve(root.store.path)!=path:
+            raise ValueError('Chip reset root save binding')
+        app=getattr(s,'application',None)
+        if app is not None:
+            identity=getattr(s,'identity',None)
+            if (type(s) is not FriendsSession or type(app) is not Application
+                or app.config.mode!='friends' or type(identity) is not dict
+                or type(identity.get('id')) is not int or identity['id']!=account.account_id
+                or type(app.registry) is not Accounts or not current_lease(s)
+                or resolve(app.config.state_file)!=path
+                or resolve(app.config.accounts_file)!=resolve(app.registry.path)
+                or not app.registry.enabled(identity['id'])):
+                raise ValueError('Chip reset trusted friends actor')
+        else:
+            app=getattr(s,'_chip_reset_local_application',None)
+            if (type(s) is not LocalSession or type(app) is not Application
+                or getattr(s,'_chip_reset_local_live',None) is not True
+                or app.config.mode!='local' or type(root) is not LocalAccount
+                or app.account is not root or root.account_id!=1
+                or resolve(app.config.state_file)!=path):
+                raise ValueError('Chip reset trusted local actor')
+        token=s.shop_session_id
+        if type(token) is not str or str(UUID(token))!=token or UUID(token).version!=4:
+            raise ValueError('Chip reset session token')
 
 
 def reset_context(s,event,sequence):

@@ -16,7 +16,7 @@ def _validate(db,owner,identity,kind,when,amount,rows):
         _source(db,row['source_operation'],owner,row['source_uid'],row['template'])
     if sum(r['basis_points']for r in rows)!=amount:raise ValueError('Elixir economic source sum')
 
-def bonus(db,owner,identity,kind,operation,context,*,already_issued=False,now=None):
+def _elixir_bonus(db,owner,identity,kind,operation,context,*,already_issued=False,now=None):
     from els_server.storage.item_actor import require_active_character
     from els_server.storage.bank_state import account_for
     from els_server.domain.elixir_economy import eligible
@@ -47,3 +47,14 @@ def bonus(db,owner,identity,kind,operation,context,*,already_issued=False,now=No
     db.execute(SQL.replace('CREATE TABLE ','CREATE TABLE IF NOT EXISTS ',1))
     db.execute('INSERT INTO elixir_economy_facts VALUES(?,?,?,?,?,?,?,?)',(operation,owner,identity,kind,digest,amount,when,json.dumps(selected,sort_keys=True,separators=(',',':'))))
     return amount
+
+def bonus(db,owner,identity,kind,operation,context,*,already_issued=False,now=None):
+    # The existing elixir snapshot remains unchanged. An old elixir fact with
+    # no medal fact predates this extension and must not acquire a new bonus.
+    old=bool(db.execute("SELECT 1 FROM sqlite_master WHERE type='table'AND name=?",(TABLE,)).fetchone()and db.execute('SELECT 1 FROM elixir_economy_facts WHERE operation=?',(operation,)).fetchone())
+    from els_server.storage.held_medals import bonus as held_bonus
+    old_medal=bool(db.execute("SELECT 1 FROM sqlite_master WHERE type='table'AND name='held_medal_reward_facts'").fetchone()and db.execute('SELECT 1 FROM held_medal_reward_facts WHERE operation=?',(operation,)).fetchone())
+    medal=held_bonus(db,owner,identity,kind,operation,context,already_issued=already_issued or old,now=now)
+    elixir=_elixir_bonus(db,owner,identity,kind,operation,context,already_issued=already_issued or old_medal,now=now)
+    if not 0<=medal+elixir<=15000:raise ValueError('Combined held medal/elixir percentage')
+    return medal+elixir

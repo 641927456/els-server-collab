@@ -7,7 +7,7 @@ from els_server.paths import PROJECT_ROOT
 @functools.lru_cache(maxsize=1)
 def catalog():
  raw=(Path(__file__).resolve().parents[1]/'data/additional_magic_stones.json').read_bytes()
- if hashlib.sha256(raw).hexdigest()!='42e3069c52a458d9d85e35396ef92f83355115ba754decab15d6f067e673714c':raise ValueError('Additional magic stone catalog changed')
+ if hashlib.sha256(raw).hexdigest()!='4d09c493ac6fde1bc7b5d7be774d09ab853b340f1d5152bca757e100e0e44907':raise ValueError('Additional magic stone catalog changed')
  c=json.loads(raw)
  if c['client_sha256']!=CLIENT_SHA or c['catalog_sha256']!=client_data().manifest['catalog_sha256']:raise ValueError('Additional stone client mismatch')
  for source in c['sources']:

@@ -33,6 +33,9 @@ class ServerConfig:
     max_registered_accounts: int = 64
     # Development gate until native peer transport and two-client play pass.
     friends_coop_enabled: bool = False
+    # Local-only independent activity pack (2026 selection pair). Newer builds
+    # resolve this pack implicitly; keep the explicit override so the local
+    # config/server.toml and the activity GM panel stay addressable.
     selected2026_pair_file: Path | None = None
 
     def __post_init__(self):

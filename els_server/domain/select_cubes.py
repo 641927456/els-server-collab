@@ -1,5 +1,5 @@
 """Original selection lists, with unambiguous native item identities."""
-import functools,hashlib,json
+import functools,hashlib,json,struct
 from types import MappingProxyType
 from els_server.paths import PROJECT_ROOT
 from els_server.game_data import client_data,CLIENT_SHA
@@ -20,7 +20,8 @@ def catalog():
             t=row['template'];item=client_data().item(t);p=rows[t];rule=row['random_rule']
             if (hashlib.sha256(item['record']).hexdigest()!=row['record_sha256'] or p['record_sha256']!=row['record_sha256']
                 or row['metadata']!=item['metadata'] or row['name']!=item['name'] or row['group']!=4 or p['native_group']!=4
-                or row['max_stack']!=99 or row['selection_count']!=1
+                or row['max_stack']!=row.get('source_max_stack',99) or row['selection_count']!=1
+                or ('source_max_stack'in row and (type(row['source_max_stack'])is not int or row['source_max_stack']!=struct.unpack_from('<I',item['record'],0x10)[0]))
                 or [(c['count'],c['ok'],c['consumed'],c['template'],c['metadata']) for c in p['cases']]
                     !=[(n,1,304,t,item['metadata']) for n in (1,99)]):raise ValueError('Selection cube item definition')
             if (rule['m_ItemID'],rule['m_iGiveCount'],rule['m_UseCondition'],rule['m_KeyItemID'],rule['m_RequiredKeyCount'])!=(t,1,1,0,0):
@@ -28,11 +29,17 @@ def catalog():
             entries=row['entries']
             if not 2<=len(entries)<=6 or len({e['template'] for e in entries})!=len(entries):raise ValueError('Selection cube choice bound')
             if t==723602 and tuple((e['template'],e['quantity']) for e in entries)!=((710313,50),(710315,50),(710314,50)):raise ValueError('Apple box original choices')
-            if t==723603 and(tuple((e['template'],e['quantity'])for e in entries)!=((710206,5),(710207,5),(710210,5)) or hashlib.sha256(raw).hexdigest()!='a1d6844860f4fc937f716e07335c1c200fded24beb3c9d83f10c2fe9ad8a2d75' or manifest['proof_sha256']!='2c1c6c53c4ce82eb771fd26eba774332c6e048e3b81bfd998b44713358c1457c'):raise ValueError('Elixir box source-owned contract')
+            if t==723603 and(tuple((e['template'],e['quantity'])for e in entries)!=((710206,5),(710207,5),(710210,5)) or hashlib.sha256(raw).hexdigest()!='03d8b2d2a22a46ab1dfe2b3b5e128433e24f63ef24d6d8ac59d650d31de85077' or manifest['proof_sha256']!='96362633694fbff9101ea02e55a320a84e9b3e60965521c71473cc84fad588cf'):raise ValueError('Elixir box source-owned contract')
             for e in entries:
+                if 'record_sha256'in e:
+                    source_item=client_data().item(e['template'])
+                    proof_row=next((v for v in native.get('reward_rows',[])if v['template']==e['template']),None)
+                    if (proof_row is None or proof_row['record_sha256']!=e['record_sha256'] or proof_row['native_group']!=e['group']
+                        or e['group']!=4 or e['metadata']!=source_item['metadata'] or hashlib.sha256(source_item['record']).hexdigest()!=e['record_sha256']
+                        or e['max_stack']!=struct.unpack_from('<I',source_item['record'],0x10)[0]):raise ValueError('Selection reward source identity')
                 if not 1<=e['quantity']<=(50 if t==723602 else 10) or db.execute('SELECT id FROM items WHERE name=?',(e['name'],)).fetchall()!=[(e['template'],)]:
                     raise ValueError('Selection cube output identity')
             text='\n'.join('-'+e['name']+(str(e['quantity'])+'个' if e['quantity']!=1 else '') for e in entries)
-            if row['description'].split('内含：\n',1)[1]!=text+'\n中其中一个':raise ValueError('Selection cube original contents')
+            if row['description'].split('内含：\n',1)[1]not in(text,text+'\n中其中一个'):raise ValueError('Selection cube original contents')
             result[t]=MappingProxyType(row)
     return MappingProxyType(result)

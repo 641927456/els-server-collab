@@ -36,9 +36,12 @@ def first_master_skill(character):
 def known_skills(unit_class):
     from els_server.domain.character_rules import CLASSES
     data=client_data()
-    return ({s for s,_ in data.skill_tree(unit_class)}
+    # Known persisted IDs are not entitlements. Independent relationship
+    # equipment still requires the current strict source; loss strips its slot.
+    from els_server.domain.relationship_skills import PERSISTED_IDS
+    return (set(PERSISTED_IDS)|{s for s,_ in data.skill_tree(unit_class)}
             |{s for s,_ in data.skill_tree(CLASSES[unit_class]['base_class'])}
-            |set(master_skills(unit_class)))
+            |set(master_skills(unit_class))|{900214,900234,900244,900269,900274,900279,900305})
 
 
 def slot_accepts(index,skill):

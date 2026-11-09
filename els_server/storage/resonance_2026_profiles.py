@@ -76,7 +76,8 @@ class ResonanceProfiles:
             pages=self.pages.mutate(account=account,character=character,operation=f'level-sync:{earned}:{progress.level}',expected_revision=pages.revision,
                 kind='account-level-credit',inputs=[earned,progress.level],change=change)
             self.db.execute('UPDATE resonance2026_profile_metadata SET earned_level=? WHERE character=? AND account=?',(progress.level,character,account))
-        return self._state(progress,pages,opaque)
+        from els_server.storage.resonance_period import project
+        return project(self.db,account,character,self._state(progress,pages,opaque))
 
     def synchronize_account(self,*,account):
         if not self.db.in_transaction:raise ValueError('Caller-owned account/profile synchronization required')

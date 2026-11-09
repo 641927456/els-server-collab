@@ -45,7 +45,7 @@ async def serve(config,stop_file=None,gm_runtime_port=None,gm_home=None):
                     from els_server.gm_runtime import Runtime
                     from els_server.domain.gm_rates import configure
                     if config.mode!='friends' and manager is None:raise ValueError('Local GM requires the independent activity pack')
-                    if config.mode=='friends':
+                    if config.mode in ('friends','local'):
                         configure(gm_home/'rates.json')
                         from els_server.domain.gm_events import configure as configure_events
                         configure_events(gm_home/'events.json')

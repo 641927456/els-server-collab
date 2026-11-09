@@ -55,50 +55,74 @@ def restore_initialization(state,*,live=False,defer_starter_arrival=False):
     historical IDs also block restoration, so a partial catalog never sends
     a character with unclassified progress back to the start of its story.
     """
-    with closing(sqlite3.connect(state.path,timeout=10)) as db,db:
-        db.execute('BEGIN IMMEDIATE')
-        character=load_character(db,state.uid,state.account_id);ensure(db)
-        items=load_items(db,state.uid);snapshot=_state(db,state.uid,items)
-        previous={row['id'] for row in snapshot['active']}
-        quest,town=starter(character['unit_type']);qid=quest['m_iID'];catalog=quest_catalog()
-        progress={r['id'] for key in ('active','completed') for r in snapshot[key]}
-        has_story=any(i not in catalog.quests or catalog.quest(i)['m_eQuestType']==5 for i in progress)
-        saved=db.execute('SELECT town FROM location WHERE uid=?',(state.uid,)).fetchone()
-        restored=False
-        if saved==(town,) and not has_story and len(snapshot['active'])<ACTIVE_QUEST_LIMIT:
-            try:require_eligible(character,quest,{r['id'] for r in snapshot['completed']},items,location=('town',town))
-            except ValueError:pass
-            else:
+    # Existing complete schemas and already-restored story state are pure
+    # reads. An uncertain/new/deferred acceptance always repeats the entire
+    # original path below after the real writer lock is acquired.
+    from els_server.storage.read_scope import snapshot_connection
+    from els_server.storage.epic_followups import deferred_write_possible
+    with snapshot_connection(state.path) as probe:
+        probe.execute('BEGIN')
+        tables=('character_ep','character_quests','completed_quests','quest_actions','quest_progress_events')
+        if all(probe.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(t,)).fetchone()for t in tables):
+            character=load_character(probe,state.uid,state.account_id)
+            snapshot=_state(probe,state.uid,load_items(probe,state.uid))
+            quest,town=starter(character['unit_type']);catalog=quest_catalog()
+            progress={row['id']for key in ('active','completed')for row in snapshot[key]}
+            has_story=any(i not in catalog.quests or catalog.quest(i)['m_eQuestType']==5 for i in progress)
+            saved=probe.execute('SELECT town FROM location WHERE uid=?',(state.uid,)).fetchone()
+            possible_starter=saved==(town,)and not has_story and len(snapshot['active'])<ACTIVE_QUEST_LIMIT
+            if not possible_starter and(saved is None or not deferred_write_possible(probe,state.uid)):
+                return _restore_reply(snapshot,{r['id']for r in snapshot['active']},live,False)
+    with closing(sqlite3.connect(state.path,timeout=10)) as db:
+        with write_transaction(db):
+            character=load_character(db,state.uid,state.account_id);ensure(db)
+            items=load_items(db,state.uid);snapshot=_state(db,state.uid,items)
+            previous={row['id'] for row in snapshot['active']}
+            quest,town=starter(character['unit_type']);qid=quest['m_iID'];catalog=quest_catalog()
+            progress={r['id'] for key in ('active','completed') for r in snapshot[key]}
+            has_story=any(i not in catalog.quests or catalog.quest(i)['m_eQuestType']==5 for i in progress)
+            saved=db.execute('SELECT town FROM location WHERE uid=?',(state.uid,)).fetchone()
+            restored=False
+            if saved==(town,) and not has_story and len(snapshot['active'])<ACTIVE_QUEST_LIMIT:
+                try:require_eligible(character,quest,{r['id'] for r in snapshot['completed']},items,location=('town',town))
+                except ValueError:pass
+                else:
+                    now=int(time.time())
+                    if not 0<now<2**63:raise ValueError('Tutorial timestamp')
+                    # Only this new root may defer its first arrival. Existing
+                    # progress is never lowered; a default saved town alone is
+                    # insufficient for an owned new tutorial creation.
+                    # No completed row, reward, EXP or inventory grant is written.
+                    arrived=not (defer_starter_arrival and unprogressed_tutorial_creation(db,state.uid,character))
+                    counts={s['m_iID']:int(arrived) for s in catalog.objectives(qid)}
+                    db.execute('INSERT INTO character_quests VALUES (?,?,?,?,?)',(state.uid,qid,now,now,json.dumps(counts,sort_keys=True)))
+                    snapshot=_state(db,state.uid,items);restored=True
+            # The existing validated selection/town-ready callers also recheck
+            # delayed current after-edges. Same-owner saved location supplies the
+            # context; map-panel selection never calls this path.
+            if saved is not None:
+                from els_server.storage.epic_followups import restore_deferred
                 now=int(time.time())
-                if not 0<now<2**63:raise ValueError('Tutorial timestamp')
-                # Only this new root may defer its first arrival. Existing
-                # progress is never lowered; a default saved town alone is
-                # insufficient for an owned new tutorial creation.
-                # No completed row, reward, EXP or inventory grant is written.
-                arrived=not (defer_starter_arrival and unprogressed_tutorial_creation(db,state.uid,character))
-                counts={s['m_iID']:int(arrived) for s in catalog.objectives(qid)}
-                db.execute('INSERT INTO character_quests VALUES (?,?,?,?,?)',(state.uid,qid,now,now,json.dumps(counts,sort_keys=True)))
-                snapshot=_state(db,state.uid,items);restored=True
-        # The existing validated selection/town-ready callers also recheck
-        # delayed current after-edges. Same-owner saved location supplies the
-        # context; map-panel selection never calls this path.
-        if saved is not None:
-            from els_server.storage.epic_followups import restore_deferred
-            now=int(time.time())
-            if not 0<now<2**63:raise ValueError('Story restoration timestamp')
-            accepted=restore_deferred(db,state.uid,character,items,('town',saved[0]),now)
-            if accepted:
-                snapshot=_state(db,state.uid,items);restored=True
-        event=wire.initialization(snapshot)
-        if not isinstance(event.payload,bytes) or len(event.payload)>65536:raise ValueError('Tutorial initialization bound')
-        if live:
-            # F0 invokes the original live quest/UI callbacks. Build all new
-            # acceptance notices before committing the deferred acceptance.
-            events=[event]+[wire.accepted(row) for row in snapshot['active'] if row['id'] not in previous]
-            from els_server.domain.tutorial_memory8_finale import ready_hidden_receipt
-            ready=ready_hidden_receipt([row for row in snapshot['active'] if row['id'] not in previous])
-            if ready:events.append(wire.progress(ready))
-            from els_server.protocol.protocol_codec import encode_event
-            for notice in events:encode_event(notice)
-            return events,restored
-        return event,restored
+                if not 0<now<2**63:raise ValueError('Story restoration timestamp')
+                accepted=restore_deferred(db,state.uid,character,items,('town',saved[0]),now)
+                if accepted:
+                    snapshot=_state(db,state.uid,items);restored=True
+            return _restore_reply(snapshot,previous,live,restored)
+
+from els_server.storage.sqlite_timing import write_transaction
+
+
+def _restore_reply(snapshot,previous,live,restored):
+    event=wire.initialization(snapshot)
+    if not isinstance(event.payload,bytes) or len(event.payload)>65536:raise ValueError('Tutorial initialization bound')
+    if live:
+        # F0 invokes the original live quest/UI callbacks. Build all new
+        # acceptance notices before committing the deferred acceptance.
+        events=[event]+[wire.accepted(row) for row in snapshot['active'] if row['id'] not in previous]
+        from els_server.domain.tutorial_memory8_finale import ready_hidden_receipt
+        ready=ready_hidden_receipt([row for row in snapshot['active'] if row['id'] not in previous])
+        if ready:events.append(wire.progress(ready))
+        from els_server.protocol.protocol_codec import encode_event
+        for notice in events:encode_event(notice)
+        return events,restored
+    return event,restored

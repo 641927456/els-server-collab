@@ -24,6 +24,8 @@ def restore(path,owner,payload,operation,*,account_id=None):
   item=next((i for i in before if i['uid']==uid),None)
   if item is None or item['count']!=1 or item['group'] not in (1,9) or not -13<=item.get('enhancement',0)<=-8:raise ValueError('Owned broken equipment required')
   require_current(item);require_unlocked(item)
+  from els_server.domain.owned_scroll_families import restoration_target
+  restoration_target(template,item)
   material=next((i for i in before if i['template']==template and i['group']==4 and not expired(i) and not locked(i)),None)
   if material is None:raise ValueError('Missing owned current restoration scroll')
   if material['count']==1:remove(db,owner,material)
@@ -32,5 +34,8 @@ def restore(path,owner,payload,operation,*,account_id=None):
   after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
   positions=[(material['group'],material['slot']),(item['group'],item['slot'])]
   wire=acknowledgement(changes=[(p,current.get(p)) for p in positions])
+  answer=Event(0x201,kind=0x220,payload=wire)
+  from els_server.protocol.protocol_codec import encode_event
+  encode_event(answer)
   _commit(db,operation,digest,owner,0x21f,positions,before,after)
-  return [Event(0x201,kind=0x220,payload=wire)]
+  return [answer]

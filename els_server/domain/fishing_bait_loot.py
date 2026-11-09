@@ -18,7 +18,7 @@ def _canonical(v):return json.dumps(v,sort_keys=True,separators=(',',':'))
 def _facts(s):
     app=getattr(s,'application',None);world=getattr(app,'world',None)
     return (id(world),id(getattr(world,'dungeons',None)),id(getattr(app,'registry',None)),
-            repr(s.identity),s.active_map,repr(s.account.get_location()),
+            repr(getattr(s,'identity',None)),getattr(s,'active_map',None),repr(s.account.get_location()),
             repr(getattr(s,'pending_map',None)),getattr(s,'map_synchronizing',None))
 
 
@@ -38,7 +38,7 @@ def _actor(run,npc):
              if (a['template'],a['source_index'])==(npc['template'],npc['source_index'])
              and a['active'] and a['boss'] and not a['no_drop']
              and not a.get('ally') and a.get('team',1)!=0]
-    if len(matches)!=1:raise ValueError('Bait current graph Boss identity')
+    if not matches:raise ValueError('Bait current graph Boss identity')
     return dict(stage=run.stage,part=run.part,template=npc['template'],source_index=npc['source_index'],npc_key=npc['key'])
 
 

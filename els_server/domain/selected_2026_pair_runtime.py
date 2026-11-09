@@ -74,6 +74,9 @@ class SelectedAttendanceOnline:
             if type(text['deadline']) is not int or not end<=text['deadline']<2**31:raise ValueError('Mail deadline bounds')
         binding=dict(policy=POLICY,configuration=self.config,resources={k:hashlib.sha256(resources[k]).hexdigest() for k in sorted(resources)})
         self.settings=Settings(path,binding);self.state=None;self.flows=weakref.WeakSet();self.app=None
+        from els_server.domain.local_activity_banners import BannerSource
+        from els_server.paths import PROJECT_ROOT
+        self.banners=BannerSource(PROJECT_ROOT/'config/local-banners.json')
 
     def _attendance(self,db):
         a=self.config['attendance']
@@ -112,7 +115,12 @@ class SelectedAttendanceOnline:
             clock=self.clock,catalog=self.catalog,anchor_value=a['starts'],other_reward_rows={},eligibility=selected_local_test_character,
             monotonic=self.monotonic,epoch=self.epoch,purchase_policy=LOCAL_EARLIEST_PURCHASE,task_policy=TASK_CARRY_POLICY,**a['mail'],
             online_title=title,available=lambda s,t:self.state['enabled']['attendance'] and a['starts']<=t<a['ends'])
-        flow.bootstrap_clock=self.clock;self.flows.add(flow);return flow
+        flow.bootstrap_clock=self.clock
+        # Extra operator-authored rows for the client activity strip. The
+        # wrapper only appends display packets; the installed flow keeps
+        # owning every reward, clock and eligibility decision.
+        from els_server.domain.local_activity_banners import BannerFlow
+        wrapped=BannerFlow(flow,self.banners);self.flows.add(wrapped);return wrapped
 
     def snapshot(self):
         if self.state is None:raise ValueError('Selected activities unavailable')

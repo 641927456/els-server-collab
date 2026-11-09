@@ -5,7 +5,7 @@ from contextlib import closing
 
 
 def settle(members,event):
-    from els_server.domain.local_session import LocalSession
+    from els_server.domain.dungeon_settlement_commands import settle_clear
     from els_server.domain.challenge_flow import notification
     paths={Path(m.account.store.path).resolve() for m in members}
     if len(paths)!=1:raise ValueError('Shared challenge requires one database')
@@ -19,7 +19,7 @@ def settle(members,event):
             for m in members:
                 # The outer handle() observes quest/pet events through their
                 # own connections. Run those observers after this commit.
-                messages=LocalSession._handle(m,event)
+                messages=settle_clear(m,event)
                 if not m.clear_notified or m.reward_receipt is None:raise ValueError('Shared settlement did not produce a clear receipt')
                 deliveries.append((m,[e for e in messages if e.kind not in (0xbc,0xae6)]))
     except BaseException:

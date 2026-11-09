@@ -19,5 +19,34 @@ def handle(session,event,sequence):
         # Generic career/skill handlers retain their own invalid-phase reply.
         return None if kind==0x219 else failure()
     operation=session.shop_session_id+':pet:'+str(sequence if sequence is not None else uuid.uuid4())
-    try:return state.handle(path,owner,kind,event.payload,operation)
+    try:
+        if kind==0x219:
+            # 22219 is shared by every usable item, and a permanent custom book
+            # is also 29 bytes: uid, custom id, family, socket, two pads. The pet
+            # decoder reads that family as an invalid parameter, so decoding
+            # first and answering through failure() swallowed every unrelated
+            # book with a silent -1. Decide on the owned template instead, and
+            # hand anything that is not a pet coupon back to the later families.
+            from els_server.domain.pet_support import PRODUCTS as plain_products
+            from els_server.storage.pet_support_periods import PRODUCTS as timed_products
+            item_uid=int.from_bytes(event.payload[:8],'big') if len(event.payload)>=8 else 0
+            item=next((i for i in session.account.get_inventory_snapshot()['items']if i['uid']==item_uid),None)
+            if item is not None and item['template'] not in plain_products and item['template'] not in timed_products:
+                return None
+            historical=False
+            if item is None:
+                import json,sqlite3
+                from contextlib import closing
+                with closing(sqlite3.connect(path))as probe:
+                    if probe.execute("SELECT 1 FROM sqlite_master WHERE type='table'AND name='pet_support_receipts'").fetchone():
+                        saved=probe.execute('SELECT context FROM pet_support_receipts WHERE owner=?AND operation=?',(owner,operation)).fetchone()
+                        historical=bool(saved and json.loads(saved[0]).get('timed_support'))
+                if not historical:return None
+            if(item and item['template']in timed_products)or historical:
+                from els_server.domain.equipment_chip_flow import reset_context
+                from els_server.domain.tenebros_capacity_flow import selected
+                reset_context(session,event,sequence)
+                selected_path,selected_owner,account_id,prepare=selected(session)
+                return state.handle(selected_path,selected_owner,kind,event.payload,operation,account_id=account_id,prepare=prepare)
+        return state.handle(path,owner,kind,event.payload,operation)
     except (ValueError,UnicodeError):return failure()

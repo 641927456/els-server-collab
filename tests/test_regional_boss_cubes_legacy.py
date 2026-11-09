@@ -81,7 +81,8 @@ class LegacyRegionalCubeTests(unittest.TestCase):
   self.assertEqual(sorted(struct.unpack_from('>I',a[-1].payload,12)[0] for a in answers),[0,1])
   before=self.dump()
   with self.assertRaises(ValueError):
-   open_cube(self.path,1001,130159,payload(item['uid'],option=1),'concurrent-partial',draw_once)
+   # Count1 is the native single-box route; a bulk count must not re-authorize.
+   open_cube(self.path,1001,130159,payload(item['uid'],option=2),'concurrent-partial',draw_once)
   self.assertEqual(self.dump(),before)
  def test_failure_and_foreign_owner_rollback(self):
   item=self.grant(162020);body=payload(item['uid']);before=self.dump()
@@ -183,7 +184,7 @@ class LegacyRegionalCubeTests(unittest.TestCase):
    with patch('els_server.storage.bag_capacity.allowances',return_value=limits) if kind=='full' else nullcontext():
     with self.assertRaises(ValueError):
      open_cube(self.path,1001,130160 if kind=='preview' else 130159,
-               payload(item['uid'],option=1 if kind=='mode' else 0),'refusal-'+kind,lambda n:0)
+               payload(item['uid'],option=2 if kind=='mode' else 0),'refusal-'+kind,lambda n:0)
    self.assertEqual(self.dump(),before)
 
  def test_all_receipt_encoding_and_prepare_failures_rollback(self):

@@ -13,6 +13,10 @@ def store(s):
 
 def notification(s):
  state=store(s).current()
+ if state and state['progress']:
+  stamp=(s.account.uid,state['attempt'],state['progress'],state['complete'])
+  if getattr(s,'_challenge_weekly_stamp',None)!=stamp:
+   s._challenge_weekly_stamp=stamp;s._raid_progress_initialized=None
  if state is None or state['complete'] or state['deadline']<=int(time.time()):return phase_notice()
  return phase_notice(state['challenge'],state['phase'],state['progress'],state['deadline'],actor=s.account.uid)
 

@@ -15,7 +15,7 @@ from els_server.protocol.protocol_codec import encode_event,Event
 from els_server.domain.fashion_state import move_ack
 def open_box(path,owner,template,payload,operation,*,now=None):
  rule=boxes().get(template);req=use_request(payload)
- if rule is None or req.option or req.choices or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Selected accessory box is all-output, no choices')
+ if rule is None or req.option not in (0,1) or req.choices or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Selected accessory box is all-output, no choices')
  owner,digest=_identity(owner,0x196,struct.pack('>i',template)+payload,operation)
  with closing(sqlite3.connect(path,timeout=10)) as db,db:
   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');old=_previous(db,operation,digest);before=load_items(db,owner);balance=balances(db,owner)

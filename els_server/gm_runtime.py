@@ -43,8 +43,21 @@ class Runtime:
         self.listener = None
 
     def players(self):
+        # The playing lease is dropped on a channel handoff and only comes back
+        # through the 0x28 branch, while world.members is written when a session
+        # actually lands in town. Neither source alone is complete, so union
+        # them; a live character must never look offline to the GM panel.
+        candidates = list(self.app.playing.values())
+        try:
+            candidates += list(self.app.world.members.keys())
+        except Exception:
+            pass
         result = []
-        for s in self.app.playing.values():
+        seen = set()
+        for s in candidates:
+            if id(s) in seen:
+                continue
+            seen.add(id(s))
             if s.released or s.role != 'game':
                 continue
             c = s.account.character()
@@ -87,12 +100,11 @@ class Runtime:
         from els_server.domain.dungeon_drops import pickup_inventory_notice
         key = operation(value)
         template, quantity = value.get('template'), value.get('quantity')
-        if type(template) is not int or type(quantity) is not int or not 1 <= quantity <= 99:
-            raise ValueError('每次发放数量为 1–99')
+        if type(template) is not int or type(quantity) is not int or not 1 <= quantity <= 999:
+            raise ValueError('每次发放数量为 1–999')
         plan = item_plan(template,quantity)
         digest = hashlib.sha256(canonical(value).encode()).hexdigest()
-        with closing(sqlite3.connect(self.app.config.state_file,timeout=10)) as db, db:
-            db.execute('BEGIN IMMEDIATE')
+        with closing(sqlite3.connect(self.app.config.state_file,timeout=10)) as db, write_transaction(db):
             db.execute('CREATE TABLE IF NOT EXISTS gm_item_receipts (operation_id TEXT PRIMARY KEY, digest TEXT NOT NULL, receipt TEXT NOT NULL)')
             old = db.execute('SELECT digest,receipt FROM gm_item_receipts WHERE operation_id=?',(key,)).fetchone()
             if old:
@@ -102,7 +114,10 @@ class Runtime:
             s = self.session(value)
             # D3 is the proven incremental bag updater. Prepare bounded mail
             # before commit, then publish with one reference assignment.
-            try:changed = grant_items(db,[plan],s.account.uid)
+            # admin_grant: this is an explicit operator decision made in the
+            # local GM panel, not a game source, so acquisition_policy does not
+            # veto it. Quest/shop/drop paths keep the policy closed.
+            try:changed = grant_items(db,[plan],s.account.uid,admin_grant=True)
             except InventoryFull as e:raise ValueError('玩家背包空间不足，未发放任何物品') from e
             events = [pickup_inventory_notice(changed)]
             box = prepare_mailbox(s,events)
@@ -110,9 +125,8 @@ class Runtime:
                 template=template,quantity=quantity,reason=value['reason'],time=time.time(),replayed=False,
                 delivery='committed-and-queued')
             db.execute('INSERT INTO gm_item_receipts VALUES (?,?,?)',(key,digest,canonical(receipt)))
-            db.commit()
-            s.mailbox = box
-            return receipt
+        s.mailbox = box
+        return receipt
 
     def announce(self,value):
         operation(value)
@@ -181,17 +195,16 @@ class Runtime:
     def execute(self, request):
         action, value = request.get('action'), request.get('value',{})
         if action in ('cash-balance','cash-operation','cash-credit'):return self.ariel_cash(action,value)
-        if self.app.config.mode=='local' and action not in ('selected2026-status','selected2026'):
-            raise ValueError('本地活动管理接口只开放本次签到和在线活动')
         if action in ('coupon-rewards','coupon-list','coupon-operation','coupon-issue','coupon-revoke'):return self.coupon(action,value)
         if action in ('selected2026-status','selected2026'):
             manager=getattr(self.app,'activity2026_manager',None)
-            if manager is None:raise ValueError('本机未启用2026活动运行配置')
+            if manager is None:raise ValueError('Selected reproduction runtime unavailable')
             return manager.snapshot() if action=='selected2026-status' else manager.update(value)
         if action=='status':
             from els_server.domain.gm_rates import snapshot
             from els_server.domain.gm_events import snapshot as event_snapshot
-            return dict(players=self.players(),rates=snapshot(),events=event_snapshot(),announcements=[{k:v for k,v in j.items() if k!='event'} for j in self.scheduled])
+            return dict(players=self.players(),rates=snapshot(),events=event_snapshot(),announcements=[{k:v for k,v in j.items() if k!='event'} for j in self.scheduled],
+                _debug=dict(playing=len(self.app.playing),members=len(getattr(self.app.world,'members',{}))))
         if action=='give':return self.give(value)
         if action in ('level-preview','set-level'):
             from els_server.storage.gm_levels import preview,set_level
@@ -206,6 +219,9 @@ class Runtime:
             operation(value)
             from els_server.domain.gm_events import update
             return update(value['events'],value['expected_revision'])
+        if action in ('banners-status','banners'):
+            from els_server.domain.local_activity_banners import PATH as banner_path,snapshot as banner_snapshot,update as banner_update
+            return banner_snapshot(banner_path) if action=='banners-status' else banner_update(banner_path,value)
         if action=='cancel-announcement':
             operation(value)
             self.scheduled=[j for j in self.scheduled if j['id']!=value.get('id')]
@@ -225,10 +241,9 @@ class Runtime:
                     reply=dict(ok=True,result=result)
             except Exception as e:
                 reply=dict(ok=False,error=str(e) if isinstance(e,ValueError) else '服务端管理操作失败，请检查日志')
-                if not isinstance(e,ValueError) and isinstance(locals().get('request'),dict) and request.get('action')=='cash-credit':reply['outcome_unknown']=True
                 # Cancellation/SQL/internal errors can race a durable commit.
                 # Coupon recovery must inspect the original worker receipt.
-                if not isinstance(e,ValueError) and isinstance(locals().get('request'),dict) and request.get('action')in('coupon-issue','coupon-revoke'):
+                if not isinstance(e,ValueError) and isinstance(locals().get('request'),dict) and request.get('action')in('coupon-issue','coupon-revoke','cash-credit'):
                     reply['outcome_unknown']=True
             try:
                 writer.write((canonical(reply)+'\n').encode());await writer.drain()
@@ -238,3 +253,5 @@ class Runtime:
 
     async def close(self):
         if self.listener:self.listener.close();await self.listener.wait_closed()
+
+from els_server.storage.sqlite_timing import write_transaction

@@ -60,7 +60,9 @@ def handle(s,event,sequence):
   if key!=-1 or template not in allowed:raise ValueError('NPC not declared by current encounter')
   if struct.unpack_from('<Q',dto,0x6d)[0] not in owners:raise ValueError('NPC creator outside current encounter')
   if dto[8] not in (0,1,2) or any(dto[o] not in (0,1) for o in (0x4e,0x54,0x61,0x65,0x66)):raise ValueError('NPC flag bound')
-  if not all(math.isfinite(v) and abs(v)<=100000 for v in struct.unpack_from('<fff',dto,9)):raise ValueError('NPC spawn position bound')
+  # Native scene XYZ is unscaled; 1e5 cut off Santilus' 33242 summoners at
+  # X=158000. Match the shared decoder's 1e7 bound instead of dropping it.
+  if not all(math.isfinite(v) and abs(v)<=1e7 for v in struct.unpack_from('<fff',dto,9)):raise ValueError('NPC spawn position bound')
  try:rows=decode(event.payload,validate)
  except ValueError:return None  # Preserve the existing player-sentry decoder.
  # Source-bound compatibility for legacy Rose performance references in Ain.

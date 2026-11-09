@@ -119,7 +119,7 @@ class DecompositionTests(unittest.TestCase):
                 decompose(self.path, 1001, request(self.gear['uid']), 'encoder')
         self.assertEqual(self.dump(), before)
         for _ in range(36):
-            self.grant(135983, 99)
+            self.grant(135983, 999)
         before = self.dump()
         with self.assertRaises(ValueError):
             decompose(self.path, 1001, request(self.gear['uid']), 'full')
@@ -131,6 +131,17 @@ class DecompositionTests(unittest.TestCase):
             list(pool.map(lambda _: decompose(self.path, 1001, request(self.gear['uid']), 'concurrent'), range(2)))
         self.assertEqual(self.crystals(), 126)
         self.assertEqual(len([i for i in self.items() if i['template'] == 701000]), 1)
+
+    def test_zero_resale_growth_gear_compat_floor(self):
+        # Native zero-ED level-0 growth gear (成长的冒险家 11030162) used to fail
+        # the whole batch: the level band required 1..80 and resale was 0.
+        gear = self.grant(11030162)
+        self.assertEqual(quote(gear)['quantity'], 1)
+        response = decompose(self.path, 1001, request(gear['uid']), 'growth')
+        self.assertEqual(response[0].kind, 0x1c1)
+        self.assertEqual(struct.unpack_from('>iBIii', response[0].payload), (0, 0, 1, 701000, 1))
+        self.assertEqual(self.crystals(), 1)
+        self.assertNotIn(gear['uid'], {i['uid'] for i in self.items()})
 
     def test_real_dispatch_and_invalid_phase(self):
         session = LocalSession(self.account, enter_town=True, enter_dungeon=True,

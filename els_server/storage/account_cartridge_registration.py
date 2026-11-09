@@ -239,61 +239,66 @@ def _binding_history(db,operation,digest,owner,account_id,target_uid,kind,select
  except(KeyError,TypeError,json.JSONDecodeError)as exc:raise ValueError('Malformed Cartridge binding paired history')from exc
 
 def perform_binding(path,owner,account_id,kind,payload,operation,*,authorize=None,encode=acknowledge):
+ with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
+  db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
+  from els_server.storage.cartridge_transitions import binding_in_original_transaction
+  return binding_in_original_transaction(db,owner,account_id,kind,payload,operation,authorize=authorize,encode=encode)
+
+def _perform_binding_db(db,owner,account_id,kind,payload,operation,*,authorize=None,encode=acknowledge):
  from els_server.domain.cartridge_registration_rules import BINDING_POLICY,scalar
  if kind not in(0xd50,0xd52):raise ValueError('Finite Cartridge binding action')
  fields=request(kind,payload);target_uid=fields[0];selected_id=fields[1]if kind==0xd50 else None
  owner,digest=_identity(owner,kind,payload,operation)
- with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
-  db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');_authority(db,owner,account_id,authorize)
-  try:previous=_previous(db,operation,digest)
-  except(TypeError,KeyError,json.JSONDecodeError)as exc:raise ValueError('Malformed Cartridge binding previous')from exc
-  items=load_items(db,owner);current=_read(db,account_id);item=next((i for i in items if i['uid']==target_uid),None)
-  if previous is not None:
-   identity,revision=_binding_history(db,operation,digest,owner,account_id,target_uid,kind,selected_id,previous)
-   if identity not in current['rows']or current['revision']<revision:raise ValueError('Cartridge binding currentstate lost history')
-   # Only the still-current original after-effect is a genuine success retry.
-   pair=current['rows'][identity];expected_uid=target_uid if kind==0xd50 else 0
-   valid=pair[0]==expected_uid
-   try:_binding_target(item)
-   except ValueError:valid=False
-   expected_pair=[identity,pair[1]]if kind==0xd50 else[0,0]
-   if item is None or scalar(item.get('cartridge',[0,0]))!=expected_pair:valid=False
-   if not valid:
-    event=encode(kind+1,result=2005,identity=0,rows={},changes=());encode_event(event);_authority(db,owner,account_id,authorize);return[event]
-   changes=current_changes(db,operation,owner,kind,previous,items)
-   event=encode(kind+1,result=0,identity=identity,rows=current['rows'],changes=changes);encode_event(event);_authority(db,owner,account_id,authorize);return[event]
-  from els_server.domain.cartridge_registration_rules import schema_kind
-  if schema_kind(db)=='binding'and db.execute('SELECT 1 FROM account_cartridge_binding_receipts WHERE operation_id=?',(operation,)).fetchone():raise ValueError('Unpaired Cartridge binding account receipt')
-  item=_binding_target(item);rows=dict(current['rows'])
-  if current['revision']>=2**63-1:raise ValueError('Cartridge account revision overflow')
-  if kind==0xd50:
-   _attach_intrinsic(item)
-   if selected_id not in rows or rows[selected_id][0]!=0 or scalar(item.get('cartridge',[0,0]))!=[0,0]:raise ValueError('Cartridge ID/target already occupied or unregistered')
-   require_current(item);require_unlocked(item)
-   from els_server.domain.equipment_instance import require_wearable
-   raw=db.execute('SELECT unit_type,unit_class,level FROM characters WHERE uid=?',(owner,)).fetchone()
-   if raw is None:raise ValueError('Cartridge current character missing')
-   require_wearable(item,dict(unit_type=raw[0],unit_class=raw[1],level=raw[2]))
-   if item.get('sealed',False):raise ValueError('Unseal before Cartridge attachment')
-   identity=selected_id;level=rows[identity][1];rows[identity]=(target_uid,level)
-  else:
-   matches=[i for i,(u,l)in rows.items()if u==target_uid]
-   if len(matches)!=1:raise ValueError('Exact current Cartridge carrier binding required')
-   identity=matches[0];level=rows[identity][1]
-   if scalar(item.get('cartridge',[0,0]))!=[identity,level]:raise ValueError('Current Cartridge projection mismatch')
-   rows[identity]=(0,level)
-  updated=account_state(rows,current['points'],current['revision']+1)
-  _ensure_binding_schema(db)
-  if db.execute('UPDATE account_cartridge_collection SET bound_uid=? WHERE account_id=? AND cartridge_id=? AND bound_uid=?',(rows[identity][0],account_id,identity,current['rows'][identity][0])).rowcount!=1:raise ValueError('Cartridge binding conditional update')
-  if db.execute('UPDATE account_cartridge_state SET revision=? WHERE account_id=? AND revision=?',(updated['revision'],account_id,current['revision'])).rowcount!=1:raise ValueError('Cartridge account conditional revision')
-  after_items=load_items(db,owner);actual=_read(db,account_id)
-  if actual!=updated:raise ValueError('Cartridge binding written account mismatch')
-  final=next((i for i in after_items if i['uid']==target_uid),None)
-  if final is None or {k:v for k,v in final.items()if k!='cartridge'}!={k:v for k,v in item.items()if k!='cartridge'}or {i['uid']:i for i in after_items if i['uid']!=target_uid}!={i['uid']:i for i in items if i['uid']!=target_uid}:raise ValueError('Cartridge binding changed inventory identity/sidecars')
-  position=(final['group'],final['slot']);event=encode(kind+1,result=0,identity=identity,rows=actual['rows'],changes=[(position,final)]);encode_event(event)
-  _commit(db,operation,digest,owner,kind,[position],[item],[final])
-  db.execute('INSERT INTO account_cartridge_binding_receipts VALUES (?,?,?,?,?,?,?,?,?,?)',(operation,digest,account_id,owner,target_uid,kind,identity,json.dumps(_packed(current),sort_keys=True),json.dumps(_packed(updated),sort_keys=True),BINDING_POLICY))
-  _authority(db,owner,account_id,authorize);return[event]
+ _authority(db,owner,account_id,authorize)
+ try:previous=_previous(db,operation,digest)
+ except(TypeError,KeyError,json.JSONDecodeError)as exc:raise ValueError('Malformed Cartridge binding previous')from exc
+ items=load_items(db,owner);current=_read(db,account_id);item=next((i for i in items if i['uid']==target_uid),None)
+ if previous is not None:
+  identity,revision=_binding_history(db,operation,digest,owner,account_id,target_uid,kind,selected_id,previous)
+  if identity not in current['rows']or current['revision']<revision:raise ValueError('Cartridge binding currentstate lost history')
+  # Only the still-current original after-effect is a genuine success retry.
+  pair=current['rows'][identity];expected_uid=target_uid if kind==0xd50 else 0
+  valid=pair[0]==expected_uid
+  try:_binding_target(item)
+  except ValueError:valid=False
+  expected_pair=[identity,pair[1]]if kind==0xd50 else[0,0]
+  if item is None or scalar(item.get('cartridge',[0,0]))!=expected_pair:valid=False
+  if not valid:
+   event=encode(kind+1,result=2005,identity=0,rows={},changes=());encode_event(event);_authority(db,owner,account_id,authorize);return[event]
+  changes=current_changes(db,operation,owner,kind,previous,items)
+  event=encode(kind+1,result=0,identity=identity,rows=current['rows'],changes=changes);encode_event(event);_authority(db,owner,account_id,authorize);return[event]
+ from els_server.domain.cartridge_registration_rules import schema_kind
+ if schema_kind(db)=='binding'and db.execute('SELECT 1 FROM account_cartridge_binding_receipts WHERE operation_id=?',(operation,)).fetchone():raise ValueError('Unpaired Cartridge binding account receipt')
+ item=_binding_target(item);rows=dict(current['rows'])
+ if current['revision']>=2**63-1:raise ValueError('Cartridge account revision overflow')
+ if kind==0xd50:
+  _attach_intrinsic(item)
+  if selected_id not in rows or rows[selected_id][0]!=0 or scalar(item.get('cartridge',[0,0]))!=[0,0]:raise ValueError('Cartridge ID/target already occupied or unregistered')
+  require_current(item);require_unlocked(item)
+  from els_server.domain.equipment_instance import require_wearable
+  raw=db.execute('SELECT unit_type,unit_class,level FROM characters WHERE uid=?',(owner,)).fetchone()
+  if raw is None:raise ValueError('Cartridge current character missing')
+  require_wearable(item,dict(unit_type=raw[0],unit_class=raw[1],level=raw[2]))
+  if item.get('sealed',False):raise ValueError('Unseal before Cartridge attachment')
+  identity=selected_id;level=rows[identity][1];rows[identity]=(target_uid,level)
+ else:
+  matches=[i for i,(u,l)in rows.items()if u==target_uid]
+  if len(matches)!=1:raise ValueError('Exact current Cartridge carrier binding required')
+  identity=matches[0];level=rows[identity][1]
+  if scalar(item.get('cartridge',[0,0]))!=[identity,level]:raise ValueError('Current Cartridge projection mismatch')
+  rows[identity]=(0,level)
+ updated=account_state(rows,current['points'],current['revision']+1)
+ _ensure_binding_schema(db)
+ if db.execute('UPDATE account_cartridge_collection SET bound_uid=? WHERE account_id=? AND cartridge_id=? AND bound_uid=?',(rows[identity][0],account_id,identity,current['rows'][identity][0])).rowcount!=1:raise ValueError('Cartridge binding conditional update')
+ if db.execute('UPDATE account_cartridge_state SET revision=? WHERE account_id=? AND revision=?',(updated['revision'],account_id,current['revision'])).rowcount!=1:raise ValueError('Cartridge account conditional revision')
+ after_items=load_items(db,owner);actual=_read(db,account_id)
+ if actual!=updated:raise ValueError('Cartridge binding written account mismatch')
+ final=next((i for i in after_items if i['uid']==target_uid),None)
+ if final is None or {k:v for k,v in final.items()if k!='cartridge'}!={k:v for k,v in item.items()if k!='cartridge'}or {i['uid']:i for i in after_items if i['uid']!=target_uid}!={i['uid']:i for i in items if i['uid']!=target_uid}:raise ValueError('Cartridge binding changed inventory identity/sidecars')
+ position=(final['group'],final['slot']);event=encode(kind+1,result=0,identity=identity,rows=actual['rows'],changes=[(position,final)]);encode_event(event)
+ _commit(db,operation,digest,owner,kind,[position],[item],[final])
+ db.execute('INSERT INTO account_cartridge_binding_receipts VALUES (?,?,?,?,?,?,?,?,?,?)',(operation,digest,account_id,owner,target_uid,kind,identity,json.dumps(_packed(current),sort_keys=True),json.dumps(_packed(updated),sort_keys=True),BINDING_POLICY))
+ _authority(db,owner,account_id,authorize);return[event]
 
 
 def _ensure_growth_schema(db):

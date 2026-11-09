@@ -22,6 +22,20 @@ class DestinationRequirementError(ValueError):
         super().__init__(message)
 
 
+def entry_failure_code(error):
+    """Pinned native village-entry messages; preserve the eligibility result."""
+    if isinstance(error,DestinationRequirementError):
+        level,dungeon,quest,_=error.details
+        return 518 if level else 519 if dungeon else 1620
+    return 515
+
+
+def entry_failure_payload(error=None):
+    """Native226: result, minimum level, required dungeon, quest, reserved."""
+    details=error.details if isinstance(error,DestinationRequirementError) else (0,0,0,0)
+    return struct.pack('>5i',entry_failure_code(error),*details)
+
+
 def require_destination(destination,character,completed,dungeon_records):
     if type(destination) is not int or str(destination) not in catalog()['towns']:raise ValueError('Unsupported town destination')
     row=catalog()['towns'][str(destination)];r=row['requirement']

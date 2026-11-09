@@ -5,8 +5,10 @@ from els_server.storage.character_schema import character_uid
 from els_server.storage.quick_slots import _load
 from els_server.storage.inventory_state import load_items
 from els_server.domain.quick_bindings import item_binding
-from els_server.domain.consumables import require_usable,recovery_cooldown_seconds
+from els_server.domain.consumables import require_usable,recovery_cooldown_seconds,CURRENT_MANUAL
 from els_server.protocol.consumable_messages import request,acknowledgement,effect
+from els_server.protocol.protocol_codec import encode_event
+from els_server.domain.consumable_extensions import quick_templates,quick_bindings,infinite
 
 
 def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apples=False,account_id=None):
@@ -37,7 +39,7 @@ def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apple
                 return [acknowledgement(automatic=automatic_use,slot=slot)]
         if automatic_use:
             from els_server.storage.pet_support import automatic
-            state=automatic(db,uid)
+            state=automatic(db,uid,now=int(now))
             active=db.execute('SELECT pet FROM companion_active WHERE owner=?',(uid,)).fetchone() if db.execute("SELECT 1 FROM sqlite_master WHERE name='companion_active'").fetchone() else None
             if not state['automatic'] or not active or not active[0] or (state['upgrade'] and not state['enabled']):raise ValueError('Active pet and automatic entitlement required')
             from els_server.storage.pet_support import owned_pet
@@ -52,17 +54,17 @@ def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apple
         from els_server.domain.item_expiration import expired
         matches=[i for i in load_items(db,uid) if i['group']==6 and item_binding(i['template'])==binding and not expired(i,now=int(now))]
         if not matches:raise ValueError('No owned consumable')
-        if binding in (399,775):
+        if binding in ({399,775}|quick_bindings()|{item_binding(t)for t in CURRENT_MANUAL}):
             # Approved local policy: only currently usable owned instances;
             # earliest finite expiry, permanent last, then bag slot and UID.
             eligible=[]
             for candidate in matches:
                 try:
                     require_usable(candidate['template'],character[0],automatic=automatic_use)
-                    if candidate['template'] in (710313,710314,710315,77110,130467,710193,723674):
+                    if candidate['template'] in ({710313,710314,710315,77110,130467,710193,723674}|quick_templates()|CURRENT_MANUAL):
                         if allow_apples is not True:continue
                         from els_server.domain.item_locks import require_unlocked
-                        require_unlocked(candidate)
+                        require_unlocked(candidate,now=int(now))
                 except ValueError:continue
                 eligible.append(candidate)
             if not eligible:raise ValueError('No eligible owned consumable')
@@ -72,20 +74,24 @@ def use(path,uid,payload,operation_id,*,now=None,automatic_use=False,allow_apple
             if len({i['template'] for i in matches})!=1:raise ValueError('Ambiguous consumable template')
             item=min(matches,key=lambda i:i['slot'])
         meta=require_usable(item['template'],character[0],automatic=automatic_use)
-        if item['template'] in (710313,710314,710315,77110,130467,710193,723674):
+        if item['template'] in ({710313,710314,710315,77110,130467,710193,723674}|quick_templates()|CURRENT_MANUAL):
             if allow_apples is not True:raise ValueError('Apple native actor stage is not ready')
             from els_server.domain.item_locks import require_unlocked
-            require_unlocked(item)
+            require_unlocked(item,now=int(now))
         db.execute('CREATE TABLE IF NOT EXISTS consumable_cooldowns (owner INTEGER NOT NULL REFERENCES characters(uid), cooldown_group INTEGER NOT NULL, ready_at REAL NOT NULL, PRIMARY KEY(owner,cooldown_group))')
         prior=db.execute('SELECT ready_at FROM consumable_cooldowns WHERE owner=? AND cooldown_group=?',(uid,meta['cooldown_group'])).fetchone()
         if prior and now<prior[0]:raise ValueError('Consumable is cooling down')
-        remaining=dict(item,count=item['count']-1) if item['count']>1 else None
+        unlimited=infinite(item['template'])
+        if unlimited and(item['metadata']!=0 or item['count']!=1):raise ValueError('Native infinite item instance')
+        remaining=dict(item)if unlimited else dict(item,count=item['count']-1)if item['count']>1 else None
         answer=[acknowledgement(remaining,(item['group'],item['slot']),item['template'],automatic=automatic_use,slot=slot),effect(uid,item['template'])]
-        if remaining:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item['uid'],uid))
+        # Validate complete native envelopes before any debit or cooldown write.
+        for event in answer:encode_event(event)
+        if unlimited:pass  # Native SAT_INFINITE_QUANTITY_ITEM65: keep exact instance.
+        elif remaining:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item['uid'],uid))
         else:
-            from els_server.storage.item_expiration import forget
-            forget(db,item['uid'])
-            db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item['uid'],uid))
+            from els_server.storage.item_instances import remove
+            remove(db,uid,item)
         from els_server.storage.pet_support import active_effects
         reduction=max(0,min(.9,active_effects(db,uid).get('m_fReduceRecoveryItemCooltime',0)))
         db.execute('INSERT INTO consumable_cooldowns VALUES (?,?,?) ON CONFLICT(owner,cooldown_group) DO UPDATE SET ready_at=excluded.ready_at',(uid,meta['cooldown_group'],now+recovery_cooldown_seconds(meta['cooldown_seconds'],reduction)))

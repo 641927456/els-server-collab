@@ -35,7 +35,7 @@ def effects(rows,identity,kind):
     return total,selected
 
 def percentage(value,basis_points):
-    if type(value)is not int or value<0 or type(basis_points)is not int or not 0<=basis_points<=10000:raise ValueError('Elixir economic integer amount')
+    if type(value)is not int or value<0 or type(basis_points)is not int or not 0<=basis_points<=15000:raise ValueError('Elixir economic integer amount')
     return value*(10000+basis_points)//10000
 
 def draw(size,randbelow):
@@ -45,7 +45,7 @@ def draw(size,randbelow):
     return value
 
 def hit(numerator,denominator,randbelow,basis_points=0):
-    if type(numerator)is not int or type(denominator)is not int or not 0<=numerator<=denominator or type(basis_points)is not int or not 0<=basis_points<=10000:raise ValueError('Elixir probability source')
+    if type(numerator)is not int or type(denominator)is not int or not 0<=numerator<=denominator or type(basis_points)is not int or not 0<=basis_points<=15000:raise ValueError('Elixir probability source')
     if not basis_points:return draw(denominator,randbelow)<numerator
     return draw(denominator*10000,randbelow)<min(denominator*10000,numerator*(10000+basis_points))
 
@@ -56,7 +56,7 @@ def source_case(cases,groups,items,scale,randbelow,basis_points):
     its original parent probability times its original child probability.
     No unsupported leaf, repeated grant or extra item is introduced.
     """
-    if type(basis_points)is not int or not 1<=basis_points<=10000:raise ValueError('Source bonus percentage')
+    if type(basis_points)is not int or not 1<=basis_points<=15000:raise ValueError('Source bonus percentage')
     leaves=[]
     for case in cases:
         weight=Fraction(case['ticks'],scale)

@@ -15,3 +15,6 @@ def patch_initialization(payload,value):
     if any(probe)or payload[131]not in(0,1)or not 0<=struct.unpack_from('>i',payload,181)[0]<=3:
         raise ValueError('Housing30 nonempty unreviewed profile')
     return payload[:185]+struct.pack('>Q',value)+payload[193:]
+
+# Original CN client: 2050-01-01 00:00 UTC+08, recognized as permanent.
+PERMANENT=2524579200

@@ -6,12 +6,16 @@ import re
 import secrets
 import sqlite3
 import time
+import threading
 from pathlib import Path
 
 
 class Accounts:
     def __init__(self,path):
-        self.path=Path(path)
+        self.path=Path(path).resolve()
+        self._enabled_reader=None
+        self._enabled_thread=None
+        self._enabled_file=None
         self.path.parent.mkdir(parents=True,exist_ok=True)
         with closing(self.connect()) as db,db:
             db.execute('CREATE TABLE IF NOT EXISTS accounts (id INTEGER PRIMARY KEY CHECK(id>=2), name TEXT NOT NULL UNIQUE, token_hash TEXT NOT NULL, enabled INTEGER NOT NULL CHECK(enabled IN (0,1)))')
@@ -23,10 +27,10 @@ class Accounts:
     def create(self,name):
         if not isinstance(name,str) or not re.fullmatch(r'[a-z][a-z0-9_]{2,23}',name):raise ValueError('Account name: 3-24 lowercase ASCII letters, digits or underscores')
         token=secrets.token_urlsafe(32)
-        with closing(self.connect()) as db,db:
-            db.execute('BEGIN IMMEDIATE')
-            identity=db.execute('SELECT COALESCE(MAX(id),1)+1 FROM accounts').fetchone()[0]
-            db.execute('INSERT INTO accounts VALUES (?,?,?,1)',(identity,name,hashlib.sha256(token.encode()).hexdigest()))
+        with closing(self.connect()) as db:
+            with write_transaction(db):
+                identity=db.execute('SELECT COALESCE(MAX(id),1)+1 FROM accounts').fetchone()[0]
+                db.execute('INSERT INTO accounts VALUES (?,?,?,1)',(identity,name,hashlib.sha256(token.encode()).hexdigest()))
         return dict(id=identity,name=name,token=token)
 
     def authenticate(self,name,token):
@@ -56,14 +60,14 @@ class Accounts:
         if not isinstance(name,str) or not re.fullmatch(r'[a-z][a-z0-9_]{2,23}',name):raise ValueError('invalid_name')
         salt=secrets.token_bytes(16);digest=self.password_digest(self.password_bytes(password),salt)
         try:
-            with closing(self.connect()) as db,db:
-                db.execute('BEGIN IMMEDIATE')
-                if db.execute('SELECT 1 FROM accounts WHERE name=?',(name,)).fetchone():raise ValueError('name_taken')
-                if db.execute('SELECT COUNT(*) FROM accounts').fetchone()[0]>=capacity:raise ValueError('registration_full')
-                identity=db.execute('SELECT COALESCE(MAX(id),1)+1 FROM accounts').fetchone()[0]
-                db.execute('INSERT INTO accounts VALUES (?,?,?,1)',(identity,name,hashlib.sha256(secrets.token_bytes(32)).hexdigest()))
-                db.execute('INSERT INTO account_passwords VALUES (?,?,?)',(identity,salt,digest))
-                return self.issue_session(db,identity,name)
+            with closing(self.connect()) as db:
+                with write_transaction(db):
+                    if db.execute('SELECT 1 FROM accounts WHERE name=?',(name,)).fetchone():raise ValueError('name_taken')
+                    if db.execute('SELECT COUNT(*) FROM accounts').fetchone()[0]>=capacity:raise ValueError('registration_full')
+                    identity=db.execute('SELECT COALESCE(MAX(id),1)+1 FROM accounts').fetchone()[0]
+                    db.execute('INSERT INTO accounts VALUES (?,?,?,1)',(identity,name,hashlib.sha256(secrets.token_bytes(32)).hexdigest()))
+                    db.execute('INSERT INTO account_passwords VALUES (?,?,?)',(identity,salt,digest))
+                    return self.issue_session(db,identity,name)
         except sqlite3.IntegrityError:raise ValueError('name_taken') from None
 
     def password_login(self,name,password):
@@ -74,6 +78,46 @@ class Accounts:
             supplied=self.password_digest(raw,row[3] if row and row[3] else bytes(16))
             if not row or row[2]!=1 or row[4] is None or not hmac.compare_digest(supplied,row[4]):raise ValueError('bad_credentials')
             return self.issue_session(db,row[0],row[1])
+
+    def prepare_registration(self,name,password):
+        if not isinstance(name,str) or not re.fullmatch(r'[a-z][a-z0-9_]{2,23}',name):raise ValueError('invalid_name')
+        salt=secrets.token_bytes(16)
+        return name,salt,self.password_digest(self.password_bytes(password),salt)
+
+    def finish_registration(self,proof,capacity):
+        name,salt,digest=proof
+        try:
+            with closing(self.connect()) as db:
+                with write_transaction(db):
+                    if db.execute('SELECT 1 FROM accounts WHERE name=?',(name,)).fetchone():raise ValueError('name_taken')
+                    if db.execute('SELECT COUNT(*) FROM accounts').fetchone()[0]>=capacity:raise ValueError('registration_full')
+                    identity=db.execute('SELECT COALESCE(MAX(id),1)+1 FROM accounts').fetchone()[0]
+                    db.execute('INSERT INTO accounts VALUES (?,?,?,1)',(identity,name,hashlib.sha256(secrets.token_bytes(32)).hexdigest()))
+                    db.execute('INSERT INTO account_passwords VALUES (?,?,?)',(identity,salt,digest))
+                    return self.issue_session(db,identity,name)
+        except sqlite3.IntegrityError:raise ValueError('name_taken') from None
+
+    def prepare_password_login(self,name,password):
+        raw=self.password_bytes(password)
+        if not isinstance(name,str) or not re.fullmatch(r'[a-z][a-z0-9_]{2,23}',name):raise ValueError('bad_credentials')
+        before=self.path.stat();identity=(before.st_dev,before.st_ino)
+        # This separate worker owns its read-only autocommit connection. No
+        # transaction/read lock is held during the expensive password hash.
+        with closing(sqlite3.connect(self.path.as_uri()+'?mode=ro',uri=True,isolation_level=None,timeout=10)) as db:
+            row=db.execute('SELECT a.id,a.name,a.enabled,p.salt,p.digest FROM accounts a LEFT JOIN account_passwords p ON a.id=p.account_id WHERE a.name=?',(name,)).fetchone()
+        supplied=self.password_digest(raw,row[3] if row and row[3] else bytes(16))
+        if not row or row[2]!=1 or row[4] is None or not hmac.compare_digest(supplied,row[4]):raise ValueError('bad_credentials')
+        return identity,row
+
+    def finish_password_login(self,proof):
+        identity,row=proof
+        current=self.path.stat()
+        if (current.st_dev,current.st_ino)!=identity:raise ValueError('bad_credentials')
+        with closing(self.connect()) as db:
+            with write_transaction(db):
+                fresh=db.execute('SELECT a.id,a.name,a.enabled,p.salt,p.digest FROM accounts a LEFT JOIN account_passwords p ON a.id=p.account_id WHERE a.name=?',(row[1],)).fetchone()
+                if fresh!=row or fresh[2]!=1:raise ValueError('bad_credentials')
+                return self.issue_session(db,row[0],row[1])
 
     def issue_session(self,db,identity,name):
         token=secrets.token_urlsafe(32);now=int(time.time());expires=now+30*86400
@@ -87,8 +131,33 @@ class Accounts:
             return [dict(id=r[0],name=r[1],enabled=bool(r[2])) for r in db.execute('SELECT id,name,enabled FROM accounts ORDER BY id')]
 
     def enabled(self,identity):
-        with closing(self.connect()) as db:return db.execute('SELECT enabled FROM accounts WHERE id=?',(identity,)).fetchone()==(1,)
+        from els_server.performance import registry_checked
+        started=time.perf_counter()
+        try:return self._enabled(identity)
+        finally:registry_checked(time.perf_counter()-started)
+
+    def _enabled(self,identity):
+        # Reuse a read-only autocommit connection, never an enabled result.
+        # Every check SELECTs current committed state. File replacement and
+        # cross-thread callers cannot reuse an old SQLite file handle.
+        owner=threading.get_ident()
+        if self._enabled_thread is not None and self._enabled_thread!=owner:
+            with closing(self.connect()) as db:
+                return db.execute('SELECT enabled FROM accounts WHERE id=?',(identity,)).fetchone()==(1,)
+        st=self.path.stat();identity_file=(st.st_dev,st.st_ino)
+        if self._enabled_reader is not None and identity_file!=self._enabled_file:self.close()
+        if self._enabled_reader is None:
+            self._enabled_reader=sqlite3.connect(self.path.as_uri()+'?mode=ro',uri=True,isolation_level=None,timeout=10)
+            self._enabled_thread=owner;self._enabled_file=identity_file
+        return self._enabled_reader.execute('SELECT enabled FROM accounts WHERE id=?',(identity,)).fetchone()==(1,)
+
+    def close(self):
+        if self._enabled_reader is not None:
+            self._enabled_reader.close()
+            self._enabled_reader=None;self._enabled_thread=None;self._enabled_file=None
 
     def disable(self,name):
         with closing(self.connect()) as db,db:
             if db.execute('UPDATE accounts SET enabled=0 WHERE name=?',(name,)).rowcount!=1:raise ValueError('Unknown account')
+
+from els_server.storage.sqlite_timing import write_transaction

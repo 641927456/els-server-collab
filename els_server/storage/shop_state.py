@@ -70,7 +70,7 @@ def quantity_catalog(unit_type=None):
                  if p['template'] not in CAREER_RULES or p['quantity']==1)
 
 
-def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_skill_books=None,prepare_palette=None):
+def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_skill_books=None,prepare_palette=None,prepare_resurrection=None):
     from els_server.domain.bag_capacity import PRODUCT_GROUPS
     from els_server.storage.bag_capacity import expand
     from els_server.domain.bank_memberships import PRODUCTS as BANK_PRODUCTS
@@ -80,6 +80,10 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
     if not isinstance(operation_id,str) or not 1<=len(operation_id)<=100:
         raise ValueError('Invalid shop operation identity')
     products=ed_purchase_request(payload)
+    from els_server.domain.resurrection_purchase import requested as resurrection_request,PRODUCT as RESURRECTION_PRODUCT
+    resurrection=resurrection_request(payload)
+    if resurrection and not callable(prepare_resurrection):raise ValueError('Current ED resurrection actor callback required')
+    if not resurrection and prepare_resurrection is not None:raise ValueError('Unexpected resurrection callback')
     from els_server.domain.palette_shop import guarded_request
     palette=guarded_request(payload)
     if palette and not callable(prepare_palette):raise ValueError('Current palette actor callback required')
@@ -110,19 +114,24 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
     digest=hashlib.sha256(payload).hexdigest()
     with closing(sqlite3.connect(path,timeout=10)) as db:
         def prepared_response(response):
-            if palette:
-                prepare_palette(db)
+            if palette:prepare_palette(db)
+            if resurrection:prepare_resurrection(db,None)
+            if palette or resurrection:
                 from els_server.protocol.protocol_codec import Event,encode_event
                 encode_event(Event(0x201,kind=0x810,payload=response))
             return response
         try:
             db.execute('BEGIN IMMEDIATE')
             if palette:prepare_palette(db)
+            if resurrection:prepare_resurrection(db,None)
             ensure_inventory(db)
             db.execute('CREATE TABLE IF NOT EXISTS shop_purchase_receipts (operation_id TEXT PRIMARY KEY, request_sha256 TEXT NOT NULL, cost INTEGER NOT NULL CHECK(cost>=0), response BLOB NOT NULL, items_json TEXT NOT NULL, balances_json TEXT NOT NULL)')
             old=db.execute('SELECT request_sha256,response FROM shop_purchase_receipts WHERE operation_id=?',(operation_id,)).fetchone()
             if old:
                 if old[0]!=digest:raise ValueError('Conflicting shop retry')
+                if resurrection:
+                    from els_server.storage.resurrection_counter import count as resurrection_count
+                    prepare_resurrection(db,resurrection_count(db,uid))
                 if book_products:
                     ed=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
                     if prepare_skill_books is not None:prepare_skill_books(db,None,None,True)
@@ -164,6 +173,13 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
             if any(sku not in allowed for sku,_ in products):raise ValueError('Shop product is not available for this character')
             balances=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(uid,)).fetchone())
             if balances['ed']<cost:raise ValueError('Insufficient ED')
+            if resurrection:
+                from els_server.storage.resurrection_counter import count as resurrection_count,MAX_COUNT
+                from els_server.storage.known_resurrection import _set as set_resurrection_count
+                gain=sum(n*offers[sku]['quantity']for sku,n in products if offers[sku]['template']==RESURRECTION_PRODUCT)
+                current=resurrection_count(db,uid)
+                if not 1<=gain<=MAX_DELIVERY or current>MAX_COUNT-gain:raise ValueError('Paid resurrection count bound')
+                set_resurrection_count(db,uid,current+gain)
             career_state=None
             if career_products:
                 from els_server.storage.careers import apply_transition
@@ -189,12 +205,13 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
             plan=[]
             for sku,n in products:
                 template=offers[sku]['template']
-                if sku==ORDINARY_SKU or template in PRODUCT_GROUPS or template in BANK_PRODUCTS or template in CAREER_RULES or template in BOOKS:continue
+                if template==RESURRECTION_PRODUCT or sku==ORDINARY_SKU or template in PRODUCT_GROUPS or template in BANK_PRODUCTS or template in CAREER_RULES or template in BOOKS:continue
                 members=delivery(template,n,unit_type)
                 if members is None:members=[(template,n*offers[sku]['quantity'])]
                 plan.extend({'template':t,'metadata':VERIFIED_TEMPLATES[t],
                              'group':TEMPLATE_BAG_GROUPS[t],'quantity':count} for t,count in members)
             plan=delivery_plan(plan,offers,products)
+            if resurrection and sum(p['quantity']for p in plan)+gain>MAX_DELIVERY:raise ValueError('Combined physical and resurrection delivery bound')
             items=grant_items(db,plan,uid) if plan else []
             balances['ed']-=cost;balances['revision']+=1
             validate_balances(tuple(balances[k] for k in ('ed','experience','revision')))
@@ -206,6 +223,7 @@ def purchase(path,payload,operation_id,uid=1001,*,prepare_career=None,prepare_sk
                 prepare_career(db,*career_state,False)
             if book_state is not None and prepare_skill_books is not None:
                 prepare_skill_books(db,*book_state,False)
+            if resurrection:prepare_resurrection(db,resurrection_count(db,uid))
             db.execute('INSERT INTO shop_purchase_receipts VALUES (?,?,?,?,?,?)',(operation_id,digest,cost,response,json.dumps(items,sort_keys=True),json.dumps(balances,sort_keys=True)))
             response=prepared_response(response)
             db.commit()

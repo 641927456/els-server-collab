@@ -6,8 +6,8 @@ def request(payload):
  if not isinstance(payload,bytes) or len(payload)!=13:raise ValueError('Restoration request size')
  uid,template,profession=struct.unpack('>QiB',payload)
  if not 1<=uid<2**63 or profession!=0:raise ValueError('Unsupported restoration identity or profession')
- from els_server.domain.advanced_enhancement_materials import restoration_templates
- if template not in restoration_templates():raise ValueError('Unsupported restoration scroll')
+ from els_server.domain.owned_scroll_families import catalog as owned_scrolls
+ if template not in owned_scrolls()['restoration']:raise ValueError('Unsupported restoration scroll')
  return uid,template
 
 def acknowledgement(ed=0,*,result=0,changes=()):

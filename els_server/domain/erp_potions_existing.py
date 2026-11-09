@@ -6,7 +6,17 @@ from types import MappingProxyType
 LEGACY_TEMPLATES=tuple(range(135938,135949))
 MODERN_TEMPLATES=tuple(range(136161,136172))
 TEMPLATES=LEGACY_TEMPLATES+MODERN_TEMPLATES
-PAYLOAD_SHA='968b5d177163acf36f064348d345f9bbb5d4cc87b9a9c5de461f9b2d22e8ac5b'
+_ORIGINAL_TEMPLATES=TEMPLATES
+LEGACY_TEMPLATES+=(714235, 714339, 714340, 717812, 718526, 723643)
+MODERN_TEMPLATES+=(711320, 712389, 713407)
+TEMPLATES=_ORIGINAL_TEMPLATES+(711320, 712389, 713407, 714235, 714339, 714340, 717812, 718526, 723643)
+_ADDITIONAL_RULES={711320: (30000000, 1, 0), 712389: (30000000, 1, 0), 713407: (30000000, 1, 0), 714235: (80000000, 1, 0), 714339: (1000000000, 1, 299), 714340: (10000000000, 1, 299), 717812: (10000000000, 1, 299), 718526: (10000000000, 1, 349), 723643: (10000000000, 350, 499)}
+PAYLOAD_SHA='aa3ced2da16b8ef99a89bfc03952167a3f541ae94e54a2bee31682403eb2fa12'
+
+# Explicit local completion for an existing compensation item; no source.
+LEGACY_TEMPLATES+=(716607,)
+TEMPLATES+=(716607,)
+_ADDITIONAL_RULES[716607]=(0,1,0)
 
 @functools.lru_cache(maxsize=1)
 def definitions():
@@ -23,9 +33,10 @@ def definitions():
         if (hashlib.sha256(record).hexdigest()!=row['record_sha256'] or record.hex()!=row['record_hex']
             or (item['metadata'],item['item_type'],row['metadata'],row['group'])!=((0,7,0,4)if row['template']in LEGACY_TEMPLATES else(2,7,2,4))
             or struct.unpack_from('<II',record,4)[1]!=56
-            or (row['min_level'],row['max_level'])!=(1,0)
-            or type(row['experience'])is not int or row['experience']<=0):
+            or (row['experience'],row['min_level'],row['max_level'])!=_ADDITIONAL_RULES.get(row['template'],(row['experience'],1,0))
+            or type(row['experience'])is not int or row['experience']<0 or(row['experience']==0 and row['template']!=716607)):
             raise ValueError('ERP potion current tuple/record')
+        if row['template']==716607 and(row.get('experience_rule')!='approved_current_cumulative_five_percent'or data.get('luciel_compensation_local_policy')!={'template': 716607, 'basis': 'Current cumulative account El Resonance EXP at original SQL writer', 'numerator': 1, 'denominator': 20, 'rounding': 'floor_once_before_cap', 'cap': 'Existing ERP999 cumulative limit', 'no_historical_reconstruction': True, 'no_ED_award': True, 'no_new_sources': True}or struct.unpack_from('<I',record,16)[0]!=0):raise ValueError('Approved current cumulative ERP5percent policy')
         result[row['template']]=MappingProxyType(row)
     return MappingProxyType(result)
 
@@ -73,3 +84,16 @@ def validate_existing(item):
         raise ValueError('ERP potion requires unchanged owned SQL reader')
     read_existing(dict(item))
     return item
+
+
+def admitted_templates():
+    return frozenset(t for t,r in definitions().items()if r.get("admitted",True))
+
+def experience_per_potion(template,current):
+    row=definitions()[template]
+    if template==716607:
+        # This is the approved present-account basis, not the old2023 ledger.
+        value=current['experience']
+        if type(value)is not int or value<0:raise ValueError('Current cumulative ERP basis')
+        return value//20
+    return row['experience']
