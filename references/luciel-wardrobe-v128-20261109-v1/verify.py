@@ -9,4 +9,7 @@ assert all(e['source_sha256'].get(x['path'],x['sha256'])==x['sha256'] for x in c
 a=json.loads((r/'evidence/campaign.json').read_bytes());assert a['ok'] and a['tests']==10
 b=json.loads((r/'evidence/runtime-bindings.json').read_bytes());assert {k.replace('.','/')+'.py':v['sha256'] for k,v in b.items()}=={x['path']:x['sha256'] for x in c['files']}
 assert json.loads((r/'evidence/accessory-pair.json').read_bytes())['ok']
+s=r/'supplements/shadow-castle-v127';h=json.loads((s/'handoff.json').read_bytes());assert not h['new_runtime_patch'] and len(h['runtime_binding'])==9
+for item in h['source_tests']:assert hashlib.sha256((s/item['path']).read_bytes()).hexdigest()==item['sha256']
+e=json.loads((s/'integrated-verification.json').read_bytes());assert len(e['routes'])==2 and all(v['ok'] and v['C1'] for v in e['routes'])
 print(json.dumps(dict(ok=True,files=6,scope='archive identity/syntax and preserved realTLS result; no fresh business run')))
