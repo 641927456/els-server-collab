@@ -1,0 +1,60 @@
+{
+  "kind": "Reused prior evidence; no new behavior execution during source packaging",
+  "qualification_sha256": "eeed238f3ec7b3c2e2167b920577246a235fbf0a0972df44416b9244fd9540f1",
+  "source_pins": [
+    {
+      "path": "tools/native_cache_sync.js",
+      "before_sha256": "f4ea3de6b9e60464b71235224a284079dd95290c2e3e336a304d389e807120c1",
+      "after_sha256": "62a1d15ca0958c685fffc3bb8d40982ddb821ce2de45522f318db86793d075f8"
+    }
+  ],
+  "receipts": [
+    {
+      "name": "attribute-refresh-tests.json",
+      "original_sha256": "afd7beff13d80c967c6138f251551761b40287112d97e2f0a805860500a02cdd",
+      "result": {
+        "ok": true,
+        "baseline_reproduced": true,
+        "cases": [
+          "3A3 overwrite within refresh budget preserves current HP",
+          "repeated updates remain immediate",
+          "injured HP never healed",
+          "stable frames retain native calculation budget",
+          "actual equipment reduction still clamps",
+          "LuCiel active and fallback sides"
+        ],
+        "native_calls": "observable substitutes",
+        "natural_GUI": false
+      }
+    },
+    {
+      "name": "component-composition-check.json",
+      "original_sha256": "83a839e2d47f2d62ec37475cb3189a3d0e7287c7bcc58686cf70be8ce55a20ae",
+      "result": {
+        "ok": true,
+        "parent_template_sha256": "30cbe880fcbf90653140f5125b647c1427a4697c8d47525fc722558255670bc5",
+        "runtime_image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+        "candidate_js_sha256": "62a1d15ca0958c685fffc3bb8d40982ddb821ce2de45522f318db86793d075f8",
+        "composed_sha256": "95b3d7cac91445211826a693be3bbead471c3895df725adbdb5d463da5b1b6f3",
+        "full_existing_composer": true,
+        "new_hooks": false,
+        "native_process_started": false
+      }
+    }
+  ],
+  "source_test_hashes_observed_at_packaging": {
+    "verify_attribute_refresh.cjs": "4c29bf5c7f665331d57b491beebfe593f31e192770b58aad39f79ea6d87dc28a"
+  },
+  "historical_test_file_hashes_captured_before_execution": false,
+  "limits": [
+    "Protocol tests use synthetic owned sessions and temporary databases.",
+    "Node uses observable native-call substitutes.",
+    "Full native composition uses a private matched runtime image which is not distributed.",
+    "No natural GUI, gameplay, stability, installation or Git merge is asserted."
+  ],
+  "independent_review_reference": {
+    "name": "session-hp-force-solo-20261109-v1/independent-review.json",
+    "sha256": "22689e45928ee92357243884945f8220d92543ad8c8578e69113ee5800039b8d",
+    "scope": "Source and current dependency identity review; no new live test."
+  }
+}
