@@ -1,10 +1,34 @@
 {
   "files": [
     {
+      "path": "els_server/domain/abyss_weapon_campaign.py",
+      "parent_sha256": "dbdc15e924a07b12c2841b1d2f13cdb5a9c6953a2d70b295ca4e049c1fa35ea3",
+      "sha256": "7d239aefeb0887a8832ca73af9061b2969a10aa6de3ba855e5292e6878ffad3c",
+      "size": 13834
+    },
+    {
       "path": "els_server/domain/wardrobe.py",
       "parent_sha256": "6cb200759d44f402a1653e7791a74127f2d11e780cefcb47b5a363ff23559131",
       "sha256": "da97e29a1b999e998ebc53d92ba126b0e18faeb80006f0feccd2159a96de8287",
       "size": 3861
+    },
+    {
+      "path": "els_server/storage/abyss_weapon_2026.py",
+      "parent_sha256": "3f8bfdd0ac20d2f2e5fe0ca830e9845c5cc784e9c91200df5f9c7620e11471e1",
+      "sha256": "733f5f99226b4faeab8668b3a473c1ad93c8374228f5657ffe3461e6c4ef9555",
+      "size": 11658
+    },
+    {
+      "path": "els_server/storage/abyss_weapon_boxes.py",
+      "parent_sha256": "250fea502dbb621ec148cf11c94a984bc797a952b7886697816e7a2526f191f1",
+      "sha256": "d8b405fc5e4b800a222896d83287a7ff272c06403c0c92251dadbed1c4c01aae",
+      "size": 4685
+    },
+    {
+      "path": "els_server/storage/abyss_weapon_points.py",
+      "parent_sha256": "590938d65f393d86c2f24c1a22e41fb98d99020dc5dec84dd62e71e21ec3f90c",
+      "sha256": "7f5a15a49b25f678d6d18eead95423361daa54a29c1c09c71997309d0e17ed37",
+      "size": 2157
     },
     {
       "path": "els_server/storage/wardrobe.py",
@@ -17,8 +41,14 @@
   "dependency_PR": 981,
   "dependency_head": "9fa4e165b6af1fb0c2877fd9c686842fab71e789",
   "archive_only": true,
-  "new_schema": false,
+  "new_schema": true,
   "receipt_format": "New apply uids_json stores {uids,registered}; legacy UID lists remain readable",
-  "recovery": "Retain new receipt reader after new writes; forward repair; never restore player/account DB",
-  "natural_GUI": false
+  "recovery": "Retain receipt reader and per-character campaign writer after startup; forward-fix; never restore player DB",
+  "natural_GUI": false,
+  "schema_change": true,
+  "new_tables": false,
+  "rebuilt_tables": [
+    "abyss2026_accounts",
+    "abyss2026_tasks"
+  ]
 }
