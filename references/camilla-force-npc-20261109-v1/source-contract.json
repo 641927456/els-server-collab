@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "runtime_online": "wardrobe-abyss-title-20261109-v128",
+  "runtime_local": "unified-server-7de5a9fe4957eb59-a72654bd83aa",
+  "candidate_archive_sha256": "6486820827c0b1ccd65334fb987aff9a3518d2d1da70fbca76b584ef7c32f18f",
+  "files": [
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "a46b2f3c4a49bb9b9ffb9541755dce98e73b27e94db85feb9251fe2ba0ad577f",
+      "candidate_sha256": "f8e1c59ce5c504178b722723c4ed9e56ada15c8fc3f423cee6fdf25c5f747b8e"
+    },
+    {
+      "path": "els_server/domain/camilla_force.py",
+      "parent_sha256": null,
+      "candidate_sha256": "e989869a78c58530f303b5efb6e5c39d203bc3b278d39439a4f950a10beb1b72"
+    },
+    {
+      "path": "els_server/storage/manufacture.py",
+      "parent_sha256": "60497b19047015f9b9b051c38ce42ebe325b66c3c8fc8e453a097bf0095f2f9b",
+      "candidate_sha256": "f07a92f301015a1d99ab9af681fac9cf1eda61a11275a41974dd618acc717b1b"
+    },
+    {
+      "path": "els_server/storage/npc_trade.py",
+      "parent_sha256": "2ab652cf09379e8446a76e85eb1a3e8c196feda8845300fe3e4555ab6f5b3d39",
+      "candidate_sha256": "3383dafe5ae45893fd171306f5ad56f85966b315e6a4de3ef420c52205e7802d"
+    }
+  ],
+  "source_client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "validation": {
+    "standalone_tests_passed": 3,
+    "combined_tests_passed": 3,
+    "baseline_shop_denial_reproduced": true,
+    "baseline_manufacture_a_e_passed": true,
+    "native_request_writers": [
+      "EA",
+      "198"
+    ],
+    "native_reply_reader": "EB",
+    "natural_client_ui": false,
+    "installed": false
+  }
+}
