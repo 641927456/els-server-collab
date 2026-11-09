@@ -1,0 +1,959 @@
+{
+  "schema": 1,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "catalog_sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+  "item_kim_sha256": "a3bcc9c926b19aa36f1c737ca53993b23da11c372bfd5adf3d740dc0b691ab8e",
+  "items": [
+    {
+      "template": 711763,
+      "name": "巨型魔法结晶",
+      "description": "巨大的魔法结晶。\n使用时或通过艾丽阿诺德的装备精制器、奥罗拉据点区域的阿塞拉、梦歌魅利亚的贝蒂兑换时，可获得100个魔法结晶。",
+      "record_sha256": "d20eb460d2052149ef1f7a2931a6ea23b86a97c569b70fbf5bf859bfdcb07101",
+      "item_type": 7,
+      "metadata": 2,
+      "raw_max_stack": 1000,
+      "random_rule": {
+        "m_KeyItemID": 0,
+        "m_iGiveCount": 0,
+        "m_ItemID": 711763,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": {
+          "global": "USE_CONDITION.UC_ANYONE"
+        },
+        "1": {
+          "m_iItemGroupID": 711763,
+          "m_cUnitClass": {
+            "global": "UNIT_CLASS.UC_NONE"
+          }
+        }
+      },
+      "previous_reader": {
+        "metadata": null,
+        "group": null,
+        "max_stack": null
+      },
+      "group": 4,
+      "max_stack": 1000,
+      "flags4": 36704258,
+      "flags8": 56
+    },
+    {
+      "template": 711785,
+      "name": "辉铋矿石",
+      "description": "散发着蓝色光芒的金属矿石。\n冷却机械的制冷剂的原料。\n可通过奥罗拉据点区域的阿塞拉、梦歌魅利亚的瓦西里兑换黄蜡石。",
+      "record_sha256": "3b58b32650d18ce1d01037ca653aaa2bef8afa72b23f89e7a0b7192dfd7d5e16",
+      "item_type": 7,
+      "metadata": 2,
+      "raw_max_stack": 1000,
+      "random_rule": null,
+      "previous_reader": {
+        "metadata": null,
+        "group": null,
+        "max_stack": null
+      },
+      "group": 4,
+      "max_stack": 1000,
+      "flags4": 36704258,
+      "flags8": 56
+    },
+    {
+      "template": 118191,
+      "name": "大型黄蜡石结晶",
+      "description": "蕴含着尼格摩尔的特别气息的黄蜡石完美结晶体。\n精炼的形态，可以提炼出大量的黄蜡石。\n使用或通过艾丽阿诺德的装备精制器、梦歌魅利亚的贝蒂兑换时，可获得10000个黄蜡石。",
+      "record_sha256": "4aed5cfc0aabe0189794297858533ce9e0ba819b81355da8e151320498cd207a",
+      "item_type": 7,
+      "metadata": 2,
+      "raw_max_stack": 300,
+      "random_rule": {
+        "m_KeyItemID": 0,
+        "m_iGiveCount": 0,
+        "m_ItemID": 118191,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": {
+          "global": "USE_CONDITION.UC_ANYONE"
+        },
+        "1": {
+          "m_iItemGroupID": 118191,
+          "m_cUnitClass": {
+            "global": "UNIT_CLASS.UC_NONE"
+          }
+        }
+      },
+      "previous_reader": {
+        "metadata": null,
+        "group": null,
+        "max_stack": null
+      },
+      "group": 4,
+      "max_stack": 300,
+      "flags4": 571478018,
+      "flags8": 56
+    },
+    {
+      "template": 118250,
+      "name": "大型神物精灵石残片块",
+      "description": "包含着神物精灵石残片的石块。\n使用或通过艾丽阿诺德的装备精制器、梦歌魅利亚的贝蒂兑换时，可获得50个神物精灵石残片。\n神物精灵石残片可通过艾丽阿诺德的特里普、梦歌魅利亚的瓦西里的精灵石组装功能赋予效果。\n也可以通过艾丽阿诺德的装备精制器、梦歌魅利亚的贝蒂的制造功能来制作带有特定效果的神物精灵石碎片。",
+      "record_sha256": "58ca5a386fb0cd3f0af58fe9e5e8b708edd0053a2ebec63f6321a14710a75513",
+      "item_type": 7,
+      "metadata": 2,
+      "raw_max_stack": 1000,
+      "random_rule": {
+        "m_KeyItemID": 0,
+        "m_iGiveCount": 0,
+        "m_ItemID": 118250,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": {
+          "global": "USE_CONDITION.UC_ANYONE"
+        },
+        "1": {
+          "m_iItemGroupID": 118250,
+          "m_cUnitClass": {
+            "global": "UNIT_CLASS.UC_NONE"
+          }
+        }
+      },
+      "previous_reader": {
+        "metadata": null,
+        "group": null,
+        "max_stack": null
+      },
+      "group": 4,
+      "max_stack": 1000,
+      "flags4": 574623746,
+      "flags8": 56
+    }
+  ],
+  "recipes": [
+    {
+      "house": 40165,
+      "town": 20010,
+      "npc": 10219,
+      "source": 711763,
+      "source_quantity": 1,
+      "destination": 701000,
+      "quantity": 100,
+      "type": 1,
+      "rate": 100,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40165,
+          1,
+          711763,
+          701000,
+          100,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 1
+          }
+        ],
+        "pc": 3575
+      }
+    },
+    {
+      "house": 40165,
+      "town": 20010,
+      "npc": 10219,
+      "source": 118191,
+      "source_quantity": 1,
+      "destination": 118178,
+      "quantity": 10000,
+      "type": 1,
+      "rate": 100,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40165,
+          1,
+          118191,
+          118178,
+          10000,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 1
+          }
+        ],
+        "pc": 3674
+      }
+    },
+    {
+      "house": 40165,
+      "town": 20010,
+      "npc": 10219,
+      "source": 118250,
+      "source_quantity": 1,
+      "destination": 118206,
+      "quantity": 50,
+      "type": 1,
+      "rate": 100,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40165,
+          1,
+          118250,
+          118206,
+          50,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 1
+          }
+        ],
+        "pc": 3839
+      }
+    },
+    {
+      "house": 40257,
+      "town": 1010,
+      "npc": 10360,
+      "source": 711785,
+      "source_quantity": 1,
+      "destination": 118178,
+      "quantity": 50,
+      "type": 1,
+      "rate": 100,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40257,
+          1,
+          711785,
+          118178,
+          50,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 1
+          }
+        ],
+        "pc": 5126
+      }
+    },
+    {
+      "house": 40257,
+      "town": 1010,
+      "npc": 10360,
+      "source": 711763,
+      "source_quantity": 1,
+      "destination": 701000,
+      "quantity": 100,
+      "type": 1,
+      "rate": 100,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40257,
+          1,
+          711763,
+          701000,
+          100,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 1
+          }
+        ],
+        "pc": 5137
+      }
+    },
+    {
+      "house": 40271,
+      "town": 20013,
+      "npc": 10381,
+      "source": 711785,
+      "source_quantity": 1,
+      "destination": 118178,
+      "quantity": 50,
+      "type": 1,
+      "rate": 100,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40271,
+          1,
+          711785,
+          118178,
+          50,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 1
+          }
+        ],
+        "pc": 6138
+      }
+    },
+    {
+      "house": 40272,
+      "town": 20013,
+      "npc": 10382,
+      "source": 711763,
+      "source_quantity": 1,
+      "destination": 701000,
+      "quantity": 100,
+      "type": 1,
+      "rate": 100,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40272,
+          1,
+          711763,
+          701000,
+          100,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 1
+          }
+        ],
+        "pc": 6534
+      }
+    },
+    {
+      "house": 40272,
+      "town": 20013,
+      "npc": 10382,
+      "source": 118191,
+      "source_quantity": 1,
+      "destination": 118178,
+      "quantity": 10000,
+      "type": 1,
+      "rate": 100,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40272,
+          1,
+          118191,
+          118178,
+          10000,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 1
+          }
+        ],
+        "pc": 6633
+      }
+    },
+    {
+      "house": 40272,
+      "town": 20013,
+      "npc": 10382,
+      "source": 118250,
+      "source_quantity": 1,
+      "destination": 118206,
+      "quantity": 50,
+      "type": 1,
+      "rate": 100,
+      "original_call": {
+        "function": "g_pItemManager.AddItemExchangeData",
+        "arguments": [
+          {
+            "global": "g_pItemManager"
+          },
+          40272,
+          1,
+          118250,
+          118206,
+          50,
+          100,
+          {
+            "m_iServerGroupID": -1,
+            "m_iSourceQuantity": 1
+          }
+        ],
+        "pc": 6798
+      }
+    }
+  ],
+  "boxes": {
+    "711763": {
+      "template": 711763,
+      "name": "巨型魔法结晶",
+      "description": "巨大的魔法结晶。\n使用时或通过艾丽阿诺德的装备精制器、奥罗拉据点区域的阿塞拉、梦歌魅利亚的贝蒂兑换时，可获得100个魔法结晶。",
+      "record_sha256": "d20eb460d2052149ef1f7a2931a6ea23b86a97c569b70fbf5bf859bfdcb07101",
+      "item_type": 7,
+      "metadata": 2,
+      "raw_max_stack": 1000,
+      "random_rule": {
+        "m_KeyItemID": 0,
+        "m_iGiveCount": 0,
+        "m_ItemID": 711763,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": {
+          "global": "USE_CONDITION.UC_ANYONE"
+        },
+        "1": {
+          "m_iItemGroupID": 711763,
+          "m_cUnitClass": {
+            "global": "UNIT_CLASS.UC_NONE"
+          }
+        }
+      },
+      "previous_reader": {
+        "metadata": null,
+        "group": null,
+        "max_stack": null
+      },
+      "group": 4,
+      "max_stack": 1000,
+      "flags4": 36704258,
+      "flags8": 56,
+      "mode": "fixed",
+      "selection_count": 0,
+      "entries": [
+        {
+          "template": 701000,
+          "quantity": 100
+        }
+      ],
+      "quantity_provenance": "exact current KIM description and original native random-item binding"
+    },
+    "118191": {
+      "template": 118191,
+      "name": "大型黄蜡石结晶",
+      "description": "蕴含着尼格摩尔的特别气息的黄蜡石完美结晶体。\n精炼的形态，可以提炼出大量的黄蜡石。\n使用或通过艾丽阿诺德的装备精制器、梦歌魅利亚的贝蒂兑换时，可获得10000个黄蜡石。",
+      "record_sha256": "4aed5cfc0aabe0189794297858533ce9e0ba819b81355da8e151320498cd207a",
+      "item_type": 7,
+      "metadata": 2,
+      "raw_max_stack": 300,
+      "random_rule": {
+        "m_KeyItemID": 0,
+        "m_iGiveCount": 0,
+        "m_ItemID": 118191,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": {
+          "global": "USE_CONDITION.UC_ANYONE"
+        },
+        "1": {
+          "m_iItemGroupID": 118191,
+          "m_cUnitClass": {
+            "global": "UNIT_CLASS.UC_NONE"
+          }
+        }
+      },
+      "previous_reader": {
+        "metadata": null,
+        "group": null,
+        "max_stack": null
+      },
+      "group": 4,
+      "max_stack": 300,
+      "flags4": 571478018,
+      "flags8": 56,
+      "mode": "fixed",
+      "selection_count": 0,
+      "entries": [
+        {
+          "template": 118178,
+          "quantity": 10000
+        }
+      ],
+      "quantity_provenance": "exact current KIM description and original native random-item binding"
+    },
+    "118250": {
+      "template": 118250,
+      "name": "大型神物精灵石残片块",
+      "description": "包含着神物精灵石残片的石块。\n使用或通过艾丽阿诺德的装备精制器、梦歌魅利亚的贝蒂兑换时，可获得50个神物精灵石残片。\n神物精灵石残片可通过艾丽阿诺德的特里普、梦歌魅利亚的瓦西里的精灵石组装功能赋予效果。\n也可以通过艾丽阿诺德的装备精制器、梦歌魅利亚的贝蒂的制造功能来制作带有特定效果的神物精灵石碎片。",
+      "record_sha256": "58ca5a386fb0cd3f0af58fe9e5e8b708edd0053a2ebec63f6321a14710a75513",
+      "item_type": 7,
+      "metadata": 2,
+      "raw_max_stack": 1000,
+      "random_rule": {
+        "m_KeyItemID": 0,
+        "m_iGiveCount": 0,
+        "m_ItemID": 118250,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": {
+          "global": "USE_CONDITION.UC_ANYONE"
+        },
+        "1": {
+          "m_iItemGroupID": 118250,
+          "m_cUnitClass": {
+            "global": "UNIT_CLASS.UC_NONE"
+          }
+        }
+      },
+      "previous_reader": {
+        "metadata": null,
+        "group": null,
+        "max_stack": null
+      },
+      "group": 4,
+      "max_stack": 1000,
+      "flags4": 574623746,
+      "flags8": 56,
+      "mode": "fixed",
+      "selection_count": 0,
+      "entries": [
+        {
+          "template": 118206,
+          "quantity": 50
+        }
+      ],
+      "quantity_provenance": "exact current KIM description and original native random-item binding"
+    }
+  },
+  "raid_maps": {
+    "34130": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "34140": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "34150": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "34170": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "34180": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "34190": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35600": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35610": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35620": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "34550": [
+      [
+        711763,
+        2
+      ],
+      [
+        711785,
+        1
+      ]
+    ],
+    "34560": [
+      [
+        711763,
+        2
+      ],
+      [
+        711785,
+        1
+      ]
+    ],
+    "34740": [
+      [
+        711763,
+        2
+      ],
+      [
+        711785,
+        1
+      ]
+    ],
+    "34750": [
+      [
+        711763,
+        2
+      ],
+      [
+        711785,
+        1
+      ]
+    ],
+    "35630": [
+      [
+        711763,
+        2
+      ],
+      [
+        711785,
+        1
+      ]
+    ],
+    "35640": [
+      [
+        711763,
+        2
+      ],
+      [
+        711785,
+        1
+      ]
+    ],
+    "34810": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "34820": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "34830": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "34840": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35120": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35130": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35140": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35150": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35650": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35660": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35670": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35680": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35370": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35380": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35410": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35420": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35430": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35440": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35490": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35500": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35510": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35580": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35520": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35530": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35540": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35550": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35590": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35560": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35900": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35910": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35920": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35930": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35940": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35950": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35960": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35970": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35980": [
+      [
+        711763,
+        2
+      ]
+    ],
+    "35990": [
+      [
+        711763,
+        2
+      ]
+    ]
+  },
+  "giant_maps": {
+    "34360": {
+      "graph_sha256": "e5c9b9d1e6553e2e30a112a0fc06515ec73d02f0fc5bb8d5aa534efde650d214",
+      "final_stage": 2,
+      "current_display_items": [
+        30647,
+        118177,
+        118186,
+        118191,
+        135911,
+        295714
+      ],
+      "local_boss_display_rate_bp": 1000
+    },
+    "34730": {
+      "graph_sha256": "bd2b9052797964385dc187e32b18bb9cd7665c92c5599e1880238db60bb2797c",
+      "final_stage": 2,
+      "current_display_items": [
+        30669,
+        118207,
+        118208,
+        118250,
+        135911,
+        295714
+      ],
+      "local_boss_display_rate_bp": 1000
+    },
+    "34310": {
+      "graph_sha256": "b655dce0f74d6ef145211326947e88a0966f0a9149975ac54fd47c61eec05e04",
+      "final_stage": 0,
+      "current_display_items": [
+        30606,
+        300484
+      ],
+      "local_boss_display_rate_bp": 1000
+    },
+    "35110": {
+      "graph_sha256": "1e010c5a23db8aaf3acc9bbbb7a7db93d705c7e3fc995cbc817ce01842711877",
+      "final_stage": 2,
+      "current_display_items": [
+        30681,
+        135911,
+        136109,
+        136110,
+        136111,
+        136112,
+        136174,
+        295714
+      ],
+      "local_boss_display_rate_bp": 1000
+    },
+    "35710": {
+      "graph_sha256": "a027b7f201a053a888cebe8474579cab291b8e02add2ca29fae16d46c462d8ea",
+      "final_stage": 2,
+      "current_display_items": [
+        30780,
+        30781,
+        30782,
+        30783,
+        30810,
+        30863
+      ],
+      "local_boss_display_rate_bp": 1000
+    }
+  },
+  "ordinary_drop_map_counts": {
+    "711763": 45,
+    "711785": 6
+  },
+  "sources": [
+    {
+      "path": "analysis\\equipment-connect-01a142e9\\expansion-v2\\ItemExchangeTable.lua.tables.json",
+      "sha256": "1a86a91e1751c1e763ff0f0f77fc45ec8a0bf2138fadf3e579e85fd569e26215"
+    },
+    {
+      "path": "analysis\\tutorial-quests-01a142ce\\v3-remaining\\resources\\DLG_Map_House.lua.tables.json",
+      "sha256": "ec9406064e33c9cd9fcc5dbdfc5c2fad3a63481228e7ab5a13b6af489f96b3f2"
+    },
+    {
+      "path": "analysis\\x2-village-opcode14-20261017-01a14a51\\outputs\\DLG_Map_Village.tables.json",
+      "sha256": "b79f1609a7a0d673ab165cc626961779acc791cb411a64a933edf7de03d1f072"
+    }
+  ],
+  "numeric_rules": {
+    "giant": "2 per qualified original Boss; EU 2023 fixed2 adopted, subsequent region coverage local explicit continuation",
+    "bismuth": "Pruinaum/Pruinaum Outskirts ordinary3%, original Boss100%,1; local numeric gap rule",
+    "raid": "same material quantities once in original final native phase per map/run, independent of weekly equipment eligibility; local receipt placement",
+    "giant_maps": "Only original final-stage Bosses issue displayed local10% material rows and local10% uniform exact equipment pool. Other original eligible static hostiles retain common misc sources. No dynamic/controller source. V5 extends the same local rates to34310/35110;35710 uses its exact native12308 reward chest only after the source-pinned12284 boss death, without altering the boss no-drop flag."
+  }
+}
