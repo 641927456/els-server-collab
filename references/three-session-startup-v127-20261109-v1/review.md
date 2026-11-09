@@ -46,3 +46,7 @@ Proceed with exact signed/source hashes, actual old-updater selection, original 
 ## Authorized Quick Start addition
 
 Reviewed all three added peer files against V126 parent hashes. LocalSession parses options578 once through existing quick_start.selected and reuses that boolean for storage and ACK. Transactional pre-encoding uses the same value. The keyword default remains false for ordinary creation and error replies; identity, ownership, sequence replay and starter qualification paths are preserved. create_ack has three runtime callers (success, error and transaction pre-encode). No new input parsing, reward or schema added. Actual combined-runtime LocalSession creation/replay and original 2B4C620/C17781 native branch pass: Quick Start changes only offset4379; ordinary still enters tutorial. Risk MEDIUM, no demonstrated defect. Natural GUI remains unverified. Final scope: 17 runtime files plus Program.cs.
+
+## Combined profile count correction
+
+Full signed startup refused 65 artifact entries at the old maximum64. The maximum is adjusted to the exact required65, while type/path/hash checks and each signed leaf remain unchanged; maximum66 still rejects. This is a bounded schema update, not a skipped compatibility check. Full-startup evidence is recorded separately after rebuild.

@@ -182,7 +182,7 @@ def load_registry(runtime):
         raise ValueError('Directory decoder evidence mismatch')
     for p in data['profiles']:
         if not re.fullmatch('[0-9a-f]{64}',p['executable_sha256']):raise ValueError('Executable SHA schema')
-        if not isinstance(p['artifacts'],dict) or not 4<=len(p['artifacts'])<=64:raise ValueError('Profile evidence count')
+        if not isinstance(p['artifacts'],dict) or not 4<=len(p['artifacts'])<=65:raise ValueError('Profile evidence count')
         for name,sha in p['artifacts'].items():
             if not isinstance(name,str) or not re.fullmatch('[0-9a-f]{64}',sha):raise ValueError('Profile artifact schema')
             inside(runtime,name)
