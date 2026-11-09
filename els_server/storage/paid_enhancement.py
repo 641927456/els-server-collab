@@ -56,10 +56,10 @@ def enhance(path,owner,payload,operation,randbelow=secrets.randbelow,*,account_i
         for material in materials:
             if material['count']==1:remove(db,owner,material)
             else:db.execute('UPDATE inventory_items SET count=count-1 WHERE owner=? AND uid=?',(owner,material['uid']))
-        from els_server.domain.enhancement_progress import settle
-        from els_server.storage.enhancement_progress import replace as replace_progress
-        result,updated,gauge,points=settle(item,mode,result,updated)
         replace(db,owner,uid,q['level'],updated)
+        from els_server.domain.enhancement_progress import after as progress_after
+        from els_server.storage.enhancement_progress import replace as replace_progress
+        gauge,points=progress_after(item,mode,result,updated)
         replace_progress(db,owner,dict(item,enhancement=updated),gauge,points)
         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
         positions=[(m['group'],m['slot']) for m in materials]+[(item['group'],item['slot'])]

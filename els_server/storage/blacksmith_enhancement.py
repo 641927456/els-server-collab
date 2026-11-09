@@ -78,10 +78,10 @@ def enhance(path,owner,payload,operation,randbelow=secrets.randbelow,*,account_i
             else:
                 cursor=db.execute('UPDATE inventory_items SET count=count-? WHERE owner=? AND uid=? AND count>=?',(amount,owner,material['uid'],amount))
                 if cursor.rowcount!=1:raise ValueError('Smith material changed')
-        from els_server.domain.enhancement_progress import settle
-        from els_server.storage.enhancement_progress import replace as replace_progress
-        result,updated,gauge,points=settle(item,mode,result,updated)
         replace(db,owner,uid,q['level'],updated)
+        from els_server.domain.enhancement_progress import after as progress_after
+        from els_server.storage.enhancement_progress import replace as replace_progress
+        gauge,points=progress_after(item,mode,result,updated)
         replace_progress(db,owner,dict(item,enhancement=updated),gauge,points)
         if xp:replace_profession(db,owner,account_id,growth['revision'],next_state)
         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}

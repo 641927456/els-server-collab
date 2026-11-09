@@ -43,21 +43,21 @@ class PaidEnhancementTests(unittest.TestCase):
         self.assertNotIn(cobo['uid'],{i['uid'] for i in self.items()})
         self.assertEqual(next(i['count'] for i in self.items() if i['uid']==regular['uid']),2)
 
-    def test_rate_boundaries_and_level7_failure_keeps_level(self):
+    def test_rate_boundaries_and_level7_down_and_reset(self):
         for level,rates in enumerate(RATES):
             self.assertEqual(sum(rates),10000);offset=0
             for code,weight,new in zip((1,3,4,5),rates,(level+1,level,level-1,0)):
                 if weight:
                     for roll in (offset,offset+weight-1):self.assertEqual(outcome(level,roll),(code,new))
                 offset+=weight
-        for roll in (500,2000,5000):
+        for roll,code,updated in ((500,3,7),(2000,4,6),(5000,5,0)):
             self.fund();self.grant(163135)
             current=self.gear_now().get('enhancement',0)
             with closing(sqlite3.connect(self.path)) as db,db:db.execute('BEGIN IMMEDIATE');replace(db,1001,self.gear['uid'],current,7)
             before=self.money();cost=fee(60100,7)
             wire=enhance(self.path,1001,payload(self.gear['uid']),str(roll),lambda n:roll)[0].payload
-            self.assertEqual(struct.unpack_from('>iQiQi',wire),(0,before-cost,3,self.gear['uid'],7))
-            self.assertEqual(self.gear_now()['enhancement'],7)
+            self.assertEqual(struct.unpack_from('>iQiQi',wire),(0,before-cost,code,self.gear['uid'],updated))
+            self.assertEqual(self.gear_now().get('enhancement',0),updated)
 
     def test_retry_returns_current_absolute_state_without_redraw_or_old_upgrade(self):
         self.fund();self.grant(163135,3);p=payload(self.gear['uid'])

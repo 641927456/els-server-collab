@@ -16,15 +16,6 @@ def after(item,mode,result,updated):
  gauge,points=validate(item);level=item.get('enhancement',0)
  if mode==1 and 7<=level<=10:gauge=min(LIMITS[level],gauge+1)
  if abs(updated)!=level:gauge=0
- # A +11 crystal attempt still earns its point when the rolled downgrade is prevented.
- if mode==2 and level==11 and result==4:points=min(20,points+1)
+ if mode==2 and level==11 and result==4 and updated==10:points=min(20,points+1)
  if abs(updated)>=12:points=0
  return gauge,points
-
-def settle(item, mode, rolled_result, updated):
-    loses_level = rolled_result in (4, 5)
-    if loses_level:
-        updated = item['enhancement']
-    gauge, points = after(item, mode, rolled_result, updated)
-    result = 3 if loses_level else rolled_result
-    return result, updated, gauge, points
