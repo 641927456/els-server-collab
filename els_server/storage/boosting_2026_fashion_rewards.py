@@ -17,7 +17,7 @@ from els_server.storage.luciel_state import active_state
 
 def open_fashion(path,owner,template,payload,operation,*,now=None):
     request=use_request(payload)
-    if template not in BOXES or request.option or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):
+    if template not in BOXES or request.option not in (0,1) or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):
         raise ValueError('Role fashion90 box has no client-selected reward')
     owner,digest=_identity(owner,0x196,struct.pack('>i',template)+payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:

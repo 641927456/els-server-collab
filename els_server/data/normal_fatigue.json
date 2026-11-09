@@ -1,0 +1,4016 @@
+{
+  "schema_version": 1,
+  "enabled": true,
+  "maximum": 4800,
+  "new_sources": false,
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "routes": {
+    "30000": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Ruben_El_Tree_Normal.lua",
+      "graph_sha256": "538106003b78814094693fb79ede43bba86c49de58ca5caae08be1e0effb10af",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/30000",
+      "capture_sha256": "7b250e52ebd7ab0b73703a932bec711133dcb5d06bca44beebdc031f78835151",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "30072": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Elder_Druid_Forest_Expert.lua",
+      "graph_sha256": "b3a288f4b5048052792733eb2a03d9acfc9aa9be9908c8281d4d76df8137d230",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/30072",
+      "capture_sha256": "97c408a1ff104264d226397da211de358f84c296400724087dfdd0e582878a1d",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "30092": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Ruben_Swamp_Expert.lua",
+      "graph_sha256": "b87e706050ff1005c08f9b356e3a63dc66eb487d6147b6a64c8d7bbcc8304026",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/30092",
+      "capture_sha256": "0f0564947026b744493354d1c2c768f1fa6b2151f82d175e2c208d934579c20a",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "30102": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Elder_Wally_Castle_Center_Expert.lua",
+      "graph_sha256": "dec89fc8bc3589fda858bd427abe737f59792d4cdb662b151a3afece127e2fac",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "1": 75
+      },
+      "website_stage_count": 2,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/30102",
+      "capture_sha256": "9e9cf3aa89a976c8ddd0d5978c3a9443429fcfa3a3dce407add6707a6d334746",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "30172": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Besma_Lake_Expert.lua",
+      "graph_sha256": "3afcfd4f19ee836a57a8e7db5ee1637cc20806185c888f23a7654a7325c5b4b2",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/30172",
+      "capture_sha256": "f6f1c795dd1c38f755b2c6d0806ace111d5f7f953e8bf68a90c0b43ba8441b99",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "30182": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Besma_Dragon_Nest_Expert.lua",
+      "graph_sha256": "beb270845a77bef951e89efe21f3910a2d72b0fade4de3ffe8fe2f054de1a295",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/30182",
+      "capture_sha256": "038dcfc2e2f02b591977a6864d3b0533599c2eacede1e4503901e4977ebf93b0",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "30192": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Besma_Air_Ship_Expert.lua",
+      "graph_sha256": "0da5cb743399e949e3221f14460349191771454e19db2029d77d7d55f9a120b9",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/30192",
+      "capture_sha256": "cf080b0e6cde063e9128c729571ebfe7896d2df4db469a3e70fb80a8db917711",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "30212": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Besma_MINE2_Expert.lua",
+      "graph_sha256": "bb040bea7889dd2c6b1e1ca3d85e050f5cb97e4fddd1af5753e00e5f63160099",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/30212",
+      "capture_sha256": "6bc766fcdc37a7ab94509a4d6c432b97575fe3a26717348195b20c0c2d2a1c0b",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "30242": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Altera_Battle_Air_Ship_Expert.lua",
+      "graph_sha256": "eb4d00505a3d8d5270e1a36796debaf87097d4f8f1b1e21b7538389849128841",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/30242",
+      "capture_sha256": "108e1d8693d812c0cb67a9788427bfc8e3fc8aad52bca1a4ee2a6f99b9b10a4c",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "30252": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Altera_Plain_Recycle_Expert.lua",
+      "graph_sha256": "f965765a2687f6226f1d41c31f18e0d989840d7c162fc56239d4f0bb8a0bdfd8",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/30252",
+      "capture_sha256": "3ab3e378359db863f2e47f19b193a76ef120f5cec00c0ea5a545d82ee0b34639",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "30262": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Altera_Below_Tunnel_Expert.lua",
+      "graph_sha256": "026cef6fd807cbe6da671c0b958763c3a062a4343647b6530013d4f35599e0a9",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/30262",
+      "capture_sha256": "3f5947e2f059b1966c35d16338eb88b0d069541e37145c0cc59b42d007eecb35",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "30282": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Altera_Nasod_Factory_Expert.lua",
+      "graph_sha256": "3da2896f31f56f9f1c1239455bd40dbab24c87b46b63409ca6e47a54f956ca5d",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/30282",
+      "capture_sha256": "547b9432e0cf2dc6c1e52f71b0f984ae70373a34c76f0ce50662beb4ef6fe2b6",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "30302": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Altera_Core_Expert.lua",
+      "graph_sha256": "92fb9a602537def90092736f0403c60aefa3cee613a3947cbc67a4422f8b8b15",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/30302",
+      "capture_sha256": "9b44c131bb820673ecf64157bfa049e29166fa235f9531ca99371aaff69b2092",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "32602": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Peita_Offerings_Expert.lua",
+      "graph_sha256": "75a899c90d57a7ea19c0aa7413cc60911baf7952f4d43d4d19716edfe870d858",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/32602",
+      "capture_sha256": "15a80561cfd5c3c72afc81f49c3da6dad93ba81343c34714311844c6d4839aa5",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "32952": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Peita_Chapel_Expert.lua",
+      "graph_sha256": "5a9a0e4207664389059a0403dd0b27fe9517a8790bfdb4c0457f684a8054f7a4",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/32952",
+      "capture_sha256": "6f8e0e1ed5956e27ce4990b6cca1da42d6b683ca9d86a1c2e77ed1574b3fb093",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "32982": {
+      "cost": 30,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Peita_Offerings_Alter_Expert.lua",
+      "graph_sha256": "0f2ba14f8aa34b03a12f2a9166b344b7894bdceaa56647cdbba5fec96a21f86c",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 30,
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30
+      },
+      "website_stage_count": 5,
+      "native_stage_count": 5,
+      "reference_url": "https://cobodex.eu/en/dungeon/32982",
+      "capture_sha256": "fbd74c7a6d5115d2ac54a8773eb4eb684d75817982f91ad4006c1aed0af1084a",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33012": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Velder_Bridge_Hope_Expert.lua",
+      "graph_sha256": "b7eebcc1fd466c09be00a2e2ab9a5c22b48711c1dd43b9b32554caa07fa3c63b",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/33012",
+      "capture_sha256": "6dc7cf83b5354ecf3b15d2c5d01f85cc3d29235372b52e7573ab4cbe644b4d5c",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33031": {
+      "cost": 450,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Elder_Secret_Hell.lua",
+      "graph_sha256": "a0f60dcd5ecce34f06850c3708b824f150ec8136d374d4acdce3bb1807ca2d57"
+    },
+    "33041": {
+      "cost": 450,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Besma_Secret_Hell.lua",
+      "graph_sha256": "2e8d594beeff202e56be9e58d6cc1ac58f447c4369ffbd7e3c032707c12a6f75"
+    },
+    "33051": {
+      "cost": 450,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Altera_Secret_Hell.lua",
+      "graph_sha256": "49f34aed7e6e628067f844324024563c1700e3647a237ec686c50351c4556e92"
+    },
+    "33062": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Velder_Palace_Entrance_Expert.lua",
+      "graph_sha256": "07f7d3871f8b8cc5aa6ac2cd323d78e8b6a3860b7d560b7cba093ed470f48471",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/33062",
+      "capture_sha256": "796926ea15c690366c0cd12f8d7e9a5864fd77ba2765a40cde0af2411e8ee835",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33082": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Velder_Market_Expert.lua",
+      "graph_sha256": "c58e9e8324bd04e5eeed0b8234ca1f3df129c81e3db5efd65fb149b4dc140368",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/33082",
+      "capture_sha256": "bbf8a4d39e77ac5cb0892dd6e3a9259809812f62102e7c2ae4c9681c8596a400",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33092": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Velder_Gate_Expert.lua",
+      "graph_sha256": "c53ca760b30121b619ab4576048679d936bba18f1fddcf8edf896c034bee05c7",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "1": 75
+      },
+      "website_stage_count": 2,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/33092",
+      "capture_sha256": "857550f25324ca201339eaf206171c5e7d191dbb0e2104fe86e6514bc6525117",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33122": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Hamel_Outskirts_Resiam_Expert.lua",
+      "graph_sha256": "c1acb1aa4f56c31d12058ca7f32eb8f1f6a36e0c22b5f7d40614e88bf175b98b",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/33122",
+      "capture_sha256": "0ad0458ac984b349aa3faca3b1b9d9fe358c55c3012221954e7d0423434909e6",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33142": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Hamel_Waterway_Expert.lua",
+      "graph_sha256": "7b2d7257c1724cceaa116dae2de107ff9be6baeb14fc7888d68f783f6ffc1b52",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/33142",
+      "capture_sha256": "2e8040f190c0f92e34c485b636ccbff7d5c878129f6fbbc4490c471c97ff4686",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33162": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Hamel_Cave_Of_Magmanta_Expert.lua",
+      "graph_sha256": "3e482045d760c13969260a722c263aedcb32f4d3756fe80e8eb5dc7d5b4d1d82",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/33162",
+      "capture_sha256": "92668d584492550ebb74e372e13b3ac319b42bf13d162bb02de1efc194fa4da0",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33182": {
+      "cost": 25,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Hamel_Frozen_Water_Hall_Expert.lua",
+      "graph_sha256": "d9dfc8ca84404b5937e13e3a250b635fbd5ea62a5def67c4616fc556590a0ee2",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 25,
+        "1": 25,
+        "2": 25,
+        "3": 25,
+        "4": 25,
+        "5": 25
+      },
+      "website_stage_count": 6,
+      "native_stage_count": 6,
+      "reference_url": "https://cobodex.eu/en/dungeon/33182",
+      "capture_sha256": "cb39edc93387b9f9f083ea0136ed3b3082df23f80ec0a424d73fb71b63ed6a80",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33191": {
+      "cost": 410,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Velder_Secret_Hell.lua",
+      "graph_sha256": "c8ab3e734c3163e64649d82a4eec56340cd3dc24bc53dc99f0f6d36741e48705"
+    },
+    "33202": {
+      "cost": 185,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Sander_Dry_Sander_Expert.lua",
+      "graph_sha256": "c5c13300ddb677fa274194036820b79be46c5f19b1c406e17f01497175344fa2"
+    },
+    "33232": {
+      "cost": 30,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Sander_Karuso_Village_Expert.lua",
+      "graph_sha256": "2ad86a70dc61c61d3df3dbeaccf3d09fb2253b99a7db57242eb214a514bbe365",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 30,
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30
+      },
+      "website_stage_count": 5,
+      "native_stage_count": 5,
+      "reference_url": "https://cobodex.eu/en/dungeon/33232",
+      "capture_sha256": "6b36e450e87ac88a593995f8792887128e9660b34e5fe31d9b8edada59f456ea",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33242": {
+      "cost": 30,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Sander_Santilus_Ship_Expert.lua",
+      "graph_sha256": "9059e50b72703832ee50d6ad9f9955703cfb6486c9e4b98421a771aece9d057a",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 30,
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30
+      },
+      "website_stage_count": 5,
+      "native_stage_count": 5,
+      "reference_url": "https://cobodex.eu/en/dungeon/33242",
+      "capture_sha256": "8bbdba778d3e6d5ab11a45ffac57f95db0ace53c4a7a6c08d2303c8f43e764d1",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33252": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Sander_Behimoss_Heart_Expert.lua",
+      "graph_sha256": "f8fcbe09cad35b426a3221cff7173febb0acb457eea3ab57296c53d391df248e",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/33252",
+      "capture_sha256": "0549b853e1d91acad73559fa176d485e3a616527ff529c41ce6fc56725f1f74e",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33261": {
+      "cost": 450,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Hamel_Secret_Hell.lua",
+      "graph_sha256": "2578a0e7f809296070986dd02c916bc7a1cd0e9f32d104bca03e425965dd090c"
+    },
+    "33282": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Ranox_AshesVillage_Expert.lua",
+      "graph_sha256": "a38c95834275def7544d914b0789483c5ac6ed636c440ff6f6dae144ae0bcbe9",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/33282",
+      "capture_sha256": "fd27c0e11457835f5317602bcceb4ec469ed1536afc2ba8dc2c35bc48cd74fd8",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33292": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Ranox_Geyser_Expert.lua",
+      "graph_sha256": "df17537593b3892881263dd98f051a6da04ec6fbe059c063975fd916db825e3b",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/33292",
+      "capture_sha256": "c5b0cf0372e94389f0a8fa89a920ad718b23f1bf886bf5dbf36892da35a69cc8",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33302": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Ranox_Gateway_Expert.lua",
+      "graph_sha256": "112ff72dafc176c7402a932e707743314ddffbc2ba328c0759511a8f305ec62f",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/33302",
+      "capture_sha256": "6700ab27c2129155c37d3dd6f56f1bd8d427398c8ccd6fd56c365a857d23e2b8",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33312": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Ranox_FireTemple_Expert.lua",
+      "graph_sha256": "2d90340883af2f5643bd6782f3c7b506683358a34a5d2f7d1a5a8aab89bac1c1",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/33312",
+      "capture_sha256": "f2227fa10f6a3345f54a975a5a59901d199f2daf0e42c1e039beef6f006d168b",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33322": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Ranox_FinalHall_Expert.lua",
+      "graph_sha256": "09e9169df1004f1ab340afc673921f861560b9f1b5c9b375e8451007c89086be",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/33322",
+      "capture_sha256": "9454ae82d5e77b6050f3c97ec3a16c8da4926e311bbc6445cf92b1e29789d3f3",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33332": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Elysion_AtlasDevelopment_Expert.lua",
+      "graph_sha256": "7d9b0870bda9338fbeeb123d81be36edb74ff2ad660a5001cf05edfa5afde0de",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/33332",
+      "capture_sha256": "262f387a8e746581892e3cc434b75059846747f993963efab10e13540ee70838",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33342": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Elysion_AtlasCity_Expert.lua",
+      "graph_sha256": "7b9486a4f342ce1592c96bf4ddcac5df23cd61a1e4c61de0a852f9877a0f626b",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/33342",
+      "capture_sha256": "584461d72518320375cdec0b5ca2303c989439ee9b7e99fedcd58c2a4a64b61c",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33352": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Elysion_Tower_Expert.lua",
+      "graph_sha256": "f6396fb34037cdcd3f72d231f351c3e23c3a23407e4a0d5a642963b208f6f856",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/33352",
+      "capture_sha256": "d75c22e2a21b9f1c65f936f49f63a9cecbe8220ef4df41fd0422538fb6451b08",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33872": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Elysion_SkyCrossroads_Expert.lua",
+      "graph_sha256": "b2fc7a644eb702d4840af7c0ad7ba9fa7926e3182d6e1ef0335193228ad807c2",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/33872",
+      "capture_sha256": "ce8d42ae6999f3402033bf258f39aa2cad8b154447317a30a91c26547e89d428",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33881": {
+      "cost": 30,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Elysion_Adrian_Hard.lua",
+      "graph_sha256": "8a32a9853d4709a8e8e1ee4000f20c78b2767391755ce7ecea3bf33710a4ea8c",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 30,
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30
+      },
+      "website_stage_count": 5,
+      "native_stage_count": 5,
+      "reference_url": "https://cobodex.eu/en/dungeon/33881",
+      "capture_sha256": "abb6f8a827f280cccbbc4ca548396736228db9facce415143f3135d10f12b58c",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33891": {
+      "cost": 25,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Elysion_Soless_Hard.lua",
+      "graph_sha256": "e4bb437fbd97673d8b17024b07013afab1c2baad334f85835da540d800ffb5e4",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 25,
+        "1": 25,
+        "2": 25,
+        "3": 25,
+        "4": 25,
+        "5": 25
+      },
+      "website_stage_count": 6,
+      "native_stage_count": 6,
+      "reference_url": "https://cobodex.eu/en/dungeon/33891",
+      "capture_sha256": "cd07d445bbe1807284e2011e3a432f29ff649c2bfdd6c89db7accf860a887e73",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "33901": {
+      "cost": 30,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Elysion_Memory_Hard.lua",
+      "graph_sha256": "24b45ca412b55654727a09b63d6c0fde146bdd57e4fbe3a299233b493cdf8de2",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 30,
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30
+      },
+      "website_stage_count": 5,
+      "native_stage_count": 5,
+      "reference_url": "https://cobodex.eu/en/dungeon/33901",
+      "capture_sha256": "a71121a7ac216d7ccaa82f4a38e40ec6b32b6e28d7639ed33d599217e2e14e80",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34000": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Sanctuary.lua",
+      "graph_sha256": "8e0ac4e8bb714df7cde41c2731f9ce4816395fe1a8373ab6a28c6e3dc9c5fbc9",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/34000",
+      "capture_sha256": "db1728a2fa95de54ae298ecd4360c916f367b60297263a7d10256ad280092c92",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34010": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Elianodarea.lua",
+      "graph_sha256": "42dd2c9af39c602c9967c0ce9e73247886029e994dd6ceb0966b2ee12fd3e9b1",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "1": 75
+      },
+      "website_stage_count": 2,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/34010",
+      "capture_sha256": "311a06b2a0958a5bf2852b63752be4e32c8971c033e37cf22aacac40075591cf",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34020": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_En_DevLab.lua",
+      "graph_sha256": "366251c9a091fe23cf81d875ac6a5cea05ba90a7231d943f722f073b19b2462d",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/34020",
+      "capture_sha256": "cecbc5bf886390590195bec2a0de018de56df3a932471a6e2762c580d99cafb6",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34030": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Eltowerprotect.lua",
+      "graph_sha256": "e35fd1ef4cb80eca213ed4206a0602631b85c8717f63d8a4b9c60af2f6030bae",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34030",
+      "capture_sha256": "8f02baff0d8a969c6e604c917f626aded90811562af7a6c735f3f15d4b8424d1",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34040": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_En_Story_DevLab.lua",
+      "graph_sha256": "46ea487517cf7fd2e96970f87153b3ba47ce8d8bc5993e7b10f61749f401ede6",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/34040",
+      "capture_sha256": "6ea9d6251d9bdc85b15bb462a88611cc6810b2e38d6a47242cd4a81b783d530b",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34050": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Story_Eltowerprotect.lua",
+      "graph_sha256": "f61f3d5ce1e2ef2ad2109e2bc8597d07c0cb5e7a3c73a4e7506dbf331e43c551",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34050",
+      "capture_sha256": "d86976a919e0bfdd3c2f5ae6ec9beb637b91634ab492932b0d90c3eb106689b7",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34060": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_En_Tunnel.lua",
+      "graph_sha256": "54a2d968cdcf563eae3592d597b930bceebb56321ac8e3aad53179000ec3d20b",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/34060",
+      "capture_sha256": "d49edb213dd06fdc406839d3b721122b8ab0133500c9ebea404e156d96c14dc8",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34090": {
+      "cost": 259,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom1_Henir.lua",
+      "graph_sha256": "57f327e11988b929cbf655cf07f1ca51c1501970bc5113db14f65ce9c1a49ffb"
+    },
+    "34100": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom1_Forest.lua",
+      "graph_sha256": "f985d4e332c3f6da74d87c68fab5df141787a9cc7a340c1e2cc5877873b11db1",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/34100",
+      "capture_sha256": "8edc71316c85b528de0e595f68d86eff89c2e1b51917623829080030df7c089b",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34110": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom1_DarkElf.lua",
+      "graph_sha256": "dccdfeac85dcc0eeb8fb95e9a52e33a3eeb35f592123819c26dc5b3c76890704",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/34110",
+      "capture_sha256": "14f34785ce64797cb48de615f6209caaa6c3ba23c2896f5963aa387f6cc0c48a",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34120": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom1_Mountain.lua",
+      "graph_sha256": "bf9b90689d5d582cc8a3231252c2761fd71652dc6f4d1e279b7a3a3f486e1a00",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/34120",
+      "capture_sha256": "39c0e5de320f5c819b0d557565d09a8c1fb66567650f01eaba718ec075975ba3",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34130": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom1_Raid1.lua",
+      "graph_sha256": "57a59ce4afaa34ea5f5b7645eb3a1b2442269e881d12bae040067a00986e289b"
+    },
+    "34140": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom1_Raid2.lua",
+      "graph_sha256": "e19bb64e80a3788b985b54910c9ad4d29004f29234c68db933bdb395d83930a3"
+    },
+    "34150": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom1_Raid3.lua",
+      "graph_sha256": "50f73cbf41d43f4d0a99fdd66ebcdd18b6c8ebb1dfe54d7fe91d80417fc11344"
+    },
+    "34160": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom1_Heritage.lua",
+      "graph_sha256": "56439479c7fc3a8bbf377b1c6775154e34adf433f1d8d7b7cbbff4385cc57c4b",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34160",
+      "capture_sha256": "72acbafe7db3c1dc7d0580cfd4bee961428f5823722b381c383dec119d3bf8d5",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34170": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Story_Devildom1_Raid1.lua",
+      "graph_sha256": "a0abf30c185c3a3caa6279b3d3cf1db72569c53fb609601f629a84d4149e47ef"
+    },
+    "34180": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Story_Devildom1_Raid2.lua",
+      "graph_sha256": "2c09fdfdd3d1316e7b718cb4e14092e5f5ee0e1cd355b3f49f254f0e78a7d334"
+    },
+    "34190": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Story_Devildom1_Raid3.lua",
+      "graph_sha256": "e7886f5c2d3095a618b05584774cbc7c775724b127a720523c383293dc7d1296"
+    },
+    "34200": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Laby_Black_Forest.lua",
+      "graph_sha256": "13fcdb503c5b1b584ba779a8a8e08cf429952b1b46353522868f7c06692c75c0",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34200",
+      "capture_sha256": "e71efe356a818efab86a3b2c7c5d5a72b1f31c6d834e446ef47907079aa6406f",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34210": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Laby_Laurencia_Port.lua",
+      "graph_sha256": "48004e258381a5b287832a4eba0006f2987e7e5e762926fa20ea503f4ee6b137",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34210",
+      "capture_sha256": "df289c76708baebbf4155adc3ced12a0774742a1f8c0b3623e0eeb801e664895",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34220": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Laby_Battle_Ship.lua",
+      "graph_sha256": "35379d6ecb09b300ceb5916063132671175e4c398bdb13c8226c6351a22aada0",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34220",
+      "capture_sha256": "e2a0e866c7aa08ea09851a6e2cd14e3af6b94d6f2019d726ea284031a9ec43bf",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34230": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Laby_Storm_Center.lua",
+      "graph_sha256": "55ffbb379a62c28dec5650fb6490a4d6f617633591f7782cdc3dd39ccfa91a83",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34230",
+      "capture_sha256": "4ae7d55cd9e6d97657a9bace62300485ff501fe56ce1d299522efe5c79ceec52",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34240": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Laby_North1.lua",
+      "graph_sha256": "12aa4d83836bfbcea59537dbe1b05d0932dd93d967b100415dd3c39a568135ec",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34240",
+      "capture_sha256": "50a824477047b6ea2352a87ae2541ba49f5c744ef9ba8e6956d250d77f260c4e",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34250": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Laby_North2.lua",
+      "graph_sha256": "588b575aacfbd8e6eb264eda485bbedf0ff18c02a8629c53c7d459c4acd72adf",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34250",
+      "capture_sha256": "0ba26460a8b0b6b650ee7500e625cecf5cac3cf624724d83e751b961d742daea",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34260": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Laby_North3.lua",
+      "graph_sha256": "89cb670bc15f356c2bb7fb03f2f047337bf0d444f8f4d5f2bc629043a6236ae1",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34260",
+      "capture_sha256": "b22e23b129e6ebfb0c6f521bf13de754eaf422ec74edc2047d2c86ae36a6d214",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34270": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Laby_North4.lua",
+      "graph_sha256": "a94dcbf8ca7c43d06cfd0eed1e570d9eb46361fb42aae31325050557dfdba7f3",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34270",
+      "capture_sha256": "a9f3c9a82d235142b4a923a23f52ab58eda70871af2199f2d5353cbf98d2ce96",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34280": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Laby_North5.lua",
+      "graph_sha256": "569e420d1e616b699a1638cdb4a2a21efbce47fc42c0bf6d66213283d32f9a07",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "1": 75
+      },
+      "website_stage_count": 2,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/34280",
+      "capture_sha256": "2bc4b87361964e0b19ae877a1a8e672950a07018d0a8ae1ec38fed563ee7d459",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34290": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Laby_En1.lua",
+      "graph_sha256": "c0b59cc694291c3652f83e1c9435a0a64b2a4ba75ccb0a492197c4638cf2b3b7",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34290",
+      "capture_sha256": "1f0a63026dfe2905bef12eb254ce93e44e5d56a515f311415d2a0a63a16782d9",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34300": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Laby_En2.lua",
+      "graph_sha256": "71db7b96d942fae310f95015b157060d1a56f73564a7671fdab595804d5bb493",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/34300",
+      "capture_sha256": "a5837e44a24744c576c8d74e42b473c577f92d4460c74c5d11d109dd2e7a8d74",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34310": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_2019_Drabaki.lua",
+      "graph_sha256": "b655dce0f74d6ef145211326947e88a0966f0a9149975ac54fd47c61eec05e04"
+    },
+    "34320": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom2_Henir.lua",
+      "graph_sha256": "b6905a338e4919afc3445aecf999828b6476bfccfe223bda084019998595021c",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/34320",
+      "capture_sha256": "33d3d34d9347274d78653f639389ff91e85d9936392cb584f129cf44fb6f482d",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34330": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom2_Tunnel.lua",
+      "graph_sha256": "4a470538f0eb1294f20c406119b8371a74b0db0bdc4580357fce96d66f522516",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/34330",
+      "capture_sha256": "de73c4a004e37c6277254afca40896b50951e68ab514434aec92e480f04894fd",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34340": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom2_Residence.lua",
+      "graph_sha256": "e0995cf9f2274bbb9b763fb384c46062ea87915428d4dca313c03d5fc4ecb3e1",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34340",
+      "capture_sha256": "f593de1ee860bc256322a209d59000d826fb487d3b32973037bf3b5247908b9c",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34350": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom2_Factory.lua",
+      "graph_sha256": "da42ed2edc201421e8d6a0ecaaf4ade75217b4785c08ff010a0850c81da6d6c0",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "1": 75
+      },
+      "website_stage_count": 2,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/34350",
+      "capture_sha256": "f12e2bcac74e780fa21a0169ebe875e01d3235a93b4e424f6f129ebcb067c355",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34360": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom2_Portal.lua",
+      "graph_sha256": "e5c9b9d1e6553e2e30a112a0fc06515ec73d02f0fc5bb8d5aa534efde650d214"
+    },
+    "34370": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Gaia_Normal.lua",
+      "graph_sha256": "8eca42284f32ac370afd061262d54ef2d194f25dec0bfc4a2b42ecd16810d585",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34370",
+      "capture_sha256": "55d5d129e3525d8d4f4843ad80f67f7ba4e89d55ca5fc3cfbfd6813720283cf2",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34380": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Gaia_Hell.lua",
+      "graph_sha256": "2cc21a540190f815ad286551a369a1f87ae52c2adf4677f3639e756d6c50c79b",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34380",
+      "capture_sha256": "399d81ddabceb8cd45f02608fe9f5db185c14ac7db90b3001373191fb1564512",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34390": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_ROSSO_Normal.lua",
+      "graph_sha256": "8da85dcaca627f50d6a5bbacfa06507929f8e358a5be630e02b0f8577869642d",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34390",
+      "capture_sha256": "ee89add64a5760bc60140393c2910c76cf766cd4359a993aed3ac9c85eeee4da",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34400": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Rosso_Hell.lua",
+      "graph_sha256": "d7dadf378781f4872d6f62bb09adfa4d2a0e7b43b3cbbf67c09e93936767e110",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34400",
+      "capture_sha256": "60569b03c69513292a88c929918ccd9aabc26d58f5db6c71b174b5e800ecb94f",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34410": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Ventus_Normal.lua",
+      "graph_sha256": "711210520778f1e582e7f1fa9f3a22afc13ca89ad3a0165cbf8c0dc87c909e03",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34410",
+      "capture_sha256": "79541ac3eaac6652fd0a397d9e410ea8e15eb0130701914820f25872a3e1e729",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34420": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Ventus_Hell.lua",
+      "graph_sha256": "93ac0876a5ad462005f157c1c833f7ac8a9920d30cfb869aca8eef1be2210e4b",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34420",
+      "capture_sha256": "5eb6d32a1bf4debb6c8ee6fc5dfd66d9d730ece58ef3729188c751e4a7c9b0b4",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34430": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Deniph_Normal.lua",
+      "graph_sha256": "b1a1a0455e7301b2b7bc6702ab81665e0273399288f9ffb2db76a024532ceea4",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34430",
+      "capture_sha256": "5c90de24545b0520651a7777451a29762986da213058fbdf10d623626dbf942e",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34440": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Deniph_Hell.lua",
+      "graph_sha256": "48657ec06348394ad7c8404329a92c77cf3875ea3fb3aa81b6def938579b5747",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34440",
+      "capture_sha256": "ad6f99a8be315bdb1914aeb21c057fd26ea12780158410032f2414724e1079ce",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34450": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Adrian_Normal.lua",
+      "graph_sha256": "8bc305025a1831aa63755c10b8b67196ea0cd7ee53787754a19fbcf6c76a32d3",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34450",
+      "capture_sha256": "afa7421132b0d6f3686b0ae4b96ced57a16e6720b5d3abcf12357b0550093195",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34460": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Adrian_Hell.lua",
+      "graph_sha256": "8ab3870594d27271dc525de77ebf008ca616812683efcf85e7e9b3af38c21673",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34460",
+      "capture_sha256": "fc69d50026430229915b21d8aeb4d6634cedd89144d0fb2aaccae362c41ea4f9",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34470": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Solace_Normal.lua",
+      "graph_sha256": "0abf05be6e17400d258f4ca76f45affbc41838a3e3a78e5c3c0ba1e765389589",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34470",
+      "capture_sha256": "0f7c93f6d05c048c8ee94c33f143643703260c9671c9fa5e0f3076881970aee7",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34480": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Solace_Hell.lua",
+      "graph_sha256": "cb10e07fa8bcce9205ec158dcd03588ebadff6cea6850f7f009c2f7dcc3328a6",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34480",
+      "capture_sha256": "28ee5b2b95b32091b4ee60ba2643af70c4e2bfc267ac69a8b9fdfef7491bc9af",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34490": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Harnie_Normal.lua",
+      "graph_sha256": "82276e87e637b36621cdf4a3729549ed5067bb9f8ff789cd818cd5d615e88be8",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34490",
+      "capture_sha256": "d4a597cd3be593bcfe1537c7bfb3d8ac8eb4b573a81722e6269b421210673cd2",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34500": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Harnie_Hell.lua",
+      "graph_sha256": "9d04a93a5487fd8e054d15a24fb80da52de3e6c48fcfad495193ef2de210949d",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34500",
+      "capture_sha256": "40c8936700615901c289686c8f1e308a293b7560c6fc905eaf6e0f81afa47b2c",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34510": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom3_Snowmount.lua",
+      "graph_sha256": "3ee2ff335678f3f118857d9833035b2b4afb78e460175b6f4e0244111ed15505",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/34510",
+      "capture_sha256": "1ac9d24fbd6b038b3bb6c0468e83c43fa9baefcb80fd5644ec33bfb6ecffebfe",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34520": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom3_Village.lua",
+      "graph_sha256": "de0cad416e65326b1cb238ad69dbe5394a90341369e6ed20e37baccadb485f45",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34520",
+      "capture_sha256": "c90a2c196eaacff7e1247aa8754cf1642e124f40c6fdbc88a1f4c12dfa42e298",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34530": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom3_Suburbs.lua",
+      "graph_sha256": "e9d342db3a5300137a37664b01a276db1ac8b87df8200417c093be530c343415",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "1": 75
+      },
+      "website_stage_count": 2,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/34530",
+      "capture_sha256": "793290eb37c96eff11cc975b9230564f7e94e230ea5ec54ba729a46ac5c35508",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34540": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom3_Train.lua",
+      "graph_sha256": "753c6a906e4a0cbb03c5e857c89d5d904ab4cc659035ca6be8289615c7e81f9e",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "1": 75
+      },
+      "website_stage_count": 2,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/34540",
+      "capture_sha256": "8fa28f0a62e758338c6d8ac88e4e1ba37ed43a3c7fde6c78e3beb62233b45a32",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34550": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom3_Raid1.lua",
+      "graph_sha256": "81f82e5bb8c94e845b5b628980996e4818bb0d6cb209c2ca228609232fafe8ca"
+    },
+    "34560": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom3_Raid2.lua",
+      "graph_sha256": "48b6c5318824156b5ca49798e9b2de682f24d2791feb0af48dc7e2975c5c3e14"
+    },
+    "34580": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_NOAH_START1.lua",
+      "graph_sha256": "597f9ea96dbb7f398c887697c822301dc12e20d2427f6739bfd33f579a860dce",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34580",
+      "capture_sha256": "171b57dcc2ce2441d813331a7ec9f0c3a757a98ca867789b804e49ef4c4687a4",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34590": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Noah_Start2.lua",
+      "graph_sha256": "a5aad38c009a1081fb3a5dbf91acb0a6bc8a0e62ee82ed913e9ea99b0eebaf37",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34590",
+      "capture_sha256": "3ed157450ead50935c03570a102395fafd76366064076789fa3ab31a449fb89e",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34600": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Noah_Start3.lua",
+      "graph_sha256": "18bd698e95eec415053438deb0a4c085109e3069eacd19bb4609b10e34917219",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34600",
+      "capture_sha256": "ad43d89e8f829d42416e1a9a6b703b94c58988628a855ed7758740423c916a54",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34610": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Noah_Start4.lua",
+      "graph_sha256": "3278a6a45bbbc8f65f5a6d3fba251adb0b5e2f77c7e0ac87fab9132d24aba9fc",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34610",
+      "capture_sha256": "f8c23bc7ea47e0f23da9b2919c0965b4d9efef5d8bed91b0fd66ee93f4b2660c",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34620": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Noah_Start5.lua",
+      "graph_sha256": "66695f79578f5c60763ce3218fec17ace5a9fc215d598d2c4cabfe9eb58320f4",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "1": 75
+      },
+      "website_stage_count": 2,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/34620",
+      "capture_sha256": "65435f68d44cf2bde97e2db51f279475176702b05517e3bc3febe65996e4eb15",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34630": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_NOAH_RETURN1.lua",
+      "graph_sha256": "26b9d62f658cfd6ebbbe4fe873cf4290f49dba6715fa1e1a6f27cd0295b50b5f",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34630",
+      "capture_sha256": "72cf19e7fc43a30a5dcbb67044e484e0bcd20dcf61bb9d1600da1f3c0ae8ddac",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34640": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_NOAH_RETURN2.lua",
+      "graph_sha256": "3cb1368064ea525057c789943cccdbcba9b251a059d264f251cc11d3d1ee533b",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/34640",
+      "capture_sha256": "90fbdfbe20f77092b932a0ae0881418178a1b74cece4b83aba1a66009a56e972",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34650": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_NOAH_RETURN3.lua",
+      "graph_sha256": "71d2a893bdf66b6a48f7cea98369804d12b0bb74e6e66a0189c10e38c83f470a",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34650",
+      "capture_sha256": "05e203501f853f9e23b75945629bf9148a6d2fa6b442fd3a07d12959925a9e60",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34660": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_NOAH_RETURN4.lua",
+      "graph_sha256": "daeb1418bdb9d9ddcb6987f4005f9c3d2cccb3ed4d5ce9217cb437575a6ddef9",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34660",
+      "capture_sha256": "38d5be949c5ffe010e909e88286c18106b73910d6ca75c4912e7de0d3b0c0c22",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34670": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Noah_Return5.lua",
+      "graph_sha256": "43f7c916deefbd03a782b7817a86f0bdc8b1726b845f909424556bf96d7b3d9d",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34670",
+      "capture_sha256": "529e016e500c0e01c80b0e71ac8e2b559a752461655f12aa2a705b942de37dbd",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34680": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Noah_Return6.lua",
+      "graph_sha256": "47d8cee8daa7ef7c8e2e8d513c4a1802879a4411fdab9b1ee81646406eeaee5b",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/34680",
+      "capture_sha256": "36084bf715821c4eeba3bc00afea3d5a568e8d9c2c795dd52947449bfdfb8e0b",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34690": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Ebalon_Normal.lua",
+      "graph_sha256": "b12f3e24a0f85360ab5aab56cc9cdf57f2193f83335863d39729eae27622a976",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34690",
+      "capture_sha256": "b4f46f8dd015c8455a0468e3d44f5c2c9f74a58e5ad44dbd8b7c76da33830b6d",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34700": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Md_Ebalon_Hell.lua",
+      "graph_sha256": "47938295da0de16095a5a67b26b81df122ed8b015487fb654542c237f2a66b6e",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/34700",
+      "capture_sha256": "56182c192b11d1c5d6a6703b16a982bf2d1abae087a80002a6c14dc21cd90c02",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34710": {
+      "cost": 240,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom_Side1.lua",
+      "graph_sha256": "2211ae6755c22eeb3fde663258faf497831ab045f43b66c21848cb1eafcaba58"
+    },
+    "34720": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom_Side2.lua",
+      "graph_sha256": "3238ea8132e0b1dec4e803f2c8f5970563f748175967416e73a224ba4d0f5c62",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34720",
+      "capture_sha256": "ec4a74d1e17ab723540dfffffc75424fe157671271496c59fc42f40929506823",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34730": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom_Side3.lua",
+      "graph_sha256": "bd2b9052797964385dc187e32b18bb9cd7665c92c5599e1880238db60bb2797c"
+    },
+    "34740": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom3_Raid1_Story.lua",
+      "graph_sha256": "b22c6e71fea1ae54d56cbea4fd32c0603bc0b6a3946cb3a88e821ca9fccf9baf"
+    },
+    "34750": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom3_Raid2_Story.lua",
+      "graph_sha256": "2710404693325d076ba8dc109e6330275205faf7c78132d76e967ac76702be78"
+    },
+    "34760": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Themepark.lua",
+      "graph_sha256": "ff7a84eb43a539de17c9f0432ac2056f4ab29abd0fd3fdc11ef81a3a82123571",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/34760",
+      "capture_sha256": "d9fce1e4b210fa0f11b689fb21ca94d446e412098e933159d64991f75915d6fe",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34770": {
+      "cost": 225,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_TrickyHouse.lua",
+      "graph_sha256": "aae2cb6f388206f17adbe42a572a207531a4bb6abc8637bd42d4fa07f116ea00"
+    },
+    "34780": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Puppet.lua",
+      "graph_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/34780",
+      "capture_sha256": "58d4b8f6d203160e67067b35281aa8e0b12a8b12db85fd12853dd1a84ab9266e",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34790": {
+      "cost": 240,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Concert.lua",
+      "graph_sha256": "0c6b29e4d2bc595986d381eb8067f778e9b5077bb7da72a7bb5e46fd0852f3a0"
+    },
+    "34800": {
+      "cost": 240,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Shadow.lua",
+      "graph_sha256": "3239dda07b43a5705f1a21ecbf3bf0f8c05ad4419b7ec3447170003e7affabee"
+    },
+    "34810": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Raid1.lua",
+      "graph_sha256": "383f4d47f888da0fb26a96d2d26720a858559502be6b3fb82afac7c10e686520"
+    },
+    "34820": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Raid2.lua",
+      "graph_sha256": "e23dc98e2410f9fcf14d3ea034960df7566caf883a0dbe5e1af695b1c19e9476"
+    },
+    "34830": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Raid3.lua",
+      "graph_sha256": "fd1abe89dc44c00ae5a7aed3234ac990c2a05d78ec7372c7358f2ddeca43a6c0"
+    },
+    "34840": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Raid4.lua",
+      "graph_sha256": "df689a5708c21104046baf939d74c59f5557b8d7f46521f05d91a084104e1cbe"
+    },
+    "35080": {
+      "cost": 30,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom5_GoldCastle.lua",
+      "graph_sha256": "7be2bc7bc6636de6a7bb5d62e9e90e470ad65f6a5153f1e9617d75fe48fb549c",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 30,
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30
+      },
+      "website_stage_count": 5,
+      "native_stage_count": 5,
+      "reference_url": "https://cobodex.eu/en/dungeon/35080",
+      "capture_sha256": "ceb0cc03896e397effcab55b55230b5fb529a5a42b02c6f357cb57c16b5301ef",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35090": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom5_UnderGround.lua",
+      "graph_sha256": "72bddd85273702560b22616f5cf47795128f0ecafae674ac23c74ee1d380fcfc",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/35090",
+      "capture_sha256": "9316515409a76db1d51c61f2f320a1d3dbe33482a9c038860be89b93c578c01d",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35100": {
+      "cost": 30,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom5_Arena.lua",
+      "graph_sha256": "4f9fd1bf57aa26c0c686728b5ace50c9f7221ebbd0bcc27a248acbccc4b712c6",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 30,
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30
+      },
+      "website_stage_count": 5,
+      "native_stage_count": 5,
+      "reference_url": "https://cobodex.eu/en/dungeon/35100",
+      "capture_sha256": "a475c565c4cff23764d9ba60184c693cbaeae69aaf0415f018f6b7a6ca33649d",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35110": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom5_IronWall.lua",
+      "graph_sha256": "1e010c5a23db8aaf3acc9bbbb7a7db93d705c7e3fc995cbc817ce01842711877"
+    },
+    "35120": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Raid1_Story.lua",
+      "graph_sha256": "a6c237b6144add936c4446661f3cc90e1870ce624e0a1e7fa124e77fd7569af1"
+    },
+    "35130": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Raid2_Story.lua",
+      "graph_sha256": "87079a900511ecca35bec80ad02e62d8a1332e983b216cae40c3b2d67003e7ad"
+    },
+    "35140": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Raid3_Story.lua",
+      "graph_sha256": "5b968101f9a62c4546d20bb09c67ce5b9fe4776d2460503c7415c837ccd5ec40"
+    },
+    "35150": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Raid4_Story.lua",
+      "graph_sha256": "51a1c7c8508feb891933a16fd63eb03811bce61269518a4569fcf4975a3026e6"
+    },
+    "35170": {
+      "cost": 450,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom2_Secret.lua",
+      "graph_sha256": "34b0c68972846329908e9648691a5a6def15ff0627ae471cc85f51731f4f60b5"
+    },
+    "35180": {
+      "cost": 450,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom3_Secret.lua",
+      "graph_sha256": "d5b6640a465b16fdaae53d641ffa537987b8371b68711ff4aee7b0456be24bfc"
+    },
+    "35190": {
+      "cost": 450,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Secret.lua",
+      "graph_sha256": "9ead3c1c3c1fd3090426f632e0ed441ad99de6cd48a84830ccb2726bf0bd814d"
+    },
+    "35250": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY1.lua",
+      "graph_sha256": "d71dba419ad369412c4e98a7f0d450f351c0ec533d9d0cb6abec4d50a2251e04",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "1": 75
+      },
+      "website_stage_count": 2,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/35250",
+      "capture_sha256": "81c8bca48b6219969bcd3e1bd3f29f4dd3662733599b0bd8bbc2cc1ccf20e20d",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35260": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY2.lua",
+      "graph_sha256": "3dd4f08d0d5271cc9d83937fddface52ce0730378e0c1f28d13220437ab54821",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/35260",
+      "capture_sha256": "b581c326370f002ad9013874ce8914458e70f1e42dad6e47e4ede526ec44cceb",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35261": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY2_1.lua",
+      "graph_sha256": "099d4c3188ea8b790447babface8681b47b76e19962bf147a30d038cabc00b60",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/35261",
+      "capture_sha256": "9dd7f7406137da0207d240516a9f5f83d524eb88d84d5c80e793a44fdcd4c9a3",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35262": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY2_2.lua",
+      "graph_sha256": "cf94d5de410a1ce99318080b29c42519cf2ebb014a1ed063d1c104c12fcdfdd6",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "1": 75
+      },
+      "website_stage_count": 2,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/35262",
+      "capture_sha256": "4d6533b88d258422b314aaf101d33d0a14f25772916e7f7e5f6802af62a515c6",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35270": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY3.lua",
+      "graph_sha256": "4c2f03e3df3ab002695bf8347eb6c3a2fc99b0bc0deae28d0a18423b47460aa3",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "1": 75
+      },
+      "website_stage_count": 2,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/35270",
+      "capture_sha256": "a5ae92f4848a811c125a79f46735f54d44c363a0a58a3f22097b92284c37ec3f",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35271": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY3_1.lua",
+      "graph_sha256": "d3ebb37e2c4012b75804855a5b030ead529b4a7061aa0dfd7e2f6cc70add1816",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/35271",
+      "capture_sha256": "dbc9e6fce71e19197002fd45d27942d122485ecde321d110b16a9274b807b095",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35280": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY4.lua",
+      "graph_sha256": "a37147db67a60e8f1975134cbfea4337e3e402d6b851e50c26187106e95c1ffc",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/35280",
+      "capture_sha256": "a7d0a0164e7e6ad9e09e60aeb79acfaebc9fcff6bb98d0ae6a36cbf768977d08",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35281": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY4_1.lua",
+      "graph_sha256": "5defdd4fb4c2068691b7cf660b74a9b5db88ae989cb2b0a87c07b1eeaf2999fe",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "1": 75
+      },
+      "website_stage_count": 2,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/35281",
+      "capture_sha256": "a6aa4957ae845d4b2a4673b3ec1ca116adb5d293cd83ed101355ce43ba2ad2ff",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35282": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY4_2.lua",
+      "graph_sha256": "a1c454a40bb8a9444613d556f23d18de5dda7f52a194839bd7bf2530317ce445",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/35282",
+      "capture_sha256": "7434ea381579c30cc4fd5fab947ef671e31fe28eb330dd4f32a08a6d7884ead1",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35290": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY5.lua",
+      "graph_sha256": "dd9c58d5250519dfa1a4d1bec1893619c304f0e02effb12a672feb092416ab15",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "1": 75
+      },
+      "website_stage_count": 2,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/35290",
+      "capture_sha256": "687b19b86af5ec1733e316d0e89e5a6d228131c5258b2aaf6e22e18ebf686829",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35291": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY5_1.lua",
+      "graph_sha256": "8f76c7023dfb33ccf19864984ec2cafc10c3db1f843d022dab4db6da718022c5",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/35291",
+      "capture_sha256": "65bf70830e6fff620b774de724dbdf700a43865d6fb5b04bf3b66c7159f0afcf",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35300": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY6.lua",
+      "graph_sha256": "6c3680d654020e27525f9e7c3d5920c1b6b71a87d2dbed373af563ff6a03077b",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/35300",
+      "capture_sha256": "de285da27c1dc3d6ad20cdfdecba5a3a328922b02a76a256c3f0d4d5d17219f9",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35301": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY6_1.lua",
+      "graph_sha256": "3b7feb6b68743dc3bd7f77f03a792a5c9e87a08803dcc84f63d9c421693a345f",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "2": 75
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/35301",
+      "capture_sha256": "b1d227354c120a57809cbb0a3c426b5a608f57cfdff846e4c00ec0e10f51ab15",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": true
+    },
+    "35302": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY6_2.lua",
+      "graph_sha256": "c39033a7eebb7f07bc78789ca0ce14558dd1bc7c148e57e75cda60b1b89fd9e1",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/35302",
+      "capture_sha256": "4fe544d4599cfe6c79c19b59bbc59f8fbaab17f3ec4192196140d92f56f8d62b",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35310": {
+      "cost": 75,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY7.lua",
+      "graph_sha256": "3df9bd4129b3b49a1eedab003de53574e8fddf54357c16b6869afb4d389fba47",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 75,
+        "1": 75
+      },
+      "website_stage_count": 2,
+      "native_stage_count": 2,
+      "reference_url": "https://cobodex.eu/en/dungeon/35310",
+      "capture_sha256": "bce60ca9a83cc88d1e1df80866cdae2ed5e5ed146d1fb34eaa437fd667abdce9",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35311": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY7_1.lua",
+      "graph_sha256": "8ef23f63a278492a8a07935ac274cea285a0119a357395d90642abb38df090ee",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/35311",
+      "capture_sha256": "8b9741ac4de2560f0f3f7f4d81bcfdabe4e824ab4fb8d44333162d385cae9f52",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35320": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY8.lua",
+      "graph_sha256": "696e2f7ad0e4685ea9dea807e03bf7eb54a953c7d9b08453deae8bb0dcba79e3",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/35320",
+      "capture_sha256": "182fcde5aa881cca788fb23f51215083db7a5aebdf2c752172dd56a8cb23db8e",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35321": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY8_1.lua",
+      "graph_sha256": "1861ded3d8a7e8d67475e98a27449215227de7b19f907f3943675fa9ddad4e16",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/35321",
+      "capture_sha256": "d0c3ffbb2f42436e44c49006a5289d2c09f4f192c7442dd308c3caedad589592",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35322": {
+      "cost": 150,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_LITHIA_MEMORY8_2.lua",
+      "graph_sha256": "d110b77689c39fd9db46b26c8ae24894bb2bdb747fb4aea53ab2f4e2f3f36050",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 150
+      },
+      "website_stage_count": 1,
+      "native_stage_count": 1,
+      "reference_url": "https://cobodex.eu/en/dungeon/35322",
+      "capture_sha256": "39a314c640b8f73d2293018951110a2f14475c643db4c7ede723c8aa0ac4eff0",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35340": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Street.lua",
+      "graph_sha256": "c65eec1f5122894e35dfd69928a32ec0d121aa4640de91562c2ac6ab28fbafcc",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/35340",
+      "capture_sha256": "18bb904cb97dbe0c51e7975b1ac44172bc66121d197a8b45bbbae5da143b40c1",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35350": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Workshop.lua",
+      "graph_sha256": "bc117a0857ec124e66d4bd938f1c78255d6137abf04b8cc8d7675a5a843ca0c3",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/35350",
+      "capture_sha256": "001f20505dcc3e75aa94572f54e09041df77fb29bbb32714d1f10b2aa8ec42cd",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35360": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Garden.lua",
+      "graph_sha256": "d469d5f21de31b706756eb6c437276406cd15f226d3ef52de82f0a208d12648a",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/35360",
+      "capture_sha256": "5290dd12f861f9969f310cb28ac9fb04a1165f63008d8e347c7c6b99f77670b6",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35370": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Raid1_Grade1.lua",
+      "graph_sha256": "d37c1a019e97f13fac07e0da466d93a71256f702aa94fb0ab30994edd8d5b512"
+    },
+    "35380": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Raid2_Grade1.lua",
+      "graph_sha256": "45e4e5dd33b29b87e6ffcbe1f802e886921bee87f1f791ce05bc9779f9da1017"
+    },
+    "35390": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Raid1_Grade2.lua",
+      "graph_sha256": "b662d8b93986128e146a0be1629cdf791f2008ec69564c92f0228eaff2819154"
+    },
+    "35400": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Raid2_Grade2.lua",
+      "graph_sha256": "447ddac2a5c1b0a9f5532050589aa9f8743967998c3ef3013bd80deea279bade"
+    },
+    "35410": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Raid1_Grade3.lua",
+      "graph_sha256": "024a2b9904f4ba980f8fe4bdac617f1021d92de7cb9835ebdea23f9e8695807c"
+    },
+    "35420": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Raid2_Grade3.lua",
+      "graph_sha256": "bffd7284bc47ae37d1fac113c6def2fc44a318b8acdcd698dbf558715136f2c3"
+    },
+    "35430": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Raid1_Grade4.lua",
+      "graph_sha256": "3e99d5ff9ff61bcb5f969d93d38f6fbf5942a4b1f1d339d407d0bb49302fc4b6"
+    },
+    "35440": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Raid2_Grade4.lua",
+      "graph_sha256": "cd733db9651d9e23d1ae9f4660d6d42f31a8c5b93c8d0ed08e56f8dd729787d1"
+    },
+    "35450": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid1_Grade1.lua",
+      "graph_sha256": "ddfcd08538b40797dfdfa42af08e3b945fdda268db19131161513cb529396072"
+    },
+    "35460": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid2_Grade1.lua",
+      "graph_sha256": "3cd5f9f0ce7bb67c69693bdc386eff53197b8fd8b363cf552baf75d9d207f99b"
+    },
+    "35470": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid3_Grade1.lua",
+      "graph_sha256": "5062098230c27956b6806d43b387753afc39b1675c6fbd0cf4985f49cc24c88a"
+    },
+    "35480": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid4_Phase2_Grade1.lua",
+      "graph_sha256": "5e37d6329eede9d5525f08fc41980f53ab505ab6f5ebfc88c8f3560b7ddd97a8"
+    },
+    "35490": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid1_Grade2.lua",
+      "graph_sha256": "01c172061363fd76d7b34cb7a16f8087a05a6fc9a61f91ec91053b905f1f08c3"
+    },
+    "35500": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid2_Grade2.lua",
+      "graph_sha256": "715b6137a92d1c16460f669d0776b7a3449b555d26d64cea99af071c8afa2bb9"
+    },
+    "35510": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid3_Grade2.lua",
+      "graph_sha256": "1205d41b2b2ae42f7e39b87bc75f880303f6bb1efc21f9a90fc2d35ce5aeb51e"
+    },
+    "35520": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid4_Phase2_Grade2.lua",
+      "graph_sha256": "21767a0457f02e4f230c587dd651d6b9f764fae8562d7ceeae7965899e3fbc4b"
+    },
+    "35530": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid1_Grade3.lua",
+      "graph_sha256": "d66b73da990e94b88d349d6daf085efee7412328601fdac18dd09db3d7866e5f"
+    },
+    "35540": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid2_Grade3.lua",
+      "graph_sha256": "a5772b1e423a8cd8c9055d99dc2e5a4daf6e6be2994a3faadf97772ee8a16717"
+    },
+    "35550": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid3_Grade3.lua",
+      "graph_sha256": "e36d3351d31c64dfa338718fa34a73a05a1b4d1d28d8061fdd2711c3c4f84ffa"
+    },
+    "35560": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid4_Phase2_Grade3.lua",
+      "graph_sha256": "4d008b89223299d34609504a9a60697fe851f641c6ddbbbb14c3e9d811a6aaac"
+    },
+    "35570": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid4_Phase1_Grade1.lua",
+      "graph_sha256": "2c040f1a8ba07001041510b7a95dbd16791c188f7f5f49a2e5a2d403066ddaad"
+    },
+    "35580": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid4_Phase1_Grade2.lua",
+      "graph_sha256": "4e138381849bee338c3e15f699e37013342c134f611a26557d1b4f24d666beec"
+    },
+    "35590": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Barkat_Raid4_Phase1_Grade3.lua",
+      "graph_sha256": "6a25f3be1a8e9f288cdb40d57418c872cda69ed5082dd2d3feb0ee043b8a6e95"
+    },
+    "35600": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom1_Raid1_Single.lua",
+      "graph_sha256": "0d1eaaad4c09fa85def105432045d09587768ec1d8451ce81495a0fa78940a93"
+    },
+    "35610": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom1_Raid2_Single.lua",
+      "graph_sha256": "3856585228680b04722bbbb210238bf6522f76b9ca8a5ae5ca351053cce9af9e"
+    },
+    "35620": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom1_Raid3_Single.lua",
+      "graph_sha256": "3542a23f4a3693feb4452a4537d78cce8405cf5434bfb2b2d94dc3828a668e57"
+    },
+    "35630": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom3_Raid1_Single.lua",
+      "graph_sha256": "46c1cd36e5d877d9ff290884a1e34592eb56161b66af38d78a3a1e4294e7136e"
+    },
+    "35640": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom3_Raid2_Single.lua",
+      "graph_sha256": "7f2c588656ec8d2d6b961ee85b209680d4a819ff3ed0a5a5b4bb252e4e7d4b9d"
+    },
+    "35650": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Raid1_Single.lua",
+      "graph_sha256": "1cc593d4dbeafaa5a454b1efc55d26c6f604f51ee391eb82528b2a0615f53094"
+    },
+    "35660": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Raid2_Single.lua",
+      "graph_sha256": "3c0fbe0e56f68bf2a2204965cbfc4e91fdf4f30314871958f8bf4042782f9c9f"
+    },
+    "35670": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Raid3_Single.lua",
+      "graph_sha256": "bf10c23281b74fe0192898a2b2c973a1d219d7c078922076e50e5e09d2c36890"
+    },
+    "35680": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom4_Raid4_Single.lua",
+      "graph_sha256": "5775c4d02b685ba93c35bc9558c527abf1fde7fa2505e67f332eb159689dafe6"
+    },
+    "35690": {
+      "cost": 30,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Side1.lua",
+      "graph_sha256": "55c4f45216a764e01124e8f99cea59b063efb389b5b5f8e0d52897c82eb3d256",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 30,
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30
+      },
+      "website_stage_count": 5,
+      "native_stage_count": 5,
+      "reference_url": "https://cobodex.eu/en/dungeon/35690",
+      "capture_sha256": "07244c0ce6b2175e672d9dcb3704f9df4e64c518c90dd1df8efe7d3c180bfb73",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35700": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Side2.lua",
+      "graph_sha256": "67d64a407a69ee19bc55708af2beaf35b947d029487c8501d821a6df253246c0",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/35700",
+      "capture_sha256": "4e6b28f146c35283c75b8419fd33551e87ba94dd84ebdfef19ea553d31c8304b",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35710": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Side3.lua",
+      "graph_sha256": "a027b7f201a053a888cebe8474579cab291b8e02add2ca29fae16d46c462d8ea"
+    },
+    "35720": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Tower_UnderGround.lua",
+      "graph_sha256": "cfd4f6783889d5d8b476bde5103e1fed1547a31819a11afffc4ac4ffb294f466"
+    },
+    "35730": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Tower_Residence.lua",
+      "graph_sha256": "8123b92820419434722d363448adb13e8b896576782092a625b60fc694e26133"
+    },
+    "35740": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Tower_Abyss.lua",
+      "graph_sha256": "af47ce5df36398edb905c4b32b1d7fa99ae183a34645d9d870fadeb7704ff030"
+    },
+    "35750": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Tower_GoldCastle.lua",
+      "graph_sha256": "542ceee52e2f8190ae390c4cdc16cf9ff163de9112c49d7fc9e47ae8fef1ba20"
+    },
+    "35760": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Tower_CursedTree.lua",
+      "graph_sha256": "c39159e0ae75adae193bd38c15de7f9de501ebe766ee13d8b0773c1854e03dfc"
+    },
+    "35770": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Tower_Hill.lua",
+      "graph_sha256": "1153238b6265ccd5e344038a1299898aa1a4d9654f98c9168762df8e4ec14e35"
+    },
+    "35780": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Tower_Abyss_3.lua",
+      "graph_sha256": "c295aabaf45838fb318cdbca557db5216b51fc625ffe23a37fb8f27ac28f9fcb"
+    },
+    "35790": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Tower_GoldCastle_3.lua",
+      "graph_sha256": "dc1e85bf432f519faa7076c1fd167036d0a01513709c332b1a8110eb542f42ac"
+    },
+    "35800": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Tower_UnderGround_Story.lua",
+      "graph_sha256": "868e3d81c51ea9d591970e97d38f5c3f2a8b15136f0b39fedb9c3485bbbd4dd0"
+    },
+    "35810": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Tower_Residence_Story.lua",
+      "graph_sha256": "786b4dc651899aaa4577e26df006f4f205116148b1cb1da5b99ff84ec1c44c90"
+    },
+    "35820": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Tower_Abyss_Story.lua",
+      "graph_sha256": "ca04e51448284da996617da771ec44b10ae9085e983f134544241735d8f94753"
+    },
+    "35830": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Tower_GoldCastle_Story.lua",
+      "graph_sha256": "1cd94abafcf560554c1e806ee3b079d671205ae8711a51800d2a9393cbb4de48"
+    },
+    "35840": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Tower_CursedTree_Story.lua",
+      "graph_sha256": "438478dc191b55d1d6464a4dfe9b1f91a75c316f4734a003041179cf900b56fb"
+    },
+    "35850": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom6_Tower_Hill_Story.lua",
+      "graph_sha256": "bd6f3287c995f4b3f13959228ebc63879ffe3415920345795cd70797de6cff5c"
+    },
+    "35870": {
+      "cost": 0,
+      "basis": "official_Henir_no_stamina_2019_current",
+      "catalog": "routes",
+      "source": "Dungeon_Henir_Space_Chaos.lua",
+      "graph_sha256": "44b861d871931c20d4a8e3e8c6bc13c28cbdeb16daf9673cdd2a59d0e39d5bbc"
+    },
+    "35880": {
+      "cost": 0,
+      "basis": "official_Henir_no_stamina_2019_current",
+      "catalog": "routes",
+      "source": "Dungeon_Henir_Space_Ordeal.lua",
+      "graph_sha256": "0588069552babc430194020c883ac35009279700e8813c3df1291ab4fda5182f"
+    },
+    "35890": {
+      "cost": 38,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom7_TransPort.lua",
+      "graph_sha256": "c81e55a2463fff33a3f06af82f14f5769700694401efcf61cec443a1175d0524",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 37,
+        "1": 38,
+        "2": 37,
+        "3": 38
+      },
+      "website_stage_count": 4,
+      "native_stage_count": 4,
+      "reference_url": "https://cobodex.eu/en/dungeon/35890",
+      "capture_sha256": "69a9562feb4ee84491d2fcfc4caca7c40a7d54676065c4267b2d518daa4c21a9",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "35900": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom7_Raid1.lua",
+      "graph_sha256": "3710799c0b56ab41d57b1a827afe0b7ee653acb336919928824aaf3dec22615e"
+    },
+    "35910": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom7_Raid2.lua",
+      "graph_sha256": "c02cd751fab6d9a6f3655fa5baba917ec385b85a41d043ed01e4f4cc0e919545"
+    },
+    "35920": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom7_Raid3.lua",
+      "graph_sha256": "bc24261da2dc032b928b21b988594712c1db1f8014e321645f8845af363de3bc"
+    },
+    "35930": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom7_Raid4_1.lua",
+      "graph_sha256": "5c6e7267378a455dc6e82b5f870fc33471172081cb73c19587f5b58e94a9262a"
+    },
+    "35940": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom7_Raid4_2.lua",
+      "graph_sha256": "6dec621a22cec4f766f4ea93d31ddc8041b0d8871f35fbc8a011ee54619503f4"
+    },
+    "35950": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom7_Raid1_Story.lua",
+      "graph_sha256": "69e30671a4c556cb42390d3e8a39731810fdaab2af5aa5a9e0d5b6442083e7ef"
+    },
+    "35960": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom7_Raid2_Story.lua",
+      "graph_sha256": "43b80f91b49d48ed01addbf2ff423446a2cd9ba8a5ea14a6c4a5fd1aad61e9e2"
+    },
+    "35970": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom7_Raid3_Story.lua",
+      "graph_sha256": "c7add7bc56379819b276cdb7e3bb01aa3da80484cd5c566d3de322875e28af67"
+    },
+    "35980": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom7_Raid4_1_Story.lua",
+      "graph_sha256": "f239efce98d15db4582ab00e66b933a930641d4e9caf448d77fd24c2012fc6b5"
+    },
+    "35990": {
+      "cost": 0,
+      "basis": "human_approved_special19_exempt",
+      "catalog": "routes",
+      "source": "Dungeon_Devildom7_Raid4_2_Story.lua",
+      "graph_sha256": "f6289ea3dc49c346e2bffa6c1d52c086ae412d41bcd902df7d4547b66a8f952a"
+    },
+    "38100": {
+      "cost": 0,
+      "basis": "official_Henir_no_stamina_2019_current",
+      "catalog": "routes",
+      "source": "Dungeon_Henir_Space_2019.lua",
+      "graph_sha256": "b77b20ece19a92eab13e6fcd03b2c9d61714c262b1a803505b104441d5053b6c"
+    },
+    "38300": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Defence_Normal.lua",
+      "graph_sha256": "e7f6fae1b70b6130a9a3ba7cd6478d694c31ad2e3338ade1a44610726efe46f2"
+    },
+    "41131": {
+      "cost": 96,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_2017_Erda.lua",
+      "graph_sha256": "d15ba330741255416fdc5a23e86e54dc8a834dd4bb557f845a7cca76f1768381"
+    },
+    "41141": {
+      "cost": 450,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Sander_Secret_Hell.lua",
+      "graph_sha256": "3dbc75834acd7c626cd476a7acd0ca7b674db0c1df41bec37ba6f91537bc9f11"
+    },
+    "41271": {
+      "cost": 450,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Ranox_Secret_Hell.lua",
+      "graph_sha256": "db509a5a58f7504ea3c0a32e50f96355bdb0b334535771582eba28af985a419c"
+    },
+    "41400": {
+      "cost": 250,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Add_Center.lua",
+      "graph_sha256": "4f2e699405bc182f1892bfb2868fca428668290bd2178d87d072446adaab8a3b"
+    },
+    "41430": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_2016_Xmas.lua",
+      "graph_sha256": "281832de098ccc0e4c0cffc49bb281bd0168fb9b7def6fac0507e05136ecc968"
+    },
+    "41480": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Space_of_Thought_1.lua",
+      "graph_sha256": "cfa5b87ea61cc343f5347f497a1cb303f18be6df6a1bdd11e3bff74547deba67"
+    },
+    "41490": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Space_of_Thought_2.lua",
+      "graph_sha256": "5573ca1db761bda7de68f7fb420d1a80f386d0ed0dcbd80fce2719ca57611aff"
+    },
+    "41500": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Space_of_Thought_3.lua",
+      "graph_sha256": "3f5e999f1e8c4dc3c63525d7dfc231ec8b40abcadeacb2e4d2ae82cb2c7fe2e0"
+    },
+    "41510": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Space_of_Thought_1.lua",
+      "graph_sha256": "cfa5b87ea61cc343f5347f497a1cb303f18be6df6a1bdd11e3bff74547deba67"
+    },
+    "41612": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "routes",
+      "source": "Dungeon_Laby_Black_Forest_Event_03.lua",
+      "graph_sha256": "5f901cb577b4e461a15159bc117cba49cea5a859e0fb38b78c91c8126d1e5736"
+    },
+    "120000": {
+      "cost": 30,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Elysion_Adrian_Expert.lua",
+      "graph_sha256": "515e9b530c8b5af50675a28db32949f71ea757371fc2b8ca8e2683f05715e9e4",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 30,
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30
+      },
+      "website_stage_count": 5,
+      "native_stage_count": 5,
+      "reference_url": "https://cobodex.eu/en/dungeon/120000",
+      "capture_sha256": "1b1d192c972f26039330224f6a3ccc24773cd7b48792755793e57be550f864b3",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "120010": {
+      "cost": 30,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_Elysion_Adrian_Expert.lua",
+      "graph_sha256": "515e9b530c8b5af50675a28db32949f71ea757371fc2b8ca8e2683f05715e9e4",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 30,
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30
+      },
+      "website_stage_count": 5,
+      "native_stage_count": 5,
+      "reference_url": "https://cobodex.eu/en/dungeon/120010",
+      "capture_sha256": "7078a3a0de69acb550eed0c3165bf2b502bb9e324eb27a7604f4d2424ad17ecc",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "140010": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_En_Time1.lua",
+      "graph_sha256": "98380b109b1994e8873a73a66422a9361c2a8a29c1f534276c2d95b698e166a9",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/140010",
+      "capture_sha256": "2e84386d680bb1109a90aefef2097c8a132dff0951dd68260ef2d96e86908f69",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "140020": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_En_Time2.lua",
+      "graph_sha256": "d58963edc618f34bec4d7e2d48c9338d6f7689ce26520c66c66d87cc25a3c6a4",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/140020",
+      "capture_sha256": "4df78d2ba29e1abb2c993778835a3ec2c22cf6ddbf8a5c6c3efc2104be3dd9c6",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "140030": {
+      "cost": 50,
+      "basis": "cobodex_missing_field_total_reference_local_rule",
+      "catalog": "routes",
+      "source": "Dungeon_En_Time3.lua",
+      "graph_sha256": "8981d9c79080786f46c77b5e95e2fa1c2840ad2d95c6f8ecc513c76af38e1059",
+      "website_total_cost": 150,
+      "stage_costs": {
+        "0": 50,
+        "1": 50,
+        "2": 50
+      },
+      "website_stage_count": 3,
+      "native_stage_count": 3,
+      "reference_url": "https://cobodex.eu/en/dungeon/140030",
+      "capture_sha256": "251212ada3e7336cedd7b7b66840b0a075e508685d3b86a5e9079375537998fc",
+      "website_default_not_native": true,
+      "allocation": "integer cumulative-floor allocation over current original stages; once per run/stage; parts and revisits do not repeat",
+      "stage_shape_differs": false
+    },
+    "34850": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom1_Raid1_1_HELL_A.lua",
+      "graph_sha256": "87cce66b4d6e914190360a2b7e7dc9f65e1be0630c2c0e4d65512c9efb5c27aa"
+    },
+    "34860": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom1_Raid1_1_HELL_B.lua",
+      "graph_sha256": "6d0a8800bdfea9ed282fc79cd432d37cb3af2a2c73ca2937c552a99f42b89299"
+    },
+    "34870": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom1_Raid1_2_HELL.lua",
+      "graph_sha256": "57d571edb2bf0beae9da33143ab5363c2f046a0da8bb1424746e68b213bcca78"
+    },
+    "34880": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom1_Raid1_3_HELL.lua",
+      "graph_sha256": "b52b2e2cb65945915056bc033abbfcc20fac6f1159ce3b136afe853dc1860e00"
+    },
+    "34890": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom1_Raid2_1_HELL_A.lua",
+      "graph_sha256": "dfdc816e218afb1312c8dcfa07c43d3431c28fd2fd4ae7b313f02da2e051a111"
+    },
+    "34900": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom1_Raid2_1_HELL_B.lua",
+      "graph_sha256": "70ea42048db204143581f94c3fd42a67378b03e57154ef630f59259175edd0c6"
+    },
+    "34910": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom1_Raid2_2_HELL.lua",
+      "graph_sha256": "095b81d4b8674b386713fe7859ef7906b0e04ecae062f5775b51ee6b38d5a854"
+    },
+    "34920": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom1_Raid3_1_HELL.lua",
+      "graph_sha256": "a2b431e9dfd7618e48028304516ceb4f738b512d3e8edb54ebab33c7266c1252"
+    },
+    "34930": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom1_Raid3_2_HELL_A.lua",
+      "graph_sha256": "e41038774291c153253782c4df821460703871cfb82d2205aeac78fa906d4e2f"
+    },
+    "34940": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom1_Raid3_2_HELL_B.lua",
+      "graph_sha256": "180a6d5e5c6a84c21436ba0faa73691129a96a9c718eb867a743038e76038f41"
+    },
+    "34950": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom1_Raid3_3_HELL.lua",
+      "graph_sha256": "6a9360fc9323d9d00be0e7bbf4ace7f1371c07622357fb20f49f9448ba4b17aa"
+    },
+    "34960": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom3_Raid1_1_HELL_A.lua",
+      "graph_sha256": "4fbecb724f2960ad92ffddfedc129d721eb60b654bc240caf1273c6174ea7ee1"
+    },
+    "34970": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom3_Raid1_1_HELL_B.lua",
+      "graph_sha256": "b470d297c1b2fa2e203cfe435c9e86782a77f6c883bc6a20ec709b905e069e88"
+    },
+    "34980": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom3_Raid1_2_HELL.lua",
+      "graph_sha256": "9650b20a058d182af346db51ad72771156740511c0221698a23f5405889a7df1"
+    },
+    "34990": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom3_Raid1_3_HELL.lua",
+      "graph_sha256": "eb1cc0474d0570ccd69d023ec31db75560bfb67b1a525f0ebbae5ad3c0be05a0"
+    },
+    "35000": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom3_Raid2_1_HELL.lua",
+      "graph_sha256": "d056ba7c4bfea023f717e7d799a02c234c25a8338c7a7466838073346f72f24e"
+    },
+    "35010": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom3_Raid2_2_HELL.lua",
+      "graph_sha256": "d13f2dccdcee795ffabb4cef56936507e040a80b7debb90ef257ef61dbac4f64"
+    },
+    "35020": {
+      "cost": 48,
+      "basis": "current_client_explicit",
+      "catalog": "internal_routes",
+      "source": "Dungeon_Devildom3_Raid2_3_HELL.lua",
+      "graph_sha256": "00a796e95932b1e9f156b2580a51d309fc14b3690e915435bb734f13aae779f2"
+    },
+    "41550": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "event_routes",
+      "source": "Dungeon_2018_Foolsday.lua",
+      "graph_sha256": "405306dddacd7be422a8f871276972814ca94d7c13d65af737f7dfc2fceb6d7a"
+    },
+    "41580": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "event_routes",
+      "source": "Dungeon_2018_SCHOOLFESTIVAL.lua",
+      "graph_sha256": "e13df7034c4af2db9bb49ea28348f1651f8a7c3918730e29c5d36321f8571bbb"
+    },
+    "41620": {
+      "cost": 0,
+      "basis": "current_client_explicit",
+      "catalog": "event_routes",
+      "source": "Dungeon_2019_Dessert_Cafe.lua",
+      "graph_sha256": "8c3a0636294e6dff260f35db11ead08271463157057e015e71cd84e27d254ebb"
+    }
+  },
+  "potions": [
+    {
+      "template": 77200,
+      "name": "疲劳药水",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "1a206d156b38dd939ab7e6ec52dd55040983ff8254179b666e9a524c777d877a",
+      "record_hex": "902d01000210300238000000000000002c0100000000000000000000000000000000000000000000000000000000000000000000000000007c60b6038860b60300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0e2a202d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复30%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 1440,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 1440,
+        "m_iGiveCount": 0,
+        "m_ItemID": 77200,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 77201,
+      "name": "[科宝]疲劳药水",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "cf06da841178cbc3f2a0044eadec010b54e742ce3d71474397129fad31b03ffa",
+      "record_hex": "912d01000210300238000000000000002c010000000000000000000000000000000000000000000000000000000000000000000000000000a860b603bc60b60300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0e2a202d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复30%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 1440,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 1440,
+        "m_iGiveCount": 0,
+        "m_ItemID": 77201,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 154118,
+      "name": "[科宝]疲劳药水",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "0140cc8fcea2ddb28a1af15e4e5fcf19fe93b197db5766e20457e27f0dbebeec",
+      "record_hex": "065a02000210300238000000000000002c01000000000000000000000000000000000000000000000000000000000000000000000000000064c1cb0378c1cb0300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0e2a202d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复30%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 1440,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 1440,
+        "m_iGiveCount": 0,
+        "m_ItemID": 154118,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 166610,
+      "name": "[科宝]二次元的药水",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "a9220c6983f873b083b5d0e1abd4e2d53277a01f593f8039a673aedf1dfb54bb",
+      "record_hex": "d28a02000210400238000000000000002c0100000000000000000000000000000000000000000000000000000000000000000000000000007060d3038860d3030000000000000000000000000000000000000000000000000000000000000000000000005ef7c20200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080f7c202fad7b2020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "在阿莉尔处购买的科宝公司高级特制药水。\n喝下去就会有神秘力量让身体恢复疲劳，但药水保质期很短。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 960,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 960,
+        "m_iGiveCount": 0,
+        "m_ItemID": 166610,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 168348,
+      "name": "[科宝]疲劳药水100%",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "acc9501f48e72177c7fa8a69156eb06366f2bfd7d1c12fd973fda657ed74e153",
+      "record_hex": "9c9102000210300238000000000000002c010000000000000000000000000000000000000000000000000000000000000000000000000000d24bd403ee4bd4030000000000000000000000000000000000000000000000000000000000000000000000003a7dc3020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005e7dc302d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复100%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 4800,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 4800,
+        "m_iGiveCount": 0,
+        "m_ItemID": 168348,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 189209,
+      "name": "疲劳药水100%",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "28a317331c1235210bd48c8f0c015b4ae83b82627de0641ab6a0d9c2f365d97d",
+      "record_hex": "19e302000010300238000000000000002c0100000000000000000000000000000000000000000000000000000000000000000000000000000608d9031a08d903000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005e7dc302d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复100%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 4800,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 4800,
+        "m_iGiveCount": 0,
+        "m_ItemID": 189209,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 190393,
+      "name": "[科宝]疲劳药水100%",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "07080e5055f40af55812df9969989e33c4c2c58cb4a4e238c2835525501a0b8d",
+      "record_hex": "b9e702000210300238000000000000002c0100000000000000000000000000000000000000000000000000000000000000000000000000002013db033c13db03000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005e7dc302d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复100%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 4800,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 4800,
+        "m_iGiveCount": 0,
+        "m_ItemID": 190393,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 190398,
+      "name": "[科宝]疲劳药水100%",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "19fd4dff89074f2947bdeb1ae295bf0c017c591fe5a57d516ce5d1d7133bbce7",
+      "record_hex": "bee702000210300238000000000000002c0100000000000000000000000000000000000000000000000000000000000000000000000000008a14db03a614db03000000000000000000000000000000000000000000000000000000000000000000000000fa3ecb020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005e7dc302d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复100%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 4800,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 4800,
+        "m_iGiveCount": 0,
+        "m_ItemID": 190398,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 297093,
+      "name": "共存的庆典疲劳药水",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "9cadc3709ae189b3cb3a54ee440051ca19a837fede617c65008fae839fe0df74",
+      "record_hex": "858804000210300238000000000000002c0100000000000000000000000000000000000000000000000000000000000000000000000000005c7131047271310400000000000000000000000000000000000000000000000000000000000000000000000088ae0103000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000acae0103d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复100%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 4800,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 4800,
+        "m_iGiveCount": 0,
+        "m_ItemID": 297093,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 297761,
+      "name": "[科宝]疲劳药水",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "5b4d495087cb9e9f3f563eaac758946bb7aeeac69882a552c76abc9773a0be65",
+      "record_hex": "218b04000210300238000000000000002c010000000000000000000000000000000000000000000000000000000000000000000000000000de503204f25032040000000000000000000000000000000000000000000000000000000000000000000000004eb30203000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0e2a202d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复30%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 1440,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 1440,
+        "m_iGiveCount": 0,
+        "m_ItemID": 297761,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 710096,
+      "name": "疲劳药水",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "f570e14b08c398eebe4959856bfd4dadd5996cece42c56c2fe19cc54046c6add",
+      "record_hex": "d0d50a000210300238000000000000002c010000000000000000000000000000000000000000000000000000000000000000000000000000527aa1045e7aa10400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0e2a202d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复30%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 1440,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 1440,
+        "m_iGiveCount": 0,
+        "m_ItemID": 710096,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 710097,
+      "name": "[路莉尔]疲劳药水",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "44c4d5900794f08b0253c948048f0d40a20e3a23f0ad6bf19d6e39df12838582",
+      "record_hex": "d1d50a000210302238000000000000002c0100000000000000000000000000000000000000000000000000000000000000000000000000007e7aa104947aa10400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0e2a202d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复30%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 1440,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 1440,
+        "m_iGiveCount": 0,
+        "m_ItemID": 710097,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 710098,
+      "name": "[阿莉尔]疲劳药水",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "22d232b36f8be261fb4f161bbd8616b917720f71cc7355d6845a58d6ade81d2e",
+      "record_hex": "d2d50a000210302238000000000000002c010000000000000000000000000000000000000000000000000000000000000000000000000000b47aa104ca7aa10400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0e2a202d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复30%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 1440,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 1440,
+        "m_iGiveCount": 0,
+        "m_ItemID": 710098,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": true,
+      "existing_factory_max_stack": 999,
+      "owned_max_stack": 999
+    },
+    {
+      "template": 710099,
+      "name": "[科宝]疲劳药水",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "efac0e8a07c6e7443ba0d80a9d0a38002537a4681ed2e7af8ab5f22d49345fd5",
+      "record_hex": "d3d50a000210302238000000000000002c010000000000000000000000000000000000000000000000000000000000000000000000000000ea7aa104fe7aa10400000000000000000000000000000000000000000000000000000000000000000000000050f87503000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0e2a202d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复30%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 1440,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 1440,
+        "m_iGiveCount": 0,
+        "m_ItemID": 710099,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 710100,
+      "name": "疲劳药水100%",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "26bb30c74628274fb8598c957ea9c245a269f5024c75d6c99a509fce810ba2b4",
+      "record_hex": "d4d50a000010300238000000000000002c0100000000000000000000000000000000000000000000000000000000000000000000000000001e7ba104327ba104000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005e7dc302d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复100%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 4800,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 4800,
+        "m_iGiveCount": 0,
+        "m_ItemID": 710100,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 710101,
+      "name": "[路莉尔]疲劳药水100%",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "7d7fbc7f9304ade91e0a2541ca44c62939032aed21d020a0f4458a1470fea38a",
+      "record_hex": "d5d50a000210302238000000000000002c010000000000000000000000000000000000000000000000000000000000000000000000000000547ba104727ba104000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005e7dc302d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复100%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 4800,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 4800,
+        "m_iGiveCount": 0,
+        "m_ItemID": 710101,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 710102,
+      "name": "[阿莉尔]疲劳药水100%",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "f115380b82c4eebc3771ed951f8d094a7f748f227f2aeffae10059762499c6be",
+      "record_hex": "d6d50a000210302238000000000000002c010000000000000000000000000000000000000000000000000000000000000000000000000000947ba104b27ba104000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005e7dc302d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复100%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 4800,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 4800,
+        "m_iGiveCount": 0,
+        "m_ItemID": 710102,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 710103,
+      "name": "[科宝]疲劳药水100%",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "92e29aba31ffe7c2c1dd0c2c32d4401f6648321cc08bff577b25b95f1a383824",
+      "record_hex": "d7d50a000210302238000000000000002c010000000000000000000000000000000000000000000000000000000000000000000000000000d47ba104f07ba10400000000000000000000000000000000000000000000000000000000000000000000000074f875030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005e7dc302d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复100%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 300,
+      "restore": 4800,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 4800,
+        "m_iGiveCount": 0,
+        "m_ItemID": 710103,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 300
+    },
+    {
+      "template": 110004219,
+      "name": "疲劳药水",
+      "item_type": 7,
+      "metadata": 2,
+      "record_sha256": "3fe7962563b32dcc68847ba0b8ba9681cff4f7c6a21b196230f0209288a31f6b",
+      "record_hex": "fb878e0602103002380000000000000064000000000000000000000000000000000000000000000000000000000000000000000000000000b4f8fa04c0f8fa0400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0e2a202d61495020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff",
+      "description": "可恢复30%的疲劳值的药水。",
+      "factors": [],
+      "minimum_level": 0,
+      "raw_max_stack": 100,
+      "restore": 1440,
+      "native_random_item_definition": {
+        "m_KeyItemID": 0,
+        "m_iRestoreSpirit": 1440,
+        "m_iGiveCount": 0,
+        "m_ItemID": 110004219,
+        "m_RequiredKeyCount": 0,
+        "m_UseCondition": 1
+      },
+      "existing_factory_preserved": false,
+      "existing_factory_max_stack": null,
+      "owned_max_stack": 100
+    }
+  ],
+  "authorization_sha256": {
+    "normal-fatigue-system-authorization.json": "e82cce31d4f5ede90676a8c468d62edcbcedc7e8e3f1486e457abf1ac767f910",
+    "normal-fatigue-48-local-rule-authorization.json": "1d1b050e522d3b4a9387473114fb291e2d7a98c127438d081073efc455beb3cf",
+    "normal-fatigue-special19-exempt-authorization.json": "73c14558ac467056cf751cc6e5aa0b98338b80d30be50a463bb13094bdb80ede"
+  },
+  "primary_sources": [
+    "https://els.ztgame.com/game/000-1319-00000-990500.shtml?ms=107",
+    "https://els.ztgame.com/html/news/133ef47/006-1533-01097-609752.shtml",
+    "https://elsword.koggames.com/henirs-time-and-space-revamp-2019/"
+  ],
+  "public_source_supplement": {
+    "source_input_sha256": "39ec863346581ef67060dc6a7e0464e31040c39627c8011073a9c9ac4dd3c183",
+    "current_client_priority": true,
+    "approved_exempt19_preserved": true,
+    "official_CN_numeric_claim": false,
+    "source": "Current human request: client-missing dungeon costs from CoboDex, including explicitly labeled website fallback",
+    "website_code_sha256": "a47506aea89ec3cd2c5731ad452ca010e5fae6319d41937671155f892bde8488"
+  }
+}

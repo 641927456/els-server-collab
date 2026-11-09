@@ -76,7 +76,7 @@ def change_seal(path, owner, payload, operation, *, sealing):
         target = by_uid.get(target_uid)
         raw = _target(target,sealing=sealing)
         from els_server.domain.cartridge_registration_rules import require_unbound
-        require_unbound(db,target_uid)
+        if not sealing:require_unbound(db,target_uid)
         sealed, used = target.get('sealed', False), target.get('seal_used', 0)
         validate(sealed, used)
         positions = [(target['group'], target['slot'])]
@@ -103,6 +103,8 @@ def change_seal(path, owner, payload, operation, *, sealing):
             positions.append((stamp['group'], stamp['slot']))
             # One ordinary stamp buys one seal. Resealing consumes one use;
             # removing it never restores uses. No ED is charged by this UI.
+            from els_server.storage.cartridge_transitions import detach_for_transition
+            detach_for_transition(db,owner,target,operation,'seal')
             assign(db, owner, target_uid, True, used + 1)
             if stamp['count'] > 1:
                 db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?', (stamp_uid, owner))

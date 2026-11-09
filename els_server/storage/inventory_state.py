@@ -20,7 +20,8 @@ def normalize_legacy_potion_groups(items):
  # Historical receipts remain immutable; only the known erroneous classification
  # is normalized when comparing/replaying after the audited save migration.
  return [{**i,'group':6} if i.get('template')==77000 and i.get('metadata')==2 and i.get('group')==2 else
-         {**i,'group':27} if i.get('group')==7 and TEMPLATE_BAG_GROUPS.get(i.get('template'))==27 else dict(i) for i in items]
+         {**i,'group':27} if i.get('group')==7 and TEMPLATE_BAG_GROUPS.get(i.get('template'))==27 else
+         {**i,'group':7} if i.get('group')==27 and TEMPLATE_BAG_GROUPS.get(i.get('template'))==7 else dict(i) for i in items]
 
 def migrate_fashion_bag(db):
  name='ice-heater-fashion-native-bag-27-v1'
@@ -34,6 +35,24 @@ def migrate_fashion_bag(db):
   new={**old,'group':27,'slot':slot};validate_item(new);occupied.add(slot)
   db.execute('UPDATE inventory_items SET bag_group=27,slot=? WHERE owner=1001 AND uid=?',(slot,old['uid']));changes.append({'before':old,'after':new})
  if changes:db.execute('INSERT INTO inventory_migrations VALUES (?,?)',(name,json.dumps({'changes':changes,'receipts_preserved':True},sort_keys=True)))
+
+def migrate_normal_fashion_bag(db,owner):
+ """Move misfiled ordinary fashion without replacing item or receipt rows."""
+ rows=db.execute('SELECT uid,template,slot FROM inventory_items WHERE owner=? AND bag_group=27 ORDER BY uid',(owner,)).fetchall()
+ rows=[r for r in rows if TEMPLATE_BAG_GROUPS.get(r[1])==7]
+ if not rows:return
+ from els_server.storage.bag_capacity import allowances
+ limit=allowances(db,owner)[7]
+ occupied={r[0] for r in db.execute('SELECT slot FROM inventory_items WHERE owner=? AND bag_group=7',(owner,))}
+ changes=[]
+ for uid,template,old_slot in rows:
+  slot=old_slot if old_slot<limit and old_slot not in occupied else next((n for n in range(limit) if n not in occupied),None)
+  if slot is None:raise InventoryFull('Ordinary fashion classification migration requires a free slot')
+  db.execute('UPDATE inventory_items SET bag_group=7,slot=? WHERE uid=? AND owner=?',(slot,uid,owner))
+  occupied.add(slot);changes.append(dict(uid=uid,template=template,before=[27,old_slot],after=[7,slot]))
+ load_items(db,owner)
+ name=f'ordinary-fashion-native-bag-7-v1:{owner}'
+ db.execute('INSERT INTO inventory_migrations VALUES (?,?)',(name,json.dumps(dict(changes=changes,receipts_preserved=True),sort_keys=True)))
 
 def migrate_potion_bag(db):
  name='potion-77000-accessory-to-quick-slot-v1'
@@ -49,6 +68,10 @@ def migrate_potion_bag(db):
   changes.append({'before':old,'after':new})
  load_items(db)
  db.execute('INSERT INTO inventory_migrations VALUES (?,?)',(name,json.dumps({'changes':changes,'receipts_preserved':True},sort_keys=True)))
+def owned_template(db,owner,item_uid):
+ row=db.execute('SELECT template FROM inventory_items WHERE owner=? AND uid=?',(owner,item_uid)).fetchone()
+ return row[0] if row else None
+
 def load_items(db,owner=1001):
  owner=character_uid(owner)
  items=[dict(zip(('uid','template','metadata','count','group','slot'),r)) for r in db.execute('SELECT uid,template,metadata,count,bag_group,slot FROM inventory_items WHERE owner=? ORDER BY bag_group,slot',(owner,))]
@@ -92,12 +115,41 @@ def load_items(db,owner=1001):
  for index,item in enumerate(items):
   if item['template']in erp_potions:
    items[index]=read_erp_potion(item)
+ from els_server.domain.teacher_elixir_boxes import BOXES as teacher_boxes,read_existing as read_teacher_box
+ for index,item in enumerate(items):
+  if item['template']in teacher_boxes:items[index]=read_teacher_box(item)
+ from els_server.domain.life_potions_existing import TEMPLATES as life_potions,read_existing as read_life_potion
+ for index,item in enumerate(items):
+  if item['template']in life_potions:items[index]=read_life_potion(item)
+ from els_server.domain.wisdom_potions import TEMPLATES as wisdom_potions,read_existing as read_wisdom_potion
+ for index,item in enumerate(items):
+  if item['template']in wisdom_potions:items[index]=read_wisdom_potion(item)
+ from els_server.domain.normal_fatigue_rules import read_existing as read_normal_fatigue
+ for index,item in enumerate(items):
+  if item["template"]in (77200, 77201, 154118, 166610, 168348, 189209, 190393, 190398, 297093, 297761, 710096, 710097, 710098, 710099, 710100, 710101, 710102, 710103, 110004219):items[index]=read_normal_fatigue(item)
+ from els_server.domain.potion_choice_box import read_existing as read_potion_choice
+ for index,item in enumerate(items):
+  if item["template"]==303673:items[index]=read_potion_choice(item)
+ from els_server.domain.pet_expedition_box import BOXES as expedition_boxes,read_existing as read_expedition_box
+ for index,item in enumerate(items):
+  if item['template']in expedition_boxes:items[index]=read_expedition_box(item)
+ from els_server.domain.retained_native_consumables import TEMPLATES as retained_native,read_existing as read_retained_native
+ for index,item in enumerate(items):
+  if item['template']in retained_native:items[index]=read_retained_native(item)
  inventory_payload(items)  # Verify persisted identities/positions and wire before use.
  from els_server.storage.bag_capacity import allowances
  limits=allowances(db,owner)
  if any(i['group'] not in (9,22,23,24) and i['slot']>=limits[i['group']] for i in items):raise ValueError('Item exceeds owned bag capacity')
  return items
-def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None,regional_cube_source=None):
+def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None,regional_cube_source=None,black_market_box_source=None,feta_exchange_source=None,admin_grant=False):
+ if feta_exchange_source is not None:
+  if any(x is not None for x in(selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,silver_source,daily_special_source,regional_cube_source,black_market_box_source)):raise ValueError('Incompatible Feta factory source')
+  from els_server.storage.feta_exchange_source import validate_source
+  validate_source(feta_exchange_source).validate_plan(plan)
+ if black_market_box_source is not None:
+  if any(v is not None for v in(selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,silver_source,daily_special_source,regional_cube_source)):raise ValueError('Incompatible market box inventory source')
+  from els_server.domain.black_market_box_rules import validate_source as _market_box_source
+  _market_box_source(black_market_box_source).validate_plan(plan)
  if regional_cube_source is not None:
   if any(v is not None for v in(selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,silver_source,daily_special_source)):
    raise ValueError('Incompatible regional cube inventory sources')
@@ -134,7 +186,10 @@ def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,c
  for p in plan:
   if not isinstance(p,dict) or set(p)-{'expires_at','enhancement'}!={'template','metadata','quantity','group'} or any(type(v) is not int for v in p.values()):raise ValueError('Invalid inventory grant plan')
   from els_server.domain.acquisition_policy import require_acquirable
-  if selected_accessory_box is None:require_acquirable(p['template'],cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,raid_reward_source=raid_reward_source,silver_source=silver_source,daily_special_source=daily_special_source,regional_cube_source=regional_cube_source)
+  # admin_grant carries an explicit human GM decision (launcher/panel give).
+  # Normal game sources never set it, so acquisition policy stays closed for
+  # drops, shops, boxes and quests.
+  if selected_accessory_box is None and not admin_grant:require_acquirable(p['template'],cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,raid_reward_source=raid_reward_source,silver_source=silver_source,daily_special_source=daily_special_source,regional_cube_source=regional_cube_source,black_market_box_source=black_market_box_source,feta_exchange_source=feta_exchange_source)
   if 'enhancement' in p:
    from els_server.domain.equipment_enhancement import validate as validate_enhancement
    validate_enhancement(p['template'],p['enhancement'])
@@ -147,7 +202,15 @@ def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,c
    if p!=dict(template=119335,metadata=0,group=4,quantity=1):raise ValueError('Recipe679 private singleton plan')
   elif p['template'] not in VERIFIED_TEMPLATES or p['metadata']!=VERIFIED_TEMPLATES[p['template']] or p['group']!=TEMPLATE_BAG_GROUPS[p['template']] or not 1<=p['quantity']<=LOCAL_MAX_STACK:raise ValueError('Unverified inventory grant template/count')
  return [dict(p) for p in plan]
-def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None,regional_cube_source=None):
+def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None,regional_cube_source=None,black_market_box_source=None,feta_exchange_source=None,admin_grant=False):
+ if feta_exchange_source is not None:
+  if any(x is not None for x in(selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,silver_source,daily_special_source,regional_cube_source,black_market_box_source)):raise ValueError('Incompatible Feta factory source')
+  from els_server.storage.feta_exchange_source import validate_source
+  validate_source(feta_exchange_source).bind_factory(db,owner,plan)
+ if black_market_box_source is not None:
+  if any(v is not None for v in(selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,silver_source,daily_special_source,regional_cube_source)):raise ValueError('Incompatible market box inventory source')
+  from els_server.domain.black_market_box_rules import validate_source as _market_box_source
+  _market_box_source(black_market_box_source).validate_plan(plan)
  if regional_cube_source is not None:
   if any(v is not None for v in(chip_options,selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,silver_source,daily_special_source)):
    raise ValueError('Incompatible regional cube inventory sources')
@@ -162,6 +225,7 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
   from els_server.domain.raid_reward_items import validate_source as _raid_source
   _raid_source(raid_reward_source).bind_factory(db,owner,plan)
  owner=character_uid(owner)
+ if black_market_box_source is not None:_market_box_source(black_market_box_source).bind_factory(db,owner,plan)
  if fish_erp_source is not None:
   if any(x is not None for x in(chip_options,selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source)):raise ValueError('Incompatible fish ERP factory source')
   from els_server.domain.fish_exchange_erp import validate_source as validate_fish_erp_source
@@ -182,21 +246,25 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
   if any(v is not None for v in(chip_options,selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,daily_special_source)):raise ValueError('Incompatible Mirror inventory sources')
   from els_server.domain.silver_mirror_rewards import validate_source as validate_mirror_source
   validate_mirror_source(silver_source).bind_factory(db,owner,plan)
- plan=validate_plan(plan,selected_accessory_box=selected_accessory_box,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,fish_erp_source=fish_erp_source,raid_reward_source=raid_reward_source,silver_source=silver_source,daily_special_source=daily_special_source,regional_cube_source=regional_cube_source);items=load_items(db,owner);changed={}
+ plan=validate_plan(plan,selected_accessory_box=selected_accessory_box,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,fish_erp_source=fish_erp_source,raid_reward_source=raid_reward_source,silver_source=silver_source,daily_special_source=daily_special_source,regional_cube_source=regional_cube_source,black_market_box_source=black_market_box_source,feta_exchange_source=feta_exchange_source,admin_grant=admin_grant);items=load_items(db,owner);changed={}
  from els_server.domain.equipment_chip_rules import TEMPLATE as CHIP,generate as chip_generate,source_options as chip_source
  approved_chip=None
  if chip_options is not None:
   if len(plan)!=1 or plan[0]['template']!=CHIP or plan[0]['quantity']!=1 or not isinstance(chip_options,dict) or set(chip_options)!={'1'}:raise ValueError('Chip issued options require one finite server chip plan')
   approved_chip={'1':chip_source(chip_options['1'])}
+ from els_server.domain.retained_native_consumables import TEMPLATES as retained_templates,read_existing as retained_reader,definitions as retained_definitions
  from els_server.storage.bag_capacity import allowances
  limits=allowances(db,owner)
  for p in plan:
+  stack_limit=TEMPLATE_MAX_STACKS[p['template']]
+  if p['template']in retained_templates:stack_limit=min(stack_limit,retained_definitions()[p['template']]['owned_max_stack'])
   remaining=p['quantity']
   for index,i in enumerate(items):
-   if (i['template'],i['metadata'],i['group'])==(p['template'],p['metadata'],p['group']) and i.get('expires_at')==p.get('expires_at') and TEMPLATE_MAX_STACKS[i['template']]>1 and i['count']<TEMPLATE_MAX_STACKS[i['template']] and (fish_erp_source is None or fish_erp_source.can_stack(i,p)):
-    delta=min(remaining,TEMPLATE_MAX_STACKS[i['template']]-i['count']);i['count']+=delta;remaining-=delta
+   if (i['template'],i['metadata'],i['group'])==(p['template'],p['metadata'],p['group']) and i.get('expires_at')==p.get('expires_at') and stack_limit>1 and i['count']<stack_limit and (fish_erp_source is None or fish_erp_source.can_stack(i,p)) and(feta_exchange_source is None or feta_exchange_source.can_stack(i,p)):
+    delta=min(remaining,stack_limit-i['count']);i['count']+=delta;remaining-=delta
     db.execute('UPDATE inventory_items SET count=? WHERE uid=? AND owner=?',(i['count'],i['uid'],owner))
     if fish_erp_source is not None:i=fish_erp_source.admit_instance(dict(i));items[index]=i
+    if raid_reward_source is not None and i['template']in retained_templates:i=retained_reader(dict(i));items[index]=i
     changed[i['uid']]=i if fish_erp_source is not None else dict(i)
     if not remaining:break
   while remaining:
@@ -204,7 +272,7 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
    if slot is None:raise InventoryFull('Local inventory is full')
    uid=db.execute('SELECT next_uid FROM inventory_sequence WHERE id=1').fetchone()[0]
    if type(uid) is not int or not 1<=uid<2**63-1:raise ValueError('Inventory UID sequence bound')
-   i={'uid':uid,'template':p['template'],'metadata':p['metadata'],'group':p['group'],'slot':slot,'count':min(remaining,TEMPLATE_MAX_STACKS[p['template']])}
+   i={'uid':uid,'template':p['template'],'metadata':p['metadata'],'group':p['group'],'slot':slot,'count':min(remaining,stack_limit)}
    if 'expires_at' in p:i['expires_at']=p['expires_at']
    if p.get('enhancement'):i['enhancement']=p['enhancement']
    if i['template']==CHIP:i['option_groups']={'1':list(approved_chip['1'])} if approved_chip is not None else chip_generate()
@@ -214,12 +282,17 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
    if cartridge_recipe679_source is not None:i=validate_recipe_source(cartridge_recipe679_source).admit_instance(i)
    if fish_erp_source is not None:i=fish_erp_source.admit_instance(i)
    if silver_source is not None and silver_source.options is not None:i['option_groups']=dict(silver_source.options)
+   if black_market_box_source is not None and black_market_box_source.options is not None:i['option_groups']=dict(black_market_box_source.options)
+   if raid_reward_source is not None and i['template']in retained_templates:i=retained_reader(i)
    validate_item(i)
    db.execute('UPDATE inventory_sequence SET next_uid=? WHERE id=1',(uid+1,))
    db.execute('INSERT INTO inventory_items VALUES (?,?,?,?,?,?,?)',(uid,owner,i['template'],i['metadata'],i['count'],i['group'],slot))
    if silver_source is not None and silver_source.options is not None:
     from els_server.storage.equipment_options import replace as replace_mirror_options
     replace_mirror_options(db,owner,uid,{},i['option_groups'])
+   if black_market_box_source is not None and black_market_box_source.options is not None:
+    from els_server.storage.equipment_options import replace as replace_market_options
+    replace_market_options(db,owner,uid,{},i['option_groups'])
    if i['template']==CHIP or typed_circuit:
     from els_server.storage.equipment_options import replace as replace_chip_options
     replace_chip_options(db,owner,uid,{},i['option_groups'])
@@ -245,10 +318,17 @@ class InventoryState:
  def __init__(self,path,uid=1001):
   self.uid=character_uid(uid)
   self.path=Path(path)
-  with closing(sqlite3.connect(self.path,timeout=10)) as db,db:
-   db.execute('BEGIN IMMEDIATE');ensure_inventory(db);migrate_fashion_bag(db);migrate_potion_bag(db)
- def snapshot(self):
+  from els_server.storage.initialization_checks import read_ready,inventory_ready
   with closing(sqlite3.connect(self.path,timeout=10)) as db:
+   if not read_ready(db,inventory_ready,self.uid):
+    with write_transaction(db):
+     if not inventory_ready(db,self.uid):
+       ensure_inventory(db);migrate_normal_fashion_bag(db,self.uid);migrate_fashion_bag(db);migrate_potion_bag(db)
+ def snapshot(self):
+  from els_server.storage.read_scope import snapshot_connection
+  with snapshot_connection(self.path) as db:
    db.execute('BEGIN')
    balances=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(self.uid,)).fetchone());items=load_items(db,self.uid);db.commit()
   return {'balances':balances,'items':items}
+
+from els_server.storage.sqlite_timing import write_transaction

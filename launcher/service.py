@@ -438,7 +438,8 @@ class LauncherService:
             python = Path(sys.executable).with_name('python.exe') if os.name == 'nt' else Path(sys.executable)
             with log_path.open('w', encoding='utf8') as log:
                 with self.lock:
-                    self.process = subprocess.Popen([str(python), str(ROOT/'tools/launch_integrated_local.py')],
+                    self.process = subprocess.Popen([str(python), str(ROOT/'tools/launch_integrated_local.py'),
+                                                     '--client', str(self.client)],
                         cwd=ROOT, stdout=log, stderr=subprocess.STDOUT,
                         creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0,
                         env=dict(os.environ, PYTHONIOENCODING='utf-8', PYTHONUNBUFFERED='1'))

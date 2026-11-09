@@ -31,7 +31,7 @@ def balance(db,account):
 def reading(path):
     path=Path(path)
     if not path.is_file():raise ValueError('Cash state file missing')
-    with closing(sqlite3.connect(path.resolve().as_uri()+'?mode=ro',uri=True,timeout=10))as db:
+    with snapshot_connection(path)as db:
         db.execute('BEGIN');yield db
 def snapshot(path,account,*,validate=lambda:None):
     validate()
@@ -73,15 +73,22 @@ def credit(path,value,*,validate,now=time.time):
     hashed=digest(value);path=Path(path)
     if not path.is_file():raise ValueError('Cash state file missing')
     with closing(sqlite3.connect(path,timeout=10))as db:
+        acquired=None
         try:
-            db.execute('BEGIN IMMEDIATE');validate(account)
+            acquired=begin_write(db);validate(account)
             old=previous(db,key,account,'gm-credit',hashed)
-            if old is not None:validate(account);db.commit();return old
+            if old is not None:validate(account);commit_write(db);return old
             before=balance(db,account)
             if before['balance']!=expected:raise ValueError('Cash GM stale expected balance')
             after=replace(db,account,before,amount)
             moment=int(now())
             if not 0<=moment<2**40:raise ValueError('Cash clock')
             result=dict(operation_id=key,account_id=account,credited=amount,before=before,after=after,reason=reason,created_at=moment,server_local_funding=True,ED_delta=0)
-            canonical(result);validate(account);record(db,key,account,'gm-credit',hashed,result,moment);db.commit();return result
+            canonical(result);validate(account);record(db,key,account,'gm-credit',hashed,result,moment);commit_write(db);return result
         except BaseException:db.rollback();raise
+        finally:
+            if acquired is not None:end_write(acquired,failed=__import__('sys').exc_info()[0] is not None)
+
+from els_server.storage.read_scope import snapshot_connection
+
+from els_server.storage.sqlite_timing import begin_write,end_write,commit_write

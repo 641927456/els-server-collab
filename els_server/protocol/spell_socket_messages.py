@@ -18,9 +18,9 @@ def request(payload):
 
 def acknowledgement(uid=0,ed=0,changes=(),*,mode,option=0,result=0):
     rows=list(changes)
-    # Native order is result, ED, target UID. The generic artifact helper has
-    # a different contract and is intentionally unchanged.
-    body=struct.pack('>iQQI',result,ed,uid,len(rows))
+    # Normal234C870 ->23F8EC0: DTO+4 is target UID; DTO+C is currency.
+    # Keep the shared transaction, request, fee, receipt and other codecs intact.
+    body=struct.pack('>iQQI',result,uid,ed,len(rows))
     body+=b''.join(empty_record(*p)if item is None else record(item)for p,item in rows)
     body+=struct.pack('>iiiI',mode,option,0,0)
     return Event(0x201,kind=0x6e8,payload=body)

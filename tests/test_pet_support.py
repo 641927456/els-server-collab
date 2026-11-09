@@ -112,4 +112,14 @@ with tempfile.TemporaryDirectory() as d:
     consume(path,1001,request,'timer-ready',now=1160)
     handle(path,1001,0x661,settings(enabled=0),'disable-automatic')
     rejected(lambda:consume(path,1001,request,'automatic-off',now=1220))
+    # 0x219 is shared with every other usable item, and a permanent custom book
+    # spends the same 29 bytes while carrying its family in the third field.
+    # The pet family used to decode that as an invalid parameter and answer
+    # failure() (-1), which silently swallowed every unrelated book; it has to
+    # hand a non-coupon request back instead of rejecting it.
+    from els_server.domain import pet_support_flow
+    book=struct.pack('>QQiiIB',1001077,14107,7,0,0,0)
+    reply=pet_support_flow.handle(session,Event(0x202,performers=(0,),kind=0x219,payload=book,
+        uid=2**64-1,target_uid=2**64-1,payload_mode=0),7)
+    assert reply is None, 'Pet support must not answer a non-coupon 219: %r'%reply
 print('PASS: pickup ownership, character entitlements, atomic consumption/rollback, duplicate handling, automatic settings and consumable cooldown.')

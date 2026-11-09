@@ -158,8 +158,7 @@ def death(members,event,requester,room=None):
  from els_server.domain.dungeon_lifecycle import death_report,experience_death_notice
  from els_server.domain.legacy_pve_exp import eligible
  from els_server.storage.legacy_pve_exp import commit
- from els_server.domain import dungeon_flow
- from els_server.domain.local_session import LocalSession
+ from els_server.domain.dungeon_settlement_commands import settle_death
  from els_server.protocol.protocol_codec import encode_event
  members=tuple(members);bound=_binding(members,room,'active');d=death_report(event.payload)
  if(event.event_id!=0x202 or event.kind!=0xad or event.performers!=(0,)or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0 or requester is not(members[0]if room is None else room.leader)):raise ValueError('Ordinary original accepted-death envelope')
@@ -174,7 +173,7 @@ def death(members,event,requester,room=None):
    if npc is None or not eligible(npc)or npc['key']in s.defeated_npcs:raise ValueError('Ordinary new exact enemy source required')
    shadow=_shadow(s);shadow.reward_transaction=db
    shadow._formal_pve_death_source=_DeathSource(_DEATH_SEAL,s,shadow,db,event,guard)
-   events=dungeon_flow.handle(shadow,event)if s.dungeon_run is not None else LocalSession._handle(shadow,event)
+   events=settle_death(shadow,event)
    if not any(e.kind==0xae for e in events)or shadow.defeated_npcs.get(npc['key'])!=event.payload:raise ValueError('Ordinary original consumer refused death')
    shadow.__dict__.pop('_formal_pve_death_source',None)
    # Preserve the exact original quest level before awarding this kill's EXP.
@@ -193,7 +192,7 @@ def death(members,event,requester,room=None):
  return next(events for s,events in deliveries if s is requester)
 
 def clear(members,event,requester,room=None):
- from els_server.domain.local_session import LocalSession
+ from els_server.domain.dungeon_settlement_commands import settle_clear
  from els_server.storage.legacy_pve_exp import run_total
  from els_server.storage.seal_quests import load_character
  from els_server.domain.raid_reward_items import _issue_source
@@ -212,19 +211,29 @@ def clear(members,event,requester,room=None):
    bonus_context=dict(owner=s.account.uid,dungeon=mid,run_id=s.reward_run_id,graph_sha256=rules.definition(mid)['graph_sha256'])
    previous=bool(db.execute('SELECT 1 FROM reward_receipts WHERE run_id=?',(s.reward_run_id,)).fetchone())
    drop_bp=elixir_bonus(db,s.account.uid,mid,'drop','elixir-clear:'+s.reward_run_id,bonus_context,already_issued=previous)
-   plan=rules.clear_items(mid,s.reward_run_id,s.account.uid,before,group=room is not None,drop_bp=drop_bp);experience=rules.clear_bonus(run_total(db,s.account.uid,s.reward_run_id,clear_basis=True))
+   plan=rules.clear_items(mid,s.reward_run_id,s.account.uid,before,group=room is not None,drop_bp=drop_bp)
+   # Compatible recovery closes only new Aurora ticket production. A run with
+   # a committed original receipt still derives its exact saved source plan.
+   if mid in (34510,34520) and not previous:
+    from els_server.domain.aurora_ticket_rules import enabled as aurora_enabled
+    if not aurora_enabled():plan=[row for row in plan if row['template']!=711786]
+   experience=rules.clear_bonus(run_total(db,s.account.uid,s.reward_run_id,clear_basis=True))
    # These two ordinary original maps already had a guaranteed solo fragment
    # clear branch. Preserve that independent reward through the new writer.
    from els_server.domain.dungeon_equipment_loot_rules import MAPS as equipment_maps,catalog as equipment_policy,inventory_plan
    if room is None and mid in equipment_maps:plan.append(inventory_plan(118445,equipment_policy()['values']['fragment_on_validated_clear']))
    source=dict(policy_sha256=rules.policy()['_sha256'],reward_source='local-full-native-clear-current-display-pool',dungeon=mid,run=s.reward_run_id,owner=s.account.uid,graph_sha256=rules.definition(mid)['graph_sha256'],native_final_stage=s.dungeon_run.stage if s.dungeon_run is not None else 2,committed_original_boss_source=boss_proof,roster=sorted(m.account.uid for m in members))
+   if any(x['template']in(135911,136174)for x in plan):source['group_clear']=room is not None
    cap=_issue_source(db,s.account.uid,s.reward_run_id,'ordinary',source,plan,guard)if plan else None
+   from els_server.domain.random_mission_flow import prepare_clear as prepare_mission_clear,finish_clear as finish_mission_clear
+   mission=prepare_mission_clear(s,db,experience,members,room,bound)
    shadow=_shadow(s);shadow.reward_transaction=db;shadow._raid_phase_internal=True
    from els_server.domain.ariel_daily_special import prepare as prepare_daily_special
-   supply=dict(owner=shadow,original_session=s,transaction=db,plan=plan,source=cap,experience=experience,daily_special=prepare_daily_special(s))
+   supply=dict(owner=shadow,original_session=s,transaction=db,plan=plan,source=cap,experience=experience,daily_special=prepare_daily_special(s),random_mission=mission)
    shadow._raid_supply=supply;shadow._pve_clear_supply=supply
-   events=LocalSession._handle(shadow,event)
+   events=settle_clear(shadow,event)
    if not shadow.clear_notified or shadow.reward_receipt is None:raise ValueError('Ordinary original clear refused')
+   events+=finish_mission_clear(mission,db)
    events=[e for e in events if e.kind!=0xbc or s is requester]
    if s.dungeon_run is None:events+=_story_clear_observer(db,s,shadow,guard)
    else:_clear_observers(db,s,shadow,before,events,guard)

@@ -28,9 +28,11 @@ def issue(db,c,proof,drop_id,xyz,origin,account,randbelow):
     ensure(db);key=base.key(c)
     if db.execute('SELECT 1 FROM fishing_bait_boss_draws WHERE owner=? AND run_id=? AND stage=? AND part=? AND visits=? AND npc_key=?',key).fetchone():
         raise ValueError('Bait draw already has a committed source')
-    draw=randbelow(1000)
-    if type(draw)is not int or not 0<=draw<1000:raise ValueError('Bait local lottery bound')
-    hit=draw<75;digest=hashlib.sha256(proof).hexdigest()
+    from els_server.storage.elixir_economy import bonus as elixir_bonus
+    from els_server.domain.elixir_economy import hit as probability_hit
+    operation='elixir-bait:'+str(uuid.uuid5(uuid.UUID(c['run_id']),canonical(c)))
+    drop_bp=elixir_bonus(db,c['owner'],c['dungeon'],'drop',operation,dict(c,origin=origin,proof_sha256=hashlib.sha256(proof).hexdigest()))
+    hit=probability_hit(75,1000,randbelow,drop_bp);digest=hashlib.sha256(proof).hexdigest()
     db.execute('INSERT INTO fishing_bait_boss_draws VALUES (?,?,?,?,?,?,?,?,?,?,NULL)',(*key,canonical(origin),digest,int(hit),drop_id if hit else None))
     if not hit:return []
     return [{**c,'template':99809,'quantity':1,'option_groups':{},'drop_id':drop_id,

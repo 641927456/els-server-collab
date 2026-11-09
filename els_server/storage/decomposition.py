@@ -17,7 +17,10 @@ from els_server.domain.profession_growth import ordinary_blacksmith_xp,advance_b
 from els_server.game_data import client_data
 
 
-def decompose(path, owner, payload, operation, *, account_id=None, encode=decompose_ack, authorize=None, prepare_replay=None):
+def decompose(path, owner, payload, operation, *, account_id=None, encode=None, authorize=None, prepare_replay=None):
+    # The encoder resolves at call time: a default bound at def time ignores
+    # module-level patches and makes the failure branch unreachable in tests.
+    if encode is None:encode=decompose_ack
     uids = decompose_request(payload)
     owner, digest = _identity(owner, 0x1c0, payload, operation)
     with closing(sqlite3.connect(path, timeout=10)) as db, db:
@@ -48,8 +51,12 @@ def decompose(path, owner, payload, operation, *, account_id=None, encode=decomp
             raise ValueError('Decomposition requires owned items')
         quotes = [quote(i) for i in selected]
         # Current ordinary701000 quote only; modern white-chip118445 rewards stay separate.
-        requested_xp=sum(ordinary_blacksmith_xp(client_data().item(item['template'])['record'][0xd1])
-            for item,q in zip(selected,quotes) if q['template']==701000)
+        # Level-0 growth gear carries no smith XP; the original scalar rejects it.
+        requested_xp=0
+        for item,q in zip(selected,quotes):
+            if q['template']!=701000:continue
+            item_level=client_data().item(item['template'])['record'][0xd1]
+            if 1<=item_level<=80:requested_xp+=ordinary_blacksmith_xp(item_level)
         growth=None;xp=0;leveled=False;growth_audit=None
         if requested_xp and account_id is not None:
             from els_server.protocol.profession_messages import ProfessionState

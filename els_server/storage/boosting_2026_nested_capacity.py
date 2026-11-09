@@ -19,7 +19,7 @@ from els_server.storage.bag_capacity import allowances,expand
 def open_box(path,owner,payload,operation):
     if not items():raise ValueError('Nested capacity is not registered')
     request=cube_request(payload)
-    if request.option or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):raise ValueError('Nested capacity box has no choices')
+    if request.option not in (0,1) or request.choices or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3)):raise ValueError('Nested capacity box has no choices')
     owner,digest=_identity(owner,0x196,struct.pack('>i',BOX)+payload,operation)
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')

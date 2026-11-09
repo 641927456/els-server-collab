@@ -56,7 +56,7 @@ def preset_payload(slots=DEFAULT_SLOTS,allowed=INITIAL_SKILLS,character=None):
     slots=validate_slots(slots,allowed,character)
     from els_server.domain.skill_traits import map_wire
     tail=struct.pack('>II',0,0)
-    if (character or {}).get('force_inventory'):
+    if character is not None:
         from els_server.domain.boosting_2026_force_equipment import vectors
         tail=vectors(character)
     return struct.pack('>I',22)+b''.join(record(v) for v in slots)+map_wire(character)+tail

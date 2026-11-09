@@ -40,10 +40,30 @@ def profiles(s,db,items):
     if set(captured)!=set(('0x198','0x1b4')):raise ValueError('Missing original elixir profile')
     return(captured['0x198'],captured['0x1b4'])
 
-def prepare(s,*,cold=False):
+def prepare(s,*,cold=False,assembly_override=None):
+    from pathlib import Path
+    account=s.account;root=account.root;store=account.store;identity=(account.uid,account.account_id,s.shop_session_id,context(s,cold));path=Path(store.path).resolve()
     def build(db,state,items):
+        from els_server.domain.equipment_chip_flow import reset_authority
+        reset_authority(s)
+        main=[r for r in db.execute('PRAGMA database_list')if r[1]=='main']
+        if(not db.in_transaction or len(main)!=1 or Path(main[0][2]).resolve()!=path or s.account is not account or account.root is not root or account.store is not store
+            or identity!=(account.uid,account.account_id,s.shop_session_id,context(s,cold))or not enabled(s)or(not cold and not ready(s))):raise ValueError('Elixir current original writer/actor generation')
         stats=profiles(s,db,items)if not cold and s.phase=='dungeon_active' else None
-        return[wire.snapshot(s.account.uid,state['rows'],profiles=stats)]
+        rows=list(state['rows'])
+        from els_server.storage.random_missions import effects as mission_effects
+        rows+=mission_effects(db,s.account.uid,now=state['_moment'])
+        from els_server.storage.assembly_state import view,clock
+        assembly=view(db,s.account.uid,state['_moment'])if assembly_override is None else assembly_override
+        if assembly['owner']!=s.account.uid:raise ValueError('Assembly snapshot owner')
+        rows+=assembly['rows']
+        run=getattr(s,'dungeon_run',None)
+        if not cold and s.phase=='dungeon_active' and run is not None:
+            from els_server.domain.silver_mirror_policy import ALL
+            if run.identity in ALL and run.identity<35800:
+                from els_server.storage.silver_mirror_state import world_rows
+                rows+=world_rows(db,s.account.uid,now=state['_moment'])
+        return[wire.snapshot(s.account.uid,rows,profiles=stats)]
     return build
 
 def cold(s):
@@ -75,6 +95,7 @@ def handle(s,event,sequence):
     if not store.candidate(s.account.store.path,s.account.uid,event.payload,operation):return None
     if (not enabled(s)or not ready(s)or(s.phase=='dungeon_active'and(getattr(s,'dungeon_failed',False)or s.clear_notified or s.part_end_notified))):return[use_ack(result=-1)]
     try:
+        if event.performers not in((),(0,))or event.uid!=2**64-1 or event.target_uid!=2**64-1 or event.payload_mode!=0:raise ValueError('Elixir native envelope')
         out=store.use(s.account.store.path,s.account.uid,s.account.account_id,event.payload,operation,prepare(s))
         if out['result']==0:s._world_elixir_sent=signature(s,out['state'])
         return out['events']

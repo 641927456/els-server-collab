@@ -20,11 +20,12 @@ class ScrollOperations(ResetOperations):
         if metadata is None or metadata[1]!=(0,0,0,0,0):
             raise ValueError('Unknown temporary category refund policy')
         digest=hashlib.sha256(canonical([account,character,kind,payload.hex(),self.items.digest]).encode()).hexdigest()
+        replay_digests={digest,*(hashlib.sha256(canonical([account,character,kind,payload.hex(),d]).encode()).hexdigest() for d in getattr(self.items,'legacy_digests',()))}
         previous=self.db.execute('SELECT account,request_sha256,page_sha256,page_revision,positions_json FROM resonance2026_reset_receipts WHERE character=? AND operation=?',(character,operation)).fetchone()
         if previous is not None:
             receipt=self.db.execute('SELECT request_sha256,revision FROM resonance2026_page_receipts WHERE character=? AND operation=?',(character,operation)).fetchone()
             current=pages.read(account,character)
-            if previous[:2]!=(account,digest) or receipt!=previous[2:4] or current is None or current.revision<previous[3]:
+            if previous[0]!=account or previous[1] not in replay_digests or receipt!=previous[2:4] or current is None or current.revision<previous[3]:
                 raise ValueError('Category scroll receipt conflicts or lost state')
             return self._reply(account,character,0x614,tuple(tuple(p)for p in json.loads(previous[4])))
         if self.db.execute('SELECT 1 FROM resonance2026_page_receipts WHERE character=? AND operation=?',(character,operation)).fetchone():
@@ -38,10 +39,6 @@ class ScrollOperations(ResetOperations):
             # The UI-only empty-category policy is not yet recovered. This
             # finite positive-refund route refuses it without spending a scroll.
             if refund<=0:raise ValueError('Empty-category scroll policy is not verified')
-            prior=self.items.groups['scroll'][:self.items.groups['scroll'].index(163564)]
-            for template in prior:
-                if self.db.execute('SELECT 1 FROM inventory_items WHERE owner=? AND template=? AND count>0 LIMIT 1',(character,template)).fetchone():
-                    raise ValueError('Earlier native scroll variant is outside verified admission')
             updated=tuple((stat,0 if rules.stat(stat).tab==category else value)for stat,value in selected.points)
             checked=rules.add(current=updated,additions=(),available_points=selected.available_points+refund,bonus_points=())
             used['positions'],used['consumed']=self._consume(character,'scroll',1)

@@ -19,3 +19,8 @@ def after(item,mode,result,updated):
  if mode==2 and level==11 and result==4 and updated==10:points=min(20,points+1)
  if abs(updated)>=12:points=0
  return gauge,points
+
+def transferred(item):
+ # CN guide: completed personal/board trade, sent mail and guild deposit
+ # reset both per-item counters. Private/shared bank moves retain them.
+ return {k:v for k,v in item.items()if k not in('enhancement_gauge','enhancement_guarantee')}

@@ -20,11 +20,15 @@ def ensure(db):
     db.execute('CREATE TABLE IF NOT EXISTS pet_accessories (owner INTEGER NOT NULL,pet INTEGER NOT NULL,slot INTEGER NOT NULL,item_uid INTEGER NOT NULL UNIQUE,item TEXT NOT NULL,socket INTEGER NOT NULL,PRIMARY KEY(pet,slot))')
     db.execute('CREATE TABLE IF NOT EXISTS pet_support_receipts (owner INTEGER NOT NULL,operation TEXT NOT NULL,digest TEXT NOT NULL,context TEXT NOT NULL,PRIMARY KEY(owner,operation))')
 
-def attach(db,owner,pets):
+def attach(db,owner,pets,*,now=None):
     if db.execute("SELECT 1 FROM sqlite_master WHERE name='pet_entitlements'").fetchone():
         pickups=dict(db.execute('SELECT pet,pickup FROM pet_entitlements WHERE owner=?',(owner,)))
         for p in pets:
-            if p['kind']=='pet':p['pickup']=bool(pickups.get(p['uid'],0))
+            if p['kind']=='pet':
+                from els_server.storage.pet_support_periods import period,active
+                deadline=period(db,owner,'pickup',p['uid'])
+                p['pickup']=bool(pickups.get(p['uid'],0))and active(deadline,now)
+                if deadline is not None:p['pickup_expires_at']=deadline
     if db.execute("SELECT 1 FROM sqlite_master WHERE name='pet_accessories'").fetchone():
         equipment={}
         for pet,slot,item,socket in db.execute('SELECT pet,slot,item,socket FROM pet_accessories WHERE owner=?',(owner,)):
@@ -32,11 +36,16 @@ def attach(db,owner,pets):
         for p in pets:
             if p['kind']=='pet':p['equipment']=equipment.get(p['uid'],{})
 
-def automatic(db,owner):
+def automatic(db,owner,*,now=None):
     if not db.execute("SELECT 1 FROM sqlite_master WHERE name='pet_automatic'").fetchone():return dict(DEFAULT)
     row=db.execute('SELECT state FROM pet_automatic WHERE owner=?',(owner,)).fetchone()
     saved=json.loads(row[0]) if row else {}
-    return {key:saved.get(key,value) for key,value in DEFAULT.items()}
+    state={key:saved.get(key,value) for key,value in DEFAULT.items()}
+    from els_server.storage.pet_support_periods import period,active
+    deadline=period(db,owner,'automatic',0)
+    state['automatic_expires_at']=deadline or 0
+    if deadline is not None and not active(deadline,now):state['automatic']=0
+    return state
 
 def save_automatic(db,owner,state):
     db.execute('INSERT INTO pet_automatic VALUES (?,?) ON CONFLICT(owner) DO UPDATE SET state=excluded.state',(owner,json.dumps(state,sort_keys=True)))
@@ -44,12 +53,20 @@ def save_automatic(db,owner,state):
 def initialization(path,owner):
     with closing(sqlite3.connect(path)) as db:return wire.settings(automatic(db,owner))
 
-def owned_pet(db,owner,uid):
+def owned_pet(db,owner,uid,*,now=None):
     from els_server.storage.companion_state import rows
     pet=next((p for p in rows(db,owner,'pet') if p['uid']==uid),None)
     if pet is None:raise ValueError('Owned pet required')
     from els_server.storage.boosting_2026_limited_pet import require_current
     require_current(pet)
+    from els_server.storage.pet_support_periods import period,active
+    deadline=period(db,owner,'pickup',uid)
+    if deadline is not None:
+        pet['pickup_expires_at']=deadline
+        # Preserve the stored raw pickup bit even if the ordinary rows() read
+        # used a different current clock; only this explicit instant qualifies.
+        raw=db.execute('SELECT pickup FROM pet_entitlements WHERE owner=?AND pet=?',(owner,uid)).fetchone()
+        pet['pickup']=bool(raw and raw[0])and active(deadline,now)
     return pet
 
 def consume(db,owner,item):
@@ -59,22 +76,32 @@ def consume(db,owner,item):
     remaining=dict(item,count=item['count']-1) if item['count']>1 else None
     if remaining:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item['uid'],owner))
     else:
-        from els_server.storage.item_expiration import forget
-        forget(db,item['uid']);db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item['uid'],owner))
+        from els_server.storage.item_instances import remove
+        remove(db,owner,item)
     return remaining
 
-def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow):
+def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow,now=None,account_id=None,prepare=None):
     owner=character_uid(owner)
     if not isinstance(operation,str) or not 1<=len(operation)<=160:raise ValueError('Pet support operation identity')
     digest=hashlib.sha256(struct.pack('>I',kind)+payload).hexdigest()
+    def timed_authority(db):
+        if not callable(prepare):raise ValueError('Current timed pet support actor callback required')
+        prepare(db)
+        from els_server.storage.item_actor import require_active_character
+        from els_server.storage.profession_state import require_owner
+        require_active_character(db,owner);require_owner(db,owner,account_id)
+        return True
     with closing(sqlite3.connect(path,timeout=10)) as db:
         try:
             db.execute('BEGIN IMMEDIATE');ensure(db)
             prior=db.execute('SELECT digest,context FROM pet_support_receipts WHERE owner=? AND operation=?',(owner,operation)).fetchone()
             if prior:
                 if prior[0]!=digest:raise ValueError('Conflicting pet support retry')
-                context=json.loads(prior[1]);answers=reconcile(db,owner,context)
+                context=json.loads(prior[1])
+                if context.get('timed_support'):timed_authority(db)
+                answers=reconcile(db,owner,context,now=now)
                 for answer in answers:encode_event(answer)
+                if context.get('timed_support'):timed_authority(db)
                 db.commit();return answers
             context=dict(kind=kind,pet=0)
             if kind==0x219:
@@ -84,22 +111,33 @@ def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow):
                     db.rollback();return None
                 if item['group']!=4:raise ValueError('Pet coupon outside owned bag')
                 context['item']=dict(item)
-                product=PRODUCTS[item['template']];state=automatic(db,owner)
+                from els_server.storage import pet_support_periods as periods
+                timed=item['template']in periods.PRODUCTS
+                if timed:periods.validate_product(item['template']);timed_authority(db);context['timed_support']=True
+                product=PRODUCTS[item['template']];state=automatic(db,owner,now=now)
                 if product=='pickup':
-                    pet=owned_pet(db,owner,pet_uid)
-                    if pet.get('pickup'):raise ValueError('Pet already has permanent pickup')
+                    pet=owned_pet(db,owner,pet_uid,now=now)
+                    previous=periods.period(db,owner,'pickup',pet_uid)
+                    if pet.get('pickup')and previous is None:raise ValueError('Pet already has permanent pickup')
+                    if timed:periods.renew(db,owner,'pickup',pet_uid,periods.PRODUCTS[item['template']][1],operation,now=now)
+                    else:periods.permanent(db,owner,'pickup',pet_uid)
                     db.execute('INSERT INTO pet_entitlements VALUES (?,?,1) ON CONFLICT(pet) DO UPDATE SET pickup=1',(owner,pet_uid))
                     context['pet']=pet_uid
                 else:
                     if pet_uid:owned_pet(db,owner,pet_uid)
-                    if state[product]:raise ValueError('Pet automatic entitlement already unlocked')
-                    if product=='upgrade' and not state['automatic']:raise ValueError('Automatic slot must be expanded first')
+                    previous=periods.period(db,owner,'automatic',0)
+                    if state[product]and(product!='automatic'or previous is None):raise ValueError('Pet automatic entitlement already unlocked')
+                    if product=='upgrade'and(not state['automatic']or previous is not None):raise ValueError('Permanent automatic slot must be expanded first')
                     if not db.execute("SELECT 1 FROM companions WHERE owner=? AND kind='pet'",(owner,)).fetchone():raise ValueError('An activated pet is required')
-                    state[product]=1;save_automatic(db,owner,state)
+                    if product=='automatic':
+                        if timed:periods.renew(db,owner,'automatic',0,periods.PRODUCTS[item['template']][1],operation,now=now)
+                        else:periods.permanent(db,owner,'automatic',0)
+                    state[product]=1;state.pop('automatic_expires_at',None);save_automatic(db,owner,state)
+                    state=automatic(db,owner,now=now)
                 remaining=consume(db,owner,item)
                 ed=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(owner,)).fetchone()[0]
                 answers=[use_ack([((item['group'],item['slot']),remaining)],item['template'],ed)]
-                answers+=([wire.pet_update(owned_pet(db,owner,pet_uid))] if product=='pickup' else [wire.settings(state,0xb3b)])
+                answers+=([wire.pet_update(owned_pet(db,owner,pet_uid,now=now))] if product=='pickup' else [wire.settings(state,0xb3b)])
             elif kind==0x8c7:
                 if len(payload)!=20:raise ValueError('Pet equipment request length')
                 pet_uid,slot,item_uid=struct.unpack('>QiQ',payload)
@@ -153,16 +191,17 @@ def handle(path,owner,kind,payload,operation,*,randbelow=secrets.randbelow):
             db.execute('INSERT INTO pet_support_receipts VALUES (?,?,?,?)',(owner,operation,digest,json.dumps(context)))
             db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))
             for answer in answers:encode_event(answer)
+            if context.get('timed_support'):timed_authority(db)
             db.commit();return answers
         except BaseException:db.rollback();raise
 
-def reconcile(db,owner,context):
+def reconcile(db,owner,context,*,now=None):
     kind=context['kind']
     old=context.get('item');items=load_items(db,owner) if old else []
     if kind==0x219:
         ed=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(owner,)).fetchone()[0]
         changes=current_changes(items,old)
-        return [use_ack(changes,ed=ed)]+([wire.pet_update(owned_pet(db,owner,context['pet']))] if context['pet'] else [wire.settings(automatic(db,owner),0xb3b)])
+        return [use_ack(changes,ed=ed)]+([wire.pet_update(owned_pet(db,owner,context['pet'],now=now))] if context['pet'] else [wire.settings(automatic(db,owner,now=now),0xb3b)])
     if kind==0x8c7:return [wire.equipment_ack(owned_pet(db,owner,context['pet']),**delta(items,old))]
     if kind==0x8a1:return [bindings_ack(automatic(db,owner))]
     return [wire.settings(automatic(db,owner))] if kind==0x661 else [wire.pet_update(owned_pet(db,owner,context['pet']))]
@@ -191,5 +230,5 @@ def remote_pickup_enabled(path,owner):
         row=db.execute("SELECT a.pet FROM companion_active a JOIN companions p ON p.uid=a.pet AND p.owner=a.owner AND p.kind='pet' JOIN pet_entitlements e ON e.pet=p.uid AND e.owner=p.owner WHERE a.owner=? AND e.pickup=1",(character_uid(owner),)).fetchone()
         if row is None:return False
         from els_server.storage.boosting_2026_limited_pet import ExpiredLimitedPet
-        try:owned_pet(db,owner,row[0]);return True
+        try:return bool(owned_pet(db,owner,row[0]).get('pickup'))
         except ExpiredLimitedPet:return False

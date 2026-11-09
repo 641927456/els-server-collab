@@ -11,6 +11,14 @@ def _saved_paths(account):
   and getattr(facade,'account_id',account.account_id)==account.account_id
   for facade in (account.characters,getattr(account,'reward_store',None),getattr(account,'inventory_store',None))if facade is not None)
 
+def _debug(exception,event):
+ import os,time
+ try:
+  path=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),'state','decompose-debug.log')
+  with open(path,'a',encoding='utf-8') as handle:
+   handle.write(time.strftime('%H:%M:%S ')+repr(exception)+' kind=%s payload=%s\n'%(event.kind,event.payload.hex()))
+ except Exception:pass
+
 def handle(s,event,sequence):
  if event.event_id!=0x202 or event.kind!=0x1c0 or not s.item_test or s.client_build!='dx11_260923':return None
  try:
@@ -34,4 +42,6 @@ def handle(s,event,sequence):
    # Absolute current profession/XP state, with no duplicate gain or level-up UI.
    return [response[0],s.saved_user_sync(),*response[1:]]
   return decompose(binding[5],binding[3],event.payload,binding[6]+':'+str(binding[3])+':'+str(sequence),account_id=binding[4],authorize=authorize,prepare_replay=prepare_replay)
- except (ValueError,sqlite3.Error):return [Event(0x201,kind=0x1c1,payload=decompose_ack(result=-1))]
+ except (ValueError,sqlite3.Error) as failure:
+  _debug(failure,event)
+  return [Event(0x201,kind=0x1c1,payload=decompose_ack(result=-1))]

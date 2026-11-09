@@ -16,5 +16,7 @@ def count(db,owner):
     return validate_count(row[0] if row else 0)
 
 def snapshot(path,owner):
-    with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=ro',uri=True,timeout=10)) as db:
+    with snapshot_connection(path) as db:
         return count(db,owner)
+
+from els_server.storage.read_scope import snapshot_connection

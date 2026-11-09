@@ -21,9 +21,9 @@ def meta(db,owner):
 def selected_page(db,owner):return meta(db,owner)['selected']
 
 def _pairs(pairs):
- if len(pairs)!=3 or any(not isinstance(p,(tuple,list))or len(p)!=2 or any(type(v)is not int for v in p)for p in pairs):raise ValueError('Saved ordinary force layout')
- if any((s==0)!=(r==0)or s<0 or r not in(0,3,4,5)for s,r in pairs):raise ValueError('Saved ordinary force rank')
- return [list(p)for p in pairs]
+ if len(pairs) not in (3,11) or any(not isinstance(p,(tuple,list))or len(p)!=2 or any(type(v)is not int for v in p)for p in pairs):raise ValueError('Saved ordinary force layout')
+ if any((s==0)!=(r==0)or s<0 or r not in((0,3,4,5,6)if i<3 else(0,1,3,4,5,6))for i,(s,r)in enumerate(pairs)):raise ValueError('Saved ordinary force rank')
+ return [list(p)for p in pairs]+[[0,0]]*(11-len(pairs))
 
 def _load(row):
  raw,traits,force=row
@@ -67,6 +67,13 @@ def _current_slots(db,owner,c):
  from els_server.storage.local_state import LocalState
  return LocalState._load_skills(SimpleNamespace(uid=owner),db,c)
 
+def _persisted_current_slots(db,owner,c):
+ from els_server.domain.relationship_skills import persisted_slots
+ visible=_current_slots(db,owner,c)
+ row=db.execute('SELECT payload FROM skill_slots WHERE uid=?',(owner,)).fetchone()
+ previous=struct.unpack('>22i',row[0])if row else (0,)*22
+ return persisted_slots(previous,visible,c)
+
 def _reply(db,owner,account,kind):
  from els_server.protocol.protocol_codec import encode_event,Event
  from els_server.domain.ordinary_skill_pages import expanded,selected
@@ -106,9 +113,12 @@ def action(path,owner,account,kind,payload,operation,*,validate):
    from els_server.storage.skill_traits import saved as traits
    from els_server.storage.boosting_2026_force_equipment import saved as force
    saved=state['pages'][target];incoming=page_character(c,saved);slots=page_slots(incoming,saved)
-   ensure(db);_save_snapshot(db,owner,state['selected'],_current_slots(db,owner,c),traits(db,owner),force(db,owner))
+   from els_server.domain.change_force_admission import EQUIPPING
+   if not EQUIPPING and any(a!=b for a,b in zip(c['force_slots'][3:],incoming['force_slots'][3:]) if a[1]==1 or b[1]==1):
+    raise ValueError('Change force page equipment admission is closed')
+   ensure(db);_save_snapshot(db,owner,state['selected'],_persisted_current_slots(db,owner,c),traits(db,owner),force(db,owner))
    from els_server.storage.local_state import LocalState
-   LocalState._save_skills(SimpleNamespace(uid=owner),db,slots,incoming)
+   LocalState._save_skills(SimpleNamespace(uid=owner),db,slots,incoming,source_slots=saved['slots'])
    if present(db,'character_skill_traits'):
     db.execute('DELETE FROM character_skill_traits WHERE owner=?',(owner,))
    if incoming['skill_traits']:
@@ -119,11 +129,16 @@ def action(path,owner,account,kind,payload,operation,*,validate):
      #definitions; only current valid choices enter the canonical table.
      validate_trait(incoming,skill,note)
      db.execute('INSERT INTO character_skill_traits VALUES(?,?,?,1)',(owner,skill,note))
-   if present(db,'selected_2026_force_slots'):db.execute('DELETE FROM selected_2026_force_slots WHERE owner=?',(owner,))
+   if present(db,'selected_2026_force_slots'):db.execute('DELETE FROM selected_2026_force_slots WHERE owner=? AND slot<3',(owner,))
    force_values=incoming['force_slots']
-   if any(s for s,r in force_values):
+   if any(s for s,r in force_values[:3]):
     if not present(db,'selected_2026_force_slots'):raise ValueError('Ordinary page force schema/ownership missing')
-    db.executemany('INSERT INTO selected_2026_force_slots VALUES(?,?,?,?)',[(owner,i,s,r)for i,(s,r)in enumerate(force_values)if s])
+    db.executemany('INSERT INTO selected_2026_force_slots VALUES(?,?,?,?)',[(owner,i,s,r)for i,(s,r)in enumerate(force_values[:3])if s])
+   if present(db,'selected_2026_change_force_slots'):db.execute('DELETE FROM selected_2026_change_force_slots WHERE owner=?',(owner,))
+   change=[(owner,i-3,s,r)for i,(s,r)in enumerate(force_values)if i>=3 and s and r==1]
+   if change:
+    if not present(db,'selected_2026_change_force_slots'):raise ValueError('Ordinary page change force schema/ownership missing')
+    db.executemany('INSERT INTO selected_2026_change_force_slots VALUES(?,?,?,?)',change)
    db.execute('UPDATE ordinary_skill_page_states SET selected=?,revision=revision+1 WHERE owner=?',(target,owner))
   else:ensure(db) #Same-page request is a read-only state transition + receipt.
   events=_reply(db,owner,account,kind)

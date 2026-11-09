@@ -82,7 +82,7 @@ def historical_box(path,owner,payload,operation):
         uid=use_request(payload).uid
         return any(i.get('uid')==uid and i.get('template')==BOX for i in before)
 
-def spend(path,owner,payload,operation,run,life,*,account_id,guard,dungeon=30000,position=-1,prepare=None):
+def spend(path,owner,payload,operation,run,life,*,account_id,guard,dungeon=30000,position=-1,prepare=None,limit=None):
     owner=character_uid(owner)
     if type(run) is not str or str(uuid.UUID(run))!=run or uuid.UUID(run).version!=4:
         raise ValueError('Known resurrection run identity')
@@ -98,6 +98,10 @@ def spend(path,owner,payload,operation,run,life,*,account_id,guard,dungeon=30000
                 return dict(count=count(db,owner),replayed=True)
             if db.execute('SELECT 1 FROM known_resurrection_spends WHERE owner=? AND run=? AND life=?',(owner,run,life)).fetchone():
                 raise ValueError('Current life resurrection already committed')
+        if limit is not None:
+            if type(limit)is not int or limit!=1:raise ValueError('Finite original revival cap')
+            spent=db.execute('SELECT COUNT(*) FROM known_resurrection_spends WHERE owner=? AND run=?',(owner,run)).fetchone()[0] if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='known_resurrection_spends'").fetchone()else 0
+            if spent>=limit:raise ValueError('Original per-run resurrection cap reached')
         current=count(db,owner)
         if current<=0:raise ValueError('No known source resurrection stones')
         from els_server.protocol.known_resurrection import continuation

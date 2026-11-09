@@ -3,6 +3,12 @@ import functools,hashlib,json,math,struct
 from els_server.game_data import DATA_DIR,CLIENT_SHA
 
 
+# Current shop/quest recovery inputs. No new acquisition source.
+CURRENT_RECOVERY=frozenset((77060, 77080, 77090, 77130, 78140, 78170, 78240, 78270, 78995, 78996, 78998, 78999, 79000, 92290))
+CURRENT_THROWABLES=frozenset((78340,78350))
+CURRENT_MANUAL=CURRENT_RECOVERY|CURRENT_THROWABLES
+
+
 @functools.lru_cache(maxsize=1)
 def catalog():
     raw=(DATA_DIR/'consumables.json').read_bytes()
@@ -32,6 +38,8 @@ def manual_magic_potion_definition():
 
 
 def ordinary(template):
+    from els_server.domain.consumable_extensions import quick_templates,ordinary as extended
+    if template in quick_templates():return extended(template)
     if template in (130467,710193,723674):
         # Exact existing owned Fighting Spirit records. Native115 consumes
         # A8 factors204/3517 -> non-world/non-stored212/3344, including timers.
@@ -48,6 +56,19 @@ def ordinary(template):
     if template in (710313,710314,710315):
         from els_server.domain.apple_consumables import usable
         return usable(template)
+    if template in CURRENT_THROWABLES:
+        # Original1AB9D20 case18: arm wooden/light temporary weapon1/2.
+        # Actor+35D4/+35D8 and native state0x46 remain client-owned.
+        # One unchanged115 selects the complete native item effect vector.
+        r=catalog()[template];raw=bytes.fromhex(r['record_hex'])
+        from els_server.domain.inventory_items import VERIFIED_TEMPLATES,TEMPLATE_BAG_GROUPS
+        weapon={78340:1,78350:2}[template]
+        if (VERIFIED_TEMPLATES.get(template),TEMPLATE_BAG_GROUPS.get(template),raw[0xd1],
+            struct.unpack_from('<I',raw,0xa8)[0],r['cooldown_group'],r['cooldown_seconds'])!=(2,6,0,0,6,30):
+            raise ValueError('Native temporary-weapon source changed')
+        if r['effects']!=[struct.pack('<6I',18,0,weapon,1,0,0).hex()]:
+            raise ValueError('Native temporary-weapon vector changed')
+        return r
     # Enable only individually checked HP/MP potions. Other rows may
     # require buff, quest, event, targeting or reward behavior not yet wired.
     # minimum level, shared cooldown group, seconds, ordered native effects.
@@ -66,6 +87,13 @@ def ordinary(template):
     expected.update({79063:(0,2,30,((13,50),)),79064:(0,5,30,((19,50),))})
     expected[79065]=(0,10,30,((19,50),(13,50)))
     expected[77110]=(0,14,30,((3,0),(5,0),(6,0)))
+    expected.update({77060:(0,14,30,((6,0),)),77080:(0,14,30,((1,4500),(5,0))),
+                     77090:(0,14,30,((2,50),(3,0))),77130:(0,5,30,((2,100),)),
+                     78140:(0,2,30,((1,95600),(2,30))),78170:(0,2,30,((1,150000),(2,30))),
+                     78240:(0,5,30,((1,28600),(2,150))),78270:(0,5,30,((1,45000),(2,190))),
+                     78995:(0,1,30,((1,94300),)),78996:(0,1,30,((1,132300),)),
+                     78998:(0,4,30,((2,75),)),78999:(0,4,30,((2,125),)),
+                     79000:(0,4,30,((2,175),)),92290:(0,2,30,((1,109100),(2,30),(3,0)))})
     if template not in expected:raise ValueError('Consumable effect not implemented')
     level,group,seconds,effects=expected[template];r=catalog()[template]
     raw=bytes.fromhex(r['record_hex'])
@@ -81,6 +109,8 @@ def ordinary(template):
 
 
 def require_usable(template,level,*,automatic=False):
+    from els_server.domain.consumable_extensions import quick_templates
+    if automatic and template in (quick_templates()|CURRENT_MANUAL):raise ValueError('Extended consumables require manual use')
     if automatic and template in (710313,710314,710315,79065,77110,710022,130467,710193,723674):raise ValueError('Apple pet automation is not admitted')
     metadata=ordinary(template)
     if type(level) is not int or not 1<=level<=99:raise ValueError('Consumable character level')

@@ -76,7 +76,10 @@ def projection(s):
         return wire.pet(owner,pet) if pet else None,mount
 
 def invalidate(s):
-    cache=getattr(s.application,'companion_peer_read_cache',None)
+    # Sessions without an application object (local single-player) have no
+    # peer cache to clear; that must not fail the caller's committed answer.
+    application=getattr(s,'application',None)
+    cache=getattr(application,'companion_peer_read_cache',None)
     if cache is not None:
         cache[1].pop(s,None);cache[2].pop(s,None)
 

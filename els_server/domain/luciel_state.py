@@ -1,4 +1,4 @@
-"""Owned LuCiel style and bounded town/solo active state."""
+"""Owned LuCiel style and active state in town, dungeon and GuildAgit."""
 from els_server.protocol.luciel_messages import acknowledgement,notification,preference,request,active_notification,active_preference,active_request
 
 def enabled(s):
@@ -9,6 +9,10 @@ def peers(s):
     if app is None:return None,()
     if getattr(s,'released',False) or app.playing.get(s.identity['id']) is not s:raise ValueError('LuCiel obsolete game connection')
     world=app.world
+    if s.phase=='guild_agit_ready':
+        from els_server.domain.guild_agit_flow import bank_capture,_peers
+        bank_capture(s)
+        return world,tuple(peer for peer,_,_ in _peers(s,s.guild_agit['guild']))
     room=world.room(s) if s.phase=='town_ready' else world.dungeons.transport_room(s)
     members=room if s.phase=='town_ready' else room.members if room is not None else ()
     if s.phase=='town_ready':
@@ -33,6 +37,8 @@ def style_context(s):
             s.role,s.phase,s.client_build,s.item_test,getattr(s,'released',False),
             getattr(s,'identity',{}).get('id')]
     room=None;entry=None
+    if s.phase=='guild_agit_ready':
+        refs.append(s.guild_agit);values.append((s.guild_agit['guild'],repr(s.guild_agit['location'])))
     if world is not None:
         if s.identity['id']!=s.account.account_id:raise ValueError('LuCiel style account lease')
         room=world.room(s) if s.phase=='town_ready' else world.dungeons.transport_room(s)
@@ -60,6 +66,8 @@ def style_context(s):
             other.social_overflow,world.members.get(other),mailbox.bytes,
             tuple((id(e),repr(vars(e))) for e in mailbox.messages),
             tuple((key,id(e),repr(vars(e))) for key,e in mailbox.moves.items())))
+        if s.phase=='guild_agit_ready':
+            refs.append(other.guild_agit);values.append((other.guild_agit['guild'],repr(other.guild_agit['location'])))
         if s.phase=='town_ready':
             peer_entry=room[other];refs.extend((peer_entry,peer_entry[0],peer_entry[1],peer_entry[2]))
             values.append(repr(peer_entry))
@@ -72,6 +80,7 @@ def validate_style_context(s,captured):
 
 def prepare_style(s,captured,reply):
     from collections import deque
+    from copy import copy
     from els_server.domain.friends_world import Mailbox
     from els_server.protocol.protocol_codec import encode_event
     mailboxes=[];own=None;marker=None;room=captured['room']
@@ -82,7 +91,7 @@ def prepare_style(s,captured,reply):
     for other in captured['targets']:
         encode_event(reply[-1])
         original=other.mailbox
-        clone=Mailbox();clone.messages=deque(original.messages);clone.moves=dict(original.moves);clone.bytes=original.bytes
+        clone=copy(original);clone.messages=deque(original.messages);clone.moves=dict(original.moves);clone.bytes=original.bytes
         if clone.bytes!=sum(len(e.payload) for e in clone.messages)+sum(len(e.payload) for e in clone.moves.values()):raise ValueError('LuCiel malformed style mailbox')
         clone.append(reply[-1]);mailboxes.append((other,clone))
     validate_style_context(s,captured)
@@ -93,7 +102,7 @@ def handle(s,event,sequence):
     if not enabled(s):return [acknowledgement()]
     try:
         request(event.payload)
-        if (s.phase not in ('town_ready','dungeon_active') or type(sequence) is not int or not 1<=sequence<2**32
+        if (s.phase not in ('town_ready','dungeon_active','guild_agit_ready') or type(sequence) is not int or not 1<=sequence<2**32
             or event.performers not in ((),(0,)) or event.uid!=0xffffffffffffffff
             or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):raise ValueError('LuCiel session envelope')
         captured=style_context(s);publication=[]
@@ -101,7 +110,8 @@ def handle(s,event,sequence):
         uid=s.account.uid
         reply=perform(s.account.store.path,uid,event.payload,account_id=s.account.account_id,session_id=s.shop_session_id,sequence=sequence,
             prepare=lambda result:publication.append(prepare_style(s,captured,result)),
-            validate=lambda:validate_style_context(s,captured))
+            validate=lambda:validate_style_context(s,captured),
+            guard_db=(lambda db:_guild_guard(db,s,captured['targets']))if s.phase=='guild_agit_ready'else None)
     except ValueError:return [acknowledgement()]
     room,own,marker,mailboxes=publication[0]
     if own is not None:room[s]=own;s.luciel_active_actor_marker=marker
@@ -150,6 +160,11 @@ def periodic(s):
     for other in targets:
         entry=room.get(other)
         if entry is None:continue
+        # Peer presence does not require every character's wardrobe, bank,
+        # Force inventory and guild projection. The existing committed narrow
+        # identity reader retains ownership/lifecycle and data_version checks.
+        identity=getattr(other.account,'character_identity',None)
+        if identity is not None and identity()['unit_type']!=10:continue
         character=other.account.character()
         if character['unit_type']!=10:continue
         uid=character['uid'];value=preference(character);active_value=active_preference(character);key=(other,uid)
@@ -183,10 +198,16 @@ def actor_generation(s,room,entry):
     if marker is not None and marker[0] is room and marker[1] is entry[0]:return marker[2]
     return entry[0]
 
+def _guild_guard(db,s,targets):
+    from els_server.domain.guild_agit_flow import bank_capture
+    bank_capture(s)[1](db)
+    members=dict(db.execute('SELECT owner,account_id FROM native_guild_members WHERE guild_id=?',(s.guild_agit['guild'],)))
+    if any(members.get(p.account.uid)!=p.account.account_id for p in targets):raise ValueError('LuCiel GuildAgit peer membership changed')
+
 def active_context(s,kind):
     import math,uuid
     if not enabled(s):raise ValueError('LuCiel active profile')
-    if kind!=0x4e2:raise ValueError('Unsupported guild-agit/housing switch')
+    if kind not in(0x4e2,0x506):raise ValueError('Unsupported active character request')
     if s.phase=='dungeon_active' or getattr(s,'application',None) is None:
         from els_server.domain.luciel_dungeon import context
         return context(s)
@@ -212,6 +233,17 @@ def active_context(s,kind):
             refs.extend((other,other.account,mailbox,peer_entry[0],peer_entry[1],peer_entry[2]))
             values.append((other.shop_session_id,other.account.uid,other.identity['id'],other.role,other.phase,world.members.get(other),
                            mailbox.bytes,tuple(mailbox.messages),tuple(mailbox.moves.items())))
+    elif kind==0x506:
+        if s.phase!='guild_agit_ready':raise ValueError('LuCiel GuildAgit actor not ready')
+        world,targets=peers(s)
+        from els_server.domain.guild_agit_flow import bank_capture
+        bank_capture(s)
+        refs.append(s.guild_agit);values.append((s.guild_agit['guild'],repr(s.guild_agit['location']),character['unit_class']))
+        for other in targets:
+            mailbox=other.mailbox
+            refs.extend((other,other.account,other.identity,mailbox,other.guild_agit))
+            values.append((other.shop_session_id,other.account.uid,other.identity['id'],other.role,other.phase,
+                other.guild_agit['guild'],repr(other.guild_agit['location']),mailbox.bytes,tuple(mailbox.messages),tuple(mailbox.moves.items())))
     else:raise ValueError('LuCiel unsupported active kind')
     return dict(refs=tuple(refs),values=tuple(values),world=world,room=room,entry=entry,targets=targets)
 
@@ -222,6 +254,7 @@ def validate_active_context(s,kind,captured):
 
 def prepare_active(s,kind,captured,result):
     from collections import deque
+    from copy import copy
     from els_server.domain.friends_world import Mailbox
     from els_server.protocol.protocol_codec import encode_event
     room=captured['room'];mailboxes=[];own=None;marker=None
@@ -229,11 +262,11 @@ def prepare_active(s,kind,captured,result):
     if room is not None:
         entry=captured['entry'];character={**entry[0],'luciel_active_unit':result['active_unit'],'luciel_style':result['style']}
         own=(character,entry[1],entry[2]);marker=(room,character,actor_generation(s,room,entry))
-    notice=active_notification(s.account.uid,result['active_unit']);encode_event(notice)
+    notice=active_notification(s.account.uid,result['active_unit'],0x507 if kind==0x506 else 0x4e3);encode_event(notice)
     for other in captured['targets']:
         original=other.mailbox
         if type(original) is not Mailbox:raise ValueError('LuCiel peer mailbox type')
-        clone=Mailbox();clone.messages=deque(original.messages);clone.moves=dict(original.moves);clone.bytes=original.bytes
+        clone=copy(original);clone.messages=deque(original.messages);clone.moves=dict(original.moves);clone.bytes=original.bytes
         if clone.bytes!=sum(len(e.payload) for e in clone.messages)+sum(len(e.payload) for e in clone.moves.values()):raise ValueError('LuCiel malformed peer mailbox')
         clone.append(notice)
         mailboxes.append((other,clone))
@@ -243,6 +276,9 @@ def prepare_active(s,kind,captured,result):
 def handle_active(s,event,sequence):
     if event.event_id!=0x202 or event.kind not in (0x4e2,0x506):return None
     try:
+        if event.kind==0x506 and enabled(s)and s.account.character()['unit_type']==11:
+            from els_server.domain.guild_rose import handle as rose
+            return rose(s,event,sequence)
         active_request(event.payload)
         if (type(sequence) is not int or not 1<=sequence<2**32 or event.performers not in ((),(0,))
             or event.uid!=0xffffffffffffffff or event.target_uid!=0xffffffffffffffff or event.payload_mode!=0):raise ValueError('LuCiel active envelope')
@@ -251,7 +287,8 @@ def handle_active(s,event,sequence):
         result=perform_active(s.account.store.path,s.account.uid,event.kind,event.payload,account_id=s.account.account_id,
             session_id=s.shop_session_id,sequence=sequence,
             prepare=lambda reply:prepare_active(s,event.kind,captured,reply),
-            validate=lambda:validate_active_context(s,event.kind,captured))
+            validate=lambda:validate_active_context(s,event.kind,captured),
+            guard_db=(lambda db:_guild_guard(db,s,captured['targets']))if event.kind==0x506 else None)
     except ValueError:return []
     prepared=result['prepared']
     if prepared['room'] is not None:

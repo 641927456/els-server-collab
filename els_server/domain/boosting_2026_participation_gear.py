@@ -40,6 +40,10 @@ def register():
             seen.add(t)
     if seen!=set(range(721881,721941)):raise ValueError('Participation gear identity coverage')
     if _enabled is not None and _enabled!=data:raise ValueError('Cannot replace active participation gear')
+    expected=(box['metadata'],4,999)
+    if BOX in VERIFIED_TEMPLATES and (VERIFIED_TEMPLATES[BOX],TEMPLATE_BAG_GROUPS[BOX],TEMPLATE_MAX_STACKS[BOX])!=expected:
+        raise ValueError('Participation box inventory registration conflict')
+    VERIFIED_TEMPLATES[BOX],TEMPLATE_BAG_GROUPS[BOX],TEMPLATE_MAX_STACKS[BOX]=expected
     _enabled=data
     from els_server.domain.cubes import catalog as cubes
     cubes.cache_clear()

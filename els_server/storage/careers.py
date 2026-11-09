@@ -7,7 +7,7 @@ from els_server.storage.inventory_state import load_items
 from els_server.domain.careers import transition
 from els_server.protocol.career_messages import use_request,use_ack
 
-def use_career_item(path,uid,payload,operation_id):
+def use_career_item(path,uid,payload,operation_id,prepare_refresh=None):
     uid=character_uid(uid);item_uid=use_request(payload)
     if not isinstance(operation_id,str) or not 1<=len(operation_id)<=160:raise ValueError('Career operation identity')
     digest=hashlib.sha256(str(uid).encode()+b':'+payload).hexdigest()
@@ -17,7 +17,9 @@ def use_career_item(path,uid,payload,operation_id):
         old=db.execute('SELECT request_hash,response FROM career_receipts WHERE operation_id=?',(operation_id,)).fetchone()
         if old:
             if old[0]!=digest:raise ValueError('Conflicting career retry')
-            return dict(response=old[1],replayed=True)
+            receipt=dict(response=old[1],replayed=True)
+            if prepare_refresh is not None:receipt['prepared_events']=prepare_refresh(db,receipt)
+            return receipt
         item=next((i for i in load_items(db,uid) if i['uid']==item_uid),None)
         if item is None or item['group']!=4:raise ValueError('Career item is not in owned consumable bag')
         from els_server.domain.item_expiration import require_current
@@ -33,7 +35,9 @@ def use_career_item(path,uid,payload,operation_id):
             db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item_uid,uid))
         db.execute('INSERT INTO career_receipts VALUES (?,?,?,?,?,?,?)',
             (operation_id,digest,uid,item_uid,json.dumps(before,sort_keys=True),json.dumps(after,sort_keys=True),ack))
-        return dict(response=ack,replayed=False,before=before,after=after)
+        receipt=dict(response=ack,replayed=False,before=before,after=after)
+        if prepare_refresh is not None:receipt['prepared_events']=prepare_refresh(db,receipt)
+        return receipt
 
 
 def apply_transition(db,uid,template):
@@ -50,6 +54,8 @@ def _apply_transition(db,uid,change):
     """Shared persistence and skill migration; caller supplies proven authority."""
     row=db.execute('SELECT uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters WHERE uid=?',(uid,)).fetchone()
     before=Characters._row(row)
+    from els_server.domain.relationship_skills import saved as relationship_saved
+    before['relationship']=relationship_saved(db,uid)
     from els_server.storage.skill_expansion import is_expanded
     before['skill_row_expanded']=is_expanded(db,uid)
     from els_server.storage.skill_unlocks import saved_groups
@@ -77,7 +83,9 @@ def _apply_transition(db,uid,change):
             raise ValueError('Invalid persisted career skills')
         slots=list(upgraded_slots(slots,after))
         if after['master'] and not before['master']:slots[21]=first_master_skill(after)
-        migrated=encode_slots(slots,equippable_skills(after),after)
+        visible=encode_slots(slots,equippable_skills(after),after)
+        from els_server.domain.relationship_skills import persisted_slots
+        migrated=struct.pack('>22i',*persisted_slots(struct.unpack('>22i',raw),struct.unpack('>22i',visible),after))
         db.execute('UPDATE skill_slots SET payload=?,revision=revision+1 WHERE uid=? AND payload<>?',(migrated,uid,migrated))
     db.execute('UPDATE characters SET unit_class=?,transcendence=?,master=?,revision=? WHERE uid=?',
                (after['unit_class'],after['transcendence'],after['master'],after['revision'],uid))

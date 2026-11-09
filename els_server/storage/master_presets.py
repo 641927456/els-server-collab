@@ -28,6 +28,8 @@ def repair(path):
             c=dict(uid=uid,unit_class=cls,level=level,transcendence=bool(tc),master=True,skill_row_expanded=is_expanded(db,uid))
             from els_server.storage.skill_unlocks import saved_groups
             c['skill_seal_groups']=saved_groups(db,uid)
+            from els_server.domain.relationship_skills import saved as relationship_saved
+            c['relationship']=relationship_saved(db,uid)
             skill=first_master_skill(c)
             if not skill or not tc or level!=99:raise ValueError('Invalid saved Master identity')
             old=db.execute('SELECT payload FROM skill_slots WHERE uid=?',(uid,)).fetchone()
@@ -38,7 +40,10 @@ def repair(path):
                 slots=list(upgraded_slots(slots,c))
                 if not slots[21]:slots[21]=skill
             else:slots=default_slots(c)
-            encoded=encode_slots(slots,equippable_skills(c),c)
+            visible=encode_slots(slots,equippable_skills(c),c)
+            from els_server.domain.relationship_skills import persisted_slots
+            previous=struct.unpack('>22i',old[0])if old else (0,)*22
+            encoded=struct.pack('>22i',*persisted_slots(previous,struct.unpack('>22i',visible),c))
             db.execute('INSERT INTO skill_slots VALUES (?,?,1) ON CONFLICT(uid) DO UPDATE SET payload=excluded.payload,revision=revision+1 WHERE payload<>excluded.payload',(uid,encoded))
             mark(db,c);restored.append(uid)
     return restored

@@ -163,7 +163,9 @@ def request_fields(kind, payload, state):
                 raise ValueError('spawn owner')
             if dto[8] not in (0, 1, 2) or any(dto[o] not in (0, 1) for o in (0x4e, 0x54, 0x61, 0x65, 0x66)):
                 raise ValueError('spawn flag')
-            if not all(math.isfinite(v) and abs(v) <= 100000 for v in struct.unpack_from('<fff', dto, 9)):
+            # Same 1e7 scene bound as the shared decoder; the 1e5 copy here
+            # rejected Santilus' 33242 summoners at X=158000.
+            if not all(math.isfinite(v) and abs(v) <= 1e7 for v in struct.unpack_from('<fff', dto, 9)):
                 raise ValueError('spawn point')
         rows = decode(payload, validate)
         return dict(parse='current_script_decoder', requests=[dict(

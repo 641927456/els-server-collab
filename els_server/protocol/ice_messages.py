@@ -110,7 +110,8 @@ def result_ack(result,items,ed,*,field=0,experience=0,rewards=(),flags=(0,0,0),t
         from els_server.domain.inventory_items import validate_item,item_body,fixture
         original=validate_item(removed)
         from els_server.domain.inventory_items import native_ice_catalog
-        if original['template'] not in {p['template'] for p in native_ice_catalog()['offers']} or original['count']!=1:raise ValueError('Invalid exhausted ice stack')
+        from els_server.domain.modern_ice import machines
+        if (original['template'] not in {p['template'] for p in native_ice_catalog()['offers']} and original['template'] not in machines()) or original['count']!=1:raise ValueError('Invalid exhausted ice stack')
         # The grant may reuse the exhausted machine's slot. Native 2239F10
         # removes affected slots before inserting positive UIDs, so that slot
         # needs only its final reward record, as in ordinary cube updates.

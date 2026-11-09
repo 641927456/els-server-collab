@@ -5,7 +5,7 @@ from els_server.game_data import CLIENT_SHA,client_data
 @functools.lru_cache(maxsize=1)
 def catalog():
  p=Path(__file__).resolve().parents[1]/'data/option_conversion_existing.json';raw=p.read_bytes()
- if hashlib.sha256(raw).hexdigest()!='9a8cc2a4559e136788c6fc85ddd18b1fc5f1ed9747c5178d66140a998d95c8a7':raise ValueError('Existing conversion policy identity')
+ if hashlib.sha256(raw).hexdigest()!='0fe7eb5c9f0417eb1a7061cc64dd3bcaec35eee3a5d246b072b50a61113b42f0':raise ValueError('Existing conversion policy identity')
  c=json.loads(raw);d=client_data()
  if c['schema']!=1 or c['client_sha256']!=CLIENT_SHA or c['catalog_sha256']!=d.manifest['catalog_sha256']:raise ValueError('Existing conversion build identity')
  for key,row in c['targets'].items():

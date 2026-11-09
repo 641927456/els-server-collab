@@ -1,6 +1,6 @@
 """Drabaki battlefield codecs from C5FBF0/C4E010 and BFAD80.
 
-Only field 40046 is admitted. Dungeon 34080 remains forbidden.
+Defaults admit Drabaki40046; ordinary passage supplies its source-bound catalog.
 """
 import struct
 from els_server.protocol.protocol_codec import Event
@@ -10,7 +10,7 @@ from els_server.protocol.social_messages import Reader
 FIELD=40046
 
 
-def join_request(payload):
+def join_request(payload,*,identity_allowed=None):
     # C5FBF0 -> 2BDE4B0: i32,i32,vector<Q>,bool,bool,u16,bool,bool;
     # one further bool follows the shared header.
     r=Reader(payload);identity=r.scalar('i');position=r.scalar('i');count=r.scalar('I')
@@ -18,32 +18,39 @@ def join_request(payload):
     members=tuple(r.scalar('Q') for _ in range(count))
     flags=(r.scalar('B'),r.scalar('B'));channel=r.scalar('H')
     tail=(r.scalar('B'),r.scalar('B'),r.scalar('B'));r.end()
-    if identity!=FIELD or not 0<=position<=65535 or any(f not in (0,1) for f in (*flags,*tail)):
+    if not (identity==FIELD if identity_allowed is None else identity_allowed(identity)) or not 0<=position<=65535 or any(f not in (0,1) for f in (*flags,*tail)):
         raise ValueError('Unsupported battlefield request')
     if len(set(members))!=len(members):raise ValueError('Field duplicate participant')
-    return dict(identity=identity,position=position,members=members,channel=channel)
+    return dict(identity=identity,position=position,members=members,channel=channel,
+                use_start_position=bool(flags[1]))
 
 
-def room_info(room_id):
+def room_info(room_id,identity=FIELD,name='Drabaki'):
     # D9BCC0 shares the existing CBDCC0 room fields, including B2 map.
-    data=b'\1'+struct.pack('>Q',room_id)+u32(0)+wstring('Drabaki')
+    data=b'\1'+struct.pack('>Q',room_id)+u32(0)+wstring(name)
     data+=b'\0\1\0'+wstring('')+b'\0\0'+wstring('')+bytes(2)+wstring('')
     data+=b'\0\xff\0'+i32(-1)+b'\0\0'+i32(0)+bytes(4)+bytes(8)+i32(0)
-    data+=b'\0'+i32(FIELD)+b'\0\0'+bytes(8)*2+i32(0)+b'\0'
+    # D9BCC0+C8 -> 82E960 stage+1A0 -> 825AC0 current field.
+    # B2 is the shared dungeon/map slot; the field scene uses C8 separately.
+    data+=b'\0'+i32(identity)+b'\0\0'+bytes(8)*2+i32(identity)+b'\0'
     data+=u32(0)+bytes(2)+i32(0)+b'\0\0'+bytes(8)+u32(0)
     return data+b'\0'+i32(0)+bytes(8)*2
 
 
-def joined(members,leader,room_id,*,result=0,deadline=0):
+def joined(members,leader,room_id,*,result=0,deadline=0,identity=FIELD,position=0,name='Drabaki',
+           use_start_position=False,position_progress=0):
     from els_server.protocol.dungeon_messages import member
     if not (result and not members) and (not 1<=len(members)<=6 or leader not in members):raise ValueError('Field room participants')
     teams=[]
     for index,s in enumerate(members):
         body=member(s.account.get_skills(),s.account.character(),s.account.get_inventory_snapshot()['items'],
-                    account_id=s.identity['id'],peer_port=21100+index)
+                    account_id=s.account.account_id,peer_port=21100+index)
         teams.append(bytes([index,4 if s is leader else 0,int(s is leader)])+bytes(3)+i32(0)+u32(1)+body+u32(0)+bytes(4))
-    header=i32(FIELD)+i32(0)+u32(0)+bytes(6)
-    payload=i32(result)+header+room_info(room_id)+u32(len(teams))+b''.join(teams)
+    # BA54C0 copies the second flag to app+218. 825DC0 uses it to
+    # select the requested portal position instead of the team's default spawn.
+    header=i32(identity)+i32(position)+u32(0)
+    header+=bytes((0,int(use_start_position)))+struct.pack('>H',position_progress)+bytes(2)
+    payload=i32(result)+header+room_info(room_id,identity,name)+u32(len(teams))+b''.join(teams)
     # C4E010 DTO+154,174,178,17C,19C,19E,1BE,1D6,1DE,1DF.
     payload+=wstring('')+i32(0)*2+wstring('')+bytes(2)+wstring('')+u32(0)+struct.pack('>Q',deadline)+b'\0'+wstring('')
     return Event(0x201,kind=0x375,payload=payload)

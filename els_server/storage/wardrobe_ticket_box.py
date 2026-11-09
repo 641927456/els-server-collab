@@ -23,7 +23,7 @@ def open_box(path,owner,payload,operation,*,account_id):
     if type(account_id) is not int or not 1 <= account_id < 2**63:
         raise ValueError('Existing wardrobe box account identity')
     request = use_request(payload)
-    if (request.option != 0 or request.choices
+    if (request.option not in (0,1) or request.choices
             or any(v not in (0,1) for v in (request.flag1,request.flag2,request.flag3))):
         raise ValueError('Existing wardrobe box has no choices or bulk option')
     definition = entry()

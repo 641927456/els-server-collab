@@ -7,7 +7,8 @@ from contextlib import closing
 from pathlib import Path
 import sqlite3
 import time
-from els_server.domain.guild_license_flow import _facts as town_facts, reply_capture, guarded_reply
+from els_server.domain.guild_license_flow import (_facts as town_facts, reply_capture, guarded_reply,
+    _app, _identity, _mailbox)
 from els_server.domain.guild_initial_profile import profile
 from els_server.domain.party_commands import _prepared_boxes
 from els_server.protocol import guild_membership_messages as request
@@ -17,14 +18,40 @@ from els_server.storage import guild_membership_state as state
 WRITER_ENABLED = True
 
 
+def _license_fallback(s, item_uid):
+    """Anchor a stale instance number onto the one owned license.
+
+    A rebuilt save renumbers inventory rows while the native client keeps the
+    previous number, so the create request can name an instance this character
+    never owned. Only a character holding exactly one unlocked singleton
+    license is resolved that way; anything ambiguous keeps the strict path.
+    """
+    path=Path(s.account.store.path).resolve().as_uri()+'?mode=ro'
+    with closing(sqlite3.connect(path,uri=True,timeout=10)) as db:
+        if db.execute('SELECT 1 FROM inventory_items WHERE owner=? AND uid=?',
+                      (s.account.uid,item_uid)).fetchone() is not None:
+            return None
+        rows=[row[0] for row in db.execute(
+            'SELECT uid FROM inventory_items WHERE owner=? AND template=? AND metadata=0 '
+            'AND bag_group=4 AND count=1 ORDER BY uid',(s.account.uid,state.LICENSE))]
+    return rows[0] if len(rows)==1 else None
+
+
 def facts(s):
-    base = town_facts(s)
-    if (s.identity['id'] != s.account.account_id
-            or not s.application.registry.enabled(s.account.account_id)
-            or s.application.world.dungeons.room(s) is not None):
+    if getattr(s,'guild_agit',None)is not None:
+        from els_server.domain.guild_agit_flow import bank_capture,identity
+        from els_server.domain.housing_room_flow import world_state
+        bank_capture(s);refs,values=identity(s);world,world_values=world_state(s)
+        base=(tuple(map(id,refs)),values,tuple(map(id,world)),world_values,id(s.guild_agit),s.guild_agit['guild'],s.phase)
+    else:base = town_facts(s)
+    app=_app(s);identity=_identity(s);registry=getattr(app,'registry',None)
+    box=_mailbox(s)
+    if (identity['id'] != s.account.account_id
+            or (registry is not None and not registry.enabled(s.account.account_id))
+            or app.world.dungeons.room(s) is not None):
         raise ValueError('Guild current enabled account and town')
-    return (base,id(s),id(s.identity),id(s.application.world),
-            id(s.mailbox),tuple(s.mailbox.messages),tuple(s.mailbox.moves.items()),s.mailbox.bytes)
+    return (base,id(s),id(getattr(s,'identity',None)),id(app.world),
+            id(box),tuple(box.messages),tuple(box.moves.items()),box.bytes)
 
 
 def _peer(s, *, uid=0, name=''):
@@ -43,12 +70,14 @@ def _peer(s, *, uid=0, name=''):
 def cold(s):
     # Called after ordinary2A selection. Read-only; no optional-table creation.
     if s.client_build!='dx11_260923' or s.account.characters is None:return []
-    saved=state.cold(s.account.store.path,s.account.uid,s.account.account_id)
-    return [] if saved is None else [wire.full_notification(profile(saved))]
+    with state.snapshot_connection(s.account.store.path)as db:
+        db.execute('BEGIN')
+        saved=state.snapshot(db,s.account.uid,s.account.account_id)
+        return [] if saved is None else [wire.full_notification(profile(saved,db=db))]
 
 
 def handle(s,event,sequence):
-    if event.event_id!=0x202 or event.kind not in (0x276,0x285,0x288):return None
+    if event.event_id!=0x202 or event.kind not in (0x276,0x285,0x288,0x6c8):return None
     reply_guard=reply_capture(s)
     if reply_guard is None:return []
     try:
@@ -61,26 +90,36 @@ def handle(s,event,sequence):
         def guard():
             if any(facts(p)!=v for p,v in captured.items()):
                 raise ValueError('Guild actor/source/mailbox changed during transaction')
+            for p in captured:
+                if getattr(p,'guild_agit',None)is not None:
+                    from els_server.domain.guild_agit_flow import bank_capture
+                    bank_capture(p)[1](db)
         operation=s.shop_session_id+':guild:'+str(s.account.uid)+':'+str(sequence)
         path=s.account.store.path
         with closing(sqlite3.connect(path,timeout=10)) as db:
             try:
                 db.execute('PRAGMA foreign_keys=ON')
                 db.execute('BEGIN IMMEDIATE');guard();now=int(time.time())
-                if event.kind==0x276:
+                if event.kind==0x6c8:
+                    answer=state.decline(db,s.account.uid,s.account.account_id,s.shop_session_id,event.payload,operation,now,guard)
+                elif event.kind==0x276:
                     item_uid,name,message=request.create_request(event.payload)
+                    import struct as _struct
+                    resolved=_license_fallback(s,item_uid) or item_uid
+                    payload=(event.payload if resolved==item_uid
+                             else _struct.pack('>Q',resolved)+event.payload[8:])
                     def encode(saved,changes,repeat):
-                        p=profile(saved)
+                        p=profile(saved,db=db)
                         return (wire.create_ack(p['basic'],changes),wire.full_notification(p))
-                    answer=state.create(db,s.account.uid,s.account.account_id,item_uid,name,message,
-                        event.payload,operation,now,encode=encode,guard=guard)
+                    answer=state.create(db,s.account.uid,s.account.account_id,resolved,name,message,
+                        payload,operation,now,encode=encode,guard=guard)
                 elif event.kind==0x285:
                     name,uid=request.invite_request(event.payload);peer=_peer(s,uid=uid,name=name)
                     captured[peer]=facts(peer)
                     def encode(saved,inviter,target):
                         nonlocal boxes
                         answer=(wire.invite_ack(peer.account.character_identity()['name']),)
-                        deliveries=[(peer,[wire.invitation(profile(saved)['basic'],inviter,'')])]
+                        deliveries=[(peer,[wire.invitation(profile(saved,db=db)['basic'],inviter,saved['system']['rules'])])]
                         boxes=_prepared_boxes(deliveries,answer)
                         return answer
                     answer=state.invite(db,s.account.uid,s.account.account_id,peer.account.uid,
@@ -92,7 +131,7 @@ def handle(s,event,sequence):
                     peer=_peer(s,name=inviter);captured[peer]=facts(peer)
                     def encode(saved,changes,repeat):
                         nonlocal boxes
-                        p=profile(saved)
+                        p=profile(saved,db=db)
                         answer=(wire.accepted_ack(),wire.full_notification(p,joined=True))
                         boxes=_prepared_boxes([] if repeat else [(peer,[wire.full_notification(p)])],answer)
                         return answer
@@ -104,6 +143,9 @@ def handle(s,event,sequence):
                 db.rollback();raise
         # No await/worker handoff between final fences, commit and assignment.
         for peer,box in boxes.items():peer.mailbox=box
+        if event.kind in(0x276,0x288):
+            for peer in captured:peer._guild_timing=None
         return list(answer)
     except (ValueError,UnicodeError,sqlite3.Error,OverflowError):
+        if event.kind==0x6c8:return []
         return guarded_reply(reply_guard,lambda:[wire.failed(event.kind)])

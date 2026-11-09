@@ -108,7 +108,7 @@ def accepted_source(run,npc):
     except ValueError:return False
     return True
 
-def plans(identity,boss,randbelow):
+def plans(identity,boss,randbelow,*,drop_bp=0):
     identity=context(identity);c=catalog();actor=source(identity)
     if type(boss) is not bool or boss!=actor['boss']:raise ValueError('Source loot Boss identity')
     def draw(cases):
@@ -119,10 +119,15 @@ def plans(identity,boss,randbelow):
             end+=case['ticks']
             if value<end:return case
         return None
-    case=draw(c['rows'][actor['row']]['cases'])
-    if case is None:return []
-    if case['kind']=='group':case=draw(c['groups'][str(case['id'])])
-    if case is None or str(case['id']) not in c['items']:return [] # Preserve blank/unsupported mass; never reroll.
+    if drop_bp:
+        from els_server.domain.elixir_economy import source_case
+        case=source_case(c['rows'][actor['row']]['cases'],c['groups'],c['items'],c['scale'],randbelow,drop_bp)
+        if case is None:return []
+    else:
+     case=draw(c['rows'][actor['row']]['cases'])
+     if case is None:return []
+     if case['kind']=='group':case=draw(c['groups'][str(case['id'])])
+     if case is None or str(case['id']) not in c['items']:return [] # Preserve blank/unsupported mass; never reroll.
     t=case['id']
     return [dict(template=t,quantity=1,option_groups={},instance_descriptor=c['items'][str(t)])]
 

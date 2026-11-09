@@ -84,4 +84,4 @@ def account_dungeon_allowed(account,identity):
         identity=(34120+internal['phase']*10) if internal['challenge']==4 else (34540+internal['phase']*10)
     if not region_catalog().dungeon_allowed(identity,character,completed):return False
     from els_server.domain.dungeon_rotation import tower_encounter,selected
-    return not tower_encounter(identity) or selected(identity)
+    return not tower_encounter(identity) or selected(identity,account)

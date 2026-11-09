@@ -9,6 +9,9 @@ class AccountGateway:
         self.config=config;self.windows=OrderedDict();self.application=application
         self.recovery_flights={};self.recovery_closing=False;self.recovery_stop=threading.Event()
         self.recovery_generations=weakref.WeakKeyDictionary()
+        # A preparation ticket pins its captured root through backup and the
+        # queued/started writer, even after its socket caller is cancelled.
+        self.recovery_pins=weakref.WeakKeyDictionary()
 
     def allow(self,host,operation):
         now=time.monotonic();key=(host,operation)
@@ -41,6 +44,38 @@ class AccountGateway:
         except ValueError as error:
             code=str(error)
             if code not in ('invalid_name','invalid_password','name_taken','registration_full','bad_credentials'):code='invalid_request'
+            return dict(ok=False,error=code)
+
+    def _prepare_credentials(self,document,host):
+        op=document.get('op')
+        if self.recovery_closing:return dict(ok=False,error='rate_limited')
+        if op not in ('register','login') or set(document)!={'op','name','password'}:return dict(ok=False,error='invalid_request')
+        if not self.allow(host,op):return dict(ok=False,error='rate_limited')
+        if op=='register' and not getattr(self.config,'registration_enabled',False):return dict(ok=False,error='registration_closed')
+        return self.application.registry
+
+    def _finish_credentials(self,registry,op,proof):
+        if self.recovery_closing or self.application.registry is not registry:raise ValueError('bad_credentials')
+        if op=='register':
+            if not getattr(self.config,'registration_enabled',False):return dict(ok=False,error='registration_closed')
+            result=registry.finish_registration(proof,getattr(self.config,'max_registered_accounts',64))
+        else:result=registry.finish_password_login(proof)
+        return dict(ok=True,api_version=1,**result)
+
+    async def request(self,document,host):
+        # Only password-derived preparation crosses threads. Rate limits,
+        # config, registry selection and all SQL writes remain on the writer.
+        app=self.application;op=document.get('op')
+        if op not in ('register','login'):return await app.call(self.handle,app.registry,document,host)
+        try:
+            registry=await app.call(self._prepare_credentials,document,host)
+            if isinstance(registry,dict):return registry
+            prepare=registry.prepare_registration if op=='register' else registry.prepare_password_login
+            proof=await app.preparation.run(prepare,document['name'],document['password'])
+            return await app.call(self._finish_credentials,registry,op,proof)
+        except ValueError as error:
+            code=str(error)
+            if code not in ('invalid_name','invalid_password','name_taken','registration_full','bad_credentials','rate_limited'):code='invalid_request'
             return dict(ok=False,error=code)
 
     def begin_close(self):
@@ -78,7 +113,9 @@ class AccountGateway:
         if rate and not self.allow(host,document['op']):raise recovery.RecoveryError('rate_limited')
         identity=self._recovery_identity(document)
         if document['op']=='tutorial_recovery_preview':return recovery.preview(self.config.state_file,identity['id'],document['offset'])
+        root=self.application.accounts.get(identity['id'])
         result=recovery.prepare(self.config.state_file,identity['id'],document['uid'],document['version'],document['operation_id'],self._generation(identity['id']),self.recovery_stop)
+        if not isinstance(result,dict) and root is not None:self.recovery_pins[result]=root
         if isinstance(result,dict):
             from types import SimpleNamespace
             self._refresh_recovery(SimpleNamespace(state_path=self.config.state_file,uid=document['uid'],account_id=identity['id']))

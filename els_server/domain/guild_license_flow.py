@@ -12,11 +12,46 @@ from els_server.storage.reward_state import validate_balances
 WRITER_ENABLED = True
 
 
+def _app(s):
+    """The owning Application under either profile.
+
+    A friends session carries ``application``; a local-profile session is a
+    plain LocalSession that Application attached as ``_aux_local_application``.
+    """
+    app=getattr(s,'application',None)
+    if app is not None:return app
+    return getattr(s,'_aux_local_application',None)
+
+
+def _identity(s):
+    found=getattr(s,'identity',None)
+    if isinstance(found,dict):return found
+    account=getattr(s,'account',None)
+    return dict(id=getattr(account,'account_id',None),name=getattr(account,'account_name','local'))
+
+
+def _mailbox(s):
+    """Guild replies need somewhere to land; a LocalSession owns no mailbox."""
+    box=getattr(s,'mailbox',None)
+    if box is not None:return box
+    from els_server.domain.friends_world import Mailbox
+    box=Mailbox()
+    s.mailbox=box
+    # The periodic slice drains boxes marked this way.
+    s._gm_local_box=True
+    return box
+
+
+def _friends(s):
+    return getattr(s,'application',None) is not None
+
+
 def _selected(s):
-    return bool(getattr(s,'application',None) is not None and current_lease(s)
+    return bool(_app(s) is not None and current_lease(s)
                 and s.role=='game' and 0x28 in s.completed
                 and s.account.characters is not None and s.account.store is not None
                 and s.account.store.uid==s.account.uid)
+
 
 
 class _ActorBinding:
@@ -32,15 +67,17 @@ class _ActorBinding:
 def _actor(s):
     # Reply identity is independent of purchase/task/membership eligibility.
     if not _selected(s):raise ValueError('Guild reply actor is retired')
-    a=s.account;app=s.application;root=a.root;world=app.world
-    if not app.registry.enabled(a.account_id):raise ValueError('Guild account disabled')
+    a=s.account;app=_app(s);root=a.root;world=app.world
+    registry=getattr(app,'registry',None);identity=_identity(s)
+    # Local mode authenticates nobody, so there is no registry to consult.
+    if registry is not None and not registry.enabled(a.account_id):raise ValueError('Guild account disabled')
     if root.root is not root or root.characters is not a.characters or root.account_id!=a.account_id:
         raise ValueError('Guild original root/character registry')
     room=world.dungeons.room(s)
     town_key=world.members.get(s);town_room=world.towns.get(town_key)
     refs=(s,a,a.store,a.characters,root,root.character_accounts,root.characters,
-          getattr(root,'store',None),app,app.config,app.accounts,
-          app.playing,s.identity,app.registry,world,world.dungeons,room,
+          getattr(root,'store',None),app,app.config,getattr(app,'accounts',None),
+          app.playing,getattr(s,'identity',None),registry,world,world.dungeons,room,
           world.members,world.towns,town_room,
           None if town_room is None else town_room.get(s),s.dungeon_run)
     values=(a.account_id,a.uid,a.store.uid,a.characters.account_id,root.account_id,
@@ -48,8 +85,9 @@ def _actor(s):
             s.active_map,s.pending_map,s.enter_town,s.dungeon_return_pending,
             s.dungeon_id,getattr(s,'released',False),frozenset(s.completed),town_key,
             str(Path(a.store.path).resolve()),str(Path(a.characters.path).resolve()),
-            str(Path(app.config.state_file).resolve()),str(Path(app.registry.path).resolve()),
-            json.dumps(s.identity,sort_keys=True),json.dumps(a.get_location(),sort_keys=True))
+            str(Path(app.config.state_file).resolve()),
+            '' if registry is None else str(Path(registry.path).resolve()),
+            json.dumps(identity,sort_keys=True),json.dumps(a.get_location(),sort_keys=True))
     return _ActorBinding(refs,values)
 
 
@@ -76,15 +114,21 @@ def _facts(s):
     from els_server.storage.local_state import TOWN_SCENES
     if not _selected(s) or s.phase!='town_ready':
         raise ValueError('Guild license requires current selected town session')
+    app=_app(s)
     location=s.account.get_location()
     town=location['map']
     if town not in range(20000,20014) or town not in TOWN_SCENES or s.active_map!=town:
         raise ValueError('Guild license original town source')
+    # The town roster is written by FriendsSession.handle alone, so a local
+    # session never enters world.members. Treat that half of the arrival proof
+    # as friends-only: phase, active map, the pending map and the empty dungeon
+    # room already pin the same stable town source for a local player.
+    roster=_friends(s) and (app.world.members.get(s)!=(1,town)
+        or s not in app.world.towns.get((1,town),{}))
     if (not s.enter_town or s.dungeon_return_pending or s.pending_map!=town
             or not {0x225,0x227}.issubset(s.completed)
-            or s.application.world.dungeons.room(s) is not None
-            or s.application.world.members.get(s)!=(1,town)
-            or s not in s.application.world.towns.get((1,town),{})):
+            or app.world.dungeons.room(s) is not None
+            or roster):
         raise ValueError('Guild requires completed stable original town arrival')
     return (_actor(s),TOWN_SCENES[town])
 
