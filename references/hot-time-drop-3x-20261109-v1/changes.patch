@@ -1,0 +1,178 @@
+--- a/els_server/data/hot_time.json
++++ b/els_server/data/hot_time.json
+@@ -2,5 +2,6 @@
+   "schema_version": 1,
+   "unlimited_fatigue": true,
+   "ordinary_multiplier": 2,
+-  "resonance_icon": true
++  "resonance_icon": true,
++  "drop_multiplier": 3
+ }
+--- a/els_server/domain/elixir_economy.py
++++ b/els_server/domain/elixir_economy.py
+@@ -2,6 +2,10 @@
+ import functools,hashlib,json,math
+ from fractions import Fraction
+ from pathlib import Path
++from els_server.domain.hot_time import MAX_DROP_MULTIPLIER
++
++# The activity adds to the existing personal drop-rate bonus.
++MAX_DROP_BASIS_POINTS = 20100 + (MAX_DROP_MULTIPLIER - 1) * 10000
+ 
+ PAYLOAD_SHA='cc20d66d0262e937a947e9068e80fd54ebfb17e86ae9530058da6c3978325e2e'
+ TEMPLATES=(190401,310775,310776,722760,722761)
+@@ -45,7 +49,7 @@
+     return value
+ 
+ def hit(numerator,denominator,randbelow,basis_points=0):
+-    if type(numerator)is not int or type(denominator)is not int or not 0<=numerator<=denominator or type(basis_points)is not int or not 0<=basis_points<=20100:raise ValueError('Elixir probability source')
++    if type(numerator)is not int or type(denominator)is not int or not 0<=numerator<=denominator or type(basis_points)is not int or not 0<=basis_points<=MAX_DROP_BASIS_POINTS:raise ValueError('Elixir probability source')
+     if not basis_points:return draw(denominator,randbelow)<numerator
+     return draw(denominator*10000,randbelow)<min(denominator*10000,numerator*(10000+basis_points))
+ 
+@@ -56,7 +60,7 @@
+     its original parent probability times its original child probability.
+     No unsupported leaf, repeated grant or extra item is introduced.
+     """
+-    if type(basis_points)is not int or not 1<=basis_points<=20100:raise ValueError('Source bonus percentage')
++    if type(basis_points)is not int or not 1<=basis_points<=MAX_DROP_BASIS_POINTS:raise ValueError('Source bonus percentage')
+     leaves=[]
+     for case in cases:
+         weight=Fraction(case['ticks'],scale)
+--- a/els_server/domain/formal_pve_economy.py
++++ b/els_server/domain/formal_pve_economy.py
+@@ -93,6 +93,7 @@
+  f32=lambda v:struct.unpack('<f',struct.pack('<f',v))[0]
+  return min(2**31-1,int(f32(f32(total)*f32(0.3))))
+ def clear_items(identity,run_id,owner,character,group=False,*,drop_bp=0):
++ from els_server.domain.elixir_economy import MAX_DROP_BASIS_POINTS, hit
+  from els_server.domain.reward_rules import item_plan
+  from els_server.game_data import client_data
+  d=definition(identity)
+@@ -100,9 +101,9 @@
+  p=policy();family=client_data().unit(character['unit_class'])['unitType']
+  pool=sorted({t for values in d['current_display_pool'].values()for t in values if p['items'][str(t)]['wear_family']in(0,family)})
+  seed=uuid.UUID(run_id).bytes+f':{identity}:{owner}:ordinary-clear-v1'.encode();digest=hashlib.sha256(seed).digest()
+- if type(drop_bp)is not int or not 0<=drop_bp<=15000:raise ValueError('Ordinary clear drop bonus')
+- scale=100000000 if drop_bp else 10000;threshold=min(scale,p['local']['current_boss_display_completion_bp']*(10000+drop_bp))if drop_bp else p['local']['current_boss_display_completion_bp']
+- if not pool or int.from_bytes(digest[:16],'big')%scale>=threshold:return []
++ if type(drop_bp)is not int or not 0<=drop_bp<=MAX_DROP_BASIS_POINTS:raise ValueError('Ordinary clear drop bonus')
++ if not pool or not hit(p['local']['current_boss_display_completion_bp'],10000,
++                        lambda size: int.from_bytes(digest[:16],'big')%size,drop_bp):return []
+  selected=pool[int.from_bytes(digest[16:],'big')%len(pool)]
+  if group and identity in (140010,140020,140030) and selected==295762:
+   selected=30600
+--- a/els_server/domain/hot_time.py
++++ b/els_server/domain/hot_time.py
+@@ -6,17 +6,25 @@
+ import functools,json
+ from pathlib import Path
+ 
++MAX_DROP_MULTIPLIER = 3
++
+ @functools.lru_cache(maxsize=1)
+ def policy():
+     value=json.loads((Path(__file__).resolve().parents[1]/'data/hot_time.json').read_bytes())
+-    if (set(value)!={'schema_version','unlimited_fatigue','ordinary_multiplier','resonance_icon'}
++    value.setdefault('drop_multiplier', 1)
++    if (set(value)!={'schema_version','unlimited_fatigue','ordinary_multiplier','resonance_icon','drop_multiplier'}
+         or value['schema_version']!=1 or type(value['unlimited_fatigue'])is not bool
+         or type(value['ordinary_multiplier'])is not int or not 1<=value['ordinary_multiplier']<=100
+-        or type(value['resonance_icon'])is not bool):raise ValueError('Hot Time policy')
++        or type(value['resonance_icon'])is not bool
++        or type(value['drop_multiplier']) is not int
++        or not 1 <= value['drop_multiplier'] <= MAX_DROP_MULTIPLIER):raise ValueError('Hot Time policy')
+     return value
+ 
+ def unlimited_fatigue():return policy()['unlimited_fatigue']
+ def ordinary_multiplier():return policy()['ordinary_multiplier']
++
++def drop_multiplier():
++    return policy()['drop_multiplier']
+ 
+ def records():
+     from els_server.protocol.access_event_2026 import ActivityRecord
+@@ -33,6 +41,9 @@
+     if ordinary_multiplier()>1:result.append(row(2026110402,3,ordinary_multiplier()-1))
+     if policy()['resonance_icon']and experience_multiplier()>1:
+         result.append(row(2026110403,3,experience_multiplier()-1,True))
++    drop_rate = drop_multiplier()
++    if drop_rate > 1:
++        result.append(row(2026110404, 2, drop_rate - 1))
+     return tuple(result)
+ 
+ def synchronize(session,messages):
+--- a/els_server/domain/native_script_loot.py
++++ b/els_server/domain/native_script_loot.py
+@@ -40,7 +40,8 @@
+ 
+ def plans(identity,boss,randbelow,*,drop_bp=0):
+     context(identity)
+-    if boss is not False or type(drop_bp) is not int or not 0<=drop_bp<=15000:raise ValueError('Script reward draw identity')
++    from els_server.domain.elixir_economy import MAX_DROP_BASIS_POINTS
++    if boss is not False or type(drop_bp) is not int or not 0<=drop_bp<=MAX_DROP_BASIS_POINTS:raise ValueError('Script reward draw identity')
+     from els_server.domain.formal_pve_economy import policy
+     scale=100000000;threshold=min(scale,policy()['local']['current_boss_display_completion_bp']*(10000+drop_bp))
+     draw=randbelow(scale)
+--- a/els_server/domain/pve_economy_flow.py
++++ b/els_server/domain/pve_economy_flow.py
+@@ -230,21 +230,26 @@
+     from els_server.storage.elixir_economy import bonus as elixir_bonus
+     bonus_context=dict(owner=s.account.uid,dungeon=mid,run_id=s.reward_run_id,graph_sha256=rules.definition(mid)['graph_sha256'])
+     previous=bool(db.execute('SELECT 1 FROM reward_receipts WHERE run_id=?',(s.reward_run_id,)).fetchone())
+-    drop_bp=elixir_bonus(db,s.account.uid,mid,'drop','elixir-clear:'+s.reward_run_id,bonus_context,already_issued=previous)
+-    plan=rules.clear_items(mid,s.reward_run_id,s.account.uid,before,group=room is not None,drop_bp=drop_bp)
+     from els_server.domain.cooking_clear_materials import clear_plan as cooking_plan,POLICY as COOKING_POLICY
+-    ingredients,cooking_source=cooking_plan(db,mid,s.reward_run_id,s.account.uid,previous)
+-    plan+=ingredients
+-    # Compatible recovery closes only new Aurora ticket production. A run with
+-    # a committed original receipt still derives its exact saved source plan.
+-    if mid in (34510,34520) and not previous:
+-     from els_server.domain.aurora_ticket_rules import enabled as aurora_enabled
+-     if not aurora_enabled():plan=[row for row in plan if row['template']!=711786]
++    if previous:
++     # A committed clear reuses its source plan, including a miss, across
++     # activity changes. The source and reward writers still check identity.
++     source_table=db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='raid_reward_sources'").fetchone()
++     saved=db.execute('SELECT source_json,plan_json FROM raid_reward_sources WHERE operation_id=?',(s.reward_run_id,)).fetchone()if source_table else None
++     plan=json.loads(saved[1]) if saved is not None else []
++     cooking_source=json.loads(saved[0]).get('cooking_materials') if saved is not None else None
++    else:
++     drop_bp=elixir_bonus(db,s.account.uid,mid,'drop','elixir-clear:'+s.reward_run_id,bonus_context)
++     plan=rules.clear_items(mid,s.reward_run_id,s.account.uid,before,group=room is not None,drop_bp=drop_bp)
++     ingredients,cooking_source=cooking_plan(db,mid,s.reward_run_id,s.account.uid,False)
++     plan+=ingredients
++     if mid in (34510,34520):
++      from els_server.domain.aurora_ticket_rules import enabled as aurora_enabled
++      if not aurora_enabled():plan=[row for row in plan if row['template']!=711786]
++     # Preserve the guaranteed solo fragments independently of the draw.
++     from els_server.domain.dungeon_equipment_loot_rules import MAPS as equipment_maps,catalog as equipment_policy,inventory_plan
++     if room is None and mid in equipment_maps:plan.append(inventory_plan(118445,equipment_policy()['values']['fragment_on_validated_clear']))
+     experience=rules.clear_bonus(run_total(db,s.account.uid,s.reward_run_id,clear_basis=True))
+-    # These two ordinary original maps already had a guaranteed solo fragment
+-    # clear branch. Preserve that independent reward through the new writer.
+-    from els_server.domain.dungeon_equipment_loot_rules import MAPS as equipment_maps,catalog as equipment_policy,inventory_plan
+-    if room is None and mid in equipment_maps:plan.append(inventory_plan(118445,equipment_policy()['values']['fragment_on_validated_clear']))
+     source=dict(policy_sha256=rules.policy()['_sha256'],reward_source='local-full-native-clear-current-display-pool',dungeon=mid,run=s.reward_run_id,owner=s.account.uid,graph_sha256=rules.definition(mid)['graph_sha256'],native_final_stage=s.dungeon_run.stage if s.dungeon_run is not None else 2,committed_original_boss_source=boss_proof,roster=sorted(m.account.uid for m in members))
+     if cooking_source:source['cooking_materials']=COOKING_POLICY
+     if any(x['template']in(135911,136174)for x in plan):source['group_clear']=room is not None
+--- a/els_server/storage/elixir_economy.py
++++ b/els_server/storage/elixir_economy.py
+@@ -1,6 +1,6 @@
+ """Freeze a current owned effect snapshot inside the original reward writer."""
+ import hashlib,json,time
+-from els_server.domain.elixir_economy import effects
++from els_server.domain.elixir_economy import effects, eligible
+ 
+ TABLE='elixir_economy_facts'
+ SQL='CREATE TABLE elixir_economy_facts(operation TEXT PRIMARY KEY,owner INTEGER NOT NULL REFERENCES characters(uid),dungeon INTEGER NOT NULL,kind TEXT NOT NULL,context_sha256 TEXT NOT NULL,basis_points INTEGER NOT NULL,settled_at INTEGER NOT NULL,effects_json TEXT NOT NULL)'
+@@ -66,4 +66,8 @@
+     collection=drop_bonus(db,owner,identity,operation,context,already_issued=already_issued or old_title or old_guild or old or old_medal,now=now)if kind=='drop'else 0
+     guild=guild_bonus(db,owner,identity,kind,operation,context,already_issued=already_issued or old_title or old or old_medal or old_collection,now=now)
+     title=title_bonus(db,owner,identity,operation,context,already_issued=already_issued or old_guild or old or old_medal or old_collection,now=now)if kind=='drop'else 0
+-    return medal+elixir+collection+guild+title
++    total = medal + elixir + collection + guild + title
++    if kind == 'drop' and not already_issued and eligible(identity):
++        from els_server.domain.hot_time import drop_multiplier
++        total += (drop_multiplier() - 1) * 10000
++    return total
