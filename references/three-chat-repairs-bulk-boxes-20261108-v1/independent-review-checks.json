@@ -1,0 +1,437 @@
+{
+  "ok": true,
+  "checks": {
+    "leaves": 46,
+    "changed_leaves": 45,
+    "finite_reward_data": {
+      "boxes": 344,
+      "outputs": 6230,
+      "branches": 853,
+      "frozen_136186_absent": true,
+      "current_ticket_136055_not_reopened": true,
+      "source_key_collision": false
+    },
+    "all_output_reader_tuples_match_runtime": 6230,
+    "new_acquisition_templates_require_exact_source": 484,
+    "unambiguous_actual_class_key_side_combinations": 21565,
+    "compatibility_artifacts_match": 56,
+    "native_key_aliases_match_server": {
+      "boxes": 12,
+      "aliases": 16
+    },
+    "static_direct_callsites": {
+      "els_server.storage.consumables.use": [
+        {
+          "path": "els_server/domain/consumable_flow.py",
+          "line": 17
+        }
+      ],
+      "els_server.domain.acquisition_policy.can_acquire": [
+        {
+          "path": "els_server/domain/fashion_bundles.py",
+          "line": 105
+        },
+        {
+          "path": "els_server/domain/ice_rules.py",
+          "line": 11
+        },
+        {
+          "path": "els_server/domain/ice_rules.py",
+          "line": 9
+        },
+        {
+          "path": "els_server/domain/ice_rules.py",
+          "line": 15
+        },
+        {
+          "path": "els_server/domain/ice_rules.py",
+          "line": 36
+        },
+        {
+          "path": "els_server/storage/manufacture.py",
+          "line": 90
+        },
+        {
+          "path": "els_server/storage/modern_ice.py",
+          "line": 32
+        },
+        {
+          "path": "els_server/storage/shop_state.py",
+          "line": 42
+        }
+      ],
+      "els_server.storage.fixed_cubes.open_cube": [
+        {
+          "path": "els_server/domain/local_session.py",
+          "line": 2132
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "line": 2135
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "line": 2140
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "line": 2145
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "line": 2152
+        },
+        {
+          "path": "els_server/domain/local_session.py",
+          "line": 2154
+        }
+      ],
+      "els_server.domain.cubes.opening_count": [
+        {
+          "path": "els_server/storage/abyss_weapon_boxes.py",
+          "line": 34
+        },
+        {
+          "path": "els_server/storage/black_market_boxes.py",
+          "line": 37
+        },
+        {
+          "path": "els_server/storage/boosting_2026_accessories.py",
+          "line": 29
+        },
+        {
+          "path": "els_server/storage/boosting_2026_fashion_rewards.py",
+          "line": 33
+        },
+        {
+          "path": "els_server/storage/boosting_2026_force_rewards.py",
+          "line": 36
+        },
+        {
+          "path": "els_server/storage/boosting_2026_nested_capacity.py",
+          "line": 32
+        },
+        {
+          "path": "els_server/storage/boosting_2026_participation_gear.py",
+          "line": 37
+        },
+        {
+          "path": "els_server/storage/boosting_2026_title_rewards.py",
+          "line": 29
+        },
+        {
+          "path": "els_server/storage/fixed_cubes.py",
+          "line": 132
+        },
+        {
+          "path": "els_server/storage/ice_state.py",
+          "line": 62
+        },
+        {
+          "path": "els_server/storage/modern_ice.py",
+          "line": 183
+        },
+        {
+          "path": "els_server/storage/potion_choice_box.py",
+          "line": 48
+        },
+        {
+          "path": "els_server/storage/published_2026_bundles.py",
+          "line": 40
+        },
+        {
+          "path": "els_server/storage/raid_reward_actions.py",
+          "line": 57
+        },
+        {
+          "path": "els_server/storage/teacher_elixir_boxes.py",
+          "line": 48
+        }
+      ]
+    }
+  },
+  "source_pins": [
+    {
+      "path": "els_server/data/owned_armor_equipment.json",
+      "parent_sha256": null,
+      "sha256": "a14aa5c06262467ab2a5e6b88f7abc257bac01506657fc25b43e1a7a4ba6963b",
+      "size": 341850
+    },
+    {
+      "path": "els_server/data/retained_box_openings.json",
+      "parent_sha256": null,
+      "sha256": "b83f1a75b31270ce3e79f946b8ea0a6a8bf21e814e91024d00333e66cb62837a",
+      "size": 9113810
+    },
+    {
+      "path": "els_server/data/special_task_readers.json",
+      "parent_sha256": "bd2f99a8cf340276b93963336e07d20c24e381a92e0cbed95baac317ad52f95f",
+      "sha256": "bd2f99a8cf340276b93963336e07d20c24e381a92e0cbed95baac317ad52f95f",
+      "size": 2216
+    },
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "f6508a7b5f52d4bc2d8d355237a4121c6406203ef2d2398ab9e77eb836464afb",
+      "sha256": "a46b2f3c4a49bb9b9ffb9541755dce98e73b27e94db85feb9251fe2ba0ad577f",
+      "size": 16884
+    },
+    {
+      "path": "els_server/domain/apple_consumables.py",
+      "parent_sha256": "a0bd8246ce290216f7633e89fa8ca16fa5038ba9d8479a85e736f40fec6bfa2a",
+      "sha256": "73edeccbc5099509070c2da7379fc09ae5872d92c52cff3f298594aab8f0201e",
+      "size": 10037
+    },
+    {
+      "path": "els_server/domain/consumable_flow.py",
+      "parent_sha256": "40ae9b634a5348601550ca8c1056e9faccb254fc6a290ef56492c85187dcd3b8",
+      "sha256": "d34818fcc8116eb6ccd1ca3a4f7987f5ac20e437855406775c3e75dc0d244d58",
+      "size": 1514
+    },
+    {
+      "path": "els_server/domain/consumables.py",
+      "parent_sha256": "485279106612d43bb600008556b68961877e220df5b31d9adfdf3ef0221f9189",
+      "sha256": "1c20fd8c32b38c70597f8c5092a641cf8f675afd25a8f58d942dafd10f811def",
+      "size": 10311
+    },
+    {
+      "path": "els_server/domain/cubes.py",
+      "parent_sha256": "6b2ad43e1bdc9ac450ec7765c3fedafda40f0df9a13c19c022668e795e3a5485",
+      "sha256": "f323f59d9a26bdfaa64a7228806ba00a3a3ea8ea42c0a225d1021fbf2dc4f7fb",
+      "size": 7600
+    },
+    {
+      "path": "els_server/domain/equipment_durability.py",
+      "parent_sha256": "c65b3672cff63fd98ea72e9ffd29a9782bf30b8b5ce56914b2abdb4763473086",
+      "sha256": "ad9d1e05207205a033efea3afcc89c9015258f24ecb980074c473a8907bbae40",
+      "size": 2737
+    },
+    {
+      "path": "els_server/domain/equipment_eligibility.py",
+      "parent_sha256": "4be59e8dab18eabedf687ff3eb15a4c84c3558991e3007008353ba29b9120428",
+      "sha256": "729879f9b30075156b4d7f9a114b4250ca24a3486a4fa459451544c924e888d0",
+      "size": 7281
+    },
+    {
+      "path": "els_server/domain/equipment_instance.py",
+      "parent_sha256": "fdb108376b17dfcb182b46eea1ecf090e696dbff8b284456e0f9bb746498bbce",
+      "sha256": "b55373dae4154c055d4957c971a7da093db887dc2c405a257eafb9fd24a774ae",
+      "size": 4280
+    },
+    {
+      "path": "els_server/domain/fishing_equipment.py",
+      "parent_sha256": "4323ed2cc114ac5510b1193e17df8bf66fe22601364133b5a9ce780eded1121c",
+      "sha256": "c5261d74205c9278e35ead289667b9491c7cdf1e156f566b4c18966fb2691567",
+      "size": 6419
+    },
+    {
+      "path": "els_server/domain/instance_stats.py",
+      "parent_sha256": "929c8b9f744139c62ddf734b066b07ac32625f4600fb6e7a467b39313524a653",
+      "sha256": "23a1944d9434bd25752da1ed5076a51fd02de297f1a4829cc3329e903e6e2444",
+      "size": 2917
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "ac42df322e52530b26b8ac8bfa0db6d9a5a682be750e945982f7b6019698d395",
+      "sha256": "e85c8a45b9a5e0b313d8083022fb8a177b696578edf60efe0ff72e9b18cda785",
+      "size": 94004
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "31af5ceaebb434f0a11483f1929a874b2bfa9bf97b0fb83a30a5b6f978cd1413",
+      "sha256": "578f88c18e517076beecf8c11ceba6a19012efb3495c143d014bc44fb1d54fdb",
+      "size": 165779
+    },
+    {
+      "path": "els_server/domain/normal_equipment.py",
+      "parent_sha256": "fb1eac805d444b81681c64f30d5b1d4e64c5e40a7851a5292bdff3e27550ccf7",
+      "sha256": "70885d5b47040f65633fc08c403a31fce8c366ef5aa00897e3bafdaea889b09c",
+      "size": 3967
+    },
+    {
+      "path": "els_server/domain/owned_armor_equipment.py",
+      "parent_sha256": null,
+      "sha256": "641f8f51c064fe76a7fcfa435a2919e17d2fb59ed9c3d0c744455ce61de12cbc",
+      "size": 2721
+    },
+    {
+      "path": "els_server/domain/retained_box_openings.py",
+      "parent_sha256": null,
+      "sha256": "02c57d7b2110f3d04cd250005ad98896899fcbdea1daf0bc9fb4e5250da8612e",
+      "size": 7292
+    },
+    {
+      "path": "els_server/protocol/cube_messages.py",
+      "parent_sha256": "110073ad717cc12abd2a566c453f38a0a9f4b5b867def6c73df078dc8e699380",
+      "sha256": "04a6d83ff39f82c0618ed3550a2f5294f4c0d2f89ac1b1d0d72771fc72c993aa",
+      "size": 758
+    },
+    {
+      "path": "els_server/protocol/ice_messages.py",
+      "parent_sha256": "d3faf32230603761453155f3c028a9aea1baf9db824fe9f189a63e43de213333",
+      "sha256": "56b5dd76c7ea2aed3b3e58618e7d3ad97b652ba41e5cce0edb83605cc7b5cde3",
+      "size": 7811
+    },
+    {
+      "path": "els_server/storage/abyss_weapon_boxes.py",
+      "parent_sha256": "a328459514cd623c54c722527ca155bcaf359f60e4a0dbf8f1d39cd8d4d4e348",
+      "sha256": "250fea502dbb621ec148cf11c94a984bc797a952b7886697816e7a2526f191f1",
+      "size": 4728
+    },
+    {
+      "path": "els_server/storage/black_market_boxes.py",
+      "parent_sha256": "d0ad0753173d91a0eb8addd9f8b605a3607be61cd992a5435e327753fc2dbfce",
+      "sha256": "92750b5666b0eb058c3d4446b2499aae1041aadb095bf04efd0f6ecbc67b8ba3",
+      "size": 3774
+    },
+    {
+      "path": "els_server/storage/boosting_2026_accessories.py",
+      "parent_sha256": "637fe48261fdbc0c0d5f6cd7b2331ec3feafd903055471f323ed44b3b6fe2e8a",
+      "sha256": "e3e6253b7ebaf058fe41cab8ed0eb230eae78dc91da9fde1c30983d3bad5d213",
+      "size": 3570
+    },
+    {
+      "path": "els_server/storage/boosting_2026_fashion_rewards.py",
+      "parent_sha256": "68849447e60ebe51bc70e06ae438cd5b06169bd4c280c03091affebce7710f0a",
+      "sha256": "6fed0c1c8de561bdc1021a78e3454744651049376591d8889684d247c15104c5",
+      "size": 4104
+    },
+    {
+      "path": "els_server/storage/boosting_2026_force_rewards.py",
+      "parent_sha256": "49be34b40e50de789c735784d8be38aceae19266ff048b41d3c65afb33af5bed",
+      "sha256": "e8d72e5672bf00af5d30e7711206a2bf2ba3ed5283c5edbb330d3addd8d89530",
+      "size": 3785
+    },
+    {
+      "path": "els_server/storage/boosting_2026_gear_scroll_policy.py",
+      "parent_sha256": "910b2729c0d9fee0e1a680f71d9d6bf44f343c369c17aba9207e3fb7db688a63",
+      "sha256": "796844368a314244b80c3a703f517b6d80fe5661862e88cdb55954d3c173ede9",
+      "size": 9592
+    },
+    {
+      "path": "els_server/storage/boosting_2026_nested_capacity.py",
+      "parent_sha256": "1d0817f075e7f08ce3f96f2dc870356599953ffd25bf3e710477a147e055d664",
+      "sha256": "1251fe22acdfc57a4e1a9b84a61a1d6cd54a5d2b8a5058c7c11a82a95577c46f",
+      "size": 6829
+    },
+    {
+      "path": "els_server/storage/boosting_2026_participation_gear.py",
+      "parent_sha256": "63a17133c91351d22e2afd250937465947cedc44adb421a041deb6a09635e337",
+      "sha256": "e174a84dc067d13a940be84e90c49d4d12e9475f34dee89002c8a88bb5e6df55",
+      "size": 4831
+    },
+    {
+      "path": "els_server/storage/boosting_2026_title_rewards.py",
+      "parent_sha256": "51305065e7241dd8b37dad6ab4b3c704bfb836080c2d6e7534431442d6488047",
+      "sha256": "61e784d34a285e529bfaf470d06dec3d3322e77233e4866af7df87645b3eaae3",
+      "size": 3764
+    },
+    {
+      "path": "els_server/storage/consumables.py",
+      "parent_sha256": "addb4e474df81b937b39e5b1deb42d8b62ad530aad62f9e54a2d85790d39cbae",
+      "sha256": "87824cd68d1d005dc5d4e4d0b56d8f24fbe2cd5735a0253de70c2909f86d110d",
+      "size": 9807
+    },
+    {
+      "path": "els_server/storage/fixed_cubes.py",
+      "parent_sha256": "3a15f5cba9db9a21a21913e639358e7aa4961a302f5c5acf465efdaf382dd194",
+      "sha256": "6a4e4b8db1c334a73f454a12ae0b39f9254198698dd62e853389b28850762b77",
+      "size": 20534
+    },
+    {
+      "path": "els_server/storage/ice_state.py",
+      "parent_sha256": "24bcbbc73f2da5467915eb08802a57f08e9766ff0c6f8eceabe5fe49f5b4f9ec",
+      "sha256": "b8a9a2d3fe6181cfc8686c1e86fac1a0f5e254069fd5aa70970f095ae8edff06",
+      "size": 9369
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "e6fb2437dde663775f28792b8131dcef3f4a4cacbb4aa63fdc4a6a8553a6901c",
+      "sha256": "6ddb8704bfe21ccc635aa2daad58922a4362558072b8e44dc1c42171fe9c80a4",
+      "size": 33608
+    },
+    {
+      "path": "els_server/storage/modern_ice.py",
+      "parent_sha256": "6477abd71d4b6018df25ee8fb2b35703b2285fcbec2d732bdce2f65be163dd87",
+      "sha256": "b71559d56c8785aea110d1bb84b3189ae8116ab5403cab16494925e8d57e0650",
+      "size": 14527
+    },
+    {
+      "path": "els_server/storage/potion_choice_box.py",
+      "parent_sha256": "fbb00878efa726b4236deb961e9005cb44ba8d04f2f782b223c9585239ccf6c0",
+      "sha256": "10603651e45664d08eb8a95a641b8313ace23f09844a573a66b384d20e5da7df",
+      "size": 5174
+    },
+    {
+      "path": "els_server/storage/published_2026_bundles.py",
+      "parent_sha256": "4b589053e008b19480eb64bbc760b996778da5669103b3ebd2ef03cc185bffa5",
+      "sha256": "c97ee0d45c6873f6a23b62a651d70cc1c0e202b33e2a340669db21203872beb3",
+      "size": 4323
+    },
+    {
+      "path": "els_server/storage/raid_reward_actions.py",
+      "parent_sha256": "5f8f8ed85864fad2ba7ce8bd5b23bd5afe967c9f78db0df7f3bf839713addcf7",
+      "sha256": "08d1440feca9daf891481b247c0199d100e96cb6ece3197ee2526214e94109fa",
+      "size": 10233
+    },
+    {
+      "path": "els_server/storage/teacher_elixir_boxes.py",
+      "parent_sha256": "075dd019fe42a9fee026757c9b19d9a6a6a4789c1ba312bc7ab13ab7ab6dca91",
+      "sha256": "21cdc874957ac00a6e0186c6a3cbe4bf2c93529e2f125c8c7000488f1b85925d",
+      "size": 4934
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "be3a5ec2fa7ac3cda93cc3ec762eb89128464f1eb8a6e6f26d21570c6cf00fa3",
+      "sha256": "025e1ae764c0e012e7343b812d94dba097ace3cadda52621f9223182c7a4bab7",
+      "size": 23747
+    },
+    {
+      "path": "tools/launch_client.py",
+      "parent_sha256": "022d5d7f3e261a5b62dd5e8e1858be6d621a839f6785c3decd8304fc3e025be0",
+      "sha256": "635cd3130e5aed2ab29712738366171a0a4403487c4b519d273c71a53a258b43",
+      "size": 9833
+    },
+    {
+      "path": "tools/native_hit_count_obstacles.js",
+      "parent_sha256": "6fef8c0d299b3b2174fefda2abfd047a0b42fb9fcdd8926d965935d3baec0ba2",
+      "sha256": "3d85d0baff6ec31918b2ecc809244242e6de676c76e090ee2a0c1db96f60b721",
+      "size": 2979
+    },
+    {
+      "path": "tools/native_hit_count_obstacles.py",
+      "parent_sha256": "2f4563a878d82cacb6abe1ed4304e0f6ab0794e5e397fbff6e8b1a225aec4abb",
+      "sha256": "683b62da55725c99f6496bb5a62d65c341f480f82e62d4a7ea82238ad249bed5",
+      "size": 574
+    },
+    {
+      "path": "tools/owned_box_key_aliases.js",
+      "parent_sha256": null,
+      "sha256": "5d35fd562245c99987dfc7155c2dfe13ccd13dadd726fecd1cde4c18f29dce26",
+      "size": 4557
+    },
+    {
+      "path": "tools/owned_box_key_aliases.json",
+      "parent_sha256": null,
+      "sha256": "c7f8314bba652fdd11027c3aae4bd7fb343f5011f49c69a16a2278684c831c67",
+      "size": 2364
+    },
+    {
+      "path": "tools/owned_box_key_aliases.py",
+      "parent_sha256": null,
+      "sha256": "cedfb6e11d7f9dccc62597759fb3b1e9e46a7cf8b9567a55518d1c561cf6df6a",
+      "size": 845
+    },
+    {
+      "path": "tools/probe_updated_client.py",
+      "parent_sha256": "8457f485d00fecd24c07ea80bad05d3cac89a129312a7387f467c1346c864e5f",
+      "sha256": "7f2bed3371f96506d243bc7fd4f9d1f201ce77b867dd1d3c2ef974f4f07a55f7",
+      "size": 29389
+    }
+  ],
+  "candidate_manifest_sha256": "0eccf21fe7f878c4734fefcff739a287eaf623984fe454cacbb8b11434dcc2c1",
+  "parent_manifest_sha256": "65dcd49d69011c32980c86b0a5c217dd380287b3453fcb3a44ad0b13cb29ff49",
+  "player_save_access": false,
+  "network": false,
+  "game_process_access": false,
+  "source_writes": false
+}
