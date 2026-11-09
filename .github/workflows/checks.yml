@@ -27,6 +27,9 @@ jobs:
       - run: python -B references/hp-input-refresh-v124-20261109-v1/verify.py
       - run: python -B references/scene-retirement-sources-v124-20261109-v1/verify.py
       - run: python -B references/my-buff-exit-cleanup-v125-20261109-v1/verify.py
+      - run: python -B references/luciel-wardrobe-v128-20261109-v1/verify.py
+      - run: python -B references/three-session-startup-v127-20261109-v1/verify.py
+      - run: python -B references/abyss-purification-notice-v126-20261109-v1/verify.py
       - run: python -B refs/online-clock-background-20261108-v1/verify.py
       - run: python -B refs/town-metadata-peer-20261108-v1/verify.py
       - run: python -B refs/server-send-delivery-v106-integration-20261108-v1/verify.py

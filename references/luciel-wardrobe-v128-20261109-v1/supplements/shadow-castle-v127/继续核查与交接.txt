@@ -1,0 +1,39 @@
+17-5 继续核查与指定会话交接
+2026-11-09，Asia/Hong_Kong
+
+本轮结论
+在已经整合的three-session-startup-20261109-v127上，未发现新的已证实通关阻断。不增加猜测性运行补丁。此前缺少的石像鬼蓝灯、两张地图平台常开、NPC原生分类都已在V127清单内；没有再漏一份新的17-5业务文件。
+
+当前整合状态
+本地已安装unified-server-072365ac5063836d-f7311697960e，组件已选725b77954d815626-eec5d567e621。
+安装回执来源：analysis/three-session-startup-integration-20261109-v127/publication/local-installation.json、actual-selection.json、local-selection.json。
+本机所选组件与V127发布快照的dungeon_routes.py、dungeon_flow.py、scene_actor_retirements.py、scene_retirement_sources.py、dungeon_routes.json、npcs.json及三份城堡支持文件逐SHA相同。
+源提交已在PR981，head 9fa4e165b6af1fb0c2877fd9c686842fab71e789，实际PR CI成功，主干审批仍为REVIEW_REQUIRED。来源git-source-submission.json。本轮未提交或合并该PR，不把用户交接授权扩大为主干绕过许可。
+本报告之前“V126仍被选中”的判断保留为20:21历史观察；不能用于描述20:22之后的实际组件选择。
+
+新增相关验证
+命令：
+python -B -X utf8 analysis/shadow-castle-clear-20261109-v1/verify_integrated.py --runtime G:/els/releases/online/three-session-startup-20261109-v127 --output G:/els/analysis/shadow-castle-clear-20261109-v1/integrated-verification.json
+
+结果：通过。verify_integrated.py为自包含的隔离Application/SQLite测试，不需要导入其他私有analysis测试器。
+1. 中Boss成功分支走10个房间；另一分支走13个房间，均到达最终Boss及正式C1。
+2. 共23次在原条件尚未满足时提交0x471，均正确返回1836；没有放宽清怪或制造控制器退场。
+3. 中Boss本体没有被构造击杀，分别提交原8397/8432控制器的受控报告，原有分支仍正常。
+4. 第一机关场景加载产生43条原生平台通知，绕路场景产生28条。重复B3不重复下发。
+5. 原生255报告的重放仅补AE。最终BB重放无第二次C1，整个自有数据库的逻辑导出散列前后一致。
+6. 最终库存冷读一致。两次独立自有数据库和Application均已收回，没有残留测试服务、账号或存档。
+
+证据复用
+上轮67个机关实例分类纠正、79个普通对象字节不变的结果继续适用：NPC修正函数SHA、npcs.json、dungeon_routes.json与本轮输入一致，未重复跑该静态比较。
+复用原城堡候选的16份蓝灯声明、2份LineMap、两个原客户端起始房间的自动蓝灯/控制器退场证据，以及整合者的19资源单加载入口验证；本轮逐SHA核对应文件输入一致。未重复启动原客户端执行已通过的同一输入。
+本轮没有对当前其他游戏进程附加、读写或控制，也没有执行鼠标、键盘或焦点操作。
+
+验证限制
+正常入场与伤害/AI由受控起始角色和构造协议输入替代；自然完整战斗、逐平台走位和多人实际客户端仍未新验。以上“没有新增已证阻断”仅指本轮所查链路，不宣称全副本无缺陷。没有以模拟控制器报文冒称原客户端自然退场。
+
+交付内容
+新运行文件：0。运行补丁：0。原EXE/KOM改动：0。玩家库/账号库变更：0。
+交接包只含自包含QA脚本、脱敏结果、该报告与交接清单，不含凭据、玩家数据、原始日志或抓包。
+接收会话：排查游戏启动缓慢原因，01a1be2b-1654-75b1-a3a4-616094c3e6fd。
+直接人类授权：“你继续排查这个副本的问题，有问题就修复，没问题就把之前漏的整合起来给这个会话进行安装和提交”。截图标题与会话工具已互相核对。
+接收者沿现有V127安装和PR981流程核收；已安装的相同源码/支持无需重复安装。本轮QA可作为补充源码提交或随现有PR的验证记录整合，主干合并仍按精确head审批。
