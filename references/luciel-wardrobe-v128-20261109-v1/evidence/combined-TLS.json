@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "mode": "candidate",
+  "checks": [
+    "Lu three-piece TLS apply auto-registers and binds all targets",
+    "Only three new registry keys returned; base inventory and all other SQL unchanged",
+    "Exact replay has no extra registration or receipt; cold read preserves appearances",
+    "A new operation on existing hangers changes no source count and returns no unrelated registry keys",
+    "Missing owned target; complete SQL unchanged",
+    "Unregistered source rolls back earlier automatic hanger registration; complete SQL unchanged",
+    "Wrong request position; complete SQL unchanged",
+    "Wrong source part; complete SQL unchanged",
+    "Unregistered dye variant; complete SQL unchanged",
+    "Malformed payload; complete SQL unchanged",
+    "Invalid performers; complete SQL unchanged",
+    "Locked target cannot be newly registered; complete SQL unchanged",
+    "Sealed target; complete SQL unchanged",
+    "Timed target; complete SQL unchanged",
+    "Ciel source cannot apply to Lu target; complete SQL unchanged",
+    "Lu source cannot apply to Ciel target; complete SQL unchanged",
+    "Ciel automatic registration uses minor target; same-actor appearance retained on cold read",
+    "Historical list-format receipts replay with no migration or writes",
+    "Final context validation failure rolls back binding, source, appearance and receipt",
+    "All 13 verified Lu classes accept both wardrobe sides; another family is refused",
+    "Historical cross-side state stays readable; new cross-side apply is refused; complete SQL unchanged",
+    "An existing cross-side target can apply a valid Ciel appearance without migration"
+  ],
+  "parent_release": "725b77954d815626-eec5d567e621",
+  "source_sha256": {
+    "els_server/domain/wardrobe.py": "da97e29a1b999e998ebc53d92ba126b0e18faeb80006f0feccd2159a96de8287",
+    "els_server/storage/wardrobe.py": "d7eaa97c41b5ac214e16040da90f87686276aeca1da05273a09ef2f6ebc0f033"
+  },
+  "private_TLS_Application": true,
+  "private_save_removed": true,
+  "production_writes": false,
+  "natural_GUI": false
+}

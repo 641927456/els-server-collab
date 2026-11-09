@@ -21,6 +21,7 @@ jobs:
           python-version: '3.13'
       - run: python -m pip install -r requirements-server.txt hypothesis==6.170.15
       - run: python -B tools/ci_checks.py
+      - run: python -B references/luciel-wardrobe-v128-20261109-v1/verify.py
       - run: python -B references/three-session-startup-v127-20261109-v1/verify.py
       - run: python -B references/abyss-purification-notice-v126-20261109-v1/verify.py
       - run: python -B refs/online-clock-background-20261108-v1/verify.py

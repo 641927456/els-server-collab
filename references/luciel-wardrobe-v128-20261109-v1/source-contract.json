@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "path": "els_server/domain/wardrobe.py",
+      "parent_sha256": "6cb200759d44f402a1653e7791a74127f2d11e780cefcb47b5a363ff23559131",
+      "sha256": "da97e29a1b999e998ebc53d92ba126b0e18faeb80006f0feccd2159a96de8287",
+      "size": 3861
+    },
+    {
+      "path": "els_server/storage/wardrobe.py",
+      "parent_sha256": "a9c9ee3cf52bdb7933f1e98520ecd99751bda05cb4e423a0a8f970930ff8889d",
+      "sha256": "d7eaa97c41b5ac214e16040da90f87686276aeca1da05273a09ef2f6ebc0f033",
+      "size": 29648
+    }
+  ],
+  "parent_signed_runtime_sha256": "725b77954d81562614eeea7c86a671e6bac226ac0a2bf8f52f994218db983f71",
+  "dependency_PR": 981,
+  "dependency_head": "9fa4e165b6af1fb0c2877fd9c686842fab71e789",
+  "archive_only": true,
+  "new_schema": false,
+  "receipt_format": "New apply uids_json stores {uids,registered}; legacy UID lists remain readable",
+  "recovery": "Retain new receipt reader after new writes; forward repair; never restore player/account DB",
+  "natural_GUI": false
+}
