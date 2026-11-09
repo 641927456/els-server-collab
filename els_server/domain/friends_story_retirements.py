@@ -39,7 +39,7 @@ def _checked(dispatcher,r,s,event):
     paths=set()
     for m in r.members:
         account=m.account
-        if (dispatcher.world.party_of.get(m) is not r.party or m not in dispatcher.world.members
+        if (dispatcher.world.party_of.get(m) is not r.party or m in dispatcher.world.members
                 or getattr(m,'application',None) is None or not current_lease(m)
                 or account.store is None or account.store.uid!=account.uid
                 or not m.reward_test or not m.item_test or m.client_build!='dx11_260923'

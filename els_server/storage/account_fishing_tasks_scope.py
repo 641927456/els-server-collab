@@ -1,8 +1,9 @@
-"""Two account-once followups delegate25600/all prior scopes without migration."""
+"""Canonical account followups; retain the installed fishing table unchanged."""
 import hashlib,json,struct
 from els_server.storage import account_fishing25600_scope as legacy
 QUEST=legacy.QUEST
-IDS=frozenset((25601,25602))
+PET_IDS=frozenset((25610,25611,25612))
+IDS=frozenset((25601,25602))|PET_IDS
 MUTATIONS_ENABLED=True
 exists=legacy.exists
 account=legacy.account
@@ -11,9 +12,13 @@ account=legacy.account
 def scoped(qid):return qid in IDS or legacy.scoped(qid)
 
 
+def _table(qid):
+    return 'account_expedition_bindings' if qid in PET_IDS else 'account_fishing_followup_bindings'
+
+
 def _binding(db,uid,qid):
-    if not exists(db,'account_fishing_followup_bindings'):return None
-    return db.execute('SELECT owner,accepted_action,source_floor FROM account_fishing_followup_bindings WHERE account=? AND quest=?',(account(db,uid),qid)).fetchone()
+    if not exists(db,_table(qid)):return None
+    return db.execute('SELECT owner,accepted_action,source_floor FROM '+_table(qid)+' WHERE account=? AND quest=?',(account(db,uid),qid)).fetchone()
 
 
 def _carriers(db,uid,qid):
@@ -87,13 +92,13 @@ def insert_active(db,uid,qid,now,generation,raw):
     if not MUTATIONS_ENABLED or not db.in_transaction:raise ValueError('Fishing followup accept held')
     _integrity(db,uid,qid)
     if _carriers(db,uid,qid):raise ValueError('Fishing followup already active/completed')
-    table='fishing_attempts'if qid==25601 else'inventory_action_receipts'
+    table='pet_expedition_receipts' if qid in PET_IDS else 'fishing_attempts'if qid==25601 else'inventory_action_receipts'
     floor=db.execute('SELECT COALESCE(MAX(rowid),0) FROM '+table).fetchone()[0]if exists(db,table)else 0
-    db.execute('''CREATE TABLE IF NOT EXISTS account_fishing_followup_bindings(
-       account INTEGER NOT NULL,quest INTEGER NOT NULL CHECK(quest IN(25601,25602)),
+    db.execute('''CREATE TABLE IF NOT EXISTS '''+_table(qid)+'''(
+       account INTEGER NOT NULL,quest INTEGER NOT NULL CHECK(quest IN('''+('25610,25611,25612' if qid in PET_IDS else '25601,25602')+''')), 
        owner INTEGER NOT NULL REFERENCES characters(uid),accepted_action INTEGER NOT NULL,
        source_floor INTEGER NOT NULL CHECK(source_floor>=0),PRIMARY KEY(account,quest))''')
-    db.execute('INSERT INTO account_fishing_followup_bindings VALUES(?,?,?,?,?) ON CONFLICT(account,quest) DO UPDATE SET owner=excluded.owner,accepted_action=excluded.accepted_action,source_floor=excluded.source_floor',(account(db,uid),qid,uid,generation,floor))
+    db.execute('INSERT INTO '+_table(qid)+' VALUES(?,?,?,?,?) ON CONFLICT(account,quest) DO UPDATE SET owner=excluded.owner,accepted_action=excluded.accepted_action,source_floor=excluded.source_floor',(account(db,uid),qid,uid,generation,floor))
     db.execute('INSERT INTO character_quests VALUES(?,?,?,?,?)',(uid,qid,now,generation,raw))
 
 
@@ -126,7 +131,7 @@ def _record(db,uid,expected,qid,operation,source,guard):
     if active is None:return []
     _actor(db,uid,expected,guard)
     if active[1]!=b[1]or source['rowid']<=b[2]:return []
-    sub=25602 if qid==25601 else 25603;limit=10 if qid==25601 else 1
+    sub=150300 if qid in PET_IDS else 25602 if qid==25601 else 25603;limit=10 if qid==25601 else 1
     counts=json.loads(active[2]);value=counts.get(str(sub),0)
     if value>=limit:return []
     event_id='fishing-task:'+str(qid)+':'+operation
@@ -164,3 +169,14 @@ def record_exchange(db,uid,expected,operation,payload,guard):
     row=db.execute('SELECT rowid,owner,kind,request_hash FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()
     if row is None or row[1:]!=(uid,0x223,digest):raise ValueError('Fishing original exchange provenance')
     return _record(db,uid,expected,25602,operation,dict(rowid=row[0],fish=r.source,request_hash=digest),guard)
+
+
+def record_expedition(db,uid,expected,operation,guard):
+    # The completed expedition receipt is inserted by the same SQL writer.
+    row=db.execute("SELECT rowid,owner,account,action,digest FROM pet_expedition_receipts WHERE operation=?",(operation,)).fetchone()
+    if row is None or row[1:4]!=(uid,expected,'complete'):
+        raise ValueError('Original completed expedition receipt required')
+    events=[]
+    for qid in sorted(PET_IDS):
+        events.extend(_record(db,uid,expected,qid,operation,dict(rowid=row[0],digest=row[4]),guard))
+    return events

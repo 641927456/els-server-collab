@@ -27,7 +27,7 @@ def states(db,uids=None):
             rows.extend(db.execute(query+' WHERE uid IN ('+','.join('?' for _ in batch)+')',batch))
     return {r[0]:dict(zip(('uid','account_id','created_at','requested_at','finalize_at','restore_at','cooldown_until','finalized_at'),r)) for r in rows}
 def visible_ids(db,account_id):
-    rows=db.execute('SELECT uid FROM character_owners WHERE account_id=? ORDER BY uid',(account_id,)).fetchall();saved=states(db)
+    rows=db.execute('SELECT uid FROM character_owners WHERE account_id=? ORDER BY uid',(account_id,)).fetchall();saved=states(db,(r[0] for r in rows))
     return tuple(r[0] for r in rows if not saved.get(r[0],{}).get('finalized_at'))
 def check_creation(db,account_id,now):
     # UTC+8 calendar day is explicit; no machine clock or timezone changes.
@@ -59,7 +59,11 @@ def change(path,account_id,uid,operation):
         if operation in ('schedule','finalize'):
             from els_server.domain.cartridge_registration_rules import require_role_unbound
             require_role_unbound(db,uid,account_id)
-        s=states(db).get(uid,dict(created_at=0,requested_at=0,finalize_at=0,restore_at=0,cooldown_until=0,finalized_at=0))
+            from els_server.storage.black_market_state import require_deletion_unlocked
+            require_deletion_unlocked(db,uid)
+            from els_server.storage.trade_board_state import require_deletion_unlocked as require_board_unlocked
+            require_board_unlocked(db,uid)
+        s=states(db,(uid,)).get(uid,dict(created_at=0,requested_at=0,finalize_at=0,restore_at=0,cooldown_until=0,finalized_at=0))
         if s['finalized_at']:
             if operation=='finalize':return dict(uid=uid,operation=operation,until=s['finalized_at'])
             raise LifecycleError('Character already deleted')

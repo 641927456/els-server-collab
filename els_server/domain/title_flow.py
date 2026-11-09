@@ -18,24 +18,34 @@ def restore(s):
     return events
 
 def periodic(s):
-    if not enabled(s) or s.role!='game' or s.phase not in ('town_ready','dungeon_active'):return []
+    if not enabled(s) or s.role!='game' or s.phase not in ('town_ready','guild_agit_ready','dungeon_active'):return []
     observe_kills(s)
     value,events=synchronize(s.account.store.path,s.account.uid);active=(s.account.uid,value['title'])
     owned=(s.account.uid,tuple((r['title'],r['expires_at']) for r in value['owned']))
     missions=mission_key(s.account.uid,value)
     previous=getattr(s,'_title_active',active);previous_owned=getattr(s,'_title_owned',None);previous_missions=getattr(s,'_title_missions',None)
     s._title_active=active;s._title_owned=owned;s._title_missions=missions
+    if previous!=active and s.phase=='guild_agit_ready':
+        from els_server.domain.guild_appearance import observe
+        observe(s)
     return events if previous!=active or previous_owned!=owned or previous_missions!=missions else []
 
 def handle(s,event):
     observe_kills(s)
     if event.event_id!=0x202 or event.kind not in (0xc22,0x213):return None
-    if not enabled(s) or s.role!='game' or s.phase not in ('town_ready','dungeon_active'):
+    if not enabled(s) or s.role!='game' or s.phase not in ('town_ready','guild_agit_ready','dungeon_active'):
         return [wire.equipment(result=-1)] if event.kind==0x213 else [wire.initialization({},-1)]
     try:
         value=wire.request(event.payload)
+        guard=lambda db:None;publications=[]
+        if s.phase=='guild_agit_ready':
+            from els_server.domain.guild_agit_flow import bank_capture
+            _,guard=bank_capture(s)
         if event.kind==0xc22:return restore(s)
-        answer=store.equip(s.account.store.path,s.account.uid,value);s._title_active=(s.account.uid,value)
+        from els_server.domain.guild_appearance import prepare,deliver
+        publish=(lambda db:publications.append(prepare(db,s))) if s.phase=='guild_agit_ready' else None
+        answer=store.equip(s.account.store.path,s.account.uid,value,guard=guard,prepare=publish)
+        deliver(s,publications);s._title_active=(s.account.uid,value)
         return [answer]
     except ValueError:
         return [wire.equipment(result=-1)] if event.kind==0x213 else [wire.initialization({},-1)]

@@ -1,9 +1,10 @@
 """Atomic qualified permanent custom-book registration and owned selection."""
 import hashlib,json,sqlite3,time
 from contextlib import closing
-from els_server.domain.character_custom import catalog,canonical,free_catalog,free_ids,slot_value,selection_type,FACE_UNITS
+from els_server.domain.character_custom import catalog,canonical,free_catalog,free_ids,slot_value,selection_type,template_of,FACE_UNITS,ALL_UNITS
 from els_server.protocol import character_custom_messages as wire
-from els_server.protocol.career_messages import use_request,use_ack
+from els_server.protocol.career_messages import use_ack
+import struct
 from els_server.protocol.protocol_codec import encode_event
 from els_server.storage.character_schema import character_uid
 from els_server.storage.inventory_actions import _identity,_previous,_commit
@@ -13,7 +14,6 @@ OWNED='character_custom_permanent'
 SELECTED='character_custom_permanent_selection'
 SIDE_SELECTED='character_custom_permanent_selection_slots'
 FACE_SELECTED='character_custom_permanent_face_selection'
-POINT_SELECTED='character_custom_secret_pointmark_selection'
 
 def exists(db,name):return bool(db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(name,)).fetchone())
 
@@ -33,7 +33,7 @@ def snapshot(db,owner):
         row=db.execute('SELECT custom_id FROM character_custom_permanent_selection WHERE owner=?',(owner,)).fetchone()
         if row:
             role=db.execute('SELECT unit_type,unit_class FROM characters WHERE uid=?',(owner,)).fetchone()
-            if role is None or role[0]!=1:raise ValueError('Saved custom role identity')
+            if role is None or role[0] not in ALL_UNITS:raise ValueError('Saved custom role identity')
             if row[0] in free_ids(role[1]):selected={1:canonical(row[0])}
             elif row[0] in free_catalog().values():
                 # A later career change may invalidate an ancestor choice.
@@ -46,7 +46,7 @@ def snapshot(db,owner):
         side=db.execute('SELECT slot,custom_id FROM character_custom_permanent_selection_slots WHERE owner=? ORDER BY slot',(owner,)).fetchall()
         if side:
             role=db.execute('SELECT unit_type,unit_class FROM characters WHERE uid=?',(owner,)).fetchone()
-            if role is None or role[0]!=1:raise ValueError('Saved custom role identity')
+            if role is None or role[0] not in ALL_UNITS:raise ValueError('Saved custom role identity')
             for slot,cid in side:
                 if slot==1:raise ValueError('Side selection cannot replace original slot1')
                 value=slot_value(slot,canonical(cid));family=selection_type(slot)
@@ -58,21 +58,28 @@ def snapshot(db,owner):
             value=slot_value(2,canonical(row[0]))
             if value not in owned.get(2,[]):raise ValueError('Saved face selection is not owned')
             selected[2]=value
-    if exists(db,POINT_SELECTED):
-        row=db.execute('SELECT custom_id FROM character_custom_secret_pointmark_selection WHERE owner=?',(owner,)).fetchone()
-        if row:
-            value=slot_value(28,canonical(row[0]))
-            if value not in owned.get(28,[]):raise ValueError('Saved PointMark selection is not owned')
-            selected[28]=value
     return dict(owned=owned,selected=selected)
+
+_SIDE_SPEC=('CREATE TABLE IF NOT EXISTS character_custom_permanent_selection_slots '
+    '(owner INTEGER NOT NULL REFERENCES characters(uid),'
+    'slot INTEGER NOT NULL CHECK(slot IN (3,4,5,6,7,8,10,11,12,13,14,15,16,19,20,21,22,23,24,25,26,27,28)),'
+    'custom_id INTEGER NOT NULL CHECK(custom_id>=0),PRIMARY KEY(owner,slot))')
 
 def initialize_side(db):
     # Additive only: never migrate/rebuild the original owner-PK slot1 table.
-    db.execute('CREATE TABLE IF NOT EXISTS character_custom_permanent_selection_slots (owner INTEGER NOT NULL REFERENCES characters(uid),slot INTEGER NOT NULL CHECK(slot IN (7,8,13,14,24,25,26,27)),custom_id INTEGER NOT NULL CHECK(custom_id>=0),PRIMARY KEY(owner,slot))')
-
-def initialize_pointmark(db):
-    # Additive finite PointMark slot only; no old selection CHECK is rebuilt.
-    db.execute('CREATE TABLE IF NOT EXISTS character_custom_secret_pointmark_selection (owner INTEGER PRIMARY KEY REFERENCES characters(uid),custom_id INTEGER NOT NULL CHECK(custom_id=19002))')
+    # The side slots carry every multi-slot native family (wait motions
+    # 10/11/12, cut-ins 3..6, quick voices 21..23, sitting 7/8/13/14 and the
+    # emoticons 24..27); they share one catalog row per block.
+    db.execute(_SIDE_SPEC)
+    row=db.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name='character_custom_permanent_selection_slots'").fetchone()
+    if row and any(token not in (row[0] or '') for token in ('10','20','28')):
+        # A table created by an older CHECK cannot store the newer slots.
+        # It is a pure selection cache, so rebuild it in place, keeping rows.
+        db.execute('ALTER TABLE character_custom_permanent_selection_slots RENAME TO character_custom_permanent_selection_slots_old')
+        db.execute(_SIDE_SPEC)
+        db.execute('INSERT INTO character_custom_permanent_selection_slots(owner,slot,custom_id) '
+                   'SELECT owner,slot,custom_id FROM character_custom_permanent_selection_slots_old')
+        db.execute('DROP TABLE character_custom_permanent_selection_slots_old')
 
 def initialize_face(db):
     # Additive face-only storage; preserve both old selection tables and CHECKs.
@@ -95,7 +102,9 @@ def identity(db,owner,account_id,family=1):
     owner=character_uid(owner)
     if type(account_id) is not int or not 0<account_id<2**63:raise ValueError('Custom account identity')
     row=db.execute('SELECT c.unit_type,c.unit_class,c.level FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=? AND o.account_id=?',(owner,account_id)).fetchone()
-    if row is None or (row[0] not in FACE_UNITS if family==2 else row[0] not in range(1,16) if family==28 else row[0]!=1):raise ValueError('Custom owner role qualification')
+    # The admitted family decides which units qualify; the per-book character
+    # restriction is the native item record (raw[210]) checked at use time.
+    if row is None or (row[0] not in FACE_UNITS if family==2 else row[0] not in ALL_UNITS):raise ValueError('Custom owner role qualification')
     if exists(db,'character_lifecycle'):
         state=db.execute('SELECT requested_at,finalized_at FROM character_lifecycle WHERE uid=?',(owner,)).fetchone()
         if state and any(state):raise ValueError('Custom character is pending/finalized deletion')
@@ -110,8 +119,29 @@ def _check_receipt(db,operation,owner,kind):
     if db.execute('SELECT owner,kind FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()!=(owner,kind):
         raise ValueError('Custom receipt owner/kind')
 
-def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None,validate_pointmark=None):
-    item_uid=use_request(payload);now=clock(now)
+def _book_request(payload):
+    """C595C0 for a custom book carries the native selection, not zeros.
+
+    The captured book use is UID + custom_id + type + socket_id + two zero
+    fields (21:01:35 uid=1001077 target=14107 a=7). career_messages
+    .use_request() rejects any non-zero target, so that helper cannot read
+    this family. The fourth word is the native CUSTOM_ITEM_SOCKET_DATA id the
+    client highlights (e.g. 215401 for the fourth socket); registration is
+    driven by the catalogued book, so that id is read and not trusted.
+    """
+    if not isinstance(payload,bytes) or len(payload)!=29:raise ValueError('Custom book request length')
+    uid,target,kind,socket,text,flag=struct.unpack('>QQiiIB',payload)
+    if not 0<uid<2**63:raise ValueError('Custom book request identity')
+    if not 0<=socket<2**31 or text or flag:raise ValueError('Custom book native padding')
+    return uid,target,kind,socket
+
+
+def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None):
+    # Entry record: proves whether a 219 click reached this family at all.
+    from els_server.domain.character_custom import _trace
+    _trace('book store enter owner=%r account=%r payload=%s'%(
+        owner,account_id,payload.hex() if isinstance(payload,bytes) else payload))
+    item_uid,custom_id,kind,socket=_book_request(payload);now=clock(now)
     operation='custom-book:'+operation
     owner,digest=_identity(owner,0x219,b'custom-book-v1:'+payload,operation)
     rules=catalog()
@@ -121,7 +151,13 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None,va
         old=_previous(db,operation,digest);items=load_items(db,owner)
         source=next((i for i in items if i['uid']==item_uid),None)
         rule=rules.get(source['template']) if source else None
-        if old is None and rule is None:return None
+        if old is None and rule is None:
+            # Silent decline: hand the request to the next 219 family, but
+            # leave a record so a book that never lands is not a mystery.
+            from els_server.domain.character_custom import _trace
+            _trace('book store declined uid=%r owner=%r items=%d template=%r'%(
+                item_uid,owner,len(items),source['template'] if source else None))
+            return None
         # This callback runs ONLY after recognizing a qualified primary book
         # or its exact durable receipt. Other219 routes retain old behavior.
         if validate is not None:validate()
@@ -131,10 +167,14 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None,va
             before=json.loads(raw_receipt)
             if len(before)!=1 or before[0]['uid']!=item_uid or before[0]['template'] not in rules:raise ValueError('Custom book receipt source')
             receipt_rule=rules[before[0]['template']]
-        def pointmark_check():
-            if (receipt_rule or rule)['type']==28 and validate_pointmark is not None:validate_pointmark()
-        pointmark_check()
-        role=identity(db,owner,account_id,(receipt_rule or rule)['type'])
+        effective=receipt_rule or rule
+        # The client states which custom it believes this book grants; a book
+        # that would register anything else is never committed. The socket id
+        # is only the client's highlighted slot and never changes what is
+        # registered, so it is not part of this decision.
+        if (custom_id,kind)!=(effective['custom_id'],effective['type']):
+            raise ValueError('Custom book native selection')
+        role=identity(db,owner,account_id,effective['type'])
         if (receipt_rule or rule)['type']==2:face_requirement(db,owner,receipt_rule or rule)
         balance=db.execute('SELECT ed,revision FROM reward_balances WHERE uid=?',(owner,)).fetchone()
         if balance is None:raise ValueError('Custom owner reward balance')
@@ -144,10 +184,16 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None,va
             if value not in snapshot(db,owner)['owned'].get(rules[before[0]['template']]['type'],[]):raise ValueError('Custom receipt lacks registered ownership')
             positions=list(dict.fromkeys([*old,*[(i['group'],i['slot']) for i in items if i['uid']==item_uid]]))
             current={(i['group'],i['slot']):i for i in items}
-            events=[use_ack([(p,current.get(p)) for p in positions],ed=balance[0]),wire.registered(value)]
+            # Leading i32 of 0x4CD MUST be zero: the client's reader at 0xBB7F30
+            # only reaches `call 0x11F2B10(manager+0xDC8, &info)` when
+            # `[rsp+0x50] == 0`; any other value falls straight through to the
+            # cleanup epilogue, so the row is never filed and Apply can never
+            # find it in the +0x270 vector. The granting book's template is not
+            # carried by this field (the record's +0x04 comes from info()'s
+            # `ability`), so passing it here only destroyed the registration.
+            events=[use_ack([(p,current.get(p)) for p in positions],ed=balance[0]),wire.registered(value,0,family=rules[before[0]['template']]['slot'])]
             for event in events:encode_event(event)
             if validate is not None:validate()
-            pointmark_check()
             return dict(replayed=True,events=events)
         if source['group']!=4 or source.get('sealed',False) or source.get('seal_used',0) or 'expires_at' in source:
             raise ValueError('Only permanent unsealed owned primary custom books are admitted')
@@ -162,10 +208,9 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None,va
         if value in snapshot(db,owner)['owned'].get(rule['type'],[]):raise ValueError('Custom already registered')
         if balance[1]>=2**63-1:raise ValueError('Custom inventory revision overflow')
         remaining=dict(source,count=source['count']-1) if source['count']>1 else None
-        events=[use_ack([((source['group'],source['slot']),remaining)],source['template'],balance[0]),wire.registered(value)]
+        events=[use_ack([((source['group'],source['slot']),remaining)],source['template'],balance[0]),wire.registered(value,0,family=rule['slot'])]
         for event in events:encode_event(event)
         if validate is not None:validate()
-        pointmark_check()
         initialize(db)
         db.execute('INSERT INTO character_custom_permanent VALUES (?,?,?)',(owner,value['custom_id'],source['template']))
         if remaining:db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item_uid,owner))
@@ -178,6 +223,9 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None,va
         db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))
         load_items(db,owner);snapshot(db,owner)
         _commit(db,operation,digest,owner,0x219,[(source['group'],source['slot'])],[source],[remaining] if remaining else [])
+        from els_server.domain.character_custom import _trace
+        _trace('book store committed uid=%r custom=%r template=%r'%(
+            item_uid,value['custom_id'],source['template']))
         return dict(replayed=False,events=events)
 
 def select(path,owner,account_id,payload,operation,*,now=None,validate=None):
@@ -191,12 +239,34 @@ def select(path,owner,account_id,payload,operation,*,now=None,validate=None):
         if old is None and value['custom_id'] not in free_ids(role[1],slot) and value not in current['owned'].get(family,[]):
             raise ValueError('Custom Apply requires registered ownership or current-career free eligibility')
         if old is not None and slot not in current['selected']:raise ValueError('Custom receipt lacks selected slot')
-        selected={slot:current['selected'][slot]} if old is not None else {slot:value}
+        # 0x4CC 只回本次应用的那一格。之前为了「别的行不掉回默认」回整张 map，
+        # 客户端会把 map 里每一个条目都当成「新获得」走一遍获得横幅，19 格轮完
+        # 停在最后一格（slot 28 = 徽记）—— 这就是每次切换都弹「获得新的徽记！」的来源。
+        # 窗口的完整状态由紧随其后的 0x18E 携带，所以行不会掉回默认。
+        selected=dict(current['selected'])
+        if old is None:selected[slot]=value
+        selected={k:selected[k] for k in sorted(selected)}
         if old is not None:_check_receipt(db,operation,owner,0x4cb)
         from els_server.storage.titles import snapshot as title_snapshot
         title=title_snapshot(db,owner,now)['title']
-        events=[wire.acknowledgement(selected),wire.selected_notice(owner,title,selected)]
+        # The row this Apply lands on has to be registered again before the ack,
+        # with that row's own CUSTOMIZING_TYPE (== the slot number). The opener
+        # only registers once, at window creation; a row whose registration was
+        # bucketed wrongly (or that was never registered because the panel was
+        # opened before the fix) paints the career default no matter what the
+        # selection map says. Registering here makes one Apply enough to put the
+        # chosen item on that row's own name and icon.
+        events=[wire.registered(value,0,family=slot),
+                wire.acknowledgement({slot:value})]
+        # 0x18E is suppressed by default (character_custom_messages: the client's
+        # reader misaligns from byte 0 and then resets the actor to defaults).
+        # Keep it last so the trace below can still index events[0] / events[1].
+        notice=wire.selected_notice(owner,title,selected)
+        if notice is not None:events.append(notice)
         for event in events:encode_event(event)
+        from els_server.domain.character_custom import _trace
+        _trace('apply slot=%d cid=%d row=%d ack=%d notice_slots=%d'
+               %(slot,value['custom_id'],events[0].payload[4],len(events[1].payload),len(selected)))
         if validate is not None:validate()
         if old is None:
             from els_server.domain.ariel_attendance_mark import clear_ordinary
@@ -204,9 +274,6 @@ def select(path,owner,account_id,payload,operation,*,now=None,validate=None):
             if slot==1:
                 initialize(db)
                 db.execute('INSERT INTO character_custom_permanent_selection VALUES (?,?) ON CONFLICT(owner) DO UPDATE SET custom_id=excluded.custom_id',(owner,value['custom_id']))
-            elif slot==28:
-                initialize_pointmark(db)
-                db.execute('INSERT INTO character_custom_secret_pointmark_selection VALUES (?,?) ON CONFLICT(owner) DO UPDATE SET custom_id=excluded.custom_id',(owner,value['custom_id']))
             elif slot==2:
                 initialize_face(db)
                 db.execute('INSERT INTO character_custom_permanent_face_selection VALUES (?,?) ON CONFLICT(owner) DO UPDATE SET custom_id=excluded.custom_id',(owner,value['custom_id']))
@@ -240,3 +307,14 @@ def opening_info(path,owner,account_id,*,validate=None):
         event=wire.opening_information(cash_catalog);encode_event(event)
         if validate is not None:validate()
         return [event]
+
+
+def handle(s,event,sequence):
+    """Session dispatch entry for the 634 opener and the 4CB Apply.
+
+    Both handlers live in the domain module. The store re-exports them so a
+    dispatch entry that resolves the store still reaches the real code, and so
+    a hot reload of either module keeps the window working.
+    """
+    from els_server.domain.character_custom import handle as domain_handle
+    return domain_handle(s,event,sequence)

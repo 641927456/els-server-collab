@@ -44,7 +44,7 @@ def chat_request(payload,*,details=False):
     reserved=r.scalar('i');target2=r.scalar('Q');flag=r.scalar('B')
     value=r.scalar('i');opaque=r.scalar('Q');index=r.scalar('i');attachments=r.scalar('I')
     r.end()
-    if channel not in (0,1,4) or subtype!=0 or attachments or not text.strip():
+    if channel not in (0,1,3,4) or subtype!=0 or attachments or not text.strip():
         raise ValueError('Unsupported chat channel or attachment')
     if flag:
         # Same-build native built-ins observed on the wire and registered by

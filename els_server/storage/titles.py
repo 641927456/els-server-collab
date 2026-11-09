@@ -7,6 +7,11 @@ from els_server.protocol import title_messages as wire
 from els_server.protocol.protocol_codec import encode_event
 from els_server.domain.boosting_2026_title_rewards import is_coupon
 
+class TitleUseError(ValueError):
+    """Expected owned-coupon refusal, with an original client result message."""
+    def __init__(self,message,result):
+        super().__init__(message);self.result=result
+
 def character(db,uid):
     row=db.execute('SELECT c.uid,c.name,c.unit_type,c.unit_class,c.level,o.account_id FROM characters c JOIN character_owners o ON o.uid=c.uid WHERE c.uid=?',(character_uid(uid),)).fetchone()
     if row is None:raise ValueError('Unknown title owner')
@@ -36,10 +41,20 @@ def owned(db,c,now):
         if (not end or now<end) and (kind,subject)==scope(c,title):result.append(dict(title=title,name=name,expires_at=end))
     return result
 
+def _equipped(db,c,rows):
+    selected=db.execute('SELECT title FROM title_equipment WHERE owner=?',(c['uid'],)).fetchone() if exists(db,'title_equipment') else None
+    return selected[0] if selected and any(r['title']==selected[0] for r in rows) and eligible(c,selected[0]) else 0
+
+
+def equipped(db,uid,now=None):
+    """Current owned/eligible title inside the caller's transaction."""
+    now=int(time.time()) if now is None else now;c=character(db,uid)
+    return _equipped(db,c,owned(db,c,now))
+
+
 def snapshot(db,uid,now=None):
     now=int(time.time()) if now is None else now;c=character(db,uid);rows=owned(db,c,now)
-    selected=db.execute('SELECT title FROM title_equipment WHERE owner=?',(uid,)).fetchone() if exists(db,'title_equipment') else None
-    active=selected[0] if selected and any(r['title']==selected[0] for r in rows) and eligible(c,selected[0]) else 0
+    active=_equipped(db,c,rows)
     # The original client already owns all 932 static definitions. C23 rebuilds
     # its list, overlays acquired rows and restores open mission state.
     from els_server.storage.title_clears import opened
@@ -51,13 +66,17 @@ def state(path,uid):
         if not value['title'] and exists(db,'title_equipment'):db.execute('UPDATE title_equipment SET title=0 WHERE owner=? AND title<>0',(uid,))
         return value
 
-def equip(path,uid,title):
+def equip(path,uid,title,*,guard=lambda db:None,prepare=None):
     if type(title) is not int or title<0:raise ValueError('Title identity')
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('BEGIN IMMEDIATE');current=snapshot(db,uid);c=character(db,uid)
+        db.execute('BEGIN IMMEDIATE');guard(db);current=snapshot(db,uid);c=character(db,uid)
         if title and (not any(r['title']==title for r in current['owned']) or not eligible(c,title)):raise ValueError('Title is not owned or eligible')
         answer=wire.equipment(title);schema(db)
         db.execute('INSERT INTO title_equipment VALUES (?,?) ON CONFLICT(owner) DO UPDATE SET title=excluded.title',(uid,title))
+        # GuildAgit commits the appearance publication in the same transaction,
+        # so a title change cannot be saved without its peer notice.
+        if prepare is not None:prepare(db)
+        guard(db)
         return answer
 
 def use_item(path,uid,payload,operation_id,now=None):
@@ -66,11 +85,14 @@ def use_item(path,uid,payload,operation_id,now=None):
     from els_server.domain.item_expiration import require_current
     item_uid=use_request(payload);uid=character_uid(uid)
     if not isinstance(operation_id,str) or not 1<=len(operation_id)<=160:raise ValueError('Title operation identity')
-    now=int(time.time()) if now is None else now
-    if type(now) is not int or not 0<=now<2**40:raise ValueError('Title clock')
     digest=hashlib.sha256(str(uid).encode()+b':'+payload).hexdigest()
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.execute('BEGIN IMMEDIATE');c=character(db,uid)
+        # The clock starts once the write lock is ours; an item that expires
+        # while this request waits must not still be consumed, and the granted
+        # period has to run from the accepted moment.
+        now=int(time.time()) if now is None else now
+        if type(now) is not int or not 0<=now<2**40:raise ValueError('Title clock')
         if exists(db,'title_item_receipts'):
             old=db.execute('SELECT request_hash,owner,bag_group,slot,title FROM title_item_receipts WHERE operation_id=?',(operation_id,)).fetchone()
             if old:
@@ -90,16 +112,23 @@ def use_item(path,uid,payload,operation_id,now=None):
         item=next((i for i in load_items(db,uid) if i['uid']==item_uid),None)
         rule=catalog()['items'].get(str(item['template'])) if item else None
         if rule is None:return None
-        if item['group']!=4:raise ValueError('Title item outside owned consumables bag')
+        if item['group']!=4:raise TitleUseError('Title item outside owned consumables bag',503)
+        from els_server.domain.item_expiration import expired
+        if expired(item,now=now):raise TitleUseError('Item has expired',500)
         require_current(item,now=now)
         from els_server.domain.item_locks import require_unlocked
+        from els_server.domain.item_locks import locked
+        if locked(item,now=now):raise TitleUseError('Item is locked',2948)
         require_unlocked(item,now=now)
         title=rule['title']
         from els_server.game_data import client_data
         raw=client_data().item(item['template'])['record']
-        if (c['level']<raw[209] or raw[210] not in (0,c['unit_type']) or raw[211] not in (0,c['unit_class'])):raise ValueError('Title item native character restrictions')
-        if c['level']<rule['level'] or not eligible(c,title):raise ValueError('Title item requirements')
-        if any(r['title']==title for r in owned(db,c,now)):raise ValueError('Title already owned')
+        if c['level']<raw[209] or c['level']<rule['level'] or c['level']<definition(title)['m_iOpenLevel']:
+            raise TitleUseError('Title item level requirements',502)
+        if raw[210] not in (0,c['unit_type']) or raw[211] not in (0,c['unit_class']):
+            raise TitleUseError('Title item native character restrictions',285)
+        if not eligible(c,title):raise TitleUseError('Title item requirements',500)
+        if any(r['title']==title for r in owned(db,c,now)):raise TitleUseError('Title already owned',499)
         selected=is_coupon(item['template'])
         if selected and db.execute('SELECT revision FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]>=2**63-1:raise ValueError('Selected title revision overflow')
         remaining=dict(item,count=item['count']-1) if item['count']>1 else None

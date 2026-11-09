@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "status": "related_support_checks_private_build_and_upgrade_passed",
+  "candidate_files": {
+    "tools\\client_compatibility_profiles.json": "9ebfe64680044ea3b6b39181ff149ca656ce22728f33045edde7fd78c3c9c6ad",
+    "tools\\my_buff_cleanup.js": "dbc99c6af10dca078e056b4f6174338368fdc4a48fa85234afd0c03d1c958424",
+    "tools\\my_buff_cleanup.py": "e9b39cc30cd2ceccaae9ead4813e31f05cafbbc11d7f5dcbe64a90dc9740e25e",
+    "tools\\native_cache_sync.py": "da3af20ae79b7c725f37e3df7a2fe7e0029facde3c37b331d6e750b70e45301e"
+  },
+  "matched_image_composition": {
+    "result_sha256": "c1db151a9058d283a279905a1bc5d02e11b48fe590f7011428b5303345ee7c64",
+    "test_source_sha256": "131e3a400d2ca151e2b436cbb9104d3a9b0fc26857860ddb991906c4090d7df5",
+    "ok": true,
+    "parent_composition_preserved": true,
+    "unchanged_cache_JS_sha256": "62a1d15ca0958c685fffc3bb8d40982ddb821ce2de45522f318db86793d075f8",
+    "profile_artifacts": 62,
+    "rejected_cases": [
+      "wrong-executable",
+      "wrong-image",
+      "missing-startup-anchor",
+      "duplicate-startup-anchor"
+    ],
+    "portable": false,
+    "limitation": "Requires the private same-SHA mapped image and actual parent support dependency closure; not run by the public verifier."
+  },
+  "private_VM": {
+    "result_sha256": "cf03d2af6eba1a01a92a905f9e56f4124bbbbbc85d7b6ad3cb3b7e932d03de4c",
+    "test_source_sha256": "626c168f415d94e4b96fe57939d59133a873e4e1843b898dcd77965e5d9854a9",
+    "ok": true,
+    "cases": [
+      "install/idempotence/quiescent-stop/re-enable",
+      "diagnostic failure preserves committed repair",
+      "wrong cleanup body",
+      "wrong RemoveBuff body",
+      "wrong virtual target",
+      "allocation failure",
+      "out-of-range stub",
+      "writer failure",
+      "protection failure",
+      "replacement failure",
+      "flush failure rolls back",
+      "wrong redirect rolls back",
+      "wrong architecture"
+    ],
+    "native_execution": false,
+    "inputs_equal_to_public_synthetic_test": false
+  },
+  "owned_non_game_native_host": {
+    "result_sha256": "e180e2fac703163e3dca044cf8c4b76b14aace610b2d3011f8ce1332483ce27b",
+    "test_source_sha256": "1ebda448f2333fd7b2a0d21bc42601cf17869036403d8a68ba44aa58bacab3fa",
+    "child_source_sha256": "fd9f2c85b74ed737676456823c0e763cfb7f08390ce0904efd6fb43ce3c298b5",
+    "source_sha256": "dbc99c6af10dca078e056b4f6174338368fdc4a48fa85234afd0c03d1c958424",
+    "ok": true,
+    "cases": [
+      "actual-replacement-postcommit-failure-rollback",
+      "four-consecutive-native-transfers-with-inaccessible-old-node",
+      "quiescent-stop-restores-native-block",
+      "quiescent-re-enable-reuses-stub"
+    ],
+    "native_active_transfers": 5,
+    "scope": "Real Frida replaceFast and private native MyBuff iterator block; not a game/GUI or full native RemoveBuff test.",
+    "callee_saved_registers_checked": true,
+    "owned_child_exit_code": 0,
+    "owned_child_active_after_cleanup": false,
+    "game_started": false,
+    "existing_process_attached": false,
+    "portable": false,
+    "limitation": "Private instruction block in a newly created owned host; full native RemoveBuff and natural game exit are outside this test."
+  },
+  "independent_review": {
+    "result_sha256": "9af6f6bfae4081637721264fbf7db4fc158a413f9cc7ddec79aaa8117be9696a",
+    "passed": true,
+    "scope": "Independent candidate source/API/lifecycle review bound to all four sources and related private test results; no unresolved blocker. Not gameplay or publication acceptance.",
+    "initial_window_correction_preserved": true
+  },
+  "public_synthetic_result": {
+    "ok": true,
+    "test_sha256": "65d7183e18f9bcb66e0a306a48e85f2df675e50fcf81772ba3cc77757418196d",
+    "candidate_source_sha256": "dbc99c6af10dca078e056b4f6174338368fdc4a48fa85234afd0c03d1c958424",
+    "case_names": [
+      "install/idempotence/quiescent-stop/re-enable",
+      "diagnostic failure preserves committed repair",
+      "wrong cleanup body",
+      "wrong RemoveBuff body",
+      "wrong virtual target",
+      "allocation failure",
+      "out-of-range stub",
+      "writer failure",
+      "protection failure",
+      "replacement failure",
+      "flush failure rolls back",
+      "wrong redirect rolls back",
+      "wrong architecture"
+    ],
+    "native_execution": false,
+    "input_scope": "Actual candidate JavaScript with synthetic full-body pins and inert Process/Memory/Interceptor APIs.",
+    "limitations": "This does not validate the proprietary image, actual native encoding, the full composed parent or concurrent teardown. Private matched-image and real owned-host evidence are recorded separately."
+  },
+  "natural_game_exit_verified": false,
+  "all_historical_crashes_fixed": false,
+  "initial_candidate_correction": {
+    "old_JS_sha256": "96648143f94d28e7e50d32b6efa6f0c8737265b5a8b394389b18590473883d73",
+    "reason": "Fixed Gum FAST uses a16-byte minimum and18 whole instruction bytes at this site. Initial8-byte outside-window guard rejected this shape; final guard verifies the exact18-byte window and13-byte padding.",
+    "successful_old_behavior_result_claimed": false
+  },
+  "private_signed_upgrade": {
+    "result_sha256": "58312b9831ddd70573fbce92d8cdcfb07d776d0c2bc3178aa7e8d4176b50f117",
+    "ok": true,
+    "version": 125,
+    "parent_seed_version": 124,
+    "executable_sha256": "3c6773ec350f68f2fdb149ded86c0099b17bb3742784eaee6e3b2796d2348b0a",
+    "payload_sha256": "7bb495c0fd75d9ba4f38a10eb856f11c10bec70fdcfa7e830281ebd3dfd691c2",
+    "components_verified": 2898,
+    "changed_files": 4,
+    "reused_files": 2894,
+    "repeat_downloaded_files": 0,
+    "components_evidence_sha256": "9fee8aa560bf496401454c99816316c31e29eeb7fb891eb6c1f3db281f3f554f",
+    "normal_compatibility_evidence_sha256": "ebcf90e94d72b2090cc8356b87c9acecf283621975a33587abc71b805876d078",
+    "normal_signed_profile_check": true,
+    "profile_artifacts": 62,
+    "original_executable_and_resource_preflight_passed": true,
+    "game_started": false,
+    "remote_authenticated": false,
+    "installed_current_changed": false,
+    "anonymous_network": false,
+    "public_release_verified": false,
+    "natural_game_exit_verified": false,
+    "limitation": "Private signed V124-to-V125 component upgrade and the normal fixed executable/resource compatibility preflight. No public download, production deployment, gameplay or natural-exit acceptance is claimed."
+  }
+}

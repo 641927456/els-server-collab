@@ -27,7 +27,8 @@ def npc_items():
 
 def include_extended(offer):
     from els_server.domain.fashion_bundles import replaced_templates
-    return (offer['template'] not in NPC_MEDICINES
+    return (offer['template']!=274333  # Current profile already grants6; human requested removal.
+            and offer['template'] not in NPC_MEDICINES
             and offer['template'] not in ice_equipment()
             and offer['template'] not in npc_items()
             and offer['template'] not in replaced_templates())

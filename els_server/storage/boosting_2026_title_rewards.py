@@ -13,9 +13,9 @@ from els_server.protocol.ice_messages import use_request
 from els_server.protocol.cube_messages import result
 from els_server.protocol.protocol_codec import encode_event,Event
 from els_server.domain.fashion_state import move_ack
-def open_box(path,owner,template,payload,operation,*,now=None):
+def open_box(path,owner,template,payload,operation,*,now=None,account_id=None,prepare=None):
  rule=dict(outputs=outputs()) if template==BOX and enabled() else None;req=use_request(payload)
- if rule is None or req.option or req.choices or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Selected title support box is all-output, no choices')
+ if rule is None or req.option not in (0,1) or req.choices or any(v not in (0,1) for v in (req.flag1,req.flag2,req.flag3)):raise ValueError('Selected title support box is all-output, no choices')
  owner,digest=_identity(owner,0x196,struct.pack('>i',template)+payload,operation)
  with closing(sqlite3.connect(path,timeout=10)) as db,db:
   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');old=_previous(db,operation,digest);before=load_items(db,owner);balance=balances(db,owner)
@@ -34,6 +34,8 @@ def open_box(path,owner,template,payload,operation,*,now=None):
   for r in rule['outputs']:
    t=r['template'];plan=dict(template=t,metadata=VERIFIED_TEMPLATES[t],group=TEMPLATE_BAG_GROUPS[t],quantity=r['quantity'])
    plans.append(plan)
-  grants=grant_items(db,plans,owner);after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after};positions=sorted({position,*[(i['group'],i['slot']) for i in grants]});events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(r['template'],r['quantity']) for r in rule['outputs']])
+  from els_server.domain.owned_growth_items import issue_source
+  source=issue_source(db,owner,account_id,operation,source,plans,prepare)
+  grants=grant_items(db,plans,owner,raid_reward_source=source);after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after};positions=sorted({position,*[(i['group'],i['slot']) for i in grants]});events=result(balance['ed'],[(p,current.get(p)) for p in positions],[(r['template'],r['quantity']) for r in rule['outputs']])
   for event in events:encode_event(event)
   db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,));_commit(db,operation,digest,owner,0x196,positions,before,after);return events

@@ -10,11 +10,11 @@ from els_server.protocol.ice_messages import use_request,result_ack,result_event
 from els_server.storage.reward_state import validate_balances
 
 # Explicit local test policy. Retail weights are not present in recovered tables.
-POOL_VERSION='native-series-official-common-local-weighted-v4'
+POOL_VERSION='native-part-cubes-shared-points-v5'
 POOLS=role_pools(1)  # Backward-compatible Elsword fixture; live draws resolve owner.
 POOL=POOLS[800000]
 
-def draw(path,payload,operation_id,*,randbelow=secrets.randbelow,uid=1001):
+def draw(path,payload,operation_id,*,randbelow=secrets.randbelow,uid=1001,account_id=None,prepare=None):
     uid=character_uid(uid)
     if uid!=1001:operation_id=f"{uid}:{operation_id}"
     request=use_request(payload)
@@ -28,6 +28,11 @@ def draw(path,payload,operation_id,*,randbelow=secrets.randbelow,uid=1001):
             db.execute('CREATE TABLE IF NOT EXISTS ice_draw_receipts (operation_id TEXT PRIMARY KEY,request_sha256 TEXT NOT NULL,consumed_uid INTEGER NOT NULL,outcome_json TEXT NOT NULL,response BLOB NOT NULL)')
             old=db.execute('SELECT request_sha256,response,consumed_uid,outcome_json FROM ice_draw_receipts WHERE operation_id=?',(operation_id,)).fetchone()
             if old:
+                audit=json.loads(old[3])
+                if audit.get('modern_ice'):
+                    from els_server.storage.modern_ice import authorize
+                    authorize(db,uid,account_id,prepare)
+                    if audit['account_id']!=account_id:raise ValueError('Ice replay account mismatch')
                 if old[0]!=digest:raise ValueError('Conflicting ice retry')
                 response=_replay(db,uid,request,old)
                 db.commit();return response
@@ -35,7 +40,16 @@ def draw(path,payload,operation_id,*,randbelow=secrets.randbelow,uid=1001):
             pools=role_pools(stored_character_type(db,uid))
             if item is None or item['template'] not in pools or item['group']!=4:raise ValueError('Owned character-compatible ice consumable required')
             from els_server.domain.item_expiration import require_current
-            require_current(item)
+            from els_server.domain.item_locks import require_unlocked
+            require_current(item);require_unlocked(item)
+            from els_server.domain.modern_ice import machines
+            # The 百宝袋 is account scoped (modern_ice_bag.account_id), so a draw
+            # without an account actor has nowhere to put the reward and keeps
+            # the owner-local allocation. Production always supplies one.
+            modern=account_id is not None and item['template']in machines()
+            if modern:
+                from els_server.storage.modern_ice import authorize
+                authorize(db,uid,account_id,prepare)
             pool=pools[item['template']]
             balances=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(uid,)).fetchone())
             total=sum(w for _,w in pool);roll=randbelow(total)
@@ -52,7 +66,12 @@ def draw(path,payload,operation_id,*,randbelow=secrets.randbelow,uid=1001):
                 db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item['uid'],uid))
             else:
                 item['count']-=1;db.execute('UPDATE inventory_items SET count=? WHERE uid=? AND owner=?',(item['count'],item['uid'],uid));updates.append(item)
-            rewards=grant_items(db,[dict(template=template,metadata=VERIFIED_TEMPLATES[template],group=TEMPLATE_BAG_GROUPS[template],quantity=quantity)],uid)
+            if modern:
+                from els_server.storage.modern_ice import add,accrue
+                add(db,account_id,template,quantity);accrue(db,account_id,item['template'],template)
+                rewards=[]
+            else:
+                rewards=grant_items(db,[dict(template=template,metadata=VERIFIED_TEMPLATES[template],group=TEMPLATE_BAG_GROUPS[template],quantity=quantity)],uid)
             updates+=rewards
             balances['revision']+=1;validate_balances(tuple(balances[k] for k in ('ed','experience','revision')))
             response=result_ack(0,updates,balances['ed'],rewards=((template,quantity),),removed=original if original['count']==1 else None).payload
@@ -60,6 +79,9 @@ def draw(path,payload,operation_id,*,randbelow=secrets.randbelow,uid=1001):
             # A framing failure must roll back consumption, reward and receipt.
             result_events(response)
             outcome={'pool_version':POOL_VERSION,'pool':pool,'roll':roll,'total_weight':total,'reward_quantity':quantity,'consumed':original,'reward':rewards,'balances':balances}
+            if modern:
+                outcome.update(modern_ice=True,account_id=account_id,reward_template=template)
+                authorize(db,uid,account_id,prepare)
             db.execute('UPDATE reward_balances SET revision=? WHERE uid=?',(balances['revision'],uid))
             db.execute('INSERT INTO ice_draw_receipts VALUES (?,?,?,?,?)',(operation_id,digest,item['uid'],json.dumps(outcome,sort_keys=True),response))
             db.commit();return response
@@ -79,7 +101,7 @@ def _replay(db,owner,request,receipt):
     try:
         audit=json.loads(audit_json)
         consumed=audit['consumed'];rewards=audit['reward']
-        if not isinstance(consumed,dict) or not isinstance(rewards,list) or not rewards:
+        if not isinstance(consumed,dict) or not isinstance(rewards,list) or(not rewards and not audit.get('modern_ice')):
             raise ValueError('Invalid committed ice history')
         from els_server.domain.inventory_items import validate_item
         historical=[validate_item(item) for item in [consumed,*rewards]]

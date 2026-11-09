@@ -1,7 +1,7 @@
 """Definition-based learning and upgrade rules for the local character service.
 
-Free, unsealed character skills and the first Master grade auto-learn.
-Relationship, core, guild, paid skill-point and sealed grades need unlocks.
+Modern ordinary character skills and the first Master grade auto-learn.
+Relationship/core/guild categories and sealed grades keep their own gates.
 """
 from els_server.game_data import client_data
 
@@ -24,8 +24,9 @@ def learned_skills(character):
         skill=data.skill(skill_id)
         if skill['m_eType'] not in ORDINARY_TYPES or (skill.get('m_bBornSealed') and skill_id not in unsealed):
             continue
-        if skill.get('m_iRequireLearnSkillPoint',0) or skill.get('m_iRequireUpgradeSkillPoint',0):
-            continue
+        # Season 2 ordinary learning/upgrades cost no SP. Five live Elesis
+        # passives retain old SP metadata in this pinned client; it must not
+        # suppress their level/stage/seal-qualified native learned records.
         ranks=skill.get('m_RequireCharacterLevel',{})
         stages=skill.get('m_RequireUnitClassType',{})
         rank=0
@@ -50,7 +51,16 @@ def learned_skills(character):
 
 def equippable_skills(character):
     data=client_data()
-    return tuple(s for s in learned_skills(character) if data.skill(s)['m_eType'] in ACTIVE_TYPES)
+    ordinary=tuple(s for s in learned_skills(character) if data.skill(s)['m_eType'] in ACTIVE_TYPES)
+    from els_server.domain.boosting_2026_force_equipment import active_skill
+    from els_server.domain.boosting_2026_force_inventory import owned
+    from els_server.domain.character_rules import CLASSES
+    # Native type20 right-click/drag writes ordinary122 directly. Category2
+    # of6D0 is the type18 Mod/change preset, not an active-force prerequisite.
+    from els_server.domain.boosting_2026_force_inventory import catalog
+    active=tuple(r['skill'] for r in owned(character) if active_skill(r['skill']) and (not catalog()[r['template']].get('required_master') or character.get('master'))) if character and character.get('level',1)>=99 and CLASSES[character['unit_class']]['stage']>=3 else ()
+    from els_server.domain.relationship_skills import equipment as relationship_equipment
+    return ordinary+active+relationship_equipment(character)
 
 
 def upgraded_slots(slots, character):

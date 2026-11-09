@@ -58,7 +58,12 @@ def book_templates():
 def use_book(path,uid,account_id,payload,operation,*,prepare=None):
  from els_server.protocol.career_messages import use_request,use_ack
  from els_server.storage.inventory_state import load_items
- item_uid=use_request(payload)
+ # 0x219 is one shared envelope: the permanent custom books reuse C595C0 and
+ # fill the target word with the custom they grant, so use_request() refuses
+ # them. Returning None hands the request to the next family instead of
+ # letting this handler answer -1 for every custom book in the game.
+ try:item_uid=use_request(payload)
+ except ValueError:return None
  if not isinstance(operation,str) or not 1<=len(operation)<=160:raise ValueError('ERP activation operation')
  proof=hashlib.sha256(str((account_id,uid)).encode()+payload).hexdigest()
  with closing(sqlite3.connect(path,timeout=10)) as db,db:

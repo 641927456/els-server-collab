@@ -16,7 +16,8 @@ from els_server.storage.equipment_enhancement import replace
 
 # User-approved local policy: retain the target trade state; not a native ENABLE_TRADE interpretation.
 TRADE_STATE_PRESERVING_SCROLLS={132495:5,132496:6,132497:7,132498:8,60007270:7}
-SCROLLS=frozenset((130149,130150,130151,130152,*TRADE_STATE_PRESERVING_SCROLLS))
+from els_server.domain.owned_scroll_families import catalog as owned_scrolls
+SCROLLS=frozenset((*owned_scrolls()['enhancement'],*TRADE_STATE_PRESERVING_SCROLLS))
 
 def apply(path,owner,payload,operation,*,account_id=None,prepare=None):
  if not isinstance(payload,bytes)or len(payload)!=16:raise ValueError('Enhancement scroll request size')
@@ -34,7 +35,15 @@ def apply(path,owner,payload,operation,*,account_id=None,prepare=None):
    wire=acknowledgement(changes=current_changes(db,operation,owner,0x221,old,before))
    return [Event(0x201,kind=0x222,payload=wire)]
   by_uid={i['uid']:i for i in before};target=by_uid.get(uid);material=by_uid.get(material_uid)
-  if target is None or target['count']!=1 or target['group']!=1 or target['template']not in definitions():raise ValueError('Owned unequipped normal equipment required')
+  # Group 1 is the equipment bag and group 9 is the worn set
+  # (role_loadout.py:26 writes bag_group=9 on equip). The client sends the
+  # original 221 for a worn item exactly as it does for a bagged one, and the
+  # ordinary 5FF enhancement never looks at the group at all, so requiring the
+  # bag withheld scrolls from every item the player was actually wearing --
+  # all three 2026-11-08 attempts (uid 1001303 twice, 1001299 once) landed in
+  # group 9 and returned 222[-1,0]. definitions() stays the discriminator:
+  # fashion and accessories live in group 9 too, but not in that catalogue.
+  if target is None or target['count']!=1 or target['group']not in (1,9) or target['template']not in definitions():raise ValueError('Owned normal equipment required')
   if material is None or material['template']not in SCROLLS or material['group']!=4:raise ValueError('Owned admitted enhancement scroll required')
   require_current(target);require_current(material);require_unlocked(target);require_unlocked(material)
   d=client_data().item(target['template'])

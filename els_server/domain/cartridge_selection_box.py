@@ -123,7 +123,7 @@ def request(payload):
     if type(payload) is not bytes:
         raise ValueError('Cartridge selection request bytes')
     value = use_request(payload)
-    if (value.option != 0 or any(v not in (0,1) for v in (value.flag1,value.flag2,value.flag3))
+    if (value.option not in (0,1) or any(v not in (0,1) for v in (value.flag1,value.flag2,value.flag3))
             or len(value.choices) != 1 or value.choices[0] not in OUTPUTS):
         raise ValueError('Cartridge selection exact one choice')
     entry()

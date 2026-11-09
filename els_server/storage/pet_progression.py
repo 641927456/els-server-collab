@@ -7,7 +7,7 @@ from els_server.storage.character_schema import character_uid
 from els_server.protocol.protocol_codec import encode_event
 from els_server.storage.companion_receipt_inventory import delta
 
-DEFAULT=dict(step=0,satiety=3840,growth=0,personality={},nutrition=0,hunger_remainder=0)
+DEFAULT=dict(step=0,satiety=3840,growth=0,personality={},nutrition=0,hunger_remainder=0,digest_until=0)
 
 def ensure(db):
     db.execute('CREATE TABLE IF NOT EXISTS pet_progression (pet INTEGER PRIMARY KEY,owner INTEGER NOT NULL,state TEXT NOT NULL)')
@@ -23,7 +23,7 @@ def attach(db,owner,pets):
 
 def save(db,owner,pet):
     state={k:pet[k] for k in DEFAULT}
-    if not 0<=state['step']<=template(pet['unit'])['EVOLUTION_ALL_STEP'] or not 0<=state['growth']<=threshold(pet) or not 0<=state['satiety']<=4800 or not 0<=state['nutrition']<=32767:raise ValueError('Pet progression bound')
+    if not 0<=state['step']<=template(pet['unit'])['EVOLUTION_ALL_STEP'] or not 0<=state['growth']<=threshold(pet) or not 0<=state['satiety']<=4800 or not 0<=state['nutrition']<=32767 or type(state['digest_until'])is not int or not 0<=state['digest_until']<2**40:raise ValueError('Pet progression bound')
     db.execute('INSERT INTO pet_progression VALUES (?,?,?) ON CONFLICT(pet) DO UPDATE SET state=excluded.state',(pet['uid'],owner,json.dumps(state,sort_keys=True)))
 
 def clock(db,owner,pet,*,now=None):
@@ -94,15 +94,17 @@ def handle(path,owner,kind,payload,operation):
             require_current(item);require_unlocked(item);rules=catalog();t=item['template']
             if t in rules['restricted']:raise ValueError('Restricted pet food')
             amount=rules['feeds'].get(str(t))
+            points=rules['nutrients'].get(str(t),{}).get('points',0)
             if amount is None:
                 from els_server.domain.normal_equipment import definitions
                 if item['group']!=1 or t not in definitions():raise ValueError('Ordinary bag equipment or registered pet feed required')
                 amount=rules['equipment_satiety']
+                points=1 # Current PetData.SetEquipItemNutrientInfo(1,5).
             if pet['satiety']>=4800:raise ValueError('Pet is full')
             # User-approved local feeding: native satiety values, no invented
             # feeding-to-affinity shortcut; growth comes from completed battle.
             pet['satiety']=min(4800,pet['satiety']+amount)
-            if str(t) in rules['nutrients']:pet['nutrition']=min(32767,pet['nutrition']+rules['nutrients'][str(t)]['points'])
+            pet['nutrition']=min(32767,pet['nutrition']+points)
             if item['count']>1:
                 db.execute('UPDATE inventory_items SET count=count-1 WHERE uid=? AND owner=?',(item_uid,owner));remaining=dict(item,count=item['count']-1)
             else:

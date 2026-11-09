@@ -53,4 +53,8 @@ def definitions():
     if hashlib.sha256(raw).hexdigest()!=manifest['proof_sha256']:raise ValueError('Normal equipment proof digest')
     with client_data().connect() as db:
         records=dict(db.execute('SELECT id,record FROM items WHERE item_type IN (1,2)'))
-    return validate_proof(manifest,json.loads(raw),records)
+    result=dict(validate_proof(manifest,json.loads(raw),records))
+    from els_server.domain.early_weapon_equipment import definitions as appendix
+    extra=appendix()
+    if set(result)&set(extra):raise ValueError('Duplicate early weapon appendix')
+    return MappingProxyType({**result,**extra})

@@ -7,6 +7,7 @@ It neither derives points from level nor initializes/resets a character page.
 from dataclasses import dataclass
 import hashlib
 import json
+from functools import lru_cache
 
 DEFINITION_SHA256='44fafbf5bd676453af0c5ad9d38b83bb853ae9a9a4a0d123f77dfbb0b0cb992a'
 
@@ -32,6 +33,14 @@ class ResonanceAllocations:
 
     @classmethod
     def from_original(cls, raw):
+        # Cache only immutable verified definitions, never account/page state.
+        # Mutable and unusual inputs retain the original uncached validation.
+        if type(raw) is bytes:
+            return _original_definition(cls, raw)
+        return cls._parse_original(raw)
+
+    @classmethod
+    def _parse_original(cls, raw):
         if hashlib.sha256(raw).hexdigest()!=DEFINITION_SHA256:
             raise ValueError('Unverified original resonance definition')
         data=json.loads(raw)
@@ -79,3 +88,8 @@ class ResonanceAllocations:
         updated=dict(old)
         for key,value in delta.items():updated[key]=updated.get(key,0)+value
         return AllocationPlan(tuple(sorted(updated.items())),available_points-spent,spent)
+
+
+@lru_cache(maxsize=2)
+def _original_definition(cls, raw):
+    return cls._parse_original(raw)

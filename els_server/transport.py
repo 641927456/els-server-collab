@@ -1,5 +1,7 @@
 """Bounded asyncio TCP service using the verified native wire codec."""
 import asyncio
+import time
+from els_server.performance import capture_calls
 import secrets
 import struct
 import ssl
@@ -16,6 +18,8 @@ class GameServer:
         self.listener=None;self.connections={};self.next_id=0;self.closing=False
         self.probe_transport=None;self.probe_protocol=None;self.probe_port=None
         self.local_sessions=set()
+        from els_server.periodic_scheduler import PeriodicScheduler
+        self.periodics=PeriodicScheduler(application,.05 if config.mode=='friends' else 1,log)
         self.metrics=dict(accepted=0,rejected=0,closed=0,protocol_errors=0,requests=0,responses=0)
         from els_server.accounts_gateway import AccountGateway
         self.account_gateway=AccountGateway(config,application)
@@ -79,7 +83,7 @@ class GameServer:
             return header+await reader.readexactly(length-8)
 
     async def handle(self,reader,writer,index):
-        notifications=None;business=None
+        notifications=None;business=None;native_sources=None
         self.log('accepted',connection=index)
         try:
             identity=None;role=None;diagnostic_auth=None;relay_control=False
@@ -95,7 +99,7 @@ class GameServer:
                             if auth.get('op') in ('tutorial_recovery_preview','tutorial_recovery_confirm'):
                                 reply=await self.account_gateway.recovery(auth,peer[0] if peer else '')
                             else:
-                                reply=await self.application.call(self.account_gateway.handle,self.application.registry,auth,peer[0] if peer else '')
+                                reply=await self.account_gateway.request(auth,peer[0] if peer else '')
                             await write_json(writer,reply)
                             return
                         if diagnostic_auth is None:
@@ -128,6 +132,8 @@ class GameServer:
                     except ValueError as error:raise ProtocolError(str(error)) from error
                     return
             business=await self.application.session(port_probe_port=self.probe_port,identity=identity)
+            from els_server.domain.native_session_sources import attach as attach_native_sources
+            native_sources=attach_native_sources(business)
             if self.config.mode=='local':self.local_sessions.add(business)
             keys=Keys(secrets.token_bytes(8),secrets.token_bytes(8));spi=secrets.randbelow(65535)+1
             outgoing=2;incoming=1;heartbeat_sent=False
@@ -137,26 +143,32 @@ class GameServer:
             async def write(wire):
                 writer.write(wire)
                 await asyncio.wait_for(writer.drain(),self.config.write_timeout)
-            async def send(messages, *, send_path='request_reply', request_sequence=None, request_kind=None):
+            async def send(messages, *, send_path='request_reply', request_sequence=None, request_kind=None, timing=None):
                 nonlocal outgoing
+                messages=tuple(messages)
                 for message in messages:
+                    encoding=time.perf_counter()
                     wire_sequence=outgoing
                     wire=encode_frame(encode_event(message),keys,spi=spi,sequence=wire_sequence)
                     outgoing+=1
-                    await write(wire)
+                    encoded=time.perf_counter()
+                    if timing is not None:timing['encode_ms']+=(encoded-encoding)*1000
+                    try:
+                        await write(wire)
+                    finally:
+                        if timing is not None:timing['send_ms']+=(time.perf_counter()-encoded)*1000
                     dungeon34320_trace.sent(business,message,wire_sequence,send_path=send_path,
                         request_sequence=request_sequence,request_kind=request_kind)
                     self.metrics['responses']+=1
                     # Payloads and session keys belong only in the explicit capture tool.
                     self.log('local_business_response_sent',connection=index,kind=message.kind,size=len(wire))
+                if send_path in ('request_reply','periodic') and native_sources is not None:
+                    native_sources.sent(messages)
             await write(encode_frame(encode_event(welcome_event(keys,spi)),BOOTSTRAP_KEYS))
             self.log('generated_welcome_sent',connection=index)
-            async def notify_periodically():
-                while True:
-                    await asyncio.sleep(.05 if self.config.mode=='friends' else 1)
-                    async with operation:
-                        await send(await self.application.call(business.periodic_notifications),send_path='periodic')
-            notifications=asyncio.create_task(notify_periodically(),name=f'notifications-{index}')
+            async def send_periodic(messages):
+                await send(messages,send_path='periodic')
+            notifications=asyncio.create_task(self.periodics.serve(business,operation,send_periodic),name=f'notifications-{index}')
             # Propagate timer failures promptly even while waiting for a client packet.
             def notification_done(task):
                 if not task.cancelled() and task.exception():writer.close()
@@ -186,7 +198,7 @@ class GameServer:
                 run=getattr(business,'dungeon_run',None)
                 if (event.event_id==0x202 and event.kind==0xad and run is not None
                         and run.identity==35250
-                        and memory1_diagnostic_count<512):
+                        and memory1_diagnostic_count<24):
                     memory1_diagnostic_count+=1
                     from els_server.domain.dungeon_lifecycle import death_report
                     try:
@@ -199,12 +211,25 @@ class GameServer:
                     except ValueError:entry_fields=dict(dungeon=35250,retirement_probe_error='malformed_AD')
                 self.log('client_request',connection=index,sequence=frame.sequence,
                          event_id=event.event_id,kind=event.kind,size=len(wire),**entry_fields)
+                received=time.perf_counter()
                 async with operation:
+                    acquired=time.perf_counter()
+                    timing=dict(connection_wait_ms=(acquired-received)*1000,encode_ms=0.,send_ms=0.)
                     if event.event_id==1026 and event.kind==3392 and not heartbeat_sent:
                         await send([Event(0)],send_path='heartbeat');heartbeat_sent=True
                     before=business.phase
                     trace34320_before=dungeon34320_trace.before(business,event,frame.sequence)
-                    messages=await self.application.call(business.handle,event,request_sequence=frame.sequence)
+                    with capture_calls() as calls:
+                        try:
+                            messages=await self.application.call(business.handle,event,request_sequence=frame.sequence)
+                            if event.event_id==0x202 and event.kind in (0x42c,0x42f,0x542):
+                                self.log('mount_diagnostic',connection=index,sequence=frame.sequence,phase=business.phase,
+                                    rejection=getattr(business,'_mount_rejection',None))
+                        except BaseException:
+                            timing['total_ms']=(time.perf_counter()-received)*1000
+                            self.log('request_timing',connection=index,sequence=frame.sequence,kind=event.kind,
+                                phase=business.phase,calls=calls,failed=True,**timing)
+                            raise
                     if event.event_id==0x202 and event.kind==0x104:
                         results=[struct.unpack_from('>i',m.payload,len(m.payload)-4)[0]for m in messages
                             if m.event_id==0x201 and m.kind==0x105 and len(m.payload)>=8]
@@ -219,7 +244,15 @@ class GameServer:
                     dungeon34320_trace.after(trace34320_before,business,messages)
                     if before!=business.phase:
                         self.log('business_phase',connection=index,request=event.kind,before=before,after=business.phase)
-                    await send(messages,send_path='request_reply',request_sequence=frame.sequence,request_kind=event.kind)
+                    timing['reply_complete']=False
+                    try:
+                        await send(messages,send_path='request_reply',request_sequence=frame.sequence,request_kind=event.kind,timing=timing)
+                        timing['reply_complete']=True
+                    finally:
+                        timing['total_ms']=(time.perf_counter()-received)*1000
+                        if event.kind!=0x7d0 or timing['total_ms']>=100 or frame.sequence%64==0:
+                            self.log('request_timing',connection=index,sequence=frame.sequence,kind=event.kind,
+                                phase=business.phase,calls=calls,**timing)
         except asyncio.IncompleteReadError:
             pass
         except (ProtocolError,SessionOrderError) as error:
@@ -232,6 +265,7 @@ class GameServer:
         except Exception as error:
             self.log('worker_error',connection=index,error=repr(error))
         finally:
+            if native_sources is not None:native_sources.close()
             try:
                 try:
                     if notifications:
@@ -271,6 +305,7 @@ class GameServer:
         if self.listener:
             try:await asyncio.wait_for(self.listener.wait_closed(),self.config.shutdown_timeout)
             except TimeoutError:self.log('listener_shutdown_timeout')
+        await self.periodics.close()
         await self.account_gateway.close()
         await self.diagnostics.close()
         self.log('finished',**self.metrics,active=len(self.connections))

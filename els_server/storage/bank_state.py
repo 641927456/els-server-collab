@@ -52,16 +52,14 @@ def expire(db,owner):
 
 
 def remove_due(path,owner):
-    with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        # No expired owned instance means no write transaction is needed.
-        # Release the probe snapshot before obtaining the writer reservation;
-        # expire() reloads both containers after that reservation succeeds.
+    # An idle bank read shares only the operation-local query-only reader.
+    # End that snapshot before the original writer reloads both containers.
+    with snapshot_connection(path) as db:
         db.execute('BEGIN')
         if not any(expired(e['item']) for e in load(db,owner,include_expired=True)+load(db,owner,include_expired=True,group=16)):return []
-        db.rollback()
-        db.execute('BEGIN IMMEDIATE');due=expire(db,owner)
+    with closing(sqlite3.connect(path,timeout=10)) as db,write_transaction(db):
+        due=expire(db,owner)
         if not due:return []
-        # The original 105 reader also accepts bank wrapper positions.
         return [Event(0x201,kind=0x105,payload=transfer_ack([(e['position'],None) for e in due]))]
 
 
@@ -93,7 +91,7 @@ def load(db,owner,include_expired=False,group=8):
 
 
 def snapshot(path,owner):
-    with closing(sqlite3.connect(path,timeout=10)) as db:
+    with snapshot_connection(path) as db:
         db.execute('BEGIN')
         return dict(bank_capacities={g:capacity(db,owner,g) for g in (8,16)},bank_items=load(db,owner)+load(db,owner,group=16))
 
@@ -154,78 +152,90 @@ def current_transfer_changes(db,operation,owner,points,positions):
 def transfer(path,owner,payload,operation):
     source,destination,quantity,context,template=transfer_request(payload)
     owner,digest=_identity(owner,0x551,payload,operation)
-    with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');require_active_character(db,owner)
-        old=_previous(db,operation,digest)
-        expire(db,owner)
-        before=load_items(db,owner);bank=load(db,owner)+load(db,owner,group=16)
-        positions={(i['group'],i['slot']):i for i in before}
-        positions.update((tuple(e['position']),e['item']) for e in bank)
-        if old is not None:return transfer_ack(current_transfer_changes(db,operation,owner,old,positions))
-        limits=allowances(db,owner);limits.update({g:capacity(db,owner,g) for g in (8,16)})
-        if any(g not in limits or s>=limits[g] for g,s in (source,destination)):
-            raise ValueError('Unowned bank/bag position')
-        first,second=positions.get(source),positions.get(destination)
-        if first is None or first['template']!=template or quantity>first['count']:
-            raise ValueError('Bank transfer item/quantity mismatch')
-        # Context never selects a SQL owner. Accept only zero or an identity
-        # already owned by this connection, regardless of caller variation.
-        if context not in (0,owner,first['uid']):raise ValueError('Foreign bank transfer context')
-        from els_server.domain.cartridge_registration_rules import require_unbound
-        for item in (first,second):
-            if item:require_current(item);require_unbound(db,item['uid'])
-        if destination[0] in (8,16):require_storable(first,destination[0])
-        if second and source[0] in (8,16):require_storable(second,source[0])
-        if destination[0] not in (8,16) and destination[0]!=TEMPLATE_BAG_GROUPS[first['template']]:
-            raise ValueError('Bank withdrawal has wrong item tab')
-        if second and source[0] not in (8,16) and source[0]!=TEMPLATE_BAG_GROUPS[second['template']]:
-            raise ValueError('Bank swap has wrong item tab')
-        from els_server.domain.cartridge_selection_box import BOX,relocate_existing_box
-        if first['template']==BOX and quantity!=first['count']:
-            raise ValueError('Cartridge box bank move retains whole original count')
-        # Stack only identical complete states, excluding UID and position.
-        signature=lambda i:{k:v for k,v in i.items() if k not in ('uid','group','slot','count')}
-        merging=second is not None and signature(first)==signature(second) and TEMPLATE_MAX_STACKS[template]>1
-        if merging and second['count']+quantity>TEMPLATE_MAX_STACKS[template]:raise ValueError('Bank stack overflow')
-        if second and not merging and quantity!=first['count']:raise ValueError('Partial bank transfer cannot swap')
-        delete(db,owner,source,first)
-        if second:delete(db,owner,destination,second)
-        remaining=dict(first,count=first['count']-quantity) if quantity<first['count'] else None
-        if merging:moved=dict(second,count=second['count']+quantity)
-        else:moved=dict(first,count=quantity,uid=next_uid(db) if remaining else first['uid'])
-        if first['template']==BOX:moved=relocate_existing_box(first,moved)
-        swapped=second if second and not merging else remaining
-        if swapped:put(db,owner,source,swapped)
-        put(db,owner,destination,moved)
-        after=load_items(db,owner);bank_after=load(db,owner)+load(db,owner,group=16)
-        updated={(i['group'],i['slot']):i for i in after}
-        updated.update((tuple(e['position']),e['item']) for e in bank_after)
-        changes=[(p,updated.get(p)) for p in (source,destination)]
-        wire=transfer_ack(changes)
-        _commit(db,operation,digest,owner,0x551,[source,destination],before+bank,after+bank_after)
-        return wire
+    with closing(sqlite3.connect(path,timeout=10)) as db:
+        db.execute('PRAGMA foreign_keys=ON')
+        with write_transaction(db):
+            require_active_character(db,owner)
+            old=_previous(db,operation,digest)
+            expire(db,owner)
+            before=load_items(db,owner);bank=load(db,owner)+load(db,owner,group=16)
+            positions={(i['group'],i['slot']):i for i in before}
+            positions.update((tuple(e['position']),e['item']) for e in bank)
+            if old is not None:return transfer_ack(current_transfer_changes(db,operation,owner,old,positions))
+            limits=allowances(db,owner);limits.update({g:capacity(db,owner,g) for g in (8,16)})
+            if any(g not in limits or s>=limits[g] for g,s in (source,destination)):
+                raise ValueError('Unowned bank/bag position')
+            first,second=positions.get(source),positions.get(destination)
+            if first is None or first['template']!=template or quantity>first['count']:
+                raise ValueError('Bank transfer item/quantity mismatch')
+            # Context never selects a SQL owner. Accept only zero or an identity
+            # already owned by this connection, regardless of caller variation.
+            if context not in (0,owner,first['uid']):raise ValueError('Foreign bank transfer context')
+            from els_server.domain.cartridge_registration_rules import require_unbound
+            from els_server.storage.cartridge_transitions import detach_for_transition
+            # Only a move INTO shared bank may compose native D52. Private bank,
+            # pet storage and all other destructive paths retain manual removal.
+            for item,point in ((first,destination),(second,source)):
+                if item:
+                    require_current(item)
+                    if point[0]!=16:require_unbound(db,item['uid'])
+            if destination[0] in (8,16):require_storable(first,destination[0])
+            if second and source[0] in (8,16):require_storable(second,source[0])
+            if destination[0] not in (8,16) and destination[0]!=TEMPLATE_BAG_GROUPS[first['template']]:
+                raise ValueError('Bank withdrawal has wrong item tab')
+            if second and source[0] not in (8,16) and source[0]!=TEMPLATE_BAG_GROUPS[second['template']]:
+                raise ValueError('Bank swap has wrong item tab')
+            from els_server.domain.cartridge_selection_box import BOX,relocate_existing_box
+            if first['template']==BOX and quantity!=first['count']:
+                raise ValueError('Cartridge box bank move retains whole original count')
+            # Stack only identical complete states, excluding UID and position.
+            signature=lambda i:{k:v for k,v in i.items() if k not in ('uid','group','slot','count')}
+            merging=second is not None and signature(first)==signature(second) and TEMPLATE_MAX_STACKS[template]>1
+            if merging and second['count']+quantity>TEMPLATE_MAX_STACKS[template]:raise ValueError('Bank stack overflow')
+            if second and not merging and quantity!=first['count']:raise ValueError('Partial bank transfer cannot swap')
+            # All ordinary transfer qualification above must pass first. Both
+            # detach receipts and all bank/inventory changes share this transaction.
+            first=detach_for_transition(db,owner,first,operation,'shared-bank') if destination[0]==16 else first
+            second=detach_for_transition(db,owner,second,operation,'shared-bank') if second and source[0]==16 else second
+            delete(db,owner,source,first)
+            if second:delete(db,owner,destination,second)
+            remaining=dict(first,count=first['count']-quantity) if quantity<first['count'] else None
+            if merging:moved=dict(second,count=second['count']+quantity)
+            else:moved=dict(first,count=quantity,uid=next_uid(db) if remaining else first['uid'])
+            if first['template']==BOX:moved=relocate_existing_box(first,moved)
+            swapped=second if second and not merging else remaining
+            if swapped:put(db,owner,source,swapped)
+            put(db,owner,destination,moved)
+            after=load_items(db,owner);bank_after=load(db,owner)+load(db,owner,group=16)
+            updated={(i['group'],i['slot']):i for i in after}
+            updated.update((tuple(e['position']),e['item']) for e in bank_after)
+            changes=[(p,updated.get(p)) for p in (source,destination)]
+            wire=transfer_ack(changes)
+            _commit(db,operation,digest,owner,0x551,[source,destination],before+bank,after+bank_after)
+            return wire
 
 
 def sort(path,owner,payload,operation):
     if payload not in (struct.pack('>i',8),struct.pack('>i',16)):raise ValueError('Unsupported bank sort group')
     group=struct.unpack('>i',payload)[0]
     owner,digest=_identity(owner,0x372,payload,operation)
-    with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('BEGIN IMMEDIATE');require_active_character(db,owner);old=_previous(db,operation,digest)
-        expire(db,owner)
-        before=load(db,owner,group=group)
-        if old is not None:return sort_ack(group,[e['item']['uid'] for e in before])
-        # The response explicitly supplies ordering; never sort the live client
-        # object's temporary slot numbers or merge dissimilar instance states.
-        after=[dict(position=(group,n),item=e['item']) for n,e in enumerate(sorted(before,key=lambda e:(e['item']['template'],e['item']['uid'])))]
-        ensure(db);table,key,identity=container(db,owner,group)
-        db.execute(f'DELETE FROM {table} WHERE {key}=?',(identity,))
-        for entry in after:put(db,owner,entry['position'],entry['item'])
-        # 1987260 removes UIDs absent from this ordered vector; 1985130 then
-        # writes its absolute slot indices. Re-adding rows would mark them NEW.
-        wire=sort_ack(group,[e['item']['uid'] for e in after])
-        _commit(db,operation,digest,owner,0x372,[(group,n) for n in range(capacity(db,owner,group))],before,after)
-        return wire
+    with closing(sqlite3.connect(path,timeout=10)) as db:
+        with write_transaction(db):
+            require_active_character(db,owner);old=_previous(db,operation,digest)
+            expire(db,owner)
+            before=load(db,owner,group=group)
+            if old is not None:return sort_ack(group,[e['item']['uid'] for e in before])
+            # The response explicitly supplies ordering; never sort the live client
+            # object's temporary slot numbers or merge dissimilar instance states.
+            after=[dict(position=(group,n),item=e['item']) for n,e in enumerate(sorted(before,key=lambda e:(e['item']['template'],e['item']['uid'])))]
+            ensure(db);table,key,identity=container(db,owner,group)
+            db.execute(f'DELETE FROM {table} WHERE {key}=?',(identity,))
+            for entry in after:put(db,owner,entry['position'],entry['item'])
+            # 1987260 removes UIDs absent from this ordered vector; 1985130 then
+            # writes its absolute slot indices. Re-adding rows would mark them NEW.
+            wire=sort_ack(group,[e['item']['uid'] for e in after])
+            _commit(db,operation,digest,owner,0x372,[(group,n) for n in range(capacity(db,owner,group))],before,after)
+            return wire
 
 
 def quote(path,owner,group):
@@ -251,17 +261,18 @@ def expand(path,owner,group,payload,operation,expected=None):
     if payload or group not in (8,16):raise ValueError('Invalid bank expansion request')
     kind=0x475 if group==8 else 0x54d
     owner,digest=_identity(owner,kind,payload,operation)
-    with closing(sqlite3.connect(path,timeout=10)) as db,db:
-        db.execute('BEGIN IMMEDIATE');require_active_character(db,owner);account_for(db,owner)
-        old=_previous(db,operation,digest);balance=balances(db,owner)
-        if old is not None:return expansion_ack(group,balance['ed'])
-        current=capacity(db,owner,group);cost=expansion_cost(group,current)
-        if expected!=(current,cost):raise ValueError('Bank expansion quote is missing or changed')
-        ed=charge(db,owner,balance,cost)
-        set_capacity(db,owner,group,current+8)
-        wire=expansion_ack(group,ed,8)
-        _commit(db,operation,digest,owner,kind,[],[dict(group=group,capacity=current)],[dict(group=group,capacity=current+8)])
-        return wire
+    with closing(sqlite3.connect(path,timeout=10)) as db:
+        with write_transaction(db):
+            require_active_character(db,owner);account_for(db,owner)
+            old=_previous(db,operation,digest);balance=balances(db,owner)
+            if old is not None:return expansion_ack(group,balance['ed'])
+            current=capacity(db,owner,group);cost=expansion_cost(group,current)
+            if expected!=(current,cost):raise ValueError('Bank expansion quote is missing or changed')
+            ed=charge(db,owner,balance,cost)
+            set_capacity(db,owner,group,current+8)
+            wire=expansion_ack(group,ed,8)
+            _commit(db,operation,digest,owner,kind,[],[dict(group=group,capacity=current)],[dict(group=group,capacity=current+8)])
+            return wire
 
 
 def contents(path,owner,group):
@@ -274,3 +285,7 @@ def contents(path,owner,group):
         empty=[((group,n),None) for n in range(capacity(db,owner,group))]
         return [Event(0x201,kind=0x105,payload=transfer_ack(empty)),
             Event(0x201,kind=0x26b if group==8 else 0x550,payload=contents_ack(entries,ed=money_balance(db,owner)[0] if group==16 else None))]
+
+from els_server.storage.read_scope import snapshot_connection
+
+from els_server.storage.sqlite_timing import write_transaction

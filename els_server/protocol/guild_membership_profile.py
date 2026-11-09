@@ -1,12 +1,4 @@
-"""Current 277/278/287/289/28B bodies for a creation-only guild profile.
-
-Not dispatch admission. The remaining modern field semantics are still under
-source review. This codec requires all extension values explicitly; it does
-not quietly turn an unknown stored value into zero or an empty collection.
-Current readers: DA2330, DA26D0, DD6AA0 and the 323E4B0/3241DC0/3248940
-consumers. Request and character projection evidence lives in the separate,
-unchanged guild_membership_messages module.
-"""
+"""Current native membership, rank, skill-page and fountain profile codecs."""
 import struct
 from els_server.protocol.protocol_codec import Event
 from els_server.protocol.equipment_chip_messages import changes_wire
@@ -53,37 +45,52 @@ def basic(profile, *, empty=False):
 
 
 def full(profile):
+    from els_server.domain.guild_bank_rules import permissions_wire
     required = {'basic','master_name','members','pages','active_page',
                 '11b','133','14b','153','163','173','183','193','1b3','1d3','1db'}
     if set(profile) != required:
         raise ValueError('Incomplete or extended guild full profile')
     # Nonempty modern feature state needs its own proven serializer/producer.
     # Callers must explicitly provide each collection, not omit defaults.
-    if any(profile[k] != () for k in ('11b','133','153','163','173','183','1db')):
+    if any(profile[k] != () for k in ('11b','133','153')):
         raise ValueError('Unsupported acquired modern guild extension')
     members = profile['members']
     if (type(members) is not tuple or not 1 <= len(members) <= profile['basic']['max_members']
             or len(set(members)) != len(members)):
         raise ValueError('Guild full member vector')
-    pages = profile['pages']
-    if type(pages) is not dict or not 1 <= len(pages) <= 3 or profile['active_page'] not in pages:
+    pages=profile['pages']
+    if profile['active_page']not in pages:raise ValueError('Guild selected page')
+    page_bytes=pages_wire(pages)
+    return (basic(profile['basic']) + _string(profile['master_name'])
+            + _integer(len(members), 32) + b''.join(_integer(uid, 64) for uid in members)
+            + page_bytes
+            + _integer(profile['active_page'], 8)
+            + bytes(8) + _integer(profile['14b'], 64) + bytes(4) + permissions_wire(profile['163'])
+            + emblems_wire(profile['173']) + struct.pack('>I',len(profile['183']))+b''.join(struct.pack('>ii?',*r)for r in profile['183'])
+            + _string(profile['193']) + _string(profile['1b3'])
+            + _integer(profile['1d3'], 64) + struct.pack('>I',len(profile['1db']))+b''.join(struct.pack('>iB',socket,count)for socket,count in profile['1db']))
+
+
+def emblems_wire(rows):
+    from els_server.protocol.guild_emblem_messages import collection
+    return collection(rows)
+
+
+def pages_wire(pages):
+    if type(pages) is not dict or not 1 <= len(pages) <= 3:
         raise ValueError('Guild full skill pages')
     page_bytes = []
     for index, page in sorted(pages.items()):
         if index not in (1, 2, 3) or set(page) != {'skills','points','cash_points','max_cash_points','expiry','alias'}:
             raise ValueError('Guild page identity/fields')
-        if page['skills'] != ():
-            raise ValueError('This membership codec does not serialize acquired skills')
-        page_bytes.append(_integer(index, 8) + bytes(4) + b''.join(
+        skills=page['skills']
+        if len({row[0]for row in skills})!=len(skills):raise ValueError('Duplicate guild skill')
+        # DB5EF0: signed short skill ID, level byte, level paid with bonus GSP byte.
+        skill_bytes=b''.join(struct.pack('>hBB',identity,rank,cash_rank)for identity,rank,cash_rank in skills)
+        page_bytes.append(_integer(index, 8) + _integer(len(skills),32)+skill_bytes + b''.join(
             _integer(page[k], 32, True) for k in ('points','cash_points','max_cash_points'))
             + _string(page['expiry']) + _string(page['alias']))
-    return (basic(profile['basic']) + _string(profile['master_name'])
-            + _integer(len(members), 32) + b''.join(_integer(uid, 64) for uid in members)
-            + _integer(len(pages), 32) + b''.join(page_bytes)
-            + _integer(profile['active_page'], 8)
-            + bytes(8) + _integer(profile['14b'], 64) + bytes(16)
-            + _string(profile['193']) + _string(profile['1b3'])
-            + _integer(profile['1d3'], 64) + bytes(4))
+    return _integer(len(pages),32)+b''.join(page_bytes)
 
 
 def create_ack(profile, changes):

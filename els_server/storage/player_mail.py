@@ -33,6 +33,11 @@ def ensure(db):
 
 
 def visible_sql(db=None):
+    from els_server.storage.black_market_mail import exists as market_exists
+    if db is not None and market_exists(db):
+        from els_server.storage.online_title_mail_scope import exists as title_exists
+        extra=' UNION ALL SELECT recipient_uid FROM online2026_mail_scope WHERE mail_id=game_mail.id'if title_exists(db)else''
+        return "NOT EXISTS (SELECT 1 FROM (SELECT recipient_uid FROM player_mail_meta WHERE mail_id=game_mail.id UNION ALL SELECT recipient_uid FROM black_market_mail WHERE mail_id=game_mail.id"+extra+") p WHERE p.recipient_uid NOT IN (0,?))"
     # One bound UID argument; administrative account mail has no meta row.
     from els_server.storage.online_title_mail_scope import exists
     if db is not None and exists(db):
@@ -50,6 +55,9 @@ def require_recipient(db,mail_id,uid):
     from els_server.storage.online_title_mail_scope import recipient
     target=recipient(db,mail_id)
     if target is not None and target!=uid:raise MailError('Event letter belongs to another character')
+    from els_server.storage.black_market_mail import meta as market_meta
+    market=market_meta(db,mail_id)
+    if market is not None and market[0]!=uid:raise MailError('Market letter belongs to another character')
 
 
 def decorate(db,row,*,now=None):
@@ -67,6 +75,12 @@ def decorate(db,row,*,now=None):
         row['mail_type']=5  # Account ownership remains enforced by game_mail.
     if meta and meta[0]:
         name=db.execute('SELECT name FROM characters WHERE uid=?',(meta[0],)).fetchone()
+        if name:row['recipient']=name[0]
+    from els_server.storage.black_market_mail import meta as market_meta
+    market=market_meta(db,row['id'])
+    if market is not None:
+        row['mail_type']=market[1]
+        name=db.execute('SELECT name FROM characters WHERE uid=?',(market[0],)).fetchone()
         if name:row['recipient']=name[0]
     from els_server.storage.mail_attachments import pending
     item=pending(db,row['id'],now=int(time.time()) if now is None else now)
@@ -130,7 +144,10 @@ def maintenance(path,*,now=None):
             AND expired_at IS NULL AND expires_at<? LIMIT 1''',(now,)).fetchone()
         from els_server.storage.online_title_mail_scope import has_due
         if not due and not item_due and not has_due(db,now):return 0
-        db.execute('BEGIN IMMEDIATE');return expire_due(db,now)
+        # The cheap check above may only under-report, so it stays valid. The
+        # sweep itself re-samples under the lock, otherwise mail that expired
+        # while this connection waited is skipped until the next cycle.
+        db.execute('BEGIN IMMEDIATE');return expire_due(db,int(time.time()) if now is None else now)
 
 
 def send(path,account,uid,request,operation,encode,*,now=None):
@@ -147,10 +164,11 @@ def send(path,account,uid,request,operation,encode,*,now=None):
     body='' if request['body']=='' else _text(request['body'],2000)
     if not isinstance(operation,str) or not 1<=len(operation)<=160:raise MailError('Invalid send operation')
     canonical=json.dumps(dict(recipient=name,title=title,body=body,ed=request['ed'],item=request['item'],count=request['count']),ensure_ascii=True,sort_keys=True)
-    digest=hashlib.sha256(canonical.encode()).hexdigest();now=int(time.time()) if now is None else now
-    if type(now) is not int or not 1<=now<2**31:raise MailError('Invalid send timestamp')
+    digest=hashlib.sha256(canonical.encode()).hexdigest()
     with closing(sqlite3.connect(path,timeout=10)) as db,db:
         db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');_active_owner(db,account,uid)
+        now=int(time.time()) if now is None else now
+        if type(now) is not int or not 1<=now<2**31:raise MailError('Invalid send timestamp')
         from els_server.storage import mail_attachments as attachments
         old=db.execute('''SELECT account_id,sender_uid,digest,mail_id,recipient,fee
             FROM player_mail_receipts WHERE operation=?''',(operation,)).fetchone()

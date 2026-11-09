@@ -27,6 +27,8 @@ def weekly_events(db,owner,now):
   normal=state.weekly_steps(db,owner,family,week)
   story=state.weekly_steps(db,owner,family,week,True)if family in('rosso','berthe','abyss')else 0
   out.append(weekly_snapshot(category,normal,story))
+ from els_server.storage.challenge_scroll import snapshot as challenge_snapshot,notice as challenge_notice
+ out.extend(challenge_notice(challenge_snapshot(db,owner,category,now))for category in(4,5))
  return out
 
 def synchronize(s,events):
@@ -86,7 +88,7 @@ def handle(s,event,sequence):
    from els_server.domain.item_expiration import require_current
    from els_server.domain.item_locks import require_unlocked
    require_current(owned);require_unlocked(owned);row,outputs=entry_outputs(template,s.account.character())
-   guard();return [preview_ack(0,template,selection_count=row['selection_count'],entries=[(r['template'],r['quantity'],0)for r in row['entries']])]
+   guard();return [preview_ack(0,template,selection_count=row['selection_count'],entries=[(r['template'],0,r['quantity'])for r in row['entries']])]
   return actions.open_box(s.account.store.path,s.account.uid,template,event.payload,operation,s.account.account_id,guard)
  except (ValueError,sqlite3.Error):
   if kind==0xc06:return [claim_ack(code=-1)]

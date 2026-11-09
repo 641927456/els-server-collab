@@ -184,9 +184,10 @@ def handle(s,event,sequence):
             _same(context,_scene(s,sequence));_validate_peers(prepared)
             if getattr(s,'known_resurrection_life',None)is not state or state['phase']!='dead'or state['number']!=life:
                 raise ValueError('Known resurrection life changed')
+        from els_server.domain.silver_mirror_policy import ALL as MIRROR
         result=spend(s.account.store.path,s.account.uid,event.payload,_operation(s,sequence),context['epoch'],life,
             account_id=s.account.account_id if s.account.characters is not None else None,guard=guard,
-            dungeon=s.dungeon_id,position=position,prepare=prepare)
+            dungeon=s.dungeon_id,position=position,prepare=prepare,limit=1 if s.dungeon_id in MIRROR else None)
         if result['replayed']:
             # A commit followed by an unknown handoff is reconciled by a fresh
             # entry; replaying162 could heal an already living native actor.

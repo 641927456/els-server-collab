@@ -8,6 +8,7 @@ is preserved as metadata and is NOT automatically added to the item award.
 from dataclasses import dataclass
 import hashlib
 import json
+from functools import lru_cache
 
 
 SOURCE_SHA256 = 'de3534de61546f5a40d9b5c36df5d30c039b91bd39c5bf237e828c296b8c1b4d'
@@ -61,6 +62,14 @@ class BoostingDefinition:
 
     @classmethod
     def from_original(cls, raw):
+        # Cache only immutable verified definitions, never account/page state.
+        # Mutable and unusual inputs retain the original uncached validation.
+        if type(raw) is bytes:
+            return _original_definition(cls, raw)
+        return cls._parse_original(raw)
+
+    @classmethod
+    def _parse_original(cls, raw):
         """Load only the audited fixed-client source, not a similarly named season."""
         if type(raw) is not bytes or hashlib.sha256(raw).hexdigest() != SOURCE_SHA256:
             raise ValueError('Unverified combat boost source')
@@ -164,3 +173,8 @@ class BoostingDefinition:
         count = self.completed_prefix(completed)
         return (not event_active or not is_bound_character
                 or any(t.opens_pporu for t in self.tasks[:count]))
+
+
+@lru_cache(maxsize=2)
+def _original_definition(cls, raw):
+    return cls._parse_original(raw)

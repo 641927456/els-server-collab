@@ -22,8 +22,12 @@ class OrdinaryScroll:
             or item['metadata']!=2 or hashlib.sha256(item['record']).hexdigest()!=row['record_sha256']
             or (meta.get(TEMPLATE),bags.get(TEMPLATE),stacks.get(TEMPLATE))!=(2,4,effective_stack(row['max_stack_local']))):
             raise ValueError('Existing ordinary category scroll identity or registration changed')
-        self.digest=hashlib.sha256((DEFINITION_SHA256+':ordinary163564-positive-category-only-v1').encode()).hexdigest()
-        self.allowed=MappingProxyType({'scroll':frozenset((TEMPLATE,))})
+        old=hashlib.sha256((DEFINITION_SHA256+':ordinary163564-positive-category-only-v1').encode()).hexdigest()
+        from els_server.domain.owned_scroll_families import catalog as owned_scrolls
+        admitted=frozenset(owned_scrolls()['resonance'])
+        self.digest=hashlib.sha256((DEFINITION_SHA256+':existing-seven-category-scrolls-v1').encode()).hexdigest()
+        self.legacy_digests=(old,)
+        self.allowed=MappingProxyType({'scroll':admitted})
         self.groups=MappingProxyType({'scroll':ORIGINAL_ORDER})
 
 @lru_cache(maxsize=1)

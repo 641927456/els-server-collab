@@ -44,7 +44,12 @@ def _decode(payload, uid, fields):
         raise ValueError('Unverified summon template')
     if struct.unpack_from('<q', dto, 0x6d)[0] != uid:
         raise ValueError('Summon owner mismatch')
-    if not all(math.isfinite(v) and abs(v) <= 100000 for v in struct.unpack_from('<fff', dto, 9)):
+    # The original Lua ships unscaled scene XYZ, the same values the retirement
+    # reports use. Santilus' 33242 summoners legitimately start beyond
+    # X=100000 (158000..160435 in the current script), so the old 1e5 cap
+    # rejected a natively declared spawn. Keep the finite check and the 1e7
+    # bound the shared scene decoder already applies.
+    if not all(math.isfinite(v) and abs(v) <= 1e7 for v in struct.unpack_from('<fff', dto, 9)):
         raise ValueError('Invalid summon location')
     return dto
 

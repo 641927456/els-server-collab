@@ -96,3 +96,21 @@ def restore_deferred(db,uid,character,items,location,now):
     for parent in parents:
         accepted.extend(accept_after_reward(db,uid,parent,character,items,location,now,excluded=excluded))
     return tuple(accepted)
+
+
+def deferred_write_possible(db,uid):
+    """Conservative exclusion only; never authorizes a story acceptance.
+
+    A possible child still goes through restore_deferred under the original
+    writer, including all source, level, place, abandon and capacity checks.
+    """
+    catalog=quest_catalog()
+    completed={r[0] for r in db.execute('SELECT quest FROM completed_quests WHERE owner=?',(uid,))}
+    active={r[0] for r in db.execute('SELECT quest FROM character_quests WHERE owner=?',(uid,))}
+    if len(active)>=ACTIVE_QUEST_LIMIT:return False
+    for parent in completed:
+        source=catalog.quests.get(parent)
+        if source is None or source['m_eQuestType']!=5:continue
+        if any(identity in catalog.quests and identity not in active and identity not in completed
+               for identity in sequence(source.get('m_iAfterQuestID',{}))):return True
+    return False

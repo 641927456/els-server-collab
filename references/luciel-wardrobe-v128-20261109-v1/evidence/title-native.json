@@ -1,0 +1,29 @@
+{
+  "ok": true,
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "map_reader": "0x2be26a0",
+  "map_writer": "0xdb1910",
+  "cold_handler": "0x217e980/9a8",
+  "ack_handler": "0x217e980/9aa",
+  "success_keeps_optimistic_map": true,
+  "failure_restores_committed_map": true,
+  "error_popup_shim": true,
+  "wait_cleanup_shim": true,
+  "direction_lookup": "0x2186880",
+  "lookup_stops_at_equipment_selection": true,
+  "directions": {
+    "1": 80,
+    "2": 1070,
+    "3": 10,
+    "4": 20
+  },
+  "selected": [
+    80,
+    1070,
+    10,
+    20
+  ],
+  "bytes": "000000040000000100000050000000020000042e000000030000000a0000000400000014",
+  "live_process_access": false,
+  "natural_GUI": false
+}

@@ -39,5 +39,23 @@ __pycache__/
 /config/*local*.toml
 /.coverage
 /.pytest_cache/
+# tests/test_launcher_first_local.py 的 tempfile.TemporaryDirectory 夹具目录；
+# 测试被中断时不会自动清理，会一直挂在 git status 里。
+/launchers/friends-v42/first-local-test-*/
 .DS_Store
 Thumbs.db
+
+# Local merge rollback snapshots
+/tools.bak-*/
+*.bak
+*.repo-bak
+*.e702-bak
+
+# Local scratch and data backups
+/sync-tmp/
+els_server/data/*.bak-*
+
+# Launcher binary assets stay local (repository_guard rejects binary data)
+/launcher_online/assets/*.ico
+/launcher_online/assets/*.webp
+/launcher_online/assets/*.png

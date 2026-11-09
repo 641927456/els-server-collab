@@ -613,6 +613,35 @@
       ],
       "scene": 637
     },
+    "1010": {
+      "requirement": {
+        "REQUIRE_COMPLETE_QUEST_ID": 26670,
+        "ID": 1010,
+        "BEFORE": 1009,
+        "AFTER": 20013,
+        "REQUIRE_LEVEL": {
+          "MAX": 99,
+          "MIN": 99
+        },
+        "REQUIRE_DUNGEON": {},
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_45628"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -5245,
+        "StartPosId": 1701,
+        "StartPosZ": -210,
+        "StartPosY": 152,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -5245.0,
+        152.0,
+        -210.0
+      ],
+      "scene": 964
+    },
     "1012": {
       "requirement": {
         "REQUIRE_COMPLETE_QUEST_ID": 27600,
@@ -643,35 +672,6 @@
       ],
       "scene": 1214
     },
-    "1010": {
-      "requirement": {
-        "REQUIRE_COMPLETE_QUEST_ID": 26670,
-        "ID": 1010,
-        "BEFORE": 1009,
-        "AFTER": 20013,
-        "REQUIRE_LEVEL": {
-          "MAX": 99,
-          "MIN": 99
-        },
-        "REQUIRE_DUNGEON": {},
-        "MAP_NAME_STRING_ID": {
-          "global": "STR_ID_45628"
-        }
-      },
-      "warp_start": {
-        "StartPosX": -5245,
-        "StartPosId": 1701,
-        "StartPosZ": -210,
-        "StartPosY": 152,
-        "IsWarp": 1
-      },
-      "xyz": [
-        -5245.0,
-        152.0,
-        -210.0
-      ],
-      "scene": 964
-    },
     "1011": {
       "requirement": {
         "REQUIRE_COMPLETE_QUEST_ID": 27560,
@@ -701,6 +701,218 @@
         -619.0
       ],
       "scene": 1131
+    },
+    "1001": {
+      "requirement": {
+        "ID": 1001,
+        "BEFORE": 0,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 30,
+          "MIN": 15
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_19921"
+        }
+      },
+      "warp_start": {
+        "StartPosX": 493.568,
+        "StartPosId": 316,
+        "StartPosZ": 7489.997,
+        "StartPosY": 2100,
+        "IsWarp": 1
+      },
+      "xyz": [
+        493.5679931640625,
+        2100.0,
+        7489.9970703125
+      ],
+      "scene": 497
+    },
+    "1004": {
+      "requirement": {
+        "ID": 1004,
+        "BEFORE": 0,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 59,
+          "MIN": 44
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_19924"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -9722,
+        "StartPosId": 336,
+        "StartPosZ": 1262,
+        "StartPosY": 660,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -9722.0,
+        660.0,
+        1262.0
+      ],
+      "scene": 512
+    },
+    "1005": {
+      "requirement": {
+        "ID": 1005,
+        "BEFORE": 0,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 69,
+          "MIN": 54
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_19925"
+        }
+      },
+      "warp_start": {
+        "StartPosX": 54035.949,
+        "StartPosId": 346,
+        "StartPosZ": -52.499,
+        "StartPosY": 4350,
+        "IsWarp": 1
+      },
+      "xyz": [
+        54035.94921875,
+        4350.0,
+        -52.499000549316406
+      ],
+      "scene": 517
+    },
+    "1006": {
+      "requirement": {
+        "ID": 1006,
+        "BEFORE": 0,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 81,
+          "MIN": 64
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 13
+          },
+          "2": {
+            "MIN_LEVEL": 70,
+            "UNIT_TYPE": 14
+          },
+          "3": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_23093"
+        }
+      },
+      "warp_start": {
+        "StartPosX": 624,
+        "StartPosId": 356,
+        "StartPosZ": -59506,
+        "StartPosY": 22400,
+        "IsWarp": 1
+      },
+      "xyz": [
+        624.0,
+        22400.0,
+        -59506.0
+      ],
+      "scene": 534
+    },
+    "1007": {
+      "requirement": {
+        "ID": 1007,
+        "BEFORE": 0,
+        "AFTER": 0,
+        "REQUIRE_LEVEL": {
+          "MAX": 89,
+          "MIN": 76
+        },
+        "EnableUnitTypeLevel": {
+          "1": {
+            "MIN_LEVEL": 99,
+            "UNIT_TYPE": 15
+          }
+        },
+        "REQUIRE_DUNGEON": {
+          "1": 30090
+        },
+        "MAP_NAME_STRING_ID": {
+          "global": "STR_ID_33882"
+        }
+      },
+      "warp_start": {
+        "StartPosX": -412.69,
+        "StartPosId": 362,
+        "StartPosZ": -26448.16,
+        "StartPosY": 22400,
+        "IsWarp": 1
+      },
+      "xyz": [
+        -412.69000244140625,
+        22400.0,
+        -26448.16015625
+      ],
+      "scene": 606
     }
   },
   "map_groups": {

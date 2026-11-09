@@ -8,13 +8,15 @@ from local_state import LocalState
 from inventory_state import grant_items,load_items
 from protocol_codec import Event
 args=dict(enter_town=True,enter_dungeon=True,client_build='dx11_260923',npc_slot_test=True,gate_test=True,population_test=True,clear_test=True,reward_test=True,item_test=True,ice_test=True)
+LEGACY=163362  # an original ice machine; the 2026 modern ones need a bag actor.
 with tempfile.TemporaryDirectory() as directory:
  path=Path(directory)/'ice.sqlite3';account=LocalAccount(LocalState(path));session=LocalSession(account,**args)
  session.role='game';session.phase='town_ready'
  with closing(sqlite3.connect(path)) as db,db:
-  uid=grant_items(db,[dict(template=800000,metadata=2,group=4,quantity=2)])[0]['uid']
- use=Event(0x202,kind=0x196,payload=struct.pack('>QBBBIi',uid,0,0,0,0,0))
- preview=Event(0x202,kind=0x559,payload=struct.pack('>iIiBB',800000,1,0,0,0))
+  uid=grant_items(db,[dict(template=LEGACY,metadata=2,group=4,quantity=2)])[0]['uid']
+ envelope=dict(performers=(0,),uid=2**64-1,target_uid=2**64-1,payload_mode=0)
+ use=Event(0x202,kind=0x196,payload=struct.pack('>QBBBIi',uid,0,0,0,0,0),**envelope)
+ preview=Event(0x202,kind=0x559,payload=struct.pack('>iIiBB',LEGACY,1,0,0,0),**envelope)
  result=lambda packets:struct.unpack_from('>i',packets[-1].payload)[0]
  assert result(session.handle(use,10))!=0
  assert result(session.handle(preview,11))==0

@@ -21,6 +21,9 @@ def ordinary_grades():
 
 
 def reward_definition(template=701000):
+    if template == 130047:
+        from els_server.domain.ice_decomposition import reward_definition as ice_definition
+        return ice_definition()
     if template==118445:
         from els_server.domain.white_chip_decomposition import reward_definition as fragment_definition
         return fragment_definition()
@@ -48,6 +51,10 @@ def quote(item):
     from els_server.domain.white_chip_decomposition import quote as chip_quote
     special=chip_quote(item)
     if special is not None:return special
+    from els_server.domain.ice_decomposition import quote as ice_quote
+    special = ice_quote(item)
+    if special is not None:
+        return special
     if item['group'] != 1 or item['count'] != 1 or item['template'] not in definitions():
         raise ValueError('Ordinary bag equipment required for decomposition')
     row = client_data().item(item['template'])
@@ -57,12 +64,18 @@ def quote(item):
     grade = (row['flags4'] >> 20) & 15
     # ITEM_GRADE is deliberately not rarity-sorted in this build:
     # unique=1, elite=2, rare=3, normal=4, low=5, legend=6.
-    if row['flags4'] & 0xa1 or row['item_type'] not in (1, 2) or grade not in ordinary_grades() or not 1 <= raw[0xd1] <= 80:
+    if row['flags4'] & 0xa1 or row['item_type'] not in (1, 2) or grade not in ordinary_grades() or raw[0xd1] > 80:
         raise ValueError('Special decomposition rewards not verified')
     # Official 2017 ordinary-equipment rule is expressed in resale ED, not
     # full-durability template value. Ordinary grades use the same rule, excluding
     # distinct reward families above this level band. Do not round fractional
     # crystals or substitute this rule for hero/raid-specific material returns.
+    # The compat floor only covers templates with no native merchant value at
+    # all (level-0 growth sets such as 成长的冒险家, template value 0x1c == 0);
+    # damaged or broken durability keeps the exact resale rule below.
+    if struct.unpack_from('<i', raw, 0x1c)[0] == 0:
+        return dict(template=701000, quantity=1, input_template=item['template'],
+                    record_sha256=hashlib.sha256(raw).hexdigest(), compat_floor=True)
     resale = unit_price(item)
     if not 1000 <= resale <= 100000000 or resale % 1000:
         raise ValueError('Fractional crystal rounding not verified')

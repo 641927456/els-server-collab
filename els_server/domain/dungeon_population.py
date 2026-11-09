@@ -17,6 +17,7 @@ def population(stage,*,hp_context=None):
  from els_server.domain.formal_npc_hp import legacy_population
  part['npcs']=legacy_population(stage,part['npcs'])
  return part
+
 @functools.lru_cache(maxsize=3)
 def _verified_population(stage):
  data=json.loads((ROOT/'population-test-fixture.json').read_text(encoding='utf8'))

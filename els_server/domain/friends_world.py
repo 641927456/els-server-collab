@@ -4,15 +4,23 @@ All methods run in Application's single worker. The transport owns encryption,
 sequence numbers and socket writes; no foreign session's packet is pre-encoded.
 """
 from collections import deque
+from threading import RLock
 import time
 from els_server.protocol import social_messages as wire
 from els_server.domain.local_session import SessionOrderError
 
 
 class Mailbox:
-    def __init__(self):self.messages=deque();self.moves={};self.bytes=0
+    # A guild transaction prepares a mailbox copy and commits while an
+    # independent copy thread may still append to the member's original box.
+    # The lock is what keeps that append from being lost when the copy replaces
+    # the original; the LuCiel clone deliberately keeps the same RLock.
+    def __init__(self):self.messages=deque();self.moves={};self.bytes=0;self.lock=RLock()
 
     def append(self,message,move_uid=None):
+        with self.lock:self._append(message,move_uid)
+
+    def _append(self,message,move_uid):
         size=len(message.payload)
         old=self.moves.get(move_uid) if move_uid is not None else None
         count=len(self.messages)+len(self.moves)+(0 if old is not None else 1)
@@ -26,6 +34,9 @@ class Mailbox:
         self.bytes=total
 
     def drain(self):
+        with self.lock:return self._drain()
+
+    def _drain(self):
         values=list(self.messages)+list(self.moves.values())
         self.messages.clear();self.moves.clear();self.bytes=0
         return values
@@ -42,16 +53,12 @@ class FriendsWorld:
         self.field_bosses=FieldBosses(self)
 
     def disconnect(self,session):
-        try:
-            self.field_bosses.detach(session)
-        finally:
-            try:
-                self.leave(session)
-            finally:
-                try:
-                    self.leave_party(session)
-                finally:
-                    self.invitations={s:v for s,v in self.invitations.items() if s is not session and v['inviter'] is not session}
+        from els_server.cleanup import cleanup_all
+        from els_server.domain.guild_agit_flow import disconnect as guild_disconnect
+        def invitations():
+            self.invitations={s:v for s,v in self.invitations.items() if s is not session and v['inviter'] is not session}
+        cleanup_all(lambda:guild_disconnect(session), lambda:self.field_bosses.detach(session),
+            lambda:self.leave(session), lambda:self.leave_party(session), invitations)
 
     def party_snapshot(self,party,reset=False):
         from els_server.domain.normal_party import roster_events
@@ -60,33 +67,35 @@ class FriendsWorld:
             for notice in notices:self.send(member,notice)
 
     def leave_party(self,session):
+        from els_server.cleanup import cleanup_all
         from els_server.domain.party_recruitment import invalidate
-        invalidate(self,session)
-        current=self.party_of.get(session)
-        try:
+        def challenge():
+            current=self.party_of.get(session)
             if current and (current.get('challenge') or current.get('challenge_pending')):
                 from els_server.domain.group_challenge import cancel
                 cancel(self,current)
-        finally:
-            try:
-                self.dungeons.detach(session)
-            finally:
-                from els_server.domain.party_recruitment import leave as leave_recruitment
-                handled=leave_recruitment(self,session,forced=True)
-                if not handled:
-                    party=self.party_of.pop(session,None)
-                    if party is not None:
-                        party['members'].remove(session);party['ready'].discard(session)
-                        from els_server.domain.normal_party import ordinary
-                        if ordinary(party):party['ready'].clear();party.pop('admission',None)
-                        self.send(session,wire.party_removed(session.account.uid))
-                        if len(party['members'])<2:
-                            for other in list(party['members']):
-                                self.party_of.pop(other,None);self.send(other,wire.party_removed(session.account.uid))
-                            self.parties.pop(party['id'],None)
-                        else:
-                            if party['leader'] is session:party['leader']=party['members'][0]
-                            self.party_snapshot(party,reset=True)
+        def membership():
+            from els_server.domain.party_recruitment import leave as leave_recruitment
+            handled=leave_recruitment(self,session,forced=True)
+            if handled:return
+            party=self.party_of.pop(session,None)
+            if party is None:return
+            party['members'].remove(session);party['ready'].discard(session)
+            from els_server.domain.normal_party import ordinary
+            if ordinary(party):party['ready'].clear();party.pop('admission',None)
+            remaining=list(party['members'])
+            # Complete the original membership changes before optional notices.
+            if len(remaining)<2:
+                for other in remaining:self.party_of.pop(other,None)
+                self.parties.pop(party['id'],None)
+            elif party['leader'] is session:party['leader']=remaining[0]
+            def removed(member):self.send(member,wire.party_removed(session.account.uid))
+            notices=[lambda:removed(session)]
+            if len(remaining)<2:notices.extend(lambda other=other:removed(other) for other in remaining)
+            else:notices.append(lambda:self.party_snapshot(party,reset=True))
+            cleanup_all(*notices)
+        cleanup_all(lambda:invalidate(self,session), challenge,
+            lambda:self.dungeons.detach(session), membership)
 
     def party_request(self,session,event):
         from els_server.domain import party_recruitment
@@ -209,14 +218,18 @@ class FriendsWorld:
         except SessionOrderError:session.social_overflow=True
 
     def leave(self,session):
+        from els_server.cleanup import cleanup_all
         from els_server.domain.party_recruitment import invalidate
-        invalidate(self,session)
-        key=self.members.pop(session,None)
-        if key is None:return
-        room=self.towns[key];room.pop(session,None)
-        notice=wire.town_members(removed=[session.account.uid])
-        for other in list(room):self.send(other,notice)
-        if not room:self.towns.pop(key)
+        def membership():
+            key=self.members.pop(session,None)
+            if key is None:return
+            room=self.towns[key];room.pop(session,None)
+            try:
+                notice=wire.town_members(removed=[session.account.uid])
+                cleanup_all(*(lambda other=other:self.send(other,notice) for other in list(room)))
+            finally:
+                if not room:self.towns.pop(key,None)
+        cleanup_all(lambda:invalidate(self,session), membership)
 
     def synchronize(self,session):
         key=(1,session.active_map) if session.role=='game' and session.phase=='town_ready' else None
@@ -288,7 +301,7 @@ class FriendsWorld:
                 for event in notices:self.send(other,event)
 
     def chat(self,session,event):
-        if session.phase not in ('town_ready','dungeon_active') or session.role!='game':return [wire.chat_ack(-1)]
+        if session.phase not in ('town_ready','dungeon_active','guild_agit_ready') or session.role!='game':return [wire.chat_ack(-1)]
         now=time.monotonic()
         while session.chat_times and now-session.chat_times[0]>=5:session.chat_times.popleft()
         if len(session.chat_times)>=5:return [wire.chat_ack(-1)]
@@ -302,6 +315,12 @@ class FriendsWorld:
         if channel==0 and session.phase=='dungeon_active':
             from els_server.domain.dungeon_chat import handle
             return handle(self,session,text,now)
+        if channel==3:
+            from els_server.domain.guild_chat import deliver
+            return deliver(self,session,text,now)
+        if channel==0 and session.phase=='guild_agit_ready':
+            from els_server.domain.guild_chat import deliver
+            return deliver(self,session,text,now,channel=0)
         party=self.party_of.get(session)
         if channel==0:
             if session not in self.members:return [wire.chat_ack(-1)]

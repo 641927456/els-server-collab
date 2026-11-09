@@ -66,11 +66,11 @@ def career_progress(sub,character):
 def wire(value):
     if (not isinstance(value,dict) or set(value)!={'active','registered','expiry','expansion','field1d','field21'}
         or type(value['active'])is not bool or not isinstance(value['registered'],list)
-        or value['expiry']!=0 or value['expansion']!=0 or value['field1d']!=1 or value['field21']!=1):raise ValueError('Collection native snapshot')
+        or type(value['expiry'])is not int or not 0<=value['expiry']<2**63 or value['expansion']!=0 or value['field1d']!=1 or value['field21']!=1):raise ValueError('Collection native snapshot')
     entries=value['registered']
     keys=[(canonical(r)['unit_type'],r['line'])for r in entries]
     if len(keys)>60 or keys!=sorted(set(keys)):raise ValueError('Collection canonical account keys')
     out=bytes([value['active']])+struct.pack('>I',len(entries))
     for r in entries:out+=struct.pack('>5HiH',r['unit_type'],r['line'],r['unit_type'],r['line'],r['unit_class'],r['transcendental'],r['stage'])
     # DB1080: expiry,expansion,preset map(empty),field1d,field21.
-    return out+struct.pack('>qiIii',0,0,0,1,1)
+    return out+struct.pack('>qiIii',value['expiry'],0,0,1,1)

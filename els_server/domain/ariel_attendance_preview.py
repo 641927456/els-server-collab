@@ -9,7 +9,7 @@ from els_server.domain.growth_attendance_2026_campaign import reward_rows
 def rows():
     path=Path(__file__).resolve().parents[1]/'data/ariel_attendance_preview.json'
     raw=path.read_bytes()
-    if hashlib.sha256(raw).hexdigest()!='c422746fccf3b92613ddcb1a0178ae7f1460aab6e0c46db4d98564ff56dc26aa':raise ValueError('Ariel preview source changed')
+    if hashlib.sha256(raw).hexdigest()!='514c4937418c0bf336a53671c7e1dd5d9e580c804703c4ebbaed68b8ff7cf5a3':raise ValueError('Ariel preview source changed')
     data=json.loads(raw)
     if(data['preview_only']is not True or data['activation_enabled']is not False
             or data['type']!=3 or data['duration_days']!=30

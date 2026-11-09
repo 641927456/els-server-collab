@@ -5,7 +5,8 @@ from els_server.game_data import client_data,CLIENT_SHA
 
 @functools.lru_cache(maxsize=1)
 def catalog():
- p=Path(__file__).resolve().parents[1]/'data/raid_reward_items.json';raw=p.read_bytes()
+ from els_server.paths import PROJECT_ROOT
+ p=PROJECT_ROOT/'els_server/data/raid_reward_items.json';raw=p.read_bytes()
  m=json.loads(p.with_suffix('.manifest.json').read_bytes());d=json.loads(raw);c=client_data()
  if (hashlib.sha256(raw).hexdigest()!=m['payload_sha256'] or m['client_sha256']!=CLIENT_SHA
      or d['client_sha256']!=CLIENT_SHA or d['catalog_sha256']!=c.manifest['catalog_sha256']
@@ -24,6 +25,7 @@ def boxes():
  result=dict(catalog()['boxes']);extra=ordinary_policy()['native_bundle_boxes']
  if set(result)&set(extra):raise ValueError('Conflicting exact native bundle identity')
  return {**result,**extra}
+@functools.lru_cache(maxsize=1)
 def source_only_templates():
  # Existing generic grants remain closed for new readers, Cartridge materials,
  # black fragments and original owned-only accessory readers. Other already
@@ -32,7 +34,7 @@ def source_only_templates():
  from els_server.game_data import client_data
  c=client_data()
  from els_server.domain.formal_pve_economy import policy as ordinary_policy
- return frozenset((136113,136114))|frozenset(catalog()['new_material_readers'])|frozenset(ordinary_policy()['new_reader_ids'])|frozenset(int(t)for t in circuit_catalog()['materials']if c.item(int(t))['name'].startswith('T-'))
+ return frozenset(catalog()['new_material_readers'])|frozenset(ordinary_policy()['new_reader_ids'])|frozenset(int(t)for t in circuit_catalog()['materials']if c.item(int(t))['name'].startswith('T-'))
 
 def plain_plan(plan):return json.dumps(plan,sort_keys=True,separators=(',',':'))
 def ensure_sources(db):
@@ -63,11 +65,128 @@ class _RaidSource:
  def validate_template(self,template):
   self._validate()
   if type(template)is not int or template not in {r['template']for r in json.loads(self._plan)}:raise ValueError('Raid acquisition template outside exact plan')
+  if template in(135911,136174):self.validate_change_material(template)
+  return self
+ def validate_change_material(self,template):
+  self._validate()
+  from els_server.domain.formal_pve_economy import policy,definition
+  if type(template)is not int or template not in(135911,136174)or template not in {r['template']for r in json.loads(self._plan)}:
+   raise ValueError('Change material plan identity')
+  old=self._db.execute('SELECT grant_json FROM reward_receipts WHERE run_id=?',(self.operation,)).fetchone()
+  if old is not None:
+   saved=json.loads(old[0])
+   if saved.get('raid_reward_source')!=self.receipt_identity() or saved.get('items')!=json.loads(self._plan):
+    raise ValueError('Committed change material source changed')
+   return self
+  p=policy();change=p.get('change_force_material_sources');source=json.loads(self._source)
+  if change is None:raise ValueError('New change material source is closed')
+  mid=source.get('dungeon');group=source.get('group_clear');roster=source.get('roster')
+  if (type(mid)is not int or (mid,template)not in{tuple(x)for x in change['active_original_map_material_pairs']}or
+      self.kind!='ordinary' or source.get('reward_source')!='local-full-native-clear-current-display-pool'or
+      source.get('owner')!=self.owner or source.get('run')!=self.operation or
+      source.get('policy_sha256')!=p['_sha256']or type(group)is not bool or
+      type(roster)is not list or not roster or any(type(uid)is not int for uid in roster)or
+      roster!=sorted(set(roster))or self.owner not in roster or (not group and roster!=[self.owner])or
+      type(source.get('native_final_stage'))is not int or source['native_final_stage']<0 or
+      type(source.get('committed_original_boss_source'))is not bool or
+      source.get('graph_sha256')!=definition(mid)['graph_sha256']or
+      not definition(mid)['additional_group_clear_drop'if group else'additional_clear_drop']or
+      template not in definition(mid)['current_display_pool']['COMMON']):
+   raise ValueError('Exact original change material ordinary clear source required')
+  return self
+ def validate_qualified_force_book(self,template,*,replay_only=False):
+  self.validate_template(template)
+  if type(replay_only)is not bool:raise ValueError('Master active Force receipt scope')
+  maps={311066:(34380,),311515:(34420,),311521:(34460,),311512:(34400,),311518:(34440,),311524:(34480,),311527:(34500,34700)}
+  source=json.loads(self._source);mid=source.get('dungeon')
+  from els_server.domain.formal_pve_economy import policy,definition
+  if(template not in maps or mid not in maps[template] or self.kind!='ordinary' or source.get('reward_source')!='local-full-native-clear-current-display-pool' or source.get('owner')!=self.owner or source.get('run')!=self.operation or source.get('graph_sha256')!=definition(mid)['graph_sha256']):raise ValueError('Exact Master active Force original full-clear source required')
+  old=self._db.execute('SELECT grant_json FROM reward_receipts WHERE run_id=?',(self.operation,)).fetchone()
+  if old is not None:
+   saved=json.loads(old[0])
+   if saved.get('raid_reward_source')!=self.receipt_identity() or saved.get('items')!=json.loads(self._plan):raise ValueError('Master active Force committed source changed')
+   return self
+  if replay_only or source.get('policy_sha256')!=policy()['_sha256']:raise ValueError('New Master active Force source closed or policy changed')
+  return self
+ def validate_clock_force_book(self,template,*,replay_only=False):
+  self.validate_template(template)
+  if type(replay_only)is not bool:raise ValueError('Clock Force receipt scope')
+  source=json.loads(self._source);mid=source.get('dungeon')
+  from els_server.domain.formal_pve_economy import policy,definition
+  if(template!=295750 or mid!=34060 or self.kind!='ordinary' or source.get('reward_source')!='local-full-native-clear-current-display-pool' or source.get('owner')!=self.owner or source.get('run')!=self.operation or source.get('graph_sha256')!=definition(mid)['graph_sha256']):raise ValueError('Exact Clock Force original full-clear source required')
+  old=self._db.execute('SELECT grant_json FROM reward_receipts WHERE run_id=?',(self.operation,)).fetchone()
+  if old is not None:
+   saved=json.loads(old[0])
+   if saved.get('raid_reward_source')!=self.receipt_identity() or saved.get('items')!=json.loads(self._plan):raise ValueError('Clock Force committed source changed')
+   return self
+  if replay_only or source.get('policy_sha256')!=policy()['_sha256'] or template not in {t for pool in definition(mid)['current_display_pool'].values()for t in pool}:raise ValueError('New Clock Force source closed or policy changed')
+  return self
+ def validate_aurora_order_book(self,template,*,replay_only=False):
+  self.validate_template(template)
+  if type(replay_only)is not bool:raise ValueError('Aurora source receipt scope')
+  source=json.loads(self._source);mid=source.get('dungeon');roster=source.get('roster')
+  from els_server.domain.formal_pve_economy import policy,definition
+  from els_server.domain.aurora_ticket_rules import enabled as aurora_enabled
+  if (template!=711786 or mid not in(34510,34520) or self.kind!='ordinary'
+      or source.get('reward_source')!='local-full-native-clear-current-display-pool'
+      or source.get('owner')!=self.owner or source.get('run')!=self.operation
+      or source.get('graph_sha256')!=definition(mid)['graph_sha256']
+      or not isinstance(roster,list) or not 2<=len(roster)<=4
+      or roster!=sorted(set(roster)) or self.owner not in roster
+      or type(source.get('native_final_stage'))is not int
+      or source['native_final_stage']<1):
+   raise ValueError('Exact Aurora original group full-clear source required')
+  old=self._db.execute('SELECT grant_json FROM reward_receipts WHERE run_id=?',(self.operation,)).fetchone()
+  if old is not None:
+   saved=json.loads(old[0])
+   if saved.get('raid_reward_source')!=self.receipt_identity() or saved.get('items')!=json.loads(self._plan):raise ValueError('Aurora committed source changed')
+   return self
+  row=definition(mid)
+  if (replay_only or not aurora_enabled() or source.get('policy_sha256')!=policy()['_sha256']
+      or row['additional_clear_drop'] or not row['additional_group_clear_drop']
+      or 711786 not in row['current_display_pool']['COMMON']):
+   raise ValueError('New Aurora source closed or policy changed')
+  return self
+ def validate_original_295762_book(self,template,*,replay_only=False):
+  self.validate_template(template)
+  if type(replay_only)is not bool:raise ValueError('original295762 receipt scope')
+  source=json.loads(self._source);mid=source.get('dungeon')
+  from els_server.domain.formal_pve_economy import policy,definition
+  if(template!=295762 or mid not in (140010,140020,140030) or source.get('roster')!=[self.owner] or self.kind!='ordinary' or source.get('reward_source')!='local-full-native-clear-current-display-pool' or source.get('owner')!=self.owner or source.get('run')!=self.operation or source.get('graph_sha256')!=definition(mid)['graph_sha256']):raise ValueError('Exact original295762 original full-clear source required')
+  old=self._db.execute('SELECT grant_json FROM reward_receipts WHERE run_id=?',(self.operation,)).fetchone()
+  if old is not None:
+   saved=json.loads(old[0])
+   if saved.get('raid_reward_source')!=self.receipt_identity() or saved.get('items')!=json.loads(self._plan):raise ValueError('original295762 committed source changed')
+   return self
+  if replay_only or source.get('policy_sha256')!=policy()['_sha256'] or template not in {t for pool in definition(mid)['current_display_pool'].values()for t in pool}:raise ValueError('New original295762 source closed or policy changed')
   return self
  def bind_factory(self,db,owner,plan):
   if db is not self._db or owner!=self.owner or Path(db.execute('PRAGMA database_list').fetchone()[2]).resolve()!=self._path:
    raise ValueError('Raid acquisition foreign factory writer/owner')
-  return self.validate_plan(plan)
+  self.validate_plan(plan)
+  if any(r['template']in(135911,136174)for r in plan):
+   for row in plan:
+    if row['template']in(135911,136174):self.validate_change_material(row['template'])
+   if self._db.execute('SELECT 1 FROM reward_receipts WHERE run_id=?',(self.operation,)).fetchone():raise ValueError('Committed change material source is receipt-only')
+  if any(r['template']in(311066,311515,311521,311512,311518,311524,311527)for r in plan)and self._db.execute('SELECT 1 FROM reward_receipts WHERE run_id=?',(self.operation,)).fetchone():raise ValueError('Committed Master active Force source is receipt-only')
+  if any(r['template']==295750 for r in plan)and self._db.execute('SELECT 1 FROM reward_receipts WHERE run_id=?',(self.operation,)).fetchone():raise ValueError('Committed Clock Force source is receipt-only')
+  if any(r['template']==295762 for r in plan)and self._db.execute('SELECT 1 FROM reward_receipts WHERE run_id=?',(self.operation,)).fetchone():raise ValueError('Committed original295762 source is receipt-only')
+  if any(r['template']==711786 for r in plan)and self._db.execute('SELECT 1 FROM reward_receipts WHERE run_id=?',(self.operation,)).fetchone():raise ValueError('Committed Aurora source is receipt-only')
+  if any(r['template']==135909 for r in plan)and self._db.execute('SELECT 1 FROM reward_receipts WHERE run_id=?',(self.operation,)).fetchone():raise ValueError('Committed Rosso ticket source is receipt-only')
+  return self
+ def validate_rosso_reset_ticket(self,template,*,replay_only=False):
+  self.validate_template(template)
+  if template!=135909 or type(replay_only)is not bool:raise ValueError('Rosso reset source template/scope')
+  source=json.loads(self._source);mid=source.get('dungeon')
+  from els_server.domain.formal_pve_economy import policy,definition
+  if(mid!=34160 or self.kind!='ordinary' or source.get('reward_source')!='local-full-native-clear-current-display-pool' or source.get('owner')!=self.owner or source.get('run')!=self.operation or source.get('graph_sha256')!=definition(mid)['graph_sha256']):raise ValueError('Rosso ticket original34160 full-clear source required')
+  old=self._db.execute('SELECT grant_json FROM reward_receipts WHERE run_id=?',(self.operation,)).fetchone()
+  if old is not None:
+   saved=json.loads(old[0])
+   if saved.get('raid_reward_source')!=self.receipt_identity()or saved.get('items')!=json.loads(self._plan):raise ValueError('Rosso ticket committed source changed')
+   return self
+  if replay_only or source.get('policy_sha256')!=policy()['_sha256']or template not in definition(mid)['current_display_pool']['COMMON']:raise ValueError('New Rosso ticket source closed or policy changed')
+  return self
  def receipt_identity(self):
   self._validate();return dict(owner=self.owner,operation=self.operation,kind=self.kind,source_sha256=hashlib.sha256(self._source.encode()).hexdigest(),plan_sha256=hashlib.sha256(self._plan.encode()).hexdigest())
 
@@ -77,7 +196,7 @@ def validate_source(source):
 
 def _issue_source(db,owner,operation,kind,source,plan,guard):
  """Only called after a phase or owned-box writer has validated its authority."""
- if kind not in('phase','box','pity','ordinary')or not callable(guard)or guard(db)is not True:raise ValueError('Raid writer source authority')
+ if kind not in('phase','box','pity','ordinary','guild_donation')or not callable(guard)or guard(db)is not True:raise ValueError('Raid writer source authority')
  if type(owner)is not int or owner<1001 or not isinstance(plan,list)or not 1<=len(plan)<=36:raise ValueError('Raid source owner/plan')
  from els_server.storage.item_actor import require_active_character
  require_active_character(db,owner);ensure_sources(db)

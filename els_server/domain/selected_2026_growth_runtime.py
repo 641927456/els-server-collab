@@ -206,7 +206,8 @@ class GrowthExtensionFlow:
             table=self.catalog.notice(existing=rows)
             if len(table.payload)>65536:raise ValueError('Growth reward table bound')
             out.insert(0,table)
-        c=s.account.character();level=0 if c is None else c['level'];g=self.configuration
+        # Eligibility needs only the current owned identity, not bank/force/wardrobe DTOs.
+        c=None if s.account.uid is None else s.account.character_identity();level=0 if c is None else c['level'];g=self.configuration
         code_rows[678]=entries.CodeEntry(self.opened(s,self.participation.clock()) and level>=99,g['starts'],g['ends'])
         notice=entries.notice(code_rows);signature=(s.account.uid,notice.payload)
         if restoring or had_entries or signature!=self.last_entries:out.append(notice)

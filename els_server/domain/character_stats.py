@@ -112,6 +112,12 @@ def combat_values(character=None, items=None):
                 # native client applies its own equipped title afterward.
                 from els_server.domain.titles import attributes as title_attributes
                 values=[f32(v+extra) for v,extra in zip(values,title_attributes(character))]
+    from els_server.domain.resonance_bonus import apply as apply_resonance
+    # The seven-field DTO carries no percentage slots. resonance_bonus maps the
+    # flat rows directly and documents exactly how the dungeon-only rows are
+    # folded in, so an invested page actually reaches damage instead of only
+    # lighting up the panel.
+    values=apply_resonance(values,character)
     if any(not math.isfinite(v) or not 0<=v<=1e12 for v in values):raise ValueError('Combat attributes out of bounds')
     return tuple(values)
 

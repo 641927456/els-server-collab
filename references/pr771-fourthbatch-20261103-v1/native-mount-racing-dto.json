@@ -1,0 +1,62 @@
+{
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "ctor": "7E1DE0",
+  "reader": "DB2B20/C62740",
+  "outer_reader": "DE1310+40",
+  "fields": [
+    [
+      "+00",
+      "u64"
+    ],
+    [
+      "+08",
+      "u16"
+    ],
+    [
+      "+0A",
+      "u8 level"
+    ],
+    [
+      "+0B",
+      "i32 cumulative experience"
+    ],
+    [
+      "+0F",
+      "map<i32,i32>"
+    ]
+  ],
+  "semantic_consumer": "1B0ECB0: selected record+40 identity used in A91, level lookup uses cumulative table minus record+4B",
+  "examples_are_controlled_decoder_inputs_not_race_rewards": true,
+  "private_Unicorn": true,
+  "live_process": false,
+  "rows": [
+    {
+      "level": 1,
+      "experience": 0,
+      "stats": {},
+      "consumed": 19,
+      "original_ctor_initial_level": 1
+    },
+    {
+      "level": 2,
+      "experience": 200,
+      "stats": {
+        "0": 2
+      },
+      "consumed": 27,
+      "original_ctor_initial_level": 1
+    },
+    {
+      "level": 20,
+      "experience": 11300,
+      "stats": {
+        "0": 8,
+        "1": 8,
+        "2": 7,
+        "3": 7
+      },
+      "consumed": 51,
+      "original_ctor_initial_level": 1
+    }
+  ]
+}

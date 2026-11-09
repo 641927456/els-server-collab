@@ -13,20 +13,24 @@ class RewardState:
   self.uid=character_uid(uid)
   self.account_id=account_id
   self.path=Path(path);self.path.parent.mkdir(parents=True,exist_ok=True)
-  with closing(self._connect()) as db,db:
-   db.execute('BEGIN IMMEDIATE');migrate_character_schema(db)
-   db.execute('CREATE TABLE IF NOT EXISTS reward_balances (uid INTEGER PRIMARY KEY CHECK(uid>=1001), ed INTEGER NOT NULL CHECK(ed>=0), experience INTEGER NOT NULL CHECK(experience>=0), revision INTEGER NOT NULL CHECK(revision>=0))')
-   db.execute('INSERT OR IGNORE INTO reward_balances VALUES (?,0,0,0)',(self.uid,))
-   db.execute('CREATE TABLE IF NOT EXISTS reward_receipts (run_id TEXT PRIMARY KEY, proof_sha256 TEXT NOT NULL, grant_json TEXT NOT NULL, response BLOB NOT NULL, balance_json TEXT NOT NULL)')
-   db.execute('CREATE TABLE IF NOT EXISTS reward_title_receipts (run_id TEXT PRIMARY KEY REFERENCES reward_receipts(run_id), owner INTEGER NOT NULL, effect_json TEXT NOT NULL)')
-   db.execute('CREATE TABLE IF NOT EXISTS dungeon_records (uid INTEGER NOT NULL, map_id INTEGER NOT NULL, seconds INTEGER NOT NULL CHECK(seconds>0 AND seconds<=2147483647), PRIMARY KEY(uid,map_id))')
+  from els_server.storage.initialization_checks import read_ready,reward_ready
+  with closing(self._connect()) as db:
+   if not read_ready(db,reward_ready,self.uid):
+    with write_transaction(db):
+     if not reward_ready(db,self.uid):
+       migrate_character_schema(db)
+       db.execute('CREATE TABLE IF NOT EXISTS reward_balances (uid INTEGER PRIMARY KEY CHECK(uid>=1001), ed INTEGER NOT NULL CHECK(ed>=0), experience INTEGER NOT NULL CHECK(experience>=0), revision INTEGER NOT NULL CHECK(revision>=0))')
+       db.execute('INSERT OR IGNORE INTO reward_balances VALUES (?,0,0,0)',(self.uid,))
+       db.execute('CREATE TABLE IF NOT EXISTS reward_receipts (run_id TEXT PRIMARY KEY, proof_sha256 TEXT NOT NULL, grant_json TEXT NOT NULL, response BLOB NOT NULL, balance_json TEXT NOT NULL)')
+       db.execute('CREATE TABLE IF NOT EXISTS reward_title_receipts (run_id TEXT PRIMARY KEY REFERENCES reward_receipts(run_id), owner INTEGER NOT NULL, effect_json TEXT NOT NULL)')
+       db.execute('CREATE TABLE IF NOT EXISTS dungeon_records (uid INTEGER NOT NULL, map_id INTEGER NOT NULL, seconds INTEGER NOT NULL CHECK(seconds>0 AND seconds<=2147483647), PRIMARY KEY(uid,map_id))')
  def _connect(self):return sqlite3.connect(self.path,timeout=10)
  def balances(self):
   db=self._connect()
   try:r=db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(self.uid,)).fetchone()
   finally:db.close()
   return validate_balances(r)
- def grant(self,run_id,proof,ed,experience,response_builder=None,item_plan=None,inventory_response_builder=None,*,dungeon_clear=None,challenge_clear=None,transaction=None,clear_assessment=None,artifact_base=None,title_economy=None,title_dungeon=None,attendance_clear=None,experience_limit=None,resonance_source=None,raid_reward_source=None,silver_source=None,daily_special=None):
+ def grant(self,run_id,proof,ed,experience,response_builder=None,item_plan=None,inventory_response_builder=None,*,dungeon_clear=None,challenge_clear=None,transaction=None,clear_assessment=None,artifact_base=None,title_economy=None,title_dungeon=None,attendance_clear=None,experience_limit=None,resonance_source=None,raid_reward_source=None,silver_source=None,daily_special=None,random_mission=None):
   # A run UUID is allocated by the authenticated server, never by a client.
   if not isinstance(run_id,str) or str(uuid.UUID(run_id))!=run_id:raise ValueError('Noncanonical reward run UUID')
   if not isinstance(proof,bytes) or not proof or len(proof)>8192:raise ValueError('Reward evidence bound')
@@ -35,6 +39,11 @@ class RewardState:
    if response_builder is not None or item_plan is None or not callable(inventory_response_builder):raise ValueError('Inventory response requires one builder and an item plan')
   elif not callable(response_builder):raise ValueError('Reward response builder required')
   grant={'ed':ed,'experience':experience}
+  if random_mission is not None:
+   from els_server.domain.random_mission_flow import require_permit
+   require_permit(random_mission,self.uid,run_id,experience)
+   if dungeon_clear is None or transaction is None or random_mission.session.account.reward_store is not self or random_mission.path.resolve()!=self.path.resolve()or dungeon_clear[0]!=json.loads(random_mission.row['context_json'])['dungeon']:raise ValueError('Mission original clear writer required')
+   grant['random_mission']=random_mission.identity()
   if silver_source is not None:
    from els_server.domain.silver_mirror_rewards import validate_source as _mirror_source
    source=_mirror_source(silver_source)
@@ -98,13 +107,15 @@ class RewardState:
   if transaction is not None:
    actual=db.execute('PRAGMA database_list').fetchone()[2]
    if not db.in_transaction or Path(actual).resolve()!=self.path.resolve():raise ValueError('Reward transaction database/ownership')
+  acquired=None
   try:
-   if transaction is None:db.execute('BEGIN IMMEDIATE')
+   if transaction is None:acquired=begin_write(db)
    savepoint='attendance_reward_'+uuid.uuid4().hex;db.execute('SAVEPOINT '+savepoint)
    if resonance_source is not None:
     from els_server.storage import resonance_state as er
     er.owner(db,self.uid,self.account_id)
    if item_plan is not None:ensure_inventory(db);migrate_fashion_bag(db);migrate_potion_bag(db)
+   if random_mission is not None:require_permit(random_mission,self.uid,run_id,grant['experience'],db)
    existing=db.execute('SELECT proof_sha256,grant_json,response,balance_json FROM reward_receipts WHERE run_id=?',(run_id,)).fetchone()
    if existing:
     saved_grant=json.loads(existing[1])
@@ -147,7 +158,7 @@ class RewardState:
      if saved is None:raise RewardConflict('Missing committed inventory receipt')
      reply['items']=normalize_legacy_potion_groups(json.loads(saved[0]))
     db.execute('RELEASE '+savepoint);savepoint=None
-    if transaction is None:db.commit()
+    if transaction is None:commit_write(db)
     return reply
    r=db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(self.uid,)).fetchone()
    validate_balances(r)
@@ -156,6 +167,9 @@ class RewardState:
     from els_server.domain.title_economy import resolve
     effect=resolve(db,self.uid,title_economy,ed,experience,dungeon_clear[0] if title_economy=='clear' else title_dungeon)
     ed,experience=effect['ed'],effect['experience']
+   if random_mission is not None:
+    require_permit(random_mission,self.uid,run_id,grant['experience'],db);experience+=random_mission.bonus
+    if effect is not None:effect=dict(effect,experience=experience,bonus_experience=effect['bonus_experience']+random_mission.bonus)
    resonance_award=None
    if resonance_source is not None and er.route(db,self.uid,self.account_id)=='resonance':
     resonance_award=er.award(db,self.uid,run_id,proof,resonance_source,experience*grant['resonance_multiplier'],self.account_id)
@@ -176,7 +190,11 @@ class RewardState:
    if experience and db.execute("SELECT 1 FROM sqlite_master WHERE name='characters' AND type='table'").fetchone():
     from els_server.game_data import client_data
     level=client_data().level_for_experience(updated['experience'])
-    db.execute('UPDATE characters SET level=?,revision=revision+1 WHERE uid=? AND level<?',(level,self.uid,level))
+    old_level=db.execute('SELECT level FROM characters WHERE uid=?',(self.uid,)).fetchone()
+    changed=db.execute('UPDATE characters SET level=?,revision=revision+1 WHERE uid=? AND level<?',(level,self.uid,level)).rowcount
+    if changed:
+     from els_server.storage.normal_fatigue import level_up as normal_fatigue_level_up
+     normal_fatigue_level_up(db,self.path,self.uid,self.account_id,run_id,digest,old_level[0],level)
    # Ordinary character EXP is never a source of Artifact EXP.
    if clear_assessment is not None:
     from els_server.storage.local_clear_rules import commit as commit_local_rules
@@ -209,6 +227,7 @@ class RewardState:
    else:
     response=(inventory_response_builder(dict(updated),[dict(i) for i in awarded]) if inventory_response_builder is not None else response_builder(dict(updated),dict(effect)) if effect is not None else response_builder(dict(updated)))
    if not isinstance(response,bytes) or not 1<=len(response)<=65536:raise ValueError('Invalid reward response')
+   if random_mission is not None:random_mission.validate(db)
    if daily_special is not None:daily_special.validate()
    db.execute('UPDATE reward_balances SET ed=?,experience=?,revision=? WHERE uid=?',(updated['ed'],updated['experience'],updated['revision'],self.uid))
    db.execute('INSERT INTO reward_receipts VALUES (?,?,?,?,?)',(run_id,digest,plan,response,json.dumps(updated,sort_keys=True)))
@@ -217,7 +236,7 @@ class RewardState:
    if attendance_clear is not None:attendance_clear.commit(db,self.uid,run_id,dungeon_clear)
    if daily_special is not None:daily_store.save(db,run_id,self.uid,daily_detail)
    db.execute('RELEASE '+savepoint);savepoint=None
-   if transaction is None:db.commit()
+   if transaction is None:commit_write(db)
    reply={'response':response,'balances':updated,'replayed':False}
    if resonance_award is not None:reply['resonance_award']=resonance_award
    if effect is not None:reply['title_economy']=effect
@@ -233,4 +252,11 @@ class RewardState:
    if transaction is None:db.rollback()
    raise
   finally:
-   if transaction is None:db.close()
+   if transaction is None:
+    try:db.close()
+    finally:
+     if acquired is not None:end_write(acquired,failed=__import__('sys').exc_info()[0] is not None)
+
+from els_server.storage.sqlite_timing import write_transaction
+
+from els_server.storage.sqlite_timing import begin_write,end_write,commit_write

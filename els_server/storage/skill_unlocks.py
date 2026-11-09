@@ -31,7 +31,25 @@ def purchase_notifications(db,uid,character,previous,replayed):
     from els_server.protocol.protocol_codec import Event
     if replayed:character=owned_character(db,uid);previous=()
     if character['uid']!=uid:raise ValueError('Skill book refresh owner mismatch')
-    return [unlock_notice(character,previous),Event(0x201,kind=0x55b,payload=saved_initialization(db,character))]
+    return _prepared([unlock_notice(character,previous),Event(0x201,kind=0x55b,payload=saved_initialization(db,character)),quest_refresh(db,uid)])
+
+def quest_refresh(db,uid):
+    # Same writer/owner as the seal change. Reads never delete accepted progress.
+    from els_server.storage.seal_quests import _state,load_character
+    from els_server.protocol.quest_messages import initialization
+    from els_server.protocol.protocol_codec import encode_event
+    load_character(db,uid)
+    tables=('character_quests','completed_quests')
+    state=(_state(db,uid,load_items(db,uid)) if all(db.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(t,)).fetchone() for t in tables)
+        else dict(active=[],completed=[]))
+    event=initialization(state);encode_event(event)
+    return event
+
+def _prepared(events):
+    from els_server.protocol.protocol_codec import encode_event
+    for event in events:encode_event(event)
+    return events
 
 def saved_initialization(db,character):
     import struct
@@ -75,7 +93,7 @@ def use_skill_book(path,uid,payload,operation_id):
                 ed=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(uid,)).fetchone()[0]
                 row=db.execute('SELECT uid,name,unit_type,unit_class,level,transcendence,master,revision FROM characters WHERE uid=?',(uid,)).fetchone()
                 character=Characters._row(row);character['skill_seal_groups']=saved_groups(db,uid)
-                return dict(replayed=True,response=use_ack([(old[1:],current)],ed=ed).payload,initialization=saved_initialization(db,character))
+                return dict(replayed=True,response=use_ack([(old[1:],current)],ed=ed).payload,initialization=saved_initialization(db,character),quest_notification=quest_refresh(db,uid))
         item=next((i for i in load_items(db,uid) if i['uid']==item_uid),None)
         rule=catalog()['books'].get(str(item['template'])) if item else None
         if rule is None:return None
@@ -102,4 +120,7 @@ def use_skill_book(path,uid,payload,operation_id):
             forget(db,item_uid);db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?',(item_uid,uid))
         db.execute('CREATE TABLE IF NOT EXISTS skill_book_receipts (operation_id TEXT PRIMARY KEY, request_hash TEXT NOT NULL, owner INTEGER NOT NULL, item_uid INTEGER NOT NULL, template INTEGER NOT NULL, bag_group INTEGER NOT NULL, slot INTEGER NOT NULL)')
         db.execute('INSERT INTO skill_book_receipts VALUES (?,?,?,?,?,?,?)',(operation_id,digest,uid,item_uid,item['template'],item['group'],item['slot']))
-        return dict(replayed=False,response=response,notification=notification,initialization=initialization)
+        quest_notification=quest_refresh(db,uid)
+        from els_server.protocol.protocol_codec import Event
+        _prepared([Event(0x201,kind=0x21a,payload=response),notification,Event(0x201,kind=0x55b,payload=initialization)])
+        return dict(replayed=False,response=response,notification=notification,initialization=initialization,quest_notification=quest_notification)

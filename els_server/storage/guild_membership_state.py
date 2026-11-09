@@ -44,13 +44,16 @@ def snapshot(db, owner, account_id, *, pending_operation=None):
         return None
     result = dict(zip(('id','name','master_uid','created_at','message','revision',
                        'grade','joined_at','source_operation','profile_version'), row))
+    result['owner']=owner
+    from els_server.storage.guild_system_state import read as system_read
+    result['system']=system_read(db,result['id'])
     if result['profile_version'] != 1:
         raise ValueError('Unknown guild profile version')
     result['members'] = tuple(r[0] for r in db.execute(
         'SELECT owner FROM native_guild_members WHERE guild_id=? ORDER BY owner', (result['id'],)))
-    if not 0 < result['id'] < 2**31 or not 1 <= len(result['members']) <= 20:
+    if not 0 < result['id'] < 2**31 or not 1 <= len(result['members']) <= result['system']['capacity']:
         raise ValueError('Guild identity or membership capacity')
-    if result['master_uid'] not in result['members'] or result['grade'] not in (1, 6):
+    if result['master_uid'] not in result['members'] or result['grade'] not in range(1,7):
         raise ValueError('Guild master or finite member grade')
     if db.execute('SELECT grade FROM native_guild_members WHERE owner=? AND guild_id=?',
                   (result['master_uid'],result['id'])).fetchone() != (1,):
@@ -61,28 +64,43 @@ def snapshot(db, owner, account_id, *, pending_operation=None):
         WHERE m.guild_id=? ORDER BY m.owner''', (result['id'],)).fetchall()
     for member_uid, member_account, grade, name, saved_account, source_operation, joined_at in members:
         if (not name or member_account != saved_account
-                or grade != (1 if member_uid == result['master_uid'] else 6)):
+                or (grade!=1 if member_uid==result['master_uid'] else grade not in range(2,7))):
             raise ValueError('Guild cold member ownership or grade changed')
-        expected_kind = 0x276 if grade == 1 else 0x288
+        # Promotions preserve the original create/join producer.
         receipt = db.execute('SELECT owner,kind,guild_id,created_at,request_hash FROM native_guild_actions WHERE operation=?',
                              (source_operation,)).fetchone()
         staged = (pending_operation is not None and member_uid == owner
                   and source_operation == pending_operation[0]
-                  and expected_kind == pending_operation[1])
+                  and pending_operation[1] in (0x276,0x288))
         if receipt is None:
             if not staged:raise ValueError('Guild membership lacks its actual producer receipt')
-        elif (receipt[:4] != (member_uid,expected_kind,result['id'],joined_at)
+        elif ((receipt[0],receipt[2],receipt[3]) != (member_uid,result['id'],joined_at) or receipt[1] not in (0x276,0x288,0x2ca)
               or type(receipt[4]) is not str or len(receipt[4])!=64):
             raise ValueError('Guild membership producer receipt changed')
+        if receipt is not None and receipt[1]==0x2ca:
+            # Offline acceptance is tied to the applicant's own committed request
+            # and the approver's command; an imported membership cannot qualify.
+            from els_server.storage.guild_system_state import exists
+            import json
+            if not exists(db,'native_guild_operations_v2'):raise ValueError('Guild recruitment producer missing')
+            approval=db.execute('SELECT request_hash,guild_id,kind,result,created_at FROM native_guild_operations_v2 WHERE operation=?',(source_operation,)).fetchone()
+            proof=None if approval is None else json.loads(approval[3])
+            if(approval is None or (approval[0],approval[1],approval[2],approval[4])!=(receipt[4],result['id'],0x2ca,joined_at)
+                or(proof.get('target'),proof.get('account'))!=(member_uid,member_account)):
+                raise ValueError('Guild application approval source changed')
+            application=db.execute('SELECT guild_id,owner,kind,result,created_at FROM native_guild_operations_v2 WHERE operation=?',(proof['application'],)).fetchone()
+            if(application is None or application[:3]!=(result['id'],member_uid,0x2c6)
+                or json.loads(application[3]).get('application_guild')!=result['id']or application[4]>joined_at):
+                raise ValueError('Guild original explicit application missing')
         if member_uid == result['master_uid']:
-            if joined_at != result['created_at']:
+            if receipt is not None and receipt[1]==0x276 and joined_at != result['created_at']:
                 raise ValueError('Guild creation source clock changed')
             result['master_name'] = name
     return result
 
 
 def cold(path, owner, account_id):
-    with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=ro',uri=True,timeout=10)) as db:
+    with snapshot_connection(path) as db:
         db.execute('BEGIN')
         return snapshot(db,owner,account_id)
 
@@ -96,10 +114,16 @@ def _schema(db):
         master_uid INTEGER NOT NULL UNIQUE REFERENCES characters(uid),
         created_at INTEGER NOT NULL,message TEXT NOT NULL,revision INTEGER NOT NULL,
         profile_version INTEGER NOT NULL CHECK(profile_version=1))''')
+    old_members=db.execute("SELECT sql FROM sqlite_master WHERE name='native_guild_members'").fetchone()
+    if old_members and 'CHECK(gradeIN(1,6))' in old_members[0].replace(' ',''):
+        db.execute('CREATE TABLE native_guild_members_upgrade(owner INTEGER PRIMARY KEY REFERENCES characters(uid),account_id INTEGER NOT NULL,guild_id INTEGER NOT NULL REFERENCES native_guilds(id),grade INTEGER NOT NULL CHECK(grade BETWEEN 1 AND 6),joined_at INTEGER NOT NULL,source_operation TEXT NOT NULL UNIQUE)')
+        db.execute('INSERT INTO native_guild_members_upgrade SELECT * FROM native_guild_members')
+        db.execute('DROP TABLE native_guild_members')
+        db.execute('ALTER TABLE native_guild_members_upgrade RENAME TO native_guild_members')
     db.execute('''CREATE TABLE IF NOT EXISTS native_guild_members(
         owner INTEGER PRIMARY KEY REFERENCES characters(uid),account_id INTEGER NOT NULL,
         guild_id INTEGER NOT NULL REFERENCES native_guilds(id),
-        grade INTEGER NOT NULL CHECK(grade IN(1,6)),joined_at INTEGER NOT NULL,
+        grade INTEGER NOT NULL CHECK(grade BETWEEN 1 AND 6),joined_at INTEGER NOT NULL,
         source_operation TEXT NOT NULL UNIQUE)''')
     db.execute('''CREATE TABLE IF NOT EXISTS native_guild_invitations(
         target_uid INTEGER PRIMARY KEY REFERENCES characters(uid),target_account INTEGER NOT NULL,
@@ -157,6 +181,13 @@ def _finish(db, owner, account_id, kind, operation, digest, now, encode, guard, 
     return events
 
 
+def name_key(name):
+    if (type(name)is not str or not name or unicodedata.normalize('NFC',name)!=name
+        or any(not c.isalnum()for c in name)
+        or sum(2 if unicodedata.east_asian_width(c)in('W','F')else 1 for c in name)>16):
+        raise ValueError('Guild name outside current guide constraints')
+    return name.casefold()
+
 def create(db, owner, account_id, item_uid, name, message, payload, operation,
            now, *, encode, guard):
     """276: real owned license -> guild plus master, one SQL transaction.
@@ -173,10 +204,7 @@ def create(db, owner, account_id, item_uid, name, message, payload, operation,
                        repeat=True,expected_guild=previous)
     if snapshot(db, owner, account_id) is not None:
         raise ValueError('Character already belongs to a guild')
-    if (type(name) is not str or not name or unicodedata.normalize('NFC',name)!=name
-        or any(not c.isalnum() for c in name)
-        or sum(2 if unicodedata.east_asian_width(c) in ('W','F') else 1 for c in name)>16):
-        raise ValueError('Guild name outside current guide constraints')
+    key=name_key(name)
     if type(message) is not str or '\0' in message or len(message.encode('utf-16le'))>8192:
         raise ValueError('Guild introduction encoding bound')
     if type(now) is not int or not 0 < now < 2**63:
@@ -187,9 +215,11 @@ def create(db, owner, account_id, item_uid, name, message, payload, operation,
     require_current(item);require_unlocked(item)
     _schema(db)
     guild_id = db.execute('INSERT INTO native_guilds(name,name_key,master_uid,created_at,message,revision,profile_version) VALUES(?,?,?,?,?,0,1)',
-                         (name,name.casefold(),owner,now,message)).lastrowid
+                         (name,key,owner,now,message)).lastrowid
     db.execute('INSERT INTO native_guild_members VALUES(?,?,?,?,?,?)',
                (owner,account_id,guild_id,1,now,operation))
+    from els_server.domain.guild_recruit import clear_application
+    clear_application(db,owner)
     remove(db,owner,item)
     return _finish(db,owner,account_id,0x276,operation,digest,now,encode,guard,
                    changes=(((item['group'],item['slot']),None),))
@@ -207,9 +237,10 @@ def invite(db, owner, account_id, target_uid, target_account, source_session,
     if owner==target_uid or any(type(s) is not str or not 1<=len(s)<=160 for s in (source_session,target_session)):
         raise ValueError('Guild invitation session identity')
     current = snapshot(db,owner,account_id)
-    if current is None or current['grade']!=1 or current['master_uid']!=owner:
-        raise ValueError('This finite producer requires the actual guild master')
-    if snapshot(db,target_uid,target_account) is not None or len(current['members'])>=20:
+    from els_server.domain.guild_rules import permission
+    if current is None or not permission(current,current['system'],0):
+        raise ValueError('Guild invitation authority')
+    if snapshot(db,target_uid,target_account) is not None or len(current['members'])>=current['system']['capacity']:
         raise ValueError('Guild recipient already joined or capacity exhausted')
     digest, previous = _operation(db,owner,0x285,payload,operation)
     if previous is not None:
@@ -261,14 +292,31 @@ def accept(db, owner, account_id, guild_id, inviter, session, payload, operation
             or _actor(db,invite_row[2],inviter_account_id) != inviter):
         raise ValueError('Guild original inviter identity or generation changed')
     source = snapshot(db,invite_row[2],inviter_account_id)
-    if source is None or source['id'] != guild_id or source['grade'] != 1:
+    from els_server.domain.guild_rules import permission
+    if source is None or source['id'] != guild_id or not permission(source,source['system'],0):
         raise ValueError('Guild original inviter lost membership or authority')
-    master=db.execute('SELECT master_uid FROM native_guilds WHERE id=?',(guild_id,)).fetchone()
-    if master!=(invite_row[2],):raise ValueError('Guild inviter authority changed')
-    if db.execute('SELECT COUNT(*) FROM native_guild_members WHERE guild_id=?',(guild_id,)).fetchone()[0]>=20:
+    if db.execute('SELECT COUNT(*) FROM native_guild_members WHERE guild_id=?',(guild_id,)).fetchone()[0]>=source['system']['capacity']:
         raise ValueError('Guild filled before acceptance')
     db.execute('INSERT INTO native_guild_members VALUES(?,?,?,?,?,?)',(owner,account_id,guild_id,6,now,operation))
     if db.execute('UPDATE native_guilds SET revision=revision+1 WHERE id=? AND revision<9223372036854775807',(guild_id,)).rowcount!=1:
         raise ValueError('Guild revision overflow')
     db.execute('DELETE FROM native_guild_invitations WHERE target_uid=?',(owner,))
+    from els_server.domain.guild_recruit import clear_application
+    clear_application(db,owner)
     return _finish(db,owner,account_id,0x288,operation,digest,now,encode,guard)
+
+
+def decline(db,owner,account_id,session,payload,operation,now,guard):
+    # Current Guild join-cancel35006 sends one-way empty6C8.
+    if payload:raise ValueError('Native guild invitation cancel is empty')
+    _actor(db,owner,account_id);guard()
+    digest,previous=_operation(db,owner,0x6c8,payload,operation)
+    if previous is not None:return ()
+    row=db.execute('SELECT guild_id,target_account,target_session FROM native_guild_invitations WHERE target_uid=?',(owner,)).fetchone()if _exists(db,'native_guild_invitations')else None
+    if row is None:return ()
+    if row[1:]!=(account_id,session):raise ValueError('Guild invitation cancel owner/generation')
+    db.execute('DELETE FROM native_guild_invitations WHERE target_uid=?',(owner,))
+    db.execute('INSERT INTO native_guild_actions VALUES(?,?,?,?,?,?)',(operation,digest,owner,0x6c8,row[0],now))
+    guard();return ()
+
+from els_server.storage.read_scope import snapshot_connection

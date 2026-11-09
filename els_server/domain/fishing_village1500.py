@@ -4,6 +4,7 @@ from contextlib import closing
 from els_server.protocol.protocol_codec import Event,encode_event
 from els_server.storage.local_state import scene_ready_location,validate_location
 from els_server.domain.town_travel_flow import _ordinary_actor,_ordinary_binding
+from els_server.domain.town_travel import DestinationRequirementError,entry_failure_payload
 
 # Recovery closes new entry, while already saved1500 can restore and leave.
 ENTRY_ENABLED=True
@@ -25,9 +26,10 @@ def _saved(db,s):
 
 def _eligible(db,s,character):
     minimum={13:70,14:70,15:99}.get(character['unit_type'],10)
-    if not (minimum<=character['level']<=99 and db.execute(
-        'SELECT 1 FROM dungeon_records WHERE uid=? AND map_id=30092',(s.account.uid,)).fetchone()):
-        raise ValueError('Ruben spa original level or source clear requirement')
+    if not minimum<=character['level']<=99:
+        raise DestinationRequirementError('Ruben spa original level requirement',level=minimum)
+    if not db.execute('SELECT 1 FROM dungeon_records WHERE uid=? AND map_id=30092',(s.account.uid,)).fetchone():
+        raise DestinationRequirementError('Ruben spa original source clear requirement',dungeon=30092)
 
 def _reply(kind,result,requested=0):
     payload=struct.pack('>i',result)
@@ -91,9 +93,10 @@ def handle(s,event,sequence):
             s.pending_map=requested;s.inventory_town_sync_sent=False
             s.phase='square_accepted';s.completed.add(0x225)
             return answer
-        except (ValueError,OverflowError):return _reply(0x226,-1,requested)
+        except (ValueError,OverflowError)as error:
+            return [Event(0x201,kind=0x226,payload=entry_failure_payload(error))]
     if pending is None:
-        if s.pending_map==1500 or s.active_map==1500:return _reply(0x228,-1)
+        if s.pending_map==1500 or s.active_map==1500:return _reply(0x228,515)
         return None
     try:
         if (not _identity(s,event,sequence) or _ordinary_binding(s)!=pending['binding']
@@ -130,4 +133,4 @@ def handle(s,event,sequence):
         s.active_map=destination;s.inventory_town_sync_sent=True;s.phase='town_ready';s.completed.add(0x227)
         if s.shop_test:s.shop_available_pending=True
         return answer
-    except (ValueError,OverflowError):return _reply(0x228,-1)
+    except (ValueError,OverflowError):return _reply(0x228,515)
