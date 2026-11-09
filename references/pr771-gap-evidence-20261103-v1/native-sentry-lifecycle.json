@@ -1,0 +1,73 @@
+{
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "arithmetic_range": "200B867..200B8A5",
+  "selection_range": "1FEAC62..1FEACB3",
+  "virtual_binding": "CX2Eve primary 4233AF0 + 1B38 -> 200C170",
+  "times": [
+    {
+      "skill": 25000,
+      "rate": 1.0,
+      "extra": 0.0,
+      "computed_duration": 20.0
+    },
+    {
+      "skill": 25030,
+      "rate": 1.0,
+      "extra": 0.0,
+      "computed_duration": 60.0
+    },
+    {
+      "skill": 25000,
+      "rate": 1.5,
+      "extra": 5.0,
+      "computed_duration": 35.0
+    },
+    {
+      "skill": 25030,
+      "rate": 1.5,
+      "extra": 5.0,
+      "computed_duration": 95.0
+    }
+  ],
+  "selections": [
+    {
+      "buff_templates": [],
+      "cleanup_selected": true,
+      "target": 384
+    },
+    {
+      "buff_templates": [
+        410
+      ],
+      "cleanup_selected": false,
+      "target": null
+    },
+    {
+      "buff_templates": [
+        411
+      ],
+      "cleanup_selected": true,
+      "target": 384
+    },
+    {
+      "buff_templates": [
+        null,
+        410
+      ],
+      "cleanup_selected": false,
+      "target": null
+    },
+    {
+      "buff_templates": [
+        411,
+        410
+      ],
+      "cleanup_selected": false,
+      "target": null
+    }
+  ],
+  "original_image_unchanged": true,
+  "cleanup_called": false,
+  "full_actor_update": false,
+  "stage_continuity_tested": false
+}
