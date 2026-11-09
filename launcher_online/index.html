@@ -6,21 +6,20 @@
   <meta name="color-scheme" content="dark">
   <title>艾尔之光 · 在线启动器</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/style.css">
-  <script defer src="/app.js"></script>
+  <link rel="stylesheet" href="/style.css?v=20261108f">
+  <script defer src="/app.js?v=20261108f"></script>
 </head>
 <body>
   <div id="bg-layer" aria-hidden="true"><canvas id="bg-canvas" hidden></canvas><img id="bg-image" alt="" hidden><video id="bg-video" autoplay loop muted playsinline hidden></video><div id="bg-dim"></div></div>
   <div class="app-shell">
     <aside class="rail">
-      <a class="rail-brand" href="#home" aria-label="艾尔之光首页"><img src="/favicon.svg" alt=""></a>
       <nav id="navigation" aria-label="主导航"></nav>
       <div class="rail-bottom"><button class="rail-item" data-nav="settings" title="背景与外观" aria-label="背景与外观" id="rail-appearance"></button></div>
     </aside>
     <div class="workspace">
       <header class="topbar" id="titlebar">
         <div class="titlebar-left pywebview-drag-region">
-          <span class="app-title">艾尔之光 启动器</span><span class="app-version">v2.0</span>
+          <img class="app-logo" src="/assets/elsword-logo.png" alt="艾尔之光 启动器">
           <span class="chip" id="header-status"><i class="chip-dot"></i>正在连接</span>
           <button class="chip chip-click" id="gm-pill" data-nav="gm" title="查看 GM 工具"><i class="chip-dot"></i>GM 通道 空闲</button>
         </div>
@@ -38,7 +37,7 @@
       <div class="dock">
         <div class="dock-message" id="dock-message">连接本地环境…</div>
         <div class="dock-right">
-          <button class="dock-character" id="dock-character" data-nav="gm" title="当前角色 · 查看 GM 工具" hidden></button>
+          <button class="dock-shutdown" id="dock-shutdown" data-action="shutdown-all" title="结束游戏客户端、本地服务端与 GM 面板进程"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/></svg><span>关闭所有运行环境</span></button>
           <button class="dock-launch" id="dock-launch" data-action="start"></button>
         </div>
       </div>

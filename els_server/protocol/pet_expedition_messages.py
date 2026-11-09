@@ -59,7 +59,12 @@ def board_record(*,mission,region,pets,started_at,ends_at):
     if mission<=0 or region<=0:raise ValueError('Expedition board original identities')
     started_at=_uid(started_at,True);ends_at=_uid(ends_at,True)
     if started_at>ends_at:raise ValueError('Expedition board time order')
-    return struct.pack('>ii',mission,region)+_pet_vector(pets)+struct.pack('>QQ',started_at,ends_at)
+    # DD1990 hands the first u64 slot to the panel as the deadline it subtracts
+    # the native current time from; the second slot is the run origin. Writing
+    # them in start/end order made the deadline equal to the dispatch instant, so
+    # the detail page printed 00:00:00 the moment the run was sent out. Keep the
+    # logical start<=end check above and write deadline first.
+    return struct.pack('>ii',mission,region)+_pet_vector(pets)+struct.pack('>QQ',ends_at,started_at)
 
 
 def board_notice(rows):

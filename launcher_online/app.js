@@ -38,20 +38,21 @@ const icon=(name)=>`<svg viewBox="0 0 24 24" aria-hidden="true">${icons[name]||i
 const esc=(value)=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const number=(value)=>Number(value||0).toLocaleString('zh-CN');
 const $=(s)=>document.querySelector(s);
-const routes={home:['冒险首页','home'],gm:['GM 工具','gm'],backups:['存档备份','backup'],features:['功能进度','features'],repo:['仓库同步','repo'],settings:['启动设置','settings'],logs:['运行日志','logs']};
+const routes={home:['冒险首页','home'],gm:['GM 工具','gm'],backups:['存档备份','backup'],repo:['仓库同步','repo'],settings:['启动设置','settings'],logs:['运行日志','logs']};
 let token=location.hash.slice(1);
 if(token && !routes[token]){sessionStorage.setItem('els-launcher-token',token);history.replaceState(null,'','/');}
 else token=sessionStorage.getItem('els-launcher-token')||'';
-let page='home',tab='send',state=null,repoData=null,characters=[],selected=Number(localStorage.getItem('els-character')||1001),chosenItem=null,epoch=0,mutating=false,closed=false,searchTimer,itemOffset=0,itemsQuery='',itemsGroup='all';
+let page='home',tab='send',state=null,repoData=null,characters=[],selected=Number(localStorage.getItem('els-character')||1001),chosenItem=null,chosenItems=[],epoch=0,mutating=false,closed=false,searchTimer,itemOffset=0,itemsQuery='',itemsGroup='all';
 let gmOnline=null,gmStatusAt=0,onlinePlayer=null,couponRewards=null,couponPicks=new Map(),couponBatches=null,cashInfo=null,ratesDirty=false,eventsDirty=false,gmTimer=0;
 let bgSettings=null,bgAnim=0,bgStars=null,bgDust=null,bgSeed=Math.random()*1000;
 const GM_TABS={send:['在线发放','send'],announce:['游戏公告','megaphone'],rates:['概率配置','sliders'],events:['活动开关','clock'],coupons:['优惠券','ticket'],cash:['A币充值','gem'],offline:['离线工具','offline'],bag:['背包查看','box'],history:['操作记录','clock']};
 const ONLINE_TABS=['send','announce','rates','events','coupons','cash'];
 const main=$('#main');
 document.body.classList.toggle('motion-off',localStorage.getItem('els-reduce-motion')==='true');
-$('#refresh').innerHTML=icon('refresh');$('#close-app').innerHTML=icon('close');
+$('#close-app').innerHTML=icon('close');
 $('#minimize-app').innerHTML=icon('minimize');$('#maximize-app').innerHTML=icon('maximize');
-$('#navigation').innerHTML=Object.entries(routes).map(([key,[name,img]],i)=>`${i===4?'<div class="nav-separator"></div>':''}<button class="nav-item" data-nav="${key}" title="${name}" aria-label="${name}">${icon(img)}<span>${name}</span></button>`).join('');
+$('#navigation').innerHTML=Object.entries(routes).map(([key,[name,img]])=>`<button class="rail-item" data-nav="${key}" title="${name}" aria-label="${name}">${icon(img)}</button>`).join('');
+$('#rail-appearance').innerHTML=icon('palette');
 
 async function api(path,data,timeoutMs=45000){
  const options={headers:{'X-Launcher-Token':token}};
@@ -63,7 +64,7 @@ async function api(path,data,timeoutMs=45000){
  finally{clearTimeout(timeout);}
 }
 function toast(text,error=false){const element=document.createElement('div');element.className='toast'+(error?' error':'');element.textContent=text;$('#toast-area').append(element);setTimeout(()=>element.remove(),6500);}
-function heading(title,sub,action=''){return `<div class="page-heading"><div><p class="eyebrow">${page==='home'?'YOUR LOCAL WORLD':page==='gm'?'GAME MASTER ONLINE':page==='backups'?'SAVE & PROTECT':page==='features'?'WORLD IN PROGRESS':page==='repo'?'REPOSITORY SYNC':page==='logs'?'SESSION LOG':'LAUNCHER PREFERENCES'}</p><h1>${title}</h1><p>${sub}</p></div>${action}</div>`;}
+function heading(title,sub,action=''){return `<div class="page-heading"><div><p class="eyebrow">${page==='home'?'YOUR LOCAL WORLD':page==='gm'?'GAME MASTER ONLINE':page==='backups'?'SAVE & PROTECT':page==='repo'?'REPOSITORY SYNC':page==='logs'?'SESSION LOG':'LAUNCHER PREFERENCES'}</p><h1>${title}</h1><p>${sub}</p></div>${action}</div>`;}
 function empty(text,img='box'){return `<div class="empty-state">${icon(img)}${text}</div>`;}
 function role(){return characters.find(c=>c.uid===selected)||characters[0];}
 function roleSummary(c){if(!c)return empty('还没有本地角色。首次进入游戏后，在角色界面创建。','user');return `<div class="role-summary"><div class="role-emblem ${c.unit_type===5?'blue':''}">${esc(c.role.slice(0,1))}</div><div class="role-info"><strong>${esc(c.name)}</strong><small><span class="level-tag">Lv. ${c.level}</span>${esc(c.role)} <span class="muted">· UID ${c.uid}</span></small></div></div>`;}
@@ -121,31 +122,27 @@ function applyBackground(settings){
   canvas.hidden=false;startBgAnim(bg.builtin);
  }else if(bg.mode==='image'&&bg.file){
   layer.style.display='block';document.body.classList.add('bg-on');
-  image.src='/background/'+encodeURIComponent(bg.file);image.hidden=false;
+  image.src='/background/'+encodeURIComponent(bg.file)+(token?'?t='+encodeURIComponent(token):'');image.hidden=false;
  }else if(bg.mode==='video'&&bg.file){
   layer.style.display='block';document.body.classList.add('bg-on');
-  video.src='/background/'+encodeURIComponent(bg.file);video.hidden=false;video.play?.().catch(()=>{});
+  video.src='/background/'+encodeURIComponent(bg.file)+(token?'?t='+encodeURIComponent(token):'');video.hidden=false;video.play?.().catch(()=>{});
  }
  $('#bg-dim').style.opacity=String(Math.min(70,Math.max(0,bg.dim??30))/100);
 }
-async function setBackground(patch){
+async function setBackground(patch,persist=true){
  const current=bgSettings||{background:{mode:'off',builtin:'stars',file:null,dim:30},reduce_motion:false};
  const next={...current,background:{...current.background,...patch}};
  bgSettings=next;applyBackground(next);
+ if(!persist)return; // 自定义图片/视频未选文件前只是本地过渡态，服务端会拒绝无文件的 image/video
  try{const saved=await api('settings',next);bgSettings=saved;}catch(e){toast(e.message,true);}
 }
 function bgButtons(){const bg=bgSettings?.background||{};const options=[['off','palette','关闭背景','回到干净的浅色界面'],['builtin:stars','crystal','星屑夜幕','内置动态星空'],['builtin:aurora','crystal','极光波纹','内置流动极光'],['builtin:particles','crystal','浮游光尘','内置上升光点'],['image','image','自定义图片','选择本地图片文件'],['video','film','自定义视频','选择本地视频文件']];
  return options.map(([key,name,label,sub])=>{const active=bg.mode==='off'?key==='off':key==='builtin:'+bg.builtin||key===bg.mode;
   return `<button type="button" class="bg-option ${active?'selected':''}" data-bg-mode="${key}">${icon(name)}<span>${label}</span><small>${sub}</small></button>`;}).join('');}
 
-/* ---------- home ---------- */
+/* ---------- home：主界面即纯动态背景 ---------- */
 function renderHome(){
- const c=role();
- main.innerHTML=heading('准备好，继续冒险。','熟悉的世界，属于你的旅程。',`<button class="button outlined" data-action="check">${icon('check')}检查游戏环境</button>`)+`
- <section class="hero" aria-label="魔奇原生场景插图"><div><p class="eyebrow">THE JOURNEY CONTINUES</p><h2>再一次，<br>踏入<span>艾里奥斯。</span></h2><p class="hero-copy">从熟悉的魔奇出发，继续你的冒险。<br>游戏运行时，GM 发放与公告即时到达。</p></div><div class="hero-bottom"><div class="hero-launch"><button class="button launch-button" id="launch-game" data-action="start">${icon('play')}启动游戏</button><div class="launch-caption" id="launch-caption">自动准备本地环境<br>启动后在游戏内选择你的角色</div></div><span class="scene-credit">原生场景 · 魔奇 RUBEN</span></div></section>
- <div class="home-grid"><section class="panel"><div class="panel-head"><h2>我的角色 <small>${characters.length} / 16</small></h2><button class="button text" data-nav="gm">GM 工具 ${icon('arrow')}</button></div>${roleSummary(c)}${c?stats(c):''}<div class="quick-row"><button class="button subtle" data-action="backup">${icon('backup')}备份存档</button><button class="button subtle" data-nav="logs">${icon('logs')}查看日志</button></div></section>
- <section class="panel"><div class="panel-head"><h2>冒险手记</h2><span class="badge">在线 GM</span></div><div class="info-line"><span class="info-icon">${icon('send')}</span><div><h3>在线发放，即时到账</h3><p>游戏运行时发放道具，直接进入在线角色的背包并推送通知。</p></div></div><div class="info-line"><span class="info-icon">${icon('megaphone')}</span><div><h3>公告与概率随调随用</h3><p>滚动公告、经验与掉落倍率、活动开关，都在 GM 工具里。</p></div></div><div class="info-line"><span class="info-icon">${icon('palette')}</span><div><h3>按你的喜好布置启动器</h3><p>在「启动设置」中选择动态背景：内置星屑、极光或你自己的图片和视频。</p></div></div></section></div>
- <div class="mini-banner">${icon('info')}<span>这个世界仍在完善中。各项玩法的接入情况，可在「功能进度」中查看。</span><button class="button text" data-nav="features" style="margin-left:auto;flex-shrink:0">查看进度 ${icon('arrow')}</button></div>`;
+ main.innerHTML='';
 }
 
 /* ---------- GM page ---------- */
@@ -169,7 +166,10 @@ function onlineLock(msg){
 async function renderGMTab(){
  const container=$('#gm-tab');if(!container)return;
  if(ONLINE_TABS.includes(tab)){
-  if(!gmOnline?.online){container.innerHTML=onlineLock(gmOnline?.error);return;}
+  if(!gmOnline?.online){
+   if(tab==='send'){renderSendTab();return;}
+   container.innerHTML=onlineLock(gmOnline?.error);return;
+  }
   if(tab==='send')renderSendTab();
   else if(tab==='announce')renderAnnounceTab();
   else if(tab==='rates')renderRatesTab();
@@ -183,7 +183,7 @@ async function renderGMTab(){
  container.innerHTML=empty('正在读取操作记录…','clock');loadHistory(epoch);
 }
 function renderSendTab(){
- const players=gmOnline.players;
+ const players=gmOnline?.players||[];
  container_players:{
   const target=onlinePlayer&&players.some(p=>p.session===onlinePlayer)?onlinePlayer:(players[0]?.session||'');
   onlinePlayer=target;
@@ -196,7 +196,11 @@ function renderSendTab(){
 function renderOnlineGive(){
  const form=$('#online-give');if(!form)return;
  const players=gmOnline?.players||[];const current=players.find(p=>p.session===onlinePlayer);
- form.innerHTML=current?`<p class="eyebrow">在线发放预览</p><h3>${esc(current.name)}</h3><p>UID ${current.uid} · ${esc(current.unit_name||'')} · Lv. ${current.level}<br>发放后立即进入背包并推送通知。</p>${chosenItem?`<p class="eyebrow" style="margin-top:14px">已选道具</p><h3>${esc(chosenItem.name)}</h3><p>ID ${chosenItem.id} · ${esc(chosenItem.bag)} · 每格最多 ${chosenItem.stack}</p><label class="field-label" for="give-quantity">发放数量</label><input class="input" type="number" id="give-quantity" min="1" max="99" step="1" value="1" inputmode="numeric"><button class="button primary" data-action="gm-give" style="width:100%;margin-top:16px">发送给 ${esc(current.name)} ${icon('send')}</button>`:`<p class="eyebrow" style="margin-top:14px">发放预览</p><h3>先选择一件道具</h3><p>点击左侧搜索结果后再发送。</p>`}`:`<p class="eyebrow">在线发放预览</p><h3>等待在线角色</h3><p>游戏内进入角色后，这里会出现可选择的收件人。</p>`;
+ const total=chosenItems.reduce((n,x)=>n+(Number(x.qty)||0),0);
+ const header=current?`<p class="eyebrow">在线发放预览</p><h3>${esc(current.name)}</h3><p>UID ${current.uid} · ${esc(current.unit_name||'')} · Lv. ${current.level}<br>发放后立即进入背包并推送通知。</p>`:`<p class="eyebrow">在线发放预览</p><h3>等待在线角色</h3><p>游戏内进入角色后即可发送。现在就可以先在左侧挑好道具、填好数量。</p>`;
+ const send=current?`<button class="button primary" data-action="gm-give" style="width:100%;margin-top:16px">发送 ${chosenItems.length} 件给 ${esc(current.name)} ${icon('send')}</button>`:`<button class="button primary" disabled style="width:100%;margin-top:16px">进入角色后发送 ${icon('send')}</button>`;
+ const picker=chosenItems.length?`<div class="give-items">${chosenItems.map(x=>`<div class="give-item"><div class="give-item-main"><strong>${esc(x.name)}</strong><small>ID ${x.id} · ${esc(x.bag)} · 每格最多 ${x.stack}</small></div><input class="input give-qty" type="number" min="1" max="999" step="1" inputmode="numeric" data-qty="${x.id}" value="${x.qty}" aria-label="${esc(x.name)} 发放数量"><button type="button" class="give-remove" data-remove="${x.id}" title="移出本次发放" aria-label="移出本次发放">×</button></div>`).join('')}</div><p class="give-total">已选 <strong>${chosenItems.length}</strong> 种 · 合计 <strong>${number(total)}</strong> 个</p><div class="give-bulk"><button type="button" class="button subtle" data-qty-all="1">全部设为 1</button><button type="button" class="button subtle" data-qty-all="10">全部设为 10</button><button type="button" class="button subtle" data-clear-items="1">清空已选</button></div>${send}`:`<p class="eyebrow" style="margin-top:14px">发放预览</p><h3>先选择道具</h3><p>点击左侧搜索结果可多选，选中的道具会列在这里，逐项填写数量后一次发送。</p>`;
+ form.innerHTML=header+picker;
  applyState();
 }
 function renderAnnounceTab(){
@@ -214,7 +218,17 @@ function epochToLocal(v){if(!v)return '';const d=new Date(v*1000),p=n=>String(n)
 function localToEpoch(v){if(!v)return null;const t=new Date(v).getTime();return Number.isFinite(t)&&t>0?Math.floor(t/1000):null;}
 function renderEventsTab(){
  const rows=gmOnline.events?.rows||[];eventsDirty=false;
- $('#gm-tab').innerHTML=`<p class="subheading" style="margin:0 0 14px">仅控制新入场；原等级、门票、任务和组队条件仍需满足。留空时间表示不限制。</p>${rows.map(r=>`<div class="event-row"><div><strong>${esc(r.name)}</strong> <span class="muted">#${r.id}</span><br><small class="muted">${esc(r.scope||'')}</small></div><div class="event-fields"><label class="switch-row compact"><input type="checkbox" data-event-enabled="${r.id}" ${r.enabled?'checked':''}> 开放</label><input class="input" type="datetime-local" data-event-start="${r.id}" value="${epochToLocal(r.start)}" title="开始时间（可选）"><input class="input" type="datetime-local" data-event-end="${r.id}" value="${epochToLocal(r.end)}" title="结束时间（可选）"></div></div>`).join('')||empty('没有可配置的活动','clock')}<div class="field-row" style="margin-top:18px"><button class="button primary" data-action="gm-events">${icon('check')}保存活动配置</button><span class="muted" style="font-size:10px;align-self:center">当前版本 v${gmOnline.events?.revision??0}</span></div>`;
+ $('#gm-tab').innerHTML=`<p class="subheading" style="margin:0 0 14px">仅控制新入场；原等级、门票、任务和组队条件仍需满足。留空时间表示不限制。</p>${rows.map(r=>`<div class="event-row"><div><strong>${esc(r.name)}</strong> <span class="muted">#${r.id}</span><br><small class="muted">${esc(r.scope||'')}</small></div><div class="event-fields"><label class="switch-row compact"><input type="checkbox" data-event-enabled="${r.id}" ${r.enabled?'checked':''}> 开放</label><input class="input" type="datetime-local" data-event-start="${r.id}" value="${epochToLocal(r.start)}" title="开始时间（可选）"><input class="input" type="datetime-local" data-event-end="${r.id}" value="${epochToLocal(r.end)}" title="结束时间（可选）"></div></div>`).join('')||empty('没有可配置的活动','clock')}<div class="field-row" style="margin-top:18px"><button class="button primary" data-action="gm-events">${icon('check')}保存活动配置</button><span class="muted" style="font-size:10px;align-self:center">当前版本 v${gmOnline.events?.revision??0}</span></div>${bannerSectionHtml()}`;
+ if(bannerRows===null)loadBanners();
+}
+let bannerRows=null,bannerLimits=null;
+function bannerSectionHtml(){
+ const limit=bannerLimits?.count||8,rows=bannerRows||[];
+ const body=rows.length?rows.map((b,i)=>`<div class="banner-row"><div class="banner-grid"><div><label class="field-label">标题</label><input class="input" data-banner-field="title" data-banner-index="${i}" maxlength="${bannerLimits?.title||40}" value="${esc(b.title||'')}"></div><div><label class="field-label">副标题</label><input class="input" data-banner-field="subtitle" data-banner-index="${i}" maxlength="${bannerLimits?.subtitle||60}" value="${esc(b.subtitle||'')}"></div><div><label class="field-label">说明</label><input class="input" data-banner-field="description" data-banner-index="${i}" maxlength="${bannerLimits?.description||80}" value="${esc(b.description||'')}"></div><div><label class="field-label">显示时长（分钟）</label><input class="input" type="number" min="1" data-banner-field="minutes" data-banner-index="${i}" value="${Number(b.minutes)||43200}"></div><div><label class="field-label">奖励图标（0 = 无）</label><input class="input" type="number" min="0" data-banner-field="item" data-banner-index="${i}" value="${Number(b.item)||0}"></div><div><label class="field-label">数量</label><input class="input" type="number" min="0" max="99" data-banner-field="count" data-banner-index="${i}" value="${Number(b.count)||0}"></div></div><button class="button text" data-banner-remove="${i}">删除</button></div>`).join(''):'<p class="muted" style="font-size:11px;margin:0">还没有横幅。这些是画面顶部的展示条目，不会开启活动或发放奖励。</p>';
+ return `<div style="margin-top:30px"><h2 style="font-size:13px;color:#e6dcc4;margin:0 0 6px">画面顶部活动横幅</h2><p class="muted" style="font-size:10px;margin:0 0 12px">保存后回到城镇立即刷新，无需重启服务端。</p>${body}<div class="field-row" style="margin-top:12px"><button class="button subtle" data-banner-add ${rows.length>=limit?'disabled':''}>新增横幅</button><button class="button primary" data-action="gm-banners">${icon('check')}保存横幅</button><span class="muted" style="font-size:10px;align-self:center">最多 ${limit} 条 · 已用 ${rows.length} 条</span></div></div>`;
+}
+function loadBanners(){
+ api('gm-online',{action:'banners-status',value:{}}).then(data=>{bannerRows=data.rows||[];bannerLimits=data.limits||null;if(page==='gm'&&tab==='events')renderEventsTab();}).catch(e=>{bannerRows=[];bannerLimits=null;toast('读取活动横幅失败：'+e.message,true);if(page==='gm'&&tab==='events')renderEventsTab();});
 }
 function renderCouponsTab(){
  if(couponRewards===null){api('gm-online',{action:'coupon-rewards',value:{}}).then(data=>{couponRewards=data.rows||[];if(page==='gm'&&tab==='coupons')renderCouponsTab();}).catch(e=>{$('#gm-tab').innerHTML=empty(esc(e.message),'warning');});$('#gm-tab').innerHTML=empty('正在读取可发放的奖励目录…','ticket');return;}
@@ -247,11 +261,12 @@ function renderOfflineTab(){
 }
 function renderOfflineItemSelection(){
  const form=$('#offline-item-selection');if(!form)return;
- form.innerHTML=chosenItem?`<div><p class="eyebrow">已选道具</p><h3>${esc(chosenItem.name)}</h3><p>ID ${chosenItem.id} · ${esc(chosenItem.bag)}</p></div><div><label class="field-label" for="item-quantity">发放数量</label><input class="input" type="number" id="item-quantity" name="amount" min="1" max="99" step="1" value="1" required inputmode="numeric"></div><p class="field-error" aria-live="polite"></p><button class="button primary" data-write>预览发放 ${icon('arrow')}</button>`:`<p class="eyebrow">发放预览</p><h3>先选择一件道具</h3><p>点击左侧的搜索结果，再填写数量。</p>`;
+ form.innerHTML=chosenItem?`<div><p class="eyebrow">已选道具</p><h3>${esc(chosenItem.name)}</h3><p>ID ${chosenItem.id} · ${esc(chosenItem.bag)}</p></div><div><label class="field-label" for="item-quantity">发放数量</label><input class="input" type="number" id="item-quantity" name="amount" min="1" max="999" step="1" value="1" required inputmode="numeric"></div><p class="field-error" aria-live="polite"></p><button class="button primary" data-write>预览发放 ${icon('arrow')}</button>`:`<p class="eyebrow">发放预览</p><h3>先选择一件道具</h3><p>点击左侧的搜索结果，再填写数量。</p>`;
  applyState();
 }
 let itemRequest=0,currentItems=[];
-function itemRowsHtml(data){return data.rows.map(x=>`<button type="button" class="item-row ${chosenItem?.id===x.id?'selected':''}" data-item="${x.id}" aria-pressed="${chosenItem?.id===x.id}"><span><strong>${esc(x.name)}</strong><small>ID ${x.id} · 每格最多 ${x.stack}</small></span><span class="item-bag">${esc(x.bag)}</span></button>`).join('')||empty('没有找到匹配道具。试试名称的一部分或数字 ID。','search');}
+function itemRowsHtml(data){const picked=tab==='offline'?(chosenItem?[chosenItem.id]:[]):chosenItems.map(x=>x.id);return data.rows.map(x=>{const on=picked.includes(x.id);return `<button type="button" class="item-row ${on?'selected':''}" data-item="${x.id}" aria-pressed="${on}"><span><strong>${esc(x.name)}</strong><small>ID ${x.id} · 每格最多 ${x.stack}</small></span><span class="item-bag">${on&&tab!=='offline'?'已选 · ':''}${esc(x.bag)}</span></button>`;}).join('')||empty('没有找到匹配道具。试试名称的一部分或数字 ID。','search');}
+function renderItemBagLabel(row,on){const bag=row?.querySelector('.item-bag');if(!bag)return;if(bag.dataset.base===undefined)bag.dataset.base=bag.textContent.replace(/^已选 · /,'');bag.textContent=(on?'已选 · ':'')+bag.dataset.base;}
 async function loadItems(){
  const id=++itemRequest;
  try{const data=await api(`items?q=${encodeURIComponent(itemsQuery)}&group=${encodeURIComponent(itemsGroup)}&offset=${itemOffset}`);if(id!==itemRequest||page!=='gm'||tab!=='send'||!$('#item-results'))return;currentItems=data.rows;
@@ -291,6 +306,7 @@ function describeOnline(action,r){
  if(action==='cancel-announcement')return '已取消重复公告计划';
  if(action==='rates')return '概率配置已更新至 v'+r.revision;
  if(action==='events')return '活动配置已更新至 v'+r.revision;
+ if(action==='banners')return '画面顶部横幅已保存，共 '+((r.rows||[]).length)+' 条';
  if(action==='coupon-issue')return r.replayed?'该操作编号已存在，已取回原回执。':'已生成 '+((r.codes||[]).length)+' 张兑换券';
  if(action==='coupon-revoke')return r.already_revoked?'该批次此前已作废':'批次已作废';
  if(action==='cash-credit')return '已充值 '+number(r.credited)+' A币，余额 '+number(r.after?.balance??0);
@@ -306,11 +322,38 @@ async function sendOnline(action,value,label,button='发送'){
  try{const result=await api('gm-online',{action,value:{...value,reason,operation_id:crypto.randomUUID()}},60000);
   toast(describeOnline(action,result));
   if(action==='coupon-issue')showCouponCodes(result);
+  if(action==='banners'&&result&&typeof result==='object'){bannerRows=result.rows||[];bannerLimits=result.limits||bannerLimits;}
   ratesDirty=false;eventsDirty=false;
   await refreshGmStatus();
   await renderGMTabSafe();
  }catch(e){toast(e.message,true);}
  finally{mutating=false;await poll();}
+}
+async function sendOnlineBatch(current,items){
+ if(mutating)return;
+ if(!gmOnline?.online){toast('在线 GM 未连接：'+(gmOnline?.error||'请先启动游戏'),true);return;}
+ const summary=`<p>收件角色：<strong>${esc(current.name)}</strong> · UID ${current.uid}</p><div class="summary-box">${items.map(x=>esc(x.name)+' × '+x.qty).join('<br>')}</div><p>共 ${items.length} 种道具，逐件落账并各自推送拾取通知；某一件失败不影响其余已成功的部分。</p>`;
+ const reason=await confirmGM('批量在线发放？',summary,'发送 '+items.length+' 件');
+ if(reason===null)return;
+ if(reason.length<2){toast('请输入 2–200 字的操作原因',true);return;}
+ mutating=true;applyState();
+ const done=[],failed=[];
+ try{
+  for(const item of items){
+   try{
+    await api('gm-online',{action:'give',value:{uid:current.uid,session:current.session,template:item.id,quantity:item.qty,reason,operation_id:crypto.randomUUID()}},60000);
+    done.push(item);
+   }catch(e){failed.push({item,error:e.message});}
+  }
+ }finally{
+  mutating=false;
+  const sent=new Set(done.map(x=>x.id));
+  chosenItems=chosenItems.filter(x=>!sent.has(x.id));
+  if(failed.length)toast(`已发放 ${done.length} 件，失败 ${failed.length} 件：`+failed.slice(0,3).map(f=>f.item.name+'（'+f.error+'）').join('；'),true);
+  else if(done.length)toast(`已发放 ${done.length} 件给 ${current.name}`);
+  try{await refreshGmStatus();}catch{}
+  await renderGMTabSafe();await poll();
+ }
 }
 async function renderGMTabSafe(){if(page==='gm'&&$('#gm-tab'))renderGMTab();}
 function showCouponCodes(result){
@@ -330,7 +373,6 @@ setInterval(()=>{if(closed||document.hidden)return;if(page==='gm'&&ONLINE_TABS.i
 
 /* ---------- other pages ---------- */
 async function renderBackups(e){const rows=await api('backups');if(e!==epoch)return;main.innerHTML=heading('每一段进度，都值得保留。','备份包含全部角色、资产和当前存档记录。',`<button class="button primary" data-action="backup">${icon('backup')}立即备份</button>`)+`<div class="notice">${icon('info')}<div>离线修改前会自动创建备份；也可以手动留下当前进度。备份使用 SQLite 完整备份方式，游戏运行时同样可用。</div></div><section class="panel"><div class="panel-head"><h2>备份记录 <small>${rows.length} 份</small></h2><button class="button text" data-folder="backups">打开备份目录 ${icon('folder')}</button></div>${rows.length?`<div class="table-wrap"><table><thead><tr><th>备份文件</th><th>时间</th><th>大小</th><th>类型</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.time.replace('T',' ').slice(0,19))}</td><td>${number(Math.ceil(x.size/1024))} KB</td><td><span class="badge ${x.name.includes('manual')?'':'partial'}">${x.name.includes('manual')?'手动备份':'修改前备份'}</span></td></tr>`).join('')}</tbody></table></div>`:empty('还没有备份，点击右上角留下一份进度。','backup')}</section><div class="mini-banner">${icon('gm')}恢复备份需要完全退出游戏和服务端。当前版本提供备份与目录查看，暂未开放一键覆盖恢复。</div>`;}
-async function renderFeatures(e){const rows=await api('features');if(e!==epoch)return;const labels={complete:'已接入',verified:'已验证',implemented:'已接入',partial:'部分接入',in_progress:'完善中',planned:'待接入',pending:'待验证',blocked:'待完善'};main.innerHTML=heading('世界，正在一点点完善。','这里展示服务端当前的实际接入情况。')+`<div class="notice">${icon('info')}<div>资源配表已经读取，与玩法完整实现是不同的进度。展开卡片，可查看每项仍在完善的内容。</div></div><div class="feature-grid">${rows.map(f=>`<article class="panel feature-card"><div class="panel-head"><h3>${esc(f.title)}</h3><span class="badge ${['complete','verified','implemented'].includes(f.status)?'':['partial','in_progress'].includes(f.status)?'partial':'planned'}">${esc(labels[f.status]||'待完善')}</span></div><p>${esc(f.current)}</p>${f.missing?`<details><summary>仍在完善的内容</summary><p>${esc(f.missing)}</p></details>`:''}</article>`).join('')}</div>`;}
 function renderSettings(){
  const bg=bgSettings?.background||{};
  const reduce=document.body.classList.contains('motion-off');
@@ -398,19 +440,22 @@ async function pullRepo(){
 
 async function navigate(next=page){
  if(!routes[next])return;const changed=page!==next;page=next;const e=++epoch;
- for(const b of document.querySelectorAll('[data-nav]'))if(b.classList.contains('nav-item')){b.classList.toggle('active',b.dataset.nav===page);if(b.dataset.nav===page)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');}
- $('#breadcrumb').textContent=routes[page][0];main.setAttribute('aria-busy','true');
+ for(const b of document.querySelectorAll('[data-nav]'))if(b.classList.contains('rail-item')){b.classList.toggle('active',b.dataset.nav===page);if(b.dataset.nav===page)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');}
+ main.setAttribute('aria-busy','true');
  main.innerHTML='<div class="initial-loading"><div class="spinner"></div><p>正在读取本地数据…</p></div>';
  try{
   const [s,cs]=await Promise.all([api('state'),api('characters')]);if(e!==epoch)return;state=s;characters=cs;
   if(page==='gm'){await refreshGmStatus();if(e!==epoch)return;renderGM();}
   else if(page==='home')renderHome();
   else if(page==='backups')await renderBackups(e);
-  else if(page==='features')await renderFeatures(e);
+  
   else if(page==='repo')await renderRepo(e);
   else if(page==='settings')renderSettings();
   else await renderLogs(e);
-  if(e===epoch){applyState();if(changed){window.scrollTo({top:0,behavior:'instant'});main.focus({preventScroll:true});}}
+  if(e===epoch){
+   $('#path-left').textContent='客户端：'+state.client;
+   $('#path-right').textContent='存档：'+state.save;
+   applyState();if(changed){window.scrollTo({top:0,behavior:'instant'});main.focus({preventScroll:true});}}
  }catch(err){if(e===epoch){main.innerHTML=`<div class="error-panel"><h2>暂时无法读取本地环境</h2><p>${esc(err.message)}</p><button class="button outlined" data-action="reload">${icon('refresh')}重试</button></div>`;toast(err.message,true);}}
  finally{if(e===epoch)main.setAttribute('aria-busy','false');}
 }
@@ -421,17 +466,38 @@ function applyState(){
  $('#maximize-app').title=state.maximized?'还原窗口':'最大化窗口';
  $('#maximize-app').setAttribute('aria-label',state.maximized?'还原窗口':'最大化窗口');
  const busy=['checking','starting','stopping'].includes(state.phase);
- const status=state.phase==='checking'?'正在检查环境':state.phase==='starting'?'正在启动游戏':state.phase==='stopping'?'正在保存并退出':state.game_running?'游戏运行中':'本地环境就绪';
- $('#header-status').textContent=status;$('#header-status').classList.toggle('warn',busy);
- $('#footer-state').textContent=state.message==='准备就绪'?(state.game_running?'已有游戏运行 · 在线 GM 可用':'本地存档已连接'):state.message;
- const launch=$('#launch-game');if(launch){launch.disabled=busy||state.game_running||state.owned;launch.innerHTML=(busy?'<span class="spinner small"></span>':icon('play'))+(state.phase==='checking'?'检查环境中':state.phase==='starting'?'正在启动':state.phase==='stopping'?'退出中':state.game_running?'游戏运行中':'启动游戏');}
- const caption=$('#launch-caption');if(caption)caption.innerHTML=state.owned?`本次游戏由启动器管理<br><button class="button text" data-action="stop" style="color:#bde7ef;min-height:18px;font-size:10px">${icon('stop')}退出本次游戏</button>`:state.game_running?'已有游戏正在运行<br>在线 GM 已就绪，去发放吧':'自动准备本地环境<br>启动后在游戏内选择你的角色';
+ const st=$('#header-status');
+ st.innerHTML='<i class="chip-dot"></i>'+(state.phase==='checking'?'检查中':state.phase==='starting'?'启动中':state.phase==='stopping'?'保存中':state.game_running?'运行中':'未运行');
+ st.classList.toggle('chip-on',state.game_running&&!busy);
+ st.classList.toggle('chip-busy',busy);
+ const gp=$('#gm-pill');
+ gp.innerHTML='<i class="chip-dot"></i>'+(state.game_running?'GM 通道 在线':'GM 通道 空闲');
+ gp.classList.toggle('chip-on',state.game_running);
+ $('#dock-message').textContent=state.message==='准备就绪'?(state.game_running?'已有游戏运行 · 在线 GM 可用 · 离线修改已锁定':'本地环境就绪 · 存档已连接 · 点击右下角开始游戏'):state.message;
+ const dock=$('#dock-launch');
+ const frameSvg='<svg class="toggle__frame" viewBox="0 0 200 44" aria-hidden="true"><rect class="frame__march" x="1.5" y="1.5" width="197" height="41" rx="20.5" ry="20.5" pathLength="100"/></svg><span class="toggle__sweep" aria-hidden="true"></span>';
+ const glyphSvg=(kind)=>kind?`<span class="toggle__icon"><svg class="glyph on" viewBox="0 0 24 24">${kind==='stop'?'<rect x="5" y="5" width="14" height="14" rx="2"/>':'<path d="m8 4 12 8-12 8Z"/>'}</svg></span>`:'';
+ if(busy){dock.disabled=true;dock.className='dock-launch';dock.dataset.action='start';dock.dataset.hot='0';dock.dataset.sweep='0';
+  dock.innerHTML=frameSvg+`<span class="toggle__icon"><span class="spinner small"></span></span><span class="toggle__label">${state.phase==='checking'?'检查中':state.phase==='starting'?'正在启动':'正在保存'}</span>`;}
+ else if(state.owned){dock.disabled=false;dock.className='dock-launch';dock.dataset.action='stop';dock.dataset.hot='0';dock.dataset.sweep='1';
+  dock.innerHTML=frameSvg+glyphSvg('stop')+'<span class="toggle__label">退出游戏</span>';}
+ else{dock.disabled=false;dock.className='dock-launch';dock.dataset.action='start';dock.dataset.hot='0';dock.dataset.sweep='1';
+  dock.innerHTML=frameSvg+glyphSvg('play')+'<span class="toggle__label">开始游戏</span>';}
+ // 独立的「关闭所有运行环境」：常驻显示在主按钮左侧，没有可关的东西时置灰。
+ const shut=$('#dock-shutdown');
+ if(shut){
+  const alive=!!(state.game_running||state.owned||state.server_running||state.panel_running);
+  shut.hidden=false;
+  shut.disabled=busy||mutating||!alive;
+  shut.classList.toggle('is-idle',!alive);
+  shut.title=alive?'结束游戏客户端、本地服务端与 GM 面板进程':'当前没有需要关闭的运行环境';
+ }
  for(const b of document.querySelectorAll('[data-action="check"]'))b.disabled=busy||mutating;
  for(const b of document.querySelectorAll('[data-write]'))b.disabled=state.gm_locked||mutating||b.hasAttribute('data-max-level');
  for(const b of document.querySelectorAll('[data-online-action]'))b.disabled=mutating||!gmOnline?.online;
  const checks=$('#check-results');if(checks)checks.innerHTML=state.phase==='checking'?'<div class="initial-loading" style="min-height:120px"><div class="spinner"></div><p>正在检查，请稍候…</p></div>':checkHTML();
 }
-async function poll(){if(closed)return;try{const old=state;state=await api('state');applyState();if(old&&old.gm_locked&&!state.gm_locked&&page==='gm'&&!$('#confirm-dialog').open&&tab==='offline')await navigate('gm');}catch(e){$('#header-status').textContent='连接中断';$('#header-status').classList.add('warn');for(const b of document.querySelectorAll('[data-write],#launch-game'))b.disabled=true;}}
+async function poll(){if(closed)return;try{const old=state;state=await api('state');applyState();if(old&&old.gm_locked&&!state.gm_locked&&page==='gm'&&!$('#confirm-dialog').open&&tab==='offline')await navigate('gm');}catch(e){const st=$('#header-status');if(st){st.innerHTML='<i class="chip-dot"></i>连接中断';st.classList.add('chip-busy');}for(const b of document.querySelectorAll('[data-write],#dock-launch,#dock-shutdown'))b.disabled=true;}}
 const pollTimer=setInterval(poll,3500);
 
 function confirmDialog(title,body,button='确认并保存',img='gm'){
@@ -463,19 +529,37 @@ document.addEventListener('click',async event=>{
  const b=event.target.closest('button,[data-nav]');if(!b||b.disabled)return;
  if(b.dataset.nav){event.preventDefault();await navigate(b.dataset.nav);return;}
  if(b.dataset.tab){tab=b.dataset.tab;epoch++;renderGM();return;}
+ if(b.dataset.bannerAdd!==undefined){bannerRows=bannerRows||[];if(bannerRows.length>=(bannerLimits?.count||8)){toast('最多 '+(bannerLimits?.count||8)+' 条横幅',true);return;}bannerRows.push({title:'新活动',subtitle:'',description:'',minutes:43200,item:0,count:0});renderEventsTab();return;}
+ if(b.dataset.bannerRemove!==undefined){(bannerRows||[]).splice(Number(b.dataset.bannerRemove),1);renderEventsTab();return;}
  if(b.dataset.character){selected=Number(b.dataset.character);chosenItem=null;localStorage.setItem('els-character',selected);await navigate('gm');return;}
  if(b.dataset.preset){const form=b.closest('form');form.querySelector('[name="amount"]').value=b.dataset.preset;form.querySelector('.field-error').textContent='';return;}
  if(b.dataset.cashPreset){const input=$('#cash-amount');if(input)input.value=b.dataset.cashPreset;return;}
  if(b.dataset.bgMode!==undefined&&b.dataset.bgMode!==null&&b.dataset.bgMode!==''){
   const key=b.dataset.bgMode;
   if(key.startsWith('builtin:'))await setBackground({mode:'builtin',builtin:key.slice(8)});
-  else if(key==='image'||key==='video')await setBackground({mode:key});
+  else if(key==='image'||key==='video')await setBackground({mode:key},false);
   else await setBackground({mode:'off'});
   const options=$('#bg-options');if(options)options.innerHTML=bgButtons();
   const row=$('#bg-file-row');if(row)row.innerHTML=(bgSettings?.background.mode==='image'||bgSettings?.background.mode==='video')?`<label class="field-label" for="bg-file">选择${bgSettings.background.mode==='image'?'图片':'视频'}文件（≤ 24 MB）</label><input class="input" id="bg-file" type="file" accept="${bgSettings.background.mode==='image'?'.png,.jpg,.jpeg,.webp,.gif':'.mp4,.webm'}">`:'';
   return;
  }
- if(b.dataset.item){chosenItem=currentItems.find(x=>x.id===Number(b.dataset.item));for(const row of document.querySelectorAll('[data-item]')){row.classList.toggle('selected',row===b);row.setAttribute('aria-pressed',String(row===b));}if(tab==='send')renderOnlineGive();else renderOfflineItemSelection();return;}
+ if(b.dataset.item){
+  const item=currentItems.find(x=>x.id===Number(b.dataset.item));if(!item)return;
+  if(tab==='send'){
+   const index=chosenItems.findIndex(x=>x.id===item.id);
+   if(index>=0)chosenItems.splice(index,1);
+   else if(chosenItems.length<36)chosenItems.push({...item,qty:1});
+   else{toast('一次最多选择 36 件道具',true);return;}
+   for(const row of document.querySelectorAll('#item-results [data-item]')){const id=Number(row.dataset.item);const on=chosenItems.some(x=>x.id===id);row.classList.toggle('selected',on);row.setAttribute('aria-pressed',String(on));renderItemBagLabel(row,on);}
+   renderOnlineGive();return;
+  }
+  chosenItem=item;
+  for(const row of document.querySelectorAll('#offline-item-results [data-item]')){row.classList.toggle('selected',row===b);row.setAttribute('aria-pressed',String(row===b));}
+  renderOfflineItemSelection();return;
+ }
+ if(b.dataset.remove!==undefined&&b.dataset.remove!==''){const id=Number(b.dataset.remove);chosenItems=chosenItems.filter(x=>x.id!==id);for(const row of document.querySelectorAll('#item-results [data-item]')){const on=chosenItems.some(x=>x.id===Number(row.dataset.item));row.classList.toggle('selected',on);row.setAttribute('aria-pressed',String(on));renderItemBagLabel(row,on);}renderOnlineGive();return;}
+ if(b.dataset.clearItems){chosenItems=[];for(const row of document.querySelectorAll('#item-results [data-item]')){row.classList.remove('selected');row.setAttribute('aria-pressed','false');renderItemBagLabel(row,false);}renderOnlineGive();return;}
+ if(b.dataset.qtyAll){const value=Number(b.dataset.qtyAll);chosenItems=chosenItems.map(x=>({...x,qty:value}));renderOnlineGive();return;}
  if(b.dataset.itemPage){itemOffset=Math.max(0,itemOffset+40*Number(b.dataset.itemPage));if(b.dataset.offline)await loadOfflineItems();else await loadItems();$('#item-results')?.scrollTo(0,0);$('#offline-item-results')?.scrollTo(0,0);return;}
  if(b.dataset.player){onlinePlayer=b.dataset.player;for(const row of document.querySelectorAll('[data-player]'))row.classList.toggle('selected',row===b);renderOnlineGive();return;}
  if(b.dataset.couponTemplate!==undefined&&b.dataset.couponTemplate!==''){
@@ -498,11 +582,10 @@ document.addEventListener('click',async event=>{
   if(action==='gm-give'){
    const current=gmOnline?.players?.find(p=>p.session===onlinePlayer);
    if(!current){toast('请先选择在线角色',true);return;}
-   const qty=Number($('#give-quantity')?.value);
-   if(!Number.isSafeInteger(qty)||qty<1||qty>99){toast('发放数量需要是 1–99 的整数',true);return;}
-   if(!chosenItem){toast('请先选择一件道具',true);return;}
-   await sendOnline('give',{uid:current.uid,session:current.session,template:chosenItem.id,quantity:qty},
-    `<p>收件角色：<strong>${esc(current.name)}</strong> · UID ${current.uid}</p><div class="summary-box">${esc(chosenItem.name)} × ${qty}（ID ${chosenItem.id}）</div><p>道具直接进入在线背包并推送拾取通知，立即生效。</p>`,'在线发放');
+   if(!chosenItems.length){toast('请先选择道具',true);return;}
+   const batch=chosenItems.map(x=>({...x,qty:Math.min(999,Math.max(1,Number(x.qty)||1))}));
+   if(batch.length>36){toast('一次最多发放 36 件道具',true);return;}
+   await sendOnlineBatch(current,batch);
    return;
   }
   if(action==='gm-announce'){
@@ -547,6 +630,14 @@ document.addEventListener('click',async event=>{
    await sendOnline('events',{events,expected_revision:expected},'<p>保存活动开关与时间窗？仅控制新入场。</p>','保存配置');
    return;
   }
+  if(action==='gm-banners'){
+   if(bannerRows===null){toast('横幅配置还没读取完成',true);return;}
+   const rows=bannerRows.map(b=>({title:String(b.title||'').trim(),subtitle:String(b.subtitle||''),description:String(b.description||''),minutes:Number(b.minutes)||43200,item:Number(b.item)||0,count:Number(b.count)||0}));
+   if(rows.some(r=>!r.title)){toast('每条横幅都要有标题',true);return;}
+   if(rows.some(r=>(r.item&&!r.count)||(r.count&&!r.item))){toast('奖励图标和数量要一起填或一起留空',true);return;}
+   await sendOnline('banners',{banners:rows},`<p>保存 <strong>${rows.length}</strong> 条画面顶部活动横幅？</p><div class="summary-box">${rows.map(r=>esc(r.title)).join('、')||'（空）'}</div><p>只影响客户端显示，不开启活动也不发奖励。回到城镇后立即刷新。</p>`,'保存横幅');
+   return;
+  }
   if(action==='gm-coupon-issue'){
    const rewards=[...couponPicks.entries()].map(([template,quantity])=>({template,quantity}));
    if(!rewards.length){toast('请至少选择一种奖励',true);return;}
@@ -580,6 +671,15 @@ document.addEventListener('click',async event=>{
    return;
   }
   if(action==='backup'){b.disabled=true;const old=b.innerHTML;b.innerHTML='<span class="spinner small"></span>备份中';try{const result=await api('backup',{});toast(result.message);if(page==='backups')await navigate();}finally{if(b.isConnected){b.disabled=false;b.innerHTML=old;}}return;}
+  if(action==='shutdown-all'){
+   if(!await confirmDialog('关闭所有运行环境？','<p>将依次结束游戏客户端 → 本地服务端 → GM 面板进程，并等待存档落盘。请先结束当前副本，避免丢失本次进度。</p>','全部关闭','stop'))return;
+   b.disabled=true;const old=b.innerHTML;b.innerHTML='<span class="spinner small"></span>正在关闭';
+   try{const result=await api('shutdown-all',{},120000);
+    toast(result.message+(result.killed&&result.killed.length?'：'+result.killed.join('、'):''));
+    if(result.errors&&result.errors.length)toast(result.errors.join('；'),true);
+   }catch(e){toast(e.message,true);}finally{if(b.isConnected){b.disabled=false;b.innerHTML=old;}await poll();}
+   return;
+  }
   if(action==='stop'){if(!await confirmDialog('退出本次游戏？','<p>请先结束当前副本并保存进度。启动器将结束自己启动的游戏实例，再等待服务端完成保存。</p>','退出游戏','stop'))return;}
   b.disabled=true;
   const result=await api(action,{});toast(result.message);await poll();
@@ -588,6 +688,8 @@ document.addEventListener('click',async event=>{
 });
 document.addEventListener('input',event=>{
  if(event.target.id==='item-search'||event.target.id==='offline-item-search'){itemsQuery=event.target.value;itemOffset=0;clearTimeout(searchTimer);searchTimer=setTimeout(()=>{if(tab==='send')loadItems();else if(tab==='offline')loadOfflineItems();},220);}
+ else if(event.target.dataset.qty){const id=Number(event.target.dataset.qty);const row=chosenItems.find(x=>x.id===id);if(row){const raw=Number(event.target.value);row.qty=Number.isFinite(raw)?Math.min(999,Math.max(1,Math.round(raw))):1;}const total=chosenItems.reduce((n,x)=>n+(Number(x.qty)||0),0);const box=$('#online-give .give-total');if(box)box.innerHTML=`已选 <strong>${chosenItems.length}</strong> 种 · 合计 <strong>${number(total)}</strong> 个`;}
+ else if(event.target.dataset.bannerField){const row=(bannerRows||[])[Number(event.target.dataset.bannerIndex)];if(row){const field=event.target.dataset.bannerField;row[field]=(field==='title'||field==='subtitle'||field==='description')?event.target.value:Number(event.target.value);}}
  else if(event.target.id==='bg-dim-range'){const value=Number(event.target.value);$('#bg-dim-value').textContent=value+'%';$('#bg-dim').style.opacity=String(value/100);clearTimeout(searchTimer);searchTimer=setTimeout(()=>setBackground({dim:value}),400);}
 });
 document.addEventListener('change',async event=>{
@@ -620,7 +722,6 @@ document.addEventListener('change',async event=>{
  }
  else if(event.target.id==='offline-character'){selected=Number(event.target.value);chosenItem=null;localStorage.setItem('els-character',selected);renderOfflineTab();}
 });
-$('#refresh').addEventListener('click',()=>navigate());
 async function windowAction(action){try{await api('window',{action});await poll();}catch(e){toast(e.message,true);}}
 $('#minimize-app').addEventListener('click',()=>windowAction('minimize'));
 $('#maximize-app').addEventListener('click',()=>windowAction('toggle_maximize'));

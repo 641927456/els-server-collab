@@ -97,6 +97,15 @@ class FriendsSession(LocalSession):
                 # Reuse the existing current-instance/learned-skill projection
                 # for peers only; never restore or heal the owner again.
                 self.application.world.appearance_changed(self)
+        # A channel handoff parks the session in channels_ready, which drops the
+        # playing lease (see the pop above). Coming back to town never re-runs
+        # the 0x28 selection branch, so the account stayed invisible to the GM
+        # panel's online list until a full relog. Re-acquire on return; never
+        # steal a lease still held by another live session.
+        if self.phase in ('town_ready','dungeon_active') and self.role=='game':
+            held=leases.get(self.identity['id'])
+            if held is None or (held is not self and held.released):
+                leases[self.identity['id']]=self
         return result+self.mailbox.drain()
 
     def _relay_luciel_hp_expiry(self,messages):

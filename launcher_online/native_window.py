@@ -24,6 +24,13 @@ class NativeFrame:
 
     def _install_on_ui(self, form):
         from System.Windows.Forms import Padding
+        from System.Drawing import Color
+        # WebView2 外围留有缩放用内边距，Form 默认浅色背景会露出白边。
+        # 这里必须用「纯黑」而不是界面同款 #0b0b0d：
+        # DWM 合成时窗口最外 1px 的结果是「桌面像素 + 衬底像素」相加，
+        # 衬底取 (11,11,13) 时边缘就会亮出约 11 个灰阶，肉眼即为一条细白线；
+        # 取 (0,0,0) 时相加结果等于桌面本身，描边彻底不可见。
+        form.BackColor = Color.FromArgb(0, 0, 0)
         user32 = ctypes.WinDLL('user32', use_last_error=True)
         dwm = ctypes.WinDLL('dwmapi')
         handle = int(form.Handle.ToInt64())
@@ -92,6 +99,10 @@ class NativeFrame:
                     if bottom:return 15
                 if message == 0x86:  # WM_NCACTIVATE: don't paint a native caption.
                     return 1
+                if message == 0x85:  # WM_NCPAINT: never paint a non-client frame (white 1px outline).
+                    return 0
+                if message == 0x80:  # WM_SETICON: keep our embedded icon untouched.
+                    return call(self._previous, hwnd, message, wparam, lparam)
             except Exception:
                 pass
             return call(self._previous, hwnd, message, wparam, lparam)
@@ -103,6 +114,8 @@ class NativeFrame:
         # Preserve taskbar minimize/maximize, border resizing, Win+Arrow and Snap.
         style = get_long(handle, -16)
         set_long(handle, -16, style | 0x00040000 | 0x00020000 | 0x00010000 | 0x00080000)
+        # 注：GetWindowLong(GWL_EXSTYLE) 里的 WS_EX_WINDOWEDGE(0x100) 是系统按
+        # frame 位「合成」出来的，SetWindowLong 写入不会生效，别指望靠去掉它消边。
         user32.SetWindowPos.argtypes = [wintypes.HWND,wintypes.HWND,ctypes.c_int,ctypes.c_int,
                                        ctypes.c_int,ctypes.c_int,wintypes.UINT]
         user32.SetWindowPos(handle, None, 0, 0, 0, 0, 0x0027)
@@ -119,6 +132,10 @@ class NativeFrame:
         # Use the system corner preference when DWM supports it (Windows 11).
         preference = ctypes.c_int(2)
         dwm.DwmSetWindowAttribute(wintypes.HWND(handle), 33, ctypes.byref(preference), 4)
+        # Windows 10 会给带尺寸边框的窗口画 1px 系统描边（白/浅蓝细线）。
+        # 创建窗口时就不加 WS_THICKFRAME，并把 DWM 非客户区渲染关掉。
+        policy = ctypes.c_int(1)  # DWMNCRP_DISABLED
+        dwm.DwmSetWindowAttribute(wintypes.HWND(handle), 2, ctypes.byref(policy), 4)
 
 
 class NativeWindow:
@@ -129,6 +146,9 @@ class NativeWindow:
         self.frame = None
         self.alive = False
         self.maximized = False
+        self.width = 1600
+        self.height = 900
+        self.handle_size = None
         self.events = threading.Event()
 
     def run(self):
@@ -137,8 +157,9 @@ class NativeWindow:
         webview.settings['ALLOW_DOWNLOADS'] = False
         webview.settings['OPEN_DEVTOOLS_IN_DEBUG'] = False
         screens = webview.screens
-        width = min(1280, max(640, screens[0].width-80)) if screens else 1280
-        height = min(860, max(520, screens[0].height-80)) if screens else 860
+        screen = screens[0] if screens else None
+        width = min(self.width, screen.width) if screen else self.width
+        height = min(self.height, screen.height) if screen else self.height
         self.window = webview.create_window('艾尔之光 · 在线启动器', self.server.url,
             width=width, height=height, min_size=(640,520), frameless=True,
             easy_drag=False, shadow=True, resizable=True, background_color='#0b0b0d',
@@ -156,8 +177,21 @@ class NativeWindow:
     def _shown(self):
         try:
             self.frame.install()
-            status = dict(frameless=True, hwnd=self.frame.handle, width=self.window.width,
-                          height=self.window.height, renderer='WebView2')
+            # pywebview 建窗时会按估算的非客户区尺寸缩小窗口；这里强制校准到
+            # 请求的 1920x1080（屏幕更小则按屏幕收缩），保持居中。
+            user32 = ctypes.WinDLL('user32', use_last_error=True)
+            user32.SetWindowPos.argtypes = [wintypes.HWND, wintypes.HWND, ctypes.c_int,
+                                            ctypes.c_int, ctypes.c_int, ctypes.c_int, wintypes.UINT]
+            rect = wintypes.RECT()
+            user32.GetWindowRect(self.frame.handle, ctypes.byref(rect))
+            width = min(self.width, user32.GetSystemMetrics(0))
+            height = min(self.height, user32.GetSystemMetrics(1))
+            x = rect.left + ((rect.right - rect.left) - width) // 2
+            y = rect.top + ((rect.bottom - rect.top) - height) // 2
+            user32.SetWindowPos(self.frame.handle, None, x, y, width, height, 0x0004)
+            self.handle_size = (width, height)
+            status = dict(frameless=True, hwnd=self.frame.handle, width=width,
+                          height=height, renderer='WebView2')
             (self.home/'native-window.json').write_text(json.dumps(status), encoding='utf8')
         except Exception as error:
             (self.home/'native-window-error.log').write_text(repr(error), encoding='utf8')
@@ -179,6 +213,12 @@ class NativeWindow:
             else:self.window.maximize()
         elif action == 'restore':
             self.window.restore();self.window.show()
+        elif action == 'reload':
+            # 让改完的 app.js/style.css 立刻生效，不必关掉启动器重开。
+            evaluate = getattr(self.window, 'evaluate_js', None)
+            if evaluate is None:
+                raise ValueError('当前窗口不支持重新载入')
+            evaluate('location.reload()')
         elif action == 'close':
             threading.Timer(.15, self.window.destroy).start()
         else:raise ValueError('未知窗口操作')

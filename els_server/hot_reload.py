@@ -51,7 +51,11 @@ def enabled(config=None) -> bool:
 
 
 def modules() -> tuple[str, ...]:
-    """Whitelist from state/hot-reload.json, falling back to the default set."""
+    """Whitelist from state/hot-reload.json, falling back to the default set.
+
+    The file may only narrow this list, never extend it: a module name it
+    invents is ignored, so writing state/ cannot turn into code execution.
+    """
     try:
         rows = json.loads(CONFIG_FILE.read_text(encoding='utf8'))
     except (OSError, ValueError):
@@ -59,7 +63,8 @@ def modules() -> tuple[str, ...]:
     names = rows.get('modules') if isinstance(rows, dict) else rows
     if not isinstance(names, list) or not names:
         return DEFAULT_MODULES
-    return tuple(name for name in names if isinstance(name, str) and name.startswith('els_server.'))
+    selected = {name for name in names if isinstance(name, str)}
+    return tuple(name for name in DEFAULT_MODULES if name in selected)
 
 
 def _source_stamp(module) -> tuple | None:

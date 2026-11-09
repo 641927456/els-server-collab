@@ -196,7 +196,12 @@ def handle(s,event,sequence):
                         if event.kind in(0x2c2,0x2c4):system.finish(db,operation,result)
                         else:system.record(db,operation,digest,guild,s.account.uid,event.kind,result,now)
                 own=[];deliveries=[]
-                for peer in tuple(s.application.playing.values()):
+                # LocalSession carries no Application: integrate_dx11 answer paths must
+                # still produce the board/advertisement reply instead of dying with
+                # AttributeError on the peer fan-out. Absent application means absent
+                # peers, never a missing answer.
+                playing=getattr(getattr(s,'application',None),'playing',None) or {}
+                for peer in tuple(playing.values()):
                     if Path(peer.account.store.path).resolve()!=Path(s.account.store.path).resolve():continue
                     selected=joined and peer.account.uid==joined[0]and peer.identity['id']==joined[1]
                     guild_peer=saved is not None and peer.account.uid in saved['members']

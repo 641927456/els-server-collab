@@ -150,15 +150,25 @@ class PublicControllerRulesTests(unittest.TestCase):
    identity=tuple(rule[k]for k in ('dungeon','stage','part','template'))+(rule['source']['source_index'],)
    self.assertNotIn(identity,seen);seen.add(identity)
    self.assertTrue(rule['quest_independent'])
-   self.assertEqual(rule['units'],list(range(1,16)))
+   # The shared dungeon rows carry all fifteen units; the eleven character
+   # story controllers this branch adds are single-unit rows and keep the
+   # population in `unit` instead of a one-element `units` list.
+   if 'units' in rule:
+    self.assertEqual(rule['units'],list(range(1,16)))
+   else:
+    self.assertIn(rule['unit'],range(1,16))
    graph=routes.graph(rule['dungeon'])
    self.assertEqual(graph['source_sha256'],rule['graph_sha'])
    room=graph['stages'][str(rule['stage'])]['parts'][str(rule['part'])]
    self.assertIn(rule['source'],[n for group in room['groups']for n in group['npcs']])
    self.assertEqual(routes.manifest['source_sha256'][rule['script']],rule['script_sha'])
+   units=rule['units']if 'units'in rule else[rule['unit']]
    prerequisite={regions.data['regions'].get(str(r),{}).get('requirement',{}).get('RequireQuestID')
                 for r in regions.data['dungeons'][str(rule['dungeon'])]}-{None,0}
-   self.assertTrue(all(regions.dungeon_allowed(rule['dungeon'],dict(level=99,unit_type=u),prerequisite)for u in range(1,16)))
+   # A character-story dungeon is only open to the units it was written for,
+   # so the admission check follows the row's own population rather than all
+   # fifteen classes.
+   self.assertTrue(all(regions.dungeon_allowed(rule['dungeon'],dict(level=99,unit_type=u),prerequisite)for u in units))
 
  def test_every_master_road_native_clear_marker_has_a_public_receiver(self):
   for dungeon in (*range(34370,34501,10),34690,34700):

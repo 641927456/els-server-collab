@@ -7,7 +7,8 @@ from contextlib import closing
 from pathlib import Path
 import sqlite3
 import time
-from els_server.domain.guild_license_flow import _facts as town_facts, reply_capture, guarded_reply
+from els_server.domain.guild_license_flow import (_facts as town_facts, reply_capture, guarded_reply,
+    _app, _identity, _mailbox)
 from els_server.domain.guild_initial_profile import profile
 from els_server.domain.party_commands import _prepared_boxes
 from els_server.protocol import guild_membership_messages as request
@@ -17,6 +18,25 @@ from els_server.storage import guild_membership_state as state
 WRITER_ENABLED = True
 
 
+def _license_fallback(s, item_uid):
+    """Anchor a stale instance number onto the one owned license.
+
+    A rebuilt save renumbers inventory rows while the native client keeps the
+    previous number, so the create request can name an instance this character
+    never owned. Only a character holding exactly one unlocked singleton
+    license is resolved that way; anything ambiguous keeps the strict path.
+    """
+    path=Path(s.account.store.path).resolve().as_uri()+'?mode=ro'
+    with closing(sqlite3.connect(path,uri=True,timeout=10)) as db:
+        if db.execute('SELECT 1 FROM inventory_items WHERE owner=? AND uid=?',
+                      (s.account.uid,item_uid)).fetchone() is not None:
+            return None
+        rows=[row[0] for row in db.execute(
+            'SELECT uid FROM inventory_items WHERE owner=? AND template=? AND metadata=0 '
+            'AND bag_group=4 AND count=1 ORDER BY uid',(s.account.uid,state.LICENSE))]
+    return rows[0] if len(rows)==1 else None
+
+
 def facts(s):
     if getattr(s,'guild_agit',None)is not None:
         from els_server.domain.guild_agit_flow import bank_capture,identity
@@ -24,12 +44,14 @@ def facts(s):
         bank_capture(s);refs,values=identity(s);world,world_values=world_state(s)
         base=(tuple(map(id,refs)),values,tuple(map(id,world)),world_values,id(s.guild_agit),s.guild_agit['guild'],s.phase)
     else:base = town_facts(s)
-    if (s.identity['id'] != s.account.account_id
-            or not s.application.registry.enabled(s.account.account_id)
-            or s.application.world.dungeons.room(s) is not None):
+    app=_app(s);identity=_identity(s);registry=getattr(app,'registry',None)
+    box=_mailbox(s)
+    if (identity['id'] != s.account.account_id
+            or (registry is not None and not registry.enabled(s.account.account_id))
+            or app.world.dungeons.room(s) is not None):
         raise ValueError('Guild current enabled account and town')
-    return (base,id(s),id(s.identity),id(s.application.world),
-            id(s.mailbox),tuple(s.mailbox.messages),tuple(s.mailbox.moves.items()),s.mailbox.bytes)
+    return (base,id(s),id(getattr(s,'identity',None)),id(app.world),
+            id(box),tuple(box.messages),tuple(box.moves.items()),box.bytes)
 
 
 def _peer(s, *, uid=0, name=''):
@@ -82,11 +104,15 @@ def handle(s,event,sequence):
                     answer=state.decline(db,s.account.uid,s.account.account_id,s.shop_session_id,event.payload,operation,now,guard)
                 elif event.kind==0x276:
                     item_uid,name,message=request.create_request(event.payload)
+                    import struct as _struct
+                    resolved=_license_fallback(s,item_uid) or item_uid
+                    payload=(event.payload if resolved==item_uid
+                             else _struct.pack('>Q',resolved)+event.payload[8:])
                     def encode(saved,changes,repeat):
                         p=profile(saved,db=db)
                         return (wire.create_ack(p['basic'],changes),wire.full_notification(p))
-                    answer=state.create(db,s.account.uid,s.account.account_id,item_uid,name,message,
-                        event.payload,operation,now,encode=encode,guard=guard)
+                    answer=state.create(db,s.account.uid,s.account.account_id,resolved,name,message,
+                        payload,operation,now,encode=encode,guard=guard)
                 elif event.kind==0x285:
                     name,uid=request.invite_request(event.payload);peer=_peer(s,uid=uid,name=name)
                     captured[peer]=facts(peer)

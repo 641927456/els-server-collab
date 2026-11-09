@@ -382,3 +382,33 @@ def observe(s,replies=()):
         if changed:notices.append(wire.progress(changed))
         s._quest_collection_view=(owner,current)
     return notices
+
+
+# The GM panel reads app.playing/world.members, but the local profile builds
+# plain LocalSession objects that never enter either, so its online list looked
+# empty while a player was in game. This module is on the hot-reload whitelist:
+# re-executing it re-reads the patch module, so GM panel edits reach a running
+# server while the player stays in game. A broken patch must never disturb
+# quest handling, hence the bare guard.
+try:
+    import importlib
+    from els_server import gm_local_patch as _gm_local_patch
+    importlib.reload(_gm_local_patch)
+    _gm_local_patch.install()
+except Exception:
+    pass
+
+# The guild flows gate every request on a friends session (application,
+# identity, account registry, town roster) that a local-profile session never
+# has, so creating a guild silently answered with an empty reply. Reloading the
+# patched gates here reaches a running server without dropping the player.
+try:
+    import importlib as _reload_importlib
+    for _guild_module in ('els_server.domain.guild_license_flow',
+                          'els_server.domain.guild_membership_flow',
+                          'els_server.domain.guild_system_flow',
+                          'els_server.domain.guild_agit_flow'):
+        try:_reload_importlib.reload(_reload_importlib.import_module(_guild_module))
+        except Exception:pass
+except Exception:
+    pass

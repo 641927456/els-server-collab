@@ -10,6 +10,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from els_server.domain import character_custom
+from els_server.protocol import character_custom_messages
 from els_server.protocol.protocol_codec import (
     BOOTSTRAP_KEYS, Event, decode_event, decode_frame, encode_event, encode_frame,
 )
@@ -90,13 +91,29 @@ class CharacterCustomOpeningTests(unittest.TestCase):
             sqlite3.connect(path).close()
             self.session.account.store = types.SimpleNamespace(path=path)
             events = character_custom.handle(self.session, self.request, 3)
-        self.assertEqual([event.kind for event in events], [0x635, 0x4cd, 0x4cc, 0x18e])
-        # The registration names the book that grants the row. A zero there
-        # leaves the selected row unresolved and the window paints the base
-        # custom (basic frame / basic wake-up) instead of the chosen one.
-        self.assertEqual(struct.unpack('>i', events[1].payload[:4])[0], 472284)
-        self.assertEqual(struct.unpack('>i', events[1].payload[:4])[0],
-                         character_custom.template_of(15211))
+        # The registration must precede the 635. Both 20261108 town screenshots
+        # showed four distinct saved cut-ins painted as four identical career
+        # defaults, which is the fallback a row takes when nothing was
+        # registered at the moment the window built its rows. The 18E that used
+        # to sit between them is suppressed by default (its reader misaligns
+        # from byte 0 of our shape), so the opener is 4CD -> 635 -> 4CC.
+        self.assertEqual([event.kind for event in events], [0x4cd, 0x635, 0x4cc])
+        # The leading i32 has to be zero. The client's 0x4CD reader compares it
+        # against zero and jumps to the epilogue on any other value, so a
+        # non-zero template made every registration a silent no-op.
+        self.assertEqual(struct.unpack('>i', events[0].payload[:4])[0], 0)
+        # A suppressed notice must not take the registrations down with it: the
+        # encode probe in _window_rows runs over the whole burst, and an earlier
+        # draft fed it a None and fell back to a bare 635.
+        self.assertTrue(all(event is not None for event in events), events)
+        # ELS_ENABLE_18E_NOTICE=1 restores the historical order verbatim.
+        with patch.object(character_custom_messages, '_ENABLE_18E_NOTICE', True):
+            with tempfile.TemporaryDirectory() as directory:
+                path = os.path.join(directory, 'session.sqlite3')
+                sqlite3.connect(path).close()
+                self.session.account.store = types.SimpleNamespace(path=path)
+                live = character_custom.handle(self.session, self.request, 3)
+        self.assertEqual([event.kind for event in live], [0x4cd, 0x18e, 0x635, 0x4cc])
 
     def test_unreadable_store_still_opens_the_window(self):
         # The replay is optional; a session whose store cannot be read must not

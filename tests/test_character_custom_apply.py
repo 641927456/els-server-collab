@@ -21,6 +21,7 @@ from els_server.domain.inventory_items import VERIFIED_TEMPLATES,TEMPLATE_BAG_GR
 from els_server.domain import character_custom as custom
 from els_server.storage import character_custom as store
 from els_server.protocol.protocol_codec import Event
+from els_server.protocol import character_custom_messages as wire
 from els_server.protocol.character_custom_messages import selection_map
 
 OWNER=1001
@@ -42,8 +43,10 @@ def snap():
         return store.snapshot(db,OWNER)
 def result_of(events):
     assert events,events
-    assert events[0].kind==0x4cc,events[0]
-    return struct.unpack_from('>i',events[0].payload)[0]
+    # A successful Apply now re-registers the landing row before the ack, so the
+    # 4CC is not always events[0]; a rejection still answers with the bare ack.
+    ack=next(event for event in events if event.kind==0x4cc)
+    return struct.unpack_from('>i',ack.payload)[0]
 
 with tempfile.TemporaryDirectory() as d:
     path=Path(d)/'custom.sqlite3'
@@ -77,7 +80,12 @@ with tempfile.TemporaryDirectory() as d:
         event,sequence=apply_event(1,CUSTOM_ID,221)
         events=custom.handle(session,event,sequence)
         assert result_of(events)==0,events
-        assert [e.kind for e in events]==[0x4cc,0x18e],events
+        # 0x18E is suppressed by default: its reader (FUN_140c4e700) misaligns
+        # from byte 0 of our shape and then hands the half-built default object
+        # to the actor, i.e. every notice reset the appearance it was meant to
+        # carry. An Apply therefore answers with the row registration and the
+        # ack only; step 7b proves the switch still restores the old frame.
+        assert [e.kind for e in events]==[0x4cd,0x4cc],events
         selected=snap()['selected']
         assert selected=={1:custom.canonical(CUSTOM_ID)},selected
 
@@ -90,10 +98,14 @@ with tempfile.TemporaryDirectory() as d:
             event,sequence=apply_event(slot,CUSTOM_ID,sequence)
             events=custom.handle(session,event,sequence)
             assert result_of(events)==0,(slot,)
-            # The reply carries the whole window state, not just this slot:
-            # answering with one slot made the other rows fall back to the
-            # career default, which read as "only one slot can be used".
-            assert int.from_bytes(events[0].payload[4:8],'big')==want,events[0]
+            # 0x4CC is the Apply result and carries ONLY the applied slot.
+            # Echoing the whole window map here made the client run its
+            # 「获得新的X！」 acquisition banner once per entry and then stall on
+            # the last one (slot 28 = 徽记) — the reported "每次切换都弹徽记".
+            ack=next(e for e in events if e.kind==0x4cc)
+            assert int.from_bytes(ack.payload[4:8],'big')==1,ack
+            assert ack.payload[8]==slot,ack
+            assert all(e.kind!=0x18e for e in events),events
         selected=snap()['selected']
         assert sorted(selected)==[1,10,11,12],selected
         with closing(sqlite3.connect(path)) as db:
@@ -108,13 +120,34 @@ with tempfile.TemporaryDirectory() as d:
         # 6) Replaying the same operation is idempotent, not a second write.
         event,sequence=apply_event(1,CUSTOM_ID,221)
         events=custom.handle(session,event,sequence)
-        assert result_of(events)==0 and [e.kind for e in events]==[0x4cc,0x18e],events
+        assert result_of(events)==0 and [e.kind for e in events]==[0x4cd,0x4cc],events
 
-        # 7) The saved selection is what login replays: 0x18E carries the actor.
+        # 7) Login replays nothing while the notice is suppressed: 0x18E is the
+        # only thing restored() ever built, so its disappearance is the whole
+        # change and it must not turn into an empty 0x201 on the wire.
         character=dict(uid=OWNER,title=0,character_custom=snap())
-        notices=custom.restored(character)
-        assert len(notices)==1 and notices[0].kind==0x18e,notices
-        assert int.from_bytes(notices[0].payload[:8],'big')==OWNER
+        assert custom.restored(character)==(),custom.restored(character)
+
+        # 7b) ELS_ENABLE_18E_NOTICE=1 puts the frame back byte-for-byte. Kept as
+        # a test because that is the switch used to capture-compare against a
+        # real server; the flag is read per call, so patching it is enough.
+        with patch.object(wire,'_ENABLE_18E_NOTICE',True):
+            notices=custom.restored(character)
+            assert len(notices)==1 and notices[0].kind==0x18e,notices
+            assert int.from_bytes(notices[0].payload[:8],'big')==OWNER
+            event,sequence=apply_event(1,CUSTOM_ID,227)
+            live=custom.handle(session,event,sequence)
+            assert [e.kind for e in live]==[0x4cd,0x4cc,0x18e],live
+            notice=live[-1]
+            # 18E groups by custom FAMILY with one Info per rank of it, so
+            # slots 1/10/11/12 all live under one family entry and the entry
+            # count stays 1 however many of them are selected.
+            assert int.from_bytes(notice.payload[16:20],'big')==1,notice
+            assert int.from_bytes(notice.payload[:8],'big')==OWNER,notice
+            # Payload is uid + selector + title + the family map, and every
+            # Info is a 76-byte record whose first i32 is the custom id.
+            assert notice.payload[20]==1,notice
+            assert int.from_bytes(notice.payload[25:29],'big',signed=True)==CUSTOM_ID,notice
 
         # 8) An empty slot makes the window send an empty map; echo, never fail.
         empty=Event(0x202,performers=(0,),kind=0x4cb,payload=bytes(4))

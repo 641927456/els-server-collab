@@ -87,7 +87,8 @@ selection=compatibility_preflight(client,a.allow_client_variants) if a.login_pro
 if a.remote_bridge and not a.login_probe:verify_client(client,a.allow_client_variants)
 digest=hashlib.sha256(client.read_bytes()).hexdigest()
 if selection and digest!=selection['executable']['sha256']:raise SystemExit('Client changed after compatibility preflight; no client launched.')
-if any((q.info['name'] or '').lower() in ('x2.exe','x2_dx11.exe') for q in psutil.process_iter(['name'])):raise SystemExit('Existing client found; no launch or attach.')
+from client_process_guard import running_clients
+if running_clients():raise SystemExit('Existing client found; no launch or attach.')
 prepared_sources={}
 stack_adapter_failure=None
 native_cache_failure=None

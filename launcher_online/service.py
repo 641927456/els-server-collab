@@ -62,12 +62,50 @@ def bounded_int(value, low, high, name):
     return value
 
 
-def games():
+_GAMES_CACHE = (0.0, [])
+_GAMES_TTL = 1.0
+
+
+def games(*, cached=False):
+    """PIDs of clients that are genuinely running, husks excluded.
+
+    A crashed client can leave its process object behind: zero threads, zero
+    handles, yet GetExitCodeProcess keeps answering 259 (it is both
+    STILL_ACTIVE and the value the image passes to ExitProcess when it dies).
+    Counting that husk as a live game pins the launcher at "running" and
+    blocks start, stop and cleanup alike. tools/client_process_guard settles
+    liveness with WaitForSingleObject instead of the exit code.
+
+    ``cached`` is for the 3.5s status poll only, which is the one caller that
+    does not need sub-second truth; stop/shutdown paths stay uncached.
+    """
+    global _GAMES_CACHE
+    if cached:
+        at, value = _GAMES_CACHE
+        if time.monotonic() - at < _GAMES_TTL:
+            return list(value)
+    result = _scan_games()
+    _GAMES_CACHE = (time.monotonic(), list(result))
+    return result
+
+
+def _scan_games():
+    guard = None
+    try:
+        tools = str(ROOT/'tools')
+        if tools not in sys.path:
+            sys.path.insert(0, tools)
+        from client_process_guard import terminated as guard
+    except (ImportError, OSError):
+        guard = None
     result = []
     for p in psutil.process_iter(['name']):
         try:
-            if (p.info['name'] or '').lower() in ('x2.exe', 'x2_dx11.exe'):
-                result.append(p.pid)
+            if (p.info['name'] or '').lower() not in ('x2.exe', 'x2_dx11.exe'):
+                continue
+            if guard is not None and guard(p.pid):
+                continue
+            result.append(p.pid)
         except psutil.Error:
             pass
     return result
@@ -311,7 +349,8 @@ class LauncherService:
         if suffix in ('.webm',) and b'\x1a\x45\xdf\xa3' not in blob[:64]:
             raise ValueError('文件内容与扩展名不符')
         self.backgrounds.mkdir(parents=True, exist_ok=True)
-        for old in self.backgrounds.iterdir():
+        # Only this feature's own files: anything else a user put here stays.
+        for old in self.backgrounds.glob('custom-*'):
             try:
                 old.unlink()
             except OSError:
@@ -338,16 +377,20 @@ class LauncherService:
     def state(self):
         with self.lock:
             owned = self.process is not None and self.process.poll() is None
-            running = bool(games())
+            running = bool(games(cached=True))
             busy = self.phase in ('checking', 'starting', 'stopping') or owned
-            locked = running or busy or self.leased()
+            lease = self.leased()
+            locked = running or busy or lease
+            server_running = owned or lease
+            panel_running = self.gm_panel() is not None
             count = 0
             if self.save.is_file():
                 with closing(self.connect()) as db:
                     if self.table(db, 'characters'):
                         count = db.execute('SELECT COUNT(*) FROM characters').fetchone()[0]
             return dict(phase=self.phase, message=self.message, game_running=running,
-                        owned=owned, gm_locked=locked, save_exists=self.save.is_file(),
+                        owned=owned, server_running=server_running, panel_running=panel_running,
+                        gm_locked=locked, save_exists=self.save.is_file(),
                         save=str(self.save), client=str(self.client), character_count=count,
                         last_exit=self.last_exit, started_at=self.started_at,
                         check=self.check_result, run_dir=str(self.run_dir) if self.run_dir else None,
@@ -549,7 +592,7 @@ class LauncherService:
                                 if not isinstance(value, dict) or set(value) != {'template','quantity'}:
                                     raise ValueError('请选择道具及数量')
                                 bounded_int(value['template'], 1, 2**31-1, '道具编号')
-                                bounded_int(value['quantity'], 1, 99, '道具数量')
+                                bounded_int(value['quantity'], 1, 999, '道具数量')
                                 item = next((r for r in item_catalog() if r['id'] == value['template']), None)
                                 if item is None:
                                     raise ValueError('该道具尚未在当前服务端验证，不能发放')
@@ -578,7 +621,7 @@ class LauncherService:
                             elif action == 'item':
                                 from els_server.storage.inventory_state import ensure_inventory, grant_items
                                 ensure_inventory(db)
-                                grant_items(db, [dict(template=item['id'], metadata=item['metadata'], group=item['group'], quantity=value['quantity'])], uid)
+                                grant_items(db, [dict(template=item['id'], metadata=item['metadata'], group=item['group'], quantity=value['quantity'])], uid, admin_grant=True)
                                 detail = f'发放 {item["name"]} × {value["quantity"]}'
                             else:
                                 db.execute('UPDATE location SET town=20000,board=0,progress=0,x=0,y=0,z=0,revision=revision+1 WHERE uid=?', (uid,))
@@ -657,11 +700,48 @@ class LauncherService:
             self.worker.start()
             return dict(message='启动中，请稍候')
 
+    def _python_exe(self):
+        """Resolve a real python for the game pipeline (frozen exe has none as sibling)."""
+        if not getattr(sys, 'frozen', False):
+            current = Path(sys.executable)
+            sibling = current.with_name('python.exe')
+            if os.name == 'nt' and sibling.is_file():
+                return sibling
+            return current
+        for cand in (self.root/'python'/'python.exe',
+                     Path(sys.executable).parent/'python.exe'):
+            if cand.is_file():
+                return cand
+        return Path(sys.executable)
+
+    def _read_new_log(self, log_path):
+        """Complete lines appended since the previous call.
+
+        launch.log is truncated once per launch and never rotated, so a full
+        read every 0.7 s makes the monitor quadratic in log size. Splitting on
+        the newline byte keeps every UTF-8 character whole across two reads;
+        the caller resets the offset right after opening the file for writing.
+        """
+        offset = getattr(self, '_log_offset', 0)
+        try:
+            with log_path.open('rb') as stream:
+                stream.seek(offset)
+                chunk = stream.read(1_048_576)
+        except OSError:
+            return ''
+        if not chunk:
+            return ''
+        self._log_offset = offset + len(chunk)
+        segments = (getattr(self, '_log_buffer', b'') + chunk).split(b'\n')
+        self._log_buffer = segments.pop()
+        return b'\n'.join(segments).decode('utf8', 'replace')
+
     def _launch_worker(self):
         log_path = self.home/'launch.log'
         try:
-            python = Path(sys.executable).with_name('python.exe') if os.name == 'nt' else Path(sys.executable)
+            python = self._python_exe()
             with log_path.open('w', encoding='utf8') as log:
+                self._log_offset = 0; self._log_buffer = b''
                 with self.lock:
                     self.process = subprocess.Popen([str(python), str(ROOT/'tools/launch_integrated_local.py'),
                                                      '--client', str(self.client)],
@@ -671,8 +751,7 @@ class LauncherService:
                 while self.process.poll() is None:
                     # Only accept a directory printed by our verified child and
                     # verify its client process identity before allowing stop.
-                    content = log_path.read_text(encoding='utf8', errors='replace')
-                    for line in content.splitlines():
+                    for line in self._read_new_log(log_path).splitlines():
                         candidate = Path(line.strip())
                         if candidate.is_absolute() and candidate.is_relative_to(ROOT/'analysis/client-6c6b5180') and (candidate/'client-process.json').is_file():
                             self.run_dir = candidate
@@ -700,6 +779,109 @@ class LauncherService:
             (self.run_dir/'client.stop').write_text('launcher requested owned shutdown', encoding='utf8')
             self.phase = 'stopping'; self.message = '正在结束本次游戏并等待服务端保存…'
             return dict(message='正在退出游戏')
+
+    # ---------- full environment shutdown ----------
+    def _repo_side_processes(self):
+        """Server/launch processes that belong to this repository tree only.
+
+        Manual runs, a crashed launcher and a stale panel all leave python
+        processes behind. Everything else on the machine (WorkBuddy, editors,
+        other python jobs) must stay untouched, so both the command line and
+        the working directory have to point into this checkout.
+        """
+        root = str(self.root.resolve()).casefold()
+        bounded = root + os.sep
+        # A trailing boundary, not a bare prefix: els-server-collab-old is a
+        # different checkout and must never be adopted by either test.
+        root_pattern = re.compile(re.escape(root) + r'''(?=$|[\\/"'\s:])''')
+        markers = ('els_server', 'launch_integrated_local', 'launch_client.py',
+                   'probe_updated_client', 'capture_server')
+        found = []
+        me = os.getpid()
+        for process in psutil.process_iter(['name', 'cmdline', 'cwd']):
+            try:
+                if process.pid == me:
+                    continue
+                if not (process.info['name'] or '').lower().startswith(('python', 'pythonw')):
+                    continue
+                command = ' '.join(process.info['cmdline'] or [])
+                if 'launcher_online' in command or not any(m in command for m in markers):
+                    continue
+                cwd = str(process.info['cwd'] or '')
+                if not root_pattern.search(command.casefold()) and not (cwd.casefold() + os.sep).startswith(bounded):
+                    continue
+                found.append(process)
+            except (psutil.Error, OSError):
+                continue
+        return found
+
+    def shutdown_all(self):
+        """Close every environment this local world runs: client, server, GM panel.
+
+        Graceful path first — the client stop marker lets the server finish its
+        save and checkpoint. Hard termination only covers whatever is still
+        alive afterwards, and never touches processes outside this checkout.
+        """
+        with self.lock:
+            if self.phase in ('checking', 'starting'):
+                raise ValueError('正在启动或检查中，请等这一步结束后再关闭')
+            self.phase = 'stopping'; self.message = '正在关闭所有运行环境…'
+            killed, errors = [], []
+            try:
+                stopping = self.run_dir/'client.stop' if self.run_dir else None
+                if stopping is not None and (stopping.parent/'client-process.json').is_file():
+                    try:
+                        stopping.write_text('launcher requested full shutdown', encoding='utf8')
+                    except OSError as error:
+                        errors.append('写停止标记失败：'+str(error))
+                    deadline = time.monotonic()+30
+                    while time.monotonic() < deadline and games():
+                        time.sleep(.4)
+                for pid in games():
+                    try:
+                        process = psutil.Process(pid)
+                        process.terminate()
+                        try:
+                            process.wait(timeout=8); killed.append('游戏客户端 %d' % pid)
+                        except psutil.TimeoutExpired:
+                            process.kill(); killed.append('游戏客户端 %d（强制）' % pid)
+                    except psutil.Error as error:
+                        errors.append('客户端 %d 未能结束：%s' % (pid, error))
+                if self.process is not None and self.process.poll() is None:
+                    pid = self.process.pid
+                    try:
+                        self.process.terminate(); self.process.wait(timeout=25)
+                        killed.append('本地服务端 %d' % pid)
+                    except subprocess.TimeoutExpired:
+                        self.process.kill(); killed.append('本地服务端 %d（强制）' % pid)
+                    except OSError as error:
+                        errors.append('服务端 %d 未能结束：%s' % (pid, error))
+                for process in self._repo_side_processes():
+                    pid = process.pid
+                    try:
+                        name = process.name()
+                        process.terminate()
+                        try:
+                            process.wait(timeout=15); killed.append('%s %d' % (name, pid))
+                        except psutil.TimeoutExpired:
+                            process.kill(); killed.append('%s %d（强制）' % (name, pid))
+                    except psutil.Error:
+                        pass
+                endpoint = self.gm_home()/'endpoint.json'
+                try:
+                    if endpoint.is_file() and not games():
+                        info = json.loads(endpoint.read_text(encoding='utf8'))
+                        if not psutil.pid_exists(int(info.get('pid', 0))):
+                            endpoint.unlink()
+                except (OSError, ValueError, psutil.Error):
+                    pass
+            finally:
+                remaining = bool(games())
+                self.process = None; self.run_dir = None
+                self.phase = 'idle'
+                self.message = '所有运行环境已关闭' if not remaining else '仍有游戏进程未退出，请稍后重试'
+            return dict(message=self.message, killed=killed, errors=errors,
+                        game_running=remaining, server_running=bool(self._repo_side_processes()))
 
     def logs(self):
         path = self.home/'launch.log'

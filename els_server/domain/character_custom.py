@@ -141,7 +141,13 @@ def free_ids(unit_class,slot=1):
 
 def admitted(s):
     from els_server.domain.dungeon_equipment_loot_flow import current_lease
-    return (s.client_build=='dx11_260923' and s.item_test and s.role=='game' and s.phase=='town_ready'
+    # Book-use follows the panel: the client opens the same custom window inside
+    # a dungeon (panel_admitted already admits it), but registering a book there
+    # answered -1 and the client renders nothing for -1, so it looked like the
+    # use never happened. Storage still checks ownership, level/class and the
+    # exact catalogued book, so the dungeon write lands on the same row.
+    return (s.client_build=='dx11_260923' and s.item_test and s.role=='game'
+            and s.phase in ('town_ready','dungeon_active')
             and s.account.characters is not None and s.account.store is not None and current_lease(s))
 
 def panel_admitted(s):
@@ -170,16 +176,94 @@ def _envelope(event,sequence,performers=((),(0,))):
             and event.performers in performers and event.uid==2**64-1
             and event.target_uid==2**64-1 and event.payload_mode==0)
 
-def _replay_selection(s):
-    """The three messages a freshly opened window paints its rows from.
+def dungeon_entry(s,ticket=False):
+    """The customisation burst that rides along with dungeon entry.
+
+    This lives here instead of inside LocalSession on purpose. Storage's 0x4CB
+    path resolves this module inside the function body, so a reload of this
+    module takes effect on the next request; LocalSession itself can never be
+    hot-reloaded because live sessions hold its class. Keeping the burst here
+    means tuning it no longer needs a server restart or a dropped client.
+
+    Returns ``(values, before_start, after_start, note)``:
+
+    * ``values``       the member DTO's variable-length slot payload
+    * ``before_start`` registrations, the selection ack and the actor notice,
+                       emitted while the client is still in its town state so
+                       its town handlers accept them
+    * ``after_start``  an empty map followed by the full map, replayed once the
+                       dungeon actor exists
+    """
+    import sqlite3
+    from contextlib import closing
+    from els_server.storage.character_custom import snapshot as store_snapshot
+    from els_server.protocol.character_custom_messages import (
+        acknowledgement,registered,selected_notice)
+
+    def report(values,events,note,selected):
+        # A silent empty tuple and a full set the client ignored look identical
+        # in the game, so always record what was built.
+        _trace('dungeon dto custom=%d events=%d %s ids=%r ticket=%r'
+               %(len(values),len(events),note,sorted(set(values))[:4],ticket))
+        if selected:_trace('dungeon reannounce empty->full slots=%d'%len(selected))
+
+    account=getattr(s,'account',None)
+    if not (getattr(s,'item_test',False) and getattr(account,'characters',None) is not None
+            and getattr(account,'store',None) is not None):
+        report((),(),'gate',{})
+        return (),(),(),'gate'
+    note='ok';values=();events=();after=();selected={}
+    try:
+        with closing(sqlite3.connect(account.store.path,timeout=10)) as db:
+            db.execute('BEGIN')
+            fresh=store_snapshot(db,account.uid)
+        selected=dict(fresh['selected'])
+        values=tuple(entry['custom_id'] for entry in selected.values()
+                     if isinstance(entry,dict) and type(entry.get('custom_id'))is int
+                     and entry['custom_id']>0)
+        if values:
+            # Selected rows only: one 4CD per owned row is thousands of events
+            # on a fully unlocked save, and a burst that size is dropped whole.
+            title=int(account.character().get('title',0) or 0)
+            events=tuple([registered(value,0,family=slot)
+                          for slot,value in sorted(selected.items())]
+                         +[acknowledgement(selected),
+                           selected_notice(account.uid,title,selected)])
+            # The burst above paints the town actor; the dungeon actor is built
+            # from the member DTO afterwards. Replaying an identical map was
+            # measured inert, so announce an empty map first to rule out the
+            # client returning early on "same selection as the one I hold".
+            # The selector experiment is over: the 15:01:26 entry sent a third
+            # frame with selector 1 (2141 bytes, `payload=2141 uid=1001
+            # selector=1 title=12620 slots=21`) and the dungeon actor still
+            # rendered career defaults, so 0 remains the only selector this
+            # build answers to and the extra frame is gone.
+            after=(selected_notice(account.uid,title,{}),
+                   selected_notice(account.uid,title,selected))
+    except (sqlite3.Error,ValueError,KeyError) as error:
+        values=();events=();after=();selected={};note='read:%s'%type(error).__name__
+    events=_live(events);after=_live(after)
+    report(values,events,note,selected)
+    return values,events,after,note
+
+def _window_rows(s):
+    """The messages a freshly opened window paints its rows from, split by order.
 
     The 635 opener only carries the published cash catalog, so a window opened
     in town showed every tab on the career default while the save already held
-    the chosen border or motion: the game itself had applied it through the
-    login 18E, the panel just never heard about it. Replay what the dungeon
-    opener in this same handler already sends: the 4CD registration of every
-    owned value, the 4CC map the rows use and the 18E actor notice. Read-only,
-    and optional: if the store is unreadable the window still opens.
+    the chosen border or motion. The rows were being replayed *after* the 635
+    on the assumption that a live window absorbs later registrations; the two
+    town screenshots of 20261108 disprove it. The panel listed the four saved
+    cut-ins (ELS uniform / natural white swimsuit / April butler & maid /
+    EL★STAR2 -- four distinct items in `character_custom_permanent_selection_slots`)
+    as four identical "Immortal advanced skill cut-in" rows, the career default
+    every row falls back to when it has no granting item. So the window builds
+    its rows from whatever is registered at creation time: 4CD has to precede
+    the 635.
+
+    Returns ``(registrations, notices)``: the 4CD burst to emit *before* the
+    opener, and the 4CC selection map plus 18E actor notice to emit after it.
+    Read-only, and optional: if the store is unreadable the window still opens.
     """
     try:
         from contextlib import closing
@@ -191,7 +275,7 @@ def _replay_selection(s):
             db.execute('BEGIN')
             fresh=store_snapshot(db,s.account.uid)
         owned=fresh['owned'];selected=dict(fresh['selected'])
-        if not selected:return []
+        if not selected:return [],[]
         title=int(s.account.character().get('title',0) or 0)
         # Only the selected values are registered here. A fully unlocked save
         # owns thousands (2902 on the live one), and replaying one 4CD per owned
@@ -199,20 +283,58 @@ def _replay_selection(s):
         # opened on the career defaults. The owned map already reaches the
         # client in 2A, so the opener only has to make the *chosen* rows
         # resolvable.
-        events=([registered(value,template_of(value['custom_id'])) for slot,value in sorted(selected.items())]
-                +[acknowledgement(selected),selected_notice(s.account.uid,title,selected)])
+        registrations=[registered(value,0,family=slot) for slot,value in sorted(selected.items())]
+        # Compact here, not after the encode probe below: while 0x18E is
+        # suppressed `selected_notice` is None, and `encode_event(None)` would
+        # raise inside the probe, whose fallback returns ([], []) -- the window
+        # would then open with no registrations at all.
+        notices=[event for event in (acknowledgement(selected),selected_notice(s.account.uid,title,selected))
+                 if event is not None]
         # The opener reply carries all of this in one frame burst; an event that
         # only fails at encode time would take the whole reply down with it,
         # including the 635 the window is waiting for. Prove each one here and
         # fall back to the bare opener instead of dying in the writer.
         from els_server.protocol.protocol_codec import encode_event
-        for event in events:encode_event(event)
-        _trace('opener replay owned=%d slots=%d'%(
-            sum(len(v) for v in owned.values()),len(selected)))
-        return events
+        for event in registrations+notices:encode_event(event)
+        # Record the row-type byte we actually put on the wire for every row.
+        # `payload[4]` is the byte right after the granting-item i32, i.e. the
+        # value the client buckets the row by. It has to equal the row's own
+        # slot; a folded family byte instead is what made every multi-slot tab
+        # paint its 2nd..4th row with the career default (2026-11-08).
+        rows=[(slot,event.payload[4])for (slot,_),event in zip(sorted(selected.items()),registrations)]
+        _trace('opener replay owned=%d slots=%d registered=%d rows=%s'
+               %(sum(len(v) for v in owned.values()),len(selected),len(registrations),
+                 ' '.join('%d:%d'%row for row in rows)))
+        return registrations,notices
     except Exception as error:
         _trace('opener selection unavailable: %r'%error)
-        return []
+        return [],[]
+
+def _live(events):
+    """Drop the suppressed 0x18E placeholders (see character_custom_messages).
+
+    `selected_notice` returns None while ELS_ENABLE_18E_NOTICE is off, so every
+    list of notices has to be compacted before it reaches the wire.
+    """
+    return tuple(event for event in events if event is not None)
+
+
+def _split_notices(notices):
+    """Divide the opener tail into "must precede the 635" and "must follow it".
+
+    Measured 2026-11-08 16:15: the window lists every owned cut-in in its row
+    dropdown (so the 4CD replay reaches the manager) but every row still paints
+    the career default. The dropdown proves registration works; what the row
+    *shows* is the manager's current selection, and the window reads that when
+    the 635 creates it. The 18E selection map used to be emitted after the 635,
+    i.e. after the rows had already been painted, and an Apply re-sends the same
+    three frames into an already-built window, which is why one Apply never
+    changed a row. 18E therefore goes before the opener; the 4CC Apply reply
+    stays after it.
+    """
+    before=[event for event in notices if event is not None and event.kind==0x18e]
+    after=[event for event in notices if event is not None and event.kind!=0x18e]
+    return before,after
 
 def handle(s,event,sequence):
     if event.kind==0x634:
@@ -249,21 +371,28 @@ def handle(s,event,sequence):
                 # the window then opens on the career defaults. There is no
                 # other carrier in the dungeon reply, so both openers replay the
                 # same shape.
-                notices=[registered(value,template_of(value['custom_id'])) for slot,value in sorted(selected.items())]
+                registrations=[registered(value,0,family=slot) for slot,value in sorted(selected.items())]
+                notices=[]
                 if selected:
-                    notices.append(acknowledgement(selected))
-                    notices.append(selected_notice(s.account.uid,int(character.get('title',0) or 0),selected))
-                events=opening_info(s.account.store.path,s.account.uid,s.account.account_id)+notices
-                _trace('opener ok phase=dungeon owned=%d slots=%d notices=%d'
-                       %(sum(len(v) for v in owned.values()),len(selected),len(notices)))
+                    notices=[event for event in (acknowledgement(selected),
+                             selected_notice(s.account.uid,int(character.get('title',0) or 0),selected))
+                             if event is not None]
+                before,after=_split_notices(notices)
+                events=registrations+before+opening_info(s.account.store.path,s.account.uid,s.account.account_id)+after
+                rows=[(slot,event.payload[4])for (slot,_),event in zip(sorted(selected.items()),registrations)]
+                _trace('opener ok phase=dungeon owned=%d slots=%d rows=%d notices=%d bytes=%s'
+                       %(sum(len(v) for v in owned.values()),len(selected),len(registrations),len(notices),
+                         ' '.join('%d:%d'%row for row in rows)))
                 return events
             from els_server.domain.avatar_set_flow import context,validate
             captured=context(s)
-            events=opening_info(s.account.store.path,s.account.uid,s.account.account_id,validate=lambda:validate(s,captured))
-            # The window exists after the 635; the row state goes after it, so a
-            # fresh panel paints from the save instead of the career default.
-            events=events+_replay_selection(s)
-            _trace('opener ok')
+            registrations,notices=_window_rows(s)
+            # Order matters: the 4CD rows exist before the window is created,
+            # the 18E selection map goes in before the 635 reads it (see
+            # _split_notices), and the 4CC Apply reply follows it.
+            before,after=_split_notices(notices)
+            events=registrations+before+opening_info(s.account.store.path,s.account.uid,s.account.account_id,validate=lambda:validate(s,captured))+after
+            _trace('opener ok rows=%d notices=%d'%(len(registrations),len(notices)))
             return events
         except ValueError as error:
             _trace('opener failed: %s'%error)
@@ -330,5 +459,11 @@ def require_admitted(s):
 def restored(character):
     from els_server.protocol.character_custom_messages import selected_notice
     values=character.get('character_custom',{}).get('selected',{})
+    # Which login reply this fired in is the whole question right now: the town
+    # actor never takes the selection, and the 0x18E used to go out only on the
+    # 0x227 "actor ready" ack, i.e. after the actor already exists. The 0x28
+    # reply now carries one right behind 0x2A as well, so both calls are logged
+    # with their slot count to tell them apart in state/custom.log.
+    _trace('custom notice uid=%r slots=%d'%(character.get('uid'),len(values)))
     if not values:return []
-    return [selected_notice(character['uid'],character.get('title',0),values)]
+    return _live([selected_notice(character['uid'],character.get('title',0),values)])

@@ -141,7 +141,7 @@ def load_items(db,owner=1001):
  limits=allowances(db,owner)
  if any(i['group'] not in (9,22,23,24) and i['slot']>=limits[i['group']] for i in items):raise ValueError('Item exceeds owned bag capacity')
  return items
-def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None,regional_cube_source=None,black_market_box_source=None,feta_exchange_source=None):
+def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None,regional_cube_source=None,black_market_box_source=None,feta_exchange_source=None,admin_grant=False):
  if feta_exchange_source is not None:
   if any(x is not None for x in(selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,silver_source,daily_special_source,regional_cube_source,black_market_box_source)):raise ValueError('Incompatible Feta factory source')
   from els_server.storage.feta_exchange_source import validate_source
@@ -186,7 +186,10 @@ def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,c
  for p in plan:
   if not isinstance(p,dict) or set(p)-{'expires_at','enhancement'}!={'template','metadata','quantity','group'} or any(type(v) is not int for v in p.values()):raise ValueError('Invalid inventory grant plan')
   from els_server.domain.acquisition_policy import require_acquirable
-  if selected_accessory_box is None:require_acquirable(p['template'],cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,raid_reward_source=raid_reward_source,silver_source=silver_source,daily_special_source=daily_special_source,regional_cube_source=regional_cube_source,black_market_box_source=black_market_box_source,feta_exchange_source=feta_exchange_source)
+  # admin_grant carries an explicit human GM decision (launcher/panel give).
+  # Normal game sources never set it, so acquisition policy stays closed for
+  # drops, shops, boxes and quests.
+  if selected_accessory_box is None and not admin_grant:require_acquirable(p['template'],cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,raid_reward_source=raid_reward_source,silver_source=silver_source,daily_special_source=daily_special_source,regional_cube_source=regional_cube_source,black_market_box_source=black_market_box_source,feta_exchange_source=feta_exchange_source)
   if 'enhancement' in p:
    from els_server.domain.equipment_enhancement import validate as validate_enhancement
    validate_enhancement(p['template'],p['enhancement'])
@@ -199,7 +202,7 @@ def validate_plan(plan,*,selected_accessory_box=None,cartridge_box_source=None,c
    if p!=dict(template=119335,metadata=0,group=4,quantity=1):raise ValueError('Recipe679 private singleton plan')
   elif p['template'] not in VERIFIED_TEMPLATES or p['metadata']!=VERIFIED_TEMPLATES[p['template']] or p['group']!=TEMPLATE_BAG_GROUPS[p['template']] or not 1<=p['quantity']<=LOCAL_MAX_STACK:raise ValueError('Unverified inventory grant template/count')
  return [dict(p) for p in plan]
-def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None,regional_cube_source=None,black_market_box_source=None,feta_exchange_source=None):
+def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None,regional_cube_source=None,black_market_box_source=None,feta_exchange_source=None,admin_grant=False):
  if feta_exchange_source is not None:
   if any(x is not None for x in(selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,silver_source,daily_special_source,regional_cube_source,black_market_box_source)):raise ValueError('Incompatible Feta factory source')
   from els_server.storage.feta_exchange_source import validate_source
@@ -243,7 +246,7 @@ def grant_items(db,plan,owner=1001,*,chip_options=None,selected_accessory_box=No
   if any(v is not None for v in(chip_options,selected_accessory_box,cartridge_box_source,cartridge_select_source,cartridge_recipe679_source,fish_erp_source,raid_reward_source,daily_special_source)):raise ValueError('Incompatible Mirror inventory sources')
   from els_server.domain.silver_mirror_rewards import validate_source as validate_mirror_source
   validate_mirror_source(silver_source).bind_factory(db,owner,plan)
- plan=validate_plan(plan,selected_accessory_box=selected_accessory_box,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,fish_erp_source=fish_erp_source,raid_reward_source=raid_reward_source,silver_source=silver_source,daily_special_source=daily_special_source,regional_cube_source=regional_cube_source,black_market_box_source=black_market_box_source,feta_exchange_source=feta_exchange_source);items=load_items(db,owner);changed={}
+ plan=validate_plan(plan,selected_accessory_box=selected_accessory_box,cartridge_box_source=cartridge_box_source,cartridge_select_source=cartridge_select_source,cartridge_recipe679_source=cartridge_recipe679_source,fish_erp_source=fish_erp_source,raid_reward_source=raid_reward_source,silver_source=silver_source,daily_special_source=daily_special_source,regional_cube_source=regional_cube_source,black_market_box_source=black_market_box_source,feta_exchange_source=feta_exchange_source,admin_grant=admin_grant);items=load_items(db,owner);changed={}
  from els_server.domain.equipment_chip_rules import TEMPLATE as CHIP,generate as chip_generate,source_options as chip_source
  approved_chip=None
  if chip_options is not None:

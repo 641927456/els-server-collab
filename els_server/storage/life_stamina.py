@@ -52,9 +52,12 @@ def initialize(db,uid,account,connection,now):
     return snapshot(db,uid,account)
 
 
-def debit(db,uid,account,amount,*,premium_at=None):
+def debit(db,uid,account,amount,*,premium_at=None,expedition=False):
     owner(db,uid,account)
-    if not db.in_transaction or type(amount)is not int or amount not in(10,20):raise ValueError('Finite original life cost')
+    # An expedition mission carries its own m_iConsumedLifeSpirit (960 for the
+    # approved region-1 board), so it is the only caller allowed past the
+    # fishing 10/20 gate. It is never discounted by the VIP half-price path.
+    if not db.in_transaction or type(amount)is not int or amount not in((960,)if expedition else(10,20)):raise ValueError('Finite original life cost')
     if amount==10:
         from els_server.storage.fishing_vip import active
         if premium_at is None or not active(db,uid,account,premium_at):raise ValueError('FishingVIP saved authority required for half life cost')

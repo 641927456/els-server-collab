@@ -240,8 +240,49 @@ def finish_village1012_origin(s, origin):
         return
 
 
+def authorize_cold_start_entry(s,event,sequence):
+    """The flag1 town request the client opens every fresh character entry with.
+
+    Measured 2026-11-08 18:19:42 / 18:20:06 local, wire-debug.log: entry always
+    starts with 225(<town the 2A DTO carried>,1) -- 225(20008,1) while the save
+    still said 20008 -- and, because only a pending 58C could authorize flag 1,
+    the refusal made the client retry 225(20000,0). The 227 one second later
+    then persisted 20000, so the next DTO carried 20000 and the character could
+    never leave 魔奇村庄 again. Flag 1 here is the client's "put me back where I
+    was", not a warp arrival: accept it when it names exactly the town already
+    on disk and nothing else owns the transition.
+    """
+    if (event.event_id!=0x202 or event.kind!=0x225 or len(event.payload)!=5 or event.payload[4]!=1
+            or event.performers!=(0,) or event.uid!=event.target_uid or event.uid!=2**64-1
+            or event.payload_mode!=0 or s.client_build!='dx11_260923' or s.role!='game'
+            or not s.enter_town or s.dungeon_return_pending
+            or type(sequence)is not int or not 1<=sequence<2**32):return False
+    # ``active_map`` is only set once this session established a town, so this
+    # can never swallow an ordinary portal transition inside a live town.
+    if getattr(s,'active_map',None) is not None:return False
+    if getattr(s,'town_warp_transition',None) is not None:return False
+    account=getattr(s,'account',None)
+    if (account is None or account.store is None or account.characters is None
+            or account.store.uid!=account.uid):return False
+    try:
+        destination=struct.unpack_from('>i',event.payload)[0]
+        from els_server.storage.local_state import TOWN_SCENES
+        if destination not in TOWN_SCENES:return False
+        # The row on disk is the authority; a stale in-memory copy must never
+        # make the server accept a town the save no longer holds.
+        from contextlib import closing
+        import sqlite3
+        with closing(sqlite3.connect(account.store.path,timeout=10)) as db:
+            db.execute('BEGIN')
+            saved=db.execute('SELECT town FROM location WHERE uid=?',(account.uid,)).fetchone()
+        return bool(saved==(destination,) and account.get_location()['map']==destination)
+    except (ValueError,OverflowError,KeyError,TypeError,AttributeError):
+        return False
+
+
 def authorize_native_warp_entry(s,event,sequence):
     """OriginalB934A0 explicit-destination flag1, bound to one committed58C."""
+    if authorize_cold_start_entry(s,event,sequence):return True
     if (event.event_id!=0x202 or event.kind!=0x225 or len(event.payload)!=5 or event.payload[4]!=1
             or event.performers!=(0,)or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0
             or s.client_build!='dx11_260923' or s.role!='game' or not s.enter_town

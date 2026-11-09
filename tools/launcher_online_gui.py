@@ -4,8 +4,8 @@
 `els-server-collab/tools/launcher_online_gui.py` 的 `main()` 找界面。
 界面实现在 `launcher_online/` 包（`python -m launcher_online`）。
 
-界面容器优先用 Edge/Chrome 的 --app 窗口（--browser-app），因为便携运行时里
-没有 pywebview/pythonnet 时，原生无边框窗口不可用。
+界面容器：vendor 已内置 pywebview/pythonnet，优先用原生无边框 WebView2 窗口；
+pywebview 不可用时由 __main__ 自动回退到 Edge/Chrome 的 --app 窗口。
 """
 from __future__ import annotations
 
@@ -61,7 +61,19 @@ def main() -> int:
     env['PYTHONUNBUFFERED'] = '1'
     env.setdefault('PYTHONPATH', str(ROOT))
 
-    args = [str(interpreter()), '-m', 'launcher_online', '--browser-app']
+    if getattr(sys, 'frozen', False):
+        # EXE 壳（PyInstaller onefile 薄壳）：spawn 仓库自带的便携运行时，
+        # 业务代码全在磁盘上，避免把动态加载的模块打进 exe。
+        python = ROOT / 'python' / 'pythonw.exe'
+        if not python.is_file():
+            python = ROOT / 'python' / 'python.exe'
+        if not python.is_file():
+            raise SystemExit('找不到便携运行时：%s' % python)
+        args = [str(python), '-m', 'launcher_online']
+        creation = getattr(subprocess, 'CREATE_NO_WINDOW', 0) if os.name == 'nt' else 0
+        return subprocess.run(args, cwd=str(ROOT), env=env, creationflags=creation).returncode
+
+    args = [str(interpreter()), '-m', 'launcher_online']
     creation = getattr(subprocess, 'CREATE_NO_WINDOW', 0) if os.name == 'nt' else 0
     return subprocess.run(args, cwd=str(ROOT), env=env, creationflags=creation).returncode
 

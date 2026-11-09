@@ -49,8 +49,28 @@ def _slow(key,seconds=3):
 
 def _pending(run):
  """Live hostiles the part still waits for."""
- return [n['key'] for n in run.current['npcs']
-         if n['active'] and n.get('team',1)!=0 and n['key'] not in run.defeated]
+ return [n['key'] for n in run.gate_npcs() if n['key'] not in run.defeated]
+
+# Local post-clear window. The original client owns the wave in a few rooms and
+# keeps respawning it while the server gate stays closed, so a part whose
+# observable hostiles are all dead can otherwise never move again. The window is
+# only a fallback: it starts after the hostile gate itself is already satisfied,
+# every scripted barrier still runs first, and it never opens a part that
+# declares no hostile at all (timers and script markers keep their own rule).
+STUCK_CLEAR_SECONDS=12.0
+
+def _post_clear_waited(s,run):
+ """True once a cleared part has waited out STUCK_CLEAR_SECONDS."""
+ gate=run.gate_npcs()
+ if not gate or any(n['key'] not in run.defeated for n in gate):
+  # A new hostile (a later wave or a summon) restarts the window.
+  s.part_clear_mark=None
+  return False
+ now=time.monotonic();key=(run.stage,run.part,run.visits)
+ mark=getattr(s,'part_clear_mark',None)
+ if mark is None or mark[:3]!=key:
+  s.part_clear_mark=(*key,now);return False
+ return now-mark[3]>=STUCK_CLEAR_SECONDS
 
 def periodic(session):
  s=session
@@ -65,6 +85,10 @@ def periodic(session):
  if gate_blocked(s.dungeon_run) or finale_boss_pending(s.dungeon_run):return []
  run=s.dungeon_run
  ready=run.poll_ready()
+ if not ready and _post_clear_waited(s,run) and run.force_ready():
+  ready=True
+  _trace('stage=%s part=%s visits=%s AUTO-OPEN %ss after the last hostile next=%r'
+         %(run.stage,run.part,run.visits,STUCK_CLEAR_SECONDS,run.next))
  if not ready:
   if _slow((run.stage,run.part,run.visits)):return []
   _trace('stage=%s part=%s visits=%s NOT-READY pending=%r next=%r'%(run.stage,run.part,run.visits,_pending(run),run.next))
@@ -103,7 +127,7 @@ def handle(s,event):
         and event.payload in transition['parts'])
   valid=(s.dungeon_substage_synced and not s.clear_notified and
          event.payload==struct.pack('>b',run.part) and
-         all(n['key'] in run.defeated for n in run.current['npcs'] if n['active'] and n.get('team',1)!=0))
+         all(n['key'] in run.defeated for n in run.gate_npcs()))
   _trace('b8 payload=%r stage=%s part=%s synced=%r valid=%r late=%r pending=%r'
          %(event.payload,run.stage,run.part,s.dungeon_substage_synced,valid,late,_pending(run)))
   if valid:run.portal_requested=True

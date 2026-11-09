@@ -92,6 +92,13 @@ class Handler(BaseHTTPRequestHandler):
             return False
         return hmac.compare_digest(self.headers.get('X-Launcher-Token', ''), self.server.token)
 
+    def media_authorized(self, route):
+        """<img>/<video> cannot send custom headers, so token may arrive as ?t= query."""
+        token = urllib.parse.parse_qs(route.query).get('t', [''])[0]
+        if token and hmac.compare_digest(token, self.server.token):
+            return self.headers.get('Host') == self.server.origin.removeprefix('http://')
+        return self.authorized()
+
     def max_body(self, path):
         # Dynamic background imports carry base64 media; every other route stays small.
         return 33_554_432 if path == '/api/background/import' else 16384
@@ -102,7 +109,7 @@ class Handler(BaseHTTPRequestHandler):
         if self.headers.get('Host') != self.server.origin.removeprefix('http://'):
             return self.respond(dict(error='Invalid host'), 403)
         if path.startswith('/background/'):
-            if not self.authorized():
+            if not self.media_authorized(route):
                 return self.respond(dict(error='会话已失效，请重新打开启动器'), 401)
             try:
                 blob, mime = self.server.service.background_blob(urllib.parse.unquote(path.removeprefix('/background/')))
@@ -112,7 +119,7 @@ class Handler(BaseHTTPRequestHandler):
             return
         if not path.startswith('/api/'):
             name = UI_FILES.get(path)
-            if path.startswith('/assets/') and Path(path).name in {'ruben.webp','elsword.webp','eve.webp','elsword-portrait.webp'}:
+            if path.startswith('/assets/') and Path(path).name in {'ruben.webp','elsword.webp','eve.webp','elsword-portrait.webp','elsword-logo.png'}:
                 name = 'assets/'+Path(path).name
             if not name:
                 return self.respond(dict(error='Not found'), 404)
@@ -162,12 +169,19 @@ class Handler(BaseHTTPRequestHandler):
             length = int(self.headers.get('Content-Length','0'))
             if not 0 < length <= self.max_body(path):
                 raise ValueError('请求大小超出限制')
-            data = json.loads(self.rfile.read(length))
+            # A declared length that never arrives must not pin this worker
+            # thread forever; ThreadingHTTPServer has no thread ceiling.
+            self.connection.settimeout(10)
+            try:
+                data = json.loads(self.rfile.read(length))
+            finally:
+                self.connection.settimeout(None)
             if not isinstance(data, dict):
                 raise ValueError('无效请求')
             service = self.server.service
             if path == '/api/start': result = service.start()
             elif path == '/api/stop': result = service.stop()
+            elif path == '/api/shutdown-all': result = service.shutdown_all()
             elif path == '/api/check': result = service.check()
             elif path == '/api/gm': result = service.mutate(data)
             elif path == '/api/gm-online': result = service.gm_online(data)
@@ -188,6 +202,8 @@ class Handler(BaseHTTPRequestHandler):
                 result = dict(message='启动器已关闭；运行中的游戏会继续，退出后自动结束服务')
             else: return self.respond(dict(error='Not found'), 404)
             self.respond(dict(data=result))
+        except TimeoutError:
+            self.respond(dict(error='请求超时，请重试'), 408)
         except (ValueError, RuntimeError) as e:
             self.respond(dict(error=str(e)), 409)
         except Exception as e:
@@ -228,9 +244,13 @@ def main():
             if not args.headless and args.browser_app:
                 open_window(server.url,service.home)
             elif not args.headless:
-                from launcher_online.native_window import NativeWindow
-                server.native_window=NativeWindow(server,service.home)
-                server.native_window.run()
+                try:
+                    from launcher_online.native_window import NativeWindow
+                    server.native_window=NativeWindow(server,service.home)
+                    server.native_window.run()
+                except ImportError as e:
+                    print('native window unavailable (%s); falling back to browser app' % e, flush=True)
+                    open_window(server.url,service.home)
             while True:
                 time.sleep(1)
                 age = time.monotonic()-server.heartbeat

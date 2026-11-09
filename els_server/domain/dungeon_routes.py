@@ -9,6 +9,42 @@ from els_server.protocol.protocol_codec import Event
 
 SOURCE_NPC_LEVEL_OVERRIDES={('cfa5b87ea61cc343f5347f497a1cb303f18be6df6a1bdd11e3bff74547deba67', 0, 0, 1, 9011): 40, ('5573ca1db761bda7de68f7fb420d1a80f386d0ed0dcbd80fce2719ca57611aff', 0, 0, 1, 9020): 99, ('3f5e999f1e8c4dc3c63525d7dfc231ec8b40abcadeacb2e4d2ae82cb2c7fe2e0', 0, 0, 1, 9010): 99}
 
+# Rooms whose extracted NPC points stayed in the whole-dungeon numbering while
+# the client resolves each part against its own list, which starts at 1.
+# 34090 (Dungeon_Devildom1_Henir) stage 2 part 1 kept 18..35 next to part 0's
+# 1..16, so the native part runtime created no actor for any of its 17 spawns:
+# both recorded visits (10:28, 16:28) produced zero death reports while part 0
+# died normally. Ranking a room's points into its own list keeps every other
+# part on its source numbering.
+SOURCE_NPC_POINT_REBASE={('57f327e11988b929cbf655cf07f1ca51c1501970bc5113db14f65ce9c1a49ffb', 2, 1)}
+
+# Declared spawns the current client never materialises, keyed by Lua source SHA
+# and room and expressed in the room's own ``source_index`` numbering. The roster
+# stays complete: only the clear condition drops these rows.
+#
+# Dungeon_Devildom1_Henir.lua room 2/1 admits 17 entries of the three
+# DEVILDOM1_HENIR summon templates (6503 vortex / 6504 square / 6505 triangle).
+# The native part runtime resolves a spawn through the declared NPC_POINT array,
+# so the array has to stay dense and at its original length: any compaction makes
+# it resolve nothing at all. That is measured, not assumed --
+#   10:28 and 16:28, points 18..35 (source numbering): zero 0xAD reports;
+#   21:55, rebased to 1..17, all 17 rows sent: exactly five reports, keys 27..31;
+#   23:00, rebased but compacted to the five surviving rows: zero 0xAD reports.
+# Only the second roster made the client build actors, and the five it built are
+# ``source_index`` 12..16 (keys 27..31) -- the five chaos shapes the player can
+# actually see and kill (owner report 2026-11-08, "5 个混沌形状"). The other
+# twelve never produced a single death report across four visits, so requiring
+# them dead locked the kind-0 gate forever: the portal never appeared and the
+# five respawning actors never stopped coming back.
+#
+# This table therefore never edits ``npcs``; it only tells ``condition_ready``
+# which declarations the client cannot produce a death for. Every other part of
+# the region keeps the untouched source roster and its untouched gate.
+SOURCE_NPC_GATE_UNREACHABLE={
+ ('57f327e11988b929cbf655cf07f1ca51c1501970bc5113db14f65ce9c1a49ffb', 2, 1):
+  frozenset((1,2,3,4,5,6,7,8,9,10,11,17)),
+}
+
 # Original NPC_GROUP_RATE values, keyed by Lua source SHA and room.
 SOURCE_NPC_GROUP_WEIGHTS={
  ('2ad86a70dc61c61d3df3dbeaccf3d09fb2253b99a7db57242eb214a514bbe365', 0, 0): (33, 33, 34),
@@ -138,6 +174,10 @@ class DungeonRun:
    suppressed={p['npc'] for p in self.encounter['portals'] if p['stage'] in self.completed_stages}
   for part_id,part in sorted(self.graph['stages'][str(stage)]['parts'].items(),key=lambda kv:int(kv[0])):
    base=part['groups'][0]['npcs'];alternatives=part['groups'][1:]
+   # Ordered distinct source points of this room, used only by the pinned
+   # rebase rows above.
+   rebase_order=(sorted({p for group in part['groups'] for n in group['npcs'] for p in n['points']})
+                 if (self.graph['source_sha256'],stage,int(part_id)) in SOURCE_NPC_POINT_REBASE else ())
    chosen_group=None
    if alternatives:
     weights=SOURCE_NPC_GROUP_WEIGHTS[self.graph['source_sha256'],stage,int(part_id)]
@@ -168,6 +208,9 @@ class DungeonRun:
     if self.hp_context is not None:
      hp=self.hp_context.source_hp(self,stage,int(part_id),-1 if index<len(base) else chosen_group['index'],source,hp)
     point=source['points'][self.draw(f'point:{stage}:{part_id}:{index}',len(source['points']))]
+    # The roster is never filtered: SOURCE_NPC_GATE_UNREACHABLE only relaxes the
+    # clear condition, because a compacted NPC_POINT array resolves no actor.
+    if rebase_order:point=rebase_order.index(point)+1
     raw=bytearray.fromhex(data['spawn_seed']);struct.pack_into('<iii',raw,0,key,template,source['key_code'])
     struct.pack_into('<i',raw,0x28,point);struct.pack_into('<3f',raw,0x30,*source['offset'])
     raw[0x2c]=int(source['active']);raw[0x2d]=int(source['gage']);raw[0x48]=int(source['right'])
@@ -208,6 +251,26 @@ class DungeonRun:
   return list(range(first,first+count))
  def loaded(self):
   if self.started_at is None:self.started_at=self.clock()
+ def gate_npcs(self):
+  """Active hostiles the clear condition can actually observe in this part.
+
+  Declarations listed in SOURCE_NPC_GATE_UNREACHABLE stay in ``npcs`` (the
+  client needs the dense NPC_POINT array) but are never demanded dead: the
+  current client builds no actor for them, so no death report can ever arrive.
+  The pinned graph must still be the admitted one; a mutated graph keeps the
+  untouched source condition. This runs on every tick, so the graph identity
+  check is cached against the run's own graph object.
+  """
+  unreachable=SOURCE_NPC_GATE_UNREACHABLE.get((self.graph['source_sha256'],self.stage,self.part))
+  if unreachable is not None:
+   pinned=getattr(self,'_gate_pinned',None)
+   if pinned is None or pinned[0] is not self.graph:
+    pinned=(self.graph,self.graph==self.catalog.graph(self.identity))
+    self._gate_pinned=pinned
+   if not pinned[1]:unreachable=None
+  rows=unreachable or frozenset()
+  return [n for n in self.current['npcs']
+          if n['active'] and n.get('team',1)!=0 and n.get('source_index') not in rows]
  def population_event(self):
   if self.hp_context is not None:self.hp_context.check(self,emitting=True)
   return self.stage_wires[self.stage]
@@ -220,7 +283,7 @@ class DungeonRun:
    if destination in self.completed_stages:return False
    if destination==self.encounter['boss'] and not set(self.encounter['wings'])<=self.completed_stages:return False
   npcs=self.current['npcs'];dead=set(self.defeated);kind=c['kind']
-  if kind in (0,5):return (kind==0 or self.portal_requested) and all(n['key'] in dead for n in npcs if n['active'] and n.get('team',1)!=0)
+  if kind in (0,5):return (kind==0 or self.portal_requested) and all(n['key'] in dead for n in self.gate_npcs())
   if kind in (1,2):
    keys=[n['key'] for n in npcs if n['key_code'] in c['required']]
    # Only the two source-pinned 30282 script exits; raid controllers keep
@@ -252,24 +315,40 @@ class DungeonRun:
    return bool(required) and all(k in dead for k in required)
   if kind==6:return self.started_at is not None and self.clock()-self.started_at>=c['seconds']
   return False
+ def _select_next(self,c):
+  # The exit always comes from the part's own declared condition, including the
+  # two encounter overrides; the local post-clear fallback never builds one.
+  targets=c['next']
+  if self.encounter and self.encounter['kind']=='henir_local_rotation':
+   targets=[dict(kind=4 if self.round+1==len(self.rotation) else 1,stage=self.stage if self.round+1==len(self.rotation) else self.rotation[self.round+1],part=0,weight=100)]
+  elif self.encounter and self.encounter['kind']=='unvisited_stage_pool' and self.stage!=self.encounter['boss']:
+   cleared=self.completed_stages|{self.stage};targets=[t for t in targets if t['weight']>0 and t['stage'] not in cleared and t['stage']!=self.encounter['boss']]
+   if not targets:
+    if not set(self.encounter['rooms'])<=cleared:raise ValueError('No unvisited encounter destination')
+    targets=[dict(kind=1,stage=self.encounter['boss'],part=0,weight=100)]
+  total=sum(t['weight'] for t in targets);draw=self.draw(f'exit:{self.stage}:{self.part}:{self.round}',total)
+  for t in targets:
+   draw-=t['weight']
+   if draw<0:self.next=t;break
+  self.ready_at=self.clock()+c['delay']
  def poll_ready(self):
   if self.started_at is None:return False
   if self.next is None:
    for c in self.current['conditions']:
     if not self.condition_ready(c):continue
-    targets=c['next']
-    if self.encounter and self.encounter['kind']=='henir_local_rotation':
-     targets=[dict(kind=4 if self.round+1==len(self.rotation) else 1,stage=self.stage if self.round+1==len(self.rotation) else self.rotation[self.round+1],part=0,weight=100)]
-    elif self.encounter and self.encounter['kind']=='unvisited_stage_pool' and self.stage!=self.encounter['boss']:
-     cleared=self.completed_stages|{self.stage};targets=[t for t in targets if t['weight']>0 and t['stage'] not in cleared and t['stage']!=self.encounter['boss']]
-     if not targets:
-      if not set(self.encounter['rooms'])<=cleared:raise ValueError('No unvisited encounter destination')
-      targets=[dict(kind=1,stage=self.encounter['boss'],part=0,weight=100)]
-    total=sum(t['weight'] for t in targets);draw=self.draw(f'exit:{self.stage}:{self.part}:{self.round}',total)
-    for t in targets:
-     draw-=t['weight']
-     if draw<0:self.next=t;break
-    self.ready_at=self.clock()+c['delay'];break
+    self._select_next(c);break
+  return self.next is not None and self.clock()>=self.ready_at
+ def force_ready(self):
+  """Resolve this part's declared exit without its native condition.
+
+  Only the local post-clear window calls this, and only after every observable
+  hostile is already dead and every scripted barrier has been consulted: the
+  part has nothing left to kill, so the exit it already declares is the one the
+  original client would have taken. A part with no declared condition stays
+  closed (there is nothing to select).
+  """
+  if self.started_at is None:self.started_at=self.clock()
+  if self.next is None and self.current['conditions']:self._select_next(self.current['conditions'][0])
   return self.next is not None and self.clock()>=self.ready_at
  def advance(self):
   if not self.poll_ready():raise ValueError('Part has not satisfied its source clear condition')

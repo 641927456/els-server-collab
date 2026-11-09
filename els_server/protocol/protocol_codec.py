@@ -108,11 +108,44 @@ class FrameReader:
         return result
 
 
+# TEMPORARY diagnostic for the pet-expedition panel: the client never echoes the
+# board payload back, so the only way to compare what we intend with what the
+# panel renders is to record the exact bytes on the send path. state/ is
+# gitignored, and these four kinds carry no keys, names or account identifiers.
+_EXPEDITION_OUT_KINDS = frozenset((0x8c0, 0x8c2, 0x8c4, 0x8c6))
+# Customisation actor notices (0x18e) join the same send-path capture: whether
+# the opcode actually left the server is not in doubt, but the exact map bytes
+# decide why a dungeon actor keeps the career default appearance.
+# The panel conversation joins too: 0x635 (opener reply), 0x4cd (row
+# registration) and 0x4cc (Apply ack) are the only three frames the 定制 window
+# ever receives, and until now none of them were captured. Comparing them
+# byte-for-byte against the decompiled readers (docs/repairs/dungeon-custom-
+# 20261108.md §12.2/§13.4) is the one next step that investigation listed.
+# All three are small, fixed-shape and carry no names, keys or account ids.
+_TRACED_OUT_KINDS = _EXPEDITION_OUT_KINDS | frozenset((0x18e, 0x635, 0x4cd, 0x4cc))
+
+
+def _expedition_out(event, wire):
+    import os
+    import time
+    try:
+        root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        with open(os.path.join(root, 'state', 'wire-out.log'), 'a', encoding='utf-8') as handle:
+            handle.write('%s kind=%#x event=%#x peers=%d len=%d wire=%s\n'
+                % (time.strftime('%H:%M:%S'), event.kind, event.event_id, len(event.performers),
+                   len(event.payload or b''), (event.payload or b'').hex()))
+    except Exception:
+        pass
+
+
 def encode_event(event):
     data = struct.pack('>II', event.event_id, len(event.performers))
     data += b''.join(struct.pack('>Q', p) for p in event.performers)
     data += struct.pack('>QQHI', event.uid, event.target_uid, event.kind, len(event.payload))
-    return data + (bytes([event.payload_mode]) + event.payload if event.payload else b'')
+    data = data + (bytes([event.payload_mode]) + event.payload if event.payload else b'')
+    if event.kind in _TRACED_OUT_KINDS:
+        _expedition_out(event, data)
+    return data
 
 
 def decode_event(data):

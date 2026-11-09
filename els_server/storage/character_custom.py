@@ -1,7 +1,7 @@
 """Atomic qualified permanent custom-book registration and owned selection."""
 import hashlib,json,sqlite3,time
 from contextlib import closing
-from els_server.domain.character_custom import catalog,canonical,free_catalog,free_ids,slot_value,selection_type,FACE_UNITS,ALL_UNITS
+from els_server.domain.character_custom import catalog,canonical,free_catalog,free_ids,slot_value,selection_type,template_of,FACE_UNITS,ALL_UNITS
 from els_server.protocol import character_custom_messages as wire
 from els_server.protocol.career_messages import use_ack
 import struct
@@ -184,7 +184,14 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None):
             if value not in snapshot(db,owner)['owned'].get(rules[before[0]['template']]['type'],[]):raise ValueError('Custom receipt lacks registered ownership')
             positions=list(dict.fromkeys([*old,*[(i['group'],i['slot']) for i in items if i['uid']==item_uid]]))
             current={(i['group'],i['slot']):i for i in items}
-            events=[use_ack([(p,current.get(p)) for p in positions],ed=balance[0]),wire.registered(value,before[0]['template'])]
+            # Leading i32 of 0x4CD MUST be zero: the client's reader at 0xBB7F30
+            # only reaches `call 0x11F2B10(manager+0xDC8, &info)` when
+            # `[rsp+0x50] == 0`; any other value falls straight through to the
+            # cleanup epilogue, so the row is never filed and Apply can never
+            # find it in the +0x270 vector. The granting book's template is not
+            # carried by this field (the record's +0x04 comes from info()'s
+            # `ability`), so passing it here only destroyed the registration.
+            events=[use_ack([(p,current.get(p)) for p in positions],ed=balance[0]),wire.registered(value,0,family=rules[before[0]['template']]['slot'])]
             for event in events:encode_event(event)
             if validate is not None:validate()
             return dict(replayed=True,events=events)
@@ -201,7 +208,7 @@ def use_book(path,owner,account_id,payload,operation,*,now=None,validate=None):
         if value in snapshot(db,owner)['owned'].get(rule['type'],[]):raise ValueError('Custom already registered')
         if balance[1]>=2**63-1:raise ValueError('Custom inventory revision overflow')
         remaining=dict(source,count=source['count']-1) if source['count']>1 else None
-        events=[use_ack([((source['group'],source['slot']),remaining)],source['template'],balance[0]),wire.registered(value,source['template'])]
+        events=[use_ack([((source['group'],source['slot']),remaining)],source['template'],balance[0]),wire.registered(value,0,family=rule['slot'])]
         for event in events:encode_event(event)
         if validate is not None:validate()
         initialize(db)
@@ -242,8 +249,24 @@ def select(path,owner,account_id,payload,operation,*,now=None,validate=None):
         if old is not None:_check_receipt(db,operation,owner,0x4cb)
         from els_server.storage.titles import snapshot as title_snapshot
         title=title_snapshot(db,owner,now)['title']
-        events=[wire.acknowledgement({slot:value}),wire.selected_notice(owner,title,selected)]
+        # The row this Apply lands on has to be registered again before the ack,
+        # with that row's own CUSTOMIZING_TYPE (== the slot number). The opener
+        # only registers once, at window creation; a row whose registration was
+        # bucketed wrongly (or that was never registered because the panel was
+        # opened before the fix) paints the career default no matter what the
+        # selection map says. Registering here makes one Apply enough to put the
+        # chosen item on that row's own name and icon.
+        events=[wire.registered(value,0,family=slot),
+                wire.acknowledgement({slot:value})]
+        # 0x18E is suppressed by default (character_custom_messages: the client's
+        # reader misaligns from byte 0 and then resets the actor to defaults).
+        # Keep it last so the trace below can still index events[0] / events[1].
+        notice=wire.selected_notice(owner,title,selected)
+        if notice is not None:events.append(notice)
         for event in events:encode_event(event)
+        from els_server.domain.character_custom import _trace
+        _trace('apply slot=%d cid=%d row=%d ack=%d notice_slots=%d'
+               %(slot,value['custom_id'],events[0].payload[4],len(events[1].payload),len(selected)))
         if validate is not None:validate()
         if old is None:
             from els_server.domain.ariel_attendance_mark import clear_ordinary

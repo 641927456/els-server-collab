@@ -1081,7 +1081,34 @@ class LocalSession:
             # -1, so this is the only way to tell the families apart.
             from els_server.domain.character_custom import _trace as _trace219
 
-            if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:
+            def _custom_book_outside_town():
+                """Only the catalogued custom-book family is admitted in a dungeon.
+
+                The custom window opens there (panel_admitted), yet using the book
+                that registers a custom was answered -1 by the village-only gate
+                below and the client paints nothing for -1, so the click looked
+                dead. Every other 219 family keeps the original town-only rule;
+                this only recognises the exact 29-byte book request whose owned
+                template is in the custom book catalog.
+                """
+                if self.phase!='dungeon_active' or self.account.store is None:return False
+                payload=event.payload
+                if not isinstance(payload,bytes) or len(payload)!=29:return False
+                try:
+                    import sqlite3
+                    from contextlib import closing
+                    from els_server.domain.character_custom import catalog as custom_books
+                    item_uid=int.from_bytes(payload[:8],'big')
+                    if not 0<item_uid<2**63:return False
+                    with closing(sqlite3.connect(self.account.store.path,timeout=10)) as db:
+                        row=db.execute('SELECT template FROM inventory_items WHERE uid=? AND owner=?',
+                                       (item_uid,self.account.uid)).fetchone()
+                    return bool(row and row[0] in custom_books())
+                except Exception:
+                    return False
+
+            if (self.role!='game' or (self.phase!='town_ready' and not _custom_book_outside_town())
+                    or type(request_sequence) is not int or not 1<=request_sequence<2**32):
 
                 _trace219('use declined by session gate phase=%r role=%r seq=%r'%(self.phase,self.role,request_sequence))
 
@@ -2264,6 +2291,21 @@ class LocalSession:
                     from els_server.domain.character_stats import combat_values
                     initial_health_max=math.ceil(combat_values(character,saved['items'] if saved else None)[0])
                 answer=[player_initialization(self.account.get_location(),initialize_attributes=self.enter_dungeon,economy=saved['balances'] if saved else self.account.get_reward_balances() if self.reward_test else None,items=saved['items'] if saved else None,character=self.account.character(),restore_equipped=self.enter_dungeon),skill_slots_initialization(self.account.get_skills(),self.account.uid,self.account.character()),quest_initialization(self)]+optional_player_initializations(initialize_health=self.enter_dungeon,uid=self.account.uid,health_max=initial_health_max,luciel_active=(character.get('luciel_active_unit',0) if character['unit_type']==10 else 0),wardrobe=character.get('wardrobe',{}),wardrobe_favorites=character.get('wardrobe_favorites',()),tutorial_pending=pending_tutorial(self))+[Event(0x201,kind=0x29,payload=i32(0))]
+                if self.item_test and self.account.characters is not None:
+                    # The custom selection has to exist BEFORE the town actor is
+                    # built, otherwise the actor spawns with the career defaults
+                    # and nothing ever refreshes it. Measured 2026-11-08: with
+                    # only the 0x227-path 0x18E, the UI-level customs (skill
+                    # frame, portrait) took effect while the character's own
+                    # cut-in stayed the career default -- in town as well as in a
+                    # dungeon. The actor is created between this 0x28 reply and
+                    # the client's 0x227, so the notice goes right behind 0x2A
+                    # here; the later 0x227 one stays so the window/UI still
+                    # hears about it.
+                    from els_server.domain.character_custom import restored as custom_restored
+                    try:answer[1:1]=custom_restored(self.account.character())
+                    except ValueError:pass  # Never break the town handshake
+
                 if self.item_test and self.client_build=='dx11_260923':
                     from els_server.storage.wardrobe import color_initializations,point_initialization
                     answer+=color_initializations(self.account.store.path,self.account.uid,self.account.account_id)
@@ -2977,46 +3019,19 @@ class LocalSession:
                 #      start event while the client is still in its town state,
                 #      so its normal handlers (not the dungeon ones) accept them;
                 #   b) the DTO's only variable-length slot (offset 657, "set<int>").
-                custom_values=();custom_events=();custom_note='gate'
-                if self.item_test and self.account.characters is not None and self.account.store is not None:
-                    from contextlib import closing
-                    import sqlite3
-                    from els_server.storage.character_custom import snapshot as custom_snapshot
-                    from els_server.protocol.character_custom_messages import (
-                        acknowledgement,registered,selected_notice)
-                    custom_note='ok'
-                    try:
-                        with closing(sqlite3.connect(self.account.store.path,timeout=10)) as db:
-                            db.execute('BEGIN')
-                            fresh=custom_snapshot(db,self.account.uid)
-                        selected=dict(fresh['selected']);owned=fresh['owned']
-                        custom_values=tuple(entry['custom_id'] for entry in selected.values()
-                                            if isinstance(entry,dict) and type(entry.get('custom_id'))is int
-                                            and entry['custom_id']>0)
-                        if custom_values:
-                            # Selected rows only: one 4CD per owned row is
-                            # thousands of events on a fully unlocked save, and
-                            # a burst that size is dropped whole by the client.
-                            from els_server.domain.character_custom import template_of as custom_template
-                            custom_events=tuple([registered(value,custom_template(value['custom_id']))
-                                                 for slot,value in sorted(selected.items())]
-                                                +[acknowledgement(selected),
-                                                  selected_notice(self.account.uid,
-                                                                  int(self.account.character().get('title',0) or 0),
-                                                                  selected)])
-                    except (sqlite3.Error,ValueError,KeyError) as error:
-                        custom_values=();custom_events=();custom_note='read:%s'%type(error).__name__
-                # Evidence line: a silent empty tuple and a full set the client
-                # ignored look identical in the game, so record what was built.
-                from els_server.domain.character_custom import _trace as custom_trace
-                custom_trace('dungeon dto custom=%d events=%d %s ids=%r ticket=%r'
-                             %(len(custom_values),len(custom_events),custom_note,
-                               sorted(set(custom_values))[:4],ticket_reply is not None))
+                # Both carriers are built in character_custom.dungeon_entry so
+                # that tuning this burst only needs the hot-reload whitelist:
+                # this module's class is held by live sessions and can never be
+                # reloaded, while character_custom is resolved per call.
+                from els_server.domain.character_custom import dungeon_entry as custom_dungeon_entry
+                custom_values,custom_before,custom_after,custom_note=custom_dungeon_entry(
+                    self,ticket=ticket_reply is not None)
 
                 if ticket_reply is not None:
-                    reply=list(ticket_reply)+list(custom_events)
+                    reply=list(ticket_reply)+list(custom_before)
                 else:
-                    reply=[admission_ack(0)]+list(custom_events)+[dungeon_start(self.account.get_skills(),self.account.character(),self.account.get_inventory_snapshot()['items'] if self.item_test else None,dungeon_id=identity,room_id=room.get('id',10001) if room.get('solo_challenge') else 10001,account_id=self.account.account_id,bootstrap_port=self.port_probe_port,member_capture=self._capture_luciel_dungeon_hp,custom=custom_values)]
+                    reply=[admission_ack(0)]+list(custom_before)+[dungeon_start(self.account.get_skills(),self.account.character(),self.account.get_inventory_snapshot()['items'] if self.item_test else None,dungeon_id=identity,room_id=room.get('id',10001) if room.get('solo_challenge') else 10001,account_id=self.account.account_id,bootstrap_port=self.port_probe_port,member_capture=self._capture_luciel_dungeon_hp,custom=custom_values)]
+                    reply.extend(custom_after)
 
                 reply.extend(mirror_start)
 

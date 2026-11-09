@@ -1029,9 +1029,19 @@ _TASK_READER_SHA='bd2f99a8cf340276b93963336e07d20c24e381a92e0cbed95baac317ad52f9
 _TASK_READER_RAW=(Path(__file__).resolve().parents[1]/'data/special_task_readers.json').read_bytes()
 if hashlib.sha256(_TASK_READER_RAW).hexdigest()!=_TASK_READER_SHA:raise ValueError('Special task reader identity')
 from els_server.game_data import client_data as _task_reader_client_data
+# character_custom.catalog() requires every native_only book to stay out of the
+# bag registry: its producer exists only in the native CharCustomData table, so a
+# bag classification would contradict the approved catalog. Two special-task rows
+# (481311/481315, slot 28 point marks) name such books; skipping them keeps the
+# character list projection working for every role.
+_NATIVE_ONLY_CUSTOM_BOOKS=frozenset(
+ _entry['book'] for _entry in json.loads(
+  (Path(__file__).resolve().parents[1]/'data/character_custom_permanent.json').read_text(encoding='utf8'))['books']
+ if _entry.get('native_only'))
 for _row in json.loads(_TASK_READER_RAW):
  _native=_task_reader_client_data().item(_row['template'])
  if hashlib.sha256(_native['record']).hexdigest()!=_row['record_sha256']:raise ValueError('Special task native inventory source')
  _t=_row['template'];_tuple=(_row['metadata'],_row['group'],_row['max_stack'])
  if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_tuple:raise ValueError('Conflicting special task inventory reader')
+ if _t in _NATIVE_ONLY_CUSTOM_BOOKS:continue
  VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_tuple

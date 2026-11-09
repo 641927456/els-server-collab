@@ -231,8 +231,11 @@ def player_initialization(location=None,initialize_attributes=False,economy=None
     # 0xcdd450: byte, UID, two strings, two UIDs, byte, UID, three bytes.
     from els_server.protocol.relationship_messages import cold as relationship_cold
     data+=relationship_cold((character or {}).get('relationship'))
-    from els_server.protocol.character_custom_messages import owned_map as custom_owned_map
-    data+=u32(0)+custom_owned_map((character or {}).get('character_custom',{}).get('owned',{}))+b'\x01'+u32(0)  # DTO+6A8 owned custom map; +6B8 ctor true
+    # Function-local import on purpose: character_custom_messages is on the hot
+    # reload list, so the whole customization block can be re-tuned without a
+    # server restart even though local_session pins this function at import.
+    from els_server.protocol.character_custom_messages import dto_tail as custom_dto_tail
+    data+=u32(0)+custom_dto_tail(character)  # DTO+6A8 owned map, +6B8 ctor true, +6B9 selection ids
     # Current DA3370 has THREE DB6FA0 records; each includes a final bool.
     # The legacy two-record tail made the native reader return false.
     data+=(u32(0)+b'\x00'+struct.pack('>f',0)+b'\x00')*3

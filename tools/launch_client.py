@@ -168,7 +168,11 @@ def main(argv=None):
         return 0
     sys.path.insert(0,str(ROOT/'tools/pylibs'))
     import psutil
-    if any((q.info['name']or'').lower()in('x2.exe','x2_dx11.exe')for q in psutil.process_iter(['name'])):
+    from client_process_guard import running_clients
+    # 只看进程名会把崩溃残留的进程对象也当成「游戏正在运行」：那种对象 0 线程、
+    # 0 句柄、GetExitCodeProcess 还回 259，taskkill 也删不掉，结果是永远启动不了。
+    # 由 client_process_guard 用 WaitForSingleObject 判真实存活。
+    if running_clients():
         raise ClientLaunchError('检测到已有游戏运行，请正常退出后再启动。')
     ensure_unchanged(selection)
     if local:

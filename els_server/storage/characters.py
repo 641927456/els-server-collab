@@ -90,6 +90,10 @@ class Characters:
                     row['normal_fatigue']=normal_fatigue_snapshot(db,row['uid'],self.account_id)
                 from els_server.storage.resonance_state import snapshot as resonance_snapshot
                 row['resonance']=resonance_snapshot(db,row['uid'],self.account_id)
+                from els_server.storage.resonance_allocation import points as resonance_allocation
+                # Combat reads the selected page's points through this key; the
+                # snapshot above only carries level/experience/enabled.
+                row['resonance_allocation']=resonance_allocation(db,row['uid'],self.account_id)
                 from els_server.storage.relationships import snapshot as relationship_snapshot
                 row['relationship']=relationship_snapshot(db,row['uid'],self.account_id)
                 from els_server.storage.el_search_collection import snapshot as collection_snapshot

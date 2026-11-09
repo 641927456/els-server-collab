@@ -241,7 +241,14 @@ def handle(s,event,sequence):
                 db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN'if kind in READS else 'BEGIN IMMEDIATE')
                 guard(db);members._actor(db,owner,s.account.account_id)
                 saved=members.snapshot(db,owner,s.account.account_id)
-                if saved is None:raise ValueError('Guild membership required')
+                if saved is None:
+                    if event.kind==0x807:
+                        # No guild yet. The native client closes its guild
+                        # window when this read answers with the failure word,
+                        # so answer the empty farm instead of staying silent.
+                        from els_server.protocol import guild_farm_messages as farm_wire
+                        return [farm_wire.reply(0x808,struct.pack('>ii',0,0))]
+                    raise ValueError('Guild membership required')
                 now=int(time.time())
                 digest,old=system.receipt(db,owner,kind,event.payload,operation)
                 if old is not None:
@@ -296,5 +303,15 @@ def handle(s,event,sequence):
                 context=getattr(peer,'guild_agit',None)
                 if peer.account.uid==target and context is not None and context['guild']==saved['id']:context['revoked']=operation
         return answer+own_notifications
-    except(ValueError,sqlite3.Error,UnicodeError,OverflowError):
-        return [_failure(event.kind)]if'same'in locals()and same()else []
+    except(ValueError,AttributeError,TypeError,sqlite3.Error,UnicodeError,OverflowError)as error:
+        # A silent empty reply leaves the native guild window with no answer and
+        # the client closes it, so every failure must come back in this module's
+        # own failure shape. The original same()-only guard answered nothing at
+        # all whenever the capture ran on a standalone local session.
+        try:
+            (Path(__file__).resolve().parents[2]/'state/guild-debug.log').open('a',encoding='utf8').write(
+                f'{time.time():.3f} kind=0x{event.kind:x} {type(error).__name__}: {error}\n')
+        except Exception:
+            pass
+        try:return [_failure(event.kind)]
+        except Exception:return []

@@ -43,8 +43,21 @@ class Runtime:
         self.listener = None
 
     def players(self):
+        # The playing lease is dropped on a channel handoff and only comes back
+        # through the 0x28 branch, while world.members is written when a session
+        # actually lands in town. Neither source alone is complete, so union
+        # them; a live character must never look offline to the GM panel.
+        candidates = list(self.app.playing.values())
+        try:
+            candidates += list(self.app.world.members.keys())
+        except Exception:
+            pass
         result = []
-        for s in self.app.playing.values():
+        seen = set()
+        for s in candidates:
+            if id(s) in seen:
+                continue
+            seen.add(id(s))
             if s.released or s.role != 'game':
                 continue
             c = s.account.character()
@@ -87,8 +100,8 @@ class Runtime:
         from els_server.domain.dungeon_drops import pickup_inventory_notice
         key = operation(value)
         template, quantity = value.get('template'), value.get('quantity')
-        if type(template) is not int or type(quantity) is not int or not 1 <= quantity <= 99:
-            raise ValueError('每次发放数量为 1–99')
+        if type(template) is not int or type(quantity) is not int or not 1 <= quantity <= 999:
+            raise ValueError('每次发放数量为 1–999')
         plan = item_plan(template,quantity)
         digest = hashlib.sha256(canonical(value).encode()).hexdigest()
         with closing(sqlite3.connect(self.app.config.state_file,timeout=10)) as db, write_transaction(db):
@@ -101,7 +114,10 @@ class Runtime:
             s = self.session(value)
             # D3 is the proven incremental bag updater. Prepare bounded mail
             # before commit, then publish with one reference assignment.
-            try:changed = grant_items(db,[plan],s.account.uid)
+            # admin_grant: this is an explicit operator decision made in the
+            # local GM panel, not a game source, so acquisition_policy does not
+            # veto it. Quest/shop/drop paths keep the policy closed.
+            try:changed = grant_items(db,[plan],s.account.uid,admin_grant=True)
             except InventoryFull as e:raise ValueError('玩家背包空间不足，未发放任何物品') from e
             events = [pickup_inventory_notice(changed)]
             box = prepare_mailbox(s,events)
@@ -187,7 +203,8 @@ class Runtime:
         if action=='status':
             from els_server.domain.gm_rates import snapshot
             from els_server.domain.gm_events import snapshot as event_snapshot
-            return dict(players=self.players(),rates=snapshot(),events=event_snapshot(),announcements=[{k:v for k,v in j.items() if k!='event'} for j in self.scheduled])
+            return dict(players=self.players(),rates=snapshot(),events=event_snapshot(),announcements=[{k:v for k,v in j.items() if k!='event'} for j in self.scheduled],
+                _debug=dict(playing=len(self.app.playing),members=len(getattr(self.app.world,'members',{}))))
         if action=='give':return self.give(value)
         if action in ('level-preview','set-level'):
             from els_server.storage.gm_levels import preview,set_level
@@ -202,6 +219,9 @@ class Runtime:
             operation(value)
             from els_server.domain.gm_events import update
             return update(value['events'],value['expected_revision'])
+        if action in ('banners-status','banners'):
+            from els_server.domain.local_activity_banners import PATH as banner_path,snapshot as banner_snapshot,update as banner_update
+            return banner_snapshot(banner_path) if action=='banners-status' else banner_update(banner_path,value)
         if action=='cancel-announcement':
             operation(value)
             self.scheduled=[j for j in self.scheduled if j['id']!=value.get('id')]
