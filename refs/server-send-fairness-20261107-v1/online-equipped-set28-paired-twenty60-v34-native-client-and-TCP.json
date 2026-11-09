@@ -1,0 +1,80 @@
+{
+  "run": "online-equipped-set28-paired-twenty60-v34",
+  "seconds": 60,
+  "town": 10,
+  "dungeon": 10,
+  "native_client_timings_per_generator_group": {
+    "dgg10": {
+      "0xb3": {
+        "n": 30,
+        "mean_ms": 67.12067336775362,
+        "p50_ms": 63,
+        "p95_ms": 95,
+        "p99_ms": 113,
+        "max_ms": 112.03869991004467,
+        "resolution_ms": 1
+      },
+      "0xad": {
+        "n": 450,
+        "mean_ms": 43.082784002439844,
+        "p50_ms": 41,
+        "p95_ms": 68,
+        "p99_ms": 85,
+        "max_ms": 91.17549983784556,
+        "resolution_ms": 1
+      },
+      "0xd0": {
+        "n": 450,
+        "mean_ms": 28.539299765187835,
+        "p50_ms": 27,
+        "p95_ms": 43,
+        "p99_ms": 64,
+        "max_ms": 83.8226000778377,
+        "resolution_ms": 1
+      },
+      "0xb8": {
+        "n": 30,
+        "mean_ms": 25.081979964549344,
+        "p50_ms": 24,
+        "p95_ms": 40,
+        "p99_ms": 49,
+        "max_ms": 48.694999888539314,
+        "resolution_ms": 1
+      },
+      "0xbb": {
+        "n": 30,
+        "mean_ms": 40.83531332823137,
+        "p50_ms": 39,
+        "p95_ms": 50,
+        "p99_ms": 105,
+        "max_ms": 104.17959978803992,
+        "resolution_ms": 1
+      },
+      "glass_B8_to_BD": {
+        "n": 30,
+        "mean_ms": 66.08452337483565,
+        "p50_ms": 64,
+        "p95_ms": 88,
+        "p99_ms": 125,
+        "max_ms": 124.77710004895926,
+        "resolution_ms": 1
+      }
+    }
+  },
+  "client_percentiles_not_merged_or_averaged": true,
+  "server_time_is_not_client_elapsed": true,
+  "TCP_sampled_cumulative_lower_bound": {
+    "BytesOut": 8473048,
+    "BytesIn": 849432,
+    "BytesRetrans": 1412,
+    "FastRetrans": 0,
+    "DupAcksIn": 1,
+    "TimeoutEpisodes": 0
+  },
+  "TCP_observed_connections": 43,
+  "single_network_root_cause_proven": false,
+  "public_restored": true,
+  "restoration_observation_seconds": 120,
+  "production_code_modified": false,
+  "production_DB_replaced": false
+}

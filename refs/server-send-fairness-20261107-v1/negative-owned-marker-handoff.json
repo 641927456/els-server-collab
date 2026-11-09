@@ -1,0 +1,11 @@
+{
+  "run": "stable22-equipment-twenty-smoke60-v1",
+  "qualification": false,
+  "failure": "Town generator PermissionError reading atomically renamed town-start.json before the load start.",
+  "server_cleanup": {
+    "owned_runtime_removed": true,
+    "connections": 0,
+    "errors": []
+  },
+  "correction": "Wait up to four10ms handoff intervals; persistent denial and malformed JSON still raise. Three targeted checks passed."
+}

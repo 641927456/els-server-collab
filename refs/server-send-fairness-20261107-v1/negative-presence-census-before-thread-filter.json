@@ -1,0 +1,12 @@
+{
+  "result": {
+    "ok": false,
+    "checks": [],
+    "owned_runtime_removed": true,
+    "connections": 0,
+    "errors": []
+  },
+  "qualification": false,
+  "failure": "Global connection census expected candidate 0/original 60, without thread filtering. Original projection bytes had matched; later freshness/rollback cases were not yet reached.",
+  "correction": "Count SQLite connections from the original invoking thread; keep background connection count separately and retain unchanged 0/60 assertions."
+}

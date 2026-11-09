@@ -1,0 +1,149 @@
+{
+  "run": "readonly512-fifty-smoke60-v1",
+  "qualified": false,
+  "latency_pass": false,
+  "seconds": 60,
+  "actors": 50,
+  "town": 12,
+  "dungeon": 38,
+  "gates": {
+    "pickup": true,
+    "death": true,
+    "glass": true,
+    "map": true,
+    "town_handler": true,
+    "town_relay": false,
+    "town_cadence": true,
+    "cold_currency_and_ACK_exact": true,
+    "normal_cleanup": true,
+    "frontend_health": true,
+    "all_final_peer_positions": true,
+    "final_town_positions_saved": true,
+    "all_clients": true,
+    "actual_nogil": true
+  },
+  "metrics": {
+    "pickup": {
+      "n": 1710,
+      "mean_ms": 7.154705496341513,
+      "p50_ms": 6,
+      "p95_ms": 14,
+      "p99_ms": 29,
+      "max_ms": 70.98049996420741,
+      "resolution_ms": 1
+    },
+    "death": {
+      "n": 1710,
+      "mean_ms": 15.854721461090515,
+      "p50_ms": 14,
+      "p95_ms": 26,
+      "p99_ms": 54,
+      "max_ms": 288.14820013940334,
+      "resolution_ms": 1
+    },
+    "glass": {
+      "n": 114,
+      "mean_ms": 12.309224561281633,
+      "p50_ms": 12,
+      "p95_ms": 17,
+      "p99_ms": 24,
+      "max_ms": 78.44650000333786,
+      "resolution_ms": 1
+    },
+    "map": {
+      "n": 114,
+      "mean_ms": 18.420024578900712,
+      "p50_ms": 18,
+      "p95_ms": 26,
+      "p99_ms": 36,
+      "max_ms": 62.529100105166435,
+      "resolution_ms": 1
+    },
+    "town_handler": {
+      "n": 4200,
+      "mean_ms": 2.565062833905575,
+      "p50_ms": 3,
+      "p95_ms": 5,
+      "p99_ms": 14,
+      "max_ms": 97.24530018866062,
+      "resolution_ms": 1
+    },
+    "movement_relay": {
+      "n": 46193,
+      "mean_ms": 7.69200196042186,
+      "p50_ms": 3,
+      "p95_ms": 41,
+      "p99_ms": 74,
+      "max_ms": 122.28414509445429,
+      "resolution_ms": 1
+    },
+    "movement_cadence_excess": {
+      "n": 46061,
+      "mean_ms": 5.84821635656457,
+      "p50_ms": 2,
+      "p95_ms": 35,
+      "p99_ms": 69,
+      "max_ms": 130.79080041497804,
+      "resolution_ms": 1
+    },
+    "movement_relay_first45s": {
+      "n": 36293,
+      "mean_ms": 7.806846957821688,
+      "p50_ms": 3,
+      "p95_ms": 41,
+      "p99_ms": 76,
+      "max_ms": 122.28414509445429,
+      "resolution_ms": 1
+    },
+    "steady_after45s": {
+      "n": 9900,
+      "mean_ms": 7.270984840156003,
+      "p50_ms": 3,
+      "p95_ms": 41,
+      "p99_ms": 66,
+      "max_ms": 85.49883356317878,
+      "resolution_ms": 1
+    }
+  },
+  "online_capacity_claim": false,
+  "diagnostic_only": true,
+  "runtime_parent": {
+    "parent_path": "G:\\els\\releases\\online\\native-achievement-equipment-consumption-20261107-v1",
+    "parent_release": "native-achievement-equipment-consumption-20261107-v1",
+    "parent_manifest_sha256": "1b552773a9df2383f86471a4658e64c27de3fef8c4ffb1f3cce5245e6cd10797",
+    "retained_new_parent_features": true
+  },
+  "source_bindings": {
+    "readonly512-suite/els_server/application.py": "4ad65f8135cdd22a3fbfdffd19ad758f4a8d117ec03c34b22d90f7be0120cddf",
+    "readonly512-suite/els_server/config.py": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60",
+    "readonly512-suite/els_server/domain/achievement_flow.py": "abc554498f31359da684ad4b017161bf658c4160b246d70487f6b4af4319186e",
+    "readonly512-suite/els_server/domain/elixir_flow.py": "72173d6bc547cb6292e216a14a7d858fe2a08de0f6c3994375e0728203f7ad69",
+    "readonly512-suite/els_server/domain/friends_world.py": "b6bb0d1856dfbd9fc593782b46ee660d68bac60ffad15796590c9edef2a41ea2",
+    "readonly512-suite/els_server/domain/local_session.py": "e3cba5eb5611a2fd39fe6534763c4bb2b53a1f4ca25261199792a630c5c2cb9f",
+    "readonly512-suite/els_server/domain/native_session_sources.py": "f23aa3703ef5f376504243a97c3f26da8e144b3872ce6a841ab3e68676b5fffc",
+    "readonly512-suite/els_server/domain/session_auxiliary.py": "c8f4f1337483d9d9af786520945ad1e799ee35739e62ec197f665ed1840198ce",
+    "readonly512-suite/els_server/dungeon_workers.py": "45d750414669abdbe662365e2d4419e913d31de305cc0ddca3119c42ecdd548c",
+    "readonly512-suite/els_server/egress_budget.py": "5e42a0a6bd3e306bbea7eec206c5eead38fd6b0da68080134bcb170c700233f4",
+    "readonly512-suite/els_server/native_outbox.py": "ba2d72106d989624a1378343fc24f7e107b81df9f0799ad3bf39228a6481405e",
+    "readonly512-suite/els_server/observability.py": "6047b412812de81060e2447e1684a459c7170a01dd3526f0d10591547b10b8b0",
+    "readonly512-suite/els_server/periodic_scheduler.py": "7aeeea4ab444c853c868aada4515821c075689ef65832415f38c93fafcc0f596",
+    "readonly512-suite/els_server/protocol/dungeon_messages.py": "b53704e95483959fa55f157977c56391289354d4911f8c8caaa194fae71c2f86",
+    "readonly512-suite/els_server/realtime.py": "c167607037bb65a430bad1d7b9bc0a3c3b264681199e4edbe3168bb771ebdff1",
+    "readonly512-suite/els_server/storage/achievement_profiles.py": "00a998777e851b34d039ff7efca058ad1ee68b5778b7635dc838d0b53d341293",
+    "readonly512-suite/els_server/storage/clock_writer.py": "d306e4d1ae10b0d7154baf86f770e020b17f79bcd9b548706a0560b01e412ee0",
+    "readonly512-suite/els_server/storage/death_writer.py": "d8ca4cff5009a11d7fa787355ac8120de1ca9b89eb43b71e82709d7b3edd5abe",
+    "readonly512-suite/els_server/storage/inventory_state.py": "eac0c17c2ff411de61a1dab51ce1576610f60641496d36d79d821e7d6ff35ab8",
+    "readonly512-suite/els_server/storage/position_writer.py": "6a7429fb340bc36b4492522ec4518cfc0ea68f9cc56932f0c2ee5cb2f96f1fae",
+    "readonly512-suite/els_server/storage/read_scope.py": "bde3e2b7345711c0a04ad07c2dc6fc55bd40e7d927719234e73a161bc07a6c5f",
+    "readonly512-suite/els_server/transport.py": "839b179cab480aea88c8c19cb832b6ecb02ddc980a8b8c647034f841be3dd312",
+    "runtime/sqlite3.dll": "4b59d3cded9dc1608544160f3b4b10ac974c6ac0d6ffc23064e5f4c8dbd05aea"
+  },
+  "egress_mbps": 4.4,
+  "real_event_log": true,
+  "resources": {
+    "peak_working_set_bytes": 1240547328,
+    "peak_private_bytes": 1727037440,
+    "CPU_fraction_of_four_logical": 0.24503719044737285
+  },
+  "adopted": false
+}

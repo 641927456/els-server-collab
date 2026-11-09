@@ -1,0 +1,11 @@
+{
+  "run": "log-batch18-thirty-five-v1",
+  "paired_format": 2,
+  "valid_for_duration_subtraction": false,
+  "matched": 19248,
+  "negative_residual_count": 1,
+  "minimum_residual_ms": -0.9931954555213451,
+  "reason": "A client can receive data before server drain resumes. The post-drain endpoint is not a subset of client total duration. Raw latency and SQL correctness acceptance is unchanged.",
+  "correction": "Timestamp immediately before the last chunk of each selected frame is handed to writer.write.",
+  "production_changed": false
+}

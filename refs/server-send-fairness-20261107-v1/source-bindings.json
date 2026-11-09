@@ -1,0 +1,321 @@
+{
+  "issue": 925,
+  "parent_git": "1615d0b67d528a4aeb53e8e745c926e541b4cf42",
+  "runtime_parent": {
+    "parent_release": "native-achievement-notebook-spa-clear-20261107-v1",
+    "parent_path": "G:\\els\\releases\\online\\native-achievement-notebook-spa-clear-20261107-v1",
+    "parent_manifest_sha256": "c317b6a20ca48c5cb5bb5597b2c622503eafc6c47f6e36762506c1b4cdcccb83",
+    "retained_new_parent_features": true
+  },
+  "files": {
+    "els_server/application.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/application.py",
+      "sha256": "2a150df17e2dac218d130aa31f032458e62d8a1c8bbe71a7536eee8ebb458bd1"
+    },
+    "els_server/config.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/config.py",
+      "sha256": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60"
+    },
+    "els_server/dungeon_workers.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/dungeon_workers.py",
+      "sha256": "5699a5e6fdffcd9631b3a5a6c5ecc8aa4dcdc06411b1c0707c8be3af5cabf97e"
+    },
+    "els_server/egress_budget.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/egress_budget.py",
+      "sha256": "ea415ad231cf2158bb4282b2993551c0184298ebb9bff0e665d327b96047f5c0"
+    },
+    "els_server/native_outbox.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/native_outbox.py",
+      "sha256": "ba2d72106d989624a1378343fc24f7e107b81df9f0799ad3bf39228a6481405e"
+    },
+    "els_server/observability.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/observability.py",
+      "sha256": "6047b412812de81060e2447e1684a459c7170a01dd3526f0d10591547b10b8b0"
+    },
+    "els_server/periodic_scheduler.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/periodic_scheduler.py",
+      "sha256": "7aeeea4ab444c853c868aada4515821c075689ef65832415f38c93fafcc0f596"
+    },
+    "els_server/realtime.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/realtime.py",
+      "sha256": "c167607037bb65a430bad1d7b9bc0a3c3b264681199e4edbe3168bb771ebdff1"
+    },
+    "els_server/transport.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/transport.py",
+      "sha256": "dadd901f59390be9dc0404611ee0b5b42b0e493c4372682125e1db22d37d772b"
+    },
+    "els_server/__main__.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/__main__.py",
+      "sha256": "b2e7502c0cf90791d9e8879927d9585c4414a0e0a945c5c685fcdd8642e6697b"
+    },
+    "els_server/domain/achievement_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/achievement_flow.py",
+      "sha256": "68347e47f945405bfcd6da60814667ed674ba96cf45e44e9195145af89314807"
+    },
+    "els_server/domain/elixir_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/elixir_flow.py",
+      "sha256": "e0ff930354f15077f46589b23f2169dafe0cb4b6f0a8bebce14d213820ed061b"
+    },
+    "els_server/domain/friends_world.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/friends_world.py",
+      "sha256": "a28cd540761f3fb88abc7f7d55c1f8d949a6d33d2fd84d7a496b97506776d061"
+    },
+    "els_server/domain/friend_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/friend_flow.py",
+      "sha256": "898ccbd8b91be003d5d12b29e423e1d34fe00e6fe6fd471e00db3fbcac09a6b5"
+    },
+    "els_server/domain/inventory_items.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/inventory_items.py",
+      "sha256": "05e245ef305a5c0a34065b719fdbb3c7f43a7813cdc0bf29a42b7dd03b0d8239"
+    },
+    "els_server/domain/local_session.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/local_session.py",
+      "sha256": "5a9415fd58c52877962769bdef3ebe1f5af010331844dba43e70fd9e4a32c939"
+    },
+    "els_server/domain/mentor_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/mentor_flow.py",
+      "sha256": "a348a340024ec04b4c3db9b96ecfaf2066cc6ff637ca980c23b82fb716a8d57f"
+    },
+    "els_server/domain/native_session_sources.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/native_session_sources.py",
+      "sha256": "f23aa3703ef5f376504243a97c3f26da8e144b3872ce6a841ab3e68676b5fffc"
+    },
+    "els_server/domain/session_auxiliary.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/domain/session_auxiliary.py",
+      "sha256": "c8f4f1337483d9d9af786520945ad1e799ee35739e62ec197f665ed1840198ce"
+    },
+    "els_server/protocol/dungeon_messages.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/protocol/dungeon_messages.py",
+      "sha256": "e0634bcc2fd0acd5fe9871cb6d5e7eaff8dbd7125ca1682e987aee6d64d3075c"
+    },
+    "els_server/storage/achievement_collections.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/achievement_collections.py",
+      "sha256": "f94698ae785b14439a478b45c7ec9d4d265ca993a1182d87377a1f063b53a0b0"
+    },
+    "els_server/storage/achievement_profiles.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/achievement_profiles.py",
+      "sha256": "82ff71e72e267c6f5a22b46776975f168d86aa0b0a5a42e4dfd538d703f11d5a"
+    },
+    "els_server/storage/clock_writer.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/clock_writer.py",
+      "sha256": "d306e4d1ae10b0d7154baf86f770e020b17f79bcd9b548706a0560b01e412ee0"
+    },
+    "els_server/storage/death_writer.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/death_writer.py",
+      "sha256": "d8ca4cff5009a11d7fa787355ac8120de1ca9b89eb43b71e82709d7b3edd5abe"
+    },
+    "els_server/storage/inventory_state.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/inventory_state.py",
+      "sha256": "0db23127a6bf7660a6fb152991be96980701abeefdba8468dc08601d5030c790"
+    },
+    "els_server/storage/position_writer.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/position_writer.py",
+      "sha256": "6a7429fb340bc36b4492522ec4518cfc0ea68f9cc56932f0c2ee5cb2f96f1fae"
+    },
+    "els_server/storage/read_scope.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/read_scope.py",
+      "sha256": "f660c37f47b804ef858efa827401516274759d9659bf974c4342333655a65ee0"
+    },
+    "els_server/storage/title_drop_rewards.py": {
+      "source": "refs/server-send-fairness-20261107-v1/source/els_server/storage/title_drop_rewards.py",
+      "sha256": "e456639f7b7618b1e01db1c55983696a38aeb1cdfd5ada7677c51c21ef7aef12"
+    }
+  },
+  "runtime_parent_files": {
+    "els_server/application.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/application.py",
+      "sha256": "3be27a208c472c2e257e44a52766e8d1116b0c47d456fc6897fa08a1a813a705"
+    },
+    "els_server/config.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/config.py",
+      "sha256": "982f7183fb975fa2b9f01644cc5aeca3e02347120f68973433b422549c7eea68"
+    },
+    "els_server/dungeon_workers.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/dungeon_workers.py",
+      "sha256": "0883838e13f5603886a47fd8d629cc754ccebf024defef798ab024ba9243b768"
+    },
+    "els_server/observability.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/observability.py",
+      "sha256": "9efb7e776f5287b1997f35b0db5d3fb64c29262abdcc0e81cafd46a2fad89b1f"
+    },
+    "els_server/periodic_scheduler.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/periodic_scheduler.py",
+      "sha256": "d188a9a906ee049d526ff15f3931a32e19961e99086bd82a3c4a124c73885f84"
+    },
+    "els_server/realtime.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/realtime.py",
+      "sha256": "59de2f0e1d1395683802916653d3c48420587e845741ec535f38741b8a083aa0"
+    },
+    "els_server/transport.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/transport.py",
+      "sha256": "6e81a51eb0d6347459355fb6eaf4ada797b574d6e61545d5a95dfc9c290d1b53"
+    },
+    "els_server/__main__.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/__main__.py",
+      "sha256": "b627a2bd6544fd822e48b47df728bcfa1d59607f678f686f692e704800bb543a"
+    },
+    "els_server/domain/achievement_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/achievement_flow.py",
+      "sha256": "52a2ecfa63439ae8c3fd96d7d1373567ffc9f02cc70673b3b1cdf92953a4f4f2"
+    },
+    "els_server/domain/elixir_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/elixir_flow.py",
+      "sha256": "7f677ced9a7284ff4efa971d212dc09fa52158a122a67480c4beb7b7a2abb90a"
+    },
+    "els_server/domain/friends_world.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/friends_world.py",
+      "sha256": "04bb02d9d44adc595e7d2ce98abac97c45f2e9c44845378f3ea78fcf3732b8a4"
+    },
+    "els_server/domain/friend_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/friend_flow.py",
+      "sha256": "02b87b5cd4ab72665af235f32f1dfb81bbd171d6ce81a47b462491993ae49399"
+    },
+    "els_server/domain/inventory_items.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/inventory_items.py",
+      "sha256": "f12cef31e7fd89442f031e78b90a190c2f76875d0f7331b7c5b982111952ccb3"
+    },
+    "els_server/domain/local_session.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/local_session.py",
+      "sha256": "6bf34f772d984926c698e6e03cbbe2c398420f07ff88e10b7cfdb9d44fa65807"
+    },
+    "els_server/domain/mentor_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/mentor_flow.py",
+      "sha256": "15653b108f7854bc5795a9c34429e9b2b2052b92db94d2b08f923f77952d7712"
+    },
+    "els_server/domain/native_session_sources.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/native_session_sources.py",
+      "sha256": "d21b4b427b6cc93785acf2fc84b1c91d87d77e612d29e2edcb53092f5501f5bc"
+    },
+    "els_server/domain/session_auxiliary.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/session_auxiliary.py",
+      "sha256": "9b6e28ce8a8c618767932ad84d9216cbbfb157d8c0585f534560233ed852357a"
+    },
+    "els_server/protocol/dungeon_messages.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/protocol/dungeon_messages.py",
+      "sha256": "93ca773743d6ff28464d368a0dc9021d52fd7eef230359f0193489ede217cf1c"
+    },
+    "els_server/storage/achievement_collections.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/achievement_collections.py",
+      "sha256": "e5e21249eec340dd507b8868b1f41bbe1762b62f4921224c2032c6ef0ab1b54b"
+    },
+    "els_server/storage/achievement_profiles.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/achievement_profiles.py",
+      "sha256": "ede2d3651ad1a6322d3a9b705de80beabba9beb25eafed3496288cbe71593492"
+    },
+    "els_server/storage/clock_writer.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/clock_writer.py",
+      "sha256": "80c26ce47c4f2b6804b59caefa5d4336d22c4a697409b405d56568b11f417468"
+    },
+    "els_server/storage/death_writer.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/death_writer.py",
+      "sha256": "b73cb60ca4c160767987436f5fefc8f79fa78ece262e4bc956cd458bbf0398c8"
+    },
+    "els_server/storage/inventory_state.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/inventory_state.py",
+      "sha256": "6fdab0584ff4d01505d1bf2c78c85218df00a51f0342b1a1755e7808b0eabb20"
+    },
+    "els_server/storage/position_writer.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/position_writer.py",
+      "sha256": "77775ac30c2589b3ec982c417c70f56ebdfc1003f776b7a034785714ef69ef51"
+    },
+    "els_server/storage/read_scope.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/read_scope.py",
+      "sha256": "3f3f5c83da0ca81a5082961dfb5081d0dc28782032ec14f8389b05944ae7bbc9"
+    },
+    "els_server/storage/title_drop_rewards.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/title_drop_rewards.py",
+      "sha256": "91b46319bbe831a640b3f3aed74425fcc0a6b43ea19010b8dd74c90953026811"
+    },
+    "els_server/protocol/protocol_codec.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/protocol/protocol_codec.py",
+      "sha256": "80d181f8571f00d07844799f48e27f5f9147352eabe861f5f846017482049293"
+    },
+    "els_server/periodic_work.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/periodic_work.py",
+      "sha256": "7aefd800e34559b31f069fb2c2499ecc2c633b9c9651014425b0de05c8806aae"
+    },
+    "els_server/cleanup.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/cleanup.py",
+      "sha256": "2b97de1e3a2948202233f7fd0e8789e3e7a36b71d4392b066b3ceb87026a2202"
+    },
+    "els_server/domain/friends_dungeon.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/friends_dungeon.py",
+      "sha256": "8195e8ba26f25e94844f8a7e6a392d8388de4176726eab17c85f466acd93ca6d"
+    },
+    "els_server/storage/achievement_history.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/achievement_history.py",
+      "sha256": "64df708ff032e6e72502511ddbbe0ed48de05293f0e4829a561aacfd6dd959f8"
+    },
+    "els_server/domain/duel_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/duel_flow.py",
+      "sha256": "db2aaf77faa90f946291007569df53334b55df9817605fe5d843fef4c4f3e7e5"
+    },
+    "els_server/domain/dungeon_equipment_loot_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/dungeon_equipment_loot_flow.py",
+      "sha256": "5d738f977a1e613aac6e19c8daf4ce1e4e56f83728bf0477f69d986131991548"
+    },
+    "els_server/domain/dungeon_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/dungeon_flow.py",
+      "sha256": "b9960a597586e038d5fb3d0398021e156914dbe2152fae91cfcbb57c44059d33"
+    },
+    "els_server/domain/dungeon_settlement_commands.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/dungeon_settlement_commands.py",
+      "sha256": "94014a6598cfa9b2d88984752b40d92372c8f299aff024226dc686fbe545c5be"
+    },
+    "els_server/domain/scene_actor_retirements.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/scene_actor_retirements.py",
+      "sha256": "9118d3c58f6421f616b8c26ff8ecf7598c75059506860181a2a91e1f0e95b349"
+    },
+    "els_server/domain/story_controller_retirements.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/story_controller_retirements.py",
+      "sha256": "a8ed202249a6d5885a4e6a8334252f6fb98bfc827cd8655f88ac14b15952e65a"
+    },
+    "els_server/native_inbox.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/native_inbox.py",
+      "sha256": "50f43187331ad5ff827c6de71a514c2f68bbd6af46725174a0e0d6a741a7b3a8"
+    },
+    "els_server/storage/seal_quests.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/seal_quests.py",
+      "sha256": "6937809af3a07cd005ffc1d34f15eca03186b6ff65b2f698457a43fab4291b04"
+    },
+    "els_server/storage/titles.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/storage/titles.py",
+      "sha256": "2de44e15b4b7533448cd8331834eaebba55ae6a9311dfd2d46fc01cb6a421ef1"
+    },
+    "els_server/domain/guild_agit_flow.py": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-parent/els_server/domain/guild_agit_flow.py",
+      "sha256": "49901902965662a3bc8a2b1e02f859d5dfa23b3a10bef2c5bcee854841e25f3e"
+    }
+  },
+  "test_files": {
+    "test_achievement_markers.py": "49a99e46d7dda6d237dd7134a820eeaeebe9545613705be26155188b9d9a6f75",
+    "test_achievement_plan.py": "5da091af43365a5ed51b3fb373e9d8db8f4f020c6259cd2fbd6bceb02fe12336",
+    "test_display_maintenance.py": "9cc0f64cbad4d03340abfc20719b048b69b1fcaf829b07cec650e653e9a06c55",
+    "test_egress_budget.py": "bcf4b28e0cd1b87ed40f505d64f580a166d4ea51bb3b01512e5a52accb5c3207",
+    "test_flat_item_validation.py": "c031b2d5533d58eb11d1853ab8d3a92d16862b8053dd80da27d26e62bc8c5463",
+    "test_log_batch.py": "0334b4452143f6992d32aa7a42578db93ce513c81482bea68f01404b8c99110c",
+    "test_native_outbox.py": "5ea6a1c15f3e73eb9f3339b5bd1f47cc3d3eff527c335a6d2c87567a886fdc91",
+    "test_queued_peer_window.py": "c6f70ae1ff5eefcd8af5522e788e6015b067c6b17b2c2543406f859b1edd7490",
+    "test_solo_routing.py": "f5fea2f533ff32d911ccea94fd4f1f51fd4857e88f3e7f5091e03cb512e96bd8",
+    "test_town_notice_wake.py": "1dd8c4353f1a840528e10b4592d233590c66d73bae992c9ce78919c2041cfb7a",
+    "test_worker_control.py": "d303f8b35e408476d2e421c8340aa2361e6a3c3c80af731b002dd66ff396cd93"
+  },
+  "runtime_templates": {
+    "config/friends-server.toml": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-template/config/friends-server.toml",
+      "sha256": "6d9d385aebfc60dbc2b11a38ba957f0cebcb9a80de5385a695a42c2f45c25244",
+      "parent_source": "refs/server-send-fairness-20261107-v1/runtime-template-parent/config/friends-server.toml",
+      "parent_sha256": "40c1ae8c9d06ffd6207d62964476f6bdf881a17e837e23ab7610c0d85f8163b5"
+    },
+    "config/server-settings.json": {
+      "source": "refs/server-send-fairness-20261107-v1/runtime-template/config/server-settings.json",
+      "sha256": "51130f290898fcba43eb9d1ca0ad3f1f817ba877c68815354bee85f3a945eb97",
+      "parent_source": "refs/server-send-fairness-20261107-v1/runtime-template-parent/config/server-settings.json",
+      "parent_sha256": "945243a6371cfe09c590510616a34428edcc194ff3de6cd2bf0dee1f4d2670a7"
+    }
+  },
+  "egress_mbps": 4.4,
+  "production_installed": false,
+  "client_binary_changed": false,
+  "SQL_durability_changed": false
+}

@@ -1,0 +1,115 @@
+{
+  "ok": true,
+  "checks": [
+    "original_bytes_with_sixty_redundant_connections_removed",
+    "failed_read_snapshot_rolled_back_before_reader_reuse",
+    "fresh_projection_after_other_connection_committed"
+  ],
+  "timings": {
+    "original": {
+      "mean_ms": 4.532893296952049,
+      "maximum_ms": 5.646300036460161,
+      "n": 30
+    },
+    "candidate": {
+      "mean_ms": 1.768503353620569,
+      "maximum_ms": 2.2527999244630337,
+      "n": 30
+    }
+  },
+  "connections_opened": {
+    "original": 60,
+    "candidate": 0
+  },
+  "background_connections_during_census": 0,
+  "census_scope": "original invoking thread only",
+  "source": {
+    "candidate/els_server/__main__.py": "9c5cab4b9e7f5dc0c1791b3e9f01c616ec0d7a930fcdfaab27c4db0b73455bc2",
+    "candidate/els_server/application.py": "a79c60fbc66c95d801dd1484364d1c4fc4c53536cddc799a7deb84b5d726a289",
+    "candidate/els_server/config.py": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60",
+    "candidate/els_server/domain/achievement_flow.py": "6119904975d89d361eb81e9888e45529b3c38936d7e686ba038e52d6812e823b",
+    "candidate/els_server/domain/elixir_flow.py": "e0ff930354f15077f46589b23f2169dafe0cb4b6f0a8bebce14d213820ed061b",
+    "candidate/els_server/domain/friend_flow.py": "898ccbd8b91be003d5d12b29e423e1d34fe00e6fe6fd471e00db3fbcac09a6b5",
+    "candidate/els_server/domain/friends_world.py": "a28cd540761f3fb88abc7f7d55c1f8d949a6d33d2fd84d7a496b97506776d061",
+    "candidate/els_server/domain/inventory_items.py": "70ac6efc2bb004764369eb24dd0e841c24e26000064de8f024d91bcbd844c00e",
+    "candidate/els_server/domain/local_session.py": "5a9415fd58c52877962769bdef3ebe1f5af010331844dba43e70fd9e4a32c939",
+    "candidate/els_server/domain/mentor_flow.py": "a348a340024ec04b4c3db9b96ecfaf2066cc6ff637ca980c23b82fb716a8d57f",
+    "candidate/els_server/domain/native_session_sources.py": "f23aa3703ef5f376504243a97c3f26da8e144b3872ce6a841ab3e68676b5fffc",
+    "candidate/els_server/domain/session_auxiliary.py": "c8f4f1337483d9d9af786520945ad1e799ee35739e62ec197f665ed1840198ce",
+    "candidate/els_server/dungeon_workers.py": "4e0100ba1382e568c83facf97dbd6cd75e44d6d406ca6229e7d61ce7fe17e7ef",
+    "candidate/els_server/egress_budget.py": "ea415ad231cf2158bb4282b2993551c0184298ebb9bff0e665d327b96047f5c0",
+    "candidate/els_server/native_outbox.py": "ba2d72106d989624a1378343fc24f7e107b81df9f0799ad3bf39228a6481405e",
+    "candidate/els_server/observability.py": "6047b412812de81060e2447e1684a459c7170a01dd3526f0d10591547b10b8b0",
+    "candidate/els_server/periodic_scheduler.py": "7aeeea4ab444c853c868aada4515821c075689ef65832415f38c93fafcc0f596",
+    "candidate/els_server/protocol/dungeon_messages.py": "e0634bcc2fd0acd5fe9871cb6d5e7eaff8dbd7125ca1682e987aee6d64d3075c",
+    "candidate/els_server/realtime.py": "c167607037bb65a430bad1d7b9bc0a3c3b264681199e4edbe3168bb771ebdff1",
+    "candidate/els_server/storage/achievement_profiles.py": "3e406e7318582fde8e275c283cfee61c5d0aae7e3792a504b550620d0e38be11",
+    "candidate/els_server/storage/clock_writer.py": "d306e4d1ae10b0d7154baf86f770e020b17f79bcd9b548706a0560b01e412ee0",
+    "candidate/els_server/storage/death_writer.py": "d8ca4cff5009a11d7fa787355ac8120de1ca9b89eb43b71e82709d7b3edd5abe",
+    "candidate/els_server/storage/inventory_state.py": "0db23127a6bf7660a6fb152991be96980701abeefdba8468dc08601d5030c790",
+    "candidate/els_server/storage/position_writer.py": "6a7429fb340bc36b4492522ec4518cfc0ea68f9cc56932f0c2ee5cb2f96f1fae",
+    "candidate/els_server/storage/read_scope.py": "f660c37f47b804ef858efa827401516274759d9659bf974c4342333655a65ee0",
+    "candidate/els_server/storage/title_drop_rewards.py": "e456639f7b7618b1e01db1c55983696a38aeb1cdfd5ada7677c51c21ef7aef12",
+    "candidate/els_server/transport.py": "839b179cab480aea88c8c19cb832b6ecb02ddc980a8b8c647034f841be3dd312"
+  },
+  "GIL_enabled": false,
+  "owned_runtime_removed": true,
+  "connections": 0,
+  "errors": [],
+  "result_reused_after_network_thread_priority": {
+    "original_test_source_bindings_preserved": true,
+    "only_network_thread_priority_changed": true,
+    "process_IO_memory_and_new_worker_priorities_unchanged": true,
+    "native_proof": "native-network-thread-priority.json",
+    "promotion_sha256": "0ca9d3f1364c4c6ec2f5cc8978e19884385cadd402781baefe4d0b97e5a63ed6"
+  },
+  "result_reused_after_startup_index_preparation": {
+    "original_test_source_bindings_preserved": true,
+    "only_existing_index_helper_added_before_listeners": true,
+    "no_player_or_account_rows_changed": true,
+    "promotion_sha256": "f262123c719690485f6b59fd869719f1a8a22515aedb6c5584cba5b8cdb49e75"
+  },
+  "result_reused_after_notebook_parent": {
+    "original_test_source_bindings_preserved": true,
+    "all_other_25_owned_modules_exact": true,
+    "original_new_feature_producers_and_SQL_retained": true,
+    "additional_no_change_notebook_marker_cleanup": true,
+    "retention_sha256": "4082b9f13c1abfebf376b785d21137430907e4735f85e4c732b7477bf354f1cb"
+  },
+  "result_reused_after_santilus_diagnostic_argument": {
+    "original_test_source_bindings_preserved": true,
+    "all_other_27_owned_modules_exact": true,
+    "only_changed_argument": "refusal(...,frame.sequence)",
+    "new_parent_capacity_not_inferred": true,
+    "retention_sha256": "528a90b5f9a5ca65ac2f845c1114e7113662bdcea715597de34d0e432679e62d"
+  },
+  "result_reused_after_solo_end_handoff": {
+    "original_test_source_bindings_preserved": true,
+    "only_application_module_changed_from_preselection_candidate": true,
+    "original_native_end_and_storage_exact": true,
+    "earlier_shared_handler_order_and_post_reply_body_exact": true,
+    "native_equivalence_commit_rollback_and_concurrency_proof": "native-solo-end-variant.json",
+    "promotion_sha256": "4e5388302ed7a4b8ad93ee939fe47389c95f19c450cf870359cc46fd92a681a0"
+  },
+  "result_reused_after_preselection_routing": {
+    "original_test_source_bindings_preserved": true,
+    "changed_modules": [
+      "els_server/application.py",
+      "els_server/dungeon_workers.py"
+    ],
+    "all_other_26_modules_exact": true,
+    "full_AST_equal_after_only_classifier_and_heavy_roster_admission_normalization": true,
+    "original_handler_and_account_domain_unchanged": true,
+    "native_equivalence_and_concurrency_proof": "native-preselection-variant.json",
+    "promotion_sha256": "23080f3d178200955b8d9b4974d10e706f2702d43a49619b4bbd75762c0be955"
+  },
+  "result_reused_after_equipped_set_SQL_filter": {
+    "all_previous_27_source_files_exact": true,
+    "original_parent_module_sha256": "e5e21249eec340dd507b8868b1f41bbe1762b62f4921224c2032c6ef0ab1b54b",
+    "current_module_sha256": "f94698ae785b14439a478b45c7ec9d4d265ca993a1182d87377a1f063b53a0b0",
+    "equivalence_proof": "native-equipped-collection-reader.json",
+    "original_loaded_rows": 299,
+    "current_loaded_rows": 19,
+    "original_test_source_bindings_preserved": true
+  }
+}

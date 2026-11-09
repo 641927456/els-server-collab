@@ -1,0 +1,140 @@
+{
+  "run": "log-batch18-fifty-five-v1",
+  "qualified": false,
+  "latency_pass": false,
+  "seconds": 300,
+  "actors": 50,
+  "town": 12,
+  "dungeon": 38,
+  "gates": {
+    "pickup": true,
+    "death": true,
+    "glass": true,
+    "map": true,
+    "town_handler": true,
+    "town_relay": false,
+    "town_cadence": false,
+    "cold_currency_and_ACK_exact": true,
+    "normal_cleanup": true,
+    "frontend_health": true,
+    "all_final_peer_positions": true,
+    "final_town_positions_saved": true,
+    "all_clients": true,
+    "actual_nogil": true
+  },
+  "metrics": {
+    "pickup": {
+      "n": 6270,
+      "mean_ms": 8.27211895965016,
+      "p50_ms": 7,
+      "p95_ms": 19,
+      "p99_ms": 45,
+      "max_ms": 114.86139986664057,
+      "resolution_ms": 1
+    },
+    "death": {
+      "n": 6270,
+      "mean_ms": 18.087411783799006,
+      "p50_ms": 14,
+      "p95_ms": 42,
+      "p99_ms": 76,
+      "max_ms": 395.0235000811517,
+      "resolution_ms": 1
+    },
+    "glass": {
+      "n": 418,
+      "mean_ms": 19.729658857692016,
+      "p50_ms": 18,
+      "p95_ms": 36,
+      "p99_ms": 69,
+      "max_ms": 130.57410018518567,
+      "resolution_ms": 1
+    },
+    "map": {
+      "n": 418,
+      "mean_ms": 21.164634921164676,
+      "p50_ms": 19,
+      "p95_ms": 31,
+      "p99_ms": 78,
+      "max_ms": 260.4074999690056,
+      "resolution_ms": 1
+    },
+    "town_handler": {
+      "n": 21000,
+      "mean_ms": 2.931791404062616,
+      "p50_ms": 3,
+      "p95_ms": 7,
+      "p99_ms": 18,
+      "max_ms": 177.72229993715882,
+      "resolution_ms": 1
+    },
+    "movement_relay": {
+      "n": 230927,
+      "mean_ms": 8.934791755052233,
+      "p50_ms": 3,
+      "p95_ms": 49,
+      "p99_ms": 88,
+      "max_ms": 194.70322644338012,
+      "resolution_ms": 1
+    },
+    "movement_cadence_excess": {
+      "n": 230795,
+      "mean_ms": 6.715181870156551,
+      "p50_ms": 1,
+      "p95_ms": 42,
+      "p99_ms": 84,
+      "max_ms": 229.76159965619303,
+      "resolution_ms": 1
+    },
+    "movement_relay_first45s": {
+      "n": 36260,
+      "mean_ms": 9.379783943919614,
+      "p50_ms": 4,
+      "p95_ms": 48,
+      "p99_ms": 89,
+      "max_ms": 194.70322644338012,
+      "resolution_ms": 1
+    },
+    "steady_after45s": {
+      "n": 194667,
+      "mean_ms": 8.851904482076684,
+      "p50_ms": 3,
+      "p95_ms": 49,
+      "p99_ms": 88,
+      "max_ms": 189.2396593466401,
+      "resolution_ms": 1
+    }
+  },
+  "online_capacity_claim": false,
+  "diagnostic_only": true,
+  "runtime_parent": {
+    "parent_path": "G:\\els\\releases\\online\\native-achievement-foundation-20261107-v1",
+    "parent_release": "native-achievement-foundation-20261107-v1",
+    "parent_manifest_sha256": "0c90e68611cbbdc73a27613f34f8dc33fa0c7b1eeb1afc47ceadbe04fc092f99",
+    "retained_new_parent_features": true
+  },
+  "source_bindings": {
+    "candidate/els_server/application.py": "611217785163faad191f563c300ae7e1c976f63566f0b9d9409187ce66f6da68",
+    "candidate/els_server/config.py": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60",
+    "candidate/els_server/domain/elixir_flow.py": "72173d6bc547cb6292e216a14a7d858fe2a08de0f6c3994375e0728203f7ad69",
+    "candidate/els_server/domain/friends_world.py": "b6bb0d1856dfbd9fc593782b46ee660d68bac60ffad15796590c9edef2a41ea2",
+    "candidate/els_server/domain/local_session.py": "e3cba5eb5611a2fd39fe6534763c4bb2b53a1f4ca25261199792a630c5c2cb9f",
+    "candidate/els_server/domain/native_session_sources.py": "f23aa3703ef5f376504243a97c3f26da8e144b3872ce6a841ab3e68676b5fffc",
+    "candidate/els_server/dungeon_workers.py": "e64d06562a2218546017926f4524cffa2d22d81f232f381a5387a43616efc1a0",
+    "candidate/els_server/egress_budget.py": "5e42a0a6bd3e306bbea7eec206c5eead38fd6b0da68080134bcb170c700233f4",
+    "candidate/els_server/native_outbox.py": "ba2d72106d989624a1378343fc24f7e107b81df9f0799ad3bf39228a6481405e",
+    "candidate/els_server/observability.py": "6047b412812de81060e2447e1684a459c7170a01dd3526f0d10591547b10b8b0",
+    "candidate/els_server/periodic_scheduler.py": "7aeeea4ab444c853c868aada4515821c075689ef65832415f38c93fafcc0f596",
+    "candidate/els_server/protocol/dungeon_messages.py": "b53704e95483959fa55f157977c56391289354d4911f8c8caaa194fae71c2f86",
+    "candidate/els_server/storage/clock_writer.py": "d306e4d1ae10b0d7154baf86f770e020b17f79bcd9b548706a0560b01e412ee0",
+    "candidate/els_server/storage/death_writer.py": "d8ca4cff5009a11d7fa787355ac8120de1ca9b89eb43b71e82709d7b3edd5abe",
+    "candidate/els_server/storage/inventory_state.py": "eac0c17c2ff411de61a1dab51ce1576610f60641496d36d79d821e7d6ff35ab8",
+    "candidate/els_server/storage/position_writer.py": "6a7429fb340bc36b4492522ec4518cfc0ea68f9cc56932f0c2ee5cb2f96f1fae",
+    "candidate/els_server/storage/read_scope.py": "6027a1b23a58445aae1203bdb28cf5f956a4e77eab6d67d38c8823812e321284",
+    "candidate/els_server/transport.py": "4c4c5b635aebe8e624f477fd564a7263a6db2b8fbfa9e4ff605d3204510c49d1",
+    "runtime/sqlite3.dll": "4b59d3cded9dc1608544160f3b4b10ac974c6ac0d6ffc23064e5f4c8dbd05aea"
+  },
+  "concurrent_owned_package_IO": false,
+  "other_publication_lock_active": true,
+  "actual_diagnostic_log_enabled": true
+}

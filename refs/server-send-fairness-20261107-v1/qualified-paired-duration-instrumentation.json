@@ -1,0 +1,81 @@
+{
+  "run": "earned18-twenty-budget36-smoke60-v1",
+  "diagnostic_only": true,
+  "matched": 3150,
+  "recipients": 9,
+  "source_uid": 1001,
+  "server_segment": {
+    "n": 3150,
+    "min_ms": 0.6033000536262989,
+    "mean_ms": 3.7563253877063594,
+    "p50_ms": 2.007999923080206,
+    "p95_ms": 10.395499877631664,
+    "p99_ms": 62.871099915355444,
+    "max_ms": 78.7466000765562
+  },
+  "client_raw": {
+    "n": 3150,
+    "min_ms": 1.0473928414285183,
+    "mean_ms": 4.302621206771287,
+    "p50_ms": 2.5602588430047035,
+    "p95_ms": 10.958723723888397,
+    "p99_ms": 63.42990882694721,
+    "max_ms": 79.20917123556137
+  },
+  "outside_measured_server_segment": {
+    "n": 3150,
+    "min_ms": 0.25538308545947075,
+    "mean_ms": 0.5462958190649275,
+    "p50_ms": 0.5166009068489075,
+    "p95_ms": 0.7576472125947475,
+    "p99_ms": 1.257448922842741,
+    "max_ms": 1.6066590324044228
+  },
+  "server_endpoint": "immediately_before_final_frame_chunk_writer_write",
+  "cross_machine_absolute_timestamps_compared": false,
+  "latency_gates_unchanged": true,
+  "outside_description": "Final writer.write, client encode/decode and scheduling, TCP/TLS and OS queues, network, and server time before NativeInbox.received; not pure network RTT.",
+  "client_source_hashes": [
+    "c857a48189e8302aa9c400242ca21b3d7c1602ee913b80e3c0cbb4cc39ca3318"
+  ],
+  "received_to_mailbox_drain": {
+    "n": 3150,
+    "min_ms": 0.4459996707737446,
+    "mean_ms": 1.9820465907336227,
+    "p50_ms": 1.3899998739361763,
+    "p95_ms": 4.838999826461077,
+    "p99_ms": 13.385599944740534,
+    "max_ms": 24.448500014841557
+  },
+  "mailbox_drain_to_queue": {
+    "n": 3150,
+    "min_ms": 0.057999975979328156,
+    "mean_ms": 1.7742787969727365,
+    "p50_ms": 0.4585999995470047,
+    "p95_ms": 1.9567999988794327,
+    "p99_ms": 60.274199582636356,
+    "max_ms": 73.92889959737659
+  },
+  "quota_wait_ms": {
+    "ordinary": {
+      "n": 3943,
+      "mean_ms": 3.925078194196337,
+      "p50_ms": 1,
+      "p95_ms": 30,
+      "p99_ms": 49,
+      "max_ms": 67.10719969123602,
+      "resolution_ms": 1
+    },
+    "position": {
+      "n": 25727,
+      "mean_ms": 0.30369040275953846,
+      "p50_ms": 1,
+      "p95_ms": 1,
+      "p99_ms": 11,
+      "max_ms": 19.551999866962433,
+      "resolution_ms": 1
+    }
+  },
+  "loopback_only": true,
+  "test_purpose": "Validate exact per-recipient pre-write duration matching before WAN diagnosis; no WAN capacity claim."
+}

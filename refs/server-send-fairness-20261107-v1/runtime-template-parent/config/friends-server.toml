@@ -1,0 +1,17 @@
+# Standalone friends server. The local single-player configuration is unchanged.
+[server]
+mode = "friends"
+host = "0.0.0.0"
+port = 19400
+profile = "integrated_dx11"
+state_file = "../state/friends/game.sqlite3"
+accounts_file = "../state/friends/accounts.sqlite3"
+tls_cert = "../state/friends/server-cert.pem"
+tls_key = "../state/friends/server-key.pem"
+log_dir = "../logs/friends-server"
+max_connections = 32
+client_probe_port = 19401
+authentication_timeout = 8.0
+attribute_enchant_enabled = true
+normal_equipment_moves_enabled = true
+equipment_repair_enabled = true

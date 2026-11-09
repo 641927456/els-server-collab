@@ -1,0 +1,127 @@
+{
+  "run": "native-quiet-ten50-five-v1",
+  "qualified": false,
+  "latency_pass": false,
+  "seconds": 300,
+  "actors": 50,
+  "town": 16,
+  "dungeon": 34,
+  "gates": {
+    "pickup": true,
+    "death": true,
+    "glass": true,
+    "map": true,
+    "town_handler": true,
+    "town_relay": false,
+    "town_cadence": false,
+    "cold_currency_and_ACK_exact": true,
+    "normal_cleanup": true,
+    "frontend_health": true,
+    "all_final_peer_positions": true,
+    "final_town_positions_saved": true,
+    "all_clients": true,
+    "actual_nogil": true
+  },
+  "metrics": {
+    "pickup": {
+      "n": 5610,
+      "mean_ms": 8.45766361842659,
+      "p50_ms": 7,
+      "p95_ms": 19,
+      "p99_ms": 35,
+      "max_ms": 123.20329993963242,
+      "resolution_ms": 1
+    },
+    "death": {
+      "n": 5610,
+      "mean_ms": 17.459966435633373,
+      "p50_ms": 15,
+      "p95_ms": 35,
+      "p99_ms": 47,
+      "max_ms": 175.1434998586774,
+      "resolution_ms": 1
+    },
+    "glass": {
+      "n": 374,
+      "mean_ms": 19.115402154066665,
+      "p50_ms": 18,
+      "p95_ms": 33,
+      "p99_ms": 54,
+      "max_ms": 96.93180024623871,
+      "resolution_ms": 1
+    },
+    "map": {
+      "n": 374,
+      "mean_ms": 20.039251598375127,
+      "p50_ms": 18,
+      "p95_ms": 30,
+      "p99_ms": 40,
+      "max_ms": 119.66840038076043,
+      "resolution_ms": 1
+    },
+    "town_handler": {
+      "n": 28000,
+      "mean_ms": 3.376732870919763,
+      "p50_ms": 3,
+      "p95_ms": 7,
+      "p99_ms": 20,
+      "max_ms": 189.67929994687438,
+      "resolution_ms": 1
+    },
+    "movement_relay": {
+      "n": 415784,
+      "mean_ms": 22.552786358733115,
+      "p50_ms": 4,
+      "p95_ms": 112,
+      "p99_ms": 146,
+      "max_ms": 360.9535130672157,
+      "resolution_ms": 1
+    },
+    "movement_cadence_excess": {
+      "n": 415544,
+      "mean_ms": 16.179432798979366,
+      "p50_ms": 1,
+      "p95_ms": 109,
+      "p99_ms": 145,
+      "max_ms": 426.49469999596334,
+      "resolution_ms": 1
+    },
+    "movement_relay_first45s": {
+      "n": 65094,
+      "mean_ms": 26.14097379210644,
+      "p50_ms": 5,
+      "p95_ms": 120,
+      "p99_ms": 182,
+      "max_ms": 360.9535130672157,
+      "resolution_ms": 1
+    },
+    "steady_after45s": {
+      "n": 350690,
+      "mean_ms": 21.886758035176687,
+      "p50_ms": 4,
+      "p95_ms": 111,
+      "p99_ms": 143,
+      "max_ms": 316.3512465544045,
+      "resolution_ms": 1
+    }
+  },
+  "online_capacity_claim": false,
+  "diagnostic_only": true,
+  "source_bindings": {
+    "candidate\\els_server\\application.py": "0c69fa8beb97b726ad80a2a754c7fdfc9ee3a7c0fa77e4677d52fd4c7da32732",
+    "candidate\\els_server\\config.py": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60",
+    "candidate\\els_server\\dungeon_workers.py": "e64d06562a2218546017926f4524cffa2d22d81f232f381a5387a43616efc1a0",
+    "candidate\\els_server\\egress_budget.py": "5e42a0a6bd3e306bbea7eec206c5eead38fd6b0da68080134bcb170c700233f4",
+    "candidate\\els_server\\native_outbox.py": "373ae4a6e4e1efde82def0e6d05c6adb22ba47b978125e1ad03358180c4b2d92",
+    "candidate\\els_server\\transport.py": "ceb25f40ebbead233c3c988dcf27f5118176c358c2b0dd2c25a58dce0f3af7e2",
+    "candidate\\els_server\\domain\\elixir_flow.py": "72173d6bc547cb6292e216a14a7d858fe2a08de0f6c3994375e0728203f7ad69",
+    "candidate\\els_server\\domain\\friends_world.py": "2d1daceaa280e77337d5629188082471d7b96bc847bf14b0058936f1a3414659",
+    "candidate\\els_server\\domain\\native_session_sources.py": "f23aa3703ef5f376504243a97c3f26da8e144b3872ce6a841ab3e68676b5fffc",
+    "candidate\\els_server\\protocol\\dungeon_messages.py": "dda33b032e10b4927c8d529c6a2180f33856d47350af5796dd639c00b13d84d7",
+    "runtime/sqlite3.dll": "4b59d3cded9dc1608544160f3b4b10ac974c6ac0d6ffc23064e5f4c8dbd05aea"
+  },
+  "timer_resolution_requested_ms": 1,
+  "same_native_entrypoint_timer": true,
+  "production_installed": false,
+  "monitor_full_progress_snapshot_on_socket_loop": false
+}

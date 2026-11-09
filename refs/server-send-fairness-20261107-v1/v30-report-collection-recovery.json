@@ -1,0 +1,31 @@
+{
+  "run": "online-disconnect24-paired-twenty60-v30",
+  "original_driver_failed_at_report_collection": true,
+  "load_rerun": false,
+  "archive_sha256": "d00785a39a686df42f1d66ec33f0668cb9ad496b9edcfe64afb2df5767b68e72",
+  "canonical_raw_files_verified": [
+    "ready.json",
+    "server-mixed.json",
+    "resource-samples.json",
+    "transport-final.json",
+    "runtime-final.json",
+    "cold-balances.json",
+    "durable-ground-receipts.json",
+    "cold-locations.json",
+    "cleanup.json",
+    "server-town-residence.json",
+    "upkeep-stage-profile.json",
+    "slow-commits.json"
+  ],
+  "early_observations_preserved_separately": [],
+  "public_restored": true,
+  "restoration_observation_seconds": 120,
+  "cold_currency_and_ACK_exact": true,
+  "cleanup": {
+    "owned_runtime_removed": true,
+    "connections": 0,
+    "errors": []
+  },
+  "qualification_claim": false,
+  "correction": "Preserved early JSON serializations, verified semantic equality, then extracted exact original archive bytes; no report values were rewritten."
+}

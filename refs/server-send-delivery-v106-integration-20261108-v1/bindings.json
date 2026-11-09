@@ -1,0 +1,58 @@
+{
+  "previous": "../town-metadata-peer-20261108-v1/source-bindings.json",
+  "source_files": {
+    "els_server/application.py": "b0e52220fac9da890b780663a73e383c13aa34d9106f6e3781e6dc1795cfa475",
+    "els_server/config.py": "bf4723538aee9a543ffe1ebac62355b64530810fb5f4d95cb3341abb7295ad60",
+    "els_server/dungeon_workers.py": "6ed08654e7a84fd076b5ff0e7f441ddef26b8a041ed23c5281892191c074a452",
+    "els_server/egress_budget.py": "ea415ad231cf2158bb4282b2993551c0184298ebb9bff0e665d327b96047f5c0",
+    "els_server/native_outbox.py": "ba2d72106d989624a1378343fc24f7e107b81df9f0799ad3bf39228a6481405e",
+    "els_server/observability.py": "6047b412812de81060e2447e1684a459c7170a01dd3526f0d10591547b10b8b0",
+    "els_server/periodic_scheduler.py": "7aeeea4ab444c853c868aada4515821c075689ef65832415f38c93fafcc0f596",
+    "els_server/realtime.py": "c167607037bb65a430bad1d7b9bc0a3c3b264681199e4edbe3168bb771ebdff1",
+    "els_server/transport.py": "dadd901f59390be9dc0404611ee0b5b42b0e493c4372682125e1db22d37d772b",
+    "els_server/__main__.py": "b2e7502c0cf90791d9e8879927d9585c4414a0e0a945c5c685fcdd8642e6697b",
+    "els_server/domain/achievement_flow.py": "e632a913c37fbb3bd3382580c5cd8b3762a6065145a9b9127752dd7465ad4d15",
+    "els_server/domain/attendance_online_2026.py": "c3a85b50a835628fef90c9e1f4989898dc824880d3b49653082b0a9d1bb6ccc8",
+    "els_server/domain/elixir_flow.py": "e0ff930354f15077f46589b23f2169dafe0cb4b6f0a8bebce14d213820ed061b",
+    "els_server/domain/friends_world.py": "7b043c1a1a5e9078986cf48cd88163d57b683675eaabbffd9bb9e485412f776c",
+    "els_server/domain/friend_flow.py": "898ccbd8b91be003d5d12b29e423e1d34fe00e6fe6fd471e00db3fbcac09a6b5",
+    "els_server/domain/inventory_items.py": "05e245ef305a5c0a34065b719fdbb3c7f43a7813cdc0bf29a42b7dd03b0d8239",
+    "els_server/domain/local_session.py": "8ad61d0a0da0e5b854ded793a429fdd7249920e747242cb166495535cc44eb44",
+    "els_server/domain/mentor_flow.py": "a348a340024ec04b4c3db9b96ecfaf2066cc6ff637ca980c23b82fb716a8d57f",
+    "els_server/domain/native_session_sources.py": "f23aa3703ef5f376504243a97c3f26da8e144b3872ce6a841ab3e68676b5fffc",
+    "els_server/domain/online_clock_transaction.py": "ecde8fe9a346025bdfe428493a0b359ea0a5f86ae29d84dd36183280cae52c93",
+    "els_server/domain/session_auxiliary.py": "c87333e1799c8faee1cc9473f930026a56f1c46c9aeb9b61c230f9ff169b546e",
+    "els_server/protocol/dungeon_messages.py": "e0634bcc2fd0acd5fe9871cb6d5e7eaff8dbd7125ca1682e987aee6d64d3075c",
+    "els_server/storage/achievement_collections.py": "f94698ae785b14439a478b45c7ec9d4d265ca993a1182d87377a1f063b53a0b0",
+    "els_server/storage/achievement_profiles.py": "de5a40e670eb7cc7f5fbd843986701c55deee8ec58765908266998430a12a90f",
+    "els_server/storage/clock_writer.py": "99b5dbd2f1087d4d107a50e988f716764db71e51494c70cb8855839a09192b0e",
+    "els_server/storage/death_writer.py": "d8ca4cff5009a11d7fa787355ac8120de1ca9b89eb43b71e82709d7b3edd5abe",
+    "els_server/storage/inventory_state.py": "0db23127a6bf7660a6fb152991be96980701abeefdba8468dc08601d5030c790",
+    "els_server/storage/position_writer.py": "6a7429fb340bc36b4492522ec4518cfc0ea68f9cc56932f0c2ee5cb2f96f1fae",
+    "els_server/storage/read_scope.py": "f660c37f47b804ef858efa827401516274759d9659bf974c4342333655a65ee0",
+    "els_server/storage/title_drop_rewards.py": "e456639f7b7618b1e01db1c55983696a38aeb1cdfd5ada7677c51c21ef7aef12"
+  },
+  "changed_from_previous": [
+    "els_server/domain/achievement_flow.py",
+    "els_server/domain/friends_world.py",
+    "els_server/storage/achievement_profiles.py"
+  ],
+  "parent": {
+    "parent_release": "native-achievement-guild-banner-power-20261108-v1",
+    "parent_path": "G:\\els\\releases\\online\\native-achievement-guild-banner-power-20261108-v1",
+    "parent_manifest_sha256": "43410f5b300f1e0840f13c1d418daeb9c3240f4dab6760d954a28e5b3f34af41",
+    "retained_new_parent_features": true
+  },
+  "parent_files": {
+    "els_server/domain/achievement_flow.py": "a2b243fabd5734fcd046e4cc9be11a9c67a5e6f65cee28b52ad5936154cb3ee7",
+    "els_server/domain/friends_world.py": "ff55d5181e48d3f6ddab7edf36ffaddbc2a83b3de56a7242f44f868dad3014dd",
+    "els_server/storage/achievement_profiles.py": "dfdcf20eb6b9cc32694958caed211d01039bf4ab3dbc09ae993bd7719a952ab7"
+  },
+  "portable_tests": {
+    "test_achievement_plan.py": "72460975c082eb0e53e81f7c8f5b1d08f6889531aa019ad6d6fc11428f2f28ca",
+    "test_guild47_plan.py": "03a167d75c424f1ad44a0dfeb89eb00950a860ac8345efe0a54110a8e4b35926"
+  },
+  "launcher_version": 107,
+  "installed": false,
+  "public_capacity_qualified": false
+}
