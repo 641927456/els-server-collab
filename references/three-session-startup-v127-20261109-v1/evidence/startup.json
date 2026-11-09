@@ -1,0 +1,43 @@
+{
+  "tests": [
+    {
+      "ok": true,
+      "tests": 3,
+      "launcher_compiled": true,
+      "normal_entry_runs_python_once": true,
+      "explicit_check_preserved": true,
+      "rejected_client_starts_no_process": true
+    },
+    {
+      "ok": true,
+      "tests": 4,
+      "scope": "Read-only catalog connection reuse, nesting, exceptions, return-value isolation and threads"
+    },
+    {
+      "ok": true,
+      "tests": 4,
+      "scope": "Attempt-local hashing, changed-file invalidation and changes during reads"
+    }
+  ],
+  "actual_timing": {
+    "before_roster_seconds": 76.733234167099,
+    "first_candidate_roster_seconds": 63.0881450176239,
+    "combined_candidate_roster_seconds": 57.43205976486206,
+    "saved_this_round_seconds": 5.656085252761841,
+    "saved_total_seconds": 19.30117440223694,
+    "before_process_seconds": 28.672303676605225,
+    "first_candidate_process_seconds": 15.164830207824707,
+    "candidate_process_seconds": 10.145237445831299,
+    "candidate_native_to_roster_seconds": 47.28682231903076
+  },
+  "changes": "Combined launcher preflight, scoped read-only catalog connection reuse for inventory initialization, per-preparation archive digest reuse with file-stamp validation.",
+  "preparation": {
+    "before_seconds": 14.46574439998949,
+    "after_seconds": 9.497893699997803,
+    "sqlite_connections_before": 18374,
+    "sqlite_connections_after": 2,
+    "equal_stack_policy_items": 125582,
+    "all_generated_source_hashes_equal": true,
+    "generated_sources": 7
+  }
+}
