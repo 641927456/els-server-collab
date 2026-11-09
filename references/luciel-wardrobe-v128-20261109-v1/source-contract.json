@@ -7,10 +7,22 @@
       "size": 13834
     },
     {
+      "path": "els_server/domain/title_flow.py",
+      "parent_sha256": "305bb6a5233b294253cd782bce16289d5f2ab7e4fc0bf5e8ccd5412262dbe1c5",
+      "sha256": "ccda83419e13a5e1bb7510b130c2074c9bf976cf22a8a05ba33bb9f2fadf8560",
+      "size": 6283
+    },
+    {
       "path": "els_server/domain/wardrobe.py",
       "parent_sha256": "6cb200759d44f402a1653e7791a74127f2d11e780cefcb47b5a363ff23559131",
       "sha256": "da97e29a1b999e998ebc53d92ba126b0e18faeb80006f0feccd2159a96de8287",
       "size": 3861
+    },
+    {
+      "path": "els_server/protocol/title_messages.py",
+      "parent_sha256": "fd7a84e9352cef52fa0aec4277cd50caed7820a221eae4110dbb3ec9e3830761",
+      "sha256": "526110bfaf2d38a3d9dae59fb543986a5b5f6a95ae78f2dea9a44c663086c755",
+      "size": 2523
     },
     {
       "path": "els_server/storage/abyss_weapon_2026.py",
@@ -31,6 +43,12 @@
       "size": 2157
     },
     {
+      "path": "els_server/storage/titles.py",
+      "parent_sha256": "996047bf92672c5634b8a543c3f54905bc0b77206f32f19c03d81b3119939f37",
+      "sha256": "4630ac355b2c35bf111e7b28cbdc8230e1ae7e976db96f5d4dffb7f50513986a",
+      "size": 12459
+    },
+    {
       "path": "els_server/storage/wardrobe.py",
       "parent_sha256": "a9c9ee3cf52bdb7933f1e98520ecd99751bda05cb4e423a0a8f970930ff8889d",
       "sha256": "d7eaa97c41b5ac214e16040da90f87686276aeca1da05273a09ef2f6ebc0f033",
@@ -46,9 +64,15 @@
   "recovery": "Retain receipt reader and per-character campaign writer after startup; forward-fix; never restore player DB",
   "natural_GUI": false,
   "schema_change": true,
-  "new_tables": false,
+  "new_tables": [
+    "title_shortcuts"
+  ],
   "rebuilt_tables": [
     "abyss2026_accounts",
     "abyss2026_tasks"
-  ]
+  ],
+  "lazy_tables": [
+    "title_shortcuts"
+  ],
+  "final_scope": "User confirmed only wardrobe, per-character Abyss campaign and title shortcuts"
 }
