@@ -1,0 +1,926 @@
+--- parent/els_server/domain/acquisition_policy.py
++++ candidate/els_server/domain/acquisition_policy.py
+@@ -68,6 +68,8 @@
+     if template in wedding_templates():return False
+     from els_server.domain.housing_pet_rules import OWNED_ONLY as owned_pet_mats
+     if template in owned_pet_mats:return False
++    from els_server.domain.housing_expansion_rules import OWNED_ONLY as owned_housing_aliases
++    if template in owned_housing_aliases:return False
+     if template==203800:return False  # Retired SP-reset medal: preserve old reader, close accidental new sources.
+     from els_server.domain.owned_reward_boxes import authorize_output as owned_box_output,new_templates as owned_box_templates
+     if raid_reward_source is not None and owned_box_output(template,raid_reward_source):return True
+--- parent/els_server/domain/bag_capacity.py
++++ candidate/els_server/domain/bag_capacity.py
+@@ -13,7 +13,9 @@
+ PRODUCT_GROUPS={200751:1,200752:2,200753:6,200754:3,200755:5,200756:4,135964:21}
+ # Original 2255C80 switch: 105/140 rows of eight for avatar/ice avatar.
+ STARTING_FASHION_CAPACITIES={7:840,27:1120}
+-BAG_GROUPS=(1,2,3,4,5,6,7,21,25,27)  # Furniture uses the preserved local36-slot base.
++# Human-approved furniture allowance, matching70native rows of8slots.
++FURNITURE_CAPACITY=560
++BAG_GROUPS=(1,2,3,4,5,6,7,21,25,27)
+ QUICK_SLOT_GROUP=11
+ # Preserve this local profile's existing six visible item shortcuts explicitly.
+ # Native 3059AD0 accepts 3/6 and clamps its constructor's placeholder 67 to 6.
+@@ -22,10 +24,12 @@
+ 
+ def wire_limit(group):
+     if group==QUICK_SLOT_GROUP:return LOCAL_QUICK_SLOTS
++    if group==25:return FURNITURE_CAPACITY
+     return STARTING_FASHION_CAPACITIES.get(group,NATIVE_LIMIT if group in PRODUCT_GROUPS.values() else LOCAL_BASE)
+ 
+ def capacities(character=None):
+     result={g:LOCAL_BASE for g in BAG_GROUPS}
++    result[25]=FURNITURE_CAPACITY
+     result[QUICK_SLOT_GROUP]=LOCAL_QUICK_SLOTS
+     for key,value in (character or {}).get('bag_capacities',{}).items():
+         group=int(key)
+--- parent/els_server/domain/furniture_rules.py
++++ candidate/els_server/domain/furniture_rules.py
+@@ -3,6 +3,7 @@
+ import hashlib,json
+ TEMPLATE=136039
+ POLICY='current-small-furniture-original-description-20261028-v1'
++NPC_POLICY='current-native-npc-furniture-20261108-v1'
+ # Original HousingItemTemplet.lua SHA6602935c.. plus complete19803A0 bag25.
+ ROWS=((570011,1,'3e408bd59de5ffcaf917c78f42b011f5cabde54b497f78049565b689f970b7e8'),
+       (570012,1,'486579e5048a672101a1e83a977a01dd6c84a666e25e29a97a012fd5b23c7751'),
+@@ -15,10 +16,12 @@
+ QUEST_TEMPLATES=frozenset(t for t,n,h in QUEST_ROWS)
+ from els_server.domain.housing_pet_rules import ROWS as PET_ROWS,TEMPLATES as PET_TEMPLATES,mat
+ TEMPLATES=BOX_TEMPLATES|QUEST_TEMPLATES|PET_TEMPLATES
+-# HousingItemTemplet: all three quest rewards have HIUL_FLOOR, as do570011/12.
+-POSITION_TYPES={570001:(2,3),570002:(2,3),570014:(2,3),570011:(2,3),570012:(2,3),570015:(5,6),570016:(4,)}
++# Original usable location1 maps to floor1; wall2 maps to left/right2/3.
++# Native skin surfaces retain their separate position4/5/6 distinction.
++POSITION_TYPES={570001:(1,),570002:(1,),570014:(1,),570011:(2,3),570012:(2,3),570015:(5,6),570016:(4,)}
+ 
+-POSITION_TYPES.update({t:(2,3)for t in PET_TEMPLATES})
++POSITION_TYPES.update({t:(1,)for t in PET_TEMPLATES})
++LEGACY_FLOOR_POSITION_TEMPLATES=QUEST_TEMPLATES|PET_TEMPLATES
+ 
+ @lru_cache(maxsize=1)
+ def definitions():
+@@ -37,24 +40,32 @@
+  if template not in BOX_TEMPLATES or source is None:return False
+  from els_server.domain.raid_reward_items import validate_source
+  source=validate_source(source);identity=json.loads(source._source)
++ if source.kind=='npc_trade':
++  from els_server.domain.npc_trade import stock
++  if(identity.get('policy')!=NPC_POLICY or identity.get('owner')!=source.owner
++     or identity.get('operation')!=source.operation
++     or template not in stock().get((identity.get('town'),identity.get('merchant')),())):raise ValueError('Furniture exact native merchant source')
++  source.validate_template(template)
++  return True
+  if(source.kind!='box'or identity.get('policy')!=POLICY or identity.get('template')!=TEMPLATE
+     or identity.get('owner')!=source.owner or type(identity.get('uid'))is not int or identity['uid']<=0):raise ValueError('Furniture exact owned-box source')
+  source.validate_plan(plan());return True
+ 
+-def validate_layout(layout,items,*,mutating=False,now=None):
++def validate_layout(layout,items,*,mutating=False,now=None,legacy_floor_locations=False):
+  from els_server.protocol.housing_layout_messages import LAYOUT,encode
+  from els_server.domain.item_expiration import require_current
+  from els_server.domain.item_locks import require_unlocked
+  encode(LAYOUT,layout)
+- legacy,new,grid,floor,expansion=layout
+- #This batch has only the original unexpanded first floor/preset.
+- if floor!=0 or expansion not in(-1,0):raise ValueError('Furniture unqualified room expansion')
++ legacy,new,grid,reserved,floor=layout
++ if reserved!=0 or not 0<=floor<=2:raise ValueError('Furniture native floor fields')
+  owned={i['uid']:i for i in items if i['template']in TEMPLATES and i['metadata']==0 and i['group']==25 and i['count']==1}
+  used=set();skins=set()
+  for modern,rows in((False,legacy),(True,new)):
+   for key,value in rows:
+    if modern:uid,t,position,xyz,direction=value;level=0
+-   else:position,uid,t,x,y,direction=value;xyz=(x,y,0);level=0
++   else:
++    position,uid,t,x,y,item_floor=value;xyz=(x,y,0);level=0
++    if item_floor!=floor:raise ValueError('Furniture record floor differs from layout')
+    if key!=uid or uid in used or uid not in owned or owned[uid]['template']!=t:raise ValueError('Furniture unique owned UID/template')
+    # Original244D4A0 applies grid furniture through2451350 and binds
+    # Game+B00 to its pet mat.244D960 free-position records create a model
+@@ -62,7 +73,8 @@
+    if modern and t in PET_TEMPLATES:raise ValueError('Housing pet mats require native grid placement')
+    item=owned[uid];require_current(item,now=now)
+    if mutating:require_unlocked(item,now=now)
+-   if item.get('sealed',False)or position not in POSITION_TYPES[t]or level!=0:raise ValueError('Furniture native placement kind')
++   legacy_position=legacy_floor_locations and not mutating and floor==0 and t in LEGACY_FLOOR_POSITION_TEMPLATES and position in(2,3)
++   if item.get('sealed',False)or(position not in POSITION_TYPES[t]and not legacy_position)or level!=0:raise ValueError('Furniture native placement kind')
+    #Same bounded finite coordinates as current native housing readiness.
+    #Client-native geometry/collision keeps its original coordinate convention.
+    if any(abs(v)>1000000 for v in xyz):raise ValueError('Furniture position bounds')
+@@ -71,7 +83,8 @@
+     skins.add(position)
+    used.add(uid)
+  mat(layout)
+- if len(used)>36:raise ValueError('Furniture local bag allowance')
++ from els_server.domain.bag_capacity import FURNITURE_CAPACITY
++ if len(used)>FURNITURE_CAPACITY:raise ValueError('Furniture bag allowance')
+  cells=0
+  for kind,rows in grid:
+   if not 0<=kind<=7 or len(rows)>128 or any(len(row)>128 for row in rows):raise ValueError('Furniture grid bounds')
+--- parent/els_server/domain/housing_expansion_rules.py
++++ candidate/els_server/domain/housing_expansion_rules.py
+@@ -0,0 +1,20 @@
++"""Current native housing expansion readers and human-approved ED offers."""
++import hashlib,struct
++from functools import lru_cache
++from els_server.game_data import client_data
++STEP_ITEMS=(136030,136031,136032,136033)
++FLOOR_ITEMS=(136244,136242,136243,136241)
++PRESET_ITEMS=(136248,136246,136247,136245)
++SHOP_ITEMS=STEP_ITEMS+(136241,136245)
++OWNED_ONLY=frozenset(FLOOR_ITEMS+PRESET_ITEMS)-frozenset(SHOP_ITEMS)
++ROWS=((136030, 4198408, '89a32789a2ef7906d8bc357b505736684de7bc6356d05c17fd2d32310c4d926e'), (136031, 4198408, '9d100a938c085d2237bb23d08c3b7b2e6553eca009883e06b8507ffe56d3b848'), (136032, 4198408, 'e5227c61421141f5f21a4d0809703ae9445c3ed249bf0131642c487befc6d98f'), (136033, 4198408, '6556f7a56db40b75425f345b8cc97676507d6b9f67f86a97c8021cd84d2ce3e9'), (136241, 4198408, '37b3e9cefd7cfd3f307f50f4eabbe636efda9238364f2efcdbf6526a60bb5820'), (136242, 4198410, 'e3dbc5370f53fa6d059c05e9847ed9c5abce8bc087dc75f2d640c37150caec82'), (136243, 4198410, '8585c5cefd5c48a47115f8ac5575ccedeb5b929e7a86e10bf89002abe2d07aa6'), (136244, 4198410, '743e617e5323e1327a500ed7cd3bb41e78286171fad154132a07213557af9dd8'), (136245, 4198408, 'c9906ac487326919bb1b12c743e8a92175d3f0f66c19609b1016d16f40176051'), (136246, 4198410, '662047b4489e6a8d6a1e9653819fd9e7e027ffad1620366596eace4820545ef0'), (136247, 4198410, 'f034cbe8e0f3e76e92acfbe3a24029c4b2e9c7fd14cd68acc2043acf5a923f5c'), (136248, 4198410, 'd40dc491293485e30316aa2ce81b54f352e33d8c4f2cea86bf75a0f8f4891585'))
++
++@lru_cache(maxsize=1)
++def definitions():
++ rows=[]
++ for t,flags,digest in ROWS:
++  i=client_data().item(t)
++  if (i['item_type'],i['metadata'],i['flags4'],i['flags8'],struct.unpack_from('<I',i['record'],16)[0])!=(7,0,flags,56,0)or hashlib.sha256(i['record']).hexdigest()!=digest:
++   raise ValueError('Housing expansion native item definition')
++  rows.append(dict(template=t,metadata=0,group=4,max_stack=1))
++ return tuple(rows)
+--- parent/els_server/domain/housing_layout_flow.py
++++ candidate/els_server/domain/housing_layout_flow.py
+@@ -1,23 +1,53 @@
+ """Original935 owned room save, bound to the actual current923 admission."""
+ from els_server.protocol.housing_layout_messages import empty_layout,save_ack
+ from els_server.storage import housing_layouts as storage
+-import sqlite3
++import sqlite3,struct
+ 
+ def handle(s,event,sequence):
+- if event.event_id!=0x202 or event.kind not in(0x935,0xa38,0xa3a):return None
++ if event.event_id!=0x202 or event.kind not in(0x219,0x92b,0x935,0xa38,0xa3a,0xd37):return None
++ if event.kind==0x219:
++  if getattr(s,'housing_own_room',None)is None or len(event.payload)<8:return None
++  from contextlib import closing
++  from pathlib import Path
++  from els_server.storage import housing_expansions
++  operation=s.shop_session_id+':housing-expansion:'+str(s.account.uid)+':'+str(sequence)
++  source=struct.unpack_from('>Q',event.payload)[0]
++  with closing(sqlite3.connect(Path(s.account.store.path).resolve().as_uri()+'?mode=ro',uri=True))as db:
++   row=db.execute('SELECT template FROM inventory_items WHERE owner=? AND uid=?',(s.account.uid,source)).fetchone()
++   replay=db.execute('SELECT 1 FROM inventory_action_receipts WHERE operation_id=?',(operation,)).fetchone()if db.execute("SELECT 1 FROM sqlite_master WHERE name='inventory_action_receipts'").fetchone()else None
++  if(row is None or row[0]not in housing_expansions.TEMPLATES)and not replay:return None
+  from els_server.domain.housing_room_flow import identity,world_state,scene
+  try:
+   refs,values=identity(s);wr,wv=world_state(s);context=s.housing_own_room
+   if context is None or s.phase!='housing_ready'or s.active_map!=26000 or s.pending_map!=26000:raise ValueError('Furniture native room required')
+   if(context['values']!=values or any(a is not b for a,b in zip(refs,context['refs']))):raise ValueError('Furniture current selected graph')
+-  phase=(s.phase,s.active_map,s.pending_map);source=context['source_town'];scene(s,source,context)
++  phase=(s.phase,s.active_map,s.pending_map);source=context['source_town'];scene(s,source,context);current_floor=context.get('floor',0)
+   def same():
+    try:r,v=identity(s);ar,av=world_state(s);scene(s,source,context)
+    except(ValueError,AttributeError,KeyError,TypeError):return False
+-   return(v==values and all(a is b for a,b in zip(r,refs))and av==wv and all(a is b for a,b in zip(ar,wr))and s.housing_own_room is context and(s.phase,s.active_map,s.pending_map)==phase)
++   return(v==values and all(a is b for a,b in zip(r,refs))and av==wv and all(a is b for a,b in zip(ar,wr))and s.housing_own_room is context and context.get('floor',0)==current_floor and(s.phase,s.active_map,s.pending_map)==phase)
+   def guard(db):
+    if not same()or db.execute('SELECT town FROM location WHERE uid=?',(values[0],)).fetchone()!=(source,):raise ValueError('Furniture stale actor')
+   if(event.performers!=(0,)or event.uid!=event.target_uid or event.uid!=2**64-1 or event.payload_mode!=0 or type(sequence)is not int or not 1<=sequence<2**32):raise ValueError('Furniture native envelope')
++  if event.kind==0x92b:
++   from contextlib import closing
++   from els_server.protocol.housing_layout_messages import movement_floor
++   floor=movement_floor(event.payload)
++   if floor==current_floor:return []
++   from els_server.storage import housing_expansions
++   import time
++   with closing(sqlite3.connect(refs[1].path))as db:
++    db.execute('BEGIN');guard(db)
++    room=housing_expansions.require_room(db,values[0],values[1],context['generation'],context['operation'],int(time.time()))
++    if floor not in dict(room['layout']):raise ValueError('Housing movement uses an unowned floor')
++    guard(db)
++   context['floor']=floor
++   return []
++  if event.kind==0xd37:
++   from els_server.storage import housing_presets
++   return housing_presets.save(refs[1].path,values[0],values[1],event.payload,values[2]+':housing-preset:'+str(values[0])+':'+str(sequence),context['generation'],context['operation'],current_floor,guard)
++  if event.kind==0x219:
++   return housing_expansions.use(refs[1].path,values[0],values[1],event.payload,operation,context['generation'],context['operation'],guard)
+   if event.kind!=0x935:
+    from els_server.storage.housing_pets import perform
+    return perform(refs[1].path,values[0],values[1],event.kind,event.payload,values[2]+':housing-pet:'+str(values[0])+':'+str(sequence),context['generation'],context['operation'],guard)
+@@ -25,5 +55,12 @@
+  except(ValueError,sqlite3.Error,OverflowError,AttributeError,KeyError,TypeError):
+   if 'same'not in locals()or not same():return []
+   if event.kind==0x935:return[save_ack(empty_layout(),result=-1)]
++  if event.kind==0x92b:return []
++  if event.kind==0xd37:
++   from els_server.protocol.housing_preset_messages import acknowledgement
++   return[acknowledgement((0,'',-1,[],[]),result=-1)]
++  if event.kind==0x219:
++   from els_server.protocol.career_messages import use_ack
++   return[use_ack(result=-1)]
+   from els_server.protocol.housing_pet_messages import placement_ack
+   return[placement_ack(-1,[],kind=event.kind+1)]
+--- parent/els_server/domain/inventory_items.py
++++ candidate/els_server/domain/inventory_items.py
+@@ -1081,6 +1081,12 @@
+  if _r['group']in(7,27):FASHION_EQUIP_SLOTS[_t]=FASHION_POSITIONS[_r['equip_position']]
+ 
+ # Native furniture readers, including the three historical quest26770 rewards.
++from els_server.domain.housing_expansion_rules import definitions as _housing_expansion_definitions
++for _row in _housing_expansion_definitions():
++ _t=_row['template'];_expected=tuple(_row[k]for k in('metadata','group','max_stack'))
++ if _t in VERIFIED_TEMPLATES and(VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t])!=_expected:raise ValueError('Conflicting housing expansion reader')
++ VERIFIED_TEMPLATES[_t],TEMPLATE_BAG_GROUPS[_t],TEMPLATE_MAX_STACKS[_t]=_expected
++
+ from els_server.domain.furniture_rules import definitions as _small_furniture_definitions,QUEST_TEMPLATES as _quest_furniture
+ for _row in _small_furniture_definitions():
+  _t=_row['template']
+--- parent/els_server/domain/npc_trade.py
++++ candidate/els_server/domain/npc_trade.py
+@@ -48,8 +48,8 @@
+     return ed
+ 
+ 
+-def offer(town, merchant, template):
++def offer(town, merchant, template, *, raid_reward_source=None):
+     if template not in stock().get((town, merchant), ()) or template not in VERIFIED_TEMPLATES:
+         raise ValueError('Item is not an admitted offer of this town merchant')
+-    require_acquirable(template)
++    require_acquirable(template,raid_reward_source=raid_reward_source)
+     return price(template)
+--- parent/els_server/domain/raid_reward_items.py
++++ candidate/els_server/domain/raid_reward_items.py
+@@ -205,8 +205,8 @@
+  return source._validate()
+ 
+ def _issue_source(db,owner,operation,kind,source,plan,guard):
+- """Only called after a phase or owned-box writer has validated its authority."""
+- if kind not in('phase','box','pity','ordinary','guild_donation')or not callable(guard)or guard(db)is not True:raise ValueError('Raid writer source authority')
++ """Issue a source inside the original business writer's guarded transaction."""
++ if kind not in('phase','box','pity','ordinary','guild_donation','npc_trade')or not callable(guard)or guard(db)is not True:raise ValueError('Raid writer source authority')
+  if type(owner)is not int or owner<1001 or not isinstance(plan,list)or not 1<=len(plan)<=36:raise ValueError('Raid source owner/plan')
+  from els_server.storage.item_actor import require_active_character
+  require_active_character(db,owner);ensure_sources(db)
+--- parent/els_server/domain/shop_additions.py
++++ candidate/els_server/domain/shop_additions.py
+@@ -31,7 +31,9 @@
+                  if (unit_type is None or p['role'] in (0,unit_type))
+                  and p['template'] not in ice_equipment() and p['template'] not in NPC_MEDICINES)
+ 
+-    # Owner-approved ordinary scroll/photo ticket and both wedding rings.
++    from els_server.domain.housing_expansion_rules import SHOP_ITEMS
++    # Owner-approved consumables; existing aliases are not new shop products.
+     return supplements+tuple(dict(sku=1200000000+template,template=template,
+         name=client_data().item(template)['name'],category=category,price=50,quantity=1)
+-        for template,category in ((287960,41),(288494,41),(277141,32),(277142,32),(277150,32)))
++        for template,category in ((287960,41),(288494,41),(277141,32),(277142,32),(277150,32),
++                                  *((t,41)for t in SHOP_ITEMS)))
+--- parent/els_server/protocol/housing_expansion_messages.py
++++ candidate/els_server/protocol/housing_expansion_messages.py
+@@ -0,0 +1,20 @@
++"""Original item use and absolute housing state notifications."""
++import struct
++from els_server.protocol.protocol_codec import Event
++from els_server.protocol.housing_messages import _encode
++from els_server.protocol.housing_layout_messages import GRID,encode
++
++INFO=(('name','str'),('floors',('map','i',('tuple','i','i'))),('extra_presets','i'),('flag','bool'),('date','Q'))
++
++def use_request(payload):
++ if type(payload)is not bytes or len(payload)!=29:raise ValueError('Housing expansion item-use size')
++ uid,target,a,b,n,flag=struct.unpack('>QQiiIB',payload)
++ if not 0<uid<2**63 or target>3 or a or b or n or flag:raise ValueError('Housing expansion item-use fields')
++ return uid,target
++
++def info(floors,extra_presets):
++ #93D feeds the same HousingInfo consumer as924 DTO0BA..0EF.
++ return Event(0x201,kind=0x93d,payload=_encode(INFO,dict(name='',floors=sorted(floors.items()),extra_presets=extra_presets,flag=False,date=0)))
++
++def stage(maximum,grid,floor,selected):
++ return Event(0x201,kind=0x946,payload=struct.pack('>i',maximum)+encode(GRID,grid)+struct.pack('>ii',floor,selected))
+--- parent/els_server/protocol/housing_layout_messages.py
++++ candidate/els_server/protocol/housing_layout_messages.py
+@@ -8,10 +8,31 @@
+ GRID=('map','i',('vec',('vec','Q')))
+ LAYOUT=('tuple',LEGACY,NEW_SAVED,GRID,'i','i')
+ REQUEST=('tuple',LEGACY,NEW_REQUEST,GRID,'i','i','i')
+-MAX_BODY=65536
++# Legal multi-floor layouts and four presets can exceed64KiB; retain the
++# existing one-MiB secure-frame bound including its event/framing overhead.
++MAX_BODY=1024*1024-128
++
++def movement_floor(payload):
++ # Original2448F30 puts Game+910 in DTO+32;21152A0 serializes it
++ # after the existing movement DTO, also used by the ordinary town writer.
++ from els_server.storage.local_state import movement_location
++ if type(payload)is not bytes:raise ValueError('Housing movement bytes')
++ board,progress,xyz=movement_location(payload,'dx11_260923')
++ floor=struct.unpack_from('>i',payload,len(payload)-4)[0]
++ if not 0<=floor<=2 or not 0<=board<255 or not 0<=progress<=100 or any(not math.isfinite(v)or abs(v)>1000000 for v in xyz):raise ValueError('Housing current movement/floor')
++ return floor
++
+ 
+ def encode(schema,value):
+  if isinstance(schema,str):
++  if schema=='str':
++   if type(value)is not str or '\x00'in value:raise ValueError('Housing native string')
++   raw=value.encode('utf-16-le',errors='strict')
++   if len(raw)>65534:raise ValueError('Housing native string size')
++   return struct.pack('>I',len(raw))+raw
++  if schema=='bool':
++   if type(value)is not bool:raise ValueError('Housing native bool')
++   return bytes([value])
+   if schema in('f','d'):
+    if type(value)not in(int,float)or not math.isfinite(value):raise ValueError('Housing finite coordinate')
+   elif type(value)is not int:raise ValueError('Housing native integer')
+@@ -21,7 +42,7 @@
+   if type(value)is not tuple or len(value)!=len(schema)-1:raise ValueError('Housing native tuple')
+   parts=[encode(s,v)for s,v in zip(schema[1:],value)]
+  elif schema[0]in('map','vec'):
+-  if type(value)is not list or len(value)>512:raise ValueError('Housing container bound')
++  if type(value)is not list or len(value)>560:raise ValueError('Housing container bound')
+   if schema[0]=='vec':parts=[struct.pack('>I',len(value)),*[encode(schema[1],v)for v in value]]
+   else:
+    if any(type(v)is not tuple or len(v)!=2 for v in value):raise ValueError('Housing map pair')
+@@ -41,6 +62,16 @@
+   nodes+=1
+   if nodes>16384:raise ValueError('Housing nested container budget')
+   if isinstance(s,str):
++   if s=='str':
++    n=read('I')
++    if n>65534 or n%2 or pos+n>len(payload):raise ValueError('Housing native string length')
++    v=payload[pos:pos+n].decode('utf-16-le',errors='strict');pos+=n
++    if '\x00'in v:raise ValueError('Housing native string NUL')
++    return v
++   if s=='bool':
++    v=read('B')
++    if v not in(0,1):raise ValueError('Housing native bool')
++    return bool(v)
+    size=struct.calcsize('>'+s)
+    if pos+size>len(payload):raise ValueError('Truncated housing field')
+    v=struct.unpack_from('>'+s,payload,pos)[0];pos+=size
+@@ -48,7 +79,7 @@
+    return v
+   if s[0]=='tuple':return tuple(read(v)for v in s[1:])
+   count=read('I')
+-  if count>512:raise ValueError('Housing container count')
++  if count>560:raise ValueError('Housing container count')
+   if s[0]=='vec':return[read(s[1])for _ in range(count)]
+   rows=[(read(s[1]),read(s[2]))for _ in range(count)];keys=[k for k,v in rows]
+   if keys!=sorted(set(keys)):raise ValueError('Housing noncanonical map')
+@@ -57,11 +88,11 @@
+  if pos!=len(payload)or encode(schema,value)!=payload:raise ValueError('Housing trailing or changed native bytes')
+  return value
+ 
+-def empty_layout():return([],[],[],0,-1)
++def empty_layout(floor=0):return([],[],[],0,floor)
+ 
+-def save_ack(layout,*,result=0):
++def save_ack(layout,*,result=0,maximum=0,selected=0):
+  #3291290:result,full layout,existing furniture rewards,inventory delta,
+  #placement set,bool,two current expansion/preset indexes. No economy reward.
+- raw=struct.pack('>i',result)+encode(LAYOUT,layout)+bytes(4+4+4+1)+struct.pack('>ii',0,0)
++ raw=struct.pack('>i',result)+encode(LAYOUT,layout)+bytes(4+4+4+1)+struct.pack('>ii',maximum,selected)
+  if len(raw)>MAX_BODY:raise ValueError('Housing936 bound')
+  return Event(0x201,kind=0x936,payload=raw)
+--- parent/els_server/protocol/housing_messages.py
++++ candidate/els_server/protocol/housing_messages.py
+@@ -1,6 +1,7 @@
+ """Exact native923/924 layout only; no admission, defaults or housing writer."""
+ import math,struct
+-from els_server.protocol.housing_layout_messages import LAYOUT
++from els_server.protocol.housing_layout_messages import LAYOUT,MAX_BODY
++from els_server.protocol.housing_preset_messages import PRESET
+ 
+ # Keys name current packed DTO offsets, not guessed business semantics.
+ INFO=(('00','Q'),('08','Q'),('10','str'),('30','B'),('31','B'),
+@@ -12,7 +13,7 @@
+ ACK=(('000','i'),('004',INFO),('0ba','str'),('0da',('map','i',('tuple','i','i'))),
+      ('0ea','i'),('0ee','bool'),('0ef','Q'),('0f7',('map','i',LAYOUT)),('107',STATE),
+      ('14f',PROFILE),('1a3','bool'),('1a4',('map','i',('tuple','i','Q','d'))),
+-     ('1c4','bool'),('1b4','pet_placements'),('1c5','empty_map'))
++     ('1c4','bool'),('1b4','pet_placements'),('1c5',('map','i',PRESET)))
+ 
+ def _encode(schema,value):
+     if isinstance(schema,str):
+@@ -27,11 +28,6 @@
+         if schema=='pet_placements':
+             from els_server.protocol.housing_pet_messages import placements
+             return placements(value)
+-        if schema=='empty_map':
+-            # These maps have proven count prefixes but their nonempty
+-            # furniture/unit records are outside this finite codec.
+-            if value!=[] or type(value)is not list:raise ValueError('Housing nonempty unresolved map')
+-            return bytes(4)
+         if schema in('d','f'):
+             if type(value)not in(int,float)or not math.isfinite(value):raise ValueError('Housing finite double')
+         elif type(value)is not int:raise ValueError('Housing native integer')
+@@ -65,5 +61,5 @@
+     # Every field is explicit. This function does not create initial values,
+     # consume a contract, grant admission or mark objective75 as completed.
+     raw=_encode(ACK,value)
+-    if len(raw)>65536:raise ValueError('Housing924 payload bound')
++    if len(raw)>MAX_BODY:raise ValueError('Housing924 payload bound')
+     return raw
+--- parent/els_server/protocol/housing_preset_messages.py
++++ candidate/els_server/protocol/housing_preset_messages.py
+@@ -0,0 +1,14 @@
++"""Original DA5110/DA5310 preset summaries and D37/D38 payloads."""
++from els_server.protocol.housing_layout_messages import encode,decode
++from els_server.protocol.protocol_codec import Event
++import struct
++
++LEGACY=('vec',('tuple','i','i','i','i'))
++MODERN=('vec',('tuple','i','i','i',('tuple','f','f','f'),'i'))
++PRESET=('tuple','i','str','i',LEGACY,MODERN)
++REQUEST=('tuple',PRESET,'bool')
++
++def request(payload):return decode(REQUEST,payload)
++
++def acknowledgement(preset,*,result=0):
++ return Event(0x201,kind=0xd38,payload=struct.pack('>i',result)+encode(PRESET,preset))
+--- parent/els_server/storage/achievement_profiles.py
++++ candidate/els_server/storage/achievement_profiles.py
+@@ -6,7 +6,7 @@
+ from els_server.storage.achievement_collections import counts as collection_counts
+ from els_server.storage.achievement_history import counts as history_counts,couple_duration
+ 
+-CONDITION_TYPES=frozenset((2,4,5,6,7,10,15,16,17,18,19,20,23,24,25,26,27,28,29,30,32,34,35,36,37,38,39,42,43,44,45,49,50,51,52,53,56,57,58,59,60,61,62,63,66,67,68))
++CONDITION_TYPES=frozenset((2,4,5,6,7,10,15,16,17,18,19,20,23,24,25,26,27,28,29,30,32,34,35,36,37,38,39,42,43,44,45,49,50,51,52,53,56,57,58,59,60,61,62,63,64,65,66,67,68))
+ 
+ 
+ def pending_updates(db,account,owner,now,*,condition_types=CONDITION_TYPES,native_power=None):
+@@ -26,6 +26,18 @@
+     history=history_counts(db,account,condition_types)
+     duration=couple_duration(db,account,now)if 20 in condition_types else None
+     couple_due=None
++    housing={64:0,65:0}
++    if condition_types&{64,65}:
++        from els_server.storage.housing_rooms import snapshot as housing_room
++        room=housing_room(db,owner,account)
++        if room is not None:
++            # Native stage0 is the visible first stage. The original target1
++            # is owning a first-stage house, not a paid expansion count.
++            housing[65]=max(pair[0]+1 for floor,pair in room['layout'])
++            if 64 in condition_types:
++                from els_server.storage.housing_layouts import states as housing_layouts
++                placed=housing_layouts(db,owner,account,now=now)
++                housing[64]=len({uid for value in placed.values()for rows in value['layout'][:2]for uid,item in rows})
+     old={}
+     if state.exists(db):
+         old={(a,c):(v,bool(done))for a,c,v,done in db.execute(
+@@ -60,6 +72,7 @@
+             elif kind==42:value=collections.get((42,parameters['m_eTitleTypeID']),0)
+             elif kind==67:value=collections[(67,parameters['m_iClassLine'])]
+             elif kind==68:value=collections[(68,0)]
++            elif kind in(64,65):value=housing[kind]
+             else:continue
+             previous=old.get((identity,condition['id']),(0,False))
+             value=max(value,previous[0])
+--- parent/els_server/storage/housing_achievements.py
++++ candidate/els_server/storage/housing_achievements.py
+@@ -0,0 +1,11 @@
++"""Project committed owned-room facts in the housing business transaction."""
++from els_server.storage.achievement_profiles import reconcile
++from els_server.storage.achievements import snapshot
++from els_server.domain.achievement_catalog import points
++from els_server.protocol.achievement_messages import completion
++
++def update(db,owner,account,stamp):
++ result=reconcile(db,account,owner,stamp,condition_types=frozenset((64,65)))
++ if not result['completed']:return []
++ current=snapshot(db,account,owner);fresh=set(result['completed'])
++ return[completion([r for r in current['completed']if r['id']in fresh],points(current['completed']),current['watched'],False)]
+--- parent/els_server/storage/housing_expansions.py
++++ candidate/els_server/storage/housing_expansions.py
+@@ -0,0 +1,94 @@
++"""Original housing expansion items: consume, persist and acknowledge atomically."""
++from contextlib import closing
++from pathlib import Path
++import json,sqlite3,time
++from els_server.domain.housing_expansion_rules import STEP_ITEMS,FLOOR_ITEMS,PRESET_ITEMS
++from els_server.protocol import housing_expansion_messages as wire
++from els_server.protocol.career_messages import use_ack
++from els_server.protocol.protocol_codec import encode_event
++from els_server.storage import housing_rooms,housing_access
++from els_server.storage.item_actor import require_active_character
++from els_server.storage.inventory_actions import _identity,_previous,_commit
++from els_server.storage.inventory_state import load_items
++from els_server.storage.equipment_receipt_state import current_changes
++
++WRITES_ENABLED=True
++TABLE='character_housing_options_v1'
++TEMPLATES=frozenset(STEP_ITEMS+FLOOR_ITEMS+PRESET_ITEMS)
++
++def preset_expansions(db,owner,account):
++ housing_access.owner(db,owner,account)
++ if not housing_rooms.exists(db,TABLE):return 0
++ row=db.execute('SELECT account_id,extra_presets FROM '+TABLE+' WHERE owner=?',(owner,)).fetchone()
++ if row is None:return 0
++ if row[0]!=account or type(row[1])is not int or not 0<=row[1]<=3:raise ValueError('Unknown saved housing preset allowance')
++ return row[1]
++
++def require_room(db,owner,account,generation,admission,stamp):
++ require_active_character(db,owner);housing_access.owner(db,owner,account)
++ if not housing_access.active(housing_access.snapshot(db,owner,account),stamp):raise ValueError('Current housing access required')
++ row=db.execute('SELECT owner,account_id,generation FROM housing_room_admissions WHERE operation_id=?',(admission,)).fetchone()
++ room=housing_rooms.snapshot(db,owner,account)
++ if row!=(owner,account,generation)or room is None or room['generation']!=generation:raise ValueError('Housing durable admission changed')
++ if db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()!=(99,):raise ValueError('Housing owner level99 required')
++ return room
++
++def write_floors(db,owner,account,floors):
++ db.execute('UPDATE character_housing_rooms_v1 SET layout_json=? WHERE owner=? AND account_id=?',
++            (json.dumps(sorted(floors.items()),separators=(',',':')),owner,account))
++ housing_rooms.snapshot(db,owner,account)
++
++def notifications(db,owner,account,template,target,floors):
++ answer=[wire.info(floors,preset_expansions(db,owner,account))]
++ if template in STEP_ITEMS:
++  from els_server.storage.housing_layouts import snapshot
++  saved=snapshot(db,owner,account,floor=target)
++  answer.append(wire.stage(floors[target][0],[]if saved is None else saved['layout'][2],target,floors[target][1]))
++ return answer
++
++def use(path,owner,account,payload,operation,generation,admission,guard,*,now=None):
++ source,target=wire.use_request(payload);owner,digest=_identity(owner,0x219,b'HousingExpansion:'+payload,operation)
++ if not callable(guard):raise ValueError('Housing expansion current actor')
++ with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
++  db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');guard(db)
++  stamp=int(time.time())if now is None else now
++  if type(stamp)is not int or not 0<stamp<2**63:raise ValueError('Housing expansion time')
++  room=require_room(db,owner,account,generation,admission,stamp);floors=dict(room['layout'])
++  before=load_items(db,owner);old=_previous(db,operation,digest)
++  item=next((i for i in before if i['uid']==source),None)
++  balance=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(owner,)).fetchone()
++  if balance is None or type(balance[0])is not int or not 0<=balance[0]<2**63:raise ValueError('Housing ED integrity')
++  if old is not None:
++   historic=db.execute('SELECT before_json FROM inventory_action_receipts WHERE operation_id=? AND owner=? AND kind=537',(operation,owner)).fetchone()
++   item=next((i for i in json.loads(historic[0])if i['uid']==source),None)if historic is not None else None
++   if item is None or item['template']not in TEMPLATES:raise ValueError('Housing expansion receipt source')
++   answer=[use_ack(current_changes(db,operation,owner,0x219,old,before),item['template'],balance[0])]+notifications(db,owner,account,item['template'],target,floors)
++   for e in answer:encode_event(e)
++   guard(db);return answer
++  if not WRITES_ENABLED:raise ValueError('Housing expansion writer held')
++  if item is None or item['template']not in TEMPLATES or(item['metadata'],item['group'],item['count'])!=(0,4,1):raise ValueError('Owned housing expansion contract required')
++  from els_server.domain.item_expiration import require_current
++  from els_server.domain.item_locks import require_unlocked
++  require_current(item,now=stamp);require_unlocked(item,now=stamp)
++  if item.get('sealed',False)or item.get('seal_count',0):raise ValueError('Housing contract is sealed')
++  template=item['template']
++  if template in STEP_ITEMS:
++   if target not in floors or floors[target][0]>=4 or STEP_ITEMS[floors[target][0]]!=template:raise ValueError('Next housing stage contract and owned floor required')
++   new=floors[target][0]+1;floors[target]=(new,new);write_floors(db,owner,account,floors)
++  elif template in FLOOR_ITEMS:
++   if len(floors)>=3 or target!=len(floors)+1:raise ValueError('Next housing floor required')
++   floors[len(floors)]=(0,0);write_floors(db,owner,account,floors)
++  else:
++   count=preset_expansions(db,owner,account)
++   if target or count>=3:raise ValueError('Housing preset allowance reached')
++   db.execute('CREATE TABLE IF NOT EXISTS character_housing_options_v1 (owner INTEGER PRIMARY KEY REFERENCES characters(uid),account_id INTEGER NOT NULL,extra_presets INTEGER NOT NULL CHECK(extra_presets BETWEEN 0 AND 3))')
++   db.execute('INSERT INTO '+TABLE+' VALUES (?,?,?) ON CONFLICT(owner)DO UPDATE SET extra_presets=excluded.extra_presets',(owner,account,count+1))
++  from els_server.storage.item_instances import remove
++  remove(db,owner,item);after=load_items(db,owner);positions=[(item['group'],item['slot'])]
++  from els_server.storage.housing_achievements import update as achievements
++  answer=[use_ack([(positions[0],None)],template,balance[0])]+notifications(db,owner,account,template,target,floors)+achievements(db,owner,account,stamp)
++  for e in answer:encode_event(e)
++  _commit(db,operation,digest,owner,0x219,positions,before,after)
++  guard(db)
++  if not WRITES_ENABLED:raise ValueError('Housing expansion held before commit')
++  return answer
+--- parent/els_server/storage/housing_layouts.py
++++ candidate/els_server/storage/housing_layouts.py
+@@ -1,68 +1,101 @@
+-"""Own unexpanded room layouts; furniture remains an owned inventory instance."""
++"""Owned per-floor layouts; original floor0 records remain readable."""
+ from contextlib import closing
+ from pathlib import Path
+ import hashlib,sqlite3,time
+-from els_server.domain.furniture_rules import validate_layout,TEMPLATES
++from els_server.domain.furniture_rules import validate_layout
++from els_server.domain.housing_pet_rules import mat
+ from els_server.protocol.housing_layout_messages import LAYOUT,REQUEST,encode,decode,save_ack,empty_layout
+ from els_server.protocol.protocol_codec import encode_event
+ from els_server.storage import housing_rooms,housing_access
+ from els_server.storage.inventory_state import load_items
+ WRITES_ENABLED=True
+-TABLE='character_housing_layouts_v1'
++TABLE='character_housing_floor_layouts_v2'
++LEGACY_TABLE='character_housing_layouts_v1'
+ RECEIPTS='housing_layout_receipts'
+ 
+-def snapshot(db,owner,account,*,now=None):
+- housing_access.owner(db,owner,account)
+- if not housing_rooms.exists(db,TABLE):return None
+- row=db.execute('SELECT account_id,version,payload,revision,updated_at FROM character_housing_layouts_v1 WHERE owner=?',(owner,)).fetchone()
+- if row is None:return None
+- if(row[:2]!=(account,1)or type(row[2])is not bytes or any(type(v)is not int or not 0<v<2**63 for v in row[3:])):raise ValueError('Unknown saved housing layout')
+- layout=decode(LAYOUT,row[2]);validate_layout(layout,load_items(db,owner),now=now)
+- return dict(layout=layout,revision=row[3],updated_at=row[4])
++
++def states(db,owner,account,*,now=None):
++ housing_access.owner(db,owner,account);result={};items=load_items(db,owner)
++ if housing_rooms.exists(db,TABLE):
++  for floor,aid,version,payload,revision,stamp in db.execute('SELECT floor,account_id,version,payload,revision,updated_at FROM '+TABLE+' WHERE owner=? ORDER BY floor',(owner,)):
++   if (aid,version)!=(account,2)or not 0<=floor<=2 or type(payload)is not bytes or any(type(v)is not int or not 0<v<2**63 for v in(revision,stamp)):raise ValueError('Unknown saved housing floor layout')
++   layout=decode(LAYOUT,payload)
++   if layout[4]!=floor:raise ValueError('Saved housing floor key mismatch')
++   result[floor]=dict(layout=layout,revision=revision,updated_at=stamp)
++ if 0 not in result and housing_rooms.exists(db,LEGACY_TABLE):
++  row=db.execute('SELECT account_id,version,payload,revision,updated_at FROM '+LEGACY_TABLE+' WHERE owner=?',(owner,)).fetchone()
++  if row is not None:
++   if row[:2]!=(account,1)or type(row[2])is not bytes or any(type(v)is not int or not 0<v<2**63 for v in row[3:]):raise ValueError('Unknown saved housing layout')
++   layout=decode(LAYOUT,row[2])
++   # The old writer admitted only floor0 and its ctor-1 empty form.
++   if layout[3]!=0 or layout[4]not in(-1,0):raise ValueError('Unknown legacy housing floor')
++   result[0]=dict(layout=(*layout[:4],0),revision=row[3],updated_at=row[4],legacy_floor_locations=True)
++ validate_set(result,items,now=now)
++ return result
++
++
++def validate_set(states,items,*,mutating_floor=None,now=None):
++ used=set();mats=[]
++ for floor,state in sorted(states.items()):
++  layout=state['layout'];validate_layout(layout,items,mutating=floor==mutating_floor,now=now,legacy_floor_locations=state.get('legacy_floor_locations',False))
++  uids={k for rows in layout[:2]for k,v in rows}
++  if used&uids:raise ValueError('One owned furniture instance cannot occupy two floors')
++  used.update(uids)
++  target=mat(layout)
++  if target is not None:mats.append(target)
++ if len(mats)>1:raise ValueError('Housing permits one pet mat across floors')
++
++
++def snapshot(db,owner,account,*,now=None,floor=0):return states(db,owner,account,now=now).get(floor)
++
+ 
+ def project(db,owner,account,value,*,now=None):
+- state=snapshot(db,owner,account,now=now)
+- if state is not None:
+-  #0F7 is the native preset map. Base preset0 is the sole current allowance.
+-  value['0f7']=[(0,state['layout'])]
++ room=housing_rooms.snapshot(db,owner,account);saved=states(db,owner,account,now=now)
++ if room is None:
++  if saved:raise ValueError('Housing floor layout has no room')
++  return value
++ allowed={floor for floor,pair in room['layout']}
++ if set(saved)-allowed:raise ValueError('Saved layout uses an unowned floor')
++ #0F7 is the per-floor map; final1C5 holds native preset summaries.
++ value['0f7']=[(floor,saved[floor]['layout']if floor in saved else empty_layout(floor))for floor in sorted(allowed)]
+  return value
+ 
++
+ def save(path,owner,account,payload,operation,generation,admission,guard,*,now=None):
+- request=decode(REQUEST,payload);legacy,new,grid,floor,expansion,preset=request
+- if preset not in(-1,0):raise ValueError('Furniture unqualified preset')
+- layout=(legacy,new,grid,floor,expansion)
++ legacy,new,grid,reserved,floor,selected=decode(REQUEST,payload)
++ layout=(legacy,new,grid,reserved,floor)
+  if not callable(guard)or type(operation)is not str or not 1<=len(operation)<=200:raise ValueError('Furniture current writer')
+  digest=hashlib.sha256(payload).hexdigest()
+  with closing(sqlite3.connect(Path(path),timeout=10))as db,db:
+   db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');guard(db)
+   stamp=int(time.time())if now is None else now
+   if type(stamp)is not int or not 0<stamp<2**63:raise ValueError('Furniture saved time')
+-  from els_server.storage.item_actor import require_active_character
+-  require_active_character(db,owner);housing_access.owner(db,owner,account)
+-  access=housing_access.snapshot(db,owner,account)
+-  if access is None or not access['registered_at']<=stamp<access['expires_at']:raise ValueError('Furniture current housing access')
+-  row=db.execute('SELECT owner,account_id,generation FROM housing_room_admissions WHERE operation_id=?',(admission,)).fetchone()
+-  room=housing_rooms.snapshot(db,owner,account)
+-  if row!=(owner,account,generation)or room is None or room['generation']!=generation:raise ValueError('Furniture durable admission changed')
++  from els_server.storage.housing_expansions import require_room,write_floors
++  room=require_room(db,owner,account,generation,admission,stamp);floors=dict(room['layout'])
++  if floor not in floors or type(selected)is not int or not 0<=selected<=floors[floor][0]:raise ValueError('Furniture unowned floor or size')
+   old=db.execute('SELECT owner,account_id,request_hash FROM housing_layout_receipts WHERE operation_id=?',(operation,)).fetchone()if housing_rooms.exists(db,RECEIPTS)else None
+-  state=snapshot(db,owner,account,now=stamp)
++  saved=states(db,owner,account,now=stamp);state=saved.get(floor)
+   if old is not None:
+    if old!=(owner,account,digest)or state is None:raise ValueError('Furniture receipt collision')
+-   answer=[save_ack(state['layout'])]
++   answer=[save_ack(state['layout'],maximum=floors[floor][0],selected=floors[floor][1])]
+    for e in answer:encode_event(e)
+    guard(db);return answer
+   if not WRITES_ENABLED:raise ValueError('Furniture writer held')
+-  before=load_items(db,owner);validate_layout(layout,before,mutating=True,now=stamp)
++  before=load_items(db,owner);revision=1 if state is None else state['revision']+1
++  if revision>=2**63:raise ValueError('Furniture revision bound')
++  saved[floor]=dict(layout=layout,revision=revision,updated_at=stamp)
++  validate_set(saved,before,mutating_floor=floor,now=stamp)
+   from els_server.storage.housing_pets import validate_layout as validate_pet_mat
+-  validate_pet_mat(db,owner,layout)
+-  revision=1 if state is None else state['revision']+1
+-  if revision>=2**63:raise ValueError('Furniture revision bound')
+-  db.execute('CREATE TABLE IF NOT EXISTS character_housing_layouts_v1 (owner INTEGER PRIMARY KEY REFERENCES characters(uid),account_id INTEGER NOT NULL,version INTEGER NOT NULL CHECK(version=1),payload BLOB NOT NULL,revision INTEGER NOT NULL CHECK(revision>0),updated_at INTEGER NOT NULL CHECK(updated_at>0))')
++  pet_layout=next((v['layout']for v in saved.values()if mat(v['layout'])is not None),layout)
++  validate_pet_mat(db,owner,pet_layout)
++  db.execute('CREATE TABLE IF NOT EXISTS character_housing_floor_layouts_v2 (owner INTEGER NOT NULL REFERENCES characters(uid),floor INTEGER NOT NULL CHECK(floor BETWEEN 0 AND 2),account_id INTEGER NOT NULL,version INTEGER NOT NULL CHECK(version=2),payload BLOB NOT NULL,revision INTEGER NOT NULL CHECK(revision>0),updated_at INTEGER NOT NULL CHECK(updated_at>0),PRIMARY KEY(owner,floor))')
+   db.execute('CREATE TABLE IF NOT EXISTS housing_layout_receipts (operation_id TEXT PRIMARY KEY,owner INTEGER NOT NULL REFERENCES characters(uid),account_id INTEGER NOT NULL,request_hash TEXT NOT NULL,revision INTEGER NOT NULL,created_at INTEGER NOT NULL)')
+-  db.execute('INSERT INTO character_housing_layouts_v1 VALUES (?,?,1,?,?,?) ON CONFLICT(owner)DO UPDATE SET payload=excluded.payload,revision=excluded.revision,updated_at=excluded.updated_at',(owner,account,encode(LAYOUT,layout),revision,stamp))
++  db.execute('INSERT INTO character_housing_floor_layouts_v2 VALUES (?,?,?,2,?,?,?) ON CONFLICT(owner,floor)DO UPDATE SET payload=excluded.payload,revision=excluded.revision,updated_at=excluded.updated_at',(owner,floor,account,encode(LAYOUT,layout),revision,stamp))
++  floors[floor]=(floors[floor][0],selected);write_floors(db,owner,account,floors)
+   db.execute('INSERT INTO housing_layout_receipts VALUES (?,?,?,?,?,?)',(operation,owner,account,digest,revision,stamp))
+-  answer=[save_ack(layout)]
++  from els_server.storage.housing_achievements import update as achievements
++  answer=[save_ack(layout,maximum=floors[floor][0],selected=selected)]+achievements(db,owner,account,stamp)
+   for e in answer:encode_event(e)
+   guard(db)
+-  if not WRITES_ENABLED or load_items(db,owner)!=before or snapshot(db,owner,account,now=stamp)['layout']!=layout:raise ValueError('Furniture changed before commit')
++  if not WRITES_ENABLED or load_items(db,owner)!=before or snapshot(db,owner,account,now=stamp,floor=floor)['layout']!=layout:raise ValueError('Furniture changed before commit')
+   return answer
+--- parent/els_server/storage/housing_pets.py
++++ candidate/els_server/storage/housing_pets.py
+@@ -49,9 +49,9 @@
+     from els_server.storage.companion_state import rows as pets
+     owned={p['uid']:p for p in pets(db,owner,'pet')}
+     if any(r[2]not in owned for r in rows):raise ValueError('Housing pet ownership changed')
+-    # The additional native byte remains its original DTO constructor zero.
+-    # This finite layout has only the original first floor; no unverified
+-    # expansion/floor semantics are inferred from that auxiliary byte.
++    # Original2460890 projects every placed pet through Game+B00, the mat
++    # selected by the current floor's original2451350. No new floor byte is
++    # needed in this shared set; retain the existing auxiliary constructor0.
+     return [(r[1],0,r[5],owned[r[2]])for r in rows]
+ 
+ 
+@@ -149,9 +149,9 @@
+             if kind==0xa38:
+                 access=housing_access.snapshot(db,owner,account)
+                 if not housing_access.active(access,clock):raise ValueError('Housing pet current contract required')
+-                from els_server.storage.housing_layouts import snapshot as layout_snapshot
+-                layout=layout_snapshot(db,owner,account,now=clock)
+-                target=None if layout is None else mat(layout['layout'])
++                from els_server.storage.housing_layouts import states as layout_states
++                layouts=layout_states(db,owner,account,now=clock)
++                target=next((target for state in layouts.values()if(target:=mat(state['layout']))is not None),None)
+                 if target is None or slot>target['capacity']:raise ValueError('Housing pet mat/slot required')
+                 if any(r[1]==slot or r[2]==uid for r in rows):raise ValueError('Housing pet slot or pet already placed')
+                 from els_server.storage.pet_support import owned_pet
+--- parent/els_server/storage/housing_presets.py
++++ candidate/els_server/storage/housing_presets.py
+@@ -0,0 +1,95 @@
++"""Original D37 native preset description, with owned furniture/stage authority."""
++from contextlib import closing
++from pathlib import Path
++import hashlib,sqlite3,time
++from els_server.protocol import housing_preset_messages as wire
++from els_server.protocol.housing_layout_messages import encode,decode
++from els_server.protocol.protocol_codec import encode_event
++from els_server.storage import housing_access,housing_rooms,housing_expansions
++
++TABLE='character_housing_presets_v1'
++RECEIPTS='housing_preset_receipts'
++WRITES_ENABLED=True
++
++
++def validate(preset):
++ from els_server.domain.bag_capacity import FURNITURE_CAPACITY
++ from els_server.domain.furniture_rules import POSITION_TYPES,PET_TEMPLATES
++ slot,name,stage,legacy,modern=preset
++ if not name or not 0<=stage<=4 or not 1<=len(legacy)+len(modern)<=FURNITURE_CAPACITY:raise ValueError('Housing preset name/stage/size')
++ skins=set();mats=0
++ for free,rows in((False,legacy),(True,modern)):
++  for row in rows:
++   if free:
++    reserved,template,position,xyz,last=row
++    if reserved or template in PET_TEMPLATES:raise ValueError('Housing preset free-placement fields')
++   else:position,template,x,y=row;xyz=(x,y,0)
++   if template not in POSITION_TYPES or position not in POSITION_TYPES[template]or any(abs(v)>1000000 for v in xyz):raise ValueError('Housing preset native furniture fields')
++   if position in(4,5,6):
++    if position in skins:raise ValueError('Housing preset duplicate surface')
++    skins.add(position)
++   mats+=template in PET_TEMPLATES
++ if mats>1:raise ValueError('Housing preset permits one pet mat')
++ return preset
++
++
++def snapshot(db,owner,account):
++ housing_access.owner(db,owner,account)
++ if not housing_rooms.exists(db,TABLE):return {}
++ result={}
++ for slot,aid,version,payload,revision,stamp in db.execute('SELECT slot,account_id,version,payload,revision,updated_at FROM '+TABLE+' WHERE owner=? ORDER BY slot',(owner,)):
++  if aid!=account or version!=1 or type(slot)is not int or not 0<=slot<4 or type(payload)is not bytes or any(type(v)is not int or not 0<v<2**63 for v in(revision,stamp)):raise ValueError('Unknown housing preset saved format')
++  preset=validate(decode(wire.PRESET,payload))
++  if preset[0]!=slot:raise ValueError('Saved housing preset slot')
++  result[slot]=dict(preset=preset,revision=revision,updated_at=stamp)
++ if result and max(result)>housing_expansions.preset_expansions(db,owner,account):raise ValueError('Saved housing preset exceeds owned allowance')
++ return result
++
++
++def require_furniture(db,owner,preset,stamp):
++ from collections import Counter
++ from els_server.storage.inventory_state import load_items
++ from els_server.domain.item_expiration import expired
++ requested=Counter(row[1]for rows in preset[3:]for row in rows)
++ owned=Counter(item['template']for item in load_items(db,owner)if(item['group'],item['metadata'],item['count'])==(25,0,1)and not item.get('sealed',False)and not expired(item,now=stamp))
++ if requested-owned:raise ValueError('Housing preset requires current owned furniture quantities')
++
++
++def save(path,owner,account,payload,operation,generation,admission,floor,guard,*,now=None):
++ requested,rename=wire.request(payload);slot,name,stage,legacy,modern=requested
++ if not callable(guard)or type(operation)is not str or not 1<=len(operation)<=200 or not 0<=slot<4:raise ValueError('Housing preset current request')
++ validate(requested)
++ digest=hashlib.sha256(payload).hexdigest()
++ with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=rw',uri=True,timeout=10))as db,db:
++  db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');guard(db)
++  stamp=int(time.time())if now is None else now
++  if type(stamp)is not int or not 0<stamp<2**63:raise ValueError('Housing preset time')
++  room=housing_expansions.require_room(db,owner,account,generation,admission,stamp)
++  floors=dict(room['layout'])
++  if floor not in floors or slot>housing_expansions.preset_expansions(db,owner,account):raise ValueError('Housing preset unowned slot/floor')
++  saved=snapshot(db,owner,account);current=saved.get(slot)
++  old=db.execute('SELECT owner,account_id,request_hash,slot FROM '+RECEIPTS+' WHERE operation_id=?',(operation,)).fetchone()if housing_rooms.exists(db,RECEIPTS)else None
++  if old is not None:
++   if old!=(owner,account,digest,slot)or current is None:raise ValueError('Housing preset receipt collision')
++   answer=[wire.acknowledgement(current['preset'])]
++   for event in answer:encode_event(event)
++   guard(db);return answer
++  if not WRITES_ENABLED:raise ValueError('Housing preset writer held')
++  if rename:
++   if current is None or (stage,legacy,modern)!=current['preset'][2:]:raise ValueError('Housing preset rename requires current saved summary')
++   preset=(slot,name,*current['preset'][2:])
++  else:
++   if stage>floors[floor][0]:raise ValueError('Housing preset requires an unlocked current-floor stage')
++   require_furniture(db,owner,requested,stamp)
++   preset=requested
++  revision=1 if current is None else current['revision']+1
++  if revision>=2**63:raise ValueError('Housing preset revision bound')
++  db.execute('CREATE TABLE IF NOT EXISTS character_housing_presets_v1(owner INTEGER NOT NULL REFERENCES characters(uid),slot INTEGER NOT NULL CHECK(slot BETWEEN 0 AND 3),account_id INTEGER NOT NULL,version INTEGER NOT NULL CHECK(version=1),payload BLOB NOT NULL,revision INTEGER NOT NULL CHECK(revision>0),updated_at INTEGER NOT NULL CHECK(updated_at>0),PRIMARY KEY(owner,slot))')
++  db.execute('CREATE TABLE IF NOT EXISTS housing_preset_receipts(operation_id TEXT PRIMARY KEY,owner INTEGER NOT NULL REFERENCES characters(uid),account_id INTEGER NOT NULL,request_hash TEXT NOT NULL,slot INTEGER NOT NULL CHECK(slot BETWEEN 0 AND 3),created_at INTEGER NOT NULL CHECK(created_at>0))')
++  db.execute('INSERT INTO '+TABLE+' VALUES(?,?,?,1,?,?,?) ON CONFLICT(owner,slot)DO UPDATE SET payload=excluded.payload,revision=excluded.revision,updated_at=excluded.updated_at',(owner,slot,account,encode(wire.PRESET,preset),revision,stamp))
++  db.execute('INSERT INTO '+RECEIPTS+' VALUES(?,?,?,?,?,?)',(operation,owner,account,digest,slot,stamp))
++  answer=[wire.acknowledgement(preset)]
++  for event in answer:encode_event(event)
++  guard(db)
++  if not WRITES_ENABLED:raise ValueError('Housing preset writer changed before commit')
++  return answer
+--- parent/els_server/storage/housing_rooms.py
++++ candidate/els_server/storage/housing_rooms.py
+@@ -23,8 +23,14 @@
+     if not exists(db,ROOM):return None
+     row=db.execute('SELECT account_id,version,layout_json,floor_template,wall_template,created_at,generation FROM character_housing_rooms_v1 WHERE owner=?',(uid,)).fetchone()
+     if row is None:return None
+-    if(row[:5]!=(account_id,1,LAYOUT,136037,136036)or any(type(v)is not int or not 0<v<2**63 for v in row[5:])):raise ValueError('Unknown housing room saved format')
+-    return dict(owner=uid,account_id=account_id,version=1,layout=[(0,(0,0))],floor_template=row[3],wall_template=row[4],created_at=row[5],generation=row[6])
++    if(row[:2]!=(account_id,1)or row[3:5]!=(136037,136036)or any(type(v)is not int or not 0<v<2**63 for v in row[5:])):raise ValueError('Unknown housing room saved format')
++    floors=json.loads(row[2])
++    if (type(floors)is not list or not 1<=len(floors)<=3
++        or any(type(v)is not list or len(v)!=2 or type(v[0])is not int or v[0]!=n
++               or type(v[1])is not list or len(v[1])!=2 or any(type(i)is not int for i in v[1])
++               or not 0<=v[1][1]<=v[1][0]<=4 for n,v in enumerate(floors))
++        or json.dumps(floors,separators=(',',':'))!=row[2]):raise ValueError('Unknown housing floor state')
++    return dict(owner=uid,account_id=account_id,version=1,layout=[(n,tuple(v))for n,v in floors],floor_template=row[3],wall_template=row[4],created_at=row[5],generation=row[6])
+ 
+ def read(path,uid,account_id):
+     with closing(sqlite3.connect(Path(path).resolve().as_uri()+'?mode=ro',uri=True))as db:return snapshot(db,uid,account_id)
+@@ -42,8 +48,14 @@
+         '1a3':False,'1a4':[],'1c4':True,'1b4':[],'1c5':[]}
+ 
+     if db is not None:
++        room=snapshot(db,uid,account)
++        if room is not None:value['0da']=room['layout']
++        from els_server.storage.housing_expansions import preset_expansions
++        value['0ea']=preset_expansions(db,uid,account)
+         from els_server.storage.housing_layouts import project
+         project(db,uid,account,value)
++        from els_server.storage.housing_presets import snapshot as presets
++        value['1c5']=[(slot,state['preset'])for slot,state in presets(db,uid,account).items()]
+         from els_server.storage.housing_pets import projection
+         value['1b4']=projection(db,uid,account)
+     return value
+@@ -99,7 +111,8 @@
+         active=db.execute('SELECT generation FROM character_quests WHERE owner=? AND quest=26770',(uid,)).fetchone()
+         db.execute('INSERT INTO housing_room_admissions VALUES (?,?,?,?,?,?,?,?,?)',(operation,uid,account_id,session_id,digest,generation,source_town,clock,active[0]if active else None))
+         from els_server.domain.housing_room_quest import admitted
+-        answer=[Event(0x201,kind=0x924,payload=entry_snapshot(dto(character,db=db,account=account_id)))]+admitted(db,uid,account_id,operation,generation)
++        from els_server.storage.housing_achievements import update as achievements
++        answer=[Event(0x201,kind=0x924,payload=entry_snapshot(dto(character,db=db,account=account_id)))]+admitted(db,uid,account_id,operation,generation)+achievements(db,uid,account_id,clock)
+         for event in answer:encode_event(event)
+         guard(db)
+         if not WRITES_ENABLED:raise ValueError('Housing room held before commit')
+--- parent/els_server/storage/npc_trade.py
++++ candidate/els_server/storage/npc_trade.py
+@@ -76,12 +76,26 @@
+         from els_server.domain import spa_market
+         spa_cycle=spa_market.new_purchase(db,owner,town,entries,merchant)
+         if guild_bound:guild_license.new_purchase(db,owner,guild_account_id,before)
+-        amount = sum(offer(town, merchant, t)*q for t, q in entries)
++        from els_server.domain.furniture_rules import BOX_TEMPLATES,NPC_POLICY
++        furniture = [dict(template=t,metadata=VERIFIED_TEMPLATES[t],quantity=q,
++                          group=TEMPLATE_BAG_GROUPS[t]) for t,q in entries if t in BOX_TEMPLATES]
++        source = None
++        if furniture:
++            from els_server.domain.raid_reward_items import _issue_source
++            def current_merchant(db):
++                require_active_character(db,owner)
++                return db.execute('SELECT town FROM location WHERE uid=?',(owner,)).fetchone()==(town,)
++            source = _issue_source(db,owner,operation,'npc_trade',
++                dict(policy=NPC_POLICY,owner=owner,operation=operation,town=town,merchant=merchant),
++                furniture,current_merchant)
++        amount = sum(offer(town,merchant,t,raid_reward_source=source if t in BOX_TEMPLATES else None)*q for t,q in entries)
+         if amount >= 2**31:
+             raise ValueError('Merchant native signed price overflow')
+         ed = charge(db, owner, balance, amount)
+-        changes = grant_items(db, [dict(template=t, metadata=VERIFIED_TEMPLATES[t],
+-            quantity=q, group=TEMPLATE_BAG_GROUPS[t]) for t, q in entries], owner)
++        ordinary = [dict(template=t,metadata=VERIFIED_TEMPLATES[t],quantity=q,
++                         group=TEMPLATE_BAG_GROUPS[t]) for t,q in entries if t not in BOX_TEMPLATES]
++        changes = grant_items(db,ordinary,owner) if ordinary else []
++        if furniture:changes += grant_items(db,furniture,owner,raid_reward_source=source)
+         wire = purchase_ack(ed, changes)
+         after = load_items(db, owner)
+         _commit(db, operation, digest, owner, 0xea, [(i['group'], i['slot']) for i in changes], before, after)

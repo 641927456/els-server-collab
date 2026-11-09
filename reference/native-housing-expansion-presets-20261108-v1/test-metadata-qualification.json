@@ -1,0 +1,14 @@
+{
+  "issue": "Original runner unconditionally emitted actual_shop_purchase=true, even for cases that never called purchase.",
+  "qualification": {
+    "v1_v2_v3": "Setup failures do not establish any housing purchase or commit.",
+    "v4": "Named six-product shop purchase/replay test did call the actual ordinary shop writer.",
+    "v5_v6": "The stage-contract test called purchase; other non-shop cases make no acquisition claim.",
+    "v7": "Only account/placement validators; no shop call.",
+    "v8": "The named six-product shop purchase/replay case called the actual writer.",
+    "v9_v10_v11": "No shop purchase call; explicit existing-item fixtures only."
+  },
+  "runner_corrected": "Counts successful actual shop.purchase calls; no business code change.",
+  "historical_results_preserved": true,
+  "rerun_unnecessary": "Metadata correction changes no inputs, assertions, business implementation or successful result."
+}

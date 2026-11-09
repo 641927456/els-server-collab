@@ -1,0 +1,39 @@
+{
+  "ok": true,
+  "installed": false,
+  "source_manifest_sha256": "475b5132e49ec3e5e1d04954b614d580fb579d495a26dee54856459e9f6e8cf1",
+  "tests": {
+    "storage_reuse": [
+      "v8",
+      "v10",
+      "v11",
+      "v12 movement only",
+      "v13 first two corrected preset cases",
+      "v14 exact native D37 body"
+    ],
+    "native_codec": [
+      "preset-codec-native-v2.json",
+      "entry-codec-native-v1.json"
+    ],
+    "native": [
+      "native-cold-v19",
+      "native-options-pets-v21",
+      "native-current-v22"
+    ],
+    "NPC_economy": "npc-storage-after-v2.json"
+  },
+  "source_changes_since_actual_V108_test": false,
+  "source_parent_integration": "parent-integration-v108.json",
+  "new_source_types": [
+    64,
+    65
+  ],
+  "connected_source_types": 49,
+  "connected_definitions": 322,
+  "remaining_source_types": 11,
+  "unresolved_original_reward_groups": 53,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "review_sha256": "12a13e5aa1425f9379d97e8d5dc94592b3183b5236d66a003a8c5e99e64573cb",
+  "reviewer": "primary session differential review; no new support hook"
+}

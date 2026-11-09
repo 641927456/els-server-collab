@@ -1,0 +1,1172 @@
+{
+  "ok": true,
+  "generated_utc": "2026-11-07T22:34:02.587741+00:00",
+  "release": "native-housing-expansion-presets-20261108-v1",
+  "launcher_version": 109,
+  "source_catalog_sha256": "6fe8a9c73f47de735037239113d80e8178fa5fece776f822e6af003ebebd20b3",
+  "summary": [
+    {
+      "system": "业绩",
+      "status": "尚未接通／奖励暂缓",
+      "remaining": "11类条件、55条定义；奖励101组有来源、50组有物品读取支持，另53组缺原始物品或数量并暂缓；业绩增益仍未完整闭环。"
+    },
+    {
+      "system": "家园",
+      "status": "部分已交付",
+      "remaining": "扩建、560格、三层五阶段四预设和上层宠物垫本批已交付；访问／邀请、音乐、留言簿及完整家具收益待补。"
+    },
+    {
+      "system": "排行榜／赛季／正式对战",
+      "status": "尚未闭环",
+      "remaining": "正向排行榜、完整赛季重置和奖励、其他正式模式、30810／54610重复周任务仍待；已接1v1和城镇切磋不重列。"
+    },
+    {
+      "system": "练习对战／观战",
+      "status": "尚未接通",
+      "remaining": "练习建房、地图／密码／模式、列表和观战的原生合同待核。"
+    },
+    {
+      "system": "检查表／周任务面板／通行证",
+      "status": "尚未闭环",
+      "remaining": "原生列表、剩余次数、收藏／接取／重置和权益存档待补；有效赛季及奖励费用需先核。"
+    },
+    {
+      "system": "专属副本与团本",
+      "status": "部分未接通",
+      "remaining": "英雄随机池和次数、艾达六人阵营、黑暗之门每日奖励、扭曲时空贡献、赫尼尔周领奖等仍缺；挑战八人合流及限次亦待补。"
+    },
+    {
+      "system": "宠物／公会",
+      "status": "部分已交付",
+      "remaining": "宠物刻印、技能叠加和其他来源／期限组合；公会小游戏、仓库ED现行规则及完整图形技能表现待核。"
+    },
+    {
+      "system": "角色预设／搜查队协同",
+      "status": "尚未闭环",
+      "remaining": "角色预设默认记录、六初值及资格费用；协同额外付费页面、完整组合和自然效果仍待。"
+    },
+    {
+      "system": "装备／特殊道具",
+      "status": "规则或来源缺口",
+      "remaining": "特殊装备／分解／封印／强化／修理边界、部分神物来源与继承；136186旧有限候选池未批准，不猜填。"
+    },
+    {
+      "system": "训练／日记／举报等入口",
+      "status": "当前合同待核",
+      "remaining": "训练进入退出、日记解锁、举报及部分外链投递尚需确认实际原生生产者与服务端缺口。"
+    },
+    {
+      "system": "性能与历史崩溃",
+      "status": "未达成／待核因",
+      "remaining": "20人持续5分钟的容量目标尚未核收；剩余长停顿、历史5BF和其他崩溃不能据已装修复认定全部解决。"
+    },
+    {
+      "system": "自然界面／多人实战",
+      "status": "待验证",
+      "remaining": "交易、师徒、婚礼、宠物对战、竞速、摄影、家园等已有工程闭环，完整自然GUI、多人或跨日实测仍待。"
+    },
+    {
+      "system": "旧玩家失败反馈",
+      "status": "待新进程复核",
+      "remaining": "按原反馈保留；旧进程版本未取证，部分已有后续定向修复，不将所有旧报告认定为当前仍可复现缺陷。"
+    },
+    {
+      "system": "宠物远征其他地区／公会小游戏",
+      "status": "暂缓／范围未批准",
+      "remaining": "远征其余8地区32任务未获开放授权；小游戏准入原已暂缓，不当作已批准却遗漏的实现。"
+    }
+  ],
+  "achievement_missing": [
+    {
+      "type": 1,
+      "enum": "ACT_NPC_HUNT",
+      "definitions": 6,
+      "example": "粉碎掉",
+      "ids": [
+        291,
+        292,
+        293,
+        294,
+        295,
+        296
+      ]
+    },
+    {
+      "type": 3,
+      "enum": "ACT_HERO_DUNGEON_CLEAR",
+      "definitions": 5,
+      "example": "给我英雄的魔法石吧",
+      "ids": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "type": 8,
+      "enum": "ACT_SPA_GAME_WIN",
+      "definitions": 3,
+      "example": "无聊的时候需要甜米露",
+      "ids": [
+        34,
+        35,
+        36
+      ]
+    },
+    {
+      "type": 40,
+      "enum": "ACT_NOT_GET_ITEM_DUNGEON_CLEAR",
+      "definitions": 2,
+      "example": "今天也收集了1个碎片",
+      "ids": [
+        7,
+        319
+      ]
+    },
+    {
+      "type": 47,
+      "enum": "ACT_ERDA_WIN",
+      "definitions": 3,
+      "example": "都是我做的！",
+      "ids": [
+        285,
+        286,
+        287
+      ]
+    },
+    {
+      "type": 48,
+      "enum": "ACT_ERDA_LOSE",
+      "definitions": 3,
+      "example": "我的队友都去上厕所了",
+      "ids": [
+        288,
+        289,
+        290
+      ]
+    },
+    {
+      "type": 54,
+      "enum": "ACT_USE_COMMAND_CLEAR",
+      "definitions": 3,
+      "example": "一二三四一二",
+      "ids": [
+        335,
+        336,
+        337
+      ]
+    },
+    {
+      "type": 55,
+      "enum": "ACT_ALL_USE_COMMAND_CLEAR",
+      "definitions": 15,
+      "example": "现在我知道了",
+      "ids": [
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329,
+        330,
+        331,
+        332,
+        333,
+        334,
+        362,
+        399,
+        427
+      ]
+    },
+    {
+      "type": 69,
+      "enum": "ACT_PARTNER_COUNT",
+      "definitions": 5,
+      "example": "最佳拍档",
+      "ids": [
+        408,
+        409,
+        410,
+        411,
+        412
+      ]
+    },
+    {
+      "type": 70,
+      "enum": "ACT_SOULMATE_COUNT",
+      "definitions": 5,
+      "example": "携手直至灵魂尽头",
+      "ids": [
+        413,
+        414,
+        415,
+        416,
+        417
+      ]
+    },
+    {
+      "type": 71,
+      "enum": "ACT_PARTNER_DAY_COUNT",
+      "definitions": 5,
+      "example": "我跟你！",
+      "ids": [
+        418,
+        419,
+        420,
+        421,
+        422
+      ]
+    }
+  ],
+  "achievement_missing_definitions": 55,
+  "unresolved_original_reward_groups": 53,
+  "systems": [
+    {
+      "id": "identity",
+      "system": "账号注册、认证与登录租约",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "完整朋友自然流程待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "character-lifecycle",
+      "system": "建角、删除、恢复与角色选择",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "真实等待删除/恢复链、全角色自然建角至首登与教程返城组合待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "ciel",
+      "system": "露希切换、双侧装备与HP/MP",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然结束画面、双客户端战斗及其余既有原生实测边界待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "progression",
+      "system": "等级、经验、职业与原生属性/战力输入",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "普通经验2倍、共鸣10倍及无限普通疲劳已交付；卷轴自然操作、装备实际属性与完整实战边界仍待核。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "skills",
+      "system": "技能学习、技能栏与特性",
+      "status": "旧进程反馈待复核",
+      "remaining": "旧进程实测失败待复核：技能释放逻辑异常，具体职业/技能与原生链待核。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "force-skills",
+      "system": "原力学习、装备、抽取与精髓",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "未核精髓/品质与其他来源仍拒；正常可见性、自然获取和全技能实战仍待。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "resonance",
+      "system": "共鸣经验、点数、页面与退款",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "未核其他经验/现金来源与完整属性实际效果仍待；临时到期不改永久分配。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "inventory",
+      "system": "背包整理、堆叠与物品交互",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然背包操作/快捷/并发及特殊实例、期限边界待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "bank",
+      "system": "个人仓库、共享仓库与ED",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "会员/现金来源与ED兼容仍待；自然仓库GUI及多人并发待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "npc-trade",
+      "system": "NPC购买、出售与回购",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "商品正常来源/货币范围与自然买卖、回购GUI待补。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "decomposition",
+      "system": "普通分解与当前实例回执",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "现代特殊产物/正常来源待核；有限分解和结晶提取自然GUI待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "consumables",
+      "system": "药水、食物、苹果与叶子使用",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "39旧ID仅背包读取不算可用；废弃药排除，其他未核效果/来源及自然实战仍待。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "boxes",
+      "system": "随机箱、选择箱与材料袋",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然界面、多人与地图实战待人工核验；原其他待办保留。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "enhancement",
+      "system": "装备强化、复原与保底",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "零秘银/双锤/其他scene/职业自动恢复和未核特殊模式仍待，神秘+12不复活。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "repair",
+      "system": "装备修理、费用与免费凭证",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "新增损坏收费、特殊折扣与自然修理界面仍待；原露希费用交付保持。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "identify",
+      "system": "装备与结晶鉴定、重置及实例保存",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然界面、多人与地图实战待人工核验；原其他待办保留。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "sockets",
+      "system": "普通魔法石与孔数",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然GUI、实战与首次鉴定仍待验；PR635保持HOLD，21项反馈不变。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "attributes",
+      "system": "元素属性添加、移除与费用",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "其他特殊装备、来源与费用差异待补；原生/自然边界保留。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "sealing",
+      "system": "封印、解封与封印次数",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "其他特殊次数、13个缺失印章与FF边界待核；不恢复次数或构造新模板。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "evolution",
+      "system": "装备进化与家具印章准入",
+      "status": "有效性／开放范围待核",
+      "remaining": "先核当前有效入口与来源，再决定是否纳入开发。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "artifact",
+      "system": "神物鉴定、成长、精灵与插槽",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "活动固定来源、继承转移及完整自然养成仍待。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "circuits",
+      "system": "电路生成、安装与连接输入",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "其他形状/颜色/材料/连接资格与自然拼装实效待补；换色限定合同见exascale。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "accessory",
+      "system": "饰品槽位、锁定与特殊实例",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "metadata2限量/网吧等未核资格及全部自然GUI效果仍待。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "reforge",
+      "system": "重铸、耐久与免ED券",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然重铸、费用／耐久、券与实战组合尚待验；旧“安装后再提交”流水不作为当前功能缺口。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "reforge-transfer",
+      "system": "重铸转移、寿命与属性迁移",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "券模式/更多配对与自然获取、转移GUI待补；官服寿命公式未知。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "engrave",
+      "system": "刻印预览、付费、确认与效果输入",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "补效果字段、原生时钟与移除通知；其他来源/配表差异及自然实测继续。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "special-socket",
+      "system": "特殊魔力石、转换与交换",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然GUI、实战与首次鉴定仍待验；PR635保持HOLD，21项反馈不变。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "tenebros",
+      "system": "暗影词条保存、穿脱与鉴定转换",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "国服赠礼固定预设/官方权重仍缺；自然NPC/GUI、正向公网及多人效果未总验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "exascale",
+      "system": "白境装备换色",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "更多目标/颜色/材料及自然换色GUI、多人待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "white-decomposition",
+      "system": "白境专用分解与材料产出",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "白境装备本体的专用分解入口、资格、产物和事务仍待；系统芯片有限分解不能替代。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "chips",
+      "system": "芯片生成、调律、安装与转移",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "更多组合/售卖耐久与自然获取、外层转移UI及四件套实效待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "chip-reset",
+      "system": "芯片初始化、用券重置与失败回执",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "公网成功初始化、原生界面及本服正常券来源仍待核验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "option-conversion",
+      "system": "词条升级、特化与属性转换",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "首次136182完整29、新正常来源、其他转换/升级模式、Mode17公网付费正向与自然GUI待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "cartridge",
+      "system": "Cartridge组装、拆卸、强化与共享",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然GUI、公网正向全组合、其他容器/替换模式及材料新来源仍待。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "synthesis",
+      "system": "装备、时装合成与真实奖池",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "两项新副本来源仍HOLD；完整自然界面、时装及其他奖池待核。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "manufacture",
+      "system": "配方制作、兑换与材料要求",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "其他配方/材料、兑换资格与概率来源待补；自然制作及刻印链未总验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "profession",
+      "system": "生活职业、职业经验与专属制造",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "职业切换BE/C2及其他未准入组合、自然职业GUI/多人仍待。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "drops",
+      "system": "普通掉落、拾取与清图奖励",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "PR720/724待审合并；自然密集战斗、多人及猎人箱正向公网链待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "shop",
+      "system": "商城目录、数量与交易",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "购买弹窗延迟、回城后的自然操作及其他原有未验范围保留。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "wardrobe",
+      "system": "魔法衣橱、外观券、染色与收藏",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "PR722审查合并及自然界面待验；其他待办保留。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "avatar-presets",
+      "system": "套装方案选择与穿戴输入",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "左键不放槽是原生操作；右键自然流程与可见效果未实测。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "ice",
+      "system": "挫冰机购买、预览与奖励领取",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "冰装自然分解GUI和完整自然获取未验；既有概率不外推。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "mounts",
+      "system": "坐骑激活、上下骑与期限",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然上下骑、GUI、攻击及多人战斗仍待。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "mail",
+      "system": "邮件可见范围、互寄与附件",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然界面、多人与地图实战待人工核验；原其他待办保留。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "titles",
+      "system": "称号发现、获得、装备与效果输入",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然界面、称号效果及真实战斗待人工核验；其他原待办和失败保留。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "quests",
+      "system": "主支线接取、目标、选奖与续接",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "已核任务修复保持；完整自然界面、称号效果、特定角色后继链反馈仍待复核。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "ep",
+      "system": "EP点数、兑换与商品准入",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "其他商品/礼包及现行来源、自然EP正向购买GUI待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "tutorial",
+      "system": "专属新手与三角色机关链",
+      "status": "旧进程反馈待复核",
+      "remaining": "旧进程实测失败待复核：教程回村任务引导触发过晚，具体角色/链路待核。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "npc",
+      "system": "NPC身份、对话与任务推进",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "其他NPC/未核正向排行及自然出现/操作待验；原生UI和计时继续复用。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "travel",
+      "system": "城镇旅行、通行券与地图切换",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "其他mediator/完整路线与自然旅行和多人返回仍待，费用与资格不泛化。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "dungeons",
+      "system": "普通副本入场、机关与结算",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然选图、全关卡机关／过门／结算与多人实战仍待；旧“安装清空再提交”流水不作为当前功能缺口。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "party",
+      "system": "组队邀请、招募、选图与开始",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然界面与实战待验；原失败及其他待办保留。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "coop",
+      "system": "多人房间、共享演员与UDP同步",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "完整双客户端加载/重连、共享Actor及可见掉落和自然多人实战待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "raid",
+      "system": "团本入场、人数与周奖励",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "其余模式/贡献排行、全阶段自然多人战斗及未核来源仍待；不等同全团本完成。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "challenge",
+      "system": "单人及组队挑战阶段",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "现行单人入口、八人分组合流、可信CP、奖励限次及自然实战待补。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "field-boss",
+      "system": "野外Boss战场与排名奖励",
+      "status": "有效性／开放范围待核",
+      "remaining": "先核当前有效入口与来源，再决定是否纳入开发。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "events",
+      "system": "持票活动副本与排期",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "其他活动有效入口/排期/免费奖励待核；持票兼容路线自然GUI/实战待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "pets",
+      "system": "宠物激活、养成、喂食与期限",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "战斗技能叠加、刻印、其他服务来源和期限组合、自然GUI及多人战斗仍待。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "chat",
+      "system": "城镇聊天、私聊与副本回显",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "其他频道/附件/命令与自然跨场景聊天、冷进程表情GUI和多人待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "settings",
+      "system": "键位、布局、快捷栏与偏好",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "首次预设自然界面、窗口保存及快捷栏拖拽重登待验；客户端保持。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "launcher",
+      "system": "启动器签名更新、启动与退出",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "V109已发布，面板隐藏IP；其他电脑、普通权限和真实玩家长时启动仍待核。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "diagnostics",
+      "system": "报错采集、脱敏、上传与归因",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "历史崩溃与断线逐案核因；字体空指针链已定位，异常资源根因仍待。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "compat",
+      "system": "客户端版本与资源契约兼容",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "变化资源深层语义与自然回归待补；原生/自然边界保留。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "delivery",
+      "system": "发布备份、恢复与版本保护",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "本批三端实际安装和进度发布已完成；源码PR953尚未主干合并，缺精确head审批。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "gm",
+      "system": "GM权限、管理进程与有限经济策略",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "完整管理入口/权限/启停及更多掉落与倍率边界待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "local-activities",
+      "system": "2026飞跃成长报名与奖励链",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然成长/奖励消费待验；神物开孔和暗影固定预设来源仍缺。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "attendance",
+      "system": "胡巴签到、日任务与补签",
+      "status": "旧进程反馈待复核",
+      "remaining": "旧进程实测失败待复核：阿莉尔特别签到空白/按钮无响应；活动ID单独核。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "online-rewards",
+      "system": "在线1800秒、每周邮件与7日称号",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "完整自然操作、剩余场景与多人验收仍待。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "pvp",
+      "system": "对战与竞技匹配",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "练习、观战、其他正式模式、完整赛季及重复周任务仍待；城镇／公会领地切磋已接通。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "guild",
+      "system": "公会、驻地与公会任务",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "公仓ED存取的现行范围、小游戏及自然GUI/全部图形技能表现继续核对。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "trade-market",
+      "system": "玩家交易与交易板",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然交易GUI仍待；完整范围与各项实际核收分别保留。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "achievements",
+      "system": "成就与收藏条件",
+      "status": "部分条件未接；缺失奖励暂缓",
+      "remaining": "11类条件、55条定义；奖励101组有来源、50组有物品读取支持，另53组缺原始物品或数量并暂缓；业绩增益仍未完整闭环。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "fishing",
+      "system": "钓鱼及生活产出",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "其他未核限额/来源与自然钓鱼、跨日及多人GUI仍待；不代替宠物远征。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "revival",
+      "system": "复活石宝箱、次数与复活资格",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然界面、多人与地图实战待人工核验；原其他待办保留。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "auxiliary-protocol",
+      "system": "辅助协议、兼容回执与未定字段",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然背包/现金/强化组合、未知事件与同版签名XML/目录漂移来源待补。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "relationships",
+      "system": "结婚及关系系统",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "情侣完整技能效果、婚礼多人自然界面及跨天实机仍待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "friend-list",
+      "system": "好友列表、状态与社交关系",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "公网与实际本地后台的有限协议场景见本批回执；完整自然GUI尚未核收。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "performance",
+      "system": "启动准备、券分页与角色查询性能",
+      "status": "容量未核收／根因待查",
+      "remaining": "20人持续5分钟的容量目标尚未核收；剩余长停顿、历史5BF和其他崩溃不能据已装修复认定全部解决。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "character-presets",
+      "system": "角色装备与能力预设",
+      "status": "待接通／待核原生合同",
+      "remaining": "默认记录与六初值、名称限制、页面资格和费用待核；自然GUI未验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "pet-expedition",
+      "system": "宠物远征与生活气息",
+      "status": "有效性／开放范围待核",
+      "remaining": "其余8地区32任务未获开放授权；自然GUI、远征表现与其他服务组合待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "housing",
+      "system": "家园布置、访问、邀请与奖励",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "扩建、560格、三层五阶段四预设和上层宠物垫本批已交付；访问／邀请、音乐、留言簿及完整家具收益待补。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "photo-studio",
+      "system": "照相馆、家园摄影与镜头资格",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然拍摄、完整访客GUI和实际图片产出仍待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "adventure-checklist",
+      "system": "冒险检查表与每日每周进度汇总",
+      "status": "待接通／待核原生合同",
+      "remaining": "核检查表列表/剩余次数的原生消费者；区分已有表数据读取缺口与尚不存在的专属计数。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "weekly-missions",
+      "system": "每周任务列表、接取与收藏",
+      "status": "待接通／待核原生合同",
+      "remaining": "核此面板实际任务ID、归属/重置与分类收藏存储；30810/54610对战周任务来源不能自动证明本面板全部目录。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "growth-guide",
+      "system": "成长指南与噗鲁成长任务",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然界面、全部奖励实际使用和未核来源仍待；2026飞跃活动保留独立资格及奖励。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "season-pass",
+      "system": "赛季通行证与玛格梅利亚通行证",
+      "status": "待接通／待核原生合同",
+      "remaining": "先核本客户端对应的有效赛季/区服、任务和奖励来源、费用及截止边界；不从模板存在认定当前赛季开启。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "mentor-disciple",
+      "system": "师徒申请、关系与奖励",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然师徒界面及双原生玩家组队仍待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "guidebook",
+      "system": "指南书、帮助与系统导航",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "继续核原生中介选页/跳转及场景/角色可见条件；尚未证明需要新的服务端接口。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "external-ui-links",
+      "system": "外链、官网及兑换码入口审查",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "919完整投递及合法CN来源、自然GUI与复杂奖励来源待核。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "ranking",
+      "system": "排行榜、赛季与角色战绩",
+      "status": "待接通／待核原生合同",
+      "remaining": "真实排行源/赛季/奖励、PVP战绩与自然GUI仍待，不用成功空榜替代。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "report-blacklist",
+      "system": "举报、屏蔽和邮件黑名单",
+      "status": "待接通／待核原生合同",
+      "remaining": "先核当前资格、既有实现和原生合同，再修服务端实际缺口。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "training",
+      "system": "自由训练、伤害记录与指令显示",
+      "status": "待接通／待核原生合同",
+      "remaining": "核当前训练场进入、地图/敌人选择和退出的原生发送者；尚未确定专属服务端授权所需字段。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "diary",
+      "system": "日记与剧情回看入口",
+      "status": "待接通／待核原生合同",
+      "remaining": "核当前外层日记入口、页面解锁/剧情完成归属和原生输入；未定位专属服务器需求。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "pet-fight",
+      "system": "宠物对战、匹配与结算",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然菜单、双原生玩家实战及长时稳定性仍待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "mount-racing",
+      "system": "坐骑竞速、排名与奖励",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然画面名次及多人竞速实战仍待；有限模式之外的赛季和其他奖励不能外推。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "character-customization",
+      "system": "角色自定义、动作、语音与表现",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然双人坐姿、语音/肖像等类别和复杂重置仍待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "el-search-collection",
+      "system": "艾尔搜查队收藏与职业登记",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "168611收藏簿、协同及完整属性生效来源仍待；不以登记替代自然效果。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "el-search-synergy",
+      "system": "艾尔搜查队羁绊、槽位与页面",
+      "status": "待接通／待核原生合同",
+      "remaining": "付费额外页面、完整组合预设和全部自然协同效果仍待；互助券期限业务保持独立核收范围。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "secret-dungeons",
+      "system": "隐藏副本与现行轮换奖励",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "普通通关同时持多种奖励券时的选择规则、精确扫荡请求/ACK及周期归属/重置未知保持待核。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "hero-dungeon",
+      "system": "英雄副本、随机池与每日次数",
+      "status": "待接通／待核原生合同",
+      "remaining": "核免费次数/三券替代规则，接随机池、计次账本和专属奖励。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "erda-island",
+      "system": "艾达岛匹配、阵营与奖励",
+      "status": "待接通／待核原生合同",
+      "remaining": "六人双阵营、限次及专属奖励仍待，自然流程未验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "dark-gate",
+      "system": "黑暗之门与每日奖励",
+      "status": "待接通／待核原生合同",
+      "remaining": "核当前奖励来源、归属与重置边界；客户端友方AI和守卫表现继续复用。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "twisted-time",
+      "system": "扭曲时空与巨龙战场",
+      "status": "待接通／待核原生合同",
+      "remaining": "贡献排名、专属计次和奖励来源仍待核，保留自然实测边界。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "henir-modes",
+      "system": "赫尼尔普通、挑战与混沌恶魔",
+      "status": "待接通／待核原生合同",
+      "remaining": "核本客户端各模式正常周表、续接、专有奖励/消耗与重置合同；本服20/6兼容策略单独保留。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "archive-dungeons",
+      "system": "档案：艾迪理论与蕴含邪念的空间",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "核各ID的入口映射、现行次数及奖励规则；不能把41510和各分模式当作额外独立重复领奖。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "master-road-modes",
+      "system": "领导者之路普通与地狱模式",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "核各模式的环境/限制输入与本客户端专属奖励、次数和重置；原生环境/效果计算不在服务端重写。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "silver-mirror-modes",
+      "system": "银镜幽谷轮换、普通与剧情",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然解锁/选图/战斗仍待；未核额外路线不外推，缺证概率/周序标本服规则。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "raid-challenge-phases",
+      "system": "急袭挑战模式与内部节点",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "原生确认自然实测、贡献/周领奖来源与事务仍待。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "guild-mini-games",
+      "system": "公会三小游戏",
+      "status": "有效性／开放范围待核",
+      "remaining": "先确认三小游戏当前正常入口、成员资格、活动时段和硬币/次数来源；暂缓是既有策略，不能列成已批准但漏写的产出功能。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "field-worlds",
+      "system": "野外地图、休息处与温泉",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "野外与温泉完整链、未核动态/奖励、自然GUI和战斗待补。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "pvp-ranked",
+      "system": "正式对战与赛季任务",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "其他正式模式、完整赛季重置/奖励、30810/54610重复周任务和自然实战仍待。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "pvp-practice",
+      "system": "练习对战、房间设置与观战",
+      "status": "待接通／待核原生合同",
+      "remaining": "核当前练习入口、建房/房名密码/模式/地图与列表原生请求。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "duel",
+      "system": "城镇对决",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然菜单、双原生玩家实战及其他PvP模式仍待验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "daily-dungeon-rewards",
+      "system": "每日奖励情报与快捷跳转",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "列表/收藏/跳转、通行证权益及其他奖励来源/重置边界待核，自然GUI未验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "fatigue-rest",
+      "system": "疲劳、休息与生活精力",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "其他休息/恢复来源与自然跨日实测待核；生活精力和普通疲劳继续独立。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "black-market",
+      "system": "暗精灵黑市与时段商店",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "自然黑市GUI/竞价与实战仍待验；单机1人规则及未知来源边界保持。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "capture-recording",
+      "system": "原生截图、录像与查看",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "secondary默认填充/采样率差异待核；实际重置、重启及PNG/视频文件未验。",
+      "source": "functional-catalog + current delivery corrections"
+    },
+    {
+      "id": "ui-entry-coverage",
+      "system": "客户端UI链接覆盖与条件核收",
+      "status": "部分已交付；剩余待核／待验",
+      "remaining": "只针对当前未解动态字段、区服/场景条件和间接入口补查；归档不等于已穷尽所有实际开放功能。",
+      "source": "functional-catalog + current delivery corrections"
+    }
+  ],
+  "historical_feedback": [
+    {
+      "id": "ELS2-01",
+      "title": "普通权限使用失败，管理员模式才正常",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-02",
+      "title": "穿戴装备后面板属性变化，实际攻击疑似未生效",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-03",
+      "title": "技能释放逻辑异常，原生接口接通情况待核",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-04",
+      "title": "怪物经验与关卡结算经验疑似未应用当前配置",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-05",
+      "title": "副本掉落及结算展示疑似不正确",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-06",
+      "title": "纳薇在“港口的麻烦事”之前出现等级推进卡点",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-07",
+      "title": "Deemo1完成EP.2后没有接到EP.3",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-08",
+      "title": "新手教程回村后的任务引导触发过晚",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-09",
+      "title": "消失的迷宫进入后落到错误阶段房间",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-10",
+      "title": "其他副本存在无法通过的门",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-11",
+      "title": "清怪后直接瞬移到下一房间",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-12",
+      "title": "Deemo1部分魔法石或装备无法执行镶嵌",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-13",
+      "title": "未鉴定装备右键变成直接穿戴",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-14",
+      "title": "称号道具不能使用或使用后弹白框",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-15",
+      "title": "成长的冒险家的全套装备箱子仍打不开",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-16",
+      "title": "背包右键未鉴定艾尔结晶，未弹出数量／费用窗口",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-17",
+      "title": "定制动作和定制脸部无法使用",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-20",
+      "title": "购买后成功弹窗延迟数秒",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    },
+    {
+      "id": "ELS2-21",
+      "title": "阿莉尔特别签到奖励空白且“购买稀有”无响应",
+      "status": "实测失败、待复核",
+      "interpretation": "历史反馈；现行版本是否仍复现需单独核收，不能由旧记录推定。"
+    }
+  ],
+  "all_project_work_complete": false,
+  "new_feature_work_continued": false
+}

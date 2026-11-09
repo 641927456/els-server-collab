@@ -1,0 +1,119 @@
+{
+  "ok": true,
+  "release": "native-housing-expansion-presets-20261108-v1",
+  "checks": [
+    "Seven50ED tickets and205furniture through actual storefront/NPC purchases; native prices and exact ED delta",
+    "Three floors/five stages/two preset slots;200actual purchased furniture;375..378completion;nativeD37save/rename and935clear/restore",
+    "Upper-floor small mat place/retrieve;busy-mat removal rejected without state loss;no premature growth;cold native924 restores layouts/preset/entitlements and exact economy"
+  ],
+  "actual_selected_runtime": "G:\\qa-house109\\component-runtimes\\49b66a8cef01049a-98e1a4808a74",
+  "natural_GUI": false,
+  "natural_battle": false,
+  "production_databases": false,
+  "connected_source_types": 49,
+  "connected_definitions": 322,
+  "remaining_source_types": 11,
+  "unresolved_original_reward_groups": 53,
+  "expected_ED": 162499650,
+  "actual_NPC_furniture": 205,
+  "house_floors": 3,
+  "maximum_visible_stage": 5,
+  "preset_slots": 2,
+  "new_schema_definitions": 4,
+  "native_Game": false,
+  "first_contract_level_ED_pet_fixtures": true,
+  "normal_furniture_and_expansion_acquisition": true,
+  "production_clock_patch": false,
+  "exe_sha256": "1fff45c3394a77aa5c9117e96b5820b6edfedbd440244e3d01553abd6a455ff0",
+  "signed_runtime_sha256": "49b66a8cef01049a30a77b24d50b7ff9e86c779b2244bce60d6142f0588eb331",
+  "source_files": [
+    {
+      "module": "els_server.domain.acquisition_policy",
+      "sha256": "745ad7e35f2836f0f78d52b9e00c7a535f97c6f24bd14f927f97c7d133011272"
+    },
+    {
+      "module": "els_server.domain.bag_capacity",
+      "sha256": "a5838e5ee6a15f4a4904da286884605d1ae932fcca1cabeb7676eda7cddcc5aa"
+    },
+    {
+      "module": "els_server.domain.furniture_rules",
+      "sha256": "71ca385efba86ac2d7a062dcec99bcf839dfa97156d458f1429227a101c78cfa"
+    },
+    {
+      "module": "els_server.domain.housing_expansion_rules",
+      "sha256": "a161e51fc452aa3495727e1bbd2098480051211d388019686b7454ec39e7db5d"
+    },
+    {
+      "module": "els_server.domain.housing_layout_flow",
+      "sha256": "a212b50da9707b4972ebdb6f7460a050127b2144b0cca47c6eb58c24dfc7a0a6"
+    },
+    {
+      "module": "els_server.domain.inventory_items",
+      "sha256": "99c02fcceb494af0a6456a119991675288ec3dfeafc65a39b82024a1fb787e44"
+    },
+    {
+      "module": "els_server.domain.npc_trade",
+      "sha256": "87a84c2d7504d73937a4b737b859e96c11db1365434295b8858b7eb6bbe3e9d9"
+    },
+    {
+      "module": "els_server.domain.raid_reward_items",
+      "sha256": "196c16c461ac928e73942c22b5f73363796a431271337aeeffc9420898d24b09"
+    },
+    {
+      "module": "els_server.domain.shop_additions",
+      "sha256": "a0b134eb9c26ab33db65ea74fb69fcfdafa9450ecb6b075cac30e92f39c4ab93"
+    },
+    {
+      "module": "els_server.protocol.housing_expansion_messages",
+      "sha256": "472742aa2a49c824c3e5e96ce79d49f581581e3db07527815e35ffd91529e825"
+    },
+    {
+      "module": "els_server.protocol.housing_layout_messages",
+      "sha256": "3716c180f3e6cf85f3ebe9fc43c0feb90eea02eee12bfb2a62cff009bdad9de6"
+    },
+    {
+      "module": "els_server.protocol.housing_messages",
+      "sha256": "7b62e33323b44490d779679be3cd583a1fc86ad12d5945051b00e27d2068a46e"
+    },
+    {
+      "module": "els_server.protocol.housing_preset_messages",
+      "sha256": "bb0008925ad398ecaa760bf9f700c0f3cf6f1e0c70f24ef57df16b13c96f5ab8"
+    },
+    {
+      "module": "els_server.storage.achievement_profiles",
+      "sha256": "45eca512c1f900ddf61432f3cd4d75792d360b4a09adb007dc7f262fc2269807"
+    },
+    {
+      "module": "els_server.storage.housing_achievements",
+      "sha256": "82bef5504ede58e4c7455014620ff88977621427e2b737483f66c67fd94dd31d"
+    },
+    {
+      "module": "els_server.storage.housing_expansions",
+      "sha256": "b42bff6833c1285078a04ebb0a1a5ea5ad5df0f67132fae86b2a2a795094736c"
+    },
+    {
+      "module": "els_server.storage.housing_layouts",
+      "sha256": "65228b977140e587c42e12b251765a4dae67b0e0810790ba9fbf74030c93f779"
+    },
+    {
+      "module": "els_server.storage.housing_pets",
+      "sha256": "fa7005a6e937d9b3ed6a7b24fc4de7d73d75b3467c0128cd636782d86be1dcfd"
+    },
+    {
+      "module": "els_server.storage.housing_presets",
+      "sha256": "e7f892695b592e3147703c46319713609fba6658c5e2115607e34af09aa4a506"
+    },
+    {
+      "module": "els_server.storage.housing_rooms",
+      "sha256": "57d18f4fbe47af2f5158ff5ce685c0062dc699a088665d97abc7d6d0d8c31ee5"
+    },
+    {
+      "module": "els_server.storage.npc_trade",
+      "sha256": "2ab652cf09379e8446a76e85eb1a3e8c196feda8845300fe3e4555ab6f5b3d39"
+    }
+  ],
+  "actual_server_python": "3.14.10 free-threading build (tags/v3.14.10:b703b2c, Oct 25 2026, 17:36:07) [MSC v.1944 64 bit (AMD64)]",
+  "sqlite_version": "3.54.1",
+  "worker_errors": [],
+  "seconds": 10.114705899999535
+}
