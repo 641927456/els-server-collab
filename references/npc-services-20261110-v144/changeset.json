@@ -1,0 +1,92 @@
+{
+  "release": "npc-services-20261110-v144",
+  "patch_sha256": "bdbd9957c8859a479d90c42f9d05703b826962ad49e0420e76e7d0a4632a8c23",
+  "parents": {
+    "online": {
+      "release": "quest-menu-blank-20261110-v143",
+      "manifest_sha256": "2d3785a862e014169f32d57a722814ad5e08d050bec334cfd9b484fc21773151"
+    },
+    "local": {
+      "release": "unified-server-6c24de2b510e58cc-9a42fb7fbf38",
+      "manifest_sha256": "45a85c8819fff3f18a643f1b38cbe574ed8892109305d06fec1bff06bbff6de6"
+    },
+    "launchers": {
+      "release": "quest-menu-blank-20261110-v143",
+      "manifest_sha256": "115c0d1de97055ea418825b46356645545f27a2d274f3fc853180504498a8b3d"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/ariel_attendance_flow.py",
+      "parent_sha256": "2ef970241dff28834f1633d2940f53bafe0a1b938df77c69d2d15dc2154e4404",
+      "sha256": "15d66f109b99e148b0a56738b3152dc2603115553d220d6339f0eee60f8acd90",
+      "size": 5338
+    },
+    {
+      "path": "els_server/protocol/ariel_attendance_catalog.py",
+      "parent_sha256": "afd8f000756c18550e6e41c5979da9156b1ff638bddd449ef42eb863f419c764",
+      "sha256": "b650da63cef63a5c64bb6d9aefc4963fd667d879387d2f5df84379a568c99bce",
+      "size": 1245
+    },
+    {
+      "path": "els_server/storage/ariel_attendance.py",
+      "parent_sha256": "1a59c6188cb103b4dafa249dfb77efb0bc96c8aefe2675ca29b10f85fd74b45d",
+      "sha256": "ccf32f4fdba5d56209f6dc0b7e559990eef162397f636222575b04b71e652adf",
+      "size": 12288
+    },
+    {
+      "path": "els_server/storage/shop_state.py",
+      "parent_sha256": "eeba22630bb89daa4f5cc510270bdd1ea090b01a5a98768fe94fa04e4190d67c",
+      "sha256": "d83f1f9a7bad58e3a5beed09571eecb7fcb3f6e799755ad7278923aee1521b2d",
+      "size": 19240
+    },
+    {
+      "path": "els_server/protocol/local_messages.py",
+      "parent_sha256": "bb3e7b346f64692b00f53b40a841c7cfb4bfb235874335da87b5698779957093",
+      "sha256": "45e26704ec4e5d489433532c9a954e24913a92be43d57372063e86c8f1522fed",
+      "size": 22450
+    },
+    {
+      "path": "els_server/domain/town_travel_flow.py",
+      "parent_sha256": "c8278db2a1137d634917fd44df6d127a4289119e97d46c0c2c690881683fc54d",
+      "sha256": "746f7ba12de6892838ad4c7b372c75fd4dc1439826c6e608c6a7af7caa9b73e0",
+      "size": 18489
+    },
+    {
+      "path": "els_server/protocol/town_travel_messages.py",
+      "parent_sha256": "44760222998e5d6ab336cfbc8965044839bb0ca834ebb80f091e231131269d8e",
+      "sha256": "7421f58191fdaa75eca30a61b39b896ac83ce08aa4b4bc4af38a6aff2a247ce3",
+      "size": 2354
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "parent_sha256": "05796fe57d98dffbed9eb7cc49340921010b29fb59d77e3e204f088c0cf9e59a",
+      "sha256": "cf86c07916ef1cddc2343c86f9b3f973778671f6206966bd25f74e84d4ddb668",
+      "size": 36432
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "772e5203f91cd9edbd6735e66b8055b6db05d14de3b467068b481b383f0d9bee",
+      "sha256": "3460fda30730846da80e235f64e5cfe2a43d8df8174c154c07caf95973b03cdd",
+      "size": 168665
+    },
+    {
+      "path": "els_server/protocol/npc_trade_messages.py",
+      "parent_sha256": "77d159933521e726fa35b1a78394d66454865bc045766557d77565b42a47ce8d",
+      "sha256": "0ff487b5645fe1ac3e12fee1c3795b5ba6ff86c6c118844b9ac30459c44558dd",
+      "size": 2258
+    },
+    {
+      "path": "tools/dx11_resource_compat.js",
+      "parent_sha256": "c9c2a34beb9b60252a273ab45c6b6bdc938501292573da1d9eb964e3f3b6c192",
+      "sha256": "3219345b91375cfa74862c9ee8a094df7aa1ec5741b04ee3af1ed09c8603f9a2",
+      "size": 5004
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "6b0a50121afdbb88dede498b2bd9ee91ee5910a181876de38851d5e3ca2118d3",
+      "sha256": "e2387e88da0a3dad9dd30d237f8d8419854a29b8cbac1e974c13ddacdd551340",
+      "size": 24158
+    }
+  ]
+}
