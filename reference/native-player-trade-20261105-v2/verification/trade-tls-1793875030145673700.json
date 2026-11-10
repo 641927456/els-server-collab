@@ -1,0 +1,45 @@
+{
+  "ok": true,
+  "steps": [
+    "New level1/level1 accounts enter trade through174/176/177/179 without level timestamps or waiting",
+    "17F/182 offers; peer edit resets registration; both185/188 required; sealed enhanced UID retained, partial quantities transferred, receiver fees total6 ED",
+    "Replayed final approval, busy third party and inviter-forged consent cannot settle; native17A cancels both reservations without economic mutation",
+    "Actual ten-second pending invitation timeout releases both actors and delivers denial",
+    "Real socket close cancels active trade and notifies surviving current actor",
+    "Normal level99 and new level1 also complete native bilateral ED trade with shared fee/wallet limits",
+    "Three authenticated cold reconnects retain exact committed items and balances; exactly two settlement receipts"
+  ],
+  "natural_GUI": false,
+  "production_database_access": false,
+  "admission": "User-approved: no minimum level, no waiting period or level-reached timestamp",
+  "fixture": "Own new characters levels1/1/99, ED5000, ordinary materials and sealed gear; real elapsed invitation timeout",
+  "invitation_timeout_seconds": 10.151675899978727,
+  "connections_closed": true,
+  "server_errors": [],
+  "loaded_sources": {
+    "els_server.application": {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\trade-integration-v2\\test-full-source\\els_server\\application.py",
+      "sha256": "f0aefe6a5875bd3fbd54fb31f2fa147e12468642e84ec3d435ce2443ee9e2470"
+    },
+    "els_server.domain.friends_world": {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\trade-integration-v2\\test-full-source\\els_server\\domain\\friends_world.py",
+      "sha256": "0d9b14e3e6572e92d5ebb2c2b09e644a88e705e31f81bde1a2a6b8016c149d99"
+    },
+    "els_server.protocol.player_trade_messages": {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\trade-integration-v2\\test-full-source\\els_server\\protocol\\player_trade_messages.py",
+      "sha256": "48b9130d891436414000a1d10b04e13b48c1fab36d340b885dcee5db60f92a06"
+    },
+    "els_server.storage.player_trade_state": {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\trade-integration-v2\\test-full-source\\els_server\\storage\\player_trade_state.py",
+      "sha256": "98d164d6327233e75cbf3bb0369d3a6543840d9cffe1cfccb3892dccf74f2bd6"
+    },
+    "els_server.domain.player_trade_flow": {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\trade-integration-v2\\test-full-source\\els_server\\domain\\player_trade_flow.py",
+      "sha256": "6124bbf839e7c360b002d0074b74c21528040223837f577a9f976435b2e6cbb6"
+    },
+    "els_server.dungeon_workers": {
+      "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\trade-integration-v2\\test-full-source\\els_server\\dungeon_workers.py",
+      "sha256": "1818d31c30c3976859438220e88ffa18deb1596f1d27c86481d49106402589d5"
+    }
+  }
+}
