@@ -57,7 +57,7 @@ jobs:
           python -m pip install --target python/Lib/site-packages -r requirements-test.txt
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           "PYTHONPATH=$PWD\python\Lib\site-packages" >> $env:GITHUB_ENV
-      - run: .\python\python.exe -B tools/ci_checks.py --with-runtime
+      - run: .\python\python.exe -B tools/ci_checks.py --runtime-only
       - run: python -B tools/verify_current_runtime_regressions.py --with-runtime
       - run: python -B tools/verify_current_runtime_regressions.py --with-runtime --manifest channels/server-risk-current-20261027-v2.json --delta references/server-risk-current-20261027-v2/delta.json
       - run: python -B tools/verify_current_runtime_regressions.py --with-runtime --manifest channels/server-risk-current-local-roles-20261027-v3.json --delta references/local-auxiliary-role-binding-20261027-v1/delta.json

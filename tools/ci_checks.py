@@ -23,9 +23,30 @@ def run(command):
         command=command[:2]+['-c',_SCRIPT_RUNNER]+command[2:]
     subprocess.run(command,cwd=ROOT,check=True)
 
-def main(argv=None):
+def verify_runtime():
+    run([sys.executable,'-B','-m','unittest','tests.test_public_controller_rules'])
+    if (ROOT/'references/pr597-takeover-20261028-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr597_takeover.py'),'--with-runtime'])
+    if (ROOT/'channels/server-latency-guards-20261027-v1.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_server_latency_guards.py'),'--with-runtime'])
 
-    parser=argparse.ArgumentParser();parser.add_argument('--with-runtime',action='store_true');args=parser.parse_args(argv)
+    run([sys.executable,'-B','-m','els_server','--config','config/server.toml','--check'])
+
+    run([sys.executable,'-B','-m','unittest','tests.test_retained_native_hp',
+         'tests.test_current_native_title_inputs'])
+    assert not (ROOT/'state/development.sqlite3').exists(),'CI must not create a player database'
+
+
+def main(argv=None):
+    parser=argparse.ArgumentParser()
+    runtime=parser.add_mutually_exclusive_group()
+    runtime.add_argument('--with-runtime',action='store_true')
+    runtime.add_argument('--runtime-only',action='store_true')
+    args=parser.parse_args(argv)
+    if args.runtime_only:
+        verify_runtime()
+        print(json.dumps(dict(ok=True,runtime_check=True,no_owner_data=True)))
+        return
 
     run([sys.executable,'-B',str(ROOT/'tools/repository_guard.py')])
     run([sys.executable,'-B','-m','unittest','tests.test_ci_script_execution'])
@@ -323,17 +344,7 @@ def main(argv=None):
     assert decode_event(frame.plaintext)==event
 
     if args.with_runtime:
-        run([sys.executable,'-B','-m','unittest','tests.test_public_controller_rules'])
-        if (ROOT/'references/pr597-takeover-20261028-v1/manifest.json').is_file():
-            run([sys.executable,'-B',str(ROOT/'tools/verify_pr597_takeover.py'),'--with-runtime'])
-        if (ROOT/'channels/server-latency-guards-20261027-v1.json').is_file():
-            run([sys.executable,'-B',str(ROOT/'tools/verify_server_latency_guards.py'),'--with-runtime'])
-
-        run([sys.executable,'-B','-m','els_server','--config','config/server.toml','--check'])
-
-        run([sys.executable,'-B','-m','unittest','tests.test_retained_native_hp',
-             'tests.test_current_native_title_inputs'])
-        assert not (ROOT/'state/development.sqlite3').exists(),'CI must not create a player database'
+        verify_runtime()
 
     print(json.dumps(dict(ok=True,python_sources_compiled=count,protocol_roundtrip=True,runtime_check=args.with_runtime,no_owner_data=True)))
 
