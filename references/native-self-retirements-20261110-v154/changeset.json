@@ -1,0 +1,38 @@
+{
+  "release": "native-self-retirements-20261110-v154",
+  "patch_sha256": "409b3f332dec7fcc9d6ecaba74a0473cea33f005fe68f49dee466d557eb28a3c",
+  "parents": {
+    "online": {
+      "release": "anniversary-npc-varnimyr-20261110-v153",
+      "manifest_sha256": "9d1a75d1ba287068a358ed26e67ee74867aff5a2e609213d8067c00888190f17"
+    },
+    "local": {
+      "release": "unified-server-e7b18eaa63a15047-dadb973c1bd3",
+      "manifest_sha256": "17b13382d7e15dccfa87ec1c2aaefd0641476ab53a6c7932a3d5fcf2e498fc16"
+    },
+    "launchers": {
+      "release": "anniversary-npc-varnimyr-20261110-v153",
+      "manifest_sha256": "825636975f37a336e880817a2129f88303165fb3baf464bb38a4b93ad9330145"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/friends_spawns.py",
+      "parent_sha256": "f147cec80cdd9aae6cdabbdc03954cf52c91ce3ee460683e189ddd3686a5d39c",
+      "sha256": "5e4af68cf01d223ef3abd34e205503aa88137368a4b26349c003e0f3b1720d64",
+      "size": 26789
+    },
+    {
+      "path": "els_server/domain/scene_actor_retirements.py",
+      "parent_sha256": "b7cae6d88eb8d12a0aa86dc21744ef275ea3046336763b5d5a3b59fade30d40c",
+      "sha256": "c7be003f09d5e766e9fbc9249afef6ee9a16376e27dd975d13e438695875065b",
+      "size": 23640
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "parent_sha256": "d82be2ee83bb48982c3b1c2ffb9ef3f5a261e536ea9b4d41c3c99584d0c867a4",
+      "sha256": "d5b895aa5fb888ee429eb504531066eecf22b6d31b19fcd0867a11e3c590348b",
+      "size": 950635
+    }
+  ]
+}
