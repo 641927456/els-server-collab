@@ -1,0 +1,38 @@
+{
+  "release": "avatar-set-diagnostic-20261111-v158",
+  "patch_sha256": "0a8f59bd3a96bc34aab215d542be871125cecb1e65082bf2ec7ce0bf263f2714",
+  "parents": {
+    "online": {
+      "release": "raid-gates-skill-scroll-20261111-v157",
+      "manifest_sha256": "dd52f488f5bad313329ab737db829e6526de769264d73829e668289ab2dbf48a"
+    },
+    "local": {
+      "release": "unified-server-3957c699cf693f0f-003ef04ce395",
+      "manifest_sha256": "f10f77ee4368f85d4f8be4f79ea1cc8ea287569ee2144a5f82d79b5e2a22d710"
+    },
+    "launchers": {
+      "release": "raid-gates-skill-scroll-20261111-v157",
+      "manifest_sha256": "3ecd83b489a50a996466c790dc41094d161dcb7ba1be14040d77f798548008a8"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/avatar_set_flow.py",
+      "parent_sha256": "b2e1ed383f3731bc3a24caada380d39e1cd6657fb87d00d76d07f20e9d1e50c4",
+      "sha256": "b710084ddd2fc86c54b0e7c730bddf54ce4904f1bfd7bd10f1b1a88553cc6929",
+      "size": 3499
+    },
+    {
+      "path": "els_server/protocol/avatar_set_messages.py",
+      "parent_sha256": "008ce29ddde10187481ea6320682b0312d1c7145da5ab785e324eb05a2fc49e7",
+      "sha256": "09500b7e9961fa9c6c0c581121ba0fb3edeb0125597014bdf6fdc95619224e84",
+      "size": 1947
+    },
+    {
+      "path": "els_server/transport.py",
+      "parent_sha256": "314f90efe188066bf690427a433821d0e3ea4a887a810090e0d30360155426e5",
+      "sha256": "739c7fc4c32c5bb2688f28af35e8b7b390ae041f3bc8147be2e2320c80805af1",
+      "size": 34791
+    }
+  ]
+}
