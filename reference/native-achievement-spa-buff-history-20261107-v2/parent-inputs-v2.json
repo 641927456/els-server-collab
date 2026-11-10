@@ -1,0 +1,71 @@
+{
+  "installed_source_head": "12cfa1c9ac9417beb929e3e6d2b21dff4c0e6840",
+  "preparation_Git_head": "d1c626c2ddd3a4b069b50dae46505d6681f7b850",
+  "parent_release": "native-online-disconnect-repair-20261107-v1",
+  "parent_difference_paths": [
+    "els_server/domain/achievement_flow.py",
+    "els_server/domain/duel_flow.py",
+    "els_server/storage/achievement_history.py",
+    "els_server/storage/achievement_profiles.py"
+  ],
+  "all_parent_differences_already_overridden": true,
+  "unrelated_product_inputs_unchanged": true,
+  "files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "parent_sha256": "580373f8d3bb268a71d1bde42d784488112fa9353b94d5b7943c22f4e920331d"
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "parent_sha256": "ce3ae9d9e3ae541e20cdfbdeceb46c49a4bb907be49796df8ef0e94991abee82"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "parent_sha256": "b6064994a302b47798a6d6d1eb320c83518f50bee4ab1dc6cecae76903eda28f"
+    },
+    {
+      "path": "els_server/storage/environment_buffs.py",
+      "parent_sha256": "1e8e38735b08e5494990ee2e8c94035ac691908c68851cbab1212102d771482c"
+    },
+    {
+      "path": "els_server/domain/environment_buff_flow.py",
+      "parent_sha256": "4fc5a1c9990113875dca871262d87913370afd04e936ae4ef394595b23c3eaea"
+    },
+    {
+      "path": "els_server/storage/read_scope.py",
+      "parent_sha256": "87c2a13ce45bc6e8b9635d5f956a7628a2ed3753455f2571f519f4857036eca2"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "dceb7bc17da21bc8dad71177c674aa4a13a2be0730dae0b16f3de1ce0ca309dd"
+    },
+    {
+      "path": "els_server/domain/duel_flow.py",
+      "parent_sha256": "43b0c5bddf55e6f75415fad853e5c312e78ae5e20012683b339160b50c4f371f"
+    },
+    {
+      "path": "els_server/domain/wedding_rooms.py",
+      "parent_sha256": "912f168f4720ee12c05d4320d7d3c0963a1562c49592c436c2380568dbae98f1"
+    },
+    {
+      "path": "els_server/domain/fishing_village1500.py",
+      "parent_sha256": "dc216dd2eb90f268fb1a1a90b331dcd1beaaf2ebf2f44b5041fb77443a9b70b5"
+    }
+  ],
+  "source_archive_parent": "reference/native-achievement-spa-buff-history-20261107-v1",
+  "parent_Git_head": "215247ce595604feeac626c0eb2b6d558352dcbd",
+  "parent_installed_PR": 937,
+  "parent_merged_commit": "26399f48cd35946daf4ea21e01cd57db99d07b2a",
+  "preserved_parent_files": [
+    "els_server/domain/dungeon_equipment_loot_flow.py",
+    "els_server/domain/dungeon_flow.py",
+    "els_server/domain/dungeon_settlement_commands.py",
+    "els_server/domain/local_session.py",
+    "els_server/domain/scene_actor_retirements.py",
+    "els_server/domain/story_controller_retirements.py",
+    "els_server/native_inbox.py",
+    "els_server/protocol/dungeon_messages.py",
+    "els_server/storage/seal_quests.py"
+  ],
+  "parent_changed_without_overlap": true
+}

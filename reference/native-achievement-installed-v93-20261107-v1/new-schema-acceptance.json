@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "names": [
+    "native_achievement_guild_fact_owner",
+    "native_achievement_guild_operation_owner_kind",
+    "native_achievement_reset_account"
+  ],
+  "activation": {
+    "online": {
+      "present": [
+        "native_achievement_guild_operation_owner_kind",
+        "native_achievement_guild_fact_owner",
+        "native_achievement_reset_account"
+      ],
+      "lazy_not_created": []
+    },
+    "local": {
+      "present": [
+        "native_achievement_guild_operation_owner_kind",
+        "native_achievement_guild_fact_owner",
+        "native_achievement_reset_account"
+      ],
+      "lazy_not_created": []
+    }
+  },
+  "declared_definitions_match": true,
+  "required_native_QA_tables_present": true,
+  "player_rows_read": false,
+  "schema_changed_by_this_check": false,
+  "original_databases_restored": false
+}

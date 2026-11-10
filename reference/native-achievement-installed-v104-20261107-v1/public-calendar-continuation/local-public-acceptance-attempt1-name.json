@@ -1,0 +1,49 @@
+{
+  "ok": false,
+  "local_IP": "127.0.0.1",
+  "actual_final_launcher_backend": true,
+  "same_authenticated_server": true,
+  "certificate_pinned": true,
+  "checks": [],
+  "natural_GUI": false,
+  "natural_battle": false,
+  "error": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\notebook-spa-clear-closure-v1\\delivery\\local_qa.py\", line 91, in <module>\n    achievement_fixture.seed(cfg.state_file,values)\n    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\notebook-spa-clear-closure-v1\\delivery\\achievement_fixture.py\", line 19, in seed\n    prior.seed(path,values)\n    ~~~~~~~~~~^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\notebook-spa-clear-closure-v1\\delivery\\achievement_fixture.py.parent\", line 14, in seed\n    a=values[0];a['alt_name']=a['character_name']+'Alt';a['alt_uid']=Characters(path,a['account_id']).create(a['alt_name'],14,'owned-notebook-alt:'+str(a['uid']))['uid']\n                                                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\releases\\local\\unified-server-4b4610236826ab71-86b1ebe9885a\\els_server\\storage\\characters.py\", line 393, in create\n    validate_name(name)\n    ~~~~~~~~~~~~~^^^^^^\n  File \"G:\\els\\releases\\local\\unified-server-4b4610236826ab71-86b1ebe9885a\\els_server\\storage\\characters.py\", line 39, in validate_name\n    raise ValueError('Character name length')\nValueError: Character name length\n",
+  "own_worker_errors": [],
+  "owned_QA_cleanup": {
+    "ok": true,
+    "operation": "native-achievement-notebook-spa-clear-20261107-v1-local",
+    "cleaned_account_ids": [
+      70,
+      71,
+      72
+    ],
+    "deleted_ids": [
+      70,
+      71,
+      69
+    ],
+    "shared_watermark_id": 72,
+    "shared_watermark_records": 1,
+    "accounts_before": 5,
+    "accounts_after": 2,
+    "slots_freed": 3,
+    "current_accounts": 2,
+    "available_registration_slots": 126,
+    "capacity_delta_verified": true,
+    "protected_authentication_rows_preserved": true,
+    "game_database_modified": false,
+    "writer_barrier_passed": true,
+    "backups": {
+      "accounts": {
+        "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\notebook-spa-clear-closure-v1\\delivery\\publication\\local-owned-qa\\accounts-before-cleanup.sqlite3",
+        "sqlite_backup_API": true,
+        "quick_check": "ok"
+      },
+      "game": {
+        "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\notebook-spa-clear-closure-v1\\delivery\\publication\\local-owned-qa\\game-before-cleanup.sqlite3",
+        "sqlite_backup_API": true,
+        "quick_check": "ok"
+      }
+    }
+  }
+}

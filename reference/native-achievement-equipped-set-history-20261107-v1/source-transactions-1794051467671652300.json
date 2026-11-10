@@ -1,0 +1,14 @@
+{
+  "ok": false,
+  "production_database_access": false,
+  "production_clock_patch": false,
+  "retained_expired_worn_fixture": true,
+  "checks": [],
+  "error": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\equipment-set-history-v1\\test_source_transactions.py\", line 26, in main\n    for item in items:db.execute('UPDATE inventory_items SET bag_group=9,slot=? WHERE uid=?',(inspect_requirements(item['template'],1)['equipment_slot'],item['uid']))\n                      ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsqlite3.IntegrityError: UNIQUE constraint failed: inventory_items.owner, inventory_items.bag_group, inventory_items.slot\n",
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "fe27e6f951c931d9054b60f7e8854fc080ffb967284a9b6c5e76f1da31bab23c",
+    "els_server/domain/guild_agit_flow.py": "49901902965662a3bc8a2b1e02f859d5dfa23b3a10bef2c5bcee854841e25f3e",
+    "els_server/storage/achievement_collections.py": "e5e21249eec340dd507b8868b1f41bbe1762b62f4921224c2032c6ef0ab1b54b",
+    "els_server/storage/achievement_profiles.py": "5531b6886378a00208a5b99bea450f44a74147629122a0a40d900fb67a5e5ff0"
+  }
+}

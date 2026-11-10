@@ -1,0 +1,6 @@
+{
+  "ok": false,
+  "production_database_access": false,
+  "checks": [],
+  "failure": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\spa-egg-purchase-v1\\test_window_rules.py\", line 21, in <module>\n    uid=Characters(path,'owned-spa-rule-account-'+str(unit)).create('OwnRule'+str(unit),unit,'owned-rule-'+str(unit))['uid']\n        ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\spa-egg-purchase-v1\\qa-source-tree\\els_server\\storage\\characters.py\", line 81, in __init__\n    if type(account_id) is not int or not 1<=account_id<2**63:raise ValueError('Invalid account identity')\n                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: Invalid account identity\n"
+}

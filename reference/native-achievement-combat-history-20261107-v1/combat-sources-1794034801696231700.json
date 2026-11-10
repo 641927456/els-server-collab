@@ -1,0 +1,15 @@
+{
+  "ok": false,
+  "tests": 3,
+  "errors": [
+    "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\combat-history-v1\\test_combat_sources.py\", line 42, in test_policy_counters_sum_owned_roles_and_exclude_unknown_histories\n    actors.append(dict(account_id=account,uid=Characters(path,account).create(name,unit,'owned-'+name)['uid']))\n                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\releases\\online\\native-achievement-relationship-history-20261107-v1\\els_server\\storage\\characters.py\", line 479, in create\n    db.execute('INSERT INTO location VALUES (?,?,0,0,0,0,0,0)',(uid,town))\n    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsqlite3.OperationalError: no such table: location\n",
+    "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\combat-history-v1\\test_combat_sources.py\", line 16, in test_timed_boundaries_and_account_best_are_real_conditions\n    a=Characters(path,1).create('TimeSource',1,'owned-timed-a')['uid']\n      ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\releases\\online\\native-achievement-relationship-history-20261107-v1\\els_server\\storage\\characters.py\", line 479, in create\n    db.execute('INSERT INTO location VALUES (?,?,0,0,0,0,0,0)',(uid,town))\n    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsqlite3.OperationalError: no such table: location\n"
+  ],
+  "failures": [],
+  "production_database_access": false,
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "64806f2bcf15eed7b977ec51a1edba16cb543c6d06b6215b1fbfcc2dc053b3df",
+    "els_server/storage/achievement_history.py": "0aac34c456043efff12c6de4a4e7320b802a2e3b9b381cfb6e3b642bdecf4839",
+    "els_server/storage/achievement_profiles.py": "9616398af88c44a31ebaf5d3a7c407c5385ce773002c521abc219814558aa4fb"
+  }
+}

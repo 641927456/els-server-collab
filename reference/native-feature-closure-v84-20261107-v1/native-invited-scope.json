@@ -1,0 +1,56 @@
+{
+  "actual_native_Game": true,
+  "natural_GUI": false,
+  "physical_input_actions": 0,
+  "battle": {
+    "original_report_overall_ok": false,
+    "original_failure_sha256": "fe87cd591bb50d3943651fcda12e1fbb52b91fec624a059f602a298c47140c86",
+    "reused_successful_scope": "Original invitation, host start without host pre-ready,8 native animated rounds, all-pet fainting result and both Town returns",
+    "progress": {
+      "ok": true,
+      "seconds": 153.875,
+      "frames": 9229,
+      "round": 8,
+      "actionFrames": 8144,
+      "hpCalls": 29,
+      "enchantCalls": 29,
+      "originalCalls": {
+        "2b1bf20": 18140,
+        "2b1acb0": 9070,
+        "32a6cb0": 29
+      },
+      "game_flags": {
+        "skip": 0,
+        "intro": 0,
+        "sequence": 0,
+        "previous_sequence": 0,
+        "actor1": {
+          "uid": "500000102"
+        },
+        "actor2": null
+      }
+    },
+    "result_exit": {
+      "ok": true,
+      "entry": "32A0A00",
+      "argument": 1,
+      "native_winner": 1001,
+      "UI_click": false
+    },
+    "both_original_Town_returns": true,
+    "inventory_comparison_in_this_Game_qualified": false,
+    "failure_retained": "Global window visibility call did not run the native leave callback; do not report this old complete scenario as passed"
+  },
+  "close_only": {
+    "ok": true,
+    "report_sha256": "5aa8220a36cb7dc460065cde1b2e87d2fbe5bfe9f3f64c86faab2910df1ce8a1",
+    "original_entry": "30104B0",
+    "current_native_instance": true,
+    "original13F": true,
+    "server_lobby_cleared": true,
+    "inventory_economy_pet_persistence_unchanged": true,
+    "full_battle_retested": false
+  },
+  "source_manifest_sha256": "fa0b248848e03b9bd6380f5eb425a741eaad0205952ed45d1bcc99e7d0aa0db1",
+  "integrated_runtime_scope": "Native consumers remain separate from actual V84 integrated App/TLS and pending selected signed-runtime load verification"
+}

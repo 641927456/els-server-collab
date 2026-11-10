@@ -1,0 +1,29 @@
+{
+  "sqlite_version": "3.50.4",
+  "plans": {
+    "parameter": [
+      "SEARCH receipts USING INDEX ri (<expr>=?)"
+    ],
+    "in": [
+      "SCAN receipts USING INDEX ri",
+      "LIST SUBQUERY 1",
+      "SEARCH owners USING COVERING INDEX oa (account=?)",
+      "CREATE BLOOM FILTER",
+      "USE TEMP B-TREE FOR GROUP BY"
+    ],
+    "unary": [
+      "SEARCH receipts USING INDEX ri (<expr>=?)",
+      "LIST SUBQUERY 1",
+      "SEARCH owners USING COVERING INDEX oa (account=?)",
+      "CREATE BLOOM FILTER",
+      "USE TEMP B-TREE FOR GROUP BY"
+    ],
+    "cast": [
+      "SEARCH receipts USING INDEX ri (<expr>=?)",
+      "LIST SUBQUERY 1",
+      "SEARCH owners USING COVERING INDEX oa (account=?)",
+      "CREATE BLOOM FILTER",
+      "USE TEMP B-TREE FOR GROUP BY"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "ok": false,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "retained_owned_equipment_fixture": true,
+  "checks": [
+    "Cold role reads actual worn items; bag accessories do not count, siblings use maximum instead of sum and foreign four-piece account is excluded"
+  ],
+  "error": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\equipment-set-history-v1\\test_live_equipment.py\", line 67, in main\n    start=await wear(118156);assert 372 in{r['id']for r in saved()['completed']}\n          ^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\equipment-set-history-v1\\test_live_equipment.py\", line 65, in wear\n    assert reply.payload[-4:]==bytes(4)and int.from_bytes(reply.payload[:4],'big')==2,(template,reply.payload[:20].hex(),reply.payload[-4:].hex(),app.playing[a['account_id']]._wear_rejection)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (118156, '0000000000000001', '00000001', 'Ordinary wear route disabled')\n",
+  "errors": [],
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "fe27e6f951c931d9054b60f7e8854fc080ffb967284a9b6c5e76f1da31bab23c",
+    "els_server/storage/achievement_collections.py": "e5e21249eec340dd507b8868b1f41bbe1762b62f4921224c2032c6ef0ab1b54b",
+    "els_server/storage/achievement_profiles.py": "5531b6886378a00208a5b99bea450f44a74147629122a0a40d900fb67a5e5ff0"
+  }
+}

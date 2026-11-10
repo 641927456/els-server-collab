@@ -1,0 +1,19 @@
+{
+  "ok": false,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "natural_acquisition": false,
+  "explicit_protocol_toggle_requests": true,
+  "client_cooldown_presentation_tested": false,
+  "error": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\guild-badge-v1\\test_counter.py\", line 78, in run\n    reply=await p.query(0x225,struct.pack('>iB',town,0));assert reply.payload[:4]==bytes(4)\n                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "errors": [],
+  "owned_directory_removed": true,
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "3df90439f366d4cc4dc28ed81b1c5906e1db55ae849448be3bc01482c1e89380",
+    "els_server/domain/friends_world.py": "52b6bfe79e8b33ef8bd4b40e1916f6e90b2c3ae82a31627fbb041d48fb8aefe3",
+    "els_server/domain/guild_banner_flow.py": "14a9d824269f31f9db32c8b6d66be02a16f0a239250338051b58f3866cd1e5b4",
+    "els_server/storage/achievement_history.py": "ff2ee09bfadb509b4772f14eb7a6b27b0a4d24cc025b2c01b35389d051375e82",
+    "els_server/storage/achievement_profiles.py": "e99a5b81befa05648c3a63e1473d45d1b0b4ce29d831daa4d0c8a32425227ece"
+  }
+}

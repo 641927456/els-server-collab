@@ -1,0 +1,13 @@
+{
+  "evidence": {
+    "file": "wedding-reader-1794047161429912500.json",
+    "sha256": "ea1b0c6388a04937212091e1e581a3f2d80b00fc90eb3b5d096e823d94fb1420"
+  },
+  "dependency_path": "els_server/domain/wedding_rooms.py",
+  "sha256": "f5a05bc0ea83ac27e7df414e2d349a67be24aa285456dab5730cb8694d43bd7f",
+  "pre_run_SHA_source": "Staging command printed this SHA before both native baseline and --candidate-wedding executions",
+  "original_receipt_limit": "The source_sha256 map covers source-v1 only; the then-staged wedding module was outside it. Its pre-run SHA and the explicit candidate CLI bind this added dependency; the original receipt is retained unchanged.",
+  "same_staged_bytes_preserved": true,
+  "same_bytes_copied_into_source_v1": true,
+  "tests_rerun_for_path_change": false
+}

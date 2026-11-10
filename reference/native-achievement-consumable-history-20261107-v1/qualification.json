@@ -1,0 +1,80 @@
+{
+  "status": "PRIVATE_APP_TLS_QUALIFIED_NOT_INSTALLED",
+  "parent_Git_head": "118f6b106c892c784ef92b84e0f002df88287593",
+  "source_PR": 931,
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "sha256": "ec36e1a5f87266bcbfab38bff17b91902eafe770ed0f1b17e9000a581bc78026",
+      "parent_sha256": "ffa62a7f9ab0122bdb307020f50b94c7633db7a5970768342bafbb82d1fa7ce1"
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "sha256": "cc148d8af69e353050ce577fdcd74d94ec2beeb8d4b5ef5dd642458cd44f30b6",
+      "parent_sha256": "8d75c798fbc58af6116041e20d2070981221417174d4e721bbd086d13179aec5"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "sha256": "f80546d5c67008d014ad7e7279571c26cb69af4f73d0b0d90e658a88293fa433",
+      "parent_sha256": "9d6dbadd7e0ee102f7849adb20f6d6e48b85695beffea544bbd09666ef48c0c4"
+    }
+  ],
+  "connected_condition_types": [
+    6,
+    15,
+    16,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    32,
+    35,
+    36,
+    37,
+    38,
+    39,
+    42,
+    43,
+    44,
+    45,
+    51,
+    52,
+    53,
+    56,
+    60,
+    61,
+    62,
+    63,
+    67,
+    68
+  ],
+  "connected_definitions": 197,
+  "remaining_other_types": 31,
+  "added_condition_types": [
+    35,
+    36
+  ],
+  "new_tables": [],
+  "new_indexes": [
+    "native_achievement_consumable_owner_template"
+  ],
+  "inherited_new_index": "native_achievement_anvil_account",
+  "unresolved_original_reward_groups": 53,
+  "installed": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "production_database_access": false,
+  "evidence": [
+    {
+      "file": "live-consumption-1794026782301906800.json",
+      "sha256": "e46fb69b72137e63bdb50e19d1092fca001adabe59f1fe1b84193615c7b5e9fc"
+    },
+    {
+      "file": "consumption-sources-1794026835887353300.json",
+      "sha256": "8247c30da102eecfee3e5f10d2a5fb7278a558e67de1859f2c7df0d824707da0"
+    }
+  ],
+  "inherited_proof": "reference/native-achievement-equipment-tools-20261107-v1/qualification.json"
+}
