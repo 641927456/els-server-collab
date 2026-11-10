@@ -1,0 +1,90 @@
+{
+  "kind": "Reused prior evidence; no new behavior execution during source packaging",
+  "qualification_sha256": "eeed238f3ec7b3c2e2167b920577246a235fbf0a0972df44416b9244fd9540f1",
+  "source_pins": [
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "before_sha256": "e30ec6b45381325763791739f7ea1fa7fb0e2937623c6978e311dcc977bcda89",
+      "after_sha256": "d4d1c0ee0fe89799b538f17f31fadab7e52ae73e5f84f5a0e3f982d57d36503a"
+    }
+  ],
+  "receipts": [
+    {
+      "name": "repair-baseline.json",
+      "original_sha256": "579c78f96ae6c0141c555490fe7e466a436fed1d6eee36399fdc384c6738d004",
+      "result": {
+        "ok": true,
+        "baseline": true,
+        "cases": [
+          "observed_native255_rejected_and_gate_stays_closed"
+        ],
+        "temporary_store_removed": true,
+        "production_database_access": false,
+        "natural_GUI": false,
+        "native_client_executed": false
+      }
+    },
+    {
+      "name": "repair-tests-partial.json",
+      "original_sha256": "fd0b98fc43faa185fceef653a23aefc0b6df0694d9d920615cd1b2e6509605b4",
+      "result": {
+        "ok": true,
+        "partial": true,
+        "completed_before_fixture_expectation_failure": [
+          "observed_gate_B7_then_arrival_B9_BA_then_BC_BD_and_replays",
+          "all_27_sources_native255_and_replay_without_economy",
+          "remaining_enemy_blocks_ordinary_kill_preserved_unrelated_rejected",
+          "encode_failure_preserves_actor_gate_clock"
+        ],
+        "failure": "Invalid C1 lease correctly raises SessionOrderError before static source HP access; test originally expected only an empty reply.",
+        "production_change_after_failure": false,
+        "temporary_store_removed": true
+      }
+    },
+    {
+      "name": "repair-negative-tests.json",
+      "original_sha256": "f77d2e6ac106a9da4284837ae9ebfd51c94a7555ccc4dec1c77e37a7fb01e7d5",
+      "result": {
+        "ok": true,
+        "baseline": false,
+        "cases": [
+          "eight_invalid_contexts_preserve_state"
+        ],
+        "temporary_store_removed": true,
+        "production_database_access": false,
+        "natural_GUI": false,
+        "native_client_executed": false
+      }
+    },
+    {
+      "name": "shared-retirement-tests.json",
+      "original_sha256": "c9badd5083e88a31f38aef97c99272b68766b1c2721f4e5620049956ac5192ae",
+      "result": {
+        "ok": true,
+        "members": 2,
+        "npc_hp": 332821472,
+        "shared_retirement": true,
+        "source_gate_opened": true,
+        "replay_no_duplicate_notice": true,
+        "natural_multiplayer": false,
+        "production_database_access": false
+      }
+    }
+  ],
+  "source_test_hashes_observed_at_packaging": {
+    "verify_repairs.py": "719bda8e24a2c2afa204f83ea551d05c472f36957b7b4b7873504c902f11c1e0",
+    "verify_shared_retirement.py": "bd6da7b81a9add9209a1920ef58022fd2c1e99e31968c728fefb2e9edbddd5dd"
+  },
+  "historical_test_file_hashes_captured_before_execution": false,
+  "limits": [
+    "Protocol tests use synthetic owned sessions and temporary databases.",
+    "Node uses observable native-call substitutes.",
+    "Full native composition uses a private matched runtime image which is not distributed.",
+    "No natural GUI, gameplay, stability, installation or Git merge is asserted."
+  ],
+  "independent_review_reference": {
+    "name": "session-hp-force-solo-20261109-v1/independent-review.json",
+    "sha256": "22689e45928ee92357243884945f8220d92543ad8c8578e69113ee5800039b8d",
+    "scope": "Source and current dependency identity review; no new live test."
+  }
+}
