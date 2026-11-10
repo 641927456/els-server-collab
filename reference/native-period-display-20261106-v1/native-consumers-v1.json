@@ -1,0 +1,101 @@
+{
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "read_only_binary_analysis": true,
+  "production_Hook": false,
+  "calendar_setter": "FE9B00 parses its date into engine+4E8 and resets tick+530; original1F0 writes numeric+4F0/+4F8 separately",
+  "verified_direct_calendar_setter_callers": [
+    {
+      "call": "0x1395d4f",
+      "function": "0x13959a0",
+      "instructions": [
+        {
+          "rva": "0x1395d45",
+          "instruction": "call 0x143bab2f1"
+        },
+        {
+          "rva": "0x1395d4a",
+          "instruction": "lea rdx, [rsp + 0x20]"
+        },
+        {
+          "rva": "0x1395d4f",
+          "instruction": "call 0x140fe9b00"
+        },
+        {
+          "rva": "0x1395d54",
+          "instruction": "mov rax, qword ptr [rsp + 0x7e]"
+        }
+      ]
+    },
+    {
+      "call": "0x139688c",
+      "function": "0x13966e0",
+      "instructions": [
+        {
+          "rva": "0x1396883",
+          "instruction": "call 0x143bab2f1"
+        },
+        {
+          "rva": "0x1396888",
+          "instruction": "lea rdx, [rbp - 0x41]"
+        },
+        {
+          "rva": "0x139688c",
+          "instruction": "call 0x140fe9b00"
+        },
+        {
+          "rva": "0x1396891",
+          "instruction": "mov ecx, dword ptr [rbp + 0x17]"
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "0xfe9b00": {
+      "unwind_begin": "0xfe9b00",
+      "unwind_end": "0xfe9b63",
+      "prefix16": "48895c2408574883ec30488b05afa376"
+    },
+    "0x13959a0": {
+      "unwind_begin": "0x13959a0",
+      "unwind_end": "0x1395ec7",
+      "prefix16": "48895c2410488974241848897c242055"
+    },
+    "0x13966e0": {
+      "unwind_begin": "0x13966e0",
+      "unwind_end": "0x13969d5",
+      "prefix16": "48895c2410488974241855574156488d"
+    },
+    "0x6f9c10": {
+      "unwind_begin": "0x6f9c10",
+      "unwind_end": "0x6fa9a2",
+      "prefix16": "48895c24085556574154415541564157"
+    },
+    "0x2de6950": {
+      "unwind_begin": "0x2de6950",
+      "unwind_end": "0x2de761f",
+      "prefix16": "488bc448895808488970185557415648"
+    },
+    "0x7ebc80": {
+      "unwind_begin": "0x7ebc80",
+      "unwind_end": "0x7ebf25",
+      "prefix16": "48895c241048894c24085556574883ec"
+    }
+  },
+  "original_tooltip": "6F9C10 gates on usage<=1 and signed CItem+2C>0. Empty date uses that marker as days; dated values count down from engine+4E8+elapsed tick seconds.",
+  "signed_conversion": "D9A550 DTO+34E int16 -> entry+359 -> CItem+2C int32; exact expirywstring remains unchanged",
+  "mail_consumer": "2DE6950 rejects usage0/1 with a positive period before static template flags; usage2 retains its category-specific eligibility",
+  "failure_evidence": {
+    "family1_v5": "Numeric clock correct, calendar0 and invalid20793-day text",
+    "family1_v6": "19C empty date resets the valid1F0 calendar after role entry",
+    "family1_v7": "Calendar corrected; diagnostic2-second tolerance rejected observed3-second delivery/rounding skew"
+  },
+  "source_pins": {
+    "els_server/domain/inventory_items.py": "a7d8244ec2ad1ef6612e15a633c11ac553be00abc1a65c777a0a0df4f3725473",
+    "els_server/domain/item_expiration.py": "90fb59bee585cd489f6a2bc9fcda7851fd36803f1f450826c859013e493981a1",
+    "els_server/protocol/fishing_vip_messages.py": "3e1ce1f414ef1a07e137d8c2447b7ae17efb62fa23a9b2ef1a06903cd7b38fa7",
+    "els_server/protocol/local_messages.py": "3cfb71b7e91ffaa6721db897bdeb58738db9f213f76c043c84e108f45a501901",
+    "els_server/protocol/session_clock.py": "3c5bbc6dce47c345f80d4450d930b10d157e607532ef14067b8ef72e4b972efd",
+    "els_server/storage/mail_attachments.py": "6ea2ae68fd0d3883ef5d1f696efc4b6ae1aa36f2d13b8ad24daafba889d66e56",
+    "els_server/storage/trade_board_state.py": "dedadada1263b7ce8a3715918792ca6241a16250b2fe9534707c3e9db0d207a6"
+  }
+}

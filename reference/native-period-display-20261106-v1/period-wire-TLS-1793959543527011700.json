@@ -1,0 +1,70 @@
+{
+  "ok": true,
+  "actual_authenticated_TLS": true,
+  "native_Game": false,
+  "natural_GUI": false,
+  "production_database_access": false,
+  "checks": [
+    "Pending1/30day periods survive cold reads; original bank transfer preserves UID and pending seconds without starting the timer",
+    "Original D9A550 accepts permanent0, unstarted1/30 and dated positive signed-day markers; exact date field/expiry remains unchanged, including long valid deadlines",
+    "Mail refuses timed usage0/1 equipment like original2DE6950 and retains usage2 material eligibility; shared market/personal trade guard refuses unstarted timed items",
+    "Actual authenticated104/105 starts30days on first wear; repeated wear and cold reauthentication retain the same UID/deadline",
+    "Late prepare rejection rolls back timer, positions and receipts; exact operation replay returns current response with no extra activation",
+    "Permanent wearing stays permanent; existing expiry sweep removes both activated items and their child rows while retaining permanent wear"
+  ],
+  "native_D9A550_rows": [
+    {
+      "case": "permanent",
+      "day_marker": 0,
+      "wire_bytes": 304
+    },
+    {
+      "case": "pending30",
+      "day_marker": 30,
+      "wire_bytes": 304
+    },
+    {
+      "case": "pending1",
+      "day_marker": 1,
+      "wire_bytes": 304
+    },
+    {
+      "case": "active:-1",
+      "day_marker": 1,
+      "wire_bytes": 342
+    },
+    {
+      "case": "active:0",
+      "day_marker": 1,
+      "wire_bytes": 342
+    },
+    {
+      "case": "active:1",
+      "day_marker": 1,
+      "wire_bytes": 342
+    },
+    {
+      "case": "active:86400",
+      "day_marker": 2,
+      "wire_bytes": 342
+    },
+    {
+      "case": "active:2592000",
+      "day_marker": 31,
+      "wire_bytes": 342
+    },
+    {
+      "case": "active:30709691657",
+      "day_marker": 32767,
+      "wire_bytes": 342
+    }
+  ],
+  "source_pins": {
+    "els_server/domain/inventory_items.py": "a7d8244ec2ad1ef6612e15a633c11ac553be00abc1a65c777a0a0df4f3725473",
+    "els_server/domain/item_expiration.py": "90fb59bee585cd489f6a2bc9fcda7851fd36803f1f450826c859013e493981a1",
+    "els_server/storage/mail_attachments.py": "6ea2ae68fd0d3883ef5d1f696efc4b6ae1aa36f2d13b8ad24daafba889d66e56",
+    "els_server/storage/trade_board_state.py": "dedadada1263b7ce8a3715918792ca6241a16250b2fe9534707c3e9db0d207a6"
+  },
+  "owned_private_directory_removed": true,
+  "owned_listeners_closed": true
+}
