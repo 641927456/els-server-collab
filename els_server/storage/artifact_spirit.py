@@ -28,10 +28,18 @@ def perform(path,owner,payload,operation,randbelow=secrets.randbelow,encode=ackn
   old=_previous(db,operation,digest);before=load_items(db,owner);ed=balances(db,owner)['ed']
   item=next((i for i in before if i['uid']==uid),None)
   db.execute('CREATE TABLE IF NOT EXISTS artifact_spirit_previews (item_uid INTEGER PRIMARY KEY,owner INTEGER NOT NULL,option_id INTEGER NOT NULL,expected_sha256 TEXT NOT NULL,mode INTEGER NOT NULL,policy_json TEXT NOT NULL)')
-  pending=db.execute('SELECT option_id,expected_sha256,mode FROM artifact_spirit_previews WHERE item_uid=? AND owner=?',(uid,owner)).fetchone()
+  pending=db.execute('SELECT option_id,expected_sha256,mode,policy_json FROM artifact_spirit_previews WHERE item_uid=? AND owner=?',(uid,owner)).fetchone()
   if old is not None:
-   current={(i['group'],i['slot']):i for i in before};option=pending[0] if pending else next(iter(item.get('option_groups',{}).get(str(spirit_group(item['template'])),[])),0) if item else 0
-   return [encode(uid,ed,current_changes(db,operation,owner,0x6e7,old,before),mode=mode,option=option)]
+   option=0
+   if mode in (7,9):
+    if (pending is None or pending[2]!=mode or json.loads(pending[3]).get('operation_id')!=operation
+        or item is None or item['group']!=1 or expired(item) or locked(item) or pending[1]!=signature(item)):
+     return [encode(uid,ed,mode=mode,result=2005)]
+    option=pending[0]
+   elif item is not None:
+    option=next(iter(item.get('option_groups',{}).get(str(spirit_group(item['template'])),[])),0)
+   changes=current_changes(db,operation,owner,0x6e7,old,before)
+   return [encode(uid,ed,changes,mode=mode,option=option,options=[option] if option else [])]
   if item is None or item['group']!=1 or item['count']!=1 or item.get('identified') is False or not item.get('artifact_socket_open'):raise ValueError('Owned identified unequipped open-slot Artifact required')
   require_current(item);require_unlocked(item);category=spirit_group(item['template'])
   from els_server.domain.artifact_progression import catalog
@@ -71,7 +79,8 @@ def perform(path,owner,payload,operation,randbelow=secrets.randbelow,encode=ackn
     replace(db,owner,uid,previous,{**previous,str(category):[option]})
     db.execute('DELETE FROM artifact_spirit_previews WHERE item_uid=? AND owner=?',(uid,owner))
    else:
-    db.execute('INSERT INTO artifact_spirit_previews VALUES (?,?,?,?,?,?) ON CONFLICT(item_uid) DO UPDATE SET owner=excluded.owner,option_id=excluded.option_id,expected_sha256=excluded.expected_sha256,mode=excluded.mode,policy_json=excluded.policy_json',(uid,owner,option,signature(item),mode,json.dumps(identity(),sort_keys=True)))
+    preview_policy={**identity(),'operation_id':operation}
+    db.execute('INSERT INTO artifact_spirit_previews VALUES (?,?,?,?,?,?) ON CONFLICT(item_uid) DO UPDATE SET owner=excluded.owner,option_id=excluded.option_id,expected_sha256=excluded.expected_sha256,mode=excluded.mode,policy_json=excluded.policy_json',(uid,owner,option,signature(item),mode,json.dumps(preview_policy,sort_keys=True)))
   validate_spirit(item['template'],[option]);after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
   result=[encode(uid,ed,[(p,current.get(p)) for p in positions],mode=mode,option=option,options=[option])]
   _commit(db,operation,digest,owner,0x6e7,positions,before,after)
