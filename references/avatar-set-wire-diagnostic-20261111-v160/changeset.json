@@ -1,0 +1,32 @@
+{
+  "release": "avatar-set-wire-diagnostic-20261111-v160",
+  "patch_sha256": "62d4d3d254bdafb957db5ab3904c03955149e175535782ee858298f1301b78f9",
+  "parents": {
+    "online": {
+      "release": "npc-merchant-shops-20261111-v159",
+      "manifest_sha256": "9fd2457abef8f2342d0da3eb90a5d927705b7dee9df31bd1d79b509d20cb8a66"
+    },
+    "local": {
+      "release": "unified-server-0a1a324aa08e6fc1-c7af035c5739",
+      "manifest_sha256": "f97a16da48e7018a2e64fcba577ed27b55dfec0ea210348542c2ea8b6772caf9"
+    },
+    "launchers": {
+      "release": "npc-merchant-shops-20261111-v159",
+      "manifest_sha256": "9aecdd359c470eb2b490f277402f6c5a1c717ea193011ee36b7bfaaf4fa5b6a7"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/protocol/avatar_set_messages.py",
+      "parent_sha256": "09500b7e9961fa9c6c0c581121ba0fb3edeb0125597014bdf6fdc95619224e84",
+      "sha256": "3faad768047529b73c6b9d568d64adf0efa0ed9e09514e77bf6e3924e2c033a4",
+      "size": 2813
+    },
+    {
+      "path": "els_server/domain/avatar_set_flow.py",
+      "parent_sha256": "b710084ddd2fc86c54b0e7c730bddf54ce4904f1bfd7bd10f1b1a88553cc6929",
+      "sha256": "96dba75b82c26e5fdfec5db8d4f48d466317458912e80820bf2e793dda79433c",
+      "size": 3942
+    }
+  ]
+}
