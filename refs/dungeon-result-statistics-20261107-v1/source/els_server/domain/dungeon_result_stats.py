@@ -1,0 +1,175 @@
+"""Bind original cumulative reports to the current run; project display only.
+
+The report never authorizes a death, clear, reward, attribute or saved balance.
+Each member supplies its own UID slice; observers' copies are never summed.
+"""
+from dataclasses import replace
+import struct
+
+from els_server.protocol.protocol_codec import Event
+from els_server.protocol.pvp_play_messages import hp_report,report_ack
+
+
+def generation(session):
+    run=session.dungeon_run
+    return (session.reward_run_id,run.stage if run is not None else session.gate_stage,
+            run.part if run is not None else 0)
+
+
+def report(session,event,sequence):
+    from els_server.domain.dungeon_equipment_loot_flow import current_lease
+    if (event.event_id!=0x202 or event.kind!=0x9e or event.payload_mode!=0
+        or event.uid!=2**64-1 or event.target_uid!=2**64-1
+        or event.performers not in ((),(0,)) or type(sequence)is not int or sequence<=0
+        or session.phase!='dungeon_active' or not session.dungeon_substage_synced
+        or not session.reward_run_id or not current_lease(session)):
+        return [report_ack(2005)]
+    try:
+        parsed=hp_report(event.payload,statistics=True)
+        if parsed.maximum_hp is not None:raise ValueError('PvP report in dungeon')
+        local_cd=parsed.statistics['local_cooldown']
+        if local_cd is not None and (0 in local_cd or session.account.uid in local_cd):
+            raise ValueError('Dungeon cooldown excludes self and anonymous sources')
+    except ValueError:
+        return [report_ack(2005)]
+    key=generation(session)
+    previous=getattr(session,'dungeon_result_report',None)
+    if previous is not None and previous[0]==key and sequence<=previous[1]:
+        return [report_ack(0 if parsed.raw==previous[2].raw else 2005)]
+    if session.clear_notified:
+        # A native BB/471 retry rebuilds the DTO (HP and other fields may
+        # change). Confirm its delivery without replacing the sealed result.
+        return [report_ack(0 if previous is not None and previous[0]==key else 2005)]
+    app=getattr(session,'application',None)
+    room=app.world.dungeons.room(session) if app is not None else None
+    members=room.members if room is not None else (session,)
+    try:cooldown_payloads(members,session.dungeon_participants,replacement=(session,parsed.statistics))
+    except ValueError:return [report_ack(2005)]
+    session.dungeon_result_report=(key,sequence,parsed)
+    return [report_ack(0)]
+
+
+def current_statistics(session):
+    saved=getattr(session,'dungeon_result_report',None)
+    return saved[2].statistics if saved is not None and saved[0]==generation(session) else None
+
+
+def known_awards(members):
+    """Original Destroyer/Guardian/Healer conditions with a unique top score.
+
+    Equal top scores and incomplete reports remain unreconstructed; retain the
+    receipt's flags for those categories rather than invent a tie-break rule.
+    Contribution, CP-normalized rank and team MVP are separate server inputs.
+    """
+    scores=[]
+    for member in members:
+        stats=current_statistics(member)
+        if stats is None:return {}
+        uid=member.account.uid
+        damage=stats['damage']
+        hp,mp,_,_=stats['recovery']
+        scores.append((uid,(damage[0].get(uid,0)+damage[6].get(uid,0),
+                            damage[7].get(uid,0),hp+mp)))
+    awards={}
+    for category in range(3):
+        maximum=max(values[category]for _,values in scores)
+        if maximum<1:
+            awards[category]=None
+        else:
+            winners=[uid for uid,values in scores if values[category]==maximum]
+            if len(winners)==1:awards[category]=winners[0]
+    return awards
+
+
+def cooldown_payloads(members,participants,*,replacement=None):
+    totals={uid:0.0 for uid in participants}
+    for recipient in members:
+        stats=replacement[1] if replacement is not None and recipient is replacement[0] else current_statistics(recipient)
+        if stats is not None and stats['local_cooldown'] is not None:
+            for source,value in stats['local_cooldown'].items():
+                if source in totals:totals[source]+=value
+    try:return {uid:struct.pack('>f',value)for uid,value in totals.items()}
+    except OverflowError as error:raise ValueError('Dungeon cooldown aggregate exceeds native f32')from error
+
+
+def member_payload(payload,session,provided_cooldown=bytes(4),*,solo=False):
+    # DA64C0 fixed header31, DA5DA0 constructor's empty-container member397.
+    if len(payload)!=516 or struct.unpack_from('>I',payload,27)[0]!=1:
+        raise ValueError('Dungeon result source member layout')
+    row=bytearray(payload[31:428]);uid=session.account.uid
+    if struct.unpack_from('>Q',row)[0]!=uid:raise ValueError('Dungeon result source owner')
+    row[359-31:363-31]=provided_cooldown
+    # Original result revamp: successful single-player runs always award MVP.
+    # This flag is independent of the unknown party score/rank formula.
+    if solo and payload[0x10]==1:row[388-31]=1
+    stats=current_statistics(session)
+    if stats is None:return bytes(row)
+    damage=[values.get(uid,0.0) for values in stats['damage']]
+    # Wire offsets from DA5DA0's field trace; 37ABAF0/37AD010 name the graphs.
+    fields={273:damage[0],327:damage[1],331:damage[2],
+            363:damage[3],367:damage[4],371:damage[5],
+            335:damage[6],339:damage[7]}
+    hp,mp,own_hp,own_mp=stats['recovery']
+    fields.update({343:hp,347:mp,351:own_hp,355:own_mp})
+    for offset,value in fields.items():struct.pack_into('>f',row,offset-31,value)
+    struct.pack_into('>i',row,269-31,stats['received'])
+    return bytes(row)
+
+
+def seal(session,event=None):
+    """Called within the existing dungeon worker domain after all adoption."""
+    if not session.enter_dungeon or not session.clear_notified or not session.reward_run_id:return
+    app=getattr(session,'application',None)
+    room=app.world.dungeons.room(session) if app is not None else None
+    members=room.members if room is not None else (session,)
+    # Freeze before releasing the settlement domain, including when the C1
+    # was queued to a mailbox. Socket timing and later selection are irrelevant.
+    owner=room if room is not None else session
+    epoch=room.seed if room is not None else session.reward_run_id
+    saved=getattr(owner,'dungeon_result_rows',None)
+    if saved is None or saved[0]!=epoch:
+        if frozenset(m.account.uid for m in members)!=session.dungeon_participants:
+            raise ValueError('Dungeon result admitted roster changed')
+        rows=[];successful=True
+        # Only the PVE1 map is scoped to one recipient. The original map may
+        # contain remote observers' copies and must never be summed here.
+        provided=cooldown_payloads(members,session.dungeon_participants)
+        for member in members:
+            if member is session and event is not None:source=event.payload
+            elif getattr(member,'reward_receipt',None) is not None:
+                source=member.reward_receipt['response']
+            elif getattr(member,'dungeon_failed',False):
+                from els_server.domain.dungeon_clear import failed_clear_notice
+                source=failed_clear_notice(member.account.uid).payload
+            else:raise ValueError('Dungeon result committed receipt missing')
+            successful=successful and source[0x10]==1
+            rows.append(member_payload(source,member,provided[member.account.uid],solo=len(members)==1))
+        awards=known_awards(members) if successful else {}
+        if awards:
+            for index,member in enumerate(members):
+                row=bytearray(rows[index])
+                # DA5DA0: wire389..391 -> DTO17E..180. 1046F20 and
+                # 37ACD60 consume these three original award flags.
+                for category,winner in awards.items():
+                    row[389-31+category]=int(member.account.uid==winner)
+                rows[index]=bytes(row)
+        saved=(epoch,tuple(rows));owner.dungeon_result_rows=saved
+    return saved
+
+
+def project(session,event):
+    if event.event_id!=0x201 or event.kind!=0xc1:return event
+    saved=seal(session,event)
+    if saved is None:return event
+    payload=event.payload
+    if len(payload)!=516:raise ValueError('Dungeon result source envelope')
+    raw=payload[:27]+struct.pack('>I',len(saved[1]))+b''.join(saved[1])+payload[428:]
+    return replace(event,payload=raw)
+
+
+def finalize(session,messages):
+    # _worker_call holds the original party/account domain here. Shared
+    # writers have adopted all receipts, even when only BC is returned now.
+    room=session.application.world.dungeons.room(session)
+    if room is not None and all(m.clear_notified for m in room.members):seal(session)
+    return [project(session,e)for e in messages]
