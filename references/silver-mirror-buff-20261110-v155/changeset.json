@@ -1,0 +1,38 @@
+{
+  "release": "silver-mirror-buff-20261110-v155",
+  "patch_sha256": "12edf5ce399ab430f03cb49ae04db533c4430d0ec965972e449757b5b9999aa2",
+  "parents": {
+    "online": {
+      "release": "native-self-retirements-20261110-v154",
+      "manifest_sha256": "f1b581fd55a122b409055c242413b044e64b27794d14b295e28a83105ce14825"
+    },
+    "local": {
+      "release": "unified-server-0f42547f38bffe10-c5a15383b478",
+      "manifest_sha256": "6003872e62312cfd802dd841beb42d0cdb7be4defe0d66b5c671ea92958cf77b"
+    },
+    "launchers": {
+      "release": "native-self-retirements-20261110-v154",
+      "manifest_sha256": "2c5e8f161eae27c9487bbff85c0e14a1f60c3052097fbed7df591761d041b9ba"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "parent_sha256": "af59b11e716567ea8d71421a046a7dc7399885ca074140ecc8ddbf7407ceeeb5",
+      "sha256": "d2ed7d4c6585ca4e3672a743acf0a1aaca4989d96af864251b133a64012ada19",
+      "size": 35209
+    },
+    {
+      "path": "els_server/domain/raid_admission.py",
+      "parent_sha256": "c5091de47a86f7cec053cb811cb02abc71fc4bd49475fb3c00171fa16ce4638d",
+      "sha256": "98403d936308705c638e1d021ac4a49eddafee4c129b2eaa04b7488d683d7e36",
+      "size": 4814
+    },
+    {
+      "path": "els_server/domain/silver_mirror_flow.py",
+      "parent_sha256": "0aa072bf44811942bbf85f739d64fb62a899a5f1004b4ef4028c668d3c92d90a",
+      "sha256": "f0b4978ec7ada165a8cf962827f64b0cc208a7a241159c593a132e1e96c26e4c",
+      "size": 14272
+    }
+  ]
+}
