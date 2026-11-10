@@ -1,0 +1,132 @@
+--- candidate/els_server/domain/seal_quests.py
++++ installed/els_server/domain/seal_quests.py
+@@ -158,7 +158,7 @@
+         raise ValueError('Quest career requirement')
+ 
+ 
+-def require_eligible(character,quest,completed,items,*,location=('town',20000)):
++def require_eligible(character,quest,completed,items,*,location=('town',20000),check_location=True):
+     from els_server.domain.quick_start import require_quest
+     require_quest(character,quest)
+     from els_server.domain.growth_guide import contains as guide_contains,require_eligible as guide_eligible
+@@ -195,7 +195,7 @@
+     if show and not any(i in seals for i in show):raise ValueError('Quest previous skill requirement')
+     if c.get('m_iConditionItemID') and sum(i['count'] for i in items if i['template']==c['m_iConditionItemID'])<c['m_iConditionItemNum']:raise ValueError('Quest prerequisite item')
+     places={kind:sequence(c.get(key,{})) for kind,key in (('town','m_iEnableVillage'),('field','m_iEnableField'),('dungeon','m_iEnableDungeon'))}
+-    if any(places.values()):
++    if check_location and any(places.values()):
+         allowed=places[location[0]]
+         if 0 not in allowed and location[1] not in allowed:raise ValueError('Quest location requirement')
+ 
+--- candidate/els_server/domain/tutorial_quests.py
++++ installed/els_server/domain/tutorial_quests.py
+@@ -67,19 +67,20 @@
+         if participant(quick_db,state.uid,state.account_id) and quick_character!=(1,):
+             snapshot=state.notification_snapshot()
+             return _restore_reply(snapshot,{r['id']for r in snapshot['active']},live,False)
+-    from els_server.storage.epic_followups import deferred_write_possible
++    from els_server.storage.epic_followups import deferred_write_possible,eligible_arrival_roots
+     with snapshot_connection(state.path) as probe:
+         probe.execute('BEGIN')
+         tables=('character_ep','character_quests','completed_quests','quest_actions','quest_progress_events')
+         if all(probe.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(t,)).fetchone()for t in tables):
+             character=load_character(probe,state.uid,state.account_id)
+-            snapshot=_state(probe,state.uid,load_items(probe,state.uid))
++            probe_items=load_items(probe,state.uid);snapshot=_state(probe,state.uid,probe_items)
+             quest,town=starter(character['unit_type']);catalog=quest_catalog()
+             progress={row['id']for key in ('active','completed')for row in snapshot[key]}
+             has_story=any(i not in catalog.quests or catalog.quest(i)['m_eQuestType']==5 for i in progress)
+             saved=probe.execute('SELECT town FROM location WHERE uid=?',(state.uid,)).fetchone()
+             possible_starter=saved==(town,)and not has_story and acceptance_available(quest,snapshot['active'])
+-            if not possible_starter and(saved is None or not deferred_write_possible(probe,state.uid)):
++            possible_arrival=saved is not None and eligible_arrival_roots(probe,state.uid,character,probe_items,('town',saved[0]))
++            if not possible_starter and not possible_arrival and(saved is None or not deferred_write_possible(probe,state.uid)):
+                 return _restore_reply(snapshot,{r['id']for r in snapshot['active']},live,False)
+     with closing(sqlite3.connect(state.path,timeout=10)) as db:
+         with write_transaction(db):
+@@ -109,10 +110,11 @@
+             # delayed current after-edges. Same-owner saved location supplies the
+             # context; map-panel selection never calls this path.
+             if saved is not None:
+-                from els_server.storage.epic_followups import restore_deferred
++                from els_server.storage.epic_followups import restore_deferred,restore_arrival_roots
+                 now=int(time.time())
+                 if not 0<now<2**63:raise ValueError('Story restoration timestamp')
+-                accepted=restore_deferred(db,state.uid,character,items,('town',saved[0]),now)
++                accepted=restore_arrival_roots(db,state.uid,character,items,('town',saved[0]),now)
++                accepted+=restore_deferred(db,state.uid,character,items,('town',saved[0]),now)
+                 if accepted:
+                     snapshot=_state(db,state.uid,items);restored=True
+             return _restore_reply(snapshot,previous,live,restored)
+--- candidate/els_server/storage/epic_followups.py
++++ installed/els_server/storage/epic_followups.py
+@@ -4,7 +4,7 @@
+ identities, conditions and objectives come exclusively from the pinned build.
+ This accepts tasks only. It never completes an objective or grants a reward.
+ """
+-import hashlib,json
++import functools,hashlib,json
+ from els_server.domain.seal_quests import quest_catalog,sequence,require_eligible
+ 
+ 
+@@ -112,3 +112,49 @@
+         if any(identity in catalog.quests and identity not in active and identity not in completed
+                for identity in sequence(source.get('m_iAfterQuestID',{}))):return True
+     return False
++
++
++@functools.lru_cache(maxsize=1)
++def _arrival_roots():
++    """Native region roots have one FindVillage objective and no predecessor."""
++    from els_server.domain.tutorial_quests import STARTERS
++    starters={qid for qid,town in STARTERS.values()}
++    catalog=quest_catalog();result={}
++    for identity,quest in catalog.quests.items():
++        if identity in starters or quest['m_eQuestType']!=5:continue
++        condition=quest['QuestCondition'];towns=sequence(condition.get('m_iEnableVillage',{}))
++        if (len(towns)!=1 or towns[0]==0 or any(sequence(condition['m_vecBeforeQuestID']))
++            or quest.get('m_bIsPcBang') or quest.get('m_bIsTimeEvent') or quest.get('m_bRepeat')
++            or quest.get('m_iRandomGroupID') or quest.get('CHANGE_JOB_TYPE')):continue
++        objectives=catalog.objectives(identity)
++        if (len(objectives)==1 and objectives[0]['m_eClearType']==24
++            and sequence(objectives[0]['m_ClearCondition']['m_eVillageID'])==towns):
++            result.setdefault(towns[0],[]).append(identity)
++    return {town:tuple(sorted(ids)) for town,ids in result.items()}
++
++
++def eligible_arrival_roots(db,uid,character,items,location):
++    if location[0]!='town':return ()
++    candidates=_arrival_roots().get(location[1],())
++    if not candidates:return ()
++    active={r[0] for r in db.execute('SELECT quest FROM character_quests WHERE owner=?',(uid,))}
++    completed={r[0] for r in db.execute('SELECT quest FROM completed_quests WHERE owner=?',(uid,))}
++    abandoned={r[0] for r in db.execute("SELECT request_hash FROM quest_actions WHERE owner=? AND kind='abandon'",(uid,))}
++    result=[]
++    for identity in candidates:
++        if identity in active or identity in completed:continue
++        digest=hashlib.sha256(json.dumps([uid,'abandon',dict(quest=identity)],sort_keys=True).encode()).hexdigest()
++        if digest in abandoned:continue
++        try:require_eligible(character,quest_catalog().quest(identity),completed,items,location=location)
++        except ValueError:continue
++        result.append(identity)
++    return tuple(result)
++
++
++def restore_arrival_roots(db,uid,character,items,location,now):
++    accepted=eligible_arrival_roots(db,uid,character,items,location)
++    for identity in accepted:
++        sub=quest_catalog().objectives(identity)[0]
++        db.execute('INSERT INTO character_quests VALUES (?,?,?,?,?)',
++            (uid,identity,now,now,json.dumps({sub['m_iID']:1},sort_keys=True)))
++    return accepted
+--- candidate/els_server/storage/seal_quests.py
++++ installed/els_server/storage/seal_quests.py
+@@ -294,7 +294,7 @@
+                     # The first native flag remains an unsupported mode.
+                     if request.get('flags',(0,))[0]:raise ValueError('Unsupported quest completion mode')
+                     if active is None:raise ValueError('Quest has not been accepted')
+-                    require_eligible(character,q,completed_ids(db,uid),items,location=location)
++                    require_eligible(character,q,completed_ids(db,uid),items,location=location,check_location=request.get('npc')!=0)
+                     # 3030D10 forwards the quest window's NPC context as-is;
+                     # remote/quick completion uses zero (no NPC conversation).
+                     if request.get('npc') not in (0,q['m_eEndNPCID'],10025):raise ValueError('Quest end NPC mismatch')

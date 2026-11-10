@@ -84,6 +84,28 @@ def main(argv=None):
         run([sys.executable,'-B',str(ROOT/'tools/verify_writer_checkpoint_v87_integration.py')])
     if (ROOT/'refs/server-send-fairness-20261107-v1/source-bindings.json').is_file():
         run([sys.executable,'-B',str(ROOT/'refs/server-send-fairness-20261107-v1/verify_contract.py')])
+    if (ROOT/'references/pr771-firstbatch-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_firstbatch.py')])
+    if (ROOT/'references/pr771-secondbatch-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_secondbatch.py')])
+    if (ROOT/'references/pr771-thirdbatch-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_thirdbatch.py')])
+    if (ROOT/'references/pr771-fourthbatch-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_fourthbatch.py')])
+    if (ROOT/'references/pr771-fifthbatch-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_fifthbatch.py')])
+    if (ROOT/'references/pr771-sixthbatch-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_sixthbatch.py')])
+    if (ROOT/'references/pr771-native-followup-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_native_followup.py')])
+    if (ROOT/'references/pr771-racing-local-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_racing_local.py')])
+    if (ROOT/'references/pr771-racing-reset-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_racing_reset.py')])
+    if (ROOT/'references/pr771-racing-full-20261103-v1/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_racing_full.py')])
+    if (ROOT/'references/pr771-online-installed-20261103-v2/manifest.json').is_file():
+        run([sys.executable,'-B',str(ROOT/'tools/verify_pr771_online_installed.py')])
     if (ROOT/'references/epic-special14-20261031-v1/candidate-v5.json').is_file():
         run([sys.executable,'-B',str(ROOT/'tools/verify_epic_special14_sources_20261101.py')])
     run([sys.executable,'-B','-m','unittest','tests.test_public_controller_sources'])

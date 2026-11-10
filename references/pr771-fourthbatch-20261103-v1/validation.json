@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "tests": 4,
+  "case_ids": [
+    "Remaining.test_current_master_native_floor_does_not_authorize_a_clear",
+    "Remaining.test_current_shared_master_gate_uses_existing_all_member_writer",
+    "Remaining.test_current_sixteen_master_gates_and_resource_delays_already_work",
+    "Remaining.test_stage_transition_never_reuses_a_previous_player_summon_identity"
+  ],
+  "skipped": 0,
+  "test_sha256": "812239c2efadd241c299f22fa3c96025d3a1063680a906a73a72bb9865845855",
+  "source_hashes": {
+    "els_server/domain/dungeon_flow.py": "348fff162404a99c32e2c3ca8e0415c2960261fc31430c599d36fdf216a3a98e",
+    "els_server/protocol/mount_messages.py": "94905a2f9ef6290094a1e40e6705d3d712eafa63cc033fb2947e8c9dac9a01fb"
+  },
+  "native_initialization": {
+    "ok": true,
+    "original_reader": "DE1310/DB2B20",
+    "bytes": 55,
+    "native_level": 1,
+    "original_ctor_matches": true,
+    "source_sha256": "94905a2f9ef6290094a1e40e6705d3d712eafa63cc033fb2947e8c9dac9a01fb",
+    "natural_GUI": false,
+    "experience_award": false
+  },
+  "test_result_reuse": "Master3 passed before adding late-cast assertion; changed sentry case passed separately after final source/test edit. Owned SQLite and real shared writer; skill eligibility fixture supplied for sentry. Not natural gameplay.",
+  "installed": false,
+  "public_QA": false,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "evidence_hashes": {
+    "master-source-census.json": "2d0a67890b2511874cc322508960fbed7b9968f6e71a6a2d6af55528fb52d58f",
+    "native-mount-racing-dto.json": "8c5dc111aa1c26fefb5df217bfc2c19bbe7e743d396df772a777f003565735bd",
+    "native-mount-initialization.json": "57378f9fd35d22615d41ae4f58447a1c3eb23cbfcaf46e546c924b7ff7d6c8ca"
+  }
+}

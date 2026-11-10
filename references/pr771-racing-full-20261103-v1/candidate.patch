@@ -1,0 +1,1550 @@
+--- parent/els_server/application.py
++++ online/els_server/application.py
+@@ -41,6 +41,8 @@
+         from els_server.domain.session_auxiliary import friends_auxiliary_noop
+         if friends_auxiliary_noop(self,event):
+             return remember(self,self.mailbox.drain())
++        result=self.application.world.racing.request(self,event,request_sequence)
++        if result is not None:return self.activity_reply(result+self.mailbox.drain())
+         result=self.application.world.pvp.request(self,event,request_sequence)
+         if result is not None:return self.activity_reply(result+self.mailbox.drain())
+         result=self.application.world.field_bosses.request(self,event,request_sequence)
+@@ -145,6 +147,7 @@
+         return messages
+ 
+     def periodic_notifications(self, *, _rooms=None):
++        with self.application.world_lock:self.application.world.racing.periodic(self)
+         self.application.world.pvp.periodic(self)
+         from els_server.domain.group_challenge import tick
+         tick(self)
+--- parent/els_server/data/mount_racing_exchange.json
++++ online/els_server/data/mount_racing_exchange.json
+@@ -0,0 +1,51 @@
++{
++  "schema_version": 1,
++  "house": 40016,
++  "source": 714109,
++  "source_quantity": 20,
++  "destination": 714108,
++  "quantity": 1,
++  "rate": 100,
++  "exchange_type": 1,
++  "original_call": {
++    "function": "g_pItemManager.AddItemExchangeData",
++    "arguments": [
++      {
++        "global": "g_pItemManager"
++      },
++      40016,
++      1,
++      714109,
++      714108,
++      1,
++      100,
++      {
++        "m_iServerGroupID": -1,
++        "m_iSourceQuantity": 20
++      }
++    ],
++    "pc": 671
++  },
++  "npc": 10017,
++  "towns": [
++    20001,
++    20002,
++    20003,
++    20004,
++    20005,
++    20006,
++    20007,
++    20008,
++    20009,
++    20010,
++    20011,
++    20012,
++    20013
++  ],
++  "source_sha256": {
++    "analysis/equipment-connect-01a142e9/expansion-v2/ItemExchangeTable.lua.tables.json": "1a86a91e1751c1e763ff0f0f77fc45ec8a0bf2138fadf3e579e85fd569e26215",
++    "analysis/tutorial-quests-01a142ce/v3-remaining/resources/DLG_Map_House.lua.tables.json": "ec9406064e33c9cd9fcc5dbdfc5c2fad3a63481228e7ab5a13b6af489f96b3f2",
++    "analysis/x2-village-opcode14-20261017-01a14a51/outputs/DLG_Map_Village.tables.json": "b79f1609a7a0d673ab165cc626961779acc791cb411a64a933edf7de03d1f072"
++  },
++  "official": "https://els.ztgame.com/game/m_000-1656-0035d-384170.shtml?ms=859&mt=861"
++}
+--- parent/els_server/data/mount_racing_local.json
++++ online/els_server/data/mount_racing_local.json
+@@ -7,24 +7,145 @@
+   "permanent_mount_only": true,
+   "race_stamina": 60,
+   "maximum_level": 20,
+-  "cumulative_experience": [0, 200, 400, 600, 800, 1200, 1600, 2000, 2400, 2800, 3500, 4200, 4900, 5600, 6300, 7300, 8300, 9300, 10300, 11300],
+-  "points_on_level": [0, 2, 2, 2, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 1],
+-  "attribute_ids": [0, 1, 2, 3],
+-  "attribute_names": ["start", "acceleration", "breakthrough", "final_spurt"],
++  "cumulative_experience": [
++    0,
++    200,
++    400,
++    600,
++    800,
++    1200,
++    1600,
++    2000,
++    2400,
++    2800,
++    3500,
++    4200,
++    4900,
++    5600,
++    6300,
++    7300,
++    8300,
++    9300,
++    10300,
++    11300
++  ],
++  "points_on_level": [
++    0,
++    2,
++    2,
++    2,
++    2,
++    2,
++    1,
++    2,
++    1,
++    2,
++    1,
++    2,
++    1,
++    2,
++    1,
++    2,
++    1,
++    2,
++    1,
++    1
++  ],
++  "attribute_ids": [
++    0,
++    1,
++    2,
++    3
++  ],
++  "attribute_names": [
++    "start",
++    "acceleration",
++    "breakthrough",
++    "final_spurt"
++  ],
+   "attribute_cap": 10,
+   "allocation": "uniform_among_attributes_below_cap",
+-  "rank_experience": [120, 100, 80, 60, 40, 20],
++  "rank_experience": [
++    120,
++    100,
++    80,
++    60,
++    40,
++    20
++  ],
+   "bonus_required_lanes": 6,
+-  "bonus_reward_types": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
++  "bonus_reward_types": [
++    0,
++    1,
++    2,
++    3,
++    4,
++    5,
++    6,
++    7,
++    8,
++    9,
++    10,
++    11
++  ],
+   "bonus_weights_by_rank": {
+-    "1": [20, 18, 15, 12, 8, 2, 10, 6, 4, 2, 2, 1],
+-    "2": [30, 25, 15, 8, 4, 1, 10, 4, 2, 1, 0, 0],
+-    "3": [40, 25, 12, 5, 2, 0, 12, 3, 1, 0, 0, 0]
++    "1": [
++      20,
++      18,
++      15,
++      12,
++      8,
++      2,
++      10,
++      6,
++      4,
++      2,
++      2,
++      1
++    ],
++    "2": [
++      30,
++      25,
++      15,
++      8,
++      4,
++      1,
++      10,
++      4,
++      2,
++      1,
++      0,
++      0
++    ],
++    "3": [
++      40,
++      25,
++      12,
++      5,
++      2,
++      0,
++      12,
++      3,
++      1,
++      0,
++      0,
++      0
++    ]
+   },
+-  "experience_multiplier_percent": [110, 120, 130, 150, 200, 300],
++  "experience_multiplier_percent": [
++    110,
++    120,
++    130,
++    150,
++    200,
++    300
++  ],
+   "fragment_template": 714109,
+   "crystal_template": 714108,
+-  "reset_templates": [714108, 714118],
++  "reset_templates": [
++    714108,
++    714118
++  ],
+   "reset_quantity": 1,
+   "reset_ed": 0,
+   "reset_minimum_level": 2,
+@@ -34,5 +155,35 @@
+   "disconnect_after_start_refunds_stamina": false,
+   "tie_breaker": "lower_lane_number",
+   "experience_at_cap": "clamp_to_11300",
+-  "local_decisions": ["rank_experience", "bonus_weights_by_rank", "points_on_level_semantics", "attribute_cap", "allocation", "reset_ed", "reset_minimum_level", "dnf_experience", "disconnect_after_start_refunds_stamina", "level_assignment_uses_cumulative_experience"]
++  "minimum_players": 3,
++  "maximum_players": 6,
++  "booster_probability_shift_per_point": [
++    -2,
++    1,
++    1
++  ],
++  "booster_speed_increment": "template_ChangeSpeed_Max_Over_per_attribute_point",
++  "race_adjudication_hz": 60,
++  "partial_match_wait_seconds": 5,
++  "full_race_reward_capacity_before_draw": [
++    714109,
++    714108
++  ],
++  "local_decisions": [
++    "rank_experience",
++    "bonus_weights_by_rank",
++    "points_on_level_semantics",
++    "attribute_cap",
++    "allocation",
++    "reset_ed",
++    "reset_minimum_level",
++    "dnf_experience",
++    "disconnect_after_start_refunds_stamina",
++    "level_assignment_uses_cumulative_experience",
++    "booster_probability_shift_per_point",
++    "booster_speed_increment",
++    "race_adjudication_hz",
++    "partial_match_wait_seconds",
++    "full_race_reward_capacity_before_draw"
++  ]
+ }
+--- parent/els_server/data/mount_racing_physics.json
++++ online/els_server/data/mount_racing_physics.json
+@@ -0,0 +1,165 @@
++{
++  "schema_version": 1,
++  "source_sha256": "e4215390818f203655f680ac17b8a07b90c0012dbcdb6ecfdf7dd5d4acce215c",
++  "boosters": {
++    "start": [
++      {
++        "DecelerationTime": 4.7,
++        "HoldTime": 4.9,
++        "AccelerationTime": 0.3,
++        "ChangeSpeed_Max_Over": 0.003,
++        "ChangeSpeed_Max": 0.6,
++        "ChangeSpeed_Min": 0.55,
++        "Probability": 30
++      },
++      {
++        "DecelerationTime": 5.1,
++        "HoldTime": 5.3,
++        "AccelerationTime": 0.25,
++        "ChangeSpeed_Max_Over": 0.004,
++        "ChangeSpeed_Max": 0.7,
++        "ChangeSpeed_Min": 0.65,
++        "Probability": 50
++      },
++      {
++        "DecelerationTime": 5.5,
++        "HoldTime": 5.7,
++        "AccelerationTime": 0.2,
++        "ChangeSpeed_Max_Over": 0.006,
++        "ChangeSpeed_Max": 0.8,
++        "ChangeSpeed_Min": 0.75,
++        "Probability": 20
++      }
++    ],
++    "normal": [
++      {
++        "DecelerationTime": 0.13,
++        "HoldTime": 0.37,
++        "AccelerationTime": 0.15,
++        "ChangeSpeed_Max_Over": 0.003,
++        "ChangeSpeed_Max": 0.35,
++        "ChangeSpeed_Min": 0.3,
++        "Probability": 30
++      },
++      {
++        "DecelerationTime": 0.13,
++        "HoldTime": 0.38,
++        "AccelerationTime": 0.15,
++        "ChangeSpeed_Max_Over": 0.004,
++        "ChangeSpeed_Max": 0.5,
++        "ChangeSpeed_Min": 0.45,
++        "Probability": 50
++      },
++      {
++        "DecelerationTime": 0.13,
++        "HoldTime": 0.39,
++        "AccelerationTime": 0.15,
++        "ChangeSpeed_Max_Over": 0.006,
++        "ChangeSpeed_Max": 0.65,
++        "ChangeSpeed_Min": 0.6,
++        "Probability": 20
++      }
++    ],
++    "obstacle": [
++      {
++        "Probability": 30,
++        "DecelerationTime": 0.8,
++        "HoldTime": 2.2,
++        "AccelerationTime": 0.26,
++        "ChangeSpeed_Max_Over": 0.002,
++        "ChangeSpeed_Max": 0.4,
++        "ChangeSpeed_Min": 0.35,
++        "Obstacle_AccelerationTime": 0.2,
++        "Obstacle_ChangeSpeed": -0.6,
++        "Obstacle_CanJump": false
++      },
++      {
++        "Probability": 50,
++        "DecelerationTime": 0.8,
++        "HoldTime": 2.2,
++        "AccelerationTime": 0.26,
++        "ChangeSpeed_Max_Over": 0.003,
++        "ChangeSpeed_Max": 0.55,
++        "ChangeSpeed_Min": 0.5,
++        "Obstacle_AccelerationTime": 0.24,
++        "Obstacle_ChangeSpeed": -0.18,
++        "Obstacle_CanJump": true
++      },
++      {
++        "Probability": 20,
++        "DecelerationTime": 0.8,
++        "HoldTime": 2.2,
++        "AccelerationTime": 0.26,
++        "ChangeSpeed_Max_Over": 0.005,
++        "ChangeSpeed_Max": 0.7,
++        "ChangeSpeed_Min": 0.65,
++        "Obstacle_AccelerationTime": 0.24,
++        "Obstacle_ChangeSpeed": -0.18,
++        "Obstacle_CanJump": true
++      }
++    ],
++    "spurt": [
++      {
++        "ChangeSpeed_Max_Over": 0.005,
++        "StartRemainTime_Min": 31.5,
++        "AccelerationTime": 0.4,
++        "StartRemainTime_Max": 32.9,
++        "ChangeSpeed_Max": 0.9,
++        "ChangeSpeed_Min": 0.75,
++        "Probability": 30
++      },
++      {
++        "ChangeSpeed_Max_Over": 0.007,
++        "StartRemainTime_Min": 31.5,
++        "AccelerationTime": 0.4,
++        "StartRemainTime_Max": 33.6,
++        "ChangeSpeed_Max": 1.165,
++        "ChangeSpeed_Min": 1,
++        "Probability": 50
++      },
++      {
++        "ChangeSpeed_Max_Over": 0.01,
++        "StartRemainTime_Min": 31.5,
++        "AccelerationTime": 0.4,
++        "StartRemainTime_Max": 34.3,
++        "ChangeSpeed_Max": 1.445,
++        "ChangeSpeed_Min": 1.265,
++        "Probability": 20
++      }
++    ]
++  },
++  "obstacles": [
++    {
++      "StartTime": 14.5,
++      "TopTime": 15,
++      "BottomTime": 15.5,
++      "TopYPos": 200
++    },
++    {
++      "StartTime": 29.5,
++      "TopTime": 30,
++      "BottomTime": 30.5,
++      "TopYPos": 200
++    },
++    {
++      "StartTime": 44.5,
++      "TopTime": 45,
++      "BottomTime": 45.5,
++      "TopYPos": 200
++    },
++    {
++      "StartTime": 59.5,
++      "TopTime": 60,
++      "BottomTime": 60.5,
++      "TopYPos": 200
++    }
++  ],
++  "race": {
++    "FinishLineTime": 88,
++    "BoosterCooltime": 4,
++    "StartCountStateTime": 3,
++    "AllFinishStateTime": 7,
++    "AutoLeaveTime": 30,
++    "FinalSpurtStartStopTime": 1
++  }
++}
+--- parent/els_server/domain/companion_flow.py
++++ online/els_server/domain/companion_flow.py
+@@ -7,6 +7,9 @@
+ KINDS={0x2e8,0x2ea,0x2ec,0x432,0x42a,0x42c,0x42f}
+ 
+ def handle(session,event,sequence):
++    from els_server.domain.mount_racing_selection import handle as racing_select
++    racing_reply=racing_select(session,event,sequence)
++    if racing_reply is not None:return racing_reply
+     from els_server.domain.mount_reset_flow import handle as mount_reset
+     reset_reply=mount_reset(session,event,sequence)
+     if reset_reply is not None:return reset_reply
+--- parent/els_server/domain/friends_dungeon.py
++++ online/els_server/domain/friends_dungeon.py
+@@ -61,6 +61,8 @@
+ 
+     def manifest(self,application,account_id):
+         if not application.registry.enabled(account_id):raise SessionOrderError('Account disabled')
++        racing=self.world.racing.manifest(application,account_id)
++        if racing is not None:return racing
+         pvp=self.world.pvp.manifest(application,account_id)
+         if pvp is not None:return pvp
+         s=application.playing.get(account_id);r=self.transport_room(s)
+@@ -85,6 +87,8 @@
+ 
+     def relay_target(self,application,account_id,epoch,target):
+         if not application.registry.enabled(account_id):raise SessionOrderError('Account disabled')
++        racing=self.world.racing.relay_target(application,account_id,epoch,target)
++        if racing is not None:return racing
+         pvp=self.world.pvp.relay_target(application,account_id,epoch,target)
+         if pvp is not None:return pvp
+         s=application.playing.get(account_id);r=self.transport_room(s)
+@@ -97,6 +101,7 @@
+ 
+     def relay_lost(self,application,account_id):
+         s=application.playing.get(account_id);r=self.room(s)
++        if s is not None:self.world.racing.relay_lost(s)
+         if s is not None:self.world.pvp.relay_lost(s)
+         if r is not None and r.phase!='clear':self.abort(r,'Party dungeon aborted: combat relay disconnected')
+         r=self.world.field_bosses.room(s)
+--- parent/els_server/domain/friends_racing.py
++++ online/els_server/domain/friends_racing.py
+@@ -0,0 +1,401 @@
++"""Real3–6-player racing, native room loading and durable server outcomes."""
++from contextlib import closing
++from dataclasses import dataclass,field
++from pathlib import Path
++import math,sqlite3,struct,time,uuid
++from els_server.domain import pvp_actor
++from els_server.domain.pvp_registration import _binding,_same,_envelope
++from els_server.domain.party_commands import _prepared_boxes
++from els_server.protocol import social_messages as social,mount_racing_messages as wire,pvp_loading_messages as loading
++from els_server.protocol.local_messages import wstring
++from els_server.protocol.protocol_codec import Event,encode_event
++from els_server.storage import mount_races
++
++
++@dataclass(eq=False)
++class Room:
++    identity:int
++    seed:str
++    members:tuple
++    bindings:tuple
++    mounts:dict
++    slots:tuple
++    participants:tuple
++    party:object=None
++    phase:str='loading'
++    progress:dict=field(default_factory=dict)
++    started:float|None=None
++    data:dict|None=None
++
++
++@dataclass(eq=False)
++class Offer:
++    identity:int
++    members:tuple
++    bindings:tuple
++    accepted:set=field(default_factory=set)
++    deadline:float=0.
++
++
++def ack(kind,result=0):
++    return Event(0x201,kind=kind,payload=struct.pack('>i',result))
++
++
++class FriendsRacing:
++    def __init__(self,world):
++        self.world=world;self.rooms={};self.queue={};self.offers={};self.gates={};self.invitations={}
++        self.partial_since=None;self.next_identity=970001
++
++    def room(self,s):return self.rooms.get(s)
++
++    @staticmethod
++    def publish(boxes):
++        for s,box in boxes.items():s.mailbox=box
++
++    def town(self,s):
++        pvp_actor.actor(self.world,s)
++        party=self.world.party_of.get(s)
++        if(s.phase!='town_ready' or not s.enter_town or not {0x225,0x227}<=s.completed
++           or s.dungeon_return_pending or s.active_map!=s.account.get_location()['map']
++           or self.world.members.get(s)!=(1,s.active_map) or s.account.character()['level']<99
++           or self.world.dungeons.transport_room(s)is not None or self.world.pvp.room(s)is not None
++           or s in self.world.pvp.registrations.queue or s in self.world.pvp.registrations.offers
++           or party and any(party.get(k)for k in('raid_party','recruitment','solo_challenge','challenge','challenge_pending'))):
++            raise ValueError('Racing current99-level noncombat actor required')
++
++    def mount(self,s):
++        self.town(s);saved=getattr(s,'racing_selected_mount',None)
++        if not getattr(s,'racing_mode',False)or saved is None:raise ValueError('Select a permanent racing mount')
++        from els_server.domain.tenebros_capacity_flow import selected
++        path,owner,account,prepare=selected(s)
++        return mount_races.selected(path,owner,account,saved['uid'],prepare=prepare)
++
++    def notices(self,party,*,reset=False):
++        group=([social.party_removed()]if reset else[])+[social.party_snapshot(party),Event(0x201,kind=0x147,payload=struct.pack('>iBB',150060,0,0))]
++        for m in party['members']:
++            selected=getattr(m,'racing_selected_mount',None)
++            if selected is not None:group.append(wire.member_mount(m.account.uid,selected,getattr(m,'racing_mode',False)))
++        return group
++
++    def selection(self,s,event,sequence):
++        if s in self.queue or s in self.offers or self.room(s)is not None:
++            return[wire.selection(-1)]if event.kind==0xa89 else[wire.mode(-1)]
++        self.town(s)
++        party=self.world.party_of.get(s)
++        if party and not party.get('racing')and party['leader']is not s:return[wire.mode(-1)]
++        if party:
++            for m in party['members']:self.town(m)
++        from els_server.domain.mount_racing_selection import handle
++        response=handle(s,event,sequence)
++        if response[0].payload[:4]!=bytes(4):return response
++        if event.kind==0xa8b:
++            if getattr(s,'racing_mode',False)and party:
++                after=dict(party,racing=True,dungeon=150060,ready=set())
++                boxes=_prepared_boxes([(m,self.notices(after,reset=True))for m in after['members']],response)
++                party.update(racing=True,dungeon=150060);party['ready'].clear();self.publish(boxes)
++            elif not getattr(s,'racing_mode',False)and party and party.get('racing'):
++                self.world.leave_party(s)
++        if party and party.get('racing')and s in party['members']:
++            notice=wire.member_mount(s.account.uid,getattr(s,'racing_selected_mount',None),getattr(s,'racing_mode',False))
++            self.publish(_prepared_boxes([(m,[notice])for m in party['members']],response))
++        return response
++
++    def invite(self,s,event):
++        request=social.party_invite_request(event.payload,settings=True);self.mount(s)
++        party=self.world.party_of.get(s)
++        if request['dungeon']!=150060 or party and(not party.get('racing')or party['leader']is not s or len(party['members'])>=6):raise ValueError('Racing invitation leader/room')
++        target=next((m for m in self.world.members if m.account.character()['name']==request['name']and request['uid']in(0,m.account.uid)),None)
++        now=time.monotonic()
++        if target in self.invitations and self.invitations[target][2]<=now:self.invitations.pop(target)
++        if(target is None or target is s or target in self.world.party_of or target in self.queue or target in self.offers
++           or s in self.queue or s in self.offers or target in self.invitations):raise ValueError('Racing invitation target unavailable')
++        self.town(target);guards=[pvp_actor.capture(self.world,m)for m in(s,target)]
++        s.invite_times=type(s.invite_times)(t for t in s.invite_times if now-t<30)
++        if len(s.invite_times)>=5:raise ValueError('Racing invitation rate')
++        response=[social.party_invite_ack(target.account.character())]
++        boxes=_prepared_boxes([(target,[social.party_invited(s.account.character(),target.account.character())])],response)
++        for guard in guards:guard()
++        self.invitations[target]=(s,party,now+30,_binding(s),_binding(target));s.invite_times.append(now)
++        self.publish(boxes);return response
++
++    def answer(self,s,event):
++        first,second,accepted=social.party_answer_request(event.payload)
++        inviter,party,deadline,before,receiver=self.invitations[s]
++        if(first!=inviter.account.uid or second not in(0,s.account.uid)or deadline<time.monotonic()
++           or not _same(inviter,before)or not _same(s,receiver)or self.world.party_of.get(inviter)is not party
++           or s in self.world.party_of or inviter in self.queue or inviter in self.offers):raise ValueError('Original racing invitation required')
++        self.town(s);self.mount(inviter)
++        if not accepted:self.invitations.pop(s);return[social.party_answer_ack(inviter.account.uid)]
++        if party and(party['leader']is not inviter or party['run']is not None or len(party['members'])>=6):raise ValueError('Racing invitation room changed')
++        members=[*(party['members']if party else[inviter]),s]
++        for m in members:self.town(m)
++        after=dict(party,members=members,ready=set())if party else dict(id=self.world.next_party,leader=inviter,members=members,ready=set(),dungeon=150060,difficulty=0,mode=0,run=None,raid_party=False,racing=True)
++        guards=[pvp_actor.capture(self.world,m)for m in members];response=[social.party_answer_ack(inviter.account.uid)]
++        boxes=_prepared_boxes([(m,self.notices(after,reset=party is not None))for m in members],response)
++        for guard in guards:guard()
++        if party is None:
++            party=after;self.world.next_party+=1;self.world.parties[party['id']]=party
++            self.world.party_of[inviter]=party
++        else:party['members'][:]=members;party['ready'].clear()
++        self.world.party_of[s]=party;self.invitations.pop(s);self.publish(boxes)
++        return response
++
++    def admit(self,members,leader,party=None):
++        members=tuple(members)
++        if not 3<=len(members)<=6:raise ValueError('Racing real participant count')
++        mounts={m:self.mount(m)for m in members}
++        if len({Path(m.account.store.path).resolve()for m in members})!=1:raise ValueError('Racing original shared store')
++        guards=[pvp_actor.capture(self.world,m)for m in members]
++        identity=self.next_identity;event,slots=wire.admission(members,leader,identity,mounts,leader.port_probe_port)
++        deliveries=[(m,[event])for m in members]
++        for key in {self.world.members[m]for m in members}:
++            removed=[m.account.uid for m in members if self.world.members[m]==key]
++            notice=social.town_members(removed=removed)
++            deliveries.extend((other,[notice])for other in self.world.towns[key]if other not in members)
++        boxes=_prepared_boxes(deliveries,())
++        for guard in guards:guard()
++        participants=tuple((m.account.uid,m.account.account_id,mounts[m]['uid'])for m in members)
++        room=Room(identity,str(uuid.uuid4()),members,tuple(_binding(m)for m in members),mounts,slots,participants,party)
++        self.next_identity+=1
++        for m in members:
++            key=self.world.members.pop(m);self.world.towns[key].pop(m)
++            if not self.world.towns[key]:self.world.towns.pop(key)
++            self.queue.pop(m,None);self.offers.pop(m,None);self.gates.pop(m,None)
++            self.rooms[m]=room;m.phase='racing_loading';m.active_map=m.pending_map=150060
++        if party:party['run']=room
++        self.publish(boxes)
++
++    def current(self,s,room):
++        if(self.rooms.get(s)is not room or not _same(s,room.bindings[room.members.index(s)])
++           or s.phase!='racing_'+room.phase or s.active_map!=150060 or s.pending_map!=150060):raise ValueError('Original racing room actor changed')
++        pvp_actor.actor(self.world,s)
++
++    def loaded(self,s,event):
++        room=self.room(s);self.current(s,room);value=loading.progress_request(event.payload)
++        if room.phase not in('loading','active')or value<room.progress.get(s,0):raise ValueError('Racing loading progress')
++        progress=dict(room.progress);progress[s]=value;members=room.members
++        guards=[pvp_actor.capture(self.world,m)for m in members]
++        response=[loading.progress_ack(value)]
++        deliveries=[(m,[loading.progress_notice(s.account.uid,value)])for m in members]
++        start=room.phase=='loading'and all(progress.get(m)==100 for m in members)
++        def prepare(db):
++            for m,guard in zip(members,guards):guard();self.current(m,room)
++        if start:
++            roster=room.participants
++            def encode(db,data):
++                play=wire.play_start(room.slots);boosters=wire.booster_map(data['plans'])
++                return _prepared_boxes([(m,events+[play,boosters])for m,events in deliveries],response)
++            data,boxes=mount_races.begin(s.account.store.path,room.seed,roster,prepare=prepare,encode=encode)
++            room.data=data;room.started=time.monotonic();room.phase='active'
++            for m in members:m.phase='racing_active'
++        else:boxes=_prepared_boxes(deliveries,response);prepare(None)
++        room.progress=progress;self.publish(boxes);return response
++
++    def finish(self,s,event):
++        room=self.room(s);self.current(s,room)
++        wire.finish_request(event.payload,[p[0]for p in room.participants])
++        if room.phase not in('active','result'):raise ValueError('Racing is not running')
++        if room.started is None or time.monotonic()-room.started<max(r['time']for r in room.data['standings']):raise ValueError('Racing finish too early')
++        return self.settle_room(s,room)
++
++    def settle_room(self,s,room):
++        current=[m for m in room.members if self.room(m)is room]
++        guards=[pvp_actor.capture(self.world,m)for m in current]
++        def prepare(db):
++            for m,guard in zip(current,guards):guard();self.current(m,room)
++        response=[wire.finish_ack()]
++        def encode(db,data,rows):
++            roster={uid:r['mount']for uid,r in rows.items()}
++            return _prepared_boxes([(m,[wire.result(data,**rows[m.account.uid],roster=roster)])for m in current],response)
++        boxes=mount_races.settle(s.account.store.path,room.seed,[(owner,account)for owner,account,uid in room.participants],prepare=prepare,encode=encode)
++        room.phase='result'
++        for m in current:m.phase='racing_result'
++        self.publish(boxes);return response
++
++    def leave(self,s,event):
++        room=self.room(s);self.current(s,room)
++        if not 100<=len(event.payload)<=8192 or event.payload[:4]!=struct.pack('>i',0x72):raise ValueError('Racing native return payload')
++        mount_races.leave(s.account.store.path,s.account.uid)
++        from els_server.protocol.dungeon_messages import end_ack
++        response=[end_ack(),s.saved_user_sync()]
++        for reply in response:encode_event(reply)
++        self.remove(s);s.phase='map_loading';s.pending_map=None;s.dungeon_return_pending=True;s.inventory_town_sync_sent=True
++        return response
++
++    def remove(self,s):
++        room=self.rooms.pop(s,None)
++        if room and room.party and not any(self.room(m)is room for m in room.members):room.party['run']=None;room.party['ready'].clear()
++
++    def disconnect(self,s):
++        self.gates.pop(s,None);self.cancel(s);self.invitations={m:v for m,v in self.invitations.items()if m is not s and v[0]is not s}
++        room=self.room(s)
++        if room:
++            index=room.members.index(s);owner=room.participants[index][0];path=room.bindings[index][1][3]
++            mount_races.leave(path,owner);self.remove(s)
++            if room.phase=='loading':
++                for other in room.members:
++                    if self.room(other)is room:other.coop_error='Racing ended before all participants loaded'
++
++    def relay_lost(self,s):
++        room=self.room(s)
++        if room is not None and room.phase!='result':
++            self.disconnect(s);s.coop_error='Racing relay disconnected'
++
++    def cancel(self,s):
++        offer=self.offers.get(s);members=offer.members if offer else(self.world.party_of[s]['members']if s in self.queue and s in self.world.party_of else(s,))
++        notice=Event(0x201,kind=0x387,payload=bytes(4)+wstring(''))
++        for m in members:
++            binding=offer.bindings[offer.members.index(m)]if offer else self.queue.get(m)
++            if binding is not None and _same(m,binding):self.world.send(m,notice)
++            self.queue.pop(m,None);self.offers.pop(m,None)
++        self.partial_since=None
++
++    def match(self):
++        members=[]
++        for s,binding in tuple(self.queue.items()):
++            try:
++                if not _same(s,binding):raise ValueError('Racing queue actor changed')
++                self.mount(s)
++            except(ValueError,sqlite3.Error):self.cancel(s);continue
++            members.append(s)
++        if len(members)>=6:self.admit(members[:6],members[0]);self.partial_since=None;return
++        if len(members)<3:self.partial_since=None;return
++        now=time.monotonic()
++        if self.partial_since is None:self.partial_since=now;return
++        from els_server.domain.mount_racing_rules import policy
++        if now-self.partial_since<policy()['partial_match_wait_seconds']:return
++        offer=Offer(self.next_identity,tuple(members),tuple(self.queue[m]for m in members),deadline=now+30);self.next_identity+=1
++        notice=Event(0x201,kind=0x388,payload=struct.pack('>QiiBBBB',offer.identity,len(members),150060,0,0,0,1))
++        boxes=_prepared_boxes([(m,[notice])for m in members],())
++        for m in members:self.queue.pop(m);self.offers[m]=offer
++        self.partial_since=None;self.publish(boxes)
++
++    def periodic(self,s):
++        if s in self.queue:self.match()
++        offer=self.offers.get(s)
++        if offer and time.monotonic()>offer.deadline:self.cancel(s)
++        room=self.room(s)
++        if room and room.phase=='loading'and any(m.released for m in room.members):self.disconnect(s)
++        if room and room.phase=='active':
++            from els_server.domain.mount_racing_plan import physics
++            finish=max(r['time']for r in room.data['standings'])
++            # The client reports once using its own render clock. The saved
++            # server finish clock must also complete a race if that report
++            # arrived early; no client retransmission is needed for rewards.
++            if(time.monotonic()-room.started>=finish+physics()['race']['AllFinishStateTime']
++               and int(time.time())>=room.data['started']+math.ceil(finish)):
++                self.current(s,room);self.settle_room(s,room)
++
++    def request(self,s,event,sequence):
++        if event.event_id!=0x202:return None
++        kind=event.kind;room=self.room(s);party=self.world.party_of.get(s)
++        waiting=s in self.queue or s in self.offers
++        if waiting and kind not in(0x385,0x389,0x85):return[]
++        selected=getattr(s,'racing_mode',False)
++        relevant=(kind in(0xa89,0xa8b,0xa86)or room is not None
++          or kind==0x7d4 and event.payload[4:]==struct.pack('>i',150060)
++          or kind in(0x37f,0x382,0x385,0x389)and(selected or s in self.queue or s in self.offers)
++          or kind in(0x136,0x139,0x13f,0x14c,0x14e,0x151,0x145)and(selected or party and party.get('racing')or s in self.invitations))
++        if not relevant:return None
++        if room and kind not in(0x91,0xa86,0x67):return []
++        reply_guard=pvp_actor.safe_capture(self.world,s)
++        if reply_guard is None:return[]
++        try:
++            if not _envelope(event)or type(sequence)is not int or not 1<=sequence<2**32:raise ValueError('Racing original envelope/sequence')
++            if kind in(0xa89,0xa8b):return self.selection(s,event,sequence)
++            if room:
++                if kind==0x91:return self.loaded(s,event)
++                if kind==0xa86:return self.finish(s,event)
++                if kind==0x67:return self.leave(s,event)
++            if kind==0x136:return self.invite(s,event)
++            if kind==0x139:return self.answer(s,event)
++            if kind==0x7d4:
++                mode,identity=struct.unpack('>ii',event.payload);self.mount(s)
++                if(identity!=150060 or mode not in(1,2)
++                   or party and(party['leader']is not s or mode==2 and len(party['members'])==6)
++                   or mode==1 and(not party or len(party['members'])<3)):
++                    raise ValueError('Racing entry mode/roster')
++                self.gates[s]=(mode,time.monotonic()+30,_binding(s));return[Event(0x201,kind=0x7d5,payload=struct.pack('>ii',0,mode))]
++            if kind in(0x37f,0x382):
++                gate=self.gates.get(s);mode=2 if kind==0x37f else 1
++                # Native current-party start2D6D830 sends382 directly, as
++                # ordinary party entry does. Random matching uses7D4 first.
++                direct=mode==1 and party and party.get('racing')and party['leader']is s
++                if not direct and(gate is None or gate[0]!=mode or gate[1]<time.monotonic()or not _same(s,gate[2])):raise ValueError('Racing original entry preflight required')
++                if not 23<=len(event.payload)<=86 or not any(struct.unpack_from('>I',event.payload,o)[0]==len(event.payload)-22 for o in range(19)):raise ValueError('Racing original opaque entry')
++                members=tuple(party['members'])if party else(s,)
++                if party and(not party.get('racing')or party['leader']is not s or party['run']is not None):raise ValueError('Racing current leader required')
++                if mode==2 and len(members)==6:raise ValueError('Six-member racing party uses current start')
++                for m in members:self.mount(m)
++                response=[Event(0x201,kind=0x380 if mode==2 else 0x383,payload=bytes(4)+(bytes(8)if mode==2 else b'')+wstring('')*2)]
++                if mode==1:self.admit(members,s,party)
++                else:
++                    if any(m in self.queue or m in self.offers for m in members):raise ValueError('Already matching')
++                    self.queue.update((m,_binding(m))for m in members);self.gates.pop(s,None);self.match()
++                return response
++            if kind==0x385:
++                if len(event.payload)!=8:raise ValueError('Native racing cancel UID')
++                self.cancel(s);return[Event(0x201,kind=0x386,payload=bytes(7))]
++            if kind==0x389:
++                offer=self.offers.get(s)
++                if offer is None or event.payload not in(b'\0\1',b'\1\1')or time.monotonic()>offer.deadline:raise ValueError('Original partial racing offer required')
++                response=[Event(0x201,kind=0x38a,payload=struct.pack('>iQi',0,s.account.uid,0)+wstring('')+struct.pack('>i',150060))]
++                if not event.payload[0]:self.cancel(s);return response
++                offer.accepted.add(s)
++                if len(offer.accepted)==len(offer.members):self.admit(offer.members,offer.members[0])
++                return response
++            if kind==0x13f:
++                if len(event.payload)!=4:raise ValueError('Racing party leave')
++                if s in self.queue or s in self.offers:self.cancel(s)
++                self.world.leave_party(s);return[ack(0x140)]
++            if kind==0x14c:
++                if not party or len(event.payload)!=5 or event.payload[0]>1:raise ValueError('Racing ready state')
++                self.mount(s)
++                boxes=_prepared_boxes([(m,[social.party_ready_notice(s.account.uid,bool(event.payload[0]))])for m in party['members']],())
++                if event.payload[0]:party['ready'].add(s)
++                else:party['ready'].discard(s)
++                self.publish(boxes);return[]
++            if kind in(0x14e,0x151):
++                if not party or party['leader']is not s or party['run']is not None or len(event.payload)!=8 or any(m in self.queue or m in self.offers for m in party['members']):raise ValueError('Racing leader action')
++                target=next((m for m in party['members']if m.account.uid==struct.unpack('>Q',event.payload)[0]),None)
++                if target is None or target is s:raise ValueError('Racing leader target')
++                if kind==0x151:self.world.leave_party(target)
++                else:
++                    after=dict(party,leader=target,ready=set())
++                    boxes=_prepared_boxes([(m,self.notices(after,reset=True))for m in party['members']],[ack(kind+1)])
++                    reply_guard();party['leader']=target;party['ready'].clear();self.publish(boxes)
++                return[ack(kind+1)]
++            return[]
++        except(ValueError,KeyError,struct.error,sqlite3.Error)as error:
++            s._mount_racing_rejection=str(error)
++            try:reply_guard()
++            except(ValueError,AttributeError,KeyError,TypeError):return[]
++            if kind==0xa89:return[wire.selection(-1)]
++            if kind==0xa8b:return[wire.mode(-1)]
++            if kind==0xa86:return[wire.finish_ack(-1)]
++            if kind==0x136:return[social.party_invite_ack(result=-1)]
++            if kind==0x139:return[social.party_answer_ack(result=-1)]
++            if kind==0x7d4:return[Event(0x201,kind=0x7d5,payload=struct.pack('>ii',2,1))]
++            if kind in(0x37f,0x382):return[Event(0x201,kind=0x380 if kind==0x37f else 0x383,payload=struct.pack('>i',2)+(bytes(8)if kind==0x37f else b'')+wstring('')*2)]
++            if kind in(0x14e,0x151):return[ack(kind+1,-1)]
++            if kind==0x14c:return[social.party_ready_notice(s.account.uid,False,-1)]
++            if kind==0x91:return[loading.progress_ack(room.progress.get(s,0),2)]
++            if kind==0x385:return[Event(0x201,kind=0x386,payload=struct.pack('>i',2)+bytes(3))]
++            if kind==0x389:return[Event(0x201,kind=0x38a,payload=struct.pack('>iQi',2,s.account.uid,0)+wstring('')+struct.pack('>i',150060))]
++            return[]
++
++    def manifest(self,app,account_id):
++        s=app.playing.get(account_id);room=self.room(s)
++        if room is None:return None
++        try:
++            for m in room.members:
++                if self.room(m)is room:self.current(m,room)
++        except(ValueError,AttributeError,KeyError):return None
++        return dict(epoch=room.seed,uid=s.account.uid,peers=[dict(uid=m.account.uid,port=21100+i)for i,m in enumerate(room.members)])
++
++    def relay_target(self,app,account_id,epoch,target):
++        manifest=self.manifest(app,account_id)
++        if manifest is None or manifest['epoch']!=epoch:return None
++        s=app.playing[account_id];room=self.room(s)
++        other=next((m for m in room.members if m is not s and m.account.uid==target and self.room(m)is room),None)
++        return None if other is None else(other.account.account_id,s.account.uid)
+--- parent/els_server/domain/friends_world.py
++++ online/els_server/domain/friends_world.py
+@@ -49,13 +49,15 @@
+         self.field_bosses=FieldBosses(self)
+         from els_server.domain.friends_pvp import FriendsPVP
+         self.pvp=FriendsPVP(self)
++        from els_server.domain.friends_racing import FriendsRacing
++        self.racing=FriendsRacing(self)
+ 
+     def disconnect(self,session):
+         from els_server.cleanup import cleanup_all
+         from els_server.domain.guild_agit_flow import disconnect as guild_disconnect
+         def invitations():
+             self.invitations={s:v for s,v in self.invitations.items() if s is not session and v['inviter'] is not session}
+-        cleanup_all(lambda:self.pvp.disconnect(session),lambda:guild_disconnect(session), lambda:self.field_bosses.detach(session),
++        cleanup_all(lambda:self.racing.disconnect(session),lambda:self.pvp.disconnect(session),lambda:guild_disconnect(session), lambda:self.field_bosses.detach(session),
+             lambda:self.leave(session), lambda:self.leave_party(session), invitations)
+ 
+     def party_snapshot(self,party,reset=False):
+--- parent/els_server/domain/local_session.py
++++ online/els_server/domain/local_session.py
+@@ -1348,6 +1348,9 @@
+ 
+             except ValueError:return trade_failed()
+ 
++        from els_server.domain.mount_racing_exchange_flow import handle as racing_exchange_handle
++        racing_exchange_result=racing_exchange_handle(self,event,request_sequence)
++        if racing_exchange_result is not None:return racing_exchange_result
+         from els_server.domain.feta_exchange_flow import handle as feta_handle
+         feta_result=feta_handle(self,event,request_sequence)
+         if feta_result is not None:return feta_result
+--- parent/els_server/domain/mount_racing_exchange.py
++++ online/els_server/domain/mount_racing_exchange.py
+@@ -0,0 +1,22 @@
++"""Original Camilla20-fragment recipe, independent of local racing odds."""
++import functools,json,struct
++from els_server.paths import PROJECT_ROOT
++
++
++@functools.lru_cache(maxsize=1)
++def catalog():
++    p=json.loads((PROJECT_ROOT/'els_server/data/mount_racing_exchange.json').read_bytes())
++    if (p['schema_version'],p['house'],p['exchange_type'],p['source'],p['source_quantity'],p['destination'],p['quantity'],p['rate'])!=(1,40016,1,714109,20,714108,1,100):
++        raise ValueError('Original racing crystal exchange')
++    if p['original_call']['arguments'][1:]!=[40016,1,714109,714108,1,100,dict(m_iServerGroupID=-1,m_iSourceQuantity=20)]:
++        raise ValueError('Original racing crystal recipe')
++    return p
++
++
++def request(payload):
++    if type(payload)is not bytes or len(payload)!=37:raise ValueError('Racing crystal223 length')
++    house,uid,source,count,destination,kind,quantity,flag,index=struct.unpack('>iQiiiiiBi',payload)
++    if (house,uid,source,count,destination,kind,flag,index)!=(40016,0,714109,20,0,1,1,0)or not 1<=quantity<2**31//20:
++        raise ValueError('Racing crystal native recipe selection')
++    catalog()
++    return quantity
+--- parent/els_server/domain/mount_racing_exchange_flow.py
++++ online/els_server/domain/mount_racing_exchange_flow.py
+@@ -0,0 +1,29 @@
++"""Current town actor and native Camilla223 entry."""
++import struct
++from els_server.protocol.protocol_codec import Event,encode_event
++from els_server.protocol.fish_exchange_messages import acknowledgement
++
++
++def handle(s,event,sequence):
++    if (event.event_id!=0x202 or event.kind!=0x223 or len(event.payload)<16
++            or struct.unpack_from('>i',event.payload)[0]!=40016
++            or struct.unpack_from('>i',event.payload,12)[0]!=714109):return None
++    from els_server.domain.equipment_chip_flow import reset_context
++    from els_server.domain.tenebros_capacity_flow import selected
++    # Capture the selected actor before constructing either a success or an
++    # absolute-wallet rejection. An obsolete connection receives no projection.
++    try:path,owner,account_id,prepare=selected(s)
++    except ValueError:return []
++    try:
++        reset_context(s,event,sequence)
++        from els_server.storage.mount_racing_exchange import exchange
++        replies=exchange(path,owner,account_id,s.active_map,event.payload,
++            s.shop_session_id+':racing-crystal:'+str(sequence),prepare=prepare)
++        s._mount_exchange_rejection=None
++        return replies
++    except ValueError as error:
++        s._mount_exchange_rejection=str(error)
++        prepare(None)
++        answer=Event(0x201,kind=0x224,payload=acknowledgement(s.account.get_reward_balances()['ed'],result=-1,exchange_type=1))
++        encode_event(answer);prepare(None)
++        return [answer]
+--- parent/els_server/domain/mount_racing_plan.py
++++ online/els_server/domain/mount_racing_plan.py
+@@ -0,0 +1,109 @@
++"""Server-drawn native boosters; the client retains its race animation.
++
++Base probabilities/ranges come from RidingPetRacingData. Each saved point
++shifts two probability points from normal to high/super equally, and adds
++ChangeSpeed_Max_Over to speed. Those two effects are local growth rules.
++The server's 60 Hz finish clock is a local adjudication rule, not retail physics.
++"""
++import functools,json,secrets,struct
++from els_server.paths import PROJECT_ROOT
++from els_server.domain.mount_racing_rules import profile,policy
++
++
++@functools.lru_cache(maxsize=1)
++def physics():
++    return json.loads((PROJECT_ROOT/'els_server/data/mount_racing_physics.json').read_bytes())
++
++
++def f32(x):return struct.unpack('>f',struct.pack('>f',x))[0]
++
++
++def step(curve,dt):
++    """Original2B22FE0 float32 curve clock, including boundary behavior.
++
++    After crossing a deadline the native code stores that deadline first,
++    then subtracts deadline minus the stored clock (zero). The next stage
++    consequently receives the complete frame dt. Preserve this witnessed
++    behavior instead of substituting continuous-time integration.
++    """
++    dt=f32(dt);elapsed=curve[0];delta=0.
++    for end,rate in curve[1]:
++        if elapsed<end:
++            if f32(elapsed+dt)<=end:
++                delta=f32(delta+f32(rate*dt));elapsed=f32(elapsed+dt);break
++            delta=f32(delta+f32(f32(end-elapsed)*rate));elapsed=end
++    curve[0]=elapsed
++    return delta
++
++
++def draw(saved,lane,randbelow=secrets.randbelow):
++    saved=profile(saved['experience'],saved['stats'])
++    if type(lane)is not int or not 0<=lane<6:raise ValueError('Racing lane')
++    def booster(category,attribute):
++        templates=physics()['boosters'][category];roll=randbelow(100)
++        if type(roll)is not int or not 0<=roll<100:raise ValueError('Racing random source')
++        points=saved['stats'].get(attribute,0)
++        weights=[t['Probability']+points*shift for t,shift in zip(templates,policy()['booster_probability_shift_per_point'])]
++        for kind,(t,weight) in enumerate(zip(templates,weights)):
++            if roll<weight:break
++            roll-=weight
++        fraction=randbelow(10001)
++        if type(fraction)is not int or not 0<=fraction<=10000:raise ValueError('Racing speed draw')
++        speed=t['ChangeSpeed_Min']+(t['ChangeSpeed_Max']-t['ChangeSpeed_Min'])*fraction/10000
++        speed+=t['ChangeSpeed_Max_Over']*points
++        return [kind,f32(speed)]
++    start=booster('start',0);normal=[booster('normal',1)for _ in range(22)]
++    obstacle=[booster('obstacle',2)for _ in physics()['obstacles']]
++    spurt=booster('spurt',3);t=physics()['boosters']['spurt'][spurt[0]]
++    fraction=randbelow(10001)
++    if type(fraction)is not int or not 0<=fraction<=10000:raise ValueError('Racing spurt draw')
++    remain=f32(t['StartRemainTime_Min']+(t['StartRemainTime_Max']-t['StartRemainTime_Min'])*fraction/10000)
++    return dict(lane=lane,start=start,normal=normal,obstacle=obstacle,spurt=spurt,remain=remain)
++
++
++def finish(plan):
++    """Adjudicate the saved plan, never a player's rank or claimed time.
++
++    Acceleration curves follow 2B30630/2B30A60/2B30EC0/2B314A0.
++    TopYPos is vertical display displacement and does not advance the track.
++    """
++    p=physics();hz=policy()['race_adjudication_hz'];dt=f32(1/hz);curves=[];distance=elapsed=0.;speed=1.;maximum=1.
++    normal=obstacle=0;inside=False;spurt=False;next_booster=p['race']['BoosterCooltime']
++    def add(category,pair,enter=False):
++        kind,change=pair;t={k:f32(v)if type(v)in(int,float)else v for k,v in p['boosters'][category][kind].items()}
++        if category=='obstacle'and enter:
++            stages=[(t['Obstacle_AccelerationTime'],f32(t['Obstacle_ChangeSpeed']/t['Obstacle_AccelerationTime']))]
++        else:
++            a=t['AccelerationTime'];initial=t['Obstacle_ChangeSpeed']if category=='obstacle'else 0.
++            stages=[(a,f32(f32(change-initial)/a))]
++            if category!='spurt':
++                hold=t['HoldTime'];decel=t['DecelerationTime']
++                end=f32(a+hold);stages.extend([(end,0.),(f32(end+decel),f32(-change/decel))])
++        curves.append([0.,stages])
++    add('start',plan['start'])
++    # The track has four obstacles and a positive baseline speed. This limit
++    # rejects a corrupt saved plan; it is not a client-report timeout award.
++    for tick in range(hz*180):
++        delta=0.
++        for curve in curves:delta=f32(delta+step(curve,dt))
++        speed=max(f32(.1),f32(speed+delta));maximum=max(maximum,speed)
++        distance=f32(distance+f32(speed*dt));elapsed=f32(elapsed+dt)
++        if distance>=p['race']['FinishLineTime']:
++            return dict(time=f32(elapsed-(distance-p['race']['FinishLineTime'])/speed),max_speed=f32(maximum))
++        if obstacle<len(p['obstacles']):
++            t=p['obstacles'][obstacle]
++            if not inside and distance>t['StartTime']:
++                inside=True;add('obstacle',plan['obstacle'][obstacle],True)
++            if inside and distance>t['BottomTime']:
++                inside=False;add('obstacle',plan['obstacle'][obstacle]);obstacle+=1
++        if elapsed>next_booster and normal<len(plan['normal']):
++            add('normal',plan['normal'][normal]);normal+=1;next_booster+=p['race']['BoosterCooltime']
++        if not spurt and p['race']['FinishLineTime']-distance<=plan['remain']:
++            spurt=True;add('spurt',plan['spurt'])
++    raise ValueError('Racing plan did not finish')
++
++
++def standings(plans):
++    rows=[dict(uid=uid,lane=p['lane'],**finish(p))for uid,p in plans.items()]
++    rows.sort(key=lambda r:(r['time'],r['lane']))
++    return [dict(r,rank=rank)for rank,r in enumerate(rows,1)]
+--- parent/els_server/domain/mount_racing_rules.py
++++ online/els_server/domain/mount_racing_rules.py
+@@ -29,7 +29,10 @@
+             or any(type(n) is not int or n < 0 for n in p['rank_experience'])
+             or set(p['bonus_weights_by_rank']) != {'1', '2', '3'}
+             or p['bonus_reward_types'] != list(range(12))
+-            or p['experience_multiplier_percent'] != [110, 120, 130, 150, 200, 300]):
++            or p['experience_multiplier_percent'] != [110, 120, 130, 150, 200, 300]
++            or p['minimum_players']!=3 or p['maximum_players']!=6
++            or p['booster_probability_shift_per_point']!=[-2,1,1]
++            or p['race_adjudication_hz']!=60 or p['partial_match_wait_seconds']!=5):
+         raise ValueError('Mount racing growth policy')
+     for weights in p['bonus_weights_by_rank'].values():
+         if (len(weights) != 12 or sum(weights) != 100
+--- parent/els_server/domain/mount_racing_selection.py
++++ online/els_server/domain/mount_racing_selection.py
+@@ -0,0 +1,33 @@
++"""Native A89/A8B owned mount selection; no race is created by this UI."""
++import struct
++from els_server.protocol import mount_racing_messages as wire
++
++
++def handle(s,event,sequence):
++    if event.event_id!=0x202 or event.kind not in(0xa89,0xa8b)or s.client_build!='dx11_260923' or not s.item_test:return None
++    try:
++        from els_server.domain.equipment_chip_flow import reset_context
++        from els_server.domain.tenebros_capacity_flow import selected
++        from els_server.storage import mount_races
++        from els_server.storage.companion_state import snapshot
++        reset_context(s,event,sequence);path,owner,account_id,prepare=selected(s)
++        if len(event.payload)!=(8 if event.kind==0xa89 else 9):raise ValueError('Racing selection length')
++        uid=struct.unpack_from('>Q',event.payload)[0]
++        if event.kind==0xa8b and event.payload[8]>1:raise ValueError('Racing mode flag')
++        enabled=bool(event.payload[8])if event.kind==0xa8b else bool(uid)
++        mount=mount_races.selected(path,owner,account_id,uid,prepare=prepare)if uid and enabled else None
++        if enabled and mount is None:raise ValueError('Select an owned racing mount')
++        if event.kind==0xa89:
++            mounts=[p for p in snapshot(path,owner)['companions']if p['kind']=='mount']
++            answer=[wire.selection(uid=uid,mounts=mounts)]
++        else:answer=[wire.mode(uid=uid,enabled=enabled)]
++        from els_server.protocol.protocol_codec import encode_event
++        for reply in answer:encode_event(reply)
++        prepare(None)
++        s.racing_selected_mount=mount
++        s.racing_mode=enabled if event.kind==0xa8b else getattr(s,'racing_mode',False)
++        s._mount_racing_rejection=None
++        return answer
++    except(ValueError,UnicodeError)as error:
++        s._mount_racing_rejection=str(error)
++        return[wire.selection(-1)]if event.kind==0xa89 else[wire.mode(-1)]
+--- parent/els_server/domain/normal_party.py
++++ online/els_server/domain/normal_party.py
+@@ -5,7 +5,7 @@
+ 
+ 
+ def ordinary(party):
+-    return not any(party.get(k) for k in ('raid_party','solo_challenge','challenge','challenge_pending'))
++    return not any(party.get(k) for k in ('raid_party','solo_challenge','challenge','challenge_pending','racing'))
+ 
+ 
+ def roster_events(party,reset=False):
+--- parent/els_server/protocol/dungeon_messages.py
++++ online/els_server/protocol/dungeon_messages.py
+@@ -22,10 +22,13 @@
+     force_owned=vector(character)
+     return u32(22)+b''.join(record(v) for v in slots)+records(character)+learned+u32(0)+ids_wire(character)+b'\1\1'+preset+force_owned+b'\0'
+ 
+-def member(slots,character=None,items=None,*,account_id=None,peer_port=None,capture=None):
++def member(slots,character=None,items=None,*,account_id=None,peer_port=None,capture=None,mount=None):
+     from els_server.domain.character_stats import combat_attributes
+     data=json.loads((PROJECT_ROOT/'analysis/dungeon-member-fixture.json').read_text())
+     overrides={}
++    if mount is not None:
++        from els_server.protocol.mount_messages import growth_record
++        overrides['0x604']=growth_record(mount)
+     if character is not None:
+         owner=character.get('account_id')
+         if type(owner)is not int or not 1<=owner<2**63:raise ValueError('FullUser requires authoritative account identity')
+@@ -86,6 +89,12 @@
+     from els_server.game_data import client_data
+     if type(dungeon_id) is not int:raise ValueError('Dungeon identity')
+     client_data().dungeon(dungeon_id)
++    from els_server.domain.native_hero_inputs import difficulty
++    return room_metadata(dungeon_id,difficulty(dungeon_id),room_id=room_id,name=name,bootstrap_port=bootstrap_port)
++
++
++def room_metadata(dungeon_id,difficulty,*,room_id,name,bootstrap_port=None):
++    """Shared native D9BCC0 fields; caller owns the room category/admission."""
+     # CBDCC0, preserving constructor sentinels; B2 is the native map ID.
+     data=b'\1'+struct.pack('>Q',room_id)+u32(0)+wstring(name)
+     # Current D9BCC0 -> 909B60 -> 487C90 consumes this endpoint.
+@@ -94,8 +103,7 @@
+     data+=b'\0\xff\0'+i32(-1)+b'\0\0'+i32(0)+bytes(4)+bytes(8)+i32(0)
+     # 11C99A0 creates byte mode from Party+40 (native clear record byte 6),
+     # which is 0. 7D4's mode=1 chooses solo matching, not this room mode.
+-    from els_server.domain.native_hero_inputs import difficulty
+-    data+=bytes((difficulty(dungeon_id),))+i32(dungeon_id)+b'\0\0'+bytes(8)*2+i32(0)+b'\0'
++    data+=bytes((difficulty,))+i32(dungeon_id)+b'\0\0'+bytes(8)*2+i32(0)+b'\0'
+     data+=u32(0)+bytes(2)+i32(0)+b'\0\0'+bytes(8)+u32(0)
+     data+=b'\0'+i32(0)+bytes(8)*2
+     return data
+--- parent/els_server/protocol/mount_messages.py
++++ online/els_server/protocol/mount_messages.py
+@@ -9,7 +9,7 @@
+  growth=p.get('racing')
+  growth=profile() if growth is None else profile(growth['experience'],growth['stats'])
+  stats=sorted(growth['stats'].items())
+- return (struct.pack('>QHBiI',p.get('uid',0),0,growth['level'],growth['experience'],len(stats))
++ return (struct.pack('>QHBiI',p.get('uid',0),p.get('unit',0),growth['level'],growth['experience'],len(stats))
+          +b''.join(struct.pack('>ii',key,value)for key,value in stats))
+ 
+ def record(mount=None):
+@@ -24,7 +24,8 @@
+  return (struct.pack('>QHf',p.get('uid',0),p.get('unit',0),stamina)+wstring(deadline)
+          +struct.pack('>QQBB',p.get('native_time1',0),p.get('accounted_at',0),bool(p.get('ridden')),bool(p.get('no_stamina')))
+          # Nested DB2B20: original7E1DE0 initializes its level byte to1.
+-         # H/Q are not alternate level/experience slots.
++         # H is the racing mount type (1822BC0/3497AD0 via UserInfo+2970).
++         # It is independent of the level byte and cumulative experience.
+          # D81DD0 locates the owned outer record by this nested UID.
+          +growth_record(p))
+ 
+--- parent/els_server/protocol/mount_racing_messages.py
++++ online/els_server/protocol/mount_racing_messages.py
+@@ -0,0 +1,93 @@
++"""Current native racing selection, saved booster map and result DTO."""
++import math,struct
++from els_server.protocol.protocol_codec import Event
++from els_server.protocol.mount_messages import record,growth_record
++from els_server.domain.inventory_items import inventory_payload
++
++
++def selection(result=0,uid=0,mounts=()):
++    return Event(0x201,kind=0xa8a,payload=struct.pack('>iQI',result,uid,len(mounts))+b''.join(record(m)for m in mounts))
++
++
++def mode(result=0,uid=0,enabled=False):
++    return Event(0x201,kind=0xa8c,payload=struct.pack('>iQB',result,uid,int(enabled)))
++
++
++def member_mount(owner,mount,enabled=True):
++    # Party dispatcher2D58770/A8D ->2E09E60 installs Qowner,DB2B20,bool.
++    return Event(0x201,kind=0xa8d,payload=struct.pack('>Q',owner)+growth_record(mount)+bytes((int(enabled),)))
++
++
++def booster_map(plans):
++    parts=[]
++    for uid,p in sorted(plans.items(),key=lambda v:int(v[0])):
++        body=struct.pack('>Qiif',int(uid),p['lane'],*p['start'])
++        for key in('normal','obstacle'):
++            body+=struct.pack('>I',len(p[key]))+b''.join(struct.pack('>if',*v)for v in p[key])
++        body+=struct.pack('>iffI',*p['spurt'],p['remain'],0)
++        parts.append(body)
++    return Event(0x201,kind=0xa85,payload=struct.pack('>I',len(parts))+b''.join(parts))
++
++
++def finish_request(payload,members):
++    # Original2C188C0 writes the map FIRST and one float at the end.
++    # This is a display report/ACK trigger; it cannot choose server standings.
++    if type(payload)is not bytes or len(payload)<8:raise ValueError('Racing finish report')
++    count=struct.unpack_from('>I',payload)[0]
++    if count!=len(members)or len(payload)!=8+20*count:raise ValueError('Racing finish roster length')
++    rows=[struct.unpack_from('>Qiff',payload,4+20*i)for i in range(count)]
++    duration=struct.unpack_from('>f',payload,4+20*count)[0]
++    if ({r[0]for r in rows}!=set(members)or len({r[0]for r in rows})!=count
++            or {r[1]for r in rows}!=set(range(1,count+1))
++            or not math.isfinite(duration)or not 0<=duration<=180
++            or any(not math.isfinite(t)or not 0<t<=180 or not math.isfinite(speed)or not 0<speed<=10 for uid,rank,t,speed in rows)):
++        raise ValueError('Racing finish display fields')
++    return rows,duration
++
++
++def finish_ack(result=0):return Event(0x201,kind=0xa87,payload=struct.pack('>i',result))
++
++
++def result(data,mount,receipt,changes=(),*,roster=None):
++    ranked=data['standings']
++    body=struct.pack('>I',len(ranked))+b''.join(struct.pack('>Qif',r['uid'],r['rank'],r['time'])for r in ranked)
++    # DB3650 optional native item map, local earned XP, optional float,
++    # full current growth DTO and current changed inventory records.
++    from els_server.domain.fashion_state import record as item_record,empty_record
++    inventory=struct.pack('>I',len(changes))+b''.join(empty_record(*p)if item is None else item_record(item)for p,item in changes)
++    body+=struct.pack('>Iif',0,receipt['experience_gained'],0.)+growth_record(mount)+inventory
++    item_rows=[];experience_rows=[]
++    for uid,award in sorted(data['awards'].items(),key=lambda v:int(v[0])):
++        reward=award['reward'];item=reward['item'];kind=reward['bonus_type']
++        if item:item_rows.append(struct.pack('>Qii',int(uid),item['template'],item['quantity']))
++        elif 0<=kind<6:
++            from els_server.domain.mount_racing_rules import policy
++            experience_rows.append(struct.pack('>Qif',int(uid),reward['experience'],policy()['experience_multiplier_percent'][kind]/100-1))
++    body+=struct.pack('>I',len(item_rows))+b''.join(item_rows)+struct.pack('>I',len(experience_rows))+b''.join(experience_rows)
++    # These two scalar fields have no witnessed consumer in this build;
++    # preserve their constructor zero values. The final2C2AFA0 map is
++    # character UID -> DB2B20, used by2B2F8C0's podium mount lookup.
++    roster=roster or {}
++    body+=struct.pack('>BiI',0,0,len(roster))
++    body+=b''.join(struct.pack('>Q',uid)+growth_record(m)for uid,m in sorted(roster.items()))
++    return Event(0x201,kind=0xa88,payload=body)
++
++
++def admission(members,leader,identity,mounts,bootstrap_port):
++    from els_server.protocol.dungeon_messages import member,room_metadata
++    from els_server.protocol.local_messages import wstring
++    if not 3<=len(members)<=6 or leader not in members:raise ValueError('Racing admission roster')
++    slots=[]
++    for lane,s in enumerate(members):
++        body=member(s.account.get_skills(),s.account.character(),s.account.get_inventory_snapshot()['items'],
++                    account_id=s.account.account_id,peer_port=21100+lane,mount=mounts[s])
++        slots.append(bytes((lane,4,int(s is leader)))+bytes(3)+struct.pack('>iI',0,1)+body+bytes(8))
++    # Original2D63FA0 selects CX2RidingPetRacingRoom for dungeon150060.
++    room=room_metadata(150060,0,room_id=identity,name='GoGo Elrider',bootstrap_port=bootstrap_port)
++    body=bytes(2)+room+struct.pack('>I',len(slots))+b''.join(slots)+bytes(4)+wstring('')+bytes(4)+struct.pack('>I10fI',1,*([1.]*10),0)
++    return Event(0x201,kind=0x14a,payload=body),tuple(slots)
++
++
++def play_start(slots):
++    return Event(0x201,kind=0x96,payload=b'\5'+struct.pack('>I',len(slots))
++                 +b''.join(slot[:1]+b'\5'+slot[2:]for slot in slots)+struct.pack('>i',150060))
+--- parent/els_server/protocol/social_messages.py
++++ online/els_server/protocol/social_messages.py
+@@ -210,7 +210,7 @@
+     from els_server.domain.raid_party import raid_definition
+     source=raid_definition(dungeon) if raid else None
+     if raid and source is None:raise ValueError('Invalid raid room source')
+-    maximum=source['maximum'] if source else recruitment['maximum'] if recruitment else 4
++    maximum=source['maximum'] if source else 6 if dungeon==150060 else recruitment['maximum'] if recruitment else 4
+     if type(count) is not int or not 1<=count<=maximum:raise ValueError('Party count')
+     raw=bytearray(83);struct.pack_into('>Q',raw,0,identity);raw[8]=3 if raid else 1
+     # DA01F0 ->2376A50: joined count ->settings+10; maximum ->+14;
+--- parent/els_server/storage/mount_races.py
++++ online/els_server/storage/mount_races.py
+@@ -0,0 +1,152 @@
++"""Durable race plans, one stamina debit and one settlement per participant."""
++from contextlib import closing
++import hashlib,json,math,secrets,sqlite3,uuid
++from els_server.domain import mount_racing_plan as plans,mount_racing_rules as rules
++from els_server.storage import mount_growth,mount_state
++from els_server.storage.item_actor import require_active_character
++from els_server.storage.profession_state import require_owner
++
++
++def dumps(v):return json.dumps(v,sort_keys=True,separators=(',',':'))
++
++
++def ensure(db):
++    db.execute('''CREATE TABLE IF NOT EXISTS mount_races (
++        id TEXT PRIMARY KEY,digest TEXT NOT NULL,started INTEGER NOT NULL,
++        policy TEXT NOT NULL,data TEXT NOT NULL)''')
++    db.execute('''CREATE TABLE IF NOT EXISTS mount_race_results (
++        race TEXT NOT NULL REFERENCES mount_races(id),owner INTEGER NOT NULL,
++        account_id INTEGER NOT NULL,mount INTEGER NOT NULL,lane INTEGER NOT NULL,
++        disconnected INTEGER NOT NULL DEFAULT 0,settled INTEGER NOT NULL DEFAULT 0,
++        receipt TEXT,PRIMARY KEY(race,owner))''')
++    db.execute('''CREATE TABLE IF NOT EXISTS mount_race_busy (
++        uid INTEGER PRIMARY KEY,owner INTEGER NOT NULL,race TEXT NOT NULL REFERENCES mount_races(id))''')
++
++
++def eligible(db,owner,account_id,uid,now):
++    require_active_character(db,owner);require_owner(db,owner,account_id)
++    if db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()[0]<rules.policy()['minimum_character_level']:
++        raise ValueError('Racing requires character level99')
++    mount=mount_state.owned(db,owner,uid)
++    if 'expires_at'in mount or mount['unit']>=10000:raise ValueError('Racing requires a permanent player mount')
++    mount=mount_state.settle(db,owner,mount,now)
++    if mount['stamina']<rules.policy()['race_stamina']:raise ValueError('Racing requires60 stamina')
++    return mount
++
++
++def selected(path,owner,account_id,uid,*,prepare,now=None):
++    now=mount_state.timestamp(now)
++    from els_server.storage.companion_state import ensure as companions
++    with closing(sqlite3.connect(path,timeout=10))as db,db:
++        db.execute('BEGIN IMMEDIATE');prepare(db);companions(db);mount_state.ensure(db)
++        mount=eligible(db,owner,account_id,uid,now);prepare(db)
++        return mount
++
++
++def begin(path,race,members,*,prepare,encode,now=None,randbelow=secrets.randbelow):
++    """members is the controller's fixed (character,account,mount) roster.
++
++    No rank, experience, reward or booster parameter is accepted from the wire.
++    encode runs before commit and returns the fully prepared native deliveries.
++    """
++    if str(uuid.UUID(race))!=race:raise ValueError('Racing identity')
++    if (not 3<=len(members)<=6 or len({m[0]for m in members})!=len(members)
++            or len({m[1]for m in members})!=len(members)
++            or len({m[2]for m in members})!=len(members)):
++        raise ValueError('Racing requires3 to6 distinct real accounts')
++    now=mount_state.timestamp(now);digest=hashlib.sha256(dumps(members).encode()).hexdigest()
++    from els_server.storage.companion_state import ensure as companions
++    from els_server.storage.inventory_state import grant_items
++    from els_server.domain.reward_rules import item_plan
++    with closing(sqlite3.connect(path,timeout=10))as db,db:
++        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
++        prepare(db);companions(db);mount_state.ensure(db);ensure(db)
++        old=db.execute('SELECT digest,data FROM mount_races WHERE id=?',(race,)).fetchone()
++        if old:
++            if old[0]!=digest:raise ValueError('Conflicting racing admission')
++            data=json.loads(old[1]);answer=encode(db,data);prepare(db);return data,answer
++        mounts=[]
++        for owner,account_id,uid in members:
++            if db.execute('SELECT 1 FROM mount_race_busy WHERE owner=? OR uid=?',(owner,uid)).fetchone():
++                raise ValueError('Character or mount already racing')
++            mounts.append(eligible(db,owner,account_id,uid,now))
++            if len(members)==6:
++                # Local admission rule: both possible bonus item groups must
++                # fit before drawing. Racing blocks inventory writes until exit.
++                db.execute('SAVEPOINT racing_capacity')
++                grant_items(db,[item_plan(714109,5),item_plan(714108,1)],owner)
++                db.execute('ROLLBACK TO racing_capacity');db.execute('RELEASE racing_capacity')
++        roster={owner:plans.draw(mount['racing'],lane,randbelow)
++                for lane,((owner,account_id,uid),mount)in enumerate(zip(members,mounts))}
++        ranked=plans.standings(roster);awards={}
++        for row in ranked:
++            mount=mounts[row['lane']];saved=mount['racing']
++            awards[row['uid']]=rules.result(saved['experience'],saved['stats'],row['rank'],len(members),randbelow)
++        data=dict(plans=roster,standings=ranked,awards=awards,started=now,
++                  profiles={owner:m['racing']for(owner,account,uid),m in zip(members,mounts)})
++        db.execute('INSERT INTO mount_races VALUES (?,?,?,?,?)',(race,digest,now,rules.policy()['policy'],dumps(data)))
++        for lane,((owner,account_id,uid),mount)in enumerate(zip(members,mounts)):
++            db.execute('INSERT INTO mount_race_results(race,owner,account_id,mount,lane) VALUES (?,?,?,?,?)',(race,owner,account_id,uid,lane))
++            db.execute('INSERT INTO mount_race_busy VALUES (?,?,?)',(uid,owner,race))
++            db.execute('UPDATE mount_runtime SET stamina=stamina-?,ridden=0 WHERE uid=? AND owner=?',(rules.policy()['race_stamina'],uid,owner))
++            db.execute('UPDATE companion_active SET mount=0,mounted=0 WHERE owner=?',(owner,))
++        # Normalize JSON keys once; first delivery and replay use the same DTO.
++        data=json.loads(dumps(data));answer=encode(db,data);prepare(db)
++        return data,answer
++
++
++def settle(path,race,members,*,prepare,encode,now=None):
++    """Commit every original participant together, with current retry views."""
++    from els_server.storage.inventory_state import grant_items,load_items
++    from els_server.domain.reward_rules import item_plan
++    now=mount_state.timestamp(now)
++    with closing(sqlite3.connect(path,timeout=10))as db,db:
++        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE');prepare(db)
++        source=db.execute('SELECT started,data FROM mount_races WHERE id=?',(race,)).fetchone()
++        if source is None:raise ValueError('Original racing identity required')
++        data=json.loads(source[1])
++        if now<source[0]+math.ceil(max(r['time']for r in data['standings'])):raise ValueError('Race has not finished')
++        participants=db.execute('SELECT owner,account_id,mount,disconnected,settled,receipt FROM mount_race_results WHERE race=? ORDER BY lane',(race,)).fetchall()
++        if tuple(members)!=tuple((r[0],r[1])for r in participants):raise ValueError('Original racing participant roster required')
++        results={}
++        for owner,account_id,uid,disconnected,settled,old_receipt in participants:
++            require_owner(db,owner,account_id);mount=mount_state.owned(db,owner,uid);award=data['awards'][str(owner)]
++            if not settled and not disconnected:
++                require_active_character(db,owner)
++                baseline=data['profiles'][str(owner)];baseline['stats']={int(k):v for k,v in baseline['stats'].items()}
++                if mount_growth.read(db,owner,uid)!=baseline:raise ValueError('Racing mount growth changed before settlement')
++                updated=dict(award['profile'],stats={int(k):v for k,v in award['profile']['stats'].items()})
++                mount_growth.save(db,owner,uid,updated)
++                reward=award['reward'];item=reward['item'];granted=[]
++                if item:granted=grant_items(db,[item_plan(item['template'],item['quantity'])],owner)
++                receipt=dict(experience_gained=award['experience_gained'],bonus_type=reward['bonus_type'],item=item,
++                             items=granted)
++                db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))
++            elif not settled:receipt=dict(experience_gained=0,bonus_type=-1,item=None,items=[])
++            else:receipt=json.loads(old_receipt)
++            if not settled:db.execute('UPDATE mount_race_results SET settled=1,receipt=? WHERE race=? AND owner=?',(dumps(receipt),race,owner))
++            if disconnected:award['reward']=dict(experience=0,bonus_type=-1,item=None)
++            mount['racing']=mount_growth.read(db,owner,uid)
++            items=load_items(db,owner);current={(i['group'],i['slot']):i for i in items};uids={i['uid']for i in receipt['items']}
++            positions=list(dict.fromkeys([(i['group'],i['slot'])for i in receipt['items']]
++                           +[(i['group'],i['slot'])for i in items if i['uid']in uids]))
++            results[owner]=dict(mount=mount,receipt=receipt,changes=[(p,current.get(p))for p in positions])
++        answer=encode(db,data,results);prepare(db)
++        return answer
++
++
++def leave(path,owner,*,now=None):
++    """Release the race clock on town return/disconnect; no stamina refund."""
++    now=mount_state.timestamp(now)
++    with closing(sqlite3.connect(path,timeout=10))as db,db:
++        if not db.execute("SELECT 1 FROM sqlite_master WHERE name='mount_race_busy'").fetchone():return
++        db.execute('BEGIN IMMEDIATE')
++        release(db,owner,now)
++
++
++def release(db,owner,now):
++    row=db.execute('SELECT uid,race FROM mount_race_busy WHERE owner=?',(owner,)).fetchone()
++    if row is None:return
++    mount_state.settle(db,owner,mount_state.owned(db,owner,row[0]),now)
++    db.execute('UPDATE mount_race_results SET disconnected=CASE WHEN settled=0 THEN 1 ELSE disconnected END WHERE race=? AND owner=?',(row[1],owner))
++    db.execute('DELETE FROM mount_race_busy WHERE owner=?',(owner,))
+--- parent/els_server/storage/mount_racing_exchange.py
++++ online/els_server/storage/mount_racing_exchange.py
+@@ -0,0 +1,49 @@
++"""One original crystal exchange and current-position receipt projection."""
++from contextlib import closing
++import sqlite3,struct,time
++from els_server.domain.mount_racing_exchange import catalog,request
++from els_server.domain.reward_rules import item_plan
++from els_server.domain.manufacture_requirements import inventory_candidates
++from els_server.protocol.fish_exchange_messages import acknowledgement
++from els_server.protocol.protocol_codec import Event,encode_event
++from els_server.storage.inventory_state import load_items,grant_items
++from els_server.storage.inventory_actions import _identity,_previous,_commit
++from els_server.storage.equipment_receipt_state import current_changes
++from els_server.storage.item_actor import require_active_character
++from els_server.storage.profession_state import require_owner
++
++
++def exchange(path,owner,account_id,town,payload,operation,*,prepare):
++    quantity=request(payload)
++    if town not in catalog()['towns']:raise ValueError('Current Camilla village required')
++    owner,digest=_identity(owner,0x223,struct.pack('>iQ',town,account_id)+payload,operation)
++    with closing(sqlite3.connect(path,timeout=10))as db,db:
++        db.execute('PRAGMA foreign_keys=ON');db.execute('BEGIN IMMEDIATE')
++        prepare(db);require_active_character(db,owner);require_owner(db,owner,account_id)
++        if db.execute('SELECT town FROM location WHERE uid=?',(owner,)).fetchone()!=(town,):raise ValueError('Saved Camilla village required')
++        before=load_items(db,owner);old=_previous(db,operation,digest)
++        ed=db.execute('SELECT ed FROM reward_balances WHERE uid=?',(owner,)).fetchone()[0]
++        if old is not None:
++            changes=current_changes(db,operation,owner,0x223,old,before)
++            events=[Event(0x201,kind=0x224,payload=acknowledgement(ed,changes,exchange_type=1))]
++        else:
++            now=int(time.time());available=inventory_candidates(before,now=now).get(714109,())
++            needed=20*quantity
++            if sum(count for uid,count in available)<needed:raise ValueError('Insufficient usable racing fragments')
++            by_uid={i['uid']:i for i in before};positions=[]
++            for uid,count in sorted(available,key=lambda p:(by_uid[p[0]]['slot'],p[0])):
++                if not needed:break
++                item=by_uid[uid];take=min(needed,count);needed-=take;positions.append((item['group'],item['slot']))
++                if take==count:
++                    from els_server.storage.item_instances import remove
++                    remove(db,owner,item)
++                else:db.execute('UPDATE inventory_items SET count=count-? WHERE uid=? AND owner=?',(take,uid,owner))
++            gained=grant_items(db,[item_plan(714108,quantity)],owner)
++            positions=list(dict.fromkeys(positions+[(i['group'],i['slot'])for i in gained]))
++            after=load_items(db,owner);_commit(db,operation,digest,owner,0x223,positions,before,after)
++            changes=current_changes(db,operation,owner,0x223,positions,after)
++            events=[Event(0x201,kind=0x224,payload=acknowledgement(ed,changes,[(714108,quantity)],exchange_type=1))]
++            db.execute('UPDATE reward_balances SET revision=revision+1 WHERE uid=?',(owner,))
++        for event in events:encode_event(event)
++        prepare(db)
++        return events
+--- parent/els_server/storage/mount_reset.py
++++ online/els_server/storage/mount_reset.py
+@@ -26,6 +26,7 @@
+         if db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()[0]<p['minimum_character_level']:
+             raise ValueError('Mount racing reset character level')
+         companions(db);mount=owned(db,owner,uid)
++        if db.execute("SELECT 1 FROM sqlite_master WHERE name='mount_race_busy'").fetchone()and db.execute('SELECT 1 FROM mount_race_busy WHERE uid=?',(uid,)).fetchone():raise ValueError('Racing mount cannot reset during a race')
+         if 'expires_at'in mount or mount['unit']>=10000:raise ValueError('Permanent player mount required')
+         db.execute('''CREATE TABLE IF NOT EXISTS mount_reset_receipts (
+             owner INTEGER NOT NULL,operation TEXT NOT NULL,digest TEXT NOT NULL,
+--- parent/els_server/storage/mount_state.py
++++ online/els_server/storage/mount_state.py
+@@ -41,7 +41,9 @@
+   db.execute('INSERT INTO mount_runtime VALUES (?,?,?,?,?)',(mount['uid'],*row))
+  if row[0]!=owner:raise ValueError('Mount runtime owner mismatch')
+  # A backwards wall clock cannot re-credit elapsed time on a later retry.
+- checked=max(now,row[2]);stamina=advance(mount['unit'],row[1],checked-row[2],bool(row[3]))
++ checked=max(now,row[2])
++ busy=db.execute("SELECT 1 FROM sqlite_master WHERE name='mount_race_busy'").fetchone() and db.execute('SELECT 1 FROM mount_race_busy WHERE uid=? AND owner=?',(mount['uid'],owner)).fetchone()
++ stamina=row[1]if busy else advance(mount['unit'],row[1],checked-row[2],bool(row[3]))
+  db.execute('UPDATE mount_runtime SET stamina=?,accounted_at=? WHERE uid=? AND owner=?',(stamina,checked,mount['uid'],owner))
+  from els_server.storage.mount_growth import read as growth
+  return dict(mount,stamina=stamina,accounted_at=checked,ridden=bool(row[3]),racing=growth(db,owner,mount['uid']))
+@@ -57,6 +59,9 @@
+ def login(db,owner,*,now=None):
+  """Re-login starts on foot; crash recovery resumes from committed state."""
+  if not db.execute("SELECT 1 FROM sqlite_master WHERE name='mount_runtime'").fetchone():return
++ if db.execute("SELECT 1 FROM sqlite_master WHERE name='mount_race_busy'").fetchone():
++  from els_server.storage.mount_races import release
++  release(db,owner,timestamp(now))
+  # Normal disconnect has already charged the last ridden interval. After a
+  # process crash only committed stamina is known; never charge offline riding.
+  db.execute('UPDATE mount_runtime SET ridden=0 WHERE owner=?',(owner,))
