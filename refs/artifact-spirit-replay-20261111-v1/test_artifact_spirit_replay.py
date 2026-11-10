@@ -1,18 +1,29 @@
 import json
+import os
 import sqlite3
 import struct
+import sys
 import tempfile
 import unittest
 from contextlib import closing
 from pathlib import Path
 
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(Path(os.environ["ELS_ARTIFACT_TEST_RUNTIME"]).resolve()))
+
+import els_server.storage
+
+els_server.storage.__path__.insert(0, str(HERE / "source/els_server/storage"))
+
 from els_server.domain.artifact_progression import catalog
-from els_server.domain.local_session import LocalAccount
+from els_server.game_data import client_data
 from els_server.storage import artifact_spirit
 from els_server.storage.artifact_socket_expansion import perform as expand
+from els_server.storage.characters import Characters
+from els_server.storage.game_schema import prepare as prepare_schema
 from els_server.storage.identification_ui import perform as identify
 from els_server.storage.inventory_state import grant_items, load_items
-from els_server.storage.local_state import LocalState
+from els_server.storage.lifecycle import prepare_database
 
 
 class ArtifactSpiritReplayTests(unittest.TestCase):
@@ -20,15 +31,19 @@ class ArtifactSpiritReplayTests(unittest.TestCase):
         directory = tempfile.TemporaryDirectory()
         self.addCleanup(directory.cleanup)
         self.path = Path(directory.name) / "game.sqlite3"
-        self.account = LocalAccount(LocalState(self.path))
-        self.account.enable_characters()
-        self.owner = self.account.uid
+        prepare_database(self.path)
+        prepare_schema(self.path)
+        self.owner = Characters(self.path, 1).create("ArtifactQA", 10, "ArtifactQA")["uid"]
+        with closing(sqlite3.connect(self.path)) as db, db:
+            db.execute("UPDATE characters SET unit_class=178,level=99,transcendence=1,master=1 WHERE uid=?",
+                       (self.owner,))
+            db.execute("UPDATE reward_balances SET ed=1000000,experience=? WHERE uid=?",
+                       (client_data().thresholds[98], self.owner))
+            db.execute("INSERT INTO character_artifacts VALUES (?,10,4,1,0,'[0,0,0,0]')", (self.owner,))
         self.target = self.grant(168603)
         wedge = self.grant(118207)
         identify(self.path, self.owner, 0x438, struct.pack(">QB Ii", self.target, 0, 0, 0), "identify")
         expand(self.path, self.owner, struct.pack(">QQ", wedge, self.target), "expand")
-        with closing(sqlite3.connect(self.path)) as db, db:
-            db.execute("UPDATE reward_balances SET ed=1000000 WHERE uid=?", (self.owner,))
 
     def grant(self, template):
         definition = next(row for row in catalog()["definitions"] if row["template"] == template)
@@ -73,3 +88,7 @@ class ArtifactSpiritReplayTests(unittest.TestCase):
         with closing(sqlite3.connect(self.path)) as db:
             self.assertEqual(db.execute("SELECT ed FROM reward_balances WHERE uid=?", (self.owner,)).fetchone(),
                              (800000,))
+
+
+if __name__ == "__main__":
+    unittest.main()
