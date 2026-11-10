@@ -1,0 +1,65 @@
+{
+  "ok": true,
+  "zip_sha256": "e244042645dfccea5cb82d0acb8ee94a8e6f0e0f94d510c614fe7daca9c73af5",
+  "source_sha256": {
+    "els_server/domain/decomposition_rules.py": "cbed46d30aa155af90e46d186158f18ba79c9b58f2b846c4ed01a84d3ecb6d15",
+    "els_server/domain/ice_decomposition.py": "e7204923319fba3ae11675cd83bebcdf510f77bc76760289aaa08201b6c0f945"
+  },
+  "root_integration": "G:\\els\\analysis\\feature-closure-20261105-v1\\trade-integration-v2\\test-full-source",
+  "source_conflicts": [],
+  "dependencies": [
+    {
+      "path": "els_server/storage/decomposition.py",
+      "parent_sha256": "58a362173a30c20bf9b8c9fd690c48f26bf0e9081662674fc9faf18769fd04e4",
+      "target_sha256": "0fb7a59375e350e38127ceaa56f7e515fd51e0d38ca833eb71f41bd205cf34df"
+    },
+    {
+      "path": "els_server/domain/white_chip_decomposition_flow.py",
+      "parent_sha256": "4ee9bec69f86824423c781701ecacd560857421d5cf410d42c4ea7cf97cb0ea7",
+      "target_sha256": "4ee9bec69f86824423c781701ecacd560857421d5cf410d42c4ea7cf97cb0ea7"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "f3945ac0fbcf0e766e8fccc92382051e3e4f189d153ca0946c6b3d2efe4c9b92",
+      "target_sha256": "c823dbe9f7d86c58eda8e3a5d01460cf2cb2b83759a883551965c0b9ee9491fb"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "f9a8b4b0a1b86d0c216a13e4c3a7d069e4508de73fb76622e0d724f79f63145f",
+      "target_sha256": "f9a8b4b0a1b86d0c216a13e4c3a7d069e4508de73fb76622e0d724f79f63145f"
+    },
+    {
+      "path": "els_server/storage/equipment_receipt_state.py",
+      "parent_sha256": "9bb1ea5d9ff4630203160b4c7d19c36e2c681b79d19ab2e3e7c2d65b5c4b8360",
+      "target_sha256": "765105ae1d5a0aaf1a9acbbda169a795760ecd122b37cd98b996e844fec8aa14"
+    },
+    {
+      "path": "els_server/storage/item_actor.py",
+      "parent_sha256": "3e789ec8704c7bacd7210af70ffefcf31aaade30e0ce8e6a4efccd6aa462b491",
+      "target_sha256": "3e789ec8704c7bacd7210af70ffefcf31aaade30e0ce8e6a4efccd6aa462b491"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "620543de4cdb2197638e730eacf97d70e0d73e1cd71013fd1664eddba3d87cfe",
+      "target_sha256": "d7d690adf4165598891d904ddd70ef168035cd4c919ecf316b308afe03dd6d3b"
+    },
+    {
+      "path": "els_server/storage/item_instances.py",
+      "parent_sha256": "098b15522dbf24ecd4503c1fbc09fd9ccddb6e60a991e9ebf2b280a370d18c57",
+      "target_sha256": "098b15522dbf24ecd4503c1fbc09fd9ccddb6e60a991e9ebf2b280a370d18c57"
+    },
+    {
+      "path": "els_server/storage/inventory_actions.py",
+      "parent_sha256": "3197bea0bae9a4834e22e12e3851cf7533fc2d7f20bb85409febe7fe4e6eea59",
+      "target_sha256": "3197bea0bae9a4834e22e12e3851cf7533fc2d7f20bb85409febe7fe4e6eea59"
+    }
+  ],
+  "reused_unique_scenarios": 8,
+  "additional_affected_cases": [
+    "test_draw_open_dispatch_and_cold_read",
+    "test_mixed_ordinary_chip_and_ice_keep_distinct_rewards"
+  ],
+  "player_database_access": false,
+  "installed": false,
+  "original_exe_or_kom_changed": false
+}

@@ -1,0 +1,94 @@
+{
+  "status": "implementation_and_isolated_validation_complete",
+  "rule": {
+    "source": "Direct user instruction in this chat, 2026-11-05",
+    "original": "奖励帮我统一成45个未鉴定的的艾尔结晶就行",
+    "policy": "ice-costume-fixed-45-20261105",
+    "input": "catalogued ice costume, one instance",
+    "output": {
+      "template": 130047,
+      "name": "艾尔结晶（未鉴定）",
+      "quantity": 45,
+      "group": 4,
+      "max_stack": 999
+    },
+    "no_random_or_additional_reward": true,
+    "official_quantity_claim": false
+  },
+  "parents": {
+    "online": {
+      "release": "native-market-progress-20261105-v1",
+      "path": "releases/online/native-market-progress-20261105-v1",
+      "manifest_sha256": "55e7b112d140170b72c5458f0f51935af072644a7f979bb7e2a87631236909c4",
+      "dependency_sha256": {
+        "els_server/domain/decomposition_rules.py": "6e12d725044c083e0eb5f671f708f707c32d04e2ee569d97bf62930002ad1004",
+        "els_server/domain/white_chip_decomposition_flow.py": "4ee9bec69f86824423c781701ecacd560857421d5cf410d42c4ea7cf97cb0ea7",
+        "els_server/storage/decomposition.py": "58a362173a30c20bf9b8c9fd690c48f26bf0e9081662674fc9faf18769fd04e4",
+        "els_server/data/modern_ice.json": "4e77e759cc1dc88656f780de2e5c6becf425d1fe55bab9747d65d9c83130ae47",
+        "els_server/data/client/catalog.sqlite3": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+        "analysis/client-6c6b5180/role-ice-catalog.json": "28f59d781be855fc4f27c33d0eec2efa6eba0b499d39732968718018634aef25",
+        "analysis/shop-standalone-20261015/ice-common.json": "43e312686258274f4f138b2d0bf8d388ea18816ceb1f6e387230f0656226a3df"
+      }
+    },
+    "local": {
+      "release": "unified-server-b336b52566253864-9d5c1bfbc24c",
+      "path": "releases/local/unified-server-b336b52566253864-9d5c1bfbc24c",
+      "manifest_sha256": "007b00222bad3b057a4b13beb41944c9719537792c9bafb6c392fbb22373333d",
+      "dependency_sha256": {
+        "els_server/domain/decomposition_rules.py": "6e12d725044c083e0eb5f671f708f707c32d04e2ee569d97bf62930002ad1004",
+        "els_server/domain/white_chip_decomposition_flow.py": "4ee9bec69f86824423c781701ecacd560857421d5cf410d42c4ea7cf97cb0ea7",
+        "els_server/storage/decomposition.py": "58a362173a30c20bf9b8c9fd690c48f26bf0e9081662674fc9faf18769fd04e4",
+        "els_server/data/modern_ice.json": "4e77e759cc1dc88656f780de2e5c6becf425d1fe55bab9747d65d9c83130ae47",
+        "els_server/data/client/catalog.sqlite3": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba",
+        "analysis/client-6c6b5180/role-ice-catalog.json": "28f59d781be855fc4f27c33d0eec2efa6eba0b499d39732968718018634aef25",
+        "analysis/shop-standalone-20261015/ice-common.json": "43e312686258274f4f138b2d0bf8d388ea18816ceb1f6e387230f0656226a3df"
+      }
+    }
+  },
+  "candidate_sha256": {
+    "els_server/domain/decomposition_rules.py": "cbed46d30aa155af90e46d186158f18ba79c9b58f2b846c4ed01a84d3ecb6d15",
+    "els_server/domain/ice_decomposition.py": "e7204923319fba3ae11675cd83bebcdf510f77bc76760289aaa08201b6c0f945"
+  },
+  "tests": {
+    "passed_unique_scenarios": 8,
+    "first_attempt_passed": 6,
+    "corrected_fixture_reruns_passed": 2,
+    "modified_business_code_after_tests": false,
+    "initial_fixture_errors": [
+      "LocalSession requires the existing persistent-reward test profile; enabled the full profile.",
+      "Initial character costume already occupied the equipment slot; used existing move_fashion to swap it."
+    ],
+    "catalog_quotes": 11537,
+    "modern_ice_outputs": 11520,
+    "original_native_membership": 11537,
+    "original_native_reply_reader_cases": 3,
+    "atomic_failure_and_replay": true,
+    "cold_read": true,
+    "owned_test_databases_cleaned": true
+  },
+  "evidence_sha256": {
+    "fixed45-test-attempt-1.json": "f07d773c92a6d01818d28a0bc1741b8289152621bd7c7d3562c2f424a2d0d4fd",
+    "fixed45-test-attempt-2.json": "9b62c86b27a0f1e9975cf4baf8252e96f1f0e2e56fe8d86a541b389524bc686a",
+    "native-membership-proof.json": "6d1d5880a3f01f0c1b6a7f2718cf287696ad33b5ebc555da5ad4b5bc8cb5d0a3",
+    "native-legacy-membership-proof.json": "a1af3cead41f927ae51b26f5136205c952be4727cb6a562372e704c2d8580c05",
+    "native-qualification-source.json": "6a33323c6c9b9480205468d02fca603888c5d25f0c42b849190cb9446b268542",
+    "test_ice_decomposition.py": "a4da330baa460b7ccf2e0ac71ddfa72bf670252566b4991b810a4fddafb79e45",
+    "verify_cash_membership.py": "c62ad887e02f2787136de80358e6f004de33c991cd0dc9899b955066741088a8"
+  },
+  "publication": {
+    "deployed": false,
+    "Git_merged": false,
+    "natural_GUI": false,
+    "release_owner": "01a188cb-21df-7000-a927-f8dbad7e074d",
+    "remaining": "Release owner integrates this shared-server delta, publishes through existing flow and verifies actual selected runtime.",
+    "rule": "DEVELOPMENT_RULES.md section 6: 其他会话提交隔离候选，不抢锁或覆盖他人工作。"
+  },
+  "scope": {
+    "server_modified": 1,
+    "server_added": 1,
+    "schema_change": false,
+    "new_dependencies": false,
+    "client_change": false,
+    "player_database_access": false
+  }
+}
