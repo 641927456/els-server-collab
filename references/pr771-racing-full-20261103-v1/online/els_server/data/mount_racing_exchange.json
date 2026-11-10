@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "house": 40016,
+  "source": 714109,
+  "source_quantity": 20,
+  "destination": 714108,
+  "quantity": 1,
+  "rate": 100,
+  "exchange_type": 1,
+  "original_call": {
+    "function": "g_pItemManager.AddItemExchangeData",
+    "arguments": [
+      {
+        "global": "g_pItemManager"
+      },
+      40016,
+      1,
+      714109,
+      714108,
+      1,
+      100,
+      {
+        "m_iServerGroupID": -1,
+        "m_iSourceQuantity": 20
+      }
+    ],
+    "pc": 671
+  },
+  "npc": 10017,
+  "towns": [
+    20001,
+    20002,
+    20003,
+    20004,
+    20005,
+    20006,
+    20007,
+    20008,
+    20009,
+    20010,
+    20011,
+    20012,
+    20013
+  ],
+  "source_sha256": {
+    "analysis/equipment-connect-01a142e9/expansion-v2/ItemExchangeTable.lua.tables.json": "1a86a91e1751c1e763ff0f0f77fc45ec8a0bf2138fadf3e579e85fd569e26215",
+    "analysis/tutorial-quests-01a142ce/v3-remaining/resources/DLG_Map_House.lua.tables.json": "ec9406064e33c9cd9fcc5dbdfc5c2fad3a63481228e7ab5a13b6af489f96b3f2",
+    "analysis/x2-village-opcode14-20261017-01a14a51/outputs/DLG_Map_Village.tables.json": "b79f1609a7a0d673ab165cc626961779acc791cb411a64a933edf7de03d1f072"
+  },
+  "official": "https://els.ztgame.com/game/m_000-1656-0035d-384170.shtml?ms=859&mt=861"
+}

@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "package": "pending-repairs-v123-20261109-v1",
+  "parent": {
+    "launcher_version": 122,
+    "signed_payload_sha256": "a51c658080203b44644a59f53954636c0553e45153c54b18c46f93e34373d1af",
+    "source_pr": "https://github.com/641927456/els-server-collab/pull/969",
+    "source_commit": "ab4461f4f8854957b523a7106f0af0109c136c96"
+  },
+  "delivery_delta": {
+    "server_files": 2,
+    "support_behavior_changes": 0,
+    "original_game_exe_or_kom_changes": 0
+  },
+  "source_archive": {
+    "previously_installed_support_files": 10,
+    "does_not_merge_other_open_prs": true,
+    "not_a_standalone_server_or_launcher_build": true
+  },
+  "files": [
+    {
+      "path": "source/els_server/domain/apple_consumables.py",
+      "size": 10097,
+      "sha256": "9be7636a09983f70ed742071f07825b5ff7863655180f01ff3ea2b285d9b9b60",
+      "role": "server_candidate",
+      "runtime_path": "els_server/domain/apple_consumables.py"
+    },
+    {
+      "path": "baseline/els_server/domain/apple_consumables.py",
+      "size": 10037,
+      "sha256": "73edeccbc5099509070c2da7379fc09ae5872d92c52cff3f298594aab8f0201e",
+      "role": "negative_regression_baseline",
+      "runtime_path": "els_server/domain/apple_consumables.py"
+    },
+    {
+      "path": "source/els_server/domain/dungeon_routes.py",
+      "size": 22020,
+      "sha256": "41d94d89d14bd429d3fe50e3badd9b350a4241f2d41aefac18d16f0318c4fd72",
+      "role": "server_candidate",
+      "runtime_path": "els_server/domain/dungeon_routes.py"
+    },
+    {
+      "path": "baseline/els_server/domain/dungeon_routes.py",
+      "size": 22278,
+      "sha256": "e54f7ef4e517b24db8baac18d7147ac4af0abb2e2f5e14611a8a71edd9a61dd3",
+      "role": "negative_regression_baseline",
+      "runtime_path": "els_server/domain/dungeon_routes.py"
+    },
+    {
+      "path": "source/tools/dungeon_result_stats.js",
+      "size": 8066,
+      "sha256": "7d8f6c3491ad572d70aeaf836ca73300e75c5bd3f6f20fe2d6a6533c7d03665d",
+      "role": "unchanged_installed_support_archive",
+      "runtime_path": "tools/dungeon_result_stats.js"
+    },
+    {
+      "path": "source/tools/local_shortcut_totals.js",
+      "size": 2133,
+      "sha256": "06ba3ea254d30654a6ff55033d891314d88000419927b2fb9c7079c92df2b832",
+      "role": "unchanged_installed_support_archive",
+      "runtime_path": "tools/local_shortcut_totals.js"
+    },
+    {
+      "path": "source/tools/challenge_scroll_open.js",
+      "size": 1797,
+      "sha256": "251b8fc07fbae231655184d7c2835b21185c630ebe3a71d83635f3be306f7254",
+      "role": "unchanged_installed_support_archive",
+      "runtime_path": "tools/challenge_scroll_open.js"
+    },
+    {
+      "path": "source/tools/launch_client.py",
+      "size": 9813,
+      "sha256": "788e8b92ae120a3586b6a44a0def963016298ca08e7629fd4e6ecce313d35873",
+      "role": "unchanged_installed_support_archive",
+      "runtime_path": "tools/launch_client.py"
+    },
+    {
+      "path": "source/tools/client_process_guard.py",
+      "size": 1686,
+      "sha256": "f4deb6fdd6df248c81de173fa078d5b4b32d0ad67fcfb484735c81537da45f93",
+      "role": "unchanged_installed_support_archive",
+      "runtime_path": "tools/client_process_guard.py"
+    },
+    {
+      "path": "source/tools/native_cache_sync.js",
+      "size": 34544,
+      "sha256": "f4ea3de6b9e60464b71235224a284079dd95290c2e3e336a304d389e807120c1",
+      "role": "unchanged_installed_support_archive",
+      "runtime_path": "tools/native_cache_sync.js"
+    },
+    {
+      "path": "source/tools/probe_updated_client.py",
+      "size": 33245,
+      "sha256": "a971a3fbbb1c8fbda7fb153d221fa60f83d53143e2a589a790c6de4acb38069d",
+      "role": "unchanged_installed_support_archive",
+      "runtime_path": "tools/probe_updated_client.py"
+    },
+    {
+      "path": "source/tools/native_operation_journal.py",
+      "size": 27863,
+      "sha256": "9eaecfb06f6da9fc83abf5abc4ee23cf7f22401343ecd0f3dbba0b5c6b0fa5d7",
+      "role": "unchanged_installed_support_archive",
+      "runtime_path": "tools/native_operation_journal.py"
+    },
+    {
+      "path": "source/tools/observe_native_fatal.js",
+      "size": 2774,
+      "sha256": "575454800e5c5259049a1ad92020a137b997798d73624980ad47e903f1b29427",
+      "role": "unchanged_installed_support_archive",
+      "runtime_path": "tools/observe_native_fatal.js"
+    },
+    {
+      "path": "source/tools/friends_diagnostics.py",
+      "size": 29297,
+      "sha256": "9f05355b5f89ebb12d10fcc8f7fc48bd7dd9ff4e86de666484edb5cccabc9228",
+      "role": "unchanged_installed_support_archive",
+      "runtime_path": "tools/friends_diagnostics.py"
+    }
+  ],
+  "server_dependency_pins": [
+    {
+      "path": "els_server/domain/apple_consumables.py",
+      "sha256": "73edeccbc5099509070c2da7379fc09ae5872d92c52cff3f298594aab8f0201e"
+    },
+    {
+      "path": "els_server/domain/consumable_flow.py",
+      "sha256": "d34818fcc8116eb6ccd1ca3a4f7987f5ac20e437855406775c3e75dc0d244d58"
+    },
+    {
+      "path": "els_server/storage/consumables.py",
+      "sha256": "45992289b09b59ec04e67e2713223c711f895939b0d545e3bb01346226584ca3"
+    },
+    {
+      "path": "els_server/consumable_lane.py",
+      "sha256": "7d6005fb7f7ffc14243e95d693fc3da002d3b46374cd8154426c77e0b83464b7"
+    },
+    {
+      "path": "els_server/domain/dungeon_routes.py",
+      "sha256": "e54f7ef4e517b24db8baac18d7147ac4af0abb2e2f5e14611a8a71edd9a61dd3"
+    },
+    {
+      "path": "els_server/data/client/dungeon_routes.json",
+      "sha256": "7c8ceb98bd748e30348ab26922ed8302d884dc2deb12475597f1bfbdb943751f"
+    },
+    {
+      "path": "els_server/data/client/catalog.sqlite3",
+      "sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "sha256": "578f88c18e517076beecf8c11ceba6a19012efb3495c143d014bc44fb1d54fdb"
+    },
+    {
+      "path": "els_server/protocol/consumable_messages.py",
+      "sha256": "94903695773e55066233fb69ea4cc206fec7ef2326b7e41eac6f23838f844f6d"
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "sha256": "b9960a597586e038d5fb3d0398021e156914dbe2152fae91cfcbb57c44059d33"
+    },
+    {
+      "path": "els_server/domain/scene_actor_retirements.py",
+      "sha256": "179ed6381c4735e3a7ee534590a05b41fd6fb6b02422591a69bacbdadc8a874c"
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "sha256": "e30ec6b45381325763791739f7ea1fa7fb0e2937623c6978e311dcc977bcda89"
+    }
+  ],
+  "reused_validation": [
+    {
+      "id": "consumable_baseline_tls",
+      "private_receipt_sha256": "24cf6e0c85f8c333f247ba9b658ba6eb7678a2498b81dd0483dae10e0ff27e99",
+      "scope": "Original refusal baseline",
+      "rerun_for_source_submission": false,
+      "private_fixture_dependencies_not_included": true
+    },
+    {
+      "id": "consumable_candidate_tls",
+      "private_receipt_sha256": "5a202a1c2849fa8d26f1200a520767b3e19d3419fd5334d3e756451b0d17a098",
+      "scope": "Isolated TLS admission and consumable transaction",
+      "rerun_for_source_submission": false,
+      "private_fixture_dependencies_not_included": true
+    },
+    {
+      "id": "consumable_transition",
+      "private_receipt_sha256": "e67989483e958702b795055fc1e1255607a3a0ba69b2be99dd7d4748024e82c4",
+      "scope": "Existing stage-transition validation",
+      "rerun_for_source_submission": false,
+      "private_fixture_dependencies_not_included": true
+    },
+    {
+      "id": "condition_baseline_tls",
+      "private_receipt_sha256": "68c87e14ca2c24ba041688afc97d7e66275a1d572c1483e2152ab8862a0b6d10",
+      "scope": "Original incomplete-hub-roster condition failure",
+      "rerun_for_source_submission": false,
+      "private_fixture_dependencies_not_included": true
+    },
+    {
+      "id": "condition_candidate_tls",
+      "private_receipt_sha256": "06ae4826c7fac6ed4063ef1c4b33a03bd5103ed5d2f8bc37fc0b1676287853a1",
+      "scope": "Three first-wing routes and optional-wing route; original condition replay",
+      "rerun_for_source_submission": false,
+      "private_fixture_dependencies_not_included": true
+    },
+    {
+      "id": "combined_server_check",
+      "private_receipt_sha256": "28cc17161db867035e9596edbd21289a1673f1fa2f9cc71c5ca8c6ceb47e434e",
+      "scope": "39 in-memory composition assertions; no network or game",
+      "rerun_for_source_submission": false,
+      "private_fixture_dependencies_not_included": true
+    },
+    {
+      "id": "v118_probe_contracts",
+      "private_receipt_sha256": "487009b9cb467fee1baec66d3161167a56cf2c99c048da000017ae9b7d0a3832",
+      "scope": "Historical 54 behavior and 36 installation/cleanup assertions; native_cache later superseded by V121",
+      "rerun_for_source_submission": false,
+      "private_fixture_dependencies_not_included": true
+    },
+    {
+      "id": "v119_remaining_probes",
+      "private_receipt_sha256": "a7d99e2b0f7bc649eb69dce73544261b59b4dfa87e9650d6b39479d42e5e7897",
+      "scope": "Two instruction-probe contracts and preserved callback guards",
+      "rerun_for_source_submission": false,
+      "private_fixture_dependencies_not_included": true
+    },
+    {
+      "id": "v120_process_guard",
+      "private_receipt_sha256": "d90dc7398b9c3951bfb51d52d2267956ed927be395459c70d8b12f873089bf56",
+      "scope": "13 process-guard cases; probe later extended by V121",
+      "rerun_for_source_submission": false,
+      "private_fixture_dependencies_not_included": true
+    },
+    {
+      "id": "v121_diagnostic_collection",
+      "private_receipt_sha256": "238188466772cf52929fead79dfb088dbe3312fcf471a288e094b52b335bad9c",
+      "scope": "Current diagnostic sources, bounded metadata and collector checks with unchanged-input reuse",
+      "rerun_for_source_submission": false,
+      "private_fixture_dependencies_not_included": true
+    }
+  ],
+  "limits": [
+    "The portable test executes extracted production predicates with synthetic collaborators; it does not emulate the client or a server transaction.",
+    "Private original TLS/native and installed-component checks are receipt references, not publicly replayable tests.",
+    "Support sources preserve currently installed bytes; older per-version receipts are not a claim that every historical suite ran on every later source.",
+    "No natural game stability, complete gameplay or first-writer attribution is established by this source archive.",
+    "The shadow-castle candidate is excluded."
+  ]
+}

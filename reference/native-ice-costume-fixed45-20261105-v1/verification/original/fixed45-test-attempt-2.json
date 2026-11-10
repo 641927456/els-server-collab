@@ -1,0 +1,51 @@
+{
+  "ok": true,
+  "tests": 2,
+  "failures": 0,
+  "errors": 0,
+  "evidence": {
+    "test_draw_open_dispatch_and_cold_read": {
+      "kind": "decompose",
+      "result": 0,
+      "consumed": 677,
+      "rows": [
+        {
+          "uid": 1001015,
+          "group": 4,
+          "slot": 0,
+          "template": 130047,
+          "count": 45,
+          "date": "",
+          "lock_until": 0
+        },
+        {
+          "uid": 0,
+          "group": 27,
+          "slot": 0,
+          "template": 0,
+          "count": 0,
+          "date": "",
+          "lock_until": 0
+        }
+      ],
+      "wire_sha256": "76cdfc406618b789d33f3a6013cf1ade6e8215eecf92a0beef738ee37b42538b",
+      "start": "0x22793a0",
+      "stop": "0x22794fb"
+    },
+    "draw_open_dispatch": {
+      "shards": 45,
+      "xp_unchanged": true,
+      "balances_unchanged": true,
+      "real_saved_user_sync_replay": true
+    }
+  },
+  "base": "G:\\els\\releases\\online\\native-market-progress-20261105-v1",
+  "candidate": "G:\\els\\analysis\\ice-costume-decomposition-20261105-v1\\candidate",
+  "candidate_sha256": {
+    "els_server/domain/decomposition_rules.py": "cbed46d30aa155af90e46d186158f18ba79c9b58f2b846c4ed01a84d3ecb6d15",
+    "els_server/domain/ice_decomposition.py": "e7204923319fba3ae11675cd83bebcdf510f77bc76760289aaa08201b6c0f945"
+  },
+  "remaining_test_directories": [],
+  "deployed": false,
+  "natural_GUI": false
+}

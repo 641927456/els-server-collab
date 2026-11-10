@@ -1,0 +1,39 @@
+{
+  "ok": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "retained_receipts_from_real_storage_writers": true,
+  "historical_multiplayer_GUI": false,
+  "checks": [
+    "49real committed storage trades and4real ordinary send receipts backfill below their thresholds; foreign account counts remain0",
+    "Both expression indexes are used for account trade history",
+    "Ordinary174/177/182/185/188personal trade completes50th; both caller and mailbox recipient get one6C0",
+    "Ordinary1CF/1D0 fifth mail completes155once; no client counter input",
+    "Old trade receipt replay changes no database state; unchanged source projection writes nothing",
+    "Repeated no-reward claims create no mail; five actual recipient mails retain their original ownership"
+  ],
+  "completed_sender": [
+    150,
+    155
+  ],
+  "completed_trade_peer": [
+    150
+  ],
+  "errors": [],
+  "source_sha256": {
+    "els_server\\application.py": "04f5f1067dc6638d4fa96a656dda93f32482ce52597bc08b8cbb9e2fa23281f0",
+    "els_server\\data\\ariel_attendance_preview.json": "514c4937418c0bf336a53671c7e1dd5d9e580c804703c4ebbaed68b8ff7cf5a3",
+    "els_server\\domain\\achievement_catalog.py": "f80f5d79db5424a4071406b6579652c385715eacf53e7e8de3c76f4784024dbb",
+    "els_server\\domain\\achievement_flow.py": "790ab01ad4377228e37eb5df299312049d7f802345f45cf7d5892e1040dd5a47",
+    "els_server\\domain\\ariel_attendance_preview.py": "83c4097d6ee4c0bdd333d3e7b23cc4241886ce699e44e8f45af4998b3a975c02",
+    "els_server\\protocol\\achievement_messages.py": "fa986c7e54570c61190568149d8508560b7309bbc6617b42f45cf6dc8336e9f4",
+    "els_server\\storage\\achievements.py": "176b7ff50704cb1873fca2db390c61b6657361aea5c1cbc134c6e67fcaeae2ac",
+    "els_server\\storage\\achievement_collections.py": "4b8bb609649cf3ce24e770a214a35ad55b31738b326f8294f4cabe6cac76a9fe",
+    "els_server\\storage\\achievement_history.py": "eb6ae0fe1315690fa52122780d3ecb5131db62ac0f8afca5f8646171001fcfc2",
+    "els_server\\storage\\achievement_profiles.py": "fa917071ce98a90a7d86fa331977964479340bcbde7cc7ad39e21adec5d50054",
+    "els_server\\storage\\player_mail.py": "b93ebcb20f17fdf4c5792b8f6ebbb2effc30531a4bb7b79176c39cc286b7ac00",
+    "els_server\\data\\client\\achievements.json": "0be7576396cfbd3d07d992916ff5674706cd67abb00fc44ac8e0d8a9efd86dee",
+    "els_server\\data\\client\\achievement_rewards.json": "79fbcef402aad6626e55127c2f2eac5b64f6d6923fe0736e74dccf653f67bfdb"
+  }
+}

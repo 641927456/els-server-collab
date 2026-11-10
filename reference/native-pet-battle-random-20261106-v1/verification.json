@@ -1,0 +1,265 @@
+{
+  "cases": [
+    {
+      "source": "engine-check-reused-1793966444588942200.json",
+      "sha256": "9e9e97c067946992c77606bcac6ef51ed6b4b0acbcba270bb1cd9c3cb76a2c49",
+      "ok": true,
+      "checks": []
+    },
+    {
+      "source": "roster-check-1793967835474811000.json",
+      "sha256": "583fa3789eae3b6eaf0a86916e5270e970231f62244f5712bb4d4e71d0288083",
+      "ok": true,
+      "checks": [
+        "current owned full-grown roster; exact immutable facts/DTOs; repeated read and no writes",
+        "frozen registration independent from later saved point changes",
+        "wrong account",
+        "level98",
+        "foreign pet",
+        "duplicate pet",
+        "only two pets",
+        "not fully grown",
+        "unallocated selected effect",
+        "growth choice outside original enum",
+        "currently exploring",
+        "currently placed in housing",
+        "native VIP unit range",
+        "period pet even if not expired",
+        "pending deleted actor"
+      ]
+    },
+    {
+      "source": "projection-native-1793973890587678000.json",
+      "sha256": "85cc3fcdd4c733d97f9bbcbdf2159679777283e257ea21a90915ee5f3ab23478",
+      "ok": true,
+      "checks": [
+        {
+          "name": "change_attack_heal_defence_enchant",
+          "steps": 6,
+          "native_bytes": 6080,
+          "both_member_pet_projections_current": true,
+          "all_result_maps_and_actor_UIDs_exact": true
+        },
+        {
+          "name": "critical",
+          "steps": 6,
+          "native_bytes": 6080,
+          "both_member_pet_projections_current": true,
+          "all_result_maps_and_actor_UIDs_exact": true
+        },
+        {
+          "name": "evasion",
+          "steps": 6,
+          "native_bytes": 6080,
+          "both_member_pet_projections_current": true,
+          "all_result_maps_and_actor_UIDs_exact": true
+        },
+        {
+          "name": "faint_interrupt",
+          "steps": 1,
+          "native_bytes": 4475,
+          "both_member_pet_projections_current": true,
+          "all_result_maps_and_actor_UIDs_exact": true
+        }
+      ]
+    },
+    {
+      "source": "scene-native-1793977342134157400.json",
+      "sha256": "51bc119484a1107d4e1baab2e3e796d968ebd806db798f30fda6a42a1fa256e5",
+      "ok": true,
+      "checks": []
+    },
+    {
+      "source": "network-TLS-1793977725111147100.json",
+      "sha256": "f3d48f91d0f9833cf927f1c06bb93e7a96c426dca73e7608fa6102476fdd568a",
+      "ok": true,
+      "checks": [
+        "two current distinct authenticated99-level actors:342/343/344 ->349 ->both34A ->34B pet room and private relay epoch",
+        "Pet scene request requires admitted host and exact original pair; malformed/foreign request creates nothing; loading defers actor publication and duplicate request creates no second pair",
+        "Repeated native34A after pet admission remains in this room; no duplicate admission, combat mutation, normal-PvP queue or worker error",
+        "Both load100s publish96 then one scene2D0 before initialA6B; exact retry ACK creates no duplicate actor or combat mutation",
+        "both91/92/93 complete before96 and initialA6B; original session/epoch routes only the admitted peer",
+        "Real deadline timeout fills both absent plans, publishes A6B and animating phase once; late encoder failure rolls back, second periodic is inert, both A6E start next round",
+        "foreign active UID refused; failed late round encoder leaves the source match unchanged; exact completed selection replay changes no HP or budget",
+        "actual authenticatedA6C/A6D ->A6B ->bothA6E advances rounds; server-owned all-three-pets-fainted result emitsA6F with no XP/ED/AP/inventory/pet-state change",
+        "authenticated110/111 and ordinary225/227 return both actors to their saved town; no room/queue remains"
+      ]
+    },
+    {
+      "source": "weekly-reward-native-1793974373613158700.json",
+      "sha256": "fa754b5a854f27841e8155f15632a638c8b0927d53a1e443864806890dba4eee",
+      "ok": true,
+      "checks": [
+        {
+          "count": 1,
+          "ok": 1,
+          "consumed": 304,
+          "native_group": 4
+        },
+        {
+          "count": 7,
+          "ok": 1,
+          "consumed": 304,
+          "native_group": 4
+        },
+        {
+          "count": 300,
+          "ok": 1,
+          "consumed": 304,
+          "native_group": 4
+        }
+      ]
+    },
+    {
+      "source": "weekly-boundary-reuse-1793976049634313400.json",
+      "sha256": "c5f27311beb341dd3b5ed20f8d5fb6b29b3e2a018d1c9c97a8030fe2111b4d5f",
+      "ok": true,
+      "checks": [
+        "Authenticated EE accepts original account54620; early F4 claim grants nothing",
+        "Three authenticated server-sealed random wins advance exactly1 each; cold account character switch retains canonical carrier and projects F3/2B to current UID; result encoder failure rolls back ledger/task and successful retry commits once",
+        "F4 grants original324815 x7 to current claimant once; replay and another acceptance in the completed week cannot add rewards",
+        "Weekly SQL boundary: stale prior-week operation refused; late response failure preserves prior completion; fresh acceptance starts0; old sealed result cannot count; original7 materials retained"
+      ]
+    },
+    {
+      "source": "weekly-authority-1793976588898956800.json",
+      "sha256": "7006569df224be32acb6c4a80e7a1f72945a78e2aa5496a936e418812d7cda46",
+      "ok": true,
+      "checks": [
+        "Unqualified generic324815 grant, another winner receipt and ordinary PVE clear cannot grant tokens or advance54620",
+        "An unfinished previous-week task rotates through the shared acceptance writer and retains reward inventory/history"
+      ]
+    },
+    {
+      "source": "trainer-readers-native-v1.json",
+      "sha256": "b67d34a362c6c9e0b408c27d2e9fd9bba779004c3520050443ac75acab0e5bf2",
+      "ok": true,
+      "checks": [
+        {
+          "template": 109955,
+          "native_group": 4,
+          "ok": 1,
+          "consumed": 304,
+          "counts": [
+            1,
+            999
+          ]
+        },
+        {
+          "template": 109956,
+          "native_group": 4,
+          "ok": 1,
+          "consumed": 304,
+          "counts": [
+            1,
+            999
+          ]
+        },
+        {
+          "template": 135980,
+          "native_group": 21,
+          "ok": 1,
+          "consumed": 304,
+          "counts": [
+            1,
+            999
+          ]
+        },
+        {
+          "template": 160164,
+          "native_group": 4,
+          "ok": 1,
+          "consumed": 304,
+          "counts": [
+            1,
+            999
+          ]
+        },
+        {
+          "template": 710008,
+          "native_group": 6,
+          "ok": 1,
+          "consumed": 304,
+          "counts": [
+            1,
+            999
+          ]
+        },
+        {
+          "template": 710096,
+          "native_group": 4,
+          "ok": 1,
+          "consumed": 304,
+          "counts": [
+            1,
+            300
+          ]
+        },
+        {
+          "template": 710113,
+          "native_group": 4,
+          "ok": 1,
+          "consumed": 304,
+          "counts": [
+            1,
+            999
+          ]
+        }
+      ]
+    },
+    {
+      "source": "trainer-consumption-reuse-1793979048271562100.json",
+      "sha256": "127159e9ac8c117b323ea1d692a47a12ae7c9e18aa6e080286df14aea78d7fee",
+      "ok": true,
+      "checks": [
+        "Retained fixture reproduces InsufficientED without mutation; only owned QA balance funded for the remaining socket checks",
+        "Exact exhaustive highest-stone RNG domain has twelve equal categories/equal native tiers for weapon and armor; exchanged advanced/highest stones preview/apply/cold-read through1C4 and8B1",
+        "Exchanged710008 uses the shared shortcut consumable writer; native effect emitted once and receipt replay does not reapply"
+      ]
+    },
+    {
+      "source": "highest-shared-compatibility-1793979299387922800.json",
+      "sha256": "027b66c313a5334e194023c56e2ed836cc76d78d5f7c23f4bcbfbb2c0ac52cbb",
+      "ok": true,
+      "checks": [
+        "All prior stone item definitions, option identities, saved-option admissions and exact weighted profiles are unchanged",
+        "Highest tiers exactly reuse the already qualified current native12-category description bounds and half-range armor IDs; only approved probability masses differ"
+      ]
+    },
+    {
+      "source": "weekly-task-TLS-1793975911287632500.json",
+      "sha256": "fdd6c8183540fa6f2b389d506bbd3b3959d8ac9043eb39a79a973bd36919b82f",
+      "overall_ok": false,
+      "reused_success_scope": "Three real sealed random wins, cross-character account progress and claim7; subsequent boundary query had LIMIT1 typo, separately fixed and qualified",
+      "checks": [
+        "Authenticated EE accepts original account54620; early F4 claim grants nothing",
+        "Three authenticated server-sealed random wins advance exactly1 each; cold account character switch retains canonical carrier and projects F3/2B to current UID; result encoder failure rolls back ledger/task and successful retry commits once",
+        "F4 grants original324815 x7 to current claimant once; replay and another acceptance in the completed week cannot add rewards"
+      ],
+      "later_failure": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\pet-battle-v1\\verify_pet_battle_weekly_tls.py\", line 169, in main\n    with closing(sqlite3.connect(cfg.state_file))as db:old_operation=db.execute(\"SELECT operation_id FROM quest_actions WHERE owner=? AND kind='accept'ORDER BY rowid LIMIT1\",(primary['uid'],)).fetchone()[0]\n                                                                     ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsqlite3.OperationalError: near \"LIMIT1\": syntax error\n"
+    },
+    {
+      "source": "trainer-TLS-1793978933819593700.json",
+      "sha256": "59e3fe8bd0fd0380f825a7ad1291aae86836500783058a99d7b0ca48e5271b2a",
+      "overall_ok": false,
+      "reused_success_scope": "Seven real exchanges plus four output uses passed; later socket fixture lacked ED, reproduced and then funded only the owned QA actor for targeted continuation",
+      "checks": [
+        "Foreign account without tokens and late encoder failure produce no inventory, ED or pet-state increment",
+        "All seven original223/224 recipes debit exact tokens and issue exact outputs; receipt replay and unqualified grants cannot duplicate awards",
+        "Exchanged160164 opens through original559/560 and196/197 and adds exactly three native revives",
+        "Exchanged135980 reduces the owned adult pet digestion deadline by native7200 seconds; exchanged710113 is consumed through original pet feeding",
+        "Exchanged710096 is usable through original196/197 and restores its pinned native ordinary-fatigue amount"
+      ],
+      "later_failure": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\pet-battle-v1\\verify_trainer_exchange_tls.py\", line 133, in main\n    before=count(stone);answer=await peer.query(0x1c4,request);assert answer.payload[:4]==bytes(4)\n                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    }
+  ],
+  "scope": "No production database or physical input. Original native code offline, actual authenticated TLS, and owned Native Game are distinguished.",
+  "exclusions": [
+    "Invited-mode lobby/ready/start and UI configuration retention",
+    "Natural GUI and two Native-player battle",
+    "Queue cancellation/offer disappearance/disconnect lifecycle"
+  ],
+  "main_merged": false,
+  "installed": false,
+  "public_progress_updated": false
+}

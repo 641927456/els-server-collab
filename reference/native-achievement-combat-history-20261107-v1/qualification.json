@@ -1,0 +1,94 @@
+{
+  "status": "PRIVATE_APP_TLS_QUALIFIED_NOT_INSTALLED",
+  "parent_Git_head": "c835a20340308ee31c27da53944aef9e41392367",
+  "parent_PR": 932,
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "parent_sha256": "f4f2d00f21c036e87efa86707deb13c1944ca1a873ed65548f381ae0768280ee",
+      "sha256": "64806f2bcf15eed7b977ec51a1edba16cb543c6d06b6215b1fbfcc2dc053b3df"
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "parent_sha256": "0de4da61171c45c54ffa3b8f62fbc7dc24beedef7e0d82daf3df95636aa0f4fc",
+      "sha256": "0aac34c456043efff12c6de4a4e7320b802a2e3b9b381cfb6e3b642bdecf4839"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "parent_sha256": "93458f2597dbae320a0f637385f6dcc6e5fef1825c4fc1909b7d84aeb8b978cf",
+      "sha256": "9616398af88c44a31ebaf5d3a7c407c5385ce773002c521abc219814558aa4fb"
+    }
+  ],
+  "connected_condition_types": [
+    2,
+    4,
+    5,
+    6,
+    15,
+    16,
+    18,
+    19,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    32,
+    35,
+    36,
+    37,
+    38,
+    39,
+    42,
+    43,
+    44,
+    45,
+    51,
+    52,
+    53,
+    56,
+    60,
+    61,
+    62,
+    63,
+    67,
+    68
+  ],
+  "connected_definitions": 218,
+  "added_condition_types": [
+    2,
+    4,
+    5
+  ],
+  "remaining_other_types": 26,
+  "new_tables": [],
+  "new_indexes": [
+    "native_achievement_pvp_profile_account"
+  ],
+  "unresolved_original_reward_groups": 53,
+  "installed": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "production_database_access": false,
+  "production_clock_patch": false,
+  "evidence": [
+    {
+      "file": "combat-sources-1794034953664897800.json",
+      "sha256": "9d250ffbe7711c047af21bb1dc32e06c03dcbc846e5c754145371efb26e3c7cf"
+    },
+    {
+      "file": "live-pvp-1794035467284966600.json",
+      "sha256": "4cc624db908e7252d1036b83aa589bf71dd67f8b6cbf640f05a24fe690f95baf"
+    },
+    {
+      "file": "live-timed-1794035584076015400.json",
+      "sha256": "8ff500e0f8637c645a58c2aa6849ec32a39e4cecb008851fd3cef041b526b6e5"
+    },
+    {
+      "file": "delivery-scenario-1794035746086554100.json",
+      "sha256": "db4a9df0a03f2440790ee8ea9b82af1ffc56b79ce825a2d2cd0a2476390ebbf8"
+    }
+  ],
+  "reused_missing_table_read_only": "combat-sources-1794034801696231700.json: third method passed; first two fixture errors superseded by latest affected-method success"
+}

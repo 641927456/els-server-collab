@@ -1,0 +1,53 @@
+{
+  "ok": false,
+  "tests": 3,
+  "passed": [
+    "test_ordinary_party_capacity_remains_four_and_racing_six (test_shared.Wire.test_ordinary_party_capacity_remains_four_and_racing_six)",
+    "test_real_challenge_SQL_lock_does_not_strand_world_membership (test_shared.CurrentWorld.test_real_challenge_SQL_lock_does_not_strand_world_membership)"
+  ],
+  "skipped": 0,
+  "errors": [
+    [
+      "test_ordinary_room_and_full_user_bytes_are_preserved (test_shared.Wire.test_ordinary_room_and_full_user_bytes_are_preserved)",
+      "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\pr771-racing-full-20261103-v1\\test_shared.py\", line 16, in test_ordinary_room_and_full_user_bytes_are_preserved\n    self.assertEqual(dungeon_messages.room_info(map_id,bootstrap_port=port),old.room_info(map_id,bootstrap_port=port))\n                     ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\pr771-firstbatch-20261103-v1\\runtime\\els_server\\protocol\\dungeon_messages.py\", line 91, in room_info\n    client_data().dungeon(dungeon_id)\n    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\pr771-firstbatch-20261103-v1\\runtime\\els_server\\game_data.py\", line 46, in dungeon\n    def dungeon(self, dungeon_id):return json.loads(self._definition('dungeons','id',dungeon_id))\n                                                    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\pr771-firstbatch-20261103-v1\\runtime\\els_server\\game_data.py\", line 41, in _definition\n    if row is None:raise ValueError(f'Unknown {table} identity: {value}')\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: Unknown dungeons identity: 39480\n"
+    ]
+  ],
+  "source_hashes": {
+    "els_server/application.py": "b6ea8e66b2f18fdf9321ec5233a1c771d819bec2a887e01dc0643a90656f5f0c",
+    "els_server/data/mount_racing_exchange.json": "7c68cb907387aebd68a6fa299612773a842e8022e984301832429b51701671e1",
+    "els_server/data/mount_racing_local.json": "e265c0365c6c5c58ddec337d30cc3f91193e470442b3470b1c5a6fd9141b9ccf",
+    "els_server/data/mount_racing_physics.json": "e541c591c1acea14051a0f487f836b2a2847969c9be50ddc8a7cd36724b5d9cb",
+    "els_server/domain/companion_flow.py": "4ba4fe335fc74fa87808f895fcaf32cf0a07fa2e2c79648a354aac26db8aeb5e",
+    "els_server/domain/friends_dungeon.py": "4e1c66412bdc45c363a7c45cd719e278b65097f961723477976ffe9d1e9b323c",
+    "els_server/domain/friends_racing.py": "2c5609f7124a00e129d439e53255f469021f3897a13f52096f0656f4aaf7d14a",
+    "els_server/domain/friends_world.py": "4644221c8b63500dbe9169716bc1efc5b1f66c05905f6e5f8adf383a9f4f6bf6",
+    "els_server/domain/local_session.py": "0592262e6bcb5eec5af41ecd5cb36f302d880e7cbbeb7943dfc0f47116f609db",
+    "els_server/domain/mount_racing_exchange.py": "fdb0a1f9d64be83214153ef7155e13bdb44ff20eed64e9c51e0701d003a787f0",
+    "els_server/domain/mount_racing_exchange_flow.py": "76c54ccbdd3014c7b9d730e41474265afa9e0451e21710e09cdc982c2f20e478",
+    "els_server/domain/mount_racing_plan.py": "7f5929934f5ec9273f996eb880766e209c2065d3112dc4d70e13f80f6004657d",
+    "els_server/domain/mount_racing_rules.py": "cc8ada6d9fc297425d8200f96cf8839385ea02f5cb33ec59fd6cb1a2f8d7d382",
+    "els_server/domain/mount_racing_selection.py": "55dc09072d551d795e86c8f80629faf4f3051bfb04ee9dc9800e374d8459f7ba",
+    "els_server/domain/normal_party.py": "50a4885236ee80b474566956ebb0ac4744bea2099549500a2c49740791be4f14",
+    "els_server/protocol/dungeon_messages.py": "c64fbb9572c442f7cf97cb1888e22b76500316d86b49566a151fe53a12cdb368",
+    "els_server/protocol/mount_messages.py": "7faedad83a1258aa232f393f38090c45022d675faa4061e8a1d17544c0dd7b62",
+    "els_server/protocol/mount_racing_messages.py": "4316ec51d6459b95dcd38c5b646d59912c93a5cb5d06f676bfb4e1529ba1a38e",
+    "els_server/protocol/social_messages.py": "082add22faab7bef4dddbf0c29576afbe0b384d892917bb111fddc6b433f2b36",
+    "els_server/storage/mount_races.py": "139199a5463b96715fd27cecbaefa07b0c1a73ddcbffb21a00447db84fe21534",
+    "els_server/storage/mount_racing_exchange.py": "01948fdba13fdd442f59f5b5aac725183b2fadcd58fa6e355fd914f692ddf0e9",
+    "els_server/storage/mount_reset.py": "586f8cce28c5783b5ed0540bb3386137785382972f2affc0f5f73a8cbfc01525",
+    "els_server/storage/mount_state.py": "dd0fdd7e65c1b6a2f8fab3dabe6174ec4acafaae6618f523126249e10668830d"
+  },
+  "test_hashes": {
+    "test_exchange.py": "6519eff8377e235c62236466a0a0c99eb7e18f5d6ddecaac61e1d8f006543cc6",
+    "test_flow.py": "066a7cf773c0d298363abe3137f071ca764dc8b8df60d7b5bbdee2c870c6956a",
+    "test_growth.py": "4e9c30fff7a75db642737ea043b7713afadada0f96adebe5b254b20820535a6e",
+    "test_races.py": "2c41c3cb81b83ff4201f7c89d2ba23bf9e9a6d5289076d8ed2e994406b6fdee4",
+    "test_regressions.py": "0820fc5e333225dfe54b70334ae0f9c42177252f2a299e50b8e6ae35f067563d",
+    "test_reset.py": "3eaa698231b80c17746077690828b4e155a78a2c3e55e183f685d5bb29209105",
+    "test_shared.py": "54969fda2eee72e18342b09f7618b423b4642d5116d28610f065935d057d3363"
+  },
+  "import_paths_verified": true,
+  "private_fixture": true,
+  "installed": false,
+  "natural_GUI": false
+}

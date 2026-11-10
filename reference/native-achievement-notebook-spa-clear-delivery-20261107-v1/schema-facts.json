@@ -1,0 +1,19 @@
+{
+  "ok": true,
+  "new_schema_definitions": 1,
+  "definitions": [
+    {
+      "name": "native_achievement_clear_owner_dungeon",
+      "sql": "CREATE INDEX IF NOT EXISTS native_achievement_clear_owner_dungeon ON reward_receipts(COALESCE(json_extract(grant_json,'$.owner'),1001),json_extract(grant_json,'$.dungeon_clear[0]')) WHERE json_type(grant_json,'$.dungeon_clear')='array'"
+    }
+  ],
+  "required_native_QA_schema_names": [
+    "native_achievement_clear_owner_dungeon"
+  ],
+  "lazy_schema_names": [
+    "native_achievement_clear_owner_dungeon"
+  ],
+  "new_tables": [],
+  "install_DDL_statements": 0,
+  "startup_DDL_statements": 0
+}

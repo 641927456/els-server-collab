@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "native_Game": false,
+  "natural_GUI": false,
+  "production_database_access": false,
+  "CP_inputs": "Explicit approved-source fixtures for the server projection, not naturally acquired combat power",
+  "families": 15,
+  "definitions": 30,
+  "matrix_cases": 90,
+  "exact_thresholds_and_lower_bound": true,
+  "large_f32_value_capped_to_native_target": true,
+  "no_native_value_does_not_mint": true,
+  "lower_value_does_not_regress": true,
+  "same_account_other_family_sharing": true,
+  "foreign_accounts_isolated": true,
+  "new_tables": 0,
+  "new_indexes": 0,
+  "source_sha256": {
+    "tools/raid_native_power.js": "543b3f97e44c6f0412e2f494b3115f0d887416d2a93b8a173e70385a8ba6f455",
+    "els_server/domain/achievement_flow.py": "a2b243fabd5734fcd046e4cc9be11a9c67a5e6f65cee28b52ad5936154cb3ee7",
+    "els_server/storage/achievement_profiles.py": "dfdcf20eb6b9cc32694958caed211d01039bf4ab3dbc09ae993bd7719a952ab7"
+  },
+  "owned_directory_removed": true,
+  "python": "3.14.10 free-threading build (tags/v3.14.10:b703b2c, Oct 25 2026, 17:36:07) [MSC v.1944 64 bit (AMD64)]",
+  "SQLite": "3.54.1"
+}

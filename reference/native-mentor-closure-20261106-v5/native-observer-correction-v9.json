@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "scope": "QA observation correction, not an extra production gameplay change",
+  "original_cases": [
+    "family1-v7",
+    "family1-v8"
+  ],
+  "observation": "The signed-loader observer can load after original login partner initialization; its local accepted=false flag did not establish that the client had no partner",
+  "verified_case": "family1-v9",
+  "original_native_state_at_summon": {
+    "partner_uid": 1002,
+    "state": 14,
+    "role": 0,
+    "destination": 20001
+  },
+  "correction": "Read the original mentor manager current partner UID at the original71D callback before consent; keep original native state and all no-input boundaries",
+  "earlier_whole_cases_remain_failed": true
+}

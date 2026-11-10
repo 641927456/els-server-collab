@@ -1,0 +1,205 @@
+{
+  "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+  "native_source_type": 66,
+  "native_source_enum": "ACT_NPC_TALK",
+  "native_conditions": [
+    {
+      "achievement": 400,
+      "condition": {
+        "id": 400,
+        "type": 66,
+        "parameters": {
+          "m_iNpcId": 10372
+        },
+        "description_id": 56937
+      },
+      "description": "在某人的研究室中寻找隐藏的笔记",
+      "boolean_target": 1,
+      "native_NPC": {
+        "class_id": 0,
+        "enum": "NPC_UNIT_ID.NUI_NOAH_MEMO1",
+        "id": 10372,
+        "is_npc": false,
+        "script": null,
+        "variants": [
+          {
+            "CLASS_TYPE": 0,
+            "IS_NPC": false,
+            "LUA_FILE_NAME_UI": "UI_NPC_NOAH_MEMO.lua",
+            "NPC_ID": 10372
+          }
+        ]
+      }
+    },
+    {
+      "achievement": 401,
+      "condition": {
+        "id": 401,
+        "type": 66,
+        "parameters": {
+          "m_iNpcId": 10373
+        },
+        "description_id": 56937
+      },
+      "description": "在某人的研究室中寻找隐藏的笔记",
+      "boolean_target": 1,
+      "native_NPC": {
+        "class_id": 0,
+        "enum": "NPC_UNIT_ID.NUI_NOAH_MEMO2",
+        "id": 10373,
+        "is_npc": false,
+        "script": null,
+        "variants": [
+          {
+            "CLASS_TYPE": 0,
+            "IS_NPC": false,
+            "LUA_FILE_NAME_UI": "UI_NPC_NOAH_MEMO.lua",
+            "NPC_ID": 10373
+          }
+        ]
+      }
+    },
+    {
+      "achievement": 402,
+      "condition": {
+        "id": 402,
+        "type": 66,
+        "parameters": {
+          "m_iNpcId": 10374
+        },
+        "description_id": 56937
+      },
+      "description": "在某人的研究室中寻找隐藏的笔记",
+      "boolean_target": 1,
+      "native_NPC": {
+        "class_id": 0,
+        "enum": "NPC_UNIT_ID.NUI_NOAH_MEMO3",
+        "id": 10374,
+        "is_npc": false,
+        "script": null,
+        "variants": [
+          {
+            "CLASS_TYPE": 0,
+            "IS_NPC": false,
+            "LUA_FILE_NAME_UI": "UI_NPC_NOAH_MEMO.lua",
+            "NPC_ID": 10374
+          }
+        ]
+      }
+    },
+    {
+      "achievement": 403,
+      "condition": {
+        "id": 403,
+        "type": 66,
+        "parameters": {
+          "m_iNpcId": 10375
+        },
+        "description_id": 56937
+      },
+      "description": "在某人的研究室中寻找隐藏的笔记",
+      "boolean_target": 1,
+      "native_NPC": {
+        "class_id": 0,
+        "enum": "NPC_UNIT_ID.NUI_NOAH_MEMO4",
+        "id": 10375,
+        "is_npc": false,
+        "script": null,
+        "variants": [
+          {
+            "CLASS_TYPE": 0,
+            "IS_NPC": false,
+            "LUA_FILE_NAME_UI": "UI_NPC_NOAH_MEMO.lua",
+            "NPC_ID": 10375
+          }
+        ]
+      }
+    }
+  ],
+  "native_town": {
+    "requirement": {
+      "ID": 20012,
+      "BEFORE": 0,
+      "AFTER": 0,
+      "REQUIRE_LEVEL": {
+        "MAX": 99,
+        "MIN": 1
+      },
+      "REQUIRE_DUNGEON": {},
+      "EnableUnitType": {
+        "1": 14
+      },
+      "MAP_NAME_STRING_ID": {
+        "global": "STR_ID_56756"
+      }
+    },
+    "warp_start": {
+      "StartPosX": -858.6,
+      "StartPosId": 707,
+      "StartPosZ": -1924,
+      "StartPosY": 1000,
+      "IsWarp": 1
+    },
+    "xyz": [
+      -858.5999755859375,
+      1000.0,
+      -1924.0
+    ],
+    "scene": 1004
+  },
+  "native_town_name": "某人的研究室",
+  "existing_quest_objective_overlap": [],
+  "protocol": "Existing FD int32 NPC request and FE quest0 detail response",
+  "UI_resource_proof": {
+    "name": "UI_NPC_NOAH_MEMO.lua",
+    "archive": "D:\\艾尔之光\\data\\data039.kom",
+    "archive_sha256": "6f23433b176e95ed1ffcf80b53071a67c5b77191e6a6b1e0a8c217574ccb4306",
+    "source": {
+      "Name": "UI_NPC_NOAH_MEMO.lua",
+      "Size": "488",
+      "CompressedSize": "352",
+      "Checksum": "9d36b8e7",
+      "FileTime": "9d36b8e7",
+      "Algorithm": "3",
+      "MappedID": "7E0+!d5Y",
+      "offset": 77446
+    },
+    "key": 243,
+    "skip": 0,
+    "sha256": "af4a7bbbbc6b545844f5b1b197d9ed75d928d8de46f329e7171ade63c9753681",
+    "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+    "live_process_access": false,
+    "lua_evaluated": false,
+    "original_archive_modified": false
+  },
+  "location_evidence_limit": "Town20012/scene1004 and Noah14 are source-bound; offline world initializer is not decoded and direct Memo House coordinates are not asserted",
+  "dependencies": [
+    {
+      "path": "G:\\els\\releases\\online\\native-achievement-equipped-set-history-20261107-v2\\els_server\\data\\client\\achievements.json",
+      "sha256": "0be7576396cfbd3d07d992916ff5674706cd67abb00fc44ac8e0d8a9efd86dee"
+    },
+    {
+      "path": "G:\\els\\releases\\online\\native-achievement-equipped-set-history-20261107-v2\\els_server\\data\\client\\npcs.json",
+      "sha256": "784818114f9ded59420aa32508b0bf05b3be799cb074345d3865082a699e3b6c"
+    },
+    {
+      "path": "G:\\els\\releases\\online\\native-achievement-equipped-set-history-20261107-v2\\els_server\\data\\town_travel.json",
+      "sha256": "7c38b41ebc09d0994fb859dda21dc5e63d50ee827c496110ce32f4c4357d24a4"
+    },
+    {
+      "path": "G:\\els\\analysis\\f-ranking-completion-20261026-v1\\source-census\\General-decoded-labels-v1.json",
+      "sha256": "43e70256441f6f51984f5255ce6a533869665911686baeb03076e3f9d78ae699"
+    },
+    {
+      "path": "G:\\els\\releases\\online\\native-achievement-equipped-set-history-20261107-v2\\els_server\\protocol\\tutorial_dialogue_messages.py",
+      "sha256": "5fcd38b4f6c10562ff9ce3873e7fdb5fad99363515c43d35d1232da9f569df34"
+    },
+    {
+      "path": "G:\\els\\releases\\online\\native-achievement-equipped-set-history-20261107-v2\\els_server\\domain\\friend_flow.py",
+      "sha256": "02b87b5cd4ab72665af235f32f1dfb81bbd171d6ce81a47b462491993ae49399"
+    }
+  ],
+  "new_item_sources": false,
+  "new_pools": false,
+  "new_economic_values": false
+}

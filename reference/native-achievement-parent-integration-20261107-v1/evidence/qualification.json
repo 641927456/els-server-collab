@@ -1,0 +1,105 @@
+{
+  "ok": true,
+  "actual_parent": "native-five-session-repairs-20261107-v1",
+  "actual_parent_manifest_sha256": "26cd040a9108517149d9249f7b51b9421f9c73f1c9afb9a9307b3cbb5d3b4fdb",
+  "checks": [
+    {
+      "path": "qa\\account-state-properties-1794011399747863700.json",
+      "sha256": "37e9e103f4c6b4f5af1fb113b3b4a89d137f31bbf2b280a3ba05e837a8fba35c",
+      "ok": true
+    },
+    {
+      "path": "qa\\reward-mail-1794011351734863700.json",
+      "sha256": "ffcb84c0d5974afdd7b57d867f9769fee17823b2fc010f755aeba2eb332d5a8f",
+      "ok": true
+    },
+    {
+      "path": "qa\\profile-sources-1794011351694395400.json",
+      "sha256": "63a9b2825a1d7ab7b468a137605aaac60003a8db0eb659a7845752a92dbb583c",
+      "ok": true
+    },
+    {
+      "path": "qa\\live-profiles-1794011406681082200.json",
+      "sha256": "9c451a5ebfa0d70360fe2ad0f814b5966c498550c3386785f0965eb2b1e9cf2a",
+      "ok": true
+    },
+    {
+      "path": "qa\\collection-sources-1794011404239436500.json",
+      "sha256": "4d55174eb859bb7b4eba5039d96cdfc1ac62bd979cc5a014468440049606049b",
+      "ok": true
+    },
+    {
+      "path": "qa\\title-collection-1794011403797734700.json",
+      "sha256": "92e288d2c897c12a595691649af2e67babfb375c2ae3954788bdd4a6aaae7cbc",
+      "ok": true
+    },
+    {
+      "path": "qa\\social-history-1794011322970619400.json",
+      "sha256": "759b07e0f8cbfa507c344bdcc852472c5da421ed87c1359a67276b04ff177a8d",
+      "ok": true
+    },
+    {
+      "path": "qa\\full-unit-projection-1794011322415991900.json",
+      "sha256": "d230c975d1f9767463032e48d30a21c7c9c60a68596f803597f345094732022c",
+      "ok": true
+    },
+    {
+      "path": "qa\\transactional-unit-status-1794011313864240300.json",
+      "sha256": "0f003e28418b28e6e1c160f101ec211c3beec58c6fec03ca2abba80ceb2441d1",
+      "ok": true
+    },
+    {
+      "path": "qa\\fishing-expedition-sources-1794011466325696000.json",
+      "sha256": "bcb88210e2c86f68950174df1bdcb75b973b39a76ed2bb5236bea1fcbd586225",
+      "ok": true
+    },
+    {
+      "path": "qa\\guild-peer-status-1794011467551646700.json",
+      "sha256": "4d06261adfa280712a98e01de132cc036b6199bf442315d7a24230b543c3963a",
+      "ok": true
+    },
+    {
+      "path": "qa\\career-collection-sources-1794011466641214300.json",
+      "sha256": "d585a4fa42e34799a43bc7247afdce50223d378670b65f3c91965cdc5673751c",
+      "ok": true
+    }
+  ],
+  "source_files": 21,
+  "unchanged_native_input_files": [
+    "els_server/data/ariel_attendance_preview.json",
+    "els_server/data/client/achievement_rewards.json",
+    "els_server/data/client/achievements.json",
+    "els_server/domain/achievement_catalog.py",
+    "els_server/domain/achievement_flow.py",
+    "els_server/domain/ariel_attendance_preview.py",
+    "els_server/protocol/achievement_messages.py",
+    "els_server/protocol/dungeon_messages.py",
+    "els_server/protocol/guild_agit_messages.py",
+    "els_server/protocol/housing_population_messages.py",
+    "els_server/protocol/local_messages.py",
+    "els_server/protocol/social_messages.py",
+    "els_server/storage/achievement_collections.py",
+    "els_server/storage/achievement_history.py",
+    "els_server/storage/achievement_profiles.py",
+    "els_server/storage/achievements.py",
+    "els_server/storage/career_shop.py",
+    "els_server/storage/characters.py",
+    "els_server/storage/player_mail.py"
+  ],
+  "changed_files": [
+    "els_server/application.py",
+    "els_server/storage/seal_quests.py"
+  ],
+  "native_reuse": {
+    "prior": "native-ui-v17/scenario-complete.json",
+    "wire_and_character_projection_unchanged": true,
+    "transaction_local_load_character_AST_unchanged": true,
+    "changed_shared_mailbox_qualified_by_actual_TLS": true,
+    "no_new_Hook": true,
+    "natural_GUI": false,
+    "entire_native_scenario_rerun_on_new_parent": false
+  },
+  "retained_test_environment_failure": "First property-check import used embedded3.14with existing3.13Hypothesis native dependency; no case ran. Reused its qualified system3.13interpreter;30generated examples then passed.",
+  "publication_started": false,
+  "production_installed": false
+}

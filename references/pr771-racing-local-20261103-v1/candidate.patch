@@ -1,0 +1,255 @@
+--- parent/els_server/data/mount_racing_local.json
++++ online/els_server/data/mount_racing_local.json
+@@ -0,0 +1,38 @@
++{
++  "schema_version": 1,
++  "policy": "pr771-local-mount-racing-v1",
++  "provenance": "local_policy",
++  "authorization": "User2026-11-03: missing mount-growth configuration may be designed for this server based on the gameplay",
++  "minimum_character_level": 99,
++  "permanent_mount_only": true,
++  "race_stamina": 60,
++  "maximum_level": 20,
++  "cumulative_experience": [0, 200, 400, 600, 800, 1200, 1600, 2000, 2400, 2800, 3500, 4200, 4900, 5600, 6300, 7300, 8300, 9300, 10300, 11300],
++  "points_on_level": [0, 2, 2, 2, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 1],
++  "attribute_ids": [0, 1, 2, 3],
++  "attribute_names": ["start", "acceleration", "breakthrough", "final_spurt"],
++  "attribute_cap": 10,
++  "allocation": "uniform_among_attributes_below_cap",
++  "rank_experience": [120, 100, 80, 60, 40, 20],
++  "bonus_required_lanes": 6,
++  "bonus_reward_types": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
++  "bonus_weights_by_rank": {
++    "1": [20, 18, 15, 12, 8, 2, 10, 6, 4, 2, 2, 1],
++    "2": [30, 25, 15, 8, 4, 1, 10, 4, 2, 1, 0, 0],
++    "3": [40, 25, 12, 5, 2, 0, 12, 3, 1, 0, 0, 0]
++  },
++  "experience_multiplier_percent": [110, 120, 130, 150, 200, 300],
++  "fragment_template": 714109,
++  "crystal_template": 714108,
++  "reset_templates": [714108, 714118],
++  "reset_quantity": 1,
++  "reset_ed": 0,
++  "reset_minimum_level": 2,
++  "reset_keeps_level_and_experience": true,
++  "dnf_experience": 0,
++  "stamina_charged_at": "race_start",
++  "disconnect_after_start_refunds_stamina": false,
++  "tie_breaker": "lower_lane_number",
++  "experience_at_cap": "clamp_to_11300",
++  "local_decisions": ["rank_experience", "bonus_weights_by_rank", "points_on_level_semantics", "attribute_cap", "allocation", "reset_ed", "reset_minimum_level", "dnf_experience", "disconnect_after_start_refunds_stamina", "level_assignment_uses_cumulative_experience"]
++}
+--- parent/els_server/domain/mount_racing_rules.py
++++ online/els_server/domain/mount_racing_rules.py
+@@ -0,0 +1,125 @@
++"""User-authorized local racing policy; probabilities are not retail claims.
++
++These calculations do not accept network requests or establish a race result.
++The race controller must own admission, stamina charging and the finish order.
++"""
++import bisect
++import functools
++import json
++import secrets
++from els_server.paths import PROJECT_ROOT
++
++
++@functools.lru_cache(maxsize=1)
++def policy():
++    p = json.loads((PROJECT_ROOT/'els_server/data/mount_racing_local.json').read_bytes())
++    curve = p['cumulative_experience']
++    increments = p['points_on_level']
++    if (p['schema_version'] != 1 or p['provenance'] != 'local_policy'
++            or p['policy'] != 'pr771-local-mount-racing-v1'):
++        raise ValueError('Mount racing policy provenance')
++    if (len(curve) != p['maximum_level'] or len(increments) != len(curve)
++            or curve[0] != 0 or curve[-1] != 11300
++            or any(type(n) is not int or n < 0 for n in curve+increments)
++            or any(a >= b for a, b in zip(curve, curve[1:]))
++            or increments[0] != 0 or sum(increments) != 30
++            or p['attribute_ids'] != [0, 1, 2, 3] or p['attribute_cap'] != 10
++            or p['allocation'] != 'uniform_among_attributes_below_cap'
++            or len(p['rank_experience']) != 6
++            or any(type(n) is not int or n < 0 for n in p['rank_experience'])
++            or set(p['bonus_weights_by_rank']) != {'1', '2', '3'}
++            or p['bonus_reward_types'] != list(range(12))
++            or p['experience_multiplier_percent'] != [110, 120, 130, 150, 200, 300]):
++        raise ValueError('Mount racing growth policy')
++    for weights in p['bonus_weights_by_rank'].values():
++        if (len(weights) != 12 or sum(weights) != 100
++                or any(type(w) is not int or w < 0 for w in weights)):
++            raise ValueError('Mount racing reward weights')
++    return p
++
++
++def level(experience):
++    curve = policy()['cumulative_experience']
++    if type(experience) is not int or not 0 <= experience <= curve[-1]:
++        raise ValueError('Mount racing experience range')
++    return bisect.bisect_right(curve, experience)
++
++
++def points(experience):
++    return sum(policy()['points_on_level'][:level(experience)])
++
++
++def allocate(stats, count, randbelow=secrets.randbelow):
++    p = policy()
++    if (not isinstance(stats, dict)
++            or any(type(k) is not int or k not in p['attribute_ids'] for k in stats)):
++        raise ValueError('Mount racing attribute IDs')
++    result = {i: stats.get(i, 0) for i in p['attribute_ids']}
++    if (type(count) is not int or count < 0
++            or any(type(v) is not int or not 0 <= v <= p['attribute_cap'] for v in result.values())
++            or count > p['attribute_cap']*4-sum(result.values())):
++        raise ValueError('Mount racing attribute allocation')
++    for _ in range(count):
++        pool = [i for i in p['attribute_ids'] if result[i] < p['attribute_cap']]
++        roll = randbelow(len(pool))
++        if type(roll) is not int or not 0 <= roll < len(pool):
++            raise ValueError('Mount racing random source')
++        result[pool[roll]] += 1
++    return {i: v for i, v in result.items() if v}
++
++
++def profile(experience=0, stats=None):
++    current_level = level(experience)
++    normalized = allocate({} if stats is None else stats, 0)
++    if sum(normalized.values()) != points(experience):
++        raise ValueError('Mount racing saved point count')
++    return dict(level=current_level, experience=experience, stats=normalized)
++
++
++def grow(experience, stats, amount, randbelow=secrets.randbelow):
++    saved = profile(experience, stats)
++    if type(amount) is not int or amount < 0:
++        raise ValueError('Mount racing experience award')
++    new = min(policy()['cumulative_experience'][-1], experience+amount)
++    return dict(level=level(new), experience=new,
++                stats=allocate(saved['stats'], points(new)-points(experience), randbelow))
++
++
++def reset(experience, stats, randbelow=secrets.randbelow):
++    saved = profile(experience, stats)
++    if saved['level'] < policy()['reset_minimum_level']:
++        raise ValueError('Mount racing reset requires earned points')
++    return dict(saved, stats=allocate({}, points(experience), randbelow))
++
++
++def reward(rank, lanes, randbelow=secrets.randbelow):
++    p = policy()
++    if (type(rank) is not int or type(lanes) is not int
++            or not 3 <= lanes <= 6 or not 1 <= rank <= lanes):
++        raise ValueError('Mount racing result rank')
++    amount = p['rank_experience'][rank-1]
++    kind, item = -1, None
++    if lanes == p['bonus_required_lanes'] and str(rank) in p['bonus_weights_by_rank']:
++        roll = randbelow(100)
++        if type(roll) is not int or not 0 <= roll < 100:
++            raise ValueError('Mount racing random source')
++        for kind, weight in enumerate(p['bonus_weights_by_rank'][str(rank)]):
++            if roll < weight:
++                break
++            roll -= weight
++        if kind < 6:
++            amount = amount*p['experience_multiplier_percent'][kind]//100
++        elif kind < 11:
++            item = dict(template=p['fragment_template'], quantity=kind-5)
++        else:
++            item = dict(template=p['crystal_template'], quantity=1)
++    return dict(experience=amount, bonus_type=kind, item=item)
++
++
++def result(experience, stats, rank, lanes, randbelow=secrets.randbelow):
++    """Calculate one trusted finish; caller persists/grants once per race ID."""
++    saved = profile(experience, stats)
++    awarded = reward(rank, lanes, randbelow)
++    updated = grow(saved['experience'], saved['stats'], awarded['experience'], randbelow)
++    return dict(profile=updated, reward=awarded,
++                experience_gained=updated['experience']-experience)
+--- parent/els_server/storage/mount_growth.py
++++ online/els_server/storage/mount_growth.py
+@@ -0,0 +1,49 @@
++"""Internal profile persistence, shared by native mount list/summon snapshots.
++
++No network mutation is enabled here. Race/reset callers must perform their own
++authoritative result, inventory transaction and operation receipt before save.
++"""
++from els_server.domain.mount_racing_rules import profile
++from els_server.storage.character_schema import character_uid
++
++
++def read(db, owner, uid):
++    if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='mount_growth'").fetchone():
++        return profile()
++    row = db.execute('SELECT owner,experience,start,acceleration,breakthrough,spurt FROM mount_growth WHERE uid=?', (uid,)).fetchone()
++    if row is None:
++        return profile()
++    if row[0] != owner:
++        raise ValueError('Mount growth owner mismatch')
++    return profile(row[1], dict(enumerate(row[2:])))
++
++
++def save(db, owner, uid, value):
++    """Store a complete computed profile inside the caller's transaction."""
++    if not db.in_transaction:
++        raise ValueError('Mount growth requires explicit transaction')
++    owner = character_uid(owner)
++    from els_server.storage.item_actor import require_active_character
++    from els_server.storage.mount_state import owned
++    require_active_character(db, owner)
++    mount = owned(db, owner, uid)
++    if 'expires_at' in mount or mount['unit'] >= 10000:
++        raise ValueError('Permanent player mount required')
++    checked = profile(value['experience'], value['stats'])
++    if value['level'] != checked['level']:
++        raise ValueError('Mount growth level mismatch')
++    db.execute('''CREATE TABLE IF NOT EXISTS mount_growth (
++        uid INTEGER PRIMARY KEY REFERENCES companions(uid),owner INTEGER NOT NULL,
++        experience INTEGER NOT NULL CHECK(experience BETWEEN 0 AND 11300),
++        start INTEGER NOT NULL CHECK(start BETWEEN 0 AND 10),
++        acceleration INTEGER NOT NULL CHECK(acceleration BETWEEN 0 AND 10),
++        breakthrough INTEGER NOT NULL CHECK(breakthrough BETWEEN 0 AND 10),
++        spurt INTEGER NOT NULL CHECK(spurt BETWEEN 0 AND 10))''')
++    old = db.execute('SELECT owner FROM mount_growth WHERE uid=?', (uid,)).fetchone()
++    if old and old[0] != owner:
++        raise ValueError('Mount growth owner mismatch')
++    db.execute('''INSERT INTO mount_growth VALUES (?,?,?,?,?,?,?)
++        ON CONFLICT(uid) DO UPDATE SET experience=excluded.experience,start=excluded.start,
++        acceleration=excluded.acceleration,breakthrough=excluded.breakthrough,spurt=excluded.spurt''',
++        (uid, owner, checked['experience'], *(checked['stats'].get(i, 0) for i in range(4))))
++    return checked
+--- parent/els_server/storage/mount_state.py
++++ online/els_server/storage/mount_state.py
+@@ -43,7 +43,8 @@
+  # A backwards wall clock cannot re-credit elapsed time on a later retry.
+  checked=max(now,row[2]);stamina=advance(mount['unit'],row[1],checked-row[2],bool(row[3]))
+  db.execute('UPDATE mount_runtime SET stamina=?,accounted_at=? WHERE uid=? AND owner=?',(stamina,checked,mount['uid'],owner))
+- return dict(mount,stamina=stamina,accounted_at=checked,ridden=bool(row[3]))
++ from els_server.storage.mount_growth import read as growth
++ return dict(mount,stamina=stamina,accounted_at=checked,ridden=bool(row[3]),racing=growth(db,owner,mount['uid']))
+ 
+ def attach(db,owner,companions,*,now=None):
+  mounts=[p for p in companions if p['kind']=='mount']
+--- parent/els_server/protocol/mount_messages.py
++++ online/els_server/protocol/mount_messages.py
+@@ -11,13 +11,18 @@
+  # Current35F3030+50C passes this string to374470 and subtracts server time
+  # before formatting the native remaining-day/hour/minute label.
+  deadline=date_string(p['expires_at'])if 'expires_at'in p else ''
++ from els_server.domain.mount_racing_rules import profile
++ growth=p.get('racing')
++ growth=profile() if growth is None else profile(growth['experience'],growth['stats'])
++ stats=sorted(growth['stats'].items())
+  # 2E is last-unsummon/list ordering;36 is the stamina clock.
+  return (struct.pack('>QHf',p.get('uid',0),p.get('unit',0),stamina)+wstring(deadline)
+          +struct.pack('>QQBB',p.get('native_time1',0),p.get('accounted_at',0),bool(p.get('ridden')),bool(p.get('no_stamina')))
+          # Nested DB2B20: original7E1DE0 initializes its level byte to1.
+          # H/Q are not alternate level/experience slots.
+          # D81DD0 locates the owned outer record by this nested UID.
+-         +struct.pack('>QHBiI',p.get('uid',0),0,1,0,0))
++         +struct.pack('>QHBiI',p.get('uid',0),0,growth['level'],growth['experience'],len(stats))
++         +b''.join(struct.pack('>ii',key,value)for key,value in stats))
+ 
+ def summoned(result,mount=None):return Event(0x201,kind=0x42d,payload=struct.pack('>i',result)+record(mount))
+ def dismounted(result,uid,mount=None):return Event(0x201,kind=0x430,payload=struct.pack('>iQ',result,uid)+record(mount))

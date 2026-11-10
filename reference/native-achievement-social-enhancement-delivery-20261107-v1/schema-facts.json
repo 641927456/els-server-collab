@@ -1,0 +1,19 @@
+{
+  "ok": true,
+  "new_schema_definitions": 1,
+  "definitions": [
+    {
+      "name": "native_achievement_operation_account_kind",
+      "sql": "CREATE INDEX IF NOT EXISTS native_achievement_operation_account_kind ON native_achievement_operations(account_id,kind)"
+    }
+  ],
+  "required_native_QA_schema_names": [
+    "native_achievement_operation_account_kind"
+  ],
+  "lazy_schema_names": [
+    "native_achievement_operation_account_kind"
+  ],
+  "new_tables": [],
+  "install_DDL_statements": 0,
+  "startup_DDL_statements": 0
+}

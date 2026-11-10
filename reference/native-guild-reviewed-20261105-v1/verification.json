@@ -1,0 +1,220 @@
+{
+  "ok": true,
+  "source_manifest_sha256": "287981e336de610f94cef81692d1398ce2be3bf2469d8a0defabb5e8e634e03f",
+  "inherited_validation_sha256": "6500a7da60ed59966b1d016b076d52e7be5fbd072e0d10c902bfa30e43805deb",
+  "inherited_successful_families": [
+    "core-tls",
+    "tls-wiring",
+    "shop-skills-tls",
+    "fountain-tls",
+    "lifecycle-tls",
+    "recruit-tls",
+    "emblem-tls",
+    "equipment-bank-tls",
+    "cold-agit-tls",
+    "migration-tls",
+    "agit-chat-tls",
+    "agit-movement-tls",
+    "luciel-agit-tls",
+    "services-tls",
+    "guardian-tls",
+    "skins-tls",
+    "economy-tls",
+    "stack-tls",
+    "quest-tls",
+    "quest-clock-tls",
+    "alias-tls",
+    "rename-tls",
+    "service-hud-tls",
+    "pvp-quest-tls",
+    "clear-quest-tls",
+    "expedition-tls",
+    "rose-tls",
+    "appearance-tls",
+    "profession-effects-tls",
+    "luciel-narrow-tls",
+    "expedition-edge-tls",
+    "fuel-fatigue-tls",
+    "seed-pouch-tls",
+    "pet-reward-tls"
+  ],
+  "root_related_tests": [
+    {
+      "evidence_sha256": "ffec22dd6a275a55836e79e39c17403e677e9e8f3e067e9b791b6a737fa2ac95",
+      "checks": {
+        "passed": true,
+        "concurrent_producer_blocked": true,
+        "concurrent_notice_count": 1,
+        "temporary_directory_removed": true
+      }
+    },
+    {
+      "evidence_sha256": "c2f02680d5c8ab65452109636082820fee4e255601056590a63e379a2baefbf6",
+      "checks": {
+        "passed": true,
+        "cases": [
+          {
+            "expired_while_waiting": true,
+            "accepted": false,
+            "SQL_unchanged": true
+          },
+          {
+            "expired_while_waiting": false,
+            "accepted": true,
+            "SQL_unchanged": false
+          }
+        ],
+        "temporary_directories_removed": true
+      }
+    },
+    {
+      "evidence_sha256": "0a9b75ff3a7f91e49ce71dedf47ededa954386168234ddf470e1f94a8e02e7f2",
+      "checks": {
+        "passed": true,
+        "cases": [
+          {
+            "expired_while_waiting": true,
+            "service_granted": false,
+            "SQL_unchanged": true,
+            "response_kinds": [
+              "0x3a3",
+              "0xacc"
+            ]
+          },
+          {
+            "expired_while_waiting": false,
+            "service_granted": true,
+            "SQL_unchanged": false,
+            "response_kinds": [
+              "0x3a3",
+              "0xacc"
+            ]
+          }
+        ],
+        "temporary_directory_removed": true
+      }
+    },
+    {
+      "evidence_sha256": "b88a6d60f4c89fb701d5bd204783a9cacd52d5ffafebcc66a780eb09ad95d736",
+      "checks": {
+        "passed": true,
+        "guild_join_presence_counts": [
+          1,
+          1
+        ],
+        "guild_leave_presence_count": 1,
+        "rejoin_fresh_objectives_and_kick_reset": true,
+        "friend_guild_cleared_after_disband": true,
+        "active_guild_tasks_after_leave": 0,
+        "active_guild_tasks_after_disband": 0,
+        "temporary_directory_removed": true
+      }
+    },
+    {
+      "evidence_sha256": "3d4c28a14ffc62648bf71def03965668b8f892883d2c46709a75350753a86cf3",
+      "checks": {
+        "passed": true,
+        "guild_join_presence_counts": [
+          1,
+          1
+        ],
+        "guild_leave_presence_count": 1,
+        "temporary_directory_removed": true
+      }
+    },
+    {
+      "evidence_sha256": "3aebcaf362957d5ac511f02aef99f6f27995c75e436fafa26e7b2cbc1d7f89ed",
+      "checks": {
+        "ok": true,
+        "steps": [
+          "Ariel EA/EB purchase110845, ED debit and inventory",
+          "276/277 plus278, actual consumed license and persisted membership",
+          "285/286/287 invitation and288/289/28B saved acceptance",
+          "Actual ready GuildAgit native104 wear/unequip,213 title and original timed-item removal send original501 only to ready same-guild peers; precommit501 encoder failures roll back wear/title and preserve peer queues; exact104 retry retains current state"
+        ]
+      }
+    },
+    {
+      "evidence_sha256": "e05233c0d96bb8c2628c5b570ed0df1996bc00e6bee3141ee9ed0679e19d9083",
+      "checks": {
+        "ok": true,
+        "steps": [
+          "Ariel EA/EB purchase110845, ED debit and inventory",
+          "276/277 plus278, actual consumed license and persisted membership",
+          "285/286/287 invitation and288/289/28B saved acceptance",
+          "Actual LuCiel joins through its own application; native506/507 active character and709/70A/70B style reuse shared saved preferences with GuildAgit membership/peer fences, exact retry and foreign-character denial"
+        ]
+      }
+    },
+    {
+      "evidence_sha256": "8684a0f02e91dd316dba2a284935e227a028fe47398b09cdac3b6cdb053fd0a3",
+      "checks": {
+        "ok": true,
+        "steps": [
+          "Ariel EA/EB purchase110845, ED debit and inventory",
+          "276/277 plus278, actual consumed license and persisted membership",
+          "285/286/287 invitation and288/289/28B saved acceptance",
+          "Actual native UI queries, management rejection, all six grades, announcement, joining rule, member greeting, roster and guild board persisted",
+          "Both actors native4FB/4FC,225/226 and504/505 GuildAgit readiness",
+          "Original85/86/87 channel0 local chat reaches actual ready same-guild GuildAgit members; channel3 shared guild chat still reaches actual members",
+          "Native farm plant, premature/own/duplicate water refusal, friend water, fertilizer, controlled1800s clock harvest30 and exact character-scoped watering mail2",
+          "508/509 warehouse,524/525 coins and526/527 expansion",
+          "50A/50B deposit,50C/50D withdraw and50E/50F history",
+          "Owned219 capacity card adds10 and consumes once; Gnosis shared5GSP, base/bonus allocation, lower-first recovery restriction, exact bonus expiry and immediate fertilizer stock without bag item",
+          "Myu native cart, distinct seed-ticket debit, exact fund ledger, skill learn/GSP/row limits, flute recovery, paid page2, independent selection, post deletion quota and actual guild chat",
+          "Modern fountain ACF: five real socket stages, paid source costs, funds permission, stale echo rejection,20roll pity, free verified max selection/reset, next Wednesday zero state and cold278 extension",
+          "Native six-rank authority map, GP threshold, per-withdraw maximum and actual two-withdraw daily quota",
+          "Existing periodic clock clears weekly fountain effects; encoder failure rolls back currency, inventory and operation journal",
+          "Actual master transfer, recipient-specific kick and GuildAgit peer removal; revoked member cannot bank and can return to saved town",
+          "4FE/4FF and original225/227 return to normal town",
+          "Sole-master disband deletes guild-scoped bank/economy data; the original creator can create again through a new actual license",
+          "Current2BE public advertisement filters and exact no-result2BF DTO;2C2/2C4 charge source2coins/day, reject duplicate/unauthorized registration, preserve replay balance",
+          "Explicit2C6 replacement, current2C9 applicant/ad vectors, owner withdrawal and authorized rejection; actual offline2CA acceptance is source-bound, persisted and restored through authenticated login",
+          "Current6AE/6AF public saved guild/skill/rules/default appearance preview; native7DB ownership, immediate Myu emblem acquisition with no bag copy, duplicate refusal, exact5-part7DD authority/cost and persisted appearance",
+          "Complete unequipped unbound equipment uses shared remove/insert across two real members: UID, enhancement, durability and attribute state preserved; guild deposit resets enhancement gauge and guarantee; bank/bag ownership remains unique",
+          "Native first-map4FB after actual32 initialization enters GuildAgit without fabricated town225/227; menu and bank work, saved town stays20001,4FE returns through actual ordinary225/227",
+          "Existing1/6-only membership table upgrades in the actual next native grade writer; original create and offline-application receipt sources survive cold read and foreign keys remain valid",
+          "Fresh authenticated login restores actual278 guild profile"
+        ],
+        "weekly_expiry_kinds": [
+          "0x278",
+          "0x2b"
+        ]
+      }
+    },
+    {
+      "evidence_sha256": "dd3bfad3bf84bd4224ac082a9acc553394b9ad80256c65488914e850b7da77cb",
+      "checks": {
+        "ok": true,
+        "steps": [
+          "Ariel EA/EB purchase110845, ED debit and inventory",
+          "276/277 plus278, actual consumed license and persisted membership",
+          "285/286/287 invitation and288/289/28B saved acceptance",
+          "Actual native UI queries, management rejection, all six grades, announcement, joining rule, member greeting, roster and guild board persisted",
+          "Both actors native4FB/4FC,225/226 and504/505 GuildAgit readiness",
+          "Native farm plant, premature/own/duplicate water refusal, friend water, fertilizer, controlled1800s clock harvest30 and exact character-scoped watering mail2",
+          "508/509 warehouse,524/525 coins and526/527 expansion",
+          "50A/50B deposit,50C/50D withdraw and50E/50F history",
+          "Owned219 capacity card adds10 and consumes once; Gnosis shared5GSP, base/bonus allocation, lower-first recovery restriction, exact bonus expiry and immediate fertilizer stock without bag item",
+          "Myu native cart, distinct seed-ticket debit, exact fund ledger, skill learn/GSP/row limits, flute recovery, paid page2, independent selection, post deletion quota and actual guild chat",
+          "Modern fountain ACF: five real socket stages, paid source costs, funds permission, stale echo rejection,20roll pity, free verified max selection/reset, next Wednesday zero state and cold278 extension",
+          "Native six-rank authority map, GP threshold, per-withdraw maximum and actual two-withdraw daily quota",
+          "Existing periodic clock clears weekly fountain effects; encoder failure rolls back currency, inventory and operation journal",
+          "Actual master transfer, recipient-specific kick and GuildAgit peer removal; revoked member cannot bank and can return to saved town",
+          "4FE/4FF and original225/227 return to normal town",
+          "Sole-master disband deletes guild-scoped bank/economy data; the original creator can create again through a new actual license",
+          "Current2BE public advertisement filters and exact no-result2BF DTO;2C2/2C4 charge source2coins/day, reject duplicate/unauthorized registration, preserve replay balance",
+          "Explicit2C6 replacement, current2C9 applicant/ad vectors, owner withdrawal and authorized rejection; actual offline2CA acceptance is source-bound, persisted and restored through authenticated login",
+          "Fresh authenticated login restores actual278 guild profile"
+        ],
+        "weekly_expiry_kinds": [
+          "0x278",
+          "0x2b"
+        ]
+      }
+    }
+  ],
+  "raw_runtime_traffic_included": false,
+  "natural_GUI": false,
+  "install_ready": false
+}

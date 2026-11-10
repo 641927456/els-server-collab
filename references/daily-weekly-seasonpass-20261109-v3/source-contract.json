@@ -1,0 +1,173 @@
+{
+  "schema": 1,
+  "parent": {
+    "online": "camilla-force-20261109-v129",
+    "local": "unified-server-a9ad454d3b3a7a37-ed7ff888dfc5"
+  },
+  "required_recovery": true,
+  "groups": {
+    "candidate": [
+      {
+        "path": "els_server/data/periodic_activities.json",
+        "parent_sha256": null,
+        "sha256": "d796c465a32f2c03c0e01749b66ee9c8c0812c1e2b64f235e503a11547faca6b",
+        "size": 131045,
+        "rebased": false
+      },
+      {
+        "path": "els_server/data/season_pass_rewards.json",
+        "parent_sha256": null,
+        "sha256": "f1b8a069cc02dac53daa01f425d9bf84ebe005dc0034870152cb91eb0910e01c",
+        "size": 1393,
+        "rebased": false
+      },
+      {
+        "path": "els_server/domain/acquisition_policy.py",
+        "parent_sha256": "f8e1c59ce5c504178b722723c4ed9e56ada15c8fc3f423cee6fdf25c5f747b8e",
+        "sha256": "b6ed02dca84b20d955b37e418ce61fd9a664ebc4e10b080dc7916b052721c3cb",
+        "size": 17362,
+        "rebased": true
+      },
+      {
+        "path": "els_server/domain/inventory_items.py",
+        "parent_sha256": "e85c8a45b9a5e0b313d8083022fb8a177b696578edf60efe0ff72e9b18cda785",
+        "sha256": "662b9d8b27a287d8ac93d98cf161e254ad92136254f384ff03bade5f0c4a99b5",
+        "size": 94466,
+        "rebased": false
+      },
+      {
+        "path": "els_server/domain/local_session.py",
+        "parent_sha256": "12404fdf00af451d8cb647ca95ed6c9b4ef9a758afb42dfc600ff58f108e67ae",
+        "sha256": "219ea449557548e66397d1186d1d8168cbc5b19c1171ac6082a34476a6abd86c",
+        "size": 166007,
+        "rebased": false
+      },
+      {
+        "path": "els_server/domain/periodic_activities.py",
+        "parent_sha256": null,
+        "sha256": "a57b71646c0202bb982532b9ee0f0a6c8051d5406e272a104aaaca8446b5bad3",
+        "size": 3438,
+        "rebased": false
+      },
+      {
+        "path": "els_server/domain/periodic_activities_flow.py",
+        "parent_sha256": null,
+        "sha256": "90b836efb9122869a98229cc3266fd8e00779cd147093400c5abe9c084f8527c",
+        "size": 11933,
+        "rebased": false
+      },
+      {
+        "path": "els_server/domain/periodic_item_readers.py",
+        "parent_sha256": null,
+        "sha256": "cdbef6468210644b64885a3941607eded714b6fc3f17f89011d9bd3f468b0f1a",
+        "size": 1221,
+        "rebased": false
+      },
+      {
+        "path": "els_server/domain/periodic_reward_items.py",
+        "parent_sha256": null,
+        "sha256": "64f0a35a60ef58b8108c0a1667ce8074e155d36b6c3ecd5587b53d94989817bc",
+        "size": 2555,
+        "rebased": false
+      },
+      {
+        "path": "els_server/domain/quest_flow.py",
+        "parent_sha256": "861e06010bbf4c74819d7d86ccca2977fbba72ed7ea197d3f2f85f78ec2ca679",
+        "sha256": "05796fe57d98dffbed9eb7cc49340921010b29fb59d77e3e204f088c0cf9e59a",
+        "size": 35462,
+        "rebased": false
+      },
+      {
+        "path": "els_server/domain/seal_quests.py",
+        "parent_sha256": "ffb2321d5424a444f60bb820bb82e0f2675fd067cd979baf3c50cd90e7780bef",
+        "sha256": "23b1cc2e7df163d7840b986755871d5db8a819a94b2b354b6fda5452539635fb",
+        "size": 22976,
+        "rebased": false
+      },
+      {
+        "path": "els_server/protocol/quest_messages.py",
+        "parent_sha256": "1953d7458415a6ed2be4e2a7f5771a8041df51da12ec9f2fa74386751cf46552",
+        "sha256": "28552b73bddfab8e8eed92f3e9db69081209b41033735f081d265756020af330",
+        "size": 4578,
+        "rebased": false
+      },
+      {
+        "path": "els_server/protocol/season_pass_messages.py",
+        "parent_sha256": null,
+        "sha256": "c8480e41d29e89dfc5aafdba2ee9c6b97e9fc1fc35b8b87d060f37736d2cd0f2",
+        "size": 3217,
+        "rebased": false
+      },
+      {
+        "path": "els_server/storage/equipment_repair.py",
+        "parent_sha256": "cdd476797783ce4ba4b09467525f9f5b485c3dac48ea7b09440f0ea2233040cd",
+        "sha256": "27e9ed0b7128dd246dc96e46ef40262a201e94f750ff73cb09bdc965b490b59f",
+        "size": 5341,
+        "rebased": false
+      },
+      {
+        "path": "els_server/storage/periodic_quest_scope.py",
+        "parent_sha256": null,
+        "sha256": "2bb7ab19cf97d5188e6c36e8ad8eccd92b76fbeeb80925bc11b3daea00ecea1b",
+        "size": 9210,
+        "rebased": false
+      },
+      {
+        "path": "els_server/storage/seal_quests.py",
+        "parent_sha256": "6937809af3a07cd005ffc1d34f15eca03186b6ff65b2f698457a43fab4291b04",
+        "sha256": "404e88ee7e4528bd8e68b9104d6d9452f718c7aa91bbff0057727f35fac093ca",
+        "size": 48955,
+        "rebased": false
+      },
+      {
+        "path": "els_server/storage/season_pass.py",
+        "parent_sha256": null,
+        "sha256": "1e20d9ed35523930c86fb17577d533b028e6fb433ac293456356d8353a5f76fa",
+        "size": 10657,
+        "rebased": false
+      },
+      {
+        "path": "els_server/storage/town_dialogue.py",
+        "parent_sha256": "39ea71a4f3fa9a726ca0a5178f328c00f166750551e5ff10388f90967833617d",
+        "sha256": "2aaf3119b71e913190c8e6c115a510d9dcb26eae4596fcf7819b501ab1ee58f1",
+        "size": 7313,
+        "rebased": false
+      }
+    ],
+    "recovery": [
+      {
+        "path": "els_server/data/season_pass_rewards.json",
+        "parent_sha256": null,
+        "sha256": "f1b8a069cc02dac53daa01f425d9bf84ebe005dc0034870152cb91eb0910e01c",
+        "size": 1393,
+        "rebased": false
+      },
+      {
+        "path": "els_server/domain/acquisition_policy.py",
+        "parent_sha256": "f8e1c59ce5c504178b722723c4ed9e56ada15c8fc3f423cee6fdf25c5f747b8e",
+        "sha256": "f15a0960ba811da87b164181c83e47417632616c5b3ec5b13c148ed1dd89f1e3",
+        "size": 17178,
+        "rebased": true
+      },
+      {
+        "path": "els_server/domain/inventory_items.py",
+        "parent_sha256": "e85c8a45b9a5e0b313d8083022fb8a177b696578edf60efe0ff72e9b18cda785",
+        "sha256": "662b9d8b27a287d8ac93d98cf161e254ad92136254f384ff03bade5f0c4a99b5",
+        "size": 94466,
+        "rebased": false
+      },
+      {
+        "path": "els_server/domain/periodic_item_readers.py",
+        "parent_sha256": null,
+        "sha256": "cdbef6468210644b64885a3941607eded714b6fc3f17f89011d9bd3f468b0f1a",
+        "size": 1221,
+        "rebased": false
+      }
+    ]
+  },
+  "original_patch_sha256": {
+    "candidate-v3.patch": "ef07ee5c31f54af04a9dc50a6ce875cd2870cf044ef1d26e1558412575ebb2a8",
+    "recovery-v128.patch": "b9883cf55202a080f0d7e2d813940caece569cd5cc8a97d9ad3c31a66e99dafe"
+  },
+  "test_scope": "21 periodic tests and exact compatibility roundtrip passed on V129"
+}

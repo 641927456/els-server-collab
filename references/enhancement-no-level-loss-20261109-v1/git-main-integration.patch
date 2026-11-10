@@ -1,0 +1,79 @@
+--- a/els_server/domain/enhancement_progress.py
++++ b/els_server/domain/enhancement_progress.py
+@@ -16,6 +16,15 @@
+  gauge,points=validate(item);level=item.get('enhancement',0)
+  if mode==1 and 7<=level<=10:gauge=min(LIMITS[level],gauge+1)
+  if abs(updated)!=level:gauge=0
+- if mode==2 and level==11 and result==4 and updated==10:points=min(20,points+1)
++ # A +11 crystal attempt still earns its point when the rolled downgrade is prevented.
++ if mode==2 and level==11 and result==4:points=min(20,points+1)
+  if abs(updated)>=12:points=0
+  return gauge,points
++
++def settle(item, mode, rolled_result, updated):
++    loses_level = rolled_result in (4, 5)
++    if loses_level:
++        updated = item['enhancement']
++    gauge, points = after(item, mode, rolled_result, updated)
++    result = 3 if loses_level else rolled_result
++    return result, updated, gauge, points
+--- a/els_server/storage/blacksmith_enhancement.py
++++ b/els_server/storage/blacksmith_enhancement.py
+@@ -79,10 +79,10 @@
+             else:
+                 cursor=db.execute('UPDATE inventory_items SET count=count-? WHERE owner=? AND uid=? AND count>=?',(amount,owner,material['uid'],amount))
+                 if cursor.rowcount!=1:raise ValueError('Smith material changed')
++        from els_server.domain.enhancement_progress import settle
++        from els_server.storage.enhancement_progress import replace as replace_progress
++        result,updated,gauge,points=settle(item,mode,result,updated)
+         replace(db,owner,uid,q['level'],updated)
+-        from els_server.domain.enhancement_progress import after as progress_after
+-        from els_server.storage.enhancement_progress import replace as replace_progress
+-        gauge,points=progress_after(item,mode,result,updated)
+         replace_progress(db,owner,dict(item,enhancement=updated),gauge,points)
+         if xp:replace_profession(db,owner,account_id,growth['revision'],next_state)
+         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
+--- a/els_server/storage/paid_enhancement.py
++++ b/els_server/storage/paid_enhancement.py
+@@ -61,10 +61,10 @@
+         for material in materials:
+             if material['count']==1:remove(db,owner,material)
+             else:db.execute('UPDATE inventory_items SET count=count-1 WHERE owner=? AND uid=?',(owner,material['uid']))
++        from els_server.domain.enhancement_progress import settle
++        from els_server.storage.enhancement_progress import replace as replace_progress
++        result,updated,gauge,points=settle(item,mode,result,updated)
+         replace(db,owner,uid,q['level'],updated)
+-        from els_server.domain.enhancement_progress import after as progress_after
+-        from els_server.storage.enhancement_progress import replace as replace_progress
+-        gauge,points=progress_after(item,mode,result,updated)
+         replace_progress(db,owner,dict(item,enhancement=updated),gauge,points)
+         after=load_items(db,owner);current={(i['group'],i['slot']):i for i in after}
+         positions=[(m['group'],m['slot']) for m in materials]+[(item['group'],item['slot'])]
+--- a/tests/test_paid_enhancement.py
++++ b/tests/test_paid_enhancement.py
+@@ -43,21 +43,21 @@
+         self.assertNotIn(cobo['uid'],{i['uid'] for i in self.items()})
+         self.assertEqual(next(i['count'] for i in self.items() if i['uid']==regular['uid']),2)
+ 
+-    def test_rate_boundaries_and_level7_down_and_reset(self):
++    def test_rate_boundaries_and_level7_failure_keeps_level(self):
+         for level,rates in enumerate(RATES):
+             self.assertEqual(sum(rates),10000);offset=0
+             for code,weight,new in zip((1,3,4,5),rates,(level+1,level,level-1,0)):
+                 if weight:
+                     for roll in (offset,offset+weight-1):self.assertEqual(outcome(level,roll),(code,new))
+                 offset+=weight
+-        for roll,code,updated in ((500,3,7),(2000,4,6),(5000,5,0)):
++        for roll in (500,2000,5000):
+             self.fund();self.grant(163135)
+             current=self.gear_now().get('enhancement',0)
+             with closing(sqlite3.connect(self.path)) as db,db:db.execute('BEGIN IMMEDIATE');replace(db,1001,self.gear['uid'],current,7)
+             before=self.money();cost=fee(60100,7)
+             wire=enhance(self.path,1001,payload(self.gear['uid']),str(roll),lambda n:roll)[0].payload
+-            self.assertEqual(struct.unpack_from('>iQiQi',wire),(0,before-cost,code,self.gear['uid'],updated))
+-            self.assertEqual(self.gear_now().get('enhancement',0),updated)
++            self.assertEqual(struct.unpack_from('>iQiQi',wire),(0,before-cost,3,self.gear['uid'],7))
++            self.assertEqual(self.gear_now()['enhancement'],7)
+ 
+     def test_retry_returns_current_absolute_state_without_redraw_or_old_upgrade(self):
+         self.fund();self.grant(163135,3);p=payload(self.gear['uid'])

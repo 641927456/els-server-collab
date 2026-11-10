@@ -1,0 +1,20 @@
+{
+  "first_attempt": {
+    "failed_before_stop": true,
+    "failure": "RuntimeError('SQLite API backup snapshot size/time budget exceeded')",
+    "source_bytes": 763056128,
+    "same_original_pid": true,
+    "all_parent_files_unchanged": true,
+    "service_untouched": true
+  },
+  "successful_attempt": {
+    "method": "SQLite backup API",
+    "pages_per_step": 4096,
+    "sleep_seconds": 0.01,
+    "backup_seconds_budget": "max(60, snapshot_bytes/(8*1024*1024)+30)",
+    "dual_online_and_stopped_backups": true,
+    "requirements_sha256": "f1154331a1a4bffa04d789ada1a6bd532597157687e6137b2c610c1a01917010",
+    "control_sha256": "0579892f5a021735d36eacce682691e80ec2b0a5def61548d2c92918ed37334c"
+  },
+  "player_database_restore": false
+}
