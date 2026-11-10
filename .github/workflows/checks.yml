@@ -10,6 +10,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   source-check:
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
     runs-on: windows-latest
     timeout-minutes: 12
     steps:
@@ -23,6 +24,7 @@ jobs:
       - run: python -B tools/ci_checks.py
       - run: python -B references/title-integrity-v122-20261109-v1/verify.py
       - run: python -B references/pending-repairs-v123-20261109-v1/verify.py
+      - run: python -B references/hp-input-refresh-v124-20261109-v1/verify.py
       - run: python -B refs/online-clock-background-20261108-v1/verify.py
       - run: python -B refs/town-metadata-peer-20261108-v1/verify.py
       - run: python -B refs/server-send-delivery-v106-integration-20261108-v1/verify.py
