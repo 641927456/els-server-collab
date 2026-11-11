@@ -1,0 +1,29 @@
+--- a/els_server/storage/artifact_spirit.py
++++ b/els_server/storage/artifact_spirit.py
+@@ -15,7 +15,7 @@
+ 
+ def signature(item):
+  # Moving the UID does not reroll or invalidate a paid preview; Apply still
+- # requires its owner, an unequipped target and unchanged native option state.
++ # requires its owner, a bag or worn target and unchanged native option state.
+  return hashlib.sha256(json.dumps({k:v for k,v in item.items() if k not in ('group','slot','lock_until')},sort_keys=True).encode()).hexdigest()
+ 
+ def perform(path,owner,payload,operation,randbelow=secrets.randbelow,encode=acknowledgement,*,account_id=None):
+@@ -33,14 +33,15 @@
+    option=0
+    if mode in (7,9):
+     if (pending is None or pending[2]!=mode or json.loads(pending[3]).get('operation_id')!=operation
+-        or item is None or item['group']!=1 or expired(item) or locked(item) or pending[1]!=signature(item)):
++        or item is None or item['group'] not in (1,24) or expired(item) or locked(item) or pending[1]!=signature(item)):
+      return [encode(uid,ed,mode=mode,result=2005)]
+     option=pending[0]
+    elif item is not None:
+     option=next(iter(item.get('option_groups',{}).get(str(spirit_group(item['template'])),[])),0)
+    changes=current_changes(db,operation,owner,0x6e7,old,before)
+    return [encode(uid,ed,changes,mode=mode,option=option,options=[option] if option else [])]
+-  if item is None or item['group']!=1 or item['count']!=1 or item.get('identified') is False or not item.get('artifact_socket_open'):raise ValueError('Owned identified unequipped open-slot Artifact required')
++  # The native spirit UI accepts worn Artifacts as well as equipment in the bag.
++  if item is None or item['group'] not in (1,24) or item['count']!=1 or item.get('identified') is False or not item.get('artifact_socket_open'):raise ValueError('Owned identified open-slot Artifact required')
+   require_current(item);require_unlocked(item);category=spirit_group(item['template'])
+   from els_server.domain.artifact_progression import catalog
+   if item['template'] not in catalog()['equipment']:raise ValueError('Spirit targets must be actual wearable Artifacts')
