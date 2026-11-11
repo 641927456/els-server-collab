@@ -1,0 +1,65 @@
+{
+  "release": "pet-bag-inspect-spa-and-npc-menus-20261111-v176",
+  "source_manifest_sha256": "74aba8d616e552192661102c16ef968bc983bf9aee2a497083462f0951b853dc",
+  "parents": {
+    "online": {
+      "release": "spa-and-npc-bag-sale-20261111-v175",
+      "manifest_sha256": "b1e39b1db7ec3c1ab19c8bc7fdee5f02adca0588761191b84977b787b575c063"
+    },
+    "local": {
+      "release": "unified-server-22c4515ef656d74b-ce14da0010b9",
+      "manifest_sha256": "cab97d73c44321af0d64e088993d13d455374c0462977a5d3d141620a88ec433"
+    },
+    "launchers": {
+      "release": "spa-and-npc-bag-sale-20261111-v175",
+      "manifest_sha256": "f64ff9d62b4098506d9f60b7dcaf4626cd46196deb16ffe76c83fb787cd27ffb"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/data/manufacture_policy.json",
+      "parent_sha256": "97a0a345aeb9f95fd5790edbdd8ec6d338be62073958a073de6ce84599fc2037",
+      "sha256": "22977f04f874338bbe7567598c97f27dfed71d5f87b3c28dbc5ab4b817e59047",
+      "size": 1548,
+      "author_sha256": "22977f04f874338bbe7567598c97f27dfed71d5f87b3c28dbc5ab4b817e59047",
+      "cohort": "npc-material-menus",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/native_force_catalog.json",
+      "parent_sha256": "6eda53f40e47b9df5384c888ba3f3c7d8f1b3b9c2657cb0e85dafa295221f377",
+      "sha256": "9b9833cdf95e19f314be957deac0fbd43be1d605d7249bd23afb532fa01ca269",
+      "size": 106113,
+      "author_sha256": "9b9833cdf95e19f314be957deac0fbd43be1d605d7249bd23afb532fa01ca269",
+      "cohort": "npc-material-menus",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "0a2db4768e32bb93d651c5e8fcdc4b85d95b13f3860bcd663adf7859b5702f3e",
+      "sha256": "7f468d00417141411fa519756bc22e5119840c728f5dd19c6f7a3e2147b676b3",
+      "size": 170965,
+      "author_sha256": "7f468d00417141411fa519756bc22e5119840c728f5dd19c6f7a3e2147b676b3",
+      "cohort": "npc-material-menus",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/native_force_catalog.py",
+      "parent_sha256": "72c06689d87a7d9050b1e8a6f8c6575a748d52615e8ac54d36cb4dbde17b03e1",
+      "sha256": "83bbba4ed2237dcfee0e0e9b44d1c6c684e26da4010f2be4a2fc10bfe1a4edda",
+      "size": 1721,
+      "author_sha256": "83bbba4ed2237dcfee0e0e9b44d1c6c684e26da4010f2be4a2fc10bfe1a4edda",
+      "cohort": "npc-material-menus",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/manufacture.py",
+      "parent_sha256": "a42f58eae7209510530108b32cd1abe976674151998248ecbbd06f4d55bded6b",
+      "sha256": "baba766dcad1262794fe82ddb2dcbfd260a1b77cfaef7f80e910e33b8539d1d1",
+      "size": 23963,
+      "author_sha256": "2445502f9412d58fdc1c27c5ba0928a71cb284c84c6d2b2cac9cdf1b430a1b90",
+      "cohort": "npc-material-menus",
+      "scope": "server"
+    }
+  ]
+}
