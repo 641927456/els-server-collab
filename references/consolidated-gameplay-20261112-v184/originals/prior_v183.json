@@ -1,0 +1,295 @@
+{
+  "parents": {
+    "online": {
+      "release": "dungeon-result-retry-party-hud-20261111-v182",
+      "pointer": "G:\\els\\releases\\online\\current.json",
+      "pointer_sha256": "f07f4ffba727c542b5613e7f84b96af226d2e4b81b56374a3e30597ab8b21b75",
+      "runtime_dir": "G:\\els\\releases\\online\\dungeon-result-retry-party-hud-20261111-v182",
+      "manifest_path": "G:\\els\\releases\\online\\dungeon-result-retry-party-hud-20261111-v182\\rollup-manifest.json",
+      "actual_manifest_sha256": "35c2f639eefe9d1fc04d4f026a98764623c2f41d2d1bd68fa245393c7cc2f1f1"
+    },
+    "local": {
+      "release": "unified-server-844492cc0c41e26c-f24298f0058c",
+      "pointer": "G:\\els\\releases\\local\\current.json",
+      "pointer_sha256": "16d76effbd6c9cf78c3ed32fa0fb4c508c3f4a1c747eb682b3a313b1e773a542",
+      "runtime_dir": "G:\\els\\releases\\local\\unified-server-844492cc0c41e26c-f24298f0058c",
+      "manifest_path": "G:\\els\\releases\\local\\unified-server-844492cc0c41e26c-f24298f0058c\\local-business-manifest.json",
+      "actual_manifest_sha256": "565500fdb5caae5d13acace5c2788cdc96e2515bdb904668b286d7b430e1c646"
+    },
+    "launchers": {
+      "release": "dungeon-result-retry-party-hud-20261111-v182",
+      "pointer": "G:\\els\\releases\\launchers\\current.json",
+      "pointer_sha256": "b5632ba5f180261551f3b5cb7499879d6dad10a726dddcedde7d1af3989ac19a",
+      "runtime_dir": "G:\\els\\deliverables",
+      "manifest_path": "G:\\els\\analysis\\dungeon-result-retry-20261111-v3\\release-v182\\launcher-preview-v182\\signedFriends.signed.json",
+      "actual_manifest_sha256": "039796b9de4d8c2e10b840765bdc551af902d2db80c752b06c8100fd5ff2b764"
+    }
+  },
+  "changes": [
+    {
+      "path": "els_server/domain/erp_potions_existing.py",
+      "parent_sha256": "6f4f889ff5d0a7f1cd057a9eea9f3dba0b37b5aa4237dad8661312c2b3d7cfb9",
+      "online_parent_sha256": "6f4f889ff5d0a7f1cd057a9eea9f3dba0b37b5aa4237dad8661312c2b3d7cfb9",
+      "sha256": "a73e568d2bb3b4f18dbdf5a2ca067c34583a46087af9cd0a484d43f946d4bb67",
+      "size": 6260,
+      "candidate_path": "G:\\els\\analysis\\mail-claim-repair-20261111-v1\\variants-v2\\publisher-review\\candidate\\els_server\\domain\\erp_potions_existing.py",
+      "scope": "server",
+      "source": "mail"
+    },
+    {
+      "path": "els_server/domain/mail_flow.py",
+      "parent_sha256": "8c390a7f0ba067658dbdfee545afb6463e3320fa6ae7cf8929e11745a6fae7a5",
+      "online_parent_sha256": "8c390a7f0ba067658dbdfee545afb6463e3320fa6ae7cf8929e11745a6fae7a5",
+      "sha256": "d33f8534b9c43c986f0bb19d0738b04eca476cab08bd291b29fb31b150c56bf9",
+      "size": 2493,
+      "candidate_path": "G:\\els\\analysis\\mail-claim-repair-20261111-v1\\variants-v2\\publisher-review\\candidate\\els_server\\domain\\mail_flow.py",
+      "scope": "server",
+      "source": "mail"
+    },
+    {
+      "path": "els_server/domain/normal_fatigue_rules.py",
+      "parent_sha256": "d95596b57850ade476620d51e5831f8c20a50a13c0c78976166d5f8df4eb6a40",
+      "online_parent_sha256": "d95596b57850ade476620d51e5831f8c20a50a13c0c78976166d5f8df4eb6a40",
+      "sha256": "fa02d477742e71220b69daa423a10b6b2094d89389ebe5abf276a87992433090",
+      "size": 5792,
+      "candidate_path": "G:\\els\\analysis\\mail-claim-repair-20261111-v1\\variants-v2\\publisher-review\\candidate\\els_server\\domain\\normal_fatigue_rules.py",
+      "scope": "server",
+      "source": "mail"
+    },
+    {
+      "path": "els_server/domain/retained_native_consumables.py",
+      "parent_sha256": "8216029b788f93b33fdd2a1577923088cec7deead2141dbe2e49864afc959799",
+      "online_parent_sha256": "8216029b788f93b33fdd2a1577923088cec7deead2141dbe2e49864afc959799",
+      "sha256": "1b41df200c34b8de640b52bd04390385c2aa2ab55b5a6d12041ab55be8d5b2ea",
+      "size": 4021,
+      "candidate_path": "G:\\els\\analysis\\mail-claim-repair-20261111-v1\\variants-v2\\publisher-review\\candidate\\els_server\\domain\\retained_native_consumables.py",
+      "scope": "server",
+      "source": "mail"
+    },
+    {
+      "path": "els_server/storage/mail_attachments.py",
+      "parent_sha256": "7a93750bbacb3223dcc1b33a602ba02fb4cc78edef6d46de49541367d00a7810",
+      "online_parent_sha256": "7a93750bbacb3223dcc1b33a602ba02fb4cc78edef6d46de49541367d00a7810",
+      "sha256": "8d7e1535cdaae358a42b2f54ca18f8e33b02c82f3114b0c830ff3ab620d17b0d",
+      "size": 14147,
+      "candidate_path": "G:\\els\\analysis\\mail-claim-repair-20261111-v1\\variants-v2\\publisher-review\\candidate\\els_server\\storage\\mail_attachments.py",
+      "scope": "server",
+      "source": "mail"
+    },
+    {
+      "path": "els_server/domain/el_search_collection_quest.py",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\visibility-v2\\candidate\\els_server\\domain\\el_search_collection_quest.py",
+      "parent_sha256": "1b5eb1e311bcd93a5daa9702ccadff2dc1c97fb31a47ab2da0dfdf86a07d1910",
+      "sha256": "368ec97854e2ffc95d05c20b1f81a79ab9c38bffa3ddd087f7b1336fe490153b",
+      "size": 3509,
+      "source": "resonance",
+      "online_parent_sha256": "1b5eb1e311bcd93a5daa9702ccadff2dc1c97fb31a47ab2da0dfdf86a07d1910",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "candidate_path": "G:\\els\\analysis\\enhancement-stone-drops-20261111-v1\\release-v183\\publisher-resonance\\els_server\\domain\\quest_flow.py",
+      "parent_sha256": "81928099da38d2217360fea0c574a92046f3c1e5fecea3d4a5e51b51a4d313e9",
+      "sha256": "7a941617367b91500f2cdc9e44c7057e0d58720ec42d29e29f1f9cff8ae9b17f",
+      "size": 37908,
+      "source": "resonance",
+      "online_parent_sha256": "81928099da38d2217360fea0c574a92046f3c1e5fecea3d4a5e51b51a4d313e9",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/coupon_flow.py",
+      "candidate_path": "G:\\els\\analysis\\shop-deposit-initialization-20261111-v1\\candidate\\els_server\\domain\\coupon_flow.py",
+      "parent_sha256": "8daf26ddcad81cea16bc5fdaba8ba0f1272225a22b5216d8a85935ed17d50a76",
+      "sha256": "135d8ed4b8e824fdbf8e9cb02c15cae9221630ee1ea96776fb9fed3872a08da7",
+      "size": 2993,
+      "source": "shop_deposit",
+      "online_parent_sha256": "8daf26ddcad81cea16bc5fdaba8ba0f1272225a22b5216d8a85935ed17d50a76",
+      "scope": "server"
+    }
+  ],
+  "compatible_recovery": {
+    "ok": true,
+    "new_schema": false,
+    "new_tables": [],
+    "retained_files": [
+      {
+        "path": "els_server/domain/erp_potions_existing.py",
+        "size": 6260,
+        "sha256": "a73e568d2bb3b4f18dbdf5a2ca067c34583a46087af9cd0a484d43f946d4bb67"
+      },
+      {
+        "path": "els_server/domain/normal_fatigue_rules.py",
+        "size": 5792,
+        "sha256": "fa02d477742e71220b69daa423a10b6b2094d89389ebe5abf276a87992433090"
+      },
+      {
+        "path": "els_server/domain/retained_native_consumables.py",
+        "size": 4021,
+        "sha256": "1b41df200c34b8de640b52bd04390385c2aa2ab55b5a6d12041ab55be8d5b2ea"
+      },
+      {
+        "path": "els_server/storage/mail_attachments.py",
+        "size": 14147,
+        "sha256": "8d7e1535cdaae358a42b2f54ca18f8e33b02c82f3114b0c830ff3ab620d17b0d"
+      }
+    ],
+    "qualification": {
+      "path": "G:\\els\\analysis\\mail-claim-repair-20261111-v1\\variants-v2\\publisher-review\\recovery-proof.json",
+      "sha256": "8d5bb7777dbaf9bb83a15c36dc6a240e8e0c28438e195db33552c554a89afc8c"
+    },
+    "module": {
+      "path": "G:\\els\\analysis\\enhancement-stone-drops-20261111-v1\\release-v183\\recovery_policy.py",
+      "sha256": "1054bd0d531d5dfc133ac2dc44347b032b364f3ab65180b41bab801be79cc3bb"
+    },
+    "compatibility": {
+      "revision_proof": {
+        "path": "G:\\els\\analysis\\mail-claim-repair-20261111-v1\\variants-v2\\publisher-review\\revision-proof.json",
+        "sha256": "ba6146e92445a7386a517df0aa1ff0a59cfd5fa428e2d84dc27cf1ed9d4911f3"
+      },
+      "fatigue_compatibility_proof": {
+        "path": "G:\\els\\analysis\\mail-claim-repair-20261111-v1\\variants-v2\\publisher-review\\fatigue-compatibility-proof.json",
+        "sha256": "380e8efef83a16a37e708451e316d8fc582e8dc6efd3d6eb7ad66b3c51a81947"
+      },
+      "six_case_compatibility": {
+        "path": "G:\\els\\analysis\\mail-claim-repair-20261111-v1\\variants-v2\\publisher-review\\author-v2-evidence\\compatibility-proof.json",
+        "sha256": "f275a13909837d94ccec9c2eb985ed33712ab10ed91b81021e4f47816ec20810"
+      }
+    },
+    "player_database_restore": false
+  },
+  "authorization": {
+    "path": "G:\\els\\analysis\\enhancement-stone-drops-20261111-v1\\release-v183\\authorization.json",
+    "sha256": "fa013fd8d19c86fb6cf880a6afc4a408a6d774397bda33ddd0574ddee885c573"
+  },
+  "online_only_overlay": {
+    "els_server/domain/formal_pve_economy.py": {
+      "common": {
+        "path": "els_server/domain/formal_pve_economy.py",
+        "sha256": "6b7045b19b16cbadec92968405fff030bdf5584413752db6f5b110a6b8428689",
+        "size": 8439
+      },
+      "online": {
+        "path": "els_server/domain/formal_pve_economy.py",
+        "sha256": "db005c4c6b0cfb901fbc3fcbfe7dc129a25acd7c923ef721d6c6d69651ffe122",
+        "size": 8910
+      }
+    },
+    "els_server/domain/gm_rates.py": {
+      "common": {
+        "path": "els_server/domain/gm_rates.py",
+        "sha256": "c979771d32853ba6e047c633930baacd05f7111a5efbaa19632ea77378a2eeed",
+        "size": 4125
+      },
+      "online": {
+        "path": "els_server/domain/gm_rates.py",
+        "sha256": "f3a00242a229a1cf9ad0ca13826e1c2c97c4cce996a5980ba624a1dd79908960",
+        "size": 5628
+      }
+    },
+    "els_server/domain/ordinary_misc_loot.py": {
+      "common": {
+        "path": "els_server/domain/ordinary_misc_loot.py",
+        "sha256": "f8f7e2de8dabb1d6f26256751bc03e6f710c6db4bbd03e1be5f3217d1f5cf113",
+        "size": 12299
+      },
+      "online": {
+        "path": "els_server/domain/ordinary_misc_loot.py",
+        "sha256": "82220c140e370367cf6b48e62bba4e2f4ab750928d96682fa495e1585ee53107",
+        "size": 12613
+      }
+    },
+    "els_server/dungeon_workers.py": {
+      "common": {
+        "path": "els_server/dungeon_workers.py",
+        "sha256": "6ed08654e7a84fd076b5ff0e7f441ddef26b8a041ed23c5281892191c074a452",
+        "size": 26340
+      },
+      "online": {
+        "path": "els_server/dungeon_workers.py",
+        "sha256": "9d3e604d9bedfc890aa70e5d62a0b9854531a20d6477d8c7478ab4da9286efd7",
+        "size": 26489
+      }
+    },
+    "els_server/gm_item_batch.py": {
+      "online": {
+        "path": "els_server/gm_item_batch.py",
+        "size": 8583,
+        "sha256": "283d8b3959642a6863d1493e2a201a6613a75aa3c9528cb93ee9e8efafaacb80"
+      },
+      "common": null
+    },
+    "els_server/gm_runtime.py": {
+      "online": {
+        "path": "els_server/gm_runtime.py",
+        "size": 19033,
+        "sha256": "89e9684b7b4c737d0ad2fda0b596606de4e5b18daf7bebed810f05d4b3c46ffb"
+      },
+      "common": {
+        "path": "els_server/gm_runtime.py",
+        "size": 18375,
+        "sha256": "49522eb0f237fadac6d9b45d016a2fcf48802908fe1b184859632bb44c868b0b"
+      }
+    },
+    "els_server/storage/gm_item_mail.py": {
+      "common": null,
+      "online": {
+        "path": "els_server/storage/gm_item_mail.py",
+        "sha256": "0da2021df8fa11ae62e9210c3dfafb9f14621cfcddf04f0acf401661870174bb",
+        "size": 2691
+      }
+    },
+    "els_server/storage/player_mail.py": {
+      "common": {
+        "path": "els_server/storage/player_mail.py",
+        "sha256": "c8a04803f824fc24dda40d1b58030df7f4c0ec1229fe13eb8094933a912e7b12",
+        "size": 17233
+      },
+      "online": {
+        "path": "els_server/storage/player_mail.py",
+        "sha256": "460458893d843b17c9516b668001162aa8925e5ca2a2fb09e74618ad1c9017f1",
+        "size": 17722
+      }
+    },
+    "gm_console/__main__.py": {
+      "online": {
+        "path": "gm_console/__main__.py",
+        "size": 10035,
+        "sha256": "ef985f9bf812be713388f22af33a8f48aba42506382ea2fe183f3f94978a42ea"
+      },
+      "common": null
+    },
+    "gm_console/accounts.py": {
+      "common": null,
+      "online": {
+        "path": "gm_console/accounts.py",
+        "sha256": "f9d5f6a5a3381fdb4aa1386c2616fabc2e4fe5aa65d0ef7938b2874c5a730fb6",
+        "size": 5028
+      }
+    },
+    "gm_console/service.py": {
+      "online": {
+        "path": "gm_console/service.py",
+        "size": 29210,
+        "sha256": "f6f2a356fb00cba39009fa7a2970b1ebedb20e1118a86c74af41a54609f16bde"
+      },
+      "common": null
+    },
+    "gm_console/settings.py": {
+      "online": {
+        "path": "gm_console/settings.py",
+        "size": 5262,
+        "sha256": "2d80e3b73258dac231006db7ba3da9235f099b7262a8b870769182b4cd3c07cb"
+      },
+      "common": null
+    }
+  },
+  "source_manifest": {
+    "path": "G:\\els\\analysis\\enhancement-stone-drops-20261111-v1\\release-v183\\combined-source-manifest.json",
+    "sha256": "e9e7dcd8580355c0cf9082014bcae8c36a7ec9512446307293fbea230bfd9e4a"
+  },
+  "signed_support": {},
+  "source_archive_plan": {
+    "path": "G:\\els\\analysis\\enhancement-stone-drops-20261111-v1\\release-v183\\source-archive-plan.json",
+    "sha256": "e687f0a7f16e255043940cf585ccb4b3de1eb2109701cdc6e7c747a911e646dc"
+  }
+}
