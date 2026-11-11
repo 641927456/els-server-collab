@@ -1,0 +1,64 @@
+{
+  "release": "title-socket-hidden-items-artifact-20261111-v172",
+  "patch_sha256": "fd968aa1b7f4ac0b78135296e54be189a5570a17aae9fc4a14e4b6ad0d98cc05",
+  "parents": {
+    "online": {
+      "release": "merchant-purchases-and-dennis-20261111-v168",
+      "manifest_sha256": "f8714987467c9195b008cb73e93f4328dd4cae93cb900e492995332906b9e2ed"
+    },
+    "local": {
+      "release": "unified-server-5ea03ca5f01728b3-d21f0c50eba1",
+      "manifest_sha256": "b73f5c2b5e816c7b4d949c75d86dd457873633d86144430569ae6e2af43034f8"
+    },
+    "launchers": {
+      "release": "merchant-purchases-and-dennis-20261111-v168",
+      "manifest_sha256": "edc8441c7d8f8001053f6240125244efce542331580e6f4b0213c06020c35ef4"
+    }
+  },
+  "files": [
+    {
+      "cohort": "title",
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "35c98c73b97f347e4014ad2d4581377c519f775fed2d51b4f32788471f9157d0",
+      "sha256": "943b4fad33ee9f226ffcd6b9be9b047eca1e10454fca73d310d89101b1f507fa",
+      "size": 169566,
+      "source_parent_sha256": "dd5b33109863533b59ad453b6d07fb184a29702d6424219d86b4a070372b5a5e",
+      "source_sha256": "207000ec174219526ef347b698aec8aa2bf7ff126ffc840f54d8507593f14898",
+      "rebased": true,
+      "phase_version": 169
+    },
+    {
+      "cohort": "title",
+      "path": "els_server/domain/title_flow.py",
+      "parent_sha256": "ccda83419e13a5e1bb7510b130c2074c9bf976cf22a8a05ba33bb9f2fadf8560",
+      "sha256": "0c7d6a3ea372001595d285de2cd958504690a017cef27d992e6117066472921d",
+      "size": 6670,
+      "source_parent_sha256": "ccda83419e13a5e1bb7510b130c2074c9bf976cf22a8a05ba33bb9f2fadf8560",
+      "source_sha256": "0c7d6a3ea372001595d285de2cd958504690a017cef27d992e6117066472921d",
+      "rebased": false,
+      "phase_version": 169
+    },
+    {
+      "cohort": "title",
+      "path": "els_server/protocol/title_messages.py",
+      "parent_sha256": "526110bfaf2d38a3d9dae59fb543986a5b5f6a95ae78f2dea9a44c663086c755",
+      "sha256": "ff29b250dfde0f1db2b9240ff9742656580ff6d84968b54087a9789e60a198d1",
+      "size": 3402,
+      "source_parent_sha256": "526110bfaf2d38a3d9dae59fb543986a5b5f6a95ae78f2dea9a44c663086c755",
+      "source_sha256": "ff29b250dfde0f1db2b9240ff9742656580ff6d84968b54087a9789e60a198d1",
+      "rebased": false,
+      "phase_version": 169
+    },
+    {
+      "cohort": "title",
+      "path": "els_server/storage/titles.py",
+      "parent_sha256": "4630ac355b2c35bf111e7b28cbdc8230e1ae7e976db96f5d4dffb7f50513986a",
+      "sha256": "89473e3d4a02d99874b98fe882971e0582c2b64672b9af7489fa84462bd246cc",
+      "size": 13887,
+      "source_parent_sha256": "4630ac355b2c35bf111e7b28cbdc8230e1ae7e976db96f5d4dffb7f50513986a",
+      "source_sha256": "89473e3d4a02d99874b98fe882971e0582c2b64672b9af7489fa84462bd246cc",
+      "rebased": false,
+      "phase_version": 169
+    }
+  ]
+}
