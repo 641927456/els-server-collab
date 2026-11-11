@@ -1,0 +1,14 @@
+--- a/els_server/protocol/social_messages.py
++++ b/els_server/protocol/social_messages.py
+@@ -297,7 +297,10 @@
+         from els_server.protocol.union_messages import member_vector
+         payload+=member_vector(party)
+     else:
+-        payload+=u32(len(members))+b''.join(party_member(identity,s,index,s is party['leader'],s in party['ready']) for index,s in enumerate(members))
++        # Native 13B treats -1 as ungrouped and 0/1 as attack-party subgroups.
++        payload+=u32(len(members))+b''.join(
++            party_member(identity,s,index,s is party['leader'],s in party['ready'],group=-1)
++            for index,s in enumerate(members))
+     payload+=u32(0)+wstring('')+u16(0)+wstring('')
+     return Event(0x201,kind=0x13b,payload=payload)
+ 
