@@ -1,0 +1,132 @@
+"""Published owned reward boxes, including class-specific Force choices."""
+import functools,hashlib,json
+from pathlib import Path
+from types import MappingProxyType
+from els_server.game_data import client_data,CLIENT_SHA
+
+BOXES=frozenset((117542,135666,135871,136137,723618,723687,723688,723619,723620,723621,723634,72970,79076,701049,701050,166572))
+DATA_SHA='11f3b7a6525137173b7164b5722324c7635fd5f41b768e21da518b3758cab6c0'
+
+@functools.lru_cache(maxsize=1)
+def _existing_catalog():
+    raw=(Path(__file__).resolve().parents[1]/'data/owned_reward_boxes.json').read_bytes()
+    if hashlib.sha256(raw).hexdigest()!=DATA_SHA:raise ValueError('Owned reward box definition identity')
+    data=json.loads(raw);client=client_data()
+    if data['client_sha256']!=CLIENT_SHA or data['catalog_sha256']!=client.manifest['catalog_sha256']:
+        raise ValueError('Owned reward box client identity')
+    boxes={r['template']:r for r in data['boxes']}
+    if set(boxes)!=BOXES-{166572}:raise ValueError('Owned reward box scope')
+    from els_server.domain.mentor_duelist_box import catalog as mentor_catalog
+    mentor=mentor_catalog()
+    existing={r['template']for r in data['readers']}
+    if existing&{r['template']for r in mentor['readers']}:raise ValueError('Duplicate mentor accessory reader')
+    data=dict(data,boxes=[*data['boxes'],mentor['box']],readers=[*data['readers'],*mentor['readers']])
+    for row in (*data['boxes'],*data['readers']):
+        item=client.item(row['template'])
+        if item['name']!=row['name'] or item['metadata']!=row['metadata'] or hashlib.sha256(item['record']).hexdigest()!=row['record_sha256']:
+            raise ValueError('Owned reward box item identity')
+    from els_server.domain.ep_accessory_boxes import catalog as ep_catalog
+    ep_boxes,ep_readers=ep_catalog()
+    data['boxes'].extend(ep_boxes.values())
+    data['readers'].extend(ep_readers.values())
+    from els_server.domain.season_pass_boxes import catalog as pass_catalog
+    current_pass = pass_catalog()
+    data['boxes'].extend(current_pass['boxes'])
+    data['readers'].extend(current_pass['readers'])
+    from els_server.domain.fashion_inventory import native_groups
+    return dict(data,readers=native_groups(data['readers']))
+
+
+@functools.lru_cache(maxsize=1)
+def catalog():
+    from els_server.domain.henir_chaos_boxes import catalog as chaos_catalog
+    data=_existing_catalog();chaos=chaos_catalog()
+    return dict(data,boxes=data['boxes']+chaos['boxes'],readers=data['readers']+chaos['readers'])
+
+def definitions():
+    from els_server.domain.season_pass_boxes import catalog as pass_catalog
+    from els_server.domain.henir_chaos_boxes import catalog as chaos_catalog
+    existing = {r['template'] for r in pass_catalog()['readers'] if r['previously_registered']}
+    data=_existing_catalog()
+    box_readers=(r for r in data['boxes'] if not r.get('previously_registered',False))
+    old=tuple(r for r in (*box_readers, *data['readers']) if r['template'] not in existing)
+    added=tuple(r for r in chaos_catalog()['readers'] if not r['previously_registered'])
+    return old+added
+
+def entries():
+    return tuple(MappingProxyType(dict(template=r['template'],selection_count=r['selection_count'],
+        entries=(),owned_reward_box=True))for r in catalog()['boxes'])
+
+def outputs_for(template,character):
+    row=next(r for r in catalog()['boxes']if r['template']==template)
+    if '0' in row['class_outputs']:return tuple(row['class_outputs']['0'])
+    from els_server.domain.character_rules import validate_career_state
+    validate_career_state(character)
+    outputs=row['class_outputs'].get(str(character['unit_class']))
+    if outputs is None:raise ValueError('Reward box does not support the current class')
+    if template in(723687,723688)and character['level']!=99:raise ValueError('Force choice requires level 99')
+    return tuple(outputs)
+
+def selected_outputs(template,character,choices):
+    outputs=outputs_for(template,character)
+    selection_count=next(r['selection_count']for r in catalog()['boxes']if r['template']==template)
+    if not selection_count:
+        if choices:raise ValueError('Fixed reward box does not accept choices')
+        return outputs
+    if len(choices)!=selection_count:raise ValueError('Select exactly one reward')
+    selected=tuple(r for r in outputs if r['template']==choices[0])
+    if not selected:raise ValueError('Choice is outside this reward box')
+    return selected
+
+@functools.lru_cache(maxsize=1)
+def new_templates():return frozenset(r['template']for r in catalog()['readers']if not r['previously_registered'])
+
+def plan_for(template,character,choices,epoch):
+    from els_server.domain.inventory_items import LOCAL_MAX_STACK
+    readers={r['template']:r for r in catalog()['readers']};plan=[]
+    for output in selected_outputs(template,character,choices):
+        row=readers[output['template']]
+        item=dict(template=row['template'],metadata=row['metadata'],group=row['group'])
+        if output.get('inventory_days'):item['expires_at']=epoch+output['inventory_days']*86400
+        if 'enhancement'in output:item['enhancement']=output['enhancement']
+        for start in range(0,output['quantity'],LOCAL_MAX_STACK):
+            plan.append(dict(item,quantity=min(LOCAL_MAX_STACK,output['quantity']-start)))
+    return plan
+
+def authorize_output(template,source):
+    if source is None:return False
+    from els_server.domain.raid_reward_items import validate_source
+    source=validate_source(source);identity=json.loads(source._source)
+    if identity.get('policy')!='owned-reward-boxes-20261031-v1':return False
+    if source.kind!='box'or identity.get('definition_sha256')!=definition_sha(identity['template']) or identity.get('owner')!=source.owner:
+        raise ValueError('Owned reward box acquisition source')
+    plan=plan_for(identity['template'],identity['character'],tuple(identity['choices']),identity['epoch'])
+    source.validate_plan(plan)
+    if template not in {r['template']for r in plan}:raise ValueError('Output outside owned reward box')
+    return True
+
+
+def definition_sha(template):
+    if template==166572:
+        from els_server.domain.mentor_duelist_box import DATA_SHA as mentor_sha
+        return mentor_sha
+    from els_server.domain.ep_accessory_boxes import BOXES as ep_boxes, definition_sha as ep_sha
+    if template in ep_boxes:return ep_sha(template)
+    from els_server.domain.season_pass_boxes import boxes as pass_boxes, DATA_SHA as pass_sha
+    if template in pass_boxes():return pass_sha
+    from els_server.domain.henir_chaos_boxes import boxes as chaos_boxes, DATA_SHA as chaos_sha
+    if template in chaos_boxes():return chaos_sha
+    return DATA_SHA
+
+def finalize_grants(db,owner,grants,outputs):
+    """Known fixed artifact lines replace the shared factory's pending state."""
+    presets={r['template']:r['option_groups']for r in outputs if 'option_groups'in r}
+    if not presets:return
+    from els_server.storage.equipment_options import replace as replace_options
+    from els_server.storage.equipment_identification import replace as replace_identified
+    for item in grants:
+        groups=presets[item['template']]
+        replace_options(db,owner,item['uid'],item.get('option_groups',{}),groups)
+        from els_server.domain.equipment_circuit_rules import material as circuit_material
+        if circuit_material(item['template']) is None:
+            replace_identified(db,owner,item['uid'],False,True)
