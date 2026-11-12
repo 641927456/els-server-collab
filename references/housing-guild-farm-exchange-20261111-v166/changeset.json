@@ -1,0 +1,74 @@
+{
+  "release": "housing-and-ed-shop-20261111-v166",
+  "patch_sha256": "28d4616a8b76341c9bd0efffe2ab6edac73ea1f90041a2e2ec0b3cadbd23e0e9",
+  "parents": {
+    "online": {
+      "release": "gm-workspace-announcements-20261111-v165",
+      "manifest_sha256": "1fa0e83cd230c7686c5a841bd883e03eaff4f9228ce964d8208be787ea340423"
+    },
+    "local": {
+      "release": "unified-server-3c9b0ab71e09a004-32deb4fc9083",
+      "manifest_sha256": "1e0d0c9d2629748250537f830d73ef47e99b794f4613a69f436a95a1774ec065"
+    },
+    "launchers": {
+      "release": "gm-workspace-announcements-20261111-v165",
+      "manifest_sha256": "f5170196375eaa0e8b252f7918d1cc4019a9cc36e9593e8f4b3247baf717d2d8"
+    }
+  },
+  "files": [
+    {
+      "cohort": "housing",
+      "path": "els_server/domain/guild_agit_flow.py",
+      "sha256": "450d7a468af0641c7989429f36a0bfb91420762665538e68f3646611b1447daa",
+      "size": 17424,
+      "parent_sha256": "bf7104aff815a5d6d16da5e2073e011bcf6bbc6d13843dca2460ab90efb7b024",
+      "upstream_sha256": "450d7a468af0641c7989429f36a0bfb91420762665538e68f3646611b1447daa",
+      "rebased": false
+    },
+    {
+      "cohort": "housing",
+      "path": "els_server/domain/guild_farm.py",
+      "sha256": "6a24d06e62dd31d55b578510e6776666f05306cb206801547eea6194c479efb5",
+      "size": 7524,
+      "parent_sha256": "5c1f9ae62e5359793d52df6a386470d97716114ab56e13aa9be14f7db6b641ca",
+      "upstream_sha256": "6a24d06e62dd31d55b578510e6776666f05306cb206801547eea6194c479efb5",
+      "rebased": false
+    },
+    {
+      "cohort": "housing",
+      "path": "els_server/domain/guild_shop.py",
+      "sha256": "fd27c23b720bf42a9f2d1f9bea3f01dfbc59110a06cf17611daffdf39c2c1ad9",
+      "size": 5926,
+      "parent_sha256": "8a52177f422b59fe932318cc63280503befca83c96d4803fcf4c2c985b8e07a4",
+      "upstream_sha256": "fd27c23b720bf42a9f2d1f9bea3f01dfbc59110a06cf17611daffdf39c2c1ad9",
+      "rebased": false
+    },
+    {
+      "cohort": "housing",
+      "path": "els_server/domain/housing_layout_flow.py",
+      "sha256": "302c13c70c65d6ebbbd5f0f0c73f61aee0805b4d510d5358af02d7cdbd93ae75",
+      "size": 4875,
+      "parent_sha256": "a212b50da9707b4972ebdb6f7460a050127b2144b0cca47c6eb58c24dfc7a0a6",
+      "upstream_sha256": "302c13c70c65d6ebbbd5f0f0c73f61aee0805b4d510d5358af02d7cdbd93ae75",
+      "rebased": false
+    },
+    {
+      "cohort": "housing",
+      "path": "els_server/domain/housing_room_flow.py",
+      "sha256": "5b20d8ae7900ae76608b8c4668bd1ec2d1ed710a8e2d85982fa425569ddd9ea3",
+      "size": 12609,
+      "parent_sha256": "d45e79691e3d3a618b876c0f2cc29c1c7afac45ca1b19a811b12e43286639a21",
+      "upstream_sha256": "5b20d8ae7900ae76608b8c4668bd1ec2d1ed710a8e2d85982fa425569ddd9ea3",
+      "rebased": false
+    },
+    {
+      "cohort": "housing",
+      "path": "els_server/domain/town_travel_flow.py",
+      "sha256": "75a333f2ede3a69911e509f6742fd6beb2b0b5846a0650bf3fd3ef14969df81d",
+      "size": 18838,
+      "parent_sha256": "c227769e717dcc97b01f5e2f5f52b80d336d2d2ba69a3b7446bf4bbc826de524",
+      "upstream_sha256": "75a333f2ede3a69911e509f6742fd6beb2b0b5846a0650bf3fd3ef14969df81d",
+      "rebased": false
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "task": "ordinary-party-other-team-ui-20261111-v1",
+  "status": "reviewed_ready_for_installation",
+  "review_type": "author_self_review",
+  "parents": {
+    "online": {
+      "release": "artifact-spirit-worn-20261111-v178",
+      "root": "G:\\els\\releases\\online\\artifact-spirit-worn-20261111-v178",
+      "file_sha256": "a007ce47ecf606afe9d811795c93def3f0c1e88ea43ba9fe5764acbdc6c22da4",
+      "manifest_sha256": "cd729bcf6e77fc2c99a61e8e2188c9e7277549b354f9ee5e1fe7472fe946cc08"
+    },
+    "local": {
+      "release": "unified-server-acd043567c59b06c-542070efa715",
+      "root": "G:\\els\\releases\\local\\unified-server-acd043567c59b06c-542070efa715",
+      "file_sha256": "a007ce47ecf606afe9d811795c93def3f0c1e88ea43ba9fe5764acbdc6c22da4",
+      "manifest_sha256": "c57aefdbf57c8dc7e954a5d8125592b05b7d173a9d8a1b6a6e7656c8ebd06e9c"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/protocol/social_messages.py",
+      "candidate": "G:\\els\\analysis\\ordinary-party-other-team-ui-20261111-v1\\candidate\\els_server\\protocol\\social_messages.py",
+      "base_sha256": "a007ce47ecf606afe9d811795c93def3f0c1e88ea43ba9fe5764acbdc6c22da4",
+      "sha256": "df1a8629b6544b82238dacac5e266f2a594ba1c403eec5920a2f079eebb561aa"
+    }
+  ],
+  "patch": "ordinary-party-hud.patch",
+  "artifacts": {
+    "ordinary-party-hud.patch": "46f1583f3cbb8f4ed0e99560b0e97a01eb26b3dd54bf787e6875b782075c389f",
+    "review.md": "a83465292325d7b1d47c3c2b373500e69dcf99f4792038e42cce8936ea5cea53",
+    "verify_native_group.py": "b367ca4079ce7719afea2c5c1856e9d27e5864fd5d53ec8b4d1b7bcf846127a9",
+    "verify_tls.py": "27bf6b21dc096fe23fceabfe5d1cd970c355a36d4e893a39a84c6bf592c797bd",
+    "tls-results.json": "a168dbabe0df80fbc3e7e0a9bff131a61700570d2ae5f8f7008caabb6df7e953"
+  },
+  "tests": {
+    "native_replay_cases": 10,
+    "tls": {
+      "runtime": "G:\\els\\releases\\online\\artifact-spirit-worn-20261111-v178",
+      "candidate": "G:\\els\\analysis\\ordinary-party-other-team-ui-20261111-v1\\candidate\\els_server\\protocol\\social_messages.py",
+      "tests": [
+        "test_sequential_four_and_full",
+        "test_ordinary_recruitment_edit_and_candidate",
+        "test_striker_roster"
+      ],
+      "tests_run": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "checked_rosters": {
+        "ungrouped": 8,
+        "attack_group": 13
+      },
+      "successful": true
+    },
+    "syntax": "passed",
+    "patch_check_both_parents": "passed"
+  },
+  "remaining_verification": "Natural GUI after installation: ordinary party hides other-party standby panel; attack party retains its two groups.",
+  "installation_thread": {
+    "id": "01a1c024-a1c7-7db0-9dbb-3926062f24e7",
+    "hostId": "local",
+    "title": "盘点城镇NPC接入情况"
+  }
+}

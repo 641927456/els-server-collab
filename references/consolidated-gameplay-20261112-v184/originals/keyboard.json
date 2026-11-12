@@ -1,0 +1,75 @@
+{
+  "parent": "dungeon-result-retry-party-hud-20261111-v182",
+  "parent_manifest_sha256": "35c2f639eefe9d1fc04d4f026a98764623c2f41d2d1bd68fa245393c7cc2f1f1",
+  "patch_sha256": "33be81e6bb49ef8e2c46a07fa60591608dea525b5764e18e05c86142a6d03472",
+  "files": {
+    "els_server/domain/avatar_set_flow.py": {
+      "parent_sha256": "96dba75b82c26e5fdfec5db8d4f48d466317458912e80820bf2e793dda79433c",
+      "candidate_sha256": "e76c00100bdc1bf29f94f54f652de1ef7794df1bdeb069abe8fe7b37333148e6"
+    },
+    "els_server/domain/character_preset_coupons.py": {
+      "parent_sha256": null,
+      "candidate_sha256": "769b5ed6f03ec27d3e578f32ea572b5367a8d1e228a2707498b593d43cff89b3"
+    },
+    "els_server/domain/character_preset_flow.py": {
+      "parent_sha256": null,
+      "candidate_sha256": "36a2ce5961f7daaefea8af9e4b882c1a865d4867aa99aa3393f40fc30c9117fa"
+    },
+    "els_server/domain/inventory_items.py": {
+      "parent_sha256": "0a6f407468caa666528ab67efea608270a5f82b2d85a658a5b6eccaa178a0588",
+      "candidate_sha256": "5a2afd1107f5cd5f5e77f5a729bac2e309cf824be4da6e6bef766a417829bb18"
+    },
+    "els_server/domain/session_dispatch.py": {
+      "parent_sha256": "4308aa37668a957f5b5930c95ab3759462bacfbe0bee1fbdbbd40f40fe0e2e82",
+      "candidate_sha256": "5aeae9564174315ba6ea06e934310befc37985117706e720bb00ac821048c162"
+    },
+    "els_server/protocol/avatar_set_messages.py": {
+      "parent_sha256": "3faad768047529b73c6b9d568d64adf0efa0ed9e09514e77bf6e3924e2c033a4",
+      "candidate_sha256": "07c81de0b581b65ffdf7c9ff41e66a1daebdd73d1b1f854f2c8f9a7e8a92d1d5"
+    },
+    "els_server/protocol/character_preset_messages.py": {
+      "parent_sha256": null,
+      "candidate_sha256": "b40918228838b1b049ae4eac6962e0bc0d6be653186d3d03a314c9186cbcab4f"
+    },
+    "els_server/storage/avatar_sets.py": {
+      "parent_sha256": "d6381445f417035ac68e9fd559419373c3cb4c5de0a4b6e93052f5a063dbda03",
+      "candidate_sha256": "5283f9a86409ebc6760d36f51467bf2dc7f34bbc6a600d6b8f2e66e3fc822569"
+    },
+    "els_server/storage/character_presets.py": {
+      "parent_sha256": null,
+      "candidate_sha256": "70d96fa4f2392fbfd5e3f6c98e8ed930600e964a622d984db878baa05667b35d"
+    },
+    "tests/test_character_presets.py": {
+      "parent_sha256": null,
+      "candidate_sha256": "d40583b7bf0ee10412fe500873b086a70b242f0bb92dda67e6692fe1b7f35649"
+    }
+  },
+  "new_lazy_tables": [
+    "character_presets_v1",
+    "character_preset_receipts_v1",
+    "character_preset_capacity_v1"
+  ],
+  "new_install_DDL": false,
+  "original_exe_kom_modified": false,
+  "formal_state_modified": false,
+  "natural_gui": false,
+  "installed": false,
+  "supersedes": "keyboard-functions-20261111-v1",
+  "storage_checks_passed": 14,
+  "native_reader_checks_passed": 7,
+  "native_producer_checks_passed": 1,
+  "inventory_registration_checks_passed": 1,
+  "related_check_groups_passed": 23,
+  "review": "self-review; no blocking findings; see review.md",
+  "artifacts_sha256": {
+    "README.md": "54a15a2fd176b92c81e9c9ecd589e56a98d245c86f3426ca1db5db7d31160474",
+    "review.md": "a2aca5608f74f53ddc864da4a878a15bf821b09aee50136792e32a31572dfcf7",
+    "快捷键核对.md": "4d0954f5da86dc9fe6a75893067a6b3b48a42e3e54d2df7bc0e0780d88936326",
+    "preset-test-results.json": "996ecfef2b5ba7a469a4862f9572cf9232e5cdf2a8e17a294347a274e432630d",
+    "native-preset-results.json": "0b9adbff02a358b10365c29e53c989eaf8b38fea75efa4d3f89314d410abdf4f",
+    "native-pet-toggle-results.json": "260639b5a9530be9c5cfb5b0beb1ca92a76524f0658a13b831dd2e5f60a628f3",
+    "inventory-registration-results.json": "f2375351af20b067b2a377a9c14f728a8de3d2fe881d3df8ae309d765b849d2c",
+    "patch-validation.json": "9cc696938169bf1faeebbcefadeccc71ba8c557044bac3acaa4f787b70e599b3",
+    "current-parent-check.json": "01c192569e2fc91451e644cfeb022eb6e194e9f7f9b471d7c23a5e8d9c1898d8"
+  }
+}

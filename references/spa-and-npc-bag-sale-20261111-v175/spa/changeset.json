@@ -1,0 +1,171 @@
+{
+  "release": "spa-and-npc-bag-sale-20261111-v175",
+  "source_manifest_sha256": "5fa9af4fefc7a08d1d3259bbdd7d4bbbcf31b860b9ee5a975327eaa153f84c50",
+  "parents": {
+    "online": {
+      "release": "ariel-housing-contracts-20261111-v174",
+      "manifest_sha256": "f35ef03d36b44a260d881042a36c3012ec5b66e238e610edb2b69809bd43cd5f"
+    },
+    "local": {
+      "release": "unified-server-63cc8b3e048e138e-515ae81eee62",
+      "manifest_sha256": "c54e86d7f70dbde2627ee4dbe13542f2843ce347725c487607cae9935422d837"
+    },
+    "launchers": {
+      "release": "ariel-housing-contracts-20261111-v174",
+      "manifest_sha256": "ece0845d53bbe69db24b8811974d26df0ac566c45b807375b3b775d977e71803"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/data/town_travel.json",
+      "parent_sha256": "47eeccd626d1de13a023501fda69a06a38cbbcbb9e18cc8b82088ed847e47928",
+      "sha256": "574b69512e963c34ed352cb1d867657ca081f647daaaf5b3a59f219998eb5484",
+      "size": 24098,
+      "author_final_sha256": {
+        "spa": "574b69512e963c34ed352cb1d867657ca081f647daaaf5b3a59f219998eb5484"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/data/town_travel.manifest.json",
+      "parent_sha256": "9afa9e191acc2061ba4de038383785e7feadf472eba57fdc3a6407cc3e89133a",
+      "sha256": "17d39c68155dd59f125f9f1580745257172d60eebe950e6a83302fe30698b467",
+      "size": 236,
+      "author_final_sha256": {
+        "spa": "17d39c68155dd59f125f9f1580745257172d60eebe950e6a83302fe30698b467"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "818c9cd8d96d81c979173942f8941df7e0dcfc8c56fb37e64d3a5fd5b77cee3e",
+      "sha256": "1a8687a72a406f5cd98ffd23444028e2bfc93681ddbdc0c2365844caad6cf743",
+      "size": 20821,
+      "author_final_sha256": {
+        "spa": "1a8687a72a406f5cd98ffd23444028e2bfc93681ddbdc0c2365844caad6cf743"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/consumables.py",
+      "parent_sha256": "6b230ad369bb6ee27909b5cd17c5e3adfc309c701083fbb4f97ddad174c557f9",
+      "sha256": "94bbbb1361d15449ed2a59f51a6bb27edebfe7a53a2b09ec8256c49d61232c18",
+      "size": 11004,
+      "author_final_sha256": {
+        "spa": "94bbbb1361d15449ed2a59f51a6bb27edebfe7a53a2b09ec8256c49d61232c18"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/environment_buff_flow.py",
+      "parent_sha256": "c38ddf09605989d688d62a7bbb702e3b957a7709d20f89bff776051532843166",
+      "sha256": "c74afc870f40b2ba07f7d88ac5a0a7eb54633cbae5d98ac75eeadb4c13dbbb51",
+      "size": 10627,
+      "author_final_sha256": {
+        "spa": "c74afc870f40b2ba07f7d88ac5a0a7eb54633cbae5d98ac75eeadb4c13dbbb51"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/fishing_village1500.py",
+      "parent_sha256": "08f17e9f244d9d76875425809322a9b9b1e57957acffd8d52f80d7ef69889ed0",
+      "sha256": "1f49c94e000c2fdb80a8f787b5db29787c830c225107cf0878728003f9cd46aa",
+      "size": 9655,
+      "author_final_sha256": {
+        "spa": "1f49c94e000c2fdb80a8f787b5db29787c830c225107cf0878728003f9cd46aa"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/npc_trade.py",
+      "parent_sha256": "b4f8fc6cdd7487699a15d252ffab500e75d8b018d7171e5351c44466b66b9169",
+      "sha256": "29fe34dc4f0fba55a0f90e797a29053fcf91dd9ce2a53ce0b2693720b59a753b",
+      "size": 3568,
+      "author_final_sha256": {
+        "spa": "29fe34dc4f0fba55a0f90e797a29053fcf91dd9ce2a53ce0b2693720b59a753b"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/spa_market.py",
+      "parent_sha256": "0ae308bd69b6fdcab19146a83c74c8497f5be07ede2725a5ed3da2568c24585b",
+      "sha256": "01fcd309044715567d01782b99d6a7241f75ece69ae0c67ec40ad8271637fbc0",
+      "size": 2780,
+      "author_final_sha256": {
+        "spa": "01fcd309044715567d01782b99d6a7241f75ece69ae0c67ec40ad8271637fbc0"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/town_travel.py",
+      "parent_sha256": "bde26f43394a79fd19312c7f5cc66429b742ae552672498c1d3a9467b273fd59",
+      "sha256": "ae7582c0bb19b6e712605a2a98c47766451e4af5153a0f110dc14eb31dd3f50b",
+      "size": 4542,
+      "author_final_sha256": {
+        "spa": "ae7582c0bb19b6e712605a2a98c47766451e4af5153a0f110dc14eb31dd3f50b"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/environment_buffs.py",
+      "parent_sha256": "8a95bbc0da00985d9fe3999893017985b9629c92c1a64e71b6e3d06b6433314d",
+      "sha256": "395d61f795f109dd90257c715fb8dd07b13ced0eadd6b5322b30f9ddee0e193b",
+      "size": 6121,
+      "author_final_sha256": {
+        "spa": "395d61f795f109dd90257c715fb8dd07b13ced0eadd6b5322b30f9ddee0e193b"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "5fad599edae9b621c364afdcf336d53804685c47f88c35b7a28b861c46c516da",
+      "sha256": "b20b824804d673daf0e1d23fbd5e5ff3b3659ccb3f5ec0ed5b7045320a2582bd",
+      "size": 35549,
+      "author_final_sha256": {
+        "spa": "b20b824804d673daf0e1d23fbd5e5ff3b3659ccb3f5ec0ed5b7045320a2582bd",
+        "npc-inventory-sale": "ab5c3b2d9ba2fea6c8e8ec986eaf2945d9753ba246af7d796d041f7c3966760c"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/legacy_pve_exp.py",
+      "parent_sha256": "991a560ed3eec83906df49399ccb0a8a87eebf74220eb27a6bacf01fcd009b01",
+      "sha256": "3551815b8104ae74cd1c369fff6e2d42e4471349e41d75bf8b1e0a8e66e295d7",
+      "size": 9142,
+      "author_final_sha256": {
+        "spa": "3551815b8104ae74cd1c369fff6e2d42e4471349e41d75bf8b1e0a8e66e295d7"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/local_state.py",
+      "parent_sha256": "5d874dac2a5528f31a55807e35cb4627e5655c3a0c650f4555463ec15ba097ef",
+      "sha256": "2b8e6b851d06b640fafd5e53ce74722702e0a3b1f4856bc559df8442a6b6a001",
+      "size": 12683,
+      "author_final_sha256": {
+        "spa": "2b8e6b851d06b640fafd5e53ce74722702e0a3b1f4856bc559df8442a6b6a001"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/npc_trade.py",
+      "parent_sha256": "2c9764cb69016d18d8c0116f88e6f0006aa3c1eb0aee60e3435aa3801ff1de9d",
+      "sha256": "fcfa78e2ecf8f7718c623d27244012b1be67a569f10c279b86d54d0cc035c4e3",
+      "size": 14599,
+      "author_final_sha256": {
+        "spa": "fcfa78e2ecf8f7718c623d27244012b1be67a569f10c279b86d54d0cc035c4e3"
+      },
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/pvp_settlement.py",
+      "parent_sha256": "15d5a6f42e6aabf384a6a46c760f56466a91846e02566f78da6cae82ab2f685b",
+      "sha256": "4e5ce5b9db668165200e15544773c420b609ee7117b8bc45a0c8074fa9a7abcb",
+      "size": 10120,
+      "author_final_sha256": {
+        "spa": "4e5ce5b9db668165200e15544773c420b609ee7117b8bc45a0c8074fa9a7abcb"
+      },
+      "scope": "server"
+    }
+  ]
+}

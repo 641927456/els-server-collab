@@ -1,0 +1,128 @@
+{
+  "release": "title-socket-hidden-items-artifact-20261111-v172",
+  "source_package_sha256": "3d5e3bab2dd7e6e656b3ceb5470e81c8db67a70a925b130c093e5d3ca8fb8a8a",
+  "parents": {
+    "online": {
+      "release": "merchant-purchases-and-dennis-20261111-v168",
+      "manifest_sha256": "f8714987467c9195b008cb73e93f4328dd4cae93cb900e492995332906b9e2ed"
+    },
+    "local": {
+      "release": "unified-server-5ea03ca5f01728b3-d21f0c50eba1",
+      "manifest_sha256": "b73f5c2b5e816c7b4d949c75d86dd457873633d86144430569ae6e2af43034f8"
+    },
+    "launchers": {
+      "release": "merchant-purchases-and-dennis-20261111-v168",
+      "manifest_sha256": "edc8441c7d8f8001053f6240125244efce542331580e6f4b0213c06020c35ef4"
+    }
+  },
+  "files": [
+    {
+      "cohort": "owned-item-use-variants",
+      "path": "els_server/data/gift_mystic_stones.json",
+      "parent_sha256": null,
+      "sha256": "9190f5040924890423ea36f04510c927523dbc36bcde5d00df1a351be8b6b081",
+      "size": 17575,
+      "source_parent_sha256": null,
+      "source_sha256": "9190f5040924890423ea36f04510c927523dbc36bcde5d00df1a351be8b6b081",
+      "rebased": false,
+      "independent_hunk_resolution": false,
+      "phase_version": 171
+    },
+    {
+      "cohort": "owned-item-use-variants",
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "4a49320259059ac114b57b8aa6ba8a2e1bef80671c5e2fd26ac707f8b92265f8",
+      "sha256": "a28507e51c33a8f1618dc274797c647ce737649993c0a9f830ce027a3768338b",
+      "size": 20584,
+      "source_parent_sha256": "ad518241de9cc3cac43a08357a39ab9f343f1dd870afe3705289ac01bef04863",
+      "source_sha256": "1583697173dbe6d3087c67c5b085c0debfd75513d4866379f3f5462d67a37567",
+      "rebased": true,
+      "independent_hunk_resolution": true,
+      "phase_version": 171
+    },
+    {
+      "cohort": "owned-item-use-variants",
+      "path": "els_server/domain/consumables.py",
+      "parent_sha256": "30c3be1a7e5d8d9e269d75863aa5061f4fe83373b2302dd76be4e00e46de392a",
+      "sha256": "6b230ad369bb6ee27909b5cd17c5e3adfc309c701083fbb4f97ddad174c557f9",
+      "size": 10818,
+      "source_parent_sha256": "1c20fd8c32b38c70597f8c5092a641cf8f675afd25a8f58d942dafd10f811def",
+      "source_sha256": "b75c8f235141d09ed4a01d51320c20930dbc49042fe32567c696dc854c2ab212",
+      "rebased": true,
+      "independent_hunk_resolution": true,
+      "phase_version": 171
+    },
+    {
+      "cohort": "owned-item-use-variants",
+      "path": "els_server/domain/equipment_engrave_rules.py",
+      "parent_sha256": "fd5fdbaf4bdacadd53b1424ab548d1688a615e0f39d746a1b912fce4b9cd84a5",
+      "sha256": "e378f32813dbe2cd35682bbde4fce1b8bab9a71d1dadcdbf15a4211330e907f5",
+      "size": 5095,
+      "source_parent_sha256": "fd5fdbaf4bdacadd53b1424ab548d1688a615e0f39d746a1b912fce4b9cd84a5",
+      "source_sha256": "e378f32813dbe2cd35682bbde4fce1b8bab9a71d1dadcdbf15a4211330e907f5",
+      "rebased": false,
+      "independent_hunk_resolution": false,
+      "phase_version": 171
+    },
+    {
+      "cohort": "owned-item-use-variants",
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "ad916ba8b32b790a08a16966646708723e6fbaa2fcb27b0578404b4ae9ff83a4",
+      "sha256": "9f00e08c33f9f5c439a1f86638c949f61d7f5f9cbd8eb62a7979c8c599d6332b",
+      "size": 99820,
+      "source_parent_sha256": "f977b3f2ac51752ea21a640f483ceb3c3269c406277163f0f65fa51967b28e12",
+      "source_sha256": "64d89c26a98a210b011e2ad74ecd72a7f99664b8049d7cb32e20a68c6fc4ae19",
+      "rebased": true,
+      "independent_hunk_resolution": false,
+      "phase_version": 171
+    },
+    {
+      "cohort": "owned-item-use-variants",
+      "path": "els_server/domain/sage_sockets.py",
+      "parent_sha256": "9089c84bdec597c5a389fc2985639cf5ca905262d4e70b3570101c689745ad64",
+      "sha256": "1f618f9d932e7d98136e075b55327165a5fcb535cddccd3299c18a9895f974e9",
+      "size": 7394,
+      "source_parent_sha256": "a406efae2c0e59f9f4ea5f6e5bbabe81fc6a7eb4bb546a1a710eed4ee090e171",
+      "source_sha256": "0382cb415f08cb14728a4782534dcdd5618e7b08f915a55879eca66e3a308fa7",
+      "rebased": true,
+      "independent_hunk_resolution": false,
+      "phase_version": 171
+    },
+    {
+      "cohort": "owned-item-use-variants",
+      "path": "els_server/domain/spell_socket_rules.py",
+      "parent_sha256": "a28c35b6850a988f90defa15fa60e9d7774d316d9d9045d715735ae7c280da8f",
+      "sha256": "ef0d800d5a839f251d50fdf4dc396cf2393e4a00a2181b72da22ae517595526c",
+      "size": 5719,
+      "source_parent_sha256": "a28c35b6850a988f90defa15fa60e9d7774d316d9d9045d715735ae7c280da8f",
+      "source_sha256": "ef0d800d5a839f251d50fdf4dc396cf2393e4a00a2181b72da22ae517595526c",
+      "rebased": false,
+      "independent_hunk_resolution": false,
+      "phase_version": 171
+    },
+    {
+      "cohort": "owned-item-use-variants",
+      "path": "els_server/storage/sage_sockets.py",
+      "parent_sha256": "281a5eb892c95618a93ee9430b187b61257fc6a9604cd1ba5b6ca234a844f5a0",
+      "sha256": "338c77aeccccfc8b722265cd5c6e827b14344e6711301d0d485f4de8178a4981",
+      "size": 9146,
+      "source_parent_sha256": "55a3758e317392732dd0117a03f6068a5daae86c0f25776f93b09ba61acceeb1",
+      "source_sha256": "c9b8ba3d587f0476f345f259778e0ff16f6b7819cbc33a8e32a7b724753e92d9",
+      "rebased": true,
+      "independent_hunk_resolution": false,
+      "phase_version": 171
+    },
+    {
+      "cohort": "owned-item-use-variants",
+      "path": "els_server/storage/spell_socket_pending.py",
+      "parent_sha256": "896db00d058364074dd36c5ac234cc335ac388e3dde9f620c509624c4bdc59ad",
+      "sha256": "7be47102e7dc5f1030d1dd239facaee5b4147dc592d325a11132fc85d88868c9",
+      "size": 6822,
+      "source_parent_sha256": "896db00d058364074dd36c5ac234cc335ac388e3dde9f620c509624c4bdc59ad",
+      "source_sha256": "7be47102e7dc5f1030d1dd239facaee5b4147dc592d325a11132fc85d88868c9",
+      "rebased": false,
+      "independent_hunk_resolution": false,
+      "phase_version": 171
+    }
+  ]
+}

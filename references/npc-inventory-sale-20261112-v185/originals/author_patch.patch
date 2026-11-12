@@ -1,0 +1,320 @@
+--- a/els_server/domain/local_session.py
++++ b/els_server/domain/local_session.py
+@@ -1488,19 +1488,27 @@
+ 
+             from els_server.storage.npc_sale import sell
+ 
+-            def sale_failed():
+-
+-                return [Event(0x201,kind=0xed,payload=sale_ack(self.account.get_reward_balances()['ed'],result=-1))]
++            self._npc_sale_rejection = None
++
++            def sale_failed(reason):
++                self._npc_sale_rejection = reason
++                # Native result 152 supplies the NPC sale refusal text.
++                return [Event(0x201,kind=0xed,payload=sale_ack(self.account.get_reward_balances()['ed'],result=152))]
+ 
+             if self.role!='game' or self.phase!='town_ready' or type(request_sequence) is not int or not 1<=request_sequence<2**32:
+ 
+-                return sale_failed()
++                return sale_failed({'stage': 'session'})
+ 
+             operation=self.shop_session_id+':'+str(self.account.uid)+':'+str(request_sequence)
+ 
+             try:return sell(self.account.store.path,self.account.uid,event.payload,operation,self.npc_history_id)
+ 
+-            except ValueError:return sale_failed()
++            except ValueError as error:
++                # Keep the failing code location without logging the item, actor or packet.
++                from traceback import extract_tb
++                frame = extract_tb(error.__traceback__, limit=-1)[0]
++                return sale_failed({'file': frame.filename.replace('\\', '/').rsplit('/', 1)[-1],
++                                    'function': frame.name, 'line': frame.lineno})
+ 
+         from els_server.domain.guild_coin_flow import handle as guild_coin_handle
+         guild_coin_reply=guild_coin_handle(self,event,request_sequence)
+--- a/els_server/domain/npc_sale.py
++++ b/els_server/domain/npc_sale.py
+@@ -1,6 +1,6 @@
+-"""Ordinary equipment/material resale, using original 198A700 float math.
++"""NPC resale using original 198A700 float math.
+ 
+-Special/cash templates stay closed until their merchant permissions are known.
++Ice avatars require the original positive ED price and resale class.
+ This is independent of the narrower dismantling reward eligibility rules.
+ """
+ import math
+@@ -17,29 +17,37 @@
+     require_current(item)
+     require_unlocked(item)
+     row = client_data().item(item['template'])
++    flags = row['flags4']
++    base_ed, base_vp = struct.unpack_from('<ii', row['record'], 0x1c)
++    native_resale = flags & 0xf0000000 == 0x20000000
++    # ST_ICE_HEATER_AVATAR has its own native tab and sets the cosmetic bit.
++    ice_avatar = (for_merchant_sale and item['group'] == 27 and row['item_type'] in (1, 2, 3)
++                  and native_resale and flags & 0xa1 == 1 and base_ed > 0)
+     # The native Life tab uses ST_LIFE (21). Its direct-sale controller
+     # selects trade class 2 (template+4, high nibble).
+-    if item['group'] not in (1, 2, 3, 4, 5, 6) and not (
+-        for_merchant_sale and item['group'] == 21 and row['item_type'] == 15
+-        and row['flags4'] & 0xf0000000 == 0x20000000
+-    ):
++    life_item = for_merchant_sale and item['group'] == 21 and row['item_type'] == 15 and native_resale
++    if item['group'] not in (1, 2, 3, 4, 5, 6) and not (life_item or ice_avatar):
+         raise ValueError('Sellable bag item required for merchant sale')
+-    if row['flags4'] & 0xa1:
++    if flags & 0xa1 and not ice_avatar:
+         raise ValueError('Special merchant permissions not recovered')
+-    raw = row['record']
++    durable = flags & 0xf000000 == 0x1000000
+     ratio = f32(1)
+-    if row['flags4'] & 0xf000000 == 0x1000000:
++    if durable:
+         from els_server.domain.equipment_durability import LEGACY_INITIAL_DURABILITY, maximum
+         if not for_merchant_sale and item['template'] in LEGACY_INITIAL_DURABILITY:
+             raise ValueError('Unverified durability equipment')
+         cap = maximum(item['template'])
+         ratio = f32(f32(item.get('durability', 0))/f32(cap))
+-    value = f32(f32(f32(struct.unpack_from('<i', raw, 0x1c)[0])*f32(.2))*ratio)
+-    # Reject the native float->signed-int overflow sentinel as well as templates
+-    # with no merchant value. Never turn a negative native value into income.
+-    if not math.isfinite(value) or not 0 < value < 2**31:
++    value = f32(f32(f32(base_ed)*f32(.2))*ratio)
++    if base_ed < 0 or not math.isfinite(value) or not 0 <= value < 2**31:
+         raise ValueError('Item has no positive native merchant value')
+     price = math.trunc(value)
+-    if price <= 0:
++    # The original bag sale selects trade class 2 and can submit for zero ED.
++    # A zero base price does not depend on wear. A positive base price does.
++    if price == 0 and not (
++        for_merchant_sale and native_resale
++        and (base_ed != 0 or base_vp == 0)
++        and (base_ed == 0 or not durable or 'durability' in item)
++    ):
+         raise ValueError('Item has no positive native merchant value')
+     return price
+--- a/els_server/protocol/npc_sale_messages.py
++++ b/els_server/protocol/npc_sale_messages.py
+@@ -1,7 +1,7 @@
+ """EC/ED merchant sale DTOs, paired with native 2C5C600/2D31CB0.
+ 
+ The request starts with a native random byte string (4..16 bytes), then a
+-vector of UID/count pairs and an XOR-obfuscated merchant context ID.
++vector of UID/count pairs and an opaque 32-bit shop context word.
+ Prices are never supplied by the client. ED carries absolute money, inventory
+ changes, then sold rows for the native repurchase history.
+ """
+@@ -23,13 +23,15 @@
+     if not 1 <= count <= MAX_ITEMS or len(payload) != offset + 8 + 12*count:
+         raise ValueError('Sale request vector')
+     entries = [struct.unpack_from('>Qi', payload, offset + 4 + 12*n) for n in range(count)]
+-    merchant = struct.unpack_from('>I', payload, offset + 4 + 12*count)[0] ^ MERCHANT_XOR
+-    # The native inventory sale path uses a shop context with ID zero.
+-    if merchant >= 2**31 or len({u for u, q in entries}) != count:
+-        raise ValueError('Sale merchant or duplicate UID')
++    # The native client does not use the frozen replay's mask in every runtime.
++    # Keep the old normalization for existing receipt hashes, with no signed
++    # interpretation or merchant authorization attached to this word.
++    context_word = struct.unpack_from('>I', payload, offset + 4 + 12*count)[0] ^ MERCHANT_XOR
++    if len({uid for uid, _ in entries}) != count:
++        raise ValueError('Sale duplicate UID')
+     if any(not 0 < uid < 2**63 or quantity <= 0 for uid, quantity in entries):
+         raise ValueError('Sale UID/count bound')
+-    return entries, merchant
++    return entries, context_word
+ 
+ 
+ def acknowledgement(ed, changes=(), sold=(), result=0):
+--- a/els_server/storage/inventory_state.py
++++ b/els_server/storage/inventory_state.py
+@@ -93,20 +93,21 @@
+  row=db.execute('SELECT template FROM inventory_items WHERE owner=? AND uid=?',(owner,item_uid)).fetchone()
+  return row[0] if row else None
+ 
+-def load_items(db,owner=1001,*,item_uid=None):
+- return _load_items(db,owner,item_uid=item_uid)
++def load_items(db,owner=1001,*,item_uid=None,item_uids=()):
++ return _load_items(db,owner,item_uids=(item_uid,) if item_uid is not None else item_uids)
+ 
+ EQUIPPED_GROUPS=(9,22,23,24)
+ 
+ def load_equipped_items(db,owner=1001):
+  return _load_items(db,owner,equipped_only=True)
+ 
+-def _load_items(db,owner=1001,*,item_uid=None,equipped_only=False):
++def _load_items(db,owner=1001,*,item_uids=(),equipped_only=False):
+  owner=character_uid(owner)
+  query='SELECT uid,template,metadata,count,bag_group,slot FROM inventory_items WHERE owner=?'
+  parameters=(owner,)
+- if item_uid is not None:
+-  query+=' AND uid=?';parameters+=(item_uid,)
++ if item_uids:
++  query+=' AND uid IN ('+','.join('?' for _ in item_uids)+')'
++  parameters+=item_uids
+  if equipped_only:
+   # Native full Units include ordinary equipment, life tools/bait and
+   # Artifact gear. All four groups are worn inputs, independent of bags.
+--- a/els_server/storage/npc_sale.py
++++ b/els_server/storage/npc_sale.py
+@@ -14,71 +14,74 @@
+ from els_server.storage.reward_state import validate_balances
+ from els_server.storage.item_expiration import forget as forget_expiration
+ from els_server.storage.item_locks import forget as forget_lock
++from els_server.storage.sqlite_timing import write_transaction
+ 
+ 
+ def sell(path, owner, payload, operation, session='local'):
+-    entries, merchant = request(payload)
++    entries, context_word = request(payload)
+     # The native random padding is not transaction identity. A retransmission
+-    # that regenerated padding still refers to the same UID/count/merchant.
++    # that regenerated padding still refers to the same UID/count/context word.
+     canonical = (struct.pack('>I', len(entries)) + b''.join(struct.pack('>Qi', *e) for e in entries)
+-                 + struct.pack('>i', merchant))
++                 + struct.pack('>I', context_word))
+     owner, digest = _identity(owner, 0xec, canonical, operation)
+-    with closing(sqlite3.connect(path, timeout=10)) as db, db:
++    with closing(sqlite3.connect(path, timeout=10)) as db:
+         db.execute('PRAGMA foreign_keys=ON')
+-        db.execute('BEGIN IMMEDIATE');require_active_character(db,owner)
+-        old = _previous(db, operation, digest)
+-        before = load_items(db, owner)
+-        balance = validate_balances(db.execute(
+-            'SELECT ed,experience,revision FROM reward_balances WHERE uid=?', (owner,)).fetchone())
+-        if old is not None:
+-            # Sending sold rows again would duplicate native repurchase entries.
+-            return [Event(0x201, kind=0xed, payload=acknowledgement(balance['ed']))] + _updates(
+-                current_changes(db,operation,owner,0xec,old,before))
+-        by_uid = {i['uid']: i for i in before}
+-        selected, changes, sold = [], [], []
+-        income = 0
+-        for uid, quantity in entries:
+-            item = by_uid.get(uid)
+-            if item is None or quantity > item['count']:
+-                raise ValueError('Sale exceeds owned item count')
+-            from els_server.domain.cartridge_registration_rules import require_unbound
+-            require_unbound(db,uid)
+-            price = unit_price(item, for_merchant_sale=True)
+-            # Native 2C5C600 multiplies signed int unit price and count.
+-            if price*quantity >= 2**31:
+-                raise ValueError('Sale line exceeds native signed amount')
+-            income += price*quantity
+-            selected.append(item)
+-            remaining = reduce_count(item,item['count']-quantity) if quantity < item['count'] else None
+-            changes.append(((item['group'], item['slot']), remaining))
+-            sold.append(reduce_count(item,quantity) if quantity < item['count'] else item)
+-        total = balance['ed'] + income
+-        if total >= 2**63 or balance['revision'] >= 2**63-1:
+-            raise ValueError('Sale balance overflow')
+-        # 2C5C6D5..2C5C7DA uses service+480's level ED limit before
+-        # native sale submission. Keep the same authority for forged requests;
+-        # committed retries above returned before this new-operation check.
+-        from els_server.domain.bank_rules import player_ed_limit
+-        row=(db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()
+-             if db.execute("SELECT 1 FROM sqlite_master WHERE name='characters'").fetchone() else (1,))
+-        if row is None or total>player_ed_limit(row[0]):
+-            raise ValueError('Sale exceeds character ED carrying limit')
+-        # Encode before changing persistent state; all failures roll back.
+-        wire = acknowledgement(total, changes, sold)
+-        for item, (_, remaining) in zip(selected, changes):
+-            if remaining is not None:
+-                db.execute('UPDATE inventory_items SET count=? WHERE uid=? AND owner=?',
+-                           (remaining['count'], item['uid'], owner))
+-            else:
+-                for table in ('equipment_attributes', 'equipment_durability', 'equipment_enhancement', 'equipment_options', 'equipment_identification', 'equipment_enhancement_progress', 'item_seals'):
+-                    if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?", (table,)).fetchone():
+-                        db.execute(f'DELETE FROM {table} WHERE item_uid=?', (item['uid'],))
+-                forget_expiration(db, item['uid'])
+-                forget_lock(db, item['uid'])
+-                db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?', (item['uid'], owner))
+-        db.execute('UPDATE reward_balances SET ed=?,revision=revision+1 WHERE uid=?', (total, owner))
+-        from els_server.storage.npc_trade import remember
+-        remember(db, owner, session, sold)
+-        after = load_items(db, owner)
+-        _commit(db, operation, digest, owner, 0xec, [p for p, item in changes], before, after)
+-        return [Event(0x201, kind=0xed, payload=wire)]
++        with write_transaction(db):
++            require_active_character(db, owner)
++            old = _previous(db, operation, digest)
++            balance = validate_balances(db.execute(
++                'SELECT ed,experience,revision FROM reward_balances WHERE uid=?', (owner,)).fetchone())
++            if old is not None:
++                before = load_items(db, owner)
++                # Sending sold rows again would duplicate native repurchase entries.
++                return [Event(0x201, kind=0xed, payload=acknowledgement(balance['ed']))] + _updates(
++                    current_changes(db,operation,owner,0xec,old,before))
++            before = load_items(db, owner, item_uids=tuple(uid for uid, _ in entries))
++            by_uid = {i['uid']: i for i in before}
++            selected, changes, sold = [], [], []
++            income = 0
++            for uid, quantity in entries:
++                item = by_uid.get(uid)
++                if item is None or quantity > item['count']:
++                    raise ValueError('Sale exceeds owned item count')
++                from els_server.domain.cartridge_registration_rules import require_unbound
++                require_unbound(db,uid)
++                price = unit_price(item, for_merchant_sale=True)
++                # Native 2C5C600 multiplies signed int unit price and count.
++                if price*quantity >= 2**31:
++                    raise ValueError('Sale line exceeds native signed amount')
++                income += price*quantity
++                selected.append(item)
++                remaining = reduce_count(item,item['count']-quantity) if quantity < item['count'] else None
++                changes.append(((item['group'], item['slot']), remaining))
++                sold.append(reduce_count(item,quantity) if quantity < item['count'] else item)
++            total = balance['ed'] + income
++            if total >= 2**63 or balance['revision'] >= 2**63-1:
++                raise ValueError('Sale balance overflow')
++            # 2C5C6D5..2C5C7DA uses service+480's level ED limit before
++            # native sale submission. Keep the same authority for forged requests;
++            # committed retries above returned before this new-operation check.
++            from els_server.domain.bank_rules import player_ed_limit
++            row=(db.execute('SELECT level FROM characters WHERE uid=?',(owner,)).fetchone()
++                 if db.execute("SELECT 1 FROM sqlite_master WHERE name='characters'").fetchone() else (1,))
++            if row is None or total>player_ed_limit(row[0]):
++                raise ValueError('Sale exceeds character ED carrying limit')
++            # Encode before changing persistent state; all failures roll back.
++            wire = acknowledgement(total, changes, sold)
++            for item, (_, remaining) in zip(selected, changes):
++                if remaining is not None:
++                    db.execute('UPDATE inventory_items SET count=? WHERE uid=? AND owner=?',
++                               (remaining['count'], item['uid'], owner))
++                else:
++                    for table in ('equipment_attributes', 'equipment_durability', 'equipment_enhancement', 'equipment_options', 'equipment_identification', 'equipment_enhancement_progress', 'item_seals'):
++                        if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?", (table,)).fetchone():
++                            db.execute(f'DELETE FROM {table} WHERE item_uid=?', (item['uid'],))
++                    forget_expiration(db, item['uid'])
++                    forget_lock(db, item['uid'])
++                    db.execute('DELETE FROM inventory_items WHERE uid=? AND owner=?', (item['uid'], owner))
++            db.execute('UPDATE reward_balances SET ed=?,revision=revision+1 WHERE uid=?', (total, owner))
++            from els_server.storage.npc_trade import remember
++            remember(db, owner, session, sold)
++            after = [remaining for _, remaining in changes if remaining is not None]
++            _commit(db, operation, digest, owner, 0xec, [p for p, _ in changes], selected, after)
++            return [Event(0x201, kind=0xed, payload=wire)]
+--- a/els_server/storage/npc_trade.py
++++ b/els_server/storage/npc_trade.py
+@@ -206,7 +206,7 @@
+             raise ValueError('Repurchase merchant identity')
+         require_current(item)
+         # Retail's buyback preflight uses template+1C, not the 20% sale value.
+-        amount = price(item['template'], repurchase=True)*quantity
++        amount = price(item['template'], repurchase=True, allow_free=True)*quantity
+         if amount >= 2**31:
+             raise ValueError('Repurchase native signed price overflow')
+         ed = charge(db, owner, balance, amount)
+--- a/els_server/transport.py
++++ b/els_server/transport.py
+@@ -423,6 +423,11 @@
+                             if m.event_id==0x201 and m.kind==0x105 and len(m.payload)>=8]
+                         self.log('wear_diagnostic',connection=index,sequence=frame.sequence,phase=business.phase,
+                             results=results,rejection=getattr(business,'_wear_rejection',None))
++                    if event.event_id==0x202 and event.kind==0xec:
++                        rejection=getattr(business,'_npc_sale_rejection',None)
++                        if rejection is not None:
++                            self.log('npc_sale_rejection',connection=index,sequence=frame.sequence,
++                                phase=business.phase,**rejection)
+                     if event.event_id==0x202 and event.kind==0x58c:
+                         results=[struct.unpack_from('>i',m.payload)[0] for m in messages
+                             if m.event_id==0x201 and m.kind==0x58d and len(m.payload)>=4]
