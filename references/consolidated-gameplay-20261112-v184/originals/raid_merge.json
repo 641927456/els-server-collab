@@ -1,0 +1,990 @@
+{
+  "ok": true,
+  "frozen": false,
+  "installed": false,
+  "signed_parent": {
+    "path": "G:\\els\\analysis\\enhancement-stone-drops-20261111-v1\\release-v183\\launcher-preview-v183\\runtime-307f8b8f8b409c03b87bc0567184eb5e800a8eefcb1672d54d7b02987ad563cf.zip",
+    "sha256": "307f8b8f8b409c03b87bc0567184eb5e800a8eefcb1672d54d7b02987ad563cf"
+  },
+  "prior_a": {
+    "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\prospective-drop-hero-social-accessory-skill-binding.json",
+    "sha256": "b8319c472c3425072da7ee898bb7de3aa5de5c196c703b1b202cc74dab7befce"
+  },
+  "prior_b": {
+    "path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\prospective-fishing-resonance-rebase\\merge-preview.json",
+    "sha256": "fdee69a872c8061cc19362f192277af2c866665e007dbbfa3a543d5e3a916458"
+  },
+  "raid_manifest": {
+    "path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\manifest.json",
+    "sha256": "b462c8f2bcff1f29178ce953fd8ccb65e0fdb1b3ec349c95b2011b9c6b1f65fc"
+  },
+  "raid_archive": {
+    "path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate.zip",
+    "sha256": "55c545945f5fcc424c6eb674d4f02c0269d8322ee8cb3a2e634a6a05e7ab0e56"
+  },
+  "raid_patch": {
+    "path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\source.patch",
+    "sha256": "eb93f2b155b19aeab5320ce8bf3407a027744a423d838cedd6d816c9e3103f89"
+  },
+  "overlap": [
+    "els_server/domain/acquisition_policy.py",
+    "els_server/domain/local_session.py",
+    "els_server/domain/npc_exchange_flow.py",
+    "els_server/domain/npc_exchange_rules.py"
+  ],
+  "signed_changes": 77,
+  "online_changes": 76,
+  "new_files": 2,
+  "changes": [
+    {
+      "path": "els_server/data/formal_pve_economy.json",
+      "candidate_path": "G:\\els\\analysis\\dungeon-drop-completion-20261111-v1\\candidate\\els_server\\data\\formal_pve_economy.json",
+      "size": 278027,
+      "sha256": "2a670458040862879cc035143f63af529455ce3e129657b57146ed33273480c7",
+      "parent_sha256": "b915757156899436ba3dde5c9ac3bc3ce67f4408830394b932fea02dae64cc2a",
+      "online_parent_sha256": "b915757156899436ba3dde5c9ac3bc3ce67f4408830394b932fea02dae64cc2a",
+      "scope": "server",
+      "source": "dungeon_drops"
+    },
+    {
+      "path": "els_server/data/formal_pve_economy.manifest.json",
+      "candidate_path": "G:\\els\\analysis\\dungeon-drop-completion-20261111-v1\\candidate\\els_server\\data\\formal_pve_economy.manifest.json",
+      "size": 201,
+      "sha256": "bdb2f9d5a848f50683109845bfa00c5c6418de47b0c0e0c8a4e56433be4205e0",
+      "parent_sha256": "8f381d10dd7aced0895c11e6ec1e863eac91df25f5703873cd3ea52d622c0582",
+      "online_parent_sha256": "8f381d10dd7aced0895c11e6ec1e863eac91df25f5703873cd3ea52d622c0582",
+      "scope": "server",
+      "source": "dungeon_drops"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.json",
+      "candidate_path": "G:\\els\\analysis\\dungeon-reward-gaps-20261111-v1\\candidate\\els_server\\data\\ordinary_misc_loot.json",
+      "size": 230832,
+      "sha256": "3671d1efc36629198845008bdfbb25d443a4b70ed53537d5e69015cd58ece3b9",
+      "parent_sha256": "0b849157a471283620a4cc7352d060313d7893e13ca44ea55ef104f4e904e8c6",
+      "online_parent_sha256": "0b849157a471283620a4cc7352d060313d7893e13ca44ea55ef104f4e904e8c6",
+      "scope": "server",
+      "source": "hero_rewards"
+    },
+    {
+      "path": "els_server/data/ordinary_misc_loot.manifest.json",
+      "candidate_path": "G:\\els\\analysis\\dungeon-reward-gaps-20261111-v1\\candidate\\els_server\\data\\ordinary_misc_loot.manifest.json",
+      "size": 178,
+      "sha256": "1b06827d0727e8bb35f744d7e0d213b4e58d1eeddc37d7d972bb1f44d067c4f6",
+      "parent_sha256": "9ba42abc4624234f03f103369a049a577dcd6ca2df3cf05ddaf20fd98eb419e1",
+      "online_parent_sha256": "9ba42abc4624234f03f103369a049a577dcd6ca2df3cf05ddaf20fd98eb419e1",
+      "scope": "server",
+      "source": "hero_rewards"
+    },
+    {
+      "path": "els_server/data/owned_scroll_families.json",
+      "candidate_path": "G:\\els\\analysis\\dungeon-drop-completion-20261111-v1\\candidate\\els_server\\data\\owned_scroll_families.json",
+      "size": 101692,
+      "sha256": "6b8fde2d26c0b6bb137a8a56c9bbeabab405d727c129838ec4b6ef314e5140e8",
+      "parent_sha256": "028fd5fb891bc88635b999f6fc2e79ad4f9170024d4ecd1a1131e6dba323fa73",
+      "online_parent_sha256": "028fd5fb891bc88635b999f6fc2e79ad4f9170024d4ecd1a1131e6dba323fa73",
+      "scope": "server",
+      "source": "dungeon_drops"
+    },
+    {
+      "path": "els_server/data/retained_box_openings.json",
+      "candidate_path": "G:\\els\\analysis\\dungeon-drop-completion-20261111-v1\\candidate\\els_server\\data\\retained_box_openings.json",
+      "size": 9140714,
+      "sha256": "2cd7d13ee981221a7f1f484647856e71f753d9b7aa514d9649cf72e6e17aaab1",
+      "parent_sha256": "b83f1a75b31270ce3e79f946b8ea0a6a8bf21e814e91024d00333e66cb62837a",
+      "online_parent_sha256": "b83f1a75b31270ce3e79f946b8ea0a6a8bf21e814e91024d00333e66cb62837a",
+      "scope": "server",
+      "source": "dungeon_drops"
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-drop-completion-20261111-v1\\candidate\\els_server\\domain\\dungeon_equipment_loot_flow.py",
+      "size": 16594,
+      "sha256": "d630d4c2b62c622c66d5a7482bef7759e6643199a055e1e7c56a2135863ab5ae",
+      "parent_sha256": "5d738f977a1e613aac6e19c8daf4ce1e4e56f83728bf0477f69d986131991548",
+      "online_parent_sha256": "5d738f977a1e613aac6e19c8daf4ce1e4e56f83728bf0477f69d986131991548",
+      "scope": "server",
+      "source": "dungeon_drops"
+    },
+    {
+      "path": "els_server/domain/fishing_bait_loot.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-drop-completion-20261111-v1\\candidate\\els_server\\domain\\fishing_bait_loot.py",
+      "size": 10662,
+      "sha256": "2f15281c922cf67355b8996dd25d004b8e099c4e4ae9129b7bd56aff109a60ce",
+      "parent_sha256": "0528e623fbf2d9af8a92ce3c26e77273e6a65735977ad1b6fe18bceaa7d7cb2e",
+      "online_parent_sha256": "0528e623fbf2d9af8a92ce3c26e77273e6a65735977ad1b6fe18bceaa7d7cb2e",
+      "scope": "server",
+      "source": "dungeon_drops"
+    },
+    {
+      "path": "els_server/domain/formal_pve_economy.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-drop-completion-20261111-v1\\candidate\\els_server\\domain\\formal_pve_economy.py",
+      "size": 8687,
+      "sha256": "a2dfd6059f04c4eedc15c02a3dfe337adcfea8bfcdd476f583121fbc922c200e",
+      "parent_sha256": "6b7045b19b16cbadec92968405fff030bdf5584413752db6f5b110a6b8428689",
+      "online_parent_sha256": "db005c4c6b0cfb901fbc3fcbfe7dc129a25acd7c923ef721d6c6d69651ffe122",
+      "scope": "server",
+      "source": "dungeon_drops"
+    },
+    {
+      "path": "els_server/domain/friends_material_loot.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-drop-completion-20261111-v1\\candidate\\els_server\\domain\\friends_material_loot.py",
+      "size": 22020,
+      "sha256": "6e04f7756e11a838515ffe55cbac672d51b0b359194f3abdbe2efeb0e8a8ea82",
+      "parent_sha256": "5f89ea137b4acc00f69b553f5b617b36d97239bcd969cb3545b3b9b2b096d791",
+      "online_parent_sha256": "5f89ea137b4acc00f69b553f5b617b36d97239bcd969cb3545b3b9b2b096d791",
+      "scope": "server",
+      "source": "dungeon_drops"
+    },
+    {
+      "path": "els_server/domain/ordinary_misc_loot.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-reward-gaps-20261111-v1\\candidate\\els_server\\domain\\ordinary_misc_loot.py",
+      "size": 13098,
+      "sha256": "0fe1ef76433b777bcbca77bd7157add33f72e1ba0f1ae1cb6858e8de8e1be56f",
+      "parent_sha256": "f8f7e2de8dabb1d6f26256751bc03e6f710c6db4bbd03e1be5f3217d1f5cf113",
+      "online_parent_sha256": "82220c140e370367cf6b48e62bba4e2f4ab750928d96682fa495e1585ee53107",
+      "scope": "server",
+      "source": "hero_rewards"
+    },
+    {
+      "path": "els_server/domain/owned_scroll_families.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-drop-completion-20261111-v1\\candidate\\els_server\\domain\\owned_scroll_families.py",
+      "size": 2183,
+      "sha256": "737056e66d47c229e5c21d243c6c4a3e8f42a90d405c48cc0e4b3c06a08b1572",
+      "parent_sha256": "0975cb5cc777aeb7cd5b7d1e4be2bbda3160c09dfb782795d050d668ca3e4e02",
+      "online_parent_sha256": "0975cb5cc777aeb7cd5b7d1e4be2bbda3160c09dfb782795d050d668ca3e4e02",
+      "scope": "server",
+      "source": "dungeon_drops"
+    },
+    {
+      "path": "els_server/domain/pve_economy_flow.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-drop-completion-20261111-v1\\candidate\\els_server\\domain\\pve_economy_flow.py",
+      "size": 25570,
+      "sha256": "49b9b686a6f55750d58a9a9cb60d06193d3d90d377a28e5ec509b6a0854d7154",
+      "parent_sha256": "521836f0fba5624c6af7f64758198abdda5442644fe4035fb329e14a45d85ac1",
+      "online_parent_sha256": "521836f0fba5624c6af7f64758198abdda5442644fe4035fb329e14a45d85ac1",
+      "scope": "server",
+      "source": "dungeon_drops"
+    },
+    {
+      "path": "els_server/domain/raid_reward_items.py",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\prospective-fishing-resonance-rebase\\candidate\\els_server\\domain\\raid_reward_items.py",
+      "sha256": "dd94cb917f8897b1e07aab9b70a8c6c57c73ca7085ae0bfdea22bf09463e54d8",
+      "parent_sha256": "5b126c3c4b44dfb39685ac20101216cb9ffaf0180d85f402e0fbf2c3b6d69ea2",
+      "conflict": false,
+      "size": 18119,
+      "online_parent_sha256": "5b126c3c4b44dfb39685ac20101216cb9ffaf0180d85f402e0fbf2c3b6d69ea2",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/retained_box_openings.py",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\prospective-fishing-resonance-rebase\\candidate\\els_server\\domain\\retained_box_openings.py",
+      "sha256": "caf84079ee7ba01f98ee6b6d75b72d34ce8b407e830d7fe21f51719cfd3ed0a8",
+      "parent_sha256": "02c57d7b2110f3d04cd250005ad98896899fcbdea1daf0bc9fb4e5250da8612e",
+      "conflict": false,
+      "size": 8167,
+      "online_parent_sha256": "02c57d7b2110f3d04cd250005ad98896899fcbdea1daf0bc9fb4e5250da8612e",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/dungeon_equipment_loot.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-drop-completion-20261111-v1\\candidate\\els_server\\storage\\dungeon_equipment_loot.py",
+      "size": 15359,
+      "sha256": "daec1eb883457d678689a3562301df17589c59c8177981ca3401d391830117f4",
+      "parent_sha256": "852e646cd15d4b804d99d407d4d699cec0eaa8e18c676fdfb3c79dfce2126c3d",
+      "online_parent_sha256": "852e646cd15d4b804d99d407d4d699cec0eaa8e18c676fdfb3c79dfce2126c3d",
+      "scope": "server",
+      "source": "dungeon_drops"
+    },
+    {
+      "path": "els_server/storage/enhancement_scroll.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-drop-completion-20261111-v1\\candidate\\els_server\\storage\\enhancement_scroll.py",
+      "size": 5213,
+      "sha256": "863528cf88380671c0925fa6b93ce965fc19dd0a30aeb5604e074b16c447cd2f",
+      "parent_sha256": "fdd937dc07725fee2c94bc265ba02a7cd1b9f48f7f9e27f3cc05684060941755",
+      "online_parent_sha256": "fdd937dc07725fee2c94bc265ba02a7cd1b9f48f7f9e27f3cc05684060941755",
+      "scope": "server",
+      "source": "dungeon_drops"
+    },
+    {
+      "path": "els_server/storage/fixed_cubes.py",
+      "candidate_path": "G:\\els\\analysis\\publisher-continuation-20261111-v1\\prospective-fishing-resonance-rebase\\candidate\\els_server\\storage\\fixed_cubes.py",
+      "sha256": "5e42baf0ffd83bd0009e2a523250cd4c70b7050e5b03a3a72322b111bf62db89",
+      "parent_sha256": "6a4e4b8db1c334a73f454a12ae0b39f9254198698dd62e853389b28850762b77",
+      "conflict": false,
+      "size": 20476,
+      "online_parent_sha256": "6a4e4b8db1c334a73f454a12ae0b39f9254198698dd62e853389b28850762b77",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/gm_rates.py",
+      "candidate_path": "G:\\els\\analysis\\enhancement-stone-drops-20261111-v1\\publisher-review\\candidate\\els_server\\domain\\gm_rates.py",
+      "size": 5628,
+      "sha256": "f3a00242a229a1cf9ad0ca13826e1c2c97c4cce996a5980ba624a1dd79908960",
+      "parent_sha256": "c979771d32853ba6e047c633930baacd05f7111a5efbaa19632ea77378a2eeed",
+      "online_parent_sha256": "f3a00242a229a1cf9ad0ca13826e1c2c97c4cce996a5980ba624a1dd79908960",
+      "scope": "common-equivalent",
+      "source": "dungeon_drops"
+    },
+    {
+      "path": "els_server/domain/skill_trait_reset_flow.py",
+      "candidate_path": "G:\\els\\analysis\\skill-recommendation-20261111-v1\\source\\els_server\\domain\\skill_trait_reset_flow.py",
+      "size": 1778,
+      "sha256": "8608ac37e1857da895d4a7b9f2cadf3e806d7d73bb674dd7fb915f45aecac2cb",
+      "parent_sha256": "49647102f739e78563796fa66417e4b447915127db35b21763b6ebc95be21127",
+      "online_parent_sha256": "49647102f739e78563796fa66417e4b447915127db35b21763b6ebc95be21127",
+      "scope": "server",
+      "source": "skill_recommendation"
+    },
+    {
+      "path": "els_server/storage/skill_trait_reset.py",
+      "candidate_path": "G:\\els\\analysis\\skill-recommendation-20261111-v1\\source\\els_server\\storage\\skill_trait_reset.py",
+      "size": 5074,
+      "sha256": "d3e74d64d2a7a6038a3f041c2e200367775d74198e6bc94de0db06c6600afdb3",
+      "parent_sha256": "dd6b55c39a6d26086d68dc03f137a3d50bf2b9fbd6f863e99de0a32a7804af35",
+      "online_parent_sha256": "dd6b55c39a6d26086d68dc03f137a3d50bf2b9fbd6f863e99de0a32a7804af35",
+      "scope": "server",
+      "source": "skill_recommendation"
+    },
+    {
+      "path": "els_server/domain/dungeon_result_stats.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-settlement-followup-20261111-v1\\candidate\\els_server\\domain\\dungeon_result_stats.py",
+      "parent_sha256": "29e1211e43e90063422f11115d820af0466c875421bdfb45c40dc6eb43ae3fd3",
+      "online_parent_sha256": "29e1211e43e90063422f11115d820af0466c875421bdfb45c40dc6eb43ae3fd3",
+      "sha256": "b7307df8eebdbd67ed1b08670889f36870bf16981acd3e605aa24abeb9943cc0",
+      "size": 8692,
+      "scope": "server",
+      "source": "dungeon_settlement"
+    },
+    {
+      "path": "els_server/storage/reward_state.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-settlement-followup-20261111-v1\\candidate\\els_server\\storage\\reward_state.py",
+      "parent_sha256": "dc7ced7267873cf42ac41b902adb80f4b0edccdbe9aad5d165223ac4d97b1032",
+      "online_parent_sha256": "dc7ced7267873cf42ac41b902adb80f4b0edccdbe9aad5d165223ac4d97b1032",
+      "sha256": "c02ceb6179b05f5a5411fa783cb78c9dd9e292266a8b2d92f71fbbdba4a92ac3",
+      "size": 25856,
+      "scope": "server",
+      "source": "dungeon_settlement"
+    },
+    {
+      "path": "els_server/storage/guild_membership_state.py",
+      "candidate_path": "G:\\els\\analysis\\party-invite-online-20261111-v1\\guild-invite-fix\\candidate\\els_server\\storage\\guild_membership_state.py",
+      "parent_sha256": "5a12c5da401b61a5e1279006e2bc5f8475c6e19b10b9025b9048023867dd4448",
+      "online_parent_sha256": "5a12c5da401b61a5e1279006e2bc5f8475c6e19b10b9025b9048023867dd4448",
+      "sha256": "1a0f61f0df83bc1d0602918973e6fd292a1fa704b93a54866b8cb73539abd76b",
+      "size": 21001,
+      "scope": "server",
+      "source": "guild_invitation"
+    },
+    {
+      "path": "els_server/protocol/social_messages.py",
+      "candidate_path": "G:\\els\\analysis\\party-invite-online-20261111-v1\\candidate\\els_server\\protocol\\social_messages.py",
+      "size": 17669,
+      "sha256": "ea1303bb61c2c62d28ceb6a2a6ea7818737a7df2d8622cde96a9ec91bbf046ed",
+      "parent_sha256": "df1a8629b6544b82238dacac5e266f2a594ba1c403eec5920a2f079eebb561aa",
+      "online_parent_sha256": "df1a8629b6544b82238dacac5e266f2a594ba1c403eec5920a2f079eebb561aa",
+      "scope": "server",
+      "source": "party_invite_answer"
+    },
+    {
+      "path": "els_server/data/accessory_identification_groups.json",
+      "candidate_path": "G:\\els\\analysis\\guide-accessory-identification-20261111-v1\\candidate\\els_server\\data\\accessory_identification_groups.json",
+      "size": 344944,
+      "sha256": "dad3d42d9568039a2fa7c2422971c95d44bc23a4bef858dcd2cbe9bd5c20c1a4",
+      "parent_sha256": "ab1525fdd29b5446b4cd4b21218fb6c3e3251a9b1af01877e615412c8af5b753",
+      "online_parent_sha256": "ab1525fdd29b5446b4cd4b21218fb6c3e3251a9b1af01877e615412c8af5b753",
+      "scope": "server",
+      "source": "guide_accessory_identification"
+    },
+    {
+      "path": "els_server/domain/accessory_identification.py",
+      "candidate_path": "G:\\els\\analysis\\guide-accessory-identification-20261111-v1\\candidate\\els_server\\domain\\accessory_identification.py",
+      "size": 3919,
+      "sha256": "488b4c1cf89e0b8197292915f3ee132b09fdb9ae44d8f60ff2746587c309f0c3",
+      "parent_sha256": "b37ce43f7b632930467bc48e021cabce4bc95b7976ea58d041c3d7ebf8655b85",
+      "online_parent_sha256": "b37ce43f7b632930467bc48e021cabce4bc95b7976ea58d041c3d7ebf8655b85",
+      "scope": "server",
+      "source": "guide_accessory_identification"
+    },
+    {
+      "path": "els_server/data/ariel_daily_special.json",
+      "candidate_path": "G:\\els\\analysis\\dungeon-reward-gaps-20261111-v1\\candidate\\els_server\\data\\ariel_daily_special.json",
+      "size": 45294,
+      "sha256": "1d612bcf6930c0d8e41705fcf269d55b7b98ebea0180183b2097938d222e020a",
+      "parent_sha256": "5ce1402b5d7109470e9f3a2d67bd05e95fbc5db3d3a1214556f877191c757fcb",
+      "online_parent_sha256": "5ce1402b5d7109470e9f3a2d67bd05e95fbc5db3d3a1214556f877191c757fcb",
+      "scope": "server",
+      "source": "hero_rewards"
+    },
+    {
+      "path": "els_server/domain/ariel_daily_special_rules.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-reward-gaps-20261111-v1\\candidate\\els_server\\domain\\ariel_daily_special_rules.py",
+      "size": 2111,
+      "sha256": "48e1554a8f15996001136d16be319613a57f05e270c917cc58b2b939cbd804b8",
+      "parent_sha256": "d5a25fb2f1eb39445ad6f7c8bdb16140817af06caffe03ca1f0757071314efb4",
+      "online_parent_sha256": "d5a25fb2f1eb39445ad6f7c8bdb16140817af06caffe03ca1f0757071314efb4",
+      "scope": "server",
+      "source": "hero_rewards"
+    },
+    {
+      "path": "els_server/domain/elixir_flow.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-reward-gaps-20261111-v1\\candidate\\els_server\\domain\\elixir_flow.py",
+      "size": 8024,
+      "sha256": "7b8622f92d4c4045aa5dcf38dc5e435d29296eb34e343545ba0c3c23dc06497c",
+      "parent_sha256": "d1923f6ad25cf5090d529242f53d196635a8e4b03aefeefd9613f78c8b39a2fc",
+      "online_parent_sha256": "d1923f6ad25cf5090d529242f53d196635a8e4b03aefeefd9613f78c8b39a2fc",
+      "scope": "server",
+      "source": "hero_rewards"
+    },
+    {
+      "path": "els_server/domain/random_mission_flow.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-reward-gaps-20261111-v1\\candidate\\els_server\\domain\\random_mission_flow.py",
+      "size": 10868,
+      "sha256": "d514239296bfaa448b509c18bf7c6fafad0cd48abf7e075baadd95e0511a2007",
+      "parent_sha256": "d8f05e27d8b623ca6782c3a9281cff1599931d7cb1c93a9666d0ab578231134c",
+      "online_parent_sha256": "d8f05e27d8b623ca6782c3a9281cff1599931d7cb1c93a9666d0ab578231134c",
+      "scope": "server",
+      "source": "hero_rewards"
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-reward-gaps-20261111-v1\\candidate\\els_server\\domain\\scene_retirement_sources.py",
+      "size": 964447,
+      "sha256": "c69eaeb67c6bbb8bd9d7a61fd13918abe19d865c3cd1cf4ee48c99bdfd32f6f3",
+      "parent_sha256": "460d8f20a232819c291157d9fbb8ea8c8ac379bd3f2c665c09aa2d6545ee277f",
+      "online_parent_sha256": "460d8f20a232819c291157d9fbb8ea8c8ac379bd3f2c665c09aa2d6545ee277f",
+      "scope": "server",
+      "source": "hero_rewards"
+    },
+    {
+      "path": "els_server/protocol/ariel_daily_special_messages.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-reward-gaps-20261111-v1\\candidate\\els_server\\protocol\\ariel_daily_special_messages.py",
+      "size": 3446,
+      "sha256": "5b2c4f3ba99fe4b9b422d6e51cf6e94cbdc7c1dc6fc66f3a8c980507ea6468cd",
+      "parent_sha256": "df056469483256082eb636eb5674004fb48b2a3705b7a593c07366fcaede8118",
+      "online_parent_sha256": "df056469483256082eb636eb5674004fb48b2a3705b7a593c07366fcaede8118",
+      "scope": "server",
+      "source": "hero_rewards"
+    },
+    {
+      "path": "els_server/storage/ariel_daily_special.py",
+      "candidate_path": "G:\\els\\analysis\\dungeon-reward-gaps-20261111-v1\\candidate\\els_server\\storage\\ariel_daily_special.py",
+      "size": 11006,
+      "sha256": "e58b53a65aadc7c20663637ab4c461d97c8d0371551f14a5f5fc95f0cbba5493",
+      "parent_sha256": "bae5ff5a9a41fda09c23a4b216591589da7164f633e1e8c9cc4761d039671c49",
+      "online_parent_sha256": "bae5ff5a9a41fda09c23a4b216591589da7164f633e1e8c9cc4761d039671c49",
+      "scope": "server",
+      "source": "hero_rewards"
+    },
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "1a8687a72a406f5cd98ffd23444028e2bfc93681ddbdc0c2365844caad6cf743",
+      "online_parent_sha256": "1a8687a72a406f5cd98ffd23444028e2bfc93681ddbdc0c2365844caad6cf743",
+      "sha256": "e2b1f01f83e36e0fa48372bfb0f52b1944af707b465eea076e9fb29957200a74",
+      "size": 21785,
+      "candidate_path": "G:\\els\\analysis\\raid-consolidated-publisher-review\\candidate\\els_server\\domain\\acquisition_policy.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange"
+    },
+    {
+      "path": "els_server/domain/consumables.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-rewards-and-effects-20261111-v1\\candidate\\els_server\\domain\\consumables.py",
+      "sha256": "be1f53f6a18e868974b5e3556585a90b08e082e297f4764cff497bf9bd02d99e",
+      "parent_sha256": "94bbbb1361d15449ed2a59f51a6bb27edebfe7a53a2b09ec8256c49d61232c18",
+      "conflict": false,
+      "size": 11365,
+      "online_parent_sha256": "94bbbb1361d15449ed2a59f51a6bb27edebfe7a53a2b09ec8256c49d61232c18",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/daily_ticket_rules.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-rewards-and-effects-20261111-v1\\candidate\\els_server\\domain\\daily_ticket_rules.py",
+      "sha256": "859b2d3a01d1442327e4a4de95813adeb26ea1c4e9f1b84e1e0c01c055d6c7c0",
+      "parent_sha256": "25c2275a3dd31498a22da2aa61f46a8798b4cfa1ef2b0b79546ae52de525a089",
+      "conflict": false,
+      "size": 2882,
+      "online_parent_sha256": "25c2275a3dd31498a22da2aa61f46a8798b4cfa1ef2b0b79546ae52de525a089",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/demon_fishing.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-probabilities-20261112-v1\\candidate\\els_server\\domain\\demon_fishing.py",
+      "sha256": "d05437a2f4eb1cb7b0d5b49c0cb933bc5745c41517c424c7dd94cf98b57aa437",
+      "parent_sha256": null,
+      "conflict": false,
+      "size": 1357,
+      "online_parent_sha256": null,
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/equipment_repair.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-rewards-and-effects-20261111-v1\\candidate\\els_server\\domain\\equipment_repair.py",
+      "sha256": "99abbf84d9b3f7dbf75ce46acc0d6e28f25647a17a095ea03de8b9b71eabe73c",
+      "parent_sha256": "ea73035eb1604af9f797de41684a9ba99066cce66eb7cf47d88aa86ddbed18d4",
+      "conflict": false,
+      "size": 2596,
+      "online_parent_sha256": "ea73035eb1604af9f797de41684a9ba99066cce66eb7cf47d88aa86ddbed18d4",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/fish_exchange_erp.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-rewards-and-effects-20261111-v1\\candidate\\els_server\\domain\\fish_exchange_erp.py",
+      "sha256": "26ff8aced6f23ddda10f493413834364418bd5d9c77d1aaae1040fc88645b44b",
+      "parent_sha256": "6e113a7ee99b8fb91399cebb543bb78e440f7f71d36417746321a983a484719e",
+      "conflict": false,
+      "size": 10842,
+      "online_parent_sha256": "6e113a7ee99b8fb91399cebb543bb78e440f7f71d36417746321a983a484719e",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/fish_exchange_flow.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-rewards-and-effects-20261111-v1\\candidate\\els_server\\domain\\fish_exchange_flow.py",
+      "sha256": "bce0d27e76fdde42c8f38a2a93b2712c559266b09b67233e1611c3f46d970994",
+      "parent_sha256": "137823b91ea3fd73b36a314324ab34d7f476c945fdc7bfa446e2511291635bb0",
+      "conflict": false,
+      "size": 2931,
+      "online_parent_sha256": "137823b91ea3fd73b36a314324ab34d7f476c945fdc7bfa446e2511291635bb0",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/fish_exchange_rules.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-rewards-and-effects-20261111-v1\\candidate\\els_server\\domain\\fish_exchange_rules.py",
+      "sha256": "4d69434143253bdc02518b2d3983eba771930150bc97ac3004b1df4a612b8b54",
+      "parent_sha256": "07b54e4253c2f8b5aa794bca199e0abeeef5bb44ef72d42fbef4fa29202fb6f0",
+      "conflict": false,
+      "size": 2204,
+      "online_parent_sha256": "07b54e4253c2f8b5aa794bca199e0abeeef5bb44ef72d42fbef4fa29202fb6f0",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/fishing_attempt.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-probabilities-20261112-v1\\candidate\\els_server\\domain\\fishing_attempt.py",
+      "sha256": "dae77334416a2ee75621660498874f4044b27722df88aa6e4d4ae22869266a05",
+      "parent_sha256": "5305546b00e29944f0bea7e1731471287e67bc063c7bba10c94bc03dceb6f1e3",
+      "conflict": false,
+      "size": 9353,
+      "online_parent_sha256": "5305546b00e29944f0bea7e1731471287e67bc063c7bba10c94bc03dceb6f1e3",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/fishing_equipment.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-probabilities-20261112-v1\\candidate\\els_server\\domain\\fishing_equipment.py",
+      "sha256": "271759527da2013c0f47d11370f844f12f53c3c0fadfdd45374af5dfb551d15b",
+      "parent_sha256": "c5261d74205c9278e35ead289667b9491c7cdf1e156f566b4c18966fb2691567",
+      "conflict": false,
+      "size": 7295,
+      "online_parent_sha256": "c5261d74205c9278e35ead289667b9491c7cdf1e156f566b4c18966fb2691567",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/housing_access_flow.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-housing-repair-20261111-v2\\candidate\\els_server\\domain\\housing_access_flow.py",
+      "sha256": "b1a08b1d27d630857cfea518ed83a198ab163b9c1fba721db7e174786d149294",
+      "parent_sha256": "4f3afdf81af3ba39a7da598fef85773b46fbec2ca9826af141866cdb22d98ea3",
+      "conflict": false,
+      "size": 3715,
+      "online_parent_sha256": "4f3afdf81af3ba39a7da598fef85773b46fbec2ca9826af141866cdb22d98ea3",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/housing_room_flow.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-housing-repair-20261111-v2\\candidate\\els_server\\domain\\housing_room_flow.py",
+      "sha256": "bcb58646442cb018ec2f899adc10016533e9cb36eaa1dc054e6e2bd0ab04da8e",
+      "parent_sha256": "5b20d8ae7900ae76608b8c4668bd1ec2d1ed710a8e2d85982fa425569ddd9ea3",
+      "conflict": false,
+      "size": 14185,
+      "online_parent_sha256": "5b20d8ae7900ae76608b8c4668bd1ec2d1ed710a8e2d85982fa425569ddd9ea3",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\domain\\inventory_items.py",
+      "sha256": "bc1c65836e6bc292bde694ea0f7cd9fb831ee6d2628395830570d7c4988c4be5",
+      "parent_sha256": "0a6f407468caa666528ab67efea608270a5f82b2d85a658a5b6eccaa178a0588",
+      "conflict": false,
+      "size": 100700,
+      "online_parent_sha256": "0a6f407468caa666528ab67efea608270a5f82b2d85a658a5b6eccaa178a0588",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "b3594d595beca8844d93e257b8bd3a7743fa6f399ec89d65e0d63cf57db7b1ee",
+      "online_parent_sha256": "b3594d595beca8844d93e257b8bd3a7743fa6f399ec89d65e0d63cf57db7b1ee",
+      "sha256": "519b29acfd0ffcb4eeab51d11370c030b3d619017c4f453a3909c1b6d4130111",
+      "size": 168649,
+      "candidate_path": "G:\\els\\analysis\\raid-consolidated-publisher-review\\candidate\\els_server\\domain\\local_session.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange"
+    },
+    {
+      "path": "els_server/domain/npc_exchange_flow.py",
+      "parent_sha256": "5521a173b929f26575a6fd29b7274e3aa9d110a5c5efe5332434b7e9a3ccd5a9",
+      "online_parent_sha256": "5521a173b929f26575a6fd29b7274e3aa9d110a5c5efe5332434b7e9a3ccd5a9",
+      "sha256": "cb62f91f8ff7b18f70f0c6855caa2283091e4c6d5c8d12df158500bc9ba8fa38",
+      "size": 3959,
+      "candidate_path": "G:\\els\\analysis\\raid-consolidated-publisher-review\\candidate\\els_server\\domain\\npc_exchange_flow.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange"
+    },
+    {
+      "path": "els_server/domain/npc_exchange_rules.py",
+      "parent_sha256": "eba5a13d0538af4563a7cc69bf6ce2dffad7f8844c4a39bf40c1d24a6238d351",
+      "online_parent_sha256": "eba5a13d0538af4563a7cc69bf6ce2dffad7f8844c4a39bf40c1d24a6238d351",
+      "sha256": "59d0d63b77a084b7be04265848d24151cfb339b074ff3a709ec7759ff5f31b6c",
+      "size": 6248,
+      "candidate_path": "G:\\els\\analysis\\raid-consolidated-publisher-review\\candidate\\els_server\\domain\\npc_exchange_rules.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange"
+    },
+    {
+      "path": "els_server/domain/resonance.py",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\domain\\resonance.py",
+      "sha256": "4037515bb5743cce3812e94e83ae39e48aa7800da832b75e92b6dc6ee5dab00a",
+      "parent_sha256": "d238eaf08d5bd83d91ef7a425833e1d2fd9523a9d0225e2937259cc3ff1ef6b7",
+      "conflict": false,
+      "size": 4350,
+      "online_parent_sha256": "d238eaf08d5bd83d91ef7a425833e1d2fd9523a9d0225e2937259cc3ff1ef6b7",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/resonance_2026_reset_items.py",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\domain\\resonance_2026_reset_items.py",
+      "sha256": "491d8786cd9c6c38dbf124c3069e72ac9139e2d744e0e5bf671006a39c3cef30",
+      "parent_sha256": "559d023aab605adec4aad7ebc302f83e659b7db32d7165d3940c9be49c718c94",
+      "conflict": false,
+      "size": 2675,
+      "online_parent_sha256": "559d023aab605adec4aad7ebc302f83e659b7db32d7165d3940c9be49c718c94",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/resonance_page_expansion_flow.py",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\domain\\resonance_page_expansion_flow.py",
+      "sha256": "4089892e4834f6d343ce3974334538d88094da2d814c3122cac5ac05789173c5",
+      "parent_sha256": "3959da00c5e09c32f580d1840b6ca57c0a417aae95994b0d3779c0abf4490dee",
+      "conflict": false,
+      "size": 1994,
+      "online_parent_sha256": "3959da00c5e09c32f580d1840b6ca57c0a417aae95994b0d3779c0abf4490dee",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/domain/shop_additions.py",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\domain\\shop_additions.py",
+      "sha256": "f7d9df6b3f29340d7b960780e82af14d171752f4c262ed8a49af3b157cd9f8f5",
+      "parent_sha256": "69ee1200154c696d3b5f0fec9a9e396232852a4269bb6ec2ef5829f1ff8b8a3c",
+      "conflict": false,
+      "size": 3583,
+      "online_parent_sha256": "69ee1200154c696d3b5f0fec9a9e396232852a4269bb6ec2ef5829f1ff8b8a3c",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/protocol/fish_exchange_messages.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-rewards-and-effects-20261111-v1\\candidate\\els_server\\protocol\\fish_exchange_messages.py",
+      "sha256": "e325ed6ec76f2d7860302cab62dc0f543f3c9b430bfd3184a296ef228afee6dd",
+      "parent_sha256": "ded2a0dc32b7dee358346d1c8b032cfa54deb4aa3a7a6592bb4937053f10eff3",
+      "conflict": false,
+      "size": 1631,
+      "online_parent_sha256": "ded2a0dc32b7dee358346d1c8b032cfa54deb4aa3a7a6592bb4937053f10eff3",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/consumables.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-rewards-and-effects-20261111-v1\\candidate\\els_server\\storage\\consumables.py",
+      "sha256": "becf37a580681d28199911485a51106664aa760ca12a77026ae3d74bd3610a75",
+      "parent_sha256": "45992289b09b59ec04e67e2713223c711f895939b0d545e3bb01346226584ca3",
+      "conflict": false,
+      "size": 9785,
+      "online_parent_sha256": "45992289b09b59ec04e67e2713223c711f895939b0d545e3bb01346226584ca3",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/equipment_repair.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-rewards-and-effects-20261111-v1\\candidate\\els_server\\storage\\equipment_repair.py",
+      "sha256": "77dd2d36005025d6bdc5b9b6e372caf0a761a73e3cd20c120c5fb1def58ccfde",
+      "parent_sha256": "de019e2e2645fb13f868cac502d455ba8bb3b10cc6fbc6cb8e49803616c7312f",
+      "conflict": false,
+      "size": 5520,
+      "online_parent_sha256": "de019e2e2645fb13f868cac502d455ba8bb3b10cc6fbc6cb8e49803616c7312f",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/fish_exchange.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-rewards-and-effects-20261111-v1\\candidate\\els_server\\storage\\fish_exchange.py",
+      "sha256": "d2c7bacd5b57ab3be0efedb88a299c6508f13a34926c9de0583e438a141b7383",
+      "parent_sha256": "e9383cde557041cc408dfbd088d66658b7e198097fb6edbd4b1c68c8a422b613",
+      "conflict": false,
+      "size": 6424,
+      "online_parent_sha256": "e9383cde557041cc408dfbd088d66658b7e198097fb6edbd4b1c68c8a422b613",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/fishing_attempt.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-probabilities-20261112-v1\\candidate\\els_server\\storage\\fishing_attempt.py",
+      "sha256": "bf8f8c271f6306aa7c0d425d1dbf5b824b753bb6bac91f7f57d5348b12fdf1f0",
+      "parent_sha256": "95d3fa68e4a231a6a21cea35f5fc84fd1e8508ce4b37dcdd5ffd3a327d256316",
+      "conflict": false,
+      "size": 14560,
+      "online_parent_sha256": "95d3fa68e4a231a6a21cea35f5fc84fd1e8508ce4b37dcdd5ffd3a327d256316",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/fishing_equipment.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-probabilities-20261112-v1\\candidate\\els_server\\storage\\fishing_equipment.py",
+      "sha256": "1856aaf2753e54497622e5416cb2983c2be92458ce7ac3cfe99a90cc9f84c6b5",
+      "parent_sha256": "dfa406e602bf832c38fafa112eb7e83daddf5aad95abf0d426f47c5cd50b5a5a",
+      "conflict": false,
+      "size": 7210,
+      "online_parent_sha256": "dfa406e602bf832c38fafa112eb7e83daddf5aad95abf0d426f47c5cd50b5a5a",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/fishing_vip.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-rewards-and-effects-20261111-v1\\candidate\\els_server\\storage\\fishing_vip.py",
+      "sha256": "df0918c9d34577bf4771ed8fa628dc27a5c9666e053e8ee906b76b46f5b10062",
+      "parent_sha256": "acaf8a9567bc118083fef71a70dea2d990ad1ec8c2e5c7c42a6d5e70f263f45e",
+      "conflict": false,
+      "size": 5114,
+      "online_parent_sha256": "acaf8a9567bc118083fef71a70dea2d990ad1ec8c2e5c7c42a6d5e70f263f45e",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/housing_access.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-housing-repair-20261111-v2\\candidate\\els_server\\storage\\housing_access.py",
+      "sha256": "09323d31404af1488630d373d69a86ae0a8a5f31670573153adfe68768b96e35",
+      "parent_sha256": "37eb70ce021bcab69878201a0056a61cf5cec23576e072737b4464dd34e27d30",
+      "conflict": false,
+      "size": 11599,
+      "online_parent_sha256": "37eb70ce021bcab69878201a0056a61cf5cec23576e072737b4464dd34e27d30",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/housing_rooms.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-housing-repair-20261111-v2\\candidate\\els_server\\storage\\housing_rooms.py",
+      "sha256": "6b71a562450ae75495fbdb74313decd5dfa027ebded1061d4af68e26f969edaf",
+      "parent_sha256": "57d18f4fbe47af2f5158ff5ce685c0062dc699a088665d97abc7d6d0d8c31ee5",
+      "conflict": false,
+      "size": 9379,
+      "online_parent_sha256": "57d18f4fbe47af2f5158ff5ce685c0062dc699a088665d97abc7d6d0d8c31ee5",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\storage\\inventory_state.py",
+      "sha256": "7ac6f2b2397b8d65a9ad87b414d4ddc06990e9f042d85328b1843846cfaa33c8",
+      "parent_sha256": "30ac91851cd374f3fc9914a745b3ab7703a0c4355d93561b8e9465e1104a9ea8",
+      "conflict": false,
+      "size": 35810,
+      "online_parent_sha256": "30ac91851cd374f3fc9914a745b3ab7703a0c4355d93561b8e9465e1104a9ea8",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/quick_slots.py",
+      "candidate_path": "G:\\els\\analysis\\fishing-rewards-and-effects-20261111-v1\\candidate\\els_server\\storage\\quick_slots.py",
+      "sha256": "5f7638888b9f344b7afb49fd5c18a642c911dcc0bdc9ec00583d807c36dcbe31",
+      "parent_sha256": "5f7bb57086b0843d116d0dab5d96c51eff6b69e17b2af425a798200250426198",
+      "conflict": false,
+      "size": 4151,
+      "online_parent_sha256": "5f7bb57086b0843d116d0dab5d96c51eff6b69e17b2af425a798200250426198",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/resonance_2026_resets.py",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\storage\\resonance_2026_resets.py",
+      "sha256": "46fbbcb55514b9b660f22193e6f6ca37e67e8dc9d98e4fbcca29b74af92e967b",
+      "parent_sha256": "0e5f99effb87e4000ea5d0e25ac3096b4800a37af78c3cea6b23e96f0b20cc65",
+      "conflict": false,
+      "size": 8976,
+      "online_parent_sha256": "0e5f99effb87e4000ea5d0e25ac3096b4800a37af78c3cea6b23e96f0b20cc65",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/resonance_page_expansion.py",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\storage\\resonance_page_expansion.py",
+      "sha256": "cc429438c6a2af8e50fcfd96d2191f78f5fbe9e7074dd1f57e855f12d2b80c1b",
+      "parent_sha256": "625ce551d053a5d17b36a94652e00e16b30b6db546037c4d3e0052ccf349b816",
+      "conflict": false,
+      "size": 6018,
+      "online_parent_sha256": "625ce551d053a5d17b36a94652e00e16b30b6db546037c4d3e0052ccf349b816",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/resonance_state.py",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\storage\\resonance_state.py",
+      "sha256": "8601c9f03f98fc84b26ad9a5a41b8a11aa15d613b9e4b694285d1bccd15bc8f9",
+      "parent_sha256": "24bbcf331ecfcb665201d298aff650d7ef4d146bd15e2f6a16152f89389a46d2",
+      "conflict": false,
+      "size": 8445,
+      "online_parent_sha256": "24bbcf331ecfcb665201d298aff650d7ef4d146bd15e2f6a16152f89389a46d2",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/storage/shop_state.py",
+      "candidate_path": "G:\\els\\analysis\\resonance-unlock-quests-20261111-v1\\item-completion-v1\\candidate\\els_server\\storage\\shop_state.py",
+      "sha256": "44006fb364eac8a15a236b3fff7bafe77d8a709af9189990cb9dfc0b14543648",
+      "parent_sha256": "9e5188364974b50b2a91fd303bd794243fd5721cf0fce0a4aefd4f5de1ed136d",
+      "conflict": false,
+      "size": 23312,
+      "online_parent_sha256": "9e5188364974b50b2a91fd303bd794243fd5721cf0fce0a4aefd4f5de1ed136d",
+      "scope": "server",
+      "source": "fishing_housing_resonance"
+    },
+    {
+      "path": "els_server/data/formal_raid_economy.json",
+      "parent_sha256": "1bb2db1f5f869efc319a5703f1c9f2acce42e485adfeed11dad538986291c326",
+      "online_parent_sha256": "1bb2db1f5f869efc319a5703f1c9f2acce42e485adfeed11dad538986291c326",
+      "sha256": "bbd2dcd481c11d646d2d9d4f228494a93a4394934866fb66142bd2495834d97e",
+      "size": 35631,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\data\\formal_raid_economy.json",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange"
+    },
+    {
+      "path": "els_server/data/formal_raid_economy.manifest.json",
+      "parent_sha256": "80fea302ae92441e391914112760687bb887ddfcc6f9047d3df76d52100d903e",
+      "online_parent_sha256": "80fea302ae92441e391914112760687bb887ddfcc6f9047d3df76d52100d903e",
+      "sha256": "2af3bb4e3e938078400cc83714dfb6a86ed9e735a0334cce3f99fd8b4dcda695",
+      "size": 206,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\data\\formal_raid_economy.manifest.json",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange"
+    },
+    {
+      "path": "els_server/domain/formal_raid_economy.py",
+      "parent_sha256": "a0f9862506bbf514fc473d3482d2c6e67ddbac4a11578a3a20a276fb984ec0a1",
+      "online_parent_sha256": "a0f9862506bbf514fc473d3482d2c6e67ddbac4a11578a3a20a276fb984ec0a1",
+      "sha256": "51f6ad0526e1ccffd77b8753735155fde748afe6f51cfdc745ea54060c51605f",
+      "size": 7681,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\domain\\formal_raid_economy.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange"
+    },
+    {
+      "path": "els_server/domain/raid_economy_flow.py",
+      "parent_sha256": "9fe6ccacae8f894021bc5e94a5134ee34db9ef882e144334525a970c4e84a20d",
+      "online_parent_sha256": "9fe6ccacae8f894021bc5e94a5134ee34db9ef882e144334525a970c4e84a20d",
+      "sha256": "8a3af464a78855d5701f2c788f6982422ff990919b9736e5fe1af0b2a622c65c",
+      "size": 14980,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\domain\\raid_economy_flow.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange"
+    },
+    {
+      "path": "els_server/domain/raid_mark_drops.py",
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "sha256": "3dcc95ecae1dbe7b89845ef62c27e909ba6f983dddd3a69da8bca21b77c65bfe",
+      "size": 6188,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\domain\\raid_mark_drops.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange"
+    },
+    {
+      "path": "els_server/storage/group_settlement.py",
+      "parent_sha256": "48aabcf18d953f31f182837e70762b679c047dabe935eb67cdbd162cd3be47c9",
+      "online_parent_sha256": "48aabcf18d953f31f182837e70762b679c047dabe935eb67cdbd162cd3be47c9",
+      "sha256": "07c41cd8353df2b328076852bae0016686c4dfcc6dc4752d32e6a82200b7eb62",
+      "size": 7630,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\storage\\group_settlement.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange"
+    },
+    {
+      "path": "els_server/storage/raid_economy_state.py",
+      "parent_sha256": "5c528a71a19e3648a7c6c03a2d9d765efd167455fff4c2fa2cb51ab961e7d765",
+      "online_parent_sha256": "5c528a71a19e3648a7c6c03a2d9d765efd167455fff4c2fa2cb51ab961e7d765",
+      "sha256": "5dc5e2abc9ffc00159cfa9d9c5699d7ab654a9919ad9b857dfbd8e26d6a6b77a",
+      "size": 11172,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\storage\\raid_economy_state.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange"
+    },
+    {
+      "path": "els_server/domain/town_growth_exchange.py",
+      "parent_sha256": "24591226cd4f3f40abbf8103d5976ff3a6c5ea3ae69be68ac66b7ad709547ca2",
+      "online_parent_sha256": "24591226cd4f3f40abbf8103d5976ff3a6c5ea3ae69be68ac66b7ad709547ca2",
+      "sha256": "1ca273b846120ce68c3b0c186a9174fd54d4b8c8f40334b34272838b8d3910cd",
+      "size": 4711,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\domain\\town_growth_exchange.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange"
+    }
+  ],
+  "raid_changes": [
+    {
+      "path": "els_server/data/formal_raid_economy.json",
+      "parent_sha256": "1bb2db1f5f869efc319a5703f1c9f2acce42e485adfeed11dad538986291c326",
+      "online_parent_sha256": "1bb2db1f5f869efc319a5703f1c9f2acce42e485adfeed11dad538986291c326",
+      "sha256": "bbd2dcd481c11d646d2d9d4f228494a93a4394934866fb66142bd2495834d97e",
+      "size": 35631,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\data\\formal_raid_economy.json",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange",
+      "prior_sha256": null,
+      "author_sha256": "bbd2dcd481c11d646d2d9d4f228494a93a4394934866fb66142bd2495834d97e"
+    },
+    {
+      "path": "els_server/data/formal_raid_economy.manifest.json",
+      "parent_sha256": "80fea302ae92441e391914112760687bb887ddfcc6f9047d3df76d52100d903e",
+      "online_parent_sha256": "80fea302ae92441e391914112760687bb887ddfcc6f9047d3df76d52100d903e",
+      "sha256": "2af3bb4e3e938078400cc83714dfb6a86ed9e735a0334cce3f99fd8b4dcda695",
+      "size": 206,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\data\\formal_raid_economy.manifest.json",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange",
+      "prior_sha256": null,
+      "author_sha256": "2af3bb4e3e938078400cc83714dfb6a86ed9e735a0334cce3f99fd8b4dcda695"
+    },
+    {
+      "path": "els_server/domain/formal_raid_economy.py",
+      "parent_sha256": "a0f9862506bbf514fc473d3482d2c6e67ddbac4a11578a3a20a276fb984ec0a1",
+      "online_parent_sha256": "a0f9862506bbf514fc473d3482d2c6e67ddbac4a11578a3a20a276fb984ec0a1",
+      "sha256": "51f6ad0526e1ccffd77b8753735155fde748afe6f51cfdc745ea54060c51605f",
+      "size": 7681,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\domain\\formal_raid_economy.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange",
+      "prior_sha256": null,
+      "author_sha256": "51f6ad0526e1ccffd77b8753735155fde748afe6f51cfdc745ea54060c51605f"
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "b3594d595beca8844d93e257b8bd3a7743fa6f399ec89d65e0d63cf57db7b1ee",
+      "online_parent_sha256": "b3594d595beca8844d93e257b8bd3a7743fa6f399ec89d65e0d63cf57db7b1ee",
+      "sha256": "519b29acfd0ffcb4eeab51d11370c030b3d619017c4f453a3909c1b6d4130111",
+      "size": 168649,
+      "candidate_path": "G:\\els\\analysis\\raid-consolidated-publisher-review\\candidate\\els_server\\domain\\local_session.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange",
+      "prior_sha256": "ac1e82f310914eb6e6a9a206791f84af01695ec0dd0f82d5736449c5200f072a",
+      "author_sha256": "67c78986582ee0edad7ce1e44c59b8da4b771567795deffdd1b67ee2d9716abc"
+    },
+    {
+      "path": "els_server/domain/raid_economy_flow.py",
+      "parent_sha256": "9fe6ccacae8f894021bc5e94a5134ee34db9ef882e144334525a970c4e84a20d",
+      "online_parent_sha256": "9fe6ccacae8f894021bc5e94a5134ee34db9ef882e144334525a970c4e84a20d",
+      "sha256": "8a3af464a78855d5701f2c788f6982422ff990919b9736e5fe1af0b2a622c65c",
+      "size": 14980,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\domain\\raid_economy_flow.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange",
+      "prior_sha256": null,
+      "author_sha256": "8a3af464a78855d5701f2c788f6982422ff990919b9736e5fe1af0b2a622c65c"
+    },
+    {
+      "path": "els_server/domain/raid_mark_drops.py",
+      "parent_sha256": null,
+      "online_parent_sha256": null,
+      "sha256": "3dcc95ecae1dbe7b89845ef62c27e909ba6f983dddd3a69da8bca21b77c65bfe",
+      "size": 6188,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\domain\\raid_mark_drops.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange",
+      "prior_sha256": null,
+      "author_sha256": "3dcc95ecae1dbe7b89845ef62c27e909ba6f983dddd3a69da8bca21b77c65bfe"
+    },
+    {
+      "path": "els_server/storage/group_settlement.py",
+      "parent_sha256": "48aabcf18d953f31f182837e70762b679c047dabe935eb67cdbd162cd3be47c9",
+      "online_parent_sha256": "48aabcf18d953f31f182837e70762b679c047dabe935eb67cdbd162cd3be47c9",
+      "sha256": "07c41cd8353df2b328076852bae0016686c4dfcc6dc4752d32e6a82200b7eb62",
+      "size": 7630,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\storage\\group_settlement.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange",
+      "prior_sha256": null,
+      "author_sha256": "07c41cd8353df2b328076852bae0016686c4dfcc6dc4752d32e6a82200b7eb62"
+    },
+    {
+      "path": "els_server/storage/raid_economy_state.py",
+      "parent_sha256": "5c528a71a19e3648a7c6c03a2d9d765efd167455fff4c2fa2cb51ab961e7d765",
+      "online_parent_sha256": "5c528a71a19e3648a7c6c03a2d9d765efd167455fff4c2fa2cb51ab961e7d765",
+      "sha256": "5dc5e2abc9ffc00159cfa9d9c5699d7ab654a9919ad9b857dfbd8e26d6a6b77a",
+      "size": 11172,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\storage\\raid_economy_state.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange",
+      "prior_sha256": null,
+      "author_sha256": "5dc5e2abc9ffc00159cfa9d9c5699d7ab654a9919ad9b857dfbd8e26d6a6b77a"
+    },
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "1a8687a72a406f5cd98ffd23444028e2bfc93681ddbdc0c2365844caad6cf743",
+      "online_parent_sha256": "1a8687a72a406f5cd98ffd23444028e2bfc93681ddbdc0c2365844caad6cf743",
+      "sha256": "e2b1f01f83e36e0fa48372bfb0f52b1944af707b465eea076e9fb29957200a74",
+      "size": 21785,
+      "candidate_path": "G:\\els\\analysis\\raid-consolidated-publisher-review\\candidate\\els_server\\domain\\acquisition_policy.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange",
+      "prior_sha256": "37052be605fd6e76fdad8d57c940adb0254a22e3531bc2f58b3fe374c09e3fdc",
+      "author_sha256": "bea92997b667bb5e740e1a1775ed16235389fd4052dab9f7ef42cb4b3b9ecedb"
+    },
+    {
+      "path": "els_server/domain/npc_exchange_flow.py",
+      "parent_sha256": "5521a173b929f26575a6fd29b7274e3aa9d110a5c5efe5332434b7e9a3ccd5a9",
+      "online_parent_sha256": "5521a173b929f26575a6fd29b7274e3aa9d110a5c5efe5332434b7e9a3ccd5a9",
+      "sha256": "cb62f91f8ff7b18f70f0c6855caa2283091e4c6d5c8d12df158500bc9ba8fa38",
+      "size": 3959,
+      "candidate_path": "G:\\els\\analysis\\raid-consolidated-publisher-review\\candidate\\els_server\\domain\\npc_exchange_flow.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange",
+      "prior_sha256": "ac96e11fd9944ed772edfb767aaef39fdf4913f07a8cf46a3a7f57f7df059d89",
+      "author_sha256": "8be669b33e6e06b12a15d68e0976f5e642af330044a62546419138033f9f3714"
+    },
+    {
+      "path": "els_server/domain/npc_exchange_rules.py",
+      "parent_sha256": "eba5a13d0538af4563a7cc69bf6ce2dffad7f8844c4a39bf40c1d24a6238d351",
+      "online_parent_sha256": "eba5a13d0538af4563a7cc69bf6ce2dffad7f8844c4a39bf40c1d24a6238d351",
+      "sha256": "59d0d63b77a084b7be04265848d24151cfb339b074ff3a709ec7759ff5f31b6c",
+      "size": 6248,
+      "candidate_path": "G:\\els\\analysis\\raid-consolidated-publisher-review\\candidate\\els_server\\domain\\npc_exchange_rules.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange",
+      "prior_sha256": "d04a9fb90500f1bc6f83d768be1179d28236e02d6721fe8fcd7a57102e40b893",
+      "author_sha256": "a5a75e0724080f7df257068442b454884caf9afa63ec0fd22446e50634cdbd3d"
+    },
+    {
+      "path": "els_server/domain/town_growth_exchange.py",
+      "parent_sha256": "24591226cd4f3f40abbf8103d5976ff3a6c5ea3ae69be68ac66b7ad709547ca2",
+      "online_parent_sha256": "24591226cd4f3f40abbf8103d5976ff3a6c5ea3ae69be68ac66b7ad709547ca2",
+      "sha256": "1ca273b846120ce68c3b0c186a9174fd54d4b8c8f40334b34272838b8d3910cd",
+      "size": 4711,
+      "candidate_path": "G:\\els\\analysis\\raid-drops-and-mark-exchange-handoff-20261112-v1\\candidate\\els_server\\domain\\town_growth_exchange.py",
+      "scope": "server",
+      "source": "raid_drops_and_mark_exchange",
+      "prior_sha256": null,
+      "author_sha256": "1ca273b846120ce68c3b0c186a9174fd54d4b8c8f40334b34272838b8d3910cd"
+    }
+  ]
+}

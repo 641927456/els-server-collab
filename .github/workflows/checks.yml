@@ -10,6 +10,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   source-check:
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
     runs-on: windows-latest
     timeout-minutes: 12
     steps:
@@ -21,6 +22,15 @@ jobs:
           python-version: '3.13'
       - run: python -m pip install -r requirements-server.txt hypothesis==6.170.15
       - run: python -B tools/ci_checks.py
+      - run: python -B references/pr967-runtime-20261110-v1/verify.py
+      - run: python -B references/title-integrity-v122-20261109-v1/verify.py
+      - run: python -B references/pending-repairs-v123-20261109-v1/verify.py
+      - run: python -B references/hp-input-refresh-v124-20261109-v1/verify.py
+      - run: python -B references/scene-retirement-sources-v124-20261109-v1/verify.py
+      - run: python -B references/my-buff-exit-cleanup-v125-20261109-v1/verify.py
+      - run: python -B references/luciel-wardrobe-v128-20261109-v1/verify.py
+      - run: python -B references/three-session-startup-v127-20261109-v1/verify.py
+      - run: python -B references/abyss-purification-notice-v126-20261109-v1/verify.py
       - run: python -B refs/online-clock-background-20261108-v1/verify.py
       - run: python -B refs/town-metadata-peer-20261108-v1/verify.py
       - run: python -B refs/server-send-delivery-v106-integration-20261108-v1/verify.py
@@ -43,8 +53,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
       - run: python -B tools/bootstrap_runtime.py --archive .asset-cache/ELS-Server-With-Local-Launcher-20261019-v2.zip
-      - run: .\python\python.exe -B tools/ci_checks.py --with-runtime
-      - run: python -m pip install -r requirements-test.txt
+      - run: |
+          python -m pip install --target python/Lib/site-packages -r requirements-test.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          "PYTHONPATH=$PWD\python\Lib\site-packages" >> $env:GITHUB_ENV
+      - run: .\python\python.exe -B tools/ci_checks.py --runtime-only
       - run: python -B tools/verify_current_runtime_regressions.py --with-runtime
       - run: python -B tools/verify_current_runtime_regressions.py --with-runtime --manifest channels/server-risk-current-20261027-v2.json --delta references/server-risk-current-20261027-v2/delta.json
       - run: python -B tools/verify_current_runtime_regressions.py --with-runtime --manifest channels/server-risk-current-local-roles-20261027-v3.json --delta references/local-auxiliary-role-binding-20261027-v1/delta.json

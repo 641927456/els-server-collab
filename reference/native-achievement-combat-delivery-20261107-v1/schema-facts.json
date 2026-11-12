@@ -1,0 +1,19 @@
+{
+  "ok": true,
+  "new_schema_definitions": 1,
+  "definitions": [
+    {
+      "name": "native_achievement_pvp_profile_account",
+      "sql": "CREATE INDEX IF NOT EXISTS native_achievement_pvp_profile_account ON official_pvp_profiles(account_id,policy)"
+    }
+  ],
+  "required_native_QA_schema_names": [
+    "native_achievement_pvp_profile_account"
+  ],
+  "lazy_schema_names": [
+    "native_achievement_pvp_profile_account"
+  ],
+  "new_tables": [],
+  "install_DDL_statements": 0,
+  "startup_DDL_statements": 0
+}

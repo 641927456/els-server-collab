@@ -1,0 +1,1044 @@
+diff --git a/els_server/domain/aurora_admission.py b/els_server/domain/aurora_admission.py
+index b408d08..35803e3 100644
+--- a/els_server/domain/aurora_admission.py
++++ b/els_server/domain/aurora_admission.py
+@@ -17,13 +17,15 @@ def eligible(account, dungeon):
+         return False
+ 
+ 
+-def start(s, dungeon, run_id, request, ack, inventory_before, room_id):
++def start(s, dungeon, run_id, request, ack, inventory_before, room_id, *, retry_guard=None):
+     from els_server.domain.equipment_chip_flow import current_lease
+     bound = (s.account, s.account.store, s.account.account_id, s.account.uid,
+              s.shop_session_id, s.requested_dungeon_id, s.requested_dungeon_mode,
+              s.phase, s.dungeon_requested, getattr(s, 'application', None))
+ 
+     def guard():
++        if retry_guard is not None:
++            return retry_guard()
+         if ((s.account, s.account.store, s.account.account_id, s.account.uid,
+              s.shop_session_id, s.requested_dungeon_id, s.requested_dungeon_mode,
+              s.phase, s.dungeon_requested, getattr(s, 'application', None)) != bound
+@@ -53,7 +55,7 @@ def start(s, dungeon, run_id, request, ack, inventory_before, room_id):
+                 items[positions[0]]['count'] = after['count']
+         packet = dungeon_start(s.account.get_skills(), s.account.character(), items,
+             dungeon_id=dungeon, room_id=room_id, account_id=s.account.account_id,
+-            bootstrap_port=s.port_probe_port, member_capture=s._capture_luciel_dungeon_hp)
++            bootstrap_port=s.port_probe_port, member_capture=s._capture_luciel_dungeon_hp, retry=retry_guard is not None)
+         prepared[:] = ([_delta(item, after)] if item is not None else []) + [success, packet]
+         for event in prepared:
+             encode_event(event)
+diff --git a/els_server/domain/aurora_group_admission.py b/els_server/domain/aurora_group_admission.py
+index 75472a5..f3b6c87 100644
+--- a/els_server/domain/aurora_group_admission.py
++++ b/els_server/domain/aurora_group_admission.py
+@@ -14,7 +14,7 @@ from els_server.storage.aurora_admissions import admit
+ from els_server.domain.equipment_chip_flow import current_lease
+ 
+ 
+-def start(dispatcher, party, leader, dungeon, event):
++def start(dispatcher, party, leader, dungeon, event, *, previous=None):
+     from els_server.domain.friends_dungeon import Room
+     from els_server.domain.local_session import LocalSession
+     from els_server.domain.raid_party import admission_size
+@@ -44,7 +44,7 @@ def start(dispatcher, party, leader, dungeon, event):
+                        or Path(s.account.store.path).resolve() != path for s in members)):
+             raise ValueError('Aurora party roster, lease or DB changed')
+         if not prepared:
+-            if not dispatcher.admissible(party, leader, dungeon):
++            if dispatcher.admission_result(party, leader, dungeon, previous=previous):
+                 raise ValueError('Aurora original ready party changed')
+         elif any(s.phase != 'dungeon_loading' or s.dungeon_run is None
+                  or s.dungeon_run.run_id != seed for s in members):
+@@ -70,11 +70,20 @@ def start(dispatcher, party, leader, dungeon, event):
+         captured = {}
+         packet = party_dungeon_start(members, leader, dungeon, party['id'],
+             bootstrap_port=leader.port_probe_port, member_captures=captured,
+-            inventories=inventories)
+-        ack = Event(0x201, kind=0x383, payload=bytes(4) + wstring('') * 2)
++            inventories=inventories, retry=previous is not None)
++        if previous is not None:
++            from els_server.domain.dungeon_retry import ack as retry_ack
++            ack = retry_ack(0)
++        else:
++            ack = Event(0x201, kind=0x383, payload=bytes(4) + wstring('') * 2)
+         for wire in [packet, ack, *deltas.values()]:
+             encode_event(wire)
+         for s in members:
++            if previous is not None:
++                reward_id = str(uuid.uuid5(uuid.UUID(seed), 'reward:' + str(s.account.uid)))
++                dispatcher.adopt_retry_member(s, dungeon, runs[s], reward_id, participants, seed)
++                s._capture_luciel_dungeon_hp(*captured[s])
++                continue
+             s._native_group_ticket_prepare = True
+             s.dungeon_requested = True
+             s.requested_dungeon_id = dungeon
+@@ -98,7 +107,9 @@ def start(dispatcher, party, leader, dungeon, event):
+             separators=(',', ':')).encode()
+ 
+     try:
+-        admit(path, actors, dungeon, seed, event.payload, encode, guard)
++        from els_server.domain.dungeon_retry import request_identity
++        request = event.payload if previous is None else request_identity(previous.seed)
++        admit(path, actors, dungeon, seed, request, encode, guard)
+     except Exception:
+         for s, snapshot in snapshots.items():
+             s.__dict__.clear()
+diff --git a/els_server/domain/dungeon_hp_c1.py b/els_server/domain/dungeon_hp_c1.py
+index 655ad38..431d000 100644
+--- a/els_server/domain/dungeon_hp_c1.py
++++ b/els_server/domain/dungeon_hp_c1.py
+@@ -96,13 +96,21 @@ def prepare(session,event,dungeon,run_id,challenge):
+         or event.event_id!=0x202 or event.performers not in ((),(0,)) or event.uid!=2**64-1 or event.target_uid!=2**64-1
+         or event.payload_mode!=0 or not _lease(session) or not _solo(session)):
+         return None
+-    return _Context(session,dungeon,str(uuid.UUID(run_id)))
++    return _Context(session,dungeon,str(uuid.UUID(run_id)),session.requested_dungeon_mode)
++
++
++def prepare_retry(session,run_id):
++    # The previous result was opened by this same solo HP authority.
++    old=getattr(session,'_c1_hp_context',None)
++    if old is None or old.run is not session.dungeon_run or not old._valid_lease():
++        return None
++    return _Context(session,old.dungeon,run_id,old.admission_mode,previous=old)
+ 
+ class _Context:
+-    def __init__(self,session,dungeon,run_id):
++    def __init__(self,session,dungeon,run_id,admission_mode,*,previous=None):
+         self.session=session;self.account=session.account;self.store=session.account.store
+         self.uid=session.account.uid;self.account_id=session.account.account_id
+-        self.admission_mode=session.requested_dungeon_mode
++        self.admission_mode=admission_mode;self.previous=previous
+         self.dungeon=dungeon;self.run_id=run_id;self.run=None;self.preparing=True
+ 
+     def _valid_lease(self):
+@@ -122,7 +130,7 @@ class _Context:
+ 
+     def activate(self,run):
+         if run is not self.run or not self._valid_lease():self._refuse()
+-        self.preparing=False
++        self.preparing=False;self.previous=None
+         if getattr(self.session,'application',None) is None:
+             self.session._c1_local_application._c1_local_context=self
+ 
+@@ -132,8 +140,14 @@ class _Context:
+         if run is not None and (run.identity!=self.dungeon or run.run_id!=self.run_id):self._refuse()
+         if emitting and run is not None and run.graph['source_sha256']!=MAPS[self.dungeon][0]:self._refuse()
+         if self.preparing:
+-            if (emitting or s.phase!='town_ready' or not s.dungeon_requested
+-                or s.requested_dungeon_id!=self.dungeon or s.requested_dungeon_mode!=self.admission_mode):self._refuse()
++            if emitting:self._refuse()
++            if self.previous is not None:
++                if (s.phase!='dungeon_active' or not s.clear_notified or s.dungeon_failed
++                    or s.dungeon_return_pending or s.dungeon_id!=self.dungeon
++                    or s._c1_hp_context is not self.previous or s.dungeon_run is not self.previous.run):
++                    self._refuse()
++            elif (s.phase!='town_ready' or not s.dungeon_requested or s.requested_dungeon_id!=self.dungeon
++                  or s.requested_dungeon_mode!=self.admission_mode):self._refuse()
+         elif (getattr(s,'_c1_hp_context',None) is not self or s.dungeon_run is not run
+               or s.dungeon_id!=self.dungeon or s.phase not in ('dungeon_loading','dungeon_active')
+               or s.dungeon_participants!=frozenset((self.uid,)) or s.clear_notified or s.dungeon_failed
+diff --git a/els_server/domain/dungeon_retry.py b/els_server/domain/dungeon_retry.py
+new file mode 100644
+index 0000000..f5275f5
+--- /dev/null
++++ b/els_server/domain/dungeon_retry.py
+@@ -0,0 +1,128 @@
++"""Original results-screen admission using the completed run as its source."""
++import uuid
++
++from els_server.protocol.dungeon_errors import ENTRY_REQUIREMENTS_NOT_MET
++from els_server.protocol.local_messages import i32, wstring
++from els_server.protocol.protocol_codec import Event, encode_event
++
++DCC_NOT_RETRY_DUNGEON = 14
++
++
++def ack(result):
++    # The native 652 reader consumes result, u64, and two wide strings.
++    return Event(0x201, kind=0x652, payload=i32(result) + bytes(8) + wstring('') * 2)
++
++
++def original_request(s, event):
++    from els_server.domain.equipment_chip_flow import current_lease
++
++    return (s.client_build == 'dx11_260923' and s.role == 'game' and s.enter_dungeon
++            and event.performers in ((), (0,)) and event.uid == event.target_uid == 2**64 - 1
++            and event.payload_mode == 0 and not event.payload and current_lease(s))
++
++
++def cleared(s):
++    return (s.phase == 'dungeon_active' and s.clear_notified and not s.dungeon_failed
++            and not s.dungeon_return_pending and getattr(s, 'active_challenge', None) is None)
++
++
++def route_allows_retry(identity):
++    from els_server.domain.dungeon_routes import route_catalog
++    from els_server.game_data import client_data
++
++    # CX2STXGameMatching skips enabling the retry action on this native flag.
++    return (route_catalog().supports(identity)
++            and DCC_NOT_RETRY_DUNGEON not in client_data().dungeon(identity).get('DUNGEON_CHECK_CONDITION', {}).values())
++
++
++def request_identity(epoch):
++    # Ticket receipts hash the real request kind and the result that authorized it.
++    return b'\x06\x51' + uuid.UUID(epoch).bytes
++
++
++def solo_entry_allowed(s, identity, challenge, *, retry=False):
++    from els_server.domain.raid_native_power import allowed as native_power_allowed
++    from els_server.domain.raid_party import entry_size
++    from els_server.domain.region_quests import account_dungeon_allowed
++
++    return (account_dungeon_allowed(s.account, identity)
++            and (challenge is not None or entry_size(s, identity))
++            and native_power_allowed(s, identity, retry=retry))
++
++
++def solo(s, event, *, previous=None):
++    failure = [ack(ENTRY_REQUIREMENTS_NOT_MET)]
++    if not original_request(s, event) or not cleared(s):
++        return failure
++    app = getattr(s, 'application', None)
++    world = app.world if app is not None else None
++    party = world.party_of.get(s) if world is not None else getattr(s, 'solo_challenge_party', None)
++    if party and not party.get('solo_challenge'):
++        return failure
++    if previous is None:
++        if (world is not None and world.dungeons.room(s) is not None
++            or s.dungeon_participants != frozenset((s.account.uid,))):
++            return failure
++
++    from els_server.domain.dungeon_hp_c1 import prepare_retry
++    from els_server.domain.dungeon_routes import DungeonRun
++    from els_server.domain.normal_fatigue_flow import admission_result
++    from els_server.domain.daily_ticket_rules import MAPS as daily_ticket_maps
++    from els_server.protocol.dungeon_messages import SUPPORTED_DUNGEON, dungeon_start
++
++    identity = s.dungeon_id
++    if not route_allows_retry(identity) or not solo_entry_allowed(s, identity, None, retry=True):
++        return failure
++    result = admission_result(s, identity, retry=True)
++    if result:
++        return [ack(result)]
++
++    old_run, old_epoch = s.dungeon_run, s.reward_run_id
++    actor = s.account, s.account.store, s.shop_session_id
++
++    def guard():
++        from els_server.domain.equipment_chip_flow import current_lease
++
++        if (not cleared(s) or not current_lease(s) or actor != (s.account, s.account.store, s.shop_session_id)
++            or s.dungeon_run is not old_run or s.dungeon_id != identity or s.reward_run_id != old_epoch
++            or (world is not None and (world.party_of.get(s) is not party or world.dungeons.room(s) is not previous))):
++            raise ValueError('The original retry result changed')
++
++    run_id = str(uuid.uuid4())
++    hp_context = prepare_retry(s, run_id)
++    run = DungeonRun(identity, run_id, hp_context=hp_context) if identity != SUPPORTED_DUNGEON else None
++    from els_server.domain.silver_mirror_flow import admit as mirror_admit
++
++    items = s.account.get_inventory_snapshot()['items'] if s.item_test else None
++    room_id = party['id'] if party else 10001
++    try:
++        if identity in (35100, 35360) or identity in daily_ticket_maps:
++            if identity in daily_ticket_maps:
++                from els_server.domain.aurora_admission import start
++            else:
++                from els_server.domain.native_ticket_admission import start
++            if hp_context is not None:
++                hp_context.check(run)
++            reply = start(s, identity, run_id, request_identity(old_run.run_id), ack, items, room_id, retry_guard=guard)
++            if reply is None:
++                return failure
++        else:
++            packet = dungeon_start(s.account.get_skills(), s.account.character(), items, dungeon_id=identity,
++                room_id=room_id, account_id=s.account.account_id, bootstrap_port=s.port_probe_port,
++                member_capture=s._capture_luciel_dungeon_hp, retry=True)
++            encode_event(packet)
++            reply = [ack(0), packet, *mirror_admit(s, run, retry_guard=guard)]
++    except ValueError:
++        return failure
++    origin = getattr(s, 'village1012_return_origin', None)
++    if origin is not None and (origin['dungeon'], origin['run_id']) == (identity, s.reward_run_id):
++        origin = dict(origin, prior_run=s.reward_run_id)
++    else:
++        origin = None
++    s._adopt_dungeon_start(identity, run, run_id, None, hp_context)
++    if previous is not None:
++        world.dungeons.finish_solo_retry(s, previous)
++    if origin is not None:
++        from els_server.domain.town_travel_flow import finish_village1012_origin
++        finish_village1012_origin(s, origin)
++    return reply
+diff --git a/els_server/domain/friends_dungeon.py b/els_server/domain/friends_dungeon.py
+index cb38119..dfb0404 100644
+--- a/els_server/domain/friends_dungeon.py
++++ b/els_server/domain/friends_dungeon.py
+@@ -193,7 +193,7 @@ class FriendsDungeons:
+     def admissible(self,party,leader,identity):
+         return self.admission_result(party,leader,identity)==0
+ 
+-    def admission_result(self,party,leader,identity):
++    def admission_result(self,party,leader,identity,*,previous=None):
+         from els_server.protocol.dungeon_errors import ENTRY_REQUIREMENTS_NOT_MET
+         if identity in (35100,35360):
+             from els_server.domain.native_ticket_rules import enabled as ticket_enabled
+@@ -202,27 +202,36 @@ class FriendsDungeons:
+         if identity in daily_ticket_maps and not daily_enabled(identity):return ENTRY_REQUIREMENTS_NOT_MET
+         if party.get('recruitment'):
+             if party['recruitment']['published']:return ENTRY_REQUIREMENTS_NOT_MET
+-            from els_server.domain.party_recruitment import waiting
+-            try:waiting(self.world,party)
+-            except ValueError:return ENTRY_REQUIREMENTS_NOT_MET
++            if previous is None:
++                from els_server.domain.party_recruitment import waiting
++                try:waiting(self.world,party)
++                except ValueError:return ENTRY_REQUIREMENTS_NOT_MET
+         from els_server.domain.dungeon_routes import route_catalog
+         from els_server.domain.region_quests import account_dungeon_allowed
+         from els_server.domain.raid_party import admission_size,raid_definition
+         from els_server.domain.normal_fatigue_flow import admission_result as fatigue_result
+         selected=route_catalog().entry_identity(party['dungeon'])
+         ordinary=not party.get('raid_party') and not party.get('challenge')
+-        valid=((identity==selected or party.get('challenge'))
++        if previous is None:
++            ready=all(s.phase=='town_ready' and s in self.world.members and not s.released
++                      and (s is leader or s in party['ready']) for s in party['members'])
++        else:
++            from els_server.domain.dungeon_retry import cleared
++            members=tuple(party['members'])
++            ready=(previous.phase=='clear' and previous.party is party and previous.identity==identity
++                and tuple(s for s in previous.members if self.room(s) is previous)==members
++                and all(self._current_transport_member(leader.application,s,previous) and cleared(s)
++                        for s in members))
++        valid=(ready and (identity==selected or party.get('challenge'))
+             and (not ordinary or raid_definition(identity) is None)
+-            and party['leader'] is leader and party['run'] is None and not party.get('challenge_pending') and admission_size(party,identity)
++            and party['leader'] is leader and party['run'] is previous and not party.get('challenge_pending') and admission_size(party,identity)
+             and (identity==30000 or route_catalog().supports(identity,internal=bool(party.get('challenge'))))
+-            and all(s.phase=='town_ready' and s in self.world.members and not s.released
+-                and (s is leader or s in party['ready']) and account_dungeon_allowed(s.account,identity)
+-                for s in party['members']))
++            and all(account_dungeon_allowed(s.account,identity) for s in party['members']))
+         if not valid:return ENTRY_REQUIREMENTS_NOT_MET
+         from els_server.domain.raid_native_power import allowed as native_power_allowed
+-        if not all(native_power_allowed(s,identity)for s in party['members']):return ENTRY_REQUIREMENTS_NOT_MET
++        if not all(native_power_allowed(s,identity,retry=previous is not None) for s in party['members']):return ENTRY_REQUIREMENTS_NOT_MET
+         for member in party['members']:
+-            result=fatigue_result(member,identity)
++            result=fatigue_result(member,identity,retry=previous is not None)
+             if result:return result
+         return 0
+ 
+@@ -232,6 +241,23 @@ class FriendsDungeons:
+         if kind==0xaa4:
+             from els_server.domain.union_party import battle_signal
+             return battle_signal(self,room,s,event)
++        if kind==0x651 and room is not None:
++            from els_server.domain.dungeon_retry import ack,original_request,route_allows_retry,solo
++            from els_server.protocol.dungeon_errors import ENTRY_REQUIREMENTS_NOT_MET
++            if (not original_request(s,event) or not s.application.config.friends_coop_enabled
++                or not route_allows_retry(room.identity) or room.owner_party is not room.party
++                or room.party.get('challenge')):
++                return [ack(ENTRY_REQUIREMENTS_NOT_MET)]
++            if (party is None and room.phase=='clear' and room.party['members']==[s]
++                and all(m is s or self.room(m) is not room for m in room.members)
++                and self._current_transport_member(s.application,s,room)):
++                return solo(s,event,previous=room)
++            if party is not room.party or party.get('union_party'):
++                return [ack(ENTRY_REQUIREMENTS_NOT_MET)]
++            result=self.admission_result(party,s,room.identity,previous=room)
++            if not result and not self.start_selected(party,s,room.identity,event,previous=room):
++                result=ENTRY_REQUIREMENTS_NOT_MET
++            return [ack(result)]
+         if party is not None and party.get('solo_challenge'):return None
+         if room is None:
+             if party is None or kind not in (0x7d4,0x382):return None
+@@ -283,17 +309,8 @@ class FriendsDungeons:
+             if result:return [Event(0x201,kind=0x383,payload=i32(result)+wstring('')*2)]
+             for member in party['members']:
+                 member._environment_entry_mode=party['_buff_entry_mode'] if preflight else 1
+-            from els_server.domain.daily_ticket_rules import MAPS as daily_ticket_maps
+-            if identity in (35100,35360) or identity in daily_ticket_maps:
+-                if identity in daily_ticket_maps:
+-                    from els_server.domain.aurora_group_admission import start as start_aurora
+-                    admitted=start_aurora(self,party,s,identity,event)
+-                else:admitted=self.start_native_tickets(party,s,identity,event)
+-                if not admitted:
+-                    return [Event(0x201,kind=0x383,payload=i32(-1)+wstring('')*2)]
+-            else:
+-                if not self.start(party,s,identity,event):
+-                    return [Event(0x201,kind=0x383,payload=i32(-1)+wstring('')*2)]
++            if not self.start_selected(party,s,identity,event):
++                return [Event(0x201,kind=0x383,payload=i32(-1)+wstring('')*2)]
+             return [Event(0x201,kind=0x383,payload=bytes(4)+wstring('')*2)]
+         if kind in (0x7d4,0x382):return []
+         if kind==0x2ce:
+@@ -319,18 +336,35 @@ class FriendsDungeons:
+             self.detach(s)
+         return None
+ 
+-    def start(self,party,leader,identity,event):
++    def finish_solo_retry(self,member,previous):
++        self.rooms.pop(member)
++        self.release(previous)
++
++    def start_selected(self,party,leader,identity,event,*,previous=None):
++        from els_server.domain.daily_ticket_rules import MAPS as daily_ticket_maps
++        if identity in daily_ticket_maps:
++            from els_server.domain.aurora_group_admission import start
++            return start(self,party,leader,identity,event,previous=previous)
++        if identity in (35100,35360):
++            return self.start_native_tickets(party,leader,identity,event,previous=previous)
++        return self.start(party,leader,identity,event,previous=previous)
++
++    def adopt_retry_member(self,member,identity,run,reward_run_id,participants,seed):
++        member._adopt_dungeon_start(identity,run,reward_run_id,None,None,participants=participants,epoch=seed)
++
++    def start(self,party,leader,identity,event,*,previous=None):
+         from els_server.protocol.dungeon_messages import party_dungeon_start
+         from els_server.domain.dungeon_routes import DungeonRun
+         members=tuple(party['members']);seed=str(uuid.uuid4())
+         from els_server.domain.normal_fatigue_flow import prepare_group_entry,group_entry
+-        permits=prepare_group_entry(members,identity)
+-        if any(permit.result for permit in permits.values()):raise SessionOrderError('A party member has no ordinary fatigue')
++        if previous is None:
++            permits=prepare_group_entry(members,identity)
++            if any(permit.result for permit in permits.values()):raise SessionOrderError('A party member has no ordinary fatigue')
+         # Compile the roster and source route before changing any session.
+         admitted_members={}
+         parent=party.get('striker_parent')
+         packet=party_dungeon_start(members,leader,identity,party['id'],bootstrap_port=leader.port_probe_port,
+-            member_captures=admitted_members,striker=parent is not None)
++            member_captures=admitted_members,striker=parent is not None,retry=previous is not None)
+         runs={s:DungeonRun(identity,seed,internal=bool(party.get('challenge'))) if identity!=30000 else None for s in members}
+         participants=frozenset(s.account.uid for s in members)
+         room=Room(party,members,leader,identity,seed,deadline=time.monotonic()+90)
+@@ -339,21 +373,24 @@ class FriendsDungeons:
+         deliveries=[]
+         try:
+             for s in members:
+-                s.dungeon_requested=True;s.requested_dungeon_id=identity;s.requested_dungeon_mode=1
+-                if party.get('challenge'):
+-                    from els_server.domain.challenge_flow import allowed
+-                    s.requested_challenge=allowed(s,identity)
+-                with group_entry(s,permits[s]):result=LocalSession.handle(s,event)
+-                if not any(e.kind==0x14a for e in result):raise SessionOrderError('Party admission changed during serialized start')
+-                # Retain each exact native member after the solo preparation.
++                reward_run_id=str(uuid.uuid5(uuid.UUID(seed),'reward:'+str(s.account.uid)))
++                if previous is None:
++                    s.dungeon_requested=True;s.requested_dungeon_id=identity;s.requested_dungeon_mode=1
++                    if party.get('challenge'):
++                        from els_server.domain.challenge_flow import allowed
++                        s.requested_challenge=allowed(s,identity)
++                    with group_entry(s,permits[s]):result=LocalSession.handle(s,event)
++                    if not any(e.kind==0x14a for e in result):raise SessionOrderError('Party admission changed during serialized start')
++                    s.dungeon_run=runs[s]
++                    s.reward_run_id=reward_run_id if s.reward_test else None
++                    s.dungeon_participants=participants
++                    from els_server.domain.pve_economy_flow import bind_story
++                    bind_story(s)
++                    from els_server.domain.normal_fatigue_flow import bind as bind_normal_fatigue
++                    bind_normal_fatigue(s,epoch=seed)
++                else:
++                    self.adopt_retry_member(s,identity,runs[s],reward_run_id,participants,seed)
+                 s._capture_luciel_dungeon_hp(*admitted_members[s])
+-                s.dungeon_run=runs[s]
+-                s.reward_run_id=str(uuid.uuid5(uuid.UUID(seed),'reward:'+str(s.account.uid))) if s.reward_test else None
+-                s.dungeon_participants=participants
+-                from els_server.domain.pve_economy_flow import bind_story
+-                bind_story(s)
+-                from els_server.domain.normal_fatigue_flow import bind as bind_normal_fatigue
+-                bind_normal_fatigue(s,epoch=seed)
+                 notices=[packet]
+                 if party.get('challenge'):
+                     from els_server.domain.challenge_flow import notification
+@@ -379,7 +416,7 @@ class FriendsDungeons:
+         party.pop('admission',None);party['run']=room;party['dungeon']=identity
+         return True
+ 
+-    def start_native_tickets(self,party,leader,identity,event):
++    def start_native_tickets(self,party,leader,identity,event,*,previous=None):
+         """One original ready-roster entry, one SQLite debit for every member."""
+         import json,sqlite3
+         from pathlib import Path
+@@ -405,7 +442,7 @@ class FriendsDungeons:
+ 
+         def guard():
+             if (selection!=(tuple(party['members']),frozenset(party['ready']),party.get('dungeon'),party.get('run'))
+-                or not self.admissible(party,leader,identity)
++                or self.admission_result(party,leader,identity,previous=previous)
+                 or any(not current_lease(s) or s.account.store is None
+                     or Path(s.account.store.path).resolve()!=path for s in members)):
+                 raise ValueError('Permanent ticket party readiness/lease changed')
+@@ -425,10 +462,19 @@ class FriendsDungeons:
+                 inventories[s]=inventory;deltas[s]=_delta(item,remaining)
+             captured={}
+             packet=party_dungeon_start(members,leader,identity,party['id'],
+-                bootstrap_port=leader.port_probe_port,member_captures=captured,inventories=inventories)
+-            ack=Event(0x201,kind=0x383,payload=bytes(4)+wstring('')*2)
++                bootstrap_port=leader.port_probe_port,member_captures=captured,inventories=inventories,retry=previous is not None)
++            if previous is not None:
++                from els_server.domain.dungeon_retry import ack as retry_ack
++                ack=retry_ack(0)
++            else:
++                ack=Event(0x201,kind=0x383,payload=bytes(4)+wstring('')*2)
+             for event_to_encode in [packet,ack,*deltas.values()]:encode_event(event_to_encode)
+             for s in members:
++                if previous is not None:
++                    reward_id=str(uuid.uuid5(uuid.UUID(seed),'reward:'+str(s.account.uid)))
++                    self.adopt_retry_member(s,identity,runs[s],reward_id,participants,seed)
++                    s._capture_luciel_dungeon_hp(*captured[s])
++                    continue
+                 s._native_group_ticket_prepare=True
+                 s.dungeon_requested=True;s.requested_dungeon_id=identity;s.requested_dungeon_mode=1
+                 result=LocalSession.handle(s,event)
+@@ -450,7 +496,9 @@ class FriendsDungeons:
+                 separators=(',',':')).encode()
+ 
+         try:
+-            admit_group(path,actors,identity,seed,event.payload,encode,guard)
++            from els_server.domain.dungeon_retry import request_identity
++            request=event.payload if previous is None else request_identity(previous.seed)
++            admit_group(path,actors,identity,seed,request,encode,guard)
+         except Exception:
+             for s,snapshot in snapshots.items():s.__dict__.clear();s.__dict__.update(snapshot)
+             return False
+diff --git a/els_server/domain/local_session.py b/els_server/domain/local_session.py
+index 9df0c50..0f0ba3e 100644
+--- a/els_server/domain/local_session.py
++++ b/els_server/domain/local_session.py
+@@ -980,7 +980,59 @@ class LocalSession:
+ 
+ 
+ 
++    def _adopt_dungeon_start(self,identity,run,run_id,challenge,hp_context,*,participants=None,epoch=None):
++        self.active_challenge=challenge;self.challenge_clear_effect=None
++
++        from els_server.domain.challenge_flow import store as challenge_store
++
++        self.challenge_deadline=challenge_store(self).current()['deadline'] if challenge is not None else None
++
++        self.phase='dungeon_loading';self.dungeon_requested=False
++
++        self.dungeon_id=identity;self.dungeon_run=run;self.requested_dungeon_id=None;self.requested_dungeon_mode=None
++
++        self.previous_dungeon_part=None
++
++        self.dungeon_clock=DungeonClock()
++
++        self.summon_next_key=16;self.summon_requests={}
++
++        self.summon_keys=set();self.summon_deaths={}
++
++        self.dungeon_substage_synced=False;self.dungeon_end_payload=None
++
++        self.defeated_npcs={};self.part_end_notified=False
++
++        self.gate_stage=0;self.gate_stage_loading=False
++
++        self.clear_notified=False
++
++        self.dungeon_failed=False
++
++        self.dungeon_participants=participants if participants is not None else frozenset((self.account.uid,))
++
++        self.reward_run_id=run_id if self.reward_test else None;self.reward_receipt=None;self.clear_items_synced=False
++
++        from els_server.domain.dungeon_result_rules import admission_power
++        self.dungeon_result_power=admission_power(self)
++
++        from els_server.domain.pve_economy_flow import bind_story
++        bind_story(self)
++        from els_server.domain.normal_fatigue_flow import bind as bind_normal_fatigue
++        bind_normal_fatigue(self,epoch=epoch)
++
++        self._c1_hp_context=hp_context
++
++        if hp_context is not None:hp_context.activate(run)
++
++        self.world_drops={};self.world_drop_issued=None;self.world_drop_sequence=910001
++
++        self.pickup_receipt=None
++
+     def _handle(self,event,request_sequence=None):
++        if event.event_id==0x202 and event.kind==0x651:
++            from els_server.domain.dungeon_retry import solo
++            return solo(self,event)
+         if event.kind in (0x18f,0x67,0x91,0xb3,0x192,0x225):
+             from els_server.domain.npc_training_flow import handle as training_handle
+             training_reply=training_handle(self,event,request_sequence)
+@@ -3005,16 +3057,8 @@ class LocalSession:
+                 valid=self.dungeon_requested and self.requested_dungeon_mode==(2 if kind==0x37f else 1) and 23<=len(opaque)<=86 and any(struct.unpack_from('>I',opaque,o)[0]==len(opaque)-22 for o in range(19))
+ 
+                 if valid:
+-
+-                    from els_server.domain.region_quests import account_dungeon_allowed
+-
+-                    valid=account_dungeon_allowed(self.account,self.requested_dungeon_id)
+-
+-                    from els_server.domain.raid_party import entry_size
+-                    if not getattr(self,'requested_challenge',None) and valid:valid=entry_size(self,self.requested_dungeon_id)
+-
+-                    from els_server.domain.raid_native_power import allowed as native_power_allowed
+-                    if valid:valid=native_power_allowed(self,self.requested_dungeon_id)
++                    from els_server.domain.dungeon_retry import solo_entry_allowed
++                    valid=solo_entry_allowed(self,self.requested_dungeon_id,getattr(self,'requested_challenge',None))
+ 
+                 if not valid:return [admission_ack(-1)]
+ 
+@@ -3086,53 +3130,7 @@ class LocalSession:
+                     except ValueError:return [admission_ack(-1)]
+                     if ticket_reply is None:return [admission_ack(-1)]
+ 
+-                self.active_challenge=challenge;self.challenge_clear_effect=None
+-
+-                from els_server.domain.challenge_flow import store as challenge_store
+-
+-                self.challenge_deadline=challenge_store(self).current()['deadline'] if challenge is not None else None
+-
+-                self.phase='dungeon_loading';self.dungeon_requested=False
+-
+-                self.dungeon_id=identity;self.dungeon_run=run;self.requested_dungeon_id=None;self.requested_dungeon_mode=None
+-
+-                self.previous_dungeon_part=None
+-
+-                self.dungeon_clock=DungeonClock()
+-
+-                self.summon_next_key=16;self.summon_requests={}
+-
+-                self.summon_keys=set();self.summon_deaths={}
+-
+-                self.dungeon_substage_synced=False;self.dungeon_end_payload=None
+-
+-                self.defeated_npcs={};self.part_end_notified=False
+-
+-                self.gate_stage=0;self.gate_stage_loading=False
+-
+-                self.clear_notified=False
+-
+-                self.dungeon_failed=False
+-
+-                self.dungeon_participants=frozenset((self.account.uid,))
+-
+-                self.reward_run_id=run_id if self.reward_test else None;self.reward_receipt=None;self.clear_items_synced=False
+-
+-                from els_server.domain.dungeon_result_rules import admission_power
+-                self.dungeon_result_power=admission_power(self)
+-
+-                from els_server.domain.pve_economy_flow import bind_story
+-                bind_story(self)
+-                from els_server.domain.normal_fatigue_flow import bind as bind_normal_fatigue
+-                bind_normal_fatigue(self)
+-
+-                self._c1_hp_context=hp_context
+-
+-                if hp_context is not None:hp_context.activate(run)
+-
+-                self.world_drops={};self.world_drop_issued=None;self.world_drop_sequence=910001
+-
+-                self.pickup_receipt=None
++                self._adopt_dungeon_start(identity,run,run_id,challenge,hp_context)
+ 
+                 world=getattr(getattr(self,'application',None),'world',None)
+ 
+diff --git a/els_server/domain/mentor_play.py b/els_server/domain/mentor_play.py
+index f8890f9..a02ee79 100644
+--- a/els_server/domain/mentor_play.py
++++ b/els_server/domain/mentor_play.py
+@@ -17,7 +17,7 @@ def percentages(teacher_class,student_class):
+     return 50+(30 if same else 0)+(20 if same and route is not None and route==branch(teacher_class)else 0)
+ 
+ 
+-def effects(db,members,room,dungeon,*,waiting=False):
++def effects(db,members,room,dungeon,*,waiting=False,retry=False):
+     """Run once inside the original source's guarded SQL transaction."""
+     if room is None and not waiting:return {}
+     members=tuple(members)
+@@ -32,7 +32,9 @@ def effects(db,members,room,dungeon,*,waiting=False):
+         if party.get('run')is not None or party.get('union_runs'):return {}
+         from els_server.domain.equipment_engrave_flow import current_lease
+         if any(s.phase!='town_ready' or not current_lease(s) or s not in world.members for s in members):return {}
+-    elif (room.owner_party is not party or room.party.get('run')is not room or tuple(room.members)!=members
++    elif (room.owner_party is not party or room.party.get('run')is not room
++            or tuple(party['members'] if retry else room.members)!=members
++            or (retry and room.phase!='clear')
+             or any(world.dungeons.room(s)is not room for s in members)):
+         raise ValueError('Mentor play is outside the actual shared room')
+     actual=Path(db.execute('PRAGMA database_list').fetchone()[2]).resolve()
+diff --git a/els_server/domain/native_ticket_admission.py b/els_server/domain/native_ticket_admission.py
+index 2bf5e3a..7e2f5c4 100644
+--- a/els_server/domain/native_ticket_admission.py
++++ b/els_server/domain/native_ticket_admission.py
+@@ -31,13 +31,15 @@ def _delta(before, after):
+     return Event(0x201, kind=0xad8, payload=payload)
+ 
+ 
+-def start(session, dungeon_id, run_id, request, ack, inventory_before, room_id):
++def start(session, dungeon_id, run_id, request, ack, inventory_before, room_id, *, retry_guard=None):
+     s = session
+     bound = (s.account, s.account.store, s.account.account_id, s.account.uid,
+              s.shop_session_id, s.requested_dungeon_id, s.requested_dungeon_mode,
+              s.phase, s.dungeon_requested, getattr(s, 'application', None))
+ 
+     def guard():
++        if retry_guard is not None:
++            return retry_guard()
+         if ((s.account, s.account.store, s.account.account_id, s.account.uid,
+              s.shop_session_id, s.requested_dungeon_id, s.requested_dungeon_mode,
+              s.phase, s.dungeon_requested, getattr(s, 'application', None)) != bound
+@@ -64,7 +66,7 @@ def start(session, dungeon_id, run_id, request, ack, inventory_before, room_id):
+             items[index]['count'] = after['count']
+         start_packet = dungeon_start(s.account.get_skills(), s.account.character(), items,
+             dungeon_id=dungeon_id, room_id=room_id, account_id=s.account.account_id,
+-            bootstrap_port=s.port_probe_port, member_capture=s._capture_luciel_dungeon_hp)
++            bootstrap_port=s.port_probe_port, member_capture=s._capture_luciel_dungeon_hp, retry=retry_guard is not None)
+         prepared[:] = [_delta(before, after), success, start_packet]
+         for packet in prepared:
+             encode_event(packet)
+diff --git a/els_server/domain/normal_fatigue_flow.py b/els_server/domain/normal_fatigue_flow.py
+index 32a9355..d3436f1 100644
+--- a/els_server/domain/normal_fatigue_flow.py
++++ b/els_server/domain/normal_fatigue_flow.py
+@@ -24,27 +24,38 @@ def _guard(s,bound,phases):
+         storage._writer(db,bound[11]);storage._actor(db,bound[9],bound[10])
+     return prepare
+ 
+-def admission_result(s,mid):
++def admission_result(s,mid,*,retry=False):
+     from els_server.protocol.dungeon_errors import INSUFFICIENT_DUNGEON_FATIGUE,ENTRY_REQUIREMENTS_NOT_MET
++    phase='dungeon_active' if retry else 'town_ready'
+     prepared=getattr(s,'_normal_fatigue_prepared_entry',None)
+     if prepared is not None:
+         if (type(prepared)is not _EntryPermit or prepared.owner is not s or prepared.dungeon!=mid
+-                or _binding(s,('town_ready',))!=prepared.binding):
++                or _binding(s,(phase,))!=prepared.binding):
+             return ENTRY_REQUIREMENTS_NOT_MET
+         return prepared.result
+     if not rules.enabled():return 0
+     r=rules.route(mid)
+     if r is None or r['cost']==0:return 0
+     try:
+-        b=_binding(s,('town_ready',));path=b[11]
++        b=_binding(s,(phase,));path=b[11]
+         with closing(sqlite3.connect(path,timeout=10))as db:
+             db.execute('BEGIN');state=storage.snapshot(db,b[9],b[10])
+-            if _binding(s,('town_ready',))!=b:raise ValueError('Ordinary fatigue admission actor changed')
++            if _binding(s,(phase,))!=b:raise ValueError('Ordinary fatigue admission actor changed')
+             from els_server.domain.hot_time import unlimited_fatigue
+             if state['current']>0 or unlimited_fatigue():return 0
+             from els_server.domain.mentor_play import waiting_fatigue_free
+-            free=waiting_fatigue_free(db,s,mid)
+-            if _binding(s,('town_ready',))!=b:raise ValueError('Mentor fatigue admission actor changed')
++            if retry:
++                app=getattr(s,'application',None)
++                room=app.world.dungeons.room(s) if app is not None else None
++                party=app.world.party_of.get(s) if app is not None else None
++                if room is None or party is None:
++                    free=False
++                else:
++                    from els_server.domain.mentor_play import effects
++                    free=effects(db,tuple(party['members']),room,mid,retry=True).get(s.account.uid,{}).get('fatigue_free',False)
++            else:
++                free=waiting_fatigue_free(db,s,mid)
++            if _binding(s,(phase,))!=b:raise ValueError('Mentor fatigue admission actor changed')
+             return 0 if free else INSUFFICIENT_DUNGEON_FATIGUE
+     except(ValueError,sqlite3.Error):return ENTRY_REQUIREMENTS_NOT_MET
+ 
+diff --git a/els_server/domain/raid_native_power.py b/els_server/domain/raid_native_power.py
+index c94ad1a..f774623 100644
+--- a/els_server/domain/raid_native_power.py
++++ b/els_server/domain/raid_native_power.py
+@@ -24,15 +24,39 @@ def active_pet(account):
+         return dict(pet,current=not pet.get('expires_at')or time.time()<pet['expires_at'])
+ 
+ 
+-def basis(session,*,equipped_only=False):
++def _inputs(session, *, equipped_only=False):
+     account=session.account
+     character=account.character()
+-    items=(account.get_inventory_snapshot(equipped_only=True) if equipped_only
+-        else account.get_inventory_snapshot())['items']
++    items=account.get_inventory_snapshot(equipped_only=equipped_only)['items']
+     from els_server.domain.character_stats import equipment_contributes
+     effective=[(i['uid'],equipment_contributes(i,character))for i in items if i['group']==9]
+-    source=json.dumps([character,items,account.get_skills(),effective,active_pet(account)],sort_keys=True,separators=(',',':')).encode()
+-    return account,account.uid,session.shop_session_id,hashlib.sha256(source).digest()
++    return character,items,account.get_skills(),effective,active_pet(account)
++
++
++def _basis(session,inputs):
++    source=json.dumps(inputs,sort_keys=True,separators=(',',':')).encode()
++    return session.account,session.account.uid,session.shop_session_id,hashlib.sha256(source).digest()
++
++
++def basis(session,*,equipped_only=False):
++    return _basis(session,_inputs(session,equipped_only=equipped_only))
++
++
++def _retry_basis(session,inputs):
++    # A clear changes fatigue, result history and stored EXP even when every
++    # active combat input is unchanged. Keep levels, allocations, titles,
++    # skill pages, collection, pet and every equipped instance in the proof.
++    character,items,skills,effective,pet=inputs
++    relevant={k:v for k,v in character.items() if k not in (
++        'normal_fatigue','cleared_dungeons','known_resurrection_count')}
++    if character.get('resonance') is not None:
++        relevant['resonance']={k:v for k,v in character['resonance'].items() if k not in ('experience','revision')}
++    if character.get('artifact') is not None:
++        relevant['artifact']={k:v for k,v in character['artifact'].items() if k!='experience'}
++    from els_server.storage.inventory_state import EQUIPPED_GROUPS
++    from els_server.domain.item_expiration import expired
++    equipped=[(item,expired(item)) for item in items if item['group'] in EQUIPPED_GROUPS]
++    return _basis(session,(relevant,equipped,skills,effective,pet))
+ 
+ 
+ def request(session,payload,*,fresh=False):
+@@ -43,17 +67,21 @@ def request(session,payload,*,fresh=False):
+         raise ValueError('Raid native CP source/number')
+     from els_server.domain.equipment_chip_flow import current_lease
+     if not current_lease(session):raise ValueError('Raid native CP current actor')
+-    session._raid_native_power=(basis(session),value)
++    inputs=_inputs(session)
++    session._raid_native_power=(_basis(session,inputs),value,_retry_basis(session,inputs))
+     return payload[:-16]
+ 
+ 
+-def allowed(session,identity):
++def allowed(session,identity,*,retry=False):
+     native=native_definition(identity)
+     if native is None:return True
+     required=native.get('limitCombatCapability',0)
+     if not required:return True
+     proof=getattr(session,'_raid_native_power',None)
+-    return bool(proof is not None and proof[0]==basis(session) and proof[1]*100>=required*95)
++    if proof is None or proof[1]*100<required*95:return False
++    inputs=_inputs(session)
++    return (proof[0]==_basis(session,inputs)
++            or retry and len(proof)==3 and proof[2]==_retry_basis(session,inputs))
+ 
+ 
+ def party_display_request(session,event):
+diff --git a/els_server/domain/silver_mirror_flow.py b/els_server/domain/silver_mirror_flow.py
+index fbd273c..cee7cff 100644
+--- a/els_server/domain/silver_mirror_flow.py
++++ b/els_server/domain/silver_mirror_flow.py
+@@ -41,18 +41,24 @@ def context(s):
+ def authority(s,expected):
+     return enabled(s)and context(s)==expected and original(s.dungeon_run)and not getattr(s,'dungeon_failed',False)and not policy.blackout(time.time())and getattr(s.dungeon_run,'silver_mirror_week',None)==policy.week_start(time.time())
+ 
+-def admit(s,run):
++def admit(s,run,*,retry_guard=None):
+     if not original(run):return []
+-    if not enabled(s)or s.phase!='town_ready'or not s.dungeon_requested or s.requested_dungeon_id!=run.identity:raise ValueError('Mirror native admission authority')
++    if not enabled(s):raise ValueError('Mirror native admission authority')
++    if retry_guard is not None:retry_guard()
++    elif s.phase!='town_ready'or not s.dungeon_requested or s.requested_dungeon_id!=run.identity:
++        raise ValueError('Mirror native admission authority')
+     if getattr(s,'requested_challenge',None)is not None:raise ValueError('Mirror does not alias challenge')
+     app=getattr(s,'application',None);world=getattr(app,'world',None)
+     party=world.party_of.get(s)if world else None
+     if party and(len(party.get('members',()))!=1 or party.get('raid_party')or party.get('challenge')):raise ValueError('Mirror solo source only')
+     bound=(s.account.uid,s.account.account_id,s.shop_session_id,s.requested_dungeon_id,s.requested_dungeon_mode,s.phase)
+-    def allowed():return enabled(s)and not policy.blackout(time.time())and bound==(s.account.uid,s.account.account_id,s.shop_session_id,s.requested_dungeon_id,s.requested_dungeon_mode,s.phase)
+-    from els_server.protocol.dungeon_messages import dungeon_start
+-    # Exercise the actual original entry encoder before storing any admission.
+-    encode([dungeon_start(s.account.get_skills(),s.account.character(),s.account.get_inventory_snapshot()['items'],dungeon_id=run.identity,room_id=10001,account_id=s.account.account_id,bootstrap_port=s.port_probe_port,member_capture=s._capture_luciel_dungeon_hp)])
++    def allowed():
++        if retry_guard is not None:retry_guard()
++        return enabled(s)and not policy.blackout(time.time())and bound==(s.account.uid,s.account.account_id,s.shop_session_id,s.requested_dungeon_id,s.requested_dungeon_mode,s.phase)
++    if retry_guard is None:
++        from els_server.protocol.dungeon_messages import dungeon_start
++        # Retry already compiled its scene before opening the admission.
++        encode([dungeon_start(s.account.get_skills(),s.account.character(),s.account.get_inventory_snapshot()['items'],dungeon_id=run.identity,room_id=10001,account_id=s.account.account_id,bootstrap_port=s.port_probe_port,member_capture=s._capture_luciel_dungeon_hp)])
+     with closing(sqlite3.connect(s.account.store.path,timeout=10))as db,db:
+         db.execute('BEGIN IMMEDIATE');store.guard(db,s.account.uid,s.account.account_id,allowed)
+         now=time.time()
+diff --git a/els_server/protocol/dungeon_messages.py b/els_server/protocol/dungeon_messages.py
+index 731479e..fbda9a8 100644
+--- a/els_server/protocol/dungeon_messages.py
++++ b/els_server/protocol/dungeon_messages.py
+@@ -8,6 +8,8 @@ from els_server.protocol.local_messages import i32,u32,wstring,LOCAL_COMBAT_ATTR
+ from els_server.domain.skill_state import DEFAULT_SLOTS,record,validate_slots
+ SUPPORTED_DUNGEON=30000  # Loaded definition: 鑹惧皵涔嬫爲.
+ 
++DUNGEON_RETRY_NOTICE=0x3f3
++
+ def skill_data(slots,character=None):
+     from els_server.domain.skill_rules import equippable_skills,learned_skills,upgraded_slots
+     allowed=equippable_skills(character);ranks=learned_skills(character)
+@@ -146,7 +148,7 @@ def room_metadata(dungeon_id,difficulty,*,room_id,name,bootstrap_port=None,
+     data+=b'\0'+i32(0)+bytes(8)*2
+     return data
+ 
+-def dungeon_start(slots=DEFAULT_SLOTS,character=None,items=None,dungeon_id=SUPPORTED_DUNGEON,*,room_id=10001,account_id=None,bootstrap_port=None,member_capture=None):
++def dungeon_start(slots=DEFAULT_SLOTS,character=None,items=None,dungeon_id=SUPPORTED_DUNGEON,*,room_id=10001,account_id=None,bootstrap_port=None,member_capture=None,retry=False):
+     # 2f867a0: ushort, room, two vectors<CC0050>, name,
+     # vector<CDA160 metadata records>, vector<ten floats>, vector<int>.
+     # CC0050 byte 2 -> native slot+9E. 1360320 binds this member as
+@@ -156,10 +158,10 @@ def dungeon_start(slots=DEFAULT_SLOTS,character=None,items=None,dungeon_id=SUPPO
+     team=b'\0\4\1'+bytes(3)+i32(0)+u32(1)+member(slots,character,items,account_id=account_id,capture=member_capture)+u32(0)+bytes(4)
+     from els_server.domain.native_hero_inputs import factor_vector
+     payload=bytes(2)+room_info(dungeon_id,room_id=room_id,bootstrap_port=bootstrap_port)+u32(1)+team+u32(0)+wstring('')+u32(0)+factor_vector(dungeon_id)+u32(0)
+-    return Event(0x201,kind=0x14a,payload=payload)
++    return Event(0x201,kind=DUNGEON_RETRY_NOTICE if retry else 0x14a,payload=payload)
+ 
+ 
+-def party_dungeon_start(members,leader,identity,room_id,*,bootstrap_port=None,member_captures=None,inventories=None,striker=False):
++def party_dungeon_start(members,leader,identity,room_id,*,bootstrap_port=None,member_captures=None,inventories=None,striker=False,retry=False):
+     """One native slot per participant. Peer transport is configured separately.
+ 
+     Current D9DDB0 reads a vector of member DTOs per slot. The first member
+@@ -186,7 +188,7 @@ def party_dungeon_start(members,leader,identity,room_id,*,bootstrap_port=None,me
+     from els_server.domain.native_hero_inputs import factor_vector
+     payload=bytes(2)+room_info(identity,room_id=room_id,name='Friends',bootstrap_port=bootstrap_port)+u32(len(teams))+b''.join(teams)+u32(0)+wstring('')+u32(0)+factor_vector(identity)+u32(0)
+     if member_captures is not None:member_captures.update(captured)
+-    return Event(0x201,kind=0x14a,payload=payload)
++    return Event(0x201,kind=DUNGEON_RETRY_NOTICE if retry else 0x14a,payload=payload)
+ 
+ def initial_substage(client_build='legacy',npc_key=None,gate_test=False):
+     # B511F0 case B2 -> B57400 -> 2F865C0. Native substage index 0,
+diff --git a/els_server/storage/inventory_state.py b/els_server/storage/inventory_state.py
+index 5772ab2..2067d10 100644
+--- a/els_server/storage/inventory_state.py
++++ b/els_server/storage/inventory_state.py
+@@ -96,6 +96,8 @@ def owned_template(db,owner,item_uid):
+ def load_items(db,owner=1001,*,item_uid=None):
+  return _load_items(db,owner,item_uid=item_uid)
+ 
++EQUIPPED_GROUPS=(9,22,23,24)
++
+ def load_equipped_items(db,owner=1001):
+  return _load_items(db,owner,equipped_only=True)
+ 
+@@ -108,7 +110,8 @@ def _load_items(db,owner=1001,*,item_uid=None,equipped_only=False):
+  if equipped_only:
+   # Native full Units include ordinary equipment, life tools/bait and
+   # Artifact gear. All four groups are worn inputs, independent of bags.
+-  query+=' AND bag_group IN (9,22,23,24)'
++  query+=' AND bag_group IN (?,?,?,?)'
++  parameters+=EQUIPPED_GROUPS
+  items=[dict(zip(('uid','template','metadata','count','group','slot'),r)) for r in db.execute(query+' ORDER BY bag_group,slot',parameters)]
+  from els_server.storage.equipment_attributes import attach_attributes
+  attach_attributes(db,items,owner)
+@@ -171,7 +174,7 @@ def _load_items(db,owner=1001,*,item_uid=None,equipped_only=False):
+  inventory_payload(items)  # Verify persisted identities/positions and wire before use.
+  from els_server.storage.bag_capacity import allowances
+  limits=allowances(db,owner)
+- if any(i['group'] not in (9,22,23,24) and i['slot']>=limits[i['group']] for i in items):raise ValueError('Item exceeds owned bag capacity')
++ if any(i['group'] not in EQUIPPED_GROUPS and i['slot']>=limits[i['group']] for i in items):raise ValueError('Item exceeds owned bag capacity')
+  return items
+ def validate_plan(plan,*,growth_guide_box=None,growth_guide_quest=None,selected_accessory_box=None,cartridge_box_source=None,cartridge_select_source=None,cartridge_recipe679_source=None,fish_erp_source=None,raid_reward_source=None,silver_source=None,daily_special_source=None,regional_cube_source=None,black_market_box_source=None,feta_exchange_source=None,npc_exchange_source=None,shop_templates=None):
+  if npc_exchange_source is not None:
+diff --git a/els_server/transport.py b/els_server/transport.py
+index ca835b9..d583084 100644
+--- a/els_server/transport.py
++++ b/els_server/transport.py
+@@ -12,6 +12,7 @@ from els_server.protocol.protocol_codec import (BOOTSTRAP_KEYS,Keys,Event,Protoc
+ from els_server.protocol.frame_encoder import FrameEncoder
+ from els_server.domain.local_session import SessionOrderError
+ from els_server.port_probe import PortProbe
++from els_server.protocol.dungeon_messages import DUNGEON_RETRY_NOTICE
+ from els_server.dungeon34320_observation import Trace34320
+ 
+ 
+@@ -212,11 +213,11 @@ class GameServer:
+                                 if timing is not None:timing['send_ms']+=(time.perf_counter()-started)*1000
+                             positions=[]
+                             for message,wire_sequence,length in sent:
+-                                if(message.kind in(0x14a,0xb2)
++                                if(message.kind in(0x14a,DUNGEON_RETRY_NOTICE,0xb2)
+                                     or message.kind in(0x29,0x226)and message.payload[:4]==bytes(4)
+                                     or message.kind==0x68 and business.phase!='town_ready'):town_epoch=None
+                                 elif message.kind==0x228 and message.payload[:4]==bytes(4):town_epoch=entered
+-                                if message.kind in(0x14a,0xb2,0x68):clock_epoch=None
++                                if message.kind in(0x14a,DUNGEON_RETRY_NOTICE,0xb2,0x68):clock_epoch=None
+                                 elif message.kind==0xbd and self.realtime is not None:
+                                     # Bind the scene just sent, not a publication
+                                     # which may still describe the previous part.
+diff --git a/tools/client_compatibility_profiles.json b/tools/client_compatibility_profiles.json
+index 6575952..a493dda 100644
+--- a/tools/client_compatibility_profiles.json
++++ b/tools/client_compatibility_profiles.json
+@@ -54,8 +54,8 @@
+         "tools/native_hit_count_obstacles.js": "84a05065206abddce1741081c93373b7660cce052fd67de0c7a5beff5a9ed978",
+         "tools/guild_native_power.py": "a776b950820bf4cc83981f659c633b4c180e30bdf2011837dbb6746e6c307226",
+         "tools/guild_native_power.js": "ff0bb65b18c252da78829ccefaa51ac16e4a9d507e27c8cb560aa7b844facba7",
+-        "tools/dungeon_result_stats.py": "0ed0aa4af8b667864d062c307aec478fbb061b24b3259d7d7f6192a51a632927",
+-        "tools/dungeon_result_stats.js": "7d8f6c3491ad572d70aeaf836ca73300e75c5bd3f6f20fe2d6a6533c7d03665d",
++        "tools/dungeon_result_stats.py": "85c49fcb68a2f4a16bce4ee2a859cc25ba31dbe3f86f0f4f53363361dacd8a01",
++        "tools/dungeon_result_stats.js": "fbca145b5bfb9dc03660d2083187cb549f361b83d8b72e2f00680b5401ce04b0",
+         "tools/native_title_options.js": "51a443c0eca849569c557fce6737105495e4f8cd941c47a6eebe60875eb1a827",
+         "tools/native_title_options.py": "ec7b9c7a82fb9ba2c40f2f1721e2e39906a3993db21cf0f4ff8de6db054def58",
+         "tools/raid_native_power.py": "a91d27579636a9c2baabb07e550184f13d2bea2e73219542ad112eaf37252c44",
+diff --git a/tools/dungeon_result_stats.js b/tools/dungeon_result_stats.js
+index aa0c446..db561fb 100644
+--- a/tools/dungeon_result_stats.js
++++ b/tools/dungeon_result_stats.js
+@@ -1,4 +1,29 @@
+-// Send the original cumulative9E before BB/471; never change combat values.
++// Restore the parsed Hero factors before the original 3F3 reload timer starts.
++function installElsHeroRetryFactors(module){
++ if(installElsHeroRetryFactors.listener)return installElsHeroRetryFactors.listener;
++ const expected=__HERO_RETRY_PINS__;
++ const bytes=new Uint8Array(module.base.add(0x2d65145).readByteArray(expected.length/2));
++ const actual=Array.from(bytes,v=>v.toString(16).padStart(2,'0')).join('');
++ if(actual!==expected)throw Error('Hero retry native identity');
++
++ const cache=module.base.add(0x481f918),factorCount=10,factorBytes=factorCount*4;
++ const listener=Interceptor.attach(module.base.add(0x2d65161),function(){
++  const frame=this.context.rbp;
++  if(frame.add(4).readU32()!==120000)return;
++  // The original parser owns the vector at packet DTO + 17Ch (RBP + CCh).
++  const vector=frame.add(0xcc),begin=vector.readPointer(),end=vector.add(8).readPointer();
++  if(begin.isNull()||!end.equals(begin.add(factorBytes)))return;
++  for(let index=0;index<factorCount;index++){
++   const factor=begin.add(index*4).readFloat();
++   if(!Number.isFinite(factor)||factor<=0)return;
++  }
++  Memory.copy(cache,begin,factorBytes);
++ });
++ installElsHeroRetryFactors.listener=listener;
++ return listener;
++}
++
++// Send the original cumulative9E before BB/471.
+ function prepareElsDungeonResultStats(){
+  'use strict';
+  if(prepareElsDungeonResultStats.prepared)return prepareElsDungeonResultStats.prepared;
+diff --git a/tools/dungeon_result_stats.py b/tools/dungeon_result_stats.py
+index dcd76b9..f474383 100644
+--- a/tools/dungeon_result_stats.py
++++ b/tools/dungeon_result_stats.py
+@@ -1,4 +1,4 @@
+-"""Use the original report sender before the native PVE terminal requests."""
++"""Compose native PVE report and result-screen reload support."""
+ from pathlib import Path
+ import hashlib,json
+ EXE_SHA='6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709'
+@@ -11,15 +11,21 @@ def compose(snapshot,executable_sha256,template):
+     if template.count(anchor)!=1:raise ValueError('Dungeon result report startup anchor')
+     guard=" for(const [r,h]of Object.entries(pins))if(bytes(module.base.add(+r))!==h)throw Error('Native power sync identity '+r);"
+     if template.count(guard)!=1:raise ValueError('Dungeon result original pin ordering')
++    startup='  installElsWearSync();'
++    if template.count(startup)!=1:raise ValueError('Hero retry startup anchor')
+     script=Path(__file__).with_suffix('.js').read_text(encoding='utf8')
+-    if script.count('__DUNGEON_RESULT_PINS__')!=1:raise ValueError('Dungeon result source contract')
++    if script.count('__DUNGEON_RESULT_PINS__')!=1 or script.count('__HERO_RETRY_PINS__')!=1:
++        raise ValueError('Dungeon result source contract')
+     # The existing trace owns an Interceptor at 682D80 before cache startup.
+     # Pin the untouched body +20h of that same function, not its trampoline.
+     entries=(0x682da0,0x159670,0x8571d0,0x1ab7ac0,0x1ab6eb0,0xda2f50,
+              0x8fe730,0x8f4830,0x8f4c19,0x8f4c2d,0x18ddeb3,0x3b6dbd0,0x3b6dda0,0x3b6dcc0)
+     script=script.replace('__DUNGEON_RESULT_PINS__',json.dumps({r:snapshot[r:r+16].hex()for r in entries}))
++    script=script.replace('__HERO_RETRY_PINS__',json.dumps(snapshot[0x2d65145:0x2d65168].hex()))
+     replacement=anchor+"\n const previousResultStats=globalThis.elsDungeonResultStats;\n dungeonResultStats=installElsDungeonResultStats(()=>mainThread!==0&&Process.getCurrentThreadId()===mainThread);\n ownsDungeonResultStats=previousResultStats!==dungeonResultStats;"
+     # Check original bytes before the existing PvP hook changes 1AB7AC0.
+     # Preparation has no hook and captures no actor or cache-thread closure.
+     template=template.replace(guard,guard+'\n prepareElsDungeonResultStats();')
++    template=template.replace(startup,'  installElsHeroRetryFactors(game);\n'
++                              "  note({event:'hero_retry_factors_ready'});\n"+startup)
+     return script+'\n'+template.replace(anchor,replacement)

@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "provenance": "local_policy",
+  "description": "本服正式普通来源规则：艾尔之树逐只沿旧等级经验曲线，真实击杀事务与有效怪物实例一致；清图经验取实际已提交击杀经验的float32 30%。金币按固定NPC等级平方×2、Boss再×10，原生食品只沿既有箱子分配；不再配置固定初级药水兜底。既有120ED清图保留为本服规则，概率和金额不冒称官服。",
+  "dungeons": {
+    "30000": {
+      "clear_ed": 120,
+      "clear_experience": 0,
+      "clear_items": [],
+      "world_drop": null,
+      "ground_loot": {
+        "assignment_source": "local_fallback",
+        "native_probabilities_known": false,
+        "npc_loot": {
+          "618": {
+            "coin": {
+              "template": 127000,
+              "amount": 10
+            }
+          },
+          "201": {
+            "coin": {
+              "template": 127000,
+              "amount": 10
+            }
+          },
+          "5": {
+            "coin": {
+              "template": 127010,
+              "amount": 50
+            }
+          },
+          "20": {
+            "food_templates": [
+              70000,
+              70010,
+              70020,
+              70030,
+              70040,
+              70050
+            ]
+          },
+          "625": {},
+          "626": {},
+          "632": {}
+        }
+      },
+      "drop_chances": {
+        "ordinary": [
+          0,
+          1
+        ],
+        "boss": [
+          0,
+          1
+        ],
+        "chest": [
+          1,
+          1
+        ]
+      },
+      "clear_experience_source": "float32 30% of actually committed kill EXP; no fixed fallback"
+    }
+  }
+}

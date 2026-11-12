@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "source_sha256": "e4215390818f203655f680ac17b8a07b90c0012dbcdb6ecfdf7dd5d4acce215c",
+  "boosters": {
+    "start": [
+      {
+        "DecelerationTime": 4.7,
+        "HoldTime": 4.9,
+        "AccelerationTime": 0.3,
+        "ChangeSpeed_Max_Over": 0.003,
+        "ChangeSpeed_Max": 0.6,
+        "ChangeSpeed_Min": 0.55,
+        "Probability": 30
+      },
+      {
+        "DecelerationTime": 5.1,
+        "HoldTime": 5.3,
+        "AccelerationTime": 0.25,
+        "ChangeSpeed_Max_Over": 0.004,
+        "ChangeSpeed_Max": 0.7,
+        "ChangeSpeed_Min": 0.65,
+        "Probability": 50
+      },
+      {
+        "DecelerationTime": 5.5,
+        "HoldTime": 5.7,
+        "AccelerationTime": 0.2,
+        "ChangeSpeed_Max_Over": 0.006,
+        "ChangeSpeed_Max": 0.8,
+        "ChangeSpeed_Min": 0.75,
+        "Probability": 20
+      }
+    ],
+    "normal": [
+      {
+        "DecelerationTime": 0.13,
+        "HoldTime": 0.37,
+        "AccelerationTime": 0.15,
+        "ChangeSpeed_Max_Over": 0.003,
+        "ChangeSpeed_Max": 0.35,
+        "ChangeSpeed_Min": 0.3,
+        "Probability": 30
+      },
+      {
+        "DecelerationTime": 0.13,
+        "HoldTime": 0.38,
+        "AccelerationTime": 0.15,
+        "ChangeSpeed_Max_Over": 0.004,
+        "ChangeSpeed_Max": 0.5,
+        "ChangeSpeed_Min": 0.45,
+        "Probability": 50
+      },
+      {
+        "DecelerationTime": 0.13,
+        "HoldTime": 0.39,
+        "AccelerationTime": 0.15,
+        "ChangeSpeed_Max_Over": 0.006,
+        "ChangeSpeed_Max": 0.65,
+        "ChangeSpeed_Min": 0.6,
+        "Probability": 20
+      }
+    ],
+    "obstacle": [
+      {
+        "Probability": 30,
+        "DecelerationTime": 0.8,
+        "HoldTime": 2.2,
+        "AccelerationTime": 0.26,
+        "ChangeSpeed_Max_Over": 0.002,
+        "ChangeSpeed_Max": 0.4,
+        "ChangeSpeed_Min": 0.35,
+        "Obstacle_AccelerationTime": 0.2,
+        "Obstacle_ChangeSpeed": -0.6,
+        "Obstacle_CanJump": false
+      },
+      {
+        "Probability": 50,
+        "DecelerationTime": 0.8,
+        "HoldTime": 2.2,
+        "AccelerationTime": 0.26,
+        "ChangeSpeed_Max_Over": 0.003,
+        "ChangeSpeed_Max": 0.55,
+        "ChangeSpeed_Min": 0.5,
+        "Obstacle_AccelerationTime": 0.24,
+        "Obstacle_ChangeSpeed": -0.18,
+        "Obstacle_CanJump": true
+      },
+      {
+        "Probability": 20,
+        "DecelerationTime": 0.8,
+        "HoldTime": 2.2,
+        "AccelerationTime": 0.26,
+        "ChangeSpeed_Max_Over": 0.005,
+        "ChangeSpeed_Max": 0.7,
+        "ChangeSpeed_Min": 0.65,
+        "Obstacle_AccelerationTime": 0.24,
+        "Obstacle_ChangeSpeed": -0.18,
+        "Obstacle_CanJump": true
+      }
+    ],
+    "spurt": [
+      {
+        "ChangeSpeed_Max_Over": 0.005,
+        "StartRemainTime_Min": 31.5,
+        "AccelerationTime": 0.4,
+        "StartRemainTime_Max": 32.9,
+        "ChangeSpeed_Max": 0.9,
+        "ChangeSpeed_Min": 0.75,
+        "Probability": 30
+      },
+      {
+        "ChangeSpeed_Max_Over": 0.007,
+        "StartRemainTime_Min": 31.5,
+        "AccelerationTime": 0.4,
+        "StartRemainTime_Max": 33.6,
+        "ChangeSpeed_Max": 1.165,
+        "ChangeSpeed_Min": 1,
+        "Probability": 50
+      },
+      {
+        "ChangeSpeed_Max_Over": 0.01,
+        "StartRemainTime_Min": 31.5,
+        "AccelerationTime": 0.4,
+        "StartRemainTime_Max": 34.3,
+        "ChangeSpeed_Max": 1.445,
+        "ChangeSpeed_Min": 1.265,
+        "Probability": 20
+      }
+    ]
+  },
+  "obstacles": [
+    {
+      "StartTime": 14.5,
+      "TopTime": 15,
+      "BottomTime": 15.5,
+      "TopYPos": 200
+    },
+    {
+      "StartTime": 29.5,
+      "TopTime": 30,
+      "BottomTime": 30.5,
+      "TopYPos": 200
+    },
+    {
+      "StartTime": 44.5,
+      "TopTime": 45,
+      "BottomTime": 45.5,
+      "TopYPos": 200
+    },
+    {
+      "StartTime": 59.5,
+      "TopTime": 60,
+      "BottomTime": 60.5,
+      "TopYPos": 200
+    }
+  ],
+  "race": {
+    "FinishLineTime": 88,
+    "BoosterCooltime": 4,
+    "StartCountStateTime": 3,
+    "AllFinishStateTime": 7,
+    "AutoLeaveTime": 30,
+    "FinalSpurtStartStopTime": 1
+  }
+}

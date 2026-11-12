@@ -1,0 +1,47 @@
+{
+  "release": "housing-and-ed-shop-20261111-v166",
+  "patch_sha256": "28d4616a8b76341c9bd0efffe2ab6edac73ea1f90041a2e2ec0b3cadbd23e0e9",
+  "parents": {
+    "online": {
+      "release": "gm-workspace-announcements-20261111-v165",
+      "manifest_sha256": "1fa0e83cd230c7686c5a841bd883e03eaff4f9228ce964d8208be787ea340423"
+    },
+    "local": {
+      "release": "unified-server-3c9b0ab71e09a004-32deb4fc9083",
+      "manifest_sha256": "1e0d0c9d2629748250537f830d73ef47e99b794f4613a69f436a95a1774ec065"
+    },
+    "launchers": {
+      "release": "gm-workspace-announcements-20261111-v165",
+      "manifest_sha256": "f5170196375eaa0e8b252f7918d1cc4019a9cc36e9593e8f4b3247baf717d2d8"
+    }
+  },
+  "files": [
+    {
+      "cohort": "guild-quests",
+      "path": "els_server/domain/quest_flow.py",
+      "sha256": "81928099da38d2217360fea0c574a92046f3c1e5fecea3d4a5e51b51a4d313e9",
+      "size": 37685,
+      "parent_sha256": "2b541051e2341cf25f880ee80b675d5016a123d1cef3fe7b4e566c58d254aca9",
+      "upstream_sha256": "81928099da38d2217360fea0c574a92046f3c1e5fecea3d4a5e51b51a4d313e9",
+      "rebased": false
+    },
+    {
+      "cohort": "guild-quests",
+      "path": "els_server/storage/guild_quests.py",
+      "sha256": "c409ce95c30167c534fa66a38850dafcb33c2a8d53644bf07eba2316a61145af",
+      "size": 7102,
+      "parent_sha256": "b470f97618ee203b02d3ca955fd9925fcb1d6813d87f42cfd2737a090d988356",
+      "upstream_sha256": "c409ce95c30167c534fa66a38850dafcb33c2a8d53644bf07eba2316a61145af",
+      "rebased": false
+    },
+    {
+      "cohort": "guild-quests",
+      "path": "els_server/storage/seal_quests.py",
+      "sha256": "4cd62c5f6cc89b506b240cefebbbd032e777eec1f91f63e99e794571c5810d2f",
+      "size": 49777,
+      "parent_sha256": "a52cbe94d432c5c5942b5472e6e175b37dae758163ec7420d8cd18d2651d9820",
+      "upstream_sha256": "4cd62c5f6cc89b506b240cefebbbd032e777eec1f91f63e99e794571c5810d2f",
+      "rebased": false
+    }
+  ]
+}

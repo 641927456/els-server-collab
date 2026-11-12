@@ -1,0 +1,72 @@
+{
+  "ok": true,
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "cases": [
+    {
+      "name": "original_item_use_notification",
+      "popup": true,
+      "points": {
+        "1": 0,
+        "2": 13,
+        "3": 28,
+        "4": 22,
+        "5": 39
+      },
+      "bytes_consumed": 13
+    },
+    {
+      "name": "normal_growth",
+      "popup": false,
+      "points": {
+        "1": 0,
+        "2": 13,
+        "3": 28,
+        "4": 22,
+        "5": 39
+      },
+      "bytes_consumed": 37
+    },
+    {
+      "name": "unchanged_progress",
+      "popup": false,
+      "points": {
+        "1": 0,
+        "2": 13,
+        "3": 28,
+        "4": 20,
+        "5": 39
+      },
+      "bytes_consumed": 37
+    },
+    {
+      "name": "reward_resets_gauge",
+      "popup": false,
+      "points": {
+        "1": 0,
+        "2": 13,
+        "3": 28,
+        "4": 0,
+        "5": 39
+      },
+      "bytes_consumed": 37
+    },
+    {
+      "name": "new_character_zero_snapshot",
+      "popup": false,
+      "points": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "bytes_consumed": 37
+    }
+  ],
+  "original_parser_and_classifier": true,
+  "partial_snapshot_rejected": true,
+  "producer_sha256": "02e0b60207e370dff8a0265e0990bfc0acc7c43e0666164cffff18e5c3ce734d",
+  "live_game_access": false,
+  "natural_GUI": false,
+  "void_scope": "Current runtime has no index1 progress producer or saved gauge; authoritative value remains zero."
+}

@@ -1,0 +1,1709 @@
+{
+  "authorizations": [
+    {
+      "path": "G:\\els\\analysis\\user-issues-01a16dd4-20261024-v1\\approved-remaining-rules-20261025-v1\\ariel-cash-attendance-authorization.json",
+      "sha256": "e0f57737142a4f874865ec908dde605b26d3c1adecddf424c4785e227f1ae846"
+    },
+    {
+      "path": "G:\\els\\analysis\\user-issues-01a16dd4-20261024-v1\\approved-remaining-rules-20261025-v1\\ariel-daily-special-scope-authorization.json",
+      "sha256": "c4b63b0fffbb4e6fb34221d15e45e28593e4ddf60e8c2d20e41d612d3ca68714"
+    }
+  ],
+  "baseline_scope": "character+dungeon+day",
+  "held": [
+    {
+      "dungeons": [
+        38300,
+        120000,
+        41590,
+        41600,
+        41630
+      ],
+      "reason": "Special/guild ownership, successful clear source or variable reward inputs are not qualified by ordinary route data"
+    },
+    {
+      "dungeon": 34730,
+      "reason": "Current dungeon_type6 is DT_RAID6, six-player source; official baseline listing alone does not authorize Ariel ordinary-only raid admission",
+      "source": {
+        "daily_count": 1,
+        "dungeon": 34730,
+        "dungeon_type": 6,
+        "graph_sha256": "bd2b9052797964385dc187e32b18bb9cd7665c92c5599e1880238db60bb2797c",
+        "name": "普雷加斯的迷宫",
+        "official_row": [
+          "普雷加斯的迷宫",
+          "神物精灵石残片*200",
+          "1"
+        ],
+        "rewards": [
+          [
+            118206,
+            200
+          ]
+        ],
+        "source": "dungeon_devildom_side3.lua",
+        "unit_rewards": null
+      }
+    }
+  ],
+  "items": {
+    "118206": {
+      "existing_reader": true,
+      "group": 3,
+      "max_stack": 999,
+      "metadata": 2,
+      "name": "神物精灵石残片",
+      "native_stack": 1000,
+      "native_type": 6,
+      "record_sha256": "372dd5cc58def11ed22f593963737409c5619d0efdf452eb73bc56b92f690e49",
+      "template": 118206,
+      "unidentified_shadow": false
+    },
+    "118253": {
+      "existing_reader": true,
+      "group": 3,
+      "max_stack": 20000,
+      "metadata": 2,
+      "name": "碧空幻影的气息",
+      "native_stack": 20000,
+      "native_type": 6,
+      "record_sha256": "669a6264dd5a85967571066dab5b86865ca00a5abdc44b7f3a102e1fee539209",
+      "template": 118253,
+      "unidentified_shadow": false
+    },
+    "118262": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（艾索德）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "6ae3c800154d51eda52a10cfcb5c6fcfd62b08f37b8f4ab73bbb66db004269b3",
+      "template": 118262,
+      "unidentified_shadow": true
+    },
+    "118263": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（艾索德）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "c62983abd1d23a0ab287148df4b50a9d776d2b1cf55e19d1d27acaea25c30cac",
+      "template": 118263,
+      "unidentified_shadow": true
+    },
+    "118264": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（艾索德）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "e05c2a7b97bcff7e7af07c8e9338e0aadcc2106eba4154d5fa35ee44bdf7e116",
+      "template": 118264,
+      "unidentified_shadow": true
+    },
+    "118265": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（艾索德）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "ac2e86e10a352ee12bc6d48df9385fd93c91c6062cb6d15f6681ce000c9d7e96",
+      "template": 118265,
+      "unidentified_shadow": true
+    },
+    "118266": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（爱莎）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "e23901eb833fe9321ce8206658a82271a1dd86667620f75d171fc3fc8b0b9108",
+      "template": 118266,
+      "unidentified_shadow": true
+    },
+    "118267": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（爱莎）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "196bda6ebba97cf5f062ea4d5c84fab272cb84ea9f5ebad95a5aa147faaec623",
+      "template": 118267,
+      "unidentified_shadow": true
+    },
+    "118268": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（爱莎）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "e72c64b6cb1db8e1822ece4e772ad421aa3158e0a2c007e103eb1b4463950989",
+      "template": 118268,
+      "unidentified_shadow": true
+    },
+    "118269": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（爱莎）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "2ec186e35761a4ce0bbc444aeaeb8443c8bf8790e1ad1b2a38016f36c57070ee",
+      "template": 118269,
+      "unidentified_shadow": true
+    },
+    "118270": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（蕾娜）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "e0fa4b7c19ce21ecc3d307632636e568d500d93803400eac5f05f4dd75e27508",
+      "template": 118270,
+      "unidentified_shadow": true
+    },
+    "118271": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（蕾娜）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "729b409a3a2e90ccacf194eaba505b2345c22be8601fe9c534f2008c9c7ed5b8",
+      "template": 118271,
+      "unidentified_shadow": true
+    },
+    "118272": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（蕾娜）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "0c1456b4557512e70d8e607ce203a604a9d674627992596699e16dcc59a2fb6d",
+      "template": 118272,
+      "unidentified_shadow": true
+    },
+    "118273": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（蕾娜）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "0abee568527d72d3c00c50e639705808b3e22b8af54c323f336a7db4757be18f",
+      "template": 118273,
+      "unidentified_shadow": true
+    },
+    "118274": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（雷文）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "d0d2c9994a48756e44e010cd9aa885c5c1169188a9f4e2cd71654cd539ed3913",
+      "template": 118274,
+      "unidentified_shadow": true
+    },
+    "118275": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（雷文）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "f893a38c487eb62b124fab75ebaa8be229b1a878881d2a2ca85e4129eee10e68",
+      "template": 118275,
+      "unidentified_shadow": true
+    },
+    "118276": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（雷文）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "c3970b8d5fdf5c5e207376d4e96e900e67851fd2a87757da4890cfa255996541",
+      "template": 118276,
+      "unidentified_shadow": true
+    },
+    "118277": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（雷文）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "b736249f5772d61a2acdd42baf85326709ff2e16fa77957fc22a1ebc1afcd290",
+      "template": 118277,
+      "unidentified_shadow": true
+    },
+    "118278": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（伊芙）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "719489fb0e105209d9d9c9ee0d8439599c8ac0a0e3cc7e8a4971f614865ff5b4",
+      "template": 118278,
+      "unidentified_shadow": true
+    },
+    "118279": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（伊芙）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "1e23da501aa043295c5e030cd2806893ce12d95e30d9c295575ee153fe0fad70",
+      "template": 118279,
+      "unidentified_shadow": true
+    },
+    "118280": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（伊芙）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "26673cd0e64e5dc15fe135e621545305701ffec99dd4eb867152289e89586368",
+      "template": 118280,
+      "unidentified_shadow": true
+    },
+    "118281": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（伊芙）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "2ea69d6c9bbc4acb53b80a94c05ecb6202c3a968f139dfb563313e3c6a1eca34",
+      "template": 118281,
+      "unidentified_shadow": true
+    },
+    "118282": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（澄）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "688e0c414cff81d82b828b4625019675395735f63539cec1f9bb3117561f0532",
+      "template": 118282,
+      "unidentified_shadow": true
+    },
+    "118283": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（澄）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "ea3b2e9d7d8ca1477ca0b30d235ed55d3f666e4b6eaf5e008f1da9c5715e421d",
+      "template": 118283,
+      "unidentified_shadow": true
+    },
+    "118284": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（澄）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "78b395c602f4b2503f3b3dd1043fad7ffcb624705eee9d67cd51b9245071ad0c",
+      "template": 118284,
+      "unidentified_shadow": true
+    },
+    "118285": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（澄）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "b7ef6882e9a84670a7d5bc55652c8eb47057ca791532f02c7db138c851aed57f",
+      "template": 118285,
+      "unidentified_shadow": true
+    },
+    "118286": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（艾拉）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "c70ec183f6a242aa8f720d48bf187882608afed6b9d50e4e6075e1faf2614f84",
+      "template": 118286,
+      "unidentified_shadow": true
+    },
+    "118287": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（艾拉）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "571f73b4a4c0e84ce7fd4b933f2eace99a5eb042b465f855391dfeb12001fc84",
+      "template": 118287,
+      "unidentified_shadow": true
+    },
+    "118288": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（艾拉）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "924e14b74d3aec27178484b39e027585a289f3e4c772bc96c80b3a8ae69b8814",
+      "template": 118288,
+      "unidentified_shadow": true
+    },
+    "118289": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（艾拉）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "e318d314b10a898eb09f1357190558a8bc4e149e1dd738cc76822d266503a375",
+      "template": 118289,
+      "unidentified_shadow": true
+    },
+    "118290": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（艾丽希斯）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "73d389a6e272615aab626afb944efb85b8fbc1bf35ba82eb6a9af5c7e54060b3",
+      "template": 118290,
+      "unidentified_shadow": true
+    },
+    "118291": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（艾丽希斯）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "05f560e6d62699561cf1e22e833ca0b5800e263275bc3674dd2b567e027159a8",
+      "template": 118291,
+      "unidentified_shadow": true
+    },
+    "118292": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（艾丽希斯）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "4d2e56c300b57182377f1df60fba8f503540ec882780c20ee3f302bafc088961",
+      "template": 118292,
+      "unidentified_shadow": true
+    },
+    "118293": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（艾丽希斯）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "f9e8fae7d95cf508b7a3bbf85e0593756a0c85aaddd46a1016130307e3e0254f",
+      "template": 118293,
+      "unidentified_shadow": true
+    },
+    "118294": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（艾迪）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "ca148fec9ee494ee1b6fba86bf283b0492b1bb43db8c5c84107b1518905e4a5d",
+      "template": 118294,
+      "unidentified_shadow": true
+    },
+    "118295": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（艾迪）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "f44538b32c564176f6803d4852431293cdefd4477bd75a35679add2314968f90",
+      "template": 118295,
+      "unidentified_shadow": true
+    },
+    "118296": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（艾迪）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "4450602991957e188f5454ddb1863360cf842924f0d735cc4ce9c67dbb8b9171",
+      "template": 118296,
+      "unidentified_shadow": true
+    },
+    "118297": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（艾迪）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "17f886ea7da8eeb8c08e9e0f8c7cbb19a271041208da439823e39f347e4a1b88",
+      "template": 118297,
+      "unidentified_shadow": true
+    },
+    "118298": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（露／希尔）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "574cc23e02e5e99e1bf53ab13a42f3271ae914a3db7cf780f4cd472306c048eb",
+      "template": 118298,
+      "unidentified_shadow": true
+    },
+    "118299": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（露／希尔）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "abdadc595b9f26fc7ca0e5b3987f5b427f97b9d6d491a23272da7bf6dc2669b1",
+      "template": 118299,
+      "unidentified_shadow": true
+    },
+    "118300": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（露／希尔）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "dffbd92d52d538fa1502310cf45424a0ff22431d19fdae2792528c8a4b72b645",
+      "template": 118300,
+      "unidentified_shadow": true
+    },
+    "118301": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（露／希尔）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "089b756372175c09ff47c07a893d2e8344afecf4ae5313b39a03dc13f99741a1",
+      "template": 118301,
+      "unidentified_shadow": true
+    },
+    "118302": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（萝丝）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "70affef1d0512318354d08060b5176ae76e464eea2defd77affbec0ac1041cc5",
+      "template": 118302,
+      "unidentified_shadow": true
+    },
+    "118303": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（萝丝）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "6c7c41b272e12b49f85eb199fe8d2db536b29a217a04f8ac25650d16590134ad",
+      "template": 118303,
+      "unidentified_shadow": true
+    },
+    "118304": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（萝丝）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "ef93a767d6c94723ce15e4904da7d72cb43bb21748f46ec6e95ad767f635500d",
+      "template": 118304,
+      "unidentified_shadow": true
+    },
+    "118305": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（萝丝）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "3ede9f10b43ac6906441aae8cea5c407ff9373a5a588c0f259af4a2bf131e60d",
+      "template": 118305,
+      "unidentified_shadow": true
+    },
+    "118306": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（艾因）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "75f6b2b2f4b5c9f3d6841ad925f559943a3170ebe17fcb4743893097681d9433",
+      "template": 118306,
+      "unidentified_shadow": true
+    },
+    "118307": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（艾因）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "d4beee1f92aa37b10867ff5522b9a07298c5797f1cbd9e07fd0a6bdbce99aae9",
+      "template": 118307,
+      "unidentified_shadow": true
+    },
+    "118308": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（艾因）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "c684663fca67742d4f0a72e45af135de498620a8de496b716aa680c0aad6c6e2",
+      "template": 118308,
+      "unidentified_shadow": true
+    },
+    "118309": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（艾因）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "640b27e895db47d822031966336c63beb6caff2e03c85377ba431e2301391c90",
+      "template": 118309,
+      "unidentified_shadow": true
+    },
+    "118310": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（娜薇）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "1155125e9be22c308ac0332ca8855ec5dca1e2ba20c7d1479601b824d7fd19a4",
+      "template": 118310,
+      "unidentified_shadow": true
+    },
+    "118311": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（娜薇）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "892d7ef3588db324a6ce1faba06c0184529a2cb46e8bdebaf886073aae8eebde",
+      "template": 118311,
+      "unidentified_shadow": true
+    },
+    "118312": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（娜薇）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "ef4792ccdac6693ef461cc1b5d013453c770ef929ab5481cf0ef4162f30e6eb5",
+      "template": 118312,
+      "unidentified_shadow": true
+    },
+    "118313": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（娜薇）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "a99f7294772d558f287b8aabcb90833cf42e9938dee74dc135cbf7d7f01d6cf4",
+      "template": 118313,
+      "unidentified_shadow": true
+    },
+    "118314": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（诺亚）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "fc4ab62f026b9468d681e257ae94a13ef85d87a69b9909f03dbd1ccc2121adcb",
+      "template": 118314,
+      "unidentified_shadow": true
+    },
+    "118315": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（诺亚）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "1dd5914d99d66b83376e391301d7091aab7c74d2e315cea9ff9e99c1f36885c8",
+      "template": 118315,
+      "unidentified_shadow": true
+    },
+    "118316": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（诺亚）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "1c585cb3d988983a337fbf6ef01cdc09be159addc236fe6a077be04e3434d7a2",
+      "template": 118316,
+      "unidentified_shadow": true
+    },
+    "118317": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（诺亚）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "8c1f5f423abb6616073619298564769bb0ece482d51b3edaae08ca03f1c5afe8",
+      "template": 118317,
+      "unidentified_shadow": true
+    },
+    "118342": {
+      "existing_reader": false,
+      "group": 4,
+      "max_stack": 1000,
+      "metadata": 2,
+      "name": "[路莉尔]托尔塔团的邀请函",
+      "native_stack": 1000,
+      "native_type": 7,
+      "record_sha256": "65a91c3d47fb3c30dd4cfe4fb129891dfc9c0b04b9c0aeef5a4db63302267d16",
+      "template": 118342,
+      "unidentified_shadow": false
+    },
+    "118372": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影上衣（莉缇娅）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "1605dd824c2f86a5322fe99620c6dc12e29c501b9734a8906ee5b7d173b80277",
+      "template": 118372,
+      "unidentified_shadow": true
+    },
+    "118373": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影下衣（莉缇娅）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "8aa47240f6ba25fb33db1eb4da0ac7175d67d582881ab08d2a5b0485ef8e770a",
+      "template": 118373,
+      "unidentified_shadow": true
+    },
+    "118374": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影手套（莉缇娅）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "3603b34e614aa25f2a7e23425762dc26ac3ba88fb44f82285ac1f2a55cb6f6c7",
+      "template": 118374,
+      "unidentified_shadow": true
+    },
+    "118375": {
+      "existing_reader": true,
+      "group": 1,
+      "max_stack": 1,
+      "metadata": 1,
+      "name": "赤血魔影鞋子（莉缇娅）",
+      "native_stack": 0,
+      "native_type": 2,
+      "record_sha256": "5cede3f4578d0552eb290709c709fa089e6db28c9d5a7c4bfb9835cae2121e5c",
+      "template": 118375,
+      "unidentified_shadow": true
+    },
+    "118653": {
+      "existing_reader": false,
+      "group": 4,
+      "max_stack": 1000,
+      "metadata": 2,
+      "name": "[阿莉尔]瑟芬提姆识别标签",
+      "native_stack": 1000,
+      "native_type": 7,
+      "record_sha256": "c4fcc7fa5a25c1869d53fbb5a9b41e1fd4085c88687d75609bb5b2a9d927ee28",
+      "template": 118653,
+      "unidentified_shadow": false
+    },
+    "135879": {
+      "existing_reader": false,
+      "group": 4,
+      "max_stack": 300,
+      "metadata": 2,
+      "name": "黄色灿烂的魔力石",
+      "native_stack": 300,
+      "native_type": 7,
+      "record_sha256": "2f594e09aef69fafae5811837d223116675d97155077af9d2ff6d57480289e85",
+      "template": 135879,
+      "unidentified_shadow": false
+    },
+    "135882": {
+      "existing_reader": false,
+      "group": 4,
+      "max_stack": 300,
+      "metadata": 2,
+      "name": "红色灿烂的魔力石",
+      "native_stack": 300,
+      "native_type": 7,
+      "record_sha256": "12b176da642ae385f87ed134be97a4f3cad1fb7661c2309375c5945eab193836",
+      "template": 135882,
+      "unidentified_shadow": false
+    },
+    "135885": {
+      "existing_reader": false,
+      "group": 4,
+      "max_stack": 300,
+      "metadata": 2,
+      "name": "蓝色灿烂的魔力石",
+      "native_stack": 300,
+      "native_type": 7,
+      "record_sha256": "1621e048def4a600cfd471073aaeece4ad4b8f24d9f8165972fa82ed25987de2",
+      "template": 135885,
+      "unidentified_shadow": false
+    },
+    "136042": {
+      "existing_reader": true,
+      "group": 4,
+      "max_stack": 999,
+      "metadata": 2,
+      "name": "红色灿烂的刻印石",
+      "native_stack": 300,
+      "native_type": 7,
+      "record_sha256": "b724c38c111343077f9df20763eeb19d9cc6e3ad5388f7f6b6799b94f9e77af4",
+      "template": 136042,
+      "unidentified_shadow": false
+    },
+    "136045": {
+      "existing_reader": true,
+      "group": 4,
+      "max_stack": 999,
+      "metadata": 2,
+      "name": "蓝色灿烂的刻印石",
+      "native_stack": 300,
+      "native_type": 7,
+      "record_sha256": "b4e5876cd74a994edb144e29a13c1883b3d0f4428040cb815720cce451ed3dc0",
+      "template": 136045,
+      "unidentified_shadow": false
+    },
+    "136048": {
+      "existing_reader": true,
+      "group": 4,
+      "max_stack": 999,
+      "metadata": 2,
+      "name": "黄色灿烂的刻印石",
+      "native_stack": 300,
+      "native_type": 7,
+      "record_sha256": "4e2ca382364843870cd38b1b06637f8f741ef5ceee74a379fc8a68b8b226ad83",
+      "template": 136048,
+      "unidentified_shadow": false
+    }
+  },
+  "maps": {
+    "34090": {
+      "daily_count": 1,
+      "dungeon": 34090,
+      "dungeon_type": 0,
+      "graph_sha256": "57f327e11988b929cbf655cf07f1ca51c1501970bc5113db14f65ce9c1a49ffb",
+      "name": "消失的迷宫",
+      "official_row": [
+        "[帕尼米尔]",
+        "消失的迷宫",
+        "红色灿烂的魔力石*2",
+        "1"
+      ],
+      "rewards": [
+        [
+          135882,
+          2
+        ]
+      ],
+      "source": "dungeon_devildom1_henir.lua",
+      "unit_rewards": null
+    },
+    "34100": {
+      "daily_count": 1,
+      "dungeon": 34100,
+      "dungeon_type": 0,
+      "graph_sha256": "f985d4e332c3f6da74d87c68fab5df141787a9cc7a340c1e2cc5877873b11db1",
+      "name": "守护者的森林",
+      "official_row": [
+        "守护者的森林",
+        "蓝色灿烂的魔力石*2",
+        "1"
+      ],
+      "rewards": [
+        [
+          135885,
+          2
+        ]
+      ],
+      "source": "dungeon_devildom1_forest.lua",
+      "unit_rewards": null
+    },
+    "34110": {
+      "daily_count": 1,
+      "dungeon": 34110,
+      "dungeon_type": 0,
+      "graph_sha256": "dccdfeac85dcc0eeb8fb95e9a52e33a3eeb35f592123819c26dc5b3c76890704",
+      "name": "暗精灵的前哨基地",
+      "official_row": [
+        "暗精灵的前哨基地",
+        "黄色灿烂的魔力石*2",
+        "1"
+      ],
+      "rewards": [
+        [
+          135879,
+          2
+        ]
+      ],
+      "source": "dungeon_devildom1_darkelf.lua",
+      "unit_rewards": null
+    },
+    "34120": {
+      "daily_count": 1,
+      "dungeon": 34120,
+      "dungeon_type": 0,
+      "graph_sha256": "bf9b90689d5d582cc8a3231252c2761fd71652dc6f4d1e279b7a3a3f486e1a00",
+      "name": "荒芜的元素精灵安息处",
+      "official_row": [
+        "荒芜的精灵安息处",
+        "红色灿烂的魔力石*1 / 蓝色灿烂的魔力石*1 / 黄色灿烂的魔力石*1",
+        "1"
+      ],
+      "rewards": [
+        [
+          135882,
+          1
+        ],
+        [
+          135885,
+          1
+        ],
+        [
+          135879,
+          1
+        ]
+      ],
+      "source": "dungeon_devildom1_mountain.lua",
+      "unit_rewards": null
+    },
+    "34160": {
+      "daily_count": 1,
+      "dungeon": 34160,
+      "dungeon_type": 0,
+      "graph_sha256": "56439479c7fc3a8bbf377b1c6775154e34adf433f1d8d7b7cbbff4385cc57c4b",
+      "name": "暗影矿脉",
+      "official_row": [
+        "暗影矿脉",
+        "红色灿烂的魔力石*2 / 蓝色灿烂的魔力石*2 / 黄色灿烂的魔力石*2",
+        "1"
+      ],
+      "rewards": [
+        [
+          135882,
+          2
+        ],
+        [
+          135885,
+          2
+        ],
+        [
+          135879,
+          2
+        ]
+      ],
+      "source": "dungeon_devildom1_heritage.lua",
+      "unit_rewards": null
+    },
+    "34510": {
+      "daily_count": 1,
+      "dungeon": 34510,
+      "dungeon_type": 0,
+      "graph_sha256": "3ee2ff335678f3f118857d9833035b2b4afb78e460175b6f4e0244111ed15505",
+      "name": "酷寒之地",
+      "official_row": [
+        "[普鲁纳姆]",
+        "酷寒之地",
+        "红色灿烂的刻印石*1",
+        "1"
+      ],
+      "rewards": [
+        [
+          136042,
+          1
+        ]
+      ],
+      "source": "dungeon_devildom3_snowmount.lua",
+      "unit_rewards": null
+    },
+    "34520": {
+      "daily_count": 1,
+      "dungeon": 34520,
+      "dungeon_type": 0,
+      "graph_sha256": "de0cad416e65326b1cb238ad69dbe5394a90341369e6ed20e37baccadb485f45",
+      "name": "老城遗址",
+      "official_row": [
+        "老城遗址",
+        "蓝色灿烂的刻印石*1",
+        "1"
+      ],
+      "rewards": [
+        [
+          136045,
+          1
+        ]
+      ],
+      "source": "dungeon_devildom3_village.lua",
+      "unit_rewards": null
+    },
+    "34530": {
+      "daily_count": 1,
+      "dungeon": 34530,
+      "dungeon_type": 0,
+      "graph_sha256": "e9d342db3a5300137a37664b01a276db1ac8b87df8200417c093be530c343415",
+      "name": "灵魂的安息处",
+      "official_row": [
+        "灵魂的安息处",
+        "红色灿烂的刻印石*2 / 蓝色灿烂的刻印石*2 / 黄色灿烂的刻印石*2",
+        "1"
+      ],
+      "rewards": [
+        [
+          136042,
+          2
+        ],
+        [
+          136045,
+          2
+        ],
+        [
+          136048,
+          2
+        ]
+      ],
+      "source": "dungeon_devildom3_suburbs.lua",
+      "unit_rewards": null
+    },
+    "34540": {
+      "daily_count": 1,
+      "dungeon": 34540,
+      "dungeon_type": 0,
+      "graph_sha256": "753c6a906e4a0cbb03c5e857c89d5d904ab4cc659035ca6be8289615c7e81f9e",
+      "name": "通往首都的列车",
+      "official_row": [
+        "通往首都的列车",
+        "红色灿烂的刻印石*1 / 蓝色灿烂的刻印石*1 / 黄色灿烂的刻印石*1",
+        "1"
+      ],
+      "rewards": [
+        [
+          136042,
+          1
+        ],
+        [
+          136045,
+          1
+        ],
+        [
+          136048,
+          1
+        ]
+      ],
+      "source": "dungeon_devildom3_train.lua",
+      "unit_rewards": null
+    },
+    "34710": {
+      "daily_count": 1,
+      "dungeon": 34710,
+      "dungeon_type": 0,
+      "graph_sha256": "2211ae6755c22eeb3fde663258faf497831ab045f43b66c21848cb1eafcaba58",
+      "name": "普雷加斯的视线",
+      "official_row": [
+        "[普鲁纳姆外围]",
+        "普雷加斯的视线",
+        "神物精灵石残片*200",
+        "1"
+      ],
+      "rewards": [
+        [
+          118206,
+          200
+        ]
+      ],
+      "source": "dungeon_devildom_side1.lua",
+      "unit_rewards": null
+    },
+    "34720": {
+      "daily_count": 1,
+      "dungeon": 34720,
+      "dungeon_type": 0,
+      "graph_sha256": "3238ea8132e0b1dec4e803f2c8f5970563f748175967416e73a224ba4d0f5c62",
+      "name": "普雷加斯的肖像",
+      "official_row": [
+        "普雷加斯的肖像",
+        "神物精灵石残片*200",
+        "1"
+      ],
+      "rewards": [
+        [
+          118206,
+          200
+        ]
+      ],
+      "source": "dungeon_devildom_side2.lua",
+      "unit_rewards": null
+    },
+    "34760": {
+      "daily_count": 2,
+      "dungeon": 34760,
+      "dungeon_type": 0,
+      "graph_sha256": "ff7a84eb43a539de17c9f0432ac2056f4ab29abd0fd3fdc11ef81a3a82123571",
+      "name": "主题公园入口",
+      "official_row": [
+        "[缇尔诺格]",
+        "主题公园入口",
+        "赤血魔影下衣*1",
+        "2"
+      ],
+      "rewards": null,
+      "source": "dungeon_devildom4_themepark.lua",
+      "unit_rewards": {
+        "1": [
+          [
+            118263,
+            1
+          ]
+        ],
+        "10": [
+          [
+            118299,
+            1
+          ]
+        ],
+        "11": [
+          [
+            118303,
+            1
+          ]
+        ],
+        "12": [
+          [
+            118307,
+            1
+          ]
+        ],
+        "13": [
+          [
+            118311,
+            1
+          ]
+        ],
+        "14": [
+          [
+            118315,
+            1
+          ]
+        ],
+        "15": [
+          [
+            118373,
+            1
+          ]
+        ],
+        "2": [
+          [
+            118267,
+            1
+          ]
+        ],
+        "3": [
+          [
+            118271,
+            1
+          ]
+        ],
+        "4": [
+          [
+            118275,
+            1
+          ]
+        ],
+        "5": [
+          [
+            118279,
+            1
+          ]
+        ],
+        "6": [
+          [
+            118283,
+            1
+          ]
+        ],
+        "7": [
+          [
+            118287,
+            1
+          ]
+        ],
+        "8": [
+          [
+            118291,
+            1
+          ]
+        ],
+        "9": [
+          [
+            118295,
+            1
+          ]
+        ]
+      }
+    },
+    "34770": {
+      "daily_count": 2,
+      "dungeon": 34770,
+      "dungeon_type": 0,
+      "graph_sha256": "aae2cb6f388206f17adbe42a572a207531a4bb6abc8637bd42d4fa07f116ea00",
+      "name": "戏法屋",
+      "official_row": [
+        "戏法屋",
+        "赤血魔影鞋子*1",
+        "2"
+      ],
+      "rewards": null,
+      "source": "dungeon_devildom4_trickyhouse.lua",
+      "unit_rewards": {
+        "1": [
+          [
+            118265,
+            1
+          ]
+        ],
+        "10": [
+          [
+            118301,
+            1
+          ]
+        ],
+        "11": [
+          [
+            118305,
+            1
+          ]
+        ],
+        "12": [
+          [
+            118309,
+            1
+          ]
+        ],
+        "13": [
+          [
+            118313,
+            1
+          ]
+        ],
+        "14": [
+          [
+            118317,
+            1
+          ]
+        ],
+        "15": [
+          [
+            118375,
+            1
+          ]
+        ],
+        "2": [
+          [
+            118269,
+            1
+          ]
+        ],
+        "3": [
+          [
+            118273,
+            1
+          ]
+        ],
+        "4": [
+          [
+            118277,
+            1
+          ]
+        ],
+        "5": [
+          [
+            118281,
+            1
+          ]
+        ],
+        "6": [
+          [
+            118285,
+            1
+          ]
+        ],
+        "7": [
+          [
+            118289,
+            1
+          ]
+        ],
+        "8": [
+          [
+            118293,
+            1
+          ]
+        ],
+        "9": [
+          [
+            118297,
+            1
+          ]
+        ]
+      }
+    },
+    "34780": {
+      "daily_count": 2,
+      "dungeon": 34780,
+      "dungeon_type": 0,
+      "graph_sha256": "fb970b012befc3465c8d61bce1bbb2856cc7587b34cb87b5722dc8a55caebaa0",
+      "name": "傀儡剧场",
+      "official_row": [
+        "傀儡剧场",
+        "赤血魔影上衣*1",
+        "2"
+      ],
+      "rewards": null,
+      "source": "dungeon_devildom4_puppet.lua",
+      "unit_rewards": {
+        "1": [
+          [
+            118262,
+            1
+          ]
+        ],
+        "10": [
+          [
+            118298,
+            1
+          ]
+        ],
+        "11": [
+          [
+            118302,
+            1
+          ]
+        ],
+        "12": [
+          [
+            118306,
+            1
+          ]
+        ],
+        "13": [
+          [
+            118310,
+            1
+          ]
+        ],
+        "14": [
+          [
+            118314,
+            1
+          ]
+        ],
+        "15": [
+          [
+            118372,
+            1
+          ]
+        ],
+        "2": [
+          [
+            118266,
+            1
+          ]
+        ],
+        "3": [
+          [
+            118270,
+            1
+          ]
+        ],
+        "4": [
+          [
+            118274,
+            1
+          ]
+        ],
+        "5": [
+          [
+            118278,
+            1
+          ]
+        ],
+        "6": [
+          [
+            118282,
+            1
+          ]
+        ],
+        "7": [
+          [
+            118286,
+            1
+          ]
+        ],
+        "8": [
+          [
+            118290,
+            1
+          ]
+        ],
+        "9": [
+          [
+            118294,
+            1
+          ]
+        ]
+      }
+    },
+    "34790": {
+      "daily_count": 2,
+      "dungeon": 34790,
+      "dungeon_type": 0,
+      "graph_sha256": "0c6b29e4d2bc595986d381eb8067f778e9b5077bb7da72a7bb5e46fd0852f3a0",
+      "name": "狂乱的演唱会",
+      "official_row": [
+        "狂乱的演唱会",
+        "赤血魔影手套*1",
+        "2"
+      ],
+      "rewards": null,
+      "source": "dungeon_devildom4_concert.lua",
+      "unit_rewards": {
+        "1": [
+          [
+            118264,
+            1
+          ]
+        ],
+        "10": [
+          [
+            118300,
+            1
+          ]
+        ],
+        "11": [
+          [
+            118304,
+            1
+          ]
+        ],
+        "12": [
+          [
+            118308,
+            1
+          ]
+        ],
+        "13": [
+          [
+            118312,
+            1
+          ]
+        ],
+        "14": [
+          [
+            118316,
+            1
+          ]
+        ],
+        "15": [
+          [
+            118374,
+            1
+          ]
+        ],
+        "2": [
+          [
+            118268,
+            1
+          ]
+        ],
+        "3": [
+          [
+            118272,
+            1
+          ]
+        ],
+        "4": [
+          [
+            118276,
+            1
+          ]
+        ],
+        "5": [
+          [
+            118280,
+            1
+          ]
+        ],
+        "6": [
+          [
+            118284,
+            1
+          ]
+        ],
+        "7": [
+          [
+            118288,
+            1
+          ]
+        ],
+        "8": [
+          [
+            118292,
+            1
+          ]
+        ],
+        "9": [
+          [
+            118296,
+            1
+          ]
+        ]
+      }
+    },
+    "34800": {
+      "daily_count": 2,
+      "dungeon": 34800,
+      "dungeon_type": 0,
+      "graph_sha256": "3239dda07b43a5705f1a21ecbf3bf0f8c05ad4419b7ec3447170003e7affabee",
+      "name": "影子伯爵的城堡",
+      "official_row": [
+        "影子伯爵的城堡",
+        "碧空幻影的气息*200",
+        "2"
+      ],
+      "rewards": [
+        [
+          118253,
+          200
+        ]
+      ],
+      "source": "dungeon_devildom4_shadow.lua",
+      "unit_rewards": null
+    },
+    "35080": {
+      "daily_count": 1,
+      "dungeon": 35080,
+      "dungeon_type": 0,
+      "graph_sha256": "7be2bc7bc6636de6a7bb5d62e9e90e470ad65f6a5153f1e9617d75fe48fb549c",
+      "name": "黄金城美朵拜茵",
+      "official_row": [
+        "[魔纳特拉]",
+        "黄金城美朵拜茵",
+        "[路莉尔]托尔塔团的邀请函*1",
+        "1"
+      ],
+      "rewards": [
+        [
+          118342,
+          1
+        ]
+      ],
+      "source": "dungeon_devildom5_goldcastle.lua",
+      "unit_rewards": null
+    },
+    "35090": {
+      "daily_count": 1,
+      "dungeon": 35090,
+      "dungeon_type": 0,
+      "graph_sha256": "72bddd85273702560b22616f5cf47795128f0ecafae674ac23c74ee1d380fcfc",
+      "name": "猎人的藏身处",
+      "official_row": [
+        "猎人的藏身处",
+        "[路莉尔]托尔塔团的邀请函*1",
+        "1"
+      ],
+      "rewards": [
+        [
+          118342,
+          1
+        ]
+      ],
+      "source": "dungeon_devildom5_underground.lua",
+      "unit_rewards": null
+    },
+    "35340": {
+      "daily_count": 1,
+      "dungeon": 35340,
+      "dungeon_type": 0,
+      "graph_sha256": "c65eec1f5122894e35dfd69928a32ec0d121aa4640de91562c2ac6ab28fbafcc",
+      "name": "虚假都市",
+      "official_row": [
+        "[瑟芬提姆]",
+        "虚假都市",
+        "[阿莉尔]瑟芬提姆识别标签*1",
+        "1"
+      ],
+      "rewards": [
+        [
+          118653,
+          1
+        ]
+      ],
+      "source": "dungeon_devildom6_street.lua",
+      "unit_rewards": null
+    },
+    "35350": {
+      "daily_count": 1,
+      "dungeon": 35350,
+      "dungeon_type": 0,
+      "graph_sha256": "bc117a0857ec124e66d4bd938f1c78255d6137abf04b8cc8d7675a5a843ca0c3",
+      "name": "人偶工厂",
+      "official_row": [
+        "人偶工厂",
+        "[阿莉尔]瑟芬提姆识别标签*1",
+        "1"
+      ],
+      "rewards": [
+        [
+          118653,
+          1
+        ]
+      ],
+      "source": "dungeon_devildom6_workshop.lua",
+      "unit_rewards": null
+    }
+  },
+  "premium_scope": "same-character+dungeon first daily base reward x2 only",
+  "reset_UTC_hour": 2,
+  "scope": "20 qualified ordinary routes, including corroborated34120 alias; technical raid34730 and special/guild sources held",
+  "sources": [
+    {
+      "path": "G:\\els\\analysis\\user-issues-01a16dd4-20261024-v1\\ariel-cash-attendance-source-v1\\official-daily-reward-fetch-v1.json",
+      "sha256": "14fb07e433fe12749f427384c2d175f2db2f83a91b981f330cf59dd233729c80"
+    },
+    {
+      "path": "G:\\els\\analysis\\user-issues-01a16dd4-20261024-v1\\ariel-cash-attendance-source-v1\\official-daily-reward-guide.html",
+      "sha256": "a514b2ca4d83e82ec9a44a0265a0d8d33ce9ac6a984babed4c9d5ec264619b8c"
+    },
+    {
+      "path": "G:\\els\\analysis\\user-issues-01a16dd4-20261024-v1\\ariel-cash-attendance-source-v1\\official-daily-reward-table-v1.json",
+      "sha256": "c3752e28e1cb4e3331bf72b82aea3bfda8e0e67a3120659def08d9d1c1de7345"
+    },
+    {
+      "path": "G:\\els\\analysis\\user-issues-01a16dd4-20261024-v1\\ariel-cash-attendance-source-v1\\daily-official-current-map-name-match-v1.json",
+      "sha256": "bffd734128043584e80b318b0e62931b4ceb96f1cb5e241039b7315fa937c723"
+    },
+    {
+      "path": "G:\\els\\releases\\online\\monster-hp-raid-potion-20261025-v2\\els_server\\data\\client\\catalog.sqlite3",
+      "sha256": "a633289850ef5b814aa338542e5f80e641153e99734c4f5c8c82f62bde49c3ba"
+    },
+    {
+      "path": "G:\\els\\releases\\online\\monster-hp-raid-potion-20261025-v2\\els_server\\data\\client\\dungeon_routes.json",
+      "sha256": "fbafa1cb884371bc173b74e216b09f9f0f71523c69cae02b00bc7e2c7cf092a5"
+    },
+    {
+      "path": "G:\\els\\analysis\\user-issues-01a16dd4-20261024-v1\\ariel-cash-attendance-source-v1\\daily-34120-source-name-join-v1.json",
+      "sha256": "ea0a02aa9ed3fdb72e9311a074dbbcca317343a79d606c0793117ecd1a499b84"
+    }
+  ],
+  "version": 1
+}

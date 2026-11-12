@@ -1,0 +1,146 @@
+{
+  "release": "season-pass-and-attribute-enchant-20261111-v167",
+  "patch_sha256": "0a0aad59be178d80efc703c92737abc2f326d3ec5842515c0147cf2f02e1ea53",
+  "parents": {
+    "online": {
+      "release": "housing-and-ed-shop-20261111-v166",
+      "manifest_sha256": "6093cd8b5a3234d769b97246055b7d225d50e58ec0ba87042d8a0f214906e0ca"
+    },
+    "local": {
+      "release": "unified-server-0aa5aa60bfb330f8-d01c02865c27",
+      "manifest_sha256": "e582d308a337cebabac59540899360058d5e43e6512b86dc8c126acb79ce22d1"
+    },
+    "launchers": {
+      "release": "housing-and-ed-shop-20261111-v166",
+      "manifest_sha256": "039a6053eaf799b39631e3994ef9372b4b83aa7182b93bd011f9c82464b285cf"
+    }
+  },
+  "files": [
+    {
+      "cohort": "season",
+      "path": "els_server/data/season_pass_boxes.json",
+      "size": 160969,
+      "sha256": "cd8bb0c32c8dd8efb8a2cabe17f1c68deabea4a731231087d15be50e7f12eac2",
+      "parent_sha256": null
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/data/season_pass_rewards.json",
+      "size": 4964,
+      "sha256": "094378769c8676117c3a38aa0c38e8f98c6839641e8fa8d9221f13bcb13af6ab",
+      "parent_sha256": "f1b8a069cc02dac53daa01f425d9bf84ebe005dc0034870152cb91eb0910e01c"
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/domain/acquisition_policy.py",
+      "size": 20150,
+      "sha256": "aeca9212ae854466335de70c004ca7e07007b5035fbe7544c75179188b5b80a0",
+      "parent_sha256": "ad518241de9cc3cac43a08357a39ab9f343f1dd870afe3705289ac01bef04863"
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/domain/equipment_chip_rules.py",
+      "size": 5609,
+      "sha256": "74b6fb6d2c520b664b8f3bdb46f49edd8eeca9fc5974c391104f43c7a5b932e0",
+      "parent_sha256": "3689381ba22a76a131e9d824e37234330b6ef3540de6cf2f6f9d8f3b382fa53d"
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/domain/inventory_items.py",
+      "size": 99452,
+      "sha256": "c1bd3e577148a17cf2894aed55ef1628508941b4c7c488d6ae6b2f0cdb9a8119",
+      "parent_sha256": "f977b3f2ac51752ea21a640f483ceb3c3269c406277163f0f65fa51967b28e12"
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/domain/owned_reward_boxes.py",
+      "size": 6685,
+      "sha256": "b6de9a669f3724fa113eeab6e62cb7da3f864f79491cc8f44521aaef92460fd2",
+      "parent_sha256": "3f984a0f34d9d0ff98667795a465358397394d1e47eb86fbafa0dffc9cab0e56"
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/domain/periodic_activities_flow.py",
+      "size": 14646,
+      "sha256": "2b1448698bf0d85cb637f697106601d3fc6aa204530cf2ff8d7e90a13df48799",
+      "parent_sha256": "fd2110ff084658e22758a4fab123eeaf0cc7b741caf03e83ca9a4cf5a8cdabbf"
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/domain/periodic_item_readers.py",
+      "size": 1228,
+      "sha256": "d9049677e87f3e474a4ed660cf42f6af53ddc4789386f7ad726bc6546354dbff",
+      "parent_sha256": "cdbef6468210644b64885a3941607eded714b6fc3f17f89011d9bd3f468b0f1a"
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/domain/periodic_reward_items.py",
+      "size": 3611,
+      "sha256": "6c75d1d15b23b8cbea420dc19abb23221028803f3f1e1e07f4972480f1aac587",
+      "parent_sha256": "64f0a35a60ef58b8108c0a1667ce8074e155d36b6c3ecd5587b53d94989817bc"
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/domain/season_pass_boxes.py",
+      "size": 1849,
+      "sha256": "26457cf9d39024fde953875bb0fb43a236bd7c55c90eade4a923216d3ade2377",
+      "parent_sha256": null
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/domain/season_pass_shop.py",
+      "size": 2261,
+      "sha256": "dc18655790d84a82dc200a5838025d41dab8a591af0828ee964a9df0ac5295a0",
+      "parent_sha256": null
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/protocol/season_pass_messages.py",
+      "size": 3475,
+      "sha256": "91ff695d2b076f5a1a3604511ea109c7c5c4e93ede96ccb33c48b63bc0db5bc8",
+      "parent_sha256": "8fd834de2d0f0eac962839b9f8c084860c79db2e6e786ed8b96866f30084f6f5"
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/storage/equipment_chip.py",
+      "size": 7919,
+      "sha256": "75bd768dcaba70baf4d363344e6ff8614aebdd48347c44912b97298e59bce41a",
+      "parent_sha256": "fd502ee01c70041a34579ca86ff95183635288f603eb7bd03e501ed70b093c49"
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/storage/equipment_chip_reset.py",
+      "size": 7195,
+      "sha256": "f6d621d288a3136184953c4e65c1f2d62d19cf7274a6b6f25ba4fc94835195c8",
+      "parent_sha256": "9d07c36a2e7cd3540dfa8633e9943be98a7b0d6604761e7470510a401a975ec1"
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/storage/equipment_chip_reset_history.py",
+      "size": 2682,
+      "sha256": "94acda8cf8c14c1f9f390d05a0f46b09f32218f7c5b1a970a1d218ad06246ac8",
+      "parent_sha256": "6e0c3e2b099cb26a3fdc732653a592942356787b0db660031075131bd8f14f92"
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/storage/inventory_state.py",
+      "size": 35268,
+      "sha256": "8ddeb82ca9b944db096004c9502e5b47c7139ba5ed2e686c13616b929d4b1ee3",
+      "parent_sha256": "16fbffcc35adf6e730c47d95e5db50b263d223d5083c57d6e947d08f27cb8659"
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/storage/season_pass.py",
+      "size": 13534,
+      "sha256": "5f53589b798ca5d094a90339a2337137c326b0e86e8570c1b807a2cc6f4ace0f",
+      "parent_sha256": "1e20d9ed35523930c86fb17577d533b028e6fb433ac293456356d8353a5f76fa"
+    },
+    {
+      "cohort": "season",
+      "path": "els_server/storage/shop_state.py",
+      "size": 23032,
+      "sha256": "9e5188364974b50b2a91fd303bd794243fd5721cf0fce0a4aefd4f5de1ed136d",
+      "parent_sha256": "f203ec32989332b2f15cef46cfc64b0d0deda21ebc5db390b9880235a8e46249"
+    }
+  ]
+}

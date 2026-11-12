@@ -1,0 +1,98 @@
+{
+  "release": "raid-quest-repairs-20261111-v156",
+  "patch_sha256": "45e528c8e2ea8e6a0c96ed05ecef28b5ebd147d9d32bd5365fe944b4d378cf59",
+  "parents": {
+    "online": {
+      "release": "silver-mirror-buff-20261110-v155",
+      "manifest_sha256": "f5c11260e627750b8a814ae630847e7be1c8f6a65fbf07b1897b254afb8ba56a"
+    },
+    "local": {
+      "release": "unified-server-7225395cf80f4e49-fc0f7563075b",
+      "manifest_sha256": "c2ee0ee74b4fa62ca4c1b6456cd63403a2fbc5a279a9e138c9200e5ec772e72f"
+    },
+    "launchers": {
+      "release": "silver-mirror-buff-20261110-v155",
+      "manifest_sha256": "a4ab423c6b22a240003577607b9d88d579c9f96514789a927ac8a41e6e96616c"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/data/seal_quests.json",
+      "parent_sha256": "f6188bcdcaea9a6c3ac3de4c0e2b1e2476542cb59aca7693b5d2bb4a7c63fe20",
+      "sha256": "273762243f1da52c6ca45149d613e95ad1c77ae16432fbbc67231c0084ab8ff8",
+      "size": 1085435
+    },
+    {
+      "path": "els_server/data/seal_quests.manifest.json",
+      "parent_sha256": "3f22d71e8c4979e5c20761e026558d4c0d45daaae67243c9194e3f6de49a32ea",
+      "sha256": "bfc08e196f45a6226972b157a94e784839ba9b210eb04c0558812a505dad5a77",
+      "size": 198
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "afcd2cddf41c662f9df50f36f377909fb1d9be90d91ea8b014116f5d0b485657",
+      "sha256": "e5fe5d213575944d2c812dd595956535ad563bc3fdeb5c413553297df87c4ecf",
+      "size": 99039
+    },
+    {
+      "path": "els_server/domain/quest_flow.py",
+      "parent_sha256": "cf86c07916ef1cddc2343c86f9b3f973778671f6206966bd25f74e84d4ddb668",
+      "sha256": "f3a66f8379c4c16527b2c0ffd33682a04408165405dd99df57f219fe4efca4da",
+      "size": 36438
+    },
+    {
+      "path": "els_server/domain/resonance_2026_reset_items.py",
+      "parent_sha256": "547d666fc7214e8924c57b92328c1000aba7fec1c7162a269f23ea6c8aaf6d2a",
+      "sha256": "559d023aab605adec4aad7ebc302f83e659b7db32d7165d3940c9be49c718c94",
+      "size": 2433
+    },
+    {
+      "path": "els_server/domain/rosso_reset.py",
+      "parent_sha256": "4d750fb00ce6b57b74c67ffbad1bff96bc429a3c34241ba944cc772cbbba822e",
+      "sha256": "84f836353d490abf11a72e9c8c4f99d764a18883d225d50db706c5721d9717f3",
+      "size": 3269
+    },
+    {
+      "path": "els_server/domain/scene_retirement_sources.py",
+      "parent_sha256": "d5b895aa5fb888ee429eb504531066eecf22b6d31b19fcd0867a11e3c590348b",
+      "sha256": "8f30ed9d8f900f27ad145dccf7f8b77c1b3f8b7650f140e1b3d38a2d1d6323d3",
+      "size": 951483
+    },
+    {
+      "path": "els_server/domain/seal_quests.py",
+      "parent_sha256": "23b1cc2e7df163d7840b986755871d5db8a819a94b2b354b6fda5452539635fb",
+      "sha256": "01d6dbcb3811b33f60016c69f218799ac003f41e81b1229830b93b280e0fce70",
+      "size": 23175
+    },
+    {
+      "path": "els_server/domain/shop_additions.py",
+      "parent_sha256": "35bc41f1f54018817660a27483dc2c16228caf8c8caa597d11576e49082bc08d",
+      "sha256": "7c11cb32a23c10272ccd950add2d8275c0ba7b062ae517356b5a8e6af70e95ee",
+      "size": 3212
+    },
+    {
+      "path": "els_server/storage/account_epic_scope.py",
+      "parent_sha256": "38b9f32a0dfb163d86915000f99437b19532af6394a88fc67bd7bd2125a70865",
+      "sha256": "a7b52808163dd9914c455fbfd3d5d2db8fc614077f3847e38627145fa1627128",
+      "size": 10278
+    },
+    {
+      "path": "els_server/storage/mentor45000_scope.py",
+      "parent_sha256": "4642d350f895e5a720f9e29d37667541e29662b54571200b91fc7a5830008d9c",
+      "sha256": "b8560f62d7ec881c3291a690bf1b4e43ea7cb70f5bdb46fd06a000f8c5c947c9",
+      "size": 11738
+    },
+    {
+      "path": "els_server/storage/rosso_reset.py",
+      "parent_sha256": "ed0acb0c9da5ca3af5e1131f70970ea9d86c840cc24af110e8e0d7055c019468",
+      "sha256": "ed9107753cce4e331fcefd1c412c27954bdb643d743c1f5a0728cb2dbe6d8f8f",
+      "size": 6737
+    },
+    {
+      "path": "els_server/storage/seal_quests.py",
+      "parent_sha256": "af5d51e0d4faf517e9a48b7ab6f0dc8d47d578d7a359508eb30c9fd038d70cd5",
+      "sha256": "a52cbe94d432c5c5942b5472e6e175b37dae758163ec7420d8cd18d2651d9820",
+      "size": 49777
+    }
+  ]
+}

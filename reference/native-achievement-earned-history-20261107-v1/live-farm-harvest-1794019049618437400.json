@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "fixtures": {
+    "level_ED_license_and_seed": true,
+    "retained_harvest_receipts": 9,
+    "retained_honor": true,
+    "maturity_timestamp": true
+  },
+  "natural_acquisition": false,
+  "natural_growth_wait": false,
+  "checks": [
+    "Ordinary guild creation/join and4FB/504entry establish the actual two-member GuildAgit",
+    "Ordinary7FDplant consumes an owned seed; explicit time fixture makes that same crop mature",
+    "Nine retained-receipt fixtures plus one ordinary803harvest complete338once; one plot counts once despite multiple crop items",
+    "Actual harvested honor plus the retained earned-honor fixture reaches10000and completes140in the same response",
+    "Repeated empty-plot harvest and another member empty-plot request add no progress; no foreign completion notice",
+    "Unverified338original reward remains deferred on repeated6C9without a received marker or new progress operation",
+    "Alternative-character cold login retains shared farm completion"
+  ],
+  "harvest_template": 400166,
+  "harvest_quantity": 20,
+  "errors": [],
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "f5c7ccd3159016f92cebe2e8595f40354f5d4f1338711aaccb2c7be7111e11b2",
+    "els_server/storage/achievement_history.py": "740379bf56e5764a2cbae074d00f3d5cb3713ca7a3909a057ffba6f96e03e3f8",
+    "els_server/storage/achievement_profiles.py": "14a0785f93b180697ba2d7fc7e7f431526b8c84dc0abe51a84f049a2a75ece4e"
+  }
+}

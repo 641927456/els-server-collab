@@ -1,0 +1,33 @@
+{
+  "ok": false,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "native_CP_values": "Explicit native-source payload fixtures; no natural gear acquisition or native arithmetic claimed",
+  "error": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\item-rating-v1\\test_live_power.py\", line 112, in run\n    assert len(errors)==3 and all(row['event']=='protocol_error'for row in errors),errors\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: [{'event': 'worker_error', 'connection': 1, 'error': \"ValueError('Owned CP final encoding failure')\"}, {'event': 'protocol_error', 'connection': 3, 'error': 'Achievement native power inputs changed'}, {'event': 'protocol_error', 'connection': 2, 'error': 'Raid native CP source/number'}]\n",
+  "owned_directory_removed": true,
+  "observed_error_events": [
+    {
+      "event": "worker_error",
+      "connection": 1,
+      "error": "ValueError('Owned CP final encoding failure')"
+    },
+    {
+      "event": "protocol_error",
+      "connection": 3,
+      "error": "Achievement native power inputs changed"
+    },
+    {
+      "event": "protocol_error",
+      "connection": 2,
+      "error": "Raid native CP source/number"
+    }
+  ],
+  "python": "3.14.10 free-threading build (tags/v3.14.10:b703b2c, Oct 25 2026, 17:36:07) [MSC v.1944 64 bit (AMD64)]",
+  "SQLite": "3.54.1",
+  "source_sha256": {
+    "tools/raid_native_power.js": "543b3f97e44c6f0412e2f494b3115f0d887416d2a93b8a173e70385a8ba6f455",
+    "els_server/domain/achievement_flow.py": "a2b243fabd5734fcd046e4cc9be11a9c67a5e6f65cee28b52ad5936154cb3ee7",
+    "els_server/storage/achievement_profiles.py": "dfdcf20eb6b9cc32694958caed211d01039bf4ab3dbc09ae993bd7719a952ab7"
+  }
+}

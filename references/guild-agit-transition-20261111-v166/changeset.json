@@ -1,0 +1,38 @@
+{
+  "release": "housing-and-ed-shop-20261111-v166",
+  "patch_sha256": "28d4616a8b76341c9bd0efffe2ab6edac73ea1f90041a2e2ec0b3cadbd23e0e9",
+  "parents": {
+    "online": {
+      "release": "gm-workspace-announcements-20261111-v165",
+      "manifest_sha256": "1fa0e83cd230c7686c5a841bd883e03eaff4f9228ce964d8208be787ea340423"
+    },
+    "local": {
+      "release": "unified-server-3c9b0ab71e09a004-32deb4fc9083",
+      "manifest_sha256": "1e0d0c9d2629748250537f830d73ef47e99b794f4613a69f436a95a1774ec065"
+    },
+    "launchers": {
+      "release": "gm-workspace-announcements-20261111-v165",
+      "manifest_sha256": "f5170196375eaa0e8b252f7918d1cc4019a9cc36e9593e8f4b3247baf717d2d8"
+    }
+  },
+  "files": [
+    {
+      "cohort": "guild-agit",
+      "path": "els_server/domain/guild_agit_flow.py",
+      "sha256": "c795b678ea3584a21b2031c7b35b74bc0452b128a2df2191f7338f4370827b38",
+      "size": 18911,
+      "parent_sha256": "450d7a468af0641c7989429f36a0bfb91420762665538e68f3646611b1447daa",
+      "upstream_sha256": "6902b1258cdda2fb406b91dbbfe04b9a1edad3841f5f134658b1add9558af638",
+      "rebased": true
+    },
+    {
+      "cohort": "guild-agit",
+      "path": "els_server/domain/town_travel_flow.py",
+      "sha256": "24c9d85c2634777112a70cff4ef84963fc3e55c7077d573a7fb9f54969cc86c4",
+      "size": 19429,
+      "parent_sha256": "75a333f2ede3a69911e509f6742fd6beb2b0b5846a0650bf3fd3ef14969df81d",
+      "upstream_sha256": "1ee26f97b8d4ecac9789b1df0317797d1491da47c2baca0049fadf1473bdb8b8",
+      "rebased": true
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "checks": [
+    "Canonical account45000 completion and second-job teacher; new student account eligibility",
+    "Late accept rollback includes new DDL; exactly two mirrored rows; exact replay has no writes",
+    "Second student rejected;48h-1 denies; exact48h removes; immediate rebind has no reenrollment penalty",
+    "Old generation replay rejected;99 does not auto graduate; atomic one-time letter and relation end; same-account alt hidden/denied"
+  ],
+  "fixture": "G:\\els\\analysis\\feature-closure-20261105-v1\\mentor-v1\\owned-mentor-storage-gx2djmwp",
+  "fixture_cleaned": true,
+  "natural_GUI": false,
+  "current_lease_tested": false,
+  "qualification_objectives_are_explicit_fixture": true,
+  "production_database_access": false,
+  "source_files": {
+    "els_server/protocol/mentor_messages.py": "02089d6943bdd69b8d3c80e50862dddb67bbc6a82697020817465b633ec2d7da",
+    "els_server/storage/mentor_relations.py": "fc2033ba2a6ffd2f223103daeaa9f067b50cccd24a6a916d6c20c7eacf549959",
+    "els_server/storage/player_mail.py": "30eadeea7224b7d0d2880e58e83c11295e0bb104b862683e8e686c9099cad913"
+  }
+}

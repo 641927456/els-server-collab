@@ -1,0 +1,17 @@
+{
+  "ok": false,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "retained_saved_scene_and_level_fixture": true,
+  "checks": [],
+  "error": "Traceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\equipment-set-history-v1\\delivery-qa\\achievement_protocol_client.py\", line 18, in until\n    head = await self.reader.readexactly(8)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\asyncio\\streams.py\", line 769, in readexactly\n    await self._wait_for_data('readexactly')\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\asyncio\\streams.py\", line 539, in _wait_for_data\n    await self._waiter\nasyncio.exceptions.CancelledError\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\noah-notebook-v1\\test_live_notebooks.py\", line 45, in main\n    reply=await p.query(0xfd,struct.pack('>i',10018));assert reply.payload[:4]!=bytes(4)and snapshot(a)==before\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\equipment-set-history-v1\\delivery-qa\\achievement_protocol_client.py\", line 29, in query\n    answer = await self.until(kind+1 if reply is None else reply)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"G:\\els\\analysis\\feature-closure-20261105-v1\\achievement-v1\\equipment-set-history-v1\\delivery-qa\\achievement_protocol_client.py\", line 16, in until\n    async with asyncio.timeout(25):\n               ~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\asyncio\\timeouts.py\", line 117, in __aexit__\n    raise TimeoutError from exc_val\nTimeoutError\n",
+  "errors": [],
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "7216d25abdb594c6036b633f8ae43fd19e573eb6c4ad2b5e16c124955d73cd87",
+    "els_server/domain/town_dialogue.py": "9df081ad86ece52a5ab51b05480d285a285d5b46c76bce4e0ea2167589057189",
+    "els_server/storage/achievement_history.py": "b94d2d6d57b9fd638eea0ffdb599374d07f0f31d1916a87e97696ed6f8df4f95",
+    "els_server/storage/achievement_profiles.py": "4b3e66d4c0dfe65a74e365ea8dac2be55c3736faf0e9465fee09dd9e5762570f",
+    "els_server/storage/town_dialogue.py": "39ea71a4f3fa9a726ca0a5178f328c00f166750551e5ff10388f90967833617d"
+  }
+}

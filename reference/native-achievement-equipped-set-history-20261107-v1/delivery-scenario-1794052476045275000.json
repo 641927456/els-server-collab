@@ -1,0 +1,39 @@
+{
+  "ok": true,
+  "private_delivery_scenario": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "checks": [
+    "Stored worn counts use the maximum of one owned role; bag and foreign-account equipment do not count",
+    "Actual104/105 completes fourth armor and third/sixth accessories immediately; unwear and repeat remain stable",
+    "Actual guild create/invite/accept, both504arrivals, GuildAgit achievement display and normal return/leave/disband complete without stranded membership",
+    "Cold sibling shares account completion with independent display",
+    "Cold first entry records the100th distinct UTC+8date from99retained fixture records; same-date reads and sibling entry do not increment"
+  ],
+  "retained_equipment_level_ED_fixtures": true,
+  "retained99_play_day_fixture": true,
+  "natural_acquisition": false,
+  "natural_GUI": false,
+  "production_clock_patch": false,
+  "connected_source_types": 42,
+  "connected_definitions": 253,
+  "remaining_source_types": 18,
+  "unresolved_original_reward_groups": 53,
+  "new_tables": 0,
+  "new_indexes": 0,
+  "errors": [],
+  "actual_parent_release": "native-achievement-spa-buff-history-20261107-v2",
+  "actual_parent_manifest_sha256": "5df60c55312f418765bd2363e1d140df9d493da02cabc89aad80b2047230c6bb",
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "522747c52236850812eb2736ccb6de9f6005eb110d6f484d174f3ce210522322",
+    "els_server/domain/guild_agit_flow.py": "49901902965662a3bc8a2b1e02f859d5dfa23b3a10bef2c5bcee854841e25f3e",
+    "els_server/storage/achievement_collections.py": "e5e21249eec340dd507b8868b1f41bbe1762b62f4921224c2032c6ef0ab1b54b",
+    "els_server/storage/achievement_history.py": "c27161c6cde476c2108f9baefac0e636323feb91fc3ed970f596b89a7df91a2d",
+    "els_server/storage/achievement_profiles.py": "a037ea02a31543b3bcf644cc5be849ea0fd7a9093e105470eaa4087092b5012b"
+  },
+  "scenario_sha256": {
+    "achievement_equipment_client.py": "08cf04b2a450725f1d351eeaac297dd2ddc96cc3119095cfadd4ee6662682ce8",
+    "achievement_fixture.py": "eabb6cc965a712e88aa496bf1710550ace6021d2784403dde2027f23f66c926e",
+    "achievement_protocol_client.py": "ae3d7fa5f2061156b586910cb3af31d23065ff734cd3c69e7b99ac3018992330"
+  }
+}

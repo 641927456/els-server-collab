@@ -1,0 +1,64 @@
+{
+  "parents": {
+    "online": {
+      "release": "dungeon-result-retry-party-hud-20261111-v182",
+      "path": "releases/online/dungeon-result-retry-party-hud-20261111-v182",
+      "manifest_sha256": "35c2f639eefe9d1fc04d4f026a98764623c2f41d2d1bd68fa245393c7cc2f1f1"
+    },
+    "local": {
+      "release": "unified-server-844492cc0c41e26c-f24298f0058c",
+      "path": "releases/local/unified-server-844492cc0c41e26c-f24298f0058c",
+      "manifest_sha256": "565500fdb5caae5d13acace5c2788cdc96e2515bdb904668b286d7b430e1c646"
+    }
+  },
+  "changes": [
+    {
+      "path": "els_server/domain/local_session.py",
+      "parent_sha256": "b3594d595beca8844d93e257b8bd3a7743fa6f399ec89d65e0d63cf57db7b1ee",
+      "sha256": "f460450affdaeaddbcd294e200b753fc5ed8e27b4beb2e2803eccc11e83753bb"
+    },
+    {
+      "path": "els_server/domain/npc_sale.py",
+      "parent_sha256": "e91780c2c77cc8932a05745e3c9c20e7b74b43e74a609b19fc9c5a1ccf953e78",
+      "sha256": "97075c21e236e1b28a3d2dd532054508a05200ceae4190e30f06696dde53734b"
+    },
+    {
+      "path": "els_server/protocol/npc_sale_messages.py",
+      "parent_sha256": "058741fd48107259203dcefd03549fd21c1fd04a0651973f6f229d812276ab7f",
+      "sha256": "179491813896ee91894f8fd431614ffe587b062adbb02c54a1b9657875066fdb"
+    },
+    {
+      "path": "els_server/storage/inventory_state.py",
+      "parent_sha256": "30ac91851cd374f3fc9914a745b3ab7703a0c4355d93561b8e9465e1104a9ea8",
+      "sha256": "04cfa86966891ffb1754d4feddd934a208caeaeb9a0cc537acc22b3fa51a645a"
+    },
+    {
+      "path": "els_server/storage/npc_sale.py",
+      "parent_sha256": "457b65808406efe4adf368eb6f06612acd416c5907d73a9b52692e53a7f38347",
+      "sha256": "bbe7e611c1f58e687829d7c2f811451a9078a74e75eebf82bec46aa4a2b79ffd"
+    },
+    {
+      "path": "els_server/storage/npc_trade.py",
+      "parent_sha256": "fcfa78e2ecf8f7718c623d27244012b1be67a569f10c279b86d54d0cc035c4e3",
+      "sha256": "0cb8c0e1d7017ee36402ebdae33c86b80e7585e7a219b5949753cbc899e5a97e"
+    },
+    {
+      "path": "els_server/transport.py",
+      "parent_sha256": "45d23789ca49cacc48274b3a2a8b74c8e20941b9b7b34bfb902e0f086062beca",
+      "sha256": "7bf6949bd35b42c7cb76ad1e09e2ae1340cc477884a6aa60d06a74e5e0ca6c55"
+    }
+  ],
+  "previous_candidate_patch_sha256": "6ad68ec1601a9d6647983a0379d4d8e6e72e4925c5adde71066716ea6ef9493b",
+  "patch_sha256": "fa3af078388f968ad18f03a964b5c4e13a307d88be9db32e02cacaad4951220c",
+  "deployed": false,
+  "native": {
+    "captured_context_word": "755d75e1",
+    "legacy_normalization": "bf10dde8",
+    "old_parser_refused": 10,
+    "candidate_sales_completed": 10,
+    "festival_ed": 29640,
+    "ice_ed": 26880,
+    "natural_mouse_input": false,
+    "record_sha256": "67a79a231a7642a46980c6c0b5360fe33407ba4f1baa3aaa5442853bec8b4038"
+  }
+}

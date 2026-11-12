@@ -1,0 +1,60 @@
+{
+  "release": "premium-pass-mechanical-and-sky-crossroads-20261111-v177",
+  "source_manifest_sha256": "5cf106801e4d604de537f170d71b987e0e4486eed5914c46af337dfca8f5c6c3",
+  "parents": {
+    "online": {
+      "release": "pet-bag-inspect-spa-and-npc-menus-20261111-v176",
+      "manifest_sha256": "4c8a2086208f0669118526c8b11de02789133953550d7fe906d25d958055214e"
+    },
+    "local": {
+      "release": "unified-server-a617864f4f4259d3-32b98139837f",
+      "manifest_sha256": "2f0cb345aab89de69e2da1bc2ad7d48ef5b63c0d57fbb98b6f8c8cd534ab26b6"
+    },
+    "launchers": {
+      "release": "pet-bag-inspect-spa-and-npc-menus-20261111-v176",
+      "manifest_sha256": "174780c4d4484df75059fbf6969dafe15ea517895c54b762750874d2fb745814"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/domain/attendance_online_2026.py",
+      "parent_sha256": "3a5669fc4782a648edeb234bab48d7dbf7b63d8990ba9a431581b8bea13865ac",
+      "sha256": "cf91b97307f60f63170deb65f3ce59e5e5f5ac5e33863db799368e065104ff06",
+      "size": 9206,
+      "cohort": "premium-pass-tasks",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/periodic_activities_flow.py",
+      "parent_sha256": "2b1448698bf0d85cb637f697106601d3fc6aa204530cf2ff8d7e90a13df48799",
+      "sha256": "a678d4d31c747899dfd2fdff75c791c2398ff47e12bbdd450e634c67b9e00347",
+      "size": 15591,
+      "cohort": "premium-pass-tasks",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/season_pass_online.py",
+      "parent_sha256": null,
+      "sha256": "2bfdbc04923524f8f262c02d414c24b6918c010971d9e1fa2e8ef5bc9570bfe9",
+      "size": 4944,
+      "cohort": "premium-pass-tasks",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/domain/selected_2026_pair_runtime.py",
+      "parent_sha256": "2ae947bba1017369c40b1e919db325dc831e326e2571f55c89a83b8b40f3e58f",
+      "sha256": "60f693eb021f07c9564375dd51738ac01ddb9a42166bcd5865623a4dafa39f81",
+      "size": 11673,
+      "cohort": "premium-pass-tasks",
+      "scope": "server"
+    },
+    {
+      "path": "els_server/storage/season_pass.py",
+      "parent_sha256": "5f53589b798ca5d094a90339a2337137c326b0e86e8570c1b807a2cc6f4ace0f",
+      "sha256": "41502acf8d6851ac042b37657a4279dc2ce21300ebdc4ab617ab3d1de251e88f",
+      "size": 14321,
+      "cohort": "premium-pass-tasks",
+      "scope": "server"
+    }
+  ]
+}

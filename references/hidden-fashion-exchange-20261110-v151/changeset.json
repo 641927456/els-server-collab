@@ -1,0 +1,98 @@
+{
+  "release": "hidden-fashion-exchange-20261110-v151",
+  "patch_sha256": "eadcc27de99ce037e27cbe3a12c9088f5c87d5885e4ee05e653683430eee329f",
+  "parents": {
+    "online": {
+      "release": "guild-mail-market-20261110-v150",
+      "manifest_sha256": "78388c2290fedc65b6354c3d6aa069d65e3cc63358dd0fc1968b94df8805cae4"
+    },
+    "local": {
+      "release": "unified-server-cc9068942535d744-28b9da0a463b",
+      "manifest_sha256": "cc191e30b842f0773af44eb9b488adecdfe8d03f7ac87ac3bcd38c3e653a5779"
+    },
+    "launchers": {
+      "release": "guild-mail-market-20261110-v150",
+      "manifest_sha256": "1be3e706019a1d97fcba705b9458d244c93dabcd4bef9dc0da2287fa428341c5"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/data/hidden_fashion.json",
+      "parent_sha256": null,
+      "sha256": "845a1728204a8f33abf13a047d1540e129a6e941895d72f9ab11bd697a8f9af3",
+      "size": 1021393
+    },
+    {
+      "path": "els_server/domain/acquisition_policy.py",
+      "parent_sha256": "ece13599fac061d46a36d50f0ba265d0a2425bbfb6df7209a14c07be201d427b",
+      "sha256": "ca318b7119572654f8b90421d4d09a2ed006a686bde178313f0be38ad53f662c",
+      "size": 18870
+    },
+    {
+      "path": "els_server/domain/hidden_fashion.py",
+      "parent_sha256": null,
+      "sha256": "046ead6b90069c3df33fb85168126f428a3a6058ea53371781acf1aedc718c9e",
+      "size": 1521
+    },
+    {
+      "path": "els_server/domain/inventory_items.py",
+      "parent_sha256": "e0465d8483affb33d0f38488ff96db5b4e081f8385384da6dbfbc99d78049f16",
+      "sha256": "51217221dbfdb601220b974b0a4c0c79f7276e2810da6892aa0c692ce57e6e52",
+      "size": 98157
+    },
+    {
+      "path": "els_server/domain/modern_ice.py",
+      "parent_sha256": "c5973d63195a9ee63f8ea01943fe43635a8bfa1f00db2a619d8155822421c76d",
+      "sha256": "a09f2f6fac1508574149e89e1fd7e3d21797e98949b36b5279a397cb5471d7ea",
+      "size": 3144
+    },
+    {
+      "path": "els_server/domain/npc_exchange_rules.py",
+      "parent_sha256": "0a907f6dbda5e267a0e9aa340f6e30beb4f3d4d62b903795714eba5015b43dce",
+      "sha256": "cd90db5aa3828e3cfd46e935969ab7d3189ef6c1bdde963fd574032748064d2a",
+      "size": 5586
+    },
+    {
+      "path": "els_server/domain/secret_clear_rewards.py",
+      "parent_sha256": "290889e41b7a8eaa9d9ca2be72038166cb6ba68df52e21252c3ad5ef2f2c9d4a",
+      "sha256": "8664fd5351ddfbfccf0354fb9271419d47b282ed80403ff6ff470d0b601057b1",
+      "size": 11662
+    },
+    {
+      "path": "els_server/storage/hidden_fashion.py",
+      "parent_sha256": null,
+      "sha256": "d79ec7ab84b074ede3883eb66048afbe1ff20596fbe051c7a00d27d2aff639e6",
+      "size": 2162
+    },
+    {
+      "path": "tools/client_compatibility_profiles.json",
+      "parent_sha256": "e2387e88da0a3dad9dd30d237f8d8419854a29b8cbac1e974c13ddacdd551340",
+      "sha256": "8b473e1fd6f314ac50e614bd24ef1677c04a1c30b9914b7cdcc2f343ff6cb1d2",
+      "size": 24158
+    },
+    {
+      "path": "tools/native_hit_count_obstacles.py",
+      "parent_sha256": "dd1025f1ef781d551acc0069543fa4862da95c40e844e534a8803789a6fde9ac",
+      "sha256": "e13685bf66deb3bc56d1a3f5e77d72e85142e4cd1230acf7bec0f36f927701b5",
+      "size": 2404
+    },
+    {
+      "path": "tools/native_shadow_castle.json",
+      "parent_sha256": "c7fe8f7ae540d7d89a63afbdc01baf274ae0ff715a46dfce1ff0d404c77f1fb1",
+      "sha256": "b4bf233323a4b09c020ed106640825bb529e66120696f687e0d8cb09fdce9f67",
+      "size": 41947
+    },
+    {
+      "path": "tools/probe_updated_client.py",
+      "parent_sha256": "7f2bed3371f96506d243bc7fd4f9d1f201ce77b867dd1d3c2ef974f4f07a55f7",
+      "sha256": "e89c9d1ab6267cc87cb40f6d8f21034bf976c0cff0e7901df77516cfa5e9e02a",
+      "size": 34658
+    },
+    {
+      "path": "els_server/domain/npc_exchange_flow.py",
+      "parent_sha256": "58f2ac2e5df7c692ee147d15589a33afaccfc8de086d0ada939bb874d71485af",
+      "sha256": "ee9c60f1d435957c14adc73e493c348b7ca5a15f77f07af9da1d28ca0c8470c5",
+      "size": 3007
+    }
+  ]
+}

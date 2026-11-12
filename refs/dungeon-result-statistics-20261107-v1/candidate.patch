@@ -1,0 +1,558 @@
+--- a/els_server/application.py
++++ b/els_server/application.py
+@@ -466,7 +466,12 @@
+         def invoke_scoped():
+             from els_server.storage.read_scope import committed_reads
+             with committed_reads(connections=self.read_connections):
+-                return invoke_with_reads()
++                result=invoke_with_reads()
++                session=getattr(function,'__self__',None)
++                if type(session)is FriendsSession and function.__name__ in ('handle','periodic_notifications'):
++                    from els_server.domain.dungeon_result_stats import finalize
++                    result=finalize(session,result)
++                return result
+         def invoke_with_reads():
+             from els_server.domain.session_auxiliary import auxiliary_call,activity_due
+             if auxiliary_call(function,args):
+--- a/els_server/dungeon_workers.py
++++ b/els_server/dungeon_workers.py
+@@ -6,7 +6,7 @@
+ from weakref import WeakValueDictionary
+ from els_server.business_queue import BoundedBusinessQueue
+ 
+-KINDS=frozenset((0xd0,0xad,0xb8,0xbb,0xb3,0x471))
++KINDS=frozenset((0xd0,0xad,0xb8,0xbb,0xb3,0x471,0x9e))
+ _current=ContextVar('dungeon_execution_domain',default=None)
+ 
+ class _Domain:
+--- a/els_server/domain/dungeon_requests.py
++++ b/els_server/domain/dungeon_requests.py
+@@ -7,7 +7,7 @@
+ from els_server.protocol.local_messages import i32
+ 
+ KINDS=frozenset((0x113,0x65e,0x219,0xd0,0xad,0xb3,0xb8,0xbb,0x471,
+-                 0x2ce,0x67,0x38e,0x4e2,0xff20,0xff21,0x640,0x3e6))
++                 0x2ce,0x67,0x38e,0x4e2,0xff20,0xff21,0x640,0x3e6,0x9e))
+ 
+ 
+ def accepts(s,event):
+@@ -72,6 +72,9 @@
+ 
+ def dispatch(s,event,sequence):
+     kind=event.kind
++    if kind==0x9e:
++        from els_server.domain.dungeon_result_stats import report
++        return report(s,event,sequence)
+     if kind in (0x640,0x3e6,0xff20,0xff21,0x113,0x65e,0xd0,0x2ce):
+         from els_server.domain.title_flow import observe_kills
+         observe_kills(s)
+--- /dev/null
++++ b/els_server/domain/dungeon_result_stats.py
+@@ -0,0 +1,138 @@
++"""Bind original cumulative reports to the current run; project display only.
++
++The report never authorizes a death, clear, reward, attribute or saved balance.
++Each member supplies its own UID slice; observers' copies are never summed.
++"""
++from dataclasses import replace
++import struct
++
++from els_server.protocol.protocol_codec import Event
++from els_server.protocol.pvp_play_messages import hp_report,report_ack
++
++
++def generation(session):
++    run=session.dungeon_run
++    return (session.reward_run_id,run.stage if run is not None else session.gate_stage,
++            run.part if run is not None else 0)
++
++
++def report(session,event,sequence):
++    from els_server.domain.dungeon_equipment_loot_flow import current_lease
++    if (event.event_id!=0x202 or event.kind!=0x9e or event.payload_mode!=0
++        or event.uid!=2**64-1 or event.target_uid!=2**64-1
++        or event.performers not in ((),(0,)) or type(sequence)is not int or sequence<=0
++        or session.phase!='dungeon_active' or not session.dungeon_substage_synced
++        or not session.reward_run_id or not current_lease(session)):
++        return [report_ack(2005)]
++    try:
++        parsed=hp_report(event.payload,statistics=True)
++        if parsed.maximum_hp is not None:raise ValueError('PvP report in dungeon')
++        local_cd=parsed.statistics['local_cooldown']
++        if local_cd is not None and (0 in local_cd or session.account.uid in local_cd):
++            raise ValueError('Dungeon cooldown excludes self and anonymous sources')
++    except ValueError:
++        return [report_ack(2005)]
++    key=generation(session)
++    previous=getattr(session,'dungeon_result_report',None)
++    if previous is not None and previous[0]==key and sequence<=previous[1]:
++        return [report_ack(0 if parsed.raw==previous[2].raw else 2005)]
++    if session.clear_notified:
++        # A native BB/471 retry rebuilds the DTO (HP and other fields may
++        # change). Confirm its delivery without replacing the sealed result.
++        return [report_ack(0 if previous is not None and previous[0]==key else 2005)]
++    app=getattr(session,'application',None)
++    room=app.world.dungeons.room(session) if app is not None else None
++    members=room.members if room is not None else (session,)
++    try:cooldown_payloads(members,session.dungeon_participants,replacement=(session,parsed.statistics))
++    except ValueError:return [report_ack(2005)]
++    session.dungeon_result_report=(key,sequence,parsed)
++    return [report_ack(0)]
++
++
++def current_statistics(session):
++    saved=getattr(session,'dungeon_result_report',None)
++    return saved[2].statistics if saved is not None and saved[0]==generation(session) else None
++
++
++def cooldown_payloads(members,participants,*,replacement=None):
++    totals={uid:0.0 for uid in participants}
++    for recipient in members:
++        stats=replacement[1] if replacement is not None and recipient is replacement[0] else current_statistics(recipient)
++        if stats is not None and stats['local_cooldown'] is not None:
++            for source,value in stats['local_cooldown'].items():
++                if source in totals:totals[source]+=value
++    try:return {uid:struct.pack('>f',value)for uid,value in totals.items()}
++    except OverflowError as error:raise ValueError('Dungeon cooldown aggregate exceeds native f32')from error
++
++
++def member_payload(payload,session,provided_cooldown=bytes(4),*,solo=False):
++    # DA64C0 fixed header31, DA5DA0 constructor's empty-container member397.
++    if len(payload)!=516 or struct.unpack_from('>I',payload,27)[0]!=1:
++        raise ValueError('Dungeon result source member layout')
++    row=bytearray(payload[31:428]);uid=session.account.uid
++    if struct.unpack_from('>Q',row)[0]!=uid:raise ValueError('Dungeon result source owner')
++    row[359-31:363-31]=provided_cooldown
++    # Original result revamp: successful single-player runs always award MVP.
++    # This flag is independent of the unknown party score/rank formula.
++    if solo and payload[0x10]==1:row[388-31]=1
++    stats=current_statistics(session)
++    if stats is None:return bytes(row)
++    damage=[values.get(uid,0.0) for values in stats['damage']]
++    # Wire offsets from DA5DA0's field trace; 37ABAF0/37AD010 name the graphs.
++    fields={273:damage[0],327:damage[1],331:damage[2],
++            363:damage[3],367:damage[4],371:damage[5],
++            335:damage[6],339:damage[7]}
++    hp,mp,own_hp,own_mp=stats['recovery']
++    fields.update({343:hp,347:mp,351:own_hp,355:own_mp})
++    for offset,value in fields.items():struct.pack_into('>f',row,offset-31,value)
++    struct.pack_into('>i',row,269-31,stats['received'])
++    return bytes(row)
++
++
++def seal(session,event=None):
++    """Called within the existing dungeon worker domain after all adoption."""
++    if not session.enter_dungeon or not session.clear_notified or not session.reward_run_id:return
++    app=getattr(session,'application',None)
++    room=app.world.dungeons.room(session) if app is not None else None
++    members=room.members if room is not None else (session,)
++    # Freeze before releasing the settlement domain, including when the C1
++    # was queued to a mailbox. Socket timing and later selection are irrelevant.
++    owner=room if room is not None else session
++    epoch=room.seed if room is not None else session.reward_run_id
++    saved=getattr(owner,'dungeon_result_rows',None)
++    if saved is None or saved[0]!=epoch:
++        if frozenset(m.account.uid for m in members)!=session.dungeon_participants:
++            raise ValueError('Dungeon result admitted roster changed')
++        rows=[]
++        # Only the PVE1 map is scoped to one recipient. The original map may
++        # contain remote observers' copies and must never be summed here.
++        provided=cooldown_payloads(members,session.dungeon_participants)
++        for member in members:
++            if member is session and event is not None:source=event.payload
++            elif getattr(member,'reward_receipt',None) is not None:
++                source=member.reward_receipt['response']
++            elif getattr(member,'dungeon_failed',False):
++                from els_server.domain.dungeon_clear import failed_clear_notice
++                source=failed_clear_notice(member.account.uid).payload
++            else:raise ValueError('Dungeon result committed receipt missing')
++            rows.append(member_payload(source,member,provided[member.account.uid],solo=len(members)==1))
++        saved=(epoch,tuple(rows));owner.dungeon_result_rows=saved
++    return saved
++
++
++def project(session,event):
++    if event.event_id!=0x201 or event.kind!=0xc1:return event
++    saved=seal(session,event)
++    if saved is None:return event
++    payload=event.payload
++    if len(payload)!=516:raise ValueError('Dungeon result source envelope')
++    raw=payload[:27]+struct.pack('>I',len(saved[1]))+b''.join(saved[1])+payload[428:]
++    return replace(event,payload=raw)
++
++
++def finalize(session,messages):
++    # _worker_call holds the original party/account domain here. Shared
++    # writers have adopted all receipts, even when only BC is returned now.
++    room=session.application.world.dungeons.room(session)
++    if room is not None and all(m.clear_notified for m in room.members):seal(session)
++    return [project(session,e)for e in messages]
+--- a/els_server/protocol/pvp_play_messages.py
++++ b/els_server/protocol/pvp_play_messages.py
+@@ -17,22 +17,22 @@
+     active_side: int
+     raw: bytes
+     maximum_hp: float | None = None
++    statistics: dict | None = None
+ 
+ 
+-def hp_report(payload):
++def hp_report(payload, *, statistics=False):
+     """Parse all DA2F50 fields without interpreting telemetry as awards.
+ 
+     Absolute HP comes from 1AB6EB0/1AB6F3E, not a win/percentage claim.
+     The caller must bind this report to its own authenticated, loaded actor
+     and a live server-issued report request. This codec grants no eligibility.
+     """
+-    if type(payload) is not bytes or not 182 <= len(payload) <= 8192:
++    # Dungeon reports include four per-skill maps and grow with a full run.
++    # Use the existing transport frame bound; keep the PvP contract unchanged.
++    maximum_size=1024*1024 if statistics else 8192
++    if type(payload) is not bytes or not 182 <= len(payload) <= maximum_size:
+         raise ValueError('PvP play-report size')
+     original=payload;maximum=None
+-    if len(payload)>=190 and payload[-8:-4]==b'PVP1':
+-        maximum=struct.unpack('>f',payload[-4:])[0]
+-        if not math.isfinite(maximum)or maximum<=0:raise ValueError('PvP native maximum HP')
+-        payload=payload[:-8]
+     offset = 0
+ 
+     def take(size):
+@@ -52,21 +52,27 @@
+             raise ValueError('PvP nonfinite native report')
+         return values
+ 
+-    def ordered(keyfmt, value_size, nested=False):
++    def ordered(keyfmt, value_size, nested=False, numeric=False):
+         count, = unpack('I')
+         keysize = struct.calcsize('>' + keyfmt)
+         if count > (len(payload) - offset) // (keysize + (4 if nested else value_size)):
+             raise ValueError('PvP play-report count')
+         previous = None
++        rows = {}
+         for _ in range(count):
+             key, = unpack(keyfmt)
+             if previous is not None and key <= previous:
+                 raise ValueError('PvP play-report order')
+             previous = key
+             if nested:
+-                ordered('i', 4)
++                rows[key] = ordered('i', 4, numeric=numeric)
++            elif numeric:
++                value, = floats(1)
++                if value < 0:raise ValueError('Negative native statistic')
++                rows[key] = value
+             else:
+                 take(value_size)
++        return rows
+ 
+     hp, = floats(1)
+     if hp < 0:
+@@ -75,11 +81,10 @@
+     ordered('i', 4)
+     take(12)
+     floats(1)
+-    take(4)
+-    for _ in range(8):
+-        ordered('Q', 4)
+-    floats(4)
+-    ordered('Q', 4)
++    received, = unpack('i')
++    damage = tuple(ordered('Q', 4, numeric=statistics) for _ in range(8))
++    recovery = floats(4)
++    cooldown = ordered('Q', 4, numeric=statistics)
+     floats(1)
+     take(28)
+     take(1)
+@@ -88,13 +93,25 @@
+     if active not in (0, 1):
+         raise ValueError('PvP active actor side')
+     take(28)
+-    for _ in range(4):
+-        ordered('Q', 0, nested=True)
++    skills = tuple(ordered('Q', 0, nested=True, numeric=statistics) for _ in range(4))
+     ordered('i', 0)
++    local_cooldown=None
++    # Extensions begin after the complete original DTO, never by searching
++    # arbitrary UID/value bytes at the end of an otherwise valid report.
++    if payload[offset:offset+4]==b'PVP1':
++        take(4);maximum,=floats(1)
++        if maximum<=0:raise ValueError('PvP native maximum HP')
++    elif statistics and payload[offset:offset+4]==b'PVE1':
++        take(4);local_cooldown=ordered('Q',4,numeric=True)
+     if offset != len(payload):
+         raise ValueError('PvP play-report trailing bytes')
+     if maximum is not None and hp>maximum:raise ValueError('PvP native HP exceeds current maximum')
+-    return HPReport(hp, active, original, maximum)
++    values = None
++    if statistics:
++        if received < 0 or any(v < 0 for v in recovery):raise ValueError('Negative native statistic')
++        values = dict(damage=damage, received=received, recovery=recovery,
++                      cooldown=cooldown, local_cooldown=local_cooldown, skills=skills)
++    return HPReport(hp, active, original, maximum, values)
+ 
+ 
+ def matched(match_uid):
+--- a/tools/native_cache_sync.py
++++ b/tools/native_cache_sync.py
+@@ -46,4 +46,5 @@
+     from activity_guide_lifecycle import compose as guide_compose
+     from challenge_scroll_open import compose as challenge_compose
+     from guild_native_power import compose as guild_compose
+-    return guild_compose(snapshot,executable_sha256,challenge_compose(snapshot,executable_sha256,guide_compose(snapshot,executable_sha256,startup_compose(snapshot,executable_sha256,pvp_source(snapshot,executable_sha256,map_source(snapshot,executable_sha256,world_source(snapshot,executable_sha256,wear_source(snapshot,executable_sha256)+'\n'+raw+'\n'+result)))))))
++    from dungeon_result_stats import compose as result_compose
++    return result_compose(snapshot,executable_sha256,guild_compose(snapshot,executable_sha256,challenge_compose(snapshot,executable_sha256,guide_compose(snapshot,executable_sha256,startup_compose(snapshot,executable_sha256,pvp_source(snapshot,executable_sha256,map_source(snapshot,executable_sha256,world_source(snapshot,executable_sha256,wear_source(snapshot,executable_sha256)+'\n'+raw+'\n'+result))))))))
+--- /dev/null
++++ b/tools/dungeon_result_stats.py
+@@ -0,0 +1,25 @@
++"""Use the original report sender before the native PVE terminal requests."""
++from pathlib import Path
++import hashlib,json
++EXE_SHA='6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709'
++IMAGE_SHA='c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229'
++
++def compose(snapshot,executable_sha256,template):
++    if executable_sha256!=EXE_SHA or hashlib.sha256(snapshot).hexdigest()!=IMAGE_SHA:
++        raise ValueError('Dungeon result report client identity')
++    anchor=" groupWear=installGroupWear(api);return api;"
++    if template.count(anchor)!=1:raise ValueError('Dungeon result report startup anchor')
++    guard=" for(const [r,h]of Object.entries(pins))if(bytes(module.base.add(+r))!==h)throw Error('Native power sync identity '+r);"
++    if template.count(guard)!=1:raise ValueError('Dungeon result original pin ordering')
++    script=Path(__file__).with_suffix('.js').read_text(encoding='utf8')
++    if script.count('__DUNGEON_RESULT_PINS__')!=1:raise ValueError('Dungeon result source contract')
++    # The existing trace owns an Interceptor at 682D80 before cache startup.
++    # Pin the untouched body +20h of that same function, not its trampoline.
++    entries=(0x682da0,0x159670,0x8571d0,0x1ab7ac0,0x1ab6eb0,0xda2f50,
++             0x8fe730,0x8f4830,0x8f4c2d,0x18ddeb3,0x3b6dbd0,0x3b6dda0,0x3b6dcc0)
++    script=script.replace('__DUNGEON_RESULT_PINS__',json.dumps({r:snapshot[r:r+16].hex()for r in entries}))
++    replacement=" groupWear=installGroupWear(api);\n installElsDungeonResultStats(()=>mainThread!==0&&Process.getCurrentThreadId()===mainThread);\n return api;"
++    # Check original bytes before the existing PvP hook changes 1AB7AC0.
++    # Preparation has no hook and captures no actor or cache-thread closure.
++    template=template.replace(guard,guard+'\n prepareElsDungeonResultStats();')
++    return script+'\n'+template.replace(anchor,replacement)
+--- /dev/null
++++ b/tools/dungeon_result_stats.js
+@@ -0,0 +1,104 @@
++// Send the original cumulative9E before BB/471; never change combat values.
++function prepareElsDungeonResultStats(){
++ 'use strict';
++ if(prepareElsDungeonResultStats.prepared)return prepareElsDungeonResultStats.prepared;
++ const module=Process.getModuleByName('x2_dx11.exe'),pins=__DUNGEON_RESULT_PINS__;
++ const hex=(p,n)=>Array.from(new Uint8Array(p.readByteArray(n)),v=>v.toString(16).padStart(2,'0')).join('');
++ for(const [r,h]of Object.entries(pins))if(hex(module.base.add(+r),h.length/2)!==h)throw Error('Dungeon result native identity '+r);
++ const call=(r,t,a)=>new NativeFunction(module.base.add(r),t,a,{exceptions:'propagate'});
++ const currentGame=call(0x159670,'pointer',['pointer']),actorOf=call(0x8571d0,'pointer',['pointer']);
++ const report=call(0x1ab7ac0,'uint8',['pointer']);
++ const writeInt=call(0x3b6dbd0,'bool',['pointer','int']),writeUID=call(0x3b6dda0,'bool',['pointer','uint64']),writeFloat=call(0x3b6dcc0,'bool',['pointer','float']);
++ const writer=prepareElsReportWriter();
++ function install(onGameThread){
++ if(globalThis.elsDungeonResultStats)return globalThis.elsDungeonResultStats;
++ if(typeof onGameThread!=='function')throw Error('Dungeon result original frame thread required');
++ let active=true,busy=false,reports=0,epoch='',removeWriter=null;
++ const hooks=[],stacks=new Map(),senders=new Map(),cooldown=new Map();
++ const reference=module.base.add(0x478cb88);
++ function owner(){
++  if(!active||!onGameThread())return null;
++  const ref=reference.readU64().toString(),game=currentGame(reference);
++  if(game.isNull()||!game.readPointer().equals(module.base.add(0x41bfd28))||game.add(0x2d0).readS32()!==2)return null;
++  const actor=actorOf(game),engine=module.base.add(0x4817e70).readPointer();
++  if(actor.isNull()||engine.isNull())return null;
++  const manager=engine.add(0xc8).readPointer();if(manager.isNull())return null;
++  const unit=manager.add(0xa0).readPointer(),actorUnit=actor.add(0x1a3e0).readPointer();
++  if(unit.isNull()||actorUnit.isNull())return null;
++  const uid=unit.add(0x48).readU64().toString();
++  if(uid!==actorUnit.add(0x48).readU64().toString()||ref!==reference.readU64().toString())throw Error('Dungeon statistics owner changed');
++  return{ref,game,actor,unit,actorUnit,uid,tree:actorUnit.add(0x7c8),key:[ref,game,actor,actorUnit,uid].join(':')};
++ }
++ function generation(bound){if(epoch!==bound.key){epoch=bound.key;cooldown.clear();}}
++ function parent(rva,kind){
++  hooks.push(Interceptor.attach(module.base.add(rva),{onEnter(args){
++   if(!active)return;
++   this.thread=Process.getCurrentThreadId();const stack=stacks.get(this.thread)||[];
++   // Every invocation is represented: nested remote trees mask local parents.
++   this.frame={kind,bound:null};
++   stack.push(this.frame);stacks.set(this.thread,stack);
++   const bound=owner();if(!bound||!args[0].equals(bound.tree))return;
++   if(kind==='discrete'){
++    const index=args[3].toInt32();
++    if(index<0||index>=22||!args[1].equals(bound.tree.add(0xc0+index*0x148)))return;
++   }
++   this.frame.bound=bound;
++  },onLeave(){if(!active)return;const stack=stacks.get(this.thread);if(!stack||stack.pop()!==this.frame)throw Error('Dungeon cooldown native scope');if(!stack.length)stacks.delete(this.thread);}}));
++ }
++ function committed(rva,kind,register){
++  hooks.push(Interceptor.attach(module.base.add(rva),{onEnter(){
++   const stack=stacks.get(Process.getCurrentThreadId()),frame=stack&&stack[stack.length-1];
++   if(!active||!frame||frame.kind!==kind||!frame.bound)return;
++   const bound=frame.bound,now=owner();if(!now||now.key!==bound.key)return;
++   const pair=this.context[register].add(0x20),source=pair.readU64().toString(),delta=pair.add(8).readFloat();
++   const node=this.context[register].add(0x30).readPointer();
++   if(node.isNull()||node.add(0x20).readU64().toString()!==source)throw Error('Dungeon cooldown native commit owner');
++   if(!Number.isFinite(delta)||delta<0)throw Error('Dungeon cooldown native delta');
++   if(source==='0'||source===bound.uid||delta===0)return;
++   generation(bound);cooldown.set(source,Math.fround((cooldown.get(source)||0)+delta));
++  }}));
++ }
++ try{
++ parent(0x8fe730,'discrete');parent(0x8f4830,'acceleration');
++ committed(0x18ddeb3,'discrete','rsp');committed(0x8f4c2d,'acceleration','rbp');
++ hooks.push(Interceptor.attach(module.base.add(0x1ab7ac0),{onEnter(args){
++  if(!active)return;
++  this.thread=Process.getCurrentThreadId();this.previous=senders.get(this.thread);
++  const bound=owner();this.bound=bound&&args[0].equals(bound.game)?bound:null;
++  senders.set(this.thread,this.bound);
++ },onLeave(){if(!active)return;if(this.previous===undefined)senders.delete(this.thread);else senders.set(this.thread,this.previous);}}));
++ removeWriter=writer.register('dungeon',function(stream){
++  const expected=senders.get(Process.getCurrentThreadId());if(!active||!expected)return;
++  const bound=owner();if(!bound||bound.key!==expected.key)throw Error('Dungeon cooldown report generation');
++  generation(bound);const rows=[...cooldown].sort((a,b)=>uint64(a[0]).compare(uint64(b[0])));
++  if(!writeInt(stream,0x50564531)||!writeInt(stream,rows.length))throw Error('Dungeon cooldown report header');
++  for(const[uid,value]of rows)if(!writeUID(stream,uint64(uid))||!writeFloat(stream,value))throw Error('Dungeon cooldown report entry');
++ });
++ hooks.push(Interceptor.attach(module.base.add(0x682d80),{onEnter(args){
++  if(!active||busy)return;
++  const message=args[1];if(message.add(0x10).readU32()!==0x202)return;
++  const kind=message.add(0x34).readU16();if(kind!==0xbb&&kind!==0x471)return;
++    if(!onGameThread())throw Error('Dungeon result sender outside original game thread');
++    const bound=owner();
++    if(bound){
++     const thread=Process.getCurrentThreadId(),previous=senders.get(thread);
++     // Gum suppresses sender listeners during this nested original call.
++     // Supply the same verified scope directly to the shared fast writer.
++     senders.set(thread,bound);
++     busy=true;
++     try{if(report(bound.game)!==1)throw Error('Original dungeon report rejected');reports++;}
++     finally{busy=false;if(previous===undefined)senders.delete(thread);else senders.set(thread,previous);}
++    }
++ }}));
++ }catch(error){if(removeWriter)removeWriter();for(const hook of hooks)hook.detach();throw error;}
++ const controller={reports:()=>reports,dispose(){if(!active)return;active=false;removeWriter();for(const hook of hooks)hook.detach();stacks.clear();senders.clear();cooldown.clear();delete globalThis.elsDungeonResultStats;}};
++ globalThis.elsDungeonResultStats=controller;
++ send({event:'dungeon_result_stats_ready',original_report:true,EXE_KOM_modified:false});
++ return controller;
++ }
++ prepareElsDungeonResultStats.prepared=install;
++ return install;
++}
++function installElsDungeonResultStats(onGameThread){
++ return prepareElsDungeonResultStats()(onGameThread);
++}
+--- a/tools/pvp_hp_source.js
++++ b/tools/pvp_hp_source.js
+@@ -1,14 +1,50 @@
++// One native9E writer for both extensions. A fast entry also runs when the
++// original sender is called from a Gum listener, which suppresses listeners.
++function prepareElsReportWriter(){
++ 'use strict';
++ if(prepareElsReportWriter.prepared)return prepareElsReportWriter.prepared;
++ const module=Process.getModuleByName('x2_dx11.exe'),consumers=new Map();
++ const originalBytes=Array.from(new Uint8Array(module.base.add(0xda2f50).readByteArray(16)),v=>v.toString(16).padStart(2,'0')).join('');
++ const support={original:null,installed:false};
++ support.callback=new NativeCallback(function(stream,dto,caller){
++  const ok=support.original(stream,dto);
++  if(ok===1&&caller.equals(module.base.add(0xc690a1)))for(const append of consumers.values())append(stream,dto);
++  return ok;
++ },'uint8',['pointer','pointer','pointer']);
++ // Forward the original return address as a third callback argument. The
++ // original bool writer consumes only stream/dto, as its native reader proves.
++ const code=[0x4c,0x8b,0x04,0x24,0xff,0x25,0,0,0,0];
++ let address=BigInt(support.callback.toString());for(let i=0;i<8;i++){code.push(Number(address&255n));address>>=8n;}
++ support.entry=Memory.alloc(Process.pageSize);support.entry.writeByteArray(code);
++ if(!Memory.protect(support.entry,Process.pageSize,'r-x'))throw Error('Native report writer entry protection');
++ const api={matchesOriginal:expected=>support.installed&&originalBytes===expected,register(name,append){
++  if(consumers.has(name))throw Error('Native report writer duplicate '+name);
++  if(!support.installed){
++   const original=Interceptor.replaceFast(module.base.add(0xda2f50),support.entry);
++   support.original=new NativeFunction(original,'uint8',['pointer','pointer'],{exceptions:'propagate'});
++   support.installed=true;
++  }
++  consumers.set(name,append);let registered=true;
++  return()=>{if(!registered)return;registered=false;consumers.delete(name);};
++ }};
++ prepareElsReportWriter.prepared=api;
++ return api;
++}
++
+ // Read the original owned Actor maximum HP only while its original9E is built.
+ function installElsPvpHpSource(){
+  'use strict';
+  if(globalThis.elsPvpHpSource)return globalThis.elsPvpHpSource;
+  const module=Process.getModuleByName('x2_dx11.exe'),pins=__PVP_HP_PINS__;
+  const hex=(p,n)=>Array.from(new Uint8Array(p.readByteArray(n)),v=>v.toString(16).padStart(2,'0')).join('');
+- for(const [r,h]of Object.entries(pins))if(hex(module.base.add(+r),h.length/2)!==h)throw Error('PvP HP source identity '+r);
++ for(const [r,h]of Object.entries(pins)){
++  if(+r===0xda2f50&&prepareElsReportWriter.prepared?.matchesOriginal(h))continue;
++  if(hex(module.base.add(+r),h.length/2)!==h)throw Error('PvP HP source identity '+r);
++ }
+  const call=(r,t,a)=>new NativeFunction(module.base.add(r),t,a,{exceptions:'propagate'});
+  const actorOf=call(0x8571d0,'pointer',['pointer']),maximumHP=call(0x7d57a0,'float',['pointer']),currentHP=call(0x7d8b00,'float',['pointer']);
+  const writeInt=call(0x3b6dbd0,'bool',['pointer','int']),writeFloat=call(0x3b6dcc0,'bool',['pointer','float']);
+- const active=new Map(),hooks=[];let disabled=false,writes=0;
++ const active=new Map(),hooks=[];let disabled=false,writes=0,disposed=false;
+  function capture(game){
+   if(!game.readPointer().equals(module.base.add(0x4183dd0)))return null; // original ordinary team game
+   const engine=module.base.add(0x4817e70).readPointer();if(engine.isNull())return null;
+@@ -23,25 +59,19 @@
+   onEnter(args){this.thread=Process.getCurrentThreadId();this.previous=active.get(this.thread);try{this.bound=disabled?null:capture(args[0]);}catch(error){disabled=true;this.bound=null;send({event:'pvp_native_hp_source_disabled',reason:String(error),writes});}active.set(this.thread,this.bound);},
+   onLeave(){if(this.previous===undefined)active.delete(this.thread);else active.set(this.thread,this.previous);}
+  }));
+- hooks.push(Interceptor.attach(module.base.add(0xda2f50),{
+-  onEnter(args){
+-   this.bound=active.get(Process.getCurrentThreadId());this.stream=args[0];this.dto=args[1];
+-   if(disabled||!this.returnAddress.equals(module.base.add(0xc690a1)))this.bound=null;
+-  },
+-  onLeave(result){
+-   if(!this.bound||(result.toInt32()&255)!==1)return;
++ const removeWriter=prepareElsReportWriter().register('pvp',function(stream,dto){
++   const bound=disabled?null:active.get(Process.getCurrentThreadId());if(!bound)return;
+    try{
+-    const a=this.bound,b=capture(a.game);if(!same(a,b))throw Error('PvP report owner changed');
+-    const current=currentHP(a.actor),maximum=maximumHP(a.actor),reported=this.dto.readFloat();
++    const a=bound,b=capture(a.game);if(!same(a,b))throw Error('PvP report owner changed');
++    const current=currentHP(a.actor),maximum=maximumHP(a.actor),reported=dto.readFloat();
+     if(!Number.isFinite(current)||!Number.isFinite(maximum)||maximum<=0||current<0||current>maximum||reported!==current)throw Error('PvP original report health changed');
+     if(!same(a,capture(a.game)))throw Error('PvP report generation changed');
+-    if(!writeInt(this.stream,0x50565031)||!writeFloat(this.stream,maximum))throw Error('PvP native HP extension encoding');
++    if(!writeInt(stream,0x50565031)||!writeFloat(stream,maximum))throw Error('PvP native HP extension encoding');
+     writes++;
+     send({event:'pvp_native_hp_source_written',uid:a.uid,maximum,current,original_fields_untouched:true,writes});
+    }catch(error){disabled=true;send({event:'pvp_native_hp_source_disabled',reason:String(error),writes});}
+-  }
+- }));
+- const controller={active:()=>!disabled,dispose(){for(const h of hooks)h.detach();active.clear();disabled=true;if(globalThis.elsPvpHpSource===controller)delete globalThis.elsPvpHpSource;send({event:'pvp_native_hp_source_disabled',reason:'disposed',writes});}};
++ });
++ const controller={active:()=>!disabled,dispose(){if(disposed)return;disposed=true;removeWriter();for(const h of hooks)h.detach();active.clear();disabled=true;if(globalThis.elsPvpHpSource===controller)delete globalThis.elsPvpHpSource;send({event:'pvp_native_hp_source_disabled',reason:'disposed',writes});}};
+  globalThis.elsPvpHpSource=controller;
+  send({event:'pvp_native_hp_source_ready',native_getters:['7D8B00','7D57A0'],game_vtable:'4183DD0',writes_to_actor:false});
+  return controller;
+--- a/tools/client_compatibility_profiles.json
++++ b/tools/client_compatibility_profiles.json
+@@ -27,7 +27,7 @@
+         "tools/launch_integrated_local.py": "20f08deac91b07950af1bbcdbfb451d1f96ad4b8f0c698f513c3d937dd696db3",
+         "tools/probe_updated_client.py": "67d20d9e7777cbc9d7f0502cf917a3b38ec228a4dd0c81fdee42067ee59a071d",
+         "tools/client_compatibility.py": "861d755c4a1c212169c24a3d73797b9b62bcbcf9a9bc5f8ced99b8288f61e5e1",
+-        "tools/native_cache_sync.py": "705c244e2130d2087b8d8751bb76c805f5311c1e6b913e343433a70aea48368d",
++        "tools/native_cache_sync.py": "244780537a73f88bd40d97382def39d8338cacd965447bce273e0e80435e44a4",
+         "tools/native_cache_sync.js": "96b4466e1eaaf46f1c81b69a028078df43e298baec33cf9b9b8adbaaa66ea6cf",
+         "tools/native_wear_sync.py": "0c448f6b5aa891e633b90ef5d221c56af5d422721dece5a7c8209819aca937f7",
+         "tools/native_wear_sync.js": "8655b2d8ced704417319c535ed08b4be6c3b56ebe55eedec7fe6cedf3100e604",
+@@ -35,7 +35,7 @@
+         "tools/world_event_iteration.js": "06fbd593215c6a03774d9fbcc594754b7edee5f083c015331e39bb867db69ed0",
+         "tools/dungeon_map_markers.py": "d69cba83aa2ef4707d3216c2ecec32291871793e5e2f50cfe1aef71fdfe1eed6",
+         "tools/dungeon_map_markers.js": "a70d97a5c3873dc62fc6533616b43548aa7761dd82b4b1bb738dcbb73a30d310",
+-        "tools/pvp_hp_source.js": "ac2c528f4f1a4bd881fa62b741404d8e6b24846b4540aae11c5986d96e92e6ec",
++        "tools/pvp_hp_source.js": "d5406f6bf67fe188ce569c8f22e011926a8fabdb76ddd7f134387f476862a3c7",
+         "tools/pvp_hp_source.py": "8b57ee9a758ea8094d7d7154188fe90731b0af26ab9556b2f4d009acd223a3a8",
+         "tools/native_group_wear_sync.py": "fc17e0d241fe52ea3ec41f78c63eca13d9bd773190ad86bb4705d85a1756cd96",
+         "tools/group_wear_sync.js": "1e3813f736fb40dbdfd7092f7d0e8ef022b888c2db9cb0f4c25abef2255c5766",
+@@ -53,7 +53,9 @@
+         "tools/native_hit_count_obstacles.py": "2f4563a878d82cacb6abe1ed4304e0f6ab0794e5e397fbff6e8b1a225aec4abb",
+         "tools/native_hit_count_obstacles.js": "6fef8c0d299b3b2174fefda2abfd047a0b42fb9fcdd8926d965935d3baec0ba2",
+         "tools/guild_native_power.py": "a776b950820bf4cc83981f659c633b4c180e30bdf2011837dbb6746e6c307226",
+-        "tools/guild_native_power.js": "ff0bb65b18c252da78829ccefaa51ac16e4a9d507e27c8cb560aa7b844facba7"
++        "tools/guild_native_power.js": "ff0bb65b18c252da78829ccefaa51ac16e4a9d507e27c8cb560aa7b844facba7",
++        "tools/dungeon_result_stats.py": "f7cbf30e763e9e2d933b44812839dc79ad9b80f992f8899c5d312efb83c8872e",
++        "tools/dungeon_result_stats.js": "df449f05fe03ac2ad1a41ccaac44c11b3423b45ce51708c58fe373c8a669eea8"
+       },
+       "evidence": [
+         "mail-level99-life-20261016-v1/5344266e/537 formal snapshot and matched V6 runtime; gameplay acceptance remains separately recorded"

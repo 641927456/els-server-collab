@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "image_sha256": "c8815e00b737c6890f87929a48cac7a6905d237fe4f04f4e8cf53aec3bfd6229",
+  "original_loader": "CHAR_CUSTOM_SIT_MOTION_DATA:1205860",
+  "original_block": "1206938..12069E4",
+  "getter_shim": "393AA90 explicitly returns missing/false/true; key observed as IS_MAJOR",
+  "EBX": 1,
+  "EBX_basis": "1205995 initializes1; no EBX writes in the per-row parser up to12069DE",
+  "cases": [
+    {
+      "property_value": null,
+      "native_IS_MAJOR": 1
+    },
+    {
+      "property_value": false,
+      "native_IS_MAJOR": 0
+    },
+    {
+      "property_value": true,
+      "native_IS_MAJOR": 1
+    }
+  ],
+  "offline_only": true,
+  "natural_GUI": false,
+  "EBX_writes_from_original_parser_start": [
+    {
+      "rva": "0x1205995",
+      "instruction": "mov ebx, 1"
+    }
+  ]
+}

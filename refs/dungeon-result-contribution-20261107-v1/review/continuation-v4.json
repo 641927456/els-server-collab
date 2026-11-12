@@ -1,0 +1,263 @@
+{
+  "reviewed_head": "06cab5a50ab374318b9568f0e0c91b9f1647e1e6",
+  "reviewed_server_files": 11,
+  "direct_call_sites": {
+    "els_server.domain.dungeon_result_rules.admission_power": 2,
+    "els_server.domain.dungeon_result_rules.assess": 1,
+    "els_server.domain.dungeon_result_rules.prepare_clear": 5,
+    "els_server.domain.dungeon_result_rules.result_payload": 1,
+    "els_server.domain.dungeon_result_stats.cooldown_payloads": 3,
+    "els_server.domain.dungeon_result_stats.current_statistics": 3,
+    "els_server.domain.dungeon_result_stats.finalize": 1,
+    "els_server.domain.dungeon_result_stats.project": 1,
+    "els_server.domain.dungeon_result_stats.report": 1,
+    "els_server.domain.dungeon_result_stats.seal": 2
+  },
+  "sites": {
+    "els_server.domain.dungeon_result_stats.finalize": [
+      {
+        "path": "els_server/application.py",
+        "line": 490
+      }
+    ],
+    "els_server.domain.dungeon_result_rules.prepare_clear": [
+      {
+        "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+        "line": 236
+      },
+      {
+        "path": "els_server/domain/dungeon_flow.py",
+        "line": 463
+      },
+      {
+        "path": "els_server/domain/dungeon_settlement_commands.py",
+        "line": 206
+      },
+      {
+        "path": "els_server/domain/secret_clear_rewards.py",
+        "line": 140
+      },
+      {
+        "path": "els_server/domain/silver_mirror_flow.py",
+        "line": 125
+      }
+    ],
+    "els_server.domain.dungeon_result_stats.report": [
+      {
+        "path": "els_server/domain/dungeon_requests.py",
+        "line": 77
+      }
+    ],
+    "els_server.domain.dungeon_result_stats.cooldown_payloads": [
+      {
+        "path": "els_server/domain/dungeon_result_rules.py",
+        "line": 66
+      },
+      {
+        "path": "els_server/domain/dungeon_result_stats.py",
+        "line": 46
+      },
+      {
+        "path": "els_server/domain/dungeon_result_stats.py",
+        "line": 111
+      }
+    ],
+    "els_server.domain.dungeon_result_stats.current_statistics": [
+      {
+        "path": "els_server/domain/dungeon_result_rules.py",
+        "line": 70
+      },
+      {
+        "path": "els_server/domain/dungeon_result_stats.py",
+        "line": 80
+      },
+      {
+        "path": "els_server/domain/dungeon_result_stats.py",
+        "line": 62
+      }
+    ],
+    "els_server.domain.dungeon_result_rules.assess": [
+      {
+        "path": "els_server/domain/dungeon_result_rules.py",
+        "line": 122
+      }
+    ],
+    "els_server.domain.dungeon_result_stats.seal": [
+      {
+        "path": "els_server/domain/dungeon_result_stats.py",
+        "line": 127
+      },
+      {
+        "path": "els_server/domain/dungeon_result_stats.py",
+        "line": 139
+      }
+    ],
+    "els_server.domain.dungeon_result_stats.project": [
+      {
+        "path": "els_server/domain/dungeon_result_stats.py",
+        "line": 140
+      }
+    ],
+    "els_server.domain.dungeon_result_rules.admission_power": [
+      {
+        "path": "els_server/domain/event_admission.py",
+        "line": 49
+      },
+      {
+        "path": "els_server/domain/local_session.py",
+        "line": 2986
+      }
+    ],
+    "els_server.domain.dungeon_result_rules.result_payload": [
+      {
+        "path": "els_server/storage/reward_state.py",
+        "line": 275
+      }
+    ]
+  },
+  "file_changes": [
+    {
+      "path": "els_server/data/dungeon_result_rules.json",
+      "added": 13,
+      "removed": 0
+    },
+    {
+      "path": "els_server/domain/dungeon_equipment_loot_flow.py",
+      "added": 2,
+      "removed": 1
+    },
+    {
+      "path": "els_server/domain/dungeon_flow.py",
+      "added": 2,
+      "removed": 1
+    },
+    {
+      "path": "els_server/domain/dungeon_result_rules.py",
+      "added": 135,
+      "removed": 0
+    },
+    {
+      "path": "els_server/domain/dungeon_result_stats.py",
+      "added": 1,
+      "removed": 36
+    },
+    {
+      "path": "els_server/domain/dungeon_settlement_commands.py",
+      "added": 2,
+      "removed": 1
+    },
+    {
+      "path": "els_server/domain/event_admission.py",
+      "added": 3,
+      "removed": 1
+    },
+    {
+      "path": "els_server/domain/local_session.py",
+      "added": 3,
+      "removed": 0
+    },
+    {
+      "path": "els_server/domain/secret_clear_rewards.py",
+      "added": 2,
+      "removed": 1
+    },
+    {
+      "path": "els_server/domain/silver_mirror_flow.py",
+      "added": 2,
+      "removed": 1
+    },
+    {
+      "path": "els_server/storage/reward_state.py",
+      "added": 24,
+      "removed": 1
+    }
+  ],
+  "production_changes": 0,
+  "new_product_Hooks": 0,
+  "independent_review": false,
+  "findings": [],
+  "previous_successes_reused": {
+    "native_and_transaction_cases": 26,
+    "class_equipment_cases": 1170,
+    "actual_native_UI": true,
+    "dual_installed_V": 90
+  },
+  "new_verification": {
+    "passed": true,
+    "cases": [
+      {
+        "passed": true,
+        "headroom": null,
+        "effective_ERP": 550,
+        "ordinary_EXP_unchanged": true,
+        "ED": 132,
+        "retry_without_increment": true,
+        "fixture_removed": true
+      },
+      {
+        "passed": true,
+        "headroom": 510,
+        "effective_ERP": 510,
+        "ordinary_EXP_unchanged": true,
+        "ED": 132,
+        "retry_without_increment": true,
+        "fixture_removed": true
+      },
+      {
+        "passed": true,
+        "headroom": 500,
+        "effective_ERP": 500,
+        "ordinary_EXP_unchanged": true,
+        "ED": 132,
+        "retry_without_increment": true,
+        "fixture_removed": true
+      },
+      {
+        "passed": true,
+        "headroom": 499,
+        "effective_ERP": 499,
+        "ordinary_EXP_unchanged": true,
+        "ED": 132,
+        "retry_without_increment": true,
+        "fixture_removed": true
+      },
+      {
+        "passed": true,
+        "headroom": 0,
+        "effective_ERP": 0,
+        "ordinary_EXP_unchanged": true,
+        "ED": 132,
+        "retry_without_increment": true,
+        "fixture_removed": true
+      }
+    ],
+    "transport": {
+      "passed": true,
+      "cross_peer_report_BB_interleaved": true,
+      "no_premature_shared_clear": true,
+      "altered_report_after_clear_preserves_sealed_statistics": true,
+      "actual_TLS": true,
+      "owned_service_closed": true
+    }
+  },
+  "limitations": [
+    "Human natural GUI not newly exercised",
+    "Natural nonzero-CD multiplayer battle remains unverified",
+    "Intro tutorial has its separate zero-economic transition C1; no new grade/bonus assigned to that flow",
+    "Client-reported statistics are not server-side anti-cheat combat proof"
+  ],
+  "cleanup": {
+    "ok": false,
+    "targets": 4,
+    "removed": 0,
+    "reason": "Automatic approval review rejected this turn's own temporary-directory cleanup: blocked by policy. No alternate deletion method attempted.",
+    "historical_rejected_targets_retried": false,
+    "own_test_jobs_closed": true,
+    "production_mutation": false
+  },
+  "owned_test_jobs": {
+    "closed": 3,
+    "remaining": 0
+  },
+  "review_method": "Same-session differential self-review; not independent Git approval"
+}

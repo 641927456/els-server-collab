@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "retained_journal_rows_are_fixtures": true,
+  "natural_fishing_timer": false,
+  "natural_expedition_wait": false,
+  "checks": [
+    "999retained attempt fixtures include misses; a real fishing settlement debits owned bait/durability/life, catches135933and completes363/366once through actual source synchronization",
+    "Nine retained completed-expedition fixtures exclude start/cancel/foreign records; ordinary8C1then8C3 completes367once after explicit deadline fixture",
+    "Repeated8C3without an active run is rejected; unchanged reconciliation is read-only and no extra completion is sent",
+    "Ambiguous original366reward is rejected twice without mail or a received marker"
+  ],
+  "completed": [
+    363,
+    366,
+    367
+  ],
+  "errors": []
+}

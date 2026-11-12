@@ -1,0 +1,41 @@
+{
+  "ok": true,
+  "production_database_access": false,
+  "native_Game": false,
+  "natural_GUI": false,
+  "fixtures": "Level99/ED, admitted profession snapshots, owned materials, full enhancement gauge and retained prior receipts",
+  "natural_acquisition": false,
+  "checks": [
+    "Full-gauge ordinary enhancement crosses exact+10 threshold without an amulet",
+    "One real two-slot batch consumes two stones and completes205",
+    "Paid mystic preview plus apply counts once and completes355",
+    "Real sphere, anvil and flask calls complete304/309/314 across three professions",
+    "No-material and anvil-cooldown failures add no count; other account remains isolated",
+    "Each successful action immediately emits its own6C0completion before a manual query",
+    "Encoder failure rolls back the full sphere transaction and replay changes no persisted row",
+    "Missing original314reward is refused twice without payment or a received marker",
+    "Repeated queries are idempotent and another character cold-restores shared completions"
+  ],
+  "counts": {
+    "(32, 10)": 5,
+    "(45, 0)": 1000,
+    "(51, 0)": 100,
+    "(52, 0)": 100,
+    "(53, 0)": 10,
+    "(60, 0)": 100
+  },
+  "completed": [
+    185,
+    205,
+    304,
+    309,
+    314,
+    355
+  ],
+  "errors": [],
+  "source_sha256": {
+    "els_server/domain/achievement_flow.py": "ffa62a7f9ab0122bdb307020f50b94c7633db7a5970768342bafbb82d1fa7ce1",
+    "els_server/storage/achievement_history.py": "8d75c798fbc58af6116041e20d2070981221417174d4e721bbd086d13179aec5",
+    "els_server/storage/achievement_profiles.py": "9d6dbadd7e0ee102f7849adb20f6d6e48b85695beffea544bbd09666ef48c0c4"
+  }
+}

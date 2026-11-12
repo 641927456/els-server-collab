@@ -1,0 +1,30 @@
+{
+  "ok": true,
+  "server_delta": 9,
+  "support_delta": 0,
+  "new_lazy_tables": [
+    "native_duel_refusals",
+    "native_duel_results"
+  ],
+  "install_DDL_statements": 0,
+  "native_original_game_cases": 2,
+  "publication_private_checks": 7,
+  "publication_private_evidence": {
+    "path": "G:\\els\\analysis\\feature-closure-20261105-v1\\delivery-duel-v1\\combined-private-1793902096043922100.json",
+    "sha256": "c2322b7830f2ca2c0d5111d6f284bf3bf23595cf585cef31142df14b4d02837a",
+    "checks": [
+      "Actual manual refusal persists600s pair cooldown and denies a subsequent invitation",
+      "Both real authenticated control channels deliver the labelled HP-readiness fixture before acceptance",
+      "TownA7/AA/9E/C2/replay returns both real actors; exactly one result; no AP/EXP/ED/quest/official-profile or inventory changes",
+      "Actual ticket purchase/create/invite/accept and4FB/504 enter one GuildAgit; a Town outsider cannot challenge it",
+      "GuildAgit6A/6B/6C returns both real actors; exactly one result; no AP/EXP/ED/quest/official-profile or inventory changes",
+      "Cold authenticated login retains both zero-reward duel receipts, actual Guild membership and exact assets/quests; no official profile was created",
+      "Cold refusal still blocks without extending its receipt; both members can re-enter and leave GuildAgit after Town return"
+    ]
+  },
+  "native_probe_failures_retained": true,
+  "natural_GUI": false,
+  "two_native_clients_fighting": false,
+  "installed": false,
+  "main_merged": false
+}

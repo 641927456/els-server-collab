@@ -1,0 +1,75 @@
+{
+  "status": "ONLINE_LOCAL_LAUNCHER_INSTALLED",
+  "source_PR": 935,
+  "installed_source_head": "2ee30cbef9ac0c279b0a0fb5d820d5faeb7f5010",
+  "Git_submitted": true,
+  "Git_merge": false,
+  "online_release": "native-achievement-social-enhancement-history-20261107-v1",
+  "local_release": "unified-server-e8334bc6c34da904-f7a0c40e1d23",
+  "launcher_release": "launcher-achievement-social-enhancement-history-20261107-v98",
+  "launcher_version": 98,
+  "launcher_exe_sha256": "6e0a6b7bb7e172a4499fb9faa2f8f0b66e3e327ec5614905060b93aef3a178ea",
+  "runtime_archive_sha256": "71bd8d911a602ecdff11265d37293992c95e47c05cd292e31edb52d6f66ab10a",
+  "source_files": [
+    {
+      "path": "els_server/domain/achievement_flow.py",
+      "parent_sha256": "14bd60be1b00c59ec68046e07e2317f8d562093355c5d2b68f59b9ca68c67f63",
+      "sha256": "580373f8d3bb268a71d1bde42d784488112fa9353b94d5b7943c22f4e920331d"
+    },
+    {
+      "path": "els_server/domain/duel_flow.py",
+      "parent_sha256": "24b6b0f37cd1c72be2af3c06542d5150017abbbffe05ccff289c2f14270d17b5",
+      "sha256": "43b0c5bddf55e6f75415fad853e5c312e78ae5e20012683b339160b50c4f371f"
+    },
+    {
+      "path": "els_server/storage/achievement_history.py",
+      "parent_sha256": "e61dff9b9025020ae62a1fad45830ebee7db53f2d37e9e21367996ca859d96b7",
+      "sha256": "ce3ae9d9e3ae541e20cdfbdeceb46c49a4bb907be49796df8ef0e94991abee82"
+    },
+    {
+      "path": "els_server/storage/achievement_profiles.py",
+      "parent_sha256": "a61fe8a6580b95bb8c21e42725e2259dd86ee495d421703ecae2e663869c2405",
+      "sha256": "b6064994a302b47798a6d6d1eb320c83518f50bee4ab1dc6cecae76903eda28f"
+    }
+  ],
+  "server_files": 1432,
+  "signed_components": 2873,
+  "exact_same_server_and_SQLite_DLL": true,
+  "panel_IP_hidden": true,
+  "local_IP": "127.0.0.1",
+  "connected_source_types": 39,
+  "connected_definitions": 239,
+  "remaining_other_source_types": 21,
+  "unresolved_original_reward_groups": 53,
+  "original_reward_substitution": false,
+  "new_schema_definitions": 1,
+  "online_observation_seconds": 122.37820900022052,
+  "local_observation_seconds": 131.960884,
+  "launcher_observation_seconds": 122.55279803276062,
+  "ordinary_entry_open": true,
+  "owned_QA_authentication_cleaned": true,
+  "registration_slots_released": true,
+  "original_local_player_rows_retained": true,
+  "player_database_restore": false,
+  "old_local_signed_code_retired": true,
+  "recovery_backups_retained": true,
+  "own_stage_and_tasks_retired": true,
+  "runtime_updater_caches_removed": 3,
+  "retained_property_metadata_caches": 3,
+  "property_metadata_cleanup_rejected_by_policy": true,
+  "cleanup_rejection_reason": "blocked by policy",
+  "cleanup_retried": false,
+  "own_publication_locks_released": true,
+  "original_EXE_KOM_changes": 0,
+  "new_client_Hooks": 0,
+  "natural_GUI": false,
+  "natural_battle": false,
+  "production_clock_patch": false,
+  "wider_project_complete": false,
+  "CI": {
+    "head": "2ee30cbef9ac0c279b0a0fb5d820d5faeb7f5010",
+    "run_id": 42360574706,
+    "source_check": "success",
+    "runtime_check": "skipped-main-only"
+  }
+}

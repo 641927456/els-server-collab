@@ -1,0 +1,108 @@
+--- a/els_server/domain/achievement_flow.py
++++ b/els_server/domain/achievement_flow.py
+@@ -95,6 +95,7 @@
+     if 0xc2 in kinds:sources.update((4,5))
+     if 0x291 in kinds:sources.add(23)
+     if 0x27e in kinds:sources.add(26)
++    if 0x7e1 in kinds:sources.add(59)
+     if 0x804 in kinds:sources.add(56)
+     if 0xabd in kinds:sources.update((57,58))
+     if kinds&{0x241,0xf5,0x802,0x804,0xabd}:sources.add(25)
+--- a/els_server/domain/friends_world.py
++++ b/els_server/domain/friends_world.py
+@@ -250,6 +250,7 @@
+         def membership():
+             key=self.members.pop(session,None)
+             if key is None:return
++            session.guild_banner=None
+             room=self.towns[key];room.pop(session,None)
+             try:
+                 notice=wire.town_members(removed=[session.account.uid])
+--- a/els_server/domain/guild_banner_flow.py
++++ b/els_server/domain/guild_banner_flow.py
+@@ -20,21 +20,29 @@
+         # separate LuCiel preference writers impose the LuCiel family check.
+         from els_server.domain.luciel_state import style_context,validate_style_context
+         captured=style_context(s)
+-        with closing(sqlite3.connect(s.account.store.path))as db:
+-            db.execute('BEGIN');saved=snapshot(db,s.account.uid,s.account.account_id)
++        with closing(sqlite3.connect(s.account.store.path,timeout=10))as db,db:
++            db.execute('BEGIN IMMEDIATE');saved=snapshot(db,s.account.uid,s.account.account_id)
+             if saved is None:raise ValueError('Guild banner actual membership')
+             if s.phase=='guild_agit_ready':
+                 from els_server.domain.guild_agit_flow import bank_capture
+                 bank_capture(s)[1](db)
+             active=event.payload==b'\1';appearance=rows(saved['system'],int(time.time()),equipped_only=True)
++            run=s.dungeon_run if s.phase=='dungeon_active'else None
++            scope=(s.phase,s.active_map,s.shop_session_id,getattr(run,'run_id',None),getattr(run,'stage',None))
++            room=s.guild_agit if s.phase=='guild_agit_ready'else captured['room']
++            previous=getattr(s,'guild_banner',None)
++            summoned=active and(previous is None or not previous['active']or previous['guild']!=saved['id']
++                or previous['scope']!=scope or previous['room']is not room)
+             notice=reply(0x7e2,struct.pack('>Q?',s.account.uid,active)+collection(appearance))
+             answer=[reply(0x7e1,bytes(4)),notice]
+             from els_server.domain.party_commands import _prepared_boxes
+             boxes=_prepared_boxes([(peer,[notice])for peer in captured['targets']],answer)
+             for e in answer:encode_event(e)
++            if summoned:
++                from els_server.storage.achievement_history import record_guild_banner
++                record_guild_banner(db,s.account.account_id,s.account.uid,saved['id'],s.shop_session_id,sequence)
+             validate_style_context(s,captured)
+         for peer,box in boxes.items():peer.mailbox=box
+-        s.guild_banner=dict(active=active,guild=saved['id'],appearance=appearance,phase=s.phase,
+-                           map=s.active_map,session=s.shop_session_id)
++        s.guild_banner=dict(active=active,guild=saved['id'],appearance=appearance,scope=scope,room=room)
+         return answer
+     except(ValueError,sqlite3.Error,OverflowError):return [reply(0x7e1,struct.pack('>i',1))]
+--- a/els_server/storage/achievement_history.py
++++ b/els_server/storage/achievement_history.py
+@@ -18,6 +18,11 @@
+ 
+ def record_notebook(db,account,owner,npc):
+     _account_source(db,account,owner,'noah-note',npc,dict(npc=npc))
++
++
++def record_guild_banner(db,account,owner,guild,session,sequence):
++    # Only the accepted F1 false-to-visible producer calls this in its SQL.
++    _account_source(db,account,owner,'guild-banner',f'{owner}:{session}:{sequence}',dict(guild=guild))
+ 
+ 
+ def _account_source(db,account,owner,kind,key,payload):
+@@ -125,7 +130,7 @@
+ 
+ 
+ def counts(db,account,condition_types):
+-    if not condition_types&{2,4,5,7,10,16,18,19,23,24,25,26,27,28,29,30,32,34,35,36,43,44,45,49,51,52,53,56,57,58,60,61,62,63,66}:return {}
++    if not condition_types&{2,4,5,7,10,16,18,19,23,24,25,26,27,28,29,30,32,34,35,36,43,44,45,49,51,52,53,56,57,58,59,60,61,62,63,66}:return {}
+     tables=present(db);result={}
+     if 34 in condition_types and 'inventory_action_receipts'in tables:
+         # Only the authoritative EA purchase writer creates these receipts.
+@@ -141,6 +146,8 @@
+     if 66 in condition_types and 'native_achievement_operations'in tables:
+         for raw, in db.execute("SELECT result_json FROM native_achievement_operations WHERE account_id=?AND kind='noah-note'",(account,)):
+             result[(66,json.loads(raw)['npc'])]=1
++    if 59 in condition_types and 'native_achievement_operations'in tables:
++        result[(59,0)]=db.execute("SELECT COUNT(*)FROM native_achievement_operations WHERE account_id=?AND kind='guild-banner'",(account,)).fetchone()[0]
+     if 10 in condition_types and 'native_achievement_operations'in tables:
+         result[(10,0)]=db.execute("SELECT COUNT(*)FROM native_achievement_operations WHERE account_id=?AND kind='play-day'",(account,)).fetchone()[0]
+     if 7 in condition_types and 'native_achievement_operations'in tables:
+--- a/els_server/storage/achievement_profiles.py
++++ b/els_server/storage/achievement_profiles.py
+@@ -6,7 +6,7 @@
+ from els_server.storage.achievement_collections import counts as collection_counts
+ from els_server.storage.achievement_history import counts as history_counts,couple_duration
+ 
+-CONDITION_TYPES=frozenset((2,4,5,6,7,10,15,16,18,19,20,23,24,25,26,27,28,29,30,32,34,35,36,37,38,39,42,43,44,45,49,50,51,52,53,56,57,58,60,61,62,63,66,67,68))
++CONDITION_TYPES=frozenset((2,4,5,6,7,10,15,16,18,19,20,23,24,25,26,27,28,29,30,32,34,35,36,37,38,39,42,43,44,45,49,50,51,52,53,56,57,58,59,60,61,62,63,66,67,68))
+ 
+ 
+ def reconcile(db,account,owner,now,*,condition_types=CONDITION_TYPES):
+@@ -42,7 +42,7 @@
+             elif kind==7:value=history.get((7,parameters['m_eBuffTempletID']),0)
+             elif kind==15:value=resonance['level']
+             elif kind==20:value=duration[0]
+-            elif kind in(10,18,19,23,24,25,26,27,28,29,30,36,43,44,45,51,52,53,56,57,58,60,61,63):value=history.get((kind,0),0)
++            elif kind in(10,18,19,23,24,25,26,27,28,29,30,36,43,44,45,51,52,53,56,57,58,59,60,61,63):value=history.get((kind,0),0)
+             elif kind in(16,62):value=history.get((kind,parameters['m_iItemID']),0)
+             elif kind==32:value=history.get((kind,parameters['m_iLevel']),0)
+             elif kind==35:value=history.get((kind,parameters['m_iGroupID']),0)

@@ -1,0 +1,27 @@
+{
+  "release": "server-trade-read-optimization-20261111-v164",
+  "patch_sha256": "f5eeb22763c39c1feeb620435219e55c7caa13b378753d5093a3dfd98801082d",
+  "parents": {
+    "online": {
+      "release": "friendly-npc-hunter-chest-20261111-v163",
+      "manifest_sha256": "5fa8ed15d7547f03de61bff0241959c3587b81dcfdb159d26b3e86320d4f02bb"
+    },
+    "local": {
+      "release": "unified-server-354859054b8baacb-20ffeead0975",
+      "manifest_sha256": "ffeecf38463f31d1908b7e793140942e685c9953f5c8eac5361274ae5c45ffe3"
+    },
+    "launchers": {
+      "release": "friendly-npc-hunter-chest-20261111-v163",
+      "manifest_sha256": "c8ec310b67cb2863aad9cd15039778cde348b136c102d7fe69af2ea92fa0fdf2"
+    }
+  },
+  "files": [
+    {
+      "path": "els_server/storage/trade_board_state.py",
+      "parent_sha256": "e799c3eb13f797fda2ff2af004d7b1f7e1ecd1142c7d2afbdc7d87f860cd3033",
+      "sha256": "67a14471717349d3c4ee63bf4a0bc63ae8d25eb47334e701452b2457106a5030",
+      "size": 30709,
+      "cohort": "trade"
+    }
+  ]
+}

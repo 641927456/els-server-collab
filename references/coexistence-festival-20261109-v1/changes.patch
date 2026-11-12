@@ -1,0 +1,397 @@
+--- a/els_server/application.py
++++ b/els_server/application.py
+@@ -155,6 +155,10 @@
+         return None
+ 
+     def handle(self,event,request_sequence=None):
++        from els_server.domain.environment_buff_flow import project_festival_entry
++        return project_festival_entry(self,self._handle_request(event,request_sequence))
++
++    def _handle_request(self,event,request_sequence):
+         if self.released or not self.application.registry.enabled(self.identity['id']):raise SessionOrderError('Account is offline or disabled')
+         if self.social_overflow:raise SessionOrderError('Social consumer is too slow')
+         if self.coop_error:raise SessionOrderError(self.coop_error)
+@@ -416,7 +420,8 @@
+         if due and active:
+             self._upkeep_cycles=getattr(self,'_upkeep_cycles',0)+1
+             self._upkeep_completed_at=time.monotonic()
+-        return messages
++        from els_server.domain.environment_buff_flow import project_festival_entry
++        return project_festival_entry(self,messages)
+ 
+ 
+     def release(self):
+--- a/els_server/data/town_travel.json
++++ b/els_server/data/town_travel.json
+@@ -1,6 +1,26 @@
+ {
+   "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+   "towns": {
++    "1503": {
++      "scene": 788,
++      "requirement": {
++        "ID": 1503,
++        "BEFORE": 0,
++        "AFTER": 0,
++        "REQUIRE_LEVEL": {
++          "MAX": 99,
++          "MIN": 1
++        },
++        "MAP_NAME_STRING_ID": {
++          "global": "STR_ID_45628"
++        }
++      },
++      "xyz": [
++        2056.0,
++        280.0,
++        36.0
++      ]
++    },
+     "20000": {
+       "requirement": {
+         "ID": 20000,
+--- a/els_server/data/town_travel.manifest.json
++++ b/els_server/data/town_travel.manifest.json
+@@ -1,7 +1,7 @@
+ {
+   "schema_version": 1,
+   "client_sha256": "6c6b51809aec90f9b717a9e55d679f221315a6296d69da80510e3456423a1709",
+-  "payload_sha256": "7c38b41ebc09d0994fb859dda21dc5e63d50ee827c496110ce32f4c4357d24a4",
+-  "towns": 24,
++  "payload_sha256": "47eeccd626d1de13a023501fda69a06a38cbbcbb9e18cc8b82088ed847e47928",
++  "towns": 25,
+   "map_groups": 69
+ }
+--- a/els_server/domain/elixir_flow.py
++++ b/els_server/domain/elixir_flow.py
+@@ -73,11 +73,11 @@
+         from els_server.storage.assembly_state import view,clock
+         assembly=view(db,s.account.uid,state['_moment'])if assembly_override is None else assembly_override
+         if assembly['owner']!=s.account.uid:raise ValueError('Assembly snapshot owner')
+-        rows+=assembly['rows']
++        from els_server.domain.environment_buff_flow import world_rows
++        from els_server.storage.environment_buffs import select_rest_buffs
++        environment,assembly_rows=select_rest_buffs(world_rows(s,db,state['_moment'],cold=cold),assembly['rows'])
+         from els_server.domain.guild_services import world_rows as guild_rows
+-        rows+=guild_rows(s,db,state['_moment'])
+-        from els_server.domain.environment_buff_flow import world_rows
+-        rows+=world_rows(s,db,state['_moment'],cold=cold)
++        rows+=assembly_rows+guild_rows(s,db,state['_moment'])+environment
+         run=getattr(s,'dungeon_run',None)
+         if not cold and s.phase=='dungeon_active' and run is not None:
+             from els_server.domain.silver_mirror_policy import ALL
+--- a/els_server/domain/environment_buff_flow.py
++++ b/els_server/domain/environment_buff_flow.py
+@@ -5,9 +5,29 @@
+ from els_server.protocol.protocol_codec import encode_event
+ from els_server.storage import environment_buffs as store
+ from els_server.domain.attendance_2026_award_flow import retryable_sqlite_lock
+-
+-SPA={1500:(0,725)}
+-FACTORS={202:195,964:1028,965:1029,3082:3254,1087:1188,3085:3257,3086:3258}
++from els_server.domain.town_travel import FESTIVAL_TOWN
++
++SPA={1500:(0,725),FESTIVAL_TOWN:(3,788)}
++FACTORS={202:195,964:1028,965:1029,3082:3254,1087:1188,3085:3257,3086:3258,store.FESTIVAL_BUFF:3625}
++FESTIVAL_CODE = 107
++
++def project_festival_entry(session,replies):
++    from els_server.domain.elixir_flow import enabled
++    if not replies or not enabled(session):return replies
++    rows={}; out=[]; index=None
++    from els_server.protocol.activity_2026_entries import CodeEntry,notice,read
++    for reply in replies:
++        if index is None and reply.event_id==0x201 and reply.kind in (0x2a,0x4b9):
++            index=len(out)
++        if reply.event_id==0x201 and reply.kind==0x4b9:
++            rows.update(read(reply.payload))
++        else:
++            out.append(reply)
++    if index is None:return replies
++    # Original Cobo admission and the festival icon both query code107.
++    rows[FESTIVAL_CODE]=CodeEntry(True,0,0)
++    out.insert(index,notice(rows))
++    return out
+ 
+ @functools.lru_cache(maxsize=1)
+ def uniforms():
+@@ -28,11 +48,13 @@
+     from els_server.storage.local_state import TOWN_SCENES
+     if saved!=(s.active_map,location['board'])or location['map']!=s.active_map or TOWN_SCENES[s.active_map]!=SPA[s.active_map][1]:
+         raise ValueError('Spa scene differs from saved source')
++    if s.active_map==FESTIVAL_TOWN:
++        return s.active_map,0
+     from els_server.storage.seal_quests import load_character
++    character=load_character(db,s.account.uid,s.account.account_id)
+     from els_server.storage.inventory_state import load_items
+     from els_server.domain.item_expiration import expired
+     from els_server.domain.equipment_requirements import class_matches
+-    character=load_character(db,s.account.uid,s.account.account_id)
+     minimum={13:70,14:70,15:99}.get(character['unit_type'],10)
+     if character['level']<minimum:raise ValueError('Spa level requirement')
+     divisions=[]
+@@ -48,6 +70,11 @@
+     division=97 if 97 in divisions else 96 if 96 in divisions else 0
+     return s.active_map,division
+ 
++def stay_seconds(facts):
++    town,division=facts
++    if town==FESTIVAL_TOWN:return 60
++    return 180 if division else 360
++
+ def observe(s):
+     if s.phase!='town_ready'or s.active_map not in SPA:
+         s._spa_stay=None;return
+@@ -74,7 +101,7 @@
+         db.execute('BEGIN IMMEDIATE');facts=_spa(s,db,now)
+         prior=getattr(s,'_spa_stay',None)
+         if not purchase:
+-            needed=180 if facts[1] else 360
++            needed=stay_seconds(facts)
+             if prior is None or prior['key']!=(binding,facts)or time.monotonic()-prior['start']<needed:
+                 raise ValueError('Spa continuous observed stay')
+         else:
+@@ -82,13 +109,13 @@
+             from els_server.storage.environment_spa_purchase import debit
+             if not debit(db,s.account.uid,operation,facts[0],facts[1]):
+                 return [acknowledgement(balances(db,s.account.uid)['ed'])]
+-        source='spa'
++        source='festival' if facts[0]==FESTIVAL_TOWN else 'spa'
+         store.put(db,s.account.uid,source,operation,now)
+         events=prepare(s)(db,_state(db,s.account.uid,now),None)
+         if purchase:events.insert(0,acknowledgement(balances(db,s.account.uid)['ed']))
+         for e in events:encode_event(e)
+         if _binding(s)!=binding or _spa(s,db,now)!=facts:raise ValueError('Spa source changed before commit')
+-    s._achievement_spa_source=(s.account.account_id,s.account.uid,operation)
++    if source=='spa':s._achievement_spa_source=(s.account.account_id,s.account.uid,operation)
+     return events
+ 
+ def requested(s,event):
+@@ -150,7 +177,7 @@
+ def periodic(s,events):
+     try:
+         observe(s);prior=getattr(s,'_spa_stay',None)
+-        if prior is not None and time.monotonic()-prior['start']>=(180 if prior['key'][1][1]else 360):
++        if prior is not None and time.monotonic()-prior['start']>=stay_seconds(prior['key'][1]):
+             events+=_grant(s,prior['operation']);s._spa_stay=None;observe(s)
+         return synchronize(s,events)
+     except sqlite3.OperationalError as error:
+@@ -160,7 +187,7 @@
+         return events
+ 
+ def handle(s,event,sequence):
+-    if event.event_id!=0x202 or event.kind!=0x911 or event.payload not in tuple(struct.pack('>i',t)for t in(0,)):return None
++    if event.event_id!=0x202 or event.kind!=0x911 or event.payload not in tuple(struct.pack('>i',t)for t in(0,3)):return None
+     from els_server.protocol.assembly_messages import acknowledgement
+     try:
+         if(type(sequence)is not int or not 1<=sequence<2**32 or event.performers not in((),(0,))
+--- a/els_server/domain/local_session.py
++++ b/els_server/domain/local_session.py
+@@ -2504,8 +2504,9 @@
+                             and db.execute('SELECT 1 FROM character_quests WHERE owner=? AND quest=28700',(self.account.uid,)).fetchone() is not None)
+ 
+ 
+-                from els_server.domain.town_travel_flow import authorize_native_warp_entry
++                from els_server.domain.town_travel_flow import authorize_native_warp_entry, authorize_festival_entry
+                 native_committed_warp=authorize_native_warp_entry(self,event,request_sequence)
++                native_festival_entry=authorize_festival_entry(self,event,request_sequence)
+                 from els_server.domain.quick_start_flow import authorize_town_entry
+                 native_quick_start_entry=authorize_town_entry(self,event,request_sequence)
+                 if event.payload[4]!=0:
+@@ -2542,7 +2543,7 @@
+ 
+                         and self.account.get_reward_balances()['experience']==0)
+ 
+-                    if not (native_noah_return or native_lithia_exit or native_committed_warp or native_quick_start_entry):
++                    if not (native_noah_return or native_lithia_exit or native_committed_warp or native_quick_start_entry or native_festival_entry):
+                         refused=struct.unpack_from('>i',event.payload)[0]
+                         if (self.client_build!='dx11_260923' or event.payload[4]!=1 or refused not in TOWN_SCENES
+                             or event.performers!=(0,) or event.uid!=event.target_uid or event.uid!=2**64-1
+--- a/els_server/domain/town_travel.py
++++ b/els_server/domain/town_travel.py
+@@ -3,6 +3,8 @@
+ from els_server.game_data import CLIENT_SHA
+ from els_server.paths import PROJECT_ROOT
+ from els_server.domain.seal_quests import sequence
++
++FESTIVAL_TOWN = 1503
+ 
+ @functools.lru_cache(maxsize=1)
+ def catalog():
+@@ -59,6 +61,8 @@
+     if any(type(i) is not int for i in (source,destination,level)) or not 1<=level<=99:raise ValueError('Town cost arguments')
+     data=catalog();groups=data['map_groups']
+     if source==destination or str(source) not in data['towns'] or str(destination) not in data['towns']:raise ValueError('Town cost source')
++    # ComputeCOBOExpressTicketCost returns 0 for the festival destination.
++    if destination == FESTIVAL_TOWN:return 0
+     a,b=groups.get(str(source),0),groups.get(str(destination),0)
+     if not a or not b:raise ValueError('Unclassified town')
+     distance=float(abs(a-b))
+--- a/els_server/domain/town_travel_flow.py
++++ b/els_server/domain/town_travel_flow.py
+@@ -2,7 +2,7 @@
+ import struct,time,uuid
+ from els_server.protocol.protocol_codec import Event
+ from els_server.protocol import town_travel_messages as wire
+-from els_server.domain.town_travel import DestinationRequirementError
++from els_server.domain.town_travel import DestinationRequirementError,FESTIVAL_TOWN
+ 
+ def _ordinary_actor(s):
+     from els_server.domain.equipment_chip_flow import current_lease
+@@ -13,6 +13,15 @@
+ def _ordinary_binding(s):
+     a=s.account
+     return (a,a.store,a.uid,a.account_id,s.shop_session_id)
++
++def authorize_festival_entry(s,event,sequence):
++    return (event.payload==struct.pack('>iB',FESTIVAL_TOWN,1)
++        and event.performers==(0,) and event.uid==event.target_uid==2**64-1 and event.payload_mode==0
++        and type(sequence) is int and 1<=sequence<2**32
++        and s.client_build=='dx11_260923' and s.enter_town and s.role=='game'
++        and s.phase=='town_ready' and not s.dungeon_return_pending and s.town_warp_transition is None
++        and {0x28,0x225,0x227}<=s.completed and _ordinary_actor(s)
++        and s.active_map!=FESTIVAL_TOWN and s.active_map==s.account.get_location()['map'])
+ 
+ def handle(s,event,sequence):
+     if event.event_id!=0x202 or event.kind!=0x58c:return None
+--- a/els_server/storage/environment_buffs.py
++++ b/els_server/storage/environment_buffs.py
+@@ -1,11 +1,24 @@
+ """Earned spa and Gate of Darkness deadlines, in the original source writer."""
+ import json,time
+ 
+-def exists(db):
+-    return db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='environment_buff_sources'").fetchone() is not None
++FESTIVAL_BUFF = 3456
++FESTIVAL_TABLE = 'festival_buff_deadlines'
++TEMPLATES = {'gate':(202,), 'spa':(964,965)}
++
++def exists(db,table='environment_buff_sources'):
++    return db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",(table,)).fetchone() is not None
+ 
+ def put(db,owner,source,operation,now):
+     if not db.in_transaction:raise ValueError('Environment buff requires source transaction')
++    if source=='festival':
++        # Older readers still see only their existing spa and Gate sources.
++        db.execute('''CREATE TABLE IF NOT EXISTS festival_buff_deadlines(
++            owner INTEGER PRIMARY KEY REFERENCES characters(uid), starts_at INTEGER NOT NULL,
++            ends_at INTEGER NOT NULL, operation_id TEXT NOT NULL)''')
++        db.execute('''INSERT INTO festival_buff_deadlines VALUES(?,?,?,?)
++            ON CONFLICT(owner)DO UPDATE SET starts_at=excluded.starts_at,
++            ends_at=excluded.ends_at,operation_id=excluded.operation_id''',(owner,now,now+1800,operation))
++        return
+     db.execute('''CREATE TABLE IF NOT EXISTS environment_buff_sources(
+         owner INTEGER NOT NULL REFERENCES characters(uid),source TEXT NOT NULL,
+         starts_at INTEGER NOT NULL,ends_at INTEGER NOT NULL,operation_id TEXT NOT NULL,
+@@ -30,10 +43,11 @@
+     put(db,owner,'gate',run_id,int(time.time()))
+ 
+ def rows(db,owner,now):
+-    if not exists(db):return []
+-    result=[]
++    festival=festival_row(db,owner,now)
++    result=[festival] if festival is not None else []
++    if not exists(db):return result
+     for source,start,end,operation in db.execute('SELECT source,starts_at,ends_at,operation_id FROM environment_buff_sources WHERE owner=?',(owner,)):
+-        if source not in ('spa','gate')or not 1<=start<end<2**31 or end-start!=1800:
++        if source not in TEMPLATES or not 1<=start<end<2**31 or end-start!=1800:
+             raise ValueError('Environment buff save')
+         if source=='gate':
+             row=db.execute('SELECT grant_json FROM reward_receipts WHERE run_id=?',(operation,)).fetchone()
+@@ -41,6 +55,29 @@
+             if grant.get('dungeon_clear',[0])[0]!=38300 or grant.get('owner',1001)!=owner:
+                 raise ValueError('Gate buff owner/receipt')
+         if now>=end:continue
+-        templates=(202,)if source=='gate'else(964,965)
+-        result.extend(dict(owner=owner,template=t,start=start,end=end,_environment=True)for t in templates)
++        result.extend(dict(owner=owner,template=t,start=start,end=end,_environment=True)for t in TEMPLATES[source])
+     return result
++
++def festival_row(db,owner,now):
++    if not exists(db,FESTIVAL_TABLE):return None
++    saved=db.execute('SELECT starts_at,ends_at FROM festival_buff_deadlines WHERE owner=?',(owner,)).fetchone()
++    if saved is None:return None
++    start,end=saved
++    if not 1<=start<end<2**31 or end-start!=1800:raise ValueError('Festival buff deadline')
++    if start<=now<end:return dict(owner=owner,template=FESTIVAL_BUFF,start=start,end=end,_environment=True)
++
++def select_rest_buffs(environment,assembly):
++    """Use the latest blessing when the festival competes with spa or camp."""
++    festival=next((row for row in environment if row['template']==FESTIVAL_BUFF),None)
++    if festival is None:return environment,assembly
++    other=[row for row in environment if row['template'] in TEMPLATES['spa']]+assembly
++    if any(row['start']>festival['start'] for row in other):
++        return [row for row in environment if row is not festival],assembly
++    return [row for row in environment if row['template'] not in TEMPLATES['spa']],[]
++
++def festival_exp_bonus(db,owner,dungeon,now):
++    from els_server.domain.elixir_economy import eligible
++    if festival_row(db,owner,now) is None or not eligible(dungeon):return 0
++    from els_server.storage.assembly_state import view
++    environment,_=select_rest_buffs(rows(db,owner,now),view(db,owner,now)['rows'])
++    return 5000 if any(row['template']==FESTIVAL_BUFF for row in environment) else 0
+--- a/els_server/storage/environment_spa_purchase.py
++++ b/els_server/storage/environment_spa_purchase.py
+@@ -1,11 +1,12 @@
+ """Native911 spa ED debit and its immutable operation identity."""
+ from els_server.storage.npc_trade import balances
++from els_server.domain.town_travel import FESTIVAL_TOWN
+ 
+ def debit(db,owner,operation,town,division):
+     db.execute('''CREATE TABLE IF NOT EXISTS environment_spa_purchases(
+         operation_id TEXT PRIMARY KEY,owner INTEGER NOT NULL,town INTEGER NOT NULL,
+         division INTEGER NOT NULL,cost INTEGER NOT NULL)''')
+-    cost=250000 if division==97 else 350000 if division==96 else 500000
++    cost=100000 if town==FESTIVAL_TOWN else {97:250000,96:350000}.get(division,500000)
+     prior=db.execute('SELECT owner,town,division,cost FROM environment_spa_purchases WHERE operation_id=?',(operation,)).fetchone()
+     if prior is not None:
+         if prior!=(owner,town,division,cost):raise ValueError('Conflicting spa purchase replay')
+--- a/els_server/storage/legacy_pve_exp.py
++++ b/els_server/storage/legacy_pve_exp.py
+@@ -1,5 +1,5 @@
+ """Per-issued-actor character EXP receipts in the accepted-death transaction."""
+-import hashlib,json,uuid
++import hashlib,json,time,uuid
+ from pathlib import Path
+ from els_server.storage.read_scope import canonical_path
+ 
+@@ -71,6 +71,8 @@
+     bonus_operation='elixir-kill:'+str(uuid.uuid5(run,':'.join(map(str,key))))
+     bonus_bp=elixir_bonus(db,c['owner'],c['dungeon'],'experience',bonus_operation,c)
+     boosted=percentage(c['base_experience'],bonus_bp)
++    from els_server.storage.environment_buffs import festival_exp_bonus
++    boosted+=c['base_experience']*festival_exp_bonus(db,c['owner'],c['dungeon'],int(time.time()))//10000
+     if mentor is not None:boosted+=c['base_experience']*mentor['xp_percent']//100
+     boosted=min(2**31-1,boosted)
+     amount=boosted if mode=='resonance' else (0 if current_level>=99 else min(boosted,max(0,experience_limit()-total)))
+--- a/els_server/storage/local_state.py
++++ b/els_server/storage/local_state.py
+@@ -11,7 +11,7 @@
+ # Measured StageManager map-to-scene table, 20261012-182806-702371.
+ TOWN_SCENES={20000:258,20001:263,20002:262,20003:265,20004:326,
+              20005:268,20006:417,20007:491,20008:582,20009:636,
+-             20010:778,20011:894,20012:1004,20013:1023,20014:1106,1008:637,1009:851,1010:964,1011:1131,1012:1214,1500:725,1001:497,1004:512,1005:517,1006:534,1007:606}
++             20010:778,20011:894,20012:1004,20013:1023,20014:1106,1008:637,1009:851,1010:964,1011:1131,1012:1214,1500:725,1503:788,1001:497,1004:512,1005:517,1006:534,1007:606}
+ DEFAULT_LOCATION={'map':20000,'board':0,'progress':0,'xyz':(0.,0.,0.),'revision':0}
+ 
+ def validate_location(map_id,board,progress,xyz):
+--- a/els_server/storage/town_travel.py
++++ b/els_server/storage/town_travel.py
+@@ -35,7 +35,7 @@
+         items=load_items(db,uid)
+         passes=[i for i in items if i['template']==118149 and i['group']==4 and i['count']>0 and not expired(i,now=now)]
+         # An owned, live118149 is a bag-presence waiver. No consumption/VIP timer.
+-        if free and not passes:raise ValueError('Town warp free entitlement expired or absent')
++        if free and not passes and destination!=rules.FESTIVAL_TOWN:raise ValueError('Town warp free entitlement expired or absent')
+         fee=0 if passes else rules.price(source,destination,character['level'])
+         before=validate_balances(db.execute('SELECT ed,experience,revision FROM reward_balances WHERE uid=?',(uid,)).fetchone())
+         if before['ed']<fee:raise ValueError('Town warp insufficient ED')
+@@ -77,7 +77,7 @@
+         pass_uid=grant['pass_uid']
+         if pass_uid is not None:
+             if type(pass_uid)is not int or not 0<pass_uid<2**63 or grant['fee']!=0:raise ValueError('Town entry waiver receipt')
+-        elif free:raise ValueError('Town entry unproved free receipt')
++        elif free and destination!=rules.FESTIVAL_TOWN:raise ValueError('Town entry unproved free receipt')
+         expected=wire.acknowledgement(destination,after['ed']).payload
+         if not isinstance(response,bytes)or response!=bytes(old[2])or response!=expected:raise ValueError('Town entry committed response')
+         location=db.execute('SELECT town,board,progress,x,y,z FROM location WHERE uid=?',(uid,)).fetchone()
