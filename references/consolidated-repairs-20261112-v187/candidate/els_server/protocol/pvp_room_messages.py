@@ -1,0 +1,88 @@
+"""Current 34B official real-player 1v1 admission encoding, not admission authority.
+
+2D68DB0/2B4D8B0 read D9BCC0 and D9DDB0, then native state9 starts
+XS_PVP_GAME. Finite ordinary slots select the existing D9D2F0 member reader;
+alternate-member vectors, observers and NPCs remain empty. The caller must
+freeze both real actors, native confirmations and peer transport before use.
+"""
+import struct
+from els_server.protocol.protocol_codec import Event
+from els_server.protocol.local_messages import i32, u32, wstring
+
+# Exact m_AvailableMatchType contains MT_TEAM_1_ON_1 in the pinned current map
+# table. Missing availability is not an allow-all rule; no selection policy here.
+TEAM_MAPS = frozenset((1, 34, 67, 73, 169, 292, 347, 546, 1020, 1045, 1199, 1200))
+
+
+def _integer(value, lower, upper):
+    if type(value) is not int or not lower <= value <= upper:
+        raise ValueError('PvP native room integer')
+    return value
+
+
+def room_info(room_uid, map_id, bootstrap_port, *, channel=12, title=None, password='', public=True, state=4, count=2, seconds=300):
+    """Complete current D9BCC0; native ctor-zero fields retain their meanings.
+
+    Shared base fields use the existing ordinary transport representation.
+    PvP-specific +95/+97/+9B/+9D/+A1/+A3 are team mode0, official12,
+    one kill, float300, actual/show world. No dungeon identity is substituted.
+    """
+    _integer(room_uid, 1, 2**63-1)
+    _integer(map_id, 1, 32767)
+    _integer(bootstrap_port, 1, 65535)
+    if type(channel)is not int or channel not in(9,12,15):
+        raise ValueError('PvP ordinary official/challenge channel')
+    if map_id not in TEAM_MAPS:
+        raise ValueError('Unsupported current 1v1 map')
+    if seconds not in(200,300):raise ValueError('PvP verified native duration')
+    if state not in(3,4)or count not in(1,2):raise ValueError('PvP native room state/count')
+    title=title if title is not None else('Practice1v1'if channel==9 else'Challenge1v1'if channel==15 else'Official1v1')
+    data = b'\0' + struct.pack('>Q', room_uid) + u32(0) + wstring(title)
+    # Current ROOM_STATE.RS_LOADING=4; public=true, no balance/password mode.
+    data += bytes((state,int(public),0)) + wstring(password) + bytes((2,count))
+    data += wstring('127.0.0.1') + struct.pack('>H', bootstrap_port) + wstring('')
+    # The original factory31617F0 supports Team0; it rejects raw7/9.
+    # Challenge15 selects the native direct return branch in316AD60.
+    # MATCH_TYPE9 and the residual Lua PGT7 are not substituted here.
+    data += b'\0\0\0' + i32(channel) + b'\1\0' + struct.pack('>fhh', seconds, map_id, map_id)
+    # +A5/+AD and all dungeon/special-system fields use native empty state.
+    data += bytes(8) + i32(0) + b'\0' + i32(0) + bytes(2)
+    data += bytes(8)*2 + i32(0) + b'\0'
+    data += u32(0) + bytes(2) + i32(0) + bytes(2) + bytes(8) + u32(0)
+    data += b'\0' + i32(0) + bytes(8)*2
+    return data
+
+
+def admission(members, room_uid, map_id, bootstrap_port, *, member_captures=None, channel=12, seconds=300):
+    """Encode precisely two already-confirmed real actors in red/blue order.
+
+    This does not enqueue, choose an opponent/map, alter a phase or start a
+    clock. Source/membership/lease and unchanged-input guards belong to flow.
+    """
+    from els_server.protocol.dungeon_messages import member
+    if type(members) is not tuple or len(members) != 2 or members[0] is members[1]:
+        raise ValueError('PvP exact two real members')
+    ids = tuple(_integer(s.account.uid, 1, 2**63-1) for s in members)
+    accounts = tuple(_integer(s.account.account_id, 1, 2**63-1) for s in members)
+    if len(set(ids)) != 2 or len(set(accounts)) != 2:
+        raise ValueError('PvP distinct account actors')
+    entries = []
+    captured = {}
+    for index, s in enumerate(members):
+        character = s.account.character()
+        if character['uid'] != ids[index] or s.identity['id'] != accounts[index]:
+            raise ValueError('PvP native member owner')
+        def capture(payload, spans):
+            captured[s] = (payload, dict(spans))
+        body = member(s.account.get_skills(), character, s.account.get_inventory_snapshot()['items'],
+                      account_id=accounts[index], peer_port=21100+index, capture=capture)
+        # SLOT_STATE.SS_LOADING=4; original confirmations make both ready.
+        # First red actor is host. The native +3D alternate-vector selector is0.
+        entries.append(bytes((index, 4, int(index == 0), 1, 0, 0)) + i32(index)
+                       + u32(1) + body + u32(0) + bytes(4))
+    payload = room_info(room_uid, map_id, bootstrap_port,channel=channel,seconds=seconds) + u32(2) + b''.join(entries)
+    payload += u32(0) + u32(0) + bytes(4)
+    event = Event(0x201, kind=0x34b, payload=payload)
+    if member_captures is not None:
+        member_captures.update(captured)
+    return event
